@@ -1,0 +1,77 @@
+<div class="Verification-container">
+  <Loading v-if="loading"/>
+  <template v-else>
+    <div class="all-container border_radius box_shadow">
+      <div class="unit-title flex-center">
+        <span class="unit-title-line"></span>
+        <span class="unit-title-text">{{$t("title")}}</span>
+        <span class="unit-title-line"></span>
+      </div>
+      <div class="unit-container flex-center">
+        <div class="flex unit-input-container pick-one-type" v-if="showPicker">
+          <div><input type="radio" name="identify-type" id="ga" value="bindGa" v-model="picked">
+            <label
+              for="ga">{{$t("proveGa")}}</label></div>
+          <div><input type="radio" name="identify-type" id="bindMobile" value="bindMobile" v-model="picked">
+            <label for="bindMobile">{{$t("proveMo")}}</label>
+          </div>
+        </div>
+
+        <!--<div class="flex  no-unit-input-container pick-one-type" v-if="!showPicker">-->
+        <!--</div>-->
+
+
+        <!--谷歌验证-->
+        <div class="unit-input-container flex" v-if="picked==='bindGa'"
+             :class="{'wrong-msg':GACodeWA!==''}"
+        >
+        <!--<span class="flex-center unit-input-container-title">-->
+          <!--&lt;!&ndash;<img class="unit-input-container-title-img" v-if="isMobile" src="../../assets/h5form/mobile_google.png"&ndash;&gt;-->
+          <!--&lt;!&ndash;alt="">&ndash;&gt;-->
+          <!--&lt;!&ndash;<img v-if="!isMobile" src="../../assets/谷歌验证码.png" alt="">&ndash;&gt;-->
+          <!--<span class="input-icon ga-icon"></span>-->
+        <!--</span>-->
+          <input type="text" :placeholder='$t("identifyingCodeGa")' class="unit-input"
+                 v-model="GACode">
+        </div>
+        <div class="unit-input-interval txt-red" v-if="picked==='bindGa'">
+          <span v-if="GACodeWA!==''">{{GACodeWA}}</span>
+        </div>
+
+
+        <!--手机验证-->
+        <div class="unit-input-container flex double-input-container" v-if="picked==='bindMobile'"
+             :class="{'wrong-msg':verificationCodeWA!==''}">
+          <!--<span class="flex-center unit-input-container-title">-->
+            <!--&lt;!&ndash;<img class="unit-input-container-title-img" v-if="isMobile" src="../../assets/h5form/mobile_phone.png"&ndash;&gt;-->
+            <!--&lt;!&ndash;alt="">&ndash;&gt;-->
+            <!--&lt;!&ndash;<img v-if="!isMobile" src="../../assets/手机.png" alt="">&ndash;&gt;-->
+            <!--&lt;!&ndash;<span class="input-icon mobile-icon"></span>&ndash;&gt;-->
+          <!--</span>-->
+          <!--这个空的span用于占位，因为按钮【获取】的所在的span会受影响-->
+          <span></span>
+          <input type="text" :placeholder='$t("identifyingCodeMo")' class="unit-input"
+                 v-model="verificationCode">
+          <div v-if="isMobile" class="cutter-line flex-center">|</div>
+          <span class="flex-center btn_blue" v-if="!getVerificationCode" @click="click_getVerificationCode">{{$t('get')}}</span>
+          <span class="flex-center identifying-code-button-close btn_grey"
+                v-if="getVerificationCode">{{getVerificationCodeCountdown}}</span>
+        </div>
+        <div class="unit-input-interval txt-red" v-if="picked==='bindMobile'">
+          <span v-if="verificationCodeWA!==''">{{verificationCodeWA}}</span>
+        </div>
+
+        <!--按钮-->
+        <div class="unit-input-container container-button">
+          <button class="set-button btn_blue" @click="click_send" v-if="!sending">
+            {{$t("confirm")}}
+          </button>
+          <button class="set-button btn_grey" v-if="sending" disabled>{{$t("sending")}}</button>
+        </div>
+      </div>
+    </div>
+
+    <PopupPrompt :popOpen="popOpen" :popClose="closePrompt" :popType="popType" :popText="popText"/>
+
+  </template>
+</div>

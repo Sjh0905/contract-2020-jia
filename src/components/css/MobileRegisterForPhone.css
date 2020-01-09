@@ -1,0 +1,613 @@
+/*找回密码container*/
+.register-container {
+  display: block;
+  height: auto;
+  width: 100%;
+  padding: 100px 0;
+}
+
+/*外层container*/
+.all-container {
+  width: 46.875%;
+  /*height: 600px;*/
+  margin: 0 auto;
+  padding: 0 105px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  background-color: #ffffff;
+}
+
+/*--------------- 标题 begin ----------------*/
+
+/*标题*/
+.unit-title {
+  flex-direction: row;
+  width: 100%;
+  font-size: 2.0rem;
+  /*height: 110px;*/
+  color: #7b7b7b;
+  padding: 30px 0;
+}
+
+/*标题的横线*/
+.unit-title-line {
+  display: inline-block;
+  height: 1px;
+  background-color: #e5e5e5;
+  width: 30%;
+}
+
+/*--------------- 标题 end ----------------*/
+
+/*输入内容container*/
+.unit-container {
+  flex-direction: column;
+  justify-content: space-between;
+  padding-bottom: 30px;
+}
+
+.unit-container-selector-box {
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+  width: 6.5rem;
+  height: 40px;
+  padding: 0 1rem;
+  color: #fff;
+  align-items: center;
+}
+
+.unit-container-selector-item {
+  display: flex;
+  align-items: center;
+
+}
+
+.unit-container-selector-item input {
+  margin-right: 5px;
+}
+
+/*Input板块*/
+.unit-input-container {
+  width: 87.5%;
+  height: 40px;
+  border: 1px solid #e5e5e5;
+  border-radius: 5px;
+}
+
+/*Input标题*/
+.unit-input-container-title {
+  width: 12%;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+/*Input标签*/
+.unit-input {
+  border: 0 solid transparent;
+  width: 88%;
+  height: 100%;
+  box-sizing: border-box;
+  border-radius: 5px;
+  /*new add*/
+
+  /*padding-left: 5px;*/
+}
+
+/*间隔*/
+.unit-input-interval {
+  height: 20px;
+  line-height: 20px;
+  width: 80%;
+  text-align: left;
+  /*padding: 5px 0;*/
+  padding-left: 12%;
+}
+
+/*获取手机验证码*/
+.double-input-container > span:nth-of-type(2) {
+  width: 20%;
+  height: 100%;
+  box-sizing: border-box;
+  background-color: #25ced9;
+  border-radius: 0 5px 5px 0;
+  color: #ffffff;
+  cursor: pointer;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+/*获取手机验证码的input*/
+.double-input-container > input {
+  border: 0 solid transparent;
+  width: 68%;
+  height: 100%;
+  box-sizing: border-box;
+  border-radius: 5px;
+}
+
+.set-button {
+  width: 100%;
+  height: 100%;
+  font-size: 1.4rem;
+  background-color: #25ced6;
+  color: #ffffff;
+  border-radius: 5px;
+  letter-spacing: 10px;
+  border: 0;
+}
+
+.verifying-slider {
+  /*border: 1px solid #e5e5e5;*/
+  border: 0 solid transparent;
+  display: block;
+  position: relative;
+
+}
+
+.verifying-slider-interval {
+  border: 0 solid transparent !important;
+}
+
+.can-not-withdrawals {
+  width: 87.5%;
+  border: 0;
+}
+
+.double-input-container .identifying-code-button-on {
+  background-color: #25ced9;
+  justify-content: flex-end;
+  font-size: 13px;
+}
+
+.double-input-container .identifying-code-button-close {
+  background-color: #cccccc !important;
+  font-size: 13px;
+}
+
+/*同意协议*/
+.agreement {
+  font-size: 1.4rem;
+  color: #666666;
+  height: 30px;
+  border: 0;
+}
+
+.agreement-detail {
+  color: #999999;
+}
+
+.registering-button {
+  background-color: #14b2bd;
+}
+
+.before-register-button {
+  cursor: pointer;
+}
+
+/*已经注册*/
+.already-register {
+  font-size: 1.4rem;
+  color: #666666;
+  border: 0;
+}
+
+.already-register a {
+  color: #0babb6;
+}
+
+.wrong-answer {
+  border: 1px solid red;
+}
+
+/*----------------------------------------------------------------------------------------------------*/
+
+.body {
+  min-width: 100%;
+}
+
+/*container*/
+.register-container {
+  display: block;
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  background: #081724;
+}
+
+/*placeholder样式*/
+.register-container input::placeholder {
+  color: rgba(255,255,255,0.4);
+}
+
+.register-container input::-moz-placeholder {
+  color: rgba(255,255,255,0.4);
+}
+
+.register-container input::-webkit-input-placeholder {
+  color: rgba(255,255,255,0.4);
+}
+
+.register-container input:-ms-input-placeholder {
+  color: rgba(255,255,255,0.4);
+}
+
+/*外层container*/
+.all-container {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  background: #081724;
+  height: auto;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+/*标题*/
+.unit-title {
+  flex-direction: row;
+  width: 100%;
+  font-size: 18px;
+  color: #fff;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #16171B;
+}
+
+/*标题的横线*/
+.unit-title-line-before {
+  display: block;
+  height: 1px;
+  background: -webkit-gradient(linear, 0 50%, 100% 50%, from(#141A22), to(#ABABAB));
+  width: 70px;
+}
+
+.unit-title-line-after {
+  display: block;
+  height: 1px;
+  background: -webkit-gradient(linear, 0 50%, 100% 50%, from(#ABABAB), to(#141A22));
+  width: 70px;
+}
+
+/*标题的title*/
+.unit-title-text {
+  padding: 0 10px;
+  white-space: nowrap;
+  display: block;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.unit-title-text-white {
+  color: #fff;
+}
+
+.register-header {
+  height: 34px;
+  width: 100%;
+  background: #16171B;
+}
+
+.register-header-list {
+  display: flex;
+  margin: 0 auto;
+  height: 34px;
+  width: 240px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.register-header-item {
+  color: rgba(255,255,255,0.6);
+  width: 100px;
+  line-height: 21px;
+  text-align: center;
+  height: 34px;
+  position: relative;
+  font-size: 15px;
+}
+
+.register-header-item-activity {
+  color: #C43E4E;
+}
+
+.register-header-item-activity:after{
+  content: '';
+  height: 5px;
+  width: 100px;
+  background-size: 100% 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+
+
+/*输入内容container*/
+.unit-container {
+  flex-direction: column;
+  justify-content: space-between;
+  /*height: 80%;*/
+  height: auto;
+  padding-bottom: 30px;
+  margin-top: 20px;
+  background: #081724;
+}
+
+/*Input板块*/
+.unit-input-container {
+  width: 6.5rem;
+  height: 60px;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  color: #000;
+  border-bottom: 1px solid #20252E;
+}
+
+.unit-input-container input{
+  font-size: 15px;
+}
+
+.unit-input-container-activity {
+  border-bottom: 1px solid rgba(255,255,255,0.6);
+}
+
+/*Input前图片*/
+.unit-input-container-title-img {
+  width: 0.45rem;
+}
+
+.unit-input-container-title-img-phone {
+  width: 16px;
+}
+
+.unit-input-container-title-img-mail {
+  width: 20px;
+}
+
+.unit-input-container-title-img-verification {
+  width: 18px;
+}
+
+.unit-input-container-title-img-password {
+  width: 16px;
+}
+
+.unit-input-container-title-img-confirm-password {
+  width: 16px;
+}
+
+.unit-input-container-title-img-referee {
+  width: 20px;
+}
+
+.unit-input-container.agreement {
+  background: transparent;
+}
+
+.unit-input-container.already-register {
+  background: transparent;
+}
+
+/*Input标题*/
+.unit-input-container-title {
+  width: 1rem;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+/*Input标签*/
+.unit-input {
+  border: 0 solid transparent;
+  width: 5.5rem;
+  height: 100%;
+  box-sizing: border-box;
+  border-radius: 4px;
+  background: transparent;
+  color: #fff;
+}
+
+/*间隔*/
+.unit-input-interval {
+  margin: 10px auto 0;
+  height: 18px;
+  width: 100%;
+  text-align: left;
+  color: #C43E4E;
+  padding: 0 0 0 1.5rem;
+  font-size: 13px;
+}
+
+/*获取手机验证码*/
+.double-input-container > span:nth-of-type(2) {
+  width: 2rem;
+  height: 100%;
+  box-sizing: border-box;
+  background-color: transparent !important;
+  border-radius: 0 4px 4px 0;
+  color: #C43E4E;
+  cursor: pointer;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+.button-hover:hover {
+  background-color: #000 !important;
+  color: #C43E4E !important;
+}
+
+/*获取手机验证码的input*/
+.double-input-container > input {
+  border: 0 solid transparent;
+  width: 3.5rem;
+  height: 100%;
+  box-sizing: border-box;
+  border-radius: 4px;
+}
+
+.cutter-line {
+  color: #274868;
+  height: 100%;
+}
+
+/*确定按钮*/
+.container-button {
+  margin-top: 10px;
+  border: 0;
+  height: 40px;
+  outline: none;
+}
+
+.set-button {
+  width: 100%;
+  height: 100%;
+  font-size: 18px;
+  background-color: #C43E4E;
+  color: #ffffff;
+  border-radius: 4px;
+  letter-spacing: 0;
+  border: 0;
+  outline: none;
+}
+
+.set-button.button-hover:hover {
+  background-color: #C43E4E !important;
+  color: #fff !important;
+}
+
+.verifying-slider {
+  /*border: 1px solid #e5e5e5;*/
+  border: none;
+}
+
+.verifying-slider-interval {
+  border: 0 solid transparent !important;
+}
+
+.can-not-withdrawals {
+  width: 87.5%;
+  border: 0;
+}
+
+.double-input-container .identifying-code-button-on {
+  background-color: transparent;
+  font-size: 13px;
+}
+
+.double-input-container .identifying-code-button-close {
+  background-color: transparent !important;
+  font-size: 13px;
+}
+
+/*同意协议*/
+.agreement {
+  font-size: 0.24rem;
+  color: #fff;
+  height: 30px;
+  border: 0;
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.agreement-detail {
+  color: #C43E4E;
+}
+
+.registering-button {
+  background-color: #C43E4E;
+}
+
+.before-register-button {
+  cursor: pointer;
+}
+
+/*已经注册*/
+.already-register {
+  font-size: 14px;
+  color: #666666;
+  border: 0;
+}
+
+.already-register a {
+  color: #C43E4E;
+}
+
+.wrong-answer {
+  border: 1px solid #f93943;
+}
+
+.toast-window-nobind-email {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+  background: rgba(0,0,0,0.6);
+}
+
+.toast-box-nobind-email {
+  min-height: 100px;
+  width: 320px;
+  padding: 0 20px;
+  margin: auto;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #fff;
+  border-radius: 8px;
+
+}
+
+.memo-toast-box-close-btn-box{
+  position: absolute;
+  top: -40px;
+  right: -10px;
+  width: 40px;
+  height: 40px;
+}
+
+.memo-toast-box-close-btn {
+  width: 20px;
+  height: 20px;
+  display: block;
+  position: absolute;
+  margin: 10px;
+
+}
+
+.toast-nobind-email-title {
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  font-size: 16px;
+  color: #C43E4E;
+  border-bottom: 1px solid #F2F2F2;
+}
+
+.toast-nobind-email-body {
+  margin-top: 18px;
+  color: #333;
+  font-size: 13px;
+  line-height: 18px;
+  text-align: center;
+}
+
+.confirm-nobind-email-btn {
+  height: 36px;
+  width: 140px;
+  border-radius: 4px;
+  line-height: 36px;
+  color: #fff;
+  font-size: 15px;
+  margin: 15px auto 20px;
+  background: #C43E4E;
+  text-align: center;
+}

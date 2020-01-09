@@ -1,0 +1,252 @@
+.index-home-market-rank-container {
+  /*margin-top: 35px;*/
+  background-color: #fff;
+}
+
+.dark {
+
+}
+
+.light {
+
+}
+
+.riqi{
+  font-family: Roboto-Bold;
+  font-size: 12px;
+  color: #B5BCC6;
+  letter-spacing: 0;
+  text-align: right;
+  margin-left: 20px;
+}
+
+.market-rank-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 0 auto;
+  /*width: 95%;*/
+  width: 1200px;
+}
+
+
+.market-rank-item {
+  width: 250px;
+  height: 106px;
+  /*
+  background-color: #212439;
+  white-space: nowrap;*/
+  padding: 15px 0px 20px 0px;
+  box-sizing: border-box;
+  flex-direction: column;
+  justify-content: space-between;
+  float: left;
+}
+
+.market-rank-item :hover{
+  box-shadow:none;
+}
+
+.line{
+  width: 1px;
+  height: 60px;
+  margin-top: 20px;
+  float: left;
+  background: #F7F8FA;
+}
+
+.szhei{
+  opacity: 0.8;
+  font-family: PingFangSC-Semibold;
+  font-size: 18px;
+  color: #000000;
+}
+
+
+
+.light .market-rank-item {
+ /** background-color: #fff;
+  box-shadow: #DCDCDC 0 2px 20px 2px;
+
+  */
+}
+
+.market-price-container {
+  font-size: 14px;
+  color: #fff;
+  justify-content: space-between;
+}
+
+.market-price-container :hover{
+  box-shadow:none;
+}
+#livalue :hover{
+
+}
+
+.light .market-price-container {
+  color: rgba(0, 0, 0, 0.8);
+}
+
+.light .shuju{
+  width: 90%;
+  float: left;
+}
+.light .shuline{
+  width: 10%;
+  height: 100%;
+  float: left;
+}
+
+.market-rise-and-fall {
+
+}
+
+.market-rise-and-fall-green {
+  color: #02987D;
+}
+
+.market-rise-and-fall-red {
+  color: #C43E4E;
+}
+
+.notice100{
+  width:100%;
+  /*border-bottom-width: 1px;*/
+  /*border-bottom-style: solid;*/
+  /*border-bottom-color:rgb(0,0,0,0.08);*/
+  /*border-top-width: 1px;*/
+  /*border-top-style: solid;*/
+  /*border-top-color:rgb(0,0,0,0.08);*/
+  background: #F3F5FB;
+}
+
+.market-turnover-container {
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 12px;
+}
+
+.light .market-turnover-container {
+  /*color: rgba(0, 0, 0, 0.4);*/
+  color: #8994A5;
+  position: relative;
+}
+
+.light .market-turnover-container .hqimg{
+  position: absolute;
+  right: 0;
+  bottom: 0;
+
+}
+.light .market-turnover-container .hqimg img{
+  width: 70px;
+}
+.kong5px{
+  margin-top: 5px;
+}
+
+#rankitemdiv :hover{
+  background: #F7F7FB;
+
+}
+
+/*底部公告样式*/
+.notice-box {
+  width: 1200px;
+  height: 60px;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 auto;
+}
+
+.notice-box-list-left-icon {
+  width: 25px;
+  height: 22px;
+
+}
+
+.notice-box-list-left-icon-img {
+  width: 25px;
+  height: 22px;
+  display: block;
+}
+
+.notice-box-list {
+  width: 1120px;
+  /*padding: 0 70px 0 0;*/
+  box-sizing: border-box;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  /*justify-content: center;*/
+}
+
+.notice-box-item {
+  /*width: 33.33%;*/
+  color: #172A4D;
+  /*opacity: 0.8;*/
+  text-align: left;
+  font-size: 16px;
+  /*margin-left: 70px;*/
+  font-family: PingFangSC-Semibold;
+  cursor:pointer;
+  float: left;
+}
+
+.notice-box-item:hover {
+  color: #C43E4E;
+  font-family: PingFangSC-Semibold;
+}
+
+.notice-box-item a {
+  color: #fff;
+  font-size: 16px;
+  width: 350px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.notice-box-item-title {
+  max-width: 280px;
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-family: PingFangSC-Regular;
+  font-size: 14px;
+  color: #172A4D;
+  letter-spacing: 0;
+}
+.notice-box-item-title1 {
+  padding-left: 42px;
+  padding-right: 42px;
+}
+.notice-box-item-title:hover {
+  color: #C43E4E;
+}
+
+.notice-box-list-right-icon {
+  display: inline;
+  width: 80px;
+  height: 20px;
+  cursor: pointer;
+  text-align: right;
+  /*opacity: 0.4;*/
+  font-family: PingFangSC-Semibold;
+  font-size: 14px;
+  color: #8994A5;
+  letter-spacing: 0;
+}
+
+.notice-box-list-right-icon-img {
+  width: 8px;
+  height: 13px;
+
+  display:inline;
+  transform: translate(35%,7%);
+  /* padding: 2.5px; */
+
+}

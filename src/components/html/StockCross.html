@@ -1,0 +1,75 @@
+<div class="StockCross-container">
+    <div class="stockcross-title flex-row">
+        <!-- <div class="stockcross-title-type">买/卖</div> -->
+        <div class="stockcross-title-price">{{$t("storkCross.price")}}({{$store.state.symbol.split('_')[1]}})</div>
+        <div class="stockcross-title-amount">{{$t("storkCross.num")}}({{$store.state.symbol.split('_')[0]}})</div>
+        <div class="stockcross-title-volum">{{$t("storkCross.endPrice")}}({{$store.state.symbol.split('_')[0]}})</div>
+    </div>
+    <div class="trade_loading">
+        <Loading v-show="trade_loading"/>
+        <div v-show="!trade_loading">
+            <!--卖-->
+            <div :class="type!== 2 && type !== 1?'stockitem-box1':'stockitem-box'" v-show="type!==2">
+                <StockCrossItems :type = "type" :transactionData = "sellOrders" :transactionType = "0" :btc_eth_rate="btc_eth_rate" :socket_price="socket_price" :currency_list="currency_list"/>
+            </div>
+
+            <div class="StockCross-mid txt-nomal"  :class="direction?'txt-green2':'txt-red'">
+                {{isPriceNow=='- -'&&'- -'|| this.$globalFunc.accFixed(isPriceNow, quoteScale)}} <span v-show="isPriceNow!='- -'" style="font-family: Roboto-Regular;font-size: 14px;color: #8994A5;">≈&nbsp;¥{{this.$globalFunc.accFixedCny(this.$store.state.exchange_rate_dollar * (price * rate), 2)}}</span>
+<!--                 <em v-if="isPriceNow !== '- -'" class="up_down_icon" :class="direction? 'up_icon' : 'down_icon'"></em>-->
+            </div>
+
+
+            <!--买-->
+            <div :class="type!==2 && type!==1?'stockitem-box1':'stockitem-box'" v-show="type!==1">
+                <StockCrossItems :type="type" :transactionData = "buyOrders" :transactionType = "1" :btc_eth_rate="btc_eth_rate" :socket_price="socket_price" :currency_list="currency_list"/>
+            </div>
+
+          <div class="bottombutton">
+            <img :src="type=== 3 ?require('../../assets/1select2x.png') :require('../../assets/1_2x.png')" @click="changeTab(3)">
+            <img :src="type=== 2 ?require('../../assets/2select2x.png') :require('../../assets/2_2x.png')" @click="changeTab(2)">
+            <img :src="type=== 1 ? require('../../assets/3select2x.png'):require('../../assets/3_2x.png')" @click="changeTab(1)">
+            <div class="selectws">
+<!--              <template>-->
+<!--                <el-select v-model="value" placeholder="2位小数" class="selectstyle"  @change="computerdPrice(optionQuote)">-->
+<!--                  <el-option-->
+<!--                    v-for="item in options"-->
+<!--                    :key="item.value"-->
+<!--                    :label="item.label"-->
+<!--                    :value="item.value"-->
+<!--                    >-->
+<!--                  </el-option>-->
+<!--                </el-select>-->
+<!--              </template>-->
+
+            </div>
+          </div>
+        </div>
+
+
+    </div>
+
+
+
+
+    <!--<div class="price-title">-->
+    <!--<span>{{$t('stockCross.buy')}}/{{$t('stockCross.sale')}}</span>-->
+    <!--<span>{{$t('stockCross.price')}}(BTC)</span>-->
+    <!--<span>{{$t('stockCross.number')}}(BDB)</span>-->
+    <!--<span>{{$t('stockCross.turnover')}}(BTC)</span>-->
+    <!--</div>-->
+    <!--<div class="show-data">-->
+    <!--<StockCrossItems :transactionData="depthDataSell" :transactionType=0-->
+    <!--transactionColor="#d0ebee"/>-->
+
+    <!--</div>-->
+    <!--<div class="current-price flex">-->
+    <!--<span class="current-price-red">{{prices.price}} ↓↑</span>-->
+    <!--<img src="" alt="">-->
+    <!--</div>-->
+    <!--<div class="show-data">-->
+    <!--<StockCrossItems :transactionData="depthDataBuy" :transactionType=1-->
+    <!--transactionColor="#ffd6d3"/>-->
+    <!--</div>-->
+
+
+</div>

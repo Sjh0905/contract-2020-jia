@@ -1,0 +1,484 @@
+body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, dl, dt, dd, ul, ol, li, pre, form, fieldset, legend, button, input, textarea, th, td {
+  margin: 0;
+  padding: 0;
+}
+
+div {
+  box-sizing: border-box;
+}
+
+body, button, input, select, textarea {
+  font: 12px/1.5 'Arial', "Microsoft YaHei", sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-size: 100%;
+}
+
+address, cite, dfn, em, var {
+  font-style: normal;
+}
+
+code, kbd, pre, samp {
+  font-family: "Microsoft YaHei", "Microsoft Sans Serif", couriernew, courier, monospace;
+}
+
+small {
+  font-size: 12px;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+sup {
+  vertical-align: text-top;
+}
+
+sub {
+  vertical-align: text-bottom;
+}
+
+legend {
+  color: #000;
+}
+
+fieldset, img {
+  border: 0;
+}
+
+button, input, select, textarea {
+  font-size: 100%;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+html {
+  font-size: 10px;
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  /*overflow-x: hidden;*/
+}
+
+.min-width {
+  /*min-width: 1280px;*/
+  /* min-width: 1280px; */
+}
+
+.min-height {
+  min-height: 600px;
+}
+
+.min-height-all {
+  min-height: 100%;
+}
+
+.relative {
+  position: relative;
+}
+
+.flex {
+  display: flex;
+  display: -moz-flex;
+  display: -webkit-flex;
+}
+
+.flex-row {
+  display: flex;
+  display: -moz-flex;
+  display: -webkit-flex;
+  flex-direction: row;
+}
+
+.flex-colum {
+  display: flex;
+  display: -moz-flex;
+  display: -webkit-flex;
+  flex-direction: column;
+}
+
+.flex-center {
+  display: flex;
+  display: -webkit-flex;
+  display: -moz-flex;
+  justify-content: center;
+  -webkit-justify-content: center;
+  align-items: center;
+  -webkit-align-items: center;
+}
+
+.flex-between {
+  display: flex;
+  display: -webkit-flex;
+  display: -moz-flex;
+  justify-content: space-between;
+  -webkit-justify-content: space-between;
+}
+
+.flex-around {
+  display: flex;
+  display: -webkit-flex;
+  display: -moz-flex;
+  justify-content: space-around;
+  -webkit-justify-content: space-around;
+}
+
+.strong {
+  font-weight: bold;
+}
+
+.block {
+  display: block;
+}
+
+.inlineBlock {
+  display: inline-block;
+}
+
+.clear {
+  display: block;
+  clear: both;
+  height: 0;
+  overflow: hidden;
+  visibility: hidden;
+}
+
+.floatRight {
+  float: right
+}
+
+.floatLeft {
+  float: left
+}
+
+.vertical-middle {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.light-border {
+  outline: 1px solid #e5e5e5;
+  /*outline: 1px solid #888;*/
+}
+.txt_80 {
+	color: rgba(255,255,255,0.8);
+}
+.txt_40 {
+	color: rgba(255,255,255,0.4);
+}
+.m-txt-green {
+	color: #00a62a;
+}
+.txt-green {
+  color: #C43E4E !important;
+}
+
+.txt-green2 {
+  color: #02987D;
+  /* color: rgb(112, 168, 0) */
+}
+
+.txt-greena2 {
+  color: rgba(112, 168, 0, .5)
+
+}
+.m-txt-red {
+	color: #d83838;
+}
+
+.txt-red {
+  /*color: #C43E4E;*/
+  color: rgb(234,0,112)
+}
+
+.txt-reda {
+  /*color: #C43E4E;*/
+  color: rgba(234,0,112, .5)
+}
+
+.txt-small {
+  font-size: 1.2rem;
+}
+
+.txt-nomal {
+  font-size: 1.4rem;
+}
+
+.txt-big {
+  font-size: 1.6rem;
+}
+
+.txt-big font {
+  color: #555;
+  font-size: 1.3rem;
+}
+
+.txt-dark {
+  color: #333;
+}
+
+.txt-white {
+  color: #fff;
+}
+
+.txt-light {
+  color: #666;
+}
+.txt-through {
+	text-decoration:line-through;
+}
+.wrong-msg {
+  color: #C43E4E !important;
+}
+
+.wrong-border {
+  border: 1px solid #C43E4E !important;
+}
+
+.pointer {
+  cursor: pointer !important;
+}
+
+.button-hover {
+}
+
+.button-hover:hover {
+  background-color: #14b2bd !important;
+}
+
+.button-base {
+  width: 120px;
+  height: 35px;
+  /*background-color: #C43E4E;*/
+  color: #fff;
+  border-radius: 2px;
+  border: 0 solid transparent;
+}
+
+.button-grey {
+  background-color: #ccc !important;
+}
+
+/*添加*/
+input {
+  outline: none
+}
+
+/*----------------------------------------------------------------------------------------------------*/
+@media screen and (max-width: 768px) {
+  /**{*/
+    /*font-weight: bold;*/
+  /*}*/
+
+  .min-width {
+    min-width: 100%;
+  }
+
+  .min-height {
+    min-height: auto;
+  }
+}
+
+/* 新规范样式 字体颜色、btn背景色、border颜色、input的border颜色 */
+
+/* ===============字体颜色================ */
+/* 绿色字体 */
+.text_green {
+  color: #02987D !important;
+}
+
+/* 红色字体 */
+.text_red {
+  color: #f93943 !important;
+}
+
+/* 蓝色字体 */
+.text_blue {
+  color: #C43E4E !important;
+}
+
+/* 深色字体 */
+.text_dark {
+  color: #333333 !important;
+}
+
+/* 浅深色字体 */
+.text_light_dark {
+  color: #666666 !important;
+}
+
+/* 浅色字体 */
+.text_light {
+  color: #999999 !important;
+}
+
+/* ===============按钮颜色================ */
+/* 红色按钮 */
+.btn_red {
+  background-color: #f93943 !important;
+  border-radius: 2px;
+}
+
+.btn_red_no_hover {
+  background-color: #f93943 !important;
+  border-radius: 2px;
+}
+
+.btn_red:hover {
+  background-color: #ed2b35 !important;
+}
+
+.btn_red_box_shadow {
+  /* box-shadow: 0 2px 10px 2px rgba(166, 110, 0, 0.2); */
+}
+
+/* 蓝色按钮 */
+.btn_blue {
+  background-color: #C43E4E !important;
+  border-radius: 2px;
+}
+
+.btn_blue_no_hover {
+  background-color: #C43E4E !important;
+  border-radius: 2px;
+}
+
+.btn_blue:hover {
+  background-color: rgba(196,62,78,0.8) !important;
+}
+
+.btn_blue_box_shadow {
+  /*box-shadow: 3px 3px 6px #8ddef2;*/
+  box-shadow: 0 2px 10px 2px rgba(0, 127, 159, 0.2);
+}
+
+/* 绿色按钮 */
+.btn_green {
+  background-color: #b2f1a2 !important;
+  border-radius: 46px;
+
+}
+
+.btn_green_no_hover {
+  background-color: #02987D !important;
+  border-radius: 2px;
+}
+
+.btn_green:hover {
+  background-color: #43b723 !important;
+}
+
+.btn_green_box_shadow {
+  /* box-shadow: 0 2px 10px 2px rgba(25, 119, 0, 0.2); */
+}
+
+/* 灰色按钮 */
+.btn_grey {
+  background-color: #ccc !important;
+}
+
+/*按钮黑色投影*/
+.btn_black_box_shadow {
+  box-shadow: 0 2px 10px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* ===============交易大厅深度图================ */
+/* 深度图红色 */
+.depth_red {
+  color: #ffc6c9 !important;
+}
+
+/* 深度图蓝色 */
+.depth_blue {
+  color: #84cc70 !important;
+}
+
+/* ===============其他================ */
+/* 模块描边 */
+.module_shadow {
+  box-shadow: 2px 2px 2px -1px #e5e5e5 !important;
+}
+
+/* 操作输入框 */
+.input_border {
+  border: 1px solid #cccccc !important;
+}
+
+/* 表单描边 */
+.form_border {
+  border: 1px solid #e5e5e5 !important;
+}
+
+.form_border:focus {
+  border-color: #FFF9E7 !important;
+}
+
+/*圆角*/
+.border_radius {
+  border-radius: 6px !important;
+}
+
+/*卡片式投影*/
+.box_shadow {
+  box-shadow: 0 3px 10px 3px rgba(118, 125, 127, 0.10) !important;
+}
+
+/*tab背景色*/
+.index-background-color {
+  background-color: #242D3D;
+}
+
+
+
+/*H5全局样式调整*/
+
+@media screen and (max-width: 768px) {
+  body, button, input, select, textarea {
+    /*font: 12px/1.5 'Helvetica', 'Arial', "Microsoft YaHei", sans-serif;*/
+    font-weight: normal;
+    /*font: 12px/1.5 'Arial', "Microsoft YaHei", sans-serif;*/
+  }
+}
+
+
+.btn_border_blue {
+  border: 1px solid #C43E4E;
+}
+
+.btn_txt_color_white {
+  color: #fff;
+}
+
+.input_padding {
+  padding-left: 10px;
+}
+
+.btn_simple {
+  border: 1px solid #C43E4E !important;
+  color: #C43E4E !important;
+  background-color: transparent !important;
+}
+
+.btn_simple:hover {
+  border: 1px solid #C43E4E !important;
+  color: #fff !important;
+  background-color: #C43E4E !important;
+}

@@ -1,0 +1,61 @@
+.mobile-popwindow-box{
+	position: fixed;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	display: flex;
+
+}
+.mobile-popwindow-window{
+	background: #fff;
+	width: 75%;
+	height: 100px;
+	margin-top: -300px;
+	border-radius: 20px;
+
+}
+.mobile-popwindow-txt{
+	text-align: center;
+	height: 60px;
+	line-height: 60px;
+	font-size: 0.32rem;
+}
+.mobile-popwindow-btn-box{
+	justify-content: space-around;
+}
+.mobile-popwindow-btn{
+	width: 30%;
+	height: 30px;
+	background: #00BCC8;
+	line-height: 30px;
+	text-align: center;
+	border-radius: 10px;
+	font-size: 0.32rem;
+	color: #fff;
+}
+
+
+/*过渡状态*/
+.popWindow-enter {
+	opacity: 0;
+}
+
+.popWindow-enter-active {
+	transition: all .3s;
+}
+
+.popWindow-enter-to {
+}
+
+.popWindow-leave {
+	opacity: 0;
+}
+
+.popWindow-leave-active {
+	transition: all .3s;
+}
+
+.popWindow-leave-to {
+	opacity: 0;
+}

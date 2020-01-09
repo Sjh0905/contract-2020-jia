@@ -1,0 +1,17 @@
+<div>
+  <table class="mobile-market-table">
+    <colgroup style="width:37%;"></colgroup>
+    <colgroup style="width:32%;"></colgroup>
+    <colgroup style="width:31%;"></colgroup>
+    <tbody>
+    <tr class="mobile-market-title-first-tr">
+      <th>{{$t('mobileHomePageMarket.name')}} / {{$t('mobileHomePageMarket.volume')}}</th>
+      <th>最新价</th>
+      <th>24h涨跌</th>
+      <!--<th>{{$t('mobileHomePageMarket.currentPrice')}} / {{$t('mobileHomePageMarket.riseNumber')}}</th>-->
+      <!--<th>{{$t('mobileHomePageMarket.highPrice')}} / {{$t('mobileHomePageMarket.lowPrice')}}</th>-->
+    </tr>
+    <MobileHomePageMarketItem v-for="(item, key) in list" :key="key" :item="item" :choosed="choose_symbol===item.name" :socket_tick="socket_tick" :socket_price="socket_price" /></tbody>
+  </table>
+
+</div>

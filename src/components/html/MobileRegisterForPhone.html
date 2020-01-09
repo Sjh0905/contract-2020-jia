@@ -1,0 +1,143 @@
+<div class="register-container" v-if="!loading">
+  <div class="all-container">
+
+    <div class="unit-title">
+      <span class="unit-title-line-before"></span>
+      <span class="unit-title-text">
+        欢迎注册<span class="unit-title-text-white">激活</span>
+      </span>
+      <span class="unit-title-line-after"></span>
+    </div>
+    <div class="register-header">
+      <div class="register-header-list">
+        <div class="register-header-item" :class="registerPicked==='typePhone'?'register-header-item-activity':''" @click="changeRegisterType(0)">手机注册激活</div>
+        <div class="register-header-item" :class="registerPicked==='typeEmail'?'register-header-item-activity':''" @click="changeRegisterType(1)">邮箱注册激活</div>
+      </div>
+    </div>
+
+    <div class="unit-container flex-center">
+      <!--手机-->
+      <div v-if="registerPicked === 'typePhone'" class="flex unit-input-container" :class="userNameFocusFlag===true?'unit-input-container-activity':''">
+        <span class="flex-center unit-input-container-title">
+          <img class="unit-input-container-title-img-phone" src="../../assets/mobile_img/mobile_input_icon/input_mobile_icon.png" alt="">
+        </span>
+        <input type="text" placeholder='请输入手机号' v-model="userName" @blur="testUserName" @focus="focusUserName" class="unit-input">
+      </div>
+      <!--邮箱-->
+      <div v-if="registerPicked === 'typeEmail'" class="flex unit-input-container" :class="userNameFocusFlag===true?'unit-input-container-activity':''">
+        <span class="flex-center unit-input-container-title">
+          <img class="unit-input-container-title-img-mail" src="../../assets/mobile_img/mobile_input_icon/input_mail_icon.png" alt="">
+        </span>
+        <input type="text" placeholder='请输入邮箱' v-model="userName" @blur="testUserName" @focus="focusUserName" class="unit-input">
+      </div>
+
+      <div v-if="userNameWA!=''" class="unit-input-interval text_red">
+        <span>{{userNameWA}}</span>
+      </div>
+
+
+
+      <!--手机验证码-->
+      <div v-if="registerPicked === 'typePhone'" class="unit-input-container flex double-input-container" :class="verificationFocusFlag===true?'unit-input-container-activity':''">
+        <span class="flex-center unit-input-container-title">
+          <img class="unit-input-container-title-img-verification" src="../../assets/mobile_img/mobile_input_icon/input_verification_icon.png" alt="">
+        </span>
+        <input type="text" placeholder='请输入手机验证码' v-model="verificationCode" @focus="focusVerificationCode" @blur="testVerificationCode" class="unit-input">
+        <div class="cutter-line flex-center">|</div>
+
+        <template>
+          <span class="flex-center identifying-code-button-on btn_blue" v-if="!getVerificationCode"
+                @click="postVerificationCode">获取验证码</span>
+          <span class="flex-center identifying-code-button-close btn_grey"
+                v-if="getVerificationCode">{{getVerificationCodeCountdown}}</span>
+        </template>
+      </div>
+      <!--邮箱验证码-->
+      <div v-if="registerPicked === 'typeEmail'" class="unit-input-container flex double-input-container" :class="verificationFocusFlag===true?'unit-input-container-activity':''">
+        <span class="flex-center unit-input-container-title">
+          <img class="unit-input-container-title-img-verification" src="../../assets/mobile_img/mobile_input_icon/input_verification_icon.png" alt="">
+        </span>
+        <input type="text" placeholder='请输入邮箱验证码' v-model="verificationCode" @focus="focusVerificationCode" @blur="testVerificationCode" class="unit-input">
+        <div class="cutter-line flex-center">|</div>
+
+        <template>
+          <span class="flex-center identifying-code-button-on btn_blue" v-if="!getVerificationCode"
+                @click="postVerificationCode">获取验证码</span>
+          <span class="flex-center identifying-code-button-close btn_grey"
+                v-if="getVerificationCode">{{getVerificationCodeCountdown}}</span>
+        </template>
+      </div>
+      <div v-if="verificationCodeWA!=''" class="unit-input-interval text_red">
+        <span>{{verificationCodeWA}}</span>
+      </div>
+
+      <!--密码-->
+      <div class="unit-input-container flex" :class="passwardFocusFlag===true?'unit-input-container-activity':''">
+        <span class="flex-center unit-input-container-title">
+          <img class="unit-input-container-title-img-password" src="../../assets/mobile_img/mobile_input_icon/input_password_icon.png" alt="">
+        </span>
+        <input type="password" placeholder='请输入密码' v-model="psw" @blur="testPsw" class="unit-input" @input="testInputIngPsw" @focus="focusInputIngPsw">
+      </div>
+      <div v-if="pswWA!=''" class="unit-input-interval text_red">
+        <span>{{pswWA}}</span>
+      </div>
+
+      <!--确认密码-->
+      <div class="unit-input-container flex" :class="passwardConfirmFocusFlag===true?'unit-input-container-activity':''">
+        <span class="flex-center unit-input-container-title">
+          <img class="unit-input-container-title-img-confirm-password" src="../../assets/mobile_img/mobile_input_icon/input_password_confirm_icon.png" alt="">
+        </span>
+        <input type="password" placeholder='请再次确认密码' v-model="pswConfirm" @blur="testPswConfirm" class="unit-input" @input="testInputIngPswConfirm" @focus="focusInputIngPswConfirm">
+      </div>
+      <div v-if="pswConfirmWA!=''" class="unit-input-interval text_red">
+        <span>{{pswConfirmWA}}</span>
+      </div>
+      <!--推荐人-->
+      <div class="unit-input-container flex" :class="refereeFocusFlag===true?'unit-input-container-activity':''">
+        <span class="flex-center unit-input-container-title">
+          <img class="unit-input-container-title-img-referee" src="../../assets/mobile_img/mobile_input_icon/input_referee_icon.png" alt="">
+        </span>
+        <input type="text" placeholder='推荐人ID（选填）' v-model="referee" class="unit-input" @blur="testReferee" @focus="focusReferee">
+      </div>
+
+      <div v-if="refereeWA!=''" class="unit-input-interval text_red">
+        <span>{{refereeWA}}</span>
+      </div>
+
+
+      <!--同意协议-->
+      <div class="unit-input-container agreement">
+        <MobileCheckbox v-show="isMobile" :agreement="agreement" :changeAgreement='changeAgreement'></MobileCheckbox>
+        <input v-show="!isMobile" type="checkbox" v-model="agreement" name="agreement" id="agreement" @click="testAgreement">
+        <label for="agreement">{{$t("register.agree")}}</label>
+        <span class="agreement-detail" @click="goToUserAgreement" target="_blank">
+          {{$t("register.agreement")}}
+        </span>
+      </div>
+      <div v-if="agreementWA!=''" class="unit-input-interval text_red">
+        <span>{{agreementWA}}</span>
+      </div>
+      <!--按钮-->
+      <div class="unit-input-container container-button">
+        <button v-if="!sending" class="set-button before-register-button btn_blue" @click="registerCommit">
+          注册激活
+        </button>
+        <button v-if="sending" class="set-button registering-button btn_grey" disabled>注册激活中
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <PopupPrompt :popOpen="popOpen" :popClose="popClose" :popType="popType" :popText="popText" :popText2="popText2"/>
+
+  <div v-if="showToastFlag&&!loading" class="toast-window-nobind-email">
+    <div class="toast-box-nobind-email">
+      <div class="toast-nobind-email-title">提示</div>
+      <div class="toast-nobind-email-body">注册成功<br>状态稍后更新，请勿重复注册</div>
+      <div class="confirm-nobind-email-btn" @click="closeToast()">确定</div>
+    </div>
+  </div>
+
+
+</div>

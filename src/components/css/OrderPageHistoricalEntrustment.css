@@ -1,0 +1,171 @@
+.history-container {
+  width: 100%;
+  position: relative;
+  background-color: #fff;
+  min-height: 200px;
+}
+
+tr, th, td {
+  box-sizing: border-box;
+}
+
+.detail {
+  width: 100%;
+  overflow: hidden;
+  border-top-left-radius: 0 !important;
+}
+
+.weit{
+  width: 100%;
+  height: 200px;
+  line-height: 200px;
+  text-align: center;
+}
+
+.tr-th {
+  width: 100%;
+  height: 35px;
+  /*border: 1px solid #e5e5e5;*/
+  /*background-color: #f8f8f8;*/
+  font-family: PingFangSC-Regular;
+  font-size: 14px;
+  color: #8994A5;
+  text-align: center;
+}
+
+.tr-td {
+  width: 100%;
+  min-height: 35px;
+  text-align: center;
+  /*border-left: 1px solid #e5e5e5;*/
+  /*border-right: 1px solid #e5e5e5;*/
+  /*border-bottom: 1px solid #e5e5e5;*/
+  background-color: #ffffff;
+  border-top: 1px solid #f9f9f9;
+  color:#666;
+  /*padding:12px 0;*/
+}
+
+.td {
+  padding: 10px 0 0 ;
+  cursor:pointer
+}
+
+.tr-td:hover {
+  background-color:rgba(196,62,78,0.03);
+
+}
+
+.td-order {
+  width: 8.44%;
+}
+
+/*.source {*/
+/*width: 3.8%;*/
+/*}*/
+
+.td-time {
+  flex: 8.3;
+}
+
+.td-category {
+  flex: 8.3;
+}
+
+.td-market {
+  flex: 8.3;
+}
+
+.td-price {
+  flex: 8.3;
+}
+
+.td-number {
+  flex: 8.3;
+}
+
+.td-turnover {
+  flex: 8.3;
+}
+
+/*.td-amount {*/
+/*flex: 9.24;*/
+/*}*/
+
+.td-charge {
+  flex: 8.3;
+}
+
+.td-account {
+  flex: 8.3;
+
+}
+
+.td-state {
+  flex: 8.3;
+
+}
+
+/*加载框*/
+.loading {
+  display: block;
+  height: 150px;
+  width: 100%;
+  background-color: #fff;
+}
+
+.td-sale {
+  color: #ff695f;
+}
+
+.td-buy {
+  color: #0babb6;
+}
+
+/*隐藏的内容*/
+.tr-hidden {
+  width: 100%;
+  /*padding: 10px 0;*/
+  border-top: 1px solid #e5e5e5;
+}
+
+/*显示的内容*/
+.tr-detail {
+
+}
+
+.show-detail {
+  background-color:rgba(196,62,78,0.03);
+}
+
+/*点击*/
+.account-click {
+  color: #C43E4E;
+  cursor: pointer;
+}
+
+/*加载更多*/
+.loading-more {
+  text-align: center;
+  padding: 10px 0;
+}
+
+.weit .nhtu{
+  width: 100%;
+  height: 120px;
+  float: left;
+  margin: 0 auto;
+}
+.weit .nhtu img{
+  height: 36px;
+}
+.weit span{
+  width: 100%;
+  height: 24px;
+  text-align: center;
+  ont-family: PingFangSC-Regular;
+  font-size: 14px;
+  color: #B5BCC6;
+  line-height: 24px;
+  float: left;
+}

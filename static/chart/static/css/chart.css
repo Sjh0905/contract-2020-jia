@@ -1,0 +1,88 @@
+/*全屏按钮居右显示*/
+.header-chart-panel .group.header-group-fullscreen{
+	float: right;
+	/*padding-right: 5px;*/
+}
+.header-chart-panel .group.header-group-fullscreen span{
+	/*border-right: 1px solid #c9cbcd; */
+}
+.header-chart-panel .group{
+	margin-top: 0px;
+}
+.header-chart-panel .group.header-group-compare, .header-chart-panel .group.header-group-undo-redo{
+	display: none;
+}
+
+/*隐藏更多时间区间显示*/
+.favored-list-container span.submenu{
+	display: none;
+}
+
+/*隐藏默认时间显示*/
+.favored-list-container .quick>span{
+	display: none;
+}
+
+/*新加时段区间选择选中样式*/
+.new_selected {
+	/*color: #58c3e5;*/
+  /*width:100%;*/
+  /*height:100%;*/
+	color: #C43E4E;
+  /*background-color: yellow;*/
+}
+.new_selected2 {
+  background-color: #000;
+}
+.header-chart-panel .header-chart-panel-sizer .header-chart-panel-content .left .space-single .apply-common-tooltip,.header-chart-panel .header-chart-panel-sizer .header-chart-panel-content .left .space-single .button{
+  background-color: #fff;
+}
+.header-chart-panel .header-chart-panel-sizer .header-chart-panel-content .left{
+	padding: 0;
+	height: 29px;
+  /*background-color: #f8f8f8;*/
+}
+.chart-top-toolbar .space-single, .header-chart-panel .space-single {
+	padding: 0;
+	height: 35px;
+}
+.chart-top-toolbar .space-single:nth-child(13) .button, .header-chart-panel .space-single:nth-child(13) .button {
+	border-right: 1px solid #c9cbcd;
+}
+.bottom-widgetbar-content.backtesting .button, .header-chart-panel .button, .hotlist-controls .button, .symbol-edit-widget .button{
+	border-right: 0;
+	border-bottom: 0;
+	color: #808080;
+	font-weight: 500;
+	padding: 5px 10px;
+  height: 35px;
+  line-height: 25px;
+}
+.button.fullscreen, .header-chart-panel .button.fullscreen{
+	padding: 4px;
+	border: 0;
+}
+.feature-no-touch ._tv-dialog .button:not(.disabled):not(.selected):hover:before, .feature-no-touch ._tv-dialog .custom-select .switcher:not(.disabled):not(.selected):hover:before, .feature-no-touch ._tv-dialog .favored-list-container span:not(.disabled):not(.selected):hover:before, .feature-no-touch ._tv-dialog .submenu:not(.disabled):not(.selected):hover:before, .feature-no-touch .bottom-widgetbar-content.backtesting .button:not(.disabled):not(.selected):hover:before, .feature-no-touch .bottom-widgetbar-content.backtesting .custom-select .switcher:not(.disabled):not(.selected):hover:before, .feature-no-touch .bottom-widgetbar-content.backtesting .favored-list-container span:not(.disabled):not(.selected):hover:before, .feature-no-touch .bottom-widgetbar-content.backtesting .submenu:not(.disabled):not(.selected):hover:before, .feature-no-touch .header-chart-panel .button:not(.disabled):not(.selected):hover:before, .feature-no-touch .header-chart-panel .custom-select .switcher:not(.disabled):not(.selected):hover:before, .feature-no-touch .header-chart-panel .favored-list-container span:not(.disabled):not(.selected):hover:before, .feature-no-touch .header-chart-panel .submenu:not(.disabled):not(.selected):hover:before, .feature-no-touch .properties-toolbar .button:not(.disabled):not(.selected):hover:before, .feature-no-touch .properties-toolbar .custom-select .switcher:not(.disabled):not(.selected):hover:before, .feature-no-touch .properties-toolbar .favored-list-container span:not(.disabled):not(.selected):hover:before, .feature-no-touch .properties-toolbar .submenu:not(.disabled):not(.selected):hover:before{
+	border-bottom: 0;
+}
+
+/*body颜色*/
+.chart-page{
+	background-color: #fff;
+}
+
+/*k线边距调整*/
+.header-chart-panel .header-chart-panel-content{
+	padding: 0;
+}
+
+/*隐藏loading和盘中提示*/
+.tv-market-status--for-chart{
+	display: none;
+}
+
+/*全屏按钮色值*/
+.button.fullscreen svg{
+	fill: #808080;
+}
+

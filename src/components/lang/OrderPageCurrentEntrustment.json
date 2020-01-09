@@ -1,0 +1,47 @@
+{
+  "CH": {
+    "time1":"时间",
+    "type":"类型",
+    "TransactionPairs":"交易对",
+    "price1": "价格",
+    "number": "数量",
+    "TotalEntrustedAmount": "委托总额",
+    "state":"状态",
+    "operation":"操作"
+  },
+  "EN": {
+    "time1":"Time",
+    "type":"Type",
+    "TransactionPairs":"Trading Pair",
+    "price1": "Price",
+    "number": "Amount",
+    "TotalEntrustedAmount": "Total",
+    "state":"State",
+    "operation":"Action"
+  },
+  "CA": {
+    "time1":"Time",
+    "type":"Type",
+    "TransactionPairs":"Trading Pair",
+    "price1": "Price",
+    "number": "Amount",
+    "TotalEntrustedAmount": "Total",
+    "state":"State",
+    "operation":"Action"
+  },
+  "CHT": {
+    "time1":"時間",
+    "type":"類型",
+    "TransactionPairs":"交易對",
+    "price1": "價格",
+    "number": "數量",
+    "TotalEntrustedAmount": "委託總額",
+    "state":"狀態",
+    "operation":"操作"
+  },
+  "KOR": {  "time1":"시간",  "type":"형식",  "TransactionPairs":"트레이딩 페어",  "price1": "가격",  "number": "수",  "TotalEntrustedAmount": "총 의뢰",  "state":"상태",  "operation":"작업"},
+
+  "JP": {  "time1":"時間に",  "type":"タイプ、",  "TransactionPairs":"取引は、",  "price1": "価格",  "number": "数",  "TotalEntrustedAmount": "依頼総額",  "state":"状態に",  "operation":"操作する"}
+
+}
+

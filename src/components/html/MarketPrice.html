@@ -1,0 +1,149 @@
+<div class="MarketPrice-container">
+
+<!--  <div v-for="(items, k) in currencylist" class="market-price-tab-item"-->
+<!--              :class="{'market-price-tab-itemed':(marcketType == k)}"-->
+<!--              @click="tabChange(k, items.name)">-->
+<!--  <div class="reduce_container">-->
+<!--    {{items.name}}-->
+<!--    <span class="reduce_icon" :class="items.name != 'USDT' ? 'btc_eth' : ''"-->
+<!--          v-if="reduce_list.indexOf(items.name) > '-1'">-->
+<!--  <font v-if="lang == 'CH'">免</font>-->
+<!--  <font v-else>fee</font>-->
+<!--  <span v-if="lang != 'CH'" class="reduce_icon_line"></span>-->
+<!--  </span>-->
+<!--  </div>-->
+<!--</div>-->
+
+  <!--<ul class="market-price-tab flex-row">-->
+    <!--<li class="title-tab flex-center box_shadow tab-item-first pointer"-->
+        <!--:class="{'selected text_blue': selectEdition == 0}"-->
+        <!--@click="changeEdition(0)"-->
+    <!--&gt;-->
+      <!--<div class="reduce_container">-->
+        <!--&lt;!&ndash;主板区&ndash;&gt;-->
+        <!--{{$t('tab_1')}}-->
+      <!--</div>-->
+    <!--</li>-->
+
+    <!--<li class="title-tab flex-center box_shadow tab-item-last pointer"-->
+        <!--:class="{'selected text_blue': selectEdition == 1}"-->
+        <!--@click="changeEdition(1)"-->
+    <!--&gt;-->
+      <!--<div class="reduce_container">-->
+        <!--&lt;!&ndash;超级为蜜区&ndash;&gt;-->
+        <!--{{$t('tab_2')}}-->
+      <!--</div>-->
+    <!--</li>-->
+  <!--</ul>-->
+
+<!--  <div class="border-box">-->
+<!-- cc 遍历标题-->
+    <div class="market-list-container flex">
+      <div v-for="item in marketList"
+           class="market-list-detail"
+      >
+        <span class="market-list-click-area pointer"
+              :class="{'selected-market text_blue':selectedMarket(item)}"
+              @click="changeMarket(item)"
+        >
+          <img src="../../assets/selectedSelf_icon.png" v-if="item=== $t('Favorites')"  alt="">
+          {{item}}
+          <span class="reduce_icon" :class="lang != 'CH' && 'en'"
+                v-if="reduce_list.indexOf(item) > '-1'"
+          >
+            <font v-if="lang == 'CH'">免</font>
+            <font v-else>fee</font>
+            <span v-if="lang != 'CH'" class="reduce_icon_line"></span>
+          </span>
+        </span>
+      </div>
+    </div>
+
+    <div class="market-price-title11">
+<!--      <div  class="tt1">市场</div>-->
+      <div  class="tt2">
+        <div class="shicseach">
+
+<!--          数据列表在这里-->
+<!--          <div @click= "search">search</div>-->
+          <el-input
+            :placeholder='$t("SearchCurrency")'
+            class="dialog-input-text"
+            v-model="searchText"/>
+
+<!--            <i slot="prefix" class="el-input__icon el-icon-search"></i>-->
+<!--          </input>-->
+        </div>
+      </div>
+    </div>
+    <div class="market-price-title flex-row">
+      <div class="market-price-title-marcket txt-small txt-light">{{$t('market')}}</div>
+      <div class="market-price-title-price txt-small txt-light">{{$t('latestPrice')}}</div>
+      <div class="market-price-title-updown txt-small txt-light">
+        <span @click="changeType(0)" :style="volumeType?'color:#B5BCC6':''">{{$t('turnover')}}</span>/<span @click="changeType(1)" :style="volumeType?'':'color:#B5BCC6'">{{$t('upsAndDowns')}}</span>
+      </div>
+    </div>
+
+
+    <div class="market-price-list">
+      <ul ref="scroll_top">
+        <li class="market-price-list-li flex-row market-price-list-acbg"
+            :class="symbol == item.name ? 'market-price-list-li-background' : ''"
+            v-for="(item,key) in (searchText ? searchList : computedMarketList)"
+            @click="slectSymbol(item.name,item)" @mouseenter="get_now_price(key, item.close,item.name)"
+            @mouseleave="hide_now_price">
+
+          <img src="../../assets/selected_icon.png" class="imgSelect" v-show="(collectionMarket.includes(item.name))" @click="handleCollectionMarket(item.name,false)" alt="">
+          <img src="../../assets/noSelected_icon.png" class="imgSelect" v-show="!(collectionMarket.includes(item.name))" @click="handleCollectionMarket(item.name,true)" alt="">
+
+
+          <div class="market-price-list-li1 flex-row">
+            <!--币对名称 begin-->
+            <div class="market-price-list-marcket txt-dark txt-small">{{item.name | e}}</div>
+            <!--币对名称 end-->
+
+            <!--最新价 begin-->
+            <div class="market-price-list-price  txt-dark txt-small" v-if="socket_tick.symbol != item.name">
+              <!-- {{$globalFunc.accFixed(item.close, !!quoteScale_list[item.name] ? quoteScale_list[item.name].quoteScale :
+              8)}} -->
+              <!-- {{ !!quoteScale_list[item.name]? quoteScale_list[item.name].quoteScale : 8  }} -->
+              <!-- {{item.close}} -->
+              {{$globalFunc.accFixed(item.close,!!quoteScale_list[item.name]? quoteScale_list[item.name].quoteScale : 4)}}
+            </div>
+            <div class="market-price-list-price txt-dark txt-small" v-else>
+              <!-- {{$globalFunc.accFixed(socket_tick.price, !!quoteScale_list[item.name] ?
+              quoteScale_list[item.name].quoteScale : 8)}} -->
+              <!-- {{socket_tick.price}} -->
+              <!-- {{!!quoteScale_list[item.name]}} -->
+              {{$globalFunc.accFixed(socket_tick.price,!!quoteScale_list[item.name] ? quoteScale_list[item.name].quoteScale : 4)}}
+            </div>
+            <!--最新价 end-->
+
+            <!--成交量 begin-->
+            <div class="market-price-list-volum  txt-small" v-if="!volumeType">{{Math.floor(item.volume)}}</div>
+            <!--成交量 end-->
+
+            <!--涨跌额 begin-->
+            <div class="market-price-list-volum  txt-small"
+                 :class="(item.close-item.open>=0)&&'txt_green'||'txt_red'" v-else>
+              {{item.open ===0 || item.close-item.open <= 0 ? '':'+' }}
+              {{item.open == 0 ? '0%' : ((item.close-item.open)/item.open*100).toFixed(2) + '%'}}
+            </div>
+            <!--涨跌额 end-->
+
+            <!--估值 begin-->
+            <span class="show_tips" :style="{top: tips_top}" :class="{'show': key == show_key}">{{change_price}}
+          <font></font>
+          </span>
+            <!--估值 end-->
+
+
+          </div>
+        </li>
+      </ul>
+
+    </div>
+  </div>
+
+
+</div>

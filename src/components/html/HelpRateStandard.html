@@ -1,0 +1,95 @@
+<div class="box_shadow border_radius rate-box">
+  <div class="rate-box-title">{{$t('helpRateStandard.rate')}}</div>
+  <div class="rate-box-list">
+    <div class="rate-box-list-title">
+      <span class="rate-box-list-title-green-bar"></span>
+      <span class="rate-box-list-title-green-title">{{$t('helpRateStandard.rechargeFee')}}</span>
+    </div>
+    <div class="rate-box-list-descript">
+      {{$t('helpRateStandard.free')}}
+    </div>
+    <div class="rate-box-list-title">
+      <span class="rate-box-list-title-green-bar"></span>
+      <span class="rate-box-list-title-green-title">{{$t('helpRateStandard.tradeRate')}}</span>
+    </div>
+    <div class="rate-box-list-descript">
+      {{$t('helpRateStandard.tradeRate_1')}}
+    </div>
+    <!--<div class="rate-box-list-descript">-->
+      <!--{{$t('helpRateStandard.tradeRate_2')}}<span class="rate-font-weight">{{$t('helpRateStandard.tradeRate_3')}}</span>{{$t('helpRateStandard.tradeRate_4')}}-->
+    <!--</div>-->
+    <!--<div class="rate-box-list-descript rate-font-weight">-->
+      <!--{{$t('helpRateStandard.tradeRate_5')}}-->
+    <!--</div>-->
+    <!--<div class="rate-box-list-table-box">-->
+      <!--<table class="rate-box-list-table" cellspacing="1">-->
+        <!--<tr class="rate-box-list-tr">-->
+          <!--<th class="rate-box-list-th">{{$t('helpRateStandard.tradeRate_table_1')}}</th>-->
+          <!--<th class="rate-box-list-th">{{$t('helpRateStandard.tradeRate_table_2')}}</th>-->
+          <!--<th class="rate-box-list-th">{{$t('helpRateStandard.tradeRate_table_3')}}</th>-->
+          <!--<th class="rate-box-list-th">{{$t('helpRateStandard.tradeRate_table_4')}}</th>-->
+        <!--</tr>-->
+        <!--<tr class="rate-box-list-tr">-->
+          <!--<td class="rate-box-list-td">{{$t('helpRateStandard.tradeRate_table_5')}}</td>-->
+          <!--<td class="rate-box-list-td">40%</td>-->
+          <!--<td class="rate-box-list-td">30%</td>-->
+          <!--<td class="rate-box-list-td">20%</td>-->
+        <!--</tr>-->
+      <!--</table>-->
+    <!--</div>-->
+    <div class="rate-box-list-title">
+      <span class="rate-box-list-title-green-bar"></span>
+      <span class="rate-box-list-title-green-title">{{$t('helpRateStandard.withdrawalsRate')}}</span>
+    </div>
+    <div class="rate-box-list-descript">
+      {{$t('helpRateStandard.withdrawalsRate_descript_1')}}
+    </div>
+    <div class="rate-box-list-table-box">
+      <table class="rate-box-list-table" cellspacing="1">
+        <tr class="rate-box-list-tr">
+          <th class="rate-box-list-th">{{$t('helpRateStandard.withdrawalsRate_table_1')}}</th>
+          <th class="rate-box-list-th">{{$t('helpRateStandard.withdrawalsRate_table_2')}}</th>
+          <th class="rate-box-list-th">{{$t('helpRateStandard.withdrawalsRate_table_3')}}</th>
+          <th class="rate-box-list-th">{{$t('helpRateStandard.withdrawalsRate_table_4')}}</th>
+        </tr>
+        <tr class="rate-box-list-tr" v-for="item in rate_list">
+          <td class="rate-box-list-td">{{item.currency}}</td>
+          <td class="rate-box-list-td">{{item.description}}</td>
+          <td class="rate-box-list-td">{{item.minimumAmount/*$globalFunc.accAdd(item.minimumAmount ,item.maximumFee)*/}}</td>
+          <td class="rate-box-list-td">{{item.maximumFee}}</td>
+        </tr>
+
+      </table>
+    </div>
+    <!--<div class="rate-box-list-descript">-->
+      <!--{{$t('helpRateStandard.withdrawalsRate_descript_2')}}-->
+
+    <!--</div>-->
+    <!--<div class="rate-box-list-descript rate-box-list-descript-h1">-->
+      <!--{{$t('helpRateStandard.withdrawalsRate_descript_3')}}-->
+    <!--</div>-->
+    <!--<div class="rate-box-list-descript rate-box-list-descript-h2">-->
+      <!--{{$t('helpRateStandard.withdrawalsRate_descript_4')}}-->
+
+    <!--</div>-->
+    <!--<div class="rate-box-list-descript">-->
+      <!--{{$t('helpRateStandard.withdrawalsRate_descript_5')}}-->
+    <!--</div>-->
+    <!--<div class="rate-box-list-descript rate-box-list-descript-h2">-->
+      <!--{{$t('helpRateStandard.withdrawalsRate_descript_6')}}-->
+    <!--</div>-->
+    <!--<div class="rate-box-list-descript">-->
+      <!--{{$t('helpRateStandard.withdrawalsRate_descript_7')}}-->
+    <!--</div>-->
+    <!--<div class="rate-box-list-descript rate-box-list-descript-h1">-->
+      <!--{{$t('helpRateStandard.withdrawalsRate_descript_8')}}-->
+    <!--</div>-->
+    <!--<div class="rate-box-list-descript rate-box-list-img-descript">-->
+      <!--{{$t('helpRateStandard.withdrawalsRate_descript_9')}}-->
+    <!--</div>-->
+    <!--<img class="rate-box-list-descript-img" src="" alt="">-->
+    <!--<div class="rate-box-list-descript">-->
+      <!--{{$t('helpRateStandard.withdrawalsRate_descript_10')}}-->
+    <!--</div>-->
+  </div>
+</div>

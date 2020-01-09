@@ -1,0 +1,28 @@
+<div class="workorderlist-wrap min-width box_shadow border_radius">
+
+    <div class="workorderlist-linklist-box txt-big txt-light">
+        <span><router-link class=""  :to="{ path: '/index/help/wordOrder'}" style="color: #4a4d54">{{$t('helpWordOrder.title')}}</router-link></span>
+        <span> > </span>
+        <span>{{$t('helpWordOrder.myRequest')}}</span>
+    </div>
+
+    <div class="workorderlist-box txt-nomal txt-light border_radius box_shadow">
+        <div class="workerorderlist-title flex-row">
+            <div class="workerorderlist-number">{{$t('helpWordOrder.WorkNum')}}</div>
+            <div class="workerorderlist-tit">{{$t('helpWordOrder.form_title')}}</div>
+            <div class="workerorderlist-create">{{$t('helpWordOrder.create')}}</div>
+            <div class="workerorderlist-status">{{$t('helpWordOrder.status')}}</div>
+            <div class="workerorderlist-control">{{$t('helpWordOrder.option')}}</div>
+        </div>
+        <ul>
+            <li class="workerorderlist-li flex-row" v-for="item in orderlist">
+                <div class="workerorderlist-number">{{item.id}}</div>
+                <div class="workerorderlist-tit">{{item.title}}</div>
+                <div class="workerorderlist-create">{{item.createtime}}</div>
+                <div class="workerorderlist-status">{{status[item.status]}}</div>
+                <!--<div class="workerorderlist-control" href="/index/help/workOrderInfo/?query={{item.id}}">查看详情</div>-->
+                <router-link class="workerorderlist-control"  :to="{ path: '/index/help/workOrderInfo', query: { id: item.id }}">{{$t('helpWordOrder.detail')}}</router-link>
+            </li>
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,127 @@
+.container {
+  width: 100%;
+  display: block;
+  background-color: #ffffff;
+  padding: 50px;
+  min-height: 650px;
+  padding-top: 20px;
+}
+
+/*标题部分*/
+.title {
+  font-size: 1.6rem;
+  align-items: center;
+  -webkit-align-items: center;
+  padding: 12px 0 12px 0;
+  letter-spacing: 1px;
+  position: relative;
+  justify-content: space-between;
+}
+
+.title-control {
+  float: right;
+}
+
+.title span:nth-of-type(1) {
+  display: block;
+  width: 4px;
+  height: 16px;
+  background-color: #C43E4E;
+  margin-right: 7px;
+}
+
+/*表单主体*/
+input, select, textarea {
+  border: 1px solid #D3D2D3;
+  width: 100%;
+  height: 35px;
+  line-height: 35px;
+  border-radius: 5px;
+  padding-left: 5px;
+  outline: none;
+  box-sizing: border-box;
+}
+
+textarea {
+  height: 150px;
+}
+
+.word_order_container {
+  width: 100%;
+  min-height: 200px;
+  /*border: 1px solid #E8E7E8;*/
+}
+
+.order_form {
+  padding: 50px;
+  width: 60%;
+  margin: 0 auto;
+}
+
+.order_form .title {
+  font-size: 2rem;
+  padding: 20px 0px 0px 0px;
+}
+
+.order_form .forms_group {
+}
+
+.order_form .forms_group label {
+  display: block;
+  font-size: 1.4rem;
+  padding: 20px 0px 5px 0px;
+}
+
+.order_form .forms_group label span {
+  color: red;
+}
+
+.order_form .forms_group button {
+  width: 40%;
+  height: 40px;
+  margin: 20px auto;
+  display: block;
+  outline: none;
+  background-color: #C43E4E;
+  border: 1px solid #C43E4E;
+  border-radius: 5px;
+  color: #fff;
+  letter-spacing: 1px;
+  font-size: 1.4rem;
+  cursor: pointer;
+}
+
+.update_file {
+  width: 100%;
+  height: 35px;
+  line-height: 35px;
+  border: 1px solid #D3D2D3;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.update_file img {
+  vertical-align: middle;
+  width: 13px;
+  height: 13px;
+  margin-right: 3px;
+}
+
+.update_file span {
+  color: #C43E4E;
+  cursor: pointer;
+}
+
+.forms_group font {
+  color: #999;
+}
+
+.display_none {
+  display: none;
+}
+
+.forms_group_notice {
+  float: right;
+  color: #ebebeb;
+  font-size: 12px;
+}

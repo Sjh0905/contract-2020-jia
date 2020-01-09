@@ -1,0 +1,26 @@
+<div>
+  <Loading v-if="loading"/>
+  <div v-if="!loading" class="mobile-asset-toast-container">
+
+    <div class="mobile-asset-toast-container-title">{{mobileRechargeRecordData.currency}}</div>
+    <div class="mobile-asset-toast-container-input-box" :class="nameWA === ''?'':'error-input-box'">
+      <span class="mobile-asset-toast-container-input-title">备注</span>
+      <input type="text" v-model="name" class="mobile-asset-toast-container-input"
+             @blur="inputCheckName">
+    </div>
+    <div class="mobile-asset-toast-container-error">
+      {{nameWA}}
+    </div>
+    <div class="mobile-asset-toast-container-input-box" :class="addressWA === ''?'':'error-input-box'">
+      <span class="mobile-asset-toast-container-input-title">地址</span>
+      <input type="text" v-model="address" class="mobile-asset-toast-container-input"
+             @blur="inputCheckAddress">
+    </div>
+    <div class="mobile-asset-toast-container-error">
+      {{addressWA}}
+    </div>
+    <div class="mobile-asset-toast-container-btn" @click="checkAddressData()">
+      确定
+    </div>
+  </div>
+</div>

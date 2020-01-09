@@ -1,0 +1,247 @@
+<div class="mobile-trading-hall-box">
+  <!--<div class="mobile-header-title" @click="changeHeaderBoxFlag()">-->
+  <!--{{symbol | e}}-->
+  <!--<img class="mobile-header-title-img" src="../../assets/mobile_header_select_down.png">-->
+  <!--</div>-->
+  <div class="mobile_trading_hall_detail" v-show="headerBoxFlag">
+    <div class="mobile-header">
+      <div class="mobile-header-first-line">
+
+        <!--向上向下显示文字效果 up / down-->
+        <div class="mobile-header-now-price"
+             :class="[(!!direction && direction) ? 'mobile-header-now-price-up' : 'mobile-header-now-price-down']">{{(priceNow).toFixed(quoteScale)}}
+        </div>
+        <div class="mobile-header-updata-price">≈{{cny}}CNY
+        </div>
+        <div class="mobile-header-updata-rate"
+             :class="[diff24Ratio>0 ? 'mobile-header-now-price-up' : (diff24<0 ? 'mobile-header-now-price-down' : '')]">{{diff24Ratio}}%
+        </div>
+        <!--向上向下箭头 up / down-->
+        <!--        <div class="mobile-header-updown-img"-->
+        <!--             :class="(!!direction && direction) && 'mobile-header-up-img'||'mobile-header-down-img'"></div>-->
+        <!--        <div class="mobile-header-CNY-price">{{cny}}</div>-->
+      </div>
+      <!--      <div class="mobile-header-second-line">-->
+      <!--&lt;!&ndash;        <div class="mobile-header-CNY-price"></div>&ndash;&gt;-->
+      <!--&lt;!&ndash;        <div class="mobile-header-updata-price"&ndash;&gt;-->
+      <!--&lt;!&ndash;             :class="[diff24>0 ? 'mobile-header-now-price-up' : (diff24<0 ? 'mobile-header-now-price-down' : '')]">{{diff24}}&ndash;&gt;-->
+      <!--&lt;!&ndash;        </div>&ndash;&gt;-->
+
+      <!--        -->
+      <!--      </div>-->
+
+      <div class="mobile-header-third-line">
+        <!--        -->
+
+        <div class="mobile-header-high-price">
+          <div class="mobile-header-high-price-title">高</div>
+          <div class="mobile-header-high-price-value">{{high24}}</div>
+        </div>
+        <div class="mobile-header-low-price">
+          <div class="mobile-header-low-price-title">低 </div>
+          <div class="mobile-header-low-price-value">{{low24}}</div>
+        </div>
+        <div class="mobile-header-volume">
+          <div class="mobile-header-volume-title">24H量</div>
+<!--          <div class="mobile-header-volume-value" v-if="$store.state.symbol== 'GRC_USDT'">{{(volume>=1000 && volume>0) ? $globalFunc.accFixed(volume/1000,2)+'k':volume}}</div>-->
+          <div class="mobile-header-volume-value">{{volume}}</div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="_m_sl_fc flex-between">
+      <!--          <div class="_m_sl_fcl flex-between">-->
+      <!--              <span>分时</span>-->
+      <!--              <div></div>-->
+      <!--          </div>-->
+      <!--          <div class="_m_sl_fcl" @click="SELECT_INTEVAL(0, '分时')">-->
+      <!--              <span>分时3333</span>-->
+      <!--              <div :class="!is_more ? 'triangle-down' : 'triangle-up'"></div>-->
+
+      <!--          </div>-->
+      <!--      <div class="_m_sl_fcl" @click="SELECT_INTEVAL(0, '1分')">-->
+      <!--        <span>1分</span>-->
+      <!--        &lt;!&ndash;              <div :class="!is_more ? 'triangle-down' : 'triangle-up'"></div>&ndash;&gt;-->
+
+      <!--      </div>-->
+      <!--      <div class="_m_sl_fcl" @click="SELECT_INTEVAL(0, '5分')">-->
+      <!--        <span>5分</span>-->
+      <!--        &lt;!&ndash;              <div :class="!is_more ? 'triangle-down' : 'triangle-up'"></div>&ndash;&gt;-->
+
+      <!--      </div>-->
+      <!--      <div class="_m_sl_fcl" @click="SELECT_INTEVAL(0, '15分')">-->
+      <!--        <span>15分</span>-->
+      <!--        &lt;!&ndash;              <div :class="!is_more ? 'triangle-down' : 'triangle-up'"></div>&ndash;&gt;-->
+
+      <!--      </div>-->
+      <!--      <div class="_m_sl_fcl" @click="SELECT_INTEVAL(0, '30分')">-->
+      <!--        <span>30分</span>-->
+      <!--        &lt;!&ndash;              <div :class="!is_more ? 'triangle-down' : 'triangle-up'"></div>&ndash;&gt;-->
+
+      <!--      </div>-->
+      <!--      <div class="_m_sl_fcl" @click="SELECT_INTEVAL(0, '1小时')">-->
+      <!--        <span>1小时</span>-->
+      <!--        &lt;!&ndash;              <div :class="!is_more ? 'triangle-down' : 'triangle-up'"></div>&ndash;&gt;-->
+
+      <!--      </div>-->
+      <div class="_m_sl_fcl" @click="SELECT_MORE">
+        <span>更多</span>
+        <!--              <div :class="!is_more ? 'triangle-down' : 'triangle-up'"></div>-->
+
+      </div>
+
+      <div class="_m_sl_more" v-show="!is_more">
+        <ul>
+          <li class="interval_button" v-for="(item, k) in interval_btn_list" @click="SELECT_INTEVAL(k, item.title)">{{item.title}}</li>
+        </ul>
+      </div>
+      <div class="_m_sl_fcr">
+        <!--<span>全屏</span>-->
+      </div>
+    </div>
+
+
+
+
+    <div class="mobile-content-trade">
+      <Trade :topic_bar="topic_bar" />
+    </div>
+
+    <div style="margin-bottom: 1.1rem">
+      <MobileStockCross :buy_sale_list="buy_sale_list" :socket_snap_shot="socket_snap_shot"
+                        :socket_tick="socket_tick"></MobileStockCross>
+
+    </div>
+
+
+
+
+    <div class="button-container">
+      <div class="button-buy" @click="toBuyOrSaleView(1)"  v-if="symbol_transaction"
+      >{{$t('mobileTradingHall.buy')}}</div>
+      <div class="button-sell" @click="toBuyOrSaleView(2)" v-if="symbol_transaction">{{$t('mobileTradingHall.sale')}}</div>
+
+      <div class="button-buy"
+           v-if="!symbol_transaction">
+        {{$t('mobileTradingHall.sale11')}}
+      </div>
+      <div class="button-sell"
+           v-if="!symbol_transaction">
+        {{$t('mobileTradingHall.sale11')}}
+      </div>
+    </div>
+
+
+
+
+
+    <!--    <div class="progress-bar-btn-wrap" @click="tradeMarket(orderType)" :class="btn_click ? 'progress-bar-active' : ''">-->
+
+
+    <!--      <div class="progress-bar-btn txt-nomal border_radius"-->
+    <!--           :class="orderType?'progress-bar-redbtn btn_red_box_shadow':'progress-bar-greenbtn btn_green_box_shadow'"-->
+    <!--           v-if="$store.state.authMessage.userId && symbol_transaction && symbol_transaction_diy">-->
+    <!--        &lt;!&ndash; {{orderType&& $t("progressBar.sale") + this.$store.state.symbol.split('_')[0]|| $t("progressBar.buy")-->
+    <!--        +this.$store.state.symbol.split('_')[0]}} &ndash;&gt;-->
+    <!--        {{orderType&& $t("progressBar.sale") + this.$store.state.symbol.split('_')[0]||$t("progressBar.buy")+this.$store.state.symbol.split('_')[0]}}-->
+    <!--      </div>-->
+
+    <!--&lt;!&ndash;      <div class="progress-bar-btn progress-bar-nologin-btn ptxt-nomal"&ndash;&gt;-->
+    <!--&lt;!&ndash;           v-if="$store.state.authMessage.userId && (!symbol_transaction || !symbol_transaction_diy)">&ndash;&gt;-->
+    <!--&lt;!&ndash;        {{$t('progressBar.unavailable')}}&ndash;&gt;-->
+    <!--&lt;!&ndash;      </div>&ndash;&gt;-->
+
+    <!--      <div class="progress-bar-btn progress-bar-nologin-btn ptxt-nomal" v-if="!$store.state.authMessage.userId">-->
+    <!--        <span style="cursor: pointer" class="text_blue" @click="goLogin">{{$t("progressBar.login")}}</span> 或 <span-->
+    <!--        class="text_blue" style="cursor: pointer" @click="goRegister">{{$t("progressBar.register")}}</span>-->
+
+    <!--      </div>-->
+
+
+    <!--    </div>-->
+  </div>
+
+  <div v-show="!headerBoxFlag" class="mobile-header-title-box">
+    <div class="mobile-header-title-list">
+      <div class="mobileHomePage">
+        <!--<div class="mobile-market-area-title">-->
+        <!--<div class="mobile-market-area-title-list">-->
+        <!--<div class="mobile-market-area-title-item1" @click="changeSelectEdition(0)" :class="selectEdition === 0?'mobile-market-area-title-active':''">主板区</div>-->
+        <!--<div class="mobile-market-area-title-item2" @click="changeSelectEdition(1)" :class="selectEdition === 1?'mobile-market-area-title-active':''">超级为蜜区</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<div v-if="selectEdition === 0" class="mobile-market-title flex-between">-->
+        <!--<div v-for="(items, k) in marketList" class="mobile-market-title-item txt_80" :class="{'mobile-market-title-item-active' :selectedMarket(items)}"-->
+        <!--@click="changeMarket(items)">-->
+        <!--<span class="mobile-market-title-item-text">{{items}}-->
+        <!--<img class="mobile-market-title-item-text-reduce" src="" alt=""  v-if="reduce_list.indexOf(items) > '-1'">-->
+        <!--&lt;!&ndash;<div class="mobile-market-title-item-text-reduce" v-if="reduce_list.indexOf(items.name) > '-1'"><font>免</font></div>&ndash;&gt;-->
+        <!--</span>-->
+        <!--</div>-->
+        <!--&lt;!&ndash; <div class="mobile-market-close-img" @click="closeHeaderBoxFlag()"></div> &ndash;&gt;-->
+        <!--</div>-->
+        <!--<div :class="selectEdition === 0?'mobile-market-table-box':'mobile-market-superbee-table-box'">-->
+        <div class="mobile-market-table-box">
+          <table class="mobile-market-table">
+            <colgroup style="width:37%;"></colgroup>
+            <colgroup style="width:32%;"></colgroup>
+            <colgroup style="width:31%;"></colgroup>
+            <tbody>
+            <tr class="mobile-market-title-first-tr">
+              <th>{{$t('mobileHomePageMarket.name')}} / {{$t('mobileHomePageMarket.volume')}}</th>
+              <th>最新价</th>
+              <th>涨跌幅</th>
+              <!--<th>{{$t('mobileHomePageMarket.currentPrice')}} / {{$t('mobileHomePageMarket.riseNumber')}}</th>-->
+              <!--<th>{{$t('mobileHomePageMarket.highPrice')}} / {{$t('mobileHomePageMarket.lowPrice')}}</th>-->
+            </tr>
+            <MobileHomePageMarketItem v-for="(item, key) in computedMarketList" :key="key" :item="item" :choosed="symbol===item.name" :socket_tick="socket_tick" :socket_price="socket_price" /></tbody>
+          </table>
+          <div class="bottom-box"></div>
+
+          <!--<MobileMarket :choose_symbol="symbol" :currency_list="currency_list" :socket_price="socket_price" :currencyType="currencyType" :socket_tick="socket_tick"/>-->
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+  <!--<div class="mobile_header">-->
+  <!--<ul class="header">-->
+  <!--<li class="title">0.32424 <span class="icon"></span><small>￥23.34</small></li>-->
+  <!--<li class="title_brand">0.2324 <small>0.99%</small><span>24小时最低价<font>0.1888</font></span></li>-->
+  <!--<li class="title_brand"><span>24小时成交量<font>0.1888</font></span><span>24小时最高价<font>0.1888</font></span></li>-->
+  <!--</ul>-->
+  <!--</div>-->
+
+  <!--<div>-->
+  <!--<Trade/>-->
+  <!--</div>-->
+  <div class="bottomenu"  v-show="!headerBoxFlag">
+    <table>
+      <tr>
+        <td @click="gotoNewH5homePage">
+          <div class="menuimg"><img src="../../assets/H5img/indexm.png"></div>
+          <div class="menuinfoh">首页</div>
+        </td>
+        <td  @click="gotoShichang">
+          <div class="menuimg"><img src="../../assets/H5img/shich_on.png"></div>
+          <div class="menuinfo">行情</div>
+        </td>
+        <td  @click="gotoJiaoyi">
+          <div class="menuimg"><img src="../../assets/H5img/jiaoyi.png"></div>
+          <div class="menuinfoh">交易</div>
+        </td>
+        <td  @click="gotoZichan">
+          <div class="menuimg"><img src="../../assets/H5img/zichan.png"></div>
+          <div class="menuinfoh">资产</div>
+        </td>
+      </tr>
+    </table>
+
+  </div>
+</div>

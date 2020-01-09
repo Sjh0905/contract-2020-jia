@@ -1,0 +1,249 @@
+.mobile-help-order-page {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #081724;
+  overflow: scroll;
+}
+
+.mobile-help-order-box {
+  /*position: absolute;*/
+  /*top: 0;*/
+  /*bottom: 0;*/
+  /*left: 0;*/
+  /*right: 0;*/
+  background: #081724;
+  padding: 0 0.2rem;
+}
+
+.mobile-help-order-select {
+  margin-top: 10px;
+}
+
+.mobile-help-order-select-title {
+  display: flex;
+  color: rgba(255,255,255,0.8);
+  font-size: 14px;
+  align-items: center;
+  height: 20px;
+  line-height: 20px;
+
+}
+
+.mobile-help-order-select-title-img {
+  width: 10px;
+  /*height: 10px;*/
+  display: block;
+  margin-right: 4px;
+}
+
+.mobile-help-order-select-input {
+  margin-top: 10px;
+  min-height: 40px;
+  background: #131F30;
+  position: relative;
+}
+
+.mobile-help-order-select-input-title {
+  height: 40px;
+  border: 1px solid #303031;
+  border-radius: 4px;
+  background: transparent;
+  line-height: 40px;
+  color: #181819;
+  padding-left: 10px;
+  position: relative;
+}
+
+
+.mobile-help-order-select-input-title-border-bottom {
+
+}
+
+.mobile-help-order-select-input-title-icon-down {
+  width: 10px;
+  height: 5px;
+  background-size: cover;
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.mobile-help-order-select-input-title-icon-up {
+  width: 10px;
+  height: 5px;
+  background-size: cover;
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.mobile-help-order-select-input-option-title-text {
+  color: rgba(255,255,255,0.4);
+}
+
+.mobile-help-order-select-input-title-text-active {
+  color: #fff;
+}
+
+.mobile-help-order-select-input-option-title-text-active {
+  color: #fff;
+}
+
+.mobile-help-order-select-input-option-box {
+  position: absolute;
+  background: #131F30;
+  box-sizing: border-box;
+  border: 1px solid #303031;
+  top: 0;
+  left: 0;
+  right: 0;
+  box-sizing: border-box;
+  border-radius: 4px;
+  z-index: 9999;
+}
+
+.mobile-help-order-select-input-option-title {
+  height: 40px;
+  /*border: 1px solid #303031;*/
+  /*border-radius: 4px;*/
+  background: transparent;
+  line-height: 40px;
+  padding-left: 10px;
+  color: #fff;
+  position: relative;
+  border-bottom: 1px solid #303031;
+}
+
+.mobile-help-order-select-input-option {
+  height: 40px;
+  line-height: 40px;
+  margin: 0 10px;
+  border-bottom: 1px solid #303031;
+  color: #fff;
+}
+
+.mobile-help-order-select-input-option:last-child{
+  border-bottom: none;
+}
+
+
+
+.mobile-help-order-name {
+  margin-top: 10px;
+}
+
+.mobile-help-order-name-input-box {
+
+}
+
+.mobile-help-order-name-input {
+  margin-top: 10px;
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  height: 40px;
+  border: 1px solid #303031;
+  border-radius: 4px;
+  color: #fff;
+  padding-left: 10px;
+  padding-right: 10px;
+  background: #131F30;
+  line-height: 40px;
+}
+
+.mobile-help-order-content-input-box {
+
+}
+
+.mobile-help-order-content-input {
+  margin-top: 10px;
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  line-height: 30px;
+  border: 1px solid #303031;
+  border-radius: 4px;
+  color: #fff;
+  padding: 10px;
+  padding-right: 10px;
+  background: #131F30;
+  height: 110px;
+}
+
+.mobile-help-order-content-input:focus {
+  outline: none;
+}
+
+.mobile-help-order-photo {
+  margin-top: 10px;
+}
+
+.mobile-help-order-select-title-second {
+  color: rgba(255,255,255,0.45);
+}
+
+.mobile-help-order-photo-input-box {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+
+.mobile-help-order-photo-input-box-item {
+  height: 80px;
+  width: 110px;
+  border: 1px dashed #303031;
+  background: #131F30;
+  border-radius: 4px;
+  position: relative;
+  /*overflow: hidden;*/
+}
+
+.mobile-help-order-photo-input-box-item input {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+}
+
+.mobile-help-order-photo-input-box-item-img {
+  width: 44px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+.mobile-help-order-photo-input-box-item-img-delete {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  right: -7px;
+  top: -6px;
+}
+
+.mobile-help-order-photo-input-box-item-img-confirm {
+  width: 100%;
+  height: 100%;
+}
+
+
+.mobile-submit-btn {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  font-size: 16px;
+  height: 44px;
+  line-height: 44px;
+  border-radius: 4px;
+  color: #fff;
+  background: #C43E4E;
+  text-align: center;
+}

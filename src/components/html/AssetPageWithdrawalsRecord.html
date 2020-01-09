@@ -1,0 +1,128 @@
+<div class="withdrawals-record-container min-height">
+
+
+  <Loading v-if="loading" class="min-height-all withdrawals-record-loading-container border_radius box_shadow"/>
+
+
+  <div class="border_box border_radius box_shadow">
+    <!--提现记录title begin-->
+    <div class="detail-header flex">
+      <!--币种-->
+      <span class="currency">{{$t('currency')}}</span>
+      <!--时间-->
+      <span class="time">{{$t('time')}}</span>
+      <!--数量-->
+      <span class="total">{{$t('amount')}}</span>
+      <!--地址-->
+      <span class="address">{{$t('address')}}</span>
+      <!--状态-->
+      <span class="state">{{$t('state')}}</span>
+      <!--操作-->
+      <span class="state">{{$t('handler')}}</span>
+    </div>
+    <!--提现记录title end-->
+
+
+    <!--提现记录具体内容 begin-->
+    <template v-if='!loading'>
+      <ul class="detail-container">
+
+        <li class="detail-li" v-for="(item,index) in computedRecord" :key="item.id">
+          <div class="li-container flex">
+            <span class="currency">{{item.currency == 'USDT2' ? 'USDT' :item.currency}}</span>
+            <span class="time">{{$globalFunc.formatDateUitl(item.updatedAt,'YYYY-MM-DD hh:mm:ss')}}</span>
+            <span class="total">{{toFixed(item.amount,8)}}</span>
+            <div class="address address-detail flex">
+              <div class="address-detail-item flex">
+                <span class="address-title">{{$t('withdrawalsAddress')}}:</span>
+                <span>{{item.toAddress}}</span>
+              </div>
+
+              <div v-if="item.memoAddress" class="address-detail-item flex">
+                <span class="address-title">memo:</span>
+                <span class="memo-input">{{item.memoAddress}}</span>
+              </div>
+
+              <div class="relative address-detail-item flex" v-if="item.tx">
+                <span class="address-title">TXID:</span>
+                <input type="text" readonly :value="item.tx"
+                       class="uniqueId-input unit-input pointer text_blue"
+                       :ref="item.id" @click="clickCheck(item)">
+                <span class="copy-btn text_blue pointer"
+                      @click="clickCopy(item.id)"
+                >{{$t('copy')}}</span>
+                <!--<span>{{$t('check')}}</span>-->
+              </div>
+
+            </div>
+            <span class="state">{{computedState(item.status)}}</span>
+            <span class="state pointer text_blue" v-if="canCancel(item.status)==1" @click="clickCancel(item)">{{$t('cancel')}}</span>
+            <span class="state pointer text_blue" v-else-if="canCancel(item.status)==2"
+                  @click="clickToWatchReason(item)">{{$t('watchReason')}}</span>
+            <span class="state" v-else>--</span>
+          </div>
+        </li>
+
+        <li class="detail-li" v-if="computedRecord.length ===0">
+          <div class="li-container flex">
+            <span class="currency">---</span>
+            <span class="time">---</span>
+            <span class="total">---</span>
+            <span class="address address-detail flex empty-span">
+            -------
+        </span>
+            <span class="state">--</span>
+            <span class="state">--</span>
+          </div>
+        </li>
+
+      </ul>
+      <div class="loading-more text_blue" v-if="loadingMoreShow">
+        <span v-if="!loadingMoreShowing" @click="loadingMore">{{$t('loadingMore')}}</span>
+        <span v-if="loadingMoreShowing"><Loading/></span>
+      </div>
+    </template>
+    <!--提现记录具体内容 end-->
+
+  </div>
+
+  <PopupPrompt :popOpen="popOpen" :popClose="popClose" :popType="popType" :popText="popText"/>
+
+  <PopupWindow :switch="popWindowOpen" @close="closeWindow">
+    <div slot="header">
+      {{$t('cancelConfirmTitle')}}
+    </div>
+    <div slot="article">
+      {{$t('cancelConfirmArticle')}}
+    </div>
+    <div slot="footer">
+      <button class="button-base btn_simple" @click="closeWindow">
+        {{$t('cancelConfirmCancel')}}
+      </button>
+      <button class="button-base btn_blue" @click="confirmCancel" v-if="!cancelIng">
+        {{$t('cancelConfirmConfirm')}}
+      </button>
+      <button class="button-base btn_blue" @click="confirmCancel" v-else>
+        {{$t('cancelConfirmConfirming')}}
+      </button>
+
+    </div>
+  </PopupWindow>
+
+  <PopupWindow :switch="popWindowState" @close="closeStatePop">
+    <div slot="header" class="">
+      {{$t('cancelReasonTitle')}}
+    </div>
+    <div slot="article">
+      {{cancelReason}}
+    </div>
+    <div slot="footer">
+      <button class="button-base btn_blue" @click="closeStatePop">
+        {{$t('cancelReasonConfirm')}}
+      </button>
+    </div>
+
+  </PopupWindow>
+
+
+</div>

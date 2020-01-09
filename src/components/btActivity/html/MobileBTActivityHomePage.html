@@ -1,0 +1,513 @@
+<div class="activity-box">
+  <Loading v-if="loading"/>
+  <div v-if="!loading" class="bt-activity-homepage-box">
+    <div class="bt-activity-homepage-box-bg">
+    <div v-if="!is_login == true && ios_query" class="bt-activity-homepage-header-ios"></div>
+    <div class="bt-activity-homepage-header">
+      <!--只有h5会有显示顶部标题，如果是ios或者安卓不显示头部-->
+
+      <div class="bt-activity-homepage-header-title">
+        <div v-if="iosGoBackIsShow === true" class="bt-activity-homepage-header-title-back-icon" @click="jumpToHomepage()">
+          <img class="bt-activity-homepage-header-title-back-icon-img" src="../btActivityAssets/mobile_assets/back_icon.png" alt="">
+        </div>
+        <div class="bt-activity-homepage-header-title-text">挖矿收益</div>
+      </div>
+
+      <!--未登录显示头部-->
+      <div v-if="!is_login == true" class="bt-activity-homepage-nl-header-container">
+        <div class="bt-activity-homepage-nl-header-container-box">
+          <div class="bt-activity-homepage-nl-header-container-box-register">
+            <span class="bt-activity-homepage-nl-header-container-box-register-white" @click="jumpToRegister()">注册</span>
+            |
+            <span class="bt-activity-homepage-nl-header-container-box-register-gray">已经注册?</span>
+          </div>
+          <div class="bt-activity-homepage-nl-header-container-box-login"  @click="jumpToLogin()">
+            登录查看收益
+          </div>
+        </div>
+      </div>
+
+
+      <div v-if="is_login == true" class="bt-activity-homepage-l-header-container">
+
+        <div class="bt-activity-homepage-l-header-container-score-box">
+          <div class="bt-activity-homepage-l-header-container-score">{{toFixed(userHaveAccount.balance,8)}}</div>
+          <div class="bt-activity-homepage-l-header-container-score-unit">BT</div>
+        </div>
+        <div class="bt-activity-homepage-l-header-container-title">我的当前BT资产</div>
+
+        <div class="bt-activity-homepage-l-header-container-info">
+          <div class="bt-activity-homepage-l-header-container-info-text">
+            <div class="bt-activity-homepage-l-header-container-info-text-bold">{{toFixed(userHaveAccount.fee,8)}} USDT</div>
+            <div class="bt-activity-homepage-l-header-container-info-text-title">我的今日交易手续费折合</div>
+          </div>
+          <div class="bt-activity-homepage-l-header-container-info-cutter"></div>
+          <div class="bt-activity-homepage-l-header-container-info-text">
+            <div class="bt-activity-homepage-l-header-container-info-text-bold">{{toFixed(userHaveAccount.btLeft,8)}} BT</div>
+            <div class="bt-activity-homepage-l-header-container-info-text-title">您今日剩余可挖BT数量</div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+    <!--底部弧线-->
+    <div class="bt-activity-homepage-header-container-footer"></div>
+
+    <!--未登录页面-->
+    <div v-if="!is_login == true" class="bt-activity-homepage-nl-container">
+      <div class="bt-activity-homepage-nl-container-info">
+        交易即挖矿；<br/>
+        持BT即享平台交易手续费10%收益分配
+      </div>
+      <div class="bt-activity-homepage-nl-container-platform-box">
+        <div class="bt-activity-homepage-nl-container-platform-header">
+          <div class="bt-activity-homepage-nl-container-platform-header-left">
+            <div class="bt-activity-homepage-nl-container-platform-header-left-icon"></div>
+            <div class="bt-activity-homepage-nl-container-platform-header-left-text">平台分配</div>
+          </div>
+          <div class="bt-activity-homepage-nl-container-platform-header-right" @click="jumpToPlatformHistory()">
+            查看历史
+          </div>
+        </div>
+        <div class="bt-activity-homepage-nl-container-platform-container-first">
+          <div class="bt-activity-homepage-nl-container-platform-container-first-title">
+            平台今日可挖BT数量
+          </div>
+          <div class="bt-activity-homepage-nl-container-platform-container-first-score">
+            {{toFixed(platformBTData.btTotalLimit,8)}}
+          </div>
+        </div>
+        <div class="bt-activity-homepage-nl-container-platform-container-second">
+          <div class="bt-activity-homepage-nl-container-platform-container-second-title">平台今日剩余可挖BT数量</div>
+          <div class="bt-activity-homepage-nl-container-platform-container-second-score">{{toFixed(platformBTData.btLeft,8)}}</div>
+        </div>
+        <div class="bt-activity-homepage-nl-container-platform-container-first">
+          <div class="bt-activity-homepage-nl-container-platform-container-first-title">
+            今日平台交易手续费折合(USDT)
+          </div>
+          <div class="bt-activity-homepage-nl-container-platform-container-first-score">
+            {{toFixed(platformProfitsData.dividend,8)}}
+          </div>
+        </div>
+        <div class="bt-activity-homepage-nl-container-platform-container-second">
+          <div class="bt-activity-homepage-nl-container-platform-container-second-title">昨日平台交易手续费折合(USDT）</div>
+          <div class="bt-activity-homepage-nl-container-platform-container-second-score">{{toFixed(platformProfitsData.items.sumAmount,8)}}</div>
+        </div>
+
+        <div class="bt-activity-homepage-nl-container-platform-container-third">
+          <div class="bt-activity-homepage-nl-container-platform-container-third-title">
+            昨日挖矿产出(BT)
+          </div>
+          <div class="bt-activity-homepage-nl-container-platform-container-third-score">
+            {{toFixed(platformProfitsData.items.mining,8)}}
+          </div>
+        </div>
+
+        <div class="bt-activity-homepage-nl-container-platform-container-fourth">
+          <div class="bt-activity-homepage-nl-container-platform-container-fourth-title">今日总流通量(BT)</div>
+          <div class="bt-activity-homepage-nl-container-platform-container-fourth-score">{{platformProfitsData.items.grand ===''? '计算中' : toFixed(platformProfitsData.items.grand,8)}}</div>
+        </div>
+        <div class="bt-activity-homepage-l-container-platform-box-left-first-circle"></div>
+        <div class="bt-activity-homepage-l-container-platform-box-right-first-circle"></div>
+        <div class="bt-activity-homepage-l-container-platform-box-left-circle"></div>
+        <div class="bt-activity-homepage-l-container-platform-box-right-circle"></div>
+      </div>
+
+    </div>
+    <div v-if="is_login == true" class="bt-activity-homepage-l-container">
+      <div class="bt-activity-homepage-l-container-user-profit-box">
+        <div class="bt-activity-homepage-nl-container-platform-header">
+          <div class="bt-activity-homepage-nl-container-platform-header-left">
+            <div class="bt-activity-homepage-nl-container-platform-header-left-icon"></div>
+            <div class="bt-activity-homepage-nl-container-platform-header-left-text">我的收益</div>
+          </div>
+          <div class="bt-activity-homepage-nl-container-platform-header-right" @click="jumpToYouHistory()">
+            查看历史
+          </div>
+        </div>
+        <div class="bt-activity-homepage-l-container-user-profit-container-first">
+          <div class="bt-activity-homepage-l-container-user-profit-container-first-title">昨日分配收益折合(USDT)</div>
+          <div class="bt-activity-homepage-l-container-user-profit-container-first-score">{{toFixed(userProfitsData.usdt,8)}}</div>
+        </div>
+        <div class="bt-activity-homepage-l-container-user-profit-container-second">
+          <div class="bt-activity-homepage-l-container-user-profit-container-second-title">昨日总计获得(BT)</div>
+          <div class="bt-activity-homepage-l-container-user-profit-container-second-score">{{toFixed(userProfitsData.items.sum,8)}}</div>
+        </div>
+        <div class="bt-activity-homepage-l-container-user-profit-container-item" @click="jumpToYouHistory()">
+          <div class="bt-activity-homepage-l-container-user-profit-container-item-left">昨日挖矿收益</div>
+          <div class="bt-activity-homepage-l-container-user-profit-container-item-right">
+            <div class="bt-activity-homepage-l-container-user-profit-container-item-right-score">{{toFixed(userProfitsData.items.mining,8)}}</div>
+            <div class="bt-activity-homepage-l-container-user-profit-container-item-right-icon"></div>
+          </div>
+        </div>
+        <div class="bt-activity-homepage-l-container-user-profit-container-item" @click="jumpToBDBReward()">
+          <div class="bt-activity-homepage-l-container-user-profit-container-item-left">昨日使用BDB燃烧额外奖励</div>
+          <div class="bt-activity-homepage-l-container-user-profit-container-item-right">
+            <div class="bt-activity-homepage-l-container-user-profit-container-item-right-score">{{toFixed(userProfitsData.items.feeBonus,8)}}</div>
+            <div class="bt-activity-homepage-l-container-user-profit-container-item-right-icon"></div>
+          </div>
+        </div>
+        <div class="bt-activity-homepage-l-container-user-profit-container-item" @click="jumpToRecommend()">
+          <div class="bt-activity-homepage-l-container-user-profit-container-item-left">昨日邀请好友奖励</div>
+          <div class="bt-activity-homepage-l-container-user-profit-container-item-right">
+            <div class="bt-activity-homepage-l-container-user-profit-container-item-right-score">{{toFixed(userProfitsData.items.invite,8)}}</div>
+            <div class="bt-activity-homepage-l-container-user-profit-container-item-right-icon"></div>
+          </div>
+        </div>
+        <div class="bt-activity-homepage-l-container-user-box-left-circle"></div>
+        <div class="bt-activity-homepage-l-container-user-box-right-circle"></div>
+      </div>
+      <div class="bt-activity-homepage-l-container-platform-box">
+        <div class="bt-activity-homepage-nl-container-platform-header">
+          <div class="bt-activity-homepage-nl-container-platform-header-left">
+            <div class="bt-activity-homepage-nl-container-platform-header-left-icon"></div>
+            <div class="bt-activity-homepage-nl-container-platform-header-left-text">平台分配</div>
+          </div>
+          <div class="bt-activity-homepage-nl-container-platform-header-right" @click="jumpToPlatformHistory()">
+            查看历史
+          </div>
+        </div>
+
+        <div class="bt-activity-homepage-nl-container-platform-container-first">
+          <div class="bt-activity-homepage-nl-container-platform-container-first-title">
+            平台今日可挖BT数量
+          </div>
+          <div class="bt-activity-homepage-nl-container-platform-container-first-score">
+            {{toFixed(platformBTData.btTotalLimit,8)}}
+          </div>
+        </div>
+        <div class="bt-activity-homepage-nl-container-platform-container-second">
+          <div class="bt-activity-homepage-nl-container-platform-container-second-title">平台今日剩余可挖BT数量</div>
+          <div class="bt-activity-homepage-nl-container-platform-container-second-score">{{toFixed(platformBTData.btLeft,8)}}</div>
+        </div>
+
+        <div class="bt-activity-homepage-nl-container-platform-container-first">
+          <div class="bt-activity-homepage-nl-container-platform-container-first-title">
+            今日平台交易手续费折合(USDT)
+          </div>
+          <div class="bt-activity-homepage-nl-container-platform-container-first-score">
+            {{toFixed(platformProfitsData.dividend,8)}}
+          </div>
+        </div>
+        <div class="bt-activity-homepage-nl-container-platform-container-second">
+          <div class="bt-activity-homepage-nl-container-platform-container-second-title">昨日平台交易手续费折合(USDT）</div>
+          <div class="bt-activity-homepage-nl-container-platform-container-second-score">{{toFixed(platformProfitsData.items.sumAmount,8)}}</div>
+        </div>
+
+        <div class="bt-activity-homepage-nl-container-platform-container-third">
+          <div class="bt-activity-homepage-nl-container-platform-container-third-title">
+            昨日挖矿产出(BT)
+          </div>
+          <div class="bt-activity-homepage-nl-container-platform-container-third-score">
+            {{toFixed(platformProfitsData.items.mining,8)}}
+          </div>
+        </div>
+
+        <div class="bt-activity-homepage-nl-container-platform-container-fourth">
+          <div class="bt-activity-homepage-nl-container-platform-container-fourth-title">今日总流通量(BT)</div>
+          <div class="bt-activity-homepage-nl-container-platform-container-fourth-score">{{platformProfitsData.items.grand ===''? '计算中' : toFixed(platformProfitsData.items.grand,8)}}</div>
+        </div>
+        <div class="bt-activity-homepage-l-container-platform-box-left-first-circle"></div>
+        <div class="bt-activity-homepage-l-container-platform-box-right-first-circle"></div>
+        <div class="bt-activity-homepage-l-container-platform-box-left-circle"></div>
+        <div class="bt-activity-homepage-l-container-platform-box-right-circle"></div>
+      </div>
+    </div>
+
+
+
+
+
+
+    <!--未登录关于收益分红-->
+    <div v-if="!is_login == true" class="bt-activity-homepage-nl-container-jumpToHelp" @click="jumpToHelp()">
+      <div class="bt-activity-homepage-container-jumpToHelp-left">
+        <div class="bt-activity-homepage-container-jumpToHelp-left-icon">
+          <img class="bt-activity-homepage-container-jumpToHelp-left-img" src="../btActivityAssets/mobile_assets/container_question_icon.png" alt="">
+        </div>
+        <div class="bt-activity-homepage-container-jumpToHelp-left-text">关于挖矿收益</div>
+      </div>
+      <div class="bt-activity-homepage-container-jumpToHelp-right">
+        <img class="bt-activity-homepage-container-jumpToHelp-right-img" src="../btActivityAssets/mobile_assets/container_gohelp_icon.png" alt="">
+      </div>
+    </div>
+
+    <!--已登录关于收益分红-->
+    <div v-if="is_login == true" class="bt-activity-homepage-l-container-jumpToHelp" @click="jumpToHelp()">
+      <div class="bt-activity-homepage-container-jumpToHelp-left">
+        <div class="bt-activity-homepage-container-jumpToHelp-left-icon">
+          <img class="bt-activity-homepage-container-jumpToHelp-left-img" src="../btActivityAssets/mobile_assets/container_question_icon.png" alt="">
+        </div>
+        <div class="bt-activity-homepage-container-jumpToHelp-left-text">关于挖矿收益</div>
+      </div>
+      <div class="bt-activity-homepage-container-jumpToHelp-right">
+        <img class="bt-activity-homepage-container-jumpToHelp-right-img" src="../btActivityAssets/mobile_assets/container_gohelp_icon.png" alt="">
+      </div>
+    </div>
+
+
+
+    <!--<div class="bt-activity-homepage-container">-->
+
+      <!--&lt;!&ndash;我的收益和收益记录&ndash;&gt;-->
+      <!--<div class="bt-activity-homepage-container-title">-->
+        <!--<div class="bt-activity-homepage-container-title-left">我的收益</div>-->
+        <!--<div class="bt-activity-homepage-container-title-right" @click="jumpToYouHistory()">收益记录</div>-->
+      <!--</div>-->
+      <!--&lt;!&ndash;累计收益框&ndash;&gt;-->
+      <!--<div class="bt-activity-homepage-container-header-box">-->
+        <!--<div class="bt-activity-homepage-container-header-fl">-->
+          <!--<div class="bt-activity-homepage-container-header-fl-left">-->
+            <!--累计挖矿收益：-->
+          <!--</div>-->
+          <!--<div class="bt-activity-homepage-container-header-fl-right">-->
+            <!--{{is_login ?toFixed(userTotalProfit.BT,8)+' BT':'- -'}}-->
+          <!--</div>-->
+        <!--</div>-->
+        <!--<div class="bt-activity-homepage-container-header-sl">-->
+          <!--<div class="bt-activity-homepage-container-header-sl-left">-->
+            <!--累计持BT分红：-->
+          <!--</div>-->
+          <!--<div class="bt-activity-homepage-container-header-sl-right">-->
+            <!--{{is_login ? toFixed(userTotalProfit.RMB,2)+' ￥':'- -'}}-->
+            <!--<span class="bt-activity-homepage-container-header-sl-right-info">（折合约）</span>-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</div>-->
+      <!--&lt;!&ndash;昨日收益框&ndash;&gt;-->
+      <!--<div class="bt-activity-homepage-container-yesterday-box">-->
+        <!--<div class="bt-activity-homepage-container-yesterday-fl">-->
+          <!--<div class="bt-activity-homepage-container-yesterday-fl-left">-->
+            <!--昨日挖矿收益：-->
+          <!--</div>-->
+          <!--<div class="bt-activity-homepage-container-yesterday-fl-right">-->
+            <!--{{is_login?toFixed(userProfitsData.information.digAmount,8)+' BT':'- -'}}-->
+          <!--</div>-->
+        <!--</div>-->
+        <!--<div class="bt-activity-homepage-container-yesterday-sl">-->
+          <!--<div class="bt-activity-homepage-container-yesterday-sl-left">-->
+            <!--昨日持BT分红：-->
+          <!--</div>-->
+          <!--<div class="bt-activity-homepage-container-yesterday-sl-right">-->
+            <!--{{is_login ? toFixed(userProfitsData.bouns.allDividend,2)+' ￥':'- -'}}-->
+            <!--<span class="bt-activity-homepage-container-yesterday-sl-right-info">（折合约）</span>-->
+          <!--</div>-->
+        <!--</div>-->
+        <!--<ul class="bt-activity-homepage-container-yesterday-list">-->
+          <!--<li class="bt-activity-homepage-container-yesterday-item">-->
+            <!--<div class="bt-activity-homepage-container-yesterday-item-left">-->
+              <!--<div class="bt-activity-homepage-container-yesterday-item-left-icon">-->
+                <!--<img class="bt-activity-homepage-container-yesterday-item-left-icon-img" src="../btActivityAssets/mobile_assets/bdb_icon.png" alt="">-->
+              <!--</div>-->
+              <!--<div class="bt-activity-homepage-container-yesterday-item-left-title">-->
+                <!--BDB-->
+              <!--</div>-->
+            <!--</div>-->
+            <!--<div class="bt-activity-homepage-container-yesterday-item-right">-->
+              <!--{{is_login ? toFixed(userProfitsData.bouns.BDB,8):'- -'}}-->
+            <!--</div>-->
+          <!--</li>-->
+          <!--<li class="bt-activity-homepage-container-yesterday-item">-->
+            <!--<div class="bt-activity-homepage-container-yesterday-item-left">-->
+              <!--<div class="bt-activity-homepage-container-yesterday-item-left-icon">-->
+                <!--<img class="bt-activity-homepage-container-yesterday-item-left-icon-img" src="../btActivityAssets/mobile_assets/btc_icon.png" alt="">-->
+              <!--</div>-->
+              <!--<div class="bt-activity-homepage-container-yesterday-item-left-title">-->
+                <!--BTC-->
+              <!--</div>-->
+            <!--</div>-->
+            <!--<div class="bt-activity-homepage-container-yesterday-item-right">-->
+              <!--{{is_login ? toFixed(userProfitsData.bouns.BTC,8):'- -'}}-->
+            <!--</div>-->
+          <!--</li>-->
+          <!--<li class="bt-activity-homepage-container-yesterday-item">-->
+            <!--<div class="bt-activity-homepage-container-yesterday-item-left">-->
+              <!--<div class="bt-activity-homepage-container-yesterday-item-left-icon">-->
+                <!--<img class="bt-activity-homepage-container-yesterday-item-left-icon-img" src="../btActivityAssets/mobile_assets/eth_icon.png" alt="">-->
+              <!--</div>-->
+              <!--<div class="bt-activity-homepage-container-yesterday-item-left-title">-->
+                <!--ETH-->
+              <!--</div>-->
+            <!--</div>-->
+            <!--<div class="bt-activity-homepage-container-yesterday-item-right">-->
+              <!--{{is_login ? toFixed(userProfitsData.bouns.ETH,8):'- -'}}-->
+            <!--</div>-->
+          <!--</li>-->
+          <!--<li class="bt-activity-homepage-container-yesterday-item">-->
+            <!--<div class="bt-activity-homepage-container-yesterday-item-left">-->
+              <!--<div class="bt-activity-homepage-container-yesterday-item-left-icon">-->
+                <!--<img class="bt-activity-homepage-container-yesterday-item-left-icon-img" src="../btActivityAssets/mobile_assets/usdt_icon.png" alt="">-->
+              <!--</div>-->
+              <!--<div class="bt-activity-homepage-container-yesterday-item-left-title">-->
+                <!--USDT-->
+              <!--</div>-->
+            <!--</div>-->
+            <!--<div class="bt-activity-homepage-container-yesterday-item-right">-->
+              <!--{{is_login ? toFixed(userProfitsData.bouns.USDT,8):'- -'}}-->
+            <!--</div>-->
+          <!--</li>-->
+        <!--</ul>-->
+
+      <!--</div>-->
+      <!--&lt;!&ndash;平台奖励和查看历史&ndash;&gt;-->
+      <!--<div class="bt-activity-homepage-container-platform-title">-->
+        <!--<div class="bt-activity-homepage-container-platform-title-left">平台奖励</div>-->
+        <!--<div class="bt-activity-homepage-container-platform-title-right" @click="jumpToPlatformHistory">查看历史</div>-->
+      <!--</div>-->
+      <!--&lt;!&ndash;平台奖励框&ndash;&gt;-->
+      <!--<div class="bt-activity-homepage-container-yesterday-box">-->
+        <!--<div class="bt-activity-homepage-container-yesterday-fl">-->
+          <!--<div class="bt-activity-homepage-container-yesterday-fl-left">-->
+            <!--昨日社区奖励：-->
+          <!--</div>-->
+          <!--<div class="bt-activity-homepage-container-yesterday-fl-right">-->
+            <!--{{toFixed(platformProfitsData.information.digAmount,8)+' BT'}}-->
+          <!--</div>-->
+        <!--</div>-->
+        <!--<div class="bt-activity-homepage-container-yesterday-sl">-->
+          <!--<div class="bt-activity-homepage-container-yesterday-sl-left">-->
+            <!--昨日平台用户分红：-->
+          <!--</div>-->
+          <!--<div class="bt-activity-homepage-container-yesterday-sl-right">-->
+            <!--{{toFixed(platformProfitsData.bouns.allDividend,2)+' BT'}}-->
+            <!--<span class="bt-activity-homepage-container-yesterday-sl-right-info">（折合约）</span>-->
+          <!--</div>-->
+        <!--</div>-->
+        <!--<ul class="bt-activity-homepage-container-yesterday-list">-->
+          <!--<li class="bt-activity-homepage-container-yesterday-item">-->
+            <!--<div class="bt-activity-homepage-container-yesterday-item-left">-->
+              <!--<div class="bt-activity-homepage-container-yesterday-item-left-icon">-->
+                <!--<img class="bt-activity-homepage-container-yesterday-item-left-icon-img" src="../btActivityAssets/mobile_assets/bdb_icon.png" alt="">-->
+              <!--</div>-->
+              <!--<div class="bt-activity-homepage-container-yesterday-item-left-title">-->
+                <!--BDB-->
+              <!--</div>-->
+            <!--</div>-->
+            <!--<div class="bt-activity-homepage-container-yesterday-item-right">-->
+              <!--{{toFixed(platformProfitsData.bouns.BDB,8)}}-->
+            <!--</div>-->
+          <!--</li>-->
+          <!--<li class="bt-activity-homepage-container-yesterday-item">-->
+            <!--<div class="bt-activity-homepage-container-yesterday-item-left">-->
+              <!--<div class="bt-activity-homepage-container-yesterday-item-left-icon">-->
+                <!--<img class="bt-activity-homepage-container-yesterday-item-left-icon-img" src="../btActivityAssets/mobile_assets/btc_icon.png" alt="">-->
+              <!--</div>-->
+              <!--<div class="bt-activity-homepage-container-yesterday-item-left-title">-->
+                <!--BTC-->
+              <!--</div>-->
+            <!--</div>-->
+            <!--<div class="bt-activity-homepage-container-yesterday-item-right">-->
+              <!--{{toFixed(platformProfitsData.bouns.BTC,8)}}-->
+            <!--</div>-->
+          <!--</li>-->
+          <!--<li class="bt-activity-homepage-container-yesterday-item">-->
+            <!--<div class="bt-activity-homepage-container-yesterday-item-left">-->
+              <!--<div class="bt-activity-homepage-container-yesterday-item-left-icon">-->
+                <!--<img class="bt-activity-homepage-container-yesterday-item-left-icon-img" src="../btActivityAssets/mobile_assets/eth_icon.png" alt="">-->
+              <!--</div>-->
+              <!--<div class="bt-activity-homepage-container-yesterday-item-left-title">-->
+                <!--ETH-->
+              <!--</div>-->
+            <!--</div>-->
+            <!--<div class="bt-activity-homepage-container-yesterday-item-right">-->
+              <!--{{toFixed(platformProfitsData.bouns.ETH,8)}}-->
+            <!--</div>-->
+          <!--</li>-->
+          <!--<li class="bt-activity-homepage-container-yesterday-item">-->
+            <!--<div class="bt-activity-homepage-container-yesterday-item-left">-->
+              <!--<div class="bt-activity-homepage-container-yesterday-item-left-icon">-->
+                <!--<img class="bt-activity-homepage-container-yesterday-item-left-icon-img" src="../btActivityAssets/mobile_assets/usdt_icon.png" alt="">-->
+              <!--</div>-->
+              <!--<div class="bt-activity-homepage-container-yesterday-item-left-title">-->
+                <!--USDT-->
+              <!--</div>-->
+            <!--</div>-->
+            <!--<div class="bt-activity-homepage-container-yesterday-item-right">-->
+              <!--{{toFixed(platformProfitsData.bouns.USDT,8)}}-->
+            <!--</div>-->
+          <!--</li>-->
+        <!--</ul>-->
+
+      <!--</div>-->
+
+
+    <!--</div>-->
+  </div>
+
+
+  <!--弹窗显示-->
+  <!--<div v-if="!loading && toastOpen === true" class="bt-activity-toast">-->
+    <!--<div class="bt-activity-toast-box">-->
+      <!--<div class="bt-activity-toast-btn-close-box" @click="closeToast()">-->
+        <!--<img class="bt-activity-toast-btn-close-img" src="../btActivityAssets/mobile_assets/toast_close_icon.png" alt="">-->
+      <!--</div>-->
+      <!--<div class="bt-activity-toast-title">-->
+        <!--增加算力-->
+      <!--</div>-->
+      <!--<div class="bt-activity-toast-paragraph-title">-->
+        <!--算力规则：-->
+      <!--</div>-->
+      <!--<div class="bt-activity-toast-paragraph-info">-->
+        <!--您获得的BT量=您的算力/平台总算力 * BT社区奖励部分-->
+      <!--</div>-->
+      <!--<div class="bt-activity-toast-paragraph-info">-->
+        <!--您的算力=每日交易额*（1+算力系数）-->
+      <!--</div>-->
+      <!--<div class="bt-activity-toast-paragraph-info">-->
+        <!--BT社区奖励部分=BT每日挖矿总量*50%-->
+      <!--</div>-->
+      <!--<div class="bt-activity-toast-paragraph-second-title">-->
+        <!--方法一：-->
+        <!--<span class="bt-activity-toast-paragraph-title-info">提高交易量</span>-->
+      <!--</div>-->
+      <!--<div class="bt-activity-toast-btn-go-trading" @click="jumpToTrading()">去交易</div>-->
+      <!--<div class="bt-activity-toast-paragraph-second-title">-->
+        <!--方法二：-->
+        <!--<span class="bt-activity-toast-paragraph-title-info">参加币得宝活动</span>-->
+      <!--</div>-->
+      <!--<div class="bt-activity-toast-line-title">-->
+        <!--<div class="bt-activity-toast-line-title-left">BDB锁仓数量</div>-->
+        <!--<div class="bt-activity-toast-line-title-right">增加算力系数</div>-->
+      <!--</div>-->
+      <!--<div class="bt-activity-toast-line-info">-->
+        <!--<div class="bt-activity-toast-line-info-left">100≤锁仓量＜1万</div>-->
+        <!--<div class="bt-activity-toast-line-info-right">0.5%</div>-->
+      <!--</div>-->
+      <!--<div class="bt-activity-toast-line-info">-->
+        <!--<div class="bt-activity-toast-line-info-left">1万≤锁仓量＜10万</div>-->
+        <!--<div class="bt-activity-toast-line-info-right">1%</div>-->
+      <!--</div>-->
+      <!--<div class="bt-activity-toast-line-info">-->
+        <!--<div class="bt-activity-toast-line-info-left">10万≤锁仓量＜50万</div>-->
+        <!--<div class="bt-activity-toast-line-info-right">2%</div>-->
+      <!--</div>-->
+      <!--<div class="bt-activity-toast-line-info">-->
+        <!--<div class="bt-activity-toast-line-info-left">50万≤锁仓量＜100万</div>-->
+        <!--<div class="bt-activity-toast-line-info-right">3%</div>-->
+      <!--</div>-->
+      <!--<div class="bt-activity-toast-line-info">-->
+        <!--<div class="bt-activity-toast-line-info-left">100万≤锁仓量＜500万</div>-->
+        <!--<div class="bt-activity-toast-line-info-right">4%</div>-->
+      <!--</div>-->
+      <!--<div class="bt-activity-toast-line-info">-->
+        <!--<div class="bt-activity-toast-line-info-left">500万≤锁仓量</div>-->
+        <!--<div class="bt-activity-toast-line-info-right">5%</div>-->
+      <!--</div>-->
+      <!--<div class="bt-activity-toast-info">-->
+        <!--注：BDB锁仓数量取当前处于锁仓状态的BDB的数量和，即多个进行中的锁仓项目取BDB锁仓数量和-->
+      <!--</div>-->
+      <!--<div class="bt-activity-toast-btn-go-bdb" @click="jumpToBDB()">参加</div>-->
+
+
+
+
+
+    <!--</div>-->
+  <!--</div>-->
+
+
+  <!-- 提示 -->
+  </div>
+  <PopupPrompt :popOpen="popOpen" :popClose="closePop" :popType="popType" :popText="popText"/>
+</div>

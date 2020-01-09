@@ -1,0 +1,15 @@
+.mobile_chart_container_body{
+	position: relative;
+}
+#mobile_chart_container{
+	background: #081724;
+}
+.mobile_chart_bg{
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	/*background: red;*/
+	z-index: 1;
+}

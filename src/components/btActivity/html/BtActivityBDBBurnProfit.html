@@ -1,0 +1,135 @@
+<div class="auth-state-container border_radius">
+  <Loading v-if="loading"/>
+  <template v-else>
+
+    <!--标题 begin-->
+    <div class="title-box flex">
+      <span class="title-block"></span>
+      <div class="title-detail-box">
+        <span class="title-level-one text_blue">
+          <!--查看收益-->
+          {{$t('btActivityBDBBurnProfit.title_1')}}
+        </span>
+        <span class="title-next">></span>
+        <span class="title-level-two">
+          <!--使用BDB燃料额外奖励-->
+          {{$t('btActivityBDBBurnProfit.title_2')}}
+        </span>
+      </div>
+    </div>
+    <!--标题 end-->
+
+    <!--总计获得 begin-->
+    <div class="total-get-box flex">
+      <div class="total-get-title">
+        <!--总计获得BT：-->
+        {{$t('btActivityBDBBurnProfit.totalGet')}}
+      </div>
+      <div class="total-get-num text_blue">{{computedReward}}</div>
+    </div>
+    <!--总计获得 end-->
+
+    <!--奖励列表 begin-->
+    <div class="reward-list-box">
+      <div class="reward-list-title-box flex">
+        <div class="reward-list-title-detail">
+          <!--奖励列表-->
+          {{$t('btActivityBDBBurnProfit.rewardListTitle')}}
+        </div>
+        <div class="reward-list-title-explain text_blue flex pointer" @click="openPopupWindow">
+          <!--奖励规则说明-->
+          {{$t('btActivityBDBBurnProfit.rewardListRule')}}
+          <img src="../assets/BtActivityBDBBurnProfit/bt-activity-auth-question.png" class="question-icon"/>
+        </div>
+      </div>
+      <ul class="reward-list-detail-box border_radius box_shadow">
+        <li class="reward-list-head-box flex">
+          <div class="date">
+            <!--日期-->
+            {{$t('btActivityBDBBurnProfit.listTitle_1')}}
+          </div>
+          <div class="number">
+            <!--使用BDB燃料数量-->
+            {{$t('btActivityBDBBurnProfit.listTitle_2')}}
+          </div>
+          <div class="reward">
+            <!--奖励 (BT)-->
+            {{$t('btActivityBDBBurnProfit.listTitle_3')}}
+          </div>
+        </li>
+        <li class="reward-list-content-box flex" v-for="item in BDBBurnProfitRecords">
+          <div class="date">{{item.date}}</div>
+          <div class="number">{{toFixed(item.feeRefunded,8)}}</div>
+          <div class="reward">{{toFixed(item.bonus,8)}}</div>
+        </li>
+        <li class="reward-list-content-box flex" v-if="BDBBurnProfitRecords.length ===0">
+          <div class="date">--</div>
+          <div class="number">--</div>
+          <div class="reward">--</div>
+        </li>
+
+      </ul>
+
+      <!--分页 begin-->
+      <PageBar :maxPage='maxPage'
+               :selectIndex="selectIndex"
+               :clickChangePage="clickChangePage"
+               :currentDisplay=2
+               :initDisplay=2
+               class="page-bar-box"
+               v-show="maxPage>1"
+      />
+      <!--分页 end-->
+
+
+    </div>
+    <!--奖励列表 end-->
+
+
+  </template>
+
+
+  <!--弹窗 begin-->
+  <PopupWindow :open="popOpen" :close="closePopupWindow">
+    <div slot="header">
+      <!--奖励规则说明-->
+      {{$t('btActivityBDBBurnProfit.popupWindowTitle')}}
+    </div>
+
+    <div slot="article" class="popup-window-article">
+      <!--提示文案 begin-->
+      <Loading v-if="regulationConfigLoading"/>
+      <div class="popup-window-article-detail-box" v-else>
+        <p class="popup-window-article-explain">
+          <!--1.使用BDB支付交易手续费（7折），即可参与该活动。-->
+          {{$t('btActivityBDBBurnProfit.popupWindowDetail_1')}}
+        </p>
+        <p class="popup-window-article-explain">
+          <!--2.使用BDB燃烧支付的手续费部分，可获得额外的{{rewardRate*100}}%BT奖励。-->
+          {{$t('btActivityBDBBurnProfit.popupWindowDetail_2',{rewardRate:rewardRate*100})}}
+        </p>
+        <p class="popup-window-article-explain">
+          <!--3.当天获得的奖励，于次日13:00（香港时间）开始发放。-->
+          {{$t('btActivityBDBBurnProfit.popupWindowDetail_3')}}
+        </p>
+        <p class="popup-window-article-explain">
+          <!--4.活动如有调整以平台更新为准，本活动最终解释权归EUNEX所有。-->
+          {{$t('btActivityBDBBurnProfit.popupWindowDetail_4')}}
+        </p>
+      </div>
+      <!--提示文案 end-->
+    </div>
+
+    <div slot="footer" class="popup-window-footer flex-center">
+      <button class="popup-window-button btn_blue button-base" @click="closePopupWindow">
+        <!--我知道了-->
+        {{$t('btActivityBDBBurnProfit.popupWindowDetail_5')}}
+      </button>
+    </div>
+
+
+  </PopupWindow>
+  <!--弹窗 end-->
+
+
+</div>

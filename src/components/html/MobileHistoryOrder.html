@@ -1,0 +1,76 @@
+<div>
+    <div class="_m_co_t txt_40 flex-row">
+        <span>市场</span>
+        <span>单价</span>
+        <span>成交量 / 数量</span>
+    </div>
+
+    <ul class="history-order-list">
+        <li v-for="(order,index) in historyOrderComputed" :key="order.id" class="_m_co_l flex-row" @click="goDetail(order)">
+            <div class="_m_co_l1 flex-colum flex-between">
+                <div class="_m_co_l1i flex-row">
+                    <i :style="order.type==='BUY_LIMIT'?'background:#00a62a':'background:#d83838'">
+
+                        {{order.type === 'BUY_LIMIT' && "买" || "卖"}}
+                    </i>
+                    <span>{{order.symbol.split('_')[0]}}</span><span class="txt_40">&nbsp;/&nbsp;{{order.symbol.split('_')[1]}}</span>
+                </div>
+                <div class="txt_40">
+                    {{$globalFunc.formatDateUitl(order.createdAt,'MM-DD hh:mm:ss')}}
+                </div>
+            </div>
+            <div class="_m_co_l2 flex-colum">
+                <!--<span>{{$globalFunc.accFixed(averagePrice, 8)}}</span>-->
+                <span>{{$globalFunc.accFixed(order.price, !!quoteScale_list[order.symbol] ? quoteScale_list[order.symbol].quoteScale : 8)}}</span>
+            </div>
+            <div class="_m_co_l3 flex-colum">
+                <span >{{$globalFunc.accFixed(order.filledAmount, !!quoteScale_list[order.symbol] ? quoteScale_list[order.symbol].baseScale : 8)}}</span>
+                <span class="txt_40">{{$globalFunc.accFixed(order.amount, !!quoteScale_list[order.symbol] ? quoteScale_list[order.symbol].baseScale : 8)}}</span>
+            </div>
+        </li>
+    </ul>
+
+    <!--<div class="mobile-history-list" v-for="(order,index) in historyOrderComputed" :key="order.id"-->
+         <!--&gt;-->
+        <!--<div class="mobile-history-item">-->
+            <!--<div class="mobile-history-item-first-line" @click="showDetail(order.id,order.status)">-->
+                <!--<div class="mobile-history-item-icon" :class="order.type==='BUY_LIMIT'?'mobile-history-item-icon-buy':'mobile-history-item-icon-sale'">-->
+                    <!--{{order.type === 'BUY_LIMIT'  && "买" || "卖"}}-->
+                <!--</div>-->
+                <!--<div class="mobile-history-item-compare">-->
+                    <!--{{order.symbol.split('_')[0]}}/{{order.symbol.split('_')[1]}}-->
+                <!--</div>-->
+                <!--<div class="mobile-history-item-time">-->
+                    <!--委托 {{$globalFunc.formatDateUitl(order.createdAt,'YYYY-MM-DD hh:mm:ss')}}-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="mobile-history-item-second-line" @click="showDetail(order.id,order.status)">-->
+                <!--<div class="mobile-history-item-price-title">单价</div>-->
+                <!--<div class="mobile-history-item-price">{{$globalFunc.accFixed(order.price, 8)}}</div>-->
+                <!--<div class="mobile-history-item-num-title">委托数量</div>-->
+                <!--<div class="mobile-history-item-num">{{order.amount}}</div>-->
+
+                <!--<div class="mobile-history-item-complete-btn">{{getStatus(order)}}</div>-->
+            <!--</div>-->
+            <!--&lt;!&ndash;控制是否显示&ndash;&gt;-->
+            <!--<div class="mobile-history-item-hidden" v-show="clickThis===order.id">-->
+
+                <!--<HistoryDetail :orderId="order.id" :symbol="order.symbol"-->
+                               <!--:orderType="order.type ==='BUY_LIMIT'?0:1"/>-->
+                <!--<div class="mobile-history-item-hidden-first-line">-->
+                    <!--<div class="mobile-history-item-hidden-charge-title">手续费</div>-->
+                    <!--<div class="mobile-history-item-hidden-charge">{{order.fee.toFixed(8)}} {{order.symbol.split('_')[0]}}</div>-->
+                    <!--<div class="mobile-history-item-hidden-num-title">成交数量</div>-->
+                    <!--<div class="mobile-history-item-hidden-num">{{order.filledAmount}} {{order.symbol.split('_')[0]}}</div>-->
+                <!--</div>-->
+                <!--<div class="mobile-history-item-hidden-second-line">-->
+                    <!--<div class="mobile-history-item-hidden-charge-title">实际到账</div>-->
+                    <!--<div class="mobile-history-item-hidden-charge">0.12345678 BTC</div>-->
+                    <!--<div class="mobile-history-item-hidden-num-title">完成时间</div>-->
+                    <!--<div class="mobile-history-item-hidden-num">03-10 12:20:30</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+
+</div>

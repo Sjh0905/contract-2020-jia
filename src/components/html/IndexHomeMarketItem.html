@@ -1,0 +1,14 @@
+<div class="table_div">
+
+
+	<li>{{RE_NAME(name)}}</li>
+	<li>{{$globalFunc.accFixed(now_price, !!quoteScale_list[name] ? quoteScale_list[name].quoteScale : 8)}}&nbsp;&nbsp;&nbsp;<span>{{cny_price}}</span></li>
+	<li :class="diff24 >= 0 ? 'txt_up' : 'txt_down' ">
+		<span v-if="diff24 > 0">+</span>
+		<span v-if="diff24 < 0">-</span>
+		{{Math.abs(diff24).toFixed(2)}}%
+	</li>
+	<li>{{$globalFunc.accFixed(high24, !!quoteScale_list[name] ? quoteScale_list[name].quoteScale : 8)}}</li>
+	<li>{{$globalFunc.accFixed(low24, !!quoteScale_list[name] ? quoteScale_list[name].quoteScale : 8)}}</li>
+	<li>{{volume}} {{name.split('_')[0]}}</li>
+</div>

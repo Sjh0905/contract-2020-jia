@@ -1,0 +1,18 @@
+<div>
+    <ul class="_m_stck_wt txt_40 flex-row ">
+        <li>买盘</li>
+        <li>卖盘</li>
+    </ul>
+
+    <div class="_m_stck_wp flex-between">
+        <div>
+            <MobileStockCrossItems :transactionData = "buyOrders" :transactionType = "1"/>
+        </div>
+        <div>
+            <MobileStockCrossItems :transactionData = "sellOrders" :transactionType = "0"/>
+        </div>
+    </div>
+
+
+
+</div>

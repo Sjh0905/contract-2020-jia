@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Start of customerservice8872 Zendesk Widget script -->
+  <!--<script id="ze-snippet" src="https://static.zdassets.com/ekr/snippet.js?key=5c4c59bb-6d4c-4a02-8683-4b820de3ab15"/>-->
+  <!-- End of customerservice8872 Zendesk Widget script -->
+  <meta charset="utf-8">
+  <!--<meta name="viewport" content="width=device-width,initial-scale=1.0">-->
+  <meta content="yes" name="apple-mobile-web-app-capable">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+  <meta name="format-detection" content="telephone=no,email=no,address=no">
+  <meta name="keywords" content="欧联,EUNEX,EUNEX,EUNEX,欧联,欧联交易所,EUNEX交易所,EUNEX交易所,EUNEX交易所,欧联交易所，欧联交易平台,EUNEX交易平台,EUNEX交易平台,EUNEX交易平台,欧联交易平台,欧联Exchange,EUNEXExchange,EUNEXExchange,EUNEXExchange,欧联Exchange">
+
+  <title>欧联 - 全球数字货币交易平台</title>
+  <link rel="icon" href="/static/images/欧联logo.ico">
+  <script src="/static/qrcode.min.js"></script>
+  <link rel="stylesheet" href="/static/index.css">
+
+  <script>
+    !function(n){
+      var  e=n.document,
+        t=e.documentElement,
+        i=37.5,
+        d=i/5,
+        o="orientationchange"in n?"orientationchange":"resize",
+        a=function(){
+          var n=t.clientWidth||375;
+          if(n>768) {t.style.fontSize="10px"}
+          else {t.style.fontSize=n/d+"px"}
+
+        };
+      e.addEventListener&&(n.addEventListener(o,a,!1),e.addEventListener("DOMContentLoaded",a,!1))
+    }(window);
+  </script>
+
+
+</head>
+<body id="body">
+<div id="app">
+
+<!--  <div class="loading-container">-->
+<!--    <div class="line-scale-pulse-out">-->
+<!--      <div></div>-->
+<!--      <div></div>-->
+<!--      <div></div>-->
+<!--      <div></div>-->
+<!--      <div></div>-->
+<!--    </div>-->
+<!--  </div>-->
+  <div class="dongt" id="dongt" style="display: none">
+    <img src="/static/images/dong1.gif" alt="">
+
+<!--    <img src="/static/images/floadingbai.png" alt="">-->
+  </div>
+
+
+</div>
+<script>
+  window.onload = function () {
+
+      var parseSearch = function (hash) {
+          let data = {}
+          // console.log('=========================', hash)
+          if (!hash || hash.length <= 0) return data
+          hash = hash.split('?')[1]
+          if (!hash) return data
+          // console.log('=========================', hash)
+          hash.split('&').forEach((value) => {
+              data[ decodeURIComponent( value.split('=')[0] ) ] = decodeURIComponent( value.split('=')[1] )
+          })
+          return data
+      }
+
+      var o = parseSearch(window.location.search)
+      if(!o.ani){
+          document.getElementById('dongt').style.display="block";
+          document.getElementById('body').style.backgroundColor="#000";
+      }
+    var theUA = window.navigator.userAgent.toLowerCase();
+    if ((theUA.match(/msie\s\d+/) && theUA.match(/msie\s\d+/)[0]) || (theUA.match(/trident\s?\d+/) && theUA.match(/trident\s?\d+/)[0])) {
+      var ieVersion = theUA.match(/msie\s\d+/)[0].match(/\d+/)[0] || theUA.match(/trident\s?\d+/)[0];
+      if (ieVersion < 10) {
+        var str = "你的浏览器版本太旧了\n已经和时代脱轨了 :(";
+        var str2 = "推荐使用:<a href='https://www.baidu.com/s?ie=UTF-8&wd=%E8%B0%B7%E6%AD%8C%E6%B5%8F%E8%A7%88%E5%99%A8' target='_blank' style='color:#25ced6'>谷歌</a>,"
+          + "<a href='https://www.baidu.com/s?ie=UTF-8&wd=%E7%81%AB%E7%8B%90%E6%B5%8F%E8%A7%88%E5%99%A8' target='_blank' style='color:#25ced6'>火狐</a>,"
+          + "<a href='https://www.baidu.com/s?ie=UTF-8&wd=%E7%8C%8E%E8%B1%B9%E6%B5%8F%E8%A7%88%E5%99%A8' target='_blank' style='color:#25ced6'>猎豹</a>,其他双核急速模式";
+        document.writeln("<pre style='\n" + "text-align:center;color:#333; height:100%;border:0;position:fixed;top:0;left:0;width:100%;z-index:1234'>" +
+          "<h2 style='padding-top:200px;margin:0;font-size: 20px;'><strong>" + str + "<br/></strong></h2><p style='padding-top:0px;margin-top:10px;font-size: 16px;'> " +
+          str2 + "</p><h2 style='padding-top:0px;margin-top:10px;font-size: 16px;'><strong>如果你的使用的是双核浏览器,请切换到极速模式访问<br/></strong></h2></pre>");
+      }
+    }
+  }
+</script>
+
+<!--友盟统计 Start-->
+<!--<script type="text/javascript" src="https://s4.cnzz.com/z_stat.php?id=1278134324&web_id=1278134324"></script>-->
+<!--友盟统计 End-->
+<!--<div style="display:none">-->
+
+<!--  <script type="text/javascript" src="https://hm.baidu.com/hm.js?86996aa523867dcd16857b3bcedc21cc"></script>-->
+<!--</div>-->
+</body>
+</html>

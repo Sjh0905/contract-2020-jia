@@ -1,0 +1,95 @@
+  <div class="AnnouncementCenter">
+<div class="container box_shadow border_radius">
+  <div class="title-i flex">
+    <!-- <span></span> -->
+    <span>{{$t('noticeCenter.title')}}</span>
+    <!-- <p class="search"> -->
+      <!--<div class="unit-input-container flex">-->
+      <!--<font class="flex-center unit-input-container-title"><img-->
+      <!--src="" alt=""></font>-->
+      <!--<input type="text" :placeholder="$t('noticeCenter.search')"-->
+      <!--class="unit-input"></div>-->
+      <!--<router-link to="/index/help/wordOrder" class="order_btn" active-class="selected">{{$t('noticeCenter.commit')}}-->
+      <!--</router-link>-->
+    <!-- </p> -->
+  </div>
+  <div class="article">
+    <Loading v-if="loading"></Loading>
+    <!--列表-->
+    <ul class="log-container" v-else>
+
+      <!--公告列表 begin-->
+      <li class=" flex pointer border_radius"
+       v-for="item in computedNoticeList" :key="item.id"
+          @click="clickToDetail(item.id)"
+          :class = "item.id==routeId ? 'log-detail-i' : 'log-detail'"
+          >
+        <span class="title">
+         {{maxTitleLength(item.title)}}
+         <!-- ({{formatDateUitl(item.beginTime)}}) -->
+        </span>
+        <span class="time"></span>
+      </li>
+      <!--公告列表 end-->
+
+
+      <!-- 加载更多 begin  txt-green -->
+      <li class="loading-more" v-if="loadingMore">
+        <span class="pointer" v-if="!loadingMoreIng"
+              @click="clickToLoadingMore">{{$t('noticeCenter.loadingMore')}}</span>
+        <span v-else>{{$t('noticeCenter.loadingMoreIng')}}</span>
+      </li>
+      <!-- 加载更多 end -->
+
+      <!-- 静态公告 begin -->
+      <!--<template v-if="!loadingMore">-->
+      <!--<li class="log-detail flex" v-if="lang !=='CH'">-->
+      <!--<span class="title">-->
+      <!--<a href="http://mp.weixin.qq.com/s/cYTjX6jhmw9R7NDKQ35Q1w" target="_blank" active-class="selected">-->
+      <!--ICC world premiere listing，6 million ICC distributed for BTC users!-->
+      <!--&lt;!&ndash;EUNEX开放提币公告！&ndash;&gt;-->
+      <!--</a>-->
+      <!--</span>-->
+      <!--<span class="time">2018-02-09 &nbsp;15:29:22</span>-->
+      <!--</li>-->
+      <!--<li class="log-detail flex">-->
+      <!--<span class="title">-->
+      <!--<a href="http://mp.weixin.qq.com/s/E7uvcT7yjROw75lImyvjPg" target="_blank" active-class="selected">-->
+      <!--{{$t('noticeCenter.title_3')}}-->
+      <!--&lt;!&ndash;EUNEX开放提币公告！&ndash;&gt;-->
+      <!--</a>-->
+      <!--</span>-->
+      <!--<span class="time">2018-02-08 &nbsp;16:48:05</span>-->
+      <!--</li>-->
+      <!--<li class="log-detail flex">-->
+      <!--<span class="title">-->
+      <!--<a href="http://mp.weixin.qq.com/s/Fsz4LiCieilQdK-1H83Y1A" target="_blank" active-class="selected">-->
+      <!--{{$t('noticeCenter.title_2')}}-->
+      <!--&lt;!&ndash;EUNEX开放充值交易公告！&ndash;&gt;-->
+      <!--</a>-->
+      <!--</span>-->
+      <!--<span class="time">2018-02-07 &nbsp;08:42:36</span>-->
+      <!--</li>-->
+      <!--<li class="log-detail flex">-->
+      <!--<span class="title">-->
+      <!--<a href="http://mp.weixin.qq.com/s/mDzwpZvqW7Whbtls6uswZg" target="_blank" active-class="selected">-->
+      <!--{{$t('noticeCenter.openNotice')}}-->
+      <!--&lt;!&ndash;EUNEX开放充值交易公告！&ndash;&gt;-->
+      <!--</a>-->
+      <!--</span>-->
+      <!--<span class="time">2018-02-04 &nbsp;16:36:10</span>-->
+      <!--</li>-->
+      <!--</template>-->
+      <!-- 静态公告 end -->
+
+    </ul>
+    <!--<p class="more">{{$t('noticeCenter.more')}}</p>-->
+  </div>
+
+</div>
+  <div class="noticeboard">
+      <!-- <keep-alive> -->
+    <router-view :key='$route.fullPath'></router-view>
+      <!-- </keep-alive> -->
+  </div>
+</div>

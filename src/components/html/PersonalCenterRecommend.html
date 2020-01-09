@@ -1,0 +1,315 @@
+<div class="container-i border_radius">
+  <div class="banner">
+    <img v-if="lang=='CH'" src="../../assets/banner_yqchina.png">
+    <img v-else src="../../assets/banner_yqchina.png">
+<!--    <div class="activity-rate-box" :class="{'activity-rate-box-en':lang!=='CH'}">-->
+<!--      {{activityRate * 100 || '&#45;&#45;'}}%-->
+<!--    </div>-->
+  </div>
+
+  <div class="fenxbuzhou">
+    <div class="buzhou">
+      <div class="buzhout"><img src="../../assets/bzhou1.png"></div>
+      <div class="buzhouinfo">
+        <div class="buzhou_title">{{$t("Send.friend")}}</div>
+        <div class="buzhou_info">{{$t("Send.friend_1")}}</div>
+      </div>
+      <div class="line"></div>
+      <div class="buzhout"><img src="../../assets/bzhou2.png"></div>
+      <div class="buzhouinfo">
+        <div class="buzhou_title">{{$t("Send.friend_2")}}</div>
+        <div class="buzhou_info">{{$t("Send.friend_3")}}</div>
+      </div>
+<!--      <div class="line"></div>-->
+<!--      <div class="buzhout"><img src="../../assets/bzhou3.png"></div>-->
+<!--      <div class="buzhouinfo">-->
+<!--        <div class="buzhou_title">{{$t("Send.friend_4")}}</div>-->
+<!--        <div class="buzhou_info">{{$t("Send.friend_5")}}</div>-->
+<!--      </div>-->
+
+    </div>
+  </div>
+
+  <!-- 我的分享方式 start -->
+  <div class="share_container">
+    <div class="share_bj">
+    <div class="sharetitle">
+      <span>{{$t('personalCenterRecommend.title')}}</span>
+    </div>
+    <div class="myercode">
+        <ul>
+<!--          <li>-->
+<!--            <div class="myzs">-->
+<!--              <span>{{$t('personalCenterRecommend.qrcodeposter')}}</span>-->
+<!--              <div class="selecthbbut"  @click="SHOW_POSTER">{{$t('personalCenterRecommend.myqrcodeposter')}}</div>-->
+
+<!--            </div>-->
+<!--          </li>-->
+          <li>
+            <div class="myzs">
+              <span>{{$t('personalCenterRecommend.zhuansyaoqm')}}</span>
+              <div class="zsyaoqm">
+                <div class="zscode">
+                  <input  ref="getUrl" v-model="uId"  readonly>
+                  </div>
+                <div class="shut">|</div>
+                <div class="copycode" @click="copyUrl">{{$t('personalCenterRecommend.copyyaoqm')}}</div>
+              </div>
+            </div>
+          </li>
+          <li>
+
+            <div class="erwmwai">
+              <div class="erweima">{{$t('personalCenter.Qrcode')}}</div>
+              <div class="erwmak">
+                <div class="share_qrcode">
+                  <Qrcode class="qrcode"
+                          :size="qrsize"
+                          :value="value"
+                          :logo="logo"
+                          :bgColor="bgColor"
+                          :fgColor="fgColor"
+                  >
+                  </Qrcode>
+<!--                    使用插件生成二维码-->
+<!--                  <Qrcoed class="qrcode">-->
+<!--                      &lt;!&ndash; 生成二维码开放接口:-->
+<!--                      二维码内容[通常为url]-->
+<!--                      二维码大小[限制为正方形]-->
+<!--                      二维码下方显示：文字-->
+<!--                      二维码中间显示：图片&ndash;&gt;-->
+<!--                    <div id="meQrcode" :title="qrText">-->
+<!--                      <div class="qrcode_box">-->
+<!--                        <img class="qrcode_canvas" id="qrcode_canvas" ref="qrcode_canvas" alt="二维码本图"/>-->
+<!--                        <img v-if="qrLogo" class="qrcode_logo" ref="qrcode_logo" :src="qrLogo" alt="公司logo"-->
+<!--                        />-->
+<!--                        <canvas :width="qrSize" :height="qrSize" class="canvas" ref="canvas"></canvas>-->
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                  </Qrcoed>-->
+
+                </div>
+            </div>
+<!--              <p>{{$t('personalCenter.Qrcode')}}</p>-->
+            </div>
+          </li>
+        </ul>
+    </div>
+    </div>
+  </div>
+  <!-- 我的分享方式 end -->
+
+  <!-- 邀请人数start -->
+  <div class="share_container">
+    <div class="share_bj">
+    <div class="yaoqxq">
+      <div class="yaoqrs">
+        <div class="titless1">{{$t('personalCenterRecommend.yiyaoqdhaoy')}}</div>
+        <div class="titless2"><span>{{size || '--'}}</span></div>
+      </div>
+      <div class="shutt1"></div>
+      <div class="yaoqrs">
+        <div class="titless1">{{$t('personalCenterRecommend.yihuorenshu')}}</div>
+        <div class="titless2"><span>{{identityAuthCount || '--'}}</span></div>
+      </div>
+<!--      <div class="shutt2"></div>-->
+<!--      <div class="yaoqrs">-->
+<!--        <div class="titless1">{{$t('personalCenterRecommend.yihuodejinbi')}}</div>-->
+<!--        <div class="titless2"><span>{{totalRegister || '&#45;&#45;'}}</span></div>-->
+<!--      </div>-->
+
+    </div>
+    </div>
+
+  </div>
+  <!-- 邀请人数end -->
+
+  <!-- <div class="title flex">
+    <span></span>
+    <span>{{$t('personalCenterRecommend.title')}}<font>{{uId}}</font></span>
+    <span>{{$t('personalCenterRecommend.shareUrl')}}<input ref="getUrl" v-model="shareUrl" readonly>
+      <button
+      @click="copyUrl" class="copy-btn">{{$t('personalCenterRecommend.copy')}}</button>
+    </span>
+  </div> -->
+  <!--查看历史 title begin-->
+<!--  <div v-if="historyShow" class="record-title-box">-->
+<!--    <router-link :to="{name:'BtActivityRecommend'}" class="record-title-detail text_blue">-->
+<!--      &lt;!&ndash;查看历史&ndash;&gt;-->
+<!--      {{$t('personalCenterRecommend.checkHistory')}}-->
+<!--    </router-link>-->
+<!--  </div>-->
+  <!--查看历史 title end-->
+
+
+  <!-- 明细start -->
+  <div class=" share_container article border_radius ">
+    <div class="share_bj">
+    <div class="log-title flex">
+      <span class="time">{{$t('personalCenterRecommend.index')}}</span>
+      <span class="ip">{{$t('personalCenterRecommend.userName')}}</span>
+      <span class="source">{{$t('personalCenterRecommend.authState')}}</span>
+<!--      <span class="city">-->
+<!--        &lt;!&ndash;注册返利&ndash;&gt;-->
+<!--        {{$t('personalCenterRecommend.registerReward')}}-->
+<!--      </span>-->
+<!--      <span class="trading">-->
+<!--        {{$t('personalCenterRecommend.trading')}}-->
+<!--        &lt;!&ndash; 是否有交易 &ndash;&gt;-->
+<!--      </span>-->
+      <!--<span class="reward">-->
+        <!--<span class="reward-txt">-->
+          <!--&lt;!&ndash;昨日奖励&ndash;&gt;-->
+          <!--{{$t('personalCenterRecommend.yesterdayReward')}}-->
+        <!--</span>-->
+      <!--</span>-->
+      <!--<span class="reward">-->
+        <!--<span class="reward-txt">-->
+          <!--&lt;!&ndash;累计奖励&ndash;&gt;-->
+          <!--{{$t('personalCenterRecommend.totalReward')}}-->
+          <!--<img class="question-icon pointer" @click="clickActivityPopOpen"-->
+               <!--src=""/>-->
+        <!--</span>-->
+      <!--</span>-->
+    </div>
+    <ul class="log-container">
+      <li class="loading-box" v-if="loading">
+        <Loading/>
+      </li>
+
+      <template v-if="!loading && recordsLength!==0">
+
+        <!--每一行数据start-->
+        <li class="log-detail flex" v-for="(item,index) in records" :key="index">
+          <span class="time">{{index+1}}</span>
+          <span class="ip">{{handleName(item.beInvitedEmail)}}</span>
+          <span class="source">{{item.identityAuthStatus===2?$t('personalCenterRecommend.yesAuth'):$t('personalCenterRecommend.noAuth')}}</span>
+<!--          <span class="city">{{item.invitedNum===0?'&#45;&#45;':item.invitedNum}}</span>-->
+<!--          <span class="trading">-->
+<!--              {{item.isExchange==0?'&#45;&#45;':$t('personalCenterRecommend.yesorno')}}-->
+<!--            </span>-->
+          <!--<span class="reward">{{item.yesterdayReward ? toFixed(item.yesterdayReward,8): '-&#45;&#45;'}}</span>-->
+          <!--<span class="reward">{{item.totalRebate ? toFixed(item.totalRebate,8): '-&#45;&#45;'}}</span>-->
+        </li>
+        <!--每一行数据end-->
+
+        <!--加载更多start-->
+        <li v-if="loadingMore" class="loading-more">
+          <span v-if="!loadingMoreIng" @click="clickToLoadMore" class="pointer txt-green">{{$t('personalCenterRecommend.loadingMore')}}</span>
+          <span v-if="loadingMoreIng">{{$t('personalCenterRecommend.loadingMoreIng')}}</span>
+        </li>
+        <!--加载更多end-->
+
+        <!--已全部显示start-->
+        <li class="loading-more"  v-if="!loadingMore && recordsLength!==0">
+          <span v-if="!loadingMoreIng"  class="pointer txt-green">{{$t('personalCenterRecommend.yqrallshow')}}</span>
+        </li>
+        <!--已全部显示end-->
+<!--        <li class="log-detail flex" v-if="!loadingMore && recordsLength!==0">-->
+<!--          <span class="time">{{$t('personalCenterRecommend.total')}}</span>-->
+<!--          <span class="ip">-&#45;&#45;</span>-->
+<!--          <span class="source">-&#45;&#45;</span>-->
+<!--          <span class="city">{{$t('personalCenterRecommend.Approx')}} {{totalRegister}} </span>-->
+<!--          &lt;!&ndash;<span class="reward">{{$globalFunc.accFixed(totalYesterday, 8)}} BT</span>&ndash;&gt;-->
+<!--          &lt;!&ndash;<span class="reward">{{$globalFunc.accFixed(totalRebate, 8)}} BT</span>&ndash;&gt;-->
+<!--        </li>-->
+      </template>
+
+      <template v-if="!loading && recordsLength === 0">
+<!--        <li class="log-detail flex">-->
+<!--          <span class="time">&#45;&#45;</span>-->
+<!--          <span class="ip">-&#45;&#45;</span>-->
+<!--          <span class="source">-&#45;&#45;</span>-->
+<!--          <span class="city">-&#45;&#45;</span>-->
+<!--&lt;!&ndash;          <span class="reward">&#45;&#45;&#45;&#45;</span>&ndash;&gt;-->
+<!--&lt;!&ndash;          <span class="reward">&#45;&#45;&#45;&#45;</span>&ndash;&gt;-->
+<!--        </li>-->
+        <div class="nohavedata">{{$t('personalCenterRecommend.nohavedata')}}</div>
+      </template>
+
+    </ul>
+    </div>
+  </div>
+  <!-- 明细end -->
+
+
+  <!-- 邀请返佣奖励细则start -->
+<!--  <div class="share_container">-->
+<!--    <div class="share_bj">-->
+<!--    <div class="sharetitle">-->
+<!--      <span>{{$t('personalCenterRecommend.yaoqingxz')}}</span>-->
+<!--    </div>-->
+<!--    <div class="mingxiz">-->
+<!--      <span>{{$t('personalCenterRecommend.yaoqingxz_1')}}</span>-->
+<!--      <span>{{$t('personalCenterRecommend.yaoqingxz_2')}}</span>-->
+<!--      <span>{{$t('personalCenterRecommend.yaoqingxz_3')}}</span>-->
+<!--      <span>{{$t('personalCenterRecommend.yaoqingxz_4')}}</span>-->
+<!--      <span>{{$t('personalCenterRecommend.yaoqingxz_5')}}</span>-->
+<!--    </div>-->
+<!--    </div>-->
+<!--  </div>-->
+  <!-- 邀请返佣奖励细则end -->
+
+  <!-- 提示信息 start -->
+  <PopupPrompt :popType="popType" :popText="popText" :popOpen="promptOpen" :popClose="closePrompt"></PopupPrompt>
+  <!-- 提示信息 end -->
+
+<!--  &lt;!&ndash;活动规则 begin &ndash;&gt;-->
+<!--  <PopupPrompt :popType='activityPopType' :popOpen="activityPopOpen" :popClose="activityPopClose">-->
+<!--    <div slot="pop-detail" class="activity-pop">-->
+<!--      <div class="activity-title">-->
+<!--        {{$t('personalCenterRecommend.activityTitle')}}-->
+<!--        <img class="activity-close-icon pointer" src="../../assets/base-popup-window-close-icon.png"-->
+<!--             alt="close" @click="activityPopClose">-->
+<!--      </div>-->
+<!--      <div class="activity-article">-->
+
+<!--        &lt;!&ndash;<p class="activity-article-p">{{$t('personalCenterRecommend.activityArticle_1')}}</p>&ndash;&gt;-->
+<!--        &lt;!&ndash;<p class="activity-article-p">{{$t('personalCenterRecommend.activityArticle_2')}}</p>&ndash;&gt;-->
+<!--        &lt;!&ndash;<p class="activity-article-p">{{$t('personalCenterRecommend.activityArticle_3')}}</p>&ndash;&gt;-->
+<!--        &lt;!&ndash;<p class="activity-article-p">{{$t('personalCenterRecommend.activityArticle_4')}}</p>&ndash;&gt;-->
+
+<!--        <p class="activity-article-p">-->
+<!--          &lt;!&ndash;1、邀请人可享受好友上月交易手续费{{activityRate*100}}%的BDB奖励，自注册成功之日生效。&ndash;&gt;-->
+<!--          {{$t('personalCenterRecommend.btActivityPopupWindowDetail_1',{activityRate:activityRate*100})}}-->
+<!--        </p>-->
+<!--        <p class="activity-article-p">-->
+<!--          &lt;!&ndash;举例：如好友2019年1月1日注册成功， 当月交易并产生交易手续费100BDB，则次月邀请人即可获得{{100*activityRate}}枚BDB奖励。&ndash;&gt;-->
+<!--          {{$t('personalCenterRecommend.btActivityPopupWindowDetail_2',{activityRate:activityRate*100})}}-->
+<!--        </p>-->
+<!--        <p class="activity-article-p">-->
+<!--          &lt;!&ndash;2、邀请人当月获得奖励于次月8日由EUNEX统一进行发放。&ndash;&gt;-->
+<!--          {{$t('personalCenterRecommend.btActivityPopupWindowDetail_3')}}-->
+<!--        </p>-->
+<!--        <p class="activity-article-p">-->
+<!--          &lt;!&ndash;3、EUNEX拥有邀请返佣比例调整的权力，如有调整请以EUNEX公告为准。&ndash;&gt;-->
+<!--          {{$t('personalCenterRecommend.btActivityPopupWindowDetail_4')}}-->
+<!--        </p>-->
+<!--        &lt;!&ndash;<p class="activity-article-p">&ndash;&gt;-->
+<!--          &lt;!&ndash;&lt;!&ndash;4、活动如有调整以平台更新为准，本活动最终解释权归EUNEX所有。&ndash;&gt;&ndash;&gt;-->
+<!--          &lt;!&ndash;{{$t('personalCenterRecommend.btActivityPopupWindowDetail_5')}}&ndash;&gt;-->
+<!--        &lt;!&ndash;</p>&ndash;&gt;-->
+
+<!--      </div>-->
+<!--      <div class="activity-footer flex-center">-->
+<!--        <button class="activity-button button-base pointer" @click="activityPopClose">-->
+<!--          {{$t('personalCenterRecommend.activityFooterButton')}}-->
+<!--        </button>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </PopupPrompt>-->
+<!--  &lt;!&ndash;活动规则 end &ndash;&gt;-->
+
+  <!-- 专属海报 start -->
+  <div class="show_poster" v-show="showPoster">
+    <div class="show_poster_body">
+      <div class="close_icon" @click="HIDE_POSTER">✕</div>
+      <img :src="poster_url" width="100%">
+      <p class="tips_poster">{{$t('personalCenter.poster_1', {activityRate:activityRate*100})}}</p>
+      <p class="copy_poster">✽{{$t('personalCenter.poster_2')}}</p>
+    </div>
+  </div>
+  <!-- 专属海报 end -->
+
+
+</div>

@@ -1,0 +1,94 @@
+<div class="activity-box">
+  <Loading v-if="loading"/>
+  <!--页面内容-->
+  <div v-if="!loading" class="super-bee-activity-box">
+
+
+    <!--无论是否是ios，顶部背景图片-->
+    <div class="super-bee-activity-header">
+      <!--如果是ios，顶部需要显示20高的背景图-->
+      <div v-if="iosQuery" class="super-bee-activity-header-ios"></div>
+      <!--只有h5会有显示顶部标题，如果是ios或者安卓不显示头部-->
+      <div class="super-bee-activity-header-title">
+        <div v-if="!iosQuery" class="super-bee-activity-header-title-back-icon" @click="jumpToHomepage()">
+          <img class="super-bee-activity-header-title-back-icon-img" src="../activityAssets/mobileSuperBee/back_icon.png" alt="">
+        </div>
+        <div class="super-bee-activity-header-title-text">超级为蜜</div>
+      </div>
+
+
+
+
+
+
+    </div>
+    <div :class="iosQuery === true ? 'super-bee-activity-body' : 'super-bee-activity-body-ios'">
+      <div class="super-bee-activity-header-icon">
+        <img class="super-bee-activity-header-icon-img" src="../activityAssets/mobileSuperBee/header_icon.png" alt="">
+      </div>
+      <div class="super-bee-activity-header-info">
+        欧联基于“共识、共建、共享”的社区理念，<br/>
+        甄选<div class="super-bee-activity-header-info-blue">“超级为蜜”</div>伙伴，设立<div class="super-bee-activity-header-info-blue">“超级为蜜”</div>交易 <br/>
+        专区。以更加开放和公允的创新机制，助力生态更好服务用户。<br/>
+      </div>
+
+      <div class="super-bee-activity-header-btn" @click="clickToLockBT()">点击查看已锁定BT</div>
+      <div class="super-bee-activity-header-btn2" @click="clickToLockBDB()">点击查看已锁定BDB</div>
+
+      <div class="super-bee-activity-join">
+        <div class="super-bee-activity-join-title">
+          <div class="super-bee-activity-join-title-left">
+            <img class="super-bee-activity-join-title-left-img" src="../activityAssets/mobileSuperBee/title_bar.png" alt="">
+            <span class="super-bee-activity-join-title-left-text">申请超级为蜜</span>
+          </div>
+          <div class="super-bee-activity-join-title-right" @click="viewRight">查看超级为蜜特权</div>
+        </div>
+
+        <div class="super-bee-activity-join-box">
+          <div class="super-bee-activity-join-item">
+            <img class="super-bee-activity-join-item-super-img" src="../activityAssets/mobileSuperBee/bee_icon.png">
+            <div class="super-bee-activity-join-item-text">超级为蜜</div>
+            <div class="super-bee-activity-join-item-btn-ft" @click="joinSuperBee">立即申请</div>
+            <div class="super-bee-activity-join-item-btn-sd" @click="recommendGoToken">推荐上币</div>
+          </div>
+          <div class="super-bee-activity-join-item">
+            <img class="super-bee-activity-join-item-mechanism-img" src="../activityAssets/mobileSuperBee/honeycomb_icon.png">
+            <div class="super-bee-activity-join-item-text">机构超级为蜜</div>
+            <div class="super-bee-activity-join-item-btn-ft" @click="joinMechanismSuperBee">立即申请</div>
+            <div class="super-bee-activity-join-item-btn-sd" @click="recommendMechanismGoToken">推荐上币</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div v-if="pageInfo.length != 0" class="super-bee-activity-mechanism">
+      <div class="super-bee-activity-mechanism-title">
+        <div class="super-bee-activity-mechanism-title-left">
+          <img class="super-bee-activity-mechanism-title-left-img" src="../activityAssets/mobileSuperBee/title_bar.png" alt="">
+          <span class="super-bee-activity-mechanism-title-left-text">机构超级为蜜</span>
+        </div>
+      </div>
+      <div class="super-bee-activity-mechanism-box">
+        <div v-for="(item,index) in pageInfo" :key="index" class="super-bee-activity-mechanism-item">
+          <img class="super-bee-activity-mechanism-item-logo" :src="item.logo">
+          <div class="super-bee-activity-mechanism-item-title">{{item.name}}</div>
+          <div class="super-bee-activity-mechanism-item-num">
+            <span class="super-bee-activity-mechanism-item-num-big">{{item.size === 0 ? '--' : item.size}}</span> 交易对
+          </div>
+          <div v-if="item.email" class="super-bee-activity-mechanism-item-mail">
+            <div class="super-bee-activity-mechanism-item-mail-left">
+              <img class="super-bee-activity-mechanism-item-mail-left-img" src="../activityAssets/mobileSuperBee/mail_icon.png" alt="">
+            </div>
+            <div class="super-bee-activity-mechanism-item-mail-right">
+              {{item.email.split('@')[0]}}<br/>
+              @{{item.email.split('@')[1]}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+  <PopupPrompt :popOpen="popOpen" :popClose="closePop" :popType="popType" :popText="popText" :waitTime="popWaitTime"/>
+</div>

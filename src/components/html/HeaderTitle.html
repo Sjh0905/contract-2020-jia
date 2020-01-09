@@ -1,0 +1,58 @@
+<div class="HeaderTitle-container" style="position: relative;">
+  <Loading v-if="loading"/>
+  <ul v-else>
+    <!--币种 begin-->
+    <li class="symbol_title">
+      <!-- <span class="title">{{symbol | e}}</span> -->
+      <span class="title"><font class="txt-dark">{{symbol.split('_')[0]}}</font><em class="txt_light">/</em><font
+        class="txt_light">{{symbol.split('_')[1]}}</font></span>
+      <!-- <span class="division"></span> -->
+    </li>
+    <!--币种 end-->
+
+    <!--时价 begin-->
+    <li class="current_price">
+      <span class="txt first">{{$t('headerTitle.currentPrice')}}</span>
+      <span class="txt now_price" :class="[(!!direction && direction) ? 'txt_price' : 'txt-red']"> {{isNowPrice}}&nbsp;&nbsp;
+        <font>{{isCnyPrice}}</font>
+      </span>
+      <span class="division"></span>
+    </li>
+    <!--时价 end-->
+
+    <!--24小时涨跌额 begin-->
+    <li class="rise_and_fall">
+      <span class="txt first">{{$t('headerTitle.riseAndFall')}}</span>
+      <span class="txt" :class="diff24 > 0 ? 'txt_price' : (diff24 == 0 ? '' : 'txt-red')">{{diff24 > 0 ? '+' : ''}}{{diff24}}&nbsp;&nbsp;&nbsp;<span
+        style="font-size: 1.4rem">{{diff24 > 0 ? '+' : ''}}{{diff24Ratio}}%</span> <em class="up_down_icon"
+                                                                                       :class="diff24 > 0 ? 'up_icon' : (diff24 == 0 ? '' : 'down_icon')"></em></span>
+      <span class="division"></span>
+    </li>
+    <!--24小时涨跌额 end-->
+
+    <!--24小时最低价和最高价 begin-->
+    <li class="max_min">
+      <dd>
+        <span class="txt first">{{$t('headerTitle.minPrice')}}</span>
+        <span class="txt detail_txt">{{low24}}</span>
+      </dd>
+      <!-- <dd class="range_line" style="display: none;">
+        <span class="triangle" :style="{left: max_min_pisition + '%'}"></span>
+      </dd> -->
+      <dd>
+        <span class="txt first">{{$t('headerTitle.maxPrice')}}</span>
+        <span class="txt detail_txt">{{high24}}</span>
+      </dd>
+      <span class="division"></span>
+    </li>
+    <!--24小时最低价和最高价 end-->
+
+    <!--成交量 begin-->
+    <li class="volume_value">
+      <span class="txt first">{{$t('headerTitle.volume')}}</span>
+      <span class="txt detail_txt">{{volume}}&nbsp;{{symbol.split('_')[0]}}</span>
+    </li>
+    <!--成交量 end-->
+
+  </ul>
+</div>

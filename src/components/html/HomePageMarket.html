@@ -1,0 +1,31 @@
+<div class="container">
+  <div class="market-detail">
+    <ul class="detail-tr-th tr-unit">
+      <li class="th-unit">{{$t('homePageMarket.market')}}</li>
+      <li class="th-unit">{{$t('homePageMarket.current')}}</li>
+      <li class="th-unit">{{$t('homePageMarket.riseAndFall')}}</li>
+      <li class="th-unit">{{$t('homePageMarket.highPrice')}}</li>
+      <li class="th-unit">{{$t('homePageMarket.lowPrice')}}</li>
+      <li class="th-unit">{{$t('homePageMarket.volume')}}</li>
+    </ul>
+    <!-- <tr class="detail-tr-td tr-unit">
+      <td class="td-unit market"><img src="" alt="" class="collection-icon">IOTA/BTC</td>
+      <td class="td-unit current-price">0.00024505 / ¥23.86</td>
+      <td class="td-unit up-fall">41.55%</td>
+      <td class="td-unit top-price">0.00042563</td>
+      <td class="td-unit low-price">0.00021852</td>
+      <td class="td-unit turnover-price">23,562.62529512</td>
+    </tr>
+    <tr class="detail-tr-td tr-unit">
+      <td class="td-unit market"><img src="" alt="" class="collection-icon">IOTA/BTC</td>
+      <td class="td-unit current-price">0.00024505 / ¥23.86</td>
+      <td class="td-unit up-fall">41.55%</td>
+      <td class="td-unit top-price">0.00042563</td>
+      <td class="td-unit low-price">0.00021852</td>
+      <td class="td-unit turnover-price">23,562.62529512</td>
+    </tr> -->
+    <ul class="detail-tr-td tr-unit" v-for="item in list">
+      <HomePageMarketItem :item="item" :tax="tax"/>
+    </ul>
+  </div>
+</div>

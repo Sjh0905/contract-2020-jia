@@ -1,0 +1,58 @@
+.poster-activity-box {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.poster-activity-title-fl {
+  color: #fff;
+  margin-top: 14px;
+  font-size: 14px;
+  line-height: 24px;
+  text-align: center;
+}
+
+.poster-activity-title-sl {
+  color: #fff;
+  /*margin-bottom: 16px;*/
+  font-size: 14px;
+  line-height: 24px;
+  text-align: center;
+}
+
+.poster-activity-title-sl-blue {
+  color: #C43E4E;
+  font-size: 20px;
+  line-height: 28px;
+}
+
+.poster-activity-img-box {
+  position: absolute;
+  top: 76px;
+  bottom: 48px;
+  left: 0;
+  right: 0;
+  text-align: center;
+}
+
+.poster-activity-img {
+  max-height: 100%;
+  max-width: 90%;
+  display: block;
+  margin: 0 auto;
+
+}
+
+.poster-activity-footer {
+  position: absolute;
+  font-size: 14px;
+  bottom: 12px;
+  height: 24px;
+  line-height: 24px;
+  color: rgba(255,255,255,0.8);
+  left: 0;
+  right: 0;
+  text-align: center;
+}

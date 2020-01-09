@@ -1,0 +1,224 @@
+.StockCross-container {
+  width: 100%;
+  height: 710px;
+  /*overflow: hidden;*/
+  outline: 1px solid #E5EBF5;
+}
+
+.stockitem-box {
+  width: 100%;
+  height: 100%;
+  background-color: #ffffff;
+  overflow: hidden;
+}
+
+.stockitem-box1 {
+  width: 100%;
+  height: 320px;
+  background-color: #ffffff;
+  overflow: hidden;
+}
+
+.stockcross-title {
+  height: 36px;
+  line-height: 36px;
+  background: #ffffff;
+  /* font-weight: bold; */
+  text-align: right;
+  /*border-bottom: 1px solid #bbb;*/
+  font-family: PingFangSC-Regular;
+  font-size: 12px;
+  color: #8994A5;
+  letter-spacing: 0;
+}
+
+.trade_loading{
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+
+.stockcross-title-type {
+  flex: 0.5;
+  /*width: 14.642%;*/
+  /*font-size: 1.2rem;*/
+
+}
+
+.stockcross-title-price {
+  /*width: 27.785%;*/
+  flex: 1;
+  /*text-align: center;*/
+  padding-left: 5%;
+  text-align: left;
+}
+
+.stockcross-title-amount {
+  /*width: 22.857%;*/
+  flex: 1;
+  text-align: center;
+}
+
+.stockcross-title-volum {
+  /*width: 29.357%;*/
+  flex: 1.2;
+  text-align: center;
+}
+
+.StockCross-mid {
+  background: #fff;
+  /* background: rgb(249, 249, 249); */
+  height: 33px;
+  line-height: 33px;
+  text-align: left;
+  /* font-weight: bolder; */
+  border-bottom: 1px solid #E7EBEE;
+  border-top: 1px solid #E7EBEE;
+  padding-left: 18px;
+   border-bottom-width: 1px;
+  font-family: Roboto-Medium;
+  font-size: 16px;
+}
+
+.StockCross-mid1 {
+  background: #fff;
+  height: 33px;
+  line-height: 33px;
+  text-align: left;
+  /* font-weight: bolder; */
+  border-bottom: 1px solid #E7EBEE;
+  border-top: 1px solid #E7EBEE;
+  padding-left: 18px;
+  border-bottom-width: 1px;
+  font-family: Roboto-Medium;
+  font-size: 16px;
+}
+
+/* 实时价格涨跌向上向下按钮 */
+.up_down_icon {
+  height: 20px;
+  display: inline-block;
+  width: 10px;
+  background: #fff;
+  display: inline-block;
+  vertical-align: middle;
+  /*margin-left: 5px;*/
+}
+
+.up_down_icon.up_icon {
+  background: url("../../assets/mobile_market_big_up22.png") no-repeat center center;
+  background-size: 80%;
+}
+
+.up_down_icon.down_icon {
+  background: url("../../assets/mobile_market_big_down.png") no-repeat center center;
+  background-size: 80%;
+}
+
+
+/*.container {*/
+/*width: 100%;*/
+/*position: relative;*/
+/*height: 100%;*/
+/*font-size: 1.2rem;*/
+/*}*/
+
+/*!*title*!*/
+/*.price-title {*/
+/*height: 5.5%;*/
+/*width: 100%;*/
+/*display: flex;*/
+/*display: -moz-flex;*/
+/*display: -webkit-flex;*/
+/*justify-content: space-around;*/
+/*align-items: center;*/
+/*}*/
+
+/*!*当前价格*!*/
+/*.current-price {*/
+/*height: 5.5%;*/
+/*width: 100%;*/
+/*align-items: center;*/
+/*-webkit-align-items: center;*/
+/*justify-content: center;*/
+/*-webkit-justify-content: center;*/
+/*font-weight: bold;*/
+/*font-size: 1.4rem;*/
+/*}*/
+/*.current-price-blue{*/
+/*color: #0babb6;*/
+/*}*/
+/*.current-price-red{*/
+/*color: #f16257;*/
+/*}*/
+
+/*!*显示数据部分*!*/
+/*.show-data {*/
+/*width: 100%;*/
+/*height: 44.4%;*/
+/*}*/
+
+/*.current-price i {*/
+/*padding-left: 2px;*/
+/*}*/
+
+/*.current-price img {*/
+/*margin-left: 10px;*/
+/*}*/
+.bottombutton{
+  width: 100%;
+  height: 35px;
+  line-height: 35px;
+  position: absolute;
+  bottom: 0;
+}
+
+.bottombutton img{
+  width: 18px;
+  margin-top: 9px;
+  margin-left: 10px;
+  float: left;
+}
+
+.bottombutton .selectws{
+  height: 35px;
+  float: right;
+}
+
+
+.el-select >>> .el-input__inner {
+  -web-kit-appearance: none;
+  -moz-appearance: none;
+  width: 160px;
+  height: 24px;
+  line-height: 24px;
+  outline: 0;
+  opacity: 0.7;
+  border: 1px solid #B5BCC6;
+  font-size: 13px;
+  color: #8994A5;
+  letter-spacing: 0;
+  margin-right: 12px;
+  border: 1px solid rgba(181,188,198,0.50);
+  border-radius: 2px;
+}
+
+.el-select >>> .el-input__icon{
+  color: #C5CFD5;
+}
+
+.el-select >>> .el-input__suffix{
+  color: #C5CFD5;
+  right: 15px;
+  top:2px;
+}
+
+.el-select >>>  .el-input.is-focus .el-input__inner {
+  border-color: red;
+}
+
+.el-select >>>  .el-input .el-select-dropdown__item selected{
+  color: red;
+  font-weight: 700;
+}

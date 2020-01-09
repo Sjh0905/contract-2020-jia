@@ -1,0 +1,313 @@
+<div class="h5-homepage-container">
+  <Loading v-if="loading"/>
+  <div v-if="!loading" class="homepage" :class="{'homepage-downloadShow':downloadShow}">
+    <div class="homepage-header">
+      <!--顶部 横向swiper 图片-->
+      <div class="homepage-header-imgswiper">
+        <swiper :options="swiperImgOption" ref="mySwiperImg" v-if="imgDataReady">
+          <swiper-slide v-for="(item,index) in imgData" :key="index">
+            <div class="homepage-header-imgswiper-address" @click="goBannerDetail(item)" rel="noopener noreferrer">
+              <img class="homepage-header-imgswiper-img" :src="item.imageUrl" alt="">
+<!--              <img class="homepage-header-imgswiper-img" src="" alt="">-->
+            </div>
+          </swiper-slide>
+<!--          <swiper-slide>-->
+<!--            <a class="homepage-header-imgswiper-address" target="_blank" rel="noopener noreferrer">-->
+<!--&lt;!&ndash;              <img class="homepage-header-imgswiper-img" :src="item.imageUrl" alt="">&ndash;&gt;-->
+<!--              <img class="homepage-header-imgswiper-img" src="" alt="">-->
+<!--            </a>-->
+<!--          </swiper-slide>-->
+
+<!--          <swiper-slide>-->
+<!--            <a class="homepage-header-imgswiper-address" target="_blank" rel="noopener noreferrer">-->
+<!--              &lt;!&ndash;              <img class="homepage-header-imgswiper-img" :src="item.imageUrl" alt="">&ndash;&gt;-->
+<!--              <img class="homepage-header-imgswiper-img" src="" alt="">-->
+<!--            </a>-->
+<!--          </swiper-slide>-->
+          <div v-show="getLength(imgDataTemp) > 1" class="swiper-pagination" slot="pagination"></div>
+        </swiper>
+      </div>
+
+      <!--下面的 竖向新闻-->
+      <div class="homepage-header-textswiper">
+        <img class="homepage-header-textswiper-icon" src="../../assets/index_home/notice_sound_icon.png"/>
+        <div class="homepage-header-textswiper-container">
+          <swiper :options="swiperTextOption" v-if="textDataReady">
+            <swiper-slide v-for="(item,index) in textData" key="index">
+              <div class="homepage-header-textswiper-address"  @click="goNotice(item.url)"
+                   rel="noopener noreferrer">
+                <span class="homepage-header-textswiper-address-title">{{item.title}}</span>
+<!--                <span class="homepage-header-textswiper-address-time">({{$globalFunc.formatDateUitl(item.beginTime,'MM-DD')}})</span>-->
+              </div>
+            </swiper-slide>
+
+<!--            公告列表数据-->
+<!--            <swiper-slide>-->
+<!--              <div class="homepage-header-textswiper-address"-->
+<!--                   rel="noopener noreferrer">-->
+<!--                <a href="https://customerservice8872.zendesk.com/hc/zh-cn/articles/360035114331-欧联交易所验证邮件延迟公告">-->
+<!--                  <span class="homepage-header-textswiper-address-title">欧联交易所验证邮件延迟公告</span>-->
+<!--                  <span class="homepage-header-textswiper-address-time"></span>-->
+<!--                </a>-->
+<!--              </div>-->
+<!--            </swiper-slide>-->
+
+<!--            <swiper-slide>-->
+<!--              <div class="homepage-header-textswiper-address"-->
+<!--                   rel="noopener noreferrer">-->
+<!--                <a href="https://customerservice8872.zendesk.com/hc/zh-cn/articles/360034740012-正式开放注册启事">-->
+<!--                  <span class="homepage-header-textswiper-address-title">节点预购赠币第二期发放公告节点预</span>-->
+<!--                  <span class="homepage-header-textswiper-address-time"></span>-->
+<!--                </a>-->
+
+<!--              </div>-->
+<!--            </swiper-slide>-->
+
+            <div class="swiper-pagination" slot="pagination"></div>
+          </swiper>
+        </div>
+      </div>
+
+      <!--币对-->
+      <div class="homepage-header-textswiper-bidui">
+        <table>
+          <tr>
+            <td  v-for="(item,index) in item_list"  v-if="index<3" @click="clickToTradingHall(item.name)">
+              <div class="td001">
+                <span class="mobile-market-normal-td-symbol-second">{{item.name.split('_')[0]}}&nbsp;{{'/&nbsp;'+item.name.split('_')[1]}}</span>
+              </div>
+              <div class="td002">{{toFixed(item.close, !!quoteScale_list[item.name] ? quoteScale_list[item.name].quoteScale : 2)}}</div>
+              <div class="td003">{{diff24(item.open,item.close)>0?'+':''}}{{diff24(item.open,item.close)}}%</div>
+            </td>
+
+          </tr>
+
+        </table>
+
+      </div>
+<!--      <div class="homepage-header-textswiper-xian">-->
+<!--        <div class="xian"></div>-->
+<!--      </div>-->
+
+
+    </div>
+
+<!--    <div class="homepage-icon-body">-->
+<!--      <div class="homepage-icon-body-list">-->
+<!--        <a href="#" @click="GO_OTC"class="homepage-icon-body-item">-->
+<!--          <img class="homepage-icon-body-item-img" src="" alt="">-->
+<!--          <span class="homepage-icon-body-item-text">法币交易</span>-->
+<!--        </a>-->
+<!--        <router-link to="/index/help/H5WordOrder" class="homepage-icon-body-item">-->
+<!--          <img class="homepage-icon-body-item-img" src="" alt="">-->
+<!--          <span class="homepage-icon-body-item-text">帮助中心</span>-->
+<!--        </router-link>-->
+<!--        <router-link to="/index/mobileAsset/mobileAssetRecharge" class="homepage-icon-body-item">-->
+<!--          <img class="homepage-icon-body-item-img" src="" alt="">-->
+<!--          <span class="homepage-icon-body-item-text">充值</span>-->
+<!--        </router-link>-->
+<!--        <router-link to="/index/mobileAsset/mobileAssetWithdraw" class="homepage-icon-body-item">-->
+<!--          <img class="homepage-icon-body-item-img" src="" alt="">-->
+<!--          <span class="homepage-icon-body-item-text">提现</span>-->
+<!--        </router-link>-->
+<!--        &lt;!&ndash;<a href="https://jinshuju.net/f/jhg65X" class="homepage-icon-body-item">&ndash;&gt;-->
+<!--          &lt;!&ndash;<img class="homepage-icon-body-item-img" src="" alt="">&ndash;&gt;-->
+<!--          &lt;!&ndash;<span class="homepage-icon-body-item-text">上币申请</span>&ndash;&gt;-->
+<!--        &lt;!&ndash;</a>&ndash;&gt;-->
+
+<!--      </div>-->
+<!--    </div>-->
+
+    <div class="homepage-body">
+<!--      <div class="mobile-market-area-title">-->
+<!--        <div class="mobile-market-area-title-item" @click="changeSelectEdition(0)" :class="selectEdition === 0?'mobile-market-area-title-item-active':''">-->
+<!--          <span class="mobile-market-area-title-item-span">主板区</span>-->
+<!--        </div>-->
+<!--        &lt;!&ndash;<div class="mobile-market-area-title-item-cutter"></div>&ndash;&gt;-->
+<!--        <div class="mobile-market-area-title-item" @click="changeSelectEdition(1)" :class="selectEdition === 1?'mobile-market-area-title-item-active':''">-->
+<!--          <span class="mobile-market-area-title-item-span">超级为蜜区</span>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="mobile-market-title flex-between">-->
+<!--          <div class="mobile-market-title-item txt_80" :class="{'mobile-market-title-item-active' :currencyType == 0}"-->
+<!--               @click="changeCurrencyMarket(0)">-->
+<!--            <span class="mobile-market-title-item-text">USDT-->
+<!--              <img class="mobile-market-title-item-text-reduce" src="" alt=""  v-if="reduce_list.indexOf('USDT') > '-1'">-->
+<!--            </span>-->
+<!--          </div>-->
+<!--          <div class="mobile-market-title-item txt_80" :class="{'mobile-market-title-item-active' :currencyType == 1}"-->
+<!--               @click="changeCurrencyMarket(1)">-->
+<!--            <span class="mobile-market-title-item-text">BTC-->
+<!--              <img class="mobile-market-title-item-text-reduce" src="" alt=""  v-if="reduce_list.indexOf('BTC') > '-1'">-->
+<!--            </span>-->
+<!--          </div>-->
+<!--          <div class="mobile-market-title-item txt_80" :class="{'mobile-market-title-item-active' :currencyType == 2}"-->
+<!--               @click="changeCurrencyMarket(2)">-->
+<!--            <span class="mobile-market-title-item-text">ETH-->
+<!--              <img class="mobile-market-title-item-text-reduce" src="" alt=""  v-if="reduce_list.indexOf('ETH') > '-1'">-->
+<!--            </span>-->
+<!--          </div>-->
+<!--        </div>-->
+
+      <!--            TODO: 这里要添加选区-->
+<!--      最外层-->
+<!--      <div class="market-list-container flex" >-->
+<!--&lt;!&ndash;        外层&ndash;&gt;-->
+<!--        <div class="market-list-detail flex" v-for="item in marketList">-->
+<!--&lt;!&ndash;          内部遍历数据&ndash;&gt;-->
+<!--          <span class="market-list-click-area pointer"-->
+<!--                :class="{'selected-market':selectedMarket(item)}"-->
+<!--                @click="changeMarket(item)"-->
+<!--          >-->
+<!--            <img src="../../assets/selectedSelf_icon.png" class="imageRight" v-show="item=== '自选区'"  alt="">-->
+<!--            {{item}}-->
+<!--          </span>-->
+<!--&lt;!&ndash;          <span class="market-list-click-area pointer"></span>&ndash;&gt;-->
+<!--        </div>-->
+<!--      </div>-->
+
+
+      <div class="mobile-market-table-box">
+
+          <table class="mobile-market-table">
+            <colgroup style="width:40%;"></colgroup>
+            <colgroup style="width:34%;"></colgroup>
+            <colgroup style="width:26%;"></colgroup>
+            <tbody>
+
+
+            <tr class="mobile-market-title-first-tr">
+              <th>{{$t('mobileHomePageMarket.name')}}/{{$t('mobileHomePageMarket.volume')}}</th>
+              <th>最新价</th>
+              <th>24h涨跌</th>
+            </tr>
+
+            <!--循环部分-->
+            <tr v-for="(item,index) in computedMarketList" :key="index" class="mobile-market-normal-tr"
+                @click="clickToTradingHall(item.name)">
+<!--              <img src="../../assets/selected_icon.png" class="imgSelect" alt="">-->
+              <!--                v-show="(collectionMarket.includes(value.name))" @click="handleCollectionMarket(value.name,false)"-->
+              <!--                <img src="../../assets/noSelected_icon.png" class="imgSelect" v-show="!(collectionMarket.includes(value.name))" @click="handleCollectionMarket(value.name,true)" alt="">-->
+              <td>
+                <div class="mobile-market-normal-td-symbol">
+                  <span class="mobile-market-normal-td-symbol-first">{{item.name.split('_')[0]}}&nbsp;</span>
+                  <span class="mobile-market-normal-td-symbol-second">{{'/&nbsp;'+item.name.split('_')[1]}}</span>
+                </div>
+<!--                <div class="mobile-market-normal-td-volume" v-if="item.name=='GRC_USDT'">成交量 {{item.volume >= 1000 && item.volume>0 ? $globalFunc.accFixed(item.volume/1000,2)+'k': $globalFunc.accFixed(item.volume, 0)}}</div>-->
+                <div class="mobile-market-normal-td-volume">成交量 {{$globalFunc.accFixed(item.volume, 0)}}</div>
+              </td>
+              <td>
+
+                <div class="mobile-market-normal-td-price"
+                     :class="diff24(item.open,item.close)<0?'mobile-market-normal-td-price-down':'mobile-market-normal-td-price-up'">
+                  {{toFixed(item.close, !!quoteScale_list[item.name] ? quoteScale_list[item.name].quoteScale : 8)}}
+                </div>
+                <!--$globalFunc.accFixedCny(item.close * rate * $store.state.exchange_rate_dollar, 2)-->
+                <div class="mobile-market-normal-td-cny">￥{{computedToCNY(item)}}</div>
+              </td>
+              <td>
+                <div class="mobile-market-normal-td-current"
+                     :class="diff24(item.open,item.close)<0?'mobile-market-normal-td-current-down':'mobile-market-normal-td-current-up'">
+                  {{diff24(item.open,item.close)>0?'+':''}}{{diff24(item.open,item.close)}}%
+                </div>
+              </td>
+            </tr>
+
+            <!--<MobileHomePageMarketItem v-for="(item, key) in list" :key="key" :item="item" :socket_tick="socket_tick" :socket_price="socket_price" />-->
+            </tbody>
+          </table>
+<!--          <div class="mobile-market-table-box-get-more" @click="getMoreMarket(item_list, currencyType)">更多 >>-->
+<!--            &lt;!&ndash;<img class="mobile-market-table-box-get-more-img" src="" alt="">&ndash;&gt;-->
+<!--          </div>-->
+
+        <!--<div class="mobile-market-table-box-get-more">-->
+          <!--<div class="myinfos">-->
+            <!--<div class="myheadimg"><img src="../../assets/H5img/headimg.png"></div>-->
+            <!--<div class="myheadinfo">-->
+              <!--<div class="info1">{{userName}}</div>-->
+              <!--<div class="info1"><span>UID: {{useruid}}</span></div>-->
+            <!--</div>-->
+            <!--<div class="outqq"  @click="GO_GRC">GRC</div>-->
+          <!--</div>-->
+        <!--</div>-->
+
+        <div class="mobile-market-table-box-get-more" v-if="isLogin">
+          <div class="myinfos">
+            <div class="myheadimg"><img src="../../assets/H5img/headimg.png"></div>
+            <div class="myheadinfo">
+              <div class="info1">{{userName}}</div>
+              <div class="info1"><span>UID: {{useruid}}</span></div>
+            </div>
+            <div class="outqq"  @click="loginOff">退出</div>
+          </div>
+        </div>
+        </div>
+    </div>
+  </div>
+
+  <div v-if="!loading && downloadShow" class="homepage-body-download" ref="downloadView">
+    <img class="index-home-header-img" src="../../assets/mobile_app_download.png" alt="">
+        <div class="logofont">
+          EUNEX APP
+        </div>
+        <div class="logofont2">
+          数字货币交易平台
+        </div>
+<!--    <a :href="staticUrl + '/AppDownload'" class="index-home-header-address" target="_blank">-->
+      <a href="https://download.eunex.group/" class="index-home-header-address">
+      下载
+    </a>
+    <div class="index-home-header-close" @click="closeDownload">
+      <img src="../../assets/mobile_download_close.png" class="index-home-header-img-close" alt="">
+    </div>
+  </div>
+
+  <div class="bottomenu1" style="width: 100%;height: 50px;"></div>
+
+  <div class="bottomenu">
+    <table>
+      <tr>
+        <td>
+          <div class="menuimg"><img src="../../assets/H5img/indexm_on.png"></div>
+          <div class="menuinfo">首页</div>
+        </td>
+        <td @click="gotoShichang">
+          <div class="menuimg"><img src="../../assets/H5img/shich.png"></div>
+          <div class="menuinfoh">行情</div>
+        </td>
+        <td @click="gotoJiaoyi">
+          <div class="menuimg"><img src="../../assets/H5img/jiaoyi.png"></div>
+          <div class="menuinfoh">交易</div>
+        </td>
+        <td  @click="gotoZichan">
+          <div class="menuimg"><img src="../../assets/H5img/zichan.png"></div>
+          <div class="menuinfoh">资产</div>
+        </td>
+      </tr>
+    </table>
+
+  </div>
+
+  <!--<div v-if="popWindowOpen" class="homepage-toast">-->
+    <!--<div class="homepage-toast-box">-->
+      <!--<div class="homepage-toast-close-box" @click="closeToast">-->
+        <!--<img class="homepage-toast-close-btn-img"-->
+             <!--src="../../assets/mobile_img/mobile_asset_commen/h5_toast_close_btn.png" alt="">-->
+      <!--</div>-->
+      <!--<div class="homepage-toast-title">各位支持欧联发展的为蜜</div>-->
+      <!--<div class="homepage-toast-container">-->
+        <!--<div class="homepage-toast-container-first">-->
+          <!--为配合相关国家、地区等针对区块链资产交易的相关政策，欧联将于即日起<font class="homepage-toast-container-red">停止对来自中国大陆、古巴、伊朗、朝鲜、克里米亚、苏丹、叙利亚、孟加拉国、玻利维亚、厄瓜多尔和吉尔吉斯斯坦的 IP 访问提供服务</font>，给您带来的不便，我们深表歉意！-->
+        <!--</div>-->
+        <!--<div class="homepage-toast-container-second">-->
+          <!--欧联运营团队-->
+        <!--</div>-->
+        <!--<div class="homepage-toast-container-third">-->
+          <!--2018年8月25日-->
+        <!--</div>-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
+
+
+</div>

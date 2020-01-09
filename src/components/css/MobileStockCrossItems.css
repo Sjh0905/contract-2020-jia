@@ -1,0 +1,22 @@
+._m_stck_it{
+	width: 3.45rem;
+	height: 3.6rem;
+	padding-top: 0.24rem;
+  font-family: Roboto-Regular;
+  font-size: 12px;
+  color: #CFD3E9;
+}
+
+.m-txt-green{
+  font-family: Roboto-Regular;
+  font-size: 12px;
+  color: #02987D;
+  text-align: right;
+}
+
+.m-txt-red{
+  font-family: Roboto-Regular;
+  font-size: 12px;
+  color: #C43E4E;
+  text-align: right;
+}

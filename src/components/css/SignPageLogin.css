@@ -1,0 +1,820 @@
+/*重置密码container*/
+.Login-container {
+  display: block;
+  height: auto;
+  width: 100%;
+  padding: 100px 0;
+}
+
+/*placeholder样式*/
+.Login-container input::placeholder {
+  color: #bfbfbf;
+}
+
+.Login-container input::-moz-placeholder {
+  color: #bfbfbf;
+}
+
+.Login-container input::-webkit-input-placeholder {
+  color: #bfbfbf;
+}
+
+.Login-container input:-ms-input-placeholder {
+  color: #bfbfbf;
+}
+
+
+
+/*外层container*/
+.all-container {
+  width: 50%;
+  /*height: 550px;*/
+  margin: 0 auto;
+  padding: 0 105px;
+  padding-bottom: 30px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  background-color: #ffffff;
+}
+
+/*--------------- 标题 begin ----------------*/
+
+/*标题*/
+.unit-title {
+  flex-direction: row;
+  width: 100%;
+  font-size: 2.0rem;
+  /*height: 110px;*/
+  color: #7b7b7b;
+  padding: 30px 0 0 0;
+}
+
+/*标题*/
+.unit-title-pc {
+  flex-direction: row;
+  width: 100%;
+  padding: 30px 0 0 0;
+  font-family: PingFangSC-Regular;
+  font-size: 26px;
+  color: #172A4D;
+  text-align: center;
+}
+
+/*标题的横线*/
+.unit-title-line {
+  display: inline-block;
+  height: 1px;
+  background-color: #e5e5e5;
+  width: 30%;
+}
+
+/*标题的title*/
+.unit-title-text {
+  white-space: nowrap;
+  display: inline-block;
+  padding: 0 10px;
+  text-align: center;
+  font-family: PingFangSC-Regular;
+  font-size: 16px;
+  color: #6D87A8;
+}
+
+.unit-title-text-pc {
+  white-space: nowrap;
+  display: inline-block;
+  padding: 0 10px;
+  text-align: center;
+  font-family: PingFangSC-Regular;
+  font-size: 16px;
+  color: #6D87A8;
+}
+
+.unit-title-text-pc {
+  white-space: nowrap;
+  display: inline-block;
+  padding: 0 10px;
+  text-align: center;
+  font-family: PingFangSC-Regular;
+  font-size: 26px;
+  color: #172A4D;
+}
+
+/*安全提示*/
+.security-box {
+  text-align: center;
+  padding: 20px 0;
+  font-size: 14px;
+  color: #666;
+}
+
+.security-detail-title {
+  /*flex-direction: row;*/
+  /*align-items: center;*/
+  /*position: relative;*/
+  line-height: 16px;
+}
+
+.security-detail-title-icon {
+  margin-right: 5px;
+  display: block;
+  width: 16px;
+  height: 16px;
+}
+
+.security-detail-article {
+  /*line-height: 30px;*/
+  padding-top: 5px;
+}
+
+/*--------------- 标题 end ----------------*/
+
+/*输入内容container*/
+.unit-container {
+  flex-direction: column;
+  justify-content: space-between;
+  height: auto;
+  padding-bottom: 30px;
+}
+
+/*Input板块*/
+.unit-input-container {
+   width: 87.5%;
+   height: 40px;
+   border-bottom: 1px solid #223349;
+ }
+
+.unit-input-container-pc {
+  width: 87.5%;
+  height: 40px;
+  border: 1px solid #C5CFD5;
+  border-radius: 2px;
+}
+
+/*Input标题*/
+.unit-input-container-title {
+  width: 12%;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+/*Input标签*/
+.unit-input {
+  border: 0 solid transparent;
+  width: 88%;
+  margin: auto;
+  height: 37px;
+  box-sizing: border-box;
+  border-radius: 2px;
+}
+
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px white inset;
+  -webkit-text-fill-color: #333;
+}
+
+
+
+/*标题图标*/
+.input-icon {
+  background: url("../../assets/sign/sign-icon.png");
+  display: block;
+  background-repeat: no-repeat;
+}
+
+.mobile-icon {
+  background-position: -140px -20px;
+  width: 17px;
+  height: 25px;
+}
+
+.mobile-psw-icon {
+  background-position: -20px -20px;
+  width: 18px;
+  height: 24px;
+}
+
+.psw-icon {
+  background-position: -20px -20px;
+  width: 18px;
+  height: 24px;
+}
+
+.email-icon {
+  background-position: -60px -60px;
+  width: 20px;
+  height: 16px;
+}
+
+/*------------------ 间隔 begin ------------------*/
+
+.unit-input-interval {
+  height: 20px;
+  line-height: 20px;
+  /*width: 80%;*/
+  text-align: left;
+  /*padding: 5px 0;*/
+  /*padding-left: 12%;*/
+  white-space: nowrap;
+  /*color: red;*/
+  text-align: center;
+}
+
+/*------------------ 间隔 end ------------------*/
+
+/*获取手机验证码*/
+.double-input-container > span:nth-of-type(2) {
+  width: 20%;
+  height: 100%;
+  box-sizing: border-box;
+  background-color: #25ced9;
+  border-radius: 0 5px 5px 0;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+/*获取手机验证码的input*/
+.double-input-container > input {
+  border: 0 solid transparent;
+  width: 68%;
+  height: 100%;
+  box-sizing: border-box;
+  border-radius: 5px;
+}
+
+/* 弹框按钮 */
+.button-base {
+  margin-right: 20px;
+}
+
+.button-base:last-of-type {
+  margin-right: 0;
+}
+
+.pop-article {
+  word-break: break-all;
+}
+
+/*确定按钮*/
+.container-button {
+  border: 0;
+}
+
+.agreement {
+  font-size: 1.4rem;
+}
+
+.login-button-container {
+  border: 0 solid transparent;
+  width: 100%;
+  height: 40px;
+  text-align: center;
+}
+
+/*登录按钮*/
+.login-button {
+  letter-spacing: 2px;
+  border: 0 solid transparent;
+  /*width: 100%;*/
+  width: 87.5%;
+  height: 40px;
+  background: #C43E4E;
+  border-radius: 2px;
+  font-family: PingFangSC-Regular;
+  font-size: 16px;
+  color: #FFFFFF;
+  text-align: center;
+  line-height: 16px;
+}
+
+/*登录中*/
+.login-ing-button {
+  background-color: #14b2bd;
+}
+
+.already-login {
+  font-size: 1.4rem;
+}
+
+.verifying-slider {
+  border: 0 solid transparent;
+}
+
+/*没有账号*/
+.have-no-account {
+  width: 87.5%;
+  border: 0;
+  align-items: center;
+  -webkit-align-items: center;
+  justify-content: space-between;
+  -webkit-justify-content: space-between;
+  color: #666;
+}
+
+.have-no-account a {
+  font-family: PingFangSC-Regular;
+  font-size: 14px;
+  color: #C43E4E;
+  text-align: right;
+}
+
+.have-no-account span {
+  font-family: PingFangSC-Regular;
+  font-size: 14px;
+  color: #172A4D;
+  line-height: 14px;
+}
+
+.wrong-answer {
+  border: 1px solid red;
+}
+
+.prompt-detail {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background-color: #e6e6e6;
+  width: 500px;
+  height: 500px;
+  transform: translateX(-50%) translateY(-50%);
+}
+
+.mobile-jump-to-wordOrder {
+  display: none;
+}
+
+/*选择登录方式*/
+.choose-login-type-container {
+  justify-content: center;
+  width: 87.5%;
+  margin: 0 auto;
+}
+
+.login-type-container {
+  flex: 1;
+  text-align: center;
+  font-size: 14px;
+  margin-top: 45px;
+  line-height: 36px;
+  height: 36px;
+  box-sizing: content-box;
+  color: #666666;
+}
+
+.login-type-container-left {
+  border: 1px solid #D7D7D7;
+  border-right: 0 solid transparent;
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+}
+
+.login-type-container-right {
+  border: 1px solid #D7D7D7;
+  border-left: 0 solid transparent;
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
+
+.login-type-select-container {
+  background: #C43E4E;
+  color: white;
+  border-color: #C43E4E;
+}
+
+/*----------------------------------------------------------------------------------------------------*/
+@media screen and (max-width: 768px) {
+  /*重置密码container*/
+  .Login-container {
+    display: block;
+    height: auto;
+    width: 100%;
+    padding: 0;
+    background: #131F30;
+  }
+
+  /*placeholder样式*/
+  .Login-container input::placeholder {
+    color: rgba(255,255,255,0.4)
+  }
+
+  .Login-container input::-moz-placeholder {
+    color: rgba(255,255,255,0.4)
+  }
+
+  .Login-container input::-webkit-input-placeholder {
+    color: rgba(255,255,255,0.4)
+  }
+
+  .Login-container input:-ms-input-placeholder {
+    color: rgba(255,255,255,0.4)
+  }
+
+  /*外层container*/
+  .all-container {
+    width: 100%;
+    height: 550px;
+    margin: 0 auto;
+    padding: 0;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    background-color: transparent;
+  }
+
+  /*标题*/
+  .unit-title {
+    flex-direction: row;
+    width: 100%;
+    font-size: 0.36rem;
+    /*height: 110px;*/
+    color: #fff;
+    height: 1.9rem;
+  }
+
+  /*标题的横线*/
+  .unit-title > span:nth-of-type(1), .unit-title > span:nth-of-type(3) {
+    display: block;
+    height: 1px;
+    /*background-color: rgba(255, 255, 255, 0.4);*/
+    width: 1.2rem;
+    margin-left: 30px;
+  }
+
+  /*标题的title*/
+  .unit-title > span:nth-of-type(2) {
+    width: 32%;
+    white-space: nowrap;
+    display: block;
+    text-align: center;
+  }
+
+  /*安全提示*/
+  .security-box {
+    display: none;
+  }
+
+  /*输入内容container*/
+  .unit-container {
+    display: block;
+    height: auto;
+  }
+
+  .mobile-choose-login-type-box {
+    width: 280px;
+    height: 40px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    color: #fff;
+  }
+
+  /*Input板块*/
+  .unit-input-container {
+    /* width: 87.5%; */
+    /*width: 6.5rem;*/
+    /*height: 60px;*/
+    /*border: none;*/
+    /*border-bottom: 1px solid #1B1A1E;*/
+    /*border-radius: 0px;*/
+    background: transparent;
+    margin: 0 auto 5px;
+    width: 6.5rem;
+    height: 40px;
+
+  }
+
+  /*Input板块*/
+  .unit-forget-container {
+    /* width: 87.5%; */
+    width: 6.5rem;
+    height: 60px;
+    border: none;
+    border-radius: 0px;
+    background: transparent;
+    margin: 0 auto;
+  }
+
+  .unit-btn-container {
+    width: 6.5rem;
+    height: 40px;
+    border: none;
+    border-bottom: 1px solid #1B1A1E;
+    border-radius: 0px;
+    background: transparent;
+    margin: 0 auto;
+  }
+
+  .unit-input-container-activity {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.6);
+  }
+
+  /*Input标题*/
+  .unit-input-container-title {
+    width: 1rem;
+    height: 100%;
+    box-sizing: border-box;
+  }
+
+  /*Input前图片*/
+  .unit-input-container-title-img-mobile {
+    width: 0.32rem;
+  }
+
+  .unit-input-container-title-img-password {
+    width: 0.32rem;
+  }
+
+  .unit-input-container-title-img-email {
+    width: 0.4rem;
+  }
+
+  /*Input标签*/
+  .unit-input {
+    border: 0 solid transparent;
+    width: 5.5rem;
+    height: 100%;
+    color: #fff;
+    box-sizing: border-box;
+    border-radius: 0;
+    background: transparent;
+  }
+
+  /*间隔*/
+  .unit-input-interval {
+    height: 20px;
+    width: 6.5rem;
+    /*text-align: left;*/
+    color: #f93943;
+    margin: 0.1rem auto;
+    padding: 0;
+    /*padding-left: 1rem;*/
+  }
+
+  /*获取手机验证码*/
+  .double-input-container > span:nth-of-type(2) {
+    width: 20%;
+    height: 100%;
+    box-sizing: border-box;
+    background-color: transparent !important;
+    border-radius: 0 4px 4px 0;
+    color: #ffffff;
+    cursor: pointer;
+  }
+
+  .button-hover:hover {
+    background-color: #C43E4E !important;
+    color: #fff !important;
+  }
+
+  /*获取手机验证码的input*/
+  .double-input-container > input {
+    border: 0 solid transparent;
+    width: 68%;
+    height: 100%;
+    box-sizing: border-box;
+    border-radius: 4px;
+  }
+
+  /*确定按钮*/
+  .container-button {
+    border: 0;
+  }
+
+  .set-button {
+    width: 100%;
+    height: 100%;
+    font-size: 0.28rem;
+    background-color: #C43E4E;
+    color: #ffffff;
+    border-radius: 4px;
+    letter-spacing: 10px;
+    border: 0;
+  }
+
+  .agreement {
+    font-size: 0.28rem;
+  }
+
+  /*登录按钮*/
+  .login-button {
+    font-size: 0.28rem;
+    background-color: #C43E4E;
+    color: #ffffff;
+    border-radius: 2px;
+    letter-spacing: 10px;
+  }
+
+  /*登录中*/
+  .login-ing-button {
+    background-color: #14b2bd;
+  }
+
+  .already-login {
+    font-size: 0.28rem;
+  }
+
+  .verifying-slider {
+    border: 0 solid transparent;
+  }
+
+  /*没有账号*/
+  .have-no-account {
+    width: 87.5%;
+    border: 0;
+    align-items: center;
+    -webkit-align-items: center;
+    justify-content: space-between;
+    -webkit-justify-content: space-between;
+    background-color: transparent !important;
+  }
+
+  .have-no-account .have-no-account-text {
+    width: 0;
+    overflow: hidden;
+    color: #fff;
+  }
+
+  .have-no-account {
+    color: #fff;
+  }
+
+  .have-no-account a {
+    font-family: PingFangSC-Regular;
+    font-size: 14px;
+    color: #C43E4E;
+    text-align: right;
+  }
+
+
+
+  .wrong-answer {
+    border: 1px solid #f93943;
+  }
+
+  .prompt-detail {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    background-color: #e6e6e6;
+    width: 500px;
+    height: 500px;
+    transform: translateX(-50%) translateY(-50%);
+  }
+
+  .router-link-box {
+    margin-top: 0.6rem;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.4);
+  }
+
+  .router-link-box-m {
+    text-align: left;
+    font-family: PingFangSC-Regular;
+    font-size: 14px;
+    color: #C43E4E;
+  }
+
+  .router-link-text {
+    margin-left: 2px;
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .login-button-container {
+    margin-top: 0.6rem;
+  }
+
+  .mobile-jump-to-wordOrder {
+    position: fixed;
+    display: block;
+    bottom: 0.8rem;
+    right: 0.4rem;
+    font-size: 14px;
+    line-height: 17px;
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  /* 弹框按钮 */
+  .button-base {
+    margin-right: 0;
+  }
+
+  .button-base:last-of-type {
+    margin-right: 0;
+  }
+
+  .pop-footer .button-base {
+    width: 132px;
+    height: 40px;
+    /*background-color: #C43E4E;*/
+    color: #000;
+    border-radius: 0;
+    border: 0 solid transparent;
+    margin-right: 0;
+    outline: none;
+  }
+
+  .pop-footer .btn_simple:hover {
+    border: 0 solid transparent !important;
+    border-right: 1px solid #e2e2e2 !important;
+    color: #000 !important;
+    background: transparent !important;
+
+  }
+
+  .pop-footer .btn_blue, .pop-footer .btn_blue:hover, .pop-footer .btn_blue:focus, .pop-footer .btn_blue:link {
+    background-color: transparent !important;
+    color: #C43E4E !important;
+    outline: none;
+  }
+
+  .header-box {
+    /*height: 125px;*/
+    overflow: hidden;
+  }
+
+  .header-box-img {
+    width: 110px;
+    margin: 65px auto 0;
+    display: block;
+  }
+
+
+  .mobile-choose-login-type-item {
+    height: 60px;
+    width: 100px;
+    background: transparent;
+    text-align: center;
+    line-height: 60px;
+    font-size: 15px;
+    position: relative;
+    color: rgba(255,255,255,0.8);
+  }
+
+  .mobile-choose-login-type-item-activity {
+    color: #C43E4E;
+  }
+
+  .mobile-choose-login-type-item-activity::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    height: 5px;
+    left: 0;
+    right: 0;
+    background-size: contain;
+  }
+
+  .mobile-forget-password {
+    height: 28px;
+    text-align: right;
+  }
+
+  .mobile-forget-password-text {
+    height: 38px;
+    line-height: 38px;
+    font-size: 13px;
+    text-align: right;
+    color: rgba(255, 255, 255, 0.8);
+    display: inline-block;
+  }
+
+  .mobile-forget-password-text-m {
+    height: 38px;
+    line-height: 38px;
+    text-align: right;
+    display: inline-block;
+    font-family: PingFangSC-Regular;
+    font-size: 14px;
+    color: #C43E4E;
+    margin-left: 50px;
+  }
+
+
+
+  .unitinput_m::-webkit-input-placeholder {
+    /* WebKit browsers */
+    font-family: PingFangSC-Regular;
+    font-size: 16px;
+    color: #3E536C;
+  }
+  .unitinput_m:-moz-placeholder {
+    /* Mozilla Firefox 4 to 18 */
+    font-family: PingFangSC-Regular;
+    font-size: 16px;
+    color: #3E536C;
+  }
+  .unitinput_m::-moz-placeholder {
+    /* Mozilla Firefox 19+ */
+    font-family: PingFangSC-Regular;
+    font-size: 16px;
+    color: #3E536C;
+  }
+  .unitinput_m:-ms-input-placeholder {
+    /* Internet Explorer 10+ */
+    font-family: PingFangSC-Regular;
+    font-size: 16px;
+    color: #3E536C;
+  }
+
+}

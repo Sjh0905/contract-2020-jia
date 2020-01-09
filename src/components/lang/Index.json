@@ -1,0 +1,74 @@
+{
+  "CH": {
+    "prompt_title": "安全提示",
+    "prompt_descript": "为了您的资金安全，请先绑定谷歌验证或手机验证",
+    "bind_mobile": "手机验证",
+    "bind_ga": "谷歌验证",
+    "prompt_new_lf_notice": "提示",
+    "bind_email_pop_title": "安全提示",
+    "bind_email_pop_article": "为了您的资金安全，请先绑定邮箱",
+    "bind_email_pop_button": "绑定邮箱",
+    "prompt": "提示",
+    "RefreshTooften": "刷新过于频繁",
+    "CanRefreshAgain": "秒后可再次刷新"
+  },
+  "EN": {
+    "prompt_title": "Safety Warning",
+    "prompt_descript": "For your financial security, please finish Google Authentication and SMS Authentication in your EUNEX account.",
+    "bind_mobile": "SMS Authentication",
+    "bind_ga": "Google Authentication",
+    "prompt_new_lf_notice": "Warning",
+    "bind_email_pop_title": "Safety Warning",
+    "bind_email_pop_article": "For your financial security, please set up an email address binding with your account.",
+    "bind_email_pop_button": "Set up email",
+    "prompt": "prompt",
+    "RefreshTooften": "Refresh too often",
+    "CanRefreshAgain": "Refresh in seconds"
+  },
+  "CA": {
+    "prompt_title": "Safety Warning",
+    "prompt_descript": "For your financial security, please finish Google Authentication and SMS Authentication in your EUNEX account.",
+    "bind_mobile": "SMS Authentication",
+    "bind_ga": "Google Authentication",
+    "prompt_new_lf_notice": "Warning",
+    "bind_email_pop_title": "Safety Warning",
+    "bind_email_pop_article": "For your financial security, please set up an email address binding with your account.",
+    "bind_email_pop_button": "Set up email",
+    "prompt": "prompt",
+    "RefreshTooften": "Refresh too often",
+    "CanRefreshAgain": "Refresh in seconds"
+  },
+  "KOR": {
+    "prompt_title": "안전 팁",  "prompt_descript": "자금의 보안을 위해 먼저 Google 인증 또는 모바일 인증을 바인딩하십시오.",  "bind_mobile": "모바일 인증",  "bind_ga": "구글 인증",  "prompt_new_lf_notice": "팁",  "bind_email_pop_title": "안전 팁",  "bind_email_pop_article": "자금의 보안을 위해 먼저 사서함을 바인딩하십시오.",  "bind_email_pop_button": "바인딩 사서함",
+    "prompt": "팁",
+    "RefreshTooften": "새로 고침이 너무 빈번합니다",
+    "CanRefreshAgain": "초 후 새로 고침"
+  },
+  "CHT": {
+    "prompt_title": "安全提示",
+    "prompt_descript": "為了您的資金安全，請先綁定穀歌驗證或手機驗證",
+    "bind_mobile": "手機驗證",
+    "bind_ga": "穀歌驗證",
+    "prompt_new_lf_notice": "提示",
+    "bind_email_pop_title": "安全提示",
+    "bind_email_pop_article": "為了您的資金安全，請先綁定郵箱",
+    "bind_email_pop_button": "綁定郵箱",
+    "prompt": "提示",
+    "RefreshTooften": "刷新過於頻繁",
+    "CanRefreshAgain": "秒後可再次刷新"
+  },
+  "JP": {
+    "prompt_title": "セキュリティ・ヒント",
+    "prompt_descript": "「あなたの資金の安全のために、まずgoogleの検証や携帯電話の検証を結びつけてください」",
+    "bind_mobile": "携帯電話の検証",
+    "bind_ga": " google検証",
+    "prompt_new_lf_notice": "ヒント",
+    "bind_email_pop_title": "セキュリティ・ヒント",
+    "bind_email_pop_article": "あなたの資金の安全のために、先にメールボックスをバインドしてください。",
+    "bind_email_pop_button": "バインディングメール",
+    "prompt": "ヒント",
+    "RefreshTooften": "更新が頻繁すぎる",
+    "CanRefreshAgain": "秒後に更新する"
+
+  }
+}

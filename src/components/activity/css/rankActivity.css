@@ -1,0 +1,303 @@
+.rankActivity{
+	width: 100%;
+	min-height: 650px;
+	height: 100%;
+}
+
+
+.rank_body{
+	width: 100%;
+	min-height: 900px;
+	background: #0a082d;
+	margin-bottom: -30px;
+	padding-bottom: 100px;
+}
+
+.rank_banner{
+	width: 100%;
+	height: 50px;
+}
+
+.rank_container{
+	width: 1280px;
+	min-height: 500px;
+	margin: 0 auto;
+	margin-bottom: 40px;
+	border: 1px solid #4e5a92;
+	border-radius: 37px;
+	padding: 5px;
+	position: relative;
+}
+.rank_container_inline{
+	width: 100%;
+	min-height: 500px;
+	border: 1px solid #4e5a92;
+	border-radius: 34px;
+}
+.rank_horn{
+	width: 140px;
+	height: 150px;
+	background: url('../activityAssets/rankActivity/kuang.png') center no-repeat;
+	position: absolute;
+	background-size: 60%;
+}
+.top_left{
+	left: -25px;
+	top: -33px;
+	transform:rotate(-90deg);
+	-ms-transform:rotate(-90deg);
+	-moz-transform:rotate(-90deg);
+	-webkit-transform:rotate(-90deg);
+	-o-transform:rotate(-90deg);
+}
+.top_right{
+	right: -28px;
+	top: -30px;
+}
+.bottom_left{
+	left: -28px;
+	bottom: -30px;
+	transform:rotate(180deg);
+	-ms-transform:rotate(180deg);
+	-moz-transform:rotate(180deg);
+	-webkit-transform:rotate(180deg);
+	-o-transform:rotate(180deg);
+}
+.bottom_right{
+	right: -25px;
+	bottom: -33px;
+	transform:rotate(90deg);
+	-ms-transform:rotate(90deg);
+	-moz-transform:rotate(90deg);
+	-webkit-transform:rotate(90deg);
+	-o-transform:rotate(90deg);
+}
+
+.rank_title{
+	color: #bff0fc;
+	font-size: 16px;
+	text-align: center;
+	margin-top: 30px;
+	width: auto;
+}
+
+.rank_title span{
+	display: inline-block;
+	width: auto;
+	height: 38px;
+	/*background: #5f63e0;*/
+	border-bottom: 3px solid #0f3b61;
+	border-top: 3px solid #0f3b61;
+	position: relative;
+}
+
+.icon_left{
+	position: absolute;
+	left: -60px;
+	top: -18px;
+	display: block;
+	width: 100px;
+	height: 74px;
+	background: url('../activityAssets/rankActivity/left.png') center no-repeat;
+	background-size: 60%;
+}
+.icon_right{
+	position: absolute;
+	right: -56px;
+	top: -18px;
+	display: block;
+	width: 100px;
+	height: 74px;
+	background: url('../activityAssets/rankActivity/right.png') center no-repeat;
+	background-size: 60%;
+}
+.span_title{
+	display: inline-block;
+	height: 33px;
+	width: 100%;
+	background: #5f63e0;
+	line-height: 33px;
+	margin-top: 2px;
+}
+
+.rank_small_title{
+	width: 100%;
+	line-height: 50px;
+	text-align: center;
+	color: #acd9e1;
+	font-size: 14px;
+	font-weight: 300;
+	margin-top: 10px;
+}
+
+.rank_sort_valome{
+	color: #e8e7ec;
+	text-align: center;
+	font-size: 14px;
+	font-weight: 200;
+	margin-top: 10px;
+	padding-bottom: 15px;
+}
+.border_bottom{
+	border-bottom: 1px solid #161743;
+}
+.border_bottom.title{
+	border-bottom: 1px solid #25265a;
+}
+.rank_sort_valome span{
+	color: #4fbbdc;
+	font-size: 16px;
+	font-weight: 600;
+}
+.sort{
+	width: 20%;
+}
+.valome{
+	width: 60%;
+}
+.time{
+	width: 20%;
+}
+
+.rank_table{
+	padding: 20px 30px;
+	color: #e8e7ec;
+}
+
+.rank_table_title{
+	text-align: center;
+	font-size: 15px;
+	font-weight: 600;
+}
+
+.table_sort{
+	width: 15%;
+}
+.table_name{
+	width: 25%;
+}
+.table_valome{
+	width: 30%;
+}
+.table_gift{
+	width: 28%;
+	text-align: right;
+}
+
+.rank_table_body{
+	width: 95%;
+	margin: 0 auto;
+}
+
+.rank_table_tr{
+	margin-top: 10px;
+	text-align: center;
+	line-height: 40px;
+	color: rgba(255,255,255,.6);
+}
+.sort_1{
+	display: inline-block;
+	width: 36px;
+	height: 42px;
+	background: url('../activityAssets/rankActivity/1.png') center no-repeat;
+	background-size: 60%;
+	text-indent: -1000000px;
+}
+.sort_2{
+	display: inline-block;
+	width: 36px;
+	height: 42px;
+	background: url('../activityAssets/rankActivity/2.png') center no-repeat;
+	background-size: 60%;
+	text-indent: -1000000px;
+}
+.sort_3{
+	display: inline-block;
+	width: 36px;
+	height: 42px;
+	background: url('../activityAssets/rankActivity/3.png') center no-repeat;
+	background-size: 60%;
+	text-indent: -1000000px;
+}
+
+.rank_table_tr.color_1{
+	color: #FEE617;
+}
+.rank_table_tr.color_2{
+	color: #e7e7e7;
+}
+.rank_table_tr.color_3{
+	color: #D4C99E;
+}
+
+.table_sort_tr{
+	width: 12%;
+}
+.table_name_tr{
+	width: 40%;
+}
+.table_valome_tr{
+	width: 25%;
+}
+.table_gift_tr{
+	width: 45%;
+	text-align: right;
+}
+.table_valome_tr span{
+	width: 85%;
+	display: inline-block;
+	float: left;
+	text-align: right;
+}
+.tr_font{
+	color: #4fbbdc;
+	font-size: 15px;
+	font-weight: 600;
+}
+
+.rank_rules_detail{
+	width: 1280px;
+	margin: 0 auto;
+	color: rgba(255,255,255, .7);
+	padding: 20px 0px;
+}
+.rank_rules_detail p{
+	line-height: 30px;
+	padding-left: 60px;
+}
+.rank_rules_detail p:nth-child(1), .rank_rules_detail p:nth-child(2){
+	padding-left: 0;
+}
+.rank_rules_detail_1{
+	width: 1280px;
+	margin: 0 auto;
+	color: rgba(255,255,255, .7);
+	padding: 20px 0px;
+}
+.rank_rules_detail_1 p{
+	line-height: 30px;
+}
+.rank_detail_2{
+	color: rgba(255,255,255, .4);
+	text-align: center;
+	margin-top: 40px;
+}
+
+.span_title dd{
+	padding: 0 20px;
+}
+.rank_detail_2.top{
+	margin-top: 10px;
+}
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,62 @@
+{
+  "CH": {
+    "collection": "收藏",
+    "btc": "BTC",
+    "eth": "ETH",
+    "market": "市场",
+    "latestPrice": "最新价",
+    "Innovation" :"创新区",
+    "Favorites":"自选区",
+    "SearchCurrency":"搜索",
+    "turnover": "成交量",
+    "upsAndDowns": "涨跌",
+    "tab_1": "主板区",
+    "tab_2": "超级为蜜区"
+  },
+  "EN": {
+    "collection": "Favorties",
+    "btc": "BTC",
+    "eth": "ETH",
+    "market": "Market",
+    "latestPrice": "Last Price",
+    "Innovation" :"Innovation",
+    "Favorites":"Favorites",
+    "SearchCurrency":"Search Currency",
+    "turnover": "Volume",
+    "upsAndDowns": "Change",
+    "tab_1": "Main Board",
+    "tab_2": "Bee Market / BM"
+  },
+  "CA": {
+    "collection": "Favorties",
+    "btc": "BTC",
+    "eth": "ETH",
+    "market": "Market",
+    "latestPrice": "Last Price",
+    "Innovation" :"Innovation",
+    "Favorites":"Favorites",
+    "SearchCurrency":"Search Currency",
+    "turnover": "Volume",
+    "upsAndDowns": "Change",
+    "tab_1": "Main Board",
+    "tab_2": "Bee Market / BM"
+  },
+  "KOR": {
+    "collection": "컬렉션",  "btc": "BTC",  "eth": "ETH",  "market": "시장",  "latestPrice": "최신 가격",  "Innovation" :"이노베이션 존",  "Favorites":"셀프 셀렉션",  "SearchCurrency":"검색",  "turnover": "볼륨",  "upsAndDowns": "변경",  "tab_1": "마더보드 영역",  "tab_2": "슈퍼 꿀 지역"
+  },
+  "CHT": {
+    "collection": "收藏",
+    "btc": "BTC",
+    "eth": "ETH",
+    "market": "市場",
+    "latestPrice": "最新價",
+    "Innovation" :"創新區",
+    "Favorites":"自選區",
+    "SearchCurrency":"搜索",
+    "turnover": "成交量",
+    "upsAndDowns": "漲跌",
+    "tab_1": "主板區",
+    "tab_2": "超級為蜜區"
+  },
+  "JP": {  "collection": "コレクション",  "btc": "BTC",  "eth": "ETH",  "market": "市場",  "latestPrice": "最新価格",  "Innovation" :"革新区に",  "Favorites":"選挙区に",  "SearchCurrency":"探索に",  "turnover": "出来高",  "upsAndDowns": "揺動",  "tab_1": "メイン基板",  "tab_2": "超级为蜜区"}
+}

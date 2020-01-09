@@ -1,0 +1,10 @@
+<div :class="(isApp||isIOS) ? 'mobile-notice-box1' : 'mobile-notice-box'">
+  <Loading v-if="loading"/>
+    <div v-if="!loading" :class="(isApp||isIOS) ?'mobile-notice-title-box1':'mobile-notice-title-box'">
+      <div :class="(isApp||isIOS) ? 'mobile-notice-title1':'mobile-notice-title'">{{noticeInfo.title}}</div>
+      <!-- <div class="mobile-notice-time">{{$globalFunc.formatDateUitl(noticeInfo.beginTime,'YYYY-MM-DD')}}</div> -->
+    </div>
+  <div v-show="!loading" :class="(isApp||isIOS) ?'mobile-notice-content-xxxxxx-abc123def1':'mobile-notice-content-xxxxxx-abc123def'" ref="noticeInfoContent">
+    <!--{{noticeInfo.content}}-->
+  </div>
+</div>

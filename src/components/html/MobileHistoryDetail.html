@@ -1,0 +1,156 @@
+<div class="_m_od_bx">
+
+
+    <div class="_m_od_t flex-center">
+        <i :style="order.type==='BUY_LIMIT'?'background:#00a62a':'background:#d83838'">
+            {{order.type === 'BUY_LIMIT' && "买" || "卖"}}
+        </i>
+        <span>{{order.symbol | e}}</span>
+    </div>
+    <div class="_m_od_tp flex-center">{{getStatus(order)}}</div>
+
+    <ul class="_m_od_ul1 txt_40">
+        <li class="flex-between">
+            <div class="_m_od_ul1t">成交量 / 数量</div>
+            <div class="_m_od_ul1c">
+                <span class="txt_80">{{toFixed(order.filledAmount, !!quoteScale_list[order.symbol] ? quoteScale_list[order.symbol].baseScale : 8)}}</span>
+                <span> / {{toFixed(order.amount, !!quoteScale_list[order.symbol] ? quoteScale_list[order.symbol].baseScale : 8)}}</span>
+            </div>
+        </li>
+        <li class="flex-between">
+            <div class="_m_od_ul1t">均价 / 单价</div>
+            <div class="_m_od_ul1c">
+                <span class="txt_80">{{this.orderDetail.length===0 && order.status !== 'FULLY_CANCELLED' && toFixed(order.price, !!quoteScale_list[order.symbol] ? quoteScale_list[order.symbol].quoteScale : 8) || toFixed(averagePrice, !!quoteScale_list[order.symbol] ? quoteScale_list[order.symbol].quoteScale : 8)}}</span>
+                <span> / {{toFixed(order.price, !!quoteScale_list[order.symbol] ? quoteScale_list[order.symbol].quoteScale : 8)}}</span>
+            </div>
+        </li>
+    </ul>
+
+    <ul class="_m_od_ul2 txt_40">
+        <!--<li class="flex-between">-->
+            <!--<span class="_m_od_ul2t">应收手续费</span>-->
+            <!--<span class="_m_od_ul2c txt-through"> {{toFixed(order.fee,8)}} {{order.type === 'BUY_LIMIT' ?-->
+              <!--order.symbol.split('_')[0]:order.symbol.split('_')[1]}}</span>-->
+        <!--</li>-->
+        <li v-if="!replaced" class="flex-between">
+            <span class="_m_od_ul2t">手续费</span>
+            <span class="_m_od_ul2c txt_80">{{toFixed(totalFee,8)}} {{order.type !== 'BUY_LIMIT'?order.symbol.split('_')[1]:order.symbol.split('_')[0]}}</span>
+        </li>
+        <li v-if="replaced" class="flex-between">
+            <span class="_m_od_ul2t">手续费</span>
+            <span v-if="originalFee !==refundedFee" class="_m_od_ul2c txt_80">{{toFixed(accMinus(originalFee , refundedFee),8)}} {{originalCurrency}}</span>
+            <span v-if="replacedFee !==0" class="_m_od_ul2c txt_80">{{toFixed(replacedFee,8)}} {{replacedCurrency}}</span>
+            <span v-if="order.status==='FULLY_CANCELLED'" class="_m_od_ul2c txt_80">{{toFixed(0,8)}} {{order.type==='BUY_LIMIT'?order.symbol.split('_')[0]:order.symbol.split('_')[1]}}</span>
+        </li>
+        <li class="flex-between">
+            <span class="_m_od_ul2t">成交金额</span>
+            <span class="_m_od_ul2c txt_80">{{toFixed(filledPrice,8)}} {{order.symbol.split('_')[1]}}</span>
+        </li>
+        <li class="flex-between">
+            <span class="_m_od_ul2t">实际到账</span>
+            <span v-if="order.type==='BUY_LIMIT'" class="_m_od_ul2c txt_80">
+                 {{toFixed(actualAccount,8)}}
+          {{order.type!=='BUY_LIMIT'?order.symbol.split('_')[1]:order.symbol.split('_')[0]}}
+            </span>
+            <span v-if="order.type!=='BUY_LIMIT'" class="_m_od_ul2c txt_80">
+                 {{toFixed(accMinus(filledPrice , totalFee),8)}}
+          {{order.type!=='BUY_LIMIT'?order.symbol.split('_')[1]:order.symbol.split('_')[0]}}
+            </span>
+        </li>
+    </ul>
+
+    <div class="_m_od_d txt_80">
+        成交详情
+    </div>
+
+    <ul class="_m_od_ul3">
+        <li class="flex-between _m_od_ul3t txt_40">
+            <div>日期</div>
+            <div>成交价格</div>
+            <div>成交数量</div>
+        </li>
+        <li v-for="(detail,index) in orderDetail" class="_m_od_ul3c flex-row txt_80">
+            <div>{{$globalFunc.formatDateUitl(detail.createdAt,'MM-DD hh:mm:ss')}}</div>
+            <div>{{toFixed(detail.price, !!quoteScale_list[order.symbol] ? quoteScale_list[order.symbol].quoteScale : 8)}} {{order.symbol.split('_')[1]}}</div>
+            <div>{{toFixed(detail.amount, !!quoteScale_list[order.symbol] ? quoteScale_list[order.symbol].baseScale : 8)}} {{order.symbol.split('_')[0]}}</div>
+        </li>
+
+    </ul>
+
+
+    <!--&lt;!&ndash;如果没开抵扣，显示原币种 begin &ndash;&gt;-->
+    <!--<div class="hidden-detail-article" v-if="!replaced">-->
+        <!--<p class="hidden-detail-article-box hidden-detail-article-original-currency">-->
+            <!--<span class="hidden-detail-article-title hidden-detail-article-original-currency-title"-->
+                  <!--:class="{'hidden-detail-article-title-en':lang!=='CH'}"-->
+            <!--&gt;{{$t('orderPageHistoricalEntrustmentDetail.originalCurrency')}}</span>-->
+            <!--<span-->
+                    <!--class="hidden-detail-article-item hidden-detail-article-original-currency-item">{{toFixed(totalFee,8)}} {{orderType?symbol.split('_')[1]:symbol.split('_')[0]}}</span>-->
+        <!--</p>-->
+        <!--<p class="hidden-detail-article-box hidden-detail-article-really-currency">-->
+            <!--<span class="hidden-detail-article-title hidden-detail-article-really-currency-title"-->
+                  <!--:class="{'hidden-detail-article-title-en':lang!=='CH'}"-->
+            <!--&gt;{{$t('orderPageHistoricalEntrustmentDetail.reallyCurrency')}}</span>-->
+            <!--<span-->
+                    <!--class="hidden-detail-article-item hidden-detail-article-really-currency-item"-->
+            <!--&gt;{{toFixed(totalFee,8)}} {{orderType?symbol.split('_')[1]:symbol.split('_')[0]}}</span>-->
+        <!--</p>-->
+    <!--</div>-->
+    <!--&lt;!&ndash;如果没开抵扣，显示原币种 end &ndash;&gt;-->
+
+
+    <!--&lt;!&ndash;如果开抵扣了，显示抵扣 begin &ndash;&gt;-->
+    <!--<div class="hidden-detail-article" v-if="replaced">-->
+        <!--<p class="hidden-detail-article-box hidden-detail-article-original-currency">-->
+            <!--<span class="hidden-detail-article-title hidden-detail-article-original-currency-title"-->
+                  <!--:class="{'hidden-detail-article-title-en':lang!=='CH'}"-->
+            <!--&gt;{{$t('orderPageHistoricalEntrustmentDetail.originalCurrency')}}</span>-->
+            <!--<span-->
+                    <!--class="hidden-detail-article-item hidden-detail-article-original-currency-item">{{toFixed(originalFee,8)}} {{originalCurrency}}</span>-->
+        <!--</p>-->
+        <!--<p class="hidden-detail-article-box hidden-detail-article-really-currency">-->
+            <!--<span class="hidden-detail-article-title hidden-detail-article-really-currency-title"-->
+                  <!--:class="{'hidden-detail-article-title-en':lang!=='CH'}"-->
+            <!--&gt;{{$t('orderPageHistoricalEntrustmentDetail.reallyCurrency')}}</span>-->
+            <!--<span-->
+                    <!--class="hidden-detail-article-item hidden-detail-article-really-currency-item"-->
+                    <!--v-if="originalFee !==refundedFee"-->
+            <!--&gt;{{toFixed(accMinus(originalFee , refundedFee),8)}} {{originalCurrency}}</span>-->
+            <!--<span-->
+                    <!--class="hidden-detail-article-item hidden-detail-article-really-currency-item"-->
+                    <!--v-if="replacedFee !==0"-->
+            <!--&gt;{{toFixed(replacedFee,8)}} {{replacedCurrency}}</span>-->
+        <!--</p>-->
+    <!--</div>-->
+    <!--&lt;!&ndash;如果开抵扣了，显示抵扣 end &ndash;&gt;-->
+
+
+
+
+
+
+
+    <!--<div v-for="(detail,index) in orderDetail"-->
+         <!--:key="index">-->
+
+        <!--<div class="mobile-history-item-hidden-first-line">-->
+
+            <!--<div class="mobile-history-item-hidden-charge-title" style="float: left">手续费</div>-->
+            <!--<div class="mobile-history-item-hidden-charge">{{totalFee.toFixed(8)}} {{orderType?symbol.split('_')[1]:symbol.split('_')[0]}}</div>-->
+
+            <!--<div class="mobile-history-item-hidden-num" style="float: right">-->
+                <!--{{detail.amount}} {{symbol.split('_')[0]}}-->
+            <!--</div>-->
+            <!--<div class="mobile-history-item-hidden-num-title" style="float: right">成交数量</div>-->
+
+        <!--</div>-->
+        <!--<div class="mobile-history-item-hidden-second-line">-->
+            <!--<div class="mobile-history-item-hidden-charge-title">实际到账</div>-->
+            <!--<div class="mobile-history-item-hidden-charge">{{(amount - (originalFee - refundedFee)).toFixed(8)}}-->
+                <!--{{orderType?symbol.split('_')[1]:symbol.split('_')[0]}}</div>-->
+            <!--<div class="mobile-history-item-hidden-num-title">完成时间</div>-->
+            <!--<div class="mobile-history-item-hidden-num">{{$globalFunc.formatDateUitl(detail.createdAt,'MM-DD hh:mm:ss')}}</div>-->
+        <!--</div>-->
+    <!--</div>-->
+
+</div>

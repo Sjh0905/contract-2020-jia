@@ -1,0 +1,25 @@
+<div class="index-header-assets-container">
+    <Loading v-if="loading"/>
+    <ul class="asset-container" v-else>
+        <li class="asset-li">
+            <router-link :to="{name:'authentication'}">
+                <p style="color: #fff;">{{$t('indexHeaderAssets.userName')}}</p>
+                <p>{{userName}}</p>
+            </router-link>
+        </li>
+        <li class="asset-li">
+            <router-link :to="{name:'authentication'}">
+                <p style="color: #fff;">{{$t('indexHeaderAssets.total')}}:</p>
+                <p>{{accountReady || priceReady ? toFixed(total,8) : '----'}}BTC</p>
+            </router-link>
+        </li>
+        <!--<li class="asset-li flex-center">-->
+        <!--<p>{{$t('indexHeaderAssets.available')}}</p>-->
+        <!--<p>{{accountReady || priceReady ? available.toFixed(8) : '&#45;&#45;&#45;&#45;'}}</p>-->
+        <!--</li>-->
+        <!--<li class="asset-li flex-center">-->
+        <!--<p>{{$t('indexHeaderAssets.frozen')}}</p>-->
+        <!--<p>{{accountReady || priceReady ? frozen.toFixed(8) : '&#45;&#45;&#45;&#45;'}}</p>-->
+        <!--</li>-->
+    </ul>
+</div>

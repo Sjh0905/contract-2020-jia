@@ -1,0 +1,57 @@
+<div class="container">
+  <div class="title flex">
+    <span></span>
+    <span>临时页面</span>
+    <span>*此页面为麻老师专用页面！闲杂人等退散</span>
+  </div>
+  <div class="article">
+    <div class="input-password input-container">
+      <div class="detail-center">
+        <span>描述</span>
+        <input type="text" placeholder="Description" v-model="description">
+        <span></span>
+      </div>
+    </div>
+    <div class="confirm-password input-container">
+      <div class="detail-center">
+        <span>IP:</span>
+        <input type="text" placeholder="IP restriction" v-model="ip">
+      </div>
+    </div>
+    <div class="confirm-password input-container">
+      <div class="detail-center">
+        <span></span>
+        <div class="template-checkbox flex-center">
+          <input type="checkbox" v-model="canTrade" id="trade"><label for="trade">可以交易</label>
+          <input type="checkbox" v-model="canWithdraw" id="canWithdraw"><label for="canWithdraw">可以提现</label>
+        </div>
+        <span></span>
+      </div>
+    </div>
+
+
+    <div class="ensure input-container">
+      <div class="detail-center">
+        <button @click="addApiKey" v-if="!sending">添加</button>
+        <button v-if="sending">发送中</button>
+      </div>
+    </div>
+
+
+    <div class="confirm-password input-container">
+      <div class="detail-center">
+        <span></span>
+        <div class="template-show flex">
+          <div>{{apiKey}}</div>
+          <div>{{apiSecret}}</div>
+        </div>
+        <span></span>
+      </div>
+    </div>
+
+  </div>
+
+
+  <PopupPrompt :popOpen="popOpen" :popClose="popClose" :popType="popType" :popText="popText"/>
+
+</div>

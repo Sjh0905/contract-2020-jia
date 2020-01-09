@@ -1,0 +1,103 @@
+.LatestDeal{
+	width: 100%;
+	height: 100%;
+	font-size: 1.2rem;
+}
+
+.title{
+    height: 36px;
+    line-height: 36px;
+  /* font-weight: bold; */
+    /* background: #ebebeb; */
+    cursor: pointer;
+    background-color: #ffffff;
+    position: relative;
+    z-index: 100;
+  /*border-bottom: 1px solid #F2F6FA;*/
+  font-family: PingFangSC-Regular;
+  font-size: 12px;
+  color: #8994A5;
+  letter-spacing: 0;
+}
+.detail{
+	overflow-y: scroll;
+	height: 100%;
+	width: 100%;
+	position: relative;
+}
+.detail::-webkit-scrollbar {
+    width: 4px;
+}
+
+.detail::-webkit-scrollbar-track {
+    background-color: #eee;
+    border-radius: 5px;
+}
+
+.detail::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 5px;
+}
+.title_ul{
+	overflow: hidden;
+	box-sizing: border-box;
+}
+.detail_ul{
+	height: 23px;
+	line-height: 23px;
+}
+.title_li{
+	float: left;
+    color: #666;
+    overflow: hidden;
+}
+.title_li.price {
+	color: #666;
+}
+.price{
+	width: 50%;
+	padding-left: 12px;
+	text-align: right;
+	word-wrap: normal;
+    word-break: break-all;
+    height: 30px;
+    overflow: hidden;
+  font-family: Roboto-Regular;
+  font-size: 12px;
+}
+.price.buy{
+	color: #02987D;
+}
+.price.sall{
+	color: #C43E4E;
+}
+.valome{
+	width: 60%;
+    word-break: break-all;
+  font-family: Roboto-Regular;
+  font-size: 12px;
+  color: #172A4D;
+  text-align: right;
+  padding-right: 15px;
+}
+.time{
+	width: 32%;
+	/*padding-right: 12px;*/
+	text-align: left;
+  word-break: break-all;
+  padding-left: 15px;
+  font-family: Roboto-Regular;
+  font-size: 12px;
+  color: #172A4D;
+}
+.no_list{
+	text-align: center;
+	height: 100%;
+	color: #666;
+}
+.buy li{
+	/*color: #02987D;*/
+}
+.sall li{
+	/*color: #C43E4E;*/
+}

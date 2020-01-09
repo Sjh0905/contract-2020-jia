@@ -1,0 +1,439 @@
+<div class="currency_notice">
+  <IndexHeader/>
+
+  <div class="currency_notice_body">
+    <div class="currency_notice_container">
+      <div class="currency_notice_bread">
+        <router-link to="/index/home">{{langs.home}}</router-link>
+        <span></span>
+        {{langs.detail}}
+      </div>
+
+      <div class="currency_notice_title">
+        <span></span>
+        <font v-if="list_type == 0">{{langs.title0}}</font>
+        <font v-if="list_type == 1">{{langs.title1}}</font>
+        <font v-if="list_type == 2">{{langs.title2}}</font>
+        <font v-if="list_type == 3">{{langs.title3}}</font>
+        <!--<font >{{langs.titleTemp}}</font>-->
+      </div>
+
+      <div class="currency_notice_sort">
+        <div v-show="list_type == 0">
+          <span>{{langs.ranking}}: {{ranking == 0 ? (this.lang == 'CH' ? '未上榜' : 'unavailable') : ranking}}</span>
+          <span>{{langs.Volume}}: {{volume}} IOST</span>
+        </div>
+        <div v-show="list_type == 1">
+          <span>{{langs.Total_Deposit}}: <font v-if="is_login">{{recharge}} IOST</font><font v-else>- -</font></span>
+          <span>{{langs.now_Bonus}}: <font v-if="is_login">{{reward}} IOST</font><font v-else>- -</font></span>
+        </div>
+        <div v-show="list_type == 2">
+          <span>{{langs.title_gift}}: <font v-if="is_login && registerReward!=0">{{registerReward}} IOST</font><font
+            v-else>- -</font></span>
+          <!--<span>{{langs.now_Bonus}}: <font v-if="is_login">{{reward}} IOST</font><font v-else>- -</font></span>-->
+        </div>
+        <div v-show="list_type == 3">
+          <span>{{langs.title_gift}}: <font v-if="is_login && recommendReward!=0">{{recommendReward}} IOST</font><font v-else>- -</font></span>
+          <!--<span>{{langs.now_Bonus}}: <font v-if="is_login">{{reward}} IOST</font><font v-else>- -</font></span>-->
+        </div>
+      </div>
+
+      <div class="currency_notice_tabs_time">
+        <div class="tabs">
+          <ul>
+            <li class="tab" :class="{'is_active': list_type == 1}" @click="CHANGE_TYPE(1)">{{langs.Bonus_list}}</li>
+            <li class="tab" :class="{'is_active': list_type == 0}" @click="CHANGE_TYPE(0)">
+              {{langs.valuable_members_list}}
+            </li>
+            <li class="tab" :class="{'is_active': list_type == 2}" @click="CHANGE_TYPE(2)">{{langs.title_2}}</li>
+            <li class="tab" :class="{'is_active': list_type == 3}" @click="CHANGE_TYPE(3)">{{langs.title_3}}</li>
+            <li>{{langs.count_down}} :
+              <dd id="times"></dd>
+            </li>
+            <li v-if="list_type == 1">{{langs.Remaining}}: {{ $globalFunc.accFixed(surplus,8) }} IOST</li>
+          </ul>
+        </div>
+        <div class="tables">
+          <div class="transaction" v-show="list_type == 0">
+            <ul class="title">
+              <li class="reward-list-li">{{langs.Ranking}}</li>
+              <li class="reward-list-li">{{langs.uid}}</li>
+              <li class="reward-list-li">{{langs.buy}}(IOST)</li>
+              <li class="reward-list-li">{{langs.sell}}(IOST)</li>
+              <li class="reward-list-li">{{langs.value}}(IOST)</li>
+              <li class="reward-list-li">{{langs.Bonus}}(IOST)</li>
+            </ul>
+            <div class="table_list">
+              <ul class="list" v-for="(value, key) in list_1">
+                <li v-if="key < 3">
+                  <span></span>
+                </li>
+                <li v-else>{{ key + 1 }}</li>
+                <li>{{value.email}}</li>
+                <li>{{$globalFunc.accFixed(value.buyAmount,8)}} IOST</li>
+                <li>{{$globalFunc.accFixed(value.sellAmount,8)}} IOST</li>
+                <li>{{$globalFunc.accFixed(value.sumAmount,8)}} IOST</li>
+                <li>
+                  <font v-if="key == 0">40000 IOST</font>
+                  <font v-if="key == 1">20000 IOST</font>
+                  <font v-if="key == 2">15000 IOST</font>
+                  <font v-if="key < 10 && key > 2">5000 IOST</font>
+                  <font v-if="key > 9">1000 IOST</font>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="recharge" v-show="list_type == 1">
+            <ul class="title">
+              <li>{{langs.List}}</li>
+              <li>{{langs.uid}}</li>
+              <li>{{langs.last_deposit}}</li>
+              <li>{{langs.total_deposit}}(IOST)</li>
+              <li>{{langs.now_Bonus}}(IOST)</li>
+            </ul>
+            <div class="table_list">
+              <ul class="list" v-for="(value, key) in list">
+                <li>{{key + 1}}</li>
+                <li>{{value.email}}</li>
+                <li>{{$globalFunc.formatDateUitl(value.updatedAt,'YYYY-MM-DD hh:mm:ss')}}</li>
+                <li>{{$globalFunc.accFixed(value.amount, 8)}} IOST</li>
+                <li>{{$globalFunc.accFixed(value.reward, 8)}} IOST</li>
+              </ul>
+            </div>
+          </div>
+
+
+          <!--注册奖励 begin-->
+          <div class="recharge register-reward" v-show="list_type == 2">
+            <ul class="title reward-list-title-box">
+              <li class="reward-list-li">{{langs.List}}</li>
+              <li class="reward-list-li">{{langs.uid}}</li>
+              <li class="reward-list-li">{{langs.register_time}}</li>
+              <li class="reward-list-li">{{langs.register_people}}</li>
+              <li class="reward-list-li">{{langs.now_Bonus}}</li>
+            </ul>
+            <div class="table_list">
+              <ul class="list" v-for="(value, key) in registerList">
+                <li class="register-li">{{key + 1}}</li>
+                <li class="register-li">{{value.beInvitedEmail}}</li>
+                <li class="register-li">{{$globalFunc.formatDateUitl(value.createdAt,'YYYY-MM-DD hh:mm:ss')}}</li>
+                <li class="register-li">{{value.inviteduserEmail}}</li>
+                <li class="register-li last-register-li">50 IOST</li>
+              </ul>
+            </div>
+          </div>
+          <!--注册奖励 end-->
+
+          <!--推荐奖励 begin-->
+          <div class="recommend" v-show="list_type == 3">
+            <ul class="title flex recommend-li-box">
+              <li class="recommend-li reward-list-li">{{langs.Ranking}}</li>
+              <li class="recommend-li reward-list-li">{{langs.uid}}</li>
+              <li class="recommend-li reward-list-li">{{langs.register_person}}</li>
+              <li class="recommend-li reward-list-li">{{langs.now_Bonus}}</li>
+            </ul>
+            <div class="table_list">
+              <ul class="list recommend-li-box flex" v-for="(value, key) in recommendList">
+                <li class="recommend-li reward-list-li">{{key + 1}}</li>
+                <li class="recommend-li reward-list-li">{{value.inviteduserEmail}}</li>
+                <li class="recommend-li reward-list-li">{{value.invitedNum}}</li>
+                <li class="recommend-li reward-list-li">{{value.invitedNum * 50}} IOST</li>
+              </ul>
+            </div>
+          </div>
+          <!--推荐奖励 end-->
+
+
+        </div>
+        <div class="page-bar-box">
+          <!-- 分页插件 start  v-if="maxPage > 1" -->
+          <PageBar v-if="list_type == 1 && maxPage > 1" :maxPage='maxPage'
+                   :selectIndex="selectIndex"
+                   :clickChangePage="clickChangePage"
+                   :currentDisplay=2
+                   :initDisplay=2></PageBar>
+          <!-- 分页插件 end -->
+
+          <!--注册奖励分页 begin-->
+          <PageBar v-if="list_type == 2 && registerMaxPage > 1" :maxPage='registerMaxPage'
+                   :selectIndex="registerSelectIndex"
+                   :clickChangePage="registerChangePage"
+                   :currentDisplay=2
+                   :initDisplay=2></PageBar>
+          <!--注册奖励分页 end-->
+
+          <!--推荐奖励分页 begin-->
+          <PageBar v-if="list_type == 3 && recommendMaxPage > 1" :maxPage='recommendMaxPage'
+                   :selectIndex="recommendSelectIndex"
+                   :clickChangePage="recommendChangePage"
+                   :currentDisplay=2
+                   :initDisplay=2></PageBar>
+          <!--推荐奖励分页 end-->
+        </div>
+
+      </div>
+
+       <!--<div class="currency_notice_recharge_tips">*排行榜只展示前100名</div> -->
+
+      <div class="currency_notice_tips">
+        <div class="currency_notice_absolute">
+
+
+          <!--<ul v-show="list_type == 0">-->
+          <!--<li>1 . {{langs.one}}</li>-->
+          <!--<li>2 . {{langs.two}} {{langs.three_one}} {{langs.three_two}} {{langs.three_three}} {{langs.three_four}}-->
+          <!--{{langs.three_five}}-->
+          <!--</li>-->
+          <!--&lt;!&ndash; <li><span>{{langs.three_one}}</span></li>-->
+          <!--<li><span>{{langs.three_two}}</span></li>-->
+          <!--<li><span>{{langs.three_three}}</span></li>-->
+          <!--<li><span>{{langs.three_four}}</span></li>-->
+          <!--<li><span>{{langs.three_five}}</span></li> &ndash;&gt;-->
+          <!--<li>3 . {{langs.four}}</li>-->
+          <!--<li><font>4 . {{langs.rules}} : </font><span style="padding-left: 10px;">{{langs.five_one}}</span></li>-->
+          <!--<li><span>{{langs.five_two}}</span></li>-->
+          <!--<li><span>{{langs.five_three}}</span></li>-->
+          <!--</ul>-->
+
+
+          <!--<ul v-show="list_type == 1">-->
+          <!--<li>1 . {{langs.recharge_one}}</li>-->
+          <!--<li>2 . {{langs.recharge_two}}</li>-->
+          <!--<li>3 . {{langs.recharge_three}}</li>-->
+          <!--<li><font>4 . {{langs.rules}} : </font><span style="padding-left: 10px;">{{langs.recharge_four_one}}</span>-->
+          <!--</li>-->
+          <!--<li><span>{{langs.recharge_four_two}}</span></li>-->
+          <!--<li><span>{{langs.recharge_four_three}}</span></li>-->
+          <!--</ul>-->
+
+          <!--充值奖励 begin-->
+          <div v-show="list_type == 1" class="activity_rule_detail_box">
+            <div class="activity_rule_detail_title">{{langs.activity_rule_title_1}}</div>
+            <div class="activity_rule_detail_article">
+              <div class="activity_rule_detail_article_detail flex">
+                <div class="activity_rule_detail_article_detail_title">
+                  {{langs.activity_rule_detail_1_title_1}}
+                </div>
+                <div class="activity_rule_detail_article_detail_article">
+                  {{langs.activity_rule_detail_1_detail_1}}
+                </div>
+              </div>
+
+              <div class="activity_rule_detail_article_detail flex">
+                <div class="activity_rule_detail_article_detail_title">
+                  {{langs.activity_rule_detail_1_title_2}}
+                </div>
+                <div class="activity_rule_detail_article_detail_article">
+                  {{langs.activity_rule_detail_1_detail_2}}
+                </div>
+              </div>
+
+
+              <div class="activity_rule_detail_article_detail flex">
+                <div class="activity_rule_detail_article_detail_title">
+                  {{langs.activity_rule_detail_1_title_3}}
+                </div>
+                <div class="activity_rule_detail_article_detail_article">
+
+                  {{langs.activity_rule_detail_1_detail_3}}
+
+
+                </div>
+              </div>
+
+
+              <div class="activity_rule_detail_article_detail flex">
+                <div class="activity_rule_detail_article_detail_title">
+                  {{langs.activity_rule_detail_1_title_4}}
+                </div>
+                <div class="activity_rule_detail_article_detail_article">
+                  <p>
+
+                    {{langs.activity_rule_detail_1_detail_4_1}}
+
+                  </p>
+                  <p>
+                    {{langs.activity_rule_detail_1_detail_4_2}}
+                  </p>
+                  <p>
+                    {{langs.activity_rule_detail_1_detail_4_3}}
+                  </p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <!--充值奖励 end-->
+
+
+          <!--交易排行榜规则 begin-->
+          <div v-show="list_type == 0" class="activity_rule_detail_box">
+            <div class="activity_rule_detail_title">{{langs.activity_rule_title_2}}</div>
+            <div class="activity_rule_detail_article">
+              <div class="activity_rule_detail_article_detail flex">
+                <div class="activity_rule_detail_article_detail_title">
+                  {{langs.activity_rule_detail_2_title_1}}
+                </div>
+                <div class="activity_rule_detail_article_detail_article">
+                  {{langs.activity_rule_detail_2_detail_1}}
+                </div>
+              </div>
+
+              <div class="activity_rule_detail_article_detail flex">
+                <div class="activity_rule_detail_article_detail_title">
+                  {{langs.activity_rule_detail_2_title_2}}
+                </div>
+                <div class="activity_rule_detail_article_detail_article">
+                  {{langs.activity_rule_detail_2_detail_2}}
+                </div>
+              </div>
+
+
+              <div class="activity_rule_detail_article_detail flex">
+                <div class="activity_rule_detail_article_detail_title">
+                  {{langs.activity_rule_detail_2_title_3}}
+                </div>
+                <div class="activity_rule_detail_article_detail_article">
+                  <p>
+                    {{langs.activity_rule_detail_2_detail_3_1}}
+                  </p>
+                  <p>
+                    {{langs.activity_rule_detail_2_detail_3_2}}
+                  </p>
+                  <p>
+                    {{langs.activity_rule_detail_2_detail_3_3}}
+                  </p>
+                  <p>
+                    {{langs.activity_rule_detail_2_detail_3_4}}
+                  </p>
+                  <p>
+                    {{langs.activity_rule_detail_2_detail_3_5}}
+                  </p>
+                  <p>
+                    {{langs.activity_rule_detail_2_detail_3_6}}
+                  </p>
+                </div>
+              </div>
+
+              <div class="activity_rule_detail_article_detail flex">
+                <div class="activity_rule_detail_article_detail_title">
+                  {{langs.activity_rule_detail_2_title_4}}
+                </div>
+                <div class="activity_rule_detail_article_detail_article">
+                  {{langs.activity_rule_detail_2_detail_4}}
+                </div>
+              </div>
+
+              <div class="activity_rule_detail_article_detail flex">
+                <div class="activity_rule_detail_article_detail_title">
+                  {{langs.activity_rule_detail_2_title_5}}
+                </div>
+                <div class="activity_rule_detail_article_detail_article">
+                  <p>
+
+                    {{langs.activity_rule_detail_2_detail_5_1}}
+
+                  </p>
+                  <p>
+                    {{langs.activity_rule_detail_2_detail_5_2}}
+                  </p>
+                  <p>
+                    {{langs.activity_rule_detail_2_detail_5_3}}
+                  </p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <!--交易排行榜规则 end-->
+
+
+          <!--注册奖励和推荐奖励规则 begin-->
+          <div v-show="list_type == 2 || list_type == 3" class="activity_rule_detail_box">
+            <div class="activity_rule_detail_title">{{langs.activity_rule_title_3}}</div>
+            <div class="activity_rule_detail_article">
+              <div class="activity_rule_detail_article_detail flex">
+                <div class="activity_rule_detail_article_detail_title">
+                  {{langs.activity_rule_detail_3_title_1}}
+                </div>
+                <div class="activity_rule_detail_article_detail_article">
+                  {{langs.activity_rule_detail_3_detail_1}}
+                </div>
+              </div>
+
+              <div class="activity_rule_detail_article_detail flex">
+                <div class="activity_rule_detail_article_detail_title">
+                  {{langs.activity_rule_detail_3_title_2}}
+                </div>
+                <div class="activity_rule_detail_article_detail_article">
+                  <!--推荐新用户注册并实名认证，推荐者获得50枚IOST奖励，同时新用户也将获得50枚IOST奖励，总计20万枚IOST送完即止！先推荐先注册先得！-->
+                  {{langs.activity_rule_detail_3_detail_2}}
+                </div>
+              </div>
+
+
+              <div class="activity_rule_detail_article_detail flex">
+                <div class="activity_rule_detail_article_detail_title">
+                  {{langs.activity_rule_detail_3_title_3}}
+                </div>
+                <div class="activity_rule_detail_article_detail_article">
+                  <!--活动奖励将于活动结束后2个工作日内发放；-->
+                  {{langs.activity_rule_detail_3_detail_3}}
+                </div>
+              </div>
+
+              <div class="activity_rule_detail_article_detail flex">
+                <div class="activity_rule_detail_article_detail_title">
+                  {{langs.activity_rule_detail_3_title_4}}
+                </div>
+                <div class="activity_rule_detail_article_detail_article">
+                  <p>
+                    <!--1.活动期间新用户自行注册（没有推荐者）也获得50枚IOST奖励。-->
+                    <!--对推荐者推荐新用户的数量不作限制。-->
+                    <!--推荐者享受被推荐者一年交易手续费的30%返佣奖励。-->
+                    {{langs.activity_rule_detail_3_detail_4_1}}
+
+                  </p>
+                  <p>
+                    <!--2.如发现恶意推荐、注册等不当行为，EUNEX有权取消活动资格及奖励；-->
+                    {{langs.activity_rule_detail_3_detail_4_2}}
+                  </p>
+                  <p>
+                    <!--3.本活动最终解释权归EUNEX所有。-->
+                    {{langs.activity_rule_detail_3_detail_4_3}}
+                  </p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <!--注册奖励和推荐奖励规则 end-->
+
+
+        </div>
+
+
+      </div>
+
+      <!-- <div class="currency_notice_talk">
+                *活动最终解释权在法律范围内归EUNEX所有
+            </div> -->
+
+      <div class="bg_1"></div>
+      <div class="bg_2">
+        <span></span>
+      </div>
+      <div class="bg_3">
+        <div></div>
+        <span></span>
+      </div>
+    </div>
+  </div>
+  <!-- 提示 start -->
+  <PopupPrompt :popType="popType" :popText="popText" :popOpen="promptOpen" :popClose="closePrompt"></PopupPrompt>
+  <!-- 提示 end -->
+
+  <div class="index-footer min-width">
+    <IndexFooter/>
+  </div>
+</div>

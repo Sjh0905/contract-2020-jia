@@ -1,0 +1,29 @@
+<div v-if="show" class="alert_container">
+	<div class="alert_container_bg"></div>
+	<div class="alert_container_body">
+		<span @click="closeClick" class="icon">×</span>
+		<div class="alert_left">
+			<Qrcode class="qrcode"
+		      :size="size"
+		      :value="value"
+		      :logo="logo"
+		      :bgColor="bgColor"
+		      :fgColor="fgColor"
+		      >
+		    </Qrcode>
+		    <font>{{$t("popAlert.alertTitle")}}</font>
+		</div>
+		<div class="alert_right">
+			<ul>
+				<li>{{$t("popAlert.content1")}}<span>BDB</span></li>
+				<li>{{$t("popAlert.content2")}}<span>BDB</span>{{$t("popAlert.content3")}}</li>
+				<li>{{$t("popAlert.content4")}}</li>
+				<li style="display: none;">{{$t("popAlert.content5")}}</li>
+				<li><font>{{$t("popAlert.content6")}}</font><input id="copyInput" type="text" v-model="shareUrl" class="input"><span class="copy-btn" @click="copyInputUrl"></span></li>
+			</ul>
+		</div>
+	</div>
+	<!-- 提示信息 start -->
+	  <PopupPrompt :popType="popType" :popText="popText" :popOpen="promptOpen" :popClose="closePrompt"></PopupPrompt>
+	  <!-- 提示信息 end -->
+</div>

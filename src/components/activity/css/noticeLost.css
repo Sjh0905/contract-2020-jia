@@ -1,0 +1,463 @@
+.index-footer {
+  /*margin-top: -220px;*/
+  display: block;
+  width: 100%;
+  background-color: #090f18;
+  height: 220px;
+  z-index: 500;
+
+}
+
+.currency_notice {
+
+}
+
+.currency_notice_body {
+  position: relative;
+  min-height: 900px;
+  background: #fcfcfc;
+  color: #fafafa;
+  font-size: 1.4rem;
+  /*font-weight: 100;*/
+  padding-bottom: 650px;
+  color: rgba(0, 0, 0, .7);
+  overflow: hidden;
+}
+
+.currency_notice_container {
+  width: 1208px;
+  margin: 0 auto;
+  /*min-height: 1023px;*/
+  /*background: url('../../../assets/elf_icons/elf_bg.png') no-repeat center;*/
+  background-size: contain;
+  background-position: 0px 350px;
+}
+
+.currency_notice_bread {
+  line-height: 30px;
+  width: 100%;
+  padding-top: 10px;
+  overflow: hidden;
+  color: #C43E4E;
+}
+
+.currency_notice_bread span {
+  margin-left: 5px;
+  margin-right: 0px;
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-top: 4px solid transparent;
+  border-left: 8px solid #333;
+  border-bottom: 4px solid transparent;
+}
+
+.currency_notice_bread a:hover {
+  color: #C43E4E;
+}
+
+.currency_notice_title {
+  width: 100%;
+  height: 40px;
+  margin-top: 10px;
+  text-align: center;
+  font-size: 1.6rem;
+  vertical-align: middle;
+}
+
+.currency_notice_title span {
+  display: inline-block;
+  width: 20px;
+  height: 40px;
+  background: url('../../activity/activityAssets/noticeIost/iost_icon.png') no-repeat center;
+  background-size: 100%;
+  margin-right: 5px;
+  vertical-align: middle;
+}
+
+.currency_notice_sort {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.currency_notice_sort span:nth-child(2) {
+  margin-left: 20px;
+}
+
+.currency_notice_tabs_time {
+
+}
+
+.currency_notice_tabs_time .tabs ul {
+  padding-top: 20px;
+  overflow: hidden;
+}
+
+.currency_notice_tabs_time .tabs ul li {
+  float: left;
+  cursor: pointer;
+}
+
+.currency_notice_tabs_time .tabs ul li.tab {
+  padding: 7px;
+  margin-right: 15px;
+}
+
+.currency_notice_tabs_time .tabs ul li dd {
+  display: inline-block;
+}
+
+.currency_notice_tabs_time .tabs ul li.tab.is_active {
+  border-bottom: 2px solid #C43E4E;
+  color: #C43E4E;
+}
+
+.currency_notice_tabs_time .tabs ul li:nth-child(5), .currency_notice_tabs_time .tabs ul li:nth-child(6) {
+  float: right;
+  padding-top: 7px;
+}
+
+.currency_notice_tabs_time .tabs ul li:nth-child(6) {
+  margin-right: 100px;
+}
+
+.currency_notice_tabs_time .tables {
+  margin-top: 20px;
+  width: 100%;
+  min-height: 200px;
+  border-radius: 5px;
+  padding-bottom: 20px;
+  background: #fff;
+  box-shadow: 0px 2px 5px 5px rgba(168, 168, 168, .1);
+  padding-top: 20px;
+}
+
+.currency_notice_tabs_time .tables .title, .currency_notice_tabs_time .tables .list {
+  overflow: hidden;
+  width: 100%;
+  font-size: 1.5rem;
+  line-height: 45px;
+  color: rgba(0, 0, 0, .8);
+}
+
+.currency_notice_tabs_time .tables .list {
+  color: rgba(0, 0, 0, .7);
+}
+
+.currency_notice_tabs_time .tables .title li, .currency_notice_tabs_time .tables .list li {
+  float: left;
+  text-align: center;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.currency_notice_tabs_time .tables .transaction .title li:nth-child(1), .currency_notice_tabs_time .tables .transaction .list li:nth-child(1) {
+  width: 10%;
+}
+
+.currency_notice_tabs_time .tables .transaction .title li:nth-child(2), .currency_notice_tabs_time .tables .transaction .list li:nth-child(2) {
+  width: 20%;
+}
+
+.currency_notice_tabs_time .tables .transaction .title li:nth-child(3), .currency_notice_tabs_time .tables .transaction .list li:nth-child(3) {
+  width: 17%;
+}
+
+.currency_notice_tabs_time .tables .transaction .title li:nth-child(4), .currency_notice_tabs_time .tables .transaction .list li:nth-child(4) {
+  width: 17%;
+}
+
+.currency_notice_tabs_time .tables .transaction .title li:nth-child(5), .currency_notice_tabs_time .tables .transaction .list li:nth-child(5) {
+  width: 17%;
+}
+
+.currency_notice_tabs_time .tables .transaction .title li:nth-child(6), .currency_notice_tabs_time .tables .transaction .list li:nth-child(6) {
+  width: 17%;
+}
+
+/*右对齐 start*/
+.currency_notice_tabs_time .tables .transaction .list li:nth-child(2), .currency_notice_tabs_time .tables .transaction .list li:nth-child(3), .currency_notice_tabs_time .tables .transaction .list li:nth-child(4), .currency_notice_tabs_time .tables .transaction .list li:nth-child(5), .currency_notice_tabs_time .tables .transaction .list li:nth-child(6) {
+  text-align: right;
+}
+
+.currency_notice_tabs_time .tables .transaction .list li:nth-child(2) {
+  padding-right: 4.6%;
+}
+
+.currency_notice_tabs_time .tables .transaction .list li:nth-child(3) {
+  padding-right: 3%;
+}
+
+.currency_notice_tabs_time .tables .transaction .list li:nth-child(4) {
+  padding-right: 2.5%;
+}
+
+.currency_notice_tabs_time .tables .transaction .list li:nth-child(5) {
+  padding-right: 2.3%;
+}
+
+.currency_notice_tabs_time .tables .transaction .list li:nth-child(6) {
+  padding-right: 5.6%;
+}
+
+.currency_notice_tabs_time .tables .recharge .list li:nth-child(2), .currency_notice_tabs_time .tables .recharge .list li:nth-child(4), .currency_notice_tabs_time .tables .recharge .list li:nth-child(5) {
+  text-align: right;
+}
+
+.currency_notice_tabs_time .tables .recharge .list li:nth-child(2) {
+  padding-right: 4.6%;
+}
+
+.currency_notice_tabs_time .tables .recharge .list li:nth-child(4) {
+  padding-right: 4.3%;
+}
+
+.currency_notice_tabs_time .tables .recharge .list li:nth-child(5) {
+  padding-right: 4.3%;
+}
+
+/*右对齐 end*/
+.currency_notice_tabs_time .tables .recharge .title li:nth-child(1), .currency_notice_tabs_time .tables .recharge .list li:nth-child(1) {
+  width: 10%;
+}
+
+.currency_notice_tabs_time .tables .recharge .title li:nth-child(2), .currency_notice_tabs_time .tables .recharge .list li:nth-child(2) {
+  width: 20%;
+}
+
+.currency_notice_tabs_time .tables .recharge .title li:nth-child(3), .currency_notice_tabs_time .tables .recharge .list li:nth-child(3) {
+  width: 25%;
+}
+
+.currency_notice_tabs_time .tables .recharge .title li:nth-child(4), .currency_notice_tabs_time .tables .recharge .list li:nth-child(4) {
+  width: 20%;
+}
+
+.currency_notice_tabs_time .tables .recharge .title li:nth-child(5), .currency_notice_tabs_time .tables .recharge .list li:nth-child(5) {
+  width: 20%;
+}
+
+.currency_notice_tabs_time .tables .table_list .list {
+  line-height: 35px;
+  font-size: 1.4rem;
+}
+
+.currency_notice_tabs_time .tables .table_list .list span {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+}
+
+.currency_notice_tabs_time .tables .table_list .list:nth-child(1) span {
+  background: url('../../activity/activityAssets/noticeIost/sort_1.png') center no-repeat;
+}
+
+.currency_notice_tabs_time .tables .table_list .list:nth-child(2) span {
+  background: url('../../activity/activityAssets/noticeIost/sort_2.png') center no-repeat;
+}
+
+.currency_notice_tabs_time .tables .table_list .list:nth-child(3) span {
+  background: url('../../activity/activityAssets/noticeIost/sort_3.png') center no-repeat;
+}
+
+/*活动介绍*/
+.currency_notice_tips {
+  position: relative;
+}
+
+.currency_notice_tips .currency_notice_absolute {
+  margin-top: 50px;
+  width: 100%;
+  min-height: 180px;
+  box-shadow: 0px 2px 5px 5px rgba(168, 168, 168, .1);
+  border-radius: 5px;
+  padding: 45px;
+  padding-bottom: 30px;
+  background: #fff;
+  position: absolute;
+  z-index: 1;
+}
+
+.currency_notice_tips ul {
+
+}
+
+.currency_notice_tips .currency_notice_absolute ul li {
+  margin-bottom: 10px;
+  line-height: 25px;
+}
+
+.currency_notice_tips .currency_notice_absolute ul li:nth-child(3) {
+  /*margin-top: 25px;*/
+}
+
+.currency_notice_tips .currency_notice_absolute ul li font {
+  display: inline-block;
+  font-size: 1.3rem;
+}
+
+.currency_notice_tips ul li span {
+  display: inline-block;
+  padding-left: 90px;
+  font-size: 1.3rem;
+  margin-top: -25px;
+}
+
+/*活动介绍box*/
+.activity_rule_detail_box {
+  /*width: 100%;*/
+  position: relative;
+  line-height: 35px;
+}
+
+.activity_rule_detail_title {
+  text-align: center;
+  font-size: 16px;
+
+}
+
+.activity_rule_detail_article {
+
+}
+
+.activity_rule_detail_article_detail {
+  align-items: flex-start;
+  -webkit-align-items: flex-start;
+}
+
+.activity_rule_detail_article_detail_title {
+  display: block;
+  flex: 1;
+  text-align: left;
+  padding-right: 10px;
+}
+
+.activity_rule_detail_article_detail_article {
+  display: block;
+  /*width:80%;*/
+  flex: 9;
+
+}
+
+.currency_notice_talk {
+  width: 100%;
+  line-height: 30px;
+  margin-top: 30px;
+  text-align: center;
+  letter-spacing: 1px;
+}
+
+.bg_1 {
+  position: absolute;
+  width: 220px;
+  height: 412px;
+  background: url('../../activity/activityAssets/noticeIost/left.png') no-repeat center;
+  left: -35px;
+  top: 350px;
+  background-size: 70%;
+}
+
+.bg_2 {
+  position: absolute;
+  width: 229px;
+  height: 395px;
+  background: url('../../activity/activityAssets/noticeIost/right.png') no-repeat center;
+  right: -35px;
+  top: 150px;
+  background-size: 70%;
+}
+
+.bg_2 span {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  background: url('../../activity/activityAssets/noticeIost/right_2.png') no-repeat center;
+  left: 0px;
+  top: 50px;
+  background-size: 100%;
+}
+
+.bg_3 {
+  position: absolute;
+  width: 100%;
+  height: 541px;
+  background: url('../../activity/activityAssets/noticeIost/bottom.png') no-repeat center;
+  left: 0;
+  bottom: -100px;
+  background-size: 100%;
+}
+
+.bg_3 div {
+  position: absolute;
+  width: 100%;
+  height: 495px;
+  left: 0;
+  bottom: -30px;
+  background: url('../../activity/activityAssets/noticeIost/bottom1.png') no-repeat center;
+}
+
+.bg_3 span {
+  position: absolute;
+  width: 527px;
+  height: 538px;
+  left: -120px;
+  bottom: -100px;
+  background: url('../../activity/activityAssets/noticeIost/bottom2.png') no-repeat center;
+  background-size: 100%;
+}
+
+.currency_notice_recharge_tips {
+  font-size: 1.2rem;
+  margin-top: 10px;
+}
+
+/*注册奖励*/
+.register-reward {
+  overflow: hidden;
+  width: 100%;
+  font-size: 1.5rem;
+  line-height: 45px;
+  color: rgba(0, 0, 0, .8);
+}
+
+.reward-list-box {
+  float: left;
+  text-align: center;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.reward-list-li {
+  float: left;
+  text-align: center;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.reward-list-title-box {
+  overflow: hidden;
+  width: 100%;
+  font-size: 1.5rem;
+  line-height: 45px;
+  color: rgba(0, 0, 0, .8);
+}
+
+.recommend-li-box {
+  justify-content: space-around;
+  -webkit-justify-content: space-around;
+}
+
+.recommend-li {
+  text-align: center;
+  width: 300px;
+}
+
+.list .last-register-li,.list .register-li,.list .recommend-li {
+  padding: 0 !important;
+  text-align: center !important;
+}
+/*分页container*/
+.page-bar-box {
+  padding:20px 0 0 0;
+}

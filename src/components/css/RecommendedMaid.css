@@ -1,0 +1,187 @@
+.recommend-container {
+  padding-bottom: 60px;
+}
+
+.header-img-box {
+  width: 100%;
+}
+
+.header-img {
+  width: 100%;
+}
+
+.recommend-article {
+  width: 1280px;
+  box-sizing: border-box;
+  margin: 0 auto;
+
+}
+
+/*我的推荐信息*/
+.info-container {
+  margin: 0 auto;
+  width: 100%;
+  padding: 20px 150px;
+  font-size: 14px;
+}
+
+.my-info-box {
+  display: block;
+  white-space: nowrap;
+}
+
+.my-info-li {
+  padding-bottom: 20px;
+  line-height: 34px;
+
+}
+
+.my-info-li:last-of-type {
+  padding-bottom: 0;
+}
+
+.my-info-box-first {
+  /*flex: 6;*/
+}
+
+.my-info-box-second {
+  /*flex: 3;*/
+}
+
+/*我的推荐*/
+.my-info-li-title {
+  width: 100px;
+  /*display: block;*/
+  text-align: right;
+  line-height: 34px;
+  color: #666;
+
+}
+
+.my-info-li-strong {
+  color: black;
+}
+
+.my-info-li-title-left {
+}
+
+.my-info-li-title-right {
+  width: 170px;
+  /*text-align: left;*/
+}
+
+.my-info-li-detail {
+  color: black;
+}
+
+.my-info-li-detail-left {
+  width: 500px;
+  display: block;
+  padding-left: 10px;
+}
+
+.pageBar-box {
+  /*padding:20px 0;*/
+  padding-top:20px;
+}
+
+/*点击分享*/
+.share-input {
+  width: 400px;
+  height: 34px;
+  border: 1px solid #f2f2f2;
+  padding-left: 5px;
+  box-sizing: border-box;
+}
+
+/*点击复制*/
+.share-button {
+  border: 0 solid transparent;
+  color: #fff;
+  width: 50px;
+  height: 25px;
+  line-height: 25px;
+  font-size: 14px;
+  margin-left: 10px;
+}
+
+/*表格*/
+.recommend-form-title {
+  font-size: 16px;
+  padding: 30px 0 20px 0;
+}
+
+.form-container {
+  text-align: center;
+}
+
+.form-title {
+  font-size: 14px;
+  padding: 16px 0;
+  color: #333;
+}
+
+.index {
+  flex: 24.5;
+}
+
+.id {
+  flex: 27.5;
+}
+
+.auth {
+  flex: 24;
+}
+
+.register-reward {
+  flex: 24;
+}
+
+.currentMouthCommission {
+  flex: 24;
+  /*position: relative;*/
+}
+
+.totalCommission {
+  flex: 24;
+}
+
+.form-detail {
+  font-size: 14px;
+  padding: 12px 0;
+  border-top: 1px solid #efefef;
+  color: #666;
+}
+
+.form-detail:hover {
+  background-color:rgba(196,62,78,0.03);
+}
+
+/*活动规则*/
+.rule-container {
+  margin-top: 60px;
+  padding: 20px 0;
+}
+
+/*活动规则title*/
+.rule-line {
+  width: 250px;
+  height: 1px;
+  display: block;
+  background-color: #C43E4E;
+}
+
+.rule-title-detail {
+  font-size: 16px;
+  padding: 0 40px;
+}
+
+.rule-ul {
+  width: 500px;
+  margin: 0 auto;
+  color: #666;
+  padding-top: 20px;
+  line-height: 25px;
+  font-size: 14px;
+}
+

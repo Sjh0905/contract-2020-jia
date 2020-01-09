@@ -1,0 +1,330 @@
+<div class="header min-width relative">
+    <div class="header-container min-width">
+        <!-- 移动端头部logo -->
+        <div v-if="isMobile" class="mobile-header">
+            <div class="mobile-main-title">{{mobileHeaderTitle}}</div>
+            <router-link to="/index/home" class="mobile-header-logo">
+<!--                <img class="mobile-header-logo-img" src="../../assets/mobile_header_logo_1.png" alt="">-->
+                <!-- <span class="mobile-header-logo-text">{{$t('indexHeader.btcdo')}}</span> -->
+            </router-link>
+        </div>
+        <div v-if="isMobile" class="mobile-header-login-box">
+            <ul v-if="!isLogin" class="login flex-center">
+                <li>
+                    <router-link to="/index/sign/" active-class="selected">
+                        {{$t('indexHeader.login')}}
+                    </router-link>
+                </li>
+                <li>|</li>
+                <li>
+                    <router-link to="/index/register" active-class="selected">{{$t('indexHeader.register')}}</router-link>
+                </li>
+            </ul>
+        </div>
+        <div v-if="isMobile" class="mobile-header-icon-flag" @click="clickChangePopOpen">
+          <img class="mobile-header-icon-flag-img" src="../../assets/mobile_header_menu.png" alt="">
+          <!--小红点-->
+          <div v-if="redPoint" class="mobile-header-icon-flag-red-point"></div>
+        </div>
+        <!-- 移动端 左侧弹窗 -->
+        <div v-if="changePopOpen === true && isMobile" class="mobile-header-box-mask">
+            <div class="mobile-header-box">
+                <div class="mobile-header-box-title">
+                    <div class="mobile-header-icon-flag" @click="clickChangePopOpen">
+                        <img class="mobile-header-icon-flag-img" src="../../assets/mobile_header_menu.png" alt="">
+                    </div>
+                    <div v-if="isLogin" class="login-in flex-center">
+                        <router-link class="flex-center login-header" to="/index/personal">
+                            <img src="../../assets/indexHeader-avator.png" alt="">
+                            <span>{{userName}}</span>
+                        </router-link>
+                        <ul class="login-hidden flex">
+                            <li class="assets-li flex-center">
+                                <IndexHeaderAssets v-if="isLogin"/>
+                            </li>
+                            <li class="login-off flex-center" @click="loginOff">
+                                <span>{{$t('indexHeader.loginOff')}}</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="mobile-header-box-content">
+                    <ul class="mobile-header-box-content-list">
+
+                        <li @click="changeMobileTradingHallFlag" class="mobile-header-box-content-item">
+                            <router-link class="mobile-header-box-content-item-first" to="/index/mobileTradingHall/">交易大厅
+                            </router-link>
+                        </li>
+                      <li class="mobile-header-box-content-item">
+                        <router-link class="mobile-header-box-content-item-first" :to="{name:'c2cComing'}">C2C
+                        </router-link>
+                      </li>
+                        <li v-if="isLogin" class="mobile-header-box-content-item" active-class="selected">
+                            <span class="mobile-header-box-content-item-first">资产管理</span>
+                        </li>
+                        <li v-if="isLogin" class="mobile-header-box-content-item" active-class="selected"
+                            @click="closeMobilePopOpen">
+                            <router-link to="/index/mobileAsset/mobileAssetRechargeAndWithdrawals/"
+                                         class="mobile-header-box-content-item-second">资产
+                            </router-link>
+                        </li>
+                        <li v-if="isLogin" class="mobile-header-box-content-item" active-class="selected"
+                            @click="closeMobilePopOpen">
+                            <router-link to="/index/mobileAsset/mobileAssetRecharge/" class="mobile-header-box-content-item-second">
+                                充值
+                            </router-link>
+                        </li>
+                        <!--<li v-if="isLogin" class="mobile-header-box-content-item" active-class="selected" @click="closeMobilePopOpen">-->
+                        <!--<router-link to="/index/mobileAsset/mobileAssetWithdraw/" class="mobile-header-box-content-item-second">提现</router-link>-->
+                        <!--</li>-->
+                        <li v-if="isLogin" class="mobile-header-box-content-item" active-class="selected"
+                            @click="closeMobilePopOpen">
+                            <router-link to="/index/mobileAsset/MobileAssetRechargeAndWithdrawRecord/"
+                                         class="mobile-header-box-content-item-second">充提记录
+                            </router-link>
+                        </li>
+                        <li v-if="isLogin" class="mobile-header-box-content-item" active-class="selected">
+                            <span class="mobile-header-box-content-item-first">我的订单</span>
+                        </li>
+                        <li v-if="isLogin" class="mobile-header-box-content-item" active-class="selected"
+                            @click="changeBuyOrSaleView(3)">
+                            <router-link to="/index/mobileTradingHallDetail/" class="mobile-header-box-content-item-second">当前委托
+                            </router-link>
+                        </li>
+                        <li v-if="isLogin" class="mobile-header-box-content-item" active-class="selected"
+                            @click="changeBuyOrSaleView(4)">
+                            <router-link to="/index/mobileTradingHallDetail/" class="mobile-header-box-content-item-second">历史委托
+                            </router-link>
+                        </li>
+
+                        <li v-if="isLogin" class="mobile-header-box-content-item" @click="closeMobilePopOpen"
+                            active-class="selected">
+                            <router-link class="mobile-header-box-content-item-first" to="/index/personal">
+                                {{$t('indexHeader.account')}}
+                            </router-link>
+                        </li>
+                        <li v-if="!isLogin" class="mobile-header-box-content-item" @click="closeMobilePopOpen"
+                            active-class="selected">
+                            <router-link class="mobile-header-box-content-item-first" to="/index/sign/">
+                                {{$t('indexHeader.account')}}
+                            </router-link>
+                        </li>
+
+                        <li @click="closeMobilePopOpen" active-class="selected" class="mobile-header-box-content-item">
+                            <router-link class="mobile-header-box-content-item-first" to="/index/mobileNotice/">公告中心</router-link>
+
+                        </li>
+                    </ul>
+                    <div v-if="isLogin" class="mobile-header-box-content-login-off" @click="loginOff">
+                        <span class="mobile-header-box-content-login-off-img"></span>
+                        退出登录
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- pc端头部logo -->
+        <div v-if="!isMobile" class="header-left">
+            <!-- <router-link to="/index/homePage" class="index-header-logo"><img src="../../assets/logo.png" class="header-logo"> -->
+            <router-link to="/index/home" class="index-header-logo">
+                <img src="" class="header-logo" v-if="lang==='CH'">
+                <img src="" class="header-logo" v-if="lang!=='CH'">
+            </router-link>
+            <router-link v-if="!isMobile" to="/index/tradingHall" active-class="selected-noHeader" class="trading-hall">
+                {{$t('indexHeader.currencyExchange')}}
+            </router-link>
+
+
+          <!--BT begin-->
+          <ul class="navigation flex-center">
+            <li class="help_more bt-activity">
+              <router-link class="navigation-link-a bt-activity-a" :to="{name:'btActivity'}" active-class="selected">
+                <!--挖矿收益-->
+                {{$t('indexHeader.miningProfit')}}
+                <img src='' alt="" class="bt-fire">
+              </router-link>
+            </li>
+          </ul>
+          <!--BT end-->
+
+
+
+          <!--币得宝 begin-->
+            <!--<ul class="navigation flex-center">-->
+              <!--<li class="hover-tab">-->
+                <!--<router-link v-if="!isMobile" to="/coinbaby" active-class="selected" class="navigation-link-a">-->
+                  <!--{{$t('coinBaby.CoinBaby')}}-->
+                <!--</router-link>-->
+                <!--<ul class="flex hidden-ul" :class="{'widen-ul':lang!=='CH'}">-->
+                  <!--<li class="hidden-li">-->
+                    <!--<router-link to="/coinbaby/biDeBaoList" active-class="item_selected">-->
+                      <!--{{$t('coinBaby.CoinBaby')}}-->
+                    <!--</router-link>-->
+                  <!--</li>-->
+                  <!--<li class="hidden-li">-->
+                    <!--<router-link to="/coinbaby/biDeBaoHistoricalRecords" active-class="item_selected">-->
+                      <!--{{$t('coinBaby.LockPositionRecord')}}-->
+                    <!--</router-link>-->
+                  <!--</li>-->
+                <!--</ul>-->
+              <!--</li>-->
+            <!--</ul>-->
+            <!--币得宝 end-->
+
+            <!--API begin-->
+            <!-- <li class="help_more" style="list-style: none;">
+              <a class="navigation-link-a" href="https://github.com/lab?tab=repositories" active-class="selected" target="_blank">
+                API
+              </a>
+            </li> -->
+            <!--API end-->
+
+
+          <!--C2C begin-->
+          <li class="help_more c2c-li" style="list-style: none;">
+            <router-link class="navigation-link-a" :to="{name:'c2cComing'}" active-class="selected">
+              C2C
+            </router-link>
+          </li>
+          <!--C2C end-->
+
+        </div>
+
+        <div v-if="!isMobile" class="header-right">
+            <ul class="navigation flex-center">
+                <li class="hover-tab">
+                    <router-link class="navigation-link-a" to="/index/asset" active-class="selected">
+                        {{$t('indexHeader.assets')}}
+                    </router-link>
+                    <ul class="flex hidden-ul" :class="{'widen-ul':lang!=='CH'}">
+                        <li class="hidden-li">
+                            <router-link to="/index/asset/rechargeAndWithdrawals" active-class="item_selected">
+                                {{$t('indexHeader.recharge')}}
+                            </router-link>
+                        </li>
+                        <li class="hidden-li">
+                            <router-link to="/index/asset/rechargeRecord" active-class="item_selected">
+                                {{$t('indexHeader.rechargeRecord')}}
+                            </router-link>
+                        </li>
+                        <li class="hidden-li">
+                            <router-link to="/index/asset/withdrawalsRecord" active-class="item_selected">
+                                {{$t('indexHeader.withdrawalsRecord')}}
+                            </router-link>
+                        </li>
+                        <li class="hidden-li">
+                            <router-link :to="{name:'platformReward'}" active-class="item_selected">
+                                {{$t('indexHeader.platformReward')}}
+                            </router-link>
+                        </li>
+                    </ul>
+                </li>
+                <li class="hover-tab">
+                    <router-link to="/index/order" class="navigation-link-a" active-class="selected">{{$t('indexHeader.order')}}
+                    </router-link>
+                    <ul class="flex hidden-ul">
+                        <li class="hidden-li">
+                            <router-link to="/index/order/currentEntrust" active-class="item_selected">
+                                {{$t('indexHeader.currentEntrust')}}
+                            </router-link>
+                        </li>
+                        <li class="hidden-li">
+                            <router-link to="/index/order/historicalEntrust" active-class="item_selected">
+                                {{$t('indexHeader.historicalEntrust')}}
+                            </router-link>
+                        </li>
+                    </ul>
+                </li>
+                <li class="help_more" :class="{'notice-width':lang!=='CH'}">
+                    <router-link class="navigation-link-a" to="/index/notice" active-class="selected">
+                        {{$t('indexHeader.notice')}}
+                        <div v-if="redPoint" :class="lang==='CH'?'navigation-link-a-red-point-cn':'navigation-link-a-red-point-en'"></div>
+                    </router-link>
+                </li>
+                <li class="help_more pointer">
+                    <!-- <router-link to="/index/help" active-class="selected">{{$t('indexHeader.help')}}</router-link> -->
+                    <span class="navigation-link-a">{{$t('indexHeader.help')}}</span>
+                    <ul class="help_hidden login-hidden flex">
+                        <!--<li>-->
+                        <!--<router-link to="/index/help/problem" active-class="item_selected">{{$t('indexHeader.problem')}}-->
+                        <!--</router-link>-->
+                        <!--</li>-->
+                        <li>
+                            <router-link to="/index/help/wordOrder" active-class="item_selected">{{$t('indexHeader.form')}}
+                            </router-link>
+                        </li>
+                        <li>
+                            <a @click="openYsf" active-class="item_selected">{{$t('indexHeader.service')}}</a>
+                        </li>
+                        <li>
+                            <a href="https://jinshuju.net/f/AMLYO0" target="_blank" active-class="item_selected">{{$t('indexHeader.proposal')}}</a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- <li class="help_more" :class="{'notice-width':lang!=='CH'}">
+                    <router-link class="navigation-link-a" to="#" target="_blank" active-class="selected">
+                        {{$t('indexHeader.joinUs')}}
+                    </router-link>
+                </li> -->
+
+              <!--加入我们 begin-->
+              <li class="help_more" >
+                <router-link class="navigation-link-a" :to="{name:'joinUs'}" active-class="selected">
+                  {{$t('indexHeader.joinUs')}}
+                </router-link>
+              </li>
+              <!--加入我们 end-->
+
+            </ul>
+
+            <ul v-if="!isLogin" class="login flex-center">
+                <li>
+                    <router-link to="/index/sign/" active-class="selected-noHeader">
+                        {{$t('indexHeader.login')}}
+                    </router-link>
+                </li>
+                <li>|</li>
+                <li>
+                    <router-link to="/index/register" active-class="selected-noHeader">{{$t('indexHeader.register')}}
+                    </router-link>
+                </li>
+            </ul>
+            <div v-if="isLogin" class="login-in flex-center">
+                <router-link class="flex-center login-header" to="/index/personal" active-class="selected">
+                    <img class="login-header-img" src="" alt="">
+                    <img class="login-header-img2" src="" alt="">
+                    <span class="login-header-name">{{$t('indexHeader.personalCenter')}}</span>
+                </router-link>
+                <ul class="login-hidden flex">
+                    <li class="assets-li flex-center">
+                        <IndexHeaderAssets v-if="isLogin" alpha="true"/>
+                    </li>
+                    <li class="login-off" @click="loginOff">{{$t('indexHeader.loginOff')}}</li>
+                </ul>
+            </div>
+
+            <!--<div class="light-on flex-center">-->
+            <!--<img src="" alt="">-->
+            <!--</div>-->
+
+            <div class="language flex-center">
+                <!--<img src="" alt="">-->
+                <div class="language-img">
+                    <div class="language-img-box" :class="lang"></div>
+                </div>
+
+                <ul class="language-box">
+                    <li v-if="lang !== 'CH'">
+                        <img src="/static/images/中国.png" alt="" @click="changeLanguage('CH')">
+                    </li>
+                    <li v-else>
+                        <img src="" alt="" @click="changeLanguage('CA')">
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+
+    </div>
+    <div class="clear"></div>
+</div>

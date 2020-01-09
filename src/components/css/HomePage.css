@@ -1,0 +1,219 @@
+.homepage-canvas-wrap{
+	overflow: hidden;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
+
+.homepage-canvas {
+	background: #080808;
+	width: 100%;
+	font-size: 16px;
+	text-align: center;
+	line-height: 20px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	-webkit-transform: translate(-50%, -50%);
+	-moz-transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	-o-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+
+}
+.homepage-front{
+	position: absolute;
+	width: 100%;
+	/*border: 1px solid red;*/
+	top: 0px;
+	z-index: 999;
+	padding:20px;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	align-items: center;
+}
+.homepage-front-left{
+	align-items: center;
+}
+.homepage-front-left-logo{
+	width: 50%;
+	cursor: pointer;
+	margin-right: 40px;
+}
+.homepage-front-span{
+	color: #fff;
+	font-size: 1.6rem;
+	cursor: pointer;
+}
+.homepage-front-span:hover{
+	color: #C43E4E;
+}
+.homepage-front-span2{
+	font-size: 1.6rem;
+	cursor: pointer;
+}
+.homepage-blow{
+	position: absolute;
+	width: 100%;
+	height: 200px;
+	/*border: 1px solid #fff;*/
+	bottom: 0;
+}
+
+.title-detail {
+	min-width: 5000px;
+	position: absolute;
+	left: 50%;
+	top: 0;
+	transform: translateX(-50%);
+}
+
+.wiper-container {
+	width: 100%;
+	min-height: 300px;
+	background: #fb594c;
+	background-size: cover;
+	position: relative;
+}
+
+.homepage-banner-img {
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	margin: auto;
+	cursor: pointer;
+}
+
+.article-detail {
+	padding-top: 305px;
+}
+
+.swiperImg {
+	width: 100%;
+	height: 420px;
+}
+
+/*公告*/
+.notice {
+	width: 100%;
+	background-color: #fff;
+	height: 40px;
+	align-items: center;
+	-webkit-align-items: center;
+	position: relative;
+	font-size: 1.4rem;
+	color: #666;
+}
+
+/*公告图片*/
+.notice-img {
+	margin: 0 1%;
+}
+
+/*公告关闭*/
+.close-img {
+	position: absolute;
+	top: 4px;
+	right: 4px;
+}
+
+/*----*/
+
+/*市场显示*/
+.market-container {
+	padding-top: 20px;
+	width: 100%;
+
+}
+
+.market-title {
+	width: 100%;
+	font-size: 1.4rem;
+}
+
+/*市场标题单位*/
+.market-title-unit {
+	width: 8%;
+	height: 35px;
+	line-height: 33px;
+	text-align: center;
+	background-color: #fff;
+	border: 1px solid #e5e5e5;
+	color: #0babb6;
+	border-bottom: 0;
+}
+
+.margin-left {
+	margin-left: -1px;
+}
+
+.selected-homepage {
+	border-top: 3px solid #C43E4E;
+	background-color: #cae7ea;
+	line-height: 31px;
+}
+
+/*搜索*/
+.market-search {
+	justify-content: space-around;
+	align-items: center;
+}
+
+.market-search-img {
+	/*flex:2;*/
+}
+
+.market-search-input {
+	border: 0 solid transparent;
+	/*flex:8;*/
+	width: 60%;
+}
+
+/*.mobileHomePage{*/
+/*display: none;*/
+/*}*/
+
+/*----------------------------------------------------------------------------------------------------*/
+
+@media screen and (max-width: 768px) {
+	.mobileHomePage {
+		display: block;
+		background: #081726;
+		color: #fff;
+	}
+
+	.mobile-market-title {
+		height: 0.88rem;
+		line-height: 0.88rem;
+		display: block;
+		position: fixed;
+		top: 0.88rem;
+		left: 0;
+		right: 0;
+		background: #1C3049;
+		overflow: hidden;
+		font-size: 0.24rem;
+	}
+
+	.mobile-market-title-item {
+		width: 1.2rem;
+		margin: 0 1.27rem;
+		height: 0.88rem;
+		box-sizing: border-box;
+		text-align: center;
+		float: left;
+		border-bottom: 0.04rem solid #1C3049;
+	}
+
+	.mobile-market-title-item-active {
+		border-bottom: 0.04rem solid #00BCC8;
+		color: #00BCC8;
+	}
+
+}

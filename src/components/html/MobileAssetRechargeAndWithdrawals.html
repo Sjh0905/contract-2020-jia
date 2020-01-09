@@ -1,0 +1,191 @@
+<div>
+  <Loading v-if="loading"/>
+  <div v-if="!loading">
+    <div class="asset-header-title">
+<!--      <div class="asset-header-total-asset-title">-->
+<!--        <span class="asset-header-total-asset-title-text">-->
+<!--          总资产-->
+<!--        </span>-->
+<!--        &lt;!&ndash;<span class="asset-header-total-asset-title-eye-box">&ndash;&gt;-->
+<!--          <img v-if="isTotalAssetShow" class="asset-header-total-asset-title-eye" src="" @click="changeTotalAssetShow" alt="">-->
+<!--          <img v-if="!isTotalAssetShow" class="asset-header-total-asset-title-eye" src="" @click="changeTotalAssetShow" alt="">-->
+<!--        &lt;!&ndash;</span>&ndash;&gt;-->
+<!--      </div>-->
+      <div class="asset-header-total-asset-box">
+        <div class="asset-lan">
+          <div class="lan-title">总资产折合(BTC)</div>
+          <div class="landata">
+          <span class="asset-header-BTC-asset">{{priceReady || initReady ? (isTotalAssetShow?toFixed(total,8)+' BTC':'******'):'---- BTC'}} </span>
+            <span class="asset-header-CHN-asset">≈</span>
+          <span class="asset-header-CHN-asset"> {{priceReady || initReady?(isTotalAssetShow?''+$globalFunc.accFixedCny(valuation,2):''):'----'}}&nbsp;&nbsp;CNY</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tiao1"></div>
+
+      <div class="asset-header-total-asset-detail-box">
+        <div class="asset-header-total-asset-search-box"></div>
+        <div class="asset-header-total-asset-hide-box">
+<!--          <MobileCheckbox :agreement="agreement" :changeAgreement='hideZeroItem'></MobileCheckbox>-->
+          <div @click="hideZeroItem">
+            <img v-show="!agreement" src="../../assets/H5img/mnoselect.png"/>
+            <img v-show="agreement" src="../../assets/H5img/mselect.png" />
+          </div>
+          <input v-show="false" type="checkbox" v-model="agreement" name="agreement" id="agreement" @click="hideZeroItem">
+          <span class="asset-header-total-asset-hide-text" :class="!agreement?'':'asset-header-total-asset-hide-text-blue'" @click="hideZeroItem">隐藏0资产币种</span>
+
+        </div>
+      </div>
+
+
+
+      <!--<span class="asset-header-total-asset">总资产</span>-->
+
+    </div>
+    <!--<div class="asset-header-box">-->
+      <!--<div class="asset-header-left-box">-->
+        <!--<div class="asset-header-box-title">可用</div>-->
+        <!--<div class="asset-header-left-box-price">{{priceReady || initReady ?toFixed(available,8):'&#45;&#45;&#45;&#45;'}} BTC</div>-->
+      <!--</div>-->
+      <!--<span class="asset-header-box-cutter-line"></span>-->
+      <!--<div class="asset-header-right-box">-->
+        <!--<div class="asset-header-box-title">不可用</div>-->
+        <!--<div class="asset-header-right-box-price">{{priceReady || initReady ?toFixed(frozen,8):'&#45;&#45;&#45;&#45;'}} BTC</div>-->
+      <!--</div>-->
+    <!--</div>-->
+
+    <div class="asset-container"  v-for="(item,index) in accountsComputed" v-if="serverT >= item.displayTime && (!agreement || (agreement && item.total != 0))" :key="index" @click="jumpToDetail(item.currency)">
+      <div class="asset-info-title">
+      <div class="asset-container-item clearfix">
+        <div class="asset-container-item-title">
+<!--          <span class="asset-container-item-icon-box">-->
+<!--            <img class="asset-container-item-icon" :src="'http://logo.eunex.group/' + item.currency +'.png'" alt="">-->
+<!--          </span>-->
+          <span>{{item.currency== 'USDT2' ? 'USDT' :item.currency}}</span>
+          <!--<span class="asset-container-item-title-description">({{item.description}})</span>-->
+        </div>
+        <div class="asset-container-item-assetNum">
+          <img src="../../assets/H5img/right_jt.png" />
+        </div>
+      </div>
+      </div>
+      <div class="asset-info">
+        <div class="asset-keyong">
+          <div class="asky-title">可用</div>
+          <div class="asky-title-val">{{isTotalAssetShow?toFixed(item.total,8):'******'}}</div>
+        </div>
+        <div class="asset-keyong">
+          <div class="asky-title">冻结</div>
+          <div class="asky-title-val">{{isTotalAssetShow?toFixed(item.frozen,8):'******'}}</div>
+        </div>
+        <div class="asset-keyong-right">
+          <div class="asky-title-right">折合(CNY)</div>
+<!--          <div class="asky-title-right-val">{{item.total!== 0 ? $globalFunc.accFixedCny(item.total * $store.state.exchange_rate_dollar,2) : '-&#45;&#45;'}}</div>-->
+          <div class="asky-title-right-val">{{item.total!== 0 ? $globalFunc.accMul($globalFunc.accMul(item.appraisement, $store.state.exchange_rate.btcExchangeRate || 0), $store.state.exchange_rate_dollar) : '---'}}</div>
+        </div>
+
+<!--        <div class="asset-container-item-assetNum">{{isTotalAssetShow?toFixed(item.total,8):'******'}}</div>-->
+      </div>
+      <div class="tiao1"></div>
+    </div>
+
+
+    <!--注释-->
+    <!--<div class="asset-header-container">-->
+      <!--<table v-if="!tableOpenFlag" class="asset-header-container-table">-->
+        <!--<colgroup style="width:1.6rem;"></colgroup>-->
+        <!--<colgroup style="width:2.7rem;"></colgroup>-->
+        <!--<colgroup style="width:3.2rem;"></colgroup>-->
+        <!--<tr class="asset-header-container-theadtr">-->
+          <!--<th>币种</th>-->
+          <!--<th>总额</th>-->
+          <!--<th>估值(BTC)</th>-->
+        <!--</tr>-->
+        <!--<tr class="asset-header-container-tr" v-for="(item,index) in accountsComputed"-->
+            <!--:key="index" @click="changeTableOpenFlag(item)">-->
+          <!--<td>-->
+            <!--<span  class="asset-header-container-td-logo-box">-->
+              <!--<img class="asset-header-container-td-logo" :src="'http://logo.eunex.group/' + item.currency +'.png'" alt="">-->
+            <!--</span>-->
+            <!--{{item.currency}}-->
+          <!--</td>-->
+          <!--<td>{{toFixed(item.total,8)}}</td>-->
+          <!--<td>{{(priceReady || initReady) && item.appraisement!==0 ? toFixed(item.appraisement,8) : '&#45;&#45;'}}</td>-->
+        <!--</tr>-->
+      <!--</table>-->
+    <!--</div>-->
+
+
+
+    <!--注释-->
+    <!--<div v-if="tableOpenFlag" class="asset-header-container-box">-->
+      <!--<div class="asset-header-container-box-title">-->
+        <!--<img class="asset-header-container-box-title-logo" :src="'http://logo.eunex.group/' + tableOpenData.name +'.png'" alt="">-->
+        <!--{{tableOpenData.name}}-->
+        <!--<img class="asset-header-container-box-title-img" @click="changeTableOpenFlag" src="../../assets/mobile_close_icon.png" alt="">-->
+      <!--</div>-->
+      <!--<div class="asset-container-box-list">-->
+        <!--<span class="asset-container-box-list-left">总额</span>-->
+        <!--<span class="asset-container-box-list-right">{{toFixed(tableOpenData.totalPrice,8)}}</span>-->
+        <!--<div class="clear"></div>-->
+      <!--</div>-->
+      <!--<div class="asset-container-box-list">-->
+        <!--<span class="asset-container-box-list-left">可用</span>-->
+        <!--<span class="asset-container-box-list-right">{{toFixed(tableOpenData.availablePrice,8)}}</span>-->
+        <!--<div class="clear"></div>-->
+      <!--</div>-->
+      <!--<div class="asset-container-box-list">-->
+        <!--<span class="asset-container-box-list-left">冻结</span>-->
+        <!--<span class="asset-container-box-list-right">{{toFixed(tableOpenData.frozenPrice,8)}}</span>-->
+        <!--<div class="clear"></div>-->
+      <!--</div>-->
+      <!--<div class="asset-container-box-list">-->
+        <!--<span class="asset-container-box-list-left">估值(BTC)</span>-->
+        <!--<span class="asset-container-box-list-right">{{toFixed(tableOpenData.appraisementPrice,8)}}</span>-->
+        <!--<div class="clear"></div>-->
+      <!--</div>-->
+
+      <!--&lt;!&ndash;底部按钮&ndash;&gt;-->
+      <!--<div class="asset-container-box-btn-box">-->
+        <!--<div class="asset-container-box-btn asset-container-box-btn-buy"-->
+             <!--@click="clickRecharge(tableOpenData.name)">充值</div>-->
+        <!--&lt;!&ndash;:class="tableOpenData.currency === 'BDB' || tableOpenData.currency === 'ICC' || tableOpenData.availablePrice<=0 ? 'asset-container-box-btn-operate' : ''"&ndash;&gt;-->
+        <!--<div class="asset-container-box-btn asset-container-box-btn-sale"-->
+             <!--@click="clickWithdraw(false,tableOpenData.name)">提现</div>-->
+        <!--&lt;!&ndash;:class="tableOpenData.availablePrice<=0 ? 'asset-container-box-btn-operate' : ''"&ndash;&gt;-->
+      <!--</div>-->
+    <!--</div>-->
+
+
+
+    <div class="bottomenu">
+
+      <table>
+        <tr>
+          <td  @click="gotoNewH5homePage">
+            <div class="menuimg"><img src="../../assets/H5img/indexm.png"></div>
+            <div class="menuinfoh">首页</div>
+          </td>
+          <td  @click="gotoShichang">
+            <div class="menuimg"><img src="../../assets/H5img/shich.png"></div>
+            <div class="menuinfoh">行情</div>
+          </td>
+          <td   @click="gotoJiaoyi">
+            <div class="menuimg"><img src="../../assets/H5img/jiaoyi.png"></div>
+            <div class="menuinfoh">交易</div>
+          </td>
+          <td   @click="gotoZichan">
+            <div class="menuimg"><img src="../../assets/H5img/zichan_on.png"></div>
+            <div class="menuinfo">资产</div>
+          </td>
+        </tr>
+      </table>
+
+    </div>
+
+  </div>
+  <PopupPrompt :popOpen="popOpen" :popClose="popClose" :popType="popType" :popText="popText"/>
+</div>
+
+

@@ -1,0 +1,138 @@
+._m_bg_root{
+	padding: 0 0.37rem 0 0.22rem ;
+	background: #01040a;
+	min-height: 100%;
+}
+._m_bg_root p{
+	font-family: SimHei;
+	color: #fff;
+	font-size: 0.24rem;
+	font-weight: lighter;
+	line-height: 1.5;
+}
+._m_bg_tit{
+	color: #fff;
+	font-size: 0.3rem;
+	text-align: center;
+	padding:0.46rem 0  0.24rem 0;
+}
+._m_bg_step{
+	font-size: 0.28rem;
+	color: #C43E4E;
+	counter-increment: section 1;
+	line-height: 1.4;
+}
+._m_bg_step:before{
+	content: counter(section);
+	display: inline-block;
+	box-sizing: border-box;
+	width: 0.44rem;
+	height: 0.44rem;
+	border-radius: 0.22rem;
+	border: 2px solid #C43E4E;
+	text-align: center;
+	margin-right: 0.22rem;
+}
+._m_bg_icw{
+	margin: 0.22rem 0.14rem 0.26rem 0.36rem;
+}
+._m_bg_ic{
+	position: relative;
+	width: 2.02rem;
+	height: 1.6rem;
+	border-radius: 0.1rem;
+	box-shadow:  0 4px 20px rgba(48,201,232,0.15);
+}
+._m_bg_ic>p{
+	position: absolute;
+	width: 100%;
+	text-align: center;
+	bottom: 0.2rem;
+}
+._m_bg_ic1{
+	background: url("../../assets/apple_appsrore.png") center 0.18rem no-repeat;
+	background-size: 0.64rem 0.64rem;
+
+}
+._m_bg_ic2{
+	background: url("../../assets/google_googleplay.png") center 0.18rem no-repeat;
+	background-size: 0.58rem 0.7rem;
+
+
+}
+._m_bg_ic3{
+	background: url("../../assets/page_1@2x.png") center 0.18rem no-repeat;
+	background-size: 0.6rem 0.6rem;
+
+}
+._m_bg_ctw{
+	padding-left:0.66rem;
+	margin-top: 0.22rem;
+}
+
+._m_bg_cpw{
+	padding-left:0.66rem;
+	margin-top: 0.2rem;
+}
+._m_bg_cpw>p{
+	font-size: 0.24rem;
+	margin-bottom: 0.06rem;
+}
+._m_bg_cpl{
+	box-sizing: border-box;
+	height: 0.6rem;
+	line-height: 0.6rem;
+	padding:0 0.22rem;
+	border: 0.01rem solid #C43E4E;
+	border-radius: 0.08rem;
+	color: #fff;
+	font-size: 0.24rem;
+	font-family: SimHei;
+	font-weight: lighter;
+
+
+
+	width: 70%;
+	outline: none;
+	/*border: 0 solid transparent;*/
+	background: transparent;
+
+
+
+}
+._m_bg_cpr{
+	width: 1.6rem;
+	height: 0.6rem;
+	line-height: 0.6rem;
+	text-align: center;
+	background: #C43E4E;
+	font-size: 0.28rem;
+	color: #fff;
+	border-radius: 0.08rem;
+}
+._m_bg_tip{
+	margin-top: 0.2rem;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+._m_bg_tip:before{
+	content: '';
+	width: 0.2rem;
+	height: 0.2rem;
+	margin-right: 0.08rem;
+	border-radius: 0.1rem;
+	background: #C43E4E;
+}
+._m_bg_btn{
+	width: 4.54rem;
+	height: 0.8rem;
+	line-height: 0.8rem;
+	border-radius: 0.08rem;
+	background: #C43E4E;
+	color: #fff;
+	font-size: 0.32rem;
+	text-align: center;
+	margin: 1.2rem auto 0;
+
+}

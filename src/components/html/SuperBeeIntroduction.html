@@ -1,0 +1,14 @@
+<div class="super-bee-introduction-container box_shadow">
+  <Loading v-if="introductionLoading"/>
+
+  <div class="header flex">
+    <img :src="info.logo" alt="" class="super-bee-logo">
+    <div class="super-bee-name">
+      {{info.name}}
+    </div>
+  </div>
+  <div class="article">
+    {{info.profile}}
+  </div>
+
+</div>

@@ -1,0 +1,21 @@
+
+
+<ul class="_m_stck_it flex-colum">
+  <li class="flex-row flex-between" :style="transactionType?'flex-direction: row-reverse':''"
+      v-for="(item,index) in list">
+    <span :class="transactionType?'m-txt-green':'m-txt-red'">
+      {{formatnumber(item.price, quoteScale)}}
+    </span>
+
+    <span v-if="$store.state.symbol== 'GRC_USDT'">
+      {{item.amount>=1000 && item.amount > 0 ? $globalFunc.accFixed(item.amount/1000,2)+'k' : formatnumber(item.amount, quoteScale)}}
+    </span>
+
+    <span v-else>{{formatnumber(item.amount,baseScale)}}
+    </span>
+
+
+        </li>
+
+    </ul>
+

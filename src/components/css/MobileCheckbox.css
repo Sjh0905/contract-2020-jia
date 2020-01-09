@@ -1,0 +1,10 @@
+.mobile-checkbox {
+  float: left;
+  height: 14px;
+}
+
+.mobile-checkbox-img {
+  height: 14px;
+  display: block;
+  margin-right: 5px;
+}

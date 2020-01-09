@@ -1,0 +1,42 @@
+<div>
+  <Loading v-if="loading"/>
+  <div v-if="!loading" class="netease-box">
+    <div class="netease-header">
+      <div class="netease-header-fl">
+        待激活数字资产权益{{currency}}数量：
+        <span class="netease-header-text-blue">{{amount}}</span>
+      </div>
+      <div class="netease-header-sl">
+        实时折合比特币：
+        <span class="netease-header-text-blue">{{btChangeBtc}}</span>
+      </div>
+    </div>
+
+    <div class="netease-container">
+      <div class="netease-address-box">
+        <div class="netease-address-header">
+          <div class="netease-address-header-text">完成账号绑定 即可激活您的数字资产权益</div>
+          <img class="netease-address-header-img" src="" alt="">
+        </div>
+        <div class="netease-address-body">
+          <div class="netease-address-body-btn1" @click="jumpToRegister">激活新账户</div>
+          <div class="netease-address-body-btn2" @click="jumpToBind">激活已有账户</div>
+        </div>
+        <img class="netease-address-bg-img1" src="" alt="">
+        <img class="netease-address-bg-img2" src="" alt="">
+      </div>
+      <div class="netease-info-box">
+        <div class="netease-info-header">
+          <span class="netease-info-header-line"></span>
+          <span class="netease-info-header-text">欧联{{currency}}介绍</span>
+          <span class="netease-info-header-line"></span>
+        </div>
+        <div class="netease-info-body">
+          欧联交易平台（www.eunex.group）以共识、共建、共享的社区建设理念和创新模式带动平台发展，日均交易量位居世界前列。<br/><br/>
+          BT（EUNEX Token）是欧联（www.eunex.group）发行和管理的贡献型通证，持有BT可享受欧联（www.eunex.group）平台每日交易手续费收益的40%综合分配，并能获得糖果空投、优质项目认购、投票上币等权益。同时，欧联（www.eunex.group）通过BT长期持有分红倍增计划建立平准基金，以平衡BT价格处于合理价值区间。
+        </div>
+      </div>
+    </div>
+  </div>
+  <PopupPrompt :popOpen="popOpen" :popClose="popClose" :popType="popType" :popText="popText"/>
+</div>

@@ -1,0 +1,196 @@
+<div class="OrderPageHistoricalEntrustmentDetail-container loading-min-height">
+  <Loading v-if="loading"/>
+  <template v-if="!loading">
+    <ul class="hidden-detail-container">
+      <li class="hidden-detail-li hidden-detail-li-title flex">
+        <div class="hidden-detail-title">{{$t('orderPageHistoricalEntrustmentDetail.time')}}</div>
+        <div class="hidden-detail-title">{{$t('orderPageHistoricalEntrustmentDetail.price')}}</div>
+        <div class="hidden-detail-title">{{$t('orderPageHistoricalEntrustmentDetail.number')}}</div>
+        <div class="hidden-detail-title">{{$t('orderPageHistoricalEntrustmentDetail.amount')}}</div>
+        <!--应收手续费 begin -->
+        <div class="hidden-detail-title" v-if="orderDetail.length!=1">
+          {{$t('orderPageHistoricalEntrustmentDetail.charge')}}
+        </div>
+        <div class="hidden-detail-title" v-if="orderDetail.length==1">
+          {{$t('orderPageHistoricalEntrustmentDetail.charge')}}
+        </div>
+        <!--应收手续费 end -->
+        <!--实际到账 begin -->
+        <div class="hidden-detail-title">
+          {{$t('orderPageHistoricalEntrustmentDetail.realAccount')}}
+        </div>
+        <!--实际到账 end -->
+      </li>
+      <li class="hidden-detail-li hidden-detail-li-article flex-center" v-for="(detail,index) in orderDetail"
+          :key="index">
+        <!--成交时间 begin -->
+        <div class="hidden-detail-article">{{$globalFunc.formatDateUitl(detail.createdAt,'YYYY-MM-DD hh:mm:ss')}}</div>
+        <!--成交时间 end -->
+
+        <!--成交价 begin -->
+        <div class="hidden-detail-article">{{toFixed(detail.price, !!quoteScale_list[symbol] ? quoteScale_list[symbol].quoteScale : 8)}} {{symbol.split('_')[1]}}</div>
+        <!--成交价 end -->
+
+        <!--成交数量 begin -->
+        <div class="hidden-detail-article">{{toFixed(detail.amount, !!quoteScale_list[symbol] ? quoteScale_list[symbol].baseScale : 8)}} {{symbol.split('_')[0]}}</div>
+        <!--成交数量 end -->
+
+        <!--成交金额 begin -->
+        <div class="hidden-detail-article">{{toFixed(accMul(detail.price , detail.amount, 8))}}
+          {{symbol.split('_')[1]}}
+        </div>
+        <!--成交金额 end -->
+
+        <!--手续费 begin -->
+        <!--订单数量如果超过1，显示一条的 begin -->
+        <div class="hidden-detail-article" v-if="orderDetail.length!==1">
+          {{toFixed(detail.fee,8)}}
+          {{detail.feeCurrency}}
+        <!--  ? symbol.split('_')[1] :symbol.split('_')[0]-->
+        </div>
+        <!--订单数量如果超过1，显示一条的 end -->
+
+        <!--订单数量如果只有1条，显示为总计 begin -->
+
+        <!--如果没开抵扣，显示原币种 begin -->
+        <div class="hidden-detail-article" v-if="orderDetail.length==1">
+          <!--<p class="hidden-detail-article-box hidden-detail-article-original-currency">-->
+            <!--<span class="hidden-detail-article-title hidden-detail-article-original-currency-title"-->
+                  <!--:class="{'hidden-detail-article-title-en':lang!=='CH'}"-->
+            <!--&gt;{{$t('orderPageHistoricalEntrustmentDetail.originalCurrency')}}</span>-->
+            <span
+              class="hidden-detail-article-item hidden-detail-article-original-currency-item">{{toFixed(detail.fee,8)}} {{detail.feeCurrency}}</span>
+          <!--</p>-->
+          <!--<p class="hidden-detail-article-box hidden-detail-article-really-currency">-->
+            <!--<span class="hidden-detail-article-title hidden-detail-article-really-currency-title"-->
+                  <!--:class="{'hidden-detail-article-title-en':lang!=='CH'}"-->
+            <!--&gt;{{$t('orderPageHistoricalEntrustmentDetail.reallyCurrency')}}</span>-->
+            <!--<span-->
+              <!--class="hidden-detail-article-item hidden-detail-article-really-currency-item"-->
+            <!--&gt;{{toFixed(totalFee,8)}} {{orderType?symbol.split('_')[1]:symbol.split('_')[0]}}</span>-->
+          <!--</p>-->
+        </div>
+        <!--如果没开抵扣，显示原币种 end -->
+
+
+        <!--如果开抵扣了，显示抵扣 begin -->
+        <!--<div class="hidden-detail-article" v-if="orderDetail.length==1 && replaced">-->
+          <!--<p class="hidden-detail-article-box hidden-detail-article-original-currency">-->
+            <!--<span class="hidden-detail-article-title hidden-detail-article-original-currency-title"-->
+                  <!--:class="{'hidden-detail-article-title-en':lang!=='CH'}"-->
+            <!--&gt;{{$t('orderPageHistoricalEntrustmentDetail.originalCurrency')}}</span>-->
+            <!--<span-->
+              <!--class="hidden-detail-article-item hidden-detail-article-original-currency-item">{{toFixed(originalFee,8)}} {{originalCurrency}}</span>-->
+          <!--</p>-->
+          <!--<p class="hidden-detail-article-box hidden-detail-article-really-currency">-->
+            <!--<span class="hidden-detail-article-title hidden-detail-article-really-currency-title"-->
+                  <!--:class="{'hidden-detail-article-title-en':lang!=='CH'}"-->
+            <!--&gt;{{$t('orderPageHistoricalEntrustmentDetail.reallyCurrency')}}</span>-->
+            <!--<span-->
+              <!--class="hidden-detail-article-item hidden-detail-article-really-currency-item"-->
+              <!--v-if="originalFee !==refundedFee"-->
+            <!--&gt;{{toFixed(accMinus(originalFee , refundedFee,8))}} {{originalCurrency}}</span>-->
+            <!--<span-->
+              <!--class="hidden-detail-article-item hidden-detail-article-really-currency-item"-->
+              <!--v-if="replacedFee !==0"-->
+            <!--&gt;{{toFixed(replacedFee,8)}} {{replacedCurrency}}</span>-->
+          <!--</p>-->
+        <!--</div>-->
+        <!--如果开抵扣了，显示抵扣 end -->
+
+        <!--订单数量如果只有1条，显示为总计 end -->
+
+
+        <!--手续费 end -->
+
+        <!--实际到账 begin -->
+        <div class="hidden-detail-article" v-if="orderDetail.length==1 && !orderType">
+          <!--{{toFixed(accMinus(amount , accMinus(originalFee , refundedFee)),8)}}-->
+          {{toFixed(actualAccount,8)}}
+          {{orderType?symbol.split('_')[1]:symbol.split('_')[0]}}
+        </div>
+        <div class="hidden-detail-article" v-if="orderDetail.length==1 && orderType">
+          {{toFixed(accMinus(filledPrice , totalFee),8)}}
+          {{orderType?symbol.split('_')[1]:symbol.split('_')[0]}}
+        </div>
+        <div class="hidden-detail-article" v-if="orderDetail.length!=1">
+          ---
+        </div>
+        <!--实际到账 end -->
+      </li>
+
+      <li class="hidden-detail-li hidden-detail-li-article" v-if="loadingMoreShow">
+        <span>{{$t('orderPageHistoricalEntrustmentDetail.loadingMore')}}</span>
+      </li>
+
+      <!--总计 begin -->
+      <li class="hidden-detail-li hidden-detail-li-article flex-center"
+          v-if="!loadingMoreShow && orderDetail.length!==0 && orderDetail.length!==1">
+        <div class="hidden-detail-article">{{$t('orderPageHistoricalEntrustmentDetail.total')}}</div>
+        <div class="hidden-detail-article">
+          {{toFixed(averagePrice,8)}} {{symbol.split('_')[1]}}({{$t('orderPageHistoricalEntrustmentDetail.average')}})
+        </div>
+        <div class="hidden-detail-article">{{amount}} {{symbol.split('_')[0]}}</div>
+        <div class="hidden-detail-article">{{toFixed(filledPrice,8)}} {{symbol.split('_')[1]}}</div>
+
+        <!--如果没开抵扣，显示原币种 begin -->
+        <div class="hidden-detail-article">
+          <!--<p class="hidden-detail-article-box hidden-detail-article-original-currency">-->
+            <!--<span class="hidden-detail-article-title hidden-detail-article-original-currency-title"-->
+                  <!--:class="{'hidden-detail-article-title-en':lang!=='CH'}"-->
+            <!--&gt;{{$t('orderPageHistoricalEntrustmentDetail.originalCurrency')}}</span>-->
+            <span
+              class="hidden-detail-article-item hidden-detail-article-original-currency-item">{{toFixed(totalFee,8)}} {{orderType?symbol.split('_')[1]:symbol.split('_')[0]}}</span>
+          <!--</p>-->
+          <!--<p class="hidden-detail-article-box hidden-detail-article-really-currency">-->
+            <!--<span class="hidden-detail-article-title hidden-detail-article-really-currency-title"-->
+                  <!--:class="{'hidden-detail-article-title-en':lang!=='CH'}"-->
+            <!--&gt;{{$t('orderPageHistoricalEntrustmentDetail.reallyCurrency')}}</span>-->
+            <!--<span-->
+              <!--class="hidden-detail-article-item hidden-detail-article-really-currency-item"-->
+            <!--&gt;{{toFixed(totalFee,8)}} {{orderType?symbol.split('_')[1]:symbol.split('_')[0]}}</span>-->
+          <!--</p>-->
+        </div>
+        <!--如果没开抵扣，显示原币种 end -->
+
+
+        <!--如果开抵扣了，显示抵扣 begin -->
+        <!--<div class="hidden-detail-article" v-if="replaced">-->
+          <!--<p class="hidden-detail-article-box hidden-detail-article-original-currency">-->
+            <!--<span class="hidden-detail-article-title hidden-detail-article-original-currency-title"-->
+                  <!--:class="{'hidden-detail-article-title-en':lang!=='CH'}"-->
+            <!--&gt;{{$t('orderPageHistoricalEntrustmentDetail.originalCurrency')}}</span>-->
+            <!--<span-->
+              <!--class="hidden-detail-article-item hidden-detail-article-original-currency-item">{{toFixed(originalFee,8)}} {{originalCurrency}}</span>-->
+          <!--</p>-->
+          <!--<p class="hidden-detail-article-box hidden-detail-article-really-currency">-->
+            <!--<span class="hidden-detail-article-title hidden-detail-article-really-currency-title"-->
+                  <!--:class="{'hidden-detail-article-title-en':lang!=='CH'}"-->
+            <!--&gt;{{$t('orderPageHistoricalEntrustmentDetail.reallyCurrency')}}</span>-->
+            <!--<span-->
+              <!--class="hidden-detail-article-item hidden-detail-article-really-currency-item"-->
+              <!--v-if="originalFee !==refundedFee"-->
+            <!--&gt;{{toFixed(accMinus(originalFee , refundedFee),8)}} {{originalCurrency}}</span>-->
+            <!--<span-->
+              <!--class="hidden-detail-article-item hidden-detail-article-really-currency-item"-->
+              <!--v-if="replacedFee !==0"-->
+            <!--&gt;{{toFixed(replacedFee,8)}} {{replacedCurrency}}</span>-->
+          <!--</p>-->
+        <!--</div>-->
+        <!--如果开抵扣了，显示抵扣 end -->
+
+        <div class="hidden-detail-article" v-if="!orderType">
+          {{toFixed(actualAccount,8)}}
+          {{orderType?symbol.split('_')[1]:symbol.split('_')[0]}}
+        </div>
+        <div class="hidden-detail-article" v-if="orderType">
+          {{toFixed(accMinus(filledPrice , totalFee),8)}}
+          {{orderType?symbol.split('_')[1]:symbol.split('_')[0]}}
+        </div>
+
+      </li>
+      <!--总计 end -->
+    </ul>
+  </template>
+</div>
+

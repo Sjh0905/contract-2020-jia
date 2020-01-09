@@ -1,0 +1,156 @@
+<div class="rankActivity">
+	<Loading v-if="loading"/>
+	<div v-else class="rank_body">
+		<div class="rank_banner">
+			<!-- banner -->
+		</div>
+		<div class="rank_container">
+			<div class="rank_container_inline">
+				<div class="rank_title">
+					<span>
+						<font class="span_title">{{description.activityName}}</font>
+						<font class="icon_left"></font>
+						<font class="icon_right"></font>
+					</span>
+				</div>
+
+				<div v-if="description.Num == 0" class="rank_small_title">
+					( {{$t('rankActivity.enstart')}} )
+				</div>
+
+				<div class="rank_small_title" v-else>
+					( {{$t('rankActivity.title_1')}}
+					<!-- <span v-if='description.Num == 1'>{{$t('rankActivity.one')}}</span>
+					<span v-if='description.Num == 2'>{{$t('rankActivity.two')}}</span>
+					<span v-if='description.Num == 3'>{{$t('rankActivity.three')}}</span>
+					<span v-if='description.Num == 4'>{{$t('rankActivity.four')}}</span>
+					<span v-if='description.Num > 4'>{{$t('rankActivity.four')}}</span> -->
+					{{description.Num}}
+					{{$t('rankActivity.title_2')}} )
+				</div>
+
+				<div class="rank_sort_valome flex-row border_bottom title">
+					<div class="sort">
+						<!-- 显示 <= 300 的名次，大于显示 未上榜 -->
+						<!-- {{$t('rankActivity.noRanking')}} -->
+						{{$t('rankActivity.currentRanking')}}：
+						<span v-if="transcation.ranking > 0">{{transcation.ranking}}</span>
+						<span v-else>{{$t('rankActivity.noRanking')}}</span>
+					</div>
+					<div class="valome">
+						{{$t('rankActivity.transactionAmount')}}：
+						<span>{{!!is_login ? $globalFunc.accFixed(transcation.amount, 2) : '--'}} {{transcation.currecy}}</span>
+					</div>
+					<div class="time" v-if="pause == '0'">
+						{{$t('rankActivity.countdown')}}：<span id="times">
+						{{$t('rankActivity.pause')}}</span>
+					</div>
+					<div class="time" v-if="pause == '1' && !finished">
+						{{$t('rankActivity.countdown')}}：<span id="times">{{$t('rankActivity.enstart')}}</span>
+					</div>
+					<div class="time" v-if="pause == '1' && finished">
+						{{$t('rankActivity.countdown')}}：<span id="times">{{$t('rankActivity.finished')}}</span>
+					</div>
+				</div>
+
+				<div class="rank_table">
+					<div class="rank_table_title flex-row">
+						<div class="table_sort">
+							{{$t('rankActivity.ranking')}}
+						</div>
+						<div class="table_name">
+							{{$t('rankActivity.username')}}
+						</div>
+						<div class="table_valome">
+							{{$t('rankActivity.transactionAmount')}}(USDT)
+						</div>
+						<div class="table_gift">
+							{{$t('rankActivity.reward')}}
+						</div>
+					</div>
+					<div class="rank_table_body">
+						<div class="rank_table_tr border_bottom flex-row" :class="`color_`+(i+1)" v-for="(item, i) in ranking_list" v-if="i < limit_length">
+							<div class="table_sort_tr">
+								<span :class="i<3 && `sort_`+(i + 1)">
+								{{i+1}}
+								</span>
+							</div>
+							<div class="table_name_tr">{{changeEmail(item.email)}}</div>
+							<div class="table_valome_tr">
+								<span>{{!!item.amount ? $globalFunc.accFixed(item.amount, 2) : '--'}}</span>
+								<!-- 保留两位小数，只有舍，没有进 -->
+							</div>
+							<div class="table_gift_tr" :class="i<=10 && 'tr_font'">{{item.reward}}</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="rank_horn top_left"></div>
+				<div class="rank_horn top_right"></div>
+				<div class="rank_horn bottom_left"></div>
+				<div class="rank_horn bottom_right"></div>
+			</div>
+		</div>
+
+		<div class="rank_rules">
+			<div class="rank_title">
+				<span>
+					<font class="span_title"><dd>{{$t('rankActivity.activities')}}</dd></font>
+					<font class="icon_left"></font>
+					<font class="icon_right"></font>
+				</span>
+			</div>
+
+			<div class="rank_rules_detail">
+				<p v-for="item in content_list">
+					{{item}}
+				</p>
+				<!-- <p>活动时间：2018年7月11日—2018年8月11日（7天为一期，共四期）</p>
+				<p>活动内容：活动期间，在欧联平台交易任意一币种的用户，按照总交易额（买入+卖出）即可参与交易排名赛，前十名即可获得如下奖励：</p>
+				<p>第一名：帕拉梅拉一辆(车型待定)</p>
+				<p>第二名：2 BTC+Macbookpro一台</p>
+				<p>第三名：10 ETH+Macbookpro一台 </p>
+				<p>第四名：9999 BDB+Macbookpro一台 </p>
+				<p>第五名：6666 BDB+Macbookpro一台</p>
+				<p>第六名至第十名：iphoneX 256G一部/人 </p> -->
+			</div>
+
+
+		</div>
+
+		<div class="rank_rules">
+			<div class="rank_title">
+				<span>
+					<font class="span_title"><dd>{{$t('rankActivity.activityRules')}}</dd></font>
+					<font class="icon_left"></font>
+					<font class="icon_right"></font>
+				</span>
+			</div>
+			<div class="rank_rules_detail_1">
+				<p v-for="item in rules_list">{{item}}</p>
+				<!-- <p>1.2018年7月11日—2018年8月11日（7天为一期，共四期，每期奖品可能有所不同）；  </p>
+				<p>2.每期第一名交易额需≥5亿USDT方可计入奖励；</p>
+				<p>3.最终活动奖励将通过EUNEX官方邮箱与您确认，请注意查看您的EUNEX注册邮箱；  </p>
+				<p>4.Macbookpro奖品配置为13英寸+i5+8G+512G，官网售价15,752元，奖品实际价格以市场为准，颜色随机；其</p>
+				<p>5.如发现恶意交易等不当行为，将取消活动资格及奖励；</p> -->
+			</div>
+		</div>
+
+		<div class="rank_detail_2">
+			{{$t('rankActivity.notice_1')}}
+		</div>
+		<div class="rank_detail_2 top">
+			{{$t('rankActivity.notice_2')}}
+		</div>
+
+
+		<!-- 提示 start -->
+		<PopupPrompt :popType="popType" :popText="popText" :popOpen="promptOpen" :popClose="closePrompt"></PopupPrompt>
+		<!-- 提示 end -->
+
+
+
+
+
+	</div>
+</div>

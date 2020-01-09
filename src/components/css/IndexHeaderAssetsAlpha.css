@@ -1,0 +1,32 @@
+.index-header-assets-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.asset-container a {
+  color: #fff;
+}
+
+.asset-container {
+  height: 100%;
+  width: 100%;
+}
+
+.asset-li:hover {
+  background-color: #1c2031;
+}
+
+.asset-li {
+  height: 36px;
+  line-height: 18px;
+  font-size: 13px;
+  border-bottom: 1px solid transparent;
+  padding: 7px 30px 7px 30px;
+  text-align: left;
+  background-color: #141823;
+}
+
+.asset-li:hover p {
+  color: #C43E4E;
+}

@@ -1,0 +1,135 @@
+<div class="recommend-container min-width">
+  <!--banner begin-->
+  <header class="header-img-box">
+    <img src="" alt="" class="header-img">
+  </header>
+  <!--banner end-->
+
+  <!--我的推荐 begin-->
+  <article class="recommend-article">
+    <!--我的推荐信息 begin-->
+    <div class="info-container border_radius box_shadow flex">
+
+      <!--左侧内容 begin-->
+      <ul class="my-info-box my-info-box-first">
+        <li class="my-info-li flex my-info-li-left">
+          <span class="my-info-li-title my-info-li-title-left">
+            {{$t('personalCenterRecommend.title')}}
+          </span>
+          <span class="my-info-li-detail my-info-li-detail-left">
+            <template v-if="userId">
+              {{userId}}
+            </template>
+            <template v-else>
+              <router-link :to="{name:'login'}" class="text_blue">{{$t("progressBar.login")}}</router-link> or <router-link :to="{name:'register'}" class="text_blue">{{$t("progressBar.register")}}</router-link>
+            </template>
+          </span>
+
+        </li>
+        <li class="my-info-li flex my-info-li-left">
+          <span class="my-info-li-title my-info-li-title-left">
+            {{$t('personalCenterRecommend.shareUrl')}}
+          </span>
+          <span class="my-info-li-detail my-info-li-detail-left">
+            <input ref="getUrl" v-model="shareUrl" readonly class="share-input">
+            <button @click="copyUrl" class="share-button btn_blue">{{$t('personalCenterRecommend.copy')}}</button>
+          </span>
+        </li>
+      </ul>
+      <!--左侧内容 end-->
+
+      <!--右侧内容 begin-->
+      <ul class="my-info-box my-info-box-second">
+        <li class="my-info-li flex my-info-li-right">
+          <span class="my-info-li-title my-info-li-title-right">
+            <!--已推荐朋友：-->
+            {{$t('recommendedMaid.friend')}}
+            <span class="strong my-info-li-strong"></span>
+          </span>
+          <span class="my-info-li-detail my-info-li-detail-right my-info-li-strong strong">
+          {{userId?size:'---'}}
+          </span>
+        </li>
+        <li class="my-info-li flex my-info-li-right">
+          <span class="my-info-li-title my-info-li-title-right">
+            <!--已获得的交易返佣：-->
+            {{$t('recommendedMaid.totalCommission')}}
+            <span class="strong my-info-li-strong"></span>
+          </span>
+          <span class="my-info-li-detail my-info-li-detail-right my-info-li-strong strong">
+           &nbsp ≈ {{userId ? $globalFunc.accFixed(totalRebate,4) : '---'}} BDB
+          </span>
+        </li>
+      </ul>
+      <!--右侧内容 end-->
+
+    </div>
+    <!--我的推荐信息 end-->
+
+    <!--我的推荐表格 begin-->
+    <div class="recommend-form-container">
+      <div class="recommend-form-title text_blue strong">{{$t('recommendedMaid.title')}}</div>
+      <ul class="form-container border_radius box_shadow">
+        <li class="form-title strong flex">
+          <div class="index">{{$t('personalCenterRecommend.index')}}</div>
+          <div class="id">{{$t('personalCenterRecommend.userName')}}</div>
+          <div class="auth">{{$t('personalCenterRecommend.authState')}}</div>
+          <div class="register-reward">{{$t('personalCenterRecommend.registerAward')}}</div>
+          <div class="currentMouthCommission">{{$t('personalCenterRecommend.currentMouthComission')}}</div>
+          <div class="totalCommission">{{$t('personalCenterRecommend.totalCommission')}}</div>
+        </li>
+        <template v-if="records.length !==0">
+          <li class="form-detail flex" v-for="(item,index) in records">
+            <div class="index">{{index+1}}</div>
+            <div class="id">{{handleName(item.beInvitedEmail)}}</div>
+            <div class="auth">
+              {{item.identityAuthStatus===2?$t('personalCenterRecommend.yesAuth'):$t('personalCenterRecommend.noAuth')}}
+            </div>
+            <div class="register-reward">{{registerAward(item)}}</div>
+            <div class="currentMouthCommission">{{item.thisMonthRebate ? toFixed(item.thisMonthRebate): '---'}}</div>
+            <div class="totalCommission">{{item.totalRebate ? toFixed(item.totalRebate): '---'}}</div>
+          </li>
+        </template>
+        <template v-else>
+          <li class="form-detail flex">
+            <div class="index">--</div>
+            <div class="id">--</div>
+            <div class="auth">--</div>
+            <div class="register-reward">--</div>
+            <div class="currentMouthCommission">--</div>
+            <div class="totalCommission">--</div>
+          </li>
+        </template>
+      </ul>
+      <div class="pageBar-box">
+        <PageBar :maxPage="maxPage" :initDisplay="3" :currentDisplay="1" :selectIndex="selectIndex"
+                 :clickChangePage="getRecommend" v-show="maxPage>1"/>
+      </div>
+    </div>
+    <!--我的推荐表格 end-->
+
+
+  </article>
+  <!--我的推荐 end-->
+
+  <!--活动规则 begin-->
+  <footer class="rule-container box_shadow border_radius recommend-article">
+    <div class="rule-title flex-center">
+      <span class="rule-line"></span>
+      <span class="rule-title-detail text_blue">{{$t('recommendedMaid.rule')}}</span>
+      <span class="rule-line"></span>
+    </div>
+    <ul class="rule-ul">
+      <li class="rule-li">{{$t('recommendedMaid.rule_1')}}</li>
+      <li class="rule-li">{{$t('recommendedMaid.rule_2')}}</li>
+      <li class="rule-li">{{$t('recommendedMaid.rule_3')}}</li>
+      <li class="rule-li">{{$t('recommendedMaid.rule_4')}}</li>
+    </ul>
+  </footer>
+  <!--活动规则 end-->
+
+
+  <!-- 提示信息 start -->
+  <PopupPrompt :popType="popType" :popText="popText" :popOpen="popOpen" :popClose="closePop"></PopupPrompt>
+  <!-- 提示信息 end -->
+</div>

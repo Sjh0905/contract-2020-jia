@@ -1,0 +1,364 @@
+.activity-box {
+  background: #081724;
+  padding-bottom: 20px;
+  min-height: 100%;
+}
+
+.super-bee-activity-box {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #262E57;
+}
+
+.super-bee-activity-header-ios {
+  position: relative;
+  /*background: url("../activityAssets/mobileSuperBee/header_bg.png") no-repeat no-repeat;*/
+  background-size: 100% auto;
+  height: 20px;
+
+}
+
+.super-bee-activity-header {
+  position: fixed;
+  /*background: url("../activityAssets/mobileSuperBee/header_bg.png") #262E57 no-repeat no-repeat;*/
+  /*background-size: 100% auto;*/
+  /*background-position: 0 -20px;*/
+  min-height: 44px;
+  /*box-shadow: 0 4px 16px rgba(0,0,0,0.36);*/
+  /*background: #262e57;*/
+  box-shadow: none;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+}
+
+.super-bee-activity-body {
+  background: url("../activityAssets/mobileSuperBee/header_bg.png") #262E57 no-repeat no-repeat;
+  background-size: 100% auto;
+  background-position: top;
+  padding-top: 52px;
+}
+
+.super-bee-activity-body-ios {
+  background: url("../activityAssets/mobileSuperBee/header_bg.png") #262E57 no-repeat no-repeat;
+  background-size: 100% auto;
+  background-position: top;
+  padding-top: 72px;
+
+}
+
+.super-bee-activity-header-title {
+  height: 44px;
+  width: 100%;
+  /*background: url("../btActivityAssets/mobile_assets/header_container_bg.png") center repeat-y;*/
+  /*background-size: 100% 100%;*/
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.super-bee-activity-header-title-back-icon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 44px;
+  height: 44px;
+}
+
+.super-bee-activity-header-title-back-icon-img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 6px;
+  transform: translate(-50%,-50%);
+}
+
+.super-bee-activity-header-title-text {
+  color: #fff;
+  font-size: 16px;
+  opacity: 0;
+}
+
+.super-bee-activity-header-icon {
+  margin: -2px auto 0;
+  text-align: center;
+}
+
+.super-bee-activity-header-icon-img {
+  display: inline-block;
+  width: 192px;
+}
+
+.super-bee-activity-header-info {
+  margin-top: 22px;
+  padding: 0 20px;
+  text-align: center;
+  line-height: 20px;
+  font-size: 14px;
+  color: #fff;
+}
+
+.super-bee-activity-header-info-blue {
+  display: inline;
+  color: #C43E4E;
+}
+
+.super-bee-activity-header-btn {
+  margin: 21px auto 0;
+  height: 32px;
+  width: 244px;
+  background: #C43E4E;
+  line-height: 32px;
+  color: #fff;
+  border-radius: 16px;
+  text-align: center;
+  font-size: 14px;
+  box-sizing: content-box;
+  border: 1px solid #C43E4E;
+}
+
+.super-bee-activity-header-btn2 {
+  margin: 16px auto 0;
+  height: 32px;
+  width: 244px;
+  background: transparent;
+  line-height: 32px;
+  color: #C43E4E;
+  border-radius: 16px;
+  text-align: center;
+  font-size: 14px;
+  box-sizing: content-box;
+  border: 1px solid #C43E4E;
+}
+
+.super-bee-activity-join {
+  margin-top: 51px;
+  padding: 0 10px;
+}
+
+.super-bee-activity-join-title {
+  height: 16px;
+  line-height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.super-bee-activity-join-title-left {
+  display: flex;
+  align-items: center;
+}
+
+.super-bee-activity-join-title-left-img {
+  display: block;
+  height: 14px;
+  margin-right: 8px;
+}
+
+.super-bee-activity-join-title-left-text {
+  font-size: 14px;
+  height: 16px;
+  line-height: 16px;
+  color: #fff;
+}
+
+.super-bee-activity-join-title-right {
+  font-size: 14px;
+  color: #C43E4E;
+}
+
+.super-bee-activity-join-box {
+  margin-top: 19px;
+  display: flex;
+  align-items: center;
+  height: 4.2rem;
+  justify-content: space-between;
+}
+
+.super-bee-activity-join-item {
+  height: 4.2rem;
+  width: 3.44rem;
+  border-radius: 8px;
+  background: url('../activityAssets/mobileSuperBee/info_item_bg.png') no-repeat no-repeat;
+  background-size: 100% auto;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.36);
+}
+
+.super-bee-activity-join-item-super-img {
+  display: block;
+  width: 0.58rem;
+  height: 0.68rem;
+  margin: 0.42rem auto 0.26rem;
+}
+
+.super-bee-activity-join-item-mechanism-img {
+  display: block;
+  width: 0.76rem;
+  height: 0.84rem;
+  margin: 0.38rem auto 0.16rem;
+}
+
+.super-bee-activity-join-item-text {
+  text-align: center;
+  height: 0.44rem;
+  line-height: 0.44rem;
+  font-size: 16px;
+  color: #fff;
+}
+
+.super-bee-activity-join-item-btn-ft {
+  margin:0.44rem auto 0;
+  /*box-sizing: content-box;*/
+  width: 2.4rem;
+  height: 30px;
+  background: #C43E4E;
+  border: 1px solid #C43E4E;
+  line-height: 30px;
+  text-align: center;
+  color: #fff;
+  border-radius: 15px;
+  font-size: 0.28rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+
+}
+
+.super-bee-activity-join-item-btn-sd {
+  margin:0.24rem auto 0;
+  /*box-sizing: content-box;*/
+  width: 2.4rem;
+  height: 30px;
+  background: transparent;
+  line-height: 30px;
+  text-align: center;
+  color: #C43E4E;
+  border-radius: 15px;
+  border: 1px solid #C43E4E;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.super-bee-activity-mechanism {
+  /*margin-top: 30px;*/
+  padding: 30px 10px 30px;
+  background: #262E57;
+}
+
+.super-bee-activity-mechanism-title {
+  height: 16px;
+  line-height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.super-bee-activity-mechanism-title-left {
+  display: flex;
+  align-items: center;
+}
+
+.super-bee-activity-mechanism-title-left-img {
+  display: block;
+  height: 14px;
+  margin-right: 8px;
+}
+
+.super-bee-activity-mechanism-title-left-text {
+  font-size: 14px;
+  height: 16px;
+  line-height: 16px;
+  color: #fff;
+}
+
+.super-bee-activity-mechanism-box {
+  padding-top: 25px;
+  padding-bottom: 35px;
+  margin-top: 20px;
+  width: 100%;
+  min-height: 200px;
+  background: -webkit-gradient(linear, 50% 0, 50% 100%, from(#38416B), to(#293162));
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.36);
+}
+
+.super-bee-activity-mechanism-box:after {
+  clear: both;
+  content: '';
+  display: block;
+  height: 0;
+}
+
+.super-bee-activity-mechanism-item {
+  float: left;
+  width: 50%;
+  height: 3.72rem;
+  background: url('../activityAssets/mobileSuperBee/mechanism_item_bg.png') no-repeat no-repeat;
+  background-size: cover;
+  position: relative;
+}
+
+.super-bee-activity-mechanism-item-logo {
+  height: 0.4rem;
+  display: block;
+  margin: 6px auto 0;
+}
+
+.super-bee-activity-mechanism-item-title {
+  margin-top: 0.72rem;
+  height: 0.5rem;
+  line-height: 0.5rem;
+  font-size: 0.36rem;
+  color: #fff;
+  text-align: center;
+}
+
+.super-bee-activity-mechanism-item-num {
+  color: #fff;
+  text-align: center;
+  font-size: 0.28rem;
+}
+
+.super-bee-activity-mechanism-item-num-big {
+  font-size: 0.36rem;
+}
+
+.super-bee-activity-mechanism-item-mail {
+  margin-top: 0.24rem;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  margin: 0.24rem auto 0;
+
+
+}
+
+.super-bee-activity-mechanism-item-mail-left {
+  /*width: 30%;*/
+}
+
+.super-bee-activity-mechanism-item-mail-left-img {
+  display: block;
+  height: 0.32rem;
+  float: right;
+  /*margin-top: 0.08rem;*/
+}
+
+.super-bee-activity-mechanism-item-mail-right {
+  margin-left: 5%;
+  /*width: 52%;*/
+  word-wrap: break-word;
+  font-size: 0.24rem;
+  line-height: 0.34rem;
+  color: #fff;
+  opacity: 0.6;
+}

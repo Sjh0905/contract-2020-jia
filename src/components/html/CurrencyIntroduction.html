@@ -1,0 +1,2221 @@
+<div class="currency-introduction-container box_shadow">
+
+
+  <template v-if="!currencyIntroduction">
+
+    <template v-if="symbol==='ICC'">
+      <div class="currency-article">
+        <div class="currency-article-detail">
+          <!--Intelligent Commerce Chain（简称:ICC）是一个基于AI和区块链技术的智能商业公有链平台，以 AI-->
+          <!--为入口深度连接用户、商家和第三方服务商；通过代币经济激励平台内所有参与者，贡献数据驱动AI进化；最终打造一个不会被中心化寡头控制的、可信的、高效的自由增长的生态系统。-->
+          {{$t('currencyIntroduction.introduction_0')}}
+        </div>
+      </div>
+      <div class="currency-article">
+        <div class="currency-article-detail">
+          <p>
+          <div class="currency-ul-li">
+            <span class="currency-ul-li-title">{{$t('currencyIntroduction.title_0')}}</span>
+            <span class="currency-ul-li-detail">{{$t('currencyIntroduction.detail_0')}}</span>
+          </div>
+          <div class="currency-ul-li">
+            <span class="currency-ul-li-title">{{$t('currencyIntroduction.title_1')}}</span>
+            <span class="currency-ul-li-detail">
+            <!--100亿-->
+            {{$t('currencyIntroduction.detail_1')}}
+          </span>
+          </div>
+          </p>
+          <p>
+          <div class="currency-ul-li">
+          <span class="currency-ul-li-title">
+            <!--流通总量:-->
+            {{$t('currencyIntroduction.title_2')}}
+          </span>
+            <span class="currency-ul-li-detail">
+            <!--30.2亿枚-->
+            {{$t('currencyIntroduction.detail_2')}}
+          </span>
+          </div>
+          <div class="currency-ul-li">
+          <span class="currency-ul-li-title">
+            <!--兑换比例:-->
+            {{$t('currencyIntroduction.title_3')}}
+          </span>
+            <span class="currency-ul-li-detail">
+            <!--1 ETH =120000 ICC-->
+            {{$t('currencyIntroduction.detail_3')}}
+          </span>
+          </div>
+          </p>
+        </div>
+      </div>
+      <div class="currency-article">
+        <div class="currency-article-detail">
+          <p>
+          <span class="article-detail-title">
+            <!--官方网址:-->
+            {{$t('currencyIntroduction.title_4')}}
+          </span><a class="article-detail-link text_blue"
+                    target="_blank"
+                    href="http://icchain.io/">
+            <!--http://icchain.io/-->
+            {{$t('currencyIntroduction.detail_4')}}
+          </a>
+          </p>
+          <p>
+          <span class="article-detail-title">
+            <!--官方白皮书链接:-->
+            {{$t('currencyIntroduction.title_5')}}
+          </span><a class="article-detail-link text_blue"
+                    target="_blank"
+                    href="http://icchain.io/wp-content/uploads/2018/02/ICC-Whitepaper-v1.0.2.pdf">
+            <!--http://icchain.io/wp-content/uploads/2018/02/ICC-Whitepaper-v1.0.2.pdf-->
+            {{$t('currencyIntroduction.detail_5')}}
+          </a>
+          </p>
+          <p>
+          <span class="article-detail-title">
+            <!--官方GitHub链接:-->
+            {{$t('currencyIntroduction.title_6')}}
+          </span><a class="article-detail-link text_blue"
+                    target="_blank"
+                    href="https://github.com/icchain">
+            <!--https://github.com/icchain-->
+            {{$t('currencyIntroduction.detail_6')}}
+          </a>
+          </p>
+          <p>
+          <span class="article-detail-title">
+            <!--区块浏览器查询地址:-->
+            {{$t('currencyIntroduction.title_7')}}
+          </span><a class="article-detail-link text_blue"
+                    target="_blank"
+                    href="https://etherscan.io/address/0xedc502b12ced7e16ce21749e7161f9ed22bfca53">
+            <!--https://etherscan.io/address/0xedc502b12ced7e16ce21749e7161f9ed22bfca53-->
+            {{$t('currencyIntroduction.detail_7')}}
+          </a>
+          </p>
+
+        </div>
+      </div>
+    </template>
+
+    <template v-if="symbol==='BDB'">
+      <div class="currency-article">
+        <div class="currency-article-detail">
+          <!--EUNEX Token是由欧联基于区块链发行和管理的积分系统，简称BDB，是基于以太坊Ethereum的区块链数字资产。发行总量恒定为2亿个，EUNEX每月将拿出交易手续费收益的30%销毁BDB，永续销毁。BDB作为EUNEX生态系统和应用燃料，已经应用到多个场景，如用BDB抵扣EUNEX交易手续费(7折)，并且后续将有更多应用场景。-->
+          {{$t('currencyIntroduction.introduction_BDB')}}
+        </div>
+      </div>
+      <div class="currency-article">
+        <div class="currency-article-detail">
+          <p>
+          <div class="currency-ul-li">
+          <span class="currency-ul-li-title">
+            <!--发行时间:-->
+            {{$t('currencyIntroduction.title_BDB_0')}}
+          </span>
+            <span class="currency-ul-li-detail">
+            <!--2018-1-10-->
+            {{$t('currencyIntroduction.detail_BDB_0')}}
+          </span>
+          </div>
+          <div class="currency-ul-li">
+          <span class="currency-ul-li-title">
+            <!--发行总量:-->
+            {{$t('currencyIntroduction.title_BDB_1')}}
+          </span>
+            <span class="currency-ul-li-detail">
+            <!--2亿枚-->
+            {{$t('currencyIntroduction.detail_BDB_1')}}
+          </span>
+          </div>
+          </p>
+          <p>
+          <div class="currency-ul-li">
+          <span class="currency-ul-li-title">
+            <!--流通总量:-->
+            {{$t('currencyIntroduction.title_BDB_2')}}
+          </span>
+            <span class="currency-ul-li-detail">
+            <!--1亿枚-->
+            {{$t('currencyIntroduction.detail_BDB_2')}}
+          </span>
+          </div>
+
+          </p>
+        </div>
+      </div>
+      <div class="currency-article">
+        <div class="currency-article-detail">
+          <p>
+          <span class="article-detail-title">
+            <!--官网:-->
+            {{$t('currencyIntroduction.title_BDB_3')}}
+          </span>
+            <a class="article-detail-link text_blue"
+               target="_blank"
+               href="https://www.eunex.group">
+              <!--https://www.eunex.group-->
+              {{$t('currencyIntroduction.detail_BDB_3')}}
+            </a>
+          </p>
+          <p>
+          <span class="article-detail-title">
+            <!--区块查询:-->
+            {{$t('currencyIntroduction.title_BDB_4')}}
+          </span>
+            <a class="article-detail-link text_blue"
+               target="_blank"
+               href="https://etherscan.io/token/0x0fed2aca55338d77438797bdf609252db92313ea">
+              <!--https://etherscan.io/token/0x0fed2aca55338d77438797bdf609252db92313ea-->
+              {{$t('currencyIntroduction.detail_BDB_4')}}
+            </a>
+          </p>
+        </div>
+      </div>
+    </template>
+
+
+    <template v-if="symbol==='ETH'">
+      <div class="currency-article">
+        <span>以太坊（Ethereum）</span>
+      </div>
+      <div class="currency-article">
+        <div class="currency-article-detail">
+          {{$t('currencyIntroduction.introduction_ETH')}}
+        </div>
+        <div class="currency-article-detail"   v-show="ethshow">
+          {{$t('currencyIntroduction.introduction_ETH111')}}
+        </div>
+      </div>
+      <div class="currency-article"  v-show="ethshow">
+        <div class="currency-article-detail">
+          <p>
+          <div class="currency-ul-li">
+          <span class="currency-ul-li-title">
+            {{$t('currencyIntroduction.title_ETH_0')}}
+          </span>
+            <span class="currency-ul-li-detail">
+            {{$t('currencyIntroduction.detail_ETH_0')}}
+          </span>
+          </div>
+          <div class="currency-ul-li">
+          <span class="currency-ul-li-title">
+            {{$t('currencyIntroduction.title_ETH_1')}}
+
+          </span>
+            <span class="currency-ul-li-detail">
+            {{$t('currencyIntroduction.detail_ETH_1')}}
+
+          </span>
+          </div>
+          </p>
+          <p>
+          <div class="currency-ul-li">
+          <span class="currency-ul-li-title">
+            {{$t('currencyIntroduction.title_ETH_2')}}
+
+          </span>
+            <span class="currency-ul-li-detail">
+            {{$t('currencyIntroduction.detail_ETH_2')}}
+
+          </span>
+          </div>
+          <div class="currency-ul-li">
+          <span class="currency-ul-li-title">
+                        {{$t('currencyIntroduction.title_ETH_3')}}
+
+          </span>
+            <span class="currency-ul-li-detail">
+            {{$t('currencyIntroduction.detail_ETH_3')}}
+
+          </span>
+          </div>
+          </p>
+          <p>
+          <div class="currency-ul-li">
+          <span class="currency-ul-li-title">
+            {{$t('currencyIntroduction.title_ETH_4')}}
+
+          </span>
+            <span class="currency-ul-li-detail">
+            {{$t('currencyIntroduction.detail_ETH_4')}}
+
+          </span>
+          </div>
+          <div class="currency-ul-li">
+          <span class="currency-ul-li-title">
+            {{$t('currencyIntroduction.title_ETH_5')}}
+
+          </span>
+            <span class="currency-ul-li-detail">
+            {{$t('currencyIntroduction.detail_ETH_5')}}
+
+          </span>
+          </div>
+          </p>
+        </div>
+      </div>
+      <div class="currency-article"  v-show="ethshow">
+        <div class="currency-article-detail">
+          <p>
+          <span class="article-detail-title">
+            {{$t('currencyIntroduction.title_ETH_7')}}
+          </span><a class="article-detail-link text_blue"
+                    target="_blank"
+                    href="https://www.ethereum.org/">
+            {{$t('currencyIntroduction.detail_ETH_7')}}
+
+          </a>
+          </p>
+          <p>
+          <span class="article-detail-title">
+            {{$t('currencyIntroduction.title_ETH_8')}}
+          </span><a class="article-detail-link text_blue"
+                    target="_blank"
+                    href="https://etherscan.io/">
+            {{$t('currencyIntroduction.detail_ETH_8')}}
+
+          </a>
+          </p>
+
+        </div>
+      </div>
+      <div class="openinfo" @click="ethopeninfo" v-show="!ethshow">
+        <span>展开<img src="../../assets/downred.png"></span>
+      </div>
+      <div class="openinfo" @click="ethcloseinfo" v-show="ethshow">
+        <span>收起<img src="../../assets/upred.png"></span>
+      </div>
+    </template>
+
+
+    <template v-if="symbol==='XRP'">
+      <div class="currency-article">
+        <div class="currency-article-detail">
+          {{$t('currencyIntroduction.introduction_XRP')}}
+        </div>
+      </div>
+      <div class="currency-article">
+        <div class="currency-article-detail">
+          <p>
+          <div class="currency-ul-li">
+          <span class="currency-ul-li-title">
+            {{$t('currencyIntroduction.title_XRP_0')}}
+          </span>
+            <span class="currency-ul-li-detail">
+            {{$t('currencyIntroduction.detail_XRP_0')}}
+          </span>
+          </div>
+          <div class="currency-ul-li">
+          <span class="currency-ul-li-title">
+            {{$t('currencyIntroduction.title_XRP_1')}}
+
+          </span>
+            <span class="currency-ul-li-detail">
+            {{$t('currencyIntroduction.detail_XRP_1')}}
+
+          </span>
+          </div>
+          </p>
+          <p>
+          <div class="currency-ul-li">
+          <span class="currency-ul-li-title">
+            {{$t('currencyIntroduction.title_XRP_2')}}
+
+          </span>
+            <span class="currency-ul-li-detail">
+            {{$t('currencyIntroduction.detail_XRP_2')}}
+
+          </span>
+          </div>
+          <div class="currency-ul-li">
+          <span class="currency-ul-li-title">
+                        {{$t('currencyIntroduction.title_XRP_3')}}
+
+          </span>
+            <span class="currency-ul-li-detail">
+            {{$t('currencyIntroduction.detail_XRP_3')}}
+
+          </span>
+          </div>
+          </p>
+          <p>
+          <div class="currency-ul-li">
+          <span class="currency-ul-li-title">
+            {{$t('currencyIntroduction.title_XRP_4')}}
+
+          </span>
+            <span class="currency-ul-li-detail">
+            {{$t('currencyIntroduction.detail_XRP_4')}}
+
+          </span>
+          </div>
+          <div class="currency-ul-li">
+          <span class="currency-ul-li-title">
+            {{$t('currencyIntroduction.title_XRP_5')}}
+
+          </span>
+            <span class="currency-ul-li-detail">
+            {{$t('currencyIntroduction.detail_XRP_5')}}
+
+          </span>
+          </div>
+          </p>
+        </div>
+      </div>
+      <div class="currency-article">
+        <div class="currency-article-detail">
+          <p>
+          <span class="article-detail-title">
+            {{$t('currencyIntroduction.title_XRP_7')}}
+          </span><a class="article-detail-link text_blue"
+                    target="_blank"
+                    href="https://www.ethereum.org/">
+            {{$t('currencyIntroduction.detail_XRP_7')}}
+
+          </a>
+          </p>
+          <p>
+          <span class="article-detail-title">
+            {{$t('currencyIntroduction.title_XRP_8')}}
+          </span><a class="article-detail-link text_blue"
+                    target="_blank"
+                    href="https://etherscan.io/">
+            {{$t('currencyIntroduction.detail_XRP_8')}}
+
+          </a>
+          </p>
+
+        </div>
+      </div>
+    </template>
+
+
+    <template v-if="symbol==='LTC'">
+      <div class="currency-article">
+        <span>莱特币（Litecoin/LTC）</span>
+      </div>
+      <div class="currency-article">
+        <div class="currency-article-detail">
+          {{$t('currencyIntroduction.introduction_LTC')}}
+        </div>
+        <div class="currency-article-detail"   v-show="ltcshow">
+          {{$t('currencyIntroduction.introduction_LTC111')}}
+        </div>
+      </div>
+      <div class="currency-article"  v-show="ltcshow">
+        <div class="currency-article-detail">
+          <p>
+          <div class="currency-ul-li">
+          <span class="currency-ul-li-title">
+            {{$t('currencyIntroduction.title_LTC_0')}}
+          </span>
+            <span class="currency-ul-li-detail">
+            {{$t('currencyIntroduction.detail_LTC_0')}}
+          </span>
+          </div>
+          <div class="currency-ul-li">
+          <span class="currency-ul-li-title">
+            {{$t('currencyIntroduction.title_LTC_1')}}
+
+          </span>
+            <span class="currency-ul-li-detail">
+            {{$t('currencyIntroduction.detail_LTC_1')}}
+
+          </span>
+          </div>
+          </p>
+          <p>
+          <div class="currency-ul-li">
+          <span class="currency-ul-li-title">
+            {{$t('currencyIntroduction.title_LTC_2')}}
+
+          </span>
+            <span class="currency-ul-li-detail">
+            {{$t('currencyIntroduction.detail_LTC_2')}}
+
+          </span>
+          </div>
+          <div class="currency-ul-li">
+          <span class="currency-ul-li-title">
+                        {{$t('currencyIntroduction.title_LTC_3')}}
+
+          </span>
+            <span class="currency-ul-li-detail">
+            {{$t('currencyIntroduction.detail_LTC_3')}}
+
+          </span>
+          </div>
+          </p>
+          <p>
+          <div class="currency-ul-li">
+          <span class="currency-ul-li-title">
+            {{$t('currencyIntroduction.title_LTC_4')}}
+
+          </span>
+            <span class="currency-ul-li-detail">
+            {{$t('currencyIntroduction.detail_LTC_4')}}
+
+          </span>
+          </div>
+          <div class="currency-ul-li">
+          <span class="currency-ul-li-title">
+            {{$t('currencyIntroduction.title_LTC_5')}}
+
+          </span>
+            <span class="currency-ul-li-detail">
+            {{$t('currencyIntroduction.detail_LTC_5')}}
+
+          </span>
+          </div>
+          </p>
+        </div>
+      </div>
+      <div class="currency-article"  v-show="ltcshow">
+        <div class="currency-article-detail">
+          <p>
+          <span class="article-detail-title">
+            {{$t('currencyIntroduction.title_LTC_7')}}
+          </span><a class="article-detail-link text_blue"
+                    target="_blank"
+                    href="https://www.ethereum.org/">
+            {{$t('currencyIntroduction.detail_LTC_7')}}
+
+          </a>
+          </p>
+          <p>
+          <span class="article-detail-title">
+            {{$t('currencyIntroduction.title_LTC_8')}}
+          </span><a class="article-detail-link text_blue"
+                    target="_blank"
+                    href="https://etherscan.io/">
+            {{$t('currencyIntroduction.detail_LTC_8')}}
+
+          </a>
+          </p>
+
+        </div>
+      </div>
+      <div class="openinfo" @click="ltcopeninfo" v-show="!ltcshow">
+        <span>展开<img src="../../assets/downred.png"></span>
+      </div>
+      <div class="openinfo" @click="ltccloseinfo" v-show="ltcshow">
+        <span>收起<img src="../../assets/upred.png"></span>
+      </div>
+    </template>
+
+
+    <template v-if="symbol==='BCH'">
+      <div class="currency-article">
+        <div class="currency-article-detail">
+          {{$t('currencyIntroduction.introduction_BCH')}}
+        </div>
+      </div>
+      <div class="currency-article">
+        <div class="currency-article-detail">
+          <p>
+          <div class="currency-ul-li">
+          <span class="currency-ul-li-title">
+            {{$t('currencyIntroduction.title_BCH_0')}}
+          </span>
+            <span class="currency-ul-li-detail">
+            {{$t('currencyIntroduction.detail_BCH_0')}}
+          </span>
+          </div>
+
+          <div class="currency-ul-li">
+          <span class="currency-ul-li-title">
+            {{$t('currencyIntroduction.title_BCH_5')}}
+
+          </span>
+            <span class="currency-ul-li-detail">
+            {{$t('currencyIntroduction.detail_BCH_5')}}
+
+          </span>
+          </div>
+          </p>
+        </div>
+      </div>
+      <div class="currency-article">
+        <div class="currency-article-detail">
+          <p>
+          <span class="article-detail-title">
+            {{$t('currencyIntroduction.title_BCH_7')}}
+          </span><a class="article-detail-link text_blue"
+                    target="_blank"
+                    href="https://www.ethereum.org/">
+            {{$t('currencyIntroduction.detail_BCH_7')}}
+          </a>
+          </p>
+        </div>
+      </div>
+    </template>
+
+    <!--ELF-->
+    <template v-if="symbol==='ELF'">
+      <div class="currency-article">
+        <div class="currency-article-detail">
+          <p>
+            <!--aelf是一个去中心化云计算区块链网络，具有高性能、资源隔离特性以及更完善的治理和发展结构。在ælf的网络中，节点根据类型进行划分，专业化记账节点（全节点）能够运行在服务器集群之上，提高整个区块链网络性能；“主链+多侧链”结构，有效实现资源隔离、“一链一场景”；设立代币持有人的委托票选制度，保障网络高效治理及良性发展。-->
+            {{$t('currencyIntroduction.detail_ELF_1')}}
+          </p>
+          <p>
+            <!--ELF主要用于aelf的付费资源支付及治理决策，其中付费资源包括智能合约部署、升级及执行等操作(如交易手续费、跨链数据传输手续费等)，治理决策包括记账节点的选举、系统新特性的审批及产品重大更新的决策。-->
+            {{$t('currencyIntroduction.detail_ELF_2')}}
+          </p>
+
+        </div>
+      </div>
+      <div class="currency-article">
+        <div class="currency-article-detail">
+          <p>
+          <div class="currency-ul-li">
+          <span class="currency-ul-li-title">
+           <!--项目名称:-->
+            {{$t('currencyIntroduction.detail_ELF_3')}}
+          </span>
+            <span class="currency-ul-li-detail">
+            <!--Ælf-->
+            {{$t('currencyIntroduction.detail_ELF_4')}}
+          </span>
+          </div>
+          <div class="currency-ul-li">
+          <span class="currency-ul-li-title">
+            <!--代币名称:-->
+            {{$t('currencyIntroduction.detail_ELF_5')}}
+          </span>
+            <span class="currency-ul-li-detail">
+            <!--ELF-->
+            {{$t('currencyIntroduction.detail_ELF_6')}}
+          </span>
+          </div>
+          </p>
+          <p>
+          <div class="currency-ul-li">
+          <span class="currency-ul-li-title">
+            <!--{{$t('currencyIntroduction.title_ETH_2')}}-->
+            <!--发行时间:-->
+            {{$t('currencyIntroduction.detail_ELF_7')}}
+          </span>
+            <span class="currency-ul-li-detail">
+            <!--{{$t('currencyIntroduction.detail_ETH_2')}}-->
+              <!--2018年1月1日-->
+            {{$t('currencyIntroduction.detail_ELF_8')}}
+          </span>
+          </div>
+          <div class="currency-ul-li">
+          <span class="currency-ul-li-title">
+                        <!--{{$t('currencyIntroduction.title_ETH_3')}}-->
+            <!--发行总量:-->
+            {{$t('currencyIntroduction.detail_ELF_9')}}
+          </span>
+            <span class="currency-ul-li-detail">
+            <!--{{$t('currencyIntroduction.detail_ETH_3')}}-->
+              <!--10亿-->
+            {{$t('currencyIntroduction.detail_ELF_10')}}
+          </span>
+          </div>
+          </p>
+          <p>
+          <div class="currency-ul-li">
+          <span class="currency-ul-li-title">
+            <!--{{$t('currencyIntroduction.title_ETH_4')}}-->
+            <!--流通总量:-->
+            {{$t('currencyIntroduction.detail_ELF_11')}}
+          </span>
+            <span class="currency-ul-li-detail">
+            <!--{{$t('currencyIntroduction.detail_ETH_4')}}-->
+              <!--2.6亿-->
+            {{$t('currencyIntroduction.detail_ELF_12')}}
+          </span>
+          </div>
+          <div class="currency-ul-li">
+          <span class="currency-ul-li-title">
+            <!--{{$t('currencyIntroduction.title_ETH_5')}}-->
+            <!--兑换比例:-->
+            {{$t('currencyIntroduction.detail_ELF_13')}}
+          </span>
+            <span class="currency-ul-li-detail">
+            <!--{{$t('currencyIntroduction.detail_ETH_5')}}-->
+              <!--1ETH=4,545 ELF（私募比例）-->
+            {{$t('currencyIntroduction.detail_ELF_14')}}
+          </span>
+          </div>
+          </p>
+        </div>
+      </div>
+      <div class="currency-article">
+        <div class="currency-article-detail">
+          <p>
+          <span class="article-detail-title">
+            <!--{{$t('currencyIntroduction.title_ETH_7')}}-->
+            <!--官方网站:-->
+            {{$t('currencyIntroduction.detail_ELF_15')}}
+          </span><a class="article-detail-link text_blue"
+                    target="_blank"
+                    href="https://aelf.io/">
+            <!--{{$t('currencyIntroduction.detail_ETH_7')}}-->
+            <!--https://aelf.io/-->
+            {{$t('currencyIntroduction.detail_ELF_16')}}
+          </a>
+          </p>
+          <p>
+          <span class="article-detail-title">
+            <!--{{$t('currencyIntroduction.title_ETH_8')}}-->
+            <!--官方白皮书链接:-->
+            {{$t('currencyIntroduction.detail_ELF_17')}}
+          </span>
+            <a class="article-detail-link text_blue"
+               target="_blank"
+               href="https://grid.hoopox.com/Aelf%E7%99%BD%E7%9A%AE%E4%B9%A6%E4%B8%AD%E6%96%87v1.2.pdf">
+              <!--{{$t('currencyIntroduction.detail_ETH_8')}}-->
+              <!--https://grid.hoopox.com/Aelf%E7%99%BD%E7%9A%AE%E4%B9%A6%E4%B8%AD%E6%96%87v1.2.pdf-->
+              {{$t('currencyIntroduction.detail_ELF_18')}}
+            </a>
+          </p>
+          <p>
+          <span class="article-detail-title">
+            <!--{{$t('currencyIntroduction.title_ETH_8')}}-->
+            <!--官方GitHub链接:-->
+            {{$t('currencyIntroduction.detail_ELF_19')}}
+          </span>
+            <a class="article-detail-link text_blue"
+               target="_blank"
+               href="https://github.com/aelfproject">
+              <!--{{$t('currencyIntroduction.detail_ETH_8')}}-->
+              <!--https://github.com/aelfproject-->
+              {{$t('currencyIntroduction.detail_ELF_20')}}
+            </a>
+          </p>
+          <p>
+          <span class="article-detail-title">
+            <!--{{$t('currencyIntroduction.title_ETH_8')}}-->
+            <!--区块浏览器查询地址:-->
+            {{$t('currencyIntroduction.detail_ELF_21')}}
+          </span>
+            <a class="article-detail-link text_blue"
+               target="_blank"
+               href="https://etherscan.io/token/0xbf2179859fc6D5BEE9Bf9158632Dc51678a4100e">
+              <!--{{$t('currencyIntroduction.detail_ETH_8')}}-->
+              <!--https://etherscan.io/token/0xbf2179859fc6D5BEE9Bf9158632Dc51678a4100e-->
+              {{$t('currencyIntroduction.detail_ELF_22')}}
+            </a>
+          </p>
+
+        </div>
+      </div>
+    </template>
+
+
+    <!--IOST-->
+    <template v-if="symbol==='IOST'">
+      <div class="currency-article">
+        <div class="currency-article-detail">
+          <p>
+            {{$t('currencyIntroduction.detail_IOST_1')}}
+            <!--Internet of Services是一个创新、安全的区块链技术，致力于为线上虚拟服务以及数字货品交换提供一个高可扩容、高吞吐的生态环境。此外，Internet of-->
+            <!--Services生态系统也使开发者们可以极其便利地在区块链上部署的大型去中心化应用为海量用户提供服务。Internet of-->
+            <!--Services网络采用了包括EDS(高效分布式分片)技术以及Proof-of-Believable consensus-->
+            <!--approach(置信度证明共识机制)在内的一系列独创技术，在极大地提升系统吞吐能力的同时保障了系统的安全可靠。-->
+          </p>
+        </div>
+      </div>
+      <div class="currency-article">
+        <div class="currency-article-detail">
+          <p>
+          <div class="currency-ul-li">
+          <span class="currency-ul-li-title">
+            <!--项目名称:-->
+            {{$t('currencyIntroduction.detail_IOST_2')}}
+          </span>
+            <span class="currency-ul-li-detail">
+            <!--Internet of Services-->
+            {{$t('currencyIntroduction.detail_IOST_3')}}
+          </span>
+          </div>
+          <div class="currency-ul-li">
+          <span class="currency-ul-li-title">
+            <!--代币名称:-->
+            {{$t('currencyIntroduction.detail_IOST_4')}}
+          </span>
+            <span class="currency-ul-li-detail">
+            <!--IOST-->
+            {{$t('currencyIntroduction.detail_IOST_5')}}
+          </span>
+          </div>
+          </p>
+          <p>
+          <div class="currency-ul-li">
+          <span class="currency-ul-li-title">
+            <!--发行时间:-->
+            {{$t('currencyIntroduction.detail_IOST_6')}}
+          </span>
+            <span class="currency-ul-li-detail">
+            <!--2018年1月11日-->
+            {{$t('currencyIntroduction.detail_IOST_7')}}
+          </span>
+          </div>
+          <div class="currency-ul-li">
+          <span class="currency-ul-li-title">
+            <!--发行总量:-->
+            {{$t('currencyIntroduction.detail_IOST_8')}}
+          </span>
+            <span class="currency-ul-li-detail">
+            <!--210亿-->
+            {{$t('currencyIntroduction.detail_IOST_9')}}
+          </span>
+          </div>
+          </p>
+          <p>
+          <div class="currency-ul-li">
+          <span class="currency-ul-li-title">
+            <!--流通总量:-->
+            {{$t('currencyIntroduction.detail_IOST_10')}}
+          </span>
+            <span class="currency-ul-li-detail">
+            <!--110亿4千6百万-->
+            {{$t('currencyIntroduction.detail_IOST_11')}}
+          </span>
+          </div>
+          <div class="currency-ul-li">
+          <span class="currency-ul-li-title">
+            <!--兑换比例:-->
+            {{$t('currencyIntroduction.detail_IOST_12')}}
+          </span>
+            <span class="currency-ul-li-detail">
+            <!--1ETH=100000 IOST-->
+            {{$t('currencyIntroduction.detail_IOST_13')}}
+          </span>
+          </div>
+          </p>
+        </div>
+      </div>
+      <div class="currency-article">
+        <div class="currency-article-detail">
+          <p>
+          <span class="article-detail-title">
+            <!--官方网站:-->
+            {{$t('currencyIntroduction.detail_IOST_14')}}
+          </span><a class="article-detail-link text_blue"
+                    target="_blank"
+                    href="https://iost.io/#">
+            <!--https://iost.io/#-->
+            {{$t('currencyIntroduction.detail_IOST_15')}}
+          </a>
+          </p>
+          <p>
+          <span class="article-detail-title">
+            <!--官方白皮书链接:-->
+            {{$t('currencyIntroduction.detail_IOST_16')}}
+          </span>
+            <a class="article-detail-link text_blue"
+               target="_blank"
+               href="https://docsend.com/view/ihwqcdg">
+              <!--https://docsend.com/view/ihwqcdg-->
+              {{$t('currencyIntroduction.detail_IOST_17')}}
+            </a>
+          </p>
+          <p>
+          <span class="article-detail-title">
+            <!--区块浏览器查询地址:-->
+            {{$t('currencyIntroduction.detail_IOST_18')}}
+          </span>
+            <a class="article-detail-link text_blue"
+               target="_blank"
+               href="https://etherscan.io/token/0xfa1a856cfa3409cfa145fa4e20eb270df3eb21ab">
+              <!--https://etherscan.io/token/0xfa1a856cfa3409cfa145fa4e20eb270df3eb21ab-->
+              {{$t('currencyIntroduction.detail_IOST_19')}}
+            </a>
+          </p>
+
+        </div>
+      </div>
+    </template>
+
+
+    <!--EOS-->
+    <template v-if="symbol==='EOS'">
+      <div class="currency-article">
+        <div class="currency-article-detail">
+          <p>
+            {{$t('currencyIntroduction.detail_EOS_1')}}
+            <!--Internet of Services是一个创新、安全的区块链技术，致力于为线上虚拟服务以及数字货品交换提供一个高可扩容、高吞吐的生态环境。此外，Internet of-->
+            <!--Services生态系统也使开发者们可以极其便利地在区块链上部署的大型去中心化应用为海量用户提供服务。Internet of-->
+            <!--Services网络采用了包括EDS(高效分布式分片)技术以及Proof-of-Believable consensus-->
+            <!--approach(置信度证明共识机制)在内的一系列独创技术，在极大地提升系统吞吐能力的同时保障了系统的安全可靠。-->
+          </p>
+        </div>
+      </div>
+      <div class="currency-article">
+        <div class="currency-article-detail">
+          <p>
+          <div class="currency-ul-li">
+          <span class="currency-ul-li-title">
+            <!--项目名称:-->
+            {{$t('currencyIntroduction.detail_EOS_2')}}
+          </span>
+            <span class="currency-ul-li-detail">
+            {{$t('currencyIntroduction.detail_EOS_3')}}
+          </span>
+          </div>
+          <div class="currency-ul-li">
+          <span class="currency-ul-li-title">
+            <!--代币名称:-->
+            {{$t('currencyIntroduction.detail_EOS_4')}}
+          </span>
+            <span class="currency-ul-li-detail">
+            {{$t('currencyIntroduction.detail_EOS_5')}}
+          </span>
+          </div>
+          </p>
+          <p>
+          <div class="currency-ul-li">
+          <span class="currency-ul-li-title">
+            <!--发行时间:-->
+            {{$t('currencyIntroduction.detail_EOS_6')}}
+          </span>
+            <span class="currency-ul-li-detail">
+            {{$t('currencyIntroduction.detail_EOS_7')}}
+          </span>
+          </div>
+          <div class="currency-ul-li">
+          <span class="currency-ul-li-title">
+            <!--发行总量:-->
+            {{$t('currencyIntroduction.detail_EOS_8')}}
+          </span>
+            <span class="currency-ul-li-detail">
+            {{$t('currencyIntroduction.detail_EOS_9')}}
+          </span>
+          </div>
+          </p>
+          <p>
+          <div class="currency-ul-li">
+          <span class="currency-ul-li-title">
+            <!--流通总量:-->
+            {{$t('currencyIntroduction.detail_EOS_11')}}
+          </span>
+            <span class="currency-ul-li-detail">
+            {{$t('currencyIntroduction.detail_EOS_12')}}
+          </span>
+          </div>
+          <div class="currency-ul-li">
+          <span class="currency-ul-li-title">
+            <!--兑换比例:-->
+            {{$t('currencyIntroduction.detail_EOS_13')}}
+          </span>
+            <span class="currency-ul-li-detail">
+            {{$t('currencyIntroduction.detail_EOS_14')}}
+          </span>
+          </div>
+          </p>
+        </div>
+      </div>
+      <div class="currency-article">
+        <div class="currency-article-detail">
+          <p>
+          <span class="article-detail-title">
+            <!--官方网站:-->
+            {{$t('currencyIntroduction.detail_EOS_15')}}
+          </span><a class="article-detail-link"
+                    target="_blank"
+                    href="https://eos.io/">
+            {{$t('currencyIntroduction.detail_EOS_16')}}
+          </a>
+          </p>
+          <p>
+          <span class="article-detail-title">
+
+            {{$t('currencyIntroduction.detail_EOS_17')}}
+          </span>
+            <a class="article-detail-link"
+               target="_blank"
+               href="https://github.com/EOSIO/Documentation/blob/master/TechnicalWhitePaper.md">
+              {{$t('currencyIntroduction.detail_EOS_18')}}
+            </a>
+          </p>
+          <p>
+          <span class="article-detail-title">
+            {{$t('currencyIntroduction.detail_EOS_19')}}
+          </span>
+            <a class="article-detail-link"
+               target="_blank"
+               href="https://etherscan.io/token/EOS">
+              {{$t('currencyIntroduction.detail_EOS_20')}}
+            </a>
+          </p>
+          <p>
+          <span class="article-detail-title">
+            {{$t('currencyIntroduction.detail_EOS_21')}}
+          </span>
+            <a class="article-detail-link"
+               target="_blank"
+               href="https://github.com/eosio">
+              {{$t('currencyIntroduction.detail_EOS_22')}}
+            </a>
+          </p>
+
+        </div>
+      </div>
+    </template>
+
+
+    <!--EOSDT-->
+    <template v-if="symbol==='EUSDT'">
+      <div class="currency-article">
+        <div class="currency-article-detail">
+          <p>
+            {{$t('currencyIntroduction.detail_EUSDT_1')}}
+          </p>
+        </div>
+      </div>
+      <div class="currency-article">
+        <div class="currency-article-detail">
+          <p>
+          <div class="currency-ul-li">
+          <span class="currency-ul-li-title">
+            <!--项目名称:-->
+            {{$t('currencyIntroduction.detail_EUSDT_2')}}
+          </span>
+            <span class="currency-ul-li-detail">
+            {{$t('currencyIntroduction.detail_EUSDT_3')}}
+          </span>
+          </div>
+          <div class="currency-ul-li">
+          <span class="currency-ul-li-title">
+            <!--代币名称:-->
+            {{$t('currencyIntroduction.detail_EUSDT_4')}}
+          </span>
+            <span class="currency-ul-li-detail">
+            {{$t('currencyIntroduction.detail_EUSDT_5')}}
+          </span>
+          </div>
+          </p>
+          <!-- <p> -->
+          <!-- <div class="currency-ul-li"> -->
+          <!-- <span class="currency-ul-li-title"> -->
+            <!--发行时间:-->
+            <!-- {{$t('currencyIntroduction.detail_EUSDT_6')}} -->
+          <!-- </span> -->
+            <!-- <span class="currency-ul-li-detail"> -->
+            <!-- {{$t('currencyIntroduction.detail_EUSDT_7')}} -->
+          <!-- </span> -->
+          <!-- </div> -->
+          <!-- <div class="currency-ul-li">
+          <span class="currency-ul-li-title"> -->
+            <!--发行总量:-->
+            <!-- {{$t('currencyIntroduction.detail_EUSDT_8')}}
+          </span>
+            <span class="currency-ul-li-detail">
+            {{$t('currencyIntroduction.detail_EUSDT_9')}}
+          </span>
+          </div>
+          </p> -->
+          <!-- <p>
+          <div class="currency-ul-li">
+          <span class="currency-ul-li-title"> -->
+            <!--流通总量:-->
+            <!-- {{$t('currencyIntroduction.detail_EUSDT_11')}}
+          </span>
+            <span class="currency-ul-li-detail">
+            {{$t('currencyIntroduction.detail_EUSDT_12')}}
+          </span>
+          </div>
+          <div class="currency-ul-li">
+          <span class="currency-ul-li-title"> -->
+            <!--兑换比例:-->
+            <!-- {{$t('currencyIntroduction.detail_EUSDT_13')}}
+          </span>
+            <span class="currency-ul-li-detail">
+            {{$t('currencyIntroduction.detail_EUSDT_14')}}
+          </span>
+          </div>
+          </p> -->
+        </div>
+      </div>
+      <div class="currency-article">
+        <div class="currency-article-detail">
+          <p>
+          <span class="article-detail-title">
+            <!--官方网站:-->
+            {{$t('currencyIntroduction.detail_EUSDT_15')}}
+          </span><a class="article-detail-link"
+                    target="_blank"
+                    href="https://tether.to/">
+            {{$t('currencyIntroduction.detail_EUSDT_16')}}
+          </a>
+          </p>
+          <!-- <p>
+          <span class="article-detail-title">
+
+            {{$t('currencyIntroduction.detail_EUSDT_17')}}
+          </span>
+            <a class="article-detail-link"
+               target="_blank"
+               href="https://github.com/EOSIO/Documentation/blob/master/TechnicalWhitePaper.md">
+              {{$t('currencyIntroduction.detail_EUSDT_18')}}
+            </a>
+          </p> -->
+          <!-- <p>
+          <span class="article-detail-title">
+            {{$t('currencyIntroduction.detail_EUSDT_19')}}
+          </span>
+            <a class="article-detail-link"
+               target="_blank"
+               href="https://etherscan.io/token/EOS">
+              {{$t('currencyIntroduction.detail_EUSDT_20')}}
+            </a>
+          </p> -->
+          <!-- <p>
+          <span class="article-detail-title">
+            {{$t('currencyIntroduction.detail_EUSDT_21')}}
+          </span>
+            <a class="article-detail-link"
+               target="_blank"
+               href="https://github.com/eosio">
+              {{$t('currencyIntroduction.detail_EUSDT_22')}}
+            </a>
+          </p> -->
+
+        </div>
+      </div>
+    </template>
+
+     <!--JADE-->
+     <template v-if="symbol==='JADE'">
+      <div class="currency-article">
+        <div class="currency-article-detail">
+          <p>
+            {{$t('currencyIntroduction.detail_JADE_1')}}
+          </p>
+        </div>
+      </div>
+      <div class="currency-article">
+        <div class="currency-article-detail">
+          <p>
+          <div class="currency-ul-li">
+          <span class="currency-ul-li-title">
+            <!--项目名称:-->
+            {{$t('currencyIntroduction.detail_JADE_2')}}
+          </span>
+            <span class="currency-ul-li-detail">
+            {{$t('currencyIntroduction.detail_JADE_3')}}
+          </span>
+          </div>
+          <div class="currency-ul-li">
+          <span class="currency-ul-li-title">
+            <!--代币名称:-->
+            {{$t('currencyIntroduction.detail_JADE_4')}}
+          </span>
+            <span class="currency-ul-li-detail">
+            {{$t('currencyIntroduction.detail_JADE_5')}}
+          </span>
+          </div>
+          </p>
+          <!-- <p>
+          <div class="currency-ul-li">
+          <span class="currency-ul-li-title"> -->
+            <!--发行时间:-->
+            <!-- {{$t('currencyIntroduction.detail_JADE_6')}}
+          </span>
+            <span class="currency-ul-li-detail">
+            {{$t('currencyIntroduction.detail_JADE_7')}}
+          </span>
+          </div>
+          <div class="currency-ul-li">
+          <span class="currency-ul-li-title"> -->
+            <!--发行总量:-->
+            <!-- {{$t('currencyIntroduction.detail_JADE_8')}}
+          </span>
+            <span class="currency-ul-li-detail">
+            {{$t('currencyIntroduction.detail_JADE_9')}}
+          </span>
+          </div> -->
+          <!-- </p> -->
+          <p>
+          <div class="currency-ul-li">
+          <span class="currency-ul-li-title">
+            <!--流通总量:-->
+            {{$t('currencyIntroduction.detail_JADE_11')}}
+          </span>
+            <span class="currency-ul-li-detail">
+            {{$t('currencyIntroduction.detail_JADE_12')}}
+          </span>
+          </div>
+          <!-- <div class="currency-ul-li">
+          <span class="currency-ul-li-title"> -->
+            <!--兑换比例:-->
+            <!-- {{$t('currencyIntroduction.detail_JADE_13')}}
+          </span>
+            <span class="currency-ul-li-detail">
+            {{$t('currencyIntroduction.detail_JADE_14')}}
+          </span>
+          </div> -->
+          </p>
+        </div>
+      </div>
+      <div class="currency-article">
+        <div class="currency-article-detail">
+          <p>
+          <span class="article-detail-title">
+            <!--官方网站:-->
+            {{$t('currencyIntroduction.detail_JADE_15')}}
+          </span><a class="article-detail-link"
+                    target="_blank"
+                    href="https://www.jadechain.net/">
+            {{$t('currencyIntroduction.detail_JADE_16')}}
+          </a>
+          </p>
+          <!-- <p>
+          <span class="article-detail-title">
+
+            {{$t('currencyIntroduction.detail_JADE_17')}}
+          </span>
+            <a class="article-detail-link"
+               target="_blank"
+               href="https://github.com/EOSIO/Documentation/blob/master/TechnicalWhitePaper.md">
+              {{$t('currencyIntroduction.detail_JADE_18')}}
+            </a>
+          </p> -->
+          <p>
+          <span class="article-detail-title">
+            {{$t('currencyIntroduction.detail_JADE_19')}}
+          </span>
+            <a class="article-detail-link"
+               target="_blank"
+               href="https://etherscan.io/token/0x70508920986c120bc534f40450390bb1578b2637">
+              {{$t('currencyIntroduction.detail_JADE_20')}}
+            </a>
+          </p>
+          <!-- <p>
+          <span class="article-detail-title">
+            {{$t('currencyIntroduction.detail_JADE_21')}}
+          </span>
+            <a class="article-detail-link"
+               target="_blank"
+               href="https://github.com/eosio">
+              {{$t('currencyIntroduction.detail_JADE_22')}}
+            </a>
+          </p> -->
+
+        </div>
+      </div>
+    </template>
+
+    <!--DVT-->
+    <template v-if="symbol==='DVT'">
+      <div class="currency-article">
+        <div class="currency-article-detail">
+          <p>
+            {{$t('currencyIntroduction.detail_DVT_1')}}
+          </p>
+        </div>
+      </div>
+      <div class="currency-article">
+        <div class="currency-article-detail">
+          <p>
+          <div class="currency-ul-li">
+          <span class="currency-ul-li-title">
+            <!--项目名称:-->
+            {{$t('currencyIntroduction.detail_DVT_2')}}
+          </span>
+            <span class="currency-ul-li-detail">
+            {{$t('currencyIntroduction.detail_DVT_3')}}
+          </span>
+          </div>
+          <div class="currency-ul-li">
+          <span class="currency-ul-li-title">
+            <!--代币名称:-->
+            {{$t('currencyIntroduction.detail_DVT_4')}}
+          </span>
+            <span class="currency-ul-li-detail">
+            {{$t('currencyIntroduction.detail_DVT_5')}}
+          </span>
+          </div>
+          </p>
+          <p>
+          <div class="currency-ul-li">
+          <span class="currency-ul-li-title">
+            <!--发行时间:-->
+            {{$t('currencyIntroduction.detail_DVT_6')}}
+          </span>
+            <span class="currency-ul-li-detail">
+            {{$t('currencyIntroduction.detail_DVT_7')}}
+          </span>
+          </div>
+          <div class="currency-ul-li">
+          <span class="currency-ul-li-title">
+            <!--发行总量:-->
+            {{$t('currencyIntroduction.detail_DVT_8')}}
+          </span>
+            <span class="currency-ul-li-detail">
+            {{$t('currencyIntroduction.detail_DVT_9')}}
+          </span>
+          </div>
+          </p>
+          <p>
+          <div class="currency-ul-li">
+          <span class="currency-ul-li-title">
+            <!--流通总量:-->
+            {{$t('currencyIntroduction.detail_DVT_10')}}
+          </span>
+            <span class="currency-ul-li-detail">
+            {{$t('currencyIntroduction.detail_DVT_11')}}
+          </span>
+          </div>
+          <div class="currency-ul-li">
+          <span class="currency-ul-li-title">
+            <!--兑换比例:-->
+            {{$t('currencyIntroduction.detail_DVT_12')}}
+          </span>
+            <span class="currency-ul-li-detail">
+            {{$t('currencyIntroduction.detail_DVT_13')}}
+          </span>
+          </div>
+          </p>
+        </div>
+      </div>
+      <div class="currency-article">
+        <div class="currency-article-detail">
+          <p>
+          <span class="article-detail-title">
+            <!--官方网站:-->
+            {{$t('currencyIntroduction.detail_DVT_14')}}
+          </span><a class="article-detail-link"
+                    target="_blank"
+                    href="http://www.datavlt.com/">
+            {{$t('currencyIntroduction.detail_DVT_15')}}
+          </a>
+          </p>
+          <p>
+          <span class="article-detail-title">
+
+            {{$t('currencyIntroduction.detail_DVT_16')}}
+          </span>
+            <a class="article-detail-link"
+               target="_blank"
+               href="http://www.datavlt.com/dataVLT_web/wp-content/uploads/2018/03/DATAVLT-Whitepaper_ver0.9.0_CN.pdf">
+              {{$t('currencyIntroduction.detail_DVT_17')}}
+            </a>
+          </p>
+          <p>
+          <span class="article-detail-title">
+            {{$t('currencyIntroduction.detail_DVT_18')}}
+          </span>
+            <a class="article-detail-link"
+               target="_blank"
+               href="https://etherscan.io/token/0x745a967982ba9e36cb1419e22f0cb6c0150e294b">
+              {{$t('currencyIntroduction.detail_DVT_19')}}
+            </a>
+          </p>
+        </div>
+      </div>
+    </template>
+
+
+    <!--USDT-->
+    <template v-if="symbol==='USDT'">
+      <div class="currency-article">
+        <div class="currency-article-detail">
+          <p>
+            {{$t('currencyIntroduction.detail_USDT_1')}}
+          </p>
+          <p>
+            {{$t('currencyIntroduction.detail_USDT_2')}}
+          </p>
+          <p>
+            {{$t('currencyIntroduction.detail_USDT_3')}}
+          </p>
+        </div>
+      </div>
+      <div class="currency-article">
+        <div class="currency-article-detail">
+          <p>
+          <div class="currency-ul-li">
+          <span class="currency-ul-li-title">
+            <!--项目名称:-->
+            {{$t('currencyIntroduction.detail_USDT_4')}}
+          </span>
+            <span class="currency-ul-li-detail">
+            {{$t('currencyIntroduction.detail_USDT_5')}}
+          </span>
+          </div>
+          <div class="currency-ul-li">
+          <span class="currency-ul-li-title">
+            <!--代币名称:-->
+            {{$t('currencyIntroduction.detail_USDT_6')}}
+          </span>
+            <span class="currency-ul-li-detail">
+            {{$t('currencyIntroduction.detail_USDT_7')}}
+          </span>
+          </div>
+          </p>
+          <p>
+          <div class="currency-ul-li">
+          <span class="currency-ul-li-title">
+            <!--发行时间:-->
+            {{$t('currencyIntroduction.detail_USDT_8')}}
+          </span>
+            <span class="currency-ul-li-detail">
+            {{$t('currencyIntroduction.detail_USDT_9')}}
+          </span>
+          </div>
+          <div class="currency-ul-li">
+          <span class="currency-ul-li-title">
+            <!--发行总量:-->
+            {{$t('currencyIntroduction.detail_USDT_10')}}
+          </span>
+            <span class="currency-ul-li-detail">
+            {{$t('currencyIntroduction.detail_USDT_11')}}
+          </span>
+          </div>
+          </p>
+          <p>
+          <div class="currency-ul-li">
+          <span class="currency-ul-li-title">
+            <!--流通总量:-->
+            {{$t('currencyIntroduction.detail_USDT_12')}}
+          </span>
+            <span class="currency-ul-li-detail">
+            {{$t('currencyIntroduction.detail_USDT_13')}}
+          </span>
+          </div>
+          <div class="currency-ul-li">
+          <span class="currency-ul-li-title">
+            <!--兑换比例:-->
+            {{$t('currencyIntroduction.detail_USDT_14')}}
+          </span>
+            <span class="currency-ul-li-detail">
+            {{$t('currencyIntroduction.detail_USDT_15')}}
+          </span>
+          </div>
+          </p>
+        </div>
+      </div>
+      <div class="currency-article">
+        <div class="currency-article-detail">
+          <p>
+          <span class="article-detail-title">
+            <!--官方网站:-->
+            {{$t('currencyIntroduction.detail_USDT_16')}}
+          </span><a class="article-detail-link"
+                    target="_blank"
+                    href="https://tether.to/">
+            {{$t('currencyIntroduction.detail_USDT_17')}}
+          </a>
+          </p>
+          <p>
+          <span class="article-detail-title">
+
+            {{$t('currencyIntroduction.detail_USDT_18')}}
+          </span>
+            <a class="article-detail-link"
+               target="_blank"
+               href="https://tether.to/why-use-tether/">
+              {{$t('currencyIntroduction.detail_USDT_19')}}
+            </a>
+          </p>
+          <p>
+          <span class="article-detail-title">
+            {{$t('currencyIntroduction.detail_USDT_20')}}
+          </span>
+            <a class="article-detail-link"
+               target="_blank"
+               href="https://etherscan.io/token/0xdac17f958d2ee523a2206206994597c13d831ec7">
+              {{$t('currencyIntroduction.detail_USDT_21')}}
+            </a>
+          </p>
+        </div>
+      </div>
+    </template>
+<!--BTC-->
+
+    <!--BTC-->
+    <template v-if="symbol==='BTC'">
+      <div class="currency-article">
+        <span>比特币（Bitcoin，简称BTC）</span>
+      </div>
+      <div class="currency-article">
+        <div class="currency-article-detail">
+          <p>
+            {{$t('currencyIntroduction.detail_BTC_1')}}
+          </p>
+        </div>
+        <div class="currency-article-detail" v-show="btcshow">
+          <p>
+            {{$t('currencyIntroduction.detail_BTC_111')}}
+          </p>
+        </div>
+      </div>
+      <div class="currency-article"  v-show="btcshow">
+        <div class="currency-article-detail">
+          <p>
+          <div class="currency-ul-li">
+          <span class="currency-ul-li-title">
+            <!--项目名称:-->
+            {{$t('currencyIntroduction.detail_BTC_2')}}
+          </span>
+            <span class="currency-ul-li-detail">
+            {{$t('currencyIntroduction.detail_BTC_3')}}
+          </span>
+          </div>
+          <div class="currency-ul-li">
+          <span class="currency-ul-li-title">
+            <!--代币名称:-->
+            {{$t('currencyIntroduction.detail_BTC_4')}}
+          </span>
+            <span class="currency-ul-li-detail">
+            {{$t('currencyIntroduction.detail_BTC_5')}}
+          </span>
+          </div>
+          </p>
+          <p>
+          <div class="currency-ul-li">
+          <span class="currency-ul-li-title">
+            <!--发行时间:-->
+            {{$t('currencyIntroduction.detail_BTC_6')}}
+          </span>
+            <span class="currency-ul-li-detail">
+            {{$t('currencyIntroduction.detail_BTC_7')}}
+          </span>
+          </div>
+          </p>
+        </div>
+      </div>
+      <div class="currency-article" v-show="btcshow">
+        <div class="currency-article-detail">
+          <p>
+          <span class="article-detail-title">
+            <!--官方网站:-->
+            {{$t('currencyIntroduction.detail_BTC_8')}}
+          </span><a class="article-detail-link"
+                    target="_blank"
+                    href="https://bitcoin.org/bitcoin.pdf">
+            {{$t('currencyIntroduction.detail_BTC_9')}}
+          </a>
+          </p>
+          <p>
+          <span class="article-detail-title">
+
+            {{$t('currencyIntroduction.detail_BTC_10')}}
+          </span>
+            <a class="article-detail-link"
+               target="_blank"
+               href="https://bitcoin.org/en">
+              {{$t('currencyIntroduction.detail_BTC_11')}}
+            </a>
+          </p>
+          <p>
+          <span class="article-detail-title">
+            {{$t('currencyIntroduction.detail_BTC_12')}}
+          </span>
+            <a class="article-detail-link"
+               target="_blank"
+               href="https://blockchain.info/">
+              {{$t('currencyIntroduction.detail_BTC_13')}}
+            </a>
+          </p>
+        </div>
+      </div>
+      <div class="openinfo" @click="btcopeninfo" v-show="!btcshow">
+      <span>展开<img src="../../assets/downred.png"></span>
+    </div>
+      <div class="openinfo" @click="btccloseinfo" v-show="btcshow">
+        <span>收起<img src="../../assets/upred.png"></span>
+      </div>
+    </template>
+
+
+    <!--MTC-->
+    <template v-if="symbol==='MTC'">
+      <div class="currency-article">
+        <div class="currency-article-detail">
+          <p>
+            {{$t('currencyIntroduction.detail_MTC_1')}}
+          </p>
+        </div>
+      </div>
+      <div class="currency-article">
+        <div class="currency-article-detail">
+          <p>
+          <div class="currency-ul-li">
+          <span class="currency-ul-li-title">
+            <!--项目名称:-->
+            {{$t('currencyIntroduction.detail_MTC_2')}}
+          </span>
+            <span class="currency-ul-li-detail">
+            {{$t('currencyIntroduction.detail_MTC_3')}}
+          </span>
+          </div>
+          <div class="currency-ul-li">
+          <span class="currency-ul-li-title">
+            <!--代币名称:-->
+            {{$t('currencyIntroduction.detail_MTC_4')}}
+          </span>
+            <span class="currency-ul-li-detail">
+            {{$t('currencyIntroduction.detail_MTC_5')}}
+          </span>
+          </div>
+          </p>
+          <p>
+          <div class="currency-ul-li">
+          <span class="currency-ul-li-title">
+            <!--发行时间:-->
+            {{$t('currencyIntroduction.detail_MTC_6')}}
+          </span>
+            <span class="currency-ul-li-detail">
+            {{$t('currencyIntroduction.detail_MTC_7')}}
+          </span>
+          </div>
+
+          <div class="currency-ul-li">
+          <span class="currency-ul-li-title">
+            <!--发行时间:-->
+            {{$t('currencyIntroduction.detail_MTC_8')}}
+          </span>
+            <span class="currency-ul-li-detail">
+            {{$t('currencyIntroduction.detail_MTC_9')}}
+          </span>
+          </div>
+          </p>
+
+          <p>
+          <div class="currency-ul-li">
+          <span class="currency-ul-li-title">
+            <!--发行时间:-->
+            {{$t('currencyIntroduction.detail_MTC_10')}}
+          </span>
+            <span class="currency-ul-li-detail">
+            {{$t('currencyIntroduction.detail_MTC_11')}}
+          </span>
+          </div>
+          <div class="currency-ul-li">
+          <span class="currency-ul-li-title">
+            <!--发行时间:-->
+            {{$t('currencyIntroduction.detail_MTC_12')}}
+          </span>
+            <span class="currency-ul-li-detail">
+            {{$t('currencyIntroduction.detail_MTC_13')}}
+          </span>
+          </div>
+          </p>
+
+
+        </div>
+      </div>
+      <div class="currency-article">
+        <div class="currency-article-detail">
+          <p>
+          <span class="article-detail-title">
+            <!--官方网站:-->
+            {{$t('currencyIntroduction.detail_MTC_14')}}
+          </span><a class="article-detail-link"
+                    target="_blank"
+                    href="http://mtc.io/">
+            {{$t('currencyIntroduction.detail_MTC_15')}}
+          </a>
+          </p>
+          <p>
+          <span class="article-detail-title">
+
+            {{$t('currencyIntroduction.detail_MTC_16')}}
+          </span>
+            <a class="article-detail-link"
+               target="_blank"
+               href="http://mtc.io/download/MTCwhitepaperv1.0.pdf">
+              {{$t('currencyIntroduction.detail_MTC_17')}}
+            </a>
+          </p>
+          <p>
+          <span class="article-detail-title">
+            {{$t('currencyIntroduction.detail_MTC_18')}}
+          </span>
+            <a class="article-detail-link"
+               target="_blank"
+               href="https://etherscan.io/token/0x8febf7551eea6ce499f96537ae0e2075c5a7301a">
+              {{$t('currencyIntroduction.detail_MTC_19')}}
+            </a>
+          </p>
+        </div>
+      </div>
+    </template>
+
+
+    <template v-if="symbol==='OMG'">
+      <div class="currency-article">
+        <div class="currency-article-detail">
+          {{$t('currencyIntroduction.introduction_OMG')}}
+        </div>
+      </div>
+      <div class="currency-article">
+        <div class="currency-article-detail">
+          <p>
+          <div class="currency-ul-li">
+          <span class="currency-ul-li-title">
+            {{$t('currencyIntroduction.title_OMG_0')}}
+          </span>
+            <span class="currency-ul-li-detail">
+            {{$t('currencyIntroduction.detail_OMG_0')}}
+          </span>
+          </div>
+          <div class="currency-ul-li">
+          <span class="currency-ul-li-title">
+            {{$t('currencyIntroduction.title_OMG_1')}}
+
+          </span>
+            <span class="currency-ul-li-detail">
+            {{$t('currencyIntroduction.detail_OMG_1')}}
+
+          </span>
+          </div>
+          </p>
+          <p>
+          <div class="currency-ul-li">
+          <span class="currency-ul-li-title">
+            {{$t('currencyIntroduction.title_OMG_2')}}
+
+          </span>
+            <span class="currency-ul-li-detail">
+            {{$t('currencyIntroduction.detail_OMG_2')}}
+
+          </span>
+          </div>
+          <div class="currency-ul-li">
+          <span class="currency-ul-li-title">
+              {{$t('currencyIntroduction.title_OMG_3')}}
+          </span>
+            <span class="currency-ul-li-detail">
+            {{$t('currencyIntroduction.detail_OMG_3')}}
+          </span>
+          </div>
+          </p>
+          <p>
+          <div class="currency-ul-li">
+          <span class="currency-ul-li-title">
+            {{$t('currencyIntroduction.title_OMG_4')}}
+          </span>
+            <span class="currency-ul-li-detail">
+            {{$t('currencyIntroduction.detail_OMG_4')}}
+          </span>
+          </div>
+          </p>
+        </div>
+      </div>
+      <div class="currency-article">
+        <div class="currency-article-detail">
+          <p>
+          <span class="article-detail-title">
+            {{$t('currencyIntroduction.title_OMG_7')}}
+          </span><a class="article-detail-link text_blue"
+                    target="_blank"
+                    href="https://www.ethereum.org/">
+            {{$t('currencyIntroduction.detail_OMG_7')}}
+
+          </a>
+          </p>
+          <p>
+          <span class="article-detail-title">
+            {{$t('currencyIntroduction.title_OMG_8')}}
+          </span><a class="article-detail-link text_blue"
+                    target="_blank"
+                    href="https://etherscan.io/">
+            {{$t('currencyIntroduction.detail_OMG_8')}}
+
+          </a>
+          </p>
+
+        </div>
+      </div>
+    </template>
+
+
+    <!--ZIL-->
+    <template v-if="symbol==='ZIL'">
+      <div class="currency-article">
+        <div class="currency-article-detail">
+          <p>
+            {{$t('currencyIntroduction.detail_ZIL_1')}}
+          </p>
+          <p>
+            {{$t('currencyIntroduction.detail_ZIL_2')}}
+          </p>
+        </div>
+      </div>
+      <div class="currency-article">
+        <div class="currency-article-detail">
+          <p>
+          <div class="currency-ul-li">
+          <span class="currency-ul-li-title">
+            <!--项目名称:-->
+            {{$t('currencyIntroduction.detail_ZIL_3')}}
+          </span>
+            <span class="currency-ul-li-detail">
+            {{$t('currencyIntroduction.detail_ZIL_4')}}
+          </span>
+          </div>
+          <div class="currency-ul-li">
+          <span class="currency-ul-li-title">
+            <!--代币名称:-->
+            {{$t('currencyIntroduction.detail_ZIL_5')}}
+          </span>
+            <span class="currency-ul-li-detail">
+            {{$t('currencyIntroduction.detail_ZIL_6')}}
+          </span>
+          </div>
+          </p>
+          <p>
+          <div class="currency-ul-li">
+          <span class="currency-ul-li-title">
+            <!--发行时间:-->
+            {{$t('currencyIntroduction.detail_ZIL_7')}}
+          </span>
+            <span class="currency-ul-li-detail">
+            {{$t('currencyIntroduction.detail_ZIL_8')}}
+          </span>
+          </div>
+          <div class="currency-ul-li">
+          <span class="currency-ul-li-title">
+            <!--发行时间:-->
+            {{$t('currencyIntroduction.detail_ZIL_9')}}
+          </span>
+            <span class="currency-ul-li-detail">
+            {{$t('currencyIntroduction.detail_ZIL_10')}}
+          </span>
+          </div>
+          </p>
+
+          <p>
+          <div class="currency-ul-li">
+          <span class="currency-ul-li-title">
+            <!--发行时间:-->
+            {{$t('currencyIntroduction.detail_ZIL_11')}}
+          </span>
+            <span class="currency-ul-li-detail">
+            {{$t('currencyIntroduction.detail_ZIL_12')}}
+          </span>
+          </div>
+
+          <div class="currency-ul-li">
+          <span class="currency-ul-li-title">
+            <!--发行时间:-->
+            {{$t('currencyIntroduction.detail_ZIL_13')}}
+          </span>
+            <span class="currency-ul-li-detail">
+            {{$t('currencyIntroduction.detail_ZIL_14')}}
+          </span>
+          </div>
+          </p>
+
+
+        </div>
+      </div>
+      <div class="currency-article">
+        <div class="currency-article-detail">
+          <p>
+          <span class="article-detail-title">
+            <!--官方网站:-->
+            {{$t('currencyIntroduction.detail_ZIL_15')}}
+          </span><a class="article-detail-link"
+                    target="_blank"
+                    href="www.zilliqa.com">
+            {{$t('currencyIntroduction.detail_ZIL_16')}}
+          </a>
+          </p>
+          <p>
+          <span class="article-detail-title">
+
+            {{$t('currencyIntroduction.detail_ZIL_17')}}
+          </span>
+            <a class="article-detail-link"
+               target="_blank"
+               href="https://docs.zilliqa.com/whitepaper.pdf">
+              {{$t('currencyIntroduction.detail_ZIL_18')}}
+            </a>
+          </p>
+          <p>
+          <span class="article-detail-title">
+            {{$t('currencyIntroduction.detail_ZIL_19')}}
+          </span>
+            <a class="article-detail-link"
+               target="_blank"
+               href="https://etherscan.io/token/0x05f4a42e251f2d52b8ed15e9fedaacfcef1fad27">
+              {{$t('currencyIntroduction.detail_ZIL_20')}}
+            </a>
+          </p>
+        </div>
+      </div>
+    </template>
+
+
+    <!--KNC-->
+    <template v-if="symbol==='KNC'">
+      <div class="currency-article">
+        <div class="currency-article-detail">
+          <p>
+            {{$t('currencyIntroduction.detail_KNC_1')}}
+          </p>
+        </div>
+      </div>
+      <div class="currency-article">
+        <div class="currency-article-detail">
+          <p>
+          <div class="currency-ul-li">
+          <span class="currency-ul-li-title">
+            <!--项目名称:-->
+            {{$t('currencyIntroduction.detail_KNC_2')}}
+          </span>
+            <span class="currency-ul-li-detail">
+            {{$t('currencyIntroduction.detail_KNC_3')}}
+          </span>
+          </div>
+          <div class="currency-ul-li">
+          <span class="currency-ul-li-title">
+            <!--代币名称:-->
+            {{$t('currencyIntroduction.detail_KNC_4')}}
+          </span>
+            <span class="currency-ul-li-detail">
+            {{$t('currencyIntroduction.detail_KNC_5')}}
+          </span>
+          </div>
+          </p>
+          <p>
+          <div class="currency-ul-li">
+          <span class="currency-ul-li-title">
+            <!--发行时间:-->
+            {{$t('currencyIntroduction.detail_KNC_6')}}
+          </span>
+            <span class="currency-ul-li-detail">
+            {{$t('currencyIntroduction.detail_KNC_7')}}
+          </span>
+          </div>
+          <div class="currency-ul-li">
+          <span class="currency-ul-li-title">
+            <!--发行时间:-->
+            {{$t('currencyIntroduction.detail_KNC_8')}}
+          </span>
+            <span class="currency-ul-li-detail">
+            {{$t('currencyIntroduction.detail_KNC_9')}}
+          </span>
+          </div>
+          </p>
+
+          <p>
+          <div class="currency-ul-li">
+          <span class="currency-ul-li-title">
+            <!--发行时间:-->
+            {{$t('currencyIntroduction.detail_KNC_10')}}
+          </span>
+            <span class="currency-ul-li-detail">
+            {{$t('currencyIntroduction.detail_KNC_11')}}
+          </span>
+          </div>
+
+          <div class="currency-ul-li">
+          <span class="currency-ul-li-title">
+            <!--发行时间:-->
+            {{$t('currencyIntroduction.detail_KNC_12')}}
+          </span>
+            <span class="currency-ul-li-detail">
+            {{$t('currencyIntroduction.detail_KNC_13')}}
+          </span>
+          </div>
+          </p>
+
+
+        </div>
+      </div>
+      <div class="currency-article">
+        <div class="currency-article-detail">
+          <p>
+          <span class="article-detail-title">
+            <!--官方网站:-->
+            {{$t('currencyIntroduction.detail_KNC_14')}}
+          </span><a class="article-detail-link"
+                    target="_blank"
+                    href="https://kyber.network/">
+            {{$t('currencyIntroduction.detail_KNC_15')}}
+          </a>
+          </p>
+          <p>
+          <span class="article-detail-title">
+
+            {{$t('currencyIntroduction.detail_KNC_16')}}
+          </span>
+            <a class="article-detail-link"
+               target="_blank"
+               href="https://home.kyber.network/assets/KyberNetworkWhitepaper.pdf">
+              {{$t('currencyIntroduction.detail_KNC_17')}}
+            </a>
+          </p>
+          <p>
+          <span class="article-detail-title">
+            {{$t('currencyIntroduction.detail_KNC_18')}}
+          </span>
+            <a class="article-detail-link"
+               target="_blank"
+               href="https://etherscan.io/token/KyberNetwork">
+              {{$t('currencyIntroduction.detail_KNC_19')}}
+            </a>
+          </p>
+        </div>
+      </div>
+    </template>
+
+
+    <!--RHOC-->
+    <template v-if="symbol==='RHOC'">
+      <div class="currency-article">
+        <div class="currency-article-detail">
+          <p>
+            {{$t('currencyIntroduction.detail_RHOC_1')}}
+          </p>
+          <p>
+            {{$t('currencyIntroduction.detail_RHOC_2')}}
+          </p>
+        </div>
+      </div>
+      <div class="currency-article">
+        <div class="currency-article-detail">
+          <p>
+          <div class="currency-ul-li">
+          <span class="currency-ul-li-title">
+            <!--项目名称:-->
+            {{$t('currencyIntroduction.detail_RHOC_3')}}
+          </span>
+            <span class="currency-ul-li-detail">
+            {{$t('currencyIntroduction.detail_RHOC_4')}}
+          </span>
+          </div>
+          <div class="currency-ul-li">
+          <span class="currency-ul-li-title">
+            <!--代币名称:-->
+            {{$t('currencyIntroduction.detail_RHOC_5')}}
+          </span>
+            <span class="currency-ul-li-detail">
+            {{$t('currencyIntroduction.detail_RHOC_6')}}
+          </span>
+          </div>
+          </p>
+          <p>
+          <div class="currency-ul-li">
+          <span class="currency-ul-li-title">
+            <!--发行时间:-->
+            {{$t('currencyIntroduction.detail_RHOC_7')}}
+          </span>
+            <span class="currency-ul-li-detail">
+            {{$t('currencyIntroduction.detail_RHOC_8')}}
+          </span>
+          </div>
+          <div class="currency-ul-li">
+          <span class="currency-ul-li-title">
+            <!--发行时间:-->
+            {{$t('currencyIntroduction.detail_RHOC_9')}}
+          </span>
+            <span class="currency-ul-li-detail">
+            {{$t('currencyIntroduction.detail_RHOC_10')}}
+          </span>
+          </div>
+          </p>
+
+          <p>
+          <div class="currency-ul-li">
+          <span class="currency-ul-li-title">
+            <!--发行时间:-->
+            {{$t('currencyIntroduction.detail_RHOC_11')}}
+          </span>
+            <span class="currency-ul-li-detail">
+            {{$t('currencyIntroduction.detail_RHOC_12')}}
+          </span>
+          </div>
+
+          <div class="currency-ul-li">
+          <span class="currency-ul-li-title">
+            <!--发行时间:-->
+            {{$t('currencyIntroduction.detail_RHOC_13')}}
+          </span>
+            <span class="currency-ul-li-detail">
+            {{$t('currencyIntroduction.detail_RHOC_14')}}
+          </span>
+          </div>
+          </p>
+
+
+        </div>
+      </div>
+      <div class="currency-article">
+        <div class="currency-article-detail">
+          <p>
+          <span class="article-detail-title">
+            <!--官方网站:-->
+            {{$t('currencyIntroduction.detail_RHOC_15')}}
+          </span><a class="article-detail-link"
+                    target="_blank"
+                    href="https://www.rchain.coop/#home">
+            {{$t('currencyIntroduction.detail_RHOC_16')}}
+          </a>
+          </p>
+          <p>
+          <span class="article-detail-title">
+
+            {{$t('currencyIntroduction.detail_RHOC_17')}}
+          </span>
+            <a class="article-detail-link"
+               target="_blank"
+               href="https://media.readthedocs.org/pdf/rchain-architecture/stable/rchain-architecture.pdf">
+              {{$t('currencyIntroduction.detail_RHOC_18')}}
+            </a>
+          </p>
+          <p>
+          <span class="article-detail-title">
+            {{$t('currencyIntroduction.detail_RHOC_19')}}
+          </span>
+            <a class="article-detail-link"
+               target="_blank"
+               href="https://etherscan.io/token/0x168296bb09e24a88805cb9c33356536b980d3fc5">
+              {{$t('currencyIntroduction.detail_RHOC_20')}}
+            </a>
+          </p>
+        </div>
+      </div>
+    </template>
+
+  </template>
+
+  <!--如果是请求过来的-->
+  <template v-if="currencyIntroduction">
+    <!--项目简介 begin-->
+    <div class="currency-article" v-show="currencyIntroduction.content">
+      <div class="currency-article-detail">
+        <p v-html="currencyIntroduction.content">
+        </p>
+      </div>
+    </div>
+    <!--项目简介 end-->
+
+
+    <!--项目内容 begin-->
+    <div class="currency-article">
+
+
+      <div class="currency-article-detail">
+        <p>
+        <div class="currency-ul-li" v-show="currencyIntroduction.project">
+          <span class="currency-ul-li-title">
+            <!--项目名称:-->
+            {{$t('currencyIntroduction.request_detail_1')}}
+          </span>
+          <span class="currency-ul-li-detail">
+            {{currencyIntroduction.project}}
+          </span>
+        </div>
+        <div class="currency-ul-li" v-show="currencyIntroduction.token">
+          <span class="currency-ul-li-title">
+            <!--代币名称:-->
+             {{$t('currencyIntroduction.request_detail_2')}}
+          </span>
+          <span class="currency-ul-li-detail">
+            {{currencyIntroduction.token}}
+          </span>
+        </div>
+        </p>
+
+
+        <p>
+        <div class="currency-ul-li" v-show="currencyIntroduction.publicRelease">
+          <span class="currency-ul-li-title">
+            <!--发行时间:-->
+             {{$t('currencyIntroduction.request_detail_3')}}
+          </span>
+          <span class="currency-ul-li-detail">
+            {{currencyIntroduction.publicRelease}}
+          </span>
+        </div>
+        <div class="currency-ul-li" v-show="currencyIntroduction.totalSupply">
+          <span class="currency-ul-li-title">
+            <!--发行总量:-->
+             {{$t('currencyIntroduction.request_detail_4')}}
+          </span>
+          <span class="currency-ul-li-detail">
+            {{currencyIntroduction.totalSupply}}
+          </span>
+        </div>
+        </p>
+
+        <p>
+        <div class="currency-ul-li" v-show="currencyIntroduction.circulationSupply">
+          <span class="currency-ul-li-title">
+            <!--流通总量:-->
+             {{$t('currencyIntroduction.request_detail_5')}}
+          </span>
+          <span class="currency-ul-li-detail">
+            {{currencyIntroduction.circulationSupply}}
+          </span>
+        </div>
+
+        <div class="currency-ul-li" v-show="currencyIntroduction.issueRate">
+          <span class="currency-ul-li-title">
+            <!--兑换比例:-->
+             {{$t('currencyIntroduction.request_detail_6')}}
+          </span>
+          <span class="currency-ul-li-detail">
+            {{currencyIntroduction.issueRate}}
+          </span>
+        </div>
+        </p>
+
+
+      </div>
+    </div>
+
+    <!--连接 begin-->
+    <div class="currency-article">
+      <div class="currency-article-detail">
+        <p v-show="currencyIntroduction.website">
+          <span class="article-detail-title">
+            <!--官方连接:-->
+             {{$t('currencyIntroduction.request_detail_7')}}
+          </span><a class="article-detail-link"
+                    target="_blank"
+                    :href="currencyIntroduction.website">
+          {{currencyIntroduction.website}}
+        </a>
+        </p>
+
+
+        <p v-show="currencyIntroduction.whitepaper">
+          <span class="article-detail-title">
+            <!--白皮书：-->
+             {{$t('currencyIntroduction.request_detail_8')}}
+          </span>
+          <a class="article-detail-link"
+             target="_blank"
+             :href="currencyIntroduction.whitepaper"
+          >
+            {{currencyIntroduction.whitepaper}}
+          </a>
+        </p>
+
+
+        <p v-show="currencyIntroduction.blockchainexplorer">
+          <span class="article-detail-title">
+             {{$t('currencyIntroduction.request_detail_9')}}
+          </span>
+          <a class="article-detail-link"
+             target="_blank"
+             :href="currencyIntroduction.blockchainexplorer">
+            {{currencyIntroduction.blockchainexplorer}}
+          </a>
+        </p>
+      </div>
+    </div>
+    <!--连接 end-->
+
+
+  </template>
+
+  <Loading v-if="loading"></Loading>
+
+
+</div>

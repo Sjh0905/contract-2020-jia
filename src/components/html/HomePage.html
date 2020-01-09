@@ -1,0 +1,89 @@
+<!--<div class="homepage-canvas-wrap">-->
+
+<!--<div class="homepage-front">-->
+<!--<div class="flex-row homepage-front-left">-->
+<!--<img src="" class="homepage-front-left-logo" alt="">-->
+<!--<router-link class="homepage-front-span2 txt-green" to="/index/tradingHall">币币交易</router-link>-->
+<!--</div>-->
+<!--<div>-->
+<!--<router-link to="/index/sign/" class="homepage-front-span">{{$t('indexHeader.login')}}</router-link>-->
+
+<!--<span class="homepage-front-span">&nbsp;|&nbsp;</span>-->
+<!--<router-link class="homepage-front-span" to="/index/register">{{$t('indexHeader.register')}}</router-link>-->
+<!--&lt;!&ndash;<router-link to="/index/register" active-class="selected">{{$t('indexHeader.register')}}</router-link>&ndash;&gt;-->
+<!--</div>-->
+
+<!--</div>-->
+<!--<div class="homepage-canvas">-->
+<!--<div id="register_div"></div>-->
+<!--</div>-->
+<!--<div class="homepage-blow">-->
+<!--<IndexFooter/>-->
+<!--</div>-->
+
+<!--</div>-->
+
+
+<div class="container">
+  <div v-if="!isMobile" class="title-detail">
+    <div class="wiper-container">
+      <a href="/index/share">
+        <img src="" class="homepage-banner-img" alt="">
+      </a>
+      <!--<Swiper :options="swiperOption" ref="swiper">-->
+      <!--<SwiperSlide><img class="swiperImg" src="" alt=""></SwiperSlide>-->
+      <!--<SwiperSlide><img class="swiperImg" src="" alt=""></SwiperSlide>-->
+
+      <!--<div class="swiper-pagination" slot="pagination"></div>-->
+
+
+      <!--</Swiper>-->
+    </div>
+  </div>
+  <div v-if="!isMobile" class="article-detail">
+    <!--<div class="flex notice"><img src="../../assets/通知公告HomePage.png" alt="" class="notice-img">公告：关于ICO项目暂停的业务，请各部门做好ICO项目暂停的业务，请各部门做好...-->
+    <!--<img src="" alt="" class="close-img">-->
+    <!--</div>-->
+    <div class="market-container">
+      <div class="market-title flex">
+        <!-- <div class="market-title-unit">收藏</div> -->
+        <div class="market-title-unit margin-left" :class="{'selected-homepage' :currencyType == 0}"
+             @click="changeCurrencyMarket(0)">
+          {{$t('homePage.market_tab_1')}}
+        </div>
+        <div class="market-title-unit margin-left" :class="{'selected-homepage' :currencyType == 1}"
+             @click="changeCurrencyMarket(1)">
+          {{$t('homePage.market_tab_2')}}
+        </div>
+        <!--  <div class="market-title-unit flex margin-left market-search">
+        <img src="" alt="" class="market-search-img">
+        <input type="text" class="market-search-input">
+        </div> -->
+      </div>
+      <div class="market-detail-container">
+        <Market/>
+      </div>
+    </div>
+
+  </div>
+  <div v-if="!isMobile" class="footer-detail">
+
+  </div>
+
+  <!-- 手机端 -->
+  <div v-if="isMobile" class="mobileHomePage">
+    <div class="mobile-market-title">
+
+      <!--<div class="mobile-market-title-item">收藏</div>-->
+      <div class="mobile-market-title-item" :class="{'mobile-market-title-item-active' :currencyType == 0}"
+           @click="changeCurrencyMarket(0)">{{$t('homePage.market_tab_1')}}
+      </div>
+      <div class="mobile-market-title-item" :class="{'mobile-market-title-item-active' :currencyType == 1}"
+           @click="changeCurrencyMarket(1)">{{$t('homePage.market_tab_2')}}
+      </div>
+    </div>
+    <div class="mobile-market-table-box">
+      <!--<MobileMarket/>-->
+    </div>
+  </div>
+</div>

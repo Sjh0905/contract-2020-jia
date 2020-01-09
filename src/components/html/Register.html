@@ -1,0 +1,692 @@
+<div class="register-container" v-if="!loading">
+  <div class="all-container box_shadow border_radius">
+
+    <!--<div class="unit-title"  v-if="isMobile">-->
+<!--&lt;!&ndash;      <span class="unit-title-line"></span>&ndash;&gt;-->
+      <!--<span class="unit-title-text">{{$t("register.welcome")}}</span>-->
+<!--&lt;!&ndash;      <span class="unit-title-line"></span>&ndash;&gt;-->
+    <!--</div>-->
+
+    <div class="unit-title-pc"  v-if="!isMobile">
+      <!--      <span class="unit-title-line"></span>-->
+      <span class="unit-title-text-pc">{{$t("register.WelcomeToRegister")}}</span>
+      <!--      <span class="unit-title-line"></span>-->
+    </div>
+
+    <!--选择注册形式 pc begin-->
+    <div v-if="!isMobile" class="choose-login-type-container flex">
+      <div class="login-type-container login-type-container-left pointer"
+           :class="{'login-type-select-container':registerType===0}"
+           @click="choseRegisterType(0)"
+      >
+        <!--手机注册-->
+        {{$t('register.registerTypeMobile')}}
+      </div>
+      <div class="login-type-container login-type-container-right pointer "
+           :class="{'login-type-select-container':registerType===1}"
+           @click="choseRegisterType(1)"
+      >
+        <!--邮箱注册-->
+        {{$t('register.registerTypeEmail')}}
+      </div>
+    </div>
+    <!--选择注册形式 pc end-->
+
+    <!--选择注册形式 h5 begin-->
+    <div v-if="isMobile" class="mobile-choose-login-type-box">
+      <div class="mobile-choose-login-type-item" :class="{'mobile-choose-login-type-item-activity':registerType===0}"
+           @click="choseRegisterType(0)">
+        手机注册
+        <!--{{$t('registerTypeMobile')}}-->
+      </div>
+      <div class="mobile-choose-login-type-item" :class="{'mobile-choose-login-type-item-activity':registerType===1}"
+           @click="choseRegisterType(1)">
+        邮箱注册
+        <!--{{$t('registerTypeEmail')}}-->
+      </div>
+    </div>
+    <!--选择注册形式 h5 end-->
+
+    <!--H5手机注册开始-->
+    <div v-if="registerType==0 && isMobile" class="unit-container flex-center">
+
+      <!--手机-->
+      <div class="flex unit-input-container area-wrap"
+           :class="{'wrong-answer': userNameWA!=''}">
+        <span class="area-code-text" @click="goAreaPage">{{this.$store.state.areaCode.replace(/00/,'+')}}</span>
+        <input type="text" :placeholder='userNamePlaceholderShow && "手机" || ""' v-model="userName" @focus="closePlaceholder('userName')" @blur="testUserName"
+               class="unit-input">
+      </div>
+      <div class="unit-input-interval txt-red">
+        <span v-if="userNameWA!=''">{{userNameWA}}</span>
+      </div>
+
+      <!--验证码-->
+      <div class="unit-input-container flex double-input-container"
+           :class="{'wrong-answer':verificationCodeWA!=''}">
+
+        <span></span>
+        <input type="text" :placeholder='verificationCodePlaceholderShow && "验证码" || ""' @focus="closePlaceholder('verificationCode')" v-model="verificationCode"
+               @blur="testVerificationCode" class="unit-input">
+        <div v-if="isMobile" class="cutter-line flex-center">|</div>
+
+        <template v-if="isMobile">
+          <div class="getcodeval" v-if="!getVerificationCode"
+                @click="postVerificationCode">{{$t("register.achieve")}}</div>
+        <div class="getcodeval"
+              v-if="getVerificationCode">{{getVerificationCodeCountdown}}</div>
+      </template>
+        <template v-if="!isMobile">
+          <span class="flex-center identifying-code-button-on " v-if="!getVerificationCode"
+                @click="postVerificationCode">{{$t("register.achieve")}}</span>
+          <span class="flex-center identifying-code-button-close btn_grey"
+                v-if="getVerificationCode">{{getVerificationCodeCountdown}}</span>
+        </template>
+        <!--<template v-if="!captchaReady">-->
+            <!--<span class="flex-center button-grey">-->
+              <!--{{$t('register.disabled')}}-->
+            <!--</span>-->
+        <!--</template>-->
+      </div>
+      <div class="unit-input-interval txt-red">
+        <span v-if="verificationCodeWA!=''">{{verificationCodeWA}}</span>
+      </div>
+
+
+      <!--密码-->
+      <div class="unit-input-container flex"
+           :class="{'wrong-answer':pswWA!=''}">
+
+        <input type="password" :placeholder='pswPlaceholderShow && "密码" || ""' v-model="psw" @focus="closePlaceholder('psw')" @blur="testPsw"
+               class="unit-input"
+               @input="testInputIngPsw">
+      </div>
+      <div class="unit-input-interval txt-red">
+        <span v-if="pswWA!=''">{{pswWA}}</span>
+      </div>
+
+      <!--确认密码-->
+      <div class="unit-input-container flex"
+           :class="{'wrong-answer':pswConfirmWA!=''}">
+
+        <input type="password" :placeholder='pswConfirmPlaceholderShow && "确认密码" || ""' v-model="pswConfirm" @focus="closePlaceholder('pswConfirm')" @blur="testPswConfirm"
+               class="unit-input"
+               @input="testInputIngPswConfirm">
+      </div>
+      <div class="unit-input-interval txt-red">
+        <span v-if="pswConfirmWA!=''">{{pswConfirmWA}}</span>
+      </div>
+      <!--推荐人-->
+      <div class="unit-input-container flex"
+           :class="{'wrong-answer':refereeWA!=''}">
+
+        <input type="text" :placeholder='refereePlaceholderShow && "邀请码（选填）" || ""' v-model="referee" class="unit-input"
+               @focus="closePlaceholder('referee')" @blur="testReferee">
+      </div>
+
+      <div class="unit-input-interval txt-red">
+        <span v-if="refereeWA!=''">{{refereeWA}}</span>
+      </div>
+
+
+      <!--同意协议-->
+      <div class="unit-input-container agreement">
+<!--        <MobileCheckbox v-show="isMobile" :agreement="agreement" :changeAgreement='changeAgreement'></MobileCheckbox>-->
+<!--        <input v-show="!isMobile" type="checkbox" v-model="agreement" name="agreement" id="agreement" @click="testAgreement">-->
+<!--        <input v-show="!isMobile"  id="agreement" class="color-input-red" type="checkbox" name="agreement" value="#f0544d" />-->
+<!--        <label  for="color-input-red"></label >-->
+        <span @click="changeAgreement">
+          <img v-show="!agreement" src="../../assets/noselect.png"/>
+          <img v-show="agreement" src="../../assets/select.png" />
+        </span>
+        &nbsp;&nbsp;
+        <label @click="changeAgreement">{{$t("register.agree")}}</label>
+        <router-link class="agreement-detail" to="/index/help/userAgreement" target="_blank">
+          {{$t("register.agreement")}}
+        </router-link>
+      </div>
+      <div class="unit-input-interval txt-red">
+        <span v-if="agreementWA!=''">{{agreementWA}}</span>
+      </div>
+      <!--按钮-->
+      <div class="unit-input-container container-button">
+        <button v-if="!sending" class="set-button" @click="registerCommit">
+          {{$t("register.register")}}
+        </button>
+        <button v-if="sending" class="set-button registering-button btn_grey" disabled>{{$t('register.registering')}}
+        </button>
+      </div>
+      <!--<div class="input-interval"></div>-->
+      <!--已有账号-->
+<!--      <div class="flex-center already-register unit-input-container">{{$t("register.haveID")}}，-->
+<!--        <router-link to="/index/sign/login" class="text_blue">{{$t("register.login")}}</router-link>-->
+<!--      </div>-->
+    </div>
+    <!--H5手机注册结束-->
+
+    <!--H5邮箱注册开始-->
+    <div v-if="registerType==1 && isMobile" class="unit-container flex-center">
+
+      <!--邮箱-->
+      <div class="flex unit-input-container"
+           :class="{'wrong-answer': userNameWA!=''}">
+        <!--<span class="flex-center unit-input-container-title">-->
+          <!--<img class="unit-input-container-title-img" v-if="isMobile" src="../../assets/h5form/mobile_mail.png" alt="">-->
+          <!--<img v-if="!isMobile" src="" alt="">-->
+        <!--</span>-->
+        <input type="text" :placeholder='userNamePlaceholderShow && "邮箱" || ""' v-model="userName" @focus="closePlaceholder('userName')" @blur="testUserName"
+               class="unit-input">
+      </div>
+      <div class="unit-input-interval txt-red">
+        <span v-if="userNameWA!=''">{{userNameWA}}</span>
+      </div>
+
+      <!--验证码-->
+      <div class="unit-input-container flex double-input-container"
+           :class="{'wrong-answer':verificationCodeWA!=''}">
+        <!--<span class="flex-center unit-input-container-title">-->
+          <!--<img class="unit-input-container-title-img" v-if="isMobile" src="../../assets/h5form/mobile_check.png" alt="">-->
+          <!--<img v-if="!isMobile" src="" alt="">-->
+        <!--</span>-->
+        <span></span>
+        <input type="text" :placeholder='verificationCodePlaceholderShow && "验证码" || ""' @focus="closePlaceholder('verificationCode')" v-model="verificationCode"
+               @blur="testVerificationCode" class="unit-input">
+        <div v-if="isMobile" class="cutter-line flex-center">|</div>
+
+        <template v-if="isMobile">
+          <div class="getcodeval" v-if="!getVerificationCode"
+                @click="postVerificationCode">{{$t("register.achieve")}}</div>
+        <div class="getcodeval"
+              v-if="getVerificationCode">{{getVerificationCodeCountdown}}</div>
+      </template>
+        <template v-if="!isMobile">
+          <span class="flex-center identifying-code-button-on " v-if="!getVerificationCode"
+                @click="postVerificationCode">{{$t("register.achieve")}}</span>
+          <span class="flex-center identifying-code-button-close btn_grey"
+                v-if="getVerificationCode">{{getVerificationCodeCountdown}}</span>
+        </template>
+        <!--<template v-if="!captchaReady">-->
+            <!--<span class="flex-center button-grey">-->
+              <!--{{$t('register.disabled')}}-->
+            <!--</span>-->
+        <!--</template>-->
+      </div>
+      <div class="unit-input-interval txt-red">
+        <span v-if="verificationCodeWA!=''">{{verificationCodeWA}}</span>
+      </div>
+
+
+      <!--密码-->
+      <div class="unit-input-container flex"
+           :class="{'wrong-answer':pswWA!=''}">
+        <!--<span class="flex-center unit-input-container-title">-->
+          <!--<img class="unit-input-container-title-img" v-if="isMobile" src="../../assets/h5form/mobile_passward.png"-->
+               <!--alt="">-->
+          <!--<img v-if="!isMobile" src="" alt="">-->
+        <!--</span>-->
+        <input type="password" :placeholder='pswPlaceholderShow && "密码" || ""' v-model="psw" @focus="closePlaceholder('psw')" @blur="testPsw"
+               class="unit-input"
+               @input="testInputIngPsw">
+      </div>
+      <div class="unit-input-interval txt-red">
+        <span v-if="pswWA!=''">{{pswWA}}</span>
+      </div>
+
+      <!--确认密码-->
+      <div class="unit-input-container flex"
+           :class="{'wrong-answer':pswConfirmWA!=''}">
+        <!--<span class="flex-center unit-input-container-title">-->
+          <!--<img class="unit-input-container-title-img" v-if="isMobile" src="../../assets/h5form/mobile_passward.png"-->
+               <!--alt="">-->
+          <!--<img v-if="!isMobile" src="" alt="">-->
+        <!--</span>-->
+        <input type="password" :placeholder='pswConfirmPlaceholderShow && "确认密码" || ""' v-model="pswConfirm" @focus="closePlaceholder('pswConfirm')" @blur="testPswConfirm"
+               class="unit-input"
+               @input="testInputIngPswConfirm">
+      </div>
+      <div class="unit-input-interval txt-red">
+        <span v-if="pswConfirmWA!=''">{{pswConfirmWA}}</span>
+      </div>
+      <!--推荐人-->
+      <div class="unit-input-container flex"
+           :class="{'wrong-answer':refereeWA!=''}">
+        <!--<span class="flex-center unit-input-container-title">-->
+          <!--<img class="unit-input-container-title-img" v-if="isMobile" src="../../assets/h5form/mobile_user.png" alt="">-->
+          <!--<img v-if="!isMobile" src="" alt="">-->
+        <!--</span>-->
+        <input type="text" :placeholder='refereePlaceholderShow && "邀请码（选填）" || ""' v-model="referee" class="unit-input"
+               @focus="closePlaceholder('referee')" @blur="testReferee">
+      </div>
+
+      <div class="unit-input-interval txt-red">
+        <span v-if="refereeWA!=''">{{refereeWA}}</span>
+      </div>
+
+
+
+      <!--同意协议-->
+      <div class="unit-input-container agreement">
+<!--        <MobileCheckbox v-show="isMobile" :agreement="agreement" :changeAgreement='changeAgreement'></MobileCheckbox>-->
+<!--        <input v-show="!isMobile" type="checkbox" v-model="agreement" name="agreement" id="agreement" @click="testAgreement">-->
+<!--        <input v-show="!isMobile"  id="agreement" class="color-input-red" type="checkbox" name="agreement" value="#f0544d" />-->
+<!--        <label  for="color-input-red"></label >-->
+        <img v-show="!agreement" src="../../assets/noselect.png"/>
+        <img v-show="agreement" src="../../assets/select.png" />
+        &nbsp;&nbsp;
+        <label for="agreement" @click="changeAgreement">{{$t("register.agree")}}</label>
+        <router-link class="agreement-detail" to="/index/help/userAgreement" target="_blank">
+          {{$t("register.agreement")}}
+        </router-link>
+      </div>
+      <div class="unit-input-interval txt-red">
+        <span v-if="agreementWA!=''">{{agreementWA}}</span>
+      </div>
+      <!--按钮-->
+      <div class="unit-input-container container-button">
+        <button v-if="!sending" class="set-button" @click="registerCommit">
+          {{$t("register.register")}}
+        </button>
+        <button v-if="sending" class="set-button registering-button btn_grey" disabled>{{$t('register.registering')}}
+        </button>
+      </div>
+      <!--<div class="input-interval"></div>-->
+      <!--已有账号-->
+<!--      <div class="flex-center already-register unit-input-container">{{$t("register.haveID")}}，-->
+<!--        <router-link to="/index/sign/login" class="text_blue">{{$t("register.login")}}</router-link>-->
+<!--      </div>-->
+    </div>
+    <!--H5邮箱注册结束-->
+
+    <!--PC端手机注册开始-->
+    <div v-if="registerType==0 && !isMobile" class="unit-container flex-center">
+
+     <div class=" flex iphone iphone-kuang">
+
+        <!-- 下拉搜索框-->
+
+        <el-select class="inputInner" :placeholder="label" style="font-size:14px;" v-model="searchResult">
+          <input type="text" class="inputsize" placeholder="请输入国家区号" v-model="searchCities">
+          <el-option
+            @click="clickItem(item.areaCode)"
+            class="widthInput"
+            v-for="item in (searchCities ? cityList :cities)"
+            :key="item.countryId"
+            :label="'+ ' + item.areaCode.slice(2)"
+            :value="item.areaCode">
+            <span style="float: left; color:#172A4D">{{ lang==='CN'? item.nameCn:item.nameEn }}</span>
+            <span style="float: right; color: #8994A5; font-size: 16px">{{ '+ ' + item.areaCode.slice(2) }}</span>
+          </el-option>
+        </el-select>
+
+        <!--  下拉搜索框   结束-->
+
+        <!--手机-->
+        <div class="flex unit-input-container-pc input-phone-pc "
+             :class="{'wrong-answer': mobileWA!=''}">
+          <input type="text" :placeholder='userNamePlaceholderShow && $t("register.phone") || ""' v-model="userName" @focus="closePlaceholder('userName')" @blur="testUserName"
+                 class="unit-input">
+        </div>
+
+      </div>
+
+      <div class="unit-input-interval txt-red">
+        <span v-if="mobileWA!=''">{{mobileWA}}</span>
+      </div>
+
+
+      <!--验证码-->
+      <div class="unit-input-container-pc flex double-input-container"
+           :class="{'wrong-answer':verificationCodeWA!=''}">
+        <span></span>
+        <input type="text" :placeholder='verificationCodePlaceholderShow && $t("register.identifyingCode") || ""' @focus="closePlaceholder('verificationCode')" v-model="verificationCode"
+               @blur="testVerificationCode" class="unit-input">
+
+        <template v-if="!isMobile">
+          <span class="flex-center identifying-code-button-on " v-if="!getVerificationCode"
+                @click="postVerificationCode">{{$t("register.achieve")}}</span>
+          <span class="flex-center identifying-code-button-close btn_grey"
+                v-if="getVerificationCode">{{getVerificationCodeCountdown}}</span>
+        </template>
+
+      </div>
+      <div class="unit-input-interval txt-red">
+        <span v-if="verificationCodeWA!=''">{{verificationCodeWA}}</span>
+      </div>
+
+
+      <!--密码-->
+      <div class="unit-input-container-pc flex"
+           :class="{'wrong-answer':pswWA!=''}">
+        <input type="password" :placeholder='pswPlaceholderShow && $t("register.passwordInput") || ""' v-model="psw" @focus="closePlaceholder('psw')" @blur="testPsw"
+               class="unit-input"
+               @input="testInputIngPsw">
+      </div>
+      <div class="unit-input-interval txt-red">
+        <span v-if="pswWA!=''">{{pswWA}}</span>
+      </div>
+
+      <!--确认密码-->
+      <div class="unit-input-container-pc flex"
+           :class="{'wrong-answer':pswConfirmWA!=''}">
+        <input type="password" :placeholder='pswConfirmPlaceholderShow && $t("register.passwordConfirm") || ""' v-model="pswConfirm" @focus="closePlaceholder('pswConfirm')" @blur="testPswConfirm"
+               class="unit-input"
+               @input="testInputIngPswConfirm">
+      </div>
+      <div class="unit-input-interval txt-red">
+        <span v-if="pswConfirmWA!=''">{{pswConfirmWA}}</span>
+      </div>
+      <!--推荐人-->
+      <div class="unit-input-container-pc flex"
+           :class="{'wrong-answer':refereeWA!=''}">
+        <input type="text" :placeholder='refereePlaceholderShow && $t("register.referee") || ""' v-model="referee" class="unit-input"
+               @focus="closePlaceholder('referee')" @blur="testReferee">
+      </div>
+
+      <div class="unit-input-interval txt-red">
+        <span v-if="refereeWA!=''">{{refereeWA}}</span>
+      </div>
+
+
+      <!--同意协议-->
+      <div class="unit-input-container-pc agreement">
+        <!--        <MobileCheckbox v-show="isMobile" :agreement="agreement" :changeAgreement='changeAgreement'></MobileCheckbox>-->
+        <!--        <input v-show="!isMobile" type="checkbox" v-model="agreement" name="agreement" id="agreement" @click="testAgreement">-->
+        <!--        <input v-show="!isMobile"  id="agreement" class="color-input-red" type="checkbox" name="agreement" value="#f0544d" />-->
+        <!--        <label  for="color-input-red"></label >-->
+        <span @click="changeAgreement">
+
+          <img v-show="!agreement" src="../../assets/noselect.png" />
+          <img v-show="agreement" src="../../assets/select.png" />
+        </span>
+        &nbsp;&nbsp;
+        <label @click="changeAgreement">{{$t("register.agree")}}</label>
+        <router-link class="agreement-detail" to="/index/help/userAgreement" target="_blank">
+          {{$t("register.agreement")}}
+        </router-link>
+      </div>
+      <div class="unit-input-interval txt-red">
+        <span v-if="agreementWA!=''">{{agreementWA}}</span>
+      </div>
+      <!--按钮-->
+      <div class="unit-input-container-pc container-button">
+        <button v-if="!sending" class="set-button" @click="registerCommit">
+          {{$t("register.register")}}
+        </button>
+        <button v-if="sending" class="set-button registering-button btn_grey" disabled>{{$t('register.registering')}}
+        </button>
+      </div>
+      <!--<div class="input-interval"></div>-->
+      <!--已有账号-->
+      <!--      <div class="flex-center already-register unit-input-container">{{$t("register.haveID")}}，-->
+      <!--        <router-link to="/index/sign/login" class="text_blue">{{$t("register.login")}}</router-link>-->
+      <!--      </div>-->
+    </div>
+    <!--PC端手机注册结束-->
+
+
+    <!--PC端邮箱注册开始-->
+    <div v-if="registerType==1 && !isMobile" class="unit-container flex-center">
+
+
+      <!--邮箱-->
+      <div class="flex unit-input-container-pc"
+           :class="{'wrong-answer': userNameWA!=''}">
+        <!--<span class="flex-center unit-input-container-title">-->
+        <!--<img class="unit-input-container-title-img" v-if="isMobile" src="../../assets/h5form/mobile_mail.png" alt="">-->
+        <!--<img v-if="!isMobile" src="" alt="">-->
+        <!--</span>-->
+        <input type="text" :placeholder='userNamePlaceholderShow && $t("register.mail") || ""' v-model="userName" @focus="closePlaceholder('userName')" @blur="testUserName"
+               class="unit-input">
+      </div>
+      <div class="unit-input-interval txt-red">
+        <span v-if="userNameWA!=''">{{userNameWA}}</span>
+      </div>
+
+      <!--验证码-->
+      <div class="unit-input-container-pc flex double-input-container"
+           :class="{'wrong-answer':verificationCodeWA!=''}">
+        <!--<span class="flex-center unit-input-container-title">-->
+        <!--<img class="unit-input-container-title-img" v-if="isMobile" src="../../assets/h5form/mobile_check.png" alt="">-->
+        <!--<img v-if="!isMobile" src="" alt="">-->
+        <!--</span>-->
+        <span></span>
+        <input type="text" :placeholder='verificationCodePlaceholderShow && $t("register.identifyingCode") || ""' @focus="closePlaceholder('verificationCode')" v-model="verificationCode"
+               @blur="testVerificationCode" class="unit-input">
+        <div v-if="isMobile" class="cutter-line flex-center">|</div>
+
+        <template v-if="isMobile">
+          <div class="getcodeval" v-if="!getVerificationCode"
+               @click="postVerificationCode">{{$t("register.achieve")}}</div>
+          <div class="getcodeval"
+               v-if="getVerificationCode">{{getVerificationCodeCountdown}}</div>
+        </template>
+        <template v-if="!isMobile">
+          <span class="flex-center identifying-code-button-on " v-if="!getVerificationCode"
+                @click="postVerificationCode">{{$t("register.achieve")}}</span>
+          <span class="flex-center identifying-code-button-close btn_grey"
+                v-if="getVerificationCode">{{getVerificationCodeCountdown}}</span>
+        </template>
+        <!--<template v-if="!captchaReady">-->
+        <!--<span class="flex-center button-grey">-->
+        <!--{{$t('register.disabled')}}-->
+        <!--</span>-->
+        <!--</template>-->
+      </div>
+      <div class="unit-input-interval txt-red">
+        <span v-if="verificationCodeWA!=''">{{verificationCodeWA}}</span>
+      </div>
+
+
+      <!--密码-->
+      <div class="unit-input-container-pc flex"
+           :class="{'wrong-answer':pswWA!=''}">
+        <!--<span class="flex-center unit-input-container-title">-->
+        <!--<img class="unit-input-container-title-img" v-if="isMobile" src="../../assets/h5form/mobile_passward.png"-->
+        <!--alt="">-->
+        <!--<img v-if="!isMobile" src="" alt="">-->
+        <!--</span>-->
+        <input type="password" :placeholder='pswPlaceholderShow && $t("register.passwordInput") || ""' v-model="psw" @focus="closePlaceholder('psw')" @blur="testPsw"
+               class="unit-input"
+               @input="testInputIngPsw">
+      </div>
+      <div class="unit-input-interval txt-red">
+        <span v-if="pswWA!=''">{{pswWA}}</span>
+      </div>
+
+      <!--确认密码-->
+      <div class="unit-input-container-pc flex"
+           :class="{'wrong-answer':pswConfirmWA!=''}">
+        <!--<span class="flex-center unit-input-container-title">-->
+        <!--<img class="unit-input-container-title-img" v-if="isMobile" src="../../assets/h5form/mobile_passward.png"-->
+        <!--alt="">-->
+        <!--<img v-if="!isMobile" src="" alt="">-->
+        <!--</span>-->
+        <input type="password" :placeholder='pswConfirmPlaceholderShow && $t("register.passwordConfirm") || ""' v-model="pswConfirm" @focus="closePlaceholder('pswConfirm')" @blur="testPswConfirm"
+               class="unit-input"
+               @input="testInputIngPswConfirm">
+      </div>
+      <div class="unit-input-interval txt-red">
+        <span v-if="pswConfirmWA!=''">{{pswConfirmWA}}</span>
+      </div>
+      <!--推荐人-->
+      <div class="unit-input-container-pc flex"
+           :class="{'wrong-answer':refereeWA!=''}">
+        <!--<span class="flex-center unit-input-container-title">-->
+        <!--<img class="unit-input-container-title-img" v-if="isMobile" src="../../assets/h5form/mobile_user.png" alt="">-->
+        <!--<img v-if="!isMobile" src="" alt="">-->
+        <!--</span>-->
+        <input type="text" :placeholder='refereePlaceholderShow && $t("register.referee") || ""' v-model="referee" class="unit-input"
+               @focus="closePlaceholder('referee')" @blur="testReferee">
+      </div>
+
+      <div class="unit-input-interval txt-red">
+        <span v-if="refereeWA!=''">{{refereeWA}}</span>
+      </div>
+
+
+      <!--同意协议-->
+      <div class="unit-input-container-pc agreement">
+        <!--        <MobileCheckbox v-show="isMobile" :agreement="agreement" :changeAgreement='changeAgreement'></MobileCheckbox>-->
+        <!--        <input v-show="!isMobile" type="checkbox" v-model="agreement" name="agreement" id="agreement" @click="testAgreement">-->
+        <!--        <input v-show="!isMobile"  id="agreement" class="color-input-red" type="checkbox" name="agreement" value="#f0544d" />-->
+        <!--        <label  for="color-input-red"></label >-->
+        <span @click="changeAgreement">
+          <img v-show="!agreement" src="../../assets/noselect.png" />
+          <img v-show="agreement" src="../../assets/select.png" />
+        </span>
+
+        &nbsp;&nbsp;
+        <label for="agreement" @click="changeAgreement">{{$t("register.agree")}}</label>
+        <router-link class="agreement-detail" to="/index/help/userAgreement" target="_blank">
+          {{$t("register.agreement")}}
+        </router-link>
+      </div>
+      <div class="unit-input-interval txt-red">
+        <span v-if="agreementWA!=''">{{agreementWA}}</span>
+      </div>
+      <!--按钮-->
+      <div class="unit-input-container-pc container-button">
+        <button v-if="!sending" class="set-button" @click="registerCommit">
+          {{$t("register.register")}}
+        </button>
+        <button v-if="sending" class="set-button registering-button btn_grey" disabled>{{$t('register.registering')}}
+        </button>
+      </div>
+      <!--<div class="input-interval"></div>-->
+      <!--已有账号-->
+      <!--      <div class="flex-center already-register unit-input-container">{{$t("register.haveID")}}，-->
+      <!--        <router-link to="/index/sign/login" class="text_blue">{{$t("register.login")}}</router-link>-->
+      <!--      </div>-->
+    </div>
+    <!--PC端邮箱注册结束-->
+
+
+    <!--&lt;!&ndash;手机注册开始&ndash;&gt;-->
+    <!--<div v-if="registerType==0" class="unit-container flex-center">-->
+
+      <!--&lt;!&ndash;手机&ndash;&gt;-->
+      <!--<div class="flex unit-input-container"-->
+           <!--:class="{'wrong-answer': userNameWA!=''}">-->
+        <!--&lt;!&ndash;<span class="flex-center unit-input-container-title">&ndash;&gt;-->
+        <!--&lt;!&ndash;<img class="unit-input-container-title-img" v-if="isMobile" src="../../assets/h5form/mobile_phone.png" alt="">&ndash;&gt;-->
+        <!--&lt;!&ndash;<img v-if="!isMobile" src="../../assets/手机.png" alt="">&ndash;&gt;-->
+        <!--&lt;!&ndash;</span>&ndash;&gt;-->
+        <!--<input type="text" :placeholder='$t("register.phone")' v-model="userName" @blur="testUserName"-->
+               <!--class="unit-input">-->
+        <!--&lt;!&ndash;<input type="text" :placeholder='$t("register.mail")' v-model="userName" @blur="testUserName"&ndash;&gt;-->
+        <!--&lt;!&ndash;class="unit-input">&ndash;&gt;-->
+      <!--</div>-->
+      <!--<div class="unit-input-interval txt-red">-->
+        <!--<span v-if="userNameWA!=''">{{userNameWA}}</span>-->
+      <!--</div>-->
+
+      <!--&lt;!&ndash;验证码&ndash;&gt;-->
+      <!--<div class="unit-input-container flex double-input-container"-->
+           <!--:class="{'wrong-answer':verificationCodeWA!=''}">-->
+        <!--&lt;!&ndash;<span class="flex-center unit-input-container-title">&ndash;&gt;-->
+        <!--&lt;!&ndash;<img class="unit-input-container-title-img" v-if="isMobile" src="../../assets/h5form/mobile_check.png" alt="">&ndash;&gt;-->
+        <!--&lt;!&ndash;<img v-if="!isMobile" src="" alt="">&ndash;&gt;-->
+        <!--&lt;!&ndash;</span>&ndash;&gt;-->
+        <!--<span></span>-->
+        <!--<input type="text" :placeholder='$t("register.identifyingCode")' v-model="verificationCode"-->
+               <!--@blur="testVerificationCode" class="unit-input">-->
+        <!--<div v-if="isMobile" class="cutter-line flex-center">|</div>-->
+
+        <!--<template v-if="captchaReady">-->
+          <!--<span class="flex-center identifying-code-button-on btn_blue" v-if="!getVerificationCode"-->
+                <!--@click="clickGeetest">{{$t("register.achieve")}}</span>-->
+          <!--<span class="flex-center identifying-code-button-close btn_grey"-->
+                <!--v-if="getVerificationCode">{{getVerificationCodeCountdown}}</span>-->
+        <!--</template>-->
+        <!--<template v-if="!captchaReady">-->
+            <!--<span class="flex-center button-grey">-->
+              <!--{{$t('register.disabled')}}-->
+            <!--</span>-->
+        <!--</template>-->
+      <!--</div>-->
+      <!--<div class="unit-input-interval txt-red">-->
+        <!--<span v-if="verificationCodeWA!=''">{{verificationCodeWA}}</span>-->
+      <!--</div>-->
+
+
+      <!--&lt;!&ndash;密码&ndash;&gt;-->
+      <!--<div class="unit-input-container flex"-->
+           <!--:class="{'wrong-answer':pswWA!=''}">-->
+        <!--&lt;!&ndash;<span class="flex-center unit-input-container-title">&ndash;&gt;-->
+        <!--&lt;!&ndash;<img class="unit-input-container-title-img" v-if="isMobile" src="../../assets/h5form/mobile_passward.png"&ndash;&gt;-->
+        <!--&lt;!&ndash;alt="">&ndash;&gt;-->
+        <!--&lt;!&ndash;<img v-if="!isMobile" src="" alt="">&ndash;&gt;-->
+        <!--&lt;!&ndash;</span>&ndash;&gt;-->
+        <!--<input type="password" :placeholder='$t("register.passwordInput")' v-model="psw" @blur="testPsw"-->
+               <!--class="unit-input"-->
+               <!--@input="testInputIngPsw">-->
+      <!--</div>-->
+      <!--<div class="unit-input-interval txt-red">-->
+        <!--<span v-if="pswWA!=''">{{pswWA}}</span>-->
+      <!--</div>-->
+
+      <!--&lt;!&ndash;确认密码&ndash;&gt;-->
+      <!--<div class="unit-input-container flex"-->
+           <!--:class="{'wrong-answer':pswConfirmWA!=''}">-->
+        <!--&lt;!&ndash;<span class="flex-center unit-input-container-title">&ndash;&gt;-->
+        <!--&lt;!&ndash;<img class="unit-input-container-title-img" v-if="isMobile" src="../../assets/h5form/mobile_passward.png"&ndash;&gt;-->
+        <!--&lt;!&ndash;alt="">&ndash;&gt;-->
+        <!--&lt;!&ndash;<img v-if="!isMobile" src="" alt="">&ndash;&gt;-->
+        <!--&lt;!&ndash;</span>&ndash;&gt;-->
+        <!--<input type="password" :placeholder='$t("register.passwordConfirm")' v-model="pswConfirm" @blur="testPswConfirm"-->
+               <!--class="unit-input"-->
+               <!--@input="testInputIngPswConfirm">-->
+      <!--</div>-->
+      <!--<div class="unit-input-interval txt-red">-->
+        <!--<span v-if="pswConfirmWA!=''">{{pswConfirmWA}}</span>-->
+      <!--</div>-->
+      <!--&lt;!&ndash;推荐人&ndash;&gt;-->
+      <!--<div class="unit-input-container flex"-->
+           <!--:class="{'wrong-answer':refereeWA!=''}">-->
+        <!--&lt;!&ndash;<span class="flex-center unit-input-container-title">&ndash;&gt;-->
+        <!--&lt;!&ndash;<img class="unit-input-container-title-img" v-if="isMobile" src="../../assets/h5form/mobile_user.png" alt="">&ndash;&gt;-->
+        <!--&lt;!&ndash;<img v-if="!isMobile" src="" alt="">&ndash;&gt;-->
+        <!--&lt;!&ndash;</span>&ndash;&gt;-->
+        <!--<input type="text" :placeholder='$t("register.referee")' v-model="referee" class="unit-input"-->
+               <!--@blur="testReferee">-->
+      <!--</div>-->
+
+      <!--<div class="unit-input-interval txt-red">-->
+        <!--<span v-if="refereeWA!=''">{{refereeWA}}</span>-->
+      <!--</div>-->
+
+
+      <!--&lt;!&ndash;同意协议&ndash;&gt;-->
+      <!--<div class="unit-input-container agreement">-->
+        <!--<MobileCheckbox v-show="isMobile" :agreement="agreement" :changeAgreement='changeAgreement'></MobileCheckbox>-->
+        <!--<input v-show="!isMobile" type="checkbox" v-model="agreement" name="agreement" id="agreementM" @click="testAgreement">-->
+        <!--<label for="agreement">{{$t("register.agree")}}</label>-->
+        <!--<router-link class="agreement-detail" to="/index/help/userAgreement" target="_blank">-->
+          <!--{{$t("register.agreement")}}-->
+        <!--</router-link>-->
+      <!--</div>-->
+      <!--<div class="unit-input-interval txt-red">-->
+        <!--<span v-if="agreementWA!=''">{{agreementWA}}</span>-->
+      <!--</div>-->
+      <!--&lt;!&ndash;按钮&ndash;&gt;-->
+      <!--<div class="unit-input-container container-button">-->
+        <!--<button v-if="!sending" class="set-button before-register-button btn_blue" @click="registerCommit">-->
+          <!--{{$t("register.register")}}-->
+        <!--</button>-->
+        <!--<button v-if="sending" class="set-button registering-button btn_grey" disabled>{{$t('register.registering')}}-->
+        <!--</button>-->
+      <!--</div>-->
+      <!--&lt;!&ndash;<div class="input-interval"></div>&ndash;&gt;-->
+      <!--&lt;!&ndash;已有账号&ndash;&gt;-->
+      <!--<div class="already-register unit-input-container flex-center">{{$t("register.haveID")}}，-->
+        <!--<router-link to="/index/sign/login" class="text_blue">{{$t("register.login")}}</router-link>-->
+      <!--</div>-->
+    <!--</div>-->
+    <!--&lt;!&ndash;手机注册结束&ndash;&gt;-->
+
+  </div>
+
+  <PopupPrompt :popOpen="popOpen" :popClose="popClose" :popType="popType" :popText="popText"/>
+
+
+</div>

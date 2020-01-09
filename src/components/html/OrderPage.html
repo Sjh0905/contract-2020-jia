@@ -1,0 +1,89 @@
+<div class="order-page-container">
+  <!--标头-->
+  <!--<div class="container-top">-->
+    <!--<div class="container-top-title flex">-->
+
+
+      <!--<div class="title-detail flex-center op-market">-->
+        <!--<span class="market-span title-detail-span">{{$t('orderPage.market')}}</span>-->
+        <!--<div class="title-detail-container flex-center">-->
+          <!--<select name="target" class="market-select select-detail">-->
+            <!--<option value="" disabled selected style="display:none">{{$t('orderPage.currency')}}</option>-->
+            <!--<option value="">BTC</option>-->
+          <!--</select>-->
+          <!--<span>/</span>-->
+          <!--<select name="origin" class="market-select select-detail">-->
+            <!--<option value="" disabled selected style="display:none">{{$t('orderPage.currency')}}</option>-->
+            <!--<option value="">BTC</option>-->
+          <!--</select>-->
+        <!--</div>-->
+      <!--</div>-->
+
+      <!--<div class="title-detail flex-center op-category">-->
+        <!--<span class="category-span title-detail-span">{{$t('orderPage.category')}}</span>-->
+        <!--<div class="title-detail-container flex-center">-->
+          <!--<select name="" class="category-select select-detail">-->
+            <!--<option value="" disabled selected style="display:none">{{$t('orderPage.all')}}</option>-->
+            <!--<option value="">BTC</option>-->
+          <!--</select>-->
+        <!--</div>-->
+      <!--</div>-->
+
+
+      <!--<div class="title-detail flex-center op-state">-->
+        <!--<span class="state-span title-detail-span">{{$t('orderPage.category')}}</span>-->
+        <!--<div class="title-detail-container flex-center">-->
+          <!--<select name="" class="state-select select-detail">-->
+            <!--<option value="" disabled selected style="display:none">{{$t('orderPage.all')}}</option>-->
+            <!--<option value="">BTC</option>-->
+          <!--</select>-->
+        <!--</div>-->
+      <!--</div>-->
+
+
+      <!--<div class="title-detail flex-center op-time">-->
+        <!--<span class="time-span title-detail-span">{{$t('orderPage.time')}}</span>-->
+        <!--<div class="title-detail-container flex-center">-->
+          <!--<Datepicker v-model="startTime" input-class="time-input-css" wrapper-class="time-out-css"></Datepicker>-->
+          <!--<span>-</span>-->
+          <!--<Datepicker v-model="endTime" input-class="time-input-css" wrapper-class="time-out-css"></Datepicker>-->
+        <!--</div>-->
+      <!--</div>-->
+
+      <!--<div class="title-detail flex-center op-quick-search">-->
+        <!--<button class="search-button op-button">{{$t('orderPage.quickSearch')}}</button>-->
+      <!--</div>-->
+
+
+      <!--<div class="title-detail flex-center op-search">-->
+        <!--<button class="search-button op-button">{{$t('orderPage.search')}}</button>-->
+        <!--<button class="reset-button op-button">{{$t('orderPage.reset')}}</button>-->
+      <!--</div>-->
+
+
+      <!--<div class="title-detail flex-center op-prompt">-->
+        <!--<input type="checkbox" id="only-completed" class="only-completed">-->
+        <!--<label for="only-completed">{{$t('orderPage.onlyCompleted')}}</label>-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
+
+  <!--标签-->
+  <div class="container-bottom">
+    <div class="detail-title flex">
+      <router-link to="/index/order/currentEntrust" class="title-tab flex-center box_shadow tab-item-first" active-class="selected text_blue">
+        {{$t('orderPage.currentEntrust')}}
+      </router-link>
+      <router-link to="/index/order/historicalEntrust" class="title-tab flex-center margin-a-little box_shadow tab-item-last"
+                   active-class="selected text_blue">
+        {{$t('orderPage.historicalEntrust')}}
+      </router-link>
+    </div>
+    <div class="detail-container">
+      <router-view></router-view>
+    </div>
+  </div>
+  <div class="clear"></div>
+
+
+</div>

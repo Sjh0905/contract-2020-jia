@@ -1,0 +1,98 @@
+.OrderPageHistoricalEntrustmentDetail-container {
+  width: 100%;
+  position: relative;
+  /*box-shadow: ;*/
+  /*min-height: 50px;*/
+  box-shadow: 0 0 1px 1px rgba(118, 125, 127, 0.08) inset;
+  background-color: #fcfcfc;
+
+
+}
+
+.loading-min-height {
+  min-height: 50px;
+}
+
+.hidden-detail-container {
+  width: 100%;
+  margin: 0 auto;
+  /*border: 1px solid #e6e6e6;*/
+}
+
+.hidden-detail-li {
+  text-align: center;
+  padding: 5px 0;
+
+}
+
+.hidden-detail-li-title {
+  /*background-color: #f7f7f7;*/
+  /*background-color: #fff;*/
+
+  /*border-bottom: 1px solid #e6e6e6;*/
+}
+
+.hidden-detail-li-article:nth-of-type(2n) {
+  /*background-color: #fff;*/
+}
+
+.hidden-detail-li-article:nth-of-type(2n-1) {
+  /*background-color:rgba(196,62,78,0.03);*/
+}
+
+.hidden-detail-title {
+  flex: 16.6;
+  font-size: 1.2rem;
+
+}
+
+/*费率详情*/
+.hidden-detail-article {
+  flex: 16.6;
+  font-size: 1.2rem;
+  /*padding:11px 0;*/
+  position: relative;
+}
+
+/*费率详情box*/
+.hidden-detail-article-box {
+  position: relative;
+  width: 100%;
+  height: 100%;
+
+}
+
+/*实收应收显示*/
+.hidden-detail-article-title {
+  position: absolute;
+  left: 15px;
+}
+
+.hidden-detail-article-title-en {
+  position: absolute;
+  left: -16px;
+}
+
+.hidden-detail-article-item {
+  display: block;
+}
+
+.hidden-detail-article-original-currency-title {
+
+}
+
+.hidden-detail-article-original-currency-item {
+
+}
+
+.hidden-detail-article-really-currency-title {
+  /*position: absolute;*/
+}
+
+.hidden-detail-article-really-currency-item {
+  /*display: block;*/
+  /*float:right;*/
+}
+
+
+

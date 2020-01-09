@@ -1,0 +1,392 @@
+.index_home_market_list_body1 {
+  /*margin: 0 auto;*/
+  width: 100%;
+  min-height: 700px;
+  /*margin-top: 44px;*/
+  padding-top: 44px;
+  padding-bottom: 10px;
+  box-sizing: border-box;
+  background-color: #FFFFFF;
+}
+
+.index_home_market_list_body {
+  margin: 0 auto;
+  width: 1200px;
+  min-height: 500px;
+  /*margin-top: 44px;*/
+  background-color: #FFFFFF;
+}
+
+.dark {
+  background-color: #212439;
+}
+
+.light {
+  background-color: #fff;
+}
+
+.showmany{
+  width: 100%;
+  height: 100px;
+  line-height: 100px;
+  text-align: center;
+  font-family: PingFangSC-Regular;
+  font-size: 14px;
+  color: #172A4D;
+  letter-spacing: 0;
+}
+
+/*新样式*/
+.tabs-container {
+  width: 100%;
+  height: 45px;
+  line-height: 45px;
+  font-size: 18px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  /*border:1px solid red;*/
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.title-tab {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+ /* padding: 0 46px;*/
+
+}
+
+.light .tabs-container {
+  color: rgba(0, 0, 0, 0.5);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.light .selected {
+  color: #000000;
+}
+
+.dark .selected {
+  color: #40A9FF;
+}
+
+.market-list-icon {
+  width: 24px;
+  display: block;
+  margin-right: 8px;
+}
+
+/* 免图标 */
+.reduce_icon {
+  position: absolute;
+  display: block;
+  width: 28px;
+  height: 16px;
+  line-height: 16px;
+  font-size: 12px;
+  color: #fff;
+  font-weight: 100;
+  top: -10px;
+  right: -3px;
+  transform: translateX(100%);
+  background-image: linear-gradient(90deg, #FF433A 0%, #FF9D17 100%);
+  border-radius: 7px 7px 7px 0;
+  z-index: 100;
+  text-align: center;
+}
+
+.reduce_icon font {
+}
+
+.reduce_icon_line {
+  position: absolute;
+  height: 1px;
+  left: 3px;
+  right: 3px;
+  top: 50%;
+}
+
+/*市场列表*/
+.market-list-container {
+  width: 100%;
+  /*padding-left: 3.5%;*/
+  height: 45px;
+  line-height: 45px;
+  font-size: 16px;
+  /*color: #666;*/
+}
+
+.light .market-list-container {
+  /*color: rgba(0, 0, 0, 0.6);*/
+}
+
+.market-list-detail {
+  padding-right: 45px;
+}
+
+.market-list-click-area {
+  position: relative;
+  align-items: center;
+  line-height: 24px;
+  margin-top: 12px;
+}
+.imageRight {
+  margin-right:4px
+}
+
+.selected-market {
+  padding-bottom: 11px;
+  border-bottom: 3px solid #C43E4E;
+  color: #C43E4E;
+}
+
+.market-detail-container {
+  flex-direction: column;
+  width: 100%;
+  margin-top: 2px;
+}
+
+.market-detail-item {
+  height: 51px;
+  line-height: 51px;
+  width: 100%;
+  /*padding: 0 46px;*/
+  box-sizing: border-box;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-bottom-color:#F7F8FA;
+}
+
+.market-detail-item .imgSelect {
+   margin: 18px 8px 0 0;
+   height: 12px;
+ }
+
+.market-detail-title {
+  font-size: 14px;
+  color: #8994A5;
+}
+
+.market-detail-title-nav {
+  padding-left: 19px;
+  box-sizing: border-box;
+}
+
+/*.light .market-detail-title {*/
+/*  color: rgba(0, 0, 0, 0.4);*/
+/*}*/
+
+.self-chose {
+  flex: 4.9;
+  align-items: center;
+}
+
+.currency {
+  flex: 14.9;
+  font-family: Roboto-Medium;
+  font-size: 14px;
+  color: #172A4D;
+  letter-spacing: 0;
+}
+
+.currency-title {
+  flex: 14.9;
+  /*font-weight: 600;*/
+}
+
+.currency-market {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.2);
+}
+
+.light .currency-market {
+  color: rgba(0, 0, 0, 0.2);
+}
+
+.latest-price {
+  flex: 19.9;
+  font-family: Roboto-Regular;
+  font-size: 14px;
+  color: #172A4D;
+  letter-spacing: 0;
+}
+
+.latest-price-title {
+  flex: 19.9;
+  /*font-weight: 600;*/
+}
+
+.rise-and-fall {
+  flex: 14.1;
+  text-align: right;
+}
+
+.rise-and-fall-title {
+  /*flex: 14.1;*/
+  /*font-weight: 600;*/
+  text-align: right;
+}
+
+.rise-and-fall-title span{
+  margin-right: 80px;
+}
+
+.rise-and-fall-green {
+  color: #02987D;
+
+}
+
+.spanwailv{
+  width: 94px;
+  height: 28px;
+  line-height: 28px;
+  background-color:rgba(2,152,125,0.08);
+  border-radius: 1px;
+  text-align: center;
+  margin: 11px auto auto 3px;
+}
+
+.sctab{
+  width: 100%;
+}
+.title-tab .shictab{
+  float: left;
+  text-align: left;
+}
+.title-tab .shicseach{
+  float: right;
+}
+
+.spanwaired{
+  width: 94px;
+  height: 28px;
+  line-height: 28px;
+  background-color:rgba(196,62,78,0.08);
+  border-radius: 1px;
+  text-align: center;
+  margin: 11px auto auto 3px;
+}
+
+.rise-and-fall-green span{
+
+}
+
+.rise-and-fall-red {
+  color: #C43E4E;
+}
+
+
+.dialog-input-text >>> .el-input__inner {
+  -web-kit-appearance: none;
+  -moz-appearance: none;
+  width: 271px;
+  height: 32px;
+  outline: 0;
+  opacity: 0.7;
+  border: 1px solid #B5BCC6;
+  border-radius: 1px;
+  font-family: PingFangSC-Regular;
+  font-size: 14px;
+  color: #8994A5;
+  letter-spacing: 0;
+  /*background-color: #F7F8FA;*/
+}
+
+.dialog-input-text >>> .el-input__icon{
+  color: #9ca9b5;
+}
+
+
+.highest-price {
+  flex: 19.9;
+  font-family: Roboto-Regular;
+  font-size: 14px;
+  color: #172A4D;
+  letter-spacing: 0;
+}
+
+.highest-price-title {
+  flex: 19.9;
+  /*font-weight: 600;*/
+}
+
+.minimum-price {
+  flex: 16.5;
+  font-family: Roboto-Regular;
+  font-size: 14px;
+  color: #172A4D;
+  letter-spacing: 0;
+}
+
+.minimum-price-title {
+  flex: 16.5;
+  /*font-weight: 600;*/
+}
+
+.volume-price {
+  flex: 9.9;
+  text-align: right;
+  font-family: Roboto-Regular;
+  font-size: 14px;
+  color: #172A4D;
+  letter-spacing: 0;
+  text-align: right;
+}
+
+.volume-price-title {
+  flex: 9.9;
+  text-align: right;
+  /*font-weight: 600;*/
+}
+
+.market-detail {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.light .market-detail {
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.valuation {
+  padding-left: 10px;
+  font-family: Roboto-Regular;
+  font-size: 14px;
+  color: #8994A5;
+  letter-spacing: 0;
+  line-height: 50px;
+}
+
+.light .valuation {
+  /*color: rgba(0, 0, 0, 0.4);*/
+}
+
+.market-detail:nth-of-type(2n) {
+  /*background-color: #23273C;*/
+}
+
+.light .market-detail:nth-of-type(2n) {
+  /*background-color: rgba(64, 169, 255, 0.04);*/
+}
+
+.market-detail:hover {
+  background-color: #F7F8FA;
+}
+
+.light .market-detail:hover {
+  background-color: #F7F8FA;
+}
+
+.no-record {
+  text-align: center;
+  padding: 40px 0;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.light .no-record {
+  color: rgba(0, 0, 0, 0.6);
+}
+.bizhong {
+  color: #172A4D !important;
+  /*width: 80px !important;*/
+  flex: 15.9;
+}

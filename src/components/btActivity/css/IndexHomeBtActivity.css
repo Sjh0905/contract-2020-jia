@@ -1,0 +1,121 @@
+.bt-activity-container {
+  margin: 0 auto;
+  width: 1280px;
+  padding-top: 20px;
+  padding-bottom: 15px;
+}
+
+.bt-activity-header {
+  text-align: center;
+}
+
+.bt-activity-article-box {
+  padding-top: 20px;
+}
+
+.bt-activity-header-title-box {
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 18px;
+  color: #333;
+}
+
+.bt-activity-header-title {
+  position: relative;
+}
+
+.bt-activity-question-icon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: -40px;
+}
+
+.bt-activity-header-title-prompt {
+  font-size: 14px;
+  line-height: 14px;
+  height: 14px;
+  color: #666;
+  margin-top: 10px;
+}
+
+.bt-activity-article {
+  padding: 27px 0;
+  height: 180px;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.bt-activity-article-detail-box {
+  width: 600px;
+  flex-direction: column;
+  align-items: center;
+  position:relative;
+}
+
+.bt-activity-article-detail-box-border {
+  border-left: 2px solid #f8f8f8;
+}
+
+.article-detail-title {
+  font-size: 18px;
+  height: 18px;
+  line-height: 18px;
+  color: #666;
+  margin-top: 20px;
+}
+
+.article-detail-detail {
+  font-size: 22px;
+  height: 22px;
+  line-height: 22px;
+  color: #333;
+  margin-top: 15px;
+}
+
+.article-detail-detail-one {
+  background: -webkit-gradient(linear, 0 50%, 100% 50%, from(#ffb566), to(#ff5252));
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+.article-detail-detail-two {
+  background: -webkit-gradient(linear, 0 50%, 100% 50%, from(#54e9ff), to(#5289ff));
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+.article-detail-prompt {
+  color: #666;
+  font-size: 14px;
+  line-height: 14px;
+  height: 14px;
+  margin-top: 24px;
+}
+
+.popup-window-article {
+  width: 500px;
+
+}
+
+.popup-window-article-detail-box {
+  margin-top: 15px;
+}
+
+.popup-window-article-title {
+  width: 50px;
+}
+
+.popup-window-article-detail {
+  width: 450px;
+}
+
+.popup-window-footer {
+  padding: 30px 0 15px 0;
+}
+
+.popup-window-button {
+  font-size: 14px;
+}

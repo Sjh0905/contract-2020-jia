@@ -1,0 +1,51 @@
+/*BDB折扣按钮*/
+.bdb-button-box {
+  display: block;
+  width: 32px;
+  height: 16px;
+  border-radius: 20px;
+  position: relative;
+  transition: all 80ms linear;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/*BDB折扣开放*/
+.bdb-button-box-open {
+  background-color: #C43E4E;
+}
+
+/*BDB折扣关闭*/
+.bdb-button-box-close {
+  background-color: #e5e5e5;
+}
+
+.bdb-button-toggle {
+  display: block;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  border-radius: 16px;
+  border: 1px solid #f9f9f9;
+  background-color: #fff;
+  cursor: pointer;
+  box-shadow: 0 1px 2px 1px rgba(0, 0, 0, 0.1);
+  transition: all 80ms linear;
+  box-sizing: border-box;
+
+}
+
+.bdb-button-toggle-open {
+  /*right: 0;*/
+  transform: translateY(-50%) translateX(100%);
+}
+
+.bdb-button-toggle-close {
+  /*left: 0;*/
+  transform: translateY(-50%) translateX(0);
+}
+
+/*----*/

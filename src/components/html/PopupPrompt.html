@@ -1,0 +1,47 @@
+<transition name="background">
+  <div class="popup-prompt-container" v-if="popOpen">
+    <div class="popup-prompt-background"></div>
+    <slot name="pop-detail">
+      <div class="prompt-detail flex-center trans" v-if="popOpen && popType===1 && !isMobile" :key="1">
+        <img src="../../assets/popPrompt-right.png" alt="" class="prompt-detail-img">
+        {{popText}}
+      </div>
+
+      <div class="prompt-detail flex-center trans" v-if="popOpen && popType===1 && isMobile" :key="1">
+        <div class="prompt-detail-mobile flex-center ">
+          <img src="../../assets/popPrompt-right.png" alt="" class="prompt-detail-img">
+          <div>
+            <div v-if="popText">{{popText}}</div>
+            <div v-if="popText2">{{popText2}}</div>
+          </div>
+
+        </div>
+      </div>
+
+
+      <div class="prompt-detail flex-center trans prompt-detail-text-error" v-if="popOpen && popType===0 && !isMobile" :key="2">
+        <img src="../../assets/错误PopPrompt.png" alt="" class="prompt-detail-img">
+        {{popText}}
+      </div>
+      <div class="prompt-detail flex-center trans prompt-detail-text-error prompt-detail-text-error" v-if="popOpen && popType===0 && isMobile" :key="2">
+        <div class="prompt-detail-mobile flex-center ">
+          <img src="../../assets/mobile_img/mobile_asset_commen/h5_prompt_error_icon.png" alt="" class="prompt-detail-img">
+          <div>
+            <div v-if="popText">{{popText}}</div>
+            <div v-if="popText2">{{popText2}}</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="prompt-detail flex-center prompt-loading" v-if="popOpen && popType===2 && !isMobile" :key="3">
+        <Loading/>
+      </div>
+
+      <div class="prompt-detail flex-center prompt-loading" v-if="popOpen && popType===2 && isMobile" :key="3">
+        <div class="prompt-detail-mobile flex-center ">
+          <Loading/>
+        </div>
+      </div>
+    </slot>
+  </div>
+</transition>

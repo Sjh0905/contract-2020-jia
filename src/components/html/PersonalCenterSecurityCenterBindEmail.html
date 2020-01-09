@@ -1,0 +1,147 @@
+<div class="bind-mobile-container min-height border_radius">
+  <Loading v-if="loading"/>
+  <template v-if="!loading && !isMobile">
+    <div class="bind-mobile-title flex">
+      <span></span>
+      <span>
+        <!--绑定邮箱-->
+        {{$t('bindEmail')}}
+      </span>
+    </div>
+    <div class="bind-mobile-article">
+      <!--输入登录密码 begin-->
+      <div class="input-password input-container">
+        <div class="detail-center">
+          <span class="detail-title">{{$t('psw')}}</span>
+          <input type="password" v-model="psw" class="unit-input" :class="{'wrong-border':pswWA!==''}" @blur="testPsw">
+          <span class="wrong-msg detail-prompt" v-if="pswWA!==''">{{pswWA}}</span>
+        </div>
+      </div>
+      <!--输入登录密码 end-->
+
+      <!--输入邮箱 begin-->
+      <div class="phone-number input-container">
+        <div class="detail-center">
+          <span class="detail-title">
+            <!--邮箱：-->
+            {{$t('email')}}
+          </span>
+          <input type="text" v-model="email" class="unit-input" :class="{'wrong-border':emailWA!==''}"
+                 @blur="testEmail">
+          <span class="wrong-msg detail-prompt" v-if="emailWA!==''">{{emailWA}}</span>
+        </div>
+      </div>
+      <!--输入邮箱 end-->
+
+      <!--输入邮箱验证码 begin-->
+      <div class="verification-code input-container double-input-container">
+        <div class="detail-center">
+          <span class="detail-title">
+            <!--邮箱验证码：-->
+            {{$t('emailVerificationCode')}}
+          </span>
+          <input type="text" v-model="verificationCode" class="unit-input"
+                 :class="{'wrong-border':verificationCodeWA!==''}"
+                 @blur="testVerificationCode"
+          >
+          <!--<template v-if="captchaReady">-->
+            <button @click="postVerificationCode" class="btn_blue" v-if="!getVerificationCode">
+              {{$t('send')}}
+            </button>
+            <button class="click-verification btn_grey" v-else disabled>
+              {{getVerificationCodeCountdown}}s
+            </button>
+          <!--</template>-->
+          <!--<template v-else>-->
+            <!--<button class="click-verification btn_grey" disabled>-->
+              <!--{{$t('disabled')}}-->
+            <!--</button>-->
+          <!--</template>-->
+          <span class="wrong-msg detail-prompt" v-if="verificationCodeWA">{{verificationCodeWA}}</span>
+        </div>
+      </div>
+      <!--输入邮箱验证码 end-->
+
+      <!--点击发送 begin-->
+      <div class="ensure input-container">
+        <div class="detail-center">
+          <button @click="commit" class="btn_blue" v-if="!sending">
+            {{$t('ensure')}}
+          </button>
+          <button disabled v-else class="btn_grey">{{$t('binding')}}</button>
+        </div>
+      </div>
+      <!--点击发送 end-->
+
+    </div>
+
+
+  </template>
+
+  <template class="mobile-content" v-if="!loading && isMobile">
+
+    <div class="unit-container flex-center">
+      <!--密码-->
+      <div class="unit-input-container flex" :class="pswFocus===true?'unit-input-container-activity':''">
+        <span class="flex-center unit-input-container-title">
+          <img class="unit-input-container-title-img-psw" src="../../assets/mobile_img/mobile_input_icon/password_icon.png" alt="">
+        </span>
+        <input type="password" placeholder="请输入登录密码" v-model="psw"
+               @blur="testPsw" @focus="focusPsw"
+               class="unit-input">
+      </div>
+      <div v-if="pswWA!=''" class="unit-input-interval text_blue">
+        <span>{{pswWA}}</span>
+      </div>
+      <!--邮箱-->
+      <div class="unit-input-container flex" :class="emailFocus===true?'unit-input-container-activity':''">
+        <span class="flex-center unit-input-container-title">
+          <img class="unit-input-container-title-img-email" src="../../assets/mobile_img/mobile_input_icon/email_icon.png" alt="">
+        </span>
+        <input type="text" placeholder="请输入邮箱" v-model="email"
+               @blur="testEmail" @focus="focusEmail"
+               class="unit-input">
+      </div>
+      <div v-if="emailWA!=''" class="unit-input-interval text_blue">
+        <span>{{emailWA}}</span>
+      </div>
+      <!--发送验证码-->
+      <div class="unit-input-container flex double-input-container" :class="verificationFocus===true?'unit-input-container-activity':''">
+        <span class="flex-center unit-input-container-title">
+          <img class="unit-input-container-title-img-verification" src="../../assets/mobile_img/mobile_input_icon/verification_icon.png" alt="">
+        </span>
+        <input type="text" placeholder="请输入邮箱验证码"
+               v-model="verificationCode"
+               @blur="testVerificationCode" @focus="focusVerificationCode" class="unit-input">
+        <div class="cutter-line flex-center">|</div>
+        <template v-if="captchaReady">
+          <span class="flex-center identifying-code-button-on" v-if="!getVerificationCode"
+                @click="clickGeetest">{{$t('send')}}</span>
+          <span class="flex-center identifying-code-button-close"
+                v-if="getVerificationCode">{{getVerificationCodeCountdown}}</span>
+        </template>
+        <template v-else>
+           <span class="flex-center identifying-code-button-close">
+             {{$t('disabled')}}
+           </span>
+        </template>
+      </div>
+      <div v-if="verificationCodeWA!=''" class="unit-input-interval text_blue">
+        <span>{{verificationCodeWA}}</span>
+      </div>
+      <!--按钮-->
+      <div class="unit-btn-container container-button">
+        <button @click="commit" class="set-button before-register-button" v-if="!sending">
+          {{$t('ensure')}}
+        </button>
+        <button disabled class="set-button registering-button" v-else>
+          {{$t('binding')}}
+        </button>
+      </div>
+    </div>
+  </template>
+
+  <PopupPrompt :popOpen="popOpen" :popClose="popClose" :popType="popType" :popText="popText"/>
+
+
+</div>

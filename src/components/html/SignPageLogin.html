@@ -1,0 +1,359 @@
+<div class="Login-container " v-if="!loading">
+
+  <!--内容 begin-->
+  <div class="all-container box_shadow border_radius">
+
+    <!--标题 欢迎登陆 pc begin-->
+    <div class="unit-title"  v-if="isMobile">
+<!--      <span class="unit-title-line"></span>-->
+      <span class="unit-title-text">{{$t("welcome")}}</span>
+<!--      <span class="unit-title-line"></span>-->
+    </div>
+    <div class="unit-title-pc"  v-if="!isMobile">
+      <!--      <span class="unit-title-line"></span>-->
+      <span class="unit-title-text-pc">{{$t("register.WelcomeToLogin")}}</span>
+      <!--      <span class="unit-title-line"></span>-->
+    </div>
+    <!--标题 欢迎登陆 pc end-->
+
+    <!--标题图 h5 begin-->
+    <!--<div v-if="isMobile" class="header-box">-->
+      <!--<img class="header-box-img" src="../../assets/mobile_img/mobile_sign_login/EUNEX_en_logo.png" alt="">-->
+    <!--</div>-->
+    <!--标题图 h5 end-->
+
+    <!--选择登录形式 pc begin-->
+    <!--<div v-if="!isMobile" class="choose-login-type-container flex">-->
+      <!--<div class="login-type-container login-type-container-left pointer"-->
+           <!--:class="{'login-type-select-container':loginType===0}"-->
+           <!--@click="choseLoginType(0)"-->
+      <!--&gt;-->
+        <!--&lt;!&ndash;手机登录&ndash;&gt;-->
+        <!--{{$t('loginTypeMobile')}}-->
+      <!--</div>-->
+      <!--<div class="login-type-container login-type-container-right pointer "-->
+           <!--:class="{'login-type-select-container':loginType===1}"-->
+           <!--@click="choseLoginType(1)"-->
+      <!--&gt;-->
+        <!--&lt;!&ndash;邮箱登录&ndash;&gt;-->
+        <!--{{$t('loginTypeEmail')}}-->
+      <!--</div>-->
+    <!--</div>-->
+    <!--选择登录形式 pc end-->
+
+    <!--选择登录形式 h5 begin-->
+    <div v-if="isMobile" class="mobile-choose-login-type-box">
+      <!--<div class="mobile-choose-login-type-item" :class="{'mobile-choose-login-type-item-activity':loginType===0}"-->
+           <!--@click="choseLoginType(0)">-->
+        <!--&lt;!&ndash;手机登录&ndash;&gt;-->
+        <!--{{$t('loginTypeMobile')}}-->
+      <!--</div>-->
+      <!--<div class="mobile-choose-login-type-item" :class="{'mobile-choose-login-type-item-activity':loginType===1}"-->
+           <!--@click="choseLoginType(1)">-->
+        <!--&lt;!&ndash;邮箱登录&ndash;&gt;-->
+        <!--{{$t('loginTypeEmail')}}-->
+      <!--</div>-->
+    </div>
+    <!--选择登录形式 h5 end-->
+
+
+
+
+
+
+
+
+    <!--安全提示 begin-->
+    <div class="security-box">
+      <!--<p class="security-detail-title flex-center">-->
+        <!--<img src="../../assets/sign/sign-login-notice.png" alt="" class="security-detail-title-icon">-->
+        <!--&lt;!&ndash;在您登录之前，请确认访问网址为EUNEX官方网站&ndash;&gt;-->
+        <!--{{$t('securityPrompt')}}-->
+      <!--</p>-->
+      <!--<p class="security-detail-article text_blue">www.eunex.group</p>-->
+    </div>
+    <!--安全提示 end-->
+
+    <div class="unit-container flex-center">
+
+
+      <!--手机登录 pc begin-->
+      <!--<template v-if="loginType==0 && !isMobile">-->
+        <!--&lt;!&ndash;输入手机 begin&ndash;&gt;-->
+        <!--<div class="flex unit-input-container "-->
+             <!--:class="{'wrong-answer':mobileWA!==''}">-->
+          <!--<span class="flex-center unit-input-container-title">-->
+            <!--<span class="input-icon mobile-icon"></span>-->
+            <!--&lt;!&ndash;<img class="unit-input-container-title-img" v-if="isMobile" src="../../assets/h5form/mobile_mail.png" alt="">&ndash;&gt;-->
+            <!--&lt;!&ndash;<img v-if="!isMobile" src="" alt="">&ndash;&gt;-->
+          <!--</span>-->
+          <!--<input type="text" :placeholder="$t('mobilePlaceholder')" v-model="mobile" @blur="testMobile"-->
+                 <!--class="unit-input">-->
+        <!--</div>-->
+        <!--&lt;!&ndash;输入手机 end&ndash;&gt;-->
+
+        <!--&lt;!&ndash;手机错误提示 begin&ndash;&gt;-->
+        <!--<div class="unit-input-interval txt-red">-->
+          <!--<span v-if="mobileWA!==''">{{mobileWA}}</span>-->
+        <!--</div>-->
+        <!--&lt;!&ndash;邮箱错误提示 end&ndash;&gt;-->
+
+        <!--&lt;!&ndash;输入密码 begin&ndash;&gt;-->
+        <!--<div class="flex unit-input-container" :class="{'wrong-answer':mobilePswWA!==''}">-->
+          <!--<span class="flex-center unit-input-container-title">-->
+            <!--&lt;!&ndash;<img class="unit-input-container-title-img" v-if="isMobile" src="../../assets/h5form/mobile_passward.png"&ndash;&gt;-->
+            <!--&lt;!&ndash;alt="">&ndash;&gt;-->
+            <!--&lt;!&ndash;<img v-if="!isMobile" src="" alt="">&ndash;&gt;-->
+            <!--<span class="input-icon mobile-psw-icon"></span>-->
+          <!--</span>-->
+          <!--<input type="password" :placeholder='$t("psw")' v-model="mobilePsw" @blur="testMobilePsw" class="unit-input"-->
+          <!--&gt;-->
+        <!--</div>-->
+        <!--&lt;!&ndash;输入密码 end&ndash;&gt;-->
+
+        <!--&lt;!&ndash;密码错误提示 begin&ndash;&gt;-->
+        <!--<div class="unit-input-interval txt-red">-->
+          <!--<span v-if="mobilePswWA!==''">{{mobilePswWA}}</span>-->
+        <!--</div>-->
+        <!--&lt;!&ndash;密码错误提示 end&ndash;&gt;-->
+      <!--</template>-->
+      <!--手机登录 pc end-->
+
+      <!--手机登录 h5 begin-->
+      <!--<template v-if="loginType==0 && isMobile">-->
+        <!--&lt;!&ndash;h5输入手机 begin&ndash;&gt;-->
+        <!--<div class="flex unit-input-container" :class="mobileFocus===true?'unit-input-container-activity':''">-->
+          <!--<span class="flex-center unit-input-container-title">-->
+            <!--<img class="unit-input-container-title-img-mobile"-->
+                 <!--src="../../assets/mobile_img/mobile_input_icon/mobile_icon.png" alt="">-->
+          <!--</span>-->
+          <!--<input type="text" placeholder='请输入手机号' v-model="mobile" @blur="testMobile" @focus="closeTestMobile"-->
+                 <!--@input="inputTestMobile" class="unit-input">-->
+        <!--</div>-->
+        <!--&lt;!&ndash;h5输入手机 end&ndash;&gt;-->
+
+        <!--&lt;!&ndash;h5手机错误提示 begin&ndash;&gt;-->
+        <!--<div v-if="mobileWA!=''" class="unit-input-interval text_blue">-->
+          <!--<span v-if="mobileWA!==''">{{mobileWA}}</span>-->
+        <!--</div>-->
+
+        <!--&lt;!&ndash;输入密码 begin&ndash;&gt;-->
+        <!--<div class="flex unit-input-container" :class="mobilePswFocus===true?'unit-input-container-activity':''">-->
+          <!--<span class="flex-center unit-input-container-title">-->
+            <!--<img class="unit-input-container-title-img-password"-->
+                 <!--src="../../assets/mobile_img/mobile_input_icon/password_icon.png" alt="">-->
+          <!--</span>-->
+          <!--<input type="password" placeholder='请输入密码' v-model="mobilePsw" @blur="testMobilePsw"-->
+                 <!--@focus="closeTestMobilePsw" class="unit-input">-->
+        <!--</div>-->
+        <!--&lt;!&ndash;输入密码 end&ndash;&gt;-->
+
+        <!--&lt;!&ndash;密码错误提示 begin&ndash;&gt;-->
+        <!--<div v-if="mobilePswWA!=''" class="unit-input-interval text_blue">-->
+          <!--<span v-if="mobilePswWA!==''">{{mobilePswWA}}</span>-->
+        <!--</div>-->
+        <!--&lt;!&ndash;密码错误提示 end&ndash;&gt;-->
+
+      <!--</template>-->
+      <!--手机登录 h5 end-->
+
+      <!--邮箱登录 pc begin-->
+      <template v-if="!isMobile">
+
+        <!--输入邮箱 begin-->
+        <div class="flex unit-input-container-pc "
+             :class="{'wrong-answer':userNameWA!==''}">
+        <!--<span class="flex-center unit-input-container-title">-->
+          <!--&lt;!&ndash;<img class="unit-input-container-title-img" v-if="isMobile" src="../../assets/h5form/mobile_mail.png" alt="">&ndash;&gt;-->
+          <!--&lt;!&ndash;<img v-if="!isMobile" src="" alt="">&ndash;&gt;-->
+          <!--<span class="input-icon email-icon"></span>-->
+        <!--</span>-->
+          <input type="text" :placeholder='userNamePlaceholderShow && $t("mail") || ""' v-model="userName" @focus="closePlaceholder('userName')" @blur="testUserName"
+                 class="unit-input">
+        </div>
+        <!--输入邮箱 end-->
+
+        <!--邮箱错误提示 begin-->
+        <div class="unit-input-interval txt-red">
+          <span v-if="userNameWA!==''">{{userNameWA}}</span>
+        </div>
+        <!--邮箱错误提示 end-->
+
+        <!--输入密码 begin-->
+        <div class="flex unit-input-container-pc" :class="{'wrong-answer':pswWA!==''}">
+        <!--<span class="flex-center unit-input-container-title">-->
+          <!--&lt;!&ndash;<img class="unit-input-container-title-img" v-if="isMobile" src="../../assets/h5form/mobile_passward.png"&ndash;&gt;-->
+          <!--&lt;!&ndash;alt="">&ndash;&gt;-->
+          <!--&lt;!&ndash;<img v-if="!isMobile" src="" alt="">&ndash;&gt;-->
+          <!--<span class="input-icon psw-icon"></span>-->
+        <!--</span>-->
+          <input type="password" :placeholder='pswPlaceholderShow && $t("psw") || ""' v-model="psw" @focus="closePlaceholder('psw')" @blur="testPsw" class="unit-input"
+          >
+        </div>
+        <!--输入密码 end-->
+
+        <!--密码错误提示 begin-->
+        <div class="unit-input-interval txt-red">
+          <span v-if="pswWA!==''">{{pswWA}}</span>
+        </div>
+        <!--密码错误提示 end-->
+
+        <div v-if="!isMobile" class="have-no-account flex unit-input-container">
+          <!--忘记密码 begin-->
+          <router-link class="have-no-account-text" to="/index/sign/findBackPsw">
+            <span>{{$t('forgetPsw')}}</span>
+          </router-link>
+          <!--忘记密码 end-->
+
+        </div>
+
+
+      </template>
+      <!--邮箱登录 pc end-->
+
+      <!--邮箱登录 h5 begin-->
+      <template v-if="isMobile">
+
+        <!--输入邮箱 begin-->
+        <div class="flex unit-input-container">
+          <!--<span class="flex-center unit-input-container-title">-->
+            <!--<img class="unit-input-container-title-img-email"-->
+                 <!--src="../../assets/mobile_img/mobile_input_icon/email_icon.png" alt="">-->
+          <!--</span>-->
+          <input type="text" placeholder='邮箱或手机号码' v-model="userName" @blur="testUserName"
+                 @focus="closeTestUserName" @input="inputTestUserName" class="unit-input unitinput_m">
+        </div>
+        <!--输入邮箱 end-->
+
+        <!--邮箱错误提示 begin-->
+        <div class="unit-input-interval text_blue">
+          <span v-if="userNameWA!==''">{{userNameWA}}</span>
+        </div>
+        <!--邮箱错误提示 end-->
+
+        <!--输入密码 begin-->
+        <div class="flex unit-input-container">
+        <!--<span class="flex-center unit-input-container-title">-->
+          <!--<img class="unit-input-container-title-img-password"-->
+               <!--src="../../assets/mobile_img/mobile_input_icon/password_icon.png" alt="">-->
+          <!--</span>-->
+          <input type="password" placeholder='密码' v-model="psw" @blur="testPsw" @focus="closeTestPsw"
+                 class="unit-input unitinput_m">
+        </div>
+        <!--输入密码 end-->
+
+        <!--密码错误提示 begin-->
+        <div  class="unit-input-interval text_blue">
+          <span v-if="pswWA!==''">{{pswWA}}</span>
+        </div>
+        <!--密码错误提示 end-->
+
+      </template>
+      <!--邮箱登录 h5 end-->
+
+<!--      <div v-if="isMobile" class="unit-forget-container mobile-forget-password">-->
+<!--        <router-link to="/index/sign/findBackPsw" class="mobile-forget-password-text">忘记密码</router-link>-->
+<!--      </div>-->
+
+      <template v-if="isMobile">
+      <!--点击登录 begin-->
+      <div class="unit-btn-container login-button-container ">
+        <!--登录-->
+        <!--<template v-if="captchaReady">-->
+          <button v-if="!sending" class="login-button    btn_blue" @click="loginIn"
+          >
+            {{$t("login")}}
+          </button>
+          <button v-if="sending" class="login-button    btn_grey" disabled>
+            {{$t("logining")}}
+          </button>
+        <!--</template>-->
+        <!--<template v-else>-->
+          <!--<button class="login-button    btn_grey" disabled>-->
+            <!--{{$t('disabled')}}-->
+          <!--</button>-->
+        <!--</template>-->
+      </div>
+      <!--点击登录 end-->
+      </template>
+
+      <template v-if="!isMobile">
+        <!--点击登录 begin-->
+        <div class="unit-btn-container login-button-container ">
+          <!--登录-->
+          <!--<template v-if="captchaReady">-->
+          <button v-if="!sending" class="login-button    btn_blue" @click="loginIn"
+          >
+            {{$t("login")}}
+          </button>
+          <button v-if="sending" class="login-button    btn_grey" disabled>
+            {{$t("logining")}}
+          </button>
+          <!--</template>-->
+          <!--<template v-else>-->
+          <!--<button class="login-button    btn_grey" disabled>-->
+          <!--{{$t('disabled')}}-->
+          <!--</button>-->
+          <!--</template>-->
+        </div>
+        <!--点击登录 end-->
+      </template>
+
+      <!--手机端 忘记密码 begin-->
+      <div v-if="isMobile" class="router-link-box-m">
+<!--        没有账号？立即-->
+<!--        <router-link class="router-link-text" to="/index/register">注册</router-link>-->
+        <router-link to="/index/sign/findBackPsw" class="mobile-forget-password-text-m">忘记密码</router-link>
+      </div>
+      <!--手机端 忘记密码 end-->
+
+
+      <div v-if="!isMobile" class="have-no-account flex unit-input-container">
+
+        <!--没有账号，立即注册 begin-->
+        <span>{{$t("haveNoID")}}，
+          <router-link
+            to="/index/register" class="text_blue">
+<!--            {{$t("register")}}-->
+            {{$t("register.GoRegister")}}
+<!--            去注册-->
+          </router-link>
+        </span>
+        <!--没有账号，立即注册 end-->
+      </div>
+      <div class="input-interval"></div>
+    </div>
+
+    <!--跳转我的工单 仅h5页面有-->
+    <!--<router-link to="/index/help/H5WordOrder" class="mobile-jump-to-wordOrder">提交工单</router-link>-->
+  </div>
+  <!--内容 end-->
+
+
+  <!--弹出提示 begin-->
+  <PopupPrompt :popOpen="popOpen" :popClose="closePrompt" :popType="popType" :popText="popText"/>
+  <!--弹出提示 end-->
+
+
+  <!--弹窗 begin-->
+  <PopupWindow :switch="popWindowOpen" @close="popWindowClose">
+    <div slot="header">
+      <span>{{$t('prompt_new_lf_notice')}}</span>
+    </div>
+    <div slot="article" class="pop-article">{{pop_tips1}}</div>
+    <div slot="article2" class="pop-article">{{pop_tips2}}</div>
+    <div slot="footer" class="pop-footer flex">
+      <template>
+        <button @click="RE_PASSWORD" class="button-base btn_simple pointer">
+          {{$t('findBackPsw')}}
+        </button>
+        <button @click="TRY_AGAIN" class="button-base btn_blue pointer">{{$t('try_agin')}}
+        </button>
+      </template>
+    </div>
+  </PopupWindow>
+  <!--弹窗 end-->
+
+
+</div>
+

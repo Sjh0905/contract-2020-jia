@@ -1,0 +1,126 @@
+<div>
+  <div class="recharge-box">
+    <div class="header-box">
+      <!--顶部标题及logo-->
+      <div class="header-box-title">
+        <span  class="header-box-title-logo-box">
+          <img class="header-box-title-logo" :src="'http://logo.eunex.group/' + (rechargeDetailData.currency == 'USDT2'?'USDT':rechargeDetailData.currency) +'.png'" alt="">
+        </span>
+        {{rechargeDetailData.currency == 'USDT2'?'USDT':rechargeDetailData.currency}}
+      </div>
+
+      <!--数量-->
+      <div class="header-box-num">
+        <span class="header-box-num-title">数量</span>
+        <span class="header-box-num-container">{{$globalFunc.accFixed(rechargeDetailData.amount, 8)}}</span>
+      </div>
+
+      <!--状态-->
+      <div class="header-box-state">
+        <span class="header-box-state-title">状态</span>
+        <span v-if="rechargeDetailData.status === 'SUBMITTED'" class="header-box-state-container">已提交</span>
+        <span v-if="rechargeDetailData.status === 'WAITING_FOR_APPROVAL'" class="header-box-state-container">待审核</span>
+        <span v-if="rechargeDetailData.status === 'WAITING_FOR_WALLET'" class="header-box-state-container">待处理</span>
+        <span v-if="rechargeDetailData.status === 'DENIED'" class="header-box-state-container">被驳回</span>
+        <span v-if="rechargeDetailData.status === 'PROCESSING'" class="header-box-state-container">处理中</span>
+        <span v-if="rechargeDetailData.status === 'FAILED'" class="header-box-state-container">失败</span>
+        <span v-if="rechargeDetailData.status === 'CANCELLED'" class="header-box-state-container">已撤销</span>
+        <span v-if="rechargeDetailData.status === 'DONE'" class="header-box-state-container">已汇出</span>
+      </div>
+    </div>
+    <div class="container-box">
+      <!--地址-->
+      <div class="container-box-address">
+        <span class="container-box-address-title">地址</span>
+        <span class="container-box-address-container">{{rechargeDetailData.toAddress}}</span>
+      </div>
+
+      <!--memo地址-->
+      <div v-if="rechargeDetailData.memoAddress" class="container-box-txid">
+        <span class="container-box-txid-title">memo(备注)</span>
+        <span class="container-box-txid-container">{{rechargeDetailData.memoAddress}}</span>
+      </div>
+
+      <!--TXID-->
+      <div v-if="rechargeDetailData.tx" class="container-box-txid">
+        <span class="container-box-txid-title">Txid</span>
+        <span class="container-box-txid-container">{{rechargeDetailData.tx}}</span>
+      </div>
+
+      <!--日期-->
+      <div class="container-box-time">
+        <span class="container-box-time-title">日期</span>
+        <span class="container-box-time-container">{{$globalFunc.formatDateUitl(rechargeDetailData.updatedAt,'YYYY-MM-DD hh:mm:ss')}}</span>
+      </div>
+
+      <!--驳回理由-->
+      <div v-if="rechargeDetailData.status === 'DENIED'" class="container-box-reject">
+        <span class="container-box-reject-title">驳回理由</span>
+        <span class="container-box-reject-container">{{rechargeDetailData.errorMessage}}</span>
+      </div>
+
+      <!--失败理由-->
+      <div v-if="rechargeDetailData.status === 'FAILED'" class="container-box-reject">
+        <span class="container-box-reject-title">失败理由</span>
+        <span class="container-box-reject-container">{{rechargeDetailData.errorMessage}}</span>
+      </div>
+
+      <!--撤销按钮-->
+      <div v-if="rechargeDetailData.status === 'SUBMITTED' ||
+      rechargeDetailData.status === 'WAITING_FOR_APPROVAL' ||
+      rechargeDetailData.status === 'WAITING_FOR_WALLET'"
+      class="container-cancel-btn" @click="cancelSubmit">撤销提现</div>
+
+      <!--复制和跳转txid按钮-->
+      <div v-if="rechargeDetailData.tx" class="container-box-btn">
+        <div class="container-box-address-btn" @click="jumpToCheckAddress(rechargeDetailData)">检查Txid</div>
+        <div class="container-box-copy-btn" data-clipboard-target=".container-box-txid-container" @click="copyValue">复制Txid</div>
+      </div>
+
+      <!--<div class="container-box-title">-->
+        <!--提现地址-->
+      <!--</div>-->
+      <!--<div class="container-box-address">{{rechargeDetailData.toAddress}}</div>-->
+      <!--<div v-if="rechargeDetailData.tx" class="container-box-title">TXID</div>-->
+      <!--<div v-if="rechargeDetailData.tx" class="container-box-txid">-->
+        <!--<div class="container-box-txid-text">{{rechargeDetailData.tx}}</div>-->
+        <!--<div class="container-box-copy-btn" data-clipboard-target=".container-box-txid-text" @click="copyValue">复制</div>-->
+        <!--<div class="container-box-address-btn" @click="jumpToCheckAddress">检查</div>-->
+      <!--</div>-->
+      <!--<div v-if="rechargeDetailData.status === 'DENIED'" class="container-reject-box">-->
+        <!--<div class="container-box-title">-->
+          <!--驳回理由-->
+        <!--</div>-->
+        <!--<div class="container-box-address">-->
+          <!--{{rechargeDetailData.errorMessage}}-->
+        <!--</div>-->
+      <!--</div>-->
+    </div>
+    <div v-if="rechargeDetailData.status === 'SUBMITTED' ||
+    rechargeDetailData.status === 'WAITING_FOR_APPROVAL' ||
+    rechargeDetailData.status === 'WAITING_FOR_WALLET'"
+         class="container-cancel-btn" @click="cancelSubmit">
+      撤销
+    </div>
+
+  </div>
+  <PopupPrompt :popOpen="popOpen" :popClose="popClose" :popType="popType" :popText="popText"/>
+  <!--<div class="window-toast">-->
+  <div v-if="toastWindowFlag" class="window-toast">
+    <div class="mobile-popwindow-box flex-center">
+      <div class="mobile-popwindow-window">
+        <div class="mobile-popwindow-txt txt-light">您是否要撤销？</div>
+        <div class="mobile-popwindow-btn-box flex-row">
+          <div class="mobile-popwindow-btn" @click="closeClick">
+            取消
+          </div>
+          <div class="mobile-popwindow-btn" @click="yesClick">
+            确认
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>

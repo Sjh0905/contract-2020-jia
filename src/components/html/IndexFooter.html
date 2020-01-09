@@ -1,0 +1,152 @@
+<!--页脚-->
+<div class="footer-detail-container min-width">
+
+
+<!--  <div class="footer_gobutton">-->
+<!--    <ul>-->
+<!--      <li class="zcbutton"   @click="tiaoz(1)"  v-if="!isLogin">-->
+<!--          <span>{{$t('register')}}</span>-->
+<!--      </li>-->
+<!--      <li class="gojiaoyi"    v-if="isLogin">-->
+<!--        <span>{{$t('indexHeader.havedLogin')}}</span>-->
+<!--      </li>-->
+<!--      <li class="gojiaoyi" @click="tiaoz(2)" v-if="!isLogin" >-->
+<!--          <span>{{$t('totrade')}}</span>-->
+<!--      </li>-->
+<!--      <li class="zcbutton" @click="tiaoz(2)" v-if="isLogin">-->
+<!--          <span>{{$t('totrade')}}</span>-->
+<!--      </li>-->
+<!--    </ul>-->
+<!--  </div>-->
+  <div class="footer_aboutus">
+    <div class="footer11">
+      <div class="footerlogo" v-if="lang==='CH'">
+        <img src="../../assets/footer-logo-欧联.png">
+      </div>
+      <div class="footerlogo" v-if="lang!=='CH'">
+      <img src="../../assets/footer-logo-欧联.png">
+      </div>
+
+      <div class="footerlogo footerlo"><span>{{$t("terms.Terms_conditionss")}}：info@eunex.group</span></div>
+  <!--      <div class="footerlogo2">-->
+  <!--        <img src="" >-->
+  <!--        <img src="" >-->
+  <!--        <img src="" >-->
+  <!--        <img src="" >-->
+  <!--        <img src="" >-->
+  <!--        <img src="" >-->
+  <!--        <img src="" >-->
+  <!--        <img src="" >-->
+  <!--      </div>-->
+    </div>
+    <div class="footer12">
+      <div class="footer1211">
+        <div class="footer11font">
+            <ul>
+              <li class="lititle"><span class="guanywm">{{$t("terms.Terms_conditionss_1")}}</span></a></li>
+              <li class="liinfo"><a href="https://customerservice8872.zendesk.com/hc/zh-cn/articles/360035121071-%E5%85%B3%E4%BA%8E%E4%B8%AD%E7%A7%8B%E4%BA%A4%E6%98%93%E6%89%80">{{$t("terms.Terms_conditionss_2")}}</a></li>
+              <li class="liinfo"><a href="https://customerservice8872.zendesk.com/hc/zh-cn/categories/360002253311">{{$t("terms.Terms_conditionss_3")}}</a></li>
+            </ul>
+        </div>
+      </div>
+      <div class="footer1211">
+        <div class="footer11font">
+      <ul>
+        <li  class="lititle"><span class="guanywm">{{$t("terms.Terms_conditionss_4")}}</span></li>
+        <li class="liinfo"><a href="https://customerservice8872.zendesk.com/hc/zh-cn/articles/360034747112-TERMS-AND-CONDITIONS
+">{{$t("terms.Terms_conditionss_5")}}</a></li>
+        <li class="liinfo"><a href="https://customerservice8872.zendesk.com/hc/zh-cn/articles/360035121691-PRIVACY-POLICY">{{$t("terms.Terms_conditionss_6")}}</a></li>
+        <li class="liinfo"><a href="https://customerservice8872.zendesk.com/hc/zh-cn/articles/360034747272-%E8%B4%B9%E7%8E%87%E6%A0%87%E5%87%86">{{$t("terms.Terms_conditionss_7")}}</a></li>
+      </ul>
+    </div>
+        <div class="footer11font">
+
+        </div>
+
+
+  </div>
+      <div class="footer1211">
+        <div class="footer11font wechat">
+          <img src="../../assets/index_home/客服二维码_web.png" alt="">
+          <p>{{$t("terms.Terms_conditionss_8")}}</p>
+        </div>
+
+
+  </div>
+
+
+
+
+    </div>
+
+
+<!--    <div class="footer11">-->
+<!--      <div class="footer11font">-->
+<!--          <ul>-->
+<!--            <li>关于我们</li>-->
+<!--            <li><router-link to="/index/aboutUs" target="_blank">{{$t('aboutUs')}}</router-link></li>-->
+<!--            <li><router-link to="/index/help/userAgreement" target="_blank">{{$t('server')}}</router-link></li>-->
+<!--            <li><router-link to="/index/help/userPrivacy" target="_blank">{{$t('apply')}}</router-link></li>-->
+<!--            <li><router-link to="/index/help/rateStandard" target="_blank">{{$t('rate')}}</router-link></li>-->
+<!--          </ul>-->
+<!--      </div>-->
+<!--    </div>-->
+
+<!--    <div class="footer11" >-->
+<!--    &lt;!&ndash;      <div class="footer11font ftaboutus">{{$t('contactUs')}}：</div>&ndash;&gt;-->
+<!--    <div class="footer11font contact">-->
+<!--      <ul>-->
+<!--        <li>联系我们</li>-->
+<!--        <li>{{$t('technicalsupport')}}</li>-->
+<!--        <li>{{$t('marketcooperation')}}</li>-->
+<!--        <li>{{$t('businesscooperation')}}</li>-->
+<!--        <li><router-link to="/index/joinUs" target="_blank">{{$t('joinus')}}</router-link></li>-->
+<!--      </ul>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--    <div class="footer11  lianxwe" >-->
+<!--      &lt;!&ndash;      <div class="footer11font ftaboutus">{{$t('contactUs')}}：</div>&ndash;&gt;-->
+<!--      <div class="footer11font contact">-->
+<!--        <ul>-->
+<!--          <li>条款说明</li>-->
+<!--          <li>使用条款</li>-->
+<!--          <li>隐私政策</li>-->
+<!--          <li>风险</li>-->
+<!--          <li>费用</li>-->
+<!--        </ul>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <div class="footer11 friendlinkd">-->
+<!--&lt;!&ndash;      <div class="footer11font ftaboutus">{{$t('friendLink')}}：</div>&ndash;&gt;-->
+<!--      <div class="footer11font">-->
+<!--        <ul>-->
+<!--          <li>注册账号</li>-->
+<!--          <li>如何注册</li>-->
+<!--          <li>常见问题</li>-->
+
+<!--        </ul>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <div class="footer11 joinuswe">-->
+<!--      <div class="footer11font ftaboutus">{{$t('indexFooter.community')}}：</div>-->
+<!--      <div class="shequn">-->
+<!--        <ul>-->
+<!--          <li>-->
+<!--            <div class="kefu01">-->
+<!--                  <span>{{$t('indexFooter.nineSister')}}</span>-->
+<!--            </div>-->
+<!--          </li>-->
+<!--        </ul>-->
+<!--      </div>-->
+<!--    </div>-->
+  </div>
+
+
+
+<!--  <div class="copy-right">-->
+<!--    &copy; 2017 - {{new Date().getFullYear()}} eunex.group All Rights Reserved;-->
+<!--  </div>-->
+
+
+</div>
+

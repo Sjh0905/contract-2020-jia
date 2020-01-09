@@ -1,0 +1,29 @@
+<div class="regional-search">
+  <div class="regional-digital">
+    <div class="country-search-box" id="search-box">
+      <i class="mobile_icon_search">
+        <img class="imgs" src="../../assets/搜索图标@2x.png" alt="">
+      </i>
+      <input growing-ignore="true" id="search-input" placeholder="请选择国家或地区" v-model="textInput">
+      <button class="search-clear" data-action="clear" style="opacity:0"><i class="mobile_icon_clear"></i></button>
+      <a href="javascript:history.go(-1)">取消</a>
+    </div>
+
+    <div class="mobile-phone-number-area">
+      <ul>
+        <li class="mobile-phone-number-area-li" v-for="item in textInput ? filterData :listData"
+            @click="clickItem(item.areaCode)">
+        <span class="area">
+          {{item.nameCn}}
+        </span>
+          <span class="area-code">
+          {{item.areaCode && item.areaCode.replace(/00/,'+')}}
+        </span>
+        </li>
+
+      </ul>
+
+    </div>
+  </div>
+
+</div>

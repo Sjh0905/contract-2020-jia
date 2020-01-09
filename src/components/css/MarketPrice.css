@@ -1,0 +1,414 @@
+/*注意！此组件的father不能设置overflow:hidden!*/
+.MarketPrice-container {
+  width: 100%;
+  height: 24px;
+  line-height: 24px;
+  position: relative;
+}
+
+.market-price-tab {
+  height: 25px;
+  line-height: 25px;
+  font-size: 12px;
+  color: #666;
+}
+
+.market-price-tab-item {
+  flex: 1;
+  text-align: center;
+  cursor: pointer;
+  background: rgb(249, 249, 249);
+}
+
+.reduce_container {
+  position: relative;
+  display: inline;
+}
+
+/* 免图标 */
+.reduce_icon {
+  position: absolute;
+  display: block;
+  width: 24px;
+  /*padding: 0 6px;*/
+  height: 16px;
+  line-height: 16px;
+  font-size: 12px;
+  color: #fff;
+  font-weight: 100;
+  top: -15px;
+  right: -1px;
+  transform: translateX(100%);
+  background-image: linear-gradient(90deg, #FF433A 0%, #FF9D17 100%);
+  border-radius: 7px 7px 7px 0;
+  /*background-size: 100%;*/
+  z-index: 100;
+  text-align: center;
+}
+
+.reduce_icon.btc_eth {
+  /*right: -14px;*/
+}
+
+.reduce_icon_line {
+  position: absolute;
+  height: 1px;
+  left: 3px;
+  right: 3px;
+  top: 50%;
+  background: #fff;
+}
+
+.market-price-tab-item:hover {
+  background: #fff;
+  /*z-index: 100;*/
+  font-weight: bold;
+}
+
+.market-price-tab-itemed {
+  background: #fff;
+  /*z-index: 100;*/
+  font-weight: bold;
+}
+
+.market-price-tab-search {
+  /*width: 43.529%;*/
+  flex: 2.3;
+  /*background: #0e6dcd;*/
+  text-align: center;
+}
+
+
+.market-price-title11 {
+  height: 40px;
+  line-height: 40px;
+  width: 100%;
+  background-color: #FFF;
+  position: relative;
+  z-index: 100;
+  border-bottom: 1px solid #F7F8FA;
+}
+
+.market-price-title11 .tt1{
+  font-family: PingFangSC-Regular;
+  font-size: 16px;
+  color: #172A4D;
+  letter-spacing: 0;
+  float: left;
+  margin-left: 12px;
+
+}
+.market-price-title11 .tt2{
+  float: right;
+}
+
+.market-price-title {
+  width: 100%;
+  height: 36px;
+  line-height: 36px;
+  /* font-weight: bold; */
+  /*background: #ebebeb;*/
+  cursor: pointer;
+  background-color: #FFFFFF;
+  position: relative;
+  z-index: 100;
+  /*border-bottom: 1px solid #bbb;*/
+}
+
+.market-price-title-marcket {
+  width: 40.47%;
+  /*text-align: center;*/
+  text-align: left;
+  padding-left: 12px;
+  font-family: PingFangSC-Regular;
+  font-size: 12px;
+  color: #172A4D;
+  letter-spacing: 0;
+}
+
+.market-price-title-price {
+  width: 24.848%;
+  text-align: right;
+  /*text-align: center;*/
+  font-family: PingFangSC-Regular;
+  font-size: 12px;
+  color: #172A4D;
+  letter-spacing: 0;
+}
+
+.market-price-title-volum {
+  width: 37.62%;
+  text-align: right;
+  padding-right: 12px;
+}
+
+/*兼容英文版样式限制*/
+.market-price-title-updown {
+  width: 35.62%;
+  text-align: right;
+  padding-right: 12px;
+  white-space: nowrap;
+  font-family: PingFangSC-Regular;
+  font-size: 12px;
+  color: #172A4D;
+  letter-spacing: 0;
+  text-align: right;
+}
+
+.market-price-list {
+  position: relative;
+  width: 100%;
+  /*height:310px;*/
+  /*height: 268px;*/
+  /*去掉市场切换tab后高度为300*/
+  height: 300px;
+  /*overflow-y: auto;
+    overflow-x: auto;*/
+  /*border-bottom:1px solid #e5e5e5;*/
+}
+
+.market-price-list ul::-webkit-scrollbar {
+  width: 4px;
+}
+
+.market-price-list ul::-webkit-scrollbar-track {
+  background-color: #eee;
+  border-radius: 5px;
+}
+
+.market-price-list ul::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 5px;
+}
+
+.market-price-list ul {
+  height: 100%;
+  width: 100%;
+  /*overflow-y: scroll;*/
+}
+
+.market-price-list-li {
+  /*width: 100%;*/
+  height: 24px;
+  line-height: 24px;
+  cursor: pointer;
+  /*position: relative;*/
+}
+
+.market-price-list-li .imgSelect {
+  height: 12px;
+  line-height: 24px;
+  margin:6px 0 0 10px;
+}
+
+.market-price-list-li1 {
+  width: 100%;
+  height: 24px;
+  line-height: 24px;
+  cursor: pointer;
+  /*position: relative;*/
+}
+
+/* 2018-4-4 新加价格css start */
+.show_tips {
+  position: absolute;
+  display: block;
+  padding: 0px 10px;
+  line-height: 24px;
+  color: #fff;
+  background-color: #C43E4E;
+  border: 1px solid #C43E4E;
+  border-radius: 2px;
+  left: 101.5%;
+  top: -1px;
+  z-index: 1;
+  display: none;
+}
+
+.show_tips font {
+  position: absolute;
+  right: -5px;
+  top: 9px;
+  width: 0;
+  height: 0;
+  border-top: 3px solid transparent;
+  border-left: 4px solid #C43E4E;
+  border-bottom: 3px solid transparent;
+}
+
+.show_tips.show {
+  display: block;
+}
+
+/* 2018-4-4 新加价格css end */
+.market-price-list-li:hover {
+  background: #F7F8FA;
+  /*background-color: #cbf0fa;*/
+}
+
+.market-price-list-li-background {
+  background: #F0F2F7;
+}
+
+.market-detail-item .imgSelect {
+  margin: 18px 8px 0 0;
+  height: 12px;
+}
+
+/* 2018-2-7 新加样式 start */
+.market-price-list-li.selected_item {
+  background: #F7F8FA;
+}
+
+/*.market-price-list-li.selected_item div:nth-child(1), .market-price-list-li.selected_item div:nth-child(2) {
+	font-weight: 600;
+}*/
+.market-price-list-li.selected_item div {
+  /*font-weight: 600;*/
+}
+
+/* 2018-2-7 新加样式 end */
+.market-price-list-acbg {
+  /*background: url("") 4px 4px no-repeat;*/
+}
+
+
+.market-price-list-embg {
+  /*background: url("") 4px 4px no-repeat;*/
+
+}
+
+.market-price-list-marcket {
+  width: 34.47%;
+  /*text-align: center;*/
+  text-align: left;
+  padding-left: 6px;
+  font-family: Roboto-Regular;
+  font-size: 12px;
+  color: #172A4D;
+
+}
+
+.market-price-list-price {
+  width: 26.848%;
+  text-align: left;
+  font-family: Roboto-Regular;
+  font-size: 12px;
+  color: #172A4D;
+  text-align: right;
+}
+
+.market-price-list-volum {
+  width: 39.62%;
+  padding-right: 12px;
+  font-family: Roboto-Regular;
+  font-size: 12px;
+  text-align: right;
+
+}
+
+.txt_green {
+  color: rgb(2, 152, 125);
+}
+
+.txt_red {
+  color: #C43E4E;
+}
+
+.border-box {
+  /*overflow: hidden;*/
+  border-top-left-radius: 0 !important;
+  background-color: #fff;
+  outline: 1px solid #E5EBF5;
+  height: 695px;
+}
+
+/*第一个市场加阴影*/
+.market-price-tab-item-first {
+  border-top-left-radius: 6px;
+}
+
+/*最后一个市场加阴影*/
+.market-price-tab-item-last {
+  border-top-right-radius: 6px;
+}
+
+.title-tab {
+  display: block;
+  height: 100%;
+  background: #fafafa;
+  box-sizing: border-box;
+  border-bottom: 0 solid transparent;
+  color: black;
+  padding: 0 25px;
+}
+
+.reduce_container {
+  position: relative;
+  display: inline;
+}
+
+.selected {
+  background-color: #fff;
+  border-bottom: 0 solid transparent;
+  z-index: 100;
+}
+
+/*第一个tab加阴影*/
+.tab-item-first {
+  border-top-left-radius: 3px;
+}
+
+/*最后一个tab加阴影*/
+.tab-item-last {
+  border-top-right-radius: 3px;
+}
+
+/*市场列表*/
+.market-list-container {
+  width: 100%;
+  height: 40px;
+  line-height: 40px;
+  font-size: 14px;
+  color: #172A4D;
+  font-family: Roboto-Regular;
+  padding-left: 12px;
+  background: #FFF;
+  position: relative;
+  z-index: 100;
+}
+
+.market-list-detail {
+  padding-right: 10px;
+}
+
+.market-list-click-area {
+  position: relative;
+}
+
+.selected-market {
+  padding-bottom: 7px;
+  border-bottom: 2px solid #C43E4E;
+}
+
+
+.dialog-input-text >>> .el-input__inner {
+  -web-kit-appearance: none;
+  -moz-appearance: none;
+  width: 94%;
+  height: 28px;
+  line-height: 28px;
+  outline: 0;
+  /*opacity: 0.7;*/
+  border: 1px solid #B5BCC6;
+  font-size: 13px;
+  color: #8994A5;
+  letter-spacing: 0;
+  border: 1px solid rgba(181,188,198,0.50);
+  border-radius: 2px;
+  margin-right: 124px;
+}
+
+.dialog-input-text >>> .el-input__icon{
+  color: #C5CFD5;
+}

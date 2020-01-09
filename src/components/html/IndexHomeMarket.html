@@ -1,0 +1,151 @@
+<div class="index_home_market_list_body1">
+<div class="index_home_market_list_body border_radius ">
+<!--     :class="{'dark dark_box_shadow':themeColor==0,'light box_shadow':themeColor==1}"-->
+
+<!--  <ul class="flex-row tabs-container">-->
+<!--    <li class="title-tab flex-center pointer"-->
+<!--        :class="{'selected': selectEdition == 0}"-->
+<!--        @click="changeEdition(0)"-->
+<!--    >-->
+<!--      &lt;!&ndash;市场&ndash;&gt;-->
+<!--      <div class="sctab">-->
+<!--      <div class="shictab">{{$t('tab_1')}}</div>-->
+<!--      <div class="shicseach">-->
+<!--        <el-input-->
+<!--          placeholder="搜索币种"-->
+<!--          class="dialog-input-text"-->
+<!--          v-model="input4">-->
+<!--          <i slot="prefix" class="el-input__icon el-icon-search"></i>-->
+<!--        </el-input>-->
+<!--      </div>-->
+<!--      </div>-->
+<!--&lt;!&ndash;    </li>&ndash;&gt;-->
+
+<!--&lt;!&ndash;    <li class="clear"></li>&ndash;&gt;-->
+<!--&lt;!&ndash;  </ul>&ndash;&gt;-->
+
+  <!--市场列表-->
+  <div class="table_list ">
+    <ul class="market-detail-container flex "
+    >
+
+<!--      USDT/ENX/创新区-->
+      <li class="market-detail-item market-detail-title flex">
+        <div class="market-list-container flex" v-if="marketList.length>0">
+
+<!--          USDT/ENX-->
+          <div v-for="item in marketList"
+               class="market-list-detail"
+          >
+        <span class="market-list-click-area pointer flex"
+              :class="{'selected-market':selectedMarket(item)}"
+              @click="changeMarket(item)"
+        >
+          <img src="../../assets/selectedSelf_icon.png" class="imageRight" v-if="item=== $t('Favorites')"  alt="">
+          {{item}}
+<!--          <span class="reduce_icon" :class="lang != 'CH' && 'en'"-->
+<!--                v-if="reduce_list.indexOf(item) > '-1'"-->
+<!--          >-->
+<!--            <font v-if="lang == 'CH'">免</font>-->
+<!--            <font v-else>fee</font>-->
+<!--            <span v-if="lang != 'CH'" class="reduce_icon_line"></span>-->
+          </span>
+        </span>
+          </div>
+        </div>
+
+        <div class="shicseach">
+          <el-input
+            :placeholder = '$t("SearchCurrency")'
+            class="dialog-input-text"
+            v-model="searchText">
+            <i slot="prefix" class="el-input__icon el-icon-search"></i>
+          </el-input>
+        </div>
+
+      </li>
+
+      <li class="market-detail-item market-detail-title market-detail-title-nav flex">
+        <!--<div class="self-chose">-->
+        <!--&lt;!&ndash;自选&ndash;&gt;-->
+        <!--{{$t('collection')}}-->
+        <!--</div>-->
+        <div class="currency-title">
+          <!--币种-->
+          {{$t('currency')}}
+        </div>
+        <div class="latest-price-title">
+          <!--最新价-->
+          &nbsp;{{$t('latestPrice')}}
+        </div>
+        <div class="rise-and-fall-title">
+          <!--24h涨跌-->
+          <span>{{$t('riseAndFall')}}</span>
+        </div>
+        <div class="highest-price-title">
+          <!--24h最高价-->
+          {{$t('maxPrice')}}
+        </div>
+        <div class="minimum-price-title">
+          <!--24h最低价-->
+          {{$t('minPrice')}}
+        </div>
+        <div class="volume-price-title">
+          <!--24h成交量-->
+          {{$t('volume')}}
+        </div>
+      </li>
+<!--      v-if="computedMarketList.length<0"-->
+      <template>
+        <li class="market-detail-item market-detail flex pointer" v-for="(value, key) in (searchText ? searchList : computedMarketList)"
+            :key="key"
+        >
+          <img src="../../assets/selected_icon.png" class="imgSelect" v-show="(collectionMarket.includes(value.name))" @click="handleCollectionMarket(value.name,false)" alt="">
+          <img src="../../assets/noSelected_icon.png" class="imgSelect" v-show="!(collectionMarket.includes(value.name))" @click="handleCollectionMarket(value.name,true)" alt="">
+
+          <div class="market-detail-item market-detail flex pointer" @click="clickToGoTradingHall(value)">
+            <div class="currency">
+              {{value.name.split('_')[0]}}/{{value.name.split('_')[1]}}
+            </div>
+            <div class="latest-price flex">
+              {{value.close}}
+              <span class="valuation">≈ {{get_now_price(value.close,value.name.split('_')[1])}}</span>
+            </div>
+            <div class="rise-and-fall"
+                 :class="{'rise-and-fall-green':diff24Ratio(value.close,value.open)>=0,
+                      'rise-and-fall-red':diff24Ratio(value.close,value.open)<0,
+              }"
+            >
+              <div :class="{'spanwailv':diff24Ratio(value.close,value.open)>=0,
+                      'spanwaired':diff24Ratio(value.close,value.open)<0,
+              }"> <span>{{diff24Ratio(value.close,value.open)>=0?'+':''}}{{diff24Ratio(value.close,value.open)}}%</span></div>
+            </div>
+            <div class="highest-price flex">
+              {{value.high}}
+              <span class="valuation">≈ {{get_now_price(value.high,value.name.split('_')[1])}}</span>
+            </div>
+            <div class="minimum-price flex">
+              {{value.low}}
+              <span class="valuation">≈ {{get_now_price(value.low,value.name.split('_')[1])}}</span>
+            </div>
+            <div class="volume-price">
+              {{value.volume}}
+            </div>
+          </div>
+
+        </li>
+
+      </template>
+<!--      <li class="no-record">-->
+<!--        &lt;!&ndash;暂无记录&ndash;&gt;-->
+<!--        {{$t('no_record')}}-->
+<!--      </li>-->
+<!--      <li class="showmany">-->
+<!--        查看更多&nbsp;&nbsp;>>-->
+<!--      </li>-->
+    </ul>
+
+
+  </div>
+</div>
+</div>

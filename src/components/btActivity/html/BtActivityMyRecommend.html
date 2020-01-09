@@ -1,0 +1,138 @@
+<div class="auth-state-container border_radius">
+
+  <!--标题 begin-->
+  <div class="title-box flex">
+    <span class="title-block"></span>
+    <div class="title-detail-box">
+      <router-link class="title-level-one text_blue pointer" :to="{name:'Recommend'}">
+        <!--我的推荐-->
+        {{$t('btActivityRecommend.title_1')}}
+      </router-link>
+      <span class="title-next">></span>
+      <span class="title-level-two">
+        <!--历史收益-->
+        {{$t('btActivityRecommend.title_2')}}
+      </span>
+    </div>
+  </div>
+  <!--标题 end-->
+
+  <!--奖励列表 begin-->
+  <div class="reward-list-box">
+    <ul class="reward-list-detail-box border_radius box_shadow">
+      <!--标题 begin-->
+      <li class="reward-list-head-box flex">
+        <!--序号-->
+        <div class="order">{{$t('personalCenterRecommend.index')}}</div>
+        <!--用户名-->
+        <div class="user">{{$t('personalCenterRecommend.userName')}}</div>
+        <!--实名状态-->
+        <div class="auth">{{$t('personalCenterRecommend.authState')}}</div>
+        <!--注册奖励-->
+        <div class="register-reward">{{$t('personalCenterRecommend.registerAward')}}</div>
+        <!--本月返佣-->
+        <div class="month-return">{{$t('personalCenterRecommend.currentMouthComission')}}</div>
+        <!--累计返佣-->
+        <div class="total-return">
+            <span class="total-return-question-icon-box">{{$t('personalCenterRecommend.totalCommission')}}
+              <img src="../assets/BtActivityMyRecommend/bt-activity-recommend-question.png" alt=""
+                   class="question-icon pointer"
+                   @click="openPopupWindow"
+              >
+            </span>
+        </div>
+      </li>
+      <!--标题 end-->
+
+      <li v-if="loading" class="loading-box">
+        <Loading/>
+      </li>
+      <template v-else>
+        <!--列表 begin-->
+        <li class="reward-list-content-box flex" v-for="( item , index ) in records" :key="index">
+          <div class="order">{{index+1}}</div>
+          <div class="user">{{handleName(item.beInvitedEmail)}}</div>
+          <div class="auth">
+            {{item.identityAuthStatus===2?$t('personalCenterRecommend.yesAuth'):$t('personalCenterRecommend.noAuth')}}
+          </div>
+          <div class="register-reward">{{registerAward(item)}}</div>
+          <div class="month-return">{{item.thisMonthRebate ? toFixed(item.thisMonthRebate): '---'}}</div>
+          <div class="total-return">{{item.totalRebate ? toFixed(item.totalRebate): '---'}}</div>
+        </li>
+        <!--列表 end-->
+
+
+        <!--加载更多 begin-->
+        <li v-if="loadingMore && recordsLength!==0" class="loading-more">
+          <span v-if="!loadingMoreIng" @click="getMyInvites" class="pointer txt-green">{{$t('personalCenterRecommend.loadingMore')}}</span>
+          <span v-if="loadingMoreIng">{{$t('personalCenterRecommend.loadingMoreIng')}}</span>
+        </li>
+        <!--加载更多 end-->
+
+
+        <!--总计 begin-->
+        <li class="reward-list-content-box flex" v-if="!loadingMore && recordsLength!==0">
+          <span class="order">{{$t('personalCenterRecommend.total')}}</span>
+          <span class="user">---</span>
+          <span class="auth">---</span>
+          <span class="register-reward">{{$t('personalCenterRecommend.Approx')}} {{totalRegister}} BDB</span>
+          <span class="month-return">{{$globalFunc.accFixed(totalThisMonthRebate, 8)}} BDB</span>
+          <span class="total-return">{{$globalFunc.accFixed(totalRebate, 8)}} BDB</span>
+        </li>
+        <!--总计 end-->
+
+
+        <!--空数据 begin-->
+        <li class="reward-list-content-box flex" v-if="recordsLength==0">
+          <span class="order">--</span>
+          <span class="user">---</span>
+          <span class="auth">---</span>
+          <span class="register-reward">---</span>
+          <span class="month-return">----</span>
+          <span class="total-return">----</span>
+        </li>
+        <!--空数据 end-->
+      </template>
+
+    </ul>
+
+
+  </div>
+  <!--奖励列表 end-->
+
+
+  <!--弹窗 begin-->
+  <PopupWindow :open="popOpen" :close="closePopupWindow">
+    <div slot="header">
+      <!--活动规则-->
+      {{$t('btActivityRecommend.popupWindowTitle')}}
+    </div>
+
+    <div slot="article" class="popup-window-article">
+      <!--提示文案 begin-->
+      <div class="popup-window-article-detail-box">
+        <p class="popup-window-article-explain">
+          <!--1.该活动已于2018-6-28 20:00（香港时间）截止-->
+          {{$t('btActivityRecommend.popupWindowDetail_1')}}
+        </p>
+        <p class="popup-window-article-explain">
+          <!--2.2018-6-1 00:00至2018-6-28 20:00时间段产生的BDB返佣，将于2018-7-8发放。-->
+          {{$t('btActivityRecommend.popupWindowDetail_2')}}
+        </p>
+      </div>
+      <!--提示文案 end-->
+    </div>
+
+    <div slot="footer" class="popup-window-footer flex-center">
+      <button class="popup-window-button btn_blue button-base" @click="closePopupWindow">
+        <!--我知道了-->
+        {{$t('btActivityRecommend.popupWindowDetail_3')}}
+      </button>
+    </div>
+
+
+  </PopupWindow>
+  <!--弹窗 end-->
+
+
+</div>

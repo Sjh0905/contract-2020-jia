@@ -1,0 +1,190 @@
+.mobile-market-tr{
+    border-bottom: 1px solid #131F30;
+	height: 1.2rem;
+  }
+
+.mobile-market-tr-choosed {
+  /*background: #081724;*/
+}
+
+  .mobile-market-tr:last-child{
+    /*border-bottom: none;*/
+  }
+
+  .mobile-market-td-first{
+    padding: 0 0 0 15px;
+  }
+
+  .mobile-market-td-name{
+    height: 20px;
+    line-height: 20px;
+  }
+
+  .mobile-market-td-target-name{
+    font-family: Roboto-Medium;
+    font-size: 16px;
+    color: #CFD3E9;
+    letter-spacing: 0;
+  }
+
+  .mobile-market-td-home-name{
+    font-family: Roboto-Medium;
+    font-size: 10px;
+    color: #3E536C;
+    letter-spacing: 0;
+  }
+
+  .mobile-market-td-volume{
+    height: 0.4rem;
+    line-height: 0.4rem;
+    font-family: Roboto-Regular;
+    font-size: 12px;
+    color: #6D87A8;
+    letter-spacing: 0;
+  }
+
+  /*.mobile-market-td-current-price{*/
+    /*height: 20px;*/
+    /*line-height: 20px;*/
+    /*font-size: 14px;*/
+  /*}*/
+
+  .mobile-market-td-second{
+    /*padding-top: 16px;*/
+    padding-left: 0.4rem;
+    /*padding-bottom: 20px;*/
+  }
+
+  .mobile-market-td-current-price{
+    height: 0.4rem;
+    line-height: 0.4rem;
+    font-family: Roboto-Medium;
+    font-size: 16px;
+    color: #CFD3E9;
+    letter-spacing: 0;
+  }
+
+  .mobile-market-td-current-price-fall{
+    color: #f93943;
+  }
+
+  .mobile-market-td-current-price-up{
+    color: #02987D;
+  }
+
+  .mobile-market-td-current-up-fall{
+    height: 0.4rem;
+    line-height: 0.4rem;
+    font-family: Roboto-Regular;
+    font-size: 12px;
+    color: #6D87A8;
+    letter-spacing: 0;
+  }
+
+  .mobile-market-td-current-text{
+    float: right;
+  }
+
+  .mobile-market-td-current-up .mobile-market-td-current-img{
+    background: url("../../assets/mobile_market_up.png") no-repeat center center;
+    background-size: 70% 70%;
+    height: 20px;
+    display: block;
+    float: right;
+    width: 10px;
+    margin-left: 2px;
+  }
+
+  .mobile-market-td-current-up{
+    color: #02987D;
+  }
+
+  .mobile-market-td-current-fall .mobile-market-td-current-img{
+    background: url("../../assets/mobile_market_down.png") no-repeat center center;
+    background-size: 70% 70%;
+    height: 20px;
+    display: block;
+    float: right;
+    width: 10px;
+    margin-left: 2px;
+  }
+
+
+  .mobile-market-td-current-fall{
+    color: #f93943;
+  }
+
+  .mobile-market-td-third{
+    float: right;
+    margin-right: 15px;
+  }
+
+  .mobile-market-td-current-top-price{
+    height: 20px;
+    line-height: 20px;
+    font-size: 14px;
+  }
+
+  .mobile-market-td-current-low-price{
+    height: 20px;
+    line-height: 20px;
+    font-size: 14px;
+  }
+  ._m_3ud{
+    width: 1.56rem;
+    height: 0.58rem;
+    line-height: 0.58rem;
+    border-radius: 4px;
+    font-family: Roboto-Bold;
+    font-size: 14px;
+    color: #FFFFFF;
+    letter-spacing: 0;
+    text-align: center;
+    margin-top: 15px;
+  }
+  .m_3ud_up{
+    background: #02987D;
+    border-radius: 1.5px;
+    width: 80px;
+    height: 33px;
+    line-height: 33px;
+    text-align: center;
+  }
+ .m_3ud_dw{
+   background: #C43E4E;
+   border-radius: 1.5px;
+   width: 80px;
+   height: 33px;
+   line-height: 33px;
+   text-align: center;
+
+ }
+
+._m_3ud_{
+	width: 1.56rem;
+	height: 0.58rem;
+	line-height: 0.58rem;
+	border-radius: 4px;
+  font-family: Roboto-Bold;
+  font-size: 14px;
+  color: #FFFFFF;
+  letter-spacing: 0;
+  text-align: center;
+  margin-top: 15px;
+}
+.m_3ud_up_{
+  background: #02987D;
+  border-radius: 1.5px;
+  width: 80px;
+  height: 33px;
+  line-height: 33px;
+  text-align: center;
+}
+.m_3ud_dw_{
+  background: #C43E4E;
+  border-radius: 1.5px;
+  width: 80px;
+  height: 33px;
+  line-height: 33px;
+  text-align: center;
+}

@@ -1,0 +1,583 @@
+/*隐藏的内容*/
+.li-hidden {
+  width: 100%;
+  min-height: 135px;
+  position: relative;
+  background-color: #fcfcfc;
+  box-shadow: 0 0 1px 1px rgba(118, 125, 127, 0.08) inset;
+}
+
+/*placeholder样式*/
+.address-container input::placeholder {
+  color: #999;
+}
+
+.address-container input::-moz-placeholder {
+  color: #999;
+}
+
+.address-container input::-webkit-input-placeholder {
+  color: #999;
+}
+
+.address-container input:-ms-input-placeholder {
+  color: #999;
+}
+
+.fixed-height {
+  min-height: 100px;
+}
+
+.black {
+  flex: 25.2;
+}
+
+/*提现地址部分*/
+.address-detail {
+  position: relative;
+}
+
+.address {
+  flex: 50;
+  flex-direction: column;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  justify-content: space-around;
+  padding: 20px 0;
+}
+.address-ERC {
+  display: inline-block;
+  margin-right: 15px;
+  text-align: center;
+  width: 100px;
+  height: 30px;
+  line-height: 30px;
+  background-color: #FFF3F3;
+  color: #C43E4E;
+  border-radius: 2px;
+  cursor: pointer;
+  /*border: 1px solid #C43E4E;*/
+  margin-bottom: 15px;
+}
+
+.address-OMNI-disabled {
+  display: inline-block;
+  margin-right: 15px;
+  text-align: center;
+  width: 100px;
+  height: 30px;
+  line-height: 30px;
+  background-color:#E5EBF5;
+  color: #B5BCC6;
+  border-radius: 2px;
+  cursor: pointer;
+  /*border: 1px solid #C43E4E;*/
+  margin-bottom: 15px;
+}
+
+.address-OMNI {
+  display: inline-block;
+  text-align: center;
+  width: 100px;
+  height: 30px;
+  line-height: 30px;
+  background-color: #FFF3F3;
+  color: #C43E4E;
+  border-radius: 2px;
+  cursor: pointer;
+  /*border: 1px solid #C43E4E;*/
+  margin-bottom: 15px;
+
+}
+.address-si {
+  border: 1px solid #C43E4E;
+  display: inline-block;
+  text-align: center;
+  width: 100px;
+  height: 30px;
+  line-height: 30px;
+  background-color: #FFF3F3;
+  color: #C43E4E;
+  border-radius: 2px;
+  cursor: pointer;
+  /*border: 1px solid #C43E4E;*/
+  margin-bottom: 15px;
+}
+
+.withdrawals-address {
+  width: 100%;
+  flex-direction: column;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+}
+
+/*输入的title*/
+.input-title {
+  position: absolute;
+  left: -20%;
+  width: 20%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.withdrawals-address-add-title {
+  top: 15px;
+}
+
+/*输入框*/
+.address-container {
+  width: 100%;
+  justify-content: space-between;
+  -webkit-justify-content: space-between;
+  align-items: center;
+  -webkit-align-items: center;
+}
+
+.input-remarks {
+  flex: 20;
+  width: 80px;
+}
+
+.input-connect {
+  flex: 2.6;
+  text-align: center;
+  height: 30px;
+  line-height: 30px;
+}
+
+.select-address-container {
+  flex: 90;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+}
+
+.border-container {
+  border: 1px solid #e5e5e5;
+  background: white;
+  border-radius: 2px;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.no-border {
+  border: 0 solid transparent;
+}
+
+.select-address-memo-separate {
+  margin-left: 10px;
+  border-top: 1px solid rgba(9, 1, 3, 0.05);
+  width: 80%;
+  line-height: 20px;
+}
+
+.address-container .select-address-memo-input {
+  width: 100%;
+  height: 28px;
+  border: 0 solid transparent;
+  box-sizing: border-box;
+}
+
+.select-address-input {
+
+}
+
+.select-memo-input {
+
+}
+
+.input-address {
+  flex: 80;
+  width: 100%;
+}
+
+.address-container input {
+  height: 30px;
+  box-sizing: border-box;
+  outline: none;
+}
+
+.input-unify {
+  padding-left: 10px;
+}
+
+/*选择框*/
+.select-address-button {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  font-weight: bolder;
+  font-size: 1.8rem;
+  line-height: 30px;
+  right: 8px;
+  top: 50%;
+  color: #C43E4E;
+  text-align: center;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  transform: translateY(-50%);
+}
+
+/*下拉框打开样式*/
+.select-address-button-open {
+  background-image: url("../../assets/assetPageRechargeAndWithdrawalsWithdrawals/withdrawals_open.png");
+}
+
+/*下拉框关闭样式*/
+.select-address-button-close {
+  background-image: url("../../assets/assetPageRechargeAndWithdrawalsWithdrawals/withdrawals_open_down.png");
+}
+
+/*下拉框删除按钮*/
+.input-address-delete {
+  background-image: url('../../assets/assetPageRechargeAndWithdrawalsWithdrawals/withdrawals_delete.png');
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  font-weight: bolder;
+  font-size: 1.8rem;
+  line-height: 30px;
+  right: 8px;
+  top: 50%;
+  text-align: center;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  transform: translateY(-50%);
+}
+
+/*下拉框选择container*/
+.select-address-input-container {
+  width: 100%;
+  /*height: 100%;*/
+}
+
+.select-address {
+
+}
+
+/*不能为空提示*/
+.can-not-empty {
+  /*height: 24px;*/
+  min-height: 24px;
+  line-height: 24px;
+  /*padding: 5px 0;*/
+}
+
+/*添加新地址*/
+.add-new-address {
+  padding: 5px 0;
+  border: 1px solid #C43E4E;
+  background-color: #C43E4E;
+  color: #fff;
+  width: 100px;
+  margin: 0 auto;
+  border-radius: 5px;
+  margin-top: 5px;
+
+}
+
+/*提现数量*/
+.withdrawals-number-container {
+  width: 100%;
+  height: 30px;
+  line-height: 28px;
+  white-space: nowrap;
+  /*margin-top:20px;*/
+  /*margin-bottom: 10px;*/
+}
+
+.withdrawals-number {
+  width: 100%;
+  height: 100%;
+
+}
+
+.withdrawals-number input {
+  height: 100%;
+  border: 0 solid transparent;
+  flex: 57;
+
+}
+
+.withdrawals-number-prompt {
+  /*flex: 28;*/
+  /*width:200px;*/
+  text-align: center;
+  color: #999999;
+  /*margin-right: 10px;*/
+}
+
+.withdrawals-number-all {
+  flex: 8;
+  text-align: center;
+  color: #0babb6;
+}
+
+/*提现提示*/
+.withdrawals-prompt {
+  width: 100%;
+  justify-content: space-between;
+  -webkit-justify-content: space-between;
+  border: 1px dotted #C43E4E;
+  height: 30px;
+  line-height: 28px;
+  padding: 0 10px;
+  background-color: rgba(255, 249, 231,0.3);
+  margin-bottom: 20px;
+}
+
+/*提现提交*/
+.withdrawals-commit {
+  width: 38%;
+  height: 30px;
+  margin: 0 auto;
+  border: 0 solid transparent;
+  /*background-color: #C43E4E;*/
+  color: #fff;
+  border-radius: 5px;
+}
+
+/*描述*/
+.describe {
+  flex: 40;
+  flex-direction: column;
+  -ms-flex-direction: column;
+  -webkit-flex-direction: column;
+  justify-content: space-between;
+  -webkit-justify-content: space-between;
+  padding-left: 70px;
+}
+
+.describe li {
+  position: relative;
+  padding-left: 10px;
+  color: #666;
+  line-height: 24px;
+  width: 400px;
+}
+
+.describe li span {
+  position: absolute;
+  top: 12px;
+  left: 0;
+  transform: translateY(-50%);
+  display: inline-block;
+  width: 3px;
+  height: 3px;
+  border-radius: 3px;
+  background-color: #C43E4E;
+}
+
+.red-bot {
+  background-color: #f93943 !important;
+}
+
+/*关闭按钮*/
+.close {
+  flex: 1.9;
+}
+
+.close-img {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+
+/*点击选择*/
+.select-address-detail {
+  margin-bottom: 10px;
+}
+
+.select-address-detail:hover .hover-border {
+  border: 1px solid #C43E4E;
+}
+
+/*过渡状态*/
+.selectAddress-enter-active, .selectAddress-leave-active {
+  -webkit-transition: all .2s linear;
+  -moz-transition: all .2s linear;
+  -ms-transition: all .2s linear;
+  -o-transition: all .2s linear;
+  transition: all .2s linear;
+}
+
+.selectAddress-enter, .selectAddress-leave-to /* .fade-leave-active below version 2.1.8 */
+{
+  height: 0;
+  transform: scaleY(0);
+  opacity: 0;
+  line-height: 0;
+
+}
+
+/*过渡状态*/
+.addNewAddress-enter-active, .addNewAddress-leave-active {
+  -webkit-transition: all .2s linear;
+  -moz-transition: all .2s linear;
+  -ms-transition: all .2s linear;
+  -o-transition: all .2s linear;
+  transition: all .2s linear;
+}
+
+.addNewAddress-enter, .addNewAddress-leave-to /* .fade-leave-active below version 2.1.8 */
+{
+  line-height: 0;
+  transform: scaleY(0);
+  opacity: 0;
+  overflow: hidden;
+}
+
+.shadow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+/*弹窗验证*/
+.popupWindow-container {
+}
+
+.popWindow-title {
+  color: #333;
+}
+
+.popWindow-article {
+  padding-top: 10px;
+}
+
+.prompt-title {
+  font-size: 14px;
+  /*padding-bottom: 30px;*/
+  color: #C43E4E;
+}
+
+.prompt-show-picker {
+  padding: 10px 0;
+}
+
+/*谷歌验证码和手机验证码选择*/
+.prompt-show-picker-detail-box {
+  display: inline-block;
+  font-size: 14px;
+}
+
+.prompt-show-picker-detail-box:last-child {
+  margin-left: 20px;
+}
+
+.verification-container {
+  padding-top: 10px;
+  width: 100%;
+  justify-content: space-around;
+  -webkit-justify-content: space-around;
+  align-items: center;
+  -webkit-align-items: center;
+  font-size: 14px;
+
+}
+
+.verification-title {
+
+}
+
+.get-verification {
+  width: 70px;
+  height: 35px;
+  font-size: 14px;
+}
+
+.verification-input {
+  height: 35px;
+  border: 1px solid #e5e5e5;
+  border-radius: 5px;
+  width: 200px;
+
+}
+
+.double-input {
+  width: 130px;
+}
+
+.prompt-wrong {
+  font-size: 12px;
+  /*padding-top: 10px;*/
+  margin-top: 10px;
+  height: 12px;
+  display: block;
+}
+
+.btn-commit {
+  margin-left: 20px;
+}
+
+.btn-cancel {
+  /*background-color: #e6e6e6;*/
+  /*border: 1px solid #c9c9c9;*/
+  /*background-color: transparent;*/
+
+  /*color: #999;*/
+  /*color: #fff;*/
+}
+
+/*提交loading*/
+.popWindow-loading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.popWindow-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #081724;
+  opacity: 0.1;
+}
+
+/*删除提现地址*/
+.delete-pop-article {
+  padding: 20px 0 10px 0;
+}
+
+/*弹窗button*/
+.button-base {
+  margin-right: 20px;
+}
+
+.button-base:last-of-type {
+  margin-right: 0;
+}
+
+/*memo 弹窗提示*/
+.memo-pop-header {
+  font-size: 16px;
+}
+
+.memo-pop-article {
+  width: 400px;
+  padding: 20px 0;
+}
+
+.memo-pop-check {
+  font-size: 12px;
+  color: #666;
+  margin: 10px 0;
+}
+
+.memo-pop-article-text {
+  font-size: 14px;
+}
+
+.memo-pop-btn-container {
+  justify-content: center;
+}
+
+.memo-btn-not-agree {
+  background: #B1B3B4;
+}

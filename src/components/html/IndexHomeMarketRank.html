@@ -1,0 +1,128 @@
+<div class="index-home-market-rank-container"
+     :class="{'dark':themeColor==0,'light':themeColor==1}"
+>
+
+  <ul class="market-rank-container flex " >
+    <div  v-for="(item,key) in computedRankLists" id="rankitemdiv" >
+    <li class="market-rank-item  flex pointer "
+        @click="clickToGoTradingHall(item.symbol)"
+    >
+      <div class="market-price-container flex">
+        <div class="market-currency">
+          {{item.symbol.split('_').join('/')}}
+        </div>
+        <div class="market-rise-and-fall"
+             :class="{'market-rise-and-fall-green':item.percentage>=0,
+                      'market-rise-and-fall-red':item.percentage<0,
+             }"
+        >
+          {{item.percentage>=0 && '+' || ''}}{{toFixed(item.percentage,2)}}%
+        </div>
+      </div>
+      <div class="kong5px">
+
+      </div>
+      <div class="market-turnover-container">
+        <div class="market-price">
+          <span class="szhei"
+                :class="{'market-rise-and-fall-green':item.percentage>=0,
+                      'market-rise-and-fall-red':item.percentage<0,
+             }"
+          >{{toFixed(item.price,2)}}</span>
+          <span>≈{{get_now_price(item.price,item.symbol.split('_')[1])}}</span>
+        </div>
+        <div class="kong5px">
+
+        </div>
+        <div class="market-turnover">
+          <!--成交额：-->
+          {{$t('deal')}}
+          <span>{{item.amount}} {{item.symbol.split('_')[0]}}</span>
+        </div>
+        <div class="hqimg" v-if="key == 0 && item.percentage>=0">
+          <img src="../../assets/hangq1lv.png" >
+        </div>
+        <div class="hqimg" v-if="key == 0 && item.percentage<0">
+          <img src="../../assets/hangq1.png" >
+        </div>
+        <div class="hqimg" v-if="key == 1 && item.percentage>=0">
+          <img src="../../assets/hangq2lv.png" >
+        </div>
+        <div class="hqimg" v-if="key == 1 && item.percentage<0">
+          <img src="../../assets/hangq2.png" >
+        </div>
+        <div class="hqimg" v-if="key == 2 && item.percentage>=0">
+          <img src="../../assets/hangq3lv.png" >
+        </div>
+        <div class="hqimg" v-if="key == 2 && item.percentage<0">
+          <img src="../../assets/hangq3.png" >
+        </div>
+        <div class="hqimg" v-if="key == 3 && item.percentage>=0">
+        <img src="../../assets/hangq4lv.png" >
+      </div>
+        <div class="hqimg" v-if="key == 3 && item.percentage<0">
+          <img src="../../assets/hangq4.png" >
+        </div>
+        <div class="hqimg" v-if="key == 4 && item.percentage>=0">
+          <img src="../../assets/hangq5lv.png" >
+        </div>
+        <div class="hqimg" v-if="key == 4 && item.percentage<0">
+          <img src="../../assets/hangq5.png" >
+        </div>
+        <div class="hqimg" v-if="key == 5 && item.percentage>=0">
+          <img src="../../assets/hangq6lv.png" >
+        </div>
+        <div class="hqimg" v-if="key == 5 && item.percentage<0">
+          <img src="../../assets/hangq6.png" >
+        </div>
+      </div>
+      <div class="market-price-background-container">
+
+      </div>
+    </li>
+<!--      <li v-show="key < 5" class="line"></li>-->
+
+    </div>
+
+
+  </ul>
+
+  <div class="notice100">
+    <div class="notice-box"  v-if="!hideNotice">
+      <!-- <div class="notice-box-list-left-icon">
+        <img class="notice-box-list-left-icon-img" src="../../assets/index_home/notice_sound_icon.png" alt="">
+      </div> -->
+
+      <ul class="notice-box-list">
+        <!--<li class="notice-box-item" v-for="(value, key) in noticeList" :key="key"  @click="goNotice(value.id)">-->
+        <li class="notice-box-item" v-for="(value, key) in noticeList" :key="key"  @click="goNotice(value.url)">
+          <span class="notice-box-item-title">{{value.title}}<span class="notice-box-item-title1">/</span></span>
+
+<!--          ( {{$globalFunc.formatDateUitl(value.beginTime,'MM-DD')}} )-->
+
+        </li>
+<!--        <li class="notice-box-item" >-->
+<!--          <span class="notice-box-item-title">节点预购赠币第二期发放公告节点预<span class="riqi">08-31</span></span>-->
+
+<!--        </li>-->
+<!--        <li class="notice-box-item" >-->
+<!--          <span class="notice-box-item-title">节点预购赠币第二期发放公告节点预<span class="riqi">08-31</span></span>-->
+
+<!--        </li>-->
+<!--        <li class="notice-box-item" >-->
+<!--          <span class="notice-box-item-title">节点预购赠币第二期发放公告节点预<span class="riqi">08-31</span></span>-->
+
+<!--        </li>-->
+        <!--<li class="notice-box-item"  v-if="noticelength<3">-->
+          <!--<span class="notice-box-item-title"></span>-->
+        <!--</li>-->
+
+
+      </ul>
+
+      <div class="notice-box-list-right-icon"  @click="goPicNotice()">
+        {{$t('seeMore')}}<img class="notice-box-list-right-icon-img" src="../../assets/右箭头1.png" alt="">
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,53 @@
+<div class="release-container border_radius">
+  <Loading v-if="loading"/>
+  <template v-else>
+    <div class="release-title flex">
+      <span></span>
+      <span>{{$t('personalCenterSecurityCenterReleaseGoogleAuthenticator.title')}}</span>
+      <!--<span>*为了您的资产安全，重置登录密码修改24h以内不允许提现。</span>-->
+    </div>
+
+    <div class="release-article">
+
+      <!--输入登录密码 begin-->
+      <div class="input-password input-container">
+        <div class="detail-center">
+          <span class="detail-center-title">{{$t('personalCenterSecurityCenterReleaseGoogleAuthenticator.psw')}}</span>
+          <input type="password" v-model="psw" :class="{'wrong-border':pswWA!==''}" class="detail-input"
+                 @blur="testPsw">
+          <span class="detail-center-prompt txt-red" v-if="pswWA!==''">{{pswWA}}</span>
+        </div>
+      </div>
+      <!--输入登录密码 end-->
+
+      <!--输入谷歌验证码 begin-->
+      <div class="google-verification input-container">
+        <div class="detail-center">
+          <span
+            class="detail-center-title">{{$t('personalCenterSecurityCenterReleaseGoogleAuthenticator.gaCode')}}</span>
+          <input type="text" v-model="GACode" :class="{'wrong-border':GACodeWA!==''}" class="detail-input"
+                 @blur="testGACode">
+          <span class="detail-center-prompt txt-red" v-if="GACodeWA!==''">{{GACodeWA}}</span>
+        </div>
+      </div>
+      <!--输入谷歌验证码 end-->
+
+      <!--确定 begin-->
+      <div class="ensure input-container">
+        <div class="detail-center">
+          <button v-if="!sending" @click="commit" class="btn_blue">
+            {{$t('personalCenterSecurityCenterReleaseGoogleAuthenticator.ensure')}}
+          </button>
+          <button v-if="sending" class="btn_grey">
+            {{$t('personalCenterSecurityCenterReleaseGoogleAuthenticator.releasing')}}
+          </button>
+        </div>
+      </div>
+      <!--确定 end-->
+
+    </div>
+
+    <PopupPrompt :popOpen="popOpen" :popClose="popClose" :popType="popType" :popText="popText"/>
+
+  </template>
+</div>

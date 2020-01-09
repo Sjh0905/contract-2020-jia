@@ -1,0 +1,37 @@
+{
+  "CH": {
+    "BuyingPrice":"买入价",
+    "SellingPrice":"卖出价",
+    "BuyingVolume":"买入量",
+    "SellingVolume":"卖出量"
+  },
+  "EN": {
+    "BuyingPrice":"Price",
+    "SellingPrice":"Price",
+    "BuyingVolume":"Volume",
+    "SellingVolume":"Volume"
+  },
+  "CA": {
+    "BuyingPrice":"Price",
+    "SellingPrice":"Price",
+    "BuyingVolume":"Volume",
+    "SellingVolume":"Volume"
+  },
+  "CHT": {
+    "BuyingPrice":"買入價",
+    "SellingPrice":"賣出價",
+    "BuyingVolume":"買入量",
+    "SellingVolume":"賣出量"
+  },
+  "JP": {
+
+    "BuyingPrice": "買",
+    "SellingPrice": "売",
+    "BuyingVolume": "買高",
+    "SellingVolume": "売高"
+
+  },
+  "KOR": {
+    "BuyingPrice":"입찰가",  "SellingPrice":"가격묻기",  "BuyingVolume":"볼륨구매",  "SellingVolume":"판매"
+  }
+}

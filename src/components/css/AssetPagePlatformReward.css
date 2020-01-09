@@ -1,0 +1,158 @@
+/*下方内容*/
+
+.recharge-record-container {
+  display: block;
+  width: 100%;
+  position: relative;
+  min-height: 500px;
+}
+
+.border_box {
+  overflow: hidden;
+  border-top-left-radius: 0 !important;
+}
+
+.detail-header {
+  width: 100%;
+  position: relative;
+  align-items: center;
+  -webkit-align-items: center;
+  justify-content: space-around;
+  -webkit-justify-content: space-around;
+  height: 35px;
+  /*background-color: #cae7ea;*/
+  /*border-left: 1px solid #e5e5e5;*/
+  /*border-right: 1px solid #e5e5e5;*/
+  font-size: 1.2rem;
+  text-align: center;
+  color: #333;
+}
+
+.currency {
+  flex: 10;
+  /*flex:19.9;*/
+}
+
+.time {
+  flex: 13;
+  /*flex:9.3;*/
+  /*text-align: left;*/
+}
+
+.total {
+  flex: 15;
+}
+
+.address {
+  flex: 35;
+}
+
+.address-detail {
+  /*text-align: left;*/
+  flex-direction: column;
+  -ms-flex-direction: column;
+  -webkit-flex-direction: column;
+  /*white-space: nowrap;*/
+  text-align: center;
+  color: #666;
+}
+
+.state {
+  flex: 11;
+}
+
+.th-prompt {
+  flex: 10;
+}
+
+/*列表*/
+.detail-container {
+
+}
+
+.detail-li {
+  /*height:35px;*/
+  height: auto;
+  background-color: #fff;
+}
+
+.detail-li:hover {
+  background-color:rgba(196,62,78,0.03);
+}
+
+.detail-li:hover .unit-input {
+  background-color:rgba(196,62,78,0.03);
+}
+
+/*具体内容*/
+.li-container {
+  width: 100%;
+  text-align: center;
+  min-height: 40px;
+  align-items: center;
+  -webkit-align-items: center;
+  border-top: 1px solid #f9f9f9;
+
+  /*border: 1px solid #e5e5e5;*/
+  /*border-bottom:1px solid #e5e5e5;*/
+}
+
+/*加载中*/
+.recharge-record-loading-container {
+  background-color: #fff;
+  height: 100%;
+  width: 100%;
+}
+
+/*加载更多*/
+.loading-more {
+  width: 100%;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  /*background-color: #fff;*/
+  color: #C43E4E;
+  /*border-radius: ;*/
+  position: relative;
+}
+
+.loading-more span {
+  cursor: pointer;
+}
+
+.copy-btn {
+  padding: 0 20px;
+  border: 1px solid #C43E4E;
+  border-radius: 4px;
+  position: absolute;
+  right: 1%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.unit-input {
+  width: 450px;
+  border: 0 solid transparent;
+}
+
+.uniqueId-input {
+
+}
+
+.address-title {
+  width: 10%;
+  display: inline-block;
+}
+
+.empty-span {
+  text-align: center;
+}
+
+/*加载下一页*/
+.loadingNext {
+  display: block;
+  position: relative;
+  width: 100%;
+  min-height: 400px;
+  background-color: #fff;
+}

@@ -1,0 +1,58 @@
+{
+  "CH": {
+    "total": "总资产",
+    "available": "可用",
+    "frozen": "冻结",
+    "userName": "用户名：",
+    "loginOff": "退出登录",
+    "authentication": "身份认证",
+    "safetyCente": "安全中心",
+    "securityLog": "安全日志",
+    "mynvitation": "我的邀请"
+  },
+  "EN": {
+    "total": "Estimated Total",
+    "available": "Available",
+    "frozen": "In use",
+    "userName": "User ID：",
+    "loginOff": "Sign out",
+    "authentication": "Identification",
+    "safetyCente": "Account and Security",
+    "securityLog": "Security Log",
+    "mynvitation": "Invite Friend"
+  },
+  "CA": {
+    "total": "Estimated Total",
+    "available": "Available",
+    "frozen": "In use",
+    "userName": "User ID：",
+    "loginOff": "Sign out",
+    "authentication": "Identification",
+    "safetyCente": "Account and Security",
+    "securityLog": "Security Log",
+    "mynvitation": "Invite Friend"
+  },
+  "KOR": {
+    "total": "총자산",
+    "available": "사용 가능",
+    "frozen": "동결",
+    "userName": "사용자 이름：",
+    "loginOff": "로그아웃",
+    "authentication": "신원 인증",
+    "safetyCente": "보안 센터",
+    "securityLog": "보안 로그",
+    "mynvitation": "내 초대"
+  },
+  "CHT": {
+    "total": "總資產",
+    "available": "可用",
+    "frozen": "凍結",
+    "userName": "用戶名：",
+    "loginOff": "退出登錄",
+    "authentication": "身份認證",
+    "safetyCente": "安全中心",
+    "securityLog": "安全日誌",
+    "mynvitation": "我的邀請"
+  },
+  "JP": {  "total": "総資産",  "available": "利用可能",  "frozen": "凍結",  "userName": "利用者名:",  "loginOff": "ログアウト登録",  "authentication": "身分認証",  "safetyCente": "安全センター",  "securityLog": "セキュリティログ",  "mynvitation": "私の招待"}
+}

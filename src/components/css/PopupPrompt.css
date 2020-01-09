@@ -1,0 +1,135 @@
+.popup-prompt-container {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9999;
+}
+
+.popup-prompt-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: #081724;
+  opacity: 0.3;
+}
+
+/*登录*/
+.prompt-detail {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  background-color: #fff;
+  /*padding:0 15px;*/
+  padding: 0 40px;
+  width: auto;
+  min-height: 40px;
+  border-radius: 5px;
+}
+
+.prompt-loading{
+  min-width: 120px;
+}
+
+/*弹窗图片*/
+.prompt-detail-img {
+  margin-right: 10px;
+  width: 20px;
+  height: 20px;
+}
+
+/*背景过渡状态*/
+.background-enter {
+  opacity: 0;
+}
+
+.background-enter .trans {
+  top: 46%;
+  opacity: 0;
+}
+
+.background-enter-active {
+  transition: all .1s;
+}
+
+.background-enter-active .trans {
+  transition: all 0.2s;
+}
+
+.background-enter-to {
+}
+
+.background-leave {
+  opacity: 0;
+}
+
+.background-leave-to .trans {
+  top: 44%;
+  opacity: 0;
+}
+
+.background-leave-active {
+  transition: all .2s;
+}
+
+.background-leave-active .trans {
+  transition: all 0.3s;
+}
+
+.background-leave-to {
+  opacity: 0;
+}
+
+/*----------------------------------------------------------------------------------------------------*/
+
+@media screen and (max-width: 768px) {
+  .prompt-detail {
+    position: absolute;
+    margin: auto;
+    left: 0;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    /*padding:0 15px;*/
+    background-color: transparent;
+    width: auto;
+    min-height: 40px;
+    border-radius: 5px;
+    max-width: 320px;
+    padding: 0;
+  }
+
+  .prompt-detail-mobile {
+    max-width: 320px;
+    display: flex;
+    margin: 0 auto;
+    /*white-space: nowrap;*/
+    word-wrap: break-word;
+    background-color: #fff;
+    /*overflow: hidden;*/
+    min-height: 40px;
+    min-width: 100px;
+    border-radius: 5px;
+    padding: 5px 20px;
+  }
+
+  /*弹窗图片*/
+  .prompt-detail-img {
+    margin-right: 10px;
+    display: block;
+    width: 21px;
+  }
+
+  .prompt-detail-text-error {
+    color: #E13B3B;
+  }
+}
+
+
+

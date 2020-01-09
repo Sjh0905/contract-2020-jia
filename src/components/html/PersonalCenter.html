@@ -1,0 +1,109 @@
+<div class="container ">
+<!--  <div v-if="!isMobile" class="container-left box_shadow border_radius">-->
+<!--    <ul class="container-left-detail flex">-->
+<!--      &lt;!&ndash;身份认证 begin&ndash;&gt;-->
+<!--      <li class="flex-center personal-center-title-box">-->
+<!--        <router-link to="/index/personal/auth" class="flex-center" active-class="selected">-->
+<!--          <div class="icon-box icon-auth">-->
+
+<!--          </div>-->
+<!--          <span class="flex-center-text personal-center-title">{{$t('auth')}}</span>-->
+<!--        </router-link>-->
+<!--      </li>-->
+<!--      &lt;!&ndash;身份认证 end&ndash;&gt;-->
+
+<!--      &lt;!&ndash;安全中心 begin&ndash;&gt;-->
+<!--      <li class="flex-center personal-center-title-box">-->
+<!--        <router-link-->
+<!--          to="/index/personal/securityCenter"-->
+<!--          class="flex-center"-->
+<!--          active-class="selected"-->
+<!--        >-->
+<!--          <div class="icon-box icon-security">-->
+
+<!--          </div>-->
+<!--          <span class="flex-center-text personal-center-title">{{$t('center')}}</span>-->
+<!--        </router-link>-->
+<!--      </li>-->
+<!--      &lt;!&ndash;安全中心 end&ndash;&gt;-->
+
+<!--      &lt;!&ndash; <li class="flex-center">-->
+<!--        <router-link to="/index/personal/securityStrategy" class="flex-center" active-class="selected"><img-->
+<!--          src="../../assets/安全策略.png" alt="">{{$t('strategy')}}-->
+<!--        </router-link>-->
+<!--      </li> &ndash;&gt;-->
+<!--      &lt;!&ndash;安全日志 begin&ndash;&gt;-->
+<!--      <li class="flex-center personal-center-title-box">-->
+<!--        <router-link-->
+<!--          :to="{name:'securityLog'}"-->
+<!--          class="flex-center"-->
+<!--          active-class="selected"-->
+<!--        >-->
+<!--          <div class="icon-box icon-log">-->
+
+<!--          </div>-->
+<!--          <span class="flex-center-text personal-center-title">{{$t('log')}}</span>-->
+<!--        </router-link>-->
+<!--      </li>-->
+<!--      &lt;!&ndash;安全日志 end&ndash;&gt;-->
+
+<!--      &lt;!&ndash;邀请返佣 begin&ndash;&gt;-->
+<!--      &lt;!&ndash;<li class="flex-center personal-center-title-box">&ndash;&gt;-->
+<!--        &lt;!&ndash;<router-link&ndash;&gt;-->
+<!--          &lt;!&ndash;to="/index/personal/Recommend"&ndash;&gt;-->
+<!--          &lt;!&ndash;class="flex-center"&ndash;&gt;-->
+<!--          &lt;!&ndash;active-class="selected"&ndash;&gt;-->
+<!--        &lt;!&ndash;&gt;&ndash;&gt;-->
+<!--          &lt;!&ndash;<div class="icon-box icon-recommend">&ndash;&gt;-->
+
+<!--          &lt;!&ndash;</div>&ndash;&gt;-->
+<!--          &lt;!&ndash;<span class="flex-center-text personal-center-title">{{$t('recommend')}}</span>&ndash;&gt;-->
+<!--        &lt;!&ndash;</router-link>&ndash;&gt;-->
+<!--      &lt;!&ndash;</li>&ndash;&gt;-->
+<!--      &lt;!&ndash;我的推荐 end&ndash;&gt;-->
+
+<!--      &lt;!&ndash;我的为蜜 begin&ndash;&gt;-->
+<!--      &lt;!&ndash;<li class="flex-center personal-center-title-box" v-if="showSuperBee">&ndash;&gt;-->
+<!--        &lt;!&ndash;<router-link&ndash;&gt;-->
+<!--          &lt;!&ndash;:to="{name:'mySuperBee'}"&ndash;&gt;-->
+<!--          &lt;!&ndash;class="flex-center"&ndash;&gt;-->
+<!--          &lt;!&ndash;active-class="selected"&ndash;&gt;-->
+<!--        &lt;!&ndash;&gt;&ndash;&gt;-->
+<!--          &lt;!&ndash;<div class="icon-box icon-super-bee">&ndash;&gt;-->
+
+<!--          &lt;!&ndash;</div>&ndash;&gt;-->
+<!--          &lt;!&ndash;<span class="flex-center-text personal-center-title">&ndash;&gt;-->
+<!--            &lt;!&ndash;&lt;!&ndash;我的为蜜&ndash;&gt;&ndash;&gt;-->
+<!--            &lt;!&ndash;{{$t('my_super_bee')}}&ndash;&gt;-->
+<!--          &lt;!&ndash;</span>&ndash;&gt;-->
+<!--        &lt;!&ndash;</router-link>&ndash;&gt;-->
+<!--      &lt;!&ndash;</li>&ndash;&gt;-->
+<!--      &lt;!&ndash;我的为蜜 end&ndash;&gt;-->
+
+<!--      &lt;!&ndash;挖矿收益 begin&ndash;&gt;-->
+<!--      &lt;!&ndash;<li class="flex-center personal-center-title-box">&ndash;&gt;-->
+<!--        &lt;!&ndash;<router-link&ndash;&gt;-->
+<!--          &lt;!&ndash;:to="{name:'btActivity'}"&ndash;&gt;-->
+<!--          &lt;!&ndash;class="flex-center"&ndash;&gt;-->
+<!--          &lt;!&ndash;active-class="selected"&ndash;&gt;-->
+<!--        &lt;!&ndash;&gt;&ndash;&gt;-->
+<!--          &lt;!&ndash;<div class="icon-box icon-bt">&ndash;&gt;-->
+
+<!--          &lt;!&ndash;</div>&ndash;&gt;-->
+<!--          &lt;!&ndash;<span class="flex-center-text personal-center-title">&ndash;&gt;-->
+<!--            &lt;!&ndash;&lt;!&ndash;挖矿收益&ndash;&gt;&ndash;&gt;-->
+<!--            &lt;!&ndash;{{$t('miningProfit')}}&ndash;&gt;-->
+<!--          &lt;!&ndash;</span>&ndash;&gt;-->
+<!--        &lt;!&ndash;</router-link>&ndash;&gt;-->
+<!--      &lt;!&ndash;</li>&ndash;&gt;-->
+<!--      &lt;!&ndash;挖矿收益 end&ndash;&gt;-->
+
+<!--    </ul>-->
+<!--  </div>-->
+  <div class="container-right border_radius">
+    <router-view></router-view>
+  </div>
+  <div class="clear"></div>
+
+
+</div>

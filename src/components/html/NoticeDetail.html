@@ -1,0 +1,67 @@
+<div class="container border_radius box_shadow">
+  <!-- <div class="title flex"> -->
+    <!-- <span class="title-block"></span> -->
+    <!-- <span class="title-title pointer" @click="goBack">{{$t('noticeCenter.title')}}</span> -->
+    <!-- <span class="title-separate">></span> -->
+    <!-- <span class="title-detail">{{$t('noticeDetail.titleDetail')}}</span> -->
+    <!--<p class="search">-->
+    <!--<div class="unit-input-container flex">-->
+    <!--<font class="flex-center unit-input-container-title"><img-->
+    <!--src="" alt=""></font>-->
+    <!--<input type="text" :placeholder="$t('noticeCenter.search')"-->
+    <!--class="unit-input"></div>-->
+    <!--<router-link to="/index/help/wordOrder" class="order_btn" active-class="selected">{{$t('noticeCenter.commit')}}-->
+    <!--</router-link>-->
+    <!--</p>-->
+  <!-- </div> -->
+  <div class="article relative">
+    <Loading v-if="loading"></Loading>
+    <template v-if="!loading">
+      <div class="article-title">
+        <span class="article-title-detail">
+          {{noticeDetail.title}}
+        </span>
+<!--         <div class="article-title-time">-->
+<!--           <img src="" alt="">-->
+<!--           <span>{{formatDateUitl(noticeDetail.beginTime)}}</span>-->
+<!--           <span>{{formatDateUitll(noticeDetail.beginTime)}}</span>-->
+<!--         </div>-->
+      </div>
+    </template>
+
+    <div class="article-detail" ref="articleDetail">
+      <p class="article-detail-block">
+      <!-- 持有BDB Token的用户，交易费用会优先扣除BDB Token（扣除功能默认为开启状态，用户可以在个人中心自行开启或关闭BNB抵扣开关），任意区块链资产交易都将享有60%折扣，即0.12%。使用BDB
+      Token完成手续费支付的，按照市值折算等额BDB Token数量。所有交易手续费收益部分100%用来销毁BDB Token。持有BDB Token的用户，交易费用会优先扣除BDB
+      Token（扣除功能默认为开启状态，用户可以在个人中心自行开启或关闭BNB抵扣开关），任意区块链资产交易都将享有60%折扣，即0.12%。使用BDB Token完成手续费支付的，按照市值折算等额BDB
+      Token数量。所有交易手续费收益部分100%用来销毁BDB Token。
+      持有BDB Token的用户，交易费用会优先扣除BDB Token（扣除功能默认为开启状态，用户可以在个人中心自行开启或关闭BNB抵扣开关），任意区块链资产交易都将享有60%折扣，即0.12%。使用BDB
+      Token完成手续费支付的，按照市值折算等额BDB Token数量。所有交易手续费收益部分100%用来销毁BDB Token。持有BDB Token的用户，交易费用会优先扣除BDB
+      Token（扣除功能默认为开启状态，用户可以在个人中心自行开启或关闭BNB抵扣开关），任意区块链资产交易都将享有60%折扣，即0.12%。使用BDB Token完成手续费支付的，按照市值折算等额BDB
+      Token数量。所有交易手续费收益部分100%用来销毁BDB Token。
+      持有BDB Token的用户，交易费用会优先扣除BDB Token（扣除功能默认为开启状态，用户可以在个人中心自行开启或关闭BNB抵扣开关），任意区块链资产交易都将享有60%折扣，即0.12%。使用BDB
+      Token完成手续费支付的，按照市值折算等额BDB Token数量。所有交易手续费收益部分100%用来销毁BDB Token。持有BDB Token的用户，交易费用会优先扣除BDB
+      Token（扣除功能默认为开启状态，用户可以在个人中心自行开启或关闭BNB抵扣开关），任意区块链资产交易都将享有60%折扣，即0.12%。使用BDB Token完成手续费支付的，按照市值折算等额BDB
+      Token数量。所有交易手续费收益部分100%用来销毁BDB Token。 -->
+      </p>
+      <p class="article-detail-block">
+      <!-- 持有BDB Token的用户，交易费用会优先扣除BDB Token（扣除功能默认为开启状态，用户可以在个人中心自行开启或关闭BNB抵扣开关），任意区块链资产交易都将享有60%折扣，即0.12%。使用BDB
+      Token完成手续费支付的，按照市值折算等额BDB Token数量。所有交易手续费收益部分100%用来销毁BDB Token。持有BDB Token的用户，交易费用会优先扣除BDB
+      Token（扣除功能默认为开启状态，用户可以在个人中心自行开启或关闭BNB抵扣开关），任意区块链资产交易都将享有60%折扣，即0.12%。使用BDB Token完成手续费支付的，按照市值折算等额BDB
+      Token数量。所有交易手续费收益部分100%用来销毁BDB Token。
+      持有BDB Token的用户，交易费用会优先扣除BDB Token（扣除功能默认为开启状态，用户可以在个人中心自行开启或关闭BNB抵扣开关），任意区块链资产交易都将享有60%折扣，即0.12%。使用BDB
+      Token完成手续费支付的，按照市值折算等额BDB Token数量。所有交易手续费收益部分100%用来销毁BDB Token。持有BDB Token的用户，交易费用会优先扣除BDB
+      Token（扣除功能默认为开启状态，用户可以在个人中心自行开启或关闭BNB抵扣开关），任意区块链资产交易都将享有60%折扣，即0.12%。使用BDB Token完成手续费支付的，按照市值折算等额BDB
+      Token数量。所有交易手续费收益部分100%用来销毁BDB Token。
+      持有BDB Token的用户，交易费用会优先扣除BDB Token（扣除功能默认为开启状态，用户可以在个人中心自行开启或关闭BNB抵扣开关），任意区块链资产交易都将享有60%折扣，即0.12%。使用BDB
+      Token完成手续费支付的，按照市值折算等额BDB Token数量。所有交易手续费收益部分100%用来销毁BDB Token。持有BDB Token的用户，交易费用会优先扣除BDB
+      Token（扣除功能默认为开启状态，用户可以在个人中心自行开启或关闭BNB抵扣开关），任意区块链资产交易都将享有60%折扣，即0.12%。使用BDB Token完成手续费支付的，按照市值折算等额BDB
+      Token数量。所有交易手续费收益部分100%用来销毁BDB Token。 -->
+      </p>
+      <!-- <p>2312312312<img src="/image/20180227/1519713373290027887.jpg" title="1519713373290027887.jpg" alt="project_alt_03.jpg"/></p > -->
+    </div>
+    <!-- <div class="signal">
+      {{$t('noticeDetail.team')}}
+    </div> -->
+  </div>
+</div>

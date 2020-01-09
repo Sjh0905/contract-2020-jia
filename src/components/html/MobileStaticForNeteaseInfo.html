@@ -1,0 +1,70 @@
+<div class="info-box">
+  <Loading v-if="loading"/>
+  <div v-if="!loading">
+    <!--<div class="info-header">-->
+      <!--<div class="info-header-left">-->
+        <!--<img class="info-header-img" src="" alt="">-->
+      <!--</div>-->
+      <!--<div class="info-header-center">-->
+        <!--<div class="info-header-center-fl">{{btAmountFixed}}{{currency}}</div>-->
+        <!--&lt;!&ndash;<img class="info-header-center-img" src="" alt="">&ndash;&gt;-->
+        <!--<div class="info-header-center-img"></div>-->
+        <!--<div class="info-header-center-sl">折合BTC：{{btChangeBtc}}</div>-->
+      <!--</div>-->
+      <!--<div class="info-header-right">-->
+        <!--<img class="info-header-img" src="" alt="">-->
+      <!--</div>-->
+    <!--</div>-->
+    <div class="info-header">
+      <img class="info-header-logo-img" src="" alt="">
+    </div>
+    <div class="info-body">
+      <div class="info-body-first-box">
+        <!--您已通过网易星球划转{{btAmountFixed}}{{currency}}到您到欧联账户：<br/><br/>-->
+        <!--折合BTC：{{btChangeBtc}}<br/><br/>-->
+        欧联交易平台
+        <span class="info-body-first-box-text-blue">
+          （<span class="info-body-first-box-text-copy">www.eunex.group</span>）
+          <div  class="info-body-first-box-copy-window" data-clipboard-target=".info-body-first-box-text-copy" @click="copyAddress">复制</div>
+        </span>
+        以共识、共建、共享的社区建设理念和创新模式带动平台发展，日均交易量位居世界前列。<br/><br/>
+        BT（EUNEX Token）是欧联（www.eunex.group）发行和管理的贡献型通证，持有BT可享受欧联（www.eunex.group）平台每日交易手续费收益的40%综合分配，并能获得糖果空投、优质项目认购、投票上币等权益。同时，欧联（www.eunex.group）通过BT长期持有分红倍增计划建立平准基金，以平衡BT价格处于合理价值区间。
+      </div>
+      <div class="info-body-second-box">
+        <div class="info-body-second-title">网易星球专属20元奖励</div>
+        <div class="info-body-second-img-box">
+          <img class="info-body-second-img" src="" alt="">
+          <div class="info-body-second-img-text">登录交易可获得</div>
+        </div>
+      </div>
+
+      <div class="info-body-text-content">
+        网易星球用户新注册激活欧联资产账户后，一周内在欧联（www.eunex.group）完成任意一笔交易，即可获得20元等值BT奖励。（注：BT价格为完成首笔交易日均价，总量100万枚BT发完即止）
+      </div>
+
+      <div class="info-body-text-title">BT变现</div>
+
+      <div class="info-body-text-content">
+        1.使用手机号或邮箱登录欧联（www.eunex.group）
+      </div>
+      <img class="info-body-img" src="" alt="">
+      <div class="info-body-text-content">
+        2.登录完成后进入“个人中心”，点击完成邮箱/手机（二选一）验证即可参与交易
+      </div>
+      <img class="info-body-img" src="" alt="">
+
+      <div class="info-body-text-content">
+        3.进入BT/ETH交易对，输入价格、数量，点击卖出完成交易
+      </div>
+      <img class="info-body-img" src="" alt="">
+
+      <div class="info-body-text-content">
+        4.进入欧联C2C界面，卖出ETH即可兑换成为人民币
+      </div>
+      <img class="info-body-img" src="" alt="">
+    </div>
+  </div>
+
+  <!--弹窗-->
+  <PopupPrompt :popOpen="popOpen" :popClose="popClose" :popType="popType" :popText="popText"/>
+</div>

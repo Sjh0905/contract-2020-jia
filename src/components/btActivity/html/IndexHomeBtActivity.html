@@ -1,0 +1,111 @@
+<div class="bt-activity-container " >
+  <div class="border_radius box_shadow bt-activity-article-box" @click="goToBtActivity">
+    <!--标题 begin-->
+    <header class="bt-activity-header">
+      <div class="bt-activity-header-title-box">
+        <span class="bt-activity-header-title">
+          <!--全国首家Pow+pos数字资产交易平台-->
+          {{$t('indexHomeBtActivity.title_1')}}
+                <img src="../assets/IndexHomeBtActivity/bt-activity-question.png" alt=""
+                     @click.stop="openPopupWindow"
+                     class="bt-activity-question-icon pointer">
+        </span>
+      </div>
+      <div class="bt-activity-header-title-prompt">
+        <!--交易即挖矿，100%返BT；持bt即享平台交易手续费50%收益分配-->
+        {{$t('indexHomeBtActivity.title_2')}}
+      </div>
+    </header>
+    <!--标题 end-->
+
+    <!--内容 begin-->
+    <article class="bt-activity-article flex">
+      <!--左边内容 今日待分配收益折合 begin-->
+      <div class="bt-activity-article-left-box bt-activity-article-detail-box flex">
+        <Loading v-if="platformWaitToDistributionLoading || platformYesterdayMiningProduceLoading"/>
+        <template v-else>
+          <div class="article-detail-title">
+            <!--今日待分配收益折合（USDT）-->
+            {{$t('indexHomeBtActivity.platFormWaitToDistributionTitle')}}
+          </div>
+          <div class="article-detail-detail article-detail-detail-one">{{computedPlatformWaitToDistribution}}</div>
+          <div class="article-detail-prompt">
+            <!--昨日分配收益折合（usdt）:-->
+            {{$t('indexHomeBtActivity.yesterdayPlatformDistributionTitle')}}
+            <span class="article-detail-prompt-num">{{computedYesterdayPlatformDistribution}}</span>
+          </div>
+        </template>
+      </div>
+      <!--左边内容 今日待分配收益折合 end-->
+
+      <!--右边内容 昨日挖矿产出 begin-->
+      <div
+        class="bt-activity-article-right-box bt-activity-article-detail-box bt-activity-article-detail-box-border flex">
+        <Loading v-if="platformYesterdayMiningProduceLoading"/>
+        <template v-else>
+          <div class="article-detail-title">
+            <!--昨日挖矿产出（BT）-->
+            {{$t('indexHomeBtActivity.platformYesterdayMiningProduceTitle')}}
+          </div>
+          <div class="article-detail-detail article-detail-detail-two">{{computedPlatformYesterdayMiningProduce}}</div>
+          <div class="article-detail-prompt">
+            <!--当前总流通量（BT）:-->
+            {{$t('indexHomeBtActivity.platformTodayTotalCirculationBTTitle')}}
+            <span class="article-detail-prompt-num">{{computedPlatformTodayTotalCirculationBT}}</span>
+          </div>
+        </template>
+      </div>
+      <!--右边内容 昨日挖矿产出 end-->
+    </article>
+    <!--内容 end-->
+
+  </div>
+
+  <!--弹窗 begin-->
+  <PopupWindow :open="popOpen" :close="closePopupWindow">
+    <div slot="header">
+      <!--说明-->
+      {{$t('indexHomeBtActivity.popupWindowTitle')}}
+    </div>
+
+    <div slot="article" class="popup-window-article">
+      <!--提示文案 begin-->
+      <div class="popup-window-article-detail-box flex">
+        <div class="popup-window-article-title">
+          <!--POW:-->
+          {{$t('indexHomeBtActivity.popupWindowTitle_1')}}
+        </div>
+        <div class="popup-window-article-detail">
+          <!--工作量证明，即在欧联交易平台交易挖矿和推荐好友交易挖矿，获得BT奖励。-->
+          {{$t('indexHomeBtActivity.popupWindowDetail_1')}}
+        </div>
+      </div>
+
+      <div class="popup-window-article-detail-box flex">
+        <div class="popup-window-article-title">
+          <!--POS:-->
+          {{$t('indexHomeBtActivity.popupWindowTitle_2')}}
+        </div>
+        <div class="popup-window-article-detail">
+          <!--权益证明，即持有BT享受欧联交易平台50%交易手续费收益分配。-->
+          {{$t('indexHomeBtActivity.popupWindowDetail_2')}}
+        </div>
+      </div>
+      <!--提示文案 end-->
+
+
+    </div>
+
+    <div slot="footer" class="popup-window-footer flex-center">
+      <button class="popup-window-button btn_blue button-base" @click="closePopupWindow">
+        <!--我知道了-->
+        {{$t('indexHomeBtActivity.popupWindowClose')}}
+      </button>
+    </div>
+
+
+  </PopupWindow>
+  <!--弹窗 end-->
+
+
+</div>

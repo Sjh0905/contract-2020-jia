@@ -1,0 +1,241 @@
+.StockCrossItems-container {
+	width: 100%;
+	/*height: 642px;*/
+	background-color: #ffffff;
+}
+.flex-colum {
+  width: 100%;
+  height: 100%;
+  /*display: flex;*/
+  /*flex-direction: column-reverse;*/
+}
+
+.flex-colum1 {
+  width: 100%;
+  height: 320px;
+  /*overflow: hidden;*/
+  /*display: flex;*/
+  /*flex-direction: column-reverse;*/
+}
+
+
+.amount_volume{
+	display: inline-flex;
+	width: 100%;
+}
+
+.StockCrossItems-li1{
+	height: 23px;
+	font-size: 1.2rem;
+	position: relative;
+	/*overflow: scroll;*/
+	/*color: #0babb6;*/
+	color: #02987D;
+	line-height: 25px;
+}
+.StockCrossItems-li2{
+	height: 23px;
+	position: relative;
+	line-height: 25px;
+  font-family: Roboto-Regular;
+  font-size: 12px;
+  color: #C43E4E;
+}
+.StockCrossItems-li1.is_select>div, .StockCrossItems-li2.is_select>div{
+	color: #C43E4E;
+}
+.StockCrossItems-li1.is_select>div span, .StockCrossItems-li2.is_select>div span{
+	color: #C43E4E;
+}
+
+.StockCrossItems-li1:hover{
+  background: rgba(2, 152, 125,.1) none repeat scroll !important;
+}
+.StockCrossItems-li1:hover>div{
+	/*font-weight: bolder;*/
+	cursor: pointer;
+}
+.StockCrossItems-li2:hover{
+  background: rgba(196, 62, 78,.1) none repeat scroll !important;
+}
+.StockCrossItems-li2:hover>div{
+	/*font-weight: bolder;*/
+	cursor: pointer;
+}
+
+
+.stockcrossitem-type{
+	width: 14.642%;
+	text-align: center;
+}
+.stockcrossitem-price:hover, .stockcrossitem-amount:hover, .stockcrossitem-volum:hover{
+	/*font-weight: bolder;*/
+	cursor: pointer;
+}
+
+.stockcrossitem-price:hover>.txt-greena2{
+	/*font-weight: bolder;*/
+	cursor: pointer;
+	/*color: rgb( 112,168,0)*/
+}
+.stockcrossitem-price:hover>.txt-reda{
+	/*font-weight: bolder;*/
+	cursor: pointer;
+	/*color: rgb(234,0,112);*/
+}
+.stockcrossitem-price{
+	/*width: 27.785%;*/
+	margin-left: 5%;
+	/*flex: 1;*/
+	text-align: center;
+	z-index: 1;
+}
+.stockcrossitem-price.price_select{
+	padding-left: 3%;
+}
+/*.stockcrossitem-price.price_select:before{
+	font-weight: 600;
+	content: '   •   ';
+	vertical-align: middle;
+}*/
+.stockcrossitem-amount{
+	/*width: 22.857%;*/
+	flex: 1;
+	text-align: right;
+	margin-right: 8%;
+  color: #172A4D;
+	z-index: 1;
+  font-family: Roboto-Regular;
+}
+.stockcrossitem-volum{
+	/*width: 29.357%;*/
+	flex: 1;
+	text-align: center;
+  color: #172A4D;
+  z-index: 1;
+  font-family: Roboto-Regular;
+	margin-right: 2%;
+
+}
+
+.stockcrossitem-shadow{
+	height: 22px;
+	display: block;
+	width: 100%;
+	/*height: 96%;*/
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	/*background-color: rgba(255,214,211,.5);*/
+	right: 0;
+	z-index: 0	;
+	transition: width 300ms ease;
+	Opacity:0.7
+
+
+}
+
+
+
+.show-sale {
+	width: 100%;
+	height: 100%;
+	align-items: center;
+	/*justify-content: space-between;*/
+	flex-direction: column;
+}
+
+.t1 {
+	flex-direction: column;
+
+}
+
+.t2 {
+	flex-direction: column-reverse;
+
+}
+
+.show-sale li {
+	display: block;
+	width: 100%;
+	height: 8.3%;
+	position: relative;
+}
+
+.show-sale li:hover {
+	background-color:rgba(196,62,78,0.03);
+	/*font-weight: bold;*/
+}
+
+.show-sale-detail {
+	justify-content: space-around;
+	-webkit-justify-content: space-around;
+	align-items: center;
+	-webkit-align-items: center;
+	text-align: center;
+	width: 100%;
+	height: 100%;
+	z-index: 200;
+	position: relative;
+}
+
+.show-sale-detail span:nth-child(1) {
+	flex: 16;
+}
+
+.show-sale-detail span:nth-child(2) {
+	flex: 30.3;
+}
+
+.show-sale-detail span:nth-child(3) {
+	flex: 17.8;
+	text-align: right;
+}
+
+.show-sale-detail span:nth-child(4) {
+	flex: 35.7;
+}
+
+.show-sale-detail-background {
+	display: block;
+	width: 100%;
+	height: 96%;
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	background-color: #ffd6d3;
+	right: 0;
+	z-index: 100;
+	transition: width 300ms ease;
+}
+
+/* 2018-4-4 新加价格css start */
+.show_tips{
+	position: absolute;
+	display: block;
+	padding: 0px 10px;
+	line-height: 24px;
+	color: #fff;
+	background-color: #C43E4E;
+	border: 1px solid #C43E4E;
+	border-radius: 2px;
+	right: 102%;
+	top: -1px;
+	z-index: 1;
+	display: none;
+}
+.show_tips font{
+	position: absolute;
+	left: -5px;
+	top: 9px;
+	width: 0;
+	height: 0;
+	border-top: 3px solid transparent;
+	border-right: 4px solid #C43E4E;
+	border-bottom: 3px solid transparent;
+}
+.show_tips.show{
+	display: block;
+}
+/* 2018-4-4 新加价格css end */
+

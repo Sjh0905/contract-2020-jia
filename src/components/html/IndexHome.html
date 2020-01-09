@@ -1,0 +1,121 @@
+<div class="body light"
+
+     :class="kmdongx ? 'bodyovew':''"
+>
+  <div class="page">
+    <div class="kaimen" v-show="kmdongx">
+<!--      <button @click="closeLoad">-->
+<!--        Toggle render-->
+<!--      </button>-->
+
+      <transition name="slide-fade">
+        <!--    <p v-if="show">hello</p>-->
+        <div v-if="show" class="loader-wrapper"></div>
+      </transition>
+
+      <transition name="slide-fade2">
+        <!--    <p v-if="show">hello</p>-->
+        <div v-if="show" class="loader-wrapper">
+
+        </div>
+      </transition>
+
+      <transition name="loading-container2">
+<!--        <div class="loading-container" v-if="show3">-->
+<!--          <div class="line-scale-pulse-out">-->
+<!--            <div></div>-->
+<!--            <div></div>-->
+<!--            <div></div>-->
+<!--            <div></div>-->
+<!--            <div></div>-->
+<!--          </div>-->
+<!--        </div>-->
+        <div class="dongt"  v-if="show3">
+
+          <img src="/static/images/dong1.gif" alt="" width="532px"><br/>
+          <img src="/static/images/loadingbai.png" alt=""  width="332px" >
+        </div>
+      </transition>
+    </div>
+    <div class="index_home_container min-width flex-center">
+      <div class="index-home-board">
+        <!--<IndexHeader :black="true" :changeThemeColor="true" class=" index-header header headerFixed"/>-->
+
+        <div class="index_home_container_body">
+          <!--轮播图 begin-->
+          <IndexHomeCarousel/>
+          <!--轮播图 end-->
+
+          <!--市场排行 begin-->
+          <div class="index-home-market-rank">
+            <IndexHomeMarketRank :currency_list="currency_list"
+                                 :socket_price="socket_price"
+                                 :btc_eth_rate="btc_eth_rate"
+            />
+          </div>
+          <!--市场排行 end-->
+
+          <!--市场列表 begin-->
+<!--          <div class="index_home_market_list">-->
+<!--          <IndexHomeMarket :currency_list="currency_list"-->
+<!--                           :socket_price="socket_price"-->
+<!--                           :btc_eth_rate="btc_eth_rate"/>-->
+<!--        </div>-->
+          <!--市场列表 end-->
+
+          <!--描述 begin-->
+          <div class="index-home-info-box">
+            <IndexHomeInfo/>
+          </div>
+          <!--描述 end-->
+
+        </div>
+      </div>
+    </div>
+    <div v-if="isMobile&&!isLogin" class="m-home-blow-wrap flex-center">
+
+      <router-link to="/index/sign/" class="m-nidex-blow-base">{{$t('login')}}</router-link>
+      <span class="m-nidex-blow-base m-nidex-blow-span">|</span>
+      <router-link to="/index/register" class="m-nidex-blow-base">{{$t('register')}}</router-link>
+    </div>
+  </div>
+
+  <!-- 关闭服务提示 start -->
+  <!--<div class="close_tips" v-if="popWindowOpen">-->
+    <!--<div class="close_bg"></div>-->
+    <!--<div class="close_tips_body border_radius box_shadow">-->
+      <!--<div class="close_tips_header">-->
+        <!--<span>-->
+          <!--&lt;!&ndash;重要提示&ndash;&gt;-->
+          <!--{{$t('popupHeader')}}-->
+        <!--</span>-->
+        <!--<span class="close_icon" @click="popWindowClose">✕</span>-->
+      <!--</div>-->
+      <!--<div class="pop-article">-->
+        <!--<p class="pop_left">{{$t('popupTitle')}}</p>-->
+        <!--<p class="pop_content">-->
+          <!--&lt;!&ndash;为配合相关国家、地区等针对区块链资产交易的相关政策，欧联将于即日起停止对来自中国大陆、古巴、伊朗、朝鲜、克里米亚、苏丹、叙利亚、孟加拉国、玻利维亚、厄瓜多尔和吉尔吉斯斯坦的 IP&ndash;&gt;-->
+          <!--&lt;!&ndash;访问提供服务。给您带来的不便，我们深表歉意！&ndash;&gt;-->
+          <!--{{$t('popupDetail')}}-->
+        <!--</p>-->
+        <!--&lt;!&ndash; <p class="pop_content">起停止对来自中国大陆 IP 的访问提供服务。给您带来的不便，我</p>-->
+        <!--<p class="pop_content">们深表歉意！</p> &ndash;&gt;-->
+        <!--<p class="pop_right">-->
+          <!--&lt;!&ndash;欧联运营团队&ndash;&gt;-->
+          <!--{{$t('popupTeam')}}-->
+        <!--</p>-->
+        <!--<p class="pop_right">-->
+          <!--&lt;!&ndash;2018年8月25日&ndash;&gt;-->
+          <!--{{$t('popupTime')}}-->
+        <!--</p>-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
+  <!-- 关闭服务提示 end -->
+
+  <!-- footer start -->
+  <!--<div class="index_home_footer index-background-color">-->
+    <!--<IndexFooter></IndexFooter>-->
+  <!--</div>-->
+  <!-- footer end -->
+</div>

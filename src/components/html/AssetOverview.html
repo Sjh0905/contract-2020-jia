@@ -1,0 +1,18 @@
+<div class="container">
+  <header class="flex">
+    <span>{{$t("assetOverview.assetOverview")}}:</span>
+    <img src="../../assets/眼睛-2.png" alt="" @click='openAssets' v-if="!showAsset">
+    <img src="../../assets/闭眼_线.png" alt="" @click='openAssets' v-else>
+  </header>
+  <article>
+    <div class="chart-container" id="echarts_container" ref="echarts_container" :class="{'display-none':loading}"></div>
+  </article>
+  <Loading v-if="loading"/>
+  <template v-if="!loading">
+    <footer class="flex-center">
+      <span>{{$t("assetOverview.totalAsset")}}:</span>
+      <span class="assetColor">{{showTotal}}</span><span>{{baseCurrency}}</span>
+    </footer>
+  </template>
+
+</div>

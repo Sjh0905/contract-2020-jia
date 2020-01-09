@@ -1,0 +1,724 @@
+<div class="header">
+  <div class="header_body_container"
+       :class="{'dark':themeColor === 0 && changeThemeColor,'light':themeColor === 1 && changeThemeColor,}"
+  >
+    <!-- 移动端头部logo -->
+
+    <template v-if="isMobile">
+      <!--  <div v-if="!loading && downloadShow" class="homepage-body-download" ref="downloadView">-->
+
+      <!--    <img class="index-home-header-img" src="../../assets/mobile_app_download.png" alt="">-->
+      <!--    <div class="logofont">-->
+      <!--      欧联APP-->
+      <!--    </div>-->
+      <!--    <div class="logofont2">-->
+      <!--      安全可靠，值得信赖-->
+      <!--    </div>-->
+      <!--    <a :href="staticUrl"  class="index-home-header-address" target="_blank">-->
+      <!--      下载-->
+      <!--    </a>-->
+      <!--    <img class="index-home-header-close-img" @click="closeDownload" src="" alt="">-->
+      <!--&lt;!&ndash;    <div class="index-home-header-close" @click="closeDownload">&ndash;&gt;-->
+      <!--&lt;!&ndash;      <img src="../../assets/mobile_download_close.png" class="index-home-header-img-close" alt="">&ndash;&gt;-->
+      <!--&lt;!&ndash;    </div>&ndash;&gt;-->
+      <!--  </div>-->
+    </template>
+
+    <!--<template v-if="isMobile">-->
+    <!--<div v-if="!loading && downloadShow" class="homepage-body-download" ref="downloadView">-->
+
+    <!--<img class="index-home-header-img" src="../../assets/mobile_app_download.png" alt="">-->
+    <!--<div class="logofont">-->
+    <!--欧联APP-->
+    <!--</div>-->
+    <!--<div class="logofont2">-->
+    <!--安全可靠，值得信赖-->
+    <!--</div>-->
+    <!--<a :href="staticUrl"  class="index-home-header-address" target="_blank">-->
+    <!--下载-->
+    <!--</a>-->
+    <!--<img class="index-home-header-close-img" @click="closeDownload" src="" alt="">-->
+    <!--&lt;!&ndash;    <div class="index-home-header-close" @click="closeDownload">&ndash;&gt;-->
+    <!--&lt;!&ndash;      <img src="../../assets/mobile_download_close.png" class="index-home-header-img-close" alt="">&ndash;&gt;-->
+    <!--&lt;!&ndash;    </div>&ndash;&gt;-->
+    <!--</div>-->
+    <!--</template>-->
+
+    <!--  <div class="header min-width relative">-->
+    <div class="header min-width relative">
+      <div class="header-container min-width">
+        <!-- 移动端头部logo -->
+        <template v-if="isMobile">
+          <div class="mobile-header">
+            <ul v-if="!isLogin" class="login flex-center">
+              <li>
+                <router-link to="/index/register" active-class="selected">{{$t('register')}}</router-link>
+              </li>
+              <li v-if="mobileLoginShow">|</li>
+              <li v-if="mobileLoginShow">
+                <router-link to="/index/sign/" active-class="selected">
+                  {{$t('login')}}
+                </router-link>
+              </li>
+            </ul>
+          </div>
+          <div class="mobile-header-login-box">
+
+            <!--          <div v-if="!hall_symbol" class="mobile-main-title">{{mobileHeaderTitle}}</div>-->
+            <div v-if="!hall_symbol" class="mobile-main-title-symbol" @click="changeHeaderBoxFlag">
+              <span>{{symbol | e}}</span>
+              <div :class="mobileTradingHallFlag ? 'triangle-down' : 'triangle-up'"></div>
+            </div>
+
+
+            <router-link to="/index/home" class="mobile-header-logo">
+
+              <!--            <img class="mobile-header-logo-img" src="" alt="">-->
+
+              <!--            <img class="mobile-header-logo-img" src="../../assets/EUNEX_ch_logo2.png" alt="">-->
+
+            </router-link>
+          </div>
+
+          <div class="mobile-header-login-box">
+
+            <!--          <div v-if="!hall_symbol" class="mobile-main-title">{{mobileHeaderTitle}}</div>-->
+            <div v-if="$route.name === 'MobileAssetRechargeAndWithdrawals'" class="mobile-main-title-symbol1" @click="changeHeaderBoxFlag1">
+              <img src="../../assets/财务记录_icon@2x.png" alt="">
+            </div>
+
+
+            <router-link to="/index/home" class="mobile-header-login-box">
+            <span>
+              <img class="mobile-header-login-box-imgs" src="../../assets/H5-欧联LOGO.png" alt="">
+
+
+            </span>
+            </router-link>
+          </div>
+
+          <!--        <div class="mobile-header-icon-flag" @click="clickChangePopOpen">-->
+          <!--          <img class="mobile-header-icon-flag-img" src="../../assets/mobile_header_menu.png" alt="">-->
+          <!--          &lt;!&ndash;小红点&ndash;&gt;-->
+          <!--          <div v-if="redPoint" class="mobile-header-icon-flag-red-point"></div>-->
+          <!--        </div>-->
+          <!-- 移动端 左侧弹窗 -->
+          <div v-if="changePopOpen === true" class="mobile-header-box-mask">
+            <div class="mobile-header-box">
+              <div class="mobile-header-box-title">
+
+                <div class="mobile-header-box-icon-flag" @click="clickChangePopOpen">
+                  <img class="mobile-header-icon-flag-img" src="../../assets/mobile_header_menu.png" alt="">
+                </div>
+                <div v-if="isLogin" class="login-in flex-center">
+                  <router-link class="flex-center login-header" to="/index/personal">
+                    <img src="../../assets/indexHeader-avator.png" alt="">
+                    <span>{{userName}}</span>
+                  </router-link>
+                  <ul class="login-hidden flex">
+                    <li class="assets-li flex-center">
+                      <IndexHeaderAssets v-if="isLogin"/>
+                    </li>
+                    <li class="login-off flex-center" @click="loginOff">
+                      <span>{{$t('loginOff')+"12312313"}}</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="mobile-header-box-content">
+                <ul class="mobile-header-box-content-list">
+
+                  <li @click="changeMobileTradingHallFlag" class="mobile-header-box-content-item">
+                    <router-link class="mobile-header-box-content-item-first" to="/index/mobileTradingHall/">交易大厅
+                    </router-link>
+                  </li>
+                  <!--<li class="mobile-header-box-content-item">-->
+                  <!--&lt;!&ndash;<router-link class="mobile-header-box-content-item-first" :to="{name:'c2cComing'}">C2C&ndash;&gt;-->
+                  <!--&lt;!&ndash;</router-link>&ndash;&gt;-->
+                  <!--<a href="#" class="mobile-header-box-content-item-first"-->
+                  <!--@click="GO_OTC">-->
+                  <!--法币入金-->
+                  <!--</a>-->
+                  <!--</li>-->
+                  <li v-if="isLogin" class="mobile-header-box-content-item" active-class="selected">
+                    <span class="mobile-header-box-content-item-first">资产管理</span>
+                  </li>
+                  <li v-if="isLogin" class="mobile-header-box-content-item" active-class="selected"
+                      @click="closeMobilePopOpen">
+                    <router-link to="/index/mobileAsset/mobileAssetRechargeAndWithdrawals/"
+                                 class="mobile-header-box-content-item-second">资产
+                    </router-link>
+                  </li>
+                  <li v-if="isLogin" class="mobile-header-box-content-item" active-class="selected"
+                      @click="closeMobilePopOpen">
+                    <router-link to="/index/mobileAsset/mobileAssetRecharge/"
+                                 class="mobile-header-box-content-item-second">
+                      充值
+                    </router-link>
+                  </li>
+                  <li v-if="isLogin" class="mobile-header-box-content-item" active-class="selected"
+                      @click="closeMobilePopOpen">
+                    <router-link to="/index/mobileAsset/mobileAssetWithdraw/"
+                                 class="mobile-header-box-content-item-second">
+                      提现
+                    </router-link>
+                  </li>
+                  <li v-if="isLogin" class="mobile-header-box-content-item" active-class="selected"
+                      @click="closeMobilePopOpen">
+                    <router-link to="/index/mobileAsset/MobileAssetRechargeAndWithdrawRecord/"
+                                 class="mobile-header-box-content-item-second">充提记录
+                    </router-link>
+                  </li>
+                  <li v-if="isLogin" class="mobile-header-box-content-item" active-class="selected">
+                    <span class="mobile-header-box-content-item-first">我的订单</span>
+                  </li>
+                  <li v-if="isLogin" class="mobile-header-box-content-item" active-class="selected"
+                      @click="changeBuyOrSaleView(3)">
+                    <router-link to="/index/mobileTradingHallDetail/" class="mobile-header-box-content-item-second">当前委托
+                    </router-link>
+                  </li>
+                  <li v-if="isLogin" class="mobile-header-box-content-item" active-class="selected"
+                      @click="changeBuyOrSaleView(3)"
+                  >
+                    <router-link to="/index/MobileHistoryOrder/" class="mobile-header-box-content-item-second">历史委托
+                    </router-link>
+                  </li>
+
+                  <li v-if="isLogin" class="mobile-header-box-content-item" @click="closeMobilePopOpen"
+                      active-class="selected">
+                    <router-link class="mobile-header-box-content-item-first" to="/index/personal">
+                      {{$t('account')}}
+                    </router-link>
+                  </li>
+                  <li v-if="!isLogin" class="mobile-header-box-content-item" @click="closeMobilePopOpen"
+                      active-class="selected">
+                    <router-link class="mobile-header-box-content-item-first" to="/index/sign/">
+                      {{$t('account')}}
+                    </router-link>
+                  </li>
+
+                  <li @click="closeMobilePopOpen" active-class="selected" class="mobile-header-box-content-item">
+                    <router-link class="mobile-header-box-content-item-first" to="/index/mobileNotice/">
+                      公告中心
+                      <!--小红点-->
+                      <!--                    <div v-if="redPoint" class="mobile-header-box-content-item-first-red-point"></div>-->
+                    </router-link>
+                  </li>
+                </ul>
+                <div v-if="isLogin" class="mobile-header-box-content-login-off" @click="loginOff">
+                  <span class="mobile-header-box-content-login-off-img"></span>
+                  退出登录
+                </div>
+              </div>
+            </div>
+            <div class="mobile-header-box-right" @click="clickChangePopOpen"></div>
+          </div>
+        </template>
+
+
+        <!-- pc端头部logo -->
+        <template v-if="!isMobile">
+
+          <!--导航条 begin-->
+          <div class="navigation-container flex"
+               :class="{'navigation-container-en':lang!=='CH'}"
+          >
+            <!--左侧内容 begin-->
+            <div class="header-left-container flex">
+              <!--logo begin-->
+              <!-- <router-link to="/index/homePage" class="index-header-logo"><img src="../../assets/logo.png" class="header-logo"> -->
+             <div class="baobao-logo">
+              <router-link :to="{name:'home'}" class="index-header-logo">
+                <img src="../../assets/PC首页导航-欧联.png" class="navigation-logo" v-show="lang==='CH'">
+                <img src="../../assets/PC首页导航-欧联.png" class="navigation-logo" v-show="lang!=='CH'">
+              </router-link>
+             </div>
+              <!--logo end-->
+
+              <!--左侧导航条 begin-->
+              <ul class="navigation-left-container flex" :class="lang != 'CH' && 'en'">
+                <!--行情 begin-->
+                <li class="navigation-item-container flex">
+                  <!--                行情-->
+
+                  <router-link
+                    :to="{name: 'indexHomeMarket'}"
+                    class="navigation-item-router flex"
+                    active-class="navigation-item-router-selected text_blue"
+                  >{{$t('quotes')}}
+<!--                                      {{$t('currencyQuotation')}}-->
+                  </router-link>
+                  <!--隐藏的标签 法币交易 begin-->
+
+                  <!--隐藏的标签 end-->
+                </li>
+
+                <!--币币交易 begin-->
+                <li class="navigation-item-container flex">
+                  <router-link
+                    :to="{name: 'tradingHall', query: {symbol: $store.state.symbol} }"
+                    class="navigation-item-router flex"
+                    active-class="navigation-item-router-selected text_blue"
+                  >
+                    {{$t('currencyExchange')}}
+
+                  </router-link>
+                  <!--隐藏的标签 法币交易 begin-->
+
+                  <!--隐藏的标签 end-->
+                </li>
+                <!-- 法币交易 -->
+                <li class="navigation-item-container flex">
+
+                  <!--                法币交易-->
+                  <div
+                    @click="GO_OTC"
+                    class="navigation-item-router flex"
+                    active-class="navigation-item-router-selected item_selected text_blue"
+                  >
+                    {{$t('fiatDeal')}}
+                    <!--                  <div class="language-jt-down"></div>-->
+                  </div>
+                  <!-- 隐藏的标签 begin-->
+                  <!--                <ul class="flex navigation-item-hidden-list"-->
+                  <!--                    :class="{'navigation-item-hidden-list-black':isBlack}"-->
+                  <!--                >-->
+                  <!--                  <li class="navigation-item-hidden-list-item">-->
+                  <!--                    <router-link-->
+                  <!--                      :to="{name:''}"-->
+                  <!--                      class="navigation-item-hidden-list-item-router"-->
+                  <!--                      active-class="item_selected">-->
+                  <!--                      C2C交易-->
+                  <!--                    </router-link>-->
+                  <!--                  </li>-->
+                  <!--                  <li class="navigation-item-hidden-list-item">-->
+                  <!--                    <div-->
+                  <!--                      @click="GO_OTC"-->
+                  <!--                      class="navigation-item-hidden-list-item-router"-->
+                  <!--                      active-class="item_selected"-->
+                  <!--                    >-->
+                  <!--                      OTC交易-->
+                  <!--                    </div>-->
+                  <!--                  </li>-->
+                  <!--                </ul>-->
+                  <!-- 隐藏的标签 end -->
+                </li>
+                <!--                 法币交易 begin-->
+                <!--              <li class="navigation-item-container flex">-->
+                <!--                <router-link-->
+                <!--                  :to="{name: 'tradingHall', query: {symbol: $store.state.symbol} }"-->
+                <!--                  class="navigation-item-router flex"-->
+                <!--                  active-class="navigation-item-router-selected "-->
+                <!--                >-->
+                <!--                  &lt;!&ndash;{{$t('currencyExchange')}}&ndash;&gt;-->
+                <!--                  法币交易-->
+                <!--                  <div class="language-jt-down"></div>-->
+                <!--                </router-link>-->
+                <!--隐藏的标签 法币交易 begin-->
+
+                <!--                隐藏的标签 end-->
+                </li>
+
+                </li>
+                <!--订单 begin-->
+                <li class="navigation-item-container flex"  @mouseenter="enter()" @mouseleave="leave()">
+                  <router-link
+                    :to="{name:'currentEntrust'}"
+                    class="navigation-item-router flex"
+                    active-class="navigation-item-router-selected text_blue"
+                  >
+                    <span class="langfont">{{$t('order')}}</span>
+                    <!--                  <div :class="jtval=='up'?'language-jt-up':'language-jt-down'"></div>-->
+                    <div class="language-jt-down"></div>
+                  </router-link>
+
+                  <!--隐藏的标签 begin-->
+                  <ul class="flex navigation-item-hidden-list"
+                      :class="{'navigation-item-hidden-list-black':isBlack}"
+                  >
+                    <li class="navigation-item-hidden-list-item">
+                      <router-link
+                        :to="{name:'currentEntrust'}"
+                        class="navigation-item-hidden-list-item-router"
+                        active-class="item_selected">
+                        {{$t('currentEntrust')}}
+                      </router-link>
+                    </li>
+                    <li class="navigation-item-hidden-list-item">
+                      <router-link
+                        :to="{name:'historicalEntrust'}"
+                        class="navigation-item-hidden-list-item-router"
+                        active-class="item_selected text_red"
+                      >
+                        {{$t('historicalEntrust')}}
+                      </router-link>
+                    </li>
+                  </ul>
+                  <!--隐藏的标签 end-->
+                </li>
+                <!--订单 end-->
+
+                <!--资产 begin-->
+                <li class="navigation-item-container flex"  @mouseenter="enter()" @mouseleave="leave()">
+                  <router-link
+                    :to="{name: 'rechargeAndWithdrawals'}"
+                    class="navigation-item-router flex"
+                    active-class="navigation-item-router-selected text_blue"
+                  >
+                    <span class="langfont">{{$t('assets')}}</span>
+                    <div class="language-jt-down"></div>
+                  </router-link>
+                  <!--隐藏的标签 begin-->
+                  <ul class="flex navigation-item-hidden-list"
+                      :class="{'navigation-item-hidden-list-asset-en':lang!=='CH',
+                    'navigation-item-hidden-list-black':isBlack}"
+                  >
+                    <li class="navigation-item-hidden-list-item">
+                      <router-link
+                        :to="{name:'rechargeAndWithdrawals'}"
+                        class="navigation-item-hidden-list-item-router"
+                        active-class="item_selected">
+                        {{$t('recharge')}}
+                      </router-link>
+                    </li>
+                    <li class="navigation-item-hidden-list-item">
+                      <router-link
+                        :to="{name:'rechargeRecord'}"
+                        class="navigation-item-hidden-list-item-router"
+                        active-class="item_selected"
+                      >
+                        {{$t('rechargeRecord')}}
+                      </router-link>
+                    </li>
+                    <li class="navigation-item-hidden-list-item">
+                    <router-link
+                      :to="{name:'withdrawalsRecord'}"
+                      class="navigation-item-hidden-list-item-router"
+                      active-class="item_selected"
+                    >
+                      {{$t('withdrawalsRecord')}}
+                    </router-link>
+                  </li>
+                    <li class="navigation-item-hidden-list-item">
+                      <router-link
+                        :to="{name:'platformReward'}"
+                        class="navigation-item-hidden-list-item-router"
+                        active-class="item_selected"
+                      >
+                        {{$t('assetPage.platformReward')}}
+                      </router-link>
+                    </li>
+
+                  </ul>
+                  <!--隐藏的标签 end-->
+                </li>
+                <!--资产 end-->
+
+                <!--活动 begin-->
+                <li class="navigation-item-container flex"  @mouseenter="enter()" @mouseleave="leave()">
+
+                  <div
+                    class="navigation-item-router flex"
+                    active-class="navigation-item-router-selected text_blue"
+                  >
+                    <span class="langfont">{{$t('activity')}}</span>
+                    <div class="language-jt-down"></div>
+                  </div>
+                  <!--隐藏的标签 begin-->
+                  <ul class="flex navigation-item-hidden-list"
+                      :class="{'navigation-item-hidden-list-asset-en':lang!=='CH',
+                    'navigation-item-hidden-list-black':isBlack}"
+                  >
+                    <!-- cc 兑换茶叁茶源-->
+                    <!--<li class="navigation-item-hidden-list-item">-->
+                      <!--<router-link-->
+                        <!--:to="{name:'TeaCoinActivities'}"-->
+                        <!--class="navigation-item-hidden-list-item-router"-->
+                        <!--active-class="item_selected">-->
+                        <!--{{$t('ExchangeThreeTeaSources')}}-->
+                      <!--</router-link>-->
+                    <!--</li>-->
+                    <!-- cc 茶叁茶源-->
+                    <!--<li class="navigation-item-hidden-list-item">-->
+                      <!--<router-link-->
+                        <!--:to="{name:'TeaSource'}"-->
+                        <!--class="navigation-item-hidden-list-item-router"-->
+                        <!--active-class="item_selected"-->
+                      <!--&gt;-->
+                        <!--{{$t('TeaTeaSource')}}-->
+                      <!--</router-link>-->
+                    <!--</li>-->
+                    <!--zpy 易物点通证量化活动-->
+                    <li class="navigation-item-hidden-list-item">
+                      <div
+                        @click="GO_GRC"
+                        class="navigation-item-hidden-list-item-router"
+                        active-class="item_selected"
+                      >
+                        {{$t('GRCTradeEvent')}}
+                      </div>
+                    </li>
+
+                  </ul>
+                  <!--隐藏的标签 end-->
+                </li>
+                <!--活动 end-->
+
+
+              </ul>
+              <!--左侧导航条 end-->
+
+            </div>
+            <!--左侧内容 end-->
+
+            <!--右侧内容 begin-->
+            <div class="header-right-container flex">
+
+              <ul class="navigation-right-container flex">
+                <!--登录注册 begin-->
+                <li class="login-register-container flex" v-if="!isLogin">
+                  <router-link
+                    :to="{name:'login'}"
+                    class="navigation-item-router login-register-item flex"
+                    active-class="navigation-item-router-selected text_blue"
+                  >
+                    {{$t('login')}}
+                  </router-link>
+                  <!--                <span class="login-register-item-separator light-color">|</span>-->
+
+                  <router-link
+                    :to="{name:'register'}"
+                    class="navigation-item-router login-register-item-re flex"
+                    active-class="navigation-item-router-selected text_blue"
+                  >
+                    <span class="zcfont">{{$t('register')}}</span>
+                  </router-link>
+                </li>
+                <!--登录注册 end-->
+
+
+                <!--登录后 begin-->
+                <li class="navigation-item-container flex" v-if="isLogin">
+                  <router-link
+                    :to="{name:'authentication'}"
+                    class="navigation-item-router flex"
+                    active-class="navigation-item-router-selected text_blue"
+                  >
+                    <!--<div class="icon-login"></div>-->
+                    <!-- <span class="login-header-name flex-center">{{$t('personalCenter')}}</span> -->
+                    <img src="../../assets/geren.png" alt=""class="login-header-name flex-center personal-icon"  >
+
+                  </router-link>
+                  <!--隐藏的标签 begin-->
+                  <ul
+                    class="flex navigation-item-hidden-list-c navigation-item-hidden-list-personal-center"
+                    :class="{'navigation-item-hidden-list-black':isBlack}"
+                  >
+                    <li class="navigation-item-hidden-list-item-personal-center singss">
+                      <IndexHeaderAssets v-if="isLogin" :black="isBlack"/>
+                    </li>
+                  </ul>
+                  <!--隐藏的标签 end-->
+                </li>
+                <!--登录后 end-->
+
+                <!--公告 begin-->
+                <li class="navigation-item-container flex"  >
+                  <div class="navigation-item-router flex"
+                       active-class="navigation-item-router-selected text_blue">
+<!--                    <img src="" alt="" class="notice-icon" >-->
+                    {{$t('platform_3')}}
+                    <!--公告中心-->
+                    <div v-if="redPoint"
+                         :class="lang==='CH'?'navigation-link-a-red-point-cn':'navigation-link-a-red-point-en'"></div>
+                  </div>
+                  <!--隐藏的标签 begin-->
+                  <ul class="flex navigation-item-hidden-list-i"
+                      :class="{'navigation-item-hidden-list-asset-en':lang!=='CH',
+                    'navigation-item-hidden-list-black':isBlack}"
+                  >
+                    <li
+                      class="navigation-item-hidden-list-item-k"
+                    >
+                      <p id="navigation-item-hidden-list-item-l" >{{$t('platform')}}</p>
+                    </li>
+                    <!--                  <li  class="navigation-item-hidden-list-item-i"-->
+                    <!--                       v-for="(value, key) in noticeList" :key="key"  @click="goNotice(value.id)">-->
+                    <!--                    <p id="navigation-item-hidden-list-item-i">{{value.title}}</p>-->
+                    <!--&lt;!&ndash;                    ( {{$globalFunc.formatDateUitl(value.beginTime,'MM-DD')}} )&ndash;&gt;-->
+                    <!--                  </li>-->
+
+                    <li  class="navigation-item-hidden-list-item-i"
+                         v-for="(value, key) in noticeList" :key="key"  @click="goNotice(value.url)">
+                      <p id="navigation-item-hidden-list-item-i">{{value.title}}</p>
+                      <!--                    ( {{$globalFunc.formatDateUitl(value.beginTime,'MM-DD')}} )-->
+                    </li>
+                    <!--                  <li  class="navigation-item-hidden-list-item-i">-->
+                    <!--                    <p id="navigation-item-hidden-list-item-i"><a href="https://customerservice8872.zendesk.com/hc/zh-cn/articles/360034740012-正式开放注册启事">正式开放注册启事</a></p>-->
+                    <!--                  </li>-->
+                    <!--                  <li  class="navigation-item-hidden-list-item-i">-->
+                    <!--                    <p id="navigation-item-hidden-list-item-i"><a href="https://customerservice8872.zendesk.com/hc/zh-cn/articles/360035114331-欧联交易所验证邮件延迟公告">欧联交易所验证邮件延迟公告</a></p>-->
+                    <!--                  </li>-->
+                    <!--                  <li  class="navigation-item-hidden-list-item-i">-->
+                    <!--                    <p id="navigation-item-hidden-list-item-i"><a href="https://customerservice8872.zendesk.com/hc/zh-cn/articles/360035121071-关于欧联交易所">关于欧联交易所</a></p>-->
+                    <!--                  </li>-->
+
+                    <li  @click="go()"
+                         class="navigation-item-hidden-list-item-z"
+                    >
+                      <p id="navigation-item-hidden-list-item-j" >{{$t('seeMore')}}</p>
+                    </li>
+                  </ul>
+                  <!--隐藏的标签 end-->
+                </li>
+                <!--公告 end-->
+
+                <!--APP下载 begin-->
+                <li class="navigation-item-container flex" @mouseenter="appdownenter()" @mouseleave="appdownleave()">
+
+                <span
+                  class="navigation-item-router flex"
+                  active-class="navigation-item-router-selected text_blue"
+                >
+<!--                <img src="" alt="" class="phone-icon">-->
+                  {{$t('platform_4')}}
+
+                </span>
+                  <!--隐藏的标签 begin-->
+                  <ul class="flex navigation-item-hidden-erwm">
+                    <li>
+                      <div class="download-left-download-item-qrcode-img">
+                        <Qrcode
+                          :size="size"
+                          :value="value"
+                          :logo="logo"
+                          :bgColor="bgColor"
+                          :fgColor="fgColor"
+                        >
+                        </Qrcode>
+                      </div>
+
+                    </li>
+                    <li class="navigation-item-hidden-erwm-item" >
+                      <span>iOS & Android {{$t('qrCode')}}</span>
+                    </li>
+                  </ul>
+                  <!--隐藏的标签 end-->
+                </li>
+                <!--APP下载 end-->
+
+                <!--语言 begin-->
+                <li class="navigation-item-container no-change-padding language-container flex" style="padding-right: 0px;" @mouseenter="enter()" @mouseleave="leave()">
+                  <a
+                    class="navigation-item-router flex"
+                  >
+                    <!--{{$t('help')}}-->
+                    <div class="language-img-box" :class="lang"></div>
+                    <span class="langfont">{{this.jttext}}</span>
+                    <div class="language-jt-down"></div>
+
+                  </a>
+                  <!--隐藏的标签 begin-->
+                  <ul class="flex navigation-item-hidden-language"
+                      :class="{'navigation-item-hidden-list-black':isBlack}"
+                  >
+                    <li class="language-itemli">
+
+                      <div class="languagediv"  @click="changeLanguage('CH')">
+                        <img src="../../assets/中国国旗.png" alt="" class="language-icon">简体中文</div>
+                      <!--                    <div class="languagediv"  @click="changeLanguage('CA')">Русский</div>-->
+                      <div class="languagediv"  @click="changeLanguage('CHT')">
+                        <img src="../../assets/香港国旗.png" alt="" class="language-icon">繁体中文</div>
+                      <div class="languagediv"  @click="changeLanguage('CA')">
+                        <img src="../../assets/英国国旗.png" alt="" class="language-icon in1">English</div>
+                      <div class="languagediv"  @click="changeLanguage('KOR')">
+                        <img src="../../assets/韩国.png" alt="" class="language-icon in2">한국어</div>
+                      <div class="languagediv"  @click="changeLanguage('JP')">
+                        <img src="../../assets/日本.png" alt="" class="language-icon in3">日本語</div>
+                      <!--                    <div class="languagediv"  @click="changeLanguage('CA')">Deutsch</div>-->
+                      <!--                    <div class="languagediv"  @click="changeLanguage('CA')">Español</div>-->
+                      <!--                    <div class="languagediv"  @click="changeLanguage('CA')">ไทย</div>-->
+
+                    </li>
+                    <!--                  <li class="navigation-item-hidden-language-item language-item flex" @click="changeLanguage('CHT')">-->
+                    <!--                    <img src="../../assets/香港国旗.png" alt="" class="language-icon">-->
+                    <!--                    繁体中文-->
+                    <!--                  </li>-->
+                    <!--                  <li class="navigation-item-hidden-language-item language-item flex" @click="changeLanguage('CA')">-->
+                    <!--                    <img src="../../assets/英国国旗.png" alt="" class="language-icon">-->
+                    <!--                    English-->
+                    <!--                  </li>-->
+                    <!--                  <li class="navigation-item-hidden-language-item language-item flex" @click="changeLanguage('CH')">-->
+                    <!--                    <img src="../../assets/中国国旗.png" alt="" class="language-icon">-->
+                    <!--                    简体中文-->
+                    <!--                  </li>-->
+                    <!--                  <li class="navigation-item-hidden-language-item language-item flex" @click="changeLanguage('CHT')">-->
+                    <!--                    <img src="../../assets/香港国旗.png" alt="" class="language-icon">-->
+                    <!--                    繁体中文-->
+                    <!--                  </li>-->
+                    <!--                  <li class="navigation-item-hidden-language-item language-item flex" @click="changeLanguage('CA')">-->
+                    <!--                    <img src="../../assets/英国国旗.png" alt="" class="language-icon">-->
+                    <!--                    English-->
+                    <!--                  </li>-->
+                    <!--                  <li class="navigation-item-hidden-language-item language-item flex" @click="changeLanguage('CH')">-->
+                    <!--                    <img src="../../assets/中国国旗.png" alt="" class="language-icon">-->
+                    <!--                    简体中文-->
+                    <!--                  </li>-->
+                    <!--<li class="navigation-item-hidden-list-item language-item flex" @click="changeLanguage('KOR')">-->
+                    <!--<img src="" alt="" class="language-icon">-->
+                    <!--한국어-->
+                    <!--</li>-->
+                  </ul>
+                  <!--隐藏的标签 end-->
+                </li>
+                <!--语言 end-->
+              </ul>
+
+
+              <!--&lt;!&ndash;语言 begin&ndash;&gt;-->
+              <!--<div class="language flex-center">-->
+              <!--&lt;!&ndash;<img src="" alt="">&ndash;&gt;-->
+              <!--<div class="language-img">-->
+              <!--<div class="language-img-box" :class="lang"></div>-->
+              <!--</div>-->
+
+              <!--<ul class="language-box">-->
+              <!--<li v-if="lang !== 'CH'">-->
+              <!--<img src="/static/images/中国.png" alt="" @click="changeLanguage('CH')">-->
+              <!--</li>-->
+              <!--<li v-else>-->
+              <!--<img src="" alt="" @click="changeLanguage('CA')">-->
+              <!--</li>-->
+              <!--</ul>-->
+              <!--</div>-->
+              <!--&lt;!&ndash;语言 end&ndash;&gt;-->
+
+
+              <!--皮肤 begin-->
+              <div class="change-color-container flex pointer" v-if="changeThemeColor">
+                <img src="" alt="" class="change-color-icon"
+                     v-if="themeColor===0"
+                     @click="clickToChangeThemeColor(1)"
+                >
+                <img src="" alt="" class="change-color-icon"
+                     v-else
+                     @click="clickToChangeThemeColor(0)"
+                >
+              </div>
+              <!--皮肤 end-->
+
+            </div>
+            <!--右侧内容 end-->
+          </div>
+          <!--导航条 begin-->
+
+        </template>
+      </div>
+
+      <div class="clear"></div>
+
+    </div>
+
+  </div>
+
+</div>

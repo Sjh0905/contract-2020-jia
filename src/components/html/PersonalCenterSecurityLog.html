@@ -1,0 +1,36 @@
+<div class="container border_radius">
+
+  <div class="">
+    <div class="titlenew">
+      <span></span>
+      <span>{{$t('personalCenterSecurityLog.title')}}</span>
+      <!--<span>*为了您的资产安全，重置登录密码修改24h以内不允许提现。</span>-->
+    </div>
+    <div class="article border_radius box_shadow">
+      <Loading v-if="loading"/>
+      <template v-if="!loading">
+        <div class="log-title flex">
+          <span class="time">{{$t('personalCenterSecurityLog.time')}}</span>
+          <span class="ip">{{$t('personalCenterSecurityLog.ip')}}</span>
+          <span class="source">{{$t('personalCenterSecurityLog.source')}}</span>
+          <span class="city">{{$t('personalCenterSecurityLog.city')}}</span>
+        </div>
+
+        <ul class="log-container">
+          <li class="log-detail flex" v-for="(item,index) in logRecord" :key="index">
+            <span class="time">{{formatDateUitl(item.createdAt)}}</span>
+            <span class="ip">{{item.ip}}</span>
+            <span class="source">{{item.source}}</span>
+            <span class="city">{{item.address}}</span>
+          </li>
+
+        </ul>
+        <template v-if="loadingMoreShow">
+          <span class="txt-green loading-more" v-if="!loadingMoreIng" @click="clickToLoadMore">{{$t('personalCenterSecurityLog.city_1')}}</span>
+          <span class="txt-green loading-more" v-else>{{$t('personalCenterSecurityLog.city_2')}}</span>
+        </template>
+      </template>
+    </div>
+  </div>
+
+</div>

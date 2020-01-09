@@ -1,0 +1,139 @@
+<div class="currency_notice">
+	<IndexHeader />
+
+	<div class="currency_notice_body">
+		<div class="currency_notice_container">
+			<div class="currency_notice_bread">
+				<router-link to="/index/home">{{langs.home}}</router-link>
+				<span></span>
+				{{langs.detail}}
+			</div>
+
+			<div class="currency_notice_title">
+				<span></span>
+				<font v-if="list_type == 0">{{langs.title0}}</font>
+				<font v-if="list_type == 1">{{langs.title1}}</font>
+			</div>
+
+			<div class="currency_notice_sort">
+				<div v-show="list_type == 0">
+					<span>{{langs.ranking}}: {{ranking == 0 ? (this.lang == 'CH' ? '未上榜' : 'unavailable') : ranking}}</span>
+					<span>{{langs.Volume}}: {{volume}} ELF</span>
+				</div>
+				<div v-show="list_type == 1">
+					<span>{{langs.Total_Deposit}}: <font v-if="is_login">{{recharge}} ELF</font><font v-else>- -</font></span>
+					<span>{{langs.now_Bonus}}: <font v-if="is_login">{{reward}} BDB</font><font v-else>- -</font></span>
+				</div>
+			</div>
+
+			<div class="currency_notice_tabs_time">
+				<div class="tabs">
+					<ul>
+						<li class="tab" :class="{'is_active': list_type == 1}" @click="CHANGE_TYPE(1)">{{langs.Bonus_list}}</li>
+						<li class="tab" :class="{'is_active': list_type == 0}" @click="CHANGE_TYPE(0)">{{langs.valuable_members_list}}</li>
+						<li>{{langs.count_down}} : <dd id="times"></dd></li>
+						<li v-if="list_type == 1">{{langs.Remaining}}: {{ $globalFunc.accFixed(surplus,8) }}  BDB</li>
+					</ul>
+				</div>
+				<div class="tables">
+					<div class="transaction" v-show="list_type == 0">
+						<ul class="title">
+							<li>{{langs.Ranking}}</li>
+							<li>{{langs.uid}}</li>
+							<li>{{langs.buy}}(ELF)</li>
+							<li>{{langs.sell}}(ELF)</li>
+							<li>{{langs.value}}(ELF)</li>
+							<li>{{langs.Bonus}}(BDB)</li>
+						</ul>
+						<div class="table_list">
+							<ul class="list" v-for="(value, key) in list_1">
+								<li v-if="key < 3">
+									<span></span>
+								</li>
+								<li v-else>{{ key + 1 }}</li>
+								<li>{{value.email}}</li>
+								<li>{{$globalFunc.accFixed(value.buyAmount,8)}} ELF</li>
+								<li>{{$globalFunc.accFixed(value.sellAmount,8)}} ELF</li>
+								<li>{{$globalFunc.accFixed(value.sumAmount,8)}} ELF</li>
+								<li>
+									<font v-if="key == 0">10000 BDB</font>
+									<font v-if="key == 1">6000 BDB</font>
+									<font v-if="key == 2">3000 BDB</font>
+									<font v-if="key < 10 && key > 2">1000 BDB</font>
+									<font v-if="key > 9">600 BDB</font>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="recharge" v-show="list_type == 1">
+						<ul class="title">
+							<li>{{langs.List}}</li>
+							<li>{{langs.uid}}</li>
+							<li>{{langs.last_deposit}}</li>
+							<li>{{langs.total_deposit}}(ELF)</li>
+							<li>{{langs.now_Bonus}}(BDB)</li>
+						</ul>
+						<div class="table_list">
+							<ul class="list" v-for="(value, key) in list">
+								<li>{{key + 1}}</li>
+								<li>{{value.email}}</li>
+								<li>{{$globalFunc.formatDateUitl(value.updatedAt,'YYYY-MM-DD hh:mm:ss')}}</li>
+								<li>{{$globalFunc.accFixed(value.amount, 8)}}  ELF</li>
+								<li>{{$globalFunc.accFixed(value.reward, 8)}}  BDB</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<!-- 分页插件 start  v-if="maxPage > 1" -->
+				<PageBar v-if="list_type == 1 && maxPage > 1" :maxPage='maxPage'
+				:selectIndex="selectIndex"
+				:clickChangePage="clickChangePage"
+	           :currentDisplay=2
+	           :initDisplay=2></PageBar>
+				<!-- 分页插件 end -->
+			</div>
+
+			<!-- <div class="currency_notice_recharge_tips">*排行榜只展示前100名</div> -->
+
+			<div class="currency_notice_tips">
+				<ul v-show="list_type == 0">
+					<li>1 . {{langs.one}}</li>
+					<li>2 . {{langs.two}} {{langs.three_one}} {{langs.three_two}} {{langs.three_three}} {{langs.three_four}} {{langs.three_five}}</li>
+					<!-- <li><span>{{langs.three_one}}</span></li>
+					<li><span>{{langs.three_two}}</span></li>
+					<li><span>{{langs.three_three}}</span></li>
+					<li><span>{{langs.three_four}}</span></li>
+					<li><span>{{langs.three_five}}</span></li> -->
+					<li>3 . {{langs.four}}</li>
+					<li><font>4 . {{langs.rules}} : </font><span style="padding-left: 10px;">{{langs.five_one}}</span></li>
+					<li><span>{{langs.five_two}}</span></li>
+					<li><span>{{langs.five_three}}</span></li>
+				</ul>
+				<ul v-show="list_type == 1">
+					<li>1 . {{langs.recharge_one}}</li>
+					<li>2 . {{langs.recharge_two}}</li>
+					<li>3 . {{langs.recharge_three}}</li>
+					<li><font>4 . {{langs.rules}} : </font><span style="padding-left: 10px;">{{langs.recharge_four_one}}</span></li>
+					<li><span>{{langs.recharge_four_two}}</span></li>
+					<li><span>{{langs.recharge_four_three}}</span></li>
+				</ul>
+			</div>
+
+			<!-- <div class="currency_notice_talk">
+				*活动最终解释权在法律范围内归EUNEX所有
+			</div> -->
+
+			<div class="bg_1"></div>
+			<div class="bg_2"></div>
+			<div class="bg_3"></div>
+			<div class="bg_4"></div>
+		</div>
+	</div>
+	<!-- 提示 start -->
+	<PopupPrompt :popType="popType" :popText="popText" :popOpen="promptOpen" :popClose="closePrompt"></PopupPrompt>
+	<!-- 提示 end -->
+
+	<div class="index-footer min-width">
+		<IndexFooter />
+	</div>
+</div>

@@ -1,0 +1,114 @@
+.el-message-box {
+  display: inline-block !important;
+  width: 420px !important;
+  padding-bottom: 0px !important;
+  vertical-align: middle !important;
+  background-color: #FFF !important;
+  border-radius: 3px !important;
+  border: 0px solid #EBEEF5 !important;
+  font-size: 18px !important;
+  -webkit-box-shadow: 0 2px 12px 0 rgba(0, 0, 0, .1) !important;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, .1) !important;
+  text-align: left !important;
+  overflow: hidden !important;
+  -webkit-backface-visibility: hidden !important;
+  backface-visibility: hidden !important;
+}
+
+.el-message-box__status.el-icon-warning {
+  display: none !important;
+}
+
+.el-message-box__message p {
+  /* width: 330px; */
+  /* height: 60px; */
+  /* padding: 50px 0px 40px 25px; */
+  text-align: center !important;
+  opacity: 0.7 !important;
+  font-family: PingFangSC-Regular !important;
+  font-size: 16px !important;
+  color: #000000 !important;
+  text-align: center !important;
+  line-height: 30px !important;
+}
+
+.el-message-box {
+  width: 370px !important;
+  height: 161px !important;
+}
+
+.el-message-box__header {
+  padding: 0px !important;
+}
+
+.el-message-box__status+.el-message-box__message {
+  padding: 0px !important;
+}
+
+.el-message-box__headerbtn .el-message-box__close {
+  display: none !important;
+}
+
+.el-message-box__btns {
+  width: 100% !important;
+  height: 50px !important;
+}
+
+.el-button {
+  display: block !important;
+  /* line-height: 1; */
+  width: 100% !important;
+  /* height: 50px; */
+  line-height: 19.5px !important;
+  white-space: nowrap !important;
+  cursor: pointer !important;
+  background: #FFF !important;
+  border: 0px solid #DCDFE6 !important;
+  /* color: #606266; */
+  -webkit-appearance: none !important;
+  text-align: center !important;
+  -webkit-box-sizing: border-box !important;
+  box-sizing: border-box !important;
+  outline: 0 !important;
+  margin: 0 !important;
+  -webkit-transition: .1s !important;
+  transition: .1s !important;
+  font-weight: 500 !important;
+  border-radius: 4px !important;
+  font-family: PingFangSC-Regular !important;
+  font-size: 16px !important;
+  color: #C43E4E !important;
+  text-align: center !important;
+}
+
+.el-button:hover {
+  color: #C43E4E !important;
+  background: rgba(242, 185, 46, 0) !important
+}
+
+.el-button--primary {
+  display: none !important;
+}
+
+.el-message-box__content {
+  padding: 30px 40px 20px 40px !important;
+  border-bottom: 1px solid #E7EBEE !important;
+}
+
+.englishStyle .el-message-box__content {
+  padding: 12px 0px !important;
+  border-bottom: 1px solid #E7EBEE !important;
+}
+
+.englishStyle .el-message-box__message p {
+  width: 100% !important;
+  /* height: 60px; */
+  /* padding: 50px 0px 40px 25px; */
+  text-align: center !important;
+  opacity: 0.7 !important;
+  font-family: PingFangSC-Regular !important;
+  font-size: 16px !important;
+  color: #000000 !important;
+  text-align: center !important;
+  line-height: 30px !important;
+}

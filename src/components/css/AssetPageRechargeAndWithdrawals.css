@@ -1,0 +1,272 @@
+/*下方内容*/
+.loading {
+  width: 100%;
+  background-color: #fff;
+}
+
+.container {
+  display: block;
+  width: 100%;
+  position: relative;
+}
+
+.hide-zero-asset-box {
+  position: absolute;
+  right: 30px;
+  top: -30px;
+  line-height: 12px;
+  font-size: 12px;
+  color: #666;
+  align-items: center;
+  /*border: 1px solid red;*/
+}
+
+.hide-zero-asset-checkbox {
+  /*-webkit-appearance: none;*/
+  /*background: #fff;*/
+  /*width: 12px;*/
+  /*height: 12px;*/
+  /*border-radius: 2px;*/
+  /*border: 1px solid #666;*/
+}
+
+.hide-zero-asset-checkbox:checked {
+  /*background: #C43E4E;*/
+  /*background: url("") no-repeat;*/
+  /*background-position: center;*/
+  /*background-size: contain;*/
+  /*-webkit-appearance: none;*/
+  /*width: 12px;*/
+  /*height: 12px;*/
+  /*border-radius: 2px;*/
+
+}
+
+.hide-zero-asset-label {
+  margin-left: 3px;
+}
+
+.border-box {
+  overflow: hidden;
+  border-top-left-radius: 0 !important;
+}
+
+.detail-header {
+  width: 100%;
+  position: relative;
+  align-items: center;
+  -webkit-align-items: center;
+  justify-content: space-around;
+  -webkit-justify-content: space-around;
+  height: 35px;
+  /*background-color: #cae7ea;*/
+  /*border-left: 1px solid #e5e5e5;*/
+  /*border-right: 1px solid #e5e5e5;*/
+  font-size: 1.2rem;
+  text-align: center;
+  color: #333;
+}
+
+.currency {
+  flex: 13.7;
+  /*flex:19.9;*/
+}
+
+.fullName {
+  flex: 15.5;
+  /*flex:9.3;*/
+  /*text-align: left;*/
+}
+
+.total {
+  flex: 12.7;
+}
+
+.available {
+  flex: 13.7;
+}
+
+.frozen {
+  flex: 13.7;
+}
+
+.valuation {
+  flex: 13.7;
+  position: relative;
+}
+
+.valuation_font {
+  display: inline-block;
+  cursor: pointer;
+  height: 35px;
+  line-height: 35px;
+}
+
+/* 2018-4-4 新加价格css start */
+.show_tips {
+  position: absolute;
+  display: block;
+  padding: 0px 10px;
+  line-height: 24px;
+  color: #fff;
+  background-color: #C43E4E;
+  border: 1px solid #C43E4E;
+  border-radius: 2px;
+  right: 83%;
+  top: 4px;
+  z-index: 1;
+  display: none;
+}
+
+.show_tips font {
+  position: absolute;
+  right: -5px;
+  top: 9px;
+  width: 0;
+  height: 0;
+  border-top: 3px solid transparent;
+  border-left: 4px solid #C43E4E;
+  border-bottom: 3px solid transparent;
+}
+
+.show_tips.show {
+  display: block;
+}
+
+/* 2018-4-4 新加价格css end */
+
+.rechargeAndWithdrawals {
+  flex: 17.3;
+}
+
+/*列表*/
+.detail-container {
+
+}
+
+.detail-li {
+  /*height:35px;*/
+  height: auto;
+  background-color: #fff;
+  color: #666;
+}
+
+.detail-li:hover {
+  background-color:rgba(196,62,78,0.03);
+}
+
+.li-select:hover {
+  /*background-color: #fcfcfc;*/
+
+}
+
+/*具体内容*/
+.li-container {
+  width: 100%;
+  text-align: center;
+  height: 35px;
+  align-items: center;
+  -webkit-align-items: center;
+  /*border-left: 1px solid #e5e5e5;*/
+  /*border-bottom: 1px solid #e5e5e5;*/
+  border-top: 1px solid #f9f9f9;
+  /*border-right: 1px solid #e5e5e5;*/
+
+}
+
+/*充值提现按钮container*/
+.rechargeAndWithdrawals {
+
+}
+
+/*充值提现按钮总*/
+.button {
+  display: inline-block;
+  width: 50px;
+  height: 20px;
+  line-height: 20px;
+  padding: 0 5px;
+  border-radius: 2px;
+  cursor: pointer;
+  margin: 0 5px
+}
+
+/*充值按钮*/
+.recharge-button {
+  border: 1px solid #C43E4E;
+  color: #C43E4E;
+}
+
+/*提现按钮*/
+.withdrawals-button {
+  border: 1px solid #C43E4E;
+  color: #C43E4E;
+}
+
+/*提现选中*/
+.withdrawals-button-select {
+  color: white;
+  background-color: #C43E4E;
+}
+
+/*充值选中*/
+.recharge-button-select {
+  color: white;
+  background-color: #C43E4E;
+}
+
+/*提现置灰色*/
+.can-not-withdrawals {
+  color: #e6e6e6;
+  border-color: #e6e6e6;
+}
+
+/*弹窗样式*/
+.pop-footer {
+  width: 100%;
+  /*justify-content: space-around;*/
+  /*-webkit-justify-content: space-around;*/
+}
+
+/*弹窗button*/
+.button-base {
+  margin-right: 20px;
+}
+
+.button-base:last-of-type {
+  margin-right: 0;
+}
+
+.select-address-detail {
+
+}
+
+.pop-article {
+  padding: 20px 0;
+}
+
+/*币种名称*/
+.currency_name {
+  display: block;
+  vertical-align: middle;
+  float: left;
+}
+
+/*币种图标container*/
+.currency-icon {
+  width: 15px;
+  height: 15px;
+  /*border: 1px solid red;*/
+  display: block;
+  margin-right: 15px;
+  vertical-align: middle;
+  float: left;
+  padding-left: 35%;
+}
+
+/*币种图标具体图片*/
+.currency-icon-img {
+  margin: 0 auto;
+  height: 20px;
+  display: block;
+}

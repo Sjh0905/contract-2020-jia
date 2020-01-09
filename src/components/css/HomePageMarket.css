@@ -1,0 +1,41 @@
+.container {
+  width: 100%;
+}
+
+.market-detail {
+  width: 100%;
+  text-align: center;
+}
+
+
+.detail-tr-th li, .detail-tr-td li{
+  width: 16.66666%;
+  float: left;
+  line-height: 36px;
+}
+
+.detail-tr-th {
+  background-color: #cae7ea;
+}
+
+.detail-tr-td {
+  background-color: #fff;
+}
+.detail-tr-td:hover{
+  background-color:rgba(196,62,78,0.03);
+
+}
+
+.tr-unit {
+  height: 35px;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.market {
+
+}
+
+.collection-icon {
+  /*margin:0 10%;*/
+  margin-right: 10%;
+}

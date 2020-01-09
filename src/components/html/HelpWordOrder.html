@@ -1,0 +1,88 @@
+<div class="container">
+  <div class="title flex">
+
+    <div class="flex-row" style="align-items: center">
+      <span></span>
+      <span>{{$t('title')}}</span>
+    </div>
+
+
+    <router-link v-if="is_login" class="title-control text_blue" :to="{ path: '/index/help/workOrderList'}">
+      {{$t('myRequest')}}
+    </router-link>
+  </div>
+  <div class="word_order_container box_shadow border_radius">
+    <div class="order_form">
+      <div class="title">{{$t('order_request')}}</div>
+      <!--选择问题类型 begin-->
+      <div class="forms_group">
+        <label>{{$t('form_select_type')}}<span>*</span></label>
+        <select v-model="id">
+          <option v-for="item in template_list" :value="item.id">{{item.name}}</option>
+        </select>
+      </div>
+      <!--选择问题类型 end-->
+
+      <!--标题 begin-->
+      <div class="forms_group">
+        <label>{{$t('form_title')}}<span>*</span></label>
+        <input type="text" name="" v-model="title" maxlength="30">
+      </div>
+      <!--标题 end-->
+
+      <!--描述 begin-->
+      <div class="forms_group">
+        <label>{{$t('form_descript')}}<span>*</span></label>
+        <textarea v-model="content" @keyup="SET_TXT_SIZE"
+          :placeholder="$t('describeDetail')"
+        ></textarea>
+      </div>
+      <!--描述 end-->
+
+      <!--C2C单号 begin -->
+      <div class="forms_group" v-if="showC2C">
+        <label>{{$t('c2cTitle')}}<span>*</span></label>
+        <input type="text" name="" v-model="C2CId">
+      </div>
+      <!--C2C单号 end -->
+
+      <!--注册账户 begin -->
+      <div class="forms_group">
+        <label>{{$t('form_email')}}<span>*</span></label>
+        <input type="text" name="" v-model="userEmail">
+      </div>
+      <!--注册账户 end -->
+
+      <!--联系方式 begin-->
+      <div class="forms_group">
+        <label>{{$t('sms')}}<span>*</span></label>
+        <input type="text" name="" v-model="userMobile">
+      </div>
+      <!--联系方式 end-->
+
+      <!--附件 begin-->
+      <div class="forms_group">
+        <label>{{$t('file')}}<span>*</span></label>
+        <div class="update_file">
+          <span @click="updateFile"><img src="../../assets/update-2.png">{{$t('file_descript_1')}}</span>{{$t('file_descript_2')}}
+        </div>
+        <input ref="update" class="display_none" type="file" name="file" @change="changeUpdate">
+      </div>
+      <div class="forms_group">
+        <font>{{$t('file_descript_3')}}</font>
+        <ul class="updata_list">
+          <li v-for="item in file_names">{{item.name}}</li>
+        </ul>
+      </div>
+      <!--附件 end-->
+
+      <div class="forms_group">
+        <label></label>
+        <button @click="formSubmit" class="btn_blue">{{$t('submit')}}</button>
+      </div>
+      <PopupPrompt :popType="popType" :popText="popText" :popOpen="promptOpen" :popClose="closePrompt"
+                   :waitTime="1200"></PopupPrompt>
+      <!-- 提示信息 end -->
+    </div>
+  </div>
+</div>

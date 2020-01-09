@@ -1,0 +1,737 @@
+/*找回密码container*/
+.register-container {
+  display: block;
+  height: auto;
+  width: 100%;
+  padding: 100px 0;
+}
+
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px white inset;
+  -webkit-text-fill-color: #333;
+}
+
+/*placeholder样式*/
+.register-container input::placeholder {
+  color: #bfbfbf;
+}
+
+.register-container input::-moz-placeholder {
+  color: #bfbfbf;
+}
+
+.register-container input::-webkit-input-placeholder {
+  color: #bfbfbf;
+}
+
+.register-container input:-ms-input-placeholder {
+  color: #bfbfbf;
+}
+
+/*外层container*/
+.all-container {
+  width: 50%;
+  /*height: 600px;*/
+  margin: 0 auto;
+  padding: 0 105px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  background-color: #ffffff;
+}
+
+/*--------------- 标题 begin ----------------*/
+
+/*标题*/
+.unit-title {
+  flex-direction: row;
+  width: 100%;
+  font-size: 2.0rem;
+  /*height: 110px;*/
+  color: #7b7b7b;
+  padding: 30px 0 0;
+}
+
+.unit-title-pc {
+  flex-direction: row;
+  width: 100%;
+  padding: 30px 0 0;
+  text-align: center;
+  font-family: PingFangSC-Regular;
+  font-size: 26px;
+  color: #172A4D;
+}
+
+/*标题的横线*/
+.unit-title-line {
+  display: inline-block;
+  height: 1px;
+  background-color: #e5e5e5;
+  width: 30%;
+}
+
+/*标题的title*/
+.unit-title-text {
+  white-space: nowrap;
+  display: inline-block;
+  padding: 0 10px;
+  text-align: left;
+  font-family: PingFangSC-Medium;
+  font-size: 26px;
+  color: #CFD3E9;
+  margin-left: 20px;
+}
+
+/*--------------- 标题 end ----------------*/
+
+/*输入内容container*/
+.unit-container {
+  flex-direction: column;
+  justify-content: space-between;
+  padding-bottom: 30px;
+}
+
+/*Input板块*/
+.unit-input-container {
+  width: 87.5%;
+  height: 44px;
+  border-bottom: 1px solid #223349;
+  border-radius: 2px;
+}
+.area-wrap{
+  align-items: center;
+  width: 5.5rem;
+  padding:0 auto;
+}
+.area-code-text{
+  font-size: 15px;
+  color: #B5BCC6;
+  margin-left: 0.5rem;
+  margin-right: 0.2rem;
+}
+.iphone-kuang {
+  width: 87.5%;
+  height: 40px;
+  /*margin-bottom: 20px;*/
+  /*border: 1px solid #C5CFD5;*/
+  border-radius: 4px;
+}
+
+.unit-input-container-pc {
+  width: 87.5%;
+  height: 44px;
+  border: 1px solid #C5CFD5;
+  border-radius: 2px;
+}
+
+.input-phone-pc {
+  display: inline-block;
+  padding-left: 20px;
+  flex:1;
+  /*width: 63.8%;*/
+  height: 38.8px;
+  border: 1px solid #C5CFD5;
+  border-radius: 4px;
+}
+
+.el-select-dropdown {
+  width: 90px;
+}
+
+.inputInner {
+  display: inline-block;
+  width: 130px;
+  height: 40px;
+  border-radius: 2px;
+  margin-right: 8px;
+}
+
+.inputsize {
+  width: 408px;
+  height: 30px;
+  margin: 6px 18px;
+  padding-left: 10px;
+  font-size: 14px;
+  color: #172A4D;
+  box-sizing: border-box;
+  border-radius: 2px;
+  border: 1px solid #cccccc;
+}
+
+/*Input标题*/
+.unit-input-container-title {
+  width: 12%;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+/*Input标签*/
+.unit-input {
+  border: 0 solid transparent;
+  width: 88%;
+  height: 99%;
+  box-sizing: border-box;
+  border-radius: 2px;
+  margin: auto;
+  font-family: PingFangSC-Regular;
+  font-size: 14px;
+  color: #B5BCC6;
+}
+
+
+.unit-input::-webkit-input-placeholder {
+  /* WebKit browsers */
+  font-size:14px;
+  color:red;
+}
+.unit-input:-moz-placeholder {
+  /* Mozilla Firefox 4 to 18 */
+  font-size:14px;
+  color:red;
+}
+.unit-input::-moz-placeholder {
+  /* Mozilla Firefox 19+ */
+  font-size:14px;
+  color:red;
+}
+.unit-input:-ms-input-placeholder {
+  /* Internet Explorer 10+ */
+  font-size:14px;
+  color:red;
+}
+
+.unit-input-mobile{
+
+}
+
+/*间隔*/
+.unit-input-interval {
+  height: 20px;
+  line-height: 20px;
+  width: 80%;
+  text-align: left;
+  /*padding: 5px 0;*/
+  /*padding-left: 12%;*/
+}
+
+/*获取手机验证码*/
+.double-input-container > span:nth-of-type(2) {
+  width: 30%;
+  height: 24px;
+  box-sizing: border-box;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+  font-family: PingFangSC-Regular;
+  font-size: 14px;
+  color: #C43E4E;
+  text-align: right;
+  line-height: 12px;
+  margin-top: 9px;
+  border-left: 1px solid #C5CFD5;
+  background-color: white !important;
+}
+
+/*获取手机验证码的input*/
+.double-input-container > input {
+  border: 0 solid transparent;
+  width: 58%;
+  height: 99%;
+  box-sizing: border-box;
+  border-radius: 5px;
+}
+
+/*确定按钮*/
+.container-button {
+  border: 0;
+}
+
+.set-button {
+  width: 100%;
+  height: 100%;
+  letter-spacing: 1px;
+  border: 0;
+  background: #C43E4E;
+  border-radius: 2px;
+  font-family: PingFangSC-Regular;
+  font-size: 16px;
+  color: #FFFFFF;
+  text-align: center;
+  line-height: 16px;
+}
+
+.verifying-slider {
+  /*border: 1px solid #e5e5e5;*/
+  border:0 solid transparent;
+  display: block;
+  position: relative;
+
+}
+
+.verifying-slider-interval {
+  border: 0 solid transparent !important;
+}
+
+.can-not-withdrawals {
+  width: 87.5%;
+  border: 0;
+}
+
+.double-input-container .identifying-code-button-on {
+  /*background-color: #25ced9;*/
+}
+
+.double-input-container .identifying-code-button-close {
+  background-color: #cccccc !important;
+}
+
+/*同意协议*/
+.agreement {
+  font-size: 1.4rem;
+  color: #666666;
+  height: 30px;
+  border: 0;
+  position: relative;
+}
+
+.agreement img{
+  /*margin-top: 3px;*/
+  width: 14px;
+  vertical-align: middle;
+  margin-bottom: 3px;
+}
+
+.color-input-red +label{
+  display: block;
+  width: 14px;
+  height: 14px;
+  cursor: pointer;
+  position: absolute;
+  top: 3px;
+  left: 0px;
+  background: #C43E4E;
+  z-index: 9999;
+}
+
+.color-input-red:checked +label::before{
+   display: block;
+   content: "\2714";
+   text-align: center;
+   font-size: 16px;
+   color: white;
+}
+
+
+.agreement-detail {
+  color: #C43E4E;
+}
+
+.registering-button {
+  background-color: #14b2bd;
+}
+
+.before-register-button {
+  cursor: pointer;
+}
+
+/*已经注册*/
+.already-register {
+  border: 0;
+  justify-content: flex-start;
+  font-family: PingFangSC-Regular;
+  font-size: 14px;
+  color: #172A4D;
+  line-height: 14px;
+}
+
+.already-register a {
+  font-family: PingFangSC-Regular;
+  font-size: 14px;
+  color: #C43E4E;
+  line-height: 14px;
+}
+
+.wrong-answer {
+  border: 1px solid red;
+}
+/*选择登录方式*/
+.choose-login-type-container {
+  /* justify-content: center; */
+  width: 87.5%;
+  margin: 0 auto 20px;
+  height: 40px;
+  border-bottom: solid 2px #E7EBEE;
+  border-radius: 2px;
+}
+
+.login-type-container {
+  /* height: 40px; */
+  margin-right: 24px;
+  text-align: center;
+  font-size: 14px;
+  /* margin-top: 45px; */
+  line-height: 38px;
+  height: 38px;
+  -webkit-box-sizing: content-box;
+  /* box-sizing: content-box; */
+  color: #8994A5;
+}
+
+.login-type-container-left {
+  border-bottom: 2px solid #E7EBEE;
+}
+
+.login-type-container-right {
+  border-bottom: 2px solid #E7EBEE;
+}
+
+.login-type-select-container {
+  color: #C43E4E;
+  border-color: #C43E4E;
+}
+
+/*----------------------------------------------------------------------------------------------------*/
+
+@media screen and (max-width: 768px) {
+  .body {
+    min-width: 100%;
+  }
+
+  /*container*/
+  .register-container {
+    display: block;
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    background: #131F30;
+  }
+
+  /*placeholder样式*/
+  .register-container input::placeholder {
+    color: #bfbfbf;
+  }
+
+  .register-container input::-moz-placeholder {
+    color: #bfbfbf;
+  }
+
+  .register-container input::-webkit-input-placeholder {
+    color: #bfbfbf;
+  }
+
+  .register-container input:-ms-input-placeholder {
+    color: #bfbfbf;
+  }
+
+  /*外层container*/
+  .all-container {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    background: #131F30;
+    height: 600px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+  }
+
+  /*标题*/
+  .unit-title {
+    flex-direction: row;
+    width: 100%;
+    font-size: 0.36rem;
+    /*height: 110px;*/
+    color: #fff;
+    height: 1.8rem;
+  }
+
+  /*标题的横线*/
+  .unit-title > span:nth-of-type(1), .unit-title > span:nth-of-type(3) {
+    display: block;
+    height: 1px;
+    /*background-color: rgba(255, 255, 255, 0.4);*/
+    width: 1.2rem;
+  }
+
+  /*标题的title*/
+  .unit-title > span:nth-of-type(2) {
+    width: 32%;
+    white-space: nowrap;
+    display: block;
+    text-align: center;
+  }
+
+  /*输入内容container*/
+  .unit-container {
+    flex-direction: column;
+    justify-content: space-between;
+    height: 80%;
+    padding-bottom: 30px;
+  }
+
+  /*Input板块*/
+  .unit-input-container {
+    width: 6.5rem;
+    height: 40px;
+    /*border: 1px solid #303031;*/
+    /*border-radius: 4px;*/
+    /*background: #131F30;*/
+    color: #000;
+  }
+
+  /*Input前图片*/
+  .unit-input-container-title-img {
+    width: 0.45rem;
+  }
+
+  .unit-input-container.agreement {
+    background: transparent;
+  }
+
+  .unit-input-container.already-register {
+    background: transparent;
+    color: #999999;
+  }
+
+  /*Input标题*/
+  .unit-input-container-title {
+    width: 1rem;
+    height: 100%;
+    box-sizing: border-box;
+  }
+
+  /*Input标签*/
+  .unit-input {
+    border: 0 solid transparent;
+    width: 5.5rem;
+    height: 100%;
+    box-sizing: border-box;
+    border-radius: 2px;
+    background: transparent;
+    color: #fff;
+  }
+
+
+  /*.unit-input::-webkit-input-placeholder {*/
+  /*  !* WebKit browsers *!*/
+  /*  font-size:14px;*/
+  /*  color:red;*/
+  /*}*/
+  /*.unit-input:-moz-placeholder {*/
+  /*  !* Mozilla Firefox 4 to 18 *!*/
+  /*  font-size:14px;*/
+  /*  color:red;*/
+  /*}*/
+  /*.unit-input::-moz-placeholder {*/
+  /*  !* Mozilla Firefox 19+ *!*/
+  /*  font-size:14px;*/
+  /*  color:red;*/
+  /*}*/
+  /*.unit-input:-ms-input-placeholder {*/
+  /*  !* Internet Explorer 10+ *!*/
+  /*  font-size:14px;*/
+  /*  color:red;*/
+  /*}*/
+
+  .unit-input::-webkit-input-placeholder {
+    /* WebKit browsers */
+    /*padding-left:30px;*/
+    opacity:0.5;
+    font-family: PingFangSC-Regular;
+    font-size: 16px;
+    color: #3E536C;
+  }
+
+  .unit-input:-moz-placeholder {
+    /* Mozilla Firefox 4 to 18 */
+    font-size:26px;
+    color:#000000;
+  }
+  .unit-input::-moz-placeholder {
+    /* Mozilla Firefox 19+ */
+    font-size:26px;
+    color:#000000;
+  }
+  .unit-input:-ms-input-placeholder {
+    /* Internet Explorer 10+ */
+    font-size:26px;
+    color:#000000;
+  }
+
+  .double-input-container  .getcodeval{
+    width: 23%;
+    height: 24px;
+    box-sizing: border-box;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    font-family: PingFangSC-Regular;
+    font-size: 14px;
+    color:  #C43E4E;
+    text-align: center;
+    line-height: 12px;
+    margin-top: 15px;
+  }
+
+  /*间隔*/
+  .unit-input-interval {
+    height: 20px;
+    width: 100%;
+    text-align: left;
+    padding: 0;
+    font-family: PingFangSC-Regular;
+    font-size: 12px;
+    color: #C43E4E;
+    margin-left: 60px;
+  }
+
+  /*获取手机验证码*/
+  .double-input-container > span:nth-of-type(2) {
+    width: 1.5rem;
+    height: 100%;
+    box-sizing: border-box;
+    background-color: transparent !important;
+    border-radius: 0 4px 4px 0;
+    color: #C43E4E;
+    cursor: pointer;
+  }
+
+  .button-hover:hover {
+    background-color: #000!important;
+    color: #C43E4E!important;
+  }
+
+  /*获取手机验证码的input*/
+  .double-input-container > input {
+    border: 0 solid transparent;
+    width: 4rem;
+    height: 100%;
+    box-sizing: border-box;
+    border-radius: 4px;
+  }
+
+  .cutter-line {
+    color: #274868;
+    height: 100%;
+  }
+
+  /*确定按钮*/
+  .container-button {
+    border: 0;
+  }
+
+  .set-button {
+    width: 100%;
+    height: 100%;
+    background: #3E536C;
+    border-radius: 2px;
+    color: #ffffff;
+    letter-spacing: 8px;
+    border: 0;
+    font-family: PingFangSC-Semibold;
+    font-size: 15px;
+    text-align: center;
+  }
+
+  .set-button.button-hover:hover {
+    background-color: #C43E4E!important;
+    color: #fff!important;
+  }
+
+  .verifying-slider {
+    /*border: 1px solid #e5e5e5;*/
+    border: none;
+  }
+
+  .verifying-slider-interval {
+    border: 0 solid transparent !important;
+  }
+
+  .can-not-withdrawals {
+    width: 87.5%;
+    border: 0;
+  }
+
+  .double-input-container .identifying-code-button-on {
+    background-color: transparent;
+  }
+
+  .double-input-container .identifying-code-button-close {
+    background-color: transparent !important;
+  }
+
+  /*同意协议*/
+  .agreement {
+    font-size: 0.28rem;
+    color: #999999;
+    height: 30px;
+    border: 0;
+    display: flex;
+    align-items: center;
+  }
+
+  .agreement-detail {
+    color: #C43E4E;
+  }
+
+  .registering-button {
+    background-color: #C43E4E;
+  }
+
+  .before-register-button {
+    cursor: pointer;
+  }
+
+  /*已经注册*/
+  .already-register {
+    font-size: 0.28rem;
+    color: #666666;
+    border: 0;
+  }
+
+  .already-register a {
+    color: #C43E4E;
+  }
+
+  .wrong-answer {
+    border: 1px solid #f93943;
+  }
+  .mobile-choose-login-type-box {
+    width: 280px;
+    height: 60px;
+    margin: 0 auto 25px;
+    display: flex;
+    /*justify-content: space-around;*/
+    align-items: center;
+    color: #fff;
+    /*background-color: #999999;*/
+  }
+  .mobile-choose-login-type-item {
+    height: 60px;
+    width: 100px;
+    background: transparent;
+    text-align: center;
+    line-height: 60px;
+    font-size: 15px;
+    position: relative;
+    color: rgba(255,255,255,0.8);
+    margin-right: 24px;
+    border-bottom: 2px solid transparent;
+  }
+
+  .mobile-choose-login-type-item-activity {
+    color: #C43E4E;
+    font-size: 24px;
+    border-bottom: 2px solid #C43E4E;
+  }
+
+  /*.mobile-choose-login-type-item-activity::after {*/
+    /*content: '';*/
+    /*position: absolute;*/
+    /*bottom: 0;*/
+    /*height: 5px;*/
+    /*left: 0;*/
+    /*right: 0;*/
+    /*background: url("") center center;*/
+    /*background-size: contain;*/
+  /*}*/
+
+}

@@ -1,0 +1,21 @@
+<tr class="mobile-market-tr" :class="choosed?'mobile-market-tr-choosed':''" @click="changeHeaderBoxFlag(new_item)">
+<!--<tr class="mobile-market-tr mobile-market-tr-choosed"  @click="changeHeaderBoxFlag(new_item)">-->
+  <td class="mobile-market-td-first">
+    <p class="mobile-market-td-name"><span class="mobile-market-td-target-name">{{new_item.name.split('_')[0]}}</span><span class="mobile-market-td-home-name"> / {{new_item.name.split('_')[1]}}</span></p>
+<!--    <p class="mobile-market-td-volume txt_40" v-if="new_item.name == 'GRC_USDT'">24h {{// new_item.volume>=1000 && new_item.volume > 0 ? $globalFunc.accFixed(new_item.volume / 1000,2)+'k' : $globalFunc.accFixed(new_item.volume, 0)}}</p>-->
+    <p class="mobile-market-td-volume txt_40">24h {{$globalFunc.accFixed(new_item.volume, 0)}}</p>
+  </td>
+  <td class="mobile-market-td-second">
+<!--    <p class="mobile-market-td-current-price m-txt-green" :class= "(new_item.close - new_item.open > 0) ? 'mobile-market-td-current-price-up' : (new_item.close - new_item.open < 0 ? 'mobile-market-td-current-price-fall' : '')">{{$globalFunc.accFixed(new_item.close, !!quoteScale_list[new_item.name] ? quoteScale_list[new_item.name].quoteScale : 8)}}</p>-->
+    <p class="mobile-market-td-current-price" >{{$globalFunc.accFixed(new_item.close, !!quoteScale_list[new_item.name] ? quoteScale_list[new_item.name].quoteScale : 8)}}</p>
+    <p class="mobile-market-td-current-up-fall">￥{{$globalFunc.accFixedCny(new_item.cny, 2)}}
+        <!--<span class="mobile-market-td-current-text" :class= "new_item.close-new_item.open>0?'mobile-market-td-current-up':(new_item.close-new_item.open < 0 ? 'mobile-market-td-current-fall' : '')">{{new_item.open == 0 ? '0' : ((new_item.close-new_item.open)/new_item.open*100).toFixed(2)}}% <span class="mobile-market-td-current-img"> </span></span>-->
+    </p>
+  </td>
+  <td class="mobile-market-td-third">
+      <div v-if="hall_symbol" class="_m_3ud flex-center" :class= "new_item.close-new_item.open>0?'m_3ud_up':(new_item.close-new_item.open < 0 ? 'm_3ud_dw' : '')">{{new_item.close-new_item.open>0? '+':''}}{{new_item.open == 0 ? '0.00' : ((new_item.close-new_item.open)/new_item.open*100).toFixed(2)}}%</div>
+      <div v-if="!hall_symbol" class="_m_3ud_" :class= "new_item.close-new_item.open>0?'m_3ud_up_':(new_item.close-new_item.open < 0 ? 'm_3ud_dw_' : '')">{{new_item.close-new_item.open>0? '+':''}}{{new_item.open == 0 ? '0.00' : ((new_item.close-new_item.open)/new_item.open*100).toFixed(2)}}%</div>
+    <!--<p class="mobile-market-td-current-top-price">{{$globalFunc.accFixed(new_item.high, 8)}}</p>-->
+    <!--<p class="mobile-market-td-current-low-price">{{$globalFunc.accFixed(new_item.low, 8)}}</p>-->
+  </td>
+</tr>

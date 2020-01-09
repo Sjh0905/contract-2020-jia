@@ -1,0 +1,50 @@
+<div class="index-header-assets-container">
+  <Loading v-if="loading"/>
+  <ul class="asset-container" :class="{'asset-alpha':black}" v-else>
+    <li class="asset-li-2">
+      <router-link :to="{name:'authentication'}">
+        <p class="asset-li-title pointer">{{$t('userName')}}</p>
+        <p class="pointer">{{userName}}</p>
+      </router-link>
+    </li>
+<!--    <li class="asset-li">-->
+<!--      <router-link :to="{name:'rechargeAndWithdrawals'}">-->
+<!--        <p class="asset-li-title">{{$t('total')}}:</p>-->
+<!--        <p>{{accountReady || priceReady ? toFixed(total,8) : '&#45;&#45;&#45;&#45;'}}BTC</p>-->
+<!--      </router-link>-->
+<!--    </li>-->
+    <li class="asset-li">
+      <router-link to="/index/personal/auth">
+        <p class="pointer">{{$t('authentication')}}</p>
+      </router-link>
+    </li>
+    <li class="asset-li">
+      <router-link to="/index/personal/securityCenter">
+        <p class="pointer">{{$t('safetyCente')}}</p>
+      </router-link>
+    </li>
+    <li class="asset-li">
+      <router-link :to="{name:'securityLog'}">
+        <p class="pointer">{{$t('securityLog')}}</p>
+      </router-link>
+    </li>
+    <li class="asset-li">
+      <router-link to="/index/personal/Recommend">
+        <p class="pointer">{{$t('mynvitation')}}</p>
+      </router-link>
+    </li>
+    <!--<li class="asset-li flex-center">-->
+    <!--<p>{{$t('available')}}</p>-->
+    <!--<p>{{accountReady || priceReady ? available.toFixed(8) : '&#45;&#45;&#45;&#45;'}}</p>-->
+    <!--</li>-->
+    <!--<li class="asset-li flex-center">-->
+    <!--<p>{{$t('frozen')}}</p>-->
+    <!--<p>{{accountReady || priceReady ? frozen.toFixed(8) : '&#45;&#45;&#45;&#45;'}}</p>-->
+    <!--</li>-->
+    <li class="asset-li-2" @click="loginOff">
+      <div class="login-off flex">
+        <p class="pointer">{{$t('loginOff')}}</p>
+      </div>
+    </li>
+  </ul>
+</div>

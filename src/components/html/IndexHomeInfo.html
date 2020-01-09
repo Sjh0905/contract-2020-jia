@@ -1,0 +1,147 @@
+<div class='index-home-info-box' :class="themeColor === 1 ? 'index-home-info-box-light':'index-home-info-box-dark'">
+  <div class="index-home-info-title">
+    {{$t("transaction.Trading_platform")}}
+  </div>
+  <div class="index-home-info-title-fu">
+<!--    {{$t("transaction.Trading_platform_1")}}-->
+  </div>
+  <div class="index-home-info-list">
+    <ul>
+      <li>
+        <div class="tutu">
+          <img src="../../assets/特点1.png" >
+        </div>
+        <div class="tututitle">{{$t("transaction.Trading_platform_2")}}</div>
+        <div class="tutuinfo tutuinfo-ml">{{$t("transaction.Trading_platform_3")}}</div>
+      </li>
+      <li>
+        <div class="tutu">
+          <img src="../../assets/特点2.png" >
+        </div>
+        <div class="tututitle">{{$t("transaction.Trading_platform_4")}}</div>
+        <div class="tutuinfo">{{$t("transaction.Trading_platform_5")}}</div>
+      </li>
+      <li>
+        <div class="tutu">
+          <img src="../../assets/特点3.png" >
+        </div>
+        <div class="tututitle">{{$t("transaction.Trading_platform_6")}}</div>
+        <div class="tutuinfo tutuinfo-mr">{{$t("transaction.Trading_platform_7")}}</div>
+      </li>
+    </ul>
+  </div>
+
+  <div class="bait"></div>
+
+  <div class="downloadnew">
+    <div class="downconten">
+      <div class="tt1">
+        <img class="tt1img" src="../../assets/eunexInstallIcon.png" >
+        <div class="tdown2">{{$t("transaction.Trading_platform_8")}}</div>
+        <div class="tdown3">{{$t("transaction.Trading_platform_9")}}</div>
+
+        <div class="tdownx">
+        <div class="tdown4"    @mouseenter="backtpenter()" @mouseleave="backtpleave()">
+          <img class="imgs4" src="../../assets/苹果_icon.png" alt="">
+          iOS</div>
+          <div class="tdown6"    @mouseenter="backtpenter1()" @mouseleave="backtpleave1()">
+            <img class="imgs4" src="../../assets/安卓_icon.png" alt="">
+            Android
+          </div>
+        </div>
+
+<!--        v-show="showewm"-->
+        <div class="tdown5" v-show="showewm" >
+        <div class="download-left-download-item-erwma">
+          <div class="download-left-download-item-qrcode-img">
+            <Qrcode
+              :size="size"
+              :value="value"
+              :logo="logo"
+              :bgColor="bgColor"
+              :fgColor="fgColor"
+            >
+            </Qrcode>
+          </div>
+        </div>
+
+
+
+<!--        <div class="tdown6"    @mouseenter="backtpenter()" @mouseleave="backtpleave()">{{$t("transaction.Trading_platform_10")}}</div>-->
+
+        </div>
+<!--        v-show="showewm1"-->
+        <div class="tdown7" v-show="showewm1" >
+          <div class="download-left-download-item-erwma1">
+            <div class="download-left-download-item-qrcode-img1">
+              <Qrcode
+                :size="size"
+                :value="value"
+                :logo="logo"
+                :bgColor="bgColor"
+                :fgColor="fgColor"
+              >
+              </Qrcode>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="tt2">
+        <img src="../../assets/手机样机.png" >
+      </div>
+    </div>
+  </div>
+  <div class="bait"></div>
+
+  <div class="goLogo">
+    <div class="goLogo2">{{$t("transaction.Trading_platform_13")}}</div>
+    <div class="goLogo3">{{$t("transaction.Trading_platform_14")}}</div>
+    <div :class="!isLogin?'zhuce1':'zhuce3'">
+      <router-link
+      :to="{name:'login'}"
+      class="navigation-item-router login-register-item flex"
+      active-class="navigation-item-router-selected text_blue"
+    >
+      {{!isLogin? $t("transaction.Trading_platform_15"):$t("transaction.Trading_platform_16")}}
+    </router-link></div>
+    <div class="zhuce2">
+      <router-link
+      :to="{name: 'tradingHall', query: {symbol: $store.state.symbol} }"
+      class="navigation-item-router1 flex"
+      active-class="navigation-item-router-selected "
+    >
+      {{$t("transaction.Trading_platform_17")}}
+     </router-link></div>
+
+  </div>
+<!--  <div class="hezhb">-->
+<!--    <div class="index-home-info-title">-->
+<!--      {{$t("transaction.Trading_platform_12")}}-->
+<!--    </div>-->
+<!--    <div class="table8">-->
+<!--      <table>-->
+<!--        <tr>-->
+<!--          <td><img src="" ></td>-->
+<!--          <td><img src="" ></td>-->
+<!--          <td><img src="" ></td>-->
+<!--          <td  class="lastCol"><img src="" ></td>-->
+<!--        </tr>-->
+<!--        <tr  class="lastrow">-->
+<!--          <td><img src="" ></td>-->
+<!--          <td><img src="" ></td>-->
+<!--          <td><img src="" ></td>-->
+<!--          <td  class="lastCol"><img src="" ></td>-->
+<!--        </tr>-->
+<!--      </table>-->
+<!--    </div>-->
+
+<!--  </div>-->
+
+
+<!--  <div class="bkbutton" @click="backtop()"  >-->
+<!--    <img v-show="backtophui" src=""   @mouseenter="backtpenter()" @mouseleave="backtpleave()">-->
+<!--    <img v-show="backtopzi" src=""    @mouseenter="backtpenter()" @mouseleave="backtpleave()">-->
+<!--  </div>-->
+<!--  <div id="kefu2019" class="chartbutton" @click="openkf()"><img src="" alt="">{{$t('infoItemChart')}}</div>-->
+</div>
+

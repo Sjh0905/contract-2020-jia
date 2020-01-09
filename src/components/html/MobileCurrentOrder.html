@@ -1,0 +1,71 @@
+<div>
+    <!--<div class="mobile-current-title">-->
+        <!--<div class="mobile-current-title-all-sale" @click="cancelAllOrder">全部撤单</div>-->
+    <!--</div>-->
+    <div class="_m_co_t txt_40 flex-row">
+        <span>市场</span>
+        <span>价格</span>
+        <span>成交量 / 数量</span>
+        <span>操作</span>
+    </div>
+
+
+    <ul class="current-order-list" >
+        <li v-for="(order,index) in currentOrderComputed" :key="order.id" class="_m_co_l flex-row">
+            <div class="_m_co_l1 flex-colum flex-between">
+                <div class="_m_co_l1i flex-row">
+                    <i :style="order.type==='BUY_LIMIT'?'background:#00a62a':'background:#d83838'">
+                         {{order.type === 'BUY_LIMIT' && "买" || "卖"}}
+                    </i>
+                    <span>{{order.symbol.split('_')[0]}}</span><span class="txt_40">&nbsp;/&nbsp;{{order.symbol.split('_')[1]}}</span>
+                </div>
+                <div class="txt_40">
+                    {{$globalFunc.formatDateUitl(order.createdAt,'MM-DD hh:mm:ss')}}
+                </div>
+            </div>
+            <div class="_m_co_l2 flex-row">{{$globalFunc.accFixed(order.price, !!quoteScale_list[order.symbol] ? quoteScale_list[order.symbol].quoteScale : 8)}}</div>
+            <div class="_m_co_l3 flex-colum">
+                <span >{{$globalFunc.accFixed(order.filledAmount, !!quoteScale_list[order.symbol] ? quoteScale_list[order.symbol].baseScale : 8)}}</span>
+                <span class="txt_40">{{$globalFunc.accFixed(order.amount, !!quoteScale_list[order.symbol] ? quoteScale_list[order.symbol].baseScale : 8)}}</span>
+            </div>
+            <div class=" flex-center" :class="[{_m_co_l4:canceling!==order.id},{_m_co_l5:canceling===order.id}]" @click="cancelOrder(order)">
+                <span>{{canceling==order.id&&'撤单中'||'撤单'}}</span>
+            </div>
+        </li>
+    </ul>
+
+    <!--<div class="mobile-current-list" v-for="(order,index) in currentOrderComputed" :key="order.id">-->
+        <!--<div class="mobile-current-item">-->
+            <!--<div class="mobile-current-item-first-line">-->
+                <!--<div class="mobile-current-item-icon" :class="order.type==='BUY_LIMIT'?'mobile-current-item-icon-buy':'mobile-history-item-icon-sale'">-->
+                    <!--{{order.type === 'BUY_LIMIT'  && "买" || "卖"}}-->
+                <!--</div>-->
+                <!--<div class="mobile-current-item-compare">-->
+                    <!--{{order.symbol.split('_')[0]}}/{{order.symbol.split('_')[1]}}-->
+                <!--</div>-->
+                <!--<div class="mobile-current-item-volume">-->
+                    <!--成交率 {{(order.filledAmount / order.amount).toFixed(2) * 100 + '%'}}-->
+                <!--</div>-->
+                <!--<div class="mobile-current-item-time">-->
+                    <!--委托 {{$globalFunc.formatDateUitl(order.createdAt,'YYYY-MM-DD hh:mm:ss')}}-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="mobile-current-item-second-line">-->
+                <!--<div class="mobile-current-item-price-title">单价</div>-->
+                <!--<div class="mobile-current-item-price">{{$globalFunc.accFixed(order.price, 8)}}</div>-->
+                <!--<div class="mobile-current-item-num-title">委托数量</div>-->
+                <!--<div class="mobile-current-item-num">{{order.amount}}</div>-->
+
+                <!--<div class="mobile-current-item-sale-btn" @click="cancelOrder(order)">撤单</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+
+
+
+    <MobilePopupWindow :switch="popOpen" v-on:close="closePop">
+
+    </MobilePopupWindow>
+
+
+</div>

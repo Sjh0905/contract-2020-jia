@@ -1,0 +1,279 @@
+/*内容*/
+.HeaderTitle-container {
+  width: 100%;
+  height: 100%;
+  /*新加阴影*/
+  /*box-shadow: 2px 2px 2px #ccc;*/
+}
+
+.header-ul-container {
+  width: 100%;
+  padding-top: 12px;
+}
+
+.transactionType {
+  width: 15.164%;
+  padding-top: 10px;
+  padding-left: 26px;
+}
+
+.currentPrice {
+  width: 17.890%;
+}
+
+.riseAndFall {
+  width: 19.76%;
+}
+
+.maxPrice {
+  width: 14.687%;
+}
+
+.minPrice {
+  width: 16.406%;
+}
+
+.volume {
+  width: 16.093%;
+}
+
+.li-dark {
+  color: #333;
+  font-size: 1.6rem;
+
+}
+
+.li-light {
+  color: #666;
+  font-size: 12px;
+}
+
+.li-red {
+  color: #C43E4E;
+  font-size: 1.6rem;
+
+}
+
+.li-green {
+  /*color: #0babb6;*/
+  /*font-size: 1.6rem;*/
+
+}
+
+/* new css */
+.HeaderTitle-container ul {
+  width: 100%;
+  padding-top: 10px;
+  overflow: hidden;
+}
+
+.HeaderTitle-container ul li {
+  float: left;
+  box-sizing: border-box;
+  position: relative;
+  /*padding-left: 10px;*/
+  padding-left: 20px;
+  overflow: hidden;
+}
+
+.current_price {
+  /*width: 25%;*/
+  width: 19%;
+}
+
+.current_price span {
+  display: block;
+  width: 100%;
+}
+
+.current_price .first {
+  margin-bottom: 3px;
+  color: #999;
+}
+
+.current_price span.title {
+  border-left: 3px solid #C43E4E;
+  height: 12px;
+  line-height: 15px;
+  padding-left: 5px;
+  margin-bottom: 5px;
+}
+
+.txt-big {
+  padding-left: 10px;
+  font-size: 2rem;
+}
+
+.rise_and_fall {
+  /*width: 20%;*/
+  width: 22%;
+}
+
+.rise_and_fall span:nth-child(2) {
+  margin-top: -2px;
+}
+
+.rise_and_fall span.txt, .volume_value span.txt, .max_min span.txt {
+  display: block;
+  width: 100%;
+  padding-left: 5%;
+  font-size: 1.6rem;
+  /*color: #666;*/
+}
+
+.rise_and_fall span.txt.first, .volume_value span.txt.first, .max_min span.txt.first {
+  margin-bottom: 3px;
+  font-size: 1.2rem;
+  color: #999;
+}
+
+.max_min {
+  /*width: 35%*/
+  width: 24%;
+}
+
+.max_min dd {
+  /*width: 33.33333%;*/
+  width: 50%;
+  float: left;
+  box-sizing: border-box;
+}
+
+.max_min dd span.text {
+  padding-left: 5%;
+}
+
+.max_min dd:nth-child(1) {
+}
+
+.max_min dd:nth-child(3) {
+  padding-left: 5%;
+}
+
+.volume_value {
+  width: 20%;
+}
+
+.range_line {
+  border-bottom: 1px solid #ccc;
+  height: 25px;
+  position: relative;
+}
+
+.range_line .triangle {
+  position: absolute;
+  width: 0;
+  height: 0;
+  bottom: 1px;
+  border-top: 6px solid #C2C1C2;
+  border-right: 6px solid transparent;
+  border-left: 6px solid transparent;
+}
+
+span.division {
+  position: absolute;
+  right: 0px;
+  top: 5px;
+  display: inline-block;
+  float: right;
+  width: 3px;
+  height: 30px;
+  background-color: #F7F6F7;
+  vertical-align: middle;
+}
+
+/* 24小时涨跌向上向下按钮 */
+.up_down_icon {
+  /*height: 15px;*/
+  height: 28px;
+  vertical-align: middle;
+  display: inline-block;
+  width: 10px;
+  background: #fff;
+  display: inline-block;
+  margin-left: 5px;
+}
+
+.up_down_icon.up_icon:before {
+  width: 20px;
+  height: 20px;
+  content: '↑';
+  /*background: url("../../assets/mobile_market_big_up.png") no-repeat center center;
+  background-size: 80%;*/
+}
+
+.up_down_icon.down_icon:before {
+  width: 20px;
+  height: 20px;
+  content: '↓' /* background: url("../../assets/mobile_market_big_down.png") no-repeat center center;
+  background-size: 80%;*/
+}
+
+/* 2018-2-7 新版样式 */
+.HeaderTitle-container ul li.symbol_title {
+  width: 13%;
+  overflow: initial;
+  padding-top: 13px;
+}
+
+.symbol_title span {
+  display: block;
+  width: 100%;
+}
+
+.symbol_title span.title {
+  border-left: 5px solid #C43E4E;
+  height: 15px;
+  line-height: 15px;
+  padding-left: 5px;
+  margin-bottom: 5px;
+}
+
+.symbol_title span.title em {
+  margin: 0 5px;
+}
+
+.symbol_title span.title font:nth-child(1) {
+  font-size: 16px;
+}
+
+.symbol_title span.title font:nth-child(2) {
+
+}
+
+.symbol_title span.division {
+  width: 3px;
+  height: 30px;
+}
+
+.txt_light {
+  color: #999;
+}
+
+.now_price {
+  font-size: 1.6rem;
+}
+
+.now_price font {
+  font-size: 1.4rem;
+  color: #666;
+}
+
+.txt_price {
+  color: #02987D;
+}
+
+.detail_txt {
+  color: #333333;
+}
+
+
+
+
+
+
+
+
+
+
+

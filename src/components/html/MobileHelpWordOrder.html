@@ -1,0 +1,131 @@
+<div class="mobile-help-order-page">
+  <Loading v-if="loading"/>
+  <div v-if="!loading" class="mobile-help-order-box">
+    <!--选择问题类型-->
+    <div class="mobile-help-order-select">
+
+      <div class="mobile-help-order-select-title">
+        <img class="mobile-help-order-select-title-img" src="../../assets/mobileWordOrder/red_point.png" alt="" />
+        请选择你遇到的问题类型
+      </div>
+      <div class="mobile-help-order-select-input">
+        <!--<select class="mobile-help-order-select-input-select" v-model="id">-->
+          <!--<option v-for="item in questionList" :value="item.id">{{item.name}}</option>-->
+        <!--</select>-->
+
+        <!--顶部标题-->
+        <div v-if="!selectFlag" class="mobile-help-order-select-input-title" :class="selectFlag?'mobile-help-order-select-input-title-border-bottom':''" @click="openSelectWindow()">
+          <span v-if="selectTitle!='请选择您遇到的问题类型'" class="mobile-help-order-select-input-title-text-active">{{selectTitle}}</span>
+          <!--右侧小下拉箭头-->
+          <span :class="selectFlag?'mobile-help-order-select-input-title-icon-up':'mobile-help-order-select-input-title-icon-down'"></span>
+        </div>
+        <!--点顶部标题弹框-->
+
+        <div v-if="selectFlag"  class="mobile-help-order-select-input-option-box">
+          <div class="mobile-help-order-select-input-option-title" @click="openSelectWindow()">
+            <span v-if="selectTitle==='请选择您遇到的问题类型'" class="mobile-help-order-select-input-option-title-text">请选择您遇到的问题类型</span>
+            <span v-if="selectTitle!='请选择您遇到的问题类型'" class="mobile-help-order-select-input-option-title-text-active">{{selectTitle}}</span>
+            <!--右侧小下拉箭头-->
+            <span :class="selectFlag?'mobile-help-order-select-input-title-icon-up':'mobile-help-order-select-input-title-icon-down'"></span>
+          </div>
+          <div v-show="selectFlag" v-for="(item,index) in questionList" :key="index" class="mobile-help-order-select-input-option" @click="selectItem(item)">{{item.name}}</div>
+        </div>
+
+
+      </div>
+
+
+
+    </div>
+    <!--问题标题-->
+    <div class="mobile-help-order-name">
+      <div class="mobile-help-order-select-title">
+        <img class="mobile-help-order-select-title-img" src="../../assets/mobileWordOrder/red_point.png" alt="" />
+        标题
+      </div>
+      <div  class="mobile-help-order-name-input-box">
+        <input class="mobile-help-order-name-input" type="text" v-model="title" maxlength="30" />
+      </div>
+    </div>
+    <!--问题描述-->
+    <div class="mobile-help-order-name">
+      <div class="mobile-help-order-select-title">
+        <img class="mobile-help-order-select-title-img" src="../../assets/mobileWordOrder/red_point.png" alt="" />
+        描述
+      </div>
+      <div  class="mobile-help-order-content-input-box">
+        <textarea  v-show="!selectFlag" class="mobile-help-order-content-input" v-model="content" @keyup="SET_TXT_SIZE" placeholder="请详细描述您遇到的问题">
+
+        </textarea>
+        <div v-show="selectFlag" class="mobile-help-order-content-input"></div>
+      </div>
+    </div>
+
+    <!--留下email地址-->
+    <div v-if="isC2CQuestion" class="mobile-help-order-name">
+      <div class="mobile-help-order-select-title">
+        <img class="mobile-help-order-select-title-img" src="../../assets/mobileWordOrder/red_point.png" alt="" />
+        请输入您的C2C订单单号
+      </div>
+      <div  class="mobile-help-order-name-input-box">
+        <input class="mobile-help-order-name-input" type="text" v-model="userC2CNumber" />
+      </div>
+    </div>
+
+    <!--留下email地址-->
+    <div class="mobile-help-order-name">
+      <div class="mobile-help-order-select-title">
+        <img class="mobile-help-order-select-title-img" src="../../assets/mobileWordOrder/red_point.png" alt="" />
+        请输入您的欧联注册手机号/邮箱地址
+      </div>
+      <div  class="mobile-help-order-name-input-box">
+        <input class="mobile-help-order-name-input" type="text" v-model="userEmail" />
+      </div>
+    </div>
+
+    <!--留下电话-->
+    <div class="mobile-help-order-name">
+      <div class="mobile-help-order-select-title">
+        <img class="mobile-help-order-select-title-img" src="../../assets/mobileWordOrder/red_point.png" alt="" />
+        请输入您的联系方式：手机号/邮箱
+      </div>
+      <div  class="mobile-help-order-name-input-box">
+        <input class="mobile-help-order-name-input" type="text" v-model="userMobile" />
+      </div>
+    </div>
+
+    <!--添加照片-->
+    <div class="mobile-help-order-photo">
+      <div class="mobile-help-order-select-title">
+        <img class="mobile-help-order-select-title-img" src="../../assets/mobileWordOrder/red_point.png" alt="" />
+        添加照片 <span class="mobile-help-order-select-title-second">（最多3张,总共不超过5M）</span>
+      </div>
+      <div class="mobile-help-order-photo-input-box">
+        <div class="mobile-help-order-photo-input-box-item" >
+          <img v-if="uploadImgFirstFlag" class="mobile-help-order-photo-input-box-item-img" src="../../assets/mobileWordOrder/add_photo.png" alt="" />
+          <input v-if="uploadImgFirstFlag" id="question_img_input_1" ref="firstQuestionImg" type="file" accept="image/*" @change="changeImg1" />
+          <img v-if="!uploadImgFirstFlag" src="../../assets/mobileWordOrder/delete_img.png" class="mobile-help-order-photo-input-box-item-img-delete" @click="deleteFirstImg()" />
+          <div id="questionImgFirst" class="mobile-help-order-photo-input-box-item-img-confirm"></div>
+        </div>
+        <div class="mobile-help-order-photo-input-box-item">
+          <img v-if="uploadImgSecondFlag" class="mobile-help-order-photo-input-box-item-img" src="../../assets/mobileWordOrder/add_photo.png" alt="" />
+          <input v-if="uploadImgSecondFlag" id="question_img_input_2" ref="secondQuestionImg" type="file" accept="image/*" @change="changeImg2" />
+          <img v-if="!uploadImgSecondFlag" src="../../assets/mobileWordOrder/delete_img.png" class="mobile-help-order-photo-input-box-item-img-delete" @click="deleteSecondImg()" />
+          <div id="questionImgSecond" class="mobile-help-order-photo-input-box-item-img-confirm"></div>
+        </div>
+        <div class="mobile-help-order-photo-input-box-item">
+          <img v-if="uploadImgThirdFlag" class="mobile-help-order-photo-input-box-item-img" src="../../assets/mobileWordOrder/add_photo.png" alt="" />
+          <input v-if="uploadImgThirdFlag" id="question_img_input_3" ref="thirdQuestionImg" type="file" accept="image/*" @change="changeImg3" />
+          <img v-if="!uploadImgThirdFlag" src="../../assets/mobileWordOrder/delete_img.png" class="mobile-help-order-photo-input-box-item-img-delete" @click="deleteThirdImg()" />
+          <div id="questionImgThird" class="mobile-help-order-photo-input-box-item-img-confirm"></div>
+        </div>
+      </div>
+    </div>
+
+    <!--提交按钮-->
+    <div class="mobile-submit-btn" @click="submitAllData">
+      提交
+    </div>
+  </div>
+  <PopupPrompt :popOpen="popOpen" :popClose="popClose" :popType="popType" :popText="popText" :waitTime="1200"/>
+</div>

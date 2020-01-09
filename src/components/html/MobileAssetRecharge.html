@@ -1,0 +1,35 @@
+<div>
+  <div class="asset-recharge-item" v-for="(item,index) in accounts" :key="index" v-if="serverT >= item.displayTime"  @click="clickRecharge(item.currency,item)">
+    <span  class="asset-recharge-item-logo-box">
+      <img class="asset-recharge-item-logo" :src="'http://logo.eunex.group/' + item.currency +'.png'" alt="">
+    </span>
+    {{item.currency}}
+  </div>
+  <PopupPrompt :popOpen="popOpen" :popClose="popClose" :popType="popType" :popText="popText"/>
+  <div v-if="toastNobindShow" class="toast-window-nobind-email">
+    <div class="toast-box-nobind-email">
+      <div class="memo-toast-box-close-btn-box" @click="closeNobindToast">
+        <img class="memo-toast-box-close-btn" src="../../assets/mobile_img/mobile_asset_commen/h5_toast_close_btn.png" alt="">
+      </div>
+      <div class="toast-nobind-email-title">安全提示</div>
+      <div class="toast-nobind-email-body">为了您的资金安全，请先绑定邮箱</div>
+      <div class="confirm-nobind-email-btn" @click="goToBindEmail">绑定邮箱</div>
+    </div>
+  </div>
+
+  <!--地址更换弹框提示-->
+  <!--<div v-if="alertFlag" class="alert-window">-->
+    <!--<div class="alert-window-box">-->
+      <!--<div class="alert-window-box-close-btn-box" @click="closeAlertFlag">-->
+        <!--<img class="alert-window-box-close-btn" src="../../assets/H5Recommend/h5_recommend_qrcode_close_btn.png" alt="">-->
+      <!--</div>-->
+      <!--<div class="alert-window-box-title">重要通知！</div>-->
+      <!--<div class="alert-window-box-container">-->
+        <!--HD钱包升级，<span class="alert-window-box-container-red">充值地址已更换为新地址！</span><br/>-->
+        <!--<span class="alert-window-box-container-red">旧地址已失效，</span>如将资产充入旧地址，资产不可找回，请知悉！-->
+      <!--</div>-->
+      <!--<div class="alert-window-box-btn"  @click="closeAlertFlag">确定</div>-->
+    <!--</div>-->
+  <!--</div>-->
+
+</div>

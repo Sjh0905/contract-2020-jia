@@ -1,0 +1,59 @@
+<div class="carousel-box" :class="themeColor === 0?'carousel-dark-box':'carousel-light-box'">
+  <div class="carousel-box-bg">
+
+    <div class="swiper-box" :class="{'hide-notice':hideNotice}">
+      <Loading v-if="loading"/>
+      <swiper :options="swiperImgOption" ref="mySwiperImg" v-if="imgDataReady && !loading" class="wrapper">
+
+<!--        <swiper-slide v-for="(item,index) in imgDataTemp" :key="index">-->
+          <swiper-slide v-for="(item,index) in imgDataTemp" :key="index">
+        <div class="homepage-header-imgswiper-address flex-center" @click="goBannerDetail(item)"
+           rel="noopener noreferrer" >
+<!--          <img class="homepage-header-imgswiper-img" :src="banner_url+item.imageUrl" alt="">-->
+          <img class="homepage-header-imgswiper-img" :src="item.imageUrl" alt="">
+        </div>
+<!--          <img class="" src="" alt="">-->
+
+      </swiper-slide>
+
+<!--        <swiper-slide>-->
+<!--          <a class="homepage-header-imgswiper-address flex-center" target="_blank"-->
+<!--             rel="noopener noreferrer" href="https://customerservice8872.zendesk.com/hc/zh-cn/articles/360035121071-%E5%85%B3%E4%BA%8E%E4%B8%AD%E7%A7%8B%E4%BA%A4%E6%98%93%E6%89%80">-->
+<!--            &lt;!&ndash;          <img class="homepage-header-imgswiper-img" :src="banner_url+item.imageUrl" alt="">&ndash;&gt;-->
+<!--            <img class="homepage-header-imgswiper-img" src="" alt="">-->
+
+<!--          </a>-->
+<!--          &lt;!&ndash;          <img class="" src="" alt="">&ndash;&gt;-->
+
+<!--        </swiper-slide>-->
+
+
+        <div v-show="getLength(imgDataTemp) > 1" class="pc-swiper-pagination" slot="pagination" ></div>
+      </swiper>
+
+
+
+    </div>
+    <!--
+    <div class="notice-box" v-if="!hideNotice">
+      <div class="notice-box-list-left-icon">
+        <img class="notice-box-list-left-icon-img" src="../../assets/index_home/notice_sound_icon.png" alt="">
+      </div>
+
+      <ul class="notice-box-list">
+        <li class="notice-box-item" v-for="(value, key) in noticeList" :key="key">
+          <router-link :to="'/index/notice/noticeDetail?id=' + value.id" target="_blank">
+            <span class="notice-box-item-title">{{value.title}}</span>
+            <font>( {{$globalFunc.formatDateUitl(value.beginTime,'MM-DD')}} )</font>
+          </router-link>
+        </li>
+      </ul>
+
+      <router-link :to="{name: 'noticeCenter'}" class="notice-box-list-right-icon">
+        <img class="notice-box-list-right-icon-img" src="" alt="">
+      </router-link>
+    </div>
+-->
+  </div>
+
+</div>

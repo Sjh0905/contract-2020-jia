@@ -1,0 +1,30 @@
+<transition name="popWindow">
+  <div class="popWindow-container min-width" v-if="show">
+
+    <!--遮罩层 begin-->
+    <div class="background"></div>
+    <!--遮罩层 begin-->
+
+
+    <!--弹窗主体 begin-->
+    <div class="popup-window-box" @touchmove.prevent>
+
+      <template v-if="closeCountDown">
+        <div v-if="countDown>0" class="close count-down">{{countDown}}</div>
+        <img src="../../assets/base-popup-window-close-icon.png" alt="" class="close" @click="closeClick" v-else>
+      </template>
+      <img src="../../assets/base-popup-window-close-icon.png" alt="" class="close" @click="closeClick" v-else>
+
+
+      <div class="pop-window-picture-container">
+        <slot name="picture">
+
+        </slot>
+      </div>
+
+    </div>
+    <!--弹窗主体 end-->
+
+
+  </div>
+</transition>

@@ -1,0 +1,21 @@
+<div class="body">
+
+  <div class="page">
+
+    <!-- header -->
+    <div v-if="!(isApp||isIOS)" class="index-header min-width">
+      <IndexHeader/>
+    </div>
+
+    <!-- 内容部分 -->
+    <div class=" min-width" :class="isApp||isIOS?'index-container-app':'index-container'">
+      <router-view></router-view>
+    </div>
+
+  </div>
+  <!-- footer -->
+  <div class="index-footer min-width index-background-color">
+    <IndexFooter/>
+  </div>
+
+</div>

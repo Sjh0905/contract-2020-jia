@@ -1,0 +1,76 @@
+<div class="body">
+<!--  <div class="homepage-body-download" ref="downloadView">-->
+<!--    <img class="index-home-header-img" src="../../assets/mobile_app_download.png" alt="">-->
+<!--&lt;!&ndash;    <a :href="staticUrl + '/AppDownload'" class="index-home-header-address" target="_blank">&ndash;&gt;-->
+<!--      Download-->
+<!--&lt;!&ndash;    </a>&ndash;&gt;-->
+<!--&lt;!&ndash;    <div class="index-home-header-close" @click="closeDownload">&ndash;&gt;-->
+<!--&lt;!&ndash;      <img src="../../assets/mobile_download_close.png" class="index-home-header-img-close" alt="">&ndash;&gt;-->
+<!--&lt;!&ndash;    </div>&ndash;&gt;-->
+<!--  </div>-->
+  <div class="page">
+
+    <div v-if="!(isApp||isIOS)" class="index-header">
+      <IndexHeader class="headerFixed"/>
+    </div>
+
+    <!--内容部分-->
+    <div class="index-container min-width min-height"
+     :class="isApp||isIOS?'index-container-app':(isClose==true?'index-containeri':'index-container')">
+      <router-view></router-view>
+    </div>
+  </div>
+
+  <!-- footer -->
+  <div class="index-footer min-width index-background-color">
+    <IndexFooter/>
+  </div>
+
+  <PopupWindow
+    :switch="popOpen"
+    @close="closePopup"
+  >
+    <div slot="header" class="">{{$t('prompt_title')}}</div>
+    <div slot="article" class="pop-article">
+      <span>{{$t('prompt_descript')}}</span>
+    </div>
+    <div slot="footer" class="pop-footer flex">
+      <button class="button-base btn_blue" @click="click_bind_mobile">{{$t('bind_mobile')}}</button>
+      <button class="button-base btn_blue" @click="click_bind_ga">{{$t('bind_ga')}}</button>
+    </div>
+  </PopupWindow>
+
+  <PopupWindow
+    :switch="bindEmailPopOpen"
+    @close="closeBindEmailPop"
+  >
+    <div slot="header" class="">
+      {{$t('bind_email_pop_title')}}
+    </div>
+    <div slot="article" class="pop-article">
+      <span>{{$t('bind_email_pop_article')}}</span>
+    </div>
+    <div slot="footer" class="pop-footer flex">
+      <button class="button-base btn_blue" @click="click_bind_email">{{$t('bind_email_pop_button')}}</button>
+    </div>
+  </PopupWindow>
+
+
+  <!--  刷新弹窗-->
+  <PopupWindow :switch="popWindowOpen" :closeBtnShow="show" :footerBorderTop="borderTop">
+    <div slot="header">
+      <span class="">{{popWindowTitle}}</span>
+    </div>
+    <div slot="article" class="pop-article">{{popWindowPrompt}}</div>
+    <div slot="footer"  class="pop-footer flex-center">
+      <template>
+        <button @click="()=>_" class="button-base btn_simple1 pointer">
+          {{timeOut}}{{this.$t('CanRefreshAgain')}}
+        </button>
+      </template>
+
+
+    </div>
+  </PopupWindow>
+
+</div>

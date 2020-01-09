@@ -1,0 +1,115 @@
+.alert_container{
+
+}
+.alert_container_bg{
+	position: fixed;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	background: rgba(0,0,0,.5);
+	text-align: center;
+}
+.alert_container_body{
+	position: absolute;
+	width: 900px;
+	height: 400px;
+	background: url('../../assets/authentication/6.png') center no-repeat;
+	background-size: cover;
+	/*left: 50%;*/
+	/*margin-left: -550px;*/
+	top: 50%;
+	margin-top: -200px;
+}
+.alert_container_body span.icon{
+	position: absolute;
+	display: block;
+	width: 20px;
+	height: 20px;
+	right: 15px;
+	top: 15px;
+	cursor: pointer;
+	color: #ccc;
+	font-size: 35px;
+	line-height: 20px;
+}
+.alert_container_body .alert_left, .alert_container_body .alert_right{
+	float: left;
+	height: 100%;
+}
+.alert_container_body .alert_left{
+	width: 40%;
+}
+.alert_container_body .alert_left div{
+	padding: 10px;
+	background: #fff;
+	margin-left: 80px;
+	margin-top: 90px;
+	width: 200px;
+	height: 200px;
+}
+.alert_container_body .alert_left font{
+	color: #fff;
+	font-size: 13px;
+	width: 100%;
+	text-align: center;
+	margin-top: 5px;
+	display: inline-block;
+}
+.alert_container_body .alert_right {
+	width: 60%;
+	box-sizing: border-box;
+} 
+.alert_container_body .alert_right ul{
+	padding: 75px 0px;
+}
+.alert_container_body .alert_right ul li{
+	color: #fff;
+	font-size: 18px;
+	/*line-height: 50px;*/
+	line-height: 65px;
+	padding-left: 30px;
+}
+.alert_container_body .alert_right ul li:nth-child(1) span,.alert_container_body .alert_right ul li:nth-child(2) span{
+	margin: 0px 5px;
+}
+.alert_container_body .alert_right ul li:nth-child(1){
+	background: url('../../assets/authentication/1.png') left no-repeat;
+	background-size: 25px;
+}
+.alert_container_body .alert_right ul li:nth-child(2){
+	background: url('../../assets/authentication/2.png') left no-repeat;
+	background-size: 25px;
+}
+.alert_container_body .alert_right ul li:nth-child(3){
+	background: url('../../assets/authentication/3.png') left no-repeat;
+	background-size: 25px;
+}
+.alert_container_body .alert_right ul li:nth-child(4){
+	background: url('../../assets/authentication/4.png') left no-repeat;
+	background-size: 25px;
+}
+.alert_container_body .alert_right ul li:nth-child(5){
+	padding-left: 5px;
+}
+.alert_container_body .alert_right ul li:nth-child(5) .input{
+	display: inline-block;
+	height: 25px;
+	width: 300px;
+	border: 2px solid #fff;
+	vertical-align: middle;
+	margin-left: 5px;
+	padding-left: 5px;
+	background: none;
+	color: #fff;
+}
+.alert_container_body .alert_right ul li:nth-child(5) .copy-btn{
+	display: inline-block;
+	vertical-align: middle;
+	width: 65px;
+	height: 30px;
+	cursor: pointer;
+	background: url('../../assets/authentication/5.png') center no-repeat;
+	background-size: 65px;
+	margin-left: 20px;
+}

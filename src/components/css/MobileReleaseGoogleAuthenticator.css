@@ -1,0 +1,59 @@
+._m_bg2_root{
+	padding: 0 0.75rem 0;
+	background: #01040a;
+	min-height: 100%;
+	color: #fff;
+	overflow: hidden;
+}
+._m_bg2_tit{
+	font-size: 0.3rem;
+	text-align: center;
+	margin: 0.45rem 0 0.33rem;
+}
+._m_bg2_iptw{
+	position: relative;
+	margin-top: 0.7rem;
+}
+._m_bg2_iptw>p{
+	margin-bottom: 0.2rem;
+}
+._m_bg2_iptw>input{
+	box-sizing: border-box;
+	height: 0.6rem;
+	line-height: 0.6rem;
+	padding:0 0.22rem;
+	border: 0.01rem solid #C43E4E;
+	border-radius: 0.08rem;
+	color: #fff;
+	font-size: 0.24rem;
+	font-family: SimHei;
+	font-weight: lighter;
+	width: 100%;
+	outline: none;
+	/*border: 0 solid transparent;*/
+	background: transparent;
+}
+._m_bg2_iptw>span{
+	position: absolute;
+	color: #ff0000;
+	bottom: -0.4rem;
+	left:0;
+	width: 100%;
+	text-align: center;
+
+}
+._m_bg2_btn{
+	width: 100%;
+	height: 0.8rem;
+	line-height: 0.8rem;
+	font-size: 0.32rem;
+	background-color: #C43E4E;
+	color: #ffffff;
+	border-radius: 5px;
+	letter-spacing: 10px;
+	border: 0;
+	margin-top: 1.34rem;
+	text-align: center;
+}
+
+

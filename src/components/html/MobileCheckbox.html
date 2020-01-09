@@ -1,0 +1,5 @@
+<div class="mobile-checkbox" @click="changeAgreement">
+  <img v-if="!agreement && bgColor==='dark'" class="mobile-checkbox-img mobile-checkbox-nochoice" src="../../assets/mobile_component_img/mobile_checkbox/mobile_nochoice_dark2.png" alt="">
+  <img v-if="!agreement && bgColor==='light'" class="mobile-checkbox-img mobile-checkbox-nochoice" src="../../assets/mobile_component_img/mobile_checkbox/mobile_nochoice_light.png" alt="">
+  <img v-if="agreement" class="mobile-checkbox-img mobile-checkbox-choiced" src="../../assets/mobile_component_img/mobile_checkbox/mobile_choice.png" alt="">
+</div>

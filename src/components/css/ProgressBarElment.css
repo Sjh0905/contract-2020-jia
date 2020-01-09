@@ -1,0 +1,238 @@
+/* 进度条拉过部分 */
+.el-slider_green {
+    /* 进度条未拉过部分 */
+  }
+  .el-slider_green .el-slider__runway {
+    background: #E7EBEE;
+    height: 4px;
+    /*width: 348px;*/
+    width: 96%;
+    margin: 20px 0px 20px 5px;
+    /* overflow: hidden; */
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+    /* 拖拽按钮 */
+    /* 小断点 */
+  }
+  .el-slider_green .el-slider__runway .el-slider__bar {
+    background: #C43E4E;
+    height: 4px;
+    /* background-color: #409EFF; */
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    position: absolute;
+  }
+  .el-slider_green .el-slider__runway .el-slider__button-wrapper {
+    position: relative;
+    z-index:1;
+    /* width: 19px;
+    height: 19px;
+    top: -10px;
+    left: -5px; */
+  }
+  .el-slider_green .el-slider__runway .el-slider__button-wrapper .el-slider__button {
+    position: absolute;
+    top: 24%;
+    left: 34%;
+    height: 16px;
+    width: 16px;
+    background-color: #fff;
+    border: 3px solid #C43E4E;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  .el-slider_green .el-slider__runway .el-slider__button-wrapper .el-slider__button:hover {
+    box-shadow: 0 0 0 5.5px rgba(229, 67, 70, 0.3);
+  }
+  .el-slider_green .el-slider__runway .el-slider__button-wrapper .el-slider__button:focus {
+    box-shadow: 0 0 0 7px rgba(1, 170, 120, 0.3) !important;
+  }
+  .el-slider_green .el-slider__runway .el-slider__stop {
+    position: absolute;
+    top: -4.3px;
+    left: 10px;
+    display: inline-block;
+    height: 12px;
+    width: 12px;
+    background: #E7EBEE;
+    border: 2px solid #FFFFFF;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+  /* 进度条拉过部分 */
+  .el-slider_red {
+    /* 进度条未拉过部分 */
+  }
+  .el-slider_red .el-slider__runway {
+    background: #E7EBEE;
+    height: 4px;
+    /*width: 348px;*/
+    width: 96%;
+    margin: 20px 0px 20px 5px;
+    /* overflow: hidden; */
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+    /* 拖拽按钮 */
+    /* 小断点 */
+  }
+  .el-slider_red .el-slider__runway .el-slider__bar {
+    background: #02987D;
+    height: 4px;
+    /* background-color: #409EFF; */
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    position: absolute;
+  }
+  .el-slider_red .el-slider__runway .el-slider__button-wrapper {
+    position: relative;
+    z-index:1;
+  }
+  .el-slider_red .el-slider__runway .el-slider__button-wrapper .el-slider__button {
+    position: absolute;
+    top: 24%;
+    left: 34%;
+    height: 16px;
+    width: 16px;
+    background-color: #fff;
+    border: 3px solid #02987D;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  .el-slider_red .el-slider__runway .el-slider__button-wrapper .el-slider__button:hover {
+    box-shadow: 0 0 0 5.5px rgba(1, 170, 120, 0.3);
+  }
+  .el-slider_red .el-slider__runway .el-slider__stop {
+    position: absolute;
+    top: -4.3px;
+    left: 10px;
+    display: inline-block;
+    height: 12px;
+    width: 12px;
+    background: #E7EBEE;
+    border: 2px solid #FFFFFF;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+  .bbb {
+    background: #02987D !important;
+    color: #FFF;
+  }
+  .bbb .popper__arrow::after {
+    border-top-color: #02987D !important;
+    bottom: 1px !important;
+  }
+  .bbb .popper__arrow {
+    border-top-color: #02987D !important;
+  }
+  .aaa {
+    background: #C43E4E !important;
+    color: #FFF;
+  }
+  .aaa .popper__arrow::after {
+    border-top-color: #C43E4E !important;
+    bottom: 1px !important;
+  }
+  .aaa .popper__arrow {
+    border-top-color: #C43E4E !important;
+  }
+  .block {
+    position: relative;
+    width: 100%;
+    margin: 0px;
+  }
+  .block .radiusa_green {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    background-color: #02987D;
+    border: 3px solid transparent;
+    border: 3px solid #02987D;
+    border-radius: 50%;
+    top: 36%;
+    z-index: 1;
+  }
+  .block .radiusb_green {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    background-color: #02987D;
+    border: 3px solid transparent;
+    border: 3px solid #02987D;
+    border-radius: 50%;
+    top: 36%;
+    left: 24.25%;
+    z-index: 1;
+  }
+  .block .radiusc_green {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    background-color: #02987D;
+    border: 3px solid transparent;
+    border: 3px solid #02987D;
+    border-radius: 50%;
+    top: 36%;
+    left: 48.8%;
+    z-index: 1;
+  }
+  .block .radiusd_green {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    background-color: #02987D;
+    border: 3px solid transparent;
+    border: 3px solid #02987D;
+    border-radius: 50%;
+    top: 36%;
+    left: 73.4%;
+    z-index: 1;
+  }
+  .block .radiusa_red {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    background-color: #C43E4E;
+    border: 3px solid transparent;
+    border: 3px solid #C43E4E;
+    border-radius: 50%;
+    top: 36%;
+    z-index: 1;
+  }
+  .block .radiusb_red {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    background-color: #C43E4E;
+    border: 3px solid transparent;
+    border: 3px solid #C43E4E;
+    border-radius: 50%;
+    top: 36%;
+    left: 24.5%;
+    z-index: 1;
+  }
+  .block .radiusc_red {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    background-color: #C43E4E;
+    border: 3px solid transparent;
+    border: 3px solid #C43E4E;
+    border-radius: 50%;
+    top: 36%;
+    left: 49%;
+    z-index: 1;
+  }
+  .block .radiusd_red {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    background-color: #C43E4E;
+    border: 3px solid transparent;
+    border: 3px solid #C43E4E;
+    border-radius: 50%;
+    top: 36%;
+    left: 73.5%;
+    z-index: 1;
+  }

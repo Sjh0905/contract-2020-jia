@@ -1,0 +1,126 @@
+<div>
+  <Loading v-if="loading"/>
+  <div v-if="!loading" class="asset-container">
+    <div class="asset-header">
+      <div class="asset-header-title">
+        <span class="asset-header-title-icon-box">
+          <img class="asset-header-title-icon" :src="'http://logo.eunex.group/' + currencyTitle +'.png'" alt="">
+        </span>
+        {{currencyTitle}}
+<!--        <div class="asset-header-title-description">({{accountsComputed.description}})</div>-->
+        <!--<span class="asset-header-title-img-box">-->
+          <!--<img class="asset-header-title-img" src="" alt="">-->
+        <!--</span>-->
+        <span class="backgo" @click="gotoZichan">
+          <img src="../../assets/H5img/back.png">
+        </span>
+      </div>
+      <div class="detailinfo">
+        <div class="detailinfo_l">
+          <div class="detai_info_t">可用</div>
+          <div class="detai_info_d">{{toFixed(accountsComputed.available,8)}}</div>
+        </div>
+        <div class="detailinfo_l">
+          <div class="detai_info_t">冻结</div>
+          <div class="detai_info_d">{{toFixed(accountsComputed.frozen,8)}}</div>
+        </div>
+        <div class="detailinfo_r">
+          <div class="detai_info_t_r">折合(CNY) </div>
+          <div class="detai_info_d_r">{{valuation!== 0 ? $globalFunc.accFixedCny(valuation*$store.state.exchange_rate_dollar,2) : '---'}}</div>
+        </div>
+      </div>
+
+      <div class="czdb" @click="jumpToDetail(name)">财务记录</div>
+
+
+
+<!--      <div class="asset-header-price-box clearfix">-->
+<!--        <div class="asset-header-price-box-title">总额</div>-->
+<!--        <div class="asset-header-price-box-price">{{toFixed(parseFloat(toFixed(accountsComputed.available,8)) + parseFloat(toFixed(accountsComputed.frozen,8)) , 8)}}</div>-->
+<!--      </div>-->
+<!--      <div class="asset-header-price-box clearfix">-->
+<!--        <div class="asset-header-price-box-title">可用</div>-->
+<!--        <div class="asset-header-price-box-price">{{toFixed(accountsComputed.available,8)}}</div>-->
+<!--      </div>-->
+<!--      <div class="asset-header-price-box clearfix">-->
+<!--        <div class="asset-header-price-box-title">冻结</div>-->
+<!--        <div class="asset-header-price-box-price">{{toFixed(accountsComputed.frozen,8)}}</div>-->
+<!--      </div>-->
+    </div>
+    <div class="asset-body">
+<!--      <div class="asset-body-price-box clearfix">-->
+<!--        <div class="asset-body-price-box-title">估值(BTC)</div>-->
+<!--        <div class="asset-body-price-box-price">{{(priceReady || initReady) && thisCurrencyToBtc!==0 ? toFixed(thisCurrencyToBtc,8) : '&#45;&#45;'}}</div>-->
+<!--      </div>-->
+<!--      <div class="asset-body-price-box clearfix">-->
+<!--        <div class="asset-body-price-box-title">估值(￥)</div>-->
+<!--        <div class="asset-body-price-box-price">{{valuation!== 0 ? $globalFunc.accFixedCny(valuation*$store.state.exchange_rate_dollar,2) : '-&#45;&#45;'}}</div>-->
+<!--      </div>-->
+
+<!--      <div class="asset-body-trading">-->
+<!--        <div class="asset-body-trading-title" v-if="currencylist != ''">去交易</div>-->
+<!--        <div class="asset-body-trading-box clearfix">-->
+<!--          <div v-for="(item,index) in currencylist" :key="index"  class="asset-body-trading-item" @click="jumpToTradingHall(item.name)">-->
+<!--            <div class="asset-body-trading-item-firstline clearfix">-->
+<!--              <div class="asset-body-trading-item-title">{{item.name | e}}</div>-->
+<!--              <div class="asset-body-trading-item-chg" :class="item.data[4]-item.data[1]>=0?'asset-body-trading-item-up':'asset-body-trading-item-down'">-->
+<!--                {{item.data[4]-item.data[1] <= 0 ? '':'+' }}{{ item.data[1]!=0 ? ((item.data[4]-item.data[1])/item.data[1]*100).toFixed(2) + '%' : '0.00' + '%'}}-->
+<!--              </div>-->
+<!--            </div>-->
+<!--            <div class="asset-body-trading-item-secondline clearfix">-->
+<!--              <div class="asset-body-trading-item-price">{{toFixed(item.data[4], 8)}}</div>-->
+<!--              <div class="asset-body-trading-item-valuation">￥{{$globalFunc.accFixedCny(item.data[4]*item.rate*$store.state.exchange_rate_dollar, 2)}}</div>-->
+<!--            </div>-->
+<!--          </div>-->
+
+<!--        </div>-->
+<!--      </div>-->
+
+<!--      <div class="chongzjl">dsdssdsdsdsdsds</div>-->
+
+
+      <div class="asset-body-btn-box clearfix">
+        <div class="asset-body-btn-recharge" @click="jumpToRecharge(currencyTitle)">充币</div>
+        <div class="asset-body-btn-withdraw" @click="jumpToWithdraw(accountsComputed)">提币</div>
+      </div>
+    </div>
+  </div>
+
+  <PopupPrompt :popOpen="popOpen" :popClose="popClose" :popType="popType" :popText="popText"/>
+
+  <div v-if="toastNobindShow&&!loading" class="toast-window-nobind-email">
+    <div class="toast-box-nobind-email">
+      <div class="memo-toast-box-close-btn-box" @click="closeNobindToast">
+        <img class="memo-toast-box-close-btn" src="../../assets/mobile_img/mobile_asset_commen/h5_toast_close_btn.png" alt="">
+      </div>
+      <div class="toast-nobind-email-title">安全提示</div>
+      <div class="toast-nobind-email-body">为了您的资金安全，请先绑定邮箱</div>
+      <div class="confirm-nobind-email-btn" @click="goToBindEmail">绑定邮箱</div>
+    </div>
+  </div>
+
+  <!--弹窗-->
+  <div v-if="popIdenOpen" class="lock-position-confirm-toast">
+    <div class="lock-position-confirm-toast-window">
+      <!--关闭按钮-->
+      <div class="lock-position-confirm-toast-close-btn" @click="popIdenClose">
+        <img class="lock-position-confirm-toast-close-btn-img" src="../../assets/mobile_img/mobile_asset_commen/h5_toast_close_btn.png" alt="">
+      </div>
+      <!--顶部标题-->
+      <div class="lock-position-confirm-toast-title">提示</div>
+      <div class="lock-position-confirm-toast-list">
+        <div class="lock-position-confirm-toast-item">
+          该操作需要身份认证，请立刻前往app端个人中心完成
+        </div>
+      </div>
+      <div class="lock-position-confirm-toast-btns">
+        <div class="lock-position-confirm-toast-btn-close" @click="popIdenClose">取消</div>
+<!--        <div class="lock-position-confirm-toast-btn-confirm" @click="popIdenContain">确定</div>-->
+        <a class="lock-position-confirm-toast-btn-confirm"
+           href="https://download.eunex.group/"
+           target="_blank">下载app</a>
+      </div>
+    </div>
+  </div>
+</div>
+

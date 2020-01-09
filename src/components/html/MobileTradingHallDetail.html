@@ -1,0 +1,528 @@
+<div class="mobile-trading-hall-detail">
+  <div class="header-title-select-hq">
+    <!--    <ul class="flex-between">-->
+    <!--      <li class="header-title-item txt_80" :class="openType===1 ? 'header-title-item-active' : ''" @click="changeType(1)">-->
+    <!--        {{$t('mobileTradingHallDetail.buy')}}-->
+    <!--      </li>-->
+    <!--      <li class="header-title-item txt_80" :class="openType===2 ? 'header-title-item-active' : ''" @click="changeType(2)">-->
+    <!--        {{$t('mobileTradingHallDetail.sale')}}-->
+    <!--      </li>-->
+    <!--      <li class="header-title-item txt_80" :class="openType===3 ? 'header-title-item-active' : ''" @click="changeType(3)">-->
+    <!--        {{$t('mobileTradingHallDetail.current')}}-->
+    <!--      </li>-->
+    <!--      &lt;!&ndash;<li class="header-title-item" :class="openType===4 ? 'header-title-item-active' : ''" @click="changeType(4)">&ndash;&gt;-->
+    <!--        &lt;!&ndash;{{$t('mobileTradingHallDetail.old')}}&ndash;&gt;-->
+    <!--      &lt;!&ndash;</li>&ndash;&gt;-->
+    <!--    </ul>-->
+
+    <div class="hangqingtu"  @click="openhangq">
+      <img src="../../assets/H5img/hangqing.png" alt="">
+    </div>
+    <div class="hangqingbid">
+      {{symbol | e}}
+    </div>
+    <div class="hangqingkline" >
+      <img src="../../assets/H5img/hangqkline.png" alt="">
+    </div>
+  </div>
+
+  <div class="mmenu">
+    <ul class="flex-between">
+      <li class="header-title-item-lv txt_80" :class="openType===1 ? 'header-title-item-active-lv' : ''" @click="changeType(1)">
+        {{$t('mobileTradingHallDetail.buy')}}
+      </li>
+      <li class="header-title-item txt_80" :class="openType===2 ? 'header-title-item-active' : ''" @click="changeType(2)">
+        {{$t('mobileTradingHallDetail.sale')}}
+      </li>
+
+    </ul>
+  </div>
+
+  <!--最新成交页-->
+  <div v-if="latestFlag" class="container-latest-flag"  @click="closeLatestFlag">
+    <span class="container-latest-flag-text">当前委托</span>
+    <img class="container-latest-flag-img" src="../../assets/mobile_latest_trade_arr_up.png" alt="">
+  </div>
+  <div v-if="latestFlag" class="container-latest">
+    <table v-if="list.length>0" class="container-latest-table">
+      <colgroup style="width:40%;"></colgroup>
+      <colgroup style="width:30%;"></colgroup>
+      <colgroup style="width:30%;"></colgroup>
+      <tr class="container-latest-table-tr">
+        <td class="container-latest-table-thead-th">成交价格({{name}})</td>
+        <td class="container-latest-table-thead-th">成交数量</td>
+        <td class="container-latest-table-thead-th">时间</td>
+      </tr>
+      <tr  v-for="(item,index) in list" :key="index" class="container-latest-table-tr">
+        <td class="container-latest-table-thead-td" :class="item.direction ? 'container-latest-table-thead-td-green' : 'container-latest-table-thead-td-red'">{{$globalFunc.accFixed(item.price, quoteScale)}}</td>
+        <td class="container-latest-table-thead-td">{{$globalFunc.accFixed(item.amount, baseScale)}}</td>
+        <td class="container-latest-table-thead-td">{{$globalFunc.formatDateUitl(item.createdAt, 'hh:mm:ss')}}</td>
+      </tr>
+    </table>
+    <div v-if="list.length === 0" class="container-latest-no-data">
+      暂无成交记录
+    </div>
+  </div>
+
+  <!--买入页-->
+  <div v-if="openType===1&& !latestFlag" class="container-buy-page">
+
+    <!--<div class="header-price-select">-->
+    <!--<span class="header-price-select-down-title" @click="CHANGE_SYMBOL">-->
+    <!--{{symbol | e}}-->
+    <!--</span>-->
+    <!--&lt;!&ndash; <span class="header-price-select-down"></span> &ndash;&gt;-->
+    <!--<span class="header-price-change" @click="changeFloat">切换</span>-->
+    <!--</div>-->
+
+    <div class="mobile-container">
+      <!--左侧部分-->
+      <div class="left-container" :class="{'left-container-default' : is_right}">
+        <!--        <div class="left-container-title">-->
+        <!--          限价单-->
+        <!--        </div>-->
+        <div class="mobile-change-num">
+          <div class="trading1">
+            <input class="mobile-change-num-input" type="number" v-model="transaction_price">
+          </div>
+          <div class="mobile-change-num-minus" @click="reduceNum('price')">
+            <img src="../../assets/H5img/mobile_input_group_minus_.png" alt="">
+            <!--            <img class="mobile-change-num-max-img" src="" alt="">-->
+          </div>
+          <div class="mobile-change-num-max" @click="plusNum('price')">
+            <img class="mobile-change-num-max-img" src="../../assets/H5img/mobile_input_group_max_.png" alt="">
+          </div>
+        </div>
+        <div class="mobile-container-title flex-between">
+          <!--<span class="mobile-container-title-right" style="float: left;">估值: ￥{{cny_valuation}}</span>-->
+          <!--            <span class="txt_40">估值</span>-->
+          <span>≈{{cny_valuation}}CNY</span>
+        </div>
+        <div class="mobile-change-num">
+
+          <input class="mobile-change-num-input shuliannum" :placeholder="`数量`" type="number" v-model="transaction_amount">
+          <!--          <span class="mobile-change-num-max" @click="plusNum('amount')">-->
+          <span class="mobile-change-num-max">
+            {{symbol.split('_')[0]}}
+            <!--            <img class="mobile-change-num-max-img" src="" alt="">-->
+          </span>
+
+        </div>
+        <div class="mobile-container-useable">
+          <!-- 可用 <span class="mobile-container-title-right">1.12345678 BDB</span> -->
+          <span class="txt_40">{{$t("progressBar.able")}}</span> <span>{{(currentSymbol.balance && currentSymbol.balance == '--' ? '--' : $globalFunc.accFixed(currentSymbol.balance, 6) || 0 )+ '&nbsp;' + this.$store.state.symbol.split('_')[1]}}</span>
+        </div>
+
+
+        <div class="mobile-select-num">
+          <span class="mobile-select-num-item txt_80 mobile-select-num-item-selected" @click="sectionSelect(0.25)">25%</span>
+          <span class="mobile-select-num-item txt_80"   @click="sectionSelect(0.5)">50%</span>
+          <span class="mobile-select-num-item txt_80"   @click="sectionSelect(0.75)">75%</span>
+          <span class="mobile-select-num-item txt_80"   @click="sectionSelect(1)">100%</span>
+        </div>
+
+        <div class="mobile-exchange-price">
+          {{!transaction_price || !transaction_amount? '交易额' :
+          accMul(transaction_price,transaction_amount)}}（{{this.$store.state.symbol.split('_')[1]}}）
+        </div>
+
+
+        <div class="mobile-buy-btn" :class="btn_click ? 'click_active' : ''" @click="tradeMarket(true,0)">
+          买入
+        </div>
+        <div class="mopbile-trading-img">
+          <!--这里放trading图-->
+          <MobileTrade/>
+        </div>
+
+      </div>
+      <!--右侧部分-->
+      <div class="right-container">
+        <div class="mobile-right-buy-content">
+          <div class="mobile-right-buy-content-title txt_40">
+            价格({{symbol.split('_')[1]}}) <span class="mobile-right-buy-content-title-right">数量({{symbol.split('_')[0]}})</span>
+          </div>
+          <div class="mobile-sale-detail-list">
+            <div class="mobile-sale-detail-item" v-for="(item,index) in sellOrders" style="overflow: hidden;"
+                 @click="setTransactionPrice(item.price)">
+              <!--占满是3.5rem-->
+              <span class="mobile-sale-detail-item-shadow" style="background: rgba(216,56,56,0.15);"
+                    :style="{width:item.amount/deep.sall_deeps+'%'}"></span>
+              <span class="mobile-sale-detail-item-price m-txt-red">{{$globalFunc.accFixed(item.price,quoteScale)}}</span>
+
+              <!--              && item.amount<1000000   -->
+              <span class="mobile-sale-detail-item-num" v-if="$store.state.symbol== 'GRC_USDT'">{{(item.amount >= 1000 && item.amount > 0 ) ?
+                $globalFunc.accFixed(item.amount/1000,2)+'k':
+                $globalFunc.accFixed(item.amount, baseScale)}}</span>
+              <span class="mobile-sale-detail-item-num" v-else>{{$globalFunc.accFixed(item.amount, baseScale)}}</span>
+            </div>
+          </div>
+          <div class="mobile-buy-detail-now-price-box mobile-buy-detail-now-price-box-up m-txt-green">
+            <span class="mobile-buy-detail-now-price">{{$globalFunc.accFixed(price,quoteScale)}}</span>
+            <span class="mobile-buy-detail-now-CNY-price">¥{{cnyPrice}}</span>
+            <span class="mobile-buy-detail-now-price-icon"></span>
+          </div>
+          <div class="mobile-buy-detail-list">
+            <div class="mobile-buy-detail-item" v-for="(item,index) in buyOrders" style="overflow: hidden;"
+                 @click="setTransactionPrice(item.price)">
+
+              <!--占满是3.5rem-->
+              <span class="mobile-buy-detail-item-shadow" style="background: rgba(0,166,42,0.15);"
+                    :style="{width:item.amount/deep.buy_deeps+'%'}"></span>
+              <span class="mobile-buy-detail-item-price m-txt-green">{{$globalFunc.accFixed(item.price,quoteScale)}}</span>
+              <span class="mobile-buy-detail-item-num" v-if="$store.state.symbol== 'GRC_USDT'">{{(item.amount >= 1000 && item.amount > 0 ) ?
+                $globalFunc.accFixed(item.amount/1000,2)+'k':
+                $globalFunc.accFixed(item.amount, baseScale)}}</span>
+              <span class="mobile-buy-detail-item-num" v-else>{{$globalFunc.accFixed(item.amount, baseScale)}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="clear"></div>
+
+      <!--      <div class="mobile-container-latest-flag" @click="openLatestFlag">-->
+      <!--        <span class="mobile-container-latest-flag-text">最新成交</span>-->
+      <!--        <img class="mobile-container-latest-flag-img" src="../../assets/mobile_latest_trade_arr_down.png" alt="">-->
+      <!--      </div>-->
+      <div class="mobile-container-latest-flag" >
+        <span class="mobile-container-latest-flag-text">当前委托</span>
+        <!--        <img class="mobile-container-latest-flag-img" src="../../assets/mobile_latest_trade_arr_down.png" alt="">-->
+        <div class="mobile-container-latest-flag-img" @click="openLatestHistoryFlag">全部</div>
+      </div>
+    </div>
+  </div>
+  <!--卖出页-->
+  <div v-if="openType===2 && !latestFlag" class="container-sell-page">
+    <!--<div class="header-price-select">-->
+    <!--<span class="header-price-select-down-title" @click="CHANGE_SYMBOL">-->
+    <!--{{symbol | e}}-->
+    <!--</span>-->
+    <!--&lt;!&ndash; <span class="header-price-select-down"></span> &ndash;&gt;-->
+    <!--<span class="header-price-change" @click="changeFloat">切换</span>-->
+    <!--</div>-->
+
+    <div class="mobile-container">
+      <!--左侧部分-->
+      <div class="left-container" :class="{'left-container-default' : is_right}">
+        <!--        <div class="left-container-title">-->
+        <!--          限价单-->
+        <!--        </div>-->
+        <div class="mobile-change-num">
+          <!--          <span class="mobile-change-num-minus" @click="reduceNum('price')">-->
+          <!--            <img class="mobile-change-num-minus-img" src="" alt="">-->
+          <!--          </span>-->
+          <!--          <input class="mobile-change-num-input" type="number" v-model="transaction_price">-->
+          <!--          <span class="mobile-change-num-max">-->
+          <!--            <img class="mobile-change-num-max-img" src="" alt=""-->
+          <!--                 @click="plusNum('price')">-->
+          <!--          </span>-->
+          <div class="trading1">
+            <input class="mobile-change-num-input" type="number" v-model="transaction_price">
+          </div>
+          <div class="mobile-change-num-minus" @click="reduceNum('price')">
+            <img src="../../assets/H5img/mobile_input_group_minus_.png" alt="">
+          </div>
+          <div class="mobile-change-num-max" @click="plusNum('price')">
+            <img class="mobile-change-num-max-img" src="../../assets/H5img/mobile_input_group_max_.png" alt="">
+          </div>
+        </div>
+        <div class="mobile-container-title flex-between">
+          <!--<span class="mobile-container-title-right" style="float: left;">估值 ￥{{cny_valuation}}</span>-->
+          <!--            <span class="txt_40">估值</span>-->
+          <span>≈{{cny_valuation}}CNY</span>
+        </div>
+        <div class="mobile-change-num">
+          <input class="mobile-change-num-input shuliannum" :placeholder="`数量`" type="number" v-model="transaction_amount">
+          <!--          <span class="mobile-change-num-max" @click="plusNum('amount')">-->
+          <span class="mobile-change-num-max">
+            {{symbol.split('_')[0]}}
+            <!--            <img class="mobile-change-num-max-img" src="" alt="">-->
+          </span>
+          <!--          <span class="mobile-change-num-minus" @click="reduceNum('amount')">-->
+          <!--            <img class="mobile-change-num-minus-img" src="" alt="">-->
+          <!--          </span>-->
+          <!--          <input class="mobile-change-num-input" :placeholder="`数量(${symbol.split('_')[0]})`" type="number" v-model="transaction_amount">-->
+          <!--          <span class="mobile-change-num-max" @click="plusNum('amount')">-->
+          <!--            <img class="mobile-change-num-max-img" src="" alt="">-->
+          <!--          </span>-->
+        </div>
+
+        <div class="mobile-container-useable">
+          <!-- 可用 <span class="mobile-container-title-right">1.12345678 BDB</span> -->
+          <span class="txt_40">{{$t("progressBar.able")}}</span> <span>{{(currentSymbol.balance_order && currentSymbol.balance_order == '--' ? '--' : $globalFunc.accFixed(currentSymbol.balance_order, 8) || 0 )+ '&nbsp;' + this.$store.state.symbol.split('_')[0]}}</span>
+        </div>
+
+
+        <div class="mobile-select-num">
+          <span class="mobile-select-num-item txt_80 mobile-select-num-item-selected" @click="sectionSelect(0.25)">25%</span>
+          <span class="mobile-select-num-item txt_80" @click="sectionSelect(0.5)">50%</span>
+          <span class="mobile-select-num-item txt_80" @click="sectionSelect(0.75)">75%</span>
+          <span class="mobile-select-num-item txt_80" @click="sectionSelect(1)">100%</span>
+        </div>
+
+        <div class="mobile-exchange-price txt_40">
+          <!-- 成交金额（BNB） -->
+          {{!transaction_price || !transaction_amount ? '交易额' :
+          accMul(transaction_price,transaction_amount)}}（{{this.$store.state.symbol.split('_')[1]}}）
+        </div>
+
+
+        <div class="mobile-buy-btn" :class="btn_click ? 'click_active' : ''" @click="tradeMarket(true,1)">
+          卖出
+        </div>
+        <div class="mopbile-trading-img">
+          <!--这里放trading图-->
+          <MobileTrade/>
+        </div>
+
+      </div>
+      <!--右侧部分-->
+      <div class="right-container">
+        <div class="mobile-right-buy-content txt_40">
+          <div class="mobile-right-buy-content-title">
+            价格({{symbol.split('_')[1]}}) <span class="mobile-right-buy-content-title-right">数量({{symbol.split('_')[0]}})</span>
+          </div>
+          <div class="mobile-sale-detail-list">
+            <div class="mobile-sale-detail-item" v-for="(item,index) in sellOrders" style="overflow: hidden;"
+                 @click="setTransactionPrice(item.price)">
+              <!--占满是3.5rem-->
+              <span class="mobile-sale-detail-item-shadow" style="background: rgba(216,56,56,0.15);"
+                    :style="{width:item.amount/deep.sall_deeps+'%'}"></span>
+              <span class="mobile-sale-detail-item-price m-txt-red">{{$globalFunc.accFixed(item.price, quoteScale)}}</span>
+              <span class="mobile-sale-detail-item-num" v-if="$store.state.symbol== 'GRC_USDT'">{{(item.amount >= 1000 && item.amount > 0 ) ?
+                $globalFunc.accFixed(item.amount/1000,2)+'k':
+                $globalFunc.accFixed(item.amount, baseScale)}}</span>
+              <span class="mobile-sale-detail-item-num" v-else>{{$globalFunc.accFixed(item.amount, baseScale)}}</span>
+            </div>
+          </div>
+          <div class="mobile-buy-detail-now-price-box mobile-buy-detail-now-price-box-up m-txt-green">
+            <span class="mobile-buy-detail-now-price">{{$globalFunc.accFixed(price, quoteScale)}}</span>
+            <span class="mobile-buy-detail-now-CNY-price">¥{{cnyPrice}}</span>
+            <span class="mobile-buy-detail-now-price-icon"></span>
+          </div>
+          <div class="mobile-buy-detail-list">
+            <div class="mobile-buy-detail-item" v-for="(item,index) in buyOrders" style="overflow: hidden;"
+                 @click="setTransactionPrice(item.price)">
+              <!--占满是3.5rem-->
+              <span class="mobile-buy-detail-item-shadow" style="background: rgba(0,166,42,0.15);"
+                    :style="{width:item.amount/deep.buy_deeps+'%'}"></span>
+              <span class="mobile-buy-detail-item-price m-txt-green">{{$globalFunc.accFixed(item.price, quoteScale)}}</span>
+
+              <!--              && item.amount<1000000    -->
+              <span class="mobile-buy-detail-item-num" v-if="$store.state.symbol== 'GRC_USDT'">{{(item.amount >= 1000 && item.amount > 0 ) ?
+                $globalFunc.accFixed(item.amount/1000,2)+'k':
+                $globalFunc.accFixed(item.amount, baseScale)}}</span>
+              <span class="mobile-buy-detail-item-num" v-else>{{$globalFunc.accFixed(item.amount, baseScale)}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="clear"></div>
+
+      <div class="mobile-container-latest-flag" @click="openLatestFlag">
+        <span class="mobile-container-latest-flag-text">当前委托</span>
+        <img class="mobile-container-latest-flag-img" src="../../assets/mobile_latest_trade_arr_down.png" alt="">
+      </div>
+    </div>
+    <div class="bottom-box"></div>
+  </div>
+  <!--当前委托页-->
+  <div v-if="openType!==3 && !latestFlag" class="container-current-page" @click="ToCurrentPage">
+    <CurrentOrder></CurrentOrder>
+
+    <!--    <div class="mobile-current-title">-->
+    <!--    <div class="mobile-current-title-all-sale">全部撤单</div>-->
+    <!--    </div>-->
+    <!--    <div class="mobile-current-list" v-for="(order,index) in currentOrderComputed" :key="order.id">-->
+    <!--    <div class="mobile-current-item">-->
+    <!--    <div class="mobile-current-item-first-line">-->
+    <!--    <div class="mobile-current-item-icon" :class="order.type==='BUY_LIMIT'?'mobile-current-item-icon-buy':'mobile-history-item-icon-sale'">-->
+    <!--    {{order.type === 'BUY_LIMIT'  && "买" || "卖"}}-->
+    <!--    </div>-->
+    <!--    <div class="mobile-current-item-compare">-->
+    <!--    {{order.symbol.split('_')[0]}}/{{order.symbol.split('_')[1]}}-->
+    <!--    </div>-->
+    <!--    <div class="mobile-current-item-volume">-->
+    <!--    成交率 {{(order.filledAmount / order.amount).toFixed(2) * 100 + '%'}}-->
+    <!--    </div>-->
+    <!--    <div class="mobile-current-item-time">-->
+    <!--    委托 {{$globalFunc.formatDateUitl(order.createdAt,'YYYY-MM-DD hh:mm:ss')}}-->
+    <!--    </div>-->
+    <!--    </div>-->
+    <!--    <div class="mobile-current-item-second-line">-->
+    <!--    <div class="mobile-current-item-price-title">单价</div>-->
+    <!--    <div class="mobile-current-item-price">{{order.price}}</div>-->
+    <!--    <div class="mobile-current-item-num-title">委托数量</div>-->
+    <!--    <div class="mobile-current-item-num">{{order.amount}}</div>-->
+
+    <!--    <div class="mobile-current-item-sale-btn">撤单</div>-->
+    <!--    </div>-->
+    <!--    </div>-->
+    <!--    </div>-->
+  </div>
+  <!--历史委托页-->
+  <div v-if="openType===4" class="container-history-page">
+    <!--<div class="mobile-history-title">-->
+    <!--仅完成-->
+    <!--之后再调大按钮-->
+    <!--<a href="#" class="toggle" :class="{'toggle&#45;&#45;off':!BDBInfo,'toggle&#45;&#45;on':BDBInfo,'toggle&#45;&#45;moving':BDBChanging}" @click="clickToggle($event)"></a>-->
+    <!--</div>-->
+    <HistoryOrder>
+      <!--      <router-link to="/index/MobileHistoryOrder/" class="mobile-header-box-content-item-second">历史委托-->
+      <!--      </router-link>-->
+    </HistoryOrder>
+
+    <!--<div class="mobile-history-list" v-for="(order,index) in historyOrderComputed" :key="order.id"-->
+    <!--:class="{'show-detail':clickThis===order.id}">-->
+    <!--<div class="mobile-history-item">-->
+    <!--<div class="mobile-history-item-first-line">-->
+    <!--<div class="mobile-history-item-icon" :class="order.type==='BUY_LIMIT'?'mobile-history-item-icon-buy':'mobile-history-item-icon-sale'">-->
+    <!--{{order.type === 'BUY_LIMIT'  && "买" || "卖"}}-->
+    <!--</div>-->
+    <!--<div class="mobile-history-item-compare">-->
+    <!--{{order.symbol.split('_')[0]}}/{{order.symbol.split('_')[1]}}-->
+    <!--</div>-->
+    <!--<div class="mobile-history-item-time">-->
+    <!--委托 {{$globalFunc.formatDateUitl(order.createdAt,'YYYY-MM-DDhh:mm:ss')}}-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--<div class="mobile-history-item-second-line">-->
+    <!--<div class="mobile-history-item-price-title">单价</div>-->
+    <!--<div class="mobile-history-item-price">{{order.price}}</div>-->
+    <!--<div class="mobile-history-item-num-title">委托数量</div>-->
+    <!--<div class="mobile-history-item-num">{{order.amount}}</div>-->
+
+    <!--<div class="mobile-history-item-complete-btn">{{getStatus(order)}}</div>-->
+    <!--</div>-->
+    <!--&lt;!&ndash;控制是否显示&ndash;&gt;-->
+    <!--<div class="mobile-history-item-hidden">-->
+    <!--<div class="mobile-history-item-hidden-first-line">-->
+    <!--<div class="mobile-history-item-hidden-charge-title">手续费</div>-->
+    <!--<div class="mobile-history-item-hidden-charge">{{order.fee.toFixed(8)}} {{order.symbol.split('_')[0]}}</div>-->
+    <!--<div class="mobile-history-item-hidden-num-title">成交数量</div>-->
+    <!--<div class="mobile-history-item-hidden-num">{{order.filledAmount}} {{order.symbol.split('_')[0]}}</div>-->
+    <!--</div>-->
+    <!--<div class="mobile-history-item-hidden-second-line">-->
+    <!--<div class="mobile-history-item-hidden-charge-title">实际到账</div>-->
+    <!--<div class="mobile-history-item-hidden-charge">0.12345678 BTC</div>-->
+    <!--<div class="mobile-history-item-hidden-num-title">完成时间</div>-->
+    <!--<div class="mobile-history-item-hidden-num">03-10 12:20:30</div>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+
+
+  </div>
+
+  <!--  <div class="tankuang" :popWindowOpen="popWindowOpen">-->
+  <!--      <div class="tabnchuancontain">-->
+  <!--        <div class="tankuangtop">-->
+  <!--          确定下单-->
+  <!--        </div>-->
+  <!--        <div class="tankuangcenter">-->
+  <!--          内容显示-->
+  <!--        </div>-->
+  <!--        <div class="tanchuangbottom">-->
+  <!--          <button>确定</button>-->
+  <!--          <button>取消</button>-->
+  <!--        </div>-->
+  <!--      </div>-->
+  <!--  </div>-->
+
+  <!--弹窗-->
+  <div v-if="popIdenOpen" class="lock-position-confirm-toast">
+    <div class="lock-position-confirm-toast-window">
+      <!--关闭按钮-->
+      <div class="lock-position-confirm-toast-close-btn" @click="popIdenClose">
+        <img class="lock-position-confirm-toast-close-btn-img" src="../../assets/mobile_img/mobile_asset_commen/h5_toast_close_btn.png" alt="">
+      </div>
+      <!--顶部标题-->
+      <div class="lock-position-confirm-toast-title">提示</div>
+      <div class="lock-position-confirm-toast-list">
+        <div class="lock-position-confirm-toast-item">
+          {{priceCont}}
+        </div>
+      </div>
+      <div class="lock-position-confirm-toast-btns">
+        <div class="lock-position-confirm-toast-btn-confirm" @click="popIdenComfirms">确定</div>
+        <div class="lock-position-confirm-toast-btn-close" @click="popIdenClose">取消</div>
+        <!--        <a class="lock-position-confirm-toast-btn-confirm"-->
+        <!--           href="https://download.eunex.group/"-->
+        <!--           target="_blank">下载app</a>-->
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <PopupPrompt :popType="popType" :popText="popText" :popOpen="promptOpen" :popClose="closePrompt"></PopupPrompt>
+  <!-- 提示信息 end -->
+
+  <PopupPrompt :popOpen="toastOpen" :popClose="toastClose" :popType="toastType" :popText="toastText">
+    <div slot="pop-detail" class="pop-detail">
+      <img class="pop-detail-img" src="../../assets/mobile_computer.png" alt="">
+      <!--<div class="pop-detail-text"></div>-->
+      <!--<div class="pop-detail-text"></div>-->
+      <div class="pop-detail-text">{{$t('mobileTradingHallDetail.toastArticle')}}</div>
+      <div class="pop-detail-btn" @click="toastClose">{{$t('personalCenterAuthAuthenticationState.promptEnsure')}}</div>
+    </div>
+  </PopupPrompt>
+
+  <div v-if="toastNobindShow" class="toast-window-nobind-email">
+    <div class="toast-box-nobind-email">
+      <div class="memo-toast-box-close-btn-box" @click="closeNobindToast">
+        <img class="memo-toast-box-close-btn" src="../../assets/mobile_img/mobile_asset_commen/h5_toast_close_btn.png" alt="">
+      </div>
+      <div class="toast-nobind-email-title">安全提示</div>
+      <div class="toast-nobind-email-body">为了您的资金安全，请先绑定邮箱</div>
+      <div class="confirm-nobind-email-btn" @click="goToBindEmail">绑定邮箱</div>
+    </div>
+  </div>
+
+  <div class="bottomenu">
+    <table>
+      <tr>
+        <td @click="gotoNewH5homePage">
+          <div class="menuimg"><img src="../../assets/H5img/indexm.png"></div>
+          <div class="menuinfoh">首页</div>
+        </td>
+        <td @click="gotoShichang">
+          <div class="menuimg"><img src="../../assets/H5img/shich.png"></div>
+          <div class="menuinfoh">行情</div>
+        </td>
+        <td  @click="gotoJiaoyi">
+          <div class="menuimg"><img src="../../assets/H5img/jiaoyi_on.png"></div>
+          <div class="menuinfo">交易</div>
+        </td>
+        <td  @click="gotoZichan">
+          <div class="menuimg"><img src="../../assets/H5img/zichan.png"></div>
+          <div class="menuinfoh">资产</div>
+        </td>
+      </tr>
+    </table>
+
+  </div>
+
+  <div class="hangqceb" v-show="isshowhangq">
+    <div class="hangqtitle">
+      <div class="hangqfont">行情</div>
+      <div class="hangqclosetu" @click="openhangq"><img src="../../assets/H5img/hangqing.png" alt=""></div>
+    </div>
+
+    <div class="hangqdata"  v-for="(item,index) in item_list" :key="index"  @click="changeHeaderBoxFlag(item)">
+      <div class="hangqbd">{{item.name.split('_')[0]}}<span>{{'/&nbsp;'+item.name.split('_')[1]}}</span></div>
+      <div class="hangqprice"
+           :class="diff24(item.open,item.close)<0?'hq-price-down':'hq-price-up'">
+        {{toFixed(item.close, !!quoteScale_list[item.name] ? quoteScale_list[item.name].quoteScale : 8)}}</div>
+
+    </div>
+
+  </div>
+
+  <div class="hangqceb_mb" v-show="isshowhangq"></div>
+  <div class="bottom-box"></div>
+
+
+</div>

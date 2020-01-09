@@ -1,0 +1,169 @@
+<div class="apply-box border_radius box_shadow">
+  <div class="apply-box-title">{{$t('helpApplyToList.apply')}}</div>
+  <div class="apply-box-list">
+
+    <div class="apply-box-list-title" v-if="lang==='CH'">
+      <span class="apply-box-list-title-green-bar"></span>
+      <span class="apply-box-list-title-green-title">上线币种说明及申请方式</span>
+    </div>
+    <div class="apply-box-list-descript">
+      <!--为了保护EUNEX投资者的相关权益，EUNEX会对全球区块链资产进行必要的评估，如果您有资产推荐或想上线EUNEX，请点击以下链接，并完成所有问题。-->
+      {{$t('helpApplyToList.descript_11')}}
+    </div>
+    <div class="apply-box-list-descript apply-font-red">
+      <a href="https://goo.gl/forms/i7Waw9BAiKANmEPB2" target="_blank">https://goo.gl/forms/i7Waw9BAiKANmEPB2</a>
+    </div>
+
+    <!--下线说明 begin -->
+    <div class="apply-box-list-title" v-if="lang==='CH'">
+      <span class="apply-box-list-title-green-bar"></span>
+      <span class="apply-box-list-title-green-title">币种下线说明</span>
+    </div>
+    <div class="apply-box-list-descript" v-if="lang==='CH'">
+      若项目方在项目运行期间，出现以下情况，EUNEX可随时对项目进行暂停交易或下线处理。
+    </div>
+    <ul class="apply-box-list-descript-list" v-if="lang==='CH'">
+      <li class="apply-box-list-descript-item">
+        <span class="apply-box-list-descript-item-icon"></span>
+        1.项目团队存在欺诈及相关法律问题
+      </li>
+      <li class="apply-box-list-descript-item">
+        <span class="apply-box-list-descript-item-icon"></span>
+        2.项目团队存在严重的技术漏洞及安全问题
+      </li>
+      <li class="apply-box-list-descript-item">
+        <span class="apply-box-list-descript-item-icon"></span>
+        3.交易成交量被EUNEX判断为无法交易
+      </li>
+      <li class="apply-box-list-descript-item">
+        <span class="apply-box-list-descript-item-icon"></span>
+        4.不满足EUNEX要求的其他事项
+      </li>
+    </ul>
+    <div class="apply-box-list-descript" v-if="lang==='CH'">
+      以上最终解释权归EUNEX所有
+    </div>
+    <!--下线说明 end -->
+
+
+    <!--<div class="apply-box-list-title">-->
+    <!--<span class="apply-box-list-title-green-bar"></span>-->
+    <!--<span class="apply-box-list-title-green-title">{{$t('helpApplyToList.explain')}}</span>-->
+    <!--</div>-->
+    <!--<div class="apply-box-list-descript">-->
+    <!--{{$t('helpApplyToList.descript_1')}}-->
+    <!--</div>-->
+    <!--<ul class="apply-box-list-descript-list">-->
+    <!--<li class="apply-box-list-descript-item">-->
+    <!--<span class="apply-box-list-descript-item-icon"></span>-->
+    <!--{{$t('helpApplyToList.descript_2')}}-->
+    <!--</li>-->
+    <!--<li class="apply-box-list-descript-item">-->
+    <!--<span class="apply-box-list-descript-item-icon"></span>-->
+    <!--{{$t('helpApplyToList.descript_3')}}-->
+    <!--</li>-->
+    <!--<li class="apply-box-list-descript-item">-->
+    <!--<span class="apply-box-list-descript-item-icon"></span>-->
+    <!--{{$t('helpApplyToList.descript_4')}}-->
+    <!--</li>-->
+    <!--<li class="apply-box-list-descript-item">-->
+    <!--<span class="apply-box-list-descript-item-icon"></span>-->
+    <!--{{$t('helpApplyToList.descript_5')}}-->
+    <!--</li>-->
+    <!--<li class="apply-box-list-descript-item">-->
+    <!--<span class="apply-box-list-descript-item-icon"></span>-->
+    <!--{{$t('helpApplyToList.descript_6')}}-->
+    <!--</li>-->
+    <!--<li class="apply-box-list-descript-item">-->
+    <!--<span class="apply-box-list-descript-item-icon"></span>-->
+    <!--{{$t('helpApplyToList.descript_7')}}-->
+    <!--</li>-->
+    <!--<li class="apply-box-list-descript-item">-->
+    <!--<span class="apply-box-list-descript-item-icon"></span>-->
+    <!--{{$t('helpApplyToList.descript_8')}}-->
+    <!--</li>-->
+    <!--<li class="apply-box-list-descript-item">-->
+    <!--<span class="apply-box-list-descript-item-icon"></span>-->
+    <!--{{$t('helpApplyToList.descript_9')}}-->
+    <!--</li>-->
+    <!--</ul>-->
+    <!--<div class="apply-box-list-descript apply-font-red">-->
+    <!--{{$t('helpApplyToList.descript_10')}}-->
+    <!--</div>-->
+    <!--<div class="apply-box-list-title">-->
+    <!--<span class="apply-box-list-title-green-bar"></span>-->
+    <!--<span class="apply-box-list-title-green-title">{{$t('helpApplyToList.introduce')}}</span>-->
+    <!--</div>-->
+    <!--<div class="apply-box-list-descript">-->
+    <!--{{$t('helpApplyToList.introduce_1')}}-->
+    <!--</div>-->
+    <!--<div class="apply-box-list-descript">-->
+    <!--{{$t('helpApplyToList.introduce_2')}}-->
+    <!--</div>-->
+    <!--<div class="apply-box-list-descript">-->
+    <!--{{$t('helpApplyToList.introduce_3')}}-->
+    <!--</div>-->
+    <!--<div class="apply-box-list-descript">-->
+    <!--{{$t('helpApplyToList.introduce_4')}}-->
+    <!--</div>-->
+    <!--<div class="apply-box-list-descript">-->
+    <!--{{$t('helpApplyToList.introduce_5')}}-->
+    <!--</div>-->
+    <!--<div class="apply-box-list-title">-->
+    <!--<span class="apply-box-list-title-green-bar"></span>-->
+    <!--<span class="apply-box-list-title-green-title">{{$t('helpApplyToList.outLine')}}</span>-->
+    <!--</div>-->
+    <!--<div class="apply-box-list-descript">-->
+    <!--{{$t('helpApplyToList.outLine_1')}}-->
+    <!--</div>-->
+    <!--<ul class="apply-box-list-descript-list">-->
+    <!--<li class="apply-box-list-descript-item">-->
+    <!--<span class="apply-box-list-descript-item-icon"></span>-->
+    <!--{{$t('helpApplyToList.outLine_2')}}-->
+    <!--</li>-->
+    <!--<li class="apply-box-list-descript-item">-->
+    <!--<span class="apply-box-list-descript-item-icon"></span>-->
+    <!--{{$t('helpApplyToList.outLine_3')}}-->
+    <!--</li>-->
+    <!--<li class="apply-box-list-descript-item">-->
+    <!--<span class="apply-box-list-descript-item-icon"></span>-->
+    <!--{{$t('helpApplyToList.outLine_4')}}-->
+    <!--</li>-->
+    <!--<li class="apply-box-list-descript-item">-->
+    <!--<span class="apply-box-list-descript-item-icon"></span>-->
+    <!--{{$t('helpApplyToList.outLine_5')}}-->
+    <!--</li>-->
+    <!--<li class="apply-box-list-descript-item">-->
+    <!--<span class="apply-box-list-descript-item-icon"></span>-->
+    <!--{{$t('helpApplyToList.outLine_6')}}-->
+    <!--</li>-->
+    <!--<li class="apply-box-list-descript-item">-->
+    <!--<span class="apply-box-list-descript-item-icon"></span>-->
+    <!--{{$t('helpApplyToList.outLine_7')}}-->
+    <!--</li>-->
+    <!--<li class="apply-box-list-descript-item">-->
+    <!--<span class="apply-box-list-descript-item-icon"></span>-->
+    <!--{{$t('helpApplyToList.outLine_8')}}-->
+    <!--</li>-->
+    <!--<li class="apply-box-list-descript-item">-->
+    <!--<span class="apply-box-list-descript-item-icon"></span>-->
+    <!--{{$t('helpApplyToList.outLine_9')}}-->
+    <!--</li>-->
+    <!--<li class="apply-box-list-descript-item">-->
+    <!--<span class="apply-box-list-descript-item-icon"></span>-->
+    <!--{{$t('helpApplyToList.outLine_10')}}-->
+    <!--</li>-->
+    <!--<li class="apply-box-list-descript-item">-->
+    <!--<span class="apply-box-list-descript-item-icon"></span>-->
+    <!--{{$t('helpApplyToList.outLine_11')}}-->
+    <!--</li>-->
+    <!--<li class="apply-box-list-descript-item">-->
+    <!--<span class="apply-box-list-descript-item-icon"></span>-->
+    <!--{{$t('helpApplyToList.outLine_12')}}-->
+    <!--</li>-->
+    <!--</ul>-->
+    <!--<div class="apply-box-list-descript">-->
+    <!--{{$t('helpApplyToList.outLine_13')}}-->
+    <!--</div>-->
+  </div>
+</div>

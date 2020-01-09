@@ -1,0 +1,80 @@
+<div class="recommended-box">
+  <Loading v-if="loading"/>
+  <div v-if="!loading" class="recommended-container">
+    <div class="recommended-header">
+      <ul>
+        <li class="recommended-header-item">
+          <div class="recommended-header-item-left">我的推荐ID :</div>
+          <div class="recommended-header-item-right"  v-if="userId">{{userId}}</div>
+          <div class="recommended-header-item-right"  v-if="!userId"><span class="recommended-header-item-right-login" @click="gotoLogin">登录</span> 或 <span class="recommended-header-item-right-login" @click="gotoReg">注册</span></div>
+        </li>
+        <li class="recommended-header-item">
+          <div class="recommended-header-item-left">分享链接 :</div>
+          <div class="recommended-header-item-right">
+            <input class="recommended-header-item-right-input" type="text" v-model="shareUrl" />
+            <div class="recommended-header-item-right-copy"  data-clipboard-target=".recommended-header-item-right-input" @click="copyShareUrl">复制</div>
+          </div>
+        </li>
+        <li class="recommended-header-item">
+          <div class="recommended-header-item-left">已推荐的朋友 :</div>
+          <div class="recommended-header-item-right">{{userId ? size:'---'}}</div>
+        </li>
+        <li class="recommended-header-item">
+          <div class="recommended-header-item-left">已获得的交易返佣 :</div>
+          <div class="recommended-header-item-right">{{userId ? '≈ ' + $globalFunc.accFixed(totalRebate,4) + ' BDB' : '---'}}</div>
+        </li>
+      </ul>
+    </div>
+    <div class="recommended-title">
+      我的推荐 :
+    </div>
+    <div class="recommended-table">
+      <ul>
+        <li class="recommended-table-header clearfix">
+          <div class="recommended-table-item-id">序号</div>
+          <div class="recommended-table-item-name">用户名</div>
+          <div class="recommended-table-item-verified">实名状态</div>
+          <div class="recommended-table-item-price">累计返佣</div>
+        </li>
+        <template v-if="records.length !==0">
+          <li v-for="(item,index) in records" :key="index" class="recommended-table-item clearfix">
+            <div class="recommended-table-item-id">{{index+1}}</div>
+            <div class="recommended-table-item-name">{{handleName(item.beInvitedEmail)}}</div>
+            <div class="recommended-table-item-verified">{{item.identityAuthStatus===2?$t('personalCenterRecommend.yesAuth'):$t('personalCenterRecommend.noAuth')}}</div>
+            <div class="recommended-table-item-price">{{item.totalRebate ? toFixed(item.totalRebate,8) + '' : '---'}}BDB</div>
+          </li>
+        </template>
+        <template v-else>
+          <li class="recommended-table-item clearfix">
+            <div class="recommended-table-item-id">--</div>
+            <div class="recommended-table-item-name">--</div>
+            <div class="recommended-table-item-verified">--</div>
+            <div class="recommended-table-item-price">--</div>
+          </li>
+        </template>
+        <li class="recommended-table-getmore" v-if="records.length != size">
+          <div class="recommended-table-getmore-btn" @click="getMoreList(selectIndex)">
+            更多
+          </div>
+        </li>
+        <!--<li class="recommended-table-footer clearfix">-->
+          <!--<div class="recommended-table-item-id">总计</div>-->
+          <!--<div class="recommended-table-item-name">-&#45;&#45;</div>-->
+          <!--<div class="recommended-table-item-verified">-&#45;&#45;</div>-->
+          <!--<div class="recommended-table-item-price">100.12345678BDB</div>-->
+        <!--</li>-->
+      </ul>
+    </div>
+    <div class="recommended-title">
+      活动规则 :
+    </div>
+    <div class="recommended-rule">
+      <div class="recommended-rule-item">1. 活动长期有效。</div>
+      <div class="recommended-rule-item">2. 次月8日统一发放上月奖励。</div>
+      <div class="recommended-rule-item">3. 邀请人可分享好友自注册成功之日起1年内30%的交易手续费奖励。</div>
+      <div class="recommended-rule-item">4. 活动如有调整以平台更新为准，本活动最终解释权归EUNEX所有。</div>
+    </div>
+
+    <PopupPrompt :popType="popType" :popText="popText" :popOpen="popOpen" :popClose="closePop"></PopupPrompt>
+  </div>
+</div>

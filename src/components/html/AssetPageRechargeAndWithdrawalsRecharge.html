@@ -1,0 +1,153 @@
+<div class="li-hidden recharge flex-center">
+  <Loading v-if="loading"></Loading>
+  <template v-if="!loading">
+
+    <div class="address-container flex">
+      <div class="address-container1 address-item2" v-if="currency == 'USDT'">链名称</div>
+      <div class="address-item1 address-item2 address-item3" v-if="currency == 'USDT' || currency == 'USDT2'">
+        <div v-if="rechargeFlagUSDT" class="address-ERC" @click="toggleStatus(1)" :class="selectTab == 1 ? 'address-si' : ''">OMNI</div>
+        <div v-if="!rechargeFlagUSDT" class="address-OMNI-disabled">OMNI</div>
+        <div v-if="rechargeFlagUSDT2" class="address-OMNI" @click="toggleStatus(2)" :class="selectTab == 2 ? 'address-si' : ''">ERC20</div>
+        <div v-if="!rechargeFlagUSDT2" class="address-OMNI-disabled">ERC20</div>
+      </div>
+      <!--充值地址 begin-->
+      <div class="address-item flex">
+
+        <!--二维码 begin-->
+        <div class="qr-code flex-center">
+          <QRCodeVue :value="address" size="100" level="H"/>
+        </div>
+        <!--二维码 end-->
+
+        <!--充值地址 begin-->
+        <div class="address flex">
+          <span>{{currency}}{{$t('rechargeAddress')}} </span>
+<!--          <input type="text" readonly v-model="address" @click="toggleStatus(1)" ref="address" class="address-input border_radius" v-if="currency= USDT2" />-->
+          <input type="text" readonly v-model="address"  v-show="(selectTab === 1)" ref="address" class="address-input border_radius"/>
+          <input type="text" readonly v-model="address" v-show="(selectTab === 2)" ref="address1" class="address-input border_radius"/>
+<!--          <input type="text" readonly v-model="address" v-show="(currency != 'USDT' && currency != 'USDT2')" ref="address2" class="address-input border_radius"/>-->
+
+     <button @click="clickCopy" class="btn_blue pointer address-button">
+            {{$t('copyAddress')}}
+          </button>
+        </div>
+        <!--充值地址 end-->
+      </div>
+      <!--充值地址 end-->
+
+      <!--memo begin-->
+      <div class="address-item flex" v-if="memo">
+        <!--二维码 begin-->
+        <div class="qr-code flex-center">
+          <QRCodeVue :value="memo" size="100" level="H"/>
+        </div>
+        <!--二维码 end-->
+
+        <!--memo地址 begin-->
+        <div class="address flex">
+          <span>memo:</span>
+          <input type="text" readonly v-model="memo" ref="memo" class="address-input border_radius"/>
+          <button @click="clickCopyMemo" class="btn_blue pointer address-button">
+            {{$t('copyMemo')}}
+          </button>
+        </div>
+        <!--memo地址 end-->
+      </div>
+      <!--memo end-->
+
+      <!--publicKey begin-->
+      <div class="address-item flex" v-if="isWCG">
+        <!--二维码 begin-->
+        <div class="qr-code flex-center">
+          <QRCodeVue :value="publicKey" size="100" level="H"/>
+        </div>
+        <!--二维码 end-->
+
+        <!--publicKey地址 begin-->
+        <div class="address flex">
+          <span>publicKey:</span>
+          <input type="text" readonly v-model="publicKey" ref="publicKey" class="address-input border_radius"/>
+          <button @click="clickCopyPublicKey" class="btn_blue pointer address-button" >
+            {{$t('copyPublicKey')}}
+          </button>
+        </div>
+        <!--publicKey地址 end-->
+      </div>
+      <!--publicKey end-->
+    </div>
+
+
+    <!--充值提示 begin-->
+    <ul class="describe flex">
+      <li class="text_red" v-if="memo"><span class="usdt_notice_dot"></span>
+        <!--注：充值{{currency}}到欧联同时需要一个充值地址和{{currency}} memo， 如果未遵守{{currency}}充值规则，币会丢失。-->
+        {{$t('rechargeDescribe',{currency:currency})}}
+      </li>
+      <li class="text_red" v-show="(currency == 'USDT' || currency == 'USDT2') && (selectTab === 1)"><span class="usdt_notice_dot"></span>{{$t('usdt_notice')}}
+      </li>
+      <li class="text_red" v-show="selectTab === 2"><span class="usdt_notice_dot"></span>{{$t('eusdt_notice')}}
+      </li>
+      <li><span></span>{{$t('prohibitionRecharge',{currency:currency})}}</li>
+      <li><span></span>{{$t('canNotRetrieved')}}</li>
+      <li><span></span>{{$t('getAccount',{currency:currency})}}</li>
+      <li><span></span>{{$t('trackingProgress')}}</li>
+    </ul>
+    <!--充值提示 end-->
+
+    <!--关闭 begin-->
+    <div class="close"></div>
+    <img src="../../assets/关闭RechargeAndWithdrawals.png" alt="" class="close-img" @click="close">
+    <!--关闭 end-->
+
+    <PopupPrompt :popType="popType" :popText="popText" :popOpen="promptOpen" :popClose="closePrompt"></PopupPrompt>
+  </template>
+
+
+  <!-- 账号存在异常 begin -->
+  <PopupWindow :switch="popWindowOpen" v-on:close="popWindowClose">
+    <div slot="header" class="">
+      {{$t('popWindowTitle_0')}}
+    </div>
+    <div slot="article">
+      <p>{{$t('popWindowArticle_0')}}</p>
+      <p>{{$t('popWindowArticle_1')}}</p>
+      <p>{{$t('popWindowArticle_2')}}</p>
+    </div>
+    <div slot="footer" class="pop-footer flex">
+      <button class="button-base button-pop-window btn_blue pointer" @click="goToCustomerService">
+        {{$t('popWindowButton_0')}}
+      </button>
+      <button class="button-base button-pop-window btn_blue pointer" @click="popWindowClose">
+        {{$t('popWindowButton_1')}}
+      </button>
+    </div>
+  </PopupWindow>
+
+
+  <!--memo 弹窗提示 begin-->
+  <BasePopupWindow :open="memoPopWindowOpen" :close="memoPopWindowClose">
+    <div slot="header" class="memo-pop-header text_red">
+      {{$t('notice')}}
+    </div>
+    <div slot="article" class="memo-pop-article">
+      <div class="memo-pop-article-text text_red">
+        {{$t('rechargePopWindowArticle',{currency:currency}) }}
+      </div>
+      <div class="memo-pop-check">
+        <input type="checkbox" id="memo-pop-checkbox" v-model="knowMemoRule">
+        <label for="memo-pop-checkbox">{{$t('knowAgreement',{currency:currency})}}</label>
+      </div>
+      <div class="memo-pop-btn-container flex">
+        <button class="button-base memo-btn-not-agree" v-show="!knowMemoRule">
+          {{$t('continueRecharge')}}
+        </button>
+        <button class="button-base btn_blue" v-show="knowMemoRule" @click="memoPopWindowGoAhead">
+          {{$t('continueRecharge')}}
+        </button>
+      </div>
+    </div>
+  </BasePopupWindow>
+  <!--memo 弹窗提示 end-->
+
+
+</div>

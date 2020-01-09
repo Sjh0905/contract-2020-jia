@@ -1,0 +1,11 @@
+<div>
+	<!-- <li class="td-unit market">
+		<router-link to="/index/tradingHall">{{item.name | e}}</router-link>
+	</li> -->
+	<li class="td-unit market" @click="urlAndHash(item.name)">{{item.name | e}}</li>
+	<li class="td-unit current-price">{{item.close}} / ¥{{$globalFunc.accFixedCny(item.cny, 2)}}</li>
+	<li class="td-unit up-fall">{{((item.close-item.open)/item.open*100).toFixed(8)}}%</li>
+	<li class="td-unit top-price">{{item.high}}</li>
+	<li class="td-unit low-price">{{item.low}}</li>
+	<li class="td-unit turnover-price">{{item.volume}}</li>
+</div>

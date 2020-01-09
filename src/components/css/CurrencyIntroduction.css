@@ -1,0 +1,61 @@
+.currency-introduction-container {
+
+  width: 100%;
+  height: auto;
+  position: relative;
+  padding: 0 20px 20px 20px;
+  background: #fff;
+  font-size: 14px;
+  line-height: 26px;
+  /*border: 1px solid #e5e5e5;*/
+  border-radius: 2px;
+  border-top-left-radius: 0;
+}
+
+.currency-article {
+  padding-top: 25px;
+  font-family: PingFangSC-Regular;
+  font-size: 13px;
+  color: #8994A5;
+  line-height: 18px;
+
+}
+
+.currency-article span{
+  font-family: PingFangSC-Medium;
+  font-size: 14px;
+  color: #172A4D;
+}
+
+.currency-article-detail-title {
+
+}
+
+.article-detail-link {
+  color: #C43E4E;
+  padding-left: 10px;
+}
+
+.currency-ul-li {
+  display: inline-block;
+  width: 350px;
+}
+
+.currency-ul-li-detail {
+  font-weight: bold;
+}
+
+.openinfo{
+  width: 100%;
+  text-align: right;
+  font-family: PingFangSC-Medium;
+  font-size: 13px;
+  color: #C43E4E;
+  cursor: pointer;
+}
+
+.openinfo img{
+  width: 6px;
+  vertical-align: middle;
+  margin-left: 5px;
+}

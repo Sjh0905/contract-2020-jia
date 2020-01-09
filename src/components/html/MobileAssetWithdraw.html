@@ -1,0 +1,46 @@
+<div>
+  <Loading v-if="loading"/>
+  <div v-if="!loading">
+    <div class="asset-withdraw-item" v-for="(item,index) in accountsComputed" v-if="serverT >= item.displayTime"
+         :key="index" @click="getToGetCash(item)">
+      <span  class="asset-withdraw-item-logo-box">
+        <img class="asset-withdraw-item-logo" :src="'http://logo.eunex.group/' + item.currency +'.png'" alt="">
+      </span>
+      {{item.currency}}
+    </div>
+  </div>
+  <PopupPrompt :popOpen="popOpen" :popClose="popClose" :popType="popType" :popText="popText"/>
+  <div v-if="toastNobindShow&&!loading" class="toast-window-nobind-email">
+    <div class="toast-box-nobind-email">
+      <div class="memo-toast-box-close-btn-box" @click="closeNobindToast">
+        <img class="memo-toast-box-close-btn" src="../../assets/mobile_img/mobile_asset_commen/h5_toast_close_btn.png" alt="">
+      </div>
+      <div class="toast-nobind-email-title">安全提示</div>
+      <div class="toast-nobind-email-body">为了您的资金安全，请先绑定邮箱</div>
+      <div class="confirm-nobind-email-btn" @click="goToBindEmail">绑定邮箱</div>
+    </div>
+  </div>
+
+  <!--弹窗-->
+  <div v-if="popIdenOpen" class="lock-position-confirm-toast">
+    <div class="lock-position-confirm-toast-window">
+      <!--关闭按钮-->
+      <div class="lock-position-confirm-toast-close-btn" @click="popIdenClose">
+        <img class="lock-position-confirm-toast-close-btn-img" src="../../assets/mobile_img/mobile_asset_commen/h5_toast_close_btn.png" alt="">
+      </div>
+      <!--顶部标题-->
+      <div class="lock-position-confirm-toast-title">提示</div>
+      <div class="lock-position-confirm-toast-list">
+        <div class="lock-position-confirm-toast-item">
+          该操作需要身份认证，请立刻前往app端个人中心完成
+        </div>
+      </div>
+      <div class="lock-position-confirm-toast-btns">
+        <div class="lock-position-confirm-toast-btn-close" @click="popIdenClose">取消</div>
+        <a class="lock-position-confirm-toast-btn-confirm" href="https://download.eunex.group/" target="_blank">下载app</a>
+      </div>
+    </div>
+  </div>
+
+
+</div>
