@@ -58,7 +58,7 @@
     "coinDepot": "币得宝",
     "order": "Orders",
     "assets": "Funds",
-    "activity": "activity",
+    "activity": "ctivity",
     "ExchangeThreeTeaSources": "Exchange three tea sources",
     "TeaTeaSource": "Tea tea source",
     "GRCTradeEvent": "GRC Trade Event",
@@ -90,12 +90,12 @@
     "CoinBaby": "CoinBaby",
     "LockPositionRecord": "Lock Position Record",
     "superBee": "Super Bee",
-    "qrCode":"Scan code to download",
+    "qrCode":"Download",
     "seeMore":"See more",
     "platform":"Platform announcement",
 
     "platform_3":"Announcement",
-    "platform_4":"download"
+    "platform_4":"Download"
   },
   "CA": {
     "platform_1":"Chinese",
@@ -107,7 +107,7 @@
     "coinDepot": "币得宝",
     "order": "Orders",
     "assets": "Funds",
-    "activity": "activity",
+    "activity": "Activity",
     "ExchangeThreeTeaSources": "Exchange three tea sources",
     "TeaTeaSource": "Tea tea source",
     "GRCTradeEvent": "GRC Trade Event",
@@ -139,11 +139,11 @@
     "CoinBaby": "CoinBaby",
     "LockPositionRecord": "Lock Position Record",
     "superBee": "Super Bee",
-    "qrCode":"Scan code to download",
+    "qrCode":"Download",
     "seeMore":"See more",
     "platform":"Platform announcement",
     "platform_3":"Announcement",
-    "platform_4":"download"
+    "platform_4":"Download"
   },
   "KOR": {
     "btcdo": "중순~가을 축제",  "quotes": "시장",  "currencyExchange": "코인 트레이딩",

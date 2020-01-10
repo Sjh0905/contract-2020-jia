@@ -1,6 +1,7 @@
 .index-header-assets-container {
   width: 100%;
   height: 100%;
+  /*padding: 0 15px;*/
   position: relative;
 }
 
@@ -8,34 +9,29 @@
   color: rgba(0, 0, 0, 0.7);
 }
 
-.asset-container {
-  height: 100%;
-  width: 100%;
-}
-
 .asset-li:hover {
-  background-color:rgba(196,62,78,0.03);
+  background-color:rgba(245,246,250,1);
 }
 
 .asset-li {
   /*width: 100%;*/
-  height: 22px;
-  line-height: 22px;
-  font-size: 13px;
-  border-bottom: 1px solid #e6e6e6;
-  padding: 7px 30px 7px 30px;
+  height: 40px;
+  line-height: 40px;
+  font-size: 14px;
+  padding: 0 15px ;
+  /*border-bottom: 1px solid #e6e6e6;*/
   text-align: left;
 }
 
 .asset-li-2 {
-  /*width: 100%;*/
-  height: 36px;
+  width: 100%;
+  /*padding: 0  0 20px;*/
+  height: 70px;
   line-height: 18px;
-  font-size: 13px;
-  border-bottom: 1px solid #e6e6e6;
-  padding: 7px 30px 7px 30px;
-  text-align: left;
+  font-size: 14px;
   /*border-bottom: 1px solid #e6e6e6;*/
+  text-align: left;
+  /*border-bottom: 1px solid #eee;*/
   /*!*padding: 7px 30px 7px 30px;*!*/
   /*padding-left: 30px;*/
   /*text-align: left;*/
@@ -45,19 +41,74 @@
 }
 
 .asset-li-2:hover {
-  background-color:rgba(196,62,78,0.03);
+  background-color:rgba(245,246,250,1);
 }
 
 .asset-li:last-of-type {
   border: 0;
 }
 
+.asset-li-title-left {
+  /*float: left;*/
+  display: inline-block;
+
+  padding:0 15px;
+}
+
+.asset-li-content {
+  margin: auto 0;
+}
+
 .asset-li-title {
-  color: #666;
+  /*color: #666;*/
+  /*width: 120px;*/
+  padding-right: 10px;
+  /*background-color: #ccc;*/
+  padding-top: 15px;
+  font-size:16px;
+  font-family:Roboto-Regular,Roboto;
+  font-weight:400;
+  color: #0D0E23;
+}
+
+.not-certified {
+  width:44px;
+  height:16px;
+  margin-top: 7px;
+  font-size: 10px;
+  background:rgba(239,240,255,1);
+  color: #A2B5D9;
+  text-align: center;
+  line-height: 16px;
+  border-radius:8px;
+}
+
+.certified {
+  width:44px;
+  height:16px;
+  margin-top: 7px;
+  font-size: 10px;
+  background:rgba(239,240,255,1);
+  color: #3576F5;
+  text-align: center;
+  line-height: 16px;
+  border-radius:8px;
+}
+
+.certified-img {
+  /*float: right;*/
+  display: inline-block;
+  padding-right: 15px;
+}
+
+.certified-img img {
+  margin-bottom: 10px;
+  line-height: 70px;
+  width: 16px;
 }
 
 .pointer {
-  padding-left: 15px;
+  /*padding-left: 15px;*/
 }
 
 .login-off {
@@ -68,11 +119,11 @@
 }
 
 .asset-li:hover p {
-   color: #C43E4E;
+   color: #3576F5;
  }
 
 .asset-li-2:hover p {
-  color: #C43E4E;
+  /*color: #3576F5;*/
 }
 
 /*首页颜色变化*/
