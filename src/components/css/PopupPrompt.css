@@ -19,6 +19,21 @@
   opacity: 0.3;
 }
 
+.prompt-detail-1 {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  background-color: #fff;
+  /*padding:0 15px;*/
+  padding: 0 40px;
+  width: auto;
+  min-height: 40px;
+  border-radius: 1px;
+  border-left: 4px solid rgba(8,208,172,1);
+  box-shadow:0px 4px 14px -2px rgba(0,0,0,0.1);
+}
+
 /*登录*/
 .prompt-detail {
   position: absolute;
@@ -30,7 +45,16 @@
   padding: 0 40px;
   width: auto;
   min-height: 40px;
-  border-radius: 5px;
+  border-radius: 1px;
+  border-left: 4px solid rgba(239,86,86,1);
+  box-shadow:0px 4px 14px -2px rgba(0,0,0,0.1);
+}
+
+.span-w4 {
+  display: inline-block;
+  width:4px;
+  height:40px;
+  background:rgba(239,86,86,1);
 }
 
 .prompt-loading{
@@ -40,10 +64,21 @@
 /*弹窗图片*/
 .prompt-detail-img {
   margin-right: 10px;
-  width: 20px;
-  height: 20px;
+  width: 16px;
+  height: 16px;
 }
-
+.pop-prp-text-gr {
+  font-size:12px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color:rgba(8,208,172,1);
+}
+.pop-prp-text {
+  font-size:12px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color:rgba(239,86,86,1);
+}
 /*背景过渡状态*/
 .background-enter {
   opacity: 0;
@@ -89,6 +124,25 @@
 /*----------------------------------------------------------------------------------------------------*/
 
 @media screen and (max-width: 768px) {
+  .prompt-detail-1 {
+    position: absolute;
+    margin: auto;
+    left: 0;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    /*padding:0 15px;*/
+    /*background-color: transparent;*/
+    width: auto;
+    min-height: 40px;
+    border-radius: 1px;
+    max-width: 320px;
+    padding: 0;
+    /*height:60px;*/
+    background:rgba(242,253,250,1);
+    box-shadow:0px 4px 14px -2px rgba(0,0,0,0.1);
+  }
+
   .prompt-detail {
     position: absolute;
     margin: auto;
@@ -97,12 +151,15 @@
     top: 50%;
     transform: translateY(-50%);
     /*padding:0 15px;*/
-    background-color: transparent;
+    /*background-color: transparent;*/
     width: auto;
     min-height: 40px;
-    border-radius: 5px;
+    border-radius: 1px;
     max-width: 320px;
     padding: 0;
+    /*height:60px;*/
+    background:rgba(254,248,248,1);
+    box-shadow:0px 4px 14px -2px rgba(0,0,0,0.1);
   }
 
   .prompt-detail-mobile {
@@ -115,7 +172,7 @@
     /*overflow: hidden;*/
     min-height: 40px;
     min-width: 100px;
-    border-radius: 5px;
+    border-radius: 1px;
     padding: 5px 20px;
   }
 
@@ -123,11 +180,14 @@
   .prompt-detail-img {
     margin-right: 10px;
     display: block;
-    width: 21px;
+    width: 16px;
   }
 
   .prompt-detail-text-error {
-    color: #E13B3B;
+    font-size:12px;
+    font-family:PingFangSC-Regular,PingFang SC;
+    font-weight:400;
+    color:rgba(239,86,86,1);
   }
 }
 
