@@ -24,7 +24,10 @@ root.data = function () {
     clickEmailVerificationCodeButton: false,
 
     // 点击状态  1为手机验证   2为谷歌验证
-    classStyle:1
+    classStyle:1,
+
+    //错误码
+    GACodeWA: ''
 
 
   }
@@ -145,10 +148,16 @@ root.methods.but_cancel = function () {
   this.pub_lic = false
 }
 
+//确认按钮
+root.methods.click_send = function () {
+  this.pub_lic = false
+}
+
 // 手机 谷歌验证切换
 root.methods.open_mob = function (index) {
   this.classStyle = index
 }
+
 
 // //谷歌验证切换
 // root.methods.open_ge = function (index, item) {

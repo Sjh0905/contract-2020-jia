@@ -2399,20 +2399,20 @@ root.routes.push({
     },
 
     // TODO：弹框组件临时显示（记得删除）
-    {
-      path: 'PopPublic',
-      name: 'PopPublic',
-      caseSensitive: true,
-      component: resolve => require(['@/components/vue/PopPublic'], resolve),
-      // meta: {
-      //   pcname: 'historicalEntrust',
-      //   h5name: 'MobileHistoryOrder',
-      //   requireLogin: true,
-      //   templateClose: false,
-      //   templatePath: '/index/orderPageT',
-      //   requireLoginOff: false,
-      // },
-    },
+    // {
+    //   path: 'PopPublic',
+    //   name: 'PopPublic',
+    //   caseSensitive: true,
+    //   component: resolve => require(['@/components/vue/PopPublic'], resolve),
+    //   // meta: {
+    //   //   pcname: 'historicalEntrust',
+    //   //   h5name: 'MobileHistoryOrder',
+    //   //   requireLogin: true,
+    //   //   templateClose: false,
+    //   //   templatePath: '/index/orderPageT',
+    //   //   requireLoginOff: false,
+    //   // },
+    // },
 
 
     // 订单

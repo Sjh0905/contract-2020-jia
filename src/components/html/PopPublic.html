@@ -71,10 +71,14 @@
         <span class="span-h-1" v-if="getVerificationCode && classStyle == 1">0s 之后重新发送</span>
        </div>
       </div>
+      <!--验证码的错误提示-->
+      <div class="H-pop-lic-1">
+        <span v-if="GACodeWA!==''" class="txt-red">错误码提示</span>
+      </div>
 
       <div class="pop-footer">
         <span class="pop-qu" @click="but_cancel">取消</span>
-        <button class="pop-qu-2">确认</button>
+        <button class="pop-qu-2" @click="click_send">确认</button>
 
       </div>
     </div>
@@ -102,9 +106,14 @@
           <span class="span-h-1" v-if="getVerificationCode">0 s之后重新发送</span>
         </div>
 
+        <!--验证码的错误提示-->
+        <div class="H-pop-lic-1">
+          <span v-if="GACodeWA!==''" class="txt-red">错误码提示</span>
+        </div>
+
         <div class="pop-footer">
           <span class="pop-qu" @click="but_cancel">取消</span>
-          <button class="pop-qu-2">确认</button>
+          <button class="pop-qu-2" @click="click_send">确认</button>
 
         </div>
       </div>

@@ -114,6 +114,20 @@
   border-radius:1px;
   border:1px solid rgba(224,225,244,1);
 }
+
+.H-pop-lic-1 {
+  width:410px;
+  height:40px;
+  line-height: 40px;
+  border-radius:1px;
+  border:1px solid rgba(255,255,255,1);
+}
+.txt-red {
+  font-size:12px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color:rgba(253,85,85,1);
+}
 .rig-ht {
   width: 28%;
   display: inline-block;
@@ -146,7 +160,7 @@
   width: 100%;
   text-align: right;
   /*padding-right: 25px;*/
-  margin-top: 40px;
+  /*margin-top: 40px;*/
 
 }
 .pop-qu {
