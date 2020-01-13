@@ -1,17 +1,19 @@
 <div class="register-container" v-if="!loading">
-  <div class="all-container box_shadow border_radius">
+  <!--topbar pc begin-->
+  <RegisterTopBar v-if="!isMobile" type=1 :title='$t("register.WelcomeToRegister")'/>
+  <!--topbar pc end-->
 
+  <div class="all-container border_radius">
     <!--<div class="unit-title"  v-if="isMobile">-->
 <!--&lt;!&ndash;      <span class="unit-title-line"></span>&ndash;&gt;-->
       <!--<span class="unit-title-text">{{$t("register.welcome")}}</span>-->
 <!--&lt;!&ndash;      <span class="unit-title-line"></span>&ndash;&gt;-->
     <!--</div>-->
-
-    <div class="unit-title-pc"  v-if="!isMobile">
-      <!--      <span class="unit-title-line"></span>-->
-      <span class="unit-title-text-pc">{{$t("register.WelcomeToRegister")}}</span>
-      <!--      <span class="unit-title-line"></span>-->
-    </div>
+    <!--<div class="unit-title-pc"  v-if="!isMobile">-->
+      <!--&lt;!&ndash;      <span class="unit-title-line"></span>&ndash;&gt;-->
+      <!--<span class="unit-title-text-pc">{{$t("register.WelcomeToRegister")}}</span>-->
+      <!--&lt;!&ndash;      <span class="unit-title-line"></span>&ndash;&gt;-->
+    <!--</div>-->
 
     <!--选择注册形式 pc begin-->
     <div v-if="!isMobile" class="choose-login-type-container flex">
@@ -300,10 +302,8 @@
     <!--PC端手机注册开始-->
     <div v-if="registerType==0 && !isMobile" class="unit-container flex-center">
 
-     <div class=" flex iphone iphone-kuang">
-
+     <div class=" flex unit-input-container-pc">
         <!-- 下拉搜索框-->
-
         <el-select class="inputInner" :placeholder="label" style="font-size:14px;" v-model="searchResult">
           <input type="text" class="inputsize" placeholder="请输入国家区号" v-model="searchCities">
           <el-option
@@ -317,17 +317,20 @@
             <span style="float: right; color: #8994A5; font-size: 16px">{{ '+ ' + item.areaCode.slice(2) }}</span>
           </el-option>
         </el-select>
-
         <!--  下拉搜索框   结束-->
-
+      </div>
+      <div class="unit-input-interval txt-red">
+        <span>{{''}}</span>
+      </div>
+      <!--<div class=" flex iphone iphone-kuang">-->
         <!--手机-->
-        <div class="flex unit-input-container-pc input-phone-pc "
+        <div class="flex unit-input-container-pc"
              :class="{'wrong-answer': mobileWA!=''}">
           <input type="text" :placeholder='userNamePlaceholderShow && $t("register.phone") || ""' v-model="userName" @focus="closePlaceholder('userName')" @blur="testUserName"
                  class="unit-input">
         </div>
 
-      </div>
+      <!--</div>-->
 
       <div class="unit-input-interval txt-red">
         <span v-if="mobileWA!=''">{{mobileWA}}</span>
