@@ -426,15 +426,20 @@ root.transaction.Trading_platform_17 = 'Trade'
 
 //关于条款
 root.terms = {}
-root.terms.Terms_conditionss = 'Contact Us'
+root.terms.Terms_conditionss = 'Contact mailbox'
 root.terms.Terms_conditionss_1 = 'About Us'
-root.terms.Terms_conditionss_2 = 'About EUNEX'
-root.terms.Terms_conditionss_3 = 'Notice'
-root.terms.Terms_conditionss_4 = 'Clause Description'
-root.terms.Terms_conditionss_5 = 'Service Agreement'
-root.terms.Terms_conditionss_6 = 'Privacy Protocol'
-root.terms.Terms_conditionss_7 = 'Rate Standard'
-root.terms.Terms_conditionss_8 = 'WeChat'
+root.terms.Terms_conditionss_2 = 'About 2020'
+root.terms.Terms_conditionss_3 = 'User agreement'
+root.terms.Terms_conditionss_4 = 'privacy policy'
+root.terms.Terms_conditionss_5 = 'Help'
+root.terms.Terms_conditionss_6 = 'faq'
+root.terms.Terms_conditionss_7 = 'Help center'
+root.terms.Terms_conditionss_8 = 'Novice guide'
+root.terms.Terms_conditionss_9 = 'Service'
+root.terms.Terms_conditionss_10 = 'Rate standard'
+root.terms.Terms_conditionss_11 = 'Notice center'
+root.terms.Terms_conditionss_12 = 'WeChat'
+
 
 //发送邀请给好友
 root.Send = {}

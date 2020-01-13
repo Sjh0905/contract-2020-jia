@@ -2,7 +2,7 @@ const root = {}
 root.name = 'PersonalCenterSecurityCenterSecurityCenter'
 root.components = {
   'Loading': resolve => require(['../vue/Loading'], resolve),
-  'PopupPrompt': resolve => require(['../vue/PopupPrompt'], resolve),
+  'PopupT': resolve => require(['../vue/PopupT'], resolve),
 }
 
 root.data = function () {
@@ -11,8 +11,17 @@ root.data = function () {
 
     // 弹框
     promptOpen: false,
+    popWindowOpen: false,
+    popWindowOpen1:false,
+    popWindowOpen2:false,
     popType: 0,
     popText: '系统繁忙',
+
+
+
+    popWindowTitle: '', //弹出提示标题
+    popWindowPrompt: '',//弹出样式提示
+    popWindowStyle: 0,//跳转 0表示实名认证，1表示手机或谷歌，2只有确定
 
   }
 }
@@ -80,6 +89,19 @@ root.methods.re_getAuthState = function (data) {
 root.methods.closePrompt = function () {
   this.promptOpen = false
 }
+
+// 弹窗关闭
+root.methods.popWindowClose = function () {
+  this.popWindowOpen = false
+}
+// 弹窗关闭
+root.methods.popWindowClose1 = function () {
+  this.popWindowOpen1 = false
+}
+// 弹窗关闭
+root.methods.popWindowClose2 = function () {
+  this.popWindowOpen2 = false
+}
 //
 // // 设置资金密码
 // root.methods.click_set_asset_psw = function () {
@@ -96,15 +118,29 @@ root.methods.closePrompt = function () {
 // 绑定谷歌验证
 root.methods.click_bind_GA = function () {
   this.$router.push({name: 'bindGoogleAuthenticator'})
+    // this.popWindowTitle = this.$t('assetPageRechargeAndWithdrawals.popWindowTitleRecharge')
+    // this.popWindowPrompt = this.$t('assetPageRechargeAndWithdrawals.popWindowTitleBindGaRecharge')
+    // this.popWindowStyle = '1'
+    // this.popWindowOpen = true
 }
 // 解绑谷歌验证
 root.methods.click_release_GA = function () {
-  this.$router.push({name: 'releaseGoogleAuthenticator'})
+  // this.$router.push({name: 'releaseGoogleAuthenticator'})
+  // this.$router.push({name: 'modifyLoginPassword'})
+  this.popWindowTitle = this.$t('assetPageRechargeAndWithdrawals.popWindowTitleRecharge')
+  this.popWindowPrompt = this.$t('assetPageRechargeAndWithdrawals.popWindowTitleBindGaRecharge')
+  this.popWindowStyle = '1'
+  this.popWindowOpen2 = true
 }
 // 修改登录密码
 root.methods.click_change_login_psw = function () {
-  this.$router.push({name: 'modifyLoginPassword'})
+  // this.$router.push({name: 'modifyLoginPassword'})
+  this.popWindowTitle = this.$t('assetPageRechargeAndWithdrawals.popWindowTitleRecharge')
+  this.popWindowPrompt = this.$t('assetPageRechargeAndWithdrawals.popWindowTitleBindGaRecharge')
+  this.popWindowStyle = '1'
+  this.popWindowOpen1 = true
 }
+
 // 绑定手机验证
 root.methods.click_bind_mobile = function () {
   this.$router.push({name: 'bindMobile'})
@@ -116,10 +152,23 @@ root.methods.click_release_mobile = function () {
 // 绑定邮箱验证
 root.methods.click_bind_email = function () {
   this.$router.push({name: 'bindEmail'})
+  // this.popWindowTitle = this.$t('assetPageRechargeAndWithdrawals.popWindowTitleRecharge')
+  // this.popWindowPrompt = this.$t('assetPageRechargeAndWithdrawals.popWindowTitleBindGaRecharge')
+  // this.popWindowStyle = '1'
+  // this.popWindowOpen = true
 }
 // 解绑邮箱验证
 root.methods.click_release_email = function () {
-  this.$router.push({name: 'releaseEmail'})
+  // this.$router.push({name: 'releaseEmail'})
+  this.popWindowTitle = this.$t('assetPageRechargeAndWithdrawals.popWindowTitleRecharge')
+  this.popWindowPrompt = this.$t('assetPageRechargeAndWithdrawals.popWindowTitleBindGaRecharge')
+  this.popWindowStyle = '1'
+  this.popWindowOpen = true
+}
+root.methods.click_rel_em = function () {
+  this.popWindowOpen = false
+  this.popWindowOpen1 = false
+  this.popWindowOpen2 = false
 }
 
 
