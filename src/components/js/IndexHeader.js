@@ -36,7 +36,14 @@ root.data = function () {
     languageFlag: 'language-img-china',
     notice_tips: this.$store.state.lang == 'CH' ? 'EUNEX上线IOST，送币活动火热开启！活动期间注册、充值IOST送IOST,数量有限，先到先得！交易前50名更有IOST奖励，最高4万IOST！' : 'EUNEX lists IOST, get IOST bonus now! Register during the event, make a deposit, will get IOST bonus! Whoever comes first will get the bonus, until all are given out. Top 50 members with high IOST transaction volume will get up-to 40,000 IOST!',
     noticeInterval: '',
-    jtval:'down',
+    // 语言按钮切换
+    jtval:false,
+    // 钱包按钮切换
+    moneyVal:false,
+    // 订单按钮切换
+    orderVal:false,
+    // 活动
+    activeVal:false,
     // 字体切换
     jttext:'',
     logo: logo,
@@ -501,16 +508,51 @@ root.methods.clickToChangeThemeColor = function (n) {
 }
 
 
+// 活动鼠标移入
+root.methods.enterActive = function () {
+  $(".langfont-active").attr("style","color: #fff;");
+  this.activeVal = false;
+}
+
+root.methods.leaveActive = function () {
+  $(".langfont-active").attr("style","color: (255, 255, 255, 0.8);");
+  this.activeVal = true;
+}
+
+// 钱包鼠标移入
+root.methods.enterMoney = function () {
+  $(".langfont-money").attr("style","color: #fff;");
+  this.moneyVal = false;
+}
+
+root.methods.leaveMoney = function () {
+  $(".langfont-money").attr("style","color: (255, 255, 255, 0.8);");
+  this.moneyVal = true;
+}
+
+// 钱包鼠标移入
+root.methods.enterOrder = function () {
+  $(".langfont-order").attr("style","color: #fff;");
+  this.orderVal = false;
+}
+
+root.methods.leaveOrder = function () {
+  $(".langfont-order").attr("style","color: (255, 255, 255, 0.8);");
+  this.orderVal = true;
+}
+
+
 
 //鼠标移入改变语言文字样式和上下箭头
 root.methods.enter = function () {
-  $(".langfont").attr("style","color: #FFFFFF;");
-  this.jtval = 'up';
+  $(".langfont").attr("style","color: #fff;");
+  this.jtval = false;
 }
 
 //鼠标移入改变语言文字样式和上下箭头
 root.methods.leave = function () {
-  $(".langfont").attr("style","color: #FFFFFF;");
+  $(".langfont").attr("style","color: (255, 255, 255, 0.8);");
+  this.jtval = true;
 }
 
 root.methods.go = function () {
@@ -668,7 +710,7 @@ root.methods.GET_NOTICE = function () {
 // 渲染通告列表
 root.methods.RE_GET_NOTICE = function (res) {
   this.noticelength = res.length;
-  // console.log(res)
+  console.log(res)
   this.noticeList = res;
   // console.log(this.noticeList)
 }

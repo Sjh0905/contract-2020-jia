@@ -3,8 +3,18 @@
   <ul class="asset-container" :class="{'asset-alpha':black}" v-else>
     <li class="asset-li-2">
       <router-link :to="{name:'authentication'}">
-        <p class="asset-li-title pointer">{{$t('userName')}}</p>
-        <p class="pointer">{{userName}}</p>
+<!--        <p class="asset-li-title">{{$t('userName')}}</p>-->
+
+        <div class="asset-li-title-left">
+         <div class="asset-li-content">
+           <p class="asset-li-title">{{userName}}</p>
+           <div class="not-certified" v-if="true">未认证</div>
+<!--           <div class="not-certified" v-if="true">待审核</div>  TODO:新加的，切勿删除-->
+           <div class="certified" v-else>已认证</div>
+         </div>
+        </div>
+
+        <div class="certified-img"><img src="../../assets/goto.png" alt=""></div>
       </router-link>
     </li>
 <!--    <li class="asset-li">-->
@@ -41,7 +51,7 @@
     <!--<p>{{$t('frozen')}}</p>-->
     <!--<p>{{accountReady || priceReady ? frozen.toFixed(8) : '&#45;&#45;&#45;&#45;'}}</p>-->
     <!--</li>-->
-    <li class="asset-li-2" @click="loginOff">
+    <li class="asset-li" @click="loginOff">
       <div class="login-off flex">
         <p class="pointer">{{$t('loginOff')}}</p>
       </div>
