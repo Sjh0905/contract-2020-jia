@@ -304,7 +304,7 @@
 
      <div class=" flex unit-input-container-pc">
         <!-- 下拉搜索框-->
-        <el-select class="inputInner" :placeholder="label" style="font-size:14px;" v-model="searchResult">
+        <el-select class="inputInner" :placeholder="label" style="font-size:14px;" v-model="searchResult" popper-class="self-el-select">
           <input type="text" class="inputsize" placeholder="请输入国家区号" v-model="searchCities">
           <el-option
             @click="clickItem(item.areaCode)"
@@ -313,8 +313,8 @@
             :key="item.countryId"
             :label="'+ ' + item.areaCode.slice(2)"
             :value="item.areaCode">
-            <span style="float: left; color:#172A4D">{{ lang==='CN'? item.nameCn:item.nameEn }}</span>
-            <span style="float: right; color: #8994A5; font-size: 16px">{{ '+ ' + item.areaCode.slice(2) }}</span>
+            <span style="float: left;font-size: 14px">{{ lang==='CH'? item.nameCn:item.nameEn }}</span>
+            <span style="float: right;font-size: 14px">{{ '+ ' + item.areaCode.slice(2) }}</span>
           </el-option>
         </el-select>
         <!--  下拉搜索框   结束-->
@@ -415,7 +415,7 @@
         <button v-if="!sending" class="set-button" @click="registerCommit">
           {{$t("register.register")}}
         </button>
-        <button v-if="sending" class="set-button registering-button btn_grey" disabled>{{$t('register.registering')}}
+        <button v-if="sending" class="set-button registering-button" disabled>{{$t('register.registering')}}
         </button>
       </div>
       <!--<div class="input-interval"></div>-->
