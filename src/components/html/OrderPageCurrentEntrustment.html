@@ -30,11 +30,11 @@
       <!--单号-->
       <!--<div class="th td-order">{{$t('orderPageCurrentEntrustment.order')}}</div>-->
       <!--委托时间-->
-      <div class="th td-time">{{$t('time1')}}</div>
+      <div class="th td-time">{{$t('time1')}}23</div>
       <!--交易对-->
-      <div class="th td-category">{{$t('type')}}</div>
-      <!--类别-->
       <div class="th td-category">{{$t('TransactionPairs')}}</div>
+      <!--类别-->
+      <div class="th td-category">{{$t('type')}}34</div>
       <!--方式-->
       <div class="th td-market">{{$t('price1')}}</div>
       <!--方向-->
@@ -86,12 +86,12 @@
             <!--委托时间-->
             <div class="td td-time">{{$globalFunc.formatDateUitl(order.createdAt,'YYYY-MM-DD hh:mm:ss')}}</div>
             <!--类别-->
+            <div class="td td-market">{{order.symbol.split('_')[0]}}/{{order.symbol.split('_')[1]}}</div>
+            <!--市场-->
             <div class="td td-category" :class="order.type==='BUY_LIMIT'?'text_blue':'text_red'">
               {{order.type === 'BUY_LIMIT' && $t('orderPageCurrentEntrustment.buy') ||
               $t('orderPageCurrentEntrustment.sale')}}
             </div>
-            <!--市场-->
-            <div class="td td-market">{{order.symbol.split('_')[0]}}/{{order.symbol.split('_')[1]}}</div>
             <!--单价-->
             <div class="td td-price">{{toFixed(order.price, !!quoteScale_list[order.symbol] ? quoteScale_list[order.symbol].quoteScale : 8)}}</div>
             <!--数量-->

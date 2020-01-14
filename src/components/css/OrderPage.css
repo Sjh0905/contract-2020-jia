@@ -119,11 +119,13 @@
   width: 100%;
   height: auto;
   margin-top: 7px;
+  margin-bottom: 40px;
 }
 
 .detail-title {
   height: 35px;
-  width: 100%;
+  width: 1200px;
+  margin: 0 auto;
   font-size: 1.4rem;
   line-height: 32px;
   text-align: center;

@@ -9,10 +9,13 @@ tr, th, td {
 }
 
 .detail {
-  width: 100%;
+  width: 1200px;
+  margin: 0 auto;
   overflow: hidden;
   border-top-left-radius: 0 !important;
   min-height: 200px;
+  border:1px solid rgba(239,240,255,1);
+  margin-top: 30px;
 }
 
 .weit{
