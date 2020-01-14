@@ -1,6 +1,6 @@
 <div class="register-container" v-if="!loading">
   <!--topbar pc begin-->
-  <RegisterTopBar v-if="!isMobile" type=1 :title='$t("register.WelcomeToRegister")'/>
+  <RegisterTopBar v-if="!isMobile" type=1 :title='$t("register.WelcomeToRegister")' :promptText='$t("register.haveID")' :toDoText='$t("register.login")'/>
   <!--topbar pc end-->
 
   <div class="all-container border_radius">
@@ -347,8 +347,8 @@
         <template v-if="!isMobile">
           <span class="flex-center identifying-code-button-on " v-if="!getVerificationCode"
                 @click="postVerificationCode">{{$t("register.achieve")}}</span>
-          <span class="flex-center identifying-code-button-close btn_grey"
-                v-if="getVerificationCode">{{getVerificationCodeCountdown}}</span>
+          <span class="flex-center identifying-code-button-close"
+                v-if="getVerificationCode">{{getVerificationCodeCountdown}}s</span>
         </template>
 
       </div>
@@ -466,8 +466,8 @@
         <template v-if="!isMobile">
           <span class="flex-center identifying-code-button-on " v-if="!getVerificationCode"
                 @click="postVerificationCode">{{$t("register.achieve")}}</span>
-          <span class="flex-center identifying-code-button-close btn_grey"
-                v-if="getVerificationCode">{{getVerificationCodeCountdown}}</span>
+          <span class="flex-center identifying-code-button-close"
+                v-if="getVerificationCode">{{getVerificationCodeCountdown}}s</span>
         </template>
         <!--<template v-if="!captchaReady">-->
         <!--<span class="flex-center button-grey">-->
@@ -552,7 +552,7 @@
         <button v-if="!sending" class="set-button" @click="registerCommit">
           {{$t("register.register")}}
         </button>
-        <button v-if="sending" class="set-button registering-button btn_grey" disabled>{{$t('register.registering')}}
+        <button v-if="sending" class="set-button registering-button" disabled>{{$t('register.registering')}}
         </button>
       </div>
       <!--<div class="input-interval"></div>-->

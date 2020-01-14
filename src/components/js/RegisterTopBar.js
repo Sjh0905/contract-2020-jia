@@ -25,6 +25,10 @@ root.props.toFunc = {
   type: Function,
   default: ()=>_
 }
+root.props.toRouter = {
+  type: String,
+  default: '/index/sign/login'
+}
 /*------------------------------ data -------------------------------*/
 root.data = function () {
   return {

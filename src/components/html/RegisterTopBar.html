@@ -3,7 +3,7 @@
     <div class="top-bar-title">{{title}}</div>
     <div v-if="type == 1" class="top-bar-bot">
       <div class="top-bar-prompt">{{promptText}}</div>
-      <div class="top-bar-to-do">{{toDoText}}</div>
+      <router-link :to="toRouter" class="top-bar-to-do">{{toDoText}}</router-link>
     </div>
     <div v-if="type == 2" class="top-bar-bot">
       <img class="top-bar-warning-img" src="../../assets/RegisterTopBar/warning_icon.png"/>
