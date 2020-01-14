@@ -3,7 +3,8 @@
   position: relative;
   /*box-shadow: ;*/
   /*min-height: 50px;*/
-  box-shadow: 0 0 1px 1px rgba(118, 125, 127, 0.08) inset;
+  /*padding: 0 10px 0 10px;*/
+  /*box-shadow: 0 0 1px 1px rgba(118, 125, 127, 0.08) inset;*/
   background-color: #fcfcfc;
 
 
@@ -14,14 +15,21 @@
 }
 
 .hidden-detail-container {
-  width: 100%;
+  /*width: 100%;*/
   margin: 0 auto;
-  /*border: 1px solid #e6e6e6;*/
+  margin: 0 10px;
+  background:rgba(251,251,251,1);
+  border:1px solid rgba(239,240,255,1);
+  font-size:12px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color:rgba(107,125,162,1);
 }
 
 .hidden-detail-li {
-  text-align: center;
-  padding: 5px 0;
+  text-align: left;
+  /*padding: 5px 0;*/
+  margin: 0 5px;
 
 }
 
@@ -43,6 +51,15 @@
 .hidden-detail-title {
   flex: 16.6;
   font-size: 1.2rem;
+  padding-left: 11px;
+
+}
+.hidden-detail-title-1 {
+  flex: 16.6;
+  font-size: 1.2rem;
+  padding-left: 11px;
+  text-align: right;
+  padding-right: 11px;
 
 }
 
@@ -50,8 +67,18 @@
 .hidden-detail-article {
   flex: 16.6;
   font-size: 1.2rem;
-  /*padding:11px 0;*/
+  padding-left: 11px;
   position: relative;
+  padding-right: 11px;
+}
+/*费率详情*/
+.hidden-detail-article-1 {
+  flex: 16.6;
+  font-size: 1.2rem;
+  padding-left: 11px;
+  position: relative;
+  text-align: right;
+  padding-right: 11px;
 }
 
 /*费率详情box*/

@@ -363,6 +363,9 @@
   border-radius:1px;
   border:1px solid rgba(224,225,244,1);
   display: flex;
+  margin-top: 8px;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .pop-input-1 {
@@ -371,34 +374,35 @@
   border-radius:1px;
   border:1px solid rgba(224,225,244,1);
   margin-top: 8px;
+  padding-left: 10px;
+  box-sizing: border-box;
 }
 .pop-input-3 {
   border:none;
-  width: 80%;
+  width: 70%;
   height:38px;
 }
-/*.pop-input-2 {*/
-/*  border: 0 solid transparent;*/
-/*  width: 80%;*/
-/*  height: 100%;*/
-/*  box-sizing: border-box;*/
-/*  border-radius: 2px;*/
-/*  background: transparent;*/
-/*  color: #fff;*/
-/*  height:40px;*/
-/*  border-radius:1px;*/
-/*  border:1px solid rgba(224,225,244,1);*/
-/*  margin-top: 8px;*/
-/*}*/
 .fl-ce-y {
-  /*width: 20%;*/
-  /*height: 100%;*/
-  /*box-sizing: border-box;*/
-  /*background-color: transparent !important;*/
-  /*border-radius: 0 4px 4px 0;*/
+  width: 30%;
   display: inline-block;
-  color: #C43E4E;
+  color: #3576F5;
   cursor: pointer;
+  /*padding-right: 10px;*/
+  text-align: right;
+}
+.fl-ce-y:hover {
+  width: 30%;
+  display: inline-block;
+  color: #3576F5;
+  opacity: 0.5;
+  cursor: pointer;
+  text-align: right;
+}
+.fl-ce-y-s {
+  width: 30%;
+  display: inline-block;
+  color: #A2B5D9;
+  text-align: right;
 }
 .pop-ei-ar {
   padding-left: 25px;
@@ -409,7 +413,7 @@
   padding-right: 25px;
 
 }
-.pop-qu {
+.pop-qu{
   width: 20%;
   height: 40px;
   /*background:linear-gradient(270deg,rgba(53,118,245,1) 0%,rgba(69,154,245,1) 100%);*/
@@ -419,12 +423,35 @@
   font-weight:400;
   color: #3576F5;
 }
+.pop-qu:hover{
+  width: 20%;
+  height: 40px;
+  /*background:linear-gradient(270deg,rgba(53,118,245,1) 0%,rgba(69,154,245,1) 100%);*/
+  border-radius:1px;
+  font-size:14px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color: #3576F5;
+  opacity: 0.5;
+}
 
 .pop-qu-2 {
   width: 20%;
   height: 40px;
   margin-left: 40px;
   background:linear-gradient(270deg,rgba(53,118,245,1) 0%,rgba(69,154,245,1) 100%);
+  border-radius:1px;
+  font-size:14px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color:rgba(255,255,255,1);
+}
+
+.pop-qu-2:hover {
+  width: 20%;
+  height: 40px;
+  margin-left: 40px;
+  background:#5C93FF;
   border-radius:1px;
   font-size:14px;
   font-family:PingFangSC-Regular,PingFang SC;

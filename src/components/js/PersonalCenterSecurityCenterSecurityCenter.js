@@ -18,6 +18,15 @@ root.data = function () {
     popText: '系统繁忙',
 
 
+    getVerificationCode: false,
+    getVerificationCodeInterval: null,
+    getVerificationCodeCountdown: 60,
+    clickVerificationCodeButton: false,
+
+    getEmailVerificationCode: false,
+    getEmailVerificationCodeInterval: null,
+    getEmailVerificationCodeCountdown: 60,
+    clickEmailVerificationCodeButton: false,
 
     popWindowTitle: '', //弹出提示标题
     popWindowPrompt: '',//弹出样式提示
@@ -195,6 +204,93 @@ root.methods.click_bind_API = function () {
 root.methods.click_manage_API = function () {
   this.$router.push({name: 'manageApi'})
 }
+
+// 开始获取手机验证
+root.methods.beginCountDownVerification = function () {
+  this.getVerificationCode = true
+  this.clickVerificationCodeButton = true
+  this.verificationCodeWA = ''
+  this.getVerificationCodeInterval && clearInterval(this.getVerificationCodeInterval)
+  this.getVerificationCodeInterval = setInterval(() => {
+    this.getVerificationCodeCountdown--
+    if (this.getVerificationCodeCountdown <= 0) {
+      this.getVerificationCode = false
+      this.getVerificationCodeCountdown = 60
+      clearInterval(this.getVerificationCodeInterval)
+    }
+  }, 1000)
+}
+
+// 结束获取手机验证码
+root.methods.endCountDownVerification = function () {
+  this.getVerificationCodeInterval && clearInterval(this.getVerificationCodeInterval)
+  this.getVerificationCode = false
+  this.getVerificationCodeCountdown = 60
+}
+
+// 开始获取邮箱验证码
+root.methods.beginEmailCountDownVerification = function () {
+  this.getEmailVerificationCode = true
+  this.clickEmailVerificationCodeButton = true
+  this.emailVerificationCodeWA = ''
+  this.getEmailVerificationCodeInterval && clearInterval(this.getEmailVerificationCodeInterval)
+  this.getEmailVerificationCodeInterval = setInterval(() => {
+    this.getEmailVerificationCodeCountdown--
+    if (this.getEmailVerificationCodeCountdown <= 0) {
+      this.getEmailVerificationCode = false
+      this.getEmailVerificationCodeCountdown = 60
+      clearInterval(this.getEmailVerificationCodeInterval)
+    }
+  }, 1000)
+}
+
+// 结束获取邮箱验证码
+root.methods.endEmailCountDownVerification = function () {
+  this.getEmailVerificationCodeInterval && clearInterval(this.getEmailVerificationCodeInterval)
+  this.getEmailVerificationCode = false
+  this.getEmailVerificationCodeCountdown = 60
+}
+
+
+// 点击发送验证码
+root.methods.click_getVerificationCode = function () {
+  this.beginCountDownVerification()
+  // 发送
+  let params = {
+    "type": 'mobile',
+    "purpose": "resetLoginPassword",
+  }
+  this.$http.send('POST_VERIFICATION_CODE', {
+    bind: this,
+    params: params,
+    callBack: this.re_getVerificationCode
+  })
+}
+
+
+root.methods.re_getVerificationCode = function (data) {
+  if (typeof data === 'string') data = JSON.parse(data)
+  if (data.errorCode) {
+    switch (data.errorCode) {
+      case 1:
+        this.pswWA = this.$t('pswWA_1')
+        break;
+      case 2:
+        this.pswWA = this.$t('pswWA_2')
+        break;
+      case 3:
+        this.pswWA = this.$t('pswWA_3')
+        break;
+      case 4:
+        this.pswWA = this.$t('pswWA_4')
+        break;
+      default:
+        this.pswWA = this.$t('canNotUse')
+    }
+    this.endCountDownVerification()
+  }
+}
+
 
 
 export default root

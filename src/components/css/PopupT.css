@@ -48,7 +48,7 @@
   line-height: 60px;
   text-align: left;
   position: relative;
-  background-color: #f2f2f2;
+  background-color: #EFF0FF;
   font-size:18px;
   font-family:PingFangSC-Regular,PingFang SC;
   font-weight:400;
@@ -60,6 +60,7 @@
 .close {
   right: 4%;
   cursor: pointer;
+  width: 15px;
 }
 
 /*内容*/

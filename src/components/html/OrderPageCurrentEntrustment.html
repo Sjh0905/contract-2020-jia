@@ -30,11 +30,11 @@
       <!--单号-->
       <!--<div class="th td-order">{{$t('orderPageCurrentEntrustment.order')}}</div>-->
       <!--委托时间-->
-      <div class="th td-time">{{$t('time1')}}23</div>
+      <div class="th td-time">{{$t('time1')}}</div>
       <!--交易对-->
       <div class="th td-category">{{$t('TransactionPairs')}}</div>
       <!--类别-->
-      <div class="th td-category">{{$t('type')}}34</div>
+      <div class="th td-category-1">{{$t('type')}}</div>
       <!--方式-->
       <div class="th td-market">{{$t('price1')}}</div>
       <!--方向-->
@@ -86,23 +86,23 @@
             <!--委托时间-->
             <div class="td td-time">{{$globalFunc.formatDateUitl(order.createdAt,'YYYY-MM-DD hh:mm:ss')}}</div>
             <!--类别-->
-            <div class="td td-market">{{order.symbol.split('_')[0]}}/{{order.symbol.split('_')[1]}}</div>
+            <div class="td td-category">{{order.symbol.split('_')[0]}}/{{order.symbol.split('_')[1]}}</div>
             <!--市场-->
-            <div class="td td-category" :class="order.type==='BUY_LIMIT'?'text_blue':'text_red'">
+            <div class="td td-category-1" :class="order.type==='BUY_LIMIT'?'text_blue':'text_red'">
               {{order.type === 'BUY_LIMIT' && $t('orderPageCurrentEntrustment.buy') ||
               $t('orderPageCurrentEntrustment.sale')}}
             </div>
             <!--单价-->
-            <div class="td td-price">{{toFixed(order.price, !!quoteScale_list[order.symbol] ? quoteScale_list[order.symbol].quoteScale : 8)}}</div>
+            <div class="td td-market">{{toFixed(order.price, !!quoteScale_list[order.symbol] ? quoteScale_list[order.symbol].quoteScale : 8)}}</div>
             <!--数量-->
-            <div class="td td-number">{{toFixed(order.amount, !!quoteScale_list[order.symbol] ? quoteScale_list[order.symbol].baseScale : 8)}}</div>
+            <div class="td td-market">{{toFixed(order.amount, !!quoteScale_list[order.symbol] ? quoteScale_list[order.symbol].baseScale : 8)}}</div>
             <!--金额-->
-            <div class="td td-amount">{{toFixed(order.price * order.amount,8)}}</div>
+            <div class="td td-price">{{toFixed(order.price * order.amount,8)}}</div>
             <!--成交率-->
-            <div class="td td-turnover">{{((order.filledAmount / order.amount) * 100).toFixed(2) + '%'}}</div>
+            <div class="td td-number">{{((order.filledAmount / order.amount) * 100).toFixed(2) + '%'}}</div>
             <!--撤单-->
             <div class="td td-operation">
-              <span class="click-operation chedanbutton text_blue" @click="cancelOrder(order)" v-if="!order.click">{{$t('orderPageCurrentEntrustment.cancel')}}</span>
+              <span class="click-operation chedanbutton text_blue-0" @click="cancelOrder(order)" v-if="!order.click">{{$t('orderPageCurrentEntrustment.cancel')}}</span>
               <span class="click-operating chedanbutton" v-else>{{$t('orderPageCurrentEntrustment.canceling')}}</span>
             </div>
           </li>
@@ -122,7 +122,7 @@
 <!--          <div class="td td-amount">&#45;&#45;</div>-->
 <!--          <div class="td td-turnover">&#45;&#45;</div>-->
 <!--          <div class="td td-operation">&#45;&#45;</div>-->
-          <div class="nhtu"><img src="../../assets/nohavedata.png"></div>
+          <div class="nhtu"><img src="../../assets/无订单-浅色.png"></div>
           <span>{{$t('orderPageCurrentEntrustment.close_9')}}</span>
         </li>
       </template>
