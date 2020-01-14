@@ -3,7 +3,7 @@
   display: block;
   height: auto;
   width: 100%;
-  padding: 100px 0;
+  /*padding: 100px 0;*/
 }
 
 /*placeholder样式*/
@@ -29,7 +29,7 @@
 .all-container {
   width: 50%;
   /*height: 550px;*/
-  margin: 0 auto;
+  margin:20px auto 0;
   padding: 0 105px;
   padding-bottom: 30px;
   flex-direction: column;
@@ -145,10 +145,11 @@
  }
 
 .unit-input-container-pc {
-  width: 87.5%;
-  height: 40px;
-  border: 1px solid #C5CFD5;
-  border-radius: 2px;
+  width: 380px;
+  height: 56px;
+  border-bottom: 1px solid #E0E1F4;
+  /* border-radius: 2px;*/
+  padding-top: 22px;
 }
 
 /*Input标题*/
@@ -160,12 +161,38 @@
 
 /*Input标签*/
 .unit-input {
+  width: 100%;
   border: 0 solid transparent;
-  width: 88%;
-  margin: auto;
-  height: 37px;
+  /*margin: auto;*/
+  -webkit-box-sizing: border-box;
   box-sizing: border-box;
   border-radius: 2px;
+  /* margin: auto; */
+  font-family: PingFangSC-Regular;
+  font-size: 14px;
+  color: #0D0E23;
+  line-height: 20px;
+}
+
+.unit-input-container-pc input::-webkit-input-placeholder{
+  /* WebKit browsers */
+  font-size:14px;
+  color:#A2B5D9;
+}
+.unit-input-container-pc input:-moz-placeholder {
+  /* Mozilla Firefox 4 to 18 */
+  font-size:14px;
+  color:#A2B5D9;
+}
+.unit-input-container-pc input::-moz-placeholder {
+  /* Mozilla Firefox 19+ */
+  font-size:14px;
+  color:#A2B5D9;
+}
+.unit-input-container-pc input:-ms-input-placeholder {
+  /* Internet Explorer 10+ */
+  font-size:14px;
+  color:#A2B5D9;
 }
 
 input:-webkit-autofill {
@@ -209,15 +236,16 @@ input:-webkit-autofill {
 /*------------------ 间隔 begin ------------------*/
 
 .unit-input-interval {
-  height: 20px;
-  line-height: 20px;
+  height: 25px;
+  line-height: 25px;
+  width: 380px;
   /*width: 80%;*/
   text-align: left;
   /*padding: 5px 0;*/
   /*padding-left: 12%;*/
   white-space: nowrap;
   /*color: red;*/
-  text-align: center;
+  /*text-align: center;*/
 }
 
 /*------------------ 间隔 end ------------------*/
@@ -258,6 +286,7 @@ input:-webkit-autofill {
 /*确定按钮*/
 .container-button {
   border: 0;
+  padding-top: 5px;
 }
 
 .agreement {
@@ -273,23 +302,34 @@ input:-webkit-autofill {
 
 /*登录按钮*/
 .login-button {
+  /*border: 0 solid transparent;*/
+  cursor: pointer;
+  width: 380px;
+  height: 44px;
   letter-spacing: 2px;
-  border: 0 solid transparent;
-  /*width: 100%;*/
-  width: 87.5%;
-  height: 40px;
-  background: #C43E4E;
-  border-radius: 2px;
+  border: 0;
   font-family: PingFangSC-Regular;
-  font-size: 16px;
+  font-size: 14px;
   color: #FFFFFF;
   text-align: center;
   line-height: 16px;
+  background: -webkit-gradient(linear,right top, left top,from(rgba(53,118,245,1)),to(rgba(69,154,245,1)));
+  background: linear-gradient(270deg,rgba(53,118,245,1) 0%,rgba(69,154,245,1) 100%);
+  -webkit-box-shadow: 0px 10px 12px -6px rgba(0,2,40,0.2);
+  box-shadow: 0px 10px 12px -6px rgba(0,2,40,0.2);
+  border-radius: 1px;
+}
+
+.login-button:hover {
+  background: #5C93FF;
+  box-shadow:none;
 }
 
 /*登录中*/
-.login-ing-button {
-  background-color: #14b2bd;
+.login-ing-button, .login-ing-button:hover{
+  cursor: unset;
+  background: #5C93FF;
+  box-shadow:none;
 }
 
 .already-login {
@@ -302,7 +342,7 @@ input:-webkit-autofill {
 
 /*没有账号*/
 .have-no-account {
-  width: 87.5%;
+  width: 380px;
   border: 0;
   align-items: center;
   -webkit-align-items: center;
@@ -314,19 +354,18 @@ input:-webkit-autofill {
 .have-no-account a {
   font-family: PingFangSC-Regular;
   font-size: 14px;
-  color: #C43E4E;
+  color: #3576F5;
   text-align: right;
 }
 
 .have-no-account span {
   font-family: PingFangSC-Regular;
   font-size: 14px;
-  color: #172A4D;
   line-height: 14px;
 }
 
 .wrong-answer {
-  border: 1px solid red;
+  border-bottom: 1px solid #FD5555;
 }
 
 .prompt-detail {
@@ -376,9 +415,9 @@ input:-webkit-autofill {
 }
 
 .login-type-select-container {
-  background: #C43E4E;
+  background: #3576F5;
   color: white;
-  border-color: #C43E4E;
+  border-color: #3576F5;
 }
 
 /*----------------------------------------------------------------------------------------------------*/
@@ -563,7 +602,7 @@ input:-webkit-autofill {
   }
 
   .button-hover:hover {
-    background-color: #C43E4E !important;
+    background-color: #3576F5 !important;
     color: #fff !important;
   }
 
@@ -585,7 +624,7 @@ input:-webkit-autofill {
     width: 100%;
     height: 100%;
     font-size: 0.28rem;
-    background-color: #C43E4E;
+    background-color: #3576F5;
     color: #ffffff;
     border-radius: 4px;
     letter-spacing: 10px;
@@ -599,7 +638,7 @@ input:-webkit-autofill {
   /*登录按钮*/
   .login-button {
     font-size: 0.28rem;
-    background-color: #C43E4E;
+    background-color: #3576F5;
     color: #ffffff;
     border-radius: 2px;
     letter-spacing: 10px;
@@ -642,7 +681,7 @@ input:-webkit-autofill {
   .have-no-account a {
     font-family: PingFangSC-Regular;
     font-size: 14px;
-    color: #C43E4E;
+    color: #3576F5;
     text-align: right;
   }
 
@@ -672,7 +711,7 @@ input:-webkit-autofill {
     text-align: left;
     font-family: PingFangSC-Regular;
     font-size: 14px;
-    color: #C43E4E;
+    color: #3576F5;
   }
 
   .router-link-text {
@@ -706,7 +745,7 @@ input:-webkit-autofill {
   .pop-footer .button-base {
     width: 132px;
     height: 40px;
-    /*background-color: #C43E4E;*/
+    /*background-color: #3576F5;*/
     color: #000;
     border-radius: 0;
     border: 0 solid transparent;
@@ -724,7 +763,7 @@ input:-webkit-autofill {
 
   .pop-footer .btn_blue, .pop-footer .btn_blue:hover, .pop-footer .btn_blue:focus, .pop-footer .btn_blue:link {
     background-color: transparent !important;
-    color: #C43E4E !important;
+    color: #3576F5 !important;
     outline: none;
   }
 
@@ -752,7 +791,7 @@ input:-webkit-autofill {
   }
 
   .mobile-choose-login-type-item-activity {
-    color: #C43E4E;
+    color: #3576F5;
   }
 
   .mobile-choose-login-type-item-activity::after {
@@ -786,7 +825,7 @@ input:-webkit-autofill {
     display: inline-block;
     font-family: PingFangSC-Regular;
     font-size: 14px;
-    color: #C43E4E;
+    color: #3576F5;
     margin-left: 50px;
   }
 
