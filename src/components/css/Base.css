@@ -217,12 +217,12 @@ body {
 
 .txt-red {
   /*color: #C43E4E;*/
-  color: rgb(229,65,70)
+  color: rgb(253, 85, 85 )
 }
 
 .txt-reda {
   /*color: #C43E4E;*/
-  color: rgba(229,65,70, .5)
+  color: rgba(253, 85, 85 , .5)
 }
 
 .txt-small {

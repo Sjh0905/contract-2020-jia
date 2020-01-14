@@ -11,6 +11,7 @@ root.components =  {
   'PopupPrompt': resolve => require(['../vue/PopupPrompt'], resolve),
   'Loading': resolve => require(['../vue/Loading'], resolve),
   'MobileCheckbox': resolve => require(['../mobileVue/MobileCompentsVue/MobileCheckbox'], resolve),
+  'RegisterTopBar': resolve => require(['../vue/RegisterTopBar'], resolve),
   // 'dropdown': resolve => require(['../dropdown/dropdown'], resolve),
 }
 
