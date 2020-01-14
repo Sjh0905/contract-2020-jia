@@ -1,10 +1,19 @@
+
+
 <div class="to-auth-container border_radius">
   <Loading v-if="loading"/>
   <template v-if="!loading">
-    <div class="title flex">
-      <span></span>
-      <span>{{$t('title')}}</span>
+    <!--    个人信息-->
+    <div class="personal-info">
+      <div class="personal-container">
+        <div class="currency_notice_bread">
+          <router-link to="/index/personal/securityCenter" class="management">账户管理</router-link>
+          <span> > </span>
+          {{$t('title')}}
+        </div>
+      </div>
     </div>
+
     <!--请选择证件类型 bin-->
     <!--<div class="chose-commit-type-container">-->
       <!--<div class="chose-commit-type-title">-->
@@ -31,37 +40,54 @@
     <!--请选择证件类型 end-->
 
 
-    <template v-if="commitType==0">
-      <div class="go-to-app-container flex">
-        <div class="go-to-app-title">
-          <!--亲爱的为蜜们，为了大家的资金安全，请使用手机进行安全验证～-->
-          {{$t('go_to_app_title')}}
-        </div>
-        <div class="go-to-app-qr-code-container flex">
-          <Qrcode class="download-container-img"
-                  :size="size"
-                  :value="value"
-                  :logo="logo"
-                  :bgColor="bgColor"
-                  :fgColor="fgColor"
-          >
-          </Qrcode>
-          <div class="go-to-app-qr-code-prompt">
-            <!--请准备好本人二代身份证，并用微信扫码，每日仅限三次-->
-            {{$t('go_to_app_prompt')}}
-          </div>
-        </div>
-        <ul class="go-to-app-prompt-container">
-          <li class="go-to-app-prompt">
-            {{$t('go_to_app_prompt_li_1')}}
-          </li>
-        </ul>
-      </div>
-    </template>
+<!--    <template v-if="commitType==0">-->
+
+<!--      <div class="go-to-app-container flex">-->
+<!--        <div class="title flex">-->
+<!--          <span></span>-->
+<!--          <span>{{$t('title')}}</span>-->
+<!--        </div>-->
+<!--        <div class="go-to-app-title">-->
+<!--          &lt;!&ndash;亲爱的为蜜们，为了大家的资金安全，请使用手机进行安全验证～&ndash;&gt;-->
+<!--          {{$t('go_to_app_title')}}-->
+<!--        </div>-->
+<!--        <div class="go-to-app-qr-code-container flex">-->
+<!--          <Qrcode class="download-container-img"-->
+<!--                  :size="size"-->
+<!--                  :value="value"-->
+<!--                  :logo="logo"-->
+<!--                  :bgColor="bgColor"-->
+<!--                  :fgColor="fgColor"-->
+<!--          >-->
+<!--          </Qrcode>-->
+<!--          <div class="go-to-app-qr-code-prompt">-->
+<!--            &lt;!&ndash;请准备好本人二代身份证，并用微信扫码，每日仅限三次&ndash;&gt;-->
+<!--            {{$t('go_to_app_prompt')}}-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <ul class="go-to-app-prompt-container">-->
+<!--          <li class="go-to-app-prompt">-->
+<!--            {{$t('go_to_app_prompt_li_1')}}-->
+<!--          </li>-->
+<!--        </ul>-->
+<!--      </div>-->
+<!--    </template>-->
 
     <template v-if="commitType==1">
+
       <div class="article">
+<!--        身份认证标题-->
+<!--        <div class="title flex">-->
+<!--          <span></span>-->
+<!--          <span>{{$t('title')}}</span>-->
+<!--        </div>-->
+
         <div class="input-container">
+<!--          第一步-->
+          <div class="one">
+            <div class="one-background">1</div>
+            <div class="one-text"> 填写基本信息</div>
+          </div>
           <!--选择地区-->
           <div class="input-unify">
             <span >{{$t('country')}}</span>
@@ -284,7 +310,11 @@
             <span>{{$t('prompt_reason')}}{{this.identityAuthWAReason_1}}</span>
           </div>
 <!--        </div>-->
-
+        <!--          第二步-->
+        <div class="two">
+          <div class="two-background">2</div>
+          <div class="two-text"> 填写基本信息</div>
+        </div>
 
         <!--选择上传身份证-->
         <div class="image-container flex-center">
@@ -456,14 +486,16 @@
 <!--        </template>-->
 
 <!--        <template v-if="country =='1' || (country =='0' && register)">-->
+
+
+
         <template v-if="country =='1' || country =='0'">
 
         <div class="prompt-detaill" v-if="country == '0' ">
           <div class="prompt-detail2" >{{$t('prompt_detail_china_1')}}</div>
           <div class="prompt-detail2" >{{$t('prompt_detail_china_2')}}</div>
         </div>
-
-          <div class="prompt-detaill" v-if="country == '1' ">
+        <div class="prompt-detaill" v-if="country == '1' ">
             <div class="prompt-detail2" >{{$t('prompt_detail_china_1s')}}</div>
             <div class="prompt-detail2" >{{$t('prompt_detail_china_2s')}}</div>
           </div>
@@ -475,6 +507,7 @@
           <button class="commit-button" v-else disabled>{{$t('committing')}}</button>
         </div>
           </template>
+
       </div>
 
     </template>

@@ -1,261 +1,349 @@
-<div class="container border_radius">
-  <Loading v-if="loading"/>
-
-  <template v-if="!loading">
-    <div class="titlenew">
-      <span></span>
-      <span>{{$t('title')}}</span>
-      <!--<span>*为了您的资产安全，重置登录密码修改24h以内不允许提现。</span>-->
-    </div>
-    <div class="allinfo11">
-      <div class="allinfo11_1">
-        <div class="allinfo11_1tu"> <img src="../../assets/password23.png"></div>
-        <div class="allinfo11_1info">
-          <div class="allinfo11_1info_title">{{$t('title_1')}}</div>
-          <div class="allinfo11_1info_dis">{{$t('title_2')}}</div>
-        </div>
-        <div class="allinfo11_update">
-          <div @click="click_change_login_psw">
-            {{$t('psw_button')}}
-          </div>
-        </div>
+<div>
+  <!--    个人信息-->
+  <div class="personal-info">
+    <div class="personal-container">
+      <div class="personal-icon">
+        <img src="../../assets/securityCenter/personal_icon.png" alt="">
       </div>
-      <div class="allinfo11_1"  v-if="isUserType === 0">
-        <div class="allinfo11_1tu"> <img src="../../assets/email23.png"></div>
-        <div class="allinfo11_1info">
-          <div class="allinfo11_1info_title">{{$t('email')}}</div>
-          <div class="allinfo11_1info_dis">{{$t('email_prompt')}}</div>
-        </div>
-        <div class="allinfo11_update">
-          <div v-if="!bindEmail" @click="click_bind_email" id="binds2">
-            {{$t('mobile_button_1')}}
-          </div>
-          <div v-if="bindEmail" @click="click_release_email">
-            {{$t('mobile_button_2')}}
-          </div>
-        </div>
-      </div>
-      <div class="allinfo11_1"  v-if="isUserType === 1">
-        <div class="allinfo11_1tu"> <img src="../../assets/iphone23.png"></div>
-        <div class="allinfo11_1info">
-          <div class="allinfo11_1info_title">{{$t('title_3')}}</div>
-          <div class="allinfo11_1info_dis">{{$t('title_4')}}</div>
-        </div>
-        <div class="allinfo11_update">
-          <div v-if="!bindPhone" @click="click_bind_mobile" id="binds1">
-            {{$t('mobile_button_1')}}
-          </div>
-          <div v-if="bindPhone" @click="click_release_mobile">
-            {{$t('mobile_button_2')}}
-          </div>
-        </div>
-      </div>
-      <div class="allinfo11_1">
-        <div class="allinfo11_1tu"> <img src="../../assets/chrome23.png"></div>
-        <div class="allinfo11_1info">
-          <div class="allinfo11_1info_title">{{$t('title_5')}}</div>
-          <div class="allinfo11_1info_dis">{{$t('title_6')}}</div>
-        </div>
-        <div class="allinfo11_update">
-          <div v-if="!bindGA" @click="click_bind_GA" id="binds" >
-            {{$t('gaCode_button_1')}}
-          </div>
-          <div  v-if="bindGA" @click="click_release_GA">
-            {{$t('gaCode_button_2')}}
-          </div>
-        </div>
-      </div>
-      <div class="allinfo11_1">
-        <div class="allinfo11_1tu"> <img src="../../assets/api23.png"></div>
-        <div class="allinfo11_1info">
-          <div class="allinfo11_1info_title">API</div>
-          <div class="allinfo11_1info_dis">{{$t('title_7')}}</div>
-        </div>
-        <div class="allinfo11_update">
-          <div v-if="!open_api" @click="click_bind_API">
-<!--            {{$t('openApi_button_1')}}-->
-            <img src="../../assets/关闭@2x.png" alt="">
-          </div>
-
-          <div v-if="open_api" @click="click_manage_API">
-<!--            {{$t('openApi_button_2')}}-->
-            <img src="../../assets/开启@2x.png" alt="">
-          </div>
-        </div>
+      <div class="personal-content">
+        <span class="account-name">{{userName}}</span>
+        <span class="uid">UID:{{uuid}}</span>
+        <div class="last-time">最后登录时间: {{formatDateUitl(lastTime)}} <span> IP:{{ip}} </span></div>
       </div>
     </div>
-<!--    <div class="article">-->
-<!--      &lt;!&ndash;登录密码&ndash;&gt;-->
-<!--      <div class="article-detail flex ">-->
-<!--        <div class="prompt-img vertical-middle">-->
-<!--          <img src="../../assets/securityCenter/对勾securityCenter.png" alt="" class="vertical-middle">-->
-<!--        </div>-->
-<!--        <div class="detail-title flex-center">-->
-<!--          &lt;!&ndash;<img src="" alt="">&ndash;&gt;-->
-<!--          <span>{{$t('psw')}}</span>-->
-<!--        </div>-->
-<!--        <div class="detail-describe">-->
-<!--          <span>{{$t('psw_prompt')}}</span>-->
-<!--        </div>-->
-<!--        <div class="detail-button flex-center">-->
-<!--          <button @click="click_change_login_psw" class="pointer btn_simple">-->
-<!--            {{$t('psw_button')}}-->
-<!--          </button>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--      &lt;!&ndash;资金密码&ndash;&gt;-->
-<!--      &lt;!&ndash;<div class="article-detail flex">&ndash;&gt;-->
-<!--      &lt;!&ndash;<div class="prompt-img vertical-middle">&ndash;&gt;-->
-<!--      &lt;!&ndash;<img v-if="bindCapital" src="../../assets/securityCenter/对勾securityCenter.png" alt="" class="vertical-middle">&ndash;&gt;-->
-<!--      &lt;!&ndash;<img v-else src="../../assets/securityCenter/感叹号securityCenter.png" alt="" class="vertical-middle">&ndash;&gt;-->
-<!--      &lt;!&ndash;</div>&ndash;&gt;-->
-<!--      &lt;!&ndash;<div class="detail-title flex-center">&ndash;&gt;-->
-<!--      &lt;!&ndash;<img src="" alt="">&ndash;&gt;-->
-<!--      &lt;!&ndash;<span>{{$t('assetPsw')}}</span>&ndash;&gt;-->
-<!--      &lt;!&ndash;</div>&ndash;&gt;-->
-<!--      &lt;!&ndash;<div class="detail-describe">&ndash;&gt;-->
-<!--      &lt;!&ndash;<span>{{$t('assetPsw_prompt')}}</span>&ndash;&gt;-->
-<!--      &lt;!&ndash;</div>&ndash;&gt;-->
-<!--      &lt;!&ndash;<div class="detail-button flex-center">&ndash;&gt;-->
-<!--      &lt;!&ndash;<button v-if="!bindCapital" @click="click_set_asset_psw">{{$t('assetPsw_button_1')}}</button>&ndash;&gt;-->
-<!--      &lt;!&ndash;<button v-if="bindCapital" @click="click_modify_asset_psw">{{$t('assetPsw_button_2')}}</button>&ndash;&gt;-->
-<!--      &lt;!&ndash;<button v-if="bindCapital" @click="click_retrieve_asset_psw">{{$t('assetPsw_button_3')}}</button>&ndash;&gt;-->
-<!--      &lt;!&ndash;</div>&ndash;&gt;-->
-<!--      &lt;!&ndash;</div>&ndash;&gt;-->
+  </div>
 
-<!--      &lt;!&ndash;手机验证&ndash;&gt;-->
-<!--      <div class="article-detail flex  border_radius box_shadow" v-if="isUserType === 1">-->
-<!--        <div class="prompt-img vertical-middle">-->
-<!--          <img v-if="bindPhone" src="../../assets/securityCenter/对勾securityCenter.png" alt="" class="vertical-middle">-->
-<!--          <img v-else src="../../assets/securityCenter/感叹号securityCenter.png" alt="" class="vertical-middle">-->
+  <div class="container border_radius">
+    <Loading v-if="loading"/>
+    <template v-if="!loading">
 
-<!--        </div>-->
+      <!--    身份认证-->
+      <div class="identity">
+        <div class="identity-left">
+          <div class="identity-title">身份认证</div>
+          <div class="identity-logen">完成个人认证有助于保护账户安全，提高提现额度及交易权限</div>
+          <div class="identity-button pointer" @click="toAuthentication">
+            <button>立即认证</button>
+          </div>
+        </div>
 
-<!--        <div class="detail-title flex-center">-->
-<!--          &lt;!&ndash;<img src="" alt="">&ndash;&gt;-->
-<!--          <span>{{$t('mobile')}}</span>-->
-<!--        </div>-->
-<!--        <div class="detail-describe">-->
-<!--          <span>{{$t('mobile_prompt')}}</span>-->
-<!--        </div>-->
-<!--        <div class="detail-button flex-center">-->
-<!--          <button v-if="!bindPhone" @click="click_bind_mobile" class="pointer btn_blue">-->
-<!--            {{$t('mobile_button_1')}}-->
-<!--          </button>-->
-<!--          <button v-if="bindPhone" @click="click_release_mobile" class="pointer btn_simple">-->
-<!--            {{$t('mobile_button_2')}}-->
-<!--          </button>-->
-<!--        </div>-->
-<!--      </div>-->
+        <div class="identity-right">
+          <img src="../../assets/securityCenter/personalCenterPhoto.png" alt="">
+        </div>
+
+      </div>
+      <!--安全中心-->
+      <div class="allinfo11">
+        <!--      安全中心title-->
+        <div class="titlenew">
+          <span></span>
+          <span>{{$t('title')}}</span>
+          <!--<span>*为了您的资产安全，重置登录密码修改24h以内不允许提现。</span>-->
+        </div>
+
+        <div class="allinfo11-content">
+          <div class="allinfo11_1">
+            <div class="allinfo11_1tu">
+              <img src="../../assets/securityCenter/reset-password_icon@2x.png">
+            </div>
+            <div class="allinfo11_1info">
+              <div class="allinfo11_1info_title">{{$t('title_1')}}</div>
+              <div class="allinfo11_1info_dis">{{$t('title_2')}}</div>
+            </div>
+            <div class="allinfo11_update">
+              <div @click="click_change_login_psw">
+                {{$t('psw_button')}}
+              </div>
+            </div>
+          </div>
+
+          <div class="allinfo11_1"  v-if="isUserType === 0">
+            <div class="allinfo11_1tu"> <img src="../../assets/securityCenter/reset-email_icon@2x.png"></div>
+            <div class="allinfo11_1info">
+              <div class="allinfo11_1info_title">{{$t('email')}}</div>
+              <div class="allinfo11_1info_dis">{{$t('email_prompt')}}</div>
+            </div>
+            <div class="allinfo11_update">
+              <div v-if="!bindEmail" @click="click_bind_email" id="binds2">
+                {{$t('mobile_button_1')}}
+              </div>
+              <div v-if="bindEmail" @click="click_release_email">
+                {{$t('mobile_button_2')}}
+              </div>
+            </div>
+          </div>
+
+          <div class="allinfo11_1"  v-if="isUserType === 1">
+            <div class="allinfo11_1tu"> <img src="../../assets/securityCenter/reset-iphone_icon@2x.png"></div>
+            <div class="allinfo11_1info">
+              <div class="allinfo11_1info_title">{{$t('title_3')}}</div>
+              <div class="allinfo11_1info_dis">{{$t('title_4')}}</div>
+            </div>
+            <div class="allinfo11_update">
+              <div v-if="!bindPhone" @click="click_bind_mobile" id="binds1">
+                {{$t('mobile_button_1')}}
+              </div>
+              <div v-if="bindPhone" @click="click_release_mobile">
+                {{$t('mobile_button_2')}}
+              </div>
+            </div>
+          </div>
+
+          <div class="allinfo11_1">
+            <div class="allinfo11_1tu"> <img src="../../assets/securityCenter/gugo_icon@2x.png"></div>
+            <div class="allinfo11_1info">
+              <div class="allinfo11_1info_title">{{$t('title_5')}}</div>
+              <div class="allinfo11_1info_dis">{{$t('title_6')}}</div>
+            </div>
+            <div class="allinfo11_update">
+              <div v-if="!bindGA" @click="click_bind_GA" id="binds" >
+                {{$t('gaCode_button_1')}}
+              </div>
+              <div  v-if="bindGA" @click="click_release_GA">
+                {{$t('gaCode_button_2')}}
+              </div>
+            </div>
+          </div>
+
+          <!--        TODO：API暂时屏蔽-->
+          <!--        <div class="allinfo11_1">-->
+          <!--          <div class="allinfo11_1tu"> <img src="../../assets/api23.png"></div>-->
+          <!--          <div class="allinfo11_1info">-->
+          <!--            <div class="allinfo11_1info_title">API</div>-->
+          <!--            <div class="allinfo11_1info_dis">{{$t('title_7')}}</div>-->
+          <!--          </div>-->
+          <!--          <div class="allinfo11_update">-->
+          <!--            <div v-if="!open_api" @click="click_bind_API">-->
+          <!--              &lt;!&ndash;            {{$t('openApi_button_1')}}&ndash;&gt;-->
+          <!--              <img src="../../assets/关闭@2x.png" alt="">-->
+          <!--            </div>-->
+
+          <!--            <div v-if="open_api" @click="click_manage_API">-->
+          <!--              &lt;!&ndash;            {{$t('openApi_button_2')}}&ndash;&gt;-->
+          <!--              <img src="../../assets/开启@2x.png" alt="">-->
+          <!--            </div>-->
+          <!--          </div>-->
+          <!--        </div>-->
+
+        </div>
+      </div>
+
+      <!--    登录记录-->
+      <div class="login-record">
+        <div class="login-record-title">
+          <div class="titlenew">
+            <span></span>
+            <span>{{$t('personalCenterSecurityLog.title')}}</span>
+            <!--<span>*为了您的资产安全，重置登录密码修改24h以内不允许提现。</span>-->
+          </div>
+        </div>
+
+        <div class="login-record-content">
+          <Loading v-if="loading"/>
+          <template v-if="!loading">
+            <div class="log-title flex">
+              <span class="time">{{$t('personalCenterSecurityLog.time')}}</span>
+              <span class="ip">{{$t('personalCenterSecurityLog.ip')}}</span>
+              <span class="source">{{$t('personalCenterSecurityLog.source')}}</span>
+              <span class="city">{{$t('personalCenterSecurityLog.city')}}</span>
+            </div>
+            <ul class="log-container">
+              <li class="log-detail flex" v-for="(item,index) in logRecord" :key="index">
+                <span class="time">{{formatDateUitl(item.createdAt)}}</span>
+                <span class="ip">{{item.ip}}</span>
+                <span class="source">{{item.source}}</span>
+                <span class="city">{{item.address}}</span>
+              </li>
+            </ul>
+          </template>
+
+          <template v-if="loadingMoreShow">
+            <span class="loading-more pointer"  @click="clickToLoadMore">{{$t('personalCenterSecurityLog.city_3')}}
+              <span>
+                <img src="../../assets/securityCenter/right_icon.png" alt="">
+              </span>
+            </span>
+          </template>
+        </div>
+
+      </div>
+
+      <!--    <div class="article">-->
+      <!--      &lt;!&ndash;登录密码&ndash;&gt;-->
+      <!--      <div class="article-detail flex ">-->
+      <!--        <div class="prompt-img vertical-middle">-->
+      <!--          <img src="../../assets/securityCenter/对勾securityCenter.png" alt="" class="vertical-middle">-->
+      <!--        </div>-->
+      <!--        <div class="detail-title flex-center">-->
+      <!--          &lt;!&ndash;<img src="" alt="">&ndash;&gt;-->
+      <!--          <span>{{$t('psw')}}</span>-->
+      <!--        </div>-->
+      <!--        <div class="detail-describe">-->
+      <!--          <span>{{$t('psw_prompt')}}</span>-->
+      <!--        </div>-->
+      <!--        <div class="detail-button flex-center">-->
+      <!--          <button @click="click_change_login_psw" class="pointer btn_simple">-->
+      <!--            {{$t('psw_button')}}-->
+      <!--          </button>-->
+      <!--        </div>-->
+      <!--      </div>-->
+      <!--      &lt;!&ndash;资金密码&ndash;&gt;-->
+      <!--      &lt;!&ndash;<div class="article-detail flex">&ndash;&gt;-->
+      <!--      &lt;!&ndash;<div class="prompt-img vertical-middle">&ndash;&gt;-->
+      <!--      &lt;!&ndash;<img v-if="bindCapital" src="../../assets/securityCenter/对勾securityCenter.png" alt="" class="vertical-middle">&ndash;&gt;-->
+      <!--      &lt;!&ndash;<img v-else src="../../assets/securityCenter/感叹号securityCenter.png" alt="" class="vertical-middle">&ndash;&gt;-->
+      <!--      &lt;!&ndash;</div>&ndash;&gt;-->
+      <!--      &lt;!&ndash;<div class="detail-title flex-center">&ndash;&gt;-->
+      <!--      &lt;!&ndash;<img src="" alt="">&ndash;&gt;-->
+      <!--      &lt;!&ndash;<span>{{$t('assetPsw')}}</span>&ndash;&gt;-->
+      <!--      &lt;!&ndash;</div>&ndash;&gt;-->
+      <!--      &lt;!&ndash;<div class="detail-describe">&ndash;&gt;-->
+      <!--      &lt;!&ndash;<span>{{$t('assetPsw_prompt')}}</span>&ndash;&gt;-->
+      <!--      &lt;!&ndash;</div>&ndash;&gt;-->
+      <!--      &lt;!&ndash;<div class="detail-button flex-center">&ndash;&gt;-->
+      <!--      &lt;!&ndash;<button v-if="!bindCapital" @click="click_set_asset_psw">{{$t('assetPsw_button_1')}}</button>&ndash;&gt;-->
+      <!--      &lt;!&ndash;<button v-if="bindCapital" @click="click_modify_asset_psw">{{$t('assetPsw_button_2')}}</button>&ndash;&gt;-->
+      <!--      &lt;!&ndash;<button v-if="bindCapital" @click="click_retrieve_asset_psw">{{$t('assetPsw_button_3')}}</button>&ndash;&gt;-->
+      <!--      &lt;!&ndash;</div>&ndash;&gt;-->
+      <!--      &lt;!&ndash;</div>&ndash;&gt;-->
+
+      <!--      &lt;!&ndash;手机验证&ndash;&gt;-->
+      <!--      <div class="article-detail flex  border_radius box_shadow" v-if="isUserType === 1">-->
+      <!--        <div class="prompt-img vertical-middle">-->
+      <!--          <img v-if="bindPhone" src="../../assets/securityCenter/对勾securityCenter.png" alt="" class="vertical-middle">-->
+      <!--          <img v-else src="../../assets/securityCenter/感叹号securityCenter.png" alt="" class="vertical-middle">-->
+
+      <!--        </div>-->
+
+      <!--        <div class="detail-title flex-center">-->
+      <!--          &lt;!&ndash;<img src="" alt="">&ndash;&gt;-->
+      <!--          <span>{{$t('mobile')}}</span>-->
+      <!--        </div>-->
+      <!--        <div class="detail-describe">-->
+      <!--          <span>{{$t('mobile_prompt')}}</span>-->
+      <!--        </div>-->
+      <!--        <div class="detail-button flex-center">-->
+      <!--          <button v-if="!bindPhone" @click="click_bind_mobile" class="pointer btn_blue">-->
+      <!--            {{$t('mobile_button_1')}}-->
+      <!--          </button>-->
+      <!--          <button v-if="bindPhone" @click="click_release_mobile" class="pointer btn_simple">-->
+      <!--            {{$t('mobile_button_2')}}-->
+      <!--          </button>-->
+      <!--        </div>-->
+      <!--      </div>-->
 
 
-<!--      &lt;!&ndash;邮箱验证&ndash;&gt;-->
-<!--      <div class="article-detail flex  border_radius box_shadow" v-if="isUserType === 0">-->
-<!--        <div class="prompt-img vertical-middle">-->
-<!--          <img v-if="bindPhone" src="../../assets/securityCenter/对勾securityCenter.png" alt="" class="vertical-middle">-->
-<!--          <img v-else src="../../assets/securityCenter/感叹号securityCenter.png" alt="" class="vertical-middle">-->
-<!--        </div>-->
+      <!--      &lt;!&ndash;邮箱验证&ndash;&gt;-->
+      <!--      <div class="article-detail flex  border_radius box_shadow" v-if="isUserType === 0">-->
+      <!--        <div class="prompt-img vertical-middle">-->
+      <!--          <img v-if="bindPhone" src="../../assets/securityCenter/对勾securityCenter.png" alt="" class="vertical-middle">-->
+      <!--          <img v-else src="../../assets/securityCenter/感叹号securityCenter.png" alt="" class="vertical-middle">-->
+      <!--        </div>-->
 
-<!--        <div class="detail-title flex-center">-->
-<!--          &lt;!&ndash;<img src="" alt="">&ndash;&gt;-->
-<!--          <span>-->
-<!--            &lt;!&ndash;邮箱验证&ndash;&gt;-->
-<!--            {{$t('email')}}-->
-<!--          </span>-->
-<!--        </div>-->
-<!--        <div class="detail-describe">-->
-<!--          <span>-->
-<!--            &lt;!&ndash;交易、充值、提现时用以邮箱验证&ndash;&gt;-->
-<!--            {{$t('email_prompt')}}-->
-<!--          </span>-->
-<!--        </div>-->
-<!--        <div class="detail-button flex-center">-->
-<!--          <button v-if="!bindEmail" @click="click_bind_email" class="pointer btn_blue">-->
-<!--            {{$t('mobile_button_1')}}-->
-<!--          </button>-->
-<!--          <button v-if="bindEmail" @click="click_release_email" class="pointer btn_simple">-->
-<!--            {{$t('mobile_button_2')}}-->
-<!--          </button>-->
-<!--        </div>-->
-<!--      </div>-->
-
-
-<!--      &lt;!&ndash;谷歌验证&ndash;&gt;-->
-<!--      <div class="article-detail flex  border_radius box_shadow">-->
-<!--        <div class="prompt-img vertical-middle">-->
-<!--          <img v-if="bindGA" src="../../assets/securityCenter/对勾securityCenter.png" alt="" class="vertical-middle">-->
-<!--          <img v-else src="../../assets/securityCenter/感叹号securityCenter.png" alt="" class="vertical-middle">-->
-
-<!--        </div>-->
-<!--        <div class="detail-title flex-center">-->
-<!--          &lt;!&ndash;<img src="" alt="">&ndash;&gt;-->
-<!--          <span>{{$t('gaCode')}}</span>-->
-<!--        </div>-->
-<!--        <div class="detail-describe">-->
-<!--          <span>{{$t('gaCode_prompt')}}</span>-->
-<!--        </div>-->
-<!--        <div class="detail-button flex-center">-->
-<!--          <button v-if="!bindGA" @click="click_bind_GA" class="pointer btn_blue">-->
-<!--            {{$t('gaCode_button_1')}}-->
-<!--          </button>-->
-<!--          <button v-if="bindGA" @click="click_release_GA" class="pointer btn_simple">-->
-<!--            {{$t('gaCode_button_2')}}-->
-<!--          </button>-->
-<!--        </div>-->
-<!--      </div>-->
-
-<!--      &lt;!&ndash;启用API&ndash;&gt;-->
-<!--      <div class="article-detail flex  border_radius box_shadow">-->
-<!--        <div class="prompt-img vertical-middle">-->
-<!--          <img v-if="open_api " src="../../assets/securityCenter/对勾securityCenter.png" alt="" class="vertical-middle">-->
-<!--          <img v-else src="../../assets/securityCenter/感叹号securityCenter.png" alt="" class="vertical-middle">-->
-
-<!--        </div>-->
-<!--        <div class="detail-title flex-center">-->
-<!--          &lt;!&ndash;<img src="" alt="">&ndash;&gt;-->
-<!--          <span class="detail-api">API</span>-->
-<!--        </div>-->
-<!--        <div class="detail-describe">-->
-<!--          <span>-->
-<!--            {{$t('apiCode1')}}-->
-<!--&lt;!&ndash;            <a&ndash;&gt;-->
-<!--&lt;!&ndash;            href="https://github.com/lab?tab=repositories" target="_blank" style="color: #C43E4E;">{{$t('apiCode2')}}</a>{{$t('apiCode3')}}&ndash;&gt;-->
-<!--            &lt;!&ndash; {{$t('ApiCode_prompt')}} &ndash;&gt;</span>-->
-<!--        </div>-->
-<!--        <div class="detail-button flex-center">-->
-<!--          <button v-if="!open_api" @click="click_bind_API" class="pointer btn_blue">-->
-<!--            {{$t('openApi_button_1')}}-->
-<!--          </button>-->
-<!--          <button v-if="open_api" @click="click_manage_API" class="pointer btn_simple">-->
-<!--            {{$t('openApi_button_2')}}-->
-<!--          </button>-->
-<!--        </div>-->
-<!--      </div>-->
-
-<!--      &lt;!&ndash;临时api&ndash;&gt;-->
-<!--      &lt;!&ndash;<div class="article-detail flex">&ndash;&gt;-->
-<!--      &lt;!&ndash;<div class="prompt-img vertical-middle">&ndash;&gt;-->
-<!--      &lt;!&ndash;<img v-if="bindGA" src="../../assets/securityCenter/对勾securityCenter.png" alt="" class="vertical-middle">&ndash;&gt;-->
-<!--      &lt;!&ndash;<img v-else src="../../assets/securityCenter/感叹号securityCenter.png" alt="" class="vertical-middle">&ndash;&gt;-->
-
-<!--      &lt;!&ndash;</div>&ndash;&gt;-->
-<!--      &lt;!&ndash;<div class="detail-title flex-center">&ndash;&gt;-->
-<!--      &lt;!&ndash;<img src="" alt="">&ndash;&gt;-->
-<!--      &lt;!&ndash;<span>临时页面</span>&ndash;&gt;-->
-<!--      &lt;!&ndash;</div>&ndash;&gt;-->
-<!--      &lt;!&ndash;<div class="detail-describe">&ndash;&gt;-->
-<!--      &lt;!&ndash;<span>麻老师专用，其他人勿点</span>&ndash;&gt;-->
-<!--      &lt;!&ndash;</div>&ndash;&gt;-->
-<!--      &lt;!&ndash;<div class="detail-button flex-center">&ndash;&gt;-->
-<!--      &lt;!&ndash;<button @click="click_ai">进入</button>&ndash;&gt;-->
-<!--      &lt;!&ndash;&lt;!&ndash;<button v-if="bindGA" @click="click_release_GA">解绑</button>&ndash;&gt;&ndash;&gt;-->
-<!--      &lt;!&ndash;</div>&ndash;&gt;-->
-<!--      &lt;!&ndash;</div>&ndash;&gt;-->
-
-<!--      &lt;!&ndash; 提示 &ndash;&gt;-->
-<!--      <PopupPrompt :popOpen="promptOpen" :popClose="closePrompt" :popType="popType" :popText="popText"/>-->
+      <!--        <div class="detail-title flex-center">-->
+      <!--          &lt;!&ndash;<img src="" alt="">&ndash;&gt;-->
+      <!--          <span>-->
+      <!--            &lt;!&ndash;邮箱验证&ndash;&gt;-->
+      <!--            {{$t('email')}}-->
+      <!--          </span>-->
+      <!--        </div>-->
+      <!--        <div class="detail-describe">-->
+      <!--          <span>-->
+      <!--            &lt;!&ndash;交易、充值、提现时用以邮箱验证&ndash;&gt;-->
+      <!--            {{$t('email_prompt')}}-->
+      <!--          </span>-->
+      <!--        </div>-->
+      <!--        <div class="detail-button flex-center">-->
+      <!--          <button v-if="!bindEmail" @click="click_bind_email" class="pointer btn_blue">-->
+      <!--            {{$t('mobile_button_1')}}-->
+      <!--          </button>-->
+      <!--          <button v-if="bindEmail" @click="click_release_email" class="pointer btn_simple">-->
+      <!--            {{$t('mobile_button_2')}}-->
+      <!--          </button>-->
+      <!--        </div>-->
+      <!--      </div>-->
 
 
-<!--    </div>-->
-  </template>
+      <!--      &lt;!&ndash;谷歌验证&ndash;&gt;-->
+      <!--      <div class="article-detail flex  border_radius box_shadow">-->
+      <!--        <div class="prompt-img vertical-middle">-->
+      <!--          <img v-if="bindGA" src="../../assets/securityCenter/对勾securityCenter.png" alt="" class="vertical-middle">-->
+      <!--          <img v-else src="../../assets/securityCenter/感叹号securityCenter.png" alt="" class="vertical-middle">-->
+
+      <!--        </div>-->
+      <!--        <div class="detail-title flex-center">-->
+      <!--          &lt;!&ndash;<img src="" alt="">&ndash;&gt;-->
+      <!--          <span>{{$t('gaCode')}}</span>-->
+      <!--        </div>-->
+      <!--        <div class="detail-describe">-->
+      <!--          <span>{{$t('gaCode_prompt')}}</span>-->
+      <!--        </div>-->
+      <!--        <div class="detail-button flex-center">-->
+      <!--          <button v-if="!bindGA" @click="click_bind_GA" class="pointer btn_blue">-->
+      <!--            {{$t('gaCode_button_1')}}-->
+      <!--          </button>-->
+      <!--          <button v-if="bindGA" @click="click_release_GA" class="pointer btn_simple">-->
+      <!--            {{$t('gaCode_button_2')}}-->
+      <!--          </button>-->
+      <!--        </div>-->
+      <!--      </div>-->
+
+      <!--      &lt;!&ndash;启用API&ndash;&gt;-->
+      <!--      <div class="article-detail flex  border_radius box_shadow">-->
+      <!--        <div class="prompt-img vertical-middle">-->
+      <!--          <img v-if="open_api " src="../../assets/securityCenter/对勾securityCenter.png" alt="" class="vertical-middle">-->
+      <!--          <img v-else src="../../assets/securityCenter/感叹号securityCenter.png" alt="" class="vertical-middle">-->
+
+      <!--        </div>-->
+      <!--        <div class="detail-title flex-center">-->
+      <!--          &lt;!&ndash;<img src="" alt="">&ndash;&gt;-->
+      <!--          <span class="detail-api">API</span>-->
+      <!--        </div>-->
+      <!--        <div class="detail-describe">-->
+      <!--          <span>-->
+      <!--            {{$t('apiCode1')}}-->
+      <!--&lt;!&ndash;            <a&ndash;&gt;-->
+      <!--&lt;!&ndash;            href="https://github.com/lab?tab=repositories" target="_blank" style="color: #C43E4E;">{{$t('apiCode2')}}</a>{{$t('apiCode3')}}&ndash;&gt;-->
+      <!--            &lt;!&ndash; {{$t('ApiCode_prompt')}} &ndash;&gt;</span>-->
+      <!--        </div>-->
+      <!--        <div class="detail-button flex-center">-->
+      <!--          <button v-if="!open_api" @click="click_bind_API" class="pointer btn_blue">-->
+      <!--            {{$t('openApi_button_1')}}-->
+      <!--          </button>-->
+      <!--          <button v-if="open_api" @click="click_manage_API" class="pointer btn_simple">-->
+      <!--            {{$t('openApi_button_2')}}-->
+      <!--          </button>-->
+      <!--        </div>-->
+      <!--      </div>-->
+
+      <!--      &lt;!&ndash;临时api&ndash;&gt;-->
+      <!--      &lt;!&ndash;<div class="article-detail flex">&ndash;&gt;-->
+      <!--      &lt;!&ndash;<div class="prompt-img vertical-middle">&ndash;&gt;-->
+      <!--      &lt;!&ndash;<img v-if="bindGA" src="../../assets/securityCenter/对勾securityCenter.png" alt="" class="vertical-middle">&ndash;&gt;-->
+      <!--      &lt;!&ndash;<img v-else src="../../assets/securityCenter/感叹号securityCenter.png" alt="" class="vertical-middle">&ndash;&gt;-->
+
+      <!--      &lt;!&ndash;</div>&ndash;&gt;-->
+      <!--      &lt;!&ndash;<div class="detail-title flex-center">&ndash;&gt;-->
+      <!--      &lt;!&ndash;<img src="" alt="">&ndash;&gt;-->
+      <!--      &lt;!&ndash;<span>临时页面</span>&ndash;&gt;-->
+      <!--      &lt;!&ndash;</div>&ndash;&gt;-->
+      <!--      &lt;!&ndash;<div class="detail-describe">&ndash;&gt;-->
+      <!--      &lt;!&ndash;<span>麻老师专用，其他人勿点</span>&ndash;&gt;-->
+      <!--      &lt;!&ndash;</div>&ndash;&gt;-->
+      <!--      &lt;!&ndash;<div class="detail-button flex-center">&ndash;&gt;-->
+      <!--      &lt;!&ndash;<button @click="click_ai">进入</button>&ndash;&gt;-->
+      <!--      &lt;!&ndash;&lt;!&ndash;<button v-if="bindGA" @click="click_release_GA">解绑</button>&ndash;&gt;&ndash;&gt;-->
+      <!--      &lt;!&ndash;</div>&ndash;&gt;-->
+      <!--      &lt;!&ndash;</div>&ndash;&gt;-->
+
+      <!--      &lt;!&ndash; 提示 &ndash;&gt;-->
+      <!--      <PopupPrompt :popOpen="promptOpen" :popClose="closePrompt" :popType="popType" :popText="popText"/>-->
+
+
+      <!--    </div>-->
+    </template>
+  </div>
 </div>
+
+
+

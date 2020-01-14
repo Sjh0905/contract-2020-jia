@@ -40,11 +40,6 @@ root.mounted = function () {
 
 
 
-
-
-
-
-
 // root.name = 'PersonalCenterAuthToAuthenticate'
 // 身份证校验
 import IDValidator from 'id-validator'
@@ -334,7 +329,7 @@ root.methods.getMobileInfo = function(){
 },
 
   root.methods.re_getMobileInfo = function(data){
-    console.log(data)
+    // console.log(data)
     this.cities = data
   },
 
@@ -355,7 +350,7 @@ root.methods.getAuthState = function () {
 root.methods.re_getAuthState = function (data) {
   typeof (data) === 'string' && (data = JSON.parse(data))
   if (!data.dataMap) return
-  // console.warn('获取状态', data)
+  console.warn('获取状态', data)
   let status = data.dataMap.status
   // 如果是通过和待审核状态，不让进
   if (status === '0' || status === '2' || status == '5' || status == '6') {
@@ -1233,7 +1228,7 @@ root.methods.re_commit = function (data) {
   this.popOpen = false
   typeof (data) === 'string' && (data = JSON.parse(data))
   if (!data) return
-  // console.warn('提交表单', data)
+  console.warn('提交表单', data)
 
 
   if (data.errorCode) {

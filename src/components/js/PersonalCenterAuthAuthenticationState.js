@@ -112,7 +112,6 @@ root.computed.uuid = function () {
     return this.$store.state.authMessage.userId
   }
   return this.$store.state.authMessage.uuid
-
 }
 // 证件号
 root.computed.idCode = function () {

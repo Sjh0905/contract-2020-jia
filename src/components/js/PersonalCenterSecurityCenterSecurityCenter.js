@@ -8,11 +8,22 @@ root.components = {
 root.data = function () {
   return {
     loading: true,
-
     // 弹框
     promptOpen: false,
     popType: 0,
     popText: '系统繁忙',
+
+
+    offset: 0, //
+    limit: 3,
+
+    logRecord: [], //记录
+    loadingMoreShow: true, //是否显示加载更多
+    loadingMoreIng: false, //是否正在加载更多
+
+    uid:'',
+    lastTime:0, // 最后登录时间
+    ip:''
 
   }
 }
@@ -59,19 +70,44 @@ root.computed.isUserType = function () {
   return this.$store.state.authMessage && this.$store.state.authMessage.province === 'mobile' ? 0 : 1
 }
 
+// 用户名
+root.computed.userName = function () {
+  if (this.userType === 0) {
+    return this.$globalFunc.formatUserName(this.$store.state.authMessage.mobile)
+  }
+  if (!this.$store.state.authMessage.email) {
+    return '****@****'
+  }
+  return this.$globalFunc.formatUserName(this.$store.state.authMessage.email)
+}
+
+// 用户类型，如果是手机用户，为0，如果是邮箱用户，为1
+root.computed.userType = function () {
+  return this.$store.state.authMessage && this.$store.state.authMessage.province === 'mobile' ? 0 : 1
+}
+
+// uid
+root.computed.uuid = function () {
+  if(this.$store.state.authMessage.uuid == undefined){
+    return this.$store.state.authMessage.userId
+  }
+  return this.$store.state.authMessage.uuid
+}
+
 
 root.created = function () {
   this.$http.send('GET_AUTH_STATE', {
     bind: this,
     callBack: this.re_getAuthState
   })
+  this.getLogRecord()
 }
 
 root.methods = {}
 root.methods.re_getAuthState = function (data) {
   typeof data === 'string' && (data = JSON.parse(data))
   let dataObj = data
-  // console.log("获取了状态！", dataObj)
+  console.log("获取了状态！", dataObj)
   this.$store.commit('SET_AUTH_STATE', dataObj.dataMap)
   this.loading = false
 }
@@ -147,5 +183,59 @@ root.methods.click_manage_API = function () {
   this.$router.push({name: 'manageApi'})
 }
 
+// 获取安全日志记录
+root.methods.getLogRecord = function () {
+  this.$http.send('POST_LOG_RECORD', {
+    bind: this,
+    params: {
+      offset: this.offset,
+      maxResults: this.limit,
+    },
+    callBack: this.re_getLogRecord,
+    errorHandler: this.error_getLogRecord,
+  })
+}
+// 获取安全日志记录回调
+root.methods.re_getLogRecord = function (data) {
+  typeof data === 'string' && (data = JSON.parse(data))
+  console.warn('获取安全日志记录', data)
+  this.logRecord.push(...data.dataMap.loginRecords)
+  let topInfo = data.dataMap.loginRecords[0]
+  console.log(topInfo)
+
+  this.uid = topInfo.userId
+  this.lastTime = topInfo.createdAt
+  this.ip = topInfo.ip
+
+
+  // console.log(this.logRecord)
+
+  // if (data.dataMap.loginRecords.length < this.limit) {
+  //   this.loadingMoreShow = false
+  // }
+  //
+  // this.offset = this.offset + this.limit
+  // this.loading = false
+  // this.loadingMoreIng = false
+}
+// 获取安全日志记录出错
+root.methods.error_getLogRecord = function (err) {
+  console.warn('安全日志记录出错', err)
+}
+
+// 格式化时间
+root.methods.formatDateUitl = function (time) {
+  return this.$globalFunc.formatDateUitl(time, 'YYYY-MM-DD hh:mm:ss')
+}
+
+// 跳转安全日志
+root.methods.clickToLoadMore = function () {
+  this.$router.push('/index/personal/securityLog')
+}
+
+// 跳转身份认证页面
+root.methods.toAuthentication = function () {
+  this.$router.push('/index/personal/auth/authenticate')
+}
 
 export default root
