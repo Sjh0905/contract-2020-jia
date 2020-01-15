@@ -508,7 +508,8 @@ root.methods.GO_GRC = function () {
 
 
 // 检测邮箱格式
-root.methods.testUserName = function () {
+root.methods.testUserName = function (color) {
+  this.inputColor = color
   this.userNamePlaceholderShow = true;
   this.mobileUserNameFocus = false
   return this.inputTestUserName()
