@@ -16,7 +16,7 @@
         </div>
         <!--应收手续费 end -->
         <!--实际到账 begin -->
-        <div class="hidden-detail-title">
+        <div class="hidden-detail-title-1">
           {{$t('orderPageHistoricalEntrustmentDetail.realAccount')}}
         </div>
         <!--实际到账 end -->
@@ -104,16 +104,16 @@
         <!--手续费 end -->
 
         <!--实际到账 begin -->
-        <div class="hidden-detail-article" v-if="orderDetail.length==1 && !orderType">
+        <div class="hidden-detail-article-1" v-if="orderDetail.length==1 && !orderType">
           <!--{{toFixed(accMinus(amount , accMinus(originalFee , refundedFee)),8)}}-->
           {{toFixed(actualAccount,8)}}
           {{orderType?symbol.split('_')[1]:symbol.split('_')[0]}}
         </div>
-        <div class="hidden-detail-article" v-if="orderDetail.length==1 && orderType">
+        <div class="hidden-detail-article-1" v-if="orderDetail.length==1 && orderType">
           {{toFixed(accMinus(filledPrice , totalFee),8)}}
           {{orderType?symbol.split('_')[1]:symbol.split('_')[0]}}
         </div>
-        <div class="hidden-detail-article" v-if="orderDetail.length!=1">
+        <div class="hidden-detail-article-1" v-if="orderDetail.length!=1">
           ---
         </div>
         <!--实际到账 end -->
@@ -179,11 +179,11 @@
         <!--</div>-->
         <!--如果开抵扣了，显示抵扣 end -->
 
-        <div class="hidden-detail-article" v-if="!orderType">
+        <div class="hidden-detail-article-1" v-if="!orderType">
           {{toFixed(actualAccount,8)}}
           {{orderType?symbol.split('_')[1]:symbol.split('_')[0]}}
         </div>
-        <div class="hidden-detail-article" v-if="orderType">
+        <div class="hidden-detail-article-1" v-if="orderType">
           {{toFixed(accMinus(filledPrice , totalFee),8)}}
           {{orderType?symbol.split('_')[1]:symbol.split('_')[0]}}
         </div>

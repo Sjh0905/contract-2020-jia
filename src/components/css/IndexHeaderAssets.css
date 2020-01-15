@@ -6,7 +6,7 @@
 }
 
 .asset-container a {
-  color: rgba(0, 0, 0, 0.7);
+  color: #0D0E23;
 }
 
 .asset-li:hover {
@@ -112,7 +112,7 @@
 }
 
 .login-off {
-  color: rgba(0, 0, 0, 0.7);
+  color: #0D0E23;
   align-items: center;
   height: 100%;
   font-size: 14px;

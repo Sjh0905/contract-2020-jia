@@ -30,19 +30,20 @@
       <!--<div class="th td-order">{{$t('orderPageHistoricalEntrustment.order')}}</div>-->
       <!--时间-->
       <div class="th td-time ">{{$t('orderPageHistoricalEntrustment.close_1')}}</div>
-      <!--类型-->
-      <div class="th td-category ">{{$t('orderPageHistoricalEntrustment.close_2')}}</div>
 
       <!--交易对-->
       <div class="th td-market ">{{$t('orderPageHistoricalEntrustment.close_3')}}</div>
+      <!--类型-->
+      <div class="th td-category ">{{$t('orderPageHistoricalEntrustment.close_2')}}</div>
+
       <!--单价-->
       <div class="th td-price ">{{$t('orderPageHistoricalEntrustment.close_4')}}</div>
       <!--数量-->
       <div class="th td-number ">{{$t('orderPageHistoricalEntrustment.close_5')}}</div>
       <!--成交额-->
-      <div class="th td-turnover ">{{$t('orderPageHistoricalEntrustment.close_6')}}</div>
+      <div class="th td-number ">{{$t('orderPageHistoricalEntrustment.close_6')}}</div>
       <!--成交数量-->
-      <div class="th td-turnover ">{{$t('orderPageHistoricalEntrustment.close_7')}}</div>
+      <div class="th td-number-2 ">{{$t('orderPageHistoricalEntrustment.close_7')}}</div>
       <div class="th  td-turnover ">{{$t('orderPageHistoricalEntrustment.close_8')}}</div>
 
       <!--应收手续费-->
@@ -69,25 +70,26 @@
 
             <!--时间 begin -->
             <div class="td td-time">
-              <p>
+<!--              <p>-->
                 <!--{{$t('orderPageHistoricalEntrustment.entrustment')}}-->
-                {{$globalFunc.formatDateUitl(order.createdAt,'YYYY-MM-DD hh:mm:ss')}}</p>
+                {{$globalFunc.formatDateUitl(order.createdAt,'YYYY-MM-DD hh:mm:ss')}}
+<!--              </p>-->
               <!--<p v-if="order.updatedAt">-->
                 <!--{{$t('orderPageHistoricalEntrustment.down')}}-->
                 <!--{{$globalFunc.formatDateUitl(order.updatedAt,'YYYY-MM-DD hh:mm:ss')}}</p>-->
             </div>
             <!--时间 end -->
 
+            <!--市场 begin -->
+            <div class="td td-market">{{order.symbol.split('_')[0]}}/{{order.symbol.split('_')[1]}}</div>
+            <!--市场 end -->
+
             <!--类别 begin -->
-            <div class="td td-category" :class="order.type==='BUY_LIMIT'?'text_blue':'text_red'">
+            <div class="td td-category" :class="order.type==='BUY_LIMIT'?'text_blue-3':'text_red-4'">
               {{order.type === 'BUY_LIMIT' && $t('orderPageHistoricalEntrustment.buy') ||
               $t('orderPageHistoricalEntrustment.sale') }}
             </div>
             <!--类别 end -->
-
-            <!--市场 begin -->
-            <div class="td td-market">{{order.symbol.split('_')[0]}}/{{order.symbol.split('_')[1]}}</div>
-            <!--市场 end -->
 
             <!--单价 begin -->
             <div class="td td-price">{{toFixed(order.price, !!quoteScale_list[order.symbol] ? quoteScale_list[order.symbol].quoteScale : 8)}} {{order.symbol.split('_')[1]}}</div>
@@ -98,7 +100,7 @@
             <!--数量 end -->
 
             <!--成交数量 begin -->
-            <div class="td td-turnover">{{toFixed(order.filledAmount, !!quoteScale_list[order.symbol] ? quoteScale_list[order.symbol].baseScale : 8)}} {{order.symbol.split('_')[0]}}</div>
+            <div class="td td-number">{{toFixed(order.filledAmount, !!quoteScale_list[order.symbol] ? quoteScale_list[order.symbol].baseScale : 8)}} {{order.symbol.split('_')[0]}}</div>
             <!--成交数量 end-->
 
             <!--<div class="td td-amount">{{ (order.filledAmount * order.price).toFixed(8) }}</div>-->
@@ -112,19 +114,21 @@
 
 
             <!--状态 begin -->
-            <div class="td td-state">{{getStatus(order)}}</div>
+            <div class="td td-number-2">{{getStatus(order)}}</div>
             <!--状态 end -->
 
 
             <!--查看详情 begin -->
-            <div class="td td-account" @click="showDetail(order.id)"
+            <div class="td td-turnover" @click="showDetail(order.id)"
                  v-if="canShowDetail(order) && clickThis!==order.id">
-              <span class="account-click text_blue" @click="showDetail(order.id)">{{$t('orderPageHistoricalEntrustment.detail')}}</span>
+              <span class="account-click text_blue-1" @click="showDetail(order.id)">{{$t('orderPageHistoricalEntrustment.detail')}}</span>
+              <img class="img-on" src="../../assets/详情上拉_icon.png" alt="" @click="showDetail(order.id)">
             </div>
-            <div class="td td-account account-click text_blue"
+            <div class="td td-turnover account-click text_blue-1"
                  v-if="canShowDetail(order) && clickThis===order.id">{{$t('orderPageHistoricalEntrustment.close')}}
+              <img src="../../assets/详情下拉_icon.png" alt="" class="img-on">
             </div>
-            <div class="td td-account" v-if="!canShowDetail(order)">--</div>
+            <div class="td td-turnover" v-if="!canShowDetail(order)">--</div>
             <!--查看详情 end -->
 
           </div>
@@ -156,7 +160,7 @@
 <!--          </div>-->
 <!--          <div class="td td-state">&#45;&#45;</div>-->
 <!--          <div class="td td-account">&#45;&#45;</div>-->
-          <div class="nhtu"><img src="../../assets/nohavedata.png"></div>
+          <div class="nhtu"><img src="../../assets/无订单-浅色.png"></div>
           <span>{{$t('orderPageHistoricalEntrustment.close_9')}}</span>
         </li>
       </template>

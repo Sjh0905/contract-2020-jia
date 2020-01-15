@@ -9,17 +9,23 @@ tr, th, td {
 }
 
 .detail {
-  width: 100%;
+  width: 1200px;
+  margin: 0 auto;
   overflow: hidden;
   border-top-left-radius: 0 !important;
   min-height: 200px;
+  border:1px solid rgba(239,240,255,1);
+  margin-top: 25px;
+  /*padding: 0 25px 0 25px;*/
+  box-sizing: border-box;
 }
 
 .weit{
   width: 100%;
-  height: 200px;
-  line-height: 200px;
+  height: 240px;
+  line-height: 240px;
   text-align: center;
+  box-sizing: border-box;
 }
 
 .seeMore {
@@ -36,20 +42,20 @@ tr, th, td {
   font-family: PingFangSC-Regular;
   font-size: 14px;
   color: #8994A5;
-  text-align: center;
+  text-align: left;
 }
 
 .tr-td {
   width: 100%;
-  height: 35px;
-  line-height: 35px;
-  text-align: center;
+  height: 50px;
+  line-height: 50px;
+  text-align: left;
   /*border-left: 1px solid #e5e5e5;*/
   /*border-right: 1px solid #e5e5e5;*/
   /*border-bottom: 1px solid #e5e5e5;*/
   background-color: #ffffff;
-  border-top: 1px solid #f9f9f9;
-  color: #666;
+  /*border-top: 1px solid #f9f9f9;*/
+  color:rgba(13,14,35,1);
 
 }
 
@@ -71,23 +77,27 @@ tr, th, td {
 /*}*/
 
 .td-time {
-  flex: 8.3;
+  flex: 9.3;
+  padding-left: 25px;
 }
 
 .td-category {
-  flex: 8.3;
+  flex: 9.3;
+}
+.td-category-1 {
+  flex: 6.3;
 }
 
 .td-market {
-  flex: 8.3;
+  flex: 9.3;
 }
 
 .td-price {
-  flex: 8.3;
+  flex: 9.3;
 }
 
 .td-number {
-  flex: 8.3;
+  flex: 7.3;
 }
 
 .td-amount {
@@ -95,11 +105,13 @@ tr, th, td {
 }
 
 .td-turnover {
-  flex: 8.3;
+  flex: 9.3;
 }
 
 .td-operation {
-  flex: 8.3;
+  flex: 5.3;
+  text-align: right;
+  padding-right: 25px;
 
 }
 
@@ -109,30 +121,33 @@ tr, th, td {
 
 .chedanbutton {
   display: inline-block;
-  padding: 0 20px;
-  height: 20px;
-  border:1px solid #C43E4E;
-  line-height:22px;
+  padding: 0 15px;
+  height: 28px;
+  border:1px solid #3576F5;
+  line-height:28px;
   border-radius: 4px;
+}
+.text_blue-0 {
+  color: #3576F5;
 }
 
 .chedanbutton:hover {
   display: inline-block;
   color: #F7F8FA !important;
-  padding: 0 20px;
-  height: 20px;
-  line-height:22px;
+  padding: 0 15px;
+  height: 28px;
+  line-height:28px;
   border-radius: 4px;
-  background-color:#C43E4E;
+  background-color:#3576F5;
 }
 
 .cancelAll {
   cursor: pointer;
-  color: #C43E4E;
+  color: #3576F5;
 }
 
 .click-operating {
-  color: #C43E4E;
+  color: #3576F5;
 }
 
 /*加载框*/
@@ -141,6 +156,7 @@ tr, th, td {
   height: 150px;
   width: 100%;
   background-color: #fff;
+  box-sizing: border-box;
 }
 
 .td-sale {
@@ -187,17 +203,19 @@ tr, th, td {
   height: 120px;
   float: left;
   margin: 0 auto;
+  margin-top: 30px;
 }
 .weit .nhtu img{
-  height: 36px;
+  /*height: 36px;*/
 }
 .weit span{
   width: 100%;
   height: 24px;
   text-align: center;
-  ont-family: PingFangSC-Regular;
-  font-size: 14px;
-  color: #B5BCC6;
+  font-size:12px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color:rgba(107,125,162,1);
   line-height: 24px;
   float: left;
 }

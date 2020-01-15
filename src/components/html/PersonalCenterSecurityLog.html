@@ -1,12 +1,22 @@
-<div class="container border_radius">
-
-  <div class="">
-    <div class="titlenew">
-      <span></span>
-      <span>{{$t('personalCenterSecurityLog.title')}}</span>
-      <!--<span>*为了您的资产安全，重置登录密码修改24h以内不允许提现。</span>-->
+<div class="container">
+  <!--    个人信息-->
+  <div class="personal-info">
+    <div class="personal-container">
+      <div class="currency_notice_bread">
+        <router-link to="/index/personal/securityCenter" class="management">账户管理</router-link>
+        <span> > </span>
+        登录信息
+      </div>
     </div>
-    <div class="article border_radius box_shadow">
+  </div>
+
+  <div class="container-log">
+    <div class="article border_radius">
+      <div class="titlenew">
+        <span></span>
+        <span>{{$t('personalCenterSecurityLog.title')}}</span>
+        <!--<span>*为了您的资产安全，重置登录密码修改24h以内不允许提现。</span>-->
+      </div>
       <Loading v-if="loading"/>
       <template v-if="!loading">
         <div class="log-title flex">
@@ -26,8 +36,14 @@
 
         </ul>
         <template v-if="loadingMoreShow">
-          <span class="txt-green loading-more" v-if="!loadingMoreIng" @click="clickToLoadMore">{{$t('personalCenterSecurityLog.city_1')}}</span>
-          <span class="txt-green loading-more" v-else>{{$t('personalCenterSecurityLog.city_2')}}</span>
+          <span class="loading-more pointer" v-if="!loadingMoreIng" @click="clickToLoadMore">{{$t('personalCenterSecurityLog.city_1')}}
+            <span>
+                <img src="../../assets/securityCenter/bottom_icon.png" alt="">
+              </span>
+          </span>
+          <span class="loading-more pointer" v-else>{{$t('personalCenterSecurityLog.city_2')}}
+          <img src="../../assets/securityCenter/bottom_icon.png" alt="">
+          </span>
         </template>
       </template>
     </div>

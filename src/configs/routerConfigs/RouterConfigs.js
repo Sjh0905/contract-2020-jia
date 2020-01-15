@@ -144,15 +144,15 @@ root.routes.push({
 //     TODO：不能删除 check
 // 上币公告 3_6 end
 // 上币公告 3_9 start lost
-// root.routes.push({
-//   path: '/index/lostNotice',
-//   // redirect: '/index/tradingHall',   //关闭入口，重新指向交易大厅
-//   meta: {
-//     requireLogin: false,
-//   },
-//   caseSensitive: true,
-//   component: resolve => require(['@/components/activity/vue/noticeLost'], resolve)
-// })
+root.routes.push({
+  path: '/index/lostNotice',
+  // redirect: '/index/tradingHall',   //关闭入口，重新指向交易大厅
+  meta: {
+    requireLogin: false,
+  },
+  caseSensitive: true,
+  component: resolve => require(['@/components/activity/vue/noticeLost'], resolve)
+})
 // 上币公告 3_9 end lost
 
 // 幸运抽奖 start 2018-9-10 TODO:要删除 check
@@ -1934,7 +1934,7 @@ root.routes.push({
         // 安全中心
         {
           path: 'securityCenter',
-          // name: 'securityCenter',
+          name: 'securityCenter',
           caseSensitive: true,
           meta: {
             requireLogin: true,

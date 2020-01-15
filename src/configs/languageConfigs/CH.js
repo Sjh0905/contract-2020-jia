@@ -623,6 +623,7 @@ root.personalCenterSecurityLog.source = '来源'
 root.personalCenterSecurityLog.city = '登录所在地'
 root.personalCenterSecurityLog.city_1 = '加载更多'
 root.personalCenterSecurityLog.city_2 = '加载中'
+root.personalCenterSecurityLog.city_3 = '查看更多'
 
 
 // 安全策略
