@@ -51,8 +51,6 @@ root.methods.getLogRecord = function () {
     errorHandler: this.error_getLogRecord,
   })
 }
-
-
 // 获取安全日志记录回调
 root.methods.re_getLogRecord = function (data) {
   typeof data === 'string' && (data = JSON.parse(data))

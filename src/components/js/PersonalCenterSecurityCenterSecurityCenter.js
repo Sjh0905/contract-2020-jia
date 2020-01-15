@@ -8,7 +8,6 @@ root.components = {
 root.data = function () {
   return {
     loading: true,
-
     // 弹框
     promptOpen: false,
     popWindowOpen: false,
@@ -17,20 +16,25 @@ root.data = function () {
     popType: 0,
     popText: '系统繁忙',
 
-
     getVerificationCode: false,
     getVerificationCodeInterval: null,
     getVerificationCodeCountdown: 60,
     clickVerificationCodeButton: false,
+    offset: 0, //
+    limit: 3,
 
-    getEmailVerificationCode: false,
-    getEmailVerificationCodeInterval: null,
-    getEmailVerificationCodeCountdown: 60,
-    clickEmailVerificationCodeButton: false,
+    logRecord: [], //记录
+    loadingMoreShow: true, //是否显示加载更多
+    loadingMoreIng: false, //是否正在加载更多
+
+    uid:'',
+    lastTime:0, // 最后登录时间
+    ip:'',
 
     popWindowTitle: '', //弹出提示标题
     popWindowPrompt: '',//弹出样式提示
     popWindowStyle: 0,//跳转 0表示实名认证，1表示手机或谷歌，2只有确定
+
 
   }
 }
@@ -77,19 +81,44 @@ root.computed.isUserType = function () {
   return this.$store.state.authMessage && this.$store.state.authMessage.province === 'mobile' ? 0 : 1
 }
 
+// 用户名
+root.computed.userName = function () {
+  if (this.userType === 0) {
+    return this.$globalFunc.formatUserName(this.$store.state.authMessage.mobile)
+  }
+  if (!this.$store.state.authMessage.email) {
+    return '****@****'
+  }
+  return this.$globalFunc.formatUserName(this.$store.state.authMessage.email)
+}
+
+// 用户类型，如果是手机用户，为0，如果是邮箱用户，为1
+root.computed.userType = function () {
+  return this.$store.state.authMessage && this.$store.state.authMessage.province === 'mobile' ? 0 : 1
+}
+
+// uid
+root.computed.uuid = function () {
+  if(this.$store.state.authMessage.uuid == undefined){
+    return this.$store.state.authMessage.userId
+  }
+  return this.$store.state.authMessage.uuid
+}
+
 
 root.created = function () {
   this.$http.send('GET_AUTH_STATE', {
     bind: this,
     callBack: this.re_getAuthState
   })
+  this.getLogRecord()
 }
 
 root.methods = {}
 root.methods.re_getAuthState = function (data) {
   typeof data === 'string' && (data = JSON.parse(data))
   let dataObj = data
-  // console.log("获取了状态！", dataObj)
+  console.log("获取了状态！", dataObj)
   this.$store.commit('SET_AUTH_STATE', dataObj.dataMap)
   this.loading = false
 }
@@ -204,7 +233,6 @@ root.methods.click_bind_API = function () {
 root.methods.click_manage_API = function () {
   this.$router.push({name: 'manageApi'})
 }
-
 // 开始获取手机验证
 root.methods.beginCountDownVerification = function () {
   this.getVerificationCode = true
@@ -227,30 +255,6 @@ root.methods.endCountDownVerification = function () {
   this.getVerificationCode = false
   this.getVerificationCodeCountdown = 60
 }
-
-// 开始获取邮箱验证码
-root.methods.beginEmailCountDownVerification = function () {
-  this.getEmailVerificationCode = true
-  this.clickEmailVerificationCodeButton = true
-  this.emailVerificationCodeWA = ''
-  this.getEmailVerificationCodeInterval && clearInterval(this.getEmailVerificationCodeInterval)
-  this.getEmailVerificationCodeInterval = setInterval(() => {
-    this.getEmailVerificationCodeCountdown--
-    if (this.getEmailVerificationCodeCountdown <= 0) {
-      this.getEmailVerificationCode = false
-      this.getEmailVerificationCodeCountdown = 60
-      clearInterval(this.getEmailVerificationCodeInterval)
-    }
-  }, 1000)
-}
-
-// 结束获取邮箱验证码
-root.methods.endEmailCountDownVerification = function () {
-  this.getEmailVerificationCodeInterval && clearInterval(this.getEmailVerificationCodeInterval)
-  this.getEmailVerificationCode = false
-  this.getEmailVerificationCodeCountdown = 60
-}
-
 
 // 点击发送验证码
 root.methods.click_getVerificationCode = function () {
@@ -291,6 +295,59 @@ root.methods.re_getVerificationCode = function (data) {
   }
 }
 
+// 获取安全日志记录
+root.methods.getLogRecord = function () {
+  this.$http.send('POST_LOG_RECORD', {
+    bind: this,
+    params: {
+      offset: this.offset,
+      maxResults: this.limit,
+    },
+    callBack: this.re_getLogRecord,
+    errorHandler: this.error_getLogRecord,
+  })
+}
+// 获取安全日志记录回调
+root.methods.re_getLogRecord = function (data) {
+  typeof data === 'string' && (data = JSON.parse(data))
+  console.warn('获取安全日志记录', data)
+  this.logRecord.push(...data.dataMap.loginRecords)
+  let topInfo = data.dataMap.loginRecords[0]
+  console.log(topInfo)
 
+  this.uid = topInfo.userId
+  this.lastTime = topInfo.createdAt
+  this.ip = topInfo.ip
+
+
+  // console.log(this.logRecord)
+
+  // if (data.dataMap.loginRecords.length < this.limit) {
+  //   this.loadingMoreShow = false
+  // }
+  //
+  // this.offset = this.offset + this.limit
+  // this.loading = false
+  // this.loadingMoreIng = false
+}
+// 获取安全日志记录出错
+root.methods.error_getLogRecord = function (err) {
+  console.warn('安全日志记录出错', err)
+}
+
+// 格式化时间
+root.methods.formatDateUitl = function (time) {
+  return this.$globalFunc.formatDateUitl(time, 'YYYY-MM-DD hh:mm:ss')
+}
+
+// 跳转安全日志
+root.methods.clickToLoadMore = function () {
+  this.$router.push('/index/personal/securityLog')
+}
+
+// 跳转身份认证页面
+root.methods.toAuthentication = function () {
+  this.$router.push('/index/personal/auth/authenticate')
+}
 
 export default root

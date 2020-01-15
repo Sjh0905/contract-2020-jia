@@ -2,7 +2,7 @@
   <Loading v-if="loading"/>
   <ul class="asset-container" :class="{'asset-alpha':black}" v-else>
     <li class="asset-li-2">
-      <router-link :to="{name:'authentication'}">
+      <router-link :to="{name:'securityCenter'}">
 <!--        <p class="asset-li-title">{{$t('userName')}}</p>-->
 
         <div class="asset-li-title-left">
@@ -28,11 +28,11 @@
         <p class="pointer">{{$t('authentication')}}</p>
       </router-link>
     </li>
-    <li class="asset-li">
-      <router-link to="/index/personal/securityCenter">
-        <p class="pointer">{{$t('safetyCente')}}</p>
-      </router-link>
-    </li>
+<!--    <li class="asset-li">-->
+<!--      <router-link to="/index/personal/securityCenter">-->
+<!--        <p class="pointer">{{$t('safetyCente')}}</p>-->
+<!--      </router-link>-->
+<!--    </li>-->
     <li class="asset-li">
       <router-link :to="{name:'securityLog'}">
         <p class="pointer">{{$t('securityLog')}}</p>

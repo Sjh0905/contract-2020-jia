@@ -1,0 +1,13 @@
+<div class="top-bar-box-back">
+  <div class="top-bar-box">
+    <div class="top-bar-title">{{title}}</div>
+    <div v-if="type == 1" class="top-bar-bot">
+      <div class="top-bar-prompt">{{promptText}}</div>
+      <router-link :to="toRouter" class="top-bar-to-do">{{toDoText}}</router-link>
+    </div>
+    <div v-if="type == 2" class="top-bar-bot">
+      <img class="top-bar-warning-img" src="../../assets/RegisterTopBar/warning_icon.png"/>
+      <div class="top-bar-warning-img-text">{{warningText}}</div>
+    </div>
+  </div>
+</div>
