@@ -1,144 +1,195 @@
-<div class="bind-ga-container min-height border_radius">
-  <Loading v-if="loading" class="loading"/>
-  <template v-if="!loading && !isMobile">
-    <div class="title flex">
-      <span></span>
-      <span>{{$t('personalCenterSecurityCenterBindGoogleAuthenticator.title')}}</span>
+<div>
+  <!--    个人信息-->
+  <div class="personal-info">
+    <div class="personal-container">
+      <div class="currency_notice_bread">
+        <router-link to="/index/personal/securityCenter" class="management">账户管理</router-link>
+        <span> > </span>
+        登录信息
+      </div>
     </div>
-    <div class="article">
+  </div>
 
-      <!--下载并安装 begin-->
-      <div class="line-container line-container-bottom flex">
-      <span class="line-title">
-        {{$t('personalCenterSecurityCenterBindGoogleAuthenticator.download')}}
-      </span>
-        <div class="line-article download-container flex">
-          <div class="download">
-            <a href="https://itunes.apple.com/us/app/google-authenticator/id388497605?mt=8" target="_blank"><img
-              src="../../assets/appStore.png" alt=""></a>
-            <div class="download-hidden">
-              <img src="../../assets/苹果谷歌验证下载二维码bindGa.png" alt="">
+  <div class="bind-ga-container min-height border_radius">
+
+    <Loading v-if="loading" class="loading"/>
+    <template v-if="!loading && !isMobile">
+
+
+<!--      <div class="title flex">-->
+<!--        <span></span>-->
+<!--        <span>{{$t('personalCenterSecurityCenterBindGoogleAuthenticator.title')}}</span>-->
+<!--      </div>-->
+
+      <div class="article">
+        <!--          第一步-->
+        <div class="one">
+          <div class="one-background">1</div>
+          <div class="one-text">{{$t('personalCenterSecurityCenterBindGoogleAuthenticator.download')}}</div>
+        </div>
+
+        <!--下载并安装 begin-->
+        <div class="line-container line-container-bottom">
+          <div class="download-text">iOS用户登录App Store搜索“Authenticator”下载。安卓用户登录应用商店或使用手机浏览器搜索“谷歌验证器”下载。</div>
+<!--          <div class="line-title">-->
+<!--            {{$t('personalCenterSecurityCenterBindGoogleAuthenticator.download')}}-->
+<!--          </div>-->
+          <div class="line-article download-container flex">
+            <div class="download">
+              <a href="https://itunes.apple.com/us/app/google-authenticator/id388497605?mt=8" target="_blank"><img
+                src="../../assets/bindGoogleAuthenticator/Authenticator_apple.png" alt=""></a>
+              <div class="qr-code">
+                <div class="download-hidden">
+                  <img src="../../assets/苹果谷歌验证下载二维码bindGa.png" alt="">
+                </div>
+              </div>
+
             </div>
-          </div>
-          <div class="download">
-            <a href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2"
-               target="_blank"><img src="../../assets/googlePlay.png" alt=""></a>
-            <div class="download-hidden">
-              <img src="../../assets/googlePlay谷歌验证下载二维码bindGa.png" alt="">
-            </div>
-          </div>
-          <div class="download">
-            <a href="http://android.myapp.com/myapp/detail.htm?apkName=com.google.android.apps.authenticator2"
-               target="_blank"><img
-              src="../../assets/应用宝.png" alt=""></a>
+            <div class="download">
+              <a href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2"
+                 target="_blank"><img src="../../assets/bindGoogleAuthenticator/Authenticator_google.png" alt=""></a>
+              <div class="qr-code">
+                <div class="download-hidden">
+                  <img src="../../assets/googlePlay谷歌验证下载二维码bindGa.png" alt="">
+                </div>
+              </div>
+        </div>
+        <div class="download">
+          <a href="http://android.myapp.com/myapp/detail.htm?apkName=com.google.android.apps.authenticator2"
+             target="_blank"><img
+            src="../../assets/bindGoogleAuthenticator/Authenticator_tencent.png" alt=""></a>
+          <div class="qr-code">
             <div class="download-hidden">
               <img src="../../assets/应用宝谷歌验证下载二维码bindGa.png" alt="">
             </div>
           </div>
         </div>
       </div>
-      <!--下载并安装 end-->
+        </div>
+        <!--下载并安装 end-->
 
+        <!--          第二步-->
+        <div class="one">
+          <div class="one-background">2</div>
+          <div class="one-text">{{$t('personalCenterSecurityCenterBindGoogleAuthenticator.qrCode')}}</div>
+        </div>
 
-      <!--扫描二维码 begin-->
-      <div class="line-container line-container-bottom flex">
-      <span class="line-title">
-        {{$t('personalCenterSecurityCenterBindGoogleAuthenticator.qrCode')}}
-      </span>
-        <div class="line-article flex">
+        <!--扫描二维码 begin-->
+        <div class="line-container line-container-bottom">
+          <div class="download-text">打开谷歌验证器，扫描下方二维码或手动输入下述密钥添加验证令牌。</div>
+          <!--          <span class="line-title">-->
+<!--            {{$t('personalCenterSecurityCenterBindGoogleAutenticator.qrCode')}}-->
+<!--          </span>-->
+          <div class="line-article flex line-article-line">
+<!--            二维码-->
+            <div class="qr-code-describe">
+<!--          <span>{{$t('personalCenterSecurityCenterBindGoogleAuthenticator.qrCode_prompt_1')}}-->
+<!--          <br/>{{$t('personalCenterSecurityCenterBindGoogleAuthenticator.qrCode_prompt_2')}}-->
+<!--          <br/>{{$t('personalCenterSecurityCenterBindGoogleAuthenticator.qrCode_prompt_3')}}-->
+<!--          </span>-->
+              <div class="qr-code-container">
+                <QRCodeVue :value="uri" level="H" size="120"/>
+              </div>
+            </div>
 
-          <div class="qr-code-describe flex">
-          <span>{{$t('personalCenterSecurityCenterBindGoogleAuthenticator.qrCode_prompt_1')}}
-          <br/>{{$t('personalCenterSecurityCenterBindGoogleAuthenticator.qrCode_prompt_2')}}
-          <br/>{{$t('personalCenterSecurityCenterBindGoogleAuthenticator.qrCode_prompt_3')}}
-          </span>
+<!--            密码及复制-->
             <div class="input-qr-code">
-              <span>{{$t('personalCenterSecurityCenterBindGoogleAuthenticator.security')}}</span>
+<!--              <span>{{$t('personalCenterSecurityCenterBindGoogleAuthenticator.security')}}</span>-->
               <input type="text" v-model="secretKey" readonly ref="address">
-              <span class="input-qr-code-copy pointer text_blue" @click="clickCopy">{{$t('personalCenterSecurityCenterBindGoogleAuthenticator.copy')}}</span>
+              <div class="input-qr-code-copy pointer text_blue" @click="clickCopy">
+                <img src="../../assets/bindGoogleAuthenticator/copy_icon.png" alt="">
+                {{$t('personalCenterSecurityCenterBindGoogleAuthenticator.copy')}}</div>
+            </div>
+          </div>
+          <div class="line-container-text">
+            {{$t('personalCenterSecurityCenterBindGoogleAuthenticator.qrCode_prompt_1')}}
+            {{$t('personalCenterSecurityCenterBindGoogleAuthenticator.qrCode_prompt_2')}}
+            <br/>{{$t('personalCenterSecurityCenterBindGoogleAuthenticator.qrCode_prompt_3')}}
+          </div>
+        </div>
+        <!--扫描二维码 end-->
+
+
+
+        <!--          第三步-->
+        <div class="one">
+          <div class="one-background">3</div>
+          <div class="one-text">{{$t('personalCenterSecurityCenterBindGoogleAuthenticator.bind')}}</div>
+        </div>
+        <!--完成绑定 begin-->
+        <div class="line-container flex">
+
+<!--          <span class="line-title">-->
+<!--            {{$t('personalCenterSecurityCenterBindGoogleAuthenticator.bind')}}-->
+<!--          </span>-->
+
+          <div class="line-article bind-success flex">
+            <div class="line-input">
+              <div>{{$t('personalCenterSecurityCenterBindGoogleAuthenticator.psw')}}</div>
+              <div class="line-input-detail">
+                <input type="password" v-model="psw" :class="{'wrong-border':pswWA!==''}"
+                       @blur="testPsw"
+                >
+              </div>
+              <span class="input-prompt txt-red" v-if="pswWA!==''">{{pswWA}}</span>
+            </div>
+
+            <div class="line-input">
+              <div>{{$t('personalCenterSecurityCenterBindGoogleAuthenticator.ga')}}</div>
+              <div class="line-input-detail">
+                <input type="text" v-model="verificationCode" :class="{'wrong-border':verificationCodeWA!==''}"
+                       @blur="testVerificationCode">
+              </div>
+              <span class="input-prompt txt-red" v-if="verificationCodeWA!==''">{{verificationCodeWA}}</span>
             </div>
           </div>
         </div>
+        <!--完成绑定 end-->
 
-        <div class="qr-code-container">
-          <QRCodeVue :value="uri" level="H" size="120"/>
+        <!--确认 begin-->
+        <div class="flex">
+<!--          <span class="line-title"></span>-->
+            <div class="line-input-button flex">
+              <div class="line-input-detail">
+                <button @click="commit" v-if="!sending" class="btn_blue">
+                  {{$t('personalCenterSecurityCenterBindGoogleAuthenticator.ensure')}}
+                </button>
+                <button v-else disabled class="btn_grey">
+                  {{$t('personalCenterSecurityCenterBindGoogleAuthenticator.binding')}}
+                </button>
+              </div>
+            </div>
         </div>
+        <!--确认 end-->
+
       </div>
-      <!--扫描二维码 end-->
 
+      <PopupPrompt :popOpen="popOpen" :popClose="popClose" :popType="popType" :popText="popText"/>
 
-      <!--完成绑定 begin-->
-      <div class="line-container flex">
-      <span class="line-title">
-        {{$t('personalCenterSecurityCenterBindGoogleAuthenticator.bind')}}
-      </span>
-        <div class="line-article bind-success flex">
-          <div class="line-input flex">
-            <span>{{$t('personalCenterSecurityCenterBindGoogleAuthenticator.psw')}}</span>
-            <div class="line-input-detail">
-              <input type="password" v-model="psw" :class="{'wrong-border':pswWA!==''}"
-                     @blur="testPsw">
-            </div>
-            <span class="input-prompt txt-red" v-if="pswWA!==''">{{pswWA}}</span>
-          </div>
-          <div class="line-input flex">
-            <span>{{$t('personalCenterSecurityCenterBindGoogleAuthenticator.ga')}}</span>
-            <div class="line-input-detail">
-              <input type="text" v-model="verificationCode" :class="{'wrong-border':verificationCodeWA!==''}"
-                     @blur="testVerificationCode">
-            </div>
-            <span class="input-prompt txt-red" v-if="verificationCodeWA!==''">{{verificationCodeWA}}</span>
-          </div>
-        </div>
+    </template>
+    <template class="mobile-content" v-if="!loading && isMobile">
+      <div class="mobile-title">{{$t('personalCenterSecurityCenterBindGoogleAuthenticator.bindGa')}}</div>
+      <div class="mobile-input-box">
+        <div class="mobile-input-title">{{$t('personalCenterSecurityCenterBindGoogleAuthenticator.loginPsw')}}</div>
+        <input type="password" v-model="psw" :class="{'wrong-border':pswWA!==''}"
+               @blur="testPsw">
+        <div class="input-prompt-height" v-if="pswWA===''"></div>
+        <div class="input-prompt txt-red" v-if="pswWA!==''">{{pswWA}}</div>
       </div>
-      <!--完成绑定 end-->
-
-
-      <!--确认 begin-->
-      <div class="line-container flex">
-        <span class="line-title"></span>
-        <div class="line-article">
-          <div class="line-input flex">
-            <span></span>
-            <div class="line-input-detail">
-              <button @click="commit" v-if="!sending" class="btn_blue">
-                {{$t('personalCenterSecurityCenterBindGoogleAuthenticator.ensure')}}
-              </button>
-              <button v-else disabled class="btn_grey">
-                {{$t('personalCenterSecurityCenterBindGoogleAuthenticator.binding')}}
-              </button>
-            </div>
-          </div>
-        </div>
+      <div class="mobile-input-box">
+        <div class="mobile-input-title">{{$t('personalCenterSecurityCenterBindGoogleAuthenticator.gaCode')}}</div>
+        <input type="text" v-model="verificationCode" :class="{'wrong-border':verificationCodeWA!==''}"
+               @blur="testVerificationCode">
+        <div class="input-prompt-height" v-if="verificationCodeWA===''"></div>
+        <div class="input-prompt txt-red" v-if="verificationCodeWA!==''">{{verificationCodeWA}}</div>
       </div>
-      <!--确认 end-->
+      <div class="mobile-button-box">
+        <button @click="commit" v-if="!sending">{{$t('personalCenterSecurityCenterBindGoogleAuthenticator.ensure')}}
+        </button>
+        <button @click="commit" v-else disabled>{{$t('personalCenterSecurityCenterBindGoogleAuthenticator.binding')}}
+        </button>
+      </div>
+    </template>
+  </div>
 
-    </div>
-
-    <PopupPrompt :popOpen="popOpen" :popClose="popClose" :popType="popType" :popText="popText"/>
-
-  </template>
-  <template class="mobile-content" v-if="!loading && isMobile">
-    <div class="mobile-title">{{$t('personalCenterSecurityCenterBindGoogleAuthenticator.bindGa')}}</div>
-    <div class="mobile-input-box">
-      <div class="mobile-input-title">{{$t('personalCenterSecurityCenterBindGoogleAuthenticator.loginPsw')}}</div>
-      <input type="password" v-model="psw" :class="{'wrong-border':pswWA!==''}"
-             @blur="testPsw">
-      <div class="input-prompt-height" v-if="pswWA===''"></div>
-      <div class="input-prompt txt-red" v-if="pswWA!==''">{{pswWA}}</div>
-    </div>
-    <div class="mobile-input-box">
-      <div class="mobile-input-title">{{$t('personalCenterSecurityCenterBindGoogleAuthenticator.gaCode')}}</div>
-      <input type="text" v-model="verificationCode" :class="{'wrong-border':verificationCodeWA!==''}"
-             @blur="testVerificationCode">
-      <div class="input-prompt-height" v-if="verificationCodeWA===''"></div>
-      <div class="input-prompt txt-red" v-if="verificationCodeWA!==''">{{verificationCodeWA}}</div>
-    </div>
-    <div class="mobile-button-box">
-      <button @click="commit" v-if="!sending">{{$t('personalCenterSecurityCenterBindGoogleAuthenticator.ensure')}}
-      </button>
-      <button @click="commit" v-else disabled>{{$t('personalCenterSecurityCenterBindGoogleAuthenticator.binding')}}
-      </button>
-    </div>
-  </template>
 </div>

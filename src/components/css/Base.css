@@ -217,7 +217,7 @@ body {
 
 .txt-red {
   /*color: #C43E4E;*/
-  color: rgb(253, 85, 85 )
+  color: #FD5555;
 }
 
 .txt-reda {
@@ -267,7 +267,7 @@ body {
 }
 
 .wrong-border {
-  border: 1px solid #C43E4E !important;
+  border: 1px solid #EF5656 !important;
 }
 
 .pointer {
@@ -323,7 +323,7 @@ input {
 
 /* 蓝色字体 */
 .text_blue {
-  color: #C43E4E !important;
+  color: #3576F5 !important;
 }
 
 /* 深色字体 */
@@ -363,7 +363,7 @@ input {
 
 /* 蓝色按钮 */
 .btn_blue {
-  background-color: #C43E4E !important;
+  background-color: #3576F5 !important;
   border-radius: 2px;
 }
 
@@ -373,7 +373,7 @@ input {
 }
 
 .btn_blue:hover {
-  background-color: rgba(196,62,78,0.8) !important;
+  background-color: #459AF5 !important;
 }
 
 .btn_blue_box_shadow {

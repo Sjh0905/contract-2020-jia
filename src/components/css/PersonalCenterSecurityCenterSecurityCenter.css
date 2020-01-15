@@ -139,6 +139,7 @@
   position: relative;
   /*padding: 90px 0 200px 0;*/
   margin-top: 20px;
+
 }
 
 /*容器*/
@@ -328,8 +329,6 @@
   .prompt-img {
     left: 10px;
   }
-
-
 }
 
 .titlenew{
