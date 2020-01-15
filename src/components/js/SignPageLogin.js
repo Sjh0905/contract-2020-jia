@@ -13,6 +13,7 @@ root.components = {
   'PopupPrompt': resolve => require(['../vue/PopupPrompt'], resolve),
   'Loading': resolve => require(['../vue/Loading'], resolve),
   'PopupWindow': resolve => require(['../vue/PopupWindow'], resolve),
+  'RegisterTopBar': resolve => require(['../vue/RegisterTopBar'], resolve),
 }
 
 /*------------------------------ data -------------------------------*/
@@ -507,7 +508,8 @@ root.methods.GO_GRC = function () {
 
 
 // 检测邮箱格式
-root.methods.testUserName = function () {
+root.methods.testUserName = function (color) {
+  this.inputColor = color
   this.userNamePlaceholderShow = true;
   this.mobileUserNameFocus = false
   return this.inputTestUserName()

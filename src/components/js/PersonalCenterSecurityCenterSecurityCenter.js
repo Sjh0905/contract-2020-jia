@@ -348,7 +348,7 @@ root.methods.re_getLogRecord = function (data) {
   console.warn('获取安全日志记录', data)
   this.logRecord.push(...data.dataMap.loginRecords)
   let topInfo = data.dataMap.loginRecords[0]
-  console.log(topInfo)
+  console.log(this.logRecord)
 
   this.uid = topInfo.userId
   this.lastTime = topInfo.createdAt

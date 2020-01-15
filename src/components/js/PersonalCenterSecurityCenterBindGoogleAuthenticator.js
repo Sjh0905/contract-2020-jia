@@ -30,7 +30,8 @@ root.data = function () {
     getGAReady: false,
 
 
-    sending: false
+    sending: false,
+
   }
 }
 
@@ -121,6 +122,7 @@ root.methods.testPsw = function () {
   this.pswWA = ''
   return true
 }
+
 // 检查验证码
 root.methods.testVerificationCode = function () {
   if (this.verificationCode === '') {
