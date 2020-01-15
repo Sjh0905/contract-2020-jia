@@ -61,7 +61,6 @@ root.computed.showVerificationType = function () {
   return this.$store.state.authState.ga && this.$store.state.authState.sms
 }
 
-
 // 判断是否是手机
 root.computed.isMobile = function () {
   return this.$store.state.isMobile

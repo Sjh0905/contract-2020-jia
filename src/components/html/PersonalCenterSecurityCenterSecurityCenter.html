@@ -370,8 +370,8 @@
 
     </div>
     <div slot="footer" class="pop-footer">
-      <span class="pop-qu" @click="click_rel_em">取消</span>
-      <button class="pop-qu-2">确认</button>
+      <span class="pop-qu pointer" @click="click_rel_em">取消</span>
+      <button class="pop-qu-2 pointer">确认</button>
 
     </div>
   </PopupT>
@@ -381,25 +381,33 @@
       <span class="pop-ei-ar">修改登陆密码</span>
     </div>
     <div slot="article" class="pop-article">
+      <div class="article-present">
+        <img class="present-img" src="../../assets/warming_icon.png" alt="">
+        <span>重置登录密码后24小时内禁止提币</span>
+      </div>
       <div class="article-pop-1">
         <div class="article-pop-2">原密码</div>
-        <input class="pop-input-1" type="text">
+        <input type="password" class="pop-input-1" v-model="oldPsw" :class="{'wrong-border':oldPswWA!==''}">
+        <span class="input-prompt" v-if="oldPswWA!==''">{{oldPswWA}}</span>
       </div>
       <div class="article-pop-1">
         <div class="article-pop-2">新密码</div>
-        <input class="pop-input-1" type="text">
+        <input class="pop-input-1" type="password" v-model="psw" :class="{'wrong-border':pswWA!==''}">
+        <span class="input-prompt" v-if="pswWA!==''">{{pswWA}}</span>
       </div>
       <div class="article-pop-1">
         <div class="article-pop-2">重新输入新密码</div>
-        <input class="pop-input-1" type="text">
+        <input class="pop-input-1" type="password" v-model="pswConfirm" :class="{'wrong-border':pswConfirmWA!==''}">
+        <span class="input-prompt" v-if="pswConfirmWA!==''">{{pswConfirmWA}}</span>
       </div>
 
     </div>
     <div slot="footer" class="pop-footer">
-      <span class="pop-qu" @click="click_rel_em">取消</span>
-      <button class="pop-qu-2">确认</button>
+      <span class="pop-qu pointer" @click="click_rel_em">取消</span>
+      <button class="pop-qu-2 pointer" @click="commit">确认</button>
 
     </div>
+
   </PopupT>
 
   <PopupT :switch="popWindowOpen2" @close="popWindowClose2">
@@ -417,11 +425,14 @@
       </div>
     </div>
     <div slot="footer" class="pop-footer">
-      <span class="pop-qu" @click="click_rel_em">取消</span>
-      <button class="pop-qu-2">确认</button>
+      <span class="pop-qu pointer" @click="click_rel_em">取消</span>
+      <button class="pop-qu-2 pointer">确认</button>
 
     </div>
   </PopupT>
+
+
+  <PopupPrompt :popOpen="popOpen" :popClose="popClose" :popType="popType" :popText="popText"/>
 
 </div>
 

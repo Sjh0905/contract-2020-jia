@@ -12,7 +12,7 @@
       <!--输入登录密码 begin-->
       <div class="input-password input-container">
         <div class="detail-center">
-          <span class="detail-center-title">{{$t('personalCenterSecurityCenterReleaseGoogleAuthenticator.psw')}}</span>
+          <span class="detail-center-title">{{$t('personalCenterSecurityCenterReleaseGoogleAuthenticator.psw')}}1111</span>
           <input type="password" v-model="psw" :class="{'wrong-border':pswWA!==''}" class="detail-input"
                  @blur="testPsw">
           <span class="detail-center-prompt txt-red" v-if="pswWA!==''">{{pswWA}}</span>
@@ -24,7 +24,7 @@
       <div class="google-verification input-container">
         <div class="detail-center">
           <span
-            class="detail-center-title">{{$t('personalCenterSecurityCenterReleaseGoogleAuthenticator.gaCode')}}</span>
+            class="detail-center-title">{{$t('personalCenterSecurityCenterReleaseGoogleAuthenticator.gaCode')}}222</span>
           <input type="text" v-model="GACode" :class="{'wrong-border':GACodeWA!==''}" class="detail-input"
                  @blur="testGACode">
           <span class="detail-center-prompt txt-red" v-if="GACodeWA!==''">{{GACodeWA}}</span>
