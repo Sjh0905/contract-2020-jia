@@ -324,6 +324,7 @@ input:-webkit-autofill {
   cursor: pointer;
   width:380px;
   height:44px;
+  outline: none;
   letter-spacing: 1px;
   border: 0;
   font-family: PingFangSC-Regular;

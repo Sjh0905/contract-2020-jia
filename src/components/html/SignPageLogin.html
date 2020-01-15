@@ -1,6 +1,6 @@
 <div class="Login-container " v-if="!loading">
   <!--topbar pc begin-->
-  <RegisterTopBar v-if="!isMobile" type=1 :title='$t("register.WelcomeToLogin")' :promptText='$t("haveNoID")' :toDoText='$t("register.GoRegister")'/>
+  <RegisterTopBar v-if="!isMobile" type=1 :title='$t("register.WelcomeToLogin")' :promptText='$t("haveNoID")' :toDoText='$t("register.GoRegister")' toRouter="/index/register"/>
   <!--topbar pc end-->
 
   <!--内容 begin-->
@@ -67,14 +67,14 @@
 
 
     <!--安全提示 begin-->
-    <div class="security-box">
+    <!--<div class="security-box">-->
       <!--<p class="security-detail-title flex-center">-->
         <!--<img src="../../assets/sign/sign-login-notice.png" alt="" class="security-detail-title-icon">-->
         <!--&lt;!&ndash;在您登录之前，请确认访问网址为EUNEX官方网站&ndash;&gt;-->
         <!--{{$t('securityPrompt')}}-->
       <!--</p>-->
       <!--<p class="security-detail-article text_blue">www.eunex.group</p>-->
-    </div>
+    <!--</div>-->
     <!--安全提示 end-->
 
     <div class="unit-container flex-center">
@@ -285,11 +285,11 @@
         <div class="unit-btn-container login-button-container ">
           <!--登录-->
           <!--<template v-if="captchaReady">-->
-          <button v-if="sending" class="login-button btn_blue" @click="loginIn"
+          <button v-if="!sending" class="login-button btn_blue" @click="loginIn"
           >
             {{$t("login")}}
           </button>
-          <button v-if="!sending" class="login-button login-ing-button" disabled>
+          <button v-if="sending" class="login-button login-ing-button" disabled>
             {{$t("logining")}}
           </button>
           <!--</template>-->
