@@ -71,13 +71,19 @@
   <!--标签-->
   <div class="container-bottom">
     <div class="detail-title flex">
-      <router-link to="/index/order/currentEntrust" class="title-tab flex-center box_shadow tab-item-first" active-class="selected text_blue">
+      <div class="detail-order-1">
+        <img src="../../assets/订单-icon.png" alt="" class="order-img">
+        订单
+      </div>
+
+      <router-link to="/index/order/currentEntrust" class="title-tab flex-center tab-item-first" active-class="selected text_blue-7">
         {{$t('orderPage.currentEntrust')}}
       </router-link>
-      <router-link to="/index/order/historicalEntrust" class="title-tab flex-center margin-a-little box_shadow tab-item-last"
-                   active-class="selected text_blue">
+      <router-link to="/index/order/historicalEntrust" class="title-tab flex-center margin-a-little tab-item-last"
+                   active-class="selected text_blue-7">
         {{$t('orderPage.historicalEntrust')}}
       </router-link>
+      <div class="xian"></div>
     </div>
     <div class="detail-container">
       <router-view></router-view>

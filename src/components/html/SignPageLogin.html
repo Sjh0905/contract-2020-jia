@@ -1,7 +1,10 @@
 <div class="Login-container " v-if="!loading">
+  <!--topbar pc begin-->
+  <RegisterTopBar v-if="!isMobile" type=1 :title='$t("register.WelcomeToLogin")' :promptText='$t("haveNoID")' :toDoText='$t("register.GoRegister")' toRouter="/index/register"/>
+  <!--topbar pc end-->
 
   <!--内容 begin-->
-  <div class="all-container box_shadow border_radius">
+  <div class="all-container border_radius">
 
     <!--标题 欢迎登陆 pc begin-->
     <div class="unit-title"  v-if="isMobile">
@@ -9,11 +12,11 @@
       <span class="unit-title-text">{{$t("welcome")}}</span>
 <!--      <span class="unit-title-line"></span>-->
     </div>
-    <div class="unit-title-pc"  v-if="!isMobile">
-      <!--      <span class="unit-title-line"></span>-->
-      <span class="unit-title-text-pc">{{$t("register.WelcomeToLogin")}}</span>
-      <!--      <span class="unit-title-line"></span>-->
-    </div>
+    <!--<div class="unit-title-pc"  v-if="!isMobile">-->
+      <!--&lt;!&ndash;      <span class="unit-title-line"></span>&ndash;&gt;-->
+      <!--<span class="unit-title-text-pc">{{$t("register.WelcomeToLogin")}}</span>-->
+      <!--&lt;!&ndash;      <span class="unit-title-line"></span>&ndash;&gt;-->
+    <!--</div>-->
     <!--标题 欢迎登陆 pc end-->
 
     <!--标题图 h5 begin-->
@@ -64,14 +67,14 @@
 
 
     <!--安全提示 begin-->
-    <div class="security-box">
+    <!--<div class="security-box">-->
       <!--<p class="security-detail-title flex-center">-->
         <!--<img src="../../assets/sign/sign-login-notice.png" alt="" class="security-detail-title-icon">-->
         <!--&lt;!&ndash;在您登录之前，请确认访问网址为EUNEX官方网站&ndash;&gt;-->
         <!--{{$t('securityPrompt')}}-->
       <!--</p>-->
       <!--<p class="security-detail-article text_blue">www.eunex.group</p>-->
-    </div>
+    <!--</div>-->
     <!--安全提示 end-->
 
     <div class="unit-container flex-center">
@@ -282,11 +285,11 @@
         <div class="unit-btn-container login-button-container ">
           <!--登录-->
           <!--<template v-if="captchaReady">-->
-          <button v-if="!sending" class="login-button    btn_blue" @click="loginIn"
+          <button v-if="!sending" class="login-button btn_blue" @click="loginIn"
           >
             {{$t("login")}}
           </button>
-          <button v-if="sending" class="login-button    btn_grey" disabled>
+          <button v-if="sending" class="login-button login-ing-button" disabled>
             {{$t("logining")}}
           </button>
           <!--</template>-->
@@ -308,19 +311,19 @@
       <!--手机端 忘记密码 end-->
 
 
-      <div v-if="!isMobile" class="have-no-account flex unit-input-container">
+      <!--<div v-if="!isMobile" class="have-no-account flex unit-input-container">-->
 
-        <!--没有账号，立即注册 begin-->
-        <span>{{$t("haveNoID")}}，
-          <router-link
-            to="/index/register" class="text_blue">
-<!--            {{$t("register")}}-->
-            {{$t("register.GoRegister")}}
-<!--            去注册-->
-          </router-link>
-        </span>
-        <!--没有账号，立即注册 end-->
-      </div>
+        <!--&lt;!&ndash;没有账号，立即注册 begin&ndash;&gt;-->
+        <!--<span>{{$t("haveNoID")}}，-->
+          <!--<router-link-->
+            <!--to="/index/register" class="text_blue">-->
+<!--&lt;!&ndash;            {{$t("register")}}&ndash;&gt;-->
+            <!--{{$t("register.GoRegister")}}-->
+<!--&lt;!&ndash;            去注册&ndash;&gt;-->
+          <!--</router-link>-->
+        <!--</span>-->
+        <!--&lt;!&ndash;没有账号，立即注册 end&ndash;&gt;-->
+      <!--</div>-->
       <div class="input-interval"></div>
     </div>
 

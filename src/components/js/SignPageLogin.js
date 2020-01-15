@@ -13,6 +13,7 @@ root.components = {
   'PopupPrompt': resolve => require(['../vue/PopupPrompt'], resolve),
   'Loading': resolve => require(['../vue/Loading'], resolve),
   'PopupWindow': resolve => require(['../vue/PopupWindow'], resolve),
+  'RegisterTopBar': resolve => require(['../vue/RegisterTopBar'], resolve),
 }
 
 /*------------------------------ data -------------------------------*/

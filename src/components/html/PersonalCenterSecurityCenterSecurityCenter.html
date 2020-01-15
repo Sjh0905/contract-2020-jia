@@ -360,8 +360,9 @@
       <div class="article-pop-1">
         <div class="article-pop-2">邮箱验证码</div>
         <div class="input-pop">
-          <input class="pop-input-3" type="text">
-          <span class="flex-center fl-ce-y" >获取验证码</span>
+        <input class="pop-input-3" type="text">
+        <span class=" fl-ce-y" v-if="!getVerificationCode" @click="click_getVerificationCode">获取验证码</span>
+          <span class="fl-ce-y-s" v-if="getVerificationCode">0 s之后重新发送</span>
         </div>
         <!--        <span class="flex-center identifying-code-button-close btn_grey"-->
         <!--              v-if="getVerificationCode">{{getVerificationCodeCountdown}}s 之后重新发送</span>-->
