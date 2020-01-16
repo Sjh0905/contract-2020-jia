@@ -54,7 +54,7 @@
           </span>
           <input type="text"
                  class="unit-input"
-                 :class="{'wrong-border':verificationCodeWA!==''}"
+               :class="{'wrong-border':verificationCodeWA!==''}"
                  v-model="verificationCode"
                  @blur="testVerificationCode"
           >
@@ -138,6 +138,9 @@
       </div>
     </div>
   </template>
+
+
+
 
   <PopupPrompt :popOpen="popOpen" :popClose="popClose" :popType="popType" :popText="popText"/>
 

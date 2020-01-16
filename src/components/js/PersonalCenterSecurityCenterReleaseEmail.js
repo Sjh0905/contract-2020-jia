@@ -7,6 +7,7 @@ root.name = 'PersonalCenterSecurityCenterReleaseEmail'
 root.components = {
   'Loading': resolve => require(['../vue/Loading'], resolve),
   'PopupPrompt': resolve => require(['../vue/PopupPrompt'], resolve),
+  'PopupT': resolve => require(['../vue/PopupT'], resolve),
 }
 
 /*----------------------------- data ------------------------------*/
