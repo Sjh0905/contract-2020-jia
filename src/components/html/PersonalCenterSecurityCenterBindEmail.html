@@ -1,6 +1,6 @@
 <div class="bind-mobile-container min-height border_radius">
   <Loading v-if="loading"/>
-  <template v-if="!loading && !isMobile">
+  <template v-if="!loading && !isMobile && 0">
     <div class="bind-mobile-title flex">
       <span></span>
       <span>
@@ -75,6 +75,49 @@
 
     </div>
 
+
+  </template>
+
+  <template v-if="!loading && !isMobile">
+    <!--解绑邮箱验证-->
+    <PopupT :switch="show" :close="click_rel_em">
+      <div slot="header">
+        <div class="pop-ei-ar">
+          <!--解绑邮箱：-->
+          {{$t('bindEmail')}}
+        </div>
+      </div>
+      <div slot="article" class="pop-article">
+        <div class="article-pop-1">
+          <div class="article-pop-2">登录密码</div>
+          <input type="password" v-model="psw" class="pop-input-1" :class="{'wrong-border':pswWA!==''}" @blur="testPsw">
+          <span class="wrong-msg" v-if="pswWA!==''">{{pswWA}}</span>
+        </div>
+        <div class="article-pop-1">
+          <div class="article-pop-2">邮箱</div>
+          <input type="text" v-model="email" class="pop-input-1" :class="{'wrong-border':emailWA!==''}" @blur="testEmail">
+          <span class="wrong-msg" v-if="emailWA!==''">{{emailWA}}</span>
+        </div>
+        <div class="article-pop-1">
+          <div class="article-pop-2">邮箱验证码</div>
+          <div class="input-pop" :class="{'wrong-border':verificationCodeWA!==''}">
+            <input class="pop-input-3"
+                   type="text" v-model="verificationCode"
+                   @blur="testVerificationCode">
+            <span class=" fl-ce-y" @click="postVerificationCode" v-if="!getVerificationCode">获取验证码</span>
+            <span class="fl-ce-y-s" v-else disabled>{{getVerificationCodeCountdown}}s</span>
+          </div>
+          <span class="wrong-msg" v-if="verificationCodeWA">{{verificationCodeWA}}</span>
+
+        </div>
+
+      </div>
+      <div slot="footer" class="pop-footer">
+        <span class="pop-qu pointer" @click="click_rel_em">取消</span>
+        <button class="pop-qu-2 pointer" v-if="!sending" @click="commit">确认</button>
+
+      </div>
+    </PopupT>
 
   </template>
 
