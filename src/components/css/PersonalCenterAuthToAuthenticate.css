@@ -84,17 +84,28 @@
   border-radius: 1px;
 }
 
+.input-unify1 {
+  margin-top: 3px;
+}
+
 .input-unify {
   width: 100%;
+  height: 87px;
   display: block;
   position: relative;
   white-space: nowrap;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
   font-family:PingFangSC-Regular,PingFang SC;
   /*margin-left: 50px;*/
   font-size: 12px;
   color: #6B7DA2;
   /*margin-bottom: 20px;*/
+}
+
+
+
+.title-bottom {
+  margin-bottom: 10px;
 }
 
 .allinfo11_update {
@@ -121,13 +132,13 @@
 }
 
 .input-input-container {
-  margin-top: 15px;
-  margin-bottom: 40px;
-  color: #EF5656;
+  /*margin-top: 15px;*/
+  /*margin-bottom: 30px;*/
+  color: #FF9F40;
 }
 
 .mm {
-  margin-top: -25px;
+  /*margin-top: -25px;*/
   font-size: 12px;
   /*color: #172A4D;*/
 }
@@ -138,19 +149,21 @@
 
 .input-input {
   width: 100%;
-  height: 44px;
+  height: 40px;
+  padding-left: 15px;
   /*padding-left: 18px;*/
   border: 1px solid #e5e5e5;
   box-sizing: border-box;
-  border-radius: 2px;
+  border-radius: 1px;
 }
 
 .input-prompt {
-  position: absolute;
-  width: 60%;
-  top: 50%;
-  transform: translateY(-50%);
-  right: -70%;
+  margin-top: 3px;
+  /*position: absolute;*/
+  /*width: 60%;*/
+  /*top: 50%;*/
+  /*transform: translateY(-50%);*/
+  /*right: -70%;*/
 }
 
 .prompt-span {
@@ -176,7 +189,7 @@
 }
 
 .sex input {
-  margin-right: 4%;
+  margin-right: 15px;
 }
 
 .sex label {
@@ -217,14 +230,18 @@
 /*点击图片*/
 .image-container {
   width: 100%;
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 30px;
   /*border-top: 1px dotted #cccccc;*/
 }
 
 .image-unify {
-  width: 33%;
+  width: 31%;
   flex-direction: column;
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
+  /*text-align: center;*/
   /*padding: 30px 0 20px 0;*/
 }
 
@@ -232,66 +249,71 @@
 .image-show {
   background-color: #e6e6e6;
   width: 100%;
-  height: 140px;
-  border-radius: 5px;
-  margin-top: 12px;
+  height: 109px;
+  border-radius: 6px;
+  /*margin-top: 12px;*/
 }
 
 #imgFrontContainer_0 {
-  background: url("../../assets/身份认证_身份证正面_可上传.png") center center no-repeat;
-  background-size: 80% 80%;
-  /*background-position: center;*/
-  height: 238px;
+  background: url("../../assets/authentication/china_01.png") center center no-repeat;
+  background-size: 96% 95%;
+  background-position: center;
+  height: 109px;
   /*border: 1px dotted #C43E4E;*/
   border-radius: 4px;
-  background-color: #ffffff;
+  background-color: #EBF2FE;
+  padding: 3px;
+  box-sizing: border-box;
 }
 
 #imgBackContainer_0 {
-  background: url("../../assets/身份认证_身份证背面_可上传.png") center center no-repeat;
-  background-size: 80% 80%;
+  background: url("../../assets/authentication/china_02.png") center center no-repeat;
+  background-size: 96% 95%;
   /*background-position: center;*/
-  height: 238px;
+  height: 109px;
   /*border: 1px dotted #C43E4E;*/
   border-radius: 4px;
-  background-color: #ffffff;
+  background-color: #EBF2FE;
 }
 
 #imgHoldContainer_0 {
-  background: url("../../assets/身份认证_身份证手持照_可上传.png") center center no-repeat;
-  background-size: 80% 80%;
-  /*background-position: center;*/
-  height: 238px;
+  background: url("../../assets/authentication/china_03.png") center center no-repeat;
+  background-size: 96% 95%;
+  background-position: center;
+  height: 109px;
   /*border: 1px dotted #C43E4E;*/
   border-radius: 4px;
-  background-color: #ffffff;
+  background-color: #EBF2FE;
 }
 
 #imgFrontContainer_1 {
-  background: url("../../assets/身份认证_护照正面_可上传.png") center center no-repeat;
-  background-size: 80% 80%;
-  /*background-position: center;*/
-  height: 238px;
+  background: url("../../assets/authentication/oversea_01.png") center center no-repeat;
+  background-size: 98% 98%;
+  background-position: center;
+  height: 109px;
   /*border: 1px dotted #C43E4E;*/
   border-radius: 4px;
+  background-color: #EBF2FE;
 }
 
 #imgBackContainer_1 {
-  background: url("../../assets/身份认证_护照背面_可上传.png") center center no-repeat;
-  background-size: 80% 80%;
-  /*background-position: center;*/
-  height: 238px;
+  background: url("../../assets/authentication/oversea_01.png") center center no-repeat;
+  background-size: 98% 98%;
+  background-position: center;
+  height: 109px;
   /*border: 1px dotted #C43E4E;*/
   border-radius: 4px;
+  background-color: #EBF2FE;
 }
 
 #imgHoldContainer_1 {
-  background: url("../../assets/身份认证_护照手持照_可上传.png") center center no-repeat;
-  background-size: 80% 80%;
+  background: url("../../assets/authentication/oversea_01.png") center center no-repeat;
+  background-size: 98% 98%;
   /*background-position: center;*/
-  height: 238px;
+  height: 109px;
   /*border: 1px dotted #C43E4E;*/
   border-radius: 4px;
+  background-color: #EBF2FE;
 }
 
 .image-show:hover {
@@ -318,8 +340,8 @@
 }
 
 .image-prompt {
-  margin-top: 8px;
-  min-height: 18px;
+  margin-top: 3px;
+  min-height: 20px;
 }
 
 /*提示*/
@@ -329,15 +351,19 @@
   color: #666;
 }
 
+.select-down-box {
+  width: 520px;
+}
+
 .inputInner {
   display: inline-block;
-  width: 576px;
+  /*width: 100%;*/
   /*height: 35px;*/
-  border-radius: 2px;
+  border-radius: 1px;
 }
 
 .inputsize {
-  width: 544px;
+  width: 484px;
   height: 40px;
   margin: 6px 18px;
   padding-left: 10px;
@@ -413,11 +439,10 @@
 }
 
 .two {
-
   width: 100%;
   height: 20px;
   line-height: 20px;
-  margin-top: 65px;
+  margin-top: 35px;
   margin-bottom: 36px;
   font-size: 14px;
   font-family:PingFangSC-Regular,PingFang SC;
@@ -467,9 +492,15 @@
   border: 1px solid #EF5656;
 }
 
+<<<<<<< HEAD
 .wrong-msg {
-  color: red;
+  color: #FD5555;
 }
+=======
+/*.wrong-msg {*/
+/*  color: red;*/
+/*}*/
+>>>>>>> 23e1b7da575a4dfcedb8e846cea15fbe1a18fdfc
 
 .right-msg {
   color: #0babb6;
@@ -554,20 +585,20 @@
 .el-select >>> .el-input__inner {
   -web-kit-appearance: none;
   -moz-appearance: none;
-  width: 580px;
-  height: 44px;
-  line-height: 44px;
+  width: 520px;
+  height: 40px;
+  line-height: 40px;
   outline: 0;
   opacity: 0.7;
-  border: 1px solid #B5BCC6;
-  font-size: 13px;
+  border: 1px solid #E0E1F4;
+  font-size: 12px;
   /*color: #C43E4E;*/
   font-size: 16px;
   color: #172A4D;
   letter-spacing: 0;
   margin-right: 12px;
   border: 1px solid rgba(181,188,198,0.50);
-  border-radius: 2px;
+  border-radius: 1px;
 }
 
 .el-select >>> .el-input__icon{
@@ -581,17 +612,20 @@
 }
 
 .el-select >>>  .el-input.is-focus .el-input__inner {
-  border-color: red;
+  border-color: #3576F5;
 }
 
 .el-select >>>  .el-input .el-select-dropdown__item selected{
-  color: red;
+  color: #3576F5;
   font-weight: 700;
 }
 
 .el-select-dropdown__item.selected {
-  color: #C43E4E;
+  color: #3576F5;
   font-weight: 700;
+}
+.el-select-dropdown {
+  width: 520px;
 }
 
 .prompt_ttl{
@@ -647,6 +681,7 @@
 .image-title {
   font-family: PingFangSC-Regular;
   font-size: 12px;
+  margin-top: 10px;
   color: #0D0E23;
 }
 

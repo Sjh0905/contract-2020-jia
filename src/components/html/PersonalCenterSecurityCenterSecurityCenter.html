@@ -22,8 +22,8 @@
         <div class="identity-left">
           <div class="identity-title">身份认证</div>
           <div class="identity-logen">完成个人认证有助于保护账户安全，提高提现额度及交易权限</div>
-          <div class="identity-button pointer" @click="toAuthentication">
-            <button>立即认证</button>
+          <div class="identity-button" @click="toAuthentication">
+            <button class="pointer">立即认证</button>
           </div>
         </div>
 
@@ -96,12 +96,14 @@
               <div class="allinfo11_1info_dis">{{$t('title_6')}}</div>
             </div>
             <div class="allinfo11_update">
-              <div v-if="!bindGA" @click="click_bind_GA" id="binds" >
-                {{$t('gaCode_button_1')}}
-              </div>
               <div  v-if="bindGA" @click="click_release_GA">
                 {{$t('gaCode_button_2')}}
               </div>
+
+              <div v-if="!bindGA" @click="click_bind_GA" id="binds" >
+                {{$t('gaCode_button_1')}}
+              </div>
+
             </div>
           </div>
 
@@ -343,39 +345,11 @@
       <!--    </div>-->
     </template>
   </div>
+
+
   <!--弹窗-->
-  <PopupT :switch="popWindowOpen" @close="popWindowClose">
-    <div slot="header">
-      <span class="pop-ei-ar">解绑邮箱</span>
-    </div>
-    <div slot="article" class="pop-article">
-      <div class="article-pop-1">
-        <div class="article-pop-2">登陆密码</div>
-        <input class="pop-input-1" type="text">
-      </div>
-      <div class="article-pop-1">
-        <div class="article-pop-2">邮箱</div>
-        <input class="pop-input-1" type="text">
-      </div>
-      <div class="article-pop-1">
-        <div class="article-pop-2">邮箱验证码</div>
-        <div class="input-pop">
-        <input class="pop-input-3" type="text">
-        <span class=" fl-ce-y" v-if="!getVerificationCode" @click="click_getVerificationCode">获取验证码</span>
-          <span class="fl-ce-y-s" v-if="getVerificationCode">0 s之后重新发送</span>
-        </div>
-        <!--        <span class="flex-center identifying-code-button-close btn_grey"-->
-        <!--              v-if="getVerificationCode">{{getVerificationCodeCountdown}}s 之后重新发送</span>-->
-      </div>
 
-    </div>
-    <div slot="footer" class="pop-footer">
-      <span class="pop-qu pointer" @click="click_rel_em">取消</span>
-      <button class="pop-qu-2 pointer">确认</button>
-
-    </div>
-  </PopupT>
-
+  <!--修改登录密码-->
   <PopupT :switch="popWindowOpen1" @close="popWindowClose1">
     <div slot="header">
       <span class="pop-ei-ar">修改登陆密码</span>
@@ -410,6 +384,7 @@
 
   </PopupT>
 
+  <!--解绑谷歌验证-->
   <PopupT :switch="popWindowOpen2" @close="popWindowClose2">
     <div slot="header">
       <span class="pop-ei-ar">解绑谷歌验证码</span>
@@ -417,12 +392,50 @@
     <div slot="article" class="pop-article">
       <div class="article-pop-1">
         <div class="article-pop-2">登陆密码</div>
+        <input class="pop-input-1" type="password" v-model="pswge" :class="{'wrong-border':pswWAge!==''}"
+               @blur="testPswge">
+        <span class="detail-center-prompt txt-red" v-if="pswWAge!==''">{{pswWAge}}</span>
+      </div>
+
+      <div class="article-pop-1">
+        <div class="article-pop-2">谷歌验证码</div>
+        <input class="pop-input-1" type="text" v-model="GACodege" :class="{'wrong-border':GACodeWAge!==''}"
+               @blur="testGACodege">
+        <span class="detail-center-prompt txt-red" v-if="GACodeWAge!==''">{{GACodeWAge}}</span>
+      </div>
+    </div>
+    <div slot="footer" class="pop-footer">
+      <span class="pop-qu pointer" @click="click_rel_em">取消</span>
+      <button class="pop-qu-2 pointer" @click="commitge">确认</button>
+
+    </div>
+  </PopupT>
+
+  <!--解绑邮箱验证-->
+  <PopupT :switch="popWindowOpen" @close="popWindowClose">
+    <div slot="header">
+      <span class="pop-ei-ar">解绑邮箱</span>
+    </div>
+    <div slot="article" class="pop-article">
+      <div class="article-pop-1">
+        <div class="article-pop-2">登录密码</div>
         <input class="pop-input-1" type="text">
       </div>
       <div class="article-pop-1">
-        <div class="article-pop-2">谷歌验证码</div>
+        <div class="article-pop-2">邮箱</div>
         <input class="pop-input-1" type="text">
       </div>
+      <div class="article-pop-1">
+        <div class="article-pop-2">邮箱验证码</div>
+        <div class="input-pop">
+          <input class="pop-input-3" type="text">
+          <span class=" fl-ce-y" v-if="!getVerificationCode" @click="click_getVerificationCode">获取验证码</span>
+          <span class="fl-ce-y-s" v-if="getVerificationCode">0 s之后重新发送</span>
+        </div>
+        <!--        <span class="flex-center identifying-code-button-close btn_grey"-->
+        <!--              v-if="getVerificationCode">{{getVerificationCodeCountdown}}s 之后重新发送</span>-->
+      </div>
+
     </div>
     <div slot="footer" class="pop-footer">
       <span class="pop-qu pointer" @click="click_rel_em">取消</span>

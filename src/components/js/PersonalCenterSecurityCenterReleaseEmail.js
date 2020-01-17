@@ -7,6 +7,7 @@ root.name = 'PersonalCenterSecurityCenterReleaseEmail'
 root.components = {
   'Loading': resolve => require(['../vue/Loading'], resolve),
   'PopupPrompt': resolve => require(['../vue/PopupPrompt'], resolve),
+  'PopupT': resolve => require(['../vue/PopupT'], resolve),
 }
 
 /*----------------------------- data ------------------------------*/
@@ -47,6 +48,8 @@ root.data = function () {
     pswFocus: false,
     emailFocus: false,
     verificationFocus: false,
+
+    show:true
   }
 }
 
@@ -357,6 +360,11 @@ root.methods.error_commit = function (err) {
     this.popOpen = true
   }, 100)
 
+}
+
+root.methods.click_rel_em = function () {
+  this.show = false
+  this.$router.push({name: 'securityCenter'})
 }
 
 

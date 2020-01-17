@@ -3,127 +3,142 @@
   <template v-else>
 
     <!--pc端样式 begin-->
-    <!--标题 begin-->
-    <div v-if="!isMobile" class="title flex">
-      <span></span>
-      <span>{{$t('title')}}</span>
-    </div>
-    <!--标题 end-->
-
     <!--内容 begin-->
     <div v-if="!isMobile" class="article border_radius">
+
+      <!--    个人信息-->
+      <div class="personal-info">
+        <div class="personal-container">
+          <div class="currency_notice_bread">
+            <router-link to="/index/personal/securityCenter" class="management">账户管理</router-link>
+            <span> > </span>
+            {{$t('title')}}
+          </div>
+        </div>
+      </div>
+
 
 <!--      <div class="background"></div>-->
 
       <div class="article-detail">
+
         <!--头像 begin-->
 <!--        <div class="portrait margin">-->
 <!--          <img src="" alt=""  style="width: 105px;">-->
 <!--          <div class="change-portrait"></div>-->
 <!--        </div>-->
-        <!--头像 end-->
-        <div class="title_art" v-if="authState==='2'"><img src="../../assets/renzpass.png">{{$t('authenticated1')}}</div>
-        <div class="title_art_sh" v-if="authState==='0'"><img src="../../assets/shehing.png">{{$t('authenticated2')}}</div>
+<!--        内容 begin-->
+      <div class="article-container">
+        <!--标题 begin-->
+        <div v-if="!isMobile" class="title flex">
+          <span></span>
+          <span>{{$t('title')}}</span>
+        </div>
+        <!--标题 end-->
 
+        <!--头像 end-->
+        <div class="title_art" v-if="authState==='2'"><img src="../../assets/authentication/identity_passed_icon.png">{{$t('authenticated1')}}</div>
+        <div class="title_art" v-if="authState==='0'"><img src="../../assets/authentication/identity_audit_icon.png">{{$t('authenticated2')}}</div>
         <!--账户信息-->
         <div class="account-info-container margin">
           <!--email begin-->
-<!--          <div class="email flex-center info-detail account-info">-->
-<!--            {{email || '*****@***.***'}}-->
-<!--          </div>-->
+          <!--          <div class="email flex-center info-detail account-info">-->
+          <!--            {{email || '*****@***.***'}}-->
+          <!--          </div>-->
           <!--email end-->
 
+<!--//  TODO:认证状态 -->
           <!--认证图标 begin-->
-          <div class="go-to-auth flex-center info-detail account-info">
+<!--          <div class="flex-center info-detail account-info">-->
 
+<!--            &lt;!&ndash;审核中 begin&ndash;&gt;-->
+<!--            &lt;!&ndash;            <span class="button in-review border_radius"&ndash;&gt;-->
+<!--            &lt;!&ndash;                  v-if="authState==='0'"&ndash;&gt;-->
+<!--            &lt;!&ndash;            >{{$t('review')}}</span>&ndash;&gt;-->
+<!--            &lt;!&ndash;审核中 end&ndash;&gt;-->
 
-            <!--审核中 begin-->
+<!--            &lt;!&ndash; 被驳回 begin&ndash;&gt;-->
+<!--            <router-link class="button reject border_radius pointer"-->
+<!--                         :to="{name:'authenticate'}"-->
+<!--                         v-if="authState==='1'"-->
+<!--            >{{$t('reject')}}-->
+<!--            </router-link>-->
+<!--            &lt;!&ndash;被驳回 end&ndash;&gt;-->
+
+<!--            &lt;!&ndash;已认证 begin&ndash;&gt;-->
+<!--            <span class="button authenticated "-->
+<!--                  v-if="authState==='2'"-->
+<!--            >{{$t('authenticated')}}</span>-->
+<!--            &lt;!&ndash;已认证 end&ndash;&gt;-->
+
+<!--            &lt;!&ndash;未认证 begin&ndash;&gt;-->
+<!--            <span class="button identification border_radius pointer btn_simple"-->
+<!--                  v-if="authState==='3'"-->
+<!--                  @click="link_to_authenticate">-->
+<!--              {{$t('toAuth')}}-->
+<!--            </span>-->
+<!--            &lt;!&ndash;未认证 end&ndash;&gt;-->
+
+<!--            &lt;!&ndash;已失效 begin&ndash;&gt;-->
 <!--            <span class="button in-review border_radius"-->
-<!--                  v-if="authState==='0'"-->
+<!--                  v-if="authState==='4'"-->
+<!--            >-->
+<!--              &lt;!&ndash;已失效&ndash;&gt;-->
+<!--              {{$t('expired')}}-->
+<!--            </span>-->
+<!--            &lt;!&ndash;已失效 end&ndash;&gt;-->
+
+<!--            &lt;!&ndash;审核中 begin&ndash;&gt;-->
+<!--            <span class="button in-review border_radius"-->
+<!--                  v-if="authState==='5'"-->
 <!--            >{{$t('review')}}</span>-->
-            <!--审核中 end-->
-
-             <!-- 被驳回 begin-->
-            <router-link class="button reject border_radius pointer"
-                             :to="{name:'authenticate'}"
-                         v-if="authState==='1'"
-            >{{$t('reject')}}
-            </router-link>
-            <!--被驳回 end-->
-
-            <!--已认证 begin-->
-            <span class="button authenticated "
-                  v-if="authState==='2'"
-            >{{$t('authenticated')}}</span>
-            <!--已认证 end-->
-
-            <!--未认证 begin-->
-            <span class="button identification border_radius pointer btn_simple"
-                  v-if="authState==='3'"
-                  @click="link_to_authenticate">
-              {{$t('toAuth')}}
-            </span>
-            <!--未认证 end-->
-
-            <!--已失效 begin-->
-            <span class="button in-review border_radius"
-                  v-if="authState==='4'"
-            >
-              <!--已失效-->
-              {{$t('expired')}}
-            </span>
-            <!--已失效 end-->
-
-            <!--审核中 begin-->
-            <span class="button in-review border_radius"
-                  v-if="authState==='5'"
-            >{{$t('review')}}</span>
-            <!--审核中 end-->
+<!--            &lt;!&ndash;审核中 end&ndash;&gt;-->
 
 
-            <!--进行中 begin-->
-            <span class="button in-review border_radius pointer"
-                  v-if="authState==='6'"
-                  @click="openFacePopupWindow"
-            >
-              <!--进行中-->
-              {{$t('processing')}}
-            </span>
-            <!--进行中 end-->
+<!--            &lt;!&ndash;进行中 begin&ndash;&gt;-->
+<!--            <span class="button in-review border_radius pointer"-->
+<!--                  v-if="authState==='6'"-->
+<!--                  @click="openFacePopupWindow"-->
+<!--            >-->
+<!--              &lt;!&ndash;进行中&ndash;&gt;-->
+<!--              {{$t('processing')}}-->
+<!--            </span>-->
+<!--            &lt;!&ndash;进行中 end&ndash;&gt;-->
 
-          </div>
+<!--          </div>-->
           <!--认证图标 begin-->
+
 
           <!--使用bdb折扣开关 begin-->
           <!--<div class="flex-center info-detail account-info info-detail-bdb-box">-->
-            <!--<span class="check-bt-bonus-box">-->
-              <!--&lt;!&ndash;{{$t('accountInfo',{btReward:btReward})}}&ndash;&gt;-->
-              <!--{{$t('accountInfo')}}-->
+          <!--<span class="check-bt-bonus-box">-->
+          <!--&lt;!&ndash;{{$t('accountInfo',{btReward:btReward})}}&ndash;&gt;-->
+          <!--{{$t('accountInfo')}}-->
 
-              <!--&lt;!&ndash;查看收益 begin&ndash;&gt;-->
-              <!--&lt;!&ndash;<router-link :to="{name:'burnBDBProfit'}" class="check-bt-bonus text_blue">&ndash;&gt;-->
-              <!--&lt;!&ndash;查看收益&ndash;&gt;-->
-                <!--&lt;!&ndash;{{$t('checkProfit')}}&ndash;&gt;-->
-              <!--&lt;!&ndash;</router-link>&ndash;&gt;-->
-              <!--&lt;!&ndash;查看收益 end&ndash;&gt;-->
-            <!--</span>-->
-            <!--&lt;!&ndash;<input type="checkbox">&ndash;&gt;-->
+          <!--&lt;!&ndash;查看收益 begin&ndash;&gt;-->
+          <!--&lt;!&ndash;<router-link :to="{name:'burnBDBProfit'}" class="check-bt-bonus text_blue">&ndash;&gt;-->
+          <!--&lt;!&ndash;查看收益&ndash;&gt;-->
+          <!--&lt;!&ndash;{{$t('checkProfit')}}&ndash;&gt;-->
+          <!--&lt;!&ndash;</router-link>&ndash;&gt;-->
+          <!--&lt;!&ndash;查看收益 end&ndash;&gt;-->
+          <!--</span>-->
+          <!--&lt;!&ndash;<input type="checkbox">&ndash;&gt;-->
 
-            <!--&lt;!&ndash;<a href="#" class="toggle"&ndash;&gt;-->
-            <!--&lt;!&ndash;:class="{'toggle&#45;&#45;off':!BDBInfo,'toggle&#45;&#45;on':BDBInfo,'toggle&#45;&#45;moving':BDBChanging}"&ndash;&gt;-->
-            <!--&lt;!&ndash;@click="clickToggle($event)"></a>&ndash;&gt;-->
+          <!--&lt;!&ndash;<a href="#" class="toggle"&ndash;&gt;-->
+          <!--&lt;!&ndash;:class="{'toggle&#45;&#45;off':!BDBInfo,'toggle&#45;&#45;on':BDBInfo,'toggle&#45;&#45;moving':BDBChanging}"&ndash;&gt;-->
+          <!--&lt;!&ndash;@click="clickToggle($event)"></a>&ndash;&gt;-->
 
-            <!--&lt;!&ndash;<div class="bdb-button-box"&ndash;&gt;-->
-            <!--&lt;!&ndash;:class="BDBInfo ? 'bdb-button-box-open':'bdb-button-box-close'"&ndash;&gt;-->
-            <!--&lt;!&ndash;&gt;&ndash;&gt;-->
-            <!--&lt;!&ndash;<div class="bdb-button-toggle"&ndash;&gt;-->
-            <!--&lt;!&ndash;:class="BDBInfo ? 'bdb-button-toggle-open':'bdb-button-toggle-close'"&ndash;&gt;-->
-            <!--&lt;!&ndash;@click="clickToggle($event)"></div>&ndash;&gt;-->
-            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+          <!--&lt;!&ndash;<div class="bdb-button-box"&ndash;&gt;-->
+          <!--&lt;!&ndash;:class="BDBInfo ? 'bdb-button-box-open':'bdb-button-box-close'"&ndash;&gt;-->
+          <!--&lt;!&ndash;&gt;&ndash;&gt;-->
+          <!--&lt;!&ndash;<div class="bdb-button-toggle"&ndash;&gt;-->
+          <!--&lt;!&ndash;:class="BDBInfo ? 'bdb-button-toggle-open':'bdb-button-toggle-close'"&ndash;&gt;-->
+          <!--&lt;!&ndash;@click="clickToggle($event)"></div>&ndash;&gt;-->
+          <!--&lt;!&ndash;</div>&ndash;&gt;-->
 
-            <!--&lt;!&ndash;BDB折扣开关 begin&ndash;&gt;-->
-            <!--<Toggle :toggleOpen="BDBInfo" :switchFunc="clickToggle"/>-->
-            <!--&lt;!&ndash;BDB折扣开关 end&ndash;&gt;-->
+          <!--&lt;!&ndash;BDB折扣开关 begin&ndash;&gt;-->
+          <!--<Toggle :toggleOpen="BDBInfo" :switchFunc="clickToggle"/>-->
+          <!--&lt;!&ndash;BDB折扣开关 end&ndash;&gt;-->
 
 
           <!--</div>-->
@@ -134,7 +149,7 @@
         <table class="info margin">
           <tr class="info-tr">
             <td class="info-td-title">
-<!--              <span class="info-li-dot"></span>-->
+              <!--              <span class="info-li-dot"></span>-->
               <span class="info-li-title">{{$t('authenticated3')}}</span>
             </td>
             <td class="info-td-content">
@@ -144,70 +159,70 @@
           </tr>
           <tr class="info-tr">
             <td class="info-td-title">
-<!--              <span class="info-li-dot"></span>-->
-              <span class="info-li-title">UID：</span>
+              <!--              <span class="info-li-dot"></span>-->
+              <span class="info-li-title">UID</span>
             </td>
             <td class="info-td-content">
               <span class="info-li-article">{{uuid}}</span>
             </td>
-<!--            <td class="info-td-title-second">-->
-<!--              <span class="info-li-dot"></span>-->
-<!--              <span class="info-li-title">{{$t('total')}}</span>-->
-<!--            </td>-->
-<!--            <td class="info-td-content"-->
-<!--                @mouseenter="get_now_price((accountReady && (priceReady || initReady )? toFixed(total,8):'&#45;&#45;&#45;&#45;'), 1)"-->
-<!--                @mouseleave="hide_now_price">-->
-<!--              <span-->
-<!--                class="info-li-article">{{accountReady && (priceReady || initReady )? toFixed(total,8):'&#45;&#45;&#45;&#45;'}} BTC</span>-->
-<!--              <span class="show_tips" :class="{'show': show_key == 1}">-->
-<!--                  {{change_price}}-->
-<!--                  <font></font>-->
-<!--                </span>-->
-<!--            </td>-->
+            <!--            <td class="info-td-title-second">-->
+            <!--              <span class="info-li-dot"></span>-->
+            <!--              <span class="info-li-title">{{$t('total')}}</span>-->
+            <!--            </td>-->
+            <!--            <td class="info-td-content"-->
+            <!--                @mouseenter="get_now_price((accountReady && (priceReady || initReady )? toFixed(total,8):'&#45;&#45;&#45;&#45;'), 1)"-->
+            <!--                @mouseleave="hide_now_price">-->
+            <!--              <span-->
+            <!--                class="info-li-article">{{accountReady && (priceReady || initReady )? toFixed(total,8):'&#45;&#45;&#45;&#45;'}} BTC</span>-->
+            <!--              <span class="show_tips" :class="{'show': show_key == 1}">-->
+            <!--                  {{change_price}}-->
+            <!--                  <font></font>-->
+            <!--                </span>-->
+            <!--            </td>-->
           </tr>
           <tr class="info-tr">
             <td class="info-td-title">
-<!--              <span class="info-li-dot"></span>-->
-              <span class="info-li-title">{{$t('name')}}：</span>
+              <!--              <span class="info-li-dot"></span>-->
+              <span class="info-li-title">{{$t('name')}}</span>
             </td>
             <td class="info-td-content">
               <span class="info-li-article">{{name || '---'}}</span>
             </td>
-<!--            <td class="info-td-title-second">-->
-<!--              <span class="info-li-dot"></span>-->
-<!--              <span class="info-li-title">{{$t('available')}}</span>-->
-<!--            </td>-->
-<!--            <td class="info-td-content"-->
-<!--                @mouseenter="get_now_price((accountReady && (priceReady|| initReady )? toFixed(available,8) : '&#45;&#45;&#45;&#45;'), 2)"-->
-<!--                @mouseleave="hide_now_price">-->
-<!--              <span class="info-li-article">{{accountReady && (priceReady|| initReady )? toFixed(available,8) : '&#45;&#45;&#45;&#45;'}} BTC</span>-->
-<!--              <span class="show_tips" :class="{'show': show_key == 2}">-->
-<!--                  {{change_price}}-->
-<!--                  <font></font>-->
-<!--                </span>-->
-<!--            </td>-->
+            <!--            <td class="info-td-title-second">-->
+            <!--              <span class="info-li-dot"></span>-->
+            <!--              <span class="info-li-title">{{$t('available')}}</span>-->
+            <!--            </td>-->
+            <!--            <td class="info-td-content"-->
+            <!--                @mouseenter="get_now_price((accountReady && (priceReady|| initReady )? toFixed(available,8) : '&#45;&#45;&#45;&#45;'), 2)"-->
+            <!--                @mouseleave="hide_now_price">-->
+            <!--              <span class="info-li-article">{{accountReady && (priceReady|| initReady )? toFixed(available,8) : '&#45;&#45;&#45;&#45;'}} BTC</span>-->
+            <!--              <span class="show_tips" :class="{'show': show_key == 2}">-->
+            <!--                  {{change_price}}-->
+            <!--                  <font></font>-->
+            <!--                </span>-->
+            <!--            </td>-->
           </tr>
           <tr class="info-tr">
             <td class="info-td-title">
-<!--              <span class="info-li-dot"></span>-->
-              <span class="info-li-title">{{$t('idCode')}}：</span>
+              <!--              <span class="info-li-dot"></span>-->
+              <span class="info-li-title">{{$t('idCode')}}</span>
             </td>
             <td class="info-td-content">
               <span class="info-li-article">{{idCode || '**********'}}</span>
             </td>
-<!--            <td class="info-td-title-second">-->
-<!--              <span class="info-li-dot"></span>-->
-<!--              <span class="info-li-title">{{$t('frozen')}}</span>-->
-<!--            </td>-->
-<!--            <td class="info-td-content"-->
-<!--                @mouseenter="get_now_price((accountReady && (priceReady || initReady)? toFixed(frozen,8) : '&#45;&#45;&#45;&#45;'), 3)"-->
-<!--                @mouseleave="hide_now_price">-->
-<!--              <span class="info-li-article">{{accountReady && (priceReady || initReady)? toFixed(frozen,8) : '&#45;&#45;&#45;&#45;'}} BTC</span>-->
-<!--              <span class="show_tips" :class="{'show': show_key == 3}">-->
-<!--                  {{change_price}}-->
-<!--                  <font></font>-->
-<!--                </span>-->
-<!--            </td>-->
+            <!--            <td class="info-td-title-second">-->
+            <!--              <span class="info-li-dot"></span>-->
+            <!--              <span class="info-li-title">{{$t('frozen')}}</span>-->
+            <!--            </td>-->
+            <!--            <td class="info-td-content"-->
+            <!--                @mouseenter="get_now_price((accountReady && (priceReady || initReady)? toFixed(frozen,8) : '&#45;&#45;&#45;&#45;'), 3)"-->
+            <!--                @mouseleave="hide_now_price">-->
+            <!--              <span class="info-li-article">{{accountReady && (priceReady || initReady)? toFixed(frozen,8) : '&#45;&#45;&#45;&#45;'}} BTC</span>-->
+            <!--              <span class="show_tips" :class="{'show': show_key == 3}">-->
+            <!--                  {{change_price}}-->
+            <!--                  <font></font>-->
+            <!--                </span>-->
+            <!--            </td>-->
           </tr>
 
         </table>
@@ -246,6 +261,9 @@
           </li> -->
         </ul>
         <div class="clear"></div>
+
+      </div>
+<!--        内容 end-->
       </div>
       <!--内容 end-->
 
@@ -426,8 +444,6 @@
         退出登录
       </div>
     </div>
-
-
     <!--<PopupPrompt :popOpen="popOpen" :popClose="popClose" :popType="popType" :popText="popText">-->
     <!--<div slot="pop-detail" class="pop-detail">-->
     <!--<img class="pop-detail-img" src="../../assets/mobile_computer.png" alt="">-->
