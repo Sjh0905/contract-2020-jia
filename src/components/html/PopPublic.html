@@ -68,7 +68,7 @@
         </div>
 
         <div class="H-pop-lic">
-          <input class="input-h" type="text">
+          <input class="input-h" type="text" v-model="code">
 
           <div class="rig-ht">
             <!--获取验证码-->
@@ -76,8 +76,13 @@
             <span class="span-h-1" v-if="getVerificationCode && picked == 1">{{getVerificationCodeCountdown}}s</span>
            </div>
         </div>
-        <!--验证码的错误提示-->
-        <div class="H-pop-lic-1">
+
+        <!--手机验证码的错误提示-->
+        <div class="H-pop-lic-1" v-if="picked == 1">
+          <span v-if="verificationCodeWA!==''" class="txt-red">{{verificationCodeWA}}</span>
+        </div>
+        <!--谷歌验证码的错误提示-->
+        <div class="H-pop-lic-1" v-if="picked == 2">
           <span v-if="GACodeWA!==''" class="txt-red">{{GACodeWA}}</span>
         </div>
 

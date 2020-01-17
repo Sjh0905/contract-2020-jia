@@ -76,7 +76,13 @@
 
   <!--PC二次验证专用弹窗-->
   <template v-else>
-    <PopPublic :showPicker="showPicker" :popClose="closePopPublic" :popConfrim="confrimPopPublic"/>
+    <PopPublic :showPicker="showPicker"
+               :popClose="closePopPublic"
+               :popConfrim="confrimPopPublic"
+               :popGetCode="click_getVerificationCode"
+               :GACodeWA="GACodeWA"
+               :verificationCodeWA="verificationCodeWA"
+    />
 
     <PopupPrompt :popOpen="popOpen" :popClose="closePrompt" :popType="popType" :popText="popText"/>
   </template>

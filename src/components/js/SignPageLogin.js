@@ -74,7 +74,7 @@ root.data = function () {
     pswPlaceholderShow:true,
 
     //二次验证弹窗是否显示
-    verificationOpen:true,
+    verificationOpen:false,
     verificationParams:{}
   }
 }

@@ -7,8 +7,13 @@ root.props.showPicker = {
   type: Boolean,
   default: false
 }
-//错误码
+//谷歌错误码
 root.props.GACodeWA = {
+  type: String,
+  default: ''
+}
+//手机错误码
+root.props.verificationCodeWA = {
   type: String,
   default: ''
 }
@@ -19,6 +24,11 @@ root.props.popClose = {
 }
 //确认
 root.props.popConfrim = {
+  type: Function,
+  default: ()=>_
+}
+//获取验证码
+root.props.popGetCode = {
   type: Function,
   default: ()=>_
 }
@@ -45,6 +55,7 @@ root.data = function () {
 
     // 点击状态  1为手机验证   2为谷歌验证
     picked:1,
+    code:'',
 
     //错误码
     // GACodeWA: ''
@@ -89,7 +100,7 @@ root.methods.endCountDownVerification = function () {
 // 点击发送验证码
 root.methods.click_getVerificationCode = function () {
   this.beginCountDownVerification()
-
+  this.$props.popGetCode()
 }
 
 root.methods.re_getVerificationCode = function (data) {
@@ -108,8 +119,11 @@ root.methods.btnCancle = function () {
 
 //确认按钮
 root.methods.btnConfirm = function () {
-  this.pub_lic = false
-  this.$props.popConfrim();
+  // this.pub_lic = false
+  this.$props.popConfrim(this.picked,this.code);
+  // setTimeout(()=>{
+  //   this.verificationCodeWA = ''
+  // },1000)
 }
 
 // 手机 谷歌验证切换

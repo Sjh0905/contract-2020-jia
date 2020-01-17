@@ -126,8 +126,18 @@ root.methods.closePrompt = function () {
 root.methods.closePopPublic = function () {
   this.$props.verificationClose();
 }
-root.methods.confrimPopPublic = function () {
+root.methods.confrimPopPublic = function (picked,code) {
   // this.$props.verificationClose();
+  if(picked == 1){
+    this.picked = 'bindMobile'
+    this.verificationCode = code;
+  }
+  if(picked == 2){
+    this.picked = 'bindGa'
+    this.GACode = code;
+  }
+
+  this.click_send();
 }
 // 关闭弹框
 root.methods.popWindowClose = function () {
