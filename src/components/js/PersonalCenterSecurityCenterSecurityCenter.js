@@ -3,6 +3,7 @@ root.name = 'PersonalCenterSecurityCenterSecurityCenter'
 root.components = {
   'Loading': resolve => require(['../vue/Loading'], resolve),
   'PopupT': resolve => require(['../vue/PopupT'], resolve),
+  'PopupPrompt': resolve => require(['../vue/PopupPrompt'], resolve),
 }
 
 root.data = function () {
@@ -13,6 +14,8 @@ root.data = function () {
     popWindowOpen: false,
     popWindowOpen1:false,
     popWindowOpen2:false,
+
+    popOpen: false,
     popType: 0,
     popText: '系统繁忙',
 
@@ -35,7 +38,15 @@ root.data = function () {
     popWindowPrompt: '',//弹出样式提示
     popWindowStyle: 0,//跳转 0表示实名认证，1表示手机或谷歌，2只有确定
 
+    //ssss======
+    oldPsw: '',
+    oldPswWA: '',
 
+    psw: '',
+    pswWA: '',
+
+    pswConfirm: '',
+    pswConfirmWA: '',
   }
 }
 
@@ -256,6 +267,30 @@ root.methods.endCountDownVerification = function () {
   this.getVerificationCodeCountdown = 60
 }
 
+// 开始获取邮箱验证码
+root.methods.beginEmailCountDownVerification = function () {
+  this.getEmailVerificationCode = true
+  this.clickEmailVerificationCodeButton = true
+  this.emailVerificationCodeWA = ''
+  this.getEmailVerificationCodeInterval && clearInterval(this.getEmailVerificationCodeInterval)
+  this.getEmailVerificationCodeInterval = setInterval(() => {
+    this.getEmailVerificationCodeCountdown--
+    if (this.getEmailVerificationCodeCountdown <= 0) {
+      this.getEmailVerificationCode = false
+      this.getEmailVerificationCodeCountdown = 60
+      clearInterval(this.getEmailVerificationCodeInterval)
+    }
+  }, 1000)
+}
+
+// 结束获取邮箱验证码
+root.methods.endEmailCountDownVerification = function () {
+  this.getEmailVerificationCodeInterval && clearInterval(this.getEmailVerificationCodeInterval)
+  this.getEmailVerificationCode = false
+  this.getEmailVerificationCodeCountdown = 60
+}
+
+
 // 点击发送验证码
 root.methods.click_getVerificationCode = function () {
   this.beginCountDownVerification()
@@ -348,6 +383,168 @@ root.methods.clickToLoadMore = function () {
 // 跳转身份认证页面
 root.methods.toAuthentication = function () {
   this.$router.push('/index/personal/auth/authenticate')
+}
+
+//sss=============
+// 判断密码
+root.methods.testPsw = function () {
+  let isTextPsw = true;
+  if (this.oldPsw === '') {
+    this.oldPswWA = '请输入原密码'
+    isTextPsw = false
+  }
+  if (this.psw === '') {
+    this.pswWA = '请输入新密码'
+    isTextPsw = false
+  }
+  if (!this.$globalFunc.testPsw(this.psw)) {
+    this.pswWA = '输入密码不符合规范！'
+    isTextPsw = false
+  }
+  if (this.pswConfirm !== this.psw) {
+    this.pswConfirmWA = '两者输入必须一致'
+    isTextPsw = false
+  }
+  if (isTextPsw === false) {
+    return false;
+  }
+  if (isTextPsw === true) {
+    this.oldPswWA = ''
+    this.pswWA = ''
+    this.pswConfirmWA = ''
+    return true
+  }
+
+}
+
+// 旧密码
+root.methods.testOldPsw = function () {
+  if (this.oldPsw === '') {
+    this.oldPswWA = ''
+    return false
+  }
+  this.oldPswWA = ''
+  return true
+}
+
+// 表单验证密码
+root.methods.testPswPc = function () {
+  if (this.pswConfirm !== '' || this.pswConfirm === this.psw) {
+    this.testPswConfirm()
+  }
+  if (this.psw === '') {
+    this.pswWA = ''
+    return false
+  }
+  if (!this.$globalFunc.testPsw(this.psw)) {
+    this.pswWA = '密码不符合规范，请输入8到16位数字、字母或特殊字符'
+    return false
+  }
+  this.pswWA = ''
+  return true
+}
+// 表单验证确认
+root.methods.testPswConfirm = function () {
+  if (this.psw !== this.pswConfirm) {
+    this.pswConfirmWA = '密码输入不一致'
+    return false
+  }
+  if (this.pswConfirmWA === '') {
+    this.pswConfirmWA = ''
+    return false
+  }
+  this.pswConfirmWA = ''
+  return true
+}
+
+// 提交
+root.methods.commit = function () {
+  let canSend = true
+  canSend = this.testPsw() && canSend
+  //todo commit
+  // canSend = this.testPswPc() && canSend
+  // canSend = this.testPswConfirm() && canSend
+
+  // this.verificationType === 0 && (canSend = this.testVerificationCode() && canSend)
+  // this.verificationType === 1 && (canSend = this.testGACode() && canSend)
+
+
+  let email = this.$store.state.authMessage.email
+
+  if (!canSend) {
+    return
+  }
+
+  this.sending = true
+  this.popType = 2
+  this.popOpen = true
+
+  if (this.userType == 0) {
+    this.$http.send('POST_CHANGE_PASSWORD_BY_MOBILE', {
+      bind: this,
+      params: {
+        oldPassword: this.$globalFunc.CryptoJS.SHA1('btcdo:' + this.oldPsw).toString(),
+        newPassword: this.$globalFunc.CryptoJS.SHA1('btcdo:' + this.psw).toString(),
+      },
+      callBack: this.re_commit,
+      errorHandler: this.error_commit,
+    })
+    return
+  }
+
+  this.$http.send('POST_CHANGE_PASSWORD', {
+    bind: this,
+    params: {
+      oldPassword: this.$globalFunc.CryptoJS.SHA1('btcdo:' + this.oldPsw).toString(),
+      newPassword: this.$globalFunc.CryptoJS.SHA1('btcdo:' + this.psw).toString(),
+    },
+    callBack: this.re_commit,
+    errorHandler: this.error_commit,
+  })
+
+
+}
+
+root.methods.re_commit = function (data) {
+  typeof data === 'string' && (data = JSON.parse(data))
+  if (!data) return
+  this.sending = false
+  this.popClose()
+  if (data.errorCode) {
+    data.errorCode === 1 && (this.oldPswWA = '请登陆后修改密码')
+    data.errorCode === 2 && (this.oldPswWA = '原密码输入错误')
+    return
+  }
+  this.popOpen = true
+  this.popType = 1
+  this.popText = '修改成功'
+  setTimeout(() => {
+    this.popOpen = false
+    this.popWindowOpen1 = false
+    this.oldPsw = ''
+    this.psw = ''
+    this.pswConfirm = ''
+    if (this.isMobile) {
+      this.$router.push('/index/personal/auth/authentication')
+    } else {
+      this.$router.push('/index/personal/securityCenter')
+    }
+  }, 1000)
+}
+
+root.methods.error_commit = function () {
+  this.sending = false
+  this.popOpen = false
+  this.popType = 0
+  this.popText = '系统繁忙'
+  setTimeout(() => {
+    this.popOpen = true
+  }, 100)
+}
+
+// 关闭弹窗
+root.methods.popClose = function () {
+  this.popOpen = false
 }
 
 export default root

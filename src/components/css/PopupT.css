@@ -55,10 +55,13 @@
   color:rgba(13,14,35,1);
   letter-spacing: 2px;
   border-radius: 8px 8px 0 0;
+  display:flex;
+
 }
 
 .close {
   right: 4%;
+
   cursor: pointer;
   width: 15px;
 }
@@ -85,7 +88,7 @@
 /*底部*/
 .popWindow-footer {
   width: 100%;
-  padding-bottom: 25px;
+  padding-bottom: 15px;
   align-items: center;
   -webkit-align-items: center;
   justify-content: space-around;

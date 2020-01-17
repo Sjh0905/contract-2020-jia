@@ -489,7 +489,7 @@
 
 /*提示错误*/
 .wrong-border {
-  border: 1px solid red;
+  border: 1px solid #EF5656;
 }
 
 /*.wrong-msg {*/
