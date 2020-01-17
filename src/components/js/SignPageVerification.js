@@ -1,5 +1,10 @@
 const root = {}
 root.name = 'SignPageVerification'
+root.props = {}
+root.props.verificationClose = {
+  type: Function,
+  default: ()=>_
+}
 
 /*----------------------------- 组件 ------------------------------*/
 
@@ -7,6 +12,7 @@ root.components = {
   'Loading': resolve => require(['../vue/Loading'], resolve),
   'PopupPrompt': resolve => require(['../vue/PopupPrompt'], resolve),
   'PopupWindow': resolve => require(['../vue/PopupWindow'], resolve),
+  'PopPublic': resolve => require(['../vue/PopPublic'], resolve),
 
 }
 
@@ -63,12 +69,12 @@ root.created = function () {
 }
 root.mounted = function () {
   // 监听键盘事件
-  document.onkeydown = (event) => {
-    // console.warn('this is kye',event.keyCode)
-    if (event.keyCode === 13) {
-      this.click_send()
-    }
-  }
+  // document.onkeydown = (event) => {
+  //   // console.warn('this is kye',event.keyCode)
+  //   if (event.keyCode === 13) {
+  //     this.click_send()
+  //   }
+  // }
 }
 root.beforeDestroy = function () {
   // 取消监听键盘事件
@@ -116,12 +122,21 @@ root.methods.SHOW_TIPS = function (hours) {
 root.methods.closePrompt = function () {
   this.popOpen = false;
 }
+//关闭二次验证弹窗
+root.methods.closePopPublic = function () {
+  this.$props.verificationClose();
+}
+root.methods.confrimPopPublic = function () {
+  // this.$props.verificationClose();
+}
 // 关闭弹框
 root.methods.popWindowClose = function () {
   this.popWindowOpen = false;
 }
 // 获取验证状态
 root.methods.getLoginAuthState = function () {
+
+  this.loading = true;
 
   this.$http.send('VERIFYING_LOGIN_STATE', {
     bind: this,
@@ -144,6 +159,7 @@ root.methods.re_getLoginAuthState = function (data) {
   this.loading = false
 }
 root.methods.error_getLoginAuthState = function (err) {
+  this.loading = false
   // console.warn("获取验证状态请求出错！", err)
   this.$router.push({name: 'login'})
 }
@@ -268,7 +284,7 @@ root.methods.canCommit = function () {
   return canSend
 }
 
-root.methods.click_send = function () {
+root.methods.click_send = function (obj) {
   if (this.sending) return
 
   if (!this.canCommit()) {

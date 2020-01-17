@@ -638,6 +638,7 @@ input:-webkit-autofill {
 
   /*登录按钮*/
   .login-button {
+    width: 100%;
     font-size: 0.28rem;
     background-color: #3576F5;
     color: #ffffff;
