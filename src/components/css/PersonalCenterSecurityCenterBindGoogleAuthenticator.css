@@ -216,7 +216,6 @@
 }
 
 .input-qr-code {
-
   /*position: relative;*/
   width: 350px;
 }
@@ -234,8 +233,6 @@
   /*border: 1px solid #999999;*/
   /*margin-left: 2%;*/
 }
-
-
 
 /*完成绑定*/
 .line-input {
@@ -280,7 +277,6 @@
 /*.line-input .line-input-detail input:focus {*/
 /*  border: 1px solid #3576F5!important;*/
 /*}*/
-
 
 /*确定*/
 .line-input-button {

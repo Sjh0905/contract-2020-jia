@@ -1,93 +1,97 @@
 <div class="bind-mobile-container min-height border_radius">
+
+
   <Loading v-if="loading"/>
   <template v-if="!loading && !isMobile">
-    <div class="bind-mobile-title flex">
-      <span></span>
-      <span>{{$t('personalCenterSecurityCenterBindMobile.title')}}</span>
-      <!--<span>*为了您的资产安全，重置登录密码修改24h以内不允许提现。</span>-->
-    </div>
-    <div class="bind-mobile-article">
-      <!--输入登录密码 begin-->
-      <div class="input-password input-container">
-        <div class="detail-center">
-          <span class="detail-title">{{$t('personalCenterSecurityCenterBindMobile.psw')}}</span>
-          <input type="password" v-model="psw" class="unit-input" :class="{'wrong-border':pswWA!==''}" @blur="testPsw">
-          <span class="wrong-msg detail-prompt" v-if="pswWA!==''">{{pswWA}}</span>
-        </div>
+    <div>
+      <div class="bind-mobile-title flex">
+        <span></span>
+        <span>{{$t('personalCenterSecurityCenterBindMobile.title')}}</span>
+        <!--<span>*为了您的资产安全，重置登录密码修改24h以内不允许提现。</span>-->
       </div>
-      <!--输入登录密码 end-->
-
-      <!--输入手机号 begin-->
-      <div class="phone-number input-container">
-        <div class="detail-center">
-          <span class="detail-title">{{$t('personalCenterSecurityCenterBindMobile.mobile')}}</span>
-
-
-<!--          下拉搜索框     -->
-          <template>
-            <el-select class="inputInner" placeholder="中国大陆地区" style="font-size:14px" v-model="searchResult">
-              <input type="text" class="inputsize" placeholder="中国大陆地区" v-model="searchCities">
-              <el-option
-                @click="clickItem(item.areaCode)"
-                class="widthInput"
-                v-for="item in (searchCities ? cityList :cities)"
-                :key="item.countryId"
-                :label="'+ ' + item.areaCode.slice(2)"
-                :value="item.areaCode">
-                <span style="float: left;">{{ item.nameCn }}</span>
-                <span style="float: right; color: #8994A5; font-size: 16px">{{ '+ ' + item.areaCode.slice(2) }}</span>
-              </el-option>
-            </el-select>
-          </template>
-<!--          下拉搜索框    结束-->
-
-<!--          <span class="phone-prompt">+86</span>-->
-          <input type="text" v-model="mobile" class="unit-input phone-input input-phone" :class="{'wrong-border':mobileWA!==''}"
-                 @blur="testMobile">
-          <span class="wrong-msg detail-prompt" v-if="mobileWA!==''">{{mobileWA}}</span>
+      <div class="bind-mobile-article">
+        <!--输入登录密码 begin-->
+        <div class="input-password input-container">
+          <div class="detail-center">
+            <span class="detail-title">{{$t('personalCenterSecurityCenterBindMobile.psw')}}</span>
+            <input type="password" v-model="psw" class="unit-input" :class="{'wrong-border':pswWA!==''}" @blur="testPsw">
+            <span class="wrong-msg detail-prompt" v-if="pswWA!==''">{{pswWA}}</span>
+          </div>
         </div>
-      </div>
-      <!--输入手机号 end-->
+        <!--输入登录密码 end-->
 
-      <!--输入短信验证码 begin-->
-      <div class="verification-code input-container double-input-container">
-        <div class="detail-center">
-          <span class="detail-title">{{$t('personalCenterSecurityCenterBindMobile.verificationCode')}}</span>
-          <input type="text" v-model="verificationCode" class="unit-input"
-                 :class="{'wrong-border':verificationCodeWA!==''}"
-                 @blur="testVerificationCode"
-          >
-          <!--<template v-if="captchaReady">-->
+        <!--输入手机号 begin-->
+        <div class="phone-number input-container">
+          <div class="detail-center">
+            <span class="detail-title">{{$t('personalCenterSecurityCenterBindMobile.mobile')}}</span>
+
+
+            <!--          下拉搜索框     -->
+            <template>
+              <el-select class="inputInner" placeholder="中国大陆地区" style="font-size:14px" v-model="searchResult">
+                <input type="text" class="inputsize" placeholder="中国大陆地区" v-model="searchCities">
+                <el-option
+                  @click="clickItem(item.areaCode)"
+                  class="widthInput"
+                  v-for="item in (searchCities ? cityList :cities)"
+                  :key="item.countryId"
+                  :label="'+ ' + item.areaCode.slice(2)"
+                  :value="item.areaCode">
+                  <span style="float: left;">{{ item.nameCn }}</span>
+                  <span style="float: right; color: #8994A5; font-size: 16px">{{ '+ ' + item.areaCode.slice(2) }}</span>
+                </el-option>
+              </el-select>
+            </template>
+            <!--          下拉搜索框    结束-->
+
+            <!--          <span class="phone-prompt">+86</span>-->
+            <input type="text" v-model="mobile" class="unit-input phone-input input-phone" :class="{'wrong-border':mobileWA!==''}"
+                   @blur="testMobile">
+            <span class="wrong-msg detail-prompt" v-if="mobileWA!==''">{{mobileWA}}</span>
+          </div>
+        </div>
+        <!--输入手机号 end-->
+
+        <!--输入短信验证码 begin-->
+        <div class="verification-code input-container double-input-container">
+          <div class="detail-center">
+            <span class="detail-title">{{$t('personalCenterSecurityCenterBindMobile.verificationCode')}}</span>
+            <input type="text" v-model="verificationCode" class="unit-input"
+                   :class="{'wrong-border':verificationCodeWA!==''}"
+                   @blur="testVerificationCode"
+            >
+            <!--<template v-if="captchaReady">-->
             <button @click="postVerificationCode" class="btn_blue" v-if="!getVerificationCode">
               {{$t('personalCenterSecurityCenterBindMobile.send')}}
             </button>
             <button class="click-verification btn_grey" v-else disabled>
               {{getVerificationCodeCountdown}}
             </button>
-          <!--</template>-->
-          <!--<template v-else>-->
+            <!--</template>-->
+            <!--<template v-else>-->
             <!--<button class="click-verification btn_grey" disabled>-->
-              <!--{{$t('personalCenterSecurityCenterBindMobile.disabled')}}-->
+            <!--{{$t('personalCenterSecurityCenterBindMobile.disabled')}}-->
             <!--</button>-->
-          <!--</template>-->
-          <span class="wrong-msg detail-prompt" v-if="verificationCodeWA">{{verificationCodeWA}}</span>
+            <!--</template>-->
+            <span class="wrong-msg detail-prompt" v-if="verificationCodeWA">{{verificationCodeWA}}</span>
+          </div>
         </div>
-      </div>
-      <!--输入短信验证码 end-->
+        <!--输入短信验证码 end-->
 
-      <!--点击发送 begin-->
-      <div class="ensure input-container">
-        <div class="detail-center">
-          <button @click="commit" class="btn_blue" v-if="!sending">{{$t('personalCenterSecurityCenterBindMobile.ensure')}}</button>
-          <button disabled v-else class="btn_grey">{{$t('personalCenterSecurityCenterBindMobile.binding')}}</button>
+        <!--点击发送 begin-->
+        <div class="ensure input-container">
+          <div class="detail-center">
+            <button @click="commit" class="btn_blue" v-if="!sending">{{$t('personalCenterSecurityCenterBindMobile.ensure')}}</button>
+            <button disabled v-else class="btn_grey">{{$t('personalCenterSecurityCenterBindMobile.binding')}}</button>
+          </div>
         </div>
-      </div>
-      <!--点击发送 end-->
+        <!--点击发送 end-->
 
+      </div>
     </div>
 
-
   </template>
+
 
   <PopupPrompt :popOpen="popOpen" :popClose="popClose" :popType="popType" :popText="popText"/>
 
