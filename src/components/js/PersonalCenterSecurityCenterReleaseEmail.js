@@ -48,6 +48,8 @@ root.data = function () {
     pswFocus: false,
     emailFocus: false,
     verificationFocus: false,
+
+    show:true
   }
 }
 
@@ -358,6 +360,11 @@ root.methods.error_commit = function (err) {
     this.popOpen = true
   }, 100)
 
+}
+
+root.methods.click_rel_em = function () {
+  this.show = false
+  this.$router.push({name: 'securityCenter'})
 }
 
 
