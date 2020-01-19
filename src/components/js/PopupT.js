@@ -43,6 +43,7 @@ root.methods = {}
 
 root.methods.closeClick = function () {
   this.$emit('close')
+  // this.props('close')
 }
 
 
