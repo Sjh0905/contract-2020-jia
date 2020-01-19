@@ -1,0 +1,68 @@
+{
+  "CH": {
+    "title": "安全验证",
+    "proveGa": "谷歌验证",
+    "proveMo": "手机验证",
+    "identifyingCodeGa": "谷歌验证码",
+    "identifyingCodeMo": "手机验证码",
+    "cancle": "取消",
+    "confirm": "确认",
+    "sending": "验证中",
+    "get": "获取验证码"
+  },
+  "EN": {
+    "title": "Security Verification",
+    "proveGa": "Google Authentication",
+    "proveMo": "SMS Authentication",
+    "identifyingCodeGa": "Google Authentication code:",
+    "identifyingCodeMo": "SMS code:",
+    "cancle": "Cancle",
+    "confirm": "Confirm",
+    "sending": "Confirming",
+    "get": "Obtain"
+  },
+  "CA": {
+    "title": "Security Verification",
+    "proveGa": "Google Authentication",
+    "proveMo": "SMS Authentication",
+    "identifyingCodeGa": "Google Authentication code:",
+    "identifyingCodeMo": "SMS code:",
+    "cancle": "Cancle",
+    "confirm": "Confirm",
+    "sending": "Confirming",
+    "get": "Obtain"
+  },
+  "KOR": {
+    "title": "보안 확인",
+    "proveGa": "구글 인증",
+    "proveMo": "모바일 인증",
+    "identifyingCodeGa": "구글 인증 코드",
+    "identifyingCodeMo": "모바일 인증 코드",
+    "cancle": "Cancle",
+    "confirm": "확인",
+    "sending": "유효성 검사에서",
+    "get": "가져오기"
+  },
+  "CHT": {
+    "title": "安全驗證",
+    "proveGa": "穀歌驗證",
+    "proveMo": "手機驗證",
+    "identifyingCodeGa": "穀歌驗證碼",
+    "identifyingCodeMo": "手機驗證碼",
+    "cancle": "Cancle",
+    "confirm": "確認",
+    "sending": "驗證中",
+    "get": "獲取"
+  },
+  "JP": {
+    "title": "セキュリティ認証",
+    "proveGa": "Google 認証",
+    "proveMo": "携帯電話の検証",
+    "identifyingCodeGa": "Google 検証コード",
+    "identifyingCodeMo": "携帯電話の検証コード",
+    "cancle": "Cancle",
+    "confirm": "確認",
+    "sending": "検証中",
+    "get": "取得する"
+  }
+}

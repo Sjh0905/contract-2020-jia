@@ -6,6 +6,18 @@
   padding: 100px 0;
 }
 
+/*重置密码container*/
+.Verification-container-pop {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  /*z-index: 9990;*/
+}
+
 /*placeholder样式*/
 .Verification-container input::placeholder {
   color: #bfbfbf;

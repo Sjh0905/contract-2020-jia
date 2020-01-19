@@ -1,7 +1,37 @@
 const root = {}
 
 root.name = 'PopPublic'
-
+root.props = {}
+//是否开启选择切换
+root.props.showPicker = {
+  type: Boolean,
+  default: false
+}
+//谷歌错误码
+root.props.GACodeWA = {
+  type: String,
+  default: ''
+}
+//手机错误码
+root.props.verificationCodeWA = {
+  type: String,
+  default: ''
+}
+//关闭弹窗
+root.props.popClose = {
+  type: Function,
+  default: ()=>_
+}
+//确认
+root.props.popConfrim = {
+  type: Function,
+  default: ()=>_
+}
+//获取验证码
+root.props.popGetCode = {
+  type: Function,
+  default: ()=>_
+}
 
 root.data = function () {
   return {
@@ -24,10 +54,11 @@ root.data = function () {
     clickEmailVerificationCodeButton: false,
 
     // 点击状态  1为手机验证   2为谷歌验证
-    classStyle:1,
+    picked:1,
+    code:'',
 
     //错误码
-    GACodeWA: ''
+    // GACodeWA: ''
 
 
   }
@@ -41,21 +72,7 @@ root.components = {}
 
 root.computed = {}
 
-root.computed.showPicker = function () {
-  if (this.loginType === 0) {
-    return false
-  }
-  if (this.loginType === 1) {
-    return this.bindGA && this.bindMobile
-  }
-  return false
-}
-
 root.methods = {}
-
-root.methods.closeClick = function () {
-  this.pub_lic = false
-}
 
 // 开始获取手机验证
 root.methods.beginCountDownVerification = function () {
@@ -80,100 +97,39 @@ root.methods.endCountDownVerification = function () {
   this.getVerificationCodeCountdown = 60
 }
 
-// 开始获取邮箱验证码
-root.methods.beginEmailCountDownVerification = function () {
-  this.getEmailVerificationCode = true
-  this.clickEmailVerificationCodeButton = true
-  this.emailVerificationCodeWA = ''
-  this.getEmailVerificationCodeInterval && clearInterval(this.getEmailVerificationCodeInterval)
-  this.getEmailVerificationCodeInterval = setInterval(() => {
-    this.getEmailVerificationCodeCountdown--
-    if (this.getEmailVerificationCodeCountdown <= 0) {
-      this.getEmailVerificationCode = false
-      this.getEmailVerificationCodeCountdown = 60
-      clearInterval(this.getEmailVerificationCodeInterval)
-    }
-  }, 1000)
-}
-
-// 结束获取邮箱验证码
-root.methods.endEmailCountDownVerification = function () {
-  this.getEmailVerificationCodeInterval && clearInterval(this.getEmailVerificationCodeInterval)
-  this.getEmailVerificationCode = false
-  this.getEmailVerificationCodeCountdown = 60
-}
-
-
 // 点击发送验证码
 root.methods.click_getVerificationCode = function () {
   this.beginCountDownVerification()
-  // 发送
-  let params = {
-    "type": 'mobile',
-    "purpose": "resetLoginPassword",
-  }
-  this.$http.send('POST_VERIFICATION_CODE', {
-    bind: this,
-    params: params,
-    callBack: this.re_getVerificationCode
-  })
+  this.$props.popGetCode()
 }
-
 
 root.methods.re_getVerificationCode = function (data) {
   if (typeof data === 'string') data = JSON.parse(data)
   if (data.errorCode) {
-    switch (data.errorCode) {
-      case 1:
-        this.pswWA = this.$t('pswWA_1')
-        break;
-      case 2:
-        this.pswWA = this.$t('pswWA_2')
-        break;
-      case 3:
-        this.pswWA = this.$t('pswWA_3')
-        break;
-      case 4:
-        this.pswWA = this.$t('pswWA_4')
-        break;
-      default:
-        this.pswWA = this.$t('canNotUse')
-    }
+
     this.endCountDownVerification()
   }
 }
 
 // 取消按钮
-root.methods.but_cancel = function () {
+root.methods.btnCancle = function () {
   this.pub_lic = false
+  this.$props.popClose();
 }
 
 //确认按钮
-root.methods.click_send = function () {
-  this.pub_lic = false
+root.methods.btnConfirm = function () {
+  // this.pub_lic = false
+  this.$props.popConfrim(this.picked,this.code);
+  // setTimeout(()=>{
+  //   this.verificationCodeWA = ''
+  // },1000)
 }
 
 // 手机 谷歌验证切换
 root.methods.open_mob = function (index) {
-  this.classStyle = index
+  this.picked = index
 }
-
-
-// //谷歌验证切换
-// root.methods.open_ge = function (index, item) {
-//   console.log('open_ge=====33333333',index)
-//   this.recharge = false
-//   this.activeIndex !== index && (this.withdrawals = true)
-//   if (this.activeIndex === index) {
-//     this.withdrawals = !this.withdrawals
-//     if (this.withdrawals === false) {
-//       this.activeIndex = -1
-//       return
-//     }
-//   }
-//   this.activeIndex = index
-// }
-
 
 
 export default root

@@ -3,88 +3,95 @@
   <div class="popup-prompt-container" v-if="pub_lic">
     <div class="popup-prompt-background"></div>
     <div class="prompt-detail" v-if="pub_lic_if">
-    <div class="pop-pub">
-      安全验证
-      <img src="../../assets/弹窗-取消-icon@2x.png" alt="" class="prompt-detail-img" @click="closeClick">
-    </div>
-
-    <div class="pop-pub-ail">
-
-      <!--选择-->
-      <!--        <div class="flex unit-input-container pick-one-type" v-if="showPicker">-->
-
-
-      <!--          &lt;!&ndash;谷歌验证 begin&ndash;&gt;-->
-      <!--          <div>-->
-      <!--            <input type="radio" name="identify-type" id="ga" value="bindGA" v-model="picked">-->
-      <!--            <label-->
-      <!--              for="ga">{{$t("proveGa")}}-->
-      <!--            </label>-->
-      <!--          </div>-->
-      <!--          &lt;!&ndash;谷歌验证 end&ndash;&gt;-->
-
-
-      <!--          &lt;!&ndash;邮箱验证 begin&ndash;&gt;-->
-      <!--          <div v-if="loginType ===0">-->
-      <!--            <input type="radio" name="identify-type" id="bindEmail" value="bindEmail" v-model="picked">-->
-      <!--            <label for="bindEmail">-->
-      <!--              &lt;!&ndash;邮箱验证&ndash;&gt;-->
-      <!--              {{$t('emailVerify')}}-->
-      <!--            </label>-->
-      <!--          </div>-->
-      <!--          &lt;!&ndash;邮箱验证 end&ndash;&gt;-->
-
-
-      <!--          &lt;!&ndash;手机验证 begin&ndash;&gt;-->
-      <!--          <div v-if="loginType ===1">-->
-      <!--            <input type="radio" name="identify-type" id="bindMobile" value="bindMobile" v-model="picked">-->
-      <!--            <label for="bindMobile">-->
-      <!--              {{$t("proveMo")}}-->
-      <!--            </label>-->
-      <!--          </div>-->
-      <!--          &lt;!&ndash;手机验证 end&ndash;&gt;-->
-
-
-      <!--        </div>-->
-
-
-      <div class="G-pop" @click="open_mob(1)"
-           :class="classStyle ==1?'mob-button-select':''"
-           >手机验证</div>
-
-      <div class="G-pop" @click="open_mob(2)"
-           :class="classStyle == 2?'mob-button-select':''"
-           >谷歌验证</div>
-
-      <div class="pop-mob-lic" v-if="classStyle == 1">
-        手机验证码
-      </div>
-      <div class="pop-mob-lic" v-if="classStyle == 2">
-        谷歌验证码
+      <div class="pop-pub">
+        {{$t("title")}}
+        <img src="../../assets/弹窗-取消-icon@2x.png" alt="" class="prompt-detail-img" @click="btnCancle">
       </div>
 
-      <div class="H-pop-lic">
-        <input class="input-h" type="text">
+      <div class="pop-pub-ail">
 
-        <div class="rig-ht">
-        <span class="span-h" v-if="!getVerificationCode && classStyle == 1" @click="click_getVerificationCode">获取验证码</span>
-        <span class="span-h-1" v-if="getVerificationCode && classStyle == 1">0s</span>
-       </div>
+        <!--选择-->
+        <!--        <div class="flex unit-input-container pick-one-type" v-if="showPicker">-->
+
+
+        <!--          &lt;!&ndash;谷歌验证 begin&ndash;&gt;-->
+        <!--          <div>-->
+        <!--            <input type="radio" name="identify-type" id="ga" value="bindGA" v-model="picked">-->
+        <!--            <label-->
+        <!--              for="ga">{{$t("proveGa")}}-->
+        <!--            </label>-->
+        <!--          </div>-->
+        <!--          &lt;!&ndash;谷歌验证 end&ndash;&gt;-->
+
+
+        <!--          &lt;!&ndash;邮箱验证 begin&ndash;&gt;-->
+        <!--          <div v-if="loginType ===0">-->
+        <!--            <input type="radio" name="identify-type" id="bindEmail" value="bindEmail" v-model="picked">-->
+        <!--            <label for="bindEmail">-->
+        <!--              &lt;!&ndash;邮箱验证&ndash;&gt;-->
+        <!--              {{$t('emailVerify')}}-->
+        <!--            </label>-->
+        <!--          </div>-->
+        <!--          &lt;!&ndash;邮箱验证 end&ndash;&gt;-->
+
+
+        <!--          &lt;!&ndash;手机验证 begin&ndash;&gt;-->
+        <!--          <div v-if="loginType ===1">-->
+        <!--            <input type="radio" name="identify-type" id="bindMobile" value="bindMobile" v-model="picked">-->
+        <!--            <label for="bindMobile">-->
+        <!--              {{$t("proveMo")}}-->
+        <!--            </label>-->
+        <!--          </div>-->
+        <!--          &lt;!&ndash;手机验证 end&ndash;&gt;-->
+
+
+        <!--        </div>-->
+        <div v-if="showPicker">
+          <!--手机验证-->
+          <div class="G-pop" @click="open_mob(1)"
+               :class="picked ==1?'mob-button-select':''"
+          >{{$t("proveMo")}}</div>
+          <!--谷歌验证-->
+          <div class="G-pop" @click="open_mob(2)"
+               :class="picked == 2?'mob-button-select':''"
+          >{{$t("proveGa")}}</div>
+        </div>
+
+
+        <!--手机验证码-->
+        <div class="pop-mob-lic" v-if="picked == 1">
+          {{$t("identifyingCodeMo")}}
+        </div>
+        <!--谷歌验证码-->
+        <div class="pop-mob-lic" v-if="picked == 2">
+          {{$t("identifyingCodeGa")}}
+        </div>
+
+        <div class="H-pop-lic">
+          <input class="input-h" type="text" v-model="code">
+
+          <div class="rig-ht">
+            <!--获取验证码-->
+            <span class="span-h" v-if="!getVerificationCode && picked == 1" @click="click_getVerificationCode">{{$t("get")}}</span>
+            <span class="span-h-1" v-if="getVerificationCode && picked == 1">{{getVerificationCodeCountdown}}s</span>
+           </div>
+        </div>
+
+        <!--手机验证码的错误提示-->
+        <div class="H-pop-lic-1" v-if="picked == 1">
+          <span v-if="verificationCodeWA!==''" class="txt-red">{{verificationCodeWA}}</span>
+        </div>
+        <!--谷歌验证码的错误提示-->
+        <div class="H-pop-lic-1" v-if="picked == 2">
+          <span v-if="GACodeWA!==''" class="txt-red">{{GACodeWA}}</span>
+        </div>
+
+        <!--操作按钮-->
+        <div class="pop-footer">
+          <span class="pop-qu" @click="btnCancle">{{$t("cancle")}}</span>
+          <button class="pop-qu-2 btn_blue" @click="btnConfirm">{{$t("confirm")}}</button>
+        </div>
       </div>
-      <!--验证码的错误提示-->
-      <div class="H-pop-lic-1">
-        <span v-if="GACodeWA!==''" class="txt-red">错误码提示</span>
-      </div>
-
-      <div class="pop-footer">
-        <span class="pop-qu" @click="but_cancel">取消</span>
-        <button class="pop-qu-2 btn_blue" @click="click_send">确认</button>
-
-      </div>
-    </div>
-
-
-
 
   </div>
 
@@ -112,7 +119,7 @@
         </div>
 
         <div class="pop-footer">
-          <span class="pop-qu" @click="but_cancel">取消</span>
+          <span class="pop-qu" @click="btnCancle">取消</span>
           <button class="pop-qu-2" @click="click_send">确认</button>
 
         </div>

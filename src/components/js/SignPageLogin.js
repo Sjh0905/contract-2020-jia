@@ -14,6 +14,7 @@ root.components = {
   'Loading': resolve => require(['../vue/Loading'], resolve),
   'PopupWindow': resolve => require(['../vue/PopupWindow'], resolve),
   'RegisterTopBar': resolve => require(['../vue/RegisterTopBar'], resolve),
+  'SignPageVerification': resolve => require(['../vue/SignPageVerification'], resolve),
 }
 
 /*------------------------------ data -------------------------------*/
@@ -70,7 +71,11 @@ root.data = function () {
     mobileUserNameFocus: false,
 
     userNamePlaceholderShow:true,
-    pswPlaceholderShow:true
+    pswPlaceholderShow:true,
+
+    //二次验证弹窗是否显示
+    verificationOpen:false,
+    verificationParams:{}
   }
 }
 
@@ -180,6 +185,10 @@ root.methods.closePlaceholder = function (type) {
     this.pswPlaceholderShow = false;
   }
 
+}
+
+root.methods.closeVerification = function () {
+  this.verificationOpen = false;
 }
 
 
@@ -397,15 +406,25 @@ root.methods.re_login = async function (data) {
         wrongAns = this.$t('userNameWA_2');
         break;
       case 3:
-        this.$router.push({
-          name: 'verification',
-          query: {
-            email: this.loginType == 1 ? this.userName.trim() : '',
-            mobile: this.loginType == 0 ? this.userName.trim() : '',
-            name: this.$route.query.name,
-            toUrl: this.$route.query.toUrl
-          }
-        });
+        if(this.isMobile){
+          this.$router.push({
+            name: 'verification',
+            query: {
+              email: this.loginType == 1 ? this.userName.trim() : '',
+              mobile: this.loginType == 0 ? this.userName.trim() : '',
+              name: this.$route.query.name,
+              toUrl: this.$route.query.toUrl
+            }
+          });
+        }
+        if(!this.isMobile){
+          // this.verificationParams = {
+            this.$route.query.email = this.loginType == 1 ? this.userName.trim() : '',
+            this.$route.query.mobile = this.loginType == 0 ? this.userName.trim() : '',
+          // }
+          // this.$route.query = Object.assign(this.$route.query,this.verificationParams)
+          this.verificationOpen = true;
+        }
         break;
       case 4:
         wrongAns = this.$t('mobileWA_2')

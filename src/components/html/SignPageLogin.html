@@ -357,6 +357,9 @@
   </PopupWindow>
   <!--弹窗 end-->
 
+  <!--登录二次验证弹窗-->
+  <SignPageVerification v-if="(!isMobile && verificationOpen)" :verificationClose="closeVerification"/>
+
 
 </div>
 

@@ -6,7 +6,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 9999;
+  z-index: 9998;
 }
 
 .popup-prompt-background {
@@ -48,6 +48,7 @@
 }
 /*弹窗图片*/
 .prompt-detail-img {
+  cursor: pointer;
   width: 16px;
   height: 16px;
   /*margin-left: 312px;*/
@@ -71,7 +72,7 @@
 .G-pop {
   cursor: pointer;
   display: inline-block;
-  width: 16%;
+  /*width: 16%;*/
   padding-bottom: 10px;
   /*height: 40px;*/
   /*line-height: 40px;*/
