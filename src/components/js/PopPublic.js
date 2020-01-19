@@ -2,8 +2,18 @@ const root = {}
 
 root.name = 'PopPublic'
 root.props = {}
-//是否开启选择切换
-root.props.showPicker = {
+//加载中
+root.props.loading = {
+  type: Boolean,
+  default: false
+}
+//是否绑定手机
+root.props.bindMobile = {
+  type: Boolean,
+  default: false
+}
+//是否绑定谷歌
+root.props.bindGA = {
   type: Boolean,
   default: false
 }
@@ -54,7 +64,7 @@ root.data = function () {
     clickEmailVerificationCodeButton: false,
 
     // 点击状态  1为手机验证   2为谷歌验证
-    picked:1,
+    picked:this.bindMobile ? 1 : 2,
     code:'',
 
     //错误码
@@ -65,7 +75,7 @@ root.data = function () {
 }
 
 root.created = function () {
-
+  this.picked = this.bindMobile ? 1 : 2
 }
 
 root.components = {}

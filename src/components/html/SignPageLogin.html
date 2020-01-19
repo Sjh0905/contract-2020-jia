@@ -1,4 +1,4 @@
-<div class="Login-container " v-if="!loading">
+<div class="Login-container ">
   <!--topbar pc begin-->
   <RegisterTopBar v-if="!isMobile" type=1 :title='$t("register.WelcomeToLogin")' :promptText='$t("haveNoID")' :toDoText='$t("register.GoRegister")' toRouter="/index/register"/>
   <!--topbar pc end-->
@@ -360,6 +360,7 @@
   <!--登录二次验证弹窗-->
   <SignPageVerification v-if="(!isMobile && verificationOpen)" :verificationClose="closeVerification"/>
 
+  <Loading v-if="loading"/>
 
 </div>
 

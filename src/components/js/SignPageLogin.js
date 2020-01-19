@@ -44,7 +44,7 @@ root.data = function () {
     intervalTime: 0, //请求次数
 
 
-    sending: false,
+    sending: false,//控制登录按钮是否显示"登录中"
 
     popType: 0,
     popOpen: false,
@@ -189,6 +189,7 @@ root.methods.closePlaceholder = function (type) {
 
 root.methods.closeVerification = function () {
   this.verificationOpen = false;
+  this.sending = false;//验证弹窗关闭后需要恢复显示"登录"状态
 }
 
 
@@ -328,8 +329,9 @@ root.methods.loginIn = function () {   // 点击登录
     }
 
     this.sending = true
+    this.loading = true
     this.popType = 2
-    this.popOpen = true
+    // this.popOpen = true
 
     this.$http.send('LOGIN_BY_MOBILE', {
       params: params
@@ -337,6 +339,7 @@ root.methods.loginIn = function () {   // 点击登录
       return this.re_login(data)
     }).catch(err => {
       this.sending = false
+      this.loading = false
       this.popOpen = false
       this.popType = 0
       this.popText = this.$t('popText_0')
@@ -364,8 +367,9 @@ root.methods.loginIn = function () {   // 点击登录
   }
 
   this.sending = true
+  this.loading = true
   this.popType = 2
-  this.popOpen = true
+  // this.popOpen = true
 
   // 发送登录请求
   this.$http.send('LOGIN', {
@@ -374,6 +378,7 @@ root.methods.loginIn = function () {   // 点击登录
     return this.re_login(data)
   }).catch(err => {
     this.sending = false
+    this.loading = false
     this.popOpen = false
     this.popType = 0
     this.popText = this.$t('popText_0')
@@ -386,6 +391,7 @@ root.methods.loginIn = function () {   // 点击登录
 // 登录回调
 root.methods.re_login = async function (data) {
   this.sending = false
+  this.loading = false
   this.popOpen = false
   typeof(data) === 'string' && (data = JSON.parse(data))
   let dataMap = data.dataMap
@@ -424,6 +430,7 @@ root.methods.re_login = async function (data) {
           // }
           // this.$route.query = Object.assign(this.$route.query,this.verificationParams)
           this.verificationOpen = true;
+          this.sending = true
         }
         break;
       case 4:

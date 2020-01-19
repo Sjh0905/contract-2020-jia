@@ -3,7 +3,7 @@
   display: block;
   height: auto;
   width: 100%;
-  padding: 100px 0;
+  padding:0 0 100px;
 }
 
 /*重置密码container*/
