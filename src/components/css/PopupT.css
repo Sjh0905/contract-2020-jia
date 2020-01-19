@@ -56,12 +56,11 @@
   letter-spacing: 2px;
   border-radius: 8px 8px 0 0;
   display:flex;
-
+  padding: 0 25px;
 }
 
 .close {
-  right: 4%;
-
+  right: 5%;
   cursor: pointer;
   width: 15px;
 }

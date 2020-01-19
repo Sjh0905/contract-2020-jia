@@ -411,39 +411,6 @@
     </div>
   </PopupT>
 
-  <!--解绑邮箱验证-->
-  <PopupT :switch="popWindowOpen" @close="popWindowClose">
-    <div slot="header">
-      <span class="pop-ei-ar">解绑邮箱</span>
-    </div>
-    <div slot="article" class="pop-article">
-      <div class="article-pop-1">
-        <div class="article-pop-2">登录密码</div>
-        <input class="pop-input-1" type="text">
-      </div>
-      <div class="article-pop-1">
-        <div class="article-pop-2">邮箱</div>
-        <input class="pop-input-1" type="text">
-      </div>
-      <div class="article-pop-1">
-        <div class="article-pop-2">邮箱验证码</div>
-        <div class="input-pop">
-          <input class="pop-input-3" type="text">
-          <span class=" fl-ce-y" v-if="!getVerificationCode" @click="click_getVerificationCode">获取验证码</span>
-          <span class="fl-ce-y-s" v-if="getVerificationCode">0 s之后重新发送</span>
-        </div>
-        <!--        <span class="flex-center identifying-code-button-close btn_grey"-->
-        <!--              v-if="getVerificationCode">{{getVerificationCodeCountdown}}s 之后重新发送</span>-->
-      </div>
-
-    </div>
-    <div slot="footer" class="pop-footer">
-      <span class="pop-qu pointer" @click="click_rel_em">取消</span>
-      <button class="pop-qu-2 pointer">确认</button>
-
-    </div>
-  </PopupT>
-
 
   <PopupPrompt :popOpen="popOpen" :popClose="popClose" :popType="popType" :popText="popText"/>
 
