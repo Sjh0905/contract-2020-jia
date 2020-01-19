@@ -20,7 +20,7 @@ root.components = {
 
 root.data = function () {
   return {
-    loading: false,
+    loading: true,
 
     getVerificationCode: false,
     getVerificationCodeInterval: null,
@@ -58,7 +58,8 @@ root.data = function () {
 
 root.created = function () {
   if (!this.$route.query.email && !this.$route.query.mobile) {
-    this.$router.push({name: 'login'})
+    // this.$router.push({name: 'login'})
+    this.closePopPublic();
     return
   }
 

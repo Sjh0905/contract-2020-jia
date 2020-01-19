@@ -71,22 +71,26 @@
     </div>
 
     <PopupPrompt :popOpen="popOpen" :popClose="closePrompt" :popType="popType" :popText="popText"/>
-
+    <Loading v-if="loading"/>
   </template>
 
   <!--PC二次验证专用弹窗-->
   <template v-else>
-    <PopPublic :showPicker="showPicker"
+    <PopPublic v-if="(bindGA || bindMobile)"
+               :bindGA="bindGA"
+               :bindMobile="bindMobile"
                :popClose="closePopPublic"
                :popConfrim="confrimPopPublic"
                :popGetCode="click_getVerificationCode"
                :GACodeWA="GACodeWA"
                :verificationCodeWA="verificationCodeWA"
+               :loading="loading"
     />
 
     <PopupPrompt :popOpen="popOpen" :popClose="closePrompt" :popType="popType" :popText="popText"/>
+    <Loading style="top: 345px" v-if="loading"/>
   </template>
 
-  <Loading v-if="loading"/>
+
 
 </div>
