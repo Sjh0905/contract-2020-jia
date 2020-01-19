@@ -1,6 +1,6 @@
 <div class="current-entrustment-container">
 
-  <ul class="detail border_radius">
+  <ul :class="isOrderPageCurrentEntrustment?'detail border_radius':'detail-1 border_radius'">
     <!-- 表头 begin -->
 <!--    <li class="tr-th flex">-->
 <!--      &lt;!&ndash;单号&ndash;&gt;-->
@@ -135,7 +135,7 @@
     </template>
   </ul>
   <!-- 加载更多 begin -->
-  <div class="loading border_radius box_shadow" v-if="loading && userId">
+  <div class="" v-if="loading && userId">
     <Loading/>
   </div>
   <!-- 加载更多 end -->

@@ -100,31 +100,34 @@
 .traddinghall-order-wrap-title{
   background-color: #F2F6FA;
   /*border-bottom: 1px solid #bbb;*/
-  height: 40px;
-  line-height: 40px;
+  height: 44px;
+  line-height: 44px;
 }
 
 .tradinghall-order-tab {
-   width: 8%;
-   height: 40px;
-   line-height: 40px;
+   /*width: 8%;*/
+   height: 44px;
+   line-height: 44px;
    text-align: center;
-   font-family: PingFangSC-Medium;
-   font-size: 16px;
-   color: #172A4D;
+   font-family:PingFangSC-Medium,PingFang SC;
+   font-weight:500;
+   font-size: 14px;
+   color: #A2B5D9;
    cursor: pointer;
+   margin-right: 40px;
+   margin-left: 15px;
    /*box-shadow: 0 7px 20px 3px rgba(118, 125, 127, 0.08);*/
    z-index: 100;
  }
 
 .tradinghall-order-tab2 {
   width: 8%;
-  height: 40px;
-  line-height: 40px;
+  height: 44px;
+  line-height: 44px;
   text-align: center;
   font-family: PingFangSC-Medium;
-  font-size: 16px;
-  color: #172A4D;
+  font-size: 14px;
+  color: #A2B5D9;
   cursor: pointer;
   /*box-shadow: 0 7px 20px 3px rgba(118, 125, 127, 0.08);*/
   z-index: 100;
@@ -142,21 +145,22 @@
   /*background-color: #fff;*/
   z-index: 200;
   font-weight: bold;
-  font-size: 16px;
-  line-height: 40px;
+  font-size: 14px;
+  line-height: 44px;
   font-family: PingFangSC-Medium;
   font-size: 16px;
   color: #172A4D;
 }
 .tradinghall-order-activetab {
   font-family: PingFangSC-Medium;
-  font-size: 16px;
-  color: #172A4D;
+  font-size: 14px;
+  color: #FFFFFF;
   z-index: 200;
   /*border-left:1px solid #bbb;*/
   /*border-right:1px solid #bbb;*/
   /*border-top:3px solid #C43E4E;*/
-  line-height: 29px;
+  border-bottom: 2px solid #3576F5;
+  line-height: 44px;
 }
 
 .trading-hall-order-box-detail {
@@ -183,7 +187,8 @@
   text-align: center;
   padding: 0px 20px;
   overflow: hidden;
-  font-family: PingFangSC-Medium;
+  font-family:PingFangSC-Medium,PingFang SC;
+  font-weight:500;
   font-size: 16px;
   color: #172A4D;
 }
@@ -196,7 +201,8 @@
   text-align: center;
   padding: 0px 20px;
   overflow: hidden;
-  ont-family: PingFangSC-Regular;
+  font-family:PingFangSC-Medium,PingFang SC;
+  font-weight:500;
   font-size: 16px;
   color: #8994A5;
 }

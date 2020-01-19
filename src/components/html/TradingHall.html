@@ -137,15 +137,22 @@
 
   </div>
 
+
+
   <div class="traddinghall-order-wrap">
 
     <div class="flex-row traddinghall-order-wrap-title">
-      <div class="tradinghall-order-tab tab-item-first  tradinghall-order-tab-first">{{$t("now")}}
-      </div>
-<!--      <div class="tradinghall-order-tab txt-bold"-->
-<!--           :class="isNow==1?'text_blue tradinghall-order-activetab':''"-->
-<!--           @click="clickTab(1)">{{$t("history")}}-->
+<!--      <div class="tradinghall-order-tab tab-item-first  tradinghall-order-tab-first">{{$t("now")}}111-->
 <!--      </div>-->
+
+      <div class="tradinghall-order-tab txt-bold"
+           :class="isNow==0?'tradinghall-order-activetab':''"
+           @click="clickTab(0)">{{$t("now")}}
+      </div>
+      <div class="tradinghall-order-tab txt-bold"
+           :class="isNow==1?'tradinghall-order-activetab':''"
+           @click="clickTab(1)">{{$t("history")}}
+      </div>
 <!--      <div class="tradinghall-order-tab txt-bold"-->
 <!--           :class="isNow==2?'text_blue tradinghall-order-activetab':''"-->
 <!--           @click="clickTab(2)">-->
@@ -164,9 +171,9 @@
     <div v-if="isNow === 0" class="trading-hall-order-box-detail">
       <orderCurrent :tradinghallLimit="tradinghallLimit"/>
     </div>
-<!--    <div v-if="isNow === 1" class="trading-hall-order-box-detail">-->
-<!--      <orderHistory/>-->
-<!--    </div>-->
+    <div v-if="isNow === 1" class="trading-hall-order-box-detail">
+      <orderHistory :tradinghallLimit="tradinghallLimit"/>
+    </div>
 <!--    <div v-if="isNow === 2" class="trading-hall-order-box-detail">-->
 <!--      <CurrencyIntroduction/>-->
 <!--    </div>-->
@@ -174,37 +181,37 @@
 <!--      <SuperBeeIntroduction/>-->
 <!--    </div>-->
   </div>
-  <div class="traddinghall-order-wrap">
-    <div class="flex-row traddinghall-order-wrap-title">
-            <div class="tradinghall-order-tab2">{{$t("history")}}
-<!--              <span>({{$t("InTheLastWeek")}})</span>-->
-            </div>
-      <!--      <div class="tradinghall-order-tab txt-bold"-->
-      <!--           :class="isNow==2?'text_blue tradinghall-order-activetab':''"-->
-      <!--           @click="clickTab(2)">-->
-      <!--        {{$t('currencyInfo')}}-->
-      <!--      </div>-->
-      <!--<div class="tradinghall-order-tab tab-item-last box_shadow"-->
-      <!--:class="isNow==3?'text_blue tradinghall-order-activetab':''"-->
-      <!--@click="clickTab(3)"-->
-      <!--v-if="showSuperBeeIntroduction"-->
-      <!--&gt;-->
-      <!--&lt;!&ndash;为蜜简介&ndash;&gt;-->
-      <!--{{$t('bee_introduction')}}-->
-      <!--</div>-->
-    </div>
+<!--  <div class="traddinghall-order-wrap">-->
+<!--    <div class="flex-row traddinghall-order-wrap-title">-->
+<!--            <div class="tradinghall-order-tab2">{{$t("history")}}222-->
+<!--&lt;!&ndash;              <span>({{$t("InTheLastWeek")}})</span>&ndash;&gt;-->
+<!--            </div>-->
+<!--      &lt;!&ndash;      <div class="tradinghall-order-tab txt-bold"&ndash;&gt;-->
+<!--      &lt;!&ndash;           :class="isNow==2?'text_blue tradinghall-order-activetab':''"&ndash;&gt;-->
+<!--      &lt;!&ndash;           @click="clickTab(2)">&ndash;&gt;-->
+<!--      &lt;!&ndash;        {{$t('currencyInfo')}}&ndash;&gt;-->
+<!--      &lt;!&ndash;      </div>&ndash;&gt;-->
+<!--      &lt;!&ndash;<div class="tradinghall-order-tab tab-item-last box_shadow"&ndash;&gt;-->
+<!--      &lt;!&ndash;:class="isNow==3?'text_blue tradinghall-order-activetab':''"&ndash;&gt;-->
+<!--      &lt;!&ndash;@click="clickTab(3)"&ndash;&gt;-->
+<!--      &lt;!&ndash;v-if="showSuperBeeIntroduction"&ndash;&gt;-->
+<!--      &lt;!&ndash;&gt;&ndash;&gt;-->
+<!--      &lt;!&ndash;&lt;!&ndash;为蜜简介&ndash;&gt;&ndash;&gt;-->
+<!--      &lt;!&ndash;{{$t('bee_introduction')}}&ndash;&gt;-->
+<!--      &lt;!&ndash;</div>&ndash;&gt;-->
+<!--    </div>-->
 
 
-        <div v-if="1=== 1" class="trading-hall-order-box-detail">
-          <orderHistory :tradinghallLimit="tradinghallLimit"/>
-        </div>
-    <!--    <div v-if="isNow === 2" class="trading-hall-order-box-detail">-->
-    <!--      <CurrencyIntroduction/>-->
-    <!--    </div>-->
-    <!--    <div v-if="isNow === 3" class="trading-hall-order-box-detail">-->
-    <!--      <SuperBeeIntroduction/>-->
-    <!--    </div>-->
-  </div>
+<!--        <div v-if="1=== 1" class="trading-hall-order-box-detail">-->
+<!--          <orderHistory :tradinghallLimit="tradinghallLimit"/>-->
+<!--        </div>-->
+<!--    &lt;!&ndash;    <div v-if="isNow === 2" class="trading-hall-order-box-detail">&ndash;&gt;-->
+<!--    &lt;!&ndash;      <CurrencyIntroduction/>&ndash;&gt;-->
+<!--    &lt;!&ndash;    </div>&ndash;&gt;-->
+<!--    &lt;!&ndash;    <div v-if="isNow === 3" class="trading-hall-order-box-detail">&ndash;&gt;-->
+<!--    &lt;!&ndash;      <SuperBeeIntroduction/>&ndash;&gt;-->
+<!--    &lt;!&ndash;    </div>&ndash;&gt;-->
+<!--  </div>-->
 
   <PopupPrompt :popType="popType" :popText="popText" :popOpen="promptOpen" :popClose="closePrompt"></PopupPrompt>
   <!-- 提示信息 end -->
