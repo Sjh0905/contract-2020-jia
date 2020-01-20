@@ -4,6 +4,8 @@ root.components = {
   'Loading': resolve => require(['../vue/Loading'], resolve),
   'PopupT': resolve => require(['../vue/PopupT'], resolve),
   'PopupPrompt': resolve => require(['../vue/PopupPrompt'], resolve),
+  'PersonalCenterSecurityCenterBindEmail': resolve => require(['../vue/PersonalCenterSecurityCenterBindEmail'], resolve),
+  'PersonalCenterSecurityCenterReleaseEmail': resolve => require(['../vue/PersonalCenterSecurityCenterReleaseEmail'], resolve),
   'PersonalCenterSecurityCenterReleaseMobile': resolve => require(['../vue/PersonalCenterSecurityCenterReleaseMobile'], resolve),
   'PersonalCenterSecurityCenterBindMobile': resolve => require(['../vue/PersonalCenterSecurityCenterBindMobile'], resolve),
 }
@@ -62,6 +64,8 @@ root.data = function () {
     GACodeWAge: '',
     // testPswge: '',
     // testGACodege: '',
+    showBindEmail: false,
+    showReleaseEmail: false,
 
   }
 }
@@ -172,6 +176,7 @@ root.methods.getAuthState = function (data) {
     callBack: this.re_getAuthState
   })
 }
+
 root.methods.re_getAuthState = function (data) {
   typeof data === 'string' && (data = JSON.parse(data))
   let dataObj = data
@@ -248,7 +253,8 @@ root.methods.click_release_mobile = function () {
 }
 // 绑定邮箱验证
 root.methods.click_bind_email = function () {
-  this.$router.push({name: 'bindEmail'})
+  // this.$router.push({name: 'bindEmail'})
+  this.showBindEmail = true
   // this.popWindowTitle = this.$t('assetPageRechargeAndWithdrawals.popWindowTitleRecharge')
   // this.popWindowPrompt = this.$t('assetPageRechargeAndWithdrawals.popWindowTitleBindGaRecharge')
   // this.popWindowStyle = '1'
@@ -256,7 +262,8 @@ root.methods.click_bind_email = function () {
 }
 // 解绑邮箱验证
 root.methods.click_release_email = function () {
-  this.$router.push({name: 'releaseEmail'})
+  // this.$router.push({name: 'releaseEmail'})
+  this.showReleaseEmail = true
   // this.popWindowTitle = this.$t('assetPageRechargeAndWithdrawals.popWindowTitleRecharge')
   // this.popWindowPrompt = this.$t('assetPageRechargeAndWithdrawals.popWindowTitleBindGaRecharge')
   // this.popWindowStyle = '1'
@@ -723,6 +730,15 @@ root.methods.error_commitge = function (err) {
   setTimeout(() => {
     this.popOpen = true
   }, 200)
+}
+
+// 关闭弹窗
+root.methods.closeReleaseEmail = function (type,callApi) {
+  if(callApi){
+    this.getAuthState();
+  }
+  this.showBindEmail = type
+  this.showReleaseEmail = type
 }
 
 //sss============= 解绑谷歌验证En

@@ -1,4 +1,6 @@
-<div class="bind-mobile-container min-height border_radius">
+<!--影响高度-->
+<!--<div class="bind-mobile-container min-height border_radius">-->
+<div class="">
   <Loading v-if="loading"/>
   <template v-if="!loading && !isMobile && 0">
     <div class="bind-mobile-title flex">
@@ -128,6 +130,7 @@
       <div slot="footer" class="pop-footer">
         <span class="pop-qu pointer" @click="click_rel_em">取消</span>
         <button class="pop-qu-2 pointer" v-if="!sending" @click="commit">{{$t('ensure')}}</button>
+        <button disabled v-else class="pop-qu-2">{{$t('binding')}}</button>
 
       </div>
     </PopupT>
