@@ -1,6 +1,8 @@
 const root = {}
 root.name = 'OrderPageCurrentEntrustment'
 
+
+
 /*----------------------------- 组件 ------------------------------*/
 
 root.components = {
@@ -37,8 +39,6 @@ root.data = () => {
 
     showLoadingMore: true,//是否显示加载更多
     loadingMoreIng: false, //是否正在加载更多
-
-
 
   }
 }

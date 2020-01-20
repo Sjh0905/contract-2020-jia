@@ -1,5 +1,6 @@
 .current-entrustment-container {
-  width: 100%;
+  width: 1200px;
+  margin: 0 auto;
   position: relative;
   background-color: #fff;
 }
@@ -9,7 +10,7 @@ tr, th, td {
 }
 
 .detail {
-  width: 1200px;
+  width: 100%;
   margin: 0 auto;
   overflow: hidden;
   border-top-left-radius: 0 !important;

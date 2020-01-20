@@ -65,6 +65,8 @@ root.created = function () {
   this.$store.commit('changeMobileHeaderTitle', '解绑邮箱');
   this.getAuthState()
 }
+
+
 root.mounted = function () {
   // 监听键盘事件
   document.onkeydown = (event) => {
