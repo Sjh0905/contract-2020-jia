@@ -111,20 +111,21 @@
 
     <!--右侧实时买卖-->
     <div class="traddinghall-mid-left">
-      <div class="pankou"><span @click="showPankou" :class="!pankqh?'text_blue':''" >{{$t("Handicap")}}</span><span class="sscj"  v-show="!widthval"  :class="pankqh?'text_blue':''" @click="showSSCJ">{{$t("RealTime")}}</span></div>
-      <div class="StockCross-wrap" v-show="showpk">
+      <div class="pankou"><span @click="showStockFunc" :class="(!latestDealSpread && stockShow)?'text_blue':''" >{{$t("Handicap")}}</span>
+        <span class="sscj"  v-show="!latestDealSpread"  :class="(!latestDealSpread && !stockShow)?'text_blue':''" @click="showLatestDeal">{{$t("RealTime")}}</span></div>
+      <div class="StockCross-wrap" v-show="stockShow">
         <StockCross :trade_loading="trade_loading" :buy_sale_list="buy_sale_list" :socket_snap_shot="socket_snap_shot"
                     :socket_tick="socket_tick" :btc_eth_rate="btc_eth_rate" :socket_price="socket_price"
                     :currency_list="currency_list"></StockCross>
       </div>
-      <div class="AssetOverview-wrap" v-show="showsscj">
+      <div class="AssetOverview-wrap" v-show="!stockShow">
         <LatestDeal :trade_loading="trade_loading" :socket_tick_arr="socket_tick_arr"
                     :socket_tick_obj="socket_tick_obj"/>
       </div>
 
     </div>
 
-    <div class="traddinghall-right-wrap" v-show="widthval">
+    <div class="traddinghall-right-wrap" v-show="latestDealSpread">
       <div class="pankou">实时成交</div>
       <div class="AssetOverview-wrap">
 

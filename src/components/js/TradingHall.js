@@ -85,10 +85,10 @@ root.data = function () {
     quoteScale: 0,
     screenWidth: document.body.clientWidth,     // 屏幕宽
     screeHeight: document.body.clientHeight,    // 屏幕高
-    widthval:true,
-    showpk:true,
-    showsscj:false,
-    pankqh:true,
+    latestDealSpread:true,
+    stockShow:true,
+    // showsscj:false,
+    // pankqh:true,
     showinfo : false,
 
     tradinghallLimit:10
@@ -100,13 +100,14 @@ root.created = function () {
   // console.log("screenWidth---------"+this.screenWidth);
   // console.log("screeHeight---------"+this.screeHeight);
   if(this.screenWidth<1450){
-    this.widthval = false;
-    this.pankqh = false;
+    this.latestDealSpread = false;
+    // this.pankqh = false;
   }else{
-    this.widthval = true;
-    this.pankqh = true;
+    this.latestDealSpread = true;
+    // this.pankqh = true;
+    this.showStockFunc()
   }
-  // console.log("widthval---------"+this.widthval);
+  // console.log("latestDealSpread---------"+this.latestDealSpread);
   // 获取兑换汇率
   this.getCny();
   // 一小时更新一次汇率
@@ -142,10 +143,10 @@ root.mounted = function () {
 
   const that = this
   window.onresize = () => {
-    return (() => {
+
       window.screenWidth = document.body.clientWidth
       that.screenWidth = window.screenWidth
-    })()
+
   }
 }
 
@@ -710,17 +711,17 @@ root.methods.error_clickToggle = function (err) {
 }
 
 //点击切换显示盘口还是实时成交
-root.methods.showPankou = function(data){
-  this.showpk = true;
-  this.showsscj = false;
-  this.pankqh = false;
+root.methods.showStockFunc = function(data){
+  this.stockShow = true;
+  // this.showsscj = false;
+  // this.pankqh = false;
 }
 
 //点击切换显示盘口还是实时成交
-root.methods.showSSCJ = function(data){
-  this.showpk = false;
-  this.showsscj = true;
-  this.pankqh = true;
+root.methods.showLatestDeal = function(data){
+  this.stockShow = false;
+  // this.showsscj = true;
+  // this.pankqh = true;
 }
 
 //显示 币种资料
@@ -880,11 +881,19 @@ root.computed.showSuperBeeIntroduction = function () {
 
 // 监听symbol 做一些操作
 root.watch = {};
-root.watch = {
-  screenWidth (val) {
-    this.screenWidth = val
-    // console.log("this.screenWidth==========="+this.screenWidth);
-  }
+root.watch.screenWidth = function (val) {
+  this.screenWidth = val
+    // console.log("this.screenWidth====watch======="+this.screenWidth);
+
+    if(this.screenWidth<1450){
+      this.latestDealSpread = false;
+      // this.pankqh = false;
+
+    }else{
+      this.latestDealSpread = true;
+      // this.pankqh = true;
+      this.showStockFunc();
+    }
 };
 
 root.watch.isNowPrice = function (newValue, oldValue) {

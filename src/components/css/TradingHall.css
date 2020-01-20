@@ -22,19 +22,21 @@
 }
 
 .traddinghall-mid-left {
-  width: 18.997%;
-  /*width: 294.36px;*/
+  /*width: 18.997%;*/
+  width: 300px;
   background: #fff;
   /*overflow: hidden;*/
 }
 
 .traddinghall-mid-wrap {
-  width: 47%;
+  /*width: 47%;*/
+  flex:1;
   position: relative;
 }
 
 .traddinghall-right-wrap {
-  width: 16.312%;
+  /*width: 16.312%;*/
+  width: 300px;
   background-color: #fff;
 }
 
@@ -326,22 +328,40 @@
   /*border-top-right-radius: 6px;*/
 }
 /*页面布局响应式*/
-@media screen and (max-width: 1441px) {
-  .traddinghall-mid-left {
-    width: 22.997%;
-    /*width: 294.36px;*/
-    background: #fff;
-    /*overflow: hidden;*/
-  }
+/*@media screen and (max-width: 1450px) {*/
+  /*.sscj-big-client-show{*/
+    /*display: none;*/
+  /*}*/
+  /*.sscj-show{*/
+    /*display: initial;*/
+  /*}*/
+/*}*/
+/*页面布局响应式*/
+/*@media screen and (min-width: 1450px) {*/
+  /*.sscj-show{*/
+    /*display: none;*/
+  /*}*/
+  /*.sscj-big-client-show{*/
+    /*display: initial;*/
+  /*}*/
+/*}*/
+/*页面布局响应式*/
+/*@media screen and (max-width: 1441px) {*/
+  /*.traddinghall-mid-left {*/
+    /*width: 22.997%;*/
+    /*!*width: 294.36px;*!*/
+    /*background: #fff;*/
+    /*!*overflow: hidden;*!*/
+  /*}*/
 
-  .traddinghall-mid-wrap {
-    width: 55.13%;
-  }
+  /*.traddinghall-mid-wrap {*/
+    /*width: 55.13%;*/
+  /*}*/
 
-  .traddinghall-right-wrap {
-    width: 20.312%;
-  }
-}
+  /*.traddinghall-right-wrap {*/
+    /*width: 20.312%;*/
+  /*}*/
+/*}*/
 
 /*!*内容中部*!*/
 /*.container-middle {*/
