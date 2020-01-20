@@ -349,6 +349,13 @@
 
   <!--弹窗-->
 
+<!--  绑定邮箱弹框-->
+  <PersonalCenterSecurityCenterBindEmail :show="showBindEmail" @close="closeReleaseEmail"></PersonalCenterSecurityCenterBindEmail>
+
+
+<!--  解绑邮箱弹框-->
+  <PersonalCenterSecurityCenterReleaseEmail :show="showReleaseEmail" @close="closeReleaseEmail"></PersonalCenterSecurityCenterReleaseEmail>
+
   <!--修改登录密码-->
   <PopupT :switch="popWindowOpen1" @close="popWindowClose1">
     <div slot="header">
