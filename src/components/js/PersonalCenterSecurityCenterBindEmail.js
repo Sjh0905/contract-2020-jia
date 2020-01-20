@@ -9,6 +9,7 @@ import '../../../static/gt'
 root.components = {
   'Loading': resolve => require(['../vue/Loading'], resolve),
   'PopupPrompt': resolve => require(['../vue/PopupPrompt'], resolve),
+  'PopupT': resolve => require(['../vue/PopupT'], resolve),
 }
 
 /*--------------------------- data -----------------------------*/
@@ -53,6 +54,8 @@ root.data = function () {
     pswFocus: false,
     emailFocus: false,
     verificationFocus: false,
+
+    show:true
   }
 }
 /*--------------------------- 生命周期 -----------------------------*/
@@ -446,7 +449,10 @@ root.methods.error_commit = function (err) {
   }, 100)
 }
 
-
+root.methods.click_rel_em = function () {
+  this.show = false
+  this.$router.push({name: 'securityCenter'})
+}
 // 弹窗
 root.methods.popClose = function () {
   this.popOpen = false

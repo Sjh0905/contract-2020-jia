@@ -50,8 +50,17 @@ root.data = function () {
     pswConfirm: '',
     pswConfirmWA: '',
 
+
     showReleaseMobile:false,
-    showBindMobile:false
+    showBindMobile:false,
+
+    pswge: '',
+    pswWAge: '',
+    GACodege: '',
+    GACodeWAge: '',
+    // testPswge: '',
+    // testGACodege: '',
+
   }
 }
 
@@ -219,11 +228,11 @@ root.methods.click_bind_email = function () {
 }
 // 解绑邮箱验证
 root.methods.click_release_email = function () {
-  // this.$router.push({name: 'releaseEmail'})
-  this.popWindowTitle = this.$t('assetPageRechargeAndWithdrawals.popWindowTitleRecharge')
-  this.popWindowPrompt = this.$t('assetPageRechargeAndWithdrawals.popWindowTitleBindGaRecharge')
-  this.popWindowStyle = '1'
-  this.popWindowOpen = true
+  this.$router.push({name: 'releaseEmail'})
+  // this.popWindowTitle = this.$t('assetPageRechargeAndWithdrawals.popWindowTitleRecharge')
+  // this.popWindowPrompt = this.$t('assetPageRechargeAndWithdrawals.popWindowTitleBindGaRecharge')
+  // this.popWindowStyle = '1'
+  // this.popWindowOpen = true
 }
 root.methods.click_rel_em = function () {
   this.popWindowOpen = false
@@ -317,7 +326,6 @@ root.methods.click_getVerificationCode = function () {
   })
 }
 
-
 root.methods.re_getVerificationCode = function (data) {
   if (typeof data === 'string') data = JSON.parse(data)
   if (data.errorCode) {
@@ -396,7 +404,7 @@ root.methods.toAuthentication = function () {
   this.$router.push('/index/personal/auth/authenticate')
 }
 
-//sss=============
+//sss============= 修改登陆密码St
 // 判断密码
 root.methods.testPsw = function () {
   let isTextPsw = true;
@@ -554,6 +562,142 @@ root.methods.error_commit = function () {
   }, 100)
 }
 
+//sss============= 修改登陆密码En
+
+//sss============= 解绑谷歌验证St
+
+// 判断密码
+root.methods.testPswge = function () {
+  if (this.pswge === '') {
+    this.pswWAge = ''
+    return false
+  }
+  this.pswWAge = ''
+  return true
+}
+
+// 判断谷歌验证码
+root.methods.testGACodege = function () {
+  if (this.GACodege === '') {
+    this.GACodeWAge = ''
+    return false
+  }
+  this.GACodeWAge = ''
+  return true
+}
+
+// 判断验证状态
+root.methods.getAuthStatege = function () {
+  if (!this.$store.state.authState) {
+    this.$http.send('GET_AUTH_STATE', {
+      bind: this,
+      callBack: this.re_getAuthStatege,
+      errorHandler: this.error_getAuthStatege
+    })
+    return
+  }
+  if (!this.$store.state.authState.ga) {
+    this.$router.push('/index/personal/securityCenter')
+    return
+  }
+  this.loading = false
+}
+// 判断验证状态回调
+root.methods.re_getAuthStatege = function (data) {
+  typeof data === 'string' && (data = JSON.parse(data))
+  if (!data) return
+  this.$store.commit('SET_AUTH_STATE', data.dataMap)
+  if (!data.dataMap.ga) {
+    this.$router.push('/index/personal/securityCenter')
+  }
+  this.loading = false
+}
+// 判断验证状态出错
+root.methods.error_getAuthStatege = function (err) {
+  console.warn("获取验证状态出错！", err)
+  this.$router.push('/index/personal/securityCenter')
+}
+
+// 点击提交
+root.methods.commitge = function () {
+  if (this.sending) return
+  let canSend = true
+  canSend = this.testPswge() && canSend
+  canSend = this.testGACodege() && canSend
+  if (this.pswge === '') {
+    this.pswWAge = this.$t('personalCenterSecurityCenterReleaseGoogleAuthenticator.pswWA_0')
+    canSend = false
+  }
+  if (this.GACodege === '') {
+    this.GACodeWAge = this.$t('personalCenterSecurityCenterReleaseGoogleAuthenticator.GACodeWA_0')
+    canSend = false
+  }
+  if (!canSend) {
+    return
+  }
+  this.sending = true
+  this.popType = 2
+  this.popOpen = true
+  let email = this.$store.state.authMessage.email
+  this.$http.send("POST_COMMON_AUTH_UNBIND", {
+    bind: this,
+    params: {
+      type: 'ga',
+      code: this.GACodege,
+      examinee: this.$globalFunc.CryptoJS.SHA1('btcdo:' + this.pswge).toString(),
+      purpose: 'bind'
+    },
+    callBack: this.re_commitge,
+    errorHandler: this.error_commitge,
+  })
+
+}
+// 提交返回
+root.methods.re_commitge = function (data) {
+  typeof data === 'string' && (data = JSON.parse(data))
+
+  if (!data) return
+  this.sending = false
+  this.popClose()
+  console.warn('data', data)
+  if (data.errorCode) {
+    data.errorCode === 1 && (this.pswWAge = this.$t('personalCenterSecurityCenterReleaseGoogleAuthenticator.pswWA_1'))
+    data.errorCode === 2 && (this.pswWAge = this.$t('personalCenterSecurityCenterReleaseGoogleAuthenticator.pswWA_2'))
+    data.errorCode === 3 && (this.GACodeWAge = this.$t('personalCenterSecurityCenterReleaseGoogleAuthenticator.GACodeWA_1'))
+    data.errorCode === 4 && (this.GACodeWAge = this.$t('personalCenterSecurityCenterReleaseGoogleAuthenticator.GACodeWA_2'))
+    return
+  }
+  this.popOpen = true
+  this.popType = 1
+  this.popText = '解绑成功'
+  // this.bindGA()
+  setTimeout(() => {
+    this.popOpen = false
+    this.popWindowOpen2 = false
+    this.oldPsw = ''
+    this.psw = ''
+    this.pswConfirm = ''
+    if (this.isMobile) {
+      this.$router.push('/index/personal/auth/authentication')
+    } else {
+      this.$router.push('/index/personal/securityCenter')
+    }
+  }, 1000)
+
+}
+// 提交出错
+root.methods.error_commitge = function (err) {
+  console.warn("绑定谷歌出错！", err)
+  this.sending = false
+  this.popOpen = false
+  this.popType = 0
+  this.popText = this.$t('personalCenterSecurityCenterReleaseGoogleAuthenticator.popText_0')
+  setTimeout(() => {
+    this.popOpen = true
+  }, 200)
+}
+
+//sss============= 解绑谷歌验证En
 // 关闭弹窗
 root.methods.popClose = function () {
   this.popOpen = false

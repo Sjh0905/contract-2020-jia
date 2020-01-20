@@ -1,6 +1,5 @@
-<div class="Verification-container">
-  <Loading v-if="loading"/>
-  <template v-else>
+<div class="Verification-container Verification-container-pop">
+  <template v-if="isMobile">
     <div class="all-container border_radius box_shadow">
       <div class="unit-title flex-center">
         <span class="unit-title-line"></span>
@@ -72,6 +71,26 @@
     </div>
 
     <PopupPrompt :popOpen="popOpen" :popClose="closePrompt" :popType="popType" :popText="popText"/>
-
+    <Loading v-if="loading"/>
   </template>
+
+  <!--PC二次验证专用弹窗-->
+  <template v-else>
+    <PopPublic v-if="(bindGA || bindMobile)"
+               :bindGA="bindGA"
+               :bindMobile="bindMobile"
+               :popClose="closePopPublic"
+               :popConfrim="confrimPopPublic"
+               :popGetCode="click_getVerificationCode"
+               :GACodeWA="GACodeWA"
+               :verificationCodeWA="verificationCodeWA"
+               :loading="loading"
+    />
+
+    <PopupPrompt :popOpen="popOpen" :popClose="closePrompt" :popType="popType" :popText="popText"/>
+    <Loading style="top: 345px" v-if="loading"/>
+  </template>
+
+
+
 </div>

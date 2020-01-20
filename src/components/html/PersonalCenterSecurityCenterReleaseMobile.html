@@ -155,9 +155,9 @@
 
     <!--          确认--取消按钮  begin-->
     <div slot="footer" class="pop-footer">
-      <span class="pop-qu pointer" @click="click_rel_em()">取消</span>
-      <button class="pop-qu-2 pointer btn_blue" @click="commit" v-if="!sending">确认</button>
-      <button disabled v-else class="pop-qu-2 pointer btn_blue">{{$t('personalCenterSecurityCenterBindMobile.binding')}}</button>
+      <span class="pop-qu pointer" @click="click_rel_em()">{{$t('personalCenterSecurityCenterReleaseMobile.Cancel')}}</span>
+      <button class="pop-qu-2 pointer btn_blue" @click="commit" v-if="!sending">{{$t('personalCenterSecurityCenterReleaseMobile.ensure')}}</button>
+      <button disabled v-else class="pop-qu-2 pointer btn_blue">{{$t('personalCenterSecurityCenterReleaseMobile.releasing')}}</button>
     </div>
     <!--          确认--取消按钮 end-->
   </PopupT>

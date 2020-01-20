@@ -1,6 +1,6 @@
 <div class="release-container border_radius">
   <Loading v-if="loading"/>
-  <template v-if="!loading && !isMobile">
+  <template v-if="!loading && !isMobile && 0">
     <div class="release-title flex">
       <span></span>
       <span>
@@ -54,7 +54,7 @@
           </span>
           <input type="text"
                  class="unit-input"
-                 :class="{'wrong-border':verificationCodeWA!==''}"
+               :class="{'wrong-border':verificationCodeWA!==''}"
                  v-model="verificationCode"
                  @blur="testVerificationCode"
           >
@@ -81,6 +81,67 @@
       <!--确定 end-->
 
     </div>
+
+  </template>
+
+  <template v-if="!loading && !isMobile">
+    <!--解绑邮箱验证-->
+    <PopupT :switch="show" :close="click_rel_em">
+      <div slot="header">
+        <div class="pop-ei-ar">
+          <!--解绑邮箱：-->
+        {{$t('releaseEmail')}}
+        </div>
+      </div>
+      <div slot="article" class="pop-article">
+        <div class="article-pop-1">
+          <div class="article-pop-2">
+          <!-- 登录密码-->
+            {{$t('psw')}}
+          </div>
+          <input class="pop-input-1" type="password"
+                 :class="{'wrong-border':pswWA!==''}"
+                 v-model="psw"
+                 @blur="testPsw">
+          <span class="wrong-msg" v-if="pswWA!==''">{{pswWA}}</span>
+        </div>
+        <div class="article-pop-1">
+          <div class="article-pop-2">
+            <!--邮箱：-->
+            {{$t('email')}}
+          </div>
+          <input class="pop-input-1"
+                 type="text"
+                 :class="{'wrong-border':emailWA!==''}"
+                 @blur="testEmail"
+                 v-model="email">
+          <span class="wrong-msg" v-if="emailWA!==''">{{emailWA}}</span>
+        </div>
+        <div class="article-pop-1">
+          <div class="article-pop-2">
+            <!--邮箱验证码：-->
+            {{$t('emailVerificationCode')}}
+          </div>
+          <div class="input-pop" :class="{'wrong-border':verificationCodeWA!==''}">
+            <input class="pop-input-3"
+                   type="text"
+
+                   v-model="verificationCode"
+                   @blur="testVerificationCode">
+            <span class=" fl-ce-y" @click="getVerificationCodeFunc" v-if="!getVerificationCode">{{$t('sendVerificationCode')}}</span>
+            <span class="fl-ce-y-s" @click="getVerificationCodeFunc" v-else disabled>{{getVerificationCodeCountdown}}s</span>
+          </div>
+          <span class="wrong-msg" v-if="verificationCodeWA!==''">{{verificationCodeWA}}</span>
+
+        </div>
+
+      </div>
+      <div slot="footer" class="pop-footer">
+        <span class="pop-qu pointer" @click="click_rel_em">{{'cancel'}}</span>
+        <button class="pop-qu-2 pointer" v-if="!sending" @click="commit">{{$t('ensure')}}</button>
+
+      </div>
+    </PopupT>
 
   </template>
 
@@ -138,6 +199,9 @@
       </div>
     </div>
   </template>
+
+
+
 
   <PopupPrompt :popOpen="popOpen" :popClose="popClose" :popType="popType" :popText="popText"/>
 

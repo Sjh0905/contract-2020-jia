@@ -578,6 +578,7 @@ root.personalCenterSecurityCenterBindMobile.verificationCode = '短信验证码�
 root.personalCenterSecurityCenterBindMobile.send = '发送验证码'
 root.personalCenterSecurityCenterBindMobile.ensure = '确定'
 root.personalCenterSecurityCenterBindMobile.binding = '绑定中'
+root.personalCenterSecurityCenterBindMobile.Cancel = '取消'
 
 
 // 修改登录密码
@@ -612,6 +613,7 @@ root.personalCenterSecurityCenterReleaseMobile.verificationCode = '短信验证�
 root.personalCenterSecurityCenterReleaseMobile.sendVerificationCode = '发送验证码'
 root.personalCenterSecurityCenterReleaseMobile.ensure = '确定'
 root.personalCenterSecurityCenterReleaseMobile.releasing = '解绑中'
+root.personalCenterSecurityCenterReleaseMobile.Cancel = '取消'
 
 
 // 安全日志
