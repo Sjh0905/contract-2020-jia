@@ -1,12 +1,27 @@
 const root = {}
 root.name = 'PersonalCenterSecurityCenterReleaseMobile'
 
+/*---------------------- 属性 ---------------------*/
+root.props = {}
+root.props.show = {
+  type: Boolean,
+  default: false
+}
+
+root.props.close = {
+  type: Function,
+  default: ()=>_
+}
+
 /*----------------------------- 组件 ------------------------------*/
 
 root.components = {
   'Loading': resolve => require(['../vue/Loading'], resolve),
   'PopupPrompt': resolve => require(['../vue/PopupPrompt'], resolve),
+  'PopupT': resolve => require(['../vue/PopupT'], resolve),
 }
+
+
 
 /*----------------------------- data ------------------------------*/
 
@@ -41,11 +56,17 @@ root.data = function () {
     pop_tips1: '',
     pop_tips2: '',
     toast_tips: '',
+
+    // 显示弹框
+    hiddenReleaseMObilePage:false,
+    // show:true
   }
+
 }
 
-/*----------------------------- 生命周期 ------------------------------*/
 
+
+/*----------------------------- 生命周期 ------------------------------*/
 root.created = function () {
   this.getAuthState()
 }
@@ -66,6 +87,7 @@ root.beforeDestroy = function () {
 /*----------------------------- 计算 ------------------------------*/
 
 root.computed = {}
+
 // 判断是否是手机
 root.computed.isMobile = function () {
   return this.$store.state.isMobile
@@ -255,6 +277,7 @@ root.methods.commit = function () {
   this.popType = 2
   this.popOpen = true
 
+
 }
 
 root.methods.re_commit = function (data) {
@@ -289,7 +312,9 @@ root.methods.re_commit = function (data) {
   if (this.isMobile) {
     this.$router.push('/index/personal/auth/authentication')
   } else {
-    this.$router.push('/index/personal/securityCenter')
+    // this.$props.show = false
+    this.click_rel_em(true)
+    // this.$router.push('/index/personal/securityCenter')
   }
 }
 root.methods.error_commit = function (err) {
@@ -301,13 +326,17 @@ root.methods.error_commit = function (err) {
   setTimeout(() => {
     this.popOpen = true
   }, 100)
-
 }
 
 
 // 弹窗
 root.methods.popClose = function () {
   this.popOpen = false
+}
+
+// 弹窗
+root.methods.click_rel_em = function (callApi) {
+  this.$emit('close',false,callApi)
 }
 
 

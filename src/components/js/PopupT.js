@@ -42,7 +42,8 @@ root.computed.show = function () {
 root.methods = {}
 
 root.methods.closeClick = function () {
-  this.$emit('close')
+  // this.$emit('close')
+  this.$props.close();
 }
 
 
