@@ -6,6 +6,8 @@ root.components = {
   'PopupPrompt': resolve => require(['../vue/PopupPrompt'], resolve),
   'PersonalCenterSecurityCenterBindEmail': resolve => require(['../vue/PersonalCenterSecurityCenterBindEmail'], resolve),
   'PersonalCenterSecurityCenterReleaseEmail': resolve => require(['../vue/PersonalCenterSecurityCenterReleaseEmail'], resolve),
+  'PersonalCenterSecurityCenterReleaseMobile': resolve => require(['../vue/PersonalCenterSecurityCenterReleaseMobile'], resolve),
+  'PersonalCenterSecurityCenterBindMobile': resolve => require(['../vue/PersonalCenterSecurityCenterBindMobile'], resolve),
 }
 
 root.data = function () {
@@ -50,6 +52,10 @@ root.data = function () {
     pswConfirm: '',
     pswConfirmWA: '',
 
+
+    showReleaseMobile:false,
+    showBindMobile:false,
+
     pswge: '',
     pswWAge: '',
     GACodege: '',
@@ -58,6 +64,7 @@ root.data = function () {
     // testGACodege: '',
     showBindEmail: false,
     showReleaseEmail: false,
+
   }
 }
 
@@ -129,12 +136,13 @@ root.computed.uuid = function () {
 
 
 root.created = function () {
- this.getAuthState()
+  this.getAuthState();
   this.getLogRecord()
+  this.closeReleaseMobile()
 }
 
 root.methods = {}
-root.methods.getAuthState = function (){
+root.methods.getAuthState = function (data) {
   this.$http.send('GET_AUTH_STATE', {
     bind: this,
     callBack: this.re_getAuthState
@@ -207,11 +215,13 @@ root.methods.click_change_login_psw = function () {
 
 // 绑定手机验证
 root.methods.click_bind_mobile = function () {
-  this.$router.push({name: 'bindMobile'})
+  // this.$router.push({name: 'bindMobile'})
+  this.showBindMobile = true
 }
 // 解绑手机验证
 root.methods.click_release_mobile = function () {
-  this.$router.push({name: 'releaseMobile'})
+  this.showReleaseMobile = true
+  // this.$router.push({name: 'releaseMobile'})
 }
 // 绑定邮箱验证
 root.methods.click_bind_email = function () {
@@ -543,7 +553,8 @@ root.methods.re_commit = function (data) {
     if (this.isMobile) {
       this.$router.push('/index/personal/auth/authentication')
     } else {
-      this.$router.push('/index/personal/securityCenter')
+      this.showReleaseMobile = false
+      // this.$router.push('/index/personal/securityCenter')
     }
   }, 1000)
 }
@@ -706,6 +717,16 @@ root.methods.closeReleaseEmail = function (type,callApi) {
 // 关闭弹窗
 root.methods.popClose = function () {
   this.popOpen = false
+}
+
+// 关闭弹窗
+root.methods.closeReleaseMobile = function (type,callApi) {
+  if(callApi){
+    this.getAuthState();
+  }
+  this.showBindMobile = type
+
+  this.showReleaseMobile = type
 }
 
 export default root

@@ -346,6 +346,12 @@
     </template>
   </div>
 
+<!--  绑定手机-->
+  <PersonalCenterSecurityCenterBindMobile :show="showBindMobile" @close="closeReleaseMobile"></PersonalCenterSecurityCenterBindMobile>
+
+
+<!--  解绑手机组件-->
+  <PersonalCenterSecurityCenterReleaseMobile :show="showReleaseMobile" @close="closeReleaseMobile" ></PersonalCenterSecurityCenterReleaseMobile>
 
   <!--弹窗-->
 
