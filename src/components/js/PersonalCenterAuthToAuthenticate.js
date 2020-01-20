@@ -209,14 +209,13 @@ root.data = function () {
 /*--------------------------------- 生命周期 -------------------------------------*/
 
 root.created = function () {
+
   // 判断是否关闭过
   this.isClosed();
   //获取国籍信息
   this.getMobileInfo()
   // 判断认证状态
   this.getAuthState()
-
-
 
   // 生成身份证校验器
   this.idValidator = new IDValidator()
@@ -350,9 +349,11 @@ root.methods.getAuthState = function () {
 root.methods.re_getAuthState = function (data) {
   typeof (data) === 'string' && (data = JSON.parse(data))
   if (!data.dataMap) return
-  console.warn('获取状态', data)
+  console.log('获取状态', data)
+
+  // SET_AUTH_TYPE
   let status = data.dataMap.status
-  // 如果是通过和待审核状态，不让进
+  // 如果是通过(2)和待审核(0,5,6)状态，不让进
   if (status === '0' || status === '2' || status == '5' || status == '6') {
     this.authType = parseInt(status)
     this.$router.push('/index/personal')
@@ -373,6 +374,7 @@ root.methods.re_getAuthState = function (data) {
       errorHandler: this.error_getIdentityInfo,
     })
   }
+
 }
 // 获取认证失败
 root.methods.error_getAuthState = function (err) {
@@ -768,11 +770,8 @@ root.methods.testIdCode_1 = function () {
 
 // 点击提交
 root.methods.commit = function () {
+
   let canSend = true
-
-
-
-
   if (this.country === '0') {
     canSend = this.testName_0() && canSend
     canSend = this.testIdCode_0() && canSend
@@ -1357,7 +1356,7 @@ root.methods.re_commit = function (data) {
     return
   }
 
-
+  this.$eventBus.notify({key:'REFRESH_AUTHENTICATE'});//this.$eventBus.notify 最好不要bind this，作用域容易出错
   this.$router.push('/index/personal')
 }
 
