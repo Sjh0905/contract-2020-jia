@@ -1,5 +1,6 @@
 <div class="history-container">
-  <ul class="detail  border_radius">
+<!--  <ul class="detail  border_radius">-->
+    <ul class="border_radius" :class="$route.name == 'historicalEntrust'?'detail':'detail-1'">
     <!-- 表头 begin -->
 <!--    <li class="tr-th flex-center">-->
 <!--      &lt;!&ndash;单号&ndash;&gt;-->
@@ -58,8 +59,9 @@
     <template v-if="!loading">
       <!-- 如果loading结束、已经登录、有值，则显示值 begin -->
       <template v-if="userId && historyOrderComputed.length !==0">
-        <li class="tr-td" v-for="(order,index) in historyOrderComputed" :key="order.id"
-            :class="{'show-detail':clickThis===order.id}"
+<!--        :class="{'show-detail':clickThis===order.id}"-->
+        <li  v-for="(order,index) in historyOrderComputed" :key="order.id"
+            :class="$route.name == 'historicalEntrust'?'tr-td':'tr-td-col'"
             @click="showDetail(order.id)"
         >
           <div class="tr-detail flex-center" >

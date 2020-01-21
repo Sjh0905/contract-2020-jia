@@ -1,6 +1,7 @@
 <div class="current-entrustment-container">
+<!--  this.$route.name==currentEntrust?'current-entrustment-container':'current-entrustment-shiying'-->
 
-  <ul class="detail border_radius">
+  <ul class="border_radius" :class="$route.name == 'currentEntrust'?'detail':'detail-1'">
     <!-- 表头 begin -->
 <!--    <li class="tr-th flex">-->
 <!--      &lt;!&ndash;单号&ndash;&gt;-->
@@ -80,7 +81,9 @@
     <template v-if="!loading">
       <template v-if="userId && currentOrderComputed.length!==0">
         <transition-group name="fade">
-          <li class="tr-td flex" v-for="(order,index) in currentOrderComputed" :key="order.id">
+          <li class="flex"
+              :class="$route.name == 'currentEntrust'?'tr-td':'tr-td-col'"
+              v-for="(order,index) in currentOrderComputed" :key="order.id">
             <!--单号-->
             <!--<div class="td td-order">{{order.id}}</div>-->
             <!--委托时间-->
@@ -88,7 +91,7 @@
             <!--类别-->
             <div class="td td-category">{{order.symbol.split('_')[0]}}/{{order.symbol.split('_')[1]}}</div>
             <!--市场-->
-            <div class="td td-category-1" :class="order.type==='BUY_LIMIT'?'text_blue':'text_red'">
+            <div class="td td-category-1" :class="order.type==='BUY_LIMIT'?'text_blue-3':'text_red-4'">
               {{order.type === 'BUY_LIMIT' && $t('orderPageCurrentEntrustment.buy') ||
               $t('orderPageCurrentEntrustment.sale')}}
             </div>

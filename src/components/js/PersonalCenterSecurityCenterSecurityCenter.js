@@ -136,9 +136,11 @@ root.computed.uuid = function () {
 
 
 root.created = function () {
+
   this.getAuthState();
   this.getLogRecord()
   this.closeReleaseMobile()
+
 }
 
 root.methods = {}
@@ -169,10 +171,12 @@ root.methods.popWindowClose = function () {
 // 弹窗关闭
 root.methods.popWindowClose1 = function () {
   this.popWindowOpen1 = false
+  // this.click_rel_em()
 }
 // 弹窗关闭
 root.methods.popWindowClose2 = function () {
   this.popWindowOpen2 = false
+  // this.click_rel_em()
 }
 //
 // // 设置资金密码

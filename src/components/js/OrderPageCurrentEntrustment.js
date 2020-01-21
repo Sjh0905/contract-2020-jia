@@ -61,7 +61,8 @@ root.created = function () {
   this.currentInterval && clearInterval(this.currentInterval)
   this.currentInterval = setInterval(this.getOrder, 5000)
 
-
+  console.log('this.$route=======',this.$route.name)
+  // console.log(('this.$router==========第四季',this.$router))
 }
 
 root.beforeDestroy = function () {
