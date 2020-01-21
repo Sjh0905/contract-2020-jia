@@ -83,8 +83,8 @@ root.data = function () {
     // 精度
     baseScale: 0,
     quoteScale: 0,
-    screenWidth: document.body.clientWidth,     // 屏幕宽
-    screeHeight: document.body.clientHeight,    // 屏幕高
+    // screenWidth: document.body.clientWidth,     // 屏幕宽
+    // screeHeight: document.body.clientHeight,    // 屏幕高
     latestDealSpread:true,
     stockShow:true,
     // showsscj:false,
@@ -97,17 +97,17 @@ root.data = function () {
 }
 
 root.created = function () {
-  // console.log("screenWidth---------"+this.screenWidth);
-  // console.log("screeHeight---------"+this.screeHeight);
-  if(this.screenWidth<1450){
-    this.latestDealSpread = false;
-    // this.pankqh = false;
-  }else{
-    this.latestDealSpread = true;
-    // this.pankqh = true;
-    this.showStockFunc()
-  }
+  // if(this.screenWidth<1450){
+  //   this.latestDealSpread = false;
+  //   // this.pankqh = false;
+  // }else{
+  //   this.latestDealSpread = true;
+  //   // this.pankqh = true;
+  //   this.showStockFunc()
+  // }
   // console.log("latestDealSpread---------"+this.latestDealSpread);
+
+  this.watchScreenWidth();
   // 获取兑换汇率
   this.getCny();
   // 一小时更新一次汇率
@@ -141,18 +141,46 @@ root.mounted = function () {
   // 更改query
   this.$router.push({name: 'tradingHall', query: {symbol: this.$store.state.symbol}});
 
-  const that = this
-  window.onresize = () => {
-
-      window.screenWidth = document.body.clientWidth
-      that.screenWidth = window.screenWidth
-
+  var that = this
+  window.onresize = ()=>{
+    that.watchScreenWidth()
   }
+
+  // window.onresize = function () {
+  //
+  //     window.screenWidth = document.body.clientWidth
+  //     that.screenWidth = window.screenWidth
+  //
+  //     // console.log("this.screenWidth====watch=======",that.screenWidth);
+  //     // that.screenWidth = that.screenWidth == oldValue ? newValue : newValue;
+  //
+  //
+  // }
+
+
+
 }
 
 
 // 初始化各子组件
 root.methods = {}
+
+root.methods.watchScreenWidth = function () {
+  //必须声明局部变量，否则this.screenWidth不能触发页面渲染
+  var screenWidth = document.body.clientWidth
+  // console.log("this.screenWidth====watchScreenWidth=======",screenWidth);
+
+  if(screenWidth<1450){
+    this.latestDealSpread = false;
+    // this.pankqh = false;
+  }
+
+  if(screenWidth>=1450){
+    this.latestDealSpread = true;
+    // this.pankqh = true;
+    this.showStockFunc();
+  }
+}
 
 // 获取小数点位数
 root.methods.getScaleConfig =  function () {
@@ -881,20 +909,6 @@ root.computed.showSuperBeeIntroduction = function () {
 
 // 监听symbol 做一些操作
 root.watch = {};
-root.watch.screenWidth = function (val) {
-  this.screenWidth = val
-    // console.log("this.screenWidth====watch======="+this.screenWidth);
-
-    if(this.screenWidth<1450){
-      this.latestDealSpread = false;
-      // this.pankqh = false;
-
-    }else{
-      this.latestDealSpread = true;
-      // this.pankqh = true;
-      this.showStockFunc();
-    }
-};
 
 root.watch.isNowPrice = function (newValue, oldValue) {
   this.GET_RATE('');
@@ -951,6 +965,11 @@ root.watch.showSuperBeeIntroduction = function (newValue, oldValue) {
 // 组件卸载前取消订阅
 root.beforeDestroy = function () {
   this.$socket.emit('unsubscribe', {symbol: this.$store.state.symbol});
+}
+// 组件卸载取消订阅
+root.destroyed = function () {
+  //加进window的方法当跳出此页面后需要销毁哦
+  window.onresize = null;
 }
 
 
