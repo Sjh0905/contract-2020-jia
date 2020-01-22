@@ -126,7 +126,7 @@
     </div>
 
     <div class="traddinghall-right-wrap" v-show="latestDealSpread">
-      <div class="pankou">实时成交</div>
+      <div class="pankou">{{$t("RealTime")}}</div>
       <div class="AssetOverview-wrap">
 
         <LatestDeal :trade_loading="trade_loading" :socket_tick_arr="socket_tick_arr"

@@ -41,12 +41,12 @@
     <div class="market-list-container flex">
       <div v-for="item in marketList"
            class="market-list-detail"
+           :class="{'selected-market':selectedMarket(item)}"
       >
         <span class="market-list-click-area pointer"
-              :class="{'selected-market text_blue':selectedMarket(item)}"
               @click="changeMarket(item)"
         >
-          <img src="../../assets/selectedSelf_icon.png" v-if="item=== $t('Favorites')"  alt="">
+          <img src="../../assets/selectedSelf_icon.png" class="selected-self-icon" v-if="item=== $t('Favorites')"  alt="">
           {{item}}
           <span class="reduce_icon" :class="lang != 'CH' && 'en'"
                 v-if="reduce_list.indexOf(item) > '-1'"

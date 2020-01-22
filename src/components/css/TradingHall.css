@@ -1,9 +1,11 @@
 /*内容*/
 .TraddingHall-container {
-  margin: 0 auto -10px;
   width: 100%;
   height: 100%;
   position: relative;
+  margin: auto;
+  padding-top:6px;
+  background-color: #202133 ;
 }
 
 .HeaderTitle-wrap {
@@ -32,12 +34,14 @@
   /*width: 47%;*/
   flex:1;
   position: relative;
+  margin: auto 6px;
 }
 
 .traddinghall-right-wrap {
   /*width: 16.312%;*/
   width: 300px;
-  background-color: #fff;
+  /*background-color: aliceblue;*/
+  background-color: #0D111F;
 }
 
 .StockCross-wrap {

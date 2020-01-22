@@ -1,8 +1,8 @@
 /*注意！此组件的father不能设置overflow:hidden!*/
 .MarketPrice-container {
   width: 100%;
-  height: 24px;
-  line-height: 24px;
+  /*height: 24px;*/
+  /*line-height: 24px;*/
   position: relative;
 }
 
@@ -80,33 +80,34 @@
 
 
 .market-price-title11 {
-  height: 40px;
-  line-height: 40px;
-  width: 100%;
-  background-color: #FFF;
+  margin: 8px 15px 13px;
+  /* height: 40px; */
+  /* line-height: 40px; */
+  /*width: 100%;*/
+  /* background-color: #FFF; */
   position: relative;
   z-index: 100;
-  border-bottom: 1px solid #F7F8FA;
+  /* border-bottom: 1px solid #F7F8FA;
 }
 
 .market-price-title11 .tt1{
-  font-family: PingFangSC-Regular;
-  font-size: 16px;
-  color: #172A4D;
-  letter-spacing: 0;
-  float: left;
-  margin-left: 12px;
+font-family: PingFangSC-Regular;
+font-size: 16px;
+color: #172A4D;
+letter-spacing: 0;
+float: left;
+margin-left: 12px;
 
 }
 .market-price-title11 .tt2{
-  float: right;
+float: right;
 }
 
 .market-price-title {
-  width: 100%;
-  height: 36px;
-  line-height: 36px;
-  /* font-weight: bold; */
+width: 100%;
+height: 36px;
+line-height: 36px;
+/* font-weight: bold; */
   /*background: #ebebeb;*/
   cursor: pointer;
   background-color: #FFFFFF;
@@ -119,10 +120,10 @@
   width: 40.47%;
   /*text-align: center;*/
   text-align: left;
-  padding-left: 12px;
+  padding-left: 15px;
   font-family: PingFangSC-Regular;
   font-size: 12px;
-  color: #172A4D;
+  color: #6B7DA2;
   letter-spacing: 0;
 }
 
@@ -132,7 +133,7 @@
   /*text-align: center;*/
   font-family: PingFangSC-Regular;
   font-size: 12px;
-  color: #172A4D;
+  color: #6B7DA2;
   letter-spacing: 0;
 }
 
@@ -150,9 +151,10 @@
   white-space: nowrap;
   font-family: PingFangSC-Regular;
   font-size: 12px;
-  color: #172A4D;
+  color: #6B7DA2;
   letter-spacing: 0;
   text-align: right;
+  cursor: pointer;
 }
 
 .market-price-list {
@@ -189,8 +191,8 @@
 
 .market-price-list-li {
   /*width: 100%;*/
-  height: 24px;
-  line-height: 24px;
+  height: 28px;
+  line-height: 28px;
   cursor: pointer;
   /*position: relative;*/
 }
@@ -198,13 +200,13 @@
 .market-price-list-li .imgSelect {
   height: 12px;
   line-height: 24px;
-  margin:6px 0 0 10px;
+  margin:6px 0 0 15px;
 }
 
 .market-price-list-li1 {
   width: 100%;
-  height: 24px;
-  line-height: 24px;
+  height: 28px;
+  line-height: 28px;
   cursor: pointer;
   /*position: relative;*/
 }
@@ -216,8 +218,8 @@
   padding: 0px 10px;
   line-height: 24px;
   color: #fff;
-  background-color: #C43E4E;
-  border: 1px solid #C43E4E;
+  background-color: #EF5656;
+  border: 1px solid #EF5656;
   border-radius: 2px;
   left: 101.5%;
   top: -1px;
@@ -232,7 +234,7 @@
   width: 0;
   height: 0;
   border-top: 3px solid transparent;
-  border-left: 4px solid #C43E4E;
+  border-left: 4px solid #EF5656;
   border-bottom: 3px solid transparent;
 }
 
@@ -242,12 +244,12 @@
 
 /* 2018-4-4 新加价格css end */
 .market-price-list-li:hover {
-  background: #F7F8FA;
+  background: rgba(53,118,245,0.1)
   /*background-color: #cbf0fa;*/
 }
 
 .market-price-list-li-background {
-  background: #F0F2F7;
+  background:rgba(53,118,245,0.2)
 }
 
 .market-detail-item .imgSelect {
@@ -280,39 +282,47 @@
 
 .market-price-list-marcket {
   width: 34.47%;
+  height:28px;
+  line-height:28px;
   /*text-align: center;*/
   text-align: left;
   padding-left: 6px;
-  font-family: Roboto-Regular;
-  font-size: 12px;
-  color: #172A4D;
-
+  color: #E0E1F4;
+  font-size:12px;
+  font-family:Roboto-Regular,Roboto;
+  font-weight:400;
 }
 
 .market-price-list-price {
   width: 26.848%;
+  height:28px;
+  line-height:28px;
   text-align: left;
-  font-family: Roboto-Regular;
+  font-family: Roboto-Regular,Roboto;
   font-size: 12px;
-  color: #172A4D;
+  color: #E0E1F4;
+  font-weight:400;
   text-align: right;
 }
 
 .market-price-list-volum {
   width: 39.62%;
+  height:28px;
+  line-height:28px;
   padding-right: 12px;
-  font-family: Roboto-Regular;
+  font-family: Roboto-Regular,Roboto;
   font-size: 12px;
+  color: #E0E1F4;
+  font-weight:400;
   text-align: right;
-
 }
 
 .txt_green {
-  color: rgb(2, 152, 125);
+  color: #08D0AC;
 }
 
 .txt_red {
-  color: #C43E4E;
+  color: #EF5656;
 }
 
 .border-box {
@@ -367,46 +377,59 @@
 /*市场列表*/
 .market-list-container {
   width: 100%;
-  height: 40px;
-  line-height: 40px;
-  font-size: 14px;
-  color: #172A4D;
+  height: 44px;
+  line-height: 17px;
+  font-size: 12px;
+  color: #A2B5D9;
   font-family: Roboto-Regular;
+  /* padding: 3px 5px; */
   padding-left: 12px;
-  background: #FFF;
+  /* background: #FFF; */
   position: relative;
   z-index: 100;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-bottom: 1px solid #1E1F22;
 }
 
 .market-list-detail {
-  padding-right: 10px;
+  padding: 3px 5px;
+  margin-right: 20px;
 }
 
 .market-list-click-area {
   position: relative;
+  align-items: center;
+  display: flex;
 }
 
 .selected-market {
-  padding-bottom: 7px;
-  border-bottom: 2px solid #C43E4E;
+  background-color: #3576F5;
+  color: #fff;
+  border-radius: 1px;
 }
 
+.selected-self-icon {
+  /*width: 17px;*/
+  /*height: 17px;*/
+}
 
 .dialog-input-text >>> .el-input__inner {
   -web-kit-appearance: none;
   -moz-appearance: none;
-  width: 94%;
+  width: 270px;
   height: 28px;
   line-height: 28px;
   outline: 0;
+  background: #0D111F;
   /*opacity: 0.7;*/
-  border: 1px solid #B5BCC6;
+  /*border: 1px solid #B5BCC6;*/
   font-size: 13px;
   color: #8994A5;
   letter-spacing: 0;
-  border: 1px solid rgba(181,188,198,0.50);
-  border-radius: 2px;
-  margin-right: 124px;
+  border: 1px solid #384256;
+  border-radius: 1px;
 }
 
 .dialog-input-text >>> .el-input__icon{
