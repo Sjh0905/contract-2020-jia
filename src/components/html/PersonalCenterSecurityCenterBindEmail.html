@@ -83,7 +83,7 @@
 <!--  弹框-->
   <template v-if="!loading && !isMobile">
     <!--解绑邮箱验证-->
-    <PopupT :switch="show" :close="click_rel_em">
+    <PopupT :switch="show" @close="click_rel_em">
       <div slot="header">
         <div class="pop-ei-ar">
           <!--解绑邮箱：-->

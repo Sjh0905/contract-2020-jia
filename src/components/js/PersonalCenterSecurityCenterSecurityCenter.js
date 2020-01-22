@@ -138,11 +138,17 @@ root.computed.uuid = function () {
 
 
 root.created = function () {
+
+  this.$eventBus.notify('GETAUTHSTATE')
   this.getAuthType()
+
   this.getAuthState();
   this.getLogRecord()
   this.closeReleaseMobile()
-  this.$eventBus.notify('GETAUTHSTATE')
+
+
+
+
 }
 
 root.methods = {}
@@ -733,15 +739,6 @@ root.methods.error_commitge = function (err) {
   }, 200)
 }
 
-// 关闭弹窗
-root.methods.closeReleaseEmail = function (type,callApi) {
-  if(callApi){
-    this.getAuthState();
-  }
-  this.showBindEmail = type
-  this.showReleaseEmail = type
-}
-
 //sss============= 解绑谷歌验证En
 // 关闭弹窗
 root.methods.popClose = function () {
@@ -756,6 +753,9 @@ root.methods.closeReleaseMobile = function (type,callApi) {
   this.showBindMobile = type
 
   this.showReleaseMobile = type
+
+  this.showBindEmail = type
+  this.showReleaseEmail = type
 }
 
 export default root

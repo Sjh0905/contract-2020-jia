@@ -45,10 +45,9 @@ root.methods.closeClick = function () {
 
   //为什么都用，因为需要用
   this.$emit('close')
-  this.$props.close();
+  // this.$props.close();
 
 }
 
 
 export default root
-PersonalCenterSecurityCenterSecurityCenter

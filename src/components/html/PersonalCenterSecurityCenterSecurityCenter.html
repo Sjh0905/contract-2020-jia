@@ -362,20 +362,20 @@
   </div>
 
 <!--  绑定手机-->
-  <PersonalCenterSecurityCenterBindMobile :show="showBindMobile" @close="closeReleaseMobile" v-if="showBindMobile"></PersonalCenterSecurityCenterBindMobile>
+  <PersonalCenterSecurityCenterBindMobile :show="showBindMobile" @close="closeReleaseMobile" v-if="showBindMobile"/>
 
 
 <!--  解绑手机组件-->
-  <PersonalCenterSecurityCenterReleaseMobile :show="showReleaseMobile" @close="closeReleaseMobile" v-if="showReleaseMobile"></PersonalCenterSecurityCenterReleaseMobile>
+  <PersonalCenterSecurityCenterReleaseMobile :show="showReleaseMobile" @close="closeReleaseMobile" v-if="showReleaseMobile"/>
 
   <!--弹窗-->
 
 <!--  绑定邮箱组件-->
-  <PersonalCenterSecurityCenterBindEmail :show="showBindEmail" @close="closeReleaseEmail"></PersonalCenterSecurityCenterBindEmail>
+  <PersonalCenterSecurityCenterBindEmail :show="showBindEmail" @close="closeReleaseMobile"/>
 
 
 <!--  解绑邮箱组件-->
-  <PersonalCenterSecurityCenterReleaseEmail :show="showReleaseEmail" @close="closeReleaseEmail"></PersonalCenterSecurityCenterReleaseEmail>
+  <PersonalCenterSecurityCenterReleaseEmail :show="showReleaseEmail" @close="closeReleaseMobile"/>
 
   <!--修改登录密码-->
   <PopupT :switch="popWindowOpen1" @close="popWindowClose1">

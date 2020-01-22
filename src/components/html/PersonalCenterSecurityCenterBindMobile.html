@@ -4,7 +4,7 @@
   <Loading v-if="loading"/>
     <template v-if="!loading && !isMobile">
 
-      <PopupT :switch="show" :close="click_rel_em" v-if="!hiddenBindMObilePage">
+      <PopupT :switch="show" @close="click_rel_em" v-if="!hiddenBindMObilePage">
 <!--        绑定手机号码  begin-->
         <div slot="header">
           <span class="pop-ei-ar">{{$t('personalCenterSecurityCenterBindMobile.title')}}</span>

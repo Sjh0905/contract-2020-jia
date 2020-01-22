@@ -77,7 +77,7 @@
 
   </template>
 
-  <PopupT :switch="show" :close="click_rel_em" v-if="!hiddenReleaseMObilePage">
+  <PopupT :switch="show" @close="click_rel_em" v-if="!hiddenReleaseMObilePage">
 
     <!--        解绑手机号码  begin-->
     <div slot="header">
