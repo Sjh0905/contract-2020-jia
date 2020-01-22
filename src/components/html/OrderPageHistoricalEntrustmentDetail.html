@@ -1,4 +1,5 @@
-<div class="OrderPageHistoricalEntrustmentDetail-container loading-min-height">
+<!--<div class="OrderPageHistoricalEntrustmentDetail-container loading-min-height">-->
+<div class=" loading-min-height" :class="$route.name == 'historicalEntrust'?'OrderPageHistoricalEntrustmentDetail-container':'OrderPageHistoricalEntrustmentDetail-container-1'">
   <Loading v-if="loading"/>
   <template v-if="!loading">
     <ul class="hidden-detail-container">

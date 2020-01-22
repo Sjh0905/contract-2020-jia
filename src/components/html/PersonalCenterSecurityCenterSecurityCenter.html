@@ -23,8 +23,23 @@
           <div class="identity-title">身份认证</div>
           <div class="identity-logen">完成个人认证有助于保护账户安全，提高提现额度及交易权限</div>
           <div class="identity-button" @click="toAuthentication">
-            <button class="pointer">立即认证</button>
+            <button class="pointer" v-if="authType==3" >立即认证</button>
           </div>
+          <div class="identity-button"  v-if="authType==1" @click="toAuthentication">
+            <img src="../../assets/authentication/identity_ rejected_icon.png" alt="">
+            <span class="pointer rejected">被驳回</span>
+          </div>
+
+          <div class="identity-button"  v-if="authType==0||authType==5||authType==6" @click="toAuthentication">
+            <img src="../../assets/authentication/identity_review_icon.png" alt="">
+            <span class="pointer review" >待审核</span>
+          </div>
+
+          <div class="identity-button"  v-if="authType==2" @click="toAuthentication">
+            <img src="../../assets/authentication/identity_pass_icon.png" alt="">
+            <span class="pointer pass">已通过</span>
+          </div>
+
         </div>
 
         <div class="identity-right">
@@ -346,13 +361,26 @@
     </template>
   </div>
 
+<!--  绑定手机-->
+  <PersonalCenterSecurityCenterBindMobile :show="showBindMobile" @close="closeReleaseMobile" v-if="showBindMobile"/>
+
+
+<!--  解绑手机组件-->
+  <PersonalCenterSecurityCenterReleaseMobile :show="showReleaseMobile" @close="closeReleaseMobile" v-if="showReleaseMobile"/>
 
   <!--弹窗-->
+
+<!--  绑定邮箱组件-->
+  <PersonalCenterSecurityCenterBindEmail :show="showBindEmail" @close="closeReleaseMobile"/>
+
+
+<!--  解绑邮箱组件-->
+  <PersonalCenterSecurityCenterReleaseEmail :show="showReleaseEmail" @close="closeReleaseMobile"/>
 
   <!--修改登录密码-->
   <PopupT :switch="popWindowOpen1" @close="popWindowClose1">
     <div slot="header">
-      <span class="pop-ei-ar">修改登陆密码</span>
+      <span class="pop-ei-ar">修改登录密码</span>
     </div>
     <div slot="article" class="pop-article">
       <div class="article-present">
@@ -391,7 +419,7 @@
     </div>
     <div slot="article" class="pop-article">
       <div class="article-pop-1">
-        <div class="article-pop-2">登陆密码</div>
+        <div class="article-pop-2">登录密码</div>
         <input class="pop-input-1" type="password" v-model="pswge" :class="{'wrong-border':pswWAge!==''}"
                @blur="testPswge">
         <span class="detail-center-prompt txt-red" v-if="pswWAge!==''">{{pswWAge}}</span>
@@ -410,6 +438,39 @@
 
     </div>
   </PopupT>
+
+  <!--解绑邮箱验证-->
+<!--  <PopupT :switch="popWindowOpen" @close="popWindowClose">-->
+<!--    <div slot="header">-->
+<!--      <span class="pop-ei-ar">解绑邮箱</span>-->
+<!--    </div>-->
+<!--    <div slot="article" class="pop-article">-->
+<!--      <div class="article-pop-1">-->
+<!--        <div class="article-pop-2">登录密码</div>-->
+<!--        <input class="pop-input-1" type="text">-->
+<!--      </div>-->
+<!--      <div class="article-pop-1">-->
+<!--        <div class="article-pop-2">邮箱</div>-->
+<!--        <input class="pop-input-1" type="text">-->
+<!--      </div>-->
+<!--      <div class="article-pop-1">-->
+<!--        <div class="article-pop-2">邮箱验证码</div>-->
+<!--        <div class="input-pop">-->
+<!--          <input class="pop-input-3" type="text">-->
+<!--          <span class=" fl-ce-y" v-if="!getVerificationCode" @click="click_getVerificationCode">获取验证码</span>-->
+<!--          <span class="fl-ce-y-s" v-if="getVerificationCode">0 s之后重新发送</span>-->
+<!--        </div>-->
+<!--        &lt;!&ndash;        <span class="flex-center identifying-code-button-close btn_grey"&ndash;&gt;-->
+<!--        &lt;!&ndash;              v-if="getVerificationCode">{{getVerificationCodeCountdown}}s 之后重新发送</span>&ndash;&gt;-->
+<!--      </div>-->
+
+<!--    </div>-->
+<!--    <div slot="footer" class="pop-footer">-->
+<!--      <span class="pop-qu pointer" @click="click_rel_em">取消</span>-->
+<!--      <button class="pop-qu-2 pointer">确认</button>-->
+
+<!--    </div>-->
+<!--  </PopupT>-->
 
 
   <PopupPrompt :popOpen="popOpen" :popClose="popClose" :popType="popType" :popText="popText"/>

@@ -3,11 +3,26 @@ root.name = 'PersonalCenterSecurityCenterBindMobile'
 
 import '../../../static/gt'
 
+
+/*---------------------- 属性 ---------------------*/
+root.props = {}
+
+root.props.show = {
+  type: Boolean,
+  default: false
+}
+root.props.close = {
+  type: Function,
+  default:()=>_
+}
+
+
 /*--------------------------- 组件 -----------------------------*/
 
 root.components = {
   'Loading': resolve => require(['../vue/Loading'], resolve),
   'PopupPrompt': resolve => require(['../vue/PopupPrompt'], resolve),
+  'PopupT': resolve => require(['../vue/PopupT'], resolve),
 }
 
 /*--------------------------- data -----------------------------*/
@@ -114,7 +129,11 @@ root.data = function () {
     searchCities:'',
     // 城市列表
     cityList:[],
-    searchResult:''
+    searchResult:'',
+
+    hiddenBindMObilePage:false,
+    // show:true,
+    // showBind:true
 
   }
 }
@@ -126,6 +145,8 @@ root.created = function () {
   this.getGeetest()
   this.getMobileInfo()
 }
+
+
 root.mounted = function () {
   // 监听键盘事件
   document.onkeydown = (event) => {
@@ -533,7 +554,8 @@ root.methods.re_commit = function (data) {
   if (this.isMobile) {
     this.$router.push('/index/personal/auth/authentication')
   } else {
-    this.$router.push('/index/personal/securityCenter')
+    this.click_rel_em(true)
+    // this.$router.push('/index/personal/securityCenter')
   }
 
 }
@@ -552,6 +574,12 @@ root.methods.error_commit = function (err) {
 // 弹窗
 root.methods.popClose = function () {
   this.popOpen = false
+}
+
+root.methods.click_rel_em = function (callApi){
+  // this.show = false
+
+  this.$emit('close',false,callApi)
 }
 
 

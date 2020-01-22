@@ -2,6 +2,12 @@ const root = {}
 
 root.name = 'PersonalCenterSecurityCenterReleaseEmail'
 
+root.props = {}
+root.props.show = {
+  type: Boolean,
+  default: false
+}
+
 /*----------------------------- 组件 ------------------------------*/
 
 root.components = {
@@ -49,7 +55,7 @@ root.data = function () {
     emailFocus: false,
     verificationFocus: false,
 
-    show:true
+    // show:true
   }
 }
 
@@ -59,6 +65,8 @@ root.created = function () {
   this.$store.commit('changeMobileHeaderTitle', '解绑邮箱');
   this.getAuthState()
 }
+
+
 root.mounted = function () {
   // 监听键盘事件
   document.onkeydown = (event) => {
@@ -347,7 +355,8 @@ root.methods.re_commit = function (data) {
   if (this.isMobile) {
     this.$router.push({name: 'authentication'})
   } else {
-    this.$router.push({name: 'securityCenter'})
+    // this.$router.push({name: 'securityCenter'})
+    this.click_rel_em(true)
   }
 }
 root.methods.error_commit = function (err) {
@@ -362,9 +371,11 @@ root.methods.error_commit = function (err) {
 
 }
 
-root.methods.click_rel_em = function () {
-  this.show = false
-  this.$router.push({name: 'securityCenter'})
+root.methods.click_rel_em = function (callApi) {
+  // this.show = false
+  // this.$router.push({name: 'securityCenter'})
+    this.$emit('close',false,callApi)
+
 }
 
 

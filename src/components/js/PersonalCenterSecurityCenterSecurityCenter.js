@@ -4,6 +4,10 @@ root.components = {
   'Loading': resolve => require(['../vue/Loading'], resolve),
   'PopupT': resolve => require(['../vue/PopupT'], resolve),
   'PopupPrompt': resolve => require(['../vue/PopupPrompt'], resolve),
+  'PersonalCenterSecurityCenterBindEmail': resolve => require(['../vue/PersonalCenterSecurityCenterBindEmail'], resolve),
+  'PersonalCenterSecurityCenterReleaseEmail': resolve => require(['../vue/PersonalCenterSecurityCenterReleaseEmail'], resolve),
+  'PersonalCenterSecurityCenterReleaseMobile': resolve => require(['../vue/PersonalCenterSecurityCenterReleaseMobile'], resolve),
+  'PersonalCenterSecurityCenterBindMobile': resolve => require(['../vue/PersonalCenterSecurityCenterBindMobile'], resolve),
 }
 
 root.data = function () {
@@ -48,12 +52,21 @@ root.data = function () {
     pswConfirm: '',
     pswConfirmWA: '',
 
+    // 认证状态
+    authType: 0, //认证状态，0表示通过，2表示待审核，1表示驳回，3表示未认证
+
+    showReleaseMobile:false,
+    showBindMobile:false,
+
     pswge: '',
     pswWAge: '',
     GACodege: '',
     GACodeWAge: '',
     // testPswge: '',
     // testGACodege: '',
+    showBindEmail: false,
+    showReleaseEmail: false,
+
   }
 }
 
@@ -125,14 +138,50 @@ root.computed.uuid = function () {
 
 
 root.created = function () {
+
+  this.$eventBus.notify('GETAUTHSTATE')
+  this.getAuthType()
+
+  this.getAuthState();
+  this.getLogRecord()
+  this.closeReleaseMobile()
+
+
+
+
+}
+
+root.methods = {}
+
+root.methods.getAuthType = function (){
+  this.$http.send("GET_IDENTITY_AUTH_STATUS", {
+    bind: this,
+    callBack: this.re_getAuthType,
+    errorHandler: this.error_getAuthType,
+  })
+}
+root.methods.re_getAuthType = function (data) {
+  typeof (data) === 'string' && (data = JSON.parse(data))
+  if (!data.dataMap) return
+  this.authType = data.dataMap.status
+  console.log(this.$store.state.authType)
+  console.log('获取状态', this.AuthType)
+}
+
+// 获取认证失败
+root.methods.error_getAuthType = function (err) {
+  console.warn("拿不到认证数据！", err)
+}
+
+
+
+root.methods.getAuthState = function (data) {
   this.$http.send('GET_AUTH_STATE', {
     bind: this,
     callBack: this.re_getAuthState
   })
-  this.getLogRecord()
 }
 
-root.methods = {}
 root.methods.re_getAuthState = function (data) {
   typeof data === 'string' && (data = JSON.parse(data))
   let dataObj = data
@@ -153,10 +202,12 @@ root.methods.popWindowClose = function () {
 // 弹窗关闭
 root.methods.popWindowClose1 = function () {
   this.popWindowOpen1 = false
+  // this.click_rel_em()
 }
 // 弹窗关闭
 root.methods.popWindowClose2 = function () {
   this.popWindowOpen2 = false
+  // this.click_rel_em()
 }
 //
 // // 设置资金密码
@@ -199,15 +250,18 @@ root.methods.click_change_login_psw = function () {
 
 // 绑定手机验证
 root.methods.click_bind_mobile = function () {
-  this.$router.push({name: 'bindMobile'})
+  // this.$router.push({name: 'bindMobile'})
+  this.showBindMobile = true
 }
 // 解绑手机验证
 root.methods.click_release_mobile = function () {
-  this.$router.push({name: 'releaseMobile'})
+  this.showReleaseMobile = true
+  // this.$router.push({name: 'releaseMobile'})
 }
 // 绑定邮箱验证
 root.methods.click_bind_email = function () {
-  this.$router.push({name: 'bindEmail'})
+  // this.$router.push({name: 'bindEmail'})
+  this.showBindEmail = true
   // this.popWindowTitle = this.$t('assetPageRechargeAndWithdrawals.popWindowTitleRecharge')
   // this.popWindowPrompt = this.$t('assetPageRechargeAndWithdrawals.popWindowTitleBindGaRecharge')
   // this.popWindowStyle = '1'
@@ -215,7 +269,8 @@ root.methods.click_bind_email = function () {
 }
 // 解绑邮箱验证
 root.methods.click_release_email = function () {
-  this.$router.push({name: 'releaseEmail'})
+  // this.$router.push({name: 'releaseEmail'})
+  this.showReleaseEmail = true
   // this.popWindowTitle = this.$t('assetPageRechargeAndWithdrawals.popWindowTitleRecharge')
   // this.popWindowPrompt = this.$t('assetPageRechargeAndWithdrawals.popWindowTitleBindGaRecharge')
   // this.popWindowStyle = '1'
@@ -533,7 +588,8 @@ root.methods.re_commit = function (data) {
     if (this.isMobile) {
       this.$router.push('/index/personal/auth/authentication')
     } else {
-      this.$router.push('/index/personal/securityCenter')
+      this.showReleaseMobile = false
+      // this.$router.push('/index/personal/securityCenter')
     }
   }, 1000)
 }
@@ -687,6 +743,19 @@ root.methods.error_commitge = function (err) {
 // 关闭弹窗
 root.methods.popClose = function () {
   this.popOpen = false
+}
+
+// 关闭弹窗
+root.methods.closeReleaseMobile = function (type,callApi) {
+  if(callApi){
+    this.getAuthState();
+  }
+  this.showBindMobile = type
+
+  this.showReleaseMobile = type
+
+  this.showBindEmail = type
+  this.showReleaseEmail = type
 }
 
 export default root

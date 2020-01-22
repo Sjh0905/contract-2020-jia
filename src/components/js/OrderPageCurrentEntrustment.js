@@ -1,6 +1,8 @@
 const root = {}
 root.name = 'OrderPageCurrentEntrustment'
 
+
+
 /*----------------------------- 组件 ------------------------------*/
 
 root.components = {
@@ -38,7 +40,6 @@ root.data = () => {
     showLoadingMore: true,//是否显示加载更多
     loadingMoreIng: false, //是否正在加载更多
 
-
   }
 }
 
@@ -60,7 +61,8 @@ root.created = function () {
   this.currentInterval && clearInterval(this.currentInterval)
   this.currentInterval = setInterval(this.getOrder, 5000)
 
-
+  console.log('this.$route=======',this.$route.name)
+  // console.log(('this.$router==========第四季',this.$router))
 }
 
 root.beforeDestroy = function () {

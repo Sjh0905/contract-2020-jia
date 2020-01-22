@@ -6,8 +6,15 @@
   /*padding: 0 10px 0 10px;*/
   /*box-shadow: 0 0 1px 1px rgba(118, 125, 127, 0.08) inset;*/
   background-color: #fcfcfc;
-
-
+}
+.OrderPageHistoricalEntrustmentDetail-container-1 {
+  width: 100%;
+  position: relative;
+  /*box-shadow: ;*/
+  /*min-height: 50px;*/
+  /*padding: 0 10px 0 10px;*/
+  /*box-shadow: 0 0 1px 1px rgba(118, 125, 127, 0.08) inset;*/
+  background-color: #12182B;
 }
 
 .loading-min-height {
@@ -18,8 +25,8 @@
   /*width: 100%;*/
   margin: 0 auto;
   margin: 0 10px;
-  background:rgba(251,251,251,1);
-  border:1px solid rgba(239,240,255,1);
+  /*background:rgba(251,251,251,1);*/
+  /*border:1px solid rgba(239,240,255,1);*/
   font-size:12px;
   font-family:PingFangSC-Regular,PingFang SC;
   font-weight:400;

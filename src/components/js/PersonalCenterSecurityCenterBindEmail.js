@@ -4,6 +4,17 @@ root.name = 'PersonalCenterSecurityCenterBindEmail'
 
 import '../../../static/gt'
 
+/*---------------------- 属性 ---------------------*/
+root.props = {}
+root.props.show = {
+  type: Boolean,
+  default: false
+}
+
+// root.props.close = {
+//   type: Function,
+//   default: ()=>_
+// }
 /*--------------------------- 组件 -----------------------------*/
 
 root.components = {
@@ -11,6 +22,7 @@ root.components = {
   'PopupPrompt': resolve => require(['../vue/PopupPrompt'], resolve),
   'PopupT': resolve => require(['../vue/PopupT'], resolve),
 }
+
 
 /*--------------------------- data -----------------------------*/
 
@@ -55,7 +67,8 @@ root.data = function () {
     emailFocus: false,
     verificationFocus: false,
 
-    show:true
+    // show:true
+    // showBindEmail
   }
 }
 /*--------------------------- 生命周期 -----------------------------*/
@@ -434,7 +447,9 @@ root.methods.re_commit = function (data) {
   if (this.isMobile) {
     this.$router.push({name: 'authentication'})
   } else {
-    this.$router.push({name: 'securityCenter'})
+    // this.$router.push({name: 'securityCenter'})
+    // true 实事切换解绑与绑定
+    this.click_rel_em(true)
   }
 
 }
@@ -449,9 +464,10 @@ root.methods.error_commit = function (err) {
   }, 100)
 }
 
-root.methods.click_rel_em = function () {
-  this.show = false
-  this.$router.push({name: 'securityCenter'})
+root.methods.click_rel_em = function (callApi) {
+  this.$emit('close',false,callApi)
+  // this.show = false
+  // this.$router.push({name: 'securityCenter'})
 }
 // 弹窗
 root.methods.popClose = function () {
