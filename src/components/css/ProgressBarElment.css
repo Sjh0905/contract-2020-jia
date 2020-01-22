@@ -16,7 +16,7 @@
     /* 小断点 */
   }
   .el-slider_green .el-slider__runway .el-slider__bar {
-    background: #C43E4E;
+    background: #EF5656;
     height: 4px;
     /* background-color: #409EFF; */
     border-top-left-radius: 3px;
@@ -38,7 +38,7 @@
     height: 16px;
     width: 16px;
     background-color: #fff;
-    border: 3px solid #C43E4E;
+    border: 3px solid #EF5656;
     border-radius: 50%;
     cursor: pointer;
   }
@@ -78,7 +78,7 @@
     /* 小断点 */
   }
   .el-slider_red .el-slider__runway .el-slider__bar {
-    background: #02987D;
+    background: #08D0AC;
     height: 4px;
     /* background-color: #409EFF; */
     border-top-left-radius: 3px;
@@ -96,7 +96,7 @@
     height: 16px;
     width: 16px;
     background-color: #fff;
-    border: 3px solid #02987D;
+    border: 3px solid #08D0AC;
     border-radius: 50%;
     cursor: pointer;
   }
@@ -116,26 +116,26 @@
     cursor: pointer;
   }
   .bbb {
-    background: #02987D !important;
+    background: #08D0AC !important;
     color: #FFF;
   }
   .bbb .popper__arrow::after {
-    border-top-color: #02987D !important;
+    border-top-color: #08D0AC !important;
     bottom: 1px !important;
   }
   .bbb .popper__arrow {
-    border-top-color: #02987D !important;
+    border-top-color: #08D0AC !important;
   }
   .aaa {
-    background: #C43E4E !important;
+    background: #EF5656 !important;
     color: #FFF;
   }
   .aaa .popper__arrow::after {
-    border-top-color: #C43E4E !important;
+    border-top-color: #EF5656 !important;
     bottom: 1px !important;
   }
   .aaa .popper__arrow {
-    border-top-color: #C43E4E !important;
+    border-top-color: #EF5656 !important;
   }
   .block {
     position: relative;
@@ -146,9 +146,9 @@
     position: absolute;
     width: 5px;
     height: 5px;
-    background-color: #02987D;
+    background-color: #08D0AC;
     border: 3px solid transparent;
-    border: 3px solid #02987D;
+    border: 3px solid #08D0AC;
     border-radius: 50%;
     top: 36%;
     z-index: 1;
@@ -157,9 +157,9 @@
     position: absolute;
     width: 5px;
     height: 5px;
-    background-color: #02987D;
+    background-color: #08D0AC;
     border: 3px solid transparent;
-    border: 3px solid #02987D;
+    border: 3px solid #08D0AC;
     border-radius: 50%;
     top: 36%;
     left: 24.25%;
@@ -169,9 +169,9 @@
     position: absolute;
     width: 5px;
     height: 5px;
-    background-color: #02987D;
+    background-color: #08D0AC;
     border: 3px solid transparent;
-    border: 3px solid #02987D;
+    border: 3px solid #08D0AC;
     border-radius: 50%;
     top: 36%;
     left: 48.8%;
@@ -181,9 +181,9 @@
     position: absolute;
     width: 5px;
     height: 5px;
-    background-color: #02987D;
+    background-color: #08D0AC;
     border: 3px solid transparent;
-    border: 3px solid #02987D;
+    border: 3px solid #08D0AC;
     border-radius: 50%;
     top: 36%;
     left: 73.4%;
@@ -193,9 +193,9 @@
     position: absolute;
     width: 5px;
     height: 5px;
-    background-color: #C43E4E;
+    background-color: #EF5656;
     border: 3px solid transparent;
-    border: 3px solid #C43E4E;
+    border: 3px solid #EF5656;
     border-radius: 50%;
     top: 36%;
     z-index: 1;
@@ -204,9 +204,9 @@
     position: absolute;
     width: 5px;
     height: 5px;
-    background-color: #C43E4E;
+    background-color: #EF5656;
     border: 3px solid transparent;
-    border: 3px solid #C43E4E;
+    border: 3px solid #EF5656;
     border-radius: 50%;
     top: 36%;
     left: 24.5%;
@@ -216,9 +216,9 @@
     position: absolute;
     width: 5px;
     height: 5px;
-    background-color: #C43E4E;
+    background-color: #EF5656;
     border: 3px solid transparent;
-    border: 3px solid #C43E4E;
+    border: 3px solid #EF5656;
     border-radius: 50%;
     top: 36%;
     left: 49%;
@@ -228,9 +228,9 @@
     position: absolute;
     width: 5px;
     height: 5px;
-    background-color: #C43E4E;
+    background-color: #EF5656;
     border: 3px solid transparent;
-    border: 3px solid #C43E4E;
+    border: 3px solid #EF5656;
     border-radius: 50%;
     top: 36%;
     left: 73.5%;

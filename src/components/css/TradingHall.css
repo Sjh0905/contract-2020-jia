@@ -67,22 +67,27 @@
 
 .trading-wrap {
   width: 100%;
-  margin-top: 10px;
+  margin-top: 8px;
   overflow: hidden;
-  outline: 1px solid #E5EBF5;
+  background:#0D111F;
+  /*outline: 1px solid #E5EBF5;*/
 }
 
 /*add  new  css*/
 .progress-bar-title {
-  height: 35px;
-  line-height: 35px;
-  background: #F2F6FA;
-  border-bottom: 1px solid #F2F6FA;
+  height: 36px;
+  line-height: 36px;
+  background: #0B0E16;
+  /*border-bottom: 1px solid #F2F6FA;*/
 }
 
 .ProgressBar-wrap {
   width: 50%;
-  height: 230px;
+  height: 262px;
+}
+
+.ProgressBar-wrap:nth-child(2) {
+  margin-left: 4px;
 }
 
 .MarketPrice-wrap {
@@ -181,17 +186,19 @@
 
 /* new add css */
 .progress-bar-title-brand {
-  cursor: pointer ;
-  height: 35px;
+  /*cursor: pointer ;*/
+  height: 36px;
+  line-height:36px;
   /*border-bottom: 2px solid #C43E4E;*/
   width: auto;
   float: left;
   text-align: center;
-  padding: 0px 20px;
+  padding: 0px 15px;
   overflow: hidden;
-  font-family: PingFangSC-Medium;
-  font-size: 16px;
-  color: #172A4D;
+  font-family:PingFangSC-Medium,PingFang SC;
+  font-size: 14px;
+  color: #FFFFFF;
+  font-weight:500;
 }
 
 .progress-bar-title-brand-default {
@@ -520,44 +527,63 @@
 
 .centertop{
   width: 100%;
-  height: 60px;
-  background: #FFFFFF;
+  height: 44px;
+  background: #0B0E16;
+  align-items: center;
+  display: flex;
+  border-bottom: 1px solid #1E1F22;
 }
 .cen1{
-  line-height: 60px;
-  font-family: Roboto-Medium;
+  line-height: 19px;
+  font-family: Roboto-Medium,Roboto;
   font-size: 16px;
-  color: #172A4D;
+  color: #E0E1F4;
   float: left;
-  padding-left: 20px;
+  padding:0 28px 0 15px;
   cursor: pointer;
+  font-weight:500;
 }
 .cen2{
-  padding: 8px 20px 5px 20px;
+  padding: 8px 20px 5px 0px;
   float: left;
 }
 .cen2 .cen21{
-  font-family: Roboto-Medium;
+  margin-bottom: 1px;
+  font-family: Roboto-Medium,Roboto;
   font-size: 16px;
-  color: #02987D;
+  color: #08D0AC;
+  font-weight:500;
+  line-height:19px;
 }
 
 .cen2 .cen22{
-  font-family: Roboto-Regular;
-  font-size: 14px;
-  color: #8994A5;
+  font-size:12px;
+  font-family:Roboto-Regular,Roboto;
+  font-weight:400;
+  color:#6B7DA2;
+  line-height:14px;
 }
 .cen2 .cen31{
-  font-family: PingFangSC-Regular;
-  font-size: 13px;
-  color: #8994A5;
+  margin-bottom: 2px;
+  font-size:12px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color:#6B7DA2;
+  line-height:17px;
 }
 
 .cen2 .cen32{
-  font-family: Roboto-Regular;
-  font-size: 13px;
-  color: #172A4D;
-  font-weight: 540;
+  font-size:13px;
+  font-family:Roboto-Regular,Roboto;
+  font-weight:400;
+  color:#A2B5D9;
+  line-height:15px;
+}
+.txt-price{
+  color: #08D0AC;
+}
+.txt-price-red{
+  color: #EF5656;
 }
 .pankou{
   height: 40px;

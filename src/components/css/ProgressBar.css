@@ -8,11 +8,11 @@
   line-height: 36px;
   /*background: #ebebeb;*/
   /*background: #eee;*/
-  background-color: #fff;
+  /*background-color: #fff;*/
   justify-content: space-between;
   position: relative;
   /*add*/
-  padding: 0px 20px;
+  padding: 0px 15px;
 }
 
 .progress-bar-tit_title {
@@ -23,10 +23,21 @@
   width: 100%;
   /*height: 215px;*/
   height: 195px;
-  background: #fff;
+  /*background: #fff;*/
   /*padding: 12px 0 10px 0;*/
-  padding: 0px 20px 0px 16.5px;
+  padding: 0px 15px;
   text-align: left;
+}
+.pro-bar-input-box{
+  align-items: center;
+}
+.progress-bar-input-title{
+  margin-right: 26px;
+  font-size:12px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color:#A2B5D9;
+  line-height:17px;
 }
 
 .progress-bar-tit-l {
@@ -44,7 +55,7 @@
 
 .progress-bar-recharge {
   position: absolute;
-  right: 0px;
+  right: 15px;
   top: 9px;
   /* width: 32px; */
   height: 17px;
@@ -52,27 +63,28 @@
   /* text-align: center; */
   border-radius: 50px;
   /* border: 1px solid; */
-  line-height: 16px;
-  /* font-size: 12px; */
+  line-height: 17px;
   /* border-radius: 2px; */
-  font-family: PingFangSC-Medium;
-  font-size: 14px;
-  color: #C43E4E;
+  font-family: PingFangSC-Regular,PingFang SC;
+  font-size: 12px;
+  font-weight: 400;
   text-align: right;
-  padding: 0px 20px;
+  /* padding: 0px 20px;
+
 }
 
 .progress-bar-recharge-en {
-  /* width: 55px; */
+/* width: 55px; */
 }
 
 .progress-bar-price {
   position: relative;
-  width: 80%;
+  flex:1;
+  /*width: 80%;*/
   height: 30px;
   padding-right: 2px;
   float: right;
-  border: 1px solid #C5CFD5;
+  border: 1px solid #384256;
   border-radius: 2px;
 }
 
@@ -91,7 +103,7 @@
 .progress-bar-price > input {
   border: 0;
   padding: 0 8px 0 0;
-  /*background: #0babb6;*/
+  background-color: transparent;
   /*width: 50%;*/
   width: 70%;
   height: 30px;
@@ -99,6 +111,13 @@
   /*text-align: right;*/
   text-align: left;
   padding-left: 5px;
+
+
+  font-size:12px;
+  font-family:Roboto-Regular,Roboto;
+  font-weight:400;
+  color:#E0E1F4;
+  line-height:14px;
 }
 
 .progress-bar-price-en {
@@ -111,22 +130,25 @@
 
 .pro-bar-price-tit {
   position: absolute;
-  /*left: 8px;*/
-  /*right: 8px;*/
-  right: 5px;
+  right: 10px;
   top: 8px;
-  color: #B5BCC6;
+  font-size:12px;
+  font-family:Roboto-Regular,Roboto;
+  font-weight:400;
+  color:#E0E1F4;
+  line-height:14px;
 }
 
 /*====*/
 .progress-bar-amount {
   position: relative;
-  width: 80%;
+  flex: 1;
+  /*width: 80%;*/
   height: 30px;
   padding-right: 2px;
   float: right;
   margin-top: 9px;
-  border: 1px solid #C5CFD5;
+  border: 1px solid #384256;
   border-radius: 2px;
 }
 
@@ -135,8 +157,15 @@
   padding: 0 8px 0 0;
   width: 70%;
   height: 30px;
+  background-color: transparent;
   text-align: left;
   padding-left: 5px;
+
+  font-size:12px;
+  font-family:Roboto-Regular,Roboto;
+  font-weight:400;
+  color:#E0E1F4;
+  line-height:14px;
 }
 
 .progress-bar-amount > input:focus {
@@ -169,13 +198,13 @@
 .progress-bar-option:hover {
   width: 20%;
   height: 20px;
-  border: 1px solid #C43E4E;
-  color: #C43E4E;
+  border: 1px solid #EF5656;
+  color: #EF5656;
 }
 
 .progress-bar-tips {
   /*width: 77.028%;*/
-  width: 96.028%;
+  /*width: 96.028%;*/
   margin: 0 auto;
   justify-content: space-between;
 }
@@ -185,7 +214,7 @@
   width: 100%;
   float: right;
   /*margin: 0 auto;*/
-  margin-top: 5px;
+  margin-top: 18px;
 }
 
 .progress-bar-btn {
@@ -195,7 +224,7 @@
   color: #fff;
   border-radius: 4px;
   text-align: center;
-  margin-left: 6px;
+  /*margin-left: 6px;*/
 }
 
 .progress-bar-nologin-btn {
@@ -211,12 +240,12 @@
 }
 
 .progress-bar-greenbtn {
-  background: #02987D;
+  background: #08D0AC;
   cursor: pointer;
 }
 
 .progress-bar-greenbtn_ {
-  background: #02987D;
+  background: #08D0AC;
   cursor: pointer;
 }
 
@@ -225,16 +254,17 @@
   cursor: pointer;
 }*/
 .progress-bar-active div {
-  background: rgba(0,0,0,.4);
+  /*background: rgba(0,0,0,.4);*/
+  opacity: 0.8;
 }
 
 .progress-bar-redbtn {
-  background: #C43E4E;
+  background: #EF5656;
   cursor: pointer;
 }
 
 .progress-bar-redbtn_ {
-  background: #C43E4E;
+  background: #EF5656;
   cursor: pointer;
 }
 
@@ -251,19 +281,19 @@
 }
 
 .focus-color-blue {
-  /*border: 1px solid #C43E4E;*/
-  border: 1px solid #C43E4E;
+  /*border: 1px solid #EF5656;*/
+  border: 1px solid #EF5656;
 }
 
 /*标签选中样式*/
 .focus-color-green {
-  border: 1px solid #C43E4E;
+  border: 1px solid #EF5656;
 
 }
 
 /*标签选中样式*/
 .focus-color-red {
-  border: 1px solid #C43E4E;
+  border: 1px solid #EF5656;
 
 }
 
@@ -280,7 +310,7 @@
   padding: 0px 10px;
   height: 20px;
   line-height: 22px;
-  color: #02987D;
+  color: #08D0AC;
   font-size: 12px;
   font-weight: bolder;
 }
@@ -290,7 +320,7 @@
 }
 
 .buy_sall_tips.sall {
-  color: #C43E4E;
+  color: #EF5656;
 }
 
 .buy_sall_tips .arrow {
@@ -323,7 +353,7 @@
 }
 
 .txt_red {
-  color: #C43E4E;
+  color: #EF5656;
 }
 
 /*价格数量增加减少*/
@@ -392,7 +422,7 @@
 }
 
 .progressbar {
-  background-color: #C43E4E;
+  background-color: #EF5656;
   float: left;
   width: 0;
   height: 100%;
@@ -414,7 +444,7 @@
   display: inline-block;
   height: 18px;
   width: 18px;
-  background-color: #C43E4E;
+  background-color: #EF5656;
   border: 5px solid rgba(255, 255, 255, .9);
   border-radius: 10px;
   cursor: pointer;
@@ -428,7 +458,7 @@
   display: inline-block;
   height: 10px;
   width: 10px;
-  background-color: #C43E4E;
+  background-color: #EF5656;
   border: 1px solid #e1e0de;
   border-radius: 10px;
   cursor: pointer;
@@ -478,7 +508,7 @@
 }
 
 .bgcolorhuang{
-  background-color: #C43E4E;
+  background-color: #EF5656;
 }
 .bgcolorhui{
   background-color: #E7EBEE;
@@ -507,7 +537,7 @@
 }
 
 .progressbarbuy {
-  background-color: #02987D;
+  background-color: #08D0AC;
   float: left;
   width: 0;
   height: 100%;
@@ -529,7 +559,7 @@
   display: inline-block;
   height: 18px;
   width: 18px;
-  background-color: #02987D;
+  background-color: #08D0AC;
   border: 5px solid rgba(255, 255, 255, .9);
   border-radius: 10px;
   cursor: pointer;
@@ -542,7 +572,7 @@
   display: inline-block;
   height: 10px;
   width: 10px;
-  background-color: #02987D;
+  background-color: #08D0AC;
   border: 1px solid #e1e0de;
   border-radius: 10px;
   cursor: pointer;
@@ -592,7 +622,7 @@
 }
 
 .bgcolorhuangbuy{
-  background-color: #02987D;
+  background-color: #08D0AC;
 }
 .bgcolorhuibuy{
   background-color: #E7EBEE;
@@ -600,20 +630,27 @@
 
 
 .jiaoyie{
-  font-family: PingFangSC-Regular;
-  font-size: 14px;
-  color: #8994A5;
+  font-size:12px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color:#A2B5D9;
+  line-height:17px;
+  margin-right: 26px;
 }
 .jiaoyie2{
-  font-family: Roboto-Regular;
-  font-size: 14px;
-  color: #172A4D;
+  font-size:12px;
+  font-family:Roboto-Regular,Roboto;
+  font-weight:400;
+  color:#E0E1F4;
+  line-height:14px;
 }
 
 .keyong{
-  font-family: PingFangSC-Regular;
-  font-size: 14px;
-  color: #172A4D;
+  font-size:12px;
+  font-family:Roboto-Regular,Roboto;
+  font-weight:400;
+  color:#A2B5D9;
+  line-height:14px;
 }
 
 /*.tempClass-wrap{*/

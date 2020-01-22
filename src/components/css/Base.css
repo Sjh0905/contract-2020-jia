@@ -474,6 +474,10 @@ input {
   background-color: #131218;
 }
 
+.traddinghall-border-bottom {
+  border-bottom: 1px solid #1E1F22;
+}
+
 /*H5全局样式调整*/
 
 @media screen and (max-width: 768px) {
