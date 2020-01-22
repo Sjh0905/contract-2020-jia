@@ -51,3 +51,4 @@ root.methods.closeClick = function () {
 
 
 export default root
+PersonalCenterSecurityCenterSecurityCenter

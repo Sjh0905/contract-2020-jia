@@ -36,6 +36,8 @@ root.data = function () {
     accounts: [], // 账户信息
 
     initData: {},
+    // 获取认证状态
+    authType:0
 
 
   }
@@ -44,9 +46,13 @@ root.data = function () {
 /*----------------------- 生命周期 --------------------------*/
 
 root.created = function () {
+  this.$eventBus.listen(this,'REFRESH_AUTHENTICATE',this.getAuthState);
+
   this.getInitData()
   this.getPrice()
   this.getCurrencyAndAccount()
+
+  this.getAuthState()
 }
 
 /*----------------------- 计算 --------------------------*/
@@ -118,6 +124,26 @@ root.watch.watchCurrency = function () {
 
 root.methods = {}
 
+// 获取认证状态
+root.methods.getAuthState = function () {
+  this.$http.send("GET_IDENTITY_AUTH_STATUS", {
+    bind: this,
+    callBack: this.re_getAuthState,
+    errorHandler: this.error_getAuthState,
+  })
+}
+// 获取认证状态成功
+root.methods.re_getAuthState = function (data) {
+  typeof (data) === 'string' && (data = JSON.parse(data))
+  if (!data.dataMap) return
+  console.log('获取状态', data)
+  this.authType = data.dataMap.status
+
+}
+// 获取认证失败
+root.methods.error_getAuthState = function (err) {
+  console.warn("拿不到认证数据！", err)
+}
 
 // 登出
 root.methods.loginOff = function () {

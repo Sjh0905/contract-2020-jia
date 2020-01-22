@@ -72,7 +72,7 @@ root.data = function () {
 
     // targetHours : [0,1],
     // targetMinutes : [35]
-    showAssets:false
+    showAssets:false,
 
   }
 }
@@ -274,6 +274,7 @@ root.watch.redPoint = function (newValue, oldValue) {
 /*------------------------------- 方法 --------------------------------*/
 
 root.methods = {}
+
 //判断是否刷新价格区间
 root.methods.refreshGRCPriceRange = function (serverTime) {
   let date = new Date(serverTime)

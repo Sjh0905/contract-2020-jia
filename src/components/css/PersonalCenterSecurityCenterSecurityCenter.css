@@ -84,13 +84,43 @@
 
 .identity-logen {
   color: #6B7DA2;
-  margin:7px 0 15px 0;
+  margin:7px 0 23px 0;
   /*background-color: #3576F5;*/
 }
 
 .identity-button {
   /*padding: 5px 15px;*/
   font-size: 14px;
+}
+
+.identity-button img {
+  vertical-align: sub;
+}
+
+.rejected {
+  margin-left: 10px;
+  color: #EF5656;
+}
+.rejected:hover {
+  text-decoration: underline;
+}
+
+.review {
+  margin-left: 10px;
+  color: #FF9F40;
+}
+
+.review:hover {
+  text-decoration: underline;
+}
+
+.pass {
+  margin-left: 10px;
+  color: #08D0AC;
+}
+
+.pass:hover {
+  text-decoration: underline;
 }
 
 .identity-button button {

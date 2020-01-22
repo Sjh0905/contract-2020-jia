@@ -52,6 +52,8 @@ root.data = function () {
     pswConfirm: '',
     pswConfirmWA: '',
 
+    // 认证状态
+    authType: 0, //认证状态，0表示通过，2表示待审核，1表示驳回，3表示未认证
 
     showReleaseMobile:false,
     showBindMobile:false,
@@ -136,14 +138,37 @@ root.computed.uuid = function () {
 
 
 root.created = function () {
-
+  this.getAuthType()
   this.getAuthState();
   this.getLogRecord()
   this.closeReleaseMobile()
-
+  this.$eventBus.notify('GETAUTHSTATE')
 }
 
 root.methods = {}
+
+root.methods.getAuthType = function (){
+  this.$http.send("GET_IDENTITY_AUTH_STATUS", {
+    bind: this,
+    callBack: this.re_getAuthType,
+    errorHandler: this.error_getAuthType,
+  })
+}
+root.methods.re_getAuthType = function (data) {
+  typeof (data) === 'string' && (data = JSON.parse(data))
+  if (!data.dataMap) return
+  this.authType = data.dataMap.status
+  console.log(this.$store.state.authType)
+  console.log('获取状态', this.AuthType)
+}
+
+// 获取认证失败
+root.methods.error_getAuthType = function (err) {
+  console.warn("拿不到认证数据！", err)
+}
+
+
+
 root.methods.getAuthState = function (data) {
   this.$http.send('GET_AUTH_STATE', {
     bind: this,
