@@ -1,19 +1,19 @@
 <div class="LatestDeal">
-	<div class="title">
-		<ul class="title_ul flex-row">
-      <li class="title_li time">{{$t('latestDeal.time')}}</li>
-			<li class="title_li price">{{$t('latestDeal.price')}} ({{name}})</li>
-			<li class="title_li valome">{{$t('latestDeal.amount')}} ({{amountName}})</li>
-		</ul>
+	<div class="title flex-row">
+		<!--<ul class="title_ul">-->
+      <div class="title_li time">{{$t('latestDeal.time')}}</div>
+			<div class="title_li price">{{$t('latestDeal.price')}} ({{name}})</div>
+			<div class="title_li valome">{{$t('latestDeal.amount')}} ({{amountName}})</div>
+		<!--</ul>-->
 	</div>
 	<div class="detail" v-show="trade_loading">
 		<Loading/>
 	</div>
 	<div class="detail" v-show="!trade_loading" v-if="socket_list.length != 0">
 		<ul v-if="socket_list.length > 0" class="detail_ul flex-row" v-for="item in socket_list">
-      <li class="title_li time txt-dark">{{$globalFunc.formatDateUitl(item.createdAt, 'hh:mm:ss')}}</li>
-			<li class="title_li price txt-dark" :class="item.direction ? 'buy' : 'sall'">{{$globalFunc.accFixed(item.price, quoteScale)}}</li>
-			<li class="title_li valome txt-dark">{{$globalFunc.accFixed(item.amount, baseScale)}}</li>
+      <li class="title_li time">{{$globalFunc.formatDateUitl(item.createdAt, 'hh:mm:ss')}}</li>
+			<li class="title_li price" :class="item.direction ? 'buy' : 'sall'">{{$globalFunc.accFixed(item.price, quoteScale)}}</li>
+			<li class="title_li valome">{{$globalFunc.accFixed(item.amount, baseScale)}}</li>
 		</ul>
 		<ul class="no_list flex-center" v-if="socket_list.length == 0">
 			{{$t('latestDeal.available')}}
