@@ -2501,6 +2501,19 @@ root.routes.push({
     //   },
     // },
 
+    // sss 活动------QQ官方量化报名
+    {
+      path: 'OfficialQuantitativeRegistration',
+      name: 'OfficialQuantitativeRegistration',
+      caseSensitive: true,
+      meta: {
+        requireLogin: false,
+        mobileHeaderTitle: '',
+        name: 'OfficialQuantitativeRegistration',
+      },
+      component: resolve => require(['@/components/vue/OfficialQuantitativeRegistration'], resolve),
+    },
+
     // TODO:不能删除 check
     // cc 活动------茶币路由
     // {

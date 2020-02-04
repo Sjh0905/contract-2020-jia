@@ -14,7 +14,7 @@
   },
   "EN": {
     "prompt_title": "Safety Warning",
-    "prompt_descript": "For your financial security, please finish Google Authentication and SMS Authentication in your EUNEX account.",
+    "prompt_descript": "For your financial security, please finish Google Authentication and SMS Authentication in your TwentyTwenty account.",
     "bind_mobile": "SMS Authentication",
     "bind_ga": "Google Authentication",
     "prompt_new_lf_notice": "Warning",
@@ -27,7 +27,7 @@
   },
   "CA": {
     "prompt_title": "Safety Warning",
-    "prompt_descript": "For your financial security, please finish Google Authentication and SMS Authentication in your EUNEX account.",
+    "prompt_descript": "For your financial security, please finish Google Authentication and SMS Authentication in your TwentyTwenty account.",
     "bind_mobile": "SMS Authentication",
     "bind_ga": "Google Authentication",
     "prompt_new_lf_notice": "Warning",

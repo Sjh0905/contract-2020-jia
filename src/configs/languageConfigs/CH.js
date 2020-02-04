@@ -3,7 +3,7 @@ const root = {}
 
 // 首页header
 root.indexHeader = {}
-root.indexHeader.btcdo = '欧联'
+root.indexHeader.btcdo = '二零二零'
 root.indexHeader.currencyExchange = '币币交易'
 root.indexHeader.Quotation = '行情'
 root.indexHeader.frenchExchange = '法币交易'
@@ -121,7 +121,7 @@ root.assetPageWithdrawalsRecord.Issued = '已发放'
 root.helpApplyToList = {}
 root.helpApplyToList.apply = '上币申请'
 root.helpApplyToList.explain = '币种上线说明'
-root.helpApplyToList.descript_1 = '欧联（EUNEX）会根据已经被市场验证过的欧联原创区块链资产评估模型TPM，对所申请上线的区块链资产进行分析，满足上限标准包括但不限于：'
+root.helpApplyToList.descript_1 = '二零二零（EUNEX）会根据已经被市场验证过的二零二零原创区块链资产评估模型TPM，对所申请上线的区块链资产进行分析，满足上限标准包括但不限于：'
 root.helpApplyToList.descript_2 = '投资潜力在xx分(或等级在xxlevel)'
 root.helpApplyToList.descript_3 = '团队人员信息及构成真实可靠，团队整体实力强劲，社区运营积极'
 root.helpApplyToList.descript_4 = '项目所在地政治稳定性及项目本身合法合规性'
@@ -129,7 +129,7 @@ root.helpApplyToList.descript_5 = '技术能力支撑性良好及商业模式清
 root.helpApplyToList.descript_6 = '白皮书能真实、完整、适时的传递项目信息'
 root.helpApplyToList.descript_7 = '有能力且有意愿及时更新项目进度，并定期发布进度报告'
 root.helpApplyToList.descript_8 = '项目提交方没有违反加拿大相关法律'
-root.helpApplyToList.descript_9 = '满足欧联(EUNEX)的其他要求'
+root.helpApplyToList.descript_9 = '满足二零二零(EUNEX)的其他要求'
 root.helpApplyToList.descript_10 = '我们接受电子邮件申请和递交文件，请将如下材料发送至 blockchain@btcdo.com'
 root.helpApplyToList.descript_11 = '为了保护EUNEX投资者的相关权益，EUNEX会对全球区块链资产进行必要的评估，如果您有资产推荐或想上线EUNEX，请点击以下链接，并完成所有问题。'
 
@@ -141,7 +141,7 @@ root.helpApplyToList.introduce_4 = '如已完成区块链Token融资，请提供
 root.helpApplyToList.introduce_5 = '其他说明材料（包括但不限于：所在国家或地区的法律合规文件，Token相关的法律意见'
 
 root.helpApplyToList.outLine = '下线币种说明'
-root.helpApplyToList.outLine_1 = '为维护欧联(EUNEX)社区的广大利益，欧联(EUNEX)有权保留区块链资产项目下线或继续支持该区块链资产项目在平台上交易的权利，项目方如果触发如下条件，我们会采取暂停项目方项目交易，或在www.eunex.group上发布公告并通知交易下线，包含但不限于：'
+root.helpApplyToList.outLine_1 = '为维护二零二零(EUNEX)社区的广大利益，二零二零(EUNEX)有权保留区块链资产项目下线或继续支持该区块链资产项目在平台上交易的权利，项目方如果触发如下条件，我们会采取暂停项目方项目交易，或在www.2020.exchange上发布公告并通知交易下线，包含但不限于：'
 root.helpApplyToList.outLine_2 = '项目团队所在国家或地区发生严重影响项目方持续运行的系统性风险'
 root.helpApplyToList.outLine_3 = '项目方的虚假宣传被证实且产生重大不利影响'
 root.helpApplyToList.outLine_4 = '项目团队解散'
@@ -153,7 +153,7 @@ root.helpApplyToList.outLine_9 = '连续5个交易日出现零成交'
 root.helpApplyToList.outLine_10 = '信息披露出现重大偏差'
 root.helpApplyToList.outLine_11 = '突然出现分叉'
 root.helpApplyToList.outLine_12 = '不满足继续交易的其他事项'
-root.helpApplyToList.outLine_13 = '欧联（btcdo）全球会对决定下线的项目提前5天发出下线公告，用户有30天的期限从钱包中移出资产。'
+root.helpApplyToList.outLine_13 = '二零二零（btcdo）全球会对决定下线的项目提前5天发出下线公告，用户有30天的期限从钱包中移出资产。'
 
 
 // 帮助费率
@@ -292,7 +292,7 @@ root.indexShare.prompt_4 = '快快带我去注册'
 // 最值得信赖的数字资产交易平台
 root.transaction = {}
 root.transaction.Trading_platform = '最值得信赖的数字资产交易平台'
-root.transaction.Trading_platform_1 = '以下是您应该选择欧联的几个原因'
+root.transaction.Trading_platform_1 = '以下是您应该选择二零二零的几个原因'
 root.transaction.Trading_platform_2 = '安全保障'
 root.transaction.Trading_platform_3 = '多风险预警系统，专业的分布式架构和反ddos攻击系统。'
 root.transaction.Trading_platform_4 = '快速撮合'
@@ -333,7 +333,7 @@ root.terms.Terms_conditionss_12 = '客服微信'
 //发送邀请给好友
 root.Send = {}
 root.Send.friend = '发送邀请给好友'
-root.Send.friend_1 = '分享链接邀请好友注册欧联'
+root.Send.friend_1 = '分享链接邀请好友注册二零二零'
 root.Send.friend_2 = '好友注册'
 root.Send.friend_3 = '好友接受邀请完成注册并进行币币交易'
 root.Send.friend_4 = '获得相应比例返佣'
@@ -345,7 +345,7 @@ root.noticeCenter = {}
 root.noticeCenter.title = '公告中心'
 root.noticeCenter.search = '搜索'
 root.noticeCenter.commit = '提交工单'
-root.noticeCenter.problem = '1.关于欧联上限问题和其他问题的问题问题'
+root.noticeCenter.problem = '1.关于二零二零上限问题和其他问题的问题问题'
 root.noticeCenter.more = '更多>>'
 
 
@@ -480,8 +480,8 @@ root.personalCenterAuthAuthenticationState.name = '姓名'
 root.personalCenterAuthAuthenticationState.available = '可用：'
 root.personalCenterAuthAuthenticationState.idCode = '证件号'
 root.personalCenterAuthAuthenticationState.frozen = '冻结：'
-root.personalCenterAuthAuthenticationState.promptTitle = '请前往欧联官网'
-root.personalCenterAuthAuthenticationState.promptArticle_1 = '(www.eunex.group)进行'
+root.personalCenterAuthAuthenticationState.promptTitle = '请前往二零二零官网'
+root.personalCenterAuthAuthenticationState.promptArticle_1 = '(www.2020.exchange)进行'
 root.personalCenterAuthAuthenticationState.promptArticle_2 = '实名认证'
 root.personalCenterAuthAuthenticationState.promptEnsure = '我知道了'
 
@@ -510,7 +510,7 @@ root.personalCenterToAuthenticate.back_other = '护照个人信息页'
 root.personalCenterToAuthenticate.hold_other = '手持本人护照信息页和个人签字'
 
 root.personalCenterToAuthenticate.prompt_detail_china_1 = '1.本人身份证正反面照：请确保照片的内容完整并清晰可见，身份证必须在有效期内，仅支持jpg格式，图片大小2M之内。'
-root.personalCenterToAuthenticate.prompt_detail_china_2 = '2.手持本人身份证正面照和个人签字：请手持身份证件，持带有欧联、认证人签名、认证当天时间的证明文件。'
+root.personalCenterToAuthenticate.prompt_detail_china_2 = '2.手持本人身份证正面照和个人签字：请手持身份证件，持带有二零二零、认证人签名、认证当天时间的证明文件。'
 
 root.personalCenterToAuthenticate.prompt_detail_china_3 = '人像清晰'
 root.personalCenterToAuthenticate.prompt_detail_china_4 = '证件号码清晰'
@@ -547,7 +547,7 @@ root.personalCenterRecommend.yaoqingxz_1 = '1、活动期间内，每邀请一�
 root.personalCenterRecommend.yaoqingxz_2 = '2、当被邀请人认证并完成首次交易，邀请人可再额外获得500枚EUNEX金币；'
 root.personalCenterRecommend.yaoqingxz_3 = '3、邀请好友数量不设上限，累计邀请金币不设上限；'
 root.personalCenterRecommend.yaoqingxz_4 = '4、EUNEX金币可用于后续的新币兑换、线下私密活动报名等使用。'
-root.personalCenterRecommend.yaoqingxz_5 = '关于活动有任何疑问，可以在官方网站www.eunex.group咨询客服。'
+root.personalCenterRecommend.yaoqingxz_5 = '关于活动有任何疑问，可以在官方网站www.2020.exchange咨询客服。'
 
 root.personalCenterRecommend.nohavedata = '暂无记录，快去邀请好友'
 
@@ -1034,27 +1034,27 @@ root.personalCenterAuthAuthenticationState.accountInfo = '使用BDB支付交易�
 // 服务协议
 root.helpUserAgreement = {}
 root.helpUserAgreement.title = 'EUNEX 服务协议'
-root.helpUserAgreement.descript_1 = "本服务协议由您（以下简称“您”）与欧联数字资产交易平台共同订立（以下简称“欧联”）。您访问、使用或点击“我同意”欧联或其下任何一家网站（https://www.eunex.group）、API（https://api.eunex.group）、移动应用程序提供的任何服务或其下任何一家隶属机构的网站提供的其他相关服务（以下统称为“本服务”），即表示您确认已经阅读、理解并接受本使用条款协议（以下简称为“本使用条款”）规定的所有条款和条件，此外，在使用本服务的部分功能时，您可能还需遵守适用于这些功能的附加条款和条件。"
+root.helpUserAgreement.descript_1 = "本服务协议由您（以下简称“您”）与二零二零数字资产交易平台共同订立（以下简称“二零二零”）。您访问、使用或点击“我同意”二零二零或其下任何一家网站（https://www.eunex.group）、API（https://api.eunex.group）、移动应用程序提供的任何服务或其下任何一家隶属机构的网站提供的其他相关服务（以下统称为“本服务”），即表示您确认已经阅读、理解并接受本使用条款协议（以下简称为“本使用条款”）规定的所有条款和条件，此外，在使用本服务的部分功能时，您可能还需遵守适用于这些功能的附加条款和条件。"
 root.helpUserAgreement.descript_2 = "我们在此特别提醒您："
 root.helpUserAgreement.descript_3 = "1、数字资产本身不由任何金融机构或公司或本网站发行，其市场是全新的、未经确认的，而且可能不会增长；"
 root.helpUserAgreement.descript_4 = "2、数字资产主要由投机者大量使用，零售和商业市场使用相对较少，数字资产交易存在极高风险，其全年365天不间断交易，没有涨跌限制，价格容易受庄家、全球政府政策的影响而大幅波动；"
 root.helpUserAgreement.descript_5 = "EUNEX@service.com"
-root.helpUserAgreement.descript_6 = "3、如果欧联根据其单方判断认为您违反了本服务协议，或者根据您所在管辖区域的法律本网站提供的服务或者您使用本网站提供的服务的行为是非法的，欧联有权随时暂停或终止您的账户，或者暂停或终止您使用本网站提供的服务或数字资产交易。 您以任何身份访问、使用或尝试使用本服务，即表示您确认接受并同意受本使用条款的约束，如果您不同意，请勿访问或使用本服务。"
+root.helpUserAgreement.descript_6 = "3、如果二零二零根据其单方判断认为您违反了本服务协议，或者根据您所在管辖区域的法律本网站提供的服务或者您使用本网站提供的服务的行为是非法的，二零二零有权随时暂停或终止您的账户，或者暂停或终止您使用本网站提供的服务或数字资产交易。 您以任何身份访问、使用或尝试使用本服务，即表示您确认接受并同意受本使用条款的约束，如果您不同意，请勿访问或使用本服务。"
 root.helpUserAgreement.register = "一．服务协议条件"
-root.helpUserAgreement.register_1 = "欧联保留随时自行决定、修改或变更本使用条款的权利，对本使用条款的任何及所有修改或变更将在网站上公布或发送给用户后立即生效。因此，您继续使用欧联的服务，即表示接受修改后的协议和规则。如果您不同意对本使用条款进行的任何修改，请立即停止使用本服务。欧联希望您经常查看本使用条款，以确保您理解适用于您访问和使用本服务的条款和条件。 "
+root.helpUserAgreement.register_1 = "二零二零保留随时自行决定、修改或变更本使用条款的权利，对本使用条款的任何及所有修改或变更将在网站上公布或发送给用户后立即生效。因此，您继续使用二零二零的服务，即表示接受修改后的协议和规则。如果您不同意对本使用条款进行的任何修改，请立即停止使用本服务。二零二零希望您经常查看本使用条款，以确保您理解适用于您访问和使用本服务的条款和条件。 "
 root.helpUserAgreement.activation = '二．注册使用资格'
-root.helpUserAgreement.activation_1 = '通过注册使用欧联账户，您声明并保证您已经年满18周岁或达到根据适用法律订立具有约束力合约的法定年龄；是具有订立本使用条款的完全法律行为能力和授权的个人、法人或其他组织；以前未被中止或取消使用服务的资格；您目前没有欧联账户。如果您担任法律实体的雇员或代理人，并以此身份代表其签订本使用条款，您声明并保证您拥有约束该法律实体的所有必要权利和授权。'
+root.helpUserAgreement.activation_1 = '通过注册使用二零二零账户，您声明并保证您已经年满18周岁或达到根据适用法律订立具有约束力合约的法定年龄；是具有订立本使用条款的完全法律行为能力和授权的个人、法人或其他组织；以前未被中止或取消使用服务的资格；您目前没有二零二零账户。如果您担任法律实体的雇员或代理人，并以此身份代表其签订本使用条款，您声明并保证您拥有约束该法律实体的所有必要权利和授权。'
 root.helpUserAgreement.server = '三．禁止使用条款'
-root.helpUserAgreement.server_1 = '您访问和使用本服务，即表示您声明并保证您未被列入任何贸易或经济制裁名单欧联保留选择市场和司法管辖区经营业务的权利，并可自行决定在某些国家限制或拒绝提供本服务。'
+root.helpUserAgreement.server_1 = '您访问和使用本服务，即表示您声明并保证您未被列入任何贸易或经济制裁名单二零二零保留选择市场和司法管辖区经营业务的权利，并可自行决定在某些国家限制或拒绝提供本服务。'
 root.helpUserAgreement.server_2 = '四．服务描述'
-root.helpUserAgreement.server_3 = '欧联为通常被称为加密令牌、数字令牌或加密货币（统称为“数字货币”）的产品提供在线数字资产交易平台（加密到加密）。欧联不提供法定货币交易功能作为本服务的一部分。欧联仅作为交易平台提供商，而不作为交易双方的买方或卖方。欧联也不是做市商，交易者可以申请提取数字资产，但须遵守本使用条款规定的限制条件。 '
-root.helpUserAgreement.server_4 = '尽管欧联一直致力于维护本服务上所发布的信息的准确性，但是欧联不能也不保证通过本服务提供的内容的准确性、适用性、可靠性、完整性、执行性或合适性，也不对您使用这些内容可能直接或间接造成的任何损失或损害承担任何责任。有关本服务的信息可能会变更，而不会发出通知，并且提供这些信息的主要目的是帮助用户做出独立决定。欧联不提供投资或咨询建议，也不对本服务或其他通信媒介上的信息的使用或解释负责。所有使用本服务的用户都必须了解数字货币交易存在风险。欧联希望所有用户谨慎行事，并在力所能及的范围内负责任地进行交易。'
-root.helpUserAgreement.server_5 = '五. 欧联帐户注册和要求'
+root.helpUserAgreement.server_3 = '二零二零为通常被称为加密令牌、数字令牌或加密货币（统称为“数字货币”）的产品提供在线数字资产交易平台（加密到加密）。二零二零不提供法定货币交易功能作为本服务的一部分。二零二零仅作为交易平台提供商，而不作为交易双方的买方或卖方。二零二零也不是做市商，交易者可以申请提取数字资产，但须遵守本使用条款规定的限制条件。 '
+root.helpUserAgreement.server_4 = '尽管二零二零一直致力于维护本服务上所发布的信息的准确性，但是二零二零不能也不保证通过本服务提供的内容的准确性、适用性、可靠性、完整性、执行性或合适性，也不对您使用这些内容可能直接或间接造成的任何损失或损害承担任何责任。有关本服务的信息可能会变更，而不会发出通知，并且提供这些信息的主要目的是帮助用户做出独立决定。二零二零不提供投资或咨询建议，也不对本服务或其他通信媒介上的信息的使用或解释负责。所有使用本服务的用户都必须了解数字货币交易存在风险。二零二零希望所有用户谨慎行事，并在力所能及的范围内负责任地进行交易。'
+root.helpUserAgreement.server_5 = '五. 二零二零帐户注册和要求'
 root.helpUserAgreement.server_6 = '1、注册'
-root.helpUserAgreement.server_7 = '所有使用本服务的用户（以下简称为“用户”）在使用本服务之前必须在（https://www.eunex.group/index/register）申请注册一个欧联帐户。在注册帐户时，您必须提供真实姓名、电子邮件地址，并接受本使用条款、隐私声明和同意书等。欧联可以自行决定拒绝为您开立账户。您同意在开立账户时提供完整且准确的信息，并同意及时更新您向欧联提供的任何信息，以维持信息的完整性和准确性。每次注册仅针对一名用户，并且每一名用户（包括属于企业或法律实体的任何用户）只能开立一个欧联活跃账户。'
+root.helpUserAgreement.server_7 = '所有使用本服务的用户（以下简称为“用户”）在使用本服务之前必须在（https://www.eunex.group/index/register）申请注册一个二零二零帐户。在注册帐户时，您必须提供真实姓名、电子邮件地址，并接受本使用条款、隐私声明和同意书等。二零二零可以自行决定拒绝为您开立账户。您同意在开立账户时提供完整且准确的信息，并同意及时更新您向二零二零提供的任何信息，以维持信息的完整性和准确性。每次注册仅针对一名用户，并且每一名用户（包括属于企业或法律实体的任何用户）只能开立一个二零二零活跃账户。'
 root.helpUserAgreement.server_8 = '2、用户身份验证'
-root.helpUserAgreement.server_9 = '您在欧联网注册帐户，即表示您同意提供为进行身份验证而要求提供的个人信息。这些信息专门用于发现在欧联平台上进行的洗钱、恐怖主义融资、欺诈和其他金融犯罪活动的线索。我们将根据我们发布的《隐私声明》收集、使用和共享这些信息。除了提供这些信息外，为了遵守全球数据保留的行业标准，您同意允许我们在您的账户存续期内以及账户关闭后的10年内保留这些信息的记录。您还授权我们直接或通过第三方开展核实您的身份或保护您和/或我们免受金融犯罪（如欺诈）侵害所必需的调查。'
-root.helpUserAgreement.server_10 = '我们要求提供的身份验证信息可能包括但不限于您的：姓名、电子邮件地址、联系信息、电话号码、用户名、政府签发的身份证件、出生日期以及在帐户注册时收集的其他信息。在提供这些要求的信息时，您确认这些信息真实准确。注册后，您必须保证信息真实、完整，同时如有任何变化，及时予以更新。如果有任何理由怀疑您提供的任何信息是错误的、不真实、过时的或不完整，欧联有权向您发送通知，要求更正，直接删除相关信息，以及（视情况而定）终止向您提供的全部或部分服务。如果无法通过所提供的联系资料联系到您，您应对使用本服务期间产生的任何损失或费用承担全部责任。您在此确认并同意，如有任何变化，您有义务随时更新所有信息。'
+root.helpUserAgreement.server_9 = '您在二零二零网注册帐户，即表示您同意提供为进行身份验证而要求提供的个人信息。这些信息专门用于发现在二零二零平台上进行的洗钱、恐怖主义融资、欺诈和其他金融犯罪活动的线索。我们将根据我们发布的《隐私声明》收集、使用和共享这些信息。除了提供这些信息外，为了遵守全球数据保留的行业标准，您同意允许我们在您的账户存续期内以及账户关闭后的10年内保留这些信息的记录。您还授权我们直接或通过第三方开展核实您的身份或保护您和/或我们免受金融犯罪（如欺诈）侵害所必需的调查。'
+root.helpUserAgreement.server_10 = '我们要求提供的身份验证信息可能包括但不限于您的：姓名、电子邮件地址、联系信息、电话号码、用户名、政府签发的身份证件、出生日期以及在帐户注册时收集的其他信息。在提供这些要求的信息时，您确认这些信息真实准确。注册后，您必须保证信息真实、完整，同时如有任何变化，及时予以更新。如果有任何理由怀疑您提供的任何信息是错误的、不真实、过时的或不完整，二零二零有权向您发送通知，要求更正，直接删除相关信息，以及（视情况而定）终止向您提供的全部或部分服务。如果无法通过所提供的联系资料联系到您，您应对使用本服务期间产生的任何损失或费用承担全部责任。您在此确认并同意，如有任何变化，您有义务随时更新所有信息。'
 root.helpUserAgreement.server_11 = '通过注册账户，您特此授权欧联直接或通过第三方开展欧联认为必要的调查，以核实您的身份或保护您和/或欧联免遭欺诈或其他金融犯罪侵害，并根据调查结果采取欧联认为必要的行动。 您亦确认并同意您的个人信息可能会被披露给征信机构和欺诈预防或预防金融犯罪部门，这些机构可能会对我们的调查做出全面回应。'
 root.helpUserAgreement.server_12 = '3、限制'
 root.helpUserAgreement.server_13 = '当您使用本服务时，您同意并承诺遵守以下规定：'
