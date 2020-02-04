@@ -13,8 +13,9 @@
                 <StockCrossItems :type = "type" :transactionData = "sellOrders" :transactionType = "0" :btc_eth_rate="btc_eth_rate" :socket_price="socket_price" :currency_list="currency_list"/>
             </div>
 
-            <div class="StockCross-mid txt-nomal"  :class="direction?'txt-green2':'txt-red'">
-                {{isPriceNow=='- -'&&'- -'|| this.$globalFunc.accFixed(isPriceNow, quoteScale)}} <span v-show="isPriceNow!='- -'" style="font-family: Roboto-Regular;font-size: 14px;color: #8994A5;">≈&nbsp;¥{{this.$globalFunc.accFixedCny(this.$store.state.exchange_rate_dollar * (price * rate), 2)}}</span>
+            <div class="StockCross-mid txt-nomal"  :class="direction?'StockCross-mid-price-green':'StockCross-mid-price-red'">
+                {{isPriceNow=='- -'&&'- -'|| this.$globalFunc.accFixed(isPriceNow, quoteScale)}}
+              <span v-show="isPriceNow!='- -'" style="font-family: Roboto-Regular,Roboto;font-size: 14px;color:#E0E1F4">&nbsp;≈¥{{this.$globalFunc.accFixedCny(this.$store.state.exchange_rate_dollar * (price * rate), 2)}}</span>
 <!--                 <em v-if="isPriceNow !== '- -'" class="up_down_icon" :class="direction? 'up_icon' : 'down_icon'"></em>-->
             </div>
 

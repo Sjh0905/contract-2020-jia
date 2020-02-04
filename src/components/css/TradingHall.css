@@ -28,7 +28,7 @@
 .traddinghall-mid-left {
   /*width: 18.997%;*/
   width: 300px;
-  background: #fff;
+  background: #0D111F;
   /*overflow: hidden;*/
 }
 
@@ -48,7 +48,7 @@
 
 .StockCross-wrap {
   width: 100%;
-  background: #fff;
+  /*background: #fff;*/
 }
 .StockCross-wrap_body{
   position: relative;
@@ -593,15 +593,17 @@
   color: #EF5656;
 }
 .pankou{
-  height: 40px;
-  line-height: 40px;
-  background: #F2F6FA;
-  font-family: PingFangSC-Regular;
-  font-size: 16px;
-  color: #172A4D;
+  height: 44px;
+  line-height: 44px;
+  background: #0B0E16;
+  font-family:PingFangSC-Medium,PingFang SC;
+  font-size: 14px;
+  color: #E0E1F4;
   letter-spacing: 0;
   padding-left: 10px;
   cursor: pointer;
+  font-weight:500;
+  border-bottom: 1px solid #1E1F22;
 }
 
 .pankou .sscj{
