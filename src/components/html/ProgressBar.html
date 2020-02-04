@@ -12,21 +12,21 @@
 
     </div> -->
     <!--充币-->
-    <div class="progress-bar-recharge  text_blue" :class='{"progress-bar-recharge-en":lang!="CH"}'
+    <div class="progress-bar-recharge" :class='{"progress-bar-recharge-en":lang!="CH"}'
     v-if="!orderType" >
-      <router-link :to="{name:'rechargeAndWithdrawals',query:{'symbol':$store.state.symbol.split('_')[1]}}"
+      <router-link class="text_blue" :to="{name:'rechargeAndWithdrawals',query:{'symbol':$store.state.symbol.split('_')[1]}}"
                    >{{$t("progressBar.chargingMoney")}}
       </router-link>
     </div>
 
-    <div class="progress-bar-recharge  text_blue" :class='{"progress-bar-recharge-en":lang!="CH"}'
+    <div class="progress-bar-recharge" :class='{"progress-bar-recharge-en":lang!="CH"}'
     v-if="orderType && $store.state.symbol.split('_')[0] != 'GRC' " >
-      <router-link :to="{name:'rechargeAndWithdrawals',query:{'symbol':$store.state.symbol.split('_')[0]}}"
+      <router-link class="text_blue" :to="{name:'rechargeAndWithdrawals',query:{'symbol':$store.state.symbol.split('_')[0]}}"
                    >{{$t("progressBar.chargingMoney")}}
       </router-link>
     </div>
 
-    <div class="progress-bar-recharge  text_blue" :class='{"progress-bar-recharge-en":lang!="CH"}'
+    <div class="progress-bar-recharge" :class='{"progress-bar-recharge-en":lang!="CH"}'
     v-if="orderType && $store.state.symbol.split('_')[0] == 'GRC' " >
       <div style="color:#C1C1C1;">{{$t("progressBar.chargingMoney")}}</div>
     </div>
