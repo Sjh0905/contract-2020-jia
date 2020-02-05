@@ -510,7 +510,7 @@
                 <!--登录后 begin-->
                 <li class="navigation-item-container flex" v-if="isLogin" @mouseenter="enterMoney()" @mouseleave="leaveMoney()">
                   <router-link
-                    :to="{name:'rechargeAndWithdrawals'}"
+                    :to="{name:'overviewofassets'}"
                     class="navigation-item-router flex"
                     active-class="navigation-item-router-selected"
                   >
@@ -525,12 +525,33 @@
                   >
                     <li class="navigation-item-hidden-list-item">
                       <router-link
+                        :to="{name:'overviewofassets'}"
+                        class="navigation-item-hidden-list-item-router"
+                        active-class="item_selected">
+<!--                        资产概览-->
+                       {{$t('overviewOfAssets')}}
+                      </router-link>
+                    </li>
+
+                    <li class="navigation-item-hidden-list-item">
+                      <router-link
+                        :to="{name:'mywallet'}"
+                        class="navigation-item-hidden-list-item-router"
+                        active-class="item_selected">
+<!--                        我的钱包-->
+                        {{$t('myWallet')}}
+                      </router-link>
+                    </li>
+
+                    <li class="navigation-item-hidden-list-item">
+                      <router-link
                         :to="{name:'rechargeAndWithdrawals'}"
                         class="navigation-item-hidden-list-item-router"
                         active-class="item_selected">
-                       {{$t('recharge')}}
+                        {{$t('recharge')}}
                       </router-link>
                     </li>
+
                     <li class="navigation-item-hidden-list-item">
                       <router-link
                         :to="{name:'rechargeRecord'}"
@@ -540,6 +561,7 @@
                         {{$t('rechargeRecord')}}
                       </router-link>
                     </li>
+
                     <li class="navigation-item-hidden-list-item">
                       <router-link
                         :to="{name:'withdrawalsRecord'}"
@@ -549,13 +571,36 @@
                         {{$t('withdrawalsRecord')}}
                       </router-link>
                     </li>
+
+                    <li class="navigation-item-hidden-list-item">
+                      <router-link
+                        :to="{name:'transferrecord'}"
+                        class="navigation-item-hidden-list-item-router"
+                        active-class="item_selected"
+                      >
+<!--                        划转记录-->
+                        {{$t('transferRecord')}}
+                      </router-link>
+                    </li>
+
+                    <li class="navigation-item-hidden-list-item">
+                      <router-link
+                        :to="{name:'transferrecords'}"
+                        class="navigation-item-hidden-list-item-router"
+                        active-class="item_selected"
+                      >
+<!--                        转账记录-->
+                        {{$t('transferRecords')}}
+                      </router-link>
+                    </li>
+
                     <li class="navigation-item-hidden-list-item">
                       <router-link
                         :to="{name:'platformReward'}"
                         class="navigation-item-hidden-list-item-router"
                         active-class="item_selected"
                       >
-                        {{$t('assetPage.platformReward')}}
+                        {{$t('platformReward')}}
                       </router-link>
                     </li>
                   </ul>

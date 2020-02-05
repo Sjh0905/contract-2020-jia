@@ -83,6 +83,10 @@ root.assetPage.frozen = 'In use'
 root.assetPage.available = 'Available'
 root.assetPage.amountCash = '24h Wtihdrawal Limit'
 root.assetPage.withdrawalsAndRecharge = 'Deposit / Withdrawal'//?？充值提现无法修改
+root.assetPage.overviewOfAssets = 'Overview Of Assets'
+root.assetPage.myWallet = 'My Wallet'
+root.assetPage.transferRecord = 'Transfer Record'
+root.assetPage.transferRecords = 'Transfer Records'
 
 //资产提现和充值
 root.assetPageRechargeAndWithdrawals = {}
@@ -1381,7 +1385,7 @@ root.personalCenterRecommend.activityFooterButton = 'I understand'
 root.basePageBar = {}
 root.basePageBar.index = 'Home'
 
-root.assetPage.platformReward = 'Activity award'
+root.assetPage.platformReward = 'Activity Award'
 
 root.assetPagePlatformReward = {}
 root.assetPagePlatformReward.state1 = 'Instruction'

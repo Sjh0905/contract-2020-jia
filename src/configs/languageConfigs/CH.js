@@ -84,6 +84,10 @@ root.assetPage.frozen = '冻结'
 root.assetPage.available = '可提'
 root.assetPage.amountCash = '24H提现额度'
 root.assetPage.withdrawalsAndRecharge = '充值提现'
+root.assetPage.overviewOfAssets = '资产概览'
+root.assetPage.myWallet = '我的钱包'
+root.assetPage.transferRecord = '划转记录'
+root.assetPage.transferRecords = '转账记录'
 
 //资产提现和充值
 root.assetPageRechargeAndWithdrawals = {}
