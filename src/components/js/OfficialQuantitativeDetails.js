@@ -1,49 +1,15 @@
 const root = {}
-root.name = 'OfficialQuantitativeRegistration'
-
-
-
+root.name = 'OfficialQuantitativeDetails'
+/*------------------------------ 组件 ------------------------------*/
 root.components = {
   'Loading': resolve => require(['../vue/Loading'], resolve),
 }
-
+/*------------------------------ data -------------------------------*/
 root.data = () => {
   return {
     loading: true, // 加载中
 
-    optionsgender: [{
-      value: '0',
-      label: '10000 QQ'
-    }, {
-      value: '1',
-      label: '20000 QQ'
-    }, {
-      value: '2',
-      label: '20000 QQ'
-    }, {
-      value: '3',
-      label: '30000 QQ'
-    }, {
-      value: '4',
-      label: '40000 QQ'
-    }, {
-      value: '5',
-      label: '50000 QQ'
-    }, {
-      value: '6',
-      label: '60000 QQ'
-    }, {
-      value: '7',
-      label: '70000 QQ'
-    }, {
-      value: '8',
-      label: '90000 QQ'
-    }, {
-      value: '9',
-      label: '100000 QQ'
-    }
-    ],
-    valuegender: '',
+
   }
 }
 

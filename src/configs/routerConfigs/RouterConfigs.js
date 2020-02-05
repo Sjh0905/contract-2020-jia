@@ -2514,6 +2514,19 @@ root.routes.push({
       component: resolve => require(['@/components/vue/OfficialQuantitativeRegistration'], resolve),
     },
 
+    // sss 活动------QQ官方量化详情
+    {
+      path: 'OfficialQuantitativeDetails',
+      name: 'OfficialQuantitativeDetails',
+      caseSensitive: true,
+      meta: {
+        requireLogin: false,
+        mobileHeaderTitle: '',
+        name: 'OfficialQuantitativeDetails',
+      },
+      component: resolve => require(['@/components/vue/OfficialQuantitativeDetails'], resolve),
+    },
+
     // TODO:不能删除 check
     // cc 活动------茶币路由
     // {

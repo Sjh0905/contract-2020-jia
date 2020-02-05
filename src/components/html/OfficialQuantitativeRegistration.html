@@ -13,12 +13,25 @@
         <div class="application_title">申请表格</div>
         <div class="Account_number">
           <span class="Account_number_">账号</span>
-          <input class="Account_number_input" type="text">
+          <div class="Account_number_input">{{userName}}</div>
         </div>
         <div class="supporting">
           <span class="Account_number_">配套</span>
-          <input class="supporting_input" type="text">
+          <template>
+            <el-select v-model="valuegender" name="gender" placeholder="10000 QQ" popper-class="selectstyle">
+              <el-option
+                v-for="item in optionsgender"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              >
+              </el-option>
+            </el-select>
+          </template>
         </div>
+
+
+
         <div class="number_amount">
           <p class="number_amount_p">所需数额</p>
           <span class="number_amount_span">QQ:</span>
@@ -60,7 +73,8 @@
 
           <!-- 如果加载完成、已登录、有数据，则显示数据 begin -->
           <template v-if="!loading">
-            <template v-if="userId && currentOrderComputed.length!==0">
+<!--            <template v-if="userId && currentOrderComputed.length!==0">-->
+            <template v-if="0">
               <transition-group name="fade">
                 <li class="flex">
                   <!--账号-->
