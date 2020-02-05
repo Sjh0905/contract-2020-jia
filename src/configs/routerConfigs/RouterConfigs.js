@@ -1551,7 +1551,7 @@ root.routes.push({
           },
           component: resolve => require(['@/components/vue/HelpApplyToList'], resolve),
         },
-        // 欧联用户协议
+        // 二零二零用户协议
         {
           path: 'userAgreement',
           name: 'userAgreement',
@@ -1565,7 +1565,7 @@ root.routes.push({
           },
           component: resolve => require(['@/components/vue/HelpUserAgreement'], resolve),
         },
-        // 欧联隐私协议
+        // 二零二零隐私协议
         {
           path: 'userPrivacy',
           name: 'userPrivacy',

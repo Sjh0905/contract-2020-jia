@@ -28,7 +28,7 @@ root.data = function () {
       autoplayDisableOnInteraction: false,
       paginationClickable: true,
       paginationType: 'bullets',
-      bannerurl:'https://EUNEX.zendesk.com/hc/zh-cn/articles/360030785411'
+      bannerurl:'https://TwentyTwenty .zendesk.com/hc/zh-cn/articles/360030785411'
 
     },
 

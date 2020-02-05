@@ -4,7 +4,7 @@
     <div class="asset-withdraw-item" v-for="(item,index) in accountsComputed" v-if="serverT >= item.displayTime"
          :key="index" @click="getToGetCash(item)">
       <span  class="asset-withdraw-item-logo-box">
-        <img class="asset-withdraw-item-logo" :src="'http://logo.eunex.group/' + item.currency +'.png'" alt="">
+        <img class="asset-withdraw-item-logo" :src="'http://logo.2020.exchange/' + item.currency +'.png'" alt="">
       </span>
       {{item.currency}}
     </div>
@@ -37,7 +37,7 @@
       </div>
       <div class="lock-position-confirm-toast-btns">
         <div class="lock-position-confirm-toast-btn-close" @click="popIdenClose">取消</div>
-        <a class="lock-position-confirm-toast-btn-confirm" href="https://download.eunex.group/" target="_blank">下载app</a>
+        <a class="lock-position-confirm-toast-btn-confirm" href="https://download.2020.exchange/" target="_blank">下载app</a>
       </div>
     </div>
   </div>

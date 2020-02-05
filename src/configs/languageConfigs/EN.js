@@ -7,7 +7,7 @@ root.assetPage.total = 'Estimated Total'
 
 // 首页header
 root.indexHeader = {}
-root.indexHeader.btcdo = 'EUNEX'
+root.indexHeader.btcdo = 'TwentyTwenty'
 root.indexHeader.currencyExchange = 'Exchange'
 root.indexHeader.Quotation = 'Quotation'
 root.indexHeader.frenchExchange = 'Fiat'
@@ -25,9 +25,9 @@ root.indexHeader.loginOff = 'Sign out'
 root.indexHeader.havedLogin = 'Have login'
 
 root.indexHeader.sloganbtn = 'Markets'
-root.indexHeader.slogangraph = 'All things to all people EUNEX makes a difference'
+root.indexHeader.slogangraph = 'All things to all people TwentyTwenty makes a difference'
 root.indexHeader.slogangraphl = 'All things to all people'
-root.indexHeader.slogangraphr = 'EUNEX makes a difference'
+root.indexHeader.slogangraphr = 'TwentyTwenty makes a difference'
 // 帮助中心四个下拉
 root.indexHeader.problem = 'FAQ'
 root.indexHeader.form = 'Request'
@@ -122,7 +122,7 @@ root.assetPageWithdrawalsRecord.Issued = 'Issued'
 root.helpApplyToList = {}
 root.helpApplyToList.apply = 'Apply to list'
 root.helpApplyToList.explain = 'Submission'
-root.helpApplyToList.descript_1 = 'EUNEX is looking for tokens to be deployed if yours meet conditions, including but not limited to:'
+root.helpApplyToList.descript_1 = 'TwentyTwenty is looking for tokens to be deployed if yours meet conditions, including but not limited to:'
 root.helpApplyToList.descript_2 = 'reach Tmp model standard'
 root.helpApplyToList.descript_3 = 'Maintained by a well-driven, experienced team. Background information of the team must be authentic and reliable. '
 root.helpApplyToList.descript_4 = 'A project with stable political environment and is compliant to the local law provisions.'
@@ -142,7 +142,7 @@ root.helpApplyToList.introduce_4 = 'Summary of distribution of chips for top 10 
 root.helpApplyToList.introduce_5 = 'Other required documents specified'
 
 root.helpApplyToList.outLine = 'Removal policy'
-root.helpApplyToList.outLine_1 = 'To protect EUNEX cryptocurrency investors and EUNEX community, we reserve the right to keep or eliminate any token from our exchange, including but not limited to:'
+root.helpApplyToList.outLine_1 = 'To protect TwentyTwenty cryptocurrency investors and TwentyTwenty community, we reserve the right to keep or eliminate any token from our exchange, including but not limited to:'
 root.helpApplyToList.outLine_2 = 'A systematic risk of the country or region serious impacted on the project.'
 root.helpApplyToList.outLine_3 = 'Project has been affected significantly from the project team’s false propaganda. '
 root.helpApplyToList.outLine_4 = 'Project team dismissed'
@@ -154,12 +154,12 @@ root.helpApplyToList.outLine_9 = '0 daily volume in 5 consecutive days'
 root.helpApplyToList.outLine_10 = 'Selectively value-relevant information communicated to the exchange or fraud.'
 root.helpApplyToList.outLine_11 = 'Fork without notifying in advance.'
 root.helpApplyToList.outLine_12 = 'Any other matters that do not meet the requirements of continuing trading.'
-root.helpApplyToList.outLine_13 = 'EUNEX will give a 5-day advance announcement of removal. Users will have 30 days to withdraw your tokens from wallet. EUNEX will not be responsible for your assets after 30 days.'
+root.helpApplyToList.outLine_13 = 'TwentyTwenty will give a 5-day advance announcement of removal. Users will have 30 days to withdraw your tokens from wallet. TwentyTwenty will not be responsible for your assets after 30 days.'
 
 
 // 帮助费率
 root.helpRateStandard = {}
-root.helpRateStandard.rate = 'EUNEX Fee Structure'
+root.helpRateStandard.rate = 'TwentyTwenty Fee Structure'
 root.helpRateStandard.whitePaper = 'Introduction'
 root.helpRateStandard.rechargeFee = 'Fee for deposit'
 root.helpRateStandard.free = 'Free'
@@ -182,54 +182,54 @@ root.helpRateStandard.withdrawalsRate_table_2 = 'Name'
 root.helpRateStandard.withdrawalsRate_table_3 = 'Minimum Withdrawal'
 root.helpRateStandard.withdrawalsRate_table_4 = 'Transaction Fee'
 root.helpRateStandard.withdrawalsRate_descript_2 = 'What is BDB'
-root.helpRateStandard.withdrawalsRate_descript_3 = 'EUNEX trading platform issues Token, EUNEX coin (BDB for short), with total number 200 million and never issue again. BDB is a ERC20 Token Standard based on smart contract in Ethereum, which targets 30% income of platform transaction fee. The Token distribution is before the platform launch.'
+root.helpRateStandard.withdrawalsRate_descript_3 = 'TwentyTwenty trading platform issues Token, TwentyTwenty coin (BDB for short), with total number 200 million and never issue again. BDB is a ERC20 Token Standard based on smart contract in Ethereum, which targets 30% income of platform transaction fee. The Token distribution is before the platform launch.'
 root.helpRateStandard.withdrawalsRate_descript_4 = 'Value of BDB'
 root.helpRateStandard.withdrawalsRate_descript_5 = 'To estimate the exchange rate of EOS/BDB,first take the latest quotes for EOS / BTC and BDB / BTC and then determine the exchange rate for EOS / BDB = (EOS / BTC) / (BDB / BTC). '
 root.helpRateStandard.withdrawalsRate_descript_6 = 'Significant discount when use BDB for fees.'
 root.helpRateStandard.withdrawalsRate_descript_7 = 'When you use BNB to pay for fees, you will receive a 40% discount. Please make sure your BDB discout function is turned on in order to receive the discout'
 root.helpRateStandard.withdrawalsRate_descript_8 = 'How to turn on or off the BDB discount function？'
 root.helpRateStandard.withdrawalsRate_descript_9 = 'The BDB discount function can be turned on/off in the “Account” page.'
-root.helpRateStandard.withdrawalsRate_descript_10 = 'Chat with EUNEX smart assistant or submit a request if you have a question.'
+root.helpRateStandard.withdrawalsRate_descript_10 = 'Chat with TwentyTwenty smart assistant or submit a request if you have a question.'
 
 //todo 2018.1.28 服务协议
 
 // 服务协议
 root.helpUserAgreement = {}
-root.helpUserAgreement.title = 'EUNEX service agreement'
-root.helpUserAgreement.descript_1 = "This service agreement is made by you (hereinafter referred to as \"you\") and EUNEX digital asset exchange platform (hereinafter referred to as \"EUNEX\"). You access, use, or click on the \"I agree\" nine cattle or any of the below website (https://www.2020.exchange), API (https://api.2020.exchange) and mobile applications to provide any services or below any affiliated agency website to provide other related services (hereinafter referred to as \"the services\"), namely, said are you sure you have read, understand and accept the terms of use agreement (hereinafter referred to as \"the terms of use\") of all the terms and conditions, in addition, when using this service is part of the function, You may also need to comply with additional terms and conditions that apply to these features."
+root.helpUserAgreement.title = 'TwentyTwenty service agreement'
+root.helpUserAgreement.descript_1 = "This service agreement is made by you (hereinafter referred to as \"you\") and TwentyTwenty digital asset exchange platform (hereinafter referred to as \"TwentyTwenty\"). You access, use, or click on the \"I agree\" nine cattle or any of the below website (https://www.2020.exchange), API (https://api.2020.exchange) and mobile applications to provide any services or below any affiliated agency website to provide other related services (hereinafter referred to as \"the services\"), namely, said are you sure you have read, understand and accept the terms of use agreement (hereinafter referred to as \"the terms of use\") of all the terms and conditions, in addition, when using this service is part of the function, You may also need to comply with additional terms and conditions that apply to these features."
 root.helpUserAgreement.descript_2 = "We would like to remind you that:"
 root.helpUserAgreement.descript_3 = "1、The digital asset itself is not issued by any financial institution or company or this website, and its market is new, unrecognized and may not grow;"
 root.helpUserAgreement.descript_4 = "2、Digital assets are mainly used by speculators in large quantities, while relatively few are used in the retail and commercial markets. Digital assets are highly risky to trade. They are traded continuously for 365 days a year, with no limit on fluctuation."
-root.helpUserAgreement.descript_5 = "EUNEX@service.com"
+root.helpUserAgreement.descript_5 = "TwentyTwenty@service.com"
 root.helpUserAgreement.descript_6 = "3、If nine cattle according to its unilateral judgment that you violated our service agreement, or according to your services provided by the laws of the jurisdiction area of this web site or your use of this web site provides service behavior is illegal, nine cows have the right to suspend or terminate your account at any time, or suspend or terminate your use of this web site to provide service or digital asset transactions. By accessing, using or attempting to use the service in any capacity, you acknowledge that you accept and agree to be bound by these terms of use. If you do not agree, do not access or use the service."
 root.helpUserAgreement.register = "一．Conditions of service agreement"
-root.helpUserAgreement.register_1 = "EUNEX reserves the right to decide, modify or change these terms of use at any time. Any and all modifications or changes to these terms of use will take effect immediately after they are posted on the website or sent to users. Therefore, by continuing to use niuniu's services, you are accepting the revised protocol and rules. If you do not agree to any modification of these terms of use, please immediately stop using the service. Niuniu wishes you to review these terms of use regularly to ensure that you understand the terms and conditions applicable to your access to and use of the services. "
+root.helpUserAgreement.register_1 = "TwentyTwenty reserves the right to decide, modify or change these terms of use at any time. Any and all modifications or changes to these terms of use will take effect immediately after they are posted on the website or sent to users. Therefore, by continuing to use niuniu's services, you are accepting the revised protocol and rules. If you do not agree to any modification of these terms of use, please immediately stop using the service. Niuniu wishes you to review these terms of use regularly to ensure that you understand the terms and conditions applicable to your access to and use of the services. "
 root.helpUserAgreement.activation = '二．Registration qualification'
-root.helpUserAgreement.activation_1 = 'By registering and using the EUNEX account, you represent and warrant that you have reached the age of 18 or above or have reached the legal age to enter into a binding contract in accordance with applicable laws; Is an individual, legal person or other organization with full legal capacity and authorization to enter into these terms of use; Not previously suspended or disqualified from using the service; You do not have a EUNEX account at present. If you are an employee or an agent of a legal entity and in this capacity sign these terms of use on its behalf, you represent and warrant that you have all necessary rights and authorizations to bind such legal entity.'
+root.helpUserAgreement.activation_1 = 'By registering and using the TwentyTwenty account, you represent and warrant that you have reached the age of 18 or above or have reached the legal age to enter into a binding contract in accordance with applicable laws; Is an individual, legal person or other organization with full legal capacity and authorization to enter into these terms of use; Not previously suspended or disqualified from using the service; You do not have a TwentyTwenty account at present. If you are an employee or an agent of a legal entity and in this capacity sign these terms of use on its behalf, you represent and warrant that you have all necessary rights and authorizations to bind such legal entity.'
 root.helpUserAgreement.server = '三．Prohibition clause'
 root.helpUserAgreement.server_1 = 'By accessing and using the services, you represent and warrant that you are not included in any trade or economic sanctions list and that you reserve the right to choose your market and jurisdiction to conduct business and may, at your sole discretion, restrict or refuse to provide the services in certain countries.'
 root.helpUserAgreement.server_2 = '四．The service description'
-root.helpUserAgreement.server_3 = 'EUNEX provides an online digital asset trading platform (cryptoto-cryptography) for products commonly referred to as cryptotokens, digital tokens, or cryptocurrencies (collectively referred to as "digital currencies"). EUNEX does not provide legal tender transactions as part of this service. EUNEX is only a trading platform provider, not a buyer or seller of both parties. Niuniu is not a market maker. Traders may apply to withdraw digital assets subject to the restrictions set out in these terms of use.'
-root.helpUserAgreement.server_4 = 'Although has been committed to maintaining the accuracy of the information published on this service, but nine cows cannot and does not guarantee that by the content of this service provide the accuracy, applicability, reliability and integrity, execution or suitable, or your use of the content may be directly or indirectly responsible for any loss or damage caused by. Information about the service may change without notice and is provided primarily to assist users in making independent decisions. Niuniu does not provide investment or advisory advice and is not responsible for the use or interpretation of information in the service or other communications media. All users of the service must be aware of the risks associated with digital currency transactions. EUNEX expects all users to act prudently and trade responsibly within their power.'
+root.helpUserAgreement.server_3 = 'TwentyTwenty provides an online digital asset trading platform (cryptoto-cryptography) for products commonly referred to as cryptotokens, digital tokens, or cryptocurrencies (collectively referred to as "digital currencies"). TwentyTwenty does not provide legal tender transactions as part of this service. TwentyTwenty is only a trading platform provider, not a buyer or seller of both parties. Niuniu is not a market maker. Traders may apply to withdraw digital assets subject to the restrictions set out in these terms of use.'
+root.helpUserAgreement.server_4 = 'Although has been committed to maintaining the accuracy of the information published on this service, but nine cows cannot and does not guarantee that by the content of this service provide the accuracy, applicability, reliability and integrity, execution or suitable, or your use of the content may be directly or indirectly responsible for any loss or damage caused by. Information about the service may change without notice and is provided primarily to assist users in making independent decisions. Niuniu does not provide investment or advisory advice and is not responsible for the use or interpretation of information in the service or other communications media. All users of the service must be aware of the risks associated with digital currency transactions. TwentyTwenty expects all users to act prudently and trade responsibly within their power.'
 root.helpUserAgreement.server_5 = '五. Account registration and requirements'
 root.helpUserAgreement.server_6 = '1、register'
-root.helpUserAgreement.server_7 = 'All users of this service (hereinafter referred to as the "user") before using this service must be registered with (https://www.2020.exchange/index/register) to apply for a nine cattle account. To register your account, you must provide your real name, email address, and accept these terms of use, privacy statement, and consent form. Niuniu may refuse to open an account for you at its sole discretion. You agree to provide complete and accurate information when opening an account and to update any information you provide to EUNEX in a timely manner to maintain the completeness and accuracy of the information. Each registration is limited to one user, and each user (including any user belonging to a business or legal entity) can only open one active account.'
+root.helpUserAgreement.server_7 = 'All users of this service (hereinafter referred to as the "user") before using this service must be registered with (https://www.2020.exchange/index/register) to apply for a nine cattle account. To register your account, you must provide your real name, email address, and accept these terms of use, privacy statement, and consent form. Niuniu may refuse to open an account for you at its sole discretion. You agree to provide complete and accurate information when opening an account and to update any information you provide to TwentyTwenty in a timely manner to maintain the completeness and accuracy of the information. Each registration is limited to one user, and each user (including any user belonging to a business or legal entity) can only open one active account.'
 root.helpUserAgreement.server_8 = '2、User authentication'
-root.helpUserAgreement.server_9 = 'By registering your account with EUNEX, you agree to provide the personal information you require for authentication purposes. The information was specifically used to uncover clues to money laundering, terrorist financing, fraud and other financial crimes carried out on the platform. We will collect, use and share this information in accordance with our privacy statement. In addition to providing this information, in order to comply with industry standards for global data retention, you agree to allow us to keep records of this information for the duration of your account and for 10 years after your account is closed. You also authorize us to conduct investigations necessary to verify your identity or protect you and/or us from financial crimes such as fraud, either directly or through third parties.'
+root.helpUserAgreement.server_9 = 'By registering your account with TwentyTwenty, you agree to provide the personal information you require for authentication purposes. The information was specifically used to uncover clues to money laundering, terrorist financing, fraud and other financial crimes carried out on the platform. We will collect, use and share this information in accordance with our privacy statement. In addition to providing this information, in order to comply with industry standards for global data retention, you agree to allow us to keep records of this information for the duration of your account and for 10 years after your account is closed. You also authorize us to conduct investigations necessary to verify your identity or protect you and/or us from financial crimes such as fraud, either directly or through third parties.'
 root.helpUserAgreement.server_10 = 'The authentication information we request may include, but is not limited to, your name, email address, contact information, phone number, user name, government-issued identification, date of birth, and other information collected during account registration. In providing the requested information, you confirm that the information is true and accurate. After registration, you must ensure that the information is true and complete, and if there is any change, timely update. If there is any reason to suspect that any information provided by you is wrong, untrue, outdated or incomplete, niuniu reserves the right to send you a notice requesting correction, to delete the relevant information directly and (as the case may be) to terminate all or part of the services provided to you. If you cannot be reached through the contact information provided, you shall be fully liable for any loss or expense incurred during the use of the service. You hereby acknowledge and agree that you are obligated to update all information at any time in the event of any change.'
-root.helpUserAgreement.server_11 = 'By registering your account, you hereby authorize EUNEX directly or through a third party to carry out any investigation that EUNEX deems necessary to verify your identity or protect you and/or EUNEX from fraud or other financial crimes, and to take any action that EUNEX deems necessary based on the results of the investigation. You also acknowledge and agree that your personal information may be disclosed to credit bureaus and fraud prevention or financial crime prevention bureaus that may respond fully to our investigation.'
+root.helpUserAgreement.server_11 = 'By registering your account, you hereby authorize TwentyTwenty directly or through a third party to carry out any investigation that TwentyTwenty deems necessary to verify your identity or protect you and/or TwentyTwenty from fraud or other financial crimes, and to take any action that TwentyTwenty deems necessary based on the results of the investigation. You also acknowledge and agree that your personal information may be disclosed to credit bureaus and fraud prevention or financial crime prevention bureaus that may respond fully to our investigation.'
 root.helpUserAgreement.server_12 = '3、limit'
 root.helpUserAgreement.server_13 = 'When you use the service, you agree and undertake to abide by the following provisions:'
-root.helpUserAgreement.server_14 = '●  During the use of the service, all your activities will meet the requirements of applicable laws and regulations, as well as the guiding principles of EUNEX;'
+root.helpUserAgreement.server_14 = '●  During the use of the service, all your activities will meet the requirements of applicable laws and regulations, as well as the guiding principles of TwentyTwenty;'
 root.helpUserAgreement.server_15 = '●  You will not use the service in violation of the public interest, public ethics or other people\'s legitimate interests, including taking any action that will interfere, disturb, negatively affect or prohibit other users from using the service;'
 root.helpUserAgreement.server_16 = '●  You agree not to use these services for market manipulation (e.g. price raising, washing, self-trading, pre-trading, canceling, spoofing or layering, whether prohibited by law or not);'
-root.helpUserAgreement.server_17 = '●  The following commercial use of EUNEX data is prohibited unless it obtains the written consent of EUNEX:'
-root.helpUserAgreement.server_18 = 'a1. A trading service that USES the information of EUNEX quotation or bulletin board.'
-root.helpUserAgreement.server_19 = 'a2. Data feed or data flow service using any market data of EUNEX.'
-root.helpUserAgreement.server_20 = 'a3. Any other website/application/service that charges for market data obtained from EUNEX or otherwise makes commercial profits (including through advertising or referral fees).'
+root.helpUserAgreement.server_17 = '●  The following commercial use of TwentyTwenty data is prohibited unless it obtains the written consent of TwentyTwenty:'
+root.helpUserAgreement.server_18 = 'a1. A trading service that USES the information of TwentyTwenty quotation or bulletin board.'
+root.helpUserAgreement.server_19 = 'a2. Data feed or data flow service using any market data of TwentyTwenty.'
+root.helpUserAgreement.server_20 = 'a3. Any other website/application/service that charges for market data obtained from TwentyTwenty or otherwise makes commercial profits (including through advertising or referral fees).'
 root.helpUserAgreement.server_21 = '●  Without the prior written consent of the nine cows, you may not modify, copy, copy, copy, download, store, transfer, transmission, transfer, further apart, broadcasting, publishing, remove or change any copyright statement or label, licensing, and licensing, design, rent, lease, sell, mirror, private labels, awarded the property or property of any part of the security interest, create derivative works or using any part of its in other ways.'
 root.helpUserAgreement.server_22 = '●  You may not use any "deep links", "page fetching", "robot", "spider" or other automated equipment, programs, scripts, algorithm or method, or any similar or the same manual program to access, access, copy, or any part of the monitoring of property, or copy or in any way to bypass this service navigation structure or demo, in order to get or try to use this service is not intended to provide any way for any materials, documents or information; Attempt to gain unauthorized access to any part or function of the property or to any other system or network connected to the service or any niuniu server or any service provided through the service through hacking, password "mining" or any other illegal or prohibited means; To detect, scan or test the vulnerability of the service or any network connected to the property, and shall not violate the security or authentication measures of the service or any network connected to the service; Reverse search, trace or seek any information about any other user or visitor of the service; Any action that imposes an unreasonable or disproportionately large load on the service or on the system or network of niuniu or on the infrastructure of any system or network connected to the service; Use of any equipment, software or routine to interfere with the normal operation of the service or any transaction made on the service or the use of the service by any other person; To falsify headers, impersonate others or otherwise manipulate identifiers to disguise your identity or the source of any messages or transmissions you send to the service, or to use the service in an illegal manner.'
-root.helpUserAgreement.server_23 = 'By accessing the service, you agree that EUNEX has the right to investigate any violation of these terms of use, determine unilaterally whether you have violated these terms of use, and take action to apply the relevant laws and regulations without your consent or prior notice. Examples of such actions include, but are not limited to:'
+root.helpUserAgreement.server_23 = 'By accessing the service, you agree that TwentyTwenty has the right to investigate any violation of these terms of use, determine unilaterally whether you have violated these terms of use, and take action to apply the relevant laws and regulations without your consent or prior notice. Examples of such actions include, but are not limited to:'
 root.helpUserAgreement.server_24 = '●  Block and close order requests'
 root.helpUserAgreement.server_25 = '●  Frozen account'
 root.helpUserAgreement.server_26 = '●  Report the incident to the authorities'
@@ -237,14 +237,14 @@ root.helpUserAgreement.server_27 = '●  Publicize alleged violations and actio
 root.helpUserAgreement.server_28 = '●  Delete any violations you post'
 root.helpUserAgreement.over = '七. Order and service charge'
 root.helpUserAgreement.over_1 = '●  The order'
-root.helpUserAgreement.over_2 = 'Upon the issuance of an order to trade using the service (" order "), your account will be immediately updated to reflect the outstanding orders, and your orders will be listed on the EUNEX market bulletin board to match the orders of other users. If all or part of your order matches another user\'s order, the service performs an exchange (" transaction "). After the trade is executed, your account will be updated to reflect that the order has been closed due to full execution, or updated to reflect that the order has been partially fulfilled. The order will remain incomplete until it is fully executed or cancelled in accordance with paragraph (b) below. In order to complete the transaction, you authorize EUNEX to temporarily control the digital currency you dispose of in the transaction.'
+root.helpUserAgreement.over_2 = 'Upon the issuance of an order to trade using the service (" order "), your account will be immediately updated to reflect the outstanding orders, and your orders will be listed on the TwentyTwenty market bulletin board to match the orders of other users. If all or part of your order matches another user\'s order, the service performs an exchange (" transaction "). After the trade is executed, your account will be updated to reflect that the order has been closed due to full execution, or updated to reflect that the order has been partially fulfilled. The order will remain incomplete until it is fully executed or cancelled in accordance with paragraph (b) below. In order to complete the transaction, you authorize TwentyTwenty to temporarily control the digital currency you dispose of in the transaction.'
 root.helpUserAgreement.over_3 = '●  cancel'
-root.helpUserAgreement.over_4 = 'You may cancel an order initiated through the service only if your order matches another user\'s order. Once your order matches another user\'s order, you may not change, revoke or cancel the authorization of EUNEX to complete the order. If any order has been partially matched, you can cancel the unmatched portion of the order, but not if the unmatched portion has been matched. Niuniu reserves the right to reject any cancellation request related to the order after you submit the order. If you do not have a sufficient amount of digital currency in your account to fulfill an order, 9 niu may cancel the entire order or fulfill a portion of the order that can be covered by the digital currency in your account (in each case, after deducting any expenses payable to 9 niu in connection with the transaction, as described in paragraph (c) below).'
+root.helpUserAgreement.over_4 = 'You may cancel an order initiated through the service only if your order matches another user\'s order. Once your order matches another user\'s order, you may not change, revoke or cancel the authorization of TwentyTwenty to complete the order. If any order has been partially matched, you can cancel the unmatched portion of the order, but not if the unmatched portion has been matched. Niuniu reserves the right to reject any cancellation request related to the order after you submit the order. If you do not have a sufficient amount of digital currency in your account to fulfill an order, 9 niu may cancel the entire order or fulfill a portion of the order that can be covered by the digital currency in your account (in each case, after deducting any expenses payable to 9 niu in connection with the transaction, as described in paragraph (c) below).'
 root.helpUserAgreement.over_5 = '●  cost'
-root.helpUserAgreement.over_6 = 'You agree to pay EUNEX the stated fee, which may be renewed at any time at EUNEX\'s discretion. Any renewal fee will apply to any sale or other transaction that occurs after the effective date of the renewal fee. You authorize EUNEX to deduct from your account any applicable fees you owe under these terms of use.'
+root.helpUserAgreement.over_6 = 'You agree to pay TwentyTwenty the stated fee, which may be renewed at any time at TwentyTwenty\'s discretion. Any renewal fee will apply to any sale or other transaction that occurs after the effective date of the renewal fee. You authorize TwentyTwenty to deduct from your account any applicable fees you owe under these terms of use.'
 root.helpUserAgreement.duty = '八. responsibility'
 root.helpUserAgreement.duty_2 = '●  Warranty disclaimer'
-root.helpUserAgreement.duty_3 = 'Within the scope of the applicable laws allow maximum, the service, the nine cattle materials and provided by the nine cattle for or on behalf of the nine cattle any product, service or other projects are in the "status quo" and "available", on the basis of the nine cows give up clearly at the same time, you also give up, all other guarantee of any kind, whether express or implied, including but not limited to, marketability, the specific use suitability, title or non-infringement or due to the performance of the process, the transaction process or use of guarantee. Without limiting the above provisions, ngau makes no representations or warranties as to the accuracy, completeness, reliability, validity, error free or virus-free or other harmful ingredients of the website, services or ngau materials. 9 niu does not warrant that any order will be executed, accepted, recorded or maintained in an incomplete state. Except as expressly stated herein, you hereby acknowledge and agree that you do not rely on any other written or oral representations or agreements for your use and acquisition of the services. Without limiting the foregoing, you hereby understand and agree that EUNEX shall not be liable for any loss or damage arising out of or in connection with :(A) inaccuracy, defect or omission of digital currency price data; (B) any error or delay in such data transmission; (C) interruption of such data and (D) any damage caused by ACTS, omissions or breaches of this agreement by other users.'
+root.helpUserAgreement.duty_3 = 'Within the scope of the applicable laws allow maximum, the service, the nine cattle materials and provided by the nine cattle for or on behalf of the nine cattle any product, service or other projects are in the "status quo" and "available", on the basis of the nine cows give up clearly at the same time, you also give up, all other guarantee of any kind, whether express or implied, including but not limited to, marketability, the specific use suitability, title or non-infringement or due to the performance of the process, the transaction process or use of guarantee. Without limiting the above provisions, ngau makes no representations or warranties as to the accuracy, completeness, reliability, validity, error free or virus-free or other harmful ingredients of the website, services or ngau materials. 9 niu does not warrant that any order will be executed, accepted, recorded or maintained in an incomplete state. Except as expressly stated herein, you hereby acknowledge and agree that you do not rely on any other written or oral representations or agreements for your use and acquisition of the services. Without limiting the foregoing, you hereby understand and agree that TwentyTwenty shall not be liable for any loss or damage arising out of or in connection with :(A) inaccuracy, defect or omission of digital currency price data; (B) any error or delay in such data transmission; (C) interruption of such data and (D) any damage caused by ACTS, omissions or breaches of this agreement by other users.'
 root.helpUserAgreement.duty_4 = 'The implied warranty disclaimer contained in this agreement may not apply if it is prohibited by the applicable law of the jurisdiction in which you live.'
 root.helpUserAgreement.duty_5 = '●  Disclaimer of liability and limitation of liability'
 root.helpUserAgreement.duty_6 = 'Within the scope of the applicable laws allow maximum, nine cattle, its affiliates and their respective shareholders, members, directors, officers, employees, attorneys, agents, representatives, suppliers or contractors are under any circumstances for any performance of this service, the service or fails to perform or provided by or on behalf of nine cattle and its affiliated institutions nine cattle provide other product, service or other project caused any incidental, indirect, special, punitive, consequential or similar damages or liability (including but not limited to data, information, income, profit or other loss of business or financial interest) is not responsible for, Whether by contract, regulation, strict liability or other doctrine, even if nine cattle has been informed of the possibility of harm, unless the ultimate judicial determination is that such harm was caused by gross negligence, fraud, intentional misconduct or intentional violation of the law. Some jurisdictions do not allow the exclusion or limitation of incidental or consequential damages, so the above restrictions may not apply to you.'
@@ -252,26 +252,26 @@ root.helpUserAgreement.duty_7 = 'Notwithstanding the foregoing, in any case, nin
 root.helpUserAgreement.duty_8 = '●  The compensation'
 root.helpUserAgreement.duty_9 = 'You agree to compensate the nine cattle, its affiliates, contractors, the licensor and their respective directors, officers, employees and agents, and make them from or related to the following reasons for the following reasons caused any claims, lawsuits, procedure, investigation, demands, proceedings, costs, expenses and damages (including attorney\'s fees, fines or any regulatory authority in charge fines) : you use the service or related to this service behavior; You violate the terms of service or we enforce the terms of service; Or you violate any applicable laws, regulations or the rights of any third party during the use of the services. If you are obligated to indemnify 9 niu, its affiliates, contractors, licensors and their respective directors, officers, employees or agents under these terms of service, 9 niu shall have the right to control any litigation or proceedings and determine whether 9 niu wishes to settle and, if so, on what terms.'
 root.helpUserAgreement.relief = '九. The announcement'
-root.helpUserAgreement.relief_1 = 'Please note that all official announcements, news, promotions and other operational activity information will be published through the official website (https://www.eunex.group). We hope all users will check these materials regularly. If users suffer personal losses due to ignorance or negligence of the announcement, EUNEX will not assume any liability for compensation.'
+root.helpUserAgreement.relief_1 = 'Please note that all official announcements, news, promotions and other operational activity information will be published through the official website (https://www.2020.exchange). We hope all users will check these materials regularly. If users suffer personal losses due to ignorance or negligence of the announcement, TwentyTwenty will not assume any liability for compensation.'
 root.helpUserAgreement.relief_2 = '十. Agreement to terminate'
 root.helpUserAgreement.relief_3 = 'You agree to nine cattle shall have the right to immediately suspend your account for any reason at all (and related entities or affiliates beneficially owned any account), frozen or lock all funds in such accounts, and suspend your access to nine cattle, including any such account on suspicion of violating the terms of use, our privacy statement, or any applicable laws and regulations. You agree that niuniu shall not be responsible for any permanent or temporary modification of your account, or for suspending or terminating access to all or part of the services. Niuniu reserves the right to keep and use data or other information related to transactions in the account. The above account control may also apply to the following situations:'
 root.helpUserAgreement.relief_4 = 'a. The account is subject to government proceedings, criminal investigations or other pending litigation;'
 root.helpUserAgreement.relief_5 = 'b. We found abnormal activity in the account;'
 root.helpUserAgreement.relief_6 = 'c. We detected illegal access to the account;'
-root.helpUserAgreement.relief_7 = 'By order of the court or by order of the regulatory/government agency, we must do so. In the event of any of the following events, EUNEX shall have the right to terminate this agreement directly by canceling your account, and shall have the right to permanently freeze (cancel) the authorization you granted EUNEX with respect to the account and to cancel the corresponding EUNEX account:'
-root.helpUserAgreement.relief_8 = '●  EUNEX ceases to provide services to you;'
-root.helpUserAgreement.relief_9 = '●  You are again identified as registered directly or indirectly as a EUNEX user in the name of any other person;'
+root.helpUserAgreement.relief_7 = 'By order of the court or by order of the regulatory/government agency, we must do so. In the event of any of the following events, TwentyTwenty shall have the right to terminate this agreement directly by canceling your account, and shall have the right to permanently freeze (cancel) the authorization you granted TwentyTwenty with respect to the account and to cancel the corresponding TwentyTwenty account:'
+root.helpUserAgreement.relief_8 = '●  TwentyTwenty ceases to provide services to you;'
+root.helpUserAgreement.relief_9 = '●  You are again identified as registered directly or indirectly as a TwentyTwenty user in the name of any other person;'
 root.helpUserAgreement.relief_10 = '●  The information you provide is not true, accurate, outdated or complete;'
-root.helpUserAgreement.relief_11 = '●  When modifying the terms of service, you expressly declare and inform EUNEX that you are not willing to accept the revised terms;'
+root.helpUserAgreement.relief_11 = '●  When modifying the terms of service, you expressly declare and inform TwentyTwenty that you are not willing to accept the revised terms;'
 root.helpUserAgreement.relief_12 = '●  You request termination of service;'
-root.helpUserAgreement.relief_13 = '●  Any other circumstances under which EUNEX believes the service should be terminated.'
+root.helpUserAgreement.relief_13 = '●  Any other circumstances under which TwentyTwenty believes the service should be terminated.'
 root.helpUserAgreement.relief_14 = 'If your account is terminated, account and transaction information that meets the data retention criteria will be held securely for 10 years. In addition, if any transaction has not been completed during the termination of the account, niuniu has the right to inform your counterparty of the situation at that time. You agree that user initiated account withdrawal (GDPR or other erasure rights under the same regulations) will also be subject to the termination agreement mentioned above.'
-root.helpUserAgreement.relief_15 = 'If EUNEX is informed that any funds in your account have been stolen or are not legally owned by you, EUNEX may, but shall not be obliged to, manage and control the affected funds and your account. If it is necessary to manage and control some or all of the funds or accounts, EUNEX may continue to hold them. Except as provided in the provisions of this paragraph, all balances in the accounts (including fees and debts owed to EUNEX) shall be immediately paid to EUNEX upon the closing/cancellation of the accounts. Upon payment of all outstanding fees (if any) to EUNEX, the user will have 5 working days to withdraw all funds from the account.'
+root.helpUserAgreement.relief_15 = 'If TwentyTwenty is informed that any funds in your account have been stolen or are not legally owned by you, TwentyTwenty may, but shall not be obliged to, manage and control the affected funds and your account. If it is necessary to manage and control some or all of the funds or accounts, TwentyTwenty may continue to hold them. Except as provided in the provisions of this paragraph, all balances in the accounts (including fees and debts owed to TwentyTwenty) shall be immediately paid to TwentyTwenty upon the closing/cancellation of the accounts. Upon payment of all outstanding fees (if any) to TwentyTwenty, the user will have 5 working days to withdraw all funds from the account.'
 root.helpUserAgreement.relief_16 = 'Account for fraud, illegal or in violation of our terms of use and the rest of their money, after termination of nine cattle retain full custody of funds and the user data/information rights, and due to fraud investigation, the investigation of illegal or in violation of these terms of use in account suspended/closed, under the condition of the capital and the user data/information may be handed over to the government.'
 root.helpUserAgreement.law = '十一． Non-financial proposal'
-root.helpUserAgreement.law_1 = 'EUNEX is not your broker, intermediary, agent or consultant, and there is no fiduciary relationship or fiduciary obligation between EUNEX and you in any transaction or other decision or activity you make using the services. No communication or information provided to you by niuniu shall be deemed or construed as investment advice, financial advice, trading advice or any other type of advice. All trades are automatically executed based on the parameters of your order description and published trade execution procedures. You are solely responsible for determining whether any investment, investment strategy or related transaction is suitable for you based on your personal investment objectives, financial status and risk tolerance. You should consult a legal or tax professional about your specific situation. EUNEX does not recommend buying, acquiring, selling or holding any digital currency. Before making a decision to buy, sell or hold any digital currency, you should conduct due diligence and consult your financial adviser before making any investment decisions. EUNEX is not responsible for your decision to purchase, sell or hold digital currency based on the information provided by EUNEX.'
+root.helpUserAgreement.law_1 = 'TwentyTwenty is not your broker, intermediary, agent or consultant, and there is no fiduciary relationship or fiduciary obligation between TwentyTwenty and you in any transaction or other decision or activity you make using the services. No communication or information provided to you by niuniu shall be deemed or construed as investment advice, financial advice, trading advice or any other type of advice. All trades are automatically executed based on the parameters of your order description and published trade execution procedures. You are solely responsible for determining whether any investment, investment strategy or related transaction is suitable for you based on your personal investment objectives, financial status and risk tolerance. You should consult a legal or tax professional about your specific situation. TwentyTwenty does not recommend buying, acquiring, selling or holding any digital currency. Before making a decision to buy, sell or hold any digital currency, you should conduct due diligence and consult your financial adviser before making any investment decisions. TwentyTwenty is not responsible for your decision to purchase, sell or hold digital currency based on the information provided by TwentyTwenty.'
 root.helpUserAgreement.law_2 = '十二. Legal constraints'
-root.helpUserAgreement.law_3 = 'Users are responsible for complying with local laws relating to their local use of EUNEX services. Users must also consider all aspects of taxation, including withholding, collection, reporting and remittance to their respective tax authorities, in accordance with local law. All users of EUNEX and any of its services acknowledge and declare that the source of its funds is legal and does not result from illegal activities. EUNEX will continue to cooperate with law enforcement agencies around the world and will not hesitate to seize, freeze or terminate user accounts and funds authorized by law to cancel or investigate.'
+root.helpUserAgreement.law_3 = 'Users are responsible for complying with local laws relating to their local use of TwentyTwenty services. Users must also consider all aspects of taxation, including withholding, collection, reporting and remittance to their respective tax authorities, in accordance with local law. All users of TwentyTwenty and any of its services acknowledge and declare that the source of its funds is legal and does not result from illegal activities. TwentyTwenty will continue to cooperate with law enforcement agencies around the world and will not hesitate to seize, freeze or terminate user accounts and funds authorized by law to cancel or investigate.'
 root.helpUserAgreement.law_4 = '十三. other'
 root.helpUserAgreement.law_5 = '●  In the performance of these terms of use, the independent party is an independent contractor and not your agent. These terms of use shall not be construed as evidence of association, joint venture, partnership or franchise between the parties.'
 root.helpUserAgreement.law_7 = '●  Entire agreement this terms of use constitute the entire agreement between the parties regarding the use of the services and supersede all prior written or oral agreements between the parties. The parties shall not modify, interpret, supplement or change the terms of these terms of use by using transactions or other conventional practices or trading methods.'
@@ -279,7 +279,7 @@ root.helpUserAgreement.law_8 = '●  Force majeure 9niu shall not be liable for
 root.helpUserAgreement.law_9 = '●  Severable terms if any part of these terms of use is held to be invalid or unenforceable, this invalidity or unenforceability will not affect the other terms of these terms of use, which will remain in full force and effect, and the invalid or unenforceable part will remain in force to the maximum extent possible.'
 root.helpUserAgreement.law_10 = '●  Transfer without our prior written consent, you may not transfer or transfer any right to use the services or any right or obligation you have under these terms of use, including by law or in connection with a change of control. 9niu May transfer or assign all or all of its rights or obligations under these terms of use, in whole or in part, without notice or approval from you.'
 root.helpUserAgreement.law_11 = '●  The failure of the waiving party to require performance of any provision shall not affect the right of the waiving party to require performance at any time thereafter, and a waiver of any violation or violation of the terms of use or any provision of the applicable terms shall not constitute a waiver of any subsequent breach or violation or of the terms themselves.'
-root.helpUserAgreement.law_12 = '●  Disclaimer of third party website any link to third party website in this service does not mean that EUNEX accepts any products, services or information provided therein, and EUNEX does not guarantee the accuracy of the information contained therein. In addition, you should carefully read and understand the terms of use or privacy practices of third party websites, which you cannot control.'
+root.helpUserAgreement.law_12 = '●  Disclaimer of third party website any link to third party website in this service does not mean that TwentyTwenty accepts any products, services or information provided therein, and TwentyTwenty does not guarantee the accuracy of the information contained therein. In addition, you should carefully read and understand the terms of use or privacy practices of third party websites, which you cannot control.'
 
 // 工单
 root.helpWordOrder = {}
@@ -288,9 +288,9 @@ root.helpWordOrder.order_request = 'Submit a request'
 root.helpWordOrder.form_select_type = 'Please select your issue below.'
 root.helpWordOrder.form_title = 'Subject'
 root.helpWordOrder.form_descript = 'Description'
-root.helpWordOrder.form_email = 'EUNEX Account Email'
+root.helpWordOrder.form_email = 'TwentyTwenty Account Email'
 root.helpWordOrder.form_email_descript = 'We will email the result to you.'
-root.helpWordOrder.sms = 'EUNEX Account Phone Number'
+root.helpWordOrder.sms = 'TwentyTwenty Account Phone Number'
 root.helpWordOrder.file = 'Attachments'
 root.helpWordOrder.file_descript_1 = 'Add a file'
 root.helpWordOrder.file_descript_2 = 'or drop a file here'
@@ -317,13 +317,13 @@ root.homePageMarket.volume = '24h Volume'
 
 // 关于我们
 // 英文版建议：第一行：An innovative blockchain asset trading platform；第二行：Dedicated to provide for digital asset traders around the world ；第三行：Efficient, Steady, Secure, People-oriented Trading Experiences
-// 英文版第四段：EUNEX is a global blockchain asset trading platform, operated by Canadian Digital Asset Exchange Inc. incorporated in Canada under the laws of Canada. EUNEX is dedicated to digital asset trading and the provision of related services. EUNEX uses Google Cloud Services and self-developed platform trading solutions supporting dynamic/static data separation. EUNEX offers a high-level security and risk management measures including hot/cold wallet isolation to protect our clients. EUNEX ensures the users a stable, secure, extremely efficient trading experience. EUNEX team believe in Sharing Economy, Community Economy, and People-oriented Service. EUNEX will direct the platform all-round to meet the needs of users of asset allocation.
+// 英文版第四段：TwentyTwenty is a global blockchain asset trading platform, operated by Canadian Digital Asset Exchange Inc. incorporated in Canada under the laws of Canada. TwentyTwenty is dedicated to digital asset trading and the provision of related services. TwentyTwenty uses Google Cloud Services and self-developed platform trading solutions supporting dynamic/static data separation. TwentyTwenty offers a high-level security and risk management measures including hot/cold wallet isolation to protect our clients. TwentyTwenty ensures the users a stable, secure, extremely efficient trading experience. TwentyTwenty team believe in Sharing Economy, Community Economy, and People-oriented Service. TwentyTwenty will direct the platform all-round to meet the needs of users of asset allocation.
 root.indexAboutUs = {}
 root.indexAboutUs.headertitle = 'About'
-root.indexAboutUs.title = 'EUNEX(www.eunex.group)是加拿大的创新型区块链资产交易平台'
-root.indexAboutUs.descript_1 = 'EUNEX致力于为全球区块链资产爱好者提供专业、高速、稳定、便捷、创新的区块链资产兑换服务'
-root.indexAboutUs.descript_2 = 'EUNEX隶属于Canadian Digital Asset Exchange Inc'
-root.indexAboutUs.descript_3 = 'EUNEX自始至终将全球区块链资产爱好者的服务体验作为企业发展的基石和力量的源泉，汇集全球智慧共'
+root.indexAboutUs.title = 'TwentyTwenty(www.2020.exchange)是加拿大的创新型区块链资产交易平台'
+root.indexAboutUs.descript_1 = 'TwentyTwenty致力于为全球区块链资产爱好者提供专业、高速、稳定、便捷、创新的区块链资产兑换服务'
+root.indexAboutUs.descript_2 = 'TwentyTwenty隶属于Canadian Digital Asset Exchange Inc'
+root.indexAboutUs.descript_3 = 'TwentyTwenty自始至终将全球区块链资产爱好者的服务体验作为企业发展的基石和力量的源泉，汇集全球智慧共'
 root.indexAboutUs.descript_4 = '同推动区块链技术在世界范围的创新和应用'
 root.indexAboutUs.descript_5 = '安全稳定'
 root.indexAboutUs.descript_6 = '“架构稳定、冷热分离、多重签名”共同维护资产安全'
@@ -341,9 +341,9 @@ root.indexFooter.apply = 'Apply to list'
 root.indexFooter.rate = 'Fees'
 root.indexFooter.contactUs = 'Contact'
 root.indexFooter.qrCodeDescript_1 = 'WeChat'
-root.indexFooter.qrCodeDescript_2 = 'EUNEX Community'
+root.indexFooter.qrCodeDescript_2 = 'TwentyTwenty Community'
 root.indexFooter.qrCodeDescript_3 = 'Join discussion'
-root.indexFooter.email = 'Email:EUNEX@service.com'
+root.indexFooter.email = 'Email:TwentyTwenty@service.com'
 root.indexFooter.prompt = 'Digital asset market is highly risky, please invest cautiously'
 
 // 用户下拉
@@ -381,11 +381,11 @@ root.indexShare.detail_11 = 'Most referrals: 30000 BDB'
 root.indexShare.detail_12 = '2nd -10th: 10000 BDB each person'
 root.indexShare.detail_13 = '11th -30th: 2000 BDB each person'
 root.indexShare.detail_14 = 'BDB bonus will be settled within 2 days after announcement'
-root.indexShare.detail_15 = 'For a long time, the end time is based on the announcement of EUNEX platform'
+root.indexShare.detail_15 = 'For a long time, the end time is based on the announcement of TwentyTwenty platform'
 root.indexShare.prompt = 'Notice：'
 root.indexShare.prompt_1 = '*You and your invitee must successfully signup and finish KYC verification.'
-root.indexShare.prompt_2 = '*EUNEX reserves the right to cancel the reward if any malicious behaviour is involved.'
-root.indexShare.prompt_3 = '*EUNEX reserve the right to update the contents and the final interpretation of this announcement. '
+root.indexShare.prompt_2 = '*TwentyTwenty reserves the right to cancel the reward if any malicious behaviour is involved.'
+root.indexShare.prompt_3 = '*TwentyTwenty reserve the right to update the contents and the final interpretation of this announcement. '
 root.indexShare.prompt_4 = 'let\'s go'
 
 
@@ -394,7 +394,7 @@ root.noticeCenter = {}
 root.noticeCenter.title = 'Announcement'
 root.noticeCenter.search = 'Search'
 root.noticeCenter.commit = 'Submit Request'
-root.noticeCenter.problem = 'Learn more about EUNEX launch'//?????
+root.noticeCenter.problem = 'Learn more about TwentyTwenty launch'//?????
 root.noticeCenter.more = 'More>>'
 
 
@@ -575,7 +575,7 @@ root.personalCenterAuthAuthenticationState.available = 'Available：'
 root.personalCenterAuthAuthenticationState.idCode = 'ID number'
 root.personalCenterAuthAuthenticationState.frozen = 'In use'
 root.personalCenterAuthAuthenticationState.promptTitle = 'Homepage'
-root.personalCenterAuthAuthenticationState.promptArticle_1 = '( www.eunex.group )'//？？
+root.personalCenterAuthAuthenticationState.promptArticle_1 = '( www.2020.exchange )'//？？
 root.personalCenterAuthAuthenticationState.promptArticle_2 = 'ID verification'
 root.personalCenterAuthAuthenticationState.promptEnsure = 'I understand. '
 
@@ -603,13 +603,13 @@ root.personalCenterToAuthenticate.front_other = 'Front of the passport'
 root.personalCenterToAuthenticate.back_other = 'Personal information page of the passport'
 root.personalCenterToAuthenticate.hold_other = 'A photo of you holding the personal information page of the passport and note'
 root.personalCenterToAuthenticate.prompt_detail_china_1 = '1.Please ensure the contents of the photo are complete and clearly visible, the ID card must be valid for the validity period, only support jpg format, picture size 2M.'
-root.personalCenterToAuthenticate.prompt_detail_china_2 = '2.Selfie: Photo of you holding the picture ID and a note with "eunex.group", your signature, the present date and time'
+root.personalCenterToAuthenticate.prompt_detail_china_2 = '2.Selfie: Photo of you holding the picture ID and a note with "2020.exchange", your signature, the present date and time'
 root.personalCenterToAuthenticate.prompt_detail_china_3 = 'Portrait clear'
 root.personalCenterToAuthenticate.prompt_detail_china_4 = 'ID number visible'
 root.personalCenterToAuthenticate.prompt_detail_china_5 = 'Note Visible'
 root.personalCenterToAuthenticate.prompt_detail_china_6 = 'Note contains present informaiton'
 root.personalCenterToAuthenticate.prompt_detail_other_1 = '1.Please ensure the contents of the photo are complete and clearly visible, the ID card must be valid for the validity period, only support jpg format, picture size 2M.'
-root.personalCenterToAuthenticate.prompt_detail_other_2 = '2.Selfie: Photo of you holding information page of your passport and a note with "eunex.group", your signature, the present date and time.'//？？认证当天的证明文件
+root.personalCenterToAuthenticate.prompt_detail_other_2 = '2.Selfie: Photo of you holding information page of your passport and a note with "2020.exchange", your signature, the present date and time.'//？？认证当天的证明文件
 root.personalCenterToAuthenticate.prompt_detail_other_3 = 'Portrait clear'
 root.personalCenterToAuthenticate.prompt_detail_other_4 = 'ID number visible'
 root.personalCenterToAuthenticate.prompt_detail_other_5 = 'Note visible'
@@ -636,11 +636,11 @@ root.personalCenterRecommend.yihuorenshu = 'Real-name number (person)'
 root.personalCenterRecommend.yihuodejinbi = 'Gold COINS have been acquired'
 
 root.personalCenterRecommend.yaoqingxz = 'Bonus details of invitation for commission rebate'
-root.personalCenterRecommend.yaoqingxz_1 = '1. During the activity, each friend invited to register the trading platform and complete the real-name authentication can get 100 EUNEX gold COINS;'
-root.personalCenterRecommend.yaoqingxz_2 = '2. When the inviter is certified and completes the first transaction, the inviter can receive 500 additional EUNEX gold COINS;'
+root.personalCenterRecommend.yaoqingxz_1 = '1. During the activity, each friend invited to register the trading platform and complete the real-name authentication can get 100 TwentyTwenty gold COINS;'
+root.personalCenterRecommend.yaoqingxz_2 = '2. When the inviter is certified and completes the first transaction, the inviter can receive 500 additional TwentyTwenty gold COINS;'
 root.personalCenterRecommend.yaoqingxz_3 = '3. There is no upper limit on the number of friends to invite and no upper limit on accumulated gold COINS to invite;'
-root.personalCenterRecommend.yaoqingxz_4 = '4. EUNEX gold COINS can be used for subsequent new currency exchange and offline private activity registration.'
-root.personalCenterRecommend.yaoqingxz_5 = 'If you have any questions about the activity, you can consult the customer service on the official website www.eunex.group.'
+root.personalCenterRecommend.yaoqingxz_4 = '4. TwentyTwenty gold COINS can be used for subsequent new currency exchange and offline private activity registration.'
+root.personalCenterRecommend.yaoqingxz_5 = 'If you have any questions about the activity, you can consult the customer service on the official website www.2020.exchange.'
 
 root.personalCenterRecommend.nohavedata = 'No record yet. Invite your friends'
 
@@ -802,7 +802,7 @@ root.register.passwordInput = 'Password (8-16 digits and letters)'
 root.register.passwordConfirm = 'Confirm password'
 root.register.referee = 'Invitation code ( Optional )'
 root.register.agree = 'I understand and agree'
-root.register.agreement = 'eunex.group\'s User Agreement'
+root.register.agreement = '2020.exchange\'s User Agreement'
 root.register.register = 'Sign up'
 root.register.haveID = 'I already have an account'
 root.register.login = 'Log in'
@@ -1111,7 +1111,7 @@ root.indexAboutUs.descript_12 = 'We Offer'
 //2018.1.28 关于我们
 // 关于我们
 root.indexAboutUs.headertitle = 'About US'
-root.indexAboutUs.title = 'EUNEX is an innovative blockchain asset trading platform'
+root.indexAboutUs.title = 'TwentyTwenty is an innovative blockchain asset trading platform'
 root.indexAboutUs.descript_1 = 'Operated by HongKong Digital Currency And Token Clearing Trading Co . ,Limited Website:'
 root.indexAboutUs.descript_2 = 'Efficient, Secure, People-oriented Trading Experiences'
 root.indexAboutUs.descript_3 = 'Provide for digital asset traders around the world'
@@ -1143,7 +1143,7 @@ root.progressBar.chargingMoney = 'Deposit'
 //2018.2.2 新增内容
 root.personalCenterToAuthenticate.popWindowTitle = 'Verification faliure'
 root.personalCenterToAuthenticate.popWindowArticle_0 = 'There is an abnormality with your KYC verification, please fill out the form again！'
-root.personalCenterToAuthenticate.popWindowArticle_1 = 'You must be between 18-65 years old in order to register EUNEX.'
+root.personalCenterToAuthenticate.popWindowArticle_1 = 'You must be between 18-65 years old in order to register TwentyTwenty.'
 root.personalCenterToAuthenticate.notGoToWordOrder = 'Cancel'
 root.personalCenterToAuthenticate.goToWordOrder = 'Submit request'
 
@@ -1177,7 +1177,7 @@ root.personalCenterToAuthenticate.imageMsg_0 = 'Invalid image format'
 root.orderPageHistoricalEntrustmentDetail.shouldCharge = 'Fee'
 
 //2.5 新增内容
-root.noticeCenter.openNotice = 'EUNEX deposit function is available now！'
+root.noticeCenter.openNotice = 'TwentyTwenty deposit function is available now！'
 
 
 //2018.2.7 新增内容
@@ -1203,7 +1203,7 @@ root.assetPageWithdrawalsRecord.popText_1 = 'Order has been cancelled'
 root.assetPageWithdrawalsRecord.popText_2 = 'Temporarily unavailable'
 
 root.noticeCenter.title_2 = 'Referral list rewards announcement!'
-root.noticeCenter.title_3 = 'EUNEX open withdrawal function!'
+root.noticeCenter.title_3 = 'TwentyTwenty open withdrawal function!'
 
 
 //2018.2.8 新增内容
@@ -1233,7 +1233,7 @@ root.currencyIntroduction.title_7 = 'Blockchain explorer:'
 root.currencyIntroduction.detail_7 = 'https://etherscan.io/address/0xedc502b12ced7e16ce21749e7161f9ed22bfca53'
 
 
-root.currencyIntroduction.introduction_BDB = 'EUNEX trading platform issues Token, EUNEX coin (BDB for short). BDB is a point system with ERC20 Token Standard based on smart contract in Ethereum. The total supply of BDB is 200 million and will never be issued again. 30% income of the platform transaction fee will be destroyed monthly, and continues to be destroyed. BDB, as the fuel of EUNEX eco-system, has been applied to several scenarios. For instance, BDB is used to deduct transaction fee with a 40% discount. More applications will be introduced in the future.'
+root.currencyIntroduction.introduction_BDB = 'TwentyTwenty trading platform issues Token, TwentyTwenty coin (BDB for short). BDB is a point system with ERC20 Token Standard based on smart contract in Ethereum. The total supply of BDB is 200 million and will never be issued again. 30% income of the platform transaction fee will be destroyed monthly, and continues to be destroyed. BDB, as the fuel of TwentyTwenty eco-system, has been applied to several scenarios. For instance, BDB is used to deduct transaction fee with a 40% discount. More applications will be introduced in the future.'
 root.currencyIntroduction.title_BDB_0 = 'Issue date:'
 root.currencyIntroduction.detail_BDB_0 = 'January 10, 2018'
 root.currencyIntroduction.title_BDB_1 = 'Total supply:'
@@ -1241,7 +1241,7 @@ root.currencyIntroduction.detail_BDB_1 = '200 million'
 root.currencyIntroduction.title_BDB_2 = 'In circulation:'
 root.currencyIntroduction.detail_BDB_2 = '100 million'
 root.currencyIntroduction.title_BDB_3 = 'Homepage:'
-root.currencyIntroduction.detail_BDB_3 = 'https://www.eunex.group'
+root.currencyIntroduction.detail_BDB_3 = 'https://www.2020.exchange'
 root.currencyIntroduction.title_BDB_4 = 'Blockchain explorer:'
 root.currencyIntroduction.detail_BDB_4 = 'https://etherscan.io/token/0x0fed2aca55338d77438797bdf609252db92313ea'
 
@@ -1361,7 +1361,7 @@ root.mobileAssetRechargeDetail.toastArticle = 'Due to abnormal activities, your 
 // 2018.2.28 公告翻译
 root.noticeDetail = {}
 root.noticeDetail.titleDetail = 'detail'
-root.noticeDetail.team = 'EUNEX team'
+root.noticeDetail.team = 'TwentyTwenty team'
 
 root.noticeCenter.loadingMore = 'Load more'
 root.noticeCenter.loadingMoreIng = 'Loading...'
@@ -1373,7 +1373,7 @@ root.personalCenterRecommend.activityTitle = 'Referral program'
 root.personalCenterRecommend.activityArticle_1 = '1、This is a long-term program;'
 root.personalCenterRecommend.activityArticle_2 = '2、Commission will be settled monthly and issued on the 8th of the following month;'
 root.personalCenterRecommend.activityArticle_3 = '3、Get a 30% commission of your referrals trading fee for 1 year;'
-root.personalCenterRecommend.activityArticle_4 = '4、Further adjustments of this program will be subjected to the platform announcement. The final interpretation belongs to EUNEX.'
+root.personalCenterRecommend.activityArticle_4 = '4、Further adjustments of this program will be subjected to the platform announcement. The final interpretation belongs to TwentyTwenty.'
 root.personalCenterRecommend.activityFooterButton = 'I understand'
 
 
@@ -1467,13 +1467,13 @@ root.assetPagePlatformReward.description_12 = 'IOST transaction reward'
 root.assetPagePlatformReward.description_13 = 'IOST registration reward'
 
 // 3-14
-root.assetPagePlatformReward.description_14 = 'EUNEX reward'
+root.assetPagePlatformReward.description_14 = 'TwentyTwenty reward'
 
 
 // 抽奖活动 2018-3-22
 root.luckDraw = {};
 root.luckDraw.Awards = 'awards'
-root.luckDraw.luckDraw_tips = 'Join EUNEX March referral program，win 100,000 BDB and iPhone X'
+root.luckDraw.luckDraw_tips = 'Join TwentyTwenty March referral program，win 100,000 BDB and iPhone X'
 root.luckDraw.KYC = 'Please complete your KYC verifiction before the draw'
 root.luckDraw.Verify = 'Verify now'
 root.luckDraw.Noprize = 'No prize. Please try again for the Lottery'
@@ -1481,19 +1481,19 @@ root.luckDraw.Tryagain = 'Try again'
 root.luckDraw.Nochances = 'You have 0 chances left. Invite a friend and get one more draw'
 root.luckDraw.Invitefriend = 'Invite a friend'
 root.luckDraw.Submit = 'Submit'
-root.luckDraw.Luck_user = 'please enter your mailing address, EUNEX Assistant will mail you the awards'
+root.luckDraw.Luck_user = 'please enter your mailing address, TwentyTwenty Assistant will mail you the awards'
 root.luckDraw.Formuser = 'your name'
 root.luckDraw.Formphone = 'phone number'
 root.luckDraw.Formaddress = 'mailing address'
 root.luckDraw.ActiveTime = 'Time'
 root.luckDraw.Times = '2018/03/30 10:00 – 2018/03/31 18:00 HKT'
 root.luckDraw.notice_1 = 'Rules'
-root.luckDraw.notice_2 = 'EUNEX members finished KYC verification will get three draws to EUNEX Lottery!'
-root.luckDraw.notice_3 = 'EUNEX members invited a friend to register and finish KYC verification can get one more draw to the Lottery!'
+root.luckDraw.notice_2 = 'TwentyTwenty members finished KYC verification will get three draws to TwentyTwenty Lottery!'
+root.luckDraw.notice_3 = 'TwentyTwenty members invited a friend to register and finish KYC verification can get one more draw to the Lottery!'
 root.luckDraw.notice_4 = 'Settlement'
 root.luckDraw.notice_5 = 'BDB prizes will be settled 2 days after the event!'
 root.luckDraw.notice_6 = 'Other prizes will be settled later after the event!'
-root.luckDraw.notice_7 = '*EUNEX reserves the right of further interpretation of this event!'
+root.luckDraw.notice_7 = '*TwentyTwenty reserves the right of further interpretation of this event!'
 root.luckDraw.Congratulations = 'Congratulations, you have won the prize of'
 root.luckDraw.Congratulate = 'Congratulation'
 root.luckDraw.inset_person = 'BDB bonuses will be settled after the event and can be reviewed at Account Bonus'
@@ -1501,7 +1501,7 @@ root.luckDraw.luck_gift_0 = '100,000 BDB'
 root.luckDraw.luck_gift_6 = 'Fabulous cruise tour for 2'
 root.luckDraw.luck_gift_2 = 'Iphone X 256G'
 root.luckDraw.luck_gift_4 = 'Ipad 128G'
-root.luckDraw.luck_gift_1 = 'Cool T shirt with EUNEX Logo'
+root.luckDraw.luck_gift_1 = 'Cool T shirt with TwentyTwenty Logo'
 root.luckDraw.luck_gift_5 = '50 BDB'
 root.luckDraw.luck_gift_3 = '3 BDB'
 
@@ -1522,11 +1522,11 @@ root.recommendedMaid.rule = 'Referral program'
 root.recommendedMaid.rule_1 = '1. This is a long-term program;'
 root.recommendedMaid.rule_2 = '2. Commission will be settled monthly and issued on the 8th of the following month;'
 root.recommendedMaid.rule_3 = '3. Get a 30% commission of your referrals trading fee for 1 year;'
-root.recommendedMaid.rule_4 = '4. Further adjustments of this program will be subjected to the platform announcement.The final interpretation belongs to EUNEX.'
+root.recommendedMaid.rule_4 = '4. Further adjustments of this program will be subjected to the platform announcement.The final interpretation belongs to TwentyTwenty.'
 
 //安卓上线
 root.staticAndroidOnline = {}
-root.staticAndroidOnline.title_1 = 'EUNEX App for Mobile'
+root.staticAndroidOnline.title_1 = 'TwentyTwenty App for Mobile'
 root.staticAndroidOnline.title_2 = 'Exchange where ever and whenever'
 root.staticAndroidOnline.downloadAndroid = 'Android download'
 root.staticAndroidOnline.downloadIOS = 'IOS download'
@@ -1534,15 +1534,15 @@ root.staticAndroidOnline.qrCode = 'Recommend using mobile browser to download AP
 root.staticAndroidOnline.tab_1 = 'New events'
 root.staticAndroidOnline.tab_2 = 'Contact us'
 root.staticAndroidOnline.tab_3 = 'Join us'
-root.staticAndroidOnline.tab_1_detail_1 = '1.EUNEX Lottery:Winners get 10 BDB, Cruise Tour for 2, New iPhone X and More!'
-root.staticAndroidOnline.tab_1_detail_2 = '2.EUNEX members who invited a friend to register and finish KYC verification can get 30% commission of their referrals’ transaction fee for one year and extra BDB bonus.'
+root.staticAndroidOnline.tab_1_detail_1 = '1.TwentyTwenty Lottery:Winners get 10 BDB, Cruise Tour for 2, New iPhone X and More!'
+root.staticAndroidOnline.tab_1_detail_2 = '2.TwentyTwenty members who invited a friend to register and finish KYC verification can get 30% commission of their referrals’ transaction fee for one year and extra BDB bonus.'
 root.staticAndroidOnline.tab_2_detail_1 = 'QQ：618019648'
 root.staticAndroidOnline.tab_2_detail_2 = 'Wechat：btcdo_com'
 root.staticAndroidOnline.tab_2_detail_3 = 'Telegram：'
 root.staticAndroidOnline.tab_2_detail_4 = '币用：'
 root.staticAndroidOnline.tab_2_detail_5 = 'Apply to list:'
 root.staticAndroidOnline.tab_3_detail_1 = 'General Marketing and Management'
-root.staticAndroidOnline.tab_3_detail_2 = 'You will be working with people, managing communities with vigor and challenges.Do you have a sharp writing style? Do you want to share opinions on industry hotspots and ideas, come and join us!Do you prefer working with people? Can you handle heated discussions and host event for others? Come and join our EUNEX community.If you are sensitive to numbers and can be responsible for company billing and statistics, come and join us.If you can perform user data analysis and can quickly solve problems, come and join us.'
+root.staticAndroidOnline.tab_3_detail_2 = 'You will be working with people, managing communities with vigor and challenges.Do you have a sharp writing style? Do you want to share opinions on industry hotspots and ideas, come and join us!Do you prefer working with people? Can you handle heated discussions and host event for others? Come and join our TwentyTwenty community.If you are sensitive to numbers and can be responsible for company billing and statistics, come and join us.If you can perform user data analysis and can quickly solve problems, come and join us.'
 root.staticAndroidOnline.tab_3_detail_3 = ''
 root.staticAndroidOnline.tab_3_detail_4 = 'Customer Support'
 root.staticAndroidOnline.tab_3_detail_5 = 'If taking care of others, helping people solve their problems is your thing, then you can literally come and "save the world." We have people from all over the world in need of your help. If you speak other languages in addition to English, that would be especially helpful.'
@@ -1556,9 +1556,9 @@ root.personalCenterSecurityCenterBindGoogleAuthenticator.copyRight = 'Copy compl
 // 2018.3.27 资产安全提醒
 root.assetPage.securityPromptTitleRed = 'Important reminder:'
 root.assetPage.securityPromptTitleNormal_1 = 'Please make you are visting'
-root.assetPage.securityPromptTitleNormal_2 = 'It is the only EUNEX official site.'
-root.assetPage.securityPromptDetail_1 = 'Do not share your password, SMS code, Google Authentication code and key with anyone including EUNEX employees;'
-root.assetPage.securityPromptDetail_2 = 'Do not make any transaction to any unknown third party including EUNEX employees;'
+root.assetPage.securityPromptTitleNormal_2 = 'It is the only TwentyTwenty official site.'
+root.assetPage.securityPromptDetail_1 = 'Do not share your password, SMS code, Google Authentication code and key with anyone including TwentyTwenty employees;'
+root.assetPage.securityPromptDetail_2 = 'Do not make any transaction to any unknown third party including TwentyTwenty employees;'
 root.assetPage.securityPromptDetail_3 = 'Please carefully read through the important reminders and protect your assets\' safety.'
 
 
@@ -1577,7 +1577,7 @@ root.helpJoinUs.join_10 = 'Bug\'s soul seeker'
 root.helpJoinUs.join_11 = 'Don\'t miss a thing.'
 root.helpJoinUs.join_12 = 'Customer spiritual messenger'
 root.helpJoinUs.join_13 = 'Coax people happy, make people happy.'
-root.helpJoinUs.join_14 = 'Join the EUNEX, meet the better you'
+root.helpJoinUs.join_14 = 'Join the TwentyTwenty, meet the better you'
 
 // 2018.3.22 绑定谷歌验证
 root.personalCenterSecurityCenterBindGoogleAuthenticator.copyRight = 'Copy complete'
@@ -1682,7 +1682,7 @@ root.currencyIntroduction.detail_DVT_19 = 'https://etherscan.io/token/0x745a9679
 
 // 2018.3.31 EOS抽奖活动界面
 root.luckDrawEOS = {}
-root.luckDrawEOS.rule_1_detail_1 = '1. EUNEX members who complete the KYC verifications during the event，will get 3 draws to the Lottery;'
+root.luckDrawEOS.rule_1_detail_1 = '1. TwentyTwenty members who complete the KYC verifications during the event，will get 3 draws to the Lottery;'
 root.luckDrawEOS.rule_1_detail_2 = '2. An extra draw will be given to members who has invited a friend to register and complete the KYC verification as well;'
 root.luckDrawEOS.rule_1_detail_3 = '3. The Lottery draws of Mar 30th 2018’s event will be accumulated to this event.'
 root.luckDrawEOS.rule_2_detail_1 = '1. For the first 50 successful referrals in real registration time (KYC verified), inviter will get 1 EOS bonus;'
@@ -1694,7 +1694,7 @@ root.luckDrawEOS.rule_2_detail_6 = ''
 root.luckDrawEOS.rule_3_detail_1 = 'During the event, each friend is invited to register and finished the KYC verification, and the inviter can receive a reward of 30% commission of transaction fees for the invitee within one year.'
 root.luckDrawEOS.rule_3_detail_2 = '1. Reward distribution: Activity awards will be issued within 2 working days;'
 root.luckDrawEOS.rule_3_detail_3 = '2. Any activities of malicious scalping and other misconduct, will lead to the cancellation of the eligibility;'
-root.luckDrawEOS.rule_3_detail_4 = '3. The final interpretation of this activity belongs to EUNEX.'
+root.luckDrawEOS.rule_3_detail_4 = '3. The final interpretation of this activity belongs to TwentyTwenty.'
 root.luckDrawEOS.rule = 'Rules'
 root.luckDrawEOS.Awards = 'awards:'
 root.luckDrawEOS.chance_1 = 'You have'
@@ -1707,7 +1707,7 @@ root.luckDrawEOS.Times = '2018/04/02 15:00 - 2018/04/08 15:00 HKT'
 root.assetPagePlatformReward.description_15 = 'March new member bonus'
 root.assetPagePlatformReward.description_16 = 'March referral bonus'
 root.assetPagePlatformReward.description_17 = 'March referral bonus (KYC verified)'
-root.assetPagePlatformReward.description_18 = 'March EUNEX Lottery'
+root.assetPagePlatformReward.description_18 = 'March TwentyTwenty Lottery'
 
 
 // 币种资料USDT
@@ -1761,7 +1761,7 @@ root.IOSTReward.BonusesLast = 'Bonuses Collected (Last day)'
 root.IOSTReward.Estimated = 'Estimated asset (Last day)'
 root.IOSTReward.Rules = 'Rules'
 root.IOSTReward.Time = 'Time：2018/4/12 0:00(HK Time)—2018/4/30 24:00(HK Time)'
-root.IOSTReward.Details = 'Details: During the event, EUNEX will take snapshots of users BTC, ETH, USDT and BDB assets every day at 15:00. 50,000 IOST will be divided every day to users proportionally according to their estimated USDT BTC, ETH, and BDB asset'
+root.IOSTReward.Details = 'Details: During the event, TwentyTwenty will take snapshots of users BTC, ETH, USDT and BDB assets every day at 15:00. 50,000 IOST will be divided every day to users proportionally according to their estimated USDT BTC, ETH, and BDB asset'
 root.IOSTReward.Rate = 'Rate: 1 BTC=7000 USDT 、1 ETH = 400 USDT、1 BDB= 0.1 USDT'
 root.IOSTReward.eg = 'e.g.：Day X, the estimated total of USDT BTC, ETH, and BDB of the platform is 11200 USDT (1 BTC, 10 ETH, 100' +
   'USDT and 1000 BDB: 7000×1+400×10+1×100+0.1×1000 =11200 USDT.);The snapshot of your account is shown 1 ETH, 10 USDT, 100 BDB, which ' +
@@ -1770,7 +1770,7 @@ root.IOSTReward.Remarks = 'Remarks：Each user can collect IOST bonus once per d
 
 root.H5IOSTReward = {}
 root.H5IOSTReward.Time = 'Time：2018/4/12 0:00 (HK Time) — 2018/4/30 24:00 (HK Time).'
-root.H5IOSTReward.Details = 'Details： During the event, EUNEX will take snapshots of users BTC, ETH, USDT and BDB assets every day at 15:00. 50,000 IOST will be divided every day to users' +
+root.H5IOSTReward.Details = 'Details： During the event, TwentyTwenty will take snapshots of users BTC, ETH, USDT and BDB assets every day at 15:00. 50,000 IOST will be divided every day to users' +
   ' propor-tionally according to their estimated USDT BTC, ETH, and BDB asset.'
 root.H5IOSTReward.Rate_01 = 'Rate： 1 BTC=7000 USDT 、1 ETH = 400 USDT、1 BDB= 0.1 USDT.'
 root.H5IOSTReward.Rate_02 = 'e.g.: '
@@ -1812,7 +1812,7 @@ root.MtcReward.Details_span = 'If a member invited a friend to register, he/she 
 root.MtcReward.Settlement = 'Settlement'
 root.MtcReward.Settlement_span = 'Bonus will be settled 2 business days after this event.'
 root.MtcReward.Rules = 'Rules'
-root.MtcReward.Rules1 = 'All new members of EUNEX who register during this event will get 300 MTC bonus with or without a referral'
+root.MtcReward.Rules1 = 'All new members of TwentyTwenty who register during this event will get 300 MTC bonus with or without a referral'
 root.MtcReward.Rules2 = 'No limit in the number of referrals'
 root.MtcReward.Rules3 = '30% commission of transaction fee will be rewarded to members with successful referrals for one year'
 root.MtcReward.Time_span2 = '2018/4/20 15:00 (HK Time)-2018/4/24 15:00 (HK Time)'
@@ -1825,11 +1825,11 @@ root.MtcReward.Details_span7 = 'Other participants will divide 30,000 MTC accord
 root.MtcReward.Settlement_span2 = 'The settlement starts at 17:00 every day. The bonuses will be distributed at 12:00 in the next day'
 root.MtcReward.Rules4 = ' Self transactions will not be accounted to the campaign'
 root.MtcReward.Notice1 = '* Please note that any behavior of unfair competition will be disqualified immediately'
-root.MtcReward.Notice2 = '* EUNEX reserves the right of further adjustment and final interpretation of this announcement'
+root.MtcReward.Notice2 = '* TwentyTwenty reserves the right of further adjustment and final interpretation of this announcement'
 
 root.MtcReward.Event3 = 'Event: 400,000 MTC Airdrop'
 root.MtcReward.Time_span3 = '2018/5/1 15:00 (HK Time)—2018/5/5 15:00 (HK Time)'
-root.MtcReward.Details_span8 = ' EUNEX members will divide 80,000 MTC every day during the event, according to the estimated balance of BTC, ETH, USDT, BDB in their accounts. Snapshots will be taken at 15:00 HK Time to record the balances'
+root.MtcReward.Details_span8 = ' TwentyTwenty members will divide 80,000 MTC every day during the event, according to the estimated balance of BTC, ETH, USDT, BDB in their accounts. Snapshots will be taken at 15:00 HK Time to record the balances'
 root.MtcReward.Rules5 = 'Each user can collect the bonus once per day by visiting the event page after 0:00 the next day. Uncollected bonuses will be disqualified once not be collected in 24 hours. Uncollected bonuses can not be accumulated to the next day'
 
 
@@ -1959,7 +1959,7 @@ root.KeyReward.Details_span = 'If a member invited a friend to register, he/she 
 root.KeyReward.Settlement = 'Settlement'
 root.KeyReward.Settlement_span = 'Bonus will be settled 2 business days after this event.'
 root.KeyReward.Rules = 'Rules'
-root.KeyReward.Rules1 = 'All new members of EUNEX who register during this event will get 300 KEY bonus with or without a referral'
+root.KeyReward.Rules1 = 'All new members of TwentyTwenty who register during this event will get 300 KEY bonus with or without a referral'
 root.KeyReward.Rules2 = 'No limit in the number of referrals'
 root.KeyReward.Rules3 = '30% commission of transaction fee will be rewarded to members with successful referrals for one year'
 root.KeyReward.Time_span2 = '2018/4/27 17:00 (HK Time)-2018/5/1 17:00 (HK Time)'
@@ -1972,11 +1972,11 @@ root.KeyReward.Details_span7 = 'Other participants will divide 30,000 KEY accord
 root.KeyReward.Settlement_span2 = 'The settlement starts at 17:00 every day. The bonuses will be distributed at 12:00 in the next day'
 root.KeyReward.Rules4 = ' Self transactions will not be accounted to the campaign'
 root.KeyReward.Notice1 = '* Please note that any behavior of unfair competition will be disqualified immediately'
-root.KeyReward.Notice2 = '* EUNEX reserves the right of further adjustment and final interpretation of this announcement'
+root.KeyReward.Notice2 = '* TwentyTwenty reserves the right of further adjustment and final interpretation of this announcement'
 
 root.KeyReward.Event3 = 'Event: 400,000 KEY Airdrop'
 root.KeyReward.Time_span3 = '2018/5/6 15:00 (HK Time)—2018/5/10 15:00 (HK Time)'
-root.KeyReward.Details_span8 = ' EUNEX members will divide 80,000 KEY every day during the event, according to the estimated balance of BTC, ETH, USDT, BDB in their accounts. Snapshots will be taken at 15:00 HK Time to record the balances'
+root.KeyReward.Details_span8 = ' TwentyTwenty members will divide 80,000 KEY every day during the event, according to the estimated balance of BTC, ETH, USDT, BDB in their accounts. Snapshots will be taken at 15:00 HK Time to record the balances'
 root.KeyReward.Rules5 = 'Each user can collect the bonus once per day by visiting the event page after 0:00 the next day. Uncollected bonuses will be disqualified once not be collected in 24 hours. Uncollected bonuses can not be accumulated to the next day'
 
 
@@ -1991,7 +1991,7 @@ root.MtcActivity.BonusesLast = 'Bonuses Collected (Last day)'
 root.MtcActivity.Estimated = 'Estimated asset (Last day)'
 root.MtcActivity.Rules = 'Rules'
 root.MtcActivity.Time = 'Time：2018/5/1 15:00 (HK Time)—2018/5/5 15:00 (HK Time)'
-root.MtcActivity.Details = 'Details: During the event, EUNEX will take snapshots of users BTC, ETH, USDT and BDB assets every day at 15:00. 80,000 MTC will be divided every day to users proportionally according to their estimated USDT BTC, ETH, and BDB asset'
+root.MtcActivity.Details = 'Details: During the event, TwentyTwenty will take snapshots of users BTC, ETH, USDT and BDB assets every day at 15:00. 80,000 MTC will be divided every day to users proportionally according to their estimated USDT BTC, ETH, and BDB asset'
 root.MtcActivity.Rate = 'Rate: 1 BTC=7000 USDT 、1 ETH = 400 USDT、1 BDB= 0.1 USDT'
 root.MtcActivity.eg = 'e.g.：Day X, the estimated total of USDT BTC, ETH, and BDB of the platform is 11200 USDT (1 BTC, 10 ETH, 100' +
   'USDT and 1000 BDB: 7000×1+400×10+1×100+0.1×1000 =11200 USDT.);The snapshot of your account is shown 1 ETH, 10 USDT, 100 BDB, which ' +
@@ -2000,7 +2000,7 @@ root.MtcActivity.Remarks = 'Remarks：80,000 MTC will be divided to users propor
 
 root.H5MtcActivity = {}
 root.H5MtcActivity.Time = 'Time：2018/5/1 15:00 (HK Time)—2018/5/5 15:00 (HK Time)'
-root.H5MtcActivity.Details = 'Details： During the event, EUNEX will take snapshots of users BTC, ETH, USDT and BDB assets every day at 15:00. 50,000 MTC will be divided every day to users' +
+root.H5MtcActivity.Details = 'Details： During the event, TwentyTwenty will take snapshots of users BTC, ETH, USDT and BDB assets every day at 15:00. 50,000 MTC will be divided every day to users' +
   ' propor-tionally according to their estimated USDT BTC, ETH, and BDB asset.'
 root.H5MtcActivity.Rate_01 = 'Rate： 1 BTC=7000 USDT 、1 ETH = 400 USDT、1 BDB= 0.1 USDT.'
 root.H5MtcActivity.Rate_02 = 'e.g.: '
@@ -2022,7 +2022,7 @@ root.latestDeal.available = 'No record available'
 // 2018-5-2 KEY空投字段
 root.KeyActivity = {}
 root.KeyActivity.Time = 'Time：2018/5/6 15:00 (HK Time)—2018/5/10 15:00 (HK Time)'
-root.KeyActivity.Details = 'Details: During the event, EUNEX will take snapshots of users BTC, ETH, USDT and BDB assets every day at 15:00. 80,000 KEY will be divided every day to users proportionally according to their estimated USDT BTC, ETH, and BDB asset'
+root.KeyActivity.Details = 'Details: During the event, TwentyTwenty will take snapshots of users BTC, ETH, USDT and BDB assets every day at 15:00. 80,000 KEY will be divided every day to users proportionally according to their estimated USDT BTC, ETH, and BDB asset'
 root.KeyActivity.Rate = 'Rate: 1 BTC=7000 USDT 、1 ETH = 400 USDT、1 BDB= 0.1 USDT'
 root.KeyActivity.eg = 'e.g.：Day X, the estimated total of USDT BTC, ETH, and BDB of the platform is 11200 USDT (1 BTC, 10 ETH, 100' +
   'USDT and 1000 BDB: 7000×1+400×10+1×100+0.1×1000 =11200 USDT.);The snapshot of your account is shown 1 ETH, 10 USDT, 100 BDB, which ' +
@@ -2078,7 +2078,7 @@ root.BiShiJieActivity.title_4 = 'Referral'
 root.BiShiJieActivity.title_5 = 'Rules'
 root.BiShiJieActivity.detail_1 = '2018/5/16 (HK Time) until all airdrop are given out'
 root.BiShiJieActivity.detail_2 = '奖励实时发放'
-root.BiShiJieActivity.detail_3 = ' Scan the referral bar code and register with EUNEX. New member will get the Registration Bonus (60 CNY worth)'
+root.BiShiJieActivity.detail_3 = ' Scan the referral bar code and register with TwentyTwenty. New member will get the Registration Bonus (60 CNY worth)'
 root.BiShiJieActivity.detail_4 = ': Invite a friend to register with your referral bar code, and get the Referral Bonus (13 CNY worth).'
 root.BiShiJieActivity.detail_5 = '1 New users have 3 days to complete their SMS and Google verification. Without verification，bonus can be revoked'
 root.BiShiJieActivity.detail_6 = '2 Invitees need to complete SMS and Google verification for you to claim the referral bonus,'
@@ -2195,7 +2195,7 @@ root.coinBaby.FAQ = 'FAQ'
 root.coinBaby.FAQ_Q1 = 'Q：What is CoinBaby?'
 root.coinBaby.FAQ_A1 = 'A: CoinBaby is a product based on digital assets. Each plan has its own lock-up period and interest rate. You can choose freely. The principal will be locked after participation and the interest begins to accrue according to the appointed time. The principal and interest will be unlocked and transferred into your account after the plan is due, and you will be able to obtain the promised earnings'
 root.coinBaby.FAQ_Q2 = 'Q: How to participate? '
-root.coinBaby.FAQ_A2 = 'A: Log in the eunex.group, click the ‘CoinBaby’, select the coin you need to lock according to your own situation, click "On going" button, and you can participate in the plans'
+root.coinBaby.FAQ_A2 = 'A: Log in the 2020.exchange, click the ‘CoinBaby’, select the coin you need to lock according to your own situation, click "On going" button, and you can participate in the plans'
 root.coinBaby.FAQ_Q3 = 'Q: How the earnings are calculated?'
 root.coinBaby.FAQ_A3 = 'A: Each CoinBaby plans has its own fixed starting and ending time for interest accrual, and your earnings will be calculated within this period. The interest-bearing period of each plan can be viewed on its page'
 root.coinBaby.FAQ_Q4 = 'Q: How will the earnings be issued?'
@@ -2203,7 +2203,7 @@ root.coinBaby.FAQ_A4 = 'A: When the lock-up period of the plan expires, the syst
 root.coinBaby.FAQ_Q5 = 'Q: Can CoinBaby be unlocked ahead of schedule?'
 root.coinBaby.FAQ_A5 = 'A: Currently, CoinBaby does not support early unlocking. The system will automatically unlock the coins you locked and pay the interest after the lock-up period'
 root.coinBaby.FAQ_Q6 = 'Q：Where does CoinBaby interest come from'
-root.coinBaby.FAQ_A6 = 'A：CoinBaby interest comes from the ecology construction distribution of EUNEX project'
+root.coinBaby.FAQ_A6 = 'A：CoinBaby interest comes from the ecology construction distribution of TwentyTwenty project'
 root.coinBaby.lock_go_return1 = 'After unlocking, please go to'
 root.coinBaby.lock_go_return2 = 'platform rewards'
 root.coinBaby.lock_go_return3 = 'to view the lock revenue'
@@ -2216,7 +2216,7 @@ root.coinBaby.endTime = 'Buying Ends'
 
 
 // title
-root.document_title = 'EUNEX - global digital currency trading platform | EUNEX exchange'
+root.document_title = 'TwentyTwenty - global digital currency trading platform | TwentyTwenty exchange'
 
 
 // 零资产隐藏
@@ -2272,16 +2272,16 @@ root.btActivity.summaryTitle_1 = 'What is BT'
 root.btActivity.summaryTitle_2 = 'How to get BT'
 root.btActivity.summaryTitle_3 = 'BT Mining'
 root.btActivity.summaryTitle_4 = 'BT Share'
-root.btActivity.summaryDetail_1_1 = 'BT (EUNEX Token) is an eco-contribution token issued by EUNEX. BT adopts PoW and PoS Blockchain consensus by introducing ‘Trade Mining and Share Allocation’. Mining BT by trading, BT holders enjoy 10% of the platform transaction fee allocation as BT share. BT issued on the ETH network and have a total supply of 1,000,000,000.'
-root.btActivity.summaryDetail_1_2 = 'BT and BDB act simultaneously and collaboratively. They form the optimum EUNEX eco-system.'
+root.btActivity.summaryDetail_1_1 = 'BT (TwentyTwenty Token) is an eco-contribution token issued by TwentyTwenty. BT adopts PoW and PoS Blockchain consensus by introducing ‘Trade Mining and Share Allocation’. Mining BT by trading, BT holders enjoy 10% of the platform transaction fee allocation as BT share. BT issued on the ETH network and have a total supply of 1,000,000,000.'
+root.btActivity.summaryDetail_1_2 = 'BT and BDB act simultaneously and collaboratively. They form the optimum TwentyTwenty eco-system.'
 root.btActivity.summaryDetail_1_3 = 'Rewards of trading contribution (Proof of Work). BT holders enjoy 10% of platform transaction fee as BT share (Proof of Stake).60% platform transaction fee is used to destroy BT.'
-root.btActivity.summaryDetail_1_4 = 'BDB: Gas of transaction fee (40% discount). 30% platform transaction fee is used to destroy BDB.Use BDB as gas can gain extra 10% BT Bonus.BDB is the utility token issued by EUNEX. BDB plays a key role in our ecosystem. More applications will be announced in the future.'
+root.btActivity.summaryDetail_1_4 = 'BDB: Gas of transaction fee (40% discount). 30% platform transaction fee is used to destroy BDB.Use BDB as gas can gain extra 10% BT Bonus.BDB is the utility token issued by TwentyTwenty. BDB plays a key role in our ecosystem. More applications will be announced in the future.'
 root.btActivity.summaryDetail_1_5 = 'BDB and BT form a virtuous economic system. More application scenarios are on the way.'
 root.btActivity.summaryDetail_2_1 = '1.Trade Mining'
 root.btActivity.summaryDetail_2_2 = 'User (miner) generates a certain transaction fee through trading (PoW), and the platform returns BT according to the commission fee generated by the miner. Use BDB as gas for an additional 10% BT bonus.'
 root.btActivity.summaryDetail_2_3 = '100,000,000 BT in team’s share now will be deducted from team’s share and put to Trade Mining. The Trade Mining of the remaining 100,000,000 BT starts on August 14th, 2018. '
 root.btActivity.summaryDetail_2_4 = '2.BT Market'
-root.btActivity.summaryDetail_2_5 = 'BT will be available for exchange at eunex.group. One can make a trade at ETH/BT market. BT share distribution is according to one’s BT amount.'
+root.btActivity.summaryDetail_2_5 = 'BT will be available for exchange at 2020.exchange. One can make a trade at ETH/BT market. BT share distribution is according to one’s BT amount.'
 root.btActivity.summaryDetail_2_6 = '3.Referral Program:'
 root.btActivity.summaryDetail_2_7 = 'Commission applies to referrals made previous to 2018-6-28 20:00. Users get 30% commission of the invitee’s transaction fee for 1 year.'
 root.btActivity.summaryDetail_2_8 = 'As for referrals made after 2018-6-28 20:00, {btActivity}% referral commission will be distributed to user accounts in BT for 100 days. Use BDB as gas for transaction fee can get extra Bonus. (adjustments can be made due to further notice)'
@@ -2299,7 +2299,7 @@ root.btActivity.summaryDetail_3_11 = 'Use BDB as gas and get 10% Mining Bonus.'
 root.btActivity.summaryDetail_3_12 = 'BT will be settled by day, including BT mining, BT bonus and BT commission. '
 root.btActivity.summaryDetail_3_13 = '4.Issuance'
 root.btActivity.summaryDetail_3_14 = 'The total supply of BT will be cut down to '
-root.btActivity.summaryDetail_3_15 = '1,000,000,000 instead of 20,000,000,000. BT in circulation including 373,000,000 of investors and BT of current EUNEX holders remain. The deduction will be taken on the unreleased BT. '
+root.btActivity.summaryDetail_3_15 = '1,000,000,000 instead of 20,000,000,000. BT in circulation including 373,000,000 of investors and BT of current TwentyTwenty holders remain. The deduction will be taken on the unreleased BT. '
 root.btActivity.summaryDetail_3_16 = 'Remaining BT for Trade Mining is'
 root.btActivity.summaryDetail_3_17 = '100,000,000'
 root.btActivity.summaryDetail_3_18 = 'Day Mining Cap:'
@@ -2312,7 +2312,7 @@ root.btActivity.summaryDetail_3_23_1 = 'BT Mining(x|n) can not exceed 10,000'
 root.btActivity.summaryDetail_3_23_2 = 'n represent a mining circle, n-1 represents the previous mining circle.'
 root.btActivity.summaryDetail_3_24 = 'notes:'
 root.btActivity.summaryDetail_3_25 = 'The transaction fees generated above cap cannot participate in Trade Mining. This part of fees will be put to BT share and BDB, BT destruction.'
-root.btActivity.summaryDetail_3_26 = 'EUNEX will repurchase and destroy certain BT if the total supply surpasses 1,000,000,000. '
+root.btActivity.summaryDetail_3_26 = 'TwentyTwenty will repurchase and destroy certain BT if the total supply surpasses 1,000,000,000. '
 root.btActivity.summaryDetail_4_1 = '1.Share Circle'
 root.btActivity.summaryDetail_4_2 = 'A share circle is set between 00:00 and 23:59:59 of one day.'
 root.btActivity.summaryDetail_4_3 = '2.Distribution'
@@ -2324,7 +2324,7 @@ root.btActivity.summaryDetail_4_8 = ''
 root.btActivity.summaryDetail_4_9 = '4.User X’s BT share'
 root.btActivity.summaryDetail_4_10 = 'BT Share（x） = 10% Day Platform Transaction fees *BT(x) /BT(Platform)'
 root.btActivity.summaryDetail_4_11 = ''
-root.btActivity.footerDetail = 'EUNEX reserves the right to future adjustments and the final interoperation of this event.'
+root.btActivity.footerDetail = 'TwentyTwenty reserves the right to future adjustments and the final interoperation of this event.'
 root.btActivity.popWindow_1_title = 'Platform Bonus History'
 root.btActivity.popWindow_1_platformBonusHistory = 'Total BT Share in USDT:'
 root.btActivity.popWindow_1_platformBonusHistory_symbol = ''
@@ -2360,7 +2360,7 @@ root.btActivityBDBBurnProfit.popupWindowTitle = 'Bonus Rule'
 root.btActivityBDBBurnProfit.popupWindowDetail_1 = '1.Use BDB as fuel (30% discount) and join the event.'
 root.btActivityBDBBurnProfit.popupWindowDetail_2 = '2.Use BDB as gas and get extra {rewardRate}% BT distribution.'
 root.btActivityBDBBurnProfit.popupWindowDetail_3 = '3.Bonuses will be issued on the next day at 13:00 HKT.'
-root.btActivityBDBBurnProfit.popupWindowDetail_4 = '4.EUNEX reserves the right to future adjustments and the final interoperation of this event.'
+root.btActivityBDBBurnProfit.popupWindowDetail_4 = '4.TwentyTwenty reserves the right to future adjustments and the final interoperation of this event.'
 root.btActivityBDBBurnProfit.popupWindowDetail_5 = 'I understand'
 
 
@@ -2382,9 +2382,9 @@ root.personalCenterRecommend.yesterdayReward = 'Yesterday commission'
 root.personalCenterRecommend.totalReward = 'Total commission'
 root.personalCenterRecommend.btActivityPopupWindowDetail_1 = '1.The inviter can enjoy the BDB bonus of {activityRate}% of the friend\'s transaction fee last month, effective from the date of successful registration.'
 root.personalCenterRecommend.btActivityPopupWindowDetail_2 = 'e.g.: If a friend is successfully registered on January 1, 2019, and the transaction fee is 100BDB in the current month, the next month, the inviter can get {activityRate} BDB rewards.'
-root.personalCenterRecommend.btActivityPopupWindowDetail_3 = '2.The inviter receives the award for the month and is distributed by EUNEX on the 8th of the following month.'
-root.personalCenterRecommend.btActivityPopupWindowDetail_4 = '3.EUNEX has the right to invite the rebate ratio adjustment. If there is any adjustment, please refer to the EUNEX announcement.'
-// root.personalCenterRecommend.btActivityPopupWindowDetail_5 = '4.Adjustments can be made upon future notices. EUNEX reserves the right of final interpretation of this event.'
+root.personalCenterRecommend.btActivityPopupWindowDetail_3 = '2.The inviter receives the award for the month and is distributed by TwentyTwenty on the 8th of the following month.'
+root.personalCenterRecommend.btActivityPopupWindowDetail_4 = '3.TwentyTwenty has the right to invite the rebate ratio adjustment. If there is any adjustment, please refer to the TwentyTwenty announcement.'
+// root.personalCenterRecommend.btActivityPopupWindowDetail_5 = '4.Adjustments can be made upon future notices. TwentyTwenty reserves the right of final interpretation of this event.'
 
 //首页
 root.indexHeader.miningProfit = 'Mining'
@@ -2394,7 +2394,7 @@ root.progressBar.useBtMining = '{btReward}% extra mining BT as bonus'
 
 // API设置白名单 2018-6-21
 root.whiteList = {};
-root.whiteList.set_title = 'How to set up EUNEX mail white list'
+root.whiteList.set_title = 'How to set up TwentyTwenty mail white list'
 root.whiteList.qq = '一、QQ Whitelist'
 root.whiteList.qq_1 = '1. Login qqmail'
 root.whiteList.qq_2 = '2. Go to settings'
@@ -2455,8 +2455,8 @@ root.rankActivity.activities = 'Details'
 root.rankActivity.time = 'time'
 root.rankActivity.activityRules = 'Activity Rules'
 root.rankActivity.notice_1 = 'Any behavior of unfair competition will be disqualified immediately'
-root.rankActivity.notice_2 = 'The final interpretation right of this event belongs to eunex.group'
-root.rankActivity.title_1 = 'EUNEX for the '
+root.rankActivity.notice_2 = 'The final interpretation right of this event belongs to 2020.exchange'
+root.rankActivity.title_1 = 'TwentyTwenty for the '
 root.rankActivity.title_2 = ' phase of the trading contest'
 root.rankActivity.countdown = 'Activity countdown'
 root.rankActivity.one = 'first'
@@ -2531,11 +2531,11 @@ root.signPageResetPassword.verifyingWA_0 = 'Drag the silder to verify'
 
 
 
-//欧联隐私协议
+//二零二零隐私协议
 root.helpuserPrivacy = {}
-root.helpuserPrivacy.zwtitle = 'EUNEX Privacy agreement'
+root.helpuserPrivacy.zwtitle = 'TwentyTwenty Privacy agreement'
 root.helpuserPrivacy.zwtitle01 = '一、The two sides'
-root.helpuserPrivacy.zwtitle01_1 = '1、 EUNEX Global Ltd.(hereinafter referred to as the "company") is a according to relevant laws in Singapore registered company, the company operating site https://www.eunex.group (hereinafter referred to as "this site" or "site"), the site is a special digital assets for user transactions, and provide related services (hereinafter referred to as "the service" or "services"). For the convenience of this agreement, the company and the website use "we" or other first-person terms in this agreement.'
+root.helpuserPrivacy.zwtitle01_1 = '1、 TwentyTwenty Global Ltd.(hereinafter referred to as the "company") is a according to relevant laws in Singapore registered company, the company operating site https://www.2020.exchange (hereinafter referred to as "this site" or "site"), the site is a special digital assets for user transactions, and provide related services (hereinafter referred to as "the service" or "services"). For the convenience of this agreement, the company and the website use "we" or other first-person terms in this agreement.'
 root.helpuserPrivacy.zwtitle01_2 = '2、 For the convenience of this agreement, "you" or other second person will be used as below, as long as the natural person or other entity logging into this website is the user of this website.'
 root.helpuserPrivacy.zwtitle01_3 = '3、 For the convenience of this agreement, we and you are collectively referred to as "parties" and we or you as "parties".'
 root.helpuserPrivacy.zwtitle02 = '二、The purpose of the privacy policy'
@@ -2580,7 +2580,7 @@ root.helpuserPrivacy.zwtitle07_3 = '3、 Despite the implementation of the above
 root.helpuserPrivacy.zwtitle08 = '八、Revision of privacy policy'
 root.helpuserPrivacy.zwtitle08_1 = 'We reserve the right to modify this privacy policy at any time. We inform you that our privacy policy has been revised by the effective date of the update and release of the new version, and highlight the revision office. Sometimes we will issue notices to inform you that the privacy policy has been revised, but this is not an obligation of us. You should check the privacy policy regularly and pay attention to its revision. If you do not agree with the contents of the revision, you should stop accessing the website immediately. When an updated version of the privacy policy is released, your continued access to the website displays and indicates that you agree to the updated content and agree to abide by the updated privacy policy.'
 root.helpuserPrivacy.zwtitle09 = '九、Communicate with us'
-root.helpuserPrivacy.zwtitle09_1 = '1、 If you have any requirements and opinions, you can email support@eunex.group, which is the only valid and official email we communicate with you, so we do not take any responsibility for your failure to use valid contact information.'
+root.helpuserPrivacy.zwtitle09_1 = '1、 If you have any requirements and opinions, you can email support@2020.exchange, which is the only valid and official email we communicate with you, so we do not take any responsibility for your failure to use valid contact information.'
 root.helpuserPrivacy.zwtitle09_2 = '2、 We only release announcements and information through the effective contact information on this website or post announcements on this website, so we are not responsible for any losses arising from your trust in the information not obtained through the above means.'
 root.helpuserPrivacy.zwtitle09_3 = '3、 If you have any questions about our privacy policy, please feel free to contact us.'
 

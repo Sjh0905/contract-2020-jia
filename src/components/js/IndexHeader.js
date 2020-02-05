@@ -34,7 +34,7 @@ root.data = function () {
     loading: false, // 加载中
     popOpen: false,
     languageFlag: 'language-img-china',
-    notice_tips: this.$store.state.lang == 'CH' ? 'EUNEX上线IOST，送币活动火热开启！活动期间注册、充值IOST送IOST,数量有限，先到先得！交易前50名更有IOST奖励，最高4万IOST！' : 'EUNEX lists IOST, get IOST bonus now! Register during the event, make a deposit, will get IOST bonus! Whoever comes first will get the bonus, until all are given out. Top 50 members with high IOST transaction volume will get up-to 40,000 IOST!',
+    notice_tips: this.$store.state.lang == 'CH' ? 'TwentyTwenty 上线IOST，送币活动火热开启！活动期间注册、充值IOST送IOST,数量有限，先到先得！交易前50名更有IOST奖励，最高4万IOST！' : 'TwentyTwenty  lists IOST, get IOST bonus now! Register during the event, make a deposit, will get IOST bonus! Whoever comes first will get the bonus, until all are given out. Top 50 members with high IOST transaction volume will get up-to 40,000 IOST!',
     noticeInterval: '',
     // 语言按钮切换
     jtval:false,
@@ -103,7 +103,7 @@ root.created = function () {
 
 root.mounted = function () {
   // this.value = this.staticUrl + '/AppDownload'
-  this.value = 'https://download.eunex.group/'
+  this.value = 'https://download.2020.exchange/'
   this.size = 124 /  window.devicePixelRatio
 }
 
@@ -246,7 +246,7 @@ root.computed.staticUrl = function () {
 root.watch = {}
 root.watch.lang = function (newValue, oldValue) {
   this.getNoticeRedPoint()
-  this.notice_tips = newValue == 'CH' ? 'EUNEX上线IOST，送币活动火热开启！活动期间注册、充值IOST送IOST,数量有限，先到先得！交易前50名更有IOST奖励，最高4万IOST！' : 'EUNEX lists IOST, get IOST bonus now! Register during the event, make a deposit, will get IOST bonus! Whoever comes first will get the bonus, until all are given out. Top 50 members with high IOST transaction volume will get up-to 40,000 IOST!'
+  this.notice_tips = newValue == 'CH' ? 'TwentyTwenty 上线IOST，送币活动火热开启！活动期间注册、充值IOST送IOST,数量有限，先到先得！交易前50名更有IOST奖励，最高4万IOST！' : 'TwentyTwenty  lists IOST, get IOST bonus now! Register during the event, make a deposit, will get IOST bonus! Whoever comes first will get the bonus, until all are given out. Top 50 members with high IOST transaction volume will get up-to 40,000 IOST!'
   if (newValue == oldValue) return;
   this.GET_NOTICE();
 
@@ -557,7 +557,7 @@ root.methods.leave = function () {
 }
 
 root.methods.go = function () {
-  // window.open("https://EUNEXhelp.zendesk.com/hc/zh-tw/sections/360005016974")
+  // window.open("https://TwentyTwenty help.zendesk.com/hc/zh-tw/sections/360005016974")
   if(this.$store.state.lang == 'CH'){
     window.open("https://customerservice8872.zendesk.com/hc/zh-cn/categories/360002253311-%E5%85%AC%E5%91%8A%E4%B8%AD%E5%BF%83")
   }else{

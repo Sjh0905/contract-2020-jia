@@ -21,7 +21,7 @@ server.socket = {}
 // server.socket.url = 'ws://192.168.2.115:3000' //测试地址
 // wss://onli-quotation.btcdo.com
 // server.socket.url = process.env.SOCKET || 'wss://wss.highdax.com' //node地址
-server.socket.url = process.env.SOCKET || 'wss://wss.eunex.group/v1/market/notification' //后台socket（java）地址
+server.socket.url = process.env.SOCKET || 'wss://wss.2020.exchange/v1/market/notification' //后台socket（java）地址
 // server.socket.url = process.env.SOCKET || 'wss://wss.highdefi.com/v1/market/notification' //后台socket（java）地址
 
 server.socket.path = '/v1/market' //请求路径
