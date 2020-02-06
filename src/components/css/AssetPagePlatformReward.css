@@ -9,12 +9,14 @@
 
 .border_box {
   overflow: hidden;
-  border-top-left-radius: 0 !important;
+  border: 1px solid #EFF0FF;
+  /*border-top-left-radius: 0 !important;*/
 }
 
 .detail-header {
   width: 100%;
   position: relative;
+  padding: 0 25px;
   align-items: center;
   -webkit-align-items: center;
   justify-content: space-around;
@@ -23,28 +25,31 @@
   /*background-color: #cae7ea;*/
   /*border-left: 1px solid #e5e5e5;*/
   /*border-right: 1px solid #e5e5e5;*/
-  font-size: 1.2rem;
-  text-align: center;
-  color: #333;
+  font-size: 1.2px;
+  /*text-align: center;*/
+  color: #6B7DA2;
 }
 
 .currency {
   flex: 10;
+  text-align: left;
   /*flex:19.9;*/
 }
 
 .time {
   flex: 13;
   /*flex:9.3;*/
-  /*text-align: left;*/
+  text-align: left;
 }
 
 .total {
   flex: 15;
+  text-align: left;
 }
 
 .address {
   flex: 35;
+  text-align: left;
 }
 
 .address-detail {
@@ -53,17 +58,18 @@
   -ms-flex-direction: column;
   -webkit-flex-direction: column;
   /*white-space: nowrap;*/
-  text-align: center;
-  color: #666;
+  color: #0D0E23;
 }
 
 .state {
   flex: 11;
+  text-align: right;
 }
 
-.th-prompt {
-  flex: 10;
-}
+/*.th-prompt {*/
+/*  flex: 10;*/
+/*  text-align: right;*/
+/*}*/
 
 /*列表*/
 .detail-container {
@@ -71,13 +77,14 @@
 }
 
 .detail-li {
-  /*height:35px;*/
   height: auto;
+  padding: 0 25px;
   background-color: #fff;
+  color: #0D0E23;
 }
 
 .detail-li:hover {
-  background-color:rgba(196,62,78,0.03);
+  background-color: #F5F6FA;
 }
 
 .detail-li:hover .unit-input {
@@ -88,7 +95,7 @@
 .li-container {
   width: 100%;
   text-align: center;
-  min-height: 40px;
+  min-height: 60px;
   align-items: center;
   -webkit-align-items: center;
   border-top: 1px solid #f9f9f9;
@@ -142,10 +149,6 @@
 .address-title {
   width: 10%;
   display: inline-block;
-}
-
-.empty-span {
-  text-align: center;
 }
 
 /*加载下一页*/

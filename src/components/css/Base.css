@@ -452,7 +452,7 @@ input {
 
 /*圆角*/
 .border_radius {
-  border-radius: 2px !important;
+  border-radius: 1px !important;
 }
 
 /*卡片式投影*/
