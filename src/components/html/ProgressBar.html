@@ -45,6 +45,7 @@
                @focus="changeColor('price' + orderType)"
                @blur="changeColor(0)"
                @keyup="keyBoard('pro-bar-price' + orderType)"
+               autocomplete="off"
         >
         <!-- @keyup="keyBoard('pro-bar-price' + orderType)" -->
         <!-- <span class="pro-bar-price-tit txt-small txt-light">{{orderType && $t("progressBar.salePrice") + this.$store.state.symbol.split('_')[1] || $t("progressBar.buyPrice") + this.$store.state.symbol.split('_')[1]}}</span> -->
@@ -71,6 +72,7 @@
                @focus="changeColor('amount' + orderType)"
                @blur="changeColor(0)"
                @keyup="keyBoard('pro-bar-amount' + orderType)"
+               autocomplete="off"
         >
         <!-- @keyup="keyBoard('pro-bar-amount' + orderType)" -->
         <!-- <span class="pro-bar-price-tit txt-small txt-light">{{orderType && $t("progressBar.saleNum") + this.$store.state.symbol.split('_')[0] || $t("progressBar.buyNum") + this.$store.state.symbol.split('_')[0]}}

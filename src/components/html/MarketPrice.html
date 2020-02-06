@@ -93,8 +93,8 @@
             @click="slectSymbol(item.name,item)" @mouseenter="get_now_price(key, item.close,item.name)"
             @mouseleave="hide_now_price">
 
-          <img src="../../assets/selected_icon.png" class="imgSelect" v-show="(collectionMarket.includes(item.name))" @click="handleCollectionMarket(item.name,false)" alt="">
-          <img src="../../assets/noSelected_icon.png" class="imgSelect" v-show="!(collectionMarket.includes(item.name))" @click="handleCollectionMarket(item.name,true)" alt="">
+          <img src="../../assets/selected_trade_icon.png" class="imgSelect" v-show="(collectionMarket.includes(item.name))" @click="handleCollectionMarket(item.name,false)" alt="">
+          <img src="../../assets/noSelected_trade_icon.png" class="imgSelect" v-show="!(collectionMarket.includes(item.name))" @click="handleCollectionMarket(item.name,true)" alt="">
 
 
           <div class="market-price-list-li1 flex-row">

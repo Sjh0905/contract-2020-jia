@@ -36,7 +36,7 @@
   /*background-color: yellow;*/
 }
 .new_selected2 {
-  background-color: #000;
+  /*background-color: #000;*/
 }
 /*时段区间选择大背景条样式*/
 .header-chart-panel .header-chart-panel-sizer .header-chart-panel-content .left .space-single .apply-common-tooltip,.header-chart-panel .header-chart-panel-sizer .header-chart-panel-content .left .space-single .button{
@@ -152,7 +152,22 @@
 .button.fullscreen svg{
 	fill: #6B7DA2;
 }
+/*时段区间button最左边图形按钮选中状态*/
+.header-chart-panel .button.active {
+  background: #0D111F!important;
+  color: #333;
+}
 /*时段区间button最左边图形按钮*/
 .button.indicators svg {
-  fill: #6B7DA2;
+fill: #6B7DA2;
 }
+.chart-page .chart-container{
+border: 1px solid #1E1F22;
+}
+/*left_toolbar*/
+/*.drawing-favorites-toolbar .tools-group .button, .feature-no-touch .tv-side-toolbar .tools-group .button:active, .feature-no-touch .tv-side-toolbar .tools-group .button:hover, .feature-touch .tv-side-toolbar .tools-group .button:active, .properties-toolbar .tools-group .button, .tv-side-toolbar .tools-group .button.active, .tv-side-toolbar .tools-group .button.selected{*/
+/*background-color: #0D111F;*/
+/*}*/
+/*.drawing-favorites-toolbar .tools-group .button.active, .feature-no-touch .drawing-favorites-toolbar .tools-group .button:active, .feature-no-touch .properties-toolbar .tools-group .button:active, .feature-no-touch .tv-side-toolbar .tools-group .button:active .side, .feature-no-touch .tv-side-toolbar .tools-group .button:not(.subgroup):active, .feature-touch .drawing-favorites-toolbar .tools-group .button:active, .feature-touch .properties-toolbar .tools-group .button:active, .feature-touch .tv-side-toolbar .tools-group .button:active .side, .feature-touch .tv-side-toolbar .tools-group .button:not(.subgroup):active, .properties-toolbar .tools-group .button.active, .tv-side-toolbar .tools-group .button.active .side, .tv-side-toolbar .tools-group .button.selected .main, .tv-side-toolbar .tools-group .button:not(.subgroup).active, .tv-side-toolbar .tools-group .button:not(.subgroup).selected {*/
+/*background-color: #0D111F;*/
+/*}*/
