@@ -492,15 +492,10 @@
   border: 1px solid #EF5656;
 }
 
-<<<<<<< HEAD
 .wrong-msg {
   color: #FD5555;
 }
-=======
-/*.wrong-msg {*/
-/*  color: red;*/
-/*}*/
->>>>>>> 23e1b7da575a4dfcedb8e846cea15fbe1a18fdfc
+
 
 .right-msg {
   color: #0babb6;
