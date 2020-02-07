@@ -13,7 +13,7 @@
 .index_home_market_list_body {
   margin: 0 auto;
   width: 1200px;
-  min-height: 500px;
+  min-height: 420px;
   /*margin-top: 44px;*/
   border:1px solid #E0E1F4;
   padding:28px 0 0;
@@ -185,9 +185,9 @@
 .market-detail-item .imgSelect {
   height: 12px;
   line-height: 60px;
-  margin-right: 2px;
-   /*margin: 18px 8px 0 0;*/
-
+  /*margin-right: 2px;*/
+  margin: 24px 8px 0 0;
+  flex:1;
  }
 
 .market-detail-title {
@@ -210,7 +210,7 @@
 }
 
 .currency {
-  flex: 14.9;;
+  flex: 13.6;
   font-family: Roboto-Medium;
   font-size: 14px;
   color: #172A4D;
@@ -410,6 +410,16 @@
 
 .light .market-detail:hover {
   background-color: #F5F6FA;
+}
+
+.market-center {
+  justify-content: center;
+  color: #3576F5;
+}
+
+.market-center img {
+  height: 16px;
+  margin-top: 20px;
 }
 
 .no-record {

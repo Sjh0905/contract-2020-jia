@@ -453,6 +453,7 @@ root.methods.handleCollectionMarket = function (symbol, type) {
 
 // 获取市场列表
 root.methods.GET_MARKET = function () {
+  console.log(this.$route)
   // 初始化数据请求
   this.initGetDatas();
   // 初始化socket
@@ -535,12 +536,10 @@ root.methods.re_getExchangeRate = function (data) {
   this.btc_eth_rate = data;
 }
 
-
-
-
-
-
-
+// 跳转行情页
+root.methods.GotoIndexHomeMarket = function () {
+ this.$router.push({name:"indexHomeMarket"})
+}
 
 
 /*---------------------- 保留小数 begin ---------------------*/

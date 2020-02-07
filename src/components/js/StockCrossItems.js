@@ -75,9 +75,9 @@ root.computed.depth_list = function () {
       transactionData = transactionData.filter(v => !!v && v.price >= minPrice && v.price <= maxPrice)
   }
   // let depth;
-  // this.type < 3 ? (depth = this.transactionData.slice(0,28)) : (depth = this.transactionData.slice(0, 14))
+  // this.type < 3 ? (depth = this.transactionData.slice(0,32)) : (depth = this.transactionData.slice(0, 16))
 
-  let depthLength = this.type < 3 ? 28 :14;
+  let depthLength = this.type < 3 ? 32 :16;
   let depth = transactionData.slice(0,depthLength)
   let lengthStep = depthLength - depth.length;
 

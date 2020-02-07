@@ -87,6 +87,7 @@ root.created = function () {
   // 获取账户信息
   this.getAccounts()
 
+  console.log(this.accountsComputed)
 
 
   // 如果已经cookies记录的弹出过，则不弹出，如果没有，弹窗，并记录
@@ -103,6 +104,13 @@ root.created = function () {
 
 // 计算
 root.computed = {}
+// 人民币汇率,由于后台接口返回了0.001，所以前端改为price接口获取，
+// 直接由本地仓库计算好拿过来就行啦,这里其实返回的是btcExchangeRate，
+// 为了和之前的变量名一致，叫exchangeRate
+root.computed.exchangeRate = function () {
+  return this.$store.state.exchange_rate.btcExchangeRate
+}
+
 // 计算当前的服务器时间
 root.computed.serverT = function () {
   return this.$store.state.serverTime / 1000
@@ -112,6 +120,38 @@ root.computed.serverT = function () {
 root.computed.currencyChange = function () {
   return this.$store.state.currencyChange
 }
+
+// 计算汇率
+root.computed.computedExchangeRate = function () {
+  if (this.lang === 'CH') {
+    return this.exchangeRate * this.$store.state.exchange_rate_dollar
+  }
+  return this.exchangeRate
+}
+
+// 账户总资产
+root.computed.total = function () {
+  let total = 0
+  for (let i = 0; i < this.accounts.length; i++) {
+    total = this.accAdd(total, this.accounts[i].appraisement)
+  }
+  return this.toFixed(total)
+}
+
+//换算成人民币的估值
+root.computed.valuation = function () {
+  return this.total * this.computedExchangeRate
+}
+
+// 账户可用
+root.computed.available = function () {
+  let available = 0
+  for (let i = 0; i < this.accounts.length; i++) {
+    available = this.accAdd(available, this.accMul(this.accounts[i].available, this.accounts[i].rate))
+  }
+  return this.toFixed(available)
+}
+
 // 计算后的accounts，排序、筛选之类的放在这里！
 root.computed.accountsComputed = function () {
   // 特殊处理
@@ -120,7 +160,6 @@ root.computed.accountsComputed = function () {
       return val.total !== 0
     })
   }
-
   return this.accounts
 }
 // 基础货币
@@ -162,6 +201,7 @@ root.watch = {}
 root.watch.currencyChange = function (newVal, oldVal) {
   this.accounts = [...this.$store.state.currency.values()]
 }
+
 root.watch.loading = function (newVal, oldVal) {
   if (oldVal && !newVal) {
     if (this.$route.query.symbol) {
@@ -544,6 +584,11 @@ root.methods.toFixed = function (num, acc = 8) {
 }
 /*---------------------- 保留小数 end ---------------------*/
 
+/*---------------------- 加法运算 begin ---------------------*/
+root.methods.accAdd = function (num1, num2) {
+  return this.$globalFunc.accAdd(num1, num2)
+}
+/*---------------------- 加法运算 end ---------------------*/
 
 
 

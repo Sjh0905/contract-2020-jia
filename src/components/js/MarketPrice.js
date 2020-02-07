@@ -348,7 +348,7 @@ root.methods.get_now_price = function (key, price,name) {
   // 展示价格
   this.show_key = key;
   let top = $(this.$refs.scroll_top).scrollTop();
-  this.tips_top = (key * 24 - top) + 'px';
+  this.tips_top = (key * 28 - top + 2) + 'px';
 }
 
 root.methods.hide_now_price = function () {

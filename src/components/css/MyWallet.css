@@ -1,0 +1,306 @@
+/*下方内容*/
+.loading {
+  width: 100%;
+  background-color: #fff;
+}
+
+.container {
+  display: block;
+  width: 100%;
+  position: relative;
+}
+
+.currency-total {
+  font-size: 14px;
+  color: #6B7DA2;
+}
+
+.currency-total-assets {
+  margin: 8px 0 20px;
+}
+
+.total-assets {
+  font-size: 16px;
+  font-family:Roboto-Medium,Roboto;
+  font-weight:500;
+  color: #0D0E23;
+}
+
+.hide-zero-asset-box {
+  /*position: absolute;*/
+  /*right: 30px;*/
+  /*top: -30px;*/
+  height: 44px;
+  line-height: 44px;
+  font-size: 14px;
+  color: #666;
+  align-items: center;
+  margin-bottom: 10px;
+  /*border: 1px solid red;*/
+}
+
+.hide-zero-asset-checkbox {
+  /*-webkit-appearance: none;*/
+  /*background: #fff;*/
+  /*width: 12px;*/
+  /*height: 12px;*/
+  border-radius: 1px;
+  /*border: 1px solid #666;*/
+}
+
+.hide-zero-asset-checkbox:checked {
+  /*background: #C43E4E;*/
+  /*background: url("") no-repeat;*/
+  /*background-position: center;*/
+  /*background-size: contain;*/
+  /*-webkit-appearance: none;*/
+  /*width: 12px;*/
+  /*height: 12px;*/
+  /*border-radius: 2px;*/
+
+}
+
+.hide-zero-asset-label {
+  color: #6B7DA2;
+  margin-left: 15px;
+}
+
+.border-box {
+  overflow: hidden;
+  /*border-top-left-radius: 0 !important;*/
+  border: 1px solid #EFF0FF;
+}
+
+.detail-header {
+  width: 100%;
+  padding: 0 25px;
+  position: relative;
+  align-items: center;
+  -webkit-align-items: center;
+  justify-content: space-around;
+  -webkit-justify-content: space-around;
+  height: 40px;
+  /*background-color: #cae7ea;*/
+  /*border-left: 1px solid #e5e5e5;*/
+  /*border-right: 1px solid #e5e5e5;*/
+  font-size: 12px;
+  /*text-align: left;*/
+  color: #6B7DA2;
+}
+
+.currency {
+  flex: 12.7;
+  text-align: left;
+  /*flex:19.9;*/
+}
+
+/*.fullName {*/
+/*  flex: 10.5;*/
+/*  !*flex:9.3;*!*/
+/*  text-align: left;*/
+/*}*/
+
+.total {
+  flex: 13.7;
+  text-align: left;
+}
+
+.available {
+  flex: 13.7;
+  text-align: left;
+}
+
+.frozen {
+  flex: 13.7;
+  text-align: left;
+}
+
+.valuation {
+  flex: 13.7;
+  /*position: relative;*/
+  text-align: left;
+}
+.rechargeAndWithdrawals {
+  flex: 33.3;
+  text-align: right;
+}
+
+.valuation_font {
+  display: inline-block;
+  cursor: pointer;
+  height: 35px;
+  line-height: 35px;
+}
+
+/* 2018-4-4 新加价格css start */
+.show_tips {
+  position: absolute;
+  display: block;
+  padding: 0px 10px;
+  line-height: 24px;
+  color: #fff;
+  background-color: #C43E4E;
+  border: 1px solid #C43E4E;
+  border-radius: 2px;
+  right: 83%;
+  top: 4px;
+  z-index: 1;
+  display: none;
+}
+
+.show_tips font {
+  position: absolute;
+  right: -5px;
+  top: 9px;
+  width: 0;
+  height: 0;
+  border-top: 3px solid transparent;
+  border-left: 4px solid #C43E4E;
+  border-bottom: 3px solid transparent;
+}
+
+.show_tips.show {
+  display: block;
+}
+
+/* 2018-4-4 新加价格css end */
+
+
+
+/*列表*/
+
+
+.detail-li {
+  /*height:35px;*/
+  height: auto;
+  background-color: #fff;
+  color: #0D0E23;
+}
+
+.li-container:hover {
+  background-color:#F5F6FA;
+}
+
+.li-select:hover {
+  /*background-color: #fcfcfc;*/
+
+}
+
+/*具体内容*/
+.li-container {
+  width: 100%;
+  text-align: center;
+  height: 60px;
+  align-items: center;
+  padding: 0 25px;
+  -webkit-align-items: center;
+  /*border-left: 1px solid #e5e5e5;*/
+  /*border-bottom: 1px solid #e5e5e5;*/
+  border-top: 1px solid #f9f9f9;
+  /*border-right: 1px solid #e5e5e5;*/
+
+}
+
+/*充值提现按钮container*/
+.rechargeAndWithdrawals {
+
+}
+
+/*充值提现按钮总*/
+.button {
+  display: inline-block;
+  /*width: 50px;*/
+  height: 28px;
+  line-height: 28px;
+  padding: 0 10px;
+  margin-left: 10px;
+  text-align: center;
+  border-radius:1px;
+  cursor: pointer;
+  /*margin: 0 5px*/
+}
+
+.button:hover {
+  color: #fff;
+  background: #3576F5;
+}
+
+/*充值按钮*/
+.recharge-button {
+  border: 1px solid #3576F5;
+  color: #3576F5;
+}
+
+/*提现按钮*/
+.withdrawals-button {
+  border: 1px solid #3576F5;
+  color: #3576F5;
+}
+
+/*提现选中*/
+.withdrawals-button-select {
+  color: white;
+  background-color: #3576F5;
+}
+
+/*充值选中*/
+.recharge-button-select {
+  color: white;
+  background-color: #C43E4E;
+}
+
+/*提现置灰色*/
+.can-not-withdrawals {
+  color: #e6e6e6;
+  border-color: #e6e6e6;
+}
+
+/*弹窗样式*/
+.pop-footer {
+  width: 100%;
+  /*justify-content: space-around;*/
+  /*-webkit-justify-content: space-around;*/
+}
+
+/*弹窗button*/
+.button-base {
+  margin-right: 20px;
+}
+
+.button-base:last-of-type {
+  margin-right: 0;
+}
+
+.select-address-detail {
+
+}
+
+.pop-article {
+  padding: 20px 0;
+}
+
+/*币种名称*/
+.currency_name {
+  display: block;
+  vertical-align: middle;
+  float: left;
+}
+
+/*币种图标container*/
+.currency-icon {
+  width: 15px;
+  height: 15px;
+  /*border: 1px solid red;*/
+  display: block;
+  margin-right: 15px;
+  vertical-align: middle;
+  float: left;
+  /*padding-left: 35%;*/
+}
+
+/*币种图标具体图片*/
+.currency-icon-img {
+  margin: 0 auto;
+  height: 20px;
+  display: block;
+}

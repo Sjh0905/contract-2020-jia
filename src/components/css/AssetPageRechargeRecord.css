@@ -8,51 +8,63 @@
 
 .border_box {
   overflow: hidden;
-  border-top-left-radius: 0 !important;
+  /*border-top-left-radius: 0 !important;*/
+  border: 1px solid #EFF0FF;
 }
 
 .detail-header {
   width: 100%;
-  position: relative;
+  /*position: relative;*/
+  padding: 0 25px;
   align-items: center;
   -webkit-align-items: center;
   justify-content: space-around;
   -webkit-justify-content: space-around;
-  height: 35px;
-  font-size: 1.2rem;
-  text-align: center;
-  color: #333;
+  height: 40px;
+  font-size: 1.2px;
+  /*text-align: center;*/
+  color: #6B7DA2;
 }
 
 .currency {
   flex: 9.3;
+  text-align: left;
   /*flex:19.9;*/
 }
 
 .time {
   flex: 12.4;
+  text-align: left;
   /*flex:9.3;*/
   /*text-align: left;*/
 }
 
 .total {
   flex: 14.7;
+  text-align: left;
 }
 
 .address {
   flex: 52.5;
+  text-align: left;
 }
 
+.state {
+  flex: 18.8;
+  text-align: right;
+}
+
+
 .address-detail {
-  text-align: left;
+  /*text-align: left;*/
   flex-direction: column;
   -ms-flex-direction: column;
   -webkit-flex-direction: column;
   white-space: nowrap;
   justify-content: center;
   /*align-items: center;*/
-  padding: 5px 0;
-  min-height: 55px;
+  /*padding: 5px 0;*/
+  min-height: 60px;
 }
 
 .address-detail-item {
@@ -60,11 +72,6 @@
   height: 20px;
   margin-left: 10%;
   padding-right: 70px;
-}
-
-
-.state {
-  flex: 18.8;
 }
 
 .state_text {
@@ -82,12 +89,13 @@
 
 .detail-li {
   height: auto;
+  padding: 0 25px;
   background-color: #fff;
-  color: #666;
+  color: #0D0E23;
 }
 
 .detail-li:hover {
-  background-color:rgba(196,62,78,0.03);
+  background-color: #F5F6FA;
 }
 
 .detail-li:hover .unit-input {
@@ -150,6 +158,4 @@
   display: inline-block;
 }
 
-.empty-span {
-  text-align: center;
-}
+

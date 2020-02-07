@@ -10,19 +10,36 @@
   position: relative;
 }
 
+.currency-total {
+  font-size: 14px;
+  color: #6B7DA2;
+}
+
+.currency-total-assets {
+  margin: 8px 0 20px;
+}
+
+.total-assets {
+  font-size: 16px;
+  font-family:Roboto-Medium,Roboto;
+  font-weight:500;
+  color: #0D0E23;
+}
+
 .hide-zero-asset-box {
-  position: absolute;
-  right: 30px;
-  top: -30px;
-  line-height: 12px;
-  font-size: 12px;
+  /*position: absolute;*/
+  /*right: 30px;*/
+  /*top: -30px;*/
+  height: 44px;
+  line-height: 44px;
+  font-size: 14px;
   color: #666;
   align-items: center;
+  margin-bottom: 10px;
   /*border: 1px solid red;*/
 }
 
-.hide-zero-asset-checkbox {
-  /*-webkit-appearance: none;*/
+.hide-zero-asset-checkbox { /*-webkit-appearance: none;*/
   /*background: #fff;*/
   /*width: 12px;*/
   /*height: 12px;*/
@@ -43,56 +60,69 @@
 }
 
 .hide-zero-asset-label {
-  margin-left: 3px;
+  color: #6B7DA2;
+  margin-left: 15px;
 }
 
 .border-box {
   overflow: hidden;
-  border-top-left-radius: 0 !important;
+  /*border-top-left-radius: 0 !important;*/
+  border: 1px solid #EFF0FF;
 }
 
 .detail-header {
   width: 100%;
+  padding: 0 25px;
   position: relative;
   align-items: center;
   -webkit-align-items: center;
   justify-content: space-around;
   -webkit-justify-content: space-around;
-  height: 35px;
+  height: 40px;
   /*background-color: #cae7ea;*/
   /*border-left: 1px solid #e5e5e5;*/
   /*border-right: 1px solid #e5e5e5;*/
-  font-size: 1.2rem;
+  font-size: 12px;
   text-align: center;
-  color: #333;
+  color: #6B7DA2;
 }
 
 .currency {
-  flex: 13.7;
+  flex: 12.7;
+  text-align: left;
   /*flex:19.9;*/
 }
 
-.fullName {
-  flex: 15.5;
-  /*flex:9.3;*/
-  /*text-align: left;*/
-}
+/*.fullName {*/
+/*  flex: 15.5;*/
+/*  !*flex:9.3;*!*/
+/*  !*text-align: left;*!*/
+/*}*/
 
 .total {
-  flex: 12.7;
+  flex: 13.7;
+  text-align: left;
 }
 
 .available {
   flex: 13.7;
+  text-align: left;
 }
 
 .frozen {
   flex: 13.7;
+  text-align: left;
 }
 
 .valuation {
   flex: 13.7;
-  position: relative;
+  text-align: left;
+}
+
+
+.rechargeAndWithdrawals {
+  flex: 33.3;
+  text-align: right;
 }
 
 .valuation_font {
@@ -111,7 +141,7 @@
   color: #fff;
   background-color: #C43E4E;
   border: 1px solid #C43E4E;
-  border-radius: 2px;
+  border-radius: 1px;
   right: 83%;
   top: 4px;
   z-index: 1;
@@ -135,9 +165,6 @@
 
 /* 2018-4-4 新加价格css end */
 
-.rechargeAndWithdrawals {
-  flex: 17.3;
-}
 
 /*列表*/
 .detail-container {
@@ -148,11 +175,11 @@
   /*height:35px;*/
   height: auto;
   background-color: #fff;
-  color: #666;
+  color: #0D0E23;
 }
 
 .detail-li:hover {
-  background-color:rgba(196,62,78,0.03);
+  background-color:#F5F6FA;
 }
 
 .li-select:hover {
@@ -164,7 +191,8 @@
 .li-container {
   width: 100%;
   text-align: center;
-  height: 35px;
+  height: 60px;
+  padding: 0 25px;
   align-items: center;
   -webkit-align-items: center;
   /*border-left: 1px solid #e5e5e5;*/
@@ -182,25 +210,32 @@
 /*充值提现按钮总*/
 .button {
   display: inline-block;
-  width: 50px;
-  height: 20px;
-  line-height: 20px;
-  padding: 0 5px;
-  border-radius: 2px;
+  /*width: 50px;*/
+  height: 28px;
+  line-height: 28px;
+  padding: 0 10px;
+  margin-left: 10px;
+  border-radius: 1px;
   cursor: pointer;
-  margin: 0 5px
+  /*margin: 0 5px*/
+}
+
+.button:hover {
+  color: #fff;
+  background: #3576F5;
 }
 
 /*充值按钮*/
 .recharge-button {
-  border: 1px solid #C43E4E;
-  color: #C43E4E;
+  border: 1px solid #3576F5;
+  color: #3576F5;
 }
+
 
 /*提现按钮*/
 .withdrawals-button {
-  border: 1px solid #C43E4E;
-  color: #C43E4E;
+  border: 1px solid #3576F5;
+  color: #3576F5;
 }
 
 /*提现选中*/

@@ -5,19 +5,17 @@
 }
 
 .title{
-    height: 36px;
-    line-height: 36px;
-  /* font-weight: bold; */
-    /* background: #ebebeb; */
-    cursor: pointer;
-    background-color: #ffffff;
-    position: relative;
-    z-index: 100;
-  /*border-bottom: 1px solid #F2F6FA;*/
-  font-family: PingFangSC-Regular;
+  height: 31px;
+  line-height: 26px;
+  background: #0E0F1F;
+  text-align: right;
+  /* border-bottom: 1px solid #bbb; */
+  font-family:PingFangSC-Regular,PingFang SC;
   font-size: 12px;
-  color: #8994A5;
+  color:#6B7DA2;
   letter-spacing: 0;
+  font-weight:400;
+  padding-bottom: 5px;
 }
 .detail{
 	overflow-y: scroll;
@@ -43,16 +41,16 @@
 	box-sizing: border-box;
 }
 .detail_ul{
-	height: 23px;
-	line-height: 23px;
+	height: 20px;
+	line-height: 20px;
+  /*font-family: Roboto-Regular;*/
+  font-size: 12px;
+  color:#A2B5D9;
 }
 .title_li{
 	float: left;
-    color: #666;
+    /*color: #666;*/
     overflow: hidden;
-}
-.title_li.price {
-	color: #666;
 }
 .price{
 	width: 50%;
@@ -60,23 +58,19 @@
 	text-align: right;
 	word-wrap: normal;
     word-break: break-all;
-    height: 30px;
+    /*height: 30px;*/
     overflow: hidden;
-  font-family: Roboto-Regular;
-  font-size: 12px;
 }
 .price.buy{
-	color: #02987D;
+	color: #08D0AC;
 }
 .price.sall{
-	color: #C43E4E;
+	color: #EF5656;
 }
 .valome{
 	width: 60%;
     word-break: break-all;
-  font-family: Roboto-Regular;
-  font-size: 12px;
-  color: #172A4D;
+  /*color: #172A4D;*/
   text-align: right;
   padding-right: 15px;
 }
@@ -86,9 +80,7 @@
 	text-align: left;
   word-break: break-all;
   padding-left: 15px;
-  font-family: Roboto-Regular;
-  font-size: 12px;
-  color: #172A4D;
+  /*color: #172A4D;*/
 }
 .no_list{
 	text-align: center;
@@ -96,8 +88,8 @@
 	color: #666;
 }
 .buy li{
-	/*color: #02987D;*/
+	/*color: #08D0AC;*/
 }
 .sall li{
-	/*color: #C43E4E;*/
+	/*color: #EF5656;*/
 }

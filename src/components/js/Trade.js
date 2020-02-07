@@ -424,15 +424,15 @@ root.methods.initViews = function (lang) {
 				"paneProperties.legendProperties.showLegend": false,
 
 				// 蜡烛样式
-				"mainSeriesProperties.candleStyle.upColor": "#02987D",
-				"mainSeriesProperties.candleStyle.downColor": "#C43E4E",
+				"mainSeriesProperties.candleStyle.upColor": "#08D0AC",
+				"mainSeriesProperties.candleStyle.downColor": "#EF5656",
 				"mainSeriesProperties.candleStyle.drawWick": true,
 				"mainSeriesProperties.candleStyle.drawBorder": true,
 				"mainSeriesProperties.candleStyle.borderColor": "#378658",
-				"mainSeriesProperties.candleStyle.borderUpColor": "#02987D",
-				"mainSeriesProperties.candleStyle.borderDownColor": "#C43E4E",
-				"mainSeriesProperties.candleStyle.wickUpColor": '#02987D',
-				"mainSeriesProperties.candleStyle.wickDownColor": '#C43E4E',
+				"mainSeriesProperties.candleStyle.borderUpColor": "#08D0AC",
+				"mainSeriesProperties.candleStyle.borderDownColor": "#EF5656",
+				"mainSeriesProperties.candleStyle.wickUpColor": '#08D0AC',
+				"mainSeriesProperties.candleStyle.wickDownColor": '#EF5656',
 				"mainSeriesProperties.candleStyle.barColorsOnPrevClose": false,
 
 				// 边际（百分比）。 用于自动缩放。
@@ -458,14 +458,14 @@ root.methods.initViews = function (lang) {
 
 			datafeed: new BitexDataFeed(),
 			// datafeed: new Datafeeds.UDFCompatibleDatafeed(config),
-			// header_indicators
+			// header_indicators 已放开left_toolbar
 			disabled_features: ['use_localstorage_for_settings', '', 'header_symbol_search', 'timeframes_toolbar', 'header_interval_dialog_button', 'header_chart_type', 'header_settings', '', 'header_screenshot', 'volume_force_overlay', 'border_around_the_chart'],
 			//	Regression Trend-related functionality is not implemented yet, so it's hidden for a while
 			drawings_access: { type: 'black', tools: [ { name: "Regression Trend" } ] },
 			debug: !true,
 			// supports_time: true,
 
-			// toolbar_bg: '#000',
+			toolbar_bg: '#0D111F',
 
 			// list of time frames visible in timeframes picker at the bottom of the chart:
 			time_frames: [
@@ -480,6 +480,7 @@ root.methods.initViews = function (lang) {
 			],
 			overrides: {
 				"mainSeriesProperties.style": 1, // 3 为山形图
+        "paneProperties.background": "#0D111F",
 				"symbolWatermarkProperties.color" : "#944",
 				"volumePaneSize": "medium",
 				"mainSeriesProperties.lineStyle.color": "#02c0cc",
@@ -488,31 +489,31 @@ root.methods.initViews = function (lang) {
 				"paneProperties.legendProperties.showStudyArguments": false,
 
 				// 山行图线和阴影颜色
-				"mainSeriesProperties.areaStyle.color1": "#d8f7ff",
-				"mainSeriesProperties.areaStyle.color2": "#ffffff",
-				"mainSeriesProperties.areaStyle.linecolor": "#C43E4E",
-				"mainSeriesProperties.areaStyle.linewidth": 2,
-				"mainSeriesProperties.areaStyle.priceSource": "close",
+				// "mainSeriesProperties.areaStyle.color1": "#d8f7ff",
+				// "mainSeriesProperties.areaStyle.color2": "#ffffff",
+				// "mainSeriesProperties.areaStyle.linecolor": "#EF5656",
+				// "mainSeriesProperties.areaStyle.linewidth": 2,
+				// "mainSeriesProperties.areaStyle.priceSource": "close",
 				// 蜡烛样式
-				"mainSeriesProperties.candleStyle.upColor": "#02987D",
-				"mainSeriesProperties.candleStyle.downColor": "#C43E4E",
+				"mainSeriesProperties.candleStyle.upColor": "#08D0AC",
+				"mainSeriesProperties.candleStyle.downColor": "#EF5656",
 				"mainSeriesProperties.candleStyle.drawWick": true,
 				"mainSeriesProperties.candleStyle.drawBorder": true,
-				"mainSeriesProperties.candleStyle.borderColor": "#000",
-				"mainSeriesProperties.candleStyle.borderUpColor": "#02987D",
-				"mainSeriesProperties.candleStyle.borderDownColor": "#C43E4E",
-				"mainSeriesProperties.candleStyle.wickUpColor": '#02987D',
-				"mainSeriesProperties.candleStyle.wickDownColor": '#C43E4E',
+				// "mainSeriesProperties.candleStyle.borderColor": "#000",
+				"mainSeriesProperties.candleStyle.borderUpColor": "#08D0AC",
+				"mainSeriesProperties.candleStyle.borderDownColor": "#EF5656",
+				"mainSeriesProperties.candleStyle.wickUpColor": '#08D0AC',
+				"mainSeriesProperties.candleStyle.wickDownColor": '#EF5656',
 				"mainSeriesProperties.candleStyle.barColorsOnPrevClose": false,
 				// 背景网格颜色
-				"paneProperties.vertGridProperties.color": "#f9f9f9",
-				"paneProperties.horzGridProperties.color": "#f9f9f9",
+				"paneProperties.vertGridProperties.color": "#1E1F22",
+				"paneProperties.horzGridProperties.color": "#1E1F22",
 				// 边际（百分比）。 用于自动缩放。
 				"paneProperties.topMargin": 15,
 				"paneProperties.bottomMargin": 8,
 				// 刻度，分界线，字体颜色
-				"scalesProperties.lineColor" : "#f1f1f1",
-				"scalesProperties.textColor": "#c2c2c2",
+				"scalesProperties.lineColor" : "#1E1F22",
+				"scalesProperties.textColor": "#6B7DA2",
 				"timeScale.rightOffset": 5,
 
 				// Bars styles
@@ -522,8 +523,8 @@ root.methods.initViews = function (lang) {
 				"mainSeriesProperties.barStyle.dontDrawOpen": false,
 			},
 			studies_overrides: {
-			    "volume.volume.color.0": "#C43E4E",
-			    "volume.volume.color.1": "#02987D",
+			    "volume.volume.color.0": "#EF5656",
+			    "volume.volume.color.1": "#08D0AC",
 			},
 
 			favorites: {

@@ -1,7 +1,7 @@
 <div class="recharge-record-container min-height">
-  <Loading v-if="loading" class="min-height-all recharge-record-loading-container border_radius box_shadow"/>
+  <Loading v-if="loading" class="min-height-all recharge-record-loading-container border_radius"/>
 
-  <div class="border_box box_shadow border_radius">
+  <div class="border_box border_radius">
 
     <!--充值记录title begin-->
     <div class="detail-header flex">
@@ -84,7 +84,7 @@
             <span class="currency">---</span>
             <span class="time">---</span>
             <span class="total">---</span>
-            <span class="address address-detail flex empty-span">
+            <span class="address address-detail flex">
             <!--<span>-->
               <!--<span class="address-title">{{$t('rechargeAddress')}}:</span>-->
               <!--<span>-&#45;&#45;</span>-->
@@ -99,10 +99,8 @@
               <!--</div>-->
             ---------
           </span>
-            <span class="state">
-            ---
-          </span>
-            <span class="th-prompt">---</span>
+            <span class="state">---</span>
+<!--            <span class="th-prompt">-&#45;&#45;</span>-->
           </div>
         </li>
         <!--如果没有记录 end-->

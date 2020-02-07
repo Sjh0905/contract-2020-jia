@@ -202,7 +202,7 @@ body {
 }
 
 .txt-green2 {
-  color: #02987D;
+  color: #08D0AC;
   /* color: rgb(112, 168, 0) */
 }
 
@@ -452,7 +452,7 @@ input {
 
 /*圆角*/
 .border_radius {
-  border-radius: 2px !important;
+  border-radius: 1px !important;
 }
 
 /*卡片式投影*/

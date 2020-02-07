@@ -23,52 +23,115 @@
 	display: none;
 }
 
-/*新加时段区间选择选中样式*/
+/*新加时段区间文字选择选中样式*/
 .new_selected {
 	/*color: #58c3e5;*/
   /*width:100%;*/
   /*height:100%;*/
-	color: #C43E4E;
+  color: #6B7DA2;
+  font-weight: 500;
+  height: 19px;
+  line-height: 19px;
+	color: #3576F5;
   /*background-color: yellow;*/
 }
 .new_selected2 {
-  background-color: #000;
+  /*background-color: #000;*/
 }
+/*时段区间选择大背景条样式*/
 .header-chart-panel .header-chart-panel-sizer .header-chart-panel-content .left .space-single .apply-common-tooltip,.header-chart-panel .header-chart-panel-sizer .header-chart-panel-content .left .space-single .button{
-  background-color: #fff;
+  background-color: #0D111F;
 }
+/*时段区间选择大背景条样式*/
 .header-chart-panel .header-chart-panel-sizer .header-chart-panel-content .left{
 	padding: 0;
 	height: 29px;
   /*background-color: #f8f8f8;*/
 }
+/*时段区间单个button*/
 .chart-top-toolbar .space-single, .header-chart-panel .space-single {
 	padding: 0;
-	height: 35px;
+	height: 29px;
 }
+/*时段区间单第13个button*/
 .chart-top-toolbar .space-single:nth-child(13) .button, .header-chart-panel .space-single:nth-child(13) .button {
-	border-right: 1px solid #c9cbcd;
+	border-right: 1px solid #1E1F22;
 }
+/*时段区间单个button*/
 .bottom-widgetbar-content.backtesting .button, .header-chart-panel .button, .hotlist-controls .button, .symbol-edit-widget .button{
-	border-right: 0;
-	border-bottom: 0;
-	color: #808080;
-	font-weight: 500;
+	border-width: 0;
+	/*border-bottom: 0;*/
+  border-color: #1E1F22;
+  color: #6B7DA2;
+  font-size: 13px;
+	font-weight: 400;
 	padding: 5px 10px;
-  height: 35px;
-  line-height: 25px;
+  height: 19px;
+  line-height: 19px;
 }
-.button.fullscreen, .header-chart-panel .button.fullscreen{
-	padding: 4px;
-	border: 0;
-}
-.feature-no-touch ._tv-dialog .button:not(.disabled):not(.selected):hover:before, .feature-no-touch ._tv-dialog .custom-select .switcher:not(.disabled):not(.selected):hover:before, .feature-no-touch ._tv-dialog .favored-list-container span:not(.disabled):not(.selected):hover:before, .feature-no-touch ._tv-dialog .submenu:not(.disabled):not(.selected):hover:before, .feature-no-touch .bottom-widgetbar-content.backtesting .button:not(.disabled):not(.selected):hover:before, .feature-no-touch .bottom-widgetbar-content.backtesting .custom-select .switcher:not(.disabled):not(.selected):hover:before, .feature-no-touch .bottom-widgetbar-content.backtesting .favored-list-container span:not(.disabled):not(.selected):hover:before, .feature-no-touch .bottom-widgetbar-content.backtesting .submenu:not(.disabled):not(.selected):hover:before, .feature-no-touch .header-chart-panel .button:not(.disabled):not(.selected):hover:before, .feature-no-touch .header-chart-panel .custom-select .switcher:not(.disabled):not(.selected):hover:before, .feature-no-touch .header-chart-panel .favored-list-container span:not(.disabled):not(.selected):hover:before, .feature-no-touch .header-chart-panel .submenu:not(.disabled):not(.selected):hover:before, .feature-no-touch .properties-toolbar .button:not(.disabled):not(.selected):hover:before, .feature-no-touch .properties-toolbar .custom-select .switcher:not(.disabled):not(.selected):hover:before, .feature-no-touch .properties-toolbar .favored-list-container span:not(.disabled):not(.selected):hover:before, .feature-no-touch .properties-toolbar .submenu:not(.disabled):not(.selected):hover:before{
+
+.feature-no-touch ._tv-dialog .button:not(.disabled):not(.selected):hover:before,
+.feature-no-touch ._tv-dialog .custom-select .switcher:not(.disabled):not(.selected):hover:before,
+.feature-no-touch ._tv-dialog .favored-list-container span:not(.disabled):not(.selected):hover:before,
+.feature-no-touch ._tv-dialog .submenu:not(.disabled):not(.selected):hover:before, .feature-no-touch .bottom-widgetbar-content.backtesting .button:not(.disabled):not(.selected):hover:before,
+.feature-no-touch .bottom-widgetbar-content.backtesting .custom-select .switcher:not(.disabled):not(.selected):hover:before,
+.feature-no-touch .bottom-widgetbar-content.backtesting .favored-list-container span:not(.disabled):not(.selected):hover:before,
+.feature-no-touch .bottom-widgetbar-content.backtesting .submenu:not(.disabled):not(.selected):hover:before,
+.feature-no-touch .header-chart-panel .button:not(.disabled):not(.selected):hover:before,
+.feature-no-touch .header-chart-panel .custom-select .switcher:not(.disabled):not(.selected):hover:before,
+.feature-no-touch .header-chart-panel .favored-list-container span:not(.disabled):not(.selected):hover:before,
+.feature-no-touch .header-chart-panel .submenu:not(.disabled):not(.selected):hover:before,
+.feature-no-touch .properties-toolbar .button:not(.disabled):not(.selected):hover:before,
+.feature-no-touch .properties-toolbar .custom-select .switcher:not(.disabled):not(.selected):hover:before,
+.feature-no-touch .properties-toolbar .favored-list-container span:not(.disabled):not(.selected):hover:before,
+.feature-no-touch .properties-toolbar .submenu:not(.disabled):not(.selected):hover:before{
 	border-bottom: 0;
+}
+
+/*时段区间单个button hover*/
+.feature-no-touch .header-chart-panel .button:not(.disabled):not(.selected):hover{
+  cursor: pointer;
+  color: #6B7DA2;
+  font-size: 13px;
+  font-weight: 400;
+  padding: 5px 10px;
+  height: 19px;
+  line-height: 19px;
+  background-color: #0D111F;
+  opacity: 0.8;
+
+}
+/*时段区间单个button hover*/
+.feature-no-touch .header-chart-panel .button:not(.disabled):not(.selected):hover:before{
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 0;
+  height: 0;
+  border: 0px solid #b5b7b9;
+  background: transparent;
+  z-index: 1
+}
+/*时段区间单个button 点击时*/
+.feature-no-touch .header-chart-panel .button:active{
+  /*border-right: 0;*/
+  /*border-bottom: 0;*/
+  /*border-color: #1E1F22;*/
+  color: #6B7DA2;
+  font-size: 13px;
+  font-weight: 400;
+  /*padding: 5px 10px;*/
+  height: 19px;
+  line-height: 19px;
+  background-color: transparent!important;
+  opacity: 0.6;
 }
 
 /*body颜色*/
 .chart-page{
-	background-color: #fff;
+	background-color: #0D111F;
 }
 
 /*k线边距调整*/
@@ -80,9 +143,31 @@
 .tv-market-status--for-chart{
 	display: none;
 }
-
+/*全屏按钮*/
+.button.fullscreen, .header-chart-panel .button.fullscreen{
+  padding: 5px 10px;
+  /*border: 0;*/
+}
 /*全屏按钮色值*/
 .button.fullscreen svg{
-	fill: #808080;
+	fill: #6B7DA2;
 }
-
+/*时段区间button最左边图形按钮选中状态*/
+.header-chart-panel .button.active {
+  background: #0D111F!important;
+  color: #333;
+}
+/*时段区间button最左边图形按钮*/
+.button.indicators svg {
+fill: #6B7DA2;
+}
+.chart-page .chart-container{
+border: 1px solid #1E1F22;
+}
+/*left_toolbar*/
+/*.drawing-favorites-toolbar .tools-group .button, .feature-no-touch .tv-side-toolbar .tools-group .button:active, .feature-no-touch .tv-side-toolbar .tools-group .button:hover, .feature-touch .tv-side-toolbar .tools-group .button:active, .properties-toolbar .tools-group .button, .tv-side-toolbar .tools-group .button.active, .tv-side-toolbar .tools-group .button.selected{*/
+/*background-color: #0D111F;*/
+/*}*/
+/*.drawing-favorites-toolbar .tools-group .button.active, .feature-no-touch .drawing-favorites-toolbar .tools-group .button:active, .feature-no-touch .properties-toolbar .tools-group .button:active, .feature-no-touch .tv-side-toolbar .tools-group .button:active .side, .feature-no-touch .tv-side-toolbar .tools-group .button:not(.subgroup):active, .feature-touch .drawing-favorites-toolbar .tools-group .button:active, .feature-touch .properties-toolbar .tools-group .button:active, .feature-touch .tv-side-toolbar .tools-group .button:active .side, .feature-touch .tv-side-toolbar .tools-group .button:not(.subgroup):active, .properties-toolbar .tools-group .button.active, .tv-side-toolbar .tools-group .button.active .side, .tv-side-toolbar .tools-group .button.selected .main, .tv-side-toolbar .tools-group .button:not(.subgroup).active, .tv-side-toolbar .tools-group .button:not(.subgroup).selected {*/
+/*background-color: #0D111F;*/
+/*}*/

@@ -1774,7 +1774,8 @@ margin-top: 60px;
 /*bt活动 end*/
 
 .index_home_market_list {
-  width: 100%;
+  width: 1200px;
+  margin: 0 auto;
 }
 
 .index_home_container_body {

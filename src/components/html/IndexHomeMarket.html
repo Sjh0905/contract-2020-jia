@@ -24,13 +24,14 @@
   <!--&lt;!&ndash;  </ul>&ndash;&gt;-->
 
     <div class="title">
-      <div class="home-market-title">行情</div>
+      <div class="home-market-title">{{$route.name == 'home'?'市场':'行情'}}</div>
       <div class="shicseach">
         <el-input
           :placeholder='$t("SearchCurrency")'
           class="dialog-input-text"
           v-model="searchText">
-          <i slot="prefix" class="el-input__icon el-icon-search"></i>
+          <i slot="prefix" class="el-input__icon el-icon-search">
+          </i>
         </el-input>
       </div>
     </div>
@@ -102,14 +103,14 @@
           <li class="market-detail-item market-detail flex pointer" v-for="(value, key) in (searchText ? searchList : computedMarketList)"
               :key="key"
           >
-<!--            <img src="../../assets/selected_icon.png" class="imgSelect" v-show="(collectionMarket.includes(value.name))" @click="handleCollectionMarket(value.name,false)" alt="">-->
-<!--            <img src="../../assets/noSelected_icon.png" class="imgSelect" v-show="!(collectionMarket.includes(value.name))" @click="handleCollectionMarket(value.name,true)" alt="">-->
+            <img src="../../assets/selected_icon.png" class="imgSelect" v-show="(collectionMarket.includes(value.name))" @click="handleCollectionMarket(value.name,false)" alt="">
+            <img src="../../assets/noSelected_icon.png" class="imgSelect" v-show="!(collectionMarket.includes(value.name))" @click="handleCollectionMarket(value.name,true)" alt="">
 
             <div class="market-detail-item flex pointer" @click="clickToGoTradingHall(value)">
 <!--              币种-->
               <div class="currency">
-                <img src="../../assets/selected_icon.png" class="imgSelect" v-show="(collectionMarket.includes(value.name))" @click="handleCollectionMarket(value.name,false)" alt="">
-                <img src="../../assets/noSelected_icon.png" class="imgSelect" v-show="!(collectionMarket.includes(value.name))" @click="handleCollectionMarket(value.name,true)" alt="">
+<!--                <img src="../../assets/selected_icon.png" class="imgSelect" v-show="(collectionMarket.includes(value.name))" @click="handleCollectionMarket(value.name,false)" alt="">-->
+<!--                <img src="../../assets/noSelected_icon.png" class="imgSelect" v-show="!(collectionMarket.includes(value.name))" @click="handleCollectionMarket(value.name,true)" alt="">-->
                 {{value.name.split('_')[0]}}/{{value.name.split('_')[1]}}
               </div>
 <!--              最新价-->
@@ -144,7 +145,9 @@
             </div>
 
           </li>
-
+          <li class="market-detail-item market-center flex pointer" v-if="$route.name=='home'" @click="GotoIndexHomeMarket">查看更多
+            <img src="../../assets/goto.png" alt="">
+          </li>
         </template>
   <!--      <li class="no-record">-->
   <!--        &lt;!&ndash;暂无记录&ndash;&gt;-->

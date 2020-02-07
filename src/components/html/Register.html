@@ -17,19 +17,19 @@
 
     <!--选择注册形式 pc begin-->
     <div v-if="!isMobile" class="choose-login-type-container flex">
-      <div class="login-type-container login-type-container-left pointer"
-           :class="{'login-type-select-container':registerType===0}"
-           @click="choseRegisterType(0)"
-      >
-        <!--手机注册-->
-        {{$t('register.registerTypeMobile')}}
-      </div>
       <div class="login-type-container login-type-container-right pointer "
            :class="{'login-type-select-container':registerType===1}"
            @click="choseRegisterType(1)"
       >
         <!--邮箱注册-->
         {{$t('register.registerTypeEmail')}}
+      </div>
+      <div class="login-type-container login-type-container-left pointer"
+           :class="{'login-type-select-container':registerType===0}"
+           @click="choseRegisterType(0)"
+      >
+        <!--手机注册-->
+        {{$t('register.registerTypeMobile')}}
       </div>
     </div>
     <!--选择注册形式 pc end-->

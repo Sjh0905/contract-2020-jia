@@ -1,0 +1,67 @@
+<div>
+  <Loading v-if="loading"/>
+    <div  v-if="!loading">
+      <div class="container">
+        <!--    总资产-->
+        <div class="container-top-title">
+          <div class="container-total flex">
+            <!--          总资产-->
+            <div class="currency-total">
+              <div class="currency-title">
+                {{$t('assetPage.totalAsset')}}：
+              </div>
+              <div class="currency-total-assets">
+                <span class="total-assets">---- BTC</span>
+                <span>≈ {{lang ==='CH'?'￥':'$'}}----</span>
+              </div>
+            </div>
+            <!--          按钮-->
+            <div>
+              <button class="capital-transfer">资金划转</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="container-content flex">
+          <!--      我的钱包-->
+          <div class="my-wallet">
+            <div class="my-wallet-title">
+              <img src="../../assets/overviewOfAssets/wallet_icon.png" alt="">
+              <span>我的钱包</span>
+            </div>
+            <div class="my-wallet-number">
+              <span>0.000000</span>
+              <span>BTC</span>
+            </div>
+            <div class="my-wallet-CNY">
+              0.0000 CNY
+            </div>
+          </div>
+
+          <!--      币币账户-->
+          <div class="coin-account">
+            <div class="my-wallet-title">
+              <img src="../../assets/overviewOfAssets/bibi_icon.png" alt="">
+              <span>币币账户</span>
+            </div>
+            <div class="my-wallet-number">
+              <span>0.000000</span>
+              <span>BTC</span>
+            </div>
+            <div class="my-wallet-CNY">
+              0.0000 CNY
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container-bottom">
+        <div class="container-bottom-title">什么是资金划转?</div>
+        <div class="container-bottom-content">
+          <p>提币分为[普通提币] 和 [站内转账], [普通提币] 是指您可以将您现在账户的币种提至其他区块链地址, [站内转账] 是指您可以提至您自己或其他用户在 “Bibox”的账户中。</p>
+          <p>普通提币: 有手续费, 到账需要区块确认</p>
+          <p>站内转账: 无手续费, 无需区块确认, 快速到账</p>
+        </div>
+      </div>
+    </div>
+
+</div>
