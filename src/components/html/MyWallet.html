@@ -5,13 +5,13 @@
     <Loading v-if="loading"/>
     <template v-if="!loading">
       <div>
-          <div class="currency-total">{{$t('assetPage.totalAsset')}}：
+        <div class="currency-total">{{$t('assetPage.totalAsset')}}：
           <div class="currency-total-assets">
-          <span class="total-assets">{{priceReady || initReady ? toFixed(total,8):'----'}} BTC</span>
+            <span class="total-assets">{{priceReady || initReady ? toFixed(total,8):'----'}} BTC</span>
             <span>≈ {{lang ==='CH'?'￥':'$'}}
             {{(priceReady ||initReady) ? $globalFunc.accFixedCny(valuation,2) : '----'}}</span>
           </div>
-          </div>
+        </div>
       </div>
 
     </template>
@@ -34,7 +34,8 @@
       <span class="available">{{$t('available')}}</span>
       <span class="frozen">{{$t('frozen')}}</span>
       <span class="valuation">{{$t('valuation')}}(BTC)</span>
-      <span class="rechargeAndWithdrawals">{{$t('operation')}}
+      <span class="rechargeAndWithdrawals">
+        {{$t('operation')}}
 <!--        {{$t('recharge')}} / {{$t('withdrawals')}}-->
       </span>
     </div>
@@ -52,7 +53,7 @@
               {{item.currency}}
             </span>
           </span>
-<!--            <span class="fullName">{item.description}}</span>-->
+<!--            <span class="fullName">{{item.description}}</span>-->
             <span class="total">{{toFixed(parseFloat(toFixed(item.available,8)) + parseFloat(toFixed(item.frozen,8)) , 8)}}</span>
             <span class="available">{{toFixed(item.available,8)}}</span>
             <span class="frozen">{{toFixed(item.frozen,8)}}</span>
@@ -66,37 +67,54 @@
               </span>
             </span>
             <span class="rechargeAndWithdrawals">
-            <!--打开划转 begin-->
+
+            <!--打开充值 begin-->
             <span class="recharge-button button" @click="openRecharge(index,item)"
                   :class="{'recharge-button-select':activeIndex === index  && recharge}"
-                  v-if="rechargeFlag(item)">{{$t('transfer')}}
-<!--              {{$t('recharge')}}-->
-            </span>
-              <!--打开划转 end-->
-
-              <!--关闭划转 begin-->
+                  v-if="rechargeFlag(item)">{{$t('recharge')}}</span>
+              <!--打开充值 end-->
+              <!--关闭充值 begin-->
               <span class="recharge-button button can-not-withdrawals"
-                    :class="{'recharge-button-select':activeIndex === index  && recharge}" v-else>
-                {{$t('transfer')}}
-<!--                {{$t('recharge')}}-->
-              </span>
-              <!--关闭划转 end-->
+                    :class="{'recharge-button-select':activeIndex === index  && recharge}" v-else>{{$t('recharge')}}</span>
+              <!--关闭充值 end-->
 
-              <!--打开去交易 begin-->
+              <!--打开提现 begin-->
             <span class="withdrawals-button button" @click="openWithdrawals(index,item)"
                   :class="{'withdrawals-button-select':activeIndex===index  && withdrawals}"
                   v-if="withdrawalsFlag(item)"
-            >{{$t('toDealWith')}}
-<!--              {{$t('withdrawals')}}-->
-            </span>
-            <span class="withdrawals-button button can-not-withdrawals" v-else>{{$t('toDealWith')}}
-<!--              {{$t('withdrawals')}}-->
-            </span>
-              <!--打开去交易 end-->
-
-              <!--关闭去交易 begin-->
+            >{{$t('withdrawals')}}</span>
+            <span class="withdrawals-button button can-not-withdrawals" v-else>{{$t('withdrawals')}}</span>
+              <!--打开提现 end-->
+              <!--关闭提现 begin-->
               <!--<span class="withdrawals-button button can-not-withdrawals">{{$t('withdrawals')}}</span>-->
-              <!--关闭去交易 end-->
+              <!--关闭提现 end-->
+
+              <!--打开划转 begin-->
+            <span class="withdrawals-button button" @click="openWithdrawals(index,item)"
+                  :class="{'withdrawals-button-select':activeIndex===index  && withdrawals}"
+                  v-if="withdrawalsFlag(item)"
+            >
+              {{$t('transfer')}}
+            </span>
+            <span class="withdrawals-button button can-not-withdrawals" v-else>{{$t('withdrawals')}}</span>
+              <!--打开划转 end-->
+              <!--关闭划转 begin-->
+              <!--<span class="withdrawals-button button can-not-withdrawals">{{$t('withdrawals')}}</span>-->
+              <!--关闭划转 end-->
+
+              <!--打开转账 begin-->
+            <span class="withdrawals-button button"
+                  @click="openWithdrawals(index,item)"
+                  :class="{'withdrawals-button-select':activeIndex===index  && withdrawals}"
+                  v-if="withdrawalsFlag(item)"
+            >
+                            {{$t('internalTransfer')}}
+            </span>
+            <span class="withdrawals-button button can-not-withdrawals" v-else>{{$t('withdrawals')}}</span>
+              <!--打开转账 end-->
+              <!--关闭转账 begin-->
+              <!--<span class="withdrawals-button button can-not-withdrawals">{{$t('withdrawals')}}</span>-->
+              <!--关闭转账 end-->
 
         </span>
           </div>

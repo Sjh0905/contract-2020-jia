@@ -96,6 +96,8 @@ root.computed.available = function () {
   return this.toFixed(available)
 }
 
+
+
 // 账户冻结
 root.computed.frozen = function () {
   let frozen = 0
@@ -342,14 +344,12 @@ root.methods.changeAppraisement = function (dataObj) {
 
   let data = this.$globalFunc.mergeObj(dataObj, this.initData)
 
-
   this.initData = data
 
   this.$globalFunc.handlePrice(this.$store.state.currency, data)
 
 
   if (!data) return
-
 
   let total = 0
   let frozen = 0

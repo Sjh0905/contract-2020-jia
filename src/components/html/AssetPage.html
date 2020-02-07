@@ -1,95 +1,116 @@
 <div class="container">
 
   <!--安全警示 begin-->
-  <div class="security-box box_shadow border_radius ">
-    <!--不隐藏的部分 begin-->
-    <div class="security-title relative">
-      <div class="security-title-detail">
-        <span class="text_red">
-          <!--安全警示：-->
-          {{$t('assetPage.securityPromptTitleRed')}}
-        </span>
-        <!--确认EUNEX唯一官方网址为-->
-        {{$t('assetPage.securityPromptTitleNormal_1')}}
-        <span class="security-EUNEX text_blue border_radius">www.eunex.group</span>
-        <!--谨防钓鱼网站。-->
-        {{$t('assetPage.securityPromptTitleNormal_2')}}
-      </div>
-      <div class="security-title-icon vertical-middle  pointer" @click="changeSecurityOpen"
-           :class="securityOpen? 'security-title-icon-close':'security-title-icon-open'">
-      </div>
-    </div>
-    <!--不隐藏的部分 end-->
+<!--  <div class="security-box box_shadow border_radius ">-->
+<!--    &lt;!&ndash;不隐藏的部分 begin&ndash;&gt;-->
+<!--    <div class="security-title relative">-->
+<!--      <div class="security-title-detail">-->
+<!--        <span class="text_red">-->
+<!--          &lt;!&ndash;安全警示：&ndash;&gt;-->
+<!--          {{$t('assetPage.securityPromptTitleRed')}}-->
+<!--        </span>-->
+<!--        &lt;!&ndash;确认EUNEX唯一官方网址为&ndash;&gt;-->
+<!--        {{$t('assetPage.securityPromptTitleNormal_1')}}-->
+<!--        <span class="security-EUNEX text_blue border_radius">www.eunex.group</span>-->
+<!--        &lt;!&ndash;谨防钓鱼网站。&ndash;&gt;-->
+<!--        {{$t('assetPage.securityPromptTitleNormal_2')}}-->
+<!--      </div>-->
+<!--      <div class="security-title-icon vertical-middle  pointer" @click="changeSecurityOpen"-->
+<!--           :class="securityOpen? 'security-title-icon-close':'security-title-icon-open'">-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    &lt;!&ndash;不隐藏的部分 end&ndash;&gt;-->
 
-    <!--隐藏的部分 begin-->
-    <ul class="security-detail-box" v-show="securityOpen">
-      <li class="security-detail-item flex"><img src="../../assets/assetPage/security-notice.png" alt=""
-                                                 class="security-detail-item-icon">
-        <!--向任何人(包括EUNEX的工作人员)透露密码、短信、谷歌验证码及秘钥等；-->
-        {{$t('assetPage.securityPromptDetail_1')}}
-      </li>
-      <li class="security-detail-item flex"><img src="../../assets/assetPage/security-notice.png" alt=""
-                                                 class="security-detail-item-icon">
-        <!--不要给任何陌生人转账、汇款(包括声称是EUNEX的工作人员)；-->
-        {{$t('assetPage.securityPromptDetail_2')}}
-      </li>
-      <li class="security-detail-item flex"><img src="../../assets/assetPage/security-notice.png" alt=""
-                                                 class="security-detail-item-icon">
-        <!--请时刻保持安全防范意识。-->
-        {{$t('assetPage.securityPromptDetail_3')}}
-      </li>
-    </ul>
-    <!--隐藏的部分 end-->
+<!--    &lt;!&ndash;隐藏的部分 begin&ndash;&gt;-->
+<!--    <ul class="security-detail-box" v-show="securityOpen">-->
+<!--      <li class="security-detail-item flex"><img src="../../assets/assetPage/security-notice.png" alt=""-->
+<!--                                                 class="security-detail-item-icon">-->
+<!--        &lt;!&ndash;向任何人(包括EUNEX的工作人员)透露密码、短信、谷歌验证码及秘钥等；&ndash;&gt;-->
+<!--        {{$t('assetPage.securityPromptDetail_1')}}-->
+<!--      </li>-->
+<!--      <li class="security-detail-item flex"><img src="../../assets/assetPage/security-notice.png" alt=""-->
+<!--                                                 class="security-detail-item-icon">-->
+<!--        &lt;!&ndash;不要给任何陌生人转账、汇款(包括声称是EUNEX的工作人员)；&ndash;&gt;-->
+<!--        {{$t('assetPage.securityPromptDetail_2')}}-->
+<!--      </li>-->
+<!--      <li class="security-detail-item flex"><img src="../../assets/assetPage/security-notice.png" alt=""-->
+<!--                                                 class="security-detail-item-icon">-->
+<!--        &lt;!&ndash;请时刻保持安全防范意识。&ndash;&gt;-->
+<!--        {{$t('assetPage.securityPromptDetail_3')}}-->
+<!--      </li>-->
+<!--    </ul>-->
+<!--    &lt;!&ndash;隐藏的部分 end&ndash;&gt;-->
 
-  </div>
+<!--  </div>-->
   <!--安全警示 end-->
 
 
-  <div class="container-top flex-center box_shadow border_radius">
-    <div class="container-top-title ">
-      <Loading v-if="loading"/>
-      <template v-if="!loading">
-        <div class="total-assets flex-center">
-          <span>{{$t('assetPage.totalAsset')}}：
-            <span class="text_blue">
-            {{priceReady || initReady ? toFixed(total,8):'----'}} BTC / {{lang ==='CH'?'￥':'$'}}
-              {{(priceReady ||initReady) ? $globalFunc.accFixedCny(valuation,2) : '----'}}
-            </span></span>
-        </div>
-        <div class="available-assets">
+<!--  <div class="container-top flex-center box_shadow border_radius">-->
+<!--    <div class="container-top-title ">-->
+<!--      <Loading v-if="loading"/>-->
+<!--      <template v-if="!loading">-->
+<!--        <div class="total-assets flex-center">-->
+<!--          <span>{{$t('assetPage.totalAsset')}}：-->
+<!--            <span class="text_blue">-->
+<!--            {{priceReady || initReady ? toFixed(total,8):'&#45;&#45;&#45;&#45;'}} BTC / {{lang ==='CH'?'￥':'$'}}-->
+<!--              {{(priceReady ||initReady) ? $globalFunc.accFixedCny(valuation,2) : '&#45;&#45;&#45;&#45;'}}-->
+<!--            </span></span>-->
+<!--        </div>-->
 
-          <div class="available-assets-container">
+<!--        <div class="available-assets">-->
 
-            <span class="title-left"></span>
+<!--          <div class="available-assets-container">-->
 
-            <span class="disabled-detail title-right">
-              {{$t('assetPage.frozen')}}：
-              <span class="text_red">{{priceReady || initReady ?toFixed(frozen,8):'----'}}</span> BTC
-            </span>
+<!--            <span class="title-left"></span>-->
 
-            <div class="clear"></div>
+<!--            <span class="disabled-detail title-right">-->
+<!--              {{$t('assetPage.frozen')}}：-->
+<!--              <span class="text_red">{{priceReady || initReady ?toFixed(frozen,8):'&#45;&#45;&#45;&#45;'}}</span> BTC-->
+<!--            </span>-->
+<!--            <div class="clear"></div>-->
 
-          </div>
+<!--          </div>-->
 
-          <div class="available-assets-container">
+<!--          <div class="available-assets-container">-->
 
-            <span class="available-limit title-left">{{$t('assetPage.amountCash')}}：{{priceReady || initReady ?limit:'----'}} BTC</span>
+<!--            <span class="available-limit title-left">{{$t('assetPage.amountCash')}}：{{priceReady || initReady ?limit:'&#45;&#45;&#45;&#45;'}} BTC</span>-->
+<!--            <span class="available-detail title-left">-->
+<!--              {{$t('assetPage.available')}}：-->
+<!--              <span class="text_blue">{{priceReady || initReady ? toFixed(available,8):'&#45;&#45;&#45;&#45;'}}</span> BTC-->
+<!--            </span>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </template>-->
+<!--    </div>-->
+<!--  </div>-->
 
-            <span class="available-detail title-left">
-              {{$t('assetPage.available')}}：
-              <span class="text_blue">{{priceReady || initReady ? toFixed(available,8):'----'}}</span> BTC
-            </span>
-
-
-          </div>
-        </div>
-      </template>
-    </div>
-  </div>
   <div class="container-bottom">
     <div class="detail-title flex">
+
+      <!--资产概览 begin-->
+      <router-link to="/index/asset/overviewofassets" class="title-tab flex-center tab-item-first"
+                   active-class="selected text_blue"
+                   :class="lang!='CH'?'title-tab-en':''"
+      >
+<!--        资产概览-->
+<!--        Overview of assets-->
+        {{$t('assetPage.overviewOfAssets')}}
+      </router-link>
+      <!--资产概览 end-->
+
+      <!--我的钱包 begin-->
+      <router-link to="/index/asset/mywallet" class="title-tab flex-center tab-item-first"
+                   active-class="selected text_blue"
+                   :class="lang!='CH'?'title-tab-en':''"
+      >
+        {{$t('assetPage.myWallet')}}
+<!--        我的钱包-->
+<!--        My wallet-->
+      </router-link>
+      <!--我的钱包 end-->
+
       <!--充值提现 begin-->
-      <router-link to="/index/asset/rechargeAndWithdrawals" class="title-tab flex-center box_shadow tab-item-first"
+      <router-link to="/index/asset/rechargeAndWithdrawals" class="title-tab flex-center tab-item-first"
                    active-class="selected text_blue"
                    :class="lang!='CH'?'title-tab-en':''"
       >
@@ -97,8 +118,9 @@
       </router-link>
       <!--充值提现 end-->
 
+
       <!--充值记录打开 begin-->
-      <router-link to="/index/asset/rechargeRecord" class="title-tab flex-center margin-a-little box_shadow"
+      <router-link to="/index/asset/rechargeRecord" class="title-tab flex-center margin-a-little"
                    :class="lang!='CH'?'title-tab-en':''"
                    active-class="selected text_blue">{{$t('assetPage.rechargeRecord')}}
       </router-link>
@@ -112,11 +134,33 @@
       <!--充值记录关闭 end-->
 
       <!--提现记录打开 begin-->
-      <router-link to="/index/asset/withdrawalsRecord" class="title-tab flex-center margin-a-little box_shadow"
+      <router-link to="/index/asset/withdrawalsRecord" class="title-tab flex-center margin-a-little"
                    :class="lang!='CH'?'title-tab-en':''"
                    active-class="selected text_blue">{{$t('assetPage.withdrawalRecord')}}
       </router-link>
       <!--提现记录打开 end-->
+
+      <!--划转记录 begin-->
+      <router-link to="/index/asset/transferrecord" class="title-tab flex-center margin-a-little"
+                   :class="lang!='CH'?'title-tab-en':''"
+                   active-class="selected text_blue">
+<!--        划转记录-->
+<!--        Transfer record-->
+                {{$t('assetPage.transferRecord')}}
+      </router-link>
+      <!--划转记录 end-->
+
+      <!--转账记录 begin-->
+      <router-link to="/index/asset/transferrecords" class="title-tab flex-center margin-a-little"
+                   :class="lang!='CH'?'title-tab-en':''"
+                   active-class="selected text_blue">
+<!--        转账记录-->
+<!--        Transfer record-->
+                {{$t('assetPage.transferRecords')}}
+      </router-link>
+      <!--转账记录 end-->
+
+
 
       <!--提现记录关闭 begin-->
       <!--<router-link to="/index/asset/withdrawalsRecord" class="title-tab flex-center margin-a-little template-close"-->
@@ -125,7 +169,7 @@
       <!--提现记录关闭 end-->
 
       <!-- 平台奖励 begin -->
-      <router-link :to="{name:'platformReward'}" class="title-tab flex-center margin-a-little box_shadow tab-item-last"
+      <router-link :to="{name:'platformReward'}" class="title-tab flex-center margin-a-little tab-item-last"
                    :class="lang!='CH'?'title-tab-en':''"
                    active-class="selected text_blue">
         {{$t('assetPage.platformReward')}}

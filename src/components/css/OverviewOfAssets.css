@@ -1,0 +1,118 @@
+
+.container {
+  border: 1px solid #EFF0FF;
+  height: auto;
+  margin-bottom: 25px;
+}
+
+.container-top-title {
+  height: 90px;
+}
+
+.container-total {
+  height: 100%;
+  padding: 0 25px;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #EFF0FF;
+}
+
+.currency-total {
+  font-size: 14px;
+  color: #6B7DA2;
+}
+
+.currency-title {
+  margin-top: 20px;
+}
+
+.currency-total-assets {
+  margin: 8px 0 21px;
+}
+
+.total-assets {
+  font-size: 16px;
+  font-family:Roboto-Medium,Roboto;
+  font-weight:500;
+  color: #0D0E23;
+}
+
+.capital-transfer {
+  background-color: #3576F5;
+  color: #fff;
+  font-size: 14px;
+  padding: 5px 15px;
+  outline: none;
+}
+
+.container-content {
+  height: 240px;
+}
+
+.my-wallet {
+  flex: 1;
+  text-align: center;
+  border-right: 1px solid #EFF0FF ;
+}
+
+.my-wallet:hover {
+  background-color: #EFF0FF;
+}
+
+.my-wallet-title {
+  margin: 56px 0 27px;
+  font-size: 16px;
+}
+
+.my-wallet-title img {
+  vertical-align: middle;
+  margin-right: 6px;
+}
+
+.my-wallet-number {
+  font-family:Roboto-Medium,Roboto;
+  color: #0D0E23;
+}
+
+
+.my-wallet-number span:first-child {
+  font-size:28px;
+  font-weight:500;
+}
+
+.my-wallet-number span:last-child{
+  font-size:18px;
+  font-weight: 400;
+}
+
+.my-wallet-CNY {
+  font-size:16px;
+  color: #A2B5D9;
+  margin-top: 10px;
+  font-family:Roboto-Regular,Roboto;
+  font-weight:400;
+}
+
+.coin-account {
+  flex: 1;
+  text-align: center;
+  border-right: 1px solid #EFF0FF ;
+}
+
+.coin-account:hover {
+  background-color: #EFF0FF;
+}
+
+.container-bottom {
+  color: #6B7DA2;
+  font-size:14px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+}
+
+.container-bottom-title {
+  margin-bottom: 15px;
+  font-weight:500;
+  font-size: 16px;
+  color: #0D0E23;
+}

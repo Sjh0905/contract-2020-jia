@@ -1,10 +1,10 @@
 <div class="withdrawals-record-container min-height">
 
 
-  <Loading v-if="loading" class="min-height-all withdrawals-record-loading-container border_radius box_shadow"/>
+  <Loading v-if="loading" class="min-height-all withdrawals-record-loading-container border_radius"/>
 
 
-  <div class="border_box border_radius box_shadow">
+  <div class="border_box border_radius">
     <!--提现记录title begin-->
     <div class="detail-header flex">
       <!--币种-->
@@ -18,7 +18,7 @@
       <!--状态-->
       <span class="state">{{$t('state')}}</span>
       <!--操作-->
-      <span class="state">{{$t('handler')}}</span>
+      <span class="operation">{{$t('handler')}}</span>
     </div>
     <!--提现记录title end-->
 
@@ -68,11 +68,9 @@
             <span class="currency">---</span>
             <span class="time">---</span>
             <span class="total">---</span>
-            <span class="address address-detail flex empty-span">
-            -------
-        </span>
+            <span class="address address-detail flex">-------</span>
             <span class="state">--</span>
-            <span class="state">--</span>
+            <span class="operation">--</span>
           </div>
         </li>
 

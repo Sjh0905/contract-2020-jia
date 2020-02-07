@@ -39,11 +39,12 @@
   /*border: 1px solid red;*/
 }
 
-.hide-zero-asset-checkbox { /*-webkit-appearance: none;*/
+.hide-zero-asset-checkbox {
+  /*-webkit-appearance: none;*/
   /*background: #fff;*/
   /*width: 12px;*/
   /*height: 12px;*/
-  /*border-radius: 2px;*/
+  border-radius: 1px;
   /*border: 1px solid #666;*/
 }
 
@@ -83,7 +84,7 @@
   /*border-left: 1px solid #e5e5e5;*/
   /*border-right: 1px solid #e5e5e5;*/
   font-size: 12px;
-  text-align: center;
+  /*text-align: left;*/
   color: #6B7DA2;
 }
 
@@ -94,9 +95,9 @@
 }
 
 /*.fullName {*/
-/*  flex: 15.5;*/
+/*  flex: 10.5;*/
 /*  !*flex:9.3;*!*/
-/*  !*text-align: left;*!*/
+/*  text-align: left;*/
 /*}*/
 
 .total {
@@ -116,10 +117,9 @@
 
 .valuation {
   flex: 13.7;
+  /*position: relative;*/
   text-align: left;
 }
-
-
 .rechargeAndWithdrawals {
   flex: 33.3;
   text-align: right;
@@ -141,7 +141,7 @@
   color: #fff;
   background-color: #C43E4E;
   border: 1px solid #C43E4E;
-  border-radius: 1px;
+  border-radius: 2px;
   right: 83%;
   top: 4px;
   z-index: 1;
@@ -166,10 +166,9 @@
 /* 2018-4-4 新加价格css end */
 
 
-/*列表*/
-.detail-container {
 
-}
+/*列表*/
+
 
 .detail-li {
   /*height:35px;*/
@@ -178,7 +177,7 @@
   color: #0D0E23;
 }
 
-.detail-li:hover {
+.li-container:hover {
   background-color:#F5F6FA;
 }
 
@@ -192,8 +191,8 @@
   width: 100%;
   text-align: center;
   height: 60px;
-  padding: 0 25px;
   align-items: center;
+  padding: 0 25px;
   -webkit-align-items: center;
   /*border-left: 1px solid #e5e5e5;*/
   /*border-bottom: 1px solid #e5e5e5;*/
@@ -215,7 +214,8 @@
   line-height: 28px;
   padding: 0 10px;
   margin-left: 10px;
-  border-radius: 1px;
+  text-align: center;
+  border-radius:1px;
   cursor: pointer;
   /*margin: 0 5px*/
 }
@@ -231,7 +231,6 @@
   color: #3576F5;
 }
 
-
 /*提现按钮*/
 .withdrawals-button {
   border: 1px solid #3576F5;
@@ -241,7 +240,7 @@
 /*提现选中*/
 .withdrawals-button-select {
   color: white;
-  background-color: #C43E4E;
+  background-color: #3576F5;
 }
 
 /*充值选中*/
@@ -296,7 +295,7 @@
   margin-right: 15px;
   vertical-align: middle;
   float: left;
-  padding-left: 35%;
+  /*padding-left: 35%;*/
 }
 
 /*币种图标具体图片*/

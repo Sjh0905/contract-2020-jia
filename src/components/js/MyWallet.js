@@ -1,11 +1,6 @@
-import axios from "axios";
-
 const root = {}
-root.name = 'AssetPageRechargeAndWithdrawals'
-
-/*----------------------------- 组件 ------------------------------*/
-
-// 组件
+root.name = 'MyWallet'
+/*------------------------------ 组件 ------------------------------*/
 root.components = {
   'RechargeAndWithdrawalsRecharge': resolve => require(['../vue/AssetPageRechargeAndWithdrawalsRecharge'], resolve),
   'RechargeAndWithdrawalsWithdrawals': resolve => require(['../vue/AssetPageRechargeAndWithdrawalsWithdrawals'], resolve),
@@ -13,10 +8,7 @@ root.components = {
   'PopupPrompt': resolve => require(['../vue/PopupPrompt'], resolve),
   'Loading': resolve => require(['../vue/Loading'], resolve)
 }
-
-/*----------------------------- data ------------------------------*/
-
-// 数据
+/*------------------------------ data -------------------------------*/
 root.data = function () {
   return {
     // 默认为erc20
@@ -61,16 +53,9 @@ root.data = function () {
     rechargeAddressChangePrompt: false, //充值地址变更的弹窗提示
 
     hideZeroAsset: false, //隐藏零资产币种
-
-
-
   }
 }
-
-/*----------------------------- 生命周期 ------------------------------*/
-
-
-// 开始初始化请求
+/*------------------------------ 生命周期 -------------------------------*/
 root.created = function () {
   this.$store.commit('changeJoinus', false);
   this.getInitData()
@@ -87,23 +72,19 @@ root.created = function () {
   // 获取账户信息
   this.getAccounts()
 
-  console.log(this.accountsComputed)
-
 
   // 如果已经cookies记录的弹出过，则不弹出，如果没有，弹窗，并记录
   if (!this.$cookies.get('rechargeAddressChanged')) {
     this.$cookies.set('rechargeAddressChanged', true, 60 * 60 * 6)
     this.rechargeAddressChangePrompt = true
   }
-
-
 }
 
-/*----------------------------- 计算 ------------------------------*/
-
-
-// 计算
+root.mounted = function () {}
+root.beforeDestroy = function () {}
+/*------------------------------ 计算 -------------------------------*/
 root.computed = {}
+
 // 人民币汇率,由于后台接口返回了0.001，所以前端改为price接口获取，
 // 直接由本地仓库计算好拿过来就行啦,这里其实返回的是btcExchangeRate，
 // 为了和之前的变量名一致，叫exchangeRate
@@ -191,12 +172,9 @@ root.computed.btc_rate = function () {
   return this.$store.state.exchange_rate.btcExchangeRate;
 }
 
-
-/*----------------------------- 监听 ------------------------------*/
-
-
-// 监听
+/*------------------------------ 观察 -------------------------------*/
 root.watch = {}
+
 // 监听vuex中的变化
 root.watch.currencyChange = function (newVal, oldVal) {
   this.accounts = [...this.$store.state.currency.values()]
@@ -215,10 +193,7 @@ root.watch.loading = function (newVal, oldVal) {
     }
   }
 }
-
-
-/*----------------------------- 方法 ------------------------------*/
-
+/*------------------------------ 方法 -------------------------------*/
 root.methods = {}
 
 // 计算当前币对折合多少人民币  2018-4-4 start
@@ -589,9 +564,5 @@ root.methods.accAdd = function (num1, num2) {
   return this.$globalFunc.accAdd(num1, num2)
 }
 /*---------------------- 加法运算 end ---------------------*/
-
-
-
-
 
 export default root
