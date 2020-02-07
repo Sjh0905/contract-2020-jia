@@ -3,36 +3,36 @@
     "login": "登录",
     "register": "注册",
     "popupHeader": "重要提示",
-    "popupDetail": "为配合相关国家、地区等针对区块链资产交易的相关政策，欧联将于即日起停止对来自中国大陆、古巴、伊朗、朝鲜、克里米亚、苏丹、叙利亚、孟加拉国、玻利维亚、厄瓜多尔和吉尔吉斯斯坦的IP访问提供服务。给您带来的不便，我们深表歉意！",
-    "popupTitle": "各位支持欧联发展的为蜜：",
-    "popupTeam": "欧联运营团队",
+    "popupDetail": "为配合相关国家、地区等针对区块链资产交易的相关政策，二零二零将于即日起停止对来自中国大陆、古巴、伊朗、朝鲜、克里米亚、苏丹、叙利亚、孟加拉国、玻利维亚、厄瓜多尔和吉尔吉斯斯坦的IP访问提供服务。给您带来的不便，我们深表歉意！",
+    "popupTitle": "各位支持二零二零发展的为蜜：",
+    "popupTeam": "二零二零运营团队",
     "popupTime": "2018年8月25日"
   },
   "EN": {
     "login": "Log in",
     "register": "Sign up",
     "popupHeader": "Important Notice",
-    "popupDetail": "In compliance with the requirements of applicable laws, regulations, EUNEX will stop our services in the following countries and regions: Bangladesh, Bolivia, Ecuador, Cuba, Crimea, Iran, Kyrgyzstan, Mainland China, North Korea, Sudan, Syria. IP access services from these countries and regions will be blocked. We apologize for the inconvenience.",
+    "popupDetail": "In compliance with the requirements of applicable laws, regulations, TwentyTwenty will stop our services in the following countries and regions: Bangladesh, Bolivia, Ecuador, Cuba, Crimea, Iran, Kyrgyzstan, Mainland China, North Korea, Sudan, Syria. IP access services from these countries and regions will be blocked. We apologize for the inconvenience.",
     "popupTitle": "Dear users！",
-    "popupTeam": "EUNEX Operations Team",
+    "popupTeam": "TwentyTwenty Operations Team",
     "popupTime": "2018/8/25"
   },
   "CA": {
     "login": "Log in",
     "register": "Sign up",
     "popupHeader": "Important Notice",
-    "popupDetail": "In compliance with the requirements of applicable laws, regulations, EUNEX will stop our services in the following countries and regions: Bangladesh, Bolivia, Ecuador, Cuba, Crimea, Iran, Kyrgyzstan, Mainland China, North Korea, Sudan, Syria. IP access services from these countries and regions will be blocked. We apologize for the inconvenience.",
+    "popupDetail": "In compliance with the requirements of applicable laws, regulations, TwentyTwenty will stop our services in the following countries and regions: Bangladesh, Bolivia, Ecuador, Cuba, Crimea, Iran, Kyrgyzstan, Mainland China, North Korea, Sudan, Syria. IP access services from these countries and regions will be blocked. We apologize for the inconvenience.",
     "popupTitle": "Dear users！",
-    "popupTeam": "EUNEX Operations Team",
+    "popupTeam": "TwentyTwenty Operations Team",
     "popupTime": "2018/8/25"
   },
   "KOR": {
     "login": "로그인",
     "register": "가입",
     "popupHeader": "공지사항",
-    "popupDetail": "EUNEX는 블록체인 자산거래와 관련된 규정에 따라 방글라데시, 볼리비아, 에콰도르, 쿠바, 크림반, 이란, 시리아, 수단, 중국 본토, 키르기스스탄에서 당사의 서비스를 중단할 예정입니다. 이런한 국가와 지역의 IP 액세스 서비스가 차단됩니다. 불편을 드리게 되어 진심으로 사과드립니다.",
-    "popupTitle": "EUNEX를 응원하시는 분들：",
-    "popupTeam": "EUNEX 운영팀",
+    "popupDetail": "TwentyTwenty는 블록체인 자산거래와 관련된 규정에 따라 방글라데시, 볼리비아, 에콰도르, 쿠바, 크림반, 이란, 시리아, 수단, 중국 본토, 키르기스스탄에서 당사의 서비스를 중단할 예정입니다. 이런한 국가와 지역의 IP 액세스 서비스가 차단됩니다. 불편을 드리게 되어 진심으로 사과드립니다.",
+    "popupTitle": "TwentyTwenty를 응원하시는 분들：",
+    "popupTeam": "TwentyTwenty 운영팀",
     "popupTime": "2018년 8월 25일"
   },
   "CHT": {
@@ -44,6 +44,6 @@
     "popupTeam": "幣為運營團隊",
     "popupTime": "2018年8月25日"
   },
-  "JP": {  "login": "登録",  "register": "登録する",  "popupHeader": "重要なヒント",  "popupDetail": "関系国・地域などのブロックチェーン資産取引に関する政策に合わせて、EUNEXは中国、キューバ、イラン、北朝鮮、クリミア半島、スーダン、シリア、バングラデシュ、ボリビア、エクアドル、キルギスタンからのIPアクセスを同日から停止する。ご不便をお掛けしましたことを深くお诧び申し上げます。と、",  "popupTitle": "EUNEXの発展を支えてくれているみなさん:",  "popupTeam": "EUNEX運営チーム",  "popupTime": "2018年8月25日"}
+  "JP": {  "login": "登録",  "register": "登録する",  "popupHeader": "重要なヒント",  "popupDetail": "関系国・地域などのブロックチェーン資産取引に関する政策に合わせて、TwentyTwentyは中国、キューバ、イラン、北朝鮮、クリミア半島、スーダン、シリア、バングラデシュ、ボリビア、エクアドル、キルギスタンからのIPアクセスを同日から停止する。ご不便をお掛けしましたことを深くお诧び申し上げます。と、",  "popupTitle": "TwentyTwentyの発展を支えてくれているみなさん:",  "popupTeam": "TwentyTwenty運営チーム",  "popupTime": "2018年8月25日"}
 
 }

@@ -300,7 +300,7 @@ root.methods.submitAllData = function () {
   if (!this.userEmail) {
     this.popType = 0;
     this.popOpen = true;
-    this.popText = '请输入您的欧联注册手机号/邮箱地址!';
+    this.popText = '请输入您的二零二零注册手机号/邮箱地址!';
     this.submitFlag = false;
     return false;
   }
@@ -308,7 +308,7 @@ root.methods.submitAllData = function () {
     console.log('email',this.userEmail,!this.$globalFunc.testEmail(this.userEmail),!this.$globalFunc.testMobile(this.userEmail))
     this.popType = 0;
     this.popOpen = true;
-    this.popText = '欧联注册手机号/邮箱地址格式错误!';
+    this.popText = '二零二零注册手机号/邮箱地址格式错误!';
     this.submitFlag = false;
     return false;
   }

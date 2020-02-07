@@ -1,0 +1,112 @@
+<div class="OfficialQuantitativeDetails">
+
+  <div class="qq_content">
+
+    <div class="qq_title">
+      QQ官方量化详情
+    </div>
+
+    <div class="account_number">
+      <span>账号:</span>
+      <span>{{userName}}</span>
+    </div>
+    <div class="account_number_right">
+      <span>参加日期:</span>
+      <span>20200202</span>
+    </div>
+
+    <div class="quantification_con" >
+      <!--  sss 今日量化-->
+      <div class="quantification_today">
+        <div class="quantification_today_div">
+          <span class="quantification_today_span">今日量化</span>
+          <span class="quantification_today_time">(04/02 9:00 - 05/02 8:59)</span>
+        </div>
+
+        <div class="to_be_released_soon">
+          <span class="to_be_re">即将释放</span>
+          <span class="to_be_re_div">0.00</span>
+          <span>QQ</span>
+        </div>
+
+        <div class="to_be_released_soon">
+          <span class="to_be_re">已量化</span>
+          <span class="to_be_re_div to_be_re_div_1">0.00</span>
+        </div>
+      </div>
+      <!--  sss 今日奖励-->
+      <div class="Todays_award">
+        <div class="Todays_award_div">奖励</div>
+
+        <ul>
+          <li>
+            <div class="li_div_20">
+              <p class="color_0">矿源（QQ）</p>
+              <p class="color_3">100000.00</p>
+            </div>
+            <div class="li_div_60">
+              <p class="color_0">矿源奖励释放(QQ)</p>
+              <p class="color_3">0</p>
+            </div>
+            <div class="li_div_19">
+              <p class="color_0">已释放</p>
+              <p class="color_7">0.00%</p>
+            </div>
+          </li>
+        </ul>
+
+        <div class="border_50"></div>
+
+      </div>
+    </div>
+
+    <div class="record">
+
+      <div class="record_div">交易记录</div>
+
+      <ul >
+        <!--表头 S-->
+        <li class="application_header">
+          <div class="application_header_div">日期</div>
+          <div class="application_header_div">量化</div>
+          <div class="application_header_div">奖励</div>
+          <div class="application_header_div_right">矿源金额</div>
+        </li>
+        <!--表头 E-->
+
+        <!-- 如果加载完成、已登录、有数据，则显示数据 begin -->
+<!--        <template v-if="!loading">-->
+          <!--            <template v-if="userId && currentOrderComputed.length!==0">-->
+<!--          <template v-if="0">-->
+<!--            <transition-group name="fade">-->
+<!--              <li class="flex">-->
+<!--                &lt;!&ndash;账号&ndash;&gt;-->
+<!--                <div class="application_header_div">账号</div>-->
+<!--                &lt;!&ndash;期数&ndash;&gt;-->
+<!--                <div class="application_header_div">期数</div>-->
+<!--                &lt;!&ndash;配套&ndash;&gt;-->
+<!--                <div class="application_header_div">配套</div>-->
+<!--                &lt;!&ndash;时间&ndash;&gt;-->
+<!--                <div class="application_header_div_right">时间</div>-->
+<!--              </li>-->
+<!--            </transition-group>-->
+<!--          </template>-->
+          <!-- 如果加载完成、已登录、有数据，则显示数据 end -->
+
+          <!-- 如果没加载完成、没登录、没数据，则显示'--' begin -->
+          <template>
+<!--          <template v-else>-->
+            <li class="weit">
+              <div class="nhtu"><img src="../../assets/无订单-浅色.png">
+                <p class="nhtu_p">{{$t('orderPageCurrentEntrustment.close_9')}}</p>
+              </div>
+
+            </li>
+          </template>
+<!--        </template>-->
+      </ul>
+
+    </div>
+
+  </div>
+</div>

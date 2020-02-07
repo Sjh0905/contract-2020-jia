@@ -125,7 +125,9 @@
 <!--          <div class="td td-amount">&#45;&#45;</div>-->
 <!--          <div class="td td-turnover">&#45;&#45;</div>-->
 <!--          <div class="td td-operation">&#45;&#45;</div>-->
-          <div class="nhtu"><img src="../../assets/无订单-浅色.png"></div>
+
+          <div class="nhtu" v-if="$route.name == 'currentEntrust'"><img src="../../assets/无订单-浅色.png"></div>
+          <div class="nhtu" v-if="$route.name !== 'currentEntrust'"><img src="../../assets/无订单-深色.png"></div>
           <span>{{$t('orderPageCurrentEntrustment.close_9')}}</span>
         </li>
       </template>

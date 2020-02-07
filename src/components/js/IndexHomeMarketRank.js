@@ -235,9 +235,9 @@ root.methods.RE_GET_NOTICE = function (res) {
 // console.log(res,'hahhahhah')
 //   this.noticeList = [
 //     {beginTime:1570885172000,title:'正式开放注册启事',url:'https://customerservice8872.zendesk.com/hc/zh-cn/articles/360034740012-%E6%AD%A3%E5%BC%8F%E5%BC%80%E6%94%BE%E6%B3%A8%E5%86%8C%E5%90%AF%E4%BA%8B'},
-//     {beginTime:1570885172000,title:'欧联交易所验证邮件延迟',url:'https://customerservice8872.zendesk.com/hc/zh-cn/articles/360035114331-%E4%B8%AD%E7%A7%8B%E4%BA%A4%E6%98%93%E6%89%80%E9%AA%8C%E8%AF%81%E9%82%AE%E4%BB%B6%E5%BB%B6%E8%BF%9F%E5%85%AC%E5%91%8A'},
-//     {beginTime:1570885172000,title:'关于欧联交易所',url:'https://customerservice8872.zendesk.com/hc/zh-cn/articles/360035121071-%E5%85%B3%E4%BA%8E%E4%B8%AD%E7%A7%8B%E4%BA%A4%E6%98%93%E6%89%80'},
-//     {beginTime:1570885172000,title:'欧联交易所实名认证延迟',url:'https://customerservice8872.zendesk.com/hc/zh-cn/articles/360034740072-%E4%B8%AD%E7%A7%8B%E4%BA%A4%E6%98%93%E6%89%80%E5%AE%9E%E5%90%8D%E8%AE%A4%E8%AF%81%E5%BB%B6%E8%BF%9F%E5%85%AC%E5%91%8A'},
+//     {beginTime:1570885172000,title:'二零二零交易所验证邮件延迟',url:'https://customerservice8872.zendesk.com/hc/zh-cn/articles/360035114331-%E4%B8%AD%E7%A7%8B%E4%BA%A4%E6%98%93%E6%89%80%E9%AA%8C%E8%AF%81%E9%82%AE%E4%BB%B6%E5%BB%B6%E8%BF%9F%E5%85%AC%E5%91%8A'},
+//     {beginTime:1570885172000,title:'关于二零二零交易所',url:'https://customerservice8872.zendesk.com/hc/zh-cn/articles/360035121071-%E5%85%B3%E4%BA%8E%E4%B8%AD%E7%A7%8B%E4%BA%A4%E6%98%93%E6%89%80'},
+//     {beginTime:1570885172000,title:'二零二零交易所实名认证延迟',url:'https://customerservice8872.zendesk.com/hc/zh-cn/articles/360034740072-%E4%B8%AD%E7%A7%8B%E4%BA%A4%E6%98%93%E6%89%80%E5%AE%9E%E5%90%8D%E8%AE%A4%E8%AF%81%E5%BB%B6%E8%BF%9F%E5%85%AC%E5%91%8A'},
 //   ]
 
 }

@@ -1,6 +1,6 @@
 {
   "CH": {
-    "btcdo": "欧联",
+    "btcdo": "二零二零",
     "quotes": "行情",
     "currencyExchange": "币币交易",
     "fiatDeal":"法币交易",
@@ -11,6 +11,8 @@
     "ExchangeThreeTeaSources": "兑换茶叁茶源",
     "TeaTeaSource": "茶叁茶源",
     "GRCTradeEvent": "易物点通证量化活动",
+    "OfficialQuantitativeRegistration": "QQ官方量化活动",
+
     "appdown": "APP下载",
     "information": "资讯",
     "help": "帮助中心",
@@ -55,7 +57,7 @@
   "EN": {
     "platform_1":"Chinese",
     "platform_2":"Chinese",
-    "btcdo": "EUNEX",
+    "btcdo": "TwentyTwenty",
     "quotes": "Markets",
     "currencyExchange": "Exchange",
     "fiatDeal":"Fiat deal",
@@ -75,9 +77,9 @@
     "register": "Sign up",
     "loginOff": "Sign out",
     "sloganbtn": "Markets",
-    "slogangraph": "All things to all people EUNEX makes a difference",
+    "slogangraph": "All things to all people TwentyTwenty makes a difference",
     "slogangraphl": "All things to all people",
-    "slogangraphr": "EUNEX makes a difference",
+    "slogangraphr": "TwentyTwenty makes a difference",
     "problem": "FAQ",
     "form": "Request",
     "service": "Service",
@@ -108,7 +110,7 @@
   "CA": {
     "platform_1":"Chinese",
     "platform_2":"Chinese",
-    "btcdo": "EUNEX",
+    "btcdo": "TwentyTwenty",
     "quotes": "Markets",
     "currencyExchange": "Exchange",
     "fiatDeal":"Fiat deal",
@@ -128,9 +130,9 @@
     "register": "Sign up",
     "loginOff": "Sign out",
     "sloganbtn": "Markets",
-    "slogangraph": "All things to all people EUNEX makes a difference",
+    "slogangraph": "All things to all people TwentyTwenty makes a difference",
     "slogangraphl": "All things to all people",
-    "slogangraphr": "EUNEX makes a difference",
+    "slogangraphr": "TwentyTwenty makes a difference",
     "problem": "FAQ",
     "form": "Request",
     "service": "Service",
@@ -213,7 +215,7 @@
     "platform_4":"下載"
   },
   "JP": {
-    "btcdo": "EUNEX",
+    "btcdo": "TwentyTwenty",
     "quotes": "相場",
     "currencyExchange": "貨幣取引",
     "fiatDeal":"法幣取引に",

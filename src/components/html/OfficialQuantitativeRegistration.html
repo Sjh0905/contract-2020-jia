@@ -1,0 +1,106 @@
+<!--sss QQ官方量化报名页面-->
+
+<div class="OfficialQuantitativeRegistration">
+
+  <div class="qq_content">
+
+    <div class="qq_title">
+      QQ官方量化活动
+    </div>
+    <div class="application">
+     <!--   活动报名表   -->
+      <div class="application_form">
+        <div class="application_title">申请表格</div>
+        <div class="Account_number">
+          <span class="Account_number_">账号</span>
+          <div class="Account_number_input">{{userName}}</div>
+        </div>
+        <div class="supporting">
+          <span class="Account_number_">配套</span>
+          <template>
+            <el-select v-model="valuegender" name="gender" placeholder="10000 QQ" popper-class="selectstyle">
+              <el-option
+                v-for="item in optionsgender"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              >
+              </el-option>
+            </el-select>
+          </template>
+        </div>
+
+
+
+        <div class="number_amount">
+          <p class="number_amount_p">所需数额</p>
+          <span class="number_amount_span">QQ:</span>
+          <span class="amount_span">10000</span>
+        </div>
+
+        <div class="number_amount">
+          <p class="number_amount_p">账号余额</p>
+          <span class="number_amount_span">QQ:</span>
+          <span class="amount_span">10000.00</span>
+        </div>
+
+        <!-- 按钮-->
+        <div class="exchange_button">兑换</div>
+
+        <!--  须知-->
+
+        <div class="notice_div">
+          <p>1.请确保您的账号已经通过了实名认证</p>
+          <p>2.请确保您的账户已绑定手机或谷歌二次验证</p>
+          <p>3.请确保您的账户有足够的USDT</p>
+        </div>
+      </div>
+
+    <!--   活动报名记录   -->
+      <div class="application_record">
+
+        <div class="application_title">报名记录</div>
+
+        <ul >
+          <!--表头 S-->
+          <li class="application_header">
+          <div class="application_header_div">账号</div>
+          <div class="application_header_div">期数</div>
+          <div class="application_header_div">配套</div>
+          <div class="application_header_div_right">时间</div>
+          </li>
+          <!--表头 E-->
+
+          <!-- 如果加载完成、已登录、有数据，则显示数据 begin -->
+          <template v-if="!loading">
+<!--            <template v-if="userId && currentOrderComputed.length!==0">-->
+            <template v-if="0">
+              <transition-group name="fade">
+                <li class="flex">
+                  <!--账号-->
+                  <div class="application_header_div">账号</div>
+                  <!--期数-->
+                  <div class="application_header_div">期数</div>
+                  <!--配套-->
+                  <div class="application_header_div">配套</div>
+                  <!--时间-->
+                  <div class="application_header_div_right">时间</div>
+                </li>
+              </transition-group>
+            </template>
+            <!-- 如果加载完成、已登录、有数据，则显示数据 end -->
+
+            <!-- 如果没加载完成、没登录、没数据，则显示'--' begin -->
+            <template v-else>
+              <li class="weit">
+                <div class="nhtu"><img src="../../assets/无订单-浅色.png"></div>
+                <span>{{$t('orderPageCurrentEntrustment.close_9')}}</span>
+              </li>
+            </template>
+          </template>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</div>

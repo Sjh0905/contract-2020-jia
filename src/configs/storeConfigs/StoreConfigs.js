@@ -15,10 +15,10 @@ store.state.save_cookie = ''
 store.state.urlHead = '/apis'
 
 // 静态页地址
-store.state.static_url = process.env.STATIC_URL || 'http://static.eunex.group'
+store.state.static_url = process.env.STATIC_URL || 'http://static.2020.exchange'
 
 //GRC活动地址
-store.state.GRC_URL = process.env.GRC_URL || 'https://build.eunex.group/events/grc-token-mining'
+store.state.GRC_URL = process.env.GRC_URL || 'https://build.2020.exchange/events/grc-token-mining'
 // store.state.GRC_URL = 'https://build.highdefi.com/events/grc-token-mining'  // TODO:生产打版需要屏蔽掉
 
 // 美金汇率 2018-07-17

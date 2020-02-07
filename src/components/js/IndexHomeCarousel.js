@@ -28,7 +28,7 @@ root.data = function () {
       autoplayDisableOnInteraction: false,
       paginationClickable: true,
       paginationType: 'bullets',
-      bannerurl:'https://EUNEX.zendesk.com/hc/zh-cn/articles/360030785411'
+      bannerurl:'https://TwentyTwenty .zendesk.com/hc/zh-cn/articles/360030785411'
 
     },
 
@@ -41,7 +41,7 @@ root.data = function () {
     noticeList: [],
     offset: 0,//从第几个开始
     maxResults: 3, //请求个数
-    banner_url: 'https://www.eunex.group'
+    banner_url: 'https://www.2020.exchange'
   }
 }
 

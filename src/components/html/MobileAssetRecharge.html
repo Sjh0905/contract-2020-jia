@@ -1,7 +1,7 @@
 <div>
   <div class="asset-recharge-item" v-for="(item,index) in accounts" :key="index" v-if="serverT >= item.displayTime"  @click="clickRecharge(item.currency,item)">
     <span  class="asset-recharge-item-logo-box">
-      <img class="asset-recharge-item-logo" :src="'http://logo.eunex.group/' + item.currency +'.png'" alt="">
+      <img class="asset-recharge-item-logo" :src="'http://logo.2020.exchange/' + item.currency +'.png'" alt="">
     </span>
     {{item.currency}}
   </div>

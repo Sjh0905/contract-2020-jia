@@ -32,7 +32,7 @@ root.created = function () {
 
 root.mounted = function () {
   // this.value = this.staticUrl + '/AppDownload'
-  this.value = 'https://download.eunex.group/'
+  this.value = 'https://download.2020.exchange/'
   this.size = 124 /  window.devicePixelRatio
 
   window.addEventListener('scroll', this.appScroll)

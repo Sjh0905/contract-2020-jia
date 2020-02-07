@@ -1551,7 +1551,7 @@ root.routes.push({
           },
           component: resolve => require(['@/components/vue/HelpApplyToList'], resolve),
         },
-        // 欧联用户协议
+        // 二零二零用户协议
         {
           path: 'userAgreement',
           name: 'userAgreement',
@@ -1565,7 +1565,7 @@ root.routes.push({
           },
           component: resolve => require(['@/components/vue/HelpUserAgreement'], resolve),
         },
-        // 欧联隐私协议
+        // 二零二零隐私协议
         {
           path: 'userPrivacy',
           name: 'userPrivacy',
@@ -2588,6 +2588,32 @@ root.routes.push({
     //     requireLogin: true,
     //   },
     // },
+
+    // sss 活动------QQ官方量化报名
+    {
+      path: 'OfficialQuantitativeRegistration',
+      name: 'OfficialQuantitativeRegistration',
+      caseSensitive: true,
+      meta: {
+        requireLogin: false,
+        mobileHeaderTitle: '',
+        name: 'OfficialQuantitativeRegistration',
+      },
+      component: resolve => require(['@/components/vue/OfficialQuantitativeRegistration'], resolve),
+    },
+
+    // sss 活动------QQ官方量化详情
+    {
+      path: 'OfficialQuantitativeDetails',
+      name: 'OfficialQuantitativeDetails',
+      caseSensitive: true,
+      meta: {
+        requireLogin: false,
+        mobileHeaderTitle: '',
+        name: 'OfficialQuantitativeDetails',
+      },
+      component: resolve => require(['@/components/vue/OfficialQuantitativeDetails'], resolve),
+    },
 
     // TODO:不能删除 check
     // cc 活动------茶币路由

@@ -14,7 +14,7 @@ module.exports = {
         // target: 'http://3.112.190.40:8000', //新测试环境1
         // target: 'http://3.112.190.40:8080', //新测试环境1
         // target: 'https://www.highdefi.com', //新测试环境1
-        // target: 'https://www.eunex.group', //新测试环境2
+        // target: 'https://www.2020.exchange', //新测试环境2
         target: 'https://app.eunex.group', //新测试环境2
         // target: 'http://10.113.11.89:8000', //新测试环境2
         // target: 'http://10.113.11.197:8000', //新测试环境2
@@ -25,7 +25,7 @@ module.exports = {
       },
       '/crypto': {
         // target: 'http://192.168.2.163', //新测试环境1
-        // target: 'http://www.eunex.group', //新测试环境2
+        // target: 'http://www.2020.exchange', //新测试环境2
         target:'https://www.btcdo.com',
         changeOrigin: true,
         pathRewrite: {

@@ -80,7 +80,7 @@
     <!--充值提示 begin-->
     <ul class="describe flex">
       <li class="text_red" v-if="memo"><span class="usdt_notice_dot"></span>
-        <!--注：充值{{currency}}到欧联同时需要一个充值地址和{{currency}} memo， 如果未遵守{{currency}}充值规则，币会丢失。-->
+        <!--注：充值{{currency}}到二零二零同时需要一个充值地址和{{currency}} memo， 如果未遵守{{currency}}充值规则，币会丢失。-->
         {{$t('rechargeDescribe',{currency:currency})}}
       </li>
       <li class="text_red" v-show="(currency == 'USDT' || currency == 'USDT2') && (selectTab === 1)"><span class="usdt_notice_dot"></span>{{$t('usdt_notice')}}

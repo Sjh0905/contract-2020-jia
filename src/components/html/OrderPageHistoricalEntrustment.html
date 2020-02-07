@@ -162,7 +162,8 @@
 <!--          </div>-->
 <!--          <div class="td td-state">&#45;&#45;</div>-->
 <!--          <div class="td td-account">&#45;&#45;</div>-->
-          <div class="nhtu"><img src="../../assets/无订单-浅色.png"></div>
+          <div class="nhtu" v-if="$route.name == 'historicalEntrust'"><img src="../../assets/无订单-浅色.png"></div>
+          <div class="nhtu" v-if="$route.name !== 'historicalEntrust'"><img src="../../assets/无订单-深色.png"></div>
           <span>{{$t('orderPageHistoricalEntrustment.close_9')}}</span>
         </li>
       </template>
