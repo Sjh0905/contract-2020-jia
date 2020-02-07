@@ -299,14 +299,14 @@ root.methods.initViews = function (lang) {
 
 				// 蜡烛样式
 				"mainSeriesProperties.candleStyle.upColor": "#02987D",
-				"mainSeriesProperties.candleStyle.downColor": "#C43E4E",
+				"mainSeriesProperties.candleStyle.downColor": "#3576F5",
 				"mainSeriesProperties.candleStyle.drawWick": true,
 				"mainSeriesProperties.candleStyle.drawBorder": true,
 				"mainSeriesProperties.candleStyle.borderColor": "#378658",
 				"mainSeriesProperties.candleStyle.borderUpColor": "#02987D",
-				"mainSeriesProperties.candleStyle.borderDownColor": "#C43E4E",
+				"mainSeriesProperties.candleStyle.borderDownColor": "#3576F5",
 				"mainSeriesProperties.candleStyle.wickUpColor": '#02987D',
-				"mainSeriesProperties.candleStyle.wickDownColor": '#C43E4E',
+				"mainSeriesProperties.candleStyle.wickDownColor": '#3576F5',
 				"mainSeriesProperties.candleStyle.barColorsOnPrevClose": false,
 				"scalesProperties.showRightScale" : false,  //是否显示右侧刻度
 

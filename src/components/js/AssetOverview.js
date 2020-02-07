@@ -286,7 +286,7 @@ root.methods.changeChartData = function () {
       value: this.accounts[i].appraisement,
       itemStyle: {
         normal:
-          {color: this.accounts[i].currency !== this.symbol ? '#cccccc' : '#C43E4E'}
+          {color: this.accounts[i].currency !== this.symbol ? '#cccccc' : '#3576F5'}
       }
     })
   }
@@ -478,7 +478,7 @@ root.methods.accDiv = function (num1, num2) {
 //
 //   newArr.forEach(
 //     (v, index) => {
-//       index && (v.itemStyle = {normal: {color: '#cccccc'}}) || (v.itemStyle = {normal: {color: '#C43E4E'}})
+//       index && (v.itemStyle = {normal: {color: '#cccccc'}}) || (v.itemStyle = {normal: {color: '#3576F5'}})
 //       v.name = v.currency
 //       v.value = v.balance
 //       delete (v.currency)
@@ -503,7 +503,7 @@ root.methods.accDiv = function (num1, num2) {
 //   this.seriesData = newArr_
 //
 //
-//   // this.seriesData = [{value: 335, name: 'BDB', itemStyle: {normal: {color: '#C43E4E'}}},
+//   // this.seriesData = [{value: 335, name: 'BDB', itemStyle: {normal: {color: '#3576F5'}}},
 //   // 	{value: 310, name: 'BTC', itemStyle: {normal: {color: '#cccccc'}}},
 //   // 	{value: 234, name: 'BTCE', itemStyle: {normal: {color: '#cccccc'}}},
 //   // 	{value: 135, name: 'BTC', itemStyle: {normal: {color: '#cccccc'}}},

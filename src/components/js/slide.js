@@ -32,7 +32,7 @@ function SlideBar(data){
   let maxNumber = data.maxNumber;
   let oShowArea = null;
 	if(data.showArea){
-		oShowArea = document.getElementById(data.showArea);	
+		oShowArea = document.getElementById(data.showArea);
 	}
 
 	if(oShowArea){
@@ -46,7 +46,7 @@ function SlideBar(data){
 		_this.clickSlide(oActionBlock, oActionBar, oSlideBar, maxNumber, barLength);
 		_this.drag(oActionBlock, oActionBar, maxNumber, barLength);
 	}
-	
+
 }
 
 SlideBar.prototype = {
@@ -108,7 +108,7 @@ SlideBar.prototype = {
 		else if(target < actionBar.offsetWidth){
 			actionBarSpeed = -8;
 		}
-		
+
 		var timer = setInterval(function(){
 			var actionBarPace = actionBar.offsetWidth + actionBarSpeed;
 
@@ -120,23 +120,23 @@ SlideBar.prototype = {
 			actionBlock.style.left = actionBar.offsetWidth - (actionBlock.offsetWidth / 2) + 'px';
 
 			if(actionBlock.offsetLeft>actionbar2.offsetLeft){
-				actionbar2.style.background = '#C43E4E';
+				actionbar2.style.background = '#3576F5';
 			}else{
 				actionbar2.style.background = '#dedede';
 			}
 			if(actionBlock.offsetLeft>actionbar3.offsetLeft){
-				actionbar3.style.background = '#C43E4E';
+				actionbar3.style.background = '#3576F5';
 			}else{
 				actionbar3.style.background = '#dedede';
 			}
 			if(actionBlock.offsetLeft>actionbar4.offsetLeft){
-				actionbar4.style.background = '#C43E4E';
+				actionbar4.style.background = '#3576F5';
 			}else{
 				actionbar4.style.background = '#dedede';
 			}
 		},30);
 
-		
+
 	},
 
 	/*	鼠标点击刻度滑动块自动滑动	*/
@@ -152,13 +152,13 @@ SlideBar.prototype = {
 			if(target > barLength){
 				target = barLength;
 			}
-			
+
 			_this.checkAndMove(actionBlock, actionBar, target);
 			if(showArea){
-				showArea.value = Math.round(target / barLength * total)+'%';	
-				
+				showArea.value = Math.round(target / barLength * total)+'%';
+
 			}
-			
+
 		}
 	},
 
@@ -171,7 +171,7 @@ SlideBar.prototype = {
 			var disX = ev.clientX;
 			var currentLeft = thisBlock.offsetLeft;
 
-			
+
 
 			document.onmousemove = function(ev) {
 				var ev = ev || event;
@@ -181,24 +181,24 @@ SlideBar.prototype = {
 					thisBlock.style.left = currentLeft + left + 'px';
 					actionBar.style.width = currentLeft + left + (actionBlock.offsetWidth / 2) + 'px';
 					if(thisBlock.offsetLeft>actionbar2.offsetLeft){
-						actionbar2.style.background = '#C43E4E';
+						actionbar2.style.background = '#3576F5';
 					}else{
 						actionbar2.style.background = '#dedede';
 					}
 					if(thisBlock.offsetLeft>actionbar3.offsetLeft){
-						actionbar3.style.background = '#C43E4E';
+						actionbar3.style.background = '#3576F5';
 					}else{
 						actionbar3.style.background = '#dedede';
 					}
 					if(thisBlock.offsetLeft>actionbar4.offsetLeft){
-						actionbar4.style.background = '#C43E4E';
+						actionbar4.style.background = '#3576F5';
 					}else{
 						actionbar4.style.background = '#dedede';
 					}
-					
+
 					if(showArea){
 						showArea.value = Math.round(actionBar.offsetWidth / barLength * total)+'%';
-						
+
 					}
 				}
 				return false;

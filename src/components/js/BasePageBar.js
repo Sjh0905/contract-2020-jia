@@ -49,7 +49,7 @@ root.props.pageCellBorderColor = {
 // 方块格子选中背景色
 root.props.pageCellSelectedBgColor = {
   type: String,
-  default: '#C43E4E'
+  default: '#3576F5'
 }
 // 方块格子选中文字颜色
 root.props.pageCellSelectedColor = {
