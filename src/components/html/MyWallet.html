@@ -102,16 +102,16 @@
               <!--<span class="withdrawals-button button can-not-withdrawals">{{$t('withdrawals')}}</span>-->
               <!--关闭划转 end-->
 
-              <!--打开转账 begin-->
-            <span class="withdrawals-button button"
-                  @click="openWithdrawals(index,item)"
-                  :class="{'withdrawals-button-select':activeIndex===index  && withdrawals}"
-                  v-if="withdrawalsFlag(item)"
-            >
-                            {{$t('internalTransfer')}}
-            </span>
+              <!--sss打开转账 begin-->
+
+              <span class="withdrawals-button button"
+                    @click="internalTransfer(index,item)"
+                    :class="{'recharge-button-select-transfer':activeIndex===index  && transferss}"
+                    v-if="serverT >= item.withdrawOpenTime"
+              >{{$t('internalTransfer')}}转账</span>
             <span class="withdrawals-button button can-not-withdrawals" v-else>{{$t('withdrawals')}}</span>
-              <!--打开转账 end-->
+              <!--sss打开转账 end-->
+
               <!--关闭转账 begin-->
               <!--<span class="withdrawals-button button can-not-withdrawals">{{$t('withdrawals')}}</span>-->
               <!--关闭转账 end-->
@@ -134,7 +134,9 @@
     <div slot="header">
       <span class="">{{popWindowTitle}}</span>
     </div>
-    <div slot="article" class="pop-article">{{popWindowPrompt}}</div>
+    <div slot="article" class="pop-article">{{popWindowPrompt}}
+      <p class="Consequences">{{popWindowPrompt1}}</p>
+    </div>
     <div slot="footer" class="pop-footer flex-center">
       <template v-if="popWindowStyle==0">
         <button @click="popWindowClose" class="button-base btn_simple pointer">
@@ -163,9 +165,246 @@
           {{$t('bind_email_pop_button')}}
         </button>
       </template>
+      <template v-if="popWindowStyle==4">
+        <button @click="goToBindTransfer" class="button-base btn_blue pointer">
+          <!--绑定邮箱-->
+          {{$t('ITransfer')}}
+
+        </button>
+      </template>
+    </div>
+
+  </PopupWindow>
+
+  <!--  内部转账弹窗-->
+  <PopupWindow :switch="buyCommitToastOpen" @close="buyCommitToastClose">
+
+    <div slot="header" class="zhuanzhang">
+      <span class="">{{$t('TransferI')}}{{transferCurrency}}</span>
+    </div>
+    <div slot="article" class="Internal_siding">
+
+      <p class="Internal_siding_email"> <span class="color_red">*</span>{{$t('mailbox')}}</p>
+      <input class="input_input" type="text" :placeholder='userNamePlaceholderShow && $t("deletePopCancel2") || ""' v-model="name_0"
+             @focus="closePlaceholder('userName')"
+             @blur="testName_0"
+             :class="{'wrong-border':nameWA_0!=='0' && nameWA_0!=='0'}" >
+      <!--        <span class="wrong-msg detail-prompt" v-if="name_0==''">{{nameMsg_0}}</span>-->
+      <span v-if="nameWA_0==='0'" class="prompt-span wrong-msg">{{nameMsg_0}}</span>
+
+
+      <p class="Internal_siding_email"> <span class="color_red">*</span>UID</p>
+      <input class="input_input"  type="text"
+             :placeholder='pswPlaceholderShow && $t("deletePopCancel3") || ""' v-model="testUID_0"
+             @focus="closePlaceholder('psw')"
+             @blur="testUID_01"
+             :class="{'wrong-border':testUID_012!=='0' && testUID_012!=='0'}" >
+      <span v-if="testUID_012==='0'" class="prompt-span wrong-msg">{{testUIDMsg_0}}</span>
+      <div class="Internal_siding_email"><span><span class="color_red">*</span>{{$t('Number1')}}</span> <span class="email_span">{{$t('Number2')}}{{transferCurrency}}{{$t('Number3')}}</span></div>
+      <input class="input_input" type="text"
+             placeholder="输入转账数量，不能小于2"
+             :placeholder='verificationCodePlaceholderShow && $t("deletePopCancel5") || ""' v-model="testNum_0"
+             @focus="closePlaceholder('verificationCode')"
+             @blur="testNum_01"
+             :class="{'wrong-border':testNumWA_0!=='0' && testNumWA_0!=='0'}" >
+      <span v-if="testNumWA_0 ==='0'" class="prompt-span wrong-msg">{{testNumMsg_0}}</span>
+      <p class="shouxu">{{$t('Number4')}}</p>
+      <!--      <p class="Internal_siding_email margin_top"><span class="color_red">*</span>邮箱验证码</p>-->
+      <!--      <input class="input_input" type="text" placeholder="输入邮箱验证码" >-->
+      <!--      <p class="Internal_siding_email"> <span class="color_red">*</span>二次验证</p>-->
+      <!--      <input class="input_input" type="text" placeholder="输入谷歌验证码" >-->
+
+      <div slot="footer">
+        <button class="Internal_siding_email1" @click="goToConfirmTransfer"> {{$t('Number5')}}</button>
+      </div>
+      <p class="zhu">{{$t('Number6')}}</p>
 
     </div>
+
   </PopupWindow>
+
+  <!--  确认转账细节-->
+  <PopupWindow :switch="buyTransferDetails" @close="buyTransferDetailsClose">
+
+    <div slot="header" class="zhuanzhang">
+      <span class="">{{$t('deletePopConfirm')}}{{transferCurrency}}{{$t('TransferI')}}</span>
+    </div>
+    <div slot="article" class="Internal_siding">
+      <div class="Payee"><span class="gray">{{$t('deletePopCancel1')}}</span><span class="Black">{{name}}</span></div>
+      <div class="Payee"><span class="gray">{{$t('deletePopCancel2')}}</span><span class="Black">{{name_0}}</span></div>
+      <div class="Payee"><span class="gray">{{$t('deletePopCancel3')}}</span><span class="Black">{{testUID_0}}</span></div>
+      <div class="Payee"><span class="gray">{{$t('deletePopCancel4')}}</span><span class="Black">{{transferCurrency}}</span></div>
+      <div class="Payee"><span class="gray">{{$t('deletePopCancel5')}}</span><span class="Black">{{testNum_0}}</span></div>
+
+      <div slot="footer">
+        <!--        <button class="Internal_siding_email1" @click="goToConfirmTransfer"> 确认转账</button>-->
+
+        <button @click="goToConfirm" class="button-base btn_blue pointer">
+          {{$t('deletePopConfirm')}}
+        </button>
+        <button @click="popWindowClose1" class="button-base btn_simple pointer">
+          {{$t('cancel')}}
+        </button>
+      </div>
+
+    </div>
+
+  </PopupWindow>
+
+
+  <!--  转账成功-->
+  <PopupWindow :switch="buyConfirmSuccess" @close="buyConfirmSuccessClose">
+
+    <div slot="header" class="zhuanzhang">
+      <span class="">{{$t('deletePopConfirm7')}}</span>
+    </div>
+    <div slot="article" class="Internal_siding img_ConfirmSuccess">
+
+<!--      <img src="../../assets/内部转账成功.png" alt="" >-->
+
+    </div>
+    <div slot="footer">
+
+      <button @click="goToTransferRecord" class="button-base btn_blue pointer">
+        {{$t('deletePopConfirm8')}}
+      </button>
+
+    </div>
+
+  </PopupWindow>
+
+  <PopupWindow :switch="goToConfirmsjh" @close="goToConfirmsjhclose" class="popupWindow-container">
+    <div slot="header" class="popWindow-title ">{{$t('verify')}}
+    </div>
+
+    <!-- article begin 1 -->
+    <div slot="article" class="popWindow-article" v-if="popWindowStep==1">
+      <div class="prompt-title">
+        <!--        {{$t('promptWindow_1')}}22222-->
+      </div>
+      <div class="verification-container double-input-container flex" >
+        <label for="email"
+               class="verification-title">{{$t('email')}}</label>
+        <input type="text" id="email" class="verification-input double-input input_padding"
+               v-model="emailVerificationCode"
+               @blur="testEmailVerification">
+        <button class="get-verification button-base btn_blue" v-if="!getEmailVerificationCode"
+                @click="getEmailVerification" >
+          {{$t('reGet')}}
+        </button>
+        <button class="get-verification button-base btn_grey" v-if="getEmailVerificationCode" disabled>
+          {{getEmailVerificationCodeCountdown}}
+        </button>
+      </div>
+      <div class="prompt-wrong wrong-msg" v-if="emailVerificationCodeWA!==''">
+        {{emailVerificationCodeWA}}
+      </div>
+      <div class="prompt-wrong wrong-msg" v-else="emailVerificationCodeWA!==''">
+
+      </div>
+
+    </div>
+    <!-- article end 1 -->
+
+    <!-- article begin 2 -->
+    <div slot="article" class="popWindow-article" v-if="popWindowStep==2">
+
+      <div class="prompt-title" v-if="!step2Error">
+        {{$t('promptWindow_2')}}
+      </div>
+
+      <template v-if="!step2Error">
+        <div class="prompt-show-picker-box">
+
+          <div class="prompt-show-picker" v-if="showPicker">
+            <div class="prompt-show-picker-detail-box">
+              <input type="radio" name="picker" value="1" id="pick-ga" v-model="picker">
+              <label for="pick-ga">{{$t('gaCode')}}</label>
+            </div>
+            <div class="prompt-show-picker-detail-box">
+              <input type="radio" name="picker" value="2" id="pick-mobile" v-model="picker">
+              <label for="pick-mobile">{{$t('mobile')}}</label>
+            </div>
+          </div>
+          <div class="verification-container flex" v-if="picker == 1">
+            <label for="gaCode"
+                   class="verification-title">{{$t('gaCode')}}</label>
+            <input type="text" id="gaCode" class="verification-input input_padding" v-model="step2VerificationCode"
+                   @blur="testGACodeVerification">
+          </div>
+          <div class="verification-container double-input-container flex" v-if="picker == 2">
+            <label for="mobile"
+                   class="verification-title">{{$t('mobile')}}</label>
+            <input type="text" id="mobile" class="verification-input double-input input_padding"
+                   v-model="step2VerificationCode"
+                   @blur="testMobileVerification">
+            <button class="get-verification button-base btn_blue" v-if="!getMobileVerificationCode"
+                    @click="getMobileVerification">{{$t('reGet')}}
+            </button>
+            <button class="get-verification button-base btn_grey" v-if="getMobileVerificationCode" disabled>
+              {{getMobileVerificationCodeCountdown}}
+            </button>
+          </div>
+        </div>
+      </template>
+
+      <div class="prompt-wrong wrong-msg" v-if="step2VerificationCodeWA!==''">
+        {{step2VerificationCodeWA}}
+      </div>
+      <div class="prompt-wrong wrong-msg" v-else>
+
+      </div>
+    </div>
+    <!-- article end 2 -->
+
+
+    <!-- footer popWindow begin 1 -->
+    <div slot="footer" class="popWindow-footer" v-if="popWindowStep === 1">
+      <button class="button-base pointer btn_border_blue text_blue btn_simple" @click="goToConfirmsjhclose">
+        {{$t('cancel')}}
+      </button>
+      <button class="button-base btn-commit btn_blue pointer " v-if="!emailVerificationSending"
+              @click="commitEmailVerification">
+        {{$t('commit')}}
+      </button>
+      <button class="button-base btn-commit btn_grey pointer " v-if="emailVerificationSending" disabled>
+        {{$t('commiting')}}
+      </button>
+    </div>
+    <!-- footer popWindow end 1 -->
+
+    <!-- footer popWindow begin 2 -->
+    <div slot="footer" class="popWindow-footer" v-if="popWindowStep === 2">
+      <template v-if="!step2Error">
+        <button class="button-base btn-cancel  pointer btn_border_blue text_blue btn_simple" @click="goToConfirmsjhclose">
+          {{$t('cancel')}}
+        </button>
+        <button class="button-base btn-commit btn_blue pointer" v-if="!step2VerificationSending"
+                @click="commitStep2Verification">
+          {{$t('commit')}}
+        </button>
+        <button class="button-base btn-commit btn_grey pointer" v-if="step2VerificationSending" disabled>
+          {{$t('commiting')}}
+        </button>
+      </template>
+      <template v-if="step2Error">
+        <button class="button-base btn-commit btn_blue pointer" v-if="step2VerificationSending" disabled>
+          {{$t('commit')}}
+        </button>
+      </template>
+    </div>
+    <!-- footer popWindow end 1 -->
+
+
+    <!--加载样式 begin -->
+    <div class="popWindow-loading" slot="other" v-if="popWindowLoading">
+      <div class="popWindow-background"></div>
+      <Loading/>
+    </div>
+    <!--加载样式 end -->
+
+  </PopupWindow>
+
 
 
   <!-- 提示 start -->
