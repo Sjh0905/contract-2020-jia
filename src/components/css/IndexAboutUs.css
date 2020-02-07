@@ -124,7 +124,7 @@
 }
 
 .about-font-blue{
-  color:#C43E4E;
+  color:#3576F5;
 }
 
 .about-container-content-title-cutter-line {
@@ -269,7 +269,7 @@
 .about-container-center-banner-en {
   width: 100%;
   height: 520px;
-  /*background: #C43E4E url("") center center no-repeat;*/
+  /*background: #3576F5 url("") center center no-repeat;*/
   background-size: auto 100%;
   background-position: center;
 }
@@ -292,7 +292,7 @@
 }
 
 .about-container-bottom-banner-main-title{
-  color: #C43E4E;
+  color: #3576F5;
   font-size: 24px;
   margin-top: 56px;
 text-align: center;
@@ -324,7 +324,7 @@ text-align: center;
 }
 
 .about-container-bottom-text-item-title {
-  color: #C43E4E;
+  color: #3576F5;
   font-size: 18px;
   text-align: center;
 }

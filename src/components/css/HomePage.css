@@ -49,7 +49,7 @@
 	cursor: pointer;
 }
 .homepage-front-span:hover{
-	color: #C43E4E;
+	color: #3576F5;
 }
 .homepage-front-span2{
 	font-size: 1.6rem;
@@ -154,7 +154,7 @@
 }
 
 .selected-homepage {
-	border-top: 3px solid #C43E4E;
+	border-top: 3px solid #3576F5;
 	background-color: #cae7ea;
 	line-height: 31px;
 }

@@ -155,7 +155,7 @@
 .selected-market {
   background-color: #3576F5;
   padding: 0 30px;
-  /*border-bottom: 3px solid #C43E4E;*/
+  /*border-bottom: 3px solid #3576F5;*/
   color: #FFFFFF;
 }
 
@@ -304,7 +304,7 @@
 }
 
 .rise-and-fall-red {
-  color: #C43E4E;
+  color: #3576F5;
 }
 
 

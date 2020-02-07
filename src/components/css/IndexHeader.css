@@ -110,7 +110,7 @@
   /*padding: 0 25px 0;*/
   background: #12141d;
   position: relative;
-  color: #C43E4E;
+  color: #3576F5;
 }
 
 /*.trading-hall:hover:before {*/
@@ -121,7 +121,7 @@
 /*left: 0;*/
 /*height: 5px;*/
 /*content: '';*/
-/*background: #C43E4E;*/
+/*background: #3576F5;*/
 /*}*/
 
 .header-left .index-header-logo {
@@ -175,7 +175,7 @@
 
 .hover-tab:hover .navigation-link-a {
   background: #12141d;
-  color: #C43E4E;
+  color: #3576F5;
   position: relative;
 }
 
@@ -207,7 +207,7 @@
 /*left: 0;*/
 /*height: 5px;*/
 /*content: '';*/
-/*background: #C43E4E;*/
+/*background: #3576F5;*/
 /*}*/
 
 /*下拉*/
@@ -235,7 +235,7 @@
   flex-direction: column;
   -ms-flex-direction: column;
   -webkit-flex-direction: column;
-  color: #C43E4E;
+  color: #3576F5;
 }
 
 .hover-tab .hidden-li {
@@ -257,12 +257,12 @@
 }
 
 .hover-tab .hidden-li:hover a {
-  color: #C43E4E;
+  color: #3576F5;
 }
 
 .hover-tab .hidden-li:hover {
   background-color:rgba(196,62,78,0.03);
-  color: #C43E4E;
+  color: #3576F5;
 }
 
 /*帮助*/
@@ -309,7 +309,7 @@
 
 .help_more:hover .navigation-link-a {
   background: #12141d;
-  color: #C43E4E;
+  color: #3576F5;
 }
 
 /*.help_more:hover .navigation-link-a:before {*/
@@ -320,7 +320,7 @@
 /*left: 0;*/
 /*height: 5px;*/
 /*content: '';*/
-/*background: #C43E4E;*/
+/*background: #3576F5;*/
 /*}*/
 
 .help_more ul li a,
@@ -329,12 +329,12 @@
 }
 
 .help_more ul li:hover a {
-  color: #C43E4E;
+  color: #3576F5;
 }
 
 .help_more ul li:hover {
   background-color:rgba(196,62,78,0.03);
-  color: #C43E4E;
+  color: #3576F5;
 }
 
 /*登录*/
@@ -354,7 +354,7 @@
 }
 
 .login li:hover > a {
-  color: #C43E4E;
+  color: #3576F5;
 }
 
 .login li:nth-child(1) {
@@ -385,7 +385,7 @@
 }
 
 .login-header:hover {
-  color: #C43E4E;
+  color: #3576F5;
 }
 
 .login-header-img2 {
@@ -413,7 +413,7 @@
 }
 
 .login-in:hover .login-header-name {
-  color: #C43E4E;
+  color: #3576F5;
 }
 
 .login-header-img {
@@ -488,7 +488,7 @@
 
 .login-hidden .login-off:hover {
   background-color:rgba(196,62,78,0.03);
-  color: #C43E4E;
+  color: #3576F5;
 }
 
 .light-on {
@@ -536,7 +536,7 @@
   /*left: 0;*/
   /*height: 5px;*/
   /*content: '';*/
-  /*background: #C43E4E;*/
+  /*background: #3576F5;*/
 }
 
 .language-jt-down{
@@ -625,13 +625,13 @@
 /*}*/
 
 .selected {
-  color: #C43E4E !important;
-  /*border-top:10px solid #C43E4E;*/
+  color: #3576F5 !important;
+  /*border-top:10px solid #3576F5;*/
   position: relative;
 }
 
 .selected-noHeader, .selected-coindepot {
-  color: #C43E4E !important;
+  color: #3576F5 !important;
   position: relative;
 }
 
@@ -994,7 +994,7 @@
   }
 
   .selected {
-    color: #C43E4E !important;
+    color: #3576F5 !important;
   }
 
   .mobile-header {
@@ -1027,7 +1027,7 @@
     line-height: 0.88rem;
     margin-left: 0.1rem;
     float: right;
-    color: #C43E4E;
+    color: #3576F5;
   }
 
   .mobile-header-icon-flag {
@@ -1196,7 +1196,7 @@
   width: 0;
   height: 0;
   border-right: 0.1rem solid transparent;
-  border-bottom: 0.1rem solid #C43E4E;
+  border-bottom: 0.1rem solid #3576F5;
   border-left: 0.1rem solid transparent;
   position: absolute;
   left: 2.6rem;
@@ -1207,7 +1207,7 @@
 .triangle-down {
   width: 0;
   height: 0;
-  border-top: 0.1rem solid #C43E4E;
+  border-top: 0.1rem solid #3576F5;
   border-right: 0.1rem solid transparent;
   border-left: 0.1rem solid transparent;
   position: absolute;
@@ -1319,9 +1319,9 @@
 
 .navigation-item-router-notice :hover{
   /*background: #12141d;*/
-  color: #C43E4E !important;
+  color: #3576F5 !important;
   /*opacity: 0.9;*/
-  border-bottom: 2px solid #C43E4E;
+  border-bottom: 2px solid #3576F5;
 }
 
 
@@ -1414,7 +1414,7 @@
 }
 
 /* .navigation-item-hidden-list-item:hover {
-  color: #C43E4E !important;
+  color: #3576F5 !important;
 } */
 
 .dark .navigation-item-hidden-list-item {
@@ -1546,7 +1546,7 @@
 }
 
 .navigation-item-hidden-language-item:hover {
-  color: #C43E4E !important;
+  color: #3576F5 !important;
   background-color:rgba(196,62,78,0.06);
 }
 
@@ -1555,7 +1555,7 @@
 }
 
 .navigation-item-hidden-language-item-router:hover {
-  color: #C43E4E !important;
+  color: #3576F5 !important;
   background-color:rgba(196,62,78,0.06);
 
 }
@@ -1740,7 +1740,7 @@
 }
 
 .index-home-header-address {
-  background: #C43E4E;
+  background: #3576F5;
   color: #fff;
   height: 0.72rem;
   line-height: 0.72rem;
@@ -1907,7 +1907,7 @@
 }
 
 #navigation-item-hidden-list-item-j a {
-  color: #C43E4E;
+  color: #3576F5;
 }
 #navigation-item-hidden-list-item-l{
   /*opacity: 0;*/
@@ -1957,10 +1957,10 @@
 
 .languagediv:hover{
   /*opacity: 0.08;*/
-  /*background: #C43E4E;*/
+  /*background: #3576F5;*/
   /*font-family: PingFangSC-Regular;*/
   /*font-size: 16px;*/
-  /*color: #C43E4E;*/
+  /*color: #3576F5;*/
   color: #3576F5 !important;
   background-color:#F5F6FA;
 }

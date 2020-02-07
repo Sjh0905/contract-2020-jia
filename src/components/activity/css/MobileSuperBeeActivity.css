@@ -106,21 +106,21 @@
 
 .super-bee-activity-header-info-blue {
   display: inline;
-  color: #C43E4E;
+  color: #3576F5;
 }
 
 .super-bee-activity-header-btn {
   margin: 21px auto 0;
   height: 32px;
   width: 244px;
-  background: #C43E4E;
+  background: #3576F5;
   line-height: 32px;
   color: #fff;
   border-radius: 16px;
   text-align: center;
   font-size: 14px;
   box-sizing: content-box;
-  border: 1px solid #C43E4E;
+  border: 1px solid #3576F5;
 }
 
 .super-bee-activity-header-btn2 {
@@ -129,12 +129,12 @@
   width: 244px;
   background: transparent;
   line-height: 32px;
-  color: #C43E4E;
+  color: #3576F5;
   border-radius: 16px;
   text-align: center;
   font-size: 14px;
   box-sizing: content-box;
-  border: 1px solid #C43E4E;
+  border: 1px solid #3576F5;
 }
 
 .super-bee-activity-join {
@@ -170,7 +170,7 @@
 
 .super-bee-activity-join-title-right {
   font-size: 14px;
-  color: #C43E4E;
+  color: #3576F5;
 }
 
 .super-bee-activity-join-box {
@@ -217,8 +217,8 @@
   /*box-sizing: content-box;*/
   width: 2.4rem;
   height: 30px;
-  background: #C43E4E;
-  border: 1px solid #C43E4E;
+  background: #3576F5;
+  border: 1px solid #3576F5;
   line-height: 30px;
   text-align: center;
   color: #fff;
@@ -239,9 +239,9 @@
   background: transparent;
   line-height: 30px;
   text-align: center;
-  color: #C43E4E;
+  color: #3576F5;
   border-radius: 15px;
-  border: 1px solid #C43E4E;
+  border: 1px solid #3576F5;
   font-size: 14px;
   display: flex;
   align-items: center;

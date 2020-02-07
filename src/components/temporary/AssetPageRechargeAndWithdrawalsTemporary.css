@@ -124,26 +124,26 @@
 
 /*充值按钮*/
 .recharge-button {
-  border: 1px solid #C43E4E;
-  color: #C43E4E;
+  border: 1px solid #3576F5;
+  color: #3576F5;
 }
 
 /*提现按钮*/
 .withdrawals-button {
-  border: 1px solid #C43E4E;
-  color: #C43E4E;
+  border: 1px solid #3576F5;
+  color: #3576F5;
 }
 
 /*提现选中*/
 .withdrawals-button-select {
   color: white;
-  background-color: #C43E4E;
+  background-color: #3576F5;
 }
 
 /*充值选中*/
 .recharge-button-select {
   color: white;
-  background-color: #C43E4E;
+  background-color: #3576F5;
 }
 
 /*提现置灰色*/

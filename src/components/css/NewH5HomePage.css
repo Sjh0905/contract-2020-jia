@@ -245,7 +245,7 @@
   margin-top: 0;
   height: 22px;
   line-height: 22px;
-  color: #C43E4E;
+  color: #3576F5;
   font-size: 16px;
 }
 
@@ -289,7 +289,7 @@
 }
 
 .mobile-market-area-title-item-active {
-  color: #C43E4E;
+  color: #3576F5;
 }
 
 .mobile-market-area-title-item-span {
@@ -304,7 +304,7 @@
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  background: #C43E4E;
+  background: #3576F5;
   width: 100%;
 }
 
@@ -367,8 +367,8 @@
 }
 
 .mobile-market-title-item-active {
-  border-bottom: 2px solid #C43E4E;
-  color: #C43E4E;
+  border-bottom: 2px solid #3576F5;
+  color: #3576F5;
 }
 
 .mobile-market-table {
@@ -469,7 +469,7 @@
 }
 
 .mobile-market-normal-td-price-down {
-  color: #C43E4E;
+  color: #3576F5;
 }
 
 .mobile-market-normal-td-cny {
@@ -499,7 +499,7 @@
 }
 
 .mobile-market-normal-td-current-down {
-  background: #C43E4E;
+  background: #3576F5;
 }
 
 .mobile-market-table-box-get-more {
@@ -604,9 +604,9 @@
 }
 
 .index-home-header-address {
-  /*background: #C43E4E;*/
-  border: 1px solid #C43E4E;
-  color: #C43E4E;
+  /*background: #3576F5;*/
+  border: 1px solid #3576F5;
+  color: #3576F5;
   height: 0.72rem;
   line-height: 0.72rem;
   width: 1.6rem;
@@ -631,7 +631,7 @@
   font-size: 16px;
   letter-spacing: 0;
   font-family: PingFangSC-Medium;
-  color: #C43E4E;
+  color: #3576F5;
   letter-spacing: 0;
   font-weight: 600;
 }
@@ -646,7 +646,7 @@
   letter-spacing: 0;
   font-family: PingFangSC-Regular;
   font-size: 13px;
-  color: #C43E4E;
+  color: #3576F5;
   letter-spacing: 0;
 }
 
@@ -709,8 +709,8 @@
 /*选中样式*/
 .selected-market {
   /*padding-bottom: 11px;*/
-  border-bottom: 3px solid #C43E4E;
-  color: #C43E4E;
+  border-bottom: 3px solid #3576F5;
+  color: #3576F5;
 }
 /*.market-list-click-area {*/
 /*  position: relative;*/
@@ -749,7 +749,7 @@
 
 .homepage-toast-title {
   height: 42px;
-  background: #C43E4E;
+  background: #3576F5;
   line-height: 42px;
   color: #fff;
   font-size: 14px;
@@ -830,7 +830,7 @@
   width: 100%;
   font-family: PingFangSC-Regular;
   font-size: 10px;
-  color: #C43E4E;
+  color: #3576F5;
   text-align: center;
 }
 

@@ -154,13 +154,13 @@
   display: block;
   width: 4px;
   height: 16px;
-  background-color: #C43E4E;
+  background-color: #3576F5;
   margin-right: 7px;
 }
 
 .title span:nth-of-type(3) {
   font-size: 1.2rem;
-  color: #C43E4E;
+  color: #3576F5;
   margin-left: 5%;
 }
 
@@ -245,7 +245,7 @@
   height: 30px;
   box-sizing: border-box;
   border: 0 solid transparent;
-  background-color: #C43E4E;
+  background-color: #3576F5;
   color: #fff;
   border-radius: 3px;
   margin: 2px 0;
@@ -256,8 +256,8 @@
 }
 
 .detail-button .btn_release {
-  border: 1px solid #C43E4E;
-  color: #C43E4E;
+  border: 1px solid #3576F5;
+  color: #3576F5;
   background-color: transparent;
 }
 
@@ -347,7 +347,7 @@
     height: 30px;
     box-sizing: border-box;
     border: 0 solid transparent;
-    background-color: #C43E4E;
+    background-color: #3576F5;
     color: #fff;
     border-radius: 5px;
     margin: 2px 0;

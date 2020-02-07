@@ -172,7 +172,7 @@
   z-index: 200;
   /*border-left:1px solid #bbb;*/
   /*border-right:1px solid #bbb;*/
-  /*border-top:3px solid #C43E4E;*/
+  /*border-top:3px solid #3576F5;*/
   border-bottom: 2px solid #3576F5;
   line-height: 44px;
 }
@@ -196,7 +196,7 @@
   /*cursor: pointer ;*/
   height: 36px;
   line-height:36px;
-  /*border-bottom: 2px solid #C43E4E;*/
+  /*border-bottom: 2px solid #3576F5;*/
   width: auto;
   float: left;
   text-align: center;
@@ -259,7 +259,7 @@
 }
 
 .use_bob_fire a {
-  color: #C43E4E;
+  color: #3576F5;
 }
 
 .account-info-toggle {
@@ -323,8 +323,8 @@
   content: '';
   border-radius: 100px;
   transform: translate(100%, 0);
-  color: #C43E4E;
-  background-color: #C43E4E;
+  color: #3576F5;
+  background-color: #3576F5;
 }
 
 .toggle--moving:after {

@@ -9,7 +9,7 @@
 .mobile-history-title-all-sale{
 	height: 0.44rem;
 	line-height: 0.44rem;
-	border: 1px solid #C43E4E;
+	border: 1px solid #3576F5;
 	color: #fff;
 	border-radius: 2px;
 	float: right;
@@ -142,7 +142,7 @@
 	height: 0.4rem;
 	line-height: 0.4rem;
 	/*border: 1px solid #00bec1;*/
-	color: #C43E4E;
+	color: #3576F5;
 	border-radius: 2px;
 	box-sizing: border-box;
 	margin-right: 0.1rem;
@@ -215,7 +215,7 @@
 .mobile-current-title-all-sale{
 	height: 0.44rem;
 	line-height: 0.44rem;
-	border: 1px solid #C43E4E;
+	border: 1px solid #3576F5;
 	color: #fff;
 	border-radius: 2px;
 	float: right;
@@ -252,7 +252,7 @@
 }
 
 .mobile-current-item-icon-buy {
-	background: #C43E4E;
+	background: #3576F5;
 }
 .mobile-history-item-icon-sale {
 	background: #f93943;
@@ -336,7 +336,7 @@
 	width: 0.9rem;
 	height: 0.4rem;
 	line-height: 0.4rem;
-	border: 1px solid #C43E4E;
+	border: 1px solid #3576F5;
 	color: #fff;
 	border-radius: 2px;
 	box-sizing: border-box;
@@ -451,9 +451,9 @@
 	width: 0.72rem;
 	height: 0.4rem;
 	line-height: 0.4rem;
-	border: 1px solid #C43E4E;
+	border: 1px solid #3576F5;
 	border-radius: 4px;
 	text-align: center;
-	color: #C43E4E;
+	color: #3576F5;
 	font-size: 0.24rem;
 }

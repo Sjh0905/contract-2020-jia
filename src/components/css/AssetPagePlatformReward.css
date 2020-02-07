@@ -118,7 +118,7 @@
   line-height: 50px;
   text-align: center;
   /*background-color: #fff;*/
-  color: #C43E4E;
+  color: #3576F5;
   /*border-radius: ;*/
   position: relative;
 }
@@ -129,7 +129,7 @@
 
 .copy-btn {
   padding: 0 20px;
-  border: 1px solid #C43E4E;
+  border: 1px solid #3576F5;
   border-radius: 4px;
   position: absolute;
   right: 1%;

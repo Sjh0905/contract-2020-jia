@@ -198,7 +198,7 @@ body {
 }
 
 .txt-green {
-  color: #C43E4E !important;
+  color: #3576F5 !important;
 }
 
 .txt-green2 {
@@ -216,12 +216,12 @@ body {
 }
 
 .txt-red {
-  /*color: #C43E4E;*/
+  /*color: #3576F5;*/
   color: #FD5555;
 }
 
 .txt-reda {
-  /*color: #C43E4E;*/
+  /*color: #3576F5;*/
   color: rgba(253, 85, 85 , .5)
 }
 
@@ -284,7 +284,7 @@ body {
 .button-base {
   width: 120px;
   height: 35px;
-  /*background-color: #C43E4E;*/
+  /*background-color: #3576F5;*/
   color: #fff;
   border-radius: 2px;
   border: 0 solid transparent;
@@ -293,7 +293,7 @@ body {
 .btn_base {
   width: 120px;
   height: 35px;
-  /*background-color: #C43E4E;*/
+  /*background-color: #3576F5;*/
   color: #fff;
   border-radius: 2px;
   border: 0 solid transparent;
@@ -363,7 +363,7 @@ input {
 
 /* 蓝色按钮 */
 .btn_blue {
-  /*background-color: #C43E4E !important;*/
+  /*background-color: #3576F5 !important;*/
   /*border-radius: 2px;*/
   background: -webkit-gradient(linear,right top, left top,from(rgba(53,118,245,1)),to(rgba(69,154,245,1))) !important;
   background: linear-gradient(270deg,rgba(53,118,245,1) 0%,rgba(69,154,245,1) 100%) !important;
@@ -499,7 +499,7 @@ input {
 }
 
 .btn_border_blue {
-  border: 1px solid #C43E4E;
+  border: 1px solid #3576F5;
 }
 
 .btn_txt_color_white {
@@ -511,15 +511,15 @@ input {
 }
 
 .btn_simple {
-  border: 1px solid #C43E4E !important;
-  color: #C43E4E !important;
+  border: 1px solid #3576F5 !important;
+  color: #3576F5 !important;
   background-color: transparent !important;
 }
 
 .btn_simple:hover {
-  border: 1px solid #C43E4E !important;
+  border: 1px solid #3576F5 !important;
   color: #fff !important;
-  background-color: #C43E4E !important;
+  background-color: #3576F5 !important;
 }
 
 .btn_simple1 {

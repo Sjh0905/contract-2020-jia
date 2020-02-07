@@ -367,7 +367,7 @@
   box-sizing: border-box;
   background-color: transparent !important;
   border-radius: 0 4px 4px 0;
-  color: #C43E4E;
+  color: #3576F5;
   cursor: pointer;
 }
 
@@ -395,7 +395,7 @@
   width: 100%;
   height: 100%;
   font-size: 0.28rem;
-  background-color: #C43E4E;
+  background-color: #3576F5;
   color: #ffffff;
   border-radius: 2px;
   letter-spacing: 10px;
@@ -420,6 +420,6 @@
 .identifying-code-button-close {
   /*background-color: #cccccc!important;*/
   background-color: transparent !important;
-  color: #C43E4E !important;
+  color: #3576F5 !important;
 }
 }

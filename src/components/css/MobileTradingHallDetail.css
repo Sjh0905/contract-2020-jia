@@ -30,7 +30,7 @@
   border-bottom: 0.04rem solid transparent;
   text-align: center;
 	padding: 0 0.1rem;
-  color:  #C43E4E;
+  color:  #3576F5;
   font-family: PingFangSC-Medium;
   font-size: 20px;
 }
@@ -50,13 +50,13 @@
 }
 
 .header-title-item-active{
-  border-bottom: 2px solid #C43E4E;
-  /*color: #C43E4E;*/
+  border-bottom: 2px solid #3576F5;
+  /*color: #3576F5;*/
 }
 
 .header-title-item-active-lv{
   border-bottom: 2px solid #02987D;
-  /*color: #C43E4E;*/
+  /*color: #3576F5;*/
 }
 
 .header-price-select{
@@ -273,7 +273,7 @@
 }
 
 .container-sell-page .mobile-buy-btn{
-  background: #C43E4E;
+  background: #3576F5;
 }
 
 .mopbile-trading-img{
@@ -471,7 +471,7 @@
 .mobile-current-title-all-sale{
   height: 0.44rem;
   line-height: 0.44rem;
-  border: 1px solid #C43E4E;
+  border: 1px solid #3576F5;
   color: #fff;
   border-radius: 2px;
   float: right;
@@ -589,7 +589,7 @@
   width: 0.9rem;
   height: 0.4rem;
   line-height: 0.4rem;
-  border: 1px solid #C43E4E;
+  border: 1px solid #3576F5;
   color: #fff;
   border-radius: 2px;
   box-sizing: border-box;
@@ -597,7 +597,7 @@
   text-align: center;
 }
 .numslect{
-	border: 1px solid #C43E4E;
+	border: 1px solid #3576F5;
 }
 /*历史订单页*/
 
@@ -611,7 +611,7 @@
 /*.mobile-history-title-all-sale{*/
   /*height: 0.44rem;*/
   /*line-height: 0.44rem;*/
-  /*border: 1px solid #C43E4E;*/
+  /*border: 1px solid #3576F5;*/
   /*color: #fff;*/
   /*border-radius: 2px;*/
   /*float: right;*/
@@ -744,7 +744,7 @@
   /*height: 0.4rem;*/
   /*line-height: 0.4rem;*/
   /*!*border: 1px solid #00bec1;*!*/
-  /*color: #C43E4E;*/
+  /*color: #3576F5;*/
   /*border-radius: 2px;*/
   /*box-sizing: border-box;*/
   /*margin-right: 0.1rem;*/
@@ -836,7 +836,7 @@
 
 .pop-detail-btn {
   margin-top: 10px;
-  background: #C43E4E;
+  background: #3576F5;
   border-radius: 5px;
   height: 22px;
   line-height: 22px;
@@ -977,7 +977,7 @@
   line-height: 40px;
   text-align: center;
   font-size: 16px;
-  color: #C43E4E;
+  color: #3576F5;
   border-bottom: 1px solid #F2F2F2;
 }
 
@@ -997,7 +997,7 @@
   color: #fff;
   font-size: 15px;
   margin: 15px auto 20px;
-  background: #C43E4E;
+  background: #3576F5;
   text-align: center;
 }
 
@@ -1033,7 +1033,7 @@
   width: 100%;
   font-family: PingFangSC-Regular;
   font-size: 10px;
-  color: #C43E4E;
+  color: #3576F5;
   text-align: center;
 }
 
@@ -1171,7 +1171,7 @@
 }
 
 .hq-price-down{
-  color: #C43E4E;
+  color: #3576F5;
 
  }
 
@@ -1219,7 +1219,7 @@
   height: 40px;
   line-height: 40px;
   text-align: center;
-  color: #C43E4E;
+  color: #3576F5;
   font-size: 16px;
   box-sizing: border-box;
   border-bottom: 1px solid #f2f2f2;
@@ -1266,8 +1266,8 @@
   background: #fff;
   height: 40px;
   line-height: 40px;
-  color: #C43E4E;
-  border: 1px solid #C43E4E;
+  color: #3576F5;
+  border: 1px solid #3576F5;
   box-sizing: border-box;
   text-align: center;
   border-radius: 4px;
@@ -1275,7 +1275,7 @@
 
 .lock-position-confirm-toast-btn-confirm {
   width: 45%;
-  background: #C43E4E;
+  background: #3576F5;
   height: 40px;
   line-height: 40px;
   color: #fff;

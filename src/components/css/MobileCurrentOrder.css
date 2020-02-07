@@ -5,7 +5,7 @@
 .mobile-current-title-all-sale{
 	height: 0.44rem;
 	line-height: 0.44rem;
-	border: 1px solid #C43E4E;
+	border: 1px solid #3576F5;
 	color: #fff;
 	border-radius: 2px;
 	float: right;
@@ -42,7 +42,7 @@
 }
 
 .mobile-current-item-icon-buy {
-	background: #C43E4E;
+	background: #3576F5;
 }
 .mobile-history-item-icon-sale {
 	background: #f93943;
@@ -126,7 +126,7 @@
 	width: 0.9rem;
 	height: 0.4rem;
 	line-height: 0.4rem;
-	border: 1px solid #C43E4E;
+	border: 1px solid #3576F5;
 	color: #fff;
 	border-radius: 2px;
 	box-sizing: border-box;
@@ -226,10 +226,10 @@
 	padding: 0 0.16rem;
 	height: 0.4rem;
 	line-height: 0.4rem;
-	border: 1px solid #C43E4E;
+	border: 1px solid #3576F5;
 	border-radius: 4px;
 	text-align: center;
-	color: #C43E4E;
+	color: #3576F5;
 	font-size: 0.24rem;
 }
 ._m_co_l5{
@@ -242,9 +242,9 @@
 	padding: 0 0.02rem;
 	height: 0.4rem;
 	line-height: 0.4rem;
-	border: 1px solid #C43E4E;
+	border: 1px solid #3576F5;
 	border-radius: 4px;
 	text-align: center;
-	color: #C43E4E;
+	color: #3576F5;
 	font-size: 0.24rem;
 }

@@ -53,7 +53,7 @@
   /*padding: 0 25px 0;*/
   /*background: #363638;*/
   position: relative;
-  color: #C43E4E;
+  color: #3576F5;
 }
 
 .trading-coindepot {
@@ -78,7 +78,7 @@
 /*left: 0;*/
 /*height: 5px;*/
 /*content: '';*/
-/*background: #C43E4E;*/
+/*background: #3576F5;*/
 /*}*/
 
 .header-left .index-header-logo {
@@ -133,7 +133,7 @@
   /*background: #363638;*/
   background: #161822;
   /*background: red;*/
-  color: #C43E4E;
+  color: #3576F5;
 }
 
 .navigation-link-a-red-point-cn {
@@ -164,7 +164,7 @@
 /*left: 0;*/
 /*height: 5px;*/
 /*content: '';*/
-/*background: #C43E4E;*/
+/*background: #3576F5;*/
 /*}*/
 
 /*下拉*/
@@ -192,7 +192,7 @@
   flex-direction: column;
   -ms-flex-direction: column;
   -webkit-flex-direction: column;
-  color: #C43E4E;
+  color: #3576F5;
   background: #141823;
   box-shadow: 0 4px 40px rgba(0, 0, 0, 0.6);
 
@@ -219,7 +219,7 @@
 }
 
 .hover-tab .hidden-li:hover a {
-  color: #C43E4E;
+  color: #3576F5;
   background: #1c2031;
   /*background: yellow;*/
 }
@@ -227,7 +227,7 @@
 .hover-tab .hidden-li:hover {
   /*background-color:rgba(196,62,78,0.03);*/
   /*background-color: #090F18;*/
-  color: #C43E4E;
+  color: #3576F5;
 }
 
 /*帮助*/
@@ -277,7 +277,7 @@
   /*background: #363638;*/
   background: #161822;
   /*background: red;*/
-  color: #C43E4E;
+  color: #3576F5;
 }
 
 /*.help_more:hover .navigation-link-a:before {*/
@@ -288,7 +288,7 @@
 /*left: 0;*/
 /*height: 5px;*/
 /*content: '';*/
-/*background: #C43E4E;*/
+/*background: #3576F5;*/
 /*}*/
 
 .help_more ul li a,
@@ -298,13 +298,13 @@
 }
 
 .help_more ul li:hover a {
-  color: #C43E4E;
+  color: #3576F5;
 }
 
 .help_more ul li:hover {
   background-color: #1c2031;
   /*background-color: yellow;*/
-  color: #C43E4E;
+  color: #3576F5;
 }
 
 /*登录*/
@@ -323,7 +323,7 @@
 }
 
 .login li:hover > a {
-  color: #C43E4E;
+  color: #3576F5;
 }
 
 .login li:nth-child(1) {
@@ -372,7 +372,7 @@
 }
 
 .login-in:hover .login-header-name {
-  color: #C43E4E;
+  color: #3576F5;
 }
 
 .login-header-img {
@@ -420,7 +420,7 @@
   /*left: 0;*/
   /*height: 5px;*/
   /*content: '';*/
-  /*background: #C43E4E;*/
+  /*background: #3576F5;*/
 }
 
 .login-in:hover .login-hidden {
@@ -457,7 +457,7 @@
 .login-hidden .login-off:hover {
   background-color: #1c2031;
   /*background-color: red;*/
-  color: #C43E4E;
+  color: #3576F5;
 }
 
 .light-on {
@@ -502,7 +502,7 @@
   /*left: 0;*/
   /*height: 5px;*/
   /*content: '';*/
-  /*background: #C43E4E;*/
+  /*background: #3576F5;*/
 }
 
 .CA {
@@ -563,13 +563,13 @@
 /*}*/
 
 .selected, .selected-coindepot {
-  color: #C43E4E !important;
-  /*border-top:10px solid #C43E4E;*/
+  color: #3576F5 !important;
+  /*border-top:10px solid #3576F5;*/
   position: relative;
 }
 
 .selected-noHeader {
-  color: #C43E4E !important;
+  color: #3576F5 !important;
   position: relative;
 }
 
@@ -869,7 +869,7 @@
   }
 
   .selected {
-    color: #C43E4E !important;
+    color: #3576F5 !important;
   }
 
   .mobile-header {
@@ -902,7 +902,7 @@
     line-height: 0.88rem;
     margin-left: 0.1rem;
     float: right;
-    color: #C43E4E;
+    color: #3576F5;
   }
 
   .mobile-header-icon-flag {

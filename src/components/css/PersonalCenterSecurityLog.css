@@ -70,13 +70,13 @@
   display: block;
   width: 4px;
   height: 16px;
-  background-color: #C43E4E;
+  background-color: #3576F5;
   margin-right: 7px;
 }
 
 .title span:nth-of-type(3) {
   font-size: 1.2rem;
-  color: #C43E4E;
+  color: #3576F5;
   margin-left: 5%;
 }
 

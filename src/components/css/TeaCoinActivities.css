@@ -102,7 +102,7 @@
   font-family: PingFangSC-Regular;
   font-size: 16px;
   color: #FFFFFF;
-  background: #C43E4E;
+  background: #3576F5;
   border-radius: 2px;
   border-radius: 2px;
 }
@@ -175,7 +175,7 @@
 }
 
 .el-pagination li.active {
-  border: 1px solid #C43E4E;
+  border: 1px solid #3576F5;
   border-radius: 2px;
   border-radius: 2px;
 }

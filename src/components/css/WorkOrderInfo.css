@@ -25,7 +25,7 @@
   top: 20px;
   height: 16px;
   line-height: 16px;
-  border-left: 4px solid #C43E4E;
+  border-left: 4px solid #3576F5;
   padding-left: 1%;
 }
 
@@ -178,7 +178,7 @@
   width: 280px;
   height: 35px;
   line-height: 35px;
-  background: #C43E4E;
+  background: #3576F5;
   color: #fff;
   font-size: 1.6rem;
   border-radius: 4px;
@@ -216,7 +216,7 @@
 }
 
 .update_file span {
-  color: #C43E4E;
+  color: #3576F5;
   cursor: pointer;
 }
 

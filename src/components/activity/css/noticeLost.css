@@ -38,7 +38,7 @@
   width: 100%;
   padding-top: 10px;
   overflow: hidden;
-  color: #C43E4E;
+  color: #3576F5;
 }
 
 .currency_notice_bread span {
@@ -53,7 +53,7 @@
 }
 
 .currency_notice_bread a:hover {
-  color: #C43E4E;
+  color: #3576F5;
 }
 
 .currency_notice_title {
@@ -108,8 +108,8 @@
 }
 
 .currency_notice_tabs_time .tabs ul li.tab.is_active {
-  border-bottom: 2px solid #C43E4E;
-  color: #C43E4E;
+  border-bottom: 2px solid #3576F5;
+  color: #3576F5;
 }
 
 .currency_notice_tabs_time .tabs ul li:nth-child(5), .currency_notice_tabs_time .tabs ul li:nth-child(6) {

@@ -61,13 +61,13 @@
   display: block;
   width: 4px;
   height: 16px;
-  /*background-color: #C43E4E;*/
+  /*background-color: #3576F5;*/
   /*margin-right: 7px;*/
 }
 
 .title span:nth-of-type(3) {
   font-size: 1.2rem;
-  color: #C43E4E;
+  color: #3576F5;
   margin-left: 5%;
 }
 
@@ -153,14 +153,14 @@
 }
 
 .identification {
-  color: #C43E4E;
-  border-color: #C43E4E;
+  color: #3576F5;
+  border-color: #3576F5;
   cursor: pointer;
 }
 
 .in-review {
-  color: #C43E4E;
-  border-color: #C43E4E;
+  color: #3576F5;
+  border-color: #3576F5;
 }
 
 .authenticated {
@@ -190,7 +190,7 @@
   height: 30px;
   line-height: 30px;
   font-size: 14px;
-  border: 1px solid #C43E4E;
+  border: 1px solid #3576F5;
   border-radius: 2px;
   /*padding: 0 20px;*/
   min-width: 100px;
@@ -266,7 +266,7 @@
 
 .info-li-dot {
   display: block;
-  background-color: #C43E4E;
+  background-color: #3576F5;
   width: 4px;
   height: 4px;
   border-radius: 4px;
@@ -349,8 +349,8 @@
   content: '';
   border-radius: 100px;
   transform: translate(100%, 0);
-  color: #C43E4E;
-  background-color: #C43E4E;
+  color: #3576F5;
+  background-color: #3576F5;
 }
 
 .toggle--moving:after {
@@ -578,7 +578,7 @@
     margin-top: 0.02rem;
     font-size: 0.26rem;
     line-height: 0.36rem;
-    color: #C43E4E;
+    color: #3576F5;
   }
 
   .mobile-auth-recommend {
@@ -742,7 +742,7 @@
 
   .mobile-quit-button {
     position: absolute;
-    background: #C43E4E;
+    background: #3576F5;
     border-radius: 4px;
     bottom: 0.44rem;
     width: 6.6rem;
@@ -807,8 +807,8 @@
     content: '';
     border-radius: 100px;
     transform: translate(100%, 0);
-    color: #C43E4E;
-    background-color: #C43E4E;
+    color: #3576F5;
+    background-color: #3576F5;
   }
 
   .toggle--moving:after {
@@ -853,13 +853,13 @@
 
 .pop-detail-btn {
   margin-top: 24px;
-  /*background: #C43E4E;*/
+  /*background: #3576F5;*/
   border-top: 1px solid #e3e3e3;
   /*border-radius: 5px;*/
   height: 40px;
   line-height: 40px;
   font-size: 14px;
-  color: #C43E4E;
+  color: #3576F5;
   text-align: center;
   font-weight: bold;
 }
@@ -871,8 +871,8 @@
   padding: 0px 10px;
   line-height: 24px;
   color: #fff;
-  background-color: #C43E4E;
-  border: 1px solid #C43E4E;
+  background-color: #3576F5;
+  border: 1px solid #3576F5;
   border-radius: 2px;
   left: 110%;
   top: 2px;
@@ -887,7 +887,7 @@
   width: 0;
   height: 0;
   border-top: 3px solid transparent;
-  border-right: 4px solid #C43E4E;
+  border-right: 4px solid #3576F5;
   border-bottom: 3px solid transparent;
 }
 
@@ -936,7 +936,7 @@
   height: 40px;
   line-height: 40px;
   text-align: center;
-  color: #C43E4E;
+  color: #3576F5;
   font-size: 16px;
   box-sizing: border-box;
   border-bottom: 1px solid #f2f2f2;
@@ -983,8 +983,8 @@
   background: #fff;
   height: 40px;
   line-height: 40px;
-  color: #C43E4E;
-  border: 1px solid #C43E4E;
+  color: #3576F5;
+  border: 1px solid #3576F5;
   box-sizing: border-box;
   text-align: center;
   border-radius: 4px;
@@ -992,7 +992,7 @@
 
 .lock-position-confirm-toast-btn-confirm {
   width: 45%;
-  background: #C43E4E;
+  background: #3576F5;
   height: 40px;
   line-height: 40px;
   color: #fff;
@@ -1016,11 +1016,11 @@
 }
 
 .btn-face-cancel {
-  background: #C43E4E;
+  background: #3576F5;
 }
 
 .btn-face-quit {
-  background: #C43E4E;
+  background: #3576F5;
 }
 
 .title_art{

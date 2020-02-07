@@ -43,7 +43,7 @@
   width: 4.6rem;
   height: 0.64rem;
   border-radius: 4px;
-  /*border: 1px solid #C43E4E;*/
+  /*border: 1px solid #3576F5;*/
   display: flex;
   align-items: center;
   justify-content: center;
@@ -81,20 +81,20 @@
 }
 
 .mobile-market-area-title-active {
-  background: #C43E4E;
+  background: #3576F5;
   color: rgba(255,255,255,0.9);
 }
 
 .mobile-market-area-title-item1.mobile-market-area-title-active {
-  border-top: 1px solid #C43E4E;
-  border-left: 1px solid #C43E4E;
-  border-bottom: 1px solid #C43E4E;
+  border-top: 1px solid #3576F5;
+  border-left: 1px solid #3576F5;
+  border-bottom: 1px solid #3576F5;
 }
 
 .mobile-market-area-title-item2.mobile-market-area-title-active {
-  border-top: 1px solid #C43E4E;
-  border-right: 1px solid #C43E4E;
-  border-bottom: 1px solid #C43E4E;
+  border-top: 1px solid #3576F5;
+  border-right: 1px solid #3576F5;
+  border-bottom: 1px solid #3576F5;
 }
 
 .mobile-market-title {
@@ -200,8 +200,8 @@
 }
 
 .mobile-market-title-item-active {
-  border-bottom: 2px solid #C43E4E;
-  color: #C43E4E;
+  border-bottom: 2px solid #3576F5;
+  color: #3576F5;
 }
 
 .mobile-market-close-img {
@@ -264,7 +264,7 @@
 }
 
 .mobile-header-now-price-down {
-  color: #C43E4E;
+  color: #3576F5;
 }
 
 .mobile-header-updown-img {
@@ -449,7 +449,7 @@
   height: 0.8rem;
   line-height: 0.8rem;
   text-align: center;
-  background: #C43E4E;
+  background: #3576F5;
   margin-top: 0.16rem;
   border-radius: 1.5px;
   font-family: PingFangSC-Semibold;
@@ -470,7 +470,7 @@
 ._m_sl_fcl {
   position: relative;
   /*width: 1rem;*/
-  /*border-bottom: 0.04rem solid #C43E4E;*/
+  /*border-bottom: 0.04rem solid #3576F5;*/
   display: inline-block;
   text-align: center;
   font-family: PingFangSC-Medium;
@@ -481,7 +481,7 @@
 ._m_sl_fcl > div {
   width: 0;
   height: 0;
-  border-top: 0.1rem solid #C43E4E;
+  border-top: 0.1rem solid #3576F5;
   border-right: 0.1rem solid transparent;
   border-left: 0.1rem solid transparent;
   position: absolute;
@@ -547,7 +547,7 @@
   width: 100%;
   font-family: PingFangSC-Regular;
   font-size: 10px;
-  color: #C43E4E;
+  color: #3576F5;
   text-align: center;
 }
 
@@ -580,7 +580,7 @@
 }
 
 .progress-bar-redbtn {
-  background: #C43E4E;
+  background: #3576F5;
   cursor: pointer;
 }
 .progress-bar-greenbtn {

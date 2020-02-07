@@ -242,7 +242,7 @@ margin-top: 60px;
   left: 0;
   height: 5px;
   content: '';
-  background: #C43E4E;
+  background: #3576F5;
 }*/
 
 .header-left .index-header-logo {
@@ -303,7 +303,7 @@ margin-top: 60px;
   left: 0;
   height: 5px;
   content: '';
-  background: #C43E4E;
+  background: #3576F5;
 }
 
 /*下拉*/
@@ -393,7 +393,7 @@ margin-top: 60px;
   left: 0;
   height: 5px;
   content: '';
-  background: #C43E4E;
+  background: #3576F5;
 }
 
 .help_more ul li a,
@@ -550,7 +550,7 @@ margin-top: 60px;
   left: 0;
   height: 5px;
   content: '';
-  /*background: #C43E4E;*/
+  /*background: #3576F5;*/
 }
 
 .login-in:hover .login-hidden {
@@ -622,7 +622,7 @@ margin-top: 60px;
   left: 0;
   height: 5px;
   content: '';
-  /*background: #C43E4E;*/
+  /*background: #3576F5;*/
 }
 
 .CA {
@@ -678,13 +678,13 @@ margin-top: 60px;
 /*}*/
 
 .selected {
-  color: #C43E4E !important;
-  /*border-top:10px solid #C43E4E;*/
+  color: #3576F5 !important;
+  /*border-top:10px solid #3576F5;*/
   position: relative;
 }
 
 .selected-noHeader {
-  color: #C43E4E !important;
+  color: #3576F5 !important;
   position: relative;
 }
 
@@ -706,11 +706,11 @@ margin-top: 60px;
 }
 
 .index-sign:hover {
-  color: #C43E4E;
+  color: #3576F5;
 }
 
 .index-register:hover {
-  color: #C43E4E;
+  color: #3576F5;
 }
 
 .home-blow-wrap {
@@ -825,10 +825,10 @@ margin-top: 60px;
 
   .sphere-btn {
     padding: 8px 30px;
-    color: #C43E4E;
+    color: #3576F5;
     border-radius: 20px;
     background: rgba(196,62,78, .2);
-    border: 1px solid #C43E4E;
+    border: 1px solid #3576F5;
     text-align: center;
     cursor: pointer;
     font-size: 16px;
@@ -1090,7 +1090,7 @@ margin-top: 60px;
   }
 
   .selected {
-    color: #C43E4E !important;
+    color: #3576F5 !important;
   }
 
   .mobile-header {
@@ -1292,7 +1292,7 @@ margin-top: 60px;
     color: #d4f0f7;
     border-radius: 0.4rem;
     /*background: rgba(196,62,78, .2);*/
-    border: 1px solid #C43E4E;
+    border: 1px solid #3576F5;
     text-align: center;
     cursor: pointer;
     font-size: 0.3rem;
@@ -1400,7 +1400,7 @@ margin-top: 60px;
 }
 
 .about-us li a:hover {
-  color: #C43E4E;
+  color: #3576F5;
 }
 
 .footer-cutter-line {
@@ -1433,7 +1433,7 @@ margin-top: 60px;
 }
 
 .contact-us li a:hover {
-  color: #C43E4E;
+  color: #3576F5;
 }
 
 .contact-us-text {
@@ -1636,8 +1636,8 @@ margin-top: 60px;
   font-size: .3rem;
   text-shadow: none;
   font-weight: 100;
-  border: 1px solid #C43E4E;
-  color: #C43E4E;
+  border: 1px solid #3576F5;
+  color: #3576F5;
   margin: 0 10%;
 }
 
@@ -1742,7 +1742,7 @@ margin-top: 60px;
 }
 
 .index_home_notice_list ul li a:hover {
-  color: #C43E4E;
+  color: #3576F5;
 }
 
 .index_home_notice_list ul li:nth-child(1) {
@@ -1839,7 +1839,7 @@ margin-top: 60px;
   width: 100%;
   height: 50px;
   line-height: 55px;
-  background: #C43E4E;
+  background: #3576F5;
   font-size: 18px;
   letter-spacing: 2px;
   border-bottom: 1px solid #f2f2f2;

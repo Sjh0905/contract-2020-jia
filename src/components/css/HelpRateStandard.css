@@ -26,7 +26,7 @@
   display: inline-block;
   width: 4px;
   height: 18px;
-  background: #C43E4E;
+  background: #3576F5;
   margin-top: 6px;
   vertical-align: top;
   margin-right: 6px;
@@ -99,11 +99,11 @@
 }
 
 .rate-font-red{
-  color: #C43E4E;
+  color: #3576F5;
 }
 
 .rate-font-blue{
-  color: #C43E4E;
+  color: #3576F5;
 }
 
 .rate-font-weight{

@@ -40,7 +40,7 @@
   display: block;
   width: 4px;
   height: 16px;
-  background-color: #C43E4E;
+  background-color: #3576F5;
   margin-right: 7px;
 } */
 
@@ -91,13 +91,13 @@
   -webkit-justify-content: space-around;
   height: 70px;
   font-size: 1.2rem;
-  background: #C43E4E;
+  background: #3576F5;
   border-radius: 2px;
 }
 
 
 .log-detail:hover {
-  /* background-color:#C43E4E; */
+  /* background-color:#3576F5; */
 }
 
 
@@ -196,7 +196,7 @@
 
 /*加载更多的样式*/
 .loading-more {
-  color: #C43E4E;
+  color: #3576F5;
 }
 .AnnouncementCenter{
   display: flex;

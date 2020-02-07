@@ -9,7 +9,7 @@
 .mobile-history-title-all-sale{
 	height: 0.44rem;
 	line-height: 0.44rem;
-	border: 1px solid #C43E4E;
+	border: 1px solid #3576F5;
 	color: #fff;
 	border-radius: 2px;
 	float: right;
@@ -142,7 +142,7 @@
 	height: 0.4rem;
 	line-height: 0.4rem;
 	/*border: 1px solid #00bec1;*/
-	color: #C43E4E;
+	color: #3576F5;
 	border-radius: 2px;
 	box-sizing: border-box;
 	margin-right: 0.1rem;
@@ -229,7 +229,7 @@
 }
 ._m_od_tp{
 	font-size: 0.24rem;
-	color: #C43E4E;
+	color: #3576F5;
 	margin-bottom: 0.5rem;
 }
 ._m_od_ul1{

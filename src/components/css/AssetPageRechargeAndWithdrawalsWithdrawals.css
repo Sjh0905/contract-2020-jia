@@ -53,10 +53,10 @@
   height: 30px;
   line-height: 30px;
   background-color: #FFF3F3;
-  color: #C43E4E;
+  color: #3576F5;
   border-radius: 2px;
   cursor: pointer;
-  /*border: 1px solid #C43E4E;*/
+  /*border: 1px solid #3576F5;*/
   margin-bottom: 15px;
 }
 
@@ -71,7 +71,7 @@
   color: #B5BCC6;
   border-radius: 2px;
   cursor: pointer;
-  /*border: 1px solid #C43E4E;*/
+  /*border: 1px solid #3576F5;*/
   margin-bottom: 15px;
 }
 
@@ -82,25 +82,25 @@
   height: 30px;
   line-height: 30px;
   background-color: #FFF3F3;
-  color: #C43E4E;
+  color: #3576F5;
   border-radius: 2px;
   cursor: pointer;
-  /*border: 1px solid #C43E4E;*/
+  /*border: 1px solid #3576F5;*/
   margin-bottom: 15px;
 
 }
 .address-si {
-  border: 1px solid #C43E4E;
+  border: 1px solid #3576F5;
   display: inline-block;
   text-align: center;
   width: 100px;
   height: 30px;
   line-height: 30px;
   background-color: #FFF3F3;
-  color: #C43E4E;
+  color: #3576F5;
   border-radius: 2px;
   cursor: pointer;
-  /*border: 1px solid #C43E4E;*/
+  /*border: 1px solid #3576F5;*/
   margin-bottom: 15px;
 }
 
@@ -211,7 +211,7 @@
   line-height: 30px;
   right: 8px;
   top: 50%;
-  color: #C43E4E;
+  color: #3576F5;
   text-align: center;
   background-repeat: no-repeat;
   background-size: 100%;
@@ -266,8 +266,8 @@
 /*添加新地址*/
 .add-new-address {
   padding: 5px 0;
-  border: 1px solid #C43E4E;
-  background-color: #C43E4E;
+  border: 1px solid #3576F5;
+  background-color: #3576F5;
   color: #fff;
   width: 100px;
   margin: 0 auto;
@@ -318,7 +318,7 @@
   width: 100%;
   justify-content: space-between;
   -webkit-justify-content: space-between;
-  border: 1px dotted #C43E4E;
+  border: 1px dotted #3576F5;
   height: 30px;
   line-height: 28px;
   padding: 0 10px;
@@ -332,7 +332,7 @@
   height: 30px;
   margin: 0 auto;
   border: 0 solid transparent;
-  /*background-color: #C43E4E;*/
+  /*background-color: #3576F5;*/
   color: #fff;
   border-radius: 5px;
 }
@@ -365,7 +365,7 @@
   width: 3px;
   height: 3px;
   border-radius: 3px;
-  background-color: #C43E4E;
+  background-color: #3576F5;
 }
 
 .red-bot {
@@ -389,7 +389,7 @@
 }
 
 .select-address-detail:hover .hover-border {
-  border: 1px solid #C43E4E;
+  border: 1px solid #3576F5;
 }
 
 /*过渡状态*/
@@ -450,7 +450,7 @@
 .prompt-title {
   font-size: 14px;
   /*padding-bottom: 30px;*/
-  color: #C43E4E;
+  color: #3576F5;
 }
 
 .prompt-show-picker {

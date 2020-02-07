@@ -83,7 +83,7 @@
   line-height: 40px;
   text-align: center;
   font-size: 16px;
-  color: #C43E4E;
+  color: #3576F5;
   border-bottom: 1px solid #F2F2F2;
 }
 
@@ -103,7 +103,7 @@
   color: #fff;
   font-size: 15px;
   margin: 15px auto 20px;
-  background: #C43E4E;
+  background: #3576F5;
   text-align: center;
 }
 
@@ -146,7 +146,7 @@
   height: 40px;
   line-height: 40px;
   text-align: center;
-  color: #C43E4E;
+  color: #3576F5;
   font-size: 16px;
   box-sizing: border-box;
   border-bottom: 1px solid #f2f2f2;
@@ -193,8 +193,8 @@
   background: #fff;
   height: 40px;
   line-height: 40px;
-  color: #C43E4E;
-  border: 1px solid #C43E4E;
+  color: #3576F5;
+  border: 1px solid #3576F5;
   box-sizing: border-box;
   text-align: center;
   border-radius: 4px;
@@ -202,7 +202,7 @@
 
 .lock-position-confirm-toast-btn-confirm {
   width: 45%;
-  background: #C43E4E;
+  background: #3576F5;
   height: 40px;
   line-height: 40px;
   color: #fff;

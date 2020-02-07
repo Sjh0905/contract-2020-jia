@@ -31,10 +31,10 @@
   height: 30px;
   line-height: 30px;
   background-color: #FFF3F3;
-  color: #C43E4E;
+  color: #3576F5;
   border-radius: 2px;
   cursor: pointer;
-  /*border: 1px solid #C43E4E;*/
+  /*border: 1px solid #3576F5;*/
 }
 
 .address-OMNI-disabled {
@@ -48,7 +48,7 @@
   color: #B5BCC6;
   border-radius: 2px;
   cursor: pointer;
-  /*border: 1px solid #C43E4E;*/
+  /*border: 1px solid #3576F5;*/
 }
 
 .address-OMNI {
@@ -58,10 +58,10 @@
   height: 30px;
   line-height: 30px;
   background-color: #FFF3F3;
-  color: #C43E4E;
+  color: #3576F5;
   border-radius: 2px;
   cursor: pointer;
-  /*border: 1px solid #C43E4E;*/
+  /*border: 1px solid #3576F5;*/
 }
 
 .address-si {
@@ -71,10 +71,10 @@
   height: 30px;
   line-height: 30px;
   background-color: #FFF3F3;
-  color: #C43E4E;
+  color: #3576F5;
   border-radius: 2px;
   cursor: pointer;
-  border: 1px solid #C43E4E;
+  border: 1px solid #3576F5;
 }
 
 .address-item {
@@ -113,7 +113,7 @@
   width: 39%;
   height: 30px;
   border: 0 solid transparent;
-  background-color: #C43E4E;
+  background-color: #3576F5;
   color: #fff;
 }
 
@@ -149,7 +149,7 @@
   width: 3px;
   height: 3px;
   border-radius: 3px;
-  background-color: #C43E4E;
+  background-color: #3576F5;
 }
 
 .close {

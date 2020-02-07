@@ -298,7 +298,7 @@
 .tt1 .tdown5{
   /*width: 400px;*/
   /*width: 120px;*/
-  color: #C43E4E;
+  color: #3576F5;
   text-align: center;
   padding-top: 7px;
   padding-left: 3px;
@@ -707,7 +707,7 @@
   padding: 10px 10px 10px 10px;
   /*background: url("") no-repeat center;*/
   /*background-size: 100% 100%;*/
-  border: 1px solid #C43E4E;
+  border: 1px solid #3576F5;
   border-radius: 2.5px;
   margin-top: 20px;
 }
@@ -722,7 +722,7 @@
   padding: 10px 10px 10px 10px;
   /*background: url("") no-repeat center;*/
   /*background-size: 100% 100%;*/
-  border: 1px solid #C43E4E;
+  border: 1px solid #3576F5;
   border-radius: 2.5px;
   margin-top: 20px;
   margin-left: 189px;
@@ -797,7 +797,7 @@
 
 
 .chartbutton{
-  background: #C43E4E;
+  background: #3576F5;
   border-radius: 24px;
   width: 130px;
   height: 48px;
@@ -860,7 +860,7 @@
   text-align: center;
   line-height: 60px;
   margin-right: 15px;
-  background: #C43E4E;
+  background: #3576F5;
   border-radius: 3px;
   border-radius: 3px;
   font-family: PingFangSC-Regular;
@@ -892,12 +892,12 @@
   line-height: 60px;
   margin-left: 15px;
   background: #FFFFFF;
-  border: 1px solid #C43E4E;
+  border: 1px solid #3576F5;
   border-radius: 3px;
   border-radius: 3px;
   font-family: PingFangSC-Regular;
   font-size: 24px;
-  color: #C43E4E;
+  color: #3576F5;
   cursor: pointer;
 }
 
@@ -915,13 +915,13 @@
   height: 100%;
 
   font-size: 24px;
-  color: #C43E4E;
+  color: #3576F5;
   align-items: center;
   justify-content: center;
 }
 
 .navigation-item-router1:hover {
-  background: #C43E4E;
+  background: #3576F5;
 
   color: #FFFFFF;
 }

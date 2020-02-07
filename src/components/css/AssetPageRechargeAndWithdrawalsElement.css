@@ -77,12 +77,12 @@
   border-radius: 4px !important;
   font-family: PingFangSC-Regular !important;
   font-size: 16px !important;
-  color: #C43E4E !important;
+  color: #3576F5 !important;
   text-align: center !important;
 }
 
 .el-button:hover {
-  color: #C43E4E !important;
+  color: #3576F5 !important;
   background: rgba(242, 185, 46, 0) !important
 }
 
