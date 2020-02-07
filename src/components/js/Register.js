@@ -70,7 +70,7 @@ root.data = function () {
     captchaReady: false,
 
     // 2019-5-10 新注册
-    registerType: 0, // 0为手机注册，1为邮箱注册
+    registerType: 1, // 0为手机注册，1为邮箱注册
 
     // 绑定的城市
     cities: [],

@@ -2,34 +2,35 @@
   width: 100%;
   height: 710px;
   /*overflow: hidden;*/
-  outline: 1px solid #E5EBF5;
+  /*outline: 1px solid #E5EBF5;*/
 }
 
 .stockitem-box {
   width: 100%;
   height: 100%;
-  background-color: #ffffff;
+  /*background-color: #ffffff;*/
   overflow: hidden;
 }
 
 .stockitem-box1 {
   width: 100%;
   height: 320px;
-  background-color: #ffffff;
+  /*background-color: #ffffff;*/
   overflow: hidden;
 }
 
 .stockcross-title {
-  height: 36px;
-  line-height: 36px;
-  background: #ffffff;
-  /* font-weight: bold; */
+  height: 31px;
+  line-height: 26px;
+  background: #0E0F1F;
   text-align: right;
-  /*border-bottom: 1px solid #bbb;*/
-  font-family: PingFangSC-Regular;
+  /* border-bottom: 1px solid #bbb; */
+  font-family:PingFangSC-Regular,PingFang SC;
   font-size: 12px;
-  color: #8994A5;
+  color:#6B7DA2;
   letter-spacing: 0;
+  font-weight:400;
+  padding-bottom: 5px;
 }
 
 .trade_loading{
@@ -67,18 +68,25 @@
 }
 
 .StockCross-mid {
-  background: #fff;
-  /* background: rgb(249, 249, 249); */
-  height: 33px;
-  line-height: 33px;
+  background: #0E0F1F;
+  height: 40px;
+  line-height: 40px;
+  /* align-items: center; */
+  /* line-height: 33px; */
   text-align: left;
   /* font-weight: bolder; */
-  border-bottom: 1px solid #E7EBEE;
-  border-top: 1px solid #E7EBEE;
-  padding-left: 18px;
-   border-bottom-width: 1px;
-  font-family: Roboto-Medium;
+  border-bottom: 1px solid #384256;
+  border-top: 1px solid #384256;
+  padding-left: 15px;
+  border-bottom-width: 1px;
+  /*font-family: Roboto-Medium, Roboto;*/
   font-size: 16px;
+}
+.StockCross-mid-price-red {
+  color:#EF5656
+}
+.StockCross-mid-price-green {
+  color:#08D0AC
 }
 
 .StockCross-mid1 {
@@ -167,18 +175,24 @@
 /*margin-left: 10px;*/
 /*}*/
 .bottombutton{
+  display: flex;
+  align-items: center;
   width: 100%;
-  height: 35px;
-  line-height: 35px;
-  position: absolute;
-  bottom: 0;
+  height: 29px;
+  line-height: 29px;
+  margin-top: 10px;
+  border-top: 1px solid #384256;
+  background-color: #0D111F;
+  padding-left: 15px;
+
 }
 
 .bottombutton img{
+  cursor: pointer;
   width: 18px;
-  margin-top: 9px;
-  margin-left: 10px;
-  float: left;
+  margin-top: 5px;
+  margin-left: 5px;
+  /*float: left;*/
 }
 
 .bottombutton .selectws{
