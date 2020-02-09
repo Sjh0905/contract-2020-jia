@@ -1,5 +1,6 @@
-<div class="recharge-record-container min-height">
+<div class="recharge-record-container">
   <Loading v-if="loading" class="min-height-all recharge-record-loading-container border_radius"/>
+
 
   <div class="border_box border_radius">
 
@@ -9,34 +10,45 @@
       <span class="currency">{{$t('currency')}}</span>
       <!--时间-->
       <span class="time">{{$t('time')}}</span>
+<!--      类型-->
+      <span class="type">类型</span>
       <!--数量-->
       <span class="total">{{$t('amount')}}</span>
       <!--地址-->
-      <span class="address">{{$t('address')}}</span>
+<!--      <span class="address">{{$t('address')}}</span>-->
       <!--状态-->
       <span class="state">{{$t('state')}}</span>
       <!--备注-->
-      <!--<span class="th-prompt">{{$t('remarks')}}</span>-->
+      <span class="th-prompt">操作</span>
     </div>
     <!--充值记录title end-->
 
     <template v-if="!loading">
 
       <!--充值记录具体 begin-->
-      <ul class="detail-container">
+      <ul class="detail-container" >
         <!--各条记录 begin-->
         <li class="detail-li" v-for="(item,index) in computedRecord" :key="item.id">
           <div class="li-container flex">
             <!--币种 begin-->
-            <span class="currency">{{item.currency == 'USDT2' ? 'USDT' :item.currency}}</span>
+            <span class="currency">
+              USDT
+              {{item.currency == 'USDT2' ? 'USDT' :item.currency}}
+            </span>
             <!--币种 end-->
 
             <!--时间 begin-->
-            <span class="time">{{$globalFunc.formatDateUitl(item.updatedAt,'YYYY-MM-DD hh:mm:ss')}}</span>
+            <span class="time">
+              2020-02-01
+              {{$globalFunc.formatDateUitl(item.updatedAt,'YYYY-MM-DD hh:mm:ss')}}
+            </span>
             <!--时间 end-->
 
             <!--数量 begin-->
-            <span class="total">{{toFixed(item.amount,8)}}</span>
+            <span class="total">
+              21
+              {{toFixed(item.amount,8)}}
+            </span>
             <!--数量 end-->
 
             <!--地址 begin-->
@@ -60,48 +72,53 @@
             </div>
             <!--地址 end-->
 
-
             <!--状态 begin-->
             <span class="state">
               <span class="state_text">
+                充币
               {{state(item)}}
               </span>
             </span>
             <!--状态 end-->
 
-            <!--备注 begin-->
-            <!--<span class="th-prompt">-&#45;&#45;</span>-->
-            <!--备注 end-->
-
+            <!--操作 begin-->
+            <span class="th-prompt">箭头</span>
+            <!--操作 end-->
           </div>
         </li>
         <!--各条记录 begin-->
 
 
         <!--如果没有记录 begin-->
-        <li class="detail-li" v-if="computedRecord.length===0">
-          <div class="li-container flex">
-            <span class="currency">---</span>
-            <span class="time">---</span>
-            <span class="total">---</span>
-            <span class="address address-detail flex">
-            <!--<span>-->
-              <!--<span class="address-title">{{$t('rechargeAddress')}}:</span>-->
-              <!--<span>-&#45;&#45;</span>-->
-              <!--&lt;!&ndash;<input type="text" readonly :value="item.toAddress" class="toAddress-input unit-input">&ndash;&gt;-->
-              <!--</span>-->
-              <!--<div class="relative">-->
-              <!--<span>-->
-              <!--&lt;!&ndash;<span class="address-title">TXID:</span>&ndash;&gt;-->
-              <!--&lt;!&ndash;<span class="uniqueId-text txt-green pointer">-&#45;&#45;</span>&ndash;&gt;-->
-              <!--&lt;!&ndash; -&#45;&#45;&ndash;&gt;-->
-              <!--</span>-->
-              <!--</div>-->
-            ---------
-          </span>
-            <span class="state">---</span>
-<!--            <span class="th-prompt">-&#45;&#45;</span>-->
+        <li class="detail-li-no-data" v-if="computedRecord.length===0">
+          <div class="no-data-content">
+            <img src="../../assets/assetPageRecord/no-order-light.png" alt="">
+            <div class="no-record">暂无记录</div>
           </div>
+
+
+
+<!--          <div class="li-container flex">-->
+<!--            <span class="currency">-&#45;&#45;</span>-->
+<!--            <span class="time">-&#45;&#45;</span>-->
+<!--            <span class="total">-&#45;&#45;</span>-->
+<!--            <span class="address address-detail flex">-->
+<!--            &lt;!&ndash;<span>&ndash;&gt;-->
+<!--              &lt;!&ndash;<span class="address-title">{{$t('rechargeAddress')}}:</span>&ndash;&gt;-->
+<!--              &lt;!&ndash;<span>-&#45;&#45;</span>&ndash;&gt;-->
+<!--              &lt;!&ndash;&lt;!&ndash;<input type="text" readonly :value="item.toAddress" class="toAddress-input unit-input">&ndash;&gt;&ndash;&gt;-->
+<!--              &lt;!&ndash;</span>&ndash;&gt;-->
+<!--              &lt;!&ndash;<div class="relative">&ndash;&gt;-->
+<!--              &lt;!&ndash;<span>&ndash;&gt;-->
+<!--              &lt;!&ndash;&lt;!&ndash;<span class="address-title">TXID:</span>&ndash;&gt;&ndash;&gt;-->
+<!--              &lt;!&ndash;&lt;!&ndash;<span class="uniqueId-text txt-green pointer">-&#45;&#45;</span>&ndash;&gt;&ndash;&gt;-->
+<!--              &lt;!&ndash;&lt;!&ndash; -&#45;&#45;&ndash;&gt;&ndash;&gt;-->
+<!--              &lt;!&ndash;</span>&ndash;&gt;-->
+<!--              &lt;!&ndash;</div>&ndash;&gt;-->
+<!--            -&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;</span>-->
+<!--            <span class="state">-&#45;&#45;</span>-->
+<!--&lt;!&ndash;            <span class="th-prompt">-&#45;&#45;</span>&ndash;&gt;-->
+<!--          </div>-->
         </li>
         <!--如果没有记录 end-->
 

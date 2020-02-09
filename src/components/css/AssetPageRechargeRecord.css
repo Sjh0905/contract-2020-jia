@@ -8,8 +8,14 @@
 
 .border_box {
   overflow: hidden;
+  /*min-height: 240px;*/
   /*border-top-left-radius: 0 !important;*/
-  border: 1px solid #EFF0FF;
+  /*border-top: 1px solid #EFF0FF;*/
+  /*border-bottom: 1px solid #EFF0FF;*/
+}
+
+.selected {
+  color: #3576F5;
 }
 
 .detail-header {
@@ -44,15 +50,44 @@
   text-align: left;
 }
 
-.address {
-  flex: 52.5;
-  text-align: left;
-}
+/*.address {*/
+/*  flex: 52.5;*/
+/*  text-align: left;*/
+/*}*/
 
 .state {
   flex: 18.8;
   text-align: right;
 }
+
+.th-prompt {
+  flex: 52.5;
+  text-align: right;
+}
+
+
+/*暂无记录  begin*/
+.detail-li-no-data {
+  min-height: 200px;
+  padding: 0 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.no-data-content img{
+  width: 44px;
+  vertical-align: middle;
+  margin-bottom: 10px;
+}
+
+.no-record {
+  font-size:12px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color: #6B7DA2;
+}
+/*暂无记录  end*/
 
 
 .address-detail {
@@ -79,8 +114,6 @@
   display: inline-block;
 }
 
-.th-prompt {
-}
 
 /*列表*/
 .detail-container {
@@ -109,7 +142,8 @@
   min-height: 55px;
   align-items: center;
   -webkit-align-items: center;
-  border-top: 1px solid #f9f9f9;
+  min-height: 200px;
+  /*border-top: 1px solid #f9f9f9;*/
 }
 
 /*加载中*/

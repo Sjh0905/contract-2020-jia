@@ -1,4 +1,4 @@
-<div class="withdrawals-record-container min-height">
+<div class="withdrawals-record-container">
 
 
   <Loading v-if="loading" class="min-height-all withdrawals-record-loading-container border_radius"/>
@@ -7,10 +7,10 @@
   <div class="border_box border_radius">
     <!--提现记录title begin-->
     <div class="detail-header flex">
-      <!--币种-->
-      <span class="currency">{{$t('currency')}}</span>
       <!--时间-->
       <span class="time">{{$t('time')}}</span>
+      <!--币种-->
+      <span class="currency">{{$t('currency')}}</span>
       <!--数量-->
       <span class="total">{{$t('amount')}}</span>
       <!--地址-->
@@ -29,8 +29,8 @@
 
         <li class="detail-li" v-for="(item,index) in computedRecord" :key="item.id">
           <div class="li-container flex">
-            <span class="currency">{{item.currency == 'USDT2' ? 'USDT' :item.currency}}</span>
             <span class="time">{{$globalFunc.formatDateUitl(item.updatedAt,'YYYY-MM-DD hh:mm:ss')}}</span>
+            <span class="currency">{{item.currency == 'USDT2' ? 'USDT' :item.currency}}</span>
             <span class="total">{{toFixed(item.amount,8)}}</span>
             <div class="address address-detail flex">
               <div class="address-detail-item flex">
@@ -59,19 +59,28 @@
             <span class="state pointer text_blue" v-if="canCancel(item.status)==1" @click="clickCancel(item)">{{$t('cancel')}}</span>
             <span class="state pointer text_blue" v-else-if="canCancel(item.status)==2"
                   @click="clickToWatchReason(item)">{{$t('watchReason')}}</span>
-            <span class="state" v-else>--</span>
+<!--            <span class="state" v-else>&#45;&#45;</span>-->
+            <div class="operation">
+              详情
+              <img src="" alt="">
+            </div>
+
           </div>
         </li>
 
-        <li class="detail-li" v-if="computedRecord.length ===0">
-          <div class="li-container flex">
-            <span class="currency">---</span>
-            <span class="time">---</span>
-            <span class="total">---</span>
-            <span class="address address-detail flex">-------</span>
-            <span class="state">--</span>
-            <span class="operation">--</span>
+        <li class="detail-li-no-data" v-if="computedRecord.length ===0">
+          <div class="no-data-content">
+            <img src="../../assets/assetPageRecord/no-order-light.png" alt="">
+            <div class="no-record">暂无记录</div>
           </div>
+<!--          <div class="li-container flex">-->
+<!--            <span class="currency">-&#45;&#45;</span>-->
+<!--            <span class="time">-&#45;&#45;</span>-->
+<!--            <span class="total">-&#45;&#45;</span>-->
+<!--            <span class="address address-detail flex">-&#45;&#45;&#45;&#45;&#45;&#45;</span>-->
+<!--            <span class="state">&#45;&#45;</span>-->
+<!--            <span class="operation">&#45;&#45;</span>-->
+<!--          </div>-->
         </li>
 
       </ul>

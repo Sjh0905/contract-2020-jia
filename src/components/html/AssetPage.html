@@ -163,63 +163,68 @@
       <!--充值提现 end-->
 
 
-      <!--充值记录打开 begin-->
-      <router-link to="/index/asset/rechargeRecord" class="title-tab flex-center margin-a-little"
+      <!--财务记录打开 begin-->
+      <router-link to="/index/asset/record/" class="title-tab flex-center margin-a-little"
                    :class="lang!='CH'?'title-tab-en':''"
-                   active-class="selected text_blue">{{$t('assetPage.rechargeRecord')}}
+                   active-class="selected text_blue">财务记录
       </router-link>
-      <!--充值记录打开 end-->
+      <!--财务记录打开 end-->
 
-      <!--充值记录关闭 begin-->
-      <!--<router-link to="/index/asset/rechargeRecord" class="title-tab flex-center margin-a-little template-close"-->
-      <!--active-class="selected">-->
-      <!--{{$t('assetPage.rechargeRecord')}}-->
-      <!--</router-link>-->
-      <!--充值记录关闭 end-->
+<!--&lt;!&ndash;      充值记录关闭 begin&ndash;&gt;-->
+<!--      <router-link to="/index/asset/rechargeRecord" class="title-tab flex-center margin-a-little template-close"-->
+<!--      active-class="selected">-->
+<!--      {{$t('assetPage.rechargeRecord')}}-->
+<!--      </router-link>-->
+<!--&lt;!&ndash;      充值记录关闭 end&ndash;&gt;-->
 
-      <!--提现记录打开 begin-->
-      <router-link to="/index/asset/withdrawalsRecord" class="title-tab flex-center margin-a-little"
-                   :class="lang!='CH'?'title-tab-en':''"
-                   active-class="selected text_blue">{{$t('assetPage.withdrawalRecord')}}
-      </router-link>
-      <!--提现记录打开 end-->
+<!--      &lt;!&ndash;充值记录打开 begin&ndash;&gt;-->
+<!--      <router-link to="/index/asset/recode" class="title-tab flex-center margin-a-little"-->
+<!--                   :class="lang!='CH'?'title-tab-en':''"-->
+<!--                   active-class="selected text_blue">{{$t('assetPage.rechargeRecord')}}-->
 
-      <!--划转记录 begin-->
-      <router-link to="/index/asset/transferrecord" class="title-tab flex-center margin-a-little"
-                   :class="lang!='CH'?'title-tab-en':''"
-                   active-class="selected text_blue">
-<!--        划转记录-->
-<!--        Transfer record-->
-                {{$t('assetPage.transferRecord')}}
-      </router-link>
-      <!--划转记录 end-->
+<!--      </router-link>-->
+<!--      &lt;!&ndash;充值记录打开 end&ndash;&gt;-->
 
-      <!--转账记录 begin-->
-      <router-link to="/index/asset/transferrecords" class="title-tab flex-center margin-a-little"
-                   :class="lang!='CH'?'title-tab-en':''"
-                   active-class="selected text_blue">
-<!--        转账记录-->
-<!--        Transfer record-->
-                {{$t('assetPage.transferRecords')}}
-      </router-link>
-      <!--转账记录 end-->
+<!--      &lt;!&ndash;提现记录打开 begin&ndash;&gt;-->
+<!--      <router-link to="/index/asset/recode/withdrawalsRecord" class="title-tab flex-center margin-a-little"-->
+<!--                   :class="lang!='CH'?'title-tab-en':''"-->
+<!--                   active-class="selected text_blue">{{$t('assetPage.withdrawalRecord')}}-->
+<!--      </router-link>-->
+<!--      &lt;!&ndash;提现记录打开 end&ndash;&gt;-->
 
+<!--      &lt;!&ndash;划转记录 begin&ndash;&gt;-->
+<!--      <router-link to="/index/asset/recode/transferrecord" class="title-tab flex-center margin-a-little"-->
+<!--                   :class="lang!='CH'?'title-tab-en':''"-->
+<!--                   active-class="selected text_blue">-->
+<!--&lt;!&ndash;        划转记录&ndash;&gt;-->
+<!--&lt;!&ndash;        Transfer record&ndash;&gt;-->
+<!--                {{$t('assetPage.transferRecord')}}-->
+<!--      </router-link>-->
+<!--      &lt;!&ndash;划转记录 end&ndash;&gt;-->
 
+<!--      &lt;!&ndash;转账记录 begin&ndash;&gt;-->
+<!--      <router-link to="/index/asset/recode/transferrecords" class="title-tab flex-center margin-a-little"-->
+<!--                   :class="lang!='CH'?'title-tab-en':''"-->
+<!--                   active-class="selected text_blue">-->
+<!--&lt;!&ndash;        转账记录&ndash;&gt;-->
+<!--&lt;!&ndash;        Transfer record&ndash;&gt;-->
+<!--                {{$t('assetPage.transferRecords')}}-->
+<!--      </router-link>-->
+<!--      &lt;!&ndash;转账记录 end&ndash;&gt;-->
+
+<!--      &lt;!&ndash; 平台奖励 begin &ndash;&gt;-->
+<!--      <router-link :to="{name:'platformReward'}" class="title-tab flex-center margin-a-little tab-item-last"-->
+<!--                   :class="lang!='CH'?'title-tab-en':''"-->
+<!--                   active-class="selected text_blue">-->
+<!--        {{$t('assetPage.platformReward')}}-->
+<!--      </router-link>-->
+<!--      &lt;!&ndash; 平台奖励 end &ndash;&gt;-->
 
       <!--提现记录关闭 begin-->
       <!--<router-link to="/index/asset/withdrawalsRecord" class="title-tab flex-center margin-a-little template-close"-->
       <!--active-class="selected">{{$t('assetPage.withdrawalRecord')}}-->
       <!--</router-link>-->
       <!--提现记录关闭 end-->
-
-      <!-- 平台奖励 begin -->
-      <router-link :to="{name:'platformReward'}" class="title-tab flex-center margin-a-little tab-item-last"
-                   :class="lang!='CH'?'title-tab-en':''"
-                   active-class="selected text_blue">
-        {{$t('assetPage.platformReward')}}
-      </router-link>
-      <!-- 平台奖励 end -->
-
 
     </div>
     <div class="detail-container">

@@ -90,7 +90,7 @@
               <!--关闭提现 end-->
 
               <!--打开划转 begin-->
-            <span class="withdrawals-button button" @click="openWithdrawals(index,item)"
+            <span class="withdrawals-button button" @click="openTransfer()"
                   :class="{'withdrawals-button-select':activeIndex===index  && withdrawals}"
                   v-if="withdrawalsFlag(item)"
             >
@@ -129,6 +129,24 @@
     </template>
 
   </div>
+
+  <!--  内部划转-->
+  <PopupT :switch="popWindowOpen1" @close="popWindowClose1">
+    <div slot="header">
+      <span class="pop-ei-ar">资金划转</span>
+    </div>
+    <div slot="article" class="pop-article">
+
+
+    </div>
+    <div slot="footer" class="pop-footer">
+      <span class="pop-qu pointer" @click="click_rel_em">取消</span>
+      <button class="pop-qu-2 pointer" @click="commit">确认</button>
+
+    </div>
+
+  </PopupT>
+
   <!--弹窗-->
   <PopupWindow :switch="popWindowOpen" @close="popWindowClose">
     <div slot="header">
@@ -166,6 +184,8 @@
 
     </div>
   </PopupWindow>
+
+
 
 
   <!-- 提示 start -->

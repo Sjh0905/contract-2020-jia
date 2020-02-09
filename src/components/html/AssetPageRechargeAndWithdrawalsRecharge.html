@@ -3,7 +3,7 @@
   <template v-if="!loading">
 
     <div class="address-container flex">
-      <div class="address-container1 address-item2" v-if="currency == 'USDT'">链名称</div>
+      <div class="address-item2" v-if="currency == 'USDT'">链名称</div>
       <div class="address-item1 address-item2 address-item3" v-if="currency == 'USDT' || currency == 'USDT2'">
         <div v-if="rechargeFlagUSDT" class="address-ERC" @click="toggleStatus(1)" :class="selectTab == 1 ? 'address-si' : ''">OMNI</div>
         <div v-if="!rechargeFlagUSDT" class="address-OMNI-disabled">OMNI</div>
@@ -11,27 +11,33 @@
         <div v-if="!rechargeFlagUSDT2" class="address-OMNI-disabled">ERC20</div>
       </div>
       <!--充值地址 begin-->
-      <div class="address-item flex">
-
-        <!--二维码 begin-->
-        <div class="qr-code flex-center">
-          <QRCodeVue :value="address" size="100" level="H"/>
-        </div>
-        <!--二维码 end-->
+      <div class="address-item">
 
         <!--充值地址 begin-->
         <div class="address flex">
           <span>{{currency}}{{$t('rechargeAddress')}} </span>
 <!--          <input type="text" readonly v-model="address" @click="toggleStatus(1)" ref="address" class="address-input border_radius" v-if="currency= USDT2" />-->
-          <input type="text" readonly v-model="address"  v-show="(selectTab === 1)" ref="address" class="address-input border_radius"/>
-          <input type="text" readonly v-model="address" v-show="(selectTab === 2)" ref="address1" class="address-input border_radius"/>
+          <input type="text" readonly v-model="address"  v-show="(selectTab === 1)" ref="address" class="address-input "/>
+          <input type="text" readonly v-model="address" v-show="(selectTab === 2)" ref="address1" class="address-input "/>
 <!--          <input type="text" readonly v-model="address" v-show="(currency != 'USDT' && currency != 'USDT2')" ref="address2" class="address-input border_radius"/>-->
 
-     <button @click="clickCopy" class="btn_blue pointer address-button">
-            {{$t('copyAddress')}}
-          </button>
+          <div>
+            <button @click="clickCopy" class=" pointer address-button">
+              <img src="../../assets/mywallet/copy_icon.png" alt="">
+              {{$t('copyAddress')}}</button>
+            <button  class="pointer show-QRCode" @mouseenter="openQRCode()" @mouseleave="closeQRCode()">
+              <img src="../../assets/mywallet/qrCode_icon.png" alt="">
+              展示二维码</button>
+          </div>
         </div>
         <!--充值地址 end-->
+
+        <!--二维码 begin-->
+        <div class="qr-code">
+          <QRCodeVue :value="address" size="100" level="H"/>
+        </div>
+        <!--二维码 end-->
+
       </div>
       <!--充值地址 end-->
 
@@ -47,9 +53,10 @@
         <div class="address flex">
           <span>memo:</span>
           <input type="text" readonly v-model="memo" ref="memo" class="address-input border_radius"/>
-          <button @click="clickCopyMemo" class="btn_blue pointer address-button">
-            {{$t('copyMemo')}}
-          </button>
+          <div class="flex">
+            <button @click="clickCopyMemo" class="btn_blue pointer address-button">{{$t('copyMemo')}}</button>
+          </div>
+
         </div>
         <!--memo地址 end-->
       </div>
@@ -57,21 +64,31 @@
 
       <!--publicKey begin-->
       <div class="address-item flex" v-if="isWCG">
-        <!--二维码 begin-->
-        <div class="qr-code flex-center">
-          <QRCodeVue :value="publicKey" size="100" level="H"/>
-        </div>
-        <!--二维码 end-->
+
 
         <!--publicKey地址 begin-->
         <div class="address flex">
           <span>publicKey:</span>
           <input type="text" readonly v-model="publicKey" ref="publicKey" class="address-input border_radius"/>
-          <button @click="clickCopyPublicKey" class="btn_blue pointer address-button" >
-            {{$t('copyPublicKey')}}
-          </button>
+          <div>
+            <button @click="clickCopyPublicKey" class="pointer address-button" >
+              <img src="../../assets/mywallet/copy_icon.png" alt="">
+              {{$t('copyAddress')}}
+              <!--            {{$t('copyPublicKey')}}-->
+            </button>
+            <button  class="pointer show-QRCode" @mouseenter="openPublicKey()" @mouseleave="closePublicKey()">
+              <img src="../../assets/mywallet/qrCode_icon.png" alt="">
+              展示二维码</button>
+          </div>
+
         </div>
         <!--publicKey地址 end-->
+
+        <!--二维码 begin-->
+        <div class="qr-code-public-key flex-center">
+          <QRCodeVue :value="publicKey" size="100" level="H"/>
+        </div>
+        <!--二维码 end-->
       </div>
       <!--publicKey end-->
     </div>
@@ -79,13 +96,13 @@
 
     <!--充值提示 begin-->
     <ul class="describe flex">
-      <li class="text_red" v-if="memo"><span class="usdt_notice_dot"></span>
+      <li class="" v-if="memo"><span class="usdt_notice_dot"></span>
         <!--注：充值{{currency}}到二零二零同时需要一个充值地址和{{currency}} memo， 如果未遵守{{currency}}充值规则，币会丢失。-->
         {{$t('rechargeDescribe',{currency:currency})}}
       </li>
-      <li class="text_red" v-show="(currency == 'USDT' || currency == 'USDT2') && (selectTab === 1)"><span class="usdt_notice_dot"></span>{{$t('usdt_notice')}}
+      <li class="" v-show="(currency == 'USDT' || currency == 'USDT2') && (selectTab === 1)"><span class="usdt_notice_dot"></span>{{$t('usdt_notice')}}
       </li>
-      <li class="text_red" v-show="selectTab === 2"><span class="usdt_notice_dot"></span>{{$t('eusdt_notice')}}
+      <li class="" v-show="selectTab === 2"><span class="usdt_notice_dot"></span>{{$t('eusdt_notice')}}
       </li>
       <li><span></span>{{$t('prohibitionRecharge',{currency:currency})}}</li>
       <li><span></span>{{$t('canNotRetrieved')}}</li>
@@ -96,7 +113,7 @@
 
     <!--关闭 begin-->
     <div class="close"></div>
-    <img src="../../assets/关闭RechargeAndWithdrawals.png" alt="" class="close-img" @click="close">
+<!--    <img src="../../assets/关闭RechargeAndWithdrawals.png" alt="" class="close-img" @click="close">-->
     <!--关闭 end-->
 
     <PopupPrompt :popType="popType" :popText="popText" :popOpen="promptOpen" :popClose="closePrompt"></PopupPrompt>
