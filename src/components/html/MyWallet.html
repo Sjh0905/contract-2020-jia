@@ -132,7 +132,7 @@
   <!--弹窗-->
   <PopupWindow :switch="popWindowOpen" @close="popWindowClose">
     <div slot="header">
-      <span class="">{{popWindowTitle}}</span>
+      <span class="header_xuzhi">{{popWindowTitle}}</span>
     </div>
     <div slot="article" class="pop-article">{{popWindowPrompt}}
       <p class="Consequences">{{popWindowPrompt1}}</p>
@@ -160,13 +160,13 @@
         </button>
       </template>
       <template v-if="popWindowStyle==3">
-        <button @click="goToBindEmail" class="button-base btn_blue pointer">
+        <button @click="goToBindEmail" class="button-base btn_blue pointer bangding">
           <!--绑定邮箱-->
-          {{$t('bind_email_pop_button')}}
+          {{$t('bind_email_pop_button')}}1212
         </button>
       </template>
       <template v-if="popWindowStyle==4">
-        <button @click="goToBindTransfer" class="button-base btn_blue pointer">
+        <button @click="goToBindTransfer" class="button-base btn_blue pointer transfer4">
           <!--绑定邮箱-->
           {{$t('ITransfer')}}
 
@@ -184,7 +184,9 @@
     </div>
     <div slot="article" class="Internal_siding">
 
-      <p class="Internal_siding_email"> <span class="color_red">*</span>{{$t('mailbox')}}</p>
+      <p class="Internal_siding_email">
+<!--        <span class="color_red">*</span>-->
+        {{$t('mailbox')}}</p>
       <input class="input_input" type="text" :placeholder='userNamePlaceholderShow && $t("deletePopCancel2") || ""' v-model="name_0"
              @focus="closePlaceholder('userName')"
              @blur="testName_0"
@@ -193,14 +195,18 @@
       <span v-if="nameWA_0==='0'" class="prompt-span wrong-msg">{{nameMsg_0}}</span>
 
 
-      <p class="Internal_siding_email"> <span class="color_red">*</span>UID</p>
+      <p class="Internal_siding_email">
+<!--        <span class="color_red">*-->
+        </span>UID</p>
       <input class="input_input"  type="text"
              :placeholder='pswPlaceholderShow && $t("deletePopCancel3") || ""' v-model="testUID_0"
              @focus="closePlaceholder('psw')"
              @blur="testUID_01"
              :class="{'wrong-border':testUID_012!=='0' && testUID_012!=='0'}" >
       <span v-if="testUID_012==='0'" class="prompt-span wrong-msg">{{testUIDMsg_0}}</span>
-      <div class="Internal_siding_email"><span><span class="color_red">*</span>{{$t('Number1')}}</span> <span class="email_span">{{$t('Number2')}}{{transferCurrency}}{{$t('Number3')}}</span></div>
+      <div class="Internal_siding_email"><span>
+<!--        <span class="color_red">*</span>-->
+        {{$t('Number1')}}</span> <span class="email_span">{{$t('Number2')}}{{transferCurrency}}{{$t('Number3')}}</span></div>
       <input class="input_input" type="text"
              placeholder="输入转账数量，不能小于2"
              :placeholder='verificationCodePlaceholderShow && $t("deletePopCancel5") || ""' v-model="testNum_0"
@@ -238,12 +244,11 @@
 
       <div slot="footer">
         <!--        <button class="Internal_siding_email1" @click="goToConfirmTransfer"> 确认转账</button>-->
-
-        <button @click="goToConfirm" class="button-base btn_blue pointer">
-          {{$t('deletePopConfirm')}}
+        <button @click="popWindowClose1" class="button-base btn_simple pointer firm1">
+          {{$t('cancel')}}上一步
         </button>
-        <button @click="popWindowClose1" class="button-base btn_simple pointer">
-          {{$t('cancel')}}
+        <button @click="goToConfirm" class="button-base btn_blue pointer firm2">
+          {{$t('deletePopConfirm')}}确认转账
         </button>
       </div>
 
@@ -273,8 +278,9 @@
 
   </PopupWindow>
 
+<!--  验证码弹框-->
   <PopupWindow :switch="goToConfirmsjh" @close="goToConfirmsjhclose" class="popupWindow-container">
-    <div slot="header" class="popWindow-title ">{{$t('verify')}}
+    <div slot="header" class="popWindow-title0 ">{{$t('verify')}}
     </div>
 
     <!-- article begin 1 -->
@@ -282,22 +288,24 @@
       <div class="prompt-title">
         <!--        {{$t('promptWindow_1')}}22222-->
       </div>
+      <label for="email"
+             class="verification-title">{{$t('email')}}</label>
       <div class="verification-container double-input-container flex" >
-        <label for="email"
-               class="verification-title">{{$t('email')}}</label>
-        <input type="text" id="email" class="verification-input double-input input_padding"
+
+        <input type="text" id="email" class="verification-input input_padding"
                v-model="emailVerificationCode"
                @blur="testEmailVerification">
-        <button class="get-verification button-base btn_blue" v-if="!getEmailVerificationCode"
+        <div class="get-verification button-base" v-if="!getEmailVerificationCode"
                 @click="getEmailVerification" >
-          {{$t('reGet')}}
-        </button>
-        <button class="get-verification button-base btn_grey" v-if="getEmailVerificationCode" disabled>
+          获取验证码
+        </div>
+        <div class="get-verification button-base btn_grey" v-if="getEmailVerificationCode" disabled>
           {{getEmailVerificationCodeCountdown}}
-        </button>
+        </div>
       </div>
       <div class="prompt-wrong wrong-msg" v-if="emailVerificationCodeWA!==''">
         {{emailVerificationCodeWA}}
+
       </div>
       <div class="prompt-wrong wrong-msg" v-else="emailVerificationCodeWA!==''">
 
@@ -360,14 +368,14 @@
 
     <!-- footer popWindow begin 1 -->
     <div slot="footer" class="popWindow-footer" v-if="popWindowStep === 1">
-      <button class="button-base pointer btn_border_blue text_blue btn_simple" @click="goToConfirmsjhclose">
-        {{$t('cancel')}}
+      <button class="pointer btn_simple ssss" @click="goToConfirmsjhclose">
+        上一步
       </button>
-      <button class="button-base btn-commit btn_blue pointer " v-if="!emailVerificationSending"
+      <button class="btn-commit btn_blue pointer ssss1" v-if="!emailVerificationSending"
               @click="commitEmailVerification">
         {{$t('commit')}}
       </button>
-      <button class="button-base btn-commit btn_grey pointer " v-if="emailVerificationSending" disabled>
+      <button class="btn-commit btn_grey pointer ssss1" v-if="emailVerificationSending" disabled>
         {{$t('commiting')}}
       </button>
     </div>

@@ -271,13 +271,17 @@
   margin-right: 0;
   outline: none;
 }
-
+.transfer4 {
+  width: 410px;
+  margin-bottom: 30px;
+}
 .select-address-detail {
 
 }
 
 .pop-article {
-  padding: 20px 0;
+  padding: 25px;
+
 }
 
 /*币种名称*/
@@ -324,15 +328,16 @@
 }
 
 .Internal_siding {
-  width: 560px;
+  /*width: 460px;*/
   margin: 0 auto;
   /*background-color: pink;*/
 }
 
 .Internal_siding_email {
-  padding-left: 30px;
+  padding-left: 25px;
   padding-top: 20px;
   padding-bottom: 10px;
+  padding-right: 25px;
   font-size: 16px;
   color: #172A4D;
 }
@@ -344,70 +349,80 @@
   color: #C43E4E;
 }
 .input_input {
-  width: 500px;
-  height: 48px;
+  width: 410px;
+  height: 40px;
   text-align: left;
-  line-height: 48px;
-  margin-left: 30px;
+  line-height: 40px;
+  margin-left: 25px;
   padding-left: 8px;
   font-size: 16px;
   color: #172A4D;
+  border: 1px solid #E0E1F4;
+  box-sizing: border-box;
 }
 .wrong-border {
   border: 1px solid #C43E4E;
 }
 
 .prompt-span {
-  padding-left: 30px;
+  padding-left: 25px;
   /*padding-top: 15px;*/
 }
 .wrong-msg {
   color: #C43E4E;
 }
 .Internal_siding_email {
-  padding-left: 30px;
-  padding-top: 20px;
-  padding-bottom: 10px;
-  font-size: 16px;
-  color: #172A4D;
+  padding-left: 25px;
+  padding-top: 25px;
+  padding-bottom: 8px;
+  font-size:12px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color: #6B7DA2;
 }
 .email_span {
-  padding-left: 253px;
+  float: right;
+  display: inline-block;
+  text-align: right;
   font-size: 12px;
-  color: #172A4D;
+  color: #6B7DA2;
 }
 
 .shouxu {
-  margin-left: 490px;
+  text-align: right;
+  margin-right: 25px;
   margin-top: 8px;
   font-size: 12px;
-  color: #172A4D;
+  color: #6B7DA2;
 }
 .Internal_siding_email1 {
-  width: 500px;
-  height: 48px;
+  width:410px;
+  height:40px;
+  background:linear-gradient(270deg,rgba(53,118,245,1) 0%,rgba(69,154,245,1) 100%);
+  border-radius:1px;
   text-align: center;
-  line-height: 48px;
-  margin-left: 30px;
+  line-height: 40px;
+  margin-left: 25px;
   outline: none;
   font-size: 16px;
   color: #FFFFFF;
   text-align: center;
-  background-color: #C43E4E ;
   margin-top: 30px;
   margin-bottom: 25px;
 }
 .zhu {
-  margin-left: 30px;
+  margin-left: 25px;
   padding-bottom: 30px;
-  font-size: 12px;
-  color: #C43E4E;
+  font-size:12px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color: #EF5656;
 }
 .Payee {
   height: 42px;
   line-height: 42px;
   padding-right: 20px;
-  padding-left: 15px;
+  padding-left: 25px;
 }
 .gray {
   font-size: 14px;
@@ -427,4 +442,210 @@
 }
 .popWindow-article {
   padding-top: 10px;
+}
+.header_xuzhi {
+  padding-left: 25px;
+}
+.firm1 {
+  width:195px;
+  height:40px;
+  margin-left: 25px;
+  margin-bottom: 15px;
+  border-radius:1px;
+  border:1px solid rgba(53,118,245,1);
+}
+.firm2 {
+  width:195px;
+  height:40px;
+  background:rgba(53,118,245,1);
+  border-radius:1px;
+  color: #ffffff;
+}
+.popWindow-title0 {
+  padding-left: 25px;
+}
+
+
+.popWindow-article {
+  padding-top: 10px;
+}
+
+.prompt-title {
+  font-size: 14px;
+  /*padding-bottom: 30px;*/
+  color: #C43E4E;
+}
+
+.prompt-show-picker {
+  padding: 10px 0;
+}
+
+/*谷歌验证码和手机验证码选择*/
+.prompt-show-picker-detail-box {
+  display: inline-block;
+  font-size: 14px;
+  margin-left: 30px;
+}
+
+.prompt-show-picker-detail-box:last-child {
+  margin-left: 20px;
+}
+
+.verification-container {
+  /*padding-top: 10px;*/
+  /*width: 100%;*/
+  /*justify-content: space-around;*/
+  /*-webkit-justify-content: space-around;*/
+  align-items: center;
+  -webkit-align-items: center;
+  font-size: 14px;
+  width:410px;
+  height:40px;
+  border-radius:1px;
+  border:1px solid rgba(224,225,244,1);
+
+  margin-left: 25px;
+}
+
+.verification-title {
+  display: block;
+  font-size:12px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color:rgba(107,125,162,1);
+  padding-left: 25px;
+  padding-right: 10px;
+}
+
+.get-verification {
+  display: inline-block;
+  /*width: 70px;*/
+  height: 40px;
+  line-height: 40px;
+  font-size: 14px;
+  color: #3576F5;
+}
+
+.verification-input {
+  /*height: 35px;*/
+  border: 1px solid #e5e5e5;
+  border-radius: 5px;
+  width: 410px;
+  border: none;
+
+
+}
+
+.double-input {
+  width: 150px;
+  border: none;
+}
+
+.prompt-wrong {
+  font-size: 12px;
+  /*padding-top: 10px;*/
+  margin: 5px 0px 10px 25px;
+  height: 12px;
+  display: block;
+}
+
+.btn-commit {
+  margin-left: 20px;
+}
+
+.btn-cancel {
+  /*background-color: #e6e6e6;*/
+  /*border: 1px solid #c9c9c9;*/
+  /*background-color: transparent;*/
+
+  /*color: #999;*/
+  /*color: #fff;*/
+}
+
+/*提交loading*/
+.popWindow-loading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.popWindow-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #081724;
+  opacity: 0.1;
+}
+
+/*删除提现地址*/
+.delete-pop-article {
+  padding: 20px 0 10px 0;
+}
+
+/*弹窗button*/
+.button-base {
+  margin-right: 20px;
+  outline: none;
+}
+
+.button-base:last-of-type {
+  margin-right: 0;
+}
+
+/*memo 弹窗提示*/
+.memo-pop-header {
+  font-size: 16px;
+}
+
+.memo-pop-article {
+  width: 400px;
+  padding: 20px 0;
+}
+
+.memo-pop-check {
+  font-size: 12px;
+  color: #666;
+  margin: 10px 0;
+}
+
+.memo-pop-article-text {
+  font-size: 14px;
+}
+
+.memo-pop-btn-container {
+  justify-content: center;
+}
+
+.memo-btn-not-agree {
+  background: #B1B3B4;
+}
+
+.prompt-span {
+  padding-left: 30px;
+  /*padding-top: 15px;*/
+}
+.ssss {
+  margin-bottom: 15px;
+  width:195px;
+  height:40px;
+  border-radius:1px;
+  color: #3576F5;
+  border:1px solid rgba(53,118,245,1);
+}
+.ssss1 {
+  width:195px;
+  height:40px;
+  background:rgba(53,118,245,1);
+  color: #FFFFFF;
+  border-radius:1px;
+}
+.div_div {
+  width: 410px;
+}
+.bangding {
+  margin: 30px;
 }
