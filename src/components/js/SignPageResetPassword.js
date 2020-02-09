@@ -7,6 +7,7 @@ root.name = 'SignPageResetPassword'
 root.components = {
   'Loading': resolve => require(['../vue/Loading'], resolve),
   'MobileCheckbox': resolve => require(['../mobileVue/MobileCompentsVue/MobileCheckbox'], resolve),
+  'RegisterTopBar': resolve => require(['../vue/RegisterTopBar'], resolve),
 }
 
 root.data = function () {
