@@ -1,0 +1,126 @@
+.joinAGroup {
+  width: 1200px;
+  margin: 0 auto;
+}
+.create {
+  width: 100%;
+  /*height:485px;*/
+  margin-top: 20px;
+  margin-bottom: 25px;
+  border:1px solid rgba(239,240,255,1);
+}
+.create_conteainer {
+  width: 520px;
+  margin: 0 auto;
+}
+.create_a {
+  width: 100%;
+  text-align: center;
+  margin-top: 30px;
+  margin-bottom: 18px;
+}
+.create_a_p {
+  font-size:24px;
+  font-family:PingFangSC-Medium,PingFang SC;
+  font-weight:500;
+  color: #0D0E23;
+}
+.create_discount {
+  font-size:14px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color: #6B7DA2;
+}
+.account_number {
+  width: 100%;
+  /*margin-bottom: 20px;*/
+  margin-top: 5px;
+}
+.account_number_p {
+  font-size:12px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color: #6B7DA2;
+  margin-bottom: 10px;
+}
+.account_number_div {
+  width:100%;
+  height:40px;
+  line-height: 40px;
+  padding-left: 15px;
+  background:rgba(245,246,250,1);
+  border-radius:1px;
+  border:1px solid rgba(224,225,244,1);
+  margin-bottom: 20px;
+}
+.account_number_input {
+  width:100%;
+  height:40px;
+  line-height: 40px;
+  padding-left: 15px;
+  border-radius:1px;
+  border:1px solid rgba(224,225,244,1);
+  margin-bottom: 20px;
+  box-sizing: border-box;
+}
+.div_botton {
+  width: 100%;
+  height:44px;
+  line-height: 44px;
+  text-align: center;
+  background:linear-gradient(270deg,rgba(53,118,245,1) 0%,rgba(69,154,245,1) 100%);
+  box-shadow:0px 10px 12px -6px rgba(0,2,40,0.2);
+  border-radius:1px;
+  margin-top: 15px;
+  margin-bottom: 40px;
+  color: #FFFFFF;
+}
+.rules {
+  width: 100%;
+}
+.rules_p {
+  font-size:16px;
+  font-family:PingFangSC-Medium,PingFang SC;
+  font-weight:500;
+  color:#0D0E23;
+  margin-bottom: 15px;
+}
+.rules_details {
+  font-size:14px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color:#6B7DA2;
+}
+input::-webkit-input-placeholder{
+  color:#A2B5D9;
+}
+input::-moz-placeholder{   /* Mozilla Firefox 19+ */
+  color:#A2B5D9;
+}
+input:-moz-placeholder{    /* Mozilla Firefox 4 to 18 */
+  color:#A2B5D9;
+}
+input:-ms-input-placeholder{  /* Internet Explorer 10-11 */
+  color:#A2B5D9;
+}
+.information {
+  width: 100%;
+  background:linear-gradient(180deg,rgba(255,255,255,1) 0%,rgba(243,247,255,1) 100%);
+  border-radius:1px;
+  border:1px solid rgba(224,225,244,1);
+}
+ul {
+  width: 100%;
+}
+.information_li {
+  width: 100%;
+  display: flex;
+}
+.information_div {
+  width: 30%;
+  height: 30px;
+  border: 4px solid pink;
+  margin-left: 5px;
+  margin-bottom: 5px;
+  justify-content:space-between;
+}

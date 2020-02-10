@@ -1,0 +1,74 @@
+.conteainer {
+  width: 1200px;
+  margin: 0 auto;
+}
+.content_img {
+  width: 100%;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.assemble {
+  width: 400px;
+  margin: 0 auto;
+  text-align: center;
+  position: absolute;
+  top: 30px;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+.assemble_p {
+  font-size:24px;
+  font-family:PingFangSC-Medium,PingFang SC;
+  font-weight:500;
+  color: #FFFA5E;
+}
+.assemble_p_ {
+  font-size:14px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color: #FFFFFF;
+}
+.create_join {
+  width: 100%;
+  height: 240px;
+
+}
+.create {
+  display: inline-block;
+  width: 50%;
+  height: 240px;
+  text-align: center;
+  border:1px solid rgba(239,240,255,1);
+}
+.create:hover {
+  background-color: #F5F6FA;
+}
+.join {
+  float: right;
+  display: inline-block;
+  width: 49.9%;
+  height: 240px;
+  text-align: center;
+  border:1px solid rgba(239,240,255,1);
+  border-left: 0px;
+}
+
+.join:hover {
+  background-color: #F5F6FA;
+}
+.img_ico {
+  width: 86px;
+  height: 86px;
+  margin: 0 auto;
+  margin-top: 44px;
+  margin-bottom: 25px;
+  background-color: #0babb6;
+
+}
+.img_ico_p {
+  font-size:16px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color: #3576F5;
+}

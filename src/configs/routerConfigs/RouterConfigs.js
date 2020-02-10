@@ -2486,6 +2486,46 @@ root.routes.push({
       component: resolve => require(['@/components/vue/IndexHomeMarket'], resolve),
     },
 
+    // sss 拼团
+    {
+      path: 'assembleARegiment',
+      name: 'assembleARegiment',
+      caseSensitive: true,
+      meta: {
+        requireLogin: false,
+        mobileHeaderTitle: '',
+        pcname: 'assembleARegiment',
+        // h5name: 'mobileTradingHall',
+      },
+      component: resolve => require(['@/components/vue/AssembleARegiment'], resolve),
+    },
+    // sss 拼团--创建团队
+    {
+      path: 'createAGroup',
+      name: 'createAGroup',
+      caseSensitive: true,
+      meta: {
+        requireLogin: false,
+        mobileHeaderTitle: '',
+        pcname: 'createAGroup',
+        // h5name: 'mobileTradingHall',
+      },
+      component: resolve => require(['@/components/vue/CreateAGroup'], resolve),
+    },
+    // sss 拼团--加入拼团
+    {
+      path: 'joinAGroup',
+      name: 'joinAGroup',
+      caseSensitive: true,
+      meta: {
+        requireLogin: false,
+        mobileHeaderTitle: '',
+        pcname: 'joinAGroup',
+        // h5name: 'mobileTradingHall',
+      },
+      component: resolve => require(['@/components/vue/JoinAGroup'], resolve),
+    },
+
     // TODO：弹框组件临时显示（记得删除）
     // {
     //   path: 'PopPublic',
