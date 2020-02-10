@@ -300,6 +300,28 @@ root.methods.goToCustomerService= function () {
   this.popWindowOpen = false;
 }
 
+root.methods.closeQRCode= function () {
+  $(".qr-code").attr("style","display:none");
+}
+
+root.methods.openQRCode= function () {
+  $(".qr-code").attr("style","display:block");
+}
+
+
+
+root.methods.closePublicKey= function () {
+  $(".qr-code-public-key").attr("style","display:none");
+}
+
+
+root.methods.openPublicKey= function () {
+  $(".qr-code-public-key").attr("style","display:block");
+}
+
+
+
+
 
 
 

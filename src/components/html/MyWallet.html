@@ -90,7 +90,7 @@
               <!--关闭提现 end-->
 
               <!--打开划转 begin-->
-            <span class="withdrawals-button button" @click="openWithdrawals(index,item)"
+            <span class="withdrawals-button button" @click="openTransfer()"
                   :class="{'withdrawals-button-select':activeIndex===index  && withdrawals}"
                   v-if="withdrawalsFlag(item)"
             >
@@ -129,6 +129,63 @@
     </template>
 
   </div>
+
+  <!--  内部划转-->
+  <PopupT :switch="popWindowOpen1" @close="popWindowClose1">
+    <div slot="header">
+      <span class="pop-ei-ar">资金划转</span>
+    </div>
+    <div slot="article" class="pop-article">
+<!--      钱包到账户-->
+      <div class="Wallet-to-account flex">
+        <div class="wallet-to-account-left flex">
+        <div class="wallet-account-change">
+          <div>从</div>
+          <img src="../../assets/mywallet/record_change_bottom_icon.png" alt="">
+          <div>到</div>
+        </div>
+        </div>
+        <div class="wallet-to-account-content">
+          <input type="text" placeholder="币币账户">
+          <input type="text" placeholder="我的钱包">
+        </div>
+        <div class="wallet-to-account-right flex">
+          <img src="../../assets/mywallet/record_change_icon.png" alt="">
+        </div>
+      </div>
+
+<!--      币种-->
+      <div class="currency block-input">
+        <div class="block-input-title">币种</div>
+        <input type="text" placeholder="BTC">
+        <div class="amount-not-empty">
+          <span>提示</span>
+        </div>
+      </div>
+
+<!--      数量-->
+      <div class="amount block-input">
+        <div class="block-input-title">
+          <span>数量</span>
+          <span class="available-right">可提：0000000 NET</span>
+        </div>
+        <div class="amount-input flex">
+          <input type="text" placeholder="12345" class="amount-input-box">
+          <span class="amount-all">全提</span>
+        </div>
+        <div class="amount-not-empty">
+          <span>提示</span>
+        </div>
+      </div>
+    </div>
+    <div slot="footer" class="pop-footer">
+      <span class="pop-qu pointer" @click="click_rel_em">取消</span>
+      <button class="pop-qu-2 pointer" @click="commit">确认</button>
+
+    </div>
+
+  </PopupT>
+
   <!--弹窗-->
   <PopupWindow :switch="popWindowOpen" @close="popWindowClose">
     <div slot="header">
@@ -412,6 +469,8 @@
     <!--加载样式 end -->
 
   </PopupWindow>
+
+
 
 
 

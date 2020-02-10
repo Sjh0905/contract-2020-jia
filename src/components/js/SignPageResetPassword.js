@@ -7,6 +7,8 @@ root.name = 'SignPageResetPassword'
 root.components = {
   'Loading': resolve => require(['../vue/Loading'], resolve),
   'MobileCheckbox': resolve => require(['../mobileVue/MobileCompentsVue/MobileCheckbox'], resolve),
+  'RegisterTopBar': resolve => require(['../vue/RegisterTopBar'], resolve),
+  'PopPublic': resolve => require(['../vue/PopPublic'], resolve),
 }
 
 root.data = function () {
@@ -56,6 +58,9 @@ root.data = function () {
     gaCodeFocus: false,
     verificationFocus: false,
     emailVerificationFocus: false,
+
+    //二次验证弹窗是否显示
+    verificationOpen:false,
   }
 }
 
@@ -380,6 +385,49 @@ root.methods.click_getEmailVerificationCode = function () {
 
   })
 }
+//开启二次验证弹窗
+root.methods.openPopPublic = function () {
+  this.verificationOpen = true;
+}
+//关闭二次验证弹窗
+root.methods.closePopPublic = function () {
+  this.verificationOpen = false;
+}
+root.methods.confrimPopPublic = function (picked,code) {
+  // this.$props.verificationClose();
+  if(picked == 1){
+    this.picked = 'bindMobile'
+    this.verificationCode = code;
+  }
+  if(picked == 2){
+    this.picked = 'bindGA'
+    this.GACode = code;
+  }
+  if(picked == 3){
+    this.picked = 'bindEmail'
+    this.emailVerificationCode = code;
+  }
+
+  this.click_send();
+}
+
+// 是否可以重置密码
+root.methods.canOpenPopPublic = function () {
+  let canSend = true
+  // 判断用户名
+  canSend = this.testPsw() && canSend
+  canSend = this.testPswConfirm() && canSend
+
+  if (this.psw === '') {
+    this.pswWA = this.$t('pswWA_5')
+    canSend = false
+  }
+  if (this.pswConfirm === '') {
+    this.pswConfirmWA = this.$t('pswConfirmWA_1')
+    canSend = false
+  }
+  return canSend
+}
 
 // 是否可以重置密码
 root.methods.canSend = function () {
@@ -423,6 +471,28 @@ root.methods.canSend = function () {
 
 // 点击发送
 root.methods.click_send = function () {
+
+  //上一步通过手机找回，弹窗没打开并且需要二次验证
+  if (this.loginType == 0 && !this.verificationOpen && this.bindEmail){
+
+    if (!this.canOpenPopPublic()) {
+      return
+    }
+
+    this.openPopPublic();
+    return
+  }
+
+  //上一步通过邮箱找回，弹窗没打开并且需要二次验证
+  if (this.loginType == 1 && !this.verificationOpen && (this.bindGA || this.bindMobile)){
+
+    if (!this.canOpenPopPublic()) {
+      return
+    }
+
+    this.openPopPublic();
+    return
+  }
 
   if (!this.canSend()) {
     return

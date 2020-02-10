@@ -2,13 +2,13 @@
   <Loading v-if="loading"/>
   <template v-if="!loading">
     <!--留空-->
-    <div class="black flex-center fixed-height"></div>
+<!--    <div class="black flex-center fixed-height"></div>-->
 
 
     <!--提现地址-->
     <div class="address flex fixed-height">
       <div v-if="currency == 'USDT' || currency == 'USDT2' " class="withdrawals-address address-detail flex">
-        <span class="input-title withdrawals-address-add-title">链&nbsp;名 &nbsp;称:</span>
+        <span class="input-title">链名称:</span>
         <div class="address-box" >
 
           <div v-if="withdrawalsFlagUSDT" class="address-ERC" @click="toggleStatus(1)" :class="selectTab ==1 ? 'address-si' : ''">OMNI</div>
@@ -21,7 +21,7 @@
 
       <!--提现地址选择-->
       <div class="withdrawals-address address-detail flex">
-        <span class="input-title withdrawals-address-add-title">{{$t('withdrawalsAddress')}}</span>
+        <span class="withdrawals-address-add-title">{{$t('withdrawalsAddress')}}</span>
       </div>
 
       <div class="withdrawals-address address-detail flex">
@@ -41,7 +41,7 @@
 <!--@blur="blurInputDescription"-->
 
 
-            <span class="input-connect">-</span>
+            <span class="input-connect"></span>
 
             <input class="input-address input-unify border-container flex" type="text"
                    :placeholder="$t('placeholder_1')" v-model="address"
@@ -131,7 +131,7 @@
         <template v-if="addressId!=-1">
           <div class="withdrawals-number-container address-detail">
             <span class="input-title">{{$t('memo_1')}}</span>
-            <div class="withdrawals-number border-container flex">
+            <div class="border-container flex">
               <input type="text" class="input-unify" v-model="memo" readonly>
             </div>
           </div>
@@ -167,55 +167,61 @@
             <div class="withdrawals-number border-container flex">
               <input type="text" class="input-unify" v-model="publicKey">
             </div>
+            <div class="can-not-empty wrong-msg">
+              <span>{{publicKeyWA===''? this.$t('publicKeyWA_1') : publicKeyWA}}</span>
+            </div>
           </div>
         </template>
 
-        <div class="can-not-empty wrong-msg">
-          <span>{{publicKeyWA===''? this.$t('publicKeyWA_1') : publicKeyWA}}</span>
-        </div>
+
       </template>
       <!--publicKey end-->
 
 
       <!--提现数量-->
       <div class="withdrawals-number-container address-detail">
-        <span class="input-title">{{$t('withdrawalsNumber')}}</span>
+        <div class="withdrawals-number-title">
+          <span class="withdrawals-address-add-title">{{$t('withdrawalsNumber')}}</span>
+          <span class="withdrawals-number-prompt">{{$t('available')}}{{toFixed(available,8)}}{{currencyName}}</span>
+        </div>
         <div class="withdrawals-number border-container flex">
           <input type="text" @input="inputNumber" v-model="amount" @blur="blurInputNumber" class="input-unify">
-          <span class="withdrawals-number-prompt">{{$t('available')}}{{toFixed(available,8)}}{{currencyName}}</span>
+
           <span class="withdrawals-number-all pointer text_blue" @click="withdrawalAll">{{$t('withdrawalsAll')}}</span>
         </div>
-      </div>
-      <div class="can-not-empty wrong-msg">
-        <span v-if="amountWA!==''">{{amountWA}}！</span>
+        <div class="can-not-empty wrong-msg">
+          <span v-if="amountWA!==''">{{amountWA}}！</span>
+        </div>
       </div>
 
 
-      <!--手续费提示-->
-      <div class="address-detail withdrawals-prompt flex">
-        <span>{{$t('fee')}}{{toFixed(computedFee,8)}}{{currencyName}}</span>
-        <span>{{$t('real')}}{{realAccountAll}}{{currencyName}}</span>
-      </div>
-      <!--提交按钮-->
 
-      <button class="address-detail withdrawals-commit btn_blue" @click="openbox();commit()" v-if="!sending"
-      >
-        {{$t('commit')}}
-      </button>
-      <button class="address-detail withdrawals-commit btn_grey" v-if="sending">
-        提交中
-      </button>
+      <div class="flex withdrawals-fee-commit">
+        <!--手续费提示-->
+        <div class="address-detail withdrawals-prompt">
+          <div class="withdrawals-currency-name">{{$t('fee')}}{{toFixed(computedFee,8)}}{{currencyName}}</div>
+          <div>{{$t('real')}}{{realAccountAll}}{{currencyName}}</div>
+        </div>
+        <!--提交按钮-->
+
+        <div class="commit ">
+          <button class="address-detail withdrawals-commit" @click="openbox();commit()" v-if="!sending"
+          >{{$t('commit')}}</button>
+          <button class="address-detail withdrawals-commit btn_grey" v-if="sending">提交中</button>
+        </div>
+      </div>
+
     </div>
     <!--描述-->
     <ul class="describe flex fixed-height">
-      <li class="text_red" v-if="haveMemo==='yes'"><span class="red-bot"></span>
+      <li class="" v-if="haveMemo==='yes'"><span class="red-bot"></span>
         <!--注：提现{{currency}}同时需要一个充值地址和{{currency}} memo，如果未遵守{{currency}}提现规则，币会丢失。若钱包无memo，请输入任意字符。-->
         {{/*isWCG && $t('memoPromptWCG',{currency:currency}) || */$t('memoPrompt',{currency:currency}) }}
       </li>
-      <li class="text_red" v-show="(currency == 'USDT' || currency == 'USDT2') && (selectTab === 1)">
+      <li class="" v-show="(currency == 'USDT' || currency == 'USDT2') && (selectTab === 1)">
         <span class="usdt_notice_dot"></span>{{$t('usdt_notice')}}
       </li>
-      <li class="text_red" v-show="(currency == 'USDT' || currency == 'USDT2') && (selectTab === 2)">
+      <li class="" v-show="(currency == 'USDT' || currency == 'USDT2') && (selectTab === 2)">
         <span class="usdt_notice_dot"></span>{{$t('eusdt_notice')}}
       </li>
       <li><span></span>
@@ -230,7 +236,7 @@
     </ul>
     <!--关闭-->
     <div class="close"></div>
-    <img src="../../assets/关闭RechargeAndWithdrawals.png" alt="" @click="close" class="close-img">
+<!--    <img src="../../assets/关闭RechargeAndWithdrawals.png" alt="" @click="close" class="close-img">-->
 
     <div v-if="sending" class="shadow">
       <!--<Loading/>-->

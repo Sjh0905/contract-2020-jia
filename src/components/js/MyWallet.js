@@ -6,7 +6,8 @@ root.components = {
   'RechargeAndWithdrawalsWithdrawals': resolve => require(['../vue/AssetPageRechargeAndWithdrawalsWithdrawals'], resolve),
   'PopupWindow': resolve => require(['../vue/PopupWindow'], resolve),
   'PopupPrompt': resolve => require(['../vue/PopupPrompt'], resolve),
-  'Loading': resolve => require(['../vue/Loading'], resolve)
+  'Loading': resolve => require(['../vue/Loading'], resolve),
+  'PopupT': resolve => require(['../vue/PopupT'], resolve),
 }
 /*------------------------------ data -------------------------------*/
 root.data = function () {
@@ -64,7 +65,6 @@ root.data = function () {
 
     hideZeroAsset: false, //隐藏零资产币种
 
-
     // 转账邮箱
     name_0:'',
     nameWA_0:'',
@@ -108,6 +108,8 @@ root.data = function () {
     getMobileVerificationCodeInterval: null, //获取手机验证码倒计时container
     getMobileVerificationCodeCountdown: 60, //获取手机验证码倒计时
     getMobileVerificationCode: false, //获取手机验证码倒计时
+    // 内部划转页面弹窗
+    popWindowOpen1:false
   }
 }
 /*------------------------------ 生命周期 -------------------------------*/
@@ -254,6 +256,19 @@ root.watch.loading = function (newVal, oldVal) {
 }
 /*------------------------------ 方法 -------------------------------*/
 root.methods = {}
+// 内部划转弹窗关闭
+root.methods.popWindowClose1 = function () {
+  this.popWindowOpen1 = false
+  // this.click_rel_em()
+}
+
+root.methods.click_rel_em = function () {
+  this.popWindowOpen1 = false
+}
+root.methods.commit = function () {
+  this.popWindowOpen1 = false
+}
+
 
 
 root.methods.buyCommitToastClose = function () {
@@ -792,11 +807,6 @@ root.methods.formatDateUitl = function (time) {
   return this.$globalFunc.formatDateUitl(time, 'YYYY-MM-DD hh:mm:ss')
 }
 
-
-
-
-
-
 // 计算当前币对折合多少人民币  2018-4-4 start
 root.methods.get_now_price = function (key, price, e) {
   if (price == 0) return;
@@ -1113,7 +1123,7 @@ root.methods.internalTransfer = function (index, item) {
   this.transferCurrency = item.currency
   // this.transferDisabledss(item.currency)
 
-  console.log('item.currency=================================',item.currency)
+  console.log('item.currency=================================', item.currency)
   // this.transferCurrency = item.currency
   // this.transferDisabledss(item.currency)
   if (this.isTransfer == true) {
@@ -1155,7 +1165,7 @@ root.methods.internalTransfer = function (index, item) {
   }
 
 
-  if(this.bindIdentify && this.isTransfer == false){
+  if (this.bindIdentify && this.isTransfer == false) {
     this.popWindowTitle = this.$t('iKnowthe1')
     this.popWindowPrompt = this.$t('popWindowPromptWithdrawals1')
     this.popWindowPrompt1 = this.$t('popWindowPromptWithdrawals2')
@@ -1176,8 +1186,11 @@ root.methods.internalTransfer = function (index, item) {
   this.activeIndex = index
 
   return
+}
 
-
+// 打开划转
+root.methods.openTransfer = function () {
+  this.popWindowOpen1 = true
 }
 
 

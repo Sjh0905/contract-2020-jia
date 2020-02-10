@@ -1,22 +1,25 @@
 /*隐藏的内容*/
 .li-hidden {
-  width: 100%;
+  width: 1180px;
+  margin: 0 auto;
   position: relative;
   min-height: 135px;
-  background-color: #fcfcfc;
+  background-color: #FBFBFB;
   box-shadow: 0 0 1px 1px rgba(118, 125, 127, 0.08) inset;
+  padding-bottom: 50px;
 }
 
 .address-container {
   flex: 51.9;
   flex-direction: column;
   justify-content: space-between;
-  padding: 15px 0;
+  /*padding: 15px 0;*/
   height: 100%;
 }
 
 .address-item2 {
-  margin-left: 100px;
+  margin-top: 35px;
+  margin-left: 15px;
 }
 
 .address-item3 {
@@ -25,15 +28,16 @@
 }
 .address-ERC {
   display: inline-block;
-  margin-right: 15px;
   text-align: center;
-  width: 100px;
-  height: 30px;
-  line-height: 30px;
-  background-color: #FFF3F3;
-  color: #3576F5;
-  border-radius: 2px;
+  width: 120px;
+  height: 36px;
+  line-height: 36px;
+  background-color: #EFF0FF;
+  color: #0D0E23;
+  font-size: 14px;
+  border-radius: 1px;
   cursor: pointer;
+  margin-right: 25px;
   /*border: 1px solid #3576F5;*/
 }
 
@@ -54,71 +58,118 @@
 .address-OMNI {
   display: inline-block;
   text-align: center;
-  width: 100px;
-  height: 30px;
-  line-height: 30px;
-  background-color: #FFF3F3;
-  color: #3576F5;
-  border-radius: 2px;
+  width: 120px;
+  height: 36px;
+  line-height: 36px;
+  background-color: #EFF0FF;
+  color: #0D0E23;
+  font-size: 14px;
+  border-radius: 1px;
   cursor: pointer;
   /*border: 1px solid #3576F5;*/
 }
 
 .address-si {
-  display: inline-block;
-  text-align: center;
-  width: 100px;
-  height: 30px;
-  line-height: 30px;
-  background-color: #FFF3F3;
-  color: #3576F5;
-  border-radius: 2px;
-  cursor: pointer;
-  border: 1px solid #3576F5;
+
+  background:#3576F5;
+  color: #fff;
+
+  /*border: 1px solid #3576F5;*/
 }
 
 .address-item {
-  padding-left: 100px;
-  padding-top: 15px;
+  padding-left: 15px;
+  padding-top: 35px;
 }
 
 .address-item:nth-of-type(2),.address-item:nth-of-type(3) {
-  margin-top: 15px;
+  margin-top: 29px;
 }
 
 .qr-code {
-  height: 100px;
-  width: 100px;
+  position: absolute;
+  display: none;
+  height: 110px;
+  width: 110px;
+  text-align: center;
+  padding-top: 5px;
+  background-color: #fff;
+  margin-left: 153px;
 }
+
+.qr-code-public-key {
+  position: absolute;
+  display: none;
+  height: 110px;
+  width: 110px;
+  text-align: center;
+  padding-top: 5px;
+  background-color: #fff;
+  margin:110px 0 0 153px;
+}
+
 
 .address {
   width: 380px;
-  margin-left: 20px;
+  /*margin-left: 20px;*/
   flex-direction: column;
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
   justify-content: space-between;
 }
 
+.address span {
+  margin-bottom: 13px;
+}
+
 .address-input {
   width: 100%;
   height: 30px;
-  border-radius: 2px;
-  border: 1px solid #e5e5e5;
   text-align: left;
-  padding-left: 18px;
+  outline: none;
+  background: transparent;
+  border: none;
+  font-size: 18px;
+  color: #A2B5D9;
+  margin-bottom: 16px;
 }
 
 .address-button {
-  width: 39%;
-  height: 30px;
-  border: 0 solid transparent;
-  background-color: #3576F5;
-  color: #fff;
+  width: 128px;
+  height: 36px;
+  margin-right: 21px;
+  border: 1px solid #EFF0FF;
+  background-color: #fff;
+  color: #0D0E23;
+  outline: none;
 }
 
+.address-button img {
+  vertical-align: sub;
+  margin-right: 10px;
+}
+
+.show-QRCode {
+  width: 128px;
+  height: 36px;
+  margin-right: 21px;
+  border: 1px solid #EFF0FF;
+  background-color: #fff;
+  color: #0D0E23;
+  outline: none;
+}
+
+.show-QRCode img {
+  vertical-align: sub;
+  margin-right: 10px;
+}
+
+
+
+
 .describe {
-  flex: 36;
+  flex: 30;
+  font-size: 12px;
   flex-direction: column;
   -ms-flex-direction: column;
   -webkit-flex-direction: column;
@@ -131,8 +182,8 @@
   width: 430px;
   position: relative;
   padding-left: 2%;
-  color: #666;
-  margin-bottom: 5px;
+  color: #0D0E23;
+  margin-bottom: 2px;
   line-height: 18px;
 }
 
@@ -149,7 +200,7 @@
   width: 3px;
   height: 3px;
   border-radius: 3px;
-  background-color: #3576F5;
+  background-color: #0D0E23;
 }
 
 .close {
@@ -186,7 +237,7 @@
 }
 
 .usdt_notice_dot {
-  background-color: #f93943 !important;
+  background-color: #0D0E23 !important;
 }
 
 /*memo 弹窗提示*/

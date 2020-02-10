@@ -283,7 +283,6 @@
   padding: 25px;
 
 }
-
 /*币种名称*/
 .currency_name {
   display: block;
@@ -649,3 +648,165 @@
 .bangding {
   margin: 30px;
 }
+
+/*内部划转页面*/
+
+.pop-article {
+  padding: 20px 0;
+}
+
+.pop-qu{
+  height: 40px;
+  border-radius:1px;
+  font-size:14px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color: #3576F5;
+}
+.pop-qu:hover{
+  color: #3576F5;
+  opacity: 0.5;
+}
+
+.pop-qu-2 {
+  height: 40px;
+  margin-left: 40px;
+  padding: 0 15px;
+  background:linear-gradient(270deg,rgba(53,118,245,1) 0%,rgba(69,154,245,1) 100%);
+  border-radius:1px;
+  font-size:14px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color:rgba(255,255,255,1);
+  outline: none;
+}
+
+.pop-qu-2:hover {
+  background:#5C93FF;
+}
+
+/*placeholder样式 begin*/
+.wallet-to-account-content input::placeholder {
+  color: #0D0E23;
+}
+
+.wallet-to-account-content input::-moz-placeholder {
+  color: #0D0E23;
+}
+
+.wallet-to-account-content input::-webkit-input-placeholder {
+  color: #0D0E23;
+}
+
+.wallet-to-account-content input:-ms-input-placeholder {
+  color: #0D0E23;
+}
+/*placeholder样式 end*/
+
+.Wallet-to-account {
+  width: 410px;
+  height: 88px;
+  background-color: #fff;
+  box-shadow:0px 0px 10px 0px rgba(0,0,0,0.08);
+  margin-bottom: 15px;
+}
+
+.wallet-to-account-left {
+  width: 87px;
+  height: 100%;
+  /*background-color: #ccc;*/
+  /*text-align: center;*/
+  align-items: center;
+  justify-content: center;
+}
+
+.wallet-account-change {
+  text-align: center;
+}
+
+.wallet-account-change img {
+  width: 10px;
+}
+
+.wallet-to-account-content input {
+  width: 100%;
+  height: 44px;
+  border: 0;
+  box-sizing: border-box;
+}
+
+.wallet-to-account-content input:first-child {
+  border-bottom: 1px solid #EFF0FF;
+  box-sizing: border-box;
+}
+
+.wallet-to-account-right {
+  width: 92px;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  /*background-color: #ccc;*/
+}
+
+.wallet-to-account-right img{
+  width: 30px;
+}
+
+.block-input {
+  width: 410px;
+  height: 87px;
+  font-size: 12px;
+  color: #6B7DA2;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  margin-bottom: 5px;
+}
+
+.block-input-title {
+  margin-bottom: 10px;
+}
+
+.block-input input {
+  height: 40px;
+  border: 1px solid #E0E1F4;
+  padding-left: 15px;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.available-right {
+  float: right;
+}
+
+.amount-input {
+  height: 40px;
+  border: 1px solid #E0E1F4;
+  background: #fff;
+  border-radius: 1px;
+  overflow: hidden;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.amount-input .amount-input-box{
+  flex: 9;
+  border: transparent;
+}
+
+.amount-all {
+  flex: 1;
+  text-align: center;
+  line-height: 40px;
+  color: #3576F5;
+}
+.amount-not-empty {
+  color: #FD5555;
+}
+
+.pop-footer {
+  width: 100%;
+  text-align: right;
+  padding-right: 25px;
+  /*margin-top: 15px;*/
+}
+

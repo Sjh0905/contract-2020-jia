@@ -392,9 +392,9 @@
 }
 
 .body {
-  width: 100%;
+  width: 97%;
   padding: 0px;
-  margin: 0  0 0 4px;
+  margin: 0;
   text-align: center;
   content: "";
   display: table;

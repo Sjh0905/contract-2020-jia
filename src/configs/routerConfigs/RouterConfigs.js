@@ -1624,11 +1624,11 @@ root.routes.push({
 
         // 资产概览
         {
-          path: 'overviewofassets',
-          name: 'overviewofassets',
+          path: 'overviewOfAssets',
+          name: 'overviewOfAssets',
           meta: {
-            pcname: 'overviewofassets',
-            h5name: 'overviewofassets',
+            pcname: 'overviewOfAssets',
+            h5name: 'mobileOverviewOfAssets',
             requireLogin: true,
             templateClose: false,
             templatePath: '/index/assetPageT',
@@ -1639,11 +1639,11 @@ root.routes.push({
         },
         // 我的钱包
         {
-          path: 'mywallet',
-          name: 'mywallet',
+          path: 'myWallet',
+          name: 'myWallet',
           meta: {
-            pcname: 'mywallet',
-            h5name: 'mywallet',
+            pcname: 'myWallet',
+            h5name: 'mobileMyWallet',
             requireLogin: true,
             templateClose: false,
             templatePath: '/index/assetPageT',
@@ -1683,93 +1683,145 @@ root.routes.push({
         // },
 
         // 充值记录
+        // {
+        //   path: 'rechargeRecord',
+        //   name: 'rechargeRecord',
+        //   meta: {
+        //     pcname: 'rechargeRecord',
+        //     h5name: 'MobileAssetRechargeAndWithdrawRecord',
+        //     requireLogin: true,
+        //     templateClose: false,
+        //     templatePath: '/index/asset/rechargeAndWithdrawals',
+        //     // templatePath: '/index/assetPageT',
+        //
+        //     requireLoginOff: false,
+        //   },
+        //   caseSensitive: true,
+        //   component: resolve => require(['@/components/vue/AssetPageRechargeRecord'], resolve),
+        // },
+
+
+
+
         {
-          path: 'rechargeRecord',
-          name: 'rechargeRecord',
+          path: 'record',
+          caseSensitive: true,
           meta: {
-            pcname: 'rechargeRecord',
-            h5name: 'MobileAssetRechargeAndWithdrawRecord',
             requireLogin: true,
             templateClose: false,
-            templatePath: '/index/asset/rechargeAndWithdrawals',
-            // templatePath: '/index/assetPageT',
-
+            templatePath: '/index/assetPageT',
             requireLoginOff: false,
           },
-          caseSensitive: true,
-          component: resolve => require(['@/components/vue/AssetPageRechargeRecord'], resolve),
+          component: resolve => require(['@/components/vue/record'], resolve),
+          children:[
+
+            {
+              path: '',
+              meta: {
+                requireLogin: true,
+                templateClose: false,
+                templatePath: '/index/assetPageT',
+                requireLoginOff: false,
+              },
+              redirect: 'rechargeRecord',
+              caseSensitive: true,
+            },
+
+            // 充值记录
+            {
+              path: 'rechargeRecord',
+              name: 'rechargeRecord',
+              meta: {
+                pcname: 'rechargeRecord',
+                h5name: 'MobileAssetRechargeAndWithdrawRecord',
+                requireLogin: true,
+                templateClose: false,
+                templatePath: '/index/asset/rechargeAndWithdrawals',
+                // templatePath: '/index/assetPageT',
+
+                requireLoginOff: false,
+              },
+              component: resolve => require(['@/components/vue/AssetPageRechargeRecord'], resolve),
+              caseSensitive: true,
+            },
+
+
+            // 提现记录
+            {
+              path: 'withdrawalsRecord',
+              name: 'withdrawalsRecord',
+              meta: {
+                pcname: 'withdrawalsRecord',
+                h5name: 'MobileAssetRechargeAndWithdrawRecord',
+                requireLogin: true,
+                // 临时关闭
+                templateClose: false,
+                templatePath: '/index/asset/rechargeAndWithdrawals',
+                // templatePath: '/index/assetPageT',
+                requireLoginOff: false,
+              },
+              caseSensitive: true,
+              component: resolve => require(['@/components/vue/AssetPageWithdrawalsRecord'], resolve),
+            },
+            // 转账记录
+            {
+              path: 'transferRecord',
+              name: 'transferRecord',
+              meta: {
+                pcname: 'transferRecord',
+                h5name: 'MobileTransferRecord',
+                requireLogin: true,
+                templateClose: false,
+                templatePath: '/index/asset/rechargeAndWithdrawals',
+                // templatePath: '/index/assetPageT',
+
+                requireLoginOff: false,
+              },
+              caseSensitive: true,
+              component: resolve => require(['@/components/vue/TransferRecord'], resolve),
+            },
+            // 划转记录
+            {
+              path: 'transferRecords',
+              name: 'transferRecords',
+              meta: {
+                pcname: 'transferRecords',
+                h5name: 'MobileTransferRecords',
+                requireLogin: true,
+                templateClose: false,
+                templatePath: '/index/asset/rechargeAndWithdrawals',
+                // templatePath: '/index/assetPageT',
+
+                requireLoginOff: false,
+              },
+              caseSensitive: true,
+              component: resolve => require(['@/components/vue/TransferList'], resolve),
+            },
+            // 平台奖励
+            {
+              path: 'platformReward',
+              name: 'platformReward',
+              meta: {
+                pcname: 'platformReward',
+                h5name: '',
+                requireLogin: true,
+                templateClose: false,
+                // templatePath: '/index/assetPageT',
+                requireLoginOff: false,
+              },
+              caseSensitive: true,
+              component: resolve => require(['@/components/vue/AssetPagePlatformReward'], resolve),
+            },
+
+          ]
         },
-        // 转账记录
-        {
-          path: 'transferrecords',
-          name: 'transferrecords',
-          meta: {
-            pcname: 'transferrecords',
-            h5name: 'MobileTransferrecords',
-            requireLogin: true,
-            templateClose: false,
-            templatePath: '/index/asset/rechargeAndWithdrawals',
-            // templatePath: '/index/assetPageT',
-
-            requireLoginOff: false,
-          },
-          caseSensitive: true,
-          component: resolve => require(['@/components/vue/TransferRecord'], resolve),
-        },
-        // 划转记录
-        {
-          path: 'transferrecord',
-          name: 'transferrecord',
-          meta: {
-            pcname: 'transferrecord',
-            h5name: 'MobileTransferrecord',
-            requireLogin: true,
-            templateClose: false,
-            templatePath: '/index/asset/rechargeAndWithdrawals',
-            // templatePath: '/index/assetPageT',
-
-            requireLoginOff: false,
-          },
-          caseSensitive: true,
-          component: resolve => require(['@/components/vue/TransferList'], resolve),
-        },
 
 
 
-        // 充值记录
-        {
-          path: 'rechargeRecord',
-          name: 'rechargeRecord',
-          meta: {
-            pcname: 'rechargeRecord',
-            h5name: 'MobileAssetRechargeAndWithdrawRecord',
-            requireLogin: true,
-            templateClose: false,
-            templatePath: '/index/asset/rechargeAndWithdrawals',
-            // templatePath: '/index/assetPageT',
 
-            requireLoginOff: false,
-          },
-          caseSensitive: true,
-          component: resolve => require(['@/components/vue/AssetPageRechargeRecord'], resolve),
-        },
-        // 提现记录
-        {
-          path: 'withdrawalsRecord',
-          name: 'withdrawalsRecord',
-          meta: {
-            pcname: 'withdrawalsRecord',
-            h5name: 'MobileAssetRechargeAndWithdrawRecord',
-            requireLogin: true,
-            // 临时关闭
-            templateClose: false,
-            templatePath: '/index/asset/rechargeAndWithdrawals',
-            // templatePath: '/index/assetPageT',
-            requireLoginOff: false,
-          },
-          caseSensitive: true,
-          component: resolve => require(['@/components/vue/AssetPageWithdrawalsRecord'], resolve),
-        },
+
+
+
         // 提现记录临时页面
         // {
         //   path: 'withdrawalsRecord/temporary/some/route/2xws24351/12fsx/2144mdm/1233m3mfm2icm12/t',
@@ -1784,21 +1836,6 @@ root.routes.push({
         //   caseSensitive: true,
         //   component: resolve => require(['@/components/vue/AssetPageWithdrawalsRecord'], resolve),
         // },
-        // 平台奖励
-        {
-          path: 'platformReward',
-          name: 'platformReward',
-          meta: {
-            pcname: 'platformReward',
-            h5name: '',
-            requireLogin: true,
-            templateClose: false,
-            // templatePath: '/index/assetPageT',
-            requireLoginOff: false,
-          },
-          caseSensitive: true,
-          component: resolve => require(['@/components/vue/AssetPagePlatformReward'], resolve),
-        },
       ]
     },
 

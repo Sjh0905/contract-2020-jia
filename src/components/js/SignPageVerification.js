@@ -134,7 +134,7 @@ root.methods.confrimPopPublic = function (picked,code) {
     this.verificationCode = code;
   }
   if(picked == 2){
-    this.picked = 'bindGa'
+    this.picked = 'bindGA'
     this.GACode = code;
   }
 
@@ -165,7 +165,7 @@ root.methods.re_getLoginAuthState = function (data) {
   this.bindMobile = data.dataMap.sms
 
   this.bindMobile && (this.picked = 'bindMobile')
-  this.bindGA && (this.picked = 'bindGa')
+  this.bindGA && (this.picked = 'bindGA')
 
   this.loading = false
 }
@@ -276,7 +276,7 @@ root.methods.testVerificationCode = function () {
 root.methods.canCommit = function () {
   let canSend = true
 
-  if (this.picked === 'bindGa') {
+  if (this.picked === 'bindGA') {
     canSend = this.testGACode() && canSend
     if (this.GACode === '') {
       this.GACodeWA = this.$t("GACodeWA_2")
@@ -309,8 +309,8 @@ root.methods.click_send = function (obj) {
   this.$http.send('POST_COMMON_AUTH', {
     bind: this,
     params: {
-      type: this.picked === 'bindGa' ? 'ga' : 'mobile',
-      code: this.picked === 'bindGa' ? this.GACode : this.verificationCode,
+      type: this.picked === 'bindGA' ? 'ga' : 'mobile',
+      code: this.picked === 'bindGA' ? this.GACode : this.verificationCode,
       purpose: 'login',
       examinee: this.$route.query.email ? this.$route.query.email : this.$route.query.mobile,
       'source': this.isMobile ? 'H5' : 'WEB'
@@ -328,7 +328,7 @@ root.methods.re_commit = function (data) {
   // console.warn(data)
 
   if (data.errorCode || data.result === 'FAIL') {
-    if (this.picked === 'bindGa') {
+    if (this.picked === 'bindGA') {
       if (data.errorCode === '1') {
         window.reload()
       }
