@@ -8,7 +8,7 @@
       </div>
       <div class="unit-container flex-center">
         <div class="flex unit-input-container pick-one-type" v-if="showPicker">
-          <div><input type="radio" name="identify-type" id="ga" value="bindGa" v-model="picked">
+          <div><input type="radio" name="identify-type" id="ga" value="bindGA" v-model="picked">
             <label
               for="ga">{{$t("proveGa")}}</label></div>
           <div><input type="radio" name="identify-type" id="bindMobile" value="bindMobile" v-model="picked">
@@ -21,7 +21,7 @@
 
 
         <!--谷歌验证-->
-        <div class="unit-input-container flex" v-if="picked==='bindGa'"
+        <div class="unit-input-container flex" v-if="picked==='bindGA'"
              :class="{'wrong-msg':GACodeWA!==''}"
         >
         <!--<span class="flex-center unit-input-container-title">-->
@@ -33,7 +33,7 @@
           <input type="text" :placeholder='$t("identifyingCodeGa")' class="unit-input"
                  v-model="GACode">
         </div>
-        <div class="unit-input-interval txt-red" v-if="picked==='bindGa'">
+        <div class="unit-input-interval txt-red" v-if="picked==='bindGA'">
           <span v-if="GACodeWA!==''">{{GACodeWA}}</span>
         </div>
 

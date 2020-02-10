@@ -391,7 +391,7 @@ root.methods.openPopPublic = function () {
 }
 //关闭二次验证弹窗
 root.methods.closePopPublic = function () {
-  this.verificationOpen = true;
+  this.verificationOpen = false;
 }
 root.methods.confrimPopPublic = function (picked,code) {
   // this.$props.verificationClose();
@@ -402,6 +402,10 @@ root.methods.confrimPopPublic = function (picked,code) {
   if(picked == 2){
     this.picked = 'bindGA'
     this.GACode = code;
+  }
+  if(picked == 3){
+    this.picked = 'bindEmail'
+    this.emailVerificationCode = code;
   }
 
   this.click_send();
@@ -468,8 +472,19 @@ root.methods.canSend = function () {
 // 点击发送
 root.methods.click_send = function () {
 
-  //如果弹窗没打开并且需要二次验证
-  if (!this.verificationOpen && (this.bindGA || this.bindMobile)){
+  //上一步通过手机找回，弹窗没打开并且需要二次验证
+  if (this.loginType == 0 && !this.verificationOpen && this.bindEmail){
+
+    if (!this.canOpenPopPublic()) {
+      return
+    }
+
+    this.openPopPublic();
+    return
+  }
+
+  //上一步通过邮箱找回，弹窗没打开并且需要二次验证
+  if (this.loginType == 1 && !this.verificationOpen && (this.bindGA || this.bindMobile)){
 
     if (!this.canOpenPopPublic()) {
       return
