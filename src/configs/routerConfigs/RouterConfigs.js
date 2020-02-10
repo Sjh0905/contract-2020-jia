@@ -1624,11 +1624,11 @@ root.routes.push({
 
         // 资产概览
         {
-          path: 'overviewofassets',
-          name: 'overviewofassets',
+          path: 'overviewOfAssets',
+          name: 'overviewOfAssets',
           meta: {
-            pcname: 'overviewofassets',
-            h5name: 'overviewofassets',
+            pcname: 'overviewOfAssets',
+            h5name: 'mobileOverviewOfAssets',
             requireLogin: true,
             templateClose: false,
             templatePath: '/index/assetPageT',
@@ -1639,11 +1639,11 @@ root.routes.push({
         },
         // 我的钱包
         {
-          path: 'mywallet',
-          name: 'mywallet',
+          path: 'myWallet',
+          name: 'myWallet',
           meta: {
-            pcname: 'mywallet',
-            h5name: 'mywallet',
+            pcname: 'myWallet',
+            h5name: 'mobileMyWallet',
             requireLogin: true,
             templateClose: false,
             templatePath: '/index/assetPageT',
@@ -1715,11 +1715,6 @@ root.routes.push({
           component: resolve => require(['@/components/vue/record'], resolve),
           children:[
 
-
-
-
-
-
             {
               path: '',
               meta: {
@@ -1770,11 +1765,11 @@ root.routes.push({
             },
             // 转账记录
             {
-              path: 'transferrecord',
-              name: 'transferrecord',
+              path: 'transferRecord',
+              name: 'transferRecord',
               meta: {
-                pcname: 'transferrecord',
-                h5name: 'MobileTransferrecord',
+                pcname: 'transferRecord',
+                h5name: 'MobileTransferRecord',
                 requireLogin: true,
                 templateClose: false,
                 templatePath: '/index/asset/rechargeAndWithdrawals',
@@ -1787,11 +1782,11 @@ root.routes.push({
             },
             // 划转记录
             {
-              path: 'transferrecords',
-              name: 'transferrecords',
+              path: 'transferRecords',
+              name: 'transferRecords',
               meta: {
-                pcname: 'transferrecords',
-                h5name: 'MobileTransferrecords',
+                pcname: 'transferRecords',
+                h5name: 'MobileTransferRecords',
                 requireLogin: true,
                 templateClose: false,
                 templatePath: '/index/asset/rechargeAndWithdrawals',
