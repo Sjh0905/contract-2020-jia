@@ -479,6 +479,18 @@ input {
   border-bottom: 1px solid #1E1F22;
 }
 
+/*登录注册模块input titile*/
+.placeholder-title-box {
+  width: 380px;
+  height: 22px;
+  line-height: 22px;
+}
+
+.placeholder-title {
+  font-size:14px;
+  color:#A2B5D9;
+}
+
 /*H5全局样式调整*/
 
 @media screen and (max-width: 768px) {
