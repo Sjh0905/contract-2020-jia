@@ -17,6 +17,11 @@ root.props.bindGA = {
   type: Boolean,
   default: false
 }
+//是否绑定邮箱
+root.props.bindEmail = {
+  type: Boolean,
+  default: false
+}
 //谷歌错误码
 root.props.GACodeWA = {
   type: String,
@@ -24,6 +29,11 @@ root.props.GACodeWA = {
 }
 //手机错误码
 root.props.verificationCodeWA = {
+  type: String,
+  default: ''
+}
+//邮箱错误码
+root.props.emailVerificationCodeWA = {
   type: String,
   default: ''
 }
@@ -63,8 +73,8 @@ root.data = function () {
     getEmailVerificationCodeCountdown: 60,
     clickEmailVerificationCodeButton: false,
 
-    // 点击状态  1为手机验证   2为谷歌验证
-    picked:this.bindMobile ? 1 : 2,
+    // 点击状态  1为手机验证   2为谷歌验证  3为邮箱验证
+    picked:this.bindEmail ? 3 :(this.bindGA ? 2 : 1),
     code:'',
 
     //错误码
@@ -75,7 +85,7 @@ root.data = function () {
 }
 
 root.created = function () {
-  this.picked = this.bindMobile ? 1 : 2
+  this.picked = this.bindEmail ? 3 :(this.bindGA ? 2 : 1)
 }
 
 root.components = {}

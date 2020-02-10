@@ -7,7 +7,8 @@ import '../../../static/gt'
 
 
 root.components = {
-  'PopupPrompt': resolve => require(['../vue/PopupPrompt'], resolve),
+  'RegisterTopBar': resolve => require(['../vue/RegisterTopBar'], resolve),
+  'PopupPrompt': resolve => require(['../vue/PopupPrompt'], resolve)
 }
 
 
