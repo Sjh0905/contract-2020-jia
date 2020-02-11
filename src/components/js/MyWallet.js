@@ -6,7 +6,8 @@ root.components = {
   'RechargeAndWithdrawalsWithdrawals': resolve => require(['../vue/AssetPageRechargeAndWithdrawalsWithdrawals'], resolve),
   'PopupWindow': resolve => require(['../vue/PopupWindow'], resolve),
   'PopupPrompt': resolve => require(['../vue/PopupPrompt'], resolve),
-  'Loading': resolve => require(['../vue/Loading'], resolve)
+  'Loading': resolve => require(['../vue/Loading'], resolve),
+  'PopupT': resolve => require(['../vue/PopupT'], resolve),
 }
 /*------------------------------ data -------------------------------*/
 root.data = function () {
@@ -53,6 +54,9 @@ root.data = function () {
     rechargeAddressChangePrompt: false, //充值地址变更的弹窗提示
 
     hideZeroAsset: false, //隐藏零资产币种
+
+    // 内部划转页面弹窗
+    popWindowOpen1:false
   }
 }
 /*------------------------------ 生命周期 -------------------------------*/
@@ -195,6 +199,19 @@ root.watch.loading = function (newVal, oldVal) {
 }
 /*------------------------------ 方法 -------------------------------*/
 root.methods = {}
+// 内部划转弹窗关闭
+root.methods.popWindowClose1 = function () {
+  this.popWindowOpen1 = false
+  // this.click_rel_em()
+}
+
+root.methods.click_rel_em = function () {
+  this.popWindowOpen1 = false
+}
+root.methods.commit = function () {
+  this.popWindowOpen1 = false
+}
+
 
 // 计算当前币对折合多少人民币  2018-4-4 start
 root.methods.get_now_price = function (key, price, e) {
@@ -504,6 +521,12 @@ root.methods.openRecharge = function (index, item) {
   this.rechargeAddressChangePrompt = true
   this.activeIndex = index
 }
+
+// 打开划转
+root.methods.openTransfer = function () {
+  this.popWindowOpen1 = true
+}
+
 
 root.methods.errorHandler = function (err, state, text) {
   console.error('数据出错！', err, state, text)

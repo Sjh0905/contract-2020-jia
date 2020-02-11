@@ -1,7 +1,7 @@
 {
   "CH": {
     "rechargeAddress": "充值地址",
-    "copyAddress": "点击复制地址",
+    "copyAddress": "复制 地址",
     "prohibitionRecharge": "禁止向{currency}地址充值除{currency}之外的资产；",
     "canNotRetrieved": "对应地址错误资产将不可找回；",
     "trackingProgress": "充值完成后，您可以进入充值记录页面跟踪进度。",
