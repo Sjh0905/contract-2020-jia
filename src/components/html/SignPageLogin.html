@@ -164,13 +164,16 @@
       <template v-if="!isMobile">
 
         <!--输入邮箱 begin-->
-        <div class="flex unit-input-container-pc "
+        <div class="flex-colum unit-input-container-pc "
              :class="{'wrong-answer':userNameWA!==''}">
         <!--<span class="flex-center unit-input-container-title">-->
           <!--&lt;!&ndash;<img class="unit-input-container-title-img" v-if="isMobile" src="../../assets/h5form/mobile_mail.png" alt="">&ndash;&gt;-->
           <!--&lt;!&ndash;<img v-if="!isMobile" src="" alt="">&ndash;&gt;-->
           <!--<span class="input-icon email-icon"></span>-->
         <!--</span>-->
+          <div class="placeholder-title-box">
+            <div v-show="(!userNamePlaceholderShow || userName !='')" class="placeholder-title">{{$t("mail")}}</div>
+          </div>
           <input type="text" :placeholder='userNamePlaceholderShow && $t("mail") || ""' v-model="userName" @focus="closePlaceholder('userName')" @blur="testUserName"
                  class="unit-input">
         </div>
@@ -183,13 +186,16 @@
         <!--邮箱错误提示 end-->
 
         <!--输入密码 begin-->
-        <div class="flex unit-input-container-pc" :class="{'wrong-answer':pswWA!==''}">
+        <div class="flex-colum unit-input-container-pc" :class="{'wrong-answer':pswWA!==''}">
         <!--<span class="flex-center unit-input-container-title">-->
           <!--&lt;!&ndash;<img class="unit-input-container-title-img" v-if="isMobile" src="../../assets/h5form/mobile_passward.png"&ndash;&gt;-->
           <!--&lt;!&ndash;alt="">&ndash;&gt;-->
           <!--&lt;!&ndash;<img v-if="!isMobile" src="" alt="">&ndash;&gt;-->
           <!--<span class="input-icon psw-icon"></span>-->
         <!--</span>-->
+          <div class="placeholder-title-box">
+            <div v-show="(!pswPlaceholderShow || psw != '')" class="placeholder-title">{{$t("psw")}}</div>
+          </div>
           <input type="password" :placeholder='pswPlaceholderShow && $t("psw") || ""' v-model="psw" @focus="closePlaceholder('psw')" @blur="testPsw" class="unit-input"
           >
         </div>

@@ -302,7 +302,10 @@
     <!--PC端手机注册开始-->
     <div v-if="registerType==0 && !isMobile" class="unit-container flex-center">
 
-     <div class=" flex unit-input-container-pc">
+     <div class="flex-colum unit-input-container-pc">
+       <div class="placeholder-title-box">
+         <div v-show="1" class="placeholder-title">所在地</div>
+       </div>
         <!-- 下拉搜索框-->
         <el-select class="inputInner" :placeholder="label" style="font-size:14px;" v-model="searchResult" popper-class="self-el-select">
           <input type="text" class="inputsize" placeholder="请输入国家区号" v-model="searchCities">
@@ -324,8 +327,11 @@
       </div>
       <!--<div class=" flex iphone iphone-kuang">-->
         <!--手机-->
-        <div class="flex unit-input-container-pc"
+        <div class="flex-colum unit-input-container-pc"
              :class="{'wrong-answer': mobileWA!=''}">
+          <div class="placeholder-title-box">
+            <div v-show="(!userNamePlaceholderShow || userName !='')" class="placeholder-title">{{$t("register.phone")}}</div>
+          </div>
           <input type="text" :placeholder='userNamePlaceholderShow && $t("register.phone") || ""' v-model="userName" @focus="closePlaceholder('userName')" @blur="testUserName"
                  class="unit-input">
         </div>
@@ -338,18 +344,23 @@
 
 
       <!--验证码-->
-      <div class="unit-input-container-pc flex double-input-container"
+      <div class="unit-input-container-pc flex-colum"
            :class="{'wrong-answer':verificationCodeWA!=''}">
-        <span></span>
-        <input type="text" :placeholder='verificationCodePlaceholderShow && $t("register.identifyingCode") || ""' @focus="closePlaceholder('verificationCode')" v-model="verificationCode"
-               @blur="testVerificationCode" class="unit-input">
+        <div class="placeholder-title-box">
+          <div v-show="(!verificationCodePlaceholderShow || verificationCode !='')" class="placeholder-title">{{$t("register.identifyingCode")}}</div>
+        </div>
+        <div class="flex double-input-container">
+          <span></span>
+          <input type="text" :placeholder='verificationCodePlaceholderShow && $t("register.identifyingCode") || ""' @focus="closePlaceholder('verificationCode')" v-model="verificationCode"
+                 @blur="testVerificationCode" class="unit-input">
 
-        <template v-if="!isMobile">
-          <span class="flex-center identifying-code-button-on " v-if="!getVerificationCode"
-                @click="postVerificationCode">{{$t("register.achieve")}}</span>
-          <span class="flex-center identifying-code-button-close"
-                v-if="getVerificationCode">{{getVerificationCodeCountdown}}s</span>
-        </template>
+          <template v-if="!isMobile">
+            <span class="flex-center identifying-code-button-on " v-if="!getVerificationCode"
+                  @click="postVerificationCode">{{$t("register.achieve")}}</span>
+            <span class="flex-center identifying-code-button-close"
+                  v-if="getVerificationCode">{{getVerificationCodeCountdown}}s</span>
+          </template>
+        </div>
 
       </div>
       <div class="unit-input-interval txt-red">
@@ -358,8 +369,11 @@
 
 
       <!--密码-->
-      <div class="unit-input-container-pc flex"
+      <div class="unit-input-container-pc flex-colum"
            :class="{'wrong-answer':pswWA!=''}">
+        <div class="placeholder-title-box">
+          <div v-show="(!pswPlaceholderShow || psw !='')" class="placeholder-title">{{$t("register.passwordInput")}}</div>
+        </div>
         <input type="password" :placeholder='pswPlaceholderShow && $t("register.passwordInput") || ""' v-model="psw" @focus="closePlaceholder('psw')" @blur="testPsw"
                class="unit-input"
                @input="testInputIngPsw">
@@ -369,8 +383,11 @@
       </div>
 
       <!--确认密码-->
-      <div class="unit-input-container-pc flex"
+      <div class="unit-input-container-pc flex-colum"
            :class="{'wrong-answer':pswConfirmWA!=''}">
+        <div class="placeholder-title-box">
+          <div v-show="(!pswConfirmPlaceholderShow || pswConfirm !='')" class="placeholder-title">{{$t("register.passwordConfirm")}}</div>
+        </div>
         <input type="password" :placeholder='pswConfirmPlaceholderShow && $t("register.passwordConfirm") || ""' v-model="pswConfirm" @focus="closePlaceholder('pswConfirm')" @blur="testPswConfirm"
                class="unit-input"
                @input="testInputIngPswConfirm">
@@ -379,8 +396,11 @@
         <span v-if="pswConfirmWA!=''">{{pswConfirmWA}}</span>
       </div>
       <!--推荐人-->
-      <div class="unit-input-container-pc flex"
+      <div class="unit-input-container-pc flex-colum"
            :class="{'wrong-answer':refereeWA!=''}">
+        <div class="placeholder-title-box">
+          <div v-show="(!refereePlaceholderShow || referee !='')" class="placeholder-title">{{$t("register.referee")}}</div>
+        </div>
         <input type="text" :placeholder='refereePlaceholderShow && $t("register.referee") || ""' v-model="referee" class="unit-input"
                @focus="closePlaceholder('referee')" @blur="testReferee">
       </div>
@@ -432,12 +452,15 @@
 
 
       <!--邮箱-->
-      <div class="flex unit-input-container-pc"
+      <div class="flex-colum unit-input-container-pc"
            :class="{'wrong-answer': userNameWA!=''}">
         <!--<span class="flex-center unit-input-container-title">-->
         <!--<img class="unit-input-container-title-img" v-if="isMobile" src="../../assets/h5form/mobile_mail.png" alt="">-->
         <!--<img v-if="!isMobile" src="" alt="">-->
         <!--</span>-->
+        <div class="placeholder-title-box">
+          <div v-show="(!userNamePlaceholderShow || userName !='')" class="placeholder-title">{{$t("register.mail")}}</div>
+        </div>
         <input type="text" :placeholder='userNamePlaceholderShow && $t("register.mail") || ""' v-model="userName" @focus="closePlaceholder('userName')" @blur="testUserName"
                class="unit-input">
       </div>
@@ -446,29 +469,35 @@
       </div>
 
       <!--验证码-->
-      <div class="unit-input-container-pc flex double-input-container"
+      <div class="unit-input-container-pc flex-colum"
            :class="{'wrong-answer':verificationCodeWA!=''}">
         <!--<span class="flex-center unit-input-container-title">-->
         <!--<img class="unit-input-container-title-img" v-if="isMobile" src="../../assets/h5form/mobile_check.png" alt="">-->
         <!--<img v-if="!isMobile" src="" alt="">-->
         <!--</span>-->
-        <span></span>
-        <input type="text" :placeholder='verificationCodePlaceholderShow && $t("register.identifyingCode") || ""' @focus="closePlaceholder('verificationCode')" v-model="verificationCode"
-               @blur="testVerificationCode" class="unit-input">
-        <div v-if="isMobile" class="cutter-line flex-center">|</div>
-
-        <template v-if="isMobile">
-          <div class="getcodeval" v-if="!getVerificationCode"
-               @click="postVerificationCode">{{$t("register.achieve")}}</div>
-          <div class="getcodeval"
-               v-if="getVerificationCode">{{getVerificationCodeCountdown}}</div>
-        </template>
-        <template v-if="!isMobile">
+        <div class="placeholder-title-box">
+          <div v-show="(!verificationCodePlaceholderShow || verificationCode !='')" class="placeholder-title">{{$t("register.identifyingCode")}}</div>
+        </div>
+        <div class="flex double-input-container">
+          <span></span>
+          <input type="text" :placeholder='verificationCodePlaceholderShow && $t("register.identifyingCode") || ""' @focus="closePlaceholder('verificationCode')" v-model="verificationCode"
+                 @blur="testVerificationCode" class="unit-input">
+          <div v-if="isMobile" class="cutter-line flex-center">|</div>
+          <template v-if="!isMobile">
           <span class="flex-center identifying-code-button-on " v-if="!getVerificationCode"
                 @click="postVerificationCode">{{$t("register.achieve")}}</span>
-          <span class="flex-center identifying-code-button-close"
-                v-if="getVerificationCode">{{getVerificationCodeCountdown}}s</span>
-        </template>
+            <span class="flex-center identifying-code-button-close"
+                  v-if="getVerificationCode">{{getVerificationCodeCountdown}}s</span>
+          </template>
+        </div>
+
+        <!--<template v-if="isMobile">-->
+          <!--<div class="getcodeval" v-if="!getVerificationCode"-->
+               <!--@click="postVerificationCode">{{$t("register.achieve")}}</div>-->
+          <!--<div class="getcodeval"-->
+               <!--v-if="getVerificationCode">{{getVerificationCodeCountdown}}</div>-->
+        <!--</template>-->
+
         <!--<template v-if="!captchaReady">-->
         <!--<span class="flex-center button-grey">-->
         <!--{{$t('register.disabled')}}-->
@@ -481,13 +510,16 @@
 
 
       <!--密码-->
-      <div class="unit-input-container-pc flex"
+      <div class="unit-input-container-pc flex-colum"
            :class="{'wrong-answer':pswWA!=''}">
         <!--<span class="flex-center unit-input-container-title">-->
         <!--<img class="unit-input-container-title-img" v-if="isMobile" src="../../assets/h5form/mobile_passward.png"-->
         <!--alt="">-->
         <!--<img v-if="!isMobile" src="" alt="">-->
         <!--</span>-->
+        <div class="placeholder-title-box">
+          <div v-show="(!pswPlaceholderShow || psw !='')" class="placeholder-title">{{$t("register.passwordInput")}}</div>
+        </div>
         <input type="password" :placeholder='pswPlaceholderShow && $t("register.passwordInput") || ""' v-model="psw" @focus="closePlaceholder('psw')" @blur="testPsw"
                class="unit-input"
                @input="testInputIngPsw">
@@ -497,13 +529,16 @@
       </div>
 
       <!--确认密码-->
-      <div class="unit-input-container-pc flex"
+      <div class="unit-input-container-pc flex-colum"
            :class="{'wrong-answer':pswConfirmWA!=''}">
         <!--<span class="flex-center unit-input-container-title">-->
         <!--<img class="unit-input-container-title-img" v-if="isMobile" src="../../assets/h5form/mobile_passward.png"-->
         <!--alt="">-->
         <!--<img v-if="!isMobile" src="" alt="">-->
         <!--</span>-->
+        <div class="placeholder-title-box">
+          <div v-show="(!pswConfirmPlaceholderShow || pswConfirm !='')" class="placeholder-title">{{$t("register.passwordConfirm")}}</div>
+        </div>
         <input type="password" :placeholder='pswConfirmPlaceholderShow && $t("register.passwordConfirm") || ""' v-model="pswConfirm" @focus="closePlaceholder('pswConfirm')" @blur="testPswConfirm"
                class="unit-input"
                @input="testInputIngPswConfirm">
@@ -512,12 +547,15 @@
         <span v-if="pswConfirmWA!=''">{{pswConfirmWA}}</span>
       </div>
       <!--推荐人-->
-      <div class="unit-input-container-pc flex"
+      <div class="unit-input-container-pc flex-colum"
            :class="{'wrong-answer':refereeWA!=''}">
         <!--<span class="flex-center unit-input-container-title">-->
         <!--<img class="unit-input-container-title-img" v-if="isMobile" src="../../assets/h5form/mobile_user.png" alt="">-->
         <!--<img v-if="!isMobile" src="" alt="">-->
         <!--</span>-->
+        <div class="placeholder-title-box">
+          <div v-show="(!refereePlaceholderShow || referee !='')" class="placeholder-title">{{$t("register.referee")}}</div>
+        </div>
         <input type="text" :placeholder='refereePlaceholderShow && $t("register.referee") || ""' v-model="referee" class="unit-input"
                @focus="closePlaceholder('referee')" @blur="testReferee">
       </div>

@@ -16,9 +16,11 @@ root.data = function () {
     loading: true,
 
     psw: '',
+    pswPlaceholderShow: true,
     pswWA: '',
 
     pswConfirm: '',
+    pswConfirmPlaceholderShow: true,
     pswConfirmWA: '',
 
     verificationCode: '',
@@ -183,9 +185,23 @@ root.methods.error_verifying_login_state = function (err) {
   console.warn("验证身份出错", err)
 }
 
+// 获取焦点后关闭placheholder
+root.methods.closePlaceholder = function (type) {
+  // alert(type);
+  if(type == 'psw'){
+    this.pswPlaceholderShow = false;
+  }
+
+  if(type == 'pswConfirm'){
+    this.pswConfirmPlaceholderShow = false;
+  }
+
+}
+
 // 测试输入密码
 root.methods.testPsw = function () {
   this.newPswFocus = false;
+  this.pswPlaceholderShow = true
   if (this.pswConfirm !== '' || this.pswConfirm === this.psw) {
     this.testPswConfirm()
   }
@@ -205,6 +221,7 @@ root.methods.testPsw = function () {
 // 检测确认密码
 root.methods.testPswConfirm = function () {
   this.newConfirmPswFocus = false
+  this.pswConfirmPlaceholderShow = true
   if (this.psw !== this.pswConfirm) {
     this.pswConfirmWA = this.$t('pswConfirmWA')
     return false
