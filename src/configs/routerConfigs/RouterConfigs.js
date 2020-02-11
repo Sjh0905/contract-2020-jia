@@ -2562,6 +2562,20 @@ root.routes.push({
       },
       component: resolve => require(['@/components/vue/JoinAGroup'], resolve),
     },
+    // sss 拼团--拼团详情
+    {
+      path: 'detailsOfTheGroup',
+      name: 'detailsOfTheGroup',
+      caseSensitive: true,
+      meta: {
+        requireLogin: false,
+        mobileHeaderTitle: '',
+        pcname: 'detailsOfTheGroup',
+        // h5name: 'mobileTradingHall',
+      },
+      component: resolve => require(['@/components/vue/DetailsOfTheGroup'], resolve),
+    },
+
 
     // TODO：弹框组件临时显示（记得删除）
     // {

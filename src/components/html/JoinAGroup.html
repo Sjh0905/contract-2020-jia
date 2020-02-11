@@ -10,7 +10,23 @@
         <div class="account_number">
           <p class="account_number_p">选择团队</p>
           <div class="">
-            <input type="text" class="account_number_input" placeholder="选择已有团队">
+<!--            <input type="text" class="account_number_input" placeholder="选择已有团队">-->
+<!--            <span><img src="" alt=""></span>-->
+            <!-- 下拉搜索框-->
+            <el-select class="account_number_input" :placeholder="label" style="font-size:14px;" v-model="searchResult" popper-class="self-el-select">
+              <input type="text" class="inputsize" placeholder="选择已有团队" v-model="searchCities">
+              <el-option
+                @click="clickItem(item.areaCode)"
+                class="widthInput"
+                v-for="item in (searchCities ? cityList :cities)"
+                :key="item.countryId"
+                :label="'+ ' + item.areaCode.slice(2)"
+                :value="item.areaCode">
+                <span style="float: left;font-size: 14px">{{ lang==='CH'? item.nameCn:item.nameEn }}</span>
+                <span style="float: right;font-size: 14px">{{ '+ ' + item.areaCode.slice(2) }}</span>
+              </el-option>
+            </el-select>
+            <!--  下拉搜索框   结束-->
           </div>
         </div>
         <div class="account_number">
@@ -18,20 +34,26 @@
           <div class="information">
             <ul>
               <li class="information_li">
-                <div class="information_div"></div>
-                <div class="information_div"></div>
-                <div class="information_div"></div>
+                <div class="information_div color_bik">队名
+                  <span>图片</span>
+                  <span>图片</span>
+                </div>
+                <div class="information_div color_hui">普通折扣区</div>
+                <div class="information_div color_hui">量化折扣区</div>
               </li>
               <li class="information_li">
-                <div class="information_div"></div>
-                <div class="information_div"></div>
-                <div class="information_div"></div>
+                <div class="information_div color_6">
+                  团长账号：
+                  <span>1234455@qq.com</span>
+                </div>
+                <div class="information_div color_bik_9">0.01%</div>
+                <div class="information_div color_bik_9">0.01%</div>
               </li>
             </ul>
           </div>
         </div>
 
-        <div class="div_botton">创建</div>
+        <div class="div_botton" @click="createGroupType">加入</div>
       </div>
     </div>
 

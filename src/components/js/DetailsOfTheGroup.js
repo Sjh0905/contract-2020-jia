@@ -1,5 +1,5 @@
 const root = {}
-root.name = 'CreateAGroup'
+root.name = 'DetailsOfTheGroup'
 /*------------------------------ 组件 ------------------------------*/
 //root.components = {
 //  'Loading': resolve => require(['../Loading/Loading.vue'], resolve),
@@ -18,7 +18,4 @@ root.computed = {}
 root.watch = {}
 /*------------------------------ 方法 -------------------------------*/
 root.methods = {}
-root.methods.createGroupType = function () {
-  this.$router.push({name: 'detailsOfTheGroup'})
-}
 export default root

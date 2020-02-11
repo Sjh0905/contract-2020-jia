@@ -18,4 +18,7 @@ root.computed = {}
 root.watch = {}
 /*------------------------------ 方法 -------------------------------*/
 root.methods = {}
+root.methods.createGroupType = function () {
+  this.$router.push({name: 'detailsOfTheGroup'})
+}
 export default root
