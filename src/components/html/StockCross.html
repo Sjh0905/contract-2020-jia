@@ -1,9 +1,14 @@
 <div class="StockCross-container">
     <div class="stockcross-title flex-row">
         <!-- <div class="stockcross-title-type">买/卖</div> -->
-        <div class="stockcross-title-price">{{$t("storkCross.price")}}({{$store.state.symbol.split('_')[1]}})</div>
-        <div class="stockcross-title-amount">{{$t("storkCross.num")}}({{$store.state.symbol.split('_')[0]}})</div>
-        <div class="stockcross-title-volum">{{$t("storkCross.endPrice")}}({{$store.state.symbol.split('_')[0]}})</div>
+        <div class="stockcross-title-price">
+          <span>{{$t("storkCross.price")}}({{$store.state.symbol.split('_')[1]}})</span>
+        </div>
+        <span style="display: inline-flex;flex: 1;margin-right:15px">
+          <div class="stockcross-title-amount">{{$t("storkCross.num")}}({{$store.state.symbol.split('_')[0]}})</div>
+          <div class="stockcross-title-volum">{{$t("storkCross.endPrice")}}({{$store.state.symbol.split('_')[0]}})</div>
+        </span>
+
     </div>
     <div class="trade_loading">
         <Loading v-show="trade_loading"/>
