@@ -60,7 +60,6 @@
   "iKnowthe17":"系统繁忙",
   "iKnowthe18":"用户未输入验证码",
   "iKnowthe19":"用户没有转账币种的可用余额",
-  "transfer": "内部转账",
   "ITransfer": "我已知晓，继续转账",
   "TransferI": "转账",
   "mailbox": "收款人邮箱",
@@ -112,7 +111,6 @@
   "popText_1": "暂不可用",
   "commit": "提交",
   "commiting": "提交中",
-
   "amountWA_1": "请输入正确的数字",
   "amountWA_2": "可提数量不足",
   "amountWA_3": "小于最小提现数量",

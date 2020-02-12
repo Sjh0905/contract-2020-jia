@@ -96,7 +96,7 @@
             >
               {{$t('transfer')}}
             </span>
-            <span class="withdrawals-button button can-not-withdrawals" v-else>{{$t('withdrawals')}}</span>
+            <span class="withdrawals-button button can-not-withdrawals" v-else>{{$t('transfer')}}</span>
               <!--打开划转 end-->
               <!--关闭划转 begin-->
               <!--<span class="withdrawals-button button can-not-withdrawals">{{$t('withdrawals')}}</span>-->
@@ -108,8 +108,8 @@
                     @click="internalTransfer(index,item)"
                     :class="{'recharge-button-select-transfer':activeIndex===index  && transferss}"
                     v-if="serverT >= item.withdrawOpenTime"
-              >{{$t('internalTransfer')}}转账</span>
-            <span class="withdrawals-button button can-not-withdrawals" v-else>{{$t('withdrawals')}}</span>
+              >{{$t('internalTransfer')}}</span>
+            <span class="withdrawals-button button can-not-withdrawals" v-else>{{$t('internalTransfer')}}</span>
               <!--sss打开转账 end-->
 
               <!--关闭转账 begin-->
@@ -146,10 +146,10 @@
         </div>
         </div>
         <div class="wallet-to-account-content">
-          <input type="text" placeholder="币币账户">
-          <input type="text" placeholder="我的钱包">
+          <input type="text" placeholder="币币账户" v-model="bibiAccount">
+          <input type="text" placeholder="我的钱包"  v-model="account">
         </div>
-        <div class="wallet-to-account-right flex">
+        <div class="wallet-to-account-right flex" @click="changeAccount()">
           <img src="../../assets/mywallet/record_change_icon.png" alt="">
         </div>
       </div>
@@ -181,9 +181,7 @@
     <div slot="footer" class="pop-footer">
       <span class="pop-qu pointer" @click="click_rel_em">取消</span>
       <button class="pop-qu-2 pointer" @click="commit">确认</button>
-
     </div>
-
   </PopupT>
 
   <!--弹窗-->

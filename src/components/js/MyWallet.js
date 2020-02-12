@@ -109,7 +109,9 @@ root.data = function () {
     getMobileVerificationCodeCountdown: 60, //获取手机验证码倒计时
     getMobileVerificationCode: false, //获取手机验证码倒计时
     // 内部划转页面弹窗
-    popWindowOpen1:false
+    popWindowOpen1:false,
+    bibiAccount:'币币账户',
+    account:'我的钱包'
   }
 }
 /*------------------------------ 生命周期 -------------------------------*/
@@ -254,9 +256,14 @@ root.watch.loading = function (newVal, oldVal) {
     }
   }
 }
+
 /*------------------------------ 方法 -------------------------------*/
 root.methods = {}
 // 内部划转弹窗关闭
+root.methods.changeAccount = function () {
+  this.bibiAccount = this.account
+}
+
 root.methods.popWindowClose1 = function () {
   this.popWindowOpen1 = false
   // this.click_rel_em()
