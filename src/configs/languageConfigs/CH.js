@@ -135,7 +135,7 @@ root.helpApplyToList.descript_6 = '白皮书能真实、完整、适时的传递
 root.helpApplyToList.descript_7 = '有能力且有意愿及时更新项目进度，并定期发布进度报告'
 root.helpApplyToList.descript_8 = '项目提交方没有违反加拿大相关法律'
 root.helpApplyToList.descript_9 = '满足二零二零(TwentyTwenty )的其他要求'
-root.helpApplyToList.descript_10 = '我们接受电子邮件申请和递交文件，请将如下材料发送至 blockchain@btcdo.com'
+root.helpApplyToList.descript_10 = '我们接受电子邮件申请和递交文件，请将如下材料发送至 blockchain@2020.exchange'
 root.helpApplyToList.descript_11 = '为了保护TwentyTwenty 投资者的相关权益，TwentyTwenty 会对全球区块链资产进行必要的评估，如果您有资产推荐或想上线TwentyTwenty ，请点击以下链接，并完成所有问题。'
 
 root.helpApplyToList.introduce = '项目介绍'
@@ -158,7 +158,7 @@ root.helpApplyToList.outLine_9 = '连续5个交易日出现零成交'
 root.helpApplyToList.outLine_10 = '信息披露出现重大偏差'
 root.helpApplyToList.outLine_11 = '突然出现分叉'
 root.helpApplyToList.outLine_12 = '不满足继续交易的其他事项'
-root.helpApplyToList.outLine_13 = '二零二零（btcdo）全球会对决定下线的项目提前5天发出下线公告，用户有30天的期限从钱包中移出资产。'
+root.helpApplyToList.outLine_13 = '二零二零（TwentyTwenty ）全球会对决定下线的项目提前5天发出下线公告，用户有30天的期限从钱包中移出资产。'
 
 
 // 帮助费率
@@ -1366,7 +1366,7 @@ root.personalCenterRecommend.activityArticle_2 = '2、月底结算，次月8日�
 root.personalCenterRecommend.activityArticle_3 = '3、邀请人可享受好友自注册成功之日起1年内30%的交易手续费奖励；'
 root.personalCenterRecommend.activityArticle_4 = '4、活动如有调整以平台更新为准，本活动最终解释权归TwentyTwenty所有。'
 root.personalCenterRecommend.activityFooterButton = '我知道了'
-root.indexAboutUs.btcdo = 'TwentyTwenty'
+root.indexAboutUs.TwentyTwenty  = 'TwentyTwenty'
 
 
 // 2018.3.5 分页
@@ -1529,7 +1529,7 @@ root.staticAndroidOnline.tab_3 = '加入我们'
 root.staticAndroidOnline.tab_1_detail_1 = '1.抽奖得豪礼火热进行中：不止10万BDB！豪华双人邮轮游！顶配IphoneX！更多豪礼就等你来领！'
 root.staticAndroidOnline.tab_1_detail_2 = '2.即刻邀请好友注册交易，尽享好友1年内交易手续费30%返佣奖励！'
 root.staticAndroidOnline.tab_2_detail_1 = 'QQ群：618019648'
-root.staticAndroidOnline.tab_2_detail_2 = '公众号：btcdo_com'
+root.staticAndroidOnline.tab_2_detail_2 = '公众号：TwentyTwenty_com'
 root.staticAndroidOnline.tab_2_detail_3 = 'Telegram：'
 root.staticAndroidOnline.tab_2_detail_4 = '币用：'
 root.staticAndroidOnline.tab_2_detail_5 = '上币申请：'
@@ -2367,7 +2367,7 @@ root.whiteList.qq = '一、设置QQ邮箱白名单'
 root.whiteList.qq_1 = '1. 登陆你的QQ邮箱'
 root.whiteList.qq_2 = '2. 点击【设置】'
 root.whiteList.qq_3 = '3. 点击【反垃圾】，并找到【白名单】栏目'
-root.whiteList.qq_4 = '4. 点击【设置域名白名单】，输入btcdo.com 并点击【添加到域名白名单】'
+root.whiteList.qq_4 = '4. 点击【设置域名白名单】，输入2020.exchange 并点击【添加到域名白名单】'
 root.whiteList.qq_5 = '5. 点击【设置邮件地址白名单】将以下邮箱【添加到白名单】：'
 root.whiteList.wangyi = '二、设置网易邮箱白名单（注：.126设置步骤同.163）'
 root.whiteList.wangyi_1 = '1. 登陆你的网易邮箱'

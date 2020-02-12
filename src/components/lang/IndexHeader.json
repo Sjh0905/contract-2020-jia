@@ -167,7 +167,7 @@
     "assets": "자산",  "activity": "활동",  "ExchangeThreeTeaSources": "교환 차 소스",  "TeaTeaSource": "차 소스", "GRCTradeEvent": "GRC Trade Event",  "appdown": "APP다운로드",  "information": "정보",  "help": "도움말 센터",  "notice": "알림 센터",  "account": "개인 센터",  "login": "로그인",  "register": "등록",  "loginOff": "로그아웃",  "sloganbtn": "트레이딩 플로어 에 입장",  "slogangraph": "모든 사람들이 가지고 있는 제로 온라인 수수료",  "slogangraphl": "온라인 수수료 제로",  "slogangraphr": "모든 사람들이",  "problem": "문제",  "form": "티켓 제출",  "service": "고객 서비스",  "proposal": "당신의 제안",  "joinUs": "우리와 함께하세요",  "recharge": "충전 철회",  "rechargeRecord": "레코드 충전",  "withdrawalsRecord": "출금 기록",  "currentEntrust": "현재 대리자",  "historicalEntrust": "역사 위임",  "personalCenter": "개인 센터",  "platformReward": "플랫폼 리워드",  "miningProfit": "채굴 이익",  "CoinBaby": "코인 디포",  "LockPositionRecord": "잠금 레코드",  "superBee": "슈퍼 포 허니",  "qrCode":"스윕 링 업 다운로드",  "seeMore":"더 보기",  "platform":"플랫폼 공지 사항",  "platform_1":"중국어 번체",  "platform_2":"중국어 간체"
   },
   "CHT": {
-    "btcdo": "幣為",
+    "btcdo": "二零二零",
     "quotes": "行情",
     "currencyExchange": "幣幣交易",
     "fiatDeal":"法幣交易",

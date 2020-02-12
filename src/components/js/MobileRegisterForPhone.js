@@ -143,7 +143,7 @@ root.methods = {}
 //
 root.methods.closeToast = function () {
   let that = this;
-    if(window.location.hostname === 'sim.btcdo.org') {
+    if(window.location.hostname === 'sim.TwentyTwenty') {
       window.location.href = that.neteasePathDev
     } else {
       window.location.href = that.neteasePath
@@ -530,7 +530,7 @@ root.methods.re_register = function (data) {
       this.popText = '机构用户已绑定'
       let that = this;
       setTimeout(function(){
-        if(window.location.hostname === 'sim.btcdo.org') {
+        if(window.location.hostname === 'sim.TwentyTwenty') {
           window.location.href = that.neteasePathDev
         } else {
           window.location.href = that.neteasePath
@@ -553,7 +553,7 @@ root.methods.re_register = function (data) {
       this.popText = '机构用户已绑定'
       let that = this;
       setTimeout(function(){
-        if(window.location.hostname === 'sim.btcdo.org') {
+        if(window.location.hostname === 'sim.TwentyTwenty') {
           window.location.href = that.neteasePathDev
         } else {
           window.location.href = that.neteasePath

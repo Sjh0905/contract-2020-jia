@@ -122,10 +122,10 @@ root.computed.iosLogin = function () {
 //     //   method: 'revertHeader',
 //     //   parameters: '111'
 //     // }))
-//     return 'https://www.btcdo.com/index/mobileNoticeDetail?id=100310&isIOS=true'
+//     return 'https://www.2020.exchange/index/mobileNoticeDetail?id=100310&isIOS=true'
 //   }
 //   if(!this.iosQuery) {
-//     return 'https://www.btcdo.com/index/mobileNoticeDetail?id=100310'
+//     return 'https://www.2020.exchange/index/mobileNoticeDetail?id=100310'
 //   }
 // }
 
@@ -280,12 +280,12 @@ root.methods.viewRight = function () {
     this.loading = true
 
     setTimeout(function(){
-        window.location.href = 'https://www.btcdo.com/index/mobileNoticeDetail?id=100310&isIOS=true'
+        window.location.href = 'https://www.2020.exchange/index/mobileNoticeDetail?id=100310&isIOS=true'
     },0)
     return
   }
 
-  window.open('https://www.btcdo.com/index/mobileNoticeDetail?id=100310')
+  window.open('https://www.2020.exchange/index/mobileNoticeDetail?id=100310')
 }
 
 // 点击超级为蜜立即申请

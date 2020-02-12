@@ -123,7 +123,7 @@ root.methods = {}
 root.methods.closeToast = function () {
   this.showToastFlag = false
   let that = this;
-    if(window.location.hostname === 'sim.btcdo.org') {
+    if(window.location.hostname === 'sim.TwentyTwenty') {
       window.location.href = that.neteasePathDev
     } else {
       window.location.href = that.neteasePath
@@ -451,7 +451,7 @@ root.methods.re_register = function (data) {
 
       let that = this;
       setTimeout(function(){
-        if(window.location.hostname === 'sim.btcdo.org') {
+        if(window.location.hostname === 'sim.TwentyTwenty') {
           window.location.href = that.neteasePathDev
         } else {
           window.location.href = that.neteasePath
@@ -476,7 +476,7 @@ root.methods.re_register = function (data) {
 
       let that = this;
       setTimeout(function(){
-        if(window.location.hostname === 'sim.btcdo.org') {
+        if(window.location.hostname === 'sim.TwentyTwenty') {
           window.location.href = that.neteasePathDev
         } else {
           window.location.href = that.neteasePath
