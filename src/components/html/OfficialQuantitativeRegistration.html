@@ -21,9 +21,9 @@
             <el-select v-model="valuegender" name="gender" placeholder="10000 QQ" popper-class="selectstyle">
               <el-option
                 v-for="item in optionsgender"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
+                :key="item.fcode"
+                :label="item.fdesc"
+                :value="item.fcode"
               >
               </el-option>
             </el-select>
