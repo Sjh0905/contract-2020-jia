@@ -31,7 +31,7 @@ ul {
 .information_div {
   width: 24%;
   /*height: 30px;*/
-  padding-left: 25px;
+  /*padding-left: 25px;*/
   display: inline-block;
   margin-left: 5px;
   margin-bottom: 5px;
@@ -39,6 +39,7 @@ ul {
 }
 .div_border {
   border-right: 1px solid #EFF0FF;
+  padding-left: 25px;
 }
 .color_img {
   margin-bottom: -5px;

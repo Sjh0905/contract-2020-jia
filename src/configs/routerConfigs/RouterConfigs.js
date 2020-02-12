@@ -2680,7 +2680,7 @@ root.routes.push({
     //   },
     // },
 
-    // sss 活动------QQ官方量化报名
+    // sss 活动------QQ交易挖矿报名
     {
       path: 'OfficialQuantitativeRegistration',
       name: 'OfficialQuantitativeRegistration',
@@ -2693,7 +2693,7 @@ root.routes.push({
       component: resolve => require(['@/components/vue/OfficialQuantitativeRegistration'], resolve),
     },
 
-    // sss 活动------QQ官方量化详情
+    // sss 活动------QQ交易挖矿详情
     {
       path: 'OfficialQuantitativeDetails',
       name: 'OfficialQuantitativeDetails',
