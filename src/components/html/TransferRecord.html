@@ -1,22 +1,21 @@
 <div class="recharge-record-container">
-  <Loading v-if="loading" class="min-height-all recharge-record-loading-container border_radius"/>
+<!--  <Loading v-if="loading" class="min-height-all recharge-record-loading-container"/>-->
 
 
   <div class="border_box border_radius">
-
     <!--充值记录title begin-->
     <div class="detail-header flex">
       <!--流水单号-->
       <div class="flow-code">流水单号</div>
 
       <!--姓名-->
-      <div class="name">姓名</div>
+      <div class="name">付款人账号</div>
 
       <!--收款人账号-->
       <div class="Payee">收款人账号</div>
 
-      <!--UID-->
-      <div class="uid">UID</div>
+<!--      &lt;!&ndash;UID&ndash;&gt;-->
+<!--      <div class="uid">UID</div>-->
 
       <!--币种-->
       <span class="currency">{{$t('currency')}}</span>
@@ -34,8 +33,6 @@
       <span class="state">{{$t('state')}}</span>
 
 
-
-
 <!--      &lt;!&ndash;地址&ndash;&gt;-->
 <!--      <span class="address">{{$t('address')}}</span>-->
 
@@ -49,20 +46,20 @@
       <!--充值记录具体 begin-->
       <ul class="detail-container" >
         <!--各条记录 begin-->
-        <li class="detail-li" v-for="(item,index) in computedRecord" :key="item.id">
+        <li class="detail-li" v-for="(item,index) in computedTransferLists" :key="item.id">
 
           <div class="li-container flex">
             <!--流水单号-->
-            <div class="flow-code">20200209</div>
+            <div class="flow-code">{{item.transferId}}</div>
 
             <!--姓名-->
-            <div class="name">车擦擦擦</div>
+            <div class="name">{{item.name}}</div>
 
             <!--收款人账号-->
-            <div class="Payee">345654345434543</div>
+            <div class="Payee">{{item.userName}}</div>
 
-            <!--UID-->
-            <div class="uid">12314312</div>
+<!--            &lt;!&ndash;UID&ndash;&gt;-->
+<!--            <div class="uid">{{uid}}</div>-->
 
             <!--币种 begin-->
             <span class="currency">{{item.currency == 'USDT2' ? 'USDT' :item.currency}}</span>
@@ -73,15 +70,16 @@
             <!--数量 end-->
 
             <!--类型-->
-            <div class="type">内部转账</div>
+            <div class="type">转账</div>
 
             <!--时间 begin-->
-            <span class="time">{{$globalFunc.formatDateUitl(item.updatedAt,'YYYY-MM-DD hh:mm:ss')}}</span>
+            <span class="time">{{$globalFunc.formatDateUitl(item.dateTime,'YYYY-MM-DD hh:mm:ss')}}</span>
             <!--时间 end-->
 
             <!--状态 begin-->
             <span class="state">
-              <span class="state_text">{{state(item)}}</span>
+              <span class="state_text">{{item.status}}</span>
+<!--              item.status===0?'成功':'失败'-->
             </span>
             <!--状态 end-->
 
@@ -115,8 +113,8 @@
 
 
         <!--如果没有记录 begin-->
-<!--        v-if="computedRecord.length===0"-->
-        <li class="detail-li-no-data" >
+<!--        -->
+<!--        <li class="detail-li-no-data"  v-if="computedTransferLists.length===0">-->
           <div class="no-data-content">
             <img src="../../assets/assetPageRecord/no-order-light.png" alt="">
             <div class="no-record">暂无记录</div>

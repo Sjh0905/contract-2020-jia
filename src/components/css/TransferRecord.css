@@ -33,17 +33,17 @@
 }
 
 .flow-code {
-  flex: 14;
+  flex: 12;
   text-align: left;
 }
 
 .name {
-  flex: 10;
+  flex: 14;
   text-align: left;
 }
 
 .Payee {
-  flex: 10;
+  flex: 14;
   text-align: left;
 }
 
