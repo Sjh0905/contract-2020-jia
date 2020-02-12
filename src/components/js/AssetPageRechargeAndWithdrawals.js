@@ -7,11 +7,12 @@ root.name = 'AssetPageRechargeAndWithdrawals'
 
 // 组件
 root.components = {
-  'RechargeAndWithdrawalsRecharge': resolve => require(['../vue/AssetPageRechargeAndWithdrawalsRecharge'], resolve),
-  'RechargeAndWithdrawalsWithdrawals': resolve => require(['../vue/AssetPageRechargeAndWithdrawalsWithdrawals'], resolve),
+  // 'RechargeAndWithdrawalsRecharge': resolve => require(['../vue/AssetPageRechargeAndWithdrawalsRecharge'], resolve),
+  // 'RechargeAndWithdrawalsWithdrawals': resolve => require(['../vue/AssetPageRechargeAndWithdrawalsWithdrawals'], resolve),
   'PopupWindow': resolve => require(['../vue/PopupWindow'], resolve),
   'PopupPrompt': resolve => require(['../vue/PopupPrompt'], resolve),
-  'Loading': resolve => require(['../vue/Loading'], resolve)
+  'Loading': resolve => require(['../vue/Loading'], resolve),
+  'PopupT': resolve => require(['../vue/PopupT'], resolve),
 }
 
 /*----------------------------- data ------------------------------*/
@@ -62,6 +63,7 @@ root.data = function () {
 
     hideZeroAsset: false, //隐藏零资产币种
 
+    popWindowOpen1:false,
 
 
   }
@@ -533,6 +535,26 @@ root.methods.openRecharge = function (index, item) {
 root.methods.errorHandler = function (err, state, text) {
   console.error('数据出错！', err, state, text)
 }
+
+// 打开划转
+root.methods.openTransfer = function () {
+  this.popWindowOpen1 = true
+}
+
+// 划转弹窗关闭
+root.methods.popWindowClose1 = function () {
+  // this.popWindowOpen1 = false
+  this.click_rel_em()
+}
+// 关闭划转弹窗
+root.methods.click_rel_em = function () {
+  this.popWindowOpen1 = false
+}
+// 划转提交按钮
+root.methods.commit = function () {
+  this.popWindowOpen1 = false
+}
+
 
 // 关闭toast弹窗
 root.methods.closePopupPrompt = function () {

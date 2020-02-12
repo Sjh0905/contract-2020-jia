@@ -17,7 +17,8 @@ root.data = function () {
     limit: 10,
     limitNum: 10,
 
-    records: [],
+    transferLists: [],
+    records:[],
 
     loadingMoreShow: true,
     loadingMoreShowing: false,
@@ -31,8 +32,8 @@ root.data = function () {
 /*-------------------------- 计算 begin------------------------------*/
 root.computed = {}
 
-root.computed.computedRecord = function () {
-  return this.records
+root.computed.computedTransferLists = function () {
+  return []
 }
 
 
@@ -40,46 +41,45 @@ root.computed.computedRecord = function () {
 
 
 root.created = function () {
-  this.getRecord()
+  // this.getTransferList()
 }
 
 
 /*-------------------------- 方法 begin------------------------------*/
 root.methods = {}
-// 获取记录
-root.methods.getRecord = function (currency) {
+// 获取转账记录
+root.methods.getTransferList = function (currency) {
   if (currency) {
 
   }
-  this.$http.send("RECHARGE_LOG", {
+  this.$http.send("GET_TRANSFER_LIST", {
     bind: this,
-    params: {
+    query: {
       currency: '',
-      limit: this.limit
+      pageSize: 10
     },
-    callBack: this.re_getRecord,
-    errorHandler: this.error_getRecord
+    callBack: this.re_getTransferList,
+    errorHandler: this.error_getTransferList
   })
 }
+
 // 获取记录返回，类型为{}
-root.methods.re_getRecord = function (data) {
+root.methods.re_getTransferList = function (data) {
   typeof data === 'string' && (data = JSON.parse(data))
   if (!data) return
   // console.warn('获取记录', data)
-  this.records = data.dataMap.deposits
+  this.transferLists = data.dataMap.userTransferRecordList
 
-  if (this.records.length < this.limit) {
+  if (this.transferLists.length < this.limit) {
     this.loadingMoreShow = false
   }
-
   this.loadingMoreShowing = false
-
-
   this.loading = false
 }
+
 // 获取记录出错
-root.methods.error_getRecord = function (err) {
-  console.warn("充值获取记录出错！", err)
+root.methods.error_getTransferList = function (err) {
+  console.warn("转账获取记录出错！", err)
 }
 
 // 点击拷贝
@@ -156,7 +156,6 @@ root.methods.state = function (item) {
   return msg
 
 }
-
 
 root.methods.loadingMore = function () {
   this.limit += this.limitNum
