@@ -1,6 +1,6 @@
 <!--sss QQ交易挖矿报名页面-->
 
-<div class="OfficialQuantitativeRegistration">
+<div class="officialQuantitativeRegistration">
 
   <div class="qq_content">
 
@@ -103,4 +103,25 @@
 
     </div>
   </div>
+
+
+  <!--  转账成功-->
+  <PopupArticle :switch="buyConfirmSuccess" @close="buyConfirmSuccessClose">
+
+    <div slot="article" class="Internal_siding img_ConfirmSuccess">
+      <img src="../../assets/量化_未报名_icon.png" alt="" >
+      <p>此账号未参与QQ交易挖矿</p>
+    </div>
+    <div slot="footer">
+      <div @click="goToHomePage" class="notice_but_1 pointer">
+        首页
+      </div>
+      <div @click="goToParticipateNow" class=" notice_but button-base btn_blue pointer">
+        立即参与
+      </div>
+
+    </div>
+
+  </PopupArticle>
+
 </div>

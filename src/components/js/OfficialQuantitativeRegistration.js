@@ -5,12 +5,14 @@ root.name = 'OfficialQuantitativeRegistration'
 
 root.components = {
   'Loading': resolve => require(['../vue/Loading'], resolve),
+  'PopupArticle': resolve => require(['../vue/PopupArticle'], resolve),
 }
 
 root.data = () => {
   return {
     loading: true, // 加载中
 
+    buyConfirmSuccess:true,
     // optionsgender: [{
     //   value: '0',
     //   label: '10000 QQ'
@@ -85,6 +87,16 @@ root.methods.RE_GET_SUPPORTING = function (res) {
 root.methods.ERROR_GET_SUPPORTING = function (err) {
 
   console.log("this.err=====",err)
+}
+
+
+root.methods.goToHomePage = function () {
+  this.$router.push({name: 'home'})
+
+}
+root.methods.goToParticipateNow = function () {
+  // this.$router.push({name: 'officialQuantitativeRegistration'})
+  this.buyConfirmSuccess = false
 }
 
 export default root

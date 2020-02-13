@@ -8,6 +8,7 @@ root.components = {
   'PopupPrompt': resolve => require(['../vue/PopupPrompt'], resolve),
   'Loading': resolve => require(['../vue/Loading'], resolve),
   'PopupT': resolve => require(['../vue/PopupT'], resolve),
+  'PopPublic': resolve => require(['../vue/PopPublic'], resolve),
 }
 /*------------------------------ data -------------------------------*/
 root.data = function () {
@@ -415,6 +416,7 @@ root.methods.goToBindTransfer = function () {
 root.methods.goToConfirm = function () {
   this.buyTransferDetails = false
   // this.buyConfirmSuccess = true
+  this.buyCommitToastOpen = false
   this.goToConfirmsjh = true
 }
 root.methods.popWindowClose1 = function () {
@@ -432,6 +434,7 @@ root.methods.goToConfirmsjhclose = function () {
 
 root.methods.goToConfirmTransfer = function (data) {
   this.buyTransferDetails = true
+  this.buyCommitToastOpen = false
   // let canSend = true
   // canSend = this.testName_0() && canSend
   // canSend = this.testUID_01() && canSend
@@ -1127,58 +1130,58 @@ root.methods.openRecharge = function (index, item) {
 
 //sss打开内部转账
 root.methods.internalTransfer = function (index, item) {
-  this.transferCurrency = item.currency
+  // this.transferCurrency = item.currency
   // this.transferDisabledss(item.currency)
 
   console.log('item.currency=================================', item.currency)
   // this.transferCurrency = item.currency
   // this.transferDisabledss(item.currency)
-  if (this.isTransfer == true) {
-    this.popWindowOpen = false
-    this.popupPromptOpen = true
-    this.popupPromptText = this.$t('withdrawalsIsNotOpen')
-    this.popupPromptType = 0
-    return
-  }
+  // if (this.isTransfer == true) {
+  //   this.popWindowOpen = false
+  //   this.popupPromptOpen = true
+  //   this.popupPromptText = this.$t('withdrawalsIsNotOpen')
+  //   this.popupPromptType = 0
+  //   return
+  // }
 
   // // 如果没有实名认证不允许打开转账
-  if (!this.bindIdentify) {
-    this.popWindowTitle = this.$t('popWindowTitleWithdrawals')
-    this.popWindowPrompt = this.$t('popWindowPromptWithdrawals')
-    this.popWindowPrompt1 = ''
-    this.popWindowStyle = '0'
-    this.popWindowOpen = true
-    return
-  }
+  // if (!this.bindIdentify) {
+  //   this.popWindowTitle = this.$t('popWindowTitleWithdrawals')
+  //   this.popWindowPrompt = this.$t('popWindowPromptWithdrawals')
+  //   this.popWindowPrompt1 = ''
+  //   this.popWindowStyle = '0'
+  //   this.popWindowOpen = true
+  //   return
+  // }
   //
   // // 如果没有绑定邮箱，不允许打开提现
-  if (!this.bindEmail) {
-    this.popWindowTitle = this.$t('bind_email_pop_title')
-    this.popWindowPrompt = this.$t('bind_email_pop_article')
-    this.popWindowPrompt1 = ''
-    this.popWindowStyle = '3'
-    this.popWindowOpen = true
-    return
-  }
+  // if (!this.bindEmail) {
+  //   this.popWindowTitle = this.$t('bind_email_pop_title')
+  //   this.popWindowPrompt = this.$t('bind_email_pop_article')
+  //   this.popWindowPrompt1 = ''
+  //   this.popWindowStyle = '3'
+  //   this.popWindowOpen = true
+  //   return
+  // }
   //
   // // 如果没有绑定谷歌或手机，不允许打开提现
-  if (!this.bindGA && !this.bindMobile) {
-    this.popWindowTitle = this.$t('popWindowTitleWithdrawalsneibu')
-    this.popWindowPrompt = this.$t('popWindowTitleBindGaWithdrawals')
-    this.popWindowPrompt1 = ''
-    this.popWindowStyle = '1'
-    this.popWindowOpen = true
-    return
-  }
+  // if (!this.bindGA && !this.bindMobile) {
+  //   this.popWindowTitle = this.$t('popWindowTitleWithdrawalsneibu')
+  //   this.popWindowPrompt = this.$t('popWindowTitleBindGaWithdrawals')
+  //   this.popWindowPrompt1 = ''
+  //   this.popWindowStyle = '1'
+  //   this.popWindowOpen = true
+  //   return
+  // }
 
 
-  if (this.bindIdentify && this.isTransfer == false) {
+  // if (this.bindIdentify && this.isTransfer == false) {
     this.popWindowTitle = this.$t('iKnowthe1')
     this.popWindowPrompt = this.$t('popWindowPromptWithdrawals1')
     this.popWindowPrompt1 = this.$t('popWindowPromptWithdrawals2')
     this.popWindowStyle = '4'
     this.popWindowOpen = true
-  }
+  // }
 
   this.recharge = false
   this.withdrawals = false

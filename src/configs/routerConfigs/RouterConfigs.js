@@ -2682,13 +2682,13 @@ root.routes.push({
 
     // sss 活动------QQ交易挖矿报名
     {
-      path: 'OfficialQuantitativeRegistration',
-      name: 'OfficialQuantitativeRegistration',
+      path: 'officialQuantitativeRegistration',
+      name: 'officialQuantitativeRegistration',
       caseSensitive: true,
       meta: {
         requireLogin: false,
         mobileHeaderTitle: '',
-        name: 'OfficialQuantitativeRegistration',
+        name: 'officialQuantitativeRegistration',
       },
       component: resolve => require(['@/components/vue/OfficialQuantitativeRegistration'], resolve),
     },

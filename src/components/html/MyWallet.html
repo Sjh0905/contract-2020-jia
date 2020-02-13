@@ -217,7 +217,7 @@
       <template v-if="popWindowStyle==3">
         <button @click="goToBindEmail" class="button-base btn_blue pointer bangding">
           <!--绑定邮箱-->
-          {{$t('bind_email_pop_button')}}1212
+          {{$t('bind_email_pop_button')}}
         </button>
       </template>
       <template v-if="popWindowStyle==4">
@@ -300,10 +300,10 @@
       <div slot="footer">
         <!--        <button class="Internal_siding_email1" @click="goToConfirmTransfer"> 确认转账</button>-->
         <button @click="popWindowClose1" class="button-base btn_simple pointer firm1">
-          {{$t('cancel')}}上一步
+          上一步
         </button>
         <button @click="goToConfirm" class="button-base btn_blue pointer firm2">
-          {{$t('deletePopConfirm')}}确认转账
+          确认转账
         </button>
       </div>
 
