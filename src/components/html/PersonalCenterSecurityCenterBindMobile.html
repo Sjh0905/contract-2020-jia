@@ -1,8 +1,9 @@
 <div class="">
 <!--  最外层类名：影响打开弹框后页面变高  bind-mobile-container min-height border_radius-->
 
-  <Loading v-if="loading"/>
-    <template v-if="!loading && !isMobile">
+<!--  <Loading v-if="loading"/>-->
+<!--  !loading &&-->
+    <template v-if=" !isMobile">
 
       <PopupT :switch="show" @close="click_rel_em" v-if="!hiddenBindMObilePage">
 <!--        绑定手机号码  begin-->

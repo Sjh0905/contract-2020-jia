@@ -100,27 +100,33 @@
 .rejected {
   margin-left: 10px;
   color: #EF5656;
+  text-decoration: underline;
 }
 .rejected:hover {
-  text-decoration: underline;
+  opacity:0.6;
+  /*text-decoration: underline;*/
 }
 
 .review {
   margin-left: 10px;
   color: #FF9F40;
+  text-decoration: underline;
 }
 
 .review:hover {
-  text-decoration: underline;
+  opacity:0.6;
+  /*text-decoration: underline;*/
 }
 
 .pass {
   margin-left: 10px;
   color: #08D0AC;
+  text-decoration: underline;
 }
 
 .pass:hover {
-  text-decoration: underline;
+  opacity:0.6;
+  /*text-decoration: underline;*/
 }
 
 .identity-button button {
@@ -261,6 +267,16 @@
   background-color: transparent;
 }
 
+.invitationBtn {
+  height: 30px ;
+  line-height: 30px;
+  padding:0 15px;
+  margin-top: 26px;
+  background: #3576F5;
+  color:#fff;
+  border-radius: 1px;
+  text-align: center;
+}
 /*----------------------------------------------------------------------------------------------------*/
 
 @media screen and (max-width: 768px) {
@@ -474,6 +490,8 @@
   border-radius: 1px;
   text-align: center;
 }
+
+
 
 #binds {
   width: 60px ;

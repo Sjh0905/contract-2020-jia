@@ -32,11 +32,6 @@
   color: #6B7DA2;
 }
 
-.currency {
-  flex: 9.3;
-  text-align: left;
-  /*flex:19.9;*/
-}
 
 .time {
   flex: 12.4;
@@ -45,15 +40,22 @@
   /*text-align: left;*/
 }
 
+.currency {
+  flex: 9.3;
+  text-align: left;
+  /*flex:19.9;*/
+}
+
+.type {
+  flex: 9.3;
+  text-align: left;
+  /*flex:19.9;*/
+}
+
 .total {
   flex: 14.7;
   text-align: left;
 }
-
-/*.address {*/
-/*  flex: 52.5;*/
-/*  text-align: left;*/
-/*}*/
 
 .state {
   flex: 18.8;
@@ -64,6 +66,11 @@
   flex: 52.5;
   text-align: right;
 }
+
+/*.address {*/
+/*  flex: 52.5;*/
+/*  text-align: left;*/
+/*}*/
 
 
 /*暂无记录  begin*/
@@ -170,7 +177,7 @@
 .copy-btn {
   padding: 0 20px;
   border: 1px solid #3576F5;
-  border-radius: 4px;
+  border-radius: 1px;
   position: absolute;
   right: 0;
   top: 50%;

@@ -444,6 +444,18 @@
 .header_xuzhi {
   padding-left: 25px;
 }
+
+.pop-recharge {
+  padding: 35px 25px;
+  font-size:16px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+}
+
+.pop-recharge-bottom {
+  margin-bottom: 15px;
+}
+
 .firm1 {
   width:195px;
   height:40px;
@@ -459,10 +471,10 @@
   border-radius:1px;
   color: #ffffff;
 }
+
 .popWindow-title0 {
   padding-left: 25px;
 }
-
 
 .popWindow-article {
   padding-top: 10px;
@@ -649,7 +661,6 @@
 }
 
 /*内部划转页面*/
-
 .pop-article {
   padding: 20px 0;
 }
@@ -806,6 +817,6 @@
   width: 100%;
   text-align: right;
   padding-right: 25px;
-  /*margin-top: 15px;*/
+  margin-top: 15px;
 }
 

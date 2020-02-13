@@ -260,14 +260,17 @@ root.watch.loading = function (newVal, oldVal) {
 
 /*------------------------------ 方法 -------------------------------*/
 root.methods = {}
-// 内部划转弹窗关闭
+// 划转输入框交换位置
 root.methods.changeAccount = function () {
+  let empty = ''
+  empty = this.bibiAccount
   this.bibiAccount = this.account
+  this.account = empty
 }
 
-root.methods.popWindowClose1 = function () {
-  this.popWindowOpen1 = false
-  // this.click_rel_em()
+root.methods.popWindowClose_transfer = function () {
+  // this.popWindowOpen1 = false
+  this.click_rel_em()
 }
 
 root.methods.click_rel_em = function () {
@@ -276,8 +279,6 @@ root.methods.click_rel_em = function () {
 root.methods.commit = function () {
   this.popWindowOpen1 = false
 }
-
-
 
 root.methods.buyCommitToastClose = function () {
   this.buyCommitToastOpen = false
@@ -1001,6 +1002,14 @@ root.methods.error_getAccount = function (err) {
 root.methods.popWindowClose = function () {
   this.popWindowOpen = false
 }
+
+// 弹框跳安全中心
+root.methods.goToSecurityCenter = function () {
+  this.popWindowOpen = false
+  this.$router.push({name: 'securityCenter'})
+}
+
+
 // 弹出绑定身份，跳转到实名认证界面
 root.methods.goToBindIdentity = function () {
   this.popWindowOpen = false
@@ -1153,7 +1162,6 @@ root.methods.internalTransfer = function (index, item) {
     this.popWindowOpen = true
     return
   }
-
   // // 如果没有绑定邮箱，不允许打开转账
   if (!this.bindEmail) {
     this.popWindowTitle = this.$t('bind_email_pop_title')
@@ -1173,8 +1181,8 @@ root.methods.internalTransfer = function (index, item) {
     this.popWindowOpen = true
     return
   }
-
-
+  //
+  //
   if (this.bindIdentify && this.isTransfer == false) {
     this.popWindowTitle = this.$t('iKnowthe1')
     this.popWindowPrompt = this.$t('popWindowPromptWithdrawals1')

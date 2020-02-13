@@ -32,19 +32,19 @@
 
 
 .time {
-  flex: 12.4;
+  flex: 14;
   /*flex:9.3;*/
   text-align: left;
 }
 
 .currency {
-  flex: 9.3;
+  flex: 7;
   text-align: left;
   /*flex:19.9;*/
 }
 
 .total {
-  flex: 14.7;
+  flex: 13;
   text-align: left;
 }
 
@@ -54,7 +54,7 @@
 }
 
 .state {
-  flex: 8;
+  flex: 6;
   text-align: left;
 }
 
@@ -62,7 +62,6 @@
   flex: 10.8;
   text-align: right;
 }
-
 /*暂无记录  begin*/
 .detail-li-no-data {
   min-height: 200px;
@@ -73,7 +72,7 @@
 }
 
 .no-data-content img{
-  width: 44px;
+  /*width: 44px;*/
   vertical-align: middle;
   margin-bottom: 10px;
 }
@@ -162,16 +161,17 @@
 
 .copy-btn {
   padding: 0 20px;
-  border: 1px solid #3576F5;
-  border-radius: 4px;
+  /*border: 1px solid #3576F5;*/
+  border-radius: 1px;
   position: absolute;
-  right: 30px;
+  right: 70px;
   top: 50%;
   transform: translateY(-50%);
 }
 
 .unit-input {
   width: 450px;
+  background-color: transparent;
   border: 0 solid transparent;
 }
 

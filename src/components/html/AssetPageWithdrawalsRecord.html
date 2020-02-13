@@ -26,7 +26,6 @@
     <!--提现记录具体内容 begin-->
     <template v-if='!loading'>
       <ul class="detail-container">
-
         <li class="detail-li" v-for="(item,index) in computedRecord" :key="item.id">
           <div class="li-container flex">
             <span class="time">{{$globalFunc.formatDateUitl(item.updatedAt,'YYYY-MM-DD hh:mm:ss')}}</span>
@@ -37,7 +36,6 @@
                 <span class="address-title">{{$t('withdrawalsAddress')}}:</span>
                 <span>{{item.toAddress}}</span>
               </div>
-
               <div v-if="item.memoAddress" class="address-detail-item flex">
                 <span class="address-title">memo:</span>
                 <span class="memo-input">{{item.memoAddress}}</span>
@@ -46,7 +44,7 @@
               <div class="relative address-detail-item flex" v-if="item.tx">
                 <span class="address-title">TXID:</span>
                 <input type="text" readonly :value="item.tx"
-                       class="uniqueId-input unit-input pointer text_blue"
+                       class=" unit-input pointer"
                        :ref="item.id" @click="clickCheck(item)">
                 <span class="copy-btn text_blue pointer"
                       @click="clickCopy(item.id)"
@@ -55,15 +53,19 @@
               </div>
 
             </div>
-            <span class="state">{{computedState(item.status)}}</span>
-            <span class="state pointer text_blue" v-if="canCancel(item.status)==1" @click="clickCancel(item)">{{$t('cancel')}}</span>
-            <span class="state pointer text_blue" v-else-if="canCancel(item.status)==2"
+            <span class="statu">{{computedState(item.status)}}</span>
+            <span class="operation pointer text_blue" v-if="canCancel(item.status)==1" @click="clickCancel(item)">{{$t('cancel')}}</span>
+            <span class="operation pointer text_blue" v-else-if="canCancel(item.status)==2"
                   @click="clickToWatchReason(item)">{{$t('watchReason')}}</span>
-<!--            <span class="state" v-else>&#45;&#45;</span>-->
-            <div class="operation">
-              详情
-              <img src="" alt="">
-            </div>
+            <span class="operation" v-else>--</span>
+
+
+<!--            <div class="operation">-->
+
+
+<!--              详情-->
+<!--              <img src="" alt="">-->
+<!--            </div>-->
 
           </div>
         </li>
