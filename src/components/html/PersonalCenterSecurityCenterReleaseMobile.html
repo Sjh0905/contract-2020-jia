@@ -1,7 +1,8 @@
 <div class="">
 <!--  最外层类名：影响打开弹框后页面变高  bind-mobile-container min-height border_radius-->
-  <Loading v-if="loading"/>
-  <template v-if="!loading && !isMobile && hiddenReleaseMObilePage">
+<!--  <Loading v-if="loading"/>-->
+<!--  !loading &&-->
+  <template v-if="!isMobile && hiddenReleaseMObilePage">
     <div class="release-title flex">
       <span></span>
       <span>{{$t('personalCenterSecurityCenterReleaseMobile.title')}}</span>

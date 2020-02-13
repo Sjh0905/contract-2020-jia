@@ -63,7 +63,10 @@ root.data = function () {
 
     hideZeroAsset: false, //隐藏零资产币种
 
+    // 内部划转变量
     popWindowOpen1:false,
+    bibiAccount:'币币账户',
+    account:'我的钱包'
 
 
   }
@@ -536,7 +539,7 @@ root.methods.errorHandler = function (err, state, text) {
   console.error('数据出错！', err, state, text)
 }
 
-// 打开划转
+// 打开划转  begin
 root.methods.openTransfer = function () {
   this.popWindowOpen1 = true
 }
@@ -546,6 +549,15 @@ root.methods.popWindowClose1 = function () {
   // this.popWindowOpen1 = false
   this.click_rel_em()
 }
+
+// 划转输入框交换位置
+root.methods.changeAccount = function () {
+  let empty = ''
+  empty = this.bibiAccount
+  this.bibiAccount = this.account
+  this.account = empty
+}
+
 // 关闭划转弹窗
 root.methods.click_rel_em = function () {
   this.popWindowOpen1 = false
@@ -554,7 +566,7 @@ root.methods.click_rel_em = function () {
 root.methods.commit = function () {
   this.popWindowOpen1 = false
 }
-
+// 打开划转  end
 
 // 关闭toast弹窗
 root.methods.closePopupPrompt = function () {

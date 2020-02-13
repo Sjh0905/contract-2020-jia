@@ -10,8 +10,8 @@
            <p class="asset-li-title">{{userName}}</p>
            <div class="not-certified" v-if="authType==3">未认证</div>
 <!--           <div class="not-certified" v-if="true">待审核</div>  TODO:新加的，切勿删除-->
-           <div class="certified" v-if="authType==1">被驳回</div>
-           <div class="certified" v-if="authType==0||authType==5||authType==6">待审核</div>
+           <div class="not-certified" v-if="authType==1">被驳回</div>
+           <div class="not-certified" v-if="authType==0||authType==5||authType==6">待审核</div>
            <div class="certified" v-if="authType==2">已通过</div>
          </div>
         </div>

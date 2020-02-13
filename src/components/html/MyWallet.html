@@ -131,7 +131,7 @@
   </div>
 
   <!--  内部划转-->
-  <PopupT :switch="popWindowOpen1" @close="popWindowClose1">
+  <PopupT :switch="popWindowOpen1" @close="popWindowClose_transfer">
     <div slot="header">
       <span class="pop-ei-ar">资金划转</span>
     </div>
@@ -184,7 +184,7 @@
     </div>
   </PopupT>
 
-  <!--弹窗-->
+  <!-- 提示 弹窗-->
   <PopupWindow :switch="popWindowOpen" @close="popWindowClose">
     <div slot="header">
       <span class="header_xuzhi">{{popWindowTitle}}</span>
@@ -337,7 +337,6 @@
   <PopupWindow :switch="goToConfirmsjh" @close="goToConfirmsjhclose" class="popupWindow-container">
     <div slot="header" class="popWindow-title0 ">{{$t('verify')}}
     </div>
-
     <!-- article begin 1 -->
     <div slot="article" class="popWindow-article" v-if="popWindowStep==1">
       <div class="prompt-title">
@@ -420,7 +419,6 @@
     </div>
     <!-- article end 2 -->
 
-
     <!-- footer popWindow begin 1 -->
     <div slot="footer" class="popWindow-footer" v-if="popWindowStep === 1">
       <button class="pointer btn_simple ssss" @click="goToConfirmsjhclose">
@@ -467,10 +465,6 @@
     <!--加载样式 end -->
 
   </PopupWindow>
-
-
-
-
 
   <!-- 提示 start -->
   <PopupPrompt :popType="popupPromptType" :popText="popupPromptText" :popOpen="popupPromptOpen"

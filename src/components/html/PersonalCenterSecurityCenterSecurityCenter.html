@@ -145,6 +145,34 @@
         </div>
       </div>
 
+      <!--其他-->
+      <div class="allinfo11">
+        <!--      其他title-->
+        <div class="titlenew">
+          <span></span>
+          <span>其他</span>
+        </div>
+
+          <!--邀请好友-->
+        <div class="allinfo11-content">
+          <div class="allinfo11_1">
+            <div class="allinfo11_1tu">
+              <img src="../../assets/securityCenter/Invitation-person-center.png">
+            </div>
+            <div class="allinfo11_1info">
+              <div class="allinfo11_1info_title">邀请好友</div>
+              <div class="allinfo11_1info_dis">邀请好友获得奖励</div>
+            </div>
+            <div class="allinfo11_update">
+              <div @click="goToInvitation" class="invitationBtn">
+                立即邀请
+              </div>
+            </div>
+          </div>
+          </div>
+      </div>
+
+
       <!--    登录记录-->
       <div class="login-record">
         <div class="login-record-title">
@@ -156,8 +184,8 @@
         </div>
 
         <div class="login-record-content">
-          <Loading v-if="loading"/>
-          <template v-if="!loading">
+<!--          <Loading v-if="loading"/>-->
+          <template >
             <div class="log-title flex">
               <span class="time">{{$t('personalCenterSecurityLog.time')}}</span>
               <span class="ip">{{$t('personalCenterSecurityLog.ip')}}</span>

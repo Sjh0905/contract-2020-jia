@@ -2,12 +2,17 @@ const root = {}
 root.name = 'OverviewOfAssets'
 /*------------------------------ 组件 ------------------------------*/
 root.components = {
-  'Loading': resolve => require(['../vue/Loading'], resolve)
+  'Loading': resolve => require(['../vue/Loading'], resolve),
+  'PopupT': resolve => require(['../vue/PopupT'], resolve),
 }
 /*------------------------------ data -------------------------------*/
 root.data = function () {
   return {
     loading: false,
+    // 内部划转页面弹窗
+    popWindowOpen1:false,
+    bibiAccount:'币币账户',
+    account:'我的钱包'
 
   }
 }
@@ -29,6 +34,30 @@ root.watch = {}
 
 /*------------------------------ 方法 -------------------------------*/
 root.methods = {}
+
+root.methods.openTransfer = function () {
+  this.popWindowOpen1 = true
+}
+
+// 划转输入框交换位置
+root.methods.changeAccount = function () {
+  let empty = ''
+  empty = this.bibiAccount
+  this.bibiAccount = this.account
+  this.account = empty
+}
+
+root.methods.popWindowClose1 = function () {
+  this.popWindowOpen1 = false
+  // this.click_rel_em()
+}
+
+root.methods.click_rel_em = function () {
+  this.popWindowOpen1 = false
+}
+root.methods.commit = function () {
+  this.popWindowOpen1 = false
+}
 
 
 export default root

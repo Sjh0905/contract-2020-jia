@@ -30,8 +30,9 @@ root.data = function () {
     cancelIng: false,
 
     popWindowState: false, //撤销理由弹窗
-    cancelReason: ''//撤销理由
+    cancelReason: '',//撤销理由
 
+    openAddressFlag : false,
   }
 }
 
@@ -56,6 +57,16 @@ root.computed.lang = function () {
 /*--------------------------------- 方法 ----------------------------------*/
 
 root.methods = {}
+
+// 打开地址
+root.methods.openAddress = function () {
+    if(this.openAddressFlag = true ){
+        this.openAddressFlag = false
+    }
+    this.openAddressFlag = true
+}
+
+
 // 获取记录
 root.methods.getRecord = function (limit) {
   this.$http.send("WITHDRAWS_LOG", {
@@ -76,7 +87,7 @@ root.methods.re_getRecord = function (data) {
   // console.warn('提现记录获取记录', data)
 
   this.records = data.dataMap.requests
-  // console.warn('this is records', this.records)
+  console.warn('this is records', this.records)
 
   this.records.length < this.limit && (this.loadingMoreShow = false)
   this.records.length >= this.limit && (this.loadingMoreShow = true)

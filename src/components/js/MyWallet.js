@@ -259,14 +259,17 @@ root.watch.loading = function (newVal, oldVal) {
 
 /*------------------------------ 方法 -------------------------------*/
 root.methods = {}
-// 内部划转弹窗关闭
+// 划转输入框交换位置
 root.methods.changeAccount = function () {
+  let empty = ''
+  empty = this.bibiAccount
   this.bibiAccount = this.account
+  this.account = empty
 }
 
-root.methods.popWindowClose1 = function () {
-  this.popWindowOpen1 = false
-  // this.click_rel_em()
+root.methods.popWindowClose_transfer = function () {
+  // this.popWindowOpen1 = false
+  this.click_rel_em()
 }
 
 root.methods.click_rel_em = function () {
@@ -275,8 +278,6 @@ root.methods.click_rel_em = function () {
 root.methods.commit = function () {
   this.popWindowOpen1 = false
 }
-
-
 
 root.methods.buyCommitToastClose = function () {
   this.buyCommitToastOpen = false

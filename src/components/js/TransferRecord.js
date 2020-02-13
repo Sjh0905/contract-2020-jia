@@ -33,7 +33,7 @@ root.data = function () {
 root.computed = {}
 
 root.computed.computedTransferLists = function () {
-  return []
+  return this.transferLists
 }
 
 
@@ -41,7 +41,7 @@ root.computed.computedTransferLists = function () {
 
 
 root.created = function () {
-  // this.getTransferList()
+  this.getTransferList()
 }
 
 
@@ -50,14 +50,10 @@ root.methods = {}
 // 获取转账记录
 root.methods.getTransferList = function (currency) {
   if (currency) {
-
   }
   this.$http.send("GET_TRANSFER_LIST", {
     bind: this,
-    query: {
-      currency: '',
-      pageSize: 10
-    },
+
     callBack: this.re_getTransferList,
     errorHandler: this.error_getTransferList
   })

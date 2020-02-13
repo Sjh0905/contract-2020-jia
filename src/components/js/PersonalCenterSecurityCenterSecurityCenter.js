@@ -153,6 +153,11 @@ root.created = function () {
 
 root.methods = {}
 
+// 跳转个人中心
+root.methods.goToInvitation = function (){
+  this.$router.push({name:'Recommend'})
+}
+
 root.methods.getAuthType = function (){
   this.$http.send("GET_IDENTITY_AUTH_STATUS", {
     bind: this,
