@@ -33,6 +33,7 @@ requestAddress.FIND_BACK_PASSWORD_RESET = {url: urlHead+'/user/resetLoginPasswor
 requestAddress.FIND_BACK_MOBILE_PASSWORD_RESET = {url: urlHead+'/user//resetMobileLoginPassword', method: 'post'}//找回密码重置
 requestAddress.RECHARGE_LOG = {url: urlHead+'/user/depositLog', method: 'post'} //充值记录
 requestAddress.WITHDRAWS_LOG = {url: urlHead+'/user/withdrawLog', method: 'post'}  //提现记录
+requestAddress.GET_TRANSFER_LIST = {url: urlHead+'/user/transfer/list', method: 'get'}  //转账记录
 requestAddress.GET_IDENTITY_AUTH_STATUS = {url: urlHead+'/auth/getIdentityAuthStatus', method: 'get'} //获取身份认证状态
 requestAddress.FIND_FEE_BDB_INFO = {url: urlHead+'/user/findfeebdbinfo', method: 'get'} //查询BDB是否抵扣
 
@@ -419,6 +420,11 @@ requestAddress.POST_VOTE = {url: urlHead+'/activity/combinecoin/vote/', method: 
 
 //2019-04-25,获取充值排行
 requestAddress.GET_RECHARGE_RANKING_LIST = {url: urlHead+'/activity/promotion/ranking', method: 'get'}
+
+//2020-02-12,QQ交易挖矿报名
+requestAddress.GET_MATCHDATA = {url: urlHead+'/quant/matchData', method: 'get'}//查询配套数据
+
+
 
 
 export default requestAddress

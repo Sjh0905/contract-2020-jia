@@ -155,7 +155,7 @@
     "form_select_type": "請選擇您遇到的問題類型",
     "form_title": "標題",
     "form_descript": "描述",
-    "form_email": "請輸入您的幣為註冊手機號/郵箱地址",
+    "form_email": "請輸入您的二零二零註冊手機號/郵箱地址",
     "form_email_descript": "我們將通過郵件提示您的處理結果",
     "sms": "請輸入您的聯繫方式：手機號/郵箱",
     "file": "附件",
@@ -195,7 +195,7 @@
     "onlyImg": "只能上傳圖片!",
     "onlyThree": "只能傳三個檔",
     "c2cWrong": "C2C訂單單號格式錯誤",
-    "emailWrong": "幣為註冊手機號/郵箱地址格式錯誤",
+    "emailWrong": "二零二零註冊手機號/郵箱地址格式錯誤",
     "informationWrong": "聯繫方式格式錯誤"
   },
   "JP": {

@@ -2562,6 +2562,20 @@ root.routes.push({
       },
       component: resolve => require(['@/components/vue/JoinAGroup'], resolve),
     },
+    // sss 拼团--拼团详情
+    {
+      path: 'detailsOfTheGroup',
+      name: 'detailsOfTheGroup',
+      caseSensitive: true,
+      meta: {
+        requireLogin: false,
+        mobileHeaderTitle: '',
+        pcname: 'detailsOfTheGroup',
+        // h5name: 'mobileTradingHall',
+      },
+      component: resolve => require(['@/components/vue/DetailsOfTheGroup'], resolve),
+    },
+
 
     // TODO：弹框组件临时显示（记得删除）
     // {
@@ -2666,7 +2680,7 @@ root.routes.push({
     //   },
     // },
 
-    // sss 活动------QQ官方量化报名
+    // sss 活动------QQ交易挖矿报名
     {
       path: 'OfficialQuantitativeRegistration',
       name: 'OfficialQuantitativeRegistration',
@@ -2679,7 +2693,7 @@ root.routes.push({
       component: resolve => require(['@/components/vue/OfficialQuantitativeRegistration'], resolve),
     },
 
-    // sss 活动------QQ官方量化详情
+    // sss 活动------QQ交易挖矿详情
     {
       path: 'OfficialQuantitativeDetails',
       name: 'OfficialQuantitativeDetails',
