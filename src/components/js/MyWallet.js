@@ -1151,7 +1151,7 @@ root.methods.internalTransfer = function (index, item) {
     this.popWindowOpen = true
     return
   }
-  //
+
   // // 如果没有绑定邮箱，不允许打开提现
   if (!this.bindEmail) {
     this.popWindowTitle = this.$t('bind_email_pop_title')
@@ -1171,8 +1171,8 @@ root.methods.internalTransfer = function (index, item) {
     this.popWindowOpen = true
     return
   }
-
-
+  //
+  //
   if (this.bindIdentify && this.isTransfer == false) {
     this.popWindowTitle = this.$t('iKnowthe1')
     this.popWindowPrompt = this.$t('popWindowPromptWithdrawals1')

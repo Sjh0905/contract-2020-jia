@@ -28,7 +28,7 @@
   margin-bottom: 200px;
   margin-top: 400px;
   transform: translateY(-50%) translateX(-50%);
-  border-radius: 6px;
+  border-radius: 1px;
   box-shadow: 0 5px 10px 10px rgba(0, 0, 0, 0.05);
   overflow:scroll;
 
