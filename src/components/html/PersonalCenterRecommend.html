@@ -7,7 +7,7 @@
 <!--      {{activityRate * 100 || '&#45;&#45;'}}%-->
 <!--    </div>-->
     <div class="banner-title">邀请好友</div>
-    <div class="banner-subtitle">邀请好友获得奖励</div>
+    <div class="banner-subtitle">邀请好友获得返佣</div>
   </div>
 
   <div class="fenxbuzhou flex-row">
@@ -50,7 +50,7 @@
 <!--          </li>-->
           <li>
             <div class="myzs">
-              <span>{{$t('personalCenterRecommend.zhuansyaoqm')}}</span>
+              <span>{{$t('personalCenterRecommend.zhuansyaoqm') + " (UID)"}}</span>
               <div class="zsyaoqm">
                 <div class="zscode">
                   <input  ref="getUrl" v-model="uId"  readonly>
@@ -110,16 +110,16 @@
         <div class="titless1">{{$t('personalCenterRecommend.yiyaoqdhaoy')}}</div>
         <div class="titless2"><span>{{size || '--'}}</span></div>
       </div>
-      <div class="shutt1"></div>
+      <div class="shutt1"/>
       <div class="yaoqrs">
         <div class="titless1">{{$t('personalCenterRecommend.yihuorenshu')}}</div>
         <div class="titless2"><span>{{identityAuthCount || '--'}}</span></div>
       </div>
-<!--      <div class="shutt2"></div>-->
-<!--      <div class="yaoqrs">-->
-<!--        <div class="titless1">{{$t('personalCenterRecommend.yihuodejinbi')}}</div>-->
-<!--        <div class="titless2"><span>{{totalRegister || '&#45;&#45;'}}</span></div>-->
-<!--      </div>-->
+      <div class="shutt1"/>
+      <div class="yaoqrs">
+        <div class="titless1">{{$t('personalCenterRecommend.yihuodejinbi')}}</div>
+        <div class="titless2"><span>{{totalRegister || '--'}}</span></div>
+      </div>
 
     </div>
     </div>
@@ -148,18 +148,19 @@
   <!-- 明细start -->
   <div class=" share_container article border_radius ">
     <div class="share_bj">
-    <div class="log-title flex">
+      <div class="invitation-list">邀请列表</div>
+      <div class="log-title flex">
       <span class="time">{{$t('personalCenterRecommend.index')}}</span>
       <span class="ip">{{$t('personalCenterRecommend.userName')}}</span>
       <span class="source">{{$t('personalCenterRecommend.authState')}}</span>
-<!--      <span class="city">-->
-<!--        &lt;!&ndash;注册返利&ndash;&gt;-->
-<!--        {{$t('personalCenterRecommend.registerReward')}}-->
-<!--      </span>-->
-<!--      <span class="trading">-->
-<!--        {{$t('personalCenterRecommend.trading')}}-->
-<!--        &lt;!&ndash; 是否有交易 &ndash;&gt;-->
-<!--      </span>-->
+      <span class="reward">
+        <!--注册返利-->
+        {{$t('personalCenterRecommend.registerReward')}}
+      </span>
+      <!--<span class="trading">-->
+        <!--{{$t('personalCenterRecommend.trading')}}-->
+        <!--&lt;!&ndash; 是否有交易 &ndash;&gt;-->
+      <!--</span>-->
       <!--<span class="reward">-->
         <!--<span class="reward-txt">-->
           <!--&lt;!&ndash;昨日奖励&ndash;&gt;-->
@@ -175,7 +176,7 @@
         <!--</span>-->
       <!--</span>-->
     </div>
-    <ul class="log-container">
+      <ul class="log-container">
       <li class="loading-box" v-if="loading">
         <Loading/>
       </li>
@@ -187,10 +188,10 @@
           <span class="time">{{index+1}}</span>
           <span class="ip">{{handleName(item.beInvitedEmail)}}</span>
           <span class="source">{{item.identityAuthStatus===2?$t('personalCenterRecommend.yesAuth'):$t('personalCenterRecommend.noAuth')}}</span>
-<!--          <span class="city">{{item.invitedNum===0?'&#45;&#45;':item.invitedNum}}</span>-->
-<!--          <span class="trading">-->
-<!--              {{item.isExchange==0?'&#45;&#45;':$t('personalCenterRecommend.yesorno')}}-->
-<!--            </span>-->
+          <span class="reward">{{item.invitedNum===0?'--':item.invitedNum}}</span>
+          <!--<span class="trading">-->
+              <!--{{item.isExchange==0?'&#45;&#45;':$t('personalCenterRecommend.yesorno')}}-->
+            <!--</span>-->
           <!--<span class="reward">{{item.yesterdayReward ? toFixed(item.yesterdayReward,8): '-&#45;&#45;'}}</span>-->
           <!--<span class="reward">{{item.totalRebate ? toFixed(item.totalRebate,8): '-&#45;&#45;'}}</span>-->
         </li>
