@@ -13,9 +13,13 @@
             <div class="information_div color_hui color_8"><img class="color_img" src="../../assets/拼团_成团展示_查看规则_icon.png" alt="">查看规则</div>
           </li>
           <li class="information_li">
-            <div class="information_div color_6">距离下次升级
-              <span class="information_span"></span>
-              <span>( 22222/99999 )</span>
+            <div class="color_6">
+              <div class="next_upgrade">距离下次升级</div>
+<!--              <span class="information_span"></span>-->
+              <div class="progress_bar">
+              <el-progress :text-inside="true" :stroke-width="20" :percentage="20" status="exception">( 22222/99999 )</el-progress>
+              </div>
+              <div class="percentage">( 22222/99999 )</div>
             </div>
             <div class="information_div color_hui">普通折扣</div>
             <div class="information_div color_hui">量化折扣</div>
