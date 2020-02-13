@@ -421,5 +421,10 @@ requestAddress.POST_VOTE = {url: urlHead+'/activity/combinecoin/vote/', method: 
 //2019-04-25,获取充值排行
 requestAddress.GET_RECHARGE_RANKING_LIST = {url: urlHead+'/activity/promotion/ranking', method: 'get'}
 
+//2020-02-12,QQ交易挖矿报名
+requestAddress.GET_MATCHDATA = {url: urlHead+'/quant/matchData', method: 'get'}//查询配套数据
+
+
+
 
 export default requestAddress

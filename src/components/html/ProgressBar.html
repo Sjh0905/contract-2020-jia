@@ -5,7 +5,10 @@
     <div class="progress-bar-tit-l">
       <!-- <span class="txt-small txt-light strong">{{orderType && $t("progressBar.sale") + this.$store.state.symbol.split('_')[0] || $t("progressBar.buy")+ this.$store.state.symbol.split('_')[0]}}</span> -->
        <span class="txt-small txt-light keyong">
-               {{$t("progressBar.able")}} {{available}} {{orderType === 0 ? this.symbol.split('_')[1] : this.symbol.split('_')[0]}}
+               {{$t("progressBar.able")}}
+            </span>
+      <span class="txt-small txt-light keyong keyong-margin">
+        {{available}} {{orderType === 0 ? this.symbol.split('_')[1] : this.symbol.split('_')[0]}}
             </span>
     </div>
     <!-- <div :class="{'nobtn': orderType,'progress-bar-tit-r-en':lang!='CH'}" class="progress-bar-tit-r">

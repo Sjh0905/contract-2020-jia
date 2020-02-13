@@ -19,7 +19,7 @@ server.socket = {}
 // socket请求地址
 // server.socket.url = 'ws://192.168.2.117:3000' //欧地址
 // server.socket.url = 'ws://192.168.2.115:3000' //测试地址
-// wss://onli-quotation.btcdo.com
+// wss://onli-quotation.2020.exchange
 // server.socket.url = process.env.SOCKET || 'wss://wss.highdax.com' //node地址
 server.socket.url = process.env.SOCKET || 'wss://wss.eunex.group/v1/market/notification' //后台socket（java）地址
 // server.socket.url = process.env.SOCKET || 'wss://wss.2020.exchange/v1/market/notification' //后台socket（java）地址

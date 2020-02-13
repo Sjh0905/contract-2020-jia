@@ -218,7 +218,7 @@
 }
 
 .progress-bar-btn {
-  width: 98.3%;
+  /*width: 98.3%;*/
   height: 34px;
   line-height: 34px;
   color: #fff;
@@ -229,14 +229,14 @@
 
 .progress-bar-nologin-btn {
   width: 100%;
-  height: 32px;
-  line-height: 32px;
+  height: 30px;
+  line-height: 30px;
   text-align: center;
-  border: 1px solid #C5CFD5;
-  border-radius: 2px;
+  border: 1px solid #384256;
+  border-radius: 1px;
   font-size: 14px;
   font-family: PingFangSC-Regular;
-  color: #172A4D;
+  color: #6B7DA2;
 }
 
 .progress-bar-greenbtn {
@@ -651,6 +651,9 @@
   font-weight:400;
   color:#A2B5D9;
   line-height:14px;
+}
+.keyong-margin{
+  margin-left: 34px;
 }
 
 /*.tempClass-wrap{*/

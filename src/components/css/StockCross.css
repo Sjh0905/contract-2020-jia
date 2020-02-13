@@ -48,23 +48,24 @@
 }
 
 .stockcross-title-price {
-  /*width: 27.785%;*/
-  flex: 1;
+  min-width: 21.785%;
+  /*flex: 1;*/
   /*text-align: center;*/
-  padding-left: 5%;
+  margin-left: 5%;
   text-align: left;
 }
 
 .stockcross-title-amount {
   /*width: 22.857%;*/
   flex: 1;
-  text-align: center;
+  text-align: right;
 }
 
 .stockcross-title-volum {
   /*width: 29.357%;*/
-  flex: 1.2;
-  text-align: center;
+  flex: 1;
+  text-align: right;
+  /*margin-right: 15px;*/
 }
 
 .StockCross-mid {

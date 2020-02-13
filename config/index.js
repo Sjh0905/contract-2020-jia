@@ -26,7 +26,7 @@ module.exports = {
       '/crypto': {
         // target: 'http://192.168.2.163', //新测试环境1
         // target: 'http://www.2020.exchange', //新测试环境2
-        target:'https://www.btcdo.com',
+        target:'https://www.2020.exchange',
         changeOrigin: true,
         pathRewrite: {
           '^/crypto': ''
@@ -40,7 +40,7 @@ module.exports = {
         }
       },
       '/socket': {
-        target: 'ws://staging-node.btcdo.org/',
+        target: 'ws://staging-node.2020.exchange/',
         changeOrigin: true,
         pathRewrite: {
           '^/socket': ''
@@ -59,7 +59,7 @@ module.exports = {
     // Various Dev Server settings
     host: '0.0.0.0', // can be overwritten by process.env.HOST
     // host: '0.0.0.0', // can be overwritten by process.env.HOST
-    // host: 'b.btcdo.org', // can be overwritten by process.env.HOST
+    // host: 'b.2020.exchange', // can be overwritten by process.env.HOST
     port: 8084, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
     autoOpenBrowser: true,
     errorOverlay: true,

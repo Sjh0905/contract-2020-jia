@@ -74,7 +74,7 @@ root.computed.themeColor = function () {
 }
 
 root.computed.staticUrl = function () {
-  // return 'https://staging.btcdo.org:33333/'
+  // return 'https://staging.2020.exchange:33333/'
   return this.$store.state.static_url
 }
 // 是否登录

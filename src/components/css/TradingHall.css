@@ -7,7 +7,7 @@
   padding-top:6px;
   background-color: #202133 ;
   margin-bottom: -10px;
-  padding-bottom: 10px;
+  padding-bottom: 6px;
 }
 
 .HeaderTitle-wrap {
@@ -70,7 +70,7 @@
 
 .trading-wrap {
   width: 100%;
-  margin-top: 8px;
+  margin-top: 6px;
   overflow: hidden;
   background:#0D111F;
   /*outline: 1px solid #E5EBF5;*/
@@ -108,7 +108,7 @@
 }
 
 .traddinghall-order-wrap {
-  margin-top: 10px;
+  margin-top: 6px;
   /*outline: 1px solid #888;*/
 }
 .traddinghall-order-wrap-title{

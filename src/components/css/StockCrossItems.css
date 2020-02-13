@@ -21,7 +21,9 @@
 
 .amount_volume{
 	display: inline-flex;
-	width: 100%;
+	/*width: 100%;*/
+  flex: 1;
+  margin-right: 15px;
 }
 
 .StockCrossItems-li1{
@@ -87,10 +89,10 @@
 	/*color: rgb(234,0,112);*/
 }
 .stockcrossitem-price{
-	/*width: 27.785%;*/
+	width: 21.785%;
 	margin-left: 5%;
 	/*flex: 1;*/
-	text-align: center;
+	text-align: left;
 	z-index: 1;
 }
 .stockcrossitem-price.price_select{
@@ -105,7 +107,7 @@
 	/*width: 22.857%;*/
 	flex: 1;
 	text-align: right;
-	margin-right: 8%;
+	/*margin-right: 8%;*/
   color: #A2B5D9;
 	z-index: 1;
   /*font-family: Roboto-Regular,Roboto;*/
@@ -113,11 +115,11 @@
 .stockcrossitem-volum{
 	/*width: 29.357%;*/
 	flex: 1;
-	text-align: center;
+	text-align: right;
   color: #A2B5D9;
   z-index: 1;
   /*font-family: Roboto-Regular,Roboto;*/
-	margin-right: 2%;
+	/*margin-right: 15px;*/
 
 }
 
