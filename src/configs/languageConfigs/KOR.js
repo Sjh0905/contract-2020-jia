@@ -501,6 +501,9 @@ root.personalCenterToAuthenticate.committing = '제출 중'
 
 // 我的推荐
 root.personalCenterRecommend = {}
+root.personalCenterRecommend.management = '계정 관리'
+root.personalCenterRecommend.banner_title = '친구를 초대하다'
+root.personalCenterRecommend.banner_subtitle = '친구를 초대하여 귀국 도우미를 얻다'
 root.personalCenterRecommend.title = '공유하는 나의 독점적인 방법'
 root.personalCenterRecommend.userId = '사용자 이름'
 root.personalCenterRecommend.name = '이름'
@@ -512,7 +515,7 @@ root.personalCenterRecommend.zhuansyaoqm = '독점 초대 코드'
 root.personalCenterRecommend.copyyaoqm = '초대 코드 복사'
 root.personalCenterRecommend.yiyaoqdhaoy = '친구(사람)가 초대되었습니다.'
 root.personalCenterRecommend.yihuorenshu = '실명 수(사람)'
-root.personalCenterRecommend.yihuodejinbi = '금화 (조각)를 획득했습니다.'
+root.personalCenterRecommend.yihuodejinbi = '이미 가내 도우미를 얻었다'
 root.personalCenterRecommend.yaoqingxz = '초대 리베이트 보상 규칙'
 root.personalCenterRecommend.yaoqingxz_1 = '1、이벤트 기간 동안 거래 플랫폼에 가입하고 실명 인증을 완료하기 위해 초대한 각 친구에게 100 TwentyTwenty  금화를 얻을 수 있습니다.；'
 root.personalCenterRecommend.yaoqingxz_2 = '2、초대받은 사람의 인증을 받고 첫 번째 거래를 완료하면 초대받은 사람은 추가로 500 TwentyTwenty  금화를 받을 수 있습니다.；'
@@ -2752,7 +2755,7 @@ root.btActivityRecommend.popupWindowDetail_2 = '2.2018-6-1 00:00 ~ 2018-6-28 20:
 root.btActivityRecommend.popupWindowDetail_3 = '알아요' // 我的推荐
 
 root.personalCenterRecommend.checkHistory = '기록 보기'
-root.personalCenterRecommend.registerReward = '초대 보상 (골드)'
+root.personalCenterRecommend.registerReward = '리베이트'
 root.personalCenterRecommend.trading = '거래가 있습니까?'
 root.personalCenterRecommend.yesorno = '예'
 root.personalCenterRecommend.yesterdayReward = '어제의 보상'

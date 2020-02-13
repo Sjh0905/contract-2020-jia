@@ -626,6 +626,9 @@ root.personalCenterToAuthenticate.committing = 'Submitting'
 
 // 我的推荐
 root.personalCenterRecommend = {}
+root.personalCenterRecommend.management = 'Account management'
+root.personalCenterRecommend.banner_title = 'Invite friends'
+root.personalCenterRecommend.banner_subtitle = 'Invite friends to get rebates'
 root.personalCenterRecommend.title = 'My way of sharing'
 root.personalCenterRecommend.userId = 'User name'
 root.personalCenterRecommend.name = 'Name'
@@ -638,7 +641,7 @@ root.personalCenterRecommend.zhuansyaoqm = 'Exclusive invitation code'
 root.personalCenterRecommend.copyyaoqm = 'Copy code'
 root.personalCenterRecommend.yiyaoqdhaoy = 'Invited friend (person)'
 root.personalCenterRecommend.yihuorenshu = 'Real-name number (person)'
-root.personalCenterRecommend.yihuodejinbi = 'Gold COINS have been acquired'
+root.personalCenterRecommend.yihuodejinbi = 'Rebate earned'
 
 root.personalCenterRecommend.yaoqingxz = 'Bonus details of invitation for commission rebate'
 root.personalCenterRecommend.yaoqingxz_1 = '1. During the activity, each friend invited to register the trading platform and complete the real-name authentication can get 100 TwentyTwenty gold COINS;'
@@ -2380,7 +2383,7 @@ root.btActivityRecommend.popupWindowDetail_3 = 'I understand'
 
 // 我的推荐
 root.personalCenterRecommend.checkHistory = 'Previous earnings'
-root.personalCenterRecommend.registerReward = 'Invite rewards(gold)'
+root.personalCenterRecommend.registerReward = 'Rebate'
 root.personalCenterRecommend.trading = 'If there is a deal'
 root.personalCenterRecommend.yesorno = 'There are'
 root.personalCenterRecommend.yesterdayReward = 'Yesterday commission'

@@ -518,6 +518,9 @@ root.personalCenterToAuthenticate.committing = '提交中'
 
 // 我的推薦
 root.personalCenterRecommend = {}
+root.personalCenterRecommend.management = '帳戶管理'
+root.personalCenterRecommend.banner_title = '邀請好友'
+root.personalCenterRecommend.banner_subtitle = '邀請好友獲得返傭'
 root.personalCenterRecommend.title = '我的分享方式'
 root.personalCenterRecommend.userId = '用戶名'
 root.personalCenterRecommend.name = '姓名'
@@ -530,7 +533,7 @@ root.personalCenterRecommend.zhuansyaoqm = '專屬邀請碼'
 root.personalCenterRecommend.copyyaoqm = '複製邀請碼'
 root.personalCenterRecommend.yiyaoqdhaoy = '已邀請好友（人）'
 root.personalCenterRecommend.yihuorenshu = '已實名人數（人）'
-root.personalCenterRecommend.yihuodejinbi = '已獲得金幣（枚）'
+root.personalCenterRecommend.yihuodejinbi = '已獲得返傭'
 
 root.personalCenterRecommend.yaoqingxz = '邀請返傭獎勵細則'
 root.personalCenterRecommend.yaoqingxz_1 = '1、活動期間內，每邀請一名好友注册交易平臺並完成實名認證，即可獲得100枚TwentyTwenty金幣；'
@@ -2299,7 +2302,7 @@ root.btActivityRecommend.popupWindowDetail_3 = '我知道了'
 
 // 我的推薦
 root.personalCenterRecommend.checkHistory = '查看歷史'
-root.personalCenterRecommend.registerReward = '邀請獎勵(金幣)'
+root.personalCenterRecommend.registerReward = '返傭'
 root.personalCenterRecommend.trading = '是否有交易'
 root.personalCenterRecommend.yesorno = '有'
 root.personalCenterRecommend.yesterdayReward = '昨日獎勵'

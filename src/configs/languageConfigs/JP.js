@@ -478,7 +478,7 @@ root.personalCenterRecommend.zhuansyaoqm="せんぞく招待コード"
 root.personalCenterRecommend.copyyaoqm="コピーコード"
 root.personalCenterRecommend.yiyaoqdhaoy="すでに親友(人)を招待している"
 root.personalCenterRecommend.yihuorenshu="実名(人)"
-root.personalCenterRecommend.yihuodejinbi="金貨(枚)を獲得した"
+root.personalCenterRecommend.yihuodejinbi="獲得したリベート"
 root.personalCenterRecommend.yaoqingxz="招待返納奨励細則."
 root.personalCenterRecommend.yaoqingxz_1="1、キャンペーン期間中、1人の友人が取引プラットフォームを登録し、実名認証を完了するたびに、100枚のTwentyTwenty金貨を取得することができます。；"
 root.personalCenterRecommend.yaoqingxz_2="2、招待者に認証されて初めての取引が完了すると、招待者はTwentyTwenty金貨500枚を追加で獲得することができます。；"
@@ -2028,7 +2028,7 @@ root.btActivityRecommend.popupWindowDetail_2="2.2018-6-100：00~2018-6-2820：00
 root.btActivityRecommend.popupWindowDetail_3="分かりました。"//私の推薦
 
 root.personalCenterRecommend.checkHistory="履歴の表示"
-root.personalCenterRecommend.registerReward="奨励金(金貨)を招く"
+root.personalCenterRecommend.registerReward="リベート"
 root.personalCenterRecommend.trading="取引があるかどうか"
 root.personalCenterRecommend.yesorno="ある"
 root.personalCenterRecommend.yesterdayReward="昨日の奨励"

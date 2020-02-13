@@ -1,4 +1,16 @@
 <div class="container-i border_radius">
+
+  <!--    个人信息-->
+  <div class="personal-info">
+    <div class="personal-container">
+      <div class="currency_notice_bread">
+        <router-link to="/index/personal/securityCenter" class="management">{{$t('personalCenterRecommend.management')}}</router-link>
+        <span> > </span>
+        {{$t('personalCenterRecommend.banner_title')}}
+      </div>
+    </div>
+  </div>
+
   <div class="banner">
     <!--<img src="../../assets/banner_yqchina.png">-->
     <!--<img v-if="lang=='CH'" src="../../assets/banner_yqchina.png">-->
@@ -6,8 +18,8 @@
 <!--    <div class="activity-rate-box" :class="{'activity-rate-box-en':lang!=='CH'}">-->
 <!--      {{activityRate * 100 || '&#45;&#45;'}}%-->
 <!--    </div>-->
-    <div class="banner-title">邀请好友</div>
-    <div class="banner-subtitle">邀请好友获得返佣</div>
+    <div class="banner-title">{{$t('personalCenterRecommend.banner_title')}}</div>
+    <div class="banner-subtitle">{{$t('personalCenterRecommend.banner_subtitle')}}</div>
   </div>
 
   <div class="fenxbuzhou flex-row">

@@ -534,6 +534,10 @@ root.personalCenterToAuthenticate.committing = '提交中'
 
 // 我的推荐
 root.personalCenterRecommend = {}
+root.personalCenterRecommend.management = '账户管理'
+root.personalCenterRecommend.banner_title = '邀请好友'
+root.personalCenterRecommend.banner_subtitle = '邀请好友获得返佣'
+root.personalCenterRecommend.title = '我的专属分享方式'
 root.personalCenterRecommend.title = '我的专属分享方式'
 root.personalCenterRecommend.userId = '用户名'
 root.personalCenterRecommend.name = '姓名'
@@ -546,7 +550,7 @@ root.personalCenterRecommend.zhuansyaoqm = '专属邀请码'
 root.personalCenterRecommend.copyyaoqm = '复制邀请码'
 root.personalCenterRecommend.yiyaoqdhaoy = '已邀请好友(人)'
 root.personalCenterRecommend.yihuorenshu = '已实名人数(人)'
-root.personalCenterRecommend.yihuodejinbi = '已获得金币(枚)'
+root.personalCenterRecommend.yihuodejinbi = '已获得返佣'
 root.personalCenterRecommend.yaoqingxz = '邀请返佣奖励细则'
 root.personalCenterRecommend.yaoqingxz_1 = '1、活动期间内，每邀请一名好友注册交易平台并完成实名认证，即可获得100枚TwentyTwenty 金币；'
 root.personalCenterRecommend.yaoqingxz_2 = '2、当被邀请人认证并完成首次交易，邀请人可再额外获得500枚TwentyTwenty 金币；'
@@ -2342,7 +2346,7 @@ root.btActivityRecommend.popupWindowDetail_3 = '我知道了'
 
 // 我的推荐
 root.personalCenterRecommend.checkHistory = '查看历史'
-root.personalCenterRecommend.registerReward = '邀请奖励(金币)'
+root.personalCenterRecommend.registerReward = '返佣'
 root.personalCenterRecommend.trading = '是否有交易'
 root.personalCenterRecommend.yesorno = '有'
 root.personalCenterRecommend.yesterdayReward = '昨日奖励'

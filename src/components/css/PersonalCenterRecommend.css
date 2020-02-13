@@ -4,6 +4,40 @@
   min-height: 650px;
 }
 
+/*面包屑导航*/
+.personal-info {
+  width: 100%;
+  height:46px;
+  background:rgba(255,255,255,1);
+  box-shadow:0px 2px 6px 0px rgba(0,0,0,0.06);
+  margin-bottom: 25px;
+}
+
+.personal-container {
+  width: 1200px;
+  height: 46px;
+  margin: 0 auto;
+}
+
+.currency_notice_bread {
+  line-height: 46px;
+  width: 100%;
+  overflow: hidden;
+  color: #6B7DA2;
+  font-size: 14px;
+}
+
+.management {
+  color: #6B7DA2;
+}
+.currency_notice_bread span {
+  margin: 0 20px;
+}
+
+.management:hover {
+  color: #3576F5;
+}
+
 /*标题部分*/
 .title {
   font-size: 1.6rem;
@@ -459,7 +493,7 @@
 
 .share_container .myercode ul li .erwmak{
   padding: 7px 7px 3px 7px;
-  margin-left: 228px;
+  margin-left: 238px;
   margin-top: -14px;
   float: left;
   text-align: center;
@@ -488,7 +522,7 @@
 
 .erweima {
   font-family: PingFangSC-Regular;
-  width: 90px;
+  width: 100px;
   font-size: 12px;
   color: #8994A5;
   letter-spacing: 0;
@@ -560,7 +594,7 @@
   opacity: 0.5;
   font-family: PingFangSC-Regular;
   font-size: 14px;
-  color: #000000;
+  color: #172A4D;
   letter-spacing: 0;
 }
 
