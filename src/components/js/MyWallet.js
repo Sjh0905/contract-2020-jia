@@ -999,6 +999,14 @@ root.methods.error_getAccount = function (err) {
 root.methods.popWindowClose = function () {
   this.popWindowOpen = false
 }
+
+// 弹框跳安全中心
+root.methods.goToSecurityCenter = function () {
+  this.popWindowOpen = false
+  this.$router.push({name: 'securityCenter'})
+}
+
+
 // 弹出绑定身份，跳转到实名认证界面
 root.methods.goToBindIdentity = function () {
   this.popWindowOpen = false
