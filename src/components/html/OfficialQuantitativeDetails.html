@@ -2,16 +2,20 @@
 
   <div class="qq_content">
 
+<!--    QQ交易挖矿详情-->
     <div class="qq_title">
-      QQ交易挖矿详情
+      {{$t('miningDetails')}}
     </div>
 
+<!--账号-->
     <div class="account_number">
-      <span>账号:</span>
+      <span>{{$t('number')}}:</span>
       <span>{{userName}}</span>
     </div>
+
+<!--    参加日期-->
     <div class="account_number_right">
-      <span>参加日期:</span>
+      <span>{{$t('participation')}}:</span>
       <span>20200202</span>
     </div>
 
@@ -19,37 +23,46 @@
       <!--  sss 今日量化-->
       <div class="quantification_today">
         <div class="quantification_today_div">
-          <span class="quantification_today_span">今日量化</span>
+<!--          今日量化-->
+          <span class="quantification_today_span">{{$t('quantification')}}</span>
           <span class="quantification_today_time">(04/02 9:00 - 05/02 8:59)</span>
         </div>
 
+<!--        即将释放-->
         <div class="to_be_released_soon">
-          <span class="to_be_re">即将释放</span>
+          <span class="to_be_re">{{$t('releasedSoon')}}</span>
           <span class="to_be_re_div">0.00</span>
           <span>QQ</span>
         </div>
 
+
+<!--        已量化-->
         <div class="to_be_released_soon">
-          <span class="to_be_re">已量化</span>
+          <span class="to_be_re">{{$t('quantified')}}</span>
           <span class="to_be_re_div to_be_re_div_1">0.00</span>
         </div>
       </div>
       <!--  sss 今日奖励-->
+<!--      奖励-->
       <div class="Todays_award">
-        <div class="Todays_award_div">奖励</div>
+        <div class="Todays_award_div">{{$t('reward')}}</div>
 
         <ul>
           <li>
+<!--            矿源-->
             <div class="li_div_20">
-              <p class="color_0">矿源（QQ）</p>
+              <p class="color_0">{{$t('source')}}（QQ）</p>
               <p class="color_3">100000.00</p>
             </div>
+<!--            矿源奖励释放-->
             <div class="li_div_60">
-              <p class="color_0">矿源奖励释放(QQ)</p>
+              <p class="color_0">{{$t('rewardRelease')}}(QQ)</p>
               <p class="color_3">0</p>
             </div>
+
+<!--            已释放-->
             <div class="li_div_19">
-              <p class="color_0">已释放</p>
+              <p class="color_0">{{$t('released')}}</p>
               <p class="color_7">0.00%</p>
             </div>
           </li>
@@ -62,15 +75,20 @@
 
     <div class="record">
 
-      <div class="record_div">交易记录</div>
+<!--      交易记录-->
+      <div class="record_div">{{$t('transactionRecord')}}</div>
 
       <ul >
         <!--表头 S-->
         <li class="application_header">
-          <div class="application_header_div">日期</div>
-          <div class="application_header_div">量化</div>
-          <div class="application_header_div">奖励</div>
-          <div class="application_header_div_right">矿源金额</div>
+<!--          日期-->
+          <div class="application_header_div">{{$t('date')}}</div>
+<!--          量化-->
+          <div class="application_header_div">{{$t('quanti')}}</div>
+<!--          奖励-->
+          <div class="application_header_div">{{$t('reward')}}</div>
+<!--          矿源金额-->
+          <div class="application_header_div_right">{{$t('sourceAmount')}}</div>
         </li>
         <!--表头 E-->
 

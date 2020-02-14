@@ -51,7 +51,7 @@ root.data = () => {
 }
 
 root.created = function() {
-  this.GET_SUPPORTING()
+  this.get_supporting()
 }
 
 root.computed = {}
@@ -70,32 +70,86 @@ root.computed.userName = function () {
 root.computed.userType = function () {
   return this.$store.state.authMessage && this.$store.state.authMessage.province === 'mobile' ? 0 : 1
 }
-root.methods = {}
 
-root.methods.GET_SUPPORTING = function () {
+
+root.methods = {}
+root.methods.buyConfirmSuccessClose = function () {
+
+}
+
+//查询配套数据get
+root.methods.get_supporting = function () {
   this.$http.send('GET_MATCHDATA', {
     bind: this,
-    callBack: this.RE_GET_SUPPORTING,
-    errorHandler: this.ERROR_GET_SUPPORTING
+    callBack: this.re_get_supporting,
+    errorHandler: this.error_get_supporting
   })
 }
-root.methods.RE_GET_SUPPORTING = function (res) {
+root.methods.re_get_supporting = function (res) {
 
   this.optionsgender = res.data
   console.log("this.res=====",res)
 }
-root.methods.ERROR_GET_SUPPORTING = function (err) {
+root.methods.error_get_supporting = function (err) {
+  console.log("this.err=====",err)
+}
 
+//查询用户余额get (query:{})
+root.methods.get_balance = function () {
+  this.$http.send('GET_GETUSERBALANCE', {
+    bind: this,
+    callBack: this.re_get_balance,
+    errorHandler: this.error_get_balance
+  })
+}
+root.methods.re_get_balance = function (res) {
+  console.log("this.res=====",res)
+}
+root.methods.error_get_balance = function (err) {
+  console.log("this.err=====",err)
+}
+
+//查询报名记录get
+root.methods.get_registration_record = function () {
+  this.$http.send('GET_GETREGDATA', {
+    bind: this,
+    callBack: this.re_get_getregdata,
+    errorHandler: this.error_get_getregdata
+  })
+}
+root.methods.re_get_getregdata = function (res) {
+  console.log("this.res=====",res)
+}
+root.methods.error_get_getregdata = function (err) {
+  console.log("this.err=====",err)
+}
+
+//查询活动报名post(params:{})
+root.methods.post_activities = function () {
+  this.$http.send('POST_REGACT', {
+    bind: this,
+    params:{},
+    callBack: this.re_post_activities,
+    errorHandler: this.error_post_activities
+  })
+}
+root.methods.re_post_activities = function (res) {
+  console.log("this.res=====",res)
+}
+root.methods.error_post_activities = function (err) {
   console.log("this.err=====",err)
 }
 
 
+
+
+
+//跳转首页
 root.methods.goToHomePage = function () {
   this.$router.push({name: 'home'})
-
 }
+//关闭蒙层弹框
 root.methods.goToParticipateNow = function () {
-  // this.$router.push({name: 'officialQuantitativeRegistration'})
   this.buyConfirmSuccess = false
 }
 

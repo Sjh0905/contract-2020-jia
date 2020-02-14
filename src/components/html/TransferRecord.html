@@ -6,13 +6,13 @@
     <!--充值记录title begin-->
     <div class="detail-header flex">
       <!--流水单号-->
-      <div class="flow-code">流水单号</div>
+      <div class="flow-code">{{$t('billNumber')}}</div>
 
       <!--姓名-->
-      <div class="name">付款人账号</div>
+      <div class="name">{{$t('accountNumber')}}</div>
 
       <!--收款人账号-->
-      <div class="Payee">收款人账号</div>
+      <div class="Payee">{{$t('payeeAccount')}}</div>
 
 <!--      &lt;!&ndash;UID&ndash;&gt;-->
 <!--      <div class="uid">UID</div>-->
@@ -24,7 +24,7 @@
       <span class="total">{{$t('amount')}}</span>
 
       <!--类型-->
-      <div class="type">类型</div>
+      <div class="type">{{$t('type')}}</div>
 
       <!--时间-->
       <span class="time">{{$t('time')}}</span>
@@ -70,7 +70,7 @@
             <!--数量 end-->
 
             <!--类型-->
-            <div class="type">转账</div>
+            <div class="type">{{$t('transFer')}}</div>
 
             <!--时间 begin-->
             <span class="time">{{$globalFunc.formatDateUitl(item.dateTime,'YYYY-MM-DD hh:mm:ss')}}</span>
@@ -117,7 +117,7 @@
 <!--        <li class="detail-li-no-data"  v-if="computedTransferLists.length===0">-->
           <div class="no-data-content">
             <img src="../../assets/assetPageRecord/no-order-light.png" alt="">
-            <div class="no-record">暂无记录</div>
+            <div class="no-record">{{$t('noRecord')}}</div>
           </div>
 
 

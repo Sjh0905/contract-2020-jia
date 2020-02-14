@@ -4,19 +4,22 @@
 
   <div class="qq_content">
 
+<!--    QQ交易挖矿-->
     <div class="qq_title">
-      QQ交易挖矿
+      {{$t('tradingMining')}}
     </div>
     <div class="application">
-     <!--   活动报名表   -->
+     <!--   申请表格   -->
       <div class="application_form">
-        <div class="application_title">申请表格</div>
+        <div class="application_title">{{$t('application')}}</div>
+<!--        账号-->
         <div class="Account_number">
-          <span class="Account_number_">账号</span>
+          <span class="Account_number_">{{$t('number')}}</span>
           <div class="Account_number_input">{{userName}}</div>
         </div>
+<!--        配套-->
         <div class="supporting">
-          <span class="Account_number_">配套</span>
+          <span class="Account_number_">{{$t('supporting')}}</span>
           <template>
             <el-select v-model="valuegender" name="gender" placeholder="10000 QQ" popper-class="selectstyle">
               <el-option
@@ -32,42 +35,43 @@
 
 
 
+<!--        所需数额-->
         <div class="number_amount">
-          <p class="number_amount_p">所需数额</p>
+          <p class="number_amount_p">{{$t('required')}}</p>
           <span class="number_amount_span">QQ:</span>
           <span class="amount_span">10000</span>
         </div>
 
+<!--       账号余额 -->
         <div class="number_amount">
-          <p class="number_amount_p">账号余额</p>
+          <p class="number_amount_p">{{$t('balance')}}</p>
           <span class="number_amount_span">QQ:</span>
           <span class="amount_span">10000.00</span>
         </div>
 
-        <!-- 按钮-->
-        <div class="exchange_button">兑换</div>
+        <!-- 兑换按钮-->
+        <div class="exchange_button">{{$t('exchang')}}</div>
 
-        <!--  须知-->
-
+        <!--  须知 1,2,3-->
         <div class="notice_div">
-          <p>1.请确保您的账号已经通过了实名认证</p>
-          <p>2.请确保您的账户已绑定手机或谷歌二次验证</p>
-          <p>3.请确保您的账户有足够的USDT</p>
+          <p>{{$t('passed')}}</p>
+          <p>{{$t('bound')}}</p>
+          <p>T{{$t('sufficient')}}</p>
         </div>
       </div>
 
     <!--   活动报名记录   -->
       <div class="application_record">
 
-        <div class="application_title">报名记录</div>
+        <div class="application_title">报名记录{{$t('registration')}}</div>
 
         <ul >
           <!--表头 S-->
           <li class="application_header">
-          <div class="application_header_div">账号</div>
-          <div class="application_header_div">期数</div>
-          <div class="application_header_div">配套</div>
-          <div class="application_header_div_right">时间</div>
+          <div class="application_header_div">{{$t('number')}}</div>
+          <div class="application_header_div">{{$t('nper')}}</div>
+          <div class="application_header_div">{{$t('supporting')}}</div>
+          <div class="application_header_div_right">{{$t('time')}}</div>
           </li>
           <!--表头 E-->
 
@@ -78,13 +82,13 @@
               <transition-group name="fade">
                 <li class="flex">
                   <!--账号-->
-                  <div class="application_header_div">账号</div>
+                  <div class="application_header_div">{{$t('number')}}</div>
                   <!--期数-->
-                  <div class="application_header_div">期数</div>
+                  <div class="application_header_div">{{$t('nper')}}</div>
                   <!--配套-->
-                  <div class="application_header_div">配套</div>
+                  <div class="application_header_div">{{$t('supporting')}}</div>
                   <!--时间-->
-                  <div class="application_header_div_right">时间</div>
+                  <div class="application_header_div_right">{{$t('time')}}</div>
                 </li>
               </transition-group>
             </template>
@@ -105,19 +109,21 @@
   </div>
 
 
-  <!--  转账成功-->
+  <!--  此账号未参与QQ交易挖矿-->
   <PopupArticle :switch="buyConfirmSuccess" @close="buyConfirmSuccessClose">
 
     <div slot="article" class="Internal_siding img_ConfirmSuccess">
       <img src="../../assets/量化_未报名_icon.png" alt="" >
-      <p>此账号未参与QQ交易挖矿</p>
+      <p>{{$t('transactions')}}</p>
     </div>
     <div slot="footer">
+<!--      首页-->
       <div @click="goToHomePage" class="notice_but_1 pointer">
-        首页
+        {{$t('homePage')}}
       </div>
+<!--      立即参与-->
       <div @click="goToParticipateNow" class=" notice_but button-base btn_blue pointer">
-        立即参与
+        {{$t('participateNow')}}
       </div>
 
     </div>

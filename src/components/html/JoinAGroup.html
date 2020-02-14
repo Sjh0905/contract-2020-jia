@@ -3,12 +3,15 @@
     <div class="create">
       <div class="create_conteainer">
         <div class="create_a">
-          <p class="create_a_p">加入拼团</p>
-          <p class="create_discount">加入拼团获取交易手续费折扣</p>
+<!--          加入拼团-->
+          <p class="create_a_p">{{$t('joinGroup')}}</p>
+<!--          加入拼团获取交易手续费折扣-->
+          <p class="create_discount">{{$t('joinTransaction')}}</p>
         </div>
 
+<!--        选择拼团-->
         <div class="account_number">
-          <p class="account_number_p">选择拼团</p>
+          <p class="account_number_p">{{$t('chooseGroup')}}</p>
           <div class="">
 <!--            <input type="text" class="account_number_input" placeholder="选择已有团队">-->
 <!--            <span><img src="" alt=""></span>-->
@@ -30,7 +33,7 @@
           </div>
         </div>
         <div class="account_number">
-          <p class="account_number_p">拼团信息</p>
+          <p class="account_number_p">{{$t('groupInformation')}}</p>
           <div class="information">
             <ul>
               <li class="information_li">
@@ -38,29 +41,36 @@
                   <span>图片</span>
                   <span>图片</span>
                 </div>
-                <div class="information_div color_hui">普通折扣区</div>
-                <div class="information_div color_hui">量化折扣区</div>
+<!--                普通区折扣-->
+                <div class="information_div color_hui">{{$t('ordinaryDiscount')}}</div>
+<!--                量化区折扣-->
+                <div class="information_div color_hui">{{$t('quantifiedDiscount')}}</div>
               </li>
               <li class="information_li">
+<!--                团长账号: -->
                 <div class="information_div color_6">
-                  团长账号：
+                  {{$t('colonelNumber')}}
                   <span>1234455@qq.com</span>
                 </div>
+<!--                普通区折扣-->
                 <div class="information_div color_bik_9">0.01%</div>
+<!--                量化区折扣-->
                 <div class="information_div color_bik_9">0.01%</div>
               </li>
             </ul>
           </div>
         </div>
 
-        <div class="div_botton" @click="createGroupType">加入</div>
+<!--        加入-->
+        <div class="div_botton" @click="createGroupType">{{$t('join')}}</div>
       </div>
     </div>
 
+<!--    拼团规则-->
     <div class="rules">
-      <p class="rules_p">拼团规则</p>
-      <p class="rules_details">采用先扣次日返的形式</p>
-      <p class="rules_details">A.拼团所有成员享受团友交易手续费折扣 ，B.团级返佣，所有团员手续费求和后再核算返佣给团长账号。手续费折扣和返佣奖励只计算买入。</p>
+      <p class="rules_p">{{$t('rulesRegimentation')}}</p>
+      <p class="rules_details">{{$t('withholding')}}</p>
+      <p class="rules_details">{{$t('calculated')}}</p>
     </div>
   </div>
 </div>
