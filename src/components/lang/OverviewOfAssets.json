@@ -1,5 +1,22 @@
 {
-"CH": {},
+"CH": {
+  "totalAsset": "币币账户总资产",
+  "capitalTransfer": "资金划转",
+  "from": "从",
+  "reach": "到",
+  "coinAccount": "币币账户",
+  "myWallet": "我的钱包",
+  "currency": "币种",
+  "amount": "数量",
+  "mentioning": "可提",
+  "allMention": "全提",
+  "transfer_describe": "什么是资金划转?",
+  "transfer_describe1": "提币分为[普通提币] 和 [站内转账], [普通提币] 是指您可以将您现在账户的币种提至其他区块链地址, [站内转账] 是指您可以提至您自己或其他用户在 “Bibox”的账户中。",
+  "transfer_describe2": "普通提币: 有手续费, 到账需要区块确认",
+  "transfer_describe3": "站内转账: 无手续费, 无需区块确认, 快速到账",
+  "cancel": "取消",
+  "ensure": "确定"
+},
 "EN": {},
 "CA": {}
 }

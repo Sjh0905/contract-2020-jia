@@ -7,7 +7,7 @@
     <div class="personal-info">
       <div class="personal-container">
         <div class="currency_notice_bread">
-          <router-link to="/index/personal/securityCenter" class="management">账户管理</router-link>
+          <router-link to="/index/personal/securityCenter" class="management">{{$t('management')}}</router-link>
           <span> > </span>
           {{$t('title')}}
         </div>
@@ -86,7 +86,7 @@
 <!--          第一步-->
           <div class="one">
             <div class="one-background">1</div>
-            <div class="one-text"> 填写基本信息</div>
+            <div class="one-text">{{$t('information')}}</div>
           </div>
 
           <div class="input-unify">
@@ -330,7 +330,7 @@
         <!--          第二步-->
         <div class="two">
           <div class="two-background">2</div>
-          <div class="two-text"> 上传证件信息</div>
+          <div class="two-text">{{$t('certificates')}}</div>
         </div>
 
         <!--选择上传身份证-->

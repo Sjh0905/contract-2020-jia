@@ -53,15 +53,13 @@
               </div>
 
             </div>
-            <span class="statu">{{computedState(item.status)}}</span>
+            <span class="state">{{computedState(item.status)}}</span>
             <span class="operation pointer text_blue" v-if="canCancel(item.status)==1" @click="clickCancel(item)">{{$t('cancel')}}</span>
             <span class="operation pointer text_blue" v-else-if="canCancel(item.status)==2"
                   @click="clickToWatchReason(item)">{{$t('watchReason')}}</span>
             <span class="operation" v-else>--</span>
 
-
 <!--            <div class="operation">-->
-
 
 <!--              详情-->
 <!--              <img src="" alt="">-->
@@ -73,7 +71,7 @@
         <li class="detail-li-no-data" v-if="computedRecord.length ===0">
           <div class="no-data-content">
             <img src="../../assets/assetPageRecord/no-order-light.png" alt="">
-            <div class="no-record">暂无记录</div>
+            <div class="no-record">{{$t('noRecord')}}</div>
           </div>
 <!--          <div class="li-container flex">-->
 <!--            <span class="currency">-&#45;&#45;</span>-->

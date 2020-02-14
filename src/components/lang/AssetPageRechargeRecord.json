@@ -20,7 +20,9 @@
     "recharge_status_3": "废弃区块",
     "recharge_status_4": "等待审核",
     "recharge_status_5": "审核未通过",
-    "loadingMore": "加载更多"
+    "loadingMore": "加载更多",
+    "type": "类型",
+    "noRecord": "暂无记录"
   },
   "EN": {
     "currency": "Coin",

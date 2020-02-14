@@ -8,7 +8,11 @@
     "authentication": "身份认证",
     "safetyCente": "安全中心",
     "securityLog": "安全日志",
-    "mynvitation": "我的邀请"
+    "mynvitation": "我的邀请",
+    "uncertified": "未认证",
+    "beDismissed": "被驳回",
+    "toBeAudited": "待审核",
+    "passed": "已通过"
   },
   "EN": {
     "total": "Estimated Total",

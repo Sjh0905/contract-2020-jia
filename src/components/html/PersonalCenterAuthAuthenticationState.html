@@ -10,7 +10,7 @@
       <div class="personal-info">
         <div class="personal-container">
           <div class="currency_notice_bread">
-            <router-link to="/index/personal/securityCenter" class="management">账户管理</router-link>
+            <router-link to="/index/personal/securityCenter" class="management">{{$t('management')}}</router-link>
             <span> > </span>
             {{$t('title')}}
           </div>
@@ -381,13 +381,13 @@
           <span class="mobile-auth-img-box">
             <img src="../../assets/h5personelcenter/IDCard.png" alt="">
           </span>
-          <span class="mobile-auth-text">身份认证</span>
+          <span class="mobile-auth-text">{{$t('authentication')}}</span>
           <span class="mobile-auth-iden" v-if="authState==='3'"
-                @click="link_to_authenticate">未认证</span>
-          <span class="mobile-auth-iden mobile-auth-iden-ensure" v-if="authState==='0' || authState==='6'">审核中</span>
-          <span class="mobile-auth-iden mobile-auth-iden-ensure" v-if="authState==='2'">已通过</span>
-          <span class="mobile-auth-iden mobile-auth-iden-ensure" v-if="authState==='1'">被驳回</span>
-          <span class="mobile-auth-iden mobile-auth-iden-ensure" v-if="authState==='4'">已失效</span>
+                @click="link_to_authenticate">{{$t('uncertified')}}</span>
+          <span class="mobile-auth-iden mobile-auth-iden-ensure" v-if="authState==='0' || authState==='6'">{{$t('inAudit')}}</span>
+          <span class="mobile-auth-iden mobile-auth-iden-ensure" v-if="authState==='2'">{{$t('passed')}}</span>
+          <span class="mobile-auth-iden mobile-auth-iden-ensure" v-if="authState==='1'">{{$t('beDismissed')}}</span>
+          <span class="mobile-auth-iden mobile-auth-iden-ensure" v-if="authState==='4'">{{$t('failure')}}</span>
         </div>
         <router-link to="/index/personal/securityCenter/modifyLoginPassword" class="mobile-change-psw-box">
           <span class="mobile-change-psw-img-box">
@@ -400,7 +400,7 @@
           <span class="mobile-mobile-img-box">
             <img src="../../assets/h5personelcenter/mobile.png" alt="">
           </span>
-          <span class="mobile-auth-text">邮箱认证</span>
+          <span class="mobile-auth-text">{{$t('mailbox')}}</span>
           <span class="mobile-auth-iden" v-if="!bindEmail" @click="click_bind_email">{{$t('noAuth')}}</span>
           <span class="mobile-auth-iden mobile-auth-iden-ensure" v-if="bindEmail" @click="click_release_email">{{$t('yesAuth')}}</span>
         </div>
@@ -441,7 +441,7 @@
 
 
       <div class="mobile-quit-button" @click="loginOff">
-        退出登录
+        {{$t('logout')}}
       </div>
     </div>
     <!--<PopupPrompt :popOpen="popOpen" :popClose="popClose" :popType="popType" :popText="popText">-->
@@ -464,14 +464,14 @@
                src="../../assets/mobile_img/mobile_asset_commen/h5_toast_close_btn.png" alt="">
         </div>
         <!--顶部标题-->
-        <div class="lock-position-confirm-toast-title">提示</div>
+        <div class="lock-position-confirm-toast-title">{{$t('face_pop_header')}}</div>
         <div class="lock-position-confirm-toast-list">
           <div class="lock-position-confirm-toast-item">
-            该操作需要身份认证，请立刻前往PC端个人中心完成
+            {{$t('goToCertification')}}
           </div>
         </div>
         <div class="lock-position-confirm-toast-btns">
-          <div class="lock-position-confirm-toast-btn-confirm" @click="popIdenClose">我知道了</div>
+          <div class="lock-position-confirm-toast-btn-confirm" @click="popIdenClose">{{$t('promptEnsure')}}</div>
           <!--<div class="lock-position-confirm-toast-btn-close" @click="popIdenClose">取消</div>-->
           <!--<a class="lock-position-confirm-toast-btn-confirm" :href="staticUrl+'/AppDownload/'" target="_blank">下载app</a>-->
         </div>

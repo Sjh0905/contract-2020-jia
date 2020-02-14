@@ -14,7 +14,10 @@
     "no_record": "暂无记录",
     "tab_3": "自选区",
     "collection": "自选",
-    "currency": "币种"
+    "currency": "币种",
+    "market": "市场",
+    "quotation": "行情"
+
   },
   "EN": {
     "market": "Market",

@@ -24,7 +24,7 @@
   <!--&lt;!&ndash;  </ul>&ndash;&gt;-->
 
     <div class="title">
-      <div class="home-market-title">{{$route.name == 'home'?'市场':'行情'}}</div>
+      <div class="home-market-title">{{$route.name == 'home'? $t('market'):$t('quotation')}}</div>
       <div class="shicseach">
         <el-input
           :placeholder='$t("SearchCurrency")'

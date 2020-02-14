@@ -39,7 +39,17 @@
     "cancel": "取消",
     "wrong_message_2": "您的身份认证已通过",
     "wrong_message_3": "暂不可用",
-    "expired": "已失效"
+    "expired": "已失效",
+    "management": "账户管理",
+    "authentication": "身份认证",
+    "uncertified": "未认证",
+    "beDismissed": "被驳回",
+    "toBeAudited": "待审核",
+    "passed": "已通过",
+    "inAudit": "审核中",
+    "failure": "已失效",
+    "mailbox": "邮箱验证",
+    "logout": "退出登录"
   },
   "EN": {
     "title": "KYC",
@@ -171,7 +181,8 @@
     "cancel": "取消",
     "wrong_message_2": "您的身份認證已通過",
     "wrong_message_3": "暫不可用",
-    "expired": "已失效"
+    "expired": "已失效",
+    "goToCertification": "该操作需要身份认证，请立刻前往PC端个人中心完成"
   },
 
   "JP": {  "title": "身分認証",  "toAuth": "認証に行く",  "review": "審査中",  "authenticated": "認証済み",

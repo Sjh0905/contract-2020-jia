@@ -52,19 +52,19 @@
         <div class="open_api_body_ip">
           <div class="ip_limit">
             <label class="api_title">
-              IP访问限制:
+              {{$t('API_describe')}}
             </label>
             <label for="">
               <input type="radio" name="" disabled="disabled">
-              只限制对可信任ip的访问(推荐)
+              {{$t('API_describe1')}}
             </label>
             <label for="">
               <input type="radio" name="" checked="checked" disabled="disabled">
-              不信任任何ip(安全等级低)
+              {{$t('API_describe2')}}
             </label>
           </div>
           <div class="api_notice api_ip">
-            建议您添加可信的IP地址访问API Key
+            {{$t('API_describe3')}}
           </div>
         </div>
       </div>
