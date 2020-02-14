@@ -423,7 +423,21 @@ requestAddress.GET_RECHARGE_RANKING_LIST = {url: urlHead+'/activity/promotion/ra
 
 //2020-02-12,QQ交易挖矿报名
 requestAddress.GET_MATCHDATA = {url: urlHead+'/quant/matchData', method: 'get'}//查询配套数据
+requestAddress.GET_GETUSERBALANCE = {url: urlHead+'/quant/getUserBalance', method: 'get'}//查询用户余额
+requestAddress.GET_GETREGDATA = {url: urlHead+'/quant/getRegData', method: 'get'}//查询报名记录
+requestAddress.POST_REGACT = {url: urlHead+'/quant/regAct', method: 'post'}//活动报名
 
+
+//2020-02-14，拼团相关接口
+requestAddress.POST_ASSEMBLE_CREATEGROUP = {url: urlHead+'/assemble/createGroup', method: 'post'}//活动报名/
+requestAddress.POST_ASSEMBLE_LEVEAGROUP = {url: urlHead+'/assemble/leveaGroup', method: 'post'}//活动报名/
+requestAddress.POST_ASSEMBLE_JOINGROUP = {url: urlHead+'/assemble/joinGroup', method: 'post'}//活动报名/
+requestAddress.GET_ASSEMBLE_ISEXISTGNAME = {url: urlHead+'/assemble/isExistGname', method: 'get'}//检查团名是否可用
+requestAddress.GET_ASSEMBLE_GETMEM = {url: urlHead+'/assemble/getMem/', method: 'get'}//获取用户组等级信息
+requestAddress.GET_QUERYMEMBERLIST = {url: urlHead+'/assemble/queryMemberList/', method: 'get'}//团员列表
+requestAddress.GET_QUERYSHOWGROUPINFO = {url: urlHead+'/assemble/queryShowGroupInfo', method: 'get'}//拼团展示团队详情
+requestAddress.GET_QUERYGROUPINFO = {url: urlHead+'/assemble/queryGroupInfo', method: 'get'}//查询组详情
+requestAddress.GET_QUERYGROUPLIST = {url: urlHead+'/assemble/queryGroupList/', method: 'get'}//模糊查询可加入小组
 
 
 
