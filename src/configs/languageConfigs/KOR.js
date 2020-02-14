@@ -1879,7 +1879,7 @@ root.personalCenterRecommend.activityArticle_2 = '2、월말 정산, 다음 달 
 root.personalCenterRecommend.activityArticle_3 = '3、邀请人可享受好友自注册成功之日起1年内30%的交易手续费奖励；'
 root.personalCenterRecommend.activityArticle_4 = '4、플랫폼 업데이트에 따라 활동이 조정되는 경우 이 활동의 최종 해석은 TwentyTwenty가 소유합니다.。'
 root.personalCenterRecommend.activityFooterButton = '알아요'
-root.indexAboutUs.btcdo = 'TwentyTwenty' // 2018.3.5 分页
+root.indexAboutUs.website = 'TwentyTwenty' // 2018.3.5 分页
 
 root.basePageBar = {}
 root.basePageBar.index = '홈'

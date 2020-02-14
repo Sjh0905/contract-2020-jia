@@ -1,6 +1,6 @@
 {
   "CH": {
-    "btcdo": "二零二零",
+    "website": "二零二零",
     "quotes": "行情",
     "currencyExchange": "币币交易",
     "fiatDeal":"法币交易",
@@ -12,7 +12,6 @@
     "TeaTeaSource": "茶叁茶源",
     "GRCTradeEvent": "易物点通证量化活动",
     "OfficialQuantitativeRegistration": "QQ交易挖矿",
-
     "appdown": "APP下载",
     "information": "资讯",
     "help": "帮助中心",
@@ -57,7 +56,7 @@
   "EN": {
     "platform_1":"Chinese",
     "platform_2":"Chinese",
-    "btcdo": "TwentyTwenty",
+    "website": "TwentyTwenty",
     "quotes": "Markets",
     "currencyExchange": "Exchange",
     "fiatDeal":"Fiat deal",
@@ -110,7 +109,7 @@
   "CA": {
     "platform_1":"Chinese",
     "platform_2":"Chinese",
-    "btcdo": "TwentyTwenty",
+    "website": "TwentyTwenty",
     "quotes": "Markets",
     "currencyExchange": "Exchange",
     "fiatDeal":"Fiat deal",
@@ -160,14 +159,14 @@
     "platform_4":"Download"
   },
   "KOR": {
-    "btcdo": "중순~가을 축제",  "quotes": "시장",  "currencyExchange": "코인 트레이딩",
+    "website": "중순~가을 축제",  "quotes": "시장",  "currencyExchange": "코인 트레이딩",
     "fiatDeal":"프랑스 통화 거래",  "coinDepot": "코인 디포",  "order": "순서",
     "platform_3":"공고",
     "platform_4":"다운로드",
     "assets": "자산",  "activity": "활동",  "ExchangeThreeTeaSources": "교환 차 소스",  "TeaTeaSource": "차 소스", "GRCTradeEvent": "GRC Trade Event",  "appdown": "APP다운로드",  "information": "정보",  "help": "도움말 센터",  "notice": "알림 센터",  "account": "개인 센터",  "login": "로그인",  "register": "등록",  "loginOff": "로그아웃",  "sloganbtn": "트레이딩 플로어 에 입장",  "slogangraph": "모든 사람들이 가지고 있는 제로 온라인 수수료",  "slogangraphl": "온라인 수수료 제로",  "slogangraphr": "모든 사람들이",  "problem": "문제",  "form": "티켓 제출",  "service": "고객 서비스",  "proposal": "당신의 제안",  "joinUs": "우리와 함께하세요",  "recharge": "충전 철회",  "rechargeRecord": "레코드 충전",  "withdrawalsRecord": "출금 기록",  "currentEntrust": "현재 대리자",  "historicalEntrust": "역사 위임",  "personalCenter": "개인 센터",  "platformReward": "플랫폼 리워드",  "miningProfit": "채굴 이익",  "CoinBaby": "코인 디포",  "LockPositionRecord": "잠금 레코드",  "superBee": "슈퍼 포 허니",  "qrCode":"스윕 링 업 다운로드",  "seeMore":"더 보기",  "platform":"플랫폼 공지 사항",  "platform_1":"중국어 번체",  "platform_2":"중국어 간체"
   },
   "CHT": {
-    "btcdo": "二零二零",
+    "website": "二零二零",
     "quotes": "行情",
     "currencyExchange": "幣幣交易",
     "fiatDeal":"法幣交易",
@@ -215,7 +214,7 @@
     "platform_4":"下載"
   },
   "JP": {
-    "btcdo": "TwentyTwenty",
+    "website": "TwentyTwenty",
     "quotes": "相場",
     "currencyExchange": "貨幣取引",
     "fiatDeal":"法幣取引に",

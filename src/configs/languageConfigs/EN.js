@@ -1374,7 +1374,7 @@ root.noticeDetail.team = 'TwentyTwenty team'
 root.noticeCenter.loadingMore = 'Load more'
 root.noticeCenter.loadingMoreIng = 'Loading...'
 
-root.indexAboutUs.btcdo = ''
+root.indexAboutUs.website = ''
 
 
 root.personalCenterRecommend.activityTitle = 'Referral program'
