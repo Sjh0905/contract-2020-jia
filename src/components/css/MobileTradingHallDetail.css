@@ -44,7 +44,7 @@
   text-align: center;
   /*color: #fff;*/
   padding: 0 0.1rem;
-  color: #02987D;
+  color: #39B496;
   font-family: PingFangSC-Medium;
   font-size: 20px;
 }
@@ -55,7 +55,7 @@
 }
 
 .header-title-item-active-lv{
-  border-bottom: 2px solid #02987D;
+  border-bottom: 2px solid #39B496;
   /*color: #3576F5;*/
 }
 
@@ -264,7 +264,7 @@
   color:#fff;
   text-align: center;
   font-size: 0.32rem;
-  background: #02987D;
+  background: #39B496;
   border-radius: 1.5px;
 }
 
@@ -330,7 +330,7 @@
 .mobile-buy-detail-item-price{
   font-size: 0.26rem;
   line-height: 0.4rem;
-  /*color: #02987D;*/
+  /*color: #39B496;*/
 }
 
 .mobile-buy-detail-item-num{
@@ -359,7 +359,7 @@
 }
 
 .mobile-buy-detail-now-price-box-up{
-  /*color: #02987D;*/
+  /*color: #39B496;*/
   margin: 0.1rem 0;
 }
 
@@ -508,7 +508,7 @@
 }
 
 .mobile-current-item-icon-buy {
-  background: #02987D;
+  background: #39B496;
 }
 
 .mobile-current-item-icon-sale {
@@ -649,7 +649,7 @@
 /*}*/
 
 /*.mobile-history-item-icon-buy {*/
-  /*background: #02987D;*/
+  /*background: #39B496;*/
 /*}*/
 
 /*.mobile-history-item-icon-sale {*/
@@ -1176,7 +1176,7 @@
  }
 
 .hq-price-up{
-  color: #02987D;
+  color: #39B496;
 }
 
 
