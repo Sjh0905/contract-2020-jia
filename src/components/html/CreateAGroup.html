@@ -3,31 +3,39 @@
     <div class="create">
       <div class="create_conteainer">
         <div class="create_a">
-          <p class="create_a_p">创建拼团</p>
-          <p class="create_discount">创建拼团获取交易手续费折扣</p>
+<!--          创建拼团-->
+          <p class="create_a_p">{{$t('createGroup')}}</p>
+<!--          创建拼团获取交易手续费折扣-->
+          <p class="create_discount">{{$t('transactionFees')}}</p>
         </div>
 
+<!--        团长账号-->
         <div class="account_number">
-          <p class="account_number_p">团长账号</p>
+          <p class="account_number_p">{{$t('colonelNumber')}}</p>
           <div class="account_number_div">12345677@qq.com</div>
         </div>
+<!--        拼团名称-->
         <div class="account_number">
-          <p class="account_number_p">拼团名称</p>
+          <p class="account_number_p">{{$t('nameRegiment')}}</p>
           <input type="text" class="account_number_input" placeholder="输入拼团名称">
         </div>
+<!--        设置副团长-->
         <div class="account_number">
-          <p class="account_number_p">设置副团长</p>
+          <p class="account_number_p">{{$t('delegations')}}</p>
           <input type="text" class="account_number_input" placeholder="输入副团长账号">
         </div>
 
-        <div class="div_botton" @click="createGroupType">创建</div>
+<!--        创建-->
+        <div class="div_botton" @click="createGroupType">{{$t('create')}}</div>
       </div>
     </div>
 
+
+<!--    拼团规则-->
     <div class="rules" >
-      <p class="rules_p">拼团规则</p>
-      <p class="rules_details">采用先扣次日返的形式</p>
-      <p class="rules_details">A.拼团所有成员享受团友交易手续费折扣 ，B.团级返佣，所有团员手续费求和后再核算返佣给团长账号。手续费折扣和返佣奖励只计算买入。</p>
+      <p class="rules_p">{{$t('rulesRegimentation')}}</p>
+      <p class="rules_details">{{$t('withholding')}}</p>
+      <p class="rules_details">{{$t('calculated')}}</p>
     </div>
   </div>
 </div>

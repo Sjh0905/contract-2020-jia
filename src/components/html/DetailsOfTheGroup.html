@@ -1,40 +1,50 @@
 <div class="detailsOfTheGroup">
 
   <div class="detailsOf">
+
+<!--    大banner-->
     <div class="of_the">
       <div class="of_the_img"><img src="../../assets/拼团_成团展示_icon.png" alt=""></div>
         <ul>
+<!--          图片-->
           <li class="information_li">
             <div class="information_div color_bik">队名队名队名队名队名队名
               <span>图片</span>
               <span>图片</span>
             </div>
             <div class="information_div color_hui"></div>
-            <div class="information_div color_hui color_8"><img class="color_img" src="../../assets/拼团_成团展示_查看规则_icon.png" alt="">查看规则</div>
+            <div class="information_div color_hui color_8"><img class="color_img" src="../../assets/拼团_成团展示_查看规则_icon.png" alt="">{{$t('viewRules')}}</div>
           </li>
+<!--          距离下次升级-->
           <li class="information_li">
             <div class="color_6">
-              <div class="next_upgrade">距离下次升级</div>
+              <div class="next_upgrade">{{$t('untilUpgrade')}}</div>
 <!--              <span class="information_span"></span>-->
               <div class="progress_bar">
               <el-progress :text-inside="true" :stroke-width="20" :percentage="20" status="exception">( 22222/99999 )</el-progress>
               </div>
               <div class="percentage">( 22222/99999 )</div>
             </div>
-            <div class="information_div color_hui">普通折扣</div>
-            <div class="information_div color_hui">量化折扣</div>
+<!--            普通区折扣-->
+            <div class="information_div color_hui">{{$t('ordinaryDiscount')}}</div>
+<!--            量化区折扣-->
+            <div class="information_div color_hui">{{$t('quantitativeDiscount')}}</div>
           </li>
+<!--          团长，副团长 建团时间-->
           <li class="information_li">
+<!--            团长账号:-->
             <div class="information_div color_f5">
-              团长账号：
+              {{$t('colonelNumber')}}
               <span>1234455@qq.com</span>
             </div>
+<!--            副团长账号:-->
             <div class="information_div color_f5">
-              副团长账号：
+              {{$t('colonelNumberFu')}}
               <span>1234455@qq.com</span>
             </div>
+<!--            建团时间: -->
             <div class="information_div color_f5">
-              建团时间：
+              {{$t('timeFormation')}}:
               <span>2020/02/11</span>
             </div>
             <div class="information_div color_bik_9">0.01%</div>
@@ -43,31 +53,39 @@
         </ul>
       </div>
 
+<!--    账号，入团时间-->
     <div class="of_number">
-      <span class="of_number_span">账号:</span>
+<!--      账号：-->
+      <span class="of_number_span">{{$t('accountNumber')}}:</span>
       <span> 1111111111@qq.com</span>
-      <span class="of_number_span_time">入团时间:</span>
+<!--      入团时间：-->
+      <span class="of_number_span_time">{{$t('entryTime')}}:</span>
       <span> 2020/02/11</span>
     </div>
 
+<!--    团长的普通区，量化区累计-->
     <div>
       <div class="cumulative">
 
             <div class="cumulative_div">
+<!--              普通区累计（USDT）-->
               <div class="information_div div_border">
-                <p class="color_e2">普通区累计(USDT）</p>
+                <p class="color_e2">{{$t('ordinaryAccumulation')}}(USDT）</p>
                 <p class="color_e9">2567</p>
               </div>
+<!--              普通区返佣-->
               <div class="information_div div_border">
-                <p class="color_e2">普通区累计(USDT）</p>
+                <p class="color_e2">{{$t('ordinaryRebates')}}(USDT）</p>
                 <p class="color_e9">2567</p>
               </div>
+<!--              量化区累计-->
               <div class="information_div div_border">
-                <p class="color_e2">普通区累计(USDT）</p>
+                <p class="color_e2">{{$t('quantizationAccumulation')}}(USDT）</p>
                 <p class="color_e9">2567</p>
               </div>
+<!--              量化区返佣-->
               <div class="information_div border-ling div_border">
-                <p class="color_e2">普通区累计(USDT）</p>
+                <p class="color_e2">{{$t('quantificationRebates')}}(USDT）</p>
                 <p class="color_e9">2567</p>
               </div>
 
@@ -76,16 +94,25 @@
       </div>
     </div>
 
+
+<!--    团员列表-->
     <div class="list_directory">
 
-      <div class="list_directory_column">团员列表</div>
+      <div class="list_directory_column">{{$t('memberList')}}</div>
       <ul>
+<!--        表头-->
         <li class="list_directory_column_li">
-          <div class="list_directory_column_li_div">序号</div>
-          <div class="list_directory_column_li_div">序号</div>
-          <div class="list_directory_column_li_div">序号</div>
-          <div class="list_directory_column_li_dii">序号</div>
+<!--          序号-->
+          <div class="list_directory_column_li_div">{{$t('serialNumber')}}</div>
+<!--          账号-->
+          <div class="list_directory_column_li_div">{{$t('accountNumber')}}</div>
+<!--          职位-->
+          <div class="list_directory_column_li_div">{{$t('position')}}</div>
+<!--          加入时间-->
+          <div class="list_directory_column_li_dii">{{$t('additionTime')}}</div>
         </li>
+
+<!--     序号   账号  职位 加入时间-->
         <li class="list_directory_column_li_div_li">
           <div class="list_directory_column_li_div">序号</div>
           <div class="list_directory_column_li_div">序号</div>
