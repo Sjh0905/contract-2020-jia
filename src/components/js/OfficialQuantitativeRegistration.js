@@ -51,7 +51,7 @@ root.data = () => {
 }
 
 root.created = function() {
-  this.GET_SUPPORTING()
+  this.get_supporting()
 }
 
 root.computed = {}
