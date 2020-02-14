@@ -173,7 +173,6 @@ root.methods.recordDescription = function (item) {
   // if (type === 'MAR_MEMBER_BONUS') description = this.$t('assetPagePlatformReward.description_15')
   // if (type === 'MAR_REFERRAL_BONUS') description = this.$t('assetPagePlatformReward.description_16')
   // if (type === 'MAR_REFER_KYC_BON') description = this.$t('assetPagePlatformReward.description_17')
-  // if (type === 'MAR_BTCDO_LOTTERY') description = this.$t('assetPagePlatformReward.description_18')
 
 
   return description

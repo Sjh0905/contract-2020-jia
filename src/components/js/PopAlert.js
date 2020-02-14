@@ -1,4 +1,4 @@
-import logo from '../../assets/欧联logo.png'
+import logo from '../../assets/logo.png'
 
 const root = {}
 root.name = 'PopAlert'

@@ -73,6 +73,9 @@ root.computed.userType = function () {
 
 
 root.methods = {}
+root.methods.buyConfirmSuccessClose = function () {
+
+}
 
 //查询配套数据get
 root.methods.get_supporting = function () {

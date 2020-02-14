@@ -83,7 +83,7 @@ root.created = function () {
     source: '', // 来源（QQ空间会用到）
     title: '二零二零', // 标题，默认读取 document.title 或者 <meta name="title" content="share.js" />
     description: '二零二零', // 描述, 默认读取head标签：<meta name="description" content="PHP弱类型的实现原理分析" />
-    image: 'http://logo.2020.exchange/btcdo.jpg', // 图片, 默认取网页中第一个img标签
+    image: 'http://logo.2020.exchange/website.jpg', // 图片, 默认取网页中第一个img标签
     origin: window.location.origin,
   }
 
@@ -157,7 +157,7 @@ root.methods.re_getPlatformData = function (data) {
   //     source: '', // 来源（QQ空间会用到）
   //     title: '二零二零TwentyTwenty 即将开启“交易挖矿”模式，现在注册抢占先机，挖矿开启不用等！邀请好友再享100天内好友挖矿量' + this.btActivity + '%奖励。注册链接：' + document.location.host + '/index/register?uid=' + this.$store.state.authMessage.userId, // 标题，默认读取 document.title 或者 <meta name="title" content="share.js" />
   //     description: '二零二零TwentyTwenty 即将开启“交易挖矿”模式，现在注册抢占先机，挖矿开启不用等！邀请好友再享100天内好友挖矿量' + this.btActivity + '%奖励。注册链接：' + document.location.host + '/index/register?uid=' + this.$store.state.authMessage.userId, // 描述, 默认读取head标签：<meta name="description" content="PHP弱类型的实现原理分析" />
-  //     image: 'http://logo.2020.exchange/btcdo.jpg', // 图片, 默认取网页中第一个img标签
+  //     image: 'http://logo.2020.exchange/website.jpg', // 图片, 默认取网页中第一个img标签
   //     origin: window.location.origin,
   //   }
   // } else {
@@ -166,7 +166,7 @@ root.methods.re_getPlatformData = function (data) {
   //     source: '', // 来源（QQ空间会用到）
   //     title: '二零二零TwentyTwenty “交易挖矿”模式火热进行中，累计收益分配已达' + this.platformData + 'USDT，现在注册每天都能领高额分配收益！邀请好友更享100天内好友挖矿BT量' + this.btActivity + '%奖励。注册链接：' + document.location.host + '/index/register?uid=' + this.$store.state.authMessage.userId, // 标题，默认读取 document.title 或者 <meta name="title" content="share.js" />
   //     description: '二零二零TwentyTwenty “交易挖矿”模式火热进行中，累计收益分配已达' + this.platformData + 'USDT，现在注册每天都能领高额分配收益！邀请好友更享100天内好友挖矿BT量' + this.btActivity + '%奖励。注册链接：' + document.location.host + '/index/register?uid=' + this.$store.state.authMessage.userId, // 描述, 默认读取head标签：<meta name="description" content="PHP弱类型的实现原理分析" />
-  //     image: 'http://logo.2020.exchange/btcdo.jpg', // 图片, 默认取网页中第一个img标签
+  //     image: 'http://logo.2020.exchange/website.jpg', // 图片, 默认取网页中第一个img标签
   //     origin: window.location.origin,
   //
   //   }
