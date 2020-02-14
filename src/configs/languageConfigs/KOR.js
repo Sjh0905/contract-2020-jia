@@ -2,7 +2,7 @@
 
 // 首页header
 root.indexHeader = {}
-root.indexHeader.btcdo = '중순~가을 축제'
+root.indexHeader.website = '중순~가을 축제'
 root.indexHeader.currencyExchange = '코인 트레이딩'
 root.indexHeader.Quotation = '시장'
 root.indexHeader.frenchExchange = '프랑스 통화 거래'
@@ -666,7 +666,7 @@ root.register.haveID = '기존 계정'
 
 // 首页header
 root.indexHeader = {}
-root.indexHeader.btcdo = '중순~가을 축제'
+root.indexHeader.website = '중순~가을 축제'
 root.indexHeader.currencyExchange = '코인 트레이딩'
 root.indexHeader.Quotation = '시장'
 root.indexHeader.frenchExchange = '프랑스 통화 거래'

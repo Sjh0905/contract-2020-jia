@@ -7,7 +7,7 @@ root.assetPage.total = 'Estimated Total'
 
 // 首页header
 root.indexHeader = {}
-root.indexHeader.btcdo = 'TwentyTwenty'
+root.indexHeader.website = 'TwentyTwenty'
 root.indexHeader.currencyExchange = 'Exchange'
 root.indexHeader.Quotation = 'Quotation'
 root.indexHeader.frenchExchange = 'Fiat'
