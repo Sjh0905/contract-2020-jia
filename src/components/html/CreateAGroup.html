@@ -12,17 +12,17 @@
 <!--        团长账号-->
         <div class="account_number">
           <p class="account_number_p">{{$t('colonelNumber')}}</p>
-          <div class="account_number_div">12345677@qq.com</div>
+          <div class="account_number_div">{{userName}}</div>
         </div>
 <!--        拼团名称-->
         <div class="account_number">
           <p class="account_number_p">{{$t('nameRegiment')}}</p>
-          <input type="text" class="account_number_input" placeholder="输入拼团名称">
+          <input type="text" class="account_number_input" placeholder="输入拼团名称" v-model="nameRegiment">
         </div>
 <!--        设置副团长-->
         <div class="account_number">
           <p class="account_number_p">{{$t('delegations')}}</p>
-          <input type="text" class="account_number_input" placeholder="输入副团长账号">
+          <input type="text" class="account_number_input" placeholder="输入副团长账号" v-model="delegations">
         </div>
 
 <!--        创建-->

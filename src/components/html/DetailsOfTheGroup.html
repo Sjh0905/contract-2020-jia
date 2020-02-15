@@ -8,9 +8,20 @@
         <ul>
 <!--          图片-->
           <li class="information_li">
-            <div class="information_div color_bik">队名队名队名队名队名队名
-              <span>图片</span>
-              <span>图片</span>
+            <div class="information_div color_bik">{{gname}}
+              <span v-if="glevel=='0'"></span>
+              <span v-if="glevel=='1'"><img src="../../assets/拼团_微团_icon.png" alt=""></span>
+              <span v-if="glevel=='2'"><img src="../../assets/拼团_小团_icon.png" alt=""></span>
+              <span v-if="glevel=='3'"><img src="../../assets/拼团_中团_icon.png" alt=""></span>
+              <span v-if="glevel=='4'"><img src="../../assets/拼团_大团_icon.png" alt=""></span>
+              <span v-if="glevel=='5'"><img src="../../assets/拼团_超团_icon.png" alt=""></span>
+
+              <span class="" v-if="glevel=='0'"></span>
+              <span class="tupian tupian_wei" v-if="glevel=='1'">微团</span>
+              <span class="tupian tupian_xiao" v-if="glevel=='2'">小团</span>
+              <span class="tupian tupian_zhong" v-if="glevel=='3'">中团</span>
+              <span class="tupian tupian_da" v-if="glevel=='4'">大团</span>
+              <span class="tupian tupian_chao" v-if="glevel=='5'">超团</span>
             </div>
             <div class="information_div color_hui"></div>
             <div class="information_div color_hui color_8"><img class="color_img" src="../../assets/拼团_成团展示_查看规则_icon.png" alt="">{{$t('viewRules')}}</div>
@@ -21,9 +32,9 @@
               <div class="next_upgrade">{{$t('untilUpgrade')}}</div>
 <!--              <span class="information_span"></span>-->
               <div class="progress_bar">
-              <el-progress :text-inside="true" :stroke-width="20" :percentage="20" status="exception">( 22222/99999 )</el-progress>
+              <el-progress :text-inside="true" :stroke-width="20" :percentage="20" status="exception">( {{maxMember}}/99999 )</el-progress>
               </div>
-              <div class="percentage">( 22222/99999 )</div>
+              <div class="percentage">( {{maxMember}}/99999 )</div>
             </div>
 <!--            普通区折扣-->
             <div class="information_div color_hui">{{$t('ordinaryDiscount')}}</div>
@@ -35,19 +46,20 @@
 <!--            团长账号:-->
             <div class="information_div color_f5">
               {{$t('colonelNumber')}}
-              <span>1234455@qq.com</span>
+              <span>{{priAccount}}</span>
             </div>
 <!--            副团长账号:-->
             <div class="information_div color_f5">
               {{$t('colonelNumberFu')}}
-              <span>1234455@qq.com</span>
+              <span>{{deputyAccount}}</span>
             </div>
 <!--            建团时间: -->
             <div class="information_div color_f5">
               {{$t('timeFormation')}}:
-              <span>2020/02/11</span>
+              <span>{{createdAt}}</span>
             </div>
-            <div class="information_div color_bik_9">0.01%</div>
+<!--            普通区折扣-->
+            <div class="information_div color_bik_9">{{commonDiscount}}</div>
             <div class="information_div color_bik_9">0.01%</div>
           </li>
         </ul>
@@ -57,10 +69,10 @@
     <div class="of_number">
 <!--      账号：-->
       <span class="of_number_span">{{$t('accountNumber')}}:</span>
-      <span> 1111111111@qq.com</span>
+      <span>{{userName}}</span>
 <!--      入团时间：-->
       <span class="of_number_span_time">{{$t('entryTime')}}:</span>
-      <span> 2020/02/11</span>
+      <span> {{joinTime}}</span>
     </div>
 
 <!--    团长的普通区，量化区累计-->
@@ -113,11 +125,11 @@
         </li>
 
 <!--     序号   账号  职位 加入时间-->
-        <li class="list_directory_column_li_div_li">
-          <div class="list_directory_column_li_div">序号</div>
-          <div class="list_directory_column_li_div">序号</div>
-          <div class="list_directory_column_li_div">序号</div>
-          <div class="list_directory_column_li_dii">序号</div>
+        <li class="list_directory_column_li_div_li" v-for="(item,index) in computedRecord" :key="item.id">
+          <div class="list_directory_column_li_div">{{item.rowNum}}</div>
+          <div class="list_directory_column_li_div">{{item.account}}</div>
+          <div class="list_directory_column_li_div">{{item.idType}}</div>
+          <div class="list_directory_column_li_dii">{{item.joinTime}}</div>
         </li>
         <li></li>
       </ul>

@@ -204,3 +204,37 @@ ul {
   width: 20%;
   justify-content:space-between;
 }
+.tupian {
+  display: inline-block;
+  width:44px;
+  height:18px;
+  /*background:linear-gradient(180deg,rgba(209,244,246,1) 0%,rgba(170,211,211,1) 100%);*/
+  border-radius:9px;
+  font-size:12px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  /*color:rgba(79,143,139,1);*/
+  line-height:18px;
+  margin-left: 7px;
+  text-align: center;
+}
+.tupian_zhong {
+  color: #4F8F8B;
+  background:linear-gradient(180deg,rgba(209,244,246,1) 0%,rgba(170,211,211,1) 100%);
+}
+.tupian_wei {
+  color: #7D7D7D;
+  background:linear-gradient(360deg,rgba(179,179,179,1) 0%,rgba(242,242,242,1) 100%);
+}
+.tupian_xiao {
+  color: #A44739;
+  background:linear-gradient(360deg,rgba(238,112,90,1) 0%,rgba(255,208,188,1) 100%);
+}
+.tupian_da {
+  color: #67582F;
+  background:linear-gradient(180deg,rgba(246,234,205,1) 0%,rgba(203,190,143,1) 100%);
+}
+.tupian_chao {
+  color: #E07100;
+  background:linear-gradient(180deg,rgba(255,245,95,1) 0%,rgba(255,239,87,1) 19%,rgba(255,178,0,1) 100%);
+}

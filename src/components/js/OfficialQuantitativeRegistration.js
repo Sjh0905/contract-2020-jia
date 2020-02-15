@@ -71,6 +71,14 @@ root.computed.userType = function () {
   return this.$store.state.authMessage && this.$store.state.authMessage.province === 'mobile' ? 0 : 1
 }
 
+// uid
+root.computed.uuid = function () {
+  if(this.$store.state.authMessage.uuid == undefined){
+    return this.$store.state.authMessage.userId
+  }
+  return this.$store.state.authMessage.uuid
+}
+
 
 root.methods = {}
 root.methods.buyConfirmSuccessClose = function () {
@@ -78,7 +86,7 @@ root.methods.buyConfirmSuccessClose = function () {
 }
 
 //查询配套数据get
-root.methods.get_supporting = function () {
+root.methods.get_supporting = function (item) {
   this.$http.send('GET_MATCHDATA', {
     bind: this,
     callBack: this.re_get_supporting,
@@ -113,6 +121,9 @@ root.methods.error_get_balance = function (err) {
 root.methods.get_registration_record = function () {
   this.$http.send('GET_GETREGDATA', {
     bind: this,
+    query:{
+      userId:this.uuid
+    },
     callBack: this.re_get_getregdata,
     errorHandler: this.error_get_getregdata
   })
