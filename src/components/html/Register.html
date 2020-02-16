@@ -70,13 +70,13 @@
         <span></span>
         <input type="text" :placeholder='verificationCodePlaceholderShow && "验证码" || ""' @focus="closePlaceholder('verificationCode')" v-model="verificationCode"
                @blur="testVerificationCode" class="unit-input">
-        <div v-if="isMobile" class="cutter-line flex-center">|</div>
+        <!--<div v-if="isMobile" class="cutter-line flex-center">|</div>-->
 
         <template v-if="isMobile">
           <div class="getcodeval" v-if="!getVerificationCode"
                 @click="postVerificationCode">{{$t("register.achieve")}}</div>
         <div class="getcodeval"
-              v-if="getVerificationCode">{{getVerificationCodeCountdown}}</div>
+              v-if="getVerificationCode">{{getVerificationCodeCountdown}}s</div>
       </template>
         <template v-if="!isMobile">
           <span class="flex-center identifying-code-button-on " v-if="!getVerificationCode"
@@ -193,13 +193,13 @@
         <span></span>
         <input type="text" :placeholder='verificationCodePlaceholderShow && "验证码" || ""' @focus="closePlaceholder('verificationCode')" v-model="verificationCode"
                @blur="testVerificationCode" class="unit-input">
-        <div v-if="isMobile" class="cutter-line flex-center">|</div>
+        <!--<div v-if="isMobile" class="cutter-line flex-center">|</div>-->
 
         <template v-if="isMobile">
           <div class="getcodeval" v-if="!getVerificationCode"
                 @click="postVerificationCode">{{$t("register.achieve")}}</div>
         <div class="getcodeval"
-              v-if="getVerificationCode">{{getVerificationCodeCountdown}}</div>
+              v-if="getVerificationCode">{{getVerificationCodeCountdown}}s</div>
       </template>
         <template v-if="!isMobile">
           <span class="flex-center identifying-code-button-on " v-if="!getVerificationCode"
