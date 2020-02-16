@@ -3,20 +3,25 @@
     <div class="content_img">
       <img src="../../assets/拼团_拼团banner/拼团_拼团banner.png" alt="">
       <div class="assemble">
-        <p class="assemble_p">拼团</p>
-        <p class="assemble_p_">参与拼团获取交易手续费折扣</p>
+<!--        拼团-->
+        <p class="assemble_p">{{$t('assembleARegiment')}}</p>
+<!--        参与拼团获取交易手续费折扣-->
+        <p class="assemble_p_">{{$t('participatingFees')}}</p>
       </div>
     </div>
 
     <div class="create_join">
       <div class="create" @click="createJoin">
 
+<!--        创建拼团-->
         <div class="img_ico"></div>
-        <p class="img_ico_p">创建拼团</p>
+        <p class="img_ico_p">{{$t('createGroup')}}</p>
       </div>
+
+<!--      加入拼团-->
       <div class="join" @click="joinAGroup">
         <div class="img_ico"></div>
-        <p class="img_ico_p">加入拼团</p>
+        <p class="img_ico_p">{{$t('joinGroup')}}</p>
       </div>
     </div>
   </div>

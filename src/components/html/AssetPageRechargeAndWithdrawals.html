@@ -91,7 +91,8 @@
             >{{$t('toDealWith')}}
 <!--              {{$t('withdrawals')}}-->
             </span>
-            <span class="withdrawals-button button can-not-withdrawals" v-else>{{$t('toDealWith')}}
+            <span class="withdrawals-button button can-not-withdrawals" v-else>
+              {{$t('toDealWith')}}
 <!--              {{$t('withdrawals')}}-->
             </span>
               <!--打开去交易 end-->
@@ -120,21 +121,21 @@
   <!--  内部划转-->
   <PopupT :switch="popWindowOpen1" @close="popWindowClose1">
     <div slot="header">
-      <span class="pop-ei-ar">资金划转</span>
+      <span class="pop-ei-ar">{{$t('capitalTransfer')}}</span>
     </div>
     <div slot="article" class="pop-article">
       <!--      钱包到账户-->
       <div class="Wallet-to-account flex">
         <div class="wallet-to-account-left flex">
           <div class="wallet-account-change">
-            <div>从</div>
+            <div>{{$t('from')}}</div>
             <img src="../../assets/mywallet/record_change_bottom_icon.png" alt="">
-            <div>到</div>
+            <div>{{$t('reach')}}</div>
           </div>
         </div>
         <div class="wallet-to-account-content">
-          <input type="text" placeholder="币币账户" v-model="bibiAccount">
-          <input type="text" placeholder="我的钱包" v-model="account">
+          <input type="text" :placeholder= '$t("coinAccount")' v-model="bibiAccount">
+          <input type="text" :placeholder='$t("myWallet")' v-model="account">
         </div>
         <div class="wallet-to-account-right flex" @click="changeAccount()">
           <img src="../../assets/mywallet/record_change_icon.png" alt="">
@@ -143,31 +144,31 @@
 
       <!--      币种-->
       <div class="currency block-input">
-        <div class="block-input-title">币种</div>
+        <div class="block-input-title">{{$t('currency')}}</div>
         <input type="text" placeholder="BTC">
         <div class="amount-not-empty">
-          <span>提示</span>
+          <span>错误提示</span>
         </div>
       </div>
 
       <!--      数量-->
       <div class="amount block-input">
         <div class="block-input-title">
-          <span>数量</span>
-          <span class="available-right">可提：0000000 NET</span>
+          <span>{{$t('amount')}}</span>
+          <span class="available-right">{{$t('mentioning')}}：0000000 NET</span>
         </div>
         <div class="amount-input flex">
           <input type="text" placeholder="12345" class="amount-input-box">
-          <span class="amount-all">全提</span>
+          <span class="amount-all">{{$t('allMention')}}</span>
         </div>
         <div class="amount-not-empty">
-          <span>提示</span>
+          <span>错误提示</span>
         </div>
       </div>
     </div>
     <div slot="footer" class="pop-footer">
-      <span class="pop-qu pointer" @click="click_rel_em">取消</span>
-      <button class="pop-qu-2 pointer" @click="commit">确认</button>
+      <span class="pop-qu pointer" @click="click_rel_em">{{$t('cancel')}}</span>
+      <button class="pop-qu-2 pointer" @click="commit">{{$t('ensure')}}</button>
 
     </div>
   </PopupT>

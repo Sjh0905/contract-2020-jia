@@ -90,7 +90,7 @@
 
             <router-link to="/index/home" class="mobile-header-login-box">
             <span>
-              <img class="mobile-header-login-box-imgs" src="../../assets/H5-欧联LOGO.png" alt="">
+              <img class="mobile-header-login-box-imgs" src="../../assets/H5-LOGO.png" alt="">
 
 
             </span>
@@ -229,8 +229,8 @@
               <!-- <router-link to="/index/homePage" class="index-header-logo"><img src="../../assets/logo.png" class="header-logo"> -->
              <div class="baobao-logo">
               <router-link :to="{name:'home'}" class="index-header-logo">
-                <img src="../../assets/PC首页导航-欧联.png" class="navigation-logo" v-show="lang==='CH'">
-                <img src="../../assets/PC首页导航-欧联.png" class="navigation-logo" v-show="lang!=='CH'">
+                <img src="../../assets/PC首页导航.png" class="navigation-logo" v-show="lang==='CH'">
+                <img src="../../assets/PC首页导航.png" class="navigation-logo" v-show="lang!=='CH'">
               </router-link>
              </div>
               <!--logo end-->
@@ -447,7 +447,7 @@
                         :to="{name:'OfficialQuantitativeDetails'}"
                         class="navigation-item-hidden-list-item-router"
                         active-class="item_selected">
-                        QQ交易挖矿详情
+                        {{$t('miningDetails')}}
                       </router-link>
                     </li>
 <!--                     cc 兑换茶叁茶源-->
@@ -477,6 +477,7 @@
 <!--                        active-class="item_selected"-->
 <!--                      >-->
 <!--                        {{$t('GRCTradeEvent')}}-->
+
 <!--                      </div>-->
 <!--                    </li>-->
 
@@ -492,7 +493,7 @@
                     :to="{name: 'assembleARegiment'}"
                     class="navigation-item-router flex"
                     active-class="navigation-item-router-selected"
-                  >拼团
+                  >{{$t('platform_5')}}
                     <!--                                      {{$t('currencyQuotation')}}-->
                   </router-link>
                   <!--隐藏的标签 法币交易 begin-->

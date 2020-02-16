@@ -8,7 +8,7 @@
       <div class="personal-content">
         <span class="account-name">{{userName}}</span>
         <span class="uid">UID:{{uuid}}</span>
-        <div class="last-time">最后登录时间: {{formatDateUitl(lastTime)}} <span> IP:{{ip}} </span></div>
+        <div class="last-time">{{$t('lastLoginTime')}}: {{formatDateUitl(lastTime)}} <span> IP:{{ip}} </span></div>
       </div>
     </div>
   </div>
@@ -20,24 +20,24 @@
       <!--    身份认证-->
       <div class="identity">
         <div class="identity-left">
-          <div class="identity-title">身份认证</div>
-          <div class="identity-logen">完成个人认证有助于保护账户安全，提高提现额度及交易权限</div>
+          <div class="identity-title">{{$t('authentication')}}</div>
+          <div class="identity-logen">{{$t('authentication_describe')}}</div>
           <div class="identity-button" @click="toAuthentication">
-            <button class="pointer" v-if="authType==3" >立即认证</button>
+            <button class="pointer" v-if="authType==3" >{{$t('immediateAuthentication')}}</button>
           </div>
           <div class="identity-button"  v-if="authType==1" @click="toAuthentication">
             <img src="../../assets/authentication/identity_ rejected_icon.png" alt="">
-            <span class="pointer rejected">被驳回</span>
+            <span class="pointer rejected">{{$t('beDismissed')}}</span>
           </div>
 
           <div class="identity-button"  v-if="authType==0||authType==5||authType==6" @click="toAuthentication">
             <img src="../../assets/authentication/identity_review_icon.png" alt="">
-            <span class="pointer review" >待审核</span>
+            <span class="pointer review" >{{$t('toBeAudited')}}</span>
           </div>
 
           <div class="identity-button"  v-if="authType==2" @click="toAuthentication">
             <img src="../../assets/authentication/identity_pass_icon.png" alt="">
-            <span class="pointer pass">已通过</span>
+            <span class="pointer pass">{{$t('passed')}}</span>
           </div>
 
         </div>
@@ -150,7 +150,7 @@
         <!--      其他title-->
         <div class="titlenew">
           <span></span>
-          <span>其他</span>
+          <span>{{$t('other')}}</span>
         </div>
 
           <!--邀请好友-->
@@ -160,12 +160,12 @@
               <img src="../../assets/securityCenter/Invitation-person-center.png">
             </div>
             <div class="allinfo11_1info">
-              <div class="allinfo11_1info_title">邀请好友</div>
-              <div class="allinfo11_1info_dis">邀请好友获得奖励</div>
+              <div class="allinfo11_1info_title">{{$t('inviteFriends')}}</div>
+              <div class="allinfo11_1info_dis">{{$t('inviteFriends_reward')}}</div>
             </div>
             <div class="allinfo11_update">
               <div @click="goToInvitation" class="invitationBtn">
-                立即邀请
+                {{$t('immediateInvitation')}}
               </div>
             </div>
           </div>
@@ -408,33 +408,33 @@
   <!--修改登录密码-->
   <PopupT :switch="popWindowOpen1" @close="popWindowClose1">
     <div slot="header">
-      <span class="pop-ei-ar">修改登录密码</span>
+      <span class="pop-ei-ar">{{$t('changeLoginPassword')}}</span>
     </div>
     <div slot="article" class="pop-article">
       <div class="article-present">
         <img class="present-img" src="../../assets/warming_icon.png" alt="">
-        <span>重置登录密码后24小时内禁止提币</span>
+        <span>{{$t('changeLoginPassword_tips')}}</span>
       </div>
       <div class="article-pop-1">
-        <div class="article-pop-2">原密码</div>
+        <div class="article-pop-2">{{$t('oldPassword')}}</div>
         <input type="password" class="pop-input-1" v-model="oldPsw" :class="{'wrong-border':oldPswWA!==''}">
         <span class="input-prompt" v-if="oldPswWA!==''">{{oldPswWA}}</span>
       </div>
       <div class="article-pop-1">
-        <div class="article-pop-2">新密码</div>
+        <div class="article-pop-2">{{$t('newPassword')}}</div>
         <input class="pop-input-1" type="password" v-model="psw" :class="{'wrong-border':pswWA!==''}">
         <span class="input-prompt" v-if="pswWA!==''">{{pswWA}}</span>
       </div>
       <div class="article-pop-1">
-        <div class="article-pop-2">重新输入新密码</div>
+        <div class="article-pop-2">{{$t('reenterPassword')}}</div>
         <input class="pop-input-1" type="password" v-model="pswConfirm" :class="{'wrong-border':pswConfirmWA!==''}">
         <span class="input-prompt" v-if="pswConfirmWA!==''">{{pswConfirmWA}}</span>
       </div>
 
     </div>
     <div slot="footer" class="pop-footer">
-      <span class="pop-qu pointer" @click="click_rel_em">取消</span>
-      <button class="pop-qu-2 pointer" @click="commit">确认</button>
+      <span class="pop-qu pointer" @click="click_rel_em">{{$t('cancel')}}</span>
+      <button class="pop-qu-2 pointer" @click="commit">{{$t('confirm')}}</button>
 
     </div>
 
@@ -443,26 +443,26 @@
   <!--解绑谷歌验证-->
   <PopupT :switch="popWindowOpen2" @close="popWindowClose2">
     <div slot="header">
-      <span class="pop-ei-ar">解绑谷歌验证码</span>
+      <span class="pop-ei-ar">{{$t('unbindGogaCord')}}</span>
     </div>
     <div slot="article" class="pop-article">
       <div class="article-pop-1">
-        <div class="article-pop-2">登录密码</div>
+        <div class="article-pop-2">{{$t('loginPassword')}}</div>
         <input class="pop-input-1" type="password" v-model="pswge" :class="{'wrong-border':pswWAge!==''}"
                @blur="testPswge">
         <span class="detail-center-prompt txt-red" v-if="pswWAge!==''">{{pswWAge}}</span>
       </div>
 
       <div class="article-pop-1">
-        <div class="article-pop-2">谷歌验证码</div>
+        <div class="article-pop-2">{{$t('gogaCord')}}</div>
         <input class="pop-input-1" type="text" v-model="GACodege" :class="{'wrong-border':GACodeWAge!==''}"
                @blur="testGACodege">
         <span class="detail-center-prompt txt-red" v-if="GACodeWAge!==''">{{GACodeWAge}}</span>
       </div>
     </div>
     <div slot="footer" class="pop-footer">
-      <span class="pop-qu pointer" @click="click_rel_em">取消</span>
-      <button class="pop-qu-2 pointer" @click="commitge">确认</button>
+      <span class="pop-qu pointer" @click="click_rel_em">{{$t('cancel')}}</span>
+      <button class="pop-qu-2 pointer" @click="commitge">{{$t('confirm')}}</button>
 
     </div>
   </PopupT>

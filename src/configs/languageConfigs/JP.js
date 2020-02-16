@@ -3,7 +3,7 @@ const root = {}
 
 //首页header
 root.indexHeader={}
-root.indexHeader.btcdo="TwentyTwenty"
+root.indexHeader.website="TwentyTwenty"
 root.indexHeader.currencyExchange="貨幣取引"
 root.indexHeader.Quotation="市況"
 root.indexHeader.frenchExchange="ほうか取引"

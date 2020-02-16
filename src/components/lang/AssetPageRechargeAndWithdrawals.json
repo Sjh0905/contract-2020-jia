@@ -34,7 +34,16 @@
     "hide_zero_asset": "隐藏0资产币种",
     "bind_email_pop_title": "安全提示",
     "bind_email_pop_article": "为了您的资金安全，请先绑定邮箱",
-    "bind_email_pop_button": "绑定邮箱"
+    "bind_email_pop_button": "绑定邮箱",
+    "capitalTransfer": "资金划转",
+    "from": "从",
+    "reach": "到",
+    "coinAccount": "币币账户",
+    "myWallet": "我的钱包",
+    "amount": "数量",
+    "mentioning": "可提",
+    "allMention": "全提"
+
   },
   "EN": {
     "currency": "Coin",

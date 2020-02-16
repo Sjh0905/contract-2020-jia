@@ -1,5 +1,45 @@
 {
-"CH": {},
-"EN": {},
-"CA": {}
+"CH": {
+  "joinGroup":"加入拼团",
+  "joinTransaction":"加入拼团获取交易手续费折扣",
+  "chooseGroup":"选择拼团",
+  "selectTeam":"选择已有拼团",
+  "groupInformation":"拼团信息",
+  "ordinaryDiscount":"普通折扣区",
+  "quantifiedDiscount":"量化折扣区",
+  "colonelNumber":"团长账号:",
+  "colonelNumberFu":"副团长账号:",
+  "join":"加入",
+  "rulesRegimentation":"拼团规则",
+  "withholding":"采用先扣次日返的形式",
+  "calculated":"A.拼团所有成员享受团友交易手续费折扣 ，B.团级返佣，所有团员手续费求和后再核算返佣给团长账号。手续费折扣和返佣奖励只计算买入。",
+  "assembleARegiment": "拼团",
+  "participatingFees": "参与拼团获取交易手续费折扣",
+  "createGroup": "创建拼团",
+  "transactionFees": "创建拼团获取交易手续费折扣",
+  "nameRegiment": "拼团名称",
+  "delegations": "设置副团长",
+  "create": "创建",
+  "viewRules": "查看规则",
+  "untilUpgrade": "距离下次升级",
+  "ordinaryDiscount": "普通折扣",
+  "quantitativeDiscount": "量化折扣",
+  "timeFormation": "建团时间",
+  "entryTime": "入团时间",
+  "ordinaryAccumulation": "普通区累计",
+  "ordinaryRebates": "普通区返佣",
+  "quantizationAccumulation": "量化区累计",
+  "quantificationRebates": "量化区返佣",
+  "memberList": "团员列表",
+  "serialNumber": "序号",
+  "accountNumber": "账号",
+  "position": "职位",
+  "additionTime": "加入时间"
+},
+"EN": {
+
+},
+"CA": {
+
+}
 }

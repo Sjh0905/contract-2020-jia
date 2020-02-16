@@ -3,7 +3,7 @@ const root = {}
 
 // 首页header
 root.indexHeader = {}
-root.indexHeader.btcdo = '二零二零'
+root.indexHeader.website = '二零二零'
 root.indexHeader.currencyExchange = '币币交易'
 root.indexHeader.Quotation = '行情'
 root.indexHeader.frenchExchange = '法币交易'
@@ -79,14 +79,15 @@ root.assetOverview.other = '其他'
 
 // 资产界面
 root.assetPage = {}
-root.assetPage.totalAsset = '币币账户总资产'
+// root.assetPage.totalAsset = '币币账户总资产'
 root.assetPage.frozen = '冻结'
 root.assetPage.available = '可提'
 root.assetPage.amountCash = '24H提现额度'
-// root.assetPage.withdrawalsAndRecharge = '充值提现'
-root.assetPage.withdrawalsAndRecharge = '币币账户'
+root.assetPage.withdrawalsAndRecharge = '充值提现'
 root.assetPage.overviewOfAssets = '资产概览'
 root.assetPage.myWallet = '我的钱包'
+root.assetPage.withdrawalsAndRecharge = '币币账户'
+root.assetPage.financialRecords = '财务记录'
 root.assetPage.transferRecord = '划转记录'
 root.assetPage.transferRecords = '转账记录'
 
@@ -368,6 +369,7 @@ root.orderPage.reset = '重置'
 root.orderPage.onlyCompleted = '仅完成'
 root.orderPage.currentEntrust = '当前委托'
 root.orderPage.historicalEntrust = '历史委托'
+root.orderPage.order = '订单'
 
 
 // 当前订单
@@ -627,6 +629,8 @@ root.personalCenterSecurityCenterReleaseMobile.Cancel = '取消'
 
 // 安全日志
 root.personalCenterSecurityLog = {}
+root.personalCenterSecurityLog.management = '资金管理'
+root.personalCenterSecurityLog.information = '登录信息'
 root.personalCenterSecurityLog.title = '安全日志'
 root.personalCenterSecurityLog.time = '登录时间'
 root.personalCenterSecurityLog.ip = 'IP地址'
@@ -1033,6 +1037,7 @@ root.indexAboutUs.descript_7 = '畅快交易'
 root.indexAboutUs.descript_8 = '“内存撮合+数据分离”让交易体验快速如飞'
 root.indexAboutUs.descript_9 = '社区共享'
 root.indexAboutUs.descript_10 = '连接社区智慧，共享平台发展福利'
+root.indexAboutUs.descript_11 = '创始团队'
 
 // root.personalCenterAuthAuthenticationState.accountInfo = '使用BDB挖矿获得额外{btReward}%BT奖励'
 root.personalCenterAuthAuthenticationState.accountInfo = '使用BDB支付交易手续费（7折）'
@@ -1382,9 +1387,8 @@ root.assetPage.platformReward = '活动奖励'
 root.assetPagePlatformReward = {}
 root.assetPagePlatformReward.state1 = '说明'
 root.assetPagePlatformReward.success = '成功'
-
-
 root.assetPagePlatformReward.currency = '币种'
+root.assetPagePlatformReward.type = '类型'
 root.assetPagePlatformReward.time = '时间'
 root.assetPagePlatformReward.amount = '数量'
 root.assetPagePlatformReward.state = '状态'

@@ -3,7 +3,7 @@
   <template v-if="!loading">
 
     <div class="address-container flex">
-      <div class="address-item2" v-if="currency == 'USDT'">链名称</div>
+      <div class="address-item2" v-if="currency == 'USDT'">{{$t('chainName')}}</div>
       <div class="address-item1 address-item2 address-item3" v-if="currency == 'USDT' || currency == 'USDT2'">
         <div v-if="rechargeFlagUSDT" class="address-ERC" @click="toggleStatus(1)" :class="selectTab == 1 ? 'address-si' : ''">OMNI</div>
         <div v-if="!rechargeFlagUSDT" class="address-OMNI-disabled">OMNI</div>
@@ -27,7 +27,7 @@
               {{$t('copyAddress')}}</button>
             <button  class="pointer show-QRCode" @mouseenter="openQRCode()" @mouseleave="closeQRCode()">
               <img src="../../assets/mywallet/qrCode_icon.png" alt="">
-              展示二维码</button>
+              {{$t('showQRCode')}}</button>
           </div>
         </div>
         <!--充值地址 end-->
@@ -78,7 +78,7 @@
             </button>
             <button  class="pointer show-QRCode" @mouseenter="openPublicKey()" @mouseleave="closePublicKey()">
               <img src="../../assets/mywallet/qrCode_icon.png" alt="">
-              展示二维码</button>
+              {{$t('showQRCode')}}</button>
           </div>
 
         </div>

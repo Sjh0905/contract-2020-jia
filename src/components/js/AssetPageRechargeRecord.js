@@ -65,7 +65,7 @@ root.methods.getRecord = function (currency) {
 root.methods.re_getRecord = function (data) {
   typeof data === 'string' && (data = JSON.parse(data))
   if (!data) return
-  // console.warn('获取记录', data)
+  console.warn('获取记录', data)
   this.records = data.dataMap.deposits
 
   if (this.records.length < this.limit) {

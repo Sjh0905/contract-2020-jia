@@ -3,9 +3,9 @@
   <div class="personal-info">
     <div class="personal-container">
       <div class="currency_notice_bread">
-        <router-link to="/index/personal/securityCenter" class="management">账户管理</router-link>
+        <router-link to="/index/personal/securityCenter" class="management">{{$t('management')}}</router-link>
         <span> > </span>
-        登录信息
+        {{$t('login_information')}}
       </div>
     </div>
   </div>
@@ -30,7 +30,7 @@
 
         <!--下载并安装 begin-->
         <div class="line-container line-container-bottom">
-          <div class="download-text">iOS用户登录App Store搜索“Authenticator”下载。安卓用户登录应用商店或使用手机浏览器搜索“谷歌验证器”下载。</div>
+          <div class="download-text">{{$t('install_information')}}</div>
 <!--          <div class="line-title">-->
 <!--            {{$t('personalCenterSecurityCenterBindGoogleAuthenticator.download')}}-->
 <!--          </div>-->
@@ -76,7 +76,7 @@
 
         <!--扫描二维码 begin-->
         <div class="line-container line-container-bottom">
-          <div class="download-text">打开谷歌验证器，扫描下方二维码或手动输入下述密钥添加验证令牌。</div>
+          <div class="download-text">{{$t('openGage')}}</div>
           <!--          <span class="line-title">-->
 <!--            {{$t('personalCenterSecurityCenterBindGoogleAutenticator.qrCode')}}-->
 <!--          </span>-->

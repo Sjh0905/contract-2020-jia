@@ -133,21 +133,21 @@
   <!--  内部划转-->
   <PopupT :switch="popWindowOpen1" @close="popWindowClose_transfer">
     <div slot="header">
-      <span class="pop-ei-ar">资金划转</span>
+      <span class="pop-ei-ar">{{$t('capitalTransfer')}}</span>
     </div>
     <div slot="article" class="pop-article">
 <!--      钱包到账户-->
       <div class="Wallet-to-account flex">
         <div class="wallet-to-account-left flex">
         <div class="wallet-account-change">
-          <div>从</div>
+          <div>{{$t('from')}}</div>
           <img src="../../assets/mywallet/record_change_bottom_icon.png" alt="">
-          <div>到</div>
+          <div>{{$t('reach')}}</div>
         </div>
         </div>
         <div class="wallet-to-account-content">
-          <input type="text" placeholder="币币账户" v-model="bibiAccount">
-          <input type="text" placeholder="我的钱包"  v-model="account">
+          <input type="text" :placeholder='$t("coinAccount")' v-model="bibiAccount">
+          <input type="text" :placeholder='$t("myWallet")'  v-model="account">
         </div>
         <div class="wallet-to-account-right flex" @click="changeAccount()">
           <img src="../../assets/mywallet/record_change_icon.png" alt="">
@@ -156,31 +156,31 @@
 
 <!--      币种-->
       <div class="currency block-input">
-        <div class="block-input-title">币种</div>
+        <div class="block-input-title">{{$t('currency')}}</div>
         <input type="text" placeholder="BTC">
         <div class="amount-not-empty">
-          <span>提示</span>
+          <span>错误提示</span>
         </div>
       </div>
 
 <!--      数量-->
       <div class="amount block-input">
         <div class="block-input-title">
-          <span>数量</span>
-          <span class="available-right">可提：0000000 NET</span>
+          <span>{{$t('amount')}}</span>
+          <span class="available-right">{{$t('mentioning')}}：0000000 NET</span>
         </div>
         <div class="amount-input flex">
           <input type="text" placeholder="12345" class="amount-input-box">
-          <span class="amount-all">全提</span>
+          <span class="amount-all">{{$t('allMention')}}</span>
         </div>
         <div class="amount-not-empty">
-          <span>提示</span>
+          <span>错误提示</span>
         </div>
       </div>
     </div>
     <div slot="footer" class="pop-footer">
-      <span class="pop-qu pointer" @click="click_rel_em">取消</span>
-      <button class="pop-qu-2 pointer" @click="commit">确认</button>
+      <span class="pop-qu pointer" @click="click_rel_em">{{$t('cancel')}}</span>
+      <button class="pop-qu-2 pointer" @click="commit">{{$t('ensure')}}</button>
     </div>
   </PopupT>
 
@@ -207,7 +207,7 @@
 <!--          {{$t('bindGa')}}-->
         </button>
         <button @click="goToSecurityCenter" class="button-base btn_blue pointer">
-          去绑定
+          {{$t('beBinding')}}
 <!--          {{$t('bindMobile')}}-->
         </button>
       </template>
@@ -217,7 +217,7 @@
           <!--          {{$t('bindGa')}}-->
         </button>
         <button @click="goToSecurityCenter" class="button-base btn_blue pointer">
-          去绑定
+          {{$t('beBinding')}}
           <!--          {{$t('bindMobile')}}-->
         </button>
       </template>
@@ -227,7 +227,7 @@
           <!--          {{$t('bindGa')}}-->
         </button>
         <button @click="goToSecurityCenter" class="button-base btn_blue pointer">
-          去绑定
+          {{$t('beBinding')}}
           <!--          {{$t('bindMobile')}}-->
         </button>
       </template>
@@ -237,7 +237,7 @@
           <!--          {{$t('bindGa')}}-->
         </button>
         <button @click="goToSecurityCenter" class="button-base btn_blue pointer">
-          去绑定
+          {{$t('beBinding')}}
           <!--          {{$t('bindMobile')}}-->
         </button>
       </template>
@@ -342,10 +342,10 @@
       <div slot="footer">
         <!--        <button class="Internal_siding_email1" @click="goToConfirmTransfer"> 确认转账</button>-->
         <button @click="popWindowClose1" class="button-base btn_simple pointer firm1">
-          上一步
+          {{$t('previousStep')}}
         </button>
         <button @click="goToConfirm" class="button-base btn_blue pointer firm2">
-          确认转账
+          {{$t('confirmTransfer')}}
         </button>
       </div>
 
@@ -391,7 +391,7 @@
                @blur="testEmailVerification">
         <div class="get-verification button-base" v-if="!getEmailVerificationCode"
                 @click="getEmailVerification" >
-          获取验证码
+          {{$t('GetVerificationCode')}}
         </div>
         <div class="get-verification button-base btn_grey" v-if="getEmailVerificationCode" disabled>
           {{getEmailVerificationCodeCountdown}}
@@ -462,7 +462,7 @@
     <!-- footer popWindow begin 1 -->
     <div slot="footer" class="popWindow-footer" v-if="popWindowStep === 1">
       <button class="pointer btn_simple ssss" @click="goToConfirmsjhclose">
-        上一步
+        {{$t('previousStep')}}
       </button>
       <button class="btn-commit btn_blue pointer ssss1" v-if="!emailVerificationSending"
               @click="commitEmailVerification">

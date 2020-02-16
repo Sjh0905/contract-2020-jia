@@ -8,7 +8,7 @@
             <!--          总资产-->
             <div class="currency-total">
               <div class="currency-title">
-                {{$t('assetPage.totalAsset')}}：
+                {{$t('totalAsset')}}：
               </div>
               <div class="currency-total-assets">
                 <span class="total-assets">---- BTC</span>
@@ -17,7 +17,7 @@
             </div>
             <!--          按钮-->
             <div>
-              <button class="capital-transfer" @click="openTransfer()" >资金划转</button>
+              <button class="capital-transfer" @click="openTransfer()">{{$t('capitalTransfer')}}</button>
             </div>
           </div>
         </div>
@@ -27,7 +27,7 @@
           <div class="my-wallet">
             <div class="my-wallet-title">
               <img src="../../assets/overviewOfAssets/wallet_icon.png" alt="">
-              <span>我的钱包</span>
+              <span>{{$t('myWallet')}}</span>
             </div>
             <div class="my-wallet-number">
               <span>0.000000</span>
@@ -42,7 +42,7 @@
           <div class="coin-account">
             <div class="my-wallet-title">
               <img src="../../assets/overviewOfAssets/bibi_icon.png" alt="">
-              <span>币币账户</span>
+              <span>{{$t('coinAccount')}}</span>
             </div>
             <div class="my-wallet-number">
               <span>0.000000</span>
@@ -55,32 +55,32 @@
         </div>
       </div>
       <div class="container-bottom">
-        <div class="container-bottom-title">什么是资金划转?</div>
+        <div class="container-bottom-title">{{$t('transfer_describe')}}</div>
         <div class="container-bottom-content">
-          <p>提币分为[普通提币] 和 [站内转账], [普通提币] 是指您可以将您现在账户的币种提至其他区块链地址, [站内转账] 是指您可以提至您自己或其他用户在 “Bibox”的账户中。</p>
-          <p>普通提币: 有手续费, 到账需要区块确认</p>
-          <p>站内转账: 无手续费, 无需区块确认, 快速到账</p>
+          <p>{{$t('transfer_describe1')}}</p>
+          <p>{{$t('transfer_describe2')}}</p>
+          <p>{{$t('transfer_describe3')}}</p>
         </div>
       </div>
 
       <!--  内部划转-->
       <PopupT :switch="popWindowOpen1" @close="popWindowClose1">
         <div slot="header">
-          <span class="pop-ei-ar">资金划转</span>
+          <span class="pop-ei-ar">{{$t('capitalTransfer')}}</span>
         </div>
         <div slot="article" class="pop-article">
           <!--      钱包到账户-->
           <div class="Wallet-to-account flex">
             <div class="wallet-to-account-left flex">
               <div class="wallet-account-change">
-                <div>从</div>
+                <div>{{$t('from')}}</div>
                 <img src="../../assets/mywallet/record_change_bottom_icon.png" alt="">
-                <div>到</div>
+                <div>{{$t('reach')}}</div>
               </div>
             </div>
             <div class="wallet-to-account-content">
-              <input type="text" placeholder="币币账户" v-model="bibiAccount">
-              <input type="text" placeholder="我的钱包"  v-model="account">
+              <input type="text" :placeholder='$t("coinAccount")' v-model="bibiAccount">
+              <input type="text" :placeholder='$t("myWallet")'  v-model="account">
             </div>
             <div class="wallet-to-account-right flex" @click="changeAccount()">
               <img src="../../assets/mywallet/record_change_icon.png" alt="">
@@ -89,7 +89,7 @@
 
           <!--      币种-->
           <div class="currency block-input">
-            <div class="block-input-title">币种</div>
+            <div class="block-input-title">{{$t('currency')}}</div>
             <input type="text" placeholder="BTC">
             <div class="amount-not-empty">
               <span>提示</span>
@@ -99,12 +99,12 @@
           <!--      数量-->
           <div class="amount block-input">
             <div class="block-input-title">
-              <span>数量</span>
-              <span class="available-right">可提：0000000 NET</span>
+              <span>{{$t('amount')}}</span>
+              <span class="available-right">{{$t('mentioning')}}可提：0000000 NET</span>
             </div>
             <div class="amount-input flex">
               <input type="text" placeholder="12345" class="amount-input-box">
-              <span class="amount-all">全提</span>
+              <span class="amount-all">{{$t('allMention')}}</span>
             </div>
             <div class="amount-not-empty">
               <span>提示</span>
@@ -112,8 +112,8 @@
           </div>
         </div>
         <div slot="footer" class="pop-footer">
-          <span class="pop-qu pointer" @click="click_rel_em">取消</span>
-          <button class="pop-qu-2 pointer" @click="commit">确认</button>
+          <span class="pop-qu pointer" @click="click_rel_em">{{$t('cancel')}}</span>
+          <button class="pop-qu-2 pointer" @click="commit">{{$t('ensure')}}</button>
         </div>
       </PopupT>
     </div>

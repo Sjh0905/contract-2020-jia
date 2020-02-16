@@ -8,7 +8,7 @@
     <!--提现地址-->
     <div class="address flex fixed-height">
       <div v-if="currency == 'USDT' || currency == 'USDT2' " class="withdrawals-address address-detail flex">
-        <span class="input-title">链名称:</span>
+        <span class="input-title">{{$t('chainName')}}</span>
         <div class="address-box" >
 
           <div v-if="withdrawalsFlagUSDT" class="address-ERC" @click="toggleStatus(1)" :class="selectTab ==1 ? 'address-si' : ''">OMNI</div>

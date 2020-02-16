@@ -31,7 +31,8 @@
     "popText_2": "暂不可用",
     "state_7": "已提交",
     "state_8": "待处理",
-    "state_9": "已撤销"
+    "state_9": "已撤销",
+    "noRecord": "暂无记录"
   },
   "EN": {
     "currency": "Coin",

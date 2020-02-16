@@ -13,7 +13,7 @@
       <span class="currency">{{$t('currency')}}</span>
 
       <!--类型-->
-      <span class="type">类型</span>
+      <span class="type">{{$t('type')}}</span>
 
       <!--数量-->
       <span class="total">{{$t('amount')}}</span>
@@ -46,7 +46,7 @@
             <!--币种 end-->
 
             <!--类型-->
-            <span class="type">类型</span>
+            <span class="type">{{$t('type')}}</span>
 
             <!--数量 begin-->
             <span class="total">{{toFixed(item.amount,8)}}</span>
@@ -92,7 +92,7 @@
         <li class="detail-li-no-data" v-if="computedRecord.length===0">
           <div class="no-data-content">
             <img src="../../assets/assetPageRecord/no-order-light.png" alt="">
-            <div class="no-record">暂无记录</div>
+            <div class="no-record">{{$t('noRecord')}}</div>
           </div>
 
 <!--          <div class="li-container flex">-->

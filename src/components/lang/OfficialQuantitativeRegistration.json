@@ -1,5 +1,37 @@
 {
-"CH": {},
+"CH": {
+  "tradingMining":"QQ交易挖矿",
+  "application":"申请表格",
+  "number":"账号",
+  "supporting":"配套",
+  "required":"所需数额",
+  "balance":"账号余额",
+  "exchang":"兑换",
+  "passed":"1.请确保您的账号已经通过了实名认证",
+  "bound":"2.请确保您的账户已绑定手机或谷歌二次验证",
+  "sufficient":"3.请确保您的账户有足够的USDT",
+  "registration":"报名记录",
+  "nper":"期数",
+  "time":"时间",
+  "transactions":"此账号未参与QQ交易挖矿",
+  "homePage":"首页",
+  "participateNow":"立即参与",
+
+
+  "miningDetails":"QQ交易挖矿详情",
+  "participation":"参加日期",
+  "quantification":"今日量化",
+  "releasedSoon":"即将释放",
+  "quantified":"已量化",
+  "reward":"奖励",
+  "source":"矿源",
+  "rewardRelease":"矿源奖励释放",
+  "released":"已释放",
+  "transactionRecord":"交易记录",
+  "date":"日期",
+  "quanti":"量化",
+  "sourceAmount":"矿源金额"
+},
 "EN": {},
 "CA": {}
 }
