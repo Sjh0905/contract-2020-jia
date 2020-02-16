@@ -45,7 +45,7 @@
     <!--选择登录形式 pc end-->
 
     <!--选择登录形式 h5 begin-->
-    <div v-if="isMobile" class="mobile-choose-login-type-box">
+    <!--<div v-if="isMobile" class="mobile-choose-login-type-box">-->
       <!--<div class="mobile-choose-login-type-item" :class="{'mobile-choose-login-type-item-activity':loginType===0}"-->
            <!--@click="choseLoginType(0)">-->
         <!--&lt;!&ndash;手机登录&ndash;&gt;-->
@@ -56,7 +56,7 @@
         <!--&lt;!&ndash;邮箱登录&ndash;&gt;-->
         <!--{{$t('loginTypeEmail')}}-->
       <!--</div>-->
-    </div>
+    <!--</div>-->
     <!--选择登录形式 h5 end-->
 
 
@@ -235,7 +235,7 @@
         <!--输入邮箱 end-->
 
         <!--邮箱错误提示 begin-->
-        <div class="unit-input-interval text_blue">
+        <div class="unit-input-interval">
           <span v-if="userNameWA!==''">{{userNameWA}}</span>
         </div>
         <!--邮箱错误提示 end-->
@@ -252,7 +252,7 @@
         <!--输入密码 end-->
 
         <!--密码错误提示 begin-->
-        <div  class="unit-input-interval text_blue">
+        <div  class="unit-input-interval">
           <span v-if="pswWA!==''">{{pswWA}}</span>
         </div>
         <!--密码错误提示 end-->

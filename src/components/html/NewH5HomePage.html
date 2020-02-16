@@ -74,7 +74,7 @@
           <tr>
             <td  v-for="(item,index) in item_list"  v-if="index<3" @click="clickToTradingHall(item.name)">
               <div class="td001">
-                <span class="mobile-market-normal-td-symbol-second">{{item.name.split('_')[0]}}&nbsp;{{'/&nbsp;'+item.name.split('_')[1]}}</span>
+                <span class="">{{item.name.split('_')[0]}}&nbsp;{{'/&nbsp;'+item.name.split('_')[1]}}</span>
               </div>
               <div class="td002">{{toFixed(item.close, !!quoteScale_list[item.name] ? quoteScale_list[item.name].quoteScale : 2)}}</div>
               <div class="td003">{{diff24(item.open,item.close)>0?'+':''}}{{diff24(item.open,item.close)}}%</div>
@@ -241,22 +241,22 @@
     </div>
   </div>
 
-  <div v-if="!loading && downloadShow" class="homepage-body-download" ref="downloadView">
-    <img class="index-home-header-img" src="../../assets/mobile_app_download.png" alt="">
-        <div class="logofont">
-          TwentyTwenty APP
-        </div>
-        <div class="logofont2">
-          数字货币交易平台
-        </div>
-<!--    <a :href="staticUrl + '/AppDownload'" class="index-home-header-address" target="_blank">-->
-      <a href="https://download.2020.exchange/" class="index-home-header-address">
-      下载
-    </a>
-    <div class="index-home-header-close" @click="closeDownload">
-      <img src="../../assets/mobile_download_close.png" class="index-home-header-img-close" alt="">
-    </div>
-  </div>
+  <!--<div v-if="!loading && downloadShow" class="homepage-body-download" ref="downloadView">-->
+    <!--<img class="index-home-header-img" src="../../assets/mobile_app_download.png" alt="">-->
+        <!--<div class="logofont">-->
+          <!--TwentyTwenty APP-->
+        <!--</div>-->
+        <!--<div class="logofont2">-->
+          <!--数字货币交易平台-->
+        <!--</div>-->
+<!--&lt;!&ndash;    <a :href="staticUrl + '/AppDownload'" class="index-home-header-address" target="_blank">&ndash;&gt;-->
+      <!--<a href="https://download.2020.exchange/" class="index-home-header-address">-->
+      <!--下载-->
+    <!--</a>-->
+    <!--<div class="index-home-header-close" @click="closeDownload">-->
+      <!--<img src="../../assets/mobile_download_close.png" class="index-home-header-img-close" alt="">-->
+    <!--</div>-->
+  <!--</div>-->
 
   <div class="bottomenu1" style="width: 100%;height: 50px;"></div>
 
