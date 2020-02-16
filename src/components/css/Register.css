@@ -105,7 +105,7 @@ input:-webkit-autofill {
 }
 .area-code-text{
   font-size: 15px;
-  color: #B5BCC6;
+  color: #CFD3E9;
   /*margin-left: 0.5rem;*/
   margin-right: 0.2rem;
 }
@@ -391,6 +391,10 @@ input:-webkit-autofill {
   margin-bottom: 3px;
 }
 
+.agreement img.select-img{
+  background-color: #ffffff;
+}
+
 .agreement label{
   cursor: pointer;
 }
@@ -634,7 +638,7 @@ input:-webkit-autofill {
     box-sizing: border-box;
     border-radius: 2px;
     background: transparent;
-    color: #fff;
+    color: #CFD3E9;
   }
 
 

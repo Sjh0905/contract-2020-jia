@@ -508,6 +508,36 @@ input {
   .box_shadow {
     box-shadow: none !important;
   }
+
+  .unit-input-container input::-webkit-input-placeholder {
+    /* WebKit browsers */
+    color:#3E536C;
+    /*color:#fff227;*/
+    font-size:0.32rem;
+    font-family:PingFangSC-Regular,PingFang SC;
+    font-weight:400;
+  }
+  .unit-input-container input:-moz-placeholder {
+    /* Mozilla Firefox 4 to 18 */
+    color:#3E536C;
+    font-size:0.32rem;
+    font-family:PingFangSC-Regular,PingFang SC;
+    font-weight:400;
+  }
+  .unit-input-container input::-moz-placeholder {
+    /* Mozilla Firefox 19+ */
+    color:#3E536C;
+    font-size:0.32rem;
+    font-family:PingFangSC-Regular,PingFang SC;
+    font-weight:400;
+  }
+  .unit-input-container input:-ms-input-placeholder {
+    /* Internet Explorer 10+ */
+    color:#3E536C;
+    font-size:0.32rem;
+    font-family:PingFangSC-Regular,PingFang SC;
+    font-weight:400;
+  }
 }
 
 .btn_border_blue {

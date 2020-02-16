@@ -139,7 +139,7 @@
 <!--        <label  for="color-input-red"></label >-->
         <span @click="changeAgreement">
           <img v-show="!agreement" src="../../assets/noselect.png"/>
-          <img v-show="agreement" src="../../assets/select.png" />
+          <img v-show="agreement" src="../../assets/select.png" class="select-img"/>
         </span>
         &nbsp;&nbsp;
         <label @click="changeAgreement">{{$t("register.agree")}}</label>
@@ -273,7 +273,7 @@
 <!--        <input v-show="!isMobile"  id="agreement" class="color-input-red" type="checkbox" name="agreement" value="#f0544d" />-->
 <!--        <label  for="color-input-red"></label >-->
         <img v-show="!agreement" src="../../assets/noselect.png"/>
-        <img v-show="agreement" src="../../assets/select.png" />
+        <img v-show="agreement" src="../../assets/select.png" class="select-img"/>
         &nbsp;&nbsp;
         <label for="agreement" @click="changeAgreement">{{$t("register.agree")}}</label>
         <router-link class="agreement-detail" to="/index/help/userAgreement" target="_blank">
