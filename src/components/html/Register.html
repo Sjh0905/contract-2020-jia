@@ -36,15 +36,15 @@
 
     <!--选择注册形式 h5 begin-->
     <div v-if="isMobile" class="mobile-choose-login-type-box">
-      <div class="mobile-choose-login-type-item" :class="{'mobile-choose-login-type-item-activity':registerType===0}"
-           @click="choseRegisterType(0)">
-        手机注册
-        <!--{{$t('registerTypeMobile')}}-->
-      </div>
       <div class="mobile-choose-login-type-item" :class="{'mobile-choose-login-type-item-activity':registerType===1}"
            @click="choseRegisterType(1)">
         邮箱注册
         <!--{{$t('registerTypeEmail')}}-->
+      </div>
+      <div class="mobile-choose-login-type-item" :class="{'mobile-choose-login-type-item-activity':registerType===0}"
+           @click="choseRegisterType(0)">
+        手机注册
+        <!--{{$t('registerTypeMobile')}}-->
       </div>
     </div>
     <!--选择注册形式 h5 end-->
