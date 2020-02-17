@@ -77,7 +77,7 @@
               <!--打开划转 end-->
 
               <!--关闭划转 begin-->
-              <span class="can-not-withdrawals not-margin"
+              <span class="can-not-withdrawals"
                     :class="{'recharge-button-select':activeIndex === index  && recharge}" v-else>
                 {{$t('transfer')}}
 <!--                {{$t('recharge')}}-->
@@ -91,7 +91,7 @@
             >{{$t('toDealWith')}}
 <!--              {{$t('withdrawals')}}-->
             </span>
-            <span class="  can-not-withdrawals" v-else>
+            <span class="not-margin can-not-withdrawals" v-else>
               {{$t('toDealWith')}}
 <!--              {{$t('withdrawals')}}-->
             </span>
