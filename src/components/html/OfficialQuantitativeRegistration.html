@@ -21,16 +21,17 @@
         <div class="supporting">
           <span class="Account_number_">{{$t('supporting')}}</span>
           <template>
-            <el-select v-model="valuegender" name="gender" placeholder="10000 QQ" popper-class="selectstyle">
-              <el-option
-                v-for="item in optionsgender"
-                :key="item.fcode"
-                :label="item.fdesc"
-                :value="item.fcode"
-              >
-              </el-option>
-            </el-select>
-          </template>
+          <el-select v-model="valuegender" name="gender" placeholder="10000 QQ" popper-class="selectstyle">
+            <el-option
+              v-for="item in optionsgender"
+              :key="item.fcode"
+              :label="item.fdesc"
+              :value="item.fdesc"
+            >
+            </el-option>
+          </el-select>
+        </template>
+
         </div>
 
 
@@ -39,7 +40,7 @@
         <div class="number_amount">
           <p class="number_amount_p">{{$t('required')}}</p>
           <span class="number_amount_span">QQ:</span>
-          <span class="amount_span">10000</span>
+          <span class="amount_span">{{valuegender}}</span>
         </div>
 
 <!--       账号余额 -->
@@ -63,7 +64,7 @@
     <!--   活动报名记录   -->
       <div class="application_record">
 
-        <div class="application_title">报名记录{{$t('registration')}}</div>
+        <div class="application_title">{{$t('registration')}}</div>
 
         <ul >
           <!--表头 S-->
@@ -76,31 +77,29 @@
           <!--表头 E-->
 
           <!-- 如果加载完成、已登录、有数据，则显示数据 begin -->
-          <template v-if="!loading">
+          <template>
 <!--            <template v-if="userId && currentOrderComputed.length!==0">-->
-            <template v-if="0">
-              <transition-group name="fade">
-                <li class="flex">
+            <template>
+                <li class="flex" v-for="(item,index) in computedRecord" :key="item.id">
                   <!--账号-->
-                  <div class="application_header_div">{{$t('number')}}</div>
+                  <div class="application_header_div">{{item.account}}</div>
                   <!--期数-->
-                  <div class="application_header_div">{{$t('nper')}}</div>
+                  <div class="application_header_div">{{item.periodsNum}}</div>
                   <!--配套-->
-                  <div class="application_header_div">{{$t('supporting')}}</div>
+                  <div class="application_header_div">{{item.fdesc}}</div>
                   <!--时间-->
-                  <div class="application_header_div_right">{{$t('time')}}</div>
+                  <div class="application_header_div_right">{{item.createdAt}}</div>
                 </li>
-              </transition-group>
             </template>
             <!-- 如果加载完成、已登录、有数据，则显示数据 end -->
 
             <!-- 如果没加载完成、没登录、没数据，则显示'--' begin -->
-            <template v-else>
-              <li class="weit">
-                <div class="nhtu"><img src="../../assets/无订单-浅色.png"></div>
-                <span>{{$t('orderPageCurrentEntrustment.close_9')}}</span>
-              </li>
-            </template>
+<!--            <template v-else>-->
+<!--              <li class="weit">-->
+<!--                <div class="nhtu"><img src="../../assets/无订单-浅色.png"></div>-->
+<!--                <span>{{$t('orderPageCurrentEntrustment.close_9')}}</span>-->
+<!--              </li>-->
+<!--            </template>-->
           </template>
         </ul>
       </div>

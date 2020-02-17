@@ -47,14 +47,20 @@ root.data = () => {
     // ],
     optionsgender:[],
     valuegender: '',
+    records: [],
   }
 }
 
 root.created = function() {
-  this.get_supporting()
+  this.getSupporting()
+  this.getRegistrationRecord()
 }
 
 root.computed = {}
+root.computed.computedRecord = function (item,index) {
+  // console.log('jjjjjjjjjjj',item,'kkkkkkkk',index,'pppppp',this.records)
+  return this.records
+}
 // 用户名
 root.computed.userName = function () {
   if (this.userType === 0) {
@@ -86,68 +92,107 @@ root.methods.buyConfirmSuccessClose = function () {
 }
 
 //查询配套数据get
-root.methods.get_supporting = function (item) {
+root.methods.getSupporting = function (item) {
   this.$http.send('GET_MATCHDATA', {
     bind: this,
-    callBack: this.re_get_supporting,
-    errorHandler: this.error_get_supporting
+    callBack: this.re_getSupporting,
+    errorHandler: this.error_getSupporting
   })
 }
-root.methods.re_get_supporting = function (res) {
+root.methods.re_getSupporting = function (res) {
 
+  res = {
+    "data": [
+      {
+        "fcode": "qq100",
+        "fdesc": "10000 QQ"
+      },
+      {
+        "fcode": "qq110",
+        "fdesc": "20000 QQ"
+      },
+      {
+        "fcode": "qq120",
+        "fdesc": "30000 QQ"
+      },
+      {
+        "fcode": "qq130",
+        "fdesc": "40000 QQ"
+      },
+      {
+        "fcode": "qq140",
+        "fdesc": "50000 QQ"
+      }
+    ],
+    "status": "200",
+    "message": "success"
+  }
   this.optionsgender = res.data
   console.log("this.res=====",res)
 }
-root.methods.error_get_supporting = function (err) {
+root.methods.error_getSupporting = function (err) {
   console.log("this.err=====",err)
 }
 
 //查询用户余额get (query:{})
-root.methods.get_balance = function () {
+root.methods.getBalance = function () {
   this.$http.send('GET_GETUSERBALANCE', {
     bind: this,
-    callBack: this.re_get_balance,
-    errorHandler: this.error_get_balance
+    callBack: this.re_getBalance,
+    errorHandler: this.error_getBalance
   })
 }
-root.methods.re_get_balance = function (res) {
+root.methods.re_getBalance = function (res) {
   console.log("this.res=====",res)
 }
-root.methods.error_get_balance = function (err) {
+root.methods.error_getBalance = function (err) {
   console.log("this.err=====",err)
 }
 
 //查询报名记录get
-root.methods.get_registration_record = function () {
+root.methods.getRegistrationRecord = function () {
   this.$http.send('GET_GETREGDATA', {
     bind: this,
     query:{
       userId:this.uuid
     },
-    callBack: this.re_get_getregdata,
-    errorHandler: this.error_get_getregdata
+    callBack: this.re_getRegistrationRecord,
+    errorHandler: this.error_getRegistrationRecord
   })
 }
-root.methods.re_get_getregdata = function (res) {
+root.methods.re_getRegistrationRecord = function (res) {
+  res = {
+    "data": [
+      {
+        "account": "54645@qq.com",
+        "fdesc": "10000 QQ",
+        "createdAt": "2020-02-05",
+        "periodsNum": "1期"
+      }
+    ],
+    "status": "200",
+    "message": "success"
+  }
   console.log("this.res=====",res)
+  this.records = res.data
 }
-root.methods.error_get_getregdata = function (err) {
+root.methods.error_getRegistrationRecord = function (err) {
   console.log("this.err=====",err)
 }
 
 //查询活动报名post(params:{})
-root.methods.post_activities = function () {
+root.methods.postActivities = function () {
   this.$http.send('POST_REGACT', {
     bind: this,
     params:{},
-    callBack: this.re_post_activities,
-    errorHandler: this.error_post_activities
+    callBack: this.re_postActivities,
+    errorHandler: this.error_postActivities
   })
 }
-root.methods.re_post_activities = function (res) {
+root.methods.re_postActivities = function (res) {
   console.log("this.res=====",res)
 }
-root.methods.error_post_activities = function (err) {
+root.methods.error_postActivities = function (err) {
   console.log("this.err=====",err)
 }
 
