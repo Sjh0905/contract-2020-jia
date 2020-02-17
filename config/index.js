@@ -16,6 +16,7 @@ module.exports = {
         // target: 'https://www.highdefi.com', //新测试环境1
         // target: 'https://www.2020.exchange', //新测试环境2
         target: 'https://app.eunex.group', //新测试环境2
+        // target: 'http://2020.highdefi.com', //新测试环境2
         // target: 'http://10.113.11.89:8000', //新测试环境2
         // target: 'http://10.113.11.197:8000', //新测试环境2
         changeOrigin: true,

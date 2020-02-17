@@ -5,7 +5,7 @@
     <Loading v-if="loading"/>
     <template v-if="!loading">
       <div>
-        <div class="currency-total">{{$t('assetPage.totalAsset')}}：
+        <div class="currency-total">{{$t('walletTotalAsset')}}：
           <div class="currency-total-assets">
             <span class="total-assets">{{priceReady || initReady ? toFixed(total,8):'----'}} BTC</span>
             <span>≈ {{lang ==='CH'?'￥':'$'}}

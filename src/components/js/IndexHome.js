@@ -193,6 +193,7 @@ root.methods.re_getCurrencyList = function (data) {
   this.getPrices();
   typeof(data) == 'string' && (data = JSON.parse(data));
   let objs = this.symbolList_priceList(data);
+  console.log(data)
   this.currency_list = objs;
 }
 

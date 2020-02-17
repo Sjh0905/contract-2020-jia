@@ -252,8 +252,16 @@
 
 /*提现置灰色*/
 .can-not-withdrawals {
+  display: inline-block;
+  height: 28px;
+  line-height: 28px;
+  padding: 0 10px;
   color: #e6e6e6;
-  border-color: #e6e6e6;
+  border: 1px solid #e6e6e6;
+}
+
+.not-margin {
+  margin-right: 10px;
 }
 
 /*弹窗样式*/

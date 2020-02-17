@@ -226,6 +226,22 @@ root.watch.loading = function (newVal, oldVal) {
 
 root.methods = {}
 
+// 去交易
+root.methods.goToDeal = function (item) {
+  let symbol = item.currency+'_USDT'
+  let haveSymbol =  this.$store.state.tradingParameters.find(v=>v.name==symbol)
+  if(!haveSymbol){
+    this.$router.push({name: 'tradingHall'})
+    return
+  }
+  this.$store.commit('SET_SYMBOL', symbol);
+
+  let user_id = this.$store.state.authMessage.userId;
+  let user_id_symbol = user_id + '-' + symbol;
+  !!user_id && this.$cookies.set('user_symbol_cookie', user_id_symbol, 60 * 60 * 24)
+  this.$router.push({name: 'tradingHall'})
+}
+
 // 计算当前币对折合多少人民币  2018-4-4 start
 root.methods.get_now_price = function (key, price, e) {
   if (price == 0) return;
@@ -432,112 +448,112 @@ root.methods.goToBindEmail = function () {
 }
 
 
-// 打开提现
-root.methods.openWithdrawals = function (index, item) {
-
-  if (item.currency !=='USDT' && this.serverT < item.withdrawOpenTime) {
-    this.popupPromptOpen = true
-    this.popupPromptText = this.$t('withdrawalsIsNotOpen')
-    this.popupPromptType = 0
-    return
-  }
-
-  if (item.withdrawDisabled) {
-    this.popupPromptOpen = true
-    this.popupPromptText = this.$t('withdrawalsIsNotOpen')
-    this.popupPromptType = 0
-    return
-  }
-
-  // 如果没有实名认证不允许打开提现
-  if (!this.bindIdentify) {
-    this.popWindowTitle = this.$t('popWindowTitleWithdrawals')
-    this.popWindowPrompt = this.$t('popWindowPromptWithdrawals')
-    this.popWindowStyle = '0'
-    this.popWindowOpen = true
-    return
-  }
-
-  // 如果没有绑定邮箱，不允许打开提现
-  if (!this.bindEmail) {
-    this.popWindowTitle = this.$t('bind_email_pop_title')
-    this.popWindowPrompt = this.$t('bind_email_pop_article')
-    this.popWindowStyle = '3'
-    this.popWindowOpen = true
-    return
-  }
-
-  // 如果没有绑定谷歌或手机，不允许打开提现
-  if (!this.bindGA && !this.bindMobile) {
-    this.popWindowTitle = this.$t('popWindowTitleWithdrawals')
-    this.popWindowPrompt = this.$t('popWindowTitleBindGaWithdrawals')
-    this.popWindowStyle = '1'
-    this.popWindowOpen = true
-    return
-  }
-
-
-  //todo 修改密码后不能提现
-
-
-  this.recharge = false
-  this.activeIndex !== index && (this.withdrawals = true)
-  if (this.activeIndex === index) {
-    this.withdrawals = !this.withdrawals
-    if (this.withdrawals === false) {
-      this.activeIndex = -1
-      return
-    }
-  }
-  this.activeIndex = index
-}
-
-// 打开充值
-root.methods.openRecharge = function (index, item) {
-
-  // 如果没有实名认证不允许打开充值
-  // 充值取消实名认证的限制
-  // if (!this.bindIdentify) {
-  //   this.popWindowTitle = this.$t('popWindowTitleRecharge')
-  //   this.popWindowPrompt = this.$t('popWindowPromptRecharge')
-  //   this.popWindowStyle = '0'
-  //   this.popWindowOpen = true
-  //   return
-  // }
-  // 如果没有绑定邮箱，不允许打开充值
-  if (!this.bindEmail) {
-    this.popWindowTitle = this.$t('bind_email_pop_title')
-    this.popWindowPrompt = this.$t('bind_email_pop_article')
-    this.popWindowStyle = '3'
-    this.popWindowOpen = true
-    return
-  }
-
-  // 如果没有绑定谷歌或手机，不允许打开充值
-  if (!this.bindGA && !this.bindMobile) {
-    this.popWindowTitle = this.$t('popWindowTitleRecharge')
-    this.popWindowPrompt = this.$t('popWindowTitleBindGaRecharge')
-    this.popWindowStyle = '1'
-    this.popWindowOpen = true
-    return
-  }
-
-  this.withdrawals = false
-  this.activeIndex !== index && (this.recharge = true)
-  if (this.activeIndex === index) {
-    this.recharge = !this.recharge
-    if (this.recharge === false) {
-      this.activeIndex = -1
-      return
-    }
-  }
-  this.rechargeAddressChangePrompt = true
-  this.activeIndex = index
-}
-
-root.methods.errorHandler = function (err, state, text) {
-  console.error('数据出错！', err, state, text)
-}
+// // 打开提现
+// root.methods.openWithdrawals = function (index, item) {
+//
+//   if (item.currency !=='USDT' && this.serverT < item.withdrawOpenTime) {
+//     this.popupPromptOpen = true
+//     this.popupPromptText = this.$t('withdrawalsIsNotOpen')
+//     this.popupPromptType = 0
+//     return
+//   }
+//
+//   if (item.withdrawDisabled) {
+//     this.popupPromptOpen = true
+//     this.popupPromptText = this.$t('withdrawalsIsNotOpen')
+//     this.popupPromptType = 0
+//     return
+//   }
+//
+//   // 如果没有实名认证不允许打开提现
+//   if (!this.bindIdentify) {
+//     this.popWindowTitle = this.$t('popWindowTitleWithdrawals')
+//     this.popWindowPrompt = this.$t('popWindowPromptWithdrawals')
+//     this.popWindowStyle = '0'
+//     this.popWindowOpen = true
+//     return
+//   }
+//
+//   // 如果没有绑定邮箱，不允许打开提现
+//   if (!this.bindEmail) {
+//     this.popWindowTitle = this.$t('bind_email_pop_title')
+//     this.popWindowPrompt = this.$t('bind_email_pop_article')
+//     this.popWindowStyle = '3'
+//     this.popWindowOpen = true
+//     return
+//   }
+//
+//   // 如果没有绑定谷歌或手机，不允许打开提现
+//   if (!this.bindGA && !this.bindMobile) {
+//     this.popWindowTitle = this.$t('popWindowTitleWithdrawals')
+//     this.popWindowPrompt = this.$t('popWindowTitleBindGaWithdrawals')
+//     this.popWindowStyle = '1'
+//     this.popWindowOpen = true
+//     return
+//   }
+//
+//
+//   //todo 修改密码后不能提现
+//
+//
+//   this.recharge = false
+//   this.activeIndex !== index && (this.withdrawals = true)
+//   if (this.activeIndex === index) {
+//     this.withdrawals = !this.withdrawals
+//     if (this.withdrawals === false) {
+//       this.activeIndex = -1
+//       return
+//     }
+//   }
+//   this.activeIndex = index
+// }
+//
+// // 打开充值
+// root.methods.openRecharge = function (index, item) {
+//
+//   // 如果没有实名认证不允许打开充值
+//   // 充值取消实名认证的限制
+//   // if (!this.bindIdentify) {
+//   //   this.popWindowTitle = this.$t('popWindowTitleRecharge')
+//   //   this.popWindowPrompt = this.$t('popWindowPromptRecharge')
+//   //   this.popWindowStyle = '0'
+//   //   this.popWindowOpen = true
+//   //   return
+//   // }
+//   // 如果没有绑定邮箱，不允许打开充值
+//   if (!this.bindEmail) {
+//     this.popWindowTitle = this.$t('bind_email_pop_title')
+//     this.popWindowPrompt = this.$t('bind_email_pop_article')
+//     this.popWindowStyle = '3'
+//     this.popWindowOpen = true
+//     return
+//   }
+//
+//   // 如果没有绑定谷歌或手机，不允许打开充值
+//   if (!this.bindGA && !this.bindMobile) {
+//     this.popWindowTitle = this.$t('popWindowTitleRecharge')
+//     this.popWindowPrompt = this.$t('popWindowTitleBindGaRecharge')
+//     this.popWindowStyle = '1'
+//     this.popWindowOpen = true
+//     return
+//   }
+//
+//   this.withdrawals = false
+//   this.activeIndex !== index && (this.recharge = true)
+//   if (this.activeIndex === index) {
+//     this.recharge = !this.recharge
+//     if (this.recharge === false) {
+//       this.activeIndex = -1
+//       return
+//     }
+//   }
+//   this.rechargeAddressChangePrompt = true
+//   this.activeIndex = index
+// }
+//
+// root.methods.errorHandler = function (err, state, text) {
+//   console.error('数据出错！', err, state, text)
+// }
 
 // 打开划转  begin
 root.methods.openTransfer = function () {

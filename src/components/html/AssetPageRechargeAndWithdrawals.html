@@ -5,7 +5,7 @@
     <Loading v-if="loading"/>
     <template v-if="!loading">
       <div>
-          <div class="currency-total">{{$t('assetPage.totalAsset')}}：
+          <div class="currency-total">{{$t('totalAsset')}}：
           <div class="currency-total-assets">
           <span class="total-assets">{{priceReady || initReady ? toFixed(total,8):'----'}} BTC</span>
             <span>≈ {{lang ==='CH'?'￥':'$'}}
@@ -77,7 +77,7 @@
               <!--打开划转 end-->
 
               <!--关闭划转 begin-->
-              <span class="recharge-button button can-not-withdrawals"
+              <span class="can-not-withdrawals not-margin"
                     :class="{'recharge-button-select':activeIndex === index  && recharge}" v-else>
                 {{$t('transfer')}}
 <!--                {{$t('recharge')}}-->
@@ -85,13 +85,13 @@
               <!--关闭划转 end-->
 
               <!--打开去交易 begin-->
-            <span class="withdrawals-button button" @click="openWithdrawals(index,item)"
+            <span class="withdrawals-button button" @click="goToDeal(item)"
                   :class="{'withdrawals-button-select':activeIndex===index  && withdrawals}"
                   v-if="withdrawalsFlag(item)"
             >{{$t('toDealWith')}}
 <!--              {{$t('withdrawals')}}-->
             </span>
-            <span class="withdrawals-button button can-not-withdrawals" v-else>
+            <span class="  can-not-withdrawals" v-else>
               {{$t('toDealWith')}}
 <!--              {{$t('withdrawals')}}-->
             </span>
