@@ -10,7 +10,7 @@
           <li class="information_li">
             <div class="information_div color_bik">{{gname}}
               <span v-if="glevel=='0'"></span>
-              <span v-if="glevel=='1'"><img src="../../assets/拼团_微团_icon.png" alt=""></span>
+              <span v-if="glevel=='1'"><img class="tupian_img" src="../../assets/拼团_微团_icon.png" alt=""></span>
               <span v-if="glevel=='2'"><img src="../../assets/拼团_小团_icon.png" alt=""></span>
               <span v-if="glevel=='3'"><img src="../../assets/拼团_中团_icon.png" alt=""></span>
               <span v-if="glevel=='4'"><img src="../../assets/拼团_大团_icon.png" alt=""></span>
@@ -32,9 +32,9 @@
               <div class="next_upgrade">{{$t('untilUpgrade')}}</div>
 <!--              <span class="information_span"></span>-->
               <div class="progress_bar">
-              <el-progress :text-inside="true" :stroke-width="20" :percentage="20" status="exception">( {{maxMember}}/99999 )</el-progress>
+              <el-progress :text-inside="true" :stroke-width="20" :percentage="(currCount / maxMember) * 100" status="exception"></el-progress>
               </div>
-              <div class="percentage">( {{maxMember}}/99999 )</div>
+              <div class="percentage">( {{currCount}}/{{maxMember}} )</div>
             </div>
 <!--            普通区折扣-->
             <div class="information_div color_hui">{{$t('ordinaryDiscount')}}</div>
@@ -42,7 +42,7 @@
             <div class="information_div color_hui">{{$t('quantitativeDiscount')}}</div>
           </li>
 <!--          团长，副团长 建团时间-->
-          <li class="information_li">
+          <li class="information_li m-t">
 <!--            团长账号:-->
             <div class="information_div color_f5">
               {{$t('colonelNumber')}}
@@ -59,8 +59,8 @@
               <span>{{createdAt}}</span>
             </div>
 <!--            普通区折扣-->
-            <div class="information_div color_bik_9">{{commonDiscount}}</div>
-            <div class="information_div color_bik_9">0.01%</div>
+            <div class="information_div color_bik_9">{{commonDiscount}}%</div>
+            <div class="information_div color_bik_9">{{quantDiscount}}%</div>
           </li>
         </ul>
       </div>
@@ -73,11 +73,15 @@
 <!--      入团时间：-->
       <span class="of_number_span_time">{{$t('entryTime')}}:</span>
       <span> {{joinTime}}</span>
+
+      <div class="tuituan" v-if="idType=='1'">解散团队</div>
+      <div class="tuituan" v-if="idType=='2'">退出拼团</div>
+      <div class="tuituan" v-if="idType=='3'">退出拼团</div>
     </div>
 
 <!--    团长的普通区，量化区累计-->
     <div>
-      <div class="cumulative">
+      <div class="cumulative" v-if="idType==='1'">
 
             <div class="cumulative_div">
 <!--              普通区累计（USDT）-->
@@ -111,7 +115,7 @@
     <div class="list_directory">
 
       <div class="list_directory_column">{{$t('memberList')}}</div>
-      <ul>
+      <ol class="ul_ul">
 <!--        表头-->
         <li class="list_directory_column_li">
 <!--          序号-->
@@ -132,7 +136,7 @@
           <div class="list_directory_column_li_dii">{{item.joinTime}}</div>
         </li>
         <li></li>
-      </ul>
+      </ol>
 
     </div>
   </div>

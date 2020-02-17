@@ -34,7 +34,8 @@
   "serialNumber": "序号",
   "accountNumber": "账号",
   "position": "职位",
-  "additionTime": "加入时间"
+  "additionTime": "加入时间",
+  "wrong_message_222": "选择已有团队"
 },
 "EN": {
 

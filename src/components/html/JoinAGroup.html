@@ -13,22 +13,20 @@
         <div class="account_number">
           <p class="account_number_p">{{$t('chooseGroup')}}</p>
           <div class="">
-<!--            <input type="text" class="account_number_input" placeholder="选择已有团队">-->
-<!--            <span><img src="" alt=""></span>-->
             <!-- 下拉搜索框-->
-            <el-select class="account_number_input" :placeholder="label" style="font-size:14px;" v-model="searchResult" popper-class="self-el-select">
-              <input type="text" class="inputsize" placeholder="选择已有团队" v-model="searchCities">
-              <el-option
-                @click="clickItem(item.areaCode)"
-                class="widthInput"
-                v-for="item in (searchCities ? cityList :cities)"
-                :key="item.countryId"
-                :label="'+ ' + item.areaCode.slice(2)"
-                :value="item.areaCode">
-                <span style="float: left;font-size: 14px">{{ lang==='CH'? item.nameCn:item.nameEn }}</span>
-                <span style="float: right;font-size: 14px">{{ '+ ' + item.areaCode.slice(2) }}</span>
-              </el-option>
-            </el-select>
+
+            <template>
+              <el-select class="account_number_input" name="country" :placeholder= '$t("wrong_message_222")' style="font-size:14px" v-model="searchResult" popper-class="self-el-select">
+                <input type="text" class="inputsize" :placeholder='$t("wrong_message_222")' v-model="searchCities">
+                <el-option
+                  popper-class="drowdown-box"
+                  v-for="item in (searchCities ? cityList :cities)"
+                  :key="item.groupId"
+                  :label="($store.state.lang == 'CH' || $store.state.lang == 'CHT')? item.gname : item.gname"
+                  :value="item.gname">
+                </el-option>
+              </el-select>
+            </template>
             <!--  下拉搜索框   结束-->
           </div>
         </div>
@@ -37,25 +35,38 @@
           <div class="information">
             <ul>
               <li class="information_li">
-                <div class="information_div color_bik">队名
-                  <span>图片</span>
-                  <span>图片</span>
+                <div class="information_div color_bik">{{searchResult}}
+<!--                  <span>图片</span>-->
+<!--                  <span>图片</span>-->
+                  <span v-if="glevel=='0'"></span>
+                  <span v-if="glevel=='1'"><img class="tupian_img" src="../../assets/拼团_微团_icon.png" alt=""></span>
+                  <span v-if="glevel=='2'"><img src="../../assets/拼团_小团_icon.png" alt=""></span>
+                  <span v-if="glevel=='3'"><img src="../../assets/拼团_中团_icon.png" alt=""></span>
+                  <span v-if="glevel=='4'"><img src="../../assets/拼团_大团_icon.png" alt=""></span>
+                  <span v-if="glevel=='5'"><img src="../../assets/拼团_超团_icon.png" alt=""></span>
+
+                  <span class="" v-if="glevel=='0'"></span>
+                  <span class="tupian tupian_wei" v-if="glevel=='1'">微团</span>
+                  <span class="tupian tupian_xiao" v-if="glevel=='2'">小团</span>
+                  <span class="tupian tupian_zhong" v-if="glevel=='3'">中团</span>
+                  <span class="tupian tupian_da" v-if="glevel=='4'">大团</span>
+                  <span class="tupian tupian_chao" v-if="glevel=='5'">超团</span>
                 </div>
 <!--                普通区折扣-->
                 <div class="information_div color_hui">{{$t('ordinaryDiscount')}}</div>
 <!--                量化区折扣-->
                 <div class="information_div color_hui">{{$t('quantifiedDiscount')}}</div>
               </li>
-              <li class="information_li">
+              <li class="information_li m-t">
 <!--                团长账号: -->
                 <div class="information_div color_6">
                   {{$t('colonelNumber')}}
-                  <span>1234455@qq.com</span>
+                  <span>{{priAccount}}</span>
                 </div>
 <!--                普通区折扣-->
-                <div class="information_div color_bik_9">0.01%</div>
+                <div class="information_div color_bik_9">{{quantDiscount}}%</div>
 <!--                量化区折扣-->
-                <div class="information_div color_bik_9">0.01%</div>
+                <div class="information_div color_bik_9">{{commonDiscount}}%</div>
               </li>
             </ul>
           </div>

@@ -8,9 +8,9 @@ root.name = 'CreateAGroup'
 root.data = function () {
   return {
     //副团长账号
-    nameRegiment:'',
+    deputyAccount:'',
     //团名称
-    delegations:'',
+    gname:'',
     //检测团名 false:可用，true：不可用
     available:true
   }
@@ -54,42 +54,42 @@ root.methods = {}
 
 
 //创建拼团post(params:{})
-root.methods.post_create_a_group = function () {
+root.methods.postCreateAGroup = function () {
   this.$http.send('POST_ASSEMBLE_CREATEGROUP', {
     bind: this,
     params:{
       userId: this.uuid,
       priAccount: this.userName,
-      deputyAccount: this.nameRegiment,
-      gname: this.delegations
+      deputyAccount: this.deputyAccount,
+      gname: this.gname
     },
-    callBack: this.re_post_create_a_group,
-    errorHandler: this.error_post_create_a_group
+    callBack: this.re_postCreateAGroup,
+    errorHandler: this.error_postCreateAGroup
   })
 }
-root.methods.re_post_create_a_group = function (res) {
+root.methods.re_postCreateAGroup = function (res) {
   console.log("this.res=====",res)
 }
-root.methods.error_post_create_a_group = function (err) {
+root.methods.error_postCreateAGroup = function (err) {
   console.log("this.err=====",err)
 }
 
 //检查团名是否可用get (query:{})
-root.methods.get_name_available = function () {
+root.methods.getNameAvailable = function () {
   this.$http.send('GET_ASSEMBLE_ISEXISTGNAME', {
     bind: this,
     query:{
-      gname: this.this.delegations
+      gname: this.this.gname
     },
-    callBack: this.re_get_name_available,
-    errorHandler: this.error_get_name_available
+    callBack: this.re_getNameAvailable,
+    errorHandler: this.error_getNameAvailable
   })
 }
-root.methods.re_get_name_available = function (res) {
+root.methods.re_getNameAvailable = function (res) {
   console.log("this.res=====",res)
   this.available = res.data.success
 }
-root.methods.error_get_name_available = function (err) {
+root.methods.error_getNameAvailable = function (err) {
   console.log("this.err=====",err)
 }
 

@@ -5,7 +5,7 @@
 .of_the {
   width: 100%;
   margin-top: 20px;
-  /*height:146px;*/
+  /*height:161px;*/
   background:linear-gradient(270deg,rgba(22,98,245,1) 0%,rgba(53,146,246,1) 100%);
   border-radius:1px;
 }
@@ -31,8 +31,10 @@ ul {
 .information_div {
   /*display: flex;*/
   width: 24%;
-  /*height: 30px;*/
+  height: 30px;
+  line-height: 30px;
   /*padding-left: 25px;*/
+
   display: inline-block;
   margin-left: 5px;
   margin-bottom: 5px;
@@ -152,14 +154,14 @@ ul {
   padding-left: 25px;
   color: #0D0E23;
 }
-.list_directory_column ul {
+.ul_ul {
   width: 100%;
 
 }
 .list_directory_column_li {
   width: 100%;
   display: flex;
-  margin-top: 455px;
+  /*margin-top: 455px;*/
 
 }
 .list_directory_column_li_div {
@@ -237,4 +239,26 @@ ul {
 .tupian_chao {
   color: #E07100;
   background:linear-gradient(180deg,rgba(255,245,95,1) 0%,rgba(255,239,87,1) 19%,rgba(255,178,0,1) 100%);
+}
+.tupian_img {
+  margin-bottom: -8px;
+}
+.m-t {
+  margin-top: 0px;
+}
+.tuituan {
+  float: right;
+  margin-right: 25px;
+  margin-top: 15px;
+  height:28px;
+  line-height: 28px;
+  background:rgba(255,255,255,1);
+  border-radius:1px;
+  border:1px solid rgba(53,118,245,1);
+  font-size:12px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color:rgba(53,118,245,1);
+  padding-left: 10px;
+  padding-right: 10px;
 }
