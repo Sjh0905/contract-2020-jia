@@ -1,5 +1,4 @@
 
-
 <ul class="_m_stck_it flex-colum">
   <li class="flex-row flex-between" :style="transactionType?'flex-direction: row-reverse':''"
       v-for="(item,index) in list">
@@ -14,8 +13,6 @@
     <span v-else>{{formatnumber(item.amount,baseScale)}}
     </span>
 
-
-        </li>
-
-    </ul>
+  </li>
+</ul>
 

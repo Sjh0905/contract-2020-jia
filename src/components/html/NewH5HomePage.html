@@ -175,7 +175,7 @@
             <tr class="mobile-market-title-first-tr">
               <th>{{$t('mobileHomePageMarket.name')}}/{{$t('mobileHomePageMarket.volume')}}</th>
               <th>最新价</th>
-              <th>24h涨跌</th>
+              <th>24H涨跌</th>
             </tr>
 
             <!--循环部分-->
@@ -190,7 +190,7 @@
                   <span class="mobile-market-normal-td-symbol-second">{{'/'+item.name.split('_')[1]}}</span>
                 </div>
 <!--                <div class="mobile-market-normal-td-volume" v-if="item.name=='GRC_USDT'">成交量 {{item.volume >= 1000 && item.volume>0 ? $globalFunc.accFixed(item.volume/1000,2)+'k': $globalFunc.accFixed(item.volume, 0)}}</div>-->
-                <div class="mobile-market-normal-td-volume">成交量 {{$globalFunc.accFixed(item.volume, 0)}}</div>
+                <div class="mobile-market-normal-td-volume">24H {{$globalFunc.accFixed(item.volume, 0)}}</div>
               </td>
               <td>
 
@@ -203,7 +203,11 @@
               </td>
               <td>
                 <div class="mobile-market-normal-td-current"
-                     :class="diff24(item.open,item.close)<0?'mobile-market-normal-td-current-down':'mobile-market-normal-td-current-up'">
+                     :class="[
+                     diff24(item.open,item.close)<0?'mobile-market-normal-td-current-down':'',
+                     diff24(item.open,item.close)>0?'mobile-market-normal-td-current-up':''
+                     ]"
+                >
                   {{diff24(item.open,item.close)>0?'+':''}}{{diff24(item.open,item.close)}}%
                 </div>
               </td>

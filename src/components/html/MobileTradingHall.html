@@ -86,9 +86,7 @@
 
       <!--      </div>-->
       <div class="_m_sl_fcl" @click="SELECT_MORE">
-        <span>更多</span>
-        <!--              <div :class="!is_more ? 'triangle-down' : 'triangle-up'"></div>-->
-
+        <span>{{tradingTitle}}</span><div :class="!is_more ? 'triangle-down' : 'triangle-up'"></div>
       </div>
 
       <div class="_m_sl_more" v-show="!is_more">
