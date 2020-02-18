@@ -319,12 +319,19 @@
       </div>
       <div class="clear"></div>
 
-      <div class="mobile-container-latest-flag" @click="openLatestFlag">
+      <!--<div class="mobile-container-latest-flag" @click="openLatestFlag">-->
+        <!--<span class="mobile-container-latest-flag-text">当前委托</span>-->
+        <!--<img class="mobile-container-latest-flag-img" src="../../assets/mobile_latest_trade_arr_down.png" alt="">-->
+      <!--</div>-->
+
+      <div class="mobile-container-latest-flag" >
         <span class="mobile-container-latest-flag-text">当前委托</span>
-        <img class="mobile-container-latest-flag-img" src="../../assets/mobile_latest_trade_arr_down.png" alt="">
+        <!--        <img class="mobile-container-latest-flag-img" src="../../assets/mobile_latest_trade_arr_down.png" alt="">-->
+        <div class="mobile-container-latest-flag-img" @click="openLatestHistoryFlag">全部</div>
       </div>
+
     </div>
-    <div class="bottom-box"></div>
+    <!--<div class="bottom-box"></div>-->
   </div>
   <!--当前委托页-->
   <div v-if="openType!==3 && !latestFlag" class="container-current-page" @click="ToCurrentPage">
@@ -522,7 +529,7 @@
   </div>
 
   <div class="hangqceb_mb" v-show="isshowhangq"></div>
-  <div class="bottom-box"></div>
+  <!--<div class="bottom-box"></div>-->
 
 
 </div>

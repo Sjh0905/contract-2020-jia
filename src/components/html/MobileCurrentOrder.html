@@ -2,7 +2,7 @@
     <!--<div class="mobile-current-title">-->
         <!--<div class="mobile-current-title-all-sale" @click="cancelAllOrder">全部撤单</div>-->
     <!--</div>-->
-    <div class="_m_co_t txt_40 flex-row">
+    <div class="_m_co_t flex-row">
         <span>市场</span>
         <span>价格</span>
         <span>成交量 / 数量</span>
@@ -14,7 +14,7 @@
         <li v-for="(order,index) in currentOrderComputed" :key="order.id" class="_m_co_l flex-row">
             <div class="_m_co_l1 flex-colum flex-between">
                 <div class="_m_co_l1i flex-row">
-                    <i :style="order.type==='BUY_LIMIT'?'background:#00a62a':'background:#d83838'">
+                    <i :style="order.type==='BUY_LIMIT'?'background:#39B496':'background:#EF5656'">
                          {{order.type === 'BUY_LIMIT' && "买" || "卖"}}
                     </i>
                     <span>{{order.symbol.split('_')[0]}}</span><span class="txt_40">&nbsp;/&nbsp;{{order.symbol.split('_')[1]}}</span>
