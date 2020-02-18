@@ -11,40 +11,7 @@ root.components = {
 root.data = () => {
   return {
     loading: true, // 加载中
-
     buyConfirmSuccess:true,
-    // optionsgender: [{
-    //   value: '0',
-    //   label: '10000 QQ'
-    // }, {
-    //   value: '1',
-    //   label: '20000 QQ'
-    // }, {
-    //   value: '2',
-    //   label: '20000 QQ'
-    // }, {
-    //   value: '3',
-    //   label: '30000 QQ'
-    // }, {
-    //   value: '4',
-    //   label: '40000 QQ'
-    // }, {
-    //   value: '5',
-    //   label: '50000 QQ'
-    // }, {
-    //   value: '6',
-    //   label: '60000 QQ'
-    // }, {
-    //   value: '7',
-    //   label: '70000 QQ'
-    // }, {
-    //   value: '8',
-    //   label: '90000 QQ'
-    // }, {
-    //   value: '9',
-    //   label: '100000 QQ'
-    // }
-    // ],
     optionsgender:[],
     valuegender: '',
     records: [],
@@ -134,7 +101,7 @@ root.methods.error_getSupporting = function (err) {
   console.log("this.err=====",err)
 }
 
-//查询用户余额get (query:{})
+//查询用户余额get (query:{})未完成
 root.methods.getBalance = function () {
   this.$http.send('GET_GETUSERBALANCE', {
     bind: this,
@@ -151,17 +118,9 @@ root.methods.error_getBalance = function (err) {
 
 //查询报名记录get
 root.methods.getRegistrationRecord = function () {
-  this.$http.send('GET_GETREGDATA', {
-    bind: this,
-    query:{
-      userId:this.uuid
-    },
-    callBack: this.re_getRegistrationRecord,
-    errorHandler: this.error_getRegistrationRecord
-  })
-}
-root.methods.re_getRegistrationRecord = function (res) {
-  res = {
+
+  /* TODO : 调试接口需要屏蔽 S*/
+  var  data = {
     "data": [
       {
         "account": "54645@qq.com",
@@ -173,24 +132,54 @@ root.methods.re_getRegistrationRecord = function (res) {
     "status": "200",
     "message": "success"
   }
-  console.log("this.res=====",res)
-  this.records = res.data
+  this.re_getRegistrationRecord(data)
+  /* TODO : 调试接口需要屏蔽 E*/
+
+  this.$http.send('GET_GETREGDATA', {
+    bind: this,
+    query:{
+      userId:this.uuid
+    },
+    callBack: this.re_getRegistrationRecord,
+    errorHandler: this.error_getRegistrationRecord
+  })
+}
+root.methods.re_getRegistrationRecord = function (data) {
+
+  typeof data === 'string' && (data = JSON.parse(data))
+  console.log("this.re_getRegistrationRecord=====",data)
+  this.records = data.data
 }
 root.methods.error_getRegistrationRecord = function (err) {
   console.log("this.err=====",err)
 }
 
-//查询活动报名post(params:{})
+//活动报名post(params:{})
 root.methods.postActivities = function () {
+  // TODO : 加变量的非空判断 正则判断
+  let params = {
+    userId: this.uuid,
+    fcurr: this.fcurr,
+    email: this.userName,
+    mobile: this.userName,
+    fcode: this.fcode,
+    amount: this.valuegender //所需数额
+  }
+  console.log("postActivities + params ===== ",params)
+  /* TODO : 调试接口需要屏蔽 S*/
+  this.re_postActivities()
+  /* TODO : 调试接口需要屏蔽 E*/
+
   this.$http.send('POST_REGACT', {
     bind: this,
-    params:{},
+    params: params,
     callBack: this.re_postActivities,
     errorHandler: this.error_postActivities
   })
 }
-root.methods.re_postActivities = function (res) {
-  console.log("this.res=====",res)
+root.methods.re_postActivities = function (data) {
+  console.log("this.re_postActivities=====",data)
+  typeof data === 'string' && (data = JSON.parse(data))
 }
 root.methods.error_postActivities = function (err) {
   console.log("this.err=====",err)

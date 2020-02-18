@@ -425,6 +425,8 @@ requestAddress.GET_RECHARGE_RANKING_LIST = {url: urlHead+'/activity/promotion/ra
 requestAddress.GET_MATCHDATA = {url: urlHead+'/quant/matchData', method: 'get'}//查询配套数据
 requestAddress.GET_GETUSERBALANCE = {url: urlHead+'/quant/getUserBalance', method: 'get'}//查询用户余额
 requestAddress.GET_GETREGDATA = {url: urlHead+'/quant/getRegData', method: 'get'}//查询报名记录
+requestAddress.GET_QUANT_GETUSERTRADE = {url: urlHead+'/quant/user/getUsertrade', method: 'get'}//量化展示_量化交易记录
+requestAddress.GET_USER_QUANTTRADE = {url: urlHead+'/user/quantTrade', method: 'get'}//量化展示_量化基本信息
 requestAddress.POST_REGACT = {url: urlHead+'/quant/regAct', method: 'post'}//活动报名
 
 

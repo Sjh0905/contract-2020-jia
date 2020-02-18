@@ -51,7 +51,6 @@ root.computed.userName = function () {
 root.computed.userType = function () {
   return this.$store.state.authMessage && this.$store.state.authMessage.province === 'mobile' ? 0 : 1
 }
-
 // uid
 root.computed.uuid = function () {
   if(this.$store.state.authMessage.uuid == undefined){
@@ -61,7 +60,6 @@ root.computed.uuid = function () {
 }
 
 root.computed.computedRecord = function (item,index) {
-  // console.log('jjjjjjjjjjj',item,'kkkkkkkk',index,'pppppp',this.records)
   return this.records
 }
 /*------------------------------ 观察 -------------------------------*/
@@ -71,6 +69,28 @@ root.methods = {}
 
 //拼团展示团队详情get (query:{})  不知道对不对
 root.methods.getTeamDetails= function () {
+  /* TODO : 调试接口需要屏蔽 S*/
+  var  data = {
+    "data": {
+      "deputyAccount": "yx.318@qq.cn",
+      "idType": "3",
+      "priAccount": "1835807299@qq.com",
+      "joinTime": "2222-02-12",
+      "quantDiscount": "0.006",
+      "groupId": "2",
+      "gname": "战狼2",
+      "currCount": "20",
+      "createdAt": "2222-02-12",
+      "maxMember": "30",
+      "commonDiscount": "0.006",
+      "glevel": "4",
+      "account": "yx.318@qq.cn"
+    },
+    "status": "200",
+    "message": "success"
+  }
+  this.re_getTeamDetails(data)
+  /* TODO : 调试接口需要屏蔽 E*/
   this.$http.send('GET_QUERYSHOWGROUPINFO', {
     bind: this,
     query:{
@@ -81,29 +101,8 @@ root.methods.getTeamDetails= function () {
   })
 }
 root.methods.re_getTeamDetails = function (data) {
-
-
-  data = {
-    "data": {
-      "deputyAccount": "yx.318@qq.cn",
-      "idType": "1",
-      "priAccount": "1835807299@qq.com",
-      "joinTime": "2222-02-12",
-      "quantDiscount": "0.001",
-      "groupId": "2",
-      "gname": "战狼2",
-      "currCount": "6",
-      "createdAt": "2222-02-12",
-      "maxMember": "30",
-      "commonDiscount": "0.001",
-      "glevel": "1",
-      "account": "yx.318@qq.cn"
-    },
-    "status": "200",
-    "message": "success"
-  }
   console.log("this.data=====",data)
-  // typeof data === 'string' && (data = JSON.parse(data))
+  typeof data === 'string' && (data = JSON.parse(data))
   this.deputyAccount = data.data.deputyAccount
   this.idType = data.data.idType
   this.priAccount = data.data.priAccount
@@ -126,22 +125,29 @@ root.methods.error_getTeamDetails = function (err) {
 }
 
 
-//退团解散团队post(params:{}) 没看懂
+//退团解散团队post(params:{}) 没完成
 root.methods.postWithdraw = function () {
+  // TODO : 加变量的非空判断 正则判断
+  let params = {
+    userId: this.uuid,
+    groupId: this.groupId,
+    glevel: this.glevel,
+    idType: this.idType
+  }
+  console.log("postJoinGroup + params ===== ",params)
+  /* TODO : 调试接口需要屏蔽 S*/
+  this.re_postJoinGroup()
+  /* TODO : 调试接口需要屏蔽 E*/
   this.$http.send('POST_ASSEMBLE_LEVEAGROUP', {
     bind: this,
-    params:{
-      userId: this.uuid,
-      groupId: this.groupId,
-      glevel: this.glevel,
-      idType: this.idType
-    },
+    params: params,
     callBack: this.re_postWithdraw,
     errorHandler: this.error_postWithdraw
   })
 }
-root.methods.re_postWithdraw = function (res) {
-  console.log("this.res=====",res)
+root.methods.re_postWithdraw = function (data) {
+  console.log("this.res=====",data)
+  typeof data === 'string' && (data = JSON.parse(data))
 }
 root.methods.error_postWithdraw = function (err) {
   console.log("this.err=====",err)
@@ -149,6 +155,19 @@ root.methods.error_postWithdraw = function (err) {
 
 // 不会写  登陆用户组等级信息get (query:{})  未完成
 root.methods.getGroupLevel = function () {
+  /*TODO : 调试接口需要屏蔽 S*/
+ var res = {
+    "data": {
+      "idType": 2,
+      "groupId": 2,
+      "isExist": true,
+      "account": "yx.318@qq.cn"
+    },
+    "status": "200",
+    "message": "success"
+  }
+  this.re_getGroupLevel(res)
+  /* TODO : 调试接口需要屏蔽 E*/
   this.$http.send('GET_ASSEMBLE_GETMEM', {
     bind: this,
     query:{
@@ -159,28 +178,27 @@ root.methods.getGroupLevel = function () {
   })
 }
 root.methods.re_getGroupLevel = function (res) {
-  console.log("this.res=====",res)
+  // res = {
+  //   "data": {
+  //   "idType": 2,
+  //     "groupId": 2,
+  //     "isExist": true,
+  //     "account": "yx.318@qq.cn"
+  // },
+  //   "status": "200",
+  //   "message": "success"
+  // }
+  console.log("this.re_getGroupLevel + res=====",res)
+  typeof data === 'string' && (data = JSON.parse(data))
 }
 root.methods.error_getGroupLevel = function (err) {
   console.log("this.err=====",err)
 }
 
-//团员列表get (query:{}) 不知道对不对
+//团员列表get (query:{})
 root.methods.getMemberList= function () {
-  this.$http.send('GET_QUERYMEMBERLIST', {
-    bind: this,
-    query:{
-      groupId: this.groupId,
-      //ssssssssss
-      currPage: this.currPage,
-      pageSize: this.pageSize
-    },
-    callBack: this.re_getMemberList,
-    errorHandler: this.error_getMemberList
-  })
-}
-root.methods.re_getMemberList = function (data) {
-  data = {
+  /*TODO : 调试接口需要屏蔽 S*/
+ var data = {
     "data": {
       "data": [
         {
@@ -208,9 +226,25 @@ root.methods.re_getMemberList = function (data) {
     "status": "200",
     "message": "success"
   }
+  this.re_getMemberList(data)
+  /* TODO : 调试接口需要屏蔽 E*/
+
+  this.$http.send('GET_QUERYMEMBERLIST', {
+    bind: this,
+    query:{
+      groupId: this.groupId,
+      //ssssssssss
+      currPage: this.currPage,
+      pageSize: this.pageSize
+    },
+    callBack: this.re_getMemberList,
+    errorHandler: this.error_getMemberList
+  })
+}
+root.methods.re_getMemberList = function (data) {
   console.log("团员列表this.data=====",data)
 
-  // typeof data === 'string' && (data = JSON.parse(data))
+  typeof data === 'string' && (data = JSON.parse(data))
   this.records = data.data.data
 }
 root.methods.error_getMemberList = function (err) {

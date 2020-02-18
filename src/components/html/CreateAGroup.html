@@ -17,16 +17,28 @@
 <!--        拼团名称-->
         <div class="account_number">
           <p class="account_number_p">{{$t('nameRegiment')}}</p>
-          <input type="text" class="account_number_input" placeholder="输入拼团名称" v-model="gname">
+          <input type="text"
+                 class="account_number_input"
+                 placeholder="输入拼团名称"
+                 v-model="gname"
+                 :class="{'wrong-border' : gname === '' && gname == ''}"
+                 @blur="testName_0">
+          <span v-if="gname ===''" class="prompt-span wrong-msg">{{name_0}}</span>
         </div>
 <!--        设置副团长-->
         <div class="account_number">
           <p class="account_number_p">{{$t('delegations')}}</p>
-          <input type="text" class="account_number_input" placeholder="输入副团长账号" v-model="deputyAccount">
+          <input type="text"
+                 class="account_number_input"
+                 placeholder="输入副团长账号"
+                 v-model="deputyAccount"
+                 :class="{'wrong-border' : deputyAccount === '' && deputyAccount == ''}"
+                 @blur="testName_0">
+          <span v-if="deputyAccount ===''" class="prompt-span wrong-msg">{{nameMsg_0}}</span>
         </div>
 
 <!--        创建-->
-        <div class="div_botton" @click="createGroupType">{{$t('create')}}</div>
+        <div class="div_botton" @click="postCreateAGroup">{{$t('create')}}</div>
       </div>
     </div>
 
@@ -38,4 +50,6 @@
       <p class="rules_details">{{$t('calculated')}}</p>
     </div>
   </div>
+
+  <PopupPrompt :popOpen="popOpen" :popClose="popClose" :popType="popType" :popText="popText"/>
 </div>

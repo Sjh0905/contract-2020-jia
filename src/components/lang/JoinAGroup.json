@@ -35,7 +35,12 @@
   "accountNumber": "账号",
   "position": "职位",
   "additionTime": "加入时间",
-  "wrong_message_222": "选择已有团队"
+  "wrong_message_222": "选择已有团队",
+  "popText": "抱歉，无法加入该团队",
+  "popText1": "请选择团队",
+  "popText3": "抱歉，无法创建该团队",
+  "nameMsg_0": "请输入副团长账号",
+  "nameMsg_01": "请输入拼团名称"
 },
 "EN": {
 
