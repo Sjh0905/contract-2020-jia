@@ -441,6 +441,15 @@ requestAddress.GET_QUERYSHOWGROUPINFO = {url: urlHead+'/assemble/queryShowGroupI
 requestAddress.GET_QUERYGROUPINFO = {url: urlHead+'/assemble/queryGroupInfo', method: 'get'}//查询组详情
 requestAddress.GET_QUERYGROUPLIST = {url: urlHead+'/assemble/queryGroupList/', method: 'get'}//模糊查询可加入小组
 
+//2020-02-18，转账相关接口
+// requestAddress.REGISTER_BY_MOBILE = {url: urlHead+'/user/registerByMobile', method: 'post'}  // 手机注册
+// requestAddress.LOGIN_BY_MOBILE = {url: urlHead+'/user/signInByMobile', method: 'post'}  // 手机登录
+// 短信验证码    //  转账接口    auth/getVerificationCode
+// requestAddress.GET_VERIFICATIONCODE = {url: urlHead+'/auth/getVerificationCode', method: 'post'}//获取手机,邮箱验证码
+requestAddress.GET_VERIFYISIDENTITYUSER = {url: urlHead+'/user/verifyIsIdentityUser', method: 'post'} //验证收款人是否为实名认证用户
+requestAddress.GET_TRANSFER_LIST = {url: urlHead+'/user/inner/transfer/list', method: 'get'}  //内部转账记录
+// 查询当前币种的转账数量限制与手续费等信息
+requestAddress.GET_TRANSFERDISABLED = {url: urlHead+'/user/transfer/getTransferAmountInfo', method: 'post'} // 获取当前币种是否可以转账
 
 
 export default requestAddress

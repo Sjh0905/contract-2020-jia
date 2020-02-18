@@ -83,7 +83,7 @@ root.data = function () {
     currencyName: '', //当前货币币种
     pswPlaceholderShow: true,
     verificationCodePlaceholderShow: true,
-    isTransfer: true,//不可转账的币种
+    isTransfer: true,//是否可以转账 false 为可以转账
 
     transferCurrency: '',
     feeRate: 0, //费率
@@ -260,6 +260,12 @@ root.watch.loading = function (newVal, oldVal) {
 
 /*------------------------------ 方法 -------------------------------*/
 root.methods = {}
+
+root.methods.isERC20 = function () {
+  let currencyObj = this.$store.state.currency.get(this.currency)
+  // return currencyObj && (currencyObj.addressAliasTo === 'WCG' || this.currency === 'WCG')
+  return currencyObj && (this.currency == "USDT" && this.selectTab == 2) ? "USDT2" : this.currency;
+}
 // 划转输入框交换位置
 root.methods.changeAccount = function () {
   let empty = ''
@@ -434,125 +440,126 @@ root.methods.goToConfirmsjhclose = function () {
 
 
 root.methods.goToConfirmTransfer = function (data) {
-  this.buyTransferDetails = true
-  this.buyCommitToastOpen = false
-  // let canSend = true
-  // canSend = this.testName_0() && canSend
-  // canSend = this.testUID_01() && canSend
-  // canSend = this.testNum_01() && canSend
-  //
-  // if (this.idCode_0 === '') {
-  //   this.idCodeMsg_0 = this.$t('idCodeMsg_0_1')
-  //   canSend = false
-  // }
-  // if (!this.$globalFunc.testEmail(this.name_0)) {
-  //   this.nameMsg_0 = this.$t('registerUserNameWA_0')
-  //   canSend = false
-  // }
-  // if (this.name_0 === '') {
-  //   this.nameMsg_0 = this.$t('nameMsg_0')
-  //   canSend = false
-  // }
-  // if (this.testUID_0 === '') {
-  //   this.testUIDMsg_0 = this.$t('testUIDMsg_0')
-  //   canSend = false
-  // }
-  // if (this.testNum_0 === '') {
-  //   this.testNumMsg_0 = this.$t('testNumMsg_0')
-  //   canSend = false
-  // }
-  // if (this.testNum_0 < this.minAmount) {
-  //   this.testNum_0 = this.minAmount
-  //   this.testNumMsg_0 = this.$t('testNumMsg_03')
-  //   canSend = false
-  // }
-  // if (this.testNum_0 > this.maxAmount) {
-  //   this.testNum_0 = this.maxAmount
-  //   this.testNumMsg_0 = this.$t('testNumMsg_04')
-  //   canSend = false
-  // }
-  // if (!canSend) {
-  //   // console.log("不能发送！")
-  //   return
-  // }
-  //
+  // this.buyTransferDetails = true
+  // this.buyCommitToastOpen = false
+  let canSend = true
+  canSend = this.testName_0() && canSend
+  canSend = this.testUID_01() && canSend
+  canSend = this.testNum_01() && canSend
+
+  if (this.idCode_0 === '') {
+    this.idCodeMsg_0 = this.$t('idCodeMsg_0_1')
+    canSend = false
+  }
+  if (!this.$globalFunc.testEmail(this.name_0)) {
+    this.nameMsg_0 = this.$t('registerUserNameWA_0')
+    canSend = false
+  }
+  if (this.name_0 === '') {
+    this.nameMsg_0 = this.$t('nameMsg_0')
+    canSend = false
+  }
+  if (this.testUID_0 === '') {
+    this.testUIDMsg_0 = this.$t('testUIDMsg_0')
+    canSend = false
+  }
+  if (this.testNum_0 === '') {
+    this.testNumMsg_0 = this.$t('testNumMsg_0')
+    canSend = false
+  }
+  if (this.testNum_0 < this.minAmount) {
+    this.testNum_0 = this.minAmount
+    this.testNumMsg_0 = this.$t('testNumMsg_03')
+    canSend = false
+  }
+  if (this.testNum_0 > this.maxAmount) {
+    this.testNum_0 = this.maxAmount
+    this.testNumMsg_0 = this.$t('testNumMsg_04')
+    canSend = false
+  }
+  if (!canSend) {
+    // console.log("不能发送！")
+    return
+  }
+
   // // console.log('55555555555555555555555555555555',this.name_0,this.testUID_0,this.testNum_0)
-  // this.$http.send('GET_VERIFYISIDENTITYUSER',{
-  //   bind: this,
-  //   params:{
-  //     email:this.name_0,
-  //     userId:this.testUID_0,
-  //   },
-  //   callBack: this.re_zhuanzhang,
-  //   errorHandler: this.error_zhuanzhang,
-  // })
+  this.$http.send('GET_VERIFYISIDENTITYUSER',{
+    bind: this,
+    params:{
+      email:this.name_0,
+      userId:this.testUID_0,
+      username:this.name_0
+    },
+    callBack: this.re_zhuanzhang,
+    errorHandler: this.error_zhuanzhang,
+  })
   // console.log('888888888888',this.name_0,this.testUID_0,data)
 
 }
 
-// root.methods.re_zhuanzhang = function(data){
-//   // console.log(data)
-//
-//
-//   // console.log('data==================',data.dataMap.UserProfile.name)
-//   // console.log(this.name_0,this.testUID_0)
-//   console.log('resDataMap==================ggggggggg=',data)
-//
-//
-//   if (data.errorCode) {
-//     if (data.errorCode === 1) {
-//       this.buyTransferDetails = false
-//       this.popText = this.$t('emailVerificationCodeWA_1') // 用户未登录
-//       this.popType = 0
-//       this.popOpen = true
-//     }
-//     if (data.errorCode === 2) {
-//       this.buyTransferDetails = false
-//       this.popText = this.$t('step2VerificationCodeWA_10')  //收款人不存在
-//       this.popType = 0
-//       this.popOpen = true
-//     }
-//     if (data.errorCode === 3) {
-//       this.buyTransferDetails = false
-//       this.testUIDMsg_0 =this.$t('step2VerificationCodeWA_UID') // 传入用户邮箱和传入UID不是同一人
-//       this.popType = 0
-//       this.popOpen = true
-//     }
-//     if (data.errorCode === 4) {
-//       this.buyTransferDetails = false
-//       this.popText = this.$t('step2VerificationCodeWA_Authentication')  //转账用户未进行实名认证'
-//       this.popType = 0
-//       this.popOpen = true
-//     }
-//     if (data.errorCode === 5) {
-//       this.buyTransferDetails = false
-//       this.popText = this.$t('step2VerificationCodeWA_receiving')  //收款用户未进行实名认证'
-//       this.popType = 0
-//       this.popOpen = true
-//     }
-//     if (data.errorCode === 6) {
-//       this.buyTransferDetails = false
-//       this.popText = this.$t('step2VerificationCodeWA_incoming')  // 没有传入用户邮箱或UID
-//       this.popType = 0
-//       this.popOpen = true
-//     }
-//     if (data.errorCode === 7) {
-//       this.buyTransferDetails = false
-//       this.popText = '收款用户不能转账用户相同'
-//       this.popType = 0
-//       this.popOpen = true
-//     }
-//     return
-//   }
-//   this.name = data.dataMap.UserProfile.name
-//   this.popWindowOpen = false
-//   this.buyCommitToastOpen = false
-//   this.buyTransferDetails = true
-// }
-//
-// root.methods.error_zhuanzhang = function(data){
-//   console.log('resDataMap=========rrrrr=========ggggggggg=',data)
-// }
+root.methods.re_zhuanzhang = function(data){
+  // console.log(data)
+
+
+  // console.log('data==================',data.dataMap.UserProfile.name)
+  // console.log(this.name_0,this.testUID_0)
+  console.log('resDataMap==================ggggggggg=',data)
+
+
+  if (data.errorCode) {
+    if (data.errorCode === 1) {
+      this.buyTransferDetails = false
+      this.popText = this.$t('emailVerificationCodeWA_1') // 用户未登录
+      this.popType = 0
+      this.popOpen = true
+    }
+    if (data.errorCode === 2) {
+      this.buyTransferDetails = false
+      this.popText = this.$t('step2VerificationCodeWA_10')  //收款人不存在
+      this.popType = 0
+      this.popOpen = true
+    }
+    if (data.errorCode === 3) {
+      this.buyTransferDetails = false
+      this.testUIDMsg_0 =this.$t('step2VerificationCodeWA_UID') // 传入用户邮箱和传入UID不是同一人
+      this.popType = 0
+      this.popOpen = true
+    }
+    if (data.errorCode === 4) {
+      this.buyTransferDetails = false
+      this.popText = this.$t('step2VerificationCodeWA_Authentication')  //转账用户未进行实名认证'
+      this.popType = 0
+      this.popOpen = true
+    }
+    if (data.errorCode === 5) {
+      this.buyTransferDetails = false
+      this.popText = this.$t('step2VerificationCodeWA_receiving')  //收款用户未进行实名认证'
+      this.popType = 0
+      this.popOpen = true
+    }
+    if (data.errorCode === 6) {
+      this.buyTransferDetails = false
+      this.popText = this.$t('step2VerificationCodeWA_incoming')  // 没有传入用户邮箱或UID
+      this.popType = 0
+      this.popOpen = true
+    }
+    if (data.errorCode === 7) {
+      this.buyTransferDetails = false
+      this.popText = '收款用户不能转账用户相同'
+      this.popType = 0
+      this.popOpen = true
+    }
+    return
+  }
+  this.name = data.dataMap.UserProfile.name
+  this.popWindowOpen = false
+  this.buyCommitToastOpen = false
+  this.buyTransferDetails = true
+}
+
+root.methods.error_zhuanzhang = function(data){
+  console.log('resDataMap=========rrrrr=========ggggggggg=',data)
+}
 
 //查看转账记录
 root.methods.goToTransferRecord = function () {
@@ -774,6 +781,9 @@ root.methods.getMobileVerification = function () {
     params: {
       type: 'mobile',
       purpose: 'transfer',
+      mun: '',
+      currency: this.transferCurrency,
+      amount: parseFloat(this.testNum_0),
       code: this.step2VerificationCode,
     },
     callBack: this.re_getMobileVerification,
@@ -1232,14 +1242,15 @@ root.methods.transferDisabledss = function (transferCurrency) {
 root.methods.re_transferDisabled = function (data) {
   console.log(data)
   // console.log(this.currencyName)
+  // 是否可以转账 false 为可以转账
   this.isTransfer = data.dataMap.insideTransferAccount.transferDisabled
   // 提现费率
   this.feeRate = data.dataMap.insideTransferAccount.feeRate
   // 最大转账数量
   this.maxAmount = data.dataMap.insideTransferAccount.maxAmount
-  // 最小提现额度
-  this.minAmount = data.dataMap.insideTransferAccount.minAmount //+ data.dataMap.withdrawRule.minimumFee
   // 最小转账数量
+  this.minAmount = data.dataMap.insideTransferAccount.minAmount //+ data.dataMap.withdrawRule.minimumFee
+  // 最小手续费
   this.minimumFee = data.dataMap.insideTransferAccount.minimumFee
 
   // 获取费率成功

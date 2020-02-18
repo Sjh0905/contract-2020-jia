@@ -220,7 +220,9 @@ root.methods.re_postJoinGroup = function (data) {
   this.success = data.data.success
   console.log("re_postJoinGroup + data=====",data)
   if (this.success == true) {
-    this.$router.push({name: 'detailsOfTheGroup'})
+    // this.$router.push({name: 'detailsOfTheGroup',query:{groupId:this.groupId , gname: this.gname}} )
+    this.$router.push({name: 'detailsOfTheGroup'} )
+
   }
   if (this.success == false) {
     this.popOpen = true
@@ -241,7 +243,7 @@ root.methods.getFuzzyQuery= function () {
     "data": [
       {
         "groupId": "1",
-        "gname": "战狼"
+        "gname": "战狼1"
       },
       {
         "groupId": "2",
