@@ -1,11 +1,18 @@
 <div class="Verification-container Verification-container-pop">
   <template v-if="isMobile">
     <div class="all-container border_radius box_shadow">
-      <div class="unit-title flex-center">
-        <span class="unit-title-line"></span>
+      <div class="unit-title">
+        <!--<span class="unit-title-line"></span>-->
         <span class="unit-title-text">{{$t("title")}}</span>
-        <span class="unit-title-line"></span>
+        <!--<span class="unit-title-line"></span>-->
       </div>
+
+      <!--<div class="unit-title"  v-if="isMobile">-->
+        <!--&lt;!&ndash;      <span class="unit-title-line"></span>&ndash;&gt;-->
+        <!--<span class="unit-title-text">{{$t("welcome")}}</span>-->
+        <!--&lt;!&ndash;      <span class="unit-title-line"></span>&ndash;&gt;-->
+      <!--</div>-->
+
       <div class="unit-container flex-center">
         <div class="flex unit-input-container pick-one-type" v-if="showPicker">
           <div><input type="radio" name="identify-type" id="ga" value="bindGA" v-model="picked">
@@ -51,10 +58,10 @@
           <span></span>
           <input type="text" :placeholder='$t("identifyingCodeMo")' class="unit-input"
                  v-model="verificationCode">
-          <div v-if="isMobile" class="cutter-line flex-center">|</div>
-          <span class="flex-center btn_blue" v-if="!getVerificationCode" @click="click_getVerificationCode">{{$t('get')}}</span>
-          <span class="flex-center identifying-code-button-close btn_grey"
-                v-if="getVerificationCode">{{getVerificationCodeCountdown}}</span>
+          <!--<div v-if="isMobile" class="cutter-line flex-center">|</div>-->
+          <span class="flex-center" v-if="!getVerificationCode" @click="click_getVerificationCode">{{$t('get')}}验证码</span>
+          <span class="flex-center identifying-code-button-close"
+                v-if="getVerificationCode">{{getVerificationCodeCountdown}}s</span>
         </div>
         <div class="unit-input-interval txt-red" v-if="picked==='bindMobile'">
           <span v-if="verificationCodeWA!==''">{{verificationCodeWA}}</span>
