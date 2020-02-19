@@ -68,7 +68,7 @@
             <span class="rechargeAndWithdrawals">
 
             <!--打开划转 begin-->
-            <span class="recharge-button button" @click="openTransfer()"
+            <span class="recharge-button button" @click="openTransfer(index,item)"
                   :class="{'recharge-button-select':activeIndex === index  && recharge}"
                   v-if="rechargeFlag(item)">
               {{$t('transfer')}}
@@ -145,9 +145,22 @@
       <!--      币种-->
       <div class="currency block-input">
         <div class="block-input-title">{{$t('currency')}}</div>
-        <input type="text" placeholder="BTC">
+        <el-select class="inputInner" value-key="currencyKey" v-model="currencyValue" filterable placeholder="" @change="changeTransferCurrency">
+          <el-option
+            v-if="serverT >= item.displayTime && !item.isUSDT2"
+            v-for="item in accountsComputed"
+            :key="item.currencyKey"
+            :label="item.currency"
+            :value="item.currency"
+          >
+            <!--            :remote-method="remoteMethod"-->
+            <!--            :loading="loading">-->
+          </el-option>
+        </el-select>
+
+<!--        <input type="text" placeholder="BTC">-->
         <div class="amount-not-empty">
-          <span>错误提示</span>
+          <span>{{transferCurrencyWA}}</span>
         </div>
       </div>
 
@@ -155,14 +168,14 @@
       <div class="amount block-input">
         <div class="block-input-title">
           <span>{{$t('amount')}}</span>
-          <span class="available-right">{{$t('mentioning')}}：0000000 NET</span>
+          <span class="available-right">{{$t('mentioning')}}：{{transferCurrencyAvailable}} {{currencyValue}}</span>
         </div>
         <div class="amount-input flex">
-          <input type="text" placeholder="12345" class="amount-input-box">
-          <span class="amount-all">{{$t('allMention')}}</span>
+          <input type="text" placeholder="" class="amount-input-box" v-model="amountInput">
+          <span class="amount-all pointer" @click="allMention()">{{$t('allMention')}}</span>
         </div>
         <div class="amount-not-empty">
-          <span>错误提示</span>
+          <span>{{transferAmountWA}}</span>
         </div>
       </div>
     </div>

@@ -74,7 +74,7 @@
                   v-if="rechargeFlag(item)">{{$t('recharge')}}</span>
               <!--打开充值 end-->
               <!--关闭充值 begin-->
-              <span class="recharge-button button can-not-withdrawals"
+              <span class=" can-not-withdrawals"
                     :class="{'recharge-button-select':activeIndex === index  && recharge}" v-else>{{$t('recharge')}}</span>
               <!--关闭充值 end-->
 
@@ -83,20 +83,20 @@
                   :class="{'withdrawals-button-select':activeIndex===index  && withdrawals}"
                   v-if="withdrawalsFlag(item)"
             >{{$t('withdrawals')}}</span>
-            <span class="withdrawals-button button can-not-withdrawals" v-else>{{$t('withdrawals')}}</span>
+            <span class="can-not-withdrawals" v-else>{{$t('withdrawals')}}</span>
               <!--打开提现 end-->
               <!--关闭提现 begin-->
               <!--<span class="withdrawals-button button can-not-withdrawals">{{$t('withdrawals')}}</span>-->
               <!--关闭提现 end-->
 
               <!--打开划转 begin-->
-            <span class="withdrawals-button button" @click="openTransfer()"
+            <span class="withdrawals-button button" @click="openTransfer(index,item)"
                   :class="{'withdrawals-button-select':activeIndex===index  && withdrawals}"
                   v-if="withdrawalsFlag(item)"
             >
               {{$t('transfer')}}
             </span>
-            <span class="withdrawals-button button can-not-withdrawals" v-else>{{$t('transfer')}}</span>
+            <span class="can-not-withdrawals" v-else>{{$t('transfer')}}</span>
               <!--打开划转 end-->
               <!--关闭划转 begin-->
               <!--<span class="withdrawals-button button can-not-withdrawals">{{$t('withdrawals')}}</span>-->
@@ -109,7 +109,7 @@
                     :class="{'recharge-button-select-transfer':activeIndex===index  && transferss}"
                     v-if="serverT >= item.withdrawOpenTime"
               >{{$t('internalTransfer')}}</span>
-            <span class="withdrawals-button button can-not-withdrawals" v-else>{{$t('internalTransfer')}}</span>
+            <span class=" can-not-withdrawals" v-else>{{$t('internalTransfer')}}</span>
               <!--sss打开转账 end-->
 
               <!--关闭转账 begin-->
@@ -131,7 +131,7 @@
   </div>
 
   <!--  内部划转-->
-  <PopupT :switch="popWindowOpen1" @close="popWindowClose_transfer">
+  <PopupT :switch="popWindowOpen1" @close="popWindowClose_transfer" >
     <div slot="header">
       <span class="pop-ei-ar">{{$t('capitalTransfer')}}</span>
     </div>
@@ -155,26 +155,39 @@
       </div>
 
 <!--      币种-->
-      <div class="currency block-input">
+      <div class="currency block-input" >
         <div class="block-input-title">{{$t('currency')}}</div>
-        <input type="text" placeholder="BTC">
+        <el-select class="inputInner" value-key="currencyKey" v-model="currencyValue" filterable placeholder="" @change="changeTransferCurrency">
+          <el-option
+            v-if="serverT >= item.displayTime && !item.isUSDT2"
+            v-for="item in accountsComputed"
+            :key="item.currencyKey"
+            :label="item.currency"
+            :value="item.currency"
+          >
+<!--            :remote-method="remoteMethod"-->
+<!--            :loading="loading">-->
+          </el-option>
+        </el-select>
+
+<!--        <input type="text" placeholder="BTC">-->
         <div class="amount-not-empty">
-          <span>错误提示</span>
+          <span>{{transferCurrencyWA}}</span>
         </div>
       </div>
 
 <!--      数量-->
-      <div class="amount block-input">
+      <div class="amount block-input" >
         <div class="block-input-title">
           <span>{{$t('amount')}}</span>
-          <span class="available-right">{{$t('mentioning')}}：0000000 NET</span>
+          <span class="available-right">{{$t('mentioning')}}：{{transferCurrencyAvailable}} {{currencyValue}}</span>
         </div>
         <div class="amount-input flex">
-          <input type="text" placeholder="12345" class="amount-input-box">
-          <span class="amount-all">{{$t('allMention')}}</span>
+          <input type="text" placeholder="" v-model="amountInput" class="amount-input-box">
+          <span class="amount-all pointer" @click="allMention">{{$t('allMention')}}</span>
         </div>
         <div class="amount-not-empty">
-          <span>错误提示</span>
+          <span>{{transferAmountWA}}</span>
         </div>
       </div>
     </div>
