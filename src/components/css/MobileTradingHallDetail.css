@@ -226,8 +226,8 @@
   font-size: 0.24rem;
   text-align: center;
   display: inline-block;
-  border: 1px solid #131F30;
-  border-radius: 4px;
+  border: 0.02rem solid #3E536C;
+  border-radius: 0.02rem;
   /*color: #D6DAE0;*/
   box-sizing: border-box;
   margin-right: 0.05rem;

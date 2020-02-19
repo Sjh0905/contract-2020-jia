@@ -54,6 +54,8 @@ root.data = function () {
 
     agreement: false,
 
+    assetAccountType:'wallet'//当前账户类型,默认显示我的钱包
+
   }
 }
 
@@ -173,6 +175,12 @@ root.watch.currencyChange = function (newVal, oldVal) {
 
 
 root.methods = {};
+//切换我的钱包和币币账户
+root.methods.changeAssetAccountType = function (type) {
+  if(this.assetAccountType == type)return
+
+  this.assetAccountType = type
+};
 // 点击币种，是否弹出币种的详细信息开关
 root.methods.changeTableOpenFlag = function (obj) {
   this.tableOpenFlag = !this.tableOpenFlag
