@@ -66,7 +66,18 @@ root.data = function () {
     // 内部划转变量
     popWindowOpen1:false,
     bibiAccount:'币币账户',
-    account:'我的钱包'
+    account:'我的钱包',
+    itemInfo:{
+      currency:''
+    },
+
+    currencyValue:'',// 输入框币种信息
+    transferCurrencyWA:'',// 币种错误提示
+    amountInput:'',// 输入框划转的数量
+    transferAmountWA:'',// 数量错误提示
+    transferCurrencyAvailable:0,
+    transferCurrencyObj:{},
+    sending:false
 
 
   }
@@ -162,9 +173,20 @@ root.computed.accountsComputed = function () {
   // 特殊处理
   if (this.hideZeroAsset) {
     return this.accounts.filter(val => {
+      val.currencyKey = val.currency+'-'+inx;
+
+      this.transferCurrencyObj[val.currency] = val;
       return val.total !== 0
     })
   }
+
+  this.accounts.map((val,inx) => {
+    val.currencyKey = val.currency+'-'+inx;
+    // val.currency == 'USDTK' && console.log(JSON.stringify(val))
+    // console.log(JSON.stringify(val.id))
+    this.transferCurrencyObj[val.currency] = val;
+  })
+
   return this.accounts
 }
 // 基础货币
@@ -225,6 +247,22 @@ root.watch.loading = function (newVal, oldVal) {
 /*----------------------------- 方法 ------------------------------*/
 
 root.methods = {}
+
+// 去交易
+root.methods.goToDeal = function (item) {
+  let symbol = item.currency+'_USDT'
+  let haveSymbol =  this.$store.state.tradingParameters.find(v=>v.name==symbol)
+  if(!haveSymbol){
+    this.$router.push({name: 'tradingHall'})
+    return
+  }
+  this.$store.commit('SET_SYMBOL', symbol);
+
+  let user_id = this.$store.state.authMessage.userId;
+  let user_id_symbol = user_id + '-' + symbol;
+  !!user_id && this.$cookies.set('user_symbol_cookie', user_id_symbol, 60 * 60 * 24)
+  this.$router.push({name: 'tradingHall'})
+}
 
 // 计算当前币对折合多少人民币  2018-4-4 start
 root.methods.get_now_price = function (key, price, e) {
@@ -432,31 +470,137 @@ root.methods.goToBindEmail = function () {
 }
 
 
-// 打开提现
-root.methods.openWithdrawals = function (index, item) {
+// // 打开提现
+// root.methods.openWithdrawals = function (index, item) {
+//
+//   if (item.currency !=='USDT' && this.serverT < item.withdrawOpenTime) {
+//     this.popupPromptOpen = true
+//     this.popupPromptText = this.$t('withdrawalsIsNotOpen')
+//     this.popupPromptType = 0
+//     return
+//   }
+//
+//   if (item.withdrawDisabled) {
+//     this.popupPromptOpen = true
+//     this.popupPromptText = this.$t('withdrawalsIsNotOpen')
+//     this.popupPromptType = 0
+//     return
+//   }
+//
+//   // 如果没有实名认证不允许打开提现
+//   if (!this.bindIdentify) {
+//     this.popWindowTitle = this.$t('popWindowTitleWithdrawals')
+//     this.popWindowPrompt = this.$t('popWindowPromptWithdrawals')
+//     this.popWindowStyle = '0'
+//     this.popWindowOpen = true
+//     return
+//   }
+//
+//   // 如果没有绑定邮箱，不允许打开提现
+//   if (!this.bindEmail) {
+//     this.popWindowTitle = this.$t('bind_email_pop_title')
+//     this.popWindowPrompt = this.$t('bind_email_pop_article')
+//     this.popWindowStyle = '3'
+//     this.popWindowOpen = true
+//     return
+//   }
+//
+//   // 如果没有绑定谷歌或手机，不允许打开提现
+//   if (!this.bindGA && !this.bindMobile) {
+//     this.popWindowTitle = this.$t('popWindowTitleWithdrawals')
+//     this.popWindowPrompt = this.$t('popWindowTitleBindGaWithdrawals')
+//     this.popWindowStyle = '1'
+//     this.popWindowOpen = true
+//     return
+//   }
+//
+//
+//   //todo 修改密码后不能提现
+//
+//
+//   this.recharge = false
+//   this.activeIndex !== index && (this.withdrawals = true)
+//   if (this.activeIndex === index) {
+//     this.withdrawals = !this.withdrawals
+//     if (this.withdrawals === false) {
+//       this.activeIndex = -1
+//       return
+//     }
+//   }
+//   this.activeIndex = index
+// }
+//
+// // 打开充值
+// root.methods.openRecharge = function (index, item) {
+//
+//   // 如果没有实名认证不允许打开充值
+//   // 充值取消实名认证的限制
+//   // if (!this.bindIdentify) {
+//   //   this.popWindowTitle = this.$t('popWindowTitleRecharge')
+//   //   this.popWindowPrompt = this.$t('popWindowPromptRecharge')
+//   //   this.popWindowStyle = '0'
+//   //   this.popWindowOpen = true
+//   //   return
+//   // }
+//   // 如果没有绑定邮箱，不允许打开充值
+//   if (!this.bindEmail) {
+//     this.popWindowTitle = this.$t('bind_email_pop_title')
+//     this.popWindowPrompt = this.$t('bind_email_pop_article')
+//     this.popWindowStyle = '3'
+//     this.popWindowOpen = true
+//     return
+//   }
+//
+//   // 如果没有绑定谷歌或手机，不允许打开充值
+//   if (!this.bindGA && !this.bindMobile) {
+//     this.popWindowTitle = this.$t('popWindowTitleRecharge')
+//     this.popWindowPrompt = this.$t('popWindowTitleBindGaRecharge')
+//     this.popWindowStyle = '1'
+//     this.popWindowOpen = true
+//     return
+//   }
+//
+//   this.withdrawals = false
+//   this.activeIndex !== index && (this.recharge = true)
+//   if (this.activeIndex === index) {
+//     this.recharge = !this.recharge
+//     if (this.recharge === false) {
+//       this.activeIndex = -1
+//       return
+//     }
+//   }
+//   this.rechargeAddressChangePrompt = true
+//   this.activeIndex = index
+// }
+//
+// root.methods.errorHandler = function (err, state, text) {
+//   console.error('数据出错！', err, state, text)
+// }
 
+// 打开划转  begin
+root.methods.openTransfer = function (index, item) {
   if (item.currency !=='USDT' && this.serverT < item.withdrawOpenTime) {
     this.popupPromptOpen = true
-    this.popupPromptText = this.$t('withdrawalsIsNotOpen')
+    this.popupPromptText = this.$t('TransferIsNotOpen')
     this.popupPromptType = 0
     return
   }
 
   if (item.withdrawDisabled) {
     this.popupPromptOpen = true
-    this.popupPromptText = this.$t('withdrawalsIsNotOpen')
+    this.popupPromptText = this.$t('TransferIsNotOpen')
     this.popupPromptType = 0
     return
   }
 
-  // 如果没有实名认证不允许打开提现
-  if (!this.bindIdentify) {
-    this.popWindowTitle = this.$t('popWindowTitleWithdrawals')
-    this.popWindowPrompt = this.$t('popWindowPromptWithdrawals')
-    this.popWindowStyle = '0'
-    this.popWindowOpen = true
-    return
-  }
+  // 如果没有实名认证不允许打开划转
+  // if (!this.bindIdentify) {
+  //   this.popWindowTitle = this.$t('popWindowTitleTransfer')
+  //   this.popWindowPrompt = this.$t('popWindowPromptWithdrawals')
+  //   this.popWindowStyle = '0'
+  //   this.popWindowOpen = true
+  //   return
+  // }
 
   // 如果没有绑定邮箱，不允许打开提现
   if (!this.bindEmail) {
@@ -468,19 +612,18 @@ root.methods.openWithdrawals = function (index, item) {
   }
 
   // 如果没有绑定谷歌或手机，不允许打开提现
-  if (!this.bindGA && !this.bindMobile) {
-    this.popWindowTitle = this.$t('popWindowTitleWithdrawals')
-    this.popWindowPrompt = this.$t('popWindowTitleBindGaWithdrawals')
-    this.popWindowStyle = '1'
-    this.popWindowOpen = true
-    return
-  }
-
+  // if (!this.bindGA && !this.bindMobile) {
+  //   this.popWindowTitle = this.$t('popWindowTitleTransfer')
+  //   this.popWindowPrompt = this.$t('popWindowTitleBindGaWithdrawals')
+  //   this.popWindowStyle = '1'
+  //   this.popWindowOpen = true
+  //   return
+  // }
 
   //todo 修改密码后不能提现
 
-
   this.recharge = false
+  this.transferss = false
   this.activeIndex !== index && (this.withdrawals = true)
   if (this.activeIndex === index) {
     this.withdrawals = !this.withdrawals
@@ -489,59 +632,11 @@ root.methods.openWithdrawals = function (index, item) {
       return
     }
   }
-  this.activeIndex = index
-}
 
-// 打开充值
-root.methods.openRecharge = function (index, item) {
-
-  // 如果没有实名认证不允许打开充值
-  // 充值取消实名认证的限制
-  // if (!this.bindIdentify) {
-  //   this.popWindowTitle = this.$t('popWindowTitleRecharge')
-  //   this.popWindowPrompt = this.$t('popWindowPromptRecharge')
-  //   this.popWindowStyle = '0'
-  //   this.popWindowOpen = true
-  //   return
-  // }
-  // 如果没有绑定邮箱，不允许打开充值
-  if (!this.bindEmail) {
-    this.popWindowTitle = this.$t('bind_email_pop_title')
-    this.popWindowPrompt = this.$t('bind_email_pop_article')
-    this.popWindowStyle = '3'
-    this.popWindowOpen = true
-    return
-  }
-
-  // 如果没有绑定谷歌或手机，不允许打开充值
-  if (!this.bindGA && !this.bindMobile) {
-    this.popWindowTitle = this.$t('popWindowTitleRecharge')
-    this.popWindowPrompt = this.$t('popWindowTitleBindGaRecharge')
-    this.popWindowStyle = '1'
-    this.popWindowOpen = true
-    return
-  }
-
-  this.withdrawals = false
-  this.activeIndex !== index && (this.recharge = true)
-  if (this.activeIndex === index) {
-    this.recharge = !this.recharge
-    if (this.recharge === false) {
-      this.activeIndex = -1
-      return
-    }
-  }
-  this.rechargeAddressChangePrompt = true
-  this.activeIndex = index
-}
-
-root.methods.errorHandler = function (err, state, text) {
-  console.error('数据出错！', err, state, text)
-}
-
-// 打开划转  begin
-root.methods.openTransfer = function () {
   this.popWindowOpen1 = true
+  this.transferCurrencyAvailable = item.available
+  this.itemInfo = item
+  this.currencyValue = this.itemInfo.currency
 }
 
 // 划转弹窗关闭
@@ -562,9 +657,99 @@ root.methods.changeAccount = function () {
 root.methods.click_rel_em = function () {
   this.popWindowOpen1 = false
 }
-// 划转提交按钮
+
+root.methods.changeTransferCurrency = function (currency){
+  console.log('changeTransferCurrency==============',currency)
+  // this.itemInfo = val
+  this.transferCurrencyAvailable = this.transferCurrencyObj[currency].available || 0;
+}
+
+// 判断划转数量
+root.methods.testTransferAmount  = function () {
+
+  if (this.$globalFunc.testSpecial(this.amountInput)) {
+    this.transferAmountWA = this.$t('transferAmountWA1')
+    return false
+  }
+  if (this.amountInput == 0) {
+    this.transferAmountWA = this.$t('transferAmountWA2')
+    return false
+  }
+  if (this.amountInput > this.transferCurrencyAvailable) {
+    this.transferAmountWA = this.$t('transferAmountWA3')
+    return false
+  }
+  if (this.amountInput <= '0') {
+    this.amountInput = '0'
+    this.transferAmountWA = this.$t('transferAmountWA4')
+    return false
+  }
+  this.amountInput = ''
+  return true
+}
+// 划转提交
 root.methods.commit = function () {
-  this.popWindowOpen1 = false
+
+  if (this.sending) return
+  let canSend = true
+
+  if (this.currencyValue === '') {
+    this.transferCurrencyWA = this.$t('transferCurrencyWA')
+    canSend = false
+  }
+  if (this.amountInput === '') {
+    this.transferAmountWA = this.$t('transferAmountWA')
+    canSend = false
+  }
+
+  if (this.amountInput > this.transferCurrencyAvailable) {
+    this.transferAmountWA = this.$t('transferAmountWA3')
+    return false
+  }
+  if (this.amountInput <= '0') {
+    this.amountInput = '0'
+    this.transferAmountWA = this.$t('transferAmountWA4')
+    return false
+  }
+  // if (this.amountInput === '0') {
+  //   this.transferAmountWA = this.$t('transferAmountWA2')
+  //   canSend = false
+  // }
+
+  if (!canSend) {
+    // console.log("不能发送！")
+    return
+  }
+
+  this.$http.send('POST_TRANSFER_LIST', {
+    bind: this,
+    params: {
+      currency:this.currencyValue,
+      amount:this.amountInput,
+      system:this.bibiAccount==='币币账户'?'WALLET':('SPOTS' || 'CONTRACTS')
+    },
+    callBack: this.re_transfer,
+    errorHandler: this.error_transfer
+  })
+
+  this.sending = true
+  console.log('发送成功====================')
+
+  // this.popWindowOpen1 = false
+}
+
+// 划转回调
+root.methods.re_transfer = function (data){
+  console.log(data)
+}
+
+root.methods.error_transfer = function (err){
+  console.log(err)
+}
+
+// 点击全提
+root.methods.allMention = function () {
+  this.amountInput = this.transferCurrencyAvailable
 }
 // 打开划转  end
 

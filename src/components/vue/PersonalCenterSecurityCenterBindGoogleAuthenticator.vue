@@ -1,3 +1,5 @@
 <template src="../html/PersonalCenterSecurityCenterBindGoogleAuthenticator.html"></template>
 <script src="../js/PersonalCenterSecurityCenterBindGoogleAuthenticator.js"></script>
 <style src="../css/PersonalCenterSecurityCenterBindGoogleAuthenticator.css" scoped></style>
+<i18n src="../lang/PersonalCenterSecurityCenterBindGoogleAuthenticator.json"></i18n>
+

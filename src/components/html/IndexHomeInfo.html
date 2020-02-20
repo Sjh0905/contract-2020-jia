@@ -28,6 +28,20 @@
         <div class="tututitle">{{$t("transaction.Trading_platform_6")}}</div>
         <div class="tutuinfo tutuinfo-mr">{{$t("transaction.Trading_platform_7")}}</div>
       </li>
+      <li>
+        <div class="tutu">
+          <img src="../../assets/特点3.png" >
+        </div>
+        <div class="tututitle">{{$t("transaction.Trading_platform_6")}}</div>
+        <div class="tutuinfo tutuinfo-mr">{{$t("transaction.Trading_platform_7")}}</div>
+      </li>
+      <li>
+        <div class="tutu">
+          <img src="../../assets/特点3.png" >
+        </div>
+        <div class="tututitle">{{$t("transaction.Trading_platform_6")}}</div>
+        <div class="tutuinfo tutuinfo-mr">{{$t("transaction.Trading_platform_7")}}</div>
+      </li>
     </ul>
   </div>
 
@@ -93,27 +107,30 @@
   </div>
   <div class="bait"></div>
 
-  <div class="goLogo">
-    <div class="goLogo2">{{$t("transaction.Trading_platform_13")}}</div>
-    <div class="goLogo3">{{$t("transaction.Trading_platform_14")}}</div>
-    <div :class="!isLogin?'zhuce1':'zhuce3'">
-      <router-link
-      :to="{name:'login'}"
-      class="navigation-item-router login-register-item flex"
-      active-class="navigation-item-router-selected text_blue"
-    >
-      {{!isLogin? $t("transaction.Trading_platform_15"):$t("transaction.Trading_platform_16")}}
-    </router-link></div>
-    <div class="zhuce2">
-      <router-link
-      :to="{name: 'tradingHall', query: {symbol: $store.state.symbol} }"
-      class="navigation-item-router1 flex"
-      active-class="navigation-item-router-selected "
-    >
-      {{$t("transaction.Trading_platform_17")}}
-     </router-link></div>
+<!--  去交易-->
+<!--  <div class="goLogo">-->
+<!--    <div class="goLogo2">{{$t("transaction.Trading_platform_13")}}</div>-->
+<!--    <div class="goLogo3">{{$t("transaction.Trading_platform_14")}}</div>-->
+<!--    <div :class="!isLogin?'zhuce1':'zhuce3'">-->
+<!--      <router-link-->
+<!--      :to="{name:'login'}"-->
+<!--      class="navigation-item-router login-register-item flex"-->
+<!--      active-class="navigation-item-router-selected text_blue"-->
+<!--    >-->
+<!--      {{!isLogin? $t("transaction.Trading_platform_15"):$t("transaction.Trading_platform_16")}}-->
+<!--    </router-link></div>-->
+<!--    <div class="zhuce2">-->
+<!--      <router-link-->
+<!--      :to="{name: 'tradingHall', query: {symbol: $store.state.symbol} }"-->
+<!--      class="navigation-item-router1 flex"-->
+<!--      active-class="navigation-item-router-selected "-->
+<!--    >-->
+<!--      {{$t("transaction.Trading_platform_17")}}-->
+<!--     </router-link></div>-->
 
-  </div>
+<!--  </div>-->
+
+
 <!--  <div class="hezhb">-->
 <!--    <div class="index-home-info-title">-->
 <!--      {{$t("transaction.Trading_platform_12")}}-->
