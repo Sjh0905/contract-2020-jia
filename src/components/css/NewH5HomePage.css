@@ -32,7 +32,7 @@
   /*height: 4.5rem;*/
   overflow: hidden;
   /*margin: 0.3rem auto 0;*/
-  border-radius: 4px;
+  /*border-radius: 4px;*/
   background-color: #081724;
 }
 
@@ -46,12 +46,13 @@
 .homepage-header-imgswiper-img {
   /*height: 4.5rem;*/
   width: 100%;
+  display: block;
 }
 
 .homepage-header-textswiper-bidui {
   height: 1.6rem;
   /*margin-top: .3rem;*/
-  margin-bottom: 0.3rem;
+  /*margin-bottom: 0.3rem;*/
   background-color: #142030;
   /*border-bottom: 1px solid #172841;*/
 }
@@ -90,29 +91,29 @@
 .td002{
   width: 100%;
   text-align: center;
-  font-family: Roboto-Medium;
-  font-size: 18px;
+  /*font-family: Roboto-Medium;*/
+  font-size: 0.36rem;
   color: #CFD3E9;
   letter-spacing: 0;
 }
 .td003{
   width: 100%;
   text-align: center;
-  font-family: Roboto-Regular;
-  font-size: 12px;
-  color: #02987D;
+  /*font-family: Roboto-Regular;*/
+  font-size: 0.24rem;
+  color: #39B496;
   letter-spacing: 0;
 }
 
 .homepage-header-textswiper {
   height: 0.8rem;
-
+  background-color: #131F30;
 }
 
 .homepage-header-textswiper-icon {
-  height: 0.4rem;
-  margin-top: 0.2rem;
-  margin-left: 0.2rem;
+  height: 0.34rem;
+  margin-top: 0.24rem;
+  margin-left: 0.3rem;
   float: left;
 }
 
@@ -120,7 +121,7 @@
   float: left;
   height: 0.4rem;
   width: 6.5rem;
-  margin-left: 0.2rem;
+  margin-left: 0.1rem;
   margin-top: 0.2rem;
   line-height: 0.4rem;
   font-size: 0.28rem;
@@ -155,56 +156,57 @@
 /*2018-05-20 添加币得宝入口*/
 .homepage-icon-body {
   position: relative;
-  min-height: 72px;
-  margin-top: 0.2rem;
-  background: #081724;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  /*padding: 10px 30px 8px;*/
+  min-height: 1.8rem;
+  margin: 0.2rem 0;
+  background: #131F30;
+  padding-top: 0.3rem;
+  padding-bottom: 0.2rem;
+  /* padding: 10px 30px 8px;*/
 }
 
 .homepage-icon-body-list {
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
+display: flex;
+align-items: center;
+justify-content: space-around;
 }
 
 .homepage-icon-body-item, .homepage-icon-body-item:link, .homepage-icon-body-item:visited, .homepage-icon-body-item:hover {
-  color: #fff;
+color: #fff;
 }
 
 .homepage-icon-body-item-img {
-  width: 36px;
-  display: block;
-  margin: 0 auto;
+width: 0.72rem;
+display: block;
+margin: 0 auto;
 }
 
 .homepage-icon-body-item-text {
   display: block;
   text-align: center;
-  margin-top: 4px;
+  margin-top: 0.16rem;
   font-family: PingFangSC-Regular;
-  font-size: 13px;
-  color: #CFD3E9;
+  font-size: 0.24rem;
   letter-spacing: 0;
+  font-weight:400;
+  color:#6A83A8;
 }
 
 .homepage-bt {
-  position: relative;
-  margin-top: 0.2rem;
-  height: 82px;
-  background: #081724;
-  padding: 0 9px 0 2px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+position: relative;
+margin-top: 0.2rem;
+height: 1.64rem;
+background: #081724;
+padding: 0 0.18rem 0 0.04px;
+display: flex;
+justify-content: space-between;
+align-items: center;
 }
 
 .homepage-bt-left {
-  display: flex;
-  align-items: center;
-  justify-content: left;
-  position: relative;
+display: flex;
+align-items: center;
+justify-content: left;
+position: relative;
 }
 
 /*.homepage-bt-right {*/
@@ -264,7 +266,7 @@
 
 .homepage-body {
   position: relative;
-  padding-top: 2px;
+  /*padding-top: 2px;*/
   /*margin-top: 10px;*/
   padding-bottom: 50px;
 }
@@ -387,7 +389,7 @@
 }
 
 .mobile-market-title-first-tr th:nth-child(1) {
-  padding-left: 0.2rem;
+  padding-left: 0.3rem;
   text-align: left;
 }
 
@@ -396,14 +398,15 @@
 }
 
 .mobile-market-title-first-tr th:nth-child(3) {
-  padding-right: 0.2rem;
+  padding-right: 0.3rem;
   text-align: right;
 }
 
 .mobile-market-normal-tr {
-  border-bottom: 1px solid #0A1824;
-  height: 76px;
+  border-bottom: 1px solid #081724;
   margin-left:10px;
+  height:1.1rem;
+  background:#142030;
 }
 
 
@@ -421,37 +424,40 @@
 .mobile-market-normal-td-symbol {
   position: absolute;
   top: 0.2rem;
-  left: 0.2rem;
+  left: 0.3rem;
   height: 0.36rem;
   line-height: 0.36rem;
   max-width: 3rem;
 }
 
 .mobile-market-normal-td-symbol-first {
-  color: #fff;
-  font-size: 0.3rem;
+  /*color: #fff;*/
+  /*font-size: 0.3rem;*/
   font-family: Roboto-Medium;
-  font-size: 18px;
+  font-size: 0.32rem;
   color: #CFD3E9;
+  /*font-weight:500;*/
 }
 
 .mobile-market-normal-td-symbol-second {
-  color: rgba(255, 255, 255, 0.4);
-  font-size: 0.26rem;
-  font-family: Roboto-Regular;
-  font-size: 13px;
-  color: #6D87A8;
+  color: #3E536C;
+  font-size:0.2rem;
+  font-family:Roboto-Medium,Roboto;
+  font-weight:500;
 }
 
 .mobile-market-normal-td-volume {
   position: absolute;
   top: 0.66rem;
-  left: 0.2rem;
+  left: 0.3rem;
   height: 0.36rem;
   line-height: 0.36rem;
-  color: rgba(255, 255, 255, 0.4);
-  font-size: 0.26rem;
+  color: #6D87A8;
+  /*font-size: 0.26rem;*/
   max-width: 3rem;
+
+  font-size:0.24rem;
+  font-weight:400;
 }
 
 .mobile-market-normal-td-price {
@@ -460,16 +466,19 @@
   height: 0.36rem;
   line-height: 0.36rem;
   max-width: 3rem;
-  font-size: 0.3rem;
   color: #fff;
+  font-size:0.32rem;
+  /*font-weight:500;*/
 }
 
 .mobile-market-normal-td-price-up {
-  color: #02987D;
+  /*color: #39B496;*/
+  color: #CFD3E9;
 }
 
 .mobile-market-normal-td-price-down {
-  color: #3576F5;
+  /*color: #3576F5;*/
+  color: #CFD3E9;
 }
 
 .mobile-market-normal-td-cny {
@@ -477,29 +486,31 @@
   top: 0.66rem;
   height: 0.36rem;
   line-height: 0.36rem;
-  color: rgba(255, 255, 255, 0.4);
-  font-size: 0.26rem;
+  font-size:0.24rem;
+  font-weight:400;
+  color:#6D87A8;
 }
 
 .mobile-market-normal-td-current {
   position: absolute;
-  top: 0.3rem;
-  left: 0.2rem;
-  right: 0.2rem;
-  height: 0.6rem;
-  line-height: 0.6rem;
+  top: 0.22rem;
+  /*left: 0.2rem;*/
+  right: 0.3rem;
+  height: 0.66rem;
+  line-height: 0.66rem;
   color: #fff;
   font-size: 0.28rem;
   text-align: center;
-  border-radius: 2px;
+  width:1.6rem;
+  border-radius:0.03rem;
 }
 
 .mobile-market-normal-td-current-up {
-  background: #02987D;
+  background: #39B496;
 }
 
 .mobile-market-normal-td-current-down {
-  background: #3576F5;
+  background: #EF5656;
 }
 
 .mobile-market-table-box-get-more {
@@ -514,9 +525,9 @@
 
 .mobile-market-table-box-get-more .myinfos{
   width: 100%;
-  height: 50px;
+  height: 1rem;
   /*position: relative;*/
-  margin-top: 20px;
+  margin-top: 0.62rem;
 }
 
 .mobile-market-table-box-get-more .myinfos .myheadimg{
@@ -529,27 +540,34 @@
   width: auto;
   float: left;
   /*height: 30px;*/
-  line-height: 50px;
+  line-height: 1rem;
   /*position: absolute;*/
-  margin-left: 15px;
+  margin-left: 0.2rem;
 }
 
 .mobile-market-table-box-get-more .myinfos .myheadinfo .info1{
   width: 100%;
-  line-height: 20px;
+  line-height: 0.24rem;
   text-align: left;
   font-family: Roboto-Medium;
-  font-size: 14px;
+  font-size: 0.28rem;
   color: #CFD3E9;
+  margin-bottom: 0.1rem;
+  font-weight: 500;
 }
 
 .mobile-market-table-box-get-more .myinfos .myheadinfo .info1 span{
   width: 100%;
-  line-height: 20px;
+  line-height: 0.24rem;
   text-align: left;
   font-family: Roboto-Regular;
-  font-size: 12px;
+  font-size: 0.24rem;
   color: #6D87A8;
+}
+
+.mobile-market-table-box-get-more .myinfos .myheadinfo .info-uid{
+  margin-bottom: 0rem;
+  font-weight: 400;
 }
 
 .mobile-market-table-box-get-more .myinfos .myheadinfo ul{
@@ -557,25 +575,25 @@
 }
 
 .mobile-market-table-box-get-more .myinfos .myheadinfo ul li{
-  height: 14px;
+  height: 0.28rem;
 }
 
 .mobile-market-table-box-get-more .myinfos .myheadimg img{
-  width: 30px;
-  margin-bottom: 15px;
-  margin-left: 20px;
+  width: 0.6rem;
+  margin-bottom: 0.5rem;
+  margin-left: 0.4rem;
 }
 
 .mobile-market-table-box-get-more .myinfos .outqq{
   float: right;
-  line-height: 30px;
-  width: 70px;
+  line-height: 0.6rem;
+  width: 1.4rem;
   border: 1px solid #3E536C;
-  border-radius: 1.5px;
-  margin-top: 5px;
-  margin-right: 20px;
+  border-radius: 0.03rem;
+  /*margin-top: 0.1rem;*/
+  margin-right: 0.4rem;
   font-family: PingFangSC-Medium;
-  font-size: 14px;
+  font-size: 0.28rem;
   color: #6D87A8;
 
 }

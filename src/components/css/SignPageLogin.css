@@ -464,21 +464,32 @@ input:-webkit-autofill {
 
   /*标题*/
   .unit-title {
+    width: 6.7rem;
     flex-direction: row;
-    width: 100%;
     font-size: 0.36rem;
     /*height: 110px;*/
     color: #fff;
-    height: 1.9rem;
+    /*height: 1.9rem;*/
+    padding: 0.82rem 0 0.6rem;
+    margin: 0 auto;
+
   }
 
   /*标题的横线*/
   .unit-title > span:nth-of-type(1), .unit-title > span:nth-of-type(3) {
     display: block;
-    height: 1px;
-    /*background-color: rgba(255, 255, 255, 0.4);*/
-    width: 1.2rem;
-    margin-left: 30px;
+    /* height: 1px; */
+    /* background-color: rgba(255, 255, 255, 0.4); */
+    /* width: 1.2rem; */
+    /*margin-left: 0.4rem;*/
+    width: 1.92rem;
+    height: 0.66rem;
+    font-size: 0.48rem;
+    font-family: PingFangSC-Medium,PingFang SC;
+    font-weight: 500;
+    color: #CFD3E9;
+    line-height: 0.66rem;
+    padding: 0;
   }
 
   /*标题的title*/
@@ -516,13 +527,43 @@ input:-webkit-autofill {
     /*width: 6.5rem;*/
     /*height: 60px;*/
     /*border: none;*/
-    /*border-bottom: 1px solid #1B1A1E;*/
+    border-bottom: 1px solid #3E536C;
     /*border-radius: 0px;*/
     background: transparent;
     margin: 0 auto 5px;
-    width: 6.5rem;
+    width: 6.7rem;
     height: 40px;
 
+  }
+
+  .unit-input-container input::-webkit-input-placeholder {
+    /* WebKit browsers */
+    color:#3E536C;
+    /*color:#fff227;*/
+    font-size:0.32rem;
+    font-family:PingFangSC-Regular,PingFang SC;
+    font-weight:400;
+  }
+  .unit-input-container input:-moz-placeholder {
+    /* Mozilla Firefox 4 to 18 */
+    color:#3E536C;
+    font-size:0.32rem;
+    font-family:PingFangSC-Regular,PingFang SC;
+    font-weight:400;
+  }
+  .unit-input-container input::-moz-placeholder {
+    /* Mozilla Firefox 19+ */
+    color:#3E536C;
+    font-size:0.32rem;
+    font-family:PingFangSC-Regular,PingFang SC;
+    font-weight:400;
+  }
+  .unit-input-container input:-ms-input-placeholder {
+    /* Internet Explorer 10+ */
+    color:#3E536C;
+    font-size:0.32rem;
+    font-family:PingFangSC-Regular,PingFang SC;
+    font-weight:400;
   }
 
   /*Input板块*/
@@ -537,7 +578,7 @@ input:-webkit-autofill {
   }
 
   .unit-btn-container {
-    width: 6.5rem;
+    width: 6.7rem;
     height: 40px;
     border: none;
     border-bottom: 1px solid #1B1A1E;
@@ -586,7 +627,7 @@ input:-webkit-autofill {
     height: 20px;
     width: 6.5rem;
     /*text-align: left;*/
-    color: #f93943;
+    color: #EF5656;
     margin: 0.1rem auto;
     padding: 0;
     /*padding-left: 1rem;*/
@@ -711,6 +752,8 @@ input:-webkit-autofill {
   }
 
   .router-link-box-m {
+    width: 6.7rem;
+    margin: 0 auto;
     text-align: left;
     font-family: PingFangSC-Regular;
     font-size: 14px;
@@ -829,7 +872,8 @@ input:-webkit-autofill {
     font-family: PingFangSC-Regular;
     font-size: 14px;
     color: #3576F5;
-    margin-left: 50px;
+    /*margin-left: 0.50rem;*/
+    margin-top: 0.3rem;
   }
 
 
