@@ -143,9 +143,11 @@
   "walletTotalAsset": "钱包资产估值",
   "TransferIsNotOpen": "该币种暂未开放划转功能，敬请期待！",
   "transferCurrencyWA": "请输入币种信息",
-  "transferAmountWA": "请输入数量",
+  "transferAmountWA": "请输入划转数量",
   "transferAmountWA1": "请输入数字",
-  "transferAmountWA2": "请输入正确的划转数量"
+  "transferAmountWA2": "请输入正确的划转数量",
+  "transferAmountWA3": "超出划转可用余额",
+  "transferAmountWA4": "低于划转最小额"
 
 },
 "EN": {

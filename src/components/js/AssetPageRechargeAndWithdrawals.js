@@ -675,6 +675,15 @@ root.methods.testTransferAmount  = function () {
     this.transferAmountWA = this.$t('transferAmountWA2')
     return false
   }
+  if (this.amountInput > this.transferCurrencyAvailable) {
+    this.transferAmountWA = this.$t('transferAmountWA3')
+    return false
+  }
+  if (this.amountInput <= '0') {
+    this.amountInput = '0'
+    this.transferAmountWA = this.$t('transferAmountWA4')
+    return false
+  }
   this.amountInput = ''
   return true
 }
@@ -692,10 +701,20 @@ root.methods.commit = function () {
     this.transferAmountWA = this.$t('transferAmountWA')
     canSend = false
   }
-  if (this.amountInput === '0') {
-    this.transferAmountWA = this.$t('transferAmountWA2')
-    canSend = false
+
+  if (this.amountInput > this.transferCurrencyAvailable) {
+    this.transferAmountWA = this.$t('transferAmountWA3')
+    return false
   }
+  if (this.amountInput <= '0') {
+    this.amountInput = '0'
+    this.transferAmountWA = this.$t('transferAmountWA4')
+    return false
+  }
+  // if (this.amountInput === '0') {
+  //   this.transferAmountWA = this.$t('transferAmountWA2')
+  //   canSend = false
+  // }
 
   if (!canSend) {
     // console.log("不能发送！")

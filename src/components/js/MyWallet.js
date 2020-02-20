@@ -308,15 +308,24 @@ root.methods.click_rel_em = function () {
 
 // 判断划转数量
 root.methods.testTransferAmount  = function () {
-
   if (this.$globalFunc.testSpecial(this.amountInput)) {
     this.transferAmountWA = this.$t('transferAmountWA1')
     return false
   }
-  if (this.amountInput == 0) {
+  if (this.amountInput == '0') {
     this.transferAmountWA = this.$t('transferAmountWA2')
     return false
   }
+  if (this.amountInput > this.transferCurrencyAvailable) {
+    this.transferAmountWA = this.$t('transferAmountWA3')
+    return false
+  }
+  if (this.amountInput <= '0') {
+    this.amountInput = '0'
+    this.transferAmountWA = this.$t('transferAmountWA4')
+    return false
+  }
+
   this.amountInput = ''
   return true
 }
@@ -325,7 +334,7 @@ root.methods.commit = function () {
 
   if (this.sending) return
   let canSend = true
-
+  canSend = this.testTransferAmount() && canSend
   if (this.currencyValue === '') {
     this.transferCurrencyWA = this.$t('transferCurrencyWA')
     canSend = false
@@ -343,13 +352,12 @@ root.methods.commit = function () {
     // console.log("不能发送！")
     return
   }
-
   this.$http.send('POST_TRANSFER_LIST', {
     bind: this,
     params: {
       currency:this.currencyValue,
       amount:this.amountInput,
-      system:this.bibiAccount==='币币账户'?'WALLET':('SPOTS' || 'CONTRACTS')
+      system:this.bibiAccount==='币币账户'?'WALLET':'SPOTS'
     },
     callBack: this.re_transfer,
     errorHandler: this.error_transfer
@@ -357,7 +365,7 @@ root.methods.commit = function () {
 
   this.sending = true
 
-  // this.popWindowOpen1 = false
+  this.popWindowOpen1 = false
 }
 
 // 划转回调
@@ -1313,13 +1321,13 @@ root.methods.openTransfer = function (index, item) {
   }
 
   // 如果没有实名认证不允许打开划转
-  if (!this.bindIdentify) {
-    this.popWindowTitle = this.$t('popWindowTitleTransfer')
-    this.popWindowPrompt = this.$t('popWindowPromptWithdrawals')
-    this.popWindowStyle = '0'
-    this.popWindowOpen = true
-    return
-  }
+  // if (!this.bindIdentify) {
+  //   this.popWindowTitle = this.$t('popWindowTitleTransfer')
+  //   this.popWindowPrompt = this.$t('popWindowPromptWithdrawals')
+  //   this.popWindowStyle = '0'
+  //   this.popWindowOpen = true
+  //   return
+  // }
 
   // 如果没有绑定邮箱，不允许打开提现
   if (!this.bindEmail) {
@@ -1331,13 +1339,13 @@ root.methods.openTransfer = function (index, item) {
   }
 
   // 如果没有绑定谷歌或手机，不允许打开提现
-  if (!this.bindGA && !this.bindMobile) {
-    this.popWindowTitle = this.$t('popWindowTitleTransfer')
-    this.popWindowPrompt = this.$t('popWindowTitleBindGaWithdrawals')
-    this.popWindowStyle = '1'
-    this.popWindowOpen = true
-    return
-  }
+  // if (!this.bindGA && !this.bindMobile) {
+  //   this.popWindowTitle = this.$t('popWindowTitleTransfer')
+  //   this.popWindowPrompt = this.$t('popWindowTitleBindGaWithdrawals')
+  //   this.popWindowStyle = '1'
+  //   this.popWindowOpen = true
+  //   return
+  // }
 
 
   //todo 修改密码后不能提现
