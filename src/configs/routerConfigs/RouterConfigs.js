@@ -2695,13 +2695,13 @@ root.routes.push({
 
     // sss 活动------QQ交易挖矿详情
     {
-      path: 'OfficialQuantitativeDetails',
-      name: 'OfficialQuantitativeDetails',
+      path: 'officialQuantitativeDetails',
+      name: 'officialQuantitativeDetails',
       caseSensitive: true,
       meta: {
         requireLogin: false,
         mobileHeaderTitle: '',
-        name: 'OfficialQuantitativeDetails',
+        name: 'officialQuantitativeDetails',
       },
       component: resolve => require(['@/components/vue/OfficialQuantitativeDetails'], resolve),
     },

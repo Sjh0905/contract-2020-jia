@@ -107,7 +107,7 @@
 <!--                </el-select>-->
 
                 <el-select class="inputInner" name="country" :placeholder= '$t("wrong_message_222")' style="font-size:14px" v-model="searchResult" popper-class="select-down-box">
-                  <input type="text" class="inputsize" :placeholder='$t("wrong_message_222")' v-model="searchCities">
+                  <input type="text" class="inputsize" :placeholder='$t("wrong_message_22")' v-model="searchCities">
                     <el-option
                       popper-class="drowdown-box"
                       v-for="item in (searchCities ? cityList :cities)"

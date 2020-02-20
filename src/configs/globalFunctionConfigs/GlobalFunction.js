@@ -89,6 +89,11 @@ GlobalFunction.testSpecial = function (src) {
   return /["'<>%;)(&=＜＞％；）（＆＇＂＝]/.test(src)
 }
 
+// 只可以中，英，数字
+GlobalFunction.testSpecials = function (src) {
+  return /^[\u4e00-\u9fa5_a-zA-Z0-9]+$/.test(src)
+}
+
 // 检测ACT地址
 GlobalFunction.testACTAddress = function (src) {
   return /^ACT([0-9a-zA-Z]{32,33})|([0-9a-zA-Z]{64,65})$/.test(src)

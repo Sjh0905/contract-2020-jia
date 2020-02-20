@@ -40,7 +40,13 @@
   "popText1": "请选择团队",
   "popText3": "抱歉，无法创建该团队",
   "nameMsg_0": "请输入副团长账号",
-  "nameMsg_01": "请输入拼团名称"
+  "nameMsgText": "输入副团长账号",
+  "nameMsg_01": "请输入拼团名称",
+  "nameMsg_20": "输入拼团名称（不可超过20字符）",
+  "nameMsg_21": "拼团名称不符合规范",
+  "nameMsg": "拼团名称不能超过20位",
+  "nameMsgColonel": "副团长账号不能与团长账号一致",
+  "nameMsgRegiment": "拼团名称只可中文，英文，数字"
 },
 "EN": {
 

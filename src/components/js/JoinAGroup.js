@@ -99,7 +99,7 @@ root.watch.searchCities = function(v){
 
   this.cityList.length == 0 && (this.cityList = [{
     "groupId": "-1",
-    "gname": "zanwushuju"
+    "gname": "暂无数据"
   }])
   return this.cityList;
 }
@@ -145,7 +145,7 @@ root.methods.getCheckGroupDetails= function (groupId) {
       "glevel": "3",
       "commonDiscount": "0.003",
       "quantDiscount": "0.003",
-      "gname": "佳佳"
+      "gname": "jiajia"
     },
     "status": "200",
     "message": "success"
@@ -251,7 +251,7 @@ root.methods.getFuzzyQuery= function () {
       },
       {
         "groupId": "3",
-        "gname": "佳佳"
+        "gname": "jiajia"
       }
     ],
     "status": "200",

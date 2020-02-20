@@ -60,7 +60,7 @@
   padding-left: 15px;
   border-radius:1px;
   border:1px solid rgba(224,225,244,1);
-  margin-bottom: 20px;
+  /*margin-bottom: 20px;*/
   box-sizing: border-box;
 }
 .div_botton {
@@ -102,4 +102,7 @@ input:-moz-placeholder{    /* Mozilla Firefox 4 to 18 */
 }
 input:-ms-input-placeholder{  /* Internet Explorer 10-11 */
   color:#A2B5D9;
+}
+.hig {
+  height: 20px;
 }

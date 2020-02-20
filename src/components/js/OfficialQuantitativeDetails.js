@@ -1,5 +1,5 @@
 const root = {}
-root.name = 'OfficialQuantitativeDetails'
+root.name = 'officialQuantitativeDetails'
 /*------------------------------ 组件 ------------------------------*/
 root.components = {
   'Loading': resolve => require(['../vue/Loading'], resolve),
@@ -29,11 +29,14 @@ root.computed.userType = function () {
   return this.$store.state.authMessage && this.$store.state.authMessage.province === 'mobile' ? 0 : 1
 }
 
+
+root.methods = {}
+
 //量化展示_量化交易记录get (query:{})  未完成
 root.methods.getQuantifyransactions = function () {
   this.$http.send('GET_QUANT_GETUSERTRADE', {
     bind: this,
-    query:{userId:this.uuid},
+    // query:{userId:this.uuid},
     callBack: this.re_getQuantifyransactions,
     errorHandler: this.error_getQuantifyransactions
   })
@@ -49,9 +52,9 @@ root.methods.error_getQuantifyransactions = function (err) {
 root.methods.getQuantifyBasicInformation = function () {
   this.$http.send('GET_USER_QUANTTRADE', {
     bind: this,
-    query:{
-      userId:this.uuid
-    },
+    // query:{
+    //   userId:this.uuid
+    // },
     callBack: this.re_getQuantifyBasicInformation,
     errorHandler: this.error_getQuantifyBasicInformation
   })
