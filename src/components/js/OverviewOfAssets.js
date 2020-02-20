@@ -4,17 +4,18 @@ root.name = 'OverviewOfAssets'
 root.components = {
   'Loading': resolve => require(['../vue/Loading'], resolve),
   'PopupT': resolve => require(['../vue/PopupT'], resolve),
-  'PopupPrompt': resolve => require(['../vue/PopupPrompt'], resolve),
+  'PopupWindow': resolve => require(['../vue/PopupWindow'], resolve),
 }
 /*------------------------------ data -------------------------------*/
 root.data = function () {
   return {
     loading: true,
-    popWindowOpen:false,
+    popWindowOpen: false, //弹窗开关
 
     priceReady: false,    //socket准备
     currencyReady: false, //currency准备，只有加载完全部的loading才会关闭！
     authStateReady: false, //认证状态准备
+    popWindowStyle: 0,//跳转 0表示实名认证，1表示手机或谷歌，2只有确定
 
     // 币种集合
     accounts: [],
@@ -33,14 +34,6 @@ root.data = function () {
     transferCurrencyAvailable:0,
     transferCurrencyObj:{},
     sending:false,
-
-
-    // toast提示
-    popupPromptOpen: false,
-    popupPromptType: 0,
-    popupPromptText: '',
-
-
 
   }
 }
@@ -146,40 +139,41 @@ root.methods.error_getAuthState = function (err) {
   // console.warn("获取验证状态出错！", err)
 }
 
-// 关闭toast弹窗
-root.methods.closePopupPrompt = function () {
-  this.popupPromptOpen = false
+// 弹窗关闭
+root.methods.popWindowClose = function () {
+  this.popWindowOpen = false
 }
+
 // 打开内部划转
 root.methods.openTransfer = function () {
 
 
   // // 如果没有实名认证不允许打开划转
-  // if (!this.bindIdentify) {
-  //   this.popWindowTitle = this.$t('popWindowTitleTransfer')
-  //   this.popWindowPrompt = this.$t('popWindowPromptWithdrawals')
-  //   this.popWindowStyle = '0'
-  //   this.popWindowOpen = true
-  //   return
-  // }
+  if (!this.bindIdentify) {
+    this.popWindowTitle = this.$t('popWindowTitleTransfer')
+    this.popWindowPrompt = this.$t('popWindowPromptWithdrawals')
+    this.popWindowStyle = '0'
+    this.popWindowOpen = true
+    return
+  }
   //
   // // // 如果没有绑定邮箱，不允许打开提现
-  // if (!this.bindEmail) {
-  //   this.popWindowTitle = this.$t('bind_email_pop_title')
-  //   this.popWindowPrompt = this.$t('bind_email_pop_article')
-  //   this.popWindowStyle = '3'
-  //   this.popWindowOpen = true
-  //   return
-  // }
+  if (!this.bindEmail) {
+    this.popWindowTitle = this.$t('bind_email_pop_title')
+    this.popWindowPrompt = this.$t('bind_email_pop_article')
+    this.popWindowStyle = '3'
+    this.popWindowOpen = true
+    return
+  }
   //
   // // 如果没有绑定谷歌或手机，不允许打开提现
-  // if (!this.bindGA && !this.bindMobile) {
-  //   this.popWindowTitle = this.$t('popWindowTitleTransfer')
-  //   this.popWindowPrompt = this.$t('popWindowTitleBindGaWithdrawals')
-  //   this.popWindowStyle = '1'
-  //   this.popWindowOpen = true
-  //   return
-  // }
+  if (!this.bindGA && !this.bindMobile) {
+    this.popWindowTitle = this.$t('popWindowTitleTransfer')
+    this.popWindowPrompt = this.$t('popWindowTitleBindGaWithdrawals')
+    this.popWindowStyle = '1'
+    this.popWindowOpen = true
+    return
+  }
   //
   // //todo 修改密码后不能提现
   //
@@ -315,6 +309,12 @@ root.methods.goToBindEmail = function () {
 // 计算当前的服务器时间
 root.computed.serverT = function () {
   return this.$store.state.serverTime / 1000
+}
+
+// 弹框跳安全中心
+root.methods.goToSecurityCenter = function () {
+  this.popWindowOpen = false
+  this.$router.push({name: 'securityCenter'})
 }
 
 

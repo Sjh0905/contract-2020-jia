@@ -17,6 +17,8 @@
   "cancel": "取消",
   "ensure": "确定",
   "popWindowTitleTransfer": "划转提示",
+  "verification": "前往验证",
+  "beBinding": "去绑定",
   "bind_email_pop_title": "安全提示",
   "bind_email_pop_article": "为了您的资金安全，请先绑定邮箱",
   "popWindowPromptRecharge": "您尚未通过实名认证",

@@ -305,3 +305,25 @@
   padding-right: 25px;
   /*margin-top: 15px;*/
 }
+
+/*未认证弹窗*/
+.header_xuzhi {
+  padding-left: 25px;
+}
+
+.pop-recharge {
+  padding: 35px 25px;
+  font-size:16px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+}
+
+.pop-recharge-bottom {
+  margin-bottom: 15px;
+}
+
+/*弹窗button*/
+.button-base {
+  margin-right: 20px;
+  outline: none;
+}
