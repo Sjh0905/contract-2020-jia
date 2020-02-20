@@ -217,7 +217,6 @@ root.computed.accountsComputed = function () {
   if (this.hideZeroAsset) {
     return this.accounts.filter((val,inx) => {
       val.currencyKey = val.currency+'-'+inx;
-
       this.transferCurrencyObj[val.currency] = val;
       return val.total !== 0
     })
@@ -970,8 +969,6 @@ root.methods.getAuthState = function () {
   this.authStateReady = true
   this.loading = !(this.currencyReady && this.authStateReady)
 }
-
-
 // 判断验证状态回调
 root.methods.re_getAuthState = function (data) {
   typeof data === 'string' && (data = JSON.parse(data))
@@ -1025,7 +1022,6 @@ root.methods.getPrice = function () {
       callBack: this.re_getPrice
     })
 }
-
 // socket估值发生变化！
 root.methods.re_getPrice = function (data) {
   if (this.socketTime % this.socketBase !== 0) {
@@ -1067,6 +1063,7 @@ root.methods.re_getCurrency = function (data) {
 // 获取币种失败
 root.methods.error_getCurrency = function (err) {
 }
+
 //获取账户信息
 root.methods.getAccounts = function () {
   // 请求各项估值
