@@ -15,7 +15,21 @@
   "transfer_describe2": "普通提币: 有手续费, 到账需要区块确认",
   "transfer_describe3": "站内转账: 无手续费, 无需区块确认, 快速到账",
   "cancel": "取消",
-  "ensure": "确定"
+  "ensure": "确定",
+  "popWindowTitleTransfer": "划转提示",
+  "bind_email_pop_title": "安全提示",
+  "bind_email_pop_article": "为了您的资金安全，请先绑定邮箱",
+  "popWindowPromptRecharge": "您尚未通过实名认证",
+  "popWindowPromptWithdrawals": "您尚未通过实名认证",
+  "popWindowTitleBindGaRecharge": "请先绑定谷歌验证或手机",
+  "popWindowTitleBindGaWithdrawals": "请先绑定谷歌验证或手机",
+  "TransferIsNotOpen": "该币种暂未开放划转功能，敬请期待！",
+  "transferCurrencyWA": "请输入币种信息",
+  "transferAmountWA": "请输入划转数量",
+  "transferAmountWA1": "请输入数字",
+  "transferAmountWA2": "请输入正确的划转数量",
+  "transferAmountWA3": "超出划转可用余额",
+  "transferAmountWA4": "低于划转最小额"
 },
 "EN": {},
 "CA": {}

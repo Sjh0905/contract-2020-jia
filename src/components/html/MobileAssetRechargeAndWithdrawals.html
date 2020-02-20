@@ -15,10 +15,24 @@
         <div class="asset-lan">
           <div class="lan-title">总资产折合(BTC)</div>
           <div class="landata">
-          <span class="asset-header-BTC-asset">{{priceReady || initReady ? (isTotalAssetShow?toFixed(total,8)+' BTC':'******'):'---- BTC'}} </span>
-            <span class="asset-header-CHN-asset">≈</span>
-          <span class="asset-header-CHN-asset"> {{priceReady || initReady?(isTotalAssetShow?''+$globalFunc.accFixedCny(valuation,2):''):'----'}}&nbsp;&nbsp;CNY</span>
+          <span class="asset-header-BTC-asset">{{priceReady || initReady ? (isTotalAssetShow?toFixed(total,8)+' ':'******'):'---- '}} </span>
+            <span class="asset-header-CHN-asset">≈ </span>
+          <span class="asset-header-CHN-asset"> {{priceReady || initReady?(isTotalAssetShow?''+$globalFunc.accFixedCny(valuation,2):''):'----'}}&nbsp;CNY</span>
           </div>
+        </div>
+      </div>
+
+      <div class="asset-check-box flex-around">
+        <div class="asset-check-item" :class="(assetAccountType == 'wallet') ? 'asset-check-item-select':''" @click="changeAssetAccountType('wallet')">我的钱包</div>
+        <div class="asset-check-item" :class="(assetAccountType != 'wallet') ? 'asset-check-item-select':''" @click="changeAssetAccountType('currency')">币币账户</div>
+      </div>
+
+      <div class="asset-total-box-item">
+        <div class="lan-title-item">{{ assetAccountType == 'wallet' ? "我的钱包" : "币币账户"}}资产折合(BTC)</div>
+        <div class="landata-item">
+          <span class="BTC-asset-item">{{priceReady || initReady ? (isTotalAssetShow?toFixed(total,8)+' ':'******'):'---- '}} </span>
+          <span class="CHN-asset-item">≈ </span>
+          <span class="CHN-asset-item"> {{priceReady || initReady?(isTotalAssetShow?''+$globalFunc.accFixedCny(valuation,2):''):'----'}}&nbsp;CNY</span>
         </div>
       </div>
 
@@ -30,7 +44,7 @@
 <!--          <MobileCheckbox :agreement="agreement" :changeAgreement='hideZeroItem'></MobileCheckbox>-->
           <div @click="hideZeroItem">
             <img v-show="!agreement" src="../../assets/H5img/mnoselect.png"/>
-            <img v-show="agreement" src="../../assets/H5img/mselect.png" />
+            <img v-show="agreement" src="../../assets/select.png" />
           </div>
           <input v-show="false" type="checkbox" v-model="agreement" name="agreement" id="agreement" @click="hideZeroItem">
           <span class="asset-header-total-asset-hide-text" :class="!agreement?'':'asset-header-total-asset-hide-text-blue'" @click="hideZeroItem">隐藏0资产币种</span>

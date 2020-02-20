@@ -264,7 +264,7 @@
 }
 
 .mobile-header-now-price-down {
-  color: #3576F5;
+  color: #EF5656;
 }
 
 .mobile-header-updown-img {
@@ -318,7 +318,7 @@
 }
 
 .mobile-header-updata-price-up {
-  color: #02987D;
+  color: #39B496;
 }
 
 .mobile-header-updata-rate {
@@ -335,7 +335,7 @@
 }
 
 .mobile-header-updata-rate-up {
-  color: #02987D;
+  color: #39B496;
 }
 
 .mobile-header-low-price {
@@ -432,7 +432,7 @@
   height: 0.8rem;
   line-height: 0.8rem;
   text-align: center;
-  background: #02987D;
+  background: #39B496;
   margin-right: 0.2rem;
   margin-top: 0.16rem;
   border-radius: 1.5px;
@@ -449,7 +449,7 @@
   height: 0.8rem;
   line-height: 0.8rem;
   text-align: center;
-  background: #3576F5;
+  background: #EF5656;
   margin-top: 0.16rem;
   border-radius: 1.5px;
   font-family: PingFangSC-Semibold;
@@ -461,10 +461,12 @@
 ._m_sl_fc {
   height: 0.76rem;
   line-height: 0.76rem;
-  background-color: #131F30;
-  padding-left: 0.5rem;
+  /*background-color: #131F30;*/
+  padding-left: 0.24rem;
   /*margin-bottom: 0.3rem;*/
   position: relative;
+
+
 }
 
 ._m_sl_fcl {
@@ -486,7 +488,7 @@
   border-left: 0.1rem solid transparent;
   position: absolute;
   right: -.3rem;
-  top: 0.38rem;
+  top: 0.33rem;
 
 }
 
@@ -584,7 +586,7 @@
   cursor: pointer;
 }
 .progress-bar-greenbtn {
-  background: #02987D;
+  background: #39B496;
   cursor: pointer;
 }
 

@@ -1478,41 +1478,6 @@ root.assetPagePlatformReward.description_13 = 'IOST registration reward'
 root.assetPagePlatformReward.description_14 = 'TwentyTwenty reward'
 
 
-// 抽奖活动 2018-3-22
-root.luckDraw = {};
-root.luckDraw.Awards = 'awards'
-root.luckDraw.luckDraw_tips = 'Join TwentyTwenty March referral program，win 100,000 BDB and iPhone X'
-root.luckDraw.KYC = 'Please complete your KYC verifiction before the draw'
-root.luckDraw.Verify = 'Verify now'
-root.luckDraw.Noprize = 'No prize. Please try again for the Lottery'
-root.luckDraw.Tryagain = 'Try again'
-root.luckDraw.Nochances = 'You have 0 chances left. Invite a friend and get one more draw'
-root.luckDraw.Invitefriend = 'Invite a friend'
-root.luckDraw.Submit = 'Submit'
-root.luckDraw.Luck_user = 'please enter your mailing address, TwentyTwenty Assistant will mail you the awards'
-root.luckDraw.Formuser = 'your name'
-root.luckDraw.Formphone = 'phone number'
-root.luckDraw.Formaddress = 'mailing address'
-root.luckDraw.ActiveTime = 'Time'
-root.luckDraw.Times = '2018/03/30 10:00 – 2018/03/31 18:00 HKT'
-root.luckDraw.notice_1 = 'Rules'
-root.luckDraw.notice_2 = 'TwentyTwenty members finished KYC verification will get three draws to TwentyTwenty Lottery!'
-root.luckDraw.notice_3 = 'TwentyTwenty members invited a friend to register and finish KYC verification can get one more draw to the Lottery!'
-root.luckDraw.notice_4 = 'Settlement'
-root.luckDraw.notice_5 = 'BDB prizes will be settled 2 days after the event!'
-root.luckDraw.notice_6 = 'Other prizes will be settled later after the event!'
-root.luckDraw.notice_7 = '*TwentyTwenty reserves the right of further interpretation of this event!'
-root.luckDraw.Congratulations = 'Congratulations, you have won the prize of'
-root.luckDraw.Congratulate = 'Congratulation'
-root.luckDraw.inset_person = 'BDB bonuses will be settled after the event and can be reviewed at Account Bonus'
-root.luckDraw.luck_gift_0 = '100,000 BDB'
-root.luckDraw.luck_gift_6 = 'Fabulous cruise tour for 2'
-root.luckDraw.luck_gift_2 = 'Iphone X 256G'
-root.luckDraw.luck_gift_4 = 'Ipad 128G'
-root.luckDraw.luck_gift_1 = 'Cool T shirt with TwentyTwenty Logo'
-root.luckDraw.luck_gift_5 = '50 BDB'
-root.luckDraw.luck_gift_3 = '3 BDB'
-
 // 3-28
 root.indexFooter.friendLink = 'FriendSites:'
 root.indexFooter.downloadApp = 'Download APP'
@@ -1531,30 +1496,6 @@ root.recommendedMaid.rule_1 = '1. This is a long-term program;'
 root.recommendedMaid.rule_2 = '2. Commission will be settled monthly and issued on the 8th of the following month;'
 root.recommendedMaid.rule_3 = '3. Get a 30% commission of your referrals trading fee for 1 year;'
 root.recommendedMaid.rule_4 = '4. Further adjustments of this program will be subjected to the platform announcement.The final interpretation belongs to TwentyTwenty.'
-
-//安卓上线
-root.staticAndroidOnline = {}
-root.staticAndroidOnline.title_1 = 'TwentyTwenty App for Mobile'
-root.staticAndroidOnline.title_2 = 'Exchange where ever and whenever'
-root.staticAndroidOnline.downloadAndroid = 'Android download'
-root.staticAndroidOnline.downloadIOS = 'IOS download'
-root.staticAndroidOnline.qrCode = 'Recommend using mobile browser to download APP'
-root.staticAndroidOnline.tab_1 = 'New events'
-root.staticAndroidOnline.tab_2 = 'Contact us'
-root.staticAndroidOnline.tab_3 = 'Join us'
-root.staticAndroidOnline.tab_1_detail_1 = '1.TwentyTwenty Lottery:Winners get 10 BDB, Cruise Tour for 2, New iPhone X and More!'
-root.staticAndroidOnline.tab_1_detail_2 = '2.TwentyTwenty members who invited a friend to register and finish KYC verification can get 30% commission of their referrals’ transaction fee for one year and extra BDB bonus.'
-root.staticAndroidOnline.tab_2_detail_1 = 'QQ：618019648'
-root.staticAndroidOnline.tab_2_detail_2 = 'Wechat：TwentyTwenty_com'
-root.staticAndroidOnline.tab_2_detail_3 = 'Telegram：'
-root.staticAndroidOnline.tab_2_detail_4 = '币用：'
-root.staticAndroidOnline.tab_2_detail_5 = 'Apply to list:'
-root.staticAndroidOnline.tab_3_detail_1 = 'General Marketing and Management'
-root.staticAndroidOnline.tab_3_detail_2 = 'You will be working with people, managing communities with vigor and challenges.Do you have a sharp writing style? Do you want to share opinions on industry hotspots and ideas, come and join us!Do you prefer working with people? Can you handle heated discussions and host event for others? Come and join our TwentyTwenty community.If you are sensitive to numbers and can be responsible for company billing and statistics, come and join us.If you can perform user data analysis and can quickly solve problems, come and join us.'
-root.staticAndroidOnline.tab_3_detail_3 = ''
-root.staticAndroidOnline.tab_3_detail_4 = 'Customer Support'
-root.staticAndroidOnline.tab_3_detail_5 = 'If taking care of others, helping people solve their problems is your thing, then you can literally come and "save the world." We have people from all over the world in need of your help. If you speak other languages in addition to English, that would be especially helpful.'
-root.staticAndroidOnline.tab_3_detail_6 = ''
 
 
 // 2018.3.22 绑定谷歌验证
@@ -1688,28 +1629,6 @@ root.currencyIntroduction.detail_DVT_18 = 'Blockchain explorer:'
 root.currencyIntroduction.detail_DVT_19 = 'https://etherscan.io/token/0x745a967982ba9e36cb1419e22f0cb6c0150e294b'
 
 
-// 2018.3.31 EOS抽奖活动界面
-root.luckDrawEOS = {}
-root.luckDrawEOS.rule_1_detail_1 = '1. TwentyTwenty members who complete the KYC verifications during the event，will get 3 draws to the Lottery;'
-root.luckDrawEOS.rule_1_detail_2 = '2. An extra draw will be given to members who has invited a friend to register and complete the KYC verification as well;'
-root.luckDrawEOS.rule_1_detail_3 = '3. The Lottery draws of Mar 30th 2018’s event will be accumulated to this event.'
-root.luckDrawEOS.rule_2_detail_1 = '1. For the first 50 successful referrals in real registration time (KYC verified), inviter will get 1 EOS bonus;'
-root.luckDrawEOS.rule_2_detail_2 = '2. For the 50-100 successful referrals in real registration time (KYC verified), inviter will get 0.5 EOS bonus;'
-root.luckDrawEOS.rule_2_detail_3 = '3. Other successful referrals (KYC verified), inviter will get random EOS bonus, 1000 EOS in total while stock lasts.'
-root.luckDrawEOS.rule_2_detail_4 = ''
-root.luckDrawEOS.rule_2_detail_5 = ''
-root.luckDrawEOS.rule_2_detail_6 = ''
-root.luckDrawEOS.rule_3_detail_1 = 'During the event, each friend is invited to register and finished the KYC verification, and the inviter can receive a reward of 30% commission of transaction fees for the invitee within one year.'
-root.luckDrawEOS.rule_3_detail_2 = '1. Reward distribution: Activity awards will be issued within 2 working days;'
-root.luckDrawEOS.rule_3_detail_3 = '2. Any activities of malicious scalping and other misconduct, will lead to the cancellation of the eligibility;'
-root.luckDrawEOS.rule_3_detail_4 = '3. The final interpretation of this activity belongs to TwentyTwenty.'
-root.luckDrawEOS.rule = 'Rules'
-root.luckDrawEOS.Awards = 'awards:'
-root.luckDrawEOS.chance_1 = 'You have'
-root.luckDrawEOS.chance_2 = 'chances to win'
-root.luckDrawEOS.ActiveTime = 'Time'
-root.luckDrawEOS.Times = '2018/04/02 15:00 - 2018/04/08 15:00 HKT'
-
 
 // 2018.4.3 平台奖励新字段
 root.assetPagePlatformReward.description_15 = 'March new member bonus'
@@ -1758,37 +1677,6 @@ root.currencyIntroduction.detail_BTC_12 = 'Block Explorer:'
 root.currencyIntroduction.detail_BTC_13 = 'https://blockchain.info/'
 
 
-// 2018-4-10 IOST空投字段
-root.IOSTReward = {}
-root.IOSTReward.Home = 'Home'
-root.IOSTReward.Info = 'Event info'
-root.IOSTReward.collect = 'collect bonus'
-root.IOSTReward.recharge = 'Deposit'
-root.IOSTReward.Bonuses = 'Bonuses Collected'
-root.IOSTReward.BonusesLast = 'Bonuses Collected (Last day)'
-root.IOSTReward.Estimated = 'Estimated asset (Last day)'
-root.IOSTReward.Rules = 'Rules'
-root.IOSTReward.Time = 'Time：2018/4/12 0:00(HK Time)—2018/4/30 24:00(HK Time)'
-root.IOSTReward.Details = 'Details: During the event, TwentyTwenty will take snapshots of users BTC, ETH, USDT and BDB assets every day at 15:00. 50,000 IOST will be divided every day to users proportionally according to their estimated USDT BTC, ETH, and BDB asset'
-root.IOSTReward.Rate = 'Rate: 1 BTC=7000 USDT 、1 ETH = 400 USDT、1 BDB= 0.1 USDT'
-root.IOSTReward.eg = 'e.g.：Day X, the estimated total of USDT BTC, ETH, and BDB of the platform is 11200 USDT (1 BTC, 10 ETH, 100' +
-  'USDT and 1000 BDB: 7000×1+400×10+1×100+0.1×1000 =11200 USDT.);The snapshot of your account is shown 1 ETH, 10 USDT, 100 BDB, which ' +
-  'estimated to be 420 USDT. The IOST bonus will be 1875 IOST, which is 420/11200.'
-root.IOSTReward.Remarks = 'Remarks：Each user can collect IOST bonus once per day by visiting the event page and select ‘Collect bonus’, and bonuses cannot be accumulated to the next day'
-
-root.H5IOSTReward = {}
-root.H5IOSTReward.Time = 'Time：2018/4/12 0:00 (HK Time) — 2018/4/30 24:00 (HK Time).'
-root.H5IOSTReward.Details = 'Details： During the event, TwentyTwenty will take snapshots of users BTC, ETH, USDT and BDB assets every day at 15:00. 50,000 IOST will be divided every day to users' +
-  ' propor-tionally according to their estimated USDT BTC, ETH, and BDB asset.'
-root.H5IOSTReward.Rate_01 = 'Rate： 1 BTC=7000 USDT 、1 ETH = 400 USDT、1 BDB= 0.1 USDT.'
-root.H5IOSTReward.Rate_02 = 'e.g.: '
-root.H5IOSTReward.Rate_03 = 'Day X, the estimated total of USDT BTC, ETH, and BDB of the platform is 11200 USDT (1 BTC, 10 ETH, 100' +
-  'USDT and 1000 BDB: 7000×1+400×10+1×100+0.1×1000 =11200 USDT.);The snapshot of your account is shown 1 ETH, 10 USDT, 100 BDB, which ' +
-  'estimated to be 420 USDT. The IOST bonus will be 1875 IOST, which is 420/11200.'
-
-root.H5IOSTReward.Remarks = 'Remarks：Each user can collect IOST bonus once per day  by visiting the event page and select ‘Collecbo-nus’, ' +
-  'and bonuses cannot be accumulated to the next day.'
-
 // 2018.4.9 交易大厅
 root.progressBar.tradeError_1 = '最多交易10000000个!'
 root.progressBar.tradeError_2 = '暂未开放!'
@@ -1798,47 +1686,6 @@ root.progressBar.trade_success = '挂单成功'
 
 root.assetPageRechargeAndWithdrawals.withdrawalsIsNotOpen = 'Withdrawal of the token is unavailable at the moment.'
 
-// 2018-4-18 MTC活动
-root.MtcReward = {};
-root.MtcReward.people = 'people'
-root.MtcReward.Home = 'Home'
-root.MtcReward.Info = 'Info'
-root.MtcReward.Event1 = 'Event: Referral Bonus'
-root.MtcReward.Event2 = 'Event: MTC trade campaign'
-root.MtcReward.Referral = 'Referral link'
-root.MtcReward.Copy_link = 'copy Referral link'
-root.MtcReward.Number = 'number of referrals'
-root.MtcReward.Bonuses = 'Bonuses Collected (Last day)'
-root.MtcReward.Ranking = 'Yesterday`s ranking'
-root.MtcReward.Total = 'Yesterday`s total'
-root.MtcReward.Deposit = 'Deposit'
-root.MtcReward.Exchange = 'Exchange'
-root.MtcReward.Time = 'Time'
-root.MtcReward.Time_span = '2018/4/19 15:00 (HK Time)-2018/4/28 15:00 (HK Time)'
-root.MtcReward.Details = 'Details'
-root.MtcReward.Details_span = 'If a member invited a friend to register, he/she can get 100 MTC bonus, and his/her friend can enjoy 300 MTC bonus. There is 200,000 MTC referral bonus, whoever comes first will get first, until all 200,000 MTC are given out'
-root.MtcReward.Settlement = 'Settlement'
-root.MtcReward.Settlement_span = 'Bonus will be settled 2 business days after this event.'
-root.MtcReward.Rules = 'Rules'
-root.MtcReward.Rules1 = 'All new members of TwentyTwenty who register during this event will get 300 MTC bonus with or without a referral'
-root.MtcReward.Rules2 = 'No limit in the number of referrals'
-root.MtcReward.Rules3 = '30% commission of transaction fee will be rewarded to members with successful referrals for one year'
-root.MtcReward.Time_span2 = '2018/4/20 15:00 (HK Time)-2018/4/24 15:00 (HK Time)'
-root.MtcReward.Details_span2 = 'Trade campaign will be held for 5 days in the amount of MTC deposit (deposit amount = withdrawals – deposits) and trading (MTC trading amount = sale + buy'
-root.MtcReward.Details_span3 = 'Frist place: 20,000 MTC'
-root.MtcReward.Details_span4 = 'Second place: 10,000 MTC'
-root.MtcReward.Details_span5 = 'Third place: 6,000 MTC'
-root.MtcReward.Details_span6 = 'Fourth to tenth place 2,000 MTC'
-root.MtcReward.Details_span7 = 'Other participants will divide 30,000 MTC accordingly every day during the event'
-root.MtcReward.Settlement_span2 = 'The settlement starts at 17:00 every day. The bonuses will be distributed at 12:00 in the next day'
-root.MtcReward.Rules4 = ' Self transactions will not be accounted to the campaign'
-root.MtcReward.Notice1 = '* Please note that any behavior of unfair competition will be disqualified immediately'
-root.MtcReward.Notice2 = '* TwentyTwenty reserves the right of further adjustment and final interpretation of this announcement'
-
-root.MtcReward.Event3 = 'Event: 400,000 MTC Airdrop'
-root.MtcReward.Time_span3 = '2018/5/1 15:00 (HK Time)—2018/5/5 15:00 (HK Time)'
-root.MtcReward.Details_span8 = ' TwentyTwenty members will divide 80,000 MTC every day during the event, according to the estimated balance of BTC, ETH, USDT, BDB in their accounts. Snapshots will be taken at 15:00 HK Time to record the balances'
-root.MtcReward.Rules5 = 'Each user can collect the bonus once per day by visiting the event page after 0:00 the next day. Uncollected bonuses will be disqualified once not be collected in 24 hours. Uncollected bonuses can not be accumulated to the next day'
 
 
 // 币种资料MTC
@@ -1945,80 +1792,6 @@ root.currencyIntroduction.request_detail_8 = 'Whitepaper:'
 root.currencyIntroduction.request_detail_9 = 'Blockchain explorer:'
 
 
-// 2018-4-25 KEY活动
-root.KeyReward = {};
-root.KeyReward.people = 'people'
-root.KeyReward.Home = 'Home'
-root.KeyReward.Info = 'Info'
-root.KeyReward.Event1 = 'Event: Referral Bonus'
-root.KeyReward.Event2 = 'Event: KEY trade campaign'
-root.KeyReward.Referral = 'Referral link'
-root.KeyReward.Copy_link = 'copy Referral link'
-root.KeyReward.Number = 'number of referrals'
-root.KeyReward.Bonuses = 'Bonuses Collected (Last day)'
-root.KeyReward.Ranking = 'Yesterday`s ranking'
-root.KeyReward.Total = 'Yesterday`s total'
-root.KeyReward.Deposit = 'Deposit'
-root.KeyReward.Exchange = 'Exchange'
-root.KeyReward.Time = 'Time'
-root.KeyReward.Time_span = '2018/4/26 15:00 (HK Time)-2018/5/5 15:00 (HK Time)'
-root.KeyReward.Details = 'Details'
-root.KeyReward.Details_span = 'If a member invited a friend to register, he/she can get 100 KEY bonus, and his/her friend can enjoy 300 KEY bonus. There is 200,000 KEY referral bonus, whoever comes first will get first, until all 200,000 KEY are given out'
-root.KeyReward.Settlement = 'Settlement'
-root.KeyReward.Settlement_span = 'Bonus will be settled 2 business days after this event.'
-root.KeyReward.Rules = 'Rules'
-root.KeyReward.Rules1 = 'All new members of TwentyTwenty who register during this event will get 300 KEY bonus with or without a referral'
-root.KeyReward.Rules2 = 'No limit in the number of referrals'
-root.KeyReward.Rules3 = '30% commission of transaction fee will be rewarded to members with successful referrals for one year'
-root.KeyReward.Time_span2 = '2018/4/27 17:00 (HK Time)-2018/5/1 17:00 (HK Time)'
-root.KeyReward.Details_span2 = 'Trade campaign will be held for 5 days in the amount of KEY deposit (deposit amount = withdrawals – deposits) and trading (KEY trading amount = sale + buy'
-root.KeyReward.Details_span3 = 'Frist place: 20,000 KEY'
-root.KeyReward.Details_span4 = 'Second place: 10,000 KEY'
-root.KeyReward.Details_span5 = 'Third place: 6,000 KEY'
-root.KeyReward.Details_span6 = 'Fourth to tenth place 2,000 KEY'
-root.KeyReward.Details_span7 = 'Other participants will divide 30,000 KEY accordingly every day during the event'
-root.KeyReward.Settlement_span2 = 'The settlement starts at 17:00 every day. The bonuses will be distributed at 12:00 in the next day'
-root.KeyReward.Rules4 = ' Self transactions will not be accounted to the campaign'
-root.KeyReward.Notice1 = '* Please note that any behavior of unfair competition will be disqualified immediately'
-root.KeyReward.Notice2 = '* TwentyTwenty reserves the right of further adjustment and final interpretation of this announcement'
-
-root.KeyReward.Event3 = 'Event: 400,000 KEY Airdrop'
-root.KeyReward.Time_span3 = '2018/5/6 15:00 (HK Time)—2018/5/10 15:00 (HK Time)'
-root.KeyReward.Details_span8 = ' TwentyTwenty members will divide 80,000 KEY every day during the event, according to the estimated balance of BTC, ETH, USDT, BDB in their accounts. Snapshots will be taken at 15:00 HK Time to record the balances'
-root.KeyReward.Rules5 = 'Each user can collect the bonus once per day by visiting the event page after 0:00 the next day. Uncollected bonuses will be disqualified once not be collected in 24 hours. Uncollected bonuses can not be accumulated to the next day'
-
-
-// 2018-4-25 KEY空投字段
-root.MtcActivity = {}
-root.MtcActivity.Home = 'Home'
-root.MtcActivity.Info = 'Event info'
-root.MtcActivity.collect = 'collect bonus'
-root.MtcActivity.recharge = 'Deposit'
-root.MtcActivity.Bonuses = 'Bonuses Collected'
-root.MtcActivity.BonusesLast = 'Bonuses Collected (Last day)'
-root.MtcActivity.Estimated = 'Estimated asset (Last day)'
-root.MtcActivity.Rules = 'Rules'
-root.MtcActivity.Time = 'Time：2018/5/1 15:00 (HK Time)—2018/5/5 15:00 (HK Time)'
-root.MtcActivity.Details = 'Details: During the event, TwentyTwenty will take snapshots of users BTC, ETH, USDT and BDB assets every day at 15:00. 80,000 MTC will be divided every day to users proportionally according to their estimated USDT BTC, ETH, and BDB asset'
-root.MtcActivity.Rate = 'Rate: 1 BTC=7000 USDT 、1 ETH = 400 USDT、1 BDB= 0.1 USDT'
-root.MtcActivity.eg = 'e.g.：Day X, the estimated total of USDT BTC, ETH, and BDB of the platform is 11200 USDT (1 BTC, 10 ETH, 100' +
-  'USDT and 1000 BDB: 7000×1+400×10+1×100+0.1×1000 =11200 USDT.);The snapshot of your account is shown 1 ETH, 10 USDT, 100 BDB, which ' +
-  'estimated to be 420 USDT. The MTC bonus will be 3000 MTC, which is 420/11200.'
-root.MtcActivity.Remarks = 'Remarks：80,000 MTC will be divided to users proportionally. Each user can collect MTC bonus once per day through the event page. Daily bonus must be collected before midnight and can not be accumulated to the next day. All bonuses will be settled 2 days after the event.'
-
-root.H5MtcActivity = {}
-root.H5MtcActivity.Time = 'Time：2018/5/1 15:00 (HK Time)—2018/5/5 15:00 (HK Time)'
-root.H5MtcActivity.Details = 'Details： During the event, TwentyTwenty will take snapshots of users BTC, ETH, USDT and BDB assets every day at 15:00. 50,000 MTC will be divided every day to users' +
-  ' propor-tionally according to their estimated USDT BTC, ETH, and BDB asset.'
-root.H5MtcActivity.Rate_01 = 'Rate： 1 BTC=7000 USDT 、1 ETH = 400 USDT、1 BDB= 0.1 USDT.'
-root.H5MtcActivity.Rate_02 = 'e.g.: '
-root.H5MtcActivity.Rate_03 = 'Day X, the estimated total of USDT BTC, ETH, and BDB of the platform is 11200 USDT (1 BTC, 10 ETH, 100' +
-  'USDT and 1000 BDB: 7000×1+400×10+1×100+0.1×1000 =11200 USDT.);The snapshot of your account is shown 1 ETH, 10 USDT, 100 BDB, which ' +
-  'estimated to be 420 USDT. The MTC bonus will be 3000 MTC, which is 420/11200.'
-
-root.H5MtcActivity.Remarks = 'Remarks：80,000 MTC will be divided to users proportionally. Each user can collect MTC bonus once per day through the event page. Daily bonus must be collected before midnight and can not be accumulated to the next day. All bonuses will be settled 2 days after the event.'
-
-
 // 5-3 实时交易
 root.latestDeal = {}
 root.latestDeal.price = 'Price'
@@ -2026,16 +1799,6 @@ root.latestDeal.amount = 'Amount'
 root.latestDeal.time = 'Time'
 root.latestDeal.available = 'No record available'
 
-
-// 2018-5-2 KEY空投字段
-root.KeyActivity = {}
-root.KeyActivity.Time = 'Time：2018/5/6 15:00 (HK Time)—2018/5/10 15:00 (HK Time)'
-root.KeyActivity.Details = 'Details: During the event, TwentyTwenty will take snapshots of users BTC, ETH, USDT and BDB assets every day at 15:00. 80,000 KEY will be divided every day to users proportionally according to their estimated USDT BTC, ETH, and BDB asset'
-root.KeyActivity.Rate = 'Rate: 1 BTC=7000 USDT 、1 ETH = 400 USDT、1 BDB= 0.1 USDT'
-root.KeyActivity.eg = 'e.g.：Day X, the estimated total of USDT BTC, ETH, and BDB of the platform is 11200 USDT (1 BTC, 10 ETH, 100' +
-  'USDT and 1000 BDB: 7000×1+400×10+1×100+0.1×1000 =11200 USDT.);The snapshot of your account is shown 1 ETH, 10 USDT, 100 BDB, which ' +
-  'estimated to be 420 USDT. The KEY bonus will be 3000 KEY, which is 420/11200.'
-root.KeyActivity.Remarks = 'Remarks：80,000 KEY will be divided to users proportionally. Each user can collect KEY bonus once per day through the event page. Daily bonus must be collected before midnight and can not be accumulated to the next day. All bonuses will be settled 2 days after the event.'
 
 
 // 2018-4-27
@@ -2047,78 +1810,8 @@ root.personalCenter.poster = 'My Referral Page'
 root.personalCenter.poster_1 = 'Share posters now, invite friends to send gold COINS'
 root.personalCenter.poster_2 = 'Right-click image copy to save, invite friends to get reward rewards'
 
-// 2018-5-8 币世界
-root.BiShiJieActivity = {};
-root.BiShiJieActivity.Event1 = 'Event one'
-root.BiShiJieActivity.Event2 = 'Event two'
-root.BiShiJieActivity.registration = 'Registration and Referral Bonus'
-root.BiShiJieActivity.invite = 'Invite a friend'
-root.BiShiJieActivity.referrals = 'Number of referrals'
-root.BiShiJieActivity.sweet = 'After the completion of the registration, click on the "invite friends" can generate your own pictures, please share pictures with friends, invite friends to register, friends to complete the second after verification, you can obtain the candy bags'
-root.BiShiJieActivity.time = 'Time'
-root.BiShiJieActivity.time_detail1 = '2018/5/11 (HK Time) until all 210000 tokens are given out'
-root.BiShiJieActivity.time_detail2 = '2018/5/11 15:00 (HK Time)-2018/5/13 15：00 (HK Time)'
-root.BiShiJieActivity.details = 'Details'
-root.BiShiJieActivity.details_detail1 = 'nvite a friend and get Bonus. (8 - 16 CNY worth). New users finish registration and complete the SMS and Google verification will get a Bonus. (20- 50 CNY worth)'
-root.BiShiJieActivity.details_detail2 = 'Trade campaigns will held separately in ACT, KCASH and LET. The campaign will take the total volume of Net Deposit (Deposits-Withdrawals) and Trade (Buy and Sell)'
-root.BiShiJieActivity.distribution = 'Distribution'
-root.BiShiJieActivity.distribution1 = 'Bonus will be distributed during the event'
-root.BiShiJieActivity.distribution2 = '2 business days after the program'
-root.BiShiJieActivity.rules = 'Rules'
-root.BiShiJieActivity.rules_1 = '1. New users need to complete their SMS and Google verification'
-root.BiShiJieActivity.rules_2 = '2. Maximum of 10 referrals will be accumulated to this program'
-root.BiShiJieActivity.rules_3 = '3. 30% commission of transaction fee will be rewarded to you in 1-year period'
-root.BiShiJieActivity.rules_4 = 'Self trading will not be taken in to consideration'
-root.BiShiJieActivity.trade = 'Trade Campaign'
-root.BiShiJieActivity.deposit = 'Deposit now'
-root.BiShiJieActivity.exchange = 'Trade now'
-root.BiShiJieActivity.bonus = 'My Bonus'
-root.BiShiJieActivity.trade_deposit = 'Deposit/Trade'
-root.BiShiJieActivity.ranking = 'Ranking'
-root.BiShiJieActivity.act = 'First: 15,000 ACT, Second: 10,000 ACT, Third: 5,000 ACT, Fourth and beyond: All other participants will divide 30,000 ACT proportionally.'
-root.BiShiJieActivity.kcash = 'First: 15,000 KCASH, Second: 10,000 KCASH, Third: 5,000 KCASH, Fourth and beyond: All other participants will divide 30,000 KCASH proportionally'
-root.BiShiJieActivity.let = 'First: 15,000 LET, Second: 10,000 LET, Third: 5,000 LET, Fourth and beyond: All other participants will divide 30,000 LET proportionally'
-
-root.BiShiJieActivity.title_1 = 'Time'
-root.BiShiJieActivity.title_2 = '奖励发放'
-root.BiShiJieActivity.title_3 = 'Registration'
-root.BiShiJieActivity.title_4 = 'Referral'
-root.BiShiJieActivity.title_5 = 'Rules'
-root.BiShiJieActivity.detail_1 = '2018/5/16 (HK Time) until all airdrop are given out'
-root.BiShiJieActivity.detail_2 = '奖励实时发放'
-root.BiShiJieActivity.detail_3 = ' Scan the referral bar code and register with TwentyTwenty. New member will get the Registration Bonus (60 CNY worth)'
-root.BiShiJieActivity.detail_4 = ': Invite a friend to register with your referral bar code, and get the Referral Bonus (13 CNY worth).'
-root.BiShiJieActivity.detail_5 = '1 New users have 3 days to complete their SMS and Google verification. Without verification，bonus can be revoked'
-root.BiShiJieActivity.detail_6 = '2 Invitees need to complete SMS and Google verification for you to claim the referral bonus,'
-root.BiShiJieActivity.detail_7 = '3  There are no limit in the number of referrals.'
-root.BiShiJieActivity.detail_8 = '4 30% commission of transaction fee will be rewarded to you in 1-year period.'
-root.BiShiJieActivity.detail_9 = '5. Click "Invite friends" to get exclusive invitation posters.'
-root.BiShiJieActivity.detail_10 = '6.  A referral needs to be made by the referral bar code in order to collect any bonuses of this event.'
 
 
-root.BiShiJieActivity.title_2_1 = 'Time'
-root.BiShiJieActivity.title_2_2 = 'Details'
-root.BiShiJieActivity.title_2_3 = 'Settlement'
-root.BiShiJieActivity.title_2_4 = 'Remark'
-root.BiShiJieActivity.detail_2_1 = '2018/5/11 15:00 (HK Time)-2018/5/13 15:00 (HK Time)'
-root.BiShiJieActivity.detail_2_2 = 'Trade campaigns will be held separately in ACT, KCASH and LET'
-root.BiShiJieActivity.detail_2_3 = 'First: 15,000 Token'
-root.BiShiJieActivity.detail_2_4 = 'Second: 10,000 Token'
-root.BiShiJieActivity.detail_2_5 = 'Third: 5,000 Token'
-root.BiShiJieActivity.detail_2_6 = 'Fourth and beyond: All other participants will divide 30,000 Token proportionally.'
-root.BiShiJieActivity.detail_2_7 = '2 business days after the program.'
-root.BiShiJieActivity.detail_2_8 = '1、Self trading will not be taken in to consideration'
-root.BiShiJieActivity.detail_2_9 = '2、The campaign will take the total volume of the Net Deposit (Deposits-Withdrawals) and Trade (Buy and Sell)'
-
-
-// 2018-5-10 币世界活动三
-root.BiShiJieReward = {}
-root.BiShiJieReward.time = '2018/5/13 (HK Time)-2018/5/14  (HK Time)'
-root.BiShiJieReward.Remarks = 'Remarks'
-root.BiShiJieReward.detail1 = '15，000 ACT + 15，000 Kcash + 15，000 LET  will be divided to users proportionally. Each user can collect these token bonus once per day through the event page. Daily bonus must be collected before midnight and can not be accumulated to the next day. All bonuses will be settled 2 days after the event.'
-root.BiShiJieReward.detail3 = 'Airdrop bonus of May 14 needs to be collected during 0:00-24:00 May 15. Uncollected bonuses will be cancelled.'
-root.BiShiJieReward.detail4 = '1 Minimum airdrop is 0.1 token. '
-root.BiShiJieReward.detail5 = '2 Rate: 1 BTC＝10000USDT、1 ETH ＝ 800USDT 、1BDB ＝0.1USDT'
 
 
 // 充值提现 钱包地址变更的弹窗
@@ -2131,96 +1824,9 @@ root.assetPageRechargeAndWithdrawals.recharge_address_change_detail_5 = 'Deposit
 root.assetPageRechargeAndWithdrawals.recharge_address_change_button = 'Confirm'
 
 
-// 2018-5-10 币世界活动三
-root.BiShiJieReward = {}
-root.BiShiJieReward.time = '2018/5/13 (HK Time)-2018/5/14  (HK Time)'
-root.BiShiJieReward.Remarks = 'Remarks'
-root.BiShiJieReward.detail1 = '15，000 ACT + 15，000 Kcash + 15，000 LET  will be divided to users proportionally. Each user can collect these token bonus once per day through the event page. Daily bonus must be collected before midnight and can not be accumulated to the next day. All bonuses will be settled 2 days after the event.'
-root.BiShiJieReward.detail2 = 'Airdrop bonus of May 13 needs to be collected during 0:00-24:00 May 14. Uncollected bonuses will be cancelled.'
-root.BiShiJieReward.detail3 = 'Airdrop bonus of May 14 needs to be collected during 0:00-24:00 May 15. Uncollected bonuses will be cancelled.'
-root.BiShiJieReward.detail4 = '1 Minimum airdrop is 0.1 token. '
-root.BiShiJieReward.detail5 = '2 Rate: 1 BTC＝10000USDT、1 ETH ＝ 800USDT 、1BDB ＝0.1USDT'
-
-
 // 提现地址错误提示
 root.assetPageRechargeAndWithdrawals.wrongAddressInput = 'Please enter the correct withdrawal address to avoid loss of assets！'
 
-
-// 2018-5-22 币得宝
-root.coinBaby = {};
-root.coinBaby.CoinBaby = 'CoinBaby'
-root.coinBaby.LockPositionRecord = 'Lock Position Record'
-root.coinBaby.DaysLockPositionPlan = 'Days Lock Position Plan'
-root.coinBaby.AnnualizedReturn = 'Annualized Return'
-root.coinBaby.Locked = 'Locked'
-root.coinBaby.Participants = 'Participants'
-root.coinBaby.OngoingPlans = 'Ongoing Plans'
-root.coinBaby.PreviousPlans = 'Previous Plans'
-root.coinBaby.DayLockPeriod = 'Day Lock-up Period'
-root.coinBaby.ParticipationDeadline = 'Deadline'
-root.coinBaby.LockStarts = 'Lock-up Starts'
-root.coinBaby.LockEnds = 'Lock-up Ends'
-root.coinBaby.Release = 'Release'
-root.coinBaby.Participatenow = 'Participate now'
-root.coinBaby.PassDeadline = 'Pass Deadline'
-root.coinBaby.PlanCap = 'Plan Cap'
-root.coinBaby.Maximum = 'Maximum'
-root.coinBaby.Minimum = 'Minimum'
-root.coinBaby.MaximumRequestsPlans = 'Maximum Requests of Plans'
-root.coinBaby.Unlimited = 'Unlimited'
-root.coinBaby.Balance = 'Balance'
-root.coinBaby.Available = 'Available'
-root.coinBaby.LockedNum = 'Locked'
-root.coinBaby.Integersonly = 'Integers only'
-root.coinBaby.Allin = 'All in'
-root.coinBaby.EstimatedReturn = 'Estimated Return'
-root.coinBaby.LockPositionDetail = 'Lock Position Detail'
-root.coinBaby.TotalReturn = 'Total Return'
-root.coinBaby.Lockperiod = 'Lock-up period'
-root.coinBaby.Remarks = 'Remarks: After lock-up, all withdraws and trading towards locked assets will be unavailable until the time of release. Please make sure you understand this term before confirming'
-root.coinBaby.Cancel = 'Cancel'
-root.coinBaby.Confirm = 'Confirm'
-root.coinBaby.MinLockUp = 'Minimum'
-root.coinBaby.InsufficientFunds = 'Insufficient funds'
-root.coinBaby.Remarks1 = 'Reminds: Sorry, insufficient funds'
-root.coinBaby.Remarks2 = 'Please make a deposit before participating'
-root.coinBaby.LockPositionSuccessful = 'Lock Position Successful'
-root.coinBaby.Mylocked = 'My locked'
-root.coinBaby.LockPositionReturn = 'Lock Position Return'
-root.coinBaby.LockPositionRecord = 'Lock Position Record'
-root.coinBaby.LockPositionRecord1 = 'Order ID'
-root.coinBaby.LockPositionRecord2 = 'Time'
-root.coinBaby.LockPositionRecord3 = 'Plan'
-root.coinBaby.LockPositionRecord4 = 'Annualized Return'
-root.coinBaby.LockPositionRecord5 = 'Lock-up'
-root.coinBaby.LockPositionRecord6 = 'Amount'
-root.coinBaby.LockPositionRecord7 = 'Total Return'
-root.coinBaby.LockPositionRecord8 = 'Lock-up period/Release'
-root.coinBaby.LockPositionRecord9 = 'Status'
-root.coinBaby.LockPositionRecord9_1 = 'On going'
-root.coinBaby.LockPositionRecord1_2 = 'Previous'
-root.coinBaby.FAQ = 'FAQ'
-root.coinBaby.FAQ_Q1 = 'Q：What is CoinBaby?'
-root.coinBaby.FAQ_A1 = 'A: CoinBaby is a product based on digital assets. Each plan has its own lock-up period and interest rate. You can choose freely. The principal will be locked after participation and the interest begins to accrue according to the appointed time. The principal and interest will be unlocked and transferred into your account after the plan is due, and you will be able to obtain the promised earnings'
-root.coinBaby.FAQ_Q2 = 'Q: How to participate? '
-root.coinBaby.FAQ_A2 = 'A: Log in the 2020.exchange, click the ‘CoinBaby’, select the coin you need to lock according to your own situation, click "On going" button, and you can participate in the plans'
-root.coinBaby.FAQ_Q3 = 'Q: How the earnings are calculated?'
-root.coinBaby.FAQ_A3 = 'A: Each CoinBaby plans has its own fixed starting and ending time for interest accrual, and your earnings will be calculated within this period. The interest-bearing period of each plan can be viewed on its page'
-root.coinBaby.FAQ_Q4 = 'Q: How will the earnings be issued?'
-root.coinBaby.FAQ_A4 = 'A: When the lock-up period of the plan expires, the system begins to issue the interest income of the participating users one after another. It may cause a delay in your income due to many participants. Please wait patiently and you can go to ‘Bonus’ to view the interest income of CoinBaby'
-root.coinBaby.FAQ_Q5 = 'Q: Can CoinBaby be unlocked ahead of schedule?'
-root.coinBaby.FAQ_A5 = 'A: Currently, CoinBaby does not support early unlocking. The system will automatically unlock the coins you locked and pay the interest after the lock-up period'
-root.coinBaby.FAQ_Q6 = 'Q：Where does CoinBaby interest come from'
-root.coinBaby.FAQ_A6 = 'A：CoinBaby interest comes from the ecology construction distribution of TwentyTwenty project'
-root.coinBaby.lock_go_return1 = 'After unlocking, please go to'
-root.coinBaby.lock_go_return2 = 'platform rewards'
-root.coinBaby.lock_go_return3 = 'to view the lock revenue'
-root.coinBaby.button_1 = 'Buying in progress'
-root.coinBaby.button_2 = 'Purchase end'
-root.coinBaby.button_3 = 'Buying has not started'
-root.coinBaby.Locking = 'Lock in'
-root.coinBaby.startTime = 'Buying Starts'
-root.coinBaby.endTime = 'Buying Ends'
 
 
 // title
@@ -2400,35 +2006,6 @@ root.indexHeader.miningProfit = 'Mining'
 //交易大厅
 root.progressBar.useBtMining = '{btReward}% extra mining BT as bonus'
 
-// API设置白名单 2018-6-21
-root.whiteList = {};
-root.whiteList.set_title = 'How to set up TwentyTwenty mail white list'
-root.whiteList.qq = '一、QQ Whitelist'
-root.whiteList.qq_1 = '1. Login qqmail'
-root.whiteList.qq_2 = '2. Go to settings'
-root.whiteList.qq_3 = '3. Go to ‘spam’ – ‘whitelist’'
-root.whiteList.qq_4 = '4. Set domain whitelist by entering 2020.exchange'
-root.whiteList.qq_5 = '5. Set email whitelist by adding addresses below：'
-root.whiteList.wangyi = '二、163mail/126mail whitelist'
-root.whiteList.wangyi_1 = '1. Login 163mail'
-root.whiteList.wangyi_2 = '2. Go to settings'
-root.whiteList.wangyi_3 = '3. Visit Setting and Spam/Black&Whitelist'
-root.whiteList.wangyi_4 = '4. Add Whitelist'
-root.whiteList.wangyi_5 = '5. Entering the addresses below in to the whitelist：'
-root.whiteList.gmail = '三、Gmail Whitelist'
-root.whiteList.gmail_1 = '1. Login gmail'
-root.whiteList.gmail_2 = '2. Go to settings'
-root.whiteList.gmail_3 = '3. Go to Filters and Blocked Addresses'
-root.whiteList.gmail_4 = '4. Create a new filter'
-root.whiteList.gmail_5 = '5. Create filters for all addresses below：'
-root.whiteList.gmail_6 = 'Then press this search to create a filter'
-root.whiteList.gmail_7 = '6. Select ‘Never send it to Spam’ and create filter'
-root.whiteList.outlook = '四、Outlook Whitelist'
-root.whiteList.outlook_1 = '1. Login Outlook（through Web Browser）'
-root.whiteList.outlook_2 = '2. Make sure ‘try the beta’ are off'
-root.whiteList.outlook_3 = '3. Go to setting on the upper right and select ‘options’'
-root.whiteList.outlook_4 = '4. Go to Junk mail – safe senders list'
-root.whiteList.outlook_5 = '5. Add the addresses below and confrim'
 
 
 // 创建API 2018-6-21

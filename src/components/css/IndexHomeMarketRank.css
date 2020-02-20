@@ -31,11 +31,12 @@
 
 
 .market-rank-item {
-  width: 250px;
-  height: 106px;
+  width: 232px;
+  height: 96px;
   /*
   background-color: #212439;
   white-space: nowrap;*/
+  background-image: url("../../assets/下载背景.png");
   padding: 15px 0px 20px 0px;
   box-sizing: border-box;
   flex-direction: column;
@@ -147,7 +148,6 @@
 
 #rankitemdiv :hover{
   background: #F7F7FB;
-
 }
 
 /*底部公告样式*/

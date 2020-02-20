@@ -42,7 +42,16 @@
     "myWallet": "我的钱包",
     "amount": "数量",
     "mentioning": "可提",
-    "allMention": "全提"
+    "allMention": "全提",
+    "totalAsset": "币币账户总资产",
+    "TransferIsNotOpen": "该币种暂未开放划转功能，敬请期待！",
+    "transferCurrencyWA": "请输入币种信息",
+    "transferAmountWA": "请输入划转数量",
+    "transferAmountWA1": "请输入数字",
+    "transferAmountWA2": "请输入正确的划转数量",
+    "transferAmountWA3": "超出划转可用余额",
+    "transferAmountWA4": "低于划转最小额"
+
 
   },
   "EN": {

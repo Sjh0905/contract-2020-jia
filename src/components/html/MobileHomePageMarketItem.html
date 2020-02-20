@@ -3,7 +3,7 @@
   <td class="mobile-market-td-first">
     <p class="mobile-market-td-name"><span class="mobile-market-td-target-name">{{new_item.name.split('_')[0]}}</span><span class="mobile-market-td-home-name"> / {{new_item.name.split('_')[1]}}</span></p>
 <!--    <p class="mobile-market-td-volume txt_40" v-if="new_item.name == 'GRC_USDT'">24h {{// new_item.volume>=1000 && new_item.volume > 0 ? $globalFunc.accFixed(new_item.volume / 1000,2)+'k' : $globalFunc.accFixed(new_item.volume, 0)}}</p>-->
-    <p class="mobile-market-td-volume txt_40">24h {{$globalFunc.accFixed(new_item.volume, 0)}}</p>
+    <p class="mobile-market-td-volume txt_40">24H {{$globalFunc.accFixed(new_item.volume, 0)}}</p>
   </td>
   <td class="mobile-market-td-second">
 <!--    <p class="mobile-market-td-current-price m-txt-green" :class= "(new_item.close - new_item.open > 0) ? 'mobile-market-td-current-price-up' : (new_item.close - new_item.open < 0 ? 'mobile-market-td-current-price-fall' : '')">{{$globalFunc.accFixed(new_item.close, !!quoteScale_list[new_item.name] ? quoteScale_list[new_item.name].quoteScale : 8)}}</p>-->

@@ -70,15 +70,15 @@
             <!--数量 end-->
 
             <!--类型-->
-            <div class="type">{{$t('transFer')}}</div>
+            <div class="type">{{item.fromUserId ? '转入':'转出'}}</div>
 
             <!--时间 begin-->
-            <span class="time">{{$globalFunc.formatDateUitl(item.dateTime,'YYYY-MM-DD hh:mm:ss')}}</span>
+            <span class="time">{{$globalFunc.formatDateUitl(item.createdAt,'YYYY-MM-DD hh:mm:ss')}}</span>
             <!--时间 end-->
 
             <!--状态 begin-->
             <span class="state">
-              <span class="state_text">{{item.status}}</span>
+              <span class="state_text">{{item.status == 'amet' ?'成功':'失败'}}</span>
 <!--              item.status===0?'成功':'失败'-->
             </span>
             <!--状态 end-->
@@ -114,7 +114,7 @@
 
         <!--如果没有记录 begin-->
 <!--        -->
-<!--        <li class="detail-li-no-data"  v-if="computedTransferLists.length===0">-->
+        <li class="detail-li-no-data"  v-if="computedTransferLists.length===0">
           <div class="no-data-content">
             <img src="../../assets/assetPageRecord/no-order-light.png" alt="">
             <div class="no-record">{{$t('noRecord')}}</div>

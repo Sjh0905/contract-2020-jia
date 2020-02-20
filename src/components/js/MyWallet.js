@@ -112,7 +112,21 @@ root.data = function () {
     // 内部划转页面弹窗
     popWindowOpen1:false,
     bibiAccount:'币币账户',
-    account:'我的钱包'
+    account:'我的钱包',
+    itemInfo:{
+      currency:''
+    },
+
+    currencyValue:'',// 输入框币种信息
+    transferCurrencyWA:'',// 币种错误提示
+    amountInput:'',// 输入框划转的数量
+    transferAmountWA:'',// 数量错误提示
+    transferCurrencyAvailable:0,
+    transferCurrencyObj:{},
+    sending:false
+
+
+
   }
 }
 /*------------------------------ 生命周期 -------------------------------*/
@@ -201,10 +215,20 @@ root.computed.available = function () {
 root.computed.accountsComputed = function () {
   // 特殊处理
   if (this.hideZeroAsset) {
-    return this.accounts.filter(val => {
+    return this.accounts.filter((val,inx) => {
+      val.currencyKey = val.currency+'-'+inx;
+      this.transferCurrencyObj[val.currency] = val;
       return val.total !== 0
     })
   }
+
+  this.accounts.map((val,inx) => {
+    val.currencyKey = val.currency+'-'+inx;
+    // val.currency == 'USDTK' && console.log(JSON.stringify(val))
+    // console.log(JSON.stringify(val.id))
+    this.transferCurrencyObj[val.currency] = val;
+  })
+
   return this.accounts
 }
 // 基础货币
@@ -266,6 +290,11 @@ root.methods.isERC20 = function () {
   // return currencyObj && (currencyObj.addressAliasTo === 'WCG' || this.currency === 'WCG')
   return currencyObj && (this.currency == "USDT" && this.selectTab == 2) ? "USDT2" : this.currency;
 }
+
+root.methods.select = function (item) {
+  console.log('iten==========',item)
+
+}
 // 划转输入框交换位置
 root.methods.changeAccount = function () {
   let empty = ''
@@ -282,8 +311,76 @@ root.methods.popWindowClose_transfer = function () {
 root.methods.click_rel_em = function () {
   this.popWindowOpen1 = false
 }
+
+// 判断划转数量
+root.methods.testTransferAmount  = function () {
+  if (this.$globalFunc.testSpecial(this.amountInput)) {
+    this.transferAmountWA = this.$t('transferAmountWA1')
+    return false
+  }
+  if (this.amountInput == '0') {
+    this.transferAmountWA = this.$t('transferAmountWA2')
+    return false
+  }
+  if (this.amountInput > this.transferCurrencyAvailable) {
+    this.transferAmountWA = this.$t('transferAmountWA3')
+    return false
+  }
+  if (this.amountInput <= '0') {
+    this.amountInput = '0'
+    this.transferAmountWA = this.$t('transferAmountWA4')
+    return false
+  }
+
+  this.amountInput = ''
+  return true
+}
+// 划转提交
 root.methods.commit = function () {
+
+  if (this.sending) return
+  let canSend = true
+  canSend = this.testTransferAmount() && canSend
+  if (this.currencyValue === '') {
+    this.transferCurrencyWA = this.$t('transferCurrencyWA')
+    canSend = false
+  }
+  if (this.amountInput === '') {
+    this.transferAmountWA = this.$t('transferAmountWA')
+    canSend = false
+  }
+  if (this.amountInput === '0') {
+    this.transferAmountWA = this.$t('transferAmountWA2')
+    canSend = false
+  }
+  console.log('发送成功====================')
+  if (!canSend) {
+    // console.log("不能发送！")
+    return
+  }
+  this.$http.send('POST_TRANSFER_LIST', {
+    bind: this,
+    params: {
+      currency:this.currencyValue,
+      amount:this.amountInput,
+      system:this.bibiAccount==='币币账户'?'WALLET':'SPOTS'
+    },
+    callBack: this.re_transfer,
+    errorHandler: this.error_transfer
+  })
+
+  this.sending = true
+
   this.popWindowOpen1 = false
+}
+
+// 划转回调
+root.methods.re_transfer = function (data){
+  console.log(data)
+}
+
+root.methods.error_transfer = function (err){
+  console.log(err)
 }
 
 root.methods.buyCommitToastClose = function () {
@@ -883,8 +980,6 @@ root.methods.getAuthState = function () {
   this.authStateReady = true
   this.loading = !(this.currencyReady && this.authStateReady)
 }
-
-
 // 判断验证状态回调
 root.methods.re_getAuthState = function (data) {
   typeof data === 'string' && (data = JSON.parse(data))
@@ -938,7 +1033,6 @@ root.methods.getPrice = function () {
       callBack: this.re_getPrice
     })
 }
-
 // socket估值发生变化！
 root.methods.re_getPrice = function (data) {
   if (this.socketTime % this.socketBase !== 0) {
@@ -980,6 +1074,7 @@ root.methods.re_getCurrency = function (data) {
 // 获取币种失败
 root.methods.error_getCurrency = function (err) {
 }
+
 //获取账户信息
 root.methods.getAccounts = function () {
   // 请求各项估值
@@ -1217,13 +1312,85 @@ root.methods.internalTransfer = function (index, item) {
 }
 
 // 打开划转
-root.methods.openTransfer = function () {
+root.methods.openTransfer = function (index, item) {
+
+  if (item.currency !=='USDT' && this.serverT < item.withdrawOpenTime) {
+    this.popupPromptOpen = true
+    this.popupPromptText = this.$t('TransferIsNotOpen')
+    this.popupPromptType = 0
+    return
+  }
+
+  if (item.withdrawDisabled) {
+    this.popupPromptOpen = true
+    this.popupPromptText = this.$t('TransferIsNotOpen')
+    this.popupPromptType = 0
+    return
+  }
+
+  // 如果没有实名认证不允许打开划转
+  // if (!this.bindIdentify) {
+  //   this.popWindowTitle = this.$t('popWindowTitleTransfer')
+  //   this.popWindowPrompt = this.$t('popWindowPromptWithdrawals')
+  //   this.popWindowStyle = '0'
+  //   this.popWindowOpen = true
+  //   return
+  // }
+
+  // 如果没有绑定邮箱，不允许打开提现
+  if (!this.bindEmail) {
+    this.popWindowTitle = this.$t('bind_email_pop_title')
+    this.popWindowPrompt = this.$t('bind_email_pop_article')
+    this.popWindowStyle = '3'
+    this.popWindowOpen = true
+    return
+  }
+
+  // 如果没有绑定谷歌或手机，不允许打开提现
+  // if (!this.bindGA && !this.bindMobile) {
+  //   this.popWindowTitle = this.$t('popWindowTitleTransfer')
+  //   this.popWindowPrompt = this.$t('popWindowTitleBindGaWithdrawals')
+  //   this.popWindowStyle = '1'
+  //   this.popWindowOpen = true
+  //   return
+  // }
+
+
+  //todo 修改密码后不能提现
+
+
+  this.recharge = false
+  this.transferss = false
+  this.activeIndex !== index && (this.withdrawals = true)
+  if (this.activeIndex === index) {
+    this.withdrawals = !this.withdrawals
+    if (this.withdrawals === false) {
+      this.activeIndex = -1
+      return
+    }
+  }
   this.popWindowOpen1 = true
+  this.transferCurrencyAvailable = item.available
+  this.itemInfo = item
+  this.currencyValue = this.itemInfo.currency
+
+
 }
 
 
 root.methods.errorHandler = function (err, state, text) {
   console.error('数据出错！', err, state, text)
+}
+
+root.methods.changeTransferCurrency = function (currency){
+  console.log('changeTransferCurrency==============',currency)
+  // this.itemInfo = val
+  this.transferCurrencyAvailable = this.transferCurrencyObj[currency].available || 0;
+}
+
+// 点击全提
+root.methods.allMention = function () {
+  this.amountInput = this.transferCurrencyAvailable
 }
 
 

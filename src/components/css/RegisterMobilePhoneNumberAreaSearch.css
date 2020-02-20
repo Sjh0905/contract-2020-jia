@@ -26,14 +26,14 @@
 }
 .country-search-box {
   display: flex;
-  padding: 0 30px;
+  padding: 0 15px;
   -ms-flex-align: center;
   align-items: center;
 }
 
 .country-search-box a {
   font-size: 14px;
-  color: #3E536C;
+  color: #6A83A8;
   text-align: right;
 }
 .country-search-box i .imgs {
@@ -49,11 +49,42 @@
   height: 44px;
   font-size: 16px;
   color: #6D87A8;
-  padding-left: 20px;
-  font-weight: 700;
-  line-height: 100px;
+  padding-left: 10px;
+  /*font-weight: 700;*/
+  line-height: 44px;
   background: #131F30;
 }
+
+.country-search-box input::-webkit-input-placeholder {
+  /* WebKit browsers */
+  color:#3E536C;
+  /*color:#fff227;*/
+  font-size:0.32rem;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+}
+.country-search-box input:-moz-placeholder {
+  /* Mozilla Firefox 4 to 18 */
+  color:#3E536C;
+  font-size:0.32rem;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+}
+.country-search-box input::-moz-placeholder {
+  /* Mozilla Firefox 19+ */
+  color:#3E536C;
+  font-size:0.32rem;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+}
+.country-search-box input:-ms-input-placeholder {
+  /* Internet Explorer 10+ */
+  color:#3E536C;
+  font-size:0.32rem;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+}
+
 .page-country .country-search-box button {
   min-width: 40px;
   font-size: 28px;

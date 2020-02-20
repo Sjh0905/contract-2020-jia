@@ -1,6 +1,6 @@
 <div>
   <Loading v-if="loading"/>
-    <div  v-if="!loading">
+  <div  v-if="!loading">
       <div class="container">
         <!--    总资产-->
         <div class="container-top-title">
@@ -90,9 +90,20 @@
           <!--      币种-->
           <div class="currency block-input">
             <div class="block-input-title">{{$t('currency')}}</div>
-            <input type="text" placeholder="BTC">
+            <el-select class="inputInner" value-key="currencyKey" v-model="currencyValue" filterable placeholder="" @change="changeTransferCurrency">
+              <el-option
+                v-if="serverT >= item.displayTime && !item.isUSDT2"
+                v-for="item in accountsComputed"
+                :key="item.currencyKey"
+                :label="item.currency"
+                :value="item.currency"
+              >
+                <!--            :remote-method="remoteMethod"-->
+                <!--            :loading="loading">-->
+              </el-option>
+            </el-select>
             <div class="amount-not-empty">
-              <span>提示</span>
+              <span>{{transferCurrencyWA}}</span>
             </div>
           </div>
 
@@ -100,14 +111,14 @@
           <div class="amount block-input">
             <div class="block-input-title">
               <span>{{$t('amount')}}</span>
-              <span class="available-right">{{$t('mentioning')}}可提：0000000 NET</span>
+              <span class="available-right">{{$t('mentioning')}}可提：{{transferCurrencyAvailable}} {{currencyValue}}</span>
             </div>
             <div class="amount-input flex">
-              <input type="text" placeholder="12345" class="amount-input-box">
-              <span class="amount-all">{{$t('allMention')}}</span>
+              <input type="text" placeholder="" class="amount-input-box">
+              <span class="amount-all pointer" @click="allMention">{{$t('allMention')}}</span>
             </div>
             <div class="amount-not-empty">
-              <span>提示</span>
+              <span>{{transferAmountWA}}</span>
             </div>
           </div>
         </div>
@@ -116,5 +127,11 @@
           <button class="pop-qu-2 pointer" @click="commit">{{$t('ensure')}}</button>
         </div>
       </PopupT>
+
+
+      <!-- 提示 start -->
+      <PopupPrompt :popType="popupPromptType" :popText="popupPromptText" :popOpen="popupPromptOpen"
+                   :popClose="closePopupPrompt"></PopupPrompt>
+      <!-- 提示 end -->
     </div>
 </div>

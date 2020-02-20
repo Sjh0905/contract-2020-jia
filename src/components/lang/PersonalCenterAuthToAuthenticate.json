@@ -1,8 +1,6 @@
 {
   "CH": {
-    "management": "账户管理",
-    "information": "填写基本信息",
-    "certificates": "上传证件信息"
+
   },
   "CHT": {
     "title": "身份認證",

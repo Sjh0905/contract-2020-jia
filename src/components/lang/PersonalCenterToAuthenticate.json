@@ -85,8 +85,10 @@
     "wrong_message_1": "您正在app端认证中，暂不可提交",
     "wrong_message_2": "您的身份认证已通过",
     "wrong_message_222": "中国大陆地区",
-    "wrong_message_22": "搜索"
-
+    "wrong_message_22": "搜索",
+    "management": "账户管理",
+    "information": "填写基本信息",
+    "certificates": "上传证件信息"
 
   },
   "EN": {

@@ -42,16 +42,16 @@
 .asset-header-total-asset-box{
   border-bottom: 1px solid #131F30;
   background: #131F30;
-  padding: 15px 15px 15px 15px;
-  height: 117px;
+  /* padding: 15px 15px 15px 15px; */
+  height: 1.94rem;
 }
 
 .asset-lan{
   width: 100%;
   height: 100%;
   background: #0F366D;
-  border-radius: 4px;
-  padding-left: 20px;
+  /*border-radius: 4px;*/
+  padding-left: 0.3rem;
   padding-top: 20px;
 }
 
@@ -61,7 +61,7 @@
 /*}*/
 
 .asset-header-BTC-asset {
-  font-family: Roboto-Regular;
+  /*font-family: Roboto-Regular;*/
   font-size: 24px;
   color: #FFFFFF;
   line-height: 28px;
@@ -69,7 +69,7 @@
 
 .asset-header-CHN-asset {
   opacity: 0.5;
-  font-family: Roboto-Regular;
+  /*font-family: Roboto-Regular;*/
   font-size: 12px;
   color: #FFFFFF;
   line-height: 12px;
@@ -84,8 +84,62 @@
 }
 
 .asset-header-total-asset-detail-box img{
-  width: 15px;
+  width: 12px;
   margin-right: 5px;
+  background-color: #fff;
+  border-radius: 0.04rem;
+}
+
+.asset-check-box {
+  width:100%;
+  height:0.8rem;
+  border-bottom: 0.02rem solid #223349;
+  /*padding: 0 1.34rem;*/
+
+}
+.asset-check-item {
+  height: 0.8rem;
+  line-height: 0.8rem;
+  font-size:0.26rem;
+  font-family:PingFangSC-Medium,PingFang SC;
+  font-weight:500;
+  color:#CFD3E9;
+}
+
+.asset-check-item-select {
+  border-bottom: 0.04rem solid #3576F5;
+}
+
+.asset-total-box-item {
+  width: 100%;
+  height: 1.44rem;
+  padding: 0.3rem;
+  text-align: left;
+}
+.lan-title-item {
+  font-size:0.24rem;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color:#6A83A8;
+  line-height:0.34rem;
+}
+
+.landata-item {
+  margin-top: 0.12rem;
+}
+
+.BTC-asset-item {
+  font-size:0.32rem;
+  font-weight:500;
+  color:#CFD3E9;
+  line-height:0.38rem;
+}
+
+.CHN-asset-item {
+  font-size:0.24rem;
+  font-weight:400;
+  color:#6A83A8;
+  line-height:0.24rem;
 }
 
 .tiao1{
@@ -124,7 +178,7 @@
 }
 
 .asset-header-total-asset-hide-text-blue {
-  color: #3576F5;
+  /*color: #3576F5;*/
 }
 
 .asset-container{
@@ -234,7 +288,7 @@
   line-height: 0.4rem;
   font-size: 0.28rem;
   margin-top: 0.04rem;
-  color: #02987D;
+  color: #39B496;
 }
 
 .asset-header-right-box-price{
@@ -395,7 +449,7 @@
 
 .asset-container-box-btn-buy{
   float: left;
-  background: #02987D;
+  background: #39B496;
 }
 
 .asset-container-box-btn-sale{

@@ -47,7 +47,7 @@
 }
 
 .mobile-history-item-icon-buy {
-	background: #02987D;
+	background: #39B496;
 }
 
 .mobile-history-item-icon-sale {
@@ -345,13 +345,14 @@
 }
 
 .history-order-list {
-  background: #081724;
+  background: #142030;
 }
 ._m_co_t{
 	height: 0.6rem;
 	line-height: 0.6rem;
 	padding: 0 0.2rem;
-	background: rgba(19,19,22,0.9);
+  background: #081724;
+  color: #6D87A8;
 }
 ._m_co_t>span{
 	font-size: 0.24rem;
@@ -398,7 +399,7 @@
 	flex: 1.6;
 }
 ._m_co_l1 .txt_40{
-	font-size: 0.26rem;
+	font-size: 0.24rem;
 }
 ._m_co_l1i{
 	align-items: center;
@@ -408,7 +409,7 @@
 	font-size: 0.3rem;
 }
 ._m_co_l1i>span:last-child{
-	font-size: 0.26rem;
+	font-size: 0.24rem;
 }
 ._m_co_l2{
 	width: 0;
@@ -440,7 +441,7 @@
 	font-size: 0.3rem;
 }
 ._m_co_l3>span:last-child{
-	font-size: 0.26rem;
+	font-size: 0.24rem;
 }
 ._m_co_l4{
 	margin-left: 0.48rem;

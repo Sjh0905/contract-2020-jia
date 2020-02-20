@@ -74,7 +74,7 @@
           <tr>
             <td  v-for="(item,index) in item_list"  v-if="index<3" @click="clickToTradingHall(item.name)">
               <div class="td001">
-                <span class="mobile-market-normal-td-symbol-second">{{item.name.split('_')[0]}}&nbsp;{{'/&nbsp;'+item.name.split('_')[1]}}</span>
+                <span class="">{{item.name.split('_')[0]}}&nbsp;{{'/&nbsp;'+item.name.split('_')[1]}}</span>
               </div>
               <div class="td002">{{toFixed(item.close, !!quoteScale_list[item.name] ? quoteScale_list[item.name].quoteScale : 2)}}</div>
               <div class="td003">{{diff24(item.open,item.close)>0?'+':''}}{{diff24(item.open,item.close)}}%</div>
@@ -92,31 +92,27 @@
 
     </div>
 
-<!--    <div class="homepage-icon-body">-->
-<!--      <div class="homepage-icon-body-list">-->
-<!--        <a href="#" @click="GO_OTC"class="homepage-icon-body-item">-->
-<!--          <img class="homepage-icon-body-item-img" src="" alt="">-->
-<!--          <span class="homepage-icon-body-item-text">法币交易</span>-->
-<!--        </a>-->
-<!--        <router-link to="/index/help/H5WordOrder" class="homepage-icon-body-item">-->
-<!--          <img class="homepage-icon-body-item-img" src="" alt="">-->
-<!--          <span class="homepage-icon-body-item-text">帮助中心</span>-->
-<!--        </router-link>-->
-<!--        <router-link to="/index/mobileAsset/mobileAssetRecharge" class="homepage-icon-body-item">-->
-<!--          <img class="homepage-icon-body-item-img" src="" alt="">-->
-<!--          <span class="homepage-icon-body-item-text">充值</span>-->
-<!--        </router-link>-->
-<!--        <router-link to="/index/mobileAsset/mobileAssetWithdraw" class="homepage-icon-body-item">-->
-<!--          <img class="homepage-icon-body-item-img" src="" alt="">-->
-<!--          <span class="homepage-icon-body-item-text">提现</span>-->
-<!--        </router-link>-->
-<!--        &lt;!&ndash;<a href="https://jinshuju.net/f/jhg65X" class="homepage-icon-body-item">&ndash;&gt;-->
-<!--          &lt;!&ndash;<img class="homepage-icon-body-item-img" src="" alt="">&ndash;&gt;-->
-<!--          &lt;!&ndash;<span class="homepage-icon-body-item-text">上币申请</span>&ndash;&gt;-->
-<!--        &lt;!&ndash;</a>&ndash;&gt;-->
+    <div class="homepage-icon-body">
+      <div class="homepage-icon-body-list">
+        <a href="#" @click="()=>_"class="homepage-icon-body-item">
+          <img class="homepage-icon-body-item-img" src="../../assets/H5img/trade.png" alt="">
+          <span class="homepage-icon-body-item-text">交易</span>
+        </a>
+        <router-link to="" class="homepage-icon-body-item">
+          <img class="homepage-icon-body-item-img" src="../../assets/H5img/assemble_a_regiment.png" alt="">
+          <span class="homepage-icon-body-item-text">拼团</span>
+        </router-link>
+        <router-link to="" class="homepage-icon-body-item">
+          <img class="homepage-icon-body-item-img" src="../../assets/H5img/trade_mining.png" alt="">
+          <span class="homepage-icon-body-item-text">交易挖矿</span>
+        </router-link>
+        <router-link to="" class="homepage-icon-body-item">
+          <img class="homepage-icon-body-item-img" src="../../assets/H5img/help_center.png" alt="">
+          <span class="homepage-icon-body-item-text">帮助中心</span>
+        </router-link>
 
-<!--      </div>-->
-<!--    </div>-->
+      </div>
+    </div>
 
     <div class="homepage-body">
 <!--      <div class="mobile-market-area-title">-->
@@ -179,7 +175,7 @@
             <tr class="mobile-market-title-first-tr">
               <th>{{$t('mobileHomePageMarket.name')}}/{{$t('mobileHomePageMarket.volume')}}</th>
               <th>最新价</th>
-              <th>24h涨跌</th>
+              <th>24H涨跌</th>
             </tr>
 
             <!--循环部分-->
@@ -191,10 +187,10 @@
               <td>
                 <div class="mobile-market-normal-td-symbol">
                   <span class="mobile-market-normal-td-symbol-first">{{item.name.split('_')[0]}}&nbsp;</span>
-                  <span class="mobile-market-normal-td-symbol-second">{{'/&nbsp;'+item.name.split('_')[1]}}</span>
+                  <span class="mobile-market-normal-td-symbol-second">{{'/'+item.name.split('_')[1]}}</span>
                 </div>
 <!--                <div class="mobile-market-normal-td-volume" v-if="item.name=='GRC_USDT'">成交量 {{item.volume >= 1000 && item.volume>0 ? $globalFunc.accFixed(item.volume/1000,2)+'k': $globalFunc.accFixed(item.volume, 0)}}</div>-->
-                <div class="mobile-market-normal-td-volume">成交量 {{$globalFunc.accFixed(item.volume, 0)}}</div>
+                <div class="mobile-market-normal-td-volume">24H {{$globalFunc.accFixed(item.volume, 0)}}</div>
               </td>
               <td>
 
@@ -207,7 +203,11 @@
               </td>
               <td>
                 <div class="mobile-market-normal-td-current"
-                     :class="diff24(item.open,item.close)<0?'mobile-market-normal-td-current-down':'mobile-market-normal-td-current-up'">
+                     :class="[
+                     diff24(item.open,item.close)<0?'mobile-market-normal-td-current-down':'',
+                     diff24(item.open,item.close)>0?'mobile-market-normal-td-current-up':''
+                     ]"
+                >
                   {{diff24(item.open,item.close)>0?'+':''}}{{diff24(item.open,item.close)}}%
                 </div>
               </td>
@@ -236,7 +236,7 @@
             <div class="myheadimg"><img src="../../assets/H5img/headimg.png"></div>
             <div class="myheadinfo">
               <div class="info1">{{userName}}</div>
-              <div class="info1"><span>UID: {{useruid}}</span></div>
+              <div class="info1 info-uid"><span>UID: {{useruid}}</span></div>
             </div>
             <div class="outqq"  @click="loginOff">退出</div>
           </div>
@@ -245,22 +245,22 @@
     </div>
   </div>
 
-  <div v-if="!loading && downloadShow" class="homepage-body-download" ref="downloadView">
-    <img class="index-home-header-img" src="../../assets/mobile_app_download.png" alt="">
-        <div class="logofont">
-          TwentyTwenty APP
-        </div>
-        <div class="logofont2">
-          数字货币交易平台
-        </div>
-<!--    <a :href="staticUrl + '/AppDownload'" class="index-home-header-address" target="_blank">-->
-      <a href="https://download.2020.exchange/" class="index-home-header-address">
-      下载
-    </a>
-    <div class="index-home-header-close" @click="closeDownload">
-      <img src="../../assets/mobile_download_close.png" class="index-home-header-img-close" alt="">
-    </div>
-  </div>
+  <!--<div v-if="!loading && downloadShow" class="homepage-body-download" ref="downloadView">-->
+    <!--<img class="index-home-header-img" src="../../assets/mobile_app_download.png" alt="">-->
+        <!--<div class="logofont">-->
+          <!--TwentyTwenty APP-->
+        <!--</div>-->
+        <!--<div class="logofont2">-->
+          <!--数字货币交易平台-->
+        <!--</div>-->
+<!--&lt;!&ndash;    <a :href="staticUrl + '/AppDownload'" class="index-home-header-address" target="_blank">&ndash;&gt;-->
+      <!--<a href="https://download.2020.exchange/" class="index-home-header-address">-->
+      <!--下载-->
+    <!--</a>-->
+    <!--<div class="index-home-header-close" @click="closeDownload">-->
+      <!--<img src="../../assets/mobile_download_close.png" class="index-home-header-img-close" alt="">-->
+    <!--</div>-->
+  <!--</div>-->
 
   <div class="bottomenu1" style="width: 100%;height: 50px;"></div>
 

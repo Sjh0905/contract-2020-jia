@@ -36,15 +36,15 @@
 
     <!--选择注册形式 h5 begin-->
     <div v-if="isMobile" class="mobile-choose-login-type-box">
-      <div class="mobile-choose-login-type-item" :class="{'mobile-choose-login-type-item-activity':registerType===0}"
-           @click="choseRegisterType(0)">
-        手机注册
-        <!--{{$t('registerTypeMobile')}}-->
-      </div>
       <div class="mobile-choose-login-type-item" :class="{'mobile-choose-login-type-item-activity':registerType===1}"
            @click="choseRegisterType(1)">
         邮箱注册
         <!--{{$t('registerTypeEmail')}}-->
+      </div>
+      <div class="mobile-choose-login-type-item" :class="{'mobile-choose-login-type-item-activity':registerType===0}"
+           @click="choseRegisterType(0)">
+        手机注册
+        <!--{{$t('registerTypeMobile')}}-->
       </div>
     </div>
     <!--选择注册形式 h5 end-->
@@ -70,13 +70,13 @@
         <span></span>
         <input type="text" :placeholder='verificationCodePlaceholderShow && "验证码" || ""' @focus="closePlaceholder('verificationCode')" v-model="verificationCode"
                @blur="testVerificationCode" class="unit-input">
-        <div v-if="isMobile" class="cutter-line flex-center">|</div>
+        <!--<div v-if="isMobile" class="cutter-line flex-center">|</div>-->
 
         <template v-if="isMobile">
           <div class="getcodeval" v-if="!getVerificationCode"
                 @click="postVerificationCode">{{$t("register.achieve")}}</div>
         <div class="getcodeval"
-              v-if="getVerificationCode">{{getVerificationCodeCountdown}}</div>
+              v-if="getVerificationCode">{{getVerificationCodeCountdown}}s</div>
       </template>
         <template v-if="!isMobile">
           <span class="flex-center identifying-code-button-on " v-if="!getVerificationCode"
@@ -139,7 +139,7 @@
 <!--        <label  for="color-input-red"></label >-->
         <span @click="changeAgreement">
           <img v-show="!agreement" src="../../assets/noselect.png"/>
-          <img v-show="agreement" src="../../assets/select.png" />
+          <img v-show="agreement" src="../../assets/select.png" class="select-img"/>
         </span>
         &nbsp;&nbsp;
         <label @click="changeAgreement">{{$t("register.agree")}}</label>
@@ -193,13 +193,13 @@
         <span></span>
         <input type="text" :placeholder='verificationCodePlaceholderShow && "验证码" || ""' @focus="closePlaceholder('verificationCode')" v-model="verificationCode"
                @blur="testVerificationCode" class="unit-input">
-        <div v-if="isMobile" class="cutter-line flex-center">|</div>
+        <!--<div v-if="isMobile" class="cutter-line flex-center">|</div>-->
 
         <template v-if="isMobile">
           <div class="getcodeval" v-if="!getVerificationCode"
                 @click="postVerificationCode">{{$t("register.achieve")}}</div>
         <div class="getcodeval"
-              v-if="getVerificationCode">{{getVerificationCodeCountdown}}</div>
+              v-if="getVerificationCode">{{getVerificationCodeCountdown}}s</div>
       </template>
         <template v-if="!isMobile">
           <span class="flex-center identifying-code-button-on " v-if="!getVerificationCode"
@@ -273,7 +273,7 @@
 <!--        <input v-show="!isMobile"  id="agreement" class="color-input-red" type="checkbox" name="agreement" value="#f0544d" />-->
 <!--        <label  for="color-input-red"></label >-->
         <img v-show="!agreement" src="../../assets/noselect.png"/>
-        <img v-show="agreement" src="../../assets/select.png" />
+        <img v-show="agreement" src="../../assets/select.png" class="select-img"/>
         &nbsp;&nbsp;
         <label for="agreement" @click="changeAgreement">{{$t("register.agree")}}</label>
         <router-link class="agreement-detail" to="/index/help/userAgreement" target="_blank">

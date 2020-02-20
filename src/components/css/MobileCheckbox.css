@@ -8,3 +8,7 @@
   display: block;
   margin-right: 5px;
 }
+.mobile-checkbox-choiced {
+  background-color: white;
+  border-radius: 3px;
+}

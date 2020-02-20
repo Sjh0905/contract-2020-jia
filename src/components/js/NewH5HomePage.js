@@ -47,11 +47,11 @@ root.data = function () {
     imgDataTemp: [{}],
     imgDataReady: false,
     textDataReady: false,
-    // imgData:[
-    //   {imageUrl:'http://img.zcool.cn/community/0142135541fe180000019ae9b8cf86.jpg@1280w_1l_2o_100sh.png'},
-    //   {imageUrl:'http://img.zcool.cn/community/0142135541fe180000019ae9b8cf86.jpg@1280w_1l_2o_100sh.png'},
-    //   {imageUrl:'http://img.zcool.cn/community/0142135541fe180000019ae9b8cf86.jpg@1280w_1l_2o_100sh.png'}
-    // ],
+    imgData:[
+      {imageUrl:'http://img.zcool.cn/community/0142135541fe180000019ae9b8cf86.jpg@1280w_1l_2o_100sh.png'},
+      {imageUrl:'http://img.zcool.cn/community/0142135541fe180000019ae9b8cf86.jpg@1280w_1l_2o_100sh.png'},
+      {imageUrl:'http://img.zcool.cn/community/0142135541fe180000019ae9b8cf86.jpg@1280w_1l_2o_100sh.png'}
+    ],
     // 存储text对象
     textData: {},
     // 顶部swiper 所有属性---------------------------------- end
