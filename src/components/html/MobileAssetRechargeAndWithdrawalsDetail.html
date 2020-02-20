@@ -3,9 +3,9 @@
   <div v-if="!loading" class="asset-container">
     <div class="asset-header">
       <div class="asset-header-title">
-        <span class="asset-header-title-icon-box">
-          <img class="asset-header-title-icon" :src="'http://logo.2020.exchange/' + currencyTitle +'.png'" alt="">
-        </span>
+        <!--<span class="asset-header-title-icon-box">-->
+          <!--<img class="asset-header-title-icon" :src="'http://logo.2020.exchange/' + currencyTitle +'.png'" alt="">-->
+        <!--</span>-->
         {{currencyTitle}}
 <!--        <div class="asset-header-title-description">({{accountsComputed.description}})</div>-->
         <!--<span class="asset-header-title-img-box">-->
@@ -30,9 +30,6 @@
         </div>
       </div>
 
-      <div class="czdb" @click="jumpToDetail(name)">财务记录</div>
-
-
 
 <!--      <div class="asset-header-price-box clearfix">-->
 <!--        <div class="asset-header-price-box-title">总额</div>-->
@@ -47,6 +44,8 @@
 <!--        <div class="asset-header-price-box-price">{{toFixed(accountsComputed.frozen,8)}}</div>-->
 <!--      </div>-->
     </div>
+    <div class="czdb" @click="jumpToDetail(name)">财务记录</div>
+
     <div class="asset-body">
 <!--      <div class="asset-body-price-box clearfix">-->
 <!--        <div class="asset-body-price-box-title">估值(BTC)</div>-->
@@ -79,10 +78,32 @@
 <!--      <div class="chongzjl">dsdssdsdsdsdsds</div>-->
 
 
-      <div class="asset-body-btn-box clearfix">
-        <div class="asset-body-btn-recharge" @click="jumpToRecharge(currencyTitle)">充币</div>
-        <div class="asset-body-btn-withdraw" @click="jumpToWithdraw(accountsComputed)">提币</div>
+      <!--<div class="asset-body-btn-box clearfix">-->
+        <!--<div class="asset-body-btn-recharge" @click="jumpToRecharge(currencyTitle)">充币</div>-->
+        <!--<div class="asset-body-btn-withdraw" @click="jumpToWithdraw(accountsComputed)">提币</div>-->
+      <!--</div>-->
+
+      <div class="asset-oper-btn-box">
+        <div class="asset-oper-btn-list">
+          <a href="#" class="asset-oper-btn-item">
+            <img class="asset-oper-btn-item-img" src="../../assets/H5img/asset_recharge.png" alt="">
+            <span class="asset-oper-btn-item-text">充币</span>
+          </a>
+          <router-link to="/index/mobileAsset/mobileAssetRecharge" class="asset-oper-btn-item">
+            <img class="asset-oper-btn-item-img" src="../../assets/H5img/asset_withdraw.png" alt="">
+            <span class="asset-oper-btn-item-text">提币</span>
+          </router-link>
+          <router-link to="/index/mobileAsset/mobileAssetWithdraw" class="asset-oper-btn-item">
+            <img class="asset-oper-btn-item-img" src="../../assets/H5img/asset_capital_transfer.png" alt="">
+            <span class="asset-oper-btn-item-text">划转</span>
+          </router-link>
+          <router-link to="/index/help/H5WordOrder" class="asset-oper-btn-item">
+            <img class="asset-oper-btn-item-img" src="../../assets/H5img/asset_internal_transfer.png" alt="">
+            <span class="asset-oper-btn-item-text">内部转账</span>
+          </router-link>
+        </div>
       </div>
+
     </div>
   </div>
 

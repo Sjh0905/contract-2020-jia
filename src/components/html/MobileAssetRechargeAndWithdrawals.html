@@ -44,7 +44,7 @@
 <!--          <MobileCheckbox :agreement="agreement" :changeAgreement='hideZeroItem'></MobileCheckbox>-->
           <div @click="hideZeroItem">
             <img v-show="!agreement" src="../../assets/H5img/mnoselect.png"/>
-            <img v-show="agreement" src="../../assets/H5img/mselect.png" />
+            <img v-show="agreement" src="../../assets/select.png" />
           </div>
           <input v-show="false" type="checkbox" v-model="agreement" name="agreement" id="agreement" @click="hideZeroItem">
           <span class="asset-header-total-asset-hide-text" :class="!agreement?'':'asset-header-total-asset-hide-text-blue'" @click="hideZeroItem">隐藏0资产币种</span>

@@ -1,6 +1,6 @@
 .asset-container {
-  padding: 0 0.2rem 0.2rem;
-  /*background: #081724;*/
+  /*padding: 0 0.2rem 0.2rem;*/
+  background: #081724;
   color: #fff;
   position: absolute;
   top: 0;
@@ -10,8 +10,9 @@
 }
 
 .asset-header {
-  padding-top: 0.48rem;
-  height: 3.4rem;
+  padding: 0.48rem 0.2rem 0;
+  background-color: #142030;
+  height: 2.7rem;
   border-bottom: 1px solid #131F30;
 }
 
@@ -81,101 +82,105 @@
 }
 
 .asset-body {
-  padding-top: 0.2rem;
-  max-height: 100%;
+  max-height: 1.72rem;
   overflow-y: auto;
+  width: 100%;
+  overflow-y: auto;
+  position: absolute;
+  bottom: 0;
+  background-color: #142030;
 }
 
 .asset-body-price-box {
-  height: 0.3rem;
-  line-height: 0.3rem;
-  margin-top: 0.2rem;
+height: 0.3rem;
+line-height: 0.3rem;
+margin-top: 0.2rem;
 }
 
 .asset-body-price-box-title {
-  font-size: 0.26rem;
-  color: rgba(255,255,255,0.4);
-  float: left;
+font-size: 0.26rem;
+color: rgba(255,255,255,0.4);
+float: left;
 }
 
 .asset-body-price-box-price {
-  font-size: 0.3rem;
-  color: #fff;
-  float: right;
+font-size: 0.3rem;
+color: #fff;
+float: right;
 }
 
 .asset-body-trading {
-  padding-top: 0.56rem;
+padding-top: 0.56rem;
 }
 
 .asset-body-trading-title {
-  font-size: 0.26rem;
-  height: 0.32rem;
-  line-height: 0.32rem;
+font-size: 0.26rem;
+height: 0.32rem;
+line-height: 0.32rem;
 }
 
 .asset-body-trading-box {
-  margin-top: 0.3rem;
+margin-top: 0.3rem;
 }
 
 .asset-body-trading-item {
-  float: left;
-  background: #151515;
-  width: 3.44rem;
-  height: 1.2rem;
-  border-radius: 4px;
-  margin-right: 0.2rem;
-  position: relative;
-  padding: 0.2rem;
-  margin-bottom: 0.2rem;
+float: left;
+background: #151515;
+width: 3.44rem;
+height: 1.2rem;
+border-radius: 4px;
+margin-right: 0.2rem;
+position: relative;
+padding: 0.2rem;
+margin-bottom: 0.2rem;
 }
 
 .asset-body-trading-item:nth-of-type(even) {
-  margin-right: 0;
+margin-right: 0;
 }
 
 .asset-body-trading-item-title {
-  float: left;
-  font-size: 0.3rem;
-  color: rgba(255,255,255,0.8);
-  height: 0.34rem;
-  line-height: 0.34rem;
+float: left;
+font-size: 0.3rem;
+color: rgba(255,255,255,0.8);
+height: 0.34rem;
+line-height: 0.34rem;
 }
 
 .asset-body-trading-item-chg {
-  float: right;
-  font-size: 0.26rem;
-  height: 0.34rem;
-  line-height: 0.34rem;
+float: right;
+font-size: 0.26rem;
+height: 0.34rem;
+line-height: 0.34rem;
 }
 
 .asset-body-trading-item-up {
-  color: rgba(0,166,42,0.8);
+color: rgba(0,166,42,0.8);
 }
 
 .asset-body-trading-item-down {
-  color: rgba(216,56,56,0.8);
+color: rgba(216,56,56,0.8);
 }
 
 .asset-body-trading-item-secondline{
-  margin-top: 0.14rem;
-  height: 0.3rem;
-  line-height: 0.3rem;
+margin-top: 0.14rem;
+height: 0.3rem;
+line-height: 0.3rem;
 }
 
 .asset-body-trading-item-price{
-  float: left;
-  color: rgba(255,255,255,0.4);
+float: left;
+color: rgba(255,255,255,0.4);
 }
 
 .asset-body-trading-item-valuation {
-  float: left;
-  color: rgba(255,255,255,0.4);
-  margin-left: 0.16rem;
+float: left;
+color: rgba(255,255,255,0.4);
+margin-left: 0.16rem;
 }
 
 .asset-body-btn-box {
-  /*margin-top: 3rem;*/
+/*margin-top: 3rem;*/
   height: 0.8rem;
   line-height: 0.8rem;
   font-size: 0.32rem;
@@ -209,6 +214,44 @@
   color: #FFFFFF;
   letter-spacing: 0;
 }
+
+.asset-oper-btn-box {
+  position: relative;
+  min-height: 1.8rem;
+  margin: 0.2rem 0;
+  background: #131F30;
+  /*padding-top: 0.3rem;*/
+  /*padding-bottom: 0.2rem;*/
+  /* padding: 10px 30px 8px;*/
+}
+
+.asset-oper-btn-list {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.asset-oper-btn-item, .asset-oper-btn-item:link, .asset-oper-btn-item:visited, .asset-oper-btn-item:hover {
+  color: #fff;
+}
+
+.asset-oper-btn-item-img {
+  width: 0.94rem;
+  display: block;
+  margin: 0 auto;
+}
+
+.asset-oper-btn-item-text {
+  display: block;
+  text-align: center;
+  margin-top: 0.14rem;
+  font-family: PingFangSC-Regular;
+  font-size: 0.24rem;
+  letter-spacing: 0;
+  font-weight: 500;
+  color: #6D87A8;
+}
+
 
 .toast-window-nobind-email {
   position: fixed;
@@ -444,9 +487,12 @@
 
 .czdb{
   width: 100%;
-  height: 44px;
-  line-height: 44px;
+  height: 1.1rem;
+  line-height: 1.1rem;
   font-family: PingFangSC-Semibold;
   font-size: 20px;
   color: #CFD3E9;
+  background-color: #142030;
+  padding-left: 0.2rem;
+  margin-top: 0.2rem;
 }

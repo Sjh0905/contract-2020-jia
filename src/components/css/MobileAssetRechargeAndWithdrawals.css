@@ -84,8 +84,10 @@
 }
 
 .asset-header-total-asset-detail-box img{
-  width: 15px;
+  width: 12px;
   margin-right: 5px;
+  background-color: #fff;
+  border-radius: 0.04rem;
 }
 
 .asset-check-box {
@@ -176,7 +178,7 @@
 }
 
 .asset-header-total-asset-hide-text-blue {
-  color: #3576F5;
+  /*color: #3576F5;*/
 }
 
 .asset-container{
