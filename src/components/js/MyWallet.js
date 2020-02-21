@@ -1273,13 +1273,13 @@ root.methods.internalTransfer = function (index, item) {
 
   //sss屏蔽 2020.20.20 S
 
-  if (this.isTransfer == true) {
-    this.popWindowOpen = false
-    this.popupPromptOpen = true
-    this.popupPromptText = this.$t('withdrawalsIsNotOpen')
-    this.popupPromptType = 0
-    return
-  }
+  // if (this.isTransfer == true) {
+  //   this.popWindowOpen = false
+  //   this.popupPromptOpen = true
+  //   this.popupPromptText = this.$t('withdrawalsIsNotOpen')
+  //   this.popupPromptType = 0
+  //   return
+  // }
 
   // 如果没有实名认证不允许打开转账
   if (!this.bindIdentify) {
@@ -1312,13 +1312,13 @@ root.methods.internalTransfer = function (index, item) {
 
   //sss屏蔽 2020.20.20 E
 
-  if (this.bindIdentify && this.isTransfer == false) {
+  // if (this.bindIdentify && this.isTransfer == false) {
     this.popWindowTitle = this.$t('iKnowthe1')
     this.popWindowPrompt = this.$t('popWindowPromptWithdrawals1')
     this.popWindowPrompt1 = this.$t('popWindowPromptWithdrawals2')
     this.popWindowStyle = '5'
     this.popWindowOpen = true
-  }
+  // }
 
   this.recharge = false
   this.withdrawals = false
