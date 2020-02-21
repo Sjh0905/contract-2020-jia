@@ -224,7 +224,7 @@
       <template v-if="isMobile">
 
         <!--输入邮箱 begin-->
-        <div class="flex unit-input-container">
+        <div class="flex unit-input-container" :class="{'wrong-answer':userNameWA!==''}">
           <!--<span class="flex-center unit-input-container-title">-->
             <!--<img class="unit-input-container-title-img-email"-->
                  <!--src="../../assets/mobile_img/mobile_input_icon/email_icon.png" alt="">-->
@@ -241,7 +241,7 @@
         <!--邮箱错误提示 end-->
 
         <!--输入密码 begin-->
-        <div class="flex unit-input-container">
+        <div class="flex unit-input-container" :class="{'wrong-answer':pswWA!==''}">
         <!--<span class="flex-center unit-input-container-title">-->
           <!--<img class="unit-input-container-title-img-password"-->
                <!--src="../../assets/mobile_img/mobile_input_icon/password_icon.png" alt="">-->

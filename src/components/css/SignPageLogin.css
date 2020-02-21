@@ -136,6 +136,14 @@
   height: auto;
   padding-bottom: 30px;
 }
+/*浏览器自动填充样式*/
+.unit-container input{
+  box-shadow: 0 0 0px 100px #ffffff inset !important;/*Chrome*/
+  filter: none;/*Firefox*/
+}
+.unit-container input:-webkit-autofill{
+  -webkit-text-fill-color: #0D0E23;
+}
 
 /*Input板块*/
 .unit-input-container {
@@ -511,6 +519,16 @@ input:-webkit-autofill {
     height: auto;
   }
 
+  /*浏览器自动填充样式*/
+  .unit-container input{
+    box-shadow: 0 0 0px 100px #131F30 inset !important;/*Chrome*/
+    /*filter: none;!*Firefox*!*/
+  }
+
+  .unit-container input:-webkit-autofill{
+    -webkit-text-fill-color: #CFD3E9;
+  }
+
   .mobile-choose-login-type-box {
     width: 280px;
     height: 40px;
@@ -732,7 +750,7 @@ input:-webkit-autofill {
 
 
   .wrong-answer {
-    border: 1px solid #f93943;
+    border-bottom: 1px solid #EF5656;
   }
 
   .prompt-detail {
