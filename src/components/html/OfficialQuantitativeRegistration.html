@@ -21,7 +21,7 @@
         <div class="supporting">
           <span class="Account_number_">{{$t('supporting')}}</span>
           <template>
-          <el-select v-model="valuegender" name="gender" placeholder="10000 QQ" popper-class="selectstyle">
+          <el-select v-model="valuegender" name="gender" placeholder="请选择配套" popper-class="selectstyle">
             <el-option
               v-for="item in optionsgender"
               :key="item.fcode"
@@ -80,7 +80,7 @@
           <template>
 <!--            <template v-if="userId && currentOrderComputed.length!==0">-->
             <template>
-                <li class="flex" v-for="(item,index) in computedRecord" :key="item.id">
+                <li class="flex application_header1" v-for="(item,index) in computedRecord" :key="item.id">
                   <!--账号-->
                   <div class="application_header_div mor-left color_a2">{{item.account}}</div>
                   <!--期数-->
@@ -108,25 +108,5 @@
   </div>
 
 
-  <!--  此账号未参与QQ交易挖矿-->
-  <PopupArticle :switch="buyConfirmSuccess" @close="buyConfirmSuccessClose">
-
-    <div slot="article" class="Internal_siding img_ConfirmSuccess">
-      <img src="../../assets/量化_未报名_icon.png" alt="" >
-      <p>{{$t('transactions')}}</p>
-    </div>
-    <div slot="footer">
-<!--      首页-->
-      <div @click="goToHomePage" class="notice_but_1 pointer">
-        {{$t('homePage')}}
-      </div>
-<!--      立即参与-->
-      <div @click="goToParticipateNow" class=" notice_but button-base btn_blue pointer">
-        {{$t('participateNow')}}
-      </div>
-
-    </div>
-
-  </PopupArticle>
 
 </div>

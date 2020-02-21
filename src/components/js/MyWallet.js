@@ -544,67 +544,67 @@ root.methods.goToConfirmsjhclose = function () {
 root.methods.getGoToConfirmTransfer = function (data) {
   //sss 要删除 S
   // this.name = data.dataMap.UserProfile.name
-  // this.popWindowOpen = false
-  // this.buyCommitToastOpen = false
-  // this.buyTransferDetails = true
+  this.popWindowOpen = false
+  this.buyCommitToastOpen = false
+  this.buyTransferDetails = true
   //sss 要删除 E
   // this.buyTransferDetails = true
   // this.buyCommitToastOpen = false
 
   //sss 屏蔽 S
-  let canSend = true
-  canSend = this.testName_0() && canSend
-  canSend = this.testUID_01() && canSend
-  canSend = this.testNum_01() && canSend
-
-  if (this.idCode_0 === '') {
-    this.idCodeMsg_0 = this.$t('idCodeMsg_0_1')
-    canSend = false
-  }
-  if (!this.$globalFunc.testEmail(this.name_0)) {
-    this.nameMsg_0 = this.$t('registerUserNameWA_0')
-    canSend = false
-  }
-  if (this.name_0 === '') {
-    this.nameMsg_0 = this.$t('nameMsg_0')
-    canSend = false
-  }
-  if (this.testUID_0 === '') {
-    this.testUIDMsg_0 = this.$t('testUIDMsg_0')
-    canSend = false
-  }
-  if (this.testNum_0 === '') {
-    this.testNumMsg_0 = this.$t('testNumMsg_0')
-    canSend = false
-  }
-  if (this.testNum_0 < this.minAmount) {
-    this.testNum_0 = this.minAmount
-    this.testNumMsg_0 = this.$t('testNumMsg_03')
-    canSend = false
-  }
-  if (this.testNum_0 > this.maxAmount) {
-    this.testNum_0 = this.maxAmount
-    this.testNumMsg_0 = this.$t('testNumMsg_04')
-    canSend = false
-  }
-  if (!canSend) {
-    // console.log("不能发送！")
-    return
-  }
-
-  // // console.log('55555555555555555555555555555555',this.name_0,this.testUID_0,this.testNum_0)
-
-  this.$http.send('GET_VERIFYISIDENTITYUSER',{
-    bind: this,
-    params:{
-      email:this.name_0,
-      userId:this.testUID_0,
-      username:this.name_0
-    },
-    callBack: this.re_getGoToConfirmTransfer,
-    errorHandler: this.error_getGoToConfirmTransfer,
-  })
-  console.log('888888888888',this.name_0,this.testUID_0,data)
+  // let canSend = true
+  // canSend = this.testName_0() && canSend
+  // canSend = this.testUID_01() && canSend
+  // canSend = this.testNum_01() && canSend
+  //
+  // if (this.idCode_0 === '') {
+  //   this.idCodeMsg_0 = this.$t('idCodeMsg_0_1')
+  //   canSend = false
+  // }
+  // if (!this.$globalFunc.testEmail(this.name_0)) {
+  //   this.nameMsg_0 = this.$t('registerUserNameWA_0')
+  //   canSend = false
+  // }
+  // if (this.name_0 === '') {
+  //   this.nameMsg_0 = this.$t('nameMsg_0')
+  //   canSend = false
+  // }
+  // if (this.testUID_0 === '') {
+  //   this.testUIDMsg_0 = this.$t('testUIDMsg_0')
+  //   canSend = false
+  // }
+  // if (this.testNum_0 === '') {
+  //   this.testNumMsg_0 = this.$t('testNumMsg_0')
+  //   canSend = false
+  // }
+  // if (this.testNum_0 < this.minAmount) {
+  //   this.testNum_0 = this.minAmount
+  //   this.testNumMsg_0 = this.$t('testNumMsg_03')
+  //   canSend = false
+  // }
+  // if (this.testNum_0 > this.maxAmount) {
+  //   this.testNum_0 = this.maxAmount
+  //   this.testNumMsg_0 = this.$t('testNumMsg_04')
+  //   canSend = false
+  // }
+  // if (!canSend) {
+  //   // console.log("不能发送！")
+  //   return
+  // }
+  //
+  // // // console.log('55555555555555555555555555555555',this.name_0,this.testUID_0,this.testNum_0)
+  //
+  // this.$http.send('GET_VERIFYISIDENTITYUSER',{
+  //   bind: this,
+  //   params:{
+  //     email:this.name_0,
+  //     userId:this.testUID_0,
+  //     username:this.name_0
+  //   },
+  //   callBack: this.re_getGoToConfirmTransfer,
+  //   errorHandler: this.error_getGoToConfirmTransfer,
+  // })
+  // console.log('888888888888',this.name_0,this.testUID_0,data)
 
   //sss 屏蔽 E
 
@@ -1282,33 +1282,33 @@ root.methods.internalTransfer = function (index, item) {
   // }
 
   // 如果没有实名认证不允许打开转账
-  if (!this.bindIdentify) {
-    this.popWindowTitle = this.$t('popWindowTitleWithdrawals')
-    this.popWindowPrompt = this.$t('popWindowPromptWithdrawals')
-    this.popWindowPrompt1 = ''
-    this.popWindowStyle = '0'
-    this.popWindowOpen = true
-    return
-  }
+  // if (!this.bindIdentify) {
+  //   this.popWindowTitle = this.$t('popWindowTitleWithdrawals')
+  //   this.popWindowPrompt = this.$t('popWindowPromptWithdrawals')
+  //   this.popWindowPrompt1 = ''
+  //   this.popWindowStyle = '0'
+  //   this.popWindowOpen = true
+  //   return
+  // }
   // 如果没有绑定邮箱，不允许打开转账
-  if (!this.bindEmail) {
-    this.popWindowTitle = this.$t('bind_email_pop_title')
-    this.popWindowPrompt = this.$t('bind_email_pop_article')
-    this.popWindowPrompt1 = ''
-    this.popWindowStyle = '3'
-    this.popWindowOpen = true
-    return
-  }
+  // if (!this.bindEmail) {
+  //   this.popWindowTitle = this.$t('bind_email_pop_title')
+  //   this.popWindowPrompt = this.$t('bind_email_pop_article')
+  //   this.popWindowPrompt1 = ''
+  //   this.popWindowStyle = '3'
+  //   this.popWindowOpen = true
+  //   return
+  // }
 
   // 如果没有绑定谷歌或手机，不允许打开提现
-  if (!this.bindGA && !this.bindMobile) {
-    this.popWindowTitle = this.$t('popWindowTitleWithdrawalsneibu')
-    this.popWindowPrompt = this.$t('popWindowTitleBindGaWithdrawals')
-    this.popWindowPrompt1 = ''
-    this.popWindowStyle = '1'
-    this.popWindowOpen = true
-    return
-  }
+  // if (!this.bindGA && !this.bindMobile) {
+  //   this.popWindowTitle = this.$t('popWindowTitleWithdrawalsneibu')
+  //   this.popWindowPrompt = this.$t('popWindowTitleBindGaWithdrawals')
+  //   this.popWindowPrompt1 = ''
+  //   this.popWindowStyle = '1'
+  //   this.popWindowOpen = true
+  //   return
+  // }
 
   //sss屏蔽 2020.20.20 E
 

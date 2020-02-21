@@ -488,14 +488,15 @@
 
                 <!--sss拼团 begin-->
                 <li class="navigation-item-container flex">
-                  <!--                行情-->
-                  <router-link
-                    :to="{name: 'assembleARegiment'}"
+
+<!--                  :to="{name: 'assembleARegiment'}"-->
+                  <div
+                    @click="getGroupLevel"
                     class="navigation-item-router flex"
                     active-class="navigation-item-router-selected"
                   >{{$t('platform_5')}}
                     <!--                                      {{$t('currencyQuotation')}}-->
-                  </router-link>
+                  </div>
                   <!--隐藏的标签 法币交易 begin-->
                   <!--隐藏的标签 end-->
                 </li>

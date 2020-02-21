@@ -3,16 +3,19 @@ root.name = 'officialQuantitativeDetails'
 /*------------------------------ 组件 ------------------------------*/
 root.components = {
   'Loading': resolve => require(['../vue/Loading'], resolve),
+  'PopupArticle': resolve => require(['../vue/PopupArticle'], resolve),
 }
 /*------------------------------ data -------------------------------*/
 root.data = () => {
   return {
     loading: true, // 加载中
-
+    buyConfirmSuccess:true,
   }
 }
 
 root.computed = {}
+
+
 // 用户名
 root.computed.userName = function () {
   if (this.userType === 0) {
@@ -32,10 +35,15 @@ root.computed.userType = function () {
 
 root.methods = {}
 
+root.methods.buyConfirmSuccessClose = function () {
+  // this.buyConfirmSuccess=true
+}
+
 //量化展示_量化交易记录get (query:{})  未完成
 root.methods.getQuantifyransactions = function () {
   this.$http.send('GET_QUANT_GETUSERTRADE', {
     bind: this,
+    urlFragment:this.uuid,
     // query:{userId:this.uuid},
     callBack: this.re_getQuantifyransactions,
     errorHandler: this.error_getQuantifyransactions
@@ -52,6 +60,7 @@ root.methods.error_getQuantifyransactions = function (err) {
 root.methods.getQuantifyBasicInformation = function () {
   this.$http.send('GET_USER_QUANTTRADE', {
     bind: this,
+    urlFragment:this.uuid,
     // query:{
     //   userId:this.uuid
     // },
@@ -66,4 +75,14 @@ root.methods.error_getQuantifyBasicInformation = function (err) {
   console.log("this.error_getQuantifyBasicInformation=====",err)
 }
 
+//跳转首页
+root.methods.goToHomePage = function () {
+  this.$router.push({name: 'home'})
+}
+//关闭蒙层弹框
+root.methods.goToParticipateNow = function () {
+  // this.buyConfirmSuccess = false
+  this.$router.push({name: 'officialQuantitativeRegistration'})
+
+}
 export default root

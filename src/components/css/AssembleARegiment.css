@@ -47,7 +47,7 @@
 .join {
   float: right;
   display: inline-block;
-  width: 49.9%;
+  width: 50%;
   height: 240px;
   text-align: center;
   border:1px solid rgba(239,240,255,1);
@@ -71,4 +71,21 @@
   font-family:PingFangSC-Regular,PingFang SC;
   font-weight:400;
   color: #3576F5;
+}
+.rules {
+  width: 100%;
+  margin-top: 25px;
+}
+.rules_p {
+  font-size:16px;
+  font-family:PingFangSC-Medium,PingFang SC;
+  font-weight:500;
+  color:#0D0E23;
+  margin-bottom: 15px;
+}
+.rules_details {
+  font-size:14px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color:#6B7DA2;
 }

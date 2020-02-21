@@ -1,17 +1,15 @@
 const root = {}
-root.name = 'OfficialQuantitativeRegistration'
+root.name = 'officialQuantitativeRegistration'
 
 
 
 root.components = {
   'Loading': resolve => require(['../vue/Loading'], resolve),
-  'PopupArticle': resolve => require(['../vue/PopupArticle'], resolve),
 }
 
 root.data = () => {
   return {
     loading: true, // 加载中
-    buyConfirmSuccess:true,
     optionsgender:[],
     valuegender: '',
     records: [],
@@ -54,48 +52,74 @@ root.computed.uuid = function () {
 
 
 root.methods = {}
-root.methods.buyConfirmSuccessClose = function () {
-
-}
 
 //查询配套数据get
 root.methods.getSupporting = function (item) {
+  // TODO: 要删除的
+  // var data = {
+  //   "data": [
+  //     {
+  //       "fcode": "qq100",
+  //       "fdesc": "10000 QQ"
+  //     },
+  //     {
+  //       "fcode": "qq110",
+  //       "fdesc": "20000 QQ"
+  //     },
+  //     {
+  //       "fcode": "qq120",
+  //       "fdesc": "30000 QQ"
+  //     },
+  //     {
+  //       "fcode": "qq130",
+  //       "fdesc": "40000 QQ"
+  //     },
+  //     {
+  //       "fcode": "qq140",
+  //       "fdesc": "50000 QQ"
+  //     }
+  //   ],
+  //   "status": "200",
+  //   "message": "success"
+  // }
+  // this.re_getSupporting(data)
+  //TODO: 要删除的
   this.$http.send('GET_MATCHDATA', {
     bind: this,
     callBack: this.re_getSupporting,
     errorHandler: this.error_getSupporting
   })
 }
-root.methods.re_getSupporting = function (res) {
+root.methods.re_getSupporting = function (data) {
 
-  res = {
-    "data": [
-      {
-        "fcode": "qq100",
-        "fdesc": "10000 QQ"
-      },
-      {
-        "fcode": "qq110",
-        "fdesc": "20000 QQ"
-      },
-      {
-        "fcode": "qq120",
-        "fdesc": "30000 QQ"
-      },
-      {
-        "fcode": "qq130",
-        "fdesc": "40000 QQ"
-      },
-      {
-        "fcode": "qq140",
-        "fdesc": "50000 QQ"
-      }
-    ],
-    "status": "200",
-    "message": "success"
-  }
-  this.optionsgender = res.data
-  console.log("this.res=====",res)
+  // res = {
+  //   "data": [
+  //     {
+  //       "fcode": "qq100",
+  //       "fdesc": "10000 QQ"
+  //     },
+  //     {
+  //       "fcode": "qq110",
+  //       "fdesc": "20000 QQ"
+  //     },
+  //     {
+  //       "fcode": "qq120",
+  //       "fdesc": "30000 QQ"
+  //     },
+  //     {
+  //       "fcode": "qq130",
+  //       "fdesc": "40000 QQ"
+  //     },
+  //     {
+  //       "fcode": "qq140",
+  //       "fdesc": "50000 QQ"
+  //     }
+  //   ],
+  //   "status": "200",
+  //   "message": "success"
+  // }
+  this.optionsgender = data.data
+  console.log("this.res=====",data)
 }
 root.methods.error_getSupporting = function (err) {
   console.log("this.err=====",err)
@@ -105,6 +129,7 @@ root.methods.error_getSupporting = function (err) {
 root.methods.getBalance = function () {
   this.$http.send('GET_GETUSERBALANCE', {
     bind: this,
+    urlFragment:this.uuid,
     callBack: this.re_getBalance,
     errorHandler: this.error_getBalance
   })
@@ -119,27 +144,28 @@ root.methods.error_getBalance = function (err) {
 //查询报名记录get
 root.methods.getRegistrationRecord = function () {
 
-  /* TODO : 调试接口需要屏蔽 S*/
-  var  data = {
-    "data": [
-      {
-        "account": "54645@qq.com",
-        "fdesc": "10000 QQ",
-        "createdAt": "2020-02-05",
-        "periodsNum": "1期"
-      }
-    ],
-    "status": "200",
-    "message": "success"
-  }
-  this.re_getRegistrationRecord(data)
-  /* TODO : 调试接口需要屏蔽 E*/
+  // /* TODO : 调试接口需要屏蔽 S*/
+  // var  data = {
+  //   "data": [
+  //     {
+  //       "account": "54645@qq.com",
+  //       "fdesc": "10000 QQ",
+  //       "createdAt": "2020-02-05",
+  //       "periodsNum": "1期"
+  //     }
+  //   ],
+  //   "status": "200",
+  //   "message": "success"
+  // }
+  // this.re_getRegistrationRecord(data)
+  // /* TODO : 调试接口需要屏蔽 E*/
 
   this.$http.send('GET_GETREGDATA', {
     bind: this,
-    query:{
-      userId:this.uuid
-    },
+    urlFragment:this.uuid,
+    // query:{
+    //   userId:this.uuid
+    // },
     callBack: this.re_getRegistrationRecord,
     errorHandler: this.error_getRegistrationRecord
   })
@@ -185,17 +211,5 @@ root.methods.error_postActivities = function (err) {
   console.log("this.err=====",err)
 }
 
-
-
-
-
-//跳转首页
-root.methods.goToHomePage = function () {
-  this.$router.push({name: 'home'})
-}
-//关闭蒙层弹框
-root.methods.goToParticipateNow = function () {
-  this.buyConfirmSuccess = false
-}
 
 export default root

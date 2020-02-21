@@ -44,7 +44,9 @@
   border-radius: 2px;
   box-shadow: 0 5px 10px 10px rgba(0, 0, 0, 0.05);
 }
-
+.vertical-middle {
+  width: 15px;
+}
 .popWindow-title {
   width: 100%;
   height: 60px;
@@ -52,7 +54,7 @@
   text-align: left;
   /*padding-left: 25px;*/
   position: relative;
-  background-color: #f2f2f2;
+  background-color: #EFF0FF;
   font-size:18px;
   font-family:PingFangSC-Regular,PingFang SC;
   font-weight:400;

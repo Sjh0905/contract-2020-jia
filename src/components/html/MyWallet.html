@@ -203,7 +203,7 @@
       <span class="header_xuzhi">{{popWindowTitle}}</span>
     </div>
     <div slot="article" class="pop-recharge">{{popWindowPrompt}}
-      <p class="Consequences">{{popWindowPrompt1}}</p>
+      <p class="consequences">{{popWindowPrompt1}}</p>
     </div>
     <div slot="footer" class="pop-recharge-bottom flex-center">
       <template v-if="popWindowStyle==0">
@@ -300,37 +300,46 @@
     </div>
     <div slot="article" class="Internal_siding">
 
-      <p class="Internal_siding_email">
+      <p class="Internal_siding_email m-t">
 <!--        <span class="color_red">*</span>-->
         {{$t('mailbox')}}</p>
+<!--      :class="{'wrong-border':nameWA_0 ==='0' && nameWA_0 ==='0'}"-->
       <input class="input_input" type="text" :placeholder='userNamePlaceholderShow && $t("deletePopCancel2") || ""' v-model="name_0"
              @focus="closePlaceholder('userName')"
-             @blur="testName_0"
-             :class="{'wrong-border':nameWA_0!=='0' && nameWA_0!=='0'}" >
+             @blur="testName_0">
       <!--        <span class="wrong-msg detail-prompt" v-if="name_0==''">{{nameMsg_0}}</span>-->
+      <div class="whit_0">
       <span v-if="nameWA_0==='0'" class="prompt-span wrong-msg">{{nameMsg_0}}</span>
-
+      </div>
 
       <p class="Internal_siding_email">
 <!--        <span class="color_red">*-->
         </span>UID</p>
+<!--      :class="{'wrong-border':testUID_012!=='0' && testUID_012!=='0'}"-->
       <input class="input_input"  type="text"
              :placeholder='pswPlaceholderShow && $t("deletePopCancel3") || ""' v-model="testUID_0"
              @focus="closePlaceholder('psw')"
-             @blur="testUID_01"
-             :class="{'wrong-border':testUID_012!=='0' && testUID_012!=='0'}" >
+             @blur="testUID_01">
+      <div class="whit_0">
       <span v-if="testUID_012==='0'" class="prompt-span wrong-msg">{{testUIDMsg_0}}</span>
-      <div class="Internal_siding_email"><span>
+        </div>
+      <div class="Internal_siding_email">
+        <span>
 <!--        <span class="color_red">*</span>-->
-        {{$t('Number1')}}</span> <span class="email_span">{{$t('Number2')}}{{transferCurrency}}{{$t('Number3')}}</span></div>
+        {{$t('Number1')}}</span>
+        <span class="email_span">{{$t('Number2')}}{{transferCurrency}}{{$t('Number3')}}</span>
+      </div>
+<!--      :class="{'wrong-border':testNumWA_0!=='0' && testNumWA_0!=='0'}"-->
       <input class="input_input" type="text"
              placeholder="输入转账数量，不能小于2"
              :placeholder='verificationCodePlaceholderShow && $t("deletePopCancel5") || ""' v-model="testNum_0"
              @focus="closePlaceholder('verificationCode')"
-             @blur="testNum_01"
-             :class="{'wrong-border':testNumWA_0!=='0' && testNumWA_0!=='0'}" >
-      <span v-if="testNumWA_0 ==='0'" class="prompt-span wrong-msg">{{testNumMsg_0}}</span>
-      <p class="shouxu">{{$t('Number4')}}</p>
+             @blur="testNum_01">
+      <div class="whit_0">
+      <span v-if="testNumWA_0 ==='0'" class="prompt-span wrong-msg whiteListwhit">{{testNumMsg_0}}</span>
+        <p class="shouxu">{{$t('Number4')}}</p>
+        </div>
+
       <!--      <p class="Internal_siding_email margin_top"><span class="color_red">*</span>邮箱验证码</p>-->
       <!--      <input class="input_input" type="text" placeholder="输入邮箱验证码" >-->
       <!--      <p class="Internal_siding_email"> <span class="color_red">*</span>二次验证</p>-->
@@ -352,11 +361,11 @@
       <span class="">{{$t('deletePopConfirm')}}{{transferCurrency}}{{$t('TransferI')}}</span>
     </div>
     <div slot="article" class="Internal_siding">
-      <div class="Payee"><span class="gray">{{$t('deletePopCancel1')}}</span><span class="Black">{{name}}</span></div>
+      <div class="Payee Payees"><span class="gray ">{{$t('deletePopCancel1')}}</span><span class="Black">{{name}}</span></div>
       <div class="Payee"><span class="gray">{{$t('deletePopCancel2')}}</span><span class="Black">{{name_0}}</span></div>
       <div class="Payee"><span class="gray">{{$t('deletePopCancel3')}}</span><span class="Black">{{testUID_0}}</span></div>
       <div class="Payee"><span class="gray">{{$t('deletePopCancel4')}}</span><span class="Black">{{transferCurrency}}</span></div>
-      <div class="Payee"><span class="gray">{{$t('deletePopCancel5')}}</span><span class="Black">{{testNum_0}}</span></div>
+      <div class="Payee Payees_b"><span class="gray ">{{$t('deletePopCancel5')}}</span><span class="Black">{{testNum_0}}</span></div>
 
       <div slot="footer">
         <!--        <button class="Internal_siding_email1" @click="goToConfirmTransfer"> 确认转账</button>-->

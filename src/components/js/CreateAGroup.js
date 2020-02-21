@@ -19,6 +19,7 @@ root.data = function () {
     //检测团名 false:可用，true：不可用
     available:true,
 
+    uuid:'0',
     popType: 0,
     popOpen: false,
     popText: '系统繁忙',
@@ -106,29 +107,24 @@ root.methods.postCreateAGroup = function () {
 
   // TODO : 加变量的非空判断 正则判断 E
   let params = {
-    userId: this.uuid,
+    userId:this.uuid,
     priAccount: this.userName,
     deputyAccount: this.deputyAccount,
     gname: this.gname
   }
   console.log("postJoinGroup + params ===== ",params)
-  /* TODO : 调试接口需要屏蔽 S*/
-  this.re_postCreateAGroup({
-    "data": {
-      "success": true
-    },
-    "status": "200",
-    "message": "success"
-  })
-  /* TODO : 调试接口需要屏蔽 E*/
+  // /* TODO : 调试接口需要屏蔽 S*/
+  // this.re_postCreateAGroup({
+  //   "data": {
+  //     "success": true
+  //   },
+  //   "status": "200",
+  //   "message": "success"
+  // })
+  // /* TODO : 调试接口需要屏蔽 E*/
   this.$http.send('POST_ASSEMBLE_CREATEGROUP', {
     bind: this,
-    params:{
-      userId: this.uuid,
-      priAccount: this.userName,
-      deputyAccount: this.deputyAccount,
-      gname: this.gname
-    },
+    params:params,
     callBack: this.re_postCreateAGroup,
     errorHandler: this.error_postCreateAGroup
   })
@@ -169,9 +165,10 @@ root.methods.error_postCreateAGroup = function (err) {
 root.methods.getNameAvailable = function () {
   this.$http.send('GET_ASSEMBLE_ISEXISTGNAME', {
     bind: this,
-    query:{
-      gname: this.this.gname
-    },
+    urlFragment: this.gname,
+    // query:{
+    //   gname: this.this.gname
+    // },
     callBack: this.re_getNameAvailable,
     errorHandler: this.error_getNameAvailable
   })
@@ -222,10 +219,10 @@ root.methods.closePlaceholder = function (type) {
 
 // 输入拼团名称中
 root.methods.testInputIngPsw = function () {
-  if (this.gname.length > 20) {
+  if (this.gname.length > 10) {
     this.name_0 = this.$t('nameMsg')
   }
-  this.gname = this.gname.slice(0, 20)
+  this.gname = this.gname.slice(0, 10)
 }
 
 // 拼团名称输入

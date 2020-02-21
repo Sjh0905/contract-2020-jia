@@ -14,7 +14,7 @@ root.data = function () {
     priAccount:'',  //团长账号
     joinTime:'',  //入团时间
     quantDiscount:'',  //量化手续费折扣
-    groupId:'',  //组ID
+    groupId:'0',  //组ID
     gname:'',  //组名
     currCount:'',  //当前组人数
     createdAt:'',  //创团时间
@@ -79,7 +79,7 @@ root.methods.getTeamDetails= function () {
       "quantDiscount": "0.006",
       "groupId": "2",
       "gname": "战狼2",
-      "currCount": "20",
+      "currCount": "10",
       "createdAt": "2222-02-12",
       "maxMember": "30",
       "commonDiscount": "0.006",
@@ -91,11 +91,13 @@ root.methods.getTeamDetails= function () {
   }
   this.re_getTeamDetails(data)
   /* TODO : 调试接口需要屏蔽 E*/
+
   this.$http.send('GET_QUERYSHOWGROUPINFO', {
     bind: this,
-    query:{
-      userId:this.uuid
-    },
+    urlFragment: this.uuid,
+    // query:{
+    //   userId:this.uuid
+    // },
     callBack: this.re_getTeamDetails,
     errorHandler: this.error_getTeamDetails
   })
@@ -126,13 +128,13 @@ root.methods.error_getTeamDetails = function (err) {
 
 
 //退团解散团队post(params:{}) 没完成
-root.methods.postWithdraw = function () {
+root.methods.postWithdraw = function (idType) {
   // TODO : 加变量的非空判断 正则判断
   let params = {
     userId: this.uuid,
     groupId: this.groupId,
     glevel: this.glevel,
-    idType: this.idType
+    idType: idType
   }
   console.log("postJoinGroup + params ===== ",params)
   /* TODO : 调试接口需要屏蔽 S*/
@@ -231,8 +233,9 @@ root.methods.getMemberList= function () {
 
   this.$http.send('GET_QUERYMEMBERLIST', {
     bind: this,
+    urlFragment:groupId,
     query:{
-      groupId: this.groupId,
+      // groupId: this.groupId,
       //ssssssssss
       currPage: this.currPage,
       pageSize: this.pageSize
