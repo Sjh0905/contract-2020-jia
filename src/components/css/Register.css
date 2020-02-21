@@ -90,6 +90,14 @@ input:-webkit-autofill {
   justify-content: space-between;
   padding-bottom: 30px;
 }
+/*浏览器自动填充样式*/
+.unit-container input{
+  box-shadow: 0 0 0px 100px #ffffff inset !important;/*Chrome*/
+  filter: none;/*Firefox*/
+}
+.unit-container input:-webkit-autofill{
+  -webkit-text-fill-color: #0D0E23;
+}
 
 /*Input板块*/
 .unit-input-container {
@@ -566,6 +574,15 @@ input:-webkit-autofill {
     justify-content: space-between;
     height: 80%;
     padding-bottom: 30px;
+  }
+  /*浏览器自动填充样式*/
+  .unit-container input{
+    box-shadow: 0 0 0px 100px #131F30 inset !important;/*Chrome*/
+    /*filter: none;!*Firefox*!*/
+  }
+
+  .unit-container input:-webkit-autofill{
+    -webkit-text-fill-color: #CFD3E9;
   }
 
   /*Input板块*/
