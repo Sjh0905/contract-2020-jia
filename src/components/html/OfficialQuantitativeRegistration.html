@@ -82,13 +82,13 @@
             <template>
                 <li class="flex" v-for="(item,index) in computedRecord" :key="item.id">
                   <!--账号-->
-                  <div class="application_header_div">{{item.account}}</div>
+                  <div class="application_header_div mor-left color_a2">{{item.account}}</div>
                   <!--期数-->
-                  <div class="application_header_div">{{item.periodsNum}}</div>
+                  <div class="application_header_div color_a2">{{item.periodsNum}}</div>
                   <!--配套-->
-                  <div class="application_header_div">{{item.fdesc}}</div>
+                  <div class="application_header_div color_a2">{{item.fdesc}}</div>
                   <!--时间-->
-                  <div class="application_header_div_right">{{item.createdAt}}</div>
+                  <div class="application_header_div_right mor-right color_a2">{{item.createdAt}}</div>
                 </li>
             </template>
             <!-- 如果加载完成、已登录、有数据，则显示数据 end -->

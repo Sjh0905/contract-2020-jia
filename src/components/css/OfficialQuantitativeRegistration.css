@@ -222,3 +222,12 @@
   font-family:PingFangSC-Regular,PingFang SC;
   font-weight:400;
 }
+.mor-left {
+  margin-left: 15px;
+}
+.mor-right {
+  margin-right: 15px;
+}
+.color_a2 {
+  color: #6B7DA2;
+}
