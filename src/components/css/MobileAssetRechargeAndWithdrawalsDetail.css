@@ -340,7 +340,7 @@ margin-left: 0.16rem;
   right: 25px;
   transform: translateY(-50%);
   background: #fff;
-  border-radius: 8px;
+  border-radius: 4px;
   padding: 0 20px;
 }
 
@@ -373,7 +373,7 @@ margin-left: 0.16rem;
 }
 
 .lock-position-confirm-toast-item {
-  height: 20px;
+  /*height: 20px;*/
   line-height: 20px;
   margin-top: 3px;
   display: flex;
@@ -398,7 +398,8 @@ margin-left: 0.16rem;
 .lock-position-confirm-toast-btns {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+  /*justify-content: space-between;*/
   font-size: 15px;
   margin-top: 20px;
   margin-bottom: 20px;

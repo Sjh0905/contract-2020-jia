@@ -1986,6 +1986,22 @@ root.routes.push({
           caseSensitive: true,
           component: resolve => require(['@/components/mobileVue/MobileAssetWithdrawDetail'], resolve),
         },
+        // 移动端资金划转页
+        {
+          path: 'mobileAssetCapitalTransfer',
+          name: 'MobileAssetCapitalTransfer',
+          meta: {
+            pcname: '',
+            h5name: 'MobileAssetCapitalTransfer',
+            requireLogin: true,
+            // 临时关闭
+            templateClose: false,
+            requireLoginOff: false,
+            // mobileHeaderTitle: '资金划转'
+          },
+          caseSensitive: true,
+          component: resolve => require(['@/components/mobileVue/MobileAssetCapitalTransfer'], resolve),
+        },
         // 移动端充提记录页
         {
           path: 'MobileAssetRechargeAndWithdrawRecord',
