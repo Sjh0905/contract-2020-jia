@@ -542,15 +542,23 @@
   /*width: 70px;*/
   height: 40px;
   line-height: 40px;
+  text-align: center;
   font-size: 14px;
   color: #3576F5;
 }
-
+.get-verifications {
+  display: inline-block;
+  /*width: 70px;*/
+  height: 40px;
+  line-height: 40px;
+  font-size: 12px;
+  color: #A2B5D9;
+}
 .verification-input {
   /*height: 35px;*/
   border: 1px solid #e5e5e5;
   border-radius: 5px;
-  width: 410px;
+  width: 70%;
   border: none;
 
 

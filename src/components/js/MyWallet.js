@@ -474,26 +474,26 @@ root.methods.testNum_01 = function () {
 }
 
 // 判断输入用户
-root.methods.testUserName = function () {
-
-  this.userNamePlaceholderShow = true
-
-  /*let userNameFlag = this.$globalFunc.testEmail(this.userName);
-  let mobileFlag = this.$globalFunc.testMobile(this.userName);*/
-
-  if (this.userName === '') {
-    this.userNameWA = ''
-    return true
-  }
-  if (!this.$globalFunc.testMobile(this.userName)) {
-    this.userNameWA = this.$t('register.userNameWA_0_M')
-    // this.userNameWA = '请输入正确的手机号'
-    return false
-  }
-  if (!this.$globalFunc.testEmail(this.userName)) {
-    this.userNameWA = this.$t('register.userNameWA_0')
-    return false
-  }
+// root.methods.testUserName = function () {
+//
+//   this.userNamePlaceholderShow = true
+//
+//   /*let userNameFlag = this.$globalFunc.testEmail(this.userName);
+//   let mobileFlag = this.$globalFunc.testMobile(this.userName);*/
+//
+//   if (this.userName === '') {
+//     this.userNameWA = ''
+//     return true
+//   }
+//   if (!this.$globalFunc.testMobile(this.userName)) {
+//     this.userNameWA = this.$t('register.userNameWA_0_M')
+//     // this.userNameWA = '请输入正确的手机号'
+//     return false
+//   }
+//   if (!this.$globalFunc.testEmail(this.userName)) {
+//     this.userNameWA = this.$t('register.userNameWA_0')
+//     return false
+//   }
 
   /*//如果既不是邮箱格式也不是手机格式
   if (!userNameFlag && !mobileFlag) {
@@ -506,27 +506,32 @@ root.methods.testUserName = function () {
   //如果是邮箱
   userNameFlag && (this.registerType = 1)*/
 
-  this.userNameWA = ''
-  return true
-}
+//   this.userNameWA = ''
+//   return true
+// }
 
 
-//去转账
+//我已知晓，继续转账按钮
+//sss 屏蔽
 root.methods.goToBindTransfer = function () {
   this.popWindowOpen = false
   this.buyCommitToastOpen = true;
 }
+//sss 屏蔽
 
+//确认转账按钮 （详情）
 root.methods.goToConfirm = function () {
   this.buyTransferDetails = false
   // this.buyConfirmSuccess = true
   this.buyCommitToastOpen = false
   this.goToConfirmsjh = true
 }
+//确认转账按钮 上一步
 root.methods.popWindowClose1 = function () {
   this.buyTransferDetails = false
 }
 
+//内部转账 验证码弹框
 root.methods.goToConfirmsjhclose = function () {
   this.goToConfirmsjh = false
   this.popWindowOpen = false
@@ -535,10 +540,18 @@ root.methods.goToConfirmsjhclose = function () {
   this.buyTransferDetails = true
 }
 
-
-root.methods.goToConfirmTransfer = function (data) {
+//内部转账 第一步确认转账按钮getGoToConfirmTransfer
+root.methods.getGoToConfirmTransfer = function (data) {
+  //sss 要删除 S
+  // this.name = data.dataMap.UserProfile.name
+  // this.popWindowOpen = false
+  // this.buyCommitToastOpen = false
+  // this.buyTransferDetails = true
+  //sss 要删除 E
   // this.buyTransferDetails = true
   // this.buyCommitToastOpen = false
+
+  //sss 屏蔽 S
   let canSend = true
   canSend = this.testName_0() && canSend
   canSend = this.testUID_01() && canSend
@@ -580,6 +593,7 @@ root.methods.goToConfirmTransfer = function (data) {
   }
 
   // // console.log('55555555555555555555555555555555',this.name_0,this.testUID_0,this.testNum_0)
+
   this.$http.send('GET_VERIFYISIDENTITYUSER',{
     bind: this,
     params:{
@@ -587,14 +601,18 @@ root.methods.goToConfirmTransfer = function (data) {
       userId:this.testUID_0,
       username:this.name_0
     },
-    callBack: this.re_zhuanzhang,
-    errorHandler: this.error_zhuanzhang,
+    callBack: this.re_getGoToConfirmTransfer,
+    errorHandler: this.error_getGoToConfirmTransfer,
   })
-  // console.log('888888888888',this.name_0,this.testUID_0,data)
+  console.log('888888888888',this.name_0,this.testUID_0,data)
+
+  //sss 屏蔽 E
 
 }
 
-root.methods.re_zhuanzhang = function(data){
+//sss 屏蔽 S
+
+root.methods.re_getGoToConfirmTransfer = function(data){
   // console.log(data)
 
 
@@ -654,9 +672,11 @@ root.methods.re_zhuanzhang = function(data){
   this.buyTransferDetails = true
 }
 
-root.methods.error_zhuanzhang = function(data){
+root.methods.error_getGoToConfirmTransfer = function(data){
   console.log('resDataMap=========rrrrr=========ggggggggg=',data)
 }
+
+//sss 屏蔽 E
 
 //查看转账记录
 root.methods.goToTransferRecord = function () {
@@ -1242,14 +1262,17 @@ root.methods.openRecharge = function (index, item) {
   this.activeIndex = index
 }
 
-//sss打开内部转账
+//sss 打开内部转账
 root.methods.internalTransfer = function (index, item) {
   this.transferCurrency = item.currency
   this.transferDisabledss(item.currency)
 
   console.log('item.currency=================================', item.currency)
   // this.transferCurrency = item.currency
-  // this.transferDisabledss(item.currency)
+  // this.transferDisabledss
+
+  //sss屏蔽 2020.20.20 S
+
   if (this.isTransfer == true) {
     this.popWindowOpen = false
     this.popupPromptOpen = true
@@ -1258,7 +1281,7 @@ root.methods.internalTransfer = function (index, item) {
     return
   }
 
-  // // 如果没有实名认证不允许打开转账
+  // 如果没有实名认证不允许打开转账
   if (!this.bindIdentify) {
     this.popWindowTitle = this.$t('popWindowTitleWithdrawals')
     this.popWindowPrompt = this.$t('popWindowPromptWithdrawals')
@@ -1267,7 +1290,7 @@ root.methods.internalTransfer = function (index, item) {
     this.popWindowOpen = true
     return
   }
-  // // 如果没有绑定邮箱，不允许打开转账
+  // 如果没有绑定邮箱，不允许打开转账
   if (!this.bindEmail) {
     this.popWindowTitle = this.$t('bind_email_pop_title')
     this.popWindowPrompt = this.$t('bind_email_pop_article')
@@ -1277,7 +1300,7 @@ root.methods.internalTransfer = function (index, item) {
     return
   }
 
-  // // 如果没有绑定谷歌或手机，不允许打开提现
+  // 如果没有绑定谷歌或手机，不允许打开提现
   if (!this.bindGA && !this.bindMobile) {
     this.popWindowTitle = this.$t('popWindowTitleWithdrawalsneibu')
     this.popWindowPrompt = this.$t('popWindowTitleBindGaWithdrawals')
@@ -1286,13 +1309,14 @@ root.methods.internalTransfer = function (index, item) {
     this.popWindowOpen = true
     return
   }
-  //
-  //
+
+  //sss屏蔽 2020.20.20 E
+
   if (this.bindIdentify && this.isTransfer == false) {
     this.popWindowTitle = this.$t('iKnowthe1')
     this.popWindowPrompt = this.$t('popWindowPromptWithdrawals1')
     this.popWindowPrompt1 = this.$t('popWindowPromptWithdrawals2')
-    this.popWindowStyle = '4'
+    this.popWindowStyle = '5'
     this.popWindowOpen = true
   }
 
