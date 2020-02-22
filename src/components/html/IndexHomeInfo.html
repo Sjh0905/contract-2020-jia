@@ -1,10 +1,11 @@
 <div class='index-home-info-box' :class="themeColor === 1 ? 'index-home-info-box-light':'index-home-info-box-dark'">
+
   <div class="index-home-info-title">
     {{$t("transaction.Trading_platform")}}
   </div>
-  <div class="index-home-info-title-fu">
-<!--    {{$t("transaction.Trading_platform_1")}}-->
-  </div>
+<!--  <div class="index-home-info-title-fu">-->
+<!--&lt;!&ndash;    {{$t("transaction.Trading_platform_1")}}&ndash;&gt;-->
+<!--  </div>-->
   <div class="index-home-info-list">
     <ul>
       <li>
@@ -35,13 +36,6 @@
         <div class="tututitle">{{$t("transaction.Trading_platform_6")}}</div>
         <div class="tutuinfo tutuinfo-mr">{{$t("transaction.Trading_platform_7")}}</div>
       </li>
-      <li>
-        <div class="tutu">
-          <img src="../../assets/特点3.png" >
-        </div>
-        <div class="tututitle">{{$t("transaction.Trading_platform_6")}}</div>
-        <div class="tutuinfo tutuinfo-mr">{{$t("transaction.Trading_platform_7")}}</div>
-      </li>
     </ul>
   </div>
 
@@ -50,22 +44,24 @@
   <div class="downloadnew">
     <div class="downconten">
       <div class="tt1">
-        <img class="tt1img" src="../../assets/InstallIcon.png" >
-        <div class="tdown2">{{$t("transaction.Trading_platform_8")}}</div>
-        <div class="tdown3">{{$t("transaction.Trading_platform_9")}}</div>
-
+<!--        <img class="tt1img" src="../../assets/InstallIcon.png" >-->
+        <div class="tdown2">2020.Exchange 官方App下载</div>
+<!--        <div class="tdown3">{{$t("transaction.Trading_platform_9")}}</div>-->
         <div class="tdownx">
-        <div class="tdown4"    @mouseenter="backtpenter()" @mouseleave="backtpleave()">
+        <div class="tdown4" @mouseenter="openIOSCode()" @mouseleave="closeIOSCode()">
           <img class="imgs4" src="../../assets/苹果_icon.png" alt="">
-          iOS</div>
-          <div class="tdown6"    @mouseenter="backtpenter1()" @mouseleave="backtpleave1()">
+<!--          iOS-->
+        敬请期待</div>
+          <div class="tdown6" @mouseenter="openAndroidCode()" @mouseleave="closeAndroidCode()">
             <img class="imgs4" src="../../assets/安卓_icon.png" alt="">
-            Android
+<!--            Android-->
+            敬请期待
           </div>
         </div>
 
 <!--        v-show="showewm"-->
-        <div class="tdown5" v-show="showewm" >
+<!--        ios-->
+        <div class="tdown5" >
         <div class="download-left-download-item-erwma">
           <div class="download-left-download-item-qrcode-img">
             <Qrcode
@@ -79,13 +75,11 @@
           </div>
         </div>
 
-
-
 <!--        <div class="tdown6"    @mouseenter="backtpenter()" @mouseleave="backtpleave()">{{$t("transaction.Trading_platform_10")}}</div>-->
-
+          <!--          android-->
         </div>
 <!--        v-show="showewm1"-->
-        <div class="tdown7" v-show="showewm1" >
+        <div class="tdown7" >
           <div class="download-left-download-item-erwma1">
             <div class="download-left-download-item-qrcode-img1">
               <Qrcode
@@ -100,11 +94,13 @@
           </div>
         </div>
       </div>
+
       <div class="tt2">
-        <img src="../../assets/手机样机.png" >
+        <img src="" >
       </div>
     </div>
   </div>
+
   <div class="bait"></div>
 
 <!--  去交易-->

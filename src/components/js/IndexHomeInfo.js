@@ -27,7 +27,7 @@ root.huiLvData = {};
 root.data = function () {
   return {
     logo: logo,
-    size: 124,
+    size: 144,
     bgColor: '#fff',
     fgColor: '#000',
     value: '',
@@ -50,7 +50,7 @@ root.created = function () {
 root.mounted = function () {
   // this.value = this.staticUrl + '/AppDownload'
   this.value = 'https://download.2020.exchange/'
-  this.size = 124 /  window.devicePixelRatio
+  this.size = 144 /  window.devicePixelRatio
 
   window.addEventListener('scroll', this.appScroll)
   //注意：如果由于自己的vue中的样式导致监听不到，可以尝试监听body或者'#app-root'的滚动事件
@@ -133,28 +133,43 @@ root.methods.backtop = function (res) {
   document.body.scrollTop = document.documentElement.scrollTop = 0;
 
 }
+// TODO: APP上线后即打开
+// root.methods.closeIOSCode= function () {
+//   $(".download-left-download-item-erwma").attr("style","display:none");
+// }
+//
+// root.methods.openIOSCode= function () {
+//   $(".download-left-download-item-erwma").attr("style","display:block");
+// }
+//
+// root.methods.closeAndroidCode= function () {
+//   $(".download-left-download-item-erwma1").attr("style","display:none");
+// }
+//
+// root.methods.openAndroidCode= function () {
+//   $(".download-left-download-item-erwma1").attr("style","display:block");
+// }
 
-//鼠标移入改变返回图片
-root.methods.backtpenter = function () {
-  this.showewm = true;
+// //鼠标移入改变返回图片
+// root.methods.backtpenter = function () {
+//   this.showewm = true;
+//
+// }
+//
+// //鼠标移出改变返回图片
+// root.methods.backtpleave = function () {
+//   this.showewm = false;
+// }
 
-}
-
-//鼠标移出改变返回图片
-root.methods.backtpleave = function () {
-  this.showewm = false;
-}
-
-//鼠标移入改变返回图片
-root.methods.backtpenter1 = function () {
-  this.showewm1 = true;
-
-}
-
-//鼠标移出改变返回图片
-root.methods.backtpleave1 = function () {
-  this.showewm1 = false;
-}
+// //鼠标移入改变返回图片
+// root.methods.backtpenter1 = function () {
+//   this.showewm1 = true;
+// }
+//
+// //鼠标移出改变返回图片
+// root.methods.backtpleave1 = function () {
+//   this.showewm1 = false;
+// }
 
 //监听页面滚动事件
 root.methods.appScroll = function (event) {

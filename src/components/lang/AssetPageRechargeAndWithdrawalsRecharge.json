@@ -24,6 +24,7 @@
     "knowAgreement": "我已知晓{currency}充值规则",
     "continueRecharge": "继续充值",
     "notice": "提示",
+
     "chainName": "链名称",
     "showQRCode": "展示二维码"
   },

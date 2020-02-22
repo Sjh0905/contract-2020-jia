@@ -11,11 +11,15 @@ root.data = function () {
   return {
     loading: true,
     popWindowOpen: false, //弹窗开关
+    popWindowTitle: '', //弹出提示标题
+    popWindowPrompt: '',//弹出样式提示
+
+    popWindowPrompt1: '',//弹出样式提示
+    popWindowStyle: 0,//跳转 0表示实名认证，1表示手机或谷歌，2只有确定
 
     priceReady: false,    //socket准备
     currencyReady: false, //currency准备，只有加载完全部的loading才会关闭！
     authStateReady: false, //认证状态准备
-    popWindowStyle: 0,//跳转 0表示实名认证，1表示手机或谷歌，2只有确定
 
     // 币种集合
     accounts: [],
@@ -152,6 +156,7 @@ root.methods.openTransfer = function () {
   if (!this.bindIdentify) {
     this.popWindowTitle = this.$t('popWindowTitleTransfer')
     this.popWindowPrompt = this.$t('popWindowPromptWithdrawals')
+    this.popWindowPrompt1 = ''
     this.popWindowStyle = '0'
     this.popWindowOpen = true
     return
@@ -161,6 +166,7 @@ root.methods.openTransfer = function () {
   if (!this.bindEmail) {
     this.popWindowTitle = this.$t('bind_email_pop_title')
     this.popWindowPrompt = this.$t('bind_email_pop_article')
+    this.popWindowPrompt1 = ''
     this.popWindowStyle = '3'
     this.popWindowOpen = true
     return
@@ -170,6 +176,7 @@ root.methods.openTransfer = function () {
   if (!this.bindGA && !this.bindMobile) {
     this.popWindowTitle = this.$t('popWindowTitleTransfer')
     this.popWindowPrompt = this.$t('popWindowTitleBindGaWithdrawals')
+    this.popWindowPrompt1 = ''
     this.popWindowStyle = '1'
     this.popWindowOpen = true
     return
@@ -188,9 +195,7 @@ root.methods.openTransfer = function () {
   // //   }
   // // }
   this.popWindowOpen1 = true
-  this.accountsComputed.forEach(v=>{
-    console.log(v)
-  })
+
   // this.transferCurrencyAvailable = item.available
   // this.itemInfo = item
   // this.currencyValue = this.itemInfo.currency
