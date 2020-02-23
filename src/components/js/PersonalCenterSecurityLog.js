@@ -21,7 +21,7 @@ root.data = function () {
 
 /*------------------------ 组件 --------------------------*/
 root.components = {
-  'Loading': resolve => require(['../vue/Loading'], resolve),
+  'Loading': resolve => require(['../vue/loading'], resolve),
   'PopupPrompt': resolve => require(['../vue/PopupPrompt'], resolve),
   'PageBar': resolve => require(['../vue/BasePageBar'], resolve),
 }

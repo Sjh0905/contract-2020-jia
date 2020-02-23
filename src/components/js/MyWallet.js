@@ -338,26 +338,26 @@ root.methods.testTransferAmount  = function () {
 // 划转提交
 root.methods.commit = function () {
 
-  if (this.sending) return
-  let canSend = true
-  canSend = this.testTransferAmount() && canSend
-  if (this.currencyValue === '') {
-    this.transferCurrencyWA = this.$t('transferCurrencyWA')
-    canSend = false
-  }
-  if (this.amountInput === '') {
-    this.transferAmountWA = this.$t('transferAmountWA')
-    canSend = false
-  }
-  if (this.amountInput === '0') {
-    this.transferAmountWA = this.$t('transferAmountWA2')
-    canSend = false
-  }
-  console.log('发送成功====================')
-  if (!canSend) {
-    // console.log("不能发送！")
-    return
-  }
+  // if (this.sending) return
+  // let canSend = true
+  // canSend = this.testTransferAmount() && canSend
+  // if (this.currencyValue === '') {
+  //   this.transferCurrencyWA = this.$t('transferCurrencyWA')
+  //   canSend = false
+  // }
+  // if (this.amountInput === '') {
+  //   this.transferAmountWA = this.$t('transferAmountWA')
+  //   canSend = false
+  // }
+  // if (this.amountInput === '0') {
+  //   this.transferAmountWA = this.$t('transferAmountWA2')
+  //   canSend = false
+  // }
+
+  // if (!canSend) {
+  //   // console.log("不能发送！")
+  //   return
+  // }
   this.$http.send('POST_TRANSFER_LIST', {
     bind: this,
     params: {
@@ -370,13 +370,44 @@ root.methods.commit = function () {
   })
 
   this.sending = true
-
   this.popWindowOpen1 = false
+  console.log('发送成功====================')
 }
 
 // 划转回调
 root.methods.re_transfer = function (data){
-  console.log(data)
+  typeof data === 'string' && (data = JSON.parse(data))
+  console.log(data.errorCode)
+  if(data.errorCode === 1) {
+    this.popOpen = true
+    this.popType = 0
+    this.popText = '用户登录'
+      // this.$t('popText3')
+    setTimeout(() => {
+      this.popOpen = true
+    }, 100)
+    console.log('用户登录')
+  }
+  if(data.errorCode === 2) {
+    this.popOpen = true
+    this.popType = 0
+    this.popText = '划转金额小于零'
+    // this.$t('popText3')
+    setTimeout(() => {
+      this.popOpen = true
+    }, 100)
+    console.log(' 划转金额小于零')
+  }
+  if(data.errorCode === 3) {
+    this.popOpen = true
+    this.popType = 0
+    this.popText = '收款账户系统不存在'
+    // this.$t('popText3')
+    setTimeout(() => {
+      this.popOpen = true
+    }, 100)
+    console.log(' 收款账户系统不存在')
+  }
 }
 
 root.methods.error_transfer = function (err){
