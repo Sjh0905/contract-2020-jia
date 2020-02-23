@@ -495,6 +495,7 @@ root.methods.changeAgreement = function () {
 
 // 点击注册
 root.methods.registerCommit = function () {
+  // console.log("this.$globalFunc.CryptoJS.SHA1('btcdo:123admin').toString(),",this.$globalFunc.CryptoJS.SHA1('btcdo:123admin').toString(),)
   if (this.sending) return
   let canSend = true
   // 判断用户名

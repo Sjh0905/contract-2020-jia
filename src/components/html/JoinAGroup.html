@@ -39,15 +39,16 @@
           <p class="account_number_p">{{$t('groupInformation')}}</p>
           <div class="information">
             <ul>
-              <li class="information_li">
-                <div class="information_div color_bik">{{searchResult}}
-<!--                  <span>图片</span>-->
-<!--                  <span>图片</span>-->
+              <li class="information_li margin-top20">
+                <div class="information_div color_bik">
+
+                  <span class="soan"> {{searchResult}}</span>
+                  <div class="searchResult">
                   <span v-if="glevel=='0'">-</span>
                   <span v-if="glevel=='1'"><img class="tupian_img" src="../../assets/拼团_微团_icon.png" alt=""></span>
                   <span v-if="glevel=='2'"><img class="tupian_img" src="../../assets/拼团_小团_icon.png" alt=""></span>
-                  <span v-if="glevel=='3'"><img class="tupian_img" src="../../assets/拼团_中团_icon.png" alt=""></span>
-                  <span v-if="glevel=='4'"><img class="tupian_img" src="../../assets/拼团_大团_icon.png" alt=""></span>
+                  <span v-if="glevel=='3'"><img class="tupian_img" src="../../assets/拼团_大团_icon.png" alt=""></span>
+                  <span v-if="glevel=='4'"><img class="tupian_img" src="../../assets/拼团_中团_icon.png" alt=""></span>
                   <span v-if="glevel=='5'"><img class="tupian_img" src="../../assets/拼团_超团_icon.png" alt=""></span>
 
                   <span class="" v-if="glevel=='0'">-</span>
@@ -56,18 +57,19 @@
                   <span class="tupian tupian_zhong" v-if="glevel=='3'">中团</span>
                   <span class="tupian tupian_da" v-if="glevel=='4'">大团</span>
                   <span class="tupian tupian_chao" v-if="glevel=='5'">超团</span>
+                  </div>
                 </div>
 <!--                普通区折扣-->
                 <div class="information_div color_hui">{{$t('ordinaryDiscount')}}</div>
 <!--                量化区折扣-->
                 <div class="information_div color_hui">{{$t('quantifiedDiscount')}}</div>
               </li>
-              <li class="information_li m-t">
+              <li class="information_li margin-top10">
 <!--                团长账号: -->
-                <div class="information_div color_6">
-                  {{$t('colonelNumber')}}
-                  <span v-if="glevel=='0'">- -</span>
-                  <span>{{priAccount}}</span>
+                <div class="information_div margin-bottom16 color_6">
+                  {{$t('colonelNumber')}}:
+                  <span v-if="priAccount=='0'">- -</span>
+                  <span class="color_3">{{priAccount}}</span>
                 </div>
 <!--                普通区折扣-->
                 <div class="information_div color_bik_9"v-if="glevel=='0'">-</div>

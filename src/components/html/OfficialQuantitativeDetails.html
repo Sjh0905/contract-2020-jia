@@ -16,7 +16,7 @@
 <!--    参加日期-->
     <div class="account_number_right">
       <span>{{$t('participation')}}:</span>
-      <span>20200202</span>
+      <span>2020-02-02</span>
     </div>
 
     <div class="quantification_con" >
@@ -127,4 +127,27 @@
     </div>
 
   </div>
+
+
+  <!--  此账号未参与QQ交易挖矿-->
+  <PopupArticle :switch="buyConfirmSuccess" @close="buyConfirmSuccessClose">
+
+    <div slot="article" class="Internal_siding img_ConfirmSuccess">
+      <img src="../../assets/量化_未报名_icon.png" alt="" >
+      <p>{{$t('transactions')}}</p>
+    </div>
+    <div slot="footer">
+      <!--      首页-->
+      <div @click="goToHomePage" class="notice_but_1 pointer">
+        {{$t('homePage')}}
+      </div>
+      <!--      立即参与-->
+      <div @click="goToParticipateNow" class=" notice_but button-base btn_blue pointer">
+        {{$t('participateNow')}}
+      </div>
+
+    </div>
+
+  </PopupArticle>
+
 </div>

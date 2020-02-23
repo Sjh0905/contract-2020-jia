@@ -7,7 +7,7 @@
   "groupInformation":"拼团信息",
   "ordinaryDiscount":"普通折扣区",
   "quantifiedDiscount":"量化折扣区",
-  "colonelNumber":"团长账号:",
+  "colonelNumber":"团长账号",
   "colonelNumberFu":"副团长账号:",
   "join":"加入",
   "rulesRegimentation":"拼团规则",
@@ -42,16 +42,37 @@
   "nameMsg_0": "请输入副团长账号",
   "nameMsgText": "输入副团长账号",
   "nameMsg_01": "请输入拼团名称",
-  "nameMsg_20": "输入拼团名称（不可超过20字符）",
+  "nameMsg_20": "输入拼团名称（不可超过10字符）",
   "nameMsg_21": "拼团名称不符合规范",
-  "nameMsg": "拼团名称不能超过20位",
+  "nameMsg": "拼团名称不能超过10位",
   "nameMsgColonel": "副团长账号不能与团长账号一致",
-  "nameMsgRegiment": "拼团名称只可中文，英文，数字"
+  "nameMsgRegiment": "拼团名称只可中文，英文，数字",
+  "dissolve":"解散拼团",
+  "league":"退出拼团",
+  "micelle":"微团",
+  "small":"小团",
+  "regiment":"中团",
+  "large":"大团",
+  "superLeague":"超团"
 },
 "EN": {
+  "dissolve":"Dissolve the regiment",
+  "league":"Quit the league",
+  "micelle":"micelle",
+  "small":"Small group",
+  "regiment":"Chinese regiment",
+  "large":"A large regiment",
+  "superLeague":"Super league"
 
 },
 "CA": {
+  "dissolve":"Dissolve the regiment",
+  "league":"Quit the league",
+  "micelle":"micelle",
+  "small":"Small group",
+  "regiment":"Chinese regiment",
+  "large":"A large regiment",
+  "superLeague":"Super league"
 
 }
 }

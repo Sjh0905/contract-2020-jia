@@ -3,9 +3,9 @@
     <div class="header-box">
       <!--顶部标题及logo-->
       <div class="header-box-title">
-        <span  class="header-box-title-logo-box">
-          <img class="header-box-title-logo" :src="'http://logo.2020.exchange/' + (rechargeDetailData.currency == 'USDT2'?'USDT':rechargeDetailData.currency) +'.png'" alt="">
-        </span>
+        <!--<span  class="header-box-title-logo-box">-->
+          <!--<img class="header-box-title-logo" :src="'http://logo.2020.exchange/' + (rechargeDetailData.currency == 'USDT2'?'USDT':rechargeDetailData.currency) +'.png'" alt="">-->
+        <!--</span>-->
         {{rechargeDetailData.currency == 'USDT2'?'USDT':rechargeDetailData.currency}}
       </div>
 
@@ -69,7 +69,7 @@
       <div v-if="rechargeDetailData.status === 'SUBMITTED' ||
       rechargeDetailData.status === 'WAITING_FOR_APPROVAL' ||
       rechargeDetailData.status === 'WAITING_FOR_WALLET'"
-      class="container-cancel-btn" @click="cancelSubmit">撤销提现</div>
+      class="container-cancel-btn btn_blue" @click="cancelSubmit">撤销提现</div>
 
       <!--复制和跳转txid按钮-->
       <div v-if="rechargeDetailData.tx" class="container-box-btn">
@@ -99,7 +99,7 @@
     <div v-if="rechargeDetailData.status === 'SUBMITTED' ||
     rechargeDetailData.status === 'WAITING_FOR_APPROVAL' ||
     rechargeDetailData.status === 'WAITING_FOR_WALLET'"
-         class="container-cancel-btn" @click="cancelSubmit">
+         class="container-cancel-btn btn_blue" @click="cancelSubmit">
       撤销
     </div>
 
