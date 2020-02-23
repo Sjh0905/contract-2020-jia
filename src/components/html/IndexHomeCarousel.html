@@ -3,8 +3,8 @@
 
     <div class="swiper-box" :class="{'hide-notice':hideNotice}">
       <Loading v-if="loading"/>
-      <swiper :options="swiperImgOption" ref="mySwiperImg" v-if="imgDataReady && !loading" class="wrapper">
 
+      <swiper :options="swiperImgOption" ref="mySwiperImg" v-if="imgDataReady && !loading" class="wrapper">
 <!--        <swiper-slide v-for="(item,index) in imgDataTemp" :key="index">-->
           <swiper-slide v-for="(item,index) in imgDataTemp" :key="index">
         <div class="homepage-header-imgswiper-address flex-center" @click="goBannerDetail(item)"
@@ -13,7 +13,6 @@
           <img class="homepage-header-imgswiper-img" :src="item.imageUrl" alt="">
         </div>
 <!--          <img class="" src="" alt="">-->
-
       </swiper-slide>
 
 <!--        <swiper-slide>-->
@@ -30,8 +29,6 @@
 
         <div v-show="getLength(imgDataTemp) > 1" class="pc-swiper-pagination" slot="pagination" ></div>
       </swiper>
-
-
 
     </div>
     <!--

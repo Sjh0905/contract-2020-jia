@@ -18,11 +18,12 @@
   "ensure": "确定",
   "popWindowTitleRecharge": "充值提示",
   "popWindowTitleWithdrawals": "提现提示",
-  "popWindowTitleTransfer": "划转提示",
+
   "popWindowPromptRecharge": "您尚未通过实名认证",
   "popWindowPromptWithdrawals": "您尚未通过实名认证",
   "popWindowTitleBindGaRecharge": "请先绑定谷歌验证或手机",
   "popWindowTitleBindGaWithdrawals": "请先绑定谷歌验证或手机",
+
   "withdrawalsIsNotOpen": "该币种暂未开放提现功能，敬请期待！",
   "recharge_address_change_title": "重要通知！",
   "recharge_address_change_detail_1": "HD钱包升级，",
@@ -33,10 +34,12 @@
   "recharge_address_change_button": "确定",
   "wrongAddressInput": "请输入正确提现地址，以免造成资产损失！",
   "hide_zero_asset": "隐藏0资产币种",
-  "bind_email_pop_title": "安全提示",
-  "bind_email_pop_article": "为了您的资金安全，请先绑定邮箱",
+
   "bind_email_pop_button": "绑定邮箱",
   "popWindowTitleWithdrawalsneibu": "内部转账提示",
+  "bind_email_pop_article": "为了您的资金安全，请先绑定邮箱",
+  "bind_email_pop_title": "安全提示",
+  "popWindowTitleTransfer": "划转提示",
   "popWindowPromptWithdrawals1": "1.请在转账前与收款方联系以获取对方的用户账号及收款码，确保所有的资料正确后才进行转账。",
   "popWindowPromptWithdrawals2": "2.如果转账时发生任何失误该款项将无法索回！",
   "iKnowthe1":"转账须知",

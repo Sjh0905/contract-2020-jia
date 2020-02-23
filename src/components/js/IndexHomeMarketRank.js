@@ -33,6 +33,20 @@ root.data = function () {
     biduinum:4,
     //首页公告下边的横向展示币对
     homePageSymbols:[],
+
+    // swiper text 属性
+    swiperTextOption: {
+      initialSlide: 0,
+      autoplay: 3000,
+      speed: 500,
+      direction: 'vertical',
+      loop: true,
+      autoplayDisableOnInteraction: false,
+      disableOnInteraction: false,
+      observer: true,//修改swiper自己或子元素时，自动初始化swiper
+      observeParents: true//修改swiper的父元素时，自动初始化swiper
+    },
+    textDataReady: false,
   }
 }
 /*------------------------------ 生命周期 -------------------------------*/
@@ -230,7 +244,7 @@ root.methods.RE_GET_NOTICE = function (res) {
   this.noticelength = res.length;
   // console.log(res)
   this.noticeList = res;
-
+  this.textDataReady = true;
 
 // console.log(res,'hahhahhah')
 //   this.noticeList = [

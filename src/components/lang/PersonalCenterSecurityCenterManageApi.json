@@ -26,10 +26,11 @@
     "identifyingCodeGa": "谷歌验证码",
     "identifyingCodeMo": "手机验证码",
     "achieve": "获取",
-    "API_describe": "IP访问限制:",
+
     "API_describe1": "只限制对可信任ip的访问(推荐)",
     "API_describe2": "不信任任何ip(安全等级低)",
-    "API_describe3": "建议您添加可信的IP地址访问API Key"
+    "API_describe3": "建议您添加可信的IP地址访问API Key",
+    "API_describe": "IP访问限制:"
   },
   "EN": {
     "title_api": "Creating an API Key",

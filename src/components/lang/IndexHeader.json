@@ -51,13 +51,11 @@
     "platform_3":"公告",
     "platform_4":"下载",
     "platform_5":"拼团",
+
     "miningDetails":"QQ交易挖矿详情",
     "OfficialQuantitativeRegistration": "QQ交易挖矿"
   },
   "EN": {
-    "platform_5":"Assemble a regiment",
-    "platform_1":"Chinese",
-    "platform_2":"Chinese",
     "website": "TwentyTwenty",
     "quotes": "Markets",
     "currencyExchange": "Exchange",
@@ -104,9 +102,11 @@
     "qrCode":"Download",
     "seeMore":"See more",
     "platform":"Platform announcement",
-
+    "platform_1":"Chinese",
+    "platform_2":"Chinese",
     "platform_3":"Announcement",
-    "platform_4":"Download"
+    "platform_4":"Download",
+    "platform_5":"Assemble a regiment"
   },
   "CA": {
     "platform_5":"Assemble a regiment",

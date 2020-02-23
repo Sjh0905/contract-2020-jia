@@ -1,6 +1,7 @@
 .carousel-box {
   height: 480px;
   overflow: hidden;
+  margin-bottom: 50px;
 }
 
 .carousel-light-box .carousel-box-bg {
