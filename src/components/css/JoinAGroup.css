@@ -150,7 +150,7 @@ ul {
   height: 40px;
   margin: 6px 10px;
   padding-left: 10px;
-  font-size: 14px;
+  font-size: 12px;
   color: #172A4D;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
@@ -159,14 +159,15 @@ ul {
 }
 .account_number_input >>> .el-input__inner {
   margin-top: 7px;
+  font-size: 12px;
   -webkit-appearance: none;
   background-color: #FFF;
   background-image: none;
   /* border-radius: 4px; */
-  border: 0px solid #DCDFE6;
+  border: 0px solid #E0E1F4;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-  color: #606266;
+  color: #0D0E23;
   display: inline-block;
   font-size: inherit;
   height: 20px;
@@ -194,6 +195,7 @@ ul {
   color: #6B7DA2;
   text-align: right;
   margin-right: 15px;
+  padding-top: 8px;
 }
 .color_6 {
   width: 59%;

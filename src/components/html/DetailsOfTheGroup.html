@@ -37,7 +37,7 @@
               <div class="next_upgrade">{{$t('untilUpgrade')}}</div>
 <!--              <span class="information_span"></span>-->
               <div class="progress_bar">
-              <el-progress :stroke-width="11" :percentage="(currCount / maxMember) * 100" color="#FF9F40" status="exception"></el-progress>
+              <el-progress :show-text="false" :stroke-width="11" :percentage="(currCount / maxMember) * 100" color="#FF9F40" status="exception" ></el-progress>
               </div>
               <div class="percentage">( {{currCount}}/{{maxMember}} )</div>
             </div>
@@ -142,8 +142,25 @@
           <div class="list_directory_column_li_div">{{item.idType}}</div>
           <div class="list_directory_column_li_dii m-r">{{item.joinTime}}</div>
         </li>
-        <li></li>
+
+        <!-- 加载更多 如果loading结束、已经登录、获取的数据超过了limit，则显示 begin -->
+        <template v-if="showLoadingMore">
+          <li class="loading-more">
+            <span class="text_blue pointer" v-if="!loadingMoreShow" @click="clickLoadingMore">{{$t('orderPageHistoricalEntrustment.close_10')}}</span>
+            <span class="text_blue" v-else>{{$t('orderPageHistoricalEntrustment.close_11')}}</span>
+          </li>
+        </template>
+
       </ol>
+
+
+      <!-- 加载更多 end -->
+      <!--        查看更多-->
+<!--      <template v-if="!loading && tradinghallLimit===10 && historyOrderComputed.length >= 10">-->
+<!--        <li class="loading-more" >-->
+<!--          <span class="text_blue pointer" @click="toOrderHistory">{{$t('orderPageHistoricalEntrustment.close_12')}}</span>-->
+<!--        </li>-->
+<!--      </template>-->
 
     </div>
   </div>

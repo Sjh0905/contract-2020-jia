@@ -1,9 +1,9 @@
 const root = {}
 root.name = 'DetailsOfTheGroup'
 /*------------------------------ 组件 ------------------------------*/
-//root.components = {
-//  'Loading': resolve => require(['../Loading/Loading.vue'], resolve),
-//}
+root.components = {
+  'Loading': resolve => require(['../vue/Loading'], resolve),
+}
 /*------------------------------ data -------------------------------*/
 root.data = function () {
   return {
@@ -14,7 +14,7 @@ root.data = function () {
     priAccount:'',  //团长账号
     joinTime:'',  //入团时间
     quantDiscount:'',  //量化手续费折扣
-    groupId:'0',  //组ID
+    groupId:'',  //组ID
     gname:'',  //组名
     currCount:'',  //当前组人数
     createdAt:'',  //创团时间
@@ -23,19 +23,29 @@ root.data = function () {
     glevel:'0', //团等级  0:未成团，1:微团，2：小团，3：中团，4：大团，5：超团
     account:'', //用户账户
     records: [],
-    currPage: this.currPage,
-    pageSize: this.pageSize
+    currPage:1,
+    pageSize:5,
+    showLoadingMore: true,//是否显示加载更多
+    // loadingMoreIng: false, //是否正在加载更多
+    loadingMoreShow:false,
+
   }
 }
 /*------------------------------ 生命周期 -------------------------------*/
 root.created = function () {
+  this.getMemberList(this.groupId)
   this.getTeamDetails()
-  this.getMemberList()
+
+  // this.getMemberList()
 }
 root.mounted = function () {}
 root.beforeDestroy = function () {}
 /*------------------------------ 计算 -------------------------------*/
 root.computed = {}
+
+root.computed.historyOrderComputed = function () {
+  return this.historyOrder
+}
 // 用户名
 root.computed.userName = function () {
   if (this.userType === 0) {
@@ -69,32 +79,11 @@ root.methods = {}
 
 //拼团展示团队详情get (query:{})  不知道对不对
 root.methods.getTeamDetails= function () {
-  /* TODO : 调试接口需要屏蔽 S*/
-  var  data = {
-    "data": {
-      "deputyAccount": "yx.318@qq.cn",
-      "idType": "3",
-      "priAccount": "1835807299@qq.com",
-      "joinTime": "2222-02-12",
-      "quantDiscount": "0.006",
-      "groupId": "2",
-      "gname": "战狼2",
-      "currCount": "10",
-      "createdAt": "2222-02-12",
-      "maxMember": "30",
-      "commonDiscount": "0.006",
-      "glevel": "4",
-      "account": "yx.318@qq.cn"
-    },
-    "status": "200",
-    "message": "success"
-  }
-  this.re_getTeamDetails(data)
-  /* TODO : 调试接口需要屏蔽 E*/
+
 
   this.$http.send('GET_QUERYSHOWGROUPINFO', {
     bind: this,
-    urlFragment: this.uuid,
+    urlFragment:this.uuid,
     // query:{
     //   userId:this.uuid
     // },
@@ -120,6 +109,9 @@ root.methods.re_getTeamDetails = function (data) {
   this.account = data.data.account
 
 
+  this.getMemberList(data.data.groupId)
+
+
 
 }
 root.methods.error_getTeamDetails = function (err) {
@@ -138,7 +130,7 @@ root.methods.postWithdraw = function (idType) {
   }
   console.log("postJoinGroup + params ===== ",params)
   /* TODO : 调试接口需要屏蔽 S*/
-  this.re_postJoinGroup()
+  // this.re_postJoinGroup()
   /* TODO : 调试接口需要屏蔽 E*/
   this.$http.send('POST_ASSEMBLE_LEVEAGROUP', {
     bind: this,
@@ -150,90 +142,69 @@ root.methods.postWithdraw = function (idType) {
 root.methods.re_postWithdraw = function (data) {
   console.log("this.res=====",data)
   typeof data === 'string' && (data = JSON.parse(data))
+
+  this.success = data.data.success
+  console.log("re_postJoinGroup + data=====",data)
+  if (this.success == true) {
+    // this.$router.push({name: 'detailsOfTheGroup',query:{groupId:this.groupId , gname: this.gname}} )
+    // this.$router.push({name: 'detailsOfTheGroup', params: {groupId:this.groupId}})
+      this.$router.push({name: 'assembleARegiment'})
+
+  }
 }
 root.methods.error_postWithdraw = function (err) {
   console.log("this.err=====",err)
 }
 
-// 不会写  登陆用户组等级信息get (query:{})  未完成
-root.methods.getGroupLevel = function () {
-  /*TODO : 调试接口需要屏蔽 S*/
- var res = {
-    "data": {
-      "idType": 2,
-      "groupId": 2,
-      "isExist": true,
-      "account": "yx.318@qq.cn"
-    },
-    "status": "200",
-    "message": "success"
-  }
-  this.re_getGroupLevel(res)
-  /* TODO : 调试接口需要屏蔽 E*/
-  this.$http.send('GET_ASSEMBLE_GETMEM', {
-    bind: this,
-    query:{
-      userId:this.uuid
-    },
-    callBack: this.re_getGroupLevel,
-    errorHandler: this.error_getGroupLevel
-  })
-}
-root.methods.re_getGroupLevel = function (res) {
-  // res = {
-  //   "data": {
-  //   "idType": 2,
-  //     "groupId": 2,
-  //     "isExist": true,
-  //     "account": "yx.318@qq.cn"
-  // },
-  //   "status": "200",
-  //   "message": "success"
-  // }
-  console.log("this.re_getGroupLevel + res=====",res)
-  typeof data === 'string' && (data = JSON.parse(data))
-}
-root.methods.error_getGroupLevel = function (err) {
-  console.log("this.err=====",err)
-}
+// // 不会写  登陆用户组等级信息get (query:{})  未完成
+// root.methods.getGroupLevel = function () {
+//   /*TODO : 调试接口需要屏蔽 S*/
+//  // var res = {
+//  //    "data": {
+//  //      "idType": 2,
+//  //      "groupId": 2,
+//  //      "isExist": true,
+//  //      "account": "yx.318@qq.cn"
+//  //    },
+//  //    "status": "200",
+//  //    "message": "success"
+//  //  }
+//  //  this.re_getGroupLevel(res)
+//   /* TODO : 调试接口需要屏蔽 E*/
+//   this.$http.send('GET_ASSEMBLE_GETMEM', {
+//     bind: this,
+//     query:{
+//       userId:this.uuid
+//     },
+//     callBack: this.re_getGroupLevel,
+//     errorHandler: this.error_getGroupLevel
+//   })
+// }
+// root.methods.re_getGroupLevel = function (data) {
+//   // res = {
+//   //   "data": {
+//   //   "idType": 2,
+//   //     "groupId": 2,
+//   //     "isExist": true,
+//   //     "account": "yx.318@qq.cn"
+//   // },
+//   //   "status": "200",
+//   //   "message": "success"
+//   // }
+//   console.log("this.re_getGroupLevel + res=====",data)
+//   typeof data === 'string' && (data = JSON.parse(data))
+// }
+// root.methods.error_getGroupLevel = function (err) {
+//   console.log("this.err=====",err)
+// }
 
 //团员列表get (query:{})
-root.methods.getMemberList= function () {
-  /*TODO : 调试接口需要屏蔽 S*/
- var data = {
-    "data": {
-      "data": [
-        {
-          "rowNum": "1.0",
-          "idType": "团长",
-          "account": "1835807299@qq.com",
-          "joinTime": "2020-02-12"
-        },
-        {
-          "rowNum": "2.0",
-          "idType": "副团长",
-          "account": "yx.318@qq.cn",
-          "joinTime": "2020-02-12"
-        },
-        {
-          "rowNum": "3.0",
-          "idType": "团员",
-          "account": "123r2w@qq.com",
-          "joinTime": "2020-02-13"
-        }
-      ],
-      "nextPage": 2,
-      "isNext": false
-    },
-    "status": "200",
-    "message": "success"
-  }
-  this.re_getMemberList(data)
-  /* TODO : 调试接口需要屏蔽 E*/
+root.methods.getMemberList= function (groupId) {
 
+  // let groupId = this.$route.params.groupId
   this.$http.send('GET_QUERYMEMBERLIST', {
     bind: this,
-    urlFragment:groupId,
+    urlFragment: `${groupId}/member`,
     query:{
       // groupId: this.groupId,
       //ssssssssss
@@ -248,12 +219,35 @@ root.methods.re_getMemberList = function (data) {
   console.log("团员列表this.data=====",data)
 
   typeof data === 'string' && (data = JSON.parse(data))
-  this.records = data.data.data
+  // this.records = data.data.data
+
+  this.records.push(...data.data.data)
+  //
+  //
+  if (data.data.data.length < this.pageSize) {
+    this.showLoadingMore = false
+  }
+  //
+  //
+  this.currPage = this.currPage + 1
+  //
+  // this.loading = false
+  this.loadingMoreIng = false
 }
 root.methods.error_getMemberList = function (err) {
   console.log("this.err=====",err)
 }
 
+// 点击加载更多
+root.methods.clickLoadingMore = function () {
+  this.loadingMoreIng = true
+  this.getMemberList(this.groupId)
+}
+
+// 点击加载更多
+root.methods.toOrderHistory = function () {
+  this.$router.push({name:'detailsOfTheGroup'})
+}
 
 
 export default root

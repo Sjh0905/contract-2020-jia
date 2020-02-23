@@ -16,13 +16,13 @@ root.data = function () {
     // groupId:'',
     //组等级
     glevel:'0',
-    groupId:'1',
+    groupId:'0',
     //量化区手续费折扣
     commonDiscount:'',
     //普通区手续费折扣
     quantDiscount:'',
     //组名
-    gname:'战狼',
+    gname:'',
 
     popType: 0,
     popOpen: false,
@@ -203,13 +203,13 @@ root.methods.postJoinGroup = function () {
   }
   console.log("postJoinGroup + params ===== ",params)
   /* TODO : 调试接口需要屏蔽 S*/
-  this.re_postJoinGroup({
-      "data": {
-        "success": true
-      },
-      "status": "200",
-      "message": "success"
-    })
+  // this.re_postJoinGroup({
+  //     "data": {
+  //       "success": true
+  //     },
+  //     "status": "200",
+  //     "message": "success"
+  //   })
   /* TODO : 调试接口需要屏蔽 E*/
   this.$http.send('POST_ASSEMBLE_JOINGROUP', {
     bind: this,
@@ -224,7 +224,7 @@ root.methods.re_postJoinGroup = function (data) {
   console.log("re_postJoinGroup + data=====",data)
   if (this.success == true) {
     // this.$router.push({name: 'detailsOfTheGroup',query:{groupId:this.groupId , gname: this.gname}} )
-    this.$router.push({name: 'detailsOfTheGroup'} )
+    this.$router.push({name: 'detailsOfTheGroup', params: {groupId:this.groupId}})
 
   }
   if (this.success == false) {

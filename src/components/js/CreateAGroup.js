@@ -18,8 +18,6 @@ root.data = function () {
     name_0:'',
     //检测团名 false:可用，true：不可用
     available:true,
-
-    uuid:'0',
     popType: 0,
     popOpen: false,
     popText: '系统繁忙',
@@ -133,11 +131,12 @@ root.methods.re_postCreateAGroup = function (data) {
   typeof data === 'string' && (data = JSON.parse(data))
   console.log("this.re_postCreateAGroup=====",data)
   this.success = data.data.success
+  this.groupId = data.data.groupId
   this.status = data.status
 
 
   if (this.success == true) {
-    this.$router.push({name: 'detailsOfTheGroup'})
+    this.$router.push({name: 'detailsOfTheGroup',params: {groupId:this.groupId}})
   }
 
   if (this.success == false) {

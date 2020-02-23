@@ -78,6 +78,7 @@ root.data = function () {
     groupId: '',
     isExist: true,
     account: ''
+    // uuid:'0'
   }
 }
 
@@ -112,6 +113,14 @@ root.mounted = function () {
 }
 
 root.computed = {}
+
+// uid
+root.computed.uuid = function () {
+  if(this.$store.state.authMessage.uuid == undefined){
+    return this.$store.state.authMessage.userId
+  }
+  return this.$store.state.authMessage.uuid
+}
 
 root.computed.mobileLoginShow = function () {
   return this.$store.state.mobileLoginShow;
@@ -281,22 +290,22 @@ root.methods = {}
 
 // 不会写  登陆用户组等级信息get (query:{})  未完成
 root.methods.getGroupLevel = function () {
-  /*TODO : 调试接口需要屏蔽 S*/
-  var data = {
-    "data": {
-      "idType": 2,
-      "groupId": 2,
-      "isExist": false,
-      "account": "yx.318@qq.cn"
-    },
-    "status": "200",
-    "message": "success"
-  }
-  this.re_getGroupLevel(data)
+  // /*TODO : 调试接口需要屏蔽 S*/
+  // var data = {
+  //   "data": {
+  //     "idType": 2,
+  //     "groupId": 2,
+  //     "isExist": false,
+  //     "account": "yx.318@qq.cn"
+  //   },
+  //   "status": "200",
+  //   "message": "success"
+  // }
+  // this.re_getGroupLevel(data)
   /* TODO : 调试接口需要屏蔽 E*/
   this.$http.send('GET_ASSEMBLE_GETMEM', {
     bind: this,
-    urlFragment:uuid,
+    urlFragment:this.uuid,
     // query:{
     //   userId:this.uuid
     // },
