@@ -299,7 +299,7 @@
   margin-top: 20px;
   line-height: 17px;
   font-size: 12px;
-  color: #D83838;
+  color: #EF5656;
 }
 
 .mobile-asset-detail-container-address-title{
@@ -395,7 +395,7 @@
 }
 .mobile-asset-detail-container-address-detail-address-delete {
   position: absolute;
-  background: #1C2632 url("../../assets/mobile_address_delete.png") no-repeat center center;
+  background: url("../../assets/mobile_address_delete.png") no-repeat center center;
   background-size: 50%;
   width: 0.6rem;
   /*height: 1rem;*/
@@ -432,7 +432,7 @@
 
   line-height: 17px;
   font-size: 12px;
-  color: #D83838;
+  color: #EF5656;
   background: #081724;
   padding-bottom: 20px;
   padding-top: 10px;
@@ -869,7 +869,7 @@
   top: 50%;
   transform: translateY(-50%);
   background: #fff;
-  border-radius: 8px;
+  border-radius: 4px;
 
 }
 
@@ -895,15 +895,15 @@
   line-height: 40px;
   text-align: center;
   font-size: 16px;
-  color: #D83838;
+  color: #EF5656;
   border-bottom: 1px solid #F2F2F2;
 }
 
 .memo-toast-body {
   margin-top: 18px;
-  color: #D83838;
+  color: #EF5656;
   font-size: 13px;
-  line-height: 18px;
+  /*line-height: 18px;*/
 }
 
 .memo-checkbox-box {
@@ -920,7 +920,7 @@
 .memo-confirm-btn {
   height: 36px;
   width: 140px;
-  border-radius: 4px;
+  border-radius: 1px;
   line-height: 36px;
   color: #fff;
   font-size: 15px;
@@ -930,6 +930,6 @@
 }
 
 .memo-confirm-btn-no-use {
-  background: #b1b3b4;
+  background: #A8C6FF;
 }
 

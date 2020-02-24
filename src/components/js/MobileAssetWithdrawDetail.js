@@ -249,7 +249,7 @@ root.computed.secondShowPicker = function () {
   return (this.$store.state.authState.sms && this.$store.state.authState.ga)
 }
 
-// 提现金额
+// 提现数量
 root.computed.withdrawPrice = function () {
   if (Number(this.withdrawInputPrice) > Number(this.mobileRechargeRecordData.available)) {
     this.withdrawInputPrice = this.mobileRechargeRecordData.available
@@ -383,6 +383,7 @@ root.methods.error_getAccounts = function (err) {
 
 root.methods.closeMemoToast = function () {
   this.memoToastShow = false;
+  this.$router.back()
 }
 
 root.methods.changeAgreement = function () {
@@ -861,7 +862,7 @@ root.methods.submitStepOne = function () {
   if (parseFloat(this.accMinus(this.withdrawPrice, this.mobileRechargeRecordData.available)) > 0) {
     this.popOpen = true
     this.popType = 0
-    this.popText = '提现金额填写超限'
+    this.popText = '提现数量填写超限'
     return
   }
   if (parseFloat(this.accMinus(this.withdrawPrice, this.minimumAmount)) < 0) {
