@@ -9,6 +9,7 @@ root.data = function () {
   return {
     //拼团展示团队详情
     // details:[]
+    loading:true,
     deputyAccount:'',//副团账号
     idType:'', //团员类型  1：团长，2：副团，3：普通成员
     priAccount:'',  //团长账号
@@ -35,6 +36,7 @@ root.data = function () {
 root.created = function () {
   this.getMemberList(this.groupId)
   this.getTeamDetails()
+  this.loading = true
 
   // this.getMemberList()
 }

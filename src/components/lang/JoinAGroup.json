@@ -43,7 +43,6 @@
   "nameMsgText": "输入副团长账号",
   "nameMsg_01": "请输入拼团名称",
   "nameMsg_20": "输入拼团名称（不可超过10字符）",
-  "nameMsg_21": "拼团名称不符合规范",
   "nameMsg": "拼团名称不能超过10位",
   "nameMsgColonel": "副团长账号不能与团长账号一致",
   "nameMsgRegiment": "拼团名称只可中文，英文，数字",
@@ -53,7 +52,13 @@
   "small":"小团",
   "regiment":"中团",
   "large":"大团",
-  "superLeague":"超团"
+  "superLeague":"超团",
+  "parameter_error ":"参数有误",
+  "already ":"拼团名称已存在",
+  "sub_group ":"副团账号已存在",
+  "not_registered ":"副团账号未注册",
+  "colonel":"团长账号已存在"
+
 },
 "EN": {
   "dissolve":"Dissolve the regiment",

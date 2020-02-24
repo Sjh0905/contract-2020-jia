@@ -139,7 +139,7 @@ root.methods.re_postCreateAGroup = function (data) {
     this.popOpen = true
     this.popType = 0
     // this.popText = this.$t('popText3')
-    this.popText = '团长账号已存在'
+    this.popText = this.$t('colonel')
     setTimeout(() => {
       this.popOpen = true
     }, 100)
@@ -147,7 +147,7 @@ root.methods.re_postCreateAGroup = function (data) {
   if(this.status === 2) {
     this.popOpen = true
     this.popType = 0
-    this.popText = '副团账号未注册'
+    this.popText = this.$t('not_registered')
     setTimeout(() => {
       this.popOpen = true
     }, 100)
@@ -155,7 +155,7 @@ root.methods.re_postCreateAGroup = function (data) {
   if(this.status === 3) {
     this.popOpen = true
     this.popType = 0
-    this.popText = '副团账号已存在'
+    this.popText = this.$t('sub_group')
     setTimeout(() => {
       this.popOpen = true
     }, 100)
@@ -163,7 +163,7 @@ root.methods.re_postCreateAGroup = function (data) {
   if(this.status == 4) {
     this.popOpen = true
     this.popType = 0
-    this.popText = '拼团名称已存在'
+    this.popText = this.$t('already')
     setTimeout(() => {
       this.popOpen = true
     }, 100)
@@ -171,7 +171,7 @@ root.methods.re_postCreateAGroup = function (data) {
   if(this.status === 5) {
     this.popOpen = true
     this.popType = 0
-    this.popText = '团长账号与副团账号不能一样'
+    this.popText =
     setTimeout(() => {
       this.popOpen = true
     }, 100)
@@ -179,7 +179,7 @@ root.methods.re_postCreateAGroup = function (data) {
   if(this.status === 6) {
     this.popOpen = true
     this.popType = 0
-    this.popText = '团队名称长度不能超过10'
+    this.popText = this.$t('nameMsg')
     setTimeout(() => {
       this.popOpen = true
     }, 100)
@@ -187,7 +187,7 @@ root.methods.re_postCreateAGroup = function (data) {
   if(this.status === 400) {
     this.popOpen = true
     this.popType = 0
-    this.popText = '参数有误'
+    this.popText = this.$t('parameter_error')
     setTimeout(() => {
       this.popOpen = true
     }, 100)
