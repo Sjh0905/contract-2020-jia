@@ -135,25 +135,65 @@ root.methods.re_postCreateAGroup = function (data) {
   this.status = data.status
 
 
-  if (this.success == true) {
-    this.$router.push({name: 'detailsOfTheGroup',params: {groupId:this.groupId}})
-  }
-
-  if (this.success == false) {
+  if(this.status === 1) {
     this.popOpen = true
     this.popType = 0
-    this.popText = this.$t('popText3')
+    // this.popText = this.$t('popText3')
+    this.popText = '团长账号已存在'
     setTimeout(() => {
       this.popOpen = true
     }, 100)
 }
-  if (this.status != 200) {
+  if(this.status === 2) {
     this.popOpen = true
     this.popType = 0
-    this.popText = this.$t('popText3')
+    this.popText = '副团账号未注册'
     setTimeout(() => {
       this.popOpen = true
     }, 100)
+  }
+  if(this.status === 3) {
+    this.popOpen = true
+    this.popType = 0
+    this.popText = '副团账号已存在'
+    setTimeout(() => {
+      this.popOpen = true
+    }, 100)
+  }
+  if(this.status == 4) {
+    this.popOpen = true
+    this.popType = 0
+    this.popText = '拼团名称已存在'
+    setTimeout(() => {
+      this.popOpen = true
+    }, 100)
+  }
+  if(this.status === 5) {
+    this.popOpen = true
+    this.popType = 0
+    this.popText = '团长账号与副团账号不能一样'
+    setTimeout(() => {
+      this.popOpen = true
+    }, 100)
+  }
+  if(this.status === 6) {
+    this.popOpen = true
+    this.popType = 0
+    this.popText = '团队名称长度不能超过10'
+    setTimeout(() => {
+      this.popOpen = true
+    }, 100)
+  }
+  if(this.status === 400) {
+    this.popOpen = true
+    this.popType = 0
+    this.popText = '参数有误'
+    setTimeout(() => {
+      this.popOpen = true
+    }, 100)
+  }
+  if (this.success == true) {
+    this.$router.push({name: 'detailsOfTheGroup',params: {groupId:this.groupId}})
   }
 }
 root.methods.error_postCreateAGroup = function (err) {

@@ -230,6 +230,7 @@ root.methods.re_getMemberList = function (data) {
   //
   //
   this.currPage = this.currPage + 1
+  // this.pageSize = this.pageSize + 1
   //
   // this.loading = false
   this.loadingMoreIng = false

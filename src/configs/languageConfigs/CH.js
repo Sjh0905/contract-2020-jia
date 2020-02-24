@@ -579,7 +579,7 @@ root.personalCenterSecurityCenterBindMobile.title = '绑定手机号码'
 root.personalCenterSecurityCenterBindMobile.psw = '登录密码：'
 root.personalCenterSecurityCenterBindMobile.mobile = '手机号码：'
 root.personalCenterSecurityCenterBindMobile.verificationCode = '短信验证码：'
-root.personalCenterSecurityCenterBindMobile.send = '发送验证码'
+root.personalCenterSecurityCenterBindMobile.send = '获取验证码'
 root.personalCenterSecurityCenterBindMobile.ensure = '确定'
 root.personalCenterSecurityCenterBindMobile.binding = '绑定中'
 root.personalCenterSecurityCenterBindMobile.Cancel = '取消'
@@ -622,7 +622,7 @@ root.personalCenterSecurityCenterReleaseMobile.Cancel = '取消'
 
 // 安全日志
 root.personalCenterSecurityLog = {}
-root.personalCenterSecurityLog.management = '资金管理'
+root.personalCenterSecurityLog.management = '账户管理'
 root.personalCenterSecurityLog.information = '登录信息'
 root.personalCenterSecurityLog.title = '安全日志'
 root.personalCenterSecurityLog.time = '登录时间'

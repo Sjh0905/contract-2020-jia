@@ -895,3 +895,15 @@
 .m-t {
   margin-top: 20px;
 }
+.button-base33 {
+  width: 190px;
+  height: 35px;
+  /* background-color: #3576F5; */
+  color: #fff;
+  border-radius: 2px;
+  border: 0 solid transparent;
+  margin-right: 2px;
+}
+.m-r {
+  margin-left: 24px;
+}

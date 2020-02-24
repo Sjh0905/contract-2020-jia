@@ -568,7 +568,7 @@ root.personalCenterSecurityCenterBindMobile.title = '綁定手機號碼'
 root.personalCenterSecurityCenterBindMobile.psw = '登錄密碼：'
 root.personalCenterSecurityCenterBindMobile.mobile = '手機號碼：'
 root.personalCenterSecurityCenterBindMobile.verificationCode = '短信驗證碼：'
-root.personalCenterSecurityCenterBindMobile.send = '發送驗證碼'
+root.personalCenterSecurityCenterBindMobile.send = '獲取驗證碼'
 root.personalCenterSecurityCenterBindMobile.ensure = '確定'
 root.personalCenterSecurityCenterBindMobile.binding = '綁定中'
 

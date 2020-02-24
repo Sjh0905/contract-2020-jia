@@ -54,10 +54,10 @@
     "identifyingCodeGa": "穀歌驗證碼",
     "identifyingCodeMo": "手機驗證碼",
     "email": "郵箱驗證碼：",
-    "cancle": "Cancle",
+    "cancle": "取消",
     "confirm": "確認",
     "sending": "驗證中",
-    "get": "獲取"
+    "get": "獲取驗證碼"
   },
   "JP": {
     "title": "セキュリティ認証",
