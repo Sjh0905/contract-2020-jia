@@ -14,6 +14,27 @@
         <!--<span class="mobile-asset-detail-title-asset-title">冻结：</span>-->
         <!--<span class="mobile-asset-detail-title-asset-frozen">{{toFixed(mobileRechargeRecordData.frozen,8)}}</span>-->
       <!--</div>-->
+
+      <!-- 钱包<=>账户-->
+      <div class="wallet-to-account flex">
+        <div class="wallet-to-account-left flex">
+          <div class="wallet-account-change">
+            <div>从</div>
+            <img src="../../assets/H5img/transfer_down_icon.png" alt="">
+            <div>到</div>
+          </div>
+        </div>
+        <div class="wallet-to-account-content " :class="(assetAccountType == 'wallet') ? 'flex-colum':'flex-colum-reverse'">
+          <div>我的钱包</div>
+          <div class="wallet-to-account-content-line"/>
+          <div>币币账户</div>
+        </div>
+        <div class="wallet-to-account-right flex" @click="changeAssetAccountType()">
+          <img src="../../assets/H5img/transfer_change_icon.png">
+        </div>
+      </div>
+
+
       <div class="mobile-asset-detail-container">
         <!--<div class="mobile-address-container1 mobile-address-item2">链名称</div>-->
         <!--<div class="mobile-address-item1 mobile-address-item2 mobile-address-item3" v-if="title == 'USDT' || title == 'USDT2'">-->
@@ -25,15 +46,10 @@
 
         <!--</div>-->
         <div class="mobile-asset-detail-container-title">
-          划转金额
-          <span class="mobile-asset-detail-container-title-right">
-            <!--<img class="mobile-asset-detail-container-title-right-icon" src="" alt="" @click="openWindowToast">-->
-            最小提现：
-            <span class="mobile-asset-detail-container-title-right-container">{{minimumAmount}} {{mobileRechargeRecordData.currency}}</span>
-          </span>
+          划转数量
         </div>
         <div class="mobile-asset-detail-container-input-box">
-          <input class="mobile-asset-detail-container-input" :placeholder="'可转' + toFixed(mobileRechargeRecordData.available,8)"
+          <input class="mobile-asset-detail-container-input" :placeholder="'可用' + toFixed(mobileRechargeRecordData.available,8)"
                  type="number" v-model="withdrawInputPrice" @input="changeWithdrawInputPrice">
           <div class="mobile-asset-detail-container-input-all" @click="writeAllWithdrawPrice">全部</div>
         </div>
@@ -53,15 +69,6 @@
     </div>
 
     <div class="mobile-asset-detail-container-commit-btn btn_blue" @click="submitStepOne">提交</div>
-  </div>
-  <!--弹窗-->
-  <div v-if="windowToastFlag" class="window-toast">
-    <div class="window-toast-box">
-      <p class="window-toast-text">请勿直接提现至众筹或ICO地址，我们不会处理未来代币的发放；</p>
-      <p class="window-toast-text">提现请求申请成功后，请去邮箱点击链接确认本次提现请求；</p>
-      <p class="window-toast-text">您可以在充值提现 历史记录 页面跟踪状态。</p>
-      <div class="window-toast-close-btn" @click="closeWindowToast">我知道了</div>
-    </div>
   </div>
 
   <!--所有提示-->

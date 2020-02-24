@@ -1,3 +1,3 @@
 <template src="../html/MobileAssetCapitalTransfer.html"></template>
-<style scoped src="../css/MobileAssetWithdrawDetail.css"></style>
+<style scoped src="../css/MobileAssetCapitalTransfer.css"></style>
 <script src="../js/MobileAssetCapitalTransfer.js"></script>

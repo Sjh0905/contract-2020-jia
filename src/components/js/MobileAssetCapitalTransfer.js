@@ -147,7 +147,7 @@ root.data = function () {
     // isWCG: false,
     selectTab: 1,
 
-
+    assetAccountType:'wallet',//当前账户类型,默认显示我的钱包
   }
 }
 
@@ -164,14 +164,8 @@ root.created = function () {
   // 获取title
   this.getTitle()
 
-  // 获取地址信息
-  this.getOldAddress()
-
   // 获取账户认证状态信息
   this.getAuthState()
-
-  // 获取此页费率信息
-  this.getWithdrawalsFee()
 
   // 获取初始数据
   this.getInitData()
@@ -249,7 +243,7 @@ root.computed.secondShowPicker = function () {
   return (this.$store.state.authState.sms && this.$store.state.authState.ga)
 }
 
-// 提现金额
+// 提现数量
 root.computed.withdrawPrice = function () {
   if (Number(this.withdrawInputPrice) > Number(this.mobileRechargeRecordData.available)) {
     this.withdrawInputPrice = this.mobileRechargeRecordData.available
@@ -301,6 +295,11 @@ root.methods.getTitle = function () {
 }
 
 /*---------------------- 进入页面获取title ---------------------*/
+
+//切换我的钱包和币币账户
+root.methods.changeAssetAccountType = function () {
+  this.assetAccountType = this.assetAccountType == 'wallet' ? 'currency':'wallet'
+};
 
 // 获取币种
 root.methods.getCurrency = function () {
@@ -423,8 +422,8 @@ root.methods.changeWithdrawInputPrice = function () {
   this.withdrawInputPrice = inputNum
 }
 
-/*---------------------- 点击全提按钮效果 ---------------------*/
-// 点击全提 按钮
+/*---------------------- 点击全部按钮效果 ---------------------*/
+// 点击全部 按钮
 root.methods.writeAllWithdrawPrice = function () {
   this.withdrawInputPrice = parseFloat(this.toFixed(this.mobileRechargeRecordData.available, 8))
 }
@@ -596,47 +595,6 @@ root.methods.changeAppraisement = function (dataObj) {
 
 /*---------------------- 进入页面，获取估值对btc汇率 end ---------------------*/
 
-/*---------------------- 进入页面，获取费率信息 start ---------------------*/
-// 获取提现费率
-root.methods.getWithdrawalsFee = function () {
-  let isERC20 = this.isERC20();
-  this.$http.send('POST_WITHDRAW_FEE_INFO', {
-    bind: this,
-    params: {
-      currency: this.title == "USDT" ? isERC20 : this.title
-    },
-    callBack: this.re_getWithdrawalsFee,
-    errorHandler: this.error_getWithdrawalsFee
-  })
-}
-
-root.methods.re_getWithdrawalsFee = function (data) {
-  typeof data === 'string' && (data = JSON.parse(data))
-  // console.log('获取费率', data)
-
-  if (!data || !data.dataMap) {
-    return
-  }
-
-  // 提现费率
-  this.feeRate = data.dataMap.withdrawRule.feeRate
-  // 最大手续费
-  this.maximumFee = data.dataMap.withdrawRule.maximumFee
-  // 最小提现额度
-  this.minimumAmount = data.dataMap.withdrawRule.minimumAmount //+ data.dataMap.withdrawRule.minimumFee
-  // 最小手续费
-  this.minimumFee = data.dataMap.withdrawRule.minimumFee
-
-  // 获取费率成功
-  this.feeReady = true
-  // this.loading = !(this.feeReady && this.addressReady && this.authStateReady)
-
-}
-root.methods.error_getWithdrawalsFee = function (err) {
-  console.warn("获取最小费率失败", err)
-}
-/*---------------------- 进入页面，获取费率信息 end ---------------------*/
-
 
 /*---------------------- 进入页面，获取地址信息 start ---------------------*/
 
@@ -645,60 +603,8 @@ root.methods.toggleStatus= function (tab) {
   this.selectTab = tab
   console.log('this.selectTab===========',this.selectTab);
   // if(this.selectTab === 2){
-  this.getOldAddress()
-  this.getWithdrawalsFee()
 
   // }
-}
-
-// 获取所有地址 --- 进入页面初始获取 / 删除地址获取
-root.methods.getOldAddress = function () {
-
-  let isERC20 = this.isERC20();
-  console.log('this is isERC20',isERC20);
-  let params = {"currency": this.title == "USDT" ? isERC20 : this.title}//TODO:这里的币种要切换
-  this.$http.send("POST_WITHDRAW_ADDRESS", {
-    bind: this,
-    params,
-    callBack: this.re_getWithdrawalsAddress,
-    errorHandler: this.error_getWithdrawalsAddress,
-  })
-}
-
-// 获取地址回调
-root.methods.re_getWithdrawalsAddress = function (data) {
-  typeof data === 'string' && (data = JSON.parse(data))
-  console.log("获取历史地址", data)
-  if (!data || !data.dataMap) {
-    return
-  }
-
-  if (data.dataMap.withdrawAddressList.length !== 0) {
-    this.oldAddress = data.dataMap.withdrawAddressList
-
-    this.defaultName = this.oldAddress[0].description
-    this.defaultAddress = this.oldAddress[0].address
-    this.defaultID = this.oldAddress[0].id
-
-    if (this.oldAddress[0].memoAddress) {
-      this.defaultMemo = this.oldAddress[0].memoAddress
-    }
-  }
-
-  if (data.dataMap.withdrawAddressList.length === 0) {
-    this.oldAddress = ''
-  }
-  // this.loading = false
-
-  // console.log('所有的地址',this.oldAddress)
-
-  // this.addressReady = true
-  // this.loading = !(this.feeReady && this.addressReady && this.authStateReady)
-
-}
-// 获取地址出错
-root.methods.error_getWithdrawalsAddress = function (err) {
-  console.log("出错！", err)
 }
 
 /*---------------------- 进入页面，获取地址信息 end ---------------------*/
@@ -770,7 +676,6 @@ root.methods.deleteAddressItem = function (item) {
   console.log('点击删除按钮', item.id)
   for (let i = 0; i < this.oldAddress.length; i++) {
     if (this.oldAddress[i].id === id) {
-      // this.getOldAddress();
       this.deleteSend(id)
     }
   }
@@ -824,7 +729,6 @@ root.methods.re_confirmDeleteAddress = function (data) {
   // if (this.deleteAddressId === this.addressId) {
   //   this.addressId = ''
   // }
-  this.getOldAddress()
 }
 
 // 发送删除提现地址请求失败结果
@@ -861,7 +765,7 @@ root.methods.submitStepOne = function () {
   if (parseFloat(this.accMinus(this.withdrawPrice, this.mobileRechargeRecordData.available)) > 0) {
     this.popOpen = true
     this.popType = 0
-    this.popText = '提现金额填写超限'
+    this.popText = '提现数量填写超限'
     return
   }
   if (parseFloat(this.accMinus(this.withdrawPrice, this.minimumAmount)) < 0) {
