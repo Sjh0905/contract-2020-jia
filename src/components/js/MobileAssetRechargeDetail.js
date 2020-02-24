@@ -272,6 +272,7 @@ root.methods.closeAlertFlag = function () {
 
 root.methods.closeMemoToast = function () {
   this.memoToastShow = false;
+  this.$router.back();
 }
 
 root.methods.changeAgreement = function () {
