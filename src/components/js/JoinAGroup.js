@@ -16,6 +16,7 @@ root.data = function () {
     // groupId:'',
     //组等级
     glevel:'0',
+    groupId:'0',
     //量化区手续费折扣
     commonDiscount:'',
     //普通区手续费折扣
@@ -43,6 +44,7 @@ root.data = function () {
 root.created = function () {
   this.getCheckGroupDetails()
   this.getFuzzyQuery()
+  console.log("this.$route.query.path========",this.$route.query.path,this.$route.fullPath)
 }
 root.mounted = function () {}
 root.beforeDestroy = function () {}
@@ -110,62 +112,63 @@ root.methods = {}
 //查询组详情get (query:{})
 root.methods.getCheckGroupDetails= function (groupId) {
 
-  /*TODO : 调试接口需要屏蔽 S*/
-  var data = {
-    "data": {
-      "deputyAccount": "yx.318@qq.cn",
-      "priAccount": "1835807299@qq.com",
-      "groupId": "1",
-      "glevel": "1",
-      "commonDiscount": "0.001",
-      "quantDiscount": "0.001",
-      "gname": "战狼1"
-    },
-    "status": "200",
-    "message": "success"
-  }
-  var data2 = {
-    "data": {
-      "deputyAccount": "yx.318@qq.cn",
-      "priAccount": "122222@qq.com",
-      "groupId": "2",
-      "glevel": "2",
-      "commonDiscount": "0.002",
-      "quantDiscount": "0.002",
-      "gname": "战狼2"
-    },
-    "status": "200",
-    "message": "success"
-  }
-  var data3 = {
-    "data": {
-      "deputyAccount": "yx.318@qq.cn",
-      "priAccount": "1000000000@qq.com",
-      "groupId": "3",
-      "glevel": "3",
-      "commonDiscount": "0.003",
-      "quantDiscount": "0.003",
-      "gname": "jiajia"
-    },
-    "status": "200",
-    "message": "success"
-  }
-  if(data.data.groupId == groupId ){
-    this.re_getCheckGroupDetails(data);
-  }
-  if(data2.data.groupId == groupId){
-    this.re_getCheckGroupDetails(data2);
-  }
-  if(data3.data.groupId == groupId){
-    this.re_getCheckGroupDetails(data3);
-  }
-  /*TODO : 调试接口需要屏蔽 E*/
+  // /*TODO : 调试接口需要屏蔽 S*/
+  // var data = {
+  //   "data": {
+  //     "deputyAccount": "yx.318@qq.cn",
+  //     "priAccount": "1835807299@qq.com",
+  //     "groupId": "1",
+  //     "glevel": "1",
+  //     "commonDiscount": "0.001",
+  //     "quantDiscount": "0.001",
+  //     "gname": "战狼1"
+  //   },
+  //   "status": "200",
+  //   "message": "success"
+  // }
+  // var data2 = {
+  //   "data": {
+  //     "deputyAccount": "yx.318@qq.cn",
+  //     "priAccount": "122222@qq.com",
+  //     "groupId": "2",
+  //     "glevel": "2",
+  //     "commonDiscount": "0.002",
+  //     "quantDiscount": "0.002",
+  //     "gname": "战狼2"
+  //   },
+  //   "status": "200",
+  //   "message": "success"
+  // }
+  // var data3 = {
+  //   "data": {
+  //     "deputyAccount": "yx.318@qq.cn",
+  //     "priAccount": "1000000000@qq.com",
+  //     "groupId": "3",
+  //     "glevel": "3",
+  //     "commonDiscount": "0.003",
+  //     "quantDiscount": "0.003",
+  //     "gname": "jiajia"
+  //   },
+  //   "status": "200",
+  //   "message": "success"
+  // }
+  // if(data.data.groupId == groupId ){
+  //   this.re_getCheckGroupDetails(data);
+  // }
+  // if(data2.data.groupId == groupId){
+  //   this.re_getCheckGroupDetails(data2);
+  // }
+  // if(data3.data.groupId == groupId){
+  //   this.re_getCheckGroupDetails(data3);
+  // }
+  // /*TODO : 调试接口需要屏蔽 E*/
 
   this.$http.send('GET_QUERYGROUPINFO', {
     bind: this,
-    query:{
-      groupId:groupId
-    },
+    urlFragment:groupId,
+    // query:{
+    //   groupId:groupId
+    // },
     callBack: this.re_getCheckGroupDetails,
     errorHandler: this.error_getCheckGroupDetails
   })
@@ -200,13 +203,13 @@ root.methods.postJoinGroup = function () {
   }
   console.log("postJoinGroup + params ===== ",params)
   /* TODO : 调试接口需要屏蔽 S*/
-  this.re_postJoinGroup({
-      "data": {
-        "success": true
-      },
-      "status": "200",
-      "message": "success"
-    })
+  // this.re_postJoinGroup({
+  //     "data": {
+  //       "success": true
+  //     },
+  //     "status": "200",
+  //     "message": "success"
+  //   })
   /* TODO : 调试接口需要屏蔽 E*/
   this.$http.send('POST_ASSEMBLE_JOINGROUP', {
     bind: this,
@@ -221,7 +224,7 @@ root.methods.re_postJoinGroup = function (data) {
   console.log("re_postJoinGroup + data=====",data)
   if (this.success == true) {
     // this.$router.push({name: 'detailsOfTheGroup',query:{groupId:this.groupId , gname: this.gname}} )
-    this.$router.push({name: 'detailsOfTheGroup'} )
+    this.$router.push({name: 'detailsOfTheGroup', params: {groupId:this.groupId}})
 
   }
   if (this.success == false) {
@@ -238,34 +241,35 @@ root.methods.error_postJoinGroup = function (err) {
 
 //模糊查询可加入小组get (query:{})
 root.methods.getFuzzyQuery= function () {
-  /* TODO : 调试接口需要屏蔽 S*/
-  var data = {
-    "data": [
-      {
-        "groupId": "1",
-        "gname": "战狼1"
-      },
-      {
-        "groupId": "2",
-        "gname": "战狼2"
-      },
-      {
-        "groupId": "3",
-        "gname": "jiajia"
-      }
-    ],
-    "status": "200",
-    "message": "success"
-  }
+  // /* TODO : 调试接口需要屏蔽 S*/
+  // var data = {
+  //   "data": [
+  //     {
+  //       "groupId": "1",
+  //       "gname": "战狼1"
+  //     },
+  //     {
+  //       "groupId": "2",
+  //       "gname": "战狼2"
+  //     },
+  //     {
+  //       "groupId": "3",
+  //       "gname": "佳佳佳佳佳佳佳佳佳佳"
+  //     }
+  //   ],
+  //   "status": "200",
+  //   "message": "success"
+  // }
+  //
+  // this.re_getFuzzyQuery(data)
 
-  this.re_getFuzzyQuery(data)
-
-  /* TODO : 调试接口需要屏蔽 E*/
+  // /* TODO : 调试接口需要屏蔽 E*/
   this.$http.send('GET_QUERYGROUPLIST', {
     bind: this,
-    query:{
-      gname: this.gname
-    },
+    urlFragment: this.gname,
+    // query:{
+    //   gname: this.gname
+    // },
     callBack: this.re_getFuzzyQuery,
     errorHandler: this.error_getFuzzyQuery
   })

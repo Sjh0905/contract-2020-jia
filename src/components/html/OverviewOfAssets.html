@@ -129,9 +129,92 @@
       </PopupT>
 
 
-      <!-- 提示 start -->
-      <PopupPrompt :popType="popupPromptType" :popText="popupPromptText" :popOpen="popupPromptOpen"
-                   :popClose="closePopupPrompt"></PopupPrompt>
-      <!-- 提示 end -->
+    <!--   提示 弹窗-->
+    <PopupWindow :switch="popWindowOpen" @close="popWindowClose">
+      <div slot="header">
+        <span class="header_xuzhi">{{popWindowTitle}}</span>
+      </div>
+      <div slot="article" class="pop-recharge">{{popWindowPrompt}}
+        <p class="Consequences">{{popWindowPrompt1}}</p>
+      </div>
+      <div slot="footer" class="pop-recharge-bottom flex-center">
+        <template v-if="popWindowStyle==0">
+          <button @click="popWindowClose" class="button-base btn_simple pointer">
+            {{$t('cancel')}}
+          </button>
+          <button @click="goToBindIdentity" class="button-base btn_blue pointer">
+            {{$t('verification')}}
+          </button>
+        </template>
+        <template v-if="popWindowStyle==1">
+          <button @click="popWindowClose" class="button-base btn_simple pointer">
+            {{$t('cancel')}}
+            <!--          {{$t('bindGa')}}-->
+          </button>
+          <button @click="goToSecurityCenter" class="button-base btn_blue pointer">
+            {{$t('beBinding')}}
+            <!--          {{$t('bindMobile')}}-->
+          </button>
+        </template>
+        <template v-if="popWindowStyle==2">
+          <button @click="popWindowClose" class="button-base btn_simple pointer">
+            {{$t('cancel')}}
+            <!--          {{$t('bindGa')}}-->
+          </button>
+          <button @click="goToSecurityCenter" class="button-base btn_blue pointer">
+            {{$t('beBinding')}}
+            <!--          {{$t('bindMobile')}}-->
+          </button>
+        </template>
+        <template v-if="popWindowStyle==3">
+          <button @click="popWindowClose" class="button-base btn_simple pointer">
+            {{$t('cancel')}}
+            <!--          {{$t('bindGa')}}-->
+          </button>
+          <button @click="goToSecurityCenter" class="button-base btn_blue pointer">
+            {{$t('beBinding')}}
+            <!--          {{$t('bindMobile')}}-->
+          </button>
+        </template>
+        <template v-if="popWindowStyle==4">
+          <button @click="popWindowClose" class="button-base btn_simple pointer">
+            {{$t('cancel')}}
+            <!--          {{$t('bindGa')}}-->
+          </button>
+          <button @click="goToSecurityCenter" class="button-base btn_blue pointer">
+            {{$t('beBinding')}}
+            <!--          {{$t('bindMobile')}}-->
+          </button>
+        </template>
+
+
+        <!--      <template v-if="popWindowStyle==1">-->
+        <!--        <button @click="goToBindGA" class="button-base btn_blue pointer">-->
+        <!--          {{$t('bindGa')}}-->
+        <!--        </button>-->
+        <!--        <button @click="goToBindMobile" class="button-base btn_blue pointer">-->
+        <!--          {{$t('bindMobile')}}-->
+        <!--        </button>-->
+        <!--      </template>-->
+        <!--      <template v-if="popWindowStyle==2">-->
+        <!--        <button @click="popWindowClose" class="button-base btn_blue pointer">-->
+        <!--          {{$t('ensure')}}-->
+        <!--        </button>-->
+        <!--      </template>-->
+        <!--      <template v-if="popWindowStyle==3">-->
+        <!--        <button @click="goToBindEmail" class="button-base btn_blue pointer bangding">-->
+        <!--          &lt;!&ndash;绑定邮箱&ndash;&gt;-->
+        <!--          {{$t('bind_email_pop_button')}}-->
+        <!--        </button>-->
+        <!--      </template>-->
+        <!--      <template v-if="popWindowStyle==4">-->
+        <!--        <button @click="goToBindTransfer" class="button-base btn_blue pointer transfer4">-->
+        <!--          &lt;!&ndash;绑定邮箱&ndash;&gt;-->
+        <!--          {{$t('ITransfer')}}-->
+        <!--        </button>-->
+        <!--      </template>-->
+      </div>
+
+    </PopupWindow>
     </div>
 </div>

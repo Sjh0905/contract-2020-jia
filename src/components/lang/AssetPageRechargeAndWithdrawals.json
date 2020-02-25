@@ -35,6 +35,7 @@
     "bind_email_pop_title": "安全提示",
     "bind_email_pop_article": "为了您的资金安全，请先绑定邮箱",
     "bind_email_pop_button": "绑定邮箱",
+
     "capitalTransfer": "资金划转",
     "from": "从",
     "reach": "到",
@@ -51,8 +52,6 @@
     "transferAmountWA2": "请输入正确的划转数量",
     "transferAmountWA3": "超出划转可用余额",
     "transferAmountWA4": "低于划转最小额"
-
-
   },
   "EN": {
     "currency": "Coin",

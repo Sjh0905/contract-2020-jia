@@ -2545,9 +2545,10 @@ root.routes.push({
       name: 'assembleARegiment',
       caseSensitive: true,
       meta: {
-        requireLogin: false,
+        requireLogin: true,
         mobileHeaderTitle: '',
         pcname: 'assembleARegiment',
+        requireLoginOff: false,
         // h5name: 'mobileTradingHall',
       },
       component: resolve => require(['@/components/vue/AssembleARegiment'], resolve),
@@ -2702,9 +2703,11 @@ root.routes.push({
       name: 'officialQuantitativeRegistration',
       caseSensitive: true,
       meta: {
-        requireLogin: false,
+        requireLogin: true,
         mobileHeaderTitle: '',
         name: 'officialQuantitativeRegistration',
+        requireLoginOff: false,
+
       },
       component: resolve => require(['@/components/vue/OfficialQuantitativeRegistration'], resolve),
     },
@@ -2715,9 +2718,10 @@ root.routes.push({
       name: 'officialQuantitativeDetails',
       caseSensitive: true,
       meta: {
-        requireLogin: false,
+        requireLogin: true,
         mobileHeaderTitle: '',
         name: 'officialQuantitativeDetails',
+        requireLoginOff: false,
       },
       component: resolve => require(['@/components/vue/OfficialQuantitativeDetails'], resolve),
     },
