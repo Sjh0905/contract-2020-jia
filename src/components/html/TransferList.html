@@ -34,7 +34,7 @@
       <!--充值记录具体 begin-->
       <ul class="detail-container" >
         <!--各条记录 begin-->
-        <li class="detail-li" v-for="(item,index) in computedRecord" :key="item.id">
+        <li class="detail-li" v-for="(item,index) in computedTransferList" :key="item.id">
           <div class="li-container flex">
 
             <!--时间 begin-->
@@ -89,7 +89,7 @@
 
 
         <!--如果没有记录 begin-->
-        <li class="detail-li-no-data" v-if="computedRecord.length===0">
+        <li class="detail-li-no-data" v-if="computedTransferList.length===0">
           <div class="no-data-content">
             <img src="../../assets/assetPageRecord/no-order-light.png" alt="">
             <div class="no-record">{{$t('noRecord')}}</div>
