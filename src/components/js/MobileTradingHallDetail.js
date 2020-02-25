@@ -56,9 +56,9 @@ root.data = function () {
     // 价格显示位数
     price_quoteScale: 8,
 
-    // 深度图socket数据
+    //socket价格数据
     socket_tick: {},
-    // 18-2-10 新加买卖信息对象，用来接收socket和ajax返回的数据
+    // 18-2-10 新加买卖信息对象，用来接收socket和ajax返回的数据 深度图
     buy_sall_list: {},
     // 货币对列表价格
     socket_price: {},
@@ -104,7 +104,7 @@ root.created = function () {
 
   this.$eventBus.listen(this, 'GET_GRC_PRICE_RANGE', this.getGRCPriceRange);
   this.getGRCPriceRange();
-	this.$store.commit('SET_HALL_SYMBOL', false);
+	this.$store.commit('SET_HALL_SYMBOL', true);
 	this.$store.commit('changeMobileTradingHallFlag', false)
 
 	let self = this
@@ -123,7 +123,7 @@ root.created = function () {
   }
 
   // 获取BDB是否抵扣
-  this.getBDBInfo()
+  // this.getBDBInfo()
   //请求所有币对信息
   this.getCurrencyList()
   // 获取汇率
@@ -133,60 +133,9 @@ root.created = function () {
   // 获取精度
   this.getScaleConfig();
   // 拉取列表数据
-  this.$http.send("DEPTH", {
-    bind: this,
-    query: {symbol: this.$store.state.symbol},
-    callBack: this.RE_DEPTH
-  })
-
-
-  this.$socket.emit('unsubscribe', {symbol: this.$store.state.symbol})
-  this.$socket.emit('subscribe', {symbol: this.$store.state.symbol})
-
-  this.$socket.on({
-    key: 'topic_snapshot',
-    bind: this,
-    callBack:  (message) =>{
-      // console.log(message)
-      if (self.$store.state.symbol == message.symbol) {
-        this.buy_sall_list = Object.assign(self.buy_sall_list, message);
-        // console.log(message)
-        // !!this.buy_sall_list.sellOrders.length && (self.sellOrders = this.buy_sall_list.sellOrders.splice(0, 9))
-        // !!this.buy_sall_list.buyOrders.length && (self.buyOrders = this.buy_sall_list.buyOrders.splice(0, 9))
-
-        !!this.buy_sall_list.sellOrders.length && (self.sellOrders = this.getPriceChangeOrders(this.buy_sall_list.sellOrders))
-        !!this.buy_sall_list.buyOrders.length && (self.buyOrders = this.getPriceChangeOrders(this.buy_sall_list.buyOrders))
-      }
-    }
-  })
-
-  // 获取所有币对价格
-  this.$socket.on({
-    key: 'topic_tick', bind: this, callBack: (message) => {
-      this.socket_tick = message instanceof Array && (message[0]['symbol'] ===  this.$store.state.symbol && message[0]) ||( message.symbol === this.$store.state.symbol && message )
-      // this.socket_tick = message instanceof Array && message[0] || message;
-      // console.warn('this is socket_tick',this.socket_tick)
-      this.price = this.socket_tick.price || 0;
-      // 判断BTC或ETH汇率
-      let symbol = this.$store.state.symbol.split('_')[1];
-      this.getDepthCny(this.socket_price, this.price, symbol);
-
-      // 全站交易
-      this.DISPLAY_LATEST(message);
-
-    }
-  })
-
-  // 接收所有币对实时价格
-  this.$socket.on({
-    key: 'topic_prices', bind: this, callBack: (message) => {
-      this.socket_price = message;
-      let self = this;
-      let rate = 0;
-      let symbol = this.$store.state.symbol.split('_')[1];
-      this.getDepthCny(this.socket_price, this.price, symbol);
-    }
-  })
+  this.getDepthInfo();
+  // 订阅socket
+  this.initSocket();
 
 
   // 获取可用数量
@@ -196,10 +145,10 @@ root.created = function () {
   })
 
   if (this.$store.state.authMessage.userId) {
-    this.$http.send('FIND_FEE_BDB_INFO', {
-      bind: this,
-      callBack: this.RE_FEE
-    })
+    // this.$http.send('FIND_FEE_BDB_INFO', {
+    //   bind: this,
+    //   callBack: this.RE_FEE
+    // })
   }
 
 
@@ -289,6 +238,112 @@ root.computed.GRCPriceRangeH5 = function () {
 /*------------------------------ 方法 begin -------------------------------*/
 
 root.methods = {};
+// 获取深度图，用来渲染header的price信息
+root.methods.getDepthInfo = function () {
+  this.$http.send("DEPTH", {
+    bind: this,
+    query: {symbol: this.$store.state.symbol},
+    callBack: this.RE_DEPTH
+  })
+}
+// 拉取第一次数据
+root.methods.RE_DEPTH = function (data) {
+  //console.log('aaaaaaaaaaaaaaaaaa',data)
+
+  if(this.$store.state.symbol != data.symbol)return
+
+  this.buy_sall_list = Object.assign(this.buy_sall_list, data);
+
+  // 2018-4-23 解决当socekt没有推送的话，用depth返回的price
+  this.price = this.buy_sall_list.price;
+
+  // !!this.buy_sall_list.sellOrders.length && (this.sellOrders = this.buy_sall_list.sellOrders.splice(0, 9))
+  // !!this.buy_sall_list.buyOrders.length && (this.buyOrders = this.buy_sall_list.buyOrders.splice(0, 9))
+
+  !!this.buy_sall_list.sellOrders.length && (this.sellOrders = this.getPriceChangeOrders(this.buy_sall_list.sellOrders))
+  !!this.buy_sall_list.buyOrders.length && (this.buyOrders = this.getPriceChangeOrders(this.buy_sall_list.buyOrders))
+
+  let symbol = this.$store.state.symbol.split('_')[1];
+  let self = this;
+  let rate = 0;
+  for (let key in this.socket_price) {
+    if (key == 'BDB_ETH') {
+      self.bdb_rate = this.socket_price[key][4];
+    }
+  }
+
+  switch (symbol) {
+    case 'BTC':
+      rate = this.$store.state.exchange_rate.btcExchangeRate || 0
+      break;
+    case 'ETH':
+      rate = this.$store.state.exchange_rate.ethExchangeRate || 0
+      break;
+    case 'BDB':
+      rate = (this.$store.state.exchange_rate.ethExchangeRate * self.bdb_rate) || 0
+      break;
+    case 'USDT':
+      rate = 1;
+      break;
+    default:
+      rate = 0;
+      break;
+  }
+
+  this.cnyPrice = !(this.price * rate) ? 0 : this.$globalFunc.accFixedCny(this.price * rate * this.$store.state.exchange_rate_dollar, 2);
+}
+// 初始化订阅socket
+root.methods.initSocket = function () {
+
+  this.$socket.emit('unsubscribe', {symbol: this.$store.state.symbol})
+  this.$socket.emit('subscribe', {symbol: this.$store.state.symbol})
+
+  this.$socket.on({
+    key: 'topic_snapshot',
+    bind: this,
+    callBack:  (message) =>{
+      // console.log(message)
+      if (self.$store.state.symbol == message.symbol) {
+        this.buy_sall_list = Object.assign(self.buy_sall_list, message);
+        // console.log(message)
+        // !!this.buy_sall_list.sellOrders.length && (self.sellOrders = this.buy_sall_list.sellOrders.splice(0, 9))
+        // !!this.buy_sall_list.buyOrders.length && (self.buyOrders = this.buy_sall_list.buyOrders.splice(0, 9))
+
+        !!this.buy_sall_list.sellOrders.length && (self.sellOrders = this.getPriceChangeOrders(this.buy_sall_list.sellOrders))
+        !!this.buy_sall_list.buyOrders.length && (self.buyOrders = this.getPriceChangeOrders(this.buy_sall_list.buyOrders))
+      }
+    }
+  })
+
+  // 获取所有币对价格
+  this.$socket.on({
+    key: 'topic_tick', bind: this, callBack: (message) => {
+      this.socket_tick = message instanceof Array && (message[0]['symbol'] ===  this.$store.state.symbol && message[0]) ||( message.symbol === this.$store.state.symbol && message )
+      // this.socket_tick = message instanceof Array && message[0] || message;
+      // console.warn('this is socket_tick',this.socket_tick)
+      this.price = this.socket_tick.price || 0;
+      // 判断BTC或ETH汇率
+      let symbol = this.$store.state.symbol.split('_')[1];
+      this.getDepthCny(this.socket_price, this.price, symbol);
+
+      // 全站交易
+      // this.DISPLAY_LATEST(message);
+
+    }
+  })
+
+  // 接收所有币对实时价格
+  this.$socket.on({
+    key: 'topic_prices', bind: this, callBack: (message) => {
+      this.socket_price = message;
+      let self = this;
+      let rate = 0;
+      let symbol = this.$store.state.symbol.split('_')[1];
+      this.getDepthCny(this.socket_price, this.price, symbol);
+    }
+  })
+
+}
 
 root.methods.getPriceChangeOrders = function(transactionData){
 
@@ -799,52 +854,6 @@ root.methods.setExchangeRateRate = function (data) {
   let rateObj = data.dataMap.exchangeRate;
   // this.$store.commit('SET_EXCHANGE_RATE', rateObj);
 }
-// 拉取第一次数据
-root.methods.RE_DEPTH = function (data) {
-  //console.log('aaaaaaaaaaaaaaaaaa',data)
-
-  if(this.$store.state.symbol != data.symbol)return
-
-  this.buy_sall_list = Object.assign(this.buy_sall_list, data);
-
-  // 2018-4-23 解决当socekt没有推送的话，用depth返回的price
-  this.price = this.buy_sall_list.price;
-
-  // !!this.buy_sall_list.sellOrders.length && (this.sellOrders = this.buy_sall_list.sellOrders.splice(0, 9))
-  // !!this.buy_sall_list.buyOrders.length && (this.buyOrders = this.buy_sall_list.buyOrders.splice(0, 9))
-
-  !!this.buy_sall_list.sellOrders.length && (this.sellOrders = this.getPriceChangeOrders(this.buy_sall_list.sellOrders))
-  !!this.buy_sall_list.buyOrders.length && (this.buyOrders = this.getPriceChangeOrders(this.buy_sall_list.buyOrders))
-
-  let symbol = this.$store.state.symbol.split('_')[1];
-  let self = this;
-  let rate = 0;
-  for (let key in this.socket_price) {
-    if (key == 'BDB_ETH') {
-      self.bdb_rate = this.socket_price[key][4];
-    }
-  }
-
-  switch (symbol) {
-    case 'BTC':
-      rate = this.$store.state.exchange_rate.btcExchangeRate || 0
-      break;
-    case 'ETH':
-      rate = this.$store.state.exchange_rate.ethExchangeRate || 0
-      break;
-    case 'BDB':
-      rate = (this.$store.state.exchange_rate.ethExchangeRate * self.bdb_rate) || 0
-      break;
-    case 'USDT':
-      rate = 1;
-      break;
-    default:
-      rate = 0;
-      break;
-  }
-
-  this.cnyPrice = !(this.price * rate) ? 0 : this.$globalFunc.accFixedCny(this.price * rate * this.$store.state.exchange_rate_dollar, 2);
-}
 
 
 // 请求所有币对信息, header, right都需要此数据
@@ -1029,6 +1038,25 @@ root.watch.symbol = function (newValue, oldValue) {
   if (newValue == oldValue) return;
   // 重新拉取数据
   // this.GET_LATEST_DEAL();
+
+  this.$socket.emit('unsubscribe', {symbol: oldValue});
+  this.$socket.emit('subscribe', {symbol: this.$store.state.symbol});
+  // 2018-2-9 切换symbol清空socket推送
+  this.buy_sall_list = {}; //深度图
+  this.buyOrders = [];
+  this.sellOrders = [];
+  // this.socket_tick = {}; //实时价格
+
+  // this.buy_sale_list = {}//接口深度图
+
+  this.price = 0;
+
+  this.initSocket();
+
+  // 获取汇率
+  !!this.$store.state.exchange_rate.btcExchangeRate || this.getExchangeRate();
+
+  this.getDepthInfo();
   this.getScaleConfig();
 
 }
@@ -1471,9 +1499,9 @@ root.methods.clickChangePopOpen = function () {
 root.methods.changeHeaderBoxFlag = function (item) {
   this.$store.commit('changeMobileTradingHallFlag',true);
   this.$store.commit('changeMobileSymbolType',item.name);
-  this.$store.commit('SET_HALL_SYMBOL',false);
+  this.$store.commit('SET_HALL_SYMBOL',true);
   this.$store.commit('BUY_OR_SALE_TYPE', 1);
-  this.$router.push('mobileTradingHall')
+  // this.$router.push('mobileTradingHall')
   this.isshowhangq = false;
 }
 
@@ -1482,6 +1510,7 @@ root.methods.openhangq = function(){
 }
 
 root.methods.openkexian = function(){
+  this.$store.commit('changeMobileTradingHallFlag',true);
   this.$router.push('mobileTradingHall')
 }
 root.methods.ToCurrentPage = function(){
