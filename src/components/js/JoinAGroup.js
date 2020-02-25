@@ -53,12 +53,12 @@ root.computed = {}
 // 用户名
 root.computed.userName = function () {
   if (this.userType === 0) {
-    return this.$globalFunc.formatUserName(this.$store.state.authMessage.mobile)
+    return (this.$store.state.authMessage.mobile)
   }
   if (!this.$store.state.authMessage.email) {
     return '****@****'
   }
-  return this.$globalFunc.formatUserName(this.$store.state.authMessage.email)
+  return (this.$store.state.authMessage.email)
 }
 
 // 用户类型，如果是手机用户，为0，如果是邮箱用户，为1
@@ -278,6 +278,7 @@ root.methods.getFuzzyQuery= function () {
 root.methods.re_getFuzzyQuery = function (data) {
   //检测data数据是JSON字符串转换JS字符串
   typeof data === 'string' && (data = JSON.parse(data))
+  console.log("模糊查询可加入小组=====",data)
 
   // data = {
   //   "data": [
@@ -297,7 +298,7 @@ root.methods.re_getFuzzyQuery = function (data) {
   //   "status": "200",
   //   "message": "success"
   // }
-  console.log("this.res=====",data)
+  // console.log("this.res=====",data)
   this.cities = data.data
   this.citiesMap = {}
   this.cities.map(v=>this.citiesMap[v.gname] = v.groupId)

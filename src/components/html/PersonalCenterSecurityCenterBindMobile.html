@@ -17,7 +17,7 @@
           <div class="article-pop-1">
             <div class="article-pop-2">{{$t('personalCenterSecurityCenterBindMobile.psw')}}</div>
             <input class="input-pop" type="password" v-model="psw" :class="{'wrong-border':pswWA!==''}" @blur="testPsw">
-            <span class="detail-prompt" v-if="pswWA!==''">{{pswWA}}</span>
+            <span class="detail-prompt wrong-msg" v-if="pswWA!==''">{{pswWA}}</span>
           </div>
 <!--          登录密码  end-->
 
@@ -45,7 +45,7 @@
 
             <input type="text" v-model="mobile" class="pop-input-1"  :class="{'wrong-border':mobileWA!==''}"
                    @blur="testMobile">
-            <span class="detail-prompt" v-if="mobileWA!==''">{{mobileWA}}</span>
+            <span class="detail-prompt wrong-msg" v-if="mobileWA!==''">{{mobileWA}}</span>
 <!--            <input class="pop-input-1" type="text">-->
           </div>
 <!--          输入手机号码及区号  end-->
@@ -58,7 +58,7 @@
               <span class=" fl-ce-y" v-if="!getVerificationCode" @click="postVerificationCode">{{$t('personalCenterSecurityCenterBindMobile.send')}}</span>
               <span class="fl-ce-y-s" v-else disabled> {{getVerificationCodeCountdown}}s</span>
             </div>
-            <div class="detail-prompt m-t3" v-if="verificationCodeWA">{{verificationCodeWA}}</div>
+            <div class="detail-prompt m-t3 wrong-msg" v-if="verificationCodeWA">{{verificationCodeWA}}</div>
             <!--        <span class="flex-center identifying-code-button-close btn_grey"-->
             <!--              v-if="getVerificationCode">{{getVerificationCodeCountdown}}s 之后重新发送</span>-->
           </div>

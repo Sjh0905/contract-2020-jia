@@ -10,6 +10,7 @@ root.data = function () {
     //拼团展示团队详情
     // details:[]
     loading:true,
+
     deputyAccount:'',//副团账号
     idType:'', //团员类型  1：团长，2：副团，3：普通成员
     priAccount:'',  //团长账号
@@ -37,6 +38,7 @@ root.created = function () {
   this.getMemberList(this.groupId)
   this.getTeamDetails()
   this.loading = true
+  this.uuid()
 
   // this.getMemberList()
 }
@@ -92,6 +94,7 @@ root.methods.getTeamDetails= function () {
     callBack: this.re_getTeamDetails,
     errorHandler: this.error_getTeamDetails
   })
+  this.loading = false
 }
 root.methods.re_getTeamDetails = function (data) {
   console.log("this.data=====",data)
@@ -113,7 +116,7 @@ root.methods.re_getTeamDetails = function (data) {
 
   this.getMemberList(data.data.groupId)
 
-
+  this.loading = false
 
 }
 root.methods.error_getTeamDetails = function (err) {
@@ -153,6 +156,7 @@ root.methods.re_postWithdraw = function (data) {
       this.$router.push({name: 'assembleARegiment'})
 
   }
+  // this.loading = false
 }
 root.methods.error_postWithdraw = function (err) {
   console.log("this.err=====",err)
@@ -236,6 +240,8 @@ root.methods.re_getMemberList = function (data) {
   //
   // this.loading = false
   this.loadingMoreIng = false
+
+  this.loading = false
 }
 root.methods.error_getMemberList = function (err) {
   console.log("this.err=====",err)

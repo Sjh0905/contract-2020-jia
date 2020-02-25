@@ -106,7 +106,7 @@
     "verificationCodeWA_8": "登錄驗證未通過",
     "GACodeWA_5": "暫不可用，請稍後再試",
     "GACodeWA_6": "驗證未通過",
-    "get": "獲取"
+    "get": "獲取驗證碼"
   },
   "JP": {
     "title": "セキュリティ認証",

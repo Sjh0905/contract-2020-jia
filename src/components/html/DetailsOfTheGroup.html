@@ -1,6 +1,7 @@
 <div class="detailsOfTheGroup">
+  <Loading v-if="loading"/>
 
-  <div class="detailsOf">
+  <div class="detailsOf" v-if="!loading">
 
 <!--    大banner-->
     <div class="of_the">
