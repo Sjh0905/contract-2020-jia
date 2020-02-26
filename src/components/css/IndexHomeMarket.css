@@ -13,9 +13,10 @@
 .index_home_market_list_body {
   margin: 0 auto;
   width: 1200px;
-  min-height: 420px;
+  min-height: 360px;
   /*margin-top: 44px;*/
   border:1px solid #E0E1F4;
+  border-bottom:0;
   padding:28px 0 0;
   background-color: #FFFFFF;
 }
@@ -123,13 +124,14 @@
 
 /*市场列表*/
 .market-list-container {
-  width: 100%;
+  width: 1150px;
   /*padding-left: 3.5%;*/
+  margin: 0 auto;
   height: 36px;
   line-height: 36px;
   font-size: 14px;
   background-color: #F5F6FA;
-  padding: 0 25px;
+  /*padding: 0 25px;*/
   /*color: #666;*/
 }
 
@@ -143,6 +145,8 @@
 
 .market-list-click-area {
   position: relative;
+  padding-left: 25px;
+  padding-right:25px;
   align-items: center;
   line-height: 36px;
   /*margin-top: 12px;*/
@@ -154,7 +158,8 @@
 
 .selected-market {
   background-color: #3576F5;
-  padding: 0 30px;
+  padding: 0 25px;
+  text-align: center;
   /*border-bottom: 3px solid #3576F5;*/
   color: #FFFFFF;
 }
@@ -178,8 +183,17 @@
   /*border-bottom-style: solid;*/
   /*border-bottom-color:#F7F8FA;*/
 }
-.market-detail-item:last-child {
-  border-bottom:0 ;
+.market-detail-item1 {
+  height: 60px;
+  line-height: 60px;
+  width: 100%;
+  /*padding: 0 46px;*/
+  font-size: 14px;
+  box-sizing: border-box;
+  border:1px solid #E0E1F4;
+  border-top: 1px solid #F7F8FA;
+  color: #3576F5;
+
 }
 
 .market-detail-item .imgSelect {
@@ -414,7 +428,7 @@
 
 .market-center {
   justify-content: center;
-  color: #3576F5;
+
 }
 
 .market-center img {
