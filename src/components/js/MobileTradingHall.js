@@ -325,7 +325,7 @@ root.watch.symbol = function (newValue, oldValue) {
   this.getHeaderInfo();
   // 根据当前币对请求买或卖列表
   // this.getCurrencyBuyOrSaleList();
-  this.getDepthInfo();
+  // this.getDepthInfo();
   // 请求btc->cny汇率，header需要
   this.getExchangeRate();
 
@@ -377,7 +377,7 @@ root.created = function () {
   // 订阅socket
   this.initSocket();
   // 获取深度图 用来渲染header的price信息
-  this.getDepthInfo();
+  // this.getDepthInfo();
 
   // 根据当前币对请求买或卖列表
   this.getCurrencyBuyOrSaleList();
@@ -636,6 +636,14 @@ root.methods.getCurrencyBuyOrSaleList = function () {
 root.methods.re_getCurrencyBuyOrSaleList = function (data) {
   typeof(data) == 'string' && (data = JSON.parse(data));
   // console.log("========root.methods.re_getCurrencyBuyOrSaleList=======",data)
+
+  if(data.symbol != this.symbol){
+    this.price = 0
+    this.buy_sale_list = {};
+    return;
+  }
+
+  this.price = data.price;
   this.buy_sale_list = data;
 }
 
