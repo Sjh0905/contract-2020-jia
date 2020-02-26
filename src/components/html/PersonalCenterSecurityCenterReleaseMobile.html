@@ -145,7 +145,7 @@
                  v-model="verificationCode"
                  @blur="testVerificationCode"
           >
-          <span class=" fl-ce-y" v-if="!getVerificationCode" @click="getVerificationCodeFunc">获取验证码</span>
+          <span class=" fl-ce-y" v-if="!getVerificationCode" @click="getVerificationCodeFunc">{{$t('personalCenterSecurityCenterBindMobile.send')}}</span>
           <span class="fl-ce-y-s" v-else disabled> {{getVerificationCodeCountdown}}s</span>
         </div>
         <div class="detail-prompt m-t3 wrong-msg" v-if="verificationCodeWA">{{verificationCodeWA}}</div>

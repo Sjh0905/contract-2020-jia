@@ -43,12 +43,12 @@ root.computed.uuid = function () {
 // 用户名
 root.computed.userName = function () {
   if (this.userType === 0) {
-    return this.$globalFunc.formatUserName(this.$store.state.authMessage.mobile)
+    return (this.$store.state.authMessage.mobile)
   }
   if (!this.$store.state.authMessage.email) {
     return '****@****'
   }
-  return this.$globalFunc.formatUserName(this.$store.state.authMessage.email)
+  return (this.$store.state.authMessage.email)
 }
 
 // 用户类型，如果是手机用户，为0，如果是邮箱用户，为1
@@ -120,7 +120,7 @@ root.methods.postCreateAGroup = function () {
   //   "message": "success"
   // })
   // /* TODO : 调试接口需要屏蔽 E*/
-  this.$http.send('POST_ASSEMBLE_CREATEGROUP', {
+  this.$http.send('POST_CREATE_GROUP', {
     bind: this,
     params:params,
     callBack: this.re_postCreateAGroup,
@@ -135,25 +135,65 @@ root.methods.re_postCreateAGroup = function (data) {
   this.status = data.status
 
 
-  if (this.success == true) {
-    this.$router.push({name: 'detailsOfTheGroup',params: {groupId:this.groupId}})
-  }
-
-  if (this.success == false) {
+  if(this.status === 1) {
     this.popOpen = true
     this.popType = 0
-    this.popText = this.$t('popText3')
+    // this.popText = this.$t('popText3')
+    this.popText = this.$t('colonel')
     setTimeout(() => {
       this.popOpen = true
     }, 100)
 }
-  if (this.status != 200) {
+  if(this.status === 2) {
     this.popOpen = true
     this.popType = 0
-    this.popText = this.$t('popText3')
+    this.popText = this.$t('not_registered')
     setTimeout(() => {
       this.popOpen = true
     }, 100)
+  }
+  if(this.status === 3) {
+    this.popOpen = true
+    this.popType = 0
+    this.popText = this.$t('sub_group')
+    setTimeout(() => {
+      this.popOpen = true
+    }, 100)
+  }
+  if(this.status == 4) {
+    this.popOpen = true
+    this.popType = 0
+    this.popText = this.$t('already')
+    setTimeout(() => {
+      this.popOpen = true
+    }, 100)
+  }
+  if(this.status === 5) {
+    this.popOpen = true
+    this.popType = 0
+    this.popText =
+    setTimeout(() => {
+      this.popOpen = true
+    }, 100)
+  }
+  if(this.status === 6) {
+    this.popOpen = true
+    this.popType = 0
+    this.popText = this.$t('nameMsg')
+    setTimeout(() => {
+      this.popOpen = true
+    }, 100)
+  }
+  if(this.status === 400) {
+    this.popOpen = true
+    this.popType = 0
+    this.popText = this.$t('parameter_error')
+    setTimeout(() => {
+      this.popOpen = true
+    }, 100)
+  }
+  if (this.success == true) {
+    this.$router.push({name: 'detailsOfTheGroup',params: {groupId:this.groupId}})
   }
 }
 root.methods.error_postCreateAGroup = function (err) {
@@ -162,7 +202,7 @@ root.methods.error_postCreateAGroup = function (err) {
 
 //检查团名是否可用get (query:{})
 root.methods.getNameAvailable = function () {
-  this.$http.send('GET_ASSEMBLE_ISEXISTGNAME', {
+  this.$http.send('GET_ISEXIST_GNAME', {
     bind: this,
     urlFragment: this.gname,
     // query:{

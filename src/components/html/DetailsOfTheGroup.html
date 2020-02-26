@@ -1,6 +1,7 @@
 <div class="detailsOfTheGroup">
+  <Loading v-if="loading"/>
 
-  <div class="detailsOf">
+  <div class="detailsOf" v-if="!loading">
 
 <!--    大banner-->
     <div class="of_the">
@@ -29,7 +30,8 @@
               <span class="tupian tupian_chao" v-if="glevel=='5'">{{$t('superLeague')}}</span>
             </div>
             <div class="information_div color_hui"></div>
-            <div class="information_div color_hui color_8"><img class="color_img" src="../../assets/拼团_成团展示_查看规则_icon.png" alt="">{{$t('viewRules')}}</div>
+               <!-- 查看规则 -->
+<!--            <div class="information_div color_hui color_8"><img class="color_img" src="../../assets/拼团_成团展示_查看规则_icon.png" alt="">{{$t('viewRules')}}</div>-->
           </li>
 <!--          距离下次升级-->
           <li class="information_li">
@@ -130,16 +132,16 @@
 <!--          账号-->
           <div class="list_directory_column_li_div color_a2">{{$t('accountNumber')}}</div>
 <!--          职位-->
-          <div class="list_directory_column_li_div color_a2">{{$t('position')}}</div>
+          <div class="list_directory_column_li_div color_a2 p-l">{{$t('position')}}</div>
 <!--          加入时间-->
           <div class="list_directory_column_li_dii color_a2">{{$t('additionTime')}}</div>
         </li>
 
 <!--     序号   账号  职位 加入时间-->
         <li class="list_directory_column_li_div_li" v-for="(item,index) in computedRecord" :key="item.id">
-          <div class="list_directory_column_li_div m-t">{{item.rowNum}}</div>
+          <div class="list_directory_column_li_div m-t">{{index + 1}}</div>
           <div class="list_directory_column_li_div">{{item.account}}</div>
-          <div class="list_directory_column_li_div">{{item.idType}}</div>
+          <div class="list_directory_column_li_div p-l">{{item.idType}}</div>
           <div class="list_directory_column_li_dii m-r">{{item.joinTime}}</div>
         </li>
 

@@ -353,6 +353,7 @@
 
 .select-down-box {
   width: 520px;
+
 }
 
 .inputInner {
@@ -597,6 +598,7 @@
   margin-right: 12px;
   border: 1px solid rgba(181,188,198,0.50);
   border-radius: 1px;
+  /*margin-top: 20px;*/
 }
 
 
@@ -642,7 +644,6 @@
 }
 .el-select-dropdown {
   width: 520px;
-  margin-top: 0;
 }
 
 .prompt_ttl{
