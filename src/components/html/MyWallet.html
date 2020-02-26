@@ -137,13 +137,13 @@
     </div>
     <div slot="article" class="pop-article">
 <!--      钱包到账户-->
-      <div class="Wallet-to-account flex">
+      <div class="wallet-to-account flex">
         <div class="wallet-to-account-left flex">
-        <div class="wallet-account-change">
-          <div>{{$t('from')}}</div>
-          <img src="../../assets/mywallet/record_change_bottom_icon.png" alt="">
-          <div>{{$t('reach')}}</div>
-        </div>
+          <div class="wallet-account-change">
+            <div>{{$t('from')}}</div>
+            <img src="../../assets/mywallet/record_change_bottom_icon.png" alt="">
+            <div>{{$t('reach')}}</div>
+          </div>
         </div>
         <div class="wallet-to-account-content">
           <input type="text" :placeholder='$t("coinAccount")' v-model="bibiAccount">
@@ -319,7 +319,7 @@
       <input class="input_input"  type="text"
              :placeholder='pswPlaceholderShow && $t("deletePopCancel3") || ""' v-model="testUID_0"
              @focus="closePlaceholder('psw')"
-             @blur="testUID_01">
+             @blur="testUID_01()">
       <div class="whit_0">
       <span v-if="testUID_012==='0'" class="prompt-span wrong-msg">{{testUIDMsg_0}}</span>
         </div>
@@ -334,7 +334,7 @@
              placeholder="输入转账数量，不能小于2"
              :placeholder='verificationCodePlaceholderShow && $t("deletePopCancel5") || ""' v-model="testNum_0"
              @focus="closePlaceholder('verificationCode')"
-             @blur="testNum_01">
+             @blur="testNum_01()">
       <div class="whit_0">
       <span v-if="testNumWA_0 ==='0'" class="prompt-span wrong-msg whiteListwhit">{{testNumMsg_0}}</span>
         <p class="shouxu">{{$t('Number4')}}</p>
@@ -346,7 +346,7 @@
       <!--      <input class="input_input" type="text" placeholder="输入谷歌验证码" >-->
 
       <div slot="footer">
-        <button class="Internal_siding_email1" @click="getGoToConfirmTransfer">{{$t('Number5')}}</button>
+        <button class="Internal_siding_email1" @click="getGoToConfirmTransfer()">{{$t('Number5')}}</button>
       </div>
       <p class="zhu">{{$t('Number6')}}</p>
 
