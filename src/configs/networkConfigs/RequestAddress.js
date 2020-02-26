@@ -36,7 +36,7 @@ requestAddress.WITHDRAWS_LOG = {url: urlHead+'/user/withdrawLog', method: 'post'
 // requestAddress.GET_TRANSFER_LIST = {url: urlHead+'/user/inner/transfer/list', method: 'get'}  //转账记录
 requestAddress.GET_TRANSFER_LIST = {url: urlHead+'/user/inner/transfer/list', method: 'get'}  //内部转账记录
 requestAddress.GET_TRANSFER_SPOT_LIST = {url: urlHead+'/user/transfer/spot/list', method: 'get'}  //划转记录
-requestAddress.POST_TRANSFER_LIST = {url: urlHead+'/user/transfer/spot', method: 'post'}  //划转
+requestAddress.POST_TRANSFER_SPOT = {url: urlHead+'/user/transfer/spot', method: 'post'}  //划转
 requestAddress.GET_IDENTITY_AUTH_STATUS = {url: urlHead+'/auth/getIdentityAuthStatus', method: 'get'} //获取身份认证状态
 requestAddress.FIND_FEE_BDB_INFO = {url: urlHead+'/user/findfeebdbinfo', method: 'get'} //查询BDB是否抵扣
 
@@ -449,10 +449,9 @@ requestAddress.GET_GROUP_LIST = {url: urlHead+'/assemble/queryGroupList/', metho
 // requestAddress.LOGIN_BY_MOBILE = {url: urlHead+'/user/signInByMobile', method: 'post'}  // 手机登录
 // 短信验证码    //  转账接口    auth/getVerificationCode
 // requestAddress.GET_VERIFICATIONCODE = {url: urlHead+'/auth/getVerificationCode', method: 'post'}//获取手机,邮箱验证码
-requestAddress.GET_VERIFYISIDENTITYUSER = {url: urlHead+'/user/verifyIsIdentityUser', method: 'get'} //验证收款人是否为实名认证用户
-
+requestAddress.GET_VERIFYIDENTITY_USER = {url: urlHead+'/user/verifyIsIdentityUser', method: 'get'} //验证收款人是否为实名认证用户
 // 查询当前币种的转账数量限制与手续费等信息
-requestAddress.GET_TRANSFERDISABLED = {url: urlHead+'/user/transfer/getTransferAmountInfo', method: 'get'} // 获取当前币种是否可以转账
+requestAddress.GET_TRANSFER_AMOUNT_INFO = {url: urlHead+'/user/transfer/getTransferAmountInfo', method: 'get'} // 获取当前币种是否可以转账
 
 
 export default requestAddress

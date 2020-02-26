@@ -470,7 +470,7 @@ root.methods.commit = function () {
   //   // console.log("不能发送！")
   //   return
   // }
-  this.$http.send('POST_TRANSFER_LIST', {
+  this.$http.send('POST_TRANSFER_SPOT', {
     bind: this,
     params: {
       currency: this.currencyValue,
@@ -741,7 +741,7 @@ root.methods.getGoToConfirmTransfer = function () {
 
   // // console.log('55555555555555555555555555555555',this.name_0,this.testUID_0,this.testNum_0)
 
-  this.$http.send('GET_VERIFYISIDENTITYUSER',{
+  this.$http.send('GET_VERIFYIDENTITY_USER',{
     bind: this,
     params:{
       email:this.name_0,
@@ -1482,7 +1482,7 @@ root.methods.internalTransfer = function (index, item) {
 
 // 判断是否可以转账
 root.methods.transferDisabledss = function () {
-  this.$http.send('GET_TRANSFERDISABLED',{
+  this.$http.send('GET_TRANSFER_AMOUNT_INFO',{
     bind: this,
     // query:{
     //   currency:transferCurrency

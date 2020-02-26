@@ -721,7 +721,7 @@ root.methods.commit = function () {
     return
   }
 
-  this.$http.send('POST_TRANSFER_LIST', {
+  this.$http.send('POST_TRANSFER_SPOT', {
     bind: this,
     params: {
       currency:this.currencyValue,
