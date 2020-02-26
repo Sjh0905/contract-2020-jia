@@ -579,28 +579,28 @@ root.methods.goToBindEmail = function () {
 
 // 打开划转  begin
 root.methods.openTransfer = function (index, item) {
-  if (item.currency !=='USDT' && this.serverT < item.withdrawOpenTime) {
-    this.popupPromptOpen = true
-    this.popupPromptText = this.$t('TransferIsNotOpen')
-    this.popupPromptType = 0
-    return
-  }
-
-  if (item.withdrawDisabled) {
-    this.popupPromptOpen = true
-    this.popupPromptText = this.$t('TransferIsNotOpen')
-    this.popupPromptType = 0
-    return
-  }
-
-  // 如果没有实名认证不允许打开划转
-  // if (!this.bindIdentify) {
-  //   this.popWindowTitle = this.$t('popWindowTitleTransfer')
-  //   this.popWindowPrompt = this.$t('popWindowPromptWithdrawals')
-  //   this.popWindowStyle = '0'
-  //   this.popWindowOpen = true
+  // if (item.currency !=='USDT' && this.serverT < item.withdrawOpenTime) {
+  //   this.popupPromptOpen = true
+  //   this.popupPromptText = this.$t('TransferIsNotOpen')
+  //   this.popupPromptType = 0
   //   return
   // }
+  //
+  // if (item.withdrawDisabled) {
+  //   this.popupPromptOpen = true
+  //   this.popupPromptText = this.$t('TransferIsNotOpen')
+  //   this.popupPromptType = 0
+  //   return
+  // }
+
+  // 如果没有实名认证不允许打开划转
+  if (!this.bindIdentify) {
+    this.popWindowTitle = this.$t('popWindowTitleTransfer')
+    this.popWindowPrompt = this.$t('popWindowPromptWithdrawals')
+    this.popWindowStyle = '0'
+    this.popWindowOpen = true
+    return
+  }
 
   // 如果没有绑定邮箱，不允许打开提现
   if (!this.bindEmail) {
@@ -721,7 +721,7 @@ root.methods.commit = function () {
     return
   }
 
-  this.$http.send('POST_TRANSFER_LIST', {
+  this.$http.send('POST_TRANSFER_SPOT', {
     bind: this,
     params: {
       currency:this.currencyValue,
@@ -738,9 +738,41 @@ root.methods.commit = function () {
   // this.popWindowOpen1 = false
 }
 
+
 // 划转回调
 root.methods.re_transfer = function (data){
-  console.log(data)
+  typeof data === 'string' && (data = JSON.parse(data))
+  console.log(data.errorCode)
+  if(data.errorCode === 1) {
+    this.popOpen = true
+    this.popType = 0
+    this.popText = '用户登录'
+    // this.$t('popText3')
+    setTimeout(() => {
+      this.popOpen = true
+    }, 100)
+    console.log('用户登录')
+  }
+  if(data.errorCode === 2) {
+    this.popOpen = true
+    this.popType = 0
+    this.popText = '划转金额小于零'
+    // this.$t('popText3')
+    setTimeout(() => {
+      this.popOpen = true
+    }, 100)
+    console.log(' 划转金额小于零')
+  }
+  if(data.errorCode === 3) {
+    this.popOpen = true
+    this.popType = 0
+    this.popText = '收款账户系统不存在'
+    // this.$t('popText3')
+    setTimeout(() => {
+      this.popOpen = true
+    }, 100)
+    console.log(' 收款账户系统不存在')
+  }
 }
 
 root.methods.error_transfer = function (err){

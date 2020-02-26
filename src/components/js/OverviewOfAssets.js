@@ -17,6 +17,9 @@ root.data = function () {
     popWindowPrompt1: '',//弹出样式提示
     popWindowStyle: 0,//跳转 0表示实名认证，1表示手机或谷歌，2只有确定
 
+    initData: {}, //初始值
+    initReady: true,
+
     priceReady: false,    //socket准备
     currencyReady: false, //currency准备，只有加载完全部的loading才会关闭！
     authStateReady: false, //认证状态准备
@@ -78,6 +81,44 @@ root.computed.accountsComputed = function () {
   return this.accounts
 }
 
+// 账户总资产
+root.computed.total = function () {
+  let total = 0
+  for (let i = 0; i < this.accounts.length; i++) {
+    total = this.accAdd(total, this.accounts[i].appraisement)
+  }
+  return this.toFixed(total)
+}
+
+//换算成人民币的估值
+root.computed.valuation = function () {
+  return this.total * this.computedExchangeRate
+}
+
+// 账户可用
+root.computed.available = function () {
+  let available = 0
+  for (let i = 0; i < this.accounts.length; i++) {
+    available = this.accAdd(available, this.accMul(this.accounts[i].available, this.accounts[i].rate))
+  }
+  return this.toFixed(available)
+}
+
+// 人民币汇率,由于后台接口返回了0.001，所以前端改为price接口获取，
+// 直接由本地仓库计算好拿过来就行啦,这里其实返回的是btcExchangeRate，
+// 为了和之前的变量名一致，叫exchangeRate
+root.computed.exchangeRate = function () {
+  return this.$store.state.exchange_rate.btcExchangeRate
+}
+
+// 计算汇率
+root.computed.computedExchangeRate = function () {
+  if (this.lang === 'CH') {
+    return this.exchangeRate * this.$store.state.exchange_rate_dollar
+  }
+  return this.exchangeRate
+}
+
 // 是否绑定手机
 root.computed.bindMobile = function () {
   return this.$store.state.authState.sms
@@ -113,6 +154,15 @@ root.watch.currencyChange = function (newVal, oldVal) {
 /*------------------------------ 方法 -------------------------------*/
 root.methods = {}
 
+// 跳转钱包
+root.methods.goToWallet = function () {
+  this.$router.push({name:'myWallet'})
+}
+
+// 跳转币币
+root.methods.goToBiBi = function () {
+  this.$router.push({name:'rechargeAndWithdrawals'})
+}
 
 // 判断验证状态
 root.methods.getAuthState = function () {
@@ -274,7 +324,7 @@ root.methods.commit = function () {
     // console.log("不能发送！")
     return
   }
-  this.$http.send('POST_TRANSFER_LIST', {
+  this.$http.send('POST_TRANSFER_SPOT', {
     bind: this,
     params: {
       currency:this.currencyValue,
@@ -288,6 +338,46 @@ root.methods.commit = function () {
   this.sending = true
 
   this.popWindowOpen1 = false
+}
+
+// 划转回调
+root.methods.re_transfer = function (data){
+  typeof data === 'string' && (data = JSON.parse(data))
+  console.log(data.errorCode)
+  if(data.errorCode === 1) {
+    this.popOpen = true
+    this.popType = 0
+    this.popText = '用户登录'
+    // this.$t('popText3')
+    setTimeout(() => {
+      this.popOpen = true
+    }, 100)
+    console.log('用户登录')
+  }
+  if(data.errorCode === 2) {
+    this.popOpen = true
+    this.popType = 0
+    this.popText = '划转金额小于零'
+    // this.$t('popText3')
+    setTimeout(() => {
+      this.popOpen = true
+    }, 100)
+    console.log(' 划转金额小于零')
+  }
+  if(data.errorCode === 3) {
+    this.popOpen = true
+    this.popType = 0
+    this.popText = '收款账户系统不存在'
+    // this.$t('popText3')
+    setTimeout(() => {
+      this.popOpen = true
+    }, 100)
+    console.log(' 收款账户系统不存在')
+  }
+}
+
+root.methods.error_transfer = function (err){
+  console.log(err)
 }
 
 // 弹出绑定身份，跳转到实名认证界面
@@ -323,5 +413,16 @@ root.methods.goToSecurityCenter = function () {
 }
 
 
+/*---------------------- 保留小数 begin ---------------------*/
+root.methods.toFixed = function (num, acc = 8) {
+  return this.$globalFunc.accFixed(num, acc)
+}
+/*---------------------- 保留小数 end ---------------------*/
+
+/*---------------------- 加法运算 begin ---------------------*/
+root.methods.accAdd = function (num1, num2) {
+  return this.$globalFunc.accAdd(num1, num2)
+}
+/*---------------------- 加法运算 end ---------------------*/
 
 export default root

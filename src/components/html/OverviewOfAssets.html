@@ -1,6 +1,8 @@
-<div>
-  <Loading v-if="loading"/>
-  <div  v-if="!loading">
+<div class="min-height">
+
+  <div>
+    <Loading v-if="loading"/>
+    <template v-if="!loading">
       <div class="container">
         <!--    总资产-->
         <div class="container-top-title">
@@ -24,22 +26,22 @@
 
         <div class="container-content flex">
           <!--      我的钱包-->
-          <div class="my-wallet">
+          <div class="my-wallet pointer" @click="goToWallet()">
             <div class="my-wallet-title">
               <img src="../../assets/overviewOfAssets/wallet_icon.png" alt="">
               <span>{{$t('myWallet')}}</span>
             </div>
             <div class="my-wallet-number">
-              <span>0.000000</span>
+              <span>{{priceReady || initReady ? toFixed(total,8):'----'}}</span>
               <span>BTC</span>
             </div>
             <div class="my-wallet-CNY">
-              0.0000 CNY
+              {{(priceReady || initReady) ? $globalFunc.accFixedCny(valuation,2) : '----'}} CNY
             </div>
           </div>
 
           <!--      币币账户-->
-          <div class="coin-account">
+          <div class="coin-account pointer" @click="goToBiBi()">
             <div class="my-wallet-title">
               <img src="../../assets/overviewOfAssets/bibi_icon.png" alt="">
               <span>{{$t('coinAccount')}}</span>
@@ -63,6 +65,9 @@
         </div>
       </div>
 
+    </template>
+
+
       <!--  内部划转-->
       <PopupT :switch="popWindowOpen1" @close="popWindowClose1">
         <div slot="header">
@@ -70,7 +75,7 @@
         </div>
         <div slot="article" class="pop-article">
           <!--      钱包到账户-->
-          <div class="Wallet-to-account flex">
+          <div class="wallet-to-account flex">
             <div class="wallet-to-account-left flex">
               <div class="wallet-account-change">
                 <div>{{$t('from')}}</div>

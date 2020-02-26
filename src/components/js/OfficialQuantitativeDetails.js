@@ -41,7 +41,7 @@ root.methods.buyConfirmSuccessClose = function () {
 
 //量化展示_量化交易记录get (query:{})  未完成
 root.methods.getQuantifyransactions = function () {
-  this.$http.send('GET_QUANT_GETUSERTRADE', {
+  this.$http.send('GET_USER_TRADE', {
     bind: this,
     urlFragment:this.uuid,
     // query:{userId:this.uuid},
@@ -58,7 +58,7 @@ root.methods.error_getQuantifyransactions = function (err) {
 
 //量化展示_量化基本信息get (query:{})  未完成
 root.methods.getQuantifyBasicInformation = function () {
-  this.$http.send('GET_USER_QUANTTRADE', {
+  this.$http.send('GET_TRADE', {
     bind: this,
     urlFragment:this.uuid,
     // query:{

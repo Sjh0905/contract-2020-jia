@@ -84,7 +84,7 @@ root.methods.getSupporting = function (item) {
   // }
   // this.re_getSupporting(data)
   //TODO: 要删除的
-  this.$http.send('GET_MATCHDATA', {
+  this.$http.send('GET_MATCH_DATA', {
     bind: this,
     callBack: this.re_getSupporting,
     errorHandler: this.error_getSupporting
@@ -127,7 +127,7 @@ root.methods.error_getSupporting = function (err) {
 
 //查询用户余额get (query:{})未完成
 root.methods.getBalance = function () {
-  this.$http.send('GET_GETUSERBALANCE', {
+  this.$http.send('GET_BALANCE', {
     bind: this,
     urlFragment:this.uuid,
     callBack: this.re_getBalance,
@@ -160,7 +160,7 @@ root.methods.getRegistrationRecord = function () {
   // this.re_getRegistrationRecord(data)
   // /* TODO : 调试接口需要屏蔽 E*/
 
-  this.$http.send('GET_GETREGDATA', {
+  this.$http.send('GET_GETREG_DATA', {
     bind: this,
     urlFragment:this.uuid,
     // query:{

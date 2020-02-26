@@ -303,7 +303,7 @@ root.methods.getGroupLevel = function () {
   // }
   // this.re_getGroupLevel(data)
   /* TODO : 调试接口需要屏蔽 E*/
-  this.$http.send('GET_ASSEMBLE_GETMEM', {
+  this.$http.send('GET_ASSEMBLE_GET', {
     bind: this,
     urlFragment:this.uuid,
     // query:{
