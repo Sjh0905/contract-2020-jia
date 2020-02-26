@@ -163,7 +163,7 @@ root.methods.getCheckGroupDetails= function (groupId) {
   // }
   // /*TODO : 调试接口需要屏蔽 E*/
 
-  this.$http.send('GET_QUERYGROUPINFO', {
+  this.$http.send('GET_QUERY_GROUP_INFO', {
     bind: this,
     urlFragment:groupId,
     // query:{
@@ -211,7 +211,7 @@ root.methods.postJoinGroup = function () {
   //     "message": "success"
   //   })
   /* TODO : 调试接口需要屏蔽 E*/
-  this.$http.send('POST_ASSEMBLE_JOINGROUP', {
+  this.$http.send('POST_JOIN_GROUP', {
     bind: this,
     params:params,
     callBack: this.re_postJoinGroup,
@@ -264,7 +264,7 @@ root.methods.getFuzzyQuery= function () {
   // this.re_getFuzzyQuery(data)
 
   // /* TODO : 调试接口需要屏蔽 E*/
-  this.$http.send('GET_QUERYGROUPLIST', {
+  this.$http.send('GET_GROUP_LIST', {
     bind: this,
     urlFragment: this.gname,
     // query:{

@@ -120,7 +120,7 @@ root.methods.postCreateAGroup = function () {
   //   "message": "success"
   // })
   // /* TODO : 调试接口需要屏蔽 E*/
-  this.$http.send('POST_ASSEMBLE_CREATEGROUP', {
+  this.$http.send('POST_CREATE_GROUP', {
     bind: this,
     params:params,
     callBack: this.re_postCreateAGroup,
@@ -202,7 +202,7 @@ root.methods.error_postCreateAGroup = function (err) {
 
 //检查团名是否可用get (query:{})
 root.methods.getNameAvailable = function () {
-  this.$http.send('GET_ASSEMBLE_ISEXISTGNAME', {
+  this.$http.send('GET_ISEXIST_GNAME', {
     bind: this,
     urlFragment: this.gname,
     // query:{

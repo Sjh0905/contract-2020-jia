@@ -424,24 +424,24 @@ requestAddress.POST_VOTE = {url: urlHead+'/activity/combinecoin/vote/', method: 
 requestAddress.GET_RECHARGE_RANKING_LIST = {url: urlHead+'/activity/promotion/ranking', method: 'get'}
 
 //2020-02-12,QQ交易挖矿报名
-requestAddress.GET_MATCHDATA = {url: urlHead+'/quant/matchData', method: 'get'}//查询配套数据
-requestAddress.GET_GETUSERBALANCE = {url: urlHead+'/quant/getUserBalance/', method: 'get'}//查询用户余额
-requestAddress.GET_GETREGDATA = {url: urlHead+'/quant/getRegData/', method: 'get'}//查询报名记录
-requestAddress.GET_QUANT_GETUSERTRADE = {url: urlHead+'/quant/user/getUsertrade', method: 'get'}//量化展示_量化交易记录
-requestAddress.GET_USER_QUANTTRADE = {url: urlHead+'/user/quantTrade', method: 'get'}//量化展示_量化基本信息
+requestAddress.GET_MATCH_DATA = {url: urlHead+'/quant/matchData', method: 'get'}//查询配套数据
+requestAddress.GET_BALANCE = {url: urlHead+'/quant/getUserBalance/', method: 'get'}//查询用户余额
+requestAddress.GET_GETREG_DATA = {url: urlHead+'/quant/getRegData/', method: 'get'}//查询报名记录
+requestAddress.GET_USER_TRADE = {url: urlHead+'/quant/user/getUsertrade', method: 'get'}//量化展示_量化交易记录
+requestAddress.GET_TRADE = {url: urlHead+'/user/quantTrade', method: 'get'}//量化展示_量化基本信息
 requestAddress.POST_REGACT = {url: urlHead+'/quant/regAct', method: 'post'}//活动报名
 
 
 //2020-02-14，拼团相关接口
-requestAddress.POST_ASSEMBLE_CREATEGROUP = {url: urlHead+'/assemble/createGroup', method: 'post'}//活动报名/
-requestAddress.POST_ASSEMBLE_LEVEAGROUP = {url: urlHead+'/assemble/leveaGroup', method: 'post'}//活动报名/
-requestAddress.POST_ASSEMBLE_JOINGROUP = {url: urlHead+'/assemble/joinGroup', method: 'post'}//活动报名/
-requestAddress.GET_ASSEMBLE_ISEXISTGNAME = {url: urlHead+'/assemble/isExistGname/', method: 'get'}//检查团名是否可用
-requestAddress.GET_ASSEMBLE_GETMEM = {url: urlHead+'/assemble/getMem/', method: 'get'}//获取用户组等级信息
-requestAddress.GET_QUERYMEMBERLIST = {url: urlHead+'/assemble/queryMemberList/', method: 'get'}//团员列表
-requestAddress.GET_QUERYSHOWGROUPINFO = {url: urlHead+'/assemble/queryShowGroupInfo/', method: 'get'}//拼团展示团队详情
-requestAddress.GET_QUERYGROUPINFO = {url: urlHead+'/assemble/queryGroupInfo/', method: 'get'}//查询组详情
-requestAddress.GET_QUERYGROUPLIST = {url: urlHead+'/assemble/queryGroupList/', method: 'get'}//模糊查询可加入小组
+requestAddress.POST_CREATE_GROUP = {url: urlHead+'/assemble/createGroup', method: 'post'}//活动报名/
+requestAddress.POST_LEVEA_GROUP = {url: urlHead+'/assemble/leveaGroup', method: 'post'}//活动报名/
+requestAddress.POST_JOIN_GROUP = {url: urlHead+'/assemble/joinGroup', method: 'post'}//活动报名/
+requestAddress.GET_ISEXIST_GNAME = {url: urlHead+'/assemble/isExistGname/', method: 'get'}//检查团名是否可用
+requestAddress.GET_ASSEMBLE_GET = {url: urlHead+'/assemble/getMem/', method: 'get'}//获取用户组等级信息
+requestAddress.GET_MEMBER_LIST = {url: urlHead+'/assemble/queryMemberList/', method: 'get'}//团员列表
+requestAddress.GET_GROUP_INFO = {url: urlHead+'/assemble/queryShowGroupInfo/', method: 'get'}//拼团展示团队详情
+requestAddress.GET_QUERY_GROUP_INFO = {url: urlHead+'/assemble/queryGroupInfo/', method: 'get'}//查询组详情
+requestAddress.GET_GROUP_LIST = {url: urlHead+'/assemble/queryGroupList/', method: 'get'}//模糊查询可加入小组
 
 //2020-02-18，转账相关接口
 // requestAddress.REGISTER_BY_MOBILE = {url: urlHead+'/user/registerByMobile', method: 'post'}  // 手机注册

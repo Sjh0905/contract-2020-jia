@@ -85,7 +85,7 @@ root.methods = {}
 root.methods.getTeamDetails= function () {
 
 
-  this.$http.send('GET_QUERYSHOWGROUPINFO', {
+  this.$http.send('GET_GROUP_INFO', {
     bind: this,
     urlFragment:this.uuid,
     // query:{
@@ -137,7 +137,7 @@ root.methods.postWithdraw = function (idType) {
   /* TODO : 调试接口需要屏蔽 S*/
   // this.re_postJoinGroup()
   /* TODO : 调试接口需要屏蔽 E*/
-  this.$http.send('POST_ASSEMBLE_LEVEAGROUP', {
+  this.$http.send('POST_LEVEA_GROUP', {
     bind: this,
     params: params,
     callBack: this.re_postWithdraw,
@@ -177,7 +177,7 @@ root.methods.error_postWithdraw = function (err) {
 //  //  }
 //  //  this.re_getGroupLevel(res)
 //   /* TODO : 调试接口需要屏蔽 E*/
-//   this.$http.send('GET_ASSEMBLE_GETMEM', {
+//   this.$http.send('GET_ASSEMBLE_GET', {
 //     bind: this,
 //     query:{
 //       userId:this.uuid
@@ -208,7 +208,7 @@ root.methods.error_postWithdraw = function (err) {
 root.methods.getMemberList= function (groupId) {
 
   // let groupId = this.$route.params.groupId
-  this.$http.send('GET_QUERYMEMBERLIST', {
+  this.$http.send('GET_MEMBER_LIST', {
     bind: this,
     urlFragment: `${groupId}/member`,
     query:{
