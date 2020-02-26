@@ -1,17 +1,17 @@
 <div class="mobile-asset-container">
   <Loading v-if="loading"/>
   <div v-if="!loading" class="mobile-asset-detail-title">
-    <span  class="header-box-title-logo-box">
-      <img class="header-box-title-logo" :src="'http://logo.2020.exchange/' + title +'.png'" alt="">
-    </span>
+    <!--<span  class="header-box-title-logo-box">-->
+      <!--<img class="header-box-title-logo" :src="'http://logo.2020.exchange/' + title +'.png'" alt="">-->
+    <!--</span>-->
     {{title}}
   </div>
   <div v-show="!loading" class="mobile-asset-detail-container">
-    <div class="mobile-address-container1 mobile-address-item2">链名称</div>
+    <div class="mobile-address-container1 mobile-address-item2" v-if="title == 'USDT' || title == 'USDT2'">链名称</div>
     <div class="mobile-address-item1 mobile-address-item2 mobile-address-item3" v-if="title == 'USDT' || title == 'USDT2'">
 
-      <div v-if="rechargeFlagUSDT || !rechargeFlagUSDT2" class="mobile-address-ERC" @click="toggleStatus(1)" :class="selectTab == 1 ? 'mobile-address-si' : ''">OMNI</div>
-      <div v-if="!rechargeFlagUSDT && rechargeFlagUSDT2" class="mobile-address-OMNI-disabled">OMNI</div>
+      <div v-if="rechargeFlagUSDT || !rechargeFlagUSDT2" class="mobile-address-ERC mobile-address-OMNI" @click="toggleStatus(1)" :class="selectTab == 1 ? 'mobile-address-si' : ''">OMNI</div>
+      <div v-if="!rechargeFlagUSDT && rechargeFlagUSDT2" class="mobile-address-OMNI-disabled mobile-address-OMNI">OMNI</div>
       <div v-if="rechargeFlagUSDT2 || !rechargeFlagUSDT" class="mobile-address-ERC" @click="toggleStatus(2)" :class="selectTab == 2 ? 'mobile-address-si' : ''">ERC20</div>
       <div v-if="!rechargeFlagUSDT2 && rechargeFlagUSDT" class="mobile-address-OMNI-disabled">ERC20</div>
 
@@ -29,40 +29,37 @@
 
       <div class="mobile-asset-detail-container-copy-btn" v-show="selectTab === 2" data-clipboard-target="#copyAddress" @click="copyValue">复制地址</div>
       <div class="mobile-asset-detail-container-copy-btn" v-show="selectTab === 1" data-clipboard-target="#copyAddress1" @click="copyValue">复制地址</div>
-      <div v-if="title === 'USDT'" class="mobile-asset-detail-container-rednotice">*请确认是基于{{selectTab == 2? '以太网络(ERC20)':'比特网络(OMNI)'}}的USDT地址；</div>
+      <div v-if="title === 'USDT'" class="mobile-asset-detail-container-rednotice">*请确认是基于{{selectTab == 2? '以太网络(ERC20)':'比特网络(OMNI)'}}的USDT地址</div>
 <!--      <div v-if="title === 'USDT'" class="mobile-asset-detail-container-rednotice">*请确认是基于比特网络（{{address}}）的USDT地址；</div>-->
       <div class="clear"></div>
     </div>
 
 
-
-    <div v-show="memoAddress">
-    <div class="mobile-cutter-line"></div>
-
-    <div class="mobile-asset-detail-container-title">memo(备注)</div>
-    <div class="mobile-asset-detail-container-box">
-      <div id="copyMemoAddress" class="mobile-asset-detail-container-address">{{memoAddress}}</div>
-      <div class="mobile-asset-detail-container-copy-memo-btn" data-clipboard-target="#copyMemoAddress" @click="copyMemoValue">复制</div>
-      <div class="clear"></div>
-    </div>
-    <div class="mobile-asset-detail-container-title">扫描二维码</div>
-    <div class="mobile-asset-detail-container-address-box">
-      <QRCodeVue :value="memoAddress" size="100" level="H"/>
-    </div>
-  </div>
-
-    <div v-show="publicKeyAddress">
-      <div class="mobile-cutter-line"></div>
-
-      <div class="mobile-asset-detail-container-title">publicKey(备注)</div>
-      <div class="mobile-asset-detail-container-box">
-        <div id="copyPublicAddress" class="mobile-asset-detail-container-address">{{publicKeyAddress}}</div>
-        <div class="mobile-asset-detail-container-copy-publicKey-btn" data-clipboard-target="#copyPublicAddress" @click="copyPublicKeyValue">复制3</div>
-        <div class="clear"></div>
+    <div v-show="memoAddress" class="mobile-cutter-line"/>
+    <div v-show="memoAddress" class="mobile-asset-detail-container-memo-box">
+      <div class="mobile-asset-detail-container-address-box">
+        <QRCodeVue :value="memoAddress" size="100" level="H"/>
       </div>
       <div class="mobile-asset-detail-container-title">扫描二维码</div>
-        <div class=" mobile-asset-detail-container-address-box">
-          <QRCodeVue :value="publicKeyAddress" size="100" level="H"/>
+      <div class="mobile-asset-detail-container-title-cz">memo(备注)</div>
+      <div class="mobile-asset-detail-container-box">
+        <div id="copyMemoAddress" class="mobile-asset-detail-container-address">{{memoAddress}}</div>
+        <div class="mobile-asset-detail-container-copy-btn mobile-asset-detail-container-copy-memo-btn" data-clipboard-target="#copyMemoAddress" @click="copyMemoValue">复制memo</div>
+        <div class="clear"></div>
+      </div>
+    </div>
+
+    <div v-show="publicKeyAddress" class="mobile-cutter-line"/>
+    <div v-show="publicKeyAddress" class="mobile-asset-detail-container-memo-box">
+      <div class=" mobile-asset-detail-container-address-box">
+        <QRCodeVue :value="publicKeyAddress" size="100" level="H"/>
+      </div>
+      <div class="mobile-asset-detail-container-title">扫描二维码</div>
+      <div class="mobile-asset-detail-container-title-cz">publicKey(备注)</div>
+      <div class="mobile-asset-detail-container-box">
+        <div id="copyPublicAddress" class="mobile-asset-detail-container-address">{{publicKeyAddress}}</div>
+        <div class="mobile-asset-detail-container-copy-btn mobile-asset-detail-container-copy-publicKey-btn" data-clipboard-target="#copyPublicAddress" @click="copyPublicKeyValue">复制publicKey</div>
+        <div class="clear"></div>
       </div>
     </div>
 
@@ -99,9 +96,9 @@
 
   <div v-if="memoToastShow&&!loading" class="memo-toast">
     <div class="memo-toast-box">
-      <!--<div class="memo-toast-box-close-btn-box" @click="closeMemoToast">-->
-        <!--<img class="memo-toast-box-close-btn" src="../../assets/mobile_img/mobile_asset_commen/h5_toast_close_btn.png" alt="">-->
-      <!--</div>-->
+      <div class="memo-toast-box-close-btn-box" @click="closeMemoToast">
+        <img class="memo-toast-box-close-btn" src="../../assets/mobile_img/mobile_asset_commen/h5_toast_close_btn.png" alt="">
+      </div>
       <div class="memo-toast-title">提示</div>
       <div class="memo-toast-body">充值{{title}}到二零二零须同时具备充值地址及{{title}} memo (备注)。 未遵守{{title}}充值规则将导致资产无法找回。</div>
       <div class="memo-checkbox-box">
@@ -110,7 +107,7 @@
           我已知晓{{title}}充值规则
         </div>
       </div>
-      <div class="memo-confirm-btn" :class="memoAgreement===false?'memo-confirm-btn-no-use':''" @click="memoConfirm">继续充值</div>
+      <div class="memo-confirm-btn" :class="memoAgreement===false?'memo-confirm-btn-no-use':'btn_blue'" @click="memoConfirm">继续充值</div>
     </div>
   </div>
 

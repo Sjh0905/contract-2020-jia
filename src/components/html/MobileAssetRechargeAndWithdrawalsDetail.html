@@ -85,18 +85,18 @@
 
       <div class="asset-oper-btn-box">
         <div class="asset-oper-btn-list">
-          <a href="#" class="asset-oper-btn-item">
+          <div class="asset-oper-btn-item" @click="jumpToRecharge(currencyTitle)">
             <img class="asset-oper-btn-item-img" src="../../assets/H5img/asset_recharge.png" alt="">
             <span class="asset-oper-btn-item-text">充币</span>
-          </a>
-          <router-link to="" class="asset-oper-btn-item">
+          </div>
+          <div class="asset-oper-btn-item" @click="jumpToWithdraw(accountsComputed)">
             <img class="asset-oper-btn-item-img" src="../../assets/H5img/asset_withdraw.png" alt="">
             <span class="asset-oper-btn-item-text">提币</span>
-          </router-link>
-          <router-link to="" class="asset-oper-btn-item">
+          </div>
+          <div class="asset-oper-btn-item" @click="jumpToTransfer(accountsComputed)">
             <img class="asset-oper-btn-item-img" src="../../assets/H5img/asset_capital_transfer.png" alt="">
             <span class="asset-oper-btn-item-text">划转</span>
-          </router-link>
+          </div>
           <router-link to="" class="asset-oper-btn-item">
             <img class="asset-oper-btn-item-img" src="../../assets/H5img/asset_internal_transfer.png" alt="">
             <span class="asset-oper-btn-item-text">内部转账</span>
@@ -131,15 +131,17 @@
       <div class="lock-position-confirm-toast-title">提示</div>
       <div class="lock-position-confirm-toast-list">
         <div class="lock-position-confirm-toast-item">
-          该操作需要身份认证，请立刻前往app端个人中心完成
+          <!--该操作需要身份认证，请立刻前往app端个人中心完成-->
+          该操作需要身份认证，请立刻前往PC端个人中心完成
         </div>
       </div>
       <div class="lock-position-confirm-toast-btns">
-        <div class="lock-position-confirm-toast-btn-close" @click="popIdenClose">取消</div>
+        <!--<div class="lock-position-confirm-toast-btn-close" @click="popIdenClose">取消</div>-->
 <!--        <div class="lock-position-confirm-toast-btn-confirm" @click="popIdenContain">确定</div>-->
-        <a class="lock-position-confirm-toast-btn-confirm"
-           href="https://download.2020.exchange/"
-           target="_blank">下载app</a>
+        <!--<a class="lock-position-confirm-toast-btn-confirm"-->
+           <!--href="https://download.2020.exchange/"-->
+           <!--target="_blank">下载app</a>-->
+        <div class="lock-position-confirm-toast-btn-confirm btn_blue" @click="popIdenClose">我知道了</div>
       </div>
     </div>
   </div>

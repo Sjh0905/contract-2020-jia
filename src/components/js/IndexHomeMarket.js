@@ -117,7 +117,8 @@ root.computed.marketList = function () {
   // TODO:暂时先写死，后期修改专区再改吧
   // return ans.length == 0 ? ['自选区','USDT','ENX','创新区'] : ans
   // return ['自选区','USDT','ENX','创新区']
-  return [this.$t('Favorites'),'USDT','ENX',this.$t('Innovation')]
+  return [this.$t('Favorites'),'USDT',this.$t('Innovation')]
+  // return [this.$t('Favorites'),'USDT','ENX',this.$t('Innovation')]
 }
 
 // ajax获取的数据

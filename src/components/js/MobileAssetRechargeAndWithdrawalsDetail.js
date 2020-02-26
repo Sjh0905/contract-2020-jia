@@ -710,6 +710,62 @@ root.methods.jumpToWithdraw = function (type) {
   }
 }
 
+root.methods.jumpToTransfer = function (type) {
+  let name = type.currency
+  let currencyObj = this.$store.state.currency.get(name)
+
+  this.$router.push("/index/mobileAsset/mobileAssetCapitalTransfer?currency=" + name)
+
+  //只有当USDT MONI类型未开放充值时才判断USDT2是否开放，当两个都未开放时才拦截
+  if(name == 'USDT' && (currencyObj && !currencyObj.withdrawEnabled)){
+    let currencyUSDT2 = this.$store.state.currency.get('USDT2')
+    if(currencyUSDT2 && !currencyUSDT2.withdrawEnabled){
+      this.popOpen = true
+      this.popType = 0
+      this.popText = '该币种暂未开放提现功能，敬请期待！';
+      return
+    }
+  }
+
+  if(name != 'USDT' && this.serverT < this.accountsComputed.withdrawOpenTime){
+    this.popOpen = true
+    this.popType = 0
+    this.popText = '该币种暂未开放提现功能，敬请期待！';
+    return
+  }
+
+  if (type.withdrawDisabled){
+    this.popOpen = true
+    this.popType = 0
+    this.popText = '该币种暂未开放提现功能，敬请期待！';
+    return
+  }
+
+  if (!this.bindIdentify) {
+    this.popIdenOpen = true
+    return
+  }
+  // 如果没有绑定邮箱，不允许打开提现
+  if (!this.bindEmail) {
+    this.toastNobindShow = true
+    return
+  }
+
+  if (this.bindIdentify) {
+    if (!this.bindMobile && !this.bindGA) {
+      this.popOpen = true
+      this.popType = 0
+      this.popText = '请绑定谷歌验证或手机'
+      return
+    }
+    if (this.bindMobile || this.bindGA) {
+      // this.$store.commit('changeMobileRechargeRecordData',type)
+      this.$router.push("/index/mobileAsset/mobileAssetCapitalTransfer?currency=" + name)
+      return
+    }
+  }
+}
+
 // 关闭pop提示
 root.methods.popClose = function () {
   this.popOpen = false
