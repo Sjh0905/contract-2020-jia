@@ -40,6 +40,15 @@ root.data = function () {
 
     ActivityRecord:[],
 
+    // 获取多少条消息
+    capitalTransferLimit: 10,
+    //是否Transfer获取ajax结果 默认为false
+    ajaxCapitalTransferFlag:false,
+    //划转记录
+    capitalTransferLists:[],
+    // 是否显示划转记录加载更多
+    isShowGetMoreCapitalTransfer: true,
+
     // 弹窗
     popOpen: false,
     popType: 0,
@@ -84,6 +93,10 @@ root.computed.computedActivityRecord = function () {
   return this.ActivityRecord
 }
 
+root.computed.computedCapitalTransfer = function () {
+  return this.capitalTransferLists
+}
+
 // 获取userId
 root.computed.userId = function () {
   return this.$store.state.authMessage.userId
@@ -94,19 +107,21 @@ root.methods = {}
 root.methods.changeOpenTypeQuery = function () {
   // console.log('location',location.search.substr(1).split("=")[1])
   let num = this.$route.query.id || 1
+  this.openType = num
 
-  if (num == 2){
-    this.openType = 2
-    this.getWithdraw()
-  }
   if(num == 1) {
-    this.openType = 1
     this.getRecord()
   }
+  if (num == 2){
+    this.getWithdraw()
+  }
   if(num == 3) {
-    this.openType = 3
     // this.getRecord()
     this.getRewardRecord()
+  }
+  if(num == 4) {
+    // this.getRecord()
+    this.getCapitalTransferList()
   }
 
 }
@@ -116,10 +131,16 @@ root.methods.changeOpenType = function(num){
   this.openType = num
   // console.log('this is store',this.$store.state.mobileHeaderTitle,this.$store.state.currencyChange)
 
+  if(num === 1){
+    this.$router.push({'path':'/index/mobileAsset/MobileAssetRechargeAndWithdrawRecord',query:{id:1}})
+    this.$store.commit('changeMobileHeaderTitle', '');
+    this.getRecord()
+  }
+
   if(num===2){
     this.$router.push({'path':'/index/mobileAsset/MobileAssetRechargeAndWithdrawRecord',query:{id:2}})
-    this.$store.commit('changeMobileHeaderTitle', '充提记录');
 
+    this.$store.commit('changeMobileHeaderTitle', '');
     // 获取withdraw值
     if(this.isFirstGetWithdrawFlag === true ){
       console.log('进入此',this.isFirstGetWithdrawFlag)
@@ -129,14 +150,13 @@ root.methods.changeOpenType = function(num){
   }
   if(num === 3) {
     this.$router.push({'path':'/index/mobileAsset/MobileAssetRechargeAndWithdrawRecord',query:{id:3}})
-    this.$store.commit('changeMobileHeaderTitle', '充提记录');
+    this.$store.commit('changeMobileHeaderTitle', '');
     this.getRewardRecord()
   }
-
-  if(num === 1){
-    this.$router.push({'path':'/index/mobileAsset/MobileAssetRechargeAndWithdrawRecord',query:{id:1}})
-    this.$store.commit('changeMobileHeaderTitle', '充提记录');
-    this.getRecord()
+  if(num === 4) {
+    this.$router.push({'path':'/index/mobileAsset/MobileAssetRechargeAndWithdrawRecord',query:{id:4}})
+    this.$store.commit('changeMobileHeaderTitle', '');
+    this.getCapitalTransferList()
   }
 
 
@@ -333,6 +353,103 @@ root.methods.error_getRewardRecord = function (err) {
   console.warn('获取平台奖励出错', err)
 }
 
+// 获取划转记录
+root.methods.getCapitalTransferList = function () {
+  if(this.ajaxCapitalTransferFlag === true){
+    return;
+  }
+  this.ajaxCapitalTransferFlag = true
+
+  this.$http.send("GET_TRANSFER_SPOT_LIST", {
+    bind: this,
+    query:{
+      status:0,//默认0 全部，1 失败，2 成功
+      currency:'',
+      pageSize:this.capitalTransferLimit
+    },
+    callBack: this.re_getCapitalTransferList,
+    errorHandler: this.error_getCapitalTransferList
+  })
+}
+// 获取划转记录回调
+root.methods.re_getCapitalTransferList = function (data) {
+  data = {
+      "dataMap": {
+      "userTransferRecordList": [
+        {
+          "amount": 40233881.602273375,
+          "createdAt": 39774113.55728635,
+          "currency": "USDT测试",
+          "timestamp": "ut",
+          "transferType": "consectetur elit voluptate non ullamco",
+          "userId": -9238746.754895285,
+          "id": -86783273.65578213,
+          "status": "DONE",
+          "transferId": "nostrud",
+          "transferFrom": "occaecat et irure dolor eiusmod",
+          "transferTo": "voluptate ad tempor pariatur qui",
+          "updatedAt": 1578226647197,
+          "version": -56367974.38596788
+        },{
+          "amount": 40233881.602273375,
+          "createdAt": 39774113.55728635,
+          "currency": "USDT测试",
+          "timestamp": "ut",
+          "transferType": "consectetur elit voluptate non ullamco",
+          "userId": -9238746.754895285,
+          "id": -86783273.65578213,
+          "status": "SUBMITTED",
+          "transferId": "nostrud",
+          "transferFrom": "occaecat et irure dolor eiusmod",
+          "transferTo": "voluptate ad tempor pariatur qui",
+          "updatedAt": 1578226647197,
+          "version": -56367974.38596788
+        },{
+          "amount": 40233881.602273375,
+          "createdAt": 39774113.55728635,
+          "currency": "USDT测试",
+          "timestamp": "ut",
+          "transferType": "consectetur elit voluptate non ullamco",
+          "userId": -9238746.754895285,
+          "id": -86783273.65578213,
+          "status": "FAILED",
+          "transferId": "nostrud",
+          "transferFrom": "occaecat et irure dolor eiusmod",
+          "transferTo": "voluptate ad tempor pariatur qui",
+          "updatedAt": 1578226647197,
+          "version": -56367974.38596788
+        }
+      ]
+    },
+    "errorCode": 0,
+    "result": "ut Ut mollit in fugiat"
+  }
+  typeof data === 'string' && (data = JSON.parse(data))
+
+  this.ajaxCapitalTransferFlag = false
+
+  if (!data) return
+  console.log('获取划转记录', data)
+  this.capitalTransferLists = data.dataMap.userTransferRecordList
+
+
+  if (this.capitalTransferLists.length < this.capitalTransferLimit){
+    this.isShowGetMoreCapitalTransfer = false
+  } else {
+    this.capitalTransferLimit += 10;
+  }
+
+  this.loading = false
+}
+// 获取划转记录出错
+root.methods.error_getCapitalTransferList = function (err) {
+  this.ajaxCapitalTransferFlag = true
+  if(this.ajaxCapitalTransferFlag === true){
+    this.loading = false
+  }
+  console.warn("转账获取记录出错！", err)
+}
+
 
 
 // 点击跳转充值详情页
@@ -353,6 +470,11 @@ root.methods.toWithdrawDetailPath = function (type) {
 //   this.$router.push("/index/mobileAsset/mobileAssetWithdrawRecordDetail/")
 // }
 
+// 点击跳进划转详情页
+root.methods.toTransferDetailPath = function (type) {
+  // this.$store.commit('changeMobileRechargeRecordData',type)
+  // this.$router.push("/index/mobileAsset/mobileAssetWithdrawRecordDetail/")
+}
 // 关闭pop提示
 root.methods.popClose = function () {
   this.popOpen = false
