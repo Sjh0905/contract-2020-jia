@@ -46,7 +46,7 @@
 <!--            普通区折扣-->
             <div class="information_div color_hui">{{$t('ordinaryDiscount')}}</div>
 <!--            量化区折扣-->
-            <div class="information_div color_hui">{{$t('quantitativeDiscount')}}</div>
+            <div class="information_div color_hui">{{$t('quantifiedDiscount')}}</div>
           </li>
 <!--          团长，副团长 建团时间-->
           <li class="information_li m-to">
@@ -166,4 +166,6 @@
 
     </div>
   </div>
+  <PopupPrompt :popOpen="popOpen" :popClose="popClose" :popType="popType" :popText="popText"/>
+
 </div>

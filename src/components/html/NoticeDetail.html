@@ -1,7 +1,7 @@
-<div class="container border_radius box_shadow">
+<div class="container border_radius">
   <!-- <div class="title flex"> -->
     <!-- <span class="title-block"></span> -->
-    <!-- <span class="title-title pointer" @click="goBack">{{$t('noticeCenter.title')}}</span> -->
+<!--     <span class="title-title pointer" @click="goBack">{{$t('noticeCenter.title')}}</span>-->
     <!-- <span class="title-separate">></span> -->
     <!-- <span class="title-detail">{{$t('noticeDetail.titleDetail')}}</span> -->
     <!--<p class="search">-->
@@ -21,13 +21,15 @@
         <span class="article-title-detail">
           {{noticeDetail.title}}
         </span>
-<!--         <div class="article-title-time">-->
-<!--           <img src="" alt="">-->
-<!--           <span>{{formatDateUitl(noticeDetail.beginTime)}}</span>-->
-<!--           <span>{{formatDateUitll(noticeDetail.beginTime)}}</span>-->
-<!--         </div>-->
+
+      </div>
+      <div class="article-title-time">
+        <!--           <img src="" alt="">-->
+        <span>{{formatDateUitl(noticeDetail.beginTime)}}发布</span>
+        <!--           <span>{{formatDateUitll(noticeDetail.beginTime)}}</span>-->
       </div>
     </template>
+
 
     <div class="article-detail" ref="articleDetail">
       <p class="article-detail-block">

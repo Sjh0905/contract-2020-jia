@@ -13,12 +13,14 @@ root.data = function () {
     offset: 0,//从第几个开始
     maxResults: 10, //请求个数
 
+    // noticeDetail: {},
 
     loading: true, //加载中
 
 
     loadingMore: true,//加载更多
     loadingMoreIng: false,//加载更多中
+
 
   }
 }
@@ -28,6 +30,9 @@ root.created = function () {
   this.getNoticeList()
   // 关闭公告小红点
   this.$store.commit('changeNoticeRedPoint',false);
+
+
+  console.log('this.$route生命周期NoticeCenter=======',this.$route.name)
 }
 
 /*---------------------- 计算 -----------------------*/
@@ -62,6 +67,7 @@ root.watch.lang = function (oldVal, newVal) {
     this.loadingMore = true
     this.loading = true
     this.getNoticeList()
+
   }
 }
 
@@ -145,12 +151,19 @@ root.methods.clickToDetail = function (id) {
   // console.log(id)
 }
 
+// // 格式化时间
+// root.methods.formatDateUitl = function (time) {
+//   return this.$globalFunc.formatDateUitl(time, 'MM-DD')
+// }
+
 // 格式化时间
 root.methods.formatDateUitl = function (time) {
-  return this.$globalFunc.formatDateUitl(time, 'MM-DD')
+  return this.$globalFunc.formatDateUitl(time, 'YYYY-MM-DD')
 }
 
-
+root.methods.formatDateUitll = function(time) {
+  return this.$globalFunc.formatDateUitl(time, 'hh:mm:ss')
+}
 
 // 标题最多显示40个字符
 root.methods.maxTitleLength = function (src) {
