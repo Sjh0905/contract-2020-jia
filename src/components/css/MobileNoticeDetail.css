@@ -1,6 +1,6 @@
 .mobile-notice-box{
   background: #131F30;
-  height:100%
+  /*height:100%*/
 }
 .mobile-notice-box1{
   background: #fff;
@@ -87,7 +87,7 @@ mobile-notice-title1 {
   overflow: hidden;
   /* background: #081724; */
   width: 6.9rem;
-  height: 5.62rem;
+  /*height: 5.62rem;*/
   font-size: 0.28rem;
   font-family: PingFangSC-Regular,PingFang SC;
   font-weight: 400;
@@ -112,54 +112,82 @@ mobile-notice-title1 {
 }
 
 .mobile-notice-content p strong{
-  color: #fff!important;
+  /*color: #fff!important;*/
   /*background: #081724 !important;*/
 }
 
 .mobile-notice-content p span{
-  color: #242D3D !important;
-  background: #fff !important;
+  /*color: #242D3D !important;*/
+  /*background: #fff !important;*/
 }
 
 .mobile-notice-content p span strong{
-  color: #242D3D !important;
-  background: #fff !important;
+  /*color: #242D3D !important;*/
+  /*background: #fff !important;*/
 }
 
 .mobile-notice-content a{
-  color: #fff !important;
+  color: #3576F5 !important;
+  word-wrap: break-word;
+  word-break: break-all;
   /*text-decoration: #ccc;*/
   /*background: #fff !important;*/
 }
 
 .mobile-notice-content a strong{
-  color: rgb(0,0,238) !important;
-  background: #fff !important;
+  /*color: rgb(0,0,238) !important;*/
+  /*background: #fff !important;*/
 }
 
 .mobile-notice-content p a{
-  color: #ccc !important;
+  /*color: #ccc !important;*/
   /*text-decoration: #ccc;*/
   /*background: #fff !important;*/
 }
 
 .mobile-notice-content p a strong{
-  color: rgb(0,0,238) !important;
-  background: #fff !important;
+  /*color: rgb(0,0,238) !important;*/
+  /*background: #fff !important;*/
 }
 
 .mobile-notice-content p a span{
-  color: rgb(0,0,238) !important;
-  background: #fff!important;
+  /*color: rgb(0,0,238) !important;*/
+  /*background: #fff!important;*/
 }
 
 .mobile-notice-content p a span strong{
-  color: rgb(0,0,238) !important;
-  background: #fff !important;
+  /*color: rgb(0,0,238) !important;*/
+  /*background: #fff !important;*/
 }
 
 .mobile-notice-content img {
   width: 100%;
   display: block;
 }
+
+/*当公告中有表格，需要运营人员发布公告时给<table>加一个父节点<div class="table-box">*/
+.mobile-notice-content div.table-box {
+  width: 100%;
+  overflow-x: auto;
+}
+.mobile-notice-content table {
+  text-align: center;
+  font-size: 0.28rem;
+  font-family: PingFangSC-Regular,PingFang SC;
+  font-weight: 400;
+  color: #CFD3E9 !important;;
+  border: 1px solid !important;;
+}
+.mobile-notice-content table tbody tr {
+  background: #131F30 !important;
+  border: 1px solid !important;;
+
+}
+.mobile-notice-content table tbody tr td {
+  background: #131F30 !important;
+  border: 1px solid !important;;
+
+}
+
+
 
