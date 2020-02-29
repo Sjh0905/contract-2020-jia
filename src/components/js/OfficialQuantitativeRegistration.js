@@ -19,6 +19,7 @@ root.data = () => {
 root.created = function() {
   this.getSupporting()
   this.getRegistrationRecord()
+  this.getBalance()
 }
 
 root.computed = {}
@@ -127,6 +128,35 @@ root.methods.error_getSupporting = function (err) {
 
 //查询用户余额get (query:{})未完成
 root.methods.getBalance = function () {
+  // /* TODO : 调试接口需要屏蔽 S*/
+  var data ={
+    "data": [
+    {
+      "id": "25139",
+      "createdAt": "1574162856000",
+      "updatedAt": "1574162856000",
+      "userId": "100003",
+      "version": "1",
+      "balance": "1.000000000000000000",
+      "currency": "BTC",
+      "type": "SPOT_AVAILABLE"
+    },
+    {
+      "id": "25142",
+      "createdAt": "1574162856000",
+      "updatedAt": "1574162856000",
+      "userId": "100003",
+      "version": "1",
+      "balance": "1000.000000000000000000",
+      "currency": "CHA3",
+      "type": "SPOT_AVAILABLE"
+    }
+  ],
+    "status": "200",
+    "message": "success"
+  }
+  this.re_getBalance(data)
+  // /* TODO : 调试接口需要屏蔽 E*/
   this.$http.send('GET_BALANCE', {
     bind: this,
     urlFragment:this.uuid,
@@ -134,11 +164,11 @@ root.methods.getBalance = function () {
     errorHandler: this.error_getBalance
   })
 }
-root.methods.re_getBalance = function (res) {
-  console.log("this.res=====",res)
+root.methods.re_getBalance = function (data) {
+  console.log("this.res=====查询用户余额",data.data)
 }
-root.methods.error_getBalance = function (err) {
-  console.log("this.err=====",err)
+root.methods.error_getBalance = function (data) {
+  console.log("this.err=====",data.data)
 }
 
 //查询报名记录get
