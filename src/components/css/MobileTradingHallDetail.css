@@ -175,7 +175,8 @@
   display: inline-block;
   height: 0.71rem;
   width: 100%;
-  text-align: center;
+  padding-left: 0.12rem;
+  /*text-align: center;*/
   border: none;
   /*border-top: .5px solid #3E536C;*/
   /*border-left: .5px solid #3E536C;*/
@@ -189,7 +190,7 @@
   color:rgba(255,255,255,0.4);
   font-size:0.26rem;
   text-align: left;
-  padding-left: 15px;
+  padding-left: 0.1rem;
 }
 
 .shuliannum{

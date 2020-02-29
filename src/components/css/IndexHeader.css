@@ -799,7 +799,7 @@
 
   .mobile-header-login-box span{
     /*font-family: PingFangSC-Medium;*/
-    font-size: 15px;
+    font-size: 14px;
     color: #FFFFFF;
     letter-spacing: 0;
     text-align: center;
@@ -1199,7 +1199,7 @@
   border-bottom: 0.1rem solid #3576F5;
   border-left: 0.1rem solid transparent;
   position: absolute;
-  left: 1.6rem;
+  left: 1.5rem;
   right: 0;
   top: 0.38rem;
 }
@@ -1211,7 +1211,7 @@
   border-right: 0.1rem solid transparent;
   border-left: 0.1rem solid transparent;
   position: absolute;
-  left: 1.6rem;
+  left: 1.5rem;
   right: 0;
   top: 0.38rem;
 }

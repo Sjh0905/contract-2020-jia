@@ -475,7 +475,7 @@ root.methods.commit = function () {
     params: {
       currency: this.currencyValue,
       amount: this.amountInput,
-      system: this.bibiAccount==='币币账户'?'WALLET':'SPOTS'
+      system: this.bibiAccount ==='币币账户'?'WALLET':'SPOTS'
     },
     callBack: this.re_transfer,
     errorHandler: this.error_transfer
@@ -1409,7 +1409,7 @@ root.methods.openRecharge = function (index, item) {
 //sss 打开内部转账
 root.methods.internalTransfer = function (index, item) {
   this.transferCurrency = item.currency
-  this.transferDisabledss()
+  this.transferDisabledss(item.currency)
 
   console.log('item.currency=================================', item.currency)
   // this.transferCurrency = item.currency
@@ -1481,12 +1481,12 @@ root.methods.internalTransfer = function (index, item) {
 }
 
 // 判断是否可以转账
-root.methods.transferDisabledss = function () {
+root.methods.transferDisabledss = function (transferCurrency) {
   this.$http.send('GET_TRANSFER_AMOUNT_INFO',{
     bind: this,
-    // query:{
-    //   currency:transferCurrency
-    // },
+    query:{
+      currency:transferCurrency
+    },
     callBack: this.re_transferDisabled,
     errorHandler: this.error_transferDisabled
   })
