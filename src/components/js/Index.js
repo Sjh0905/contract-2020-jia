@@ -188,8 +188,11 @@ root.methods.refreshTipsPop = function () {
 root.methods.popWindowClose = function () {
   this.popWindowOpen = false
 }
-//sss===
+//sss=== click_bind
 
+root.methods.click_bind = function () {
+  this.bindEmailPopOpen = false
+}
 // 获取币种和账户
 root.methods.getCurrencyAndAccount = function () {
 

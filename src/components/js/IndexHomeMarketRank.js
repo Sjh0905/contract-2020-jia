@@ -256,19 +256,19 @@ root.methods.RE_GET_NOTICE = function (res) {
 
 }
 
-root.methods.goNotice = function (res) {
-  window.open(res)
-  // this.$router.push({path: '/index/notice/noticeDetail', query: {id: res}})
+root.methods.goNotice = function (item) {
+  // window.open(item.url)
+  this.$router.push({path: '/index/notice/noticeDetail', query: {id: item.id}})
 //公告小图标跳转zendesk
 }
 
 root.methods.goPicNotice = function (res) {
 //公告跳转zendesk
-  if(this.$store.state.lang == 'CH'){
-    window.open("https://customerservice8872.zendesk.com/hc/zh-cn/categories/360002253311-%E5%85%AC%E5%91%8A%E4%B8%AD%E5%BF%83")
-  }else{
-    window.open("https://customerservice8872.zendesk.com/hc/en-001/categories/360002253311-Announcements")
-  }
+//   if(this.$store.state.lang == 'CH'){
+//     window.open("https://customerservice8872.zendesk.com/hc/zh-cn/categories/360002253311-%E5%85%AC%E5%91%8A%E4%B8%AD%E5%BF%83")
+//   }else{
+//     window.open("https://customerservice8872.zendesk.com/hc/en-001/categories/360002253311-Announcements")
+//   }
   // window.open("https://customerservice8872.zendesk.com/hc/zh-cn/categories/360002253311-%E5%85%AC%E5%91%8A%E4%B8%AD%E5%BF%83")
 //   let id
 //   id=this.noticeList[0].id
@@ -280,7 +280,7 @@ root.methods.goPicNotice = function (res) {
 //   })
 //   console.log(id)
 //
-//   this.$router.push({path: '/index/notice/noticeDetail', query: {id:id}})
+  this.$router.push({path: '/index/notice'})
 
 }
 
