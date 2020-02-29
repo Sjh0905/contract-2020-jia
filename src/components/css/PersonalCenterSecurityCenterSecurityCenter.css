@@ -89,6 +89,7 @@
 }
 
 .identity-button {
+  width: 130px;
   /*padding: 5px 15px;*/
   font-size: 14px;
 }
