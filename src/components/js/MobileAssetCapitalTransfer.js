@@ -662,7 +662,7 @@ root.methods.postTransferSpot = function () {
     params: {
       currency: this.title,
       amount: this.transferAmount,
-      system: this.assetAccountType == 'wallet'?'WALLET':'SPOTS'
+      system: this.assetAccountType == 'wallet'?'SPOTS':'WALLET'//assetAccountType:要转出的账户，system需要传到账账户
     },
     callBack: this.re_postTransferSpot,
     errorHandler: this.error_postTransferSpot

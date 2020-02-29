@@ -49,6 +49,15 @@ root.data = function () {
     // 是否显示划转记录加载更多
     isShowGetMoreCapitalTransfer: true,
 
+    // 获取多少条消息
+    internalTransferLimit: 10,
+    //是否Transfer获取ajax结果 默认为false
+    ajaxInternalTransferFlag:false,
+    //划转记录
+    internalTransferLists:[],
+    // 是否显示划转记录加载更多
+    isShowGetMoreInternalTransfer: true,
+
     // 弹窗
     popOpen: false,
     popType: 0,
@@ -97,6 +106,10 @@ root.computed.computedCapitalTransfer = function () {
   return this.capitalTransferLists
 }
 
+root.computed.computedInternalTransfer = function () {
+  return this.internalTransferLists
+}
+
 // 获取userId
 root.computed.userId = function () {
   return this.$store.state.authMessage.userId
@@ -116,12 +129,13 @@ root.methods.changeOpenTypeQuery = function () {
     this.getWithdraw()
   }
   if(num == 3) {
-    // this.getRecord()
     this.getRewardRecord()
   }
   if(num == 4) {
-    // this.getRecord()
     this.getCapitalTransferList()
+  }
+  if(num == 5) {
+    this.getInternalTransferList()
   }
 
 }
@@ -148,22 +162,24 @@ root.methods.changeOpenType = function(num){
     }
     return
   }
+
   if(num === 3) {
     this.$router.push({'path':'/index/mobileAsset/MobileAssetRechargeAndWithdrawRecord',query:{id:3}})
     this.$store.commit('changeMobileHeaderTitle', '');
     this.getRewardRecord()
   }
+
   if(num === 4) {
     this.$router.push({'path':'/index/mobileAsset/MobileAssetRechargeAndWithdrawRecord',query:{id:4}})
     this.$store.commit('changeMobileHeaderTitle', '');
     this.getCapitalTransferList()
   }
 
-
-
-
-
-
+  if(num === 5) {
+    this.$router.push({'path':'/index/mobileAsset/MobileAssetRechargeAndWithdrawRecord',query:{id:5}})
+    this.$store.commit('changeMobileHeaderTitle', '');
+    this.getInternalTransferList()
+  }
 
 }
 
@@ -386,8 +402,8 @@ root.methods.re_getCapitalTransferList = function (data) {
           "id": -86783273.65578213,
           "status": "DONE",
           "transferId": "nostrud",
-          "transferFrom": "occaecat et irure dolor eiusmod",
-          "transferTo": "voluptate ad tempor pariatur qui",
+          "transferFrom": "",
+          "transferTo": "WALLET",
           "updatedAt": 1578226647197,
           "version": -56367974.38596788
         },{
@@ -401,7 +417,7 @@ root.methods.re_getCapitalTransferList = function (data) {
           "status": "SUBMITTED",
           "transferId": "nostrud",
           "transferFrom": "occaecat et irure dolor eiusmod",
-          "transferTo": "voluptate ad tempor pariatur qui",
+          "transferTo": "SPOTS",
           "updatedAt": 1578226647197,
           "version": -56367974.38596788
         },{
@@ -414,8 +430,8 @@ root.methods.re_getCapitalTransferList = function (data) {
           "id": -86783273.65578213,
           "status": "FAILED",
           "transferId": "nostrud",
-          "transferFrom": "occaecat et irure dolor eiusmod",
-          "transferTo": "voluptate ad tempor pariatur qui",
+          "transferFrom": "",
+          "transferTo": "WALLET",
           "updatedAt": 1578226647197,
           "version": -56367974.38596788
         }
@@ -424,9 +440,9 @@ root.methods.re_getCapitalTransferList = function (data) {
     "errorCode": 0,
     "result": "ut Ut mollit in fugiat"
   }
-  typeof data === 'string' && (data = JSON.parse(data))
 
   this.ajaxCapitalTransferFlag = false
+  typeof data === 'string' && (data = JSON.parse(data))
 
   if (!data) return
   console.log('获取划转记录', data)
@@ -450,6 +466,99 @@ root.methods.error_getCapitalTransferList = function (err) {
   console.warn("转账获取记录出错！", err)
 }
 
+// 获取内部转账记录
+root.methods.getInternalTransferList = function () {
+  if(this.ajaxInternalTransferFlag === true){
+    return;
+  }
+  this.ajaxInternalTransferFlag = true
+
+  this.$http.send("GET_TRANSFER_LIST", {
+    bind: this,
+    query:{
+      status:0,//0全部，1 失败，2 成功
+      currency:'',
+      type:'',//转账类型 0全部 1转账 2收款
+      fromTime:'',//查询起始时间 时间戳
+      toTime:'',//查询结束时间 时间戳
+      pageSize:this.internalTransferLimit
+    },
+    callBack: this.re_getInternalTransferList,
+    errorHandler: this.error_getInternalTransferList
+  })
+}
+// 获取内部转账记录返回，类型为{}
+root.methods.re_getInternalTransferList = function (data) {
+  data = {
+    "dataMap": {
+    "userTransferRecordList": [
+      {
+        "amount": 99102492.29972367,
+        "createdAt": -67236617.9753992,//是毫秒
+        "currency": "EOS",
+        "dateTime": "do proident ex aute",
+        "description": "ut consequat",
+        "fee": 59822729.33552468,//还有手续费？×多余预留字段
+        "flowType": "ipsum",
+        "fromEmail": "proident",
+        "fromUserId": 100002,
+        "id": 19424641.65654689,
+        "name": "consequ",
+        "status": "occaecat nostrud",
+        "toEmail": "enim pariatur",
+        "toUserId": 17017505.532742217,
+        "transferId": "Ut anim adipisicing commodo amet",
+        "updatedAt": 1578226647197,
+        "version": 44518193.95575386
+      },
+      {
+        "amount": 38305184.36958821,
+        "createdAt": 50407408.0127503,
+        "currency": "USDT",
+        "dateTime": "ut eu aliqua nisi",
+        "description": "velit proident",
+        "fee": 5515030.240045607,
+        "flowType": "eiusmod exercitation est culpa mollit",
+        "fromEmail": "dolore proident adipisicing",
+        "fromUserId": 93685439.4159874,
+        "id": 98574061.35561192,
+        "name": "nisi consequat eiusmod",
+        "status": "fugiat",
+        "toEmail": "aute reprehenderit",
+        "toUserId": -61289931.75798434,
+        "transferId": "non es",
+        "updatedAt": 1578208180984,
+        "version": 16172230.43511355
+      }
+    ]
+  },
+    "errorCode": -44435161.791536435,
+    "result": "ut"
+  }
+
+  this.ajaxInternalTransferFlag = false
+  typeof data === 'string' && (data = JSON.parse(data))
+  if (!data) return
+  console.log('获取内部转账记录', data)
+  this.internalTransferLists = data.dataMap.userTransferRecordList
+
+  if (this.internalTransferLists.length < this.internalTransferLimit){
+    this.isShowGetMoreInternalTransfer = false
+  } else {
+    this.internalTransferLimit += 10;
+  }
+
+  this.loading = false
+}
+
+// 获取记录出错
+root.methods.error_getInternalTransferList = function (err) {
+  console.warn("转账获取记录出错！", err)
+  this.ajaxInternalTransferFlag = true
+  if(this.ajaxInternalTransferFlag === true){
+    this.loading = false
+  }
+}
 
 
 // 点击跳转充值详情页
