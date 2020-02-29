@@ -36,6 +36,7 @@
     "bind_email_pop_article": "为了您的资金安全，请先绑定邮箱",
     "bind_email_pop_button": "绑定邮箱",
 
+    "popWindowTitleTransfer": "划转提示",
     "capitalTransfer": "资金划转",
     "from": "从",
     "reach": "到",

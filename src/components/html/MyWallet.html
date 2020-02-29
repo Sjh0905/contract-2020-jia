@@ -145,11 +145,14 @@
             <div>{{$t('reach')}}</div>
           </div>
         </div>
-        <div class="wallet-to-account-content">
-          <input type="text" :placeholder='$t("coinAccount")' v-model="bibiAccount">
-          <input type="text" :placeholder='$t("myWallet")'  v-model="account">
+        <div class="wallet-to-account-content" :class="(assetAccountType == 'wallet') ? 'flex-colum':'flex-colum-reverse'">
+          <div>我的钱包</div>
+          <div class="wallet-to-account-content-line"/>
+          <div>币币账户</div>
+<!--          <input type="text" :placeholder='$t("coinAccount")' v-model="bibiAccount">-->
+<!--          <input type="text" :placeholder='$t("myWallet")'  v-model="account">-->
         </div>
-        <div class="wallet-to-account-right flex" @click="changeAccount()">
+        <div class="wallet-to-account-right flex" @click="changeAssetAccountType()">
           <img src="../../assets/mywallet/record_change_icon.png" alt="">
         </div>
       </div>
@@ -193,7 +196,7 @@
     </div>
     <div slot="footer" class="pop-footer">
       <span class="pop-qu pointer" @click="click_rel_em">{{$t('cancel')}}</span>
-      <button class="pop-qu-2 pointer" @click="commit">{{$t('ensure')}}</button>
+      <button class="pop-qu-2 pointer" @click="transferCommit()">{{$t('ensure')}}</button>
     </div>
   </PopupT>
 
@@ -417,7 +420,7 @@
         <input type="text" id="email" class="verification-input input_padding"
                v-model="emailVerificationCode"
                @blur="testEmailVerification">
-        <div class="get-verification button-base" v-if="!getEmailVerificationCode"
+        <div class="get-verification button-base pointer" v-if="!getEmailVerificationCode"
                 @click="getEmailVerification" >
           {{$t('GetVerificationCode')}}
         </div>

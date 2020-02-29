@@ -133,11 +133,12 @@
             <div>{{$t('reach')}}</div>
           </div>
         </div>
-        <div class="wallet-to-account-content">
-          <input type="text" :placeholder= '$t("coinAccount")' v-model="bibiAccount">
-          <input type="text" :placeholder='$t("myWallet")' v-model="account">
+        <div class="wallet-to-account-content" :class="(assetAccountType == 'wallet') ? 'flex-colum':'flex-colum-reverse'">
+          <div>我的钱包</div>
+          <div class="wallet-to-account-content-line"/>
+          <div>币币账户</div>
         </div>
-        <div class="wallet-to-account-right flex" @click="changeAccount()">
+        <div class="wallet-to-account-right flex" @click="changeAssetAccountType()">
           <img src="../../assets/mywallet/record_change_icon.png" alt="">
         </div>
       </div>
@@ -181,7 +182,7 @@
     </div>
     <div slot="footer" class="pop-footer">
       <span class="pop-qu pointer" @click="click_rel_em">{{$t('cancel')}}</span>
-      <button class="pop-qu-2 pointer" @click="commit">{{$t('ensure')}}</button>
+      <button class="pop-qu-2 pointer" @click="transferCommit">{{$t('ensure')}}</button>
 
     </div>
   </PopupT>
@@ -189,10 +190,10 @@
   <!--弹窗-->
   <PopupWindow :switch="popWindowOpen" @close="popWindowClose">
     <div slot="header">
-      <span class="">{{popWindowTitle}}</span>
+      <span class="header_xuzhi">{{popWindowTitle}}</span>
     </div>
-    <div slot="article" class="pop-article">{{popWindowPrompt}}</div>
-    <div slot="footer" class="pop-footer flex-center">
+    <div slot="article" class="pop-recharge">{{popWindowPrompt}}</div>
+    <div slot="footer" class="pop-recharge-bottom flex-center">
       <template v-if="popWindowStyle==0">
         <button @click="popWindowClose" class="button-base btn_simple pointer">
           {{$t('cancel')}}
