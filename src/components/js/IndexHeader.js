@@ -77,8 +77,11 @@ root.data = function () {
     idType: '',
     groupId: '',
     isExist: true,
-    account: ''
+    account: '',
     // uuid:'0'
+
+    // 获取认证状态
+    authType:0
   }
 }
 
@@ -97,6 +100,8 @@ root.created = function () {
   this.GET_COOKIE();
 
   this.GET_NOTICE();
+
+  this.getAuthState()
 
   this.$store.commit('SET_SERVER_TIME_CALL_BACK',this.refreshGRCPriceRange);
 
@@ -287,6 +292,28 @@ root.watch.redPoint = function (newValue, oldValue) {
 /*------------------------------- 方法 --------------------------------*/
 
 root.methods = {}
+
+// 获取认证状态
+root.methods.getAuthState = function () {
+  this.$http.send("GET_IDENTITY_AUTH_STATUS", {
+    bind: this,
+    callBack: this.re_getAuthState,
+    errorHandler: this.error_getAuthState,
+  })
+}
+// 获取认证状态成功
+root.methods.re_getAuthState = function (data) {
+  typeof (data) === 'string' && (data = JSON.parse(data))
+  if (!data.dataMap) return
+  console.log('获取状态', data)
+  this.authType = data.dataMap.status
+  console.log(this.authType)
+
+}
+// 获取认证失败
+root.methods.error_getAuthState = function (err) {
+  console.warn("拿不到认证数据！", err)
+}
 
 // 不会写  登陆用户组等级信息get (query:{})  未完成
 root.methods.getGroupLevel = function () {

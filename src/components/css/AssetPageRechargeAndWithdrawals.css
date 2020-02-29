@@ -274,6 +274,7 @@
 /*弹窗button*/
 .button-base {
   margin-right: 20px;
+  outline: none;
 }
 
 .button-base:last-of-type {
@@ -282,10 +283,6 @@
 
 .select-address-detail {
 
-}
-
-.pop-article {
-  padding: 20px 0;
 }
 
 /*币种名称*/
@@ -315,9 +312,6 @@
 }
 
 /*内部划转样式*/
-.pop-article {
-  padding: 25px;
-}
 
 .pop-article {
   padding: 20px 0;
@@ -330,6 +324,7 @@
   font-family:PingFangSC-Regular,PingFang SC;
   font-weight:400;
   color: #3576F5;
+  /*outline: none;*/
 }
 .pop-qu:hover{
   color: #3576F5;
@@ -347,10 +342,35 @@
   font-weight:400;
   color:rgba(255,255,255,1);
   outline: none;
+  border-color: transparent;
+  border-style: hidden;
 }
 
 .pop-qu-2:hover {
   background:#5C93FF;
+}
+
+.header_xuzhi {
+  padding-left: 25px;
+}
+
+.pop-recharge {
+  padding: 35px 25px;
+  font-size:16px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color: rgba(13,14,35,.6);
+  padding-bottom: 25px;
+}
+
+
+.pop-recharge-bottom {
+  margin-bottom: 15px;
+}
+
+.consequences {
+  font-size: 16px;
+  color: rgba(13,14,35,.6);
 }
 
 /*placeholder样式 begin*/
@@ -396,17 +416,32 @@
   width: 10px;
 }
 
-.wallet-to-account-content input {
-  width: 100%;
-  height: 44px;
+.wallet-to-account-content {
+  flex: 1;
+  /*width: 100%;*/
+  line-height:44px;
   border: 0;
   box-sizing: border-box;
+  background-color: transparent;
+  color: #0D0E23;
 }
 
-.wallet-to-account-content input:first-child {
+.wallet-to-account-content-line {
   border-bottom: 1px solid #EFF0FF;
   box-sizing: border-box;
 }
+
+/*.wallet-to-account-content input {*/
+/*  width: 100%;*/
+/*  height: 44px;*/
+/*  border: 0;*/
+/*  box-sizing: border-box;*/
+/*}*/
+
+/*.wallet-to-account-content input:first-child {*/
+/*  border-bottom: 1px solid #EFF0FF;*/
+/*  box-sizing: border-box;*/
+/*}*/
 
 .wallet-to-account-right {
   width: 92px;

@@ -25,7 +25,10 @@ root.data = function () {
 
     popType: 0,
     popText: '',
-    popOpen: false
+    popOpen: false,
+
+    // 判断收款人和付款人的显示
+    Judgment:false
   }
 }
 
@@ -105,6 +108,42 @@ root.methods.error_getTransferList = function (err) {
   console.warn("转账获取记录出错！", err)
 }
 
+// 判断字段
+root.methods.transferInOrOut = function (item) {
+  // let transferMsg = ''
+  console.log(item)
+  if (item.fromUserId) {
+    this.Judgment = false
+    return this.Judgment
+  }
+
+  this.Judgment =true
+  return this.Judgment
+  // switch (item.status) {
+  //   case 'PENDING':
+  //     msg = this.$t('recharge_status_1') + `(${item.confirms}/${item.minimumConfirms})`
+  //     break;
+  //   case 'DEPOSITED':
+  //     msg = this.$t('recharge_status_2')
+  //     break;
+  //   case 'CANCELLED':
+  //     msg = this.$t('recharge_status_3')
+  //     break;
+  //   case 'WAITING_FOR_APPROVAL':
+  //     msg = this.$t('recharge_status_4')
+  //     break;
+  //   case 'DENIED':
+  //     msg = this.$t('recharge_status_5')
+  //     break;
+  //   default:
+  //     msg = '---'
+  // }
+
+  // return msg
+
+}
+
+
 // 点击拷贝
 root.methods.clickCopy = function (id) {
   let input = this.$refs[id][0]
@@ -153,7 +192,6 @@ root.methods.clickCheck = function (item) {
 
 // 状态
 root.methods.state = function (item) {
-
   let msg = ''
 
   switch (item.status) {

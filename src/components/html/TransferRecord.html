@@ -8,14 +8,15 @@
       <!--流水单号-->
       <div class="flow-code">{{$t('billNumber')}}</div>
 
-      <!--姓名-->
-      <div class="name">{{$t('accountNumber')}}</div>
+      <!--收款人 or 付款人-->
+      <div class="name">{{transferInOrOut ? $t('payeeAccount'): '付款人'}}</div>
 
-      <!--收款人账号-->
-      <div class="Payee">{{$t('payeeAccount')}}</div>
+      <!--账号-->
+      <div class="Payee">{{$t('accountNumber')}}</div>
+<!--      {{ $t('payeeAccount')}}-->
 
-<!--      &lt;!&ndash;UID&ndash;&gt;-->
-<!--      <div class="uid">UID</div>-->
+      <!--UID-->
+      <div class="uid">UID</div>
 
       <!--币种-->
       <span class="currency">{{$t('currency')}}</span>
@@ -52,14 +53,14 @@
             <!--流水单号-->
             <div class="flow-code">{{item.transferId}}</div>
 
-            <!--姓名-->
+            <!--收款人 or 付款人-->
             <div class="name">{{item.name}}</div>
 
-            <!--收款人账号-->
+            <!--收款人账号 or 付款人账号-->
             <div class="Payee">{{item.userName}}</div>
 
-<!--            &lt;!&ndash;UID&ndash;&gt;-->
-<!--            <div class="uid">{{uid}}</div>-->
+            <!--收款人UID or 付款人UID-->
+            <div class="uid">{{item.id}}</div>
 
             <!--币种 begin-->
             <span class="currency">{{item.currency == 'USDT2' ? 'USDT' :item.currency}}</span>

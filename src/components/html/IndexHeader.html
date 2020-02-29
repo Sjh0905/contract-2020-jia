@@ -693,14 +693,28 @@
 
                 <li class="navigation-item-container flex" v-if="isLogin">
                   <router-link
-                    :to="{name:'authentication'}"
+                    :to="{name:'securityCenter'}"
                     class="navigation-item-router flex"
                     active-class="navigation-item-router-selected"
+                    v-if="authType == 2"
                   >
                     <!--<div class="icon-login"></div>-->
                     <!-- <span class="login-header-name flex-center">{{$t('personalCenter')}}</span> -->
                     <img src="../../assets/geren.png" alt="" class="login-header-name flex-center personal-icon">
                   </router-link>
+
+                  <router-link
+                    :to="{name:'authentication'}"
+                    class="navigation-item-router flex"
+                    active-class="navigation-item-router-selected"
+                    v-else
+                  >
+                    <!--<div class="icon-login"></div>-->
+                    <!-- <span class="login-header-name flex-center">{{$t('personalCenter')}}</span> -->
+                    <img src="../../assets/geren.png" alt="" class="login-header-name flex-center personal-icon">
+                  </router-link>
+
+
                   <!--隐藏的标签 begin-->
                   <ul
                     class="flex navigation-item-hidden-list-c navigation-item-hidden-list-personal-center"
