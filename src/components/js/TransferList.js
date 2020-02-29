@@ -63,7 +63,7 @@ root.methods.getRecord = function (currency) {
 root.methods.re_getRecord = function (data) {
   typeof data === 'string' && (data = JSON.parse(data))
   if (!data) return
-  // console.warn('获取记录', data)
+  console.log('获取记录', data)
   this.transferSpotList = data.dataMap.userTransferRecordList
 
   if (this.transferSpotList.length < this.limit) {
