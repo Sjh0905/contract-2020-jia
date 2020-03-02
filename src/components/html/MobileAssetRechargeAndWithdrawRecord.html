@@ -1,24 +1,24 @@
 <div>
   <div class="header-title-list">
-    <div class="header-title-item" :class="openType===1? 'header-title-item-active':''" @click="changeOpenType(1)">
+    <div class="header-title-item" :class="openType==1? 'header-title-item-active':''" @click="changeOpenType(1)">
       充币
     </div>
-    <div class="header-title-item" :class="openType===2? 'header-title-item-active':''" @click="changeOpenType(2)">
+    <div class="header-title-item" :class="openType==2? 'header-title-item-active':''" @click="changeOpenType(2)">
       提币
     </div>
-    <div class="header-title-item" :class="openType===4? 'header-title-item-active':''" @click="changeOpenType(4)">
+    <div class="header-title-item" :class="openType==4? 'header-title-item-active':''" @click="changeOpenType(4)">
       划转
     </div>
-    <div class="header-title-item" :class="openType===5? 'header-title-item-active':''" @click="changeOpenType(5)">
+    <div class="header-title-item" :class="openType==5? 'header-title-item-active':''" @click="changeOpenType(5)">
       转账
     </div>
-    <div class="header-title-item" :class="openType===3? 'header-title-item-active':''" @click="changeOpenType(3)">
+    <div class="header-title-item" :class="openType==3? 'header-title-item-active':''" @click="changeOpenType(3)">
       奖励
     </div>
   </div>
   <Loading v-if="loading" class="min-height-all recharge-record-loading-container"/>
   <!--充币记录内容-->
-  <div v-show="!loading && openType===1" class="container-box">
+  <div v-show="!loading && openType==1" class="container-box">
     <!--没有充币记录的样式-->
     <div v-if="computedRecord.length === 0" class="no-item-box">
       <img class="no-item-box-item" src="../../assets/no-record-icon-H5@2x.png" alt="">
@@ -48,7 +48,7 @@
     <div v-if="computedRecord.length !== 0 && isShowGetMoreRecord === true && !ajaxRecordFlag" class="withdraw-list-btn-get-more" @click="getRecord()">加载更多</div>
   </div>
   <!--提币记录内容-->
-  <div v-show="!loading && openType===2" class="container-box">
+  <div v-show="!loading && openType==2" class="container-box">
     <!--没有充币记录的样式-->
     <div v-if="computedWithdraw.length === 0" class="no-item-box">
       <img class="no-item-box-item" src="../../assets/no-record-icon-H5@2x.png" alt="">
@@ -95,7 +95,7 @@
     <div v-if="computedWithdraw.length !== 0 && isShowGetMoreWithdraw === true && !ajaxWithdrawFlag" class="withdraw-list-btn-get-more" @click="getWithdraw()">加载更多</div>
   </div>
   <!--奖励记录内容-->
-  <div v-show="!loading && openType===3" class="container-box">
+  <div v-show="!loading && openType==3" class="container-box">
     <!--没有奖励记录的样式-->
     <div v-if="ActivityRecord.length === 0" class="no-item-box">
       <img class="no-item-box-item" src="../../assets/no-record-icon-H5@2x.png" alt="">
@@ -146,7 +146,7 @@
     <div v-if="ActivityRecord.length !== 0 && isShowGetMoreWithdraw === true && !ajaxWithdrawFlag" class="withdraw-list-btn-get-more" @click="getRewardRecord()">加载更多</div>
   </div>
   <!--划转记录内容-->
-  <div v-show="!loading && openType===4" class="container-box">
+  <div v-show="!loading && openType==4" class="container-box">
     <!--没有划转记录的样式-->
     <div v-if="computedCapitalTransfer.length === 0" class="no-item-box">
       <img class="no-item-box-item" src="../../assets/no-record-icon-H5@2x.png" alt="">
@@ -179,7 +179,7 @@
     <div v-if="computedCapitalTransfer.length !== 0 && isShowGetMoreCapitalTransfer === true && !ajaxCapitalTransferFlag" class="withdraw-list-btn-get-more" @click="getCapitalTransferList()">加载更多</div>
   </div>
   <!--内部转账记录内容-->
-  <div v-show="!loading && openType===5" class="container-box">
+  <div v-show="!loading && openType==5" class="container-box">
     <!--没有内部转账记录的样式-->
     <div v-if="computedInternalTransfer.length === 0" class="no-item-box">
       <img class="no-item-box-item" src="../../assets/no-record-icon-H5@2x.png" alt="">
