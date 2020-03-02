@@ -148,18 +148,18 @@ margin-top: 60px;
   position: fixed;
 }
 .dongt img{
-  margin-top: 200px;
+  margin-top: 60px;
 }
 
 /*START LOADER DESIGN*/
 .loader-wrapper {
   position: fixed;
-  top: 20px;
+  top: 0px;
   left: 0;
   width: 100%;
   height: 100%;
   z-index: 99;
-  background-color: #000000;
+  background-color: #0b4ed0;
 }
 
 
