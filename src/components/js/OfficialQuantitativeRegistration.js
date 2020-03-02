@@ -13,6 +13,7 @@ root.data = () => {
     optionsgender:[],
     valuegender: '',
     records: [],
+    balance:'0',
   }
 }
 
@@ -166,6 +167,7 @@ root.methods.getBalance = function () {
 }
 root.methods.re_getBalance = function (data) {
   console.log("this.res=====查询用户余额",data.data)
+  this.balance = data.data.balance
 }
 root.methods.error_getBalance = function (data) {
   console.log("this.err=====",data.data)
