@@ -31,6 +31,7 @@
             </el-option>
           </el-select>
         </template>
+          <span if="valuegenderMsg_0!=''" class="m-t wrong-msg">{{valuegenderMsg_0}}</span>
 
         </div>
 
@@ -47,7 +48,7 @@
         <div class="number_amount">
           <p class="number_amount_p">{{$t('balance')}}</p>
           <span class="number_amount_span">QQ:</span>
-          <span class="amount_span">{{balance}}</span>
+          <span class="amount_span">{{toFixed(balance,8)}}</span>
         </div>
 
         <!-- 兑换按钮-->

@@ -14,6 +14,7 @@ root.data = () => {
     valuegender: '',
     records: [],
     balance:'0',
+    valuegenderMsg_0:''
   }
 }
 
@@ -135,33 +136,33 @@ root.methods.error_getSupporting = function (err) {
 //查询用户余额get (query:{})未完成
 root.methods.getBalance = function () {
   // /* TODO : 调试接口需要屏蔽 S*/
-  var data ={
-    "data": [
-    {
-      "id": "25139",
-      "createdAt": "1574162856000",
-      "updatedAt": "1574162856000",
-      "userId": "100003",
-      "version": "1",
-      "balance": "1.000000000000000000",
-      "currency": "BTC",
-      "type": "SPOT_AVAILABLE"
-    },
-    // {
-    //   "id": "25142",
-    //   "createdAt": "1574162856000",
-    //   "updatedAt": "1574162856000",
-    //   "userId": "100003",
-    //   "version": "1",
-    //   "balance": "1000.000000000000000000",
-    //   "currency": "CHA3",
-    //   "type": "SPOT_AVAILABLE"
-    // }
-  ],
-    "status": "200",
-    "message": "success"
-  }
-  this.re_getBalance(data)
+  // var data ={
+  //   "data": [
+  //   {
+  //     "id": "25139",
+  //     "createdAt": "1574162856000",
+  //     "updatedAt": "1574162856000",
+  //     "userId": "100003",
+  //     "version": "1",
+  //     "balance": "1.000000000000000000",
+  //     "currency": "BTC",
+  //     "type": "SPOT_AVAILABLE"
+  //   },
+  //   // {
+  //   //   "id": "25142",
+  //   //   "createdAt": "1574162856000",
+  //   //   "updatedAt": "1574162856000",
+  //   //   "userId": "100003",
+  //   //   "version": "1",
+  //   //   "balance": "1000.000000000000000000",
+  //   //   "currency": "CHA3",
+  //   //   "type": "SPOT_AVAILABLE"
+  //   // }
+  // ],
+  //   "status": "200",
+  //   "message": "success"
+  // }
+  // this.re_getBalance(data)
   // /* TODO : 调试接口需要屏蔽 E*/
   this.$http.send('GET_BALANCE', {
     bind: this,
@@ -221,6 +222,11 @@ root.methods.error_getRegistrationRecord = function (err) {
 
 //活动报名post(params:{})
 root.methods.postActivities = function () {
+  if (this.valuegender == '') {
+    this.valuegenderMsg_0 = this.$t('cannot')
+    return false
+  }
+
   // TODO : 加变量的非空判断 正则判断
   let params = {
     userId: this.userId,
@@ -250,5 +256,9 @@ root.methods.error_postActivities = function (err) {
   console.log("this.err=====",err)
 }
 
+//------保留小数位
 
+root.methods.toFixed = function (num, acc = 8) {
+  return this.$globalFunc.accFixed(num, acc)
+}
 export default root

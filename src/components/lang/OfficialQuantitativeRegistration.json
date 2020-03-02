@@ -28,8 +28,15 @@
   "transactionRecord":"交易记录",
   "date":"日期",
   "quanti":"量化",
-  "sourceAmount":"矿源金额"
+  "sourceAmount":"矿源金额",
+  "cannot":"配套数额不可为空"
+
+
 },
-"EN": {},
-"CA": {}
+"EN": {
+  "cannot":"Matching amount cannot be empty"
+},
+"CA": {
+  "cannot":"Matching amount cannot be empty"
+}
 }
