@@ -43,7 +43,7 @@ root.created = function () {
   this.getMemberList(this.groupId)
   this.getTeamDetails()
   this.loading = true
-  this.uuid()
+  // this.userId()
 
   // this.getMemberList()
 }
@@ -70,13 +70,18 @@ root.computed.userName = function () {
 root.computed.userType = function () {
   return this.$store.state.authMessage && this.$store.state.authMessage.province === 'mobile' ? 0 : 1
 }
-// uid
-root.computed.uuid = function () {
-  if(this.$store.state.authMessage.uuid == undefined){
-    return this.$store.state.authMessage.userId
-  }
-  return this.$store.state.authMessage.uuid
+
+// 获取userId
+root.computed.userId = function () {
+  return this.$store.state.authMessage.userId
 }
+// // uid
+// root.computed.uuid = function () {
+//   if(this.$store.state.authMessage.uuid == undefined){
+//     return this.$store.state.authMessage.userId
+//   }
+//   return this.$store.state.authMessage.uuid
+// }
 
 root.computed.computedRecord = function (item,index) {
   return this.records
@@ -92,7 +97,7 @@ root.methods.getTeamDetails= function () {
 
   this.$http.send('GET_GROUP_INFO', {
     bind: this,
-    urlFragment:this.uuid,
+    urlFragment:this.userId,
     // query:{
     //   userId:this.uuid
     // },
@@ -133,7 +138,7 @@ root.methods.error_getTeamDetails = function (err) {
 root.methods.postWithdraw = function (idType) {
   // TODO : 加变量的非空判断 正则判断
   let params = {
-    userId: this.uuid,
+    userId: this.userId,
     groupId: this.groupId,
     glevel: this.glevel,
     idType: idType

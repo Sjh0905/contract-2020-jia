@@ -44,13 +44,18 @@ root.computed.userType = function () {
   return this.$store.state.authMessage && this.$store.state.authMessage.province === 'mobile' ? 0 : 1
 }
 
-// uid
-root.computed.uuid = function () {
-  if(this.$store.state.authMessage.uuid == undefined){
-    return this.$store.state.authMessage.userId
-  }
-  return this.$store.state.authMessage.uuid
+// 获取userId
+root.computed.userId = function () {
+  return this.$store.state.authMessage.userId
 }
+
+// // uid
+// root.computed.uuid = function () {
+//   if(this.$store.state.authMessage.uuid == undefined){
+//     return this.$store.state.authMessage.userId
+//   }
+//   return this.$store.state.authMessage.uuid
+// }
 
 
 root.methods = {}
@@ -142,16 +147,16 @@ root.methods.getBalance = function () {
       "currency": "BTC",
       "type": "SPOT_AVAILABLE"
     },
-    {
-      "id": "25142",
-      "createdAt": "1574162856000",
-      "updatedAt": "1574162856000",
-      "userId": "100003",
-      "version": "1",
-      "balance": "1000.000000000000000000",
-      "currency": "CHA3",
-      "type": "SPOT_AVAILABLE"
-    }
+    // {
+    //   "id": "25142",
+    //   "createdAt": "1574162856000",
+    //   "updatedAt": "1574162856000",
+    //   "userId": "100003",
+    //   "version": "1",
+    //   "balance": "1000.000000000000000000",
+    //   "currency": "CHA3",
+    //   "type": "SPOT_AVAILABLE"
+    // }
   ],
     "status": "200",
     "message": "success"
@@ -160,14 +165,16 @@ root.methods.getBalance = function () {
   // /* TODO : 调试接口需要屏蔽 E*/
   this.$http.send('GET_BALANCE', {
     bind: this,
-    urlFragment:this.uuid,
+    urlFragment:this.userId,
     callBack: this.re_getBalance,
     errorHandler: this.error_getBalance
   })
 }
 root.methods.re_getBalance = function (data) {
   console.log("this.res=====查询用户余额",data.data)
-  this.balance = data.data.balance
+  data.data.forEach(v=>{
+    this.balance = v.balance
+  })
 }
 root.methods.error_getBalance = function (data) {
   console.log("this.err=====",data.data)
@@ -194,7 +201,7 @@ root.methods.getRegistrationRecord = function () {
 
   this.$http.send('GET_GETREG_DATA', {
     bind: this,
-    urlFragment:this.uuid,
+    urlFragment:this.userId,
     // query:{
     //   userId:this.uuid
     // },
@@ -216,7 +223,7 @@ root.methods.error_getRegistrationRecord = function (err) {
 root.methods.postActivities = function () {
   // TODO : 加变量的非空判断 正则判断
   let params = {
-    userId: this.uuid,
+    userId: this.userId,
     fcurr: this.fcurr,
     email: this.userName,
     mobile: this.userName,

@@ -66,13 +66,18 @@ root.computed.userType = function () {
   return this.$store.state.authMessage && this.$store.state.authMessage.province === 'mobile' ? 0 : 1
 }
 
-// uid
-root.computed.uuid = function () {
-  if(this.$store.state.authMessage.uuid == undefined){
-    return this.$store.state.authMessage.userId
-  }
-  return this.$store.state.authMessage.uuid
+// 获取userId
+root.computed.userId = function () {
+  return this.$store.state.authMessage.userId
 }
+
+// // uid
+// root.computed.uuid = function () {
+//   if(this.$store.state.authMessage.uuid == undefined){
+//     return this.$store.state.authMessage.userId
+//   }
+//   return this.$store.state.authMessage.uuid
+// }
 /*------------------------------ 观察 -------------------------------*/
 root.watch = {}
 
@@ -196,7 +201,7 @@ root.methods.error_getCheckGroupDetails = function (err) {
 root.methods.postJoinGroup = function () {
   // TODO : 加变量的非空判断 正则判断
   let params = {
-    userId: this.uuid,
+    userId: this.userId,
     groupId: this.groupId,
     glevel: this.glevel,
     account: this.userName

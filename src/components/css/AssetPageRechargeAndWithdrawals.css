@@ -344,6 +344,7 @@
   outline: none;
   border-color: transparent;
   border-style: hidden;
+  border: 0;
 }
 
 .pop-qu-2:hover {
