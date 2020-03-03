@@ -221,6 +221,7 @@
   font-weight:400;
   color:rgba(255,255,255,1);
   outline: none;
+  border: 0;
 }
 
 .pop-qu-2:hover {

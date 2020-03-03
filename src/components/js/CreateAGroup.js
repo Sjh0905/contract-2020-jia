@@ -32,12 +32,17 @@ root.beforeDestroy = function () {}
 /*------------------------------ 计算 -------------------------------*/
 root.computed = {}
 
-// uid
-root.computed.uuid = function () {
-  if(this.$store.state.authMessage.uuid == undefined){
-    return this.$store.state.authMessage.userId
-  }
-  return this.$store.state.authMessage.uuid
+// // uid
+// root.computed.uuid = function () {
+//   if(this.$store.state.authMessage.uuid == undefined){
+//     return this.$store.state.authMessage.userId
+//   }
+//   return this.$store.state.authMessage.uuid
+// }
+
+// 获取userId
+root.computed.userId = function () {
+  return this.$store.state.authMessage.userId
 }
 
 // 用户名
@@ -105,7 +110,7 @@ root.methods.postCreateAGroup = function () {
 
   // TODO : 加变量的非空判断 正则判断 E
   let params = {
-    userId:this.uuid,
+    userId:this.userId,
     priAccount: this.userName,
     deputyAccount: this.deputyAccount,
     gname: this.gname

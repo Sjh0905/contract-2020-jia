@@ -187,7 +187,11 @@
   border-radius:1px;
   border:1px solid rgba(224,225,244,1);
   margin-top: 10px;
-  margin-bottom: 20px;
+  /*margin-bottom: 20px;*/
+}
+
+.el-select >>> .el-input--suffix {
+  height: 55px;
 }
 .img_ConfirmSuccess {
   margin-top: 40px;
@@ -243,4 +247,9 @@
 }
 .selectstyle {
   font-size: 12px;
+}
+.m-t {
+  display: inline-block;
+  height: 17px;
+  /*margin-top: 3px;*/
 }
