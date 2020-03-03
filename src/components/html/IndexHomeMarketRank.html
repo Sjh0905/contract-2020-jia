@@ -1,61 +1,18 @@
 <div class="index-home-market-rank-container"
      :class="{'dark':themeColor==0,'light':themeColor==1}"
 >
-  <div class="notice100">
+  <div class="notice100 flex">
     <div class="notice-box"  v-if="!hideNotice">
-      <!-- <div class="notice-box-list-left-icon">
+      <div class="notice-box-list-left-icon">
         <img class="notice-box-list-left-icon-img" src="../../assets/index_home/notice_sound_icon.png" alt="">
-      </div> -->
+      </div>
 
-<!--      <ul class="notice-box-list">-->
-        <!--<li class="notice-box-item" v-for="(value, key) in noticeList" :key="key"  @click="goNotice(value.id)">-->
-<!--        <li class="notice-box-item" v-for="(value, key) in noticeList" :key="key"  @click="goNotice(value.url)">-->
-<!--          <span class="notice-box-item-title">{{value.title}}<span class="notice-box-item-title1">/</span></span>-->
-<!--          &lt;!&ndash;          ( {{$globalFunc.formatDateUitl(value.beginTime,'MM-DD')}} )&ndash;&gt;-->
-<!--        </li>-->
-
-
-        <!--下面的 竖向新闻-->
-        <div class="header-textswiper">
-          <img class="header-textswiper-icon" src="../../assets/index_home/notice_sound_icon.png"/>
-          <div class="header-textswiper-container">
-            <swiper :options="swiperTextOption" v-if="textDataReady">
-              <swiper-slide v-for="(item,index) in noticeList" key="index">
-                <div class="homepage-header-textswiper-address"  @click="goNotice(item)"
-                     rel="noopener noreferrer">
-                  <span class="header-textswiper-address-title">{{item.title}}</span>
-                  <!--                <span class="homepage-header-textswiper-address-time">({{$globalFunc.formatDateUitl(item.beginTime,'MM-DD')}})</span>-->
-                </div>
-              </swiper-slide>
-
-              <!--            公告列表数据-->
-<!--                          <swiper-slide>-->
-<!--                            <div class="homepage-header-textswiper-address"-->
-<!--                                 rel="noopener noreferrer">-->
-<!--                              <a href="https://customerservice8872.zendesk.com/hc/zh-cn/articles/360035114331-二零二零交易所验证邮件延迟公告">-->
-<!--                                <span class="homepage-header-textswiper-address-title">二零二零交易所验证邮件延迟公告</span>-->
-<!--                                <span class="homepage-header-textswiper-address-time"></span>-->
-<!--                              </a>-->
-<!--                            </div>-->
-<!--                          </swiper-slide>-->
-
-<!--                          <swiper-slide>-->
-<!--                            <div class="homepage-header-textswiper-address"-->
-<!--                                 rel="noopener noreferrer">-->
-<!--                              <a href="https://customerservice8872.zendesk.com/hc/zh-cn/articles/360034740012-正式开放注册启事">-->
-<!--                                <span class="homepage-header-textswiper-address-title">节点预购赠币第二期发放公告节点预</span>-->
-<!--                                <span class="homepage-header-textswiper-address-time"></span>-->
-<!--                              </a>-->
-
-<!--                            </div>-->
-<!--                          </swiper-slide>-->
-              <div class="swiper-pagination" slot="pagination"></div>
-            </swiper>
-          </div>
-          <div class="notice-box-list-right-icon"  @click="goPicNotice()">
-            {{$t('seeMore')}}<img class="notice-box-list-right-icon-img" src="../../assets/右箭头1.png" alt="">
-          </div>
-        </div>
+      <ul class="notice-box-list">
+        <li class="notice-box-item" v-for="(value, key) in noticeList" :key="key"  @click="goNotice(value.id)">
+        <li class="notice-box-item" v-for="(value, key) in noticeList" :key="key"  @click="goNotice(value.url)">
+          <span class="notice-box-item-title">{{value.title}}<span class="notice-box-item-title1">/</span></span>
+          <!--          ( {{$globalFunc.formatDateUitl(value.beginTime,'MM-DD')}} )-->
+        </li>
 
         <!--        <li class="notice-box-item" >-->
         <!--          <span class="notice-box-item-title">节点预购赠币第二期发放公告节点预<span class="riqi">08-31</span></span>-->
@@ -72,7 +29,16 @@
         <!--<li class="notice-box-item"  v-if="noticelength<3">-->
         <!--<span class="notice-box-item-title"></span>-->
         <!--</li>-->
-<!--      </ul>-->
+
+      </ul>
+
+      <div class="notice-box-list-right-icon"  @click="goPicNotice()">
+        {{$t('seeMore')}}<img class="notice-box-list-right-icon-img" src="../../assets/右箭头1.png" alt="">
+      </div>
+
+
+
+
 
     </div>
   </div>
