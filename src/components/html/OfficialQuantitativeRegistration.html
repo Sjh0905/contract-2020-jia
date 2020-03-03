@@ -21,9 +21,9 @@
         <div class="supporting">
           <span class="Account_number_">{{$t('supporting')}}</span>
           <template>
-          <el-select v-model="valuegender" name="gender" placeholder="请选择配套" popper-class="selectstyle">
+          <el-select v-model="matchingAmount" name="gender" placeholder="请选择配套" popper-class="selectstyle" @blur="testMatchingAmount">
             <el-option
-              v-for="item in optionsgender"
+              v-for="item in matchDataList"
               :key="item.fcode"
               :label="item.fdesc"
               :value="item.fdesc"
@@ -31,7 +31,7 @@
             </el-option>
           </el-select>
         </template>
-          <span if="valuegenderMsg_0!=''" class="m-t wrong-msg">{{valuegenderMsg_0}}</span>
+          <span v-if="matchingAmountMsg_0 !=''" class="m-t wrong-msg">{{matchingAmountMsg_0}}</span>
 
         </div>
 
@@ -41,7 +41,7 @@
         <div class="number_amount">
           <p class="number_amount_p">{{$t('required')}}</p>
           <span class="number_amount_span">QQ:</span>
-          <span class="amount_span">{{valuegender}}</span>
+          <span class="amount_span">{{toFixed(matchDataObj[matchingAmount],8)}}</span>
         </div>
 
 <!--       账号余额 -->
