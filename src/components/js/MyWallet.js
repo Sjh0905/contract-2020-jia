@@ -21,6 +21,7 @@ root.data = function () {
     activeIndex: -1, //激活
     recharge: false,
     withdrawals: false,
+    transferFlage:false,
     accounts: [],
     currency: new Map(),
 
@@ -311,6 +312,7 @@ root.methods.changeAssetAccountType = function () {
 
 // 打开划转
 root.methods.openTransfer = function (index, item) {
+  console.log(item)
   // if (item.currency !=='USDT' && this.serverT < item.withdrawOpenTime) {
   //   this.popupPromptOpen = true
   //   this.popupPromptText = this.$t('TransferIsNotOpen')
@@ -358,14 +360,15 @@ root.methods.openTransfer = function (index, item) {
 
   this.recharge = false
   this.transferss = false
-  // this.activeIndex !== index && (this.withdrawals = true)
-  // if (this.activeIndex === index) {
-  //   this.withdrawals = !this.withdrawals
-  //   if (this.withdrawals === false) {
-  //     this.activeIndex = -1
-  //     return
-  //   }
-  // }
+  this.withdrawals = false
+  this.activeIndex !== index && (this.transferFlage = true)
+  if (this.activeIndex === index) {
+    this.transferFlage = !this.transferFlage
+    if (this.transferFlage === false) {
+      this.activeIndex = -1
+      return
+    }
+  }
   this.popWindowOpen1 = true
   this.transferCurrencyAvailable = item.available
   this.itemInfo = item
@@ -481,7 +484,7 @@ root.methods.transferCommit = function () {
     params: {
       currency: this.currencyValue,
       amount: this.amountInput,
-      system: this.assetAccountType == 'wallet' ? 'spots':'WALLET'
+      system: this.assetAccountType == 'wallet' ? 'SPOTS':'WALLET'
     },
     callBack: this.re_transferCommit,
     errorHandler: this.error_transferCommit
@@ -790,6 +793,7 @@ root.methods.internalTransfer = function (index, item) {
 
   this.recharge = false
   this.withdrawals = false
+  this.transferFlage = false
   this.activeIndex !== index && (this.transferss = true)
   if (this.activeIndex === index) {
     this.transferss = !this.transferss
@@ -1502,6 +1506,7 @@ root.methods.openWithdrawals = function (index, item) {
 
   this.recharge = false
   this.transferss = false
+  this.transferFlage = false
   this.activeIndex !== index && (this.withdrawals = true)
   if (this.activeIndex === index) {
     this.withdrawals = !this.withdrawals
@@ -1545,6 +1550,7 @@ root.methods.openRecharge = function (index, item) {
 
   this.withdrawals = false
   this.transferss = false
+  this.transferFlage = false
   this.activeIndex !== index && (this.recharge = true)
   if (this.activeIndex === index) {
     this.recharge = !this.recharge

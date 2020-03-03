@@ -243,6 +243,13 @@
   background-color: #3576F5;
 }
 
+/*划转选中*/
+.transfer-button-select {
+  color: white;
+  background-color: #3576F5;
+}
+
+
 /*充值选中*/
 .recharge-button-select {
   color: white;
@@ -421,6 +428,7 @@
   line-height: 40px;
   margin-left: 25px;
   outline: none;
+  border: 0;
   font-size: 14px;
   color: #FFFFFF;
   text-align: center;
@@ -729,6 +737,7 @@
   font-size:14px;
   font-family:PingFangSC-Regular,PingFang SC;
   font-weight:400;
+  border: 0;
   color:rgba(255,255,255,1);
   outline: none;
 }
