@@ -14,7 +14,7 @@
     "popWindowButton_0": "联系客服",
     "popWindowButton_1": "返回",
     "usdt_notice": "请确认是基于比特网络（OMNI）的USDT地址；",
-    "eusdt_notice": "请确认是基于以太网络（ERC20）的USDT地址；",
+    "eusdt_notice": "请确认是基于以太网络（{currency}）的{currency}地址；",
     "copyMemo": "点击复制memo",
     "copyPublicKey": "点击复制publicKey",
     "rechargeDescribe": "注：充值{currency}到二零二零同时需要一个充值地址和{currency} memo， 如果未遵守{currency}充值规则，币会丢失。",
