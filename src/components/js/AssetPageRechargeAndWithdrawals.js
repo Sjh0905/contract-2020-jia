@@ -65,7 +65,7 @@ root.data = function () {
 
     // 内部划转变量
     popWindowOpen1:false,
-    assetAccountType:'wallet',//当前账户类型,默认显示我的钱包
+    assetAccountType:'currency',//当前账户类型,默认显示币币账户
     // bibiAccount:'币币账户',
     // account:'我的钱包',
     itemInfo:{
@@ -170,7 +170,7 @@ root.computed.available = function () {
 root.computed.accountsComputed = function () {
   // 特殊处理
   if (this.hideZeroAsset) {
-    return this.accounts.filter(val => {
+    return this.accounts.filter((val,inx) => {
       val.currencyKey = val.currency+'-'+inx;
 
       this.transferCurrencyObj[val.currency] = val;
@@ -593,15 +593,15 @@ root.methods.openTransfer = function (index, item) {
   // }
 
   // 如果没有实名认证不允许打开划转
-  // if (!this.bindIdentify) {
-  //   this.popWindowTitle = this.$t('popWindowTitleTransfer')
-  //   this.popWindowPrompt = this.$t('popWindowPromptWithdrawals')
-  //   this.popWindowStyle = '0'
-  //   this.popWindowOpen = true
-  //   return
-  // }
+  if (!this.bindIdentify) {
+    this.popWindowTitle = this.$t('popWindowTitleTransfer')
+    this.popWindowPrompt = this.$t('popWindowPromptWithdrawals')
+    this.popWindowStyle = '0'
+    this.popWindowOpen = true
+    return
+  }
 
-  // 如果没有绑定邮箱，不允许打开提现
+  // 如果没有绑定邮箱，不允许打开划转
   if (!this.bindEmail) {
     this.popWindowTitle = this.$t('bind_email_pop_title')
     this.popWindowPrompt = this.$t('bind_email_pop_article')
@@ -610,7 +610,7 @@ root.methods.openTransfer = function (index, item) {
     return
   }
 
-  // 如果没有绑定谷歌或手机，不允许打开提现
+  // 如果没有绑定谷歌或手机，不允许打开划转
   if (!this.bindGA && !this.bindMobile) {
     this.popWindowTitle = this.$t('popWindowTitleTransfer')
     this.popWindowPrompt = this.$t('popWindowTitleBindGaWithdrawals')
@@ -623,8 +623,8 @@ root.methods.openTransfer = function (index, item) {
   //todo 修改密码后不能提现
 
 
-  this.recharge = false
-  this.transferss = false
+  // this.recharge = false
+  // this.transferss = false
   // this.activeIndex !== index && (this.withdrawals = true)
   // if (this.activeIndex === index) {
   //   this.withdrawals = !this.withdrawals
@@ -651,9 +651,8 @@ root.methods.popWindowClose1 = function () {
 
 //切换我的钱包和币币账户
 root.methods.changeAssetAccountType = function () {
-  this.assetAccountType = this.assetAccountType == 'wallet' ? 'currency':'wallet'
+  this.assetAccountType = this.assetAccountType == 'wallet' ? 'wallet':'currency'
 }
-
 
 // // 划转输入框交换位置
 // root.methods.changeAccount = function () {
@@ -754,7 +753,7 @@ root.methods.transferCommit = function () {
     params: {
       currency: this.currencyValue,
       amount: this.amountInput,
-      system: this.assetAccountType == 'wallet' ? 'SPOTS':'WALLET'
+      system: this.assetAccountType == 'wallet' ? 'WALLET':'SPOTS'
     },
     callBack: this.re_transferCommit,
     errorHandler: this.error_transferCommit
