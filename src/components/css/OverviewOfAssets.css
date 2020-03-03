@@ -150,9 +150,7 @@
   font-family:PingFangSC-Regular,PingFang SC;
   font-weight:400;
   color:rgba(255,255,255,1);
-  outline: none;
-  outline-style: hidden;
-  outline-color: transparent;
+  border: 0;
 }
 
 .pop-qu-2:hover {
