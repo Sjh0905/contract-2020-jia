@@ -609,64 +609,63 @@ position: relative;
   height: 1.2rem;
   position: fixed;
   width: 100%;
-  bottom: 50px;
+  bottom: 1rem;
   background: #F7F8FA;
 }
 
 .index-home-header-img {
-  height: 72%;
+  height: 0.8rem;
   display: block;
   position: absolute;
-  top: 14%;
-  left: 0.8rem;
+  top: 0.2rem;
+  left: 0.6rem;
   z-index: 0;
 }
 
 .index-home-header-address {
-  /*background: #3576F5;*/
-  border: 1px solid #3576F5;
   color: #3576F5;
-  height: 0.72rem;
-  line-height: 0.72rem;
-  width: 1.6rem;
+  line-height: 0.68rem;
   position: absolute;
-  border-radius: 2px;
   text-align: center;
   top: 0.24rem;
-  right: 0.24rem;
-  font-family: PingFangSC-Medium;
-  font-size: 16px;
+  right: 0.3rem;
   letter-spacing: 0;
+  width: 1.86rem;
+  height: 0.68rem;
+  border-radius: 0.04rem;
+  border: 0.02rem solid #3576F5;
+  font-size: 0.32rem;
+  font-family: PingFangSC-Medium,PingFang SC;
 }
 
 
 .logofont{
-  height: 0.72rem;
   display: block;
   position: absolute;
-  top: 18%;
-  left: 2rem;
+  top: 0.2rem;
+  left: 1.6rem;
   z-index: 0;
-  font-size: 16px;
-  letter-spacing: 0;
-  font-family: PingFangSC-Medium;
-  color: #3576F5;
   letter-spacing: 0;
   font-weight: 600;
+  font-size: 0.32rem;
+  font-family: PingFangSC-Medium,PingFang SC;
+  font-weight: 500;
+  color: #131F30;
+  line-height:0.44rem;
 }
 
 .logofont2{
-  height: 0.72rem;
   display: block;
   position: absolute;
-  top: 54%;
-  left: 2rem;
+  top: 0.66rem;
+  left: 1.6rem;
   z-index: 0;
   letter-spacing: 0;
-  font-family: PingFangSC-Regular;
-  font-size: 13px;
-  color: #3576F5;
-  letter-spacing: 0;
+  font-size: 0.24rem;
+  font-family: PingFangSC-Regular,PingFang SC;
+  font-weight: 400;
+  color: #131F30;
+  line-height: 0.34rem;
 }
 
 .index-home-header-close {
@@ -680,8 +679,8 @@ position: relative;
 .index-home-header-img-close {
   position: absolute;
   top: 16px;
-  left: 14px;
-  width: 18px;
+  left: 0.1rem;
+  width: 0.36rem;
 
 }
 
