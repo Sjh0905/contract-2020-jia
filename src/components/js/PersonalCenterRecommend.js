@@ -1,7 +1,7 @@
 const root = {}
 root.name = 'PersonalCenterRecommend'
 
-import logo from '../../assets/二维码logo.png'
+import logo from '../../assets/download-icon.png'
 
 /*------------------------------ 组件 ------------------------------*/
 root.components = {
