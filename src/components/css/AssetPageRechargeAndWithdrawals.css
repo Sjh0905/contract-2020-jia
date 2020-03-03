@@ -273,12 +273,32 @@
 
 /*弹窗button*/
 .button-base {
-  margin-right: 20px;
+  width: 195px;
+  height: 35px;
+  /* background-color: #3576F5; */
+  color: #fff;
+  border-radius: 1px;
+  border: 0 solid transparent;
+  margin-right: 2px;
   outline: none;
+}
+
+.m-r {
+  margin-right: 20px;
 }
 
 .button-base:last-of-type {
   margin-right: 0;
+}
+
+.button-base-email {
+  width: 410px;
+  height: 35px;
+  /* background-color: #3576F5; */
+  color: #fff;
+  border-radius: 1px;
+  border: 0 solid transparent;
+  outline: none;
 }
 
 .select-address-detail {
