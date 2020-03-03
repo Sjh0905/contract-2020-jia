@@ -9,7 +9,7 @@
       <div class="flow-code">{{$t('billNumber')}}</div>
 
       <!--收款人 or 付款人-->
-      <div class="name">{{transferInOrOut ? $t('payeeAccount'): '付款人'}}</div>
+      <div class="name">{{ Judgment ? '付款人' : $t('payeeAccount') }}</div>
 
       <!--账号-->
       <div class="Payee">{{$t('accountNumber')}}</div>
@@ -57,10 +57,10 @@
             <div class="name">{{item.name}}</div>
 
             <!--收款人账号 or 付款人账号-->
-            <div class="Payee">{{item.userName}}</div>
+            <div class="Payee">{{item.fromUserId ? item.fromEmail : item.toEmail}}</div>
 
             <!--收款人UID or 付款人UID-->
-            <div class="uid">{{item.id}}</div>
+            <div class="uid">{{item.fromUserId ? item.fromUserId : item.toUserId}}</div>
 
             <!--币种 begin-->
             <span class="currency">{{item.currency == 'USDT2' ? 'USDT' :item.currency}}</span>
@@ -74,7 +74,7 @@
             <div class="type">{{item.fromUserId ? '转入':'转出'}}</div>
 
             <!--时间 begin-->
-            <span class="time">{{$globalFunc.formatDateUitl(item.createdAt,'YYYY-MM-DD hh:mm:ss')}}</span>
+            <span class="time">{{$globalFunc.formatDateUitl(item.updatedAt,'YYYY-MM-DD hh:mm:ss')}}</span>
             <!--时间 end-->
 
             <!--状态 begin-->

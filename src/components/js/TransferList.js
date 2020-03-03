@@ -125,33 +125,33 @@ root.methods.error_getRecord = function (err) {
 // }
 
 // 状态
-root.methods.state = function (item) {
-
-  let msg = ''
-
-  switch (item.status) {
-    case 'PENDING':
-      msg = this.$t('recharge_status_1') + `(${item.confirms}/${item.minimumConfirms})`
-      break;
-    case 'DEPOSITED':
-      msg = this.$t('recharge_status_2')
-      break;
-    case 'CANCELLED':
-      msg = this.$t('recharge_status_3')
-      break;
-    case 'WAITING_FOR_APPROVAL':
-      msg = this.$t('recharge_status_4')
-      break;
-    case 'DENIED':
-      msg = this.$t('recharge_status_5')
-      break;
-    default:
-      msg = '---'
-  }
-
-  return msg
-
-}
+// root.methods.state = function (item) {
+//
+//   let msg = ''
+//
+//   switch (item.status) {
+//     case 'PENDING':
+//       msg = this.$t('recharge_status_1') + `(${item.confirms}/${item.minimumConfirms})`
+//       break;
+//     case 'DEPOSITED':
+//       msg = this.$t('recharge_status_2')
+//       break;
+//     case 'CANCELLED':
+//       msg = this.$t('recharge_status_3')
+//       break;
+//     case 'WAITING_FOR_APPROVAL':
+//       msg = this.$t('recharge_status_4')
+//       break;
+//     case 'DENIED':
+//       msg = this.$t('recharge_status_5')
+//       break;
+//     default:
+//       msg = '---'
+//   }
+//
+//   return msg
+//
+// }
 
 
 root.methods.loadingMore = function () {
