@@ -505,13 +505,19 @@
 }
 
 .verification-container {
-  padding-top: 10px;
-  width: 100%;
-  justify-content: space-between;
-  -webkit-justify-content: space-between;
+  padding-right: 16px;
+  margin-top: 10px;
+  /*width: 100%;*/
+  /*justify-content: space-around;*/
+  /*-webkit-justify-content: space-around;*/
   align-items: center;
   -webkit-align-items: center;
   font-size: 14px;
+  width:410px;
+  height:40px;
+  border-radius:1px;
+  border:1px solid rgba(224,225,244,1);
+  /*margin-left: 25px;*/
 
 }
 
@@ -520,23 +526,51 @@
 }
 
 .get-verification {
+  display: inline-block;
+  width: 30%;
   /*width: 70px;*/
-  /*height: 35px;*/
-  color: #fff;
+  height: 40px;
+  line-height: 40px;
+  text-align: right;
   font-size: 14px;
-  border: 0;
+  color: #3576F5;
+}
+
+.button-base {
+  margin-right: 20px;
+  outline: none;
+}
+
+.get-verifications {
+  display: inline-block;
+  width: 30%;
+  /*width: 70px;*/
+  height: 40px;
+  line-height: 40px;
+  text-align: right;
+  font-size: 14px;
+  color: #A2B5D9;
+}
+
+.send-verification-code {
+  width: 410px;
+  height: 35px;
+  border: 1px solid #e5e5e5;
+  border-radius: 1px;
 }
 
 .verification-input {
   height: 35px;
   border: 1px solid #e5e5e5;
-  border-radius: 1px;
-  width: 200px;
-
+  border-radius: 5px;
+  width: 80%;
+  border: none;
+  box-sizing: border-box;
 }
 
 .double-input {
   width: 410px;
+  box-sizing: border-box;
 }
 
 .prompt-wrong {

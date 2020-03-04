@@ -23,10 +23,10 @@
 
           <div>
             <button @click="clickCopy" class=" pointer address-button">
-              <img src="../../assets/mywallet/copy_icon.png" alt="">
+              <img src="../../assets/myWallet/copy_icon.png" alt="">
               {{$t('copyAddress')}}</button>
             <button  class="pointer show-QRCode" @mouseenter="openQRCode()" @mouseleave="closeQRCode()">
-              <img src="../../assets/mywallet/qrCode_icon.png" alt="">
+              <img src="../../assets/myWallet/qrCode_icon.png" alt="">
               {{$t('showQRCode')}}</button>
           </div>
         </div>
@@ -72,12 +72,12 @@
           <input type="text" readonly v-model="publicKey" ref="publicKey" class="address-input border_radius"/>
           <div>
             <button @click="clickCopyPublicKey" class="pointer address-button" >
-              <img src="../../assets/mywallet/copy_icon.png" alt="">
+              <img src="../../assets/myWallet/copy_icon.png" alt="">
               {{$t('copyAddress')}}
               <!--            {{$t('copyPublicKey')}}-->
             </button>
             <button  class="pointer show-QRCode" @mouseenter="openPublicKey()" @mouseleave="closePublicKey()">
-              <img src="../../assets/mywallet/qrCode_icon.png" alt="">
+              <img src="../../assets/myWallet/qrCode_icon.png" alt="">
               {{$t('showQRCode')}}</button>
           </div>
 

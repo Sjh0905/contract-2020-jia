@@ -1,0 +1,63 @@
+<div>
+  <div class="recharge-box">
+    <div class="header-box">
+      <!--顶部标题及logo-->
+      <div class="header-box-title">
+        <!--<span  class="header-box-title-logo-box">-->
+        <!--<img class="header-box-title-logo" :src="'http://logo.2020.exchange/' + (rechargeDetailData.currency == 'USDT2'?'USDT':rechargeDetailData.currency) +'.png'" alt="">-->
+        <!--</span>-->
+        <!--{{$globalFunc.accFixed(rechargeDetailData.amount, 8)}}-->
+        {{rechargeDetailData.currency == 'USDT2'?'USDT':rechargeDetailData.currency}}
+      </div>
+
+      <!--数量-->
+      <div class="header-box-num">
+        <span class="header-box-state-title">数量</span>
+        <span class="header-box-state-container">{{$globalFunc.accFixed(rechargeDetailData.amount, 8)}}</span>
+      </div>
+
+      <!--说明-->
+      <div class="header-box-state">
+        <span class="header-box-state-title">说明</span>
+        <span class="header-box-state-container">{{rechargeDetailData.descritption}}</span>
+      </div>
+
+    </div>
+    <div class="container-box container-box-position">
+
+      <!--日期-->
+      <div class="container-box-time">
+        <span class="container-box-time-title">日期</span>
+        <span class="container-box-time-container">{{$globalFunc.formatDateUitl(rechargeDetailData.updatedAt,'YYYY-MM-DD hh:mm:ss')}}</span>
+      </div>
+
+      <!--状态-->
+      <div class="header-box-state">
+        <span class="header-box-state-title">状态</span>
+        <div v-if="rechargeDetailData.status === 'DONE'" class="header-box-state-container">已发放</div>
+      </div>
+
+    </div>
+
+  </div>
+  <PopupPrompt :popOpen="popOpen" :popClose="popClose" :popType="popType" :popText="popText"/>
+  <!--<div class="window-toast">-->
+  <!--<div v-if="toastWindowFlag" class="window-toast">-->
+  <!--<div class="mobile-popwindow-box flex-center">-->
+  <!--<div class="mobile-popwindow-window">-->
+  <!--<div class="mobile-popwindow-txt txt-light">您是否要撤销？</div>-->
+  <!--<div class="mobile-popwindow-btn-box flex-row">-->
+  <!--<div class="mobile-popwindow-btn" @click="closeClick">-->
+  <!--取消-->
+  <!--</div>-->
+  <!--<div class="mobile-popwindow-btn" @click="yesClick">-->
+  <!--确认-->
+  <!--</div>-->
+  <!--</div>-->
+  <!--</div>-->
+  <!--</div>-->
+  <!--</div>-->
+
+
+</div>
+

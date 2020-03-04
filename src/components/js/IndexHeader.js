@@ -1,4 +1,4 @@
-import logo from '../../assets/二维码logo.png'
+import logo from '../../assets/download-icon.png'
 const root = {}
 root.name = 'IndexHeader'
 

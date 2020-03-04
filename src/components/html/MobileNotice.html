@@ -1,14 +1,15 @@
 <div>
   <Loading v-if="loading"/>
   <div class="notice-list" v-if="!loading">
+    <div class="notice-center-title">公告中心</div>
     <div class="notice-item" v-for="(item,index) in noticeList" :key="index" @click="noticeToDetail(item.id)">
       <div class="notice-item-title">
         {{item.title}}
       </div>
-      <div class="notice-item-time">{{$globalFunc.formatDateUitl(item.beginTime,'YYYY-MM-DD')}}</div>
-      <img class="notice-item-right" src="../../assets/mobile-notice-more.png" alt="">
+      <!--<div class="notice-item-time">{{$globalFunc.formatDateUitl(item.beginTime,'YYYY-MM-DD')}}</div>-->
+      <!--<img class="notice-item-right" src="../../assets/mobile-notice-more.png" alt="">-->
     </div>
-    <div v-if="canGetMore" class="notice-get-more" @click="getMoreNotice()">获取更多</div>
+    <div v-if="canGetMore" class="notice-get-more" @click="getMoreNotice()">查看更多</div>
     <!--<div v-if="!canGetMore" class="notice-no-more">没有更多数据</div>-->
   </div>
 </div>
