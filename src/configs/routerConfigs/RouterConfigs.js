@@ -2047,6 +2047,48 @@ root.routes.push({
           },
           caseSensitive: true,
           component: resolve => require(['@/components/mobileVue/MobileAssetWithdrawRecordDetail'], resolve),
+        },// 移动端划转记录详情页
+        {
+          path: 'mobileAssetCapitalTransferRecordDetail',
+          name: 'MobileAssetCapitalTransferRecordDetail',
+          meta: {
+            pcname: '',
+            h5name: 'MobileAssetCapitalTransferRecordDetail',
+            requireLogin: true,
+            // 临时关闭
+            templateClose: false,
+            requireLoginOff: false,
+          },
+          caseSensitive: true,
+          component: resolve => require(['@/components/mobileVue/MobileAssetCapitalTransferRecordDetail'], resolve),
+        },// 移动端内部转账记录详情页
+        {
+          path: 'mobileAssetInternalTransferRecordDetail',
+          name: 'MobileAssetInternalTransferRecordDetail',
+          meta: {
+            pcname: '',
+            h5name: 'MobileAssetInternalTransferRecordDetail',
+            requireLogin: true,
+            // 临时关闭
+            templateClose: false,
+            requireLoginOff: false,
+          },
+          caseSensitive: true,
+          component: resolve => require(['@/components/mobileVue/MobileAssetInternalTransferRecordDetail'], resolve),
+        },// 移动端奖励记录详情页
+        {
+          path: 'mobileAssetRewardRecordDetail',
+          name: 'MobileAssetRewardRecordDetail',
+          meta: {
+            pcname: '',
+            h5name: 'MobileAssetRewardRecordDetail',
+            requireLogin: true,
+            // 临时关闭
+            templateClose: false,
+            requireLoginOff: false,
+          },
+          caseSensitive: true,
+          component: resolve => require(['@/components/mobileVue/MobileAssetRewardRecordDetail'], resolve),
         },
       ]
     },

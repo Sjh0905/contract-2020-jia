@@ -395,13 +395,13 @@ root.methods.re_getCapitalTransferList = function (data) {
         {
           "amount": 40233881.602273375,
           "createdAt": 39774113.55728635,
-          "currency": "USDT测试",
+          "currency": "USDT",
           "timestamp": "ut",
           "transferType": "consectetur elit voluptate non ullamco",
           "userId": -9238746.754895285,
           "id": -86783273.65578213,
-          "status": "DONE",
-          "transferId": "nostrud",
+          "status": "0",
+          "transferId": "20191123143701",
           "transferFrom": "",
           "transferTo": "WALLET",
           "updatedAt": 1578226647197,
@@ -409,13 +409,13 @@ root.methods.re_getCapitalTransferList = function (data) {
         },{
           "amount": 40233881.602273375,
           "createdAt": 39774113.55728635,
-          "currency": "USDT测试",
+          "currency": "EOS",
           "timestamp": "ut",
           "transferType": "consectetur elit voluptate non ullamco",
           "userId": -9238746.754895285,
           "id": -86783273.65578213,
-          "status": "SUBMITTED",
-          "transferId": "nostrud",
+          "status": "1",
+          "transferId": "20191123143702",
           "transferFrom": "occaecat et irure dolor eiusmod",
           "transferTo": "SPOTS",
           "updatedAt": 1578226647197,
@@ -423,13 +423,13 @@ root.methods.re_getCapitalTransferList = function (data) {
         },{
           "amount": 40233881.602273375,
           "createdAt": 39774113.55728635,
-          "currency": "USDT测试",
+          "currency": "ETH",
           "timestamp": "ut",
           "transferType": "consectetur elit voluptate non ullamco",
           "userId": -9238746.754895285,
           "id": -86783273.65578213,
-          "status": "FAILED",
-          "transferId": "nostrud",
+          "status": "0",
+          "transferId": "20191123143703",
           "transferFrom": "",
           "transferTo": "WALLET",
           "updatedAt": 1578226647197,
@@ -503,11 +503,11 @@ root.methods.re_getInternalTransferList = function (data) {
         "fromEmail": "proident",
         "fromUserId": 100002,
         "id": 19424641.65654689,
-        "name": "consequ",
-        "status": "occaecat nostrud",
+        "name": "jack",
+        "status": "0",
         "toEmail": "enim pariatur",
         "toUserId": 17017505.532742217,
-        "transferId": "Ut anim adipisicing commodo amet",
+        "transferId": "20200123143701",
         "updatedAt": 1578226647197,
         "version": 44518193.95575386
       },
@@ -520,13 +520,13 @@ root.methods.re_getInternalTransferList = function (data) {
         "fee": 5515030.240045607,
         "flowType": "eiusmod exercitation est culpa mollit",
         "fromEmail": "dolore proident adipisicing",
-        "fromUserId": 93685439.4159874,
+        "fromUserId": 10003,
         "id": 98574061.35561192,
-        "name": "nisi consequat eiusmod",
-        "status": "fugiat",
+        "name": "tom",
+        "status": "1",
         "toEmail": "aute reprehenderit",
         "toUserId": -61289931.75798434,
-        "transferId": "non es",
+        "transferId": "20200123143702",
         "updatedAt": 1578208180984,
         "version": 16172230.43511355
       }
@@ -573,16 +573,21 @@ root.methods.toWithdrawDetailPath = function (type) {
   this.$router.push("/index/mobileAsset/mobileAssetWithdrawRecordDetail/")
 }
 
-// // 点击跳转奖励详情页
-// root.methods.toRewardRecord = function (type) {
-//   this.$store.commit('changeMobileRechargeRecordData',type)
-//   this.$router.push("/index/mobileAsset/mobileAssetWithdrawRecordDetail/")
-// }
+// 点击跳转奖励详情页
+root.methods.toRewardDetailPath = function (item) {
+  this.$store.commit('changeMobileRechargeRecordData',item)
+  this.$router.push("/index/mobileAsset/mobileAssetRewardRecordDetail/")
+}
 
 // 点击跳进划转详情页
-root.methods.toTransferDetailPath = function (type) {
-  // this.$store.commit('changeMobileRechargeRecordData',type)
-  // this.$router.push("/index/mobileAsset/mobileAssetWithdrawRecordDetail/")
+root.methods.toCapitalTransferDetailPath = function (item) {
+  this.$store.commit('changeMobileRechargeRecordData',item)
+  this.$router.push("/index/mobileAsset/mobileAssetCapitalTransferRecordDetail/")
+}
+// 点击跳进内部转账详情页
+root.methods.toInternalTransferDetailPath = function (item) {
+  this.$store.commit('changeMobileRechargeRecordData',item)
+  this.$router.push("/index/mobileAsset/mobileAssetInternalTransferRecordDetail/")
 }
 // 关闭pop提示
 root.methods.popClose = function () {
