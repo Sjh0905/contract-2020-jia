@@ -601,32 +601,32 @@ root.methods.toFixed = function (num, acc = 8) {
 
 
 // 状态
-// root.methods.state = function (item) {
-//
-//   let msg = ''
-//
-//   switch (item.status) {
-//     case 'DONE':
-//       msg = '等待区块确认' + `(${item.confirms}/${item.minimumConfirms})`
-//       break;
-//     case 'DEPOSITED':
-//       msg = '充值成功'
-//       break;
-//     case 'CANCELLED':
-//       msg = '废弃区块'
-//       break;
-//     case 'WAITING_FOR_APPROVAL':
-//       msg = '等待审核'
-//       break;
-//     case 'DENIED':
-//       msg = '审核未通过'
-//       break;
-//     default:
-//       msg = '---'
-//   }
-//
-//   return msg
-// }
+root.methods.state = function (item) {
+
+  let msg = ''
+
+  switch (item.status) {
+    case 'DONE':
+      msg = '等待区块确认' + `(${item.confirms}/${item.minimumConfirms})`
+      break;
+    case 'DEPOSITED':
+      msg = '充值成功'
+      break;
+    case 'CANCELLED':
+      msg = '废弃区块'
+      break;
+    case 'WAITING_FOR_APPROVAL':
+      msg = '等待审核'
+      break;
+    case 'DENIED':
+      msg = '审核未通过'
+      break;
+    default:
+      msg = '---'
+  }
+
+  return msg
+}
 
 
 

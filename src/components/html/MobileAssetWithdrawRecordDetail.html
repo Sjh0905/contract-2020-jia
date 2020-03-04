@@ -65,11 +65,11 @@
         <span class="container-box-reject-container">{{rechargeDetailData.errorMessage}}</span>
       </div>
 
-      <!--撤销按钮-->
-      <div v-if="rechargeDetailData.status === 'SUBMITTED' ||
-      rechargeDetailData.status === 'WAITING_FOR_APPROVAL' ||
-      rechargeDetailData.status === 'WAITING_FOR_WALLET'"
-      class="container-cancel-btn btn_blue" @click="cancelSubmit">撤销提现</div>
+      <!--撤销按钮 此按钮多余？-->
+      <!--<div v-if="rechargeDetailData.status === 'SUBMITTED' ||-->
+      <!--rechargeDetailData.status === 'WAITING_FOR_APPROVAL' ||-->
+      <!--rechargeDetailData.status === 'WAITING_FOR_WALLET'"-->
+      <!--class="container-cancel-btn btn_blue" @click="cancelSubmit">撤销提现</div>-->
 
       <!--复制和跳转txid按钮-->
       <div v-if="rechargeDetailData.tx" class="container-box-btn">
