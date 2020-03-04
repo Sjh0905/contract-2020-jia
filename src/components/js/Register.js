@@ -70,7 +70,7 @@ root.data = function () {
     captchaReady: false,
 
     // 2019-5-10 新注册
-    registerType: 1, // 0为手机注册，1为邮箱注册
+    // registerType: 1, // 0为手机注册，1为邮箱注册
 
     // 绑定的城市
     cities: [],
@@ -122,6 +122,9 @@ root.beforeDestroy = function () {
 
 /*------------------------------ 计算 -------------------------------*/
 root.computed = {}
+root.computed.registerType = function () {
+  return this.$store.state.registerType
+}
 root.computed.isMobile = function () {
   return this.$store.state.isMobile
 }
@@ -290,7 +293,9 @@ root.methods.testReferee = function () {
 }
 // 选择注册方式
 root.methods.choseRegisterType = function (type) {
-  this.registerType = type
+  // this.registerType = type
+
+  this.$store.commit("REGISTER_TYPE",type);
 }
 
 /*----------------- 极验 ------------------*/
