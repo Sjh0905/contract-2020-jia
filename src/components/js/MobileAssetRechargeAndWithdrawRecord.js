@@ -389,57 +389,57 @@ root.methods.getCapitalTransferList = function () {
 }
 // 获取划转记录回调
 root.methods.re_getCapitalTransferList = function (data) {
-  data = {
-      "dataMap": {
-      "userTransferRecordList": [
-        {
-          "amount": 40233881.602273375,
-          "createdAt": 39774113.55728635,
-          "currency": "USDT",
-          "timestamp": "ut",
-          "transferType": "consectetur elit voluptate non ullamco",
-          "userId": -9238746.754895285,
-          "id": -86783273.65578213,
-          "status": "0",
-          "transferId": "20191123143701",
-          "transferFrom": "",
-          "transferTo": "WALLET",
-          "updatedAt": 1578226647197,
-          "version": -56367974.38596788
-        },{
-          "amount": 40233881.602273375,
-          "createdAt": 39774113.55728635,
-          "currency": "EOS",
-          "timestamp": "ut",
-          "transferType": "consectetur elit voluptate non ullamco",
-          "userId": -9238746.754895285,
-          "id": -86783273.65578213,
-          "status": "1",
-          "transferId": "20191123143702",
-          "transferFrom": "occaecat et irure dolor eiusmod",
-          "transferTo": "SPOTS",
-          "updatedAt": 1578226647197,
-          "version": -56367974.38596788
-        },{
-          "amount": 40233881.602273375,
-          "createdAt": 39774113.55728635,
-          "currency": "ETH",
-          "timestamp": "ut",
-          "transferType": "consectetur elit voluptate non ullamco",
-          "userId": -9238746.754895285,
-          "id": -86783273.65578213,
-          "status": "0",
-          "transferId": "20191123143703",
-          "transferFrom": "",
-          "transferTo": "WALLET",
-          "updatedAt": 1578226647197,
-          "version": -56367974.38596788
-        }
-      ]
-    },
-    "errorCode": 0,
-    "result": "ut Ut mollit in fugiat"
-  }
+  // data = {
+  //     "dataMap": {
+  //     "userTransferRecordList": [
+  //       {
+  //         "amount": 40233881.602273375,
+  //         "createdAt": 39774113.55728635,
+  //         "currency": "USDT",
+  //         "timestamp": "ut",
+  //         "transferType": "consectetur elit voluptate non ullamco",
+  //         "userId": -9238746.754895285,
+  //         "id": -86783273.65578213,
+  //         "status": "0",
+  //         "transferId": "20191123143701",
+  //         "transferFrom": "",
+  //         "transferTo": "WALLET",
+  //         "updatedAt": 1578226647197,
+  //         "version": -56367974.38596788
+  //       },{
+  //         "amount": 40233881.602273375,
+  //         "createdAt": 39774113.55728635,
+  //         "currency": "EOS",
+  //         "timestamp": "ut",
+  //         "transferType": "consectetur elit voluptate non ullamco",
+  //         "userId": -9238746.754895285,
+  //         "id": -86783273.65578213,
+  //         "status": "1",
+  //         "transferId": "20191123143702",
+  //         "transferFrom": "occaecat et irure dolor eiusmod",
+  //         "transferTo": "SPOTS",
+  //         "updatedAt": 1578226647197,
+  //         "version": -56367974.38596788
+  //       },{
+  //         "amount": 40233881.602273375,
+  //         "createdAt": 39774113.55728635,
+  //         "currency": "ETH",
+  //         "timestamp": "ut",
+  //         "transferType": "consectetur elit voluptate non ullamco",
+  //         "userId": -9238746.754895285,
+  //         "id": -86783273.65578213,
+  //         "status": "0",
+  //         "transferId": "20191123143703",
+  //         "transferFrom": "",
+  //         "transferTo": "WALLET",
+  //         "updatedAt": 1578226647197,
+  //         "version": -56367974.38596788
+  //       }
+  //     ]
+  //   },
+  //   "errorCode": 0,
+  //   "result": "ut Ut mollit in fugiat"
+  // }
 
   this.ajaxCapitalTransferFlag = false
   typeof data === 'string' && (data = JSON.parse(data))
@@ -489,52 +489,52 @@ root.methods.getInternalTransferList = function () {
 }
 // 获取内部转账记录返回，类型为{}
 root.methods.re_getInternalTransferList = function (data) {
-  data = {
-    "dataMap": {
-    "userTransferRecordList": [
-      {
-        "amount": 99102492.29972367,
-        "createdAt": -67236617.9753992,//是毫秒
-        "currency": "EOS",
-        "dateTime": "do proident ex aute",
-        "description": "ut consequat",
-        "fee": 59822729.33552468,//还有手续费？×多余预留字段
-        "flowType": "ipsum",
-        "fromEmail": "proident",
-        "fromUserId": 100002,
-        "id": 19424641.65654689,
-        "name": "jack",
-        "status": "0",
-        "toEmail": "enim pariatur",
-        "toUserId": 17017505.532742217,
-        "transferId": "20200123143701",
-        "updatedAt": 1578226647197,
-        "version": 44518193.95575386
-      },
-      {
-        "amount": 38305184.36958821,
-        "createdAt": 50407408.0127503,
-        "currency": "USDT",
-        "dateTime": "ut eu aliqua nisi",
-        "description": "velit proident",
-        "fee": 5515030.240045607,
-        "flowType": "eiusmod exercitation est culpa mollit",
-        "fromEmail": "dolore proident adipisicing",
-        "fromUserId": 10003,
-        "id": 98574061.35561192,
-        "name": "tom",
-        "status": "1",
-        "toEmail": "aute reprehenderit",
-        "toUserId": -61289931.75798434,
-        "transferId": "20200123143702",
-        "updatedAt": 1578208180984,
-        "version": 16172230.43511355
-      }
-    ]
-  },
-    "errorCode": -44435161.791536435,
-    "result": "ut"
-  }
+  // data = {
+  //   "dataMap": {
+  //   "userTransferRecordList": [
+  //     {
+  //       "amount": 99102492.29972367,
+  //       "createdAt": -67236617.9753992,//是毫秒
+  //       "currency": "EOS",
+  //       "dateTime": "do proident ex aute",
+  //       "description": "ut consequat",
+  //       "fee": 59822729.33552468,//还有手续费？×多余预留字段
+  //       "flowType": "ipsum",
+  //       "fromEmail": "proident",
+  //       "fromUserId": 100002,
+  //       "id": 19424641.65654689,
+  //       "name": "jack",
+  //       "status": "0",
+  //       "toEmail": "enim pariatur",
+  //       "toUserId": 17017505.532742217,
+  //       "transferId": "20200123143701",
+  //       "updatedAt": 1578226647197,
+  //       "version": 44518193.95575386
+  //     },
+  //     {
+  //       "amount": 38305184.36958821,
+  //       "createdAt": 50407408.0127503,
+  //       "currency": "USDT",
+  //       "dateTime": "ut eu aliqua nisi",
+  //       "description": "velit proident",
+  //       "fee": 5515030.240045607,
+  //       "flowType": "eiusmod exercitation est culpa mollit",
+  //       "fromEmail": "dolore proident adipisicing",
+  //       "fromUserId": 10003,
+  //       "id": 98574061.35561192,
+  //       "name": "tom",
+  //       "status": "1",
+  //       "toEmail": "aute reprehenderit",
+  //       "toUserId": -61289931.75798434,
+  //       "transferId": "20200123143702",
+  //       "updatedAt": 1578208180984,
+  //       "version": 16172230.43511355
+  //     }
+  //   ]
+  // },
+  //   "errorCode": -44435161.791536435,
+  //   "result": "ut"
+  // }
 
   this.ajaxInternalTransferFlag = false
   typeof data === 'string' && (data = JSON.parse(data))
