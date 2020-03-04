@@ -8,6 +8,9 @@ import GlobalFunc from '../globalFunctionConfigs/GlobalFunction'
 
 store.state = {}
 
+// 注册方式
+store.state.registerType = 1 // 0为手机注册，1为邮箱注册
+
 // 存储cookie
 store.state.save_cookie = ''
 
@@ -247,6 +250,11 @@ store.state.areaCode = '0086'
  * @type {{}}
  */
 store.mutations = {}
+
+// 注册类型
+store.mutations.REGISTER_TYPE = (state, info) => {
+  state.registerType = info;
+}
 
 // 时价初始化标识数组SET_INIT_PRICE_SYMBOL
 store.mutations.SET_INIT_PRICE_SYMBOL = (state, data) => {

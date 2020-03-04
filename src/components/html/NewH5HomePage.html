@@ -34,7 +34,7 @@
         <div class="homepage-header-textswiper-container">
           <swiper :options="swiperTextOption" v-if="textDataReady">
             <swiper-slide v-for="(item,index) in textData" key="index">
-              <div class="homepage-header-textswiper-address"  @click="goNotice(item.url)"
+              <div class="homepage-header-textswiper-address"  @click="goNotice(item)"
                    rel="noopener noreferrer">
                 <span class="homepage-header-textswiper-address-title">{{item.title}}</span>
 <!--                <span class="homepage-header-textswiper-address-time">({{$globalFunc.formatDateUitl(item.beginTime,'MM-DD')}})</span>-->
@@ -106,9 +106,9 @@
           <img class="homepage-icon-body-item-img" src="../../assets/H5img/trade_mining.png" alt="">
           <span class="homepage-icon-body-item-text">交易挖矿</span>
         </router-link>
-        <router-link to="" class="homepage-icon-body-item">
+        <router-link to="/index/mobileNotice" class="homepage-icon-body-item">
           <img class="homepage-icon-body-item-img" src="../../assets/H5img/help_center.png" alt="">
-          <span class="homepage-icon-body-item-text">帮助中心</span>
+          <span class="homepage-icon-body-item-text">公告</span>
         </router-link>
 
       </div>
@@ -248,7 +248,7 @@
   <!--<div v-if="!loading && downloadShow" class="homepage-body-download" ref="downloadView">-->
     <!--<img class="index-home-header-img" src="../../assets/mobile_app_download.png" alt="">-->
         <!--<div class="logofont">-->
-          <!--TwentyTwenty APP-->
+          <!--2020.Exchange-->
         <!--</div>-->
         <!--<div class="logofont2">-->
           <!--数字货币交易平台-->

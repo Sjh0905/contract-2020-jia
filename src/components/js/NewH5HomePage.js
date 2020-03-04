@@ -650,11 +650,11 @@ root.methods.re_getNotice = function (res) {
   // console.log(this.textData)
 }
 // 通告跳转
-root.methods.goNotice = function (res,isApp) {
-  window.location.href=res;
+root.methods.goNotice = function (item,isApp) {
+  // window.location.href=res;
   // 判断是否为app的公告
   // if (!isApp){
-  //   this.$router.push({path: '/index/mobileNoticeDetail', query: {id:res}})
+    this.$router.push({path: '/index/mobileNoticeDetail', query: {id:item.id}})
   // }
   // this.$router.push({path: '/index/mobileNoticeDetail', query: {id:res, isApp:true}})
 

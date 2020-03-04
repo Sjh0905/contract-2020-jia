@@ -1,6 +1,6 @@
 .mobile-notice-box{
-  background: #081724;
-  height:100%
+  background: #131F30;
+  /*height:100%*/
 }
 .mobile-notice-box1{
   background: #fff;
@@ -8,13 +8,14 @@
 }
 
 .mobile-notice-title-box {
-  width: 7.1rem;
-  min-height: 1.33rem;
-  color: #242D3D;
-  margin: 0 auto;
-  position: relative;
-  /*background: #fff;*/
-  border-bottom:1px solid #152c41;
+  margin: 0.46rem auto 0.62rem ;
+  width:6.9rem;
+  /*height:0.74rem;*/
+  font-size:0.52rem;
+  font-family:PingFangSC-Medium,PingFang SC;
+  font-weight:500;
+  color:#CFD3E9;
+  line-height:0.74rem;
 }
 
 .mobile-notice-title-box1 {
@@ -65,24 +66,36 @@ mobile-notice-title1 {
 }
 
 .mobile-notice-time {
-  position: absolute;
-  bottom: 0.15rem;
-  right: 0;
-  font-size: 0.2rem;
+  /*position: absolute; *!*/
+  /* bottom: 0.15rem; */
+  /* right: 0; */
+  margin-top: 0.6rem;
+  /* font-size: 0.2rem; */
   line-height: 0.28rem;
   height: 0.28rem;
+  font-size: 0.28rem;
+  font-family: PingFangSC-Regular,PingFang SC;
+  font-weight: 400;
+  color: #6B7DA2;
 }
 
-.mobile-notice-content-xxxxxx-abc123def {
-   color: #fff;
-   width: 7.1rem;
-   margin: 0 auto;
-   padding: 0.33rem 0 0;
-   overflow: hidden;
-   background: #081724;
+.mobile-notice-content {
+  /*color: #fff; *!*/
+  /* width: 7.1rem; */
+  margin: 0 auto;
+  /* padding: 0.33rem 0 0; */
+  overflow: hidden;
+  /* background: #081724; */
+  width: 6.9rem;
+  /*height: 5.62rem;*/
+  font-size: 0.28rem;
+  font-family: PingFangSC-Regular,PingFang SC;
+  font-weight: 400;
+  color: #CFD3E9;
+  line-height: 0.42rem;
  }
 
-.mobile-notice-content-xxxxxx-abc123def1 {
+.mobile-notice-content1 {
   color: #fff;
   width: 7.1rem;
   margin: 0 auto;
@@ -91,62 +104,90 @@ mobile-notice-title1 {
   background: #fff;
 }
 
-.mobile-notice-content-xxxxxx-abc123def p {
-  width: 7.1rem;
+.mobile-notice-content p {
+  /*width: 7.1rem;*/
   display: block;
-  color: #fff !important;
-  background: #081724 !important;
+  /*color: #fff !important;*/
+  /*background: #081724 !important;*/
 }
 
-.mobile-notice-content-xxxxxx-abc123def p strong{
-  color: #fff!important;
-  background: #081724 !important;
+.mobile-notice-content p strong{
+  /*color: #fff!important;*/
+  /*background: #081724 !important;*/
 }
 
-.mobile-notice-content-xxxxxx-abc123def p span{
-  color: #242D3D !important;
-  background: #fff !important;
+.mobile-notice-content p span{
+  /*color: #242D3D !important;*/
+  /*background: #fff !important;*/
 }
 
-.mobile-notice-content-xxxxxx-abc123def p span strong{
-  color: #242D3D !important;
-  background: #fff !important;
+.mobile-notice-content p span strong{
+  /*color: #242D3D !important;*/
+  /*background: #fff !important;*/
 }
 
-.mobile-notice-content-xxxxxx-abc123def a{
-  color: #fff !important;
+.mobile-notice-content a{
+  color: #3576F5 !important;
+  word-wrap: break-word;
+  word-break: break-all;
   /*text-decoration: #ccc;*/
   /*background: #fff !important;*/
 }
 
-.mobile-notice-content-xxxxxx-abc123def a strong{
-  color: rgb(0,0,238) !important;
-  background: #fff !important;
+.mobile-notice-content a strong{
+  /*color: rgb(0,0,238) !important;*/
+  /*background: #fff !important;*/
 }
 
-.mobile-notice-content-xxxxxx-abc123def p a{
-  color: #ccc !important;
+.mobile-notice-content p a{
+  /*color: #ccc !important;*/
   /*text-decoration: #ccc;*/
   /*background: #fff !important;*/
 }
 
-.mobile-notice-content-xxxxxx-abc123def p a strong{
-  color: rgb(0,0,238) !important;
-  background: #fff !important;
+.mobile-notice-content p a strong{
+  /*color: rgb(0,0,238) !important;*/
+  /*background: #fff !important;*/
 }
 
-.mobile-notice-content-xxxxxx-abc123def p a span{
-  color: rgb(0,0,238) !important;
-  background: #fff!important;
+.mobile-notice-content p a span{
+  /*color: rgb(0,0,238) !important;*/
+  /*background: #fff!important;*/
 }
 
-.mobile-notice-content-xxxxxx-abc123def p a span strong{
-  color: rgb(0,0,238) !important;
-  background: #fff !important;
+.mobile-notice-content p a span strong{
+  /*color: rgb(0,0,238) !important;*/
+  /*background: #fff !important;*/
 }
 
-.mobile-notice-content-xxxxxx-abc123def img {
+.mobile-notice-content img {
   width: 100%;
   display: block;
 }
+
+/*当公告中有表格，需要运营人员发布公告时给<table>加一个父节点<div class="table-box">*/
+.mobile-notice-content div.table-box {
+  width: 100%;
+  overflow-x: auto;
+}
+.mobile-notice-content table {
+  text-align: center;
+  font-size: 0.28rem;
+  font-family: PingFangSC-Regular,PingFang SC;
+  font-weight: 400;
+  color: #CFD3E9 !important;;
+  border: 1px solid !important;;
+}
+.mobile-notice-content table tbody tr {
+  background: #131F30 !important;
+  border: 1px solid !important;;
+
+}
+.mobile-notice-content table tbody tr td {
+  background: #131F30 !important;
+  border: 1px solid !important;;
+
+}
+
+
 
