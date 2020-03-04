@@ -256,17 +256,16 @@
 <!--        </div>-->
         <label for="email" class="verification-title">{{$t('email')}}</label>
         <div class="verification-container flex">
-
-          <input type="text" id="email" class="verification-input double-input input_padding"
-                 v-model="emailVerificationCode"
-                 @blur="testEmailVerification">
-          <button class="get-verification btn_blue" v-if="!getEmailVerificationCode"
-                  @click="getEmailVerification">
-            {{$t('reGet')}}
-          </button>
-          <button class="get-verification btn_grey" v-if="getEmailVerificationCode" disabled>
+            <input type="text" id="email" class="verification-input input_padding"
+                   v-model="emailVerificationCode"
+                   @blur="testEmailVerification">
+            <div class="get-verification" v-if="!getEmailVerificationCode"
+                 @click="getEmailVerification">
+              {{$t('reGet')}}
+          </div>
+          <div class="get-verifications pointer" v-if="getEmailVerificationCode" disabled>
             {{getEmailVerificationCodeCountdown}}s
-          </button>
+          </div>
         </div>
         <div class="prompt-wrong wrong-msg" v-if="emailVerificationCodeWA!==''">
           {{emailVerificationCodeWA}}
@@ -307,15 +306,15 @@
             <div class="verification-container double-input-container flex" v-if="picker == 2">
               <label for="mobile"
                      class="verification-title">{{$t('mobile')}}</label>
-              <input type="text" id="mobile" class="verification-input double-input input_padding"
+              <input type="text" id="mobile" class="verification-input input_padding"
                      v-model="step2VerificationCode"
                      @blur="testMobileVerification">
-              <button class="get-verification button-base btn_blue" v-if="!getMobileVerificationCode"
+              <div class="get-verification" v-if="!getMobileVerificationCode"
                       @click="getMobileVerification">{{$t('reGet')}}
-              </button>
-              <button class="get-verification button-base btn_grey" v-if="getMobileVerificationCode" disabled>
+              </div>
+              <div class="get-verifications pointer" v-if="getMobileVerificationCode" disabled>
                 {{getMobileVerificationCodeCountdown}}s
-              </button>
+              </div>
             </div>
           </div>
         </template>
