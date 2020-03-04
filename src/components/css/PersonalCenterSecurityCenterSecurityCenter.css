@@ -89,8 +89,13 @@
 }
 
 .identity-button {
+  width: 130px;
   /*padding: 5px 15px;*/
   font-size: 14px;
+}
+.identity-one-button {
+  height: 35px;
+  border: 0;
 }
 
 .identity-button img {
@@ -678,10 +683,13 @@
   font-family:PingFangSC-Regular,PingFang SC;
   font-weight:400;
   color:rgba(255,255,255,1);
+  border: 0;
+  outline: none;
 }
 
 .pop-qu-2:hover {
   background:#5C93FF;
+  border: 0;
 }
 .article-present {
   height: 36px;

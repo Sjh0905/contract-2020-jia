@@ -682,7 +682,7 @@
                       <router-link
                         :to="{name:'historicalEntrust'}"
                         class="navigation-item-hidden-list-item-router"
-                        active-class="item_selected text_red"
+                        active-class="item_selected"
                       >
                         {{$t('historicalEntrust')}}
                       </router-link>
@@ -693,7 +693,7 @@
 
                 <li class="navigation-item-container flex" v-if="isLogin">
                   <router-link
-                    :to="{name:'authentication'}"
+                    :to="{name:'securityCenter'}"
                     class="navigation-item-router flex"
                     active-class="navigation-item-router-selected"
                   >
@@ -701,6 +701,9 @@
                     <!-- <span class="login-header-name flex-center">{{$t('personalCenter')}}</span> -->
                     <img src="../../assets/geren.png" alt="" class="login-header-name flex-center personal-icon">
                   </router-link>
+
+
+
                   <!--隐藏的标签 begin-->
                   <ul
                     class="flex navigation-item-hidden-list-c navigation-item-hidden-list-personal-center"

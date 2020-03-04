@@ -77,8 +77,9 @@ root.data = function () {
     idType: '',
     groupId: '',
     isExist: true,
-    account: ''
+    account: '',
     // uuid:'0'
+
   }
 }
 
@@ -114,13 +115,20 @@ root.mounted = function () {
 
 root.computed = {}
 
-// uid
-root.computed.uuid = function () {
-  if(this.$store.state.authMessage.uuid == undefined){
-    return this.$store.state.authMessage.userId
-  }
-  return this.$store.state.authMessage.uuid
+// // uid
+// root.computed.uuid = function () {
+//   if(this.$store.state.authMessage.uuid == undefined){
+//     return this.$store.state.authMessage.userId
+//   }
+//   return this.$store.state.authMessage.uuid
+// }
+
+
+// 获取userId
+root.computed.userId = function () {
+  return this.$store.state.authMessage.userId
 }
+
 
 root.computed.mobileLoginShow = function () {
   return this.$store.state.mobileLoginShow;
@@ -305,7 +313,7 @@ root.methods.getGroupLevel = function () {
   /* TODO : 调试接口需要屏蔽 E*/
   this.$http.send('GET_ASSEMBLE_GET', {
     bind: this,
-    urlFragment:this.uuid,
+    urlFragment:this.userId,
     // query:{
     //   userId:this.uuid
     // },
@@ -324,7 +332,7 @@ root.methods.re_getGroupLevel = function (data) {
   //   "status": "200",
   //   "message": "success"
   // }
-  console.log("this.re_getGroupLevel + data=====",data)
+  console.log("this.re_getGroupLevel登陆用户组等级信息 + data=====",data)
   typeof data === 'string' && (data = JSON.parse(data))
   this.idType = data.data.idType
   this.groupId = data.data.groupId

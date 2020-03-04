@@ -23,8 +23,8 @@
   "loadingMore": "加载更多",
 
   "billNumber":"流水单号",
-  "accountNumber":"付款人账号",
-  "payeeAccount":"收款人账号",
+  "accountNumber":"账号",
+  "payeeAccount":"收款人",
   "type":"类型",
   "transFer":"转账",
   "noRecord":"暂无记录"

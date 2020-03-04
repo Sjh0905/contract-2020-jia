@@ -194,9 +194,12 @@
   font-weight:400;
   color:rgba(255,255,255,1);
   cursor: pointer;
+  border: 0;
+  outline: none;
 }
 
 .pop-qu-2:hover {
+  border: 0;
   /*background:rgba(138,174,245,1);*/
 }
 

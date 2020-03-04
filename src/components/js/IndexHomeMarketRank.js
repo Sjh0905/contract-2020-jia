@@ -34,18 +34,6 @@ root.data = function () {
     //首页公告下边的横向展示币对
     homePageSymbols:[],
 
-    // swiper text 属性
-    swiperTextOption: {
-      initialSlide: 0,
-      autoplay: 3000,
-      speed: 500,
-      direction: 'vertical',
-      loop: true,
-      autoplayDisableOnInteraction: false,
-      disableOnInteraction: false,
-      observer: true,//修改swiper自己或子元素时，自动初始化swiper
-      observeParents: true//修改swiper的父元素时，自动初始化swiper
-    },
     textDataReady: false,
   }
 }
@@ -256,19 +244,19 @@ root.methods.RE_GET_NOTICE = function (res) {
 
 }
 
-root.methods.goNotice = function (res) {
-  window.open(res)
-  // this.$router.push({path: '/index/notice/noticeDetail', query: {id: res}})
+root.methods.goNotice = function (item) {
+  // window.open(item.url)
+  this.$router.push({path: '/index/notice/noticeDetail', query: {id: item.id}})
 //公告小图标跳转zendesk
 }
 
 root.methods.goPicNotice = function (res) {
 //公告跳转zendesk
-  if(this.$store.state.lang == 'CH'){
-    window.open("https://customerservice8872.zendesk.com/hc/zh-cn/categories/360002253311-%E5%85%AC%E5%91%8A%E4%B8%AD%E5%BF%83")
-  }else{
-    window.open("https://customerservice8872.zendesk.com/hc/en-001/categories/360002253311-Announcements")
-  }
+//   if(this.$store.state.lang == 'CH'){
+//     window.open("https://customerservice8872.zendesk.com/hc/zh-cn/categories/360002253311-%E5%85%AC%E5%91%8A%E4%B8%AD%E5%BF%83")
+//   }else{
+//     window.open("https://customerservice8872.zendesk.com/hc/en-001/categories/360002253311-Announcements")
+//   }
   // window.open("https://customerservice8872.zendesk.com/hc/zh-cn/categories/360002253311-%E5%85%AC%E5%91%8A%E4%B8%AD%E5%BF%83")
 //   let id
 //   id=this.noticeList[0].id
@@ -280,7 +268,7 @@ root.methods.goPicNotice = function (res) {
 //   })
 //   console.log(id)
 //
-//   this.$router.push({path: '/index/notice/noticeDetail', query: {id:id}})
+  this.$router.push({path: '/index/notice'})
 
 }
 

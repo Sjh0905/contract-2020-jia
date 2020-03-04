@@ -66,13 +66,18 @@ root.computed.userType = function () {
   return this.$store.state.authMessage && this.$store.state.authMessage.province === 'mobile' ? 0 : 1
 }
 
-// uid
-root.computed.uuid = function () {
-  if(this.$store.state.authMessage.uuid == undefined){
-    return this.$store.state.authMessage.userId
-  }
-  return this.$store.state.authMessage.uuid
+// 获取userId
+root.computed.userId = function () {
+  return this.$store.state.authMessage.userId
 }
+
+// // uid
+// root.computed.uuid = function () {
+//   if(this.$store.state.authMessage.uuid == undefined){
+//     return this.$store.state.authMessage.userId
+//   }
+//   return this.$store.state.authMessage.uuid
+// }
 /*------------------------------ 观察 -------------------------------*/
 root.watch = {}
 
@@ -196,7 +201,7 @@ root.methods.error_getCheckGroupDetails = function (err) {
 root.methods.postJoinGroup = function () {
   // TODO : 加变量的非空判断 正则判断
   let params = {
-    userId: this.uuid,
+    userId: this.userId,
     groupId: this.groupId,
     glevel: this.glevel,
     account: this.userName
@@ -221,19 +226,24 @@ root.methods.postJoinGroup = function () {
 root.methods.re_postJoinGroup = function (data) {
   typeof data === 'string' && (data = JSON.parse(data))
   this.success = data.data.success
-  console.log("re_postJoinGroup + data=====",data)
+  console.log("re_postJoinGroup + data=====", data)
   if (this.success == true) {
     // this.$router.push({name: 'detailsOfTheGroup',query:{groupId:this.groupId , gname: this.gname}} )
-    this.$router.push({name: 'detailsOfTheGroup', params: {groupId:this.groupId}})
-
+    this.$router.push({name: 'detailsOfTheGroup', params: {groupId: this.groupId}})
   }
-  if (this.success == false) {
+
+  if (data.status) {
+    data.status == 1 && (this.popText = this.$t('incorrect')) //团员账户有误
+    data.status == 2 && (this.popText = this.$t('account_not_registered')) // 团员账户未注册
+    data.status == 3 && (this.popText = this.$t('colonel_userId')) // 团长userId有误
+    data.status == 4 && (this.popText = this.$t('inserted')) // 拼团团员已存在，不能重复插入
+    data.status == 400 && (this.popText = this.$t('parameter_error')) //参数有误
     this.popOpen = true
     this.popType = 0
-    this.popText = this.$t('popText')
     setTimeout(() => {
       this.popOpen = true
-    }, 100)}
+    }, 100)
+  }
 }
 root.methods.error_postJoinGroup = function (err) {
   console.log("this.err=====",err)

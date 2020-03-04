@@ -476,11 +476,12 @@
 }
 
 .popWindow-title {
-  color: #333;
+  padding:0 25px;
+  color: #0D0E23;
 }
 
 .popWindow-article {
-  padding-top: 10px;
+  padding: 25px 25px 10px;
 }
 
 .prompt-title {
@@ -506,8 +507,8 @@
 .verification-container {
   padding-top: 10px;
   width: 100%;
-  justify-content: space-around;
-  -webkit-justify-content: space-around;
+  justify-content: space-between;
+  -webkit-justify-content: space-between;
   align-items: center;
   -webkit-align-items: center;
   font-size: 14px;
@@ -519,21 +520,23 @@
 }
 
 .get-verification {
-  width: 70px;
-  height: 35px;
+  /*width: 70px;*/
+  /*height: 35px;*/
+  color: #fff;
   font-size: 14px;
+  border: 0;
 }
 
 .verification-input {
   height: 35px;
   border: 1px solid #e5e5e5;
-  border-radius: 5px;
+  border-radius: 1px;
   width: 200px;
 
 }
 
 .double-input {
-  width: 130px;
+  width: 410px;
 }
 
 .prompt-wrong {
@@ -544,9 +547,9 @@
   display: block;
 }
 
-.btn-commit {
-  margin-left: 20px;
-}
+/*.btn-commit {*/
+/*  margin-left: 20px;*/
+/*}*/
 
 .btn-cancel {
   /*background-color: #e6e6e6;*/
@@ -555,6 +558,10 @@
 
   /*color: #999;*/
   /*color: #fff;*/
+}
+
+.popWindow-footer {
+  padding-bottom: 15px;
 }
 
 /*提交loading*/
@@ -583,6 +590,7 @@
 
 /*弹窗button*/
 .button-base {
+  width: 195px;
   margin-right: 20px;
 }
 

@@ -30,13 +30,13 @@
     :switch="popOpen"
     @close="closePopup"
   >
-    <div slot="header" class="">{{$t('prompt_title')}}</div>
-    <div slot="article" class="pop-article">
+    <div slot="header" class="prompt_title">{{$t('prompt_title')}}</div>
+    <div slot="article" class="pop-recharge">
       <span>{{$t('prompt_descript')}}</span>
     </div>
     <div slot="footer" class="pop-footer flex">
-      <button class="button-base btn_blue" @click="click_bind_mobile">{{$t('bind_mobile')}}</button>
-      <button class="button-base btn_blue" @click="click_bind_ga">{{$t('bind_ga')}}</button>
+      <button class="button-base33 btn_blue pointer" @click="click_bind_mobile">{{$t('bind_mobile')}}</button>
+      <button class="button-base33 btn_blue m-r pointer" @click="click_bind_ga">{{$t('bind_ga')}}</button>
     </div>
   </PopupWindow>
 
@@ -44,14 +44,15 @@
     :switch="bindEmailPopOpen"
     @close="closeBindEmailPop"
   >
-    <div slot="header" class="">
+    <div slot="header" class="prompt_title">
       {{$t('bind_email_pop_title')}}
     </div>
-    <div slot="article" class="pop-article">
+    <div slot="article" class="pop-recharge">
       <span>{{$t('bind_email_pop_article')}}</span>
     </div>
     <div slot="footer" class="pop-footer flex">
-      <button class="button-base btn_blue" @click="click_bind_email">{{$t('bind_email_pop_button')}}</button>
+      <button class="button-base33 btn_sim pointer " @click="click_bind">{{$t('prompt1')}}</button>
+      <button class="button-base33 btn_blue pointer m-r" @click="click_bind_email">{{$t('bind_email_pop_button1')}}</button>
     </div>
   </PopupWindow>
 
@@ -59,12 +60,12 @@
   <!--  刷新弹窗-->
   <PopupWindow :switch="popWindowOpen" :closeBtnShow="show" :footerBorderTop="borderTop">
     <div slot="header">
-      <span class="">{{popWindowTitle}}</span>
+      <span class="prompt_title">{{popWindowTitle}}</span>
     </div>
-    <div slot="article" class="pop-article">{{popWindowPrompt}}</div>
+    <div slot="article" class="pop-recharge">{{popWindowPrompt}}</div>
     <div slot="footer"  class="pop-footer flex-center">
       <template>
-        <button @click="()=>_" class="button-base btn_simple1 pointer">
+        <button @click="()=>_" class="button-base btn_simple1">
           {{timeOut}}{{this.$t('CanRefreshAgain')}}
         </button>
       </template>

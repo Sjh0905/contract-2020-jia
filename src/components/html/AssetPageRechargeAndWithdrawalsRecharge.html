@@ -102,7 +102,7 @@
       </li>
       <li class="" v-show="(currency == 'USDT' || currency == 'USDT2') && (selectTab === 1)"><span class="usdt_notice_dot"></span>{{$t('usdt_notice')}}
       </li>
-      <li class="" v-show="selectTab === 2"><span class="usdt_notice_dot"></span>{{$t('eusdt_notice')}}
+      <li class="" v-show="selectTab === 2"><span class="usdt_notice_dot"></span>{{$t('eusdt_notice',{currency:currency})}}
       </li>
       <li><span></span>{{$t('prohibitionRecharge',{currency:currency})}}</li>
       <li><span></span>{{$t('canNotRetrieved')}}</li>

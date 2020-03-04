@@ -63,7 +63,7 @@ root.methods.getRecord = function (currency) {
 root.methods.re_getRecord = function (data) {
   typeof data === 'string' && (data = JSON.parse(data))
   if (!data) return
-  // console.warn('获取记录', data)
+  console.log('获取记录', data)
   this.transferSpotList = data.dataMap.userTransferRecordList
 
   if (this.transferSpotList.length < this.limit) {
@@ -125,33 +125,33 @@ root.methods.error_getRecord = function (err) {
 // }
 
 // 状态
-root.methods.state = function (item) {
-
-  let msg = ''
-
-  switch (item.status) {
-    case 'PENDING':
-      msg = this.$t('recharge_status_1') + `(${item.confirms}/${item.minimumConfirms})`
-      break;
-    case 'DEPOSITED':
-      msg = this.$t('recharge_status_2')
-      break;
-    case 'CANCELLED':
-      msg = this.$t('recharge_status_3')
-      break;
-    case 'WAITING_FOR_APPROVAL':
-      msg = this.$t('recharge_status_4')
-      break;
-    case 'DENIED':
-      msg = this.$t('recharge_status_5')
-      break;
-    default:
-      msg = '---'
-  }
-
-  return msg
-
-}
+// root.methods.state = function (item) {
+//
+//   let msg = ''
+//
+//   switch (item.status) {
+//     case 'PENDING':
+//       msg = this.$t('recharge_status_1') + `(${item.confirms}/${item.minimumConfirms})`
+//       break;
+//     case 'DEPOSITED':
+//       msg = this.$t('recharge_status_2')
+//       break;
+//     case 'CANCELLED':
+//       msg = this.$t('recharge_status_3')
+//       break;
+//     case 'WAITING_FOR_APPROVAL':
+//       msg = this.$t('recharge_status_4')
+//       break;
+//     case 'DENIED':
+//       msg = this.$t('recharge_status_5')
+//       break;
+//     default:
+//       msg = '---'
+//   }
+//
+//   return msg
+//
+// }
 
 
 root.methods.loadingMore = function () {

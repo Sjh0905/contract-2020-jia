@@ -8,7 +8,9 @@
     "bind_email_pop_title": "安全提示",
     "bind_email_pop_article": "为了您的资金安全，请先绑定邮箱",
     "bind_email_pop_button": "绑定邮箱",
+    "bind_email_pop_button1": "去绑定",
     "prompt": "提示",
+    "prompt1": "取消",
     "RefreshTooften": "刷新过于频繁",
     "CanRefreshAgain": "秒后可再次刷新"
   },

@@ -25,7 +25,10 @@ root.data = function () {
 
     popType: 0,
     popText: '',
-    popOpen: false
+    popOpen: false,
+
+    // 判断收款人和付款人的显示
+    Judgment:false  //false为收款人，true为付款人
   }
 }
 
@@ -42,12 +45,12 @@ root.computed.computedTransferLists = function () {
 
 root.created = function () {
   this.getTransferList()
-  this.re_getTransferList()
 }
 
 
 /*-------------------------- 方法 begin------------------------------*/
 root.methods = {}
+
 // 获取转账记录
 root.methods.getTransferList = function () {
   // if (currency) {
@@ -58,40 +61,43 @@ root.methods.getTransferList = function () {
     errorHandler: this.error_getTransferList
   })
 }
-
 // 获取记录返回，类型为{}
 root.methods.re_getTransferList = function (data) {
-  // data = {
-  //   "dataMap": {
-  //     "userTransferRecordList": [
-  //       {
-  //         "amount": 64978565.212093204,
-  //         "createdAt": 26874119.996328756,
-  //         "currency": "labore veniam amet",
-  //         "dateTime": "consectetur reprehende",
-  //         "description": "est ipsum",
-  //         "fee": -69152500.97831321,
-  //         "flowType": "voluptate cillum sunt in dolore",
-  //         "fromEmail": "dolor",
-  //         "fromUserId": 39938509.49169183,
-  //         "id": 44854775.59664419,
-  //         "name": "consequat culpa dolor in in",
-  //         "status": "amet",
-  //         "toEmail": "consectetur",
-  //         "toUserId": 82758398.29890534,
-  //         "transferId": "sunt",
-  //         "updatedAt": -21656862.098530143,
-  //         "version": -39525910.375112526
-  //       },
-  //     ],
-  //     "errorCode": "83926916.88406259",
-  //     "result": "quis"
-  //   }
-  // }
+  data = {
+    "dataMap": {
+      "userTransferRecordList": [
+        {
+          "amount": 64978565.212093204,
+          "createdAt": 26874119.996328756,
+          "currency": "labore veniam amet",
+          "dateTime": "consectetur reprehende",
+          "description": "est ipsum",
+          "fee": -69152500.97831321,
+          "flowType": "voluptate cillum sunt in dolore",
+          "fromEmail": "dolor",
+          "fromUserId": 39938509.49169183,
+          "id": 44854775.59664419,
+          "name": "consequat culpa dolor in in",
+          "status": "amet",
+          "toEmail": "consectetur",
+          "toUserId": 82758398.29890534,
+          "transferId": "sunt",
+          "updatedAt": -21656862.098530143,
+          "version": -39525910.375112526
+        },
+      ],
+      "errorCode": "83926916.88406259",
+      "result": "quis"
+    }
+  }
   typeof data === 'string' && (data = JSON.parse(data))
   if (!data) return
   console.log('获取记录', data)
   this.transferLists = data.dataMap.userTransferRecordList
+
+  this.transferLists.forEach(v=>{
+    v.transferId ? (this.Judgment = true) : (this.Judgment = false)
+  })
 
   if (this.transferLists.length < this.limit) {
     this.loadingMoreShow = false
@@ -99,11 +105,40 @@ root.methods.re_getTransferList = function (data) {
   this.loadingMoreShowing = false
   this.loading = false
 }
-
 // 获取记录出错
 root.methods.error_getTransferList = function (err) {
   console.warn("转账获取记录出错！", err)
 }
+
+// // 判断字段
+// root.methods.transferInOrOut = function (item) {
+//   console.log(item)
+//   item.fromUserId ? (this.Judgment = true):(this.Judgment = false)
+//
+//   // switch (item.status) {
+//   //   case 'PENDING':
+//   //     msg = this.$t('recharge_status_1') + `(${item.confirms}/${item.minimumConfirms})`
+//   //     break;
+//   //   case 'DEPOSITED':
+//   //     msg = this.$t('recharge_status_2')
+//   //     break;
+//   //   case 'CANCELLED':
+//   //     msg = this.$t('recharge_status_3')
+//   //     break;
+//   //   case 'WAITING_FOR_APPROVAL':
+//   //     msg = this.$t('recharge_status_4')
+//   //     break;
+//   //   case 'DENIED':
+//   //     msg = this.$t('recharge_status_5')
+//   //     break;
+//   //   default:
+//   //     msg = '---'
+//   // }
+//
+//   // return msg
+//
+// }
+
 
 // 点击拷贝
 root.methods.clickCopy = function (id) {
@@ -153,7 +188,6 @@ root.methods.clickCheck = function (item) {
 
 // 状态
 root.methods.state = function (item) {
-
   let msg = ''
 
   switch (item.status) {

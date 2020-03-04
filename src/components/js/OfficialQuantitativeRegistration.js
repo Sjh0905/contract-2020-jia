@@ -10,15 +10,19 @@ root.components = {
 root.data = () => {
   return {
     loading: true, // 加载中
-    optionsgender:[],
-    valuegender: '',
+    matchDataList:[],
+    matchDataObj:{},
+    matchingAmount: '',
     records: [],
+    balance:'0',
+    matchingAmountMsg_0:''
   }
 }
 
 root.created = function() {
   this.getSupporting()
   this.getRegistrationRecord()
+  this.getBalance()
 }
 
 root.computed = {}
@@ -29,12 +33,12 @@ root.computed.computedRecord = function (item,index) {
 // 用户名
 root.computed.userName = function () {
   if (this.userType === 0) {
-    return this.$globalFunc.formatUserName(this.$store.state.authMessage.mobile)
+    return (this.$store.state.authMessage.mobile)
   }
   if (!this.$store.state.authMessage.email) {
     return '****@****'
   }
-  return this.$globalFunc.formatUserName(this.$store.state.authMessage.email)
+  return (this.$store.state.authMessage.email)
 }
 
 // 用户类型，如果是手机用户，为0，如果是邮箱用户，为1
@@ -42,13 +46,18 @@ root.computed.userType = function () {
   return this.$store.state.authMessage && this.$store.state.authMessage.province === 'mobile' ? 0 : 1
 }
 
-// uid
-root.computed.uuid = function () {
-  if(this.$store.state.authMessage.uuid == undefined){
-    return this.$store.state.authMessage.userId
-  }
-  return this.$store.state.authMessage.uuid
+// 获取userId
+root.computed.userId = function () {
+  return this.$store.state.authMessage.userId
 }
+
+// // uid
+// root.computed.uuid = function () {
+//   if(this.$store.state.authMessage.uuid == undefined){
+//     return this.$store.state.authMessage.userId
+//   }
+//   return this.$store.state.authMessage.uuid
+// }
 
 
 root.methods = {}
@@ -92,34 +101,15 @@ root.methods.getSupporting = function (item) {
 }
 root.methods.re_getSupporting = function (data) {
 
-  // res = {
-  //   "data": [
-  //     {
-  //       "fcode": "qq100",
-  //       "fdesc": "10000 QQ"
-  //     },
-  //     {
-  //       "fcode": "qq110",
-  //       "fdesc": "20000 QQ"
-  //     },
-  //     {
-  //       "fcode": "qq120",
-  //       "fdesc": "30000 QQ"
-  //     },
-  //     {
-  //       "fcode": "qq130",
-  //       "fdesc": "40000 QQ"
-  //     },
-  //     {
-  //       "fcode": "qq140",
-  //       "fdesc": "50000 QQ"
-  //     }
-  //   ],
-  //   "status": "200",
-  //   "message": "success"
-  // }
-  this.optionsgender = data.data
-  console.log("this.res=====",data)
+  typeof data === 'string' && (data = JSON.parse(data))
+  if (!data) {
+    return
+  }
+  this.matchDataList = data.data || []
+  this.matchDataList.map(v=>{
+    this.matchDataObj[v.fdesc] = v.fut_amt
+  })
+  console.log("this.data查询配套数据get=====",data)
 }
 root.methods.error_getSupporting = function (err) {
   console.log("this.err=====",err)
@@ -127,42 +117,64 @@ root.methods.error_getSupporting = function (err) {
 
 //查询用户余额get (query:{})未完成
 root.methods.getBalance = function () {
+  // /* TODO : 调试接口需要屏蔽 S*/
+  // var data ={
+  //   "data": [
+  //   {
+  //     "id": "25139",
+  //     "createdAt": "1574162856000",
+  //     "updatedAt": "1574162856000",
+  //     "userId": "100003",
+  //     "version": "1",
+  //     "balance": "1.000000000000000000",
+  //     "currency": "BTC",
+  //     "type": "SPOT_AVAILABLE"
+  //   },
+  //   // {
+  //   //   "id": "25142",
+  //   //   "createdAt": "1574162856000",
+  //   //   "updatedAt": "1574162856000",
+  //   //   "userId": "100003",
+  //   //   "version": "1",
+  //   //   "balance": "1000.000000000000000000",
+  //   //   "currency": "CHA3",
+  //   //   "type": "SPOT_AVAILABLE"
+  //   // }
+  // ],
+  //   "status": "200",
+  //   "message": "success"
+  // }
+  // this.re_getBalance(data)
+  // /* TODO : 调试接口需要屏蔽 E*/
   this.$http.send('GET_BALANCE', {
     bind: this,
-    urlFragment:this.uuid,
+    urlFragment:this.userId,
     callBack: this.re_getBalance,
     errorHandler: this.error_getBalance
   })
 }
-root.methods.re_getBalance = function (res) {
-  console.log("this.res=====",res)
+root.methods.re_getBalance = function (data) {
+  typeof data === 'string' && (data = JSON.parse(data))
+  data.data.forEach((v,index)=>{
+    if (v.currency == 'QQ') {
+      console.log('查询用户余额get  index',index)
+      console.log('查询用户余额get  index',v.balance)
+      this.balance = v.balance
+      this.type = v.type
+    }
+  })
+
 }
-root.methods.error_getBalance = function (err) {
-  console.log("this.err=====",err)
+root.methods.error_getBalance = function (data) {
+  console.log("this.err=====",data.data)
 }
 
 //查询报名记录get
 root.methods.getRegistrationRecord = function () {
 
-  // /* TODO : 调试接口需要屏蔽 S*/
-  // var  data = {
-  //   "data": [
-  //     {
-  //       "account": "54645@qq.com",
-  //       "fdesc": "10000 QQ",
-  //       "createdAt": "2020-02-05",
-  //       "periodsNum": "1期"
-  //     }
-  //   ],
-  //   "status": "200",
-  //   "message": "success"
-  // }
-  // this.re_getRegistrationRecord(data)
-  // /* TODO : 调试接口需要屏蔽 E*/
-
   this.$http.send('GET_GETREG_DATA', {
     bind: this,
-    urlFragment:this.uuid,
+    urlFragment:this.userId,
     // query:{
     //   userId:this.uuid
     // },
@@ -173,7 +185,7 @@ root.methods.getRegistrationRecord = function () {
 root.methods.re_getRegistrationRecord = function (data) {
 
   typeof data === 'string' && (data = JSON.parse(data))
-  console.log("this.re_getRegistrationRecord=====",data)
+  console.log("this.re_getRegistrationRecord查询报名记录get=====",data)
   this.records = data.data
 }
 root.methods.error_getRegistrationRecord = function (err) {
@@ -182,14 +194,35 @@ root.methods.error_getRegistrationRecord = function (err) {
 
 //活动报名post(params:{})
 root.methods.postActivities = function () {
+  console.log(' this.balance', this.balance + ' QQ')
+  console.log(' this.matchingAmount', this.matchingAmount)
+  // this.matchDataList
+
+  let canSend = true
+  // 判断用户名
+  canSend = this.testMatchingAmount() && canSend
+
+  if (this.matchingAmount === '') {
+    this.matchingAmountMsg_0 = this.$t('cannot')
+    canSend = false
+  }
+  if (this.accMinus(this.matchDataObj[this.matchingAmount] || '0', this.balance || '0') > 0) {
+    this.matchingAmountMsg_0 = this.$t('distribution')
+    canSend = false
+  }
+  if (!canSend) {
+    // console.log("不能发送！")
+    return
+  }
+
   // TODO : 加变量的非空判断 正则判断
   let params = {
-    userId: this.uuid,
+    userId: this.userId,
     fcurr: this.fcurr,
     email: this.userName,
     mobile: this.userName,
     fcode: this.fcode,
-    amount: this.valuegender //所需数额
+    amount: this.matchingAmount //所需数额
   }
   console.log("postActivities + params ===== ",params)
   /* TODO : 调试接口需要屏蔽 S*/
@@ -204,12 +237,36 @@ root.methods.postActivities = function () {
   })
 }
 root.methods.re_postActivities = function (data) {
-  console.log("this.re_postActivities=====",data)
+  console.log("this.re_postActivities活动报名=====",data)
   typeof data === 'string' && (data = JSON.parse(data))
 }
 root.methods.error_postActivities = function (err) {
   console.log("this.err=====",err)
 }
 
+
+// 拼团名称输入
+root.methods.testMatchingAmount = function () {
+  if (this.matchingAmount === '') {
+    this.matchingAmountMsg_0 = ''
+    return false
+  }
+  this.matchingAmountMsg_0 = ''
+  return true
+}
+
+
+/*---------------------- 保留小数位 begin ---------------------*/
+root.methods.toFixed = function (num, acc = 8) {
+  return this.$globalFunc.accFixed(num, acc)
+}
+/*---------------------- 保留小数位 end ---------------------*/
+
+
+/*---------------------- 减法运算 begin ---------------------*/
+root.methods.accMinus = function (num1, num2) {
+  return this.$globalFunc.accMinus(num1, num2)
+}
+/*---------------------- 减法运算 end ---------------------*/
 
 export default root

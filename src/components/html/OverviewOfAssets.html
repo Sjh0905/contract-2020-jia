@@ -83,11 +83,14 @@
                 <div>{{$t('reach')}}</div>
               </div>
             </div>
-            <div class="wallet-to-account-content">
-              <input type="text" :placeholder='$t("coinAccount")' v-model="bibiAccount">
-              <input type="text" :placeholder='$t("myWallet")'  v-model="account">
+            <div class="wallet-to-account-content" :class="(assetAccountType == 'wallet') ? 'flex-colum':'flex-colum-reverse'">
+              <div>我的钱包</div>
+              <div class="wallet-to-account-content-line"/>
+              <div>币币账户</div>
+<!--              <input type="text" :placeholder='$t("coinAccount")' v-model="bibiAccount">-->
+<!--              <input type="text" :placeholder='$t("myWallet")'  v-model="account">-->
             </div>
-            <div class="wallet-to-account-right flex" @click="changeAccount()">
+            <div class="wallet-to-account-right flex" @click="changeAssetAccountType()">
               <img src="../../assets/mywallet/record_change_icon.png" alt="">
             </div>
           </div>
@@ -119,7 +122,7 @@
               <span class="available-right">{{$t('mentioning')}}可提：{{transferCurrencyAvailable}} {{currencyValue}}</span>
             </div>
             <div class="amount-input flex">
-              <input type="text" placeholder="" class="amount-input-box">
+              <input type="text" placeholder="" class="amount-input-box" v-model="amountInput">
               <span class="amount-all pointer" @click="allMention">{{$t('allMention')}}</span>
             </div>
             <div class="amount-not-empty">
@@ -129,7 +132,7 @@
         </div>
         <div slot="footer" class="pop-footer">
           <span class="pop-qu pointer" @click="click_rel_em">{{$t('cancel')}}</span>
-          <button class="pop-qu-2 pointer" @click="commit">{{$t('ensure')}}</button>
+          <button class="pop-qu-2 pointer" @click="transferCommit">{{$t('ensure')}}</button>
         </div>
       </PopupT>
 
@@ -221,5 +224,10 @@
       </div>
 
     </PopupWindow>
+
+    <!-- 提示 start -->
+    <PopupPrompt :popType="popupPromptType" :popText="popupPromptText" :popOpen="popupPromptOpen"
+                 :popClose="closePopupPrompt"></PopupPrompt>
+    <!-- 提示 end -->
     </div>
 </div>

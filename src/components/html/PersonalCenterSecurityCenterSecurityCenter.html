@@ -23,7 +23,7 @@
           <div class="identity-title">{{$t('authentication')}}</div>
           <div class="identity-logen">{{$t('authentication_describe')}}</div>
           <div class="identity-button" @click="toAuthentication">
-            <button class="pointer" v-if="authType==3" >{{$t('immediateAuthentication')}}</button>
+            <button class="pointer identity-one-button" v-if="authType==3" >{{$t('immediateAuthentication')}}</button>
           </div>
           <div class="identity-button"  v-if="authType==1" @click="toAuthentication">
             <img src="../../assets/authentication/identity_ rejected_icon.png" alt="">

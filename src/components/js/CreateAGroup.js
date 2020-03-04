@@ -32,12 +32,17 @@ root.beforeDestroy = function () {}
 /*------------------------------ 计算 -------------------------------*/
 root.computed = {}
 
-// uid
-root.computed.uuid = function () {
-  if(this.$store.state.authMessage.uuid == undefined){
-    return this.$store.state.authMessage.userId
-  }
-  return this.$store.state.authMessage.uuid
+// // uid
+// root.computed.uuid = function () {
+//   if(this.$store.state.authMessage.uuid == undefined){
+//     return this.$store.state.authMessage.userId
+//   }
+//   return this.$store.state.authMessage.uuid
+// }
+
+// 获取userId
+root.computed.userId = function () {
+  return this.$store.state.authMessage.userId
 }
 
 // 用户名
@@ -105,7 +110,7 @@ root.methods.postCreateAGroup = function () {
 
   // TODO : 加变量的非空判断 正则判断 E
   let params = {
-    userId:this.uuid,
+    userId:this.userId,
     priAccount: this.userName,
     deputyAccount: this.deputyAccount,
     gname: this.gname
@@ -132,66 +137,30 @@ root.methods.re_postCreateAGroup = function (data) {
   console.log("this.re_postCreateAGroup=====",data)
   this.success = data.data.success
   this.groupId = data.data.groupId
-  this.status = data.status
+  // this.status = data.status
 
 
-  if(this.status === 1) {
-    this.popOpen = true
-    this.popType = 0
-    // this.popText = this.$t('popText3')
-    this.popText = this.$t('colonel')
-    setTimeout(() => {
-      this.popOpen = true
-    }, 100)
-}
-  if(this.status === 2) {
-    this.popOpen = true
-    this.popType = 0
-    this.popText = this.$t('not_registered')
-    setTimeout(() => {
-      this.popOpen = true
-    }, 100)
-  }
-  if(this.status === 3) {
-    this.popOpen = true
-    this.popType = 0
-    this.popText = this.$t('sub_group')
-    setTimeout(() => {
-      this.popOpen = true
-    }, 100)
-  }
-  if(this.status == 4) {
-    this.popOpen = true
-    this.popType = 0
-    this.popText = this.$t('already')
-    setTimeout(() => {
-      this.popOpen = true
-    }, 100)
-  }
-  if(this.status === 5) {
-    this.popOpen = true
-    this.popType = 0
-    this.popText =
-    setTimeout(() => {
-      this.popOpen = true
-    }, 100)
-  }
-  if(this.status === 6) {
-    this.popOpen = true
-    this.popType = 0
-    this.popText = this.$t('nameMsg')
-    setTimeout(() => {
-      this.popOpen = true
-    }, 100)
-  }
-  if(this.status === 400) {
-    this.popOpen = true
-    this.popType = 0
-    this.popText = this.$t('parameter_error')
-    setTimeout(() => {
-      this.popOpen = true
-    }, 100)
-  }
+  if(data.status) {
+
+     data.status == 1 && (this.popText = this.$t('colonel')) //团长账号已存在
+     data.status == 2 && (this.popText = this.$t('not_registered1')) // 副团账号未注册
+     data.status == 3 && (this.popText = this.$t('sub_group')) // 副团账号已存在
+     data.status == 4 && (this.popText = this.$t('already')) // 拼团名称已存在
+     data.status == 5 && (this.popText = this.$t('nameMsgColonel')) //团长账号与副团账号不能一样
+     data.status == 6 && (this.popText = this.$t('nameMsg')) //团队名称长度不能超过10
+     data.status == 7 && (this.popText = this.$t('account_wrong')) // 团长账户格式错误
+     data.status == 8 && (this.popText = this.$t('sub_group_wrong')) // 副团账户格式错误
+     data.status == 9 && (this.popText = this.$t('not_registered')) // 团长账号未注册
+     data.status == 10 && (this.popText = this.$t('userId_wrong')) // 团长userId有误
+     data.status == 11 && (this.popText = this.$t('inserted')) // 拼团团员已存在，不能重复插入
+     data.status == 400 && (this.popText = this.$t('parameter_error')) //参数有误
+     this.popOpen = true
+     this.popType = 0
+     setTimeout(() => {
+       this.popOpen = true
+     }, 100)
+   }
+
   if (this.success == true) {
     this.$router.push({name: 'detailsOfTheGroup',params: {groupId:this.groupId}})
   }

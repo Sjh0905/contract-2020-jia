@@ -1395,12 +1395,13 @@ root.routes.push({
     // 公告路由  @liufei start
     {
       path: 'notice',
+      name: 'notice',
       caseSensitive: true,
       component: resolve => require(['@/components/vue/NoticeCenter'], resolve),
       children: [
         // 列表
         {
-          path: '',
+          path: 'noticeCenter',
           name: 'noticeCenter',
           caseSensitive: true,
           meta: {
@@ -1409,10 +1410,10 @@ root.routes.push({
           },
           component: resolve => require(['@/components/vue/NoticeCenter'], resolve),
         },
-        {
-          path:'',
-          name:'noticezendesk',
-        },
+        // {
+        //   path:'',
+        //   name:'noticezendesk',
+        // },
         // 详情
         {
           path: 'noticeDetail',
