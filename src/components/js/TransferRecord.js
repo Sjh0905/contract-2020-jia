@@ -63,33 +63,33 @@ root.methods.getTransferList = function () {
 }
 // 获取记录返回，类型为{}
 root.methods.re_getTransferList = function (data) {
-  data = {
-    "dataMap": {
-      "userTransferRecordList": [
-        {
-          "amount": 64978565.212093204,
-          "createdAt": 26874119.996328756,
-          "currency": "labore veniam amet",
-          "dateTime": "consectetur reprehende",
-          "description": "est ipsum",
-          "fee": -69152500.97831321,
-          "flowType": "voluptate cillum sunt in dolore",
-          "fromEmail": "dolor",
-          "fromUserId": 39938509.49169183,
-          "id": 44854775.59664419,
-          "name": "consequat culpa dolor in in",
-          "status": "amet",
-          "toEmail": "consectetur",
-          "toUserId": 82758398.29890534,
-          "transferId": "sunt",
-          "updatedAt": -21656862.098530143,
-          "version": -39525910.375112526
-        },
-      ],
-      "errorCode": "83926916.88406259",
-      "result": "quis"
-    }
-  }
+  // data = {
+  //   "dataMap": {
+  //     "userTransferRecordList": [
+  //       {
+  //         "amount": 64978565.212093204,
+  //         "createdAt": 26874119.996328756,
+  //         "currency": "labore veniam amet",
+  //         "dateTime": "consectetur reprehende",
+  //         "description": "est ipsum",
+  //         "fee": -69152500.97831321,
+  //         "flowType": "voluptate cillum sunt in dolore",
+  //         "fromEmail": "dolor",
+  //         "fromUserId": 39938509.49169183,
+  //         "id": 44854775.59664419,
+  //         "name": "consequat culpa dolor in in",
+  //         "status": "amet",
+  //         "toEmail": "consectetur",
+  //         "toUserId": 82758398.29890534,
+  //         "transferId": "sunt",
+  //         "updatedAt": -21656862.098530143,
+  //         "version": -39525910.375112526
+  //       },
+  //     ],
+  //     "errorCode": "83926916.88406259",
+  //     "result": "quis"
+  //   }
+  // }
   typeof data === 'string' && (data = JSON.parse(data))
   if (!data) return
   console.log('获取记录', data)
