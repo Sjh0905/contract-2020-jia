@@ -124,11 +124,11 @@
             <div class="td td-turnover" @click="showDetail(order.id)"
                  v-if="canShowDetail(order) && clickThis!==order.id">
               <span class="account-click text_blue-1" @click="showDetail(order.id)">{{$t('orderPageHistoricalEntrustment.detail')}}</span>
-              <img class="img-on" src="../../assets/详情上拉_icon.png" alt="" @click="showDetail(order.id)">
+              <img class="img-on" src="../../assets/shangla_icon.png" alt="" @click="showDetail(order.id)">
             </div>
             <div class="td td-turnover account-click text_blue-1"
                  v-if="canShowDetail(order) && clickThis===order.id">{{$t('orderPageHistoricalEntrustment.close')}}
-              <img src="../../assets/详情下拉_icon.png" alt="" class="img-on">
+              <img src="../../assets/xiala_icon.png" alt="" class="img-on">
             </div>
             <div class="td td-turnover" v-if="!canShowDetail(order)">--</div>
             <!--查看详情 end -->
@@ -162,8 +162,8 @@
 <!--          </div>-->
 <!--          <div class="td td-state">&#45;&#45;</div>-->
 <!--          <div class="td td-account">&#45;&#45;</div>-->
-          <div class="nhtu" v-if="$route.name == 'historicalEntrust'"><img src="../../assets/无订单-浅色.png"></div>
-          <div class="nhtu" v-if="$route.name !== 'historicalEntrust'"><img src="../../assets/无订单-深色.png"></div>
+          <div class="nhtu" v-if="$route.name == 'historicalEntrust'"><img src="../../assets/noOrders.png"></div>
+          <div class="nhtu" v-if="$route.name !== 'historicalEntrust'"><img src="../../assets/noOrderDark.png"></div>
           <span>{{$t('orderPageHistoricalEntrustment.close_9')}}</span>
         </li>
       </template>

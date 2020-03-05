@@ -45,18 +45,23 @@
                   <span class="soan"> {{searchResult}}</span>
                   <div class="searchResult">
                   <span v-if="glevel=='0'">-</span>
-                  <span v-if="glevel=='1'"><img class="tupian_img" src="../../assets/拼团_微团_icon.png" alt=""></span>
-                  <span v-if="glevel=='2'"><img class="tupian_img" src="../../assets/拼团_小团_icon.png" alt=""></span>
-                  <span v-if="glevel=='3'"><img class="tupian_img" src="../../assets/拼团_大团_icon.png" alt=""></span>
-                  <span v-if="glevel=='4'"><img class="tupian_img" src="../../assets/拼团_中团_icon.png" alt=""></span>
-                  <span v-if="glevel=='5'"><img class="tupian_img" src="../../assets/拼团_超团_icon.png" alt=""></span>
+                  <span v-if="glevel=='1'"><img class="tupian_img" src="../../assets/weituan_icon.png" alt=""></span>
+                  <span v-if="glevel=='2'"><img class="tupian_img" src="../../assets/xiaotuan_icon.png" alt=""></span>
+                  <span v-if="glevel=='3'"><img class="tupian_img" src="../../assets/datuan_icon.png" alt=""></span>
+                  <span v-if="glevel=='4'"><img class="tupian_img" src="../../assets/zhongtuan_icon.png" alt=""></span>
+                  <span v-if="glevel=='5'"><img class="tupian_img" src="../../assets/chaotuan_icon.png" alt=""></span>
 
                   <span class="" v-if="glevel=='0'">-</span>
-                  <span class="tupian tupian_wei" v-if="glevel=='1'">微团</span>
-                  <span class="tupian tupian_xiao" v-if="glevel=='2'">小团</span>
-                  <span class="tupian tupian_zhong" v-if="glevel=='3'">中团</span>
-                  <span class="tupian tupian_da" v-if="glevel=='4'">大团</span>
-                  <span class="tupian tupian_chao" v-if="glevel=='5'">超团</span>
+                    <!--微团-->
+                    <span class="tupian tupian_wei" v-if="glevel=='1'">{{$t('micelle')}}</span>
+                    <!--小团-->
+                    <span class="tupian tupian_xiao" v-if="glevel=='2'">{{$t('small')}}</span>
+                    <!--中团-->
+                    <span class="tupian tupian_zhong" v-if="glevel=='3'">{{$t('regiment')}}</span>
+                    <!--大团-->
+                    <span class="tupian tupian_da" v-if="glevel=='4'">{{$t('large')}}</span>
+                    <!--超团-->
+                    <span class="tupian tupian_chao" v-if="glevel=='5'">{{$t('superLeague')}}</span>
                   </div>
                 </div>
 <!--                普通区折扣-->

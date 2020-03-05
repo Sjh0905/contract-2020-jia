@@ -232,12 +232,12 @@ root.methods.re_postJoinGroup = function (data) {
     this.$router.push({name: 'detailsOfTheGroup', params: {groupId: this.groupId}})
   }
 
-  if (data.status) {
-    data.status == 1 && (this.popText = this.$t('incorrect')) //团员账户有误
-    data.status == 2 && (this.popText = this.$t('account_not_registered')) // 团员账户未注册
-    data.status == 3 && (this.popText = this.$t('colonel_userId')) // 团长userId有误
-    data.status == 4 && (this.popText = this.$t('inserted')) // 拼团团员已存在，不能重复插入
-    data.status == 400 && (this.popText = this.$t('parameter_error')) //参数有误
+  if (data.errorCode) {
+    data.errorCode == 1 && (this.popText = this.$t('incorrect')) //团员账户有误
+    data.errorCode == 2 && (this.popText = this.$t('account_not_registered')) // 团员账户未注册
+    data.errorCode == 3 && (this.popText = this.$t('colonel_userId')) // 团长userId有误
+    data.errorCode == 4 && (this.popText = this.$t('inserted')) // 拼团团员已存在，不能重复插入
+    data.errorCode == 400 && (this.popText = this.$t('parameter_error')) //参数有误
     this.popOpen = true
     this.popType = 0
     setTimeout(() => {

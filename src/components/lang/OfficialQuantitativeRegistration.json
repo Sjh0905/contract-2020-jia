@@ -30,17 +30,28 @@
   "quanti":"量化",
   "sourceAmount":"矿源金额",
   "cannot":"配套数额不可为空",
-  "distribution":"配套数额大于可用余额"
-
+  "distribution":"配套数额大于可用余额",
+  "quantifying":"量化币种有误",
+  "Insufficient":"可用币种余额不足",
+  "parameter_error":"参数有误",
+  "system_anomaly":"系统异常"
 
 
 },
 "EN": {
   "cannot":"Matching amount cannot be empty",
-  "distribution":"The number of extra-missing distribution"
+  "distribution":"Matching amount is greater than available balance",
+  "quantifying":"Error in quantifying currency",
+  "Insufficient":"Insufficient balance in available currency",
+  "parameter_error":"Parameter error",
+  "system_anomaly":"System anomaly"
 },
 "CA": {
   "cannot":"Matching amount cannot be empty",
-  "distribution":"The number of extra-missing distribution"
+  "distribution":"Matching amount is greater than available balance",
+  "quantifying":"Error in quantifying currency",
+  "Insufficient":"Insufficient balance in available currency",
+  "parameter_error":"Parameter error",
+  "system_anomaly":"System anomaly"
 }
 }

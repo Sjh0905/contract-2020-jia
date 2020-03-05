@@ -5,6 +5,8 @@ root.name = 'officialQuantitativeRegistration'
 
 root.components = {
   'Loading': resolve => require(['../vue/Loading'], resolve),
+  'PopupPrompt': resolve => require(['../vue/PopupPrompt'], resolve),
+
 }
 
 root.data = () => {
@@ -12,10 +14,15 @@ root.data = () => {
     loading: true, // 加载中
     matchDataList:[],
     matchDataObj:{},
+    matchDataKey:{},
     matchingAmount: '',
     records: [],
     balance:'0',
-    matchingAmountMsg_0:''
+    matchingAmountMsg_0:'',
+
+    popType: 0,
+    popOpen: false,
+    popText: '系统繁忙',
   }
 }
 
@@ -102,14 +109,17 @@ root.methods.getSupporting = function (item) {
 root.methods.re_getSupporting = function (data) {
 
   typeof data === 'string' && (data = JSON.parse(data))
-  if (!data) {
-    return
-  }
+  if (!data) {return}
+
   this.matchDataList = data.data || []
-  this.matchDataList.map(v=>{
+  this.matchDataList.map((v,key) =>{
+
     this.matchDataObj[v.fdesc] = v.fut_amt
-    this.matchDataObj[v.fcode] = v.fcode
+    this.matchDataKey[v.fdesc] = v.fcode
+
+    console.log('v,key======',this.matchDataObj[v.fdesc])
   })
+
   console.log("this.data查询配套数据get=====",data)
 }
 root.methods.error_getSupporting = function (err) {
@@ -188,6 +198,7 @@ root.methods.getRegistrationRecord = function () {
 root.methods.re_getRegistrationRecord = function (data) {
 
   typeof data === 'string' && (data = JSON.parse(data))
+  if (!data) {return}
   console.log("this.re_getRegistrationRecord查询报名记录get=====",data)
   this.records = data.data
 }
@@ -224,8 +235,8 @@ root.methods.postActivities = function () {
     fcurr: this.currency,
     email: this.userName,
     mobile: this.userName,
-    fcode: this.fcode,
-    amount: this.matchingAmount //所需数额
+    fcode: this.matchDataKey[this.matchingAmount],
+    amount: this.matchDataObj[this.matchingAmount] * 1//所需数额
   }
   console.log("postActivities + params ===== ",params)
   /* TODO : 调试接口需要屏蔽 S*/
@@ -240,8 +251,22 @@ root.methods.postActivities = function () {
   })
 }
 root.methods.re_postActivities = function (data) {
-  console.log("this.re_postActivities活动报名=====",data)
   typeof data === 'string' && (data = JSON.parse(data))
+  if (!data) {return}
+  console.log("this.re_postActivities活动报名=====",data)
+
+  if (data.errorCode) {
+    data.errorCode == "1" && (this.popText = this.$t('quantifying')) //团员账户有误
+    data.errorCode == "2" && (this.popText = this.$t('Insufficient')) // 团员账户未注册
+    data.errorCode == "400" && (this.popText = this.$t('parameter_error')) //参数有误
+    data.errorCode == "500" && (this.popText = this.$t('system_anomaly')) //系统异常
+    this.popOpen = true
+    this.popType = 0
+    setTimeout(() => {
+      this.popOpen = true
+    }, 100)
+  }
+
 }
 root.methods.error_postActivities = function (err) {
   console.log("this.err=====",err)
@@ -258,6 +283,10 @@ root.methods.testMatchingAmount = function () {
   return true
 }
 
+// 弹窗
+root.methods.popClose = function () {
+  this.popOpen = false
+}
 
 /*---------------------- 保留小数位 begin ---------------------*/
 root.methods.toFixed = function (num, acc = 8) {

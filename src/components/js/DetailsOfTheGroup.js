@@ -166,11 +166,11 @@ root.methods.re_postWithdraw = function (data) {
       this.$router.push({name: 'assembleARegiment'})
   }
 
-  if (data.status) {
-    data.status == 1 && (this.popText = this.$t('not_group')) //成员未加入拼团
-    data.status == 2 && (this.popText = this.$t('member_type')) // 成员类型错误
-    data.status == 3 && (this.popText = this.$t('withdrawal')) // 退团异常
-    data.status == 400 && (this.popText = this.$t('parameter_error')) //参数有误
+  if (data.errorCode) {
+    data.errorCode == 1 && (this.popText = this.$t('not_group')) //成员未加入拼团
+    data.errorCode == 2 && (this.popText = this.$t('member_type')) // 成员类型错误
+    data.errorCode == 3 && (this.popText = this.$t('withdrawal')) // 退团异常
+    data.errorCode == 400 && (this.popText = this.$t('parameter_error')) //参数有误
     this.popOpen = true
     this.popType = 0
     setTimeout(() => {
