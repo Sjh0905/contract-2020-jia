@@ -246,7 +246,7 @@ root.methods.RE_GET_NOTICE = function (res) {
 
 root.methods.goNotice = function (item) {
   // window.open(item.url)
-  this.$router.push({path: '/index/notice/noticeDetail', query: {id: item.id}})
+  this.$router.push({path: '/index/notice/noticeDetail', query: {id: item}})
 //公告小图标跳转zendesk
 }
 
