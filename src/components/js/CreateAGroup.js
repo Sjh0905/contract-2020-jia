@@ -185,6 +185,10 @@ root.methods.re_getNameAvailable = function (data) {
   typeof data === 'string' && (data = JSON.parse(data))
   console.log("this.re_getNameAvailable=====",data)
   this.available = data.data.success
+
+  if (this.available == false) {
+    this.name_0 = this.$t('already')
+  }
 }
 root.methods.error_getNameAvailable = function (err) {
   console.log("this.err=====",err)
@@ -235,6 +239,7 @@ root.methods.testInputIngPsw = function () {
 
 // 拼团名称输入
 root.methods.testName_0 = function () {
+  this.getNameAvailable()
   this.pswPlaceholderShow = true
   if (this.gname === '') {
     this.name_0 = ''
