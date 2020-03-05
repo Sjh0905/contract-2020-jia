@@ -46,13 +46,12 @@
 
   <!--          USDT/ENX-->
             <div v-for="item in marketList"
-                 class="market-list-detail"
             >
           <span class="market-list-click-area pointer flex"
                 :class="{'selected-market':selectedMarket(item)}"
                 @click="changeMarket(item)"
           >
-            <img src="../../assets/selectedSelf_icon.png" class="imageRight" v-if="item=== $t('Favorites')"  alt="">
+<!--            <img src="../../assets/selectedSelf_icon.png" class="imageRight" v-if="item=== $t('Favorites')"  alt="">-->
             {{item}}
   <!--          <span class="reduce_icon" :class="lang != 'CH' && 'en'"-->
   <!--                v-if="reduce_list.indexOf(item) > '-1'"-->
