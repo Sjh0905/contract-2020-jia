@@ -133,7 +133,7 @@ root.methods.backtop = function (res) {
   document.body.scrollTop = document.documentElement.scrollTop = 0;
 
 }
-// TODO: APP上线后即打开
+// TODO: APP上线后即打开 begin
 // root.methods.closeIOSCode= function () {
 //   $(".download-left-download-item-erwma").attr("style","display:none");
 // }
@@ -149,6 +149,7 @@ root.methods.backtop = function (res) {
 // root.methods.openAndroidCode= function () {
 //   $(".download-left-download-item-erwma1").attr("style","display:block");
 // }
+// TODO: APP上线后即打开 end
 
 // //鼠标移入改变返回图片
 // root.methods.backtpenter = function () {
