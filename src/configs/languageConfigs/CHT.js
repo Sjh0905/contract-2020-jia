@@ -556,8 +556,8 @@ root.personalCenterSecurityCenterBindGoogleAuthenticator.qrCode_prompt_3 = '提�
 root.personalCenterSecurityCenterBindGoogleAuthenticator.security = '密鑰'
 root.personalCenterSecurityCenterBindGoogleAuthenticator.copy = '點擊複製'
 root.personalCenterSecurityCenterBindGoogleAuthenticator.bind = '3.完成綁定'
-root.personalCenterSecurityCenterBindGoogleAuthenticator.psw = '填寫登錄密碼：'
-root.personalCenterSecurityCenterBindGoogleAuthenticator.ga = '填寫穀歌驗證碼：'
+root.personalCenterSecurityCenterBindGoogleAuthenticator.psw = '填寫登錄密碼'
+root.personalCenterSecurityCenterBindGoogleAuthenticator.ga = '填寫穀歌驗證碼'
 root.personalCenterSecurityCenterBindGoogleAuthenticator.ensure = '確認'
 root.personalCenterSecurityCenterBindGoogleAuthenticator.binding = '綁定中'
 
@@ -565,9 +565,9 @@ root.personalCenterSecurityCenterBindGoogleAuthenticator.binding = '綁定中'
 // 綁定手機驗證
 root.personalCenterSecurityCenterBindMobile = {}
 root.personalCenterSecurityCenterBindMobile.title = '綁定手機號碼'
-root.personalCenterSecurityCenterBindMobile.psw = '登錄密碼：'
-root.personalCenterSecurityCenterBindMobile.mobile = '手機號碼：'
-root.personalCenterSecurityCenterBindMobile.verificationCode = '短信驗證碼：'
+root.personalCenterSecurityCenterBindMobile.psw = '登錄密碼'
+root.personalCenterSecurityCenterBindMobile.mobile = '手機號碼'
+root.personalCenterSecurityCenterBindMobile.verificationCode = '短信驗證碼'
 root.personalCenterSecurityCenterBindMobile.send = '獲取驗證碼'
 root.personalCenterSecurityCenterBindMobile.ensure = '確定'
 root.personalCenterSecurityCenterBindMobile.binding = '綁定中'
@@ -599,8 +599,8 @@ root.personalCenterSecurityCenterReleaseGoogleAuthenticator.releasing = '解綁�
 // 解綁手機號
 root.personalCenterSecurityCenterReleaseMobile = {}
 root.personalCenterSecurityCenterReleaseMobile.title = '解綁手機號'
-root.personalCenterSecurityCenterReleaseMobile.psw = '登錄密碼：'
-root.personalCenterSecurityCenterReleaseMobile.sms = '手機號碼：'
+root.personalCenterSecurityCenterReleaseMobile.psw = '登錄密碼'
+root.personalCenterSecurityCenterReleaseMobile.sms = '手機號碼'
 root.personalCenterSecurityCenterReleaseMobile.verificationCode = '短信驗證碼：'
 root.personalCenterSecurityCenterReleaseMobile.sendVerificationCode = '發送驗證碼'
 root.personalCenterSecurityCenterReleaseMobile.ensure = '確定'
