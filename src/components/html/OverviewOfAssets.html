@@ -1,5 +1,4 @@
-<div class="min-height">
-
+<div>
   <div>
     <Loading v-if="loading"/>
     <template v-if="!loading">
@@ -90,7 +89,7 @@
 <!--              <input type="text" :placeholder='$t("coinAccount")' v-model="bibiAccount">-->
 <!--              <input type="text" :placeholder='$t("myWallet")'  v-model="account">-->
             </div>
-            <div class="wallet-to-account-right flex" @click="changeAssetAccountType()">
+            <div class="wallet-to-account-right pointer flex" @click="changeAssetAccountType()">
               <img src="../../assets/myWallet/record_change_icon.png" alt="">
             </div>
           </div>
