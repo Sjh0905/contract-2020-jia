@@ -145,6 +145,7 @@
 
 .phone-prompt-areaCode {
   position: absolute;
+  color: #0D0E23;
   left: 35px;
   top: 150px;
 }

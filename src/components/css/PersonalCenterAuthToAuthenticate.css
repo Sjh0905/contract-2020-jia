@@ -138,7 +138,7 @@
 }
 
 .mm {
-  margin-top: 8px;
+  margin-top: 11px;
   font-size: 12px;
   /*color: #172A4D;*/
 }
@@ -364,6 +364,12 @@
   border-radius: 1px;
 }
 
+
+
+.input-inner-gender {
+  width: 520px;
+}
+
 .inputsize {
   width: 484px;
   height: 40px;
@@ -483,6 +489,7 @@
   box-shadow:0px 10px 12px -6px rgba(0,2,40,0.2);
   font-size: 14px;
   color: #FFFFFF;
+  border: 0;
   margin: 0 auto;
   margin-bottom: 30px;
 
@@ -581,19 +588,19 @@
   width: 90px;
 }
 
-.el-select >>> .el-input__inner {
+.inputInner >>> .el-input__inner {
   -web-kit-appearance: none;
   -moz-appearance: none;
   width: 520px;
   height: 40px;
-  line-height: 40px;
+  line-height: 35px;
   outline: 0;
-  opacity: 0.7;
+  /*opacity: 0.7;*/
   border: 1px solid #E0E1F4;
   font-size: 12px;
   /*color: #3576F5;*/
   font-size: 16px;
-  color: #172A4D;
+  color: #0D0E23;
   letter-spacing: 0;
   margin-right: 12px;
   border: 1px solid rgba(181,188,198,0.50);
@@ -601,6 +608,47 @@
   /*margin-top: 20px;*/
 }
 
+.input-inner-gender >>> .el-input__inner {
+  -web-kit-appearance: none;
+  -moz-appearance: none;
+  width: 520px;
+  height: 40px;
+  line-height: 35px;
+  outline: 0;
+  /*opacity: 0.7;*/
+  border: 1px solid #E0E1F4;
+  font-size: 12px;
+  /*color: #3576F5;*/
+  font-size: 16px;
+  color: #0D0E23;
+  letter-spacing: 0;
+  margin-right: 12px;
+  border: 1px solid rgba(181,188,198,0.50);
+  border-radius: 1px;
+  /*margin-top: 20px;*/
+}
+
+.selectstyle .el-select >>> .el-input__inner {
+  width: 100px;
+}
+
+/*placeholder 样式     begin*/
+.el-select >>> .el-input__inner::placeholder {
+  color: #A2B5D9;
+}
+
+.el-select >>> .el-input__inner::-moz-placeholder {
+  color: #A2B5D9;
+}
+
+.el-select >>> .el-input__inner::-webkit-input-placeholder {
+  color: #A2B5D9;
+}
+
+.el-select >>> .el-input__inner:-ms-input-placeholder {
+  color: #A2B5D9;
+}
+/*placeholder 样式     end*/
 
 .el-select >>> .el-select-dropdown{
   width: 300px;
@@ -620,7 +668,7 @@
 }
 
 .el-select >>> .el-input--suffix {
-  height: 34px;
+  height: 38px;
 }
 
 .el-select >>> .el-input__suffix{
