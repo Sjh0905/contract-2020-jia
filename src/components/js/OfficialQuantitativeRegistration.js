@@ -108,6 +108,7 @@ root.methods.re_getSupporting = function (data) {
   this.matchDataList = data.data || []
   this.matchDataList.map(v=>{
     this.matchDataObj[v.fdesc] = v.fut_amt
+    this.matchDataObj[v.fcode] = v.fcode
   })
   console.log("this.data查询配套数据get=====",data)
 }
@@ -154,6 +155,7 @@ root.methods.getBalance = function () {
   })
 }
 root.methods.re_getBalance = function (data) {
+  console.log('查询用户余额get  index',data)
   typeof data === 'string' && (data = JSON.parse(data))
   data.data.forEach((v,index)=>{
     if (v.currency == 'QQ') {
@@ -161,6 +163,7 @@ root.methods.re_getBalance = function (data) {
       console.log('查询用户余额get  index',v.balance)
       this.balance = v.balance
       this.type = v.type
+      this.currency = v.currency
     }
   })
 
@@ -218,7 +221,7 @@ root.methods.postActivities = function () {
   // TODO : 加变量的非空判断 正则判断
   let params = {
     userId: this.userId,
-    fcurr: this.fcurr,
+    fcurr: this.currency,
     email: this.userName,
     mobile: this.userName,
     fcode: this.fcode,
