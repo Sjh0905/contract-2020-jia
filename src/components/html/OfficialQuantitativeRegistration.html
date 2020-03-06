@@ -52,7 +52,9 @@
         </div>
 
         <!-- 兑换按钮-->
-        <div class="exchange_button" @click="postActivities">{{$t('exchang')}}</div>
+        <div class="exchange_button" @click="postActivities" v-if="(computedRecord.length == 0) && !getVerificationCode">{{$t('exchang')}}</div>
+        <div class="exchange_button1" v-if="getVerificationCode">报名中</div>
+        <div class="exchange_button1" v-if="computedRecord.length !== 0">已报名</div>
 
         <!--  须知 1,2,3-->
         <div class="notice_div">

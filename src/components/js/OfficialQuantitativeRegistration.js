@@ -22,7 +22,15 @@ root.data = () => {
 
     popType: 0,
     popOpen: false,
-    popText: '系统繁忙',
+    popText: '',
+
+    verificationCode: '',
+    verificationCodePlaceholderShow: true,
+    clickVerificationCodeButton: false,
+    getVerificationCode: false,
+    getVerificationCodeCountdown: 60,
+    verificationCodeWA: '',
+    getVerificationCodeInterval: null,
   }
 }
 
@@ -176,7 +184,6 @@ root.methods.re_getBalance = function (data) {
       this.currency = v.currency
     }
   })
-
 }
 root.methods.error_getBalance = function (data) {
   console.log("this.err=====",data.data)
@@ -201,6 +208,11 @@ root.methods.re_getRegistrationRecord = function (data) {
   if (!data) {return}
   console.log("this.re_getRegistrationRecord查询报名记录get=====",data)
   this.records = data.data
+
+  if (this.records.length !== 0) {
+    this.balance = (this.balance - this.matchDataObj[this.matchingAmount])
+  }
+
 }
 root.methods.error_getRegistrationRecord = function (err) {
   console.log("this.err=====",err)
@@ -213,6 +225,7 @@ root.methods.postActivities = function () {
   // this.matchDataList
 
   let canSend = true
+  // 判断用户名
   // 判断用户名
   canSend = this.testMatchingAmount() && canSend
 
@@ -230,18 +243,48 @@ root.methods.postActivities = function () {
   }
 
   // TODO : 加变量的非空判断 正则判断
-  let params = {
+  // let params = {
+  //   userId: this.userId,
+  //   fcurr: this.currency,
+  //   email: this.userName,
+  //   mobile: this.userName,
+  //   fcode: this.matchDataKey[this.matchingAmount],
+  //   amount: this.matchDataObj[this.matchingAmount] * 1//所需数额
+  // }
+  let params = this.userType === 0 ? {
+    userId: this.userId,
+    fcurr: this.currency,
+    email: '',
+    mobile: this.userName,
+    fcode: this.matchDataKey[this.matchingAmount],
+    amount: this.matchDataObj[this.matchingAmount]//所需数额
+  } : {
     userId: this.userId,
     fcurr: this.currency,
     email: this.userName,
-    mobile: this.userName,
+    mobile: '',
     fcode: this.matchDataKey[this.matchingAmount],
-    amount: this.matchDataObj[this.matchingAmount] * 1//所需数额
+    amount: this.matchDataObj[this.matchingAmount]//所需数额
   }
   console.log("postActivities + params ===== ",params)
   /* TODO : 调试接口需要屏蔽 S*/
-  this.re_postActivities()
+  // this.re_postActivities()
   /* TODO : 调试接口需要屏蔽 E*/
+
+  this.getVerificationCode = true
+  this.clickVerificationCodeButton = true
+  this.verificationCodeWA = ''
+
+  this.getVerificationCodeInterval && clearInterval(this.getVerificationCodeInterval)
+
+  this.getVerificationCodeInterval = setInterval(() => {
+    this.getVerificationCodeCountdown--
+    if (this.getVerificationCodeCountdown <= 0) {
+      this.getVerificationCode = false
+      this.getVerificationCodeCountdown = 60
+      clearInterval(this.getVerificationCodeInterval)
+    }
+  }, 1000)
 
   this.$http.send('POST_REGACT', {
     bind: this,
@@ -255,21 +298,66 @@ root.methods.re_postActivities = function (data) {
   if (!data) {return}
   console.log("this.re_postActivities活动报名=====",data)
 
+  // this.re_getRegistrationRecord()
+  this.success = data.data.success
+
   if (data.errorCode) {
-    data.errorCode == "1" && (this.popText = this.$t('quantifying')) //团员账户有误
-    data.errorCode == "2" && (this.popText = this.$t('Insufficient')) // 团员账户未注册
-    data.errorCode == "400" && (this.popText = this.$t('parameter_error')) //参数有误
-    data.errorCode == "500" && (this.popText = this.$t('system_anomaly')) //系统异常
+    if (data.errorCode == "1") {
+      this.popOpen = true
+      this.popType = 0
+      this.popText = this.$t('quantifying')
+      setTimeout(() => {
+        this.popOpen = true
+      }, 100)
+    }
+    if (data.errorCode == "2") {
+      this.popOpen = true
+      this.popType = 0
+      this.popText = this.$t('Insufficient')
+      setTimeout(() => {
+        this.popOpen = true
+      }, 100)
+    }
+    if (data.errorCode == "400") {
+      this.popOpen = true
+      this.popType = 0
+      this.popText = this.$t('parameter_error')
+      setTimeout(() => {
+        this.popOpen = true
+      }, 100)
+    }
+    if (data.errorCode == "500") {
+      this.popOpen = true
+      this.popType = 0
+      this.popText = this.$t('system_anomaly')
+      setTimeout(() => {
+        this.popOpen = true
+      }, 100)
+    }
+    this.getVerificationCodeInterval && clearInterval(this.getVerificationCodeInterval)
+    this.getVerificationCode = false
+    this.getVerificationCodeCountdown = 60
+  }
+
+  if (data.errorCode == "0" && this.success == true) {
+    this.getRegistrationRecord()
     this.popOpen = true
-    this.popType = 0
+    this.popType = 1
+    this.popText = '报名成功'
     setTimeout(() => {
       this.popOpen = true
     }, 100)
+    return;
   }
-
+  // if (this.success == true) {
+  //   this.getRegistrationRecord()
+  //   this.popOpen = false
+  //   return;
+  // }
 }
 root.methods.error_postActivities = function (err) {
   console.log("this.err=====",err)
+  console.warn('活动报名post 获取出错！', err)
 }
 
 
