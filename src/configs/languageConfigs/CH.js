@@ -326,6 +326,8 @@ root.terms.Terms_conditionss_9 = '服务'
 root.terms.Terms_conditionss_10 = '费率标准'
 root.terms.Terms_conditionss_11 = '公告中心'
 root.terms.Terms_conditionss_12 = '客服微信'
+root.terms.Terms_conditionss_13 = '客户服务'
+root.terms.Terms_conditionss_14 = '商务合作'
 
 
 
