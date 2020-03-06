@@ -8,7 +8,7 @@
 
 .border_box {
   overflow: hidden;
-  /*min-height: 240px;*/
+  min-height: 240px;
   /*border-top-left-radius: 0 !important;*/
   /*border-top: 1px solid #EFF0FF;*/
   /*border-bottom: 1px solid #EFF0FF;*/

@@ -1,3 +1,8 @@
+/*下方loading*/
+.loading {
+  width: 100%;
+  background-color: #fff;
+}
 
 .container {
   border: 1px solid #EFF0FF;
@@ -344,6 +349,17 @@
 
 /*弹窗button*/
 .button-base {
-  margin-right: 20px;
+  width: 190px;
+  height: 35px;
+  /* background-color: #3576F5; */
+  color: #fff;
+  border-radius: 2px;
+  border: 0 solid transparent;
+  margin-right: 2px;
   outline: none;
 }
+
+.m-r {
+  margin-left: 24px;
+}
+
