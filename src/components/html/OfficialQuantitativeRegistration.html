@@ -52,7 +52,7 @@
         </div>
 
         <!-- 兑换按钮-->
-        <div class="exchange_button" @click="postActivities" v-if="(computedRecord.length == 0) && !getVerificationCode">{{$t('exchang')}}</div>
+        <div class="exchange_button pointer" @click="postActivities" v-if="(computedRecord.length == 0) && !getVerificationCode">{{$t('exchang')}}</div>
         <div class="exchange_button1" v-if="getVerificationCode">报名中</div>
         <div class="exchange_button1" v-if="computedRecord.length !== 0">已报名</div>
 
@@ -60,7 +60,7 @@
         <div class="notice_div">
           <p>{{$t('passed')}}</p>
           <p>{{$t('bound')}}</p>
-          <p>T{{$t('sufficient')}}</p>
+          <p>{{$t('sufficient')}}</p>
         </div>
       </div>
 

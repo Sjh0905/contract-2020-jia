@@ -33,11 +33,14 @@
 
 }
 .Account_number_ {
+  display: inline-block;
   font-size:12px;
   font-family:PingFangSC-Regular,PingFang SC;
   font-weight:400;
   color:rgba(107,125,162,1);
+  margin-bottom: 10px;
 }
+
 .Account_number_input {
   width:100%;
   height:40px;
@@ -47,7 +50,7 @@
   color: #0D0E23;
   border-radius:1px;
   border:1px solid rgba(224,225,244,1);
-  margin-top: 10px;
+  /*margin-top: 10px;*/
   margin-bottom: 20px;
 }
 .supporting_input {
@@ -199,12 +202,12 @@
   height:40px;
   border-radius:1px;
   border:1px solid rgba(224,225,244,1);
-  margin-top: 10px;
+  /*margin-top: 10px;*/
   /*margin-bottom: 20px;*/
 }
 
 .el-select >>> .el-input--suffix {
-  height: 55px;
+  height: 41px;
 }
 .img_ConfirmSuccess {
   margin-top: 40px;
@@ -264,5 +267,27 @@
 .m-t {
   display: inline-block;
   height: 17px;
-  /*margin-top: 3px;*/
+  margin-top: 2px;
 }
+
+/*placeholder 样式     begin*/
+.el-select >>> .el-input__inner::placeholder {
+  color: #A2B5D9;
+  font-size: 12px;
+}
+
+.el-select >>> .el-input__inner::-moz-placeholder {
+  color: #A2B5D9;
+  font-size: 12px;
+}
+
+.el-select >>> .el-input__inner::-webkit-input-placeholder {
+  color: #A2B5D9;
+  font-size: 12px;
+}
+
+.el-select >>> .el-input__inner:-ms-input-placeholder {
+  color: #A2B5D9;
+  font-size: 12px;
+}
+/*placeholder 样式     end*/

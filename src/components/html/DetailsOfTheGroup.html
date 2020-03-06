@@ -82,10 +82,10 @@
       <span> {{joinTime}}</span>
 
            <!--解散拼团-->
-      <div class="tuituan" v-if="idType=='1'" @click="postWithdraw(1)">{{$t('dissolve')}}</div>
+      <div class="tuituan pointer" v-if="idType=='1'" @click="postWithdraw(1)">{{$t('dissolve')}}</div>
 <!--      <div class="tuituan" v-if="idType=='2'">退出拼团</div>-->
         <!-- 退出拼团 -->
-      <div class="tuituan" v-if="idType=='3'" @click="postWithdraw(3)">{{$t('league')}}</div>
+      <div class="tuituan pointer" v-if="idType=='3'" @click="postWithdraw(3)">{{$t('league')}}</div>
     </div>
 
 <!--    团长的普通区，量化区累计-->
