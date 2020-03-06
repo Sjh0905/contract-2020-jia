@@ -233,16 +233,19 @@ root.methods.re_postJoinGroup = function (data) {
   }
 
   if (data.errorCode) {
-    data.errorCode == 1 && (this.popText = this.$t('incorrect')) //团员账户有误
-    data.errorCode == 2 && (this.popText = this.$t('account_not_registered')) // 团员账户未注册
-    data.errorCode == 3 && (this.popText = this.$t('colonel_userId')) // 团长userId有误
-    data.errorCode == 4 && (this.popText = this.$t('inserted')) // 拼团团员已存在，不能重复插入
-    data.errorCode == 400 && (this.popText = this.$t('parameter_error')) //参数有误
-    this.popOpen = true
-    this.popType = 0
-    setTimeout(() => {
+    if (
+      data.errorCode == 1 && (this.popText = this.$t('incorrect')) || //团员账户有误
+      data.errorCode == 2 && (this.popText = this.$t('account_not_registered')) || // 团员账户未注册
+      data.errorCode == 3 && (this.popText = this.$t('colonel_userId')) || // 团长userId有误
+      data.errorCode == 4 && (this.popText = this.$t('inserted')) || // 拼团团员已存在，不能重复插入
+      data.errorCode == 400 && (this.popText = this.$t('parameter_error')) //参数有误
+    ) {
       this.popOpen = true
-    }, 100)
+      this.popType = 0
+      setTimeout(() => {
+        this.popOpen = true
+      }, 100)
+    }
   }
 }
 root.methods.error_postJoinGroup = function (err) {
