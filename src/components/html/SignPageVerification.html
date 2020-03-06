@@ -28,7 +28,7 @@
 
 
         <!--谷歌验证-->
-        <div class="unit-input-container flex" v-if="picked==='bindGA'"
+        <div class="unit-input-container flex double-input-container" v-if="picked==='bindGA'"
              :class="{'wrong-msg':GACodeWA!==''}"
         >
         <!--<span class="flex-center unit-input-container-title">-->
@@ -72,7 +72,7 @@
           <button class="set-button btn_blue" @click="click_send" v-if="!sending">
             {{$t("confirm")}}
           </button>
-          <button class="set-button btn_grey" v-if="sending" disabled>{{$t("sending")}}</button>
+          <button class="set-button btn_blue_no_hover" v-if="sending" disabled>{{$t("sending")}}</button>
         </div>
       </div>
     </div>

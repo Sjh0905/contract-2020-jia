@@ -269,11 +269,11 @@
       <div class="unit-btn-container login-button-container ">
         <!--登录-->
         <!--<template v-if="captchaReady">-->
-          <button v-if="!sending" class="login-button    btn_blue" @click="loginIn"
+          <button v-if="!sending" class="login-button btn_blue" @click="loginIn"
           >
             {{$t("login")}}
           </button>
-          <button v-if="sending" class="login-button    btn_grey" disabled>
+          <button v-if="sending" class="login-button btn_blue_no_hover" disabled>
             {{$t("logining")}}
           </button>
         <!--</template>-->

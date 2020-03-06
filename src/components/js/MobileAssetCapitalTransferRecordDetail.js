@@ -9,8 +9,8 @@ root.props = {}
 root.data = function () {
   return {
     statusObj:{
-      "0":"成功",
-      "1":"失败"
+      "SUCCESS":"成功",
+      "FAILED":"失败"
     },
 
     // toast窗口是否显示

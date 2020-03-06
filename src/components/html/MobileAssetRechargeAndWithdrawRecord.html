@@ -67,7 +67,7 @@
         <!--<div class="withdraw-item-right"></div>-->
       <!--</div>-->
       <div v-for="(item,index) in computedWithdraw" :key="item.id" class="withdraw-item" @click="toWithdrawDetailPath(item)">
-        <div @click="toWithdrawDetailPath(item)">
+        <div>
           <div class="withdraw-item-title">{{item.currency== 'USDT2' ? 'USDT' :item.currency}}</div>
           <div class="withdraw-item-time">{{$globalFunc.formatDateUitl(item.updatedAt,'YYYY-MM-DD hh:mm:ss')}}</div>
           <div class="withdraw-item-num">
@@ -155,7 +155,7 @@
     <!--有划转记录的样子-->
     <div v-if="computedCapitalTransfer.length !== 0" class="withdraw-list">
       <div v-for="(item,index) in computedCapitalTransfer" :key="item.id" class="withdraw-item" @click="toCapitalTransferDetailPath(item)">
-        <div @click="toWithdrawDetailPath(item)">
+        <div>
           <div class="withdraw-item-title">{{item.currency== 'USDT2' ? 'USDT' :item.currency}}</div>
           <div class="withdraw-item-time">{{$globalFunc.formatDateUitl(item.updatedAt,'YYYY-MM-DD hh:mm:ss')}}</div>
           <div class="withdraw-item-num">
@@ -188,7 +188,7 @@
     <!--有内部转账记录的样子-->
     <div v-if="computedInternalTransfer.length !== 0" class="withdraw-list">
       <div v-for="(item,index) in computedInternalTransfer" :key="item.id" class="withdraw-item" @click="toInternalTransferDetailPath(item)">
-        <div @click="toWithdrawDetailPath(item)">
+        <div>
           <div class="withdraw-item-title">{{item.currency== 'USDT2' ? 'USDT' :item.currency}}</div>
           <div class="withdraw-item-time">{{$globalFunc.formatDateUitl(item.updatedAt,'YYYY-MM-DD hh:mm:ss')}}</div>
           <div class="withdraw-item-num">

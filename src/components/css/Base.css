@@ -383,7 +383,7 @@ input {
 
 .btn_blue_no_hover {
   background-color: #5C93FF !important;
-  border-radius: 2px;
+  border-radius: 1px;
 }
 
 .btn_blue:hover {
