@@ -686,7 +686,7 @@ root.methods.testName_0 = function () {
     this.nameMsg_0 = this.$t('nameMsg_0')
     return false
   }
-  if (this.$globalFunc.emailOrMobile(this.name_0)) {
+  if (!this.$globalFunc.emailOrMobile(this.name_0)) {
     this.nameMsg_0 = this.$t('nameMsg_1')
     return false
   }

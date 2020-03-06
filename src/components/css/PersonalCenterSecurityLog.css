@@ -44,6 +44,7 @@
   width: 1200px;
   margin: 0 auto;
   border: 1px solid #EFF0FF;
+  border-bottom: 0;
 }
 
 /*标题部分*/
@@ -87,7 +88,7 @@
   /*border: 1px solid #e6e6e6;*/
   color: #666666;
   /*text-align: center;*/
-  min-height: 500px;
+  min-height: 400px;
   background-color: #ffffff;
 }
 
@@ -151,10 +152,15 @@
 }
 
 .loading-more {
-  padding: 10px 0;
+  width: 1200px;
+  margin: 0 auto;
   display: block;
+  border: 1px solid #EFF0FF;
+  border-top: 0;
+  padding: 10px 0;
   text-align: center;
   color: #3576F5;
+  margin-bottom: 30px;
 
 }
 

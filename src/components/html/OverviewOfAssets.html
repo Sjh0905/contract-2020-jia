@@ -1,9 +1,9 @@
 <div class="min-height">
-
   <div>
-    <Loading v-if="loading"/>
+    <Loading v-if="loading" class="loading  border_radius"/>
     <template v-if="!loading">
       <div class="container">
+
         <!--    总资产-->
         <div class="container-top-title">
           <div class="container-total flex">
@@ -19,7 +19,7 @@
             </div>
             <!--          按钮-->
             <div>
-              <button class="capital-transfer" @click="openTransfer()">{{$t('capitalTransfer')}}</button>
+              <button class="capital-transfer pointer" @click="openTransfer()">{{$t('capitalTransfer')}}</button>
             </div>
           </div>
         </div>
@@ -58,6 +58,7 @@
       </div>
       <div class="container-bottom">
         <div class="container-bottom-title">{{$t('transfer_describe')}}</div>
+
         <div class="container-bottom-content">
           <p>{{$t('transfer_describe1')}}</p>
           <p>{{$t('transfer_describe2')}}</p>
@@ -90,7 +91,7 @@
 <!--              <input type="text" :placeholder='$t("coinAccount")' v-model="bibiAccount">-->
 <!--              <input type="text" :placeholder='$t("myWallet")'  v-model="account">-->
             </div>
-            <div class="wallet-to-account-right flex" @click="changeAssetAccountType()">
+            <div class="wallet-to-account-right pointer flex" @click="changeAssetAccountType()">
               <img src="../../assets/myWallet/record_change_icon.png" alt="">
             </div>
           </div>
@@ -150,7 +151,7 @@
           <button @click="popWindowClose" class="button-base btn_simple pointer">
             {{$t('cancel')}}
           </button>
-          <button @click="goToBindIdentity" class="button-base btn_blue pointer">
+          <button @click="goToBindIdentity" class="button-base btn_blue pointer m-r">
             {{$t('verification')}}
           </button>
         </template>
@@ -159,7 +160,7 @@
             {{$t('cancel')}}
             <!--          {{$t('bindGa')}}-->
           </button>
-          <button @click="goToSecurityCenter" class="button-base btn_blue pointer">
+          <button @click="goToSecurityCenter" class="button-base btn_blue pointer m-r">
             {{$t('beBinding')}}
             <!--          {{$t('bindMobile')}}-->
           </button>
@@ -169,7 +170,7 @@
             {{$t('cancel')}}
             <!--          {{$t('bindGa')}}-->
           </button>
-          <button @click="goToSecurityCenter" class="button-base btn_blue pointer">
+          <button @click="goToSecurityCenter" class="button-base btn_blue pointer m-r">
             {{$t('beBinding')}}
             <!--          {{$t('bindMobile')}}-->
           </button>
@@ -179,7 +180,7 @@
             {{$t('cancel')}}
             <!--          {{$t('bindGa')}}-->
           </button>
-          <button @click="goToSecurityCenter" class="button-base btn_blue pointer">
+          <button @click="goToSecurityCenter" class="button-base btn_blue pointer m-r">
             {{$t('beBinding')}}
             <!--          {{$t('bindMobile')}}-->
           </button>
@@ -189,7 +190,7 @@
             {{$t('cancel')}}
             <!--          {{$t('bindGa')}}-->
           </button>
-          <button @click="goToSecurityCenter" class="button-base btn_blue pointer">
+          <button @click="goToSecurityCenter" class="button-base btn_blue pointer m-r">
             {{$t('beBinding')}}
             <!--          {{$t('bindMobile')}}-->
           </button>

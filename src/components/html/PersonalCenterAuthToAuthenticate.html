@@ -110,7 +110,6 @@
                            v-model="searchResult" popper-class="el-popper select-down-box">
                   <input type="text" class="inputsize" :placeholder='$t("wrong_message_22")' v-model="searchCities">
                     <el-option
-
                       v-for="item in (searchCities ? cityList :cities)"
                       :key="item.countryId"
                       :label="($store.state.lang == 'CH' || $store.state.lang == 'CHT')? item.nameCn : item.nameEn"
@@ -167,7 +166,7 @@
 
             <div class="input-input-container sex">
               <template>
-                <el-select v-model="valuegender" name="gender" placeholder="请选择您的性别" popper-class="selectstyle">
+                <el-select v-model="valuegender" name="gender" placeholder="请选择您的性别" class="input-inner-gender">
                   <el-option
                     v-for="item in optionsgender"
                     :key="item.value"
@@ -253,7 +252,10 @@
           <template v-else>
             <div class="input-unify">
               <!--名字-->
-              <span>{{$t('namess')}}</span>
+              <div class="title-bottom">
+                <span>{{$t('namess')}}</span>
+              </div>
+
               <div class="input-input-container">
                 <input type="text" class="input-input" v-model="name_1" :key="3" @blur="testName_1">
               </div>
@@ -267,7 +269,9 @@
             </div>
             <!--姓氏-->
             <div class="input-unify">
-              <span>{{$t('surname')}}</span>
+              <div class="title-bottom">
+                <span>{{$t('surname')}}</span>
+              </div>
               <div class="input-input-container">
                 <input type="text" class="input-input" v-model="surname_1" :key="4" @blur="testSurName_1">
               </div>
@@ -283,7 +287,9 @@
             </div>
             <!--填写身份证号-->
             <div class="input-unify">
-              <span>{{$t('idCode_other')}}</span>
+              <div class="title-bottom">
+                <span>{{$t('idCode_other')}}</span>
+              </div>
               <div class="input-input-container">
                 <input type="text" class="input-input" v-model="idCode_1" :key="5" @blur="testIdCode_1">
               </div>

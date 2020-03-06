@@ -69,6 +69,7 @@
   overflow: hidden;
   /*border-top-left-radius: 0 !important;*/
   border: 1px solid #EFF0FF;
+  margin-bottom: 30px;
 }
 
 .detail-header {

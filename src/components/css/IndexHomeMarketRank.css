@@ -231,7 +231,7 @@
 
 .notice100{
   position: absolute;
-  top: 436px;
+  top: 396px;
   z-index:1;
   width:100%;
   height: 44px;
@@ -358,22 +358,26 @@
   padding-right: 42px;
 }
 .notice-box-item-title:hover {
-  /*color: #3576F5;*/
+  color: #fff;
   opacity: 0.6;
 }
 
 .notice-box-list-right-icon {
 
   display: inline;
-  width: 80px;
+  width: 95px;
   height: 44px;
   cursor: pointer;
-  text-align: right;
+  /*text-align: right;*/
   /*opacity: 0.4;*/
   font-family: PingFangSC-Semibold;
   font-size: 12px;
   color: #FFFFFF;
   letter-spacing: 0;
+}
+
+.notice-box-list-right-icon:hover {
+  opacity: 0.6;
 }
 
 .notice-box-list-right-icon-img {

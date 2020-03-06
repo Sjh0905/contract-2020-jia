@@ -35,18 +35,19 @@
           </li>
 
         </ul>
-        <template v-if="loadingMoreShow">
+      </template>
+    </div>
+  </div>
+
+  <template v-if="loadingMoreShow">
           <span class="loading-more pointer" v-if="!loadingMoreIng" @click="clickToLoadMore">{{$t('personalCenterSecurityLog.city_1')}}
             <span>
                 <img src="../../assets/securityCenter/bottom_icon.png" alt="">
               </span>
           </span>
-          <span class="loading-more pointer" v-else>{{$t('personalCenterSecurityLog.city_2')}}
+    <span class="loading-more pointer" v-else>{{$t('personalCenterSecurityLog.city_2')}}
           <img src="../../assets/securityCenter/bottom_icon.png" alt="">
           </span>
-        </template>
-      </template>
-    </div>
-  </div>
+  </template>
 
 </div>

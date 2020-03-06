@@ -65,7 +65,7 @@ root.data = function () {
 
     // 内部划转变量
     popWindowOpen1:false,
-    assetAccountType:'currency',//当前账户类型,默认显示币币账户
+    assetAccountType:'wallet',//当前账户类型,默认显示币币账户
     // bibiAccount:'币币账户',
     // account:'我的钱包',
     itemInfo:{
@@ -651,7 +651,7 @@ root.methods.popWindowClose1 = function () {
 
 //切换我的钱包和币币账户
 root.methods.changeAssetAccountType = function () {
-  this.assetAccountType = this.assetAccountType == 'wallet' ? 'wallet':'currency'
+  this.assetAccountType = this.assetAccountType == 'wallet' ? 'currency':'wallet'
 }
 
 // // 划转输入框交换位置
