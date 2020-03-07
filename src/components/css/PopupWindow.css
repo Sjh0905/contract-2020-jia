@@ -60,11 +60,11 @@
   font-weight:400;
   color: #0D0E23;
   letter-spacing: 2px;
-  border-radius: 8px 8px 0 0;
+  border-radius: 1px 1px 0 0;
 }
 
 .close {
-  right: 4%;
+  right: 25px;
   cursor: pointer;
 }
 
@@ -178,7 +178,7 @@
   .popWindow-article {
     text-align: left;
     font-size: 16px;
-    color: rgba(0,0,0,0.8);
+    color: #0D0E23;
     padding: 25px;
     min-height: 25px;
     padding-bottom: 0;
@@ -188,7 +188,7 @@
   .popWindow-article2 {
     text-align: left;
     font-size: 12px;
-    color: #d83838;
+    color: #0D0E23;
     min-height: 25px;
     padding: 25px;
     padding-top: 0;
