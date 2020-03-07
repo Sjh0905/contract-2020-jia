@@ -109,6 +109,7 @@
 }
 
 .article-detail {
+  white-space:normal;
   text-align: left;
   /*padding: 25px 10px;*/
   font-size:14px;
@@ -118,6 +119,7 @@
 }
 
 .article-detail > p {
+  white-space:normal;
   margin-bottom: 15px;
 }
 
