@@ -267,3 +267,22 @@ ul {
 .soan {
   /*padding-bottom: 3px;*/
 }
+
+
+/*placeholder 样式     begin*/
+.el-select >>> .el-input__inner::placeholder {
+  color: #A2B5D9;
+}
+
+.el-select >>> .el-input__inner::-moz-placeholder {
+  color: #A2B5D9;
+}
+
+.el-select >>> .el-input__inner::-webkit-input-placeholder {
+  color: #A2B5D9;
+}
+
+.el-select >>> .el-input__inner:-ms-input-placeholder {
+  color: #A2B5D9;
+}
+/*placeholder 样式     end*/

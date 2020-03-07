@@ -140,25 +140,27 @@ root.methods.re_postCreateAGroup = function (data) {
   // this.status = data.status
 
 
-  if(data.status) {
-
-     data.status == 1 && (this.popText = this.$t('colonel')) //团长账号已存在
-     data.status == 2 && (this.popText = this.$t('not_registered1')) // 副团账号未注册
-     data.status == 3 && (this.popText = this.$t('sub_group')) // 副团账号已存在
-     data.status == 4 && (this.popText = this.$t('already')) // 拼团名称已存在
-     data.status == 5 && (this.popText = this.$t('nameMsgColonel')) //团长账号与副团账号不能一样
-     data.status == 6 && (this.popText = this.$t('nameMsg')) //团队名称长度不能超过10
-     data.status == 7 && (this.popText = this.$t('account_wrong')) // 团长账户格式错误
-     data.status == 8 && (this.popText = this.$t('sub_group_wrong')) // 副团账户格式错误
-     data.status == 9 && (this.popText = this.$t('not_registered')) // 团长账号未注册
-     data.status == 10 && (this.popText = this.$t('userId_wrong')) // 团长userId有误
-     data.status == 11 && (this.popText = this.$t('inserted')) // 拼团团员已存在，不能重复插入
-     data.status == 400 && (this.popText = this.$t('parameter_error')) //参数有误
-     this.popOpen = true
-     this.popType = 0
-     setTimeout(() => {
-       this.popOpen = true
-     }, 100)
+  if(data.errorCode) {
+    if (
+      data.errorCode == 1 && (this.popText = this.$t('colonel')) || //团长账号已存在
+      data.errorCode == 2 && (this.popText = this.$t('not_registered1')) || // 副团账号未注册
+      data.errorCode == 3 && (this.popText = this.$t('sub_group')) ||  // 副团账号已存在
+      data.errorCode == 4 && (this.popText = this.$t('already')) ||  // 拼团名称已存在
+      data.errorCode == 5 && (this.popText = this.$t('nameMsgColonel')) ||  //团长账号与副团账号不能一样
+      data.errorCode == 6 && (this.popText = this.$t('nameMsg')) ||  //团队名称长度不能超过10
+      data.errorCode == 7 && (this.popText = this.$t('account_wrong')) ||  // 团长账户格式错误
+      data.errorCode == 8 && (this.popText = this.$t('sub_group_wrong')) ||  // 副团账户格式错误
+      data.errorCode == 9 && (this.popText = this.$t('not_registered')) ||  // 团长账号未注册
+      data.errorCode == 10 && (this.popText = this.$t('userId_wrong')) ||  // 团长userId有误
+      data.errorCode == 11 && (this.popText = this.$t('inserted')) ||  // 拼团团员已存在，不能重复插入
+      data.errorCode == 400 && (this.popText = this.$t('parameter_error')) //参数有误
+    ) {
+      this.popOpen = true
+      this.popType = 0
+      setTimeout(() => {
+        this.popOpen = true
+      }, 100)
+    }
    }
 
   if (this.success == true) {
@@ -185,6 +187,10 @@ root.methods.re_getNameAvailable = function (data) {
   typeof data === 'string' && (data = JSON.parse(data))
   console.log("this.re_getNameAvailable=====",data)
   this.available = data.data.success
+
+  if (this.available == false) {
+    this.name_0 = this.$t('already')
+  }
 }
 root.methods.error_getNameAvailable = function (err) {
   console.log("this.err=====",err)
@@ -235,6 +241,7 @@ root.methods.testInputIngPsw = function () {
 
 // 拼团名称输入
 root.methods.testName_0 = function () {
+
   this.pswPlaceholderShow = true
   if (this.gname === '') {
     this.name_0 = ''
@@ -248,6 +255,8 @@ root.methods.testName_0 = function () {
   }
 
   this.name_0 = ''
+
+  // this.re_getNameAvailable()
   return true
 }
 
