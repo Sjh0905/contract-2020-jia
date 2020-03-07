@@ -173,15 +173,19 @@
       <span class="header_xuzhi">提示</span>
     </div>
     <div slot="article" class="pop-recharge">
-      <p class="consequences">请确认是否退出**</p>
+      <p class="consequences" v-if="idType=='1'">请确认是否解散 <span class="consequencesSpan">{{gname}}</span></p>
+      <p class="consequences" v-if="idType=='3'">请确认是否退出 <span class="consequencesSpan">{{gname}}</span></p>
     </div>
     <div slot="footer" class="pop-recharge-bottom">
         <button @click="popWindowClose" class="button-base33 btn_simple pointer">
           {{$t('cancel')}}
         </button>
-        <button @click="goToBindIdentity" class="button-base33 btn_blue pointer m-l">
+        <button v-if="idType=='1'" @click="postWithdraw(1)"  class="button-base33 btn_blue pointer m-l">
           {{$t('verification')}}
         </button>
+      <button v-if="idType=='3'" @click="postWithdraw(3)"  class="button-base33 btn_blue pointer m-l">
+        {{$t('verification')}}
+      </button>
     </div>
 
   </PopupWindow>

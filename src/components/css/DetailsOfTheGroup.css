@@ -347,7 +347,7 @@ ul {
   height: 35px;
   /* background-color: #3576F5; */
   color: #fff;
-  border-radius: 2px;
+  border-radius: 1px;
   border: 0 solid transparent;
   /*margin-right: 2px;*/
   outline: none;
@@ -356,3 +356,8 @@ ul {
   margin-left: 24px;
 }
 
+.consequencesSpan {
+  color: #3576F5;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:500;
+}
