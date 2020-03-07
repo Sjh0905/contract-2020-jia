@@ -82,10 +82,10 @@
       <span> {{joinTime}}</span>
 
            <!--解散拼团-->
-      <div class="tuituan pointer" v-if="idType=='1'" @click="postWithdraw(1)">{{$t('dissolve')}}</div>
+      <div class="tuituan pointer" v-if="idType=='1'" @click="postWithd1(1)">{{$t('dissolve')}}</div>
 <!--      <div class="tuituan" v-if="idType=='2'">退出拼团</div>-->
         <!-- 退出拼团 -->
-      <div class="tuituan pointer" v-if="idType=='3'" @click="postWithdraw(3)">{{$t('league')}}</div>
+      <div class="tuituan pointer" v-if="idType=='3'" @click="postWithd1(3)">{{$t('league')}}</div>
     </div>
 
 <!--    团长的普通区，量化区累计-->
@@ -166,6 +166,26 @@
 
     </div>
   </div>
+
+  <!--   提示 弹窗-->
+  <PopupWindow :switch="popWindowOpen" @close="popWindowClose">
+    <div slot="header">
+      <span class="header_xuzhi">提示</span>
+    </div>
+    <div slot="article" class="pop-recharge">
+      <p class="consequences">请确认是否退出**</p>
+    </div>
+    <div slot="footer" class="pop-recharge-bottom">
+        <button @click="popWindowClose" class="button-base33 btn_simple pointer">
+          {{$t('cancel')}}
+        </button>
+        <button @click="goToBindIdentity" class="button-base33 btn_blue pointer m-l">
+          {{$t('verification')}}
+        </button>
+    </div>
+
+  </PopupWindow>
+
   <PopupPrompt :popOpen="popOpen" :popClose="popClose" :popType="popType" :popText="popText"/>
 
 </div>
