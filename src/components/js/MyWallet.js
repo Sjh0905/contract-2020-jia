@@ -80,7 +80,9 @@ root.data = function () {
     testNum:'',
     testNum_0:'',
 
-    name:'',
+    name:'',//转账名字
+    toUserId:'', // 收款人ID
+
     currencyName: '', //当前货币币种
     pswPlaceholderShow: true,
     verificationCodePlaceholderShow: true,
@@ -589,10 +591,11 @@ root.methods.re_transferDisabled = function (data) {
   this.feeReady = true
 
   if (this.isTransfer == true) {
+    this.popupPromptText = this.$t('withdrawalsIsNotOpen')
     this.popWindowClose = false
     this.popWindowOpen = false
     this.popupPromptOpen = true
-    this.popupPromptText = this.$t('withdrawalsIsNotOpen')
+
     this.popupPromptType = 0
 
     return
@@ -913,6 +916,7 @@ root.methods.getGoToConfirmTransfer = function () {
 root.methods.re_getGoToConfirmTransfer = function(data){
   typeof data === 'string' && (data = JSON.parse(data))
   this.name = data.dataMap.userProfile.name
+  this.toUserId = data.dataMap.userProfile.userId
   console.log(data)
   // console.log('data==================',data.dataMap.UserProfile.name)
   // console.log(this.name_0,this.testUID_0)
@@ -1129,23 +1133,25 @@ root.methods.error_commitEmailVerification = function (err) {
 
 // 获取邮箱验证码
 root.methods.getEmailVerification = function () {
-  if (this.getEmailVerificationCode) {
-    return
-  }
+  // if (this.getEmailVerificationCode) {
+  //   return
+  // }
   // let isERC20 = this.isERC20();
   // let currency = this.currency == "USDT" ? isERC20 : this.currency
-
-  this.$http.send('POST_VERIFICATION_CODE', {
-    bind: this,
-    params: {
+    let params = {
       type: 'email',
       purpose: 'transfer',
-      transferTime: this.formatDateUitl(this.serverT),
+      // transferTime: this.formatDateUitl(this.serverT),
+      num:'',
       currency: this.transferCurrency,
       amount: parseFloat(this.testNum_0),
       toEmail: this.name_0,
-      toUserId: this.testUID_0
-    },
+      toUserId: this.toUserId
+    }
+  console.log('params===========',params)
+  this.$http.send('POST_VERIFICATION_CODE', {
+    bind: this,
+    params:params,
     callBack: this.re_getEmailVerification,
     errorHandler: this.error_getEmailVerification,
   })
@@ -1165,7 +1171,8 @@ root.methods.getEmailVerification = function () {
 // 获取邮箱验证码
 root.methods.re_getEmailVerification = function (data) {
   console.log(data.dataMap.code)
-  // typeof data === 'string' && (data = JSON.parse(data))
+  typeof data === 'string' && (data = JSON.parse(data))
+  console.log('获取邮箱验证码==============',data)
   if (data.errorCode) {
     data.errorCode === 5 && (this.emailVerificationCodeWA = this.$t('emailVerificationCodeWA_5'))
     data.errorCode === 1 && (this.emailVerificationCodeWA = this.$t('emailVerificationCodeWA_1'))
