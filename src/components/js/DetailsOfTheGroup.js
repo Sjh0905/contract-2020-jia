@@ -4,6 +4,7 @@ root.name = 'DetailsOfTheGroup'
 root.components = {
   'Loading': resolve => require(['../vue/Loading'], resolve),
   'PopupPrompt': resolve => require(['../vue/PopupPrompt'], resolve),
+  'PopupWindow': resolve => require(['../vue/PopupWindow'], resolve),
 
 }
 /*------------------------------ data -------------------------------*/
@@ -12,6 +13,7 @@ root.data = function () {
     //拼团展示团队详情
     // details:[]
     loading:true,
+    popWindowOpen: false, //弹窗开关
 
     deputyAccount:'',//副团账号
     idType:'', //团员类型  1：团长，2：副团，3：普通成员
@@ -133,7 +135,10 @@ root.methods.error_getTeamDetails = function (err) {
   console.log("this.err=====",err)
 }
 
+root.methods.postWithd1 = function (idType) {
+  this.popWindowOpen = true
 
+}
 //退团解散团队post(params:{}) 没完成
 root.methods.postWithdraw = function (idType) {
   // TODO : 加变量的非空判断 正则判断
@@ -285,6 +290,11 @@ root.methods.toOrderHistory = function () {
 // 弹窗
 root.methods.popClose = function () {
   this.popOpen = false
+}
+
+// 弹窗关闭
+root.methods.popWindowClose = function () {
+  this.popWindowOpen = false
 }
 
 export default root

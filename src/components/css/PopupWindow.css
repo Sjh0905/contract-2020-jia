@@ -64,7 +64,7 @@
 }
 
 .close {
-  right: 4%;
+  right: 25px;
   cursor: pointer;
 }
 
@@ -90,11 +90,13 @@
 /*底部*/
 .popWindow-footer {
   width: 100%;
+  padding-left: 25px;
+  padding-right: 25px;
   /*padding-bottom: 25px;*/
-  align-items: center;
-  -webkit-align-items: center;
-  justify-content: space-around;
-  -webkit-justify-content: space-around;
+  /*align-items: center;*/
+  /*-webkit-align-items: center;*/
+  /*justify-content: space-around;*/
+  /*-webkit-justify-content: space-around;*/
 }
 
 /*过渡状态*/
@@ -202,10 +204,10 @@
     height: 54px;
     padding: 7px;
     /*padding-bottom: 25px;*/
-    align-items: center;
-    -webkit-align-items: center;
-    justify-content: space-around;
-    -webkit-justify-content: space-around;
+    /*align-items: center;*/
+    /*-webkit-align-items: center;*/
+    /*justify-content: space-around;*/
+    /*-webkit-justify-content: space-around;*/
   }
 
   .popWindow-footer-mobile {
