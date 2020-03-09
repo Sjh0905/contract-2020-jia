@@ -69,6 +69,7 @@
   overflow: hidden;
   /*border-top-left-radius: 0 !important;*/
   border: 1px solid #EFF0FF;
+  margin-bottom: 30px;
 }
 
 .detail-header {
@@ -484,8 +485,8 @@
   font-size:16px;
   font-family:PingFangSC-Regular,PingFang SC;
   font-weight:400;
-  color: rgba(13,14,35,.6);
-  padding-bottom: 25px;
+  /*color: rgba(13,14,35,.6);*/
+  /*padding-bottom: 25px;*/
 }
 
 .pop-recharge-bottom {
@@ -926,7 +927,7 @@
   height: 35px;
   /* background-color: #3576F5; */
   color: #fff;
-  border-radius: 2px;
+  border-radius: 1px;
   border: 0 solid transparent;
   margin-right: 2px;
   outline: none;

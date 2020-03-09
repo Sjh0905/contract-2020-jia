@@ -1,7 +1,7 @@
 <div class="assembleARegiment">
   <div class="conteainer">
     <div class="content_img">
-      <img src="../../assets/拼团_拼团banner/拼团_拼团banner.png" alt="">
+      <img src="../../assets/pintuanbanner/pintuan_banner.png" alt="">
       <div class="assemble">
 <!--        拼团-->
         <p class="assemble_p">{{$t('assembleARegiment')}}</p>
@@ -10,22 +10,22 @@
       </div>
     </div>
 
-    <div class="create_join">
-      <div class="create" @click="createJoin">
+    <div class="create_join flex pointer">
 
-<!--        创建拼团-->
-        <div class="img_ico">
-          <img src="../../assets/拼团_创建拼团_icon.png" alt="">
+      <!--  创建拼团-->
+      <div class="create pointer" @click="createJoin" >
+        <div class="img_ico pointer" @click="createJoin">
+          <img src="../../assets/chuangjianpintuan_icon.png" alt="" @click="createJoin">
         </div>
-        <p class="img_ico_p">{{$t('createGroup')}}</p>
+        <p class="img_ico_p pointer" @click="createJoin">{{$t('createGroup')}}</p>
       </div>
 
-<!--      加入拼团-->
-      <div class="join" @click="joinAGroup">
-        <div class="img_ico">
-          <img src="../../assets/拼团_加入 拼团_icon.png" alt="">
+     <!--  加入拼团-->
+      <div class="join pointer" @click="joinAGroup">
+        <div class="img_ico pointer" @click="joinAGroup">
+          <img src="../../assets/jiarupintuan.png" alt="" @click="joinAGroup">
         </div>
-        <p class="img_ico_p">{{$t('joinGroup')}}</p>
+        <p class="img_ico_p pointer" @click="joinAGroup">{{$t('joinGroup')}}</p>
       </div>
     </div>
 

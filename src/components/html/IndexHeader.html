@@ -744,7 +744,7 @@
                     <!--&lt;!&ndash;                    ( {{$globalFunc.formatDateUitl(value.beginTime,'MM-DD')}} )&ndash;&gt;-->
                     <!--                  </li>-->
                     <li  class="navigation-item-hidden-list-item-i"
-                         v-for="(value, key) in noticeList" :key="key"  @click="goNotice(value.url)">
+                         v-for="(value, key) in noticeList" :key="key"  @click="goNotice(value.id)">
                       <p id="navigation-item-hidden-list-item-i">{{value.title}}</p>
                       <!--                    ( {{$globalFunc.formatDateUitl(value.beginTime,'MM-DD')}} )-->
                     </li>

@@ -151,10 +151,10 @@
 <!--          <span class="line-title"></span>-->
             <div class="line-input-button flex">
               <div class="line-input-detail">
-                <button @click="commit" v-if="!sending" class="btn_blue">
+                <button @click="commit" v-if="!sending" class="btn_blue pointer">
                   {{$t('personalCenterSecurityCenterBindGoogleAuthenticator.ensure')}}
                 </button>
-                <button v-else disabled class="btn_grey">
+                <button v-else disabled class="btn_grey pointer">
                   {{$t('personalCenterSecurityCenterBindGoogleAuthenticator.binding')}}
                 </button>
               </div>

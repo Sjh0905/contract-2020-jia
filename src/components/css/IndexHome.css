@@ -148,7 +148,8 @@ margin-top: 60px;
   position: fixed;
 }
 .dongt img{
-  margin-top: 60px;
+  width: 500px;
+  margin-top: 150px;
 }
 
 /*START LOADER DESIGN*/
@@ -1786,6 +1787,10 @@ margin-top: 60px;
 .dark .index_home_container_body {
   /*background-color: #1f2237;*/
   background-color: #003148;
+}
+
+.index-home-market-rank {
+  height: 96px;
 }
 
 .index_home_footer {

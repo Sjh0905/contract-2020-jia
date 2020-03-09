@@ -4,6 +4,7 @@ root.name = 'DetailsOfTheGroup'
 root.components = {
   'Loading': resolve => require(['../vue/Loading'], resolve),
   'PopupPrompt': resolve => require(['../vue/PopupPrompt'], resolve),
+  'PopupWindow': resolve => require(['../vue/PopupWindow'], resolve),
 
 }
 /*------------------------------ data -------------------------------*/
@@ -12,6 +13,7 @@ root.data = function () {
     //拼团展示团队详情
     // details:[]
     loading:true,
+    popWindowOpen: false, //弹窗开关
 
     deputyAccount:'',//副团账号
     idType:'', //团员类型  1：团长，2：副团，3：普通成员
@@ -133,7 +135,10 @@ root.methods.error_getTeamDetails = function (err) {
   console.log("this.err=====",err)
 }
 
+root.methods.postWithd1 = function (idType) {
+  this.popWindowOpen = true
 
+}
 //退团解散团队post(params:{}) 没完成
 root.methods.postWithdraw = function (idType) {
   // TODO : 加变量的非空判断 正则判断
@@ -166,16 +171,19 @@ root.methods.re_postWithdraw = function (data) {
       this.$router.push({name: 'assembleARegiment'})
   }
 
-  if (data.status) {
-    data.status == 1 && (this.popText = this.$t('not_group')) //成员未加入拼团
-    data.status == 2 && (this.popText = this.$t('member_type')) // 成员类型错误
-    data.status == 3 && (this.popText = this.$t('withdrawal')) // 退团异常
-    data.status == 400 && (this.popText = this.$t('parameter_error')) //参数有误
-    this.popOpen = true
-    this.popType = 0
-    setTimeout(() => {
+  if (data.errorCode) {
+    if (
+      data.errorCode == 1 && (this.popText = this.$t('not_group')) ||//成员未加入拼团
+      data.errorCode == 2 && (this.popText = this.$t('member_type')) || // 成员类型错误
+      data.errorCode == 3 && (this.popText = this.$t('withdrawal')) || // 退团异常
+      data.errorCode == 400 && (this.popText = this.$t('parameter_error')) //参数有误
+    ) {
       this.popOpen = true
-    }, 100)
+      this.popType = 0
+      setTimeout(() => {
+        this.popOpen = true
+      }, 100)
+    }
   }
   // this.loading = false
 }
@@ -282,6 +290,11 @@ root.methods.toOrderHistory = function () {
 // 弹窗
 root.methods.popClose = function () {
   this.popOpen = false
+}
+
+// 弹窗关闭
+root.methods.popWindowClose = function () {
+  this.popWindowOpen = false
 }
 
 export default root

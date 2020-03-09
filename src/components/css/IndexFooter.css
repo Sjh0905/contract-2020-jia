@@ -145,12 +145,12 @@
 
 .footer_aboutus ul li {
   display: inline-block;
-  width: 300px;
+  width: 230px;
 }
 
 .footer_aboutus ul li a {
   color: #fff;
-  font-size: 13px;
+  font-size: 12px;
 }
 
 .footer_aboutus ul li a:hover {
@@ -192,7 +192,7 @@
   width: 100%;
   height: 42px;
   text-align: left;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 500;
   font-family: PingFangSC-Regular;
 }
@@ -201,10 +201,10 @@
   margin-top: 20px;
 }
 
-.footerlogo span {
+.footerlogo div {
   /*opacity: 0.6;*/
   font-family: PingFangSC-Medium;
-  font-size: 14px;
+  font-size: 12px;
   color: rgba(255,255,255,0.6);
 }
 
@@ -316,7 +316,7 @@
   text-align: left;
   /*opacity: 0.6;*/
   font-family: PingFangSC-Regular;
-  font-size: 13px;
+  font-size: 12px;
   color: #FFFFFF;
   /*cursor: pointer;*/
 }
@@ -380,14 +380,17 @@
 .contact li{
   width: 300px;
 }
-.ftaboutus{
-  text-align: left;
-  height:30px; line-height: 30px;
-  opacity: 0.8;
-  font-family: PingFangSC-Regular;
-  font-size: 13px;
-  color: #FFFFFF;
-}
+
+/*页面中没有使用到*/
+/*.ftaboutus{*/
+/*  text-align: left;*/
+/*  height:30px;*/
+/*  line-height: 30px;*/
+/*  opacity: 0.8;*/
+/*  font-family: PingFangSC-Regular;*/
+/*  font-size: 13px;*/
+/*  color: #FFFFFF;*/
+/*}*/
 
 .zcbutton{
   background-image: linear-gradient(134deg, #3576F5 0%, #3576F5 100%);

@@ -54,12 +54,17 @@ GlobalFunction.testId = function (id) {
 
 // 判断手机号或者邮箱
 GlobalFunction.emailOrMobile = function (src) {
-  if (/^\d{11}$/.test(src)) {
+  if (this.testMobile(src)) {
     return 1
   }
-  if (/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(src)) {
+  // TODO 正则有点儿问题，进行修改
+  // if (/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(src)) {
+  //   return 2
+  // }
+  if (this.testEmail(src)) {
     return 2
   }
+
   return 0
 }
 // 判断手机号

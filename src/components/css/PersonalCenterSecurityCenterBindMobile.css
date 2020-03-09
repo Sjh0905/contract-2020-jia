@@ -62,8 +62,8 @@
   display: inline-block;
   width: 90px;
   /*height: 35px;*/
-
 }
+
 
 .el-select {
   border-radius: 1px;
@@ -85,6 +85,19 @@
   height: 40px;
   line-height: 40px;
   border-radius: 1px;
+}
+
+.inputInner >>> .el-input__inner::-webkit-input-placeholder{
+  color:#A2B5D9;
+}
+.inputInner >>> .el-input__inner::-moz-placeholder{   /* Mozilla Firefox 19+ */
+  color:#A2B5D9;
+}
+.inputInner >>> .el-input__inner:-moz-placeholder{    /* Mozilla Firefox 4 to 18 */
+  color:#A2B5D9;
+}
+.inputInner >>> .el-input__inner:-ms-input-placeholder{  /* Internet Explorer 10-11 */
+  color:#A2B5D9;
 }
 
 .inputInner >>> .el-input__icon {
@@ -193,7 +206,7 @@
 
 /*弹窗样式*/
 .pop-ei-ar {
-  padding-left: 25px;
+  /*padding-left: 25px;*/
 }
 
 .vertical-middle {

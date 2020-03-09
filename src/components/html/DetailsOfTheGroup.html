@@ -5,17 +5,17 @@
 
 <!--    大banner-->
     <div class="of_the">
-      <div class="of_the_img"><img src="../../assets/拼团_成团展示_icon.png" alt=""></div>
+      <div class="of_the_img"><img src="../../assets/chengtuanzhanshi.png" alt=""></div>
         <ul>
 <!--          图片-->
           <li class="information_li">
             <div class="information_div color_bik">{{gname}}
               <span v-if="glevel=='0'"></span>
-              <span v-if="glevel=='1'"><img class="tupian_img" src="../../assets/拼团_微团_icon.png" alt=""></span>
-              <span v-if="glevel=='2'"><img class="tupian_img" src="../../assets/拼团_小团_icon.png" alt=""></span>
-              <span v-if="glevel=='3'"><img class="tupian_img" src="../../assets/拼团_大团_icon.png" alt=""></span>
-              <span v-if="glevel=='4'"><img class="tupian_img" src="../../assets/拼团_中团_icon.png" alt=""></span>
-              <span v-if="glevel=='5'"><img class="tupian_img" src="../../assets/拼团_超团_icon.png" alt=""></span>
+              <span v-if="glevel=='1'"><img class="tupian_img" src="../../assets/weituan_icon.png" alt=""></span>
+              <span v-if="glevel=='2'"><img class="tupian_img" src="../../assets/xiaotuan_icon.png" alt=""></span>
+              <span v-if="glevel=='3'"><img class="tupian_img" src="../../assets/datuan_icon.png" alt=""></span>
+              <span v-if="glevel=='4'"><img class="tupian_img" src="../../assets/zhongtuan_icon.png" alt=""></span>
+              <span v-if="glevel=='5'"><img class="tupian_img" src="../../assets/chaotuan_icon.png" alt=""></span>
 
               <span class="" v-if="glevel=='0'"></span>
              <!--微团-->
@@ -31,7 +31,7 @@
             </div>
             <div class="information_div color_hui"></div>
                <!-- 查看规则 -->
-<!--            <div class="information_div color_hui color_8"><img class="color_img" src="../../assets/拼团_成团展示_查看规则_icon.png" alt="">{{$t('viewRules')}}</div>-->
+<!--            <div class="information_div color_hui color_8"><img class="color_img" src="../../assets/pinchakan.png" alt="">{{$t('viewRules')}}</div>-->
           </li>
 <!--          距离下次升级-->
           <li class="information_li">
@@ -82,10 +82,10 @@
       <span> {{joinTime}}</span>
 
            <!--解散拼团-->
-      <div class="tuituan" v-if="idType=='1'" @click="postWithdraw(1)">{{$t('dissolve')}}</div>
+      <div class="tuituan pointer" v-if="idType=='1'" @click="postWithd1(1)">{{$t('dissolve')}}</div>
 <!--      <div class="tuituan" v-if="idType=='2'">退出拼团</div>-->
         <!-- 退出拼团 -->
-      <div class="tuituan" v-if="idType=='3'" @click="postWithdraw(3)">{{$t('league')}}</div>
+      <div class="tuituan pointer" v-if="idType=='3'" @click="postWithd1(3)">{{$t('league')}}</div>
     </div>
 
 <!--    团长的普通区，量化区累计-->
@@ -166,6 +166,30 @@
 
     </div>
   </div>
+
+  <!--   提示 弹窗-->
+  <PopupWindow :switch="popWindowOpen" @close="popWindowClose">
+    <div slot="header">
+      <span class="header_xuzhi">提示</span>
+    </div>
+    <div slot="article" class="pop-recharge">
+      <p class="consequences" v-if="idType=='1'">请确认是否解散 <span class="consequencesSpan">{{gname}}</span></p>
+      <p class="consequences" v-if="idType=='3'">请确认是否退出 <span class="consequencesSpan">{{gname}}</span></p>
+    </div>
+    <div slot="footer" class="pop-recharge-bottom">
+        <button @click="popWindowClose" class="button-base33 btn_simple pointer">
+          {{$t('cancel')}}
+        </button>
+        <button v-if="idType=='1'" @click="postWithdraw(1)"  class="button-base33 btn_blue pointer m-l">
+          {{$t('verification')}}
+        </button>
+      <button v-if="idType=='3'" @click="postWithdraw(3)"  class="button-base33 btn_blue pointer m-l">
+        {{$t('verification')}}
+      </button>
+    </div>
+
+  </PopupWindow>
+
   <PopupPrompt :popOpen="popOpen" :popClose="popClose" :popType="popType" :popText="popText"/>
 
 </div>

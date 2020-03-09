@@ -298,19 +298,11 @@ root.methods = {}
 
 // 不会写  登陆用户组等级信息get (query:{})  未完成
 root.methods.getGroupLevel = function () {
-  // /*TODO : 调试接口需要屏蔽 S*/
-  // var data = {
-  //   "data": {
-  //     "idType": 2,
-  //     "groupId": 2,
-  //     "isExist": false,
-  //     "account": "yx.318@qq.cn"
-  //   },
-  //   "status": "200",
-  //   "message": "success"
-  // }
-  // this.re_getGroupLevel(data)
-  /* TODO : 调试接口需要屏蔽 E*/
+
+  if(!this.isLogin){
+    this.$router.push('/index/sign/login')
+    return;
+  }
   this.$http.send('GET_ASSEMBLE_GET', {
     bind: this,
     urlFragment:this.userId,
@@ -635,11 +627,11 @@ root.methods.leave = function () {
 
 root.methods.go = function () {
   // window.open("https://TwentyTwenty help.zendesk.com/hc/zh-tw/sections/360005016974")
-  if(this.$store.state.lang == 'CH'){
-    window.open("https://customerservice8872.zendesk.com/hc/zh-cn/categories/360002253311-%E5%85%AC%E5%91%8A%E4%B8%AD%E5%BF%83")
-  }else{
-    window.open("https://customerservice8872.zendesk.com/hc/en-001/categories/360002253311-Announcements")
-  }
+  // if(this.$store.state.lang == 'CH'){
+  //   window.open("https://customerservice8872.zendesk.com/hc/zh-cn/categories/360002253311-%E5%85%AC%E5%91%8A%E4%B8%AD%E5%BF%83")
+  // }else{
+  //   window.open("https://customerservice8872.zendesk.com/hc/en-001/categories/360002253311-Announcements")
+  // }
 
   // let id
   // id=this.noticeList[0].id
@@ -651,6 +643,7 @@ root.methods.go = function () {
   // })
   // console.log(id,'aaaaaa')
   // this.$router.push({path: '/index/notice/noticeDetail', query: {id:id}})
+  this.$router.push({path: '/index/notice'})
 }
 
 
@@ -795,9 +788,9 @@ root.methods.RE_GET_NOTICE = function (res) {
 
 //公告跳转zendesk
 root.methods.goNotice = function (res) {
-  window.open(res)
+  // window.open(res)
   // console.log(res)
-  // this.$router.push({path: '/index/notice/noticeDetail', query: {id: res}})
+  this.$router.push({path: '/index/notice/noticeDetail', query: {id: res}})
 }
 
 //

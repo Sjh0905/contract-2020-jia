@@ -9,6 +9,7 @@
 }
 .assemble {
   width: 400px;
+  height: 100px;
   margin: 0 auto;
   text-align: center;
   position: absolute;
@@ -32,26 +33,29 @@
 .create_join {
   width: 100%;
   height: 240px;
-
+  border: 1px solid rgba(239,240,255,1);
 }
 .create {
-  display: inline-block;
-  width: 50%;
-  height: 240px;
+  /*display: inline-block;*/
+  width: 100%;
+  flex:1;
+  /*height: 240px;*/
   text-align: center;
-  border:1px solid rgba(239,240,255,1);
+  border-right:1px solid rgba(239,240,255,1);
+
 }
 .create:hover {
   background-color: #F5F6FA;
 }
 .join {
-  float: right;
-  display: inline-block;
-  width: 50%;
-  height: 240px;
+  /*float: right;*/
+  /*display: inline-block;*/
+  width: 100%;
+  flex:1;
+  /*height: 240px;*/
   text-align: center;
-  border:1px solid rgba(239,240,255,1);
-  border-left: 0px;
+  /*border:1px solid rgba(239,240,255,1);*/
+  /*border-left: 0px;*/
 }
 
 .join:hover {
