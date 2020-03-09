@@ -1,4 +1,6 @@
 .apply-box{
+  width: 1200px;
+  margin: 0 auto;
   background: #fff;
   /*padding-top: 15px;*/
   margin-top: 20px;
@@ -14,6 +16,7 @@
 }
 
 .apply-box-list{
+  font-size: 14px;
   padding: 0 40px 40px;
 }
 
@@ -40,10 +43,10 @@
 }
 
 .apply-box-list-descript{
-  color: #4c4c4c;
+  color: #0D0E23;
   min-height: 24px;
   line-height: 24px;
-  font-size: 14px;
+  /*font-size: 14px;*/
   padding-left: 12px;
   margin-top: 10px;
 }
@@ -67,7 +70,6 @@
 .apply-box-list-descript-item{
   min-height: 26px;
   line-height: 26px;
-  font-size: 14px;
 }
 
 .apply-box-list-descript-item-icon{
@@ -91,6 +93,13 @@
 
 .apply-font-blue{
   color: #3576F5;
+}
+.apply-font-weight {
+  font-weight: 600;
+}
+
+.apply-padding-left {
+  padding-left: 12px;
 }
 
 
