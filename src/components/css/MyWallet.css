@@ -204,9 +204,21 @@
 
 /*充值提现按钮container*/
 .rechargeAndWithdrawals {
-
 }
 
+
+.buttons {
+  display: inline-block;
+  /*width: 50px;*/
+  height: 28px;
+  line-height: 28px;
+  padding: 0 10px;
+  margin-left: 10px;
+  text-align: center;
+  border-radius:1px;
+  cursor: pointer;
+  /*margin: 0 5px*/
+}
 /*充值提现按钮总*/
 .button {
   display: inline-block;
@@ -237,6 +249,12 @@
   border: 1px solid #3576F5;
   color: #3576F5;
 }
+
+.withdrawals-buttons {
+  border: 1px solid #e6e6e6;
+  color: #e6e6e6;
+}
+
 
 /*提现选中*/
 .withdrawals-button-select {

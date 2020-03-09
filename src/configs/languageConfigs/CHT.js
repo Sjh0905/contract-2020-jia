@@ -3,6 +3,7 @@ const root = {}
 
 // 首頁header
 root.indexHeader = {}
+root.indexHeader.forward = '敬請期待'
 root.indexHeader.TwentyTwenty = '二零二零'
 root.indexHeader.currencyExchange = '幣幣交易'
 root.indexHeader.currencyQuotation = '行情'
@@ -321,7 +322,7 @@ root.transaction.Trading_platform_17 = '去交易'
 root.terms = {}
 root.terms.Terms_conditionss = '聯繫郵箱'
 root.terms.Terms_conditionss_1 = '關於我們'
-root.terms.Terms_conditionss_2 = '關於TwentyTwenty'
+root.terms.Terms_conditionss_2 = '關於2020'
 root.terms.Terms_conditionss_3 = '公告'
 root.terms.Terms_conditionss_4 = '條款說明'
 root.terms.Terms_conditionss_5 = '服務協議'

@@ -552,7 +552,7 @@
   color: #E0E1F4;
   float: left;
   padding:0 28px 0 15px;
-  cursor: pointer;
+  /*cursor: pointer;*/
   font-weight:500;
 }
 .cen2{

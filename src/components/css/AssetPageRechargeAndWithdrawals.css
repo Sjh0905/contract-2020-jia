@@ -209,6 +209,17 @@
 }
 
 /*充值提现按钮总*/
+.buttons {
+  display: inline-block;
+  /*width: 50px;*/
+  height: 28px;
+  line-height: 28px;
+  padding: 0 10px;
+  margin-left: 10px;
+  border-radius: 1px;
+  cursor: pointer;
+  /*margin: 0 5px*/
+}
 .button {
   display: inline-block;
   /*width: 50px;*/
@@ -227,6 +238,12 @@
 }
 
 /*充值按钮*/
+
+.recharge-buttons {
+  border: 1px solid #e6e6e6;
+  color: #e6e6e6;
+}
+
 .recharge-button {
   border: 1px solid #3576F5;
   color: #3576F5;

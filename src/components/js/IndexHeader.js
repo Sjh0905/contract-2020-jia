@@ -296,6 +296,14 @@ root.watch.redPoint = function (newValue, oldValue) {
 
 root.methods = {}
 
+root.methods.getGroupLevel1 = function () {
+
+  if (!this.isLogin) {
+    this.$router.push('/index/sign/login')
+    return;
+  }
+}
+
 // 不会写  登陆用户组等级信息get (query:{})  未完成
 root.methods.getGroupLevel = function () {
 

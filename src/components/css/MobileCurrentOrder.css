@@ -134,6 +134,27 @@
 	text-align: center;
 }
 
+/*没有记录*/
+.no-item-box {
+  width: 4rem;
+  margin: 2.04rem auto;
+}
+
+.no-item-box-item{
+  width: 1.2rem;
+  display: block;
+  margin: 0 auto;
+}
+
+.no-item-box-text{
+  margin-top: 0.12rem;
+  text-align: center;
+  font-size: 0.28rem;
+  font-family: PingFangSC-Regular,PingFang SC;
+  font-weight: 400;
+  color: #6B7DA2;
+}
+
 .current-order-list {
   background: #142030;
 }
