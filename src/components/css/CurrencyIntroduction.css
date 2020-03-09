@@ -1,8 +1,8 @@
 .currency-introduction-container {
   width:398px;
-  height:500px;
+  /*height:500px;*/
   /*width: 100%;*/
-  /*height: auto;*/
+  min-height: 190px;
   position: relative;
   padding: 0px 18px 20px;
   background:#0D111F;
@@ -36,6 +36,7 @@
 .article-detail-link {
   color: #3576F5;
   padding-left: 10px;
+  word-break: break-all;
 }
 
 .currency-ul-li {

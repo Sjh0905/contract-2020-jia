@@ -449,7 +449,7 @@ root.methods.changeAvailableData = function () {
   // console.log('this.$store.state.currency', this.$store.state.currency)
   this.orderType === 0 ? (list = this.$store.state.currency.get(this.symbol.split('_')[1])) : (list = this.$store.state.currency.get(this.symbol.split('_')[0]));
   // this.available = list.available;
-  this.available = this.$globalFunc.accFixed(list.available, 8);
+  this.available = this.$globalFunc.accFixed(list ? list.available : 0, 8);
 }
 
 root.methods.accMul = function (arg1, arg2) {

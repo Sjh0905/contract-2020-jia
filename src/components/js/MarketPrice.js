@@ -181,7 +181,7 @@ root.computed.computedMarketList = function () {
   if(this.selectMarket[this.selectEdition] === this.$t('Innovation'))return this.currencylist[this.selectEdition].createArea
 
   // console.log('hhhhh====',this.currencylist,this.selectEdition,this.selectMarket,this.selectEdition)
-  return (this.currencylist[this.selectEdition][this.selectMarket[this.selectEdition]] || []).sort((a,b)=>!b.open && b.open - a.open)
+  return (this.currencylist[this.selectEdition][this.selectMarket[this.selectEdition]] || []).sort((a,b)=>!b.open && b.open - a.open) || []
 }
 
 
