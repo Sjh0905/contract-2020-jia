@@ -321,6 +321,7 @@
   margin: 0 auto 5px;
   width: 6.7rem;
   height: 0.8rem;
+  align-items: center;
 }
 
 .pick-one-type {
@@ -395,10 +396,12 @@
 .double-input-container > input {
   border: 0 solid transparent;
   width: 4rem;
-  height: 100%;
+  height: 0.6rem;
+  line-height: 0.6rem;
   box-sizing: border-box;
   border-radius: 4px;
   text-align: left;
+  font-size: 0.28rem;
 }
 
   .cutter-line {

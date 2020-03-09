@@ -27,7 +27,7 @@ root.components = {
 }
 
 root.created = function () {
-  this.$store.commit('changeMobileHeaderTitle', this.$store.state.mobileRechargeRecordData.currency + '提现详情')
+  // this.$store.commit('changeMobileHeaderTitle', this.$store.state.mobileRechargeRecordData.currency + '提现详情')
   if(!this.$store.state.mobileRechargeRecordData.currency) {
     this.$router.push({name: 'MobileAssetRechargeAndWithdrawRecord'})
   }
