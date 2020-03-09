@@ -94,7 +94,8 @@
 .mobile-container{
   margin-top: 1.76rem;
   background: #131F30;
-  margin-bottom: 30px;
+  /*margin-bottom: 30px;*/
+  margin-bottom: 0.14rem;
 }
 
 
@@ -936,6 +937,8 @@
 
 .container-current-page {
   /*margin-top: 0.88rem;*/
+  padding-bottom: 1rem;
+  background-color: #131F30;
 }
 
 .toast-window-nobind-email {

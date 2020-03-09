@@ -9,6 +9,11 @@
         <span>操作</span>
     </div>
 
+    <!--没有当前委托的样式-->
+    <div v-if="currentOrderComputed.length === 0" class="no-item-box">
+      <img class="no-item-box-item" src="../../assets/no-record-icon-H5@2x.png" alt="">
+      <div class="no-item-box-text">暂无记录</div>
+    </div>
 
     <ul class="current-order-list" >
         <li v-for="(order,index) in currentOrderComputed" :key="order.id" class="_m_co_l flex-row">

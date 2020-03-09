@@ -22,7 +22,7 @@
     <!--没有充币记录的样式-->
     <div v-if="computedRecord.length === 0" class="no-item-box">
       <img class="no-item-box-item" src="../../assets/no-record-icon-H5@2x.png" alt="">
-      <div class="no-item-box-text">没有充币记录</div>
+      <div class="no-item-box-text">暂无充币记录</div>
     </div>
     <!--有充币记录的样子-->
     <div v-if="computedRecord.length !== 0" class="recharge-list">
@@ -52,7 +52,7 @@
     <!--没有充币记录的样式-->
     <div v-if="computedWithdraw.length === 0" class="no-item-box">
       <img class="no-item-box-item" src="../../assets/no-record-icon-H5@2x.png" alt="">
-      <div class="no-item-box-text">没有提币记录</div>
+      <div class="no-item-box-text">暂无提币记录</div>
     </div>
     <!--有充币记录的样子-->
     <div v-if="computedWithdraw.length !== 0" class="withdraw-list">
@@ -99,7 +99,7 @@
     <!--没有奖励记录的样式-->
     <div v-if="ActivityRecord.length === 0" class="no-item-box">
       <img class="no-item-box-item" src="../../assets/no-record-icon-H5@2x.png" alt="">
-      <div class="no-item-box-text">没有奖励记录</div>
+      <div class="no-item-box-text">暂无奖励记录</div>
     </div>
     <!--有奖励记录的样子-->
     <div v-if="ActivityRecord.length !== 0" class="withdraw-list">
@@ -150,7 +150,7 @@
     <!--没有划转记录的样式-->
     <div v-if="computedCapitalTransfer.length === 0" class="no-item-box">
       <img class="no-item-box-item" src="../../assets/no-record-icon-H5@2x.png" alt="">
-      <div class="no-item-box-text">没有划转记录</div>
+      <div class="no-item-box-text">暂无划转记录</div>
     </div>
     <!--有划转记录的样子-->
     <div v-if="computedCapitalTransfer.length !== 0" class="withdraw-list">
@@ -183,7 +183,7 @@
     <!--没有内部转账记录的样式-->
     <div v-if="computedInternalTransfer.length === 0" class="no-item-box">
       <img class="no-item-box-item" src="../../assets/no-record-icon-H5@2x.png" alt="">
-      <div class="no-item-box-text">没有内部转账记录</div>
+      <div class="no-item-box-text">暂无转账记录</div>
     </div>
     <!--有内部转账记录的样子-->
     <div v-if="computedInternalTransfer.length !== 0" class="withdraw-list">
