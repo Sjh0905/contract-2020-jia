@@ -145,7 +145,7 @@
   "previousStep": "上一步",
   "confirmTransfer": "确认转账",
   "GetVerificationCode": "获取验证码",
-  "walletTotalAsset": "钱包资产估值",
+  "walletTotalAsset": "我的钱包资产估值",
   "TransferIsNotOpen": "该币种暂未开放划转功能，敬请期待！",
   "transferCurrencyWA": "请输入币种信息",
   "transferAmountWA": "请输入划转数量",
