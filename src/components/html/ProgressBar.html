@@ -171,23 +171,40 @@
     <!--交易额 end-->
 
 
+    <!--    sss 屏蔽-->
     <!--交易按钮 begin-->
-    <div class="progress-bar-btn-wrap" @click="tradeMarket(true,orderType)" :class="btn_click ? 'progress-bar-active' : ''">
+<!--    <div class="progress-bar-btn-wrap" @click="tradeMarket(true,orderType)" :class="btn_click ? 'progress-bar-active' : ''">-->
 
 
-      <div class="progress-bar-btn txt-nomal border_radius"
-           :class="orderType?'progress-bar-redbtn btn_red_box_shadow':'progress-bar-greenbtn btn_green_box_shadow'"
+<!--      <div class="progress-bar-btn txt-nomal border_radius"-->
+<!--           :class="orderType?'progress-bar-redbtn btn_red_box_shadow':'progress-bar-greenbtn btn_green_box_shadow'"-->
+<!--           v-if="$store.state.authMessage.userId && symbol_transaction && symbol_transaction_diy">-->
+<!--        &lt;!&ndash; {{orderType&& $t("progressBar.sale") + this.$store.state.symbol.split('_')[0]|| $t("progressBar.buy")-->
+<!--        +this.$store.state.symbol.split('_')[0]}} &ndash;&gt;-->
+<!--        {{orderType&& $t("progressBar.sale") + this.$store.state.symbol.split('_')[0]||$t("progressBar.buy")+this.$store.state.symbol.split('_')[0]}}-->
+<!--      </div>-->
+
+<!--      <div class="progress-bar-btn progress-bar-nologin-btn ptxt-nomal"-->
+<!--           v-if="$store.state.authMessage.userId && (!symbol_transaction || !symbol_transaction_diy)">-->
+<!--        {{$t('progressBar.unavailable')}}-->
+<!--      </div>-->
+
+<!--      <div class="progress-bar-btn progress-bar-nologin-btn ptxt-nomal" v-if="!$store.state.authMessage.userId">-->
+<!--        <span style="cursor: pointer" class="text_blue" @click="goLogin">{{$t("progressBar.login")}}</span> 或 <span-->
+<!--        class="text_blue" style="cursor: pointer" @click="goRegister">{{$t("progressBar.register")}}</span>-->
+
+<!--      </div>-->
+
+
+<!--    </div>-->
+    <!--交易按钮 end-->
+    <div class="progress-bar-btn-wrap" :class="btn_click ? 'progress-bar-active' : ''">
+      <div class="progress-bar-btn progress-bar-nologin-btn ptxt-nomal"
            v-if="$store.state.authMessage.userId && symbol_transaction && symbol_transaction_diy">
         <!-- {{orderType&& $t("progressBar.sale") + this.$store.state.symbol.split('_')[0]|| $t("progressBar.buy")
         +this.$store.state.symbol.split('_')[0]}} -->
-        {{orderType&& $t("progressBar.sale") + this.$store.state.symbol.split('_')[0]||$t("progressBar.buy")+this.$store.state.symbol.split('_')[0]}}
+        {{orderType&& $t('indexHeader.forward')||$t('indexHeader.forward')}}
       </div>
-
-      <div class="progress-bar-btn progress-bar-nologin-btn ptxt-nomal"
-           v-if="$store.state.authMessage.userId && (!symbol_transaction || !symbol_transaction_diy)">
-        {{$t('progressBar.unavailable')}}
-      </div>
-
       <div class="progress-bar-btn progress-bar-nologin-btn ptxt-nomal" v-if="!$store.state.authMessage.userId">
         <span style="cursor: pointer" class="text_blue" @click="goLogin">{{$t("progressBar.login")}}</span> 或 <span
         class="text_blue" style="cursor: pointer" @click="goRegister">{{$t("progressBar.register")}}</span>
@@ -196,7 +213,8 @@
 
 
     </div>
-    <!--交易按钮 end-->
+
+<!--    sss 屏蔽结束-->
     <!-- <div class="progress-bar-fee">
         <span>{{$t("progressBar.serverCharge")}}(0.2%)</span>
     </div> -->

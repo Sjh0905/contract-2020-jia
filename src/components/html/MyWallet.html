@@ -89,28 +89,46 @@
               <!--<span class="withdrawals-button button can-not-withdrawals">{{$t('withdrawals')}}</span>-->
               <!--关闭提现 end-->
 
+            <!--sss 屏蔽-->
               <!--打开划转 begin-->
-            <span class="withdrawals-button button" @click="openTransfer(index,item)"
-                  :class="{'transfer-button-select':activeIndex===index  && transferFlage}"
-                  v-if="serverT >= item.withdrawOpenTime"
-            >
-              {{$t('transfer')}}
+<!--            <span class="withdrawals-button button" @click="openTransfer(index,item)"-->
+<!--                  :class="{'transfer-button-select':activeIndex===index  && transferFlage}"-->
+<!--                  v-if="serverT >= item.withdrawOpenTime"-->
+<!--            >-->
+<!--              {{$t('transfer')}}-->
+<!--            </span>-->
+<!--            <span class="can-not-withdrawals" v-else>{{$t('transfer')}}</span>-->
+
+                <span class="withdrawals-buttons buttons"
+                      v-if="serverT >= item.withdrawOpenTime"
+                >
+                  {{$t('indexHeader.forward')}}
             </span>
-            <span class="can-not-withdrawals" v-else>{{$t('transfer')}}</span>
               <!--打开划转 end-->
+              <!--sss 屏蔽结束-->
+
+
               <!--关闭划转 begin-->
               <!--<span class="withdrawals-button button can-not-withdrawals">{{$t('withdrawals')}}</span>-->
               <!--关闭划转 end-->
 
+
+              <!--sss 屏蔽-->
               <!--sss打开转账 begin-->
 
-              <span class="withdrawals-button button"
-                    @click="internalTransfer(index,item)"
-                    :class="{'recharge-button-select-transfer':activeIndex===index  && transferss}"
-                    v-if="serverT >= item.withdrawOpenTime"
-              >{{$t('internalTransfer')}}</span>
-            <span class=" can-not-withdrawals" v-else>{{$t('internalTransfer')}}</span>
+<!--              <span class="withdrawals-button button"-->
+<!--                    @click="internalTransfer(index,item)"-->
+<!--                    :class="{'recharge-button-select-transfer':activeIndex===index  && transferss}"-->
+<!--                    v-if="serverT >= item.withdrawOpenTime"-->
+<!--              >{{$t('internalTransfer')}}</span>-->
+<!--            <span class=" can-not-withdrawals" v-else>{{$t('internalTransfer')}}</span>-->
+
+               <span class="withdrawals-buttons buttons"
+                     v-if="serverT >= item.withdrawOpenTime"
+               >{{$t('indexHeader.forward')}}</span>
               <!--sss打开转账 end-->
+
+              <!--sss 屏蔽结束-->
 
               <!--关闭转账 begin-->
               <!--<span class="withdrawals-button button can-not-withdrawals">{{$t('withdrawals')}}</span>-->

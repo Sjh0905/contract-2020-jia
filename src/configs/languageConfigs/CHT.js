@@ -3,6 +3,7 @@ const root = {}
 
 // 首頁header
 root.indexHeader = {}
+root.indexHeader.forward = '敬請期待'
 root.indexHeader.TwentyTwenty = '二零二零'
 root.indexHeader.currencyExchange = '幣幣交易'
 root.indexHeader.currencyQuotation = '行情'

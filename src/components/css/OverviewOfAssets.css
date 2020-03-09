@@ -52,7 +52,15 @@
   border-style: hidden;
   box-sizing: border-box;
 }
-
+.capital-transfers {
+  background-color: #fff;
+  color: #e6e6e6;
+  font-size: 14px;
+  padding: 5px 15px;
+  border:1px solid #e6e6e6;
+  /*border-style: hidden;*/
+  box-sizing: border-box;
+}
 .container-content {
   height: 240px;
 }

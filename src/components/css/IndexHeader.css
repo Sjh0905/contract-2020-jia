@@ -1412,7 +1412,16 @@
   height: 100%;
   display: block;
 }
-
+.navigation-item-hidden-list-item-routers {
+  color: #e6e6e6;
+  text-align: left;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.navigation-item-hidden-list-item-router:hover {
+  /*color: #3576F5 !important;*/
+}
 /* .navigation-item-hidden-list-item:hover {
   color: #3576F5 !important;
 } */
@@ -1424,10 +1433,12 @@
 .navigation-item-hidden-list-item:hover {
   background-color:#F5F6FA;
 }
+
+/*sss 屏蔽*/
 .navigation-item-hidden-list-item-router:hover {
   color: #3576F5 !important;
-
 }
+
 .erwma{
   width: 160px;
   position: absolute;
@@ -1473,6 +1484,16 @@
 }
 .navigation-item-hidden-erwm .navigation-item-hidden-erwm-item{
   padding: 3px 0 5px 0;
+}
+
+.navigation-item-hidden-erwm-itemss {
+  /*padding: 5px;*/
+  padding-bottom: 8px;
+  padding-top: 3px;
+}
+
+.erwm-item {
+  color: #e6e6e6;
 }
 
 .navigation-item-hidden-erwm li{
@@ -1965,6 +1986,29 @@
   background-color:#F5F6FA;
 }
 
+.languagediv1{
+  /*width: 49%;*/
+  width: 100%;
+  height: 40px;
+  float: left;
+  text-align: left;
+  line-height: 40px;
+  font-family: PingFangSC-Regular;
+  font-size: 14px;
+  color: #e6e6e6;
+  padding: 0 15px;
+  /*margin-top: 10px;*/
+  cursor: pointer;
+}
+.languagediv1:hover{
+  /*opacity: 0.08;*/
+  /*background: #3576F5;*/
+  /*font-family: PingFangSC-Regular;*/
+  /*font-size: 16px;*/
+  /*color: #3576F5;*/
+  /*color: #3576F5 !important;*/
+  background-color:#F5F6FA;
+}
 .assets-icon {
 
   width: 28px;
