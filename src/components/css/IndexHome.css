@@ -144,12 +144,12 @@ margin-top: 60px;
   height: 100%;
   text-align: center;
   color: white;
-  z-index: 999911;
+  z-index: 10001;
   position: fixed;
 }
 .dongt img{
-  width: 500px;
-  margin-top: 150px;
+  width: 600px;
+  margin-top: 85px;
 }
 
 /*START LOADER DESIGN*/
@@ -159,7 +159,7 @@ margin-top: 60px;
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 99;
+  z-index: 10000;
   background-color: #0b4ed0;
 }
 
