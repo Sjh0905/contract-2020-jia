@@ -14,12 +14,8 @@
         <li class=" flex pointer border_radius log-detail_noticeCenter"
             v-for="item in computedNoticeList" :key="item.id"
             @click="clickToDetail(item.id)"
-        >
-
-          {{maxTitleLength(item.title)}}
-
-          <span class="time"></span>
-
+        >{{maxTitleLength(item.title)}}
+          <div class="time">{{formatDateUitl(item.updatedAt)}}</div>
         </li>
         <!--公告列表 end-->
 

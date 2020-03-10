@@ -183,7 +183,18 @@
     "wrong_message_2": "您的身份認證已通過",
     "wrong_message_3": "暫不可用",
     "expired": "已失效",
-    "goToCertification": "该操作需要身份认证，请立刻前往PC端个人中心完成"
+    "goToCertification": "该操作需要身份认证，请立刻前往PC端个人中心完成",
+
+    "beDismissed": "被駁回",
+    "toBeAudited": "待審核",
+    "passed": "已通過",
+    "inAudit": "審核中",
+    "failure": "已失效",
+    "mailbox": "郵箱驗證",
+    "logout": "退出登錄",
+    "uncertified": "未認證",
+    "management": "帳戶管理",
+    "namess": "名字"
   },
 
   "JP": {  "title": "身分認証",  "toAuth": "認証に行く",  "review": "審査中",  "authenticated": "認証済み",

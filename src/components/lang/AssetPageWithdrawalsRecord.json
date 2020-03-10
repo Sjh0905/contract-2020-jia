@@ -138,7 +138,8 @@
     "popText_2": "暫不可用",
     "state_7": "已提交",
     "state_8": "待處理",
-    "state_9": "已撤銷"
+    "state_9": "已撤銷",
+    "noRecord": "暫無記錄"
   },
   "JP": {
     "currency": "貨幣種",

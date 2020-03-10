@@ -9,7 +9,7 @@
       <div class="flow-code">{{$t('billNumber')}}</div>
 
       <!--收款人 or 付款人-->
-      <div class="name">{{ Judgment ? '付款人' : $t('payeeAccount') }}</div>
+      <div class="name">{{ Judgment ? $t('Payer') : $t('payeeAccount') }}</div>
 
       <!--账号-->
       <div class="Payee">{{$t('accountNumber')}}</div>
@@ -71,7 +71,7 @@
             <!--数量 end-->
 
             <!--类型-->
-            <div class="type">{{item.fromUserId ? '转入':'转出'}}</div>
+            <div class="type">{{item.fromUserId ? $t('shiftTo'):$t('turnOut')}}</div>
 
             <!--时间 begin-->
             <span class="time">{{$globalFunc.formatDateUitl(item.updatedAt,'YYYY-MM-DD hh:mm:ss')}}</span>
@@ -79,7 +79,7 @@
 
             <!--状态 begin-->
             <span class="state">
-              <span class="state_text">{{item.status == 'amet' ?'成功':'失败'}}</span>
+              <span class="state_text">{{item.status == 'amet' ?$t('success'):$t('faild')}}</span>
 <!--              item.status===0?'成功':'失败'-->
             </span>
             <!--状态 end-->

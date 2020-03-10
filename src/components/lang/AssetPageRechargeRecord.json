@@ -22,8 +22,11 @@
     "recharge_status_5": "审核未通过",
     "loadingMore": "加载更多",
 
+    "operation": "操作",
     "type": "类型",
     "noRecord": "暂无记录"
+
+
   },
   "EN": {
     "currency": "Coin",
@@ -75,6 +78,7 @@
 
 "CHT": {
     "currency": "幣種",
+    "type": "類型",
     "time": "時間",
     "amount": "數量",
     "address": "地址",
@@ -94,7 +98,10 @@
     "recharge_status_3": "廢棄區塊",
     "recharge_status_4": "等待審核",
     "recharge_status_5": "審核未通過",
-    "loadingMore": "加載更多"
+    "loadingMore": "加載更多",
+    "operation": "操作",
+    "type": "類型",
+    "noRecord": "暫無記錄"
   },
   "JP": {
     "currency": "貨幣種",

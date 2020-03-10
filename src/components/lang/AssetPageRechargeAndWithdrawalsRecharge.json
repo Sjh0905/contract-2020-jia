@@ -105,7 +105,9 @@
     "rechargePopWindowArticleWCG": "充值{currency}到二零二零须同时具备充值地址及{currency} memo(备注）、{currency} publicKey。未遵守{currency}充值规则将导致资产无法找回",
     "knowAgreement": "我已知曉{currency}充值規則",
     "continueRecharge": "繼續充值",
-    "notice": "提示"
+    "notice": "提示",
+    "chainName": "鏈名稱",
+    "showQRCode": "展示二維碼"
   },
   "JP": {
     "rechargeAddress": "「チャージアドレス」と、",

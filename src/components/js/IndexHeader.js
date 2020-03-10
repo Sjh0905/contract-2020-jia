@@ -8,6 +8,7 @@ root.components = {
   'IndexHeaderAssets': resolve => require(['../vue/IndexHeaderAssets'], resolve),
   'Loading': resolve => require(['../vue/Loading'], resolve),
   'Qrcode': resolve => require(['qrcode-vue'], resolve),
+  'PopupPrompt': resolve => require(['../vue/PopupPrompt'], resolve),
 }
 
 
@@ -43,7 +44,7 @@ root.data = function () {
     // 订单按钮切换
     orderVal:false,
     // 活动
-    activeVal:false,
+    activeVal:true,
     // 字体切换
     jttext:'',
     logo: logo,
@@ -80,6 +81,9 @@ root.data = function () {
     account: '',
     // uuid:'0'
 
+    popType: 0,
+    // popOpen: false,
+    popText: '系统繁忙',
   }
 }
 
@@ -296,6 +300,30 @@ root.watch.redPoint = function (newValue, oldValue) {
 
 root.methods = {}
 
+root.methods.getGroupLevel1 = function () {
+
+  if (!this.isLogin) {
+    this.$router.push('/index/sign/login')
+    return;
+  }
+
+  if (this.isLogin) {
+    this.popText = this.$t('indexHeader.forward') //参数有误
+    this.popOpen = true
+    this.popType = 3
+    setTimeout(() => {
+     this.popOpen = true
+    }, 100)
+     return;
+  }
+
+}
+
+// 弹窗
+root.methods.popClose = function () {
+  this.popOpen = false
+}
+
 // 不会写  登陆用户组等级信息get (query:{})  未完成
 root.methods.getGroupLevel = function () {
 
@@ -374,6 +402,21 @@ root.methods.changeLanguage = function (lang) {
   this.$eventBus.notify({key: 'LANGCHANGED'}, lang)
   this.$eventBus.notify({key: 'HOMEBANNER'}, lang)
 
+}
+
+root.methods.changeLanguageLS = function () {
+  this.popText = this.$t('indexHeader.forward') //参数有误
+  this.popOpen = true
+  this.popType = 3
+  setTimeout(() => {
+    this.popOpen = true
+  }, 100)
+  return;
+}
+
+// 弹窗
+root.methods.popClose = function () {
+  this.popOpen = false
 }
 
 // cc 切换语言

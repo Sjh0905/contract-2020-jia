@@ -33,7 +33,21 @@
         </div>
       </div>
 
-      <div class="prompt-detail flex-center prompt-loading" v-if="popOpen && popType===2 && !isMobile" :key="3">
+      <div class="prompt-detail-h flex-center trans" v-if="popOpen && popType===3 && !isMobile" :key="4">
+<!--        <img src="../../assets/弹窗-失败-icon.png" alt="" class="prompt-detail-img">-->
+        <span>{{popText}}</span>
+      </div>
+      <div class="prompt-detail flex-center trans prompt-detail-text-error prompt-detail-text-error" v-if="popOpen && popType===3 && isMobile" :key="4">
+        <div class="prompt-detail-mobile flex-center ">
+          <img src="../../assets/mobile_img/mobile_asset_commen/h5_prompt_error_icon.png" alt="" class="prompt-detail-img">
+          <div>
+            <div v-if="popText">{{popText}}</div>
+            <div v-if="popText2">{{popText2}}</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="prompt-detail-j flex-center prompt-loading" v-if="popOpen && popType===2 && !isMobile" :key="3">
         <Loading/>
       </div>
 

@@ -15,7 +15,8 @@
     "tab_3": "自选区",
     "collection": "自选",
     "currency": "币种",
-    "quotation": "行情"
+    "quotation": "行情",
+    "more": "查看更多"
   },
   "EN": {
     "market": "Market",
@@ -32,7 +33,8 @@
     "no_record": "No open orders yet",
     "tab_3": "Favorites",
     "collection": "favorites",
-    "currency": "currency"
+    "currency": "currency",
+    "more": "see more"
   },
   "CA": {
     "market": "Market",
@@ -49,7 +51,8 @@
     "no_record": "No open orders yet",
     "tab_3": "Favorites",
     "collection": "favorites",
-    "currency": "currency"
+    "currency": "currency",
+    "more": "see more"
   },
   "KOR": {
     "market": "시장",  "latestPrice": "최신 가격",  "Favorites": "셀프 셀렉션",  "Innovation": "이노베이션 존",  "SearchCurrency":"통화 검색",  "riseAndFall": "24시간 위로 모래",  "maxPrice": "24시간 높이",  "minPrice": "24시간 낮음",  "volume": "24시간 볼륨",  "tab_1": "시장",  "tab_2": "슈퍼 꿀 지역",  "no_record": "레코드 없음",  "tab_3": "셀프 셀렉션",  "collection": "선택적",  "currency": "통화"
@@ -69,7 +72,8 @@
     "no_record": "暫無記錄",
     "tab_3": "自選區",
     "collection": "自選",
-    "currency": "幣種"
+    "currency": "幣種",
+    "more": "查看更多"
   },
   "JP": {  "market": "市場",  "latestPrice": "最新価格",  "Favorites": "自選挙区",  "Innovation": "革新区",  "SearchCurrency":"貨幣種を探索し",  "riseAndFall": "24h揺動",  "maxPrice": "24h最高値",  "minPrice": "24h最安値",  "volume": "24h出来高",  "tab_1": "市場",  "tab_2": "スーパーは蜜ゾーン",  "no_record": "記録なし",  "tab_3": "自選挙区",  "collection": "自選",  "currency": "「貨幣種」"}
 }

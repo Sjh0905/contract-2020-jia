@@ -10,16 +10,22 @@
             <!--          总资产-->
             <div class="currency-total">
               <div class="currency-title">
-                {{$t('totalAsset')}}：
+                {{$t('totalAsset')}}
               </div>
               <div class="currency-total-assets">
-                <span class="total-assets">---- BTC</span>
-                <span>≈ {{lang ==='CH'?'￥':'$'}}----</span>
+                <span class="total-assets">{{toFixed(0.00000000)}} BTC</span>
+                <span> ≈ 0.00 CNY</span>
               </div>
             </div>
             <!--          按钮-->
             <div>
-              <button class="capital-transfer pointer" @click="openTransfer()">{{$t('capitalTransfer')}}</button>
+           <!-- sss 屏蔽-->
+<!--              <button class="capital-transfer pointer" @click="openTransfer()">{{$t('capitalTransfer')}}</button>-->
+          <!--   sss 屏蔽结束-->
+              <div class="capital-transfers">
+<!--                {{$t('indexHeader.forward')}}-->
+                {{$t('capitalTransfer')}}
+              </div>
             </div>
           </div>
         </div>
@@ -47,11 +53,11 @@
               <span>{{$t('coinAccount')}}</span>
             </div>
             <div class="my-wallet-number">
-              <span>0.000000</span>
+              <span>{{toFixed('0',8)}}</span>
               <span>BTC</span>
             </div>
             <div class="my-wallet-CNY">
-              0.0000 CNY
+              {{$globalFunc.accFixedCny('0',2)}} CNY
             </div>
           </div>
         </div>

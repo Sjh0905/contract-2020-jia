@@ -10,6 +10,52 @@
   position: relative;
 }
 
+.total-transfer {
+  justify-content: space-between;
+}
+
+.currency-total {
+  font-size: 14px;
+  color: #6B7DA2;
+}
+
+.what-transfer {
+  font-size:14px;
+  font-family:PingFangSC-Medium,PingFang SC;
+  font-weight:500;
+  color: #3576F5;
+  line-height:20px;
+}
+
+.what-transfer:hover {
+  opacity: 0.6;
+}
+
+.what-transfer img {
+  width: 24px;
+  vertical-align: middle;
+  margin-right: 10px;
+}
+
+.transfer-explain {
+  position: absolute;
+  top: 30px;
+  right: 0px;
+  display: none;
+  width: 388px;
+  height: 108px;
+  font-size:12px;
+  color: #0D0E23;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  /*text-align: center;*/
+  padding: 20px;
+  box-sizing: border-box;
+  box-shadow:0px 0px 16px 0px rgba(0,0,0,0.1);
+  background-color: #fff;
+  /*margin-left: 153px;*/
+}
+
 .currency-total {
   font-size: 14px;
   color: #6B7DA2;
@@ -209,6 +255,17 @@
 }
 
 /*充值提现按钮总*/
+.buttons {
+  display: inline-block;
+  /*width: 50px;*/
+  height: 28px;
+  line-height: 28px;
+  padding: 0 10px;
+  margin-left: 10px;
+  border-radius: 1px;
+  cursor: pointer;
+  /*margin: 0 5px*/
+}
 .button {
   display: inline-block;
   /*width: 50px;*/
@@ -227,6 +284,12 @@
 }
 
 /*充值按钮*/
+
+.recharge-buttons {
+  border: 1px solid #A2B5D9;
+  color: #A2B5D9;
+}
+
 .recharge-button {
   border: 1px solid #3576F5;
   color: #3576F5;

@@ -33,6 +33,7 @@
     "transferRecord": "划转记录",
     "transferRecords": "转账记录",
     "recharge": "币币账户",
+    "financeRecord": "财务记录",
     "rechargeRecord": "充值记录",
     "withdrawalsRecord": "提现记录",
     "currentEntrust": "当前委托",
@@ -197,8 +198,10 @@
     "service": "客戶服務",
     "proposal": "您的建議",
     "joinUs": "加入我們",
-    "recharge": "币币账户",
-    "rechargeRecord": "充值記錄",
+    "overviewOfAssets": "資產概覽",
+    "myWallet": "我的錢包",
+    "recharge": "幣幣帳戶",
+    "financeRecord": "財務記錄",
     "withdrawalsRecord": "提現記錄",
     "currentEntrust": "當前委託",
     "historicalEntrust": "歷史委託",
@@ -214,7 +217,8 @@
     "platform_1":"繁體中文",
     "platform_2":"簡體中文",
     "platform_3":"公告",
-    "platform_4":"下載"
+    "platform_4":"下載",
+    "platform_5":"拼團"
   },
   "JP": {
     "website": "TwentyTwenty",

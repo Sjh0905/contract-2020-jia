@@ -90,7 +90,7 @@ root.methods.getNoticeList = function () {
 }
 // 获取公告列表回调
 root.methods.re_getNoticeList = function (data) {
-  // console.log(data)
+  console.log(data)
   typeof data === 'string' && (data = JSON.parse(data))
   if(this.loading) {
     this.setNoticeRedPoint()

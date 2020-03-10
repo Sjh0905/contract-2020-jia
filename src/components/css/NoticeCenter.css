@@ -164,7 +164,7 @@
 }
 
 .time {
-  flex: 20;
+  text-align:right;
 }
 
 .more {
@@ -250,11 +250,10 @@
 }
 .log-detail_noticeCenter {
   width: 100%;
-
   align-items: center;
   -webkit-align-items: center;
-  justify-content: space-around;
-  -webkit-justify-content: space-around;
+  justify-content: space-between;
+  -webkit-justify-content: space-between;
   /*height: 70px;*/
   /*font-size: 1.2rem;*/
   /*border-bottom: 1px solid #e6e6e6;*/
@@ -266,7 +265,7 @@
   padding: 10px 15px;
   padding-left: 20px;
   overflow: hidden;
-  display: inline-block;
+  /*display: inline-block;*/
   font-family:PingFangSC-Light,PingFang SC;
   font-weight:300;
   font-size: 14px;

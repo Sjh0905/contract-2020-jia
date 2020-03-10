@@ -11,7 +11,7 @@
       <!--币种-->
       <span class="currency">{{$t('currency')}}</span>
 <!--      类型-->
-      <span class="type">类型</span>
+      <span class="type">{{$t('type')}}</span>
       <!--数量-->
       <span class="total">{{$t('amount')}}</span>
       <!--地址-->
@@ -19,7 +19,7 @@
       <!--状态-->
       <span class="state">{{$t('state')}}</span>
       <!--备注-->
-      <span class="th-prompt">操作</span>
+      <span class="th-prompt">{{$t('operation')}}</span>
     </div>
     <!--充值记录title end-->
 
@@ -33,7 +33,6 @@
 
             <!--时间 begin-->
             <span class="time">
-              2020-02-01
               {{$globalFunc.formatDateUitl(item.updatedAt,'YYYY-MM-DD hh:mm:ss')}}
             </span>
             <!--时间 end-->
