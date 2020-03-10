@@ -43,7 +43,7 @@ root.data = function () {
     // 订单按钮切换
     orderVal:false,
     // 活动
-    activeVal:false,
+    activeVal:true,
     // 字体切换
     jttext:'',
     logo: logo,
