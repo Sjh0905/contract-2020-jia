@@ -98,7 +98,7 @@ store.state.mobileTradingHallFlag = false
  * 语言
  * @type {string}
  */
-store.state.lang = 'CA'
+store.state.lang = 'CH'
 store.state.langZendeskObj = {
   'CH':'zh-cn',
   'EN':'en-US',
