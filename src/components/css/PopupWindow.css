@@ -30,7 +30,8 @@
   transform: translateY(-50%) translateX(-50%);
   border-radius: 1px;
   box-shadow: 0 5px 10px 10px rgba(0, 0, 0, 0.05);
-  overflow:scroll;
+  overflow:hidden;
+
 
 }
 .min-popup{
@@ -156,7 +157,7 @@
     transform: translateY(-50%) translateX(-50%);
     border-radius: 8px;
     box-shadow: none;
-
+    overflow: hidden;
   }
 
   .popWindow-title {
