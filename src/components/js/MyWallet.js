@@ -1617,6 +1617,16 @@ root.methods.withdrawalsFlag = function (item) {
   return true
 }
 
+root.methods.closeWhatTransfer= function () {
+  $(".transfer-explain").attr("style","display:none");
+}
+
+root.methods.openWhatTransfer = function () {
+  $(".transfer-explain").attr("style","display:block");
+}
+
+
+
 /*---------------------- 保留小数 begin ---------------------*/
 root.methods.toFixed = function (num, acc = 8) {
   return this.$globalFunc.accFixed(num, acc)

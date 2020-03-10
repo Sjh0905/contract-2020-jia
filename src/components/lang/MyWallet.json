@@ -152,8 +152,11 @@
   "transferAmountWA1": "请输入数字",
   "transferAmountWA2": "请输入正确的划转数量",
   "transferAmountWA3": "超出划转可用余额",
-  "transferAmountWA4": "低于划转最小额"
-
+  "transferAmountWA4": "低于划转最小额",
+  "transfer_describe": "什么是资金划转?",
+  "transfer_describe1": "我的钱包和币币账户之间的资产相互划转，称为资金划转。我的钱包资产可提现，币币账户资产可交易，即：",
+  "transfer_describe2": "A. 币币交易：需将资产从我的钱包划转到币币账户。",
+  "transfer_describe3": "B. 资产提现：需将资产从币币账户划转到我的钱包。"
 },
 "EN": {
   "currency": "Coin",
@@ -376,6 +379,10 @@
     "transferAmountWA1": "請輸入數位",
     "transferAmountWA2": "請輸入正確的劃轉數量",
     "transferAmountWA3": "超出劃轉可用餘額",
-    "transferAmountWA4": "低於劃轉最小額"
+    "transferAmountWA4": "低於劃轉最小額",
+    "transfer_describe": "什麼是資金劃轉?",
+    "transfer_describe1": "我的錢包和幣幣帳戶之間的資產相互劃轉，稱為資金劃轉。 我的錢包資產可提現，幣幣帳戶資產可交易，即：",
+    "transfer_describe2": "A. 幣幣交易：需將資產從我的錢包劃轉到幣幣帳戶。 ",
+    "transfer_describe3": "B. 資產提現：需將資產從幣幣帳戶劃轉到我的錢包。 "
   }
 }
