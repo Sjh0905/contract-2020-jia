@@ -101,7 +101,8 @@
                 <span class="withdrawals-buttons buttons"
                       v-if="serverT >= item.withdrawOpenTime"
                 >
-                  {{$t('indexHeader.forward')}}
+<!--                  {{$t('indexHeader.forward')}}-->
+                  {{$t('transfer')}}
             </span>
               <!--打开划转 end-->
               <!--sss 屏蔽结束-->
@@ -124,7 +125,10 @@
 
                <span class="withdrawals-buttons buttons"
                      v-if="serverT >= item.withdrawOpenTime"
-               >{{$t('indexHeader.forward')}}</span>
+               >
+                 {{$t('internalTransfer')}}
+<!--                 {{$t('indexHeader.forward')}}-->
+               </span>
               <!--sss打开转账 end-->
 
               <!--sss 屏蔽结束-->
