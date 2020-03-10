@@ -25,7 +25,7 @@
 
     <div class="title">
       <div class="home-market-title">{{$route.name == 'home'? $t('market'):$t('quotation')}}</div>
-      <div class="shicseach">
+      <div class="shicseach" v-if="$route.name == 'indexHomeMarket'">
         <el-input
           :placeholder='$t("SearchCurrency")'
           class="dialog-input-text"
@@ -41,7 +41,7 @@
       <ul class="market-detail-container flex "
       >
   <!--      USDT/ENX/创新区-->
-        <li class="market-detail-title flex">
+        <li class="market-detail-title flex" v-if="$route.name == 'indexHomeMarket'">
           <div class="market-list-container flex" v-if="marketList.length>0">
 
   <!--          USDT/ENX-->
@@ -102,8 +102,8 @@
           <li class="market-detail-item market-detail flex pointer" v-for="(value, key) in (searchText ? searchList : computedMarketList)"
               :key="key"
           >
-            <img src="../../assets/selected_icon.png" class="imgSelect" v-show="(collectionMarket.includes(value.name))" @click="handleCollectionMarket(value.name,false)" alt="">
-            <img src="../../assets/noSelected_icon.png" class="imgSelect" v-show="!(collectionMarket.includes(value.name))" @click="handleCollectionMarket(value.name,true)" alt="">
+            <img src="../../assets/selected_icon.png" v-if="$route.name == 'indexHomeMarket'" class="imgSelect" v-show="(collectionMarket.includes(value.name))" @click="handleCollectionMarket(value.name,false)" alt="">
+            <img src="../../assets/noSelected_icon.png" v-if="$route.name == 'indexHomeMarket'" class="imgSelect" v-show="!(collectionMarket.includes(value.name))" @click="handleCollectionMarket(value.name,true)" alt="">
 
             <div class="market-detail-item flex pointer" @click="clickToGoTradingHall(value)">
 <!--              币种-->
