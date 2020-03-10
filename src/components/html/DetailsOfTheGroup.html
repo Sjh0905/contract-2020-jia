@@ -66,8 +66,8 @@
               <span>{{createdAt}}</span>
             </div>
 <!--            普通区折扣-->
-            <div class="information_div color_bik_9">{{commonDiscount}}%</div>
-            <div class="information_div color_bik_9">{{quantDiscount}}%</div>
+            <div class="information_div color_bik_9">{{toFixed(accMul(commonDiscount,100),1) }}%</div>
+            <div class="information_div color_bik_9">{{toFixed(accMul(quantDiscount,100),1) }}%</div>
           </li>
         </ul>
       </div>

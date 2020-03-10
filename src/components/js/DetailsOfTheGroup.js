@@ -42,8 +42,8 @@ root.data = function () {
 }
 /*------------------------------ 生命周期 -------------------------------*/
 root.created = function () {
-  this.getMemberList(this.groupId)
   this.getTeamDetails()
+  this.getMemberList(this.groupId)
   this.loading = true
   // this.userId()
 
@@ -296,5 +296,17 @@ root.methods.popClose = function () {
 root.methods.popWindowClose = function () {
   this.popWindowOpen = false
 }
+
+/*---------------------- 乘法运算 begin ---------------------*/
+root.methods.accMul = function (num1, num2) {
+  return this.$globalFunc.accMul(num1, num2)
+}
+/*---------------------- 乘法运算 end ---------------------*/
+
+/*---------------------- 保留小数位 begin ---------------------*/
+root.methods.toFixed = function (num, acc) {
+  return this.$globalFunc.accFixed(num, acc)
+}
+/*---------------------- 保留小数位 end ---------------------*/
 
 export default root
