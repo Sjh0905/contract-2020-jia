@@ -251,8 +251,8 @@
 }
 
 .withdrawals-buttons {
-  border: 1px solid #e6e6e6;
-  color: #e6e6e6;
+  border: 1px solid #A2B5D9;
+  color: #A2B5D9;
 }
 
 
@@ -278,9 +278,9 @@
 /*提现置灰色*/
 .can-not-withdrawals {
   display: inline-block;
-  color: #e6e6e6;
-  border: 1px solid #e6e6e6;
-  border-color: #e6e6e6;
+  color: #A2B5D9;
+  border: 1px solid #A2B5D9;
+  border-color: #A2B5D9;
   /*width: 50px;*/
   height: 28px;
   line-height: 28px;

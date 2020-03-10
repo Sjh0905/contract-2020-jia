@@ -47,7 +47,7 @@ root.props.waitTime = {
 root.watch = {}
 root.watch.popOpen = function (newVal, oldVal) {
   // console.warn("hi!!", newVal, oldVal,this.popType)
-  if (!newVal || (this.popType !== 0 && this.popType !== 1)) return
+  if (!newVal || (this.popType !== 0 && this.popType !== 1 && this.popType !== 3)) return
   this.timeOut && clearTimeout(this.timeOut)
   this.timeOut = setTimeout(this.popClose, this.waitTime)
 }
