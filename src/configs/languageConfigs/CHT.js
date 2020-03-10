@@ -82,6 +82,12 @@ root.assetPage.frozen = '凍結'
 root.assetPage.available = '可提'
 root.assetPage.amountCash = '24H提現額度'
 root.assetPage.withdrawalsAndRecharge = '充值提現'
+root.assetPage.overviewOfAssets = '資產概覽'
+root.assetPage.myWallet = '我的錢包'
+root.assetPage.withdrawalsAndRecharge = '幣幣帳戶'
+root.assetPage.financialRecords = '財務記錄'
+root.assetPage.transferRecord = '劃轉記錄'
+root.assetPage.transferRecords = '轉帳記錄'
 
 //資產提現和充值
 root.assetPageRechargeAndWithdrawals = {}
@@ -298,15 +304,22 @@ root.noticeCenter.more = '更多>>'
 
 // 最值得信赖的数字资产交易平台
 root.transaction = {}
-root.transaction.Trading_platform = '最值得信賴的數字資產交易平台'
+root.transaction.Trading_platform = '2020復活者聯盟'
 root.transaction.Trading_platform_1 = '以下是您應該選擇二零二零的幾個原因'
-root.transaction.Trading_platform_2 = '安全保障'
-root.transaction.Trading_platform_3 = '多風險預警系統，專業的分佈式架構和飯ddos攻擊系統.'
-root.transaction.Trading_platform_4 = '快速撮合'
-root.transaction.Trading_platform_5 = '多快速的核心內存撮合技技術，確保安全高效的交易體驗。'
-root.transaction.Trading_platform_6 = '極致服務'
-root.transaction.Trading_platform_7 = '良好的流動性、活躍的社群，客服16*7小時響應，第一時間為您解答相關諮詢。'
-root.transaction.Trading_platform_8 = '下載APP客戶端'
+root.transaction.Trading_platform_2 = '復活者聯盟'
+root.transaction.Trading_platform_2_1 = '投資復活的集結號'
+root.transaction.Trading_platform_3 = '創新型挖礦'
+root.transaction.Trading_platform_3_1 = '交易挖礦的進階版'
+root.transaction.Trading_platform_4 = '拼團式交易'
+root.transaction.Trading_platform_4_1 = '交易所裏的拼多多'
+root.transaction.Trading_platform_5 = '管家式客服'
+root.transaction.Trading_platform_5_1 = '區塊鏈裏的海底撈'
+root.transaction.Trading_platform_6 = '高引擎撮合'
+root.transaction.Trading_platform_6_1 = '一秒十萬的高引擎'
+root.transaction.Trading_platform_7 = '鏡像式身份'
+root.transaction.Trading_platform_7_1 = '全網相容的通行證'
+root.transaction.Trading_platform_8 = '2020.Exchange官方APP下載'
+
 root.transaction.Trading_platform_9 = '隨時隨地 多平台終端交易'
 root.transaction.Trading_platform_10 = 'iOS 下載'
 root.transaction.Trading_platform_11 = 'Android 下載'
@@ -320,7 +333,7 @@ root.transaction.Trading_platform_17 = '去交易'
 
 //关于条款
 root.terms = {}
-root.terms.Terms_conditionss = '聯繫郵箱'
+root.terms.Terms_conditionss = '建議迴響'
 root.terms.Terms_conditionss_1 = '關於我們'
 root.terms.Terms_conditionss_2 = '關於2020'
 root.terms.Terms_conditionss_3 = '公告'
@@ -329,7 +342,12 @@ root.terms.Terms_conditionss_5 = '服務協議'
 root.terms.Terms_conditionss_6 = '隱私協議'
 root.terms.Terms_conditionss_7 = '費率標準'
 root.terms.Terms_conditionss_8 = '微信客服'
-
+root.terms.Terms_conditionss_9 = '服務'
+root.terms.Terms_conditionss_10 = '費率標準'
+root.terms.Terms_conditionss_11 = '公告中心'
+root.terms.Terms_conditionss_12 = '客服微信'
+root.terms.Terms_conditionss_13 = '客戶服務'
+root.terms.Terms_conditionss_14 = '商務合作'
 
 
 //发送邀请给好友
@@ -356,6 +374,7 @@ root.orderPage.reset = '重置'
 root.orderPage.onlyCompleted = '僅完成'
 root.orderPage.currentEntrust = '當前委託'
 root.orderPage.historicalEntrust = '歷史委託'
+root.orderPage.order = '訂單'
 
 
 // 當前訂單
@@ -610,6 +629,8 @@ root.personalCenterSecurityCenterReleaseMobile.releasing = '解綁中'
 
 // 安全日誌
 root.personalCenterSecurityLog = {}
+root.personalCenterSecurityLog.management = '帳戶管理'
+root.personalCenterSecurityLog.information = '登錄資訊'
 root.personalCenterSecurityLog.title = '安全日誌'
 root.personalCenterSecurityLog.time = '登錄時間'
 root.personalCenterSecurityLog.ip = 'IP地址'
@@ -1544,9 +1565,8 @@ root.assetPage.platformReward = '活動獎勵'
 root.assetPagePlatformReward = {}
 root.assetPagePlatformReward.state1 = '說明'
 root.assetPagePlatformReward.success = '成功'
-
-
 root.assetPagePlatformReward.currency = '幣種'
+root.assetPagePlatformReward.type = '類型'
 root.assetPagePlatformReward.time = '時間'
 root.assetPagePlatformReward.amount = '數量'
 root.assetPagePlatformReward.state = '狀態'

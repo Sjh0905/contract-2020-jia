@@ -291,16 +291,22 @@ root.indexShare.prompt_4 = '快快带我去注册'
 
 // 最值得信赖的数字资产交易平台
 root.transaction = {}
-root.transaction.Trading_platform = '最值得信赖的数字资产交易平台'
+root.transaction.Trading_platform = '2020复活者联盟'
 root.transaction.Trading_platform_1 = '以下是您应该选择二零二零的几个原因'
-root.transaction.Trading_platform_2 = '安全保障'
-root.transaction.Trading_platform_3 = '多风险预警系统，专业的分布式架构和反ddos攻击系统。'
-root.transaction.Trading_platform_4 = '快速撮合'
-root.transaction.Trading_platform_5 = '多快速的核心内存撮合技术，确保安全高效的交易体验。'
-root.transaction.Trading_platform_6 = '极致服务'
+root.transaction.Trading_platform_2 = '复活者联盟'
+root.transaction.Trading_platform_2_1 = '投资复活的集结号'
+root.transaction.Trading_platform_3 = '创新型挖矿'
+root.transaction.Trading_platform_3_1 = '交易挖矿的进阶版'
+root.transaction.Trading_platform_4 = '拼团式交易'
+root.transaction.Trading_platform_4_1 = '交易所里的拼多多'
+root.transaction.Trading_platform_5 = '管家式客服'
+root.transaction.Trading_platform_5_1 = '区块链里的海底捞'
+root.transaction.Trading_platform_6 = '高引擎撮合'
+root.transaction.Trading_platform_6_1 = '一秒十万的高引擎'
+root.transaction.Trading_platform_7 = '镜像式身份'
+root.transaction.Trading_platform_7_1 = '全网兼容的通行证'
+root.transaction.Trading_platform_8 = '2020.Exchange 官方APP下载'
 
-root.transaction.Trading_platform_7 = '良好的流动性，活跃的社群，客服16*7随时响应为您解答相关咨询。'
-root.transaction.Trading_platform_8 = '下载APP客户端'
 root.transaction.Trading_platform_9 = '随时随地 多平台终端交易'
 root.transaction.Trading_platform_10 = 'iOS 下载'
 root.transaction.Trading_platform_11 = 'Android 下载'
@@ -311,10 +317,9 @@ root.transaction.Trading_platform_15 = '注册'
 root.transaction.Trading_platform_16 = '已登录'
 root.transaction.Trading_platform_17 = '去交易'
 
-
 //条款说明
 root.terms = {}
-root.terms.Terms_conditionss = '联系邮箱'
+root.terms.Terms_conditionss = '建议反馈'
 root.terms.Terms_conditionss_1 = '关于我们'
 root.terms.Terms_conditionss_2 = '关于2020'
 root.terms.Terms_conditionss_3 = '用户协议'

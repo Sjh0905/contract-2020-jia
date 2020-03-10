@@ -158,7 +158,25 @@
     "hide_zero_asset": "隱藏0資產幣種",
     "bind_email_pop_title": "安全提示",
     "bind_email_pop_article": "為了您的資金安全，請先綁定郵箱",
-    "bind_email_pop_button": "綁定郵箱"
+    "bind_email_pop_button": "綁定郵箱",
+    "popWindowTitleTransfer": "劃轉提示",
+    "capitalTransfer": "資金劃轉",
+    "from": "從",
+    "reach": "到",
+    "coinAccount": "幣幣帳戶",
+    "myWallet": "我的錢包",
+    "amount": "數量",
+    "mentioning": "可提",
+    "allMention": "全提",
+    "totalAsset": "幣幣帳戶資產估值",
+    "TransferIsNotOpen": "該幣種暫未開放劃轉功能，敬請期待！ ",
+    "transferCurrencyWA": "請輸入幣種資訊",
+    "transferAmountWA": "請輸入劃轉數量",
+    "transferAmountWA1": "請輸入數位",
+    "transferAmountWA2": "請輸入正確的劃轉數量",
+    "transferAmountWA3": "超出劃轉可用餘額",
+    "transferAmountWA4": "低於劃轉最小額"
+
   },
   "JP": {
     "currency": "貨幣種",

@@ -384,7 +384,8 @@
     "publicKeyWA_1": "注：publicKey填写错误将会导致资产丢失，请仔细核对。",
     "changePassword": "修改登錄密碼未超過24h",
     "limit":"您超過單筆提現限額，建議調低提現額度後重試，給您帶來不便敬請諒解。",
-    "iKnowthe":"我知道了"
+    "iKnowthe":"我知道了",
+    "chainName": "鏈名稱"
   },
   "JP":{
     "withdrawalsAddress": "labelアドレス:",
