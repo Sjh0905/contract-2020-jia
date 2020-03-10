@@ -2,12 +2,13 @@ const root = {}
 root.name = 'JoinAGroup'
 /*------------------------------ 组件 ------------------------------*/
 root.components = {
- // 'Loading': resolve => require(['../Loading/Loading.vue'], resolve),
- 'PopupPrompt': resolve => require(['../vue/PopupPrompt'], resolve),
+  'Loading': resolve => require(['../vue/Loading'], resolve),
+  'PopupPrompt': resolve => require(['../vue/PopupPrompt'], resolve),
 }
 /*------------------------------ data -------------------------------*/
 root.data = function () {
   return {
+    loading:false,
     //副团长账号
     deputyAccount:'',
     //团长账号
@@ -38,6 +39,8 @@ root.data = function () {
 
     // 绑定的城市
     cities: [],
+
+    canJoin:false
   }
 }
 /*------------------------------ 生命周期 -------------------------------*/
@@ -109,64 +112,44 @@ root.watch.searchCities = function(v){
     "gname": "暂无数据"
   }])
   return this.cityList;
+
 }
 
 /*------------------------------ 方法 -------------------------------*/
 root.methods = {}
 
+
+//模糊查询可加入小组get (query:{})
+root.methods.getFuzzyQuery= function () {
+  // /* TODO : 调试接口需要屏蔽 E*/
+  this.$http.send('GET_GROUP_LIST', {
+    bind: this,
+    urlFragment: this.gname,
+    // query:{
+    //   gname: this.gname
+    // },
+    callBack: this.re_getFuzzyQuery,
+    errorHandler: this.error_getFuzzyQuery
+  })
+}
+
+root.methods.re_getFuzzyQuery = function (data) {
+  //检测data数据是JSON字符串转换JS字符串
+  typeof data === 'string' && (data = JSON.parse(data))
+  console.log("模糊查询可加入小组=====",data)
+  this.cities = data.data
+  this.citiesMap = {}
+  this.cities.map(v=>this.citiesMap[v.gname] = v.groupId)
+  console.log('this.getFuzzyQuery',this.getFuzzyQuery)
+}
+
+root.methods.error_getFuzzyQuery = function (err) {
+  console.log("this.err=====",err)
+}
+
+
 //查询组详情get (query:{})
 root.methods.getCheckGroupDetails= function (groupId) {
-
-  // /*TODO : 调试接口需要屏蔽 S*/
-  // var data = {
-  //   "data": {
-  //     "deputyAccount": "yx.318@qq.cn",
-  //     "priAccount": "1835807299@qq.com",
-  //     "groupId": "1",
-  //     "glevel": "1",
-  //     "commonDiscount": "0.001",
-  //     "quantDiscount": "0.001",
-  //     "gname": "战狼1"
-  //   },
-  //   "status": "200",
-  //   "message": "success"
-  // }
-  // var data2 = {
-  //   "data": {
-  //     "deputyAccount": "yx.318@qq.cn",
-  //     "priAccount": "122222@qq.com",
-  //     "groupId": "2",
-  //     "glevel": "2",
-  //     "commonDiscount": "0.002",
-  //     "quantDiscount": "0.002",
-  //     "gname": "战狼2"
-  //   },
-  //   "status": "200",
-  //   "message": "success"
-  // }
-  // var data3 = {
-  //   "data": {
-  //     "deputyAccount": "yx.318@qq.cn",
-  //     "priAccount": "1000000000@qq.com",
-  //     "groupId": "3",
-  //     "glevel": "3",
-  //     "commonDiscount": "0.003",
-  //     "quantDiscount": "0.003",
-  //     "gname": "jiajia"
-  //   },
-  //   "status": "200",
-  //   "message": "success"
-  // }
-  // if(data.data.groupId == groupId ){
-  //   this.re_getCheckGroupDetails(data);
-  // }
-  // if(data2.data.groupId == groupId){
-  //   this.re_getCheckGroupDetails(data2);
-  // }
-  // if(data3.data.groupId == groupId){
-  //   this.re_getCheckGroupDetails(data3);
-  // }
-  // /*TODO : 调试接口需要屏蔽 E*/
 
   this.$http.send('GET_QUERY_GROUP_INFO', {
     bind: this,
@@ -199,7 +182,13 @@ root.methods.error_getCheckGroupDetails = function (err) {
 
 //加入拼团post(params:{})
 root.methods.postJoinGroup = function () {
-  // TODO : 加变量的非空判断 正则判断
+
+  if (this.priAccount == '') {
+    return;
+  }
+
+  // this.canJoin = true
+
   let params = {
     userId: this.userId,
     groupId: this.groupId,
@@ -207,15 +196,7 @@ root.methods.postJoinGroup = function () {
     account: this.userName
   }
   console.log("postJoinGroup + params ===== ",params)
-  /* TODO : 调试接口需要屏蔽 S*/
-  // this.re_postJoinGroup({
-  //     "data": {
-  //       "success": true
-  //     },
-  //     "status": "200",
-  //     "message": "success"
-  //   })
-  /* TODO : 调试接口需要屏蔽 E*/
+
   this.$http.send('POST_JOIN_GROUP', {
     bind: this,
     params:params,
@@ -225,6 +206,7 @@ root.methods.postJoinGroup = function () {
 }
 root.methods.re_postJoinGroup = function (data) {
   typeof data === 'string' && (data = JSON.parse(data))
+
   this.success = data.data.success
   console.log("re_postJoinGroup + data=====", data)
   if (this.success == true) {
@@ -238,6 +220,8 @@ root.methods.re_postJoinGroup = function (data) {
       data.errorCode == 2 && (this.popText = this.$t('account_not_registered')) || // 团员账户未注册
       data.errorCode == 3 && (this.popText = this.$t('colonel_userId')) || // 团长userId有误
       data.errorCode == 4 && (this.popText = this.$t('inserted')) || // 拼团团员已存在，不能重复插入
+      data.errorCode == 5 && (this.popText = this.$t('inserted')) || // 拼团已达最大人数限制，请加入其它拼团
+      data.errorCode == 6 && (this.popText = this.$t('parameter_error')) || // groupId为0,参数错误~~~~
       data.errorCode == 400 && (this.popText = this.$t('parameter_error')) //参数有误
     ) {
       this.popOpen = true
@@ -249,76 +233,6 @@ root.methods.re_postJoinGroup = function (data) {
   }
 }
 root.methods.error_postJoinGroup = function (err) {
-  console.log("this.err=====",err)
-}
-
-//模糊查询可加入小组get (query:{})
-root.methods.getFuzzyQuery= function () {
-  // /* TODO : 调试接口需要屏蔽 S*/
-  // var data = {
-  //   "data": [
-  //     {
-  //       "groupId": "1",
-  //       "gname": "战狼1"
-  //     },
-  //     {
-  //       "groupId": "2",
-  //       "gname": "战狼2"
-  //     },
-  //     {
-  //       "groupId": "3",
-  //       "gname": "佳佳佳佳佳佳佳佳佳佳"
-  //     }
-  //   ],
-  //   "status": "200",
-  //   "message": "success"
-  // }
-  //
-  // this.re_getFuzzyQuery(data)
-
-  // /* TODO : 调试接口需要屏蔽 E*/
-  this.$http.send('GET_GROUP_LIST', {
-    bind: this,
-    urlFragment: this.gname,
-    // query:{
-    //   gname: this.gname
-    // },
-    callBack: this.re_getFuzzyQuery,
-    errorHandler: this.error_getFuzzyQuery
-  })
-}
-
-root.methods.re_getFuzzyQuery = function (data) {
-  //检测data数据是JSON字符串转换JS字符串
-  typeof data === 'string' && (data = JSON.parse(data))
-  console.log("模糊查询可加入小组=====",data)
-
-  // data = {
-  //   "data": [
-  //   {
-  //     "groupId": "1",
-  //     "gname": "战狼"
-  //   },
-  //   {
-  //     "groupId": "2",
-  //     "gname": "战狼2"
-  //   },
-  //     {
-  //       "groupId": "3",
-  //       "gname": "佳佳"
-  //     }
-  // ],
-  //   "status": "200",
-  //   "message": "success"
-  // }
-  // console.log("this.res=====",data)
-  this.cities = data.data
-  this.citiesMap = {}
-  this.cities.map(v=>this.citiesMap[v.gname] = v.groupId)
-  console.log('this.getFuzzyQuery',this.getFuzzyQuery)
-}
-
-root.methods.error_getFuzzyQuery = function (err) {
   console.log("this.err=====",err)
 }
 
