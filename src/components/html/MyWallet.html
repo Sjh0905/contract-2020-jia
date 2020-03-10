@@ -4,12 +4,24 @@
   <div class="container-top-title">
     <Loading v-if="loading"/>
     <template v-if="!loading">
-      <div>
-        <div class="currency-total">{{$t('walletTotalAsset')}}
-          <div class="currency-total-assets">
-            <span class="total-assets">{{priceReady || initReady ? toFixed(total,8):'----'}} BTC</span>
-            <span> ≈ {{(priceReady ||initReady) ? $globalFunc.accFixedCny(valuation,2) : '----'}} CNY</span>
-          </div>
+      <div >
+       <div class="flex total-transfer">
+         <div class="currency-total">{{$t('walletTotalAsset')}}</div>
+         <div class="what-transfer pointer " @mouseenter="openWhatTransfer()" @mouseleave="closeWhatTransfer()">
+           <img src="../../assets/myWallet/transfer-explain.png" alt="">
+           {{$t('transfer_describe')}}
+         </div>
+       </div>
+<!--        划转解释-->
+        <div class="transfer-explain">
+          <p>{{$t('transfer_describe1')}}</p>
+          <p>{{$t('transfer_describe2')}}</p>
+          <p>{{$t('transfer_describe3')}}</p>
+        </div>
+
+        <div class="currency-total-assets">
+          <span class="total-assets">{{priceReady || initReady ? toFixed(total,8):'----'}} BTC</span>
+          <span> ≈ {{(priceReady ||initReady) ? $globalFunc.accFixedCny(valuation,2) : '----'}} CNY</span>
         </div>
       </div>
 

@@ -10,6 +10,52 @@
   position: relative;
 }
 
+.total-transfer {
+  justify-content: space-between;
+}
+
+.currency-total {
+  font-size: 14px;
+  color: #6B7DA2;
+}
+
+.what-transfer {
+  font-size:14px;
+  font-family:PingFangSC-Medium,PingFang SC;
+  font-weight:500;
+  color: #3576F5;
+  line-height:20px;
+}
+
+.what-transfer:hover {
+  opacity: 0.6;
+}
+
+.what-transfer img {
+  width: 24px;
+  vertical-align: middle;
+  margin-right: 10px;
+}
+
+.transfer-explain {
+  position: absolute;
+  top: 30px;
+  right: 0px;
+  display: none;
+  width: 388px;
+  height: 108px;
+  font-size:12px;
+  color: #0D0E23;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  /*text-align: center;*/
+  padding: 20px;
+  box-sizing: border-box;
+  box-shadow:0px 0px 16px 0px rgba(0,0,0,0.1);
+  background-color: #fff;
+  /*margin-left: 153px;*/
+}
+
 .currency-total {
   font-size: 14px;
   color: #6B7DA2;
