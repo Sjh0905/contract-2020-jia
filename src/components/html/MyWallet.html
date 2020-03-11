@@ -44,8 +44,9 @@
       <span class="total">{{$t('total')}}</span>
       <span class="available">{{$t('available')}}</span>
       <span class="frozen">{{$t('frozen')}}</span>
-      <span class="valuation">{{$t('valuation')}}(BTC)</span>
       <span class="lock-warehouse">{{$t('lockWarehouse')}}</span>
+      <span class="valuation">{{$t('valuation')}}(BTC)</span>
+
       <span class="rechargeAndWithdrawals">
         {{$t('operation')}}
 <!--        {{$t('recharge')}} / {{$t('withdrawals')}}-->
@@ -70,6 +71,7 @@
             <span class="available">{{toFixed(item.available,8)}}</span>
             <span class="frozen">{{toFixed(item.frozen,8)}}</span>
             <!-- <span class="valuation">{{(priceReady || initReady) && item.appraisement!=0 ? toFixed(item.appraisement,8) : '--'}}</span> -->
+            <span class="lock-warehouse">{{toFixed('0',8)}}</span>
             <span class="valuation">
               <font class="valuation_font" @mouseenter="get_now_price(index, item.appraisement, $event)"
                     @mouseleave="hide_now_price">{{(priceReady || initReady) && item.appraisement!=0 ? toFixed(item.appraisement,8) : '--'}}</font>
@@ -78,7 +80,7 @@
                 <font></font>
               </span>
             </span>
-            <span class="lock-warehouse">{{toFixed('0',8)}}</span>
+
             <span class="rechargeAndWithdrawals">
 
             <!--打开充值 begin-->
