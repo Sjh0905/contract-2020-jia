@@ -933,6 +933,7 @@ root.personalCenterAuthAuthenticationState.yesAuth = '已認證'
 
 
 root.personalCenterRecommend.shareUrl = '推薦鏈接：'
+root.personalCenterRecommend.invitationList = '邀請清單'
 root.personalCenterRecommend.copy = '複製'
 root.personalCenterRecommend.index = '序號'
 root.personalCenterRecommend.userName = '用戶名'

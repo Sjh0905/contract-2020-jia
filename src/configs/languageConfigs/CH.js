@@ -948,6 +948,7 @@ root.personalCenterAuthAuthenticationState.yesAuth = '已认证'
 
 
 root.personalCenterRecommend.shareUrl = '推荐链接：'
+root.personalCenterRecommend.invitationList = '邀请列表'
 root.personalCenterRecommend.copy = '复制'
 root.personalCenterRecommend.index = '序号'
 root.personalCenterRecommend.userName = '用户名'

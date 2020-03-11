@@ -310,7 +310,7 @@ requestAddress.GET_BT_GRAND_TOTAL = {url: urlHead+'/activity/grandTotal', method
 requestAddress.GET_BT_REVENUE_RECORD = {url: urlHead+'/activity/revenueRecord', method: 'post'}
 
 // 配置我的推荐的百分比 *用于我的推荐页面
-// requestAddress.GET_BT_REGULATION_CONFIG = {url: urlHead+'/activity/regulationConfig', method: 'get'}
+requestAddress.GET_BT_REGULATION_CONFIG = {url: urlHead+'/activity/regulationConfig', method: 'get'}
 
 // 获取bdb燃烧额外奖励
 requestAddress.GET_BT_BURNING_BDB_REWARD = {url: urlHead+'/activity/buringBDBReward', method: 'post'}
