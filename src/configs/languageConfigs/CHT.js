@@ -304,7 +304,8 @@ root.noticeCenter.more = '更多>>'
 
 // 最值得信赖的数字资产交易平台
 root.transaction = {}
-root.transaction.Trading_platform = '2020復活者聯盟'
+root.transaction.Trading_platform = '我們致力於成為'
+root.transaction.Trading_platform1 = '您最信賴的全球頂級區塊鏈數位資產交易平臺'
 root.transaction.Trading_platform_1 = '以下是您應該選擇二零二零的幾個原因'
 root.transaction.Trading_platform_2 = '復活者聯盟'
 root.transaction.Trading_platform_2_1 = '投資復活的集結號'

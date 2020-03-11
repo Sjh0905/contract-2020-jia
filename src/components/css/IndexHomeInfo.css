@@ -16,13 +16,13 @@
 /*}*/
 
 .index-home-info-title {
-  height: 56px;
-  line-height: 56px;
+  /*height: 56px;*/
+  /*line-height: 56px;*/
   text-align: center;
-  font-size: 32px;
+  font-size: 28px;
   color: #000228;
   font-weight: bold;
-  margin-bottom: 57px;
+  margin-bottom: 50px;
 }
 
 .index-home-info-title-fu {

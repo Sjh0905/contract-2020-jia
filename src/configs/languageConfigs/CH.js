@@ -291,7 +291,8 @@ root.indexShare.prompt_4 = '快快带我去注册'
 
 // 最值得信赖的数字资产交易平台
 root.transaction = {}
-root.transaction.Trading_platform = '2020复活者联盟'
+root.transaction.Trading_platform = '我们致力于成为'
+root.transaction.Trading_platform1 = '您最信赖的全球顶级区块链数字资产交易平台'
 root.transaction.Trading_platform_1 = '以下是您应该选择二零二零的几个原因'
 root.transaction.Trading_platform_2 = '复活者联盟'
 root.transaction.Trading_platform_2_1 = '投资复活的集结号'
