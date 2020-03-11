@@ -48,6 +48,10 @@ ul {
   border-right: 1px solid #EFF0FF;
   padding-left: 25px;
 }
+.div_s {
+  height: 64px;
+  border-right: 1px solid #EFF0FF;
+}
 .color_img {
   margin-bottom: -5px;
   margin-right: 5px;
