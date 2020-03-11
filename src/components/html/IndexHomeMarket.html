@@ -1,5 +1,5 @@
 <div class="index_home_market_list_body1">
-  <div class="index_home_market_list_body border_radius ">
+  <div class=" border_radius index_home_market_list_body"  >
   <!--     :class="{'dark dark_box_shadow':themeColor==0,'light box_shadow':themeColor==1}"-->
   <!--  <ul class="flex-row tabs-container">-->
   <!--    <li class="title-tab flex-center pointer"-->
@@ -23,9 +23,9 @@
   <!--&lt;!&ndash;    <li class="clear"></li>&ndash;&gt;-->
   <!--&lt;!&ndash;  </ul>&ndash;&gt;-->
 
-    <div class="title">
-      <div class="home-market-title">{{$route.name == 'home'? $t('market'):$t('quotation')}}</div>
-      <div class="shicseach" v-if="$route.name == 'indexHomeMarket'">
+    <div class="title" v-if="$route.name == 'indexHomeMarket'">
+      <div class="home-market-title" >{{$t('quotation')}}</div>
+      <div class="shicseach" >
         <el-input
           :placeholder='$t("SearchCurrency")'
           class="dialog-input-text"
