@@ -54,7 +54,7 @@
             <div class="flow-code">{{item.transferId}}</div>
 
             <!--收款人 or 付款人-->
-            <div class="name">{{item.name}}</div>
+            <div class="name">{{item.fromUserId ? item.fromName : item.toName }}</div>
 
             <!--收款人账号 or 付款人账号-->
             <div class="Payee">{{item.fromUserId ? item.fromEmail : item.toEmail}}</div>
