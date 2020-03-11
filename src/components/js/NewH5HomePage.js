@@ -105,7 +105,9 @@ root.data = function () {
     // 关闭国内服务弹框提示
     popWindowOpen: false,
 
-
+    popType: 3,
+    popOpen: false,
+    popText: '系统繁忙',
 
   }
 }
@@ -151,7 +153,7 @@ root.destroyed = function () {
 
 root.components = {
   'Loading': resolve => require(['../vue/Loading'], resolve),
-
+  'PopupPrompt': resolve => require(['../vue/PopupPrompt'], resolve),
 }
 
 // ------------------------------------ 计算 --------------------------------------
@@ -701,7 +703,23 @@ root.methods.GO_GRC = function () {
 
 
 // ----------------------------------------------------------------------- 顶部轮播逻辑 end -----------------------------------------------------------------------
+root.methods.goGroupLevel = function () {
 
+  if (!this.isLogin) {
+    this.$router.push('/index/sign/login')
+    return;
+  }
+
+  this.popText = "敬请期待"
+  this.popOpen = true
+  this.popType = 3
+  return;
+
+}
+// 弹窗
+root.methods.popClose = function () {
+  this.popOpen = false
+}
 root.methods.jumpToBtActivity = function () {
   this.$router.push({name: 'MobileBTActivityHomePage'});
   return false;

@@ -111,6 +111,9 @@ root.mounted = function () {
 
 // 计算
 root.computed = {}
+root.computed.isMyWallet = function () {
+  return this.$route.params.assetAccountType == 'wallet'
+}
 root.computed.staticUrl = function () {
   return this.$store.state.static_url
 }
@@ -127,7 +130,7 @@ root.computed.accountsComputed = function () {
   let items = this.accounts.filter(v => {
     return v.currency === this.currencyTitle
   })
-  let item = items[0]
+  let item = items[0] || {}
 
   if(item.appraisement){
     this.thisCurrencyToBtc = item.appraisement
