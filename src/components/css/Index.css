@@ -6,8 +6,13 @@
   position: relative;
   height: 100%;
   /*overflow-x: hidden;*/
-
 }
+
+/*.body::-webkit-scrollbar {*/
+/*  display: none;*/
+/*  scrollbar-width:none;*/
+/*  -ms-overflow-style: none;*/
+/*}*/
 
 .page {
   min-height: 100%;
