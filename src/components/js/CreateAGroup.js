@@ -164,9 +164,20 @@ root.methods.re_postCreateAGroup = function (data) {
    }
 
   if (this.success == true) {
-    this.$router.push({name: 'detailsOfTheGroup',params: {groupId:this.groupId}})
+
+    this.popOpen = true
+    this.popType = 1
+    this.popText = this.$t('successful') //'创建拼团成功'
+    setTimeout(() => {
+      this.popOpen = true
+    }, 1000)
+    setTimeout(() => {
+      this.$router.push({name: 'detailsOfTheGroup',params: {groupId:this.groupId}})
+    }, 1000)
   }
+
 }
+
 root.methods.error_postCreateAGroup = function (err) {
   console.log("this.err=====",err)
 }

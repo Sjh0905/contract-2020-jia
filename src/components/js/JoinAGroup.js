@@ -210,8 +210,18 @@ root.methods.re_postJoinGroup = function (data) {
   this.success = data.data.success
   console.log("re_postJoinGroup + data=====", data)
   if (this.success == true) {
+
+    this.popOpen = true
+    this.popType = 1
+    this.popText = this.$t('successfully') //'加入拼团成功'
+    setTimeout(() => {
+      this.popOpen = true
+    }, 1000)
+    setTimeout(() => {
+      this.$router.push({name: 'detailsOfTheGroup', params: {groupId: this.groupId}})
+    }, 1000)
     // this.$router.push({name: 'detailsOfTheGroup',query:{groupId:this.groupId , gname: this.gname}} )
-    this.$router.push({name: 'detailsOfTheGroup', params: {groupId: this.groupId}})
+    // this.$router.push({name: 'detailsOfTheGroup', params: {groupId: this.groupId}})
   }
 
   if (data.errorCode) {
