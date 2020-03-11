@@ -94,18 +94,18 @@
 
     <div class="homepage-icon-body">
       <div class="homepage-icon-body-list">
-        <a href="#" @click="()=>_"class="homepage-icon-body-item">
+        <div href="#" @click="gotoJiaoyi" class="homepage-icon-body-item">
           <img class="homepage-icon-body-item-img" src="../../assets/H5img/trade.png" alt="">
           <span class="homepage-icon-body-item-text">交易</span>
-        </a>
-        <router-link to="" class="homepage-icon-body-item">
+        </div>
+        <div @click="goGroupLevel" class="homepage-icon-body-item">
           <img class="homepage-icon-body-item-img" src="../../assets/H5img/assemble_a_regiment.png" alt="">
           <span class="homepage-icon-body-item-text">拼团</span>
-        </router-link>
-        <router-link to="" class="homepage-icon-body-item">
+        </div>
+        <div @click="goGroupLevel" class="homepage-icon-body-item">
           <img class="homepage-icon-body-item-img" src="../../assets/H5img/trade_mining.png" alt="">
           <span class="homepage-icon-body-item-text">交易挖矿</span>
-        </router-link>
+        </div>
         <router-link to="/index/mobileNotice" class="homepage-icon-body-item">
           <img class="homepage-icon-body-item-img" src="../../assets/H5img/help_center.png" alt="">
           <span class="homepage-icon-body-item-text">公告</span>
@@ -308,6 +308,8 @@
       <!--</div>-->
     <!--</div>-->
   <!--</div>-->
+
+  <PopupPrompt :popOpen="popOpen" :popClose="popClose" :popType="popType" :popText="popText"/>
 
 
 </div>

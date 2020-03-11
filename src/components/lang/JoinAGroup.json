@@ -71,7 +71,8 @@
   "verification":"确定",
   "dissolution":"请确认是否解散",
   "whether":"请确认是否退出",
-  "prompt":"提示"
+  "prompt":"提示",
+  "prompt2":"拼团已达最大人数限制，请加入其它拼团"
 
 
 
@@ -168,6 +169,7 @@
   "verification":"確定",
   "dissolution":"請確認是否解散",
   "whether":"請確認是否退出",
-  "prompt":"提示"
+  "prompt":"提示",
+  "prompt2":"拼團已達最大人數限制，請加入其它拼團"
   }
 }

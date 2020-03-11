@@ -85,11 +85,11 @@
 
       <div class="asset-oper-btn-box">
         <div class="asset-oper-btn-list">
-          <div class="asset-oper-btn-item" @click="jumpToRecharge(currencyTitle)">
+          <div v-if="isMyWallet" class="asset-oper-btn-item" @click="jumpToRecharge(currencyTitle)">
             <img class="asset-oper-btn-item-img" src="../../assets/H5img/asset_recharge.png" alt="">
             <span class="asset-oper-btn-item-text">充币</span>
           </div>
-          <div class="asset-oper-btn-item" @click="jumpToWithdraw(accountsComputed)">
+          <div v-if="isMyWallet" class="asset-oper-btn-item" @click="jumpToWithdraw(accountsComputed)">
             <img class="asset-oper-btn-item-img" src="../../assets/H5img/asset_withdraw.png" alt="">
             <span class="asset-oper-btn-item-text">提币</span>
           </div>
@@ -97,9 +97,13 @@
             <img class="asset-oper-btn-item-img" src="../../assets/H5img/asset_capital_transfer.png" alt="">
             <span class="asset-oper-btn-item-text">划转</span>
           </div>
-          <router-link to="" class="asset-oper-btn-item">
+          <router-link v-if="isMyWallet" to="" class="asset-oper-btn-item">
             <img class="asset-oper-btn-item-img" src="../../assets/H5img/asset_internal_transfer.png" alt="">
             <span class="asset-oper-btn-item-text">内部转账</span>
+          </router-link>
+          <router-link v-if="!isMyWallet" to="" class="asset-oper-btn-item">
+            <img class="asset-oper-btn-item-img" src="../../assets/H5img/asset_internal_transfer.png" alt="">
+            <span class="asset-oper-btn-item-text">交易</span>
           </router-link>
         </div>
       </div>

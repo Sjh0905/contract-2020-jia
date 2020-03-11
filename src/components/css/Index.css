@@ -5,9 +5,14 @@
   min-width: 1280px;
   position: relative;
   height: 100%;
-  overflow-x: hidden;
-
+  /*overflow-x: hidden;*/
 }
+
+/*.body::-webkit-scrollbar {*/
+/*  display: none;*/
+/*  scrollbar-width:none;*/
+/*  -ms-overflow-style: none;*/
+/*}*/
 
 .page {
   min-height: 100%;

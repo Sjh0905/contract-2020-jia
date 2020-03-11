@@ -1083,7 +1083,7 @@
   height: 100%;
   float: left;
   line-height: 0.88rem;
-  font-family: Roboto-Bold;
+  /*font-family: Roboto-Bold;*/
   font-size: 20px;
   color: #CFD3E9;
   margin-left: 15px;
