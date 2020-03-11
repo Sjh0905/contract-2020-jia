@@ -131,7 +131,7 @@
 }
 
 .currency {
-  flex: 12.7;
+  flex: 4.7;
   text-align: left;
   /*flex:19.9;*/
 }
@@ -143,27 +143,34 @@
 /*}*/
 
 .total {
-  flex: 13.7;
+  flex: 9.7;
   text-align: left;
 }
 
 .available {
-  flex: 13.7;
+  flex: 9.7;
   text-align: left;
 }
 
 .frozen {
-  flex: 13.7;
+  flex: 9.7;
   text-align: left;
 }
 
 .valuation {
-  flex: 13.7;
+  flex: 9.7;
   /*position: relative;*/
   text-align: left;
 }
+
+.lock-warehouse {
+  flex: 9.7;
+  /*position: relative;*/
+  text-align: left;
+}
+
 .rechargeAndWithdrawals {
-  flex: 33.3;
+  flex: 38.3;
   text-align: right;
 }
 

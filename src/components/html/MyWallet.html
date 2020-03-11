@@ -45,6 +45,7 @@
       <span class="available">{{$t('available')}}</span>
       <span class="frozen">{{$t('frozen')}}</span>
       <span class="valuation">{{$t('valuation')}}(BTC)</span>
+      <span class="lock-warehouse">{{$t('lockWarehouse')}}</span>
       <span class="rechargeAndWithdrawals">
         {{$t('operation')}}
 <!--        {{$t('recharge')}} / {{$t('withdrawals')}}-->
@@ -77,6 +78,7 @@
                 <font></font>
               </span>
             </span>
+            <span class="lock-warehouse">{{toFixed('0',8)}}</span>
             <span class="rechargeAndWithdrawals">
 
             <!--打开充值 begin-->
@@ -140,6 +142,12 @@
                >
                  {{$t('internalTransfer')}}
 <!--                 {{$t('indexHeader.forward')}}-->
+               </span>
+
+                   <span class="withdrawals-buttons buttons"
+                         v-if="serverT >= item.withdrawOpenTime"
+                   >
+                 {{$t('lockWarehouse')}}
                </span>
               <!--sss打开转账 end-->
 
