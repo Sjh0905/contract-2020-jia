@@ -717,12 +717,14 @@ root.register.identifyingCode = '驗證碼'
 root.register.achieve = '獲取驗證碼'
 root.register.passwordInput = '密碼（8到16位數字和字母組合）'
 root.register.passwordConfirm = '確認密碼'
-root.register.referee = '邀請碼（選填）'
+root.register.referee = '邀請碼（UID選填）'
 root.register.agree = '我已了解並同意'
 root.register.agreement = '《用戶協議》'
 root.register.register = '註冊'
 root.register.haveID = '已有帳號'
 root.register.login = '立即登錄'
+root.register.location = '所在地'
+root.register.countryCode = '請輸入國家區號'
 
 // 登錄
 root.signPageLogin = {}
