@@ -105,33 +105,33 @@
 .rejected {
   margin-left: 10px;
   color: #EF5656;
-  text-decoration: underline;
+  /*text-decoration: underline;*/
 }
 .rejected:hover {
   opacity:0.6;
-  /*text-decoration: underline;*/
+  text-decoration: underline;
 }
 
 .review {
   margin-left: 10px;
   color: #FF9F40;
-  text-decoration: underline;
+  /*text-decoration: underline;*/
 }
 
 .review:hover {
   opacity:0.6;
-  /*text-decoration: underline;*/
+  text-decoration: underline;
 }
 
 .pass {
   margin-left: 10px;
   color: #08D0AC;
-  text-decoration: underline;
+  /*text-decoration: underline;*/
 }
 
 .pass:hover {
   opacity:0.6;
-  /*text-decoration: underline;*/
+  text-decoration: underline;
 }
 
 .identity-button button {

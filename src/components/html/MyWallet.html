@@ -114,9 +114,8 @@
 <!--            </span>-->
 <!--            <span class="can-not-withdrawals" v-else>{{$t('transfer')}}</span>-->
 
-                <span class="withdrawals-buttons buttons"
-                      v-if="serverT >= item.withdrawOpenTime"
-                >
+<!--          v-if="serverT >= item.withdrawOpenTime"-->
+                <span class="withdrawals-buttons buttons">
 <!--                  {{$t('indexHeader.forward')}}-->
                   {{$t('transfer')}}
             </span>
@@ -139,15 +138,15 @@
 <!--              >{{$t('internalTransfer')}}</span>-->
 <!--            <span class=" can-not-withdrawals" v-else>{{$t('internalTransfer')}}</span>-->
 
-               <span class="withdrawals-buttons buttons"
-                     v-if="serverT >= item.withdrawOpenTime"
-               >
+<!-- v-if="serverT >= item.withdrawOpenTime"-->
+               <span class="withdrawals-buttons buttons">
                  {{$t('internalTransfer')}}
 <!--                 {{$t('indexHeader.forward')}}-->
                </span>
 
+<!--               v-if="serverT >= item.withdrawOpenTime"-->
                    <span class="withdrawals-buttons buttons"
-                         v-if="serverT >= item.withdrawOpenTime"
+
                    >
                  {{$t('lockWarehouse')}}
                </span>
