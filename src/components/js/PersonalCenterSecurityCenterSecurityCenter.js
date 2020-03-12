@@ -451,6 +451,12 @@ root.methods.toAuthentication = function () {
   this.$router.push('/index/personal/auth/authenticate')
 }
 
+// 跳转会员卡页面
+root.methods.jumpMembershipCard = function () {
+  this.$router.push({name: 'membershipCard'})
+}
+
+
 //sss============= 修改登陆密码St
 // 判断密码
 root.methods.testPsw = function () {

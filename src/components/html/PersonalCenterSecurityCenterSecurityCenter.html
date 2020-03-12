@@ -17,6 +17,31 @@
     <Loading v-if="loading"/>
     <template v-if="!loading">
 
+      <!-- 会员卡 -->
+
+<!--      <div class="membershipCard">-->
+<!--&lt;!&ndash;        <img class="wgm" src="../../assets/wgm.png" alt="">&ndash;&gt;-->
+
+<!--        <div class="wgm_div">-->
+<!--        <span class="wgm_hy">2020尊享会员</span>-->
+<!--        <span class="wgm_hy2">购买会员享受多项特权</span>-->
+<!--        </div>-->
+
+<!--        <div class="wgm_lj">立即购买</div>-->
+<!--      </div>-->
+
+      <div class="membershipCard_ygm">
+        <!--        <img class="wgm" src="../../assets/wgm.png" alt="">-->
+
+        <div class="ygm_div">
+          <span class="ygm_hy">我的2020会员</span>
+          <span class="ygm_hy2">2022-02-07到期</span>
+        </div>
+
+        <div class="wgm_lj1" @click="jumpMembershipCard">
+          <img src="../../assets/hyqw_icon.png" alt="">
+        </div>
+      </div>
       <!--    身份认证-->
       <div class="identity">
         <div class="identity-left">
