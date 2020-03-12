@@ -71,13 +71,37 @@ ul {
   margin-left: 25px;
 }
 .color_hui {
-  width: 20%;
+  width: 36%;
   font-size:12px;
   font-family:PingFangSC-Regular,PingFang SC;
   font-weight:400;
   color: #F5F6FA;
   text-align: right;
   margin-right: 25px;
+  height: 25px;
+  /*line-height: 30px;*/
+  /*padding-left: 25px;*/
+  display: inline-block;
+  margin-left: 5px;
+  margin-bottom: 5px;
+  justify-content:space-between;
+}
+.color_hui_s {
+  width: 14%;
+  font-size:12px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color: #F5F6FA;
+  text-align: right;
+  margin-right: 25px;
+  /*width: 24%;*/
+  height: 25px;
+  /*line-height: 30px;*/
+  /*padding-left: 25px;*/
+  display: inline-block;
+  margin-left: 5px;
+  margin-bottom: 5px;
+  justify-content:space-between;
 }
 .color_f5 {
   /*width: 19%;*/
