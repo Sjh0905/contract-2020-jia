@@ -44,7 +44,10 @@
 <!--        <div class="asset-header-price-box-price">{{toFixed(accountsComputed.frozen,8)}}</div>-->
 <!--      </div>-->
     </div>
-    <div class="czdb" @click="jumpToDetail(name)">财务记录</div>
+    <div class="financial-records flex-between" @click="jumpToDetail(name)">
+      <div>财务记录</div>
+      <img class="financial-records-right-img" src="../../assets/H5img/financial_records_right.png" alt="">
+    </div>
 
     <div class="asset-body">
 <!--      <div class="asset-body-price-box clearfix">-->
@@ -93,18 +96,22 @@
             <img class="asset-oper-btn-item-img" src="../../assets/H5img/asset_withdraw.png" alt="">
             <span class="asset-oper-btn-item-text">提币</span>
           </div>
-          <div class="asset-oper-btn-item" @click="jumpToTransfer(accountsComputed)">
+          <div class="asset-oper-btn-item" @click="goExpecting">
             <img class="asset-oper-btn-item-img" src="../../assets/H5img/asset_capital_transfer.png" alt="">
             <span class="asset-oper-btn-item-text">划转</span>
           </div>
-          <router-link v-if="isMyWallet" to="" class="asset-oper-btn-item">
+          <div v-if="isMyWallet" @click="goExpecting" class="asset-oper-btn-item">
             <img class="asset-oper-btn-item-img" src="../../assets/H5img/asset_internal_transfer.png" alt="">
             <span class="asset-oper-btn-item-text">内部转账</span>
-          </router-link>
-          <router-link v-if="!isMyWallet" to="" class="asset-oper-btn-item">
+          </div>
+          <div v-if="isMyWallet" class="asset-oper-btn-item" @click="goExpecting">
+            <img class="asset-oper-btn-item-img" src="../../assets/H5img/asset_lock.png" alt="">
+            <span class="asset-oper-btn-item-text">锁仓</span>
+          </div>
+          <div v-if="!isMyWallet" @click="gotoJiaoyi" class="asset-oper-btn-item">
             <img class="asset-oper-btn-item-img" src="../../assets/H5img/asset_internal_transfer.png" alt="">
             <span class="asset-oper-btn-item-text">交易</span>
-          </router-link>
+          </div>
         </div>
       </div>
 

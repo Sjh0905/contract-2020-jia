@@ -287,7 +287,27 @@ root.watch.currencyChange = function (newVal, oldVal) {
 
 root.methods = {};
 
+/*----------------------------- 敬请期待 begin------------------------------*/
+root.methods.goExpecting = function () {
 
+  // if (!this.isLogin) {
+  //   this.$router.push('/index/sign/login')
+  //   return;
+  // }
+
+  this.popText = "敬请期待"
+  this.popOpen = true
+  this.popType = 3
+  return;
+
+}
+/*----------------------------- 敬请期待 end------------------------------*/
+
+/*---------------------- 跳入到交易页面 begin---------------------*/
+root.methods.gotoJiaoyi = function () {
+  this.$router.push({name: 'mobileTradingHallDetail'});
+}
+/*---------------------- 跳入到交易页面 end---------------------*/
 
 /*----------------------------- 获取currency begin------------------------------*/
 root.methods.getCurrencyTitle = function () {
