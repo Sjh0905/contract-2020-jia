@@ -44,30 +44,41 @@
               <div class="percentage">( {{currCount}}/{{maxMember}} )</div>
             </div>
 <!--            普通区折扣-->
-            <div class="information_div color_hui">{{$t('ordinaryDiscount')}}</div>
+            <div class="information_div color_hui">
+              <div>{{$t('ordinaryDiscount')}}</div>
+              <div class="color_bik_9">{{toFixed(accMul(commonDiscount,100),1) }}%</div>
+            </div>
 <!--            量化区折扣-->
-            <div class="information_div color_hui">{{$t('quantifiedDiscount')}}</div>
+            <div class="information_div color_hui">
+              <div>{{$t('quantifiedDiscount')}}</div>
+              <div class="color_bik_9">{{toFixed(accMul(quantDiscount,100),1) }}%</div>
+            </div>
           </li>
 <!--          团长，副团长 建团时间-->
           <li class="information_li m-to">
 <!--            团长账号:-->
-            <div class="information_div color_f5">
+            <div class="information_div_s color_f5">
               {{$t('colonelNumber')}}:
               <span>{{priAccount}}</span>
             </div>
 <!--            副团长账号:-->
-            <div class="information_div color_f5">
+            <div class="information_div_s color_f4">
               {{$t('colonelNumberFu')}}
               <span>{{deputyAccount}}</span>
             </div>
 <!--            建团时间: -->
-            <div class="information_div color_f5">
+            <div class="information_div_s color_f4">
               {{$t('timeFormation')}}:
               <span>{{createdAt}}</span>
             </div>
 <!--            普通区折扣-->
-            <div class="information_div color_bik_9">{{toFixed(accMul(commonDiscount,100),1) }}%</div>
-            <div class="information_div color_bik_9">{{toFixed(accMul(quantDiscount,100),1) }}%</div>
+<!--            <div class="information_div color_bik_9">-->
+<!--              <div>-->
+<!--              {{toFixed(accMul(commonDiscount,100),1) }}%-->
+<!--              </div>-->
+<!--              <div></div>-->
+<!--            </div>-->
+<!--            <div class="information_div color_bik_9"></div>-->
           </li>
         </ul>
       </div>

@@ -36,14 +36,20 @@ ul {
   height: 25px;
   /*line-height: 30px;*/
   /*padding-left: 25px;*/
-
   display: inline-block;
   margin-left: 5px;
   margin-bottom: 5px;
   justify-content:space-between;
-
 }
 
+.information_div_s {
+  height: 25px;
+  /*line-height: 30px;*/
+  /*padding-left: 25px;*/
+  display: inline-block;
+  margin-bottom: 5px;
+  justify-content:space-between;
+}
 .div_border {
   border-right: 1px solid #EFF0FF;
   padding-left: 25px;
@@ -74,13 +80,22 @@ ul {
   margin-right: 25px;
 }
 .color_f5 {
-  width: 19%;
+  /*width: 19%;*/
   font-size:12px;
   line-height: 38px;
   font-family:PingFangSC-Regular,PingFang SC;
   font-weight:400;
   color: #F5F6FA;
   margin-left: 25px;
+}
+.color_f4 {
+  /*width: 14%;*/
+  font-size:12px;
+  line-height: 38px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color: #F5F6FA;
+  margin-left: 50px;
 }
 .color_6 {
   display: flex;
@@ -89,16 +104,16 @@ ul {
   color: #F5F6FA;
 }
 .color_bik_9 {
-  width: 20%;
+  /*width: 20%;*/
   color: #FF9F40;
   font-size:36px;
   font-family:PingFangSC-Medium,PingFang SC;
   font-weight:500;
-  margin-right: 25px;
+  /*margin-right: 25px;*/
   text-align: right;
   line-height: 20px;
-  /*margin-bottom: 20px;*/
-  padding-bottom: 20px;
+  margin-top: 15px;
+  /*padding-bottom: 20px;*/
 }
 .color_8 {
   color: #FFC58B;
