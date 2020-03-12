@@ -14,21 +14,47 @@
   width: 520px;
   height: 100%;
   min-height: 600px;
-  margin: 0 auto;
+  margin: 0 auto ;
 }
 .member_hy {
   width:100%;
   height:80px;
-  background-image: url("../../assets/ygm_hy.png");
+  background: url("../../assets/ygm_hy.png") no-repeat center center;
   background-size: 100% 100%;
   /*background:linear-gradient(90deg,rgba(155,138,100,1) 0%,rgba(215,196,131,1) 100%);*/
   border-radius:10px;
-  margin-top: -40px;
-}
-.member_gr {
-  line-height: 80px;
+  padding: 0px 15px 10px;
+  box-sizing: border-box;
   margin-bottom: 30px;
+  margin-top: -40px ;
+  font-size:24px;
+  justify-content: space-between;
+  font-family:PingFangSC-Medium,PingFang SC;
+  font-weight:500;
+  color:#FFFFFF;
 }
+
+.member-left {
+  line-height: 80px;
+}
+
+.member_right {
+  font-size: 14px;
+}
+
+.member_gr {
+  display: inline-block;
+  /*line-height: 80px;*/
+  /*margin-bottom: 30px;*/
+}
+.member_gr img{
+  width: 32px;
+  /*line-height: 80px;*/
+  margin-right: 11px;
+  vertical-align: sub;
+}
+
+
 .member_xq {
   width: 100%;
   height: 280px;
@@ -85,6 +111,7 @@
 .year_month {
   width: 100%;
   margin-bottom: 40px;
+  justify-content: space-between;
 }
 
 .month {
@@ -110,6 +137,11 @@
   font-weight:500;
   color:rgba(174,164,150,1);
 }
+
+.application_record {
+  min-height: 100px;
+}
+
 .application_title {
   font-size:16px;
   font-family:PingFangSC-Semibold,PingFang SC;

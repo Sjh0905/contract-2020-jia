@@ -12,7 +12,12 @@ root.data = function () {
 }
 /*------------------------------ 生命周期 -------------------------------*/
 root.created = function () {}
+root.mounted = function () {}
+root.beforeDestroy = function () {}
+/*------------------------------ 观察 -------------------------------*/
+root.watch = {}
 
+/*------------------------------ 计算 -------------------------------*/
 root.computed = {}
 // 用户名
 root.computed.userName = function () {
@@ -29,12 +34,9 @@ root.computed.userName = function () {
 root.computed.userType = function () {
   return this.$store.state.authMessage && this.$store.state.authMessage.province === 'mobile' ? 0 : 1
 }
-root.mounted = function () {}
-root.beforeDestroy = function () {}
-/*------------------------------ 计算 -------------------------------*/
-root.computed = {}
-/*------------------------------ 观察 -------------------------------*/
-root.watch = {}
+
 /*------------------------------ 方法 -------------------------------*/
 root.methods = {}
+
+
 export default root

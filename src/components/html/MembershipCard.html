@@ -3,87 +3,93 @@
   <div class="hukxq"></div>
 
   <div class="member">
-    <div class="member_hy">
-      <div class="member_gr">
-        <span><img src="../../assets/gr_icon.png" alt=""></span>
-        <span>000</span>
-      </div>
 
-      <div class="member_xq">
-        <div class="viewRules">查看会员规则</div>
-        <div class="enjoy">尊享VIP权益</div>
+    <div class="member_hy flex">
+        <div class="member-left">
+          <div class="member_gr">
+          <img src="../../assets/personal-VIP.png" alt="">
+        </div>
+          <span>{{userName}}</span>
+        </div>
+        <div class="member_right">
+          <img src="" alt="">
+          2022-02-07到期</div>
+    </div>
 
-        <div class="housekeeping">
-          <div class="bonus">
-            <img src="../../assets/Transaction.png" alt="">
-            交易费折扣
-          </div>
-          <div class="bonus">
-            <img src="../../assets/Housekeeping.png" alt="">
-            管家式客服
-          </div>
-          <div class="bonus">
-            <img src="../../assets/bonus.png" alt="">
-            年卡享分红
-          </div>
+
+
+    <div class="member_xq">
+      <div class="viewRules">查看会员规则</div>
+      <div class="enjoy">尊享VIP权益</div>
+
+      <div class="housekeeping">
+        <div class="bonus">
+          <img src="../../assets/Transaction.png" alt="">
+          交易费折扣
+        </div>
+        <div class="bonus">
+          <img src="../../assets/Housekeeping.png" alt="">
+          管家式客服
+        </div>
+        <div class="bonus">
+          <img src="../../assets/bonus.png" alt="">
+          年卡享分红
         </div>
       </div>
+    </div>
 
-      <div class="year_month">
-        <div class="month">
-          <p class="month_p">100 USDT/月</p>
-          <p class="month_p0">月卡</p>
-        </div>
-        <div class="month">
-          <p class="month_p">100 USDT/年</p>
-          <p class="month_p0">年卡</p>
-        </div>
+    <div class="year_month flex">
+      <div class="month">
+        <p class="month_p">100 USDT/月</p>
+        <p class="month_p0">月卡</p>
       </div>
+      <div class="month">
+        <p class="month_p">100 USDT/年</p>
+        <p class="month_p0">年卡</p>
+      </div>
+    </div>
 
-      <!--   活动报名记录   -->
-      <div class="application_record">
+    <!--   活动报名记录   -->
+    <div class="application_record">
 
-        <div class="application_title">购买记录</div>
+      <div class="application_title">购买记录</div>
 
-        <ul >
-          <!--表头 S-->
-          <li class="application_header">
-            <div class="application_header_div width1">账号</div>
-            <div class="application_header_div width2">类型</div>
-            <div class="application_header_div width3">有效期</div>
-            <div class="application_header_div width4 tlc">购买时间</div>
+      <ul >
+        <!--表头 S-->
+        <li class="application_header">
+          <div class="application_header_div width1">账号</div>
+          <div class="application_header_div width2">类型</div>
+          <div class="application_header_div width3">有效期</div>
+          <div class="application_header_div width4 tlc">购买时间</div>
+        </li>
+        <!--表头 E-->
+
+        <!-- 如果加载完成、已登录、有数据，则显示数据 begin -->
+        <template>
+          <!--            <template v-if="userId && currentOrderComputed.length!==0">-->
+          <!--            <template v-if="computedRecord.length !== 0">-->
+          <!--              <li class="flex application_header1">-->
+          <!--                &lt;!&ndash;账号&ndash;&gt;-->
+          <!--                <div class="application_header_div width1 mor-left color_a2">2570167180@qq.com</div>-->
+          <!--                &lt;!&ndash;类型&ndash;&gt;-->
+          <!--                <div class="application_header_div width2 color_a2">月卡</div>-->
+          <!--                &lt;!&ndash;有效期&ndash;&gt;-->
+          <!--                <div class="application_header_div width3 color_a2">有效期22</div>-->
+          <!--                &lt;!&ndash;购买时间&ndash;&gt;-->
+          <!--                <div class="application_header_div_right width4 tlc mor-right color_a2">购买时间22</div>-->
+          <!--              </li>-->
+          <!--            </template>-->
+          <!-- 如果加载完成、已登录、有数据，则显示数据 end -->
+
+          <!-- 如果没加载完成、没登录、没数据，则显示'--' begin -->
+          <!--            <template v-else>-->
+          <li class="weit">
+            <div class="nhtu"><img src="../../assets/noOrders.png"></div>
+            <span>{{$t('orderPageCurrentEntrustment.close_9')}}</span>
           </li>
-          <!--表头 E-->
-
-          <!-- 如果加载完成、已登录、有数据，则显示数据 begin -->
-          <template>
-            <!--            <template v-if="userId && currentOrderComputed.length!==0">-->
-<!--            <template v-if="computedRecord.length !== 0">-->
-<!--              <li class="flex application_header1">-->
-<!--                &lt;!&ndash;账号&ndash;&gt;-->
-<!--                <div class="application_header_div width1 mor-left color_a2">2570167180@qq.com</div>-->
-<!--                &lt;!&ndash;类型&ndash;&gt;-->
-<!--                <div class="application_header_div width2 color_a2">月卡</div>-->
-<!--                &lt;!&ndash;有效期&ndash;&gt;-->
-<!--                <div class="application_header_div width3 color_a2">有效期22</div>-->
-<!--                &lt;!&ndash;购买时间&ndash;&gt;-->
-<!--                <div class="application_header_div_right width4 tlc mor-right color_a2">购买时间22</div>-->
-<!--              </li>-->
-<!--            </template>-->
-            <!-- 如果加载完成、已登录、有数据，则显示数据 end -->
-
-            <!-- 如果没加载完成、没登录、没数据，则显示'--' begin -->
-<!--            <template v-else>-->
-              <li class="weit">
-                <div class="nhtu"><img src="../../assets/noOrders.png"></div>
-                <span>{{$t('orderPageCurrentEntrustment.close_9')}}</span>
-              </li>
-<!--            </template>-->
-          </template>
-        </ul>
-      </div>
-
-
+          <!--            </template>-->
+        </template>
+      </ul>
     </div>
   </div>
 

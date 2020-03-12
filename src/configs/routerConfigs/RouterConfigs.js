@@ -2359,6 +2359,21 @@ root.routes.push({
               },
               component: resolve => require(['@/components/vue/PersonalCenterSecurityCenterManageApi'], resolve)
             },
+            // sss 会员卡
+            {
+              path: 'membershipCard',
+              name: 'membershipCard',
+              caseSensitive: true,
+              meta: {
+                pcname: 'membershipCard',
+                requireLogin: true,
+                templateClose: false,
+                requireLoginOff: false,
+                // h5name: 'mobileTradingHall',
+              },
+              component: resolve => require(['@/components/vue/MembershipCard'], resolve),
+            },
+
           ]
         },
         // 安全日志
@@ -2636,19 +2651,7 @@ root.routes.push({
       component: resolve => require(['@/components/vue/DetailsOfTheGroup'], resolve),
     },
 
-    // sss 会员卡
-    {
-      path: 'membershipCard',
-      name: 'membershipCard',
-      caseSensitive: true,
-      meta: {
-        requireLogin: false,
-        mobileHeaderTitle: '',
-        pcname: 'membershipCard',
-        // h5name: 'mobileTradingHall',
-      },
-      component: resolve => require(['@/components/vue/MembershipCard'], resolve),
-    },
+
 
     // TODO：弹框组件临时显示（记得删除）
     // {
