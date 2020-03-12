@@ -51,10 +51,12 @@
 
         <!--memo地址 begin-->
         <div class="address flex">
-          <span>memo:</span>
+          <span v-if="currency == 'EOS'">{{$t('memo')}}</span>
+          <span v-else>memo</span>
           <input type="text" readonly v-model="memo" ref="memo" class="address-input border_radius"/>
           <div class="flex">
-            <button @click="clickCopyMemo" class="btn_blue pointer address-button">{{$t('copyMemo')}}</button>
+            <button @click="clickCopyMemo" class="btn_blue pointer address-button" v-if="currency == 'EOS'">{{$t('copyMemoEos')}}</button>
+            <button @click="clickCopyMemo" class="btn_blue pointer address-button" v-else>{{$t('copyMemo')}}</button>
           </div>
 
         </div>
@@ -102,7 +104,7 @@
       </li>
       <li class="" v-show="(currency == 'USDT' || currency == 'USDT2') && (selectTab === 1)"><span class="usdt_notice_dot"></span>{{$t('usdt_notice')}}
       </li>
-      <li class="" v-show="selectTab === 2"><span class="usdt_notice_dot"></span>{{$t('eusdt_notice',{currency:currency})}}
+      <li class="" v-show="(selectTab === 2 && currency!='EOS')" ><span class="usdt_notice_dot"></span>{{$t('eusdt_notice',{currency:currency})}}
       </li>
       <li><span></span>{{$t('prohibitionRecharge',{currency:currency})}}</li>
       <li><span></span>{{$t('canNotRetrieved')}}</li>
@@ -147,7 +149,11 @@
       {{$t('notice')}}
     </div>
     <div slot="article" class="memo-pop-article">
-      <div class="memo-pop-article-text text_red">
+      <div class="memo-pop-article-text text_red" v-if="currency == 'EOS'">
+        {{$t('rechargePopWindowArticleEos',{currency:currency}) }}
+      </div>
+
+      <div class="memo-pop-article-text text_red" v-else>
         {{$t('rechargePopWindowArticle',{currency:currency}) }}
       </div>
       <div class="memo-pop-check">

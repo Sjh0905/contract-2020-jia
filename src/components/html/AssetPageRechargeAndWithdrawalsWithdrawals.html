@@ -142,12 +142,13 @@
             <div class="withdrawals-number border-container flex">
               <input type="text" class="input-unify" v-model="memo">
             </div>
+            <div class="can-not-empty wrong-msg">
+              <span>{{memoWA===''? this.$t('memoWA_1') : memoWA}}</span>
+            </div>
           </div>
         </template>
 
-        <div class="can-not-empty wrong-msg">
-          <span>{{memoWA===''? this.$t('memoWA_1') : memoWA}}</span>
-        </div>
+
       </template>
       <!--memo end-->
 
@@ -214,10 +215,11 @@
     </div>
     <!--描述-->
     <ul class="describe flex fixed-height">
-      <li class="" v-if="haveMemo==='yes'"><span class="red-bot"></span>
-        <!--注：提现{{currency}}同时需要一个充值地址和{{currency}} memo，如果未遵守{{currency}}提现规则，币会丢失。若钱包无memo，请输入任意字符。-->
-        {{/*isWCG && $t('memoPromptWCG',{currency:currency}) || */$t('memoPrompt',{currency:currency}) }}
-      </li>
+<!--      EOS删掉 "注：提现EOS同时需要一个提现地址和EOS memo，如果未遵守EOS提现规则，币会丢失。若钱包无memo，请输入任意字符。"-->
+<!--      <li class="" v-if="haveMemo==='yes'"><span class="red-bot"></span>-->
+<!--        &lt;!&ndash;注：提现{{currency}}同时需要一个充值地址和{{currency}} memo，如果未遵守{{currency}}提现规则，币会丢失。若钱包无memo，请输入任意字符。&ndash;&gt;-->
+<!--        {{/*isWCG && $t('memoPromptWCG',{currency:currency}) || */$t('memoPrompt',{currency:currency}) }}-->
+<!--      </li>-->
       <li class="" v-show="(currency == 'USDT' || currency == 'USDT2') && (selectTab === 1)">
         <span class="usdt_notice_dot"></span>{{$t('usdt_notice')}}
       </li>
@@ -231,7 +233,8 @@
 
       </li>
       <li><span></span>{{$t('prompt_2')}}</li>
-      <li><span></span>{{$t('prompt_3')}}</li>
+<!--      提示删除第三条-->
+<!--      <li><span></span>{{$t('prompt_3')}}</li>-->
       <li><span></span>{{$t('prompt_4')}}</li>
     </ul>
     <!--关闭-->
@@ -330,7 +333,7 @@
 
 
       <!-- footer popWindow begin 1 -->
-      <div slot="footer" class="popWindow-footer" v-if="popWindowStep === 1">
+      <div slot="footer" class="popWindow-footer flex-center" v-if="popWindowStep === 1">
         <button class="button-base pointer btn_border_blue text_blue btn_simple" @click="popWindowClose">
           {{$t('cancel')}}
         </button>
@@ -345,7 +348,7 @@
       <!-- footer popWindow end 1 -->
 
       <!-- footer popWindow begin 2 -->
-      <div slot="footer" class="popWindow-footer" v-if="popWindowStep === 2">
+      <div slot="footer" class="popWindow-footer flex-center" v-if="popWindowStep === 2">
         <template v-if="!step2Error">
           <button class="button-base btn-cancel  pointer btn_border_blue text_blue btn_simple" @click="popWindowClose">
             {{$t('cancel')}}
