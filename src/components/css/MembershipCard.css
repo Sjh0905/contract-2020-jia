@@ -23,7 +23,7 @@
   background-size: 100% 100%;
   /*background:linear-gradient(90deg,rgba(155,138,100,1) 0%,rgba(215,196,131,1) 100%);*/
   border-radius:10px;
-  padding: 0px 15px 10px;
+  padding: 0 0 15px 10px;
   box-sizing: border-box;
   margin-bottom: 30px;
   margin-top: -40px ;
@@ -41,12 +41,35 @@
 .member_right {
   font-size: 14px;
 }
+.VIP-icon {
+  /*width:119px;*/
+  height:34px;
+  line-height: 34px;
+  padding:  0 18px 0 11px;
+  color: #B9894A;
+  background:linear-gradient(277deg,rgba(227,220,204,1) 0%,rgba(252,251,250,1) 100%);
+  border-radius:0px 10px 0px 10px;
+}
+
+.VIP-icon img {
+  width: 21px;
+  margin-right: 8px;
+  vertical-align: sub;
+}
+
+.VIP_time {
+  width:112px;
+  height:20px;
+  font-size:14px;
+  margin: 16px 10px 0 0;
+}
 
 .member_gr {
   display: inline-block;
   /*line-height: 80px;*/
   /*margin-bottom: 30px;*/
 }
+
 .member_gr img{
   width: 32px;
   /*line-height: 80px;*/
