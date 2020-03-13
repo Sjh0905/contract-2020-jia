@@ -300,24 +300,24 @@ root.watch.redPoint = function (newValue, oldValue) {
 
 root.methods = {}
 
-root.methods.getGroupLevel1 = function () {
-
-  if (!this.isLogin) {
-    this.$router.push('/index/sign/login')
-    return;
-  }
-
-  if (this.isLogin) {
-    this.popText = this.$t('indexHeader.forward') //参数有误
-    this.popOpen = true
-    this.popType = 3
-    setTimeout(() => {
-     this.popOpen = true
-    }, 100)
-     return;
-  }
-
-}
+// root.methods.getGroupLevel1 = function () {
+//
+//   if (!this.isLogin) {
+//     this.$router.push('/index/sign/login')
+//     return;
+//   }
+//
+//   if (this.isLogin) {
+//     this.popText = this.$t('indexHeader.forward') //参数有误
+//     this.popOpen = true
+//     this.popType = 3
+//     setTimeout(() => {
+//      this.popOpen = true
+//     }, 100)
+//      return;
+//   }
+//
+// }
 
 // 弹窗
 root.methods.popClose = function () {

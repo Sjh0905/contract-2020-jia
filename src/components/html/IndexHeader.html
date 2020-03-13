@@ -437,47 +437,47 @@
 <!--                      </div>-->
 <!--                    </li>-->
 
-                    <li class="navigation-item-hidden-list-item">
-                      <div
-                        @click="getGroupLevel1"
-                        class="navigation-item-hidden-list-item-router"
-                        active-class="item_selected">
-                        <!--KK交易挖矿活动-->
-                        {{$t('OfficialQuantitativeRegistration')}}
-                      </div>
-                    </li>
-
-                    <!-- sss 量化详情-->
-                    <li class="navigation-item-hidden-list-item">
-                      <div
-                        @click="getGroupLevel1"
-                        class="navigation-item-hidden-list-item-router"
-                        active-class="item_selected">
-                        {{$t('miningDetails')}}
-                      </div>
-                    </li>
-
-                    <!-- sss 屏蔽  -->
-                    <!-- sss 量化报名-->
 <!--                    <li class="navigation-item-hidden-list-item">-->
-<!--                      <router-link-->
-<!--                        :to="{name:'officialQuantitativeRegistration'}"-->
+<!--                      <div-->
+<!--                        @click="getGroupLevel"-->
 <!--                        class="navigation-item-hidden-list-item-router"-->
 <!--                        active-class="item_selected">-->
-<!--                     &lt;!&ndash;KK交易挖矿活动&ndash;&gt;-->
+<!--                        &lt;!&ndash;KK交易挖矿活动&ndash;&gt;-->
 <!--                        {{$t('OfficialQuantitativeRegistration')}}-->
-<!--                      </router-link>-->
+<!--                      </div>-->
 <!--                    </li>-->
 
 <!--                    &lt;!&ndash; sss 量化详情&ndash;&gt;-->
 <!--                    <li class="navigation-item-hidden-list-item">-->
-<!--                      <router-link-->
-<!--                        :to="{name:'officialQuantitativeDetails'}"-->
+<!--                      <div-->
+<!--                        @click="getGroupLevel"-->
 <!--                        class="navigation-item-hidden-list-item-router"-->
 <!--                        active-class="item_selected">-->
 <!--                        {{$t('miningDetails')}}-->
-<!--                      </router-link>-->
+<!--                      </div>-->
 <!--                    </li>-->
+
+                    <!-- sss 屏蔽  -->
+                    <!-- sss 量化报名-->
+                    <li class="navigation-item-hidden-list-item">
+                      <router-link
+                        :to="{name:'officialQuantitativeRegistration'}"
+                        class="navigation-item-hidden-list-item-router"
+                        active-class="item_selected">
+                     <!--KK交易挖矿活动-->
+                        {{$t('OfficialQuantitativeRegistration')}}
+                      </router-link>
+                    </li>
+
+                    <!-- sss 量化详情-->
+                    <li class="navigation-item-hidden-list-item">
+                      <router-link
+                        :to="{name:'officialQuantitativeDetails'}"
+                        class="navigation-item-hidden-list-item-router"
+                        active-class="item_selected">
+                        {{$t('miningDetails')}}
+                      </router-link>
+                    </li>
                     <!-- sss 屏蔽结束  -->
 
 
@@ -592,15 +592,18 @@
                       :class="{'navigation-item-hidden-list-asset-en':lang!=='CH',
                     'navigation-item-hidden-list-black':isBlack}"
                   >
-                    <li class="navigation-item-hidden-list-item">
-                      <router-link
-                        :to="{name:'overviewOfAssets'}"
-                        class="navigation-item-hidden-list-item-router"
-                        active-class="item_selected">
-<!--                        资产概览-->
-                       {{$t('overviewOfAssets')}}
-                      </router-link>
-                    </li>
+<!--                    资产概览 暂时屏蔽 begin-->
+<!--                    <li class="navigation-item-hidden-list-item">-->
+<!--                      <router-link-->
+<!--                        :to="{name:'overviewOfAssets'}"-->
+<!--                        class="navigation-item-hidden-list-item-router"-->
+<!--                        active-class="item_selected">-->
+<!--&lt;!&ndash;                        资产概览&ndash;&gt;-->
+<!--                       {{$t('overviewOfAssets')}}-->
+<!--                      </router-link>-->
+<!--                    </li>-->
+
+<!--                    资产概览 暂时屏蔽 end-->
 
                     <li class="navigation-item-hidden-list-item">
                       <router-link
@@ -612,14 +615,17 @@
                       </router-link>
                     </li>
 
-                    <li class="navigation-item-hidden-list-item">
-                      <router-link
-                        :to="{name:'rechargeAndWithdrawals'}"
-                        class="navigation-item-hidden-list-item-router"
-                        active-class="item_selected">
-                        {{$t('recharge')}}
-                      </router-link>
-                    </li>
+<!--                    币币账户 暂时屏蔽 bebgin-->
+<!--                    <li class="navigation-item-hidden-list-item">-->
+<!--                      <router-link-->
+<!--                        :to="{name:'rechargeAndWithdrawals'}"-->
+<!--                        class="navigation-item-hidden-list-item-router"-->
+<!--                        active-class="item_selected">-->
+<!--                        {{$t('recharge')}}-->
+<!--                      </router-link>-->
+<!--                    </li>-->
+<!--                    币币账户 暂时屏蔽 end-->
+
 
 <!--                    财务记录-->
                     <li class="navigation-item-hidden-list-item">
@@ -805,35 +811,32 @@
                 <!--APP下载 begin-->
                 <li class="navigation-item-container-right flex"
                     @mouseenter="appdownenter()"
-                    @mouseleave="appdownleave()"
-                    @click="changeLanguageLS">
-
-                <span
-                  class="navigation-item-router flex"
-                  active-class="navigation-item-router-selected text_blue"
-                >
+                    @mouseleave="appdownleave()">
+<!--                  @click="changeLanguageLS"-->
+                <span class="navigation-item-router flex"
+                  active-class="navigation-item-router-selected text_blue">
 <!--                <img src="" alt="" class="phone-icon">-->
                   {{$t('platform_4')}}
                 </span>
                   <!--隐藏的标签 begin-->
                   <!--  sss 屏蔽-->
-<!--                  <ul class="flex navigation-item-hidden-erwm">-->
-<!--                    <li class="navigation-item-hidden-erwm-item">-->
-<!--                      <div class="download-left-download-item-qrcode-img">-->
-<!--                        <Qrcode-->
-<!--                          :size="size"-->
-<!--                          :value="value"-->
-<!--                          :logo="logo"-->
-<!--                          :bgColor="bgColor"-->
-<!--                          :fgColor="fgColor"-->
-<!--                        >-->
-<!--                        </Qrcode>-->
-<!--                      </div>-->
-<!--                    </li>-->
-<!--                    <li class="navigation-item-hidden-erwm-item" >-->
-<!--                      <span>iOS & Android {{$t('qrCode')}}</span>-->
-<!--                    </li>-->
-<!--                  </ul>-->
+                  <ul class="flex navigation-item-hidden-erwm">
+                    <li class="navigation-item-hidden-erwm-item">
+                      <div class="download-left-download-item-qrcode-img">
+                        <Qrcode
+                          :size="size"
+                          :value="value"
+                          :logo="logo"
+                          :bgColor="bgColor"
+                          :fgColor="fgColor"
+                        >
+                        </Qrcode>
+                      </div>
+                    </li>
+                    <li class="navigation-item-hidden-erwm-item" >
+                      <span>iOS & Android {{$t('qrCode')}}</span>
+                    </li>
+                  </ul>
                   <!--  sss 屏蔽结束-->
                   <!--隐藏的标签 end-->
                 </li>
@@ -862,18 +865,18 @@
                       <div class="languagediv"  @click="changeLanguage('CHT')">
                         <img src="../../assets/香港国旗.png" alt="" class="language-icon">繁体中文</div>
                        <!-- sss 屏蔽-->
-<!--                      <div class="languagediv"  @click="changeLanguage('CA')">-->
-<!--                        <img src="../../assets/英国国旗.png" alt="" class="language-icon">English</div>-->
-                      <div class="languagediv" @click="changeLanguageLS">
-                        <img src="../../assets/英国国旗.png" alt="" class="language-icon">
-<!--                        {{$t('indexHeader.forward')}}-->
-                        English
-                      </div>
-                      <div class="languagediv" @click="changeLanguageLS">
-                        <img src="../../assets/e_icon.png" alt="" class="language-icon">
-<!--                        {$t('indexHeader.forward')}}-->
-                        俄文
-                      </div>
+                      <div class="languagediv"  @click="changeLanguage('CA')">
+                        <img src="../../assets/英国国旗.png" alt="" class="language-icon">English</div>
+<!--                      <div class="languagediv" @click="changeLanguageLS">-->
+<!--                        <img src="../../assets/英国国旗.png" alt="" class="language-icon">-->
+<!--&lt;!&ndash;                        {{$t('indexHeader.forward')}}&ndash;&gt;-->
+<!--                        English-->
+<!--                      </div>-->
+<!--                      <div class="languagediv" @click="changeLanguageLS">-->
+<!--                        <img src="../../assets/e_icon.png" alt="" class="language-icon">-->
+<!--&lt;!&ndash;                        {$t('indexHeader.forward')}}&ndash;&gt;-->
+<!--                        俄文-->
+<!--                      </div>-->
 <!--                      <div class="languagediv"  @click="changeLanguage('KOR')">-->
 <!--                        <img src="../../assets/韩国.png" alt="" class="language-icon in2">한국어</div>-->
 <!--                      <div class="languagediv"  @click="changeLanguage('JP')">-->
