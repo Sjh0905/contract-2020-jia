@@ -2,8 +2,11 @@
   <!--    个人信息-->
   <div class="personal-info">
     <div class="personal-container">
-      <div class="personal-icon">
+      <div class="personal-icon" v-if="!flag">
         <img src="../../assets/securityCenter/personal_icon.png" alt="">
+      </div>
+      <div class="personal-icon1" v-if="flag">
+        <img src="../../assets/personal-VIP.png" alt="" class="personal-img">
       </div>
       <div class="personal-content">
         <span class="account-name">{{userName}}</span>
@@ -19,23 +22,25 @@
 
       <!-- 会员卡 -->
 
-<!--      <div class="membershipCard">-->
-<!--&lt;!&ndash;        <img class="wgm" src="../../assets/wgm.png" alt="">&ndash;&gt;-->
+<!--      未购买-->
+      <div class="membershipCard" v-if="!flag">
+<!--        <img class="wgm" src="../../assets/wgm.png" alt="">-->
 
-<!--        <div class="wgm_div">-->
-<!--        <span class="wgm_hy">2020尊享会员</span>-->
-<!--        <span class="wgm_hy2">购买会员享受多项特权</span>-->
-<!--        </div>-->
+        <div class="wgm_div">
+        <span class="wgm_hy">2020尊享会员</span>
+        <span class="wgm_hy2">购买会员享受多项特权</span>
+        </div>
 
-<!--        <div class="wgm_lj">立即购买</div>-->
-<!--      </div>-->
+        <div class="wgm_lj pointer" @click="jumpMembershipCard">立即购买</div>
+      </div>
 
-      <div class="membershipCard_ygm">
+      <!--      已购买-->
+      <div class="membershipCard_ygm" v-if="flag">
         <!--        <img class="wgm" src="../../assets/wgm.png" alt="">-->
 
         <div class="ygm_div">
           <span class="ygm_hy">我的2020会员</span>
-          <span class="ygm_hy2">2022-02-07到期</span>
+          <span class="ygm_hy2">{{expires}}到期</span>
         </div>
 
         <div class="wgm_lj1 pointer" @click="jumpMembershipCard">

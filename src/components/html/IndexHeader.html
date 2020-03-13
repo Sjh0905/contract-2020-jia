@@ -736,7 +736,10 @@
                   >
                     <!--<div class="icon-login"></div>-->
                     <!-- <span class="login-header-name flex-center">{{$t('personalCenter')}}</span> -->
-                    <img src="../../assets/geren.png" alt="" class="login-header-name flex-center personal-icon">
+                   <!-- 非会员-->
+                    <img src="../../assets/geren.png" alt="" class="login-header-name flex-center personal-icon" v-if="!flag">
+                    <!-- 是会员-->
+                    <img src="../../assets/head_icon.png" alt="" class="login-header-name flex-center personal-icons" v-if="flag">
                   </router-link>
 
 
@@ -747,7 +750,7 @@
                     :class="{'navigation-item-hidden-list-black':isBlack}"
                   >
                     <li class="navigation-item-hidden-list-item-personal-center singss">
-                      <IndexHeaderAssets v-if="isLogin" :black="isBlack"/>
+                      <IndexHeaderAssets v-if="isLogin" :black="isBlack" :flag="flag"/>
                     </li>
                   </ul>
                   <!--隐藏的标签 end-->

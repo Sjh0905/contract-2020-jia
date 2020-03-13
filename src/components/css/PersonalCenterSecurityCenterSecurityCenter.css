@@ -26,6 +26,14 @@
   padding-top:25px;
   float: left;
 }
+.personal-icon1 {
+  display: inline-block;
+  padding-top:20px;
+  float: left;
+}
+.personal-img {
+  width: 40px;
+}
 
 .personal-content {
   float: left;

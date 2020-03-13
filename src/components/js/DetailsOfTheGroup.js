@@ -137,7 +137,6 @@ root.methods.error_getTeamDetails = function (err) {
 
 root.methods.postWithd1 = function (idType) {
   this.popWindowOpen = true
-
 }
 //退团解散团队post(params:{}) 没完成
 root.methods.postWithdraw = function (idType) {

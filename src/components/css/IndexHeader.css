@@ -1742,7 +1742,9 @@
 .personal-icon{
   height: 20px;
 }
-
+.personal-icons {
+  height: 22px;
+}
 
 .homepage-body-download {
   height: 1.2rem;
