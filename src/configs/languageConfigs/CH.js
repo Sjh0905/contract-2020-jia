@@ -84,6 +84,7 @@ root.assetPage.withdrawalsAndRecharge = '币币账户'
 root.assetPage.financialRecords = '财务记录'
 root.assetPage.transferRecord = '划转记录'
 root.assetPage.transferRecords = '转账记录'
+root.assetPage.lockingRecord = '锁仓记录'
 
 //资产提现和充值
 root.assetPageRechargeAndWithdrawals = {}
@@ -303,7 +304,7 @@ root.transaction.Trading_platform_4_1 = '交易所里的拼多多'
 root.transaction.Trading_platform_5 = '管家式客服'
 root.transaction.Trading_platform_5_1 = '区块链里的海底捞'
 root.transaction.Trading_platform_6 = '高引擎撮合'
-root.transaction.Trading_platform_6_1 = '一秒十万的高引擎'
+root.transaction.Trading_platform_6_1 = '比肩顶级的强撮合'
 root.transaction.Trading_platform_7 = '镜像式身份'
 root.transaction.Trading_platform_7_1 = '全网兼容的通行证'
 root.transaction.Trading_platform_8 = '2020.Exchange 官方APP下载'

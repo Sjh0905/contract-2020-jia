@@ -88,6 +88,7 @@ root.assetPage.overviewOfAssets = 'Overview Of Assets'
 root.assetPage.myWallet = 'My Wallet'
 root.assetPage.transferRecord = 'Transfer Record'
 root.assetPage.transferRecords = 'Transfer Records'
+root.assetPage.lockingRecord = 'Locking Record'
 
 //资产提现和充值
 root.assetPageRechargeAndWithdrawals = {}

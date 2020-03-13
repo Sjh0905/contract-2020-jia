@@ -7,17 +7,18 @@
       <div >
        <div class="flex total-transfer">
          <div class="currency-total">{{$t('walletTotalAsset')}}</div>
-         <div class="what-transfer pointer " @mouseenter="openWhatTransfer()" @mouseleave="closeWhatTransfer()">
-           <img src="../../assets/myWallet/transfer-explain.png" alt="">
-           {{$t('transfer_describe')}}
-         </div>
+<!--         什么是资金划转暂时 关闭-->
+<!--         <div class="what-transfer pointer " @mouseenter="openWhatTransfer()" @mouseleave="closeWhatTransfer()">-->
+<!--           <img src="../../assets/myWallet/transfer-explain.png" alt="">-->
+<!--           {{$t('transfer_describe')}}-->
+<!--         </div>-->
        </div>
-<!--        划转解释-->
-        <div class="transfer-explain">
-          <p>{{$t('transfer_describe1')}}</p>
-          <p>{{$t('transfer_describe2')}}</p>
-          <p>{{$t('transfer_describe3')}}</p>
-        </div>
+<!--        什么是资金划转 划转解释  暂时屏蔽-->
+<!--        <div class="transfer-explain">-->
+<!--          <p>{{$t('transfer_describe1')}}</p>-->
+<!--          <p>{{$t('transfer_describe2')}}</p>-->
+<!--          <p>{{$t('transfer_describe3')}}</p>-->
+<!--        </div>-->
 
         <div class="currency-total-assets">
           <span class="total-assets">{{priceReady || initReady ? toFixed(total,8):'----'}} BTC</span>
@@ -115,10 +116,10 @@
 <!--            <span class="can-not-withdrawals" v-else>{{$t('transfer')}}</span>-->
 
 <!--          v-if="serverT >= item.withdrawOpenTime"-->
-                <span class="withdrawals-buttons buttons">
-<!--                  {{$t('indexHeader.forward')}}-->
-                  {{$t('transfer')}}
-            </span>
+<!--              <span class="withdrawals-buttons buttons">-->
+<!--&lt;!&ndash;                  {{$t('indexHeader.forward')}}&ndash;&gt;-->
+<!--                  {{$t('transfer')}}-->
+<!--            </span>-->
               <!--打开划转 end-->
               <!--sss 屏蔽结束-->
 
@@ -131,23 +132,25 @@
               <!--sss 屏蔽-->
               <!--sss打开转账 begin-->
 
-<!--              <span class="withdrawals-button button"-->
-<!--                    @click="internalTransfer(index,item)"-->
-<!--                    :class="{'recharge-button-select-transfer':activeIndex===index  && transferss}"-->
-<!--                    v-if="serverT >= item.withdrawOpenTime"-->
-<!--              >{{$t('internalTransfer')}}</span>-->
-<!--            <span class=" can-not-withdrawals" v-else>{{$t('internalTransfer')}}</span>-->
+              <span class="withdrawals-button button"
+                    @click="internalTransfer(index,item)"
+                    :class="{'recharge-button-select-transfer':activeIndex===index  && transferss}"
+                    v-if="serverT >= item.withdrawOpenTime"
+              >{{$t('internalTransfer')}}</span>
+            <span class=" can-not-withdrawals" v-else>{{$t('internalTransfer')}}</span>
 
 <!-- v-if="serverT >= item.withdrawOpenTime"-->
-               <span class="withdrawals-buttons buttons">
-                 {{$t('internalTransfer')}}
-<!--                 {{$t('indexHeader.forward')}}-->
-               </span>
+<!--              内部转账灰色按钮 begin-->
+<!--               <span class="withdrawals-buttons buttons">-->
+<!--                 {{$t('internalTransfer')}}-->
+<!--&lt;!&ndash;                 {{$t('indexHeader.forward')}}&ndash;&gt;-->
+<!--               </span>-->
+ <!--              内部转账灰色按钮 end-->
 
+
+<!--              锁仓灰色按钮-->
 <!--               v-if="serverT >= item.withdrawOpenTime"-->
-                   <span class="withdrawals-buttons buttons"
-
-                   >
+              <span class="withdrawals-buttons buttons">
                  {{$t('lockWarehouse')}}
                </span>
               <!--sss打开转账 end-->

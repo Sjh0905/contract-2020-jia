@@ -14,14 +14,14 @@
         </router-link>
         <!--提现记录打开 end-->
 
-        <!--划转记录 begin-->
-        <router-link to="/index/asset/record/transferRecords" class="title-tab flex-center margin-a-little"
-                     :class="lang!='CH'?'title-tab-en':''"
-                     active-class="selected text_blue">
-          <!--        划转记录-->
-          <!--        Transfer record-->
-          {{$t('assetPage.transferRecord')}}
-        </router-link>
+        <!--划转记录 暂时屏蔽 begin-->
+<!--        <router-link to="/index/asset/record/transferRecords" class="title-tab flex-center margin-a-little"-->
+<!--                     :class="lang!='CH'?'title-tab-en':''"-->
+<!--                     active-class="selected text_blue">-->
+<!--          &lt;!&ndash;        划转记录&ndash;&gt;-->
+<!--          &lt;!&ndash;        Transfer record&ndash;&gt;-->
+<!--          {{$t('assetPage.transferRecord')}}-->
+<!--        </router-link>-->
         <!--划转记录 end-->
 
         <!--转账记录 begin-->
@@ -34,6 +34,16 @@
         </router-link>
         <!--转账记录 end-->
 
+        <!--    锁仓记录 begin-->
+        <router-link to="/index/asset/record/lockingRecord" class="title-tab flex-center margin-a-little"
+                     :class="lang!='CH'?'title-tab-en':''"
+                     active-class="selected text_blue">
+          <!--        锁仓记录-->
+          <!--        Transfer record-->
+          {{$t('assetPage.lockingRecord')}}
+        </router-link>
+        <!--    锁仓记录 end-->
+
         <!-- 平台奖励 begin -->
         <router-link :to="{name:'platformReward'}" class="title-tab flex-center margin-a-little tab-item-last"
                      :class="lang!='CH'?'title-tab-en':''"
@@ -41,6 +51,8 @@
           {{$t('assetPage.platformReward')}}
         </router-link>
         <!-- 平台奖励 end -->
+
+
 
     </div>
 

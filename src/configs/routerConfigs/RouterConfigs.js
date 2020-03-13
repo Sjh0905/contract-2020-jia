@@ -1619,7 +1619,7 @@ root.routes.push({
             templatePath: '/index/assetPageT',
             requireLoginOff: false,
           },
-          redirect: 'overviewofassets',
+          redirect: 'myWallet',
           caseSensitive: true,
         },
 
@@ -1797,6 +1797,23 @@ root.routes.push({
               },
               caseSensitive: true,
               component: resolve => require(['@/components/vue/TransferList'], resolve),
+            },
+            // 锁仓记录
+            {
+              path: 'lockingRecord',
+              name: 'lockingRecord',
+              meta: {
+                pcname: 'lockingRecord',
+                h5name: 'MobileLockingRecord',
+                requireLogin: true,
+                templateClose: false,
+                templatePath: '/index/asset/lockingRecord',
+                // templatePath: '/index/assetPageT',
+
+                requireLoginOff: false,
+              },
+              caseSensitive: true,
+              component: resolve => require(['@/components/vue/lockingRecord'], resolve),
             },
             // 平台奖励
             {
