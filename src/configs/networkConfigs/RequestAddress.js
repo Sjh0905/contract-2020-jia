@@ -454,4 +454,12 @@ requestAddress.GET_VERIFYIDENTITY_USER = {url: urlHead+'/user/verifyIsIdentityUs
 requestAddress.GET_TRANSFER_AMOUNT_INFO = {url: urlHead+'/user/transfer/getTransferAmountInfo', method: 'get'} // 获取当前币种是否可以转账
 
 
+//2020-03-13会员相关接口
+requestAddress.POST_BUY_CARD = {url: urlHead+'/memberCard/buyCard', method: 'post'} //会员卡购买
+requestAddress.GET_CHECK = {url: urlHead+'/memberCard/checkMember/', method: 'get'} // 是否是会员
+requestAddress.GET_BUY_RECORDS = {url: urlHead+'/memberCard/buyRecords/', method: 'get'} // 会员购买记录
+requestAddress.GET_CHECK_ENOUGH_BALANCE = {url: urlHead+'/memberCard/checkEnoughBalance/', method: 'get'} // 会员卡报名是否金额足够
+
+
+
 export default requestAddress
