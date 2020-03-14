@@ -94,6 +94,12 @@
   color: #666666;
   text-align: left;
 }
+.share_list {
+  height: auto;
+  margin: 0 auto;
+  border: 1px solid #EFF0FF;
+  margin-bottom: 30px;
+}
 
 .invitation-list {
   width:100%;
