@@ -176,7 +176,7 @@ root.methods.re_getBalance = function (data) {
   console.log('查询用户余额get  index',data)
   typeof data === 'string' && (data = JSON.parse(data))
   data.data.forEach((v,index)=>{
-    if (v.currency == 'KK') {
+    if (v.currency == 'YY') {
       console.log('查询用户余额get  index',index)
       console.log('查询用户余额get  index',v.balance)
       this.balance = v.balance
