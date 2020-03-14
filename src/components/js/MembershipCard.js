@@ -64,6 +64,7 @@ root.computed.userId = function () {
   return this.$store.state.authMessage.userId
 }
 
+
 root.computed.computedRecord = function (item,index) {
   return this.records
 }
@@ -89,6 +90,7 @@ root.methods.re_getCheck = function (data) {
   console.log('是否是会员get-----',123)
   this.expires = data.data.expires
   this.flag = data.data.flag
+  this.$store.commit('IS_VIP', this.flag);
   console.log('是否是会员get-----',data.data)
 
 }

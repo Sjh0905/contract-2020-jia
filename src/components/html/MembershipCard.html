@@ -66,7 +66,7 @@
         <p class="month_p0">月卡</p>
       </div>
       <div class="month pointer" @click="postWithd1(2)" :class="{'selected_cardType':cardType == 2}">
-        <span class="month_span">约8.3折</span>
+        <span class="month_span">约8.33折</span>
         <p class="month_p">1000 USDT/年</p>
         <p class="month_p0">年卡</p>
       </div>
@@ -99,8 +99,8 @@
             <!--账号-->
               <div class="application_header_div width1 mor-left color_a2">{{item.account}}</div>
             <!--类型-->
-              <div class="application_header_div width2 color_a2" v-if="cardType=='1'">{{item.cardType}}月卡</div>
-              <div class="application_header_div width2 color_a2" v-if="cardType=='2'">{{item.cardType}}年卡</div>
+              <div class="application_header_div width2 color_a2" v-if="item.cardType=='1'">月卡</div>
+              <div class="application_header_div width2 color_a2" v-if="item.cardType=='2'">年卡</div>
             <!--有效期-->
               <div class="application_header_div width3 color_a2">{{item.expires}}</div>
             <!--购买时间-->
