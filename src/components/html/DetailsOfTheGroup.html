@@ -58,19 +58,19 @@
           <li class="information_li m-to">
 <!--            团长账号:-->
             <div class="information_div_s color_f5">
-              {{$t('colonelNumber')}}
-              <span>{{priAccount}}</span>
+              {{$t('colonelNumber')}}{{priAccount}}
+              <span></span>
             </div>
 <!--            副团长账号:-->
             <div class="information_div_s color_f4">
-              {{$t('colonelNumberFu')}}
-              <span>{{deputyAccount}}</span>
+              {{$t('colonelNumberFu')}}{{deputyAccount}}
+              <span></span>
             </div>
 <!--            建团时间: -->
 
             <div class="information_div_s color_f4">
-              {{$t('timeFormation')}}
-              <span>{{createdAt}}</span>
+              {{$t('timeFormation')}}{{createdAt}}
+<!--              <span></span>-->
             </div>
 <!--            普通区折扣-->
 <!--            <div class="information_div color_bik_9">-->
@@ -87,11 +87,11 @@
     <!--  账号，入团时间-->
     <div class="of_number">
       <!--  账号：-->
-      <span class="of_number_span">{{$t('accountNumber')}}：</span>
-      <span>{{userName}}</span>
+      <span class="of_number_span">{{$t('accountNumber')}}：{{userName}}</span>
+<!--      <span></span>-->
      <!--  入团时间：-->
-      <span class="of_number_span_time">{{$t('entryTime')}}</span>
-      <span> {{joinTime}}</span>
+      <span class="of_number_span_time">{{$t('entryTime')}} {{joinTime}}</span>
+<!--      <span> </span>-->
 
            <!--解散拼团-->
       <div class="tuituan pointer" v-if="idType=='1'" @click="postWithd1(1)">{{$t('dissolve')}}</div>
