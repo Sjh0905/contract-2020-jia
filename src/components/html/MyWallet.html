@@ -150,9 +150,15 @@
 
 <!--              锁仓灰色按钮-->
 <!--               v-if="serverT >= item.withdrawOpenTime"-->
-              <span class="withdrawals-buttons buttons">
-                 {{$t('lockWarehouse')}}
-               </span>
+
+             <span class="withdrawals-button button"
+                   v-if="currency == 'YY'|| currency == 'TT'">
+               {{$t('lockWarehouse')}}
+             </span>
+            <span class=" can-not-withdrawals" v-else>{{$t('lockWarehouse')}}</span>
+
+
+<!--              <span class="withdrawals-buttons buttons"></span>-->
               <!--sss打开转账 end-->
 
               <!--sss 屏蔽结束-->
@@ -251,7 +257,7 @@
       <span class="header_xuzhi">{{popWindowTitle}}</span>
     </div>
     <div slot="article" class="pop-recharge">{{popWindowPrompt}}
-      <p class="consequences">{{popWindowPrompt1}}</p>
+<!--      <p class="consequences">{{popWindowPrompt1}}</p>-->
     </div>
     <div slot="footer" class="pop-recharge-bottom flex-center">
       <template v-if="popWindowStyle==0">
@@ -340,6 +346,100 @@
   </PopupWindow>
 
 <!--  内部转账  begin-->
+<!--  内部转账提示弹框-->
+  <PopupWindow :switch="popWindowOpen2" @close="popWindowClose2">
+    <div slot="header">
+      <span class="header_xuzhi">{{popWindowTitle}}</span>
+    </div>
+    <div slot="article" class="pop-recharge">{{popWindowPrompt}}
+      <p class="consequences">{{popWindowPrompt1}}</p>
+    </div>
+    <div slot="footer" class="pop-recharge-bottom flex-center">
+      <button @click="goToBindTransfer" class="button-base22 btn_blue pointer transfer4">
+        <!--绑定邮箱-->
+        {{$t('ITransfer')}}
+      </button>
+<!--      <template v-if="popWindowStyle==0">-->
+<!--        <button @click="popWindowClose" class="button-base33 btn_simple pointer">-->
+<!--          {{$t('cancel')}}-->
+<!--        </button>-->
+<!--        <button @click="goToBindIdentity" class="button-base33 btn_blue pointer m-r">-->
+<!--          {{$t('verification')}}-->
+<!--        </button>-->
+<!--      </template>-->
+<!--      <template v-if="popWindowStyle==1">-->
+<!--        <button @click="popWindowClose" class="button-base33 btn_simple pointer">-->
+<!--          {{$t('cancel')}}-->
+<!--          &lt;!&ndash;          {{$t('bindGa')}}&ndash;&gt;-->
+<!--        </button>-->
+<!--        <button @click="goToSecurityCenter" class="button-base33 btn_blue pointer m-r">-->
+<!--          {{$t('beBinding')}}-->
+<!--          &lt;!&ndash;          {{$t('bindMobile')}}&ndash;&gt;-->
+<!--        </button>-->
+<!--      </template>-->
+<!--      <template v-if="popWindowStyle==2">-->
+<!--        <button @click="popWindowClose" class="button-base33 btn_simple pointer">-->
+<!--          {{$t('cancel')}}-->
+<!--          &lt;!&ndash;          {{$t('bindGa')}}&ndash;&gt;-->
+<!--        </button>-->
+<!--        <button @click="goToSecurityCenter" class="button-base33 btn_blue pointer m-r">-->
+<!--          {{$t('beBinding')}}-->
+<!--          &lt;!&ndash;          {{$t('bindMobile')}}&ndash;&gt;-->
+<!--        </button>-->
+<!--      </template>-->
+<!--      <template v-if="popWindowStyle==3">-->
+<!--        <button @click="popWindowClose" class="button-base33 btn_simple pointer ">-->
+<!--          {{$t('cancel')}}-->
+<!--          &lt;!&ndash;          {{$t('bindGa')}}&ndash;&gt;-->
+<!--        </button>-->
+<!--        <button @click="goToSecurityCenter" class="button-base33 btn_blue pointer m-r">-->
+<!--          {{$t('beBinding')}}-->
+<!--          &lt;!&ndash;          {{$t('bindMobile')}}&ndash;&gt;-->
+<!--        </button>-->
+<!--      </template>-->
+<!--      <template v-if="popWindowStyle==4">-->
+<!--        <button @click="popWindowClose" class="button-base33 btn_simple pointer">-->
+<!--          {{$t('cancel')}}-->
+<!--          &lt;!&ndash;          {{$t('bindGa')}}&ndash;&gt;-->
+<!--        </button>-->
+<!--        <button @click="goToSecurityCenter" class="button-base33 btn_blue pointer m-r">-->
+<!--          {{$t('beBinding')}}-->
+<!--          &lt;!&ndash;          {{$t('bindMobile')}}&ndash;&gt;-->
+<!--        </button>-->
+<!--      </template>-->
+<!--      <template v-if="popWindowStyle==5">-->
+      </template>
+
+
+      <!--      <template v-if="popWindowStyle==1">-->
+      <!--        <button @click="goToBindGA" class="button-base btn_blue pointer">-->
+      <!--          {{$t('bindGa')}}-->
+      <!--        </button>-->
+      <!--        <button @click="goToBindMobile" class="button-base btn_blue pointer">-->
+      <!--          {{$t('bindMobile')}}-->
+      <!--        </button>-->
+      <!--      </template>-->
+      <!--      <template v-if="popWindowStyle==2">-->
+      <!--        <button @click="popWindowClose" class="button-base btn_blue pointer">-->
+      <!--          {{$t('ensure')}}-->
+      <!--        </button>-->
+      <!--      </template>-->
+      <!--      <template v-if="popWindowStyle==3">-->
+      <!--        <button @click="goToBindEmail" class="button-base btn_blue pointer bangding">-->
+      <!--          &lt;!&ndash;绑定邮箱&ndash;&gt;-->
+      <!--          {{$t('bind_email_pop_button')}}-->
+      <!--        </button>-->
+      <!--      </template>-->
+      <!--      <template v-if="popWindowStyle==4">-->
+      <!--        <button @click="goToBindTransfer" class="button-base btn_blue pointer transfer4">-->
+      <!--          &lt;!&ndash;绑定邮箱&ndash;&gt;-->
+      <!--          {{$t('ITransfer')}}-->
+      <!--        </button>-->
+      <!--      </template>-->
+    </div>
+
+  </PopupWindow>
+
   <!--  内部转账弹窗-->
   <PopupWindow :switch="buyCommitToastOpen" @close="buyCommitToastClose">
 
@@ -394,7 +494,7 @@
       <!--      <input class="input_input" type="text" placeholder="输入谷歌验证码" >-->
 
       <div slot="footer">
-        <button class="Internal_siding_email1" @click="getGoToConfirmTransfer()">{{$t('Number5')}}</button>
+        <button class="Internal_siding_email1 pointer" @click="getGoToConfirmTransfer()">{{$t('Number5')}}</button>
       </div>
       <p class="zhu">{{$t('Number6')}}</p>
 
@@ -536,7 +636,7 @@
     <!-- article end 2 -->
 
     <!-- footer popWindow begin 1 -->
-    <div slot="footer" class="popWindow-footer" v-if="popWindowStep === 1">
+    <div slot="footer" class="popWindow-footer " v-if="popWindowStep === 1">
       <button class="pointer btn_simple ssss" @click="goToConfirmsjhclose">
         {{$t('previousStep')}}
       </button>
