@@ -37,17 +37,32 @@
 
 
 
-<!--        所需数额-->
+<!--        YY所需数额-->
         <div class="number_amount">
           <p class="number_amount_p">{{$t('required')}}</p>
           <span class="number_amount_span">YY:</span>
+<!--          <span class="amount_span">{{matchDataObj[matchingAmount]}}</span>-->
           <span class="amount_span">{{matchDataObj[matchingAmount]}}</span>
         </div>
 
-<!--       账号余额 -->
+
+<!--       YY账号余额 -->
         <div class="number_amount">
           <p class="number_amount_p">{{$t('balance')}}</p>
           <span class="number_amount_span">YY:</span>
+          <span class="amount_span">{{toFixed(balance,8)}}</span>
+<!--          <span class="amount_span">{{toFixed(balance,8)}}</span>-->
+        </div>
+
+        <!--        TT所需数额-->
+        <div class="number_amountTT">
+          <span class="number_amount_span">TT:</span>
+          <span class="amount_span">{{matchDataFamt[matchingAmount]}}</span>
+        </div>
+
+        <!--       TT账号余额 -->
+        <div class="number_amountTT">
+          <span class="number_amount_span">TT:</span>
           <span class="amount_span">{{toFixed(balance,8)}}</span>
         </div>
 
@@ -109,6 +124,45 @@
 
     </div>
   </div>
+
+
+  <!--   提示 弹窗-->
+  <PopupWindow :switch="popWindowOpenShiM" @close="popWindowCloseShiM">
+    <div slot="header">
+      <span class="header_xuzhi">{{popWindowTitle}}</span>
+    </div>
+    <div slot="article" class="pop-recharge">{{popWindowPrompt}}
+    </div>
+    <div slot="footer" class="pop-recharge-bottom flex-center">
+      <template v-if="popWindowStyle==0">
+        <button @click="popWindowCloseShiM" class="button-base33 btn_simple pointer">
+          {{$t('cancel')}}
+        </button>
+        <button @click="goToBindIdentity" class="button-base33 btn_blue pointer m-l">
+          {{$t('verification')}}
+        </button>
+      </template>
+      <template v-if="popWindowStyle==1">
+        <button @click="popWindowCloseShiM" class="button-base33 btn_simple pointer">
+          {{$t('cancel')}}
+        </button>
+        <button @click="goToSecurityCenter" class="button-base33 btn_blue pointer m-l">
+          {{$t('beBinding')}}
+        </button>
+      </template>
+      <template v-if="popWindowStyle==3">
+        <button @click="popWindowCloseShiM" class="button-base33 btn_simple pointer">
+          {{$t('cancel')}}
+        </button>
+        <button @click="goToSecurityCenter" class="button-base33 btn_blue pointer m-l">
+          {{$t('beBinding')}}
+        </button>
+      </template>
+
+    </div>
+
+  </PopupWindow>
+
 
   <PopupPrompt :popOpen="popOpen" :popClose="popClose" :popType="popType" :popText="popText"/>
 

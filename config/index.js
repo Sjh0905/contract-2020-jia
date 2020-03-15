@@ -12,6 +12,7 @@ module.exports = {
     proxyTable: {
       '/apis': {
         // target: 'https://www.highdefi.com', //新测试环境1
+        // target: 'http://www.2020-ex.com', //新测试环境1
         target: 'http://13.114.169.150:8000', //新测试环境1
         // target: 'https://2020.highdefi.com', //新测试环境1
         // target: 'https://www.2020.exchange', //新测试环境2
