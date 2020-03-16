@@ -46,12 +46,12 @@
 <!--            普通区折扣-->
             <div class=" color_hui">
               <div>{{$t('ordinaryDiscount')}}</div>
-              <div class="color_bik_9">{{toFixed(accMul(commonDiscount,100),1) }}%</div>
+              <div class="color_bik_9">{{toFixed(accMul(commonDiscount,100),0) }}%</div>
             </div>
 <!--            量化区折扣-->
             <div class=" color_hui_s">
               <div>{{$t('quantifiedDiscount')}}</div>
-              <div class="color_bik_9">{{toFixed(accMul(quantDiscount,100),1) }}%</div>
+              <div class="color_bik_9">{{toFixed(accMul(quantDiscount,100),0) }}%</div>
             </div>
           </li>
 <!--          团长，副团长 建团时间-->

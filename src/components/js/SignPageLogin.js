@@ -75,7 +75,9 @@ root.data = function () {
 
     //二次验证弹窗是否显示
     verificationOpen:false,
-    verificationParams:{}
+    verificationParams:{},
+    verificationEmail:"",
+    verificationMobile:"",
   }
 }
 
@@ -394,7 +396,7 @@ root.methods.re_login = async function (data) {
   this.loading = false
   this.popOpen = false
   typeof(data) === 'string' && (data = JSON.parse(data))
-  let dataMap = data.dataMap
+  let dataMap = data.dataMap || {}
 
 
   if (data.errorCode || data.result === 'FAIL') {
@@ -425,8 +427,13 @@ root.methods.re_login = async function (data) {
         }
         if(!this.isMobile){
           // this.verificationParams = {
-            this.$route.query.email = this.loginType == 1 ? this.userName.trim() : '',
-            this.$route.query.mobile = this.loginType == 0 ? this.userName.trim() : '',
+            let userEmail = dataMap.userProfile && dataMap.userProfile.email || this.userName
+            let userMobile = dataMap.userProfile && dataMap.userProfile.mobile || this.userName
+            this.verificationEmail = this.loginType == 1 ? userEmail.trim() : '',
+            this.verificationMobile = this.loginType == 0 ? userMobile.trim() : '',
+
+            // this.$route.query.email = this.loginType == 1 ? userEmail.trim() : '',
+            // this.$route.query.mobile = this.loginType == 0 ? userMobile.trim() : '',
           // }
           // this.$route.query = Object.assign(this.$route.query,this.verificationParams)
           this.verificationOpen = true;

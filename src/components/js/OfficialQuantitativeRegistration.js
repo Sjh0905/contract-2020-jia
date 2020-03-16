@@ -406,6 +406,14 @@ root.methods.re_postActivities = function (data) {
         this.popOpen = true
       }, 100)
     }
+    if (data.errorCode == "5") {
+      this.popOpen = true
+      this.popType = 0
+      this.popText = this.$t('popWindowPromptWithdrawals') //您尚未通过实名认证
+      setTimeout(() => {
+        this.popOpen = true
+      }, 100)
+    }
     if (data.errorCode == "400") {
       this.popOpen = true
       this.popType = 0

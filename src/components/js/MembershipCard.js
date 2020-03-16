@@ -38,8 +38,8 @@ root.data = function () {
 }
 /*------------------------------ 生命周期 -------------------------------*/
 root.created = function () {
-  this.getBuyRecords()
   this.getCheck()
+  this.getBuyRecords()
   // this.getBuyRecords()
 }
 root.mounted = function () {}
@@ -136,7 +136,7 @@ root.methods.re_getCheck = function (data) {
   console.log('是否是会员get-----',123)
   this.expires = data.data.expires
   this.flag = data.data.flag
-  this.$store.commit('IS_VIP', this.flag);
+  // this.$store.commit('IS_VIP', this.flag);
   console.log('是否是会员get-----',data.data)
 
 }
@@ -173,41 +173,41 @@ root.methods.error_getBuyRecords = function (err) {
 }
 
 
-// 会员卡报名是否金额足够
-root.methods.getCheckEnoughBalance= function () {
-
-  this.$http.send('GET_CHECK_ENOUGH_BALANCE', {
-    bind: this,
-    urlFragment: `${userId}/${this.cardType}`,
-    // query:{
-    //   gname: this.gname
-    // },
-    callBack: this.re_getCheckEnoughBalance,
-    errorHandler: this.error_getCheckEnoughBalance
-  })
-}
-
-root.methods.re_getCheckEnoughBalance = function (data) {
-  //检测data数据是JSON字符串转换JS字符串
-  typeof data === 'string' && (data = JSON.parse(data))
-  if (data.errorCode) {
-    if (
-      data.errorCode == 1 && (this.popText = this.$t('会员卡类型有误')) ||//会员卡类型有误
-      data.errorCode == 2 && (this.popText = this.$t('可用币种USDT余额不足')) || // 可用币种USDT余额不足
-      data.errorCode == 400 && (this.popText = this.$t('parameter_error')) //参数有误
-    ) {
-      this.popOpen = true
-      this.popType = 0
-      setTimeout(() => {
-        this.popOpen = true
-      }, 100)
-    }
-  }
-}
-
-root.methods.error_getCheckEnoughBalance = function (err) {
-  console.log("this.err=====",err)
-}
+// // 会员卡报名是否金额足够
+// root.methods.getCheckEnoughBalance= function () {
+//
+//   this.$http.send('GET_CHECK_ENOUGH_BALANCE', {
+//     bind: this,
+//     urlFragment: `${userId}/${this.cardType}`,
+//     // query:{
+//     //   gname: this.gname
+//     // },
+//     callBack: this.re_getCheckEnoughBalance,
+//     errorHandler: this.error_getCheckEnoughBalance
+//   })
+// }
+//
+// root.methods.re_getCheckEnoughBalance = function (data) {
+//   //检测data数据是JSON字符串转换JS字符串
+//   typeof data === 'string' && (data = JSON.parse(data))
+//   if (data.errorCode) {
+//     if (
+//       data.errorCode == 1 && (this.popText = this.$t('会员卡类型有误')) ||//会员卡类型有误
+//       data.errorCode == 2 && (this.popText = this.$t('可用币种USDT余额不足')) || // 可用币种USDT余额不足
+//       data.errorCode == 400 && (this.popText = this.$t('parameter_error')) //参数有误
+//     ) {
+//       this.popOpen = true
+//       this.popType = 0
+//       setTimeout(() => {
+//         this.popOpen = true
+//       }, 100)
+//     }
+//   }
+// }
+//
+// root.methods.error_getCheckEnoughBalance = function (err) {
+//   console.log("this.err=====",err)
+// }
 
 root.methods.postWithd1 = function (cardType) {
   this.cardType = cardType
@@ -292,7 +292,7 @@ root.methods.re_postBuyCard = function (data) {
     this.popWindowOpen = false
     this.popOpen = true
     this.popType = 1
-    this.popText = '报名成功'
+    this.popText = this.$t('registration')
     setTimeout(() => {
       this.popOpen = true
     }, 100)
@@ -318,12 +318,13 @@ root.methods.re_postBuyCard = function (data) {
 
   if (data.errorCode) {
     if (
-      data.errorCode == 1 && (this.popText = this.$t('会员账户格式错误')) || //会员账户格式错误
-      data.errorCode == 2 && (this.popText = this.$t('会员账号不存在')) || // 会员账号不存在
-      data.errorCode == 3 && (this.popText = this.$t('会员账号userId有误')) || // 会员账号userId有误
-      data.errorCode == 4 && (this.popText = this.$t('会员卡类型有误')) || // 会员卡类型有误
-      data.errorCode == 5 && (this.popText = this.$t('用户购买会员卡余额不足')) || // 用户购买会员卡余额不足
-      data.errorCode == 6 && (this.popText = this.$t('购买失败 (未找到对应币种归集账户)')) || // 购买失败 (未找到对应币种归集账户)
+      data.errorCode == 1 && (this.popText = this.$t('format')) || //会员账户格式错误
+      data.errorCode == 2 && (this.popText = this.$t('does')) || // 会员账号不存在
+      data.errorCode == 3 && (this.popText = this.$t('userIdOf')) || // 会员账号userId有误
+      data.errorCode == 4 && (this.popText = this.$t('membershipC')) || // 会员卡类型有误
+      data.errorCode == 5 && (this.popText = this.$t('purchased')) || // 用户购买会员卡余额不足
+      data.errorCode == 6 && (this.popText = this.$t('failed)')) || // 购买失败 (未找到对应币种归集账户)
+      data.errorCode == 7 && (this.popText = this.$t('popWindowPromptWithdrawals)')) || // 用户未完成实名
       data.errorCode == 400 && (this.popText = this.$t('parameter_error')) //参数有误
     ) {
       this.popOpen = true

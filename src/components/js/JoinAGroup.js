@@ -18,9 +18,9 @@ root.data = function () {
     //组等级
     glevel:'0',
     groupId:'0',
-    //量化区手续费折扣
-    commonDiscount:'',
     //普通区手续费折扣
+    commonDiscount:'',
+    //挖矿区手续费折扣
     quantDiscount:'',
     //组名
     gname:'',
@@ -256,5 +256,18 @@ root.methods.error_postJoinGroup = function (err) {
 root.methods.popClose = function () {
   this.popOpen = false
 }
+
+
+/*---------------------- 乘法运算 begin ---------------------*/
+root.methods.accMul = function (num1, num2) {
+  return this.$globalFunc.accMul(num1, num2)
+}
+/*---------------------- 乘法运算 end ---------------------*/
+
+/*---------------------- 保留小数位 begin ---------------------*/
+root.methods.toFixed = function (num, acc) {
+  return this.$globalFunc.accFixed(num, acc)
+}
+/*---------------------- 保留小数位 end ---------------------*/
 
 export default root
