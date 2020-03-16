@@ -814,8 +814,9 @@
                 <!--APP下载 begin-->
                 <li class="navigation-item-container-right flex"
                     @mouseenter="appdownenter()"
-                    @mouseleave="appdownleave()">
-<!--                  @click="changeLanguageLS"-->
+                    @mouseleave="appdownleave()"
+                    @click="changeLanguageLS">
+
                 <span class="navigation-item-router flex"
                   active-class="navigation-item-router-selected text_blue">
 <!--                <img src="" alt="" class="phone-icon">-->
@@ -824,18 +825,18 @@
                   <!--隐藏的标签 begin-->
                   <!--  sss 屏蔽-->
                   <ul class="flex navigation-item-hidden-erwm">
-                    <li class="navigation-item-hidden-erwm-item">
-                      <div class="download-left-download-item-qrcode-img">
-                        <Qrcode
-                          :size="size"
-                          :value="value"
-                          :logo="logo"
-                          :bgColor="bgColor"
-                          :fgColor="fgColor"
-                        >
-                        </Qrcode>
-                      </div>
-                    </li>
+<!--                    <li class="navigation-item-hidden-erwm-item">-->
+<!--                      <div class="download-left-download-item-qrcode-img">-->
+<!--                        <Qrcode-->
+<!--                          :size="size"-->
+<!--                          :value="value"-->
+<!--                          :logo="logo"-->
+<!--                          :bgColor="bgColor"-->
+<!--                          :fgColor="fgColor"-->
+<!--                        >-->
+<!--                        </Qrcode>-->
+<!--                      </div>-->
+<!--                    </li>-->
                     <li class="navigation-item-hidden-erwm-item" >
                       <span>iOS & Android {{$t('qrCode')}}</span>
                     </li>
