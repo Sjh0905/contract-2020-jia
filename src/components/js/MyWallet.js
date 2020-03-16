@@ -148,6 +148,7 @@ root.created = function () {
     this.getCurrency()
     return
   }
+  console.log(this.currency)
   // 获取账户信息
   this.getAccounts()
 
@@ -237,7 +238,6 @@ root.computed.accountsComputed = function () {
     // console.log(JSON.stringify(val.id))
     this.transferCurrencyObj[val.currency] = val;
   })
-
   return this.accounts
 }
 // 基础货币
@@ -1252,7 +1252,6 @@ root.methods.re_getMobileVerification = function (data) {
 root.methods.error_getMobileVerification = function (err) {
   // console.warn('获取手机验证码出错！')
 }
-
 
 
 // 格式化时间

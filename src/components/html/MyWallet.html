@@ -152,10 +152,11 @@
 <!--               v-if="serverT >= item.withdrawOpenTime"-->
 
              <span class="withdrawals-button button"
-                   v-if="currency == 'YY'|| currency == 'TT'">
+                   v-if="item.currency === 'YY'|| item.currency === 'TT'"
+                  >
                {{$t('lockWarehouse')}}
              </span>
-            <span class=" can-not-withdrawals" v-else>{{$t('lockWarehouse')}}</span>
+            <span class="can-not-withdrawals" v-else>{{$t('lockWarehouse')}}</span>
 
 
 <!--              <span class="withdrawals-buttons buttons"></span>-->
