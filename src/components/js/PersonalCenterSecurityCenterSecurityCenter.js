@@ -155,8 +155,6 @@ root.computed.userId = function () {
 }
 
 root.created = function () {
-
-  this.$eventBus.notify('GETAUTHSTATE')
   this.getAuthType()
 
   this.getAuthState();
