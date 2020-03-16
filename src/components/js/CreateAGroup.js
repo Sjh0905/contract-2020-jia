@@ -26,9 +26,39 @@ root.data = function () {
   }
 }
 /*------------------------------ 生命周期 -------------------------------*/
-root.created = function () {}
+root.created = function () {
+  console.log('created======',this,this.$route.name)
+  // this.$router.back()
+  // if (this.success == true) {
+  //   this.$router.push({name: '/index/home'});
+  // }
+  // if (this.$route.name == 'detailsOfTheGroup') {
+  //   // this.$router.push({name:'index/home'})
+  //   this.$router.go(-2)
+  //   // this.$router.back()
+  // }
+
+}
+
+root.beforeRouteEnter = function (to, from, next) {
+  console.log('beforeRouteEnter第一个参数to',to);
+  console.log('beforeRouteEnter第二个参数from',from);
+  console.log('beforeRouteEnter第三个参数next',next);
+  next(vm => {
+    if(from.name === 'detailsOfTheGroup'){
+      // vm.$router.push({name:'index/indexHomeMarket'})
+      // vm.$router.back()
+      vm.$router.go(-2)
+    }
+  });
+}
 root.mounted = function () {}
-root.beforeDestroy = function () {}
+// root.beforeDestroy = function (to, from, next) {
+//   console.log('beforeRouteEnter第一个参数to',to);
+//   console.log('beforeRouteEnter第二个参数from',from);
+//   console.log('beforeRouteEnter第三个参数next',next);
+//
+// }
 /*------------------------------ 计算 -------------------------------*/
 root.computed = {}
 
