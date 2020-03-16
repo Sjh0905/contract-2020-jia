@@ -352,7 +352,9 @@ root.Send.friend_5 = '轻松获得交易手续费返佣福利'
 // 公告中心
 root.noticeCenter = {}
 root.noticeCenter.title = '公告中心'
-root.noticeCenter.search = '搜索'
+root.noticeCenter.helpCenter = '帮助中心'
+root.noticeCenter.noviceGuide = '新手指南'
+root.noticeCenter.commonProblem = '常见问题'
 root.noticeCenter.commit = '提交工单'
 root.noticeCenter.problem = '1.关于二零二零上限问题和其他问题的问题问题'
 root.noticeCenter.more = '更多>>'

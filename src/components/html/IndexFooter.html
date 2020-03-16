@@ -45,7 +45,8 @@
   <!--      </div>-->
     </div>
 
-    <div class="footer12">
+    <div class="footer12" >
+      <!--关于我们-->
       <div class="footer1211">
         <div class="footer11font">
           <ul>
@@ -56,18 +57,27 @@
           </ul>
         </div>
       </div>
-
+      <!--帮助-->
       <div class="footer1211">
         <div class="footer11font">
           <ul>
             <li  class="lititle"><span class="guanywm">{{$t("terms.Terms_conditionss_5")}}</span></li>
-            <li class="liinfo"><a href="https://customerservice8872.zendesk.com/hc/zh-cn/articles/360034747112-TERMS-AND-CONDITIONS">{{$t("terms.Terms_conditionss_6")}}</a></li>
-            <li class="liinfo"><a href="https://customerservice8872.zendesk.com/hc/zh-cn/articles/360035121691-PRIVACY-POLICY">{{$t("terms.Terms_conditionss_7")}}</a></li>
-            <li class="liinfo"><a href="https://customerservice8872.zendesk.com/hc/zh-cn/articles/360034747272-%E8%B4%B9%E7%8E%87%E6%A0%87%E5%87%86">{{$t("terms.Terms_conditionss_8")}}</a></li>
+            <!--常见问题-->
+            <li class="liinfo">
+              <router-link to="/index/notice?columnId=3">{{$t("terms.Terms_conditionss_6")}}</router-link>
+            </li>
+            <!--帮助中心-->
+            <li class="liinfo">
+              <router-link to="/index/notice?columnId=1">{{$t("terms.Terms_conditionss_7")}}</router-link>
+            </li>
+            <!--新手指南-->
+            <li class="liinfo">
+              <router-link to="/index/notice?columnId=2">{{$t("terms.Terms_conditionss_8")}}</router-link>
+            </li>
           </ul>
         </div>
       </div>
-
+<!--      服务-->
       <div class="footer1211">
         <div class="footer11font">
           <ul>
@@ -75,7 +85,7 @@
             <li class="liinfo"><a href="https://customerservice8872.zendesk.com/hc/zh-cn/articles/360034747112-TERMS-AND-CONDITIONS">{{$t("terms.Terms_conditionss_10")}}</a></li>
             <li class="liinfo">
 <!--              <a href="https://customerservice8872.zendesk.com/hc/zh-cn/articles/360035121691-PRIVACY-POLICY">{{$t("terms.Terms_conditionss_11")}}</a>-->
-              <router-link to="/index/notice">{{$t("terms.Terms_conditionss_11")}}</router-link>
+              <router-link to="/index/notice?columnId=0">{{$t("terms.Terms_conditionss_11")}}</router-link>
             </li>
     <!--        <li class="liinfo"><a href="https://customerservice8872.zendesk.com/hc/zh-cn/articles/360034747272-%E8%B4%B9%E7%8E%87%E6%A0%87%E5%87%86">{{$t("terms.Terms_conditionss_7")}}</a></li>-->
           </ul>
