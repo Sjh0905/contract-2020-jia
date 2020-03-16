@@ -1619,7 +1619,8 @@
 
 /*英文版的资产*/
 .navigation-item-hidden-list-asset-en {
-  width: 180px;
+  /*width: 180px;*/
+  padding: 0 5px ;
 }
 
 /*    登录注册 begin*/
