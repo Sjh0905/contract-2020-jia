@@ -337,7 +337,7 @@ root.methods.re_commit = function (data) {
           this.GACodeWA = this.$t('GACodeWA_5')
           break;
         case 4:
-          this.GACodeWA = this.$t('GACodeWA_6')
+          this.GACodeWA = this.$t('GACodeWA_4')
           break;
         default:
           this.GACodeWA = '暂不可用'

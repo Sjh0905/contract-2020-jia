@@ -1,6 +1,6 @@
 <div>
   <Loading v-if="loading"/>
-  <div v-if="!loading">
+  <div class="asset-container-box" v-if="!loading">
     <div class="asset-header-title">
 <!--      <div class="asset-header-total-asset-title">-->
 <!--        <span class="asset-header-total-asset-title-text">-->
@@ -13,7 +13,7 @@
 <!--      </div>-->
       <div class="asset-header-total-asset-box">
         <div class="asset-lan">
-          <div class="lan-title">总资产折合(BTC)</div>
+          <div class="lan-title">总资产估值(BTC)</div>
           <div class="landata">
           <span class="asset-header-BTC-asset">{{priceReady || initReady ? (isTotalAssetShow?toFixed(total,8)+' ':'******'):'---- '}} </span>
             <span class="asset-header-CHN-asset">≈ </span>
@@ -22,13 +22,13 @@
         </div>
       </div>
 
-      <div class="asset-check-box flex-around">
-        <div class="asset-check-item" :class="(assetAccountType == 'wallet') ? 'asset-check-item-select':''" @click="changeAssetAccountType('wallet')">我的钱包</div>
-        <div class="asset-check-item" :class="(assetAccountType != 'wallet') ? 'asset-check-item-select':''" @click="changeAssetAccountType('currency')">币币账户</div>
-      </div>
+      <!--<div class="asset-check-box flex-around">-->
+        <!--<div class="asset-check-item" :class="(assetAccountType == 'wallet') ? 'asset-check-item-select':''" @click="changeAssetAccountType('wallet')">我的钱包</div>-->
+        <!--<div class="asset-check-item" :class="(assetAccountType != 'wallet') ? 'asset-check-item-select':''" @click="changeAssetAccountType('currency')">币币账户</div>-->
+      <!--</div>-->
 
       <div class="asset-total-box-item">
-        <div class="lan-title-item">{{ assetAccountType == 'wallet' ? "我的钱包" : "币币账户"}}资产折合(BTC)</div>
+        <div class="lan-title-item">{{ assetAccountType == 'wallet' ? "我的钱包" : "币币账户"}}资产估值(BTC)</div>
         <div class="landata-item">
           <span class="BTC-asset-item">{{priceReady || initReady ? (isTotalAssetShow?toFixed(total,8)+' ':'******'):'---- '}} </span>
           <span class="CHN-asset-item">≈ </span>
@@ -94,7 +94,7 @@
           <div class="asky-title-val">{{isTotalAssetShow?toFixed(item.frozen,8):'******'}}</div>
         </div>
         <div class="asset-keyong-right">
-          <div class="asky-title-right">折合(CNY)</div>
+          <div class="asky-title-right">估值(CNY)</div>
 <!--          <div class="asky-title-right-val">{{item.total!== 0 ? $globalFunc.accFixedCny(item.total * $store.state.exchange_rate_dollar,2) : '-&#45;&#45;'}}</div>-->
           <div class="asky-title-right-val">{{item.total!== 0 ? $globalFunc.accMul($globalFunc.accMul(item.appraisement, $store.state.exchange_rate.btcExchangeRate || 0), $store.state.exchange_rate_dollar) : '---'}}</div>
         </div>
