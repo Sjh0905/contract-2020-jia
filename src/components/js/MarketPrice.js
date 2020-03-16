@@ -107,7 +107,8 @@ root.computed.marketList = function () {
   // })
   // ans.push(...storeMarketList)
   // TODO:暂时先写死，后期修改专区再改吧
-  return [this.$t('Favorites'),'USDT','ENX',this.$t('Innovation')]
+  // return [this.$t('Favorites'),'USDT','ENX',this.$t('Innovation')]
+  return [this.$t('Favorites'),'USDT',this.$t('Innovation')]
 }
 
 // 所有币对精度信息
