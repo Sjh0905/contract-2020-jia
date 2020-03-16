@@ -309,6 +309,12 @@ root.watch.redPoint = function (newValue, oldValue) {
 
 root.methods = {}
 
+root.methods.reFresh  = function () {
+  if (this.$route.name == 'home') {
+    this.$router.go(0)
+  }
+}
+
 // //是否是会员get (query:{})
 // root.methods.getCheck= function () {
 //
