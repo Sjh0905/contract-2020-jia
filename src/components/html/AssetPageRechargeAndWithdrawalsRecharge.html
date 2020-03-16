@@ -98,18 +98,19 @@
 
     <!--充值提示 begin-->
     <ul class="describe flex">
-      <li class="" v-if="memo"><span class="usdt_notice_dot"></span>
-        <!--注：充值{{currency}}到二零二零同时需要一个充值地址和{{currency}} memo， 如果未遵守{{currency}}充值规则，币会丢失。-->
-        {{$t('rechargeDescribe',{currency:currency})}}
-      </li>
+<!--      <li class="" v-if="memo"><span class="usdt_notice_dot"></span>-->
+<!--        &lt;!&ndash;注：充值{{currency}}到二零二零同时需要一个充值地址和{{currency}} memo， 如果未遵守{{currency}}充值规则，币会丢失。&ndash;&gt;-->
+<!--        {{$t('rechargeDescribe',{currency:currency})}}-->
+<!--      </li>-->
       <li class="" v-show="(currency == 'USDT' || currency == 'USDT2') && (selectTab === 1)"><span class="usdt_notice_dot"></span>{{$t('usdt_notice')}}
       </li>
-      <li class="" v-show="(selectTab === 2 && currency!='EOS')" ><span class="usdt_notice_dot"></span>{{$t('eusdt_notice',{currency:currency})}}
+      <li class="" v-show="(currency == 'USDT' || currency == 'USDT2') && selectTab === 2" ><span class="usdt_notice_dot"></span>{{$t('eusdt_notice',{currency:currency})}}
       </li>
       <li><span></span>{{$t('prohibitionRecharge',{currency:currency})}}</li>
       <li><span></span>{{$t('canNotRetrieved')}}</li>
       <li><span></span>{{$t('getAccount',{currency:currency})}}</li>
       <li><span></span>{{$t('trackingProgress')}}</li>
+      <li><span></span>{{$t('trackingProgress1')}}</li>
     </ul>
     <!--充值提示 end-->
 
