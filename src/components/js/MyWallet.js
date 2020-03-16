@@ -17,6 +17,7 @@ root.data = function () {
 
     loading: true,
     popWindowOpen: false, //弹窗开关
+    popWindowOpen2: false, //弹窗开关
 
     activeIndex: -1, //激活
     recharge: false,
@@ -147,6 +148,7 @@ root.created = function () {
     this.getCurrency()
     return
   }
+  console.log(this.currency)
   // 获取账户信息
   this.getAccounts()
 
@@ -236,7 +238,6 @@ root.computed.accountsComputed = function () {
     // console.log(JSON.stringify(val.id))
     this.transferCurrencyObj[val.currency] = val;
   })
-
   return this.accounts
 }
 // 基础货币
@@ -593,7 +594,7 @@ root.methods.re_transferDisabled = function (data) {
   if (this.isTransfer == true) {
     this.popupPromptText = this.$t('withdrawalsIsNotOpen')
     this.popWindowClose = false
-    this.popWindowOpen = false
+    this.popWindowOpen2 = false
     this.popupPromptOpen = true
 
     this.popupPromptType = 0
@@ -607,6 +608,7 @@ root.methods.error_transferDisabled = function (error) {
 
 // 内部转账弹窗
 root.methods.buyCommitToastClose = function () {
+  this.popWindowOpen2 = false
   this.buyCommitToastOpen = false
 }
 // 确认转账细节
@@ -791,7 +793,7 @@ root.methods.internalTransfer = function (index, item) {
     this.popWindowPrompt = this.$t('popWindowPromptWithdrawals1')
     this.popWindowPrompt1 = this.$t('popWindowPromptWithdrawals2')
     this.popWindowStyle = '5'
-    this.popWindowOpen = true
+    this.popWindowOpen2 = true
   // }
 
   this.recharge = false
@@ -845,9 +847,9 @@ root.methods.goToConfirmsjhclose = function () {
 root.methods.getGoToConfirmTransfer = function () {
   //sss 要删除 S
   // this.name = data.dataMap.UserProfile.name
-  this.popWindowOpen = false
-  this.buyCommitToastOpen = false
-  this.buyTransferDetails = true
+  // this.popWindowOpen = false
+  // this.buyCommitToastOpen = false
+  // this.buyTransferDetails = true
   //sss 要删除 E
   // this.buyTransferDetails = true
   // this.buyCommitToastOpen = false
@@ -922,52 +924,59 @@ root.methods.re_getGoToConfirmTransfer = function(data){
   // console.log(this.name_0,this.testUID_0)
   // console.log('resDataMap==================ggggggggg=',data)
   if (data.errorCode) {
-    if (data.errorCode === 1) {
+    if (data.errorCode == 1) {
       this.popupPromptOpen = true
       this.buyTransferDetails = false
       this.popupPromptText = this.$t('emailVerificationCodeWA_1') // 用户未登录
       this.popupPromptType = 0
+      return
     }
-    if (data.errorCode === 2) {
+    if (data.errorCode == 2) {
       this.popupPromptOpen = true
-      this.buyTransferDetails = false
+      // this.buyTransferDetails = false
       this.popupPromptText = this.$t('step2VerificationCodeWA_10')  //收款人不存在
       this.popupPromptType = 0
+      return
     }
-    if (data.errorCode === 3) {
+    if (data.errorCode == 3) {
       this.popupPromptOpen = true
       this.buyTransferDetails = false
       this.popupPromptText =this.$t('step2VerificationCodeWA_UID') // 传入用户邮箱和传入UID不是同一人
       this.popupPromptType = 0
+      return
     }
-    if (data.errorCode === 4) {
+    if (data.errorCode == 4) {
       this.popupPromptOpen = true
       this.buyTransferDetails = false
       this.popupPromptText = this.$t('step2VerificationCodeWA_Authentication')  //转账用户未进行实名认证'
       this.popupPromptType = 0
+      return
     }
-    if (data.errorCode === 5) {
+    if (data.errorCode == 5) {
       this.popupPromptOpen = true
       this.buyTransferDetails = false
       this.popupPromptText = this.$t('step2VerificationCodeWA_receiving')  //收款用户未进行实名认证'
       this.popupPromptType = 0
+      return
     }
-    if (data.errorCode === 6) {
+    if (data.errorCode == 6) {
       this.popupPromptOpen = true
       this.buyTransferDetails = false
       this.popupPromptText = this.$t('step2VerificationCodeWA_incoming')  // 没有传入用户邮箱或UID
       this.popupPromptType = 0
+      return
     }
-    if (data.errorCode === 7) {
+    if (data.errorCode == 7) {
       this.popupPromptOpen = true
       this.buyTransferDetails = false
       this.popupPromptText = '收款用户不能转账用户相同'
       this.popupPromptType = 0
+      return
     }
     return
   }
 
-  this.popWindowOpen = false
+  this.popWindowOpen2 = false
   this.buyCommitToastOpen = false
   this.buyTransferDetails = true
 
@@ -1245,7 +1254,6 @@ root.methods.error_getMobileVerification = function (err) {
 }
 
 
-
 // 格式化时间
 root.methods.formatDateUitl = function (time) {
   return this.$globalFunc.formatDateUitl(time, 'YYYY-MM-DD hh:mm:ss')
@@ -1432,6 +1440,11 @@ root.methods.error_getAccount = function (err) {
 // 弹窗关闭
 root.methods.popWindowClose = function () {
   this.popWindowOpen = false
+}
+
+// 内部转账弹窗关闭
+root.methods.popWindowClose2 = function () {
+  this.popWindowOpen2 = false
 }
 
 // 弹框跳安全中心

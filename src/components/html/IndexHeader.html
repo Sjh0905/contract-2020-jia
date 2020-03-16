@@ -437,47 +437,47 @@
 <!--                      </div>-->
 <!--                    </li>-->
 
-                    <li class="navigation-item-hidden-list-item">
-                      <div
-                        @click="getGroupLevel1"
-                        class="navigation-item-hidden-list-item-router"
-                        active-class="item_selected">
-                        <!--KK交易挖矿活动-->
-                        {{$t('OfficialQuantitativeRegistration')}}
-                      </div>
-                    </li>
-
-                    <!-- sss 量化详情-->
-                    <li class="navigation-item-hidden-list-item">
-                      <div
-                        @click="getGroupLevel1"
-                        class="navigation-item-hidden-list-item-router"
-                        active-class="item_selected">
-                        {{$t('miningDetails')}}
-                      </div>
-                    </li>
-
-                    <!-- sss 屏蔽  -->
-                    <!-- sss 量化报名-->
 <!--                    <li class="navigation-item-hidden-list-item">-->
-<!--                      <router-link-->
-<!--                        :to="{name:'officialQuantitativeRegistration'}"-->
+<!--                      <div-->
+<!--                        @click="getGroupLevel"-->
 <!--                        class="navigation-item-hidden-list-item-router"-->
 <!--                        active-class="item_selected">-->
-<!--                     &lt;!&ndash;KK交易挖矿活动&ndash;&gt;-->
+<!--                        &lt;!&ndash;KK交易挖矿活动&ndash;&gt;-->
 <!--                        {{$t('OfficialQuantitativeRegistration')}}-->
-<!--                      </router-link>-->
+<!--                      </div>-->
 <!--                    </li>-->
 
 <!--                    &lt;!&ndash; sss 量化详情&ndash;&gt;-->
 <!--                    <li class="navigation-item-hidden-list-item">-->
-<!--                      <router-link-->
-<!--                        :to="{name:'officialQuantitativeDetails'}"-->
+<!--                      <div-->
+<!--                        @click="getGroupLevel"-->
 <!--                        class="navigation-item-hidden-list-item-router"-->
 <!--                        active-class="item_selected">-->
 <!--                        {{$t('miningDetails')}}-->
-<!--                      </router-link>-->
+<!--                      </div>-->
 <!--                    </li>-->
+
+                    <!-- sss 屏蔽  -->
+                    <!-- sss 量化报名-->
+                    <li class="navigation-item-hidden-list-item">
+                      <router-link
+                        :to="{name:'officialQuantitativeRegistration'}"
+                        class="navigation-item-hidden-list-item-router"
+                        active-class="item_selected">
+                     <!--KK交易挖矿活动-->
+                        {{$t('OfficialQuantitativeRegistration')}}
+                      </router-link>
+                    </li>
+
+                    <!-- sss 量化详情-->
+                    <li class="navigation-item-hidden-list-item">
+                      <router-link
+                        :to="{name:'officialQuantitativeDetails'}"
+                        class="navigation-item-hidden-list-item-router"
+                        active-class="item_selected">
+                        {{$t('miningDetails')}}
+                      </router-link>
+                    </li>
                     <!-- sss 屏蔽结束  -->
 
 
@@ -592,15 +592,18 @@
                       :class="{'navigation-item-hidden-list-asset-en':lang!=='CH',
                     'navigation-item-hidden-list-black':isBlack}"
                   >
-                    <li class="navigation-item-hidden-list-item">
-                      <router-link
-                        :to="{name:'overviewOfAssets'}"
-                        class="navigation-item-hidden-list-item-router"
-                        active-class="item_selected">
-<!--                        资产概览-->
-                       {{$t('overviewOfAssets')}}
-                      </router-link>
-                    </li>
+<!--                    资产概览 暂时屏蔽 begin-->
+<!--                    <li class="navigation-item-hidden-list-item">-->
+<!--                      <router-link-->
+<!--                        :to="{name:'overviewOfAssets'}"-->
+<!--                        class="navigation-item-hidden-list-item-router"-->
+<!--                        active-class="item_selected">-->
+<!--&lt;!&ndash;                        资产概览&ndash;&gt;-->
+<!--                       {{$t('overviewOfAssets')}}-->
+<!--                      </router-link>-->
+<!--                    </li>-->
+
+<!--                    资产概览 暂时屏蔽 end-->
 
                     <li class="navigation-item-hidden-list-item">
                       <router-link
@@ -612,14 +615,17 @@
                       </router-link>
                     </li>
 
-                    <li class="navigation-item-hidden-list-item">
-                      <router-link
-                        :to="{name:'rechargeAndWithdrawals'}"
-                        class="navigation-item-hidden-list-item-router"
-                        active-class="item_selected">
-                        {{$t('recharge')}}
-                      </router-link>
-                    </li>
+<!--                    币币账户 暂时屏蔽 bebgin-->
+<!--                    <li class="navigation-item-hidden-list-item">-->
+<!--                      <router-link-->
+<!--                        :to="{name:'rechargeAndWithdrawals'}"-->
+<!--                        class="navigation-item-hidden-list-item-router"-->
+<!--                        active-class="item_selected">-->
+<!--                        {{$t('recharge')}}-->
+<!--                      </router-link>-->
+<!--                    </li>-->
+<!--                    币币账户 暂时屏蔽 end-->
+
 
 <!--                    财务记录-->
                     <li class="navigation-item-hidden-list-item">
@@ -730,7 +736,10 @@
                   >
                     <!--<div class="icon-login"></div>-->
                     <!-- <span class="login-header-name flex-center">{{$t('personalCenter')}}</span> -->
-                    <img src="../../assets/geren.png" alt="" class="login-header-name flex-center personal-icon">
+                   <!-- 非会员-->
+                    <img src="../../assets/geren.png" alt="" class="login-header-name flex-center personal-icon" v-if="!flag">
+                    <!-- 是会员-->
+                    <img src="../../assets/head_icon.png" alt="" class="login-header-name flex-center personal-icons" v-if="flag">
                   </router-link>
 
 
@@ -741,7 +750,7 @@
                     :class="{'navigation-item-hidden-list-black':isBlack}"
                   >
                     <li class="navigation-item-hidden-list-item-personal-center singss">
-                      <IndexHeaderAssets v-if="isLogin" :black="isBlack"/>
+                      <IndexHeaderAssets v-if="isLogin" :black="isBlack" :flag="flag"/>
                     </li>
                   </ul>
                   <!--隐藏的标签 end-->
@@ -808,10 +817,8 @@
                     @mouseleave="appdownleave()"
                     @click="changeLanguageLS">
 
-                <span
-                  class="navigation-item-router flex"
-                  active-class="navigation-item-router-selected text_blue"
-                >
+                <span class="navigation-item-router flex"
+                  active-class="navigation-item-router-selected text_blue">
 <!--                <img src="" alt="" class="phone-icon">-->
                   {{$t('platform_4')}}
                 </span>

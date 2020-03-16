@@ -98,7 +98,9 @@ root.data = function () {
     publicKeyWA: '',// publicKey错误提示
 
     knowMemoRule: false,// 已阅读memo提示
-    memoPopWindowOpen: this.haveMemo === 'yes', // memo提示弹窗
+    // TODO 去掉提现弹框
+    // memoPopWindowOpen: this.haveMemo === 'yes', // memo提示弹窗
+    memoPopWindowOpen: this.haveMemo === 'no', // memo提示弹窗
 
     currency2:'USDT',
     currency1:'USDT2',

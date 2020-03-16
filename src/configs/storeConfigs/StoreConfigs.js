@@ -138,6 +138,8 @@ store.state.authMessage = {
   version: '',
   zipcode: ''
 }
+//会员卡是否为VIP
+store.state.flag = false
 
 /**
  * 货币种类
@@ -208,6 +210,7 @@ store.state.serverTimeCallBack = null
  * 手机端右侧弹窗开关
  */
 store.state.mobilePopOpen = false
+
 
 // 手机端顶部注册是否显示 true为显示
 store.state.mobileLoginShow = true
@@ -778,6 +781,12 @@ store.mutations.LOGIN_OUT = (state, info) => {
   }
   state.isLogin = false
 }
+
+
+store.mutations.IS_VIP = (state, info) => {
+  state.flag = info
+}
+
 
 store.mutations.SET_SYMBOL = (state, info) => {
   state.symbol = info

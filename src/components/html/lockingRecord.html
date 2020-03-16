@@ -1,0 +1,171 @@
+<div class="recharge-record-container">
+  <Loading v-if="loading" class="min-height-all recharge-record-loading-container"/>
+
+
+  <div class="border_box border_radius" >
+    <!--充值记录title begin  暂时屏蔽-->
+<!--    <div class="detail-header flex">-->
+<!--      &lt;!&ndash;流水单号&ndash;&gt;-->
+<!--      <div class="flow-code">{{$t('billNumber')}}</div>-->
+
+<!--      &lt;!&ndash;收款人 or 付款人&ndash;&gt;-->
+<!--      <div class="name">{{ Judgment ? $t('Payer') : $t('payeeAccount') }}</div>-->
+
+<!--      &lt;!&ndash;账号&ndash;&gt;-->
+<!--      <div class="Payee">{{$t('accountNumber')}}</div>-->
+<!--      &lt;!&ndash;      {{ $t('payeeAccount')}}&ndash;&gt;-->
+
+<!--      &lt;!&ndash;UID&ndash;&gt;-->
+<!--      <div class="uid">UID</div>-->
+
+<!--      &lt;!&ndash;币种&ndash;&gt;-->
+<!--      <span class="currency">{{$t('currency')}}</span>-->
+
+<!--      &lt;!&ndash;数量&ndash;&gt;-->
+<!--      <span class="total">{{$t('amount')}}</span>-->
+
+<!--      &lt;!&ndash;类型&ndash;&gt;-->
+<!--      <div class="type">{{$t('type')}}</div>-->
+
+<!--      &lt;!&ndash;时间&ndash;&gt;-->
+<!--      <span class="time">{{$t('time')}}</span>-->
+
+<!--      &lt;!&ndash;状态&ndash;&gt;-->
+<!--      <span class="state">{{$t('state')}}</span>-->
+
+
+<!--      &lt;!&ndash;      &lt;!&ndash;地址&ndash;&gt;&ndash;&gt;-->
+<!--      &lt;!&ndash;      <span class="address">{{$t('address')}}</span>&ndash;&gt;-->
+
+<!--      &lt;!&ndash;备注&ndash;&gt;-->
+<!--      &lt;!&ndash;<span class="th-prompt">{{$t('remarks')}}</span>&ndash;&gt;-->
+<!--    </div>-->
+    <!--充值记录title end-->
+
+    <template v-if="!loading">
+
+      <!--充值记录具体 begin-->
+      <ul class="detail-container" >
+        <!--各条记录 begin-->
+        <li class="detail-li" v-for="(item,index) in computedTransferLists" :key="item.id">
+
+          <div class="li-container flex">
+            <!--流水单号-->
+            <div class="flow-code">{{item.transferId}}</div>
+
+            <!--收款人 or 付款人-->
+            <div class="name">{{item.fromUserId ? item.fromName : item.toName }}</div>
+
+            <!--收款人账号 or 付款人账号-->
+            <div class="Payee">{{item.fromUserId ? item.fromEmail : item.toEmail}}</div>
+
+            <!--收款人UID or 付款人UID-->
+            <div class="uid">{{item.fromUserId ? item.fromUserId : item.toUserId}}</div>
+
+            <!--币种 begin-->
+            <span class="currency">{{item.currency == 'USDT2' ? 'USDT' :item.currency}}</span>
+            <!--币种 end-->
+
+            <!--数量 begin-->
+            <span class="total">{{toFixed(item.amount,8)}}</span>
+            <!--数量 end-->
+
+            <!--类型-->
+            <div class="type">{{item.fromUserId ? $t('shiftTo'):$t('turnOut')}}</div>
+
+            <!--时间 begin-->
+            <span class="time">{{$globalFunc.formatDateUitl(item.updatedAt,'YYYY-MM-DD hh:mm:ss')}}</span>
+            <!--时间 end-->
+
+            <!--状态 begin-->
+            <span class="state">
+              <span class="state_text">{{item.status == 'amet' ?$t('success'):$t('faild')}}</span>
+              <!--              item.status===0?'成功':'失败'-->
+            </span>
+            <!--状态 end-->
+
+            <!--            &lt;!&ndash;地址 begin&ndash;&gt;-->
+            <!--            <div class="address address-detail flex">-->
+            <!--              <div class="address-detail-item flex">-->
+            <!--                <span class="address-title">{{$t('rechargeAddress')}}:</span>-->
+            <!--                <span>{{item.toAddress}}</span>-->
+            <!--              </div>-->
+            <!--              <div class="address-detail-item flex" v-if="item.memoAddress">-->
+            <!--                <span class="address-title">memo:</span>-->
+            <!--                <span class="memo-input">{{item.memoAddress}}</span>-->
+            <!--              </div>-->
+            <!--              <div class="relative address-detail-item flex">-->
+            <!--                <span class="address-title">TXID:</span>-->
+            <!--                &lt;!&ndash;<span class="uniqueId-text txt-green pointer" :ref="item.id">{{item.uniqueId}}</span>&ndash;&gt;-->
+            <!--                <input type="text" readonly :value="item.uniqueId" class="uniqueId-input unit-input pointer text_blue"-->
+            <!--                       :ref="item.id" @click="clickCheck(item)">-->
+            <!--                <span class="copy-btn text_blue pointer"-->
+            <!--                      @click="clickCopy(item.id)">{{$t('copy')}}</span>-->
+            <!--              </div>-->
+            <!--            </div>-->
+            <!--            &lt;!&ndash;地址 end&ndash;&gt;-->
+
+            <!--备注 begin-->
+            <!--<span class="th-prompt">-&#45;&#45;</span>-->
+            <!--备注 end-->
+          </div>
+        </li>
+        <!--各条记录 begin-->
+
+
+        <!--如果没有记录 begin-->
+        <!--        -->
+        <li class="detail-li-no-data"  v-if="computedTransferLists.length===0">
+          <div class="no-data-content">
+            <img src="../../assets/assetPageRecord/no-order-light.png" alt="">
+            <div class="no-record">{{$t('noRecord')}}</div>
+          </div>
+
+
+
+          <!--          <div class="li-container flex">-->
+          <!--            <span class="currency">-&#45;&#45;</span>-->
+          <!--            <span class="time">-&#45;&#45;</span>-->
+          <!--            <span class="total">-&#45;&#45;</span>-->
+          <!--            <span class="address address-detail flex">-->
+          <!--            &lt;!&ndash;<span>&ndash;&gt;-->
+          <!--              &lt;!&ndash;<span class="address-title">{{$t('rechargeAddress')}}:</span>&ndash;&gt;-->
+          <!--              &lt;!&ndash;<span>-&#45;&#45;</span>&ndash;&gt;-->
+          <!--              &lt;!&ndash;&lt;!&ndash;<input type="text" readonly :value="item.toAddress" class="toAddress-input unit-input">&ndash;&gt;&ndash;&gt;-->
+          <!--              &lt;!&ndash;</span>&ndash;&gt;-->
+          <!--              &lt;!&ndash;<div class="relative">&ndash;&gt;-->
+          <!--              &lt;!&ndash;<span>&ndash;&gt;-->
+          <!--              &lt;!&ndash;&lt;!&ndash;<span class="address-title">TXID:</span>&ndash;&gt;&ndash;&gt;-->
+          <!--              &lt;!&ndash;&lt;!&ndash;<span class="uniqueId-text txt-green pointer">-&#45;&#45;</span>&ndash;&gt;&ndash;&gt;-->
+          <!--              &lt;!&ndash;&lt;!&ndash; -&#45;&#45;&ndash;&gt;&ndash;&gt;-->
+          <!--              &lt;!&ndash;</span>&ndash;&gt;-->
+          <!--              &lt;!&ndash;</div>&ndash;&gt;-->
+          <!--            -&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;-->
+          <!--          </span>-->
+          <!--            <span class="state">-&#45;&#45;</span>-->
+          <!--            &lt;!&ndash;            <span class="th-prompt">-&#45;&#45;</span>&ndash;&gt;-->
+          <!--          </div>-->
+        </li>
+        <!--如果没有记录 end-->
+
+
+      </ul>
+      <!--充值记录具体 end-->
+
+<!--      &lt;!&ndash;加载更多 begin&ndash;&gt;暂时 屏蔽-->
+<!--      <div class="loading-more" v-if="loadingMoreShow">-->
+<!--        <span v-if="!loadingMoreShowing" @click="loadingMore">{{$t('loadingMore')}}</span>-->
+<!--        <span v-if="loadingMoreShowing"><Loading/></span>-->
+<!--      </div>-->
+      <!--加载更多 end-->
+
+
+    </template>
+  </div>
+  <!--<Loading v-if="loading"/>-->
+
+  <PopupPrompt :popOpen="popOpen" :popClose="popClose" :popType="popType" :popText="popText"/>
+
+
+</div>
+

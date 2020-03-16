@@ -1619,7 +1619,7 @@ root.routes.push({
             templatePath: '/index/assetPageT',
             requireLoginOff: false,
           },
-          redirect: 'overviewofassets',
+          redirect: 'myWallet',
           caseSensitive: true,
         },
 
@@ -1797,6 +1797,23 @@ root.routes.push({
               },
               caseSensitive: true,
               component: resolve => require(['@/components/vue/TransferList'], resolve),
+            },
+            // 锁仓记录
+            {
+              path: 'lockingRecord',
+              name: 'lockingRecord',
+              meta: {
+                pcname: 'lockingRecord',
+                h5name: 'MobileLockingRecord',
+                requireLogin: true,
+                templateClose: false,
+                templatePath: '/index/asset/lockingRecord',
+                // templatePath: '/index/assetPageT',
+
+                requireLoginOff: false,
+              },
+              caseSensitive: true,
+              component: resolve => require(['@/components/vue/lockingRecord'], resolve),
             },
             // 平台奖励
             {
@@ -2359,6 +2376,21 @@ root.routes.push({
               },
               component: resolve => require(['@/components/vue/PersonalCenterSecurityCenterManageApi'], resolve)
             },
+            // sss 会员卡
+            {
+              path: 'membershipCard',
+              name: 'membershipCard',
+              caseSensitive: true,
+              meta: {
+                pcname: 'membershipCard',
+                requireLogin: true,
+                templateClose: false,
+                requireLoginOff: false,
+                // h5name: 'mobileTradingHall',
+              },
+              component: resolve => require(['@/components/vue/MembershipCard'], resolve),
+            },
+
           ]
         },
         // 安全日志
@@ -2635,6 +2667,7 @@ root.routes.push({
       },
       component: resolve => require(['@/components/vue/DetailsOfTheGroup'], resolve),
     },
+
 
 
     // TODO：弹框组件临时显示（记得删除）

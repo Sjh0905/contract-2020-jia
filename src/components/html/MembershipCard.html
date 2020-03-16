@@ -1,0 +1,216 @@
+<div class="membershipCard">
+
+  <div class="hukxq"></div>
+
+  <div class="member">
+
+
+    <!--已购买-->
+    <div class="member_hy flex" v-if="flag">
+        <div class="member-left">
+          <div class="member_gr">
+            <img src="../../assets/personal-VIP.png" alt="">
+          </div>
+          <span>{{userName}}</span>
+        </div>
+        <div class="member_right">
+          <div class="VIP-icon">
+            <img src="../../assets/VIP_center.png" alt="">
+<!--            尊享会员-->
+            <span>{{$t('membership')}}</span>
+          </div>
+<!--          到期-->
+          <div class="VIP_time">{{expires}}{{$t('expiration')}}</div>
+        </div>
+    </div>
+
+
+    <!--未购买-->
+    <div class="member_hy2 flex" v-if="!flag">
+      <div class="member-left">
+        <div class="member_gr" >
+          <img src="../../assets/exc_icon.png" alt="">
+        </div>
+        <span>{{userName}}</span>
+      </div>
+<!--      普通会员-->
+      <div class="member_right">
+        <div class="VIP-icon1">
+          <span>{{$t('member')}}</span>
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class="member_xq">
+<!--      查看会员规则-->
+      <div class="viewRules pointer">{{$t('rules')}}</div>
+<!--      尊享VIP权益-->
+      <div class="enjoy">{{$t('rights')}}</div>
+
+      <div class="housekeeping">
+<!--        交易费折扣-->
+        <div class="bonus">
+          <img src="../../assets/Transaction.png" alt="">
+          {{$t('discount')}}
+        </div>
+<!--        管家式客服-->
+        <div class="bonus">
+          <img src="../../assets/Housekeeping.png" alt="">
+          {{$t('service')}}
+        </div>
+<!--        年卡享分红-->
+        <div class="bonus">
+          <img src="../../assets/bonus.png" alt="">
+          {{$t('bonus')}}
+        </div>
+      </div>
+    </div>
+
+    <div class="year_month flex">
+      <div class="month pointer" @click="postWithd1(1)" :class="{'selected_cardType':cardType == 1}">
+<!--        月-->
+        <p class="month_p1">100 USDT/{{$t('month')}}</p>
+<!--        月卡-->
+        <p class="month_p0">{{$t('monthly')}}</p>
+      </div>
+      <div class="month pointer" @click="postWithd1(2)" :class="{'selected_cardType':cardType == 2}">
+<!--        约8.33折-->
+        <span class="month_span">{{$t('discountAbout')}}</span>
+<!--       年 -->
+        <p class="month_p">1000 USDT/{{$t('year')}}</p>
+<!--        年卡-->
+        <p class="month_p0">{{$t('yearCard')}}</p>
+      </div>
+    </div>
+<!--购买-->
+    <div class="year_month_div pointer" @click="postBuyCard1">{{$t('buy')}}</div>
+
+
+    <!--   活动报名记录   -->
+    <div class="application_record">
+<!--购买记录-->
+      <div class="application_title">{{$t('record')}}</div>
+
+      <ul >
+        <!--表头 S-->
+        <li class="application_header">
+<!--          账号-->
+          <div class="application_header_div width1">{{$t('account')}}</div>
+<!--          类型-->
+          <div class="application_header_div width2">{{$t('Type_m_y')}}</div>
+<!--          有效期-->
+          <div class="application_header_div width3">{{$t('validity')}}</div>
+<!--          购买时间-->
+          <div class="application_header_div width4 tlc">{{$t('buyTime')}}</div>
+        </li>
+        <!--表头 E-->
+
+        <!-- 如果加载完成、已登录、有数据，则显示数据 begin -->
+        <template>
+          <!--            <template v-if="computedRecord.length !== 0">-->
+          <template v-if="computedRecord.length !== 0">
+            <ul class="application_title_ul">
+            <li class="flex application_header1" v-for="(item,index) in computedRecord" :key="item.id">
+            <!--账号-->
+              <div class="application_header_div width1 mor-left color_a2">{{item.account}}</div>
+            <!--类型-->
+<!--              月卡-->
+              <div class="application_header_div width2 color_a2" v-if="item.cardType=='1'">{{$t('monthly')}}</div>
+<!--             年卡 -->
+              <div class="application_header_div width2 color_a2" v-if="item.cardType=='2'">{{$t('yearCard')}}</div>
+            <!--有效期-->
+              <div class="application_header_div width3 color_a2">{{item.expires}}</div>
+            <!--购买时间-->
+              <div class="application_header_div_right width4 tlc mor-right color_a2">{{item.createdAt}}</div>
+            </li>
+            </ul>
+          </template>
+        <!-- 如果加载完成、已登录、有数据，则显示数据 end -->
+
+        <!-- 如果没加载完成、没登录、没数据，则显示'--' begin -->
+          <template v-else>
+            <li class="weit">
+              <div class="nhtu"><img src="../../assets/noOrders.png"></div>
+              <span class="nhtu_span">{{$t('orderPageCurrentEntrustment.close_9')}}</span>
+            </li>
+          </template>
+        </template>
+      </ul>
+    </div>
+  </div>
+
+
+  <!--   提示 弹窗-->
+  <PopupWindow :switch="popWindowOpen" @close="popWindowClose">
+    <div slot="header">
+      <span class="header_xuzhi">{{$t('rompt')}}</span>
+    </div>
+    <div slot="article" class="pop-recharge">
+      <!--      确认是否购买月卡-->
+      <p class="consequences" v-if="cardType=='1'">{{$t('purchase')}} </p>
+      <p class="consequences" v-if="cardType=='2'">{{$t('whethe')}} </p>
+      <!--      确认是否购买月卡-->
+<!--      <p class="consequences" v-if="idType=='3'">{{$t('确认是否购买年卡')}} <span class="consequencesSpan">{{gname}}</span></p>-->
+    </div>
+    <div slot="footer" class="pop-recharge-bottom">
+      <button @click="popWindowClose" class="button-base33 btn_simple pointer">
+        {{$t('cancel')}}
+      </button>
+      <button  @click="postBuyCard(1)" v-if="!getVerificationCode" class="button-base33 btn_blue pointer m-l">
+        {{$t('confirm')}}
+      </button>
+      <button  @click="postBuyCard(1)" v-if="getVerificationCode" class="button-base33 btn_blue pointer m-l">
+        {{$t('progress')}}
+      </button>
+
+<!--      <button v-if="idType=='3'" @click="postBuyCard(3)"  class="button-base33 btn_blue pointer m-l">-->
+<!--        {{$t('verification')}}-->
+<!--      </button>-->
+    </div>
+
+  </PopupWindow>
+
+  <!--   提示 弹窗-->
+  <PopupWindow :switch="popWindowOpenShiM" @close="popWindowCloseShiM">
+    <div slot="header">
+      <span class="header_xuzhi">{{popWindowTitle}}</span>
+    </div>
+    <div slot="article" class="pop-recharge">{{popWindowPrompt}}
+    </div>
+    <div slot="footer" class="pop-recharge-bottom flex-center">
+      <template v-if="popWindowStyle==0">
+        <button @click="popWindowCloseShiM" class="button-base33 btn_simple pointer">
+          {{$t('cancel')}}
+        </button>
+        <button @click="goToBindIdentity" class="button-base33 btn_blue pointer m-l">
+          {{$t('verification')}}
+        </button>
+      </template>
+      <template v-if="popWindowStyle==1">
+        <button @click="popWindowCloseShiM" class="button-base33 btn_simple pointer">
+          {{$t('cancel')}}
+        </button>
+        <button @click="goToSecurityCenter" class="button-base33 btn_blue pointer m-l">
+          {{$t('beBinding')}}
+        </button>
+      </template>
+      <template v-if="popWindowStyle==3">
+        <button @click="popWindowCloseShiM" class="button-base33 btn_simple pointer">
+          {{$t('cancel')}}
+        </button>
+        <button @click="goToSecurityCenter" class="button-base33 btn_blue pointer m-l">
+          {{$t('beBinding')}}
+        </button>
+      </template>
+
+    </div>
+
+  </PopupWindow>
+
+
+
+  <PopupPrompt :popOpen="popOpen" :popClose="popClose" :popType="popType" :popText="popText"/>
+
+</div>

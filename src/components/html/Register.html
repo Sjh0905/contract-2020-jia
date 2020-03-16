@@ -256,7 +256,7 @@
           <!--<img class="unit-input-container-title-img" v-if="isMobile" src="../../assets/h5form/mobile_user.png" alt="">-->
           <!--<img v-if="!isMobile" src="" alt="">-->
         <!--</span>-->
-        <input type="text" :placeholder='refereePlaceholderShow && "邀请码（选填）" || ""' v-model="referee" class="unit-input"
+        <input type="text" :placeholder='refereePlaceholderShow && $t("register.referee") || ""' v-model="referee" class="unit-input"
                @focus="closePlaceholder('referee')" @blur="testReferee">
       </div>
 
@@ -304,11 +304,11 @@
 
      <div class="flex-colum unit-input-container-pc">
        <div class="placeholder-title-box">
-         <div v-show="1" class="placeholder-title">所在地</div>
+         <div v-show="1" class="placeholder-title">{{$t("register.location")}}</div>
        </div>
         <!-- 下拉搜索框-->
         <el-select class="inputInner" :placeholder="label" style="font-size:14px;" v-model="searchResult" popper-class="self-el-select">
-          <input type="text" class="inputsize" placeholder="请输入国家区号" v-model="searchCities">
+          <input type="text" class="inputsize" :placeholder='$t("register.countryCode")' v-model="searchCities">
           <el-option
             @click="clickItem(item.areaCode)"
             class="widthInput"

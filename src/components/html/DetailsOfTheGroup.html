@@ -44,30 +44,42 @@
               <div class="percentage">( {{currCount}}/{{maxMember}} )</div>
             </div>
 <!--            普通区折扣-->
-            <div class="information_div color_hui">{{$t('ordinaryDiscount')}}</div>
+            <div class=" color_hui">
+              <div>{{$t('ordinaryDiscount')}}</div>
+              <div class="color_bik_9">{{toFixed(accMul(commonDiscount,100),1) }}%</div>
+            </div>
 <!--            量化区折扣-->
-            <div class="information_div color_hui">{{$t('quantifiedDiscount')}}</div>
+            <div class=" color_hui_s">
+              <div>{{$t('quantifiedDiscount')}}</div>
+              <div class="color_bik_9">{{toFixed(accMul(quantDiscount,100),1) }}%</div>
+            </div>
           </li>
 <!--          团长，副团长 建团时间-->
           <li class="information_li m-to">
 <!--            团长账号:-->
-            <div class="information_div color_f5">
-              {{$t('colonelNumber')}}:
-              <span>{{priAccount}}</span>
+            <div class="information_div_s color_f5">
+              {{$t('colonelNumber')}}{{priAccount}}
+              <span></span>
             </div>
 <!--            副团长账号:-->
-            <div class="information_div color_f5">
-              {{$t('colonelNumberFu')}}
-              <span>{{deputyAccount}}</span>
+            <div class="information_div_s color_f4">
+              {{$t('colonelNumberFu')}}{{deputyAccount}}
+              <span></span>
             </div>
 <!--            建团时间: -->
-            <div class="information_div color_f5">
-              {{$t('timeFormation')}}:
-              <span>{{createdAt}}</span>
+
+            <div class="information_div_s color_f4">
+              {{$t('timeFormation')}}{{createdAt}}
+<!--              <span></span>-->
             </div>
 <!--            普通区折扣-->
-            <div class="information_div color_bik_9">{{toFixed(accMul(commonDiscount,100),1) }}%</div>
-            <div class="information_div color_bik_9">{{toFixed(accMul(quantDiscount,100),1) }}%</div>
+<!--            <div class="information_div color_bik_9">-->
+<!--              <div>-->
+<!--              {{toFixed(accMul(commonDiscount,100),1) }}%-->
+<!--              </div>-->
+<!--              <div></div>-->
+<!--            </div>-->
+<!--            <div class="information_div color_bik_9"></div>-->
           </li>
         </ul>
       </div>
@@ -75,11 +87,11 @@
     <!--  账号，入团时间-->
     <div class="of_number">
       <!--  账号：-->
-      <span class="of_number_span">{{$t('accountNumber')}}:</span>
-      <span>{{userName}}</span>
+      <span class="of_number_span">{{$t('accountNumber')}}：{{userName}}</span>
+<!--      <span></span>-->
      <!--  入团时间：-->
-      <span class="of_number_span_time">{{$t('entryTime')}}:</span>
-      <span> {{joinTime}}</span>
+      <span class="of_number_span_time">{{$t('entryTime')}} {{joinTime}}</span>
+<!--      <span> </span>-->
 
            <!--解散拼团-->
       <div class="tuituan pointer" v-if="idType=='1'" @click="postWithd1(1)">{{$t('dissolve')}}</div>
@@ -96,22 +108,22 @@
           <!-- 普通区累计（USDT）-->
               <div class="information_div div_border div_s">
                 <p class="color_e2">{{$t('ordinaryAccumulation')}}(USDT）</p>
-                <p class="color_e9">2567</p>
+                <p class="color_e9">0</p>
               </div>
 <!--              普通区返佣-->
               <div class="information_div div_border div_s">
                 <p class="color_e2">{{$t('ordinaryRebates')}}(USDT）</p>
-                <p class="color_e9">2567</p>
+                <p class="color_e9">0</p>
               </div>
 <!--              量化区累计-->
               <div class="information_div div_border div_s">
                 <p class="color_e2">{{$t('quantizationAccumulation')}}(USDT）</p>
-                <p class="color_e9">2567</p>
+                <p class="color_e9">0</p>
               </div>
 <!--              量化区返佣-->
               <div class="information_div border-ling div_border">
                 <p class="color_e2">{{$t('quantificationRebates')}}(USDT）</p>
-                <p class="color_e9">2567</p>
+                <p class="color_e9">0</p>
               </div>
 
             </div>

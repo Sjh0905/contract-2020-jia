@@ -137,7 +137,6 @@ root.methods.error_getTeamDetails = function (err) {
 
 root.methods.postWithd1 = function (idType) {
   this.popWindowOpen = true
-
 }
 //退团解散团队post(params:{}) 没完成
 root.methods.postWithdraw = function (idType) {
@@ -165,11 +164,6 @@ root.methods.re_postWithdraw = function (data) {
 
   this.success = data.data.success
   console.log("re_postJoinGroup + data=====",data)
-  if (this.success == true) {
-    // this.$router.push({name: 'detailsOfTheGroup',query:{groupId:this.groupId , gname: this.gname}} )
-    // this.$router.push({name: 'detailsOfTheGroup', params: {groupId:this.groupId}})
-      this.$router.push({name: 'assembleARegiment'})
-  }
 
   if (data.errorCode) {
     if (
@@ -185,6 +179,39 @@ root.methods.re_postWithdraw = function (data) {
       }, 100)
     }
   }
+
+  if (this.success == true && this.idType == 1) {
+    this.popOpen = true
+    this.popType = 1
+    this.popText = this.$t('coalition') //'解散拼团成功'
+    setTimeout(() => {
+      this.popOpen = true
+    }, 1000)
+    setTimeout(() => {
+      this.$router.push({name: 'assembleARegiment'})
+    }, 1000)
+    // this.$router.push({name: 'detailsOfTheGroup',query:{groupId:this.groupId , gname: this.gname}} )
+    // this.$router.push({name: 'detailsOfTheGroup', params: {groupId:this.groupId}})
+    // this.$router.push({name: 'assembleARegiment'})
+    return;
+  }
+
+  if (this.success == true && this.idType == 3) {
+    this.popOpen = true
+    this.popType = 1
+    this.popText = this.$t('success') //'退出拼团成功'
+    setTimeout(() => {
+      this.popOpen = true
+    }, 1000)
+    setTimeout(() => {
+      this.$router.push({name: 'assembleARegiment'})
+    }, 1000)
+    // this.$router.push({name: 'detailsOfTheGroup',query:{groupId:this.groupId , gname: this.gname}} )
+    // this.$router.push({name: 'detailsOfTheGroup', params: {groupId:this.groupId}})
+    // this.$router.push({name: 'assembleARegiment'})
+    return;
+  }
+
   // this.loading = false
 }
 root.methods.error_postWithdraw = function (err) {

@@ -26,6 +26,14 @@
   padding-top:25px;
   float: left;
 }
+.personal-icon1 {
+  display: inline-block;
+  padding-top:20px;
+  float: left;
+}
+.personal-img {
+  width: 40px;
+}
 
 .personal-content {
   float: left;
@@ -105,33 +113,33 @@
 .rejected {
   margin-left: 10px;
   color: #EF5656;
-  text-decoration: underline;
+  /*text-decoration: underline;*/
 }
 .rejected:hover {
   opacity:0.6;
-  /*text-decoration: underline;*/
+  text-decoration: underline;
 }
 
 .review {
   margin-left: 10px;
   color: #FF9F40;
-  text-decoration: underline;
+  /*text-decoration: underline;*/
 }
 
 .review:hover {
   opacity:0.6;
-  /*text-decoration: underline;*/
+  text-decoration: underline;
 }
 
 .pass {
   margin-left: 10px;
   color: #08D0AC;
-  text-decoration: underline;
+  /*text-decoration: underline;*/
 }
 
 .pass:hover {
   opacity:0.6;
-  /*text-decoration: underline;*/
+  text-decoration: underline;
 }
 
 .identity-button button {
@@ -716,4 +724,93 @@
   font-size:12px;
   font-family:PingFangSC-Regular,PingFang SC;
   font-weight:400;
+}
+
+/*会员卡*/
+.membershipCard {
+  width: 100%;
+  height: 80px;
+  background-image: url("../../assets/wgm.png");
+  background-size: 100% 100%;
+  /*background:linear-gradient(270deg,rgba(72,64,59,1) 0%,rgba(41,36,36,1) 100%);*/
+  border-radius:1px;
+  margin-top: 15px;
+  margin-bottom: 16px;
+
+
+}
+/*.wgm {*/
+/*  width: 100%;*/
+/*  height: 80px;*/
+/*}*/
+.wgm_div {
+  display: inline-block;
+  padding-top: 20px;
+  margin-left: 25px;
+}
+.wgm_hy {
+  display: block;
+  font-size:14px;
+  font-family:PingFangSC-Medium,PingFang SC;
+  font-weight:500;
+  color:rgba(238,200,165,1);
+}
+.wgm_hy2 {
+  display: block;
+  font-size:12px;
+  font-family:PingFangSC-Medium,PingFang SC;
+  font-weight:500;
+  color:rgba(211,200,196,1);
+}
+.wgm_lj {
+  float: right;
+  display: inline-block;
+  height:30px;
+  line-height: 30px;
+  background:linear-gradient(90deg,rgba(211,177,138,1) 0%,rgba(185,140,99,1) 100%);
+  border-radius:1px;
+  font-size:14px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color:#ffffff;
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-right: 25px;
+  margin-top: 25px;
+}
+
+.membershipCard_ygm {
+  width: 100%;
+  height: 50px;
+  background-image: url("../../assets/ygm.png");
+  background-size: 100% 100%;
+  /*background:linear-gradient(270deg,rgba(72,64,59,1) 0%,rgba(41,36,36,1) 100%);*/
+  border-radius:1px;
+  margin-top: 15px;
+  margin-bottom: 16px;
+}
+.ygm_div {
+  display: inline-block;
+  line-height: 50px;
+}
+.ygm_hy {
+  padding-left: 25px;
+  font-size:14px;
+  font-family:PingFangSC-Medium,PingFang SC;
+  font-weight:500;
+  color: #EEC8A5;
+}
+.ygm_hy2 {
+  font-size:12px;
+  font-family:PingFangSC-Medium,PingFang SC;
+  font-weight:500;
+  color:#D3C8C4;
+  padding-left: 20px;
+}
+
+.wgm_lj1 {
+  float: right;
+  display: inline-block;
+  line-height: 50px;
+  padding-right: 25px;
 }

@@ -72,6 +72,7 @@
 }
 
 .not-certified {
+  display: inline-block;
   width:44px;
   height:16px;
   margin-top: 7px;
@@ -84,6 +85,7 @@
 }
 
 .certified {
+  display: inline-block;
   width:44px;
   height:16px;
   margin-top: 7px;
@@ -95,6 +97,10 @@
   border-radius:8px;
 }
 
+.VIP_img {
+  width: 15px;
+  vertical-align: text-bottom;
+}
 .certified-img {
   /*float: right;*/
   display: inline-block;

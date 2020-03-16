@@ -84,6 +84,7 @@ root.data = function () {
     popType: 0,
     // popOpen: false,
     popText: '系统繁忙',
+    // flag: false,
   }
 }
 
@@ -105,6 +106,7 @@ root.created = function () {
 
   this.$store.commit('SET_SERVER_TIME_CALL_BACK',this.refreshGRCPriceRange);
 
+  // this.getCheck()
 
 }
 
@@ -132,6 +134,13 @@ root.computed = {}
 root.computed.userId = function () {
   return this.$store.state.authMessage.userId
 }
+
+// 是否是会员
+root.computed.flag = function () {
+  console.log('flag======',this.$store.state.flag)
+  return this.$store.state.flag
+}
+
 
 
 root.computed.mobileLoginShow = function () {
@@ -300,24 +309,69 @@ root.watch.redPoint = function (newValue, oldValue) {
 
 root.methods = {}
 
-root.methods.getGroupLevel1 = function () {
+// //是否是会员get (query:{})
+// root.methods.getCheck= function () {
+//
+//   // var data = {
+//   //   "data": {
+//   //     "expires": "2020-04-12", //会员到期日
+//   //     "flag": false,   //是否是会员 true:是，false：否
+//   //     "success": true, //成功
+//   //     "expires_timestamp": 1586682285580 //会员失效时间戳
+//   //   },
+//   //   "errorCode": "0",
+//   //   "message": "success"
+//   // }
+//
+//   // this.re_getCheck(data)
+//   // /* TODO : 调试接口需要屏蔽 E*/
+//   this.$http.send('GET_CHECK', {
+//     bind: this,
+//     urlFragment: this.userId,
+//     // query:{
+//     //   gname: this.gname
+//     // },
+//     callBack: this.re_getCheck,
+//     errorHandler: this.error_getCheck
+//   })
+// }
+//
+// root.methods.re_getCheck = function (data) {
+//   //检测data数据是JSON字符串转换JS字符串
+//   typeof data === 'string' && (data = JSON.parse(data))
+//
+//   this.data = data.data
+//   this.expires = data.data.expires
+//   this.flag = data.data.flag
+//   console.log('是否是会员get-----',this.data)
+//
+//
+//
+// }
+//
+// root.methods.error_getCheck = function (err) {
+//   console.log("this.err=====",err)
+// }
+//
 
-  if (!this.isLogin) {
-    this.$router.push('/index/sign/login')
-    return;
-  }
-
-  if (this.isLogin) {
-    this.popText = this.$t('indexHeader.forward') //参数有误
-    this.popOpen = true
-    this.popType = 3
-    setTimeout(() => {
-     this.popOpen = true
-    }, 100)
-     return;
-  }
-
-}
+// root.methods.getGroupLevel1 = function () {
+//
+//   if (!this.isLogin) {
+//     this.$router.push('/index/sign/login')
+//     return;
+//   }
+//
+//   if (this.isLogin) {
+//     this.popText = this.$t('indexHeader.forward') //参数有误
+//     this.popOpen = true
+//     this.popType = 3
+//     setTimeout(() => {
+//      this.popOpen = true
+//     }, 100)
+//      return;
+//   }
+//
+// }
 
 // 弹窗
 root.methods.popClose = function () {

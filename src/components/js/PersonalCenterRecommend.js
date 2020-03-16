@@ -101,7 +101,7 @@ root.created = function () {
 
   // this.getMyInvites();
   // 获取奖励比率
-  this.getRegulationConfig()
+  // this.getRegulationConfig()
   // 获取数据
   this.getMyInvitesForBT()
   // 获取是否显示查看历史
@@ -116,9 +116,10 @@ root.created = function () {
 
   // this.getBTFunc()
 
+  //sss 屏蔽 3.11
   // 获取海报
-  this.GET_POSTER_URL();
-
+  // this.GET_POSTER_URL();
+  //sss 屏蔽结束 3.11
 
   // 配置分享
   // this.shareDataFlag = true
@@ -201,25 +202,29 @@ root.watch.lang = function (newValue, oldValue) {
 /*------------------------------ 方法 ------------------------------*/
 
 root.methods = {}
-// 获取海报
-root.methods.GET_POSTER_URL = function () {
-  this.$http.send('GET_USER_MY_INVITES_POSTER', {
-    bind: this,
-    params: {
-      type: "invite",
-      param: this.lang == 'CH' ? 'CH' : 'EN'     // 英文传EN
-    },
-    callBack: this.RE_GET_POSTER_URL,
-    errorHandler: this.error_getPosterImage
-  })
 
-}
-root.methods.RE_GET_POSTER_URL = function (res) {
-  let urls = res.dataMap;
-  console.log(urls)
-  if (res.errorCode > 0) return;
-  this.poster_url =  + urls.inviteUrl;
-}
+//sss 屏蔽 3.11
+// 获取海报
+// root.methods.GET_POSTER_URL = function () {
+//   this.$http.send('GET_USER_MY_INVITES_POSTER', {
+//     bind: this,
+//     params: {
+//       type: "invite",
+//       param: this.lang == 'CH' ? 'CH' : 'EN'     // 英文传EN
+//     },
+//     callBack: this.RE_GET_POSTER_URL,
+//     errorHandler: this.error_getPosterImage
+//   })
+//
+// }
+// root.methods.RE_GET_POSTER_URL = function (res) {
+//   let urls = res.dataMap;
+//   console.log(urls)
+//   if (res.errorCode > 0) return;
+//   this.poster_url =  + urls.inviteUrl;
+// }
+//sss 屏蔽结束 3.11
+
 // 展示海报
 root.methods.SHOW_POSTER = function () {
   this.showPoster = true;
@@ -319,29 +324,31 @@ root.methods.closePrompt = function () {
   this.promptOpen = false;
 }
 
+// sss 屏蔽 3.11
+// // 获取奖励比率
+// root.methods.getRegulationConfig = function () {
+//   this.$http.send('GET_BT_REGULATION_CONFIG', {
+//     bind: this,
+//     callBack: this.re_getRegulationConfig,
+//     errorHandler: this.error_getRegulationConfig,
+//   })
+// }
+//
+// root.methods.re_getRegulationConfig = function (data) {
+//   typeof data === 'string' && (data = JSON.parse(data))
+//   console.warn('获取奖励比率', data)
+//   if (data.errorCode) {
+//     return
+//   }
+//   this.activityRate = data.activity || 0
+//   this.rewardRate = data.reward || 0
+//
+// }
+// root.methods.error_getRegulationConfig = function (err) {
+//   console.warn('获取奖励比率', err)
+// }
 
-// 获取奖励比率
-root.methods.getRegulationConfig = function () {
-  this.$http.send('GET_BT_REGULATION_CONFIG', {
-    bind: this,
-    callBack: this.re_getRegulationConfig,
-    errorHandler: this.error_getRegulationConfig,
-  })
-}
-
-root.methods.re_getRegulationConfig = function (data) {
-  typeof data === 'string' && (data = JSON.parse(data))
-  console.warn('获取奖励比率', data)
-  if (data.errorCode) {
-    return
-  }
-  this.activityRate = data.activity || 0
-  this.rewardRate = data.reward || 0
-
-}
-root.methods.error_getRegulationConfig = function (err) {
-  console.warn('获取奖励比率', err)
-}
+// sss 屏蔽结束3.11
 
 // 获取列表
 root.methods.getMyInvitesForBT = function () {

@@ -18,6 +18,11 @@ root.props.black = {
   default: false
 }
 
+root.props.flag = {
+  type: [Boolean],
+  default: false
+}
+
 /*----------------------- data --------------------------*/
 
 
@@ -38,6 +43,7 @@ root.data = function () {
     initData: {},
     // 获取认证状态
     authType:0
+
 
 
   }

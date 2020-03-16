@@ -84,6 +84,7 @@ root.assetPage.withdrawalsAndRecharge = '币币账户'
 root.assetPage.financialRecords = '财务记录'
 root.assetPage.transferRecord = '划转记录'
 root.assetPage.transferRecords = '转账记录'
+root.assetPage.lockingRecord = '锁仓记录'
 
 //资产提现和充值
 root.assetPageRechargeAndWithdrawals = {}
@@ -303,7 +304,7 @@ root.transaction.Trading_platform_4_1 = '交易所里的拼多多'
 root.transaction.Trading_platform_5 = '管家式客服'
 root.transaction.Trading_platform_5_1 = '区块链里的海底捞'
 root.transaction.Trading_platform_6 = '高引擎撮合'
-root.transaction.Trading_platform_6_1 = '一秒十万的高引擎'
+root.transaction.Trading_platform_6_1 = '比肩顶级的强撮合'
 root.transaction.Trading_platform_7 = '镜像式身份'
 root.transaction.Trading_platform_7_1 = '全网兼容的通行证'
 root.transaction.Trading_platform_8 = '2020.Exchange 官方APP下载'
@@ -719,12 +720,14 @@ root.register.identifyingCode = '验证码'
 root.register.achieve = '获取验证码'
 root.register.passwordInput = '密码（8到16位数字和字母组合）'
 root.register.passwordConfirm = '确认密码'
-root.register.referee = '邀请码（选填）'
+root.register.referee = '邀请码（UID选填）'
 root.register.agree = '我已阅读并同意'
 root.register.agreement = '《用户协议》'
 root.register.register = '注册'
 root.register.haveID = '已有账号'
 root.register.login = '立即登录'
+root.register.location = '所在地'
+root.register.countryCode = '请输入国家区号'
 
 // 登录
 root.signPageLogin = {}
