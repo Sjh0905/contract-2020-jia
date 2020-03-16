@@ -338,6 +338,11 @@ root.methods.re_getCheck = function (data) {
 root.methods.error_getCheck = function (err) {
   console.log("this.err=====",err)
 }
+root.methods.reFresh  = function () {
+  if (this.$route.name == 'home') {
+    this.$router.go(0)
+  }
+}
 
 
 // root.methods.getGroupLevel1 = function () {

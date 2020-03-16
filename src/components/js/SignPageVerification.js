@@ -5,6 +5,14 @@ root.props.verificationClose = {
   type: Function,
   default: ()=>_
 }
+root.props.verificationUserEmail = {
+  type: String,
+  default:""
+}
+root.props.verificationUserMobile = {
+  type: String,
+  default:""
+}
 
 /*----------------------------- 组件 ------------------------------*/
 
@@ -51,13 +59,15 @@ root.data = function () {
     pop_tips2: '',
     toast_tips: '',
 
+    verificationEmail:this.$props.verificationUserEmail || this.$route.query.email || "",//找回密码和移动端二次登录采用path传参,PC端二次登录采用父组件传参方式
+    verificationMobile:this.$props.verificationUserMobile || this.$route.query.mobile || ""
   }
 }
 
 /*----------------------------- 生命周期 ------------------------------*/
 
 root.created = function () {
-  if (!this.$route.query.email && !this.$route.query.mobile) {
+  if (!this.verificationEmail && !this.verificationMobile) {
     // this.$router.push({name: 'login'})
     this.closePopPublic();
     return
@@ -152,8 +162,8 @@ root.methods.getLoginAuthState = function () {
   this.$http.send('VERIFYING_LOGIN_STATE', {
     bind: this,
     params: {
-      email: this.$route.query.email,
-      mobile: this.$route.query.mobile
+      email: this.verificationEmail,
+      mobile: this.verificationMobile
     },
     callBack: this.re_getLoginAuthState,
     errorHandler: this.error_getLoginAuthState,
@@ -208,7 +218,7 @@ root.methods.click_getVerificationCode = function () {
   // 发送
   let params = {
     "type": "mobile",
-    "mun": this.$route.query.email ? this.$route.query.email : this.$route.query.mobile,
+    "mun": this.verificationEmail ? this.verificationEmail : this.verificationMobile,
     "purpose": "login"
   }
 
@@ -312,7 +322,7 @@ root.methods.click_send = function (obj) {
       type: this.picked === 'bindGA' ? 'ga' : 'mobile',
       code: this.picked === 'bindGA' ? this.GACode : this.verificationCode,
       purpose: 'login',
-      examinee: this.$route.query.email ? this.$route.query.email : this.$route.query.mobile,
+      examinee: this.verificationEmail ? this.verificationEmail : this.verificationMobile,
       'source': this.isMobile ? 'H5' : 'WEB'
     },
     errorHandler: this.error_commit,

@@ -232,10 +232,11 @@
        {{$t('prompt_1',{currency:currencyName,minimumAmount:computedMinimumAmount})}}
 
       </li>
-      <li><span></span>{{$t('prompt_2')}}</li>
+<!--      <li><span></span>{{$t('prompt_2')}}</li>-->
 <!--      提示删除第三条-->
 <!--      <li><span></span>{{$t('prompt_3')}}</li>-->
       <li><span></span>{{$t('prompt_4')}}</li>
+      <li><span></span>{{$t('prompt_5')}}</li>
     </ul>
     <!--关闭-->
     <div class="close"></div>
@@ -420,28 +421,28 @@
   </template>
 
   <!--memo 弹窗提示 begin-->
-  <BasePopupWindow :open="memoPopWindowOpen" :close="memoPopWindowClose">
-    <div slot="header" class="memo-pop-header text_red">
-      {{$t('notice')}}
-    </div>
-    <div slot="article" class="memo-pop-article">
-      <div class="memo-pop-article-text text_red">
-        {{ /*isWCG && $t('memoPromptWCG_1',{currency:currency}) || */$t('memoPrompt_1',{currency:currency})}}
-      </div>
-      <div class="memo-pop-check">
-        <input type="checkbox" id="memo-pop-checkbox" v-model="knowMemoRule">
-        <label for="memo-pop-checkbox">{{$t('knowMemoRule',{currency:currency})}}</label>
-      </div>
-      <div class="memo-pop-btn-container flex">
-        <button class="btn_base memo-btn-not-agree" v-show="!knowMemoRule">
-          {{$t('continueWithdrawals')}}
-        </button>
-        <button class="btn_base btn_blue" v-show="knowMemoRule" @click="memoPopWindowGoAhead">
-          {{$t('continueWithdrawals')}}
-        </button>
-      </div>
-    </div>
-  </BasePopupWindow>
+<!--  <BasePopupWindow :open="memoPopWindowOpen" :close="memoPopWindowClose">-->
+<!--    <div slot="header" class="memo-pop-header text_red">-->
+<!--      {{$t('notice')}}-->
+<!--    </div>-->
+<!--    <div slot="article" class="memo-pop-article">-->
+<!--      <div class="memo-pop-article-text text_red">-->
+<!--        {{ /*isWCG && $t('memoPromptWCG_1',{currency:currency}) || */$t('memoPrompt_1',{currency:currency})}}-->
+<!--      </div>-->
+<!--      <div class="memo-pop-check">-->
+<!--        <input type="checkbox" id="memo-pop-checkbox" v-model="knowMemoRule">-->
+<!--        <label for="memo-pop-checkbox">{{$t('knowMemoRule',{currency:currency})}}</label>-->
+<!--      </div>-->
+<!--      <div class="memo-pop-btn-container flex">-->
+<!--        <button class="btn_base memo-btn-not-agree" v-show="!knowMemoRule">-->
+<!--          {{$t('continueWithdrawals')}}-->
+<!--        </button>-->
+<!--        <button class="btn_base btn_blue" v-show="knowMemoRule" @click="memoPopWindowGoAhead">-->
+<!--          {{$t('continueWithdrawals')}}-->
+<!--        </button>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </BasePopupWindow>-->
   <!--memo 弹窗提示 end-->
 
 </div>

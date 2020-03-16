@@ -1,9 +1,23 @@
 <div class="AnnouncementCenter">
   <div class="container border_radius" v-if="$route.name == 'notice'">
-    <div class="title-i flex">
+
+    <div class="title-i flex" v-if="$route.query.columnId == 0">
       <!-- <span></span> -->
       <span>{{$t('noticeCenter.title')}}</span>
     </div>
+
+    <div class="title-i flex" v-if="$route.query.columnId == 1">
+      <span>{{$t('noticeCenter.helpCenter')}}</span>
+    </div>
+
+    <div class="title-i flex" v-if="$route.query.columnId == 2">
+      <span>{{$t('noticeCenter.noviceGuide')}}</span>
+    </div>
+
+    <div class="title-i flex" v-if="$route.query.columnId == 3">
+      <span>{{$t('noticeCenter.commonProblem')}}</span>
+    </div>
+
     <div class="article_noticeCenter">
       <Loading v-if="loading"></Loading>
       <!--列表-->

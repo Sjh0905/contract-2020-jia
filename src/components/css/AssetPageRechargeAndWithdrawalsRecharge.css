@@ -175,6 +175,7 @@
   -webkit-flex-direction: column;
   justify-content: space-between;
   -webkit-justify-content: space-between;
+  margin-top: 35px;
   /*height:110px;*/
 }
 
@@ -251,9 +252,13 @@
 }
 
 .memo-pop-check {
+  line-height: 18px;
   font-size: 12px;
   color: #666;
   margin: 10px 0;
+}
+#memo-pop-checkbox {
+  vertical-align: text-top;
 }
 
 .memo-pop-article-text {

@@ -83,6 +83,7 @@ root.methods.getNoticeList = function () {
       offset: this.offset,
       maxResults: this.maxResults,
       languageId: this.languageId,
+      columnId:this.$route.query.columnId
     },
     callBack: this.re_getNoticeList,
     errorHandler: this.error_getNoticeList
