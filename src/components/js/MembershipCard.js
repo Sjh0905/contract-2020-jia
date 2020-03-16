@@ -10,8 +10,8 @@ root.data = function () {
   return {
 
     records: [],
-    expires:'',
-    flag:false,
+    // expires:'',
+    // flag:false,
     postWithdCard:false,
     popWindowOpen: false, //弹窗开关
     popWindowOpenShiM: false, //弹窗开关
@@ -38,9 +38,11 @@ root.data = function () {
 }
 /*------------------------------ 生命周期 -------------------------------*/
 root.created = function () {
-  this.getCheck()
   this.getBuyRecords()
+  // this.getCheck()
   // this.getBuyRecords()
+  // this.$store.commit('IS_VIP', this.flag);
+
 }
 root.mounted = function () {}
 root.beforeDestroy = function () {}
@@ -49,6 +51,15 @@ root.watch = {}
 
 /*------------------------------ 计算 -------------------------------*/
 root.computed = {}
+
+// 会员到期日
+root.computed.expires = function () {
+  return this.$store.state.isVIP.expires
+}
+// 是否是会员
+root.computed.flag = function () {
+  return this.$store.state.isVIP.flag
+}
 // 用户名
 root.computed.userName = function () {
   if (this.userType === 0) {
@@ -118,31 +129,31 @@ root.methods.goToBindEmail = function () {
 
 
 
-//是否是会员get (query:{})
-root.methods.getCheck= function () {
-
-  this.$http.send('GET_CHECK', {
-    bind: this,
-    urlFragment: this.userId,
-    callBack: this.re_getCheck,
-    errorHandler: this.error_getCheck
-  })
-}
-
-root.methods.re_getCheck = function (data) {
-  console.log('是否是会员get-----',123)
-  //检测data数据是JSON字符串转换JS字符串
-  typeof data === 'string' && (data = JSON.parse(data))
-  console.log('是否是会员get-----',123)
-  this.expires = data.data.expires
-  this.flag = data.data.flag
-  // this.$store.commit('IS_VIP', this.flag);
-  console.log('是否是会员get-----',data.data)
-
-}
-root.methods.error_getCheck = function (err) {
-  console.log("this.err=====",err)
-}
+// //是否是会员get (query:{})
+// root.methods.getCheck= function () {
+//
+//   this.$http.send('GET_CHECK', {
+//     bind: this,
+//     urlFragment: this.userId,
+//     callBack: this.re_getCheck,
+//     errorHandler: this.error_getCheck
+//   })
+// }
+//
+// root.methods.re_getCheck = function (data) {
+//   console.log('是否是会员get-----',123)
+//   //检测data数据是JSON字符串转换JS字符串
+//   typeof data === 'string' && (data = JSON.parse(data))
+//   console.log('是否是会员get-----',123)
+//   this.expires = data.data.expires
+//   this.flag = data.data.flag
+//   // this.$store.commit('IS_VIP', this.flag);
+//   console.log('是否是会员get-----',data.data)
+//
+// }
+// root.methods.error_getCheck = function (err) {
+//   console.log("this.err=====",err)
+// }
 
 
 //会员购买记录get (query:{})
@@ -218,32 +229,32 @@ root.methods.postWithd1 = function (cardType) {
 }
 
 root.methods.postBuyCard1 = function () {
-  // 如果没有实名认证不允许购买会员卡
-  if (!this.bindIdentify) {
-    this.popWindowTitle = this.$t('popWindowTitleWithdrawals')
-    this.popWindowPrompt = this.$t('popWindowPromptWithdrawals')
-    this.popWindowStyle = '0'
-    this.popWindowOpenShiM = true
-    return
-  }
-
-  // 如果没有绑定邮箱，不允许购买会员卡
-  if (!this.bindEmail) {
-    this.popWindowTitle = this.$t('bind_email_pop_title')
-    this.popWindowPrompt = this.$t('bind_email_pop_article')
-    this.popWindowStyle = '3'
-    this.popWindowOpenShiM = true
-    return
-  }
-
-  // 如果没有绑定谷歌或手机，不允许购买会员卡
-  if (!this.bindGA && !this.bindMobile) {
-    this.popWindowTitle = this.$t('popWindowTitleWithdrawals')
-    this.popWindowPrompt = this.$t('popWindowTitleBindGaWithdrawals')
-    this.popWindowStyle = '1'
-    this.popWindowOpenShiM = true
-    return
-  }
+  // // 如果没有实名认证不允许购买会员卡
+  // if (!this.bindIdentify) {
+  //   this.popWindowTitle = this.$t('popWindowTitleWithdrawals')
+  //   this.popWindowPrompt = this.$t('popWindowPromptWithdrawals')
+  //   this.popWindowStyle = '0'
+  //   this.popWindowOpenShiM = true
+  //   return
+  // }
+  //
+  // // 如果没有绑定邮箱，不允许购买会员卡
+  // if (!this.bindEmail) {
+  //   this.popWindowTitle = this.$t('bind_email_pop_title')
+  //   this.popWindowPrompt = this.$t('bind_email_pop_article')
+  //   this.popWindowStyle = '3'
+  //   this.popWindowOpenShiM = true
+  //   return
+  // }
+  //
+  // // 如果没有绑定谷歌或手机，不允许购买会员卡
+  // if (!this.bindGA && !this.bindMobile) {
+  //   this.popWindowTitle = this.$t('popWindowTitleWithdrawals')
+  //   this.popWindowPrompt = this.$t('popWindowTitleBindGaWithdrawals')
+  //   this.popWindowStyle = '1'
+  //   this.popWindowOpenShiM = true
+  //   return
+  // }
   this.popWindowOpen = true
 }
 //会员卡购买post(params:{})
@@ -296,8 +307,8 @@ root.methods.re_postBuyCard = function (data) {
     setTimeout(() => {
       this.popOpen = true
     }, 100)
-
-    this.getCheck()
+    // this.getCheck()
+    this.$eventBus.notify({key: 'CHECK_IS_VIP'})
     this.getBuyRecords()
     return;
   }
