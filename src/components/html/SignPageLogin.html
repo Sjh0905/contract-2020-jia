@@ -364,7 +364,12 @@
   <!--弹窗 end-->
 
   <!--登录二次验证弹窗-->
-  <SignPageVerification v-if="(!isMobile && verificationOpen)" :verificationClose="closeVerification"/>
+  <SignPageVerification
+    v-if="(!isMobile && verificationOpen)"
+    :verificationClose="closeVerification"
+    :verificationUserEmail="verificationEmail"
+    :verificationUserMobile="verificationMobile"
+  />
 
   <Loading v-if="loading"/>
 
