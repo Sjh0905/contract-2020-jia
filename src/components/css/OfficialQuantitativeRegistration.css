@@ -68,6 +68,12 @@
   width: 49%;
   display: inline-block;
   margin-top: 30px;
+  margin-bottom: 5px;
+}
+.number_amountTT {
+  width: 49%;
+  display: inline-block;
+  /*margin-top: 30px;*/
   margin-bottom: 20px;
 }
 .number_amount_p {
@@ -291,3 +297,31 @@
   font-size: 12px;
 }
 /*placeholder 样式     end*/
+
+.header_xuzhi {
+  padding-left: 25px;
+}
+.pop-recharge {
+  padding: 35px 25px;
+  font-size:16px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color: #0D0E23;
+  /*padding-bottom: 25px;*/
+}
+.pop-recharge-bottom {
+  margin-bottom: 15px;
+}
+.button-base33 {
+  width: 191px;
+  height: 35px;
+  /* background-color: #3576F5; */
+  color: #fff;
+  border-radius: 1px;
+  border: 0 solid transparent;
+  /*margin-right: 2px;*/
+  outline: none;
+}
+.m-l {
+  margin-left: 24px;
+}

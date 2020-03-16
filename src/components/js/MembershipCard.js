@@ -14,6 +14,7 @@ root.data = function () {
     flag:false,
     postWithdCard:false,
     popWindowOpen: false, //弹窗开关
+    popWindowOpenShiM: false, //弹窗开关
     cardType: 1,
 
     popType: 0,
@@ -27,7 +28,12 @@ root.data = function () {
     getVerificationCodeCountdown: 60,
     verificationCodeWA: '',
     getVerificationCodeInterval: null,
-    success:false
+    success:false,
+
+    // popWindowOpen: false, //弹窗开关
+    popWindowTitle: '', //弹出提示标题
+    popWindowPrompt: '',//弹出样式提示
+    popWindowStyle: 0,//跳转 0表示实名认证，1表示手机或谷歌，2只有确定
   }
 }
 /*------------------------------ 生命周期 -------------------------------*/
@@ -64,6 +70,23 @@ root.computed.userId = function () {
   return this.$store.state.authMessage.userId
 }
 
+// 是否绑定手机
+root.computed.bindMobile = function () {
+  return this.$store.state.authState.sms
+}
+// 是否绑定谷歌验证码
+root.computed.bindGA = function () {
+  return this.$store.state.authState.ga
+}
+// 是否绑定邮箱
+root.computed.bindEmail = function () {
+  return this.$store.state.authState.email
+}
+// 是否实名认证
+root.computed.bindIdentify = function () {
+  return this.$store.state.authState.identity
+}
+
 
 root.computed.computedRecord = function (item,index) {
   return this.records
@@ -71,6 +94,29 @@ root.computed.computedRecord = function (item,index) {
 
 /*------------------------------ 方法 -------------------------------*/
 root.methods = {}
+
+// 弹出绑定身份，跳转到实名认证界面
+root.methods.goToBindIdentity = function () {
+  this.popWindowOpenShiM = false
+  this.$router.push({name: 'authenticate'})
+}
+// 去绑定谷歌验证
+root.methods.goToBindGA = function () {
+  this.popWindowOpenShiM = false
+  this.$router.push({name: 'bindGoogleAuthenticator'})
+}
+// 去绑定手机号
+root.methods.goToBindMobile = function () {
+  this.popWindowOpenShiM = false
+  this.$router.push({name: 'bindMobile'})
+}
+// 去绑定邮箱
+root.methods.goToBindEmail = function () {
+  this.popWindowOpenShiM = false
+  this.$router.push({name: 'bindEmail'})
+}
+
+
 
 //是否是会员get (query:{})
 root.methods.getCheck= function () {
@@ -172,6 +218,32 @@ root.methods.postWithd1 = function (cardType) {
 }
 
 root.methods.postBuyCard1 = function () {
+  // 如果没有实名认证不允许购买会员卡
+  if (!this.bindIdentify) {
+    this.popWindowTitle = this.$t('popWindowTitleWithdrawals')
+    this.popWindowPrompt = this.$t('popWindowPromptWithdrawals')
+    this.popWindowStyle = '0'
+    this.popWindowOpenShiM = true
+    return
+  }
+
+  // 如果没有绑定邮箱，不允许购买会员卡
+  if (!this.bindEmail) {
+    this.popWindowTitle = this.$t('bind_email_pop_title')
+    this.popWindowPrompt = this.$t('bind_email_pop_article')
+    this.popWindowStyle = '3'
+    this.popWindowOpenShiM = true
+    return
+  }
+
+  // 如果没有绑定谷歌或手机，不允许购买会员卡
+  if (!this.bindGA && !this.bindMobile) {
+    this.popWindowTitle = this.$t('popWindowTitleWithdrawals')
+    this.popWindowPrompt = this.$t('popWindowTitleBindGaWithdrawals')
+    this.popWindowStyle = '1'
+    this.popWindowOpenShiM = true
+    return
+  }
   this.popWindowOpen = true
 }
 //会员卡购买post(params:{})
@@ -273,6 +345,11 @@ root.methods.error_postBuyCard = function (err) {
 // 弹窗关闭
 root.methods.popWindowClose = function () {
   this.popWindowOpen = false
+}
+
+// 弹窗关闭
+root.methods.popWindowCloseShiM = function () {
+  this.popWindowOpenShiM = false
 }
 
 // 弹窗

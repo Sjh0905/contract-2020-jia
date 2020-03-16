@@ -6,6 +6,8 @@ root.name = 'officialQuantitativeRegistration'
 root.components = {
   'Loading': resolve => require(['../vue/Loading'], resolve),
   'PopupPrompt': resolve => require(['../vue/PopupPrompt'], resolve),
+  'PopupWindow': resolve => require(['../vue/PopupWindow'], resolve),
+
 
 }
 
@@ -15,6 +17,7 @@ root.data = () => {
     matchDataList:[],
     matchDataObj:{},
     matchDataKey:{},
+    matchDataFamt:{},
     matchingAmount: '',
     records: [],
     balance:'0',
@@ -31,6 +34,11 @@ root.data = () => {
     getVerificationCodeCountdown: 60,
     verificationCodeWA: '',
     getVerificationCodeInterval: null,
+
+    popWindowOpenShiM: false, //弹窗开关
+    popWindowTitle: '', //弹出提示标题
+    popWindowPrompt: '',//弹出样式提示
+    popWindowStyle: 0,//跳转 0表示实名认证，1表示手机或谷歌，2只有确定
   }
 }
 
@@ -66,6 +74,22 @@ root.computed.userId = function () {
   return this.$store.state.authMessage.userId
 }
 
+// 是否绑定手机
+root.computed.bindMobile = function () {
+  return this.$store.state.authState.sms
+}
+// 是否绑定谷歌验证码
+root.computed.bindGA = function () {
+  return this.$store.state.authState.ga
+}
+// 是否绑定邮箱
+root.computed.bindEmail = function () {
+  return this.$store.state.authState.email
+}
+// 是否实名认证
+root.computed.bindIdentify = function () {
+  return this.$store.state.authState.identity
+}
 // // uid
 // root.computed.uuid = function () {
 //   if(this.$store.state.authMessage.uuid == undefined){
@@ -76,6 +100,27 @@ root.computed.userId = function () {
 
 
 root.methods = {}
+
+// 弹出绑定身份，跳转到实名认证界面
+root.methods.goToBindIdentity = function () {
+  this.popWindowOpenShiM = false
+  this.$router.push({name: 'authenticate'})
+}
+// 去绑定谷歌验证
+root.methods.goToBindGA = function () {
+  this.popWindowOpenShiM = false
+  this.$router.push({name: 'bindGoogleAuthenticator'})
+}
+// 去绑定手机号
+root.methods.goToBindMobile = function () {
+  this.popWindowOpenShiM = false
+  this.$router.push({name: 'bindMobile'})
+}
+// 去绑定邮箱
+root.methods.goToBindEmail = function () {
+  this.popWindowOpenShiM = false
+  this.$router.push({name: 'bindEmail'})
+}
 
 //查询配套数据get
 root.methods.getSupporting = function (item) {
@@ -123,6 +168,7 @@ root.methods.re_getSupporting = function (data) {
   this.matchDataList.map((v,key) =>{
 
     this.matchDataObj[v.fdesc] = v.fut_amt
+    this.matchDataFamt[v.fdesc] = v.next_famt
     this.matchDataKey[v.fdesc] = v.fcode
 
     console.log('v,key======',this.matchDataObj[v.fdesc])
@@ -183,6 +229,13 @@ root.methods.re_getBalance = function (data) {
       this.type = v.type
       this.currency = v.currency
     }
+    if (v.currency == 'TT') {
+      console.log('查询用户余额get  index',index)
+      console.log('查询用户余额get  index',v.balance)
+      this.balance = v.balance
+      this.type = v.type
+      this.currency = v.currency
+    }
   })
 }
 root.methods.error_getBalance = function (data) {
@@ -224,6 +277,33 @@ root.methods.postActivities = function () {
   console.log(' this.matchingAmount', this.matchingAmount)
   // this.matchDataList
 
+  // 如果没有实名认证不允许报名
+  if (!this.bindIdentify) {
+    this.popWindowTitle = this.$t('popWindowTitleWithdrawals')
+    this.popWindowPrompt = this.$t('popWindowPromptWithdrawals')
+    this.popWindowStyle = '0'
+    this.popWindowOpenShiM = true
+    return
+  }
+
+  // 如果没有绑定邮箱，不允许报名
+  if (!this.bindEmail) {
+    this.popWindowTitle = this.$t('bind_email_pop_title')
+    this.popWindowPrompt = this.$t('bind_email_pop_article')
+    this.popWindowStyle = '3'
+    this.popWindowOpenShiM = true
+    return
+  }
+
+  // 如果没有绑定谷歌或手机，不允许报名
+  if (!this.bindGA && !this.bindMobile) {
+    this.popWindowTitle = this.$t('popWindowTitleWithdrawals')
+    this.popWindowPrompt = this.$t('popWindowTitleBindGaWithdrawals')
+    this.popWindowStyle = '1'
+    this.popWindowOpenShiM = true
+    return
+  }
+
   let canSend = true
   // 判断用户名
   // 判断用户名
@@ -257,14 +337,14 @@ root.methods.postActivities = function () {
     email: '',
     mobile: this.userName,
     fcode: this.matchDataKey[this.matchingAmount],
-    amount: this.matchDataObj[this.matchingAmount]//所需数额
+    // amount: this.matchDataObj[this.matchingAmount]//所需数额
   } : {
     userId: this.userId,
     fcurr: this.currency,
     email: this.userName,
     mobile: '',
     fcode: this.matchDataKey[this.matchingAmount],
-    amount: this.matchDataObj[this.matchingAmount]//所需数额
+    // amount: this.matchDataObj[this.matchingAmount]//所需数额
   }
   console.log("postActivities + params ===== ",params)
   /* TODO : 调试接口需要屏蔽 S*/
@@ -305,7 +385,7 @@ root.methods.re_postActivities = function (data) {
     if (data.errorCode == "1") {
       this.popOpen = true
       this.popType = 0
-      this.popText = this.$t('quantifying')
+      this.popText = this.$t('quantifying') //量化币种有误
       setTimeout(() => {
         this.popOpen = true
       }, 100)
@@ -313,7 +393,15 @@ root.methods.re_postActivities = function (data) {
     if (data.errorCode == "2") {
       this.popOpen = true
       this.popType = 0
-      this.popText = this.$t('Insufficient')
+      this.popText = this.$t('Insufficient') //可用币种TT或YY余额不足
+      setTimeout(() => {
+        this.popOpen = true
+      }, 100)
+    }
+    if (data.errorCode == "4") {
+      this.popOpen = true
+      this.popType = 0
+      this.popText = this.$t('system_err') //参数配套编码fcode有误
       setTimeout(() => {
         this.popOpen = true
       }, 100)
@@ -321,7 +409,7 @@ root.methods.re_postActivities = function (data) {
     if (data.errorCode == "400") {
       this.popOpen = true
       this.popType = 0
-      this.popText = this.$t('parameter_error')
+      this.popText = this.$t('parameter_error') //参数有误
       setTimeout(() => {
         this.popOpen = true
       }, 100)
@@ -329,7 +417,7 @@ root.methods.re_postActivities = function (data) {
     if (data.errorCode == "500") {
       this.popOpen = true
       this.popType = 0
-      this.popText = this.$t('system_anomaly')
+      this.popText = this.$t('system_anomaly') //系统异常
       setTimeout(() => {
         this.popOpen = true
       }, 100)
@@ -343,7 +431,7 @@ root.methods.re_postActivities = function (data) {
     this.getRegistrationRecord()
     this.popOpen = true
     this.popType = 1
-    this.popText = '报名成功'
+    this.popText = this.$t('registration') //报名成功
     setTimeout(() => {
       this.popOpen = true
     }, 100)
@@ -361,7 +449,7 @@ root.methods.error_postActivities = function (err) {
 }
 
 
-// 拼团名称输入
+//
 root.methods.testMatchingAmount = function () {
   if (this.matchingAmount === '') {
     this.matchingAmountMsg_0 = ''
@@ -369,6 +457,11 @@ root.methods.testMatchingAmount = function () {
   }
   this.matchingAmountMsg_0 = ''
   return true
+}
+
+// 弹窗关闭
+root.methods.popWindowCloseShiM = function () {
+  this.popWindowOpenShiM = false
 }
 
 // 弹窗

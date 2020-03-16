@@ -27,11 +27,14 @@
 <!--        <img class="wgm" src="../../assets/wgm.png" alt="">-->
 
         <div class="wgm_div">
-        <span class="wgm_hy">2020尊享会员</span>
-        <span class="wgm_hy2">购买会员享受多项特权</span>
+<!--          2020尊享会员-->
+        <span class="wgm_hy">{{$t('membership')}}</span>
+<!--          购买会员享受多项特权-->
+        <span class="wgm_hy2">{{$t('members')}}</span>
         </div>
 
-        <div class="wgm_lj pointer" @click="jumpMembershipCard">立即购买</div>
+<!--        立即购买-->
+        <div class="wgm_lj pointer" @click="jumpMembershipCard">{{$t('purchase')}}</div>
       </div>
 
       <!--      已购买-->
@@ -39,8 +42,10 @@
         <!--        <img class="wgm" src="../../assets/wgm.png" alt="">-->
 
         <div class="ygm_div">
-          <span class="ygm_hy">我的2020会员</span>
-          <span class="ygm_hy2">{{expires}}到期</span>
+<!--          我的2020会员-->
+          <span class="ygm_hy">{{$t('mber')}}</span>
+<!--          什么时间到期-->
+          <span class="ygm_hy2">{{expires}}{{$t('expiration')}}</span>
         </div>
 
         <div class="wgm_lj1 pointer" @click="jumpMembershipCard">
