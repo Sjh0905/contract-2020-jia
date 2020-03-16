@@ -79,10 +79,10 @@
                 </div>
 <!--                普通区折扣-->
                 <div class="information_div color_bik_9"v-if="glevel=='0'">-</div>
-                <div class="information_div color_bik_9" v-if="glevel!=='0'">{{quantDiscount}}%</div>
-<!--                量化区折扣-->
+                <div class="information_div color_bik_9" v-if="glevel!=='0'">{{toFixed(accMul(commonDiscount,100),0) }}%</div>
+<!--                挖矿区折扣-->
                 <div class="information_div color_bik_9" v-if="glevel=='0'">-</div>
-                <div class="information_div color_bik_9" v-if="glevel!=='0'">{{commonDiscount}}%</div>
+                <div class="information_div color_bik_9" v-if="glevel!=='0'">{{toFixed(accMul(quantDiscount,100),0) }}%</div>
               </li>
             </ul>
           </div>
