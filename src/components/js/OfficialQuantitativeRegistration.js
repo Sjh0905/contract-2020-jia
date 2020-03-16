@@ -21,6 +21,7 @@ root.data = () => {
     matchingAmount: '',
     records: [],
     balance:'0',
+    balance1:'0',
     matchingAmountMsg_0:'',
 
     popType: 0,
@@ -232,7 +233,7 @@ root.methods.re_getBalance = function (data) {
     if (v.currency == 'TT') {
       console.log('查询用户余额get  index',index)
       console.log('查询用户余额get  index',v.balance)
-      this.balance = v.balance
+      this.balance1 = v.balance
       this.type = v.type
       this.currency = v.currency
     }
@@ -264,6 +265,7 @@ root.methods.re_getRegistrationRecord = function (data) {
 
   if (this.records.length !== 0) {
     this.balance = (this.balance - this.matchDataObj[this.matchingAmount])
+    this.balance1 = (this.balance1 - this.matchDataFamt[this.matchingAmount])
   }
 
 }
@@ -277,32 +279,32 @@ root.methods.postActivities = function () {
   console.log(' this.matchingAmount', this.matchingAmount)
   // this.matchDataList
 
-  // 如果没有实名认证不允许报名
-  if (!this.bindIdentify) {
-    this.popWindowTitle = this.$t('popWindowTitleWithdrawals')
-    this.popWindowPrompt = this.$t('popWindowPromptWithdrawals')
-    this.popWindowStyle = '0'
-    this.popWindowOpenShiM = true
-    return
-  }
-
-  // 如果没有绑定邮箱，不允许报名
-  if (!this.bindEmail) {
-    this.popWindowTitle = this.$t('bind_email_pop_title')
-    this.popWindowPrompt = this.$t('bind_email_pop_article')
-    this.popWindowStyle = '3'
-    this.popWindowOpenShiM = true
-    return
-  }
-
-  // 如果没有绑定谷歌或手机，不允许报名
-  if (!this.bindGA && !this.bindMobile) {
-    this.popWindowTitle = this.$t('popWindowTitleWithdrawals')
-    this.popWindowPrompt = this.$t('popWindowTitleBindGaWithdrawals')
-    this.popWindowStyle = '1'
-    this.popWindowOpenShiM = true
-    return
-  }
+  // // 如果没有实名认证不允许报名
+  // if (!this.bindIdentify) {
+  //   this.popWindowTitle = this.$t('popWindowTitleWithdrawals')
+  //   this.popWindowPrompt = this.$t('popWindowPromptWithdrawals')
+  //   this.popWindowStyle = '0'
+  //   this.popWindowOpenShiM = true
+  //   return
+  // }
+  //
+  // // 如果没有绑定邮箱，不允许报名
+  // if (!this.bindEmail) {
+  //   this.popWindowTitle = this.$t('bind_email_pop_title')
+  //   this.popWindowPrompt = this.$t('bind_email_pop_article')
+  //   this.popWindowStyle = '3'
+  //   this.popWindowOpenShiM = true
+  //   return
+  // }
+  //
+  // // 如果没有绑定谷歌或手机，不允许报名
+  // if (!this.bindGA && !this.bindMobile) {
+  //   this.popWindowTitle = this.$t('popWindowTitleWithdrawals')
+  //   this.popWindowPrompt = this.$t('popWindowTitleBindGaWithdrawals')
+  //   this.popWindowStyle = '1'
+  //   this.popWindowOpenShiM = true
+  //   return
+  // }
 
   let canSend = true
   // 判断用户名
