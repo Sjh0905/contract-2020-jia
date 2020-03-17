@@ -141,6 +141,11 @@ store.state.authMessage = {
 //会员卡是否为VIP
 store.state.flag = false
 
+store.state.isVIP = {
+  expires: '',
+  flag: ''
+}
+
 /**
  * 货币种类
  * @type {{}}
@@ -784,7 +789,7 @@ store.mutations.LOGIN_OUT = (state, info) => {
 
 
 store.mutations.IS_VIP = (state, info) => {
-  state.flag = info
+  state.isVIP = info
 }
 
 

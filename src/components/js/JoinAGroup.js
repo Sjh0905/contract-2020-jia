@@ -49,6 +49,19 @@ root.created = function () {
   this.getFuzzyQuery()
   console.log("this.$route.query.path========",this.$route.query.path,this.$route.fullPath)
 }
+
+root.beforeRouteEnter = function (to, from, next) {
+  console.log('beforeRouteEnter第一个参数to',to);
+  console.log('beforeRouteEnter第二个参数from',from);
+  console.log('beforeRouteEnter第三个参数next',next);
+  next(vm => {
+    if(from.name === 'detailsOfTheGroup'){
+      // vm.$router.push({name:'index/indexHomeMarket'})
+      // vm.$router.back()
+      vm.$router.go(-2)
+    }
+  });
+}
 root.mounted = function () {}
 root.beforeDestroy = function () {}
 /*------------------------------ 计算 -------------------------------*/

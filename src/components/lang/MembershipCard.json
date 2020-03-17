@@ -39,7 +39,8 @@
   "membershipC":"会员卡类型有误",
   "purchased":"用户购买会员卡余额不足",
   "failed":"购买失败 (未找到对应币种归集账户)",
-  "registration":"报名成功"
+  "registration":"报名成功",
+  "expiration":"到期"
 },
 "EN": {},
 "CA": {},
@@ -83,6 +84,7 @@
   "membershipC":"會員卡類型有誤",
   "purchased":"使用者購買會員卡餘額不足",
   "failed":"購買失敗 (未找到對應幣種歸集帳戶)",
-  "registration":"報名成功"
+  "registration":"報名成功",
+  "expiration":"到期"
 }
 }
