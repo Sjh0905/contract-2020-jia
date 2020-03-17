@@ -876,6 +876,7 @@ root.methods.GET_NOTICE = function () {
       offset: this.offset,
       maxResults: this.maxResults,
       languageId: this.languageId,
+      columnId:this.$route.query.columnId
     },
     callBack: this.RE_GET_NOTICE
   });

@@ -801,10 +801,11 @@
                     <!--                    <p id="navigation-item-hidden-list-item-i"><a href="https://customerservice8872.zendesk.com/hc/zh-cn/articles/360035121071-关于二零二零交易所">关于二零二零交易所</a></p>-->
                     <!--                  </li>-->
 
-                    <li  @click="go()"
-                         class="navigation-item-hidden-list-item-z"
-                    >
-                      <p id="navigation-item-hidden-list-item-j" >{{$t('seeMore')}}</p>
+                    <li class="navigation-item-hidden-list-item-z">
+                      <router-link to="/index/notice?columnId=0" id="navigation-item-hidden-list-item-j">
+                        {{$t('seeMore')}}
+                      </router-link>
+<!--                      <p></p>-->
                     </li>
                   </ul>
                   <!--隐藏的标签 end-->
