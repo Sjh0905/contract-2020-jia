@@ -112,7 +112,8 @@ root.mounted = function () {
 // 计算
 root.computed = {}
 root.computed.isMyWallet = function () {
-  return this.$route.params.assetAccountType == 'wallet'
+  return true//现在只开放钱包
+  // return this.$route.params.assetAccountType == 'wallet'
 }
 root.computed.staticUrl = function () {
   return this.$store.state.static_url
