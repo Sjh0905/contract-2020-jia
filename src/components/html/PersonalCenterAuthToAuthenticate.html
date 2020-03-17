@@ -166,7 +166,7 @@
 
             <div class="input-input-container sex">
               <template>
-                <el-select v-model="valuegender" name="gender" placeholder="请选择您的性别" class="input-inner-gender">
+                <el-select v-model="valuegender" name="gender" :placeholder='$t("genderMsg")' class="input-inner-gender">
                   <el-option
                     v-for="item in optionsgender"
                     :key="item.value"
@@ -268,23 +268,23 @@
               </span>
             </div>
             <!--姓氏-->
-            <div class="input-unify">
-              <div class="title-bottom">
-                <span>{{$t('surname')}}</span>
-              </div>
-              <div class="input-input-container">
-                <input type="text" class="input-input" v-model="surname_1" :key="4" @blur="testSurName_1">
-              </div>
-              <span class="input-prompt">
-<!--               <span v-if="surnameWA_1==='1'" class="prompt-span flex-center wrong-msg"><img-->
-<!--                 src=""-->
-<!--                 alt="">{{$t('noPass')}}</span>-->
-<!--              <span v-if="surnameWA_1==='2'" class="prompt-span flex-center right-msg"><img-->
-<!--                src=""-->
-<!--                alt="">{{$t('pass')}}</span>-->
-              <span v-if="surnameWA_1 ==='0'"
-                    class="prompt-span flex-center wrong-msg">{{surnameMsg_1}}</span></span>
-            </div>
+<!--            <div class="input-unify">-->
+<!--              <div class="title-bottom">-->
+<!--                <span>{{$t('surname')}}</span>-->
+<!--              </div>-->
+<!--              <div class="input-input-container">-->
+<!--                <input type="text" class="input-input" v-model="surname_1" :key="4" @blur="testSurName_1">-->
+<!--              </div>-->
+<!--              <span class="input-prompt">-->
+<!--&lt;!&ndash;               <span v-if="surnameWA_1==='1'" class="prompt-span flex-center wrong-msg"><img&ndash;&gt;-->
+<!--&lt;!&ndash;                 src=""&ndash;&gt;-->
+<!--&lt;!&ndash;                 alt="">{{$t('noPass')}}</span>&ndash;&gt;-->
+<!--&lt;!&ndash;              <span v-if="surnameWA_1==='2'" class="prompt-span flex-center right-msg"><img&ndash;&gt;-->
+<!--&lt;!&ndash;                src=""&ndash;&gt;-->
+<!--&lt;!&ndash;                alt="">{{$t('pass')}}</span>&ndash;&gt;-->
+<!--              <span v-if="surnameWA_1 ==='0'"-->
+<!--                    class="prompt-span flex-center wrong-msg">{{surnameMsg_1}}</span></span>-->
+<!--            </div>-->
             <!--填写身份证号-->
             <div class="input-unify">
               <div class="title-bottom">

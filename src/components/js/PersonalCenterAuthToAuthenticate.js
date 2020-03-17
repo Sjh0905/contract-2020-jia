@@ -712,6 +712,29 @@ root.methods.testName_1 = function () {
   this.nameMsg_1 = ''
   return true
 }
+
+// 判断名字0
+root.methods.testGender_0 = function () {
+  this.genderMsg_0 = '0'
+  if (this.valuegender === '') {
+    this.genderMsg_0 = ''
+    return false
+  }
+  this.genderMsg_0 = ''
+  return true
+}
+// 判断名字1
+root.methods.testGender_1 = function () {
+  this.genderMsg_1 = '0'
+  if (this.valuegender === '') {
+    this.genderMsg_1 = ''
+    return false
+  }
+  this.genderMsg_1 = ''
+  return true
+}
+
+
 // 判断SurName
 root.methods.testSurName_1 = function () {
   this.surnameWA_1 = '0'
@@ -775,12 +798,17 @@ root.methods.commit = function () {
   if (this.country === '0') {
     canSend = this.testName_0() && canSend
     canSend = this.testIdCode_0() && canSend
+    canSend = this.testGender_0() && canSend
     if (this.idCode_0 === '') {
       this.idCodeMsg_0 = this.$t('idCodeMsg_0_1') //请输入身份证号
       canSend = false
     }
     if (this.name_0 === '') {
       this.nameMsg_0 = this.$t('nameMsg_0')
+      canSend = false
+    }
+    if (this.valuegender === '') {
+      this.genderMsg_0 = this.$t('genderMsg_0')
       canSend = false
     }
 
@@ -830,6 +858,7 @@ root.methods.commit = function () {
 
   if (this.country === '1') {
     canSend = this.testName_1() && canSend
+    canSend = this.testGender_1() && canSend
 
     //sss=======S
     canSend = this.testSurName_1() && canSend
@@ -842,6 +871,11 @@ root.methods.commit = function () {
     }
     if (this.name_1 === '') {
       this.nameMsg_1 = this.$t('nameMsg_0')
+      canSend = false
+    }
+
+    if (this.valuegender === '') {
+      this.genderMsg_1 = this.$t('genderMsg_0')
       canSend = false
     }
 
