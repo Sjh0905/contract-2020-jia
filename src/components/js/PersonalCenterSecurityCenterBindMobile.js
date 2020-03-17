@@ -133,6 +133,7 @@ root.data = function () {
 
     hiddenBindMObilePage:false,
     // show:true,
+    // show:true,
     // showBind:true
 
   }

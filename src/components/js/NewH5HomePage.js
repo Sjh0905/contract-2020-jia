@@ -679,6 +679,19 @@ root.methods.re_getBanner = function (res) {
 root.methods.goBannerDetail = function (item) {
   console.log('this is banner item',item);
 
+  // if (item.title == '会员') {
+  //   this.$router.push('/index/personal/securityCenter/membershipCard')
+  //   return;
+  // }
+  // if (item.title == '挖矿新时代PC') {
+  //   this.$router.push('/index/officialQuantitativeRegistration')
+  //   return;
+  // }
+  if (item.title == '注册有礼H5') {
+    this.$router.push('/index/register')
+    return;
+  }
+
   if(item.url.indexOf('events/grc-token-mining') > -1){
     this.GO_GRC();
     return;
