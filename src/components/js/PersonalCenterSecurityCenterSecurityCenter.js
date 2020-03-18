@@ -788,7 +788,8 @@ root.methods.re_commitge = function (data) {
     if (this.isMobile) {
       this.$router.push('/index/personal/auth/authentication')
     } else {
-      this.$router.push('/index/personal/securityCenter')
+      this.getAuthState();
+      // this.$router.push('/index/personal/securityCenter')
     }
   }, 1000)
 
