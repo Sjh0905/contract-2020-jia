@@ -861,7 +861,7 @@ root.methods.commit = function () {
     canSend = this.testGender_1() && canSend
 
     //sss=======S
-    canSend = this.testSurName_1() && canSend
+    // canSend = this.testSurName_1() && canSend
     //sss=======E
 
     canSend = this.testIdCode_1() && canSend
@@ -880,10 +880,10 @@ root.methods.commit = function () {
     }
 
     //sss=======S
-    if (this.surname_1 === '') {
-      this.surnameMsg_1 = this.$t('surnameMsg_0')
-      canSend = false
-    }
+    // if (this.surname_1 === '') {
+    //   this.surnameMsg_1 = this.$t('surnameMsg_0')
+    //   canSend = false
+    // }
     //sss========E
 
     let file = this.$refs.imgFront_1.files[0]
