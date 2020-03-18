@@ -18,10 +18,6 @@
       <span>{{$t('noticeCenter.commonProblem')}}</span>
     </div>
 
-    <div class="title-i flex" v-if="$route.query.columnId == 4">
-      <span>{{$t('noticeCenter.protocolList')}}</span>
-    </div>
-
     <div class="article_noticeCenter">
       <Loading v-if="loading"></Loading>
       <!--列表-->
@@ -29,7 +25,6 @@
 
         <!--公告列表 begin-->
         <!--      :class = "item.id==routeId ? 'log-detail-i' : 'log-detail'"-->
-<!--        log-detail_noticeCenter-->
         <li class=" flex pointer border_radius log-detail_noticeCenter"
             v-for="item in computedNoticeList" :key="item.id"
             @click="clickToDetail(item.id)"
@@ -63,7 +58,7 @@
 
       <!--公告列表 begin-->
 <!--      :class = "item.id==routeId ? 'log-detail-i' : 'log-detail'"-->
-      <li class=" flex pointer border_radius "
+      <li class=" flex pointer border_radius log-detail"
        v-for="item in computedNoticeList" :key="item.id"
           @click="clickToDetail(item.id)"
           :class = "item.id==routeId ? 'log-detail-i' : 'log-detail'"

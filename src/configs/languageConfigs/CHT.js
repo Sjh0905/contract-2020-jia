@@ -361,7 +361,7 @@ root.Send = {}
 root.Send.friend = '發送邀請給好友'
 root.Send.friend_1 = '過分享鏈接邀請好友註冊二零二零'
 root.Send.friend_2 = '好友註冊'
-root.Send.friend_3 = '好友完成實名認證或進行首次幣幣交易'
+root.Send.friend_3 = '好友完成實名認證或完成首次幣幣交易'
 root.Send.friend_4 = '獲得相應比例返佣'
 root.Send.friend_5 = '輕鬆獲得交易手續費返佣福利'
 
