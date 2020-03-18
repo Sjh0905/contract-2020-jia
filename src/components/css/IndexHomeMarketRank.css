@@ -317,8 +317,9 @@
 
 .notice-box-item {
   /*width: 33.33%;*/
+  /*max-width: 240px;*/
   color: #FFFFFF;
-  /*opacity: 0.8;*/
+/*opacity: 0.8;*/
   text-align: left;
   font-size: 12px;
   line-height: 44px;
@@ -326,6 +327,8 @@
   font-family: PingFangSC-Semibold;
   cursor:pointer;
   float: left;
+  overflow: hidden;
+  /*padding: 0 15px;*/
 }
 
 .notice-box-item:hover {
@@ -336,14 +339,16 @@
 .notice-box-item a {
   color: #fff;
   font-size: 12px;
-  width: 350px;
+  /*width: 350px;*/
   display: flex;
   align-items: center;
   justify-content: flex-start;
 }
 
 .notice-box-item-title {
-  /*max-width: 280px;*/
+  display: inline-block;
+  /*max-width: 480px;*/
+  /*width: 25%;*/
   display: block;
   overflow: hidden;
   white-space: nowrap;
@@ -352,6 +357,7 @@
   font-size: 12px;
   /*color: #172A4D;*/
   letter-spacing: 0;
+  /*margin-right: 15px;*/
 }
 .notice-box-item-title1 {
   padding-left: 42px;
