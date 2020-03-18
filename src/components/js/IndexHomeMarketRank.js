@@ -268,7 +268,7 @@ root.methods.goPicNotice = function (res) {
 //   })
 //   console.log(id)
 //
-  this.$router.push({path: '/index/notice'})
+  this.$router.push({path: '/index/notice', query: {columnId: 0}})
 
 }
 

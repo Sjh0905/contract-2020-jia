@@ -56,6 +56,18 @@ root.computed.staticUrl = function () {
   return this.$store.state.static_url
 }
 
+// 是否登录
+root.computed.isLogin = function () {
+  if (this.$store.state.authMessage.userId !== '') return true
+  return false
+}
+
+// 是否是加入我们页面
+root.computed.isJoinus = function () {
+  console.log("joinus-qqqqqqqqqqq---------"+this.$store.state.joinus);
+  return this.$store.state.joinus
+}
+
 root.methods = {}
 
 root.methods.tiaoz = function (num) {
@@ -69,22 +81,15 @@ root.methods.tiaoz = function (num) {
 
 }
 
-
-// 是否登录
-root.computed.isLogin = function () {
-  if (this.$store.state.authMessage.userId !== '') return true
-  return false
-}
-
-// 是否是加入我们页面
-root.computed.isJoinus = function () {
-  console.log("joinus-qqqqqqqqqqq---------"+this.$store.state.joinus);
-  return this.$store.state.joinus
-}
-
 root.methods.viewpdf = function () {
   window.open("https://ziniu.oss-cn-beijing.aliyuncs.com/Introduction.pdf");
 }
 
+root.methods.goToNoticeCenter = function (id) {
+  if(this.$route.name  == 'notice') {
+    this.$eventBus.notify({key: 'GET_NOTICE_LIST'},id);
+  }
+  // this.$router.push({name: 'notice', query: {columnId: id}})
+}
 
 export default root

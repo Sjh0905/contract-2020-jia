@@ -31,7 +31,7 @@ root.created = function () {
   // 关闭公告小红点
   this.$store.commit('changeNoticeRedPoint',false);
 
-
+  this.$eventBus.listen(this, 'GET_NOTICE_LIST', this.getNoticeList);
   console.log('this.$route生命周期NoticeCenter=======',this.$route.name)
 }
 
@@ -76,14 +76,17 @@ root.watch.lang = function (oldVal, newVal) {
 root.methods = {}
 
 // 获取公告列表
-root.methods.getNoticeList = function () {
+root.methods.getNoticeList = function (id) {
+  if(id >= 0){
+    this.noticeList = []
+  }
   this.$http.send('POST_NOTICE_LIST', {
     bind: this,
     params: {
       offset: this.offset,
       maxResults: this.maxResults,
       languageId: this.languageId,
-      columnId:this.$route.query.columnId
+      columnId:this.$route.query.columnId || id
     },
     callBack: this.re_getNoticeList,
     errorHandler: this.error_getNoticeList
@@ -93,6 +96,8 @@ root.methods.getNoticeList = function () {
 root.methods.re_getNoticeList = function (data) {
   console.log(data)
   typeof data === 'string' && (data = JSON.parse(data))
+  // if(this.$route.query.columnId != '0') return
+
   if(this.loading) {
     this.setNoticeRedPoint()
   }
@@ -104,7 +109,6 @@ root.methods.re_getNoticeList = function (data) {
   if (data.length < this.maxResults) {
     this.loadingMore = false
   }
-
 
   // 加载更多中
   this.loadingMoreIng = false
