@@ -6,7 +6,7 @@
 
       <swiper :options="swiperImgOption" ref="mySwiperImg" v-if="imgDataReady && !loading" class="wrapper">
 <!--        <swiper-slide v-for="(item,index) in imgDataTemp" :key="index">-->
-          <swiper-slide v-for="(item,index) in imgDataTemp" :key="index">
+      <swiper-slide v-for="(item,index) in imgDataTemp" :key="index">
         <div class="homepage-header-imgswiper-address flex-center" @click="goBannerDetail(item)"
            rel="noopener noreferrer" >
 <!--          <img class="homepage-header-imgswiper-img" :src="banner_url+item.imageUrl" alt="">-->

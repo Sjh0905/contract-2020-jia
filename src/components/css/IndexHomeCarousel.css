@@ -44,13 +44,23 @@
 
 .swiper-pagination-bullet-new {
   margin: 0 10px;
-  width: 16px;
-  height: 8px;
+  width: 35px;
+  height: 2px;
   display: inline-block;
-  border-radius: 100%;
+  /*border-radius: 100%;*/
   background-color: rgba(255, 255, 255, 0.3);
 }
 
+.swiper-container.swiper-container-horizontal .pc-swiper-pagination {
+  height: 2px;
+  bottom: 65px;
+}
+
+.wrapper /deep/ .swiper-pagination-bullet {
+  width: 35px;
+  height: 2px;
+  margin: 0 10px;
+}
 
 
 
