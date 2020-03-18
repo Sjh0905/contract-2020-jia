@@ -229,32 +229,32 @@ root.methods.postWithd1 = function (cardType) {
 }
 
 root.methods.postBuyCard1 = function () {
-  // // 如果没有实名认证不允许购买会员卡
-  // if (!this.bindIdentify) {
-  //   this.popWindowTitle = this.$t('popWindowTitleWithdrawals')
-  //   this.popWindowPrompt = this.$t('popWindowPromptWithdrawals')
-  //   this.popWindowStyle = '0'
-  //   this.popWindowOpenShiM = true
-  //   return
-  // }
-  //
-  // // 如果没有绑定邮箱，不允许购买会员卡
-  // if (!this.bindEmail) {
-  //   this.popWindowTitle = this.$t('bind_email_pop_title')
-  //   this.popWindowPrompt = this.$t('bind_email_pop_article')
-  //   this.popWindowStyle = '3'
-  //   this.popWindowOpenShiM = true
-  //   return
-  // }
-  //
-  // // 如果没有绑定谷歌或手机，不允许购买会员卡
-  // if (!this.bindGA && !this.bindMobile) {
-  //   this.popWindowTitle = this.$t('popWindowTitleWithdrawals')
-  //   this.popWindowPrompt = this.$t('popWindowTitleBindGaWithdrawals')
-  //   this.popWindowStyle = '1'
-  //   this.popWindowOpenShiM = true
-  //   return
-  // }
+  // 如果没有实名认证不允许购买会员卡
+  if (!this.bindIdentify) {
+    this.popWindowTitle = this.$t('popWindowTitleWithdrawals')
+    this.popWindowPrompt = this.$t('popWindowPromptWithdrawals')
+    this.popWindowStyle = '0'
+    this.popWindowOpenShiM = true
+    return
+  }
+
+  // 如果没有绑定邮箱，不允许购买会员卡
+  if (!this.bindEmail) {
+    this.popWindowTitle = this.$t('bind_email_pop_title')
+    this.popWindowPrompt = this.$t('bind_email_pop_article')
+    this.popWindowStyle = '3'
+    this.popWindowOpenShiM = true
+    return
+  }
+
+  // 如果没有绑定谷歌或手机，不允许购买会员卡
+  if (!this.bindGA && !this.bindMobile) {
+    this.popWindowTitle = this.$t('popWindowTitleWithdrawals')
+    this.popWindowPrompt = this.$t('popWindowTitleBindGaWithdrawals')
+    this.popWindowStyle = '1'
+    this.popWindowOpenShiM = true
+    return
+  }
   this.popWindowOpen = true
 }
 //会员卡购买post(params:{})

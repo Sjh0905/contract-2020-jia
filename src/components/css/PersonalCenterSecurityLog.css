@@ -141,12 +141,12 @@
 }
 
 .source {
-  flex: 24;
+  flex: 7;
   text-align: left;
 }
 
 .city {
-  flex: 24;
+  flex: 19;
   text-align: right;
   padding-right: 25px;
 }

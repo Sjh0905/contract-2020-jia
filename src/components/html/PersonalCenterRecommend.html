@@ -125,17 +125,20 @@
       <div class="shutt1"/>
       <div class="yaoqrs">
         <div class="titless1">{{$t('personalCenterRecommend.yihuorenshu')}}</div>
-        <div class="titless2"><span>{{identityAuthCount || '--'}}</span></div>
+        <div class="titless2"><span>{{realNums || '--'}}</span></div>
       </div>
       <div class="shutt1"/>
       <div class="yaoqrs">
-        <div class="titless1">{{$t('personalCenterRecommend.yihuodejinbi')}}</div>
-        <div class="titless2"><span>{{totalRegister || '--'}}</span></div>
+        <div class="titless1">{{$t('personalCenterRecommend.jiaoyirenshu')}}</div>
+        <div class="titless2"><span>{{exNums || '--'}}</span></div>
       </div>
-
+      <div class="shutt1"/>
+      <div class="yaoqrs">
+        <div class="titless1">{{$t('personalCenterRecommend.yihuodejinbi')}}（YY）</div>
+        <div class="titless2"><span>{{(totalRegister + totalChangeStr)  || '--'}}</span></div>
+      </div>
     </div>
     </div>
-
   </div>
   <!-- 邀请人数end -->
 
@@ -163,11 +166,12 @@
       <div class="invitation-list">{{$t('personalCenterRecommend.invitationList')}}</div>
       <div class="log-title flex">
       <span class="time">{{$t('personalCenterRecommend.index')}}</span>
-      <span class="ip">{{$t('personalCenterRecommend.userName')}}</span>
-      <span class="source">{{$t('personalCenterRecommend.authState')}}</span>
+      <span class="ip">{{$t('personalCenterRecommend.zhanghao')}}</span>
+      <span class="source1">{{$t('personalCenterRecommend.authState')}}</span>
+      <span class="source">{{$t('personalCenterRecommend.shoucijiaoyi')}}</span>
       <span class="reward">
         <!--注册返利-->
-        {{$t('personalCenterRecommend.registerReward')}}
+        {{$t('personalCenterRecommend.jiangli')}}
       </span>
       <!--<span class="trading">-->
         <!--{{$t('personalCenterRecommend.trading')}}-->
@@ -199,8 +203,10 @@
         <li class="log-detail flex" v-for="(item,index) in records" :key="index">
           <span class="time">{{index+1}}</span>
           <span class="ip">{{handleName(item.beInvitedEmail)}}</span>
-          <span class="source">{{item.identityAuthStatus===2?$t('personalCenterRecommend.yesAuth'):$t('personalCenterRecommend.noAuth')}}</span>
-          <span class="reward">{{item.invitedNum===0?'--':item.invitedNum}}</span>
+          <span class="source1">{{item.identityAuthStatus===2?$t('personalCenterRecommend.yesAuth'):$t('personalCenterRecommend.noAuth')}}</span>
+          <span class="source">{{item.isExchange == false ? $t('personalCenterRecommend.weijiaoyi') : $t('personalCenterRecommend.yijiaoyi')}}</span>
+<!--          <span class="reward">{{item.invitedNum===0?'&#45;&#45;':item.invitedNum}}</span>-->
+          <span class="reward">{{(item.exchangeReward + item.identityReward)  ===0?'--':(item.exchangeReward + item.identityReward) + 'YY'}}</span>
           <!--<span class="trading">-->
               <!--{{item.isExchange==0?'&#45;&#45;':$t('personalCenterRecommend.yesorno')}}-->
             <!--</span>-->
