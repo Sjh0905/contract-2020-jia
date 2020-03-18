@@ -98,26 +98,46 @@
   letter-spacing: 0;
   line-height: 20px;
 }
-.log-detail:hover {
-  background: #3576F5;
+/*.log-detail:hover {*/
+/*  background: #3576F5;*/
 
-  color: #FFFFFF;
-}
+/*  color: #FFFFFF;*/
+/*}*/
+
+
 /*.title:hover {*/
 /*  color: #FFFFFF;*/
 /*}*/
 
-/*.log-detail-i{*/
-/*  width: 100%;*/
-/*  align-items: center;*/
-/*  -webkit-align-items: center;*/
-/*  justify-content: space-around;*/
-/*  -webkit-justify-content: space-around;*/
-/*  height: 70px;*/
-/*  font-size: 1.2rem;*/
-/*  background: #3576F5;*/
-/*  border-radius: 2px;*/
-/*}*/
+.log-detail-i{
+  /*width: 100%;*/
+  /*align-items: center;*/
+  /*-webkit-align-items: center;*/
+  /*justify-content: space-around;*/
+  /*-webkit-justify-content: space-around;*/
+  /*height: 70px;*/
+  /*color: #FFFFFF;*/
+  /*font-size: 1.2rem;*/
+  /*background: #3576F5;*/
+  /*border-radius: 2px;*/
+  width: 100%;
+  align-items: center;
+  -webkit-align-items: center;
+  justify-content: space-around;
+  -webkit-justify-content: space-around;
+  background-color: #3576F5;
+  text-align: left;
+  padding: 10px 15px;
+  padding-left: 20px;
+  overflow: hidden;
+  display: inline-block;
+  font-family:PingFangSC-Light,PingFang SC;
+  font-weight:300;
+  font-size: 14px;
+  color: #FFFFFF;;
+  letter-spacing: 0;
+  line-height: 20px;
+}
 
 
 

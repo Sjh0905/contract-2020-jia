@@ -25,6 +25,7 @@
 
         <!--公告列表 begin-->
         <!--      :class = "item.id==routeId ? 'log-detail-i' : 'log-detail'"-->
+<!--        log-detail_noticeCenter-->
         <li class=" flex pointer border_radius log-detail_noticeCenter"
             v-for="item in computedNoticeList" :key="item.id"
             @click="clickToDetail(item.id)"
@@ -58,9 +59,10 @@
 
       <!--公告列表 begin-->
 <!--      :class = "item.id==routeId ? 'log-detail-i' : 'log-detail'"-->
-      <li class=" flex pointer border_radius log-detail"
+      <li class=" flex pointer border_radius "
        v-for="item in computedNoticeList" :key="item.id"
           @click="clickToDetail(item.id)"
+          :class = "item.id==routeId ? 'log-detail-i' : 'log-detail'"
           >
 
          {{maxTitleLength(item.title)}}
