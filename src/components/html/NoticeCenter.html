@@ -18,6 +18,10 @@
       <span>{{$t('noticeCenter.commonProblem')}}</span>
     </div>
 
+    <div class="title-i flex" v-if="$route.query.columnId == 4">
+      <span>{{$t('noticeCenter.protocolList')}}</span>
+    </div>
+
     <div class="article_noticeCenter">
       <Loading v-if="loading"></Loading>
       <!--列表-->
