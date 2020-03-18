@@ -29,8 +29,11 @@ root.data = function () {
     maxResults: 10, //一次加载条数
     size: 0, //已推荐朋友
     totalRegister: 0,//注册奖励
+    totalChangeStr: 0,//注册奖励
+    exNums: 0,//注册奖励000
     totalRebate: 0,//累计奖励
-    identityAuthCount: 0,//实名认证人数
+    // identityAuthCount: 0,//实名认证人数
+    realNums: 0,//实名认证人数
     totalYesterday: 0, //昨日奖励
 
     activityRate: 0,//活动奖励比率
@@ -374,13 +377,15 @@ root.methods.re_getMyInvitesForBT = function (data) {
     return
   }
   let res = data.dataMap
+  console.log('res=======', res)
   this.size = res.size
-
   this.totalRegister = res.totalRegister
+  this.totalChangeStr = res.totalChangeStr
+  this.exNums = res.exNums
   for(var i = 0;i<res.myInvites.length;i++){
     //实名认证
     if(res.myInvites[i].identityAuthStatus == 2){
-      this.identityAuthCount++;
+      this.realNums++;
     }
   }
   this.records.push(...res.myInvites)
