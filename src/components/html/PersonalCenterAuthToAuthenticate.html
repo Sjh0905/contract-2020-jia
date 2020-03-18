@@ -525,7 +525,7 @@
 
         <!--提交-->
         <div class="commit-container flex-center">
-          <button class="commit-button" v-if="!sending" @click="commit">{{$t('commit')}}
+          <button class="commit-button pointer" v-if="!sending" @click="commit">{{$t('commit')}}
           </button>
           <button class="commit-button" v-else disabled>{{$t('committing')}}</button>
         </div>
