@@ -23,7 +23,7 @@
           <span class="time">{{$t('personalCenterSecurityLog.time')}}</span>
           <span class="ip">{{$t('personalCenterSecurityLog.ip')}}</span>
           <span class="source">{{$t('personalCenterSecurityLog.source')}}</span>
-          <span class="city">{{$t('personalCenterSecurityLog.city')}}</span>
+          <span class="city">{{$t('personalCenterSecurityLog.sourcert')}}</span>
         </div>
 
         <ul class="log-container">
@@ -31,7 +31,8 @@
             <span class="time">{{formatDateUitl(item.createdAt)}}</span>
             <span class="ip">{{item.ip}}</span>
             <span class="source">{{item.source}}</span>
-            <span class="city">{{item.address}}</span>
+            <!--成功-->
+            <span class="city">{{$t('personalCenterSecurityLog.success')}}</span>
           </li>
 
         </ul>
