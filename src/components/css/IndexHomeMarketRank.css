@@ -317,8 +317,9 @@
 
 .notice-box-item {
   /*width: 33.33%;*/
+  /*max-width: 240px;*/
   color: #FFFFFF;
-  /*opacity: 0.8;*/
+/*opacity: 0.8;*/
   text-align: left;
   font-size: 12px;
   line-height: 44px;
@@ -327,7 +328,7 @@
   cursor:pointer;
   float: left;
   overflow: hidden;
-  padding: 0 15px;
+  /*padding: 0 15px;*/
 }
 
 .notice-box-item:hover {
