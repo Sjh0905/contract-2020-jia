@@ -129,23 +129,38 @@ async function mountApp() {
 
 
 mountApp()
+// // 添加百度统计
+// const addHmt = function () {
+//   var _hmt = _hmt || [];
+//   (function() {
+//     //815的链接
+//     // var hm = document.createElement("script");
+//     // hm.src = "https://hm.baidu.com/hm.js?86996aa523867dcd16857b3bcedc2?1cc";
+//     // var s = document.getElementsByTagName("script")[0];
+//     // s.parentNode.insertBefore(hm, s);
+//     // group的链接
+//     var hm2 = document.createElement("script");
+//     hm2.src = "https://hm.baidu.com/hm.js?fe47ebd81e66cd838894145e5e199460";
+//     var s2 = document.getElementsByTagName("script")[1];
+//     s2.parentNode.insertBefore(hm2, s2);
+//
+//   })();
+// }
+
 // 添加百度统计
 const addHmt = function () {
-  var _hmt = _hmt || [];
+    var _hmt = _hmt || [];
   (function() {
-    //815的链接
-    // var hm = document.createElement("script");
-    // hm.src = "https://hm.baidu.com/hm.js?86996aa523867dcd16857b3bcedc2?1cc";
-    // var s = document.getElementsByTagName("script")[0];
-    // s.parentNode.insertBefore(hm, s);
+
     // group的链接
     var hm2 = document.createElement("script");
-    hm2.src = "https://hm.baidu.com/hm.js?fe47ebd81e66cd838894145e5e199460";
-    var s2 = document.getElementsByTagName("script")[1];
+    hm2.src = "https://hm.baidu.com/hm.js?99fceb2111551e22e63cfcf64109c6f4";
+    var s2 = document.getElementsByTagName("script")[0];
     s2.parentNode.insertBefore(hm2, s2);
 
   })();
 }
+
 
 
 //zendesk帮助插件  pc版客服
