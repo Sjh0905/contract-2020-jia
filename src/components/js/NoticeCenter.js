@@ -21,6 +21,13 @@ root.data = function () {
     loadingMore: true,//加载更多
     loadingMoreIng: false,//加载更多中
 
+    noticeTitleObj:{
+      '0': this.$t('noticeCenter.title'),
+      '1': this.$t('noticeCenter.helpCenter'),
+      '2': this.$t('noticeCenter.noviceGuide'),
+      '3': this.$t('noticeCenter.commonProblem'),
+      '4': this.$t('noticeCenter.protocolList'),
+    }
 
   }
 }
@@ -94,7 +101,7 @@ root.methods.getNoticeList = function (id) {
 }
 // 获取公告列表回调
 root.methods.re_getNoticeList = function (data) {
-  console.log(data)
+  // console.log(data)
   typeof data === 'string' && (data = JSON.parse(data))
   // if(this.$route.query.columnId != '0') return
 
@@ -151,7 +158,7 @@ root.methods.clickToLoadingMore = function () {
 
 // 点击详情
 root.methods.clickToDetail = function (id) {
-  this.$router.push({name: 'noticeDetail', query: {id: id}})
+  this.$router.push({name: 'noticeDetail', query: {columnId:this.$route.query.columnId,id: id}})
   // console.log(this.routeId)
   // console.log(id)
 }
