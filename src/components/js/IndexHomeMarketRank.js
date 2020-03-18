@@ -223,6 +223,7 @@ root.methods.GET_NOTICE = function () {
       offset: this.offset,
       maxResults: this.maxResults,
       languageId: this.languageId,
+      columnId:'0' //0 代表'公告中心'
     },
     callBack: this.RE_GET_NOTICE
   });

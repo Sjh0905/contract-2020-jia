@@ -343,7 +343,7 @@
 }
 
 .notice-box-item-title {
-  max-width: 280px;
+  /*max-width: 280px;*/
   display: block;
   overflow: hidden;
   white-space: nowrap;
