@@ -108,8 +108,8 @@ root.methods = {}
 
 //跳转会员卡规则
 root.methods.VIPrules = function () {
-  this.$router.push( {path:'/index/notice/noticeDetail', query:{columnId:1,id:52}})
-  console.log('this.$router.push',this.$router.push( {path:'/index/notice/noticeDetail', query:{columnId:1,id:52}}))
+  this.$router.push( {path:'/index/notice/noticeDetail', query:{columnId:1,id:100629}})
+  console.log('this.$router.push',this.$router.push( {path:'/index/notice/noticeDetail', query:{columnId:1,id:100629}}))
 }
 
 // 弹出绑定身份，跳转到实名认证界面
