@@ -132,6 +132,7 @@ root.methods.GET_BANNER = function (langName) {
   });
 }
 root.methods.RE_GET_HOME_BANNER = function (res) {
+  console.log('res===========',res)
   // console.log(res,'aaaaaaaa')
   // console.log(this.languageId)
   this.imgDataTemp = res;
@@ -176,8 +177,11 @@ root.methods.RE_GET_HOME_BANNER = function (res) {
 // }
 
 root.methods.goBannerDetail = function (item) {
+
   console.log('this is banner item',item);
-  //
+
+  console.log('this is banner item.url',item.url);
+
   // if (item.title == '会员') {
   //   this.$router.push('/index/personal/securityCenter/membershipCard')
   //   return;
@@ -196,8 +200,10 @@ root.methods.goBannerDetail = function (item) {
     this.GO_GRC();
     return;
   }
-
-  window.open(item.url);
+  // item.url 后台转义多个 amp; 需要进行处理一下
+  let reg = new RegExp("amp;","")
+  let bannerUrl = item.url.replace(reg,"");
+  window.open(bannerUrl);
 }
 // 跳到GRC页面
 root.methods.GO_GRC = function () {
