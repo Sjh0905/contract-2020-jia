@@ -177,19 +177,19 @@ root.methods.RE_GET_HOME_BANNER = function (res) {
 
 root.methods.goBannerDetail = function (item) {
   console.log('this is banner item',item);
-
-  if (item.title == '会员') {
-    this.$router.push('/index/personal/securityCenter/membershipCard')
-    return;
-  }
-  if (item.title == '挖矿新时代PC') {
-    this.$router.push('/index/officialQuantitativeRegistration')
-    return;
-  }
-  if (item.title == '注册有礼PC') {
-    this.$router.push('/index/register')
-    return;
-  }
+  //
+  // if (item.title == '会员') {
+  //   this.$router.push('/index/personal/securityCenter/membershipCard')
+  //   return;
+  // }
+  // if (item.title == '挖矿新时代PC') {
+  //   this.$router.push('/index/officialQuantitativeRegistration')
+  //   return;
+  // }
+  // if (item.title == '注册有礼PC') {
+  //   this.$router.push('/index/register')
+  //   return;
+  // }
   if(item.url.indexOf('events/grc-token-mining') > -1){
     // alert('123123123');
     // window.open();

@@ -687,16 +687,19 @@ root.methods.goBannerDetail = function (item) {
   //   this.$router.push('/index/officialQuantitativeRegistration')
   //   return;
   // }
-  if (item.title == '注册有礼H5') {
-    this.$router.push('/index/register')
-    return;
-  }
+  // if (item.title == '注册有礼H5') {
+  //   this.$router.push('/index/register')
+  //   return;
+  // }
 
   if(item.url.indexOf('events/grc-token-mining') > -1){
     this.GO_GRC();
     return;
   }
-  window.open(item.url);
+  let reg = new RegExp("amp;","")
+  let bannerUrl = item.url.replace(reg,"");
+  window.open(bannerUrl);
+  // window.open(item.url);
 }
 // 跳到GRC页面
 root.methods.GO_GRC = function () {
