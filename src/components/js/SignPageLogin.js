@@ -515,7 +515,7 @@ root.methods.re_login = async function (data) {
   //   this.GO_GRC();
   //   // return;
   // }
-  this.$router.push({name: 'tradingHall'})
+  this.$router.push({name: 'home'})
 }
 
 // 跳到C2C页面
