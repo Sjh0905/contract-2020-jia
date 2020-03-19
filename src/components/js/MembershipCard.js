@@ -113,7 +113,7 @@ root.methods.VIPrules = function () {
 }
 
 // 弹出绑定身份，跳转到实名认证界面
-root.methods.goToBindIdentity = function () {newH5homePage
+root.methods.goToBindIdentity = function () {
   this.popWindowOpenShiM = false
   this.$router.push({name: 'authenticate'})
 }
