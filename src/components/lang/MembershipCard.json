@@ -1,7 +1,7 @@
 {
 "CH": {
   "membership":"2020会员",
-  "member":"普通会员",
+  "member":"普通用户",
   "rules":"查看会员规则",
   "rights":"尊享会员权益",
   "discount":"交易费折扣",
@@ -47,7 +47,7 @@
 "CA": {},
 "CHT": {
   "membership":"2020會員",
-  "member":"普通會員",
+  "member":"普通用戶",
   "rules":"查看會員規則",
   "rights":"尊享會員權益",
   "discount":"交易費折扣",
