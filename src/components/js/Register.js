@@ -622,7 +622,7 @@ root.methods.re_register = function (data) {
 
   this.$store.commit('SET_AUTH_MESSAGE', data.dataMap.userProfile)
 
-  this.$router.push({name: 'tradingHall'})
+  this.$router.push({name: 'home'})
   // 判断是否验证
   this.$http.send('GET_AUTH_STATE', {
     bind: this,
