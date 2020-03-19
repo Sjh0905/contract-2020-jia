@@ -294,6 +294,19 @@ root.watch.loading = function (newVal, oldVal) {
 /*------------------------------ 方法 -------------------------------*/
 root.methods = {}
 
+// 计算币种对USDT的估值
+root.methods.USDTAppraisement = function (item) {
+  // console.log('item======',item)
+  let currency = item.currency
+  let appraisement = item.appraisement // 对BTC的估值
+  let total = item.total
+  if (!total && !appraisement) return 0;
+  if (currency == "USDT" || currency == "YY")return this.$globalFunc.accFixedCny(total, 2);
+
+  let rate = this.exchangeRate || 0; // BTC_USDT 的价格
+  return this.$globalFunc.accFixedCny((appraisement * rate), 2)
+}
+
 root.methods.isERC20 = function () {
   let currencyObj = this.$store.state.currency.get(this.currency)
   // return currencyObj && (currencyObj.addressAliasTo === 'WCG' || this.currency === 'WCG')
