@@ -879,7 +879,7 @@ root.methods.RE_GET_NOTICE = function (res) {
 root.methods.goNotice = function (res) {
   // window.open(res)
   // console.log(res)
-  this.$router.push({path: '/index/notice/noticeDetail', query: {id: res}})
+  this.$router.push({path: '/index/notice/noticeDetail', query: {columnId:'0' , id: res}})
 }
 
 //
