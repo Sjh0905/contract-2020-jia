@@ -293,6 +293,12 @@ root.created = function () {
   this.GET_MARKET()
   this.getExchangeRate()
 }
+// 默认跳至顶部
+root.mounted = function () {
+  this.$router.afterEach((to, from, next) => {
+    window.scrollTo(0, 0)
+  })
+}
 root.methods = {};
 
 // 切换图片的选中状态
