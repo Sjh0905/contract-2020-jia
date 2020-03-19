@@ -437,47 +437,47 @@
 <!--                      </div>-->
 <!--                    </li>-->
 
-<!--                    <li class="navigation-item-hidden-list-item">-->
-<!--                      <div-->
-<!--                        @click="getGroupLevel"-->
-<!--                        class="navigation-item-hidden-list-item-router"-->
-<!--                        active-class="item_selected">-->
-<!--                        &lt;!&ndash;KK交易挖矿活动&ndash;&gt;-->
-<!--                        {{$t('OfficialQuantitativeRegistration')}}-->
-<!--                      </div>-->
-<!--                    </li>-->
-
-<!--                    &lt;!&ndash; sss 量化详情&ndash;&gt;-->
-<!--                    <li class="navigation-item-hidden-list-item">-->
-<!--                      <div-->
-<!--                        @click="getGroupLevel"-->
-<!--                        class="navigation-item-hidden-list-item-router"-->
-<!--                        active-class="item_selected">-->
-<!--                        {{$t('miningDetails')}}-->
-<!--                      </div>-->
-<!--                    </li>-->
-
-                    <!-- sss 屏蔽  -->
-                    <!-- sss 量化报名-->
                     <li class="navigation-item-hidden-list-item">
-                      <router-link
-                        :to="{name:'officialQuantitativeRegistration'}"
+                      <div
+                        @click="getGroupLevel1"
                         class="navigation-item-hidden-list-item-router"
                         active-class="item_selected">
-                     <!--KK交易挖矿活动-->
+                        <!--KK交易挖矿活动-->
                         {{$t('OfficialQuantitativeRegistration')}}
-                      </router-link>
+                      </div>
                     </li>
 
                     <!-- sss 量化详情-->
                     <li class="navigation-item-hidden-list-item">
-                      <router-link
-                        :to="{name:'officialQuantitativeDetails'}"
+                      <div
+                        @click="getGroupLevel1"
                         class="navigation-item-hidden-list-item-router"
                         active-class="item_selected">
                         {{$t('miningDetails')}}
-                      </router-link>
+                      </div>
                     </li>
+
+                    <!-- sss 屏蔽  -->
+                    <!-- sss 量化报名-->
+<!--                    <li class="navigation-item-hidden-list-item">-->
+<!--                      <router-link-->
+<!--                        :to="{name:'officialQuantitativeRegistration'}"-->
+<!--                        class="navigation-item-hidden-list-item-router"-->
+<!--                        active-class="item_selected">-->
+<!--                     &lt;!&ndash;KK交易挖矿活动&ndash;&gt;-->
+<!--                        {{$t('OfficialQuantitativeRegistration')}}-->
+<!--                      </router-link>-->
+<!--                    </li>-->
+
+<!--                    &lt;!&ndash; sss 量化详情&ndash;&gt;-->
+<!--                    <li class="navigation-item-hidden-list-item">-->
+<!--                      <router-link-->
+<!--                        :to="{name:'officialQuantitativeDetails'}"-->
+<!--                        class="navigation-item-hidden-list-item-router"-->
+<!--                        active-class="item_selected">-->
+<!--                        {{$t('miningDetails')}}-->
+<!--                      </router-link>-->
+<!--                    </li>-->
                     <!-- sss 屏蔽结束  -->
 
 
@@ -750,7 +750,7 @@
                     :class="{'navigation-item-hidden-list-black':isBlack}"
                   >
                     <li class="navigation-item-hidden-list-item-personal-center singss">
-                      <IndexHeaderAssets v-if="isLogin" :black="isBlack" :flag="flag"/>
+                      <IndexHeaderAssets v-if="isLogin" :black="isBlack"/>
                     </li>
                   </ul>
                   <!--隐藏的标签 end-->

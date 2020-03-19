@@ -45,7 +45,7 @@
 
     <div class="member_xq">
 <!--      查看会员规则-->
-      <div class="viewRules pointer">{{$t('rules')}}</div>
+      <div class="viewRules pointer" @click="VIPrules">{{$t('rules')}}</div>
 <!--      尊享VIP权益-->
       <div class="enjoy">{{$t('rights')}}</div>
 
@@ -85,7 +85,8 @@
       </div>
     </div>
 <!--购买-->
-    <div class="year_month_div pointer" @click="postBuyCard1">{{$t('buy')}}</div>
+<!--    <div class="year_month_div pointer" @click="postBuyCard1">{{$t('buy')}}</div>-->
+    <div class="year_month_div1 pointer">{{$t('discountAboutff')}}</div>
 
 
     <!--   活动报名记录   -->

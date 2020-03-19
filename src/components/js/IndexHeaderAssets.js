@@ -18,10 +18,10 @@ root.props.black = {
   default: false
 }
 
-root.props.flag = {
-  type: [Boolean],
-  default: false
-}
+// root.props.flag = {
+//   type: [Boolean],
+//   default: false
+// }
 
 /*----------------------- data --------------------------*/
 
@@ -65,6 +65,11 @@ root.created = function () {
 
 
 root.computed = {}
+
+// 是否是会员
+root.computed.flag = function () {
+  return this.$store.state.isVIP.flag
+}
 // 观测currency是否发生变化
 root.computed.watchCurrency = function () {
   return this.$store.state.currencyChange

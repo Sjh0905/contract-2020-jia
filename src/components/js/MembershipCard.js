@@ -106,8 +106,14 @@ root.computed.computedRecord = function (item,index) {
 /*------------------------------ 方法 -------------------------------*/
 root.methods = {}
 
+//跳转会员卡规则
+root.methods.VIPrules = function () {
+  this.$router.push( {path:'/index/notice/noticeDetail', query:{columnId:1,id:52}})
+  console.log('this.$router.push',this.$router.push( {path:'/index/notice/noticeDetail', query:{columnId:1,id:52}}))
+}
+
 // 弹出绑定身份，跳转到实名认证界面
-root.methods.goToBindIdentity = function () {
+root.methods.goToBindIdentity = function () {newH5homePage
   this.popWindowOpenShiM = false
   this.$router.push({name: 'authenticate'})
 }
@@ -219,6 +225,8 @@ root.methods.error_getBuyRecords = function (err) {
 // root.methods.error_getCheckEnoughBalance = function (err) {
 //   console.log("this.err=====",err)
 // }
+
+
 
 root.methods.postWithd1 = function (cardType) {
   this.cardType = cardType
