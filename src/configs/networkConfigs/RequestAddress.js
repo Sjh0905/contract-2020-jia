@@ -74,7 +74,7 @@ requestAddress.POST_USER_ORDERS = {url: urlHead+'/user/orders', method: 'post'} 
 
 // requestAddress.COMMON_SYMBOLS = {url: urlHead+'/v1/common/symbols', method: 'get'} // 获取货币对
 requestAddress.COMMON_SYMBOLS = {url: urlHead+'/user/symbols', method: 'get'} // 获取货币对
-requestAddress.GET_HOMEPAGE_SYMBOLS = {url: urlHead+'/user/homePage/symbols/', method: 'get'} // 获取全站实时成交 链接拼接参数H5 PC
+requestAddress.GET_HOMEPAGE_SYMBOLS = {url: urlHead+'/user/homePage/symbols/', method: 'get'} // 获取首页横排导航币对顺序 链接拼接参数H5 PC
 
 requestAddress.MARKET_PRICES = {url: urlHead+'/v1/market/prices', method: 'get'} // 获取货币对价格
 requestAddress.GET_TICK_CACHE = {url: urlHead+'/user/getTickCache', method: 'get'} // 获取全站实时成交

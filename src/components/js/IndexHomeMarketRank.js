@@ -73,10 +73,16 @@ root.computed.computedRankList = function () {
   if (this.loading) return []
   // console.log("this.currency_list-------"+JSON.stringify(this.currency_list));
   let currencyList = this.$globalFunc.mergeObj(this.socket_price, this.currency_list);
-  ans = this.rankList
-  ans.forEach(v => {
-    let symbol = v.symbol
-    v.price = currencyList[symbol] && currencyList[symbol][4] || 0
+  // ans = this.rankList
+  this.homePageSymbols.forEach(symbol => {
+    // let symbol = v.symbol
+    if(currencyList[symbol]){
+      let ansItem = {}
+      ansItem.symbol = symbol;
+      ansItem.price = currencyList[symbol] && currencyList[symbol][4] || 0;
+      [ansItem.time, ansItem.open, ansItem.high, ansItem.low, ansItem.close, ansItem.volume] = [...currencyList[symbol]]
+      ans.push(ansItem)
+    }
   })
   // console.log("ans-------"+JSON.stringify(ans));
   return ans

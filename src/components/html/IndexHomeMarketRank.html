@@ -49,7 +49,7 @@
   </div>
 
   <ul class="market-rank-container flex " >
-    <div  v-for="(item,key) in computedRankLists" id="rankitemdiv" >
+    <div  v-for="(item,key) in computedRankList" id="rankitemdiv" >
     <li class="market-rank-item  flex pointer "
         :class="'market-rank-item-img-'+ key"
         @click="clickToGoTradingHall(item.symbol)"
@@ -74,7 +74,8 @@
                       'market-rise-and-fall-red':item.percentage<0,
              }"
           >
-            {{item.percentage>=0 && '+' || ''}}{{toFixed(item.percentage,2)}}%
+            {{diff24Ratio(item.close,item.open)>=0?'+':''}}{{diff24Ratio(item.close,item.open)}}%
+            <!--{{item.percentage>=0 && '+' || ''}}{{toFixed(item.percentage,2)}}%-->
           </div>
           <!--成交额：-->
 <!--          {{$t('deal')}}-->
