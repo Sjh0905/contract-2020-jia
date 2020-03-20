@@ -122,7 +122,7 @@
       <div class="unit-input-container flex"
            :class="{'wrong-answer':refereeWA!=''}">
 
-        <input type="text" :placeholder='refereePlaceholderShow && "邀请码（选填）" || ""' v-model="referee" class="unit-input"
+        <input type="text" :placeholder='refereePlaceholderShow && "邀请码（邀请人UID不可修改，选填）" || ""' v-model="referee" class="unit-input"
                @focus="closePlaceholder('referee')" @blur="testReferee">
       </div>
 
