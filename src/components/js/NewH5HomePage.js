@@ -109,6 +109,12 @@ root.data = function () {
     popOpen: false,
     popText: '系统繁忙',
 
+    goGroupLevelss:false,
+    idType: '',
+    groupId: '',
+    isExist: true,
+    account: '',
+
   }
 }
 
@@ -154,6 +160,7 @@ root.destroyed = function () {
 root.components = {
   'Loading': resolve => require(['../vue/Loading'], resolve),
   'PopupPrompt': resolve => require(['../vue/PopupPrompt'], resolve),
+  'DetailsOfTheGroup': resolve => require(['../vue/DetailsOfTheGroup'], resolve),
 }
 
 // ------------------------------------ 计算 --------------------------------------
@@ -430,6 +437,12 @@ root.computed.isLogin = function () {
   return false
 }
 
+// 判断是否是手机
+root.computed.isMobile = function () {
+  return this.$store.state.isMobile
+}
+
+
 // 用户类型，如果是手机用户，为0，如果是邮箱用户，为1
 root.computed.userType = function () {
   return this.$store.state.authMessage && this.$store.state.authMessage.province === 'mobile' ? 0 : 1
@@ -452,6 +465,10 @@ root.computed.useruid = function (){
   return this.$store.state.authMessage.userId
 }
 
+// 获取userId
+root.computed.userId = function () {
+  return this.$store.state.authMessage.userId
+}
 
 // 20180828 是否免费
 // root.computed.reduce_list = function () {
@@ -494,6 +511,53 @@ root.methods = {}
 //   this.selectEdition = parseInt(type)
 //   this.clickTab = true
 // }
+
+
+// 登陆用户组等级信息get (query:{})
+root.methods.getGroupLevel = function () {
+
+  if (!this.isLogin) {
+    this.$router.push('/index/sign/login')
+    return;
+  }
+  this.$http.send('GET_ASSEMBLE_GET', {
+    bind: this,
+    urlFragment:this.userId,
+    // query:{
+    //   userId:this.uuid
+    // },
+    callBack: this.re_getGroupLevel,
+    errorHandler: this.error_getGroupLevel
+  })
+}
+root.methods.re_getGroupLevel = function (data) {
+
+  console.log("this.re_getGroupLevel登陆用户组等级信息 + data=====",data)
+  typeof data === 'string' && (data = JSON.parse(data))
+  this.idType = data.data.idType
+  this.groupId = data.data.groupId
+  this.isExist = data.data.isExist
+  this.account = data.data.account
+
+  if (this.isExist == false) {
+    this.popText = "敬请期待"
+    this.popOpen = true
+    this.popType = 3
+    return;
+    // this.$router.push({name: 'assembleARegiment'})
+  }
+
+
+  if (this.isExist == true) {
+    // this.goGroupLevelss=true
+    this.$router.push({name: 'detailsOfTheGroup'})
+  }
+
+}
+root.methods.error_getGroupLevel = function (err) {
+  console.log("this.err=====",err)
+}
+
 
 // 点击切换版块下的市场
 root.methods.changeMarket = function (market) {
@@ -725,7 +789,6 @@ root.methods.goGroupLevel = function () {
     this.$router.push('/index/sign/login')
     return;
   }
-
   this.popText = "敬请期待"
   this.popOpen = true
   this.popType = 3
