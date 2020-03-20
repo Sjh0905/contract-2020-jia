@@ -171,7 +171,7 @@ const initLang = function (){
     //引入第三方客服
     let script = document.createElement('script');
     script.id = 'ze-snippet';
-    script.src = "https://static.zdassets.com/ekr/snippet.js?key=5c4c59bb-6d4c-4a02-8683-4b820de3ab15";
+    script.src = "https://static.zdassets.com/ekr/snippet.js?key=ba133a50-3f72-4fb1-bd7f-79d6b8852a19";
     document.head.appendChild(script);
     setTimeout(()=>{
       zE('webWidget', 'setLocale', state.langZendeskObj[state.lang]);
@@ -189,7 +189,7 @@ const initLang = function (){
     }
     let script = document.createElement('script');
     script.id = 'ze-snippet';
-    script.src = "https://static.zdassets.com/ekr/snippet.js?key=5c4c59bb-6d4c-4a02-8683-4b820de3ab15";
+    script.src = "https://static.zdassets.com/ekr/snippet.js?key=ba133a50-3f72-4fb1-bd7f-79d6b8852a19";
     document.head.appendChild(script);
 
     setTimeout(()=>{

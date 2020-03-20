@@ -49,7 +49,7 @@ root.data = function () {
     exchangeRate: {}, // 估值汇率
 
     collectionMarket: [],// 自选区币对
-    createMarket:['WB_USDT'], // 创新区币对
+    createMarket:['KK_USDT'], // 创新区币对
     selectStar:[],// 星星
     selectArray:[], // 自选区数据
     currentId:null, // 当前币对信息

@@ -329,7 +329,7 @@ root.computed.usdt = function () {
   return usdt_list;
 }
 // 循环出来的items
-root.computed.item_list = function () {
+/*root.computed.item_list = function () {
   // let item_list = []
   // if (this.currencyType === 1) {
   //   return this.btc
@@ -346,7 +346,7 @@ root.computed.item_list = function () {
   let ans = this.selectMarketChange
   // console.log('item_list',this.currencylist[this.selectEdition])
   return this.currencylist[this.selectEdition] || []
-}
+}*/
 
 
 

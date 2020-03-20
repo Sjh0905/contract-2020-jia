@@ -22,7 +22,7 @@ root.data = function () {
 
     collectionMarket: [],// 自选区币对
 
-    createMarket:['WB_USDT'], // 创新区币对
+    createMarket:['KK_USDT'], // 创新区币对
 
     selectStar:[],// 星星
     currentId:null, // 当前币对信息
@@ -172,7 +172,20 @@ root.computed.computedMarketList = function () {
   let ans = this.selectMarketChange
   if(this.selectMarket[this.selectEdition] == this.$t('Favorites'))return (this.currencylist[this.selectEdition].optionalArea)
   if(this.selectMarket[this.selectEdition] == this.$t('Innovation'))return (this.currencylist[this.selectEdition].createArea)
-  return (this.currencylist[this.selectEdition] && this.currencylist[this.selectEdition][this.selectMarket[this.selectEdition]] || []).sort((a,b)=>!b.open && b.open - a.open)
+
+  // let marketCurrencyList = this.currencylist[this.selectEdition][this.selectMarket[this.selectEdition]]
+  // marketCurrencyList && marketCurrencyList.map((v,key)=>{
+  //   //   console.log(v,key)
+  //   //   if(v.name=='KK_USDT'){
+  //   //     let marketCurrencyListDel =  marketCurrencyList.splice(key,1)[0]
+  //   //     console.log(marketCurrencyListDel)
+  //   //
+  //   //     return marketCurrencyList.push(marketCurrencyListDel)
+  //   //   }
+  //   // })
+  // return this.currencylist[this.selectEdition] && marketCurrencyList
+
+  return (this.currencylist[this.selectEdition] && this.currencylist[this.selectEdition][this.selectMarket[this.selectEdition]] || [])
 }
 
 root.computed.computedCreate = function () {
