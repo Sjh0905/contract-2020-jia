@@ -885,6 +885,12 @@ root.methods.goNotice = function (res) {
   this.$router.push({path: '/index/notice/noticeDetail', query: {columnId:'0' , id: res}})
 }
 
+root.methods.goToNoticeCenter = function (id) {
+  if(this.$route.name  == 'notice') {
+    this.$eventBus.notify({key: 'GET_NOTICE_LIST'},id);
+  }
+  // this.$router.push({name: 'notice', query: {columnId: id}})
+}
 //
 // // 更换类（区分h5和pc）
 // root.methods.toggleClass = function () {
