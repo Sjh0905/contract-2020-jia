@@ -106,7 +106,11 @@ root.created = function () {
 
   this.$store.commit('SET_SERVER_TIME_CALL_BACK',this.refreshGRCPriceRange);
 
-  this.getCheck(); //是不是会员
+  //登陆后再调接口
+  if (this.isLogin) {
+    this.getCheck(); //是不是会员
+  }
+
 
   this.$eventBus.listen(this, 'CHECK_IS_VIP', this.getCheck);
 
