@@ -26,6 +26,12 @@ root.created = function () {
 root.mounted = function () {
   this.value = this.staticUrl + '/AppDownload/'
   this.size = 97 /  window.devicePixelRatio
+
+  // 默认跳至顶部
+  this.$router.afterEach((to, from, next) => {
+    window.scrollTo(0, 0)
+  })
+
 }
 
 root.computed = {}
