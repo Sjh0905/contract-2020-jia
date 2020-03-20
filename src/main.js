@@ -152,9 +152,11 @@ const addHmt = function () {
     var _hmt = _hmt || [];
   (function() {
 
-    // group的链接
     var hm2 = document.createElement("script");
-    hm2.src = "https://hm.baidu.com/hm.js?99fceb2111551e22e63cfcf64109c6f4";
+    // 测试服务的百度统计
+    // hm2.src = "https://hm.baidu.com/hm.js?99fceb2111551e22e63cfcf64109c6f4";
+    // 生产百度统计
+    hm2.src = "https://hm.baidu.com/hm.js?d2699834132077aee598dce989f3b811";
     var s2 = document.getElementsByTagName("script")[0];
     s2.parentNode.insertBefore(hm2, s2);
 
