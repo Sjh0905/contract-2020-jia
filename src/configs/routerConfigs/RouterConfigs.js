@@ -2663,7 +2663,7 @@ root.routes.push({
         requireLogin: false,
         mobileHeaderTitle: '',
         pcname: 'detailsOfTheGroup',
-        // h5name: 'mobileTradingHall',
+        h5name: 'detailsOfTheGroup',
       },
       component: resolve => require(['@/components/vue/DetailsOfTheGroup'], resolve),
     },
