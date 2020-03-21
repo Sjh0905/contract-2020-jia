@@ -185,7 +185,7 @@
     width: auto;
     min-height: 40px;
     border-radius: 1px;
-    max-width: 320px;
+    max-width: 168px;
     padding: 0;
     /*height:60px;*/
     background:rgba(242,253,250,1);
@@ -204,7 +204,8 @@
     width: auto;
     min-height: 40px;
     border-radius: 1px;
-    max-width: 320px;
+    min-width: 100px;
+    max-width: 168px;
     padding: 0;
     /*height:60px;*/
     background:rgba(254,248,248,1);
@@ -212,7 +213,7 @@
   }
 
   .prompt-detail-mobile {
-    max-width: 320px;
+    /*max-width: 320px;*/
     display: flex;
     margin: 0 auto;
     /*white-space: nowrap;*/

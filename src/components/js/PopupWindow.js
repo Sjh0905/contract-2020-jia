@@ -36,6 +36,10 @@ root.computed = {}
 root.computed.show = function () {
   return this.switch
 }
+// 判断是否是手机
+root.computed.isMobile = function () {
+  return this.$store.state.isMobile
+}
 
 /*---------------------- 方法 ---------------------*/
 
