@@ -27,7 +27,7 @@ root.data = function () {
     noticelength:'',
     exchangeRate: {},
     offset: 0,//从第几个开始
-    maxResults: 4, //请求个数
+    maxResults: 5, //请求个数
     screenWidth: document.body.clientWidth,     // 屏幕宽
     screeHeight: document.body.clientHeight,    // 屏幕高
     biduinum:4,

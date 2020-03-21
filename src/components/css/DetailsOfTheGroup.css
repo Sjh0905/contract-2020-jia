@@ -404,3 +404,74 @@ ul {
   font-family:PingFangSC-Regular,PingFang SC;
   font-weight:500;
 }
+
+
+/*H5样式*/
+
+.mobileOf {
+  width: 100%;
+}
+.mobileOfThe {
+  width: 100%;
+  height: 200px;
+  /*margin-top: 10px;*/
+  /*padding-top: 20px;*/
+  /*height:161px;*/
+  background:linear-gradient(270deg,rgba(22,98,245,1) 0%,rgba(53,146,246,1) 100%);
+  border-radius:1px;
+  box-sizing: border-box
+}
+.mobileinformation_li {
+  width: 100%;
+  margin-top: 10px;
+  display: flex;
+}
+.mobilecolor_bik {
+  width: 59%;
+  font-size:20px;
+  line-height: 68px;
+  font-family:PingFangSC-Medium,PingFang SC;
+  font-weight:500;
+  color: #F5F6FA;
+  margin-left: 15px;
+}
+.mobileMasui {
+  /*width: 100%;/*/
+  /*padding: 0 15px;*/
+  padding-left: 15px;
+  padding-right: 15px;
+  font-size:12px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color: #F5F6FA;
+  /*justify-content:space-between;*/
+}
+.mobileMasuiL {
+  display: inline-block;
+
+}
+.mobileMasuiR {
+  float: right;
+  display: inline-block;
+  /*margin-bottom: 3px;*/
+}
+.mobileMbar {
+  margin-top: 3px;
+}
+.mobileFold {
+  width: 100%;
+}
+.mobileFoldL {
+  display: inline-block;
+  width: 49.7%;
+}
+.mobileFoldR {
+  display: inline-block;
+  width: 49.7%;
+}
+.mobileX {
+  isplay: inline-block;
+  width:1px;
+  height:36px;
+  background:#E0E1F4;
+}

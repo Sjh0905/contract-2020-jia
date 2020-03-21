@@ -180,9 +180,57 @@
   </div>
 
 
-  <div class="detailsOf" v-if="isMobile">
+  <div class="mobileOf" v-if="isMobile">
 
-    najnjaakjcfdjsnfjabnhjbhjabjh
+    <div class="mobileOfThe">
+      <div class="mobileinformation_li">
+        <div class="mobilecolor_bik">{{gname}}
+          <span v-if="glevel=='0'"></span>
+          <span v-if="glevel=='1'"><img class="tupian_img" src="../../assets/wei_icon@2x.png" alt=""></span>
+          <span v-if="glevel=='2'"><img class="tupian_img" src="../../assets/xiao_icon@2x.png" alt=""></span>
+          <span v-if="glevel=='3'"><img class="tupian_img" src="../../assets/da_icon@2x.png" alt=""></span>
+          <span v-if="glevel=='4'"><img class="tupian_img" src="../../assets/zhong_icon@2x.png" alt=""></span>
+          <span v-if="glevel=='5'"><img class="tupian_img" src="../../assets/chao_icon@2x.png" alt=""></span>
+
+          <span class="" v-if="glevel=='0'"></span>
+          <!--微团-->
+          <span class="tupian tupian_wei" v-if="glevel=='1'">{{$t('micelle')}}</span>
+          <!--小团-->
+          <span class="tupian tupian_xiao" v-if="glevel=='2'">{{$t('small')}}</span>
+          <!--中团-->
+          <span class="tupian tupian_zhong" v-if="glevel=='3'">{{$t('regiment')}}</span>
+          <!--大团-->
+          <span class="tupian tupian_da" v-if="glevel=='4'">{{$t('large')}}</span>
+          <!--超团-->
+          <span class="tupian tupian_chao" v-if="glevel=='5'">{{$t('superLeague')}}</span>
+        </div>
+        <div class="information_div color_hui"></div>
+        <!-- 查看规则 -->
+        <!--            <div class="information_div color_hui color_8"><img class="color_img" src="../../assets/pinchakan.png" alt="">{{$t('viewRules')}}</div>-->
+      </div>
+
+       <!-- 距离下次升级-->
+      <div class="mobileMasui">
+        <div class="mobileMasuiL">{{$t('untilUpgrade')}}</div>
+        <div class="mobileMasuiR">( {{currCount}}/{{maxMember}} )</div>
+        <div class="progress_bar mobileMbar">
+          <el-progress :show-text="false" :stroke-width="11" :percentage="(currCount / maxMember) * 100" color="#FF9F40" status="exception" ></el-progress>
+        </div>
+      </div>
+
+       <!--普通区折扣 挖矿区折扣 -->
+      <div class="mobileFold">
+        <div class="mobileFoldL">
+          <span>普通区折扣</span>
+          <span>1%</span>
+        </div>
+        <div class="mobileX"></div>
+<!--        <div class="mobileFoldL">-->
+<!--          <span>挖矿区折扣</span>-->
+<!--          <span>1%</span>-->
+<!--        </div>-->
+      </div>
+    </div>
   </div>
 
   <!--   提示 弹窗-->
