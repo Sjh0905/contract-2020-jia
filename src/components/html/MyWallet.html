@@ -96,25 +96,25 @@
 
 <!--              sss屏蔽-->
             <!--打开充值 begin-->
-<!--            <span class="recharge-button button" @click="openRecharge(index,item)"-->
-<!--                  :class="{'recharge-button-select':activeIndex === index  && recharge}"-->
-<!--                  v-if="rechargeFlag(item)">{{$t('recharge')}}</span>-->
-<!--              &lt;!&ndash;打开充值 end&ndash;&gt;-->
-<!--              &lt;!&ndash;关闭充值 begin&ndash;&gt;-->
-<!--              <span class=" can-not-withdrawals"-->
-<!--                    :class="{'recharge-button-select':activeIndex === index  && recharge}" v-else>{{$t('recharge')}}</span>-->
-<!--              &lt;!&ndash;关闭充值 end&ndash;&gt;-->
+            <span class="recharge-button button" @click="openRecharge(index,item)"
+                  :class="{'recharge-button-select':activeIndex === index  && recharge}"
+                  v-if="rechargeFlag(item)">{{$t('recharge')}}</span>
+              <!--打开充值 end-->
+              <!--关闭充值 begin-->
+              <span class=" can-not-withdrawals"
+                    :class="{'recharge-button-select':activeIndex === index  && recharge}" v-else>{{$t('recharge')}}</span>
+              <!--关闭充值 end-->
 
-<!--              &lt;!&ndash;打开提现 begin&ndash;&gt;-->
-<!--            <span class="withdrawals-button button" @click="openWithdrawals(index,item)"-->
-<!--                  :class="{'withdrawals-button-select':activeIndex===index  && withdrawals}"-->
-<!--                  v-if="withdrawalsFlag(item)"-->
-<!--            >{{$t('withdrawals')}}</span>-->
-<!--            <span class="can-not-withdrawals" v-else>{{$t('withdrawals')}}</span>-->
-              <!--打开提现 end-->
-              <!--关闭提现 begin-->
-              <!--<span class="withdrawals-button button can-not-withdrawals">{{$t('withdrawals')}}</span>-->
-              <!--关闭提现 end-->
+              <!--打开提现 begin-->
+            <span class="withdrawals-button button" @click="openWithdrawals(index,item)"
+                  :class="{'withdrawals-button-select':activeIndex===index  && withdrawals}"
+                  v-if="withdrawalsFlag(item)"
+            >{{$t('withdrawals')}}</span>
+            <span class="can-not-withdrawals" v-else>{{$t('withdrawals')}}</span>
+<!--              打开提现 end-->
+<!--              关闭提现 begin-->
+              <span class="withdrawals-button button can-not-withdrawals">{{$t('withdrawals')}}</span>
+<!--              关闭提现 end-->
 
             <!--sss 屏蔽-->
               <!--打开划转 begin-->
@@ -152,13 +152,14 @@
 
 <!-- v-if="serverT >= item.withdrawOpenTime"-->
 <!--              内部转账灰色按钮 begin-->
-               <span class="withdrawals-buttons buttons">
-                 {{$t('recharge')}}
-               </span>
 
-               <span class="withdrawals-buttons buttons">
-                 {{$t('withdrawals')}}
-               </span>
+<!--               <span class="withdrawals-buttons buttons">-->
+<!--                 {{$t('recharge')}}-->
+<!--               </span>-->
+
+<!--               <span class="withdrawals-buttons buttons">-->
+<!--                 {{$t('withdrawals')}}-->
+<!--               </span>-->
                <span class="withdrawals-buttons buttons">
                  {{$t('internalTransfer')}}
                </span>
