@@ -241,9 +241,13 @@ root.methods.re_getCheckGroupDetails = function (data) {
   this.quantDiscount = data.data.quantDiscount
   this.gname = data.data.gname
 
+  if (this.priAccount1 === '') {
+    this.nameMsg_0 = this.$t('enter')
+    return false
+  }
 
   if (this.priAccount1 !== this.priAccount) {
-    this.nameMsg_0 = this.$t('团长账号无效')
+    this.nameMsg_0 = this.$t('invalid')
     return false
   }
 
@@ -255,7 +259,7 @@ root.methods.error_getCheckGroupDetails = function (err) {
 //加入拼团post(params:{})
 root.methods.postJoinGroup = function () {
 
-  // // 如果没有实名认证不允许打开划转
+  // // 如果没有实名认证不允许加入拼团
   // if (!this.bindIdentify) {
   //   this.popWindowTitle = this.$t('popWindowTitleTransfer')
   //   this.popWindowPrompt = this.$t('popWindowPromptWithdrawals')
@@ -264,7 +268,7 @@ root.methods.postJoinGroup = function () {
   //   return
   // }
   //
-  // // 如果没有绑定邮箱，不允许打开提现
+  // // 如果没有绑定邮箱，不允许加入拼团
   // if (!this.bindEmail) {
   //   this.popWindowTitle = this.$t('bind_email_pop_title')
   //   this.popWindowPrompt = this.$t('bind_email_pop_article')
@@ -273,7 +277,7 @@ root.methods.postJoinGroup = function () {
   //   return
   // }
   //
-  // // 如果没有绑定谷歌或手机，不允许打开提现
+  // // 如果没有绑定谷歌或手机，不允许加入拼团
   // if (!this.bindGA && !this.bindMobile) {
   //   this.popWindowTitle = this.$t('popWindowTitleTransfer')
   //   this.popWindowPrompt = this.$t('popWindowTitleBindGaWithdrawals')
@@ -289,7 +293,7 @@ root.methods.postJoinGroup = function () {
   canSend = this.testpriAccount1() && canSend
 
   if (this.priAccount1 === '') {
-    this.nameMsg_0 = this.$t('请输入团长账号')
+    this.nameMsg_0 = this.$t('enter')
     canSend = false
   }
   if (!canSend) {
@@ -298,7 +302,7 @@ root.methods.postJoinGroup = function () {
   }
 
   if (this.priAccount1 !== this.priAccount) {
-    this.nameMsg_0 = this.$t('团长账号无效')
+    this.nameMsg_0 = this.$t('invalid')
     return false
   }
 
@@ -407,7 +411,7 @@ root.methods.testpriAccount1 = function () {
   this.pswConfirmPlaceholderShow = true
 
   if (this.priAccount1 === '') {
-    this.nameMsg_0 = '请输入团长账号'
+    this.nameMsg_0 = this.$t('enter')
     return false
   }
 

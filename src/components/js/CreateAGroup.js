@@ -147,7 +147,7 @@ root.methods.postCreateAGroup = function () {
 
   // 如果没有实名认证不允许打开划转
     if (!this.bindIdentify) {
-      this.popWindowTitle = this.$t('popWindowTitleTransfer')
+      this.popWindowTitle = this.$t('popWindowTitleTransfer1')
       this.popWindowPrompt = this.$t('popWindowPromptWithdrawals')
       this.popWindowStyle = '0'
       this.popWindowOpen = true
@@ -165,7 +165,7 @@ root.methods.postCreateAGroup = function () {
 
     // 如果没有绑定谷歌或手机，不允许打开提现
     if (!this.bindGA && !this.bindMobile) {
-      this.popWindowTitle = this.$t('popWindowTitleTransfer')
+      this.popWindowTitle = this.$t('popWindowTitleTransfer1')
       this.popWindowPrompt = this.$t('popWindowTitleBindGaWithdrawals')
       this.popWindowStyle = '1'
       this.popWindowOpen = true
