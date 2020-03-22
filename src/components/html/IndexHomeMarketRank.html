@@ -12,7 +12,7 @@
 
         <li class="notice-box-item" v-for="(value, key) in noticeList" :key="key"  @click="goNotice(value.id)">
           <span class="notice-box-item-title">{{value.title}}
-                      <span class="notice-box-item-title1" v-if="key !== noticeList.length-1">/</span>
+            <span class="notice-box-item-title1" v-if="key !== noticeList.length-1">/</span>
           </span>
 
           <!--          ( {{$globalFunc.formatDateUitl(value.beginTime,'MM-DD')}} )-->
