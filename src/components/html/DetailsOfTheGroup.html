@@ -58,12 +58,12 @@
           <li class="information_li m-to">
 <!--            团长账号:-->
             <div class="information_div_s color_f5">
-              {{$t('colonelNumber')}}{{priAccount}}
+              {{$t('colonelNumber')}}{{$globalFunc.formatUserName(priAccount)}}
               <span></span>
             </div>
 <!--            副团长账号:-->
             <div class="information_div_s color_f4">
-              {{$t('colonelNumberFu')}}{{deputyAccount}}
+              {{$t('colonelNumberFu')}}{{$globalFunc.formatUserName(deputyAccount)}}
               <span></span>
             </div>
 <!--            建团时间: -->
@@ -152,7 +152,7 @@
 <!--     序号   账号  职位 加入时间-->
         <li class="list_directory_column_li_div_li" v-for="(item,index) in computedRecord" :key="item.id">
           <div class="list_directory_column_li_div m-t">{{index + 1}}</div>
-          <div class="list_directory_column_li_div">{{item.account}}</div>
+          <div class="list_directory_column_li_div">{{$globalFunc.formatUserName(item.account)}}</div>
           <div class="list_directory_column_li_div p-l">{{item.idType}}</div>
           <div class="list_directory_column_li_dii m-r">{{item.joinTime}}</div>
         </li>
@@ -186,23 +186,23 @@
       <div class="mobileinformation_li">
         <div class="mobilecolor_bik">{{gname}}
           <span v-if="glevel=='0'"></span>
-          <span v-if="glevel=='1'"><img class="tupian_img" src="../../assets/wei_icon@2x.png" alt=""></span>
-          <span v-if="glevel=='2'"><img class="tupian_img" src="../../assets/xiao_icon@2x.png" alt=""></span>
-          <span v-if="glevel=='3'"><img class="tupian_img" src="../../assets/da_icon@2x.png" alt=""></span>
-          <span v-if="glevel=='4'"><img class="tupian_img" src="../../assets/zhong_icon@2x.png" alt=""></span>
-          <span v-if="glevel=='5'"><img class="tupian_img" src="../../assets/chao_icon@2x.png" alt=""></span>
+          <span v-if="glevel=='1'"><img class="mobiletupian_img" src="../../assets/wei_icon@2x.png" alt=""></span>
+          <span v-if="glevel=='2'"><img class="mobiletupian_img" src="../../assets/xiao_icon@2x.png" alt=""></span>
+          <span v-if="glevel=='3'"><img class="mobiletupian_img" src="../../assets/da_icon@2x.png" alt=""></span>
+          <span v-if="glevel=='4'"><img class="mobiletupian_img" src="../../assets/zhong_icon@2x.png" alt=""></span>
+          <span v-if="glevel=='5'"><img class="mobiletupian_img" src="../../assets/chao_icon@2x.png" alt=""></span>
 
           <span class="" v-if="glevel=='0'"></span>
           <!--微团-->
-          <span class="tupian tupian_wei" v-if="glevel=='1'">{{$t('micelle')}}</span>
+          <span class="mobiletupian tupian_wei" v-if="glevel=='1'">{{$t('micelle')}}</span>
           <!--小团-->
-          <span class="tupian tupian_xiao" v-if="glevel=='2'">{{$t('small')}}</span>
+          <span class="mobiletupian tupian_xiao" v-if="glevel=='2'">{{$t('small')}}</span>
           <!--中团-->
-          <span class="tupian tupian_zhong" v-if="glevel=='3'">{{$t('regiment')}}</span>
+          <span class="mobiletupian tupian_zhong" v-if="glevel=='3'">{{$t('regiment')}}</span>
           <!--大团-->
-          <span class="tupian tupian_da" v-if="glevel=='4'">{{$t('large')}}</span>
+          <span class="mobiletupian tupian_da" v-if="glevel=='4'">{{$t('large')}}</span>
           <!--超团-->
-          <span class="tupian tupian_chao" v-if="glevel=='5'">{{$t('superLeague')}}</span>
+          <span class="mobiletupian tupian_chao" v-if="glevel=='5'">{{$t('superLeague')}}</span>
         </div>
         <div class="information_div color_hui"></div>
         <!-- 查看规则 -->
@@ -220,21 +220,110 @@
 
        <!--普通区折扣 挖矿区折扣 -->
       <div class="mobileFold">
+
         <div class="mobileFoldL">
-          <span>普通区折扣</span>
-          <span>1%</span>
+<!--          <div class="mobileFoldLdiv">-->
+          <span class="mobileFoldSapn">普通区折扣</span>
+          <span class="mobileFoldSapnF">{{toFixed(accMul(commonDiscount,100),0) }}%</span>
+<!--        </div>-->
         </div>
         <div class="mobileX"></div>
-<!--        <div class="mobileFoldL">-->
-<!--          <span>挖矿区折扣</span>-->
-<!--          <span>1%</span>-->
-<!--        </div>-->
+        <div class="mobileFoldLw">
+          <span class="mobileFoldSapn">挖矿区折扣</span>
+          <span class="mobileFoldSapnF">{{toFixed(accMul(quantDiscount,100),0) }}%</span>
+        </div>
+      </div>
+      <!--      账号-->
+      <div class="mobileNumber">
+        <div class="mobileNumberFu numb">{{$t('colonelNumber')}}{{$globalFunc.formatUserName(priAccount)}}</div>
+        <div class="mobileNumberFu timef" >{{$t('timeFormation')}}{{createdAt}}</div>
+
       </div>
     </div>
+
+    <div class="mobilegeren">
+      <div class="mobilegerenI"><img class="mobilegerenImg" src="../../assets/ge_icon@2x.png" alt=""></div>
+
+        <!--解散拼团-->
+        <div class="mobiletuituan pointer" v-if="idType=='1'" @click="postWithd1(1)">{{$t('dissolve')}}</div>
+        <!--      <div class="tuituan" v-if="idType=='2'">退出拼团</div>-->
+        <!-- 退出拼团 -->
+        <div class="mobiletuituan pointer" v-if="idType=='3'" @click="postWithd1(3)">{{$t('league')}}</div>
+      <div class="mobilegerenSpan">{{$t('accountNumber')}}：{{userName}}</div>
+
+    </div>
+
+<!--    团长显示-->
+    <div class="mobileliangtuan" v-if="idType==='1'">
+    <div class="mobileliang" >
+      <div class="mobileliangdiv">
+        <span class="mobileFoldSapnB7">普通区累计估值</span>
+        <span class="mobileFoldSapnF18">0 USDT</span>
+      </div>
+      <div class="mobileliangdiv">
+        <span class="mobileFoldSapnB7">普通区返佣估值</span>
+        <span class="mobileFoldSapnF18">0 USDT</span>
+      </div>
+    </div>
+    <div class="mobileliang mt">
+      <div class="mobileliangdiv">
+        <span class="mobileFoldSapnB7">挖矿区累计估值</span>
+        <span class="mobileFoldSapnF18">0 USDT</span>
+      </div>
+      <div class="mobileliangdiv">
+        <span class="mobileFoldSapnB7">挖矿区返佣估值</span>
+        <span class="mobileFoldSapnF18">0 USDT</span>
+      </div>
+    </div>
+    </div>
+
+    <!--    团员列表-->
+    <div class="mobilelist_directory">
+
+      <div class="mobilelist_directory_column">{{$t('memberList')}}</div>
+      <ol class="ul_ul">
+        <!--        表头-->
+        <li class="mobilelist_directory_column_li">
+          <!--          账号-->
+          <div class="mobilelist_directory_column_li_div columnW">{{$t('accountNumber')}}</div>
+          <!--          职位-->
+          <div class="mobilelist_directory_column_li_div directoryW">{{$t('position')}}</div>
+          <!--          加入时间-->
+          <div class="mobilelist_directory_column_li_dii listW">{{$t('additionTime')}}</div>
+        </li>
+
+        <!--     序号   账号  职位 加入时间-->
+        <li class="mobilelist_directory_column_li_div_li" v-for="(item,index) in computedRecord" :key="item.id">
+          <div class="mobilelist_directory_column_li_div columnW">{{$globalFunc.formatUserName(item.account)}}</div>
+          <div class="mobilelist_directory_column_li_div directoryW">{{item.idType}}</div>
+          <div class="mobilelist_directory_column_li_dii listW">{{item.joinTime}}</div>
+        </li>
+
+        <!-- 加载更多 如果loading结束、已经登录、获取的数据超过了limit，则显示 begin -->
+        <template v-if="showLoadingMore">
+          <li class="loading-more">
+            <span class="text_blue pointer" v-if="!loadingMoreShow" @click="clickLoadingMore">{{$t('orderPageHistoricalEntrustment.close_10')}}</span>
+            <span class="text_blue" v-else>{{$t('orderPageHistoricalEntrustment.close_11')}}</span>
+          </li>
+        </template>
+
+      </ol>
+
+
+      <!-- 加载更多 end -->
+      <!--        查看更多-->
+      <!--      <template v-if="!loading && tradinghallLimit===10 && historyOrderComputed.length >= 10">-->
+      <!--        <li class="loading-more" >-->
+      <!--          <span class="text_blue pointer" @click="toOrderHistory">{{$t('orderPageHistoricalEntrustment.close_12')}}</span>-->
+      <!--        </li>-->
+      <!--      </template>-->
+
+    </div>
+
   </div>
 
   <!--   提示 弹窗-->
-  <PopupWindow :switch="popWindowOpen" @close="popWindowClose">
+  <PopupWindow :switch="popWindowOpen" @close="popWindowClose" v-if="!isMobile">
     <div slot="header">
       <span class="header_xuzhi">{{$t('prompt')}}</span>
     </div>
@@ -249,14 +338,62 @@
           {{$t('cancel')}}
         </button>
         <button v-if="idType=='1'" @click="postWithdraw(1)"  class="button-base33 btn_blue pointer m-l">
-          {{$t('verification')}}
+          {{$t('verification1')}}
         </button>
       <button v-if="idType=='3'" @click="postWithdraw(3)"  class="button-base33 btn_blue pointer m-l">
-        {{$t('verification')}}
+        {{$t('verification1')}}
       </button>
     </div>
 
   </PopupWindow>
+
+
+  <div v-if="isMobile && popWindowOpen" class="toast-window-nobind-email">
+    <div class="toast-box-nobind-email">
+      <div class="memo-toast-box-close-btn-box" @click="popWindowClose">
+        <img class="memo-toast-box-close-btn" src="../../assets/mobile_img/mobile_asset_commen/h5_toast_close_btn.png" alt="">
+      </div>
+      <div class="toast-nobind-email-title">{{$t('prompt')}}</div>
+      <div class="toast-nobind-email-body">
+        <!--      请确认是否解散-->
+        <p class="consequences" v-if="idType=='1'">{{$t('dissolution')}} <span class="consequencesSpan">{{gname}}</span></p>
+        <!--      请确认是否退出-->
+        <p class="consequences" v-if="idType=='3'">{{$t('whether')}} <span class="consequencesSpan">{{gname}}</span></p>
+<!--        为了您的资金安全，请先绑定邮箱-->
+      </div>
+      <div v-if="idType=='1'" @click="postWithdraw(1)"  class="confirm-nobind-email-btn">
+        {{$t('verification1')}}
+      </div>
+      <div v-if="idType=='3'" @click="postWithdraw(3)"  class="confirm-nobind-email-btn">
+        {{$t('verification1')}}
+      </div>
+    </div>
+  </div>
+
+  <!--   提示 弹窗-->
+<!--  <PopupWindow :switch="popWindowOpen" @close="popWindowClose" v-if="isMobile">-->
+<!--    <div slot="header">-->
+<!--      <span class="mobileHeader_xuzhi">{{$t('prompt')}}</span>-->
+<!--    </div>-->
+<!--    <div slot="article" class="mobilePop-recharge">-->
+<!--      &lt;!&ndash;      请确认是否解散&ndash;&gt;-->
+<!--      <p class="consequences" v-if="idType=='1'">{{$t('dissolution')}} <span class="consequencesSpan">{{gname}}</span></p>-->
+<!--      &lt;!&ndash;      请确认是否退出&ndash;&gt;-->
+<!--      <p class="consequences" v-if="idType=='3'">{{$t('whether')}} <span class="consequencesSpan">{{gname}}</span></p>-->
+<!--    </div>-->
+<!--    <div slot="footer" class="pop-recharge-bottom">-->
+<!--      <button @click="popWindowClose" class="button-base33 btn_simple pointer">-->
+<!--        {{$t('cancel')}}-->
+<!--      </button>-->
+<!--      <button v-if="idType=='1'" @click="postWithdraw(1)"  class="button-base33 btn_blue pointer m-l">-->
+<!--        {{$t('verification')}}-->
+<!--      </button>-->
+<!--      <button v-if="idType=='3'" @click="postWithdraw(3)"  class="button-base33 btn_blue pointer m-l">-->
+<!--        {{$t('verification')}}-->
+<!--      </button>-->
+<!--    </div>-->
+
+<!--  </PopupWindow>-->
 
   <PopupPrompt :popOpen="popOpen" :popClose="popClose" :popType="popType" :popText="popText"/>
 

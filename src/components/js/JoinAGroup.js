@@ -4,6 +4,7 @@ root.name = 'JoinAGroup'
 root.components = {
   'Loading': resolve => require(['../vue/Loading'], resolve),
   'PopupPrompt': resolve => require(['../vue/PopupPrompt'], resolve),
+  'PopupWindow': resolve => require(['../vue/PopupWindow'], resolve),
 }
 /*------------------------------ data -------------------------------*/
 root.data = function () {
@@ -11,8 +12,10 @@ root.data = function () {
     loading:false,
     //副团长账号
     deputyAccount:'',
+    nameMsg_0:'',
     //团长账号
     priAccount:'',
+    priAccount1:'',
     //组ID
     // groupId:'',
     //组等级
@@ -40,7 +43,17 @@ root.data = function () {
     // 绑定的城市
     cities: [],
 
-    canJoin:false
+    canJoin:false,
+    pswPlaceholderShow: true,
+    pswConfirmPlaceholderShow: true,
+    popWindowStyle1:false,
+    popWindowTitle: '', //弹出提示标题
+    popWindowPrompt: '',//弹出样式提示
+
+    popWindowPrompt1: '',//弹出样式提示
+    popWindowStyle: 0,//跳转 0表示实名认证，1表示手机或谷歌，2只有确定
+    popWindowOpen: false, //弹窗开关
+
   }
 }
 /*------------------------------ 生命周期 -------------------------------*/
@@ -66,6 +79,23 @@ root.mounted = function () {}
 root.beforeDestroy = function () {}
 /*------------------------------ 计算 -------------------------------*/
 root.computed = {}
+
+// 是否绑定手机
+root.computed.bindMobile = function () {
+  return this.$store.state.authState.sms
+}
+// 是否绑定谷歌验证码
+root.computed.bindGA = function () {
+  return this.$store.state.authState.ga
+}
+// 是否绑定邮箱
+root.computed.bindEmail = function () {
+  return this.$store.state.authState.email
+}
+// 是否实名认证
+root.computed.bindIdentify = function () {
+  return this.$store.state.authState.identity
+}
 // 用户名
 root.computed.userName = function () {
   if (this.userType === 0) {
@@ -132,6 +162,29 @@ root.watch.searchCities = function(v){
 root.methods = {}
 
 
+// 弹出绑定身份，跳转到实名认证界面
+root.methods.goToBindIdentity = function () {
+  this.popWindowOpen = false
+  this.$router.push({name: 'authenticate'})
+}
+// 去绑定谷歌验证
+root.methods.goToBindGA = function () {
+  this.popWindowOpen = false
+  this.$router.push({name: 'bindGoogleAuthenticator'})
+}
+// 去绑定手机号
+root.methods.goToBindMobile = function () {
+  this.popWindowOpen = false
+  this.$router.push({name: 'bindMobile'})
+}
+// 去绑定邮箱
+root.methods.goToBindEmail = function () {
+  this.popWindowOpen = false
+  this.$router.push({name: 'bindEmail'})
+}
+
+
+
 //模糊查询可加入小组get (query:{})
 root.methods.getFuzzyQuery= function () {
   // /* TODO : 调试接口需要屏蔽 E*/
@@ -188,6 +241,16 @@ root.methods.re_getCheckGroupDetails = function (data) {
   this.quantDiscount = data.data.quantDiscount
   this.gname = data.data.gname
 
+  if (this.priAccount1 === '') {
+    this.nameMsg_0 = this.$t('enter')
+    return false
+  }
+
+  if (this.priAccount1 !== this.priAccount) {
+    this.nameMsg_0 = this.$t('invalid')
+    return false
+  }
+
 }
 root.methods.error_getCheckGroupDetails = function (err) {
   console.log("this.err=====",err)
@@ -195,6 +258,53 @@ root.methods.error_getCheckGroupDetails = function (err) {
 
 //加入拼团post(params:{})
 root.methods.postJoinGroup = function () {
+
+  // // 如果没有实名认证不允许加入拼团
+  // if (!this.bindIdentify) {
+  //   this.popWindowTitle = this.$t('popWindowTitleTransfer')
+  //   this.popWindowPrompt = this.$t('popWindowPromptWithdrawals')
+  //   this.popWindowStyle = '0'
+  //   this.popWindowOpen = true
+  //   return
+  // }
+  //
+  // // 如果没有绑定邮箱，不允许加入拼团
+  // if (!this.bindEmail) {
+  //   this.popWindowTitle = this.$t('bind_email_pop_title')
+  //   this.popWindowPrompt = this.$t('bind_email_pop_article')
+  //   this.popWindowStyle = '3'
+  //   this.popWindowOpen = true
+  //   return
+  // }
+  //
+  // // 如果没有绑定谷歌或手机，不允许加入拼团
+  // if (!this.bindGA && !this.bindMobile) {
+  //   this.popWindowTitle = this.$t('popWindowTitleTransfer')
+  //   this.popWindowPrompt = this.$t('popWindowTitleBindGaWithdrawals')
+  //   this.popWindowStyle = '1'
+  //   this.popWindowOpen = true
+  //   return
+  // }
+
+
+  // TODO : 加变量的非空判断 正则判断 S
+  if (this.sending) return
+  let canSend = true
+  canSend = this.testpriAccount1() && canSend
+
+  if (this.priAccount1 === '') {
+    this.nameMsg_0 = this.$t('enter')
+    canSend = false
+  }
+  if (!canSend) {
+    // console.log("不能发送！")
+    return
+  }
+
+  if (this.priAccount1 !== this.priAccount) {
+    this.nameMsg_0 = this.$t('invalid')
+    return false
+  }
 
   if (this.priAccount == '') {
     return;
@@ -269,6 +379,53 @@ root.methods.error_postJoinGroup = function (err) {
 root.methods.popClose = function () {
   this.popOpen = false
 }
+// 弹窗关闭
+root.methods.popWindowClose = function () {
+  this.popWindowOpen = false
+}
+// 获取焦点后关闭placheholder
+root.methods.closePlaceholder = function (type) {
+  // alert(type);
+
+  if(type == 'gname'){
+    this.pswPlaceholderShow = false;
+  }
+
+  if(type == 'priAccount1'){
+    this.verificationCodePlaceholderShow = false;
+  }
+
+
+  if(type == 'pswConfirm'){
+    this.pswConfirmPlaceholderShow = false;
+  }
+
+  if(type == 'referee'){
+    this.refereePlaceholderShow = false;
+  }
+
+}
+
+// 副团长账号输入
+root.methods.testpriAccount1 = function () {
+  this.pswConfirmPlaceholderShow = true
+
+  if (this.priAccount1 === '') {
+    this.nameMsg_0 = this.$t('enter')
+    return false
+  }
+
+  //如果既不是邮箱格式也不是手机格式
+  if (!this.$globalFunc.emailOrMobile(this.priAccount1)) {
+    this.nameMsg_0 = this.$t('register.userNameWA_0')
+    return false
+  }
+
+
+  this.nameMsg_0 = ''
+  return true
+}
+
 
 
 /*---------------------- 乘法运算 begin ---------------------*/

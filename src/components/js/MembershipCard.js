@@ -34,6 +34,8 @@ root.data = function () {
     popWindowTitle: '', //弹出提示标题
     popWindowPrompt: '',//弹出样式提示
     popWindowStyle: 0,//跳转 0表示实名认证，1表示手机或谷歌，2只有确定
+
+    buyCommitToastOpen: false,
   }
 }
 /*------------------------------ 生命周期 -------------------------------*/
@@ -361,6 +363,11 @@ root.methods.error_postBuyCard = function (err) {
   console.log("this.err=====",err)
 }
 
+//会员卡转让
+root.methods.VIPTransfer = function () {
+  this.buyCommitToastOpen = true
+}
+
 
 // 弹窗关闭
 root.methods.popWindowClose = function () {
@@ -370,6 +377,10 @@ root.methods.popWindowClose = function () {
 // 弹窗关闭
 root.methods.popWindowCloseShiM = function () {
   this.popWindowOpenShiM = false
+}
+
+root.methods.buyCommitToastClose = function () {
+  this.buyCommitToastOpen = false
 }
 
 // 弹窗

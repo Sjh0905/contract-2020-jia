@@ -70,7 +70,7 @@
   "member_type":"成员类型错误",
   "withdrawal":"退团异常",
   "cancel":"取消",
-  "verification":"确定",
+  "verification1":"确定",
   "dissolution":"请确认是否解散",
   "whether":"请确认是否退出",
   "prompt":"提示",
@@ -78,8 +78,26 @@
   "successful":"创建拼团成功",
   "successfully":"加入拼团成功",
   "success":"退出拼团成功",
-  "coalition":"解散拼团成功"
+  "coalition":"解散拼团成功",
 
+
+  "bindGa": "绑定谷歌",
+  "bindMobile": "绑定手机",
+  "ensure": "确定",
+  "verification": "前往验证",
+  "beBinding": "去绑定",
+  "bind_email_pop_title": "安全提示",
+  "bind_email_pop_article": "为了您的资金安全，请先绑定邮箱",
+
+  "popWindowPromptRecharge": "您尚未通过实名认证",
+  "popWindowPromptWithdrawals": "您尚未通过实名认证",
+  "popWindowTitleBindGaRecharge": "请先绑定谷歌验证或手机",
+  "popWindowTitleBindGaWithdrawals": "请先绑定谷歌验证或手机",
+  "popWindowTitleTransfer": "加入拼团提示",
+  "popWindowTitleTransfer1": "创建拼团提示",
+
+  "invalid":"团长账号无效",
+  "enter":"请输入团长账号"
 
 
 },
@@ -174,7 +192,7 @@
   "member_type":"成員類型錯誤",
   "withdrawal":"退團異常",
   "cancel":"取消",
-  "verification":"確定",
+  "verification1":"確定",
   "dissolution":"請確認是否解散",
   "whether":"請確認是否退出",
   "prompt":"提示",
@@ -182,6 +200,25 @@
   "successful":"創建拼團成功",
   "successfully":"加入拼團成功",
   "success":"退出拼團成功",
-  "coalition":"解散拼團成功"
-  }
+  "coalition":"解散拼團成功",
+
+  "bindGa": "綁定谷歌",
+  "bindMobile": "綁定手機",
+  "ensure": "確定",
+  "beBinding": "去綁定",
+
+
+  "verification": "前往驗證",
+  "bind_email_pop_title": "安全提示",
+
+  "popWindowPromptRecharge": "您尚未通過實名認證",
+  "popWindowPromptWithdrawals": "您尚未通過實名認證",
+  "popWindowTitleBindGaRecharge": "請先綁定谷歌驗證或手機",
+  "popWindowTitleBindGaWithdrawals": "請先綁定谷歌驗證或手機",
+  "popWindowTitleTransfer": "加入拼團提示",
+  "popWindowTitleTransfer1": "創建拼團提示",
+
+  "invalid":"團長帳號無效",
+  "enter":"請輸入團長帳號"
+}
 }

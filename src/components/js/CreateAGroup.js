@@ -4,6 +4,7 @@ root.name = 'CreateAGroup'
 root.components = {
  // 'Loading': resolve => require(['../Loading/Loading.vue'], resolve),
   'PopupPrompt': resolve => require(['../vue/PopupPrompt'], resolve),
+  'PopupWindow': resolve => require(['../vue/PopupWindow'], resolve),
 }
 /*------------------------------ data -------------------------------*/
 root.data = function () {
@@ -23,6 +24,14 @@ root.data = function () {
     popText: '系统繁忙',
 
     registerType: 1, // 0为手机注册，1为邮箱注册
+
+    popWindowTitle: '', //弹出提示标题
+    popWindowPrompt: '',//弹出样式提示
+
+    popWindowPrompt1: '',//弹出样式提示
+    popWindowStyle: 0,//跳转 0表示实名认证，1表示手机或谷歌，2只有确定
+    popWindowOpen: false, //弹窗开关
+
   }
 }
 /*------------------------------ 生命周期 -------------------------------*/
@@ -96,6 +105,27 @@ root.watch = {}
 /*------------------------------ 方法 -------------------------------*/
 root.methods = {}
 
+// 弹出绑定身份，跳转到实名认证界面
+root.methods.goToBindIdentity = function () {
+  this.popWindowOpen = false
+  this.$router.push({name: 'authenticate'})
+}
+// 去绑定谷歌验证
+root.methods.goToBindGA = function () {
+  this.popWindowOpen = false
+  this.$router.push({name: 'bindGoogleAuthenticator'})
+}
+// 去绑定手机号
+root.methods.goToBindMobile = function () {
+  this.popWindowOpen = false
+  this.$router.push({name: 'bindMobile'})
+}
+// 去绑定邮箱
+root.methods.goToBindEmail = function () {
+  this.popWindowOpen = false
+  this.$router.push({name: 'bindEmail'})
+}
+
 
 // // 判断名字0
 // root.methods.testName_0 = function () {
@@ -114,6 +144,35 @@ root.methods = {}
 
 //创建拼团post(params:{})
 root.methods.postCreateAGroup = function () {
+
+  // 如果没有实名认证不允许打开划转
+    if (!this.bindIdentify) {
+      this.popWindowTitle = this.$t('popWindowTitleTransfer1')
+      this.popWindowPrompt = this.$t('popWindowPromptWithdrawals')
+      this.popWindowStyle = '0'
+      this.popWindowOpen = true
+      return
+    }
+
+    // 如果没有绑定邮箱，不允许打开提现
+    if (!this.bindEmail) {
+      this.popWindowTitle = this.$t('bind_email_pop_title')
+      this.popWindowPrompt = this.$t('bind_email_pop_article')
+      this.popWindowStyle = '3'
+      this.popWindowOpen = true
+      return
+    }
+
+    // 如果没有绑定谷歌或手机，不允许打开提现
+    if (!this.bindGA && !this.bindMobile) {
+      this.popWindowTitle = this.$t('popWindowTitleTransfer1')
+      this.popWindowPrompt = this.$t('popWindowTitleBindGaWithdrawals')
+      this.popWindowStyle = '1'
+      this.popWindowOpen = true
+      return
+    }
+
+
   // TODO : 加变量的非空判断 正则判断 S
   if (this.sending) return
   let canSend = true
@@ -250,25 +309,30 @@ root.methods.popClose = function () {
   this.popOpen = false
 }
 
+// 弹窗关闭
+root.methods.popWindowClose = function () {
+  this.popWindowOpen = false
+}
+
 // 获取焦点后关闭placheholder
 root.methods.closePlaceholder = function (type) {
   // alert(type);
 
-  if(type == 'gname'){
-    this.pswPlaceholderShow = false;
-  }
+if(type == 'gname'){
+  this.pswPlaceholderShow = false;
+}
 
-  if(type == 'deputyAccount'){
-    this.verificationCodePlaceholderShow = false;
-  }
+if(type == 'deputyAccount'){
+  this.verificationCodePlaceholderShow = false;
+}
 
-  if(type == 'pswConfirm'){
-    this.pswConfirmPlaceholderShow = false;
-  }
+if(type == 'pswConfirm'){
+  this.pswConfirmPlaceholderShow = false;
+}
 
-  if(type == 'referee'){
-    this.refereePlaceholderShow = false;
-  }
+if(type == 'referee'){
+  this.refereePlaceholderShow = false;
+}
 
 }
 

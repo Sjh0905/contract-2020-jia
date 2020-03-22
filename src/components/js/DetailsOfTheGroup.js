@@ -38,6 +38,7 @@ root.data = function () {
     popType: 0,
     popOpen: false,
     popText: '系统繁忙',
+    // popWindowClose1:true,
   }
 }
 /*------------------------------ 生命周期 -------------------------------*/
@@ -192,12 +193,18 @@ root.methods.re_postWithdraw = function (data) {
     setTimeout(() => {
       this.popOpen = true
     }, 1000)
-    setTimeout(() => {
-      this.$router.push({name: 'assembleARegiment'})
-    }, 1000)
-    // this.$router.push({name: 'detailsOfTheGroup',query:{groupId:this.groupId , gname: this.gname}} )
-    // this.$router.push({name: 'detailsOfTheGroup', params: {groupId:this.groupId}})
-    // this.$router.push({name: 'assembleARegiment'})
+    if (!this.isMobile) {
+      setTimeout(() => {
+        this.$router.push({name: 'assembleARegiment'})
+      }, 1000)
+      return;
+    }
+    if (this.isMobile) {
+      setTimeout(() => {
+        // this.$router.push({path: '/index/newH5homePage'})
+        this.$router.push({name: 'NewH5homePage'})
+      }, 1000)
+    }
     return;
   }
 
@@ -208,15 +215,20 @@ root.methods.re_postWithdraw = function (data) {
     setTimeout(() => {
       this.popOpen = true
     }, 1000)
-    setTimeout(() => {
-      this.$router.push({name: 'assembleARegiment'})
-    }, 1000)
-    // this.$router.push({name: 'detailsOfTheGroup',query:{groupId:this.groupId , gname: this.gname}} )
-    // this.$router.push({name: 'detailsOfTheGroup', params: {groupId:this.groupId}})
-    // this.$router.push({name: 'assembleARegiment'})
+    if (!this.isMobile) {
+      setTimeout(() => {
+        this.$router.push({name: 'assembleARegiment'})
+      }, 1000)
+      return;
+    }
+    if (this.isMobile) {
+      setTimeout(() => {
+        this.$router.push({name: 'NewH5homePage'})
+        // this.$router.push({path: '/index/newH5homePage'})
+      }, 1000)
+    }
     return;
   }
-
   // this.loading = false
 }
 root.methods.error_postWithdraw = function (err) {
