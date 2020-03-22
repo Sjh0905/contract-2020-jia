@@ -201,7 +201,8 @@ root.methods.re_postWithdraw = function (data) {
     }
     if (this.isMobile) {
       setTimeout(() => {
-        this.$router.push({name: 'newH5homePage'})
+        // this.$router.push({path: '/index/newH5homePage'})
+        this.$router.push({name: 'NewH5homePage'})
       }, 1000)
     }
     return;
@@ -222,7 +223,8 @@ root.methods.re_postWithdraw = function (data) {
     }
     if (this.isMobile) {
       setTimeout(() => {
-        this.$router.push({name: 'newH5homePage'})
+        this.$router.push({name: 'NewH5homePage'})
+        // this.$router.push({path: '/index/newH5homePage'})
       }, 1000)
     }
     return;

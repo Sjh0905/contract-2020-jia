@@ -10,6 +10,23 @@
           <p class="create_discount">{{$t('joinTransaction')}}</p>
         </div>
 
+        <!-- 输入团长账号-->
+        <div class="account_number">
+          <p class="account_number_p">{{$t('团长账号')}}</p>
+          <div class="">
+            <!-- 输入团长账号-->
+
+            <input type="text" class=" inputsize2"
+                   v-model="priAccount1"
+                   :placeholder='pswConfirmPlaceholderShow && $t("输入团长账号") || ""'
+                   @focus="closePlaceholder('priAccount1')"
+                   @blur="testpriAccount1">
+          </div>
+          <div class="hig">
+            <span v-if="nameMsg_0 !=''" class="prompt-span wrong-msg">{{nameMsg_0}}</span>
+          </div>
+        </div>
+
 <!--        选择拼团-->
         <div class="account_number">
           <p class="account_number_p">{{$t('chooseGroup')}}</p>
@@ -36,6 +53,7 @@
             <!--  下拉搜索框   结束-->
           </div>
         </div>
+
         <div class="account_number">
           <p class="account_number_p">{{$t('groupInformation')}}</p>
           <div class="information">
@@ -74,8 +92,9 @@
 <!--                团长账号: -->
                 <div class="information_div margin-bottom16 color_6">
                   {{$t('colonelNumber')}}
-                  <span v-if="priAccount=='0'">- -</span>
-                  <span class="color_3">{{priAccount}}</span>
+                  <span v-if="priAccount==''">- -</span>
+<!--                  <span class="color_3" v-else>{{$globalFunc.formatUserName(priAccount)}}</span>-->
+                  <span class="color_3" v-else>{{(priAccount)}}</span>
                 </div>
 <!--                普通区折扣-->
                 <div class="information_div color_bik_9"v-if="glevel=='0'">-</div>
@@ -101,6 +120,77 @@
       <p class="rules_details">{{$t('calculated_1')}}</p>
     </div>
   </div>
+
+  <!--   提示 弹窗-->
+  <PopupWindow :switch="popWindowOpen" @close="popWindowClose">
+    <div slot="header">
+      <span class="header_xuzhi">{{popWindowTitle}}</span>
+    </div>
+    <div slot="article" class="pop-recharge">{{popWindowPrompt}}
+      <!--      <p class="consequences">{{popWindowPrompt1}}</p>-->
+    </div>
+    <div slot="footer" class="pop-recharge-bottom flex-center">
+      <template v-if="popWindowStyle==0">
+        <button @click="popWindowClose" class="button-base33 btn_simple pointer">
+          {{$t('cancel')}}
+        </button>
+        <button @click="goToBindIdentity" class="button-base33 btn_blue pointer m-r">
+          {{$t('verification')}}
+        </button>
+      </template>
+      <template v-if="popWindowStyle==1">
+        <button @click="popWindowClose" class="button-base33 btn_simple pointer">
+          {{$t('cancel')}}
+          <!--          {{$t('bindGa')}}-->
+        </button>
+        <button @click="goToSecurityCenter" class="button-base33 btn_blue pointer m-r">
+          {{$t('beBinding')}}
+          <!--          {{$t('bindMobile')}}-->
+        </button>
+      </template>
+      <template v-if="popWindowStyle==3">
+        <button @click="popWindowClose" class="button-base33 btn_simple pointer ">
+          {{$t('cancel')}}
+          <!--          {{$t('bindGa')}}-->
+        </button>
+        <button @click="goToSecurityCenter" class="button-base33 btn_blue pointer m-r">
+          {{$t('beBinding')}}
+          <!--          {{$t('bindMobile')}}-->
+        </button>
+      </template>
+
+
+
+
+      <!--      <template v-if="popWindowStyle==1">-->
+      <!--        <button @click="goToBindGA" class="button-base btn_blue pointer">-->
+      <!--          {{$t('bindGa')}}-->
+      <!--        </button>-->
+      <!--        <button @click="goToBindMobile" class="button-base btn_blue pointer">-->
+      <!--          {{$t('bindMobile')}}-->
+      <!--        </button>-->
+      <!--      </template>-->
+      <!--      <template v-if="popWindowStyle==2">-->
+      <!--        <button @click="popWindowClose" class="button-base btn_blue pointer">-->
+      <!--          {{$t('ensure')}}-->
+      <!--        </button>-->
+      <!--      </template>-->
+      <!--      <template v-if="popWindowStyle==3">-->
+      <!--        <button @click="goToBindEmail" class="button-base btn_blue pointer bangding">-->
+      <!--          &lt;!&ndash;绑定邮箱&ndash;&gt;-->
+      <!--          {{$t('bind_email_pop_button')}}-->
+      <!--        </button>-->
+      <!--      </template>-->
+      <!--      <template v-if="popWindowStyle==4">-->
+      <!--        <button @click="goToBindTransfer" class="button-base btn_blue pointer transfer4">-->
+      <!--          &lt;!&ndash;绑定邮箱&ndash;&gt;-->
+      <!--          {{$t('ITransfer')}}-->
+      <!--        </button>-->
+      <!--      </template>-->
+    </div>
+
+  </PopupWindow>
+
 
   <PopupPrompt :popOpen="popOpen" :popClose="popClose" :popType="popType" :popText="popText"/>
 

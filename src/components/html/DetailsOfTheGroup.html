@@ -58,12 +58,12 @@
           <li class="information_li m-to">
 <!--            团长账号:-->
             <div class="information_div_s color_f5">
-              {{$t('colonelNumber')}}{{priAccount}}
+              {{$t('colonelNumber')}}{{$globalFunc.formatUserName(priAccount)}}
               <span></span>
             </div>
 <!--            副团长账号:-->
             <div class="information_div_s color_f4">
-              {{$t('colonelNumberFu')}}{{deputyAccount}}
+              {{$t('colonelNumberFu')}}{{$globalFunc.formatUserName(deputyAccount)}}
               <span></span>
             </div>
 <!--            建团时间: -->
@@ -152,7 +152,7 @@
 <!--     序号   账号  职位 加入时间-->
         <li class="list_directory_column_li_div_li" v-for="(item,index) in computedRecord" :key="item.id">
           <div class="list_directory_column_li_div m-t">{{index + 1}}</div>
-          <div class="list_directory_column_li_div">{{item.account}}</div>
+          <div class="list_directory_column_li_div">{{$globalFunc.formatUserName(item.account)}}</div>
           <div class="list_directory_column_li_div p-l">{{item.idType}}</div>
           <div class="list_directory_column_li_dii m-r">{{item.joinTime}}</div>
         </li>
@@ -235,7 +235,7 @@
       </div>
       <!--      账号-->
       <div class="mobileNumber">
-        <div class="mobileNumberFu numb">{{$t('colonelNumber')}}{{priAccount}}</div>
+        <div class="mobileNumberFu numb">{{$t('colonelNumber')}}{{$globalFunc.formatUserName(priAccount)}}</div>
         <div class="mobileNumberFu timef" >{{$t('timeFormation')}}{{createdAt}}</div>
 
       </div>
@@ -338,10 +338,10 @@
           {{$t('cancel')}}
         </button>
         <button v-if="idType=='1'" @click="postWithdraw(1)"  class="button-base33 btn_blue pointer m-l">
-          {{$t('verification')}}
+          {{$t('verification1')}}
         </button>
       <button v-if="idType=='3'" @click="postWithdraw(3)"  class="button-base33 btn_blue pointer m-l">
-        {{$t('verification')}}
+        {{$t('verification1')}}
       </button>
     </div>
 
@@ -362,10 +362,10 @@
 <!--        为了您的资金安全，请先绑定邮箱-->
       </div>
       <div v-if="idType=='1'" @click="postWithdraw(1)"  class="confirm-nobind-email-btn">
-        {{$t('verification')}}
+        {{$t('verification1')}}
       </div>
       <div v-if="idType=='3'" @click="postWithdraw(3)"  class="confirm-nobind-email-btn">
-        {{$t('verification')}}
+        {{$t('verification1')}}
       </div>
     </div>
   </div>

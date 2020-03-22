@@ -158,6 +158,18 @@ ul {
   border-radius: 2px;
   border: 1px solid #E0E1F4;
 }
+.inputsize2 {
+  width: 520px;
+  height: 40px;
+  /*margin: 6px 10px;*/
+  padding-left: 15px;
+  font-size: 12px;
+  color: #172A4D;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  border-radius: 2px;
+  border: 1px solid #E0E1F4;
+}
 .account_number_input >>> .el-input__inner {
   margin-top: 7px;
   font-size: 12px;
@@ -286,3 +298,38 @@ ul {
   color: #A2B5D9;
 }
 /*placeholder 样式     end*/
+.hig {
+  height: 20px;
+}
+
+.header_xuzhi {
+  padding-left: 25px;
+}
+.pop-recharge {
+  padding: 35px 25px;
+  font-size:16px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color: #0D0E23;
+  /*padding-bottom: 25px;*/
+}
+.pop-recharge-bottom {
+  margin-bottom: 15px;
+}
+.button-base33 {
+  width: 190px;
+  height: 35px;
+  /* background-color: #3576F5; */
+  color: #fff;
+  border-radius: 1px;
+  border: 0 solid transparent;
+  margin-right: 2px;
+  outline: none;
+}
+.consequences {
+  font-size: 16px;
+  color: #0D0E23;
+}
+.m-r {
+  margin-left: 24px;
+}

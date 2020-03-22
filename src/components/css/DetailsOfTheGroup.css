@@ -472,7 +472,7 @@ ul {
 .mobileFoldLdiv {
   /*width: 33%;*/
   /*margin: 0 auto;*/
-  text-align: right;
+  text-align: center;
 }
 .mobileFoldR {
   display: inline-block;
@@ -486,7 +486,7 @@ ul {
   height:36px;
   margin-left: 14%;
   margin-right: 14%;
-  background:#E0E1F4;
+  background:rgba(255,255,255,0.2);
 }
 .mobileFoldSapn {
   display: block;
@@ -506,7 +506,7 @@ ul {
 .mobileFoldLw {
   width: 20%;
   display: inline-block;
-  text-align: right;
+  text-align: center;
 }
 .mobileNumber {
   width:100%;
