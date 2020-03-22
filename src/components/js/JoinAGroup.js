@@ -259,32 +259,32 @@ root.methods.error_getCheckGroupDetails = function (err) {
 //加入拼团post(params:{})
 root.methods.postJoinGroup = function () {
 
-  // // 如果没有实名认证不允许加入拼团
-  // if (!this.bindIdentify) {
-  //   this.popWindowTitle = this.$t('popWindowTitleTransfer')
-  //   this.popWindowPrompt = this.$t('popWindowPromptWithdrawals')
-  //   this.popWindowStyle = '0'
-  //   this.popWindowOpen = true
-  //   return
-  // }
-  //
-  // // 如果没有绑定邮箱，不允许加入拼团
-  // if (!this.bindEmail) {
-  //   this.popWindowTitle = this.$t('bind_email_pop_title')
-  //   this.popWindowPrompt = this.$t('bind_email_pop_article')
-  //   this.popWindowStyle = '3'
-  //   this.popWindowOpen = true
-  //   return
-  // }
-  //
-  // // 如果没有绑定谷歌或手机，不允许加入拼团
-  // if (!this.bindGA && !this.bindMobile) {
-  //   this.popWindowTitle = this.$t('popWindowTitleTransfer')
-  //   this.popWindowPrompt = this.$t('popWindowTitleBindGaWithdrawals')
-  //   this.popWindowStyle = '1'
-  //   this.popWindowOpen = true
-  //   return
-  // }
+  // 如果没有实名认证不允许加入拼团
+  if (!this.bindIdentify) {
+    this.popWindowTitle = this.$t('popWindowTitleTransfer')
+    this.popWindowPrompt = this.$t('popWindowPromptWithdrawals')
+    this.popWindowStyle = '0'
+    this.popWindowOpen = true
+    return
+  }
+
+  // 如果没有绑定邮箱，不允许加入拼团
+  if (!this.bindEmail) {
+    this.popWindowTitle = this.$t('bind_email_pop_title')
+    this.popWindowPrompt = this.$t('bind_email_pop_article')
+    this.popWindowStyle = '3'
+    this.popWindowOpen = true
+    return
+  }
+
+  // 如果没有绑定谷歌或手机，不允许加入拼团
+  if (!this.bindGA && !this.bindMobile) {
+    this.popWindowTitle = this.$t('popWindowTitleTransfer')
+    this.popWindowPrompt = this.$t('popWindowTitleBindGaWithdrawals')
+    this.popWindowStyle = '1'
+    this.popWindowOpen = true
+    return
+  }
 
 
   // TODO : 加变量的非空判断 正则判断 S
