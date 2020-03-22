@@ -11,14 +11,14 @@
       <!--币种-->
       <span class="currency">{{$t('currency')}}</span>
 <!--      类型-->
-      <span class="type">{{$t('type')}}</span>
+<!--      <span class="type">{{$t('type')}}</span>-->
       <!--数量-->
       <span class="total">{{$t('amount')}}</span>
-      <!--地址-->
-<!--      <span class="address">{{$t('address')}}</span>-->
       <!--状态-->
       <span class="state">{{$t('state')}}</span>
-      <!--备注-->
+      <!--地址-->
+      <span class="address">{{$t('address')}}</span>
+      <!--操作-->
       <span class="th-prompt">{{$t('operation')}}</span>
     </div>
     <!--充值记录title end-->
@@ -44,7 +44,7 @@
             <!--币种 end-->
 
             <!--      类型-->
-            <span class="type">{{$t('type')}}</span>
+<!--            <span class="type">{{$t('type')}}</span>-->
 
             <!--数量 begin-->
             <span class="total">
@@ -52,6 +52,14 @@
               {{toFixed(item.amount,8)}}
             </span>
             <!--数量 end-->
+
+            <!--状态 begin-->
+            <span class="state">
+              <span class="state_text">
+              {{state(item)}}
+              </span>
+            </span>
+            <!--状态 end-->
 
             <!--地址 begin-->
             <div class="address address-detail flex">
@@ -66,7 +74,7 @@
               <div class="relative address-detail-item flex">
                 <span class="address-title">TXID:</span>
                 <!--<span class="uniqueId-text txt-green pointer" :ref="item.id">{{item.uniqueId}}</span>-->
-                <input type="text" readonly :value="item.uniqueId" class="uniqueId-input unit-input pointer text_blue"
+                <input type="text" readonly :value="item.uniqueId" class="unit-input text_blue"
                        :ref="item.id" @click="clickCheck(item)">
                 <span class="copy-btn text_blue pointer"
                       @click="clickCopy(item.id)">{{$t('copy')}}</span>
@@ -74,18 +82,9 @@
             </div>
             <!--地址 end-->
 
-            <!--状态 begin-->
-            <span class="state">
-              <span class="state_text">
-
-              {{state(item)}}
-              </span>
-            </span>
-            <!--状态 end-->
-
-            <!--操作 begin-->
-            <span class="th-prompt"></span>
-            <!--操作 end-->
+<!--            操作 begin-->
+<!--            <div class="th-prompt"></div>-->
+<!--            操作 end-->
           </div>
         </li>
         <!--各条记录 begin-->

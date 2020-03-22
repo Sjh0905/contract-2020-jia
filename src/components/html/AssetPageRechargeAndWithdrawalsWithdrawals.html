@@ -263,7 +263,7 @@
             <input type="text" id="email" class="verification-input input_padding"
                    v-model="emailVerificationCode"
                    @blur="testEmailVerification">
-            <div class="get-verification" v-if="!getEmailVerificationCode"
+            <div class="get-verification pointer" v-if="!getEmailVerificationCode"
                  @click="getEmailVerification">
               {{$t('reGet')}}
           </div>
@@ -284,8 +284,9 @@
       <!-- article begin 2 -->
       <div slot="article" class="popWindow-article" v-if="popWindowStep==2">
 
-        <div class="prompt-title" v-if="!step2Error">
-          {{$t('promptWindow_2')}}
+        <div class="prompt-title prompt-title-top flex" v-if="!step2Error">
+          <div>{{$t('gaCode')}}</div>
+          <div>{{$t('promptWindow_2')}}</div>
         </div>
 
         <template v-if="!step2Error">
@@ -302,8 +303,8 @@
               </div>
             </div>
             <div class="verification-container flex" v-if="picker == 1">
-              <label for="gaCode"
-                     class="verification-title">{{$t('gaCode')}}</label>
+<!--              <label for="gaCode"-->
+<!--                     class="verification-title">{{$t('gaCode')}}</label>-->
               <input type="text" id="gaCode" class="verification-input input_padding" v-model="step2VerificationCode"
                      @blur="testGACodeVerification">
             </div>

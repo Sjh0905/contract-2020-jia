@@ -204,9 +204,45 @@
 
 /*弹窗button*/
 .button-base {
+  width: 190px;
+  height: 40px;
+  /* background-color: #3576F5; */
+  color: #fff;
+  border-radius: 1px;
+  border: 0 solid transparent;
+  margin-right: 2px;
+  outline: none;
+  margin-right: 20px;
+}
+
+.button-base1 {
+  width: 410px;
+  height: 40px;
+  /* background-color: #3576F5; */
+  color: #fff;
+  border-radius: 1px;
+  border: 0 solid transparent;
+  margin-right: 2px;
+  outline: none;
   margin-right: 20px;
 }
 
 .button-base:last-of-type {
   margin-right: 0;
+}
+
+.confirm-title {
+  padding: 0 25px;
+}
+
+.confirm-article {
+  font-size:16px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color:#0D0E23;
+  padding: 35px 25px;
+}
+
+.confirm-footer {
+  margin-bottom: 15px;
 }

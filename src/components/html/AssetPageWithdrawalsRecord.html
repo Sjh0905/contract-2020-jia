@@ -94,13 +94,13 @@
   <PopupPrompt :popOpen="popOpen" :popClose="popClose" :popType="popType" :popText="popText"/>
 
   <PopupWindow :switch="popWindowOpen" @close="closeWindow">
-    <div slot="header">
-      {{$t('cancelConfirmTitle')}}
+    <div slot="header" class="confirm-title">
+      <div>{{$t('cancelConfirmTitle')}}</div>
     </div>
-    <div slot="article">
+    <div slot="article" class="confirm-article">
       {{$t('cancelConfirmArticle')}}
     </div>
-    <div slot="footer">
+    <div slot="footer" class="confirm-footer">
       <button class="button-base btn_simple" @click="closeWindow">
         {{$t('cancelConfirmCancel')}}
       </button>
@@ -115,14 +115,14 @@
   </PopupWindow>
 
   <PopupWindow :switch="popWindowState" @close="closeStatePop">
-    <div slot="header" class="">
+    <div slot="header" class="confirm-title">
       {{$t('cancelReasonTitle')}}
     </div>
-    <div slot="article">
+    <div slot="article" class="confirm-article">
       {{cancelReason}}
     </div>
     <div slot="footer">
-      <button class="button-base btn_blue" @click="closeStatePop">
+      <button class="button-base1 btn_blue" @click="closeStatePop">
         {{$t('cancelReasonConfirm')}}
       </button>
     </div>

@@ -490,6 +490,11 @@
   color: #3576F5;
 }
 
+.prompt-title-top {
+  color: #6B7DA2;
+  justify-content: space-between;
+}
+
 .prompt-show-picker {
   padding: 10px 0;
 }
