@@ -25,7 +25,7 @@
   border-radius:10px;
   padding: 0 0 15px 10px;
   box-sizing: border-box;
-  margin-bottom: 30px;
+  /*margin-bottom: 30px;*/
   margin-top: -40px ;
   font-size:24px;
   justify-content: space-between;
@@ -421,7 +421,7 @@
 }
 
 .m-t {
-  margin-top: 20px;
+  margin-top: 25px;
 }
 .input_input {
   width: 410px;
@@ -429,7 +429,7 @@
   text-align: left;
   line-height: 40px;
   margin-left: 25px;
-  padding-left: 8px;
+  padding-left: 15px;
   font-size: 12px;
   color: #0D0E23;
   border: 1px solid #E0E1F4;
@@ -437,7 +437,10 @@
 }
 
 .whit_0 {
-  height: 25px;
+  height: 23px;
+}
+.whit_ {
+  height: 35px;
 }
 .prompt-span {
   display: inline-block;
@@ -448,23 +451,7 @@
 .wrong-msg {
   color: #C43E4E;
 }
-.Internal_siding_email {
-  padding-left: 25px;
-  /*padding-top: 25px;*/
-  padding-bottom: 8px;
-  font-size:12px;
-  font-family:PingFangSC-Regular,PingFang SC;
-  font-weight:400;
-  color: #6B7DA2;
-}
-.Internal_siding_email {
-  padding-left: 25px;
-  /*padding-top: 20px;*/
-  padding-bottom: 10px;
-  padding-right: 25px;
-  font-size: 16px;
-  color: #172A4D;
-}
+
 .email_span {
   float: right;
   display: inline-block;
@@ -498,8 +485,8 @@
   font-size: 14px;
   color: #FFFFFF;
   text-align: center;
-  margin-top: 30px;
-  margin-bottom: 25px;
+  /*margin-top: 30px;*/
+  margin-bottom: 15px;
 }
 .zhu {
   margin-left: 25px;
@@ -508,4 +495,220 @@
   font-family:PingFangSC-Regular,PingFang SC;
   font-weight:400;
   color: #EF5656;
+}
+.back {
+  background:rgba(245,246,250,1);
+  border-radius:1px;
+  border:1px solid rgba(224,225,244,1);
+}
+.timeex {
+  /*padding-left: 15px;*/
+  font-size:12px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color: #0D0E23;
+}
+/*placeholder样式 begin*/
+. input::placeholder {
+  color: #A2B5D9;
+}
+
+. input::-moz-placeholder {
+  color: #A2B5D9;
+}
+
+. input::-webkit-input-placeholder {
+  color: #A2B5D9;
+}
+
+. input:-ms-input-placeholder {
+  color: #A2B5D9;
+}
+/*placeholder样式 end*/
+
+/*验证码*/
+.popWindow-title0 {
+  padding-left: 25px;
+}
+.popWindow-article {
+  color: #0D0E23;
+  padding-top:25px;
+}
+.prompt-title {
+  font-size: 14px;
+  /*padding-bottom: 30px;*/
+  color: #C43E4E;
+}
+.verification-title {
+  display: block;
+  font-size:12px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color:rgba(107,125,162,1);
+  margin-bottom: 10px;
+  padding-left: 25px;
+  padding-right: 10px;
+}
+.verification-container {
+  /*padding-top: 10px;*/
+  /*width: 100%;*/
+  /*justify-content: space-around;*/
+  /*-webkit-justify-content: space-around;*/
+  align-items: center;
+  -webkit-align-items: center;
+  font-size: 14px;
+  width:410px;
+  height:40px;
+  border-radius:1px;
+  border:1px solid rgba(224,225,244,1);
+
+  margin-left: 25px;
+}
+.verification-input {
+  /*height: 35px;*/
+  border: 1px solid #e5e5e5;
+  border-radius: 5px;
+  width: 70%;
+  border: none;
+
+
+}
+.get-verification {
+  display: inline-block;
+  /*width: 70px;*/
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  font-size: 14px;
+  color: #3576F5;
+}
+
+/*弹窗button*/
+.button-base {
+  margin-right: 20px;
+  outline: none;
+}
+
+.button-base:last-of-type {
+  margin-right: 0;
+}
+.get-verifications {
+  display: inline-block;
+  /*width: 70px;*/
+  height: 40px;
+  line-height: 40px;
+  font-size: 12px;
+  text-align: right;
+  color: #A2B5D9;
+}
+
+.prompt-wrong {
+  font-size: 12px;
+  /*padding-top: 10px;*/
+  margin: 5px 0px 10px 25px;
+  height: 12px;
+  display: block;
+}
+.prompt-show-picker {
+  padding: 10px 0;
+}
+/*谷歌验证码和手机验证码选择*/
+.prompt-show-picker-detail-box {
+  display: inline-block;
+  font-size: 14px;
+  margin-left: 30px;
+}
+
+.prompt-show-picker-detail-box:last-child {
+  margin-left: 20px;
+}
+.verification-container {
+  /*padding-top: 10px;*/
+  /*width: 100%;*/
+  /*justify-content: space-around;*/
+  /*-webkit-justify-content: space-around;*/
+  align-items: center;
+  -webkit-align-items: center;
+  font-size: 14px;
+  width:410px;
+  height:40px;
+  border-radius:1px;
+  border:1px solid rgba(224,225,244,1);
+
+  margin-left: 25px;
+}
+.verification-title {
+  display: block;
+  font-size:12px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color:rgba(107,125,162,1);
+  margin-bottom: 10px;
+  padding-left: 25px;
+  padding-right: 10px;
+}
+.verification-input {
+  /*height: 35px;*/
+  border: 1px solid #e5e5e5;
+  border-radius: 5px;
+  width: 70%;
+  border: none;
+
+
+}
+.double-input {
+  width: 150px;
+  border: none;
+}
+.get-verification {
+  display: inline-block;
+  /*width: 70px;*/
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  font-size: 14px;
+  color: #3576F5;
+}
+.btn-commit {
+  margin-left: 16px;
+}
+.ssss1 {
+  width:195px;
+  height:40px;
+  background:rgba(53,118,245,1);
+  color: #FFFFFF;
+  border-radius:1px;
+}
+.button-base33 {
+  width: 190px;
+  height: 35px;
+  /* background-color: #3576F5; */
+  color: #fff;
+  border-radius: 1px;
+  border: 0 solid transparent;
+  margin-right: 2px;
+  outline: none;
+}
+
+.button-base22 {
+  width: 410px;
+  height: 35px;
+  /* background-color: #3576F5; */
+  color: #fff;
+  border-radius: 1px;
+  border: 0 solid transparent;
+  margin-right: 2px;
+  outline: none;
+}
+.btn-commit {
+  margin-left: 2px;
+  margin-bottom: 15px;
+}
+.ssss {
+  margin-bottom: 15px;
+  width:195px;
+  height:40px;
+  border-radius:1px;
+  color: #3576F5;
+  border:1px solid rgba(53,118,245,1);
 }

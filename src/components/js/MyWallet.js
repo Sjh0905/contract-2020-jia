@@ -1035,6 +1035,258 @@ root.methods.testGACodeVerification = function () {
   return true
 }
 
+//提交谷歌或手机验证码
+root.methods.commitStep2Verification = function () {
+  // typeof data === 'string' && (data = JSON.parse(data))
+
+  // let resDataMap = data.dataMap
+  // console.log('resDataMap===================',resDataMap)
+
+  // if (data.errorCode) {
+  //   switch (data.errorCode) {
+  //     case 1:
+  //       this.step2VerificationCodeWA = this.$t('step2VerificationCodeWA_11') //用户未登录
+  //       break;
+  //     case 2:
+  //       this.step2VerificationCodeWA = this.$t('step2VerificationCodeWA_13')//验证超时，请刷新重试
+  //       break;
+  //     case 3:
+  //       this.step2VerificationCodeWA = this.$t('step2VerificationCodeWA_13')//用户认证数据异常，详情请联系客服
+  //       break;
+  //     case 4:
+  //       this.step2VerificationCodeWA = this.$t('step2VerificationCodeWA_14')//验证码错误/过期
+  //       break;
+  //     case 100:
+  //       break;
+  //     default:
+  //       this.step2VerificationCodeWA = '系统繁忙，请稍后再试'
+  //   }
+  // }
+  // 邮箱验证
+  this.$http.send('POST_COMMON_AUTH', {
+    bind: this,
+    params: {
+      type: this.picker == 1 ? 'ga' : 'mobile',
+      examinee:'',
+      purpose: 'transfer',
+      code: this.step2VerificationCode,
+      //this.step2VerificationCode
+      currency: this.transferCurrency, //this.currency,  // TODO：这里要切换币种
+      toEmail:this.name_0,
+      toUserId:this.testUID_0,
+      amount: parseFloat(this.testNum_0),
+      fee: 0,
+    },
+    callBack: this.re_commitStep2Verification,
+    errorHandler: this.error_commitStep2Verification
+  })
+
+  // this.popWindowLoading = false
+  // // this.step2VerificationSending = true
+  // this.goToConfirmsjh = false
+  // this.buyConfirmSuccess = true
+  // // this.$router.push({name: 'transferRecord'})
+}
+
+// 提交谷歌或手机验证码成功
+root.methods.re_commitStep2Verification = function (data) {
+  console.log(data)
+  typeof data === 'string' && (data = JSON.parse(data))
+  // this.popWindowLoading = false
+  // this.step2VerificationSending = true
+
+  let resDataMap = data.dataMap
+  console.log('resDataMap==================ggggggggg=',resDataMap)
+
+  if (data.errorCode) {
+
+    if (data.errorCode === 1) {
+      this.buyConfirmSuccess = false
+      this.popText = this.$t('iKnowthe6')
+      this.popType = 0
+      this.popOpen = true
+    }
+    if (data.errorCode === 2) {
+      this.buyConfirmSuccess = false
+      this.popText = '邮箱未认证'
+      // this.popText = this.$t('iKnowthe7')
+      this.popType = 0
+      this.popOpen = true
+    }
+    if (data.errorCode === 3) {
+      this.buyConfirmSuccess = false
+      this.popText = this.$t('iKnowthe8')
+      this.popType = 0
+      this.popOpen = true
+    }
+    if (data.errorCode === 4) {
+      this.buyConfirmSuccess = false
+      this.popText = this.$t('iKnowthe9')
+      this.popType = 0
+      this.popOpen = true
+    }
+    if (data.errorCode === 5) {
+      this.buyConfirmSuccess = false
+      this.popText = this.$t('iKnowthe10')
+      this.popType = 0
+      this.popOpen = true
+    }
+    if (data.errorCode === 6) {
+      this.buyConfirmSuccess = false
+      this.popText = this.$t('iKnowthe11')
+      this.popType = 0
+      this.popOpen = true
+    }
+    if (data.errorCode === 7) {
+      this.buyConfirmSuccess = false
+      this.popText = this.$t('iKnowthe12')
+      this.popType = 0
+      this.popOpen = true
+    }
+    if (data.errorCode === 8) {
+      this.buyConfirmSuccess = false
+      this.popText = this.$t('iKnowthe13')
+      this.popType = 0
+      this.popOpen = true
+    }
+    if (data.errorCode === 9) {
+      this.buyConfirmSuccess = false
+      this.popText = this.$t('iKnowthe14')
+      this.popType = 0
+      this.popOpen = true
+    }
+    if (data.errorCode === 10) {
+      this.buyConfirmSuccess = false
+      this.popText = this.$t('iKnowthe15')
+      this.popType = 0
+      this.popOpen = true
+    }
+    if (data.errorCode === 11) {
+      this.buyConfirmSuccess = false
+      this.popText = this.$t('iKnowthe16')
+      this.popType = 0
+      this.popOpen = true
+    }
+    if (data.errorCode === 12) {
+      this.buyConfirmSuccess = false
+      this.popText = this.$t('iKnowthe17')
+      this.popType = 0
+      this.popOpen = true
+    }
+    if (data.errorCode === 13) {
+      this.buyConfirmSuccess = false
+      this.popText = this.$t('iKnowthe18')
+      this.popType = 0
+      this.popOpen = true
+    }
+    if (data.errorCode === 15) {
+      this.buyConfirmSuccess = false
+      this.popText = this.$t('iKnowthe19')
+      this.popType = 0
+      this.popOpen = true
+    }
+    if (data.errorCode === 0) {
+      this.buyConfirmSuccess = false
+      this.popType = 1
+      this.popText = this.$t('popText_4')//申请成功
+      this.popOpen = true
+    }
+    return
+  }
+  this.popWindowLoading = false
+  // this.step2VerificationSending = true
+  this.goToConfirmsjh = false
+  this.buyConfirmSuccess = true
+  // this.$router.push({name: 'transferRecord'})
+  setTimeout(() => {
+    this.close()
+  }, 2000)
+
+
+
+
+  // if (data.errorCode) {
+  //   switch (data.errorCode) {
+  //     case 1:
+  //       this.step2VerificationCodeWA = this.$t('step2VerificationCodeWA_11') //用户未登录
+  //       break;
+  //     case 2:
+  //       this.step2VerificationCodeWA = this.$t('step2VerificationCodeWA_13')//验证超时，请刷新重试
+  //       break;
+  //     case 3:
+  //       this.step2VerificationCodeWA = this.$t('step2VerificationCodeWA_13')//用户认证数据异常，详情请联系客服
+  //       break;
+  //     case 4:
+  //       this.step2VerificationCodeWA = this.$t('step2VerificationCodeWA_14')//验证码错误/过期
+  //       break;
+  //     case 5:
+  //       this.step2VerificationCodeWA = this.$t('step2VerificationCodeWA_15')//提现地址不可超过10个，请删除历史提现地址后重试
+  //       break;
+  //     case 6:
+  //       this.step2VerificationCodeWA = this.$t('step2VerificationCodeWA_16')//提现地址错误
+  //       break;
+  //     case 7:
+  //       this.step2VerificationCodeWA = this.$t('step2VerificationCodeWA_17')//资金冻结失败
+  //       break;
+  //     case 8:
+  //       this.step2VerificationCodeWA = this.$t('step2VerificationCodeWA_18')//不支持的币种类型
+  //       break;
+  //     case 9:
+  //       this.step2VerificationCodeWA = this.$t('step2VerificationCodeWA_19')//缺少此币种提币规则
+  //       break;
+  //     case 10:
+  //       this.step2VerificationCodeWA = this.$t('step2VerificationCodeWA_20')//小于最小提币数量
+  //       break;
+  //     case 11:
+  //       this.step2VerificationCodeWA = this.$t('用户余额不足')//小于最小提币数量
+  //       break;
+  //     case 100:
+  //       break;
+  //     default:
+  //       this.step2VerificationCodeWA = '系统繁忙，请稍后再试'
+  //   }
+  //
+  //   if (data.errorCode === 4 && this.picker === 2 && resDataMap.times) {
+  //     this.SHOW_TIPS_FREQUENCY((resDataMap.times - resDataMap.wrong), resDataMap.times, (resDataMap.lock / 60));
+  //     setTimeout(() => {
+  //       this.popType = 0;
+  //       this.popOpen = true;
+  //       this.buyConfirmSuccess = false
+  //     }, 200);
+  //     return
+  //   }
+  //
+  //   if (data.errorCode === 100 && resDataMap.lock && this.picker === 2) {
+  //     this.SHOW_TIPS(resDataMap.lock / 60);
+  //     setTimeout(() => {
+  //       this.popType = 0;
+  //       this.popOpen = true;
+  //       this.buyConfirmSuccess = false
+  //     }, 200);
+  //     return
+  //   }
+  //
+  //   if (data.errorCode !== 4) {
+  //     this.step2Error = true
+  //   }
+  //   return
+  // }
+
+
+
+}
+//提交谷歌或手机验证码失败
+root.methods.error_commitStep2Verification = function (err) {
+  // console.warn('提交谷歌或手机验证码失败', err)
+
+  this.popWindowLoading = false
+  this.step2VerificationSending = false
+
+  this.popText = this.$t('popText_1')//暂不可用
+  this.popType = 0
+  this.popOpen = true
+}
+
 
 // 提交邮箱验证
 root.methods.commitEmailVerification = function (data) {
@@ -1594,6 +1846,22 @@ root.methods.openRecharge = function (index, item) {
   }
   this.rechargeAddressChangePrompt = true
   this.activeIndex = index
+}
+
+// 进行验证第二步，手机、谷歌
+root.methods.beginVerificationStep2 = function () {
+  if (this.picker == 0) {
+    this.popText = this.$t('popText_3')
+    this.popType = 0
+    this.popOpen = true
+    this.sending = false
+    return
+  }
+  this.popWindowStep = 2
+  this.step2Error = true
+  if (!this.showPicker && this.picker == 2) {
+    this.getMobileVerification()
+  }
 }
 
 
