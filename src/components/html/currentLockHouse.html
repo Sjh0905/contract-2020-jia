@@ -1,0 +1,101 @@
+<div class="recharge-record-container">
+  <Loading v-if="loading" class="min-height-all recharge-record-loading-container border_radius"/>
+
+
+  <div class="border_box border_radius">
+
+    <!--充值记录title begin-->
+    <div class="detail-header flex">
+<!--      订单号-->
+      <div class="order-number">{{$t('orderNumber')}}</div>
+      <!--币种-->
+      <span class="currency">{{$t('currency')}}</span>
+      <!--数量-->
+      <span class="total">{{$t('total')}}</span>
+      <!--锁仓时间-->
+      <span class="lock-house-time">{{$t('lockHouseTime')}}</span>
+<!--      分红时间-->
+      <span class="dividend-time">{{$t('dividendTime')}}</span>
+<!--      昨日收益-->
+      <span class="income-yesterday">{{$t('incomeYesterday')}}</span>
+<!--      累计收益-->
+      <span class="income">{{$t('accumulatedIncome')}}（YY）</span>
+<!--      操作-->
+      <span class="operation">{{$t('operation')}}</span>
+
+    </div>
+    <!--充值记录title end-->
+
+    <template v-if="!loading">
+
+      <!--充值记录具体 begin-->
+      <ul class="detail-container" >
+        <!--各条记录 begin-->
+        <li class="detail-li" v-for="(item,index) in computedRecord" :key="item.id">
+          <div class="li-container flex">
+            <!--订单号-->
+            <div class="order-number">{{item.id}}</div>
+
+            <!--币种 begin-->
+            <span class="currency">
+              {{item.currency == 'USDT2' ? 'USDT' :item.currency}}
+            </span>
+            <!--币种 end-->
+
+            <!--数量 begin-->
+            <span class="total">
+              {{toFixed(item.amount,8)}}
+            </span>
+            <!--数量 end-->
+            <!--锁仓时间 begin-->
+            <span class="lock-house-time">
+              {{$globalFunc.formatDateUitl(item.updatedAt,'YYYY-MM-DD hh:mm:ss')}}
+            </span>
+            <!--锁仓时间 end-->
+
+            <!--      分红时间-->
+            <span class="dividend-time">{{item.dateTime}}</span>
+
+            <!--      昨日收益-->
+            <span class="income-yesterday">{{$t('昨日收益')}}</span>
+            <!--      累计收益-->
+            <span class="income">{{$t('累计收益')}}</span>
+            <!--      操作-->
+            <span class="operation">
+              <button class="pointer" @click="unLockHouse(index,item)">解锁</button>
+            </span>
+
+          </div>
+        </li>
+        <!--各条记录 begin-->
+
+
+        <!--如果没有记录 begin-->
+        <li class="detail-li-no-data" v-if="computedRecord.length===0">
+          <div class="no-data-content">
+            <img src="../../assets/assetPageRecord/no-order-light.png" alt="">
+            <div class="no-record">{{$t('noRecord')}}</div>
+          </div>
+
+        </li>
+        <!--如果没有记录 end-->
+      </ul>
+      <!--充值记录具体 end-->
+
+      <!--加载更多 begin-->
+      <div class="loading-more" v-if="loadingMoreShow">
+        <span v-if="!loadingMoreShowing" @click="loadingMore">{{$t('loadingMore')}}</span>
+        <span v-if="loadingMoreShowing">
+          <Loading/>
+        </span>
+      </div>
+      <!--加载更多 end-->
+
+    </template>
+  </div>
+  <!--<Loading v-if="loading"/>-->
+
+  <PopupPrompt :popOpen="popOpen" :popClose="popClose" :popType="popType" :popText="popText"/>
+
+
+</div>

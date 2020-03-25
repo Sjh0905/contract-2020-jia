@@ -128,7 +128,15 @@ root.data = function () {
     transferAmountWA:'',// 数量错误提示
     transferCurrencyAvailable:0,
     transferCurrencyObj:{},
-    sending:false
+    sending:false,
+
+    // 锁仓弹框
+    popWindowOpenLockHouse:false,
+    lockHomeNum:'', // 锁仓数量
+    lockHomeNum_WA: '', // 锁仓数量错误提示
+    lockHouseCurrency:'',
+    lockHouseAvailable:'',  // 锁仓可用
+    lockNum:5
 
 
 
@@ -999,6 +1007,153 @@ root.methods.error_getGoToConfirmTransfer = function(data){
   console.log('resDataMap=========rrrrr=========ggggggggg=',data)
 }
 
+//提交谷歌或手机验证码
+root.methods.commitStep2Verification = function () {
+  let canSend = true
+  this.picker === 1 && (canSend = this.testGACodeVerification() && canSend)
+  this.picker === 2 && (canSend = this.testMobileVerification() && canSend)
+  if (this.step2VerificationCode === '') {
+    this.step2VerificationCodeWA = this.$t('step2VerificationCodeWA_5')
+    canSend = false
+  }
+  if (!canSend) {
+    return false
+  }
+
+  let address = this.address
+  let currencyObj = this.$store.state.currency.get(this.currency)
+
+  if (currencyObj && currencyObj.addressAliasTo === 'ETH') {
+    address = this.toChecksumAddress(address)
+  }
+
+
+  let description = this.description
+  // 如果有memo，拼接到description上
+  if (this.haveMemo === 'yes') {
+    if(currencyObj && (currencyObj.addressAliasTo === 'WCG' || this.currency === 'WCG')){
+      description += 'a0f0bc95016c862498bbad29d1f4d9d4' + this.publicKey
+    }else {
+      description += 'a0f0bc95016c862498bbad29d1f4d9d4' + this.memo
+    }
+  }
+
+  let isERC20 = this.isERC20();
+  let currency = this.currency == "USDT" ? isERC20 : this.currency
+
+  this.$http.send('POST_COMMON_AUTH', {
+    bind: this,
+    params: {
+      type: this.picker == 1 ? 'ga' : 'mobile',
+      purpose: 'withdraw',
+      code: this.step2VerificationCode,
+      currency: currency,  // TODO：这里要切换币种
+      description: description,
+      address: address,
+      amount: parseFloat(this.realAccount),
+    },
+    callBack: this.re_commitStep2Verification,
+    errorHandler: this.error_commitStep2Verification
+  })
+
+  this.popWindowLoading = true
+  this.step2VerificationSending = true
+}
+
+// 提交谷歌或手机验证码成功
+root.methods.re_commitStep2Verification = function (data) {
+  typeof data === 'string' && (data = JSON.parse(data))
+  this.popWindowLoading = false
+  this.step2VerificationSending = false
+
+  let resDataMap = data.dataMap
+
+  if (data.errorCode) {
+    switch (data.errorCode) {
+      case 1:
+        this.step2VerificationCodeWA = this.$t('step2VerificationCodeWA_11')
+        break;
+      case 2:
+        this.step2VerificationCodeWA = this.$t('step2VerificationCodeWA_12')
+        break;
+      case 3:
+        this.step2VerificationCodeWA = this.$t('step2VerificationCodeWA_13')
+        break;
+      case 4:
+        this.step2VerificationCodeWA = this.$t('step2VerificationCodeWA_14')
+        break;
+      case 5:
+        this.step2VerificationCodeWA = this.$t('step2VerificationCodeWA_15')
+        break;
+      case 6:
+        this.step2VerificationCodeWA = this.$t('step2VerificationCodeWA_16')
+        break;
+      case 7:
+        this.step2VerificationCodeWA = this.$t('step2VerificationCodeWA_17')
+        break;
+      case 8:
+        this.step2VerificationCodeWA = this.$t('step2VerificationCodeWA_18')
+        break;
+      case 9:
+        this.step2VerificationCodeWA = this.$t('step2VerificationCodeWA_19')
+        break;
+      case 10:
+        this.step2VerificationCodeWA = this.$t('step2VerificationCodeWA_20')
+        break;
+      case 100:
+        break;
+      default:
+        this.step2VerificationCodeWA = '系统繁忙，请稍后再试'
+    }
+
+    if (data.errorCode === 4 && this.picker === 2 && resDataMap.times) {
+      this.SHOW_TIPS_FREQUENCY((resDataMap.times - resDataMap.wrong), resDataMap.times, (resDataMap.lock / 60));
+      setTimeout(() => {
+        this.popType = 0;
+        this.popOpen = true;
+      }, 200);
+      return
+    }
+
+    if (data.errorCode === 100 && resDataMap.lock && this.picker === 2) {
+      this.SHOW_TIPS(resDataMap.lock / 60);
+      setTimeout(() => {
+        this.popType = 0;
+        this.popOpen = true;
+      }, 200);
+      return
+    }
+
+    if (data.errorCode !== 4) {
+      this.step2Error = true
+    }
+
+
+    return
+  }
+
+
+  this.popType = 1
+  this.popText = this.$t('popText_4')
+  this.popOpen = true
+  setTimeout(() => {
+    this.close()
+  }, 1000)
+
+
+}
+//提交谷歌或手机验证码失败
+root.methods.error_commitStep2Verification = function (err) {
+  // console.warn('提交谷歌或手机验证码失败', err)
+
+  this.popWindowLoading = false
+  this.step2VerificationSending = false
+
+  this.popText = this.$t('popText_1')
+  this.popType = 0
+  this.popOpen = true
+}
+
 //sss 屏蔽 E
 
 //查看转账记录
@@ -1649,6 +1804,102 @@ root.methods.closeWhatTransfer= function () {
 
 root.methods.openWhatTransfer = function () {
   $(".transfer-explain").attr("style","display:block");
+}
+
+// 关闭锁仓
+root.methods.popWindowClose_LockHouse = function () {
+  this.closeLockHouse()
+}
+root.methods.closeLockHouse = function () {
+  this.popWindowOpenLockHouse = false
+}
+
+// 打开锁仓
+root.methods.openLockHouse = function (index,item) {
+  console.log(item)
+  // 锁仓币
+  this.lockHouseCurrency = item.currency
+  // 锁仓可用
+  this.lockHouseAvailable = item.available
+  this.popWindowOpenLockHouse = true
+
+}
+
+// 判断划转数量
+root.methods.testLockAmount  = function () {
+  if (this.$globalFunc.testSpecial(this.lockHomeNum)) {
+    this.lockHomeNum_WA = this.$t('请输入正确的数额')
+    return false
+  }
+  // if (this.amountInput == '0') {
+  //   this.transferAmountWA = this.$t('transferAmountWA2')
+  //   return false
+  // }
+  if (this.lockHomeNum > this.lockHouseAvailable) {
+    this.lockHomeNum_WA = this.$t('输入的锁仓数额超过可用锁仓数额')
+    return false
+  }
+  if (this.lockHomeNum <= '0') {
+    this.lockHomeNum = '0'
+    this.lockHomeNum_WA = this.$t('低于锁仓最小额')
+    return false
+  }
+  this.lockHomeNum_WA = ''
+  return true
+
+}
+
+// 可以提交
+root.methods.canCommitLock = function () {
+  let canSend = true
+  canSend = this.testLockAmount() && canSend
+  if (this.lockHomeNum === '') {
+    this.lockHomeNum_WA = this.$t('请输入正确的数额')
+    return canSend = false
+  }
+  // if (this.amountInput === '0') {
+  //   this.transferAmountWA = this.$t('transferAmountWA2')
+  //   canSend = false
+  // }
+  return canSend
+}
+
+root.methods.commitLockHouse = function () {
+  let time
+
+  if (this.sending) return
+  if (!this.canCommitLock()) {
+    return
+  }
+  this.sending = true
+  this.$http.send('LOCK_ASSET', {
+    bind: this,
+    params: {
+      currency: this.lockHouseCurrency,
+      amount: this.lockHomeNum,
+    },
+    callBack: this.re_commitLockHouse,
+    errorHandler: this.error_commitLockHouse,
+  })
+}
+
+
+root.methods.re_commitLockHouse = function (data) {
+  this.sending = false
+  typeof data === 'string' && (data = JSON.parse(data))
+  console.log(data)
+  data.errorCode && data.errorCode == 0
+
+
+}
+
+root.methods.error_commitLockHouse = function (err) {
+
+}
+
+root.methods.allAvailable = function () {
+  // 可用输入框
+  this.lockHomeNum = this.lockHouseAvailable
 }
 
 

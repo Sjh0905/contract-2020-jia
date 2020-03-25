@@ -96,24 +96,24 @@
 
 <!--              sss屏蔽-->
             <!--打开充值 begin-->
-<!--            <span class="recharge-button button" @click="openRecharge(index,item)"-->
-<!--                  :class="{'recharge-button-select':activeIndex === index  && recharge}"-->
-<!--                  v-if="rechargeFlag(item)">{{$t('recharge')}}</span>-->
-<!--              &lt;!&ndash;打开充值 end&ndash;&gt;-->
-<!--              &lt;!&ndash;关闭充值 begin&ndash;&gt;-->
-<!--              <span class=" can-not-withdrawals"-->
-<!--                    :class="{'recharge-button-select':activeIndex === index  && recharge}" v-else>{{$t('recharge')}}</span>-->
-<!--              &lt;!&ndash;关闭充值 end&ndash;&gt;-->
+            <span class="recharge-button button" @click="openRecharge(index,item)"
+                  :class="{'recharge-button-select':activeIndex === index  && recharge}"
+                  v-if="rechargeFlag(item)">{{$t('recharge')}}</span>
+              <!--打开充值 end-->
+              <!--关闭充值 begin-->
+              <span class=" can-not-withdrawals"
+                    :class="{'recharge-button-select':activeIndex === index  && recharge}" v-else>{{$t('recharge')}}</span>
+              <!--关闭充值 end-->
 
-<!--              &lt;!&ndash;打开提现 begin&ndash;&gt;-->
-<!--            <span class="withdrawals-button button" @click="openWithdrawals(index,item)"-->
-<!--                  :class="{'withdrawals-button-select':activeIndex===index  && withdrawals}"-->
-<!--                  v-if="withdrawalsFlag(item)"-->
-<!--            >{{$t('withdrawals')}}</span>-->
-<!--            <span class="can-not-withdrawals" v-else>{{$t('withdrawals')}}</span>-->
-<!--&lt;!&ndash;              打开提现 end&ndash;&gt;-->
-<!--&lt;!&ndash;              关闭提现 begin&ndash;&gt;-->
-<!--              <span class="withdrawals-button button can-not-withdrawals">{{$t('withdrawals')}}</span>-->
+              <!--打开提现 begin-->
+            <span class="withdrawals-button button" @click="openWithdrawals(index,item)"
+                  :class="{'withdrawals-button-select':activeIndex===index  && withdrawals}"
+                  v-if="withdrawalsFlag(item)"
+            >{{$t('withdrawals')}}</span>
+            <span class="can-not-withdrawals" v-else>{{$t('withdrawals')}}</span>
+<!--              打开提现 end-->
+<!--              关闭提现 begin-->
+              <span class="withdrawals-button button can-not-withdrawals" v-else>{{$t('withdrawals')}}</span>
 <!--              关闭提现 end-->
 
             <!--sss 屏蔽-->
@@ -153,13 +153,13 @@
 <!-- v-if="serverT >= item.withdrawOpenTime"-->
 <!--              内部转账灰色按钮 begin-->
 
-               <span class="withdrawals-buttons buttons">
-                 {{$t('recharge')}}
-               </span>
+<!--               <span class="withdrawals-buttons buttons">-->
+<!--                 {{$t('recharge')}}-->
+<!--               </span>-->
 
-               <span class="withdrawals-buttons buttons">
-                 {{$t('withdrawals')}}
-               </span>
+<!--               <span class="withdrawals-buttons buttons">-->
+<!--                 {{$t('withdrawals')}}-->
+<!--               </span>-->
                <span class="withdrawals-buttons buttons">
                  {{$t('internalTransfer')}}
                </span>
@@ -170,12 +170,13 @@
 <!--              锁仓灰色按钮-->
 <!--               v-if="serverT >= item.withdrawOpenTime"-->
 
-<!--             <span class="withdrawals-button button"-->
-<!--                   v-if="item.currency === 'YY'|| item.currency === 'TT'"-->
-<!--                  >-->
-<!--               {{$t('lockWarehouse')}}-->
-<!--             </span>-->
-<!--            <span class="can-not-withdrawals" v-else>{{$t('lockWarehouse')}}</span>-->
+             <span class="withdrawals-button button"
+                   @click="openLockHouse(index,item)"
+                   v-if="item.currency === 'YY'|| item.currency === 'TT'"
+                  >
+               {{$t('lockWarehouse')}}
+             </span>
+            <span class="can-not-withdrawals" v-else>{{$t('lockWarehouse')}}</span>
               <!--sss 锁仓屏蔽结束-->
 
               <span class="withdrawals-buttons buttons">{{$t('lockWarehouse')}}</span>
@@ -201,6 +202,76 @@
 
   </div>
 
+<!--  锁仓弹框-->
+  <PopupT :switch="popWindowOpenLockHouse" @close="popWindowClose_LockHouse" >
+    <div slot="header">
+      <div>{{lockHouseCurrency}}{{$t('lock_house')}}</div>
+    </div>
+    <div slot="article"class="pop-lock-house">
+<!--      锁仓输入框-->
+      <div class="lock-house-article">
+        <div class="lock-house-title flex">
+          <div>{{$t('lock_house_amount')}}</div>
+          <div>{{$t('available')}}：{{lockHouseAvailable}} TT</div>
+        </div>
+        <div class="lock-house-input flex">
+          <input type="text" :placeholder='$t("lock_house_input")' v-model="lockHomeNum" @blur="testLockAmount">
+          <div class="lock-house-all pointer" @click="allAvailable()">{{$t('lock_house_all')}}</div>
+        </div>
+        <div class="wrong-content">
+          <span class="wrong-msg">{{lockHomeNum_WA}}</span>
+        </div>
+      </div>
+
+<!--      锁仓规则-->
+      <div class="lock-house-rules">
+        <!--锁仓日-->
+        <div class="flex">
+          <div class="lock-house-rules-left">
+            <div class="step-circular step-color-blue"></div>
+            <div class="step-line step-color-blue"></div>
+          </div>
+          <div class="lock-house-rules-right flex">
+            <div class="lock-house-day">{{$t('lock_house_day')}}</div>
+            <!--锁仓规则-->
+            <div class="lock-house-rule pointer">
+              <img src="../../assets/myWallet/lock_house.png" alt="">
+              <span>{{$t('lock_house_rules')}}</span>
+            </div>
+          </div>
+        </div>
+        <!--锁仓时间-->
+        <div class="flex">
+          <div class="lock-house-rules-left">
+            <div class="step-circular step-color-grew"></div>
+            <div class="step-line1 step-color-grew"></div>
+          </div>
+          <div class="lock-house-rules-right">
+            <div class="lock-house-day">03-22 12:00</div>
+            <div class="lock-house-day">{{$t('lock_house_income')}}</div>
+          </div>
+        </div>
+        <div class="flex">
+          <div class="lock-house-rules-left">
+            <div class="step-circular step-color-grew"></div>
+<!--            <div class="step-line step-color-grew"></div>-->
+          </div>
+          <div class="lock-house-rules-right-last">
+            <div class="lock-house-day">03-22 12:00</div>
+            <div class="lock-house-day">{{$t('lock_house_income1')}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div slot="footer" class="lock-house-footer">
+      <button class="ensure-button btn_blue pointer" @click="commitLockHouse()">{{$t('lock_house_ensure')}}</button>
+      <div class="day-surplus">
+        {{$t('lock_house_surplus')}}
+        <span>{{lockNum}}</span>
+      </div>
+    </div>
+  </PopupT>
+
   <!--  内部划转-->
   <PopupT :switch="popWindowOpen1" @close="popWindowClose_transfer" >
     <div slot="header">
@@ -217,9 +288,9 @@
           </div>
         </div>
         <div class="wallet-to-account-content" :class="(assetAccountType == 'wallet') ? 'flex-colum':'flex-colum-reverse'">
-          <div>我的钱包</div>
+          <div>{{$t('myWallet')}}</div>
           <div class="wallet-to-account-content-line"/>
-          <div>币币账户</div>
+          <div>{{$t('coinAccount')}}</div>
 <!--          <input type="text" :placeholder='$t("coinAccount")' v-model="bibiAccount">-->
 <!--          <input type="text" :placeholder='$t("myWallet")'  v-model="account">-->
         </div>
@@ -505,9 +576,9 @@
              @focus="closePlaceholder('verificationCode')"
              @blur="testNum_01()">
       <div class="whit_0">
-      <span v-if="testNumWA_0 ==='0'" class="prompt-span wrong-msg whiteListwhit">{{testNumMsg_0}}</span>
+        <span v-if="testNumWA_0 ==='0'" class="prompt-span wrong-msg whiteListwhit">{{testNumMsg_0}}</span>
         <p class="shouxu">{{$t('Number4')}}</p>
-        </div>
+      </div>
 
       <!--      <p class="Internal_siding_email margin_top"><span class="color_red">*</span>邮箱验证码</p>-->
       <!--      <input class="input_input" type="text" placeholder="输入邮箱验证码" >-->

@@ -1702,6 +1702,69 @@ root.routes.push({
         // },
 
 
+        // 锁仓记录
+        {
+          path: 'lockingRecord',
+          name: 'lockingRecord',
+          caseSensitive: true,
+          meta: {
+            requireLogin: true,
+            templateClose: false,
+            templatePath: '/index/assetPageT',
+            requireLoginOff: false,
+          },
+          component: resolve => require(['@/components/vue/lockingRecord'], resolve),
+          children:[
+            {
+              path: '',
+              meta: {
+                requireLogin: true,
+                templateClose: false,
+                templatePath: '/index/assetPageT',
+                requireLoginOff: false,
+              },
+              redirect: 'currentLockHouse',
+              caseSensitive: true,
+            },
+
+            // 当前锁仓记录
+            {
+              path: 'currentLockHouse',
+              name: 'currentLockHouse',
+              meta: {
+                pcname: 'currentLockHouse',
+                h5name: 'MobileCurrentLockHouse',
+                requireLogin: true,
+                // 临时关闭
+                templateClose: false,
+                templatePath: '/index/asset/rechargeAndWithdrawals',
+                // templatePath: '/index/assetPageT',
+                requireLoginOff: false,
+              },
+              caseSensitive: true,
+              component: resolve => require(['@/components/vue/currentLockHouse'], resolve),
+            },
+
+
+            // 历史锁仓记录
+            {
+              path: 'historyLockHouse',
+              name: 'historyLockHouse',
+              meta: {
+                pcname: 'historyLockHouse',
+                h5name: 'MobileHistoryLockHouse',
+                requireLogin: true,
+                // 临时关闭
+                templateClose: false,
+                templatePath: '/index/asset/rechargeAndWithdrawals',
+                // templatePath: '/index/assetPageT',
+                requireLoginOff: false,
+              },
+              caseSensitive: true,
+              component: resolve => require(['@/components/vue/historyLockHouse'], resolve),
+            },
+          ]
+        },
 
 
         {
@@ -1798,23 +1861,7 @@ root.routes.push({
               caseSensitive: true,
               component: resolve => require(['@/components/vue/TransferList'], resolve),
             },
-            // 锁仓记录
-            {
-              path: 'lockingRecord',
-              name: 'lockingRecord',
-              meta: {
-                pcname: 'lockingRecord',
-                h5name: 'MobileLockingRecord',
-                requireLogin: true,
-                templateClose: false,
-                templatePath: '/index/asset/lockingRecord',
-                // templatePath: '/index/assetPageT',
 
-                requireLoginOff: false,
-              },
-              caseSensitive: true,
-              component: resolve => require(['@/components/vue/lockingRecord'], resolve),
-            },
             // 平台奖励
             {
               path: 'platformReward',

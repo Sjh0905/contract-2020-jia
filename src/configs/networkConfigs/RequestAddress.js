@@ -460,6 +460,7 @@ requestAddress.GET_CHECK = {url: urlHead+'/memberCard/checkMember/', method: 'ge
 requestAddress.GET_BUY_RECORDS = {url: urlHead+'/memberCard/buyRecords/', method: 'get'} // 会员购买记录
 requestAddress.GET_CHECK_ENOUGH_BALANCE = {url: urlHead+'/memberCard/checkEnoughBalance/', method: 'get'} // 会员卡报名是否金额足够
 
-
+requestAddress.LOCK_ASSET = {url: urlHead+'/asset/user/lock/asset', method: 'post'} // 锁仓接口
+requestAddress.LOCK_ASSET_RECODE = {url: urlHead+'/asset/user/assets', method: 'get'} // 锁仓记录
 
 export default requestAddress

@@ -1,18 +1,19 @@
 /*下方内容*/
 
-.recharge-record-container {
-  display: block;
+.lock-house-record-container {
   width: 100%;
-  position: relative;
+  height: auto;
+  /*border: 1px solid #EFF0FF;*/
 }
 
-.border_box {
-  overflow: hidden;
-  min-height: 240px;
-  /*border-top-left-radius: 0 !important;*/
-  /*border-top: 1px solid #EFF0FF;*/
-  /*border-bottom: 1px solid #EFF0FF;*/
-}
+
+/*.border_box {*/
+/*  overflow: hidden;*/
+/*  min-height: 240px;*/
+/*  !*border-top-left-radius: 0 !important;*!*/
+/*  !*border-top: 1px solid #EFF0FF;*!*/
+/*  !*border-bottom: 1px solid #EFF0FF;*!*/
+/*}*/
 
 .selected {
   color: #3576F5;
@@ -135,7 +136,87 @@
 }
 /*暂无记录  end*/
 
+.lock-house {
+  width: 1200px;
+  height: 100px;
+  border: 1px solid #EFF0FF;
+  padding: 24px 36px 24px 0;
+  margin-bottom: 30px;
+}
 
+.lock-house-content {
+  color: #0D0E23;
+  font-size:12px;
+  font-family:PingFangSC-Regular,PingFang SC;
+}
+
+.lock-house-content li {
+  width: 264px;
+  margin-left: 36px;
+  border-right: 1px solid #EFF0FF;
+}
+
+.lock-house-content li:last-child {
+  border: 0;
+}
+
+.locked-hose {
+  margin-bottom: 10px;
+}
+
+.locked-num {
+  color: #FF9F40;
+  font-size:22px;
+  font-family:Roboto-Medium,Roboto;
+  font-weight:500;
+}
+
+.border-box {
+  overflow: hidden;
+  /*height: 55px;*/
+  /*line-height: 55px;*/
+  /*border-top-left-radius: 0 !important;*/
+  border: 1px solid #EFF0FF;
+  margin-bottom: 30px;
+}
+
+.lock-house-sel {
+  border: 1px solid #EFF0FF;
+  box-shadow:0px 3px 5px 0px rgba(0,0,0,0.04);
+  height: 55px;
+  line-height: 55px;
+}
+
+.title-tab {
+  display: block;
+  /*width: 10%;*/
+  height: 100%;
+  /*border: 1px solid #e5e5e5;*/
+  /*background: #fafafa;*/
+  box-sizing: border-box;
+  margin-right: 25px;
+  margin-left: 25px;
+  border-bottom: 0 solid transparent;
+  color: #6B7DA2;
+  font-size:14px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  text-align: left;
+}
+
+.selected{
+  /*border-bottom:2px solid #3576F5;*/
+  box-sizing: border-box;
+  z-index: 100;
+}
+
+.text_blue-7 {
+  color: #3576F5;
+  font-size:14px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  /*border-bottom: 2px solid #3576F5;*/
+}
 
 /*列表*/
 .detail-container {

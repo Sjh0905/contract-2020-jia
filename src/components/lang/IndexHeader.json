@@ -54,7 +54,9 @@
     "platform_5":"拼团",
 
     "miningDetails":"KK交易挖矿详情",
-    "OfficialQuantitativeRegistration": "KK交易挖矿"
+    "OfficialQuantitativeRegistration": "KK交易挖矿",
+    "lockHouseRecord": "锁仓记录"
+
   },
   "EN": {
     "website": "TwentyTwenty",
@@ -218,7 +220,8 @@
     "platform_2":"簡體中文",
     "platform_3":"公告",
     "platform_4":"下載",
-    "platform_5":"拼團"
+    "platform_5":"拼團",
+    "lockHouseRecord": "鎖倉記錄"
   },
   "JP": {
     "website": "TwentyTwenty",

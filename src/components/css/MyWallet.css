@@ -1016,3 +1016,146 @@
 .m-r {
   margin-left: 24px;
 }
+
+/*锁仓*/
+.pop-lock-house {
+ padding: 10px 0 0;
+}
+
+.lock-house-article {
+  height: 87px;
+  width: 100%;
+  color: #6B7DA2;
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+
+.lock-house-title {
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.lock-house-input {
+  width: 100%;
+  height: 40px;
+  justify-content: space-between;
+  line-height: 40px;
+  border: 1px solid #E0E1F4;
+  padding: 0 15px;
+  box-sizing: border-box;
+}
+
+.lock-house-input input{
+  border: 0;
+}
+/*锁仓输入框 placeholder 颜色   begin*/
+.lock-house-input input::-webkit-input-placeholder{
+  color:#A2B5D9;
+}
+.lock-house-input input::-moz-placeholder{   /* Mozilla Firefox 19+ */
+  color:#A2B5D9;
+}
+.lock-house-input input:-moz-placeholder{    /* Mozilla Firefox 4 to 18 */
+  color:#A2B5D9;
+}
+.lock-house-input input:-ms-input-placeholder{  /* Internet Explorer 10-11 */
+  color:#A2B5D9;
+}
+/*锁仓输入框 placeholder 颜色   end*/
+
+.lock-house-all{
+  color: #3576F5;
+}
+.wrong-content {
+  margin-top: 2px;
+}
+
+.lock-house-rules {
+  min-height: 198px;
+  padding: 20px 15px;
+  color: #0D0E23;
+  font-size: 12px;
+  background-color: #F5F6FA;
+  border-radius: 1px;
+}
+
+.lock-house-rules-left {
+  width: 30px;
+  min-height: 25px;
+}
+
+.lock-house-rules-right {
+  /*height: 17px;*/
+  flex: 1;
+  justify-content: space-between;
+  margin-bottom: 25px;
+}
+
+.lock-house-day {
+  margin-bottom: 3px;
+}
+
+.step-color-blue {
+  background-color: #3576F5;
+}
+
+.step-color-grew {
+  background-color: #E0E1F4;
+}
+
+.step-circular {
+  display: inline-block;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+
+  margin: 5px 20px 0 0;
+}
+
+.step-line {
+  min-height: 20px;
+  width: 1px;
+  margin-left: 5px;
+}
+
+.step-line1 {
+  min-height: 46px;
+  width: 1px;
+  margin-left: 5px;
+}
+
+.lock-house-rule {
+  color: #3576F5;
+}
+
+.lock-house-rule img {
+  width: 15px;
+  vertical-align: text-top;
+}
+
+.lock-house-rules-right-last {
+  margin-bottom: 0;
+}
+
+.lock-house-footer {
+  text-align: center;
+  color: #6B7DA2;
+}
+
+.ensure-button {
+  width: 410px;
+  height: 40px;
+  color: #fff;
+  font-size: 14px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+}
+
+.day-surplus {
+  margin-top: 14px;
+}
+
+.day-surplus span {
+  font-size: 12px;
+  color: #3576F5;
+}
