@@ -128,9 +128,15 @@ root.data = function () {
     transferAmountWA:'',// 数量错误提示
     transferCurrencyAvailable:0,
     transferCurrencyObj:{},
-    sending:false
+    sending:false,
 
+    step2VerificationCode: '', //第二步
+    step2VerificationCodeWA: '', //第二步验证
+    step2VerificationSending: false,//第二步验证发送中
+    step2Error: false, // 第二步验证出错
 
+    picker: 0, //验证类型
+    picked:1
 
   }
 }
@@ -151,6 +157,7 @@ root.created = function () {
   console.log(this.currency)
   // 获取账户信息
   this.getAccounts()
+  // this.transferDisabledss()
 
   // 如果已经cookies记录的弹出过，则不弹出，如果没有，弹窗，并记录
   if (!this.$cookies.get('rechargeAddressChanged')) {
@@ -167,6 +174,10 @@ root.computed = {}
 // 获取userId
 root.computed.userId = function () {
   return this.$store.state.authMessage.userId
+}
+// 验证类型
+root.computed.showPicker = function () {
+  return (this.$store.state.authState.sms && this.$store.state.authState.ga)
 }
 
 // 人民币汇率,由于后台接口返回了0.001，所以前端改为price接口获取，
@@ -293,6 +304,47 @@ root.watch.loading = function (newVal, oldVal) {
 
 /*------------------------------ 方法 -------------------------------*/
 root.methods = {}
+
+/*------------------ 获取验证状态 begin -------------------*/
+root.methods.getAuthState = function () {
+  if (!this.$store.state.authState) {
+    this.$http.send('GET_AUTH_STATE', {
+      bind: this,
+      callBack: this.re_getAuthState,
+      errorHandler: this.error_getAuthState
+    })
+    return
+  }
+  // 如果没有认证
+  if (!this.$store.state.authState.identity || (!this.$store.state.authState.sms && !this.$store.state.authState.ga) || !this.bindEmail) {
+    this.close()
+    return
+  }
+  this.$store.state.authState.sms && (this.picker = 2)
+  this.$store.state.authState.ga && (this.picker = 1)
+  // 获取认证状态成功
+  this.authStateReady = true
+}
+// 判断验证状态回调
+root.methods.re_getAuthState = function (data) {
+  typeof data === 'string' && (data = JSON.parse(data))
+  if (!data) return
+  this.$store.commit('SET_AUTH_STATE', data.dataMap)
+  // 获取认证状态成功
+  // 如果没有认证
+  if (!this.$store.state.authState.identity || (!this.$store.state.authState.sms && !this.$store.state.authState.ga)) {
+    this.close()
+    return
+  }
+  this.$store.state.authState.sms && (this.picker = 2)
+  this.$store.state.authState.ga && (this.picker = 1)
+  this.authStateReady = true
+}
+// 判断验证状态出错
+root.methods.error_getAuthState = function (err) {
+  this.close()
+}
+
 
 // 计算币种对USDT的估值
 root.methods.USDTAppraisement = function (item) {
@@ -604,7 +656,7 @@ root.methods.re_transferDisabled = function (data) {
   // 获取费率成功
   this.feeReady = true
 
-  if (this.isTransfer == true) {
+  if (this.isTransfer == false) {
     this.popupPromptText = this.$t('withdrawalsIsNotOpen')
     this.popWindowClose = false
     this.popWindowOpen2 = false
@@ -857,7 +909,7 @@ root.methods.goToConfirmsjhclose = function () {
 }
 
 //内部转账 第一步确认转账按钮getGoToConfirmTransfer
-root.methods.getGoToConfirmTransfer = function () {
+root.methods.GoToConfirmTransfer = function () {
   //sss 要删除 S
   // this.name = data.dataMap.UserProfile.name
   // this.popWindowOpen = false
@@ -909,15 +961,15 @@ root.methods.getGoToConfirmTransfer = function () {
   }
   // // console.log('55555555555555555555555555555555',this.name_0,this.testUID_0,this.testNum_0)
 
-  this.$http.send('GET_VERIFYIDENTITY_USER',{
+  this.$http.send('POST_VERIFYIDENTITY_USER',{
     bind: this,
     params:{
       email:this.name_0,
       userId:this.testUID_0,
       username:this.name
     },
-    callBack: this.re_getGoToConfirmTransfer,
-    errorHandler: this.error_getGoToConfirmTransfer,
+    callBack: this.re_GoToConfirmTransfer,
+    errorHandler: this.error_GoToConfirmTransfer,
   })
 
   // console.log('888888888888',this.name_0,this.testUID_0,data)
@@ -928,7 +980,7 @@ root.methods.getGoToConfirmTransfer = function () {
 
 //sss 屏蔽 S
 
-root.methods.re_getGoToConfirmTransfer = function(data){
+root.methods.re_GoToConfirmTransfer = function(data){
   typeof data === 'string' && (data = JSON.parse(data))
   this.name = data.dataMap.userProfile.name
   this.toUserId = data.dataMap.userProfile.userId
@@ -942,21 +994,21 @@ root.methods.re_getGoToConfirmTransfer = function(data){
       this.buyTransferDetails = false
       this.popupPromptText = this.$t('emailVerificationCodeWA_1') // 用户未登录
       this.popupPromptType = 0
-      return
+      return;
     }
     if (data.errorCode == 2) {
+      this.buyTransferDetails = false
       this.popupPromptOpen = true
-      // this.buyTransferDetails = false
       this.popupPromptText = this.$t('step2VerificationCodeWA_10')  //收款人不存在
       this.popupPromptType = 0
-      return
+      return;
     }
     if (data.errorCode == 3) {
       this.popupPromptOpen = true
       this.buyTransferDetails = false
       this.popupPromptText =this.$t('step2VerificationCodeWA_UID') // 传入用户邮箱和传入UID不是同一人
       this.popupPromptType = 0
-      return
+      return;
     }
     if (data.errorCode == 4) {
       this.popupPromptOpen = true
@@ -970,21 +1022,21 @@ root.methods.re_getGoToConfirmTransfer = function(data){
       this.buyTransferDetails = false
       this.popupPromptText = this.$t('step2VerificationCodeWA_receiving')  //收款用户未进行实名认证'
       this.popupPromptType = 0
-      return
+      return;
     }
     if (data.errorCode == 6) {
       this.popupPromptOpen = true
       this.buyTransferDetails = false
       this.popupPromptText = this.$t('step2VerificationCodeWA_incoming')  // 没有传入用户邮箱或UID
       this.popupPromptType = 0
-      return
+      return;
     }
     if (data.errorCode == 7) {
       this.popupPromptOpen = true
       this.buyTransferDetails = false
       this.popupPromptText = '收款用户不能转账用户相同'
       this.popupPromptType = 0
-      return
+      return;
     }
     return
   }
@@ -995,7 +1047,7 @@ root.methods.re_getGoToConfirmTransfer = function(data){
 
 }
 
-root.methods.error_getGoToConfirmTransfer = function(data){
+root.methods.error_GoToConfirmTransfer = function(data){
   console.log('resDataMap=========rrrrr=========ggggggggg=',data)
 }
 
@@ -1073,7 +1125,8 @@ root.methods.commitStep2Verification = function () {
       //this.step2VerificationCode
       currency: this.transferCurrency, //this.currency,  // TODO：这里要切换币种
       toEmail:this.name_0,
-      toUserId:this.testUID_0,
+      // toUserId:this.testUID_0,
+      toUserId:this.toUserId,
       amount: parseFloat(this.testNum_0),
       fee: 0,
     },
@@ -1102,94 +1155,94 @@ root.methods.re_commitStep2Verification = function (data) {
 
     if (data.errorCode === 1) {
       this.buyConfirmSuccess = false
-      this.popText = this.$t('iKnowthe6')
-      this.popType = 0
-      this.popOpen = true
+      this.popupPromptText = this.$t('iKnowthe6')
+      this.popupPromptType = 0
+      this.popupPromptOpen = true
     }
     if (data.errorCode === 2) {
       this.buyConfirmSuccess = false
-      this.popText = '邮箱未认证'
+      this.popupPromptText = '邮箱未认证'
       // this.popText = this.$t('iKnowthe7')
-      this.popType = 0
-      this.popOpen = true
+      this.popupPromptType = 0
+      this.popupPromptOpen = true
     }
     if (data.errorCode === 3) {
       this.buyConfirmSuccess = false
-      this.popText = this.$t('iKnowthe8')
-      this.popType = 0
-      this.popOpen = true
+      this.popupPromptText = this.$t('iKnowthe8')
+      this.popupPromptType = 0
+      this.popupPromptOpen = true
     }
     if (data.errorCode === 4) {
       this.buyConfirmSuccess = false
-      this.popText = this.$t('iKnowthe9')
-      this.popType = 0
-      this.popOpen = true
+      this.popupPromptText = this.$t('iKnowthe9')
+      this.popupPromptType = 0
+      this.popupPromptOpen = true
     }
     if (data.errorCode === 5) {
       this.buyConfirmSuccess = false
-      this.popText = this.$t('iKnowthe10')
-      this.popType = 0
-      this.popOpen = true
+      this.popupPromptText = this.$t('iKnowthe10')
+      this.popupPromptType = 0
+      this.popupPromptOpen = true
     }
     if (data.errorCode === 6) {
       this.buyConfirmSuccess = false
-      this.popText = this.$t('iKnowthe11')
-      this.popType = 0
-      this.popOpen = true
+      this.popupPromptText = this.$t('iKnowthe11')
+      this.popupPromptType = 0
+      this.popupPromptOpen = true
     }
     if (data.errorCode === 7) {
       this.buyConfirmSuccess = false
-      this.popText = this.$t('iKnowthe12')
-      this.popType = 0
-      this.popOpen = true
+      this.popupPromptText = this.$t('iKnowthe12')
+      this.popupPromptType = 0
+      this.popupPromptOpen = true
     }
     if (data.errorCode === 8) {
       this.buyConfirmSuccess = false
-      this.popText = this.$t('iKnowthe13')
-      this.popType = 0
-      this.popOpen = true
+      this.popupPromptText = this.$t('iKnowthe13')
+      this.popupPromptType = 0
+      this.popupPromptOpen = true
     }
     if (data.errorCode === 9) {
       this.buyConfirmSuccess = false
-      this.popText = this.$t('iKnowthe14')
-      this.popType = 0
-      this.popOpen = true
+      this.popupPromptText = this.$t('iKnowthe14')
+      this.popupPromptType = 0
+      this.popupPromptOpen = true
     }
     if (data.errorCode === 10) {
       this.buyConfirmSuccess = false
-      this.popText = this.$t('iKnowthe15')
-      this.popType = 0
-      this.popOpen = true
+      this.popupPromptText = this.$t('iKnowthe15')
+      this.popupPromptType = 0
+      this.popupPromptOpen = true
     }
     if (data.errorCode === 11) {
       this.buyConfirmSuccess = false
-      this.popText = this.$t('iKnowthe16')
-      this.popType = 0
-      this.popOpen = true
+      this.popupPromptText = this.$t('iKnowthe16')
+      this.popupPromptType = 0
+      this.popupPromptOpen = true
     }
     if (data.errorCode === 12) {
       this.buyConfirmSuccess = false
-      this.popText = this.$t('iKnowthe17')
-      this.popType = 0
-      this.popOpen = true
+      this.popupPromptText = this.$t('iKnowthe17')
+      this.popupPromptType = 0
+      this.popupPromptOpen = true
     }
     if (data.errorCode === 13) {
       this.buyConfirmSuccess = false
-      this.popText = this.$t('iKnowthe18')
-      this.popType = 0
-      this.popOpen = true
+      this.popupPromptText = this.$t('iKnowthe18')
+      this.popupPromptType = 0
+      this.popupPromptOpen = true
     }
     if (data.errorCode === 15) {
       this.buyConfirmSuccess = false
-      this.popText = this.$t('iKnowthe19')
-      this.popType = 0
-      this.popOpen = true
+      this.popupPromptText = this.$t('iKnowthe19')
+      this.popupPromptType = 0
+      this.popupPromptOpen = true
     }
     if (data.errorCode === 0) {
       this.buyConfirmSuccess = false
-      this.popType = 1
-      this.popText = this.$t('popText_4')//申请成功
-      this.popOpen = true
+      this.popupPromptType = 1
+      this.popupPromptText = this.$t('popText_4')//申请成功
+      this.popupPromptOpen = true
     }
     return
   }
@@ -1315,7 +1368,8 @@ root.methods.commitEmailVerification = function (data) {
       //this.step2VerificationCode
       currency: this.transferCurrency,  // TODO：这里要切换币种
       toEmail:this.name_0,
-      toUserId:this.userId,
+      // toUserId:this.userId,
+      toUserId:this.toUserId,
       amount: parseFloat(this.testNum_0),
       fee: 0,
     },
@@ -1357,27 +1411,27 @@ root.methods.re_commitEmailVerification = function (data) {
   if (data.errorCode) {
     if (data.errorCode === 1) {
       this.emailVerificationSending = false
-      this.popupPromptText = this.$t('iKnowthe2')
-      this.popupPromptType = 0
-      this.popupPromptOpen = true
+      this.step2VerificationCodeWA = this.$t('iKnowthe2')
+      // this.popupPromptType = 0
+      // this.popupPromptOpen = true
     }
     if (data.errorCode === 2) {
       this.emailVerificationSending = false
-      this.popupPromptText = this.$t('iKnowthe3')
-      this.popupPromptType = 0
-      this.popupPromptOpen = true
+      this.step2VerificationCodeWA = this.$t('iKnowthe3')
+      // this.popupPromptType = 0
+      // this.popupPromptOpen = true
     }
     if (data.errorCode === 3) {
       this.emailVerificationSending = false
-      this.popupPromptText = this.$t('iKnowthe4')
-      this.popupPromptType = 0
-      this.popupPromptOpen = true
+      this.step2VerificationCodeWA = this.$t('iKnowthe4')
+      // this.popupPromptType = 0
+      // this.popupPromptOpen = true
     }
     if (data.errorCode === 4) {
       this.emailVerificationSending = false
-      this.popupPromptText = this.$t('iKnowthe5')
-      this.popupPromptType = 0
-      this.popupPromptOpen = true
+      this.step2VerificationCodeWA = this.$t('iKnowthe5')
+      // this.popupPromptType = 0
+      // this.popupPromptOpen = true
     }
     // this.popWindowStep = 2
     // this.popWindowLoading = true
@@ -1565,33 +1619,33 @@ root.methods.error_getInitData = function (err) {
 
 // 获取权限
 
-// 判断验证状态
-root.methods.getAuthState = function () {
-  if (!this.$store.state.authState) {
-    this.$http.send('GET_AUTH_STATE', {
-      bind: this,
-      callBack: this.re_getAuthState,
-      errorHandler: this.error_getAuthState
-    })
-    return
-  }
-  // 获取认证状态成功
-  this.authStateReady = true
-  this.loading = !(this.currencyReady && this.authStateReady)
-}
-// 判断验证状态回调
-root.methods.re_getAuthState = function (data) {
-  typeof data === 'string' && (data = JSON.parse(data))
-  if (!data) return
-  this.$store.commit('SET_AUTH_STATE', data.dataMap)
-  // 获取认证状态成功
-  this.authStateReady = true
-  this.loading = !(this.currencyReady && this.authStateReady)
-}
-// 判断验证状态出错
-root.methods.error_getAuthState = function (err) {
-  // console.warn("获取验证状态出错！", err)
-}
+// // 判断验证状态
+// root.methods.getAuthState = function () {
+//   if (!this.$store.state.authState) {
+//     this.$http.send('GET_AUTH_STATE', {
+//       bind: this,
+//       callBack: this.re_getAuthState,
+//       errorHandler: this.error_getAuthState
+//     })
+//     return
+//   }
+//   // 获取认证状态成功
+//   this.authStateReady = true
+//   this.loading = !(this.currencyReady && this.authStateReady)
+// }
+// // 判断验证状态回调
+// root.methods.re_getAuthState = function (data) {
+//   typeof data === 'string' && (data = JSON.parse(data))
+//   if (!data) return
+//   this.$store.commit('SET_AUTH_STATE', data.dataMap)
+//   // 获取认证状态成功
+//   this.authStateReady = true
+//   this.loading = !(this.currencyReady && this.authStateReady)
+// }
+// // 判断验证状态出错
+// root.methods.error_getAuthState = function (err) {
+//   // console.warn("获取验证状态出错！", err)
+// }
 
 
 // 修改估值
@@ -1851,17 +1905,30 @@ root.methods.openRecharge = function (index, item) {
 // 进行验证第二步，手机、谷歌
 root.methods.beginVerificationStep2 = function () {
   if (this.picker == 0) {
-    this.popText = this.$t('popText_3')
+    this.popText = this.$t('尚未进行验证')
     this.popType = 0
     this.popOpen = true
     this.sending = false
     return
   }
   this.popWindowStep = 2
-  this.step2Error = true
+  this.step2Error = false
   if (!this.showPicker && this.picker == 2) {
     this.getMobileVerification()
   }
+
+  // if (this.picker == 0) {
+  //   this.popText = this.$t('popText_3')
+  //   this.popType = 0
+  //   this.popOpen = true
+  //   this.sending = false
+  //   return
+  // }
+  // this.popWindowStep = 2
+  // this.step2Error = false
+  // if (!this.showPicker && this.picker == 2) {
+  //   this.getMobileVerification()
+  // }
 }
 
 
@@ -1919,6 +1986,11 @@ root.methods.openWhatTransfer = function () {
   $(".transfer-explain").attr("style","display:block");
 }
 
+
+// 手机 谷歌验证切换
+root.methods.open_mob = function (index) {
+  this.picked = index
+}
 
 
 /*---------------------- 保留小数 begin ---------------------*/
