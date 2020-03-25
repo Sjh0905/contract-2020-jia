@@ -94,8 +94,8 @@
       </div>
     </div>
 <!--购买-->
-<!--    <div class="year_month_div pointer" @click="postBuyCard1">{{$t('buy')}}</div>-->
-    <div class="year_month_div1 pointer">{{$t('discountAboutff')}}</div>
+    <div class="year_month_div pointer" @click="postBuyCard1">{{$t('buy')}}</div>
+<!--    <div class="year_month_div1 pointer">{{$t('discountAboutff')}}</div>-->
 
 
     <!--   活动报名记录   -->
@@ -225,7 +225,7 @@
       <div class="whit_"></div>
 <!--确认转让按钮-->
       <div slot="footer">
-        <button class="Internal_siding_email1 pointer" @click="getGoToTransferVIP()">{{$t('Confirmation')}}</button>
+        <button class="Internal_siding_email1 pointer" @click="getGoToTransferVIP1()">{{$t('Confirmation')}}</button>
       </div>
       <p class="zhu">{{$t('Notes')}}</p>
 
@@ -238,46 +238,54 @@
     <div slot="header" class="popWindow-title0">{{$t('verify')}}
     </div>
 
-    <!-- article begin 1 -->
-    <div slot="article" class="popWindow-article" v-if="popWindowStep==1">
-      <!--        <div class="prompt-title">-->
-      <!--          {{$t('promptWindow_1')}}-->
-      <!--        </div>-->
-      <label for="email" class="verification-title">{{$t('email')}}</label>
-      <div class="verification-container flex">
-        <input type="text" id="email" class="verification-input input_padding"
-               v-model="emailVerificationCode"
-               @blur="testEmailVerification">
-        <div class="get-verification pointer" v-if="!getEmailVerificationCode"
-             @click="getEmailVerification">
-          {{$t('reGet')}}邮箱验证码
-        </div>
-        <div class="get-verifications pointer" v-if="getEmailVerificationCode" disabled>
-          {{getEmailVerificationCodeCountdown}}s
-        </div>
-      </div>
-      <div class="prompt-wrong wrong-msg" v-if="emailVerificationCodeWA!==''">
-        {{emailVerificationCodeWA}}
-      </div>
-      <div class="prompt-wrong wrong-msg" v-else="emailVerificationCodeWA!==''">
+<!--    &lt;!&ndash; article begin 1 &ndash;&gt;-->
+<!--    <div slot="article" class="popWindow-article" v-if="popWindowStep==1">-->
+<!--      &lt;!&ndash;        <div class="prompt-title">&ndash;&gt;-->
+<!--      &lt;!&ndash;          {{$t('promptWindow_1')}}&ndash;&gt;-->
+<!--      &lt;!&ndash;        </div>&ndash;&gt;-->
+<!--      <label for="email" class="verification-title">{{$t('email')}}</label>-->
+<!--      <div class="verification-container flex">-->
+<!--        <input type="text" id="email" class="verification-input input_padding"-->
+<!--               v-model="emailVerificationCode"-->
+<!--               @blur="testEmailVerification">-->
+<!--        <div class="get-verification pointer" v-if="!getEmailVerificationCode"-->
+<!--             @click="getEmailVerification">-->
+<!--          {{$t('reGet')}}邮箱验证码-->
+<!--        </div>-->
+<!--        <div class="get-verifications" v-if="getEmailVerificationCode" disabled>-->
+<!--          {{getEmailVerificationCodeCountdown}}s-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="prompt-wrong wrong-msg" v-if="emailVerificationCodeWA!==''">-->
+<!--        {{emailVerificationCodeWA}}-->
+<!--      </div>-->
+<!--      <div class="prompt-wrong wrong-msg" v-else="emailVerificationCodeWA!==''"></div>-->
 
-      </div>
-
-    </div>
-    <!-- article end 1 -->
+<!--    </div>-->
+<!--    &lt;!&ndash; article end 1 &ndash;&gt;-->
 
     <!-- article begin 2 -->
     <div slot="article" class="popWindow-article" v-if="popWindowStep==2">
 
-      <div class="prompt-title prompt-title-top flex" v-if="!step2Error">
-        <div>{{$t('gaCode')}}</div>
-        <div>{{$t('promptWindow_2')}}</div>
-      </div>
+<!--      <div class="prompt-title prompt-title-top flex" v-if="!step2Error">-->
+<!--        <div>{{$t('gaCode')}}</div>-->
+<!--        <div>{{$t('promptWindow_2')}}</div>-->
+<!--      </div>-->
 
       <template v-if="!step2Error">
         <div class="prompt-show-picker-box">
 
           <div class="prompt-show-picker" v-if="showPicker">
+<!--            &lt;!&ndash;谷歌验证&ndash;&gt;-->
+<!--            <div class="G-pop" @click="open_mob(2)"-->
+<!--                 :class="picked == 2?'mob-button-select':''"-->
+<!--                 id="pick-ga" v-model="picker"-->
+<!--            >{{$t("picker_1")}}</div>-->
+<!--            &lt;!&ndash;手机验证&ndash;&gt;-->
+<!--            <div class="G-pop" @click="open_mob(1)"-->
+<!--                 id="pick-mobile" v-model="picker"-->
+<!--                 :class="picked ==1?'mob-button-select':''"-->
+<!--            >{{$t("picker_2")}}</div>-->
             <div class="prompt-show-picker-detail-box">
               <input type="radio" name="picker" value="1" id="pick-ga" v-model="picker">
               <label for="pick-ga">{{$t('picker_1')}}</label>
@@ -287,24 +295,32 @@
               <label for="pick-mobile">{{$t('picker_2')}}</label>
             </div>
           </div>
-          <div class="verification-container flex" v-if="picker == 1">
-            <!--              <label for="gaCode"-->
-            <!--                     class="verification-title">{{$t('gaCode')}}</label>-->
+          <div v-if="picker == 1">
+            <label for="gaCode" class="verification-title">{{$t('gaCode')}}</label>
+            <div class="verification-container flex">
             <input type="text" id="gaCode" class="verification-input input_padding" v-model="step2VerificationCode"
                    @blur="testGACodeVerification">
+            </div>
           </div>
-          <div class="verification-container double-input-container flex" v-if="picker == 2">
-            <label for="mobile"
-                   class="verification-title">{{$t('mobile')}}</label>
-            <input type="text" id="mobile" class="verification-input input_padding"
-                   v-model="step2VerificationCode"
-                   @blur="testMobileVerification">
-            <div class="get-verification" v-if="!getMobileVerificationCode"
-                 @click="getMobileVerification">{{$t('reGet')}}手机验证码
+          <div class="" v-if="picker == 2">
+            <label for="mobile" class="verification-title">{{$t('mobile')}}</label>
+            <div class="verification-container flex">
+              <input type="text" id="mobile" class="verification-input input_padding"
+                     v-model="step2VerificationCode"
+                     @blur="testMobileVerification">
+              <div class="get-verification pointer" v-if="!getMobileVerificationCode"
+                   @click="getMobileVerification">
+                {{$t('reGet')}}手机验证码
+              </div>
+              <div class="get-verifications" v-if="getMobileVerificationCode" disabled>
+                {{getMobileVerificationCodeCountdown}}s
+              </div>
+<!--              <div class="prompt-wrong wrong-msg" v-if="emailVerificationCodeWA!==''">-->
+<!--                {{emailVerificationCodeWA}}-->
+<!--              </div>-->
             </div>
-            <div class="get-verifications pointer" v-if="getMobileVerificationCode" disabled>
-              {{getMobileVerificationCodeCountdown}}s
-            </div>
+
+<!--            <div class="prompt-wrong wrong-msg" v-else="emailVerificationCodeWA!==''">{{emailVerificationCodeWA}}</div>-->
           </div>
         </div>
       </template>
@@ -312,45 +328,43 @@
       <div class="prompt-wrong wrong-msg" v-if="step2VerificationCodeWA!==''">
         {{step2VerificationCodeWA}}
       </div>
-      <div class="prompt-wrong wrong-msg" v-else>
-
-      </div>
+      <div class="prompt-wrong wrong-msg" v-else></div>
     </div>
     <!-- article end 2 -->
 
 
-    <!-- footer popWindow begin 1 -->
-    <div slot="footer" class="popWindow-footer flex-center" v-if="popWindowStep === 1">
-      <button class="button-base pointer btn_border_blue text_blue btn_simple ssss" @click="popWindowCloseVIP">
-        {{$t('cancel')}}
-      </button>
-      <button class="button-base btn-commit btn_blue pointer ssss1" v-if="!emailVerificationSending"
-              @click="commitEmailVerification">
-        {{$t('commit')}}
-      </button>
-      <button class="button-base btn-commit btn_grey pointer ssss1" v-if="emailVerificationSending" disabled>
-        {{$t('commiting')}}
-      </button>
-    </div>
-    <!-- footer popWindow end 1 -->
+<!--    &lt;!&ndash; footer popWindow begin 1 &ndash;&gt;-->
+<!--    <div slot="footer" class="popWindow-footer flex-center" v-if="popWindowStep === 1">-->
+<!--      <button class="button-base pointer btn_border_blue text_blue btn_simple ssss" @click="popWindowCloseVIP">-->
+<!--        {{$t('cancel')}}-->
+<!--      </button>-->
+<!--      <button class="button-base btn-commit btn_blue pointer ssss1" v-if="!emailVerificationSending"-->
+<!--              @click="commitEmailVerification">-->
+<!--        {{$t('commit')}}-->
+<!--      </button>-->
+<!--      <button class="button-base btn-commit btn_grey pointer ssss1" v-if="emailVerificationSending" disabled>-->
+<!--        {{$t('commiting')}}-->
+<!--      </button>-->
+<!--    </div>-->
+<!--    &lt;!&ndash; footer popWindow end 1 &ndash;&gt;-->
 
     <!-- footer popWindow begin 2 -->
-    <div slot="footer" class="popWindow-footer flex-center" v-if="popWindowStep === 2">
+    <div slot="footer" class="popWindow-footer " v-if="popWindowStep === 2">
       <template v-if="!step2Error">
-        <button class="button-base btn-cancel  pointer btn_border_blue text_blue btn_simple ssss" @click="popWindowCloseVIP">
+        <div class="pop-qu pointer" @click="popWindowCloseVIP">
           {{$t('cancel')}}
-        </button>
-        <button class="button-base btn-commit btn_blue pointer ssss1" v-if="!step2VerificationSending"
+        </div>
+        <button class="pop-qu-2 btn_blue pointer" v-if="!step2VerificationSending"
                 @click="commitStep2Verification">
-          {{$t('commit')}}
+          {{$t('提交')}}
         </button>
-        <button class="button-base btn-commit btn_grey pointer ssss1" v-if="step2VerificationSending" disabled>
-          {{$t('commiting')}}
+        <button class="pop-qu-2 btn_blue pointer" v-if="step2VerificationSending" disabled>
+          {{$t('提交中')}}
         </button>
       </template>
       <template v-if="step2Error">
-        <button class="button-base btn-commit btn_blue pointer" v-if="step2VerificationSending" disabled>
-          {{$t('commit')}}
+        <button class="pop-qu-2 btn_blue pointer" v-if="step2VerificationSending" disabled>
+          {{$t('提交2')}}
         </button>
       </template>
     </div>
