@@ -863,6 +863,7 @@ root.methods.testEmailVerification = function () {
   // this.emailVerificationCodeWA = ''
   return true
 }
+
 // 表单验证，手机验证码
 root.methods.testMobileVerification = function () {
   if (this.step2VerificationCode === '') {

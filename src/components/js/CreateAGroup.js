@@ -70,6 +70,24 @@ root.mounted = function () {}
 // }
 /*------------------------------ 计算 -------------------------------*/
 root.computed = {}
+// 是否实名认证
+root.computed.bindIdentify = function () {
+  return this.$store.state.authState.identity
+}
+
+// 是否绑定手机
+root.computed.bindMobile = function () {
+  return this.$store.state.authState.sms
+}
+// 是否绑定谷歌验证码
+root.computed.bindGA = function () {
+  return this.$store.state.authState.ga
+}
+// 是否绑定邮箱
+root.computed.bindEmail = function () {
+  return this.$store.state.authState.email
+}
+
 
 // // uid
 // root.computed.uuid = function () {
@@ -105,26 +123,32 @@ root.watch = {}
 /*------------------------------ 方法 -------------------------------*/
 root.methods = {}
 
+// 弹框跳安全中心
+root.methods.goToSecurityCenter = function () {
+  this.popWindowOpen = false
+  this.$router.push({name: 'securityCenter'})
+}
+
 // 弹出绑定身份，跳转到实名认证界面
 root.methods.goToBindIdentity = function () {
   this.popWindowOpen = false
   this.$router.push({name: 'authenticate'})
 }
-// 去绑定谷歌验证
-root.methods.goToBindGA = function () {
-  this.popWindowOpen = false
-  this.$router.push({name: 'bindGoogleAuthenticator'})
-}
-// 去绑定手机号
-root.methods.goToBindMobile = function () {
-  this.popWindowOpen = false
-  this.$router.push({name: 'bindMobile'})
-}
-// 去绑定邮箱
-root.methods.goToBindEmail = function () {
-  this.popWindowOpen = false
-  this.$router.push({name: 'bindEmail'})
-}
+// // 去绑定谷歌验证
+// root.methods.goToBindGA = function () {
+//   this.popWindowOpen = false
+//   this.$router.push({name: 'bindGoogleAuthenticator'})
+// }
+// // 去绑定手机号
+// root.methods.goToBindMobile = function () {
+//   this.popWindowOpen = false
+//   this.$router.push({name: 'bindMobile'})
+// }
+// // 去绑定邮箱
+// root.methods.goToBindEmail = function () {
+//   this.popWindowOpen = false
+//   this.$router.push({name: 'bindEmail'})
+// }
 
 
 // // 判断名字0
@@ -145,7 +169,7 @@ root.methods.goToBindEmail = function () {
 //创建拼团post(params:{})
 root.methods.postCreateAGroup = function () {
 
-  // 如果没有实名认证不允许打开划转
+  // 如果没有实名认证不允许打开创建拼团
     if (!this.bindIdentify) {
       this.popWindowTitle = this.$t('popWindowTitleTransfer1')
       this.popWindowPrompt = this.$t('popWindowPromptWithdrawals')
@@ -154,7 +178,7 @@ root.methods.postCreateAGroup = function () {
       return
     }
 
-    // 如果没有绑定邮箱，不允许打开提现
+    // 如果没有绑定邮箱，不允许创建拼团
     if (!this.bindEmail) {
       this.popWindowTitle = this.$t('bind_email_pop_title')
       this.popWindowPrompt = this.$t('bind_email_pop_article')
@@ -163,7 +187,7 @@ root.methods.postCreateAGroup = function () {
       return
     }
 
-    // 如果没有绑定谷歌或手机，不允许打开提现
+    // 如果没有绑定谷歌或手机，不允许创建拼团
     if (!this.bindGA && !this.bindMobile) {
       this.popWindowTitle = this.$t('popWindowTitleTransfer1')
       this.popWindowPrompt = this.$t('popWindowTitleBindGaWithdrawals')

@@ -449,7 +449,7 @@ requestAddress.GET_GROUP_LIST = {url: urlHead+'/assemble/queryGroupList/', metho
 // requestAddress.LOGIN_BY_MOBILE = {url: urlHead+'/user/signInByMobile', method: 'post'}  // 手机登录
 // 短信验证码    //  转账接口    auth/getVerificationCode
 requestAddress.GET_VERIFICATIONCODE = {url: urlHead+'/auth/getVerificationCode', method: 'post'}//获取手机,邮箱验证码
-requestAddress.GET_VERIFYIDENTITY_USER = {url: urlHead+'/user/GET_AUTH_STATE', method: 'post'} //验证收款人是否为实名认证用户
+requestAddress.POST_VERIFYIDENTITY_USER = {url: urlHead+'/user/verifyIsIdentityUser', method: 'post'} //验证收款人是否为实名认证用户
 // 查询当前币种的转账数量限制与手续费等信息
 requestAddress.GET_TRANSFER_AMOUNT_INFO = {url: urlHead+'/user/transfer/getTransferAmountInfo', method: 'get'} // 获取当前币种是否可以转账
 
@@ -459,6 +459,7 @@ requestAddress.POST_BUY_CARD = {url: urlHead+'/memberCard/buyCard', method: 'pos
 requestAddress.GET_CHECK = {url: urlHead+'/memberCard/checkMember/', method: 'get'} // 是否是会员
 requestAddress.GET_BUY_RECORDS = {url: urlHead+'/memberCard/buyRecords/', method: 'get'} // 会员购买记录
 requestAddress.GET_CHECK_ENOUGH_BALANCE = {url: urlHead+'/memberCard/checkEnoughBalance/', method: 'get'} // 会员卡报名是否金额足够
+requestAddress.POST_TRANSFERVIP = {url: urlHead+'/memberCard/transferMemberCard', method: 'post'}//会员卡转让
 
 requestAddress.LOCK_ASSET = {url: urlHead+'/asset/user/lock/asset', method: 'post'} // 锁仓接口
 requestAddress.LOCK_ASSET_RECODE = {url: urlHead+'/asset/user/assets', method: 'get'} // 锁仓记录
