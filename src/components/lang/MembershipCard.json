@@ -31,7 +31,7 @@
   "popWindowTitleWithdrawals": "充值会员提示",
   "popWindowPromptWithdrawals": "您尚未通过实名认证",
   "bind_email_pop_title": "安全提示",
-  "bind_email_pop_article": "為了您的資金安全，請先綁定郵箱",
+  "bind_email_pop_article": "为了您的资金安全，请先绑定邮箱或谷歌",
   "popWindowTitleBindGaWithdrawals": "请先绑定谷歌验证或手机",
 
   "format":"会员账户格式错误",
@@ -151,7 +151,7 @@
   "popWindowTitleWithdrawals": "充值會員提示",
   "popWindowPromptWithdrawals": "您尚未通過實名認證",
   "bind_email_pop_title": "安全提示",
-  "bind_email_pop_article": "為了您的資金安全，請先綁定郵箱",
+  "bind_email_pop_article": "為了您的資金安全，請先綁定郵箱或谷歌",
   "popWindowTitleBindGaWithdrawals": "請先綁定谷歌驗證或手機",
 
   "format":"會員帳戶格式錯誤",

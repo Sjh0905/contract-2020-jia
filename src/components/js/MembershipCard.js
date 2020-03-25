@@ -47,6 +47,7 @@ root.data = function () {
     testUID_012:'',
     nameMsg_0:'',
     popWindowOpen1: false, //弹窗开关
+    popbindIdentify:false,
 
     picked:1,
 
@@ -83,6 +84,15 @@ root.created = function () {
   // 获取验证状态
   this.getAuthState()
   // this.$store.commit('IS_VIP', this.flag);
+
+  if (this.bindGA) {
+    this.picked = 1
+    return;
+  }
+  if (this.bindMobile) {
+    this.picked = 2
+    return;
+  }
 
 }
 root.mounted = function () {}
@@ -157,6 +167,8 @@ root.computed.computedRecord = function (item,index) {
 
 /*------------------------------ 方法 -------------------------------*/
 root.methods = {}
+
+
 /*------------------ 获取验证状态 begin -------------------*/
 root.methods.getAuthState = function () {
   if (!this.$store.state.authState) {
@@ -236,24 +248,17 @@ root.methods.VIPrules = function () {
 
 // 弹出绑定身份，跳转到实名认证界面
 root.methods.goToBindIdentity = function () {
-  this.popWindowOpenShiM = false
+  this.popbindIdentify = false
   this.$router.push({name: 'authenticate'})
 }
-// 去绑定谷歌验证
-root.methods.goToBindGA = function () {
-  this.popWindowOpenShiM = false
-  this.$router.push({name: 'bindGoogleAuthenticator'})
+
+// 弹框跳安全中心
+root.methods.goToSecurityCenter = function () {
+  this.popbindIdentify = false
+  this.$router.push({name: 'securityCenter'})
 }
-// 去绑定手机号
-root.methods.goToBindMobile = function () {
-  this.popWindowOpenShiM = false
-  this.$router.push({name: 'bindMobile'})
-}
-// 去绑定邮箱
-root.methods.goToBindEmail = function () {
-  this.popWindowOpenShiM = false
-  this.$router.push({name: 'bindEmail'})
-}
+
+
 
 
 
@@ -366,7 +371,7 @@ root.methods.postBuyCard1 = function () {
     this.popWindowTitle = this.$t('popWindowTitleWithdrawals')
     this.popWindowPrompt = this.$t('popWindowPromptWithdrawals')
     this.popWindowStyle = '0'
-    this.popWindowOpenShiM = true
+    this.popbindIdentify = true
     return
   }
 
@@ -375,7 +380,7 @@ root.methods.postBuyCard1 = function () {
     this.popWindowTitle = this.$t('bind_email_pop_title')
     this.popWindowPrompt = this.$t('bind_email_pop_article')
     this.popWindowStyle = '3'
-    this.popWindowOpenShiM = true
+    this.popbindIdentify = true
     return
   }
 
@@ -384,7 +389,7 @@ root.methods.postBuyCard1 = function () {
     this.popWindowTitle = this.$t('popWindowTitleWithdrawals')
     this.popWindowPrompt = this.$t('popWindowTitleBindGaWithdrawals')
     this.popWindowStyle = '1'
-    this.popWindowOpenShiM = true
+    this.popbindIdentify = true
     return
   }
   this.popWindowOpen = true
@@ -646,6 +651,34 @@ root.methods.toUIDVIP = function () {
 
 //会员卡转让
 root.methods.VIPTransfer = function () {
+
+  // 如果没有实名认证不允许购买会员卡
+  if (!this.bindIdentify) {
+    this.popWindowTitle = this.$t('popWindowTitleWithdrawals')
+    this.popWindowPrompt = this.$t('popWindowPromptWithdrawals')
+    this.popWindowStyle = '0'
+    this.popbindIdentify = true
+    return
+  }
+
+  // 如果没有绑定邮箱，不允许购买会员卡
+  if (!this.bindEmail) {
+    this.popWindowTitle = this.$t('bind_email_pop_title')
+    this.popWindowPrompt = this.$t('bind_email_pop_article')
+    this.popWindowStyle = '3'
+    this.popbindIdentify = true
+    return
+  }
+
+  // 如果没有绑定谷歌或手机，不允许购买会员卡
+  if (!this.bindGA && !this.bindMobile) {
+    this.popWindowTitle = this.$t('popWindowTitleWithdrawals')
+    this.popWindowPrompt = this.$t('popWindowTitleBindGaWithdrawals')
+    this.popWindowStyle = '1'
+    this.popbindIdentify = true
+    return
+  }
+
   this.buyCommitToastOpen = true
 }
 
@@ -653,6 +686,10 @@ root.methods.VIPTransfer = function () {
 // 弹窗关闭
 root.methods.popWindowClose = function () {
   this.popWindowOpen = false
+}
+// 弹窗关闭
+root.methods.closeWindowClose = function () {
+  this.popbindIdentify = false
 }
 
 // // 弹窗关闭
