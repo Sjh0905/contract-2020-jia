@@ -104,14 +104,22 @@
 }
 
 .margin-a-little {
-  margin-left: -1px;
+  margin-left: 50px;
+}
+
+.line {
+  width: 1px;
+  height: 24px;
+  background-color: #E0E1F4;
+  line-height: 74px;
+  margin: 24px 25px 0;
 }
 
 .title-tab {
   /*display: block;*/
   /*width: 95px;*/
   height: 74px;
-  margin-right: 46px;
+  /*margin-right: 46px;*/
   /*background-color: #fff;*/
   /*background: rgb(249, 249, 249);*/
   /*background: #fafafa;*/

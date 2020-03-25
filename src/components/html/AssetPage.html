@@ -143,7 +143,7 @@
 <!--      &lt;!&ndash;资产概览 end&ndash;&gt;-->
 
       <!--我的钱包 begin-->
-      <router-link to="/index/asset/myWallet" class="title-tab flex-center tab-item-first"
+      <router-link to="/index/asset/myWallet" class="title-tab flex-center"
                    active-class="selected text_blue"
                    :class="lang!='CH'?'title-tab-en':''"
       >
@@ -152,7 +152,7 @@
 <!--        My wallet-->
       </router-link>
       <!--我的钱包 end-->
-
+      <span class="line"></span>
 <!--      &lt;!&ndash;币币账户 begin&ndash;&gt;-->
 <!--      <router-link to="/index/asset/rechargeAndWithdrawals" class="title-tab flex-center tab-item-first"-->
 <!--                   active-class="selected text_blue"-->
@@ -163,12 +163,20 @@
 <!--      &lt;!&ndash;币币账户 end&ndash;&gt;-->
 
 
+
       <!--财务记录打开 begin-->
-      <router-link to="/index/asset/record/" class="title-tab flex-center margin-a-little"
+      <router-link to="/index/asset/record/" class="title-tab flex-center"
                    :class="lang!='CH'?'title-tab-en':''"
                    active-class="selected text_blue">{{$t('assetPage.financialRecords')}}
       </router-link>
       <!--财务记录打开 end-->
+
+      <!--锁仓记录打开 begin-->
+      <router-link to="/index/asset/lockingRecord/" class="title-tab flex-center margin-a-little"
+                   :class="lang!='CH'?'title-tab-en':''"
+                   active-class="selected text_blue">{{$t('锁仓记录')}}
+      </router-link>
+      <!--锁仓记录打开 end-->
 
 <!--&lt;!&ndash;      充值记录关闭 begin&ndash;&gt;-->
 <!--      <router-link to="/index/asset/rechargeRecord" class="title-tab flex-center margin-a-little template-close"-->
