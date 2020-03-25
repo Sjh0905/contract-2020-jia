@@ -538,6 +538,8 @@
 
 .img_ConfirmSuccess {
   text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 .popWindow-article {
   color: #0D0E23;
@@ -594,7 +596,8 @@
 }
 
 .prompt-show-picker {
-  padding: 10px 0;
+  padding-bottom: 10px;
+  padding-left: 25px;
 }
 
 /*谷歌验证码和手机验证码选择*/
@@ -635,23 +638,6 @@
   padding-right: 10px;
 }
 
-.get-verification {
-  display: inline-block;
-  /*width: 70px;*/
-  height: 40px;
-  line-height: 40px;
-  text-align: center;
-  font-size: 14px;
-  color: #3576F5;
-}
-.get-verifications {
-  display: inline-block;
-  /*width: 70px;*/
-  height: 40px;
-  line-height: 40px;
-  font-size: 12px;
-  color: #A2B5D9;
-}
 .verification-input {
   /*height: 35px;*/
   border: 1px solid #e5e5e5;
@@ -1169,12 +1155,14 @@
   margin-right: 0;
 }
 .get-verifications {
+  width: 30%;
   display: inline-block;
   /*width: 70px;*/
   height: 40px;
   line-height: 40px;
   font-size: 12px;
   text-align: right;
+  padding-right: 15px;
   color: #A2B5D9;
 }
 
@@ -1185,9 +1173,7 @@
   height: 12px;
   display: block;
 }
-.prompt-show-picker {
-  padding: 10px 0;
-}
+
 /*谷歌验证码和手机验证码选择*/
 .prompt-show-picker-detail-box {
   display: inline-block;
@@ -1237,11 +1223,13 @@
   border: none;
 }
 .get-verification {
+  width: 30%;
   display: inline-block;
   /*width: 70px;*/
   height: 40px;
   line-height: 40px;
-  text-align: center;
+  text-align: right;
+  padding-right: 15px;
   font-size: 14px;
   color: #3576F5;
 }
@@ -1249,9 +1237,12 @@
   margin-left: 16px;
 }
 .ssss12 {
+  text-align: center;
+  display: inline-block;
   width:195px;
   height:40px;
-  padding: 0 15px;
+  line-height: 40px;
+  /*padding: 0 15px;*/
   background:rgba(53,118,245,1);
   color: #FFFFFF;
   border-radius:1px;
@@ -1282,9 +1273,12 @@
   margin-bottom: 15px;
 }
 .ssss2 {
+  display: inline-block;
   margin-bottom: 15px;
   width:195px;
   height:40px;
+  line-height: 39px;
+  text-align: center;
   border-radius:1px;
   color: #3576F5;
   border:1px solid rgba(53,118,245,1);
@@ -1356,4 +1350,23 @@
 }
 .m-l {
   margin-left: 15px;
+}
+.rig {
+  margin-right: 16px;
+}
+.rig16 {
+  margin-right: 16px;
+}
+.p-t {
+  padding-top: 0;
+}
+.prompt-show-picker-box {
+  margin-bottom: 10px;
+}
+.m-l14 {
+  margin-right: 14px;
+}
+.double-input-container {
+  height: 12px;
+  margin-bottom: 18px;
 }
