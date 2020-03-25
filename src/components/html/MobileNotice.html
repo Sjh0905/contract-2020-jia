@@ -1,7 +1,7 @@
 <div>
   <Loading v-if="loading"/>
   <div class="notice-list" v-if="!loading">
-    <div class="notice-center-title">公告中心</div>
+    <div class="notice-center-title">{{noticeTitleObj[$route.query.columnId || 0]}}</div>
     <div class="notice-item" v-for="(item,index) in noticeList" :key="index" @click="noticeToDetail(item.id)">
       <div class="notice-item-title">
         {{item.title}}
