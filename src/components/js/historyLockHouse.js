@@ -46,9 +46,8 @@ root.methods.getLockHistory= function (currency) {
   }
   this.$http.send("LOCK_ASSET_RECODE", {
     bind: this,
-    params: {
+    query: {
       status:'2',
-      currency: '',
       limit: this.limit
     },
     callBack: this.re_getLockHistory,

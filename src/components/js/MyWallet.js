@@ -144,7 +144,9 @@ root.data = function () {
     step2Error: false, // 第二步验证出错
 
     picker: 0, //验证类型
-    picked:1
+    picked:1,
+    nowDateTime:'',
+    dividendTime:''
 
   }
 }
@@ -198,6 +200,11 @@ root.computed.exchangeRate = function () {
 // 计算当前的服务器时间
 root.computed.serverT = function () {
   return this.$store.state.serverTime / 1000
+}
+
+// 计算当前的锁仓时间
+root.computed.serverTime = function () {
+  return this.$store.state.serverTime
 }
 
 // 是否实名认证
@@ -288,6 +295,34 @@ root.computed.btc_rate = function () {
   return this.$store.state.exchange_rate.btcExchangeRate;
 }
 
+root.computed.lockHouseNowTime = function () {
+  let date = new Date();
+  let severDate = new Date(this.serverTime)
+  if (severDate.getHours() >= 12 && severDate.getMinutes() >= 0 && severDate.getSeconds() >= 0 ){
+    let mm = String(date.getMonth() +1 ).padStart(2,'0');
+    let dd = String(date.getDate()+1).padStart(2,'0');
+    this.nowDateTime = mm + '-' + dd
+    let mmm = String(date.getMonth() +1 ).padStart(2,'0');
+    let ddd = String(date.getDate()+2).padStart(2,'0');
+    this.dividendTime = mmm + '-' + ddd
+    let timeObj = {nowDateTime:this.nowDateTime,dividendTime:this.dividendTime}
+    return timeObj
+  }
+  let mm = String(date.getMonth() +1 ).padStart(2,'0');
+  let dd = String(date.getDate()).padStart(2,'0');
+  this.nowDateTime = mm + '-' + dd
+  let ddd = String(date.getDate()+1).padStart(2,'0');
+  let mmm = String(date.getMonth() +1 ).padStart(2,'0');
+  this.dividendTime = mmm + '-' + ddd
+  let timeObj = {nowDateTime:this.nowDateTime,dividendTime:this.dividendTime}
+  return timeObj
+}
+
+root.computed.lockHouseDividendTime = function () {
+  let date = new Date();
+  let severDate = new Date(this.serverTime)
+}
+
 /*------------------------------ 观察 -------------------------------*/
 root.watch = {}
 
@@ -312,6 +347,11 @@ root.watch.loading = function (newVal, oldVal) {
 
 /*------------------------------ 方法 -------------------------------*/
 root.methods = {}
+
+// 关闭此组件
+root.methods.close = function () {
+  this.$emit('close')
+}
 
 /*------------------ 获取验证状态 begin -------------------*/
 root.methods.getAuthState = function () {
@@ -2151,16 +2191,37 @@ root.methods.closeLockHouse = function () {
 
 // 打开锁仓
 root.methods.openLockHouse = function (index,item) {
-  console.log(item)
+  // console.log(item)
+  // console.log(new Date(this.serverT).getHours()+7)
+  // let date = new Date();
+  // if (new Date(this.serverT).getHours()>12 && new Date(this.serverT).getMinutes() > 0 && new Date(this.serverT).getSeconds() > 0 ){
+  //   let dd = String(date.getDate()+1).padStart(2,'0');
+  //   let mm = String(date.getMonth() +1 ).padStart(2,'0');
+  //   this.nowDateTime = mm + '-' + dd
+  //   let ddd = String(date.getDate()+2).padStart(2,'0');
+  //   let mmm = String(date.getMonth() +1 ).padStart(2,'0');
+  //   this.dividendTime = mmm + '-' + ddd
+  // } else {
+  //   let dd = String(date.getDate()).padStart(2,'0');
+  //   let mm = String(date.getMonth() +1 ).padStart(2,'0');
+  //   this.nowDateTime = mm + '-' + dd
+  //   let ddd = String(date.getDate()+1).padStart(2,'0');
+  //   let mmm = String(date.getMonth() +1 ).padStart(2,'0');
+  //   this.dividendTime = mmm + '-' + ddd
+  // }
+  // console.info(new Date().getDate())
+
+  this.lockHouseNowTime
   // 锁仓币
   this.lockHouseCurrency = item.currency
   // 锁仓可用
   this.lockHouseAvailable = item.available
   this.popWindowOpenLockHouse = true
+  this.lockHomeNum = ''
 
 }
 
-// 判断划转数量
+// 判断锁仓数量
 root.methods.testLockAmount  = function () {
   if (this.$globalFunc.testSpecial(this.lockHomeNum)) {
     this.lockHomeNum_WA = this.$t('请输入正确的数额')
@@ -2200,13 +2261,13 @@ root.methods.canCommitLock = function () {
 }
 
 root.methods.commitLockHouse = function () {
-  let time
 
   if (this.sending) return
   if (!this.canCommitLock()) {
     return
   }
   this.sending = true
+
   this.$http.send('LOCK_ASSET', {
     bind: this,
     params: {
@@ -2218,13 +2279,23 @@ root.methods.commitLockHouse = function () {
   })
 }
 
-
 root.methods.re_commitLockHouse = function (data) {
   this.sending = false
   typeof data === 'string' && (data = JSON.parse(data))
   console.log(data)
-  data.errorCode && data.errorCode == 0
 
+  this.popupPromptOpen = true
+  if(data.errorCode == 0){
+    this.popupPromptType = 1
+    this.popupPromptText = '锁仓成功'
+
+  }else{
+    this.popupPromptType = 0
+    this.popupPromptText = '锁仓失败'
+
+  }
+
+  this.closeLockHouse()
 
 }
 

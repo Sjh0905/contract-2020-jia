@@ -171,16 +171,16 @@
 <!--              锁仓灰色按钮-->
 <!--               v-if="serverT >= item.withdrawOpenTime"-->
 
-<!--             <span class="withdrawals-button button"-->
-<!--                   @click="openLockHouse(index,item)"-->
-<!--                   v-if="item.currency === 'YY'|| item.currency === 'TT'"-->
-<!--                  >-->
-<!--               {{$t('lockWarehouse')}}-->
-<!--             </span>-->
-<!--              <span class="can-not-withdrawals" v-else>{{$t('lockWarehouse')}}</span>-->
+              <span class="withdrawals-button button"
+                   @click="openLockHouse(index,item)"
+                   v-if="item.currency === 'KK'|| item.currency === 'TT'"
+                  >
+               {{$t('lockWarehouse')}}
+              </span>
+              <span class="can-not-withdrawals" v-else>{{$t('lockWarehouse')}}</span>
               <!--sss 锁仓屏蔽结束-->
 
-              <span class="withdrawals-buttons buttons">{{$t('lockWarehouse')}}</span>
+<!--              <span class="withdrawals-buttons buttons">{{$t('lockWarehouse')}}</span>-->
               <!--sss打开转账 end-->
 
               <!--sss 屏蔽结束-->
@@ -213,7 +213,7 @@
       <div class="lock-house-article">
         <div class="lock-house-title flex">
           <div>{{$t('lock_house_amount')}}</div>
-          <div>{{$t('available')}}：{{lockHouseAvailable}} TT</div>
+          <div>{{$t('available')}}：{{lockHouseAvailable}}{{lockHouseCurrency}}</div>
         </div>
         <div class="lock-house-input flex">
           <input type="text" :placeholder='$t("lock_house_input")' v-model="lockHomeNum" @blur="testLockAmount">
@@ -248,7 +248,7 @@
             <div class="step-line1 step-color-grew"></div>
           </div>
           <div class="lock-house-rules-right">
-            <div class="lock-house-day">03-22 12:00</div>
+            <div class="lock-house-day">{{lockHouseNowTime.nowDateTime}} 12:00</div>
             <div class="lock-house-day">{{$t('lock_house_income')}}</div>
           </div>
         </div>
@@ -258,7 +258,7 @@
 <!--            <div class="step-line step-color-grew"></div>-->
           </div>
           <div class="lock-house-rules-right-last">
-            <div class="lock-house-day">03-22 12:00</div>
+            <div class="lock-house-day">{{lockHouseNowTime.dividendTime}} 12:00</div>
             <div class="lock-house-day">{{$t('lock_house_income1')}}</div>
           </div>
         </div>

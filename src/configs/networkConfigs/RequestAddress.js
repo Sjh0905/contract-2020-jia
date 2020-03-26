@@ -463,5 +463,6 @@ requestAddress.POST_TRANSFERVIP = {url: urlHead+'/memberCard/transferMemberCard'
 
 requestAddress.LOCK_ASSET = {url: urlHead+'/asset/user/lock/asset', method: 'post'} // 锁仓接口
 requestAddress.LOCK_ASSET_RECODE = {url: urlHead+'/asset/user/assets', method: 'get'} // 锁仓记录
+requestAddress.UNLOCK_ASSET_RECODE = {url: urlHead+'/asset/user/unlock/asset', method: 'post'} // 解锁锁仓
 
 export default requestAddress

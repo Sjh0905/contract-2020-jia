@@ -41,9 +41,23 @@ root.watch = {}
 root.methods = {}
 
 // 解锁锁仓
-
 root.methods.unLockHouse = function (item) {
+  console.log(item.id)
+  this.$http.send("UNLOCK_ASSET_RECODE", {
+    bind: this,
+    params: {
+      lockId: item.id
+    },
+    callBack: this.re_unLockHouse,
+    errorHandler: this.error_unLockHouse
+  })
+}
 
+root.methods.re_unLockHouse = function ( data ) {
+  console.log(data)
+}
+root.methods.error_unLockHouse = function ( err ) {
+  console.log(err)
 }
 
 // 获取锁仓记录
@@ -53,10 +67,10 @@ root.methods.getLockCur = function (currency) {
   }
   this.$http.send("LOCK_ASSET_RECODE", {
     bind: this,
-    params: {
+    query: {
       status:'1',
-      currency: '',
-      limit: this.limit
+      // currency: '',
+      // limit: this.limit
     },
     callBack: this.re_getLockCur,
     errorHandler: this.error_getLockCur

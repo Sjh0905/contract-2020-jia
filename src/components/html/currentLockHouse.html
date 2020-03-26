@@ -17,7 +17,7 @@
 <!--      分红时间-->
       <span class="dividend-time">{{$t('dividendTime')}}</span>
 <!--      昨日收益-->
-      <span class="income-yesterday">{{$t('incomeYesterday')}}</span>
+      <span class="income-yesterday">{{$t('incomeYesterday')}}（YY）</span>
 <!--      累计收益-->
       <span class="income">{{$t('accumulatedIncome')}}（YY）</span>
 <!--      操作-->
@@ -57,12 +57,12 @@
             <span class="dividend-time">{{item.dateTime}}</span>
 
             <!--      昨日收益-->
-            <span class="income-yesterday">{{$t('昨日收益')}}</span>
+            <span class="income-yesterday">{{item.lastAmount }}</span>
             <!--      累计收益-->
-            <span class="income">{{$t('累计收益')}}</span>
+            <span class="income">{{item.totalAmount }}</span>
             <!--      操作-->
             <span class="operation">
-              <button class="pointer" @click="unLockHouse(index,item)">解锁</button>
+              <button class="pointer" @click="unLockHouse(item)">解锁</button>
             </span>
 
           </div>
