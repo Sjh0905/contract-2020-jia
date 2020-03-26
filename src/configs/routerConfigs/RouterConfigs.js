@@ -2082,6 +2082,22 @@ root.routes.push({
           caseSensitive: true,
           component: resolve => require(['@/components/mobileVue/MobileAssetRechargeAndWithdrawRecord'], resolve),
         },
+        // 移动端充提记录页
+        {
+          path: 'MobileLockHouseRecord',
+          name: 'MobileLockHouseRecord',
+          meta: {
+            pcname: 'LockHouseRecord',
+            h5name: 'MobileLockHouseRecord',
+            requireLogin: true,
+            templateClose: false,
+            requireLoginOff: false,
+            // mobileHeaderTitle: '充提记录'
+          },
+          caseSensitive: true,
+          component: resolve => require(['@/components/mobileVue/MobileLockHouseRecord'], resolve),
+        },
+
         // 移动端充值记录详情页
         {
           path: 'mobileAssetRechargeRecordDetail',
@@ -2154,6 +2170,37 @@ root.routes.push({
           },
           caseSensitive: true,
           component: resolve => require(['@/components/mobileVue/MobileAssetRewardRecordDetail'], resolve),
+        },
+        // 移动当前锁仓记录详情页
+        {
+          path: 'mobileAssetcurLockRecordDetail',
+          name: 'mobileAssetcurLockRecordDetail',
+          meta: {
+            pcname: '',
+            h5name: 'mobileAssetcurLockRecordDetail',
+            requireLogin: true,
+            templateClose: false,
+            requireLoginOff: false,
+            // mobileHeaderTitle: '充提记录'
+          },
+          caseSensitive: true,
+          component: resolve => require(['@/components/mobileVue/mobileAssetcurLockRecordDetail'], resolve),
+        },
+
+        // 移动历史锁仓记录详情页
+        {
+          path: 'mobileAssetRechargeRecordDetail',
+          name: 'MobileAssetRechargeRecordDetail',
+          meta: {
+            pcname: '',
+            h5name: 'MobileAssetRechargeRecordDetail',
+            requireLogin: true,
+            templateClose: false,
+            requireLoginOff: false,
+            // mobileHeaderTitle: '充提记录'
+          },
+          caseSensitive: true,
+          component: resolve => require(['@/components/mobileVue/MobileAssetRechargeRecordDetail'], resolve),
         },
       ]
     },

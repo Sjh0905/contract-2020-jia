@@ -1,0 +1,258 @@
+.header-title-list{
+  width: 100%;
+  height: 0.88rem;
+  line-height: 0.88rem;
+  /*background: #081724;*/
+  background: #172841;
+  display: flex;
+  justify-content: space-around;
+}
+
+.header-title-item{
+  /*width: 1.6rem;*/
+  height: 0.88rem;
+  line-height: 0.88rem;
+  box-sizing: border-box;
+  /*margin: 0 1rem;*/
+  text-align: center;
+  /*border-bottom: 2px solid #131F30;*/
+  color: #6A83A8;
+}
+
+.header-title-item-active{
+  border-bottom: 2px solid #3576F5;
+  color: #ffffff;
+}
+
+.header-title-item:first-child{
+  float: left;
+}
+
+.header-title-item:last-child{
+  float: right;
+}
+
+.container-box{
+  padding-bottom: 0.5rem;
+  background: #132033;
+}
+
+/*没有充值记录*/
+.no-item-box {
+  width: 4rem;
+  margin: 4.04rem auto auto;
+}
+
+.no-item-box-item{
+  width: 1.2rem;
+  display: block;
+  margin: 0 auto;
+}
+
+.no-item-box-text{
+  margin-top: 0.12rem;
+  text-align: center;
+  font-size: 0.28rem;
+  font-family: PingFangSC-Regular,PingFang SC;
+  font-weight: 400;
+  color: #6B7DA2;
+}
+
+.recharge-list{
+  /*background: #081724;*/
+  /*padding-bottom: 0.5rem;*/
+}
+
+.recharge-list-loading {
+  height: 50px;
+  position: relative;
+}
+
+/*充值记录详情*/
+.recharge-item {
+  height: 1.2rem;
+  width: 100%;
+  border-bottom: 1px solid #131F30;
+  position: relative;
+  color: #CFD3E9;
+  background: #142030;
+}
+
+.recharge-item-title {
+  height: 0.34rem;
+  position: absolute;
+  top: 0.2rem;
+  left: 0.2rem;
+  line-height: 0.34rem;
+  font-size: 0.3rem;
+  font-weight: bold;
+}
+
+.recharge-item-time{
+  height: 0.3rem;
+  line-height: 0.3rem;
+  font-size: 0.26rem;
+  position: absolute;
+  top: 0.7rem;
+  left: 0.2rem;
+  color: rgba(255,255,255,0.4);
+}
+
+.recharge-item-num {
+  position: absolute;
+  height: 0.34rem;
+  line-height: 0.34rem;
+  font-size: 0.3rem;
+  top:0.2rem;
+  right: 0.2rem;
+  font-weight: bold;
+}
+
+.recharge-item-num-title{
+  color: #537ba0;
+}
+
+.recharge-item-state{
+  right: 0.2rem;
+  top: 0.7rem;
+  position: absolute;
+  font-size: 0.26rem;
+  height: 0.3rem;
+  line-height: 0.3rem;
+  color: rgba(255,255,255,0.4);
+}
+
+.recharge-item-right{
+  height: 1.1rem;
+  right: 0.2rem;
+  width: 0.1rem;
+  top: 0;
+  position: absolute;
+  background: url("../../assets/mobile_pull_right.png") no-repeat center center;
+  background-size: contain;
+}
+
+.recharge-list-no-more{
+  text-align: center;
+  color: rgba(255,255,255,0.4);
+  margin: 0.48rem auto;
+  font-size: 0.24rem;
+}
+
+.recharge-list-btn-get-more{
+  position: relative;
+  width:6rem;
+  border:1px solid #274868;
+  color: #92b2cc;
+  background: transparent;
+  margin: 1rem auto 0;
+  border-radius: 5px;
+  height: 0.9rem;
+  line-height: 0.9rem;
+  text-align: center;
+  font-size: 0.24rem;
+}
+
+.withdraw-list{
+  /*background: #081724;*/
+  /*padding-bottom: 0.5rem;*/
+}
+
+
+/*提现记录详情*/
+.withdraw-item {
+  height: 1.2rem;
+  width: 100%;
+  border-bottom: 1px solid #131F30;
+  position: relative;
+  color: #CFD3E9;
+  background: #142030;
+}
+
+.withdraw-item-title {
+  height: 0.34rem;
+  position: absolute;
+  top: 0.2rem;
+  left: 0.2rem;
+  line-height: 0.34rem;
+  font-size: 0.3rem;
+  font-weight: bold;
+}
+
+.withdraw-item-time{
+  height: 0.3rem;
+  line-height: 0.3rem;
+  font-size: 0.26rem;
+  position: absolute;
+  top: 0.7rem;
+  left: 0.2rem;
+  color: rgba(255,255,255,0.4);
+}
+
+.withdraw-item-num {
+  position: absolute;
+  height: 0.34rem;
+  line-height: 0.34rem;
+  font-size: 0.3rem;
+  top:0.2rem;
+  right: 0.2rem;
+  font-weight: bold;
+}
+
+.withdraw-item-num-title{
+  color: #537ba0;
+}
+
+.withdraw-item-state{
+  right: 0.2rem;
+  top: 0.7rem;
+  position: absolute;
+  font-size: 0.26rem;
+  height: 0.3rem;
+  line-height: 0.3rem;
+  color: rgba(255,255,255,0.4);
+}
+
+.withdraw-item-right{
+  height: 1.1rem;
+  right: 0.2rem;
+  width: 0.1rem;
+  top: 0;
+  position: absolute;
+  background: url("../../assets/mobile_pull_right.png") no-repeat center center;
+  background-size: contain;
+}
+
+.withdraw-list-no-more {
+  text-align: center;
+  color: rgba(255,255,255,0.4);
+  margin: 0.48rem auto;
+  font-size: 0.24rem;
+}
+
+.grcActivity {
+  color:rgba(255,255,255,0.4);
+  font-size: 0.15rem;
+  font-weight: 400;
+
+}
+.withdraw-list-btn-get-more{
+  position: relative;
+  width:6rem;
+  border:1px solid #274868;
+  color: #92b2cc;
+  background: transparent;
+  margin: 1rem auto 0;
+  border-radius: 0.03rem;
+  height: 0.88rem;
+  line-height: 0.88rem;
+  text-align: center;
+  font-size: 0.24rem;
+}
+
+
+
+
+
+
+

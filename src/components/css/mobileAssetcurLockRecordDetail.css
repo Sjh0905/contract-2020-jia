@@ -1,0 +1,250 @@
+.recharge-box {
+  padding: 0 0.2rem;
+  color: #fff;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+}
+
+.header-box {
+  width: 7.1rem;
+  border-bottom: 1px solid #131F30;
+  height: 2.86rem;
+  position: relative;
+  padding-top: 0.6rem;
+}
+
+.header-box-title {
+  height: 0.48rem;
+  /*position: absolute;*/
+  /*top: 0.2rem;*/
+  /*left: 0.56rem;*/
+  line-height: 0.48rem;
+  /*font-weight: bold;*/
+  text-align: center;
+  font-size: 0.4rem;
+  color: #3576F5;
+}
+
+.header-box-title-logo-box{
+  display: inline-block;
+  width: 0.6rem;
+  text-align: center;
+  margin-right: 0.1rem;
+}
+
+.header-box-title-logo{
+  margin-top: 0.04rem;
+  height: 0.4rem;
+  /*margin-top: 0.25rem;*/
+  display: inline;
+  vertical-align: top;
+}
+
+.header-box-num {
+  /*position: absolute;*/
+  margin-top: 0.52rem;
+  height: 0.4rem;
+  line-height: 0.4rem;
+  /*top:0.35rem;*/
+  /*left: 2.4rem;*/
+}
+
+.header-box-num-title{
+  color: #6A83A8;
+  font-size: 0.28rem;
+  font-family: PingFangSC-Regular,PingFang SC;
+  font-weight: 400;
+}
+
+.header-box-num-container{
+  float: right;
+  height: 0.4rem;
+  line-height: 0.4rem;
+  font-size: 0.28rem;
+  font-family: PingFangSC-Regular,PingFang SC;
+  font-weight: 400;
+  color: #CFD3E9;
+}
+
+.header-box-state{
+  /*right: 1rem;*/
+  /*top: 0.35rem;*/
+  /*position: absolute;*/
+  /*font-size: 0.28rem;*/
+  /*height: 0.4rem;*/
+  /*line-height: 0.4rem;*/
+  /*transform: translateX(50%);*/
+  margin-top: 0.14rem;
+  height: 0.4rem;
+  line-height: 0.4rem;
+}
+
+.header-box-state-title{
+  color: #6A83A8;
+  font-size: 0.28rem;
+  font-family: PingFangSC-Regular,PingFang SC;
+  font-weight: 400;
+}
+
+.header-box-state-container{
+  float: right;
+  height: 0.4rem;
+  line-height: 0.4rem;
+  font-size: 0.28rem;
+  font-family: PingFangSC-Regular,PingFang SC;
+  font-weight: 400;
+  color: #CFD3E9;
+}
+
+.header-box-time{
+  height: 0.28rem;
+  line-height: 0.28rem;
+  font-size: 0.2rem;
+  position: absolute;
+  top: 0.62rem;
+  left: 0.56rem;
+}
+
+.container-box{
+  position: absolute;
+  top: 2.86rem;
+  bottom: 0;
+  left: 0.2rem;
+  right: 0.2rem;
+}
+
+.container-box-address{
+  margin-top: 0.36rem;
+  min-height: 0.36rem;
+  line-height: 0.36rem;
+}
+
+.container-box-address-title{
+  color: #6A83A8;
+  font-size: 0.28rem;
+  font-family: PingFangSC-Regular,PingFang SC;
+  font-weight: 400;
+}
+
+.container-box-address-container{
+  float: right;
+  max-width: 5.4rem;
+  text-align: right;
+  min-height: 0.36rem;
+  line-height: 0.36rem;
+  font-size: 0.26rem;
+  word-wrap: break-word;
+  color: #CFD3E9;
+}
+
+.container-box-address:after{
+  clear: both;
+  height: 0;
+  display: block;
+  content:'';
+}
+
+.container-box-txid {
+  margin-top: 0.16rem;
+  min-height: 0.36rem;
+  line-height: 0.36rem;
+}
+
+.container-box-txid-title{
+  color: #6A83A8;
+  font-size: 0.28rem;
+  font-family: PingFangSC-Regular,PingFang SC;
+  font-weight: 400;
+}
+
+.container-box-txid-container{
+  float: right;
+  max-width: 5.4rem;
+  text-align: right;
+  min-height: 0.36rem;
+  line-height: 0.36rem;
+  font-size: 0.26rem;
+  word-wrap: break-word;
+  color: #CFD3E9;
+}
+
+.container-box-txid:after{
+  clear: both;
+  height: 0;
+  display: block;
+  content:'';
+}
+
+.container-box-time {
+  margin-top: 0.16rem;
+  min-height: 0.36rem;
+  line-height: 0.36rem;
+}
+
+.container-box-time-title{
+  color: #6A83A8;
+  font-size: 0.28rem;
+  font-family: PingFangSC-Regular,PingFang SC;
+  font-weight: 400;
+}
+
+.container-box-time-container{
+  float: right;
+  max-width: 5.4rem;
+  text-align: right;
+  min-height: 0.36rem;
+  line-height: 0.36rem;
+  font-size: 0.28rem;
+  word-wrap: break-word;
+  font-family: PingFangSC-Regular,PingFang SC;
+  font-weight: 400;
+  color: #CFD3E9;
+}
+
+.container-box-time:after{
+  clear: both;
+  height: 0;
+  display: block;
+  content:'';
+}
+
+
+
+.container-box-btn{
+  position: absolute;
+  bottom: 0.4rem;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  font-size: 0.32rem;
+}
+
+.container-box-address-btn {
+  float: right;
+  height: 0.8rem;
+  width: 3.4rem;
+  border: 1px solid #3576F5;
+  /*color: #3576F5;*/
+  text-align: center;
+  line-height: 0.8rem;
+  border-radius: 1px;
+}
+
+.container-box-copy-btn{
+  float: left;
+  height: 0.8rem;
+  width: 3.4rem;
+  border: 1px solid #3576F5;
+  /*color: #3576F5;*/
+  text-align: center;
+  line-height: 0.8rem;
+  border-radius: 1px;
+}
+
+.container-box-btn:after{
+  clear: both;
+  height: 0;
+  display: block;
+  content:'';
+}
