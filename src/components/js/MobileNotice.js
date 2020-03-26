@@ -15,12 +15,23 @@ root.data = function () {
 
     canSend: true, // 是否可以发送ajax
 
+    isApp:false,
+
+    noticeTitleObj:{
+      '0': "公告中心",
+      '1': "帮助中心",
+      '2': "新手指南",
+      '3': "常见问题",
+      '4': "协议列表",
+    },
+
   }
 }
 
 root.created = function () {
   this.changeWindow()
   this.$store.commit('changeMobileHeaderTitle', '公告中心');
+  this.isAppQuery();
   this.getNoticeList()
   // 关闭公告小红点
   this.$store.commit('changeNoticeRedPoint',false);
@@ -40,7 +51,14 @@ root.computed.isMobile = function () {
 
 
 root.methods = {}
-
+// 判断路由是否为app
+root.methods.isAppQuery = function (query) {
+  if(this.$route.query.isApp) {
+    this.isApp = true
+  } else {
+    this.isApp = false
+  }
+}
 // 如果用户是复制地址
 root.methods.changeWindow = function () {
   if(this.isMobile === true){
@@ -60,6 +78,7 @@ root.methods.getNoticeList = function() {
   let params = {
     "offset": this.offset,
     "maxResults": this.maxResults,
+    "columnId":this.$route.query.columnId || 0,
     // todo h5国际化
     "languageId": 1,
   }

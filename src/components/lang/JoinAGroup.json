@@ -87,7 +87,7 @@
   "verification": "前往验证",
   "beBinding": "去绑定",
   "bind_email_pop_title": "安全提示",
-  "bind_email_pop_article": "为了您的资金安全，请先绑定邮箱",
+  "bind_email_pop_article": "为了您的资金安全，请先绑定邮箱或谷歌",
 
   "popWindowPromptRecharge": "您尚未通过实名认证",
   "popWindowPromptWithdrawals": "您尚未通过实名认证",
@@ -217,6 +217,7 @@
   "popWindowTitleBindGaWithdrawals": "請先綁定谷歌驗證或手機",
   "popWindowTitleTransfer": "加入拼團提示",
   "popWindowTitleTransfer1": "創建拼團提示",
+  "bind_email_pop_article": "為了您的資金安全，請先綁定郵箱或谷歌",
 
   "invalid":"團長帳號無效",
   "enter":"請輸入團長帳號"

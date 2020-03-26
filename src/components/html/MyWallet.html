@@ -143,13 +143,13 @@
               <!--sss 屏蔽-->
               <!--sss打开转账 begin-->
 
-<!--              <span class="withdrawals-button button"-->
-<!--                  @click="internalTransfer(index,item)"-->
-<!--                  :class="{'recharge-button-select-transfer':activeIndex===index  && transferss}"-->
-<!--                  v-if="serverT >= item.withdrawOpenTime">-->
-<!--                {{$t('internalTransfer')}}-->
-<!--              </span>-->
-<!--            <span class=" can-not-withdrawals" v-else>{{$t('internalTransfer')}}</span>-->
+              <span class="withdrawals-button button"
+                  @click="internalTransfer(index,item)"
+                  :class="{'recharge-button-select-transfer':activeIndex===index  && transferss}"
+                  v-if="serverT >= item.withdrawOpenTime">
+                {{$t('internalTransfer')}}
+              </span>
+            <span class=" can-not-withdrawals" v-else>{{$t('internalTransfer')}}</span>
 
 <!-- v-if="serverT >= item.withdrawOpenTime"-->
 <!--              内部转账灰色按钮 begin-->
@@ -161,9 +161,9 @@
 <!--               <span class="withdrawals-buttons buttons">-->
 <!--                 {{$t('withdrawals')}}-->
 <!--               </span>-->
-               <span class="withdrawals-buttons buttons">
-                 {{$t('internalTransfer')}}
-               </span>
+<!--               <span class="withdrawals-buttons buttons">-->
+<!--                 {{$t('internalTransfer')}}-->
+<!--               </span>-->
  <!--              内部转账灰色按钮 end-->
 
 
@@ -634,11 +634,11 @@
     </div>
     <div slot="footer">
 
-      <button @click="goToTransferRecord" class="pointer btn_simple ssss2">
+      <button @click="goToTransferRecord" class="pointer btn_simple ssss2 rig16 ">
       {{$t('deletePopConfirm8')}}
     </button>
 
-      <dev @click="goToTransferRecord" class="btn-commit pointer ssss12">
+      <dev @click="buyConfirmSuccessClose" class=" pointer ssss12">
         {{$t('确定')}}
       </dev>
 
@@ -657,7 +657,7 @@
       </div>
       <label for="email"
              class="verification-title">{{$t('email')}}</label>
-      <div class="verification-container double-input-container flex" >
+      <div class="verification-container flex" >
 
         <input type="text" id="email" class="verification-input input_padding"
                v-model="emailVerificationCode"
@@ -667,15 +667,12 @@
           {{$t('GetVerificationCode')}}
         </div>
         <div class="get-verifications" v-if="getEmailVerificationCode" disabled>
-          {{getEmailVerificationCodeCountdown}}s 之后重新发送
+          {{getEmailVerificationCodeCountdown}}s
         </div>
       </div>
-      <div class="prompt-wrong wrong-msg" v-if="emailVerificationCodeWA!==''">
-        {{emailVerificationCodeWA}}
-
-      </div>
-      <div class="prompt-wrong wrong-msg" v-else="emailVerificationCodeWA!==''">
-
+      <div class="double-input-container">
+        <span class="prompt-wrong wrong-msg" v-if="emailVerificationCodeWA!==''">{{emailVerificationCodeWA}}</span>
+        <span class="prompt-wrong wrong-msg" v-else="emailVerificationCodeWA!==''"></span>
       </div>
 
     </div>
@@ -743,34 +740,46 @@
         <div class="prompt-show-picker-box">
 
           <div class="prompt-show-picker" v-if="showPicker">
+
+            <div v-if="bindMobile && bindGA">
+              <!--手机验证-->
+              <div class="G-pop" @click="open_mob(1)"
+                   :class="picked ==1?'mob-button-select':''"
+              >{{$t("picker_1")}}</div>
+              <!--谷歌验证-->
+              <div class="G-pop" @click="open_mob(2)"
+                   :class="picked == 2?'mob-button-select':''"
+              >{{$t("picker_2")}}</div>
+
+            </div>
 <!--                        &lt;!&ndash;谷歌验证&ndash;&gt;-->
-<!--                        <div class="G-pop" @click="open_mob(2)"-->
-<!--                             :class="picked == 2?'mob-button-select':''"-->
+<!--                        <div class="G-pop" @click="open_mob(1)"-->
+<!--                             :class="picked == 1?'mob-button-select':''"-->
 <!--                             id="pick-ga" v-model="picker"-->
 <!--                        >{{$t("picker_1")}}</div>-->
 <!--                        &lt;!&ndash;手机验证&ndash;&gt;-->
-<!--                        <div class="G-pop" @click="open_mob(1)"-->
+<!--                        <div class="G-pop" @click="open_mob(2)"-->
 <!--                             id="pick-mobile" v-model="picker"-->
-<!--                             :class="picked ==1?'mob-button-select':''"-->
+<!--                             :class="picked ==2?'mob-button-select':''"-->
 <!--                        >{{$t("picker_2")}}</div>-->
 
-            <div class="prompt-show-picker-detail-box">
-              <input type="radio" name="picker" value="1" id="pick-ga" v-model="picker">
-              <label for="pick-ga">{{$t('picker_1')}}</label>
-            </div>
-            <div class="prompt-show-picker-detail-box">
-              <input type="radio" name="picker" value="2" id="pick-mobile" v-model="picker">
-              <label for="pick-mobile">{{$t('picker_2')}}</label>
-            </div>
+<!--            <div class="prompt-show-picker-detail-box">-->
+<!--              <input type="radio" name="picker" value="1" id="pick-ga" v-model="picker">-->
+<!--              <label for="pick-ga">{{$t('picker_1')}}</label>-->
+<!--            </div>-->
+<!--            <div class="prompt-show-picker-detail-box">-->
+<!--              <input type="radio" name="picker" value="2" id="pick-mobile" v-model="picker">-->
+<!--              <label for="pick-mobile">{{$t('picker_2')}}</label>-->
+<!--            </div>-->
           </div>
-          <div v-if="picker == 1">
-            <label for="gaCode" class="verification-title">222{{$t('gaCode')}}</label>
+          <div v-if="picked == 1">
+            <label for="gaCode" class="verification-title">{{$t('gaCode')}}</label>
             <div class="verification-container flex">
               <input type="text" id="gaCode" class="verification-input input_padding" v-model="step2VerificationCode"
                      @blur="testGACodeVerification">
             </div>
           </div>
-          <div class="" v-if="picker == 2">
+          <div class="" v-if="picked == 2">
             <label for="mobile" class="verification-title">{{$t('mobile')}}</label>
             <div class="verification-container flex">
               <input type="text" id="mobile" class="verification-input input_padding"
@@ -802,7 +811,7 @@
 
     <!-- footer popWindow begin 1 -->
     <div slot="footer" class="popWindow-footer " v-if="popWindowStep === 1">
-      <button class="pointer btn_simple ssss2" @click="goToConfirmsjhclose">
+      <button class="pointer btn_simple ssss2 m-l14" @click="goToConfirmsjhclose">
         {{$t('previousStep')}}
       </button>
       <button class="btn-commit btn_blue pointer ssss12" v-if="!emailVerificationSending"
@@ -818,19 +827,19 @@
     <!-- footer popWindow begin 2 -->
     <div slot="footer" class="popWindow-footer" v-if="popWindowStep === 2">
       <template v-if="!step2Error">
-        <div class="pop-qu pointer" @click="goToConfirmsjhclose">
+        <div class="pointer ssss2 button-base btn_simple rig" @click="goToConfirmsjhclose">
           {{$t('cancel')}}
         </div>
-        <button class="pop-qu-2 btn_blue pointer" v-if="!step2VerificationSending"
+        <div class="pointer ssss12 btn_blue" v-if="!step2VerificationSending"
                 @click="commitStep2Verification">
           {{$t('commit')}}
-        </button>
-        <button class="pop-qu-2 btn_blue pointer" v-if="step2VerificationSending" disabled>
+        </div>
+        <button class=" btn_blue pointer ssss12" v-if="step2VerificationSending" disabled>
           {{$t('commiting')}}
         </button>
       </template>
       <template v-if="step2Error">
-        <button class="pop-qu-2 btn_blue pointer" v-if="step2VerificationSending" disabled>
+        <button class=" btn_blue pointer ssss12" v-if="step2VerificationSending" disabled>
           {{$t('commit')}}
         </button>
       </template>
@@ -869,7 +878,7 @@
 <!--             :loading="loading"-->
 <!--  />-->
   <!-- 提示 start -->
-  <PopupPrompt :popType="popupPromptType" :popText="popupPromptText" :popOpen="popupPromptOpen"
+  <PopupPrompt :popType="popType" :popText="popText" :popOpen="popOpen"
                :popClose="closePopupPrompt"></PopupPrompt>
   <!-- 提示 end -->
 

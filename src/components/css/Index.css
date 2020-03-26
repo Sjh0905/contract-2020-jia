@@ -197,7 +197,8 @@
     bottom: 0;
     right: 0;
     left: 0;
-    background: #fff;
+    /*background: #fff;*/
+    background: #131F30;
     height: auto;
     z-index: 0;
     overflow: auto;

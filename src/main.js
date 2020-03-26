@@ -178,7 +178,7 @@ const initLang = function (){
     setTimeout(()=>{
       zE('webWidget', 'setLocale', state.langZendeskObj[state.lang]);
     },1000)
-  }else{
+  }else if(window.location.href.indexOf("isApp") == -1 && window.location.href.indexOf("isIOS") == -1){//当isApp、isIOS不存在时才显示
     window.zESettings = {
       webWidget: {
         offset: {

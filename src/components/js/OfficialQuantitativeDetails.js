@@ -83,6 +83,19 @@ root.methods.error_getRegistrationRecord = function (err) {
 
 //量化展示_量化交易记录get (query:{})  未完成
 root.methods.getQuantifyransactions = function () {
+
+  var data = {
+    "data": [
+      {
+        "createDate": "2020-03-23",
+        "totalAmount": "34334.0000",
+        "reward": "24.0000",
+        "surplus": "900.0000"
+      }
+    ],
+      "errorCode": "0",
+      "message": "success"
+  }
   this.$http.send('GET_USER_TRADE', {
     bind: this,
     urlFragment:this.userId,
@@ -92,6 +105,8 @@ root.methods.getQuantifyransactions = function () {
   })
 }
 root.methods.re_getQuantifyransactions = function (res) {
+  typeof data === 'string' && (data = JSON.parse(data))
+  if (!data) {return}
   console.log("this.re_getQuantifyransactions=====",res)
 }
 root.methods.error_getQuantifyransactions = function (err) {
@@ -100,6 +115,27 @@ root.methods.error_getQuantifyransactions = function (err) {
 
 //量化展示_量化基本信息get (query:{})  未完成
 root.methods.getQuantifyBasicInformation = function () {
+  var data = {
+    "data": {
+      "totalReward": "0",
+      "recode": {
+        "reward": 0,
+        "totalAmount": 0,
+        "surplus": 10000,
+        "quantStartEndTime": "03/23 04:00 - 03/24 03:59",
+        "createdate": "2020-03-23",
+        "currency": "KK",
+        "userId": "100013",
+        "account": "2570167180@qq.com",
+        "fut_amt": "10000",
+        "fcode": "yy100",
+        "prevSurplus":133,
+        "miningProgress": 0.85
+      }
+    },
+    "errorCode": "0",
+    "message": "success"
+  }
   this.$http.send('GET_TRADE', {
     bind: this,
     urlFragment:this.userId,
@@ -111,6 +147,8 @@ root.methods.getQuantifyBasicInformation = function () {
   })
 }
 root.methods.re_getQuantifyBasicInformation = function (res) {
+  typeof data === 'string' && (data = JSON.parse(data))
+  if (!data) {return}
   console.log("this.re_getQuantifyBasicInformation=====",res)
 }
 root.methods.error_getQuantifyBasicInformation = function (err) {
