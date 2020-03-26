@@ -512,6 +512,10 @@ root.methods = {}
 //   this.clickTab = true
 // }
 
+root.methods.goTojiaoyi = function () {
+  this.$router.push({name: 'officialQuantitativeDetails'})
+}
+
 
 // 登陆用户组等级信息get (query:{})
 root.methods.getGroupLevel = function () {
