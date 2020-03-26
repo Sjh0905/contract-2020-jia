@@ -100,19 +100,19 @@ root.computed.staticUrl = function () {
 }
 // userID
 root.computed.uid = function () {
-  if(this.$store.state.authMessage.uuid == undefined){
+  // if(this.$store.state.authMessage.uuid == undefined){
     return this.$store.state.authMessage.userId
-  }
-  return this.$store.state.authMessage.uuid
+  // }
+  // return this.$store.state.authMessage.uuid
 }
 
 // uuid
-root.computed.uuid = function () {
-  if(this.$store.state.authMessage.uuid == undefined){
-    return this.$store.state.authMessage.userId
-  }
-  return this.$store.state.authMessage.uuid
-}
+// root.computed.uuid = function () {
+//   if(this.$store.state.authMessage.uuid == undefined){
+//     return this.$store.state.authMessage.userId
+//   }
+//   return this.$store.state.authMessage.uuid
+// }
 // 证件号
 root.computed.idCode = function () {
   // let idCode = this.$store.state.authMessage.idCode

@@ -83,21 +83,22 @@ root.data = function () {
 root.created = function () {
   console.log("uuid=2222=="+this.$store.state.authMessage.uuid)
   let uuiid = ''
-  if(this.$store.state.authMessage.uuid == undefined){
+  // if(this.$store.state.authMessage.uuid == undefined){
     uuiid = this.$store.state.authMessage.userId;
-  }else{
-    uuiid = this.$store.state.authMessage.uuid
-  }
+  // }
+  // else{
+  //   uuiid = this.$store.state.authMessage.uuid
+  // }
   let protocol = window.location.protocol;
   let sharUrl = document.location.host + '/index/register?uid=' + uuiid + '&source=share';
   this.shareUrl = protocol + '//' + sharUrl;
 
-  if(this.$store.state.authMessage.uuid == undefined){
-    this.uId = this.$store.state.authMessage.userId;
-  }else{
-    this.uId = this.$store.state.authMessage.uuid;
-  }
-  // this.uId = this.$store.state.authMessage.userId;
+  // if(this.$store.state.authMessage.uuid == undefined){
+  //   this.uId = this.$store.state.authMessage.userId;
+  // }else{
+  //   this.uId = this.$store.state.authMessage.uuid;
+  // }
+  this.uId = this.$store.state.authMessage.userId;
 
   this.value = this.shareUrl;
   console.log("value=2222=="+this.shareUrl)
