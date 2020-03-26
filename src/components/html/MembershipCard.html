@@ -94,7 +94,8 @@
       </div>
     </div>
 <!--购买-->
-    <div class="year_month_div pointer" @click="postBuyCard1">{{$t('buy')}}</div>
+    <div class="year_month_div pointer" v-if="!flag" @click="postBuyCard1">{{$t('buy')}}</div>
+    <div class="year_month_div pointer" v-if="flag" @click="postBuyCard1">{{$t('续费')}}</div>
 <!--    <div class="year_month_div1 pointer">{{$t('discountAboutff')}}</div>-->
 
 
@@ -111,9 +112,9 @@
 <!--          类型-->
           <div class="application_header_div width2">{{$t('Type_m_y')}}</div>
 <!--          有效期-->
-          <div class="application_header_div width3">{{$t('validity')}}</div>
+          <div class="application_header_div width3 tlc">{{$t('buyTime')}}</div>
 <!--          购买时间-->
-          <div class="application_header_div width4 tlc">{{$t('buyTime')}}</div>
+          <div class="application_header_div width4 tlc">{{$t('validity')}}</div>
         </li>
         <!--表头 E-->
 
@@ -131,9 +132,9 @@
 <!--             年卡 -->
               <div class="application_header_div width2 color_a2" v-if="item.cardType=='2'">{{$t('yearCard')}}</div>
             <!--有效期-->
-              <div class="application_header_div width3 color_a2">{{item.expires}}</div>
+              <div class="application_header_div width3 color_a2 tlc">{{item.createdAt}}</div>
             <!--购买时间-->
-              <div class="application_header_div_right width4 tlc mor-right color_a2">{{item.createdAt}}</div>
+              <div class="application_header_div_right width4 tlc mor-right color_a2">{{item.expires}}</div>
             </li>
             </ul>
           </template>
@@ -396,12 +397,14 @@
 <!--            <div class="prompt-wrong wrong-msg" v-else="emailVerificationCodeWA!==''">{{emailVerificationCodeWA}}</div>-->
           </div>
         </div>
+
+        <div class="prompt-wrong1 wrong-msg" v-if="step2VerificationCodeWA!==''">
+          {{step2VerificationCodeWA}}
+        </div>
+        <div class="prompt-wrong1 wrong-msg" v-else></div>
       </template>
 
-      <div class="prompt-wrong wrong-msg" v-if="step2VerificationCodeWA!==''">
-        {{step2VerificationCodeWA}}
-      </div>
-      <div class="prompt-wrong wrong-msg" v-else></div>
+
     </div>
     <!-- article end 2 -->
 

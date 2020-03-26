@@ -280,13 +280,13 @@
   width: 35%;
 }
 .width2 {
-  width: 25%;
+  width: 14%;
 }
 .width3 {
-  width: 23%;
+  width: 21%;
 }
 .width4 {
-  width: 20%;
+  width: 30%;
 }
 .application_header1 {
   height:54px;
@@ -813,5 +813,15 @@
 }
 
 .prompt-show-picker-box {
-  margin-bottom: 11px;
+  /*margin-bottom: 11px;*/
+}
+/*.hig {*/
+/*  height: 20px;*/
+/*}*/
+.prompt-wrong1 {
+  font-size: 12px;
+  /* padding-top: 10px; */
+  margin: 2px 0px 10px 25px;
+  height: 20px;
+  display: block;
 }

@@ -17,7 +17,7 @@
   "record":"购买记录",
   "account":"账号",
   "Type_m_y":"类型",
-  "validity":"有效期",
+  "validity":"有效期至",
   "buyTime":"购买时间",
   "purchase":"确认是否购买月卡",
   "whethe":"确认是否购买年卡",
@@ -44,13 +44,13 @@
   "expiration":"到期",
 
   "transfer":"会员转让",
-  "mailbox": "受让人邮箱",
+  "mailbox": "受让人账户",
   "assignee": "受让人UID",
   "members": "会员到期时间",
   "poundage": "手续费",
   "Confirmation": "确认转让",
   "Notes": "注：转让需要与对方联系获取对方的收款账号及UID，UID可在个人中心中查看",
-  "deletePopCancel2": "请输入受让人邮箱",
+  "deletePopCancel2": "请输入受让人账户",
   "deletePopCancel3": "请输入受让人UID",
 
 
@@ -137,7 +137,7 @@
   "record":"購買記錄",
   "account":"帳號",
   "Type_m_y":"類型",
-  "validity":"有效期",
+  "validity":"有效期至",
   "buyTime":"購買時間",
   "purchase":"確認是否購買月卡",
   "whethe":"確認是否購買年卡",
