@@ -70,6 +70,7 @@ root.data = function () {
     // //会员到期日
     // expires: '',
     // flag: false,
+    TTDeductible: true
 
   }
 }
@@ -140,14 +141,14 @@ root.computed.userName = function () {
 root.computed.userType = function () {
   return this.$store.state.authMessage && this.$store.state.authMessage.province === 'mobile' ? 0 : 1
 }
-
-// uid
-root.computed.uuid = function () {
-  if(this.$store.state.authMessage.uuid == undefined){
-    return this.$store.state.authMessage.userId
-  }
-  return this.$store.state.authMessage.uuid
-}
+//
+// // uid
+// root.computed.uuid = function () {
+//   if(this.$store.state.authMessage.uuid == undefined){
+//     return this.$store.state.authMessage.userId
+//   }
+//   return this.$store.state.authMessage.uuid
+// }
 
 // 获取userId
 root.computed.userId = function () {
@@ -165,6 +166,11 @@ root.created = function () {
 }
 
 root.methods = {}
+
+// 平台币抵扣开关
+root.methods.coinDeductible = function (){
+  this.TTDeductible = !this.TTDeductible
+}
 
 // 跳转个人中心
 root.methods.goToInvitation = function (){
