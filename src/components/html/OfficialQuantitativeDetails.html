@@ -1,6 +1,6 @@
 <div class="OfficialQuantitativeDetails">
 
-  <div class="qq_content">
+  <div class="qq_content" v-if="!isMobile">
 
 <!--    KK交易挖矿详情-->
     <div class="qq_title">
@@ -16,7 +16,7 @@
 <!--    参加日期-->
     <div class="account_number_right">
       <span>{{$t('participation')}}:</span>
-      <span>2020-02-02</span>
+      <span>{{createdate}}</span>
     </div>
 
     <div class="quantification_con" >
@@ -25,13 +25,13 @@
         <div class="quantification_today_div">
 <!--          今日量化-->
           <span class="quantification_today_span">{{$t('quantification')}}</span>
-          <span class="quantification_today_time">(04/02 9:00 - 05/02 8:59)</span>
+          <span class="quantification_today_time">({{quantStartEndTime}})</span>
         </div>
 
 <!--        即将释放-->
         <div class="to_be_released_soon">
           <span class="to_be_re">{{$t('releasedSoon')}}</span>
-          <span class="to_be_re_div">0.00</span>
+          <span class="to_be_re_div">{{reward}}</span>
           <span>KK</span>
         </div>
 
@@ -39,7 +39,7 @@
 <!--        已量化-->
         <div class="to_be_released_soon">
           <span class="to_be_re">{{$t('quantified')}}</span>
-          <span class="to_be_re_div to_be_re_div_1">0.00</span>
+          <span class="to_be_re_div to_be_re_div_1">{{totalAmount}}</span>
         </div>
       </div>
       <!--  sss 今日奖励-->
@@ -47,28 +47,32 @@
       <div class="Todays_award">
         <div class="Todays_award_div">{{$t('reward')}}</div>
 
-        <ul>
-          <li>
+        <ul class="TodaysUl">
+          <li class="TodaysLi">
 <!--            矿源-->
             <div class="li_div_20">
-              <p class="color_0">{{$t('source')}}（KK）</p>
-              <p class="color_3">100000.00</p>
+              <p class="color_0">{{$t('source')}}（KK + TT）</p>
+              <p class="color_3">{{fut_amt}}</p>
             </div>
 <!--            矿源奖励释放-->
             <div class="li_div_60">
               <p class="color_0">{{$t('rewardRelease')}}(KK)</p>
-              <p class="color_3">0</p>
+              <p class="color_3">{{doSendReward}}</p>
             </div>
 
 <!--            已释放-->
             <div class="li_div_19">
               <p class="color_0">{{$t('released')}}</p>
-              <p class="color_7">0.00%</p>
+              <p class="color_7">{{miningProgress}}%</p>
             </div>
           </li>
         </ul>
 
-        <div class="border_50"></div>
+        <div class="border_50">
+          <div class="progress_bar">
+            <el-progress :show-text="false" :stroke-width="16" :percentage="(miningProgress)" color="#3576F5" status="exception" ></el-progress>
+          </div>
+        </div>
 
       </div>
     </div>
@@ -78,7 +82,7 @@
 <!--      交易记录-->
       <div class="record_div">{{$t('transactionRecord')}}</div>
 
-      <ul >
+      <ul class="recordUl">
         <!--表头 S-->
         <li class="application_header">
 <!--          日期-->
@@ -90,38 +94,159 @@
 <!--          矿源金额-->
           <div class="application_header_div_right">{{$t('sourceAmount')}}</div>
         </li>
-        <!--表头 E-->
-
-        <!-- 如果加载完成、已登录、有数据，则显示数据 begin -->
-<!--        <template v-if="!loading">-->
-          <!--            <template v-if="userId && currentOrderComputed.length!==0">-->
-<!--          <template v-if="0">-->
-<!--            <transition-group name="fade">-->
-<!--              <li class="flex">-->
-<!--                &lt;!&ndash;账号&ndash;&gt;-->
-<!--                <div class="application_header_div">账号</div>-->
-<!--                &lt;!&ndash;期数&ndash;&gt;-->
-<!--                <div class="application_header_div">期数</div>-->
-<!--                &lt;!&ndash;配套&ndash;&gt;-->
-<!--                <div class="application_header_div">配套</div>-->
-<!--                &lt;!&ndash;时间&ndash;&gt;-->
-<!--                <div class="application_header_div_right">时间</div>-->
-<!--              </li>-->
-<!--            </transition-group>-->
-<!--          </template>-->
+      <template>
+          <template v-if="transactionRecording.length !== 0">
+            <li class="flex application_li" v-for="(item,index) in transactionRecording" :key="item.id">
+              <!--挖矿日期-->
+              <div class="application_header_div borbot">{{item.createDate}}</div>
+              <!--总量化数(挖矿总数)-->
+              <div class="application_header_div borbot">{{item.surplus}}</div>
+              <!--奖励-->
+              <div class="application_header_div borbot">{{item.reward}}</div>
+              <!--剩余配套-->
+              <div class="application_header_div_right borbot">{{item.totalAmount}}</div>
+            </li>
+          </template>
           <!-- 如果加载完成、已登录、有数据，则显示数据 end -->
 
           <!-- 如果没加载完成、没登录、没数据，则显示'--' begin -->
-          <template>
-<!--          <template v-else>-->
+          <template v-else>
             <li class="weit">
               <div class="nhtu"><img src="../../assets/noOrders.png">
                 <p class="nhtu_p">{{$t('orderPageCurrentEntrustment.close_9')}}</p>
               </div>
-
             </li>
           </template>
-<!--        </template>-->
+        </template>
+      </ul>
+
+    </div>
+
+  </div>
+
+
+  <div class="qq_contentMobile" v-if="isMobile">
+
+    <!--    KK交易挖矿详情-->
+    <div class="qq_titleMobile">
+      {{$t('miningDetails')}}
+    </div>
+
+    <!--账号-->
+    <div class="account_numberMobile">
+      <span>{{$t('number')}}:</span>
+      <span>{{userName}}</span>
+    </div>
+
+    <!--    参加日期-->
+    <div class="account_number_rightMobile">
+      <span>{{$t('participation')}}:</span>
+      <span>{{createdate}}</span>
+    </div>
+
+    <div class="quantification_con" >
+      <!--  sss 今日量化-->
+      <div class="quantification_todayMobile">
+        <div class="quantification_today_divMobile">
+          <!--          今日量化-->
+          <span class="quantification_today_span">{{$t('quantification')}}</span>
+          <span class="quantification_today_time">({{quantStartEndTime}})</span>
+        </div>
+
+        <!--        即将释放-->
+        <div class="to_be_released_soonMobile">
+          <span class="to_be_re">{{$t('releasedSoon')}}</span>
+          <span class="to_be_re_divMobile">{{reward}}</span>
+          <span>KK</span>
+        </div>
+
+
+        <!--        已量化-->
+        <div class="to_be_released_soonMobile">
+          <span class="to_be_re">{{$t('quantified')}}</span>
+          <span class="to_be_re_divMobile ml">{{totalAmount}}</span>
+        </div>
+      </div>
+      <!--  sss 今日奖励-->
+      <!--      奖励-->
+
+    </div>
+
+    <div class="quantification_con" >
+      <div class="Todays_awardMobile">
+        <div class="Todays_award_divMobile">{{$t('reward')}}</div>
+
+        <ul class="TodaysUl">
+          <li class="TodaysLiMobile">
+            <!--            矿源-->
+            <div class="li_div_20Mobile">
+              <p class="color_0">{{$t('source')}}（KK + TT）</p>
+              <p class="color_3">{{fut_amt}}</p>
+            </div>
+            <!--            矿源奖励释放-->
+            <div class="li_div_60Mobile">
+              <p class="color_0">{{$t('rewardRelease')}}(KK)</p>
+              <p class="color_3">{{doSendReward}}</p>
+            </div>
+
+            <!--            已释放-->
+            <div class="li_div_19Mobile">
+              <p class="color_0">{{$t('released')}}</p>
+              <p class="color_7">{{miningProgress}}%</p>
+            </div>
+          </li>
+        </ul>
+
+        <div class="border_50Mobile">
+          <div class="progress_bar">
+            <el-progress :show-text="false" :stroke-width="16" :percentage="(miningProgress)" color="#3576F5" status="exception" ></el-progress>
+          </div>
+        </div>
+
+      </div>
+     </div>
+
+    <div class="record">
+
+      <!--      交易记录-->
+      <div class="record_divMobile">{{$t('transactionRecord')}}</div>
+
+      <ul class="recordUl">
+        <!--表头 S-->
+        <li class="application_headerMobile">
+          <!--          日期-->
+          <div class="application_divMobile">{{$t('date')}}</div>
+          <!--          量化-->
+          <div class="application_divMobile">{{$t('quanti')}}</div>
+          <!--          奖励-->
+          <div class="application_header_divMobile">{{$t('reward')}}</div>
+          <!--          矿源金额-->
+          <div class="application_header_div_rightMobile">{{$t('sourceAmount')}}</div>
+        </li>
+        <template>
+          <template v-if="transactionRecording.length !== 0">
+            <li class="flex application_liMobile" v-for="(item,index) in transactionRecording" :key="item.id">
+              <!--挖矿日期-->
+              <div class="application_divMobile borbot">{{item.createDate}}</div>
+              <!--总量化数(挖矿总数)-->
+              <div class="application_divMobile borbot">{{item.surplus}}</div>
+              <!--奖励-->
+              <div class="application_header_divMobile borbot">{{item.reward}}</div>
+              <!--剩余配套-->
+              <div class="application_header_div_rightMobile borbot">{{item.totalAmount}}</div>
+            </li>
+          </template>
+          <!-- 如果加载完成、已登录、有数据，则显示数据 end -->
+
+          <!-- 如果没加载完成、没登录、没数据，则显示'--' begin -->
+          <template v-else>
+            <li class="weit">
+              <div class="nhtu"><img src="../../assets/noOrders.png">
+                <p class="nhtu_p">{{$t('orderPageCurrentEntrustment.close_9')}}</p>
+              </div>
+            </li>
+          </template>
+        </template>
       </ul>
 
     </div>
@@ -130,7 +255,7 @@
 
 
   <!--  此账号未参与KK交易挖矿-->
-  <PopupArticle :switch="buyConfirmSuccess" @close="buyConfirmSuccessClose">
+  <PopupArticle :switch="buyConfirmSuccess" @close="buyConfirmSuccessClose" v-if="!isMobile">
 
     <div slot="article" class="Internal_siding img_ConfirmSuccess">
       <img src="../../assets/lianghua.png" alt="" >

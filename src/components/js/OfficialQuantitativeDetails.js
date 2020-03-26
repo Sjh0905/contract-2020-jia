@@ -10,17 +10,40 @@ root.data = () => {
   return {
     loading: true, // 加载中
     buyConfirmSuccess:false,
+    transaction:[],
+    records: [],
+
+    totalAmount:'', //挖矿总数
+    reward:'',     //挖矿奖励
+    createdate:'',    //挖矿日期
+    quantStartEndTime:'',     //量化起止时间
+    fut_amt:'',    //配套总量
+    miningProgress:'',   //挖矿进度 0.95
+    doSendReward:'',  //已释放的矿源奖励
   }
 }
 
 root.created = function () {
   this.getRegistrationRecord()
+  this.getQuantifyransactions()
+  this.getQuantifyBasicInformation()
 }
+
 root.computed = {}
+
+// 判断是否是手机
+root.computed.isMobile = function () {
+  return this.$store.state.isMobile
+}
+
 
 root.computed.computedRecord = function (item,index) {
   // console.log('jjjjjjjjjjj',item,'kkkkkkkk',index,'pppppp',this.records)
   return this.records
+}
+root.computed.transactionRecording = function (item,index) {
+  // console.log('jjjjjjjjjjj',item,'kkkkkkkk',index,'pppppp',this.records)
+  return this.transaction
 }
 // 用户名
 root.computed.userName = function () {
@@ -46,7 +69,7 @@ root.computed.userId = function () {
 root.methods = {}
 
 root.methods.buyConfirmSuccessClose = function () {
-  // this.buyConfirmSuccess=true
+  this.buyConfirmSuccess=false
 
 }
 
@@ -84,18 +107,18 @@ root.methods.error_getRegistrationRecord = function (err) {
 //量化展示_量化交易记录get (query:{})  未完成
 root.methods.getQuantifyransactions = function () {
 
-  var data = {
-    "data": [
-      {
-        "createDate": "2020-03-23",
-        "totalAmount": "34334.0000",
-        "reward": "24.0000",
-        "surplus": "900.0000"
-      }
-    ],
-      "errorCode": "0",
-      "message": "success"
-  }
+  // var data = {
+  //   "data": [
+  //     {
+  //       "createDate": "2020-03-23",
+  //       "totalAmount": "34334.0000",
+  //       "reward": "24.0000",
+  //       "surplus": "900.0000"
+  //     }
+  //   ],
+  //     "errorCode": "0",
+  //     "message": "success"
+  // }
   this.$http.send('GET_USER_TRADE', {
     bind: this,
     urlFragment:this.userId,
@@ -104,10 +127,12 @@ root.methods.getQuantifyransactions = function () {
     errorHandler: this.error_getQuantifyransactions
   })
 }
-root.methods.re_getQuantifyransactions = function (res) {
+root.methods.re_getQuantifyransactions = function (data) {
   typeof data === 'string' && (data = JSON.parse(data))
   if (!data) {return}
-  console.log("this.re_getQuantifyransactions=====",res)
+  console.log("this.re_getQuantifyransactions=====",data)
+
+  this.transaction = data.data
 }
 root.methods.error_getQuantifyransactions = function (err) {
   console.log("this.error_getQuantifyransactions=====",err)
@@ -115,27 +140,27 @@ root.methods.error_getQuantifyransactions = function (err) {
 
 //量化展示_量化基本信息get (query:{})  未完成
 root.methods.getQuantifyBasicInformation = function () {
-  var data = {
-    "data": {
-      "totalReward": "0",
-      "recode": {
-        "reward": 0,
-        "totalAmount": 0,
-        "surplus": 10000,
-        "quantStartEndTime": "03/23 04:00 - 03/24 03:59",
-        "createdate": "2020-03-23",
-        "currency": "KK",
-        "userId": "100013",
-        "account": "2570167180@qq.com",
-        "fut_amt": "10000",
-        "fcode": "yy100",
-        "prevSurplus":133,
-        "miningProgress": 0.85
-      }
-    },
-    "errorCode": "0",
-    "message": "success"
-  }
+  // var data = {
+  //   "data": {
+  //     "totalReward": "0",
+  //     "recode": {
+  //       "reward": 0,
+  //       "totalAmount": 0,
+  //       "surplus": 10000,
+  //       "quantStartEndTime": "03/23 04:00 - 03/24 03:59",
+  //       "createdate": "2020-03-23",
+  //       "currency": "KK",
+  //       "userId": "100013",
+  //       "account": "2570167180@qq.com",
+  //       "fut_amt": "10000",
+  //       "fcode": "yy100",
+  //       "prevSurplus":133,
+  //       "miningProgress": 0.85
+  //     }
+  //   },
+  //   "errorCode": "0",
+  //   "message": "success"
+  // }
   this.$http.send('GET_TRADE', {
     bind: this,
     urlFragment:this.userId,
@@ -146,10 +171,17 @@ root.methods.getQuantifyBasicInformation = function () {
     errorHandler: this.error_getQuantifyBasicInformation
   })
 }
-root.methods.re_getQuantifyBasicInformation = function (res) {
+root.methods.re_getQuantifyBasicInformation = function (data) {
   typeof data === 'string' && (data = JSON.parse(data))
   if (!data) {return}
-  console.log("this.re_getQuantifyBasicInformation=====",res)
+  console.log("this.re_getQuantifyBasicInformation=====",data)
+  this.totalAmount = data.data.recode.totalAmount //挖矿总数
+  this.reward = data.data.recode.reward     //挖矿奖励
+  this.createdate = data.data.recode.createdate   //挖矿日期
+  this.quantStartEndTime = data.data.recode.quantStartEndTime    //量化起止时间
+  this.fut_amt = data.data.recode.fut_amt    //配套总量
+  this.miningProgress = data.data.recode.miningProgress  //挖矿进度 0.95
+  this.doSendReward = data.data.recode.doSendReward  //已释放的矿源奖励
 }
 root.methods.error_getQuantifyBasicInformation = function (err) {
   console.log("this.error_getQuantifyBasicInformation=====",err)
