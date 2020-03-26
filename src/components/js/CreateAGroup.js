@@ -123,26 +123,32 @@ root.watch = {}
 /*------------------------------ 方法 -------------------------------*/
 root.methods = {}
 
+// 弹框跳安全中心
+root.methods.goToSecurityCenter = function () {
+  this.popWindowOpen = false
+  this.$router.push({name: 'securityCenter'})
+}
+
 // 弹出绑定身份，跳转到实名认证界面
 root.methods.goToBindIdentity = function () {
   this.popWindowOpen = false
   this.$router.push({name: 'authenticate'})
 }
-// 去绑定谷歌验证
-root.methods.goToBindGA = function () {
-  this.popWindowOpen = false
-  this.$router.push({name: 'bindGoogleAuthenticator'})
-}
-// 去绑定手机号
-root.methods.goToBindMobile = function () {
-  this.popWindowOpen = false
-  this.$router.push({name: 'bindMobile'})
-}
-// 去绑定邮箱
-root.methods.goToBindEmail = function () {
-  this.popWindowOpen = false
-  this.$router.push({name: 'bindEmail'})
-}
+// // 去绑定谷歌验证
+// root.methods.goToBindGA = function () {
+//   this.popWindowOpen = false
+//   this.$router.push({name: 'bindGoogleAuthenticator'})
+// }
+// // 去绑定手机号
+// root.methods.goToBindMobile = function () {
+//   this.popWindowOpen = false
+//   this.$router.push({name: 'bindMobile'})
+// }
+// // 去绑定邮箱
+// root.methods.goToBindEmail = function () {
+//   this.popWindowOpen = false
+//   this.$router.push({name: 'bindEmail'})
+// }
 
 
 // // 判断名字0

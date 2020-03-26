@@ -1,0 +1,31 @@
+{
+  "CH": {
+    "orderNumber": "订单号",
+    "currency": "币种",
+    "total": "数量",
+    "lockHouseTime": "锁仓时间",
+    "dividendTime": "计算分红时间",
+    "incomeYesterday": "昨日收益",
+    "accumulatedIncome": "累计收益",
+    "incomeTime": "计息时间",
+    "unLockTime": "解锁时间",
+    "noRecord": "暂无记录",
+    "loadingMore": "加载更多",
+    "operation": "操作"
+
+
+  },
+  "EN": {},
+  "CA": {},
+  "CHT": {
+    "orderNumber": "訂單號",
+    "currency": "幣種",
+    "total": "數量",
+    "lockHouseTime": "鎖倉時間",
+    "dividendTime": "計算分紅時間",
+    "accumulatedIncome": "累計收益",
+    "incomeTime": "計息時間",
+    "noRecord": "暫無記錄",
+    "loadingMore": "載入更多"
+  }
+}

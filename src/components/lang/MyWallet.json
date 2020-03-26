@@ -38,7 +38,7 @@
 
   "bind_email_pop_button": "绑定邮箱",
   "popWindowTitleWithdrawalsneibu": "内部转账提示",
-  "bind_email_pop_article": "为了您的资金安全，请先绑定邮箱",
+  "bind_email_pop_article": "为了您的资金安全，请先绑定邮箱或谷歌",
   "bind_email_pop_title": "安全提示",
   "popWindowTitleTransfer": "划转提示",
   "popWindowPromptWithdrawals1": "1.请在转账前与收款方联系以获取对方的用户账号及收款码，确保所有的资料正确后才进行转账。",
@@ -68,7 +68,7 @@
   "Number1": "转账数量",
   "Number2": "24小时内",
   "Number3": "最大转账总额为500",
-  "Number4": "手续费0",
+  "Number4": "手续费0.1",
   "Number5": "确认转账",
   "Number6": "注：转账需要与对方联系获取对方的收款账号及UID,UID可在个人中心查看",
   "step2VerificationCodeWA_10": "收款人不存在",
@@ -157,7 +157,18 @@
   "transfer_describe": "什么是资金划转?",
   "transfer_describe1": "我的钱包和币币账户之间的资产相互划转，称为资金划转。我的钱包资产可提现，币币账户资产可交易，即：",
   "transfer_describe2": "A. 币币交易：需将资产从我的钱包划转到币币账户。",
-  "transfer_describe3": "B. 资产提现：需将资产从币币账户划转到我的钱包。"
+  "transfer_describe3": "B. 资产提现：需将资产从币币账户划转到我的钱包。",
+
+  "lock_house": "锁仓分红",
+  "lock_house_amount": "锁仓数量",
+  "lock_house_input": "请输入锁仓数量",
+  "lock_house_all": "全部",
+  "lock_house_day": "锁仓日",
+  "lock_house_rules": "查看锁仓细则",
+  "lock_house_income": "您的锁仓分红开始产生收益",
+  "lock_house_income1": "分红每日发放，分红周期每日12:00-次日12:00，未在12点之前锁仓不参与本期分红。",
+  "lock_house_ensure": "确认锁仓",
+  "lock_house_surplus": "每日剩余次数"
 },
 "EN": {
   "currency": "Coin",
@@ -266,7 +277,7 @@
     "hide_zero_asset": "隱藏0資產幣種",
     "bind_email_pop_button": "綁定郵箱",
     "popWindowTitleWithdrawalsneibu": "內部轉帳提示",
-    "bind_email_pop_article": "為了您的資金安全，請先綁定郵箱",
+    "bind_email_pop_article": "為了您的資金安全，請先綁定郵箱或谷歌",
     "bind_email_pop_title": "安全提示",
     "popWindowTitleTransfer": "劃轉提示",
     "popWindowPromptWithdrawals1": "1.請在轉帳前與收款方聯繫以獲取對方的使用者帳號及收款碼，確保所有的資料正確後才進行轉帳。 ",
@@ -296,7 +307,7 @@
     "Number1": "轉帳數量",
     "Number2": "24小時內",
     "Number3": "最大轉帳總額為500",
-    "Number4": "手續費0",
+    "Number4": "手續費0.1",
     "Number5": "確認轉帳",
     "Number6": "注：轉帳需要與對方聯繫獲取對方的收款帳號及UID,UID可在個人中心查看",
     "step2VerificationCodeWA_10": "收款人不存在",
@@ -385,6 +396,17 @@
     "transfer_describe": "什麼是資金劃轉?",
     "transfer_describe1": "我的錢包和幣幣帳戶之間的資產相互劃轉，稱為資金劃轉。 我的錢包資產可提現，幣幣帳戶資產可交易，即：",
     "transfer_describe2": "A. 幣幣交易：需將資產從我的錢包劃轉到幣幣帳戶。 ",
-    "transfer_describe3": "B. 資產提現：需將資產從幣幣帳戶劃轉到我的錢包。 "
+    "transfer_describe3": "B. 資產提現：需將資產從幣幣帳戶劃轉到我的錢包。 ",
+
+    "lock_house": "鎖倉分紅",
+    "lock_house_amount": "鎖倉數量",
+    "lock_house_input": "請輸入鎖倉數量",
+    "lock_house_all": "全部",
+    "lock_house_day": "鎖倉日",
+    "lock_house_rules": "查看鎖倉細則",
+    "lock_house_income": "您的鎖倉分紅開始產生收益",
+    "lock_house_income1": "分紅每日發放，分紅週期每日12:00-次日12:00，未在12點之前鎖倉不參與本期分紅。 ",
+    "lock_house_ensure": "確認鎖倉",
+    "lock_house_surplus": "每日剩餘次數"
   }
 }

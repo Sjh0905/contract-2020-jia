@@ -428,7 +428,7 @@ requestAddress.GET_RECHARGE_RANKING_LIST = {url: urlHead+'/activity/promotion/ra
 requestAddress.GET_MATCH_DATA = {url: urlHead+'/quant/matchData', method: 'get'}//查询配套数据
 requestAddress.GET_BALANCE = {url: urlHead+'/quant/getUserBalance/', method: 'get'}//查询用户余额
 requestAddress.GET_GETREG_DATA = {url: urlHead+'/quant/getRegData/', method: 'get'}//查询报名记录
-requestAddress.GET_USER_TRADE = {url: urlHead+'/quant/user/getUsertrade', method: 'get'}//量化展示_量化交易记录
+requestAddress.GET_USER_TRADE = {url: urlHead+'/quant/user/getUserTrade', method: 'get'}//量化展示_量化交易记录
 requestAddress.GET_TRADE = {url: urlHead+'/user/quantTrade', method: 'get'}//量化展示_量化基本信息
 requestAddress.POST_REGACT = {url: urlHead+'/quant/regAct', method: 'post'}//活动报名
 
@@ -449,7 +449,7 @@ requestAddress.GET_GROUP_LIST = {url: urlHead+'/assemble/queryGroupList/', metho
 // requestAddress.LOGIN_BY_MOBILE = {url: urlHead+'/user/signInByMobile', method: 'post'}  // 手机登录
 // 短信验证码    //  转账接口    auth/getVerificationCode
 requestAddress.GET_VERIFICATIONCODE = {url: urlHead+'/auth/getVerificationCode', method: 'post'}//获取手机,邮箱验证码
-requestAddress.GET_VERIFYIDENTITY_USER = {url: urlHead+'/user/GET_AUTH_STATE', method: 'post'} //验证收款人是否为实名认证用户
+requestAddress.POST_VERIFYIDENTITY_USER = {url: urlHead+'/user/verifyIsIdentityUser', method: 'post'} //验证收款人是否为实名认证用户
 // 查询当前币种的转账数量限制与手续费等信息
 requestAddress.GET_TRANSFER_AMOUNT_INFO = {url: urlHead+'/user/transfer/getTransferAmountInfo', method: 'get'} // 获取当前币种是否可以转账
 
@@ -461,6 +461,7 @@ requestAddress.GET_BUY_RECORDS = {url: urlHead+'/memberCard/buyRecords/', method
 requestAddress.GET_CHECK_ENOUGH_BALANCE = {url: urlHead+'/memberCard/checkEnoughBalance/', method: 'get'} // 会员卡报名是否金额足够
 requestAddress.POST_TRANSFERVIP = {url: urlHead+'/memberCard/transferMemberCard', method: 'post'}//会员卡转让
 
-
+requestAddress.LOCK_ASSET = {url: urlHead+'/asset/user/lock/asset', method: 'post'} // 锁仓接口
+requestAddress.LOCK_ASSET_RECODE = {url: urlHead+'/asset/user/assets', method: 'get'} // 锁仓记录
 
 export default requestAddress

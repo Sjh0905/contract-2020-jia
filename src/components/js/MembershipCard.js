@@ -47,8 +47,9 @@ root.data = function () {
     testUID_012:'',
     nameMsg_0:'',
     popWindowOpen1: false, //弹窗开关
+    popbindIdentify:false,
 
-
+    picked:1,
 
     popWindowOpenVIP: false,    //是否打开弹窗VIP
     popWindowStep: 2, //1表示邮箱验证，2表示下一步验证
@@ -83,6 +84,15 @@ root.created = function () {
   // 获取验证状态
   this.getAuthState()
   // this.$store.commit('IS_VIP', this.flag);
+
+  if (this.bindGA) {
+    this.picked = 1
+    return;
+  }
+  if (this.bindMobile) {
+    this.picked = 2
+    return;
+  }
 
 }
 root.mounted = function () {}
@@ -157,6 +167,8 @@ root.computed.computedRecord = function (item,index) {
 
 /*------------------------------ 方法 -------------------------------*/
 root.methods = {}
+
+
 /*------------------ 获取验证状态 begin -------------------*/
 root.methods.getAuthState = function () {
   if (!this.$store.state.authState) {
@@ -236,24 +248,17 @@ root.methods.VIPrules = function () {
 
 // 弹出绑定身份，跳转到实名认证界面
 root.methods.goToBindIdentity = function () {
-  this.popWindowOpenShiM = false
+  this.popbindIdentify = false
   this.$router.push({name: 'authenticate'})
 }
-// 去绑定谷歌验证
-root.methods.goToBindGA = function () {
-  this.popWindowOpenShiM = false
-  this.$router.push({name: 'bindGoogleAuthenticator'})
+
+// 弹框跳安全中心
+root.methods.goToSecurityCenter = function () {
+  this.popbindIdentify = false
+  this.$router.push({name: 'securityCenter'})
 }
-// 去绑定手机号
-root.methods.goToBindMobile = function () {
-  this.popWindowOpenShiM = false
-  this.$router.push({name: 'bindMobile'})
-}
-// 去绑定邮箱
-root.methods.goToBindEmail = function () {
-  this.popWindowOpenShiM = false
-  this.$router.push({name: 'bindEmail'})
-}
+
+
 
 
 
@@ -366,7 +371,7 @@ root.methods.postBuyCard1 = function () {
     this.popWindowTitle = this.$t('popWindowTitleWithdrawals')
     this.popWindowPrompt = this.$t('popWindowPromptWithdrawals')
     this.popWindowStyle = '0'
-    this.popWindowOpenShiM = true
+    this.popbindIdentify = true
     return
   }
 
@@ -375,7 +380,7 @@ root.methods.postBuyCard1 = function () {
     this.popWindowTitle = this.$t('bind_email_pop_title')
     this.popWindowPrompt = this.$t('bind_email_pop_article')
     this.popWindowStyle = '3'
-    this.popWindowOpenShiM = true
+    this.popbindIdentify = true
     return
   }
 
@@ -384,7 +389,7 @@ root.methods.postBuyCard1 = function () {
     this.popWindowTitle = this.$t('popWindowTitleWithdrawals')
     this.popWindowPrompt = this.$t('popWindowTitleBindGaWithdrawals')
     this.popWindowStyle = '1'
-    this.popWindowOpenShiM = true
+    this.popbindIdentify = true
     return
   }
   this.popWindowOpen = true
@@ -492,47 +497,67 @@ root.methods.goToConfirmsjhclose = function () {
 }
 
 //会员卡转让 第一步确认转让按钮getGoToConfirmTransfer
-root.methods.getGoToTransferVIP = function () {
+root.methods.getGoToTransferVIP1 = function () {
+
+  // sss 屏蔽 S
+  let canSend = true
+  canSend = this.toNameVIP() && canSend
+  canSend = this.toUIDVIP() && canSend
+  if (!this.$globalFunc.emailOrMobile(this.nameVIP)) {
+    this.nameMsg_0 = this.$t('请输入正确邮箱或手机号')
+    canSend = false
+  }
+  if (this.nameVIP === '') {
+    this.nameMsg_0 = this.$t('接收方账户不可为空')
+    canSend = false
+  }
+  if (this.UID_0 === '') {
+    this.testUIDMsg_0 = this.$t('接收方UID不可为空')
+    canSend = false
+  }
+  if (!canSend) {
+    return false
+  }
+
+  this.buyCommitToastOpen = false
   this.popWindowOpenVIP = true
 
-  //sss 屏蔽 S
-  // let canSend = true
-  // canSend = this.toNameVIP() && canSend
-  // canSend = this.toUIDVIP() && canSend
-  // if (!this.$globalFunc.emailOrMobile(this.nameVIP)) {
-  //   this.nameMsg_0 = this.$t('请输入正确邮箱或手机号')
-  //   canSend = false
-  // }
-  // if (this.nameVIP === '') {
-  //   this.nameMsg_0 = this.$t('接收方账户不可为空')
-  //   canSend = false
-  // }
-  // if (this.UID_0 === '') {
-  //   this.testUIDMsg_0 = this.$t('接收方UID不可为空')
-  //   canSend = false
-  // }
-  // if (!canSend) {
-  //   return false
-  // }
-  //
-  // this.$http.send('POST_TRANSFERVIP',{
-  //   bind: this,
-  //   params:{
-  //     fromUserId: this.userId,  //转让方userId (本人
-  //     fromAccount: this.userName, //转让方账户, 手机或邮箱
-  //     toUserId:this.UID_0, //接收方userId （他人
-  //     toAccount:this.nameVIP,  //接收方账户，手机或邮箱
-  //   },
-  //   callBack: this.re_getGoToTransferVIP,
-  //   errorHandler: this.error_getGoToTransferVIP,
-  // })
+}
+
+root.methods.postGoToTransferVIP = function () {
+  // this.popWindowOpenVIP = true
+
+  this.$http.send('POST_TRANSFERVIP',{
+    bind: this,
+    params:{
+      fromUserId: this.userId,  //转让方userId (本人
+      fromAccount: this.userName, //转让方账户, 手机或邮箱
+      toUserId:this.UID_0, //接收方userId （他人
+      toAccount:this.nameVIP,  //接收方账户，手机或邮箱
+    },
+    callBack: this.re_postGoToTransferVIP,
+    errorHandler: this.error_postGoToTransferVIP,
+  })
 
 }
-root.methods.re_getGoToTransferVIP = function(data){
+root.methods.re_postGoToTransferVIP = function(data){
   typeof data === 'string' && (data = JSON.parse(data))
   console.log("会员卡转让",data.data,data.errorCode)
+  this.success = data.data.success
 
-
+  if (data.errorCode == 0) {
+    this.getCheck()
+    this.popOpen = true
+    this.popType = 1
+    this.popText = this.$t('转让会员成功') //'转让会员成功'
+    setTimeout(() => {
+      this.popOpen = true
+    }, 1000)
+    setTimeout(() => {
+      this.$router.push({name: 'securityCenter'})
+    }, 1000)
+    return;
+  }
 
   if (data.errorCode) {
     if (data.errorCode == 1) {
@@ -587,10 +612,9 @@ root.methods.re_getGoToTransferVIP = function(data){
     return
   }
 
-
 }
 
-root.methods.error_getGoToTransferVIP = function(data){
+root.methods.error_postGoToTransferVIP = function(data){
   console.log('resDataMap=========rrrrr=========ggggggggg=',data)
 }
 
@@ -627,6 +651,34 @@ root.methods.toUIDVIP = function () {
 
 //会员卡转让
 root.methods.VIPTransfer = function () {
+
+  // 如果没有实名认证不允许购买会员卡
+  if (!this.bindIdentify) {
+    this.popWindowTitle = this.$t('popWindowTitleWithdrawals')
+    this.popWindowPrompt = this.$t('popWindowPromptWithdrawals')
+    this.popWindowStyle = '0'
+    this.popbindIdentify = true
+    return
+  }
+
+  // 如果没有绑定邮箱，不允许购买会员卡
+  if (!this.bindEmail) {
+    this.popWindowTitle = this.$t('bind_email_pop_title')
+    this.popWindowPrompt = this.$t('bind_email_pop_article')
+    this.popWindowStyle = '3'
+    this.popbindIdentify = true
+    return
+  }
+
+  // 如果没有绑定谷歌或手机，不允许购买会员卡
+  if (!this.bindGA && !this.bindMobile) {
+    this.popWindowTitle = this.$t('popWindowTitleWithdrawals')
+    this.popWindowPrompt = this.$t('popWindowTitleBindGaWithdrawals')
+    this.popWindowStyle = '1'
+    this.popbindIdentify = true
+    return
+  }
+
   this.buyCommitToastOpen = true
 }
 
@@ -634,6 +686,10 @@ root.methods.VIPTransfer = function () {
 // 弹窗关闭
 root.methods.popWindowClose = function () {
   this.popWindowOpen = false
+}
+// 弹窗关闭
+root.methods.closeWindowClose = function () {
+  this.popbindIdentify = false
 }
 
 // // 弹窗关闭
@@ -672,13 +728,13 @@ root.methods.popWindowCloseVIP = function () {
 root.methods.clearPopWindow = function () {
   this.popWindowOpenVIP = false
 
-  this.popWindowStep = 1 //1表示邮箱验证，2表示下一步验证
+  this.popWindowStep = 2 //1表示邮箱验证，2表示下一步验证
   this.popWindowLoading = false//popWindow正在提交
 
-
-  this.emailVerificationCode = ''//验证码
-  this.emailVerificationCodeWA = '' //验证码错误提示
-  this.emailVerificationSending = false//邮箱验证发送中
+  //
+  // this.emailVerificationCode = ''//验证码
+  // this.emailVerificationCodeWA = '' //验证码错误提示
+  // this.emailVerificationSending = false//邮箱验证发送中
 
   // this.getEmailVerificationCodeInterval && clearInterval(this.getEmailVerificationCodeInterval) //获取邮箱验证码倒计时container
   // this.getEmailVerificationCodeCountdown = 60 //获取邮箱验证码倒计时
@@ -694,26 +750,6 @@ root.methods.clearPopWindow = function () {
 
 }
 
-// 打开验证，第一步邮箱
-root.methods.beginVerification = function () {
-  if (this.picker == 0) {
-    this.popText = this.$t('popText_3')
-    this.popType = 0
-    this.popOpen = true
-    this.sending = false
-    return
-  }
-
-
-  this.clearPopWindow()
-  if(this.realAccountAll<=this.limitAmount){
-    this.popWindowOpenVIP = true
-  }
-
-  //获取邮箱验证码
-  this.getEmailVerification()
-
-}
 
 // 进行验证第二步，手机、谷歌
 root.methods.beginVerificationStep2 = function () {
@@ -731,16 +767,7 @@ root.methods.beginVerificationStep2 = function () {
   }
 }
 
-// 表单验证，邮箱验证码
-root.methods.testEmailVerification = function () {
-  if (this.emailVerificationCode === '') {
-    this.emailVerificationCodeWA = ''
-    return false
-  }
-  // this.emailVerificationCodeWA = ''
-  return true
-}
-// 表单验证，手机验证码
+
 root.methods.testMobileVerification = function () {
   if (this.step2VerificationCode === '') {
     this.step2VerificationCodeWA = ''
@@ -760,144 +787,10 @@ root.methods.testGACodeVerification = function () {
 }
 
 
-// 获取邮箱验证码
-root.methods.getEmailVerification = function () {
-  if (this.getEmailVerificationCode) {
-    return
-  }
-  // let isERC20 = this.isERC20();
-  // let currency = this.currency == "USDT" ? isERC20 : this.currency
-
-  this.$http.send('POST_VERIFICATION_CODE', {
-    bind: this,
-    params: {
-      type: 'email',
-      purpose: 'login',
-      // withdrawTime: this.formatDateUitl(this.serverTime),
-      // currency: this.currencyName,
-      // amount: parseFloat(this.amount),
-    },
-    callBack: this.re_getEmailVerification,
-    errorHandler: this.error_getEmailVerification,
-  })
-
-  this.getEmailVerificationCodeCountdown = 60
-  this.getEmailVerificationCode = true
-  this.getEmailVerificationCodeInterval && clearInterval(this.getEmailVerificationCodeInterval) //获取邮箱验证码倒计时container
-  this.getEmailVerificationCodeInterval = setInterval(() => {
-    this.getEmailVerificationCodeCountdown--
-    if (this.getEmailVerificationCodeCountdown < 0) {
-      this.getEmailVerificationCodeInterval && clearInterval(this.getEmailVerificationCodeInterval) //获取邮箱验证码倒计时container
-      this.getEmailVerificationCodeCountdown = 60
-      this.getEmailVerificationCode = false
-    }
-  }, 1000)
-}
-// 获取邮箱验证码
-root.methods.re_getEmailVerification = function (data) {
-  typeof data === 'string' && (data = JSON.parse(data))
-  if (data.errorCode) {
-
-    data.errorCode === 1 && (this.emailVerificationCodeWA = this.$t('emailVerificationCodeWA_5'))
-    data.errorCode === 2 && (this.emailVerificationCodeWA = this.$t('emailVerificationCodeWA_6'))
-    data.errorCode === 3 && (this.emailVerificationCodeWA = this.$t('emailVerificationCodeWA_7'))
-    data.errorCode === 4 && (this.emailVerificationCodeWA = this.$t('emailVerificationCodeWA_8'))
-    data.errorCode === 5 && (this.emailVerificationCodeWA = this.$t('changePassword'))
-
-    this.getEmailVerificationCodeInterval && clearInterval(this.getEmailVerificationCodeInterval) //获取邮箱验证码倒计时container
-    this.getEmailVerificationCodeCountdown = 60
-    this.getEmailVerificationCode = false
-  }
-
-}
-// 获取邮箱验证码出错
-root.methods.error_getEmailVerification = function (err) {
-  // console.warn('获取邮箱验证码出错', err)
-}
-
-
-
-// 提交邮箱验证
-root.methods.commitEmailVerification = function () {
-  let canSend = true
-  canSend = this.testEmailVerification() && canSend
-  if (this.emailVerificationCode === '') {
-    this.emailVerificationCodeWA = this.$t('emailVerificationCodeWA_4')
-    canSend = false
-  }
-  if (!canSend) {
-    // console.warn('不能发送')
-    return false
-  }
-
-  this.$http.send('POST_COMMON_AUTH', {
-    bind: this,
-    params: {
-      type: 'email',
-      purpose: 'login',
-      code: this.emailVerificationCode,
-    },
-    callBack: this.re_commitEmailVerification,
-    errorHandler: this.error_commitEmailVerification
-  })
-
-  this.popWindowLoading = true
-  this.emailVerificationSending = true
-
-
-}
-// 提交邮箱验证成功
-root.methods.re_commitEmailVerification = function (data) {
-  typeof data === 'string' && (data = JSON.parse(data))
-
-  let resDataMap = data.dataMap;
-
-  this.popWindowLoading = false
-  this.emailVerificationSending = false
-  if (data.errorCode) {
-    data.errorCode === 1 && (this.emailVerificationCodeWA = this.$t('emailVerificationCodeWA_9'))
-    data.errorCode === 2 && (this.emailVerificationCodeWA = this.$t('emailVerificationCodeWA_10'))
-    data.errorCode === 3 && (this.emailVerificationCodeWA = this.$t('emailVerificationCodeWA_11'))
-    // data.errorCode === 4 && (this.emailVerificationCodeWA = '用户无权提现')
-
-    if (data.errorCode === 2 && resDataMap.times) {
-      this.SHOW_TIPS_FREQUENCY((resDataMap.times - resDataMap.wrong), resDataMap.times, (resDataMap.lock / 60));
-      setTimeout(() => {
-        this.popType = 0;
-        this.popOpen = true;
-      }, 200);
-      return
-    }
-
-    if (data.errorCode === 100 && resDataMap.lock) {
-      this.SHOW_TIPS(resDataMap.lock / 60);
-      setTimeout(() => {
-        this.popType = 0;
-        this.popOpen = true;
-      }, 200);
-      return
-    }
-    return
-  }
-
-  this.beginVerificationStep2()
-}
-// 提交邮箱验证失败
-root.methods.error_commitEmailVerification = function (err) {
-  // console.warn('提交邮箱验证码失败', err)
-  this.popWindowLoading = false
-  this.emailVerificationSending = false
-  // this.popOpen = false
-  this.popText = this.$t('popText_1')
-  this.popType = 0
-  this.popOpen = true
-}
-
-
 //提交谷歌或手机验证码
 root.methods.commitStep2Verification = function () {
   let canSend = true
-  this.picker === 1 && (canSend = this.testGACodeVerification() && canSend)
+  // this.picker === 1 && (canSend = this.testGACodeVerification() && canSend)
   this.picker === 2 && (canSend = this.testMobileVerification() && canSend)
   if (this.step2VerificationCode === '') {
     this.step2VerificationCodeWA = this.$t('step2VerificationCodeWA_5')
@@ -907,32 +800,12 @@ root.methods.commitStep2Verification = function () {
     return false
   }
 
-  let address = this.address
-  let currencyObj = this.$store.state.currency.get(this.currency)
-
-  if (currencyObj && currencyObj.addressAliasTo === 'ETH') {
-    address = this.toChecksumAddress(address)
-  }
-
-
-  let description = this.description
-  // 如果有memo，拼接到description上
-  if (this.haveMemo === 'yes') {
-    if(currencyObj && (currencyObj.addressAliasTo === 'WCG' || this.currency === 'WCG')){
-      description += 'a0f0bc95016c862498bbad29d1f4d9d4' + this.publicKey
-    }else {
-      description += 'a0f0bc95016c862498bbad29d1f4d9d4' + this.memo
-    }
-  }
-
-  let isERC20 = this.isERC20();
-  let currency = this.currency == "USDT" ? isERC20 : this.currency
-
   this.$http.send('POST_COMMON_AUTH', {
     bind: this,
     params: {
       type: this.picker == 1 ? 'ga' : 'mobile',
-      purpose: 'login',
+      purpose: 'validate',
+      tosType:"TRANSFER_MEMBER",
       code: this.step2VerificationCode,
       // currency: currency,  // TODO：这里要切换币种
       // description: description,
@@ -943,48 +816,48 @@ root.methods.commitStep2Verification = function () {
     errorHandler: this.error_commitStep2Verification
   })
 
-  this.popWindowLoading = true
-  this.step2VerificationSending = true
+  // this.popWindowLoading = true
+  // this.step2VerificationSending = true
 }
 // 提交谷歌或手机验证码成功
 root.methods.re_commitStep2Verification = function (data) {
   typeof data === 'string' && (data = JSON.parse(data))
-  this.popWindowLoading = false
-  this.step2VerificationSending = false
+  // this.popWindowLoading = false
+  // this.step2VerificationSending = false
 
-  let resDataMap = data.dataMap
+  // let resDataMap = data.dataMap
 
   if (data.errorCode) {
     switch (data.errorCode) {
       case 1:
-        this.step2VerificationCodeWA = this.$t('step2VerificationCodeWA_11')
+        this.step2VerificationCodeWA = this.$t('step2VerificationCodeWA_11') //用户未登录
         break;
       case 2:
-        this.step2VerificationCodeWA = this.$t('step2VerificationCodeWA_12')
+        this.step2VerificationCodeWA = this.$t('获取验证码过于频繁') //获取验证码过于频繁
         break;
-      case 3:
-        this.step2VerificationCodeWA = this.$t('step2VerificationCodeWA_13')
-        break;
+      // case 3:
+      //   this.step2VerificationCodeWA = this.$t('step2VerificationCodeWA_13') //用户认证数据异常，详情请联系客服
+      //   break;
       case 4:
-        this.step2VerificationCodeWA = this.$t('step2VerificationCodeWA_14')
+        this.step2VerificationCodeWA = this.$t('step2VerificationCodeWA_14') //验证码错误或过期
         break;
-      case 5:
-        this.step2VerificationCodeWA = this.$t('step2VerificationCodeWA_15')
-        break;
-      case 6:
-        this.step2VerificationCodeWA = this.$t('step2VerificationCodeWA_16')
-        break;
-      case 7:
-        this.step2VerificationCodeWA = this.$t('step2VerificationCodeWA_17')
-        break;
-      case 8:
-        this.step2VerificationCodeWA = this.$t('step2VerificationCodeWA_18')
-        break;
-      case 9:
-        this.step2VerificationCodeWA = this.$t('step2VerificationCodeWA_19')
-        break;
+      // case 5:
+      //   this.step2VerificationCodeWA = this.$t('step2VerificationCodeWA_15')
+      //   break;
+      // case 6:
+      //   this.step2VerificationCodeWA = this.$t('step2VerificationCodeWA_16')
+      //   break;
+      // case 7:
+      //   this.step2VerificationCodeWA = this.$t('step2VerificationCodeWA_17')
+      //   break;
+      // case 8:
+      //   this.step2VerificationCodeWA = this.$t('step2VerificationCodeWA_18')
+      //   break;
+      // case 9:
+      //   this.step2VerificationCodeWA = this.$t('step2VerificationCodeWA_19')
+      //   break;
       case 10:
-        this.step2VerificationCodeWA = this.$t('step2VerificationCodeWA_20')
+        this.step2VerificationCodeWA = this.$t('无此类业务')
         break;
       case 100:
         break;
@@ -992,39 +865,28 @@ root.methods.re_commitStep2Verification = function (data) {
         this.step2VerificationCodeWA = '系统繁忙，请稍后再试'
     }
 
-    if (data.errorCode === 4 && this.picker === 2 && resDataMap.times) {
-      this.SHOW_TIPS_FREQUENCY((resDataMap.times - resDataMap.wrong), resDataMap.times, (resDataMap.lock / 60));
-      setTimeout(() => {
-        this.popType = 0;
-        this.popOpen = true;
-      }, 200);
-      return
-    }
 
-    if (data.errorCode === 100 && resDataMap.lock && this.picker === 2) {
-      this.SHOW_TIPS(resDataMap.lock / 60);
-      setTimeout(() => {
-        this.popType = 0;
-        this.popOpen = true;
-      }, 200);
-      return
-    }
-
-    if (data.errorCode !== 4) {
-      this.step2Error = true
-    }
+    // if (data.errorCode !== 4) {
+    //   this.step2Error = true
+    // }
 
 
     return
   }
 
 
-  this.popType = 1
-  this.popText = this.$t('popText_4')
-  this.popOpen = true
-  setTimeout(() => {
-    this.close()
-  }, 1000)
+
+  // this.popType = 1
+  // this.popText = this.$t('popText_4')
+  // this.popOpen = true
+  if (data.errorCode == 0) {
+    setTimeout(() => {
+      this.popWindowOpenVIP=false
+      // this.close()
+      this.postGoToTransferVIP()
+    }, 1000)
+  }
+
 
 
 }
@@ -1049,7 +911,8 @@ root.methods.getMobileVerification = function () {
     bind: this,
     params: {
       type: 'mobile',
-      purpose: 'login'
+      purpose: 'validate',
+      tosType:"TRANSFER_MEMBER",
     },
     callBack: this.re_getMobileVerification,
     errorHandler: this.error_getMobileVerification,
@@ -1091,4 +954,10 @@ root.methods.error_getMobileVerification = function (err) {
 root.methods.formatDateUitl = function (time) {
   return this.$globalFunc.formatDateUitl(time, 'YYYY-MM-DD hh:mm:ss')
 }
+
+// 手机 谷歌验证切换
+root.methods.open_mob = function (index) {
+  this.picked = index
+}
+
 export default root
