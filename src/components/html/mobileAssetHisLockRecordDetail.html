@@ -1,0 +1,78 @@
+<div>
+  <div class="recharge-box">
+    <div class="header-box header-box-height">
+      <!--顶部标题及logo-->
+      <div class="header-box-title">
+        <!--<span  class="header-box-title-logo-box">-->
+        <!--<img class="header-box-title-logo" :src="'http://logo.2020.exchange/' + (rechargeDetailData.currency == 'USDT2'?'USDT':rechargeDetailData.currency) +'.png'" alt="">-->
+        <!--</span>-->
+        {{$globalFunc.accFixed(rechargeDetailData.amount, 8)}}
+        {{rechargeDetailData.currency == 'USDT2'?'USDT':rechargeDetailData.currency}}
+      </div>
+
+      <!--订单编号-->
+      <div class="header-box-num">
+        <span class="header-box-num-title">订单编号</span>
+        <span class="header-box-num-container">{{rechargeDetailData.transferId}}</span>
+      </div>
+
+      <!--类型-->
+      <div class="header-box-state">
+        <span class="header-box-state-title">类型</span>
+        <div v-if="rechargeDetailData.fromUserId === userId" class="header-box-state-container">转出</div>
+        <div v-else class="header-box-state-container">收款</div>
+      </div>
+
+      <!--姓名-->
+      <div class="header-box-state">
+        <span class="header-box-state-title">姓名</span>
+        <div class="header-box-state-container">{{rechargeDetailData.name}}</div>
+      </div>
+
+      <!--账号-->
+      <div class="header-box-state">
+        <span class="header-box-state-title">账号</span>
+        <div class="header-box-state-container">{{rechargeDetailData.fromUserId === userId ? rechargeDetailData.toEmail : rechargeDetailData.fromEmail}}</div>
+      </div>
+
+      <!--UID-->
+      <div class="header-box-state">
+        <span class="header-box-state-title">UID</span>
+        <div class="header-box-state-container">{{rechargeDetailData.fromUserId === userId ? rechargeDetailData.toUserId : rechargeDetailData.fromUserId}}</div>
+      </div>
+
+      <!--币种-->
+      <div class="header-box-state">
+        <span class="header-box-state-title">币种</span>
+        <span class="header-box-state-container">{{rechargeDetailData.currency == 'USDT2'?'USDT':rechargeDetailData.currency}}</span>
+      </div>
+
+      <!--数量-->
+      <div class="header-box-state">
+        <span class="header-box-state-title">数量</span>
+        <span class="header-box-state-container">{{$globalFunc.accFixed(rechargeDetailData.amount, 8)}}</span>
+      </div>
+
+    </div>
+    <div class="container-box container-box-position">
+
+      <!--日期-->
+      <div class="container-box-time">
+        <span class="container-box-time-title">日期</span>
+        <span class="container-box-time-container">{{$globalFunc.formatDateUitl(rechargeDetailData.updatedAt,'YYYY-MM-DD hh:mm:ss')}}</span>
+      </div>
+
+      <!--状态-->
+      <div class="header-box-state">
+        <span class="header-box-state-title">状态</span>
+        <div v-if="rechargeDetailData.fromUserId === userId" class="header-box-state-container">转出{{statusObj[rechargeDetailData.status]}}</div>
+        <div v-else class="header-box-state-container">收款{{statusObj[rechargeDetailData.status]}}</div>
+      </div>
+
+    </div>
+
+  </div>
+  <PopupPrompt :popOpen="popOpen" :popClose="popClose" :popType="popType" :popText="popText"/>
+
+</div>
+

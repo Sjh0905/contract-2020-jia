@@ -61,21 +61,21 @@
 }
 
 .dividend-time {
-  flex: 26.4;
+  flex: 22.4;
   text-align: left;
   /*flex:9.3;*/
   /*text-align: left;*/
 }
 
 .income {
-  flex: 14.4;
+  flex: 20.4;
   text-align: left;
   /*flex:9.3;*/
   /*text-align: left;*/
 }
 
 .accrue-interest-time {
-  flex: 14.4;
+  flex: 16.4;
   text-align: right;
 }
 

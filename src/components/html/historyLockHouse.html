@@ -55,11 +55,11 @@
             <!--      分红时间-->
             <span class="dividend-time">{{item.dateTime}}</span>
             <!--      累计收益-->
-            <span class="income">{{$t('累计收益')}}</span>
-            <!--      计息时间-->
-            <span class="accrue-interest-time">{{$t('计息时间')}}</span>
-
-
+            <span class="income">{{item.lastAmount}}</span>
+            <!--      解锁时间-->
+            <span class="accrue-interest-time">
+              {{$globalFunc.formatDateUitl(item.updatedAt,'YYYY-MM-DD hh:mm:ss')}}
+            </span>
           </div>
         </li>
         <!--各条记录 begin-->

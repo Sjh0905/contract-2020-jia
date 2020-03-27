@@ -8,6 +8,9 @@
     "toBeAudited": "待审核",
     "passed": "已通过",
     "other": "其他",
+
+    "paymentFees": "使用TT支付手续费",
+    "feeDeductions": "设置TT抵扣手续费，享受抵扣优惠",
     "inviteFriends": "邀请好友",
     "inviteFriends_reward": "邀请好友获得奖励",
     "immediateInvitation": "立即邀请",
