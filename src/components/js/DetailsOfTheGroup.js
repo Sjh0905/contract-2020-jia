@@ -39,6 +39,11 @@ root.data = function () {
     popOpen: false,
     popText: '系统繁忙',
     // popWindowClose1:true,
+    quantData:{},
+    quantCumulative:0,//挖矿区手续费累计
+    commCumulative:0,//普通区交易手续费累计
+    quantRecommission:0,//挖矿区团长返佣累计
+    commRecommission:0,//普通区团长返佣累计
   }
 }
 /*------------------------------ 生命周期 -------------------------------*/
@@ -130,6 +135,12 @@ root.methods.re_getTeamDetails = function (data) {
   this.commonDiscount = data.data.commonDiscount
   this.glevel = data.data.glevel
   this.account = data.data.account
+  this.quantData = data.quantData
+  console.log("拼团展示团队详情=====",this.quantData)
+  this.quantCumulative = data.data.quantData.quantCumulative,//挖矿区手续费累计
+  this.commCumulative = data.data.quantData.commCumulative,//普通区交易手续费累计
+  this.quantRecommission= data.data.quantData.quantRecommission,//挖矿区团长返佣累计
+  this.commRecommission= data.data.quantData.commRecommission,//普通区团长返佣累计
 
 
   this.getMemberList(data.data.groupId)

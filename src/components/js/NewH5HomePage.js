@@ -512,6 +512,47 @@ root.methods = {}
 //   this.clickTab = true
 // }
 
+// root.methods.goTojiaoyi = function () {
+//
+//   this.$router.push({name: 'officialQuantitativeDetails'})
+//
+// }
+
+//量化查询报名记录get
+root.methods.getRegistrationRecord = function () {
+
+  this.$http.send('GET_GETREG_DATA', {
+    bind: this,
+    urlFragment:this.userId,
+    // query:{
+    //   userId:this.uuid
+    // },
+    callBack: this.re_getRegistrationRecord,
+    errorHandler: this.error_getRegistrationRecord
+  })
+}
+root.methods.re_getRegistrationRecord = function (data) {
+
+  typeof data === 'string' && (data = JSON.parse(data))
+  if (!data) {return}
+  console.log("this.re_getRegistrationRecord查询报名记录get=====",data)
+  this.records = data.data
+
+  if (this.records.length == 0) {
+    this.goGroupLevel()
+    return;
+  }
+  if (this.records.length !== 0) {
+    this.$router.push({name: 'officialQuantitativeDetails'})
+    return;
+  }
+
+}
+root.methods.error_getRegistrationRecord = function (err) {
+  console.log("this.err=====",err)
+}
+
+
 
 // 登陆用户组等级信息get (query:{})
 root.methods.getGroupLevel = function () {
@@ -540,10 +581,7 @@ root.methods.re_getGroupLevel = function (data) {
   this.account = data.data.account
 
   if (this.isExist == false) {
-    this.popText = "敬请期待"
-    this.popOpen = true
-    this.popType = 3
-    return;
+    this.goGroupLevel()
     // this.$router.push({name: 'assembleARegiment'})
   }
 

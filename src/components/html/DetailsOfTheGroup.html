@@ -108,22 +108,22 @@
           <!-- 普通区累计（USDT）-->
               <div class="information_div div_border div_s">
                 <p class="color_e2">{{$t('ordinaryAccumulation')}}(USDT）</p>
-                <p class="color_e9">0</p>
+                <p class="color_e9">{{commCumulative}}</p>
               </div>
 <!--              普通区返佣-->
               <div class="information_div div_border div_s">
                 <p class="color_e2">{{$t('ordinaryRebates')}}(USDT）</p>
-                <p class="color_e9">0</p>
+                <p class="color_e9">{{commRecommission}}</p>
               </div>
 <!--              量化区累计-->
               <div class="information_div div_border div_s">
                 <p class="color_e2">{{$t('quantizationAccumulation')}}(USDT）</p>
-                <p class="color_e9">0</p>
+                <p class="color_e9">{{quantCumulative}}</p>
               </div>
 <!--              量化区返佣-->
               <div class="information_div border-ling div_border">
                 <p class="color_e2">{{$t('quantificationRebates')}}(USDT）</p>
-                <p class="color_e9">0</p>
+                <p class="color_e9">{{quantRecommission}}</p>
               </div>
 
             </div>
@@ -254,25 +254,25 @@
     </div>
 
 <!--    团长显示-->
-    <div class="mobileliangtuan" v-if="idType==='1'">
+    <div class="mobileliangtuan" v-if="idType=='1'">
     <div class="mobileliang" >
       <div class="mobileliangdiv">
-        <span class="mobileFoldSapnB7">普通区累计估值</span>
-        <span class="mobileFoldSapnF18">0 USDT</span>
+        <span class="mobileFoldSapnB7">普通区累计折合</span>
+        <span class="mobileFoldSapnF18">{{commCumulative}} USDT</span>
       </div>
       <div class="mobileliangdiv">
-        <span class="mobileFoldSapnB7">普通区返佣估值</span>
-        <span class="mobileFoldSapnF18">0 USDT</span>
+        <span class="mobileFoldSapnB7">普通区返佣折合</span>
+        <span class="mobileFoldSapnF18">{{commRecommission}} USDT</span>
       </div>
     </div>
     <div class="mobileliang mt">
       <div class="mobileliangdiv">
-        <span class="mobileFoldSapnB7">挖矿区累计估值</span>
-        <span class="mobileFoldSapnF18">0 USDT</span>
+        <span class="mobileFoldSapnB7">挖矿区累计折合</span>
+        <span class="mobileFoldSapnF18">{{quantCumulative}} USDT</span>
       </div>
       <div class="mobileliangdiv">
-        <span class="mobileFoldSapnB7">挖矿区返佣估值</span>
-        <span class="mobileFoldSapnF18">0 USDT</span>
+        <span class="mobileFoldSapnB7">挖矿区返佣折合</span>
+        <span class="mobileFoldSapnF18">{{quantRecommission}} USDT</span>
       </div>
     </div>
     </div>

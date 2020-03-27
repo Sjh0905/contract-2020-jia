@@ -2889,9 +2889,11 @@ root.routes.push({
       caseSensitive: true,
       meta: {
         requireLogin: true,
-        mobileHeaderTitle: '',
-        name: 'officialQuantitativeDetails',
         requireLoginOff: false,
+        mobileHeaderTitle: '',
+        pcname: 'officialQuantitativeDetails',
+        h5name: 'officialQuantitativeDetails',
+
       },
       component: resolve => require(['@/components/vue/OfficialQuantitativeDetails'], resolve),
     },

@@ -23,8 +23,8 @@ root.data = function () {
     popOpen: false,
     popText: '系统繁忙',
 
-    verificationCode: '',
-    verificationCodePlaceholderShow: true,
+    // verificationCode: '',
+    // verificationCodePlaceholderShow: true,
     clickVerificationCodeButton: false,
     getVerificationCode: false,
     getVerificationCodeCountdown: 60,
@@ -179,15 +179,15 @@ root.methods.getAuthState = function () {
     })
     return
   }
-  // 如果没有认证
-  if (!this.$store.state.authState.identity || (!this.$store.state.authState.sms && !this.$store.state.authState.ga) || !this.bindEmail) {
-    this.close()
-    return
-  }
+  // // 如果没有认证
+  // if (!this.$store.state.authState.identity || (!this.$store.state.authState.sms && !this.$store.state.authState.ga) || !this.bindEmail) {
+  //   this.close()
+  //   return
+  // }
   this.$store.state.authState.sms && (this.picker = 2)
   this.$store.state.authState.ga && (this.picker = 1)
   // 获取认证状态成功
-  this.authStateReady = true
+  // this.authStateReady = true
 }
 // 判断验证状态回调
 root.methods.re_getAuthState = function (data) {
@@ -196,17 +196,17 @@ root.methods.re_getAuthState = function (data) {
   this.$store.commit('SET_AUTH_STATE', data.dataMap)
   // 获取认证状态成功
   // 如果没有认证
-  if (!this.$store.state.authState.identity || (!this.$store.state.authState.sms && !this.$store.state.authState.ga)) {
-    this.close()
-    return
-  }
+  // if (!this.$store.state.authState.identity || (!this.$store.state.authState.sms && !this.$store.state.authState.ga)) {
+  //   this.close()
+  //   return
+  // }
   this.$store.state.authState.sms && (this.picker = 2)
   this.$store.state.authState.ga && (this.picker = 1)
-  this.authStateReady = true
+  // this.authStateReady = true
 }
 // 判断验证状态出错
 root.methods.error_getAuthState = function (err) {
-  this.close()
+  // this.close()
 }
 
 
@@ -225,17 +225,17 @@ root.methods.closePlaceholder = function (type) {
     this.pswPlaceholderShow = false;
   }
 
-  if(type == 'verificationCode'){
-    this.verificationCodePlaceholderShow = false;
-  }
-
-  if(type == 'pswConfirm'){
-    this.pswConfirmPlaceholderShow = false;
-  }
-
-  if(type == 'referee'){
-    this.refereePlaceholderShow = false;
-  }
+  // if(type == 'verificationCode'){
+  //   this.verificationCodePlaceholderShow = false;
+  // }
+  //
+  // if(type == 'pswConfirm'){
+  //   this.pswConfirmPlaceholderShow = false;
+  // }
+  //
+  // if(type == 'referee'){
+  //   this.refereePlaceholderShow = false;
+  // }
 
 
 }
@@ -508,11 +508,11 @@ root.methods.getGoToTransferVIP1 = function () {
     canSend = false
   }
   if (this.nameVIP === '') {
-    this.nameMsg_0 = this.$t('接收方账户不可为空')
+    this.nameMsg_0 = this.$t('受让人账户不可为空')
     canSend = false
   }
   if (this.UID_0 === '') {
-    this.testUIDMsg_0 = this.$t('接收方UID不可为空')
+    this.testUIDMsg_0 = this.$t('受让人UID不可为空')
     canSend = false
   }
   if (!canSend) {
@@ -554,7 +554,7 @@ root.methods.re_postGoToTransferVIP = function(data){
       this.popOpen = true
     }, 1000)
     setTimeout(() => {
-      this.$router.push({name: 'securityCenter'})
+      this.$router.push({name: 'membershipCard'})
     }, 1000)
     return;
   }
@@ -584,21 +584,21 @@ root.methods.re_postGoToTransferVIP = function(data){
     if (data.errorCode == 4) {
       this.popOpen = true
       this.buyTransferDetails = false
-      this.popText = this.$t('接收方账户格式错误')  //接收方账户格式错误'
+      this.popText = this.$t('受让人账户格式错误')  //接收方账户格式错误'
       this.popType = 0
       return
     }
     if (data.errorCode == 5) {
       this.popOpen = true
       this.buyTransferDetails = false
-      this.popText = this.$t('接收方账户不存在')  //接收方账户不存在'
+      this.popText = this.$t('受让人账户不存在')  //接收方账户不存在'
       this.popType = 0
       return
     }
     if (data.errorCode == 6) {
       this.popOpen = true
       this.buyTransferDetails = false
-      this.popText = this.$t('接收方userId有误')  // 接收方userId有误
+      this.popText = this.$t('受让人方userId有误')  // 接收方userId有误
       this.popType = 0
       return
     }
@@ -714,9 +714,9 @@ root.methods.popWindowClose1 = function () {
 //——————————————————————————————————————
 
 // 关闭此组件
-root.methods.close = function () {
-  this.$emit('close')
-}
+// root.methods.close = function () {
+//   this.$emit('close')
+// }
 
 //关闭弹窗
 root.methods.popWindowCloseVIP = function () {
@@ -803,7 +803,7 @@ root.methods.commitStep2Verification = function () {
   this.$http.send('POST_COMMON_AUTH', {
     bind: this,
     params: {
-      type: this.picker == 1 ? 'ga' : 'mobile',
+      type: this.picked == 1 ? 'ga' : 'mobile',
       purpose: 'validate',
       tosType:"TRANSFER_MEMBER",
       code: this.step2VerificationCode,

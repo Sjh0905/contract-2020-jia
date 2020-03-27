@@ -87,7 +87,7 @@ root.data = function () {
     currencyName: '', //当前货币币种
     pswPlaceholderShow: true,
     verificationCodePlaceholderShow: true,
-    isTransfer: true,//是否可以转账 false 为可以转账
+    isTransfer: false,//是否可以转账 false 为可以转账
 
     transferCurrency: '',
     feeRate: 0, //费率
@@ -184,6 +184,7 @@ root.created = function () {
     return;
   }
 
+  this.re_transferDisabled()
 }
 
 root.mounted = function () {}
@@ -715,7 +716,7 @@ root.methods.re_transferDisabled = function (data) {
   this.minimumFee = data.dataMap.insideTransferAccount.minimumFee
 
   // 获取费率成功
-  this.feeReady = true
+  // this.feeReady = true
 
   if (this.isTransfer == false) {
     this.popText = this.$t('withdrawalsIsNotOpen')
@@ -914,13 +915,13 @@ root.methods.internalTransfer = function (index, item) {
   //sss屏蔽 2020.20.20 E
 
 
-  // if (this.bindIdentify && this.isTransfer == false) {
-  //   this.popWindowTitle = this.$t('iKnowthe1')
-  //   this.popWindowPrompt = this.$t('popWindowPromptWithdrawals1')
-  //   this.popWindowPrompt1 = this.$t('popWindowPromptWithdrawals2')
-  //   this.popWindowStyle = '5'
-  //   this.popWindowOpen2 = true
-  // }
+  if (this.bindIdentify && this.isTransfer == true) {
+    this.popWindowTitle = this.$t('iKnowthe1')
+    this.popWindowPrompt = this.$t('popWindowPromptWithdrawals1')
+    this.popWindowPrompt1 = this.$t('popWindowPromptWithdrawals2')
+    this.popWindowStyle = '5'
+    this.popWindowOpen2 = true
+  }
 
   this.recharge = false
   this.withdrawals = false
@@ -1151,7 +1152,7 @@ root.methods.commitStep2Verification = function () {
   this.$http.send('POST_COMMON_AUTH', {
     bind: this,
     params: {
-      type: this.picker == 1 ? 'ga' : 'mobile',
+      type: this.picked == 1 ? 'ga' : 'mobile',
       purpose: 'withdraw',
       code: this.step2VerificationCode,
       currency: currency,  // TODO：这里要切换币种
@@ -1328,7 +1329,7 @@ root.methods.commitStep2Verification = function () {
   this.$http.send('POST_COMMON_AUTH', {
     bind: this,
     params: {
-      type: this.picker == 1 ? 'ga' : 'mobile',
+      type: this.picked == 1 ? 'ga' : 'mobile',
       examinee:'',
       purpose: 'transfer',
       code: this.step2VerificationCode,
@@ -1704,7 +1705,7 @@ root.methods.getEmailVerification = function () {
       this.getEmailVerificationCodeCountdown = 60
       this.getEmailVerificationCode = false
     }
-  }, 2000)
+  }, 1000)
 }
 // 获取邮箱验证码
 root.methods.re_getEmailVerification = function (data) {
@@ -1760,7 +1761,7 @@ root.methods.getMobileVerification = function () {
       this.getMobileVerificationCodeCountdown = 60
       this.getMobileVerificationCode = false
     }
-  }, 2000)
+  }, 1000)
 }
 // 获取手机验证码
 root.methods.re_getMobileVerification = function (data) {
