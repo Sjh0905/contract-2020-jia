@@ -428,7 +428,7 @@ root.methods.link_to_authenticate = function () {
 
 // BDB是否抵扣
 root.methods.getBDBInfo = function () {
-  this.$http.send('FIND_FEE_BDB_INFO', {
+  this.$http.send('FIND_FEE_DEDUCTION_INFO', {
     bind: this,
     callBack: this.re_getBDBInfo,
     errorHandler: this.error_getBDBInfo
@@ -441,10 +441,10 @@ root.methods.re_getBDBInfo = function (data) {
   typeof (data) === 'string' && (data = JSON.parse(data))
   if (!data) return
   // console.warn("get BDB info", data)
-  if (data.dataMap.BDBFEE === 'yes') {
+  if (data.dataMap.TTFEE === 'yes') {
     this.BDBInfo = true
   }
-  if (data.dataMap.BDBFEE === 'no') {
+  if (data.dataMap.TTFEE === 'no') {
     this.BDBInfo = false
   }
   // BDB状态
@@ -529,10 +529,10 @@ root.methods.clickToggle = function (e) {
   if (this.BDBChanging) return
   this.BDBInfo = !this.BDBInfo
   this.BDBChanging = true
-  this.$http.send('CHANGE_FEE_BDB', {
+  this.$http.send('FEECHANGE', {
     bind: this,
     params: {
-      'feebdb': this.BDBInfo ? 'yes' : 'no'
+      'deduction': this.BDBInfo ? 'yes' : 'no'
     },
     callBack: this.re_clickToggle,
     errorHandler: this.error_clickToggle

@@ -685,9 +685,9 @@ root.methods.tradeMarket = function (popWindowOpen1,type) {
     // customFeatures: this.fee ? 65536 : 0
   };
   //燃烧抵扣不再需要
-  // if (this.fee) {
-  //   Object.assign(params, {customFeatures: 65536});
-  // }
+  if (this.fee) {
+    Object.assign(params, {customFeatures: 65536});
+  }
   // 如果当前是BTC市场的话，price*amount<0.001不允许提交
   // 如果当前是ETH市场的话，price*amount<0.01不允许提交
   // 如果当前是BDB市场的话，price*amount<100不允许提交
@@ -707,7 +707,7 @@ root.methods.tradeMarket = function (popWindowOpen1,type) {
     this.promptOpen = true;
     return;
   }
-  // console.log(params);
+  // console.info(params);
   // return;
   this.$http.send('TRADE_ORDERS',
     {

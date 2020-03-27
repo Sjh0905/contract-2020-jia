@@ -70,8 +70,14 @@ root.data = function () {
     // //会员到期日
     // expires: '',
     // flag: false,
-    TTDeductible: true
 
+    // 平台币抵扣
+    BDBInfo: false,
+    BDBReady: false,
+    BDBChanging: false,
+
+    stateReady: false,
+    stateStatusReady: false
   }
 }
 
@@ -92,6 +98,10 @@ root.computed.bindGA = function () {
     return false
   }
   return true
+}
+// 判断是否是手机
+root.computed.isMobile = function () {
+  return this.$store.state.isMobile
 }
 // 是否绑定了手机
 root.computed.bindPhone = function () {
@@ -162,14 +172,66 @@ root.created = function () {
   this.getLogRecord()
   this.closeReleaseMobile()
 
+  this.getBDBInfo()
   // this.getCheck()
 }
 
 root.methods = {}
 
+// BDB是否抵扣
+root.methods.getBDBInfo = function () {
+  this.$http.send('FIND_FEE_DEDUCTION_INFO', {
+    bind: this,
+    callBack: this.re_getBDBInfo,
+    errorHandler: this.error_getBDBInfo
+  })
+}
+// BDB是否抵扣回调
+root.methods.re_getBDBInfo = function (data) {
+  typeof (data) === 'string' && (data = JSON.parse(data))
+  if (!data) return
+  // console.warn("get BDB info", data)
+  if (data.dataMap.TTFEE === 'yes') {
+    this.BDBInfo = true
+  }
+  if (data.dataMap.TTFEE === 'no') {
+    this.BDBInfo = false
+  }
+  // BDB状态
+  this.BDBReady = true
+  // this.loading = !(this.stateReady && this.BDBReady && (this.stateStatusReady || !this.isMobile))
+  this.loading = !(this.stateReady && (this.stateStatusReady || !this.isMobile))
+}
+// BDB是否抵扣出错
+root.methods.error_getBDBInfo = function (err) {
+  // console.warn('BDB抵扣出错', err)
+}
 // 平台币抵扣开关
-root.methods.coinDeductible = function (){
-  this.TTDeductible = !this.TTDeductible
+// 点击切换手续费折扣
+root.methods.clickToggle = function (e) {
+  if (this.BDBChanging) return
+  this.BDBInfo = !this.BDBInfo
+  this.BDBChanging = true
+  this.$http.send('FEECHANGE', {
+    bind: this,
+    params: {
+      'deduction': this.BDBInfo ? 'yes' : 'no'
+    },
+    callBack: this.re_clickToggle,
+    errorHandler: this.error_clickToggle
+  })
+}
+// 点击切换手续费折扣
+root.methods.re_clickToggle = function (data) {
+  typeof (data) === 'string' && (data = JSON.parse(data))
+  this.BDBChanging = false
+
+}
+// 点击切换手续费折扣失败
+root.methods.error_clickToggle = function (err) {
+  console.warn('点击切换手续费折扣失败', err)
+  this.BDBInfo = !this.BDBInfo
+  this.BDBChanging = false
 }
 
 // 跳转个人中心

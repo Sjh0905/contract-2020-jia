@@ -39,6 +39,8 @@ requestAddress.GET_TRANSFER_SPOT_LIST = {url: urlHead+'/user/transfer/spot/list'
 requestAddress.POST_TRANSFER_SPOT = {url: urlHead+'/user/transfer/spot', method: 'post'}  //划转
 requestAddress.GET_IDENTITY_AUTH_STATUS = {url: urlHead+'/auth/getIdentityAuthStatus', method: 'get'} //获取身份认证状态
 requestAddress.FIND_FEE_BDB_INFO = {url: urlHead+'/user/findfeebdbinfo', method: 'get'} //查询BDB是否抵扣
+requestAddress.FIND_FEE_DEDUCTION_INFO = {url: urlHead+'/user/findFeeDeductionInfo', method: 'get'} //查询BDB是否抵扣
+
 
 // requestAddress.REMOVE_GA_CODE = {url: urlHead+'/auth/removeBindGA', method: 'post'} //取消谷歌验证
 
@@ -50,7 +52,7 @@ requestAddress.POST_WITHDRAW = {url: urlHead+'/user/putWithdrawRequest', method:
 
 requestAddress.GET_USER_PROFILE = {url: urlHead+'/user/getUserProfile', method: 'post'} //获取用户详细的信息！只能在身份认证这里用！
 
-
+requestAddress.FEECHANGE = {url: urlHead+'/user/feechange', method: 'post'} //查询TT是否抵扣
 requestAddress.CHANGE_FEE_BDB = {url: urlHead+'/user/feebdbchange', method: 'post'} //修改BDB抵扣策略
 requestAddress.SEND_IDENTITY = {url: urlHead+'/auth/sendIdentity', method: 'post'} //提交身份认证
 requestAddress.GET_IDENTITY_INFO = {url: urlHead+'/auth/getIdentityInfo', method: 'get'} //获取被驳回的认证状态
