@@ -1663,7 +1663,7 @@ root.methods.getEmailVerification = function () {
       this.getEmailVerificationCodeCountdown = 60
       this.getEmailVerificationCode = false
     }
-  }, 2000)
+  }, 1000)
 }
 // 获取邮箱验证码
 root.methods.re_getEmailVerification = function (data) {
@@ -1719,7 +1719,7 @@ root.methods.getMobileVerification = function () {
       this.getMobileVerificationCodeCountdown = 60
       this.getMobileVerificationCode = false
     }
-  }, 2000)
+  }, 1000)
 }
 // 获取手机验证码
 root.methods.re_getMobileVerification = function (data) {

@@ -23,8 +23,8 @@ root.data = function () {
     popOpen: false,
     popText: '系统繁忙',
 
-    verificationCode: '',
-    verificationCodePlaceholderShow: true,
+    // verificationCode: '',
+    // verificationCodePlaceholderShow: true,
     clickVerificationCodeButton: false,
     getVerificationCode: false,
     getVerificationCodeCountdown: 60,
@@ -179,15 +179,15 @@ root.methods.getAuthState = function () {
     })
     return
   }
-  // 如果没有认证
-  if (!this.$store.state.authState.identity || (!this.$store.state.authState.sms && !this.$store.state.authState.ga) || !this.bindEmail) {
-    this.close()
-    return
-  }
+  // // 如果没有认证
+  // if (!this.$store.state.authState.identity || (!this.$store.state.authState.sms && !this.$store.state.authState.ga) || !this.bindEmail) {
+  //   this.close()
+  //   return
+  // }
   this.$store.state.authState.sms && (this.picker = 2)
   this.$store.state.authState.ga && (this.picker = 1)
   // 获取认证状态成功
-  this.authStateReady = true
+  // this.authStateReady = true
 }
 // 判断验证状态回调
 root.methods.re_getAuthState = function (data) {
@@ -196,17 +196,17 @@ root.methods.re_getAuthState = function (data) {
   this.$store.commit('SET_AUTH_STATE', data.dataMap)
   // 获取认证状态成功
   // 如果没有认证
-  if (!this.$store.state.authState.identity || (!this.$store.state.authState.sms && !this.$store.state.authState.ga)) {
-    this.close()
-    return
-  }
+  // if (!this.$store.state.authState.identity || (!this.$store.state.authState.sms && !this.$store.state.authState.ga)) {
+  //   this.close()
+  //   return
+  // }
   this.$store.state.authState.sms && (this.picker = 2)
   this.$store.state.authState.ga && (this.picker = 1)
-  this.authStateReady = true
+  // this.authStateReady = true
 }
 // 判断验证状态出错
 root.methods.error_getAuthState = function (err) {
-  this.close()
+  // this.close()
 }
 
 
@@ -225,17 +225,17 @@ root.methods.closePlaceholder = function (type) {
     this.pswPlaceholderShow = false;
   }
 
-  if(type == 'verificationCode'){
-    this.verificationCodePlaceholderShow = false;
-  }
-
-  if(type == 'pswConfirm'){
-    this.pswConfirmPlaceholderShow = false;
-  }
-
-  if(type == 'referee'){
-    this.refereePlaceholderShow = false;
-  }
+  // if(type == 'verificationCode'){
+  //   this.verificationCodePlaceholderShow = false;
+  // }
+  //
+  // if(type == 'pswConfirm'){
+  //   this.pswConfirmPlaceholderShow = false;
+  // }
+  //
+  // if(type == 'referee'){
+  //   this.refereePlaceholderShow = false;
+  // }
 
 
 }
@@ -714,9 +714,9 @@ root.methods.popWindowClose1 = function () {
 //——————————————————————————————————————
 
 // 关闭此组件
-root.methods.close = function () {
-  this.$emit('close')
-}
+// root.methods.close = function () {
+//   this.$emit('close')
+// }
 
 //关闭弹窗
 root.methods.popWindowCloseVIP = function () {
