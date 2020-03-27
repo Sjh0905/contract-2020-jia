@@ -20,6 +20,11 @@ root.data = () => {
     fut_amt:'',    //配套总量
     miningProgress:'',   //挖矿进度 0.95
     doSendReward:'',  //已释放的矿源奖励
+    showLoadingMore: true,//是否显示加载更多
+    // loadingMoreIng: false, //是否正在加载更多
+    loadingMoreShow:false,
+    currPage:1,
+    pageSize:5,
   }
 }
 
@@ -67,6 +72,12 @@ root.computed.userId = function () {
 }
 
 root.methods = {}
+
+// 点击加载更多
+root.methods.clickLoadingMore = function () {
+  this.loadingMoreIng = true
+  this.getQuantifyransactions(this.userId)
+}
 
 root.methods.buyConfirmSuccessClose = function () {
   this.buyConfirmSuccess=false
@@ -123,6 +134,12 @@ root.methods.getQuantifyransactions = function () {
     bind: this,
     urlFragment:this.userId,
     // query:{userId:this.uuid},
+    query:{
+      // groupId: this.groupId,
+      //ssssssssss
+      currPage: this.currPage,
+      pageSize: this.pageSize
+    },
     callBack: this.re_getQuantifyransactions,
     errorHandler: this.error_getQuantifyransactions
   })
@@ -130,10 +147,24 @@ root.methods.getQuantifyransactions = function () {
 root.methods.re_getQuantifyransactions = function (data) {
   typeof data === 'string' && (data = JSON.parse(data))
   if (!data) {return}
-  console.log("this.re_getQuantifyransactions=====",data)
+  console.log("量化展示_量化交易记录get=====",data)
 
-  this.transaction = data.data
+  // this.transaction = data.data.data
+  this.transaction.push(...data.data.data)
+  //
+  //
+  if (data.data.data.length < this.pageSize) {
+    this.showLoadingMore = false
+  }
+  //
+  //
+  this.currPage = this.currPage + 1
+  // this.pageSize = this.pageSize + 1
+  //
+  // this.loading = false
+  this.loadingMoreIng = false
 }
+
 root.methods.error_getQuantifyransactions = function (err) {
   console.log("this.error_getQuantifyransactions=====",err)
 }
@@ -174,7 +205,7 @@ root.methods.getQuantifyBasicInformation = function () {
 root.methods.re_getQuantifyBasicInformation = function (data) {
   typeof data === 'string' && (data = JSON.parse(data))
   if (!data) {return}
-  console.log("this.re_getQuantifyBasicInformation=====",data)
+  console.log("量化展示_量化基本信息get=====",data)
   this.totalAmount = data.data.recode.totalAmount //挖矿总数
   this.reward = data.data.recode.reward     //挖矿奖励
   this.createdate = data.data.recode.createdate   //挖矿日期

@@ -70,7 +70,7 @@
 
         <div class="border_50">
           <div class="progress_bar">
-            <el-progress :show-text="false" :stroke-width="16" :percentage="(miningProgress)" color="#3576F5" status="exception" ></el-progress>
+            <el-progress :show-text="false" :stroke-width="16" :percentage="(miningProgress) * 1" color="#3576F5" status="exception" ></el-progress>
           </div>
         </div>
 
@@ -117,6 +117,12 @@
               </div>
             </li>
           </template>
+        <template v-if="showLoadingMore">
+          <li class="loading-more">
+            <span class="text_blue pointer" v-if="!loadingMoreShow" @click="clickLoadingMore">{{$t('orderPageHistoricalEntrustment.close_10')}}</span>
+            <span class="text_blue" v-else>{{$t('orderPageHistoricalEntrustment.close_11')}}</span>
+          </li>
+        </template>
         </template>
       </ul>
 
@@ -244,6 +250,13 @@
               <div class="nhtu"><img src="../../assets/noOrders.png">
                 <p class="nhtu_p">{{$t('orderPageCurrentEntrustment.close_9')}}</p>
               </div>
+            </li>
+          </template>
+
+          <template v-if="showLoadingMore">
+            <li class="loading-more">
+              <span class="text_blue pointer" v-if="!loadingMoreShow" @click="clickLoadingMore">{{$t('orderPageHistoricalEntrustment.close_10')}}</span>
+              <span class="text_blue" v-else>{{$t('orderPageHistoricalEntrustment.close_11')}}</span>
             </li>
           </template>
         </template>
