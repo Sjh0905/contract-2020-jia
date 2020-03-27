@@ -24,7 +24,7 @@ root.created = function () {
   this.$store.commit('changeMobileHeaderTitle', this.$store.state.mobileRechargeRecordData.currency + '充值详情')
 
   if(!this.$store.state.mobileRechargeRecordData.currency) {
-    this.$router.push({name: 'MobileAssetRechargeAndWithdrawRecord'})
+    this.$router.push({name: 'MobileLockHouseRecord'})
   }
 }
 
@@ -61,6 +61,10 @@ root.computed.rechargeDetailData = function () {
 
 
 root.methods = {};
+
+root.methods.gotoLockHouse = function () {
+  this.$router.push({name:'MobileLockHouseRecord',query:{id:1,currency:this.$route.query.name}})
+}
 
 
 // 关闭pop提示

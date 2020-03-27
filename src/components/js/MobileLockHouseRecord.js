@@ -39,6 +39,8 @@ root.data = function () {
     // 是否显示提现记录加载更多
     isShowGetMoreWithdraw: true,
 
+    currencyTitle: '',
+
 
     // 弹窗
     popOpen: false,
@@ -81,6 +83,10 @@ root.computed.userId = function () {
 }
 /*------------------------------ 方法 -------------------------------*/
 root.methods = {}
+
+root.methods.gotoZichan = function () {
+  this.$router.push({name:'MobileAssetRechargeAndWithdrawalsDetail',query:{currency:this.$route.query.name}})
+}
 
 root.methods.changeOpenTypeQuery = function () {
   // console.log('location',location.search.substr(1).split("=")[1])
@@ -233,14 +239,15 @@ root.methods.error_getLockHistory = function (err) {
 
 // 点击跳转当前锁仓详情页
 root.methods.toRechargeDetailPath = function (type) {
+  this.currencyTitle = type.currency
   console.log(123123123,type)
   this.$store.commit('changeMobileRechargeRecordData',type)
-  this.$router.push("/index/mobileAsset/mobileAssetcurLockRecordDetail/")
+  this.$router.push({name:'mobileAssetcurLockRecordDetail',query:{currency:this.$route.query.name}})
 }
 // 点击跳转历史锁仓详情页
 root.methods.toWithdrawDetailPath = function (type) {
   this.$store.commit('changeMobileRechargeRecordData',type)
-  this.$router.push("/index/mobileAsset/mobileAssetHisLockRecordDetail/")
+  this.$router.push({name:'mobileAssetHisLockRecordDetail',query:{currency:this.$route.query.name}})
 }
 
 // 关闭pop提示
