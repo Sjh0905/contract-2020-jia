@@ -363,7 +363,6 @@ root.methods = {}
 root.methods.close = function () {
   this.$emit('close')
 }
-
 /*------------------ 获取验证状态 begin -------------------*/
 root.methods.getAuthState = function () {
   if (!this.$store.state.authState) {
@@ -374,15 +373,17 @@ root.methods.getAuthState = function () {
     })
     return
   }
-  // 如果没有认证
-  if (!this.$store.state.authState.identity || (!this.$store.state.authState.sms && !this.$store.state.authState.ga) || !this.bindEmail) {
-    this.close()
-    return
-  }
+  // // 如果没有认证
+  // if (!this.$store.state.authState.identity || (!this.$store.state.authState.sms && !this.$store.state.authState.ga) || !this.bindEmail) {
+  //   this.close()
+  //   return
+  // }
   this.$store.state.authState.sms && (this.picker = 2)
   this.$store.state.authState.ga && (this.picker = 1)
+
   // 获取认证状态成功
   this.authStateReady = true
+  this.loading = !(this.currencyReady && this.authStateReady)
 }
 // 判断验证状态回调
 root.methods.re_getAuthState = function (data) {
@@ -390,14 +391,15 @@ root.methods.re_getAuthState = function (data) {
   if (!data) return
   this.$store.commit('SET_AUTH_STATE', data.dataMap)
   // 获取认证状态成功
+  this.authStateReady = true
+  this.loading = !(this.currencyReady && this.authStateReady)
   // 如果没有认证
-  if (!this.$store.state.authState.identity || (!this.$store.state.authState.sms && !this.$store.state.authState.ga)) {
-    this.close()
-    return
-  }
+  // if (!this.$store.state.authState.identity || (!this.$store.state.authState.sms && !this.$store.state.authState.ga)) {
+  //   this.close()
+  //   return
+  // }
   this.$store.state.authState.sms && (this.picker = 2)
   this.$store.state.authState.ga && (this.picker = 1)
-  this.authStateReady = true
 }
 // 判断验证状态出错
 root.methods.error_getAuthState = function (err) {
@@ -1825,9 +1827,9 @@ root.methods.error_getInitData = function (err) {
 }
 
 
-// 获取权限
-
-// // 判断验证状态
+// // 获取权限
+//
+// // // 判断验证状态
 // root.methods.getAuthState = function () {
 //   if (!this.$store.state.authState) {
 //     this.$http.send('GET_AUTH_STATE', {
@@ -2298,17 +2300,18 @@ root.methods.re_commitLockHouse = function (data) {
   typeof data === 'string' && (data = JSON.parse(data))
   console.log(data)
 
-  this.popupPromptOpen = true
-  if(data.errorCode == 0){
-    this.popupPromptType = 1
-    this.popupPromptText = '锁仓成功'
 
-  }else{
-    this.popupPromptType = 0
-    this.popupPromptText = '锁仓失败'
-
+  if(data.result == 'SUCCESS'){
+    this.popOpen = true
+    this.popType = 1
+    this.popText = '锁仓成功'
   }
 
+  if(data.result !== 'SUCCESS'){
+    this.popOpen = true
+    this.popType = 0
+    this.popText = '锁仓失败'
+  }
   this.closeLockHouse()
 
 }
@@ -2326,11 +2329,6 @@ root.methods.allAvailable = function () {
 // 手机 谷歌验证切换
 root.methods.open_mob = function (index) {
   this.picked = index
-}
-
-// 关闭此组件
-root.methods.close = function () {
-  this.$emit('close')
 }
 
 
