@@ -1533,6 +1533,7 @@ root.basePageBar = {}
 root.basePageBar.index = '首页'
 
 root.assetPage.platformReward = '活动奖励'
+root.assetPage.miningReward = '挖矿奖励'
 
 root.assetPagePlatformReward = {}
 root.assetPagePlatformReward.state1 = '说明'
@@ -1544,6 +1545,11 @@ root.assetPagePlatformReward.amount = '数量'
 root.assetPagePlatformReward.state = '状态'
 root.assetPagePlatformReward.address = '地址'
 root.assetPagePlatformReward.remarks = '备注'
+root.assetPagePlatformReward.firstExchange = '首次交易'
+root.assetPagePlatformReward.realName = '实名认证'
+
+
+
 
 root.assetPagePlatformReward.description_0 = '早鸟份额发放'
 root.assetPagePlatformReward.description_1 = '内测竞猜活动奖励'
@@ -1556,6 +1562,8 @@ root.assetPagePlatformReward.description_7 = '社区建议奖励'
 root.assetPagePlatformReward.description_8 = '交易返佣'
 
 root.indexHeader.platformReward = '活动奖励'
+
+
 
 root.currencyIntroduction.detail_ELF_1 = 'aelf是一个去中心化云计算区块链网络，具有高性能、资源隔离特性以及更完善的治理和发展结构。在ælf的网络中，节点根据类型进行划分，专业化记账节点（全节点）能够运行在服务器集群之上，提高整个区块链网络性能；“主链+多侧链”结构，有效实现资源隔离、“一链一场景”；设立代币持有人的委托票选制度，保障网络高效治理及良性发展。'
 root.currencyIntroduction.detail_ELF_2 = 'ELF主要用于aelf的付费资源支付及治理决策，其中付费资源包括智能合约部署、升级及执行等操作(如交易手续费、跨链数据传输手续费等)，治理决策包括记账节点的选举、系统新特性的审批及产品重大更新的决策。'

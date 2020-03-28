@@ -5,19 +5,19 @@
         <ul class="lock-house-content flex">
           <li>
             <div class="locked-hose">已锁仓 TT</div>
-            <div class="locked-num">0.000000</div>
+            <div class="locked-num">{{toFixed(Number(TT),8) }}</div>
           </li>
           <li>
             <div class="locked-hose">已锁仓 KK</div>
-            <div class="locked-num">365.29381583</div>
+            <div class="locked-num">{{toFixed(Number(KK),8)}}</div>
           </li>
           <li>
             <div class="locked-hose">昨日分红（YY）</div>
-            <div class="locked-num">365.29381583</div>
+            <div class="locked-num">{{toFixed(Number(lastDateReward),8)}}</div>
           </li>
           <li>
             <div class="locked-hose">累计分红（YY）</div>
-            <div class="locked-num">365.29381583</div>
+            <div class="locked-num">{{toFixed(Number(totalReward),8)}}</div>
           </li>
         </ul>
       </div>

@@ -28,34 +28,36 @@ root.created = function () {
   this.getTotalLock()
 }
 
-
 /*-------------------------- 方法 begin------------------------------*/
 root.methods = {}
-// 判断认证状态
+// 获取锁仓总金额
 root.methods.getTotalLock = function () {
-  if (!this.$store.state.authState) {
-    this.$http.send('TOTAL_LOCK_REWARD', {
-      bind: this,
-      callBack: this.re_getTotalLock,
-      errorHandler: this.error_getTotalLock
-    })
-  }
+  this.$http.send('TOTAL_LOCK_REWARD', {
+    bind: this,
+    callBack: this.re_getTotalLock,
+    errorHandler: this.error_getTotalLock
+  })
 }
-// 判断验证状态回调
+// 获取锁仓总金额回调
 root.methods.re_getTotalLock = function (data) {
   typeof data === 'string' && (data = JSON.parse(data))
   // if (!data) return
-  console.info(data)
   this.TT = data.dataMap.TT
   this.KK = data.dataMap.KK
   this.totalReward = data.dataMap.totalReward
   this.lastDateReward = data.dataMap.lastDateReward
 
 }
-// 判断验证状态出错
+// 获取锁仓总金额出错
 root.methods.error_getTotalLock = function (err) {
   console.log(err)
 }
+
+/*---------------------- 保留小数 begin ---------------------*/
+root.methods.toFixed = function (num, acc = 8) {
+  return this.$globalFunc.accFixed(num, acc)
+}
+/*---------------------- 保留小数 end ---------------------*/
 
 
 export default root
