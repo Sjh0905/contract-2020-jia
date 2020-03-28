@@ -30,7 +30,7 @@
       <div class="header-box-state">
         <span class="header-box-state-title">昨日收益</span>
         <!--<span v-if="rechargeDetailData.depositOk === true && rechargeDetailData.depositCancelled === false" class="header-box-state-container">成功</span>-->
-        <span class="header-box-state-container">{{state(rechargeDetailData)}}</span>
+        <span class="header-box-state-container">{{toFixed(rechargeDetailData.lastAmount,8)}}</span>
         <!--<span v-if="rechargeDetailData.depositOk === false && rechargeDetailData.depositCancelled === false" class="header-box-state-container">充值中({{rechargeDetailData.confirms}}/{{rechargeDetailData.minimumConfirms}})</span>-->
       </div>
 
@@ -38,7 +38,7 @@
       <div class="header-box-state">
         <span class="header-box-state-title">累计收益</span>
         <!--<span v-if="rechargeDetailData.depositOk === true && rechargeDetailData.depositCancelled === false" class="header-box-state-container">成功</span>-->
-        <span class="header-box-state-container">{{state(rechargeDetailData)}}</span>
+        <span class="header-box-state-container">{{toFixed(rechargeDetailData.totalAmount,8)}}</span>
         <!--<span v-if="rechargeDetailData.depositOk === false && rechargeDetailData.depositCancelled === false" class="header-box-state-container">充值中({{rechargeDetailData.confirms}}/{{rechargeDetailData.minimumConfirms}})</span>-->
 
       </div>
@@ -54,26 +54,28 @@
       <!--地址-->
       <div class="container-box-address">
         <span class="container-box-address-title">订单编号</span>
-        <span class="container-box-address-container">{{rechargeDetailData.toAddress}}</span>
+        <span class="container-box-address-container">{{rechargeDetailData.id}}</span>
       </div>
 
-      <!--memo地址-->
-      <div v-if="rechargeDetailData.memoAddress" class="container-box-txid">
+      <!--锁仓时间-->
+      <div class="container-box-txid">
         <span class="container-box-txid-title">锁仓时间</span>
-        <span class="container-box-txid-container">{{rechargeDetailData.memoAddress}}</span>
+        <span class="container-box-txid-container">
+          {{$globalFunc.formatDateUitl(rechargeDetailData.updatedAt,'YYYY-MM-DD hh:mm:ss')}}
+        </span>
       </div>
 
-      <!--TXID-->
+      <!--分红时间-->
       <div class="container-box-txid">
         <span class="container-box-txid-title">分红时间</span>
-        <span class="container-box-txid-container">{{rechargeDetailData.uniqueId}}</span>
+        <span class="container-box-txid-container">{{rechargeDetailData.dateTime}}</span>
       </div>
 
-      <!--日期-->
-      <div class="container-box-time">
-        <span class="container-box-time-title">计算分红时间</span>
-        <span class="container-box-time-container">{{$globalFunc.formatDateUitl(rechargeDetailData.updatedAt,'YYYY-MM-DD hh:mm:ss')}}</span>
-      </div>
+<!--      &lt;!&ndash;日期&ndash;&gt;-->
+<!--      <div class="container-box-time">-->
+<!--        <span class="container-box-time-title">计算分红时间</span>-->
+<!--        <span class="container-box-time-container">{{$globalFunc.formatDateUitl(rechargeDetailData.updatedAt,'YYYY-MM-DD hh:mm:ss')}}</span>-->
+<!--      </div>-->
 
       <!--复制和跳转txid按钮-->
       <div class="container-box-btn">

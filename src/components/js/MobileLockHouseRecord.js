@@ -117,10 +117,10 @@ root.methods.changeOpenType = function(num){
 
     // this.$store.commit('changeMobileHeaderTitle', '');
     // 获取withdraw值
-    if(this.isFirstGetWithdrawFlag === true ){
+    // if(this.isFirstGetWithdrawFlag === true ){
       this.getLockHistory()
-    }
-    return
+    // }
+    // return
   }
 
 }
@@ -239,14 +239,14 @@ root.methods.error_getLockHistory = function (err) {
 
 // 点击跳转当前锁仓详情页
 root.methods.toRechargeDetailPath = function (type) {
-  this.currencyTitle = type.currency
   console.log(123123123,type)
-  this.$store.commit('changeMobileRechargeRecordData',type)
+  this.$store.commit('changemobileLockRecordData',type)
   this.$router.push({name:'mobileAssetcurLockRecordDetail',query:{currency:this.$route.query.name}})
 }
+
 // 点击跳转历史锁仓详情页
 root.methods.toWithdrawDetailPath = function (type) {
-  this.$store.commit('changeMobileRechargeRecordData',type)
+  this.$store.commit('changemobileLockRecordData',type)
   this.$router.push({name:'mobileAssetHisLockRecordDetail',query:{currency:this.$route.query.name}})
 }
 
