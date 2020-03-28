@@ -32,13 +32,13 @@
 }
 
 .time {
-  flex: 13;
+  flex: 16;
   /*flex:9.3;*/
   text-align: left;
 }
 
 .currency {
-  flex: 10;
+  flex: 12;
   text-align: left;
   /*flex:19.9;*/
 }
@@ -55,7 +55,7 @@
 }
 
 .address {
-  flex: 20;
+  flex: 15;
   text-align: left;
 }
 

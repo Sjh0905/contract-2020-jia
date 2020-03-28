@@ -12,13 +12,13 @@
       <span class="currency">{{$t('assetPagePlatformReward.currency')}}</span>
 
       <!--类型-->
-      <span class="type">{{$t('assetPagePlatformReward.type')}}</span>
+<!--      <span class="type">{{$t('assetPagePlatformReward.type')}}</span>-->
 
       <!--数量-->
       <span class="total">{{$t('assetPagePlatformReward.amount')}}</span>
 
       <!--说明-->
-      <span class="address">{{$t('assetPagePlatformReward.state1')}}</span>
+      <span class="address">{{$t('assetPagePlatformReward.type')}}</span>
 
       <!--状态-->
       <span class="state">{{$t('assetPagePlatformReward.state')}}</span>
@@ -38,17 +38,18 @@
 <!--              币种-->
               <span class="currency">{{item.currency}}</span>
 <!--              类型-->
-              <span class="type">数据</span>
+<!--              <span class="type">数据</span>-->
 <!--              formatDateUitl-->
 <!--              数量-->
               <span class="total">{{toFixed(item.amount,2)}}</span>
-<!--              说明-->
-              <span class="address address-detail"> {{$t('assetPageWithdrawalsRecord.quantificationActivities')}}</span>
+<!--              类型-->
+              <span class="address address-detail">{{item.source=='EXCHANGE'? $t('assetPagePlatformReward.firstExchange') : $t('assetPagePlatformReward.realName')}}</span>
 <!--              GRC量化活动-->
 <!--              {{item.descritption}}-->
               <span class="state">
 <!--                已发放-->
-                {{$t('assetPageWithdrawalsRecord.Issued')}}
+                {{item.status == 'SUCCESS'? $t('assetPageWithdrawalsRecord.success'):$t('assetPageWithdrawalsRecord.state_4')}}
+<!--                {{$t('assetPageWithdrawalsRecord.Issued')}}-->
               </span>
 <!--              <span class="th-prompt">-&#45;&#45;</span>-->
             </div>

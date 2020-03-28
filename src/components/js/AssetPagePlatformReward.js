@@ -97,12 +97,12 @@ root.methods = {}
 
 // 获取平台奖励记录
 root.methods.getRecord = function (limit) {
-  this.$http.send('GRC_ACTIVITYREWARDS', {
+  this.$http.send('INITIAL_REWARD', {
     bind: this,
-    params: {
-      rewardId:this.lastId,
-      pageSize:this.limit
-    },
+    // params: {
+    //   rewardId:this.lastId,
+    //   pageSize:this.limit
+    // },
     callBack: this.re_getRecord,
     errorHandler: this.error_getRecord,
   })
@@ -116,7 +116,7 @@ root.methods.re_getRecord = function (data) {
   console.log('this is data', data)
   if (data.errorCode) return
 
-  this.records = data.dataMap.grcActivityRewardList
+  this.records = data.dataMap.registerInviteRewards
   this.records.length < this.limit && (this.loadingMoreShow = false)
   this.records.length >= this.limit && (this.loadingMoreShow = true)
   this.loadingMoreShowing = false
