@@ -1,85 +1,101 @@
 <div>
-  <div class="recharge-box">
-
-    <div class="header-title-list">
-      <img src="" alt="">
-      <div class="header-title-item">
-        当前锁仓
-      </div>
+  <!--顶部标题及返回键-->
+  <!--顶部标题-->
+  <div class="header-title">
+    <div class="asset-header-title">
+      历史锁仓
+      <span class="backgo" @click="gotoLockHouse">
+          <img src="../../assets/H5img/back.png">
+      </span>
     </div>
-    <div class="header-box header-box-height">
-      <!--顶部标题及logo-->
+  </div>
+  <div class="recharge-box">
+    <div class="header-box">
+      <!--      顶部标题及logo-->
       <div class="header-box-title">
         <!--<span  class="header-box-title-logo-box">-->
         <!--<img class="header-box-title-logo" :src="'http://logo.2020.exchange/' + (rechargeDetailData.currency == 'USDT2'?'USDT':rechargeDetailData.currency) +'.png'" alt="">-->
         <!--</span>-->
-<!--        {{$globalFunc.accFixed(rechargeDetailData.amount, 8)}}-->
         {{rechargeDetailData.currency == 'USDT2'?'USDT':rechargeDetailData.currency}}
       </div>
 
-      <!--订单编号-->
-      <div class="header-box-num">
-        <span class="header-box-num-title">订单编号</span>
-        <span class="header-box-num-container">{{rechargeDetailData.transferId}}</span>
-      </div>
-
-      <!--类型-->
-      <div class="header-box-state">
-        <span class="header-box-state-title">类型</span>
-        <div v-if="rechargeDetailData.fromUserId === userId" class="header-box-state-container">转出</div>
-        <div v-else class="header-box-state-container">收款</div>
-      </div>
-
-      <!--姓名-->
-      <div class="header-box-state">
-        <span class="header-box-state-title">姓名</span>
-        <div class="header-box-state-container">{{rechargeDetailData.name}}</div>
-      </div>
-
-      <!--账号-->
-      <div class="header-box-state">
-        <span class="header-box-state-title">账号</span>
-        <div class="header-box-state-container">{{rechargeDetailData.fromUserId === userId ? rechargeDetailData.toEmail : rechargeDetailData.fromEmail}}</div>
-      </div>
-
-      <!--UID-->
-      <div class="header-box-state">
-        <span class="header-box-state-title">UID</span>
-        <div class="header-box-state-container">{{rechargeDetailData.fromUserId === userId ? rechargeDetailData.toUserId : rechargeDetailData.fromUserId}}</div>
-      </div>
-
-      <!--币种-->
-      <div class="header-box-state">
-        <span class="header-box-state-title">币种</span>
-        <span class="header-box-state-container">{{rechargeDetailData.currency == 'USDT2'?'USDT':rechargeDetailData.currency}}</span>
-      </div>
-
       <!--数量-->
+      <div class="header-box-num">
+        <span class="header-box-num-title">数量</span>
+        <span class="header-box-num-container">{{toFixed(rechargeDetailData.amount,8)}}</span>
+      </div>
+
+      <!--昨日收益-->
+
       <div class="header-box-state">
-        <span class="header-box-state-title">数量</span>
-        <span class="header-box-state-container">{{$globalFunc.accFixed(rechargeDetailData.amount, 8)}}</span>
+        <span class="header-box-state-title">昨日收益</span>
+        <!--<span v-if="rechargeDetailData.depositOk === true && rechargeDetailData.depositCancelled === false" class="header-box-state-container">成功</span>-->
+        <span class="header-box-state-container">{{toFixed(rechargeDetailData.lastAmount,8)}}</span>
+        <!--<span v-if="rechargeDetailData.depositOk === false && rechargeDetailData.depositCancelled === false" class="header-box-state-container">充值中({{rechargeDetailData.confirms}}/{{rechargeDetailData.minimumConfirms}})</span>-->
       </div>
 
-    </div>
-    <div class="container-box container-box-position">
-
-      <!--日期-->
-      <div class="container-box-time">
-        <span class="container-box-time-title">日期</span>
-        <span class="container-box-time-container">{{$globalFunc.formatDateUitl(rechargeDetailData.updatedAt,'YYYY-MM-DD hh:mm:ss')}}</span>
-      </div>
-
-      <!--状态-->
+      <!--累计收益-->
       <div class="header-box-state">
-        <span class="header-box-state-title">状态</span>
-        <div v-if="rechargeDetailData.fromUserId === userId" class="header-box-state-container">转出{{statusObj[rechargeDetailData.status]}}</div>
-        <div v-else class="header-box-state-container">收款{{statusObj[rechargeDetailData.status]}}</div>
+        <span class="header-box-state-title">累计收益</span>
+        <!--<span v-if="rechargeDetailData.depositOk === true && rechargeDetailData.depositCancelled === false" class="header-box-state-container">成功</span>-->
+        <span class="header-box-state-container">{{toFixed(rechargeDetailData.totalAmount,8)}}</span>
+        <!--<span v-if="rechargeDetailData.depositOk === false && rechargeDetailData.depositCancelled === false" class="header-box-state-container">充值中({{rechargeDetailData.confirms}}/{{rechargeDetailData.minimumConfirms}})</span>-->
+
       </div>
 
-    </div>
+      <!--<div class="header-box-time">{{$globalFunc.formatDateUitl(rechargeDetailData.updatedAt,'MM-DD hh:mm:ss')}}</div>-->
 
+      <!--<div v-if="rechargeDetailData.depositOk === true && rechargeDetailData.depositCancelled === false" class="header-box-state">成功</div>-->
+      <!--<div v-if="rechargeDetailData.depositOk === false && rechargeDetailData.depositCancelled === true" class="header-box-state">被取消</div>-->
+      <!--<div v-if="rechargeDetailData.depositOk === false && rechargeDetailData.depositCancelled === false" class="header-box-state">充值中({{rechargeDetailData.confirms}}/{{rechargeDetailData.minimumConfirms}})</div>-->
+      <!--<div class="header-box-state">成功</div>-->
+    </div>
+    <div class="container-box">
+      <!--地址-->
+      <div class="container-box-address">
+        <span class="container-box-address-title">订单编号</span>
+        <span class="container-box-address-container">{{rechargeDetailData.id}}</span>
+      </div>
+
+      <!--锁仓时间-->
+      <div class="container-box-txid">
+        <span class="container-box-txid-title">锁仓时间</span>
+        <span class="container-box-txid-container">
+          {{$globalFunc.formatDateUitl(rechargeDetailData.updatedAt,'YYYY-MM-DD hh:mm:ss')}}
+        </span>
+      </div>
+
+      <!--分红时间-->
+      <div class="container-box-txid">
+        <span class="container-box-txid-title">分红时间</span>
+        <span class="container-box-txid-container">{{rechargeDetailData.dateTime}}</span>
+      </div>
+
+      <!--      &lt;!&ndash;日期&ndash;&gt;-->
+      <!--      <div class="container-box-time">-->
+      <!--        <span class="container-box-time-title">计算分红时间</span>-->
+      <!--        <span class="container-box-time-container">{{$globalFunc.formatDateUitl(rechargeDetailData.updatedAt,'YYYY-MM-DD hh:mm:ss')}}</span>-->
+      <!--      </div>-->
+
+      <!--复制和跳转txid按钮-->
+<!--      <div class="container-box-btn">-->
+<!--        <div class="container-box-address-btn">解锁</div>-->
+<!--        &lt;!&ndash;        <div class="container-box-copy-btn" data-clipboard-target=".container-box-txid-container" @click="copyValue">复制Txid</div>&ndash;&gt;-->
+<!--      </div>-->
+
+      <!--<div class="container-box-title">-->
+      <!--充值地址-->
+      <!--</div>-->
+      <!--<div class="container-box-address">{{rechargeDetailData.toAddress}}</div>-->
+
+      <!--<div class="container-box-title">TXID</div>-->
+      <!--<div class="container-box-txid">-->
+      <!--<textarea readonly class="container-box-txid-text">{{rechargeDetailData.uniqueId}}</textarea>-->
+      <!--<div class="container-box-copy-btn" data-clipboard-target=".container-box-txid-text" @click="copyValue">复制</div>-->
+      <!--<div class="container-box-address-btn" @click="jumpToCheckAddress">检查</div>-->
+      <!--</div>-->
+    </div>
   </div>
   <PopupPrompt :popOpen="popOpen" :popClose="popClose" :popType="popType" :popText="popText"/>
 
 </div>
-

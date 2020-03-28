@@ -40,13 +40,16 @@ root.created = function () {
 
 root.computed = {}
 root.computed.rechargeDetailData = function () {
-  return this.$store.state.changemobileLockRecordData
+  return this.$store.state.mobileLockRecordData
 }
 root.computed.userId = function () {
   return this.$store.state.authMessage.userId
 }
 root.methods = {};
-
+// 回锁仓记录页
+root.methods.gotoLockHouse = function () {
+  this.$router.push({name:'MobileLockHouseRecord',query:{id:1,currency:this.$route.query.name}})
+}
 
 root.methods.yesClick = function () {
   // if (this.ajaxCancelFlag === true) {
@@ -95,6 +98,10 @@ root.methods.copyValue = function () {
   })
 }
 
+// 保留小数点后8位
+root.methods.toFixed = function (num, acc = 8) {
+  return this.$globalFunc.accFixed(num, acc)
+}
 
 // 关闭pop提示
 root.methods.popClose = function () {

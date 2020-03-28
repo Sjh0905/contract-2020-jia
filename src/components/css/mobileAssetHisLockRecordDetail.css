@@ -1,30 +1,60 @@
-.recharge-box {
-  padding: 0 0.2rem;
-  color: #fff;
-  position: absolute;
-  top: 0;
-  bottom: 0;
+.header-title {
+  width: 100%;
+  height: 0.88rem;
+  line-height: 0.88rem;
+  /*background: #081724;*/
+  background: #172841;
 }
+.asset-header-title {
+  text-align: center;
+  font-size:16px;
+  font-family:PingFangSC-Semibold,PingFang SC;
+  font-weight:600;
+  /*height: 0.44rem;*/
+  line-height: 0.88rem;
+  margin-bottom: 0.56rem;
+  color: #CFD3E9;
+}
+.backgo{
+  position: absolute;
+  left: 0;
+}
+.backgo img{
+  width: 16px;
+  margin-left: 15px;
+}
+
+.recharge-box {
+  color: #fff;
+  /*position: absolute;*/
+  /*top: 0;*/
+  /*bottom: 0;*/
+}
+
 .header-title-list{
+  padding: 0 0.2rem;
   width: 100%;
   height: 0.88rem;
   line-height: 0.88rem;
   /*background: #081724;*/
   background: #172841;
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
 }
 
-.header-title-item{
-  float: left;
+.header-title-item {
+  font-size: 0.4rem;
+  color: #CFD3E9;
 }
 
 .header-box {
-  width: 7.1rem;
+  padding: 0 0.2rem;
+  padding-top: 0.56rem;
+  /*width: 7.1rem;*/
   border-bottom: 1px solid #131F30;
-  height: 2.86rem;
+  height: 3rem;
   position: relative;
-  padding-top: 0.6rem;
+  /*padding-top: 1.44rem;*/
 }
 
 .header-box-title {
@@ -121,7 +151,7 @@
 
 .container-box{
   position: absolute;
-  top: 2.86rem;
+  top: 4.4rem;
   bottom: 0;
   left: 0.2rem;
   right: 0.2rem;
@@ -222,8 +252,6 @@
   content:'';
 }
 
-
-
 .container-box-btn{
   position: absolute;
   bottom: 0.4rem;
@@ -234,30 +262,12 @@
 }
 
 .container-box-address-btn {
-  float: right;
+  /*float: right;*/
   height: 0.8rem;
-  width: 3.4rem;
+  width: 7.1rem;
   border: 1px solid #3576F5;
   /*color: #3576F5;*/
   text-align: center;
   line-height: 0.8rem;
   border-radius: 1px;
-}
-
-.container-box-copy-btn{
-  float: left;
-  height: 0.8rem;
-  width: 3.4rem;
-  border: 1px solid #3576F5;
-  /*color: #3576F5;*/
-  text-align: center;
-  line-height: 0.8rem;
-  border-radius: 1px;
-}
-
-.container-box-btn:after{
-  clear: both;
-  height: 0;
-  display: block;
-  content:'';
 }

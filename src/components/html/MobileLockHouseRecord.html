@@ -30,7 +30,7 @@
           <!--<span class="recharge-item-num-title">数量</span>-->
           <span class="recharge-item-num-detail">{{toFixed(item.amount,8)}}</span>
         </div>
-        <div class="recharge-item-state">{{item.status}}</div>
+        <div class="recharge-item-state">{{item.status=='DONE'?'成功':'失败'}}</div>
         <!--<div v-if="item.depositOk === false && item.depositCancelled === true" class="recharge-item-state">被取消</div>-->
         <!--<div v-if="item.depositOk === false && item.depositCancelled === false" class="recharge-item-state">充币中({{item.confirms}}/{{item.minimumConfirms}})</div>-->
         <!--<div class="recharge-item-right"></div>-->

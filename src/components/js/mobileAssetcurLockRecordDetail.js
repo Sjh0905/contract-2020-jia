@@ -23,7 +23,7 @@ root.components = {
 root.created = function () {
   // this.$store.commit('changeMobileHeaderTitle', this.$store.state.mobileRechargeRecordData.currency + '充值详情')
 
-  if(!this.$store.state.mobileLockRecordData.currency) {
+  if(!this.$store.state.changemobileLockRecordData.currency) {
     this.$router.push({name: 'MobileLockHouseRecord'})
   }
 }
@@ -56,7 +56,6 @@ root.beforeDestroy = function () {
 
 root.computed = {}
 root.computed.rechargeDetailData = function () {
-  console.info(this.$store.state.mobileLockRecordData)
   return this.$store.state.mobileLockRecordData
 }
 
@@ -67,6 +66,34 @@ root.methods.gotoLockHouse = function () {
   this.$router.push({name:'MobileLockHouseRecord',query:{id:1,currency:this.$route.query.name}})
 }
 
+// 解锁锁仓
+root.methods.unLockHouse = function (item) {
+  // console.log(item.id)
+  this.$http.send("UNLOCK_ASSET_RECODE", {
+    bind: this,
+    params: {
+      lockId: this.rechargeDetailData.id
+    },
+    callBack: this.re_unLockHouse,
+    errorHandler: this.error_unLockHouse
+  })
+}
+
+root.methods.re_unLockHouse = function ( data ) {
+  typeof (data) === 'string' && (data = JSON.parse(data))
+  this.popOpen = true
+  if(data.result == 'SUCCESS') {
+    this.popType = 1
+    this.popText = '解锁成功'
+    return
+  }
+  this.popType = 0
+  this.popText = '解锁失败'
+  // console.log(data)
+}
+root.methods.error_unLockHouse = function ( err ) {
+  console.log(err)
+}
 
 // 关闭pop提示
 root.methods.popClose = function () {
