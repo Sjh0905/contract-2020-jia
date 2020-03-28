@@ -425,37 +425,35 @@ root.methods.link_to_authenticate = function () {
   }
 }
 
-
-// BDB是否抵扣
-root.methods.getBDBInfo = function () {
-  this.$http.send('FIND_FEE_DEDUCTION_INFO', {
-    bind: this,
-    callBack: this.re_getBDBInfo,
-    errorHandler: this.error_getBDBInfo
-  })
-}
-
-
-// BDB是否抵扣回调
-root.methods.re_getBDBInfo = function (data) {
-  typeof (data) === 'string' && (data = JSON.parse(data))
-  if (!data) return
-  // console.warn("get BDB info", data)
-  if (data.dataMap.TTFEE === 'yes') {
-    this.BDBInfo = true
-  }
-  if (data.dataMap.TTFEE === 'no') {
-    this.BDBInfo = false
-  }
-  // BDB状态
-  this.BDBReady = true
-  // this.loading = !(this.stateReady && this.BDBReady && (this.stateStatusReady || !this.isMobile))
-  this.loading = !(this.stateReady && (this.stateStatusReady || !this.isMobile))
-}
-// BDB是否抵扣出错
-root.methods.error_getBDBInfo = function (err) {
-  // console.warn('BDB抵扣出错', err)
-}
+// TODO：平台币抵扣在个人中心页面
+// // BDB是否抵扣
+// root.methods.getBDBInfo = function () {
+//   this.$http.send('FIND_FEE_DEDUCTION_INFO', {
+//     bind: this,
+//     callBack: this.re_getBDBInfo,
+//     errorHandler: this.error_getBDBInfo
+//   })
+// }
+// // BDB是否抵扣回调
+// root.methods.re_getBDBInfo = function (data) {
+//   typeof (data) === 'string' && (data = JSON.parse(data))
+//   if (!data) return
+//   // console.warn("get BDB info", data)
+//   if (data.dataMap.TTFEE === 'yes') {
+//     this.BDBInfo = true
+//   }
+//   if (data.dataMap.TTFEE === 'no') {
+//     this.BDBInfo = false
+//   }
+//   // BDB状态
+//   this.BDBReady = true
+//   // this.loading = !(this.stateReady && this.BDBReady && (this.stateStatusReady || !this.isMobile))
+//   this.loading = !(this.stateReady && (this.stateStatusReady || !this.isMobile))
+// }
+// // BDB是否抵扣出错
+// root.methods.error_getBDBInfo = function (err) {
+//   // console.warn('BDB抵扣出错', err)
+// }
 // 获取状态
 root.methods.getAuthState = function () {
   this.$http.send("GET_IDENTITY_AUTH_STATUS", {
@@ -519,37 +517,35 @@ root.methods.re_getPrice = function (data) {
   this.currentPrice = data
 
   this.$store.commit('CHANGE_PRICE_TO_BTC', data)
-
-
 }
 
-
-// 点击切换手续费折扣
-root.methods.clickToggle = function (e) {
-  if (this.BDBChanging) return
-  this.BDBInfo = !this.BDBInfo
-  this.BDBChanging = true
-  this.$http.send('FEECHANGE', {
-    bind: this,
-    params: {
-      'deduction': this.BDBInfo ? 'yes' : 'no'
-    },
-    callBack: this.re_clickToggle,
-    errorHandler: this.error_clickToggle
-  })
-}
-// 点击切换手续费折扣
-root.methods.re_clickToggle = function (data) {
-  typeof (data) === 'string' && (data = JSON.parse(data))
-  this.BDBChanging = false
-
-}
-// 点击切换手续费折扣失败
-root.methods.error_clickToggle = function (err) {
-  console.warn('点击切换手续费折扣失败', err)
-  this.BDBInfo = !this.BDBInfo
-  this.BDBChanging = false
-}
+// TODO：平台币抵扣在个人中心页面,这里是个人认证
+// // 点击切换手续费折扣
+// root.methods.clickToggle = function (e) {
+//   if (this.BDBChanging) return
+//   this.BDBInfo = !this.BDBInfo
+//   this.BDBChanging = true
+//   this.$http.send('FEECHANGE', {
+//     bind: this,
+//     params: {
+//       'deduction': this.BDBInfo ? 'yes' : 'no'
+//     },
+//     callBack: this.re_clickToggle,
+//     errorHandler: this.error_clickToggle
+//   })
+// }
+// // 点击切换手续费折扣
+// root.methods.re_clickToggle = function (data) {
+//   typeof (data) === 'string' && (data = JSON.parse(data))
+//   this.BDBChanging = false
+//
+// }
+// // 点击切换手续费折扣失败
+// root.methods.error_clickToggle = function (err) {
+//   console.warn('点击切换手续费折扣失败', err)
+//   this.BDBInfo = !this.BDBInfo
+//   this.BDBChanging = false
+// }
 
 
 // 获取币种请求

@@ -200,7 +200,7 @@ root.methods.re_getBDBInfo = function (data) {
   // BDB状态
   this.BDBReady = true
   // this.loading = !(this.stateReady && this.BDBReady && (this.stateStatusReady || !this.isMobile))
-  this.loading = !(this.stateReady && (this.stateStatusReady || !this.isMobile))
+  this.loading = (this.stateReady && (this.stateStatusReady || !this.isMobile))
 }
 // BDB是否抵扣出错
 root.methods.error_getBDBInfo = function (err) {
