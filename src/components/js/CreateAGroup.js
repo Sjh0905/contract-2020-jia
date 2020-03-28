@@ -36,6 +36,7 @@ root.data = function () {
 }
 /*------------------------------ 生命周期 -------------------------------*/
 root.created = function () {
+  this.GET_AUTH_STATE()
   console.log('created======',this,this.$route.name)
   // this.$router.back()
   // if (this.success == true) {
@@ -123,6 +124,38 @@ root.watch = {}
 /*------------------------------ 方法 -------------------------------*/
 root.methods = {}
 
+// 认证状态
+root.methods.GET_AUTH_STATE = function () {
+  this.$http.send("GET_AUTH_STATE", {
+    bind: this,
+    callBack: this.RE_GET_AUTH_STATE,
+    errorHandler: this.error_getCurrency
+  })
+}
+root.methods.RE_GET_AUTH_STATE = function (res) {
+  typeof res === 'string' && (res = JSON.parse(res));
+  if (!res) return
+  this.$store.commit('SET_AUTH_STATE', res.dataMap)
+  // let data = res.dataMap;
+  // this.identity_type = data;
+  // if (res.result == 'SUCCESS' && (data.sms || data.ga)) {
+  //   this.bindIdentify = data.identity;
+  // }
+  // 两者都验证了
+  // this.bindGA = data.ga;
+  // this.bindMobile = data.sms;
+  // this.bindEmail = data.email;
+  // this.bindMobile && (this.picked = 'bindMobile');
+  // this.bindGA && (this.picked = 'bindGA');
+  // if (this.bindGA && this.bindMobile) {
+  //   this.showPicker = true;
+  // }
+  //
+  // this.loading = false
+}
+
+
+
 // 弹框跳安全中心
 root.methods.goToSecurityCenter = function () {
   this.popWindowOpen = false
@@ -134,37 +167,7 @@ root.methods.goToBindIdentity = function () {
   this.popWindowOpen = false
   this.$router.push({name: 'authenticate'})
 }
-// // 去绑定谷歌验证
-// root.methods.goToBindGA = function () {
-//   this.popWindowOpen = false
-//   this.$router.push({name: 'bindGoogleAuthenticator'})
-// }
-// // 去绑定手机号
-// root.methods.goToBindMobile = function () {
-//   this.popWindowOpen = false
-//   this.$router.push({name: 'bindMobile'})
-// }
-// // 去绑定邮箱
-// root.methods.goToBindEmail = function () {
-//   this.popWindowOpen = false
-//   this.$router.push({name: 'bindEmail'})
-// }
 
-
-// // 判断名字0
-// root.methods.testName_0 = function () {
-//   this.nameWA_0 = '0'
-//   if (this.deputyAccount === '') {
-//     this.nameMsg_0 = ''
-//     return false
-//   }
-//   if (this.$globalFunc.testSpecial(this.deputyAccount)) {
-//     this.nameMsg_0 = this.$t('nameMsg_1')
-//     return false
-//   }
-//   this.nameMsg_0 = ''
-//   return true
-// }
 
 //创建拼团post(params:{})
 root.methods.postCreateAGroup = function () {

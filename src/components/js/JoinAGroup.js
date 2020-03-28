@@ -54,11 +54,17 @@ root.data = function () {
     popWindowStyle: 0,//跳转 0表示实名认证，1表示手机或谷歌，2只有确定
     popWindowOpen: false, //弹窗开关
 
+    // bindGA: false,
+    // bindMobile: false,
+    // bindEmail: false
+
   }
 }
 /*------------------------------ 生命周期 -------------------------------*/
 root.created = function () {
+  this.GET_AUTH_STATE()
   this.getFuzzyQuery()
+
   console.log("this.$route.query.path========",this.$route.query.path,this.$route.fullPath)
 }
 
@@ -78,12 +84,11 @@ root.mounted = function () {}
 root.beforeDestroy = function () {}
 /*------------------------------ 计算 -------------------------------*/
 root.computed = {}
+
 // 是否实名认证
 root.computed.bindIdentify = function () {
   return this.$store.state.authState.identity
 }
-
-
 // 是否绑定手机
 root.computed.bindMobile = function () {
   return this.$store.state.authState.sms
@@ -161,6 +166,36 @@ root.watch.searchCities = function(v){
 
 /*------------------------------ 方法 -------------------------------*/
 root.methods = {}
+
+// 认证状态
+root.methods.GET_AUTH_STATE = function () {
+  this.$http.send("GET_AUTH_STATE", {
+    bind: this,
+    callBack: this.RE_GET_AUTH_STATE,
+    errorHandler: this.error_getCurrency
+  })
+}
+root.methods.RE_GET_AUTH_STATE = function (res) {
+  typeof res === 'string' && (res = JSON.parse(res));
+  if (!res) return
+  this.$store.commit('SET_AUTH_STATE', res.dataMap)
+  // let data = res.dataMap;
+  // this.identity_type = data;
+  // if (res.result == 'SUCCESS' && (data.sms || data.ga)) {
+  //   this.bindIdentify = data.identity;
+  // }
+  // 两者都验证了
+  // this.bindGA = data.ga;
+  // this.bindMobile = data.sms;
+  // this.bindEmail = data.email;
+  // this.bindMobile && (this.picked = 'bindMobile');
+  // this.bindGA && (this.picked = 'bindGA');
+  // if (this.bindGA && this.bindMobile) {
+  //   this.showPicker = true;
+  // }
+  //
+  // this.loading = false
+}
 
 
 // 弹出绑定身份，跳转到实名认证界面
