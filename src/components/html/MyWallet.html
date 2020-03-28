@@ -146,10 +146,10 @@
               <span class="withdrawals-button button"
                   @click="internalTransfer(index,item)"
                   :class="{'recharge-button-select-transfer':activeIndex===index  && transferss}"
-                  v-if="serverT >= item.withdrawOpenTime">
+                  >
                 {{$t('internalTransfer')}}
               </span>
-            <span class=" can-not-withdrawals" v-else>{{$t('internalTransfer')}}</span>
+<!--            <span class=" can-not-withdrawals" v-else>{{$t('internalTransfer')}}</span>-->
 
 <!-- v-if="serverT >= item.withdrawOpenTime"-->
 <!--              内部转账灰色按钮 begin-->

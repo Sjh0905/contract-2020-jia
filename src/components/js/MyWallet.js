@@ -737,6 +737,50 @@ root.methods.re_transferDisabled = function (data) {
   // }
   // 获取费率成功
   // this.feeReady = true
+  // 如果没有实名认证不允许打开转账
+  if (!this.bindIdentify) {
+    this.popWindowTitle = this.$t('popWindowTitleWithdrawals')
+    this.popWindowPrompt = this.$t('popWindowPromptWithdrawals')
+    this.popWindowPrompt1 = ''
+    this.popWindowStyle = '0'
+    this.popWindowOpen = true
+    return
+  }
+  // 如果没有绑定邮箱，不允许打开转账
+  if (!this.bindEmail) {
+    this.popWindowTitle = this.$t('bind_email_pop_title')
+    this.popWindowPrompt = this.$t('bind_email_pop_article')
+    this.popWindowPrompt1 = ''
+    this.popWindowStyle = '3'
+    this.popWindowOpen = true
+    return
+  }
+
+  // 如果没有绑定谷歌或手机，不允许打开提现
+  if (!this.bindGA && !this.bindMobile) {
+    this.popWindowTitle = this.$t('popWindowTitleWithdrawalsneibu')
+    this.popWindowPrompt = this.$t('popWindowTitleBindGaWithdrawals')
+    this.popWindowPrompt1 = ''
+    this.popWindowStyle = '1'
+    this.popWindowOpen = true
+    return
+  }
+  if (this.isTransfer == false) {
+    this.popText = this.$t('withdrawalsIsNotOpen')
+    this.popWindowClose = false
+    this.popWindowOpen2 = false
+    this.popOpen = true
+    this.popType = 0
+    return
+  }
+  if (this.bindIdentify && this.isTransfer == true) {
+    this.popWindowTitle = this.$t('iKnowthe1')
+    this.popWindowPrompt = this.$t('popWindowPromptWithdrawals1')
+    this.popWindowPrompt1 = this.$t('popWindowPromptWithdrawals2')
+    this.popWindowStyle = '5'
+    this.popWindowOpen2 = true
+    return;
+  }
 
 
 }
@@ -894,54 +938,47 @@ root.methods.internalTransfer = function (index, item) {
   //   return
   // }
 
-  // 如果没有实名认证不允许打开转账
-  if (!this.bindIdentify) {
-    this.popWindowTitle = this.$t('popWindowTitleWithdrawals')
-    this.popWindowPrompt = this.$t('popWindowPromptWithdrawals')
-    this.popWindowPrompt1 = ''
-    this.popWindowStyle = '0'
-    this.popWindowOpen = true
-    return
-  }
-  // 如果没有绑定邮箱，不允许打开转账
-  if (!this.bindEmail) {
-    this.popWindowTitle = this.$t('bind_email_pop_title')
-    this.popWindowPrompt = this.$t('bind_email_pop_article')
-    this.popWindowPrompt1 = ''
-    this.popWindowStyle = '3'
-    this.popWindowOpen = true
-    return
-  }
-
-  // 如果没有绑定谷歌或手机，不允许打开提现
-  if (!this.bindGA && !this.bindMobile) {
-    this.popWindowTitle = this.$t('popWindowTitleWithdrawalsneibu')
-    this.popWindowPrompt = this.$t('popWindowTitleBindGaWithdrawals')
-    this.popWindowPrompt1 = ''
-    this.popWindowStyle = '1'
-    this.popWindowOpen = true
-    return
-  }
+  // // 如果没有实名认证不允许打开转账
+  // if (!this.bindIdentify) {
+  //   this.popWindowTitle = this.$t('popWindowTitleWithdrawals')
+  //   this.popWindowPrompt = this.$t('popWindowPromptWithdrawals')
+  //   this.popWindowPrompt1 = ''
+  //   this.popWindowStyle = '0'
+  //   this.popWindowOpen = true
+  //   return
+  // }
+  // // 如果没有绑定邮箱，不允许打开转账
+  // if (!this.bindEmail) {
+  //   this.popWindowTitle = this.$t('bind_email_pop_title')
+  //   this.popWindowPrompt = this.$t('bind_email_pop_article')
+  //   this.popWindowPrompt1 = ''
+  //   this.popWindowStyle = '3'
+  //   this.popWindowOpen = true
+  //   return
+  // }
+  //
+  // // 如果没有绑定谷歌或手机，不允许打开提现
+  // if (!this.bindGA && !this.bindMobile) {
+  //   this.popWindowTitle = this.$t('popWindowTitleWithdrawalsneibu')
+  //   this.popWindowPrompt = this.$t('popWindowTitleBindGaWithdrawals')
+  //   this.popWindowPrompt1 = ''
+  //   this.popWindowStyle = '1'
+  //   this.popWindowOpen = true
+  //   return
+  // }
 
   //sss屏蔽 2020.20.20 E
 
-  if (this.isTransfer == false) {
-    this.popText = this.$t('withdrawalsIsNotOpen')
-    this.popWindowClose = false
-    this.popWindowOpen2 = false
-    this.popOpen = true
-    this.popType = 0
-    return
-  }
+  // if (this.isTransfer == false) {
+  //   this.popText = this.$t('withdrawalsIsNotOpen')
+  //   this.popWindowClose = false
+  //   this.popWindowOpen2 = false
+  //   this.popOpen = true
+  //   this.popType = 0
+  //   return
+  // }
 
-  if (this.bindIdentify && this.isTransfer == true) {
-    this.popWindowTitle = this.$t('iKnowthe1')
-    this.popWindowPrompt = this.$t('popWindowPromptWithdrawals1')
-    this.popWindowPrompt1 = this.$t('popWindowPromptWithdrawals2')
-    this.popWindowStyle = '5'
-    this.popWindowOpen2 = true
-    return;
-  }
+
 
 
   this.recharge = false
