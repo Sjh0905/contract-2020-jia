@@ -136,7 +136,7 @@ root.data = function () {
     lockHomeNum_WA: '', // 锁仓数量错误提示
     lockHouseCurrency:'',
     lockHouseAvailable:'',  // 锁仓可用
-    lockNum:5,
+    lockNum:0,
 
     step2VerificationCode: '', //第二步
     step2VerificationCodeWA: '', //第二步验证
@@ -164,7 +164,7 @@ root.created = function () {
     this.getCurrency()
     return
   }
-  console.log(this.currency)
+  // console.log(this.currency)
   // 获取账户信息
   this.getAccounts()
   // this.transferDisabledss()
@@ -307,25 +307,41 @@ root.computed.btc_rate = function () {
   return this.$store.state.exchange_rate.btcExchangeRate;
 }
 
+// root.computed.lockHouseNowTime = function () {
+//   let date = new Date();
+//   let severDate = new Date(this.serverTime)
+//   if (severDate.getHours() >= 12 && severDate.getMinutes() >= 0 && severDate.getSeconds() >= 0 ){
+//     let mm = String(date.getMonth() +1 ).padStart(2,'0');
+//     let dd = String(date.getDate()+1).padStart(2,'0');
+//     this.nowDateTime = mm + '-' + dd
+//     let mmm = String(date.getMonth() +1 ).padStart(2,'0');
+//     let ddd = String(date.getDate()+2).padStart(2,'0');
+//     this.dividendTime = mmm + '-' + ddd
+//     let timeObj = {nowDateTime:this.nowDateTime,dividendTime:this.dividendTime}
+//     return timeObj
+//   }
+//   let mm = String(date.getMonth() +1 ).padStart(2,'0');
+//   let dd = String(date.getDate()).padStart(2,'0');
+//   this.nowDateTime = mm + '-' + dd
+//   let ddd = String(date.getDate()+1).padStart(2,'0');
+//   let mmm = String(date.getMonth() +1 ).padStart(2,'0');
+//   this.dividendTime = mmm + '-' + ddd
+//   let timeObj = {nowDateTime:this.nowDateTime,dividendTime:this.dividendTime}
+//   return timeObj
+// }
+//计算锁仓起息日和分红日
 root.computed.lockHouseNowTime = function () {
-  let date = new Date();
   let severDate = new Date(this.serverTime)
-  if (severDate.getHours() >= 12 && severDate.getMinutes() >= 0 && severDate.getSeconds() >= 0 ){
-    let mm = String(date.getMonth() +1 ).padStart(2,'0');
-    let dd = String(date.getDate()+1).padStart(2,'0');
-    this.nowDateTime = mm + '-' + dd
-    let mmm = String(date.getMonth() +1 ).padStart(2,'0');
-    let ddd = String(date.getDate()+2).padStart(2,'0');
-    this.dividendTime = mmm + '-' + ddd
-    let timeObj = {nowDateTime:this.nowDateTime,dividendTime:this.dividendTime}
-    return timeObj
+  let dayTimeStep = 24 * 60 * 60 * 1000//一天的时间差 毫秒
+  let nowTimeStamp = this.serverTime//起息日，默认当天
+  let dividendTimeStamp = this.serverTime + dayTimeStep//分红日，默认第二天
+  //如果超过12点，时间分别加一天
+  if (severDate.getHours() >= 12){
+     nowTimeStamp += dayTimeStep
+     dividendTimeStamp += dayTimeStep
   }
-  let mm = String(date.getMonth() +1 ).padStart(2,'0');
-  let dd = String(date.getDate()).padStart(2,'0');
-  this.nowDateTime = mm + '-' + dd
-  let ddd = String(date.getDate()+1).padStart(2,'0');
-  let mmm = String(date.getMonth() +1 ).padStart(2,'0');
-  this.dividendTime = mmm + '-' + ddd
+  this.nowDateTime = this.$globalFunc.formatDateUitl(nowTimeStamp,'MM-DD');
+  this.dividendTime = this.$globalFunc.formatDateUitl(dividendTimeStamp,'MM-DD');
   let timeObj = {nowDateTime:this.nowDateTime,dividendTime:this.dividendTime}
   return timeObj
 }
@@ -364,7 +380,6 @@ root.methods = {}
 root.methods.close = function () {
   this.$emit('close')
 }
-
 /*------------------ 获取验证状态 begin -------------------*/
 root.methods.getAuthState = function () {
   if (!this.$store.state.authState) {
@@ -375,6 +390,7 @@ root.methods.getAuthState = function () {
     })
     return
   }
+
   // 如果没有认证
   // if (!this.$store.state.authState.identity || (!this.$store.state.authState.sms && !this.$store.state.authState.ga) || !this.bindEmail) {
   //   this.close()
@@ -382,8 +398,10 @@ root.methods.getAuthState = function () {
   // }
   this.$store.state.authState.sms && (this.picker = 2)
   this.$store.state.authState.ga && (this.picker = 1)
+
   // 获取认证状态成功
   this.authStateReady = true
+  this.loading = !(this.currencyReady && this.authStateReady)
 }
 // 判断验证状态回调
 root.methods.re_getAuthState = function (data) {
@@ -391,6 +409,8 @@ root.methods.re_getAuthState = function (data) {
   if (!data) return
   this.$store.commit('SET_AUTH_STATE', data.dataMap)
   // 获取认证状态成功
+  this.authStateReady = true
+  this.loading = !(this.currencyReady && this.authStateReady)
   // 如果没有认证
   // if (!this.$store.state.authState.identity || (!this.$store.state.authState.sms && !this.$store.state.authState.ga)) {
   //   this.close()
@@ -398,7 +418,6 @@ root.methods.re_getAuthState = function (data) {
   // }
   this.$store.state.authState.sms && (this.picker = 2)
   this.$store.state.authState.ga && (this.picker = 1)
-  this.authStateReady = true
 }
 // 判断验证状态出错
 root.methods.error_getAuthState = function (err) {
@@ -1830,9 +1849,9 @@ root.methods.error_getInitData = function (err) {
 }
 
 
-// 获取权限
-
-// // 判断验证状态
+// // 获取权限
+//
+// // // 判断验证状态
 // root.methods.getAuthState = function () {
 //   if (!this.$store.state.authState) {
 //     this.$http.send('GET_AUTH_STATE', {
@@ -1956,7 +1975,7 @@ root.methods.re_getAccount = function (data) {
   if (!data || !data.accounts) {
     return
   }
-  // console.warn('请求更新accounts', data.accounts)
+  // console.info('请求更新accounts', data.accounts)
   this.$store.commit('CHANGE_ACCOUNT', data.accounts)
   // 关闭loading
   this.currencyReady = true
@@ -2229,7 +2248,7 @@ root.methods.openLockHouse = function (index,item) {
   //   this.dividendTime = mmm + '-' + ddd
   // }
   // console.info(new Date().getDate())
-
+  this.lockCount()
   this.lockHouseNowTime
   // 锁仓币
   this.lockHouseCurrency = item.currency
@@ -2239,6 +2258,27 @@ root.methods.openLockHouse = function (index,item) {
   this.lockHomeNum = ''
 
 }
+
+root.methods.lockCount = function () {
+  this.$http.send('LOCK_COUNT', {
+    bind: this,
+    // params: {
+    //   currency: this.lockHouseCurrency,
+    //   amount: this.lockHomeNum,
+    // },
+    callBack: this.re_lockCount,
+    errorHandler: this.error_lockCount,
+  })
+}
+root.methods.re_lockCount = function (data) {
+  typeof data === 'string' && (data = JSON.parse(data))
+  this.lockNum = data.dataMap.times
+}
+
+root.methods.error_lockCount = function (err) {
+  console.info(err)
+}
+
 
 // 判断锁仓数量
 root.methods.testLockAmount  = function () {
@@ -2303,17 +2343,18 @@ root.methods.re_commitLockHouse = function (data) {
   typeof data === 'string' && (data = JSON.parse(data))
   console.log(data)
 
-  this.popupPromptOpen = true
-  if(data.errorCode == 0){
-    this.popupPromptType = 1
-    this.popupPromptText = '锁仓成功'
 
-  }else{
-    this.popupPromptType = 0
-    this.popupPromptText = '锁仓失败'
-
+  if(data.result == 'SUCCESS'){
+    this.popOpen = true
+    this.popType = 1
+    this.popText = '锁仓成功'
   }
 
+  if(data.result !== 'SUCCESS'){
+    this.popOpen = true
+    this.popType = 0
+    this.popText = '锁仓失败'
+  }
   this.closeLockHouse()
 
 }
@@ -2331,11 +2372,6 @@ root.methods.allAvailable = function () {
 // 手机 谷歌验证切换
 root.methods.open_mob = function (index) {
   this.picked = index
-}
-
-// 关闭此组件
-root.methods.close = function () {
-  this.$emit('close')
 }
 
 

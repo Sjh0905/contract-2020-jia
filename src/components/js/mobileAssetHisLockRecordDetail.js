@@ -33,14 +33,14 @@ root.components = {
 
 root.created = function () {
   // this.$store.commit('changeMobileHeaderTitle', this.$store.state.mobileRechargeRecordData.currency + '提现详情')
-  if(!this.$store.state.mobileRechargeRecordData.currency) {
-    this.$router.push({name: 'MobileAssetRechargeAndWithdrawRecord'})
+  if(!this.$store.state.changemobileLockRecordData.currency) {
+    this.$router.push({name: 'MobileLockHouseRecord'})
   }
 }
 
 root.computed = {}
 root.computed.rechargeDetailData = function () {
-  return this.$store.state.mobileRechargeRecordData
+  return this.$store.state.changemobileLockRecordData
 }
 root.computed.userId = function () {
   return this.$store.state.authMessage.userId

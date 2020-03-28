@@ -247,10 +247,10 @@
   </PopupWindow>
 
   <PopupWindow :switch="popWindowOpen1" v-on:close="popWindowClose1">
-    <div slot="header" class="=">
+    <div slot="header" class="pop-header">
       风险提示
     </div>
-    <div slot="article">
+    <div slot="article" class="pop-article">
       <p>{{priceCont}}</p >
     </div>
     <div slot="footer" class="pop-footer flex">

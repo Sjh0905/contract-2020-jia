@@ -1,4 +1,15 @@
 <div>
+  <!--顶部标题-->
+  <div class="header-title">
+    <div class="asset-header-title">
+      锁仓记录
+      <span class="backgo" @click="gotoZichan">
+          <img src="../../assets/H5img/back.png">
+      </span>
+    </div>
+  </div>
+
+
   <div class="header-title-list">
     <div class="header-title-item" :class="openType==1? 'header-title-item-active':''" @click="changeOpenType(1)">
       当前锁仓
@@ -31,7 +42,7 @@
 
       <div class="recharge-list-no-more" v-if="computedRecord.length !== 0 && isShowGetMoreRecord === false">已经全部加载完毕</div>
     </div>
-    <!--没有充币记录的样式-->
+    <!--没有当前锁仓记录的样式-->
     <div v-if="computedRecord.length === 0" class="no-item-box">
       <img class="no-item-box-item" src="../../assets/no-record-icon-H5@2x.png" alt="">
       <div class="no-item-box-text">暂无当前锁仓记录</div>

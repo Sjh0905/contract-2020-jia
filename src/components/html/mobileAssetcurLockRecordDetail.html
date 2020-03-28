@@ -1,7 +1,17 @@
 <div>
+  <!--顶部标题及返回键-->
+  <!--顶部标题-->
+  <div class="header-title">
+    <div class="asset-header-title">
+      当前锁仓
+      <span class="backgo" @click="gotoLockHouse">
+          <img src="../../assets/H5img/back.png">
+      </span>
+    </div>
+  </div>
   <div class="recharge-box">
     <div class="header-box">
-      <!--顶部标题及logo-->
+<!--      顶部标题及logo-->
       <div class="header-box-title">
         <!--<span  class="header-box-title-logo-box">-->
         <!--<img class="header-box-title-logo" :src="'http://logo.2020.exchange/' + (rechargeDetailData.currency == 'USDT2'?'USDT':rechargeDetailData.currency) +'.png'" alt="">-->
@@ -15,12 +25,20 @@
         <span class="header-box-num-container">{{toFixed(rechargeDetailData.amount,8)}}</span>
       </div>
 
-      <!--状态-->
+      <!--昨日收益-->
 
       <div class="header-box-state">
-        <span class="header-box-state-title">状态</span>
+        <span class="header-box-state-title">昨日收益</span>
         <!--<span v-if="rechargeDetailData.depositOk === true && rechargeDetailData.depositCancelled === false" class="header-box-state-container">成功</span>-->
-        <span class="header-box-state-container">{{state(rechargeDetailData)}}</span>
+        <span class="header-box-state-container">{{toFixed(rechargeDetailData.lastAmount,8)}}</span>
+        <!--<span v-if="rechargeDetailData.depositOk === false && rechargeDetailData.depositCancelled === false" class="header-box-state-container">充值中({{rechargeDetailData.confirms}}/{{rechargeDetailData.minimumConfirms}})</span>-->
+      </div>
+
+      <!--累计收益-->
+      <div class="header-box-state">
+        <span class="header-box-state-title">累计收益</span>
+        <!--<span v-if="rechargeDetailData.depositOk === true && rechargeDetailData.depositCancelled === false" class="header-box-state-container">成功</span>-->
+        <span class="header-box-state-container">{{toFixed(rechargeDetailData.totalAmount,8)}}</span>
         <!--<span v-if="rechargeDetailData.depositOk === false && rechargeDetailData.depositCancelled === false" class="header-box-state-container">充值中({{rechargeDetailData.confirms}}/{{rechargeDetailData.minimumConfirms}})</span>-->
 
       </div>
@@ -35,32 +53,34 @@
     <div class="container-box">
       <!--地址-->
       <div class="container-box-address">
-        <span class="container-box-address-title">地址</span>
-        <span class="container-box-address-container">{{rechargeDetailData.toAddress}}</span>
+        <span class="container-box-address-title">订单编号</span>
+        <span class="container-box-address-container">{{rechargeDetailData.id}}</span>
       </div>
 
-      <!--memo地址-->
-      <div v-if="rechargeDetailData.memoAddress" class="container-box-txid">
-        <span class="container-box-txid-title">memo(备注)</span>
-        <span class="container-box-txid-container">{{rechargeDetailData.memoAddress}}</span>
-      </div>
-
-      <!--TXID-->
+      <!--锁仓时间-->
       <div class="container-box-txid">
-        <span class="container-box-txid-title">Txid</span>
-        <span class="container-box-txid-container">{{rechargeDetailData.uniqueId}}</span>
+        <span class="container-box-txid-title">锁仓时间</span>
+        <span class="container-box-txid-container">
+          {{$globalFunc.formatDateUitl(rechargeDetailData.updatedAt,'YYYY-MM-DD hh:mm:ss')}}
+        </span>
       </div>
 
-      <!--日期-->
-      <div class="container-box-time">
-        <span class="container-box-time-title">日期</span>
-        <span class="container-box-time-container">{{$globalFunc.formatDateUitl(rechargeDetailData.updatedAt,'YYYY-MM-DD hh:mm:ss')}}</span>
+      <!--分红时间-->
+      <div class="container-box-txid">
+        <span class="container-box-txid-title">分红时间</span>
+        <span class="container-box-txid-container">{{rechargeDetailData.dateTime}}</span>
       </div>
+
+<!--      &lt;!&ndash;日期&ndash;&gt;-->
+<!--      <div class="container-box-time">-->
+<!--        <span class="container-box-time-title">计算分红时间</span>-->
+<!--        <span class="container-box-time-container">{{$globalFunc.formatDateUitl(rechargeDetailData.updatedAt,'YYYY-MM-DD hh:mm:ss')}}</span>-->
+<!--      </div>-->
 
       <!--复制和跳转txid按钮-->
       <div class="container-box-btn">
-        <div class="container-box-address-btn" @click="jumpToCheckAddress(rechargeDetailData)">检查Txid</div>
-        <div class="container-box-copy-btn" data-clipboard-target=".container-box-txid-container" @click="copyValue">复制Txid</div>
+        <div class="container-box-address-btn">解锁</div>
+<!--        <div class="container-box-copy-btn" data-clipboard-target=".container-box-txid-container" @click="copyValue">复制Txid</div>-->
       </div>
 
       <!--<div class="container-box-title">-->

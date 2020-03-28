@@ -142,7 +142,7 @@ root.computed.userId = function () {
 
 // 是否是会员
 root.computed.flag = function () {
-  console.log('flag======',this.$store.state.flag)
+  // console.log('flag======',this.$store.state.flag)
   return this.$store.state.isVIP.flag
 }
 

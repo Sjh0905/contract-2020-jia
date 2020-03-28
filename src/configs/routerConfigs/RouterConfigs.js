@@ -1862,6 +1862,22 @@ root.routes.push({
               component: resolve => require(['@/components/vue/TransferList'], resolve),
             },
 
+            // 挖矿奖励
+            {
+              path: 'miningReward',
+              name: 'miningReward',
+              meta: {
+                pcname: 'miningReward',
+                h5name: '',
+                requireLogin: true,
+                templateClose: false,
+                // templatePath: '/index/assetPageT',
+                requireLoginOff: false,
+              },
+              caseSensitive: true,
+              component: resolve => require(['@/components/vue/miningReward'], resolve),
+            },
+
             // 平台奖励
             {
               path: 'platformReward',
@@ -2082,7 +2098,7 @@ root.routes.push({
           caseSensitive: true,
           component: resolve => require(['@/components/mobileVue/MobileAssetRechargeAndWithdrawRecord'], resolve),
         },
-        // 移动端充提记录页
+        // 移动端锁仓记录页
         {
           path: 'MobileLockHouseRecord',
           name: 'MobileLockHouseRecord',
@@ -2189,18 +2205,18 @@ root.routes.push({
 
         // 移动历史锁仓记录详情页
         {
-          path: 'mobileAssetRechargeRecordDetail',
-          name: 'MobileAssetRechargeRecordDetail',
+          path: 'mobileAssetHisLockRecordDetail',
+          name: 'mobileAssetHisLockRecordDetail',
           meta: {
             pcname: '',
-            h5name: 'MobileAssetRechargeRecordDetail',
+            h5name: 'mobileAssetHisLockRecordDetail',
             requireLogin: true,
             templateClose: false,
             requireLoginOff: false,
             // mobileHeaderTitle: '充提记录'
           },
           caseSensitive: true,
-          component: resolve => require(['@/components/mobileVue/MobileAssetRechargeRecordDetail'], resolve),
+          component: resolve => require(['@/components/mobileVue/mobileAssetHisLockRecordDetail'], resolve),
         },
       ]
     },

@@ -344,8 +344,34 @@
   border-top: 7px solid #fff;
 }
 
+.button-base {
+  width: 195px;
+  height: 40px;
+  /* background-color: #3576F5; */
+  color: #fff;
+  border-radius: 1px;
+  border: 0 solid transparent;
+  margin-right: 2px;
+  outline: none;
+}
+.pop-header {
+  padding-left: 25px;
+}
+.pop-article {
+  padding: 35px 25px;
+  font-size:16px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color: #0D0E23;
+}
+
+.pop-footer {
+  margin-bottom: 15px;
+}
+
 .button-pop-window {
-  margin: 0 10px;
+  /*margin: 0 10px;*/
+  margin-right: 20px;
 }
 
 .txt_green {

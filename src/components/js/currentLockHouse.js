@@ -42,7 +42,7 @@ root.methods = {}
 
 // 解锁锁仓
 root.methods.unLockHouse = function (item) {
-  console.log(item.id)
+  // console.log(item.id)
   this.$http.send("UNLOCK_ASSET_RECODE", {
     bind: this,
     params: {
@@ -54,7 +54,16 @@ root.methods.unLockHouse = function (item) {
 }
 
 root.methods.re_unLockHouse = function ( data ) {
-  console.log(data)
+  typeof (data) === 'string' && (data = JSON.parse(data))
+  this.popOpen = true
+  if(data.result == 'SUCCESS') {
+    this.popType = 1
+    this.popText = '解锁成功'
+    return
+  }
+  this.popType = 0
+  this.popText = '解锁失败'
+  // console.log(data)
 }
 root.methods.error_unLockHouse = function ( err ) {
   console.log(err)
@@ -62,9 +71,9 @@ root.methods.error_unLockHouse = function ( err ) {
 
 // 获取锁仓记录
 root.methods.getLockCur = function (currency) {
-  if (currency) {
-
-  }
+  // if (currency) {
+  //
+  // }
   this.$http.send("LOCK_ASSET_RECODE", {
     bind: this,
     query: {
@@ -86,10 +95,7 @@ root.methods.re_getLockCur = function (data) {
   if (this.records.length < this.limit) {
     this.loadingMoreShow = false
   }
-
   this.loadingMoreShowing = false
-
-
   this.loading = false
 }
 // 获取记录出错
@@ -97,51 +103,51 @@ root.methods.error_getLockCur = function (err) {
   console.warn("充值获取记录出错！", err)
 }
 
-// 点击拷贝
-root.methods.clickCopy = function (id) {
-  let input = this.$refs[id][0]
-  input.select()
-  document.execCommand("copy")
-  this.popType = 1
-  this.popText = this.$t('copyRight')
-  this.popOpen = true
-}
+// // 点击拷贝
+// root.methods.clickCopy = function (id) {
+//   let input = this.$refs[id][0]
+//   input.select()
+//   document.execCommand("copy")
+//   this.popType = 1
+//   this.popText = this.$t('copyRight')
+//   this.popOpen = true
+// }
 
 // 点击查找
-root.methods.clickCheck = function (item) {
-  let currencyObj = this.$store.state.currency.get(item.currency)
-
-  // 如果是ETH的
-  if (item.currency === 'ETH' || (currencyObj && currencyObj.addressAliasTo === 'ETH')) {
-    window && window.open(`https://etherscan.io/tx/${item.uniqueId}`)
-    return
-  }
-
-  if (item.currency === 'ACT' || (currencyObj && currencyObj.addressAliasTo === 'ACT')) {
-    window && window.open(`https://browser.achain.com/#/tradeInfo/${item.uniqueId}`)
-    return
-  }
-
-  if (item.currency === 'EOSFORCEIO' || (currencyObj && currencyObj.addressAliasTo === 'EOSFORCEIO')) {
-    window && window.open(`https://explorer.eosforce.io/#/transaction_detail_view/${item.uniqueId}`)
-    return
-  }
-
-  if (item.currency === 'OMNI' || (currencyObj && currencyObj.addressAliasTo === 'OMNI')) {
-    window && window.open(`https://www.omniexplorer.info/tx/${item.uniqueId}`)
-    return
-  }
-
-  if (item.currency === 'EOSIO' || (currencyObj && currencyObj.addressAliasTo === 'EOSIO')) {
-    window && window.open(`https://eosflare.io/tx/${item.uniqueId}`)
-    return
-  }
-
-
-  window && window.open(`https://blockchain.info/zh-cn/tx/${item.uniqueId}`)
-
-
-}
+// root.methods.clickCheck = function (item) {
+//   let currencyObj = this.$store.state.currency.get(item.currency)
+//
+//   // 如果是ETH的
+//   if (item.currency === 'ETH' || (currencyObj && currencyObj.addressAliasTo === 'ETH')) {
+//     window && window.open(`https://etherscan.io/tx/${item.uniqueId}`)
+//     return
+//   }
+//
+//   if (item.currency === 'ACT' || (currencyObj && currencyObj.addressAliasTo === 'ACT')) {
+//     window && window.open(`https://browser.achain.com/#/tradeInfo/${item.uniqueId}`)
+//     return
+//   }
+//
+//   if (item.currency === 'EOSFORCEIO' || (currencyObj && currencyObj.addressAliasTo === 'EOSFORCEIO')) {
+//     window && window.open(`https://explorer.eosforce.io/#/transaction_detail_view/${item.uniqueId}`)
+//     return
+//   }
+//
+//   if (item.currency === 'OMNI' || (currencyObj && currencyObj.addressAliasTo === 'OMNI')) {
+//     window && window.open(`https://www.omniexplorer.info/tx/${item.uniqueId}`)
+//     return
+//   }
+//
+//   if (item.currency === 'EOSIO' || (currencyObj && currencyObj.addressAliasTo === 'EOSIO')) {
+//     window && window.open(`https://eosflare.io/tx/${item.uniqueId}`)
+//     return
+//   }
+//
+//
+//   window && window.open(`https://blockchain.info/zh-cn/tx/${item.uniqueId}`)
+//
+//
+// }
 
 // 状态
 root.methods.state = function (item) {

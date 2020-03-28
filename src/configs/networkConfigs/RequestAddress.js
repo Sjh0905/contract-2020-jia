@@ -39,6 +39,8 @@ requestAddress.GET_TRANSFER_SPOT_LIST = {url: urlHead+'/user/transfer/spot/list'
 requestAddress.POST_TRANSFER_SPOT = {url: urlHead+'/user/transfer/spot', method: 'post'}  //划转
 requestAddress.GET_IDENTITY_AUTH_STATUS = {url: urlHead+'/auth/getIdentityAuthStatus', method: 'get'} //获取身份认证状态
 requestAddress.FIND_FEE_BDB_INFO = {url: urlHead+'/user/findfeebdbinfo', method: 'get'} //查询BDB是否抵扣
+requestAddress.FIND_FEE_DEDUCTION_INFO = {url: urlHead+'/user/findFeeDeductionInfo', method: 'get'} //查询BDB是否抵扣
+
 
 // requestAddress.REMOVE_GA_CODE = {url: urlHead+'/auth/removeBindGA', method: 'post'} //取消谷歌验证
 
@@ -50,7 +52,7 @@ requestAddress.POST_WITHDRAW = {url: urlHead+'/user/putWithdrawRequest', method:
 
 requestAddress.GET_USER_PROFILE = {url: urlHead+'/user/getUserProfile', method: 'post'} //获取用户详细的信息！只能在身份认证这里用！
 
-
+requestAddress.FEECHANGE = {url: urlHead+'/user/feechange', method: 'post'} //查询TT是否抵扣
 requestAddress.CHANGE_FEE_BDB = {url: urlHead+'/user/feebdbchange', method: 'post'} //修改BDB抵扣策略
 requestAddress.SEND_IDENTITY = {url: urlHead+'/auth/sendIdentity', method: 'post'} //提交身份认证
 requestAddress.GET_IDENTITY_INFO = {url: urlHead+'/auth/getIdentityInfo', method: 'get'} //获取被驳回的认证状态
@@ -70,6 +72,7 @@ requestAddress.DEPTH = {baseURL: '', url: urlHead+'/v1/market/depth', method: 'g
 requestAddress.TRADE_ORDERS = {url: urlHead+'/v1/trade/orders', method: 'post'} // 买卖/撤单
 requestAddress.GRC_PRICE_RANGE = {url: urlHead+'/user/grc/symbol/priceRange', method: 'get'} // 获取grcPriceRange 的接口
 requestAddress.GRC_ACTIVITYREWARDS = {url: urlHead+'/user/getGrcActivityRewards', method: 'post'} // 获取grc 详情列表的接口
+requestAddress.INITIAL_REWARD = {url: urlHead+'/user/initial/reward', method: 'get'} // 获取活动奖励的接口
 requestAddress.POST_USER_ORDERS = {url: urlHead+'/user/orders', method: 'post'} // 当前委托和历史委托，参数为'offsetId:开始查询的订单id','limit:获取数量','isFinalStatus:是否为历史订单，true为历史订单，false为当前订单'
 
 // requestAddress.COMMON_SYMBOLS = {url: urlHead+'/v1/common/symbols', method: 'get'} // 获取货币对
@@ -464,5 +467,7 @@ requestAddress.POST_TRANSFERVIP = {url: urlHead+'/memberCard/transferMemberCard'
 requestAddress.LOCK_ASSET = {url: urlHead+'/asset/user/lock/asset', method: 'post'} // 锁仓接口
 requestAddress.LOCK_ASSET_RECODE = {url: urlHead+'/asset/user/assets', method: 'get'} // 锁仓记录
 requestAddress.UNLOCK_ASSET_RECODE = {url: urlHead+'/asset/user/unlock/asset', method: 'post'} // 解锁锁仓
+requestAddress.TOTAL_LOCK_REWARD = {url: urlHead+'/asset/user/total/reward', method: 'get'} // 锁仓累计
+requestAddress.LOCK_COUNT = {url: urlHead+'/asset/user/lock/count', method: 'get'} // 锁仓次数
 
 export default requestAddress

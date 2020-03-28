@@ -122,7 +122,7 @@ root.created = function () {
   this.$store.commit('changeJoinus', false);
 
   // 判断是否开启BDB燃烧
-  // this.getBDBInfo();
+  this.getBDBInfo();
   // 判断是否进行实名认证
   this.getAuthState();
 
@@ -671,29 +671,29 @@ root.methods.closePrompt = function () {
 
 // BDB是否抵扣
 root.methods.getBDBInfo = function () {
-  /*if (!!this.$store.state.authMessage.userId) {
-    this.$http.send('FIND_FEE_BDB_INFO', {
+  if (!!this.$store.state.authMessage.userId) {
+    this.$http.send('FIND_FEE_DEDUCTION_INFO', {
       bind: this,
       callBack: this.re_getBDBInfo,
       errorHandler: this.error_getBDBInfo
     })
-  }*/
+  }
 }
 
 // BDB是否抵扣回调
 root.methods.re_getBDBInfo = function (data) {
-  /*typeof (data) === 'string' && (data = JSON.parse(data))
+  typeof (data) === 'string' && (data = JSON.parse(data))
   if (!data) return
   // console.warn("get BDB info", data)
-  if (data.dataMap.BDBFEE === 'yes') {
+  if (data.dataMap.TTFEE === 'yes') {
     this.BDBInfo = true
   }
-  if (data.dataMap.BDBFEE === 'no') {
+  if (data.dataMap.TTFEE === 'no') {
     this.BDBInfo = false
   }
   // BDB状态
   this.BDBReady = true
-  this.loading = !(this.stateReady && this.BDBReady && (this.stateStatusReady || !this.isMobile))*/
+  this.loading = !(this.stateReady && this.BDBReady && (this.stateStatusReady || !this.isMobile))
 
 }
 // BDB是否抵扣出错
@@ -703,7 +703,7 @@ root.methods.error_getBDBInfo = function (err) {
 
 // 点击切换手续费折扣
 root.methods.clickToggle = function (e) {
-  /*if (!this.$store.state.authMessage.userId) {
+  if (!this.$store.state.authMessage.userId) {
     // 信息提示
     this.popType = 0;
     this.popText = '请先登录';
@@ -713,29 +713,29 @@ root.methods.clickToggle = function (e) {
   if (this.BDBChanging) return;
   this.BDBInfo = !this.BDBInfo;
   this.BDBChanging = true;
-  this.$http.send('CHANGE_FEE_BDB', {
+  this.$http.send('FEECHANGE', {
     bind: this,
     params: {
-      'feebdb': this.BDBInfo ? 'yes' : 'no'
+      'deduction': this.BDBInfo ? 'yes' : 'no'
     },
     callBack: this.re_clickToggle,
     errorHandler: this.error_clickToggle
-  })*/
+  })
 }
 
 // 点击切换手续费折扣
 root.methods.re_clickToggle = function (data) {
-  /*typeof (data) === 'string' && (data = JSON.parse(data))
+  typeof (data) === 'string' && (data = JSON.parse(data))
   // console.warn('更改！', data)
   // setTimeout(() => {
   this.BDBChanging = false
-  // }, 1000)*/
+  // }, 1000)
 }
 // 点击切换手续费折扣失败
 root.methods.error_clickToggle = function (err) {
-  /*console.warn('点击切换手续费折扣失败', err)
+  console.warn('点击切换手续费折扣失败', err)
   this.BDBInfo = !this.BDBInfo
-  this.BDBChanging = false*/
+  this.BDBChanging = false
 }
 
 //点击切换显示盘口还是实时成交

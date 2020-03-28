@@ -290,7 +290,7 @@ root.methods = {};
 
 /*----------------------------- 跳转锁仓记录 begin------------------------------*/
 root.methods.goLockHouse = function (name) {
-  this.$router.push({name:'MobileLockHouseRecord',query:{name:name}})
+  this.$router.push({name:'MobileLockHouseRecord',query:{id:1,name:name}})
 
 }
 /*----------------------------- 跳转锁仓记录 end------------------------------*/

@@ -145,10 +145,10 @@ root.created = function () {
   })
 
   if (this.$store.state.authMessage.userId) {
-    // this.$http.send('FIND_FEE_BDB_INFO', {
-    //   bind: this,
-    //   callBack: this.RE_FEE
-    // })
+    this.$http.send('FIND_FEE_DEDUCTION_INFO', {
+      bind: this,
+      callBack: this.RE_FEE
+    })
   }
 
 
@@ -444,7 +444,7 @@ root.methods.CHANGE_SYMBOL = function () {
 
 
 root.methods.RE_FEE = function (data) {
-  // (JSON.parse(data).dataMap.BDBFEE === 'yes') && (this.fee = 65536);
+  (JSON.parse(data).dataMap.TTFEE === 'yes') && (this.fee = 65536);
 }
 
 // 关闭提示信息

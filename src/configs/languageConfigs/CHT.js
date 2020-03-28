@@ -1579,6 +1579,7 @@ root.basePageBar = {}
 root.basePageBar.index = '首頁'
 
 root.assetPage.platformReward = '活動獎勵'
+root.assetPage.miningReward = '挖礦獎勵'
 
 root.assetPagePlatformReward = {}
 root.assetPagePlatformReward.state1 = '說明'
@@ -1590,6 +1591,8 @@ root.assetPagePlatformReward.amount = '數量'
 root.assetPagePlatformReward.state = '狀態'
 root.assetPagePlatformReward.address = '地址'
 root.assetPagePlatformReward.remarks = '備註'
+root.assetPagePlatformReward.firstExchange = '首次交易'
+root.assetPagePlatformReward.realName = '實名認證'
 
 root.assetPagePlatformReward.description_0 = '早鳥份額發放'
 root.assetPagePlatformReward.description_1 = '內測競猜活動獎勵'
@@ -1602,6 +1605,7 @@ root.assetPagePlatformReward.description_7 = '社區建議獎勵'
 root.assetPagePlatformReward.description_8 = '交易返傭'
 
 root.indexHeader.platformReward = '活動獎勵'
+
 
 root.currencyIntroduction.detail_ELF_1 = 'aelf是一個去中心化雲計算區塊鏈網路，具有高性能、資源隔離特性以及更完善的治理和發展結構。在ælf的網路中，節點根據類型進行劃分，專業化記賬節點（全節點）能夠運行在伺服器集群之上，提高整個區塊鏈網路性能；“主鏈+多側鏈”結構，有效實現資源隔離、“一鏈一場景”；設立代幣持有人的委託票選制度，保障網路高效治理及良性發展。'
 root.currencyIntroduction.detail_ELF_2 = 'ELF主要用於aelf的付費資源支付及治理決策，其中付費資源包括智能合約部署、升級及執行等操作(如交易手續費、跨鏈數據傳輸手續費等)，治理決策包括記賬節點的選舉、系統新特性的審批及產品重大更新的決策。'

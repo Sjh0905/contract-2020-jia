@@ -44,6 +44,14 @@
 <!--        </router-link>-->
         <!--    锁仓记录 end-->
 
+        <!-- 挖矿奖励 begin -->
+        <router-link :to="{name:'miningReward'}" class="title-tab flex-center margin-a-little tab-item-last"
+                     :class="lang!='CH'?'title-tab-en':''"
+                     active-class="selected text_blue">
+          {{$t('assetPage.miningReward')}}
+        </router-link>
+        <!-- 挖矿奖励 end -->
+
         <!-- 平台奖励 begin -->
         <router-link :to="{name:'platformReward'}" class="title-tab flex-center margin-a-little tab-item-last"
                      :class="lang!='CH'?'title-tab-en':''"

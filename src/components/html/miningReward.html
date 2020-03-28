@@ -23,7 +23,7 @@
       <!--状态-->
       <span class="state">{{$t('assetPagePlatformReward.state')}}</span>
       <!--备注-->
-<!--      <span class="th-prompt">{{$t('assetPagePlatformReward.remarks')}}</span>-->
+      <!--      <span class="th-prompt">{{$t('assetPagePlatformReward.remarks')}}</span>-->
     </div>
     <!--平台奖励title end-->
 
@@ -33,25 +33,24 @@
         <template>
           <li class="detail-li" v-for="(item,index) in computedRecord" :key="item.id">
             <div class="li-container flex">
-<!--              时间-->
+              <!--              时间-->
               <span class="time">{{$globalFunc.formatDateUitl(item.updatedAt,'YYYY-MM-DD hh:mm:ss')}}</span>
-<!--              币种-->
+              <!--              币种-->
               <span class="currency">{{item.currency}}</span>
-<!--              类型-->
+              <!--              类型-->
 <!--              <span class="type">数据</span>-->
-<!--              formatDateUitl-->
-<!--              数量-->
+              <!--              formatDateUitl-->
+              <!--              数量-->
               <span class="total">{{toFixed(item.amount,2)}}</span>
-<!--              类型-->
-              <span class="address address-detail">{{item.source=='EXCHANGE'? $t('assetPagePlatformReward.firstExchange') : $t('assetPagePlatformReward.realName')}}</span>
-<!--              GRC量化活动-->
-<!--              {{item.descritption}}-->
+              <!--              说明-->
+              <span class="address address-detail"> {{$t('assetPageWithdrawalsRecord.quantificationActivities')}}</span>
+              <!--              GRC量化活动-->
+              <!--              {{item.descritption}}-->
               <span class="state">
 <!--                已发放-->
-                {{item.status == 'SUCCESS'? $t('assetPageWithdrawalsRecord.success'):$t('assetPageWithdrawalsRecord.state_4')}}
-<!--                {{$t('assetPageWithdrawalsRecord.Issued')}}-->
+                {{$t('assetPageWithdrawalsRecord.Issued')}}
               </span>
-<!--              <span class="th-prompt">-&#45;&#45;</span>-->
+              <!--              <span class="th-prompt">-&#45;&#45;</span>-->
             </div>
           </li>
         </template>
@@ -66,18 +65,18 @@
             <div class="no-record">{{$t('orderPageCurrentEntrustment.close_9')}}</div>
           </div>
 
-<!--          <div class="li-container flex">-->
-<!--            <span class="currency">-&#45;&#45;</span>-->
-<!--            <span class="time">-&#45;&#45;</span>-->
-<!--            <span class="total">-&#45;&#45;</span>-->
-<!--            <span class="address address-detail flex">-->
-<!--            -&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;-->
-<!--          </span>-->
-<!--            <span class="state">-->
-<!--            -&#45;&#45;-->
-<!--          </span>-->
-<!--&lt;!&ndash;            <span class="th-prompt">-&#45;&#45;</span>&ndash;&gt;-->
-<!--          </div>-->
+          <!--          <div class="li-container flex">-->
+          <!--            <span class="currency">-&#45;&#45;</span>-->
+          <!--            <span class="time">-&#45;&#45;</span>-->
+          <!--            <span class="total">-&#45;&#45;</span>-->
+          <!--            <span class="address address-detail flex">-->
+          <!--            -&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;-->
+          <!--          </span>-->
+          <!--            <span class="state">-->
+          <!--            -&#45;&#45;-->
+          <!--          </span>-->
+          <!--&lt;!&ndash;            <span class="th-prompt">-&#45;&#45;</span>&ndash;&gt;-->
+          <!--          </div>-->
         </li>
         <!--无数据时显示 end-->
 
@@ -94,20 +93,20 @@
   </div>
   <Loading v-if="loading"/>
 
-<!--  <el-pagination-->
-<!--    @size-change="handleSizeChange"-->
-<!--    @current-change="handleCurrentChange"-->
-<!--    :current-page="activePage"-->
-<!--    :page-sizes="[100, 200, 300, 400]"-->
-<!--    :page-size="sizePerPage"-->
-<!--    layout="total, sizes, prev, pager, next, jumper"-->
-<!--    :total="contactsInfo.length">-->
-<!--  </el-pagination>-->
+  <!--  <el-pagination-->
+  <!--    @size-change="handleSizeChange"-->
+  <!--    @current-change="handleCurrentChange"-->
+  <!--    :current-page="activePage"-->
+  <!--    :page-sizes="[100, 200, 300, 400]"-->
+  <!--    :page-size="sizePerPage"-->
+  <!--    layout="total, sizes, prev, pager, next, jumper"-->
+  <!--    :total="contactsInfo.length">-->
+  <!--  </el-pagination>-->
 
-<!--  <BasePageBar v-if="maxPage > 1&&firstLoad && computedRecord.length!==0 && !loading" :maxPage='maxPage' :selectIndex="currentPage"-->
-<!--           :clickChangePage="clickChangePage"-->
-<!--           :currentDisplay=currentPage-->
-<!--           :initDisplay=currentPage></BasePageBar>-->
+  <!--  <BasePageBar v-if="maxPage > 1&&firstLoad && computedRecord.length!==0 && !loading" :maxPage='maxPage' :selectIndex="currentPage"-->
+  <!--           :clickChangePage="clickChangePage"-->
+  <!--           :currentDisplay=currentPage-->
+  <!--           :initDisplay=currentPage></BasePageBar>-->
 
   <PopupPrompt :popOpen="popOpen" :popClose="popClose" :popType="popType" :popText="popText"/>
 

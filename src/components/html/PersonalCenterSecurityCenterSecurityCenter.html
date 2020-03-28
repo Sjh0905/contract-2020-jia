@@ -199,10 +199,12 @@
               <div class="allinfo11_1info_dis">{{$t('feeDeductions')}}</div>
             </div>
             <div class="allinfo11_update">
-              <div @click="coinDeductible" v-if="TTDeductible">
+<!--              关闭按钮 -->
+              <div @click="clickToggle" v-if="!BDBInfo">
                 <img src="../../assets/personalCenter/personal_center_close.png" alt="">
               </div>
-              <div @click="coinDeductible" v-if="!TTDeductible">
+<!--              打开按钮-->
+              <div @click="clickToggle" v-if="BDBInfo">
                 <img src="../../assets/personalCenter/personal_center_open.png" alt="">
               </div>
             </div>

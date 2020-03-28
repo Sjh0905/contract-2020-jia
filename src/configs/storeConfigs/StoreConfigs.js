@@ -89,6 +89,12 @@ store.state.mobileHeaderPriceTitle = ''
 store.state.mobileRechargeRecordData = ''
 
 /**
+ * 手机端点击当前锁仓记录
+ */
+
+store.state.mobileLockRecordData = ''
+
+/**
  * 手机端交易大厅开关
  */
 
@@ -357,6 +363,17 @@ store.mutations.changeMobileRechargeRecordData = (state, data) => {
   state.mobileRechargeRecordData = data
 }
 
+/**
+ * 获取当前锁仓和历史锁仓获取数据显示
+ * @param state
+ * @param data
+ */
+
+store.mutations.changemobileLockRecordData = (state, data) => {
+  state.mobileLockRecordData = data
+}
+
+
 
 store.mutations.changeMobileTradingHallFlag = (state, data) => {
   state.mobileTradingHallFlag = data
@@ -540,6 +557,12 @@ store.mutations.CHANGE_ACCOUNT = (state, accounts) => {
     if (accounts[i].type === 'SPOT_FROZEN') {
       // target.frozen = GlobalFunc.accFixed(accounts[i].balance, 8)
       target.frozen = GlobalFunc.newFixed(accounts[i].balance, 8)
+      // target.total = parseFloat(GlobalFunc.accAdd(target.available, target.frozen))
+    }
+    // 扩充锁仓
+    if (accounts[i].type === 'SPOT_LOCKED') {
+      // target.frozen = GlobalFunc.accFixed(accounts[i].balance, 8)
+      target.locked = GlobalFunc.newFixed(accounts[i].balance, 8)
       // target.total = parseFloat(GlobalFunc.accAdd(target.available, target.frozen))
     }
 
