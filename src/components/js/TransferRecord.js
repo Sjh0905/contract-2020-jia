@@ -217,7 +217,7 @@ root.methods.state = function (item) {
 root.methods.loadingMore = function () {
   this.limit += this.limitNum
   this.loadingMoreShowing = true
-  this.getRecord()
+  this.getTransferList()
 }
 
 

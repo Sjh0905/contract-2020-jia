@@ -9,7 +9,8 @@
       <div class="flow-code">{{$t('billNumber')}}</div>
 
       <!--收款人 or 付款人-->
-      <div class="name">{{ Judgment ? $t('Payer') : $t('payeeAccount') }}</div>
+<!--      <div class="name">{{ Judgment ? $t('Payer') : $t('payeeAccount') }}</div>-->
+      <div class="name">{{ $t('name') }}</div>
 
       <!--账号-->
       <div class="Payee">{{$t('accountNumber')}}</div>
@@ -54,13 +55,13 @@
             <div class="flow-code">{{item.transferId}}</div>
 
             <!--收款人 or 付款人-->
-            <div class="name">{{item.fromUserId ? item.fromName : item.toName }}</div>
+            <div class="name">{{item.fromUserId ?  item.toName : item.fromName}}</div>
 
             <!--收款人账号 or 付款人账号-->
-            <div class="Payee">{{item.fromUserId ? item.fromEmail : item.toEmail}}</div>
+            <div class="Payee">{{item.fromUserId ? item.toEmail : item.fromEmail}}</div>
 
             <!--收款人UID or 付款人UID-->
-            <div class="uid">{{item.fromUserId ? item.fromUserId : item.toUserId}}</div>
+            <div class="uid">{{item.fromUserId ? item.toUserId : item.fromUserId}}</div>
 
             <!--币种 begin-->
             <span class="currency">{{item.currency == 'USDT2' ? 'USDT' :item.currency}}</span>
@@ -71,7 +72,7 @@
             <!--数量 end-->
 
             <!--类型-->
-            <div class="type">{{item.fromUserId ? $t('shiftTo'):$t('turnOut')}}</div>
+            <div class="type">{{item.fromUserId ?$t('turnOut') :$t('shiftTo')}}</div>
 
             <!--时间 begin-->
             <span class="time">{{$globalFunc.formatDateUitl(item.updatedAt,'YYYY-MM-DD hh:mm:ss')}}</span>
