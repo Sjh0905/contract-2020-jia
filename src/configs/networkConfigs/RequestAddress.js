@@ -72,6 +72,7 @@ requestAddress.DEPTH = {baseURL: '', url: urlHead+'/v1/market/depth', method: 'g
 requestAddress.TRADE_ORDERS = {url: urlHead+'/v1/trade/orders', method: 'post'} // 买卖/撤单
 requestAddress.GRC_PRICE_RANGE = {url: urlHead+'/user/grc/symbol/priceRange', method: 'get'} // 获取grcPriceRange 的接口
 requestAddress.GRC_ACTIVITYREWARDS = {url: urlHead+'/user/getGrcActivityRewards', method: 'post'} // 获取grc 详情列表的接口
+requestAddress.INITIAL_REWARD = {url: urlHead+'/user/initial/reward', method: 'get'} // 获取活动奖励的接口
 requestAddress.POST_USER_ORDERS = {url: urlHead+'/user/orders', method: 'post'} // 当前委托和历史委托，参数为'offsetId:开始查询的订单id','limit:获取数量','isFinalStatus:是否为历史订单，true为历史订单，false为当前订单'
 
 // requestAddress.COMMON_SYMBOLS = {url: urlHead+'/v1/common/symbols', method: 'get'} // 获取货币对
@@ -467,5 +468,6 @@ requestAddress.LOCK_ASSET = {url: urlHead+'/asset/user/lock/asset', method: 'pos
 requestAddress.LOCK_ASSET_RECODE = {url: urlHead+'/asset/user/assets', method: 'get'} // 锁仓记录
 requestAddress.UNLOCK_ASSET_RECODE = {url: urlHead+'/asset/user/unlock/asset', method: 'post'} // 解锁锁仓
 requestAddress.TOTAL_LOCK_REWARD = {url: urlHead+'/asset/user/total/reward', method: 'get'} // 锁仓累计
+requestAddress.LOCK_COUNT = {url: urlHead+'/asset/user/lock/count', method: 'get'} // 锁仓次数
 
 export default requestAddress
