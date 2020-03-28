@@ -376,10 +376,10 @@ root.methods.getAuthState = function () {
     return
   }
   // 如果没有认证
-  if (!this.$store.state.authState.identity || (!this.$store.state.authState.sms && !this.$store.state.authState.ga) || !this.bindEmail) {
-    this.close()
-    return
-  }
+  // if (!this.$store.state.authState.identity || (!this.$store.state.authState.sms && !this.$store.state.authState.ga) || !this.bindEmail) {
+  //   this.close()
+  //   return
+  // }
   this.$store.state.authState.sms && (this.picker = 2)
   this.$store.state.authState.ga && (this.picker = 1)
   // 获取认证状态成功
@@ -392,17 +392,17 @@ root.methods.re_getAuthState = function (data) {
   this.$store.commit('SET_AUTH_STATE', data.dataMap)
   // 获取认证状态成功
   // 如果没有认证
-  if (!this.$store.state.authState.identity || (!this.$store.state.authState.sms && !this.$store.state.authState.ga)) {
-    this.close()
-    return
-  }
+  // if (!this.$store.state.authState.identity || (!this.$store.state.authState.sms && !this.$store.state.authState.ga)) {
+  //   this.close()
+  //   return
+  // }
   this.$store.state.authState.sms && (this.picker = 2)
   this.$store.state.authState.ga && (this.picker = 1)
   this.authStateReady = true
 }
 // 判断验证状态出错
 root.methods.error_getAuthState = function (err) {
-  this.close()
+  // this.close()
 }
 
 
@@ -702,7 +702,7 @@ root.methods.transferDisabledss = function (transferCurrency) {
 root.methods.re_transferDisabled = function (data) {
   console.log(data)
   // console.log(this.currencyName)
-  // 是否可以转账 false 为可以转账
+  // 是否可以转账 true 为可以转账
   this.isTransfer = data.dataMap.insideTransferAccount.transferDisabled
   // 提现费率
   this.feeRate = data.dataMap.insideTransferAccount.feeRate
@@ -712,20 +712,14 @@ root.methods.re_transferDisabled = function (data) {
   this.minAmount = data.dataMap.insideTransferAccount.minAmount //+ data.dataMap.withdrawRule.minimumFee
   // 最小手续费
   this.minimumFee = data.dataMap.insideTransferAccount.minimumFee
-
+  //
+  // if (this.isTransfer = false) {
+  //   this.isTransfer = false
+  // }
   // 获取费率成功
   // this.feeReady = true
 
-  if (this.isTransfer == false) {
-    this.popText = this.$t('withdrawalsIsNotOpen')
-    this.popWindowClose = false
-    this.popWindowOpen2 = false
-    this.popOpen = true
 
-    this.popType = 0
-
-    return
-  }
 }
 root.methods.error_transferDisabled = function (error) {
   console.log(error)
@@ -912,6 +906,14 @@ root.methods.internalTransfer = function (index, item) {
 
   //sss屏蔽 2020.20.20 E
 
+  if (this.isTransfer == false) {
+    this.popText = this.$t('withdrawalsIsNotOpen')
+    this.popWindowClose = false
+    this.popWindowOpen2 = false
+    this.popOpen = true
+    this.popType = 0
+    return
+  }
 
   if (this.bindIdentify && this.isTransfer == true) {
     this.popWindowTitle = this.$t('iKnowthe1')
@@ -919,7 +921,9 @@ root.methods.internalTransfer = function (index, item) {
     this.popWindowPrompt1 = this.$t('popWindowPromptWithdrawals2')
     this.popWindowStyle = '5'
     this.popWindowOpen2 = true
+    return;
   }
+
 
   this.recharge = false
   this.withdrawals = false
