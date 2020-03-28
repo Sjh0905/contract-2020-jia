@@ -329,6 +329,22 @@ root.computed.lockHouseNowTime = function () {
   let timeObj = {nowDateTime:this.nowDateTime,dividendTime:this.dividendTime}
   return timeObj
 }
+//计算锁仓起息日和分红日
+/*root.computed.lockHouseNowTime = function () {
+  let severDate = new Date(this.serverTime)
+  let dayTimeStep = 24 * 60 * 60 * 1000//一天的时间差 毫秒
+  let nowTimeStamp = this.serverTime//起息日，默认当天
+  let dividendTimeStamp = this.serverTime + dayTimeStep//分红日，默认第二天
+  //如果超过12点，时间分别加一天
+  if (severDate.getHours() >= 12){
+     nowTimeStamp += dayTimeStep
+     dividendTimeStamp += dayTimeStep
+  }
+  this.nowDateTime = this.$globalFunc.formatDateUitl(nowTimeStamp,'MM-DD');
+  this.dividendTime = this.$globalFunc.formatDateUitl(dividendTimeStamp,'MM-DD');
+  let timeObj = {nowDateTime:this.nowDateTime,dividendTime:this.dividendTime}
+  return timeObj
+}*/
 
 root.computed.lockHouseDividendTime = function () {
   let date = new Date();
