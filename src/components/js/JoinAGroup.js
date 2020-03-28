@@ -58,7 +58,6 @@ root.data = function () {
 }
 /*------------------------------ 生命周期 -------------------------------*/
 root.created = function () {
-  this.getCheckGroupDetails()
   this.getFuzzyQuery()
   console.log("this.$route.query.path========",this.$route.query.path,this.$route.fullPath)
 }
@@ -79,6 +78,11 @@ root.mounted = function () {}
 root.beforeDestroy = function () {}
 /*------------------------------ 计算 -------------------------------*/
 root.computed = {}
+// 是否实名认证
+root.computed.bindIdentify = function () {
+  return this.$store.state.authState.identity
+}
+
 
 // 是否绑定手机
 root.computed.bindMobile = function () {
@@ -92,10 +96,7 @@ root.computed.bindGA = function () {
 root.computed.bindEmail = function () {
   return this.$store.state.authState.email
 }
-// 是否实名认证
-root.computed.bindIdentify = function () {
-  return this.$store.state.authState.identity
-}
+
 // 用户名
 root.computed.userName = function () {
   if (this.userType === 0) {
@@ -207,6 +208,7 @@ root.methods.re_getFuzzyQuery = function (data) {
   this.citiesMap = {}
   this.cities.map(v=>this.citiesMap[v.gname] = v.groupId)
   console.log('this.getFuzzyQuery',this.getFuzzyQuery)
+  // this.getCheckGroupDetails()
 }
 
 root.methods.error_getFuzzyQuery = function (err) {

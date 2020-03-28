@@ -49,11 +49,14 @@ root.data = function () {
 /*------------------------------ 生命周期 -------------------------------*/
 root.created = function () {
   this.getTeamDetails()
-  this.getMemberList(this.groupId)
+
   this.loading = true
   // this.userId()
 
   // this.getMemberList()
+  if (this.groupId!=''){
+    this.getMemberList(this.groupId)
+  }
 }
 root.mounted = function () {}
 root.beforeDestroy = function () {}
@@ -135,12 +138,15 @@ root.methods.re_getTeamDetails = function (data) {
   this.commonDiscount = data.data.commonDiscount
   this.glevel = data.data.glevel
   this.account = data.data.account
-  this.quantData = data.quantData
-  console.log("拼团展示团队详情=====",this.quantData)
-  this.quantCumulative = data.data.quantData.quantCumulative,//挖矿区手续费累计
-  this.commCumulative = data.data.quantData.commCumulative,//普通区交易手续费累计
-  this.quantRecommission= data.data.quantData.quantRecommission,//挖矿区团长返佣累计
-  this.commRecommission= data.data.quantData.commRecommission,//普通区团长返佣累计
+  if (this.idType == 1) {
+    this.quantData = data.quantData
+    console.log("拼团展示团队详情=====",this.quantData)
+    this.quantCumulative = data.data.quantData.quantCumulative,//挖矿区手续费累计
+    this.commCumulative = data.data.quantData.commCumulative,//普通区交易手续费累计
+    this.quantRecommission= data.data.quantData.quantRecommission,//挖矿区团长返佣累计
+    this.commRecommission= data.data.quantData.commRecommission//普通区团长返佣累计
+  }
+
 
 
   this.getMemberList(data.data.groupId)
