@@ -73,7 +73,7 @@
             <span class="available">{{toFixed(item.available,8)}}</span>
             <span class="frozen">{{toFixed(item.frozen,8)}}</span>
             <!-- <span class="valuation">{{(priceReady || initReady) && item.appraisement!=0 ? toFixed(item.appraisement,8) : '--'}}</span> -->
-            <span class="lock-warehouse">{{toFixed('0',8)}}</span>
+            <span class="lock-warehouse">{{ toFixed (item.locked?item.locked:0 ,8)}}</span>
 <!--            USDT估值-->
             <span class="valuation">
               <font class="valuation_font">{{(priceReady || initReady) && item.appraisement > 0 ? USDTAppraisement(item) : '--'}}</font>

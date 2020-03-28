@@ -136,7 +136,7 @@ root.data = function () {
     lockHomeNum_WA: '', // 锁仓数量错误提示
     lockHouseCurrency:'',
     lockHouseAvailable:'',  // 锁仓可用
-    lockNum:5,
+    lockNum:0,
 
     step2VerificationCode: '', //第二步
     step2VerificationCodeWA: '', //第二步验证
@@ -164,7 +164,7 @@ root.created = function () {
     this.getCurrency()
     return
   }
-  console.log(this.currency)
+  // console.log(this.currency)
   // 获取账户信息
   this.getAccounts()
   // this.transferDisabledss()
@@ -307,30 +307,30 @@ root.computed.btc_rate = function () {
   return this.$store.state.exchange_rate.btcExchangeRate;
 }
 
-root.computed.lockHouseNowTime = function () {
-  let date = new Date();
-  let severDate = new Date(this.serverTime)
-  if (severDate.getHours() >= 12 && severDate.getMinutes() >= 0 && severDate.getSeconds() >= 0 ){
-    let mm = String(date.getMonth() +1 ).padStart(2,'0');
-    let dd = String(date.getDate()+1).padStart(2,'0');
-    this.nowDateTime = mm + '-' + dd
-    let mmm = String(date.getMonth() +1 ).padStart(2,'0');
-    let ddd = String(date.getDate()+2).padStart(2,'0');
-    this.dividendTime = mmm + '-' + ddd
-    let timeObj = {nowDateTime:this.nowDateTime,dividendTime:this.dividendTime}
-    return timeObj
-  }
-  let mm = String(date.getMonth() +1 ).padStart(2,'0');
-  let dd = String(date.getDate()).padStart(2,'0');
-  this.nowDateTime = mm + '-' + dd
-  let ddd = String(date.getDate()+1).padStart(2,'0');
-  let mmm = String(date.getMonth() +1 ).padStart(2,'0');
-  this.dividendTime = mmm + '-' + ddd
-  let timeObj = {nowDateTime:this.nowDateTime,dividendTime:this.dividendTime}
-  return timeObj
-}
+// root.computed.lockHouseNowTime = function () {
+//   let date = new Date();
+//   let severDate = new Date(this.serverTime)
+//   if (severDate.getHours() >= 12 && severDate.getMinutes() >= 0 && severDate.getSeconds() >= 0 ){
+//     let mm = String(date.getMonth() +1 ).padStart(2,'0');
+//     let dd = String(date.getDate()+1).padStart(2,'0');
+//     this.nowDateTime = mm + '-' + dd
+//     let mmm = String(date.getMonth() +1 ).padStart(2,'0');
+//     let ddd = String(date.getDate()+2).padStart(2,'0');
+//     this.dividendTime = mmm + '-' + ddd
+//     let timeObj = {nowDateTime:this.nowDateTime,dividendTime:this.dividendTime}
+//     return timeObj
+//   }
+//   let mm = String(date.getMonth() +1 ).padStart(2,'0');
+//   let dd = String(date.getDate()).padStart(2,'0');
+//   this.nowDateTime = mm + '-' + dd
+//   let ddd = String(date.getDate()+1).padStart(2,'0');
+//   let mmm = String(date.getMonth() +1 ).padStart(2,'0');
+//   this.dividendTime = mmm + '-' + ddd
+//   let timeObj = {nowDateTime:this.nowDateTime,dividendTime:this.dividendTime}
+//   return timeObj
+// }
 //计算锁仓起息日和分红日
-/*root.computed.lockHouseNowTime = function () {
+root.computed.lockHouseNowTime = function () {
   let severDate = new Date(this.serverTime)
   let dayTimeStep = 24 * 60 * 60 * 1000//一天的时间差 毫秒
   let nowTimeStamp = this.serverTime//起息日，默认当天
@@ -344,7 +344,7 @@ root.computed.lockHouseNowTime = function () {
   this.dividendTime = this.$globalFunc.formatDateUitl(dividendTimeStamp,'MM-DD');
   let timeObj = {nowDateTime:this.nowDateTime,dividendTime:this.dividendTime}
   return timeObj
-}*/
+}
 
 root.computed.lockHouseDividendTime = function () {
   let date = new Date();
@@ -1970,7 +1970,7 @@ root.methods.re_getAccount = function (data) {
   if (!data || !data.accounts) {
     return
   }
-  // console.warn('请求更新accounts', data.accounts)
+  // console.info('请求更新accounts', data.accounts)
   this.$store.commit('CHANGE_ACCOUNT', data.accounts)
   // 关闭loading
   this.currencyReady = true
@@ -2243,7 +2243,7 @@ root.methods.openLockHouse = function (index,item) {
   //   this.dividendTime = mmm + '-' + ddd
   // }
   // console.info(new Date().getDate())
-
+  this.lockCount()
   this.lockHouseNowTime
   // 锁仓币
   this.lockHouseCurrency = item.currency
@@ -2253,6 +2253,27 @@ root.methods.openLockHouse = function (index,item) {
   this.lockHomeNum = ''
 
 }
+
+root.methods.lockCount = function () {
+  this.$http.send('LOCK_COUNT', {
+    bind: this,
+    // params: {
+    //   currency: this.lockHouseCurrency,
+    //   amount: this.lockHomeNum,
+    // },
+    callBack: this.re_lockCount,
+    errorHandler: this.error_lockCount,
+  })
+}
+root.methods.re_lockCount = function (data) {
+  typeof data === 'string' && (data = JSON.parse(data))
+  this.lockNum = data.dataMap.times
+}
+
+root.methods.error_lockCount = function (err) {
+  console.info(err)
+}
+
 
 // 判断锁仓数量
 root.methods.testLockAmount  = function () {

@@ -1142,8 +1142,11 @@
 }
 
 .day-surplus span {
-  font-size: 12px;
+  font-size:12px;
+  font-family:PingFangSC-Medium,PingFang SC;
+  font-weight:500;
   color: #3576F5;
+  margin-left: 15px;
 }
 
 .button-base {
