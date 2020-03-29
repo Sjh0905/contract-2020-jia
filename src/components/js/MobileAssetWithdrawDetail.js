@@ -254,7 +254,7 @@ root.computed.withdrawPrice = function () {
   if (Number(this.withdrawInputPrice) > Number(this.mobileRechargeRecordData.available)) {
     this.withdrawInputPrice = this.mobileRechargeRecordData.available
   }
-  return this.withdrawInputPrice
+  return this.withdrawInputPrice || 0
 }
 
 // 手续费率
