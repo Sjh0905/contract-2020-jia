@@ -22,7 +22,7 @@
             <span class="VIP_span">{{$t('membership')}}</span>
           </div>
 <!--          到期-->
-          <div class="VIP_time">{{expires}}{{$t('expiration')}}</div>
+          <div class="VIP_time">{{formatDateUitl(expires_timestamp)}}{{$t('expiration')}}</div>
         </div>
     </div>
 
@@ -132,9 +132,9 @@
 <!--             年卡 -->
               <div class="application_header_div width2 color_a2" v-if="item.cardType=='2'">{{$t('yearCard')}}</div>
             <!--有效期-->
-              <div class="application_header_div width3 color_a2 tlc">{{item.createdAt}}</div>
+              <div class="application_header_div width3 color_a2 tlc">{{formatDateUitl(item.createdAt)}}</div>
             <!--购买时间-->
-              <div class="application_header_div_right width4 tlc mor-right color_a2">{{item.expires}}</div>
+              <div class="application_header_div_right width4 tlc mor-right color_a2">{{formatDateUitl(item.expires)}}</div>
             </li>
             </ul>
           </template>
@@ -211,16 +211,16 @@
           <!--          {{$t('bindMobile')}}-->
         </button>
       </template>
-      <template v-if="popWindowStyle==3">
-        <button @click="closeWindowClose" class="button-base33 btn_simple pointer ">
-          {{$t('cancel')}}
-          <!--          {{$t('bindGa')}}-->
-        </button>
-        <button @click="goToSecurityCenter" class="button-base33 btn_blue pointer m-r">
-          {{$t('beBinding')}}
-          <!--          {{$t('bindMobile')}}-->
-        </button>
-      </template>
+<!--      <template v-if="popWindowStyle==3">-->
+<!--        <button @click="closeWindowClose" class="button-base33 btn_simple pointer ">-->
+<!--          {{$t('cancel')}}-->
+<!--          &lt;!&ndash;          {{$t('bindGa')}}&ndash;&gt;-->
+<!--        </button>-->
+<!--        <button @click="goToSecurityCenter" class="button-base33 btn_blue pointer m-r">-->
+<!--          {{$t('beBinding')}}-->
+<!--          &lt;!&ndash;          {{$t('bindMobile')}}&ndash;&gt;-->
+<!--        </button>-->
+<!--      </template>-->
 
 
 
@@ -284,7 +284,7 @@
       <div class="Internal_siding_email">
         <span>{{$t('members')}}</span>
       </div>
-      <div class="input_input back" type="text"><span class="timeex">{{expires}}</span></div>
+      <div class="input_input back" type="text"><span class="timeex">{{formatDateUitl(expires_timestamp)}}</span></div>
       <div class="whit_0"></div>
 <!--手续费-->
       <div class="Internal_siding_email">
