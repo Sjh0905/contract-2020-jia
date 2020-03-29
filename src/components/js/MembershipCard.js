@@ -141,10 +141,10 @@ root.computed.bindMobile = function () {
 root.computed.bindGA = function () {
   return this.$store.state.authState.ga
 }
-// 是否绑定邮箱
-root.computed.bindEmail = function () {
-  return this.$store.state.authState.email
-}
+// // 是否绑定邮箱
+// root.computed.bindEmail = function () {
+//   return this.$store.state.authState.email
+// }
 // 是否实名认证
 root.computed.bindIdentify = function () {
   return this.$store.state.authState.identity
@@ -376,13 +376,13 @@ root.methods.postBuyCard1 = function () {
   }
 
   // 如果没有绑定邮箱，不允许购买会员卡
-  if (!this.bindEmail) {
-    this.popWindowTitle = this.$t('bind_email_pop_title')
-    this.popWindowPrompt = this.$t('bind_email_pop_article')
-    this.popWindowStyle = '3'
-    this.popbindIdentify = true
-    return
-  }
+  // if (!this.bindEmail) {
+  //   this.popWindowTitle = this.$t('bind_email_pop_title')
+  //   this.popWindowPrompt = this.$t('bind_email_pop_article')
+  //   this.popWindowStyle = '3'
+  //   this.popbindIdentify = true
+  //   return
+  // }
 
   // 如果没有绑定谷歌或手机，不允许购买会员卡
   if (!this.bindGA && !this.bindMobile) {
@@ -662,13 +662,13 @@ root.methods.VIPTransfer = function () {
   }
 
   // 如果没有绑定邮箱，不允许购买会员卡
-  if (!this.bindEmail) {
-    this.popWindowTitle = this.$t('bind_email_pop_title')
-    this.popWindowPrompt = this.$t('bind_email_pop_article')
-    this.popWindowStyle = '3'
-    this.popbindIdentify = true
-    return
-  }
+  // if (!this.bindEmail) {
+  //   this.popWindowTitle = this.$t('bind_email_pop_title')
+  //   this.popWindowPrompt = this.$t('bind_email_pop_article')
+  //   this.popWindowStyle = '3'
+  //   this.popbindIdentify = true
+  //   return
+  // }
 
   // 如果没有绑定谷歌或手机，不允许购买会员卡
   if (!this.bindGA && !this.bindMobile) {
