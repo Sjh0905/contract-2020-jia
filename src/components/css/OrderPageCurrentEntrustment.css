@@ -193,8 +193,14 @@ tr, th, td {
 }
 
 /*弹窗相关*/
+
+.pop-header {
+  padding-left: 25px;
+
+}
 .pop-footer {
   width: 100%;
+  margin-bottom: 15px;
   align-items: center;
   /*-webkit-align-items: center;*/
   /*justify-content: space-around;*/
@@ -214,8 +220,28 @@ tr, th, td {
 }
 
 /*弹窗button*/
+
+.pop-article {
+  padding: 35px 25px;
+  color: #0D0E23;
+  font-size:16px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+}
+
 .button-base {
-  margin-right: 20px;
+  width: 195px;
+  height: 40px;
+  /* background-color: #3576F5; */
+  color: #fff;
+  border-radius: 1px;
+  border: 0 solid transparent;
+  margin-right: 2px;
+  outline: none;
+}
+
+.m-r {
+  margin-left: 20px;
 }
 
 .button-base:last-of-type {

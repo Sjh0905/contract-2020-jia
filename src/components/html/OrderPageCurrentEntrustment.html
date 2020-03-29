@@ -147,16 +147,16 @@
 
   <!-- 是否全部撤单 begin -->
   <PopupWindow :switch="popOpen" v-on:close="closePop">
-    <div slot="header"><span class="">{{$t('orderPageCurrentEntrustment.promptTitle')}}</span></div>
-    <div slot="article">
+    <div slot="header"><span class="pop-header">{{$t('orderPageCurrentEntrustment.promptTitle')}}</span></div>
+    <div slot="article" class="pop-article">
       <p>{{$t('orderPageCurrentEntrustment.promptArticle')}}</p>
     </div>
     <div slot="footer" class="pop-footer flex-center">
-      <button @click="ensurePop" class="button-base btn_blue pointer" v-if="!waitForCancel">
+      <button @click="ensurePop" class="button-base  btn_blue pointer" v-if="!waitForCancel">
         {{$t('orderPageCurrentEntrustment.ensure')}}
       </button>
       <button class="button-base btn_grey" v-if="waitForCancel" disabled>{{waitForCancelTime}}</button>
-      <button @click="closePop" class="button-base btn_simple pointer">{{$t('orderPageCurrentEntrustment.close')}}
+      <button @click="closePop" class="button-base m-r btn_simple pointer">{{$t('orderPageCurrentEntrustment.close')}}
       </button>
     </div>
 
