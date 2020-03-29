@@ -167,6 +167,12 @@ root.watch.searchCities = function(v){
 /*------------------------------ 方法 -------------------------------*/
 root.methods = {}
 
+// 弹框跳安全中心
+root.methods.goToSecurityCenter = function () {
+  this.popWindowOpen = false
+  this.$router.push({name: 'securityCenter'})
+}
+
 // 认证状态
 root.methods.GET_AUTH_STATE = function () {
   this.$http.send("GET_AUTH_STATE", {

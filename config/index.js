@@ -12,13 +12,13 @@ module.exports = {
     proxyTable: {
       '/apis': {
         // target: 'https://www.highdefi.com', //新测试环境1
-        // target: 'http://www.2020-ex.com', //新测试环境1
+        target: 'http://www.2020-ex.com', //新测试环境1
         // target: 'http://13.114.169.150:8000', //新测试环境1
         // target: 'http://18.163.24.239:8000', //新测试环境1
         // target: 'http://18.162.188.176:8000', // 2020.03.25测试服环境
         // target: 'https://2020.highdefi.com', //新测试环境1
         // target: 'http://18.162.188.176:8000', //新测试环境2020
-        target: 'https://www.2020.exchange', //新测试环境2
+        // target: 'https://www.2020.exchange', //新测试环境2
         changeOrigin: true,
         // TODO 连测试、生产环境可以不用打开(有问题再说) 连IP也打开 如果连接后端人员个人电脑需要打开
         // pathRewrite: {

@@ -26,11 +26,11 @@
         </div>
     </div>
 
-    <div class="member_zr1" v-if="flag" @click="VIPTransfer">
+    <div class="member_zr1 " v-if="flag" @click="VIPTransfer">
       <div class="member_zr">
-        <span>转让会员卡</span>
+        <span class="pointer">{{$t('zrexpiration')}}</span>
       </div>
-      <img class="WidthH" src="../../assets/qianwanghuiyuanka_icon.png" alt="">
+      <img class="WidthH pointer" src="../../assets/qianwanghuiyuanka_icon.png" alt="">
     </div>
 
 
@@ -263,7 +263,7 @@
       <span class="">{{$t('transfer')}}</span>
     </div>
     <div slot="article" class="Internal_siding">
-     <!-- 受让人邮箱-->
+     <!-- 受让人账户-->
       <p class="Internal_siding_email m-t">{{$t('mailbox')}}</p>
       <input class="input_input" type="text" :placeholder='userNamePlaceholderShow && $t("deletePopCancel2") || ""' v-model="nameVIP"
              @focus="closePlaceholder('nameVIP')"
@@ -384,7 +384,7 @@
                      @blur="testMobileVerification">
               <div class="get-verification pointer" v-if="!getMobileVerificationCode"
                    @click="getMobileVerification">
-                {{$t('reGet')}}手机验证码
+                {{$t('reGet')}}{{$t('isMo')}}
               </div>
               <div class="get-verifications" v-if="getMobileVerificationCode" disabled>
                 {{getMobileVerificationCodeCountdown}}s

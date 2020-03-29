@@ -504,15 +504,15 @@ root.methods.getGoToTransferVIP1 = function () {
   canSend = this.toNameVIP() && canSend
   canSend = this.toUIDVIP() && canSend
   if (!this.$globalFunc.emailOrMobile(this.nameVIP)) {
-    this.nameMsg_0 = this.$t('请输入正确邮箱或手机号')
+    this.nameMsg_0 = this.$t('enter')
     canSend = false
   }
   if (this.nameVIP === '') {
-    this.nameMsg_0 = this.$t('受让人账户不可为空')
+    this.nameMsg_0 = this.$t('sitnotable')
     canSend = false
   }
   if (this.UID_0 === '') {
-    this.testUIDMsg_0 = this.$t('受让人UID不可为空')
+    this.testUIDMsg_0 = this.$t('empty')
     canSend = false
   }
   if (!canSend) {
@@ -549,7 +549,7 @@ root.methods.re_postGoToTransferVIP = function(data){
     this.getCheck()
     this.popOpen = true
     this.popType = 1
-    this.popText = this.$t('转让会员成功') //'转让会员成功'
+    this.popText = this.$t('successful') //'转让会员成功'
     setTimeout(() => {
       this.popOpen = true
     }, 1000)
@@ -563,49 +563,49 @@ root.methods.re_postGoToTransferVIP = function(data){
     if (data.errorCode == 1) {
       this.popOpen = true
       this.buyTransferDetails = false
-      this.popText = this.$t('会员卡类型有误') // 会员卡类型有误
+      this.popText = this.$t('isWrong') // 会员卡类型有误
       this.popType = 0
       return
     }
     if (data.errorCode == 2) {
       this.popOpen = true
       // this.buyTransferDetails = false
-      this.popText = this.$t('用户转让会员卡费用不足')  //用户转让会员卡费用不足
+      this.popText = this.$t('Insufficient')  //用户转让会员卡费用不足
       this.popType = 0
       return
     }
     if (data.errorCode == 3) {
       this.popOpen = true
       this.buyTransferDetails = false
-      this.popText =this.$t('没有可用的会员卡可转让') // 没有可用的会员卡可转让
+      this.popText =this.$t('availabl') // 没有可用的会员卡可转让
       this.popType = 0
       return
     }
     if (data.errorCode == 4) {
       this.popOpen = true
       this.buyTransferDetails = false
-      this.popText = this.$t('受让人账户格式错误')  //接收方账户格式错误'
+      this.popText = this.$t('Format')  //接收方账户格式错误'
       this.popType = 0
       return
     }
     if (data.errorCode == 5) {
       this.popOpen = true
       this.buyTransferDetails = false
-      this.popText = this.$t('受让人账户不存在')  //接收方账户不存在'
+      this.popText = this.$t('exist')  //接收方账户不存在'
       this.popType = 0
       return
     }
     if (data.errorCode == 6) {
       this.popOpen = true
       this.buyTransferDetails = false
-      this.popText = this.$t('受让人方userId有误')  // 接收方userId有误
+      this.popText = this.$t('recipient')  // 接收方userId有误
       this.popType = 0
       return
     }
     if (data.errorCode == 400) {
       this.popOpen = true
       this.buyTransferDetails = false
-      this.popText = '参数有误返回'
+      this.popText = this.$t('mistake')
       this.popType = 0
       return
     }
@@ -623,11 +623,11 @@ root.methods.error_postGoToTransferVIP = function(data){
 root.methods.toNameVIP = function () {
   this.nameWA_0 = '0'
   if (this.nameVIP === '') {
-    this.nameMsg_0 = this.$t('受让人邮箱不可为空')
+    this.nameMsg_0 = this.$t('sitnotable')
     return false
   }
   if (!this.$globalFunc.emailOrMobile(this.nameVIP)) {
-    this.nameMsg_0 = this.$t('输入邮箱或手机号不符合规范')
+    this.nameMsg_0 = this.$t('meet')
     return false
   }
   this.nameMsg_0 = ''
@@ -638,11 +638,11 @@ root.methods.toNameVIP = function () {
 root.methods.toUIDVIP = function () {
   this.testUID_012 = '0'
   if (this.UID_0 === '') {
-    this.testUIDMsg_0 = this.$t('UID不可为空')
+    this.testUIDMsg_0 = this.$t('empty')
     return false
   }
   if (!this.$globalFunc.testNumber(this.UID_0)) {
-    this.testUIDMsg_0 = this.$t('请输入正确的UID')
+    this.testUIDMsg_0 = this.$t('correct')
     return false
   }
   this.testUIDMsg_0 = ''
@@ -833,7 +833,7 @@ root.methods.re_commitStep2Verification = function (data) {
         this.step2VerificationCodeWA = this.$t('step2VerificationCodeWA_11') //用户未登录
         break;
       case 2:
-        this.step2VerificationCodeWA = this.$t('获取验证码过于频繁') //获取验证码过于频繁
+        this.step2VerificationCodeWA = this.$t('often') //获取验证码过于频繁
         break;
       // case 3:
       //   this.step2VerificationCodeWA = this.$t('step2VerificationCodeWA_13') //用户认证数据异常，详情请联系客服
@@ -857,7 +857,7 @@ root.methods.re_commitStep2Verification = function (data) {
       //   this.step2VerificationCodeWA = this.$t('step2VerificationCodeWA_19')
       //   break;
       case 10:
-        this.step2VerificationCodeWA = this.$t('无此类业务')
+        this.step2VerificationCodeWA = this.$t('business')
         break;
       case 100:
         break;

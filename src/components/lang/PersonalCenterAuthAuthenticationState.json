@@ -50,7 +50,7 @@
     "logout": "退出登录",
     "uncertified": "未认证",
     "management": "账户管理",
-    "namess": "名字"
+    "namess": "姓名"
   },
   "EN": {
     "title": "KYC",
@@ -194,7 +194,7 @@
     "logout": "退出登錄",
     "uncertified": "未認證",
     "management": "帳戶管理",
-    "namess": "名字"
+    "namess": "姓名"
   },
 
   "JP": {  "title": "身分認証",  "toAuth": "認証に行く",  "review": "審査中",  "authenticated": "認証済み",
