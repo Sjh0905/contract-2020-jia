@@ -674,10 +674,10 @@ root.methods.getGRCPriceRange = function () {
 // 获取grc交易价格区间成功
 root.methods.re_getGRCPriceRange = function (data) {
   console.log('获取grc交易价格区间成功',data);
-  if(!data || !data.grcPriceRange)return
-  this.GRCPriceRange = data.grcPriceRange;
+  if(!data || !data.kkPriceRange)return
+  this.GRCPriceRange = data.kkPriceRange;
 
-  this.$store.commit('SET_GRC_PRICE_RANGE',data.grcPriceRange)
+  this.$store.commit('SET_GRC_PRICE_RANGE',data.kkPriceRange)
 }
 // 获取grc交易价格区间报错
 root.methods.error_getGRCPriceRange = function () {
