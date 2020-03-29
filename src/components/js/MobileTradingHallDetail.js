@@ -347,7 +347,7 @@ root.methods.initSocket = function () {
 
 root.methods.getPriceChangeOrders = function(transactionData){
 
-  if(this.symbol == 'GRC_USDT' && this.KKPriceRangeH5.length >0){
+  if(this.symbol == 'KK_USDT' && this.KKPriceRangeH5.length >0){
     let minPrice = this.KKPriceRangeH5[0] || 0;
     let maxPrice = this.KKPriceRangeH5[this.KKPriceRangeH5.length -1] || 10;
 
@@ -542,7 +542,7 @@ root.methods.tradeMarket = function (popIdenOpen,type) {
   let txt = !type ? '买入' : '卖出';
   let symbol = this.$store.state.symbol;
 
-  if(symbol == 'GRC_USDT' && !this.checkPriceRange()) return;
+  if(symbol == 'KK_USDT' && !this.checkPriceRange()) return;
   if (!type && this.transaction_price == 0) {
     this.popText = '请输入正确的' + txt + '价';
     this.popType = 0;

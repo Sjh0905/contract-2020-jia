@@ -87,7 +87,7 @@ root.methods = {}
 
 root.methods.getPriceChangeOrders = function(transactionData){
 
-  if(this.$store.state.symbol == 'GRC_USDT' && this.KKPriceRangeH5.length >0){
+  if(this.$store.state.symbol == 'KK_USDT' && this.KKPriceRangeH5.length >0){
     let minPrice = this.KKPriceRangeH5[0] || 0;
     let maxPrice = this.KKPriceRangeH5[this.KKPriceRangeH5.length -1] || 10;
 
