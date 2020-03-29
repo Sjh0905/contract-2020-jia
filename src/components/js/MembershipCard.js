@@ -12,6 +12,7 @@ root.data = function () {
 
     records: [],
     expires:'',
+    expires_timestamp:'',
     flag:false,
     postWithdCard:false,
     popWindowOpen: false, //弹窗开关
@@ -279,6 +280,7 @@ root.methods.re_getCheck = function (data) {
   typeof data === 'string' && (data = JSON.parse(data))
   console.log('是否是会员get-----',123)
   this.expires = data.data.expires
+  this.expires_timestamp = data.data.expires_timestamp
   this.flag = data.data.flag
   // this.cardType = data.data.cardType
   this.transferFee = data.data.transferFee
@@ -952,7 +954,7 @@ root.methods.error_getMobileVerification = function (err) {
 
 // 格式化时间
 root.methods.formatDateUitl = function (time) {
-  return this.$globalFunc.formatDateUitl(time, 'YYYY-MM-DD hh:mm:ss')
+  return this.$globalFunc.formatDateUitl(Number(time), 'YYYY-MM-DD')
 }
 
 // 手机 谷歌验证切换

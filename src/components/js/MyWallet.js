@@ -294,9 +294,9 @@ root.computed.bindEmail = function () {
   return this.$store.state.authState.email
 }
 // 是否实名认证
-root.computed.bindIdentify = function () {
-  return this.$store.state.authState.identity
-}
+// root.computed.bindIdentify = function () {
+//   return this.$store.state.authState.identity
+// }
 
 // 当前语言
 root.computed.lang = function () {
@@ -418,6 +418,8 @@ root.methods.re_getAuthState = function (data) {
   // }
   this.$store.state.authState.sms && (this.picker = 2)
   this.$store.state.authState.ga && (this.picker = 1)
+
+
 }
 // 判断验证状态出错
 root.methods.error_getAuthState = function (err) {
@@ -766,7 +768,7 @@ root.methods.re_transferDisabled = function (data) {
     return
   }
   if (this.isTransfer == false) {
-    this.popText = this.$t('withdrawalsIsNotOpen')
+    this.popText = this.$t('withdrawalsIsNotOpen1')
     this.popWindowClose = false
     this.popWindowOpen2 = false
     this.popOpen = true
