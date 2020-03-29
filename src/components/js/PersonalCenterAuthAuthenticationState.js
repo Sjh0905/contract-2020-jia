@@ -284,7 +284,7 @@ root.methods.getFeeDivident = function (data) {
 
 root.methods.re_getFeeDivident = function (data) {
   typeof data === 'string' && (data = JSON.parse(data));
-  console.log('获取平台信息1', data)
+  // console.log('获取平台信息1', data)
   this.btNum = data.dataMap.dividend
   // this.userProfitsData.items = data.dataMap;
 

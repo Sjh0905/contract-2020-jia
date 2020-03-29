@@ -136,7 +136,7 @@ root.data = function () {
     lockHomeNum_WA: '', // 锁仓数量错误提示
     lockHouseCurrency:'',
     lockHouseAvailable:'',  // 锁仓可用
-    lockNum:0,
+    lockNum:0,  //锁仓数量
 
     step2VerificationCode: '', //第二步
     step2VerificationCodeWA: '', //第二步验证
@@ -407,7 +407,7 @@ root.methods.getAuthState = function () {
 root.methods.re_getAuthState = function (data) {
   typeof data === 'string' && (data = JSON.parse(data))
   if (!data) return
-  this.$store.commit('SET_AUTH_STATE', data.dataMap)
+  // this.$store.commit('SET_AUTH_STATE', data.dataMap)
   // 获取认证状态成功
   this.authStateReady = true
   this.loading = !(this.currencyReady && this.authStateReady)
@@ -1153,7 +1153,7 @@ root.methods.re_GoToConfirmTransfer = function(data){
     if (data.errorCode == 7) {
       this.popOpen = true
       this.buyTransferDetails = false
-      this.popText = '收款用户不能转账用户相同'
+      this.popText = this.$t('step2VerificationCodeWA_same')
       this.popType = 0
       return;
     }
@@ -1269,7 +1269,7 @@ root.methods.re_commitStep2Verification = function (data) {
       case 100:
         break;
       default:
-        this.step2VerificationCodeWA = '系统繁忙，请稍后再试'
+        this.step2VerificationCodeWA = this.$t('step2VerificationCodeWA')
     }
 
     if (data.errorCode === 4 && this.picker === 2 && resDataMap.times) {
@@ -1430,7 +1430,7 @@ root.methods.re_commitStep2Verification = function (data) {
     }
     if (data.errorCode === 2) {
       this.buyConfirmSuccess = false
-      this.popText = '邮箱未认证'
+      this.popText =  this.$t('iKnowthe7')
       // this.popText = this.$t('iKnowthe7')
       this.popType = 0
       this.popOpen = true
@@ -1767,15 +1767,15 @@ root.methods.getEmailVerification = function () {
 }
 // 获取邮箱验证码
 root.methods.re_getEmailVerification = function (data) {
-  console.log(data.dataMap.code)
+  // console.log(data.dataMap.code)
   typeof data === 'string' && (data = JSON.parse(data))
-  console.log('获取邮箱验证码==============',data)
+  // console.log('获取邮箱验证码==============',data)
   if (data.errorCode) {
     data.errorCode === 5 && (this.emailVerificationCodeWA = this.$t('emailVerificationCodeWA_5'))
     data.errorCode === 1 && (this.emailVerificationCodeWA = this.$t('emailVerificationCodeWA_1'))
     data.errorCode === 2 && (this.emailVerificationCodeWA = this.$t('emailVerificationCodeWA_2'))
     data.errorCode === 3 && (this.emailVerificationCodeWA = this.$t('emailVerificationCodeWA_3'))
-    data.errorCode === 6 && (this.emailVerificationCodeWA = '收款账户不存在')
+    data.errorCode === 6 && (this.emailVerificationCodeWA = this.$t('step2VerificationCodeWA_10'))
     data.errorCode === 0 && (this.emailVerificationCodeWA = this.$t('emailVerificationCodeWA_0'))
 
     this.getEmailVerificationCodeInterval && clearInterval(this.getEmailVerificationCodeInterval) //获取邮箱验证码倒计时container
@@ -1876,7 +1876,7 @@ root.methods.getInitData = function () {
 // 返回初始data
 root.methods.re_getInitData = function (data) {
   typeof data === 'string' && (data = JSON.parse(data))
-  console.warn('获取了初始化数据', data)
+  // console.warn('获取了初始化数据', data)
   this.initData = data
   this.initReady = true
   this.$store.commit('CHANGE_PRICE_TO_BTC', this.initData)
@@ -2174,7 +2174,7 @@ root.methods.openRecharge = function (index, item) {
 // 进行验证第二步，手机、谷歌
 root.methods.beginVerificationStep2 = function () {
   if (this.picker == 0) {
-    this.popText = this.$t('尚未进行验证')
+    this.popText = this.$t('popWindowTitleNotVerified')
     this.popType = 0
     this.popOpen = true
     this.sending = false
@@ -2266,24 +2266,6 @@ root.methods.closeLockHouse = function () {
 
 // 打开锁仓
 root.methods.openLockHouse = function (index,item) {
-  // console.log(item)
-  // console.log(new Date(this.serverT).getHours()+7)
-  // let date = new Date();
-  // if (new Date(this.serverT).getHours()>12 && new Date(this.serverT).getMinutes() > 0 && new Date(this.serverT).getSeconds() > 0 ){
-  //   let dd = String(date.getDate()+1).padStart(2,'0');
-  //   let mm = String(date.getMonth() +1 ).padStart(2,'0');
-  //   this.nowDateTime = mm + '-' + dd
-  //   let ddd = String(date.getDate()+2).padStart(2,'0');
-  //   let mmm = String(date.getMonth() +1 ).padStart(2,'0');
-  //   this.dividendTime = mmm + '-' + ddd
-  // } else {
-  //   let dd = String(date.getDate()).padStart(2,'0');
-  //   let mm = String(date.getMonth() +1 ).padStart(2,'0');
-  //   this.nowDateTime = mm + '-' + dd
-  //   let ddd = String(date.getDate()+1).padStart(2,'0');
-  //   let mmm = String(date.getMonth() +1 ).padStart(2,'0');
-  //   this.dividendTime = mmm + '-' + ddd
-  // }
   // console.info(new Date().getDate())
   this.lockCount()
   this.lockHouseNowTime
@@ -2292,7 +2274,7 @@ root.methods.openLockHouse = function (index,item) {
   // 锁仓可用
   this.lockHouseAvailable = item.available
   this.popWindowOpenLockHouse = true
-  this.lockHomeNum = ''
+  // this.lockHomeNum = ''
 
 }
 
@@ -2320,20 +2302,20 @@ root.methods.error_lockCount = function (err) {
 // 判断锁仓数量
 root.methods.testLockAmount  = function () {
   if (this.$globalFunc.testSpecial(this.lockHomeNum)) {
-    this.lockHomeNum_WA = this.$t('请输入正确的数额')
+    this.lockHomeNum_WA = this.$t('lock_house_prompt_1')
     return false
   }
   // if (this.amountInput == '0') {
   //   this.transferAmountWA = this.$t('transferAmountWA2')
   //   return false
   // }
-  if (this.lockHomeNum > this.lockHouseAvailable) {
-    this.lockHomeNum_WA = this.$t('输入的锁仓数额超过可用锁仓数额')
+  if (Number(this.lockHomeNum) > Number(this.lockHouseAvailable)) {
+    this.lockHomeNum_WA = this.$t('lock_house_prompt_2')
     return false
   }
-  if (this.lockHomeNum <= '0') {
-    this.lockHomeNum = '0'
-    this.lockHomeNum_WA = this.$t('低于锁仓最小额')
+  if (Number(this.lockHomeNum) <= 0) {
+    this.lockHomeNum = 0
+    this.lockHomeNum_WA = this.$t('lock_house_prompt_3')
     return false
   }
   this.lockHomeNum_WA = ''
@@ -2346,7 +2328,7 @@ root.methods.canCommitLock = function () {
   let canSend = true
   canSend = this.testLockAmount() && canSend
   if (this.lockHomeNum === '') {
-    this.lockHomeNum_WA = this.$t('请输入正确的数额')
+    this.lockHomeNum_WA = this.$t('lock_house_prompt_1')
     return canSend = false
   }
   // if (this.amountInput === '0') {
@@ -2357,7 +2339,6 @@ root.methods.canCommitLock = function () {
 }
 
 root.methods.commitLockHouse = function () {
-
   if (this.sending) return
   if (!this.canCommitLock()) {
     return
@@ -2384,16 +2365,15 @@ root.methods.re_commitLockHouse = function (data) {
   if(data.result == 'SUCCESS'){
     this.popOpen = true
     this.popType = 1
-    this.popText = '锁仓成功'
+    this.popText = this.$t('lock_house_success')
+    // 关闭锁仓弹框
+    this.closeLockHouse()
   }
-
   if(data.result !== 'SUCCESS'){
     this.popOpen = true
     this.popType = 0
-    this.popText = '锁仓失败'
+    this.popText = this.$t('lock_house_failed')
   }
-  this.closeLockHouse()
-
 }
 
 root.methods.error_commitLockHouse = function (err) {

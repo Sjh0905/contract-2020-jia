@@ -55,13 +55,13 @@
             <div class="flow-code">{{item.transferId}}</div>
 
             <!--收款人 or 付款人-->
-            <div class="name">{{item.fromUserId ?  item.toName : item.fromName}}</div>
+            <div class="name">{{item.fromUserId ? item.fromName : item.toName}}</div>
 
             <!--收款人账号 or 付款人账号-->
-            <div class="Payee">{{item.fromUserId ? item.toEmail : item.fromEmail}}</div>
+            <div class="Payee">{{item.fromUserId ? item.fromEmail : item.toEmail}}</div>
 
             <!--收款人UID or 付款人UID-->
-            <div class="uid">{{item.fromUserId ? item.toUserId : item.fromUserId}}</div>
+            <div class="uid">{{item.fromUserId ? item.fromUserId : item.fromUserId}}</div>
 
             <!--币种 begin-->
             <span class="currency">{{item.currency == 'USDT2' ? 'USDT' :item.currency}}</span>
