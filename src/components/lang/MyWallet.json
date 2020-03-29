@@ -179,7 +179,8 @@
   "lock_house_prompt_3": "低于锁仓最小额",
   "lock_house_success": "锁仓成功",
   "lock_house_failed": "锁仓失败",
-  "exceed": "转账不可以超过500"
+  "exceed": "转账不可以超过500",
+  "exceed2": "转账数量不能小于0"
 
 
 
@@ -432,6 +433,7 @@
     "lock_house_prompt_3": "低於鎖倉最小額",
     "lock_house_success": "鎖倉成功",
     "lock_house_failed": "鎖倉失敗",
-    "exceed": "轉帳不可以超過500"
+    "exceed": "轉帳不可以超過500",
+    "exceed2": "轉帳數量不能小於0"
   }
 }

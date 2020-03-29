@@ -1080,7 +1080,7 @@ root.methods.GoToConfirmTransfer = function () {
     canSend = false
   }
   if (this.testNum_0 <= 0 ) {
-    this.testNumMsg_0 = this.$t('转账数量不能小于0')
+    this.testNumMsg_0 = this.$t('exceed2')
     canSend = false
   }
   // if (this.testNum_0 > 500) {
