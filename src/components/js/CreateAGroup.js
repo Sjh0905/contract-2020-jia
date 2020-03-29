@@ -85,9 +85,9 @@ root.computed.bindGA = function () {
   return this.$store.state.authState.ga
 }
 // 是否绑定邮箱
-root.computed.bindEmail = function () {
-  return this.$store.state.authState.email
-}
+// root.computed.bindEmail = function () {
+//   return this.$store.state.authState.email
+// }
 
 
 // // uid
@@ -182,13 +182,13 @@ root.methods.postCreateAGroup = function () {
     }
 
     // 如果没有绑定邮箱，不允许创建拼团
-    if (!this.bindEmail) {
-      this.popWindowTitle = this.$t('bind_email_pop_title')
-      this.popWindowPrompt = this.$t('bind_email_pop_article')
-      this.popWindowStyle = '3'
-      this.popWindowOpen = true
-      return
-    }
+    // if (!this.bindEmail) {
+    //   this.popWindowTitle = this.$t('bind_email_pop_title')
+    //   this.popWindowPrompt = this.$t('bind_email_pop_article')
+    //   this.popWindowStyle = '3'
+    //   this.popWindowOpen = true
+    //   return
+    // }
 
     // 如果没有绑定谷歌或手机，不允许创建拼团
     if (!this.bindGA && !this.bindMobile) {
