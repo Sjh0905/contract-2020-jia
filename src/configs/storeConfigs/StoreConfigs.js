@@ -404,7 +404,7 @@ store.mutations.SET_TRADING_PARAMETERS = (state, data) => {
  * @param info
  * @constructor
  */
-store.mutations.SET_GRC_PRICE_RANGE = (state, info) => {
+store.mutations.SET_KK_PRICE_RANGE = (state, info) => {
   state.KKPriceRange = info
 }
 /**

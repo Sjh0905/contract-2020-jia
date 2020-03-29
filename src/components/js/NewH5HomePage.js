@@ -144,8 +144,8 @@ root.created = function () {
 
   // console.log(this.textData.title)
 
-  this.getGRCPriceRange();
-  this.$eventBus.listen(this, 'GET_GRC_PRICE_RANGE', this.getGRCPriceRange);
+  this.getKKPriceRange();
+  this.$eventBus.listen(this, 'GET_GRC_PRICE_RANGE', this.getKKPriceRange);
 
 }
 
@@ -690,24 +690,24 @@ root.methods.getLength = function (obj) {
 // ----------- 获取对象长度 end -----------
 
 // ----------- 获取grc交易价格区间 start -----------
-root.methods.getGRCPriceRange = function () {
+root.methods.getKKPriceRange = function () {
   this.$http.send('KK_PRICE_RANGE',
     {
       bind: this,
-      callBack: this.re_getGRCPriceRange,
-      errorHandler: this.error_getGRCPriceRange
+      callBack: this.re_getKKPriceRange,
+      errorHandler: this.error_getKKPriceRange
     })
 }
 // 获取grc交易价格区间成功
-root.methods.re_getGRCPriceRange = function (data) {
+root.methods.re_getKKPriceRange = function (data) {
   console.log('获取grc交易价格区间成功',data);
   if(!data || !data.kkPriceRange)return
   this.KKPriceRange = data.kkPriceRange;
 
-  this.$store.commit('SET_GRC_PRICE_RANGE',data.kkPriceRange)
+  this.$store.commit('SET_KK_PRICE_RANGE',data.kkPriceRange)
 }
 // 获取grc交易价格区间报错
-root.methods.error_getGRCPriceRange = function () {
+root.methods.error_getKKPriceRange = function () {
   console.log('获取grc交易价格区间报错');
 }
 // ----------- 获取价格区间 end -----------

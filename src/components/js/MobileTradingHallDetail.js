@@ -102,8 +102,8 @@ root.data = function () {
 
 root.created = function () {
 
-  this.$eventBus.listen(this, 'GET_GRC_PRICE_RANGE', this.getGRCPriceRange);
-  this.getGRCPriceRange();
+  this.$eventBus.listen(this, 'GET_GRC_PRICE_RANGE', this.getKKPriceRange);
+  this.getKKPriceRange();
 	this.$store.commit('SET_HALL_SYMBOL', true);
 	this.$store.commit('changeMobileTradingHallFlag', false)
 
@@ -230,7 +230,7 @@ root.computed.bindMobile = function () {
   return this.$store.state.authState.sms
 }
 // 获取价格区间
-root.computed.GRCPriceRangeH5 = function () {
+root.computed.KKPriceRangeH5 = function () {
   // return ['0.2504','0.2506']
   return this.$store.state.KKPriceRange;
 }
@@ -347,9 +347,9 @@ root.methods.initSocket = function () {
 
 root.methods.getPriceChangeOrders = function(transactionData){
 
-  if(this.symbol == 'GRC_USDT' && this.GRCPriceRangeH5.length >0){
-    let minPrice = this.GRCPriceRangeH5[0] || 0;
-    let maxPrice = this.GRCPriceRangeH5[this.GRCPriceRangeH5.length -1] || 10;
+  if(this.symbol == 'GRC_USDT' && this.KKPriceRangeH5.length >0){
+    let minPrice = this.KKPriceRangeH5[0] || 0;
+    let maxPrice = this.KKPriceRangeH5[this.KKPriceRangeH5.length -1] || 10;
 
     // console.log('this is minPrice',minPrice,'maxPrice',maxPrice);
 
@@ -663,24 +663,24 @@ root.methods.RE_ERROR = function (err) {
 
 
 // 获取grc交易价格区间
-root.methods.getGRCPriceRange = function () {
+root.methods.getKKPriceRange = function () {
   this.$http.send('KK_PRICE_RANGE',
     {
       bind: this,
-      callBack: this.re_getGRCPriceRange,
-      errorHandler: this.error_getGRCPriceRange
+      callBack: this.re_getKKPriceRange,
+      errorHandler: this.error_getKKPriceRange
     })
 }
 // 获取grc交易价格区间成功
-root.methods.re_getGRCPriceRange = function (data) {
+root.methods.re_getKKPriceRange = function (data) {
   console.log('获取grc交易价格区间成功',data);
   if(!data || !data.kkPriceRange)return
   this.KKPriceRange = data.kkPriceRange;
 
-  this.$store.commit('SET_GRC_PRICE_RANGE',data.kkPriceRange)
+  this.$store.commit('SET_KK_PRICE_RANGE',data.kkPriceRange)
 }
 // 获取grc交易价格区间报错
-root.methods.error_getGRCPriceRange = function () {
+root.methods.error_getKKPriceRange = function () {
   console.log('获取grc交易价格区间报错');
 }
 

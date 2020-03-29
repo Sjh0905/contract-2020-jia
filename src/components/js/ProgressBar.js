@@ -239,13 +239,13 @@ root.created = function () {
   //  根据买卖设置买卖amount，买对应卖，卖对应买
   this.$eventBus.listen(this, 'SET_AMOUNT', this.RE_SET_AMOUNT);
 
-  this.$eventBus.listen(this, 'GET_GRC_PRICE_RANGE', this.getGRCPriceRange);
+  this.$eventBus.listen(this, 'GET_GRC_PRICE_RANGE', this.getKKPriceRange);
   // 获取精度
   this.getScaleConfig();
 
   this.show_now_price();
 
-  this.getGRCPriceRange();
+  this.getKKPriceRange();
 
 }
 
@@ -302,25 +302,25 @@ root.methods.SYMBOL_ENTRANSACTION = function () {
 }
 
 // 获取grc交易价格区间
-root.methods.getGRCPriceRange = function () {
+root.methods.getKKPriceRange = function () {
   this.$http.send('KK_PRICE_RANGE',
     {
       bind: this,
-      callBack: this.re_getGRCPriceRange,
-      errorHandler: this.error_getGRCPriceRange
+      callBack: this.re_getKKPriceRange,
+      errorHandler: this.error_getKKPriceRange
     })
 }
 // 获取grc交易价格区间成功
-root.methods.re_getGRCPriceRange = function (data) {
+root.methods.re_getKKPriceRange = function (data) {
   console.info('当前服务器时间 获取grc交易价格区间成功',data);
   if(!data || !data.kkPriceRange)return
   this.KKPriceRange = data.kkPriceRange;
 
-  this.$store.commit('SET_GRC_PRICE_RANGE',data.kkPriceRange)
+  this.$store.commit('SET_KK_PRICE_RANGE',data.kkPriceRange)
 
 }
 // 获取grc交易价格区间报错
-root.methods.error_getGRCPriceRange = function () {
+root.methods.error_getKKPriceRange = function () {
   console.log('当前服务器时间 获取grc交易价格区间报错');
 }
 

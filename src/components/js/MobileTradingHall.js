@@ -382,7 +382,7 @@ root.created = function () {
   // 根据当前币对请求买或卖列表
   this.getCurrencyBuyOrSaleList();
 
-  // this.getGRCPriceRange();
+  // this.getKKPriceRange();
 
 }
 
@@ -392,22 +392,22 @@ root.created = function () {
 
 //
 // // 获取grc交易价格区间
-// root.methods.getGRCPriceRange = function () {
+// root.methods.getKKPriceRange = function () {
 //   this.$http.send('GRC_PRICE_RANGE',
 //     {
 //       bind: this,
-//       callBack: this.re_getGRCPriceRange,
-//       errorHandler: this.error_getGRCPriceRange
+//       callBack: this.re_getKKPriceRange,
+//       errorHandler: this.error_getKKPriceRange
 //     })
 // }
 // // 获取grc交易价格区间成功
-// root.methods.re_getGRCPriceRange = function (data) {
+// root.methods.re_getKKPriceRange = function (data) {
 //   console.log('获取grc交易价格区间成功',data);
-//   if(!data || !data.grcPriceRange)return
-//   this.KKPriceRange = data.grcPriceRange;
+//   if(!data || !data.kkPriceRange)return
+//   this.KKPriceRange = data.kkPriceRange;
 // }
 // // 获取grc交易价格区间报错
-// root.methods.error_getGRCPriceRange = function () {
+// root.methods.error_getKKPriceRange = function () {
 //   console.log('获取grc交易价格区间报错');
 // }
 

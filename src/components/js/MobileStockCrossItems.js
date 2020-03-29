@@ -23,7 +23,7 @@ root.data = function () {
 root.computed = {}
 
 // 获取价格区间
-root.computed.GRCPriceRangeH5 = function () {
+root.computed.KKPriceRangeH5 = function () {
   // return ['0.2504','0.2506']
   return this.$store.state.KKPriceRange;
 }
@@ -87,9 +87,9 @@ root.methods = {}
 
 root.methods.getPriceChangeOrders = function(transactionData){
 
-  if(this.$store.state.symbol == 'GRC_USDT' && this.GRCPriceRangeH5.length >0){
-    let minPrice = this.GRCPriceRangeH5[0] || 0;
-    let maxPrice = this.GRCPriceRangeH5[this.GRCPriceRangeH5.length -1] || 10;
+  if(this.$store.state.symbol == 'GRC_USDT' && this.KKPriceRangeH5.length >0){
+    let minPrice = this.KKPriceRangeH5[0] || 0;
+    let maxPrice = this.KKPriceRangeH5[this.KKPriceRangeH5.length -1] || 10;
 
     // console.log('this is minPrice',minPrice,'maxPrice',maxPrice);
 

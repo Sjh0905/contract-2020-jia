@@ -104,7 +104,7 @@ root.created = function () {
 
   this.GET_NOTICE();
 
-  this.$store.commit('SET_SERVER_TIME_CALL_BACK',this.refreshGRCPriceRange);
+  this.$store.commit('SET_SERVER_TIME_CALL_BACK',this.refreshKKPriceRange);
 
   if (this.isLogin) {
     this.getCheck(); //是不是会员
@@ -421,7 +421,7 @@ root.methods.error_getGroupLevel = function (err) {
 
 
 //判断是否刷新价格区间
-root.methods.refreshGRCPriceRange = function (serverTime) {
+root.methods.refreshKKPriceRange = function (serverTime) {
   let date = new Date(serverTime)
   let hour = date.getHours()
   let minute = date.getMinutes()
