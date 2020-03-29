@@ -58,11 +58,12 @@ root.methods.re_unLockHouse = function ( data ) {
   this.popOpen = true
   if(data.result == 'SUCCESS') {
     this.popType = 1
-    this.popText = '解锁成功'
+    this.popText = this.$t('lockSuccess')
+    this.getLockCur()
     return
   }
   this.popType = 0
-  this.popText = '解锁失败'
+  this.popText = this.$t('lockFailed')
   // console.log(data)
 }
 root.methods.error_unLockHouse = function ( err ) {

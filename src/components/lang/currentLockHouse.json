@@ -17,7 +17,9 @@
     "lastDateDividends": "昨日分红",
     "totalDividends": "累计分红",
     "currentLock": "当前锁仓",
-    "historyLock": "历史锁仓"
+    "historyLock": "历史锁仓",
+    "lockSuccess": "解锁成功",
+    "lockFailed": "解锁失败"
   },
   "EN": {},
   "CA": {},
@@ -38,6 +40,8 @@
     "lastDateDividends": "昨日分紅",
     "totalDividends": "累計分紅",
     "currentLock": "當前鎖倉",
-    "historyLock": "歷史鎖倉"
+    "historyLock": "歷史鎖倉",
+    "lockSuccess": "解鎖成功",
+    "lockFailed": "解鎖失敗"
   }
 }
