@@ -69,7 +69,8 @@
 <!--            建团时间: -->
 
             <div class="information_div_s color_f4">
-              {{$t('timeFormation')}}{{createdAt}}
+<!--              {{$t('timeFormation')}}{{formatDateUitl(createdAt)}}-->
+              {{$t('timeFormation')}}{{formatDateUitl(createdAt)}}
 <!--              <span></span>-->
             </div>
 <!--            普通区折扣-->
@@ -90,7 +91,7 @@
       <span class="of_number_span">{{$t('accountNumber')}}：{{userName}}</span>
 <!--      <span></span>-->
      <!--  入团时间：-->
-      <span class="of_number_span_time">{{$t('entryTime')}} {{joinTime}}</span>
+      <span class="of_number_span_time">{{$t('entryTime')}} {{formatDateUitl(joinTime)}}</span>
 <!--      <span> </span>-->
 
            <!--解散拼团-->
@@ -154,7 +155,7 @@
           <div class="list_directory_column_li_div m-t">{{index + 1}}</div>
           <div class="list_directory_column_li_div">{{$globalFunc.formatUserName(item.account)}}</div>
           <div class="list_directory_column_li_div p-l">{{item.idType}}</div>
-          <div class="list_directory_column_li_dii m-r">{{item.joinTime}}</div>
+          <div class="list_directory_column_li_dii m-r">{{formatDateUitl(item.joinTime)}}</div>
         </li>
 
         <!-- 加载更多 如果loading结束、已经登录、获取的数据超过了limit，则显示 begin -->
@@ -236,7 +237,7 @@
       <!--      账号-->
       <div class="mobileNumber">
         <div class="mobileNumberFu numb">{{$t('colonelNumber')}}{{$globalFunc.formatUserName(priAccount)}}</div>
-        <div class="mobileNumberFu timef" >{{$t('timeFormation')}}{{createdAt}}</div>
+        <div class="mobileNumberFu timef" >{{$t('timeFormation')}}{{formatDateUitl(createdAt)}}</div>
 
       </div>
     </div>
@@ -296,7 +297,8 @@
         <li class="mobilelist_directory_column_li_div_li" v-for="(item,index) in computedRecord" :key="item.id">
           <div class="mobilelist_directory_column_li_div columnW">{{$globalFunc.formatUserName(item.account)}}</div>
           <div class="mobilelist_directory_column_li_div directoryW">{{item.idType}}</div>
-          <div class="mobilelist_directory_column_li_dii listW">{{item.joinTime}}</div>
+<!--          <div class="mobilelist_directory_column_li_dii listW">{{formatDateUitl(item.joinTime)}}</div>-->
+          <div class="mobilelist_directory_column_li_dii listW">{{$globalFunc.formatDateUitl((item.joinTime),'YYYY-MM-DD hh:mm:ss')}}</div>
         </li>
 
         <!-- 加载更多 如果loading结束、已经登录、获取的数据超过了limit，则显示 begin -->
