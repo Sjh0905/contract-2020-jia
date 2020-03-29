@@ -53,21 +53,21 @@ root.computed.symbol = function () {
 }
 
 // 获取价格区间
-root.computed.GRCPriceRange = function () {
+root.computed.KKPriceRange = function () {
   // return ['0.2504','0.2506']
-  return this.$store.state.GRCPriceRange;
+  return this.$store.state.KKPriceRange;
 }
 
 root.computed.depth_list = function () {
   // let list = [];
   // console.log('type=======',this.type)
-  // console.log('GRCPriceRange=======',this.GRCPriceRange)
+  // console.log('KKPriceRange=======',this.KKPriceRange)
 
   let transactionData = this.transactionData
 
-  if(this.symbol == 'KK_USDT' && this.GRCPriceRange.length >0){
-    let minPrice = this.GRCPriceRange[0] || 0;
-    let maxPrice = this.GRCPriceRange[this.GRCPriceRange.length -1] || 10;
+  if(this.symbol == 'KK_USDT' && this.KKPriceRange.length >0){
+    let minPrice = this.KKPriceRange[0] || 0;
+    let maxPrice = this.KKPriceRange[this.KKPriceRange.length -1] || 10;
 
     // console.log('this is minPrice',minPrice,'maxPrice',maxPrice);
 

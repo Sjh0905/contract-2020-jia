@@ -71,7 +71,7 @@ root.data = function () {
     is_more: true,
     interval_btn_list: [{title: '分时'}, {title: '1分'}, {title: '5分'}, {title: '15分'}, {title: '30分'}, {title: '1小时'}, {title: '4小时'}, {title: '日线'}],
 
-    // GRCPriceRange:[]
+    // KKPriceRange:[]
   }
 }
 
@@ -404,7 +404,7 @@ root.created = function () {
 // root.methods.re_getGRCPriceRange = function (data) {
 //   console.log('获取grc交易价格区间成功',data);
 //   if(!data || !data.grcPriceRange)return
-//   this.GRCPriceRange = data.grcPriceRange;
+//   this.KKPriceRange = data.grcPriceRange;
 // }
 // // 获取grc交易价格区间报错
 // root.methods.error_getGRCPriceRange = function () {

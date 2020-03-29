@@ -702,7 +702,7 @@ root.methods.getGRCPriceRange = function () {
 root.methods.re_getGRCPriceRange = function (data) {
   console.log('获取grc交易价格区间成功',data);
   if(!data || !data.kkPriceRange)return
-  this.GRCPriceRange = data.kkPriceRange;
+  this.KKPriceRange = data.kkPriceRange;
 
   this.$store.commit('SET_GRC_PRICE_RANGE',data.kkPriceRange)
 }

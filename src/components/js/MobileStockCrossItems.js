@@ -25,7 +25,7 @@ root.computed = {}
 // 获取价格区间
 root.computed.GRCPriceRangeH5 = function () {
   // return ['0.2504','0.2506']
-  return this.$store.state.GRCPriceRange;
+  return this.$store.state.KKPriceRange;
 }
 
 root.computed.depth_list = function () {

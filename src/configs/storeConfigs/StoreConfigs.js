@@ -122,7 +122,7 @@ store.state.tradingParameters = []
  *
  * @type {Array}
  */
-store.state.GRCPriceRange = []
+store.state.KKPriceRange = []
 
 /**
  * 身份信息
@@ -405,7 +405,7 @@ store.mutations.SET_TRADING_PARAMETERS = (state, data) => {
  * @constructor
  */
 store.mutations.SET_GRC_PRICE_RANGE = (state, info) => {
-  state.GRCPriceRange = info
+  state.KKPriceRange = info
 }
 /**
  * 修改语言

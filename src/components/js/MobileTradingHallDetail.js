@@ -88,7 +88,7 @@ root.data = function () {
 
     currency_list:[],
 
-    GRCPriceRange:[],
+    KKPriceRange:[],
 
     popIdenOpen: false, // 弹窗开放
 
@@ -232,7 +232,7 @@ root.computed.bindMobile = function () {
 // 获取价格区间
 root.computed.GRCPriceRangeH5 = function () {
   // return ['0.2504','0.2506']
-  return this.$store.state.GRCPriceRange;
+  return this.$store.state.KKPriceRange;
 }
 
 /*------------------------------ 方法 begin -------------------------------*/
@@ -675,7 +675,7 @@ root.methods.getGRCPriceRange = function () {
 root.methods.re_getGRCPriceRange = function (data) {
   console.log('获取grc交易价格区间成功',data);
   if(!data || !data.kkPriceRange)return
-  this.GRCPriceRange = data.kkPriceRange;
+  this.KKPriceRange = data.kkPriceRange;
 
   this.$store.commit('SET_GRC_PRICE_RANGE',data.kkPriceRange)
 }
@@ -686,11 +686,11 @@ root.methods.error_getGRCPriceRange = function () {
 
 //检测币对交易价格，false 不通过 true 通过
 root.methods.checkPriceRange = function () {
-  let len = this.GRCPriceRange.length;
+  let len = this.KKPriceRange.length;
   if(len == 0) return true
 
-  let minPrice = this.GRCPriceRange[0];
-  let maxPrice = this.GRCPriceRange[len-1];
+  let minPrice = this.KKPriceRange[0];
+  let maxPrice = this.KKPriceRange[len-1];
 
   if(minPrice > 0 && this.transaction_price < minPrice){
     this.popText = (this.lang === 'CH' ?  'Price cannot be less than' : '价格不能低于') + minPrice;

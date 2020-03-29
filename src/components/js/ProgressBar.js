@@ -223,7 +223,7 @@ root.data = function () {
       100:''
     },
 
-    GRCPriceRange:[],
+    KKPriceRange:[],
     // 弹框提示信息
     priceCont:'',
     // 弹框打开/关闭
@@ -265,7 +265,7 @@ root.watch.value = function (newValue, oldValue) {
 
 }
 
-// root.watch.GRCPriceRange = function (val,oldVal) {
+// root.watch.KKPriceRange = function (val,oldVal) {
 //   console.log(val,oldVal)
 // }
 
@@ -314,7 +314,7 @@ root.methods.getGRCPriceRange = function () {
 root.methods.re_getGRCPriceRange = function (data) {
   console.info('当前服务器时间 获取grc交易价格区间成功',data);
   if(!data || !data.kkPriceRange)return
-  this.GRCPriceRange = data.kkPriceRange;
+  this.KKPriceRange = data.kkPriceRange;
 
   this.$store.commit('SET_GRC_PRICE_RANGE',data.kkPriceRange)
 
@@ -519,11 +519,11 @@ root.methods.BTN_CLICK = function () {
 
 //检测币对交易价格，false 不通过 true 通过
 root.methods.checkPriceRange = function () {
-  let len = this.GRCPriceRange.length;
+  let len = this.KKPriceRange.length;
   if(len == 0)return true
 
-  let minPrice = this.GRCPriceRange[0];
-  let maxPrice = this.GRCPriceRange[len-1];
+  let minPrice = this.KKPriceRange[0];
+  let maxPrice = this.KKPriceRange[len-1];
 
 
   if(minPrice > 0 && this.price < minPrice){
