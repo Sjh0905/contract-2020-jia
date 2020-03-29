@@ -114,7 +114,9 @@
               </div>
 <!--              最新价-->
               <div class="latest-price flex">
-                {{value.close}}
+
+                {{$globalFunc.accFixed(value.close,!!quoteScale_list[value.name]? quoteScale_list[value.name].quoteScale : 4)}}
+<!--                {{value.close}}-->
                 <span class="valuation">≈{{get_now_price(value.close,value.name.split('_')[1])}}</span>
               </div>
 <!--              24h涨跌-->

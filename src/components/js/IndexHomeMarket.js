@@ -121,6 +121,19 @@ root.computed.marketList = function () {
   // return [this.$t('Favorites'),'USDT','ENX',this.$t('Innovation')]
 }
 
+// 所有币对精度信息
+root.computed.quoteScale_list = function () {
+  let quoteScale_obj = {};
+  let quoteScale_list = this.$store.state.quoteConfig;
+  quoteScale_list.forEach(v => {
+    quoteScale_obj[v.name] = {
+      quoteScale: v.quoteScale,
+      baseScale: v.baseScale
+    };
+  })
+  return quoteScale_obj;
+}
+
 // ajax获取的数据
 root.computed.currencylist = function () {
   // 把对象按字母排序
@@ -473,7 +486,7 @@ root.methods.handleCollectionMarket = function (symbol, type) {
 
 // 获取市场列表
 root.methods.GET_MARKET = function () {
-  console.log(this.$route)
+  // console.log(this.$route)
   // 初始化数据请求
   this.initGetDatas();
   // 初始化socket
