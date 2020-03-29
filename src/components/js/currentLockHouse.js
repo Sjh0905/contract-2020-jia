@@ -59,6 +59,7 @@ root.methods.re_unLockHouse = function ( data ) {
   if(data.result == 'SUCCESS') {
     this.popType = 1
     this.popText = this.$t('lockSuccess')
+    this.$eventBus.notify({key: 'UN_LOCK'})
     this.getLockCur()
     return
   }

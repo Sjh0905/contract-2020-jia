@@ -26,6 +26,7 @@ root.computed = {}
 
 root.created = function () {
   this.getTotalLock()
+  this.$eventBus.listen(this, 'UN_LOCK', this.getTotalLock);
 }
 
 /*-------------------------- 方法 begin------------------------------*/
