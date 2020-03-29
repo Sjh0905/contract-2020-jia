@@ -691,7 +691,7 @@ root.methods.getLength = function (obj) {
 
 // ----------- 获取grc交易价格区间 start -----------
 root.methods.getGRCPriceRange = function () {
-  this.$http.send('GRC_PRICE_RANGE',
+  this.$http.send('KK_PRICE_RANGE',
     {
       bind: this,
       callBack: this.re_getGRCPriceRange,

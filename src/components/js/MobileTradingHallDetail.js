@@ -664,7 +664,7 @@ root.methods.RE_ERROR = function (err) {
 
 // 获取grc交易价格区间
 root.methods.getGRCPriceRange = function () {
-  this.$http.send('GRC_PRICE_RANGE',
+  this.$http.send('KK_PRICE_RANGE',
     {
       bind: this,
       callBack: this.re_getGRCPriceRange,

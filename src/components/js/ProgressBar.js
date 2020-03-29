@@ -303,7 +303,7 @@ root.methods.SYMBOL_ENTRANSACTION = function () {
 
 // 获取grc交易价格区间
 root.methods.getGRCPriceRange = function () {
-  this.$http.send('GRC_PRICE_RANGE',
+  this.$http.send('KK_PRICE_RANGE',
     {
       bind: this,
       callBack: this.re_getGRCPriceRange,
@@ -312,11 +312,11 @@ root.methods.getGRCPriceRange = function () {
 }
 // 获取grc交易价格区间成功
 root.methods.re_getGRCPriceRange = function (data) {
-  console.log('当前服务器时间 获取grc交易价格区间成功',data);
-  if(!data || !data.grcPriceRange)return
-  this.GRCPriceRange = data.grcPriceRange;
+  console.info('当前服务器时间 获取grc交易价格区间成功',data);
+  if(!data || !data.kkPriceRange)return
+  this.GRCPriceRange = data.kkPriceRange;
 
-  this.$store.commit('SET_GRC_PRICE_RANGE',data.grcPriceRange)
+  this.$store.commit('SET_GRC_PRICE_RANGE',data.kkPriceRange)
 
 }
 // 获取grc交易价格区间报错
@@ -647,7 +647,7 @@ root.methods.tradeMarket = function (popWindowOpen1,type) {
     if(this.popWindowOpen1)return;
   }
 
-  if(symbol == 'GRC_USDT' && !this.orderType && !this.checkPriceRange())return;
+  if(symbol == 'KK_USDT' && !this.orderType && !this.checkPriceRange())return;
 
   if (!this.orderType && this.amount == 0) {
     this.popText = this.lang == 'CH' ? '请输入正确的' + txt + '量' : 'Invalid amount';
@@ -667,7 +667,7 @@ root.methods.tradeMarket = function (popWindowOpen1,type) {
   }
 
 
-  if(symbol == 'GRC_USDT' && this.orderType && !this.checkPriceRange())return;
+  if(symbol == 'KK_USDT' && this.orderType && !this.checkPriceRange())return;
 
   if (this.orderType && this.amount == 0) {
     this.popText = this.lang == 'CH' ? '请输入正确的' + txt + '量' : 'Invalid amount';

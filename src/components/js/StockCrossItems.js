@@ -65,7 +65,7 @@ root.computed.depth_list = function () {
 
   let transactionData = this.transactionData
 
-  if(this.symbol == 'GRC_USDT' && this.GRCPriceRange.length >0){
+  if(this.symbol == 'KK_USDT' && this.GRCPriceRange.length >0){
     let minPrice = this.GRCPriceRange[0] || 0;
     let maxPrice = this.GRCPriceRange[this.GRCPriceRange.length -1] || 10;
 

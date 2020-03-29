@@ -70,8 +70,8 @@ requestAddress.POST_CHANGE_PASSWORD_BY_MOBILE = {url: urlHead+'/user/alterLoginP
 
 requestAddress.DEPTH = {baseURL: '', url: urlHead+'/v1/market/depth', method: 'get'} //深度
 requestAddress.TRADE_ORDERS = {url: urlHead+'/v1/trade/orders', method: 'post'} // 买卖/撤单
-requestAddress.GRC_PRICE_RANGE = {url: urlHead+'/user/grc/symbol/priceRange', method: 'get'} // 获取grcPriceRange 的接口
-// requestAddress.GRC_PRICE_RANGE = {url: urlHead+'/user/kk/symbol/priceRange', method: 'get'} // 获取KKPriceRange 的接口
+// requestAddress.GRC_PRICE_RANGE = {url: urlHead+'/user/grc/symbol/priceRange', method: 'get'} // 获取grcPriceRange 的接口
+requestAddress.KK_PRICE_RANGE = {url: urlHead+'/user/kk/symbol/priceRange', method: 'get'} // 获取KKPriceRange 的接口
 requestAddress.GRC_ACTIVITYREWARDS = {url: urlHead+'/user/getGrcActivityRewards', method: 'post'} // 获取grc 详情列表的接口
 requestAddress.INITIAL_REWARD = {url: urlHead+'/user/initial/reward', method: 'get'} // 获取活动奖励的接口
 requestAddress.POST_USER_ORDERS = {url: urlHead+'/user/orders', method: 'post'} // 当前委托和历史委托，参数为'offsetId:开始查询的订单id','limit:获取数量','isFinalStatus:是否为历史订单，true为历史订单，false为当前订单'
