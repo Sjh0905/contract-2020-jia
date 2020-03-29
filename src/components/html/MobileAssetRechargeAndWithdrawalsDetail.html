@@ -88,22 +88,22 @@
 
       <div class="asset-oper-btn-box">
         <div class="asset-oper-btn-list">
-<!--          <div v-if="isMyWallet" class="asset-oper-btn-item" @click="jumpToRecharge(currencyTitle)">-->
-<!--            <img class="asset-oper-btn-item-img" src="../../assets/H5img/asset_recharge.png" alt="">-->
-<!--            <span class="asset-oper-btn-item-text">充币</span>-->
-<!--          </div>-->
-          <div v-if="isMyWallet" class="asset-oper-btn-item" @click="goExpecting">
+          <div v-if="isMyWallet" class="asset-oper-btn-item" @click="jumpToRecharge(currencyTitle)">
             <img class="asset-oper-btn-item-img" src="../../assets/H5img/asset_recharge.png" alt="">
             <span class="asset-oper-btn-item-text">充币</span>
           </div>
-<!--          <div v-if="isMyWallet" class="asset-oper-btn-item" @click="jumpToWithdraw(accountsComputed)">-->
-<!--            <img class="asset-oper-btn-item-img" src="../../assets/H5img/asset_withdraw.png" alt="">-->
-<!--            <span class="asset-oper-btn-item-text">提币</span>-->
+<!--          <div v-if="isMyWallet" class="asset-oper-btn-item" @click="goExpecting">-->
+<!--            <img class="asset-oper-btn-item-img" src="../../assets/H5img/asset_recharge.png" alt="">-->
+<!--            <span class="asset-oper-btn-item-text">充币</span>-->
 <!--          </div>-->
-          <div v-if="isMyWallet" class="asset-oper-btn-item" @click="goExpecting">
+          <div v-if="isMyWallet" class="asset-oper-btn-item" @click="jumpToWithdraw(accountsComputed)">
             <img class="asset-oper-btn-item-img" src="../../assets/H5img/asset_withdraw.png" alt="">
             <span class="asset-oper-btn-item-text">提币</span>
           </div>
+<!--          <div v-if="isMyWallet" class="asset-oper-btn-item" @click="goExpecting">-->
+<!--            <img class="asset-oper-btn-item-img" src="../../assets/H5img/asset_withdraw.png" alt="">-->
+<!--            <span class="asset-oper-btn-item-text">提币</span>-->
+<!--          </div>-->
           <!--<div class="asset-oper-btn-item" @click="goExpecting">-->
             <!--<img class="asset-oper-btn-item-img" src="../../assets/H5img/asset_capital_transfer.png" alt="">-->
             <!--<span class="asset-oper-btn-item-text">划转</span>-->

@@ -124,7 +124,7 @@ root.computed.quoteScale_list = function () {
 
 root.created = function () {
   this.getDetail()
-  // this.getFeeDetail()
+  this.getFeeDetail()
 }
 
 

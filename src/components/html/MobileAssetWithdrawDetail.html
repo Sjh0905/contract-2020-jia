@@ -252,20 +252,20 @@
 
   <!--memo toast弹窗提示-->
 
-  <div v-if="memoToastShow&&!loading" class="memo-toast">
-    <div class="memo-toast-box">
-      <div class="memo-toast-box-close-btn-box" @click="closeMemoToast">
-        <img class="memo-toast-box-close-btn" src="../../assets/mobile_img/mobile_asset_commen/h5_toast_close_btn.png" alt="">
-      </div>
-      <div class="memo-toast-title">提示</div>
-      <div class="memo-toast-body">提现{{title}}到二零二零须同时具备提现地址及{{title}} memo (备注) , 未遵守{{title}}提现规则将导致资产无法找回。</div>
-      <div class="memo-checkbox-box">
-        <div class="memo-checkbox">
-          <MobileCheckbox :bgColor="'light'" :agreement="memoAgreement" :changeAgreement='changeAgreement'></MobileCheckbox>
-          我已知晓{{title}}提现规则
-        </div>
-      </div>
-      <div class="memo-confirm-btn" :class="memoAgreement===false?'memo-confirm-btn-no-use':'btn_blue'" @click="memoConfirm">继续提现</div>
-    </div>
-  </div>
+<!--  <div v-if="memoToastShow&&!loading" class="memo-toast">-->
+<!--    <div class="memo-toast-box">-->
+<!--      <div class="memo-toast-box-close-btn-box" @click="closeMemoToast">-->
+<!--        <img class="memo-toast-box-close-btn" src="../../assets/mobile_img/mobile_asset_commen/h5_toast_close_btn.png" alt="">-->
+<!--      </div>-->
+<!--      <div class="memo-toast-title">提示</div>-->
+<!--      <div class="memo-toast-body">提现{{title}}到二零二零须同时具备提现地址及{{title}} memo (备注) , 未遵守{{title}}提现规则将导致资产无法找回。</div>-->
+<!--      <div class="memo-checkbox-box">-->
+<!--        <div class="memo-checkbox">-->
+<!--          <MobileCheckbox :bgColor="'light'" :agreement="memoAgreement" :changeAgreement='changeAgreement'></MobileCheckbox>-->
+<!--          我已知晓{{title}}提现规则-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="memo-confirm-btn" :class="memoAgreement===false?'memo-confirm-btn-no-use':'btn_blue'" @click="memoConfirm">继续提现</div>-->
+<!--    </div>-->
+<!--  </div>-->
 </div>
