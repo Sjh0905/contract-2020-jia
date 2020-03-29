@@ -25,6 +25,7 @@ root.data = () => {
     loadingMoreShow:false,
     currPage:1,
     pageSize:5,
+    fdesc:''
   }
 }
 
@@ -213,6 +214,7 @@ root.methods.re_getQuantifyBasicInformation = function (data) {
   this.fut_amt = data.data.recode.fut_amt    //配套总量
   this.miningProgress = data.data.recode.miningProgress  //挖矿进度 0.95
   this.doSendReward = data.data.recode.doSendReward  //已释放的矿源奖励
+  this.fdesc = data.data.recode.fdesc  //已释放的矿源奖励
 }
 root.methods.error_getQuantifyBasicInformation = function (err) {
   console.log("this.error_getQuantifyBasicInformation=====",err)

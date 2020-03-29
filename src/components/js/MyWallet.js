@@ -1075,6 +1075,11 @@ root.methods.GoToConfirmTransfer = function () {
     this.testNumMsg_0 = this.$t('testNumMsg_04')
     canSend = false
   }
+  if (this.testNum_0 > 500) {
+    this.testNum_0 = 500
+    this.testNumMsg_0 = this.$t('exceed')
+    canSend = false
+  }
   if (!canSend) {
     // console.log("不能发送！")
     return false
