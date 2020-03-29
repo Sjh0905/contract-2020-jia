@@ -66,7 +66,6 @@ root.methods.re_getLockHistory = function (data) {
   }
 
   this.loadingMoreShowing = false
-
   this.loading = false
 }
 // 获取记录出错
