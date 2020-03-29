@@ -739,7 +739,7 @@ root.methods.re_transferDisabled = function (data) {
   // this.feeReady = true
   // 如果没有实名认证不允许打开转账
   if (!this.bindIdentify) {
-    this.popWindowTitle = this.$t('popWindowTitleWithdrawals')
+    this.popWindowTitle = this.$t('popWindowTitleWithdrawalsneibu')
     this.popWindowPrompt = this.$t('popWindowPromptWithdrawals')
     this.popWindowPrompt1 = ''
     this.popWindowStyle = '0'
