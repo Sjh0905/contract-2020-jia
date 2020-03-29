@@ -24,6 +24,7 @@
   "popWindowPromptWithdrawals": "您尚未通过实名认证",
   "popWindowTitleBindGaRecharge": "请先绑定谷歌验证或手机",
   "popWindowTitleBindGaWithdrawals": "请先绑定谷歌验证或手机",
+  "popWindowTitleNotVerified": "尚未进行验证",
 
   "withdrawalsIsNotOpen": "该币种暂未开放提现功能，敬请期待！",
   "recharge_address_change_title": "重要通知！",
@@ -76,6 +77,7 @@
   "step2VerificationCodeWA_Authentication": "转账用户未进行实名认证",
   "step2VerificationCodeWA_receiving": "收款用户未进行实名认证",
   "step2VerificationCodeWA_incoming": "没有传入用户邮箱或UID",
+  "step2VerificationCodeWA_same": "收款用户不能转账用户相同",
   "placeholder_0": "备注",
   "placeholder_1": "地址",
   "picker_1": "谷歌验证码",
@@ -125,6 +127,7 @@
   "emailVerificationCodeWA_2": "已发送",
   "emailVerificationCodeWA_3": "邮件发送异常",
   "emailVerificationCodeWA_4": "验证码为空",
+  "step2VerificationCodeWA": "系统繁忙，请稍后再试",
   "step2VerificationCodeWA_1": "用户未登录",
   "step2VerificationCodeWA_2": "未绑定手机",
   "step2VerificationCodeWA_3": "已发送",
@@ -134,6 +137,7 @@
   "step2VerificationCodeWA_7": "状态未认证",
   "step2VerificationCodeWA_8": "暂不可用",
   "step2VerificationCodeWA_9": "验证码错误",
+  "step2VerificationCodeWA_10": "收款账户不存在",
   "capitalTransfer": "资金划转",
   "from": "从",
   "reach": "到",
@@ -168,7 +172,15 @@
   "lock_house_income": "您的锁仓分红开始产生收益",
   "lock_house_income1": "分红每日发放，分红周期每日12:00-次日12:00，未在12点之前锁仓不参与本期分红。",
   "lock_house_ensure": "确认锁仓",
-  "lock_house_surplus": "每日剩余次数"
+  "lock_house_surplus": "每日剩余次数",
+  "lock_house_prompt_1": "请输入正确的锁仓数额",
+  "lock_house_prompt_2": "超过可用锁仓数额",
+  "lock_house_prompt_3": "低于锁仓最小额",
+  "lock_house_success": "锁仓成功",
+  "lock_house_failed": "锁仓失败"
+
+
+
 },
 "EN": {
   "currency": "Coin",
@@ -264,6 +276,7 @@
     "popWindowPromptWithdrawals": "您尚未通過實名認證",
     "popWindowTitleBindGaRecharge": "請先綁定谷歌驗證或手機",
     "popWindowTitleBindGaWithdrawals": "請先綁定谷歌驗證或手機",
+    "popWindowTitleNotVerified": "尚未進行驗證",
 
     "withdrawalsIsNotOpen": "該幣種暫未開放提現功能，敬請期待！ ",
     "recharge_address_change_title": "重要通知！ ",
@@ -315,6 +328,7 @@
     "step2VerificationCodeWA_Authentication": "轉帳使用者未進行實名認證",
     "step2VerificationCodeWA_receiving": "收款使用者未進行實名認證",
     "step2VerificationCodeWA_incoming": "沒有傳入使用者郵箱或UID",
+    "step2VerificationCodeWA_same": "收款使用者不能轉帳使用者相同",
     "placeholder_0": "備註",
     "placeholder_1": "位址",
     "picker_1": "谷歌驗證碼",
@@ -364,6 +378,7 @@
     "emailVerificationCodeWA_2": "已發送",
     "emailVerificationCodeWA_3": "郵件發送異常",
     "emailVerificationCodeWA_4": "驗證碼為空",
+    "step2VerificationCodeWA": "系統繁忙，請稍後再試",
     "step2VerificationCodeWA_1": "使用者未登錄",
     "step2VerificationCodeWA_2": "未綁定手機",
     "step2VerificationCodeWA_3": "已發送",
@@ -373,6 +388,7 @@
     "step2VerificationCodeWA_7": "狀態未認證",
     "step2VerificationCodeWA_8": "暫不可用",
     "step2VerificationCodeWA_9": "驗證碼錯誤",
+    "step2VerificationCodeWA_10": "收款帳戶不存在",
     "capitalTransfer": "資金劃轉",
     "from": "從",
     "reach": "到",
@@ -397,7 +413,6 @@
     "transfer_describe1": "我的錢包和幣幣帳戶之間的資產相互劃轉，稱為資金劃轉。 我的錢包資產可提現，幣幣帳戶資產可交易，即：",
     "transfer_describe2": "A. 幣幣交易：需將資產從我的錢包劃轉到幣幣帳戶。 ",
     "transfer_describe3": "B. 資產提現：需將資產從幣幣帳戶劃轉到我的錢包。 ",
-
     "lock_house": "鎖倉分紅",
     "lock_house_amount": "鎖倉數量",
     "lock_house_input": "請輸入鎖倉數量",
@@ -407,6 +422,11 @@
     "lock_house_income": "您的鎖倉分紅開始產生收益",
     "lock_house_income1": "分紅每日發放，分紅週期每日12:00-次日12:00，未在12點之前鎖倉不參與本期分紅。 ",
     "lock_house_ensure": "確認鎖倉",
-    "lock_house_surplus": "每日剩餘次數"
+    "lock_house_surplus": "每日剩餘次數",
+    "lock_house_prompt_1": "請輸入正確的鎖倉數額",
+    "lock_house_prompt_2": "超過可用鎖倉數額",
+    "lock_house_prompt_3": "低於鎖倉最小額",
+    "lock_house_success": "鎖倉成功",
+    "lock_house_failed": "鎖倉失敗"
   }
 }

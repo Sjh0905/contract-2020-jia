@@ -11,9 +11,13 @@
     "unLockTime": "解锁时间",
     "noRecord": "暂无记录",
     "loadingMore": "加载更多",
-    "operation": "操作"
-
-
+    "operation": "操作",
+    "un_lock": "解锁",
+    "lockedWarehouse": "已锁仓",
+    "lastDateDividends": "昨日分红",
+    "totalDividends": "累计分红",
+    "currentLock": "当前锁仓",
+    "historyLock": "历史锁仓"
   },
   "EN": {},
   "CA": {},
@@ -25,7 +29,15 @@
     "dividendTime": "計算分紅時間",
     "accumulatedIncome": "累計收益",
     "incomeTime": "計息時間",
+    "unLockTime": "解鎖時間",
     "noRecord": "暫無記錄",
-    "loadingMore": "載入更多"
+    "loadingMore": "載入更多",
+    "operation": "操作",
+    "un_lock": "解鎖",
+    "lockedWarehouse": "已鎖倉",
+    "lastDateDividends": "昨日分紅",
+    "totalDividends": "累計分紅",
+    "currentLock": "當前鎖倉",
+    "historyLock": "歷史鎖倉"
   }
 }

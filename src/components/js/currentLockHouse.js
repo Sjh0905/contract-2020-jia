@@ -70,7 +70,7 @@ root.methods.error_unLockHouse = function ( err ) {
 }
 
 // 获取锁仓记录
-root.methods.getLockCur = function (currency) {
+root.methods.getLockCur = function () {
   // if (currency) {
   //
   // }
@@ -142,47 +142,40 @@ root.methods.error_getLockCur = function (err) {
 //     window && window.open(`https://eosflare.io/tx/${item.uniqueId}`)
 //     return
 //   }
-//
-//
+
 //   window && window.open(`https://blockchain.info/zh-cn/tx/${item.uniqueId}`)
-//
-//
 // }
-
-// 状态
-root.methods.state = function (item) {
-
-  let msg = ''
-
-  switch (item.status) {
-    case 'PENDING':
-      msg = this.$t('recharge_status_1') + `(${item.confirms}/${item.minimumConfirms})`
-      break;
-    case 'DEPOSITED':
-      msg = this.$t('recharge_status_2')
-      break;
-    case 'CANCELLED':
-      msg = this.$t('recharge_status_3')
-      break;
-    case 'WAITING_FOR_APPROVAL':
-      msg = this.$t('recharge_status_4')
-      break;
-    case 'DENIED':
-      msg = this.$t('recharge_status_5')
-      break;
-    default:
-      msg = '---'
-  }
-
-  return msg
-
-}
+//
+// // 状态
+// root.methods.state = function (item) {
+//   let msg = ''
+//   switch (item.status) {
+//     case 'PENDING':
+//       msg = this.$t('recharge_status_1') + `(${item.confirms}/${item.minimumConfirms})`
+//       break;
+//     case 'DEPOSITED':
+//       msg = this.$t('recharge_status_2')
+//       break;
+//     case 'CANCELLED':
+//       msg = this.$t('recharge_status_3')
+//       break;
+//     case 'WAITING_FOR_APPROVAL':
+//       msg = this.$t('recharge_status_4')
+//       break;
+//     case 'DENIED':
+//       msg = this.$t('recharge_status_5')
+//       break;
+//     default:
+//       msg = '---'
+//   }
+//   return msg
+// }
 
 
 root.methods.loadingMore = function () {
   this.limit += this.limitNum
   this.loadingMoreShowing = true
-  this.getRecord()
+  this.getLockCur()
 }
 
 

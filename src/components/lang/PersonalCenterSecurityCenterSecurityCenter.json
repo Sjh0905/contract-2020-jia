@@ -180,6 +180,8 @@
     "toBeAudited": "待審核",
     "passed": "已通過",
     "other": "其他",
+    "paymentFees": "使用TT支付手續費",
+    "feeDeductions": "設置TT抵扣手續費，享受抵扣優惠",
     "inviteFriends": "邀請好友",
     "inviteFriends_reward": "邀請好友獲得獎勵",
     "immediateInvitation": "立即邀請",

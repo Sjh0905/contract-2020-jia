@@ -4,19 +4,19 @@
     <div class="lock-house">
         <ul class="lock-house-content flex">
           <li>
-            <div class="locked-hose">已锁仓 TT</div>
+            <div class="locked-hose">{{$t('lockedWarehouse')}} TT</div>
             <div class="locked-num">{{toFixed(Number(TT),8) }}</div>
           </li>
           <li>
-            <div class="locked-hose">已锁仓 KK</div>
+            <div class="locked-hose">{{$t('lockedWarehouse')}} KK</div>
             <div class="locked-num">{{toFixed(Number(KK),8)}}</div>
           </li>
           <li>
-            <div class="locked-hose">昨日分红（YY）</div>
+            <div class="locked-hose">{{$t('lastDateDividends')}}（YY）</div>
             <div class="locked-num">{{toFixed(Number(lastDateReward),8)}}</div>
           </li>
           <li>
-            <div class="locked-hose">累计分红（YY）</div>
+            <div class="locked-hose">{{$t('totalDividends')}}（YY）</div>
             <div class="locked-num">{{toFixed(Number(totalReward),8)}}</div>
           </li>
         </ul>
@@ -24,12 +24,12 @@
 
     <div class="lock-house-sel flex">
       <router-link to="/index/asset/lockingRecord/currentLockHouse" class="title-tab flex-center tab-item-first" active-class="selected text_blue-7">
-        {{$t('当前锁仓')}}
+        {{$t('currentLock')}}
       </router-link>
 
       <router-link to="/index/asset/lockingRecord/historyLockHouse" class="title-tab flex-center margin-a-little tab-item-last"
                    active-class="selected text_blue-7">
-        {{$t('历史锁仓')}}
+        {{$t('historyLock')}}
       </router-link>
     </div>
 
