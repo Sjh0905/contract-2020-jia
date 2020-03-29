@@ -97,10 +97,10 @@ root.computed.bindMobile = function () {
 root.computed.bindGA = function () {
   return this.$store.state.authState.ga
 }
-// 是否绑定邮箱
-root.computed.bindEmail = function () {
-  return this.$store.state.authState.email
-}
+// // 是否绑定邮箱
+// root.computed.bindEmail = function () {
+//   return this.$store.state.authState.email
+// }
 
 // 用户名
 root.computed.userName = function () {
@@ -167,11 +167,7 @@ root.watch.searchCities = function(v){
 /*------------------------------ 方法 -------------------------------*/
 root.methods = {}
 
-// 弹框跳安全中心
-root.methods.goToSecurityCenter = function () {
-  this.popWindowOpen = false
-  this.$router.push({name: 'securityCenter'})
-}
+
 
 // 认证状态
 root.methods.GET_AUTH_STATE = function () {
@@ -209,21 +205,26 @@ root.methods.goToBindIdentity = function () {
   this.popWindowOpen = false
   this.$router.push({name: 'authenticate'})
 }
+// 弹框跳安全中心
+root.methods.goToSecurityCenter = function () {
+  this.popWindowOpen = false
+  this.$router.push({name: 'securityCenter'})
+}
 // 去绑定谷歌验证
-root.methods.goToBindGA = function () {
-  this.popWindowOpen = false
-  this.$router.push({name: 'bindGoogleAuthenticator'})
-}
-// 去绑定手机号
-root.methods.goToBindMobile = function () {
-  this.popWindowOpen = false
-  this.$router.push({name: 'bindMobile'})
-}
+// root.methods.goToBindGA = function () {
+//   this.popWindowOpen = false
+//   this.$router.push({name: 'bindGoogleAuthenticator'})
+// }
+// // 去绑定手机号
+// root.methods.goToBindMobile = function () {
+//   this.popWindowOpen = false
+//   this.$router.push({name: 'bindMobile'})
+// }
 // 去绑定邮箱
-root.methods.goToBindEmail = function () {
-  this.popWindowOpen = false
-  this.$router.push({name: 'bindEmail'})
-}
+// root.methods.goToBindEmail = function () {
+//   this.popWindowOpen = false
+//   this.$router.push({name: 'bindEmail'})
+// }
 
 
 
@@ -311,14 +312,14 @@ root.methods.postJoinGroup = function () {
     return
   }
 
-  // 如果没有绑定邮箱，不允许加入拼团
-  if (!this.bindEmail) {
-    this.popWindowTitle = this.$t('bind_email_pop_title')
-    this.popWindowPrompt = this.$t('bind_email_pop_article')
-    this.popWindowStyle = '3'
-    this.popWindowOpen = true
-    return
-  }
+  // // 如果没有绑定邮箱，不允许加入拼团
+  // if (!this.bindEmail) {
+  //   this.popWindowTitle = this.$t('bind_email_pop_title')
+  //   this.popWindowPrompt = this.$t('bind_email_pop_article')
+  //   this.popWindowStyle = '3'
+  //   this.popWindowOpen = true
+  //   return
+  // }
 
   // 如果没有绑定谷歌或手机，不允许加入拼团
   if (!this.bindGA && !this.bindMobile) {
