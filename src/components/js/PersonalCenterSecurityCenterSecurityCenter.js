@@ -68,8 +68,8 @@ root.data = function () {
     showReleaseEmail: false,
 
     // //会员到期日
-    // expires: '',
-    // flag: false,
+    expires:'',
+    flag: false,
 
     // 平台币抵扣
     BDBInfo: false,
@@ -83,14 +83,14 @@ root.data = function () {
 
 root.computed = {}
 
-// 会员到期日
-root.computed.expires = function () {
-  return this.$store.state.isVIP.expires
-}
-// 是否绑定了手机
-root.computed.flag = function () {
-  return this.$store.state.isVIP.flag
-}
+// // 会员到期日
+// root.computed.expires = function () {
+//   return this.$store.state.isVIP.expires
+// }
+// // 是否绑定了手机
+// root.computed.flag = function () {
+//   return this.$store.state.isVIP.flag
+// }
 
 // 是否绑定了谷歌
 root.computed.bindGA = function () {
@@ -173,7 +173,7 @@ root.created = function () {
   this.closeReleaseMobile()
 
   this.getBDBInfo()
-  // this.getCheck()
+  this.getCheck()
 }
 
 root.methods = {}
@@ -538,46 +538,46 @@ root.methods.jumpMembershipCard = function () {
 }
 
 
-// //是否是会员get (query:{})
-// root.methods.getCheck= function () {
-//
-//   // var data = {
-//   //   "data": {
-//   //     "expires": "2020-04-12", //会员到期日
-//   //     "flag": false,   //是否是会员 true:是，false：否
-//   //     "success": true, //成功
-//   //     "expires_timestamp": 1586682285580 //会员失效时间戳
-//   //   },
-//   //   "errorCode": "0",
-//   //   "message": "success"
-//   // }
-//
-//   // this.re_getCheck()
-//   // /* TODO : 调试接口需要屏蔽 E*/
-//   this.$http.send('GET_CHECK', {
-//     bind: this,
-//     urlFragment: this.userId,
-//     // query:{
-//     //   gname: this.gname
-//     // },
-//     callBack: this.re_getCheck,
-//     errorHandler: this.error_getCheck
-//   })
-// }
-//
-// root.methods.re_getCheck = function (data) {
-//   //检测data数据是JSON字符串转换JS字符串
-//   typeof data === 'string' && (data = JSON.parse(data))
-//   this.data = data.data
-//   this.expires = data.data.expires
-//   this.flag = data.data.flag
-//   console.log('是否是会员get-----',this.data)
-//
-// }
-//
-// root.methods.error_getCheck = function (err) {
-//   console.log("this.err=====",err)
-// }
+//是否是会员get (query:{})
+root.methods.getCheck= function () {
+
+  // var data = {
+  //   "data": {
+  //     "expires": "2020-04-12", //会员到期日
+  //     "flag": false,   //是否是会员 true:是，false：否
+  //     "success": true, //成功
+  //     "expires_timestamp": 1586682285580 //会员失效时间戳
+  //   },
+  //   "errorCode": "0",
+  //   "message": "success"
+  // }
+
+  // this.re_getCheck()
+  // /* TODO : 调试接口需要屏蔽 E*/
+  this.$http.send('GET_CHECK', {
+    bind: this,
+    urlFragment: this.userId,
+    // query:{
+    //   gname: this.gname
+    // },
+    callBack: this.re_getCheck,
+    errorHandler: this.error_getCheck
+  })
+}
+
+root.methods.re_getCheck = function (data) {
+  //检测data数据是JSON字符串转换JS字符串
+  typeof data === 'string' && (data = JSON.parse(data))
+  this.data = data.data
+  this.expires = data.data.expires
+  this.flag = data.data.flag
+  console.log('是否是会员get-----',this.data)
+
+}
+
+root.methods.error_getCheck = function (err) {
+  console.log("this.err=====",err)
+}
 
 
 //sss============= 修改登陆密码St
