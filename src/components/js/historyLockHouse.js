@@ -48,7 +48,7 @@ root.methods.getLockHistory= function (currency) {
     bind: this,
     query: {
       status:'2',
-      limit: this.limit
+      // limit: this.limit
     },
     callBack: this.re_getLockHistory,
     errorHandler: this.error_getLockHistory
@@ -66,7 +66,6 @@ root.methods.re_getLockHistory = function (data) {
   }
 
   this.loadingMoreShowing = false
-
 
   this.loading = false
 }
