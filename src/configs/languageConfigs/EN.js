@@ -120,7 +120,7 @@ root.assetPageWithdrawalsRecord.check = 'Check'
 root.assetPageWithdrawalsRecord.success = 'Completed'
 
 root.assetPageWithdrawalsRecord.loadingMore = 'More'
-root.assetPageWithdrawalsRecord.quantificationActivities = 'GRC quantification activities'
+root.assetPageWithdrawalsRecord.quantificationActivities = 'KK activity award'
 root.assetPageWithdrawalsRecord.Issued = 'Issued'
 
 

@@ -102,7 +102,7 @@ root.assetPageWithdrawalsRecord.copy="コピー"
 root.assetPageWithdrawalsRecord.check="点検"
 root.assetPageWithdrawalsRecord.success="成功"
 root.assetPageWithdrawalsRecord.loadingMore="より多くのロードをロード"//より多くのロードをロード
-root.assetPageWithdrawalsRecord.quantificationActivities = 'GRC定量活動'
+root.assetPageWithdrawalsRecord.quantificationActivities = 'KK活動奨励'
 root.assetPageWithdrawalsRecord.Issued = 'リリース済'
 
 root.helpApplyToList={}
