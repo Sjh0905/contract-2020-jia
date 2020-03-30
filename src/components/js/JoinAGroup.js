@@ -332,23 +332,23 @@ root.methods.postJoinGroup = function () {
 
 
   // TODO : 加变量的非空判断 正则判断 S
-  if (this.sending) return
-  let canSend = true
-  canSend = this.testpriAccount1() && canSend
+  // if (this.sending) return
+  // let canSend = true
+  // canSend = this.testpriAccount1() && canSend
+  //
+  // if (this.priAccount1 === '') {
+  //   this.nameMsg_0 = this.$t('enter')
+  //   canSend = false
+  // }
+  // if (!canSend) {
+  //   // console.log("不能发送！")
+  //   return
+  // }
 
-  if (this.priAccount1 === '') {
-    this.nameMsg_0 = this.$t('enter')
-    canSend = false
-  }
-  if (!canSend) {
-    // console.log("不能发送！")
-    return
-  }
-
-  if (this.priAccount1 !== this.priAccount) {
-    this.nameMsg_0 = this.$t('invalid')
-    return false
-  }
+  // if (this.priAccount1 !== this.priAccount) {
+  //   this.nameMsg_0 = this.$t('invalid')
+  //   return false
+  // }
 
   if (this.priAccount == '') {
     return;
@@ -451,24 +451,24 @@ root.methods.closePlaceholder = function (type) {
 }
 
 // 副团长账号输入
-root.methods.testpriAccount1 = function () {
-  this.pswConfirmPlaceholderShow = true
-
-  if (this.priAccount1 === '') {
-    this.nameMsg_0 = this.$t('enter')
-    return false
-  }
-
-  //如果既不是邮箱格式也不是手机格式
-  if (!this.$globalFunc.emailOrMobile(this.priAccount1)) {
-    this.nameMsg_0 = this.$t('register.userNameWA_0')
-    return false
-  }
-
-
-  this.nameMsg_0 = ''
-  return true
-}
+// root.methods.testpriAccount1 = function () {
+//   this.pswConfirmPlaceholderShow = true
+//
+//   if (this.priAccount1 === '') {
+//     this.nameMsg_0 = this.$t('enter')
+//     return false
+//   }
+//
+//   //如果既不是邮箱格式也不是手机格式
+//   if (!this.$globalFunc.emailOrMobile(this.priAccount1)) {
+//     this.nameMsg_0 = this.$t('register.userNameWA_0')
+//     return false
+//   }
+//
+//
+//   this.nameMsg_0 = ''
+//   return true
+// }
 
 
 
