@@ -49,12 +49,12 @@
         <li class="flex-between">
             <span class="_m_od_ul2t">实际到账</span>
             <span v-if="order.type==='BUY_LIMIT'" class="_m_od_ul2c txt_80">
-                 {{toFixed(actualAccount,8)}}
-          {{order.type!=='BUY_LIMIT'?order.symbol.split('_')[1]:order.symbol.split('_')[0]}}
+              {{!replaced ? toFixed(actualAccount,8) : toFixed(accMinus(amount , accMinus(originalFee , refundedFee)),8)}}
+              {{order.type!=='BUY_LIMIT'?order.symbol.split('_')[1]:order.symbol.split('_')[0]}}
             </span>
             <span v-if="order.type!=='BUY_LIMIT'" class="_m_od_ul2c txt_80">
-                 {{toFixed(accMinus(filledPrice , totalFee),8)}}
-          {{order.type!=='BUY_LIMIT'?order.symbol.split('_')[1]:order.symbol.split('_')[0]}}
+              {{!replaced ? toFixed(accMinus(filledPrice , totalFee),8) : toFixed(accMinus(filledPrice , accMinus(originalFee , refundedFee)),8)}}
+              {{order.type!=='BUY_LIMIT'?order.symbol.split('_')[1]:order.symbol.split('_')[0]}}
             </span>
         </li>
     </ul>
