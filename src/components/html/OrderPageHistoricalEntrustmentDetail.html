@@ -106,13 +106,11 @@
 
         <!--实际到账 begin -->
         <div class="hidden-detail-article-1" v-if="orderDetail.length==1 && !orderType">
-          {{toFixed(accMinus(amount , accMinus(originalFee , refundedFee)),8)}}
-          <!--{{toFixed(actualAccount,8)}}-->
+          {{!replaced ? toFixed(actualAccount,8) : toFixed(accMinus(amount , accMinus(originalFee , refundedFee)),8)}}
           {{orderType?symbol.split('_')[1]:symbol.split('_')[0]}}
         </div>
         <div class="hidden-detail-article-1" v-if="orderDetail.length==1 && orderType">
-          {{toFixed(accMinus(filledPrice , accMinus(originalFee , refundedFee)),8)}}
-          <!--{{toFixed(accMinus(filledPrice , totalFee),8)}}-->
+          {{!replaced ? toFixed(accMinus(filledPrice , totalFee),8) : toFixed(accMinus(filledPrice , accMinus(originalFee , refundedFee)),8)}}
           {{orderType?symbol.split('_')[1]:symbol.split('_')[0]}}
         </div>
         <div class="hidden-detail-article-1" v-if="orderDetail.length!=1">
@@ -182,13 +180,11 @@
         <!--如果开抵扣了，显示抵扣 end -->
 
         <div class="hidden-detail-article-1" v-if="!orderType">
-          <!--{{toFixed(actualAccount,8)}}-->
-          {{toFixed(accMinus(amount , accMinus(originalFee , refundedFee)),8)}}
+          {{!replaced ? toFixed(actualAccount,8) : toFixed(accMinus(amount , accMinus(originalFee , refundedFee)),8)}}
           {{orderType?symbol.split('_')[1]:symbol.split('_')[0]}}
         </div>
         <div class="hidden-detail-article-1" v-if="orderType">
-          <!--{{toFixed(accMinus(filledPrice , totalFee),8)}}-->
-          {{toFixed(accMinus(filledPrice , accMinus(originalFee , refundedFee)),8)}}
+          {{!replaced ? toFixed(accMinus(filledPrice , totalFee),8) : toFixed(accMinus(filledPrice , accMinus(originalFee , refundedFee)),8)}}
           {{orderType?symbol.split('_')[1]:symbol.split('_')[0]}}
         </div>
 
