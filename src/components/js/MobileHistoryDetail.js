@@ -165,7 +165,7 @@ root.methods.re_getDetail = function (data) {
 	this.loading = !(this.orderDetailReady && this.feeDetailReady)
 
 
-  // this.getFeeDetail()
+  this.getFeeDetail()
 }
 // 获取订单详情失败
 root.methods.error_getDetail = function (err) {
