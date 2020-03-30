@@ -119,7 +119,7 @@ root.assetPageWithdrawalsRecord.copy = '拷貝'
 root.assetPageWithdrawalsRecord.check = '檢查'
 root.assetPageWithdrawalsRecord.success = '成功'
 root.assetPageWithdrawalsRecord.loadingMore = '加載更多'
-root.assetPageWithdrawalsRecord.quantificationActivities = 'GRC量化活動'
+root.assetPageWithdrawalsRecord.quantificationActivities = 'KK活動獎勵'
 root.assetPageWithdrawalsRecord.Issued = '已發放'
 
 

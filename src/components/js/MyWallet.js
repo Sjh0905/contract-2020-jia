@@ -408,7 +408,7 @@ root.methods.getAuthState = function () {
 root.methods.re_getAuthState = function (data) {
   typeof data === 'string' && (data = JSON.parse(data))
   if (!data) return
-  // this.$store.commit('SET_AUTH_STATE', data.dataMap)
+  this.$store.commit('SET_AUTH_STATE', data.dataMap)
   // 获取认证状态成功
   this.authStateReady = true
   this.loading = !(this.currencyReady && this.authStateReady)
@@ -1483,7 +1483,7 @@ root.methods.re_commitStep2Verification = function (data) {
     }
     if (data.errorCode === 8) {
       this.buyConfirmSuccess = false
-      this.popText = this.$t('iKnowthe13')
+      this.popText = this.$t('iKnowthe16')
       this.popType = 0
       this.popOpen = true
     }
@@ -1501,7 +1501,7 @@ root.methods.re_commitStep2Verification = function (data) {
     }
     if (data.errorCode === 11) {
       this.buyConfirmSuccess = false
-      this.popText = this.$t('iKnowthe16')
+      this.popText = this.$t('iKnowtheq') + this.dayMaxAmount
       this.popType = 0
       this.popOpen = true
     }
@@ -1715,6 +1715,12 @@ root.methods.re_commitEmailVerification = function (data) {
     if (data.errorCode === 4) {
       this.emailVerificationSending = false
       this.step2VerificationCodeWA = this.$t('iKnowthe5')
+      // this.popType = 0
+      // this.popOpen = true
+    }
+    if (data.errorCode === 7) {
+      this.emailVerificationSending = false
+      this.step2VerificationCodeWA = this.$t('iKnowthe5Q')
       // this.popType = 0
       // this.popOpen = true
     }

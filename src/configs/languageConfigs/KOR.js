@@ -107,7 +107,7 @@ root.assetPageWithdrawalsRecord.copy = '복사'
 root.assetPageWithdrawalsRecord.check = '확인'
 root.assetPageWithdrawalsRecord.success = '성공'
 root.assetPageWithdrawalsRecord.loadingMore = '더 많은 로드'
-root.assetPageWithdrawalsRecord.quantificationActivities ='Grc 정량화 활동'
+root.assetPageWithdrawalsRecord.quantificationActivities ='KK 이벤트 보상'
 root.assetPageWithdrawalsRecord.Issued = '발행되었습니다'
 
 
@@ -771,7 +771,7 @@ root.assetPageWithdrawalsRecord.copy = '복사'
 root.assetPageWithdrawalsRecord.check = '확인'
 root.assetPageWithdrawalsRecord.success = '성공'
 root.assetPageWithdrawalsRecord.loadingMore = '더 많은 로드'
-root.assetPageWithdrawalsRecord.quantificationActivities ='Grc 정량화 활동'
+root.assetPageWithdrawalsRecord.quantificationActivities ='KK 이벤트 보상'
 root.assetPageWithdrawalsRecord.Issued = '발행되었습니다'
 
 

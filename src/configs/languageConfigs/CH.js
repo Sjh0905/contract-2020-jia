@@ -115,7 +115,7 @@ root.assetPageWithdrawalsRecord.copy = '拷贝'
 root.assetPageWithdrawalsRecord.check = '检查'
 root.assetPageWithdrawalsRecord.success = '成功'
 root.assetPageWithdrawalsRecord.loadingMore = '加载更多'
-root.assetPageWithdrawalsRecord.quantificationActivities = 'GRC量化活动'
+root.assetPageWithdrawalsRecord.quantificationActivities = 'KK活动奖励'
 root.assetPageWithdrawalsRecord.Issued = '已发放'
 
 // 帮助中心
