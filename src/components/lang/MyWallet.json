@@ -50,6 +50,7 @@
   "iKnowthe3":"验证已过期",
   "iKnowthe4":"验证码错误",
   "iKnowthe5":"系统异常",
+  "iKnowthe5Q":"收款人未实名认证",
   "iKnowthe6":"用户未登录",
   "iKnowthe7":"未进行邮箱验证",
   "iKnowthe8":"未绑定手机",
@@ -61,6 +62,7 @@
   "iKnowthe14":"转账数量小于单比成交最小量",
   "iKnowthe15":"24小时转账金额必须要在范围内",
   "iKnowthe16":"用户余额不足",
+  "iKnowtheq":"超出当日限额",
   "iKnowthe17":"系统繁忙",
   "iKnowthe18":"用户未输入验证码",
   "iKnowthe19":"用户没有转账币种的可用余额",
@@ -281,7 +283,7 @@
     "popWindowTitleBindGaRecharge": "請先綁定谷歌驗證或手機",
     "popWindowTitleBindGaWithdrawals": "請先綁定谷歌驗證或手機",
     "popWindowTitleNotVerified": "尚未進行驗證",
-
+    "iKnowthe5Q":"收款人未實名認證",
     "withdrawalsIsNotOpen1": "該幣種暫未開放內部轉帳能，敬請期待！ ",
     "withdrawalsIsNotOpen": "該幣種暫未開放提現能，敬請期待！ ",
     "recharge_address_change_title": "重要通知！ ",
@@ -305,6 +307,7 @@
     "iKnowthe3":"驗證已過期",
     "iKnowthe4":"驗證碼錯誤",
     "iKnowthe5":"系統異常",
+
     "iKnowthe6":"使用者未登錄",
     "iKnowthe7":"未進行郵箱驗證",
     "iKnowthe8":"未綁定手機",
@@ -434,6 +437,8 @@
     "lock_house_success": "鎖倉成功",
     "lock_house_failed": "鎖倉失敗",
     "exceed": "轉帳不可以超過500",
+
+    "iKnowtheq":"超出當日限額",
     "exceed2": "轉帳數量不能小於0"
   }
 }
