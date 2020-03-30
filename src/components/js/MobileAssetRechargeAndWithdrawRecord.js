@@ -305,7 +305,7 @@ root.methods.getRewardRecord = function () {
     return;
   }
   this.ajaxWithdrawFlag = true
-  this.$http.send('GRC_ACTIVITYREWARDS', {
+  this.$http.send('KK_ACTIVITYREWARDS', {
     bind: this,
     params: {
       rewardId:this.lastId,
@@ -325,7 +325,7 @@ root.methods.re_getRewardRecord = function (data) {
   // console.log('提现记录',data)
   this.ajaxWithdrawFlag = false
   this.isFirstGetWithdrawFlag = false
-  if (!data || data.dataMap.grcActivityRewardList.length === 0) {
+  if (!data || data.dataMap.kkActivityRewardList.length === 0) {
     // console.log('data无',data)
     // if(this.ajaxWithdrawFlag === true){
     this.loading = false
@@ -334,14 +334,14 @@ root.methods.re_getRewardRecord = function (data) {
     return
   }
 
-  if (data.dataMap.grcActivityRewardList.length < this.pageSize){
+  if (data.dataMap.kkActivityRewardList.length < this.pageSize){
     this.isShowGetMoreWithdraw = false
   } else {
     this.pageSize += 10;
   }
 
   console.log('data有', data)
-  this.ActivityRecord = data.dataMap.grcActivityRewardList
+  this.ActivityRecord = data.dataMap.kkActivityRewardList
 
   // if(this.ajaxWithdrawFlag === true){
   this.loading = false
