@@ -551,13 +551,14 @@ root.methods.registerCommit = function () {
   let source = this.$route.query.source || (this.isMobile ? 'H5' : 'WEB')
   let regsource = this.isMobile ? 'H5' : 'WEB';
   let areaCode = this.isMobile ? this.$store.state.areaCode : this.searchResult;
+  let referee = this.$globalFunc.testTrim(this.referee)
 
   let params = this.registerType == 0 ? {
     "mobile": this.userName,
     "password": this.$globalFunc.CryptoJS.SHA1('btcdo:' + this.psw).toString(),
     "code": this.verificationCode,
     'source': source,
-    'inviteduserId': this.referee,
+    'inviteduserId': referee,
     'channel': this.channel,
     'regsource':regsource,
     "areaCode":areaCode
@@ -567,7 +568,7 @@ root.methods.registerCommit = function () {
     "password2": this.$globalFunc.CryptoJS.SHA1('btcdo:' + this.psw).toString(),
     "code": this.verificationCode,
     'source': source,
-    'inviteduserId': this.referee,
+    'inviteduserId': referee,
     'channel': this.channel,
     'regsource':regsource
   }
