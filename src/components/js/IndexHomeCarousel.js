@@ -186,10 +186,10 @@ root.methods.goBannerDetail = function (item) {
   //   this.$router.push('/index/personal/securityCenter/membershipCard')
   //   return;
   // }
-  // if (item.title == '挖矿新时代PC') {
-  //   this.$router.push('/index/officialQuantitativeRegistration')
-  //   return;
-  // }
+  if (item.title == '挖矿新时代PC') {
+    this.$router.push('/index/officialQuantitativeDetails')
+    return;
+  }
   // if (item.title == '注册有礼PC') {
   //   this.$router.push('/index/register')
   //   return;
