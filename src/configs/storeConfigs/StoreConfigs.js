@@ -204,7 +204,7 @@ store.state.buy_or_sale_type = 1
  * @type {null}
  */
 
-store.state.authState = null
+store.state.authState = {}
 
 store.state.symbol = ''
 

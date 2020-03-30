@@ -722,7 +722,10 @@ root.methods.transferDisabledss = function (transferCurrency) {
   // this.currencyTitle = this.$route.query.currency
 }
 root.methods.re_transferDisabled = function (data) {
-  console.log(data)
+  typeof (data) === 'string' && (data = JSON.parse(data))
+  if (!data || !data.dataMap || !data.dataMap.insideTransferAccount ) {
+    return
+  }
   // console.log(this.currencyName)
   // 是否可以转账 true 为可以转账
   this.isTransfer = data.dataMap.insideTransferAccount.transferDisabled
