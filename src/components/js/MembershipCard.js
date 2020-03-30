@@ -12,6 +12,7 @@ root.data = function () {
 
     records: [],
     expires:'',
+    expires_timestamp:'',
     flag:false,
     postWithdCard:false,
     popWindowOpen: false, //弹窗开关
@@ -141,10 +142,10 @@ root.computed.bindMobile = function () {
 root.computed.bindGA = function () {
   return this.$store.state.authState.ga
 }
-// 是否绑定邮箱
-root.computed.bindEmail = function () {
-  return this.$store.state.authState.email
-}
+// // 是否绑定邮箱
+// root.computed.bindEmail = function () {
+//   return this.$store.state.authState.email
+// }
 // 是否实名认证
 root.computed.bindIdentify = function () {
   return this.$store.state.authState.identity
@@ -279,6 +280,7 @@ root.methods.re_getCheck = function (data) {
   typeof data === 'string' && (data = JSON.parse(data))
   console.log('是否是会员get-----',123)
   this.expires = data.data.expires
+  this.expires_timestamp = data.data.expires_timestamp
   this.flag = data.data.flag
   // this.cardType = data.data.cardType
   this.transferFee = data.data.transferFee
@@ -376,13 +378,13 @@ root.methods.postBuyCard1 = function () {
   }
 
   // 如果没有绑定邮箱，不允许购买会员卡
-  if (!this.bindEmail) {
-    this.popWindowTitle = this.$t('bind_email_pop_title')
-    this.popWindowPrompt = this.$t('bind_email_pop_article')
-    this.popWindowStyle = '3'
-    this.popbindIdentify = true
-    return
-  }
+  // if (!this.bindEmail) {
+  //   this.popWindowTitle = this.$t('bind_email_pop_title')
+  //   this.popWindowPrompt = this.$t('bind_email_pop_article')
+  //   this.popWindowStyle = '3'
+  //   this.popbindIdentify = true
+  //   return
+  // }
 
   // 如果没有绑定谷歌或手机，不允许购买会员卡
   if (!this.bindGA && !this.bindMobile) {
@@ -662,13 +664,13 @@ root.methods.VIPTransfer = function () {
   }
 
   // 如果没有绑定邮箱，不允许购买会员卡
-  if (!this.bindEmail) {
-    this.popWindowTitle = this.$t('bind_email_pop_title')
-    this.popWindowPrompt = this.$t('bind_email_pop_article')
-    this.popWindowStyle = '3'
-    this.popbindIdentify = true
-    return
-  }
+  // if (!this.bindEmail) {
+  //   this.popWindowTitle = this.$t('bind_email_pop_title')
+  //   this.popWindowPrompt = this.$t('bind_email_pop_article')
+  //   this.popWindowStyle = '3'
+  //   this.popbindIdentify = true
+  //   return
+  // }
 
   // 如果没有绑定谷歌或手机，不允许购买会员卡
   if (!this.bindGA && !this.bindMobile) {
@@ -952,7 +954,7 @@ root.methods.error_getMobileVerification = function (err) {
 
 // 格式化时间
 root.methods.formatDateUitl = function (time) {
-  return this.$globalFunc.formatDateUitl(time, 'YYYY-MM-DD hh:mm:ss')
+  return this.$globalFunc.formatDateUitl(Number(time), 'YYYY-MM-DD')
 }
 
 // 手机 谷歌验证切换

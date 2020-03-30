@@ -522,6 +522,12 @@ root.methods.formatDateUitl = function (time) {
   return this.$globalFunc.formatDateUitl(time, 'YYYY-MM-DD hh:mm:ss')
 }
 
+// 格式化时间
+root.methods.formatDateUitl1 = function (time) {
+  return this.$globalFunc.formatDateUitl(Number(time), 'YYYY-MM-DD')
+}
+
+
 // 跳转安全日志
 root.methods.clickToLoadMore = function () {
   this.$router.push('/index/personal/securityLog')
@@ -569,7 +575,8 @@ root.methods.re_getCheck = function (data) {
   //检测data数据是JSON字符串转换JS字符串
   typeof data === 'string' && (data = JSON.parse(data))
   this.data = data.data
-  this.expires = data.data.expires
+  // this.expires = data.data.expires
+  this.expires_timestamp = data.data.expires_timestamp
   this.flag = data.data.flag
   console.log('是否是会员get-----',this.data)
 

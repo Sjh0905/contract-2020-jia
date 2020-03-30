@@ -91,7 +91,8 @@ root.data = function () {
 
     transferCurrency: '',
     feeRate: 0, //费率
-    maxAmount: 500, //最高费率
+    dayMaxAmount: 0, //最高费率
+    singleMaxAmount: 0, //最高费率
     minAmount: 0, //最低数量
     minimumFee: 0, //最低费率
     userNamePlaceholderShow: true,
@@ -294,9 +295,9 @@ root.computed.bindEmail = function () {
   return this.$store.state.authState.email
 }
 // 是否实名认证
-root.computed.bindIdentify = function () {
-  return this.$store.state.authState.identity
-}
+// root.computed.bindIdentify = function () {
+//   return this.$store.state.authState.identity
+// }
 
 // 当前语言
 root.computed.lang = function () {
@@ -418,6 +419,8 @@ root.methods.re_getAuthState = function (data) {
   // }
   this.$store.state.authState.sms && (this.picker = 2)
   this.$store.state.authState.ga && (this.picker = 1)
+
+
 }
 // 判断验证状态出错
 root.methods.error_getAuthState = function (err) {
@@ -726,7 +729,8 @@ root.methods.re_transferDisabled = function (data) {
   // 提现费率
   this.feeRate = data.dataMap.insideTransferAccount.feeRate
   // 最大转账数量
-  this.maxAmount = data.dataMap.insideTransferAccount.maxAmount
+  this.singleMaxAmount = data.dataMap.insideTransferAccount.singleMaxAmount
+  this.dayMaxAmount = data.dataMap.insideTransferAccount.dayMaxAmount
   // 最小转账数量
   this.minAmount = data.dataMap.insideTransferAccount.minAmount //+ data.dataMap.withdrawRule.minimumFee
   // 最小手续费
@@ -739,7 +743,7 @@ root.methods.re_transferDisabled = function (data) {
   // this.feeReady = true
   // 如果没有实名认证不允许打开转账
   if (!this.bindIdentify) {
-    this.popWindowTitle = this.$t('popWindowTitleWithdrawals')
+    this.popWindowTitle = this.$t('popWindowTitleWithdrawalsneibu')
     this.popWindowPrompt = this.$t('popWindowPromptWithdrawals')
     this.popWindowPrompt1 = ''
     this.popWindowStyle = '0'
@@ -1070,16 +1074,20 @@ root.methods.GoToConfirmTransfer = function () {
     this.testNumMsg_0 = this.$t('testNumMsg_03')
     canSend = false
   }
-  if (this.testNum_0 > this.maxAmount) {
-    this.testNum_0 = this.maxAmount
+  if (this.testNum_0 > this.singleMaxAmount) {
+    this.testNum_0 = this.singleMaxAmount
     this.testNumMsg_0 = this.$t('testNumMsg_04')
     canSend = false
   }
-  if (this.testNum_0 > 500) {
-    this.testNum_0 = 500
-    this.testNumMsg_0 = this.$t('exceed')
+  if (this.testNum_0 <= 0 ) {
+    this.testNumMsg_0 = this.$t('exceed2')
     canSend = false
   }
+  // if (this.testNum_0 > 500) {
+  //   this.testNum_0 = 500
+  //   this.testNumMsg_0 = this.$t('exceed')
+  //   canSend = false
+  // }
   if (!canSend) {
     // console.log("不能发送！")
     return false

@@ -358,6 +358,11 @@ root.methods.popWindowClose = function () {
   this.popWindowOpen = false
 }
 
+// 格式化时间
+root.methods.formatDateUitl = function (time) {
+  return this.$globalFunc.formatDateUitl(Number(time), 'YYYY-MM-DD')
+}
+
 /*---------------------- 乘法运算 begin ---------------------*/
 root.methods.accMul = function (num1, num2) {
   return this.$globalFunc.accMul(num1, num2)
