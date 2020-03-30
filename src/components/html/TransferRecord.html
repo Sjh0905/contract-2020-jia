@@ -55,13 +55,16 @@
             <div class="flow-code">{{item.transferId}}</div>
 
             <!--收款人 or 付款人-->
-            <div class="name">{{item.fromUserId ? item.fromName : item.toName}}</div>
+            <div class="name" v-if="item.fromUserId === userId">{{item.toName}}</div>
+            <div class="name" v-else>{{item.fromName}}</div>
 
             <!--收款人账号 or 付款人账号-->
-            <div class="Payee">{{item.fromUserId ? item.fromEmail : item.toEmail}}</div>
+            <div class="Payee" v-if="item.fromUserId === userId">{{item.toEmail}}</div>
+            <div class="Payee" v-else>{{item.fromEmail}}</div>
 
             <!--收款人UID or 付款人UID-->
-            <div class="uid">{{item.fromUserId ? item.fromUserId : item.fromUserId}}</div>
+            <div class="uid" v-if="item.fromUserId === userId">{{item.toUserId}}</div>
+            <div class="uid" v-else>{{item.fromUserId}}</div>
 
             <!--币种 begin-->
             <span class="currency">{{item.currency == 'USDT2' ? 'USDT' :item.currency}}</span>
@@ -72,7 +75,8 @@
             <!--数量 end-->
 
             <!--类型-->
-            <div class="type">{{item.fromUserId ?$t('shiftTo') :$t('turnOut')}}</div>
+            <div class="type" v-if="item.fromUserId === userId">{{$t('turnOut')}}</div>
+            <div class="type" v-else>{{$t('shiftTo')}}</div>
 
             <!--时间 begin-->
             <span class="time">{{$globalFunc.formatDateUitl(item.updatedAt,'YYYY-MM-DD hh:mm:ss')}}</span>

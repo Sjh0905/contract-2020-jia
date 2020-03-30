@@ -39,6 +39,10 @@ root.computed.computedTransferLists = function () {
   return this.transferLists
 }
 
+// 获取userId
+root.computed.userId = function () {
+  return this.$store.state.authMessage.userId
+}
 
 /*-------------------------- 生命周期 begin------------------------------*/
 
