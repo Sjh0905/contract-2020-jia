@@ -199,7 +199,7 @@ root.computed.userId = function () {
 }
 // 验证类型
 root.computed.showPicker = function () {
-  return (this.$store.state.authState.sms && this.$store.state.authState.ga)
+  return (this.authState.sms && this.authState.ga)
 }
 
 // 人民币汇率,由于后台接口返回了0.001，所以前端改为price接口获取，
@@ -221,7 +221,7 @@ root.computed.serverTime = function () {
 
 // 是否实名认证
 root.computed.bindIdentify = function () {
-  return this.$store.state.authState.identity
+  return this.authState.identity
 }
 
 root.computed.currencyChange = function () {
@@ -282,21 +282,25 @@ root.computed.accountsComputed = function () {
 root.computed.baseCurrency = function () {
   return this.$store.state.baseCurrency
 }
+// 认证状态：目前只有computed的变量用这个转一层，避免在当前页面刷新后初始化报错
+root.computed.authState = function () {
+  return this.$store.state.authState || {}
+}
 // 是否绑定手机
 root.computed.bindMobile = function () {
-  return this.$store.state.authState.sms
+  return this.authState.sms
 }
 // 是否绑定谷歌验证码
 root.computed.bindGA = function () {
-  return this.$store.state.authState.ga
+  return this.authState.ga
 }
 // 是否绑定邮箱
 root.computed.bindEmail = function () {
-  return this.$store.state.authState.email
+  return this.authState.email
 }
 // 是否实名认证
 // root.computed.bindIdentify = function () {
-//   return this.$store.state.authState.identity
+//   return this.authState.identity
 // }
 
 // 当前语言
