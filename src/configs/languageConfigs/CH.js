@@ -836,7 +836,7 @@ root.personalCenterToAuthenticate.nameMsg_0 = '请输入姓名'
 
 
 root.personalCenterToAuthenticate.popText_1 = '用户未登录'
-root.personalCenterToAuthenticate.popText_2 = ' 文件过大'
+root.personalCenterToAuthenticate.popText_2 = ' 圖片過大'
 root.personalCenterToAuthenticate.popText_3 = '用户身份证或护照号已存在'
 root.personalCenterToAuthenticate.popText_4 = '年龄不合格'
 root.personalCenterToAuthenticate.popText_5 = 'face++认证处于进行中'
