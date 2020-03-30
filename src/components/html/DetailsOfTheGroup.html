@@ -205,7 +205,7 @@
           <!--超团-->
           <span class="mobiletupian tupian_chao" v-if="glevel=='5'">{{$t('superLeague')}}</span>
         </div>
-        <div class="information_div color_hui"></div>
+<!--        <div class="information_div color_hui"></div>-->
         <!-- 查看规则 -->
         <!--            <div class="information_div color_hui color_8"><img class="color_img" src="../../assets/pinchakan.png" alt="">{{$t('viewRules')}}</div>-->
       </div>
@@ -298,7 +298,7 @@
           <div class="mobilelist_directory_column_li_div columnW">{{$globalFunc.formatUserName(item.account)}}</div>
           <div class="mobilelist_directory_column_li_div directoryW">{{item.idType}}</div>
 <!--          <div class="mobilelist_directory_column_li_dii listW">{{formatDateUitl(item.joinTime)}}</div>-->
-          <div class="mobilelist_directory_column_li_dii listW">{{$globalFunc.formatDateUitl((item.joinTime),'YYYY-MM-DD hh:mm:ss')}}</div>
+          <div class="mobilelist_directory_column_li_dii listW">{{formatDateUitl((item.joinTime))}}</div>
         </li>
 
         <!-- 加载更多 如果loading结束、已经登录、获取的数据超过了limit，则显示 begin -->
