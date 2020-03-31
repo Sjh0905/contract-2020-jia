@@ -2168,22 +2168,22 @@ root.methods.openRecharge = function (index, item) {
   //   return
   // }
   // 如果没有绑定邮箱，不允许打开充值
-  if (!this.bindEmail) {
-    this.popWindowTitle = this.$t('bind_email_pop_title')
-    this.popWindowPrompt = this.$t('bind_email_pop_article')
-    this.popWindowStyle = '3'
-    this.popWindowOpen = true
-    return
-  }
-
-  // 如果没有绑定谷歌或手机，不允许打开充值
-  if (!this.bindGA && !this.bindMobile) {
-    this.popWindowTitle = this.$t('popWindowTitleRecharge')
-    this.popWindowPrompt = this.$t('popWindowTitleBindGaRecharge')
-    this.popWindowStyle = '1'
-    this.popWindowOpen = true
-    return
-  }
+  // if (!this.bindEmail) {
+  //   this.popWindowTitle = this.$t('bind_email_pop_title')
+  //   this.popWindowPrompt = this.$t('bind_email_pop_article')
+  //   this.popWindowStyle = '3'
+  //   this.popWindowOpen = true
+  //   return
+  // }
+  //
+  // // 如果没有绑定谷歌或手机，不允许打开充值
+  // if (!this.bindGA && !this.bindMobile) {
+  //   this.popWindowTitle = this.$t('popWindowTitleRecharge')
+  //   this.popWindowPrompt = this.$t('popWindowTitleBindGaRecharge')
+  //   this.popWindowStyle = '1'
+  //   this.popWindowOpen = true
+  //   return
+  // }
 
   this.withdrawals = false
   this.transferss = false

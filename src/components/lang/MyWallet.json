@@ -40,7 +40,7 @@
 
   "bind_email_pop_button": "绑定邮箱",
   "popWindowTitleWithdrawalsneibu": "内部转账提示",
-  "bind_email_pop_article": "为了您的资金安全，请先绑定邮箱或谷歌",
+  "bind_email_pop_article": "为了您的资金安全，请先绑定邮箱",
   "bind_email_pop_title": "安全提示",
   "popWindowTitleTransfer": "划转提示",
   "popWindowPromptWithdrawals1": "1.请在转账前与收款方联系以获取对方的用户账号和UID，确保所有的资料正确后才进行转账。",
@@ -297,7 +297,7 @@
     "hide_zero_asset": "隱藏0資產幣種",
     "bind_email_pop_button": "綁定郵箱",
     "popWindowTitleWithdrawalsneibu": "內部轉帳提示",
-    "bind_email_pop_article": "為了您的資金安全，請先綁定郵箱或谷歌",
+    "bind_email_pop_article": "為了您的資金安全，請先綁定郵箱",
     "bind_email_pop_title": "安全提示",
     "popWindowTitleTransfer": "劃轉提示",
     "popWindowPromptWithdrawals1": "1.請在轉帳前與收款方聯繫以獲取對方的使用者帳號和UID，確保所有的資料正確後才進行轉帳。 ",

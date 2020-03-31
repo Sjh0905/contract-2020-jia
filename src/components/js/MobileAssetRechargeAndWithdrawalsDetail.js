@@ -665,16 +665,16 @@ root.methods.jumpToRecharge = function (name) {
   }
 
   // 如果没有绑定邮箱，不允许打开提现
-  if (!this.bindEmail) {
-    this.toastNobindShow = true
-    return
-  }
-
-  if (!this.bindMobile && !this.bindGA) {
-    this.popOpen = true
-    this.popType = 0
-    this.popText = '请绑定谷歌验证或手机'
-  }
+  // if (!this.bindEmail) {
+  //   this.toastNobindShow = true
+  //   return
+  // }
+  //
+  // if (!this.bindMobile && !this.bindGA) {
+  //   this.popOpen = true
+  //   this.popType = 0
+  //   this.popText = '请绑定谷歌验证或手机'
+  // }
   if (this.bindMobile || this.bindGA) {
     // this.$store.commit('changeMobileHeaderPriceTitle', name)
     this.$router.push('/index/mobileAsset/mobileAssetRechargeDetail?currency='+name)
