@@ -145,7 +145,7 @@ root.data = function () {
     step2Error: false, // 第二步验证出错
 
     picker: 0, //验证类型
-    picked:2,
+    picked:1,
     nowDateTime:'',
     dividendTime:''
 
@@ -401,8 +401,10 @@ root.methods.getAuthState = function () {
   //   this.close()
   //   return
   // }
-  this.$store.state.authState.sms && (this.picker = 2)
-  this.$store.state.authState.ga && (this.picker = 1)
+  // this.$store.state.authState.sms && (this.picker = 2)
+  // this.$store.state.authState.ga && (this.picker = 1)
+  this.authState.sms && (this.picked = 2)
+  this.authState.ga && (this.picked = 1)
 
   // 获取认证状态成功
   this.authStateReady = true
@@ -421,9 +423,10 @@ root.methods.re_getAuthState = function (data) {
   //   this.close()
   //   return
   // }
-  this.$store.state.authState.sms && (this.picker = 2)
-  this.$store.state.authState.ga && (this.picker = 1)
-
+  // this.$store.state.authState.sms && (this.picker = 2)
+  // this.$store.state.authState.ga && (this.picker = 1)
+  this.authState.sms && (this.picked = 2)
+  this.authState.ga && (this.picked = 1)
 
 }
 // 判断验证状态出错
@@ -1196,8 +1199,8 @@ root.methods.error_GoToConfirmTransfer = function(data){
 //提交谷歌或手机验证码
 root.methods.commitStep2Verification = function () {
   let canSend = true
-  this.picker === 1 && (canSend = this.testGACodeVerification() && canSend)
-  this.picker === 2 && (canSend = this.testMobileVerification() && canSend)
+  this.picked === 1 && (canSend = this.testGACodeVerification() && canSend)
+  this.picked === 2 && (canSend = this.testMobileVerification() && canSend)
   if (this.step2VerificationCode === '') {
     this.step2VerificationCodeWA = this.$t('step2VerificationCodeWA_5')
     canSend = false
@@ -1292,7 +1295,7 @@ root.methods.re_commitStep2Verification = function (data) {
         this.step2VerificationCodeWA = this.$t('step2VerificationCodeWA')
     }
 
-    if (data.errorCode === 4 && this.picker === 2 && resDataMap.times) {
+    if (data.errorCode === 4 && this.picked === 2 && resDataMap.times) {
       this.SHOW_TIPS_FREQUENCY((resDataMap.times - resDataMap.wrong), resDataMap.times, (resDataMap.lock / 60));
       setTimeout(() => {
         this.popType = 0;
@@ -1301,7 +1304,7 @@ root.methods.re_commitStep2Verification = function (data) {
       return
     }
 
-    if (data.errorCode === 100 && resDataMap.lock && this.picker === 2) {
+    if (data.errorCode === 100 && resDataMap.lock && this.picked === 2) {
       this.SHOW_TIPS(resDataMap.lock / 60);
       setTimeout(() => {
         this.popType = 0;
@@ -2208,7 +2211,7 @@ root.methods.beginVerificationStep2 = function () {
   }
   this.popWindowStep = 2
   this.step2Error = false
-  if (!this.showPicker && this.picker == 2) {
+  if (!this.showPicker && this.picked == 2) {
     this.getMobileVerification()
   }
 
