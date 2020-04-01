@@ -513,7 +513,7 @@
 .Payee {
   /*height: 42px;*/
   /*line-height: 42px;*/
-  padding-right: 20px;
+  padding-right: 25px;
   padding-left: 25px;
   padding-top: 27px;
 }
@@ -563,20 +563,34 @@
 }
 
 .firm1 {
-  width:195px;
+  width:42%;
   height:40px;
   margin-left: 25px;
   margin-bottom: 15px;
   border-radius:1px;
   border:1px solid rgba(53,118,245,1);
 }
-.firm2 {
-  width:195px;
+.zhuanzhangbut {
+  text-align: center;
+  display: inline-block;
+  width:42%;
   height:40px;
+  line-height: 40px;
+  /*padding: 0 15px;*/
   background:rgba(53,118,245,1);
+  color: #FFFFFF;
   border-radius:1px;
-  color: #ffffff;
 }
+.neizhuan {
+  width: 100%;
+}
+/*.firm2 {*/
+/*  width:195px;*/
+/*  height:40px;*/
+/*  background:rgba(53,118,245,1);*/
+/*  border-radius:1px;*/
+/*  color: #ffffff;*/
+/*}*/
 
 .popWindow-title0 {
   padding-left: 25px;
@@ -745,14 +759,14 @@
 }
 .ssss {
   margin-bottom: 15px;
-  width:195px;
+  width:47.5%;
   height:40px;
   border-radius:1px;
   color: #3576F5;
   border:1px solid rgba(53,118,245,1);
 }
 .ssss1 {
-  width:195px;
+  width:47.5%;
   height:40px;
   background:rgba(53,118,245,1);
   color: #FFFFFF;
@@ -1242,7 +1256,7 @@
 .ssss12 {
   text-align: center;
   display: inline-block;
-  width:195px;
+  width:47.5%;
   height:40px;
   line-height: 40px;
   /*padding: 0 15px;*/
@@ -1278,7 +1292,7 @@
 .ssss2 {
   display: inline-block;
   margin-bottom: 15px;
-  width:195px;
+  width:47.5%;
   height:40px;
   line-height: 39px;
   text-align: center;

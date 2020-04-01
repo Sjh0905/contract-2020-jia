@@ -205,14 +205,14 @@
             <!--            已释放-->
             <div class="li_div_19Mobile">
               <p class="color_0">{{$t('released')}}</p>
-              <p class="color_7">{{miningProgress}}%</p>
+              <p class="color_7">{{miningProgress * 100 }}%</p>
             </div>
           </li>
         </ul>
 
         <div class="border_50Mobile">
           <div class="progress_bar">
-            <el-progress :show-text="false" :stroke-width="16" :percentage="(miningProgress)" color="#3576F5" status="exception" ></el-progress>
+            <el-progress :show-text="false" :stroke-width="16" :percentage="(miningProgress) * 100" color="#3576F5" status="exception" ></el-progress>
           </div>
         </div>
 

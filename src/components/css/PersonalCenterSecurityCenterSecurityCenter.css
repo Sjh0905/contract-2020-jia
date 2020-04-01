@@ -475,9 +475,10 @@
 
 }
 .allinfo11_update img{
-  width: 40px;
-  height: 20px;
-  margin-right: 8px;
+  width: 58px;
+  height: 30px;
+  /*margin-right: 8px;*/
+  margin-top: 25px;
 }
 
 #binds2 {
