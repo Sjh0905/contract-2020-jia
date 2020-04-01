@@ -1196,152 +1196,152 @@ root.methods.error_GoToConfirmTransfer = function(data){
   console.log('resDataMap=========rrrrr=========ggggggggg=',data)
 }
 
-//提交谷歌或手机验证码
-root.methods.commitStep2Verification = function () {
-  let canSend = true
-  this.picked === 1 && (canSend = this.testGACodeVerification() && canSend)
-  this.picked === 2 && (canSend = this.testMobileVerification() && canSend)
-  if (this.step2VerificationCode === '') {
-    this.step2VerificationCodeWA = this.$t('step2VerificationCodeWA_5')
-    canSend = false
-  }
-  if (!canSend) {
-    return false
-  }
-
-  let address = this.address
-  let currencyObj = this.$store.state.currency.get(this.currency)
-
-  if (currencyObj && currencyObj.addressAliasTo === 'ETH') {
-    address = this.toChecksumAddress(address)
-  }
-
-
-  let description = this.description
-  // 如果有memo，拼接到description上
-  if (this.haveMemo === 'yes') {
-    if(currencyObj && (currencyObj.addressAliasTo === 'WCG' || this.currency === 'WCG')){
-      description += 'a0f0bc95016c862498bbad29d1f4d9d4' + this.publicKey
-    }else {
-      description += 'a0f0bc95016c862498bbad29d1f4d9d4' + this.memo
-    }
-  }
-
-  let isERC20 = this.isERC20();
-  let currency = this.currency == "USDT" ? isERC20 : this.currency
-
-  this.$http.send('POST_COMMON_AUTH', {
-    bind: this,
-    params: {
-      type: this.picked == 1 ? 'ga' : 'mobile',
-      purpose: 'withdraw',
-      code: this.step2VerificationCode,
-      currency: currency,  // TODO：这里要切换币种
-      description: description,
-      address: address,
-      amount: parseFloat(this.realAccount),
-    },
-    callBack: this.re_commitStep2Verification,
-    errorHandler: this.error_commitStep2Verification
-  })
-
-  this.popWindowLoading = true
-  this.step2VerificationSending = true
-}
-
-// 提交谷歌或手机验证码成功
-root.methods.re_commitStep2Verification = function (data) {
-  typeof data === 'string' && (data = JSON.parse(data))
-  this.popWindowLoading = false
-  this.step2VerificationSending = false
-
-  let resDataMap = data.dataMap
-
-  if (data.errorCode) {
-    switch (data.errorCode) {
-      case 1:
-        this.step2VerificationCodeWA = this.$t('step2VerificationCodeWA_11')
-        break;
-      case 2:
-        this.step2VerificationCodeWA = this.$t('step2VerificationCodeWA_12')
-        break;
-      case 3:
-        this.step2VerificationCodeWA = this.$t('step2VerificationCodeWA_13')
-        break;
-      case 4:
-        this.step2VerificationCodeWA = this.$t('step2VerificationCodeWA_14')
-        break;
-      case 5:
-        this.step2VerificationCodeWA = this.$t('step2VerificationCodeWA_15')
-        break;
-      case 6:
-        this.step2VerificationCodeWA = this.$t('step2VerificationCodeWA_16')
-        break;
-      case 7:
-        this.step2VerificationCodeWA = this.$t('step2VerificationCodeWA_17')
-        break;
-      case 8:
-        this.step2VerificationCodeWA = this.$t('step2VerificationCodeWA_18')
-        break;
-      case 9:
-        this.step2VerificationCodeWA = this.$t('step2VerificationCodeWA_19')
-        break;
-      case 10:
-        this.step2VerificationCodeWA = this.$t('step2VerificationCodeWA_20')
-        break;
-      case 100:
-        break;
-      default:
-        this.step2VerificationCodeWA = this.$t('step2VerificationCodeWA')
-    }
-
-    if (data.errorCode === 4 && this.picked === 2 && resDataMap.times) {
-      this.SHOW_TIPS_FREQUENCY((resDataMap.times - resDataMap.wrong), resDataMap.times, (resDataMap.lock / 60));
-      setTimeout(() => {
-        this.popType = 0;
-        this.popOpen = true;
-      }, 200);
-      return
-    }
-
-    if (data.errorCode === 100 && resDataMap.lock && this.picked === 2) {
-      this.SHOW_TIPS(resDataMap.lock / 60);
-      setTimeout(() => {
-        this.popType = 0;
-        this.popOpen = true;
-      }, 200);
-      return
-    }
-
-    if (data.errorCode !== 4) {
-      this.step2Error = true
-    }
-
-
-    return
-  }
-
-
-  this.popType = 1
-  this.popText = this.$t('popText_4')
-  this.popOpen = true
-  setTimeout(() => {
-    this.close()
-  }, 1000)
-
-
-}
-//提交谷歌或手机验证码失败
-root.methods.error_commitStep2Verification = function (err) {
-  // console.warn('提交谷歌或手机验证码失败', err)
-
-  this.popWindowLoading = false
-  this.step2VerificationSending = false
-
-  this.popText = this.$t('popText_1')
-  this.popType = 0
-  this.popOpen = true
-}
+// //提交谷歌或手机验证码
+// root.methods.commitStep2Verification = function () {
+//   let canSend = true
+//   this.picked === 1 && (canSend = this.testGACodeVerification() && canSend)
+//   this.picked === 2 && (canSend = this.testMobileVerification() && canSend)
+//   if (this.step2VerificationCode === '') {
+//     this.step2VerificationCodeWA = this.$t('step2VerificationCodeWA_5')
+//     canSend = false
+//   }
+//   if (!canSend) {
+//     return false
+//   }
+//
+//   let address = this.address
+//   let currencyObj = this.$store.state.currency.get(this.currency)
+//
+//   if (currencyObj && currencyObj.addressAliasTo === 'ETH') {
+//     address = this.toChecksumAddress(address)
+//   }
+//
+//
+//   let description = this.description
+//   // 如果有memo，拼接到description上
+//   if (this.haveMemo === 'yes') {
+//     if(currencyObj && (currencyObj.addressAliasTo === 'WCG' || this.currency === 'WCG')){
+//       description += 'a0f0bc95016c862498bbad29d1f4d9d4' + this.publicKey
+//     }else {
+//       description += 'a0f0bc95016c862498bbad29d1f4d9d4' + this.memo
+//     }
+//   }
+//
+//   let isERC20 = this.isERC20();
+//   let currency = this.currency == "USDT" ? isERC20 : this.currency
+//
+//   this.$http.send('POST_COMMON_AUTH', {
+//     bind: this,
+//     params: {
+//       type: this.picked == 1 ? 'ga' : 'mobile',
+//       purpose: 'withdraw',
+//       code: this.step2VerificationCode,
+//       currency: currency,  // TODO：这里要切换币种
+//       description: description,
+//       address: address,
+//       amount: parseFloat(this.realAccount),
+//     },
+//     callBack: this.re_commitStep2Verification,
+//     errorHandler: this.error_commitStep2Verification
+//   })
+//
+//   this.popWindowLoading = true
+//   this.step2VerificationSending = true
+// }
+//
+// // 提交谷歌或手机验证码成功
+// root.methods.re_commitStep2Verification = function (data) {
+//   typeof data === 'string' && (data = JSON.parse(data))
+//   this.popWindowLoading = false
+//   this.step2VerificationSending = false
+//
+//   let resDataMap = data.dataMap
+//
+//   if (data.errorCode) {
+//     switch (data.errorCode) {
+//       case 1:
+//         this.step2VerificationCodeWA = this.$t('step2VerificationCodeWA_11')
+//         break;
+//       case 2:
+//         this.step2VerificationCodeWA = this.$t('step2VerificationCodeWA_12')
+//         break;
+//       case 3:
+//         this.step2VerificationCodeWA = this.$t('step2VerificationCodeWA_13')
+//         break;
+//       case 4:
+//         this.step2VerificationCodeWA = this.$t('step2VerificationCodeWA_14')
+//         break;
+//       case 5:
+//         this.step2VerificationCodeWA = this.$t('step2VerificationCodeWA_15')
+//         break;
+//       case 6:
+//         this.step2VerificationCodeWA = this.$t('step2VerificationCodeWA_16')
+//         break;
+//       case 7:
+//         this.step2VerificationCodeWA = this.$t('step2VerificationCodeWA_17')
+//         break;
+//       case 8:
+//         this.step2VerificationCodeWA = this.$t('step2VerificationCodeWA_18')
+//         break;
+//       case 9:
+//         this.step2VerificationCodeWA = this.$t('step2VerificationCodeWA_19')
+//         break;
+//       case 10:
+//         this.step2VerificationCodeWA = this.$t('step2VerificationCodeWA_20')
+//         break;
+//       case 100:
+//         break;
+//       default:
+//         this.step2VerificationCodeWA = this.$t('step2VerificationCodeWA')
+//     }
+//
+//     if (data.errorCode === 4 && this.picked === 2 && resDataMap.times) {
+//       this.SHOW_TIPS_FREQUENCY((resDataMap.times - resDataMap.wrong), resDataMap.times, (resDataMap.lock / 60));
+//       setTimeout(() => {
+//         this.popType = 0;
+//         this.popOpen = true;
+//       }, 200);
+//       return
+//     }
+//
+//     if (data.errorCode === 100 && resDataMap.lock && this.picked === 2) {
+//       this.SHOW_TIPS(resDataMap.lock / 60);
+//       setTimeout(() => {
+//         this.popType = 0;
+//         this.popOpen = true;
+//       }, 200);
+//       return
+//     }
+//
+//     if (data.errorCode !== 4) {
+//       this.step2Error = true
+//     }
+//
+//
+//     return
+//   }
+//
+//
+//   this.popType = 1
+//   this.popText = this.$t('popText_4')
+//   this.popOpen = true
+//   setTimeout(() => {
+//     this.close()
+//   }, 1000)
+//
+//
+// }
+// //提交谷歌或手机验证码失败
+// root.methods.error_commitStep2Verification = function (err) {
+//   // console.warn('提交谷歌或手机验证码失败', err)
+//
+//   this.popWindowLoading = false
+//   this.step2VerificationSending = false
+//
+//   this.popText = this.$t('popText_1')
+//   this.popType = 0
+//   this.popOpen = true
+// }
 
 //sss 屏蔽 E
 
@@ -1447,93 +1447,93 @@ root.methods.re_commitStep2Verification = function (data) {
 
     if (data.errorCode === 1) {
       this.buyConfirmSuccess = false
-      this.popText = this.$t('iKnowthe6')
+      this.popText = this.$t('iKnowthe6') //用户未登录
       this.popType = 0
       this.popOpen = true
     }
     if (data.errorCode === 2) {
       this.buyConfirmSuccess = false
-      this.popText =  this.$t('iKnowthe7')
+      this.popText =  this.$t('iKnowthe7') //未进行邮箱验证
       // this.popText = this.$t('iKnowthe7')
       this.popType = 0
       this.popOpen = true
     }
     if (data.errorCode === 3) {
       this.buyConfirmSuccess = false
-      this.popText = this.$t('iKnowthe8')
+      this.popText = this.$t('iKnowthe8') //未綁定手機
       this.popType = 0
       this.popOpen = true
     }
     if (data.errorCode === 4) {
       this.buyConfirmSuccess = false
-      this.popText = this.$t('iKnowthe9')
+      this.popText = this.$t('iKnowthe9') //驗證碼失效
       this.popType = 0
       this.popOpen = true
     }
     if (data.errorCode === 5) {
       this.buyConfirmSuccess = false
-      this.popText = this.$t('iKnowthe10')
+      this.popText = this.$t('iKnowthe10') //验证码错误
       this.popType = 0
       this.popOpen = true
     }
     if (data.errorCode === 6) {
       this.buyConfirmSuccess = false
-      this.popText = this.$t('iKnowthe11')
+      this.popText = this.$t('iKnowthe11') //驗證碼過期
       this.popType = 0
       this.popOpen = true
     }
     if (data.errorCode === 7) {
       this.buyConfirmSuccess = false
-      this.popText = this.$t('iKnowthe12')
+      this.popText = this.$t('iKnowthe12') //输入转账数量无效
       this.popType = 0
       this.popOpen = true
     }
     if (data.errorCode === 8) {
       this.buyConfirmSuccess = false
-      this.popText = this.$t('iKnowthe16')
+      this.popText = this.$t('iKnowthe16') //用户余额不足
       this.popType = 0
       this.popOpen = true
     }
     if (data.errorCode === 9) {
       this.buyConfirmSuccess = false
-      this.popText = this.$t('iKnowthe14')
+      this.popText = this.$t('iKnowthe14') //轉帳數量小於單比成交最小量
       this.popType = 0
       this.popOpen = true
     }
     if (data.errorCode === 10) {
       this.buyConfirmSuccess = false
-      this.popText = this.$t('iKnowthe15')
+      this.popText = this.$t('iKnowthe15') //24小时转账金额必须要在范围内
       this.popType = 0
       this.popOpen = true
     }
     if (data.errorCode === 11) {
       this.buyConfirmSuccess = false
-      this.popText = this.$t('iKnowtheq') + this.dayMaxAmount
+      this.popText = this.$t('iKnowtheq') + "\xa0" + this.transferCurrency + "\xa0" + this.dayMaxAmount //超出当日限额
       this.popType = 0
       this.popOpen = true
     }
     if (data.errorCode === 12) {
       this.buyConfirmSuccess = false
-      this.popText = this.$t('iKnowthe17')
+      this.popText = this.$t('iKnowthe20')
       this.popType = 0
       this.popOpen = true
     }
     if (data.errorCode === 13) {
       this.buyConfirmSuccess = false
-      this.popText = this.$t('iKnowthe18')
+      this.popText = this.$t('iKnowthe18') //使用者未輸入驗證碼
       this.popType = 0
       this.popOpen = true
     }
     if (data.errorCode === 15) {
       this.buyConfirmSuccess = false
-      this.popText = this.$t('iKnowthe19')
+      this.popText = this.$t('iKnowthe19') //用户没有转账币种的可用余额
       this.popType = 0
       this.popOpen = true
     }
     if (data.errorCode === 0) {
       this.buyConfirmSuccess = false
       this.popType = 1
-      this.popText = this.$t('popText_4')//申请成功
+      this.popText = this.$t('deletePopConfirm7')//申请成功
       this.popOpen = true
     }
     return
@@ -1543,9 +1543,8 @@ root.methods.re_commitStep2Verification = function (data) {
   this.goToConfirmsjh = false
   this.buyConfirmSuccess = true
   // this.$router.push({name: 'transferRecord'})
-  setTimeout(() => {
-    this.close()
-  }, 2000)
+  // setTimeout(() => {
+  // }, 2000)
 
 
 
@@ -1855,10 +1854,10 @@ root.methods.re_getMobileVerification = function (data) {
   typeof data === 'string' && (data = JSON.parse(data))
   // console.warn('获取手机验证码！')
   if (data.errorCode) {
-    data.errorCode === 1 && (this.step2VerificationCodeWA = this.$t('step2VerificationCodeWA_1'))
-    data.errorCode === 2 && (this.step2VerificationCodeWA = this.$t('step2VerificationCodeWA_2'))
-    data.errorCode === 3 && (this.step2VerificationCodeWA = this.$t('step2VerificationCodeWA_3'))
-    data.errorCode === 4 && (this.step2VerificationCodeWA = this.$t('step2VerificationCodeWA_4'))
+    data.errorCode === 1 && (this.step2VerificationCodeWA = this.$t('step2VerificationCodeWA_1')) //用户未登录
+    data.errorCode === 2 && (this.step2VerificationCodeWA = this.$t('step2VerificationCodeWA_2')) //未绑定手机
+    data.errorCode === 3 && (this.step2VerificationCodeWA = this.$t('step2VerificationCodeWA_3')) //已发送
+    data.errorCode === 4 && (this.step2VerificationCodeWA = this.$t('step2VerificationCodeWA_4')) //暂不可用
 
     this.getMobileVerificationCodeInterval && clearInterval(this.getMobileVerificationCodeInterval) //获取手机验证码倒计时container
     this.getMobileVerificationCode = false
