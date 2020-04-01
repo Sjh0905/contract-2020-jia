@@ -47,33 +47,14 @@
 
   <!-- 我的分享方式 start -->
   <div class="share_container">
-    <div class="share_bj">
-    <div class="sharetitle">
-      <span>{{$t('personalCenterRecommend.title')}}</span>
-    </div>
+    <div class="share_bj1">
+<!--    <div class="sharetitle">-->
+<!--      <span>{{$t('personalCenterRecommend.title')}}</span>-->
+<!--    </div>-->
     <div class="myercode">
-        <ul>
-<!--          <li>-->
-<!--            <div class="myzs">-->
-<!--              <span>{{$t('personalCenterRecommend.qrcodeposter')}}</span>-->
-<!--              <div class="selecthbbut"  @click="SHOW_POSTER">{{$t('personalCenterRecommend.myqrcodeposter')}}</div>-->
-
-<!--            </div>-->
-<!--          </li>-->
-          <li>
-            <div class="myzs">
-              <span>{{$t('personalCenterRecommend.zhuansyaoqm') + " (UID)"}}</span>
-              <div class="zsyaoqm">
-                <div class="zscode">
-                  <input  ref="getUrl" v-model="uId"  readonly>
-                  </div>
-                <div class="shut">|</div>
-                <div class="copycode" @click="copyUrl">{{$t('personalCenterRecommend.copyyaoqm')}}</div>
-              </div>
-            </div>
-          </li>
-          <li>
-
+        <ul class="flex">
+<!--          左边-->
+          <li class="erweima-left">
             <div class="erwmwai">
               <div class="erweima">{{$t('personalCenter.Qrcode')}}</div>
               <div class="erwmak">
@@ -86,28 +67,58 @@
                           :fgColor="fgColor"
                   >
                   </Qrcode>
-<!--                    使用插件生成二维码-->
-<!--                  <Qrcoed class="qrcode">-->
-<!--                      &lt;!&ndash; 生成二维码开放接口:-->
-<!--                      二维码内容[通常为url]-->
-<!--                      二维码大小[限制为正方形]-->
-<!--                      二维码下方显示：文字-->
-<!--                      二维码中间显示：图片&ndash;&gt;-->
-<!--                    <div id="meQrcode" :title="qrText">-->
-<!--                      <div class="qrcode_box">-->
-<!--                        <img class="qrcode_canvas" id="qrcode_canvas" ref="qrcode_canvas" alt="二维码本图"/>-->
-<!--                        <img v-if="qrLogo" class="qrcode_logo" ref="qrcode_logo" :src="qrLogo" alt="公司logo"-->
-<!--                        />-->
-<!--                        <canvas :width="qrSize" :height="qrSize" class="canvas" ref="canvas"></canvas>-->
-<!--                      </div>-->
-<!--                    </div>-->
-<!--                  </Qrcoed>-->
+                  <!--                    使用插件生成二维码-->
+                  <!--                  <Qrcoed class="qrcode">-->
+                  <!--                      &lt;!&ndash; 生成二维码开放接口:-->
+                  <!--                      二维码内容[通常为url]-->
+                  <!--                      二维码大小[限制为正方形]-->
+                  <!--                      二维码下方显示：文字-->
+                  <!--                      二维码中间显示：图片&ndash;&gt;-->
+                  <!--                    <div id="meQrcode" :title="qrText">-->
+                  <!--                      <div class="qrcode_box">-->
+                  <!--                        <img class="qrcode_canvas" id="qrcode_canvas" ref="qrcode_canvas" alt="二维码本图"/>-->
+                  <!--                        <img v-if="qrLogo" class="qrcode_logo" ref="qrcode_logo" :src="qrLogo" alt="公司logo"-->
+                  <!--                        />-->
+                  <!--                        <canvas :width="qrSize" :height="qrSize" class="canvas" ref="canvas"></canvas>-->
+                  <!--                      </div>-->
+                  <!--                    </div>-->
+                  <!--                  </Qrcoed>-->
 
                 </div>
-            </div>
-<!--              <p>{{$t('personalCenter.Qrcode')}}</p>-->
+              </div>
+              <!--              <p>{{$t('personalCenter.Qrcode')}}</p>-->
             </div>
           </li>
+<!--          右边-->
+            <li class="erweima-right">
+              <div class="erweima-right-top flex">
+                <!--邀请ID-->
+                <div class="myyq">
+                  <span>{{$t('personalCenterRecommend.zhuansyaoqm') + " (UID)"}}</span>
+                  <div class="zsyaoqm flex">
+                    <div class="zscode">
+                      <input  ref="getUid" v-model="uId"  readonly>
+                    </div>
+                    <!--                   <span class="shut">|</span>-->
+                    <div class="copycode" @click="copyUid">{{$t('personalCenterRecommend.copyyaoqm')}}</div>
+                  </div>
+                </div>
+                <!--我的邀请海报-->
+                <!--              <span>{{$t('personalCenterRecommend.qrcodeposter')}}</span>-->
+                <div class="selecthbbut"  @click="SHOW_POSTER">{{$t('personalCenterRecommend.myqrcodeposter')}}</div>
+              </div>
+              <!--复制链接-->
+              <div class="copy-url">
+                <div class="copy-url-title">{{$t('personalCenterRecommend.title')}}</div>
+                <div class="copy-url-input flex">
+                  <div class="zscode ">
+                    <input ref="getUrl" v-model="shareUrl" readonly>
+                  </div>
+                  <div @click="copyUrl" class="copy-url-url">{{$t('personalCenterRecommend.copyyaoqingurl')}}</div>
+                </div>
+              </div>
+            </li>
+
         </ul>
     </div>
     </div>
@@ -142,14 +153,7 @@
   </div>
   <!-- 邀请人数end -->
 
-  <!-- <div class="title flex">
-    <span></span>
-    <span>{{$t('personalCenterRecommend.title')}}<font>{{uId}}</font></span>
-    <span>{{$t('personalCenterRecommend.shareUrl')}}<input ref="getUrl" v-model="shareUrl" readonly>
-      <button
-      @click="copyUrl" class="copy-btn">{{$t('personalCenterRecommend.copy')}}</button>
-    </span>
-  </div> -->
+
   <!--查看历史 title begin-->
 <!--  <div v-if="historyShow" class="record-title-box">-->
 <!--    <router-link :to="{name:'BtActivityRecommend'}" class="record-title-detail text_blue">-->
@@ -326,9 +330,10 @@
   <div class="show_poster" v-show="showPoster">
     <div class="show_poster_body">
       <div class="close_icon" @click="HIDE_POSTER">✕</div>
-      <img :src="poster_url" width="100%">
       <p class="tips_poster">{{$t('personalCenter.poster_1', {activityRate:activityRate*100})}}</p>
       <p class="copy_poster">✽{{$t('personalCenter.poster_2')}}</p>
+      <img :src="poster_url" width="100%">
+
     </div>
   </div>
   <!-- 专属海报 end -->
