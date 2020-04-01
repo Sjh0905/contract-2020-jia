@@ -403,11 +403,12 @@ ul {
 }
 
 .pop-recharge-bottom {
+  width: 100%;
   margin-bottom: 15px;
 }
 
 .button-base33 {
-  width: 191px;
+  width: 46.5%;
   height: 35px;
   /* background-color: #3576F5; */
   color: #fff;
@@ -787,6 +788,7 @@ ul {
 }
 .mobilebutton-base33 {
   width: 40%;
+  height: 30px;
   height: 30px;
   /* background-color: #3576F5; */
   color: #fff;
