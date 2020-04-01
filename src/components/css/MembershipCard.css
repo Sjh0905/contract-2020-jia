@@ -568,7 +568,7 @@
   /*height: 35px;*/
   border: 1px solid #e5e5e5;
   border-radius: 5px;
-  width: 70%;
+  width: 67%;
   border: none;
 
 
@@ -595,7 +595,7 @@
 .get-verifications {
   display: inline-block;
   /*width: 70px;*/
-  width: 30%;
+  width: 37%;
   height: 40px;
   line-height: 40px;
   text-align: right;
@@ -655,7 +655,7 @@
   /*height: 35px;*/
   border: 1px solid #e5e5e5;
   border-radius: 5px;
-  width: 70%;
+  width: 67%;
   border: none;
 
 
@@ -666,7 +666,7 @@
 }
 .get-verification {
   display: inline-block;
-  width: 30%;
+  width: 37%;
   height: 40px;
   line-height: 40px;
   text-align: right;
@@ -789,7 +789,7 @@
 .ssss2 {
   display: inline-block;
   margin-bottom: 15px;
-  width:195px;
+  width:47.5%;
   height:40px;
   line-height: 39px;
   text-align: center;
@@ -803,7 +803,7 @@
 .ssss12 {
   text-align: center;
   display: inline-block;
-  width:195px;
+  width:47.5%;
   height:40px;
   line-height: 40px;
   /*padding: 0 15px;*/
