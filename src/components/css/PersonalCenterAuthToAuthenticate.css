@@ -134,6 +134,7 @@
 .input-input-container {
   /*margin-top: 15px;*/
   /*margin-bottom: 30px;*/
+  font-size: 12px;
   color: #FF9F40;
 }
 
@@ -610,6 +611,7 @@
   color: #0D0E23;
   letter-spacing: 0;
   margin-right: 12px;
+  font-size: 12px;
   border: 1px solid rgba(181,188,198,0.50);
   border-radius: 1px;
   /*margin-top: 20px;*/
@@ -630,12 +632,14 @@
   color: #0D0E23;
   letter-spacing: 0;
   margin-right: 12px;
+  font-size: 12px;
   border: 1px solid rgba(181,188,198,0.50);
   border-radius: 1px;
   /*margin-top: 20px;*/
 }
 
 .selectstyle .el-select >>> .el-input__inner {
+  font-size: 12px;
   width: 100px;
 }
 
