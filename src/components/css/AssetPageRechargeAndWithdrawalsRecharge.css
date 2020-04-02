@@ -83,7 +83,7 @@
 }
 
 .address-item:nth-of-type(2),.address-item:nth-of-type(3) {
-  margin-top: 29px;
+  /*margin-top: 29px;*/
 }
 
 .qr-code {
@@ -141,6 +141,16 @@
   border: 1px solid #EFF0FF;
   background-color: #fff;
   color: #0D0E23;
+  outline: none;
+}
+
+.address-button1 {
+  width: 128px;
+  height: 36px;
+  margin-right: 21px;
+  border: 1px solid #EFF0FF;
+  background-color: #fff;
+  color: #fff;
   outline: none;
 }
 
