@@ -77,7 +77,13 @@ root.data = function () {
     BDBChanging: false,
 
     stateReady: false,
-    stateStatusReady: false
+    stateStatusReady: false,
+
+    // WA 0代表输入错误 1代表返回审核错误，2代表返回审核正确
+    country: '0',
+    // 驳回原因
+    identityAuthWAReason_0: '',
+    identityAuthWAReason_1: ''
   }
 }
 
@@ -252,7 +258,106 @@ root.methods.re_getAuthType = function (data) {
   this.authType = data.dataMap.status
   console.log(this.$store.state.authType)
   console.log('获取状态', this.AuthType)
+  // 如果是被驳回状态，请求下认证状态
+  if (this.authType === '1') {
+    this.authType = 1
+    this.$http.send('GET_IDENTITY_INFO', {
+      bind: this,
+      callBack: this.re_getIdentityInfo,
+      errorHandler: this.error_getIdentityInfo,
+    })
+  }
 }
+
+// 被驳回信息回调
+root.methods.re_getIdentityInfo = function (data) {
+  typeof (data) === 'string' && (data = JSON.parse(data))
+  if (!data.dataMap) return
+
+  let name, nameWA,
+    country, countryWA,
+    gender, genderWA,
+    idCode, idCodeWA,
+    certificate_positive_url, certificate_positive_url_WA,
+    certificate_negative_url, certificate_negative_url_WA,
+    held_certificate_url, held_certificate_url_WA,
+    surname, surnameWA,
+    identityAuth, identityAuthWA
+  let arr = data.dataMap.identityAuths
+  for (let i = 0; i < arr.length; i++) {
+
+    if(arr[i].type === 'area'){
+      // this.$store.commit('SET_AREA_NAMECN',arr[i].value)
+      country = arr[i].value === '中国大陆地区' ? '0' : '1';
+      this.searchResult = arr[i].value
+      // country = arr[i].value === 'ChineseMainland' ? 0 : 1;
+      countryWA = arr[i].authResult;
+    }
+    // if(arr[i].type === 'gender'){
+    //   // this.$store.commit('SET_AREA_NAMECN',arr[i].value)
+    //   // gender = arr[i].value === 'MALE' ? '0' : '1';
+    //   this.valuegender = arr[i].value === 'MALE' ? '0' : '1';
+    //   // country = arr[i].value === 'ChineseMainland' ? 0 : 1;
+    //   genderWA = arr[i].authResult;
+    // }
+    arr[i].type === 'name' && (name = arr[i].value) && (nameWA = arr[i].authResult)
+    // arr[i].type === 'area' && (country = arr[i].value === '中国大陆地区' ? '0' : '1') && (countryWA = arr[i].authResult)
+    // arr[i].type === 'gender' && (gender = arr[i].value === 'MALE' ? '0' : '1') && (genderWA = arr[i].authResult)
+    arr[i].type === 'idCode' && (idCode = arr[i].value) && (idCodeWA = arr[i].authResult)
+    arr[i].type === 'certificate_positive_url' && (certificate_positive_url = arr[i].value) && (certificate_positive_url_WA = arr[i].authResult)
+    arr[i].type === 'certificate_negative_url' && (certificate_negative_url = arr[i].value) && (certificate_negative_url_WA = arr[i].authResult)
+    arr[i].type === 'held_certificate_url' && (held_certificate_url = arr[i].value) && (held_certificate_url_WA = arr[i].authResult)
+    arr[i].type === 'surname' && (surname = arr[i].value) && (surnameWA = arr[i].authResult)
+    arr[i].type === 'identityAuth' && (identityAuth = arr[i].value) && (identityAuthWA = arr[i].authResult)
+  }
+  // 如果是身份证reader.onload
+  if (country === '0') {
+    // this.name_0 = name
+    // this.nameWA_0 = nameWA
+    this.country = country
+    // this.countryWA_0 = countryWA
+    // this.gender = gender
+    // this.genderWA_0 = genderWA
+    // this.idCode_0 = idCode
+    // this.idCodeWA_0 = idCodeWA
+    // this.certificate_positive_url_0 = certificate_positive_url
+    // this.frontImgWA_0 = '2'
+    // this.certificate_negative_url_0 = certificate_negative_url
+    // this.backImgWA_0 = '2'
+    // this.held_certificate_url_0 = held_certificate_url
+    // this.holdImgWA_0 = '2'
+    this.identityAuthWAReason_0 = identityAuth
+  }
+  // 如果是护照
+  if (country === '1') {
+    // this.name_1 = name
+    // this.nameWA_1 = nameWA
+    this.country = country
+    // this.countryWA_1 = countryWA
+    // this.gender = gender
+    // this.genderWA_1 = genderWA
+    // this.idCode_1 = idCode
+    // this.idCodeWA_1 = idCodeWA
+    // this.certificate_positive_url_1 = certificate_positive_url
+    // // this.frontImgWA_1 = certificate_positive_url_WA
+    // this.frontImgWA_1 = '2'
+    // this.certificate_negative_url_1 = certificate_negative_url
+    // // this.backImgWA_1 = certificate_negative_url_WA
+    // this.backImgWA_1 = '2'
+    // this.held_certificate_url_1 = held_certificate_url
+    // // this.holdImgWA_1 = held_certificate_url_WA
+    // this.holdImgWA_1 = '2'
+    this.identityAuthWAReason_1 = identityAuth
+    // this.surname_1 = surname
+    // this.surnameWA_1 = surnameWA
+  }
+  this.loading = false
+}
+// 获取审核中的认证失败
+root.methods.error_getIdentityInfo = function (err) {
+  console.warn('获取审核中的认证失败', err)
+}
+
 
 // 获取认证失败
 root.methods.error_getAuthType = function (err) {

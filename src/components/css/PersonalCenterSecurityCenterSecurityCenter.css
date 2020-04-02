@@ -101,12 +101,21 @@
   /*padding: 5px 15px;*/
   font-size: 14px;
 }
+
+.identity-button1 {
+  width: 100%;
+}
+
 .identity-one-button {
   height: 35px;
   border: 0;
 }
 
 .identity-button img {
+  vertical-align: sub;
+}
+
+.identity-button1 img {
   vertical-align: sub;
 }
 
@@ -118,6 +127,16 @@
 .rejected:hover {
   opacity:0.6;
   text-decoration: underline;
+}
+
+.rejected-because {
+  margin-left: 20px;
+  padding: 6px 15px;
+  width:150px;
+  height:29px;
+  background:rgba(255,248,248,1);
+  color: #EF5656;
+  border-radius:15px;
 }
 
 .review {
