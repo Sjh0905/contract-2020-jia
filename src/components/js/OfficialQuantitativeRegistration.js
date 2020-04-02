@@ -348,7 +348,7 @@ root.methods.postActivities = function () {
   //   return
   // }
   //
-  // // 如果没有绑定谷歌或手机，不允许报名
+  // // PC如果没有绑定谷歌或手机，不允许报名(邮箱注册,手机注册无限制)
   if (!this.bindGA && !this.bindMobile  && !this.isMobile) {
     this.popWindowTitle = this.$t('popWindowTitleWithdrawals')
     this.popWindowPrompt = this.$t('popWindowTitleBindGaWithdrawals')
@@ -357,8 +357,8 @@ root.methods.postActivities = function () {
     return
   }
 
-  // 判断是否绑定谷歌或手机，如果都没绑定
-  if (this.isMobile && !this.bindGa && !this.bindMobile) {
+  // H5判断是否绑定谷歌或手机，如果都没绑定
+  if (this.isMobile && !this.bindGA && !this.bindMobile) {
     // this.$eventBus.notify({key: 'BIND_AUTH_POP'})
     this.popText = '请绑定谷歌验证或手机';
     this.popType = 0;
