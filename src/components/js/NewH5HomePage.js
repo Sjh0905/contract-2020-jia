@@ -539,7 +539,8 @@ root.methods.re_getRegistrationRecord = function (data) {
   this.records = data.data
 
   if (this.records.length == 0) {
-    this.goGroupLevel()
+    // this.goGroupLevel()
+    this.$router.push({name: 'officialQuantitativeRegistration'})
     return;
   }
   if (this.records.length !== 0) {

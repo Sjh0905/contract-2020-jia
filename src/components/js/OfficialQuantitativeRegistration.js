@@ -47,6 +47,7 @@ root.created = function() {
   this.getSupporting()
   this.getRegistrationRecord()
   this.getBalance()
+  this.GET_AUTH_STATE()
 }
 
 root.computed = {}
@@ -54,6 +55,12 @@ root.computed.computedRecord = function (item,index) {
   // console.log('jjjjjjjjjjj',item,'kkkkkkkk',index,'pppppp',this.records)
   return this.records
 }
+
+// 判断是否是手机
+root.computed.isMobile = function () {
+  return this.$store.state.isMobile
+}
+
 // 用户名
 root.computed.userName = function () {
   if (this.userType === 0) {
@@ -73,6 +80,10 @@ root.computed.userType = function () {
 // 获取userId
 root.computed.userId = function () {
   return this.$store.state.authMessage.userId
+}
+// 判断是否是手机
+root.computed.isMobile = function () {
+  return this.$store.state.isMobile
 }
 
 // 是否绑定手机
@@ -101,6 +112,39 @@ root.computed.bindIdentify = function () {
 
 
 root.methods = {}
+
+
+// 认证状态
+root.methods.GET_AUTH_STATE = function () {
+  this.$http.send("GET_AUTH_STATE", {
+    bind: this,
+    callBack: this.RE_GET_AUTH_STATE,
+    errorHandler: this.error_getCurrency
+  })
+}
+root.methods.RE_GET_AUTH_STATE = function (res) {
+  typeof res === 'string' && (res = JSON.parse(res));
+  if (!res) return
+  this.$store.commit('SET_AUTH_STATE', res.dataMap)
+  // let data = res.dataMap;
+  // this.identity_type = data;
+  // if (res.result == 'SUCCESS' && (data.sms || data.ga)) {
+  //   this.bindIdentify = data.identity;
+  // }
+  // 两者都验证了
+  // this.bindGA = data.ga;
+  // this.bindMobile = data.sms;
+  // this.bindEmail = data.email;
+  // this.bindMobile && (this.picked = 'bindMobile');
+  // this.bindGA && (this.picked = 'bindGA');
+  // if (this.bindGA && this.bindMobile) {
+  //   this.showPicker = true;
+  // }
+  //
+  // this.loading = false
+}
+
+
 
 // 弹出绑定身份，跳转到实名认证界面
 root.methods.goToBindIdentity = function () {
@@ -272,6 +316,13 @@ root.methods.re_getRegistrationRecord = function (data) {
 root.methods.error_getRegistrationRecord = function (err) {
   console.log("this.err=====",err)
 }
+root.methods.goToDelails = function () {
+  // this.$router.push({name: 'MobileLockHouseRecord'})
+  if (this.isMobile && this.records.length !== 0) {
+    this.$router.push({name:'officialQuantitativeDetails'})
+  }
+
+}
 
 //活动报名post(params:{})
 root.methods.postActivities = function () {
@@ -280,13 +331,13 @@ root.methods.postActivities = function () {
   // this.matchDataList
 
   // // 如果没有实名认证不允许报名
-  // if (!this.bindIdentify) {
-  //   this.popWindowTitle = this.$t('popWindowTitleWithdrawals')
-  //   this.popWindowPrompt = this.$t('popWindowPromptWithdrawals')
-  //   this.popWindowStyle = '0'
-  //   this.popWindowOpenShiM = true
-  //   return
-  // }
+  if (!this.bindIdentify && !this.isMobile) {
+    this.popWindowTitle = this.$t('popWindowTitleWithdrawals')
+    this.popWindowPrompt = this.$t('popWindowPromptWithdrawals')
+    this.popWindowStyle = '0'
+    this.popWindowOpenShiM = true
+    return
+  }
   //
   // // 如果没有绑定邮箱，不允许报名
   // if (!this.bindEmail) {
@@ -298,13 +349,22 @@ root.methods.postActivities = function () {
   // }
   //
   // // 如果没有绑定谷歌或手机，不允许报名
-  // if (!this.bindGA && !this.bindMobile) {
-  //   this.popWindowTitle = this.$t('popWindowTitleWithdrawals')
-  //   this.popWindowPrompt = this.$t('popWindowTitleBindGaWithdrawals')
-  //   this.popWindowStyle = '1'
-  //   this.popWindowOpenShiM = true
-  //   return
-  // }
+  if (!this.bindGA && !this.bindMobile  && !this.isMobile) {
+    this.popWindowTitle = this.$t('popWindowTitleWithdrawals')
+    this.popWindowPrompt = this.$t('popWindowTitleBindGaWithdrawals')
+    this.popWindowStyle = '1'
+    this.popWindowOpenShiM = true
+    return
+  }
+
+  // 判断是否绑定谷歌或手机，如果都没绑定
+  if (this.isMobile && !this.bindGa && !this.bindMobile) {
+    // this.$eventBus.notify({key: 'BIND_AUTH_POP'})
+    this.popText = '请绑定谷歌验证或手机';
+    this.popType = 0;
+    this.popOpen = true;
+    return
+  }
 
   let canSend = true
   // 判断用户名
@@ -400,6 +460,14 @@ root.methods.re_postActivities = function (data) {
         this.popOpen = true
       }, 100)
     }
+    if (data.errorCode == "3") {
+      this.popOpen = true
+      this.popType = 0
+      this.popText = this.$t('system_err1') //用户已参加过报名活动
+      setTimeout(() => {
+        this.popOpen = true
+      }, 100)
+    }
     if (data.errorCode == "4") {
       this.popOpen = true
       this.popType = 0
@@ -437,6 +505,21 @@ root.methods.re_postActivities = function (data) {
     this.getVerificationCodeCountdown = 60
   }
 
+  if (this.isMobile && data.errorCode == "0" && this.success == true) {
+    this.getRegistrationRecord()
+    this.popOpen = true
+    this.popType = 1
+    this.popText = this.$t('registration') //报名成功
+    setTimeout(() => {
+      this.popOpen = true
+    }, 100)
+    setTimeout(() => {
+      this.$router.push({name:'officialQuantitativeDetails'})
+    }, 1000)
+
+    return;
+  }
+
   if (data.errorCode == "0" && this.success == true) {
     this.getRegistrationRecord()
     this.popOpen = true
@@ -447,6 +530,7 @@ root.methods.re_postActivities = function (data) {
     }, 100)
     return;
   }
+
   // if (this.success == true) {
   //   this.getRegistrationRecord()
   //   this.popOpen = false
