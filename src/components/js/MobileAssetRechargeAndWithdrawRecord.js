@@ -38,7 +38,8 @@ root.data = function () {
     isShowGetMoreWithdraw: true,
 
 
-    ActivityRecord:[],
+    ActivityRecord:[], // 挖矿奖励
+    EventRewards:[], // 活动奖励
 
     // 获取多少条消息
     capitalTransferLimit: 10,
@@ -98,8 +99,13 @@ root.computed.computedWithdraw = function () {
   return this.withdraws
 }
 
+// 挖矿奖励
 root.computed.computedActivityRecord = function () {
   return this.ActivityRecord
+}
+// 活动奖励
+root.computed.computedEventRewards = function () {
+  return this.EventRewards
 }
 
 root.computed.computedCapitalTransfer = function () {
@@ -129,13 +135,16 @@ root.methods.changeOpenTypeQuery = function () {
     this.getWithdraw()
   }
   if(num == 3) {
-    this.getRewardRecord()
+    this.getEventRewards()
   }
   if(num == 4) {
     this.getCapitalTransferList()
   }
   if(num == 5) {
     this.getInternalTransferList()
+  }
+  if(num == 6) {
+    this.getRewardRecord()
   }
 
 }
@@ -166,7 +175,7 @@ root.methods.changeOpenType = function(num){
   if(num === 3) {
     this.$router.push({'path':'/index/mobileAsset/MobileAssetRechargeAndWithdrawRecord',query:{id:3}})
     this.$store.commit('changeMobileHeaderTitle', '');
-    this.getRewardRecord()
+    this.getEventRewards()
   }
 
   if(num === 4) {
@@ -179,6 +188,12 @@ root.methods.changeOpenType = function(num){
     this.$router.push({'path':'/index/mobileAsset/MobileAssetRechargeAndWithdrawRecord',query:{id:5}})
     this.$store.commit('changeMobileHeaderTitle', '');
     this.getInternalTransferList()
+  }
+
+  if(num === 6) {
+    this.$router.push({'path':'/index/mobileAsset/MobileAssetRechargeAndWithdrawRecord',query:{id:6}})
+    this.$store.commit('changeMobileHeaderTitle', '');
+    this.getRewardRecord()
   }
 
 }
@@ -205,7 +220,6 @@ root.methods.getRecord = function () {
     errorHandler: this.error_getRecord
   })
 }
-
 // 获取记录返回，类型为{}
 root.methods.re_getRecord = function (data) {
   typeof data === 'string' && (data = JSON.parse(data))
@@ -297,9 +311,7 @@ root.methods.error_getWithdraw = function (err) {
   }
 }
 
-
-
-// 获取平台奖励记录
+// 获取挖矿奖励记录
 root.methods.getRewardRecord = function () {
   if(this.ajaxWithdrawFlag === true){
     return;
@@ -319,7 +331,7 @@ root.methods.getRewardRecord = function () {
     errorHandler: this.error_getRewardRecord,
   })
 }
-// 获取平台奖励记录回调
+// 获取挖矿奖励记录回调
 root.methods.re_getRewardRecord = function (data) {
   typeof data === 'string' && (data = JSON.parse(data))
   // console.log('提现记录',data)
@@ -364,8 +376,79 @@ root.methods.re_getRewardRecord = function (data) {
   //   this.records.push(this.records[0])
   // }
 }
-// 获取平台奖励记录出错
+// 获取挖矿奖励记录出错
 root.methods.error_getRewardRecord = function (err) {
+  console.warn('获取平台奖励出错', err)
+}
+
+
+// 获取平台奖励记录
+root.methods.getEventRewards = function () {
+  if(this.ajaxWithdrawFlag === true){
+    return;
+  }
+  this.ajaxWithdrawFlag = true
+  this.$http.send('INITIAL_REWARD', {
+    bind: this,
+    // params: {
+    //   rewardId:this.lastId,
+    //   pageSize:this.pageSize
+      // currentPage:this.selectIndex,
+      // pageSize:this.pageSize
+      // fromIndex: this.fromIndex,
+      // toIndex: this.toIndex
+    // },
+    callBack: this.re_getEventRewards,
+    errorHandler: this.error_getEventRewards,
+  })
+}
+// 获取平台奖励记录回调
+root.methods.re_getEventRewards = function (data) {
+  typeof data === 'string' && (data = JSON.parse(data))
+  // console.log('提现记录',data)
+  this.ajaxWithdrawFlag = false
+  this.isFirstGetWithdrawFlag = false
+  if (!data || data.dataMap.registerInviteRewards.length === 0) {
+    // console.log('data无',data)
+    // if(this.ajaxWithdrawFlag === true){
+    this.loading = false
+    // }
+    this.isWithdrawFlag = false
+    return
+  }
+
+  if (data.dataMap.registerInviteRewards.length < this.pageSize){
+    this.isShowGetMoreWithdraw = false
+  } else {
+    this.pageSize += 10;
+  }
+
+  console.log('data有', data)
+  this.EventRewards = data.dataMap.registerInviteRewards
+
+  // if(this.ajaxWithdrawFlag === true){
+  this.loading = false
+  // }
+  this.isWithdrawFlag = true
+
+
+
+
+  // typeof data === 'string' && (data = JSON.parse(data))
+  // this.loading = false
+  // this.firstLoad = true
+  // this.loadingNext = false
+  // console.warn('this is data', data)
+  // if (data.errorCode) return
+  // this.ActivityRecord = data.dataMap.grcActivityRewardList
+  // this.size = data.dataMap.size
+  // this.records.push(...this.records)
+  // for (let i = 0; i < 8; i++) {
+  //   this.records.push(this.records[0])
+  // }
+}
+// 获取平台奖励记录出错
+root.methods.error_getEventRewards = function (err) {
   console.warn('获取平台奖励出错', err)
 }
 
@@ -550,7 +633,6 @@ root.methods.re_getInternalTransferList = function (data) {
 
   this.loading = false
 }
-
 // 获取记录出错
 root.methods.error_getInternalTransferList = function (err) {
   console.warn("转账获取记录出错！", err)
@@ -573,10 +655,17 @@ root.methods.toWithdrawDetailPath = function (type) {
   this.$router.push("/index/mobileAsset/mobileAssetWithdrawRecordDetail/")
 }
 
-// 点击跳转奖励详情页
+// 点击跳转挖矿奖励详情页
 root.methods.toRewardDetailPath = function (item) {
   this.$store.commit('changeMobileRechargeRecordData',item)
   this.$router.push("/index/mobileAsset/mobileAssetRewardRecordDetail/")
+}
+
+
+// 点击跳转奖励详情页
+root.methods.toEventRewardsRecordPath = function (item) {
+  this.$store.commit('changeMobileRechargeRecordData',item)
+  this.$router.push("/index/mobileAsset/mobileAssetEventRewardsRecordDetail/")
 }
 
 // 点击跳进划转详情页

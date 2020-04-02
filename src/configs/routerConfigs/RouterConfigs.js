@@ -2172,7 +2172,7 @@ root.routes.push({
           },
           caseSensitive: true,
           component: resolve => require(['@/components/mobileVue/MobileAssetInternalTransferRecordDetail'], resolve),
-        },// 移动端奖励记录详情页
+        },// 移动端挖矿记录详情页
         {
           path: 'mobileAssetRewardRecordDetail',
           name: 'MobileAssetRewardRecordDetail',
@@ -2186,6 +2186,21 @@ root.routes.push({
           },
           caseSensitive: true,
           component: resolve => require(['@/components/mobileVue/MobileAssetRewardRecordDetail'], resolve),
+        },
+        // 移动端奖励记录详情页
+        {
+          path: 'mobileAssetEventRewardsRecordDetail',
+          name: 'mobileAssetEventRewardsRecordDetail',
+          meta: {
+            pcname: '',
+            h5name: 'mobileAssetEventRewardsRecordDetail',
+            requireLogin: true,
+            // 临时关闭
+            templateClose: false,
+            requireLoginOff: false,
+          },
+          caseSensitive: true,
+          component: resolve => require(['@/components/mobileVue/mobileAssetEventRewardsRecordDetail'], resolve),
         },
         // 移动当前锁仓记录详情页
         {
