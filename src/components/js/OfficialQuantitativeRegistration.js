@@ -360,7 +360,7 @@ root.methods.postActivities = function () {
   // H5判断是否绑定谷歌或手机，如果都没绑定
   if (this.isMobile && !this.bindGA && !this.bindMobile) {
     // this.$eventBus.notify({key: 'BIND_AUTH_POP'})
-    this.popText = '请绑定谷歌验证或手机';
+    this.popText = '请绑定谷歌或手机';
     this.popType = 0;
     this.popOpen = true;
     return
