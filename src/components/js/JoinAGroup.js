@@ -85,6 +85,11 @@ root.beforeDestroy = function () {}
 /*------------------------------ 计算 -------------------------------*/
 root.computed = {}
 
+// 判断是否是手机
+root.computed.isMobile = function () {
+  return this.$store.state.isMobile
+}
+
 // 是否实名认证
 root.computed.bindIdentify = function () {
   return this.$store.state.authState.identity
