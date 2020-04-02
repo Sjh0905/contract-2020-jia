@@ -1,5 +1,5 @@
 <div class="createAGroup">
-  <div class="createAGroup_conteainer">
+  <div class="createAGroup_conteainer" v-if="!isMobile">
     <div class="create">
       <div class="create_conteainer">
         <div class="create_a">
@@ -61,8 +61,73 @@
     </div>
   </div>
 
+
+  <div class="mobileCreateAGroup_conteainer" v-if="isMobile">
+    <div class="mobileCreate">
+      <div class="mobileCreate_conteainer">
+        <div class="mobileCreate_a">
+          <!--          创建拼团-->
+          <p class="create_a_p">{{$t('createGroup')}}</p>
+          <!--          创建拼团获取交易手续费折扣-->
+          <p class="create_discount">{{$t('transactionFees')}}</p>
+        </div>
+
+        <!--        团长账号-->
+        <div class="account_number">
+          <p class="account_number_p">{{$t('colonelNumber1')}}</p>
+          <div class="account_number_div">{{$globalFunc.formatUserName(userName)}}</div>
+        </div>
+        <!--        拼团名称-->
+        <div class="account_number">
+          <p class="account_number_p">{{$t('nameRegiment')}}</p>
+          <!--          placeholder="输入拼团名称（不可超过20字符）"-->
+          <!--          :class="{'wrong-border' : gname === '' && gname == ''}"-->
+          <input type="text"
+                 class="account_number_input"
+                 :placeholder='pswPlaceholderShow && $t("nameMsg_20") || ""'
+                 v-model="gname"
+                 @focus="closePlaceholder('psw')"
+                 @input="testInputIngPsw"
+                 @blur="testName_0">
+        </div>
+        <div class="hig">
+          <span v-if="name_0!=''" class="prompt-span wrong-msg">{{name_0}}</span>
+        </div>
+        <!--        设置副团长-->
+        <div class="account_number">
+          <p class="account_number_p">{{$t('delegations')}}</p>
+          <!--          :class="{'wrong-border' : deputyAccount === '' && deputyAccount == ''}"-->
+          <input type="text"
+                 class="account_number_input"
+                 placeholder="输入副团长账号"
+                 v-model="deputyAccount"
+                 :placeholder='pswConfirmPlaceholderShow && $t("nameMsgText") || ""'
+                 @focus="closePlaceholder('deputyAccount')"
+                 @blur="testdeputyAccount">
+        </div>
+        <div class="hig">
+          <span v-if="nameMsg_0 !=''" class="prompt-span wrong-msg">{{nameMsg_0}}</span>
+        </div>
+
+        <!--        创建-->
+        <div class="div_botton pointer" @click="postCreateAGroup">{{$t('create')}}</div>
+      </div>
+    </div>
+
+
+    <!--    拼团规则-->
+    <div class="mobileRules">
+      <p class="rules_p">{{$t('rulesRegimentation')}}</p>
+      <p class="rules_details">{{$t('withholding')}}</p>
+      <p class="rules_details">{{$t('withholdingA')}}</p>
+      <p class="rules_details">{{$t('calculated')}}</p>
+      <p class="rules_details">{{$t('calculatedB')}}</p>
+      <p class="rules_details">{{$t('calculated_1')}}</p>
+      <p class="rules_details">{{$t('calculated_1C')}}</p>
+    </div>
+  </div>
   <!--   提示 弹窗-->
-  <PopupWindow :switch="popWindowOpen" @close="popWindowClose">
+  <PopupWindow :switch="popWindowOpen" @close="popWindowClose" v-if="!isMobile">
     <div slot="header">
       <span class="header_xuzhi">{{popWindowTitle}}</span>
     </div>
@@ -88,45 +153,7 @@
           <!--          {{$t('bindMobile')}}-->
         </button>
       </template>
-<!--      <template v-if="popWindowStyle==3">-->
-<!--        <button @click="popWindowClose" class="button-base33 btn_simple pointer ">-->
-<!--          {{$t('cancel')}}-->
-<!--          &lt;!&ndash;          {{$t('bindGa')}}&ndash;&gt;-->
-<!--        </button>-->
-<!--        <button @click="goToSecurityCenter" class="button-base33 btn_blue pointer m-r">-->
-<!--          {{$t('beBinding')}}-->
-<!--          &lt;!&ndash;          {{$t('bindMobile')}}&ndash;&gt;-->
-<!--        </button>-->
-<!--      </template>-->
 
-
-
-
-      <!--      <template v-if="popWindowStyle==1">-->
-      <!--        <button @click="goToBindGA" class="button-base btn_blue pointer">-->
-      <!--          {{$t('bindGa')}}-->
-      <!--        </button>-->
-      <!--        <button @click="goToBindMobile" class="button-base btn_blue pointer">-->
-      <!--          {{$t('bindMobile')}}-->
-      <!--        </button>-->
-      <!--      </template>-->
-      <!--      <template v-if="popWindowStyle==2">-->
-      <!--        <button @click="popWindowClose" class="button-base btn_blue pointer">-->
-      <!--          {{$t('ensure')}}-->
-      <!--        </button>-->
-      <!--      </template>-->
-      <!--      <template v-if="popWindowStyle==3">-->
-      <!--        <button @click="goToBindEmail" class="button-base btn_blue pointer bangding">-->
-      <!--          &lt;!&ndash;绑定邮箱&ndash;&gt;-->
-      <!--          {{$t('bind_email_pop_button')}}-->
-      <!--        </button>-->
-      <!--      </template>-->
-      <!--      <template v-if="popWindowStyle==4">-->
-      <!--        <button @click="goToBindTransfer" class="button-base btn_blue pointer transfer4">-->
-      <!--          &lt;!&ndash;绑定邮箱&ndash;&gt;-->
-      <!--          {{$t('ITransfer')}}-->
-      <!--        </button>-->
-      <!--      </template>-->
     </div>
 
   </PopupWindow>

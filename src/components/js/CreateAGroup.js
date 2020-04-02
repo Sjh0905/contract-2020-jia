@@ -71,6 +71,11 @@ root.mounted = function () {}
 // }
 /*------------------------------ 计算 -------------------------------*/
 root.computed = {}
+
+// 判断是否是手机
+root.computed.isMobile = function () {
+  return this.$store.state.isMobile
+}
 // 是否实名认证
 root.computed.bindIdentify = function () {
   return this.$store.state.authState.identity
@@ -173,7 +178,7 @@ root.methods.goToBindIdentity = function () {
 root.methods.postCreateAGroup = function () {
 
   // 如果没有实名认证不允许打开创建拼团
-    if (!this.bindIdentify) {
+    if (!this.bindIdentify && !isMobile) {
       this.popWindowTitle = this.$t('popWindowTitleTransfer1')
       this.popWindowPrompt = this.$t('popWindowPromptWithdrawals')
       this.popWindowStyle = '0'
@@ -191,13 +196,22 @@ root.methods.postCreateAGroup = function () {
     // }
 
     // 如果没有绑定谷歌或手机，不允许创建拼团
-    if (!this.bindGA && !this.bindMobile) {
+    if (!this.bindGA && !this.bindMobile && !isMobile) {
       this.popWindowTitle = this.$t('popWindowTitleTransfer1')
       this.popWindowPrompt = this.$t('popWindowTitleBindGaWithdrawals')
       this.popWindowStyle = '1'
       this.popWindowOpen = true
       return
     }
+     // 判断是否绑定谷歌或手机，如果都没绑定
+    if (this.isMobile && !this.bindGa && !this.bindMobile) {
+     // this.$eventBus.notify({key: 'BIND_AUTH_POP'})
+      this.popText = '请绑定谷歌验证或手机';
+      this.popType = 0;
+      this.popOpen = true;
+      return
+    }
+
 
 
   // TODO : 加变量的非空判断 正则判断 S

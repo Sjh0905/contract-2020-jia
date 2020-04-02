@@ -1,5 +1,5 @@
 <div class="joinAGroup">
-  <div class="createAGroup_conteainer">
+  <div class="createAGroup_conteainer" v-if="!isMobile">
     <Loading v-if="loading"/>
     <div class="create">
       <div class="create_conteainer">
@@ -121,8 +121,130 @@
     </div>
   </div>
 
+
+  <div class="mobileCreateAGroup_conteainer" v-if="isMobile">
+    <Loading v-if="loading"/>
+    <div class="mobileCreate">
+      <div class="mobileCreate_conteainer">
+        <div class="create_a">
+          <!--          加入拼团-->
+          <p class="create_a_p">{{$t('joinGroup')}}</p>
+          <!--          加入拼团获取交易手续费折扣-->
+          <p class="create_discount">{{$t('joinTransaction')}}</p>
+        </div>
+
+        <!-- 输入团长账号-->
+        <!--        <div class="account_number">-->
+        <!--          <p class="account_number_p">{{$t('团长账号')}}</p>-->
+        <!--          <div class="">-->
+        <!--            &lt;!&ndash; 输入团长账号&ndash;&gt;-->
+
+        <!--            <input type="text" class=" inputsize2"-->
+        <!--                   v-model="priAccount1"-->
+        <!--                   :placeholder='pswConfirmPlaceholderShow && $t("输入团长账号") || ""'-->
+        <!--                   @focus="closePlaceholder('priAccount1')"-->
+        <!--                   @blur="testpriAccount1">-->
+        <!--          </div>-->
+        <!--          <div class="hig">-->
+        <!--            <span v-if="nameMsg_0 !=''" class="prompt-span wrong-msg">{{nameMsg_0}}</span>-->
+        <!--          </div>-->
+        <!--        </div>-->
+
+        <!--        选择拼团-->
+        <div class="account_number">
+          <p class="account_number_p">{{$t('chooseGroup')}}</p>
+          <div class="">
+            <!-- 下拉搜索框-->
+
+            <template>
+              <el-select class="account_number_input"
+                         name="country"
+                         :placeholder= '$t("wrong_message_222")'
+                         style="font-size:12px"
+                         v-model="searchResult"
+                         popper-class="self-el-select">
+                <input type="text" class="inputsize" :placeholder='$t("wrong_message_222")' v-model="searchCities">
+                <el-option
+                  popper-class="drowdown-box"
+                  v-for="item in (searchCities ? cityList :cities)"
+                  :key="item.groupId"
+                  :label="($store.state.lang == 'CH' || $store.state.lang == 'CHT')? item.gname : item.gname"
+                  :value="item.gname">
+                </el-option>
+              </el-select>
+            </template>
+            <!--  下拉搜索框   结束-->
+          </div>
+        </div>
+
+        <div class="account_number">
+          <p class="account_number_p">{{$t('groupInformation')}}</p>
+          <div class="information">
+            <ul>
+              <li class="information_li margin-top20">
+                <div class="information_div color_bik">
+
+                  <span class="soan"> {{searchResult}}</span>
+                  <div class="searchResult">
+                    <span v-if="glevel=='0'">-</span>
+                    <span v-if="glevel=='1'"><img class="tupian_img" src="../../assets/weituan_icon.png" alt=""></span>
+                    <span v-if="glevel=='2'"><img class="tupian_img" src="../../assets/xiaotuan_icon.png" alt=""></span>
+                    <span v-if="glevel=='3'"><img class="tupian_img" src="../../assets/datuan_icon.png" alt=""></span>
+                    <span v-if="glevel=='4'"><img class="tupian_img" src="../../assets/zhongtuan_icon.png" alt=""></span>
+                    <span v-if="glevel=='5'"><img class="tupian_img" src="../../assets/chaotuan_icon.png" alt=""></span>
+
+                    <span class="" v-if="glevel=='0'">-</span>
+                    <!--微团-->
+                    <span class="tupian tupian_wei" v-if="glevel=='1'">{{$t('micelle')}}</span>
+                    <!--小团-->
+                    <span class="tupian tupian_xiao" v-if="glevel=='2'">{{$t('small')}}</span>
+                    <!--中团-->
+                    <span class="tupian tupian_zhong" v-if="glevel=='3'">{{$t('regiment')}}</span>
+                    <!--大团-->
+                    <span class="tupian tupian_da" v-if="glevel=='4'">{{$t('large')}}</span>
+                    <!--超团-->
+                    <span class="tupian tupian_chao" v-if="glevel=='5'">{{$t('superLeague')}}</span>
+                  </div>
+                </div>
+                <!--                普通区折扣-->
+                <div class="information_div color_hui">{{$t('ordinaryDiscount')}}</div>
+                <!--                量化区折扣-->
+                <div class="information_div color_hui">{{$t('quantifiedDiscount')}}</div>
+              </li>
+              <li class="information_li margin-top10">
+                <!--                团长账号: -->
+                <div class="information_div margin-bottom16 color_6">
+                  {{$t('colonelNumber')}}
+                  <span v-if="priAccount==''">- -</span>
+                  <span class="color_3" v-else>{{$globalFunc.formatUserName(priAccount)}}</span>
+                  <!--                  <span class="color_3" v-else>{{(priAccount)}}</span>-->
+                </div>
+                <!--                普通区折扣-->
+                <div class="information_div color_bik_9"v-if="glevel=='0'">-</div>
+                <div class="information_div color_bik_9" v-if="glevel!=='0'">{{toFixed(accMul(commonDiscount,100),0) }}%</div>
+                <!--                挖矿区折扣-->
+                <div class="information_div color_bik_9" v-if="glevel=='0'">-</div>
+                <div class="information_div color_bik_9" v-if="glevel!=='0'">{{toFixed(accMul(quantDiscount,100),0) }}%</div>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!--        加入-->
+        <div class="div_botton pointer" @click="postJoinGroup">{{$t('join')}}</div>
+      </div>
+    </div>
+
+    <!--    拼团规则-->
+    <div class="rules">
+      <p class="rules_p">{{$t('rulesRegimentation')}}</p>
+      <p class="rules_details">{{$t('withholding')}}</p>
+      <p class="rules_details">{{$t('calculated')}}</p>
+      <p class="rules_details">{{$t('calculated_1')}}</p>
+    </div>
+  </div>
   <!--   提示 弹窗-->
-  <PopupWindow :switch="popWindowOpen" @close="popWindowClose">
+  <PopupWindow :switch="popWindowOpen" @close="popWindowClose" v-if="!isMobile">
     <div slot="header">
       <span class="header_xuzhi">{{popWindowTitle}}</span>
     </div>
@@ -148,45 +270,7 @@
           <!--          {{$t('bindMobile')}}-->
         </button>
       </template>
-<!--      <template v-if="popWindowStyle==3">-->
-<!--        <button @click="popWindowClose" class="button-base33 btn_simple pointer ">-->
-<!--          {{$t('cancel')}}-->
-<!--          &lt;!&ndash;          {{$t('bindGa')}}&ndash;&gt;-->
-<!--        </button>-->
-<!--        <button @click="goToSecurityCenter" class="button-base33 btn_blue pointer m-r">-->
-<!--          {{$t('beBinding')}}-->
-<!--          &lt;!&ndash;          {{$t('bindMobile')}}&ndash;&gt;-->
-<!--        </button>-->
-<!--      </template>-->
 
-
-
-
-      <!--      <template v-if="popWindowStyle==1">-->
-      <!--        <button @click="goToBindGA" class="button-base btn_blue pointer">-->
-      <!--          {{$t('bindGa')}}-->
-      <!--        </button>-->
-      <!--        <button @click="goToBindMobile" class="button-base btn_blue pointer">-->
-      <!--          {{$t('bindMobile')}}-->
-      <!--        </button>-->
-      <!--      </template>-->
-      <!--      <template v-if="popWindowStyle==2">-->
-      <!--        <button @click="popWindowClose" class="button-base btn_blue pointer">-->
-      <!--          {{$t('ensure')}}-->
-      <!--        </button>-->
-      <!--      </template>-->
-      <!--      <template v-if="popWindowStyle==3">-->
-      <!--        <button @click="goToBindEmail" class="button-base btn_blue pointer bangding">-->
-      <!--          &lt;!&ndash;绑定邮箱&ndash;&gt;-->
-      <!--          {{$t('bind_email_pop_button')}}-->
-      <!--        </button>-->
-      <!--      </template>-->
-      <!--      <template v-if="popWindowStyle==4">-->
-      <!--        <button @click="goToBindTransfer" class="button-base btn_blue pointer transfer4">-->
-      <!--          &lt;!&ndash;绑定邮箱&ndash;&gt;-->
-      <!--          {{$t('ITransfer')}}-->
-      <!--        </button>-->
-      <!--      </template>-->
     </div>
 
   </PopupWindow>
