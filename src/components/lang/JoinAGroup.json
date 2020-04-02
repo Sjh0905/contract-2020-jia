@@ -63,6 +63,7 @@
   "not_registered":"团长账号未注册",
   "userId_wrong":"团长userId有误",
   "inserted":"拼团团员已存在，不能重复插入",
+  "insertedTT":"创建拼团TT余额不足",
   "incorrect":"团员账户有误",
   "account_not_registered":"团员账户未注册",
   "colonel_userId":"团长userId有误",
@@ -185,6 +186,8 @@
   "not_registered":"團長帳號未註冊",
   "userId_wrong":"團長userId有誤",
   "inserted":"拼團團員已存在，不能重複插入",
+
+  "insertedTT":"創建拼團TT餘額不足",
   "incorrect":"團員帳戶有誤",
   "account_not_registered":"團員帳戶未註冊",
   "colonel_userId":"團長userId有誤",
