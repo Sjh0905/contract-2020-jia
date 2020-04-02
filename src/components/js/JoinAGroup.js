@@ -397,7 +397,7 @@ root.methods.re_postJoinGroup = function (data) {
       data.errorCode == 2 && (this.popText = this.$t('account_not_registered')) || // 团员账户未注册
       data.errorCode == 3 && (this.popText = this.$t('colonel_userId')) || // 团长userId有误
       data.errorCode == 4 && (this.popText = this.$t('inserted')) || // 拼团团员已存在，不能重复插入
-      data.errorCode == 5 && (this.popText = this.$t('inserted')) || // 拼团已达最大人数限制，请加入其它拼团
+      data.errorCode == 5 && (this.popText = this.$t('prompt2')) || // 拼团已达最大人数限制，请加入其它拼团
       data.errorCode == 6 && (this.popText = this.$t('parameter_error')) || // groupId为0,参数错误~~~~
       data.errorCode == 400 && (this.popText = this.$t('parameter_error')) //参数有误
     ) {

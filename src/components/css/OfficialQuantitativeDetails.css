@@ -301,6 +301,22 @@
   margin-bottom: 30px;
   padding-top: 27px;
   padding-left: 15px;
+  padding-right: 15px;
+}
+
+.delails {
+  float: right;
+  font-size:14px;
+  line-height: 50px;
+  font-family:PingFangSC-Medium,PingFang SC;
+  font-weight:500;
+  color:#3576F5;
+}
+
+.jiantou {
+  width: 16px;
+  height: 16px;
+  vertical-align: sub;
 }
 .account_numberMobile {
   display: inline-block;
