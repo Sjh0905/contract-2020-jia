@@ -171,14 +171,14 @@
 <!--              锁仓灰色按钮-->
 <!--               v-if="serverT >= item.withdrawOpenTime"-->
 
-              <span class="withdrawals-button button"
-                   @click="openLockHouse(index,item)"
-                   v-if="item.currency === 'KK'|| item.currency === 'TT'"
-                  >
-               {{$t('lockWarehouse')}}
-              </span>
-              <span class="can-not-withdrawals" v-else>{{$t('lockWarehouse')}}</span>
-<!--               -->
+<!--              <span class="withdrawals-button button"-->
+<!--                   @click="openLockHouse(index,item)"-->
+<!--                   v-if="item.currency === 'KK'|| item.currency === 'TT'"-->
+<!--                  >-->
+<!--               {{$t('lockWarehouse')}}-->
+<!--              </span>-->
+              <span class="can-not-withdrawals" >{{$t('lockWarehouse')}}</span>
+<!--              v-else-->
               <!--sss 锁仓屏蔽结束-->
 
 <!--              <span class="withdrawals-buttons buttons">{{$t('lockWarehouse')}}</span>-->
