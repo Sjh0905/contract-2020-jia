@@ -2906,7 +2906,8 @@ root.routes.push({
       meta: {
         requireLogin: true,
         mobileHeaderTitle: '',
-        name: 'officialQuantitativeRegistration',
+        pcname: 'officialQuantitativeRegistration',
+        h5name: 'officialQuantitativeRegistration',
         requireLoginOff: false,
 
       },

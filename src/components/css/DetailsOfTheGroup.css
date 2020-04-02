@@ -611,6 +611,7 @@ ul {
 .mobileliang {
   width: 100%;
   background-color: #FFFFFF;
+  margin-top: -1px;
 }
 .mobileFoldSapnF18 {
   font-size:18px;

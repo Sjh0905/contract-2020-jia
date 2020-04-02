@@ -269,6 +269,7 @@ root.methods.re_postCreateAGroup = function (data) {
       data.errorCode == 9 && (this.popText = this.$t('not_registered')) ||  // 团长账号未注册
       data.errorCode == 10 && (this.popText = this.$t('userId_wrong')) ||  // 团长userId有误
       data.errorCode == 11 && (this.popText = this.$t('inserted')) ||  // 拼团团员已存在，不能重复插入
+      data.errorCode == 12 && (this.popText = this.$t('insertedTT')) ||  // 创建拼团TT余额不足
       data.errorCode == 400 && (this.popText = this.$t('parameter_error')) //参数有误
     ) {
       this.popOpen = true
