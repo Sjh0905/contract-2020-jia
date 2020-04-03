@@ -126,7 +126,7 @@
     <Loading v-if="loading"/>
     <div class="mobileCreate">
       <div class="mobileCreate_conteainer">
-        <div class="create_a">
+        <div class="mobileCreate_a">
           <!--          加入拼团-->
           <p class="create_a_p">{{$t('joinGroup')}}</p>
           <!--          加入拼团获取交易手续费折扣-->
@@ -163,7 +163,7 @@
                          style="font-size:12px"
                          v-model="searchResult"
                          popper-class="self-el-select">
-                <input type="text" class="inputsize" :placeholder='$t("wrong_message_222")' v-model="searchCities">
+                <input type="text" class="mobileInputsize" :placeholder='$t("wrong_message_222")' v-model="searchCities">
                 <el-option
                   popper-class="drowdown-box"
                   v-for="item in (searchCities ? cityList :cities)"
@@ -206,12 +206,9 @@
                     <span class="tupian tupian_chao" v-if="glevel=='5'">{{$t('superLeague')}}</span>
                   </div>
                 </div>
-                <!--                普通区折扣-->
-                <div class="information_div color_hui">{{$t('ordinaryDiscount')}}</div>
-                <!--                量化区折扣-->
-                <div class="information_div color_hui">{{$t('quantifiedDiscount')}}</div>
+
               </li>
-              <li class="information_li margin-top10">
+              <li class="information_li mobile10">
                 <!--                团长账号: -->
                 <div class="information_div margin-bottom16 color_6">
                   {{$t('colonelNumber')}}
@@ -219,12 +216,27 @@
                   <span class="color_3" v-else>{{$globalFunc.formatUserName(priAccount)}}</span>
                   <!--                  <span class="color_3" v-else>{{(priAccount)}}</span>-->
                 </div>
+
+              </li>
+              <li>
                 <!--                普通区折扣-->
-                <div class="information_div color_bik_9"v-if="glevel=='0'">-</div>
-                <div class="information_div color_bik_9" v-if="glevel!=='0'">{{toFixed(accMul(commonDiscount,100),0) }}%</div>
-                <!--                挖矿区折扣-->
-                <div class="information_div color_bik_9" v-if="glevel=='0'">-</div>
-                <div class="information_div color_bik_9" v-if="glevel!=='0'">{{toFixed(accMul(quantDiscount,100),0) }}%</div>
+                <div class="mobilecommon">
+                  <div class="mobileCol">{{$t('ordinaryDiscount')}}</div>
+                  <div class="information_div mobileColor_F"v-if="glevel=='0'">-</div>
+                  <div class="information_div mobileColor_F" v-if="glevel!=='0'">{{toFixed(accMul(commonDiscount,100),0) }}%</div>
+                </div>
+                <!--                量化区折扣-->
+                <div class="mobilecommon">
+                  <div class="mobileCol">{{$t('quantifiedDiscount')}}</div>
+                  <div class="information_div mobileColor_F" v-if="glevel=='0'">-</div>
+                  <div class="information_div mobileColor_F" v-if="glevel!=='0'">{{toFixed(accMul(quantDiscount,100),0) }}%</div>
+                </div>
+<!--                &lt;!&ndash;                普通区折扣&ndash;&gt;-->
+<!--                <div class="information_div color_bik_9"v-if="glevel=='0'">-</div>-->
+<!--                <div class="information_div color_bik_9" v-if="glevel!=='0'">{{toFixed(accMul(commonDiscount,100),0) }}%</div>-->
+<!--                &lt;!&ndash;                挖矿区折扣&ndash;&gt;-->
+<!--                <div class="information_div color_bik_9" v-if="glevel=='0'">-</div>-->
+<!--                <div class="information_div color_bik_9" v-if="glevel!=='0'">{{toFixed(accMul(quantDiscount,100),0) }}%</div>-->
               </li>
             </ul>
           </div>
@@ -236,11 +248,21 @@
     </div>
 
     <!--    拼团规则-->
-    <div class="rules">
+<!--    <div class="rules">-->
+<!--      <p class="rules_p">{{$t('rulesRegimentation')}}</p>-->
+<!--      <p class="rules_details">{{$t('withholding')}}</p>-->
+<!--      <p class="rules_details">{{$t('calculated')}}</p>-->
+<!--      <p class="rules_details">{{$t('calculated_1')}}</p>-->
+<!--    </div>-->
+    <!--    拼团规则-->
+    <div class="mobileRules">
       <p class="rules_p">{{$t('rulesRegimentation')}}</p>
       <p class="rules_details">{{$t('withholding')}}</p>
+      <p class="rules_details">{{$t('withholdingA')}}</p>
       <p class="rules_details">{{$t('calculated')}}</p>
+      <p class="rules_details">{{$t('calculatedB')}}</p>
       <p class="rules_details">{{$t('calculated_1')}}</p>
+      <p class="rules_details">{{$t('calculated_1C')}}</p>
     </div>
   </div>
   <!--   提示 弹窗-->
