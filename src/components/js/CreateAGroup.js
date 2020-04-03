@@ -32,6 +32,8 @@ root.data = function () {
     popWindowStyle: 0,//跳转 0表示实名认证，1表示手机或谷歌，2只有确定
     popWindowOpen: false, //弹窗开关
 
+    popIdenOpen: false,
+
   }
 }
 /*------------------------------ 生命周期 -------------------------------*/
@@ -178,7 +180,7 @@ root.methods.goToBindIdentity = function () {
 root.methods.postCreateAGroup = function () {
 
   // 如果没有实名认证不允许打开创建拼团
-    if (!this.bindIdentify && !isMobile) {
+    if (!this.bindIdentify && !this.isMobile) {
       this.popWindowTitle = this.$t('popWindowTitleTransfer1')
       this.popWindowPrompt = this.$t('popWindowPromptWithdrawals')
       this.popWindowStyle = '0'
@@ -196,17 +198,22 @@ root.methods.postCreateAGroup = function () {
     // }
 
     // 如果没有绑定谷歌或手机，不允许创建拼团
-    if (!this.bindGA && !this.bindMobile && !isMobile) {
+    if (!this.bindGA && !this.bindMobile && !this.isMobile) {
       this.popWindowTitle = this.$t('popWindowTitleTransfer1')
       this.popWindowPrompt = this.$t('popWindowTitleBindGaWithdrawals')
       this.popWindowStyle = '1'
       this.popWindowOpen = true
       return
     }
+
+    if (this.isMobile && !this.bindIdentify) {
+      this.popIdenOpen = true
+      return
+    }
      // 判断是否绑定谷歌或手机，如果都没绑定
-    if (this.isMobile && !this.bindGa && !this.bindMobile) {
+    if (this.isMobile && !this.bindGA && !this.bindMobile) {
      // this.$eventBus.notify({key: 'BIND_AUTH_POP'})
-      this.popText = '请绑定谷歌验证或手机';
+      this.popText = '请绑定谷歌或手机';
       this.popType = 0;
       this.popOpen = true;
       return
@@ -354,6 +361,12 @@ root.methods.popClose = function () {
 // 弹窗关闭
 root.methods.popWindowClose = function () {
   this.popWindowOpen = false
+}
+
+
+// 关闭弹窗
+root.methods.popIdenClose = function () {
+  this.popIdenOpen = false
 }
 
 // 获取焦点后关闭placheholder
