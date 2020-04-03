@@ -582,9 +582,8 @@ root.methods.re_getGroupLevel = function (data) {
   this.account = data.data.account
 
   if (this.isExist == false) {
-    this.goGroupLevel()
-
-    // this.$router.push({name: 'assembleARegiment'})
+    // this.goGroupLevel()
+    this.$router.push({name: 'assembleARegiment'})
   }
 
 
