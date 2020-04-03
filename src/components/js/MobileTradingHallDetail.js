@@ -816,7 +816,7 @@ root.methods.sectionSelect2 = function (num) {
 		console.log(this.baseScale)
 		this.transaction_amount = this.$globalFunc.accFixed(this.currentSymbol.balance_order * num, this.baseScale);
 		return
-	} else {f
+	} else {
 		if (this.transaction_price) {
 			this.transaction_amount = (this.currentSymbol.balance * num / this.transaction_price).toFixed(this.baseScale)
 		}
