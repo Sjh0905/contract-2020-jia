@@ -76,7 +76,7 @@
   font-size: 1.2rem;
   padding-left: 11px;
   position: relative;
-  padding-right: 11px;
+  /*padding-right: 11px;*/
 }
 /*费率详情*/
 .hidden-detail-article-1 {
@@ -98,13 +98,13 @@
 
 /*实收应收显示*/
 .hidden-detail-article-title {
-  position: absolute;
-  left: 15px;
+  /*position: absolute;*/
+  /*left: 15px;*/
 }
 
 .hidden-detail-article-title-en {
-  position: absolute;
-  left: -16px;
+  /*position: absolute;*/
+  /*left: -16px;*/
 }
 
 .hidden-detail-article-item {

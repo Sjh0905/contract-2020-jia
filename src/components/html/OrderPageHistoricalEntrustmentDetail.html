@@ -128,9 +128,11 @@
           v-if="!loadingMoreShow && orderDetail.length!==0 && orderDetail.length!==1">
         <div class="hidden-detail-article">{{$t('orderPageHistoricalEntrustmentDetail.total')}}</div>
         <div class="hidden-detail-article">
-          {{toFixed(averagePrice,8)}} {{symbol.split('_')[1]}}({{$t('orderPageHistoricalEntrustmentDetail.average')}})
+          {{toFixed(averagePrice, !!quoteScale_list[symbol] ? quoteScale_list[symbol].quoteScale : 8)}} {{symbol.split('_')[1]}}({{$t('orderPageHistoricalEntrustmentDetail.average')}})
         </div>
-        <div class="hidden-detail-article">{{amount}} {{symbol.split('_')[0]}}</div>
+        <div class="hidden-detail-article">
+          {{toFixed(amount, !!quoteScale_list[symbol] ? quoteScale_list[symbol].baseScale : 8)}} {{symbol.split('_')[0]}}
+        </div>
         <div class="hidden-detail-article">{{toFixed(filledPrice,8)}} {{symbol.split('_')[1]}}</div>
 
         <!--如果没开抵扣，显示原币种 begin -->
@@ -156,17 +158,17 @@
 
         <!--如果开抵扣了，显示抵扣 begin -->
         <div class="hidden-detail-article" v-if="replaced">
-          <!--<p class="hidden-detail-article-box hidden-detail-article-original-currency">-->
-            <!--<span class="hidden-detail-article-title hidden-detail-article-original-currency-title"-->
-                  <!--:class="{'hidden-detail-article-title-en':lang!=='CH'}"-->
-            <!--&gt;{{$t('orderPageHistoricalEntrustmentDetail.originalCurrency')}}</span>-->
-            <!--<span-->
-              <!--class="hidden-detail-article-item hidden-detail-article-original-currency-item">{{toFixed(originalFee,8)}} {{originalCurrency}}</span>-->
-          <!--</p>-->
-          <p class="hidden-detail-article-box hidden-detail-article-really-currency">
-            <!--<span class="hidden-detail-article-title hidden-detail-article-really-currency-title"-->
-                  <!--:class="{'hidden-detail-article-title-en':lang!=='CH'}"-->
-            <!--&gt;{{$t('orderPageHistoricalEntrustmentDetail.reallyCurrency')}}</span>-->
+          <p class="hidden-detail-article-box hidden-detail-article-original-currency flex-row">
+            <span class="hidden-detail-article-title hidden-detail-article-original-currency-title"
+                  :class="{'hidden-detail-article-title-en':lang!=='CH'}"
+            >{{$t('orderPageHistoricalEntrustmentDetail.originalCurrency')}}</span>
+            <span
+              class="hidden-detail-article-item hidden-detail-article-original-currency-item">{{toFixed(originalFee,8)}} {{originalCurrency}}</span>
+          </p>
+          <p class="hidden-detail-article-box hidden-detail-article-really-currency flex-row">
+            <span class="hidden-detail-article-title hidden-detail-article-really-currency-title"
+                  :class="{'hidden-detail-article-title-en':lang!=='CH'}"
+            >{{$t('orderPageHistoricalEntrustmentDetail.reallyCurrency')}}</span>
             <span
               class="hidden-detail-article-item hidden-detail-article-really-currency-item"
               v-if="originalFee !==refundedFee"
