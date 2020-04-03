@@ -401,6 +401,7 @@ root.methods.clickToGoTradingHall = function (value) {
 
   let user_id = this.$store.state.authMessage.userId;
   let user_id_symbol = user_id + '-' + symbol;
+  !user_id && this.$cookies.set('unlogin_user_symbol_cookie', symbol, 60 * 60 * 24);
   !!user_id && this.$cookies.set('user_symbol_cookie', user_id_symbol, 60 * 60 * 24)
   this.$router.push({name: 'tradingHall'})
 }
