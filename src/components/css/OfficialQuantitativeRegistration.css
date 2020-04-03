@@ -449,3 +449,88 @@
   height: 16px;
   vertical-align: sub;
 }
+
+/*实名认证弹框*/
+.lock-position-confirm-toast {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.6);
+}
+
+.lock-position-confirm-toast-window {
+  position: absolute;
+  top: 50%;
+  left: 25px;
+  right: 25px;
+  transform: translateY(-50%);
+  background: #fff;
+  border-radius: 4px;
+  padding: 0 20px;
+}
+
+.lock-position-confirm-toast-close-btn {
+  position: absolute;
+  top: -40px;
+  right: -10px;
+  width: 40px;
+  height: 40px;
+}
+
+.lock-position-confirm-toast-close-btn-img {
+  display: block;
+  width: 20px;
+  margin: 10px;
+}
+
+.lock-position-confirm-toast-title {
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  color: #3576F5;
+  font-size: 16px;
+  box-sizing: border-box;
+  border-bottom: 1px solid #f2f2f2;
+}
+
+.lock-position-confirm-toast-list {
+  padding-top: 15px;
+}
+
+.lock-position-confirm-toast-item-title {
+  color: rgba(0,0,0,0.4);
+}
+
+.lock-position-confirm-toast-btns {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /*justify-content: space-between;*/
+  font-size: 15px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.lock-position-confirm-toast-btn-confirm {
+  width: 45%;
+  background: #3576F5;
+  height: 40px;
+  line-height: 40px;
+  color: #fff;
+  box-sizing: border-box;
+  text-align: center;
+  border-radius: 4px;
+}
+.tupianAlign {
+  vertical-align: text-bottom;
+}
+.mobileColor_bik {
+  /*width: 59%;*/
+  font-size:18px;
+  font-family:PingFangSC-Medium,PingFang SC;
+  font-weight:500;
+  color: #0D0E23;
+  margin-left: 15px;
+}
