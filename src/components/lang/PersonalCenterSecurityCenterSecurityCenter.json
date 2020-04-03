@@ -8,6 +8,7 @@
     "toBeAudited": "待审核",
     "passed": "已通过",
     "other": "其他",
+    "prompt_reason": "驳回原因：",
 
     "paymentFees": "使用TT支付手续费",
     "feeDeductions": "设置TT抵扣手续费，享受抵扣优惠",
@@ -180,6 +181,7 @@
     "toBeAudited": "待審核",
     "passed": "已通過",
     "other": "其他",
+    "prompt_reason": "駁回原因：",
     "paymentFees": "使用TT支付手續費",
     "feeDeductions": "設置TT抵扣手續費，享受抵扣優惠",
     "inviteFriends": "邀請好友",
