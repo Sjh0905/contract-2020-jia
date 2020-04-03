@@ -325,3 +325,212 @@
 .m-l {
   margin-left: 24px;
 }
+.mobileQQ_content {
+  width: 100%;
+  background-color: #FFFFFF;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.mobileQQ_title {
+  font-size:26px;
+  font-family:PingFangSC-Medium,PingFang SC;
+  font-weight:500;
+  color:rgba(53,118,245,1);
+  margin-top: 10px;
+  margin-bottom: 30px;
+  padding-top: 30px;
+
+}
+.mobileApplication_form {
+  display: inline-block;
+  width: 100%;
+  /*margin-right: 40px;*/
+}
+
+.mobileSupporting {
+  width: 100%;
+  font-size: 12px;
+}
+.mobileAccount_number_ {
+  display: block;
+  font-size:12px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color:rgba(107,125,162,1);
+  margin-bottom: 10px;
+}
+.mobileSupporting .el-select {
+  width: 100%;
+}
+
+.mobileSupporting .el-select >>> .el-input__inner {
+  -web-kit-appearance: none;
+  -moz-appearance: none;
+  width: 100%;
+  height:40px;
+  border-radius:1px;
+  border:1px solid rgba(224,225,244,1);
+  /*margin-top: 10px;*/
+  /*margin-bottom: 20px;*/
+}
+
+.mobileSupporting .el-select >>> .el-input--suffix {
+  height: 41px;
+}
+.mobileAccount_number_input {
+  width:100%;
+  height:40px;
+  line-height: 40px;
+  padding-left: 13px;
+  background:rgba(245,246,250,1);
+  color: #0D0E23;
+  border-radius:1px;
+  border:1px solid rgba(224,225,244,1);
+  /*margin-top: 10px;*/
+  margin-bottom: 25px;
+}
+.mobileNumber_amount_span {
+  display: inline-block;
+  font-size:12px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color:rgba(107,125,162,1);
+  margin-right: 30px;
+}
+.mobileNumber_amount {
+  width: 49%;
+  display: inline-block;
+  margin-top: 40px;
+  margin-bottom: 5px;
+}
+.mobileMB {
+  margin-bottom: 30px;
+}
+.mobilePL {
+  padding-left: 15px;
+}
+
+.mobileApplication_record {
+  /*float: right;*/
+  width: 100%;
+  /*height: 100%;*/
+  min-height: 300px;
+  background-color: #FFFFFF;
+  margin-top: -1px;
+}
+.mobileApplication_header_div {
+  justify-content:space-between;
+  width: 36%;
+}
+.mobileApplication_header_div_right {
+  justify-content:space-between;
+  width: 28%;
+  text-align: right;
+}
+.mobileApplication_header1 {
+  width: 100%;
+  height:54px;
+  line-height: 54px;
+  box-sizing: border-box;
+  padding: 0 15px;
+  /*min-height: 200px;*/
+  border-bottom: 1px solid rgba(197,207,213,0.5);
+}
+.delails {
+  float: right;
+  font-size:14px;
+  line-height: 50px;
+  font-family:PingFangSC-Medium,PingFang SC;
+  font-weight:500;
+  color:#3576F5;
+}
+.jiantou {
+  width: 16px;
+  height: 16px;
+  vertical-align: sub;
+}
+
+/*实名认证弹框*/
+.lock-position-confirm-toast {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.6);
+}
+
+.lock-position-confirm-toast-window {
+  position: absolute;
+  top: 50%;
+  left: 25px;
+  right: 25px;
+  transform: translateY(-50%);
+  background: #fff;
+  border-radius: 4px;
+  padding: 0 20px;
+}
+
+.lock-position-confirm-toast-close-btn {
+  position: absolute;
+  top: -40px;
+  right: -10px;
+  width: 40px;
+  height: 40px;
+}
+
+.lock-position-confirm-toast-close-btn-img {
+  display: block;
+  width: 20px;
+  margin: 10px;
+}
+
+.lock-position-confirm-toast-title {
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  color: #3576F5;
+  font-size: 16px;
+  box-sizing: border-box;
+  border-bottom: 1px solid #f2f2f2;
+}
+
+.lock-position-confirm-toast-list {
+  padding-top: 15px;
+}
+
+.lock-position-confirm-toast-item-title {
+  color: rgba(0,0,0,0.4);
+}
+
+.lock-position-confirm-toast-btns {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /*justify-content: space-between;*/
+  font-size: 15px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.lock-position-confirm-toast-btn-confirm {
+  width: 45%;
+  background: #3576F5;
+  height: 40px;
+  line-height: 40px;
+  color: #fff;
+  box-sizing: border-box;
+  text-align: center;
+  border-radius: 4px;
+}
+.tupianAlign {
+  vertical-align: text-bottom;
+}
+.mobileColor_bik {
+  /*width: 59%;*/
+  font-size:18px;
+  font-family:PingFangSC-Medium,PingFang SC;
+  font-weight:500;
+  color: #0D0E23;
+  margin-left: 15px;
+}

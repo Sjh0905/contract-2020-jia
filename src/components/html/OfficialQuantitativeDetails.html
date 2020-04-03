@@ -141,8 +141,12 @@
 
     <!--    KK交易挖矿详情-->
     <div class="qq_titleMobile">
-      {{$t('miningDetails')}}
+      <span>{{$t('miningDetails')}}</span>
+      <span class="delails" @click="goToDelails">{{$t('报名详情')}}
+      <img class="jiantou" src="../../assets/wk_icon@2x.png" alt="">
+      </span>
     </div>
+
 
     <!--账号-->
     <div class="account_numberMobile">

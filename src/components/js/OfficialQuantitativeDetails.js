@@ -115,6 +115,10 @@ root.methods.error_getRegistrationRecord = function (err) {
   console.log("this.err=====",err)
 }
 
+root.methods.goToDelails = function () {
+  // this.$router.push({name: 'MobileLockHouseRecord'})
+  this.$router.push({name:'officialQuantitativeRegistration'})
+}
 
 //量化展示_量化交易记录get (query:{})  未完成
 root.methods.getQuantifyransactions = function () {

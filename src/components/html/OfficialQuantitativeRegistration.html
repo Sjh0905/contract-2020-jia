@@ -2,7 +2,7 @@
 
 <div class="officialQuantitativeRegistration">
 
-  <div class="qq_content">
+  <div class="qq_content" v-if="!isMobile">
 
 <!--    KK交易挖矿-->
     <div class="qq_title">
@@ -15,7 +15,7 @@
 <!--        账号-->
         <div class="Account_number">
           <span class="Account_number_">{{$t('number')}}</span>
-          <div class="Account_number_input">{{userName}}</div>
+          <div class="Account_number_input">{{$globalFunc.formatUserName(userName)}}</div>
         </div>
 <!--        配套-->
         <div class="supporting">
@@ -82,7 +82,7 @@
     <!--   活动报名记录   -->
       <div class="application_record">
 
-        <div class="application_title">{{$t('registration')}}</div>
+        <div class="application_title">{{$t('registration1')}}</div>
 
         <ul >
           <!--表头 S-->
@@ -123,11 +123,160 @@
       </div>
 
     </div>
+  </div >
+
+  <div class="mobileQQ_content" v-if="isMobile">
+
+    <!--    KK交易挖矿-->
+<!--    <div class="mobileQQ_title">-->
+<!--      {{$t('tradingMining')}}-->
+<!--    </div>-->
+    <div class="mobileQQ_title">
+      <span>{{$t('tradingMining')}}</span>
+      <span class="delails" @click="goToDelails" v-if="isMobile && (computedRecord.length !== 0)">{{$t('挖矿详情')}}
+      <img class="jiantou" src="../../assets/wk_icon@2x.png" alt="">
+      </span>
+    </div>
+
+
+    <div class="application">
+      <!--   申请表格   -->
+      <div class="mobileApplication_form">
+        <div class="application_title">{{$t('application')}}</div>
+        <!--        账号-->
+        <div class="Account_number">
+          <span class="Account_number_">{{$t('number')}}</span>
+          <div class="mobileAccount_number_input">{{$globalFunc.formatUserName(userName)}}</div>
+        </div>
+        <!--        配套-->
+        <div class="mobileSupporting">
+          <span class="mobileAccount_number_">{{$t('supporting')}}</span>
+          <template>
+            <el-select v-model="matchingAmount" name="gender" placeholder="请选择配套" popper-class="selectstyle" @blur="testMatchingAmount">
+              <el-option
+                v-for="item in matchDataList"
+                :key="item.fcode"
+                :label="item.fdesc"
+                :value="item.fdesc"
+              >
+              </el-option>
+            </el-select>
+          </template>
+          <span v-if="matchingAmountMsg_0 !=''" class="m-t wrong-msg">{{matchingAmountMsg_0}}</span>
+
+        </div>
+
+
+
+        <!--        YY所需数额-->
+        <div class="mobileNumber_amount">
+          <p class="number_amount_p">{{$t('required')}}</p>
+          <span class="mobileNumber_amount_span">YY:</span>
+          <!--          <span class="amount_span">{{matchDataObj[matchingAmount]}}</span>-->
+          <span class="amount_span">{{matchDataObj[matchingAmount]}}</span>
+        </div>
+
+
+        <!--       YY账号余额 -->
+        <div class="mobileNumber_amount">
+          <p class="number_amount_p">{{$t('balance')}}</p>
+          <span class="mobileNumber_amount_span">YY:</span>
+          <span class="amount_span">{{toFixed(balance,8)}}</span>
+          <!--          <span class="amount_span">{{toFixed(balance,8)}}</span>-->
+        </div>
+
+        <!--        TT所需数额-->
+        <div class="number_amountTT">
+          <span class="mobileNumber_amount_span">TT:</span>
+          <span class="amount_span">{{matchDataFamt[matchingAmount]}}</span>
+        </div>
+
+        <!--       TT账号余额 -->
+        <div class="number_amountTT">
+          <span class="mobileNumber_amount_span">TT:</span>
+          <span class="amount_span">{{toFixed(balance1,8)}}</span>
+        </div>
+
+        <!-- 兑换按钮-->
+        <div class="exchange_button pointer" @click="postActivities" v-if="(computedRecord.length == 0) && !getVerificationCode">{{$t('exchang')}}</div>
+        <div class="exchange_button1" v-if="getVerificationCode">报名中</div>
+        <div class="exchange_button1" v-if="computedRecord.length !== 0">已报名</div>
+
+        <!--  须知 1,2,3-->
+        <div class="notice_div mobileMB">
+          <p>{{$t('passed')}}</p>
+          <p>{{$t('bound')}}</p>
+          <p>{{$t('sufficient')}}</p>
+        </div>
+      </div>
+
+    </div>
+  </div >
+  <!--   活动报名记录   -->
+  <div class="mobileApplication_record" v-if="isMobile">
+
+    <div class="application_title mobilePL">{{$t('registration1')}}</div>
+
+    <ul >
+      <!--表头 S-->
+      <li class="application_header">
+        <!--            <div class="application_header_div">{{$t('number')}}</div>-->
+        <div class="mobileApplication_header_div">{{$t('nper')}}</div>
+        <div class="mobileApplication_header_div">{{$t('supporting')}}</div>
+        <div class="mobileApplication_header_div_right">{{$t('time')}}</div>
+      </li>
+      <!--表头 E-->
+
+      <!-- 如果加载完成、已登录、有数据，则显示数据 begin -->
+      <template>
+        <!--            <template v-if="userId && currentOrderComputed.length!==0">-->
+        <template v-if="computedRecord.length !== 0">
+          <li class="flex mobileApplication_header1" v-for="(item,index) in computedRecord" :key="item.id">
+            <!--账号-->
+            <!--                <div class="application_header_div mor-left color_a2">{{$globalFunc.formatUserName(item.account)}}</div>-->
+            <!--期数-->
+            <div class="mobileApplication_header_div color_a2">{{item.periodsNum}}</div>
+            <!--配套-->
+            <div class="mobileApplication_header_div color_a2">{{item.fdesc}}</div>
+            <!--时间-->
+            <div class="mobileApplication_header_div_right color_a2">{{item.createdAt}}</div>
+          </li>
+        </template>
+        <!-- 如果加载完成、已登录、有数据，则显示数据 end -->
+
+        <!-- 如果没加载完成、没登录、没数据，则显示'--' begin -->
+        <template v-else>
+          <li class="weit">
+            <div class="nhtu"><img src="../../assets/noOrders.png"></div>
+            <span>{{$t('orderPageCurrentEntrustment.close_9')}}</span>
+          </li>
+        </template>
+      </template>
+    </ul>
   </div>
 
-
+  <!--弹窗-->
+  <div v-if="popIdenOpen" class="lock-position-confirm-toast">
+    <div class="lock-position-confirm-toast-window">
+      <!--关闭按钮-->
+      <div class="lock-position-confirm-toast-close-btn" @click="popIdenClose">
+        <img class="lock-position-confirm-toast-close-btn-img" src="../../assets/mobile_img/mobile_asset_commen/h5_toast_close_btn.png" alt="">
+      </div>
+      <!--顶部标题-->
+      <div class="lock-position-confirm-toast-title">提示</div>
+      <div class="lock-position-confirm-toast-list">
+        <div class="lock-position-confirm-toast-item">
+          <!--该操作需要身份认证，请立刻前往app端个人中心完成-->
+          该操作需要身份认证，请立刻前往PC端个人中心完成
+        </div>
+      </div>
+      <div class="lock-position-confirm-toast-btns">
+        <div class="lock-position-confirm-toast-btn-confirm btn_blue" @click="popIdenClose">我知道了</div>
+      </div>
+    </div>
+  </div>
   <!--   提示 弹窗-->
-  <PopupWindow :switch="popWindowOpenShiM" @close="popWindowCloseShiM">
+  <PopupWindow :switch="popWindowOpenShiM" @close="popWindowCloseShiM" v-if="!isMobile">
     <div slot="header">
       <span class="header_xuzhi">{{popWindowTitle}}</span>
     </div>

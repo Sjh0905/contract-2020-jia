@@ -62,9 +62,11 @@
           <div class="identity-button" @click="toAuthentication">
             <button class="pointer identity-one-button" v-if="authType==3" >{{$t('immediateAuthentication')}}</button>
           </div>
-          <div class="identity-button"  v-if="authType==1" @click="toAuthentication">
+          <div class="identity-button1"  v-if="authType==1" @click="toAuthentication">
             <img src="../../assets/authentication/identity_ rejected_icon.png" alt="">
             <span class="pointer rejected">{{$t('beDismissed')}}</span>
+            <span class="rejected-because" v-if="identityAuthWAReason_0!=='' && country === '0'">{{$t('prompt_reason')}}{{this.identityAuthWAReason_0}}</span>
+            <span class="rejected-because" v-if="identityAuthWAReason_1!=='' && country === '1'">{{$t('prompt_reason')}}{{this.identityAuthWAReason_1}}</span>
           </div>
 
           <div class="identity-button"  v-if="authType==0||authType==5||authType==6" @click="toAuthentication">

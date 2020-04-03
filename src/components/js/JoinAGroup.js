@@ -54,6 +54,8 @@ root.data = function () {
     popWindowStyle: 0,//跳转 0表示实名认证，1表示手机或谷歌，2只有确定
     popWindowOpen: false, //弹窗开关
 
+    popIdenOpen: false,
+
     // bindGA: false,
     // bindMobile: false,
     // bindEmail: false
@@ -84,6 +86,11 @@ root.mounted = function () {}
 root.beforeDestroy = function () {}
 /*------------------------------ 计算 -------------------------------*/
 root.computed = {}
+
+// 判断是否是手机
+root.computed.isMobile = function () {
+  return this.$store.state.isMobile
+}
 
 // 是否实名认证
 root.computed.bindIdentify = function () {
@@ -304,7 +311,7 @@ root.methods.error_getCheckGroupDetails = function (err) {
 root.methods.postJoinGroup = function () {
 
   // 如果没有实名认证不允许加入拼团
-  if (!this.bindIdentify) {
+  if (!this.bindIdentify && !this.isMobile) {
     this.popWindowTitle = this.$t('popWindowTitleTransfer')
     this.popWindowPrompt = this.$t('popWindowPromptWithdrawals')
     this.popWindowStyle = '0'
@@ -322,7 +329,7 @@ root.methods.postJoinGroup = function () {
   // }
 
   // 如果没有绑定谷歌或手机，不允许加入拼团
-  if (!this.bindGA && !this.bindMobile) {
+  if (!this.bindGA && !this.bindMobile && !this.isMobile) {
     this.popWindowTitle = this.$t('popWindowTitleTransfer')
     this.popWindowPrompt = this.$t('popWindowTitleBindGaWithdrawals')
     this.popWindowStyle = '1'
@@ -330,6 +337,19 @@ root.methods.postJoinGroup = function () {
     return
   }
 
+  if (this.isMobile && !this.bindIdentify) {
+    this.popIdenOpen = true
+    return
+  }
+
+  // H5判断是否绑定谷歌或手机，如果都没绑定
+  if (this.isMobile && !this.bindGA && !this.bindMobile) {
+    // this.$eventBus.notify({key: 'BIND_AUTH_POP'})
+    this.popText = '请绑定谷歌或手机';
+    this.popType = 0;
+    this.popOpen = true;
+    return
+  }
 
   // TODO : 加变量的非空判断 正则判断 S
   // if (this.sending) return
@@ -348,6 +368,12 @@ root.methods.postJoinGroup = function () {
   // if (this.priAccount1 !== this.priAccount) {
   //   this.nameMsg_0 = this.$t('invalid')
   //   return false
+  // }
+
+
+
+  // if (this.cityList.gname == '') {
+  //   this.nameMsg_0 = this.$t('enter')
   // }
 
   if (this.priAccount == '') {
@@ -397,7 +423,7 @@ root.methods.re_postJoinGroup = function (data) {
       data.errorCode == 2 && (this.popText = this.$t('account_not_registered')) || // 团员账户未注册
       data.errorCode == 3 && (this.popText = this.$t('colonel_userId')) || // 团长userId有误
       data.errorCode == 4 && (this.popText = this.$t('inserted')) || // 拼团团员已存在，不能重复插入
-      data.errorCode == 5 && (this.popText = this.$t('inserted')) || // 拼团已达最大人数限制，请加入其它拼团
+      data.errorCode == 5 && (this.popText = this.$t('prompt2')) || // 拼团已达最大人数限制，请加入其它拼团
       data.errorCode == 6 && (this.popText = this.$t('parameter_error')) || // groupId为0,参数错误~~~~
       data.errorCode == 400 && (this.popText = this.$t('parameter_error')) //参数有误
     ) {
@@ -426,6 +452,11 @@ root.methods.popClose = function () {
 // 弹窗关闭
 root.methods.popWindowClose = function () {
   this.popWindowOpen = false
+}
+
+// 关闭弹窗
+root.methods.popIdenClose = function () {
+  this.popIdenOpen = false
 }
 // 获取焦点后关闭placheholder
 root.methods.closePlaceholder = function (type) {

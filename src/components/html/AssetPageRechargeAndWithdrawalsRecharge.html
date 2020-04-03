@@ -55,7 +55,7 @@
           <span v-else>memo</span>
           <input type="text" readonly v-model="memo" ref="memo" class="address-input border_radius"/>
           <div class="flex">
-            <button @click="clickCopyMemo" class="btn_blue pointer address-button" v-if="currency == 'EOS'">{{$t('copyMemoEos')}}</button>
+            <button @click="clickCopyMemo" class="btn_blue pointer address-button1" v-if="currency == 'EOS'">{{$t('copyMemoEos')}}</button>
             <button @click="clickCopyMemo" class="btn_blue pointer address-button" v-else>{{$t('copyMemo')}}</button>
           </div>
 

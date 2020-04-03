@@ -2172,7 +2172,7 @@ root.routes.push({
           },
           caseSensitive: true,
           component: resolve => require(['@/components/mobileVue/MobileAssetInternalTransferRecordDetail'], resolve),
-        },// 移动端奖励记录详情页
+        },// 移动端挖矿记录详情页
         {
           path: 'mobileAssetRewardRecordDetail',
           name: 'MobileAssetRewardRecordDetail',
@@ -2186,6 +2186,21 @@ root.routes.push({
           },
           caseSensitive: true,
           component: resolve => require(['@/components/mobileVue/MobileAssetRewardRecordDetail'], resolve),
+        },
+        // 移动端奖励记录详情页
+        {
+          path: 'mobileAssetEventRewardsRecordDetail',
+          name: 'mobileAssetEventRewardsRecordDetail',
+          meta: {
+            pcname: '',
+            h5name: 'mobileAssetEventRewardsRecordDetail',
+            requireLogin: true,
+            // 临时关闭
+            templateClose: false,
+            requireLoginOff: false,
+          },
+          caseSensitive: true,
+          component: resolve => require(['@/components/mobileVue/mobileAssetEventRewardsRecordDetail'], resolve),
         },
         // 移动当前锁仓记录详情页
         {
@@ -2733,6 +2748,7 @@ root.routes.push({
         requireLogin: true,
         mobileHeaderTitle: '',
         pcname: 'assembleARegiment',
+        h5name: 'assembleARegiment',
         requireLoginOff: false,
         // h5name: 'mobileTradingHall',
       },
@@ -2747,6 +2763,7 @@ root.routes.push({
         requireLogin: false,
         mobileHeaderTitle: '',
         pcname: 'createAGroup',
+        h5name: 'createAGroup',
         // h5name: 'mobileTradingHall',
       },
       component: resolve => require(['@/components/vue/CreateAGroup'], resolve),
@@ -2760,6 +2777,7 @@ root.routes.push({
         requireLogin: false,
         mobileHeaderTitle: '',
         pcname: 'joinAGroup',
+        h5name: 'joinAGroup',
         // h5name: 'mobileTradingHall',
       },
       component: resolve => require(['@/components/vue/JoinAGroup'], resolve),
@@ -2891,7 +2909,8 @@ root.routes.push({
       meta: {
         requireLogin: true,
         mobileHeaderTitle: '',
-        name: 'officialQuantitativeRegistration',
+        pcname: 'officialQuantitativeRegistration',
+        h5name: 'officialQuantitativeRegistration',
         requireLoginOff: false,
 
       },

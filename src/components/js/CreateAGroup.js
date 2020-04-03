@@ -32,6 +32,8 @@ root.data = function () {
     popWindowStyle: 0,//跳转 0表示实名认证，1表示手机或谷歌，2只有确定
     popWindowOpen: false, //弹窗开关
 
+    popIdenOpen: false,
+
   }
 }
 /*------------------------------ 生命周期 -------------------------------*/
@@ -71,6 +73,11 @@ root.mounted = function () {}
 // }
 /*------------------------------ 计算 -------------------------------*/
 root.computed = {}
+
+// 判断是否是手机
+root.computed.isMobile = function () {
+  return this.$store.state.isMobile
+}
 // 是否实名认证
 root.computed.bindIdentify = function () {
   return this.$store.state.authState.identity
@@ -173,7 +180,7 @@ root.methods.goToBindIdentity = function () {
 root.methods.postCreateAGroup = function () {
 
   // 如果没有实名认证不允许打开创建拼团
-    if (!this.bindIdentify) {
+    if (!this.bindIdentify && !this.isMobile) {
       this.popWindowTitle = this.$t('popWindowTitleTransfer1')
       this.popWindowPrompt = this.$t('popWindowPromptWithdrawals')
       this.popWindowStyle = '0'
@@ -191,13 +198,27 @@ root.methods.postCreateAGroup = function () {
     // }
 
     // 如果没有绑定谷歌或手机，不允许创建拼团
-    if (!this.bindGA && !this.bindMobile) {
+    if (!this.bindGA && !this.bindMobile && !this.isMobile) {
       this.popWindowTitle = this.$t('popWindowTitleTransfer1')
       this.popWindowPrompt = this.$t('popWindowTitleBindGaWithdrawals')
       this.popWindowStyle = '1'
       this.popWindowOpen = true
       return
     }
+
+    if (this.isMobile && !this.bindIdentify) {
+      this.popIdenOpen = true
+      return
+    }
+     // 判断是否绑定谷歌或手机，如果都没绑定
+    if (this.isMobile && !this.bindGA && !this.bindMobile) {
+     // this.$eventBus.notify({key: 'BIND_AUTH_POP'})
+      this.popText = '请绑定谷歌或手机';
+      this.popType = 0;
+      this.popOpen = true;
+      return
+    }
+
 
 
   // TODO : 加变量的非空判断 正则判断 S
@@ -269,6 +290,7 @@ root.methods.re_postCreateAGroup = function (data) {
       data.errorCode == 9 && (this.popText = this.$t('not_registered')) ||  // 团长账号未注册
       data.errorCode == 10 && (this.popText = this.$t('userId_wrong')) ||  // 团长userId有误
       data.errorCode == 11 && (this.popText = this.$t('inserted')) ||  // 拼团团员已存在，不能重复插入
+      data.errorCode == 12 && (this.popText = this.$t('insertedTT')) ||  // 创建拼团TT余额不足
       data.errorCode == 400 && (this.popText = this.$t('parameter_error')) //参数有误
     ) {
       this.popOpen = true
@@ -339,6 +361,12 @@ root.methods.popClose = function () {
 // 弹窗关闭
 root.methods.popWindowClose = function () {
   this.popWindowOpen = false
+}
+
+
+// 关闭弹窗
+root.methods.popIdenClose = function () {
+  this.popIdenOpen = false
 }
 
 // 获取焦点后关闭placheholder
