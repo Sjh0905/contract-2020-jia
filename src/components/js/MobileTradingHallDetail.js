@@ -123,7 +123,7 @@ root.created = function () {
   }
 
   // 获取BDB是否抵扣
-  // this.getBDBInfo()
+  this.getBDBInfo()
   //请求所有币对信息
   this.getCurrencyList()
   // 获取汇率
@@ -238,6 +238,19 @@ root.computed.KKPriceRangeH5 = function () {
 /*------------------------------ 方法 begin -------------------------------*/
 
 root.methods = {};
+
+
+root.methods.RE_FEE = function (data) {
+  typeof data === 'string' && (data = JSON.parse(data))
+  if (!data) return
+  if (data.dataMap.TTFEE === 'no') {
+    this.fee = ''
+  }
+  if (data.dataMap.TTFEE === 'yes') {
+    this.fee = 65536
+  }
+}
+
 // 获取深度图，用来渲染header的price信息
 root.methods.getDepthInfo = function () {
   this.$http.send("DEPTH", {
@@ -443,10 +456,6 @@ root.methods.CHANGE_SYMBOL = function () {
 }
 
 
-root.methods.RE_FEE = function (data) {
-  (JSON.parse(data).dataMap.TTFEE === 'yes') && (this.fee = 65536);
-}
-
 // 关闭提示信息
 root.methods.closePrompt = function () {
   this.promptOpen = false;
@@ -587,9 +596,10 @@ root.methods.tradeMarket = function (popIdenOpen,type) {
     source: 'H5', //访问来源
     // customFeatures: this.fee ? 65536 : 0
   };
-  // if (this.fee) {
-  //   Object.assign(params, {customFeatures: 65536});
-  // }
+  //燃烧抵扣不再需要
+  if (this.fee) {
+    Object.assign(params, {customFeatures: 65536});
+  }
   // 如果当前是BTC市场的话，price*amount<0.001不允许提交
   // 如果当前是ETH市场的话，price*amount<0.01不允许提交
   // 如果当前是BDB市场的话，price*amount<100不允许提交
@@ -922,7 +932,7 @@ root.methods.changeFloat = function () {
 // BDB是否抵扣
 root.methods.getBDBInfo = function () {
   // console.log('是否进入此方法')
-  this.$store.state.authMessage.userId && this.$http.send('FIND_FEE_BDB_INFO', {
+  this.$store.state.authMessage.userId && this.$http.send('FIND_FEE_DEDUCTION_INFO', {
     bind: this,
     callBack: this.re_getBDBInfo,
     errorHandler: this.error_getBDBInfo
