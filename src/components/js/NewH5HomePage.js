@@ -583,6 +583,7 @@ root.methods.re_getGroupLevel = function (data) {
 
   if (this.isExist == false) {
     this.goGroupLevel()
+
     // this.$router.push({name: 'assembleARegiment'})
   }
 
