@@ -54,7 +54,7 @@ root.data = function () {
     share_config_en: {},
 
     logo: logo,
-    qrsize: 124,
+    qrsize: 120,
     bgColor: '#fff',
     fgColor: '#000',
     value: '', // 活动详情页
@@ -111,18 +111,17 @@ root.created = function () {
   // 获取是否显示查看历史
   // this.getMyHistory()
 
-  this.qrsize = 124 / window.devicePixelRatio
-
+  this.qrsize = 120 / window.devicePixelRatio
 
   // 获取分享文案显示usdt数量请求
   // this.getPlatformData()
 
-
+  console.log('root=======',root)
   // this.getBTFunc()
 
   //sss 屏蔽 3.11
   // 获取海报
-  // this.GET_POSTER_URL();
+  this.GET_POSTER_URL();
   //sss 屏蔽结束 3.11
 
   // 配置分享
@@ -209,24 +208,24 @@ root.methods = {}
 
 //sss 屏蔽 3.11
 // 获取海报
-// root.methods.GET_POSTER_URL = function () {
-//   this.$http.send('GET_USER_MY_INVITES_POSTER', {
-//     bind: this,
-//     params: {
-//       type: "invite",
-//       param: this.lang == 'CH' ? 'CH' : 'EN'     // 英文传EN
-//     },
-//     callBack: this.RE_GET_POSTER_URL,
-//     errorHandler: this.error_getPosterImage
-//   })
-//
-// }
-// root.methods.RE_GET_POSTER_URL = function (res) {
-//   let urls = res.dataMap;
-//   console.log(urls)
-//   if (res.errorCode > 0) return;
-//   this.poster_url =  + urls.inviteUrl;
-// }
+root.methods.GET_POSTER_URL = function () {
+  this.$http.send('GET_USER_INVITE_POSTER', {
+    bind: this,
+    params: {
+      type: "invite",
+      param: 'CH'     // 暂时传中文
+      // type: this.lang == 'CH' ? 'CH' : 'EN'     // 英文传EN
+    },
+    callBack: this.RE_GET_POSTER_URL,
+    errorHandler: this.error_getPosterImage
+  })
+}
+root.methods.RE_GET_POSTER_URL = function (res) {
+  let urls = res.dataMap;
+  console.log(urls)
+  if (res.errorCode > 0) return;
+  this.poster_url = urls.inviteUrl;
+}
 //sss 屏蔽结束 3.11
 
 // 展示海报
@@ -314,7 +313,17 @@ root.methods.HIDE_POSTER = function () {
 //   this.shareDataFlag = true
 //   this.loading = false;
 // }
+// 复制UID
+root.methods.copyUid = function () {
+  let copy_url = this.$refs.getUid;
+  copy_url.select();
+  document.execCommand("copy");
+  this.popType = 1;
+  this.popText = this.$t('personalCenterRecommend.popText')
+  this.promptOpen = true;
+}
 
+// 复制链接
 root.methods.copyUrl = function () {
   let copy_url = this.$refs.getUrl;
   copy_url.select();
@@ -323,6 +332,7 @@ root.methods.copyUrl = function () {
   this.popText = this.$t('personalCenterRecommend.popText')
   this.promptOpen = true;
 }
+
 // 关闭弹窗
 root.methods.closePrompt = function () {
   this.promptOpen = false;

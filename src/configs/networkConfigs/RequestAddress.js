@@ -328,7 +328,8 @@ requestAddress.GET_MY_INVITES_HISTORY_SHOW = {url: urlHead+'/user/historyInviteF
 // 2018-06-12 平台分红接口 end
 
 // 2018-07-03 获取我的邀请海报地址
-requestAddress.GET_USER_MY_INVITES_POSTER = {url: urlHead+'/user/getInvitePoster', method: 'post'}
+// requestAddress.GET_USER_MY_INVITES_POSTER = {url: urlHead+'/user/getInvitePoster', method: 'post'}
+requestAddress.GET_USER_INVITE_POSTER = {url: urlHead+'/user/getUserInvitePoster', method: 'post'}
 
 
 // 2018-07-11 交易排行榜接口

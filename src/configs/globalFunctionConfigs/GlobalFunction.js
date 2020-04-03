@@ -73,7 +73,7 @@ GlobalFunction.testMobile = function (mobile) {
   console.log("testMobile",mobile);
   if(/[_a-zA-Z\@\.\u4E00-\u9FFF]/.test(mobile))return false//如果有特殊字符，非法
 
-  // return true
+  return true
 
   if (/^\d{11}$/.test(mobile)) return true
   return false

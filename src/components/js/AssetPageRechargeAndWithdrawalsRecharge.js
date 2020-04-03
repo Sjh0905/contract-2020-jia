@@ -115,10 +115,10 @@ root.methods.getAuthState = function () {
   // 如果没有认证
   // 取消实名认证的限制
   // if (!this.$store.state.authState.identity || (!this.$store.state.authState.sms && !this.$store.state.authState.ga)) {
-  if ((!this.$store.state.authState.sms && !this.$store.state.authState.ga) || !this.$store.state.authState.email) {
-    this.close()
-    return
-  }
+  // if ((!this.$store.state.authState.sms && !this.$store.state.authState.ga) || !this.$store.state.authState.email) {
+  //   this.close()
+  //   return
+  // }
   // 获取认证状态成功
   this.authStateReady = true
 }
