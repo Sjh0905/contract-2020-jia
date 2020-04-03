@@ -40,6 +40,7 @@ root.data = () => {
     popWindowTitle: '', //弹出提示标题
     popWindowPrompt: '',//弹出样式提示
     popWindowStyle: 0,//跳转 0表示实名认证，1表示手机或谷歌，2只有确定
+    popIdenOpen: false,
   }
 }
 
@@ -357,6 +358,11 @@ root.methods.postActivities = function () {
     return
   }
 
+  if (this.isMobile && !this.bindIdentify) {
+    this.popIdenOpen = true
+    return
+  }
+
   // H5判断是否绑定谷歌或手机，如果都没绑定
   if (this.isMobile && !this.bindGA && !this.bindMobile) {
     // this.$eventBus.notify({key: 'BIND_AUTH_POP'})
@@ -556,6 +562,11 @@ root.methods.testMatchingAmount = function () {
 // 弹窗关闭
 root.methods.popWindowCloseShiM = function () {
   this.popWindowOpenShiM = false
+}
+
+// 关闭弹窗
+root.methods.popIdenClose = function () {
+  this.popIdenOpen = false
 }
 
 // 弹窗

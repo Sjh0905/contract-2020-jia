@@ -690,10 +690,14 @@ root.methods.jumpToDetail = function (name) {
 root.methods.jumpToWithdraw = function (type) {
   let name = type.currency
   let currencyObj = this.$store.state.currency.get(name)
+  let currencyUSDT2 = this.$store.state.currency.get('USDT2')
+  //sss
+  if(currencyUSDT2 && !currencyUSDT2.withdrawEnabled)return false
+  // if(item.currency != 'USDT' && withdrawOpenTime && this.serverT < withdrawOpenTime)return false
 
   //只有当USDT MONI类型未开放充值时才判断USDT2是否开放，当两个都未开放时才拦截
   if(name == 'USDT' && (currencyObj && !currencyObj.withdrawEnabled)){
-    let currencyUSDT2 = this.$store.state.currency.get('USDT2')
+    // let currencyUSDT2 = this.$store.state.currency.get('USDT2')
     if(currencyUSDT2 && !currencyUSDT2.withdrawEnabled){
       this.popOpen = true
       this.popType = 0

@@ -254,6 +254,27 @@
       </template>
     </ul>
   </div>
+
+  <!--弹窗-->
+  <div v-if="popIdenOpen" class="lock-position-confirm-toast">
+    <div class="lock-position-confirm-toast-window">
+      <!--关闭按钮-->
+      <div class="lock-position-confirm-toast-close-btn" @click="popIdenClose">
+        <img class="lock-position-confirm-toast-close-btn-img" src="../../assets/mobile_img/mobile_asset_commen/h5_toast_close_btn.png" alt="">
+      </div>
+      <!--顶部标题-->
+      <div class="lock-position-confirm-toast-title">提示</div>
+      <div class="lock-position-confirm-toast-list">
+        <div class="lock-position-confirm-toast-item">
+          <!--该操作需要身份认证，请立刻前往app端个人中心完成-->
+          该操作需要身份认证，请立刻前往PC端个人中心完成
+        </div>
+      </div>
+      <div class="lock-position-confirm-toast-btns">
+        <div class="lock-position-confirm-toast-btn-confirm btn_blue" @click="popIdenClose">我知道了</div>
+      </div>
+    </div>
+  </div>
   <!--   提示 弹窗-->
   <PopupWindow :switch="popWindowOpenShiM" @close="popWindowCloseShiM" v-if="!isMobile">
     <div slot="header">
