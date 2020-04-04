@@ -44,7 +44,7 @@ export default async function ($http, $store, $cookie, $i18n) {
       callBack: function (data) {
         typeof data === 'string' && (data = JSON.parse(data))
         if (data.result === 'FAIL' || data.errorCode) {
-          let user_symbol = $cookie.get('unlogin_user_symbol_cookie') || 'ETH_USDT'
+          let user_symbol = $cookie.get('unlogin_user_symbol_cookie') || 'KK_USDT'
           $store.commit('SET_SYMBOL', user_symbol)     // 如果没有用户登录选择币对，则为ETH_USDT币对
           // $store.commit('SET_SYMBOL', 'GRC_USDT')     // 如果没有用户登录选择币对，则为GRC_USDT币对
           return
@@ -56,11 +56,11 @@ export default async function ($http, $store, $cookie, $i18n) {
           $store.commit('SET_SYMBOL', user_symbol.split('-')[1])
           return
         }
-        $store.commit('SET_SYMBOL', 'ETH_USDT')  // 如果没有用户登录选择币对，则为ETH_USDT币对
+        $store.commit('SET_SYMBOL', 'KK_USDT')  // 如果没有用户登录选择币对，则为ETH_USDT币对
         // $store.commit('SET_SYMBOL', 'GRC_USDT')  // 如果没有用户登录选择币对，则为GRC_USDT币对
       },
       errorHandler: function (err) {
-        let user_symbol = $cookie.get('unlogin_user_symbol_cookie') || 'ETH_USDT'
+        let user_symbol = $cookie.get('unlogin_user_symbol_cookie') || 'KK_USDT'
         // console.warn('出错', err)
         $store.commit('SET_SYMBOL', user_symbol)  // 如果没有用户登录选择币对，则为ETH_USDT币对
         // $store.commit('SET_SYMBOL', 'GRC_USDT')  // 如果没有用户登录选择币对，则为GRC_USDT币对
