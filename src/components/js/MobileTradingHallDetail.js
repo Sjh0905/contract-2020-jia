@@ -1513,6 +1513,19 @@ root.methods.changeHeaderBoxFlag = function (item) {
   this.$store.commit('BUY_OR_SALE_TYPE', 1);
   // this.$router.push('mobileTradingHall')
   this.isshowhangq = false;
+
+  // let user_symbol = this.$cookie.get('unlogin_user_symbol_cookie') || 'ETH_USDT'
+  // let user_symbol1 = this.$cookies.get('user_symbol_cookie') || 'ETH_USDT'
+  // // this.$store.commit('SET_SYMBOL', user_symbol)
+  // this.$store.commit('SET_SYMBOL', user_symbol1)
+  let user_id = this.$store.state.authMessage.userId;
+  let user_id_symbol = user_id + '-' + item.name;
+  !user_id && this.$cookies.set('unlogin_user_symbol_cookie', item.name, 60 * 60 * 24 * 30,"/");
+  !!user_id && this.$cookies.set('user_symbol_cookie', user_id_symbol, 60 * 60 * 24 * 30,"/");
+  this.$store.commit('SET_SYMBOL', item.name);
+
+
+
 }
 
 root.methods.openhangq = function(){

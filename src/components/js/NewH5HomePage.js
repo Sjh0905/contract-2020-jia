@@ -1007,6 +1007,12 @@ root.methods.cny_price = function (closevalue) {
 
 // 点击每行跳转到市场
 root.methods.clickToTradingHall = function (name) {
+  // 把当前选中的币对写入cookie
+  let user_id = this.$store.state.authMessage.userId;
+  let user_id_symbol = user_id + '-' + name;
+  !user_id && this.$cookies.set('unlogin_user_symbol_cookie', name, 60 * 60 * 24 * 30,"/");
+  !!user_id && this.$cookies.set('user_symbol_cookie', user_id_symbol, 60 * 60 * 24 * 30,"/");
+  this.$store.commit('SET_SYMBOL', name);
 
   this.$store.commit('changeMobileTradingHallFlag', true);
   this.$store.commit('changeMobileSymbolType', name);

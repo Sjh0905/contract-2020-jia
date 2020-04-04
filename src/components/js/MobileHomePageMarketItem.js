@@ -96,6 +96,15 @@ root.methods.changeHeaderBoxFlag = function (item) {
   this.$store.commit('changeMobileTradingHallFlag',true);
   this.$store.commit('changeMobileSymbolType',item.name);
   this.$store.commit('SET_HALL_SYMBOL',false);
+
+  // let user_symbol = this.$cookie.get('unlogin_user_symbol_cookie') || 'ETH_USDT'
+  // this.$store.commit('SET_SYMBOL', user_symbol)
+  let user_id = this.$store.state.authMessage.userId;
+  let user_id_symbol = user_id + '-' + item.name;
+  !user_id && this.$cookies.set('unlogin_user_symbol_cookie', item.name, 60 * 60 * 24 * 30,"/");
+  !!user_id && this.$cookies.set('user_symbol_cookie', user_id_symbol, 60 * 60 * 24 * 30,"/");
+  this.$store.commit('SET_SYMBOL', item.name);
+
 }
 
 export default root
