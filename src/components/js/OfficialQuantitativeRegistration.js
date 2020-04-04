@@ -41,6 +41,8 @@ root.data = () => {
     popWindowPrompt: '',//弹出样式提示
     popWindowStyle: 0,//跳转 0表示实名认证，1表示手机或谷歌，2只有确定
     popIdenOpen: false,
+    fstatus:'',
+    remark:''
   }
 }
 
@@ -307,7 +309,8 @@ root.methods.re_getRegistrationRecord = function (data) {
   if (!data) {return}
   console.log("this.re_getRegistrationRecord查询报名记录get=====",data)
   this.records = data.data
-
+  // this.fstatus = data.data.fstatus
+  // this.remark = this.records.getArrayIndex(5)
   if (this.records.length !== 0) {
     this.balance = (this.balance - this.matchDataObj[this.matchingAmount])
     this.balance1 = (this.balance1 - this.matchDataFamt[this.matchingAmount])

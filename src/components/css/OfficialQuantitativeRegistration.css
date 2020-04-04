@@ -162,11 +162,42 @@
   box-sizing: border-box;
   border-bottom: 1px solid rgba(197,207,213,0.5);
 }
-.application_header_div {
+/*.application_header_div1 {*/
+/*  justify-content:space-between;*/
+/*  width: 20%;*/
+/*}*/
+/*.application_header_div2 {*/
+/*  justify-content:space-between;*/
+/*  width: 17%;*/
+/*}*/
+/*.application_header_div3 {*/
+/*  justify-content:space-between;*/
+/*  width: 23%;*/
+/*}*/
+/*.application_header_div_right1 {*/
+/*  justify-content:space-between;*/
+/*  width: 20%;*/
+/*  !*text-align: right;*!*/
+/*}*/
+/*.application_header_div_right2 {*/
+/*  justify-content:space-between;*/
+/*  width: 20%;*/
+/*  text-align: right;*/
+/*}*/
+
+.application_header_div1 {
   justify-content:space-between;
   width: 25%;
 }
-.application_header_div_right {
+.application_header_div2 {
+  justify-content:space-between;
+  width: 25%;
+}
+.application_header_div3 {
+  justify-content:space-between;
+  width: 25%;
+}
+.application_header_div_right1 {
   justify-content:space-between;
   width: 25%;
   text-align: right;
@@ -266,6 +297,22 @@
 }
 .color_a2 {
   color: #6B7DA2;
+}
+.color_a2dai {
+  color: #FF9F40;
+}
+.color_a2yi {
+  color: #08D0AC;
+}
+.color_a2jin {
+  color: #A2B5D9;
+}
+.color_a2bo {
+  color: #EF5656;
+}
+.bohui {
+  padding: 15px;
+  background:rgba(251,251,251,1);
 }
 .selectstyle {
   font-size: 12px;
