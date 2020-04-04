@@ -40,7 +40,7 @@ root.data = function () {
     tips_top: 0,
 
     selectEdition: 0, // 版块 主板区和超级为蜜区 0为主板区 1为超级为蜜区
-    selectMarket: ['USDT', 'USDT'], // 市场
+    selectMarket: [this.$t('Innovation'), 'USDT'], // 市场
     selectMarketChange: false, // 作用是使computed反应迅速
     clickTab: false, // 是否切换了市场
 
@@ -371,6 +371,13 @@ root.methods.initTab = function () {
       let marketList = this.currencylist[i][j]
       if (!marketList) continue
       for (let k = 0; k < marketList.length; k++) {
+        //处理挖矿区域
+        if(this.createMarket.includes(this.symbol)){
+          this.selectEdition = i;
+          this.selectMarket[i] = this.$t('Innovation');
+          return
+        }
+        //处理其他区域
         if (marketList[k].name === this.symbol) {
           this.selectEdition = i;
           this.selectMarket[i] = marketList[k].name.split('_')[1]
@@ -442,11 +449,17 @@ root.methods.slectSymbol = function (symbol, item) {
   this.$socket.emit('unsubscribe', {
     symbol: this.$store.state.symbol
   });
-  this.$store.commit('SET_SYMBOL', symbol);
+  // this.$store.commit('SET_SYMBOL', symbol);
   // 把当前选中的币对写入cookie
   let user_id = this.$store.state.authMessage.userId;
   let user_id_symbol = user_id + '-' + symbol;
-  !!user_id && this.$cookies.set('user_symbol_cookie', user_id_symbol, 60 * 60 * 24);
+  // if(!this.isLogin){
+  !user_id && this.$cookies.set('unlogin_user_symbol_cookie', symbol, 60 * 60 * 24 * 30,"/");
+  // this.$store.commit('SET_SYMBOL', symbol);
+  // }
+  // !!user_id && this.$cookies.set('user_symbol_cookie', user_id_symbol, 60 * 60 * 24);
+  !!user_id && this.$cookies.set('user_symbol_cookie', user_id_symbol, 60 * 60 * 24 * 30,"/");
+  this.$store.commit('SET_SYMBOL', symbol);
   // 清空委托列表
   this.$store.commit('GET_OPEN_ORDER', []);
 
