@@ -72,38 +72,38 @@
       <div class="mobileCreate_conteainer">
         <div class="mobileCreate_a">
           <!--          创建拼团-->
-          <p class="create_a_p">{{$t('createGroup')}}</p>
+          <p class="mobileCreate_a_p">{{$t('createGroup')}}</p>
           <!--          创建拼团获取交易手续费折扣-->
-          <p class="create_discount">{{$t('transactionFees')}}</p>
+          <p class="mobileCreate_discount">{{$t('transactionFees')}}</p>
         </div>
 
         <!--        团长账号-->
-        <div class="account_number">
-          <p class="account_number_p">{{$t('colonelNumber1')}}</p>
-          <div class="account_number_div">{{$globalFunc.formatUserName(userName)}}</div>
+        <div class="mobileaccount_number">
+          <p class="mobileaccount_number_p">{{$t('colonelNumber1')}}</p>
+          <div class="mobileaccount_number_div">{{$globalFunc.formatUserName(userName)}}</div>
         </div>
         <!--        拼团名称-->
-        <div class="account_number">
-          <p class="account_number_p">{{$t('nameRegiment')}}</p>
+        <div class="mobileaccount_number">
+          <p class="mobileaccount_number_p">{{$t('nameRegiment')}}</p>
           <!--          placeholder="输入拼团名称（不可超过20字符）"-->
           <!--          :class="{'wrong-border' : gname === '' && gname == ''}"-->
           <input type="text"
-                 class="account_number_input"
+                 class="mobileaccount_number_input"
                  :placeholder='pswPlaceholderShow && $t("nameMsg_20") || ""'
                  v-model="gname"
                  @focus="closePlaceholder('psw')"
                  @input="testInputIngPsw"
                  @blur="testName_0">
         </div>
-        <div class="hig">
+        <div class="mobilehig">
           <span v-if="name_0!=''" class="prompt-span wrong-msg">{{name_0}}</span>
         </div>
         <!--        设置副团长-->
-        <div class="account_number">
-          <p class="account_number_p">{{$t('delegations')}}</p>
+        <div class="mobileaccount_number">
+          <p class="mobileaccount_number_p">{{$t('delegations')}}</p>
           <!--          :class="{'wrong-border' : deputyAccount === '' && deputyAccount == ''}"-->
           <input type="text"
-                 class="account_number_input"
+                 class="mobileaccount_number_input"
                  placeholder="输入副团长账号"
                  v-model="deputyAccount"
                  :placeholder='pswConfirmPlaceholderShow && $t("nameMsgText") || ""'
@@ -115,9 +115,9 @@
         </div>
 
         <!--        创建-->
-        <div class="PCtuanfei">
-          <span class="tuanfeiSpan">所需团费：</span>
-          <span class="tuanfeiSpan2">10TT</span>
+        <div class="mobilePCtuanfei">
+          <span class="mobiletuanfeiSpan">所需团费：</span>
+          <span class="mobiletuanfeiSpan2">10TT</span>
         </div>
         <div class="mobileDiv_botton pointer" @click="postCreateAGroup">{{$t('create')}}</div>
       </div>
@@ -126,13 +126,13 @@
 
     <!--    拼团规则-->
     <div class="mobileRules">
-      <p class="rules_p">{{$t('rulesRegimentation')}}</p>
-      <p class="rules_details">{{$t('withholdingA1')}}</p>
-      <p class="rules_details">{{$t('withholdingA')}}</p>
-      <p class="rules_details">{{$t('calculatedB1')}}</p>
-      <p class="rules_details">{{$t('calculatedB')}}</p>
-      <p class="rules_details">{{$t('calculatedC')}}</p>
-      <p class="rules_details">{{$t('calculated_1C')}}</p>
+      <p class="mobileRules_p">{{$t('rulesRegimentation')}}</p>
+      <p class="mobileRules_details">{{$t('withholdingA1')}}</p>
+      <p class="mobileRules_details">{{$t('withholdingA')}}</p>
+      <p class="mobileRules_details">{{$t('calculatedB1')}}</p>
+      <p class="mobileRules_details">{{$t('calculatedB')}}</p>
+      <p class="mobileRules_details">{{$t('calculatedC')}}</p>
+      <p class="mobileRules_details">{{$t('calculated_1C')}}</p>
     </div>
   </div>
 
