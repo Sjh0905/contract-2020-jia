@@ -104,9 +104,8 @@
   "popWindowTitleTransfer1": "创建拼团提示",
 
   "invalid":"团长账号无效",
-  "enter":"请输入团长账号"
-
-
+  "enter":"请输入团长账号",
+  "entertuan":"所需团费"
 },
 "EN": {
   "dissolve":"Dissolve the regiment",
@@ -235,6 +234,8 @@
   "bind_email_pop_article": "為了您的資金安全，請先綁定郵箱或谷歌",
 
   "invalid":"團長帳號無效",
-  "enter":"請輸入團長帳號"
+  "enter":"請輸入團長帳號",
+
+  "entertuan":"所需團費"
 }
 }
