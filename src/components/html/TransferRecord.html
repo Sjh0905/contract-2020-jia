@@ -48,7 +48,7 @@
       <!--充值记录具体 begin-->
       <ul class="detail-container" >
         <!--各条记录 begin-->
-        <li class="detail-li" v-for="(item,index) in computedTransferLists" :key="item.id">
+        <li class="detail-li" v-for="(item,index) in computedTransferLists" :key="item.id" v-if="item.updatedAt != 0">
 
           <div class="li-container flex">
             <!--流水单号-->

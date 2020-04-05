@@ -190,7 +190,7 @@
     </div>
     <!--有内部转账记录的样子-->
     <div v-if="computedInternalTransfer.length !== 0" class="withdraw-list">
-      <div v-for="(item,index) in computedInternalTransfer" :key="item.id" class="withdraw-item" @click="toInternalTransferDetailPath(item)">
+      <div v-for="(item,index) in computedInternalTransfer" :key="item.id" class="withdraw-item" @click="toInternalTransferDetailPath(item)" v-if="item.updatedAt != 0">
         <div>
           <div class="withdraw-item-title">{{item.currency== 'USDT2' ? 'USDT' :item.currency}}</div>
           <div class="withdraw-item-time">{{$globalFunc.formatDateUitl(item.updatedAt,'YYYY-MM-DD hh:mm:ss')}}</div>
