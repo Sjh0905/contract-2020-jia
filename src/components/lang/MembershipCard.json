@@ -23,7 +23,7 @@
   "whethe":"确认是否购买年卡",
   "cancel":"取消",
   "confirm":"确认",
-  "progress":"确认中",
+  "progress":"已提交",
   "rompt":"提示",
 
   "verification": "前往验证",
@@ -149,7 +149,7 @@
   "whethe":"確認是否購買年卡",
   "cancel":"取消",
   "confirm":"確認",
-  "progress":"確認中",
+  "progress":"已提交",
   "rompt":"提示",
 
   "verification": "前往驗證",

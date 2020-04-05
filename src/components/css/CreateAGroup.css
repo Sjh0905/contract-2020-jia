@@ -68,6 +68,44 @@
   /*margin-bottom: 20px;*/
   box-sizing: border-box;
 }
+
+.PCtuanfei {
+  width: 100%;
+  text-align: right;
+}
+
+.mobilePCtuanfei {
+  width: 6.9rem;
+  text-align: right;
+}
+
+.tuanfeiSpan {
+  font-size:12px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color: #0D0E23;
+}
+.mobiletuanfeiSpan {
+  font-size:0.24rem;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color: #0D0E23;
+}
+
+.tuanfeiSpan2 {
+  font-size:14px;
+  font-family:PingFangSC-Medium,PingFang SC;
+  font-weight:500;
+  color: #FF9F40;
+  padding-left: 15px;
+}
+.mobiletuanfeiSpan2 {
+  font-size:0.28rem;
+  font-family:PingFangSC-Medium,PingFang SC;
+  font-weight:500;
+  color: #FF9F40;
+  padding-left: 0.1rem;
+}
 .div_botton {
   width: 100%;
   height:44px;
@@ -76,7 +114,7 @@
   background:linear-gradient(270deg,rgba(53,118,245,1) 0%,rgba(69,154,245,1) 100%);
   box-shadow:0px 10px 12px -6px rgba(0,2,40,0.2);
   border-radius:1px;
-  margin-top: 15px;
+  margin-top: 5px;
   margin-bottom: 40px;
   color: #FFFFFF;
   border-radius:1px;
@@ -150,33 +188,33 @@ input:-ms-input-placeholder{  /* Internet Explorer 10-11 */
   margin-left: 24px;
 }
 .mobileCreateAGroup_conteainer {
-  width: 100%;
+  width: 7.5rem;
   background-color: #FFFFFF;
-  padding: 0 15px;
+  padding: 0 0.3rem;
 }
 .mobileCreate {
-  width: 100%;
+  width: 6.9rem;
   /*height:485px;*/
-  margin-top: 10px;
-  margin-bottom: 25px;
+  margin-top: 0.2rem;
+  margin-bottom: 0.46rem;
   /*border:1px solid rgba(239,240,255,1);*/
 }
 .mobileCreate_conteainer {
-  width: 100%;
+  width: 6.9rem;
   /*margin: 0 auto;*/
 }
 .mobileCreate_a {
-  width: 100%;
+  width: 6.9rem;
   text-align: center;
   /*margin-top: 30px;*/
-  padding-top: 30px;
-  margin-bottom: 18px;
+  padding-top: 0.6rem;
+  margin-bottom: 0.46rem;
 }
 .mobileRules {
-  width: 100%;
-  margin-top: 40px;
+  width: 6.9rem;
+  margin-top: 0.82rem;
   /*padding: 0 15px;*/
-  padding-bottom: 34px;
+  padding-bottom: 0.68rem;
 }
 
 
@@ -253,4 +291,85 @@ input:-ms-input-placeholder{  /* Internet Explorer 10-11 */
   box-sizing: border-box;
   text-align: center;
   border-radius: 4px;
+}
+
+/*弹框结束*/
+
+
+.mobileDiv_botton {
+  width: 6.9rem;
+  height:0.88rem;
+  line-height: 0.88rem;
+  font-size: 0.24rem;
+  text-align: center;
+  background:linear-gradient(270deg,rgba(53,118,245,1) 0%,rgba(69,154,245,1) 100%);
+  box-shadow:0px 0.2rem 0.24rem -0.12rem rgba(0,2,40,0.2);
+  border-radius:0.02rem;
+  margin-top: 0.3rem;
+  margin-bottom: 0.8rem;
+  color: #FFFFFF;
+  border-radius:0.02rem;
+}
+.mobileCreate_a_p {
+  font-size:0.48rem;
+  font-family:PingFangSC-Medium,PingFang SC;
+  font-weight:500;
+  color: #0D0E23;
+}
+.mobileCreate_discount {
+  font-size:0.24rem;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color: #6B7DA2;
+}
+
+.mobileaccount_number {
+  width: 6.9rem;
+  /*margin-bottom: 20px;*/
+  margin-top: 0.2rem;
+}
+.mobileaccount_number_p {
+  font-size:0.24rem;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color: #6B7DA2;
+  margin-bottom: 0.2rem;
+}
+.mobileaccount_number_div {
+  width:6.9rem;
+  height:0.8rem;
+  line-height: 0.8rem;
+  font-size: 0.24rem;
+  padding-left: 0.3rem;
+  background:rgba(245,246,250,1);
+  border-radius:0.02rem;
+  border:0.02rem solid rgba(224,225,244,1);
+  margin-bottom: 0.4rem;
+}
+.mobileaccount_number_input {
+  width:6.9rem;
+  height:0.8rem;
+  line-height: 0.8rem;
+  padding-left: 0.3rem;
+  font-size: 0.24rem;
+  border-radius:0.02rem;
+  border:0.02rem solid rgba(224,225,244,1);
+  /*margin-bottom: 20px;*/
+  box-sizing: border-box;
+}
+.mobilehig {
+  height: 0.4rem;
+}
+.mobileRules_p {
+  font-size:0.32rem;
+  font-family:PingFangSC-Medium,PingFang SC;
+  font-weight:500;
+  color:#0D0E23;
+  margin-bottom: 15px;
+}
+.mobileRules_details {
+  font-size:0.28rem;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color:#6B7DA2;
 }

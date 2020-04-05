@@ -128,9 +128,9 @@
       <div class="mobileCreate_conteainer">
         <div class="mobileCreate_a">
           <!--          加入拼团-->
-          <p class="create_a_p">{{$t('joinGroup')}}</p>
+          <p class="mobilecreate_a_p">{{$t('joinGroup')}}</p>
           <!--          加入拼团获取交易手续费折扣-->
-          <p class="create_discount">{{$t('joinTransaction')}}</p>
+          <p class="mobilecreate_discount">{{$t('joinTransaction')}}</p>
         </div>
 
         <!-- 输入团长账号-->
@@ -151,13 +151,13 @@
         <!--        </div>-->
 
         <!--        选择拼团-->
-        <div class="account_number">
-          <p class="account_number_p">{{$t('chooseGroup')}}</p>
+        <div class="mobileaccount_number">
+          <p class="mobileaccount_number_p">{{$t('chooseGroup')}}</p>
           <div class="">
             <!-- 下拉搜索框-->
 
             <template>
-              <el-select class="account_number_input"
+              <el-select class="mobileaccount_number_input"
                          name="country"
                          :placeholder= '$t("wrong_message_222")'
                          style="font-size:12px"
@@ -165,7 +165,7 @@
                          popper-class="self-el-select">
                 <input type="text" class="mobileInputsize" :placeholder='$t("wrong_message_222")' v-model="searchCities">
                 <el-option
-                  popper-class="drowdown-box"
+                  popper-class="mobiledrowdown-box"
                   v-for="item in (searchCities ? cityList :cities)"
                   :key="item.groupId"
                   :label="($store.state.lang == 'CH' || $store.state.lang == 'CHT')? item.gname : item.gname"
@@ -178,40 +178,40 @@
 <!--                  -->
         </div>
 
-        <div class="account_number">
-          <p class="account_number_p">{{$t('groupInformation')}}</p>
-          <div class="information">
-            <ul>
-              <li class="information_li margin-top20">
-                <div class="information_div mobileColor_bik">
+        <div class="mobileaccount_number">
+          <p class="mobileaccount_number_p">{{$t('groupInformation')}}</p>
+          <div class="mobileinformation">
+            <ul class="remul">
+              <li class="mobileinformation_li mobilemargin-top20">
+                <div class="mobileinformation_div mobileColor_bik">
 
                   <span class="soan"> {{searchResult}}</span>
                   <div class="searchResult">
                     <span v-if="glevel=='0'">-</span>
-                    <span v-if="glevel=='1'"><img class="tupian_img" src="../../assets/weituan_icon.png" alt=""></span>
-                    <span v-if="glevel=='2'"><img class="tupian_img" src="../../assets/xiaotuan_icon.png" alt=""></span>
-                    <span v-if="glevel=='3'"><img class="tupian_img" src="../../assets/datuan_icon.png" alt=""></span>
-                    <span v-if="glevel=='4'"><img class="tupian_img" src="../../assets/zhongtuan_icon.png" alt=""></span>
-                    <span v-if="glevel=='5'"><img class="tupian_img" src="../../assets/chaotuan_icon.png" alt=""></span>
+                    <span v-if="glevel=='1'"><img class="mobiletupian_img" src="../../assets/weituan_icon.png" alt=""></span>
+                    <span v-if="glevel=='2'"><img class="mobiletupian_img" src="../../assets/xiaotuan_icon.png" alt=""></span>
+                    <span v-if="glevel=='3'"><img class="mobiletupian_img" src="../../assets/datuan_icon.png" alt=""></span>
+                    <span v-if="glevel=='4'"><img class="mobiletupian_img" src="../../assets/zhongtuan_icon.png" alt=""></span>
+                    <span v-if="glevel=='5'"><img class="mobiletupian_img" src="../../assets/chaotuan_icon.png" alt=""></span>
 
                     <span class="" v-if="glevel=='0'">-</span>
                     <!--微团-->
-                    <span class="tupian tupian_wei tupianAlign" v-if="glevel=='1'">{{$t('micelle')}}</span>
+                    <span class="mobiletupian tupian_wei tupianAlign" v-if="glevel=='1'">{{$t('micelle')}}</span>
                     <!--小团-->
-                    <span class="tupian tupian_xiao tupianAlign" v-if="glevel=='2'">{{$t('small')}}</span>
+                    <span class="mobiletupian tupian_xiao tupianAlign" v-if="glevel=='2'">{{$t('small')}}</span>
                     <!--中团-->
-                    <span class="tupian tupian_zhong tupianAlign" v-if="glevel=='3'">{{$t('regiment')}}</span>
+                    <span class="mobiletupian tupian_zhong tupianAlign" v-if="glevel=='3'">{{$t('regiment')}}</span>
                     <!--大团-->
-                    <span class="tupian tupian_da tupianAlign" v-if="glevel=='4'">{{$t('large')}}</span>
+                    <span class="mobiletupian tupian_da tupianAlign" v-if="glevel=='4'">{{$t('large')}}</span>
                     <!--超团-->
-                    <span class="tupian tupian_chao tupianAlign" v-if="glevel=='5'">{{$t('superLeague')}}</span>
+                    <span class="mobiletupian tupian_chao tupianAlign" v-if="glevel=='5'">{{$t('superLeague')}}</span>
                   </div>
                 </div>
 
               </li>
-              <li class="information_li mobile10">
+              <li class="mobileinformation_li mobile10">
                 <!--                团长账号: -->
-                <div class="information_div margin-bottom16 color_6">
+                <div class="mobileinformation_div mobilemargin-bottom16 mobilecolor_6">
                   {{$t('colonelNumber')}}
                   <span v-if="priAccount==''">- -</span>
                   <span class="color_3" v-else>{{$globalFunc.formatUserName(priAccount)}}</span>
@@ -223,15 +223,15 @@
                 <!--                普通区折扣-->
                 <div class="mobilecommon">
                   <div class="mobileCol">{{$t('ordinaryDiscount')}}</div>
-                  <div class="information_div mobileColor_F"v-if="glevel=='0'">-</div>
-                  <div class="information_div mobileColor_F" v-if="glevel!=='0'">{{toFixed(accMul(commonDiscount,100),0) }}%</div>
+                  <div class="mobileinformation_div mobileColor_F"v-if="glevel=='0'">-</div>
+                  <div class="mobileinformation_div mobileColor_F" v-if="glevel!=='0'">{{toFixed(accMul(commonDiscount,100),0) }}%</div>
                 </div>
                  <span class="mobileSpan"></span>
                 <!--                量化区折扣-->
                 <div class="mobilecommon">
                   <div class="mobileCol">{{$t('quantifiedDiscount')}}</div>
-                  <div class="information_div mobileColor_F" v-if="glevel=='0'">-</div>
-                  <div class="information_div mobileColor_F" v-if="glevel!=='0'">{{toFixed(accMul(quantDiscount,100),0) }}%</div>
+                  <div class="mobileinformation_div mobileColor_F" v-if="glevel=='0'">-</div>
+                  <div class="mobileinformation_div mobileColor_F" v-if="glevel!=='0'">{{toFixed(accMul(quantDiscount,100),0) }}%</div>
                 </div>
 <!--                &lt;!&ndash;                普通区折扣&ndash;&gt;-->
 <!--                <div class="information_div color_bik_9"v-if="glevel=='0'">-</div>-->
@@ -245,7 +245,7 @@
         </div>
 
         <!--        加入-->
-        <div class="div_botton pointer" @click="postJoinGroup">{{$t('join')}}</div>
+        <div class="mobilediv_botton pointer" @click="postJoinGroup">{{$t('join')}}</div>
       </div>
     </div>
 
@@ -258,13 +258,13 @@
 <!--    </div>-->
     <!--    拼团规则-->
     <div class="mobileRules">
-      <p class="rules_p">{{$t('rulesRegimentation')}}</p>
-      <p class="rules_details">{{$t('withholdingA1')}}</p>
-      <p class="rules_details">{{$t('withholdingA')}}</p>
-      <p class="rules_details">{{$t('calculatedB1')}}</p>
-      <p class="rules_details">{{$t('calculatedB')}}</p>
-      <p class="rules_details">{{$t('calculatedC')}}</p>
-      <p class="rules_details">{{$t('calculated_1C')}}</p>
+      <p class="mobileRules_p">{{$t('rulesRegimentation')}}</p>
+      <p class="mobileRules_details">{{$t('withholdingA1')}}</p>
+      <p class="mobileRules_details">{{$t('withholdingA')}}</p>
+      <p class="mobileRules_details">{{$t('calculatedB1')}}</p>
+      <p class="mobileRules_details">{{$t('calculatedB')}}</p>
+      <p class="mobileRules_details">{{$t('calculatedC')}}</p>
+      <p class="mobileRules_details">{{$t('calculated_1C')}}</p>
     </div>
   </div>
 
