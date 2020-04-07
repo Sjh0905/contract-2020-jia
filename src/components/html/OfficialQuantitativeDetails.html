@@ -137,10 +137,10 @@
   </div>
 
 
-  <div class="qq_contentMobile" v-if="isMobile">
+  <div class="qq_contentMobile" v-if="isMobile||isApp||isIOS">
 
     <!--    KK交易挖矿详情-->
-    <div class="qq_titleMobile">
+    <div :class="(isApp||isIOS) ? 'qq_titleIsApp':'qq_titleMobile'">
       <span>{{$t('miningDetails')}}</span>
       <span class="delails" @click="goToDelails">{{$t('报名详情')}}
       <img class="jiantou" src="../../assets/wk_icon@2x.png" alt="">
@@ -289,6 +289,8 @@
       <div slot="footer"v-if="records.length == 0">
         <!--      首页-->
         <div @click="goToHomePage" class="notice_but_1 pointer" >
+
+
           {{$t('homePage')}}
         </div>
         <!--      立即参与-->
