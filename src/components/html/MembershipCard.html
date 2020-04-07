@@ -94,8 +94,13 @@
       </div>
     </div>
 <!--购买-->
-    <div class="year_month_div pointer" v-if="!flag" @click="postBuyCard1">{{$t('buy')}}</div>
-    <div class="year_month_div pointer" v-if="flag" @click="postBuyCard1">{{$t('续费')}}</div>
+<!--    <div class="year_month_div pointer" v-if="!flag" @click="postBuyCard1">{{$t('buy')}}</div>-->
+    <div class="year_month_div pointer" v-if="!flag && !sending1" @click="postBuyCard1">{{$t('buy')}}</div>
+    <div class="year_month_div pointer" v-if="!flag && sending1">{{$t('购买中')}}</div>
+<!--    <div class="year_month_div pointer" v-if="flag" @click="postBuyCard1">{{$t('续费')}}</div>-->
+    <div class="year_month_div pointer" v-if="flag&& !sending1" @click="postBuyCard1">{{$t('续费')}}</div>
+    <div class="year_month_div pointer" v-if="flag&& sending1" >{{$t('购买中')}}</div>
+<!--    <div class="year_month_div pointer" v-if="getVerificationCode">{{$t('续费343')}}</div>-->
 <!--    <div class="year_month_div1 pointer">{{$t('discountAboutff')}}</div>-->
 
 
@@ -170,12 +175,15 @@
       <button @click="popWindowClose" class="button-base33 btn_simple pointer">
         {{$t('cancel')}}
       </button>
-      <button  @click="postBuyCard(1)" v-if="!getVerificationCode" class="button-base33 btn_blue pointer m-l">
+      <button  @click="postBuyCard(1)" class="button-base33 btn_blue pointer m-l">
         {{$t('confirm')}}
       </button>
-      <button v-if="getVerificationCode" class="button-base33 btn_blue pointer m-l">
-        {{$t('progress')}}
-      </button>
+<!--      <button  @click="postBuyCard(1)" v-if="!getVerificationCode" class="button-base33 btn_blue pointer m-l">-->
+<!--        {{$t('confirm')}}-->
+<!--      </button>-->
+<!--      <button v-if="getVerificationCode" class="button-base33 btn_blue pointer m-l">-->
+<!--        {{$t('progress')}}-->
+<!--      </button>-->
 
 <!--      <button v-if="idType=='3'" @click="postBuyCard(3)"  class="button-base33 btn_blue pointer m-l">-->
 <!--        {{$t('verification')}}-->

@@ -75,6 +75,8 @@ root.data = function () {
     getMobileVerificationCodeCountdown: 60, //获取手机验证码倒计时
     getMobileVerificationCode: false, //获取手机验证码倒计时
 
+    sending1:false
+
   }
 }
 /*------------------------------ 生命周期 -------------------------------*/
@@ -400,7 +402,7 @@ root.methods.postBuyCard1 = function () {
 root.methods.postBuyCard = function () {
 
   // this.postWithd1(cardType)
-
+  this.popWindowOpen = false
 
   let params = {
     userId: this.userId,  //userId
@@ -409,21 +411,21 @@ root.methods.postBuyCard = function () {
   }
   console.log("会员卡购买post  ===== ",params)
 
-  this.getVerificationCode = true
-  this.clickVerificationCodeButton = true
-  this.verificationCodeWA = ''
-
-  this.getVerificationCodeInterval && clearInterval(this.getVerificationCodeInterval)
-
-  this.getVerificationCodeInterval = setInterval(() => {
-    this.getVerificationCodeCountdown--
-    if (this.getVerificationCodeCountdown <= 0) {
-      this.getVerificationCode = false
-      this.getVerificationCodeCountdown = 60
-      clearInterval(this.getVerificationCodeInterval)
-    }
-  }, 1000)
-
+  // this.getVerificationCode = true
+  // this.clickVerificationCodeButton = true
+  // this.verificationCodeWA = ''
+  //
+  // this.getVerificationCodeInterval && clearInterval(this.getVerificationCodeInterval)
+  //
+  // this.getVerificationCodeInterval = setInterval(() => {
+  //   this.getVerificationCodeCountdown--
+  //   if (this.getVerificationCodeCountdown <= 0) {
+  //     this.getVerificationCode = false
+  //     this.getVerificationCodeCountdown = 60
+  //     clearInterval(this.getVerificationCodeInterval)
+  //   }
+  // }, 1000)
+this.sending1 = true
   this.$http.send('POST_BUY_CARD', {
     bind: this,
     params:params,
@@ -432,10 +434,13 @@ root.methods.postBuyCard = function () {
   })
 }
 root.methods.re_postBuyCard = function (data) {
+  this.sending1 = false
   typeof data === 'string' && (data = JSON.parse(data))
+
 
   this.success = data.data.flag
   console.log("会员卡购买post=====", data)
+
 
   if (data.errorCode == "0" && this.success == true) {
     // this.getBuyRecords()
@@ -484,12 +489,13 @@ root.methods.re_postBuyCard = function (data) {
         this.popOpen = true
       }, 100)
     }
-    this.getVerificationCodeInterval && clearInterval(this.getVerificationCodeInterval)
-    this.getVerificationCode = false
-    this.getVerificationCodeCountdown = 60
+    // this.getVerificationCodeInterval && clearInterval(this.getVerificationCodeInterval)
+    // this.getVerificationCode = false
+    // this.getVerificationCodeCountdown = 60
   }
 }
 root.methods.error_postBuyCard = function (err) {
+  this.sending1 = false
   console.log("this.err=====",err)
 }
 //内部转账 验证码弹框
