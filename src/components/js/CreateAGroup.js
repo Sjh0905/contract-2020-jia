@@ -34,11 +34,16 @@ root.data = function () {
 
     popIdenOpen: false,
 
+    isApp:false,
+    isIOS:false
+
   }
 }
 /*------------------------------ 生命周期 -------------------------------*/
 root.created = function () {
   this.GET_AUTH_STATE()
+  this.isAppQuery()
+  this.isIOSQuery()
   console.log('created======',this,this.$route.name)
   // this.$router.back()
   // if (this.success == true) {
@@ -437,6 +442,24 @@ root.methods.testdeputyAccount = function () {
 
   this.nameMsg_0 = ''
   return true
+}
+
+// 判断路由是否为app
+root.methods.isAppQuery = function (query) {
+  if(this.$route.query.isApp) {
+    this.isApp = true
+  } else {
+    this.isApp = false
+  }
+}
+
+// 判断是否是ios打开
+root.methods.isIOSQuery = function () {
+  if(this.$route.query.isIOS) {
+    this.isIOS = true
+  } else {
+    this.isIOS = false
+  }
 }
 
 
