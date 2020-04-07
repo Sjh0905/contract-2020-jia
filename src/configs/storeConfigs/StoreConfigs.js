@@ -805,8 +805,10 @@ store.mutations.LOGIN_OUT = (state, info) => {
     street: '',
     updatedAt: '',
     version: '',
-    zipcode: ''
+    zipcode: '',
   }
+  // state.idCode = ''
+  // state.name = ''
   state.isLogin = false
 }
 

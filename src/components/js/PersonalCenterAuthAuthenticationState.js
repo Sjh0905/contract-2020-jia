@@ -116,13 +116,13 @@ root.computed.uid = function () {
 // 证件号
 root.computed.idCode = function () {
   // let idCode = this.$store.state.authMessage.idCode
-  let idCode = this.$store.state.idCode || '********'
+  let idCode = this.$store.state.authMessage.idCode || '********'
   idCode && idCode.length > 4 && (idCode = `${idCode.slice(0, 4)}****`)
   return idCode
 }
 // 姓名
 root.computed.name = function () {
-  let name = this.$store.state.name, newName
+  let name = this.$store.state.authMessage.name, newName
   if (name) {
     newName = name.slice(0, 1)
     for (let i = 0; i < name.length - 1; i++) {

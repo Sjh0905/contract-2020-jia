@@ -48,7 +48,7 @@
       <!--充值记录具体 begin-->
       <ul class="detail-container" >
         <!--各条记录 begin-->
-        <li class="detail-li" v-for="(item,index) in computedTransferLists" :key="item.id">
+        <li class="detail-li" v-for="(item,index) in computedTransferLists" :key="item.id" v-if="item.updatedAt != 0">
 
           <div class="li-container flex">
             <!--流水单号-->
@@ -79,7 +79,7 @@
             <div class="type" v-else>{{$t('shiftTo')}}</div>
 
             <!--时间 begin-->
-            <span class="time">{{$globalFunc.formatDateUitl(item.updatedAt,'YYYY-MM-DD hh:mm:ss')}}</span>
+            <span class="time">{{item.updatedAt != 0 ? $globalFunc.formatDateUitl(item.updatedAt,'YYYY-MM-DD hh:mm:ss'):$globalFunc.formatDateUitl(item.createdAt,'YYYY-MM-DD hh:mm:ss')}}</span>
             <!--时间 end-->
 
             <!--状态 begin-->
