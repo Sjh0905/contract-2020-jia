@@ -181,10 +181,10 @@
   </div>
 
 
-  <div class="mobileOf" v-if="isMobile">
+  <div class="mobileOf" v-if="isMobile||isApp||isIOS">
 
     <div class="mobileOfThe">
-      <div class="mobileinformation_li">
+      <div :class="(isApp||isIOS) ? 'isAppinformationLi':'mobileinformation_li'">
         <div class="mobilecolor_bik">{{gname}}
           <span v-if="glevel=='0'"></span>
           <span v-if="glevel=='1'"><img class="mobiletupian_img" src="../../assets/wei_icon@2x.png" alt=""></span>

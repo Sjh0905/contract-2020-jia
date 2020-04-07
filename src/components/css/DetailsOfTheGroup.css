@@ -444,8 +444,13 @@ ul {
   box-sizing: border-box
 }
 .mobileinformation_li {
+   width: 100%;
+   margin-top: 10px;
+   display: flex;
+ }
+.isAppinformationLi {
   width: 100%;
-  margin-top: 10px;
+  /*margin-top: 10px;*/
   display: flex;
 }
 .mobilecolor_bik {

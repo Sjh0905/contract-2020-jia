@@ -44,6 +44,9 @@ root.data = function () {
     commCumulative:0,//普通区交易手续费累计
     quantRecommission:0,//挖矿区团长返佣累计
     commRecommission:0,//普通区团长返佣累计
+
+    isApp:false,
+    isIOS:false
   }
 }
 /*------------------------------ 生命周期 -------------------------------*/
@@ -57,6 +60,8 @@ root.created = function () {
   if (this.groupId!=''){
     this.getMemberList(this.groupId)
   }
+  this.isAppQuery()
+  this.isIOSQuery()
 }
 root.mounted = function () {}
 root.beforeDestroy = function () {}
@@ -356,6 +361,23 @@ root.methods.popClose = function () {
 // 弹窗关闭
 root.methods.popWindowClose = function () {
   this.popWindowOpen = false
+}
+
+root.methods.isAppQuery = function (query) {
+  if(this.$route.query.isApp) {
+    this.isApp = true
+  } else {
+    this.isApp = false
+  }
+}
+
+// 判断是否是ios打开
+root.methods.isIOSQuery = function () {
+  if(this.$route.query.isIOS) {
+    this.isIOS = true
+  } else {
+    this.isIOS = false
+  }
 }
 
 // 格式化时间
