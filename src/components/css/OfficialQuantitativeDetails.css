@@ -109,7 +109,7 @@
   line-height: 44px;
   background:rgba(245,246,250,1);
   padding-left: 25px;
-  margin-bottom: 16px;
+  margin-bottom: 18px;
   font-size:14px;
   font-family:PingFangSC-Medium,PingFang SC;
   font-weight:500;
@@ -122,7 +122,7 @@
 .TodaysLi {
   width: 100%;
   display: flex;
-  margin-bottom: 9px;
+  margin-bottom: 10px;
 }
 .li_div_20 {
   justify-content:space-between;
@@ -142,7 +142,7 @@
 .color_0 {
   color: #0D0E23;
   font-size: 12px;
-  line-height: 22px;
+  line-height: 12px;
 }
 .mobileColor0 {
   color: #0D0E23;
@@ -157,7 +157,7 @@
 .color_3 {
   color: #3576F5;
   font-size: 12px;
-  line-height: 22px;
+  line-height: 34px;
 }
 .color_7 {
   color: #0D0E23;
