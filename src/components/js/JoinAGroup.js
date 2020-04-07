@@ -59,14 +59,16 @@ root.data = function () {
     // bindGA: false,
     // bindMobile: false,
     // bindEmail: false
-
+    isApp:false,
+    isIOS:false
   }
 }
 /*------------------------------ 生命周期 -------------------------------*/
 root.created = function () {
   this.GET_AUTH_STATE()
   this.getFuzzyQuery()
-
+  this.isAppQuery()
+  this.isIOSQuery()
   console.log("this.$route.query.path========",this.$route.query.path,this.$route.fullPath)
 }
 
@@ -501,7 +503,23 @@ root.methods.closePlaceholder = function (type) {
 //   return true
 // }
 
+// 判断路由是否为app
+root.methods.isAppQuery = function (query) {
+  if(this.$route.query.isApp) {
+    this.isApp = true
+  } else {
+    this.isApp = false
+  }
+}
 
+// 判断是否是ios打开
+root.methods.isIOSQuery = function () {
+  if(this.$route.query.isIOS) {
+    this.isIOS = true
+  } else {
+    this.isIOS = false
+  }
+}
 
 /*---------------------- 乘法运算 begin ---------------------*/
 root.methods.accMul = function (num1, num2) {

@@ -122,9 +122,9 @@
   </div>
 
 
-  <div class="mobileCreateAGroup_conteainer" v-if="isMobile">
+  <div class="mobileCreateAGroup_conteainer" v-if="isMobile||isApp||isIOS">
     <Loading v-if="loading"/>
-    <div class="mobileCreate">
+    <div :class="(isApp||isIOS) ? 'isAppCreate':'mobileCreate'">
       <div class="mobileCreate_conteainer">
         <div class="mobileCreate_a">
           <!--          加入拼团-->
