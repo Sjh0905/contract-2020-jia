@@ -6,10 +6,16 @@ root.name = 'AssembleARegiment'
 //}
 /*------------------------------ data -------------------------------*/
 root.data = function () {
-  return {}
+  return {
+    isApp:false,
+    isIOS:false
+  }
 }
 /*------------------------------ 生命周期 -------------------------------*/
-root.created = function () {}
+root.created = function () {
+  this.isAppQuery()
+  this.isIOSQuery()
+}
 root.mounted = function () {}
 root.beforeDestroy = function () {}
 /*------------------------------ 计算 -------------------------------*/
@@ -31,4 +37,22 @@ root.methods.joinAGroup = function () {
 
   this.$router.push({name: 'joinAGroup'})
 }
+// 判断路由是否为app
+root.methods.isAppQuery = function (query) {
+  if(this.$route.query.isApp) {
+    this.isApp = true
+  } else {
+    this.isApp = false
+  }
+}
+
+// 判断是否是ios打开
+root.methods.isIOSQuery = function () {
+  if(this.$route.query.isIOS) {
+    this.isIOS = true
+  } else {
+    this.isIOS = false
+  }
+}
+
 export default root

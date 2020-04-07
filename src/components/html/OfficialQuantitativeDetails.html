@@ -281,12 +281,30 @@
   <!--  此账号未参与KK交易挖矿-->
   <PopupArticle :switch="buyConfirmSuccess" @close="buyConfirmSuccessClose"  v-if="!isMobile">
 
-    <div slot="article" class="Internal_siding img_ConfirmSuccess" >
+<!--    <div v-if="records.length == 0">-->
+      <div slot="article" class="Internal_siding img_ConfirmSuccess" v-if="records.length == 0">
+      <img src="../../assets/lianghua.png" alt="" >
+      <p>{{$t('transactions')}}</p>
+     </div>
+      <div slot="footer"v-if="records.length == 0">
+        <!--      首页-->
+        <div @click="goToHomePage" class="notice_but_1 pointer" >
+          {{$t('homePage')}}
+        </div>
+        <!--      立即参与-->
+        <div @click="goToParticipateNow" class=" notice_but button-base btn_blue pointer">
+          {{$t('participateNow')}}
+        </div>
+        </div>
+
+<!--      </div>-->
+
+    <div slot="article" class="Internal_siding img_ConfirmSuccess" v-if="records.length != 0">
       <img src="../../assets/lianghua.png" alt="" >
       <p v-if="fstatus == '驳回' || fstatus == '禁用'">{{$t('transactions')}}</p>
       <p v-if="fstatus == '未审核'">{{$t('此账号未审核')}}</p>
     </div>
-    <div slot="footer">
+    <div slot="footer" v-if="records.length != 0">
       <!--      首页-->
       <div @click="goToHomePage" class="notice_but_1 pointer" v-if="fstatus == '驳回' || fstatus == '禁用'">
         {{$t('homePage')}}

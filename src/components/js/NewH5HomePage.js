@@ -538,6 +538,11 @@ root.methods.re_getRegistrationRecord = function (data) {
   console.log("this.re_getRegistrationRecord查询报名记录get=====",data)
   this.records = data.data
 
+  if (this.records == 0) {
+    this.$router.push({name: 'officialQuantitativeRegistration'})
+    return;
+  }
+
   let E2 = this.records[0]
   this.fstatus = E2.fstatus
 

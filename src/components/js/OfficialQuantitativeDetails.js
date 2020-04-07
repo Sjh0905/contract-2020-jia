@@ -106,9 +106,17 @@ root.methods.re_getRegistrationRecord = function (data) {
   console.log("this.re_getRegistrationRecord查询报名记录get=====",data)
   this.records = data.data
 
+
+  // console.log("this.re_getRegistrationRecord查询报名记录get=====",E2)
+
+  if (this.records.length == 0) {
+    this.buyConfirmSuccess=true
+    return;
+  }
+
   let E2 = this.records[0]
   this.fstatus = E2.fstatus
-  console.log("this.re_getRegistrationRecord查询报名记录get=====",E2)
+
   if (this.fstatus != '已报名') {
     this.buyConfirmSuccess=true
     return;

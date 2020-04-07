@@ -37,10 +37,10 @@
       <p class="rules_details">{{$t('calculated_1')}}</p>
     </div>
   </div>
-  <div class="mobileConteainer" v-if="isMobile">
+  <div  :class="(isApp||isIOS) ? 'isAPPConteainer1':'mobileConteainer'" v-if="isMobile || isApp||isIOS">
     <div class="mobileContent_img">
       <img class="mobileContent_imgH5" src="../../assets/H5PT_banner@2x.png" alt="">
-      <div class="mobileAssemble">
+      <div class="mobileAssemble" :class="(isApp||isIOS) ? 'isAPPAssemble': 'mobileAssemble'">
         <!--        拼团-->
         <p class="mobileAssemble_p">{{$t('assembleARegiment')}}</p>
         <!--        参与拼团获取交易手续费折扣-->
