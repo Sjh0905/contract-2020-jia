@@ -137,13 +137,13 @@
     </div>
   </div >
 
-  <div class="mobileQQ_content" v-if="isMobile">
+  <div class="mobileQQ_content" v-if="isMobile||isApp||isIOS">
 
     <!--    KK交易挖矿-->
 <!--    <div class="mobileQQ_title">-->
 <!--      {{$t('tradingMining')}}-->
 <!--    </div>-->
-    <div class="mobileQQ_title">
+    <div :class="(isApp||isIOS) ? 'isAppQQ_title':'mobileQQ_title'">
       <span>{{$t('tradingMining')}}</span>
       <span class="delails" @click="goToDelails"  v-if="isMobile && fstatus == '已报名' ">{{$t('挖矿详情')}}
       <img class="jiantou" src="../../assets/wk_icon@2x.png" alt="">

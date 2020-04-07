@@ -42,7 +42,10 @@ root.data = () => {
     popWindowStyle: 0,//跳转 0表示实名认证，1表示手机或谷歌，2只有确定
     popIdenOpen: false,
     fstatus:'',
-    remark:''
+    remark:'',
+
+    isApp:false,
+    isIOS:false
   }
 }
 
@@ -51,6 +54,8 @@ root.created = function() {
   this.getRegistrationRecord()
   this.getBalance()
   this.GET_AUTH_STATE()
+  this.isAppQuery()
+  this.isIOSQuery()
 }
 
 root.computed = {}
@@ -586,6 +591,23 @@ root.methods.popIdenClose = function () {
 // 弹窗
 root.methods.popClose = function () {
   this.popOpen = false
+}
+
+root.methods.isAppQuery = function (query) {
+  if(this.$route.query.isApp) {
+    this.isApp = true
+  } else {
+    this.isApp = false
+  }
+}
+
+// 判断是否是ios打开
+root.methods.isIOSQuery = function () {
+  if(this.$route.query.isIOS) {
+    this.isIOS = true
+  } else {
+    this.isIOS = false
+  }
 }
 
 // 格式化时间
