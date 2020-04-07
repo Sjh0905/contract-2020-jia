@@ -309,6 +309,9 @@ root.methods.re_getRegistrationRecord = function (data) {
   if (!data) {return}
   console.log("this.re_getRegistrationRecord查询报名记录get=====",data)
   this.records = data.data
+
+  let E2 = this.records[0]
+  this.fstatus = E2.fstatus
   // this.fstatus = data.data.fstatus
   // this.remark = this.records.getArrayIndex(5)
   if (this.records.length !== 0) {
@@ -514,18 +517,26 @@ root.methods.re_postActivities = function (data) {
     this.getVerificationCodeCountdown = 60
   }
 
+  if (this.fstatus == '已报名' && this.isMobile) {
+    // setTimeout(() => {
+      this.$router.push({name:'officialQuantitativeDetails'})
+    // }, 1000)
+    return;
+  }
+
   if (this.isMobile && data.errorCode == "0" && this.success == true) {
     this.getRegistrationRecord()
     this.popOpen = true
     this.popType = 1
-    this.popText = this.$t('registration') //报名成功
+    this.popText = this.$t('applied') //报名成功
     setTimeout(() => {
       this.popOpen = true
     }, 100)
-    setTimeout(() => {
-      this.$router.push({name:'officialQuantitativeDetails'})
-    }, 1000)
-
+    if(this.fstatus == '已报名') {
+      setTimeout(() => {
+        this.$router.push({name:'officialQuantitativeDetails'})
+      }, 1000)
+    }
     return;
   }
 
@@ -575,6 +586,11 @@ root.methods.popIdenClose = function () {
 // 弹窗
 root.methods.popClose = function () {
   this.popOpen = false
+}
+
+// 格式化时间
+root.methods.formatDateUitl = function (time) {
+  return this.$globalFunc.formatDateUitl(Number(time), 'YYYY-MM-DD')
 }
 
 /*---------------------- 保留小数位 begin ---------------------*/

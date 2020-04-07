@@ -16,7 +16,7 @@
 <!--    参加日期-->
     <div class="account_number_right">
       <span>{{$t('participation')}}:</span>
-      <span>{{createdate}}</span>
+      <span>{{formatDateUitl(createdate)}}</span>
     </div>
 
     <div class="quantification_con" >
@@ -157,7 +157,7 @@
     <!--    参加日期-->
     <div class="account_number_rightMobile">
       <span>{{$t('participation')}}:</span>
-      <span>{{createdate}}</span>
+      <span>{{formatDateUitl(createdate)}}</span>
     </div>
 
     <div class="quantification_con" >
@@ -197,18 +197,18 @@
           <li class="TodaysLiMobile">
             <!--            矿源-->
             <div class="li_div_20Mobile">
-              <p class="color_0">{{$t('source')}}（YY + TT）</p>
-              <p class="color_3">{{fdesc}}</p>
+              <p class="mobileColor0">{{$t('source')}}（YY + TT）</p>
+              <p class="mobileColor3">{{fdesc}}</p>
             </div>
             <!--            矿源奖励释放-->
             <div class="li_div_60Mobile">
-              <p class="color_0">{{$t('rewardRelease')}}(KK)</p>
-              <p class="color_3">{{doSendReward}}</p>
+              <p class="mobileColor0">{{$t('rewardRelease')}}(KK)</p>
+              <p class="mobileColor3">{{doSendReward}}</p>
             </div>
 
             <!--            已释放-->
             <div class="li_div_19Mobile">
-              <p class="color_0">{{$t('released')}}</p>
+              <p class="mobileColor0">{{$t('released')}}</p>
               <p class="color_7">{{miningProgress * 100 }}%</p>
             </div>
           </li>
@@ -279,20 +279,29 @@
 
 
   <!--  此账号未参与KK交易挖矿-->
-  <PopupArticle :switch="buyConfirmSuccess" @close="buyConfirmSuccessClose" v-if="!isMobile">
+  <PopupArticle :switch="buyConfirmSuccess" @close="buyConfirmSuccessClose"  v-if="!isMobile">
 
-    <div slot="article" class="Internal_siding img_ConfirmSuccess">
+    <div slot="article" class="Internal_siding img_ConfirmSuccess" >
       <img src="../../assets/lianghua.png" alt="" >
-      <p>{{$t('transactions')}}</p>
+      <p v-if="fstatus == '驳回' || fstatus == '禁用'">{{$t('transactions')}}</p>
+      <p v-if="fstatus == '未审核'">{{$t('此账号未审核')}}</p>
     </div>
     <div slot="footer">
       <!--      首页-->
-      <div @click="goToHomePage" class="notice_but_1 pointer">
+      <div @click="goToHomePage" class="notice_but_1 pointer" v-if="fstatus == '驳回' || fstatus == '禁用'">
         {{$t('homePage')}}
       </div>
       <!--      立即参与-->
-      <div @click="goToParticipateNow" class=" notice_but button-base btn_blue pointer">
+      <div @click="goToParticipateNow" class=" notice_but button-base btn_blue pointer" v-if="fstatus == '驳回' || fstatus == '禁用'">
         {{$t('participateNow')}}
+      </div>
+      <!--      首页-->
+      <div @click="goToHomePage" class="notice_but_1 pointer" v-if="fstatus == '未审核'">
+        {{$t('homePage')}}
+      </div>
+      <!--      立即参与-->
+      <div @click="goToParticipateNow" class=" notice_but button-base btn_blue pointer" v-if="fstatus == '未审核'">
+        {{$t('报名页')}}
       </div>
 
     </div>

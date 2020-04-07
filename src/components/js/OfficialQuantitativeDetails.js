@@ -25,7 +25,8 @@ root.data = () => {
     loadingMoreShow:false,
     currPage:1,
     pageSize:5,
-    fdesc:''
+    fdesc:'',
+    fstatus:''
   }
 }
 
@@ -105,7 +106,10 @@ root.methods.re_getRegistrationRecord = function (data) {
   console.log("this.re_getRegistrationRecord查询报名记录get=====",data)
   this.records = data.data
 
-  if (this.records.length == 0) {
+  let E2 = this.records[0]
+  this.fstatus = E2.fstatus
+  console.log("this.re_getRegistrationRecord查询报名记录get=====",E2)
+  if (this.fstatus != '已报名') {
     this.buyConfirmSuccess=true
     return;
   }
@@ -233,5 +237,10 @@ root.methods.goToParticipateNow = function () {
   // this.buyConfirmSuccess = false
   this.$router.push({name: 'officialQuantitativeRegistration'})
 
+}
+
+// 格式化时间
+root.methods.formatDateUitl = function (time) {
+  return this.$globalFunc.formatDateUitl(Number(time), 'YYYY-MM-DD')
 }
 export default root

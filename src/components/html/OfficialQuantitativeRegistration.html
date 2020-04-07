@@ -70,10 +70,10 @@
         <div class="exchange_button pointer" @click="postActivities" v-if="(computedRecord.length == 0) && !getVerificationCode">{{$t('exchang')}}</div>
 <!--        <div class="exchange_button1" v-if="getVerificationCode">报名中</div>-->
 <!--        <div class="exchange_button1" v-if="computedRecord.length !== 0">已报名</div>-->
-        <div class="exchange_button1" v-for="(item,index) in computedRecord" v-if="item.fstatus == '未审核'">未审核</div>
-        <div class="exchange_button1" v-for="(item,index) in computedRecord" v-if="item.fstatus == '已报名'">已报名</div>
-        <div class="exchange_button1" v-for="(item,index) in computedRecord" v-if="item.fstatus == '禁用'">禁用</div>
-        <div class="exchange_button pointer" @click="postActivities" v-for="(item,index) in computedRecord" v-if="item.fstatus == '驳回'">重新兑换</div>
+        <div class="exchange_button1" v-if="fstatus == '未审核'">{{$t('unaudited')}}</div>
+        <div class="exchange_button1" v-if="fstatus == '已报名'">{{$t('registered')}}</div>
+        <div class="exchange_button1" v-if="fstatus == '禁用'">{{$t('disable')}}</div>
+        <div class="exchange_button pointer" @click="postActivities" v-if="fstatus == '驳回'">{{$t('redemption')}}</div>
 
         <!--  须知 1,2,3-->
         <div class="notice_div">
@@ -111,15 +111,15 @@
                   <!--配套-->
                   <div class="application_header_div3 color_a2">{{item.fdesc}}</div>
                   <!--时间-->
-                  <div class="application_header_div_right1 color_a2 mor-right">{{item.createdAt}}</div>
+                  <div class="application_header_div_right1 color_a2 ">{{formatDateUitl(item.updatedAt)}}</div>
                   <!--状态-->
-                  <div class="application_header_div_right2 mor-right color_a2bo" v-if="item.fstatus == '驳回'">被{{item.fstatus}}</div>
-                  <div class="application_header_div_right2 mor-right color_a2dai" v-if="item.fstatus == '未审核'">{{item.fstatus}}</div>
-                  <div class="application_header_div_right2 mor-right color_a2yi" v-if="item.fstatus == '已报名'">{{item.fstatus}}</div>
-                  <div class="application_header_div_right2 mor-right color_a2jin" v-if="item.fstatus == '禁用'">{{item.fstatus}}</div>
+                  <div class="application_header_div_right2 mor-right color_a2bo" v-if="item.fstatus == '驳回'">{{$t('rejected')}}</div>
+                  <div class="application_header_div_right2 mor-right color_a2dai" v-if="item.fstatus == '未审核'">{{$t('unaudited')}}</div>
+                  <div class="application_header_div_right2 mor-right color_a2yi" v-if="item.fstatus == '已报名'">{{$t('registered')}}</div>
+                  <div class="application_header_div_right2 mor-right color_a2jin" v-if="item.fstatus == '禁用'">{{$t('disable')}}</div>
 
                 </li>
-              <div class="color_a2bo bohui" v-for="(item,index) in computedRecord" v-if="item.remark!=''">驳回原因：{{item.remark}}</div>
+              <div class="color_a2bo bohui" v-for="(item,index) in computedRecord" v-if="item.remark!=''">{{$t('rejection')}}：{{item.remark}}</div>
             </template>
             <!-- 如果加载完成、已登录、有数据，则显示数据 end -->
 
@@ -145,7 +145,7 @@
 <!--    </div>-->
     <div class="mobileQQ_title">
       <span>{{$t('tradingMining')}}</span>
-      <span class="delails" @click="goToDelails" v-if="isMobile && (computedRecord.length !== 0)">{{$t('挖矿详情')}}
+      <span class="delails" @click="goToDelails"  v-if="isMobile && fstatus == '已报名' ">{{$t('挖矿详情')}}
       <img class="jiantou" src="../../assets/wk_icon@2x.png" alt="">
       </span>
     </div>
@@ -213,10 +213,10 @@
         <div class="exchange_button pointer" @click="postActivities" v-if="(computedRecord.length == 0) && !getVerificationCode">{{$t('exchang')}}</div>
 <!--        <div class="exchange_button1" v-if="getVerificationCode">报名中</div>-->
 <!--        <div class="exchange_button1" v-if="computedRecord.length !== 0">已报名</div>-->
-        <div class="exchange_button1" v-for="(item,index) in computedRecord" v-if="item.fstatus == '未审核'">未审核</div>
-        <div class="exchange_button1" v-for="(item,index) in computedRecord" v-if="item.fstatus == '已报名'">已报名</div>
-        <div class="exchange_button1" v-for="(item,index) in computedRecord" v-if="item.fstatus == '禁用'">禁用</div>
-        <div class="exchange_button" @click="postActivities" v-for="(item,index) in computedRecord" v-if="item.fstatus == '驳回'">重新兑换</div>
+        <div class="exchange_button1" v-if="fstatus == '未审核'">未审核</div>
+        <div class="exchange_button1" v-if="fstatus == '已报名'">已报名</div>
+        <div class="exchange_button1" v-if="fstatus == '禁用'">禁用</div>
+        <div class="exchange_button" @click="postActivities" v-if="fstatus == '驳回'">重新兑换</div>
 
         <!--  须知 1,2,3-->
         <div class="notice_div mobileMB">
@@ -256,7 +256,7 @@
             <!--配套-->
             <div class="mobileApplication_header_div color_a2">{{item.fdesc}}</div>
             <!--时间-->
-            <div class="mobileApplication_header_div_right color_a2">{{item.createdAt}}</div>
+            <div class="mobileApplication_header_div_right color_a2">{{formatDateUitl(item.updatedAt)}}</div>
             <div class="mobileApplication_header_div_right color_a2bo" v-if="item.fstatus == '驳回'">被{{item.fstatus}}</div>
             <div class="mobileApplication_header_div_right color_a2dai" v-if="item.fstatus == '未审核'">{{item.fstatus}}</div>
             <div class="mobileApplication_header_div_right color_a2yi" v-if="item.fstatus == '已报名'">{{item.fstatus}}</div>

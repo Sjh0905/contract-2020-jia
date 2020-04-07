@@ -538,12 +538,16 @@ root.methods.re_getRegistrationRecord = function (data) {
   console.log("this.re_getRegistrationRecord查询报名记录get=====",data)
   this.records = data.data
 
-  if (this.records.length == 0) {
+  let E2 = this.records[0]
+  this.fstatus = E2.fstatus
+
+  if (this.fstatus !== '已报名') {
     // this.goGroupLevel()
+    console.log("this.re_getRegistrationRecord查询报名记录get=====",this.records.fstatus)
     this.$router.push({name: 'officialQuantitativeRegistration'})
     return;
   }
-  if (this.records.length !== 0) {
+  if (this.fstatus == '已报名') {
     this.$router.push({name: 'officialQuantitativeDetails'})
     return;
   }
