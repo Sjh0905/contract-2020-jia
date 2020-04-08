@@ -1,5 +1,5 @@
 <div class="index_home_market_list_body1">
-  <div class=" border_radius index_home_market_list_body"  >
+  <div class="border_radius" :class="$route.name == 'indexHomeMarket' ? 'index_home_market_list_body':'index_home_market_list_body11'">
   <!--     :class="{'dark dark_box_shadow':themeColor==0,'light box_shadow':themeColor==1}"-->
   <!--  <ul class="flex-row tabs-container">-->
   <!--    <li class="title-tab flex-center pointer"-->
@@ -107,7 +107,7 @@
 
             <div class="market-detail-item flex pointer" @click="clickToGoTradingHall(value)">
 <!--              币种-->
-              <div class="currency">
+              <div :class="$route.name == 'indexHomeMarket'?'currency':'currency1'">
 <!--                <img src="../../assets/selected_icon.png" class="imgSelect" v-show="(collectionMarket.includes(value.name))" @click="handleCollectionMarket(value.name,false)" alt="">-->
 <!--                <img src="../../assets/noSelected_icon.png" class="imgSelect" v-show="!(collectionMarket.includes(value.name))" @click="handleCollectionMarket(value.name,true)" alt="">-->
                 {{value.name.split('_')[0]}}/{{value.name.split('_')[1]}}
