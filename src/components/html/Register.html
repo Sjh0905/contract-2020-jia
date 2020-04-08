@@ -76,7 +76,7 @@
           <div class="getcodeval" v-if="!getVerificationCode"
                 @click="postVerificationCode">{{$t("register.achieve")}}</div>
         <div class="getcodeval"
-              v-if="getVerificationCode">{{getVerificationCodeCountdown}}s</div>
+              v-if="getVerificationCode">{{getVerificationCodeCountdown}}s{{$t('register.Resend')}}</div>
       </template>
         <template v-if="!isMobile">
           <span class="flex-center identifying-code-button-on " v-if="!getVerificationCode"
@@ -199,7 +199,7 @@
           <div class="getcodeval" v-if="!getVerificationCode"
                 @click="postVerificationCode">{{$t("register.achieve")}}</div>
         <div class="getcodeval"
-              v-if="getVerificationCode">{{getVerificationCodeCountdown}}s</div>
+              v-if="getVerificationCode">{{getVerificationCodeCountdown}}s{{$t("register.Resend")}}</div>
       </template>
         <template v-if="!isMobile">
           <span class="flex-center identifying-code-button-on " v-if="!getVerificationCode"
@@ -358,7 +358,7 @@
             <span class="flex-center identifying-code-button-on " v-if="!getVerificationCode"
                   @click="postVerificationCode">{{$t("register.achieve")}}</span>
             <span class="flex-center identifying-code-button-close"
-                  v-if="getVerificationCode">{{getVerificationCodeCountdown}}s</span>
+                  v-if="getVerificationCode">{{getVerificationCodeCountdown}}s{{$t('register.Resend')}}</span>
           </template>
         </div>
 
@@ -487,7 +487,7 @@
           <span class="flex-center identifying-code-button-on " v-if="!getVerificationCode"
                 @click="postVerificationCode">{{$t("register.achieve")}}</span>
             <span class="flex-center identifying-code-button-close"
-                  v-if="getVerificationCode">{{getVerificationCodeCountdown}}s</span>
+                  v-if="getVerificationCode">{{getVerificationCodeCountdown}}s{{$t("register.Resend")}}</span>
           </template>
         </div>
 
