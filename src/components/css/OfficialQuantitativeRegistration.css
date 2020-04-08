@@ -388,6 +388,16 @@
   padding-top: 30px;
 
 }
+.isAppQQ_title {
+  font-size:26px;
+  font-family:PingFangSC-Medium,PingFang SC;
+  font-weight:500;
+  color:rgba(53,118,245,1);
+  /*margin-top: 10px;*/
+  margin-bottom: 30px;
+  padding-top: 30px;
+
+}
 .mobileApplication_form {
   display: inline-block;
   width: 100%;

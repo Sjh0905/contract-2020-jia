@@ -67,8 +67,8 @@
   </div>
 
 
-  <div class="mobileCreateAGroup_conteainer" v-if="isMobile">
-    <div class="mobileCreate">
+  <div class="mobileCreateAGroup_conteainer" v-if="isMobile||isApp||isIOS">
+    <div :class="(isApp||isIOS) ? 'isAppCreate':'mobileCreate'" >
       <div class="mobileCreate_conteainer">
         <div class="mobileCreate_a">
           <!--          创建拼团-->
