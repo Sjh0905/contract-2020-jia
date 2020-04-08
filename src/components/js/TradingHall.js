@@ -869,8 +869,8 @@ root.computed.diff24 = function () {
 root.computed.diff24Ratio = function () {
   if (!this.mergeList[this.symbol]) return;
   let now_price = this.isNowPrice || 0;
-  // let diff = ((Number(now_price) - Number(this.mergeList[this.symbol][1])) / Number(this.mergeList[this.symbol][1])*100).toFixed(2);
-  let diff = this.toFixed(this.accMul(this.accDiv(this.accMinus(now_price, this.mergeList[this.symbol][1]), this.mergeList[this.symbol][1] || 1), 100), 2)
+  let diff = ((Number(now_price) - Number(this.mergeList[this.symbol][1])) / Number(this.mergeList[this.symbol][1])*100).toFixed(2);
+  // let diff = this.toFixed(this.accMul(this.accDiv(this.accMinus(now_price, this.mergeList[this.symbol][1]), this.mergeList[this.symbol][1] || 1), 100), 2)
   if (this.mergeList[this.symbol][1] == 0) {
     return 0
   } else {
