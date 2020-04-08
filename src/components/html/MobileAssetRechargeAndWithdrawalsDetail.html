@@ -108,6 +108,7 @@
             <!--<img class="asset-oper-btn-item-img" src="../../assets/H5img/asset_capital_transfer.png" alt="">-->
             <!--<span class="asset-oper-btn-item-text">划转</span>-->
           <!--</div>-->
+<!--          <div v-if="isMyWallet" @click="internalTransfer(currencyTitle)" class="asset-oper-btn-item">-->
           <div v-if="isMyWallet" @click="goExpecting" class="asset-oper-btn-item">
             <img class="asset-oper-btn-item-img" src="../../assets/H5img/asset_internal_transfer.png" alt="">
             <span class="asset-oper-btn-item-text">内部转账</span>
@@ -168,5 +169,25 @@
       </div>
     </div>
   </div>
+
+  <!--        转账弹框-->
+  <div class="confirm-toast" v-if="openTips">
+    <div class="messageBox">
+      <div class="messageBox-top">
+        <div>转账须知</div>
+        <div class="exit-img" @click="closeTipsBox()"><img src="../../assets/mobile_img/mobile_asset_commen/h5_toast_close_btn.png" alt=""></div>
+      </div>
+      <div class="messageBox-content">
+        <div class="messageBox-content-text">
+          <p>1.请在转账前与收款方联系以获取对方的用户账号及收款码，确保所有的资料正确后才进行转账。</p>
+          <p>2.如果转账时发生任何失误该款项将无法索回！</p>
+        </div>
+        <div class="messageBox-content-button" @click="gotoTransfer()">
+          我已知晓，继续转账
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div>
 

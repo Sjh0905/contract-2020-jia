@@ -66,6 +66,11 @@ root.data = function () {
     toastNobindShow: false,
 
     popIdenOpen: false,
+
+    // 转账提示框是否打开
+    openTips:false,
+    // 当前币种是否可以转账  fasle为不可以转账
+    isTransfer: false,
   }
 }
 
@@ -826,4 +831,75 @@ root.methods.gotoZichan = function () {
   this.$router.push({name: 'MobileAssetRechargeAndWithdrawals'});
 }
 
+/*---------------------- 内部转账 ---------------------*/
+
+
+
+// 跳转转账页面
+root.methods.gotoTransfer = function (){
+  this.$router.push({name:'MobileTransfer',query:{currency:this.$route.query.currency}})
+}
+
+// 判断是否可以转账
+root.methods.transferAble = function () {
+  this.$http.send('GET_TRANSFERDISABLED',{
+    bind: this,
+    params:{
+      currency:this.$route.query.currency
+    },
+    callBack: this.re_transferAble,
+    errorHandler: this.error_transferAble
+  })
+  // this.currencyTitle = this.$route.query.currency
+}
+root.methods.re_transferAble = function (data) {
+  this.isTransfer = data.dataMap.insideTransferAccount.transferDisabled
+  console.log(data)
+}
+root.methods.error_transferAble = function (error) {
+  console.log(this.$route.query.currency)
+  console.log(error)
+}
+
+// 转账入口是否可以打开
+root.methods.internalTransfer = function () {
+  this.transferAble()
+
+  if (!this.bindIdentify) {
+    this.popIdenOpen = true
+    return
+  }
+  if (this.bindIdentify && this.isTransfer == true) {
+    this.openTips = true
+    return
+  }
+  if (this.bindIdentify) {
+    if (!this.bindMobile && !this.bindGA) {
+      this.popOpen = true
+      this.popType = 0
+      this.popText = '请绑定谷歌验证或手机'
+      return
+    }
+    if (this.bindMobile || this.bindGA) {
+      // this.$store.commit('changeMobileRechargeRecordData',type)
+      // this.$router.push("/index/mobileAsset/mobileAssetRechargeDetail?currency=" + name)
+      this.openTips = true
+      return
+    }
+  }
+  if(this.isTransfer == false) {
+    this.openTips = false
+    this.popOpen = true
+    this.popType = 0
+    this.popText = '该币种暂不支持转账'
+    return
+  }
+}
+root.methods.openTipsBox = function (){
+  this.openTips = true
+}
+
+root.methods.closeTipsBox = function (){
+  this.openTips = false
+}
 export default root
