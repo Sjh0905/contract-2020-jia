@@ -2233,6 +2233,75 @@ root.routes.push({
           caseSensitive: true,
           component: resolve => require(['@/components/mobileVue/mobileAssetHisLockRecordDetail'], resolve),
         },
+
+
+        // 移动端转账记录页
+        {
+          path: 'MobileTransfer',
+          name: 'MobileTransfer',
+          meta: {
+            pcname: '',
+            h5name: 'MobileTransfer',
+            // requireLogin: 请求登录  templateClose：组件关闭
+            // requireLoginOff：请求登录关闭  caseSensitive：区分大小写
+            requireLogin: true,
+            templateClose: false,
+            requireLoginOff: false,
+          },
+          caseSensitive: true,
+          component: resolve => require(['@/components/vue/MobileTransfer'], resolve),
+        },
+
+        // 移动端转账确认页
+        {
+          path: 'MobileConfirm',
+          name: 'MobileConfirm',
+          meta: {
+            pcname: '',
+            h5name: 'MobileConfirm',
+            // requireLogin: 请求登录  templateClose：组件关闭
+            // requireLoginOff：请求登录关闭  caseSensitive：区分大小写
+            requireLogin: true,
+            // templateClose: false,
+            // requireLoginOff: false,
+          },
+          caseSensitive: true,
+          component: resolve => require(['@/components/vue/MobileConfirm'], resolve),
+        },
+
+        // 移动端转账成功页
+        {
+          path: 'MobileTransferSuccess',
+          name: 'MobileTransferSuccess',
+          meta: {
+            pcname: '',
+            h5name: 'MobileTransferSuccess',
+            // requireLogin: 请求登录  templateClose：组件关闭
+            // requireLoginOff：请求登录关闭  caseSensitive：区分大小写
+            requireLogin: true,
+            // templateClose: false,
+            // requireLoginOff: false,
+          },
+          caseSensitive: true,
+          component: resolve => require(['@/components/vue/MobileTransferSuccess'], resolve),
+        },
+
+        // 移动端转账记录
+        // {
+        //   path: 'MobileTransferRecords',
+        //   name: 'MobileTransferRecords',
+        //   meta: {
+        //     pcname: '',
+        //     h5name: 'MobileTransferRecords',
+        //     // requireLogin: 请求登录  templateClose：组件关闭
+        //     // requireLoginOff：请求登录关闭  caseSensitive：区分大小写
+        //     requireLogin: true,
+        //     // templateClose: false,
+        //     // requireLoginOff: false,
+        //   },
+        //   caseSensitive: true,
+        //   component: resolve => require(['@/components/vue/MobileTransferRecords'], resolve),
+        // },
       ]
     },
 

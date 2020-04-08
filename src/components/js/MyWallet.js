@@ -91,8 +91,8 @@ root.data = function () {
 
     transferCurrency: '',
     feeRate: 0, //费率
-    dayMaxAmount: 0, //最高费率
-    singleMaxAmount: 0, //最高费率
+    dayMaxAmount: 0, //每日限额
+    singleMaxAmount: 0, //每次限额
     minAmount: 0, //最低数量
     minimumFee: 0, //最低费率
     userNamePlaceholderShow: true,
