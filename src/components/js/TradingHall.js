@@ -870,6 +870,7 @@ root.computed.diff24Ratio = function () {
   if (!this.mergeList[this.symbol]) return;
   let now_price = this.isNowPrice || 0;
   let diff = ((Number(now_price) - Number(this.mergeList[this.symbol][1])) / Number(this.mergeList[this.symbol][1])*100).toFixed(2);
+  // let diff = this.toFixed(this.accMul(this.accDiv(this.accMinus(now_price, this.mergeList[this.symbol][1]), this.mergeList[this.symbol][1] || 1), 100), 2)
   if (this.mergeList[this.symbol][1] == 0) {
     return 0
   } else {
@@ -971,6 +972,37 @@ root.destroyed = function () {
   //加进window的方法当跳出此页面后需要销毁哦
   window.onresize = null;
 }
+
+
+/*---------------------- 保留小数 begin ---------------------*/
+root.methods.toFixed = function (num, acc = 8) {
+  return this.$globalFunc.accFixed(num, acc)
+}
+/*---------------------- 保留小数 end ---------------------*/
+
+/*---------------------- 加法运算 begin ---------------------*/
+root.methods.accAdd = function (num1, num2) {
+  return this.$globalFunc.accAdd(num1, num2)
+}
+/*---------------------- 加法运算 end ---------------------*/
+
+/*---------------------- 减法运算 begin ---------------------*/
+root.methods.accMinus = function (num1, num2) {
+  return this.$globalFunc.accMinus(num1, num2)
+}
+/*---------------------- 减法运算 end ---------------------*/
+
+/*---------------------- 乘法运算 begin ---------------------*/
+root.methods.accMul = function (num1, num2) {
+  return this.$globalFunc.accMul(num1, num2)
+}
+/*---------------------- 乘法运算 end ---------------------*/
+
+/*---------------------- 除法运算 begin ---------------------*/
+root.methods.accDiv = function (num1, num2) {
+  return this.$globalFunc.accDiv(num1, num2)
+}
+/*---------------------- 除法运算 end ---------------------*/
 
 
 export default root

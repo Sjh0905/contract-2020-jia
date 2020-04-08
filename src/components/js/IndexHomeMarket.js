@@ -390,7 +390,13 @@ root.methods.get_now_price = function (price, symbol) {
 
 // 24小时涨跌百分比 (现价 - 开盘价) / 开盘价
 root.methods.diff24Ratio = function (now_price, open_price) {
-  let diff = this.toFixed(this.accMul(this.accDiv(this.accMinus(now_price, open_price), open_price || 1), 100), 2)
+  // let diff = this.accMul(this.accDiv(this.accMinus(now_price, open_price), open_price || 1), 100).toFixed(2)
+  let diff = ((Number(now_price) - Number(open_price)) / Number(open_price)*100).toFixed(2);
+  if (open_price == 0) {
+    return 0
+  } else {
+    return diff;
+  }
   return diff
 }
 // 点击市场跳转

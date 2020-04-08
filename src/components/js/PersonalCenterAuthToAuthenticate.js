@@ -490,7 +490,7 @@ root.methods.testImg = function (file) {
     // alert("请传图片！");
     return this.$t('testImg_1')
   }
-  if (file.type.split('/')[1] !== 'jpg' && file.type.split('/')[1] !== 'jpeg') {
+  if (file.type.split('/')[1] !== 'jpg' && file.type.split('/')[1] !== 'jpeg' && file.type.split('/')[1] !== 'png') {
     return this.$t('imageMsg_0')
   }
   // console.warn("file type", file.type)

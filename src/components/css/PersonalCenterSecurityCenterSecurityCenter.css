@@ -440,6 +440,11 @@
   border-bottom: 1px solid #E7EBEE;
 }
 
+/*为了提高层级*/
+.allinfo11 .allinfo11-content #allinfo {
+  border-bottom: 1px solid #EFF0FF;
+}
+
 .allinfo11 .allinfo11_1:last-child {
   border:0;
 }

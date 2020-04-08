@@ -13,14 +13,18 @@
 .index_home_market_list_body {
   margin: 0 auto;
   width: 1200px;
-  min-height: 360px;
+  min-height: 460px;
   /*margin-top: 44px;*/
   border:1px solid #E0E1F4;
-  border-bottom:0;
+  /*border-bottom:0;*/
   padding:0 0 0;
   background-color: #FFFFFF;
 }
 
+.index_home_market_list_body11 {
+  border:1px solid #E0E1F4;
+  border-bottom:0;
+}
 
 .title {
   width: 100%;
@@ -223,6 +227,15 @@
 
 .currency {
   flex: 13.6;
+  font-family: Roboto-Medium;
+  font-size: 14px;
+  color: #172A4D;
+  text-align: left;
+  letter-spacing: 0;
+}
+
+.currency1 {
+  flex: 14.9;
   font-family: Roboto-Medium;
   font-size: 14px;
   color: #172A4D;
