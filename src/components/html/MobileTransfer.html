@@ -1,0 +1,96 @@
+<div class="MobileTransfer">
+<!--  <Loading/>-->
+  <div  class="asset-container" v-if="!showtransfer">
+    <div class="asset-header">
+      <div class="asset-header-title">
+        {{currentCurrency}}转账
+        <span class="backgo" @click="gotoDetail()">
+          <img src="../../assets/H5img/back.png">
+        </span>
+      </div>
+    </div>
+
+    <div class="asset-body">
+      <ul>
+        <li class="firstLi">
+          <div class="email" >
+            <div class="topbox"><span class="star">*</span>收款人邮箱</div>
+            <input type="text" class="email-placeholder" @blur="testEmail()" @focus="closePlaceholder()" placeholder="895554014@qq.com" v-model="emailInput">
+
+          </div>
+
+        </li>
+
+        <li class="tishi">
+          <span class="emailJiaoYan" v-if="userNameWA !=''">{{userNameWA}}</span>
+        </li>
+
+        <li>
+          <div class="uid">
+            <div class="topbox"><span class="star">*</span>收款人UID</div>
+            <input type="text" class="placeholder-full" @blur="testUID()" @focus="closePlaceholder()" placeholder="请输入收款人UID"  v-model="UIDInput">
+
+          </div>
+        </li>
+
+        <li class="tishi">
+          <span class="emailJiaoYan" v-if="UIDInputWA !=''">{{UIDInputWA}}</span>
+        </li>
+
+        <li>
+          <div class="amount">
+            <div class="amount-top flex">
+              <div class="topbox1"><span class="star">*</span>转账数量</div>
+              <div class="total">24小时内{{currentCurrency}}最大转账总额为{{dayMaxAmount}}</div>
+            </div>
+            <div class="amount-bottom">
+              <div>
+                <input type="text" class="placeholder-full" @blur="testAmount()" @focus="closePlaceholder()" placeholder="请输入转账数量" v-model="amountInput">
+              </div>
+              <div><span class="Fees">手续费 0.1TT</span></div>
+            </div>
+          </div>
+        </li>
+
+        <li class="tishi">
+          <span class="emailJiaoYan" v-if="amountInputWA !=''">{{amountInputWA}}</span>
+        </li>
+
+        <!--        <li>-->
+        <!--          <div class="VerificationCode">-->
+        <!--            <div class="topbox"><span class="star">*</span>邮箱验证码</div>-->
+        <!--            <div class="bottom">-->
+        <!--              <div><input type="text" class="placeholder-full" placeholder="请输入邮箱验证码"></div>-->
+        <!--              <div class="line">|</div>-->
+        <!--              <div class="Verification">获取验证码</div>-->
+        <!--            </div>-->
+        <!--          </div>-->
+        <!--        </li>-->
+
+        <!--        <li>-->
+        <!--          <div class="secondaryVerificationCode">-->
+        <!--            <div class="topbox"><span class="star">*</span>二次验证码</div>-->
+        <!--            <input type="text" class="placeholder-full" placeholder="请输入谷歌验证码">-->
+        <!--          </div>-->
+        <!--        </li>-->
+
+
+      </ul>
+      <div class="Attention">
+        <div class="attention-text">
+          注：转账前需要与对方联系获取对方的收款邮箱及UID，收款码可在个人中心中查看
+        </div>
+      </div>
+    </div>
+
+    <div class="asset-footer" @click="ConfirmTransfer()">
+      <button>确认转账</button>
+    </div>
+  </div>
+
+  <!--  确认转账-->
+  <MobileConfirm v-if="showtransfer" :emailInput=emailInput :UIDInput = UIDInput :amountInput=amountInput :userName="userName" :currentCurrency="currentCurrency"></MobileConfirm>
+  <!--提示框-->
+  <PopupPrompt :popOpen="popOpen" :popClose="popClose" :popType="popType" :popText="popText"/>
+
+</div>
