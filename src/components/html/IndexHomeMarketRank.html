@@ -70,8 +70,8 @@
         </div>
         <div class="market-turnover">
           <div class="market-rise-and-fall"
-               :class="{'market-rise-and-fall-green':item.percentage>=0,
-                      'market-rise-and-fall-red':item.percentage<0,
+               :class="{'market-rise-and-fall-green':diff24Ratio(item.close,item.open)>=0,
+                      'market-rise-and-fall-red':diff24Ratio(item.close,item.open)<0,
              }"
           >
             {{diff24Ratio(item.close,item.open)>=0?'+':''}}{{diff24Ratio(item.close,item.open)}}%
