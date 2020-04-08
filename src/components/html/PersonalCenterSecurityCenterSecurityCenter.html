@@ -185,7 +185,7 @@
       </div>
 
       <!--其他-->
-      <div class="allinfo11">
+      <div class="allinfo11 ">
         <!--      其他title-->
         <div class="titlenew">
           <span></span>
@@ -194,7 +194,8 @@
 
         <!--使用TT支付手续费 -->
         <div class="allinfo11-content">
-          <div class="allinfo11_1">
+<!--          使用id为了提高层级-->
+          <div id="allinfo" class="allinfo11_1">
             <div class="allinfo11_1tu">
               <img src="../../assets/personalCenter/person_center_pay_fee.png">
             </div>
@@ -218,19 +219,19 @@
         <!--邀请好友-->
         <div class="allinfo11-content">
         <div class="allinfo11_1">
-        <div class="allinfo11_1tu">
-          <img src="../../assets/securityCenter/Invitation-person-center.png">
-        </div>
-        <div class="allinfo11_1info">
-          <div class="allinfo11_1info_title">{{$t('inviteFriends')}}</div>
-          <div class="allinfo11_1info_dis">{{$t('inviteFriends_reward')}}</div>
-        </div>
-        <div class="allinfo11_update">
-          <div @click="goToInvitation" class="invitationBtn">
-            {{$t('immediateInvitation')}}
+          <div class="allinfo11_1tu">
+            <img src="../../assets/securityCenter/Invitation-person-center.png">
           </div>
-        </div>
-        </div>
+          <div class="allinfo11_1info">
+            <div class="allinfo11_1info_title">{{$t('inviteFriends')}}</div>
+            <div class="allinfo11_1info_dis">{{$t('inviteFriends_reward')}}</div>
+          </div>
+          <div class="allinfo11_update">
+            <div @click="goToInvitation" class="invitationBtn">
+              {{$t('immediateInvitation')}}
+            </div>
+          </div>
+          </div>
         </div>
       </div>
 
