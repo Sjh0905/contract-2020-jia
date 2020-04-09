@@ -318,7 +318,7 @@ root.methods.ConfirmTransfer = function () {
     params:{
       email:this.emailInput,
       userId:this.UIDInput,
-      username:this.name
+      username:this.username
     },
     callBack: this.re_ConfirmTransfer,
     errorHandler: this.error_ConfirmTransfer
@@ -335,6 +335,8 @@ root.methods.ConfirmTransfer = function () {
 // 确认转账的正确回调
 root.methods.re_ConfirmTransfer = function (data) {
   typeof data === 'string' && (data = JSON.parse(data))
+  if(!data)return
+  this.userName = data.dataMap.userProfile.name
   console.log('data', data)
   if (data.errorCode) {
     if (data.errorCode === 1) {
@@ -381,12 +383,12 @@ root.methods.re_ConfirmTransfer = function (data) {
     }
 
   }
-  if (data.errorCode === 0) {
+  if (data.errorCode == 0) {
     this.showtransfer = true
     // this.sendMailMsg = '已向您的邮箱发送验证码'
     return
   }
-  this.userName = data.dataMap.UserProfile.name
+
   // this.showtransfer = true
   console.log(this.userName)
 }

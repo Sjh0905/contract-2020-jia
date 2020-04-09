@@ -27,6 +27,26 @@ import {number} from "echarts/src/export";
 const root = {}
 root.name = 'MobileConfirm'
 
+root.props = {}
+
+root.props.emailInput = {
+  type: String,
+}
+
+root.props.UIDInput = {
+  type: String,
+}
+
+root.props.amountInput = {
+  type: String,
+}
+root.props.userName = {
+  type: String,
+}
+root.props.currentCurrency = {
+  type: String,
+}
+
 /*---------------------- 组件 -----------------------*/
 root.components = {
   'Loading': resolve => require(['../vue/Loading'], resolve),
@@ -108,26 +128,7 @@ root.created = function () {
     this.secondPicker = 2
     return;
   }
-}
-
-root.props = {}
-
-root.props.emailInput = {
-  type: String,
-}
-
-root.props.UIDInput = {
-  type: String,
-}
-
-root.props.amountInput = {
-  type: String,
-}
-root.props.userName = {
-  type: String,
-}
-root.props.currentCurrency = {
-  type: String,
+  console.info(this.userName)
 }
 
 
