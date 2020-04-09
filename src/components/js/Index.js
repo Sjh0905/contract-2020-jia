@@ -27,6 +27,7 @@ root.data = function () {
     isApp: false,
 
     isIOS: false,
+    isWhite:false,
 
     // 刷新频繁弹窗
     popWindowOpen:false,
@@ -321,6 +322,15 @@ root.methods.isIOSQuery = function () {
     this.isIOS = true
   } else {
     this.isIOS = false
+  }
+}
+
+// 判断是否是ios打开
+root.methods.isWhiteQuery = function () {
+  if (this.$route.query.isWhite) {
+    this.isWhite = true
+  } else {
+    this.isWhite = false
   }
 }
 

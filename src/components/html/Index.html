@@ -16,7 +16,7 @@
 
     <!--内容部分-->
     <div class="index-container min-width min-height"
-     :class="isApp||isIOS?'index-container-app':(isClose==true?'index-containeri':'index-container')">
+     :class="(isApp||isIOS) && isWhite?'index-container-app':(isClose==true?'index-containeri':'index-container')">
       <router-view></router-view>
     </div>
   </div>
