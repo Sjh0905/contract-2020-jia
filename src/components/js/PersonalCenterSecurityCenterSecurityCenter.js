@@ -680,7 +680,7 @@ root.methods.re_getCheck = function (data) {
   //检测data数据是JSON字符串转换JS字符串
   typeof data === 'string' && (data = JSON.parse(data))
   this.data = data.data
-  // this.expires = data.data.expires
+  this.expires = data.data.expires
   this.expires_timestamp = data.data.expires_timestamp
   this.flag = data.data.flag
   console.log('是否是会员get-----',this.data)

@@ -22,7 +22,7 @@
             <span class="VIP_span">{{$t('membership')}}</span>
           </div>
 <!--          到期-->
-          <div class="VIP_time">{{formatDateUitl(expires_timestamp)}}{{$t('expiration')}}</div>
+          <div class="VIP_time">{{formatDateUitl(expires)}}{{$t('expiration')}}</div>
         </div>
     </div>
 
@@ -292,7 +292,7 @@
       <div class="Internal_siding_email">
         <span>{{$t('members')}}</span>
       </div>
-      <div class="input_input back" type="text"><span class="timeex">{{formatDateUitl(expires_timestamp)}}</span></div>
+      <div class="input_input back" type="text"><span class="timeex">{{formatDateUitl(expires)}}</span></div>
       <div class="whit_0"></div>
 <!--手续费-->
       <div class="Internal_siding_email">
