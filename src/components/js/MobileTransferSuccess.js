@@ -50,9 +50,9 @@ root.methods ={}
 
 // 查看转账记录
 root.methods.TransferRecords = function(){
-  let routerParams = this.$route.params.data
-  console.log(routerParams)
-  this.$router.push({name:'MobileTransferRecords',params:{data:routerParams}})
+  // let routerParams = this.$route.params.data
+  // console.log(routerParams)
+  this.$router.push({name:'MobileAssetRechargeAndWithdrawRecord',query:{id:5}})
 }
 
 // 继续转账

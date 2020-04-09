@@ -34,11 +34,11 @@ root.components = {
 root.data = function () {
   return {
     // email输入框内容+提示语
-    emailInput:'yx.318@qq.cn',
+    emailInput:'2570167180@qq.com',
     userNameWA:'',
 
     // UID内容+提示语
-    UIDInput:'100003',
+    UIDInput:'100013',
     UIDInputWA:'',
 
     // 转账数量+提示语
