@@ -226,8 +226,18 @@ root.methods.re_postWithdraw = function (data) {
         // this.$router.push({path: '/index/newH5homePage'})
         this.$router.push({name: 'NewH5homePage'})
       }, 1000)
+      return;
     }
-    return;
+
+    if (this.isApp||this.isIOS) {
+      setTimeout(() => {
+        // this.$router.push({path: '/index/newH5homePage'})
+        this.$router.push({name: 'NewH5homePage'})
+      }, 1000)
+      return;
+    }
+
+
   }
 
   if (this.success == true && this.idType == 3) {
@@ -248,8 +258,15 @@ root.methods.re_postWithdraw = function (data) {
         this.$router.push({name: 'NewH5homePage'})
         // this.$router.push({path: '/index/newH5homePage'})
       }, 1000)
+      return;
     }
-    return;
+    if (this.isApp||this.isIOS) {
+      setTimeout(() => {
+        // this.$router.push({path: '/index/newH5homePage'})
+        this.$router.push({name: 'NewH5homePage'})
+      }, 1000)
+      return;
+    }
   }
   // this.loading = false
 }
