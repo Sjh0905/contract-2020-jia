@@ -21,6 +21,13 @@
   background-color: #ffffff;
   /*background-image: radial-gradient(farthest-side ellipse at 10% 0, rgba(169, 188, 204, 0.8), rgba(185, 201, 214, 0.79), rgba(217, 226, 233, 0.85)), url();*/
 }
+.page-black {
+  min-height: 100%;
+  padding-bottom: 110px;
+  box-sizing: border-box;
+  background-color: #131F30;
+  /*background-image: radial-gradient(farthest-side ellipse at 10% 0, rgba(169, 188, 204, 0.8), rgba(185, 201, 214, 0.79), rgba(217, 226, 233, 0.85)), url();*/
+}
 
 /*最小宽*/
 .min-width {
