@@ -221,15 +221,15 @@ root.methods.re_postWithdraw = function (data) {
       }, 1000)
       return;
     }
-    if (this.isMobile) {
+    if (this.isApp||this.isIOS) {
       setTimeout(() => {
-        // this.$router.push({path: '/index/newH5homePage'})
-        this.$router.push({name: 'NewH5homePage'})
+        window.postMessage(JSON.stringify({
+          method: 'toHomePage'
+        }))
       }, 1000)
       return;
     }
-
-    if (this.isApp||this.isIOS) {
+    if (this.isMobile) {
       setTimeout(() => {
         // this.$router.push({path: '/index/newH5homePage'})
         this.$router.push({name: 'NewH5homePage'})
@@ -253,17 +253,18 @@ root.methods.re_postWithdraw = function (data) {
       }, 1000)
       return;
     }
+    if (this.isApp||this.isIOS) {
+      setTimeout(() => {
+        window.postMessage(JSON.stringify({
+          method: 'toHomePage'
+        }))
+      }, 1000)
+      return;
+    }
     if (this.isMobile) {
       setTimeout(() => {
         this.$router.push({name: 'NewH5homePage'})
         // this.$router.push({path: '/index/newH5homePage'})
-      }, 1000)
-      return;
-    }
-    if (this.isApp||this.isIOS) {
-      setTimeout(() => {
-        // this.$router.push({path: '/index/newH5homePage'})
-        this.$router.push({name: 'NewH5homePage'})
       }, 1000)
       return;
     }
