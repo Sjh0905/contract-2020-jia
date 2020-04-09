@@ -34,7 +34,10 @@ root.data = function () {
     show: true,
     showload:true,
     show3:true,
-    kmdongx:true
+    kmdongx:true,
+
+    isApp:false,
+    isIOS:false
 
   }
 }
@@ -569,6 +572,23 @@ root.methods.closeLoad = function () {
   this.showload = !this.showload;
 }
 
+
+root.methods.isAppQuery = function (query) {
+  if(this.$route.query.isApp) {
+    this.isApp = true
+  } else {
+    this.isApp = false
+  }
+}
+
+// 判断是否是ios打开
+root.methods.isIOSQuery = function () {
+  if(this.$route.query.isIOS) {
+    this.isIOS = true
+  } else {
+    this.isIOS = false
+  }
+}
 
 export default root
 
