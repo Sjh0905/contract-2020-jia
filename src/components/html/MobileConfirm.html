@@ -90,52 +90,55 @@
     <!--选择什么方式验证-->
     <div v-if="secondShowPicker" class="mobile-input-checkbox-box">
       <!--<div class="mobile-input-checkbox-box">-->
-      <div class="mobile-input-checkbox-box-item" :class="secondPicker==1?'mobile-input-checkbox-box-item-selector mobile-input-checkbox-box-item':''" @click="changeSecondPicker(1)">谷歌验证码</div>
-      <div class="mobile-input-checkbox-box-item" :class="secondPicker==2?'mobile-input-checkbox-box-item-selector':''" @click="changeSecondPicker(2)">手机验证码</div>
-      <!--<div class="prompt-show-picker-detail-box">-->
-      <!--<input type="radio" name="picker" value="1" placeholder="请输入谷歌验证码" id="pick-ga" v-model="secondPicker">-->
-      <!--<label for="pick-ga">谷歌验证</label>-->
-      <!--</div>-->
-      <!--<div class="prompt-show-picker-detail-box">-->
-      <!--<input type="radio" name="picker" value="2" placeholder="请输入手机验证码" id="pick-mobile" v-model="secondPicker">-->
-      <!--<label for="pick-mobile">手机验证</label>-->
-      <!--</div>-->
+      <div v-if="bindMobile && bindGA">
+        <div class="mobile-input-checkbox-box-item" :class="secondPicker==1?'mobile-input-checkbox-box-item-selector':''" @click="changeSecondPicker(1)">谷歌验证码</div>
+        <div class="mobile-input-checkbox-box-item" :class="secondPicker==2?'mobile-input-checkbox-box-item-selector':''" @click="changeSecondPicker(2)">手机验证码</div>
+      </div>
+<!--      <div class="prompt-show-picker-detail-box">-->
+<!--        <input type="radio" name="picker" value="1" placeholder="请输入谷歌验证码" id="pick-ga" v-model="secondPicker">-->
+<!--        <label for="pick-ga">谷歌验证</label>-->
+<!--      </div>-->
+<!--      <div class="prompt-show-picker-detail-box">-->
+<!--        <input type="radio" name="picker" value="2" placeholder="请输入手机验证码" id="pick-mobile" v-model="secondPicker">-->
+<!--        <label for="pick-mobile">手机验证</label>-->
+<!--      </div>-->
     </div>
 
-    <!--<div v-if="!secondShowPicker" class="mobile-input-none-checkbox-box"></div>-->
+<!--    <div v-if="!secondShowPicker" class="mobile-input-none-checkbox-box">      </div>-->
 
-    <!--谷歌验证码-->
-    <div v-if="secondPicker==1" class="google-container-box"
-         :class="{'wrong-answer':googleCodeWA!=''}">
-      <!--<span class="google-input-title-icon-box">-->
-      <!--<img class="google-input-title-icon" src="../../assets/h5form/mobile_google.png" alt="">-->
-      <!--</span>-->
-      <input type="text" v-model="googleCode" placeholder="谷歌验证码" class="google-input-container" />
-      <div class="clear"></div>
-    </div>
-    <div v-if="secondPicker==1" class="clear"></div>
-    <div v-if="secondPicker==1" class="unit-input-interval txt-red">
-      <span v-if="googleCodeWA!=''">{{googleCodeWA}}</span>
+      <!--谷歌验证码-->
+      <div v-if="secondPicker==1" class="google-container-box"
+           :class="{'wrong-answer':googleCodeWA!=''}">
+        <!--<span class="google-input-title-icon-box">-->
+        <!--<img class="google-input-title-icon" src="../../assets/h5form/mobile_google.png" alt="">-->
+        <!--</span>-->
+        <input type="text" v-model="googleCode" placeholder="谷歌验证码" class="google-input-container" />
+        <div class="clear"></div>
+      </div>
+      <div v-if="secondPicker==1" class="clear"></div>
+      <div v-if="secondPicker==1" class="unit-input-interval txt-red">
+        <span v-if="googleCodeWA!=''">{{googleCodeWA}}</span>
+      </div>
+
+      <!--手机验证码-->
+      <div v-if="secondPicker==2" class="phone-container-box"
+           :class="{'':phoneCodeWA!=''}">
+        <!--<span class="phone-input-title-icon-box">-->
+        <!--<img class="phone-input-title-icon" src="../../assets/h5form/mobile_phone.png" alt="">-->
+        <!--</span>-->
+        <input type="text" v-model="phoneCode" placeholder="手机验证码"  class="phone-input-container" />
+        <div class="cutter-line">|</div>
+        <span v-if="!getMobileVerificationCode" class="phone-input-btn-on" @click="getMobileVerification">获取</span>
+        <span v-if="getMobileVerificationCode" class="phone-input-btn-on">{{getMobileVerificationCodeCountdown}}</span>
+        <div class="clear"></div>
+      </div>
+      <div v-if="secondPicker==2" class="clear"></div>
+      <div v-if="secondPicker==2" class="unit-input-interval txt-red">
+        <span v-if="phoneCodeWA!=''">{{phoneCodeWA}}</span>
+      </div>
+      <div class="all-submit-btn" @click="submitStepThree()">确定</div>
     </div>
 
-    <!--手机验证码-->
-    <div v-if="secondPicker==2" class="phone-container-box"
-         :class="{'wrong-answer':phoneCodeWA!=''}">
-      <!--<span class="phone-input-title-icon-box">-->
-      <!--<img class="phone-input-title-icon" src="../../assets/h5form/mobile_phone.png" alt="">-->
-      <!--</span>-->
-      <input type="text" v-model="phoneCode" placeholder="手机验证码"  class="phone-input-container" />
-      <div class="cutter-line">|</div>
-      <span v-if="!getMobileVerificationCode" class="phone-input-btn-on" @click="getMobileVerification">获取</span>
-      <span v-if="getMobileVerificationCode" class="phone-input-btn-on">{{getMobileVerificationCodeCountdown}}</span>
-      <div class="clear"></div>
-    </div>
-    <div v-if="secondPicker==2" class="clear"></div>
-    <div v-if="secondPicker==2" class="unit-input-interval txt-red">
-      <span v-if="phoneCodeWA!=''">{{phoneCodeWA}}</span>
-    </div>
-    <div class="all-submit-btn" @click="submitStepThree()">确定</div>
-  </div>
 
   <!--  <MobileTransferSuccess v-if="showSuccess" :showSuccess="showSuccess"></MobileTransferSuccess>-->
 

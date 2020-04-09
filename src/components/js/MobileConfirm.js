@@ -72,12 +72,16 @@ root.data = function () {
     // 获取邮箱验证码的倒计时
     getEmailVerificationCodeCountdown: 60,
 
+    getMobileVerificationCodeInterval: null, //获取手机验证码倒计时container
+    getMobileVerificationCodeCountdown: 60, //获取手机验证码倒计时
+    getMobileVerificationCode: false, //获取手机验证码倒计时
+
     // 二级验证通过
     mobileToastTwoFlag: false,
     // 二级验证页页面样式
     // 顶部选择框 选择了哪一项  1---谷歌验证   2---手机验证
-    secondPicker: 1,
-
+    secondPicker: 0,
+    step2Error: false, // 第二步验证出错
     // // 转账记录显示
     // transferShow: false,
     // showSuccess:false,
@@ -96,6 +100,14 @@ root.data = function () {
 
 root.created = function () {
   // this.submitSendMail()
+  if (this.bindGA) {
+    this.secondPicker = 1
+    return;
+  }
+  if (this.bindMobile) {
+    this.secondPicker = 2
+    return;
+  }
 }
 
 root.props = {}
@@ -132,6 +144,23 @@ root.computed = {}
 root.computed.serverT = function () {
   return this.$store.state.serverTime /1000
 }
+// 认证状态：目前只有computed的变量用这个转一层，避免在当前页面刷新后初始化报错
+root.computed.authState = function () {
+  return this.$store.state.authState || {}
+}
+// 是否绑定手机
+root.computed.bindMobile = function () {
+  return this.authState.sms
+}
+// 是否绑定手机
+root.computed.bindGA = function () {
+  return this.authState.ga
+}
+// 验证类型
+root.computed.secondShowPicker = function () {
+  return (this.authState.sms && this.authState.ga)
+}
+
 
 
 /*---------------------- 监听 ---------------------*/
@@ -298,9 +327,14 @@ root.methods.getMailVerificationCode = function () {
     params: {
       type: 'email',
       purpose: 'transfer',
-      withdrawTime: parseInt(this.serverT),
+      // withdrawTime: parseInt(this.serverT),
       currency: this.currentCurrency, // TODO: 父组件传过来的值
-      amount: parseFloat(Number(this.amountInput)),
+      amount: parseFloat(this.amountInput),
+
+      // transferTime: this.formatDateUitl(this.serverT),
+      num:'',
+      toEmail: this.emailInput,
+      toUserId: this.UIDInput
     },
     callBack: this.re_getEmailVerification,
     errorHandler: this.error_getEmailVerification,
@@ -314,7 +348,8 @@ root.methods.getMailVerificationCode = function () {
     if (this.getEmailVerificationCodeCountdown < 0) {
       this.getEmailVerificationCodeInterval && clearInterval(this.getEmailVerificationCodeInterval) //获取邮箱验证码倒计时container
       this.getEmailVerificationCodeCountdown = 60
-      this.getTransferMailCode = false
+      // this.getTransferMailCode = false
+      this.getMailCode = false
     }
   }, 1000)
 }
@@ -361,20 +396,13 @@ root.methods.closeMailWrong = function () {
   this.mailCodeWA = ''
 }
 
-// 是否绑定手机
-root.computed.bindMobile = function () {
-  return this.$store.state.authState.sms
-}
+
 
 /*---------------------- 如果有两个验证，选择验证 ---------------------*/
 root.methods.changeSecondPicker = function (num) {
   this.secondPicker = num
 }
 
-// 验证类型
-root.computed.secondShowPicker = function () {
-  return (this.$store.state.authState.sms && this.$store.state.authState.ga)
-}
 
 /*---------------------- 提交邮箱验证码 ---------------------*/
 // 邮箱验证码页点击提交
@@ -489,7 +517,7 @@ root.methods.submitStepThree = function () {
     bind: this,
     params: {
       examinee:'',
-      areaCode:'0086',
+      // areaCode:'0086',
       type: this.secondPicker == 1 ? 'ga' : 'mobile',
       purpose: 'transfer',
       code: this.secondPicker == 1 ? this.googleCode : this.phoneCode,
@@ -498,6 +526,7 @@ root.methods.submitStepThree = function () {
       toUserId:this.UIDInput,
       amount: parseFloat(this.amountInput),
       fee:0,
+
     },
     callBack: this.re_commitStep2Verification,
     errorHandler: this.error_commitStep2Verification
@@ -507,67 +536,81 @@ root.methods.submitStepThree = function () {
 root.methods.re_commitStep2Verification = function (data) {
 
   typeof data === 'string' && (data = JSON.parse(data))
+  console.log('dataguge=====',data)
   this.submitStepThreeFlag = true
 
   this.googleCodeWA = ''
   this.phoneCodeWA = ''
 
-  let resDataMap = data.dataMap;
-
-  if (data.errorCode) {
-    if (this.secondPicker == 1) {
-      data.errorCode === 1 && (this.googleCodeWA = '用户未登录')
-      data.errorCode === 2 && (this.googleCodeWA = '验证超时，请刷新重试')
-      data.errorCode === 3 && (this.googleCodeWA = '用户认证数据异常，详情请提交工单')
-      data.errorCode === 4 && (this.googleCodeWA = '验证码错误/过期')
-      data.errorCode === 5 && (this.googleCodeWA = '提现地址不可超过10个，请删除历史提现地址后重试')
-      data.errorCode === 6 && (this.googleCodeWA = '提现地址错误')
-      data.errorCode === 7 && (this.googleCodeWA = '资金冻结失败')
-      data.errorCode === 8 && (this.googleCodeWA = '不支持的币种类型')
-      data.errorCode === 9 && (this.googleCodeWA = '缺少此币种提币规则')
-      data.errorCode === 10 && (this.googleCodeWA = '小于最小提币数量')
-    }
-    if (this.secondPicker == 2) {
-      data.errorCode === 1 && (this.phoneCodeWA = '用户未登录')
-      data.errorCode === 2 && (this.phoneCodeWA = '验证超时，请刷新重试')
-      data.errorCode === 3 && (this.phoneCodeWA = '用户认证数据异常，详情请提交工单')
-      data.errorCode === 4 && (this.phoneCodeWA = '验证码错误/过期')
-      data.errorCode === 5 && (this.phoneCodeWA = '提现地址不可超过10个，请删除历史提现地址后重试')
-      data.errorCode === 6 && (this.phoneCodeWA = '提现地址错误')
-      data.errorCode === 7 && (this.phoneCodeWA = '资金冻结失败')
-      data.errorCode === 8 && (this.phoneCodeWA = '不支持的币种类型')
-      data.errorCode === 9 && (this.phoneCodeWA = '缺少此币种提币规则')
-      data.errorCode === 10 && (this.phoneCodeWA = '小于最小提币数量')
-    }
-    //   if (this.secondPicker == 2 && data.errorCode === 4 && resDataMap.times) {
-    //     this.SHOW_TIPS_FREQUENCY((resDataMap.times - resDataMap.wrong), resDataMap.times, (resDataMap.lock / 60));
-    //     setTimeout(() => {
-    //       this.popType = 0;
-    //       this.popOpen = true;
-    //     }, 200);
-    //     return
-    //   }
-    //
-    //   if (data.errorCode == '100' && resDataMap.lock) {
-    //     this.SHOW_TIPS(resDataMap.lock / 60);
-    //     setTimeout(() => {
-    //       this.popType = 0;
-    //       this.popOpen = true;
-    //     }, 200);
-    //     return
-    //   }
-    //   return
-  }
-  this.popType = 0
-  this.popText = this.$t('申请成功')
   this.popOpen = true
-  let params = data.dataMap.userTransferRecord
-  console.log(params)
-  setTimeout(() => {
-    this.$router.push({name:'MobileTransferSuccess',params:{data:params}})
-  }, 1000)
 
-  console.log('this.data is ==================' ,data)
+  if (data.errorCode == 0) {
+    this.popType = 1
+    this.popText = this.$t('申请成功')
+    // let params = data.dataMap.userTransferRecord
+    // console.log(params)
+    // setTimeout(() => {
+    //   this.$router.push({name:'MobileTransferSuccess',params:{data:params}})
+    //   this.$router.push({name:'MobileTransferSuccess'})
+    // }, 1000)
+    setTimeout(() => {
+      this.$router.push({name: 'MobileTransferSuccess'})
+    }, 1000)
+  }
+
+
+  // let resDataMap = data.dataMap;
+
+  // if (data.errorCode) {
+  //   // 1
+  //   if (this.secondPicker == 1) {
+  //     data.errorCode === 1 && (this.googleCodeWA = '用户未登录')
+  //     data.errorCode === 2 && (this.googleCodeWA = '验证超时，请刷新重试')
+  //     data.errorCode === 3 && (this.googleCodeWA = '用户认证数据异常，详情请提交工单')
+  //     data.errorCode === 4 && (this.googleCodeWA = '验证码错误/过期')
+  //     data.errorCode === 5 && (this.googleCodeWA = '提现地址不可超过10个，请删除历史提现地址后重试')
+  //     data.errorCode === 6 && (this.googleCodeWA = '提现地址错误')
+  //     data.errorCode === 7 && (this.googleCodeWA = '资金冻结失败')
+  //     data.errorCode === 8 && (this.googleCodeWA = '不支持的币种类型')
+  //     data.errorCode === 9 && (this.googleCodeWA = '缺少此币种提币规则')
+  //     data.errorCode === 10 && (this.googleCodeWA = '小于最小提币数量')
+  //   }
+  //   if (this.secondPicker == 2) {
+  //     data.errorCode === 1 && (this.phoneCodeWA = '用户未登录')
+  //     data.errorCode === 2 && (this.phoneCodeWA = '验证超时，请刷新重试')
+  //     data.errorCode === 3 && (this.phoneCodeWA = '用户认证数据异常，详情请提交工单')
+  //     data.errorCode === 4 && (this.phoneCodeWA = '验证码错误/过期')
+  //     data.errorCode === 5 && (this.phoneCodeWA = '提现地址不可超过10个，请删除历史提现地址后重试')
+  //     data.errorCode === 6 && (this.phoneCodeWA = '提现地址错误')
+  //     data.errorCode === 7 && (this.phoneCodeWA = '资金冻结失败')
+  //     data.errorCode === 8 && (this.phoneCodeWA = '不支持的币种类型')
+  //     data.errorCode === 9 && (this.phoneCodeWA = '缺少此币种提币规则')
+  //     data.errorCode === 10 && (this.phoneCodeWA = '小于最小提币数量')
+  //   }
+  //   //   if (this.secondPicker == 2 && data.errorCode === 4 && resDataMap.times) {
+  //   //     this.SHOW_TIPS_FREQUENCY((resDataMap.times - resDataMap.wrong), resDataMap.times, (resDataMap.lock / 60));
+  //   //     setTimeout(() => {
+  //   //       this.popType = 0;
+  //   //       this.popOpen = true;
+  //   //     }, 200);
+  //   //     return
+  //   //   }
+  //   //
+  //   //   if (data.errorCode == '100' && resDataMap.lock) {
+  //   //     this.SHOW_TIPS(resDataMap.lock / 60);
+  //   //     setTimeout(() => {
+  //   //       this.popType = 0;
+  //   //       this.popOpen = true;
+  //   //     }, 200);
+  //   //     return
+  //   //   }
+  //   //   return
+  // }
+
+
+
+
+  // console.log('this.data is ==================' ,data)
   // this.transferId = data.dataMap.userTransferRecord.transferId
   // this.name = data.dataMap.userTransferRecord.name
   // this.fromEmail = data.dataMap.userTransferRecord.fromEmail
@@ -580,13 +623,13 @@ root.methods.re_commitStep2Verification = function (data) {
 //提交谷歌或手机验证码失败
 root.methods.error_commitStep2Verification = function (err) {
   // console.warn('提交谷歌或手机验证码失败', err)
-  this.popWindowLoading = false
-  this.step2VerificationSending = false
-  this.submitStepThreeFlag = true
-
-  this.popText = '系统繁忙'
-  this.popType = 0
-  this.popOpen = true
+  // this.popWindowLoading = false
+  // this.step2VerificationSending = false
+  // this.submitStepThreeFlag = true
+  //
+  // this.popText = '系统繁忙'
+  // this.popType = 0
+  // this.popOpen = true
 }
 
 
@@ -600,15 +643,16 @@ root.methods.getMobileVerification = function () {
     bind: this,
     params: {
       examinee:'',
-      areaCode:'0086',
-      type: this.secondPicker == 1 ? 'ga' : 'mobile',
+      // areaCode:'0086',
+      type: 'mobile',
+      num:'',
       purpose: 'transfer',
       code: this.secondPicker == 1 ? this.googleCode : this.phoneCode,
       currency: this.currentCurrency,//TODO：这里的币种要切换
       toEmail:this.emailInput,
       toUserId:this.UIDInput,
       amount: parseFloat(this.amountInput),
-      fee:0,
+      // fee:0,
     },
     callBack: this.re_getMobileVerification,
     errorHandler: this.error_getMobileVerification,
@@ -641,6 +685,37 @@ root.methods.re_getMobileVerification = function (data) {
     this.getMobileVerificationCodeCountdown = 60
   }
 }
+
+
+// 进行验证第二步，手机、谷歌
+root.methods.beginVerificationStep2 = function () {
+  if (this.secondPicker == 0) {
+    this.popText = this.$t('尚未进行认证')
+    this.popType = 0
+    this.popOpen = true
+    this.sending = false
+    return
+  }
+  // this.secondShowPicker = true
+  // this.step2Error = false
+  if (!this.secondShowPicker && this.secondPicker == 2) {
+    this.getMobileVerification()
+  }
+
+  // if (this.picker == 0) {
+  //   this.popText = this.$t('popText_3')
+  //   this.popType = 0
+  //   this.popOpen = true
+  //   this.sending = false
+  //   return
+  // }
+  // this.popWindowStep = 2
+  // this.step2Error = false
+  // if (!this.showPicker && this.picker == 2) {
+  //   this.getMobileVerification()
+  // }
+}
+
 // 获取手机验证码出错
 root.methods.error_getMobileVerification = function (err) {
   // console.warn('获取手机验证码出错！')
