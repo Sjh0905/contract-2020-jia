@@ -214,7 +214,7 @@
 <!--        <div class="exchange_button1" v-if="getVerificationCode">报名中</div>-->
 <!--        <div class="exchange_button1" v-if="computedRecord.length !== 0">已报名</div>-->
         <div class="exchange_button1" v-if="fstatus == '未审核'">待审核</div>
-        <div class="exchange_button1" v-if="fstatus == '已报名'">已报名</div>
+        <div class="exchange_button1" v-if="fstatus == '已报名'">已通过审核</div>
         <div class="exchange_button1" v-if="fstatus == '禁用'">禁用</div>
         <div class="exchange_button" @click="postActivities" v-if="fstatus == '驳回'">兑换</div>
 
@@ -259,7 +259,7 @@
             <div class="mobileApplication_header_div_right color_a2">{{formatDateUitl(item.updatedAt)}}</div>
             <div class="mobileApplication_header_div_right color_a2bo" v-if="item.fstatus == '驳回'">被{{item.fstatus}}</div>
             <div class="mobileApplication_header_div_right color_a2dai" v-if="item.fstatus == '未审核'">待审核</div>
-            <div class="mobileApplication_header_div_right color_a2yi" v-if="item.fstatus == '已报名'">{{item.fstatus}}</div>
+            <div class="mobileApplication_header_div_right color_a2yi" v-if="item.fstatus == '已报名'">已通过审核</div>
             <div class="mobileApplication_header_div_right color_a2jin" v-if="item.fstatus == '禁用'">{{item.fstatus}}</div>
           </li>
           <div class="color_a2bo bohui" v-for="(item,index) in computedRecord" v-if="item.remark!=''">驳回原因：{{item.remark}}</div>
