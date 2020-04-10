@@ -36,12 +36,12 @@
   font-size: 0.32rem;
 }
 
-.asset-body-center img {
-  width: 3.4rem;
+.asset-body-center-img {
+  width: 3rem;
 }
 
 .asset-body-center p {
-  color:#038c71;
+  color:#FFFFFF;
 }
 
 .asset-footer {
@@ -65,7 +65,7 @@
   height:44px;
   background: #131F30;
   border-radius:2px;
-  border:1px solid #C43E4E;
+  border:1px solid #3576F5;
   color:rgba(255,255,255,1);
   box-sizing: border-box;
 }
@@ -75,7 +75,7 @@
   border:0;
   width: 48%;
   height:44px;
-  background: #C43E4E;
+  background:linear-gradient(270deg,rgba(53,118,245,1) 0%,rgba(69,154,245,1) 100%);
   border-radius:2px;
   color:rgba(255,255,255,1);
 }

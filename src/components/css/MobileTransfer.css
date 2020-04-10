@@ -16,14 +16,14 @@
 
 .asset-header-title {
   text-align: center;
-  font-size:16px;
+  font-size:0.32rem;
   font-family:Roboto-Bold,Roboto;
   font-weight:bold;
   color:rgba(207,211,233,1);
   height: 0.88rem;
   line-height: 0.88rem;
   padding: 0 0.2rem 0 0.2rem;
-  border-bottom: 1px solid #223349;
+  border-bottom: 0.02px solid #223349;
   /*margin-bottom: 0.56rem;*/
 }
 
@@ -65,8 +65,8 @@
 }
 
 .backgo img{
-  width: 16px;
-  margin-left: 15px;
+  width: 0.32rem;
+  margin-left: 0.3rem;
 }
 
 .asset-body {
@@ -76,21 +76,21 @@
 }
 
 .asset-body li  {
-  height: 66px;
+  height: 1.32rem;
   display: flex;
   align-items: center;
   color:#CFD3E9;
-  font-size: 12px;
+  font-size: 0.24rem;
   /*border-bottom: 1px solid #223349;*/
 }
 
 .asset-body .firstLi {
-  margin-top: 20px;
-  height: 66px;
+  margin-top: 0.4rem;
+  height: 1.32rem;
   display: flex;
   align-items: center;
   color:#CFD3E9;
-  font-size: 12px;
+  font-size: 0.24rem;
 }
 /*.asset-body li:first-child  {*/
 /*  height: 86px;*/
@@ -103,7 +103,7 @@
 
 .asset-body .tishi {
   height: 0.4rem;
-  border-top: 1px solid #223349;
+  border-top: 0.02rem solid #223349;
 }
 
 .asset-body .tishi span {
@@ -111,31 +111,31 @@
 }
 
 .asset-body .topbox {
-  margin: 6px 0 14px 0;
+  margin: 0.12rem 0 0.28rem 0;
 }
 
 
 
 .emailJiaoYan {
   width: 100%;
-  height: 20px;
-  line-height: 20px;
+  height: 0.4rem;
+  line-height: 0.4rem;
   /*text-align: left;*/
-  font-size: 12px;
+  font-size: 0.24rem;
   color: #C43E4E;
 }
 
 .wrong-answer {
-  border: 1px solid #223349;
+  border: 0.02rem solid #223349;
 }
 
 .asset-body .star {
-  font-size: 12px;
+  font-size: 0.24rem;
   color: #C43E4E;
 }
 
 .asset-body li {
-  padding-bottom:5px;
+  padding-bottom:0.1rem;
   box-sizing: border-box;
 }
 
@@ -151,7 +151,7 @@
   color: #CFD3E9; /*输入文字、光标颜色*/
   /*-webkit-text-fill-color: #CFD3E9;!*输入文字、placeholder颜色*!*/
   /*caret-color: #CFD3E9;!*光标颜色*!*/
-  font-size: 14px;
+  font-size: 0.28rem;
   font-family:Roboto-Regular,Roboto;
   font-weight:400;
 }
@@ -181,7 +181,7 @@
   /*color: #CFD3E9;!*输入文字、光标颜色*!*/
   /*-webkit-text-fill-color: #3E536C;!*输入文字、placeholder颜色*!*/
   /*caret-color: #CFD3E9;!*光标颜色*!*/
-  font-size: 14px;
+  font-size: 0.28rem;
   font-family:Roboto-Regular,Roboto;
   font-weight:400;
 }
@@ -192,7 +192,7 @@
 
 .amount-top {
   width: 100%;
-  margin: 6px 0 14px 0;
+  margin: 0.12rem 0 0.28rem 0;
   display: flex;
   justify-content: space-between;
 }
@@ -212,7 +212,7 @@
 }
 
 .total {
-  font-size:12px;
+  font-size:0.24rem;
   font-family:PingFangSC-Regular,PingFang SC;
   font-weight:400;
   color:rgba(62,83,108,1);
@@ -220,7 +220,7 @@
 }
 
 .Fees {
-  font-size:12px;
+  font-size:0.24rem;
   font-family:PingFangSC-Regular,PingFang SC;
   font-weight:400;
   color:rgba(62,83,108,1);
@@ -232,7 +232,7 @@
   height: 0.28rem;
   /*border-left:1px solid #3E536C;*/
   text-align: right;
-  font-size: 12px;
+  font-size: 0.24rem;
   color:#C43E4E;
   /*background-color: #fff;*/
   /*margin-left: 0.4rem;*/
@@ -244,18 +244,18 @@
 
 .Attention {
   width: 100%;
-  height: 116px;
-  padding-top:20px;
-  margin-bottom: 64px;
+  height: 2.32rem;
+  padding-top:0.4rem;
+  margin-bottom: 1.28rem;
   /*background-color: #131F30;*/
 }
 
 .attention-text {
-  height: 62px;
+  height: 1.24rem;
   background: #081724;
-  text-align: center;
+  text-align: left;
   color: #6D87A8;
-  padding:14px 26px;
+  padding:0.28rem 0.52rem;
   box-sizing: border-box;
 }
 
@@ -266,7 +266,6 @@
   padding: 0 0.2rem 0 0.2rem;
   font-size: 0.32rem;
   position: fixed;
-  background-color: #131F30;
   bottom: 0;
   display: flex;
   align-items: center;
@@ -277,9 +276,9 @@
   outline: 0;
   border:0;
   width: 100%;
-  height:44px;
-  background:#3E536C;
-  border-radius:2px;
+  height:0.88rem;
+  background:linear-gradient(270deg,rgba(53,118,245,1) 0%,rgba(69,154,245,1) 100%);
+  border-radius:0.04rem;
   color:rgba(255,255,255,1);
 }
 

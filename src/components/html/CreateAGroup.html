@@ -147,7 +147,11 @@
       <!--顶部标题-->
       <div class="lock-position-confirm-toast-title">提示</div>
       <div class="lock-position-confirm-toast-list">
-        <div class="lock-position-confirm-toast-item">
+        <div class="lock-position-confirm-toast-item" v-if="(isApp||isIOS)">
+          <!--该操作需要身份认证，请立刻前往app端个人中心完成-->
+          该操作需要身份认证，请立刻前往个人中心完成
+        </div>
+        <div class="lock-position-confirm-toast-item" v-if="!isApp&&!isIOS">
           <!--该操作需要身份认证，请立刻前往app端个人中心完成-->
           该操作需要身份认证，请立刻前往PC端个人中心完成
         </div>

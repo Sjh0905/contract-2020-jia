@@ -1514,7 +1514,7 @@ root.methods.re_commitStep2Verification = function (data) {
     }
     if (data.errorCode === 12) {
       this.buyConfirmSuccess = false
-      this.popText = this.$t('iKnowthe20')
+      this.popText = this.$t('iKnowthe20')//手续费TT不足0.1
       this.popType = 0
       this.popOpen = true
     }
@@ -1702,31 +1702,31 @@ root.methods.re_commitEmailVerification = function (data) {
   if (data.errorCode) {
     if (data.errorCode === 1) {
       this.emailVerificationSending = false
-      this.step2VerificationCodeWA = this.$t('iKnowthe2')
+      this.step2VerificationCodeWA = this.$t('iKnowthe2') //用户未登录
       // this.popType = 0
       // this.popOpen = true
     }
     if (data.errorCode === 2) {
       this.emailVerificationSending = false
-      this.step2VerificationCodeWA = this.$t('iKnowthe3')
+      this.step2VerificationCodeWA = this.$t('iKnowthe3') //验证已过期
       // this.popType = 0
       // this.popOpen = true
     }
     if (data.errorCode === 3) {
       this.emailVerificationSending = false
-      this.step2VerificationCodeWA = this.$t('iKnowthe4')
+      this.step2VerificationCodeWA = this.$t('iKnowthe4') //验证码错误
       // this.popType = 0
       // this.popOpen = true
     }
     if (data.errorCode === 4) {
       this.emailVerificationSending = false
-      this.step2VerificationCodeWA = this.$t('iKnowthe5')
+      this.step2VerificationCodeWA = this.$t('iKnowthe5') //系统异常
       // this.popType = 0
       // this.popOpen = true
     }
     if (data.errorCode === 7) {
       this.emailVerificationSending = false
-      this.step2VerificationCodeWA = this.$t('iKnowthe5Q')
+      this.step2VerificationCodeWA = this.$t('iKnowthe5Q') //收款人未实名认证
       // this.popType = 0
       // this.popOpen = true
     }
@@ -1799,12 +1799,12 @@ root.methods.re_getEmailVerification = function (data) {
   typeof data === 'string' && (data = JSON.parse(data))
   // console.log('获取邮箱验证码==============',data)
   if (data.errorCode) {
-    data.errorCode === 5 && (this.emailVerificationCodeWA = this.$t('emailVerificationCodeWA_5'))
-    data.errorCode === 1 && (this.emailVerificationCodeWA = this.$t('emailVerificationCodeWA_1'))
-    data.errorCode === 2 && (this.emailVerificationCodeWA = this.$t('emailVerificationCodeWA_2'))
-    data.errorCode === 3 && (this.emailVerificationCodeWA = this.$t('emailVerificationCodeWA_3'))
-    data.errorCode === 6 && (this.emailVerificationCodeWA = this.$t('step2VerificationCodeWA_10'))
-    data.errorCode === 0 && (this.emailVerificationCodeWA = this.$t('emailVerificationCodeWA_0'))
+    data.errorCode === 5 && (this.emailVerificationCodeWA = this.$t('emailVerificationCodeWA_5')) //验证码为空
+    data.errorCode === 1 && (this.emailVerificationCodeWA = this.$t('emailVerificationCodeWA_1')) //用户未登录
+    data.errorCode === 2 && (this.emailVerificationCodeWA = this.$t('emailVerificationCodeWA_2')) //已发送
+    data.errorCode === 3 && (this.emailVerificationCodeWA = this.$t('emailVerificationCodeWA_3')) //邮件发送异常
+    data.errorCode === 6 && (this.emailVerificationCodeWA = this.$t('step2VerificationCodeWA_10')) //收款账户不存在
+    data.errorCode === 0 && (this.emailVerificationCodeWA = this.$t('emailVerificationCodeWA_0')) //成功
 
     this.getEmailVerificationCodeInterval && clearInterval(this.getEmailVerificationCodeInterval) //获取邮箱验证码倒计时container
     this.getEmailVerificationCodeCountdown = 60
