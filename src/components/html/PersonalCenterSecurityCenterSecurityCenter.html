@@ -110,7 +110,7 @@
               </div>
             </div>
           </div>
-
+          <!--邮箱验证-->
           <div class="allinfo11_1"  v-if="isUserType === 0">
             <div class="allinfo11_1tu"> <img src="../../assets/securityCenter/reset-email_icon@2x.png"></div>
             <div class="allinfo11_1info">
@@ -122,11 +122,13 @@
                 {{$t('gaCode_button_1')}}
               </div>
               <div v-if="bindEmail" @click="click_release_email">
-                {{$t('mobile_button_2')}}
+                <span class="show-bind-info">{{userEmail}}</span>
+                <span @click="click_release_email">{{$t('mobile_button_2')}}</span>
+<!--                {{$t('mobile_button_2')}}-->
               </div>
             </div>
           </div>
-
+          <!--手机验证-->
           <div class="allinfo11_1"  v-if="isUserType === 1">
             <div class="allinfo11_1tu"> <img src="../../assets/securityCenter/reset-iphone_icon@2x.png"></div>
             <div class="allinfo11_1info">
@@ -137,12 +139,13 @@
               <div v-if="!bindPhone" @click="click_bind_mobile" id="binds1">
                 {{$t('gaCode_button_1')}}
               </div>
-              <div v-if="bindPhone" @click="click_release_mobile">
-                {{$t('mobile_button_2')}}
+              <div v-if="bindPhone" >
+                <span id="show-bind-info">{{userMobile}}</span>
+                <span @click="click_release_mobile">{{$t('mobile_button_2')}}</span>
               </div>
             </div>
           </div>
-
+          <!--谷歌验证-->
           <div class="allinfo11_1">
             <div class="allinfo11_1tu"> <img src="../../assets/securityCenter/gugo_icon@2x.png"></div>
             <div class="allinfo11_1info">

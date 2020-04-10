@@ -69,7 +69,7 @@
       <!--</div>-->
     <!--</div>-->
 
-    <div class="asset-container"  v-for="(item,index) in accountsComputed" v-if="serverT >= item.displayTime && (!agreement || (agreement && item.total != 0))" :key="index" @click="jumpToDetail(item.currency)">
+    <div class="asset-container"  v-for="(item,index) in accountsComputed" v-if="serverT >= item.displayTime && (!agreement || (agreement && item.total != 0)) && !item.isUSDT2" :key="index" @click="jumpToDetail(item.currency)">
       <div class="asset-info-title">
       <div class="asset-container-item clearfix">
         <div class="asset-container-item-title">

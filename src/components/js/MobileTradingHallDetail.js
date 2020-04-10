@@ -10,7 +10,7 @@ root.data = function () {
   return {
 
     // 是否可用BDB抵扣
-    BDBInfo: false,
+    BDBInfo: true,
     BDBReady: false,
 
     openType: this.$store.state.buy_or_sale_type || 1,

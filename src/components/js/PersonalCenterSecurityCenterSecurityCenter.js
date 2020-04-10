@@ -72,7 +72,7 @@ root.data = function () {
     flag: false,
 
     // 平台币抵扣
-    BDBInfo: false,
+    BDBInfo: true,
     BDBReady: false,
     BDBChanging: false,
 
@@ -150,6 +150,18 @@ root.computed.userName = function () {
   if (!this.$store.state.authMessage.email) {
     return '****@****'
   }
+  return this.$globalFunc.formatUserName(this.$store.state.authMessage.email)
+}
+
+// 手机号
+root.computed.userMobile = function () {
+  if (!this.bindPhone) return
+  return this.$globalFunc.formatUserName(this.$store.state.authMessage.mobile)
+}
+
+// 邮箱
+root.computed.userEmail = function () {
+  if (!this.bindEmail) return
   return this.$globalFunc.formatUserName(this.$store.state.authMessage.email)
 }
 

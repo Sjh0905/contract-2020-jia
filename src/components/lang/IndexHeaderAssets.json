@@ -12,7 +12,7 @@
     "uncertified": "未认证",
     "beDismissed": "被驳回",
     "toBeAudited": "待审核",
-    "passed": "已通过"
+    "passed": "已认证"
   },
   "EN": {
     "total": "Estimated Total",
@@ -56,7 +56,8 @@
     "authentication": "身份認證",
     "safetyCente": "安全中心",
     "securityLog": "安全日誌",
-    "mynvitation": "我的邀請"
+    "mynvitation": "我的邀請",
+    "passed": "已認證"
   },
   "JP": {  "total": "総資産",  "available": "利用可能",  "frozen": "凍結",  "userName": "利用者名:",  "loginOff": "ログアウト登録",  "authentication": "身分認証",  "safetyCente": "安全センター",  "securityLog": "セキュリティログ",  "mynvitation": "私の招待"}
 }

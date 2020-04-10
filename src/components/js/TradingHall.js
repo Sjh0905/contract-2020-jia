@@ -63,7 +63,7 @@ root.data = function () {
     trade_loading: true,
 
     // 是否开启BDB燃烧
-    BDBInfo: false,
+    BDBInfo: true,
     BDBChanging: false,
     isNow: 0,
 
