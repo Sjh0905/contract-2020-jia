@@ -72,7 +72,7 @@ root.data = function () {
     flag: false,
 
     // 平台币抵扣
-    BDBInfo: false,
+    BDBInfo: true,
     BDBReady: false,
     BDBChanging: false,
 
