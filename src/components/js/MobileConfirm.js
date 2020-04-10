@@ -82,6 +82,8 @@ root.data = function () {
     googleCodeWA:'',
     submitStepThreeFlag : false,
 
+    phoneCode:'',
+    phoneCodeWA:'',
     // 谷歌验证码或者手机验证码
     secondCode:'',
 
@@ -177,7 +179,7 @@ root.methods = {}
 // 点击提交，先检查所有信息
 root.methods.checkStepThree = function () {
   if (this.secondPicker == 1) {
-    if (this.googleCode === '' || this.googleCode.length != 6) {
+    if (this.googleCode == '' || this.googleCode.length != 6) {
       this.googleCodeWA = '请输入正确的谷歌验证码'
       return false
     }
@@ -186,7 +188,7 @@ root.methods.checkStepThree = function () {
     return true
   }
   if (this.secondPicker == 2) {
-    if (this.phoneCode === '' || this.phoneCode.length != 6) {
+    if (this.phoneCode == '' || this.phoneCode.length != 6) {
       this.phoneCodeWA = '请输入正确的手机验证码'
       return false
     }
@@ -360,22 +362,22 @@ root.methods.re_getEmailVerification = function (data) {
   typeof data === 'string' && (data = JSON.parse(data))
   console.log('data', data)
   if (data.errorCode) {
-    if (data.errorCode === 1) {
+    if (data.errorCode == 1) {
       this.mailCodeWA = '用户未登录'
     }
-    if (data.errorCode === 2) {
+    if (data.errorCode == 2) {
       this.mailCodeWA = '获取验证码过于频繁'
     }
-    if (data.errorCode === 3) {
+    if (data.errorCode == 3) {
       this.mailCodeWA = '发送邮件异常'
     }
-    if (data.errorCode === 5) {
+    if (data.errorCode == 5) {
       this.mailCodeWA = '用户因修改密码未满24小时不能转账'
     }
-    // if (data.errorCode === 5) {
-    //   this.mailCodeWA = '修改登录密码未超过24h'
-    // }
-    if (data.errorCode===0) {
+    if (data.errorCode == 6) {
+      this.mailCodeWA = '收款账户不存在'
+    }
+    if (data.errorCode==0) {
       this.sendMailMsg = '已向您的邮箱发送验证码'
     }
 
@@ -448,10 +450,11 @@ root.methods.re_commitEmailVerification = function (data) {
   // let resDataMap = data.dataMap;
 
   if (data.errorCode) {
-    data.errorCode === 1 && (this.mailCodeWA = '用户未登录')
-    data.errorCode === 2 && (this.mailCodeWA = '验证码已过期')
-    data.errorCode === 3 && (this.mailCodeWA = '验证码错误')
-    data.errorCode === 4 && (this.mailCodeWA = '系统异常')
+    data.errorCode == 1 && (this.mailCodeWA = '用户未登录')
+    data.errorCode == 2 && (this.mailCodeWA = '验证码已过期')
+    data.errorCode == 3 && (this.mailCodeWA = '验证码错误')
+    data.errorCode == 4 && (this.mailCodeWA = '系统异常')
+    data.errorCode == 7 && (this.mailCodeWA = '收款人未实名认证')
 
     // if (data.errorCode === 2 && resDataMap.times) {
     //   this.SHOW_TIPS_FREQUENCY((resDataMap.times - resDataMap.wrong), resDataMap.times, (resDataMap.lock / 60));
@@ -559,54 +562,61 @@ root.methods.re_commitStep2Verification = function (data) {
     }, 1000)
   }
 
-
   // let resDataMap = data.dataMap;
 
-  // if (data.errorCode) {
-  //   // 1
-  //   if (this.secondPicker == 1) {
-  //     data.errorCode === 1 && (this.googleCodeWA = '用户未登录')
-  //     data.errorCode === 2 && (this.googleCodeWA = '验证超时，请刷新重试')
-  //     data.errorCode === 3 && (this.googleCodeWA = '用户认证数据异常，详情请提交工单')
-  //     data.errorCode === 4 && (this.googleCodeWA = '验证码错误/过期')
-  //     data.errorCode === 5 && (this.googleCodeWA = '提现地址不可超过10个，请删除历史提现地址后重试')
-  //     data.errorCode === 6 && (this.googleCodeWA = '提现地址错误')
-  //     data.errorCode === 7 && (this.googleCodeWA = '资金冻结失败')
-  //     data.errorCode === 8 && (this.googleCodeWA = '不支持的币种类型')
-  //     data.errorCode === 9 && (this.googleCodeWA = '缺少此币种提币规则')
-  //     data.errorCode === 10 && (this.googleCodeWA = '小于最小提币数量')
-  //   }
-  //   if (this.secondPicker == 2) {
-  //     data.errorCode === 1 && (this.phoneCodeWA = '用户未登录')
-  //     data.errorCode === 2 && (this.phoneCodeWA = '验证超时，请刷新重试')
-  //     data.errorCode === 3 && (this.phoneCodeWA = '用户认证数据异常，详情请提交工单')
-  //     data.errorCode === 4 && (this.phoneCodeWA = '验证码错误/过期')
-  //     data.errorCode === 5 && (this.phoneCodeWA = '提现地址不可超过10个，请删除历史提现地址后重试')
-  //     data.errorCode === 6 && (this.phoneCodeWA = '提现地址错误')
-  //     data.errorCode === 7 && (this.phoneCodeWA = '资金冻结失败')
-  //     data.errorCode === 8 && (this.phoneCodeWA = '不支持的币种类型')
-  //     data.errorCode === 9 && (this.phoneCodeWA = '缺少此币种提币规则')
-  //     data.errorCode === 10 && (this.phoneCodeWA = '小于最小提币数量')
-  //   }
-  //   //   if (this.secondPicker == 2 && data.errorCode === 4 && resDataMap.times) {
-  //   //     this.SHOW_TIPS_FREQUENCY((resDataMap.times - resDataMap.wrong), resDataMap.times, (resDataMap.lock / 60));
-  //   //     setTimeout(() => {
-  //   //       this.popType = 0;
-  //   //       this.popOpen = true;
-  //   //     }, 200);
-  //   //     return
-  //   //   }
-  //   //
-  //   //   if (data.errorCode == '100' && resDataMap.lock) {
-  //   //     this.SHOW_TIPS(resDataMap.lock / 60);
-  //   //     setTimeout(() => {
-  //   //       this.popType = 0;
-  //   //       this.popOpen = true;
-  //   //     }, 200);
-  //   //     return
-  //   //   }
-  //   //   return
-  // }
+  if (data.errorCode) {
+    // 1
+    if (this.secondPicker == 1) {
+      data.errorCode == 1 && (this.googleCodeWA = '用户未登录')
+      data.errorCode == 2 && (this.googleCodeWA = '未进行邮箱验证')
+      data.errorCode == 3 && (this.googleCodeWA = '未绑定手机')
+      data.errorCode == 4 && (this.googleCodeWA = '验证码失效')
+      data.errorCode == 5 && (this.googleCodeWA = '验证码错误')
+      data.errorCode == 6 && (this.googleCodeWA = '验证码过期')
+      data.errorCode == 7 && (this.googleCodeWA = '输入转账数量无效')
+      data.errorCode == 8 && (this.googleCodeWA = '用户余额不足')
+      data.errorCode == 9 && (this.googleCodeWA = '转账数量小于单笔成交最小数量')
+      data.errorCode == 10 && (this.googleCodeWA = '24小时转账金额必须要在范围内')
+      data.errorCode == 11 && (this.googleCodeWA = '超出当日限额')
+      data.errorCode == 12 && (this.googleCodeWA = '手续费TT不足0.1')
+      data.errorCode == 13 && (this.googleCodeWA = '用户未输入验证码')
+      data.errorCode == 15 && (this.googleCodeWA = '用户没有转账币种的可用余额')
+    }
+    if (this.secondPicker == 2) {
+      data.errorCode == 1 && (this.phoneCodeWA = '用户未登录')
+      data.errorCode == 2 && (this.phoneCodeWA = '未进行邮箱验证')
+      data.errorCode == 3 && (this.phoneCodeWA = '未绑定手机')
+      data.errorCode == 4 && (this.phoneCodeWA = '验证码失效')
+      data.errorCode == 5 && (this.phoneCodeWA = '验证码错误')
+      data.errorCode == 6 && (this.phoneCodeWA = '验证码过期')
+      data.errorCode == 7 && (this.phoneCodeWA = '输入转账数量无效')
+      data.errorCode == 8 && (this.phoneCodeWA = '用户余额不足')
+      data.errorCode == 9 && (this.phoneCodeWA = '转账数量小于单笔成交最小数量')
+      data.errorCode == 10 && (this.phoneCodeWA = '24小时转账金额必须要在范围内')
+      data.errorCode == 11 && (this.phoneCodeWA = '超出当日限额')
+      data.errorCode == 12 && (this.phoneCodeWA = '手续费TT不足0.1')
+      data.errorCode == 13 && (this.phoneCodeWA = '用户未输入验证码')
+      data.errorCode == 15 && (this.phoneCodeWA = '用户没有转账币种的可用余额')
+    }
+    //   if (this.secondPicker == 2 && data.errorCode === 4 && resDataMap.times) {
+    //     this.SHOW_TIPS_FREQUENCY((resDataMap.times - resDataMap.wrong), resDataMap.times, (resDataMap.lock / 60));
+    //     setTimeout(() => {
+    //       this.popType = 0;
+    //       this.popOpen = true;
+    //     }, 200);
+    //     return
+    //   }
+    //
+    //   if (data.errorCode == '100' && resDataMap.lock) {
+    //     this.SHOW_TIPS(resDataMap.lock / 60);
+    //     setTimeout(() => {
+    //       this.popType = 0;
+    //       this.popOpen = true;
+    //     }, 200);
+    //     return
+    //   }
+    //   return
+  }
 
 
 
@@ -626,7 +636,7 @@ root.methods.error_commitStep2Verification = function (err) {
   // console.warn('提交谷歌或手机验证码失败', err)
   // this.popWindowLoading = false
   // this.step2VerificationSending = false
-  // this.submitStepThreeFlag = true
+  this.submitStepThreeFlag = true
   //
   // this.popText = '系统繁忙'
   // this.popType = 0

@@ -34,11 +34,11 @@ root.components = {
 root.data = function () {
   return {
     // email输入框内容+提示语
-    emailInput:'2570167180@qq.com',
+    emailInput:'',
     userNameWA:'',
 
     // UID内容+提示语
-    UIDInput:'100013',
+    UIDInput:'',
     UIDInputWA:'',
 
     // 转账数量+提示语
@@ -336,46 +336,46 @@ root.methods.ConfirmTransfer = function () {
 root.methods.re_ConfirmTransfer = function (data) {
   typeof data === 'string' && (data = JSON.parse(data))
   if(!data)return
-  this.userName = data.dataMap.userProfile.name
-  console.log('data', data)
+  // this.userName = data.dataMap.userProfile.name
+  console.info('data', data)
   if (data.errorCode) {
-    if (data.errorCode === 1) {
+    if (data.errorCode == 1) {
       this.popType = 0
       this.popOpen = true
       this.popText = '用户未登录'
       return
     }
-    if (data.errorCode === 2) {
+    if (data.errorCode == 2) {
       this.popType = 0
       this.popOpen = true
       this.popText = '收款人不存在'
       return
     }
-    if (data.errorCode === 3) {
+    if (data.errorCode == 3) {
       this.popType = 0
       this.popOpen = true
       this.popText = '传入用户邮箱和传入userId不是同一人'
       return
     }
-    if (data.errorCode === 4) {
+    if (data.errorCode == 4) {
       this.popType = 0
       this.popOpen = true
       this.popText = '转账用户未进行实名认证'
       return
     }
-    if (data.errorCode === 5) {
+    if (data.errorCode == 5) {
       this.popType = 0
       this.popOpen = true
       this.popText = '收款用户未进行实名认证'
       return
     }
-    if (data.errorCode === 6) {
+    if (data.errorCode == 6) {
       this.popType = 0
       this.popOpen = true
       this.popText = '没有传入用户邮箱或userId'
       return
     }
-    if (data.errorCode === 7) {
+    if (data.errorCode == 7) {
       this.popType = 0
       this.popOpen = true
       this.popText = '收款用户不能转账用户相同'
@@ -384,6 +384,8 @@ root.methods.re_ConfirmTransfer = function (data) {
 
   }
   if (data.errorCode == 0) {
+    this.userName = data.dataMap.userProfile.name
+
     this.showtransfer = true
     // this.sendMailMsg = '已向您的邮箱发送验证码'
     return
