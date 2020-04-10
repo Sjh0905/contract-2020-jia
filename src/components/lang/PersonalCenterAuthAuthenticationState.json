@@ -43,7 +43,7 @@
 
     "beDismissed": "被驳回",
     "toBeAudited": "待审核",
-    "passed": "已通过",
+    "passed": "已认证",
     "inAudit": "审核中",
     "failure": "已失效",
     "mailbox": "邮箱验证",
@@ -187,7 +187,7 @@
 
     "beDismissed": "被駁回",
     "toBeAudited": "待審核",
-    "passed": "已通過",
+    "passed": "已認證",
     "inAudit": "審核中",
     "failure": "已失效",
     "mailbox": "郵箱驗證",
