@@ -215,6 +215,14 @@ ul {
   border-bottom: 1px solid #EFF0FF;
   margin-bottom: 30px;
 }
+.mobile-ul-ul {
+  overflow: hidden;
+  min-height: 284px;
+  border-right:1px solid #EFF0FF;
+  border-left:1px solid #EFF0FF;
+  border-bottom: 1px solid #EFF0FF;
+  padding-bottom: 30px;
+}
 .list_directory_column_li {
   width: 100%;
   display: flex;

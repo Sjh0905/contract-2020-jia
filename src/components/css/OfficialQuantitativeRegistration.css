@@ -394,8 +394,13 @@
   font-weight:500;
   color:rgba(53,118,245,1);
   /*margin-top: 10px;*/
-  margin-bottom: 30px;
+  /*margin-bottom: 30px;*/
   /*padding-top: 30px;*/
+  margin-bottom: 0.6rem;
+  padding-top: 0.6rem;
+  padding-left: 0.3rem;
+  padding-right: 0.3rem;
+  margin-top: -0.88rem;
 
 }
 .mobileApplication_form {

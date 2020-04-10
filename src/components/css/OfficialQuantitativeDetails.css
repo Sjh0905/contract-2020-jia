@@ -179,6 +179,11 @@
   border:1px solid rgba(239,240,255,1);
   margin-bottom: 25px;
 }
+.mobile-record {
+  width: 100%;
+  border:1px solid rgba(239,240,255,1);
+  padding-bottom: 25px;
+}
 .record_div {
   width: 100%;
   height:44px;
