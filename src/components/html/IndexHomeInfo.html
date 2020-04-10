@@ -78,16 +78,16 @@
         <div class="tdown2">{{$t("transaction.Trading_platform_8")}}</div>
 <!--        <div class="tdown3">{{$t("transaction.Trading_platform_9")}}</div>-->
         <div class="tdownx">
-        <div class="tdown4" >
+        <div class="tdown4" @mouseenter="openIOSCode()" @mouseleave="closeIOSCode()">
 <!--          @mouseenter="openIOSCode()" @mouseleave="closeIOSCode()"-->
           <img class="imgs4" src="../../assets/苹果_icon.png" alt="">
 <!--          iOS-->
-          {{$t('indexHeader.forward')}}</div>
-          <div class="tdown6" >
+          {{$t('indexHeader.ios')}}</div>
+          <div class="tdown6" @mouseenter="openAndroidCode()" @mouseleave="closeAndroidCode()">
 <!--            @mouseenter="openAndroidCode()" @mouseleave="closeAndroidCode()"-->
             <img class="imgs4" src="../../assets/安卓_icon.png" alt="">
 <!--            Android-->
-            {{$t('indexHeader.forward')}}
+            {{$t('indexHeader.android')}}
           </div>
         </div>
 

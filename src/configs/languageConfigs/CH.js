@@ -4,6 +4,8 @@ const root = {}
 // 首页header
 root.indexHeader = {}
 root.indexHeader.forward = '敬请期待'
+root.indexHeader.ios = 'iPhone'
+root.indexHeader.android = 'Android'
 root.indexHeader.website = '二零二零'
 root.indexHeader.currencyExchange = '币币交易'
 root.indexHeader.Quotation = '行情'

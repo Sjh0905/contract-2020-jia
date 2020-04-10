@@ -775,7 +775,7 @@
   /*justify-content: center;*/
   /*text-align: center;*/
   font-family: PingFangSC-Regular;
-  font-size: 20px;
+  /*font-size: 20px;*/
   color: #000000;
 }
 
@@ -789,7 +789,7 @@
   /*justify-content: center;*/
   /*text-align: center;*/
   font-family: PingFangSC-Regular;
-  font-size: 20px;
+  /*font-size: 20px;*/
   color: #000000;
 }
 
@@ -801,7 +801,7 @@
   /*width: 160px;*/
   /*height: 160px;*/
   background-color: #FFFFFF;
-  padding: 8px 8px 8px 8px;
+  padding: 8px 8px 4px 8px;
   /*background: url("") no-repeat center;*/
   /*background-size: 100% 100%;*/
   /*border: 1px solid #3576F5;*/
@@ -816,7 +816,7 @@
   width: 124px;
   height: 124px;*/
   background-color: #FFFFFF;
-  padding: 8px 8px 8px 8px;
+  padding: 8px 8px 4px 8px;
   /*background: url("") no-repeat center;*/
   /*background-size: 100% 100%;*/
   /*border: 1px solid #3576F5;*/
