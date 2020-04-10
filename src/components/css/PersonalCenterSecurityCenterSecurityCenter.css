@@ -496,8 +496,13 @@
   /*color: #000;*/
   text-align: right;
   cursor: pointer;
-
 }
+
+.allinfo11 .allinfo11_1 .allinfo11_update .show-bind-info {
+  color: #6B7DA2;
+  margin-right: 40px;
+}
+
 .allinfo11_update img{
   width: 58px;
   height: 30px;
