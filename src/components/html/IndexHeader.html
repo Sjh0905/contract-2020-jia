@@ -826,7 +826,8 @@
                 <li class="navigation-item-container-right flex"
                     @mouseenter="appdownenter()"
                     @mouseleave="appdownleave()"
-                    @click="changeLanguageLS">
+                    >
+<!--                  @click="changeLanguageLS"-->
 
                 <span class="navigation-item-router flex"
                   active-class="navigation-item-router-selected text_blue">
@@ -835,23 +836,23 @@
                 </span>
                   <!--隐藏的标签 begin-->
                   <!--  sss 屏蔽-->
-<!--                  <ul class="flex navigation-item-hidden-erwm">-->
-<!--                    <li class="navigation-item-hidden-erwm-item">-->
-<!--                      <div class="download-left-download-item-qrcode-img">-->
-<!--                        <Qrcode-->
-<!--                          :size="size"-->
-<!--                          :value="value"-->
-<!--                          :logo="logo"-->
-<!--                          :bgColor="bgColor"-->
-<!--                          :fgColor="fgColor"-->
-<!--                        >-->
-<!--                        </Qrcode>-->
-<!--                      </div>-->
-<!--                    </li>-->
-<!--                    <li class="navigation-item-hidden-erwm-item" >-->
-<!--                      <span>iOS & Android {{$t('qrCode')}}</span>-->
-<!--                    </li>-->
-<!--                  </ul>-->
+                  <ul class="flex navigation-item-hidden-erwm">
+                    <li class="navigation-item-hidden-erwm-item">
+                      <div class="download-left-download-item-qrcode-img">
+                        <Qrcode
+                          :size="size"
+                          :value="value"
+                          :logo="logo"
+                          :bgColor="bgColor"
+                          :fgColor="fgColor"
+                        >
+                        </Qrcode>
+                      </div>
+                    </li>
+                    <li class="navigation-item-hidden-erwm-item" >
+                      <span>iOS & Android {{$t('qrCode')}}</span>
+                    </li>
+                  </ul>
                   <!--  sss 屏蔽结束-->
                   <!--隐藏的标签 end-->
                 </li>

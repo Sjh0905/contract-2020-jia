@@ -1,4 +1,4 @@
-import logo from '../../assets/二维码logo.png'
+import logo from '../../assets/download-icon.png'
 import axios from 'axios'
 import store from "../../configs/storeConfigs/StoreConfigs";
 
@@ -134,43 +134,43 @@ root.methods.backtop = function (res) {
 
 }
 // TODO: APP上线后即打开 begin
-// root.methods.closeIOSCode= function () {
-//   $(".download-left-download-item-erwma").attr("style","display:none");
-// }
-//
-// root.methods.openIOSCode= function () {
-//   $(".download-left-download-item-erwma").attr("style","display:block");
-// }
-//
-// root.methods.closeAndroidCode= function () {
-//   $(".download-left-download-item-erwma1").attr("style","display:none");
-// }
-//
-// root.methods.openAndroidCode= function () {
-//   $(".download-left-download-item-erwma1").attr("style","display:block");
-// }
+root.methods.closeIOSCode= function () {
+  $(".download-left-download-item-erwma").attr("style","display:none");
+}
+
+root.methods.openIOSCode= function () {
+  $(".download-left-download-item-erwma").attr("style","display:block");
+}
+
+root.methods.closeAndroidCode= function () {
+  $(".download-left-download-item-erwma1").attr("style","display:none");
+}
+
+root.methods.openAndroidCode= function () {
+  $(".download-left-download-item-erwma1").attr("style","display:block");
+}
 // TODO: APP上线后即打开 end
 
 // //鼠标移入改变返回图片
-// root.methods.backtpenter = function () {
-//   this.showewm = true;
-//
-// }
-//
-// //鼠标移出改变返回图片
-// root.methods.backtpleave = function () {
-//   this.showewm = false;
-// }
+root.methods.backtpenter = function () {
+  this.showewm = true;
 
-// //鼠标移入改变返回图片
-// root.methods.backtpenter1 = function () {
-//   this.showewm1 = true;
-// }
-//
-// //鼠标移出改变返回图片
-// root.methods.backtpleave1 = function () {
-//   this.showewm1 = false;
-// }
+}
+
+//鼠标移出改变返回图片
+root.methods.backtpleave = function () {
+  this.showewm = false;
+}
+
+//鼠标移入改变返回图片
+root.methods.backtpenter1 = function () {
+  this.showewm1 = true;
+}
+
+//鼠标移出改变返回图片
+root.methods.backtpleave1 = function () {
+  this.showewm1 = false;
+}
 
 //监听页面滚动事件
 root.methods.appScroll = function (event) {
