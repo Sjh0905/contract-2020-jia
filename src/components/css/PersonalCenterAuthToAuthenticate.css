@@ -113,6 +113,7 @@
   margin-right: 20px;
 }
 
+
 .imgss {
   display: inline-block;
 }
@@ -795,4 +796,12 @@
   color: #B5BCC6;
   margin-bottom: 30px;
   text-align: center;
+}
+
+#show-bind-info {
+  color: #EFF0FF;
+  font-size:14px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  margin-right: 40px;
 }

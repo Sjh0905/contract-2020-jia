@@ -153,6 +153,18 @@ root.computed.userName = function () {
   return this.$globalFunc.formatUserName(this.$store.state.authMessage.email)
 }
 
+// 手机号
+root.computed.userMobile = function () {
+  if (!this.bindPhone) return
+  return this.$globalFunc.formatUserName(this.$store.state.authMessage.mobile)
+}
+
+// 邮箱
+root.computed.userEmail = function () {
+  if (!this.bindEmail) return
+  return this.$globalFunc.formatUserName(this.$store.state.authMessage.email)
+}
+
 // 用户类型，如果是手机用户，为0，如果是邮箱用户，为1
 root.computed.userType = function () {
   return this.$store.state.authMessage && this.$store.state.authMessage.province === 'mobile' ? 0 : 1
