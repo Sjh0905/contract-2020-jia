@@ -351,7 +351,8 @@ ul {
 }
 .isAppCreate {
   width: 6.9rem;
-  margin-bottom: 0.46rem;
+  margin-top: -0.88rem;
+  /*margin-bottom: 0.46rem;*/
 }
 .mobileCreate_conteainer {
   width: 6.9rem;

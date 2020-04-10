@@ -202,7 +202,7 @@ input:-ms-input-placeholder{  /* Internet Explorer 10-11 */
 .isAppCreate {
   width: 6.9rem;
   /*height:485px;*/
-  /*margin-top: 0.2rem;*/
+  margin-top: -0.88rem;
   margin-bottom: 0.46rem;
   /*border:1px solid rgba(239,240,255,1);*/
 }
