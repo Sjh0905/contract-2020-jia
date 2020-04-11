@@ -337,7 +337,7 @@ root.methods.re_ConfirmTransfer = function (data) {
   typeof data === 'string' && (data = JSON.parse(data))
   if(!data)return
   // this.userName = data.dataMap.userProfile.name
-  console.info('data', data)
+  // console.info('data', data)
   if (data.errorCode) {
     if (data.errorCode == 1) {
       this.popType = 0

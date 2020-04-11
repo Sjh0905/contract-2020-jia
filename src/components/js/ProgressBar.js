@@ -312,7 +312,7 @@ root.methods.getKKPriceRange = function () {
 }
 // 获取grc交易价格区间成功
 root.methods.re_getKKPriceRange = function (data) {
-  console.info('当前服务器时间 获取grc交易价格区间成功',data);
+  // console.info('当前服务器时间 获取grc交易价格区间成功',data);
   if(!data || !data.kkPriceRange)return
   this.KKPriceRange = data.kkPriceRange;
 

@@ -130,7 +130,7 @@ root.created = function () {
     this.secondPicker = 2
     return;
   }
-  console.info(this.userName)
+  // console.info(this.userName)
 }
 
 

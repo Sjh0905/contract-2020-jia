@@ -683,7 +683,7 @@ root.methods.getKKPriceRange = function () {
 }
 // 获取grc交易价格区间成功
 root.methods.re_getKKPriceRange = function (data) {
-  console.log('获取grc交易价格区间成功',data);
+  // console.log('获取grc交易价格区间成功',data);
   if(!data || !data.kkPriceRange)return
   this.KKPriceRange = data.kkPriceRange;
 
@@ -691,7 +691,7 @@ root.methods.re_getKKPriceRange = function (data) {
 }
 // 获取grc交易价格区间报错
 root.methods.error_getKKPriceRange = function () {
-  console.log('获取grc交易价格区间报错');
+  // console.log('获取grc交易价格区间报错');
 }
 
 //检测币对交易价格，false 不通过 true 通过
@@ -799,7 +799,7 @@ root.methods.sectionSelect = function (num) {
 	this.numed = num
   if (this.openType != 1) {
     // this.transaction_amount = (this.currentSymbol.balance_order * num).toFixed(this.baseScale)
-    console.log(this.baseScale)
+    // console.log(this.baseScale)
     this.transaction_amount = this.$globalFunc.accFixed(this.currentSymbol.balance_order * num, this.baseScale);
     return
   } else {
@@ -813,7 +813,7 @@ root.methods.sectionSelect2 = function (num) {
 	this.numed2 = num
 	if (this.openType != 1) {
 		// this.transaction_amount = (this.currentSymbol.balance_order * num).toFixed(this.baseScale)
-		console.log(this.baseScale)
+		// console.log(this.baseScale)
 		this.transaction_amount = this.$globalFunc.accFixed(this.currentSymbol.balance_order * num, this.baseScale);
 		return
 	} else {
