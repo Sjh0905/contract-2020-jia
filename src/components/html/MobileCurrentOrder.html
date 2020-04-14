@@ -16,7 +16,9 @@
     </div>
 
     <ul class="current-order-list" >
-        <li v-for="(order,index) in currentOrderComputed" :key="order.id" class="_m_co_l flex-row">
+        <li v-for="(order,index) in currentOrderComputed" :key="order.id" >
+          <div class="orderid">订单ID：{{order.id}}</div>
+          <div class=" _m_co_l flex-row">
             <div class="_m_co_l1 flex-colum flex-between">
                 <div class="_m_co_l1i flex-row">
                     <i :style="order.type==='BUY_LIMIT'?'background:#39B496':'background:#EF5656'">
@@ -36,6 +38,8 @@
             <div class=" flex-center" :class="[{_m_co_l4:canceling!==order.id},{_m_co_l5:canceling===order.id}]" @click="cancelOrder(order)">
                 <span>{{canceling==order.id&&'撤单中'||'撤单'}}</span>
             </div>
+          </div>
+          <div class="_m_high"></div>
         </li>
     </ul>
 

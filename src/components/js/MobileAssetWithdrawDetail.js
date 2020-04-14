@@ -1072,7 +1072,7 @@ root.methods.closeMailWrong = function () {
 // 邮箱验证码页点击提交
 root.methods.submitStepTwo = function () {
   if (this.mailCode === '' || this.mailCode.length != 6) {
-    this.mailCodeWA = '输入错误的邮箱验证码'
+    this.mailCodeWA = '请输入正确的邮箱验证码'
     return
   }
   this.submitSendMail()

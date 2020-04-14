@@ -2577,7 +2577,7 @@ root.routes.push({
               caseSensitive: true,
               meta: {
                 pcname: 'membershipCard',
-                h5name: 'membershipCard',
+                // h5name: 'membershipCard',
                 requireLogin: true,
                 templateClose: false,
                 requireLoginOff: false,

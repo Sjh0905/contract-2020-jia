@@ -236,14 +236,15 @@
 	margin: 0 0.2rem;
 	border-bottom: 1px solid #131F30;
 }
-._m_od_ul1>li:first-child{
-	margin-bottom: 0.16rem;
-}
+/*._m_od_ul1>li:first-child{*/
+/*	margin-bottom: 0.16rem;*/
+/*}*/
 ._m_od_ul1>li:last-child{
 	margin-bottom: 0.32rem;
 }
 ._m_od_ul1t{
 	font-size: 0.26rem;
+  margin-bottom: 0.16rem;
 }
 ._m_od_ul1c>span:first-child{
 	font-size: 0.3rem;

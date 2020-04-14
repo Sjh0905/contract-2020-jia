@@ -368,6 +368,23 @@
 .history-order-list {
   background: #142030;
 }
+.orderid {
+  width:7.5rem;
+  height:0.5rem;
+  line-height: 0.5rem;
+  background: #142030;
+  font-size:0.24rem;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color:rgba(106,131,168,1);
+  padding-left: 0.14rem;
+  border-bottom: 0.02rem solid #172841;
+}
+._m_high {
+  width:7.5rem;
+  height:0.2rem;
+  background:rgba(7,25,37,1);
+}
 ._m_co_t{
 	height: 0.6rem;
 	line-height: 0.6rem;
@@ -394,11 +411,15 @@
 	/*!*margin-left: 0.7rem;*!*/
 /*}*/
 ._m_co_l{
-	height: 1.2rem;
+	height: 1rem;
 	border-bottom: 1px solid #131F30;
 	color: #fff;
-	padding: 0 0.2rem;
-
+	padding: 0 0.14rem;
+}
+._m_high {
+  width:7.5rem;
+  height:0.2rem;
+  background:rgba(7,25,37,1);
 }
 ._m_co_l i{
 	display:  block;
@@ -415,7 +436,7 @@
 	width: 0;
 	min-width: 0;
 	height: 1.2rem;
-	padding: 0.18rem 0 0.18rem 0;
+	padding: 0.1rem 0 0.3rem 0;
 	display: flex;
 	flex: 1.6;
 }

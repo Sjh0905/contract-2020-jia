@@ -12,8 +12,10 @@
     </div>
 
     <ul class="history-order-list">
-        <li v-for="(order,index) in historyOrderComputed" :key="order.id" class="_m_co_l flex-row" @click="goDetail(order)">
-            <div class="_m_co_l1 flex-colum flex-between">
+        <li v-for="(order,index) in historyOrderComputed" :key="order.id" class="" @click="goDetail(order)">
+          <div class="orderid">订单ID：{{order.id}}</div>
+          <div class="_m_co_l flex-row">
+            <div class="_m_co_l1 flex-colum flex-between ">
                 <div class="_m_co_l1i flex-row">
                     <i :style="order.type==='BUY_LIMIT'?'background:#39B496':'background:#EF5656'">
 
@@ -33,6 +35,8 @@
                 <span >{{$globalFunc.accFixed(order.filledAmount, !!quoteScale_list[order.symbol] ? quoteScale_list[order.symbol].baseScale : 8)}}</span>
                 <span class="txt_40">{{$globalFunc.accFixed(order.amount, !!quoteScale_list[order.symbol] ? quoteScale_list[order.symbol].baseScale : 8)}}</span>
             </div>
+          </div>
+          <div class="_m_high"></div>
         </li>
     </ul>
 
