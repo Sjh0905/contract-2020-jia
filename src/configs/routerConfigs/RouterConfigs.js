@@ -2577,10 +2577,11 @@ root.routes.push({
               caseSensitive: true,
               meta: {
                 pcname: 'membershipCard',
+                h5name: 'membershipCard',
                 requireLogin: true,
                 templateClose: false,
                 requireLoginOff: false,
-                // h5name: 'mobileTradingHall',
+
               },
               component: resolve => require(['@/components/vue/MembershipCard'], resolve),
             },
