@@ -312,7 +312,7 @@ root.methods.getKKPriceRange = function () {
 }
 // 获取grc交易价格区间成功
 root.methods.re_getKKPriceRange = function (data) {
-  console.info('当前服务器时间 获取grc交易价格区间成功',data);
+  // console.info('当前服务器时间 获取grc交易价格区间成功',data);
   if(!data || !data.kkPriceRange)return
   this.KKPriceRange = data.kkPriceRange;
 
@@ -686,7 +686,7 @@ root.methods.tradeMarket = function (popWindowOpen1,type) {
   };
   //燃烧抵扣不再需要
   if (this.fee) {
-    Object.assign(params, {customFeatures: 65536});
+    Object.assign(params, {customFeatures: 0});
   }
   // 如果当前是BTC市场的话，price*amount<0.001不允许提交
   // 如果当前是ETH市场的话，price*amount<0.01不允许提交

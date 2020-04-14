@@ -2335,7 +2335,7 @@ root.methods.re_lockCount = function (data) {
 }
 
 root.methods.error_lockCount = function (err) {
-  console.info(err)
+  console.log(err)
 }
 
 
