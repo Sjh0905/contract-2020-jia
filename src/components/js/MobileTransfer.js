@@ -211,16 +211,16 @@ root.methods.testAmount = function () {
   let currencyObj = this.$store.state.currency.get(this.$route.query.currency)
   let currencyAmount = currencyObj.available
   // console.log(currencyAmount)
-  if (this.amountInput >= currencyAmount) {
-    // this.popOpen = true
-    this.amountInputWA = '输入数量超出您的转账余额'
-    // this.popText = '输入数量超出您的转账余额'
-    // this.amountInput = this.minAmount
-    return false
-  }
 
   if (this.amountInput === '') {
     this.amountInputWA = '转账数量不可为空'
+    return false
+  }
+  if (this.amountInput >= currencyAmount) {
+    // this.popOpen = true
+    this.amountInputWA = '输入数量超出您的可用余额'
+    // this.popText = '输入数量超出您的转账余额'
+    // this.amountInput = this.minAmount
     return false
   }
 

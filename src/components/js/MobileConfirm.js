@@ -417,7 +417,7 @@ root.methods.submitStepTwo = function () {
 
   console.log(this.amountInput)
   if (this.mailCode === '' || this.mailCode.length != 6) {
-    this.mailCodeWA = '请输入正确的邮箱验证码'
+    this.mailCodeWA = '输入正确的邮箱验证码'
     return
   }
   this.submitSendMail()
@@ -498,8 +498,8 @@ root.methods.error_commitEmailVerification = function (err) {
 root.methods.submitStepThree = function () {
 
   if (!this.checkStepThree()) return
-  if (this.submitStepThreeFlag) return
-  this.submitStepThreeFlag = true
+  // if (this.submitStepThreeFlag) return
+  // this.submitStepThreeFlag = true
   // let address = this.defaultAddress
   // let currencyObj = this.$store.state.currency.get(this.mobileRechargeRecordData.currency)
   // if (currencyObj && currencyObj.addressAliasTo === 'ETH') {
@@ -541,12 +541,12 @@ root.methods.re_commitStep2Verification = function (data) {
 
   typeof data === 'string' && (data = JSON.parse(data))
   console.log('dataguge=====',data)
-  this.submitStepThreeFlag = true
+  // this.submitStepThreeFlag = true
 
   this.googleCodeWA = ''
   this.phoneCodeWA = ''
 
-  this.popOpen = true
+  // this.popOpen = true
 
   if (data.errorCode == 0) {
     this.popType = 1
