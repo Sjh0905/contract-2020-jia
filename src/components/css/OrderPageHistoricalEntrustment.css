@@ -63,7 +63,7 @@ tr, th, td {
   /*border-bottom: 1px solid #e5e5e5;*/
   /*background-color: #0D111F;*/
   /*border-top: 1px solid #f9f9f9;*/
-  color:#666;
+  color:#0D0E23;
   /*padding:12px 0;*/
 }
 
@@ -85,7 +85,7 @@ tr, th, td {
 }
 
 .tr-td:hover {
-  background-color:rgba(196,62,78,0.03);
+  background-color:rgba(53,118,245,0.03);
 }
 
 .td-order {
@@ -98,6 +98,10 @@ tr, th, td {
 
 .td-time {
   flex: 9.3;
+  /*padding-left: 25px;*/
+}
+.td-time1 {
+  flex: 6.3;
   padding-left: 25px;
 }
 
@@ -106,14 +110,14 @@ tr, th, td {
 }
 
 .td-market {
-  flex: 9.3;
+  flex: 7.3;
 }
 
 .td-price {
   flex: 9.3;
 }
 .td-number {
-  flex: 9.3;
+  flex: 7.3;
 }
 
 .td-number-2 {
@@ -225,6 +229,12 @@ tr, th, td {
   font-family:PingFangSC-Regular,PingFang SC;
   font-weight:400;
   color:rgba(53,118,245,1);
+}
+.text_blue-01 {
+  font-size:12px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color: #FFFFFF;
 }
 .text_blue-3 {
   font-size:12px;

@@ -30,6 +30,8 @@
     <li class="tr-th flex">
       <!--单号-->
       <!--<div class="th td-order">{{$t('orderPageCurrentEntrustment.order')}}</div>-->
+      <!--订单id-->
+      <div class="th td-time1">{{$t('订单ID')}}</div>
       <!--委托时间-->
       <div class="th td-time">{{$t('time1')}}</div>
       <!--交易对-->
@@ -86,6 +88,8 @@
               v-for="(order,index) in currentOrderComputed" :key="order.id">
             <!--单号-->
             <!--<div class="td td-order">{{order.id}}</div>-->
+            <!--订单id-->
+            <div class="td td-time1">{{(order.id)}}</div>
             <!--委托时间-->
             <div class="td td-time">{{$globalFunc.formatDateUitl(order.createdAt,'YYYY-MM-DD hh:mm:ss')}}</div>
             <!--类别-->
@@ -105,7 +109,9 @@
             <div class="td td-number">{{((order.filledAmount / order.amount) * 100).toFixed(2) + '%'}}</div>
             <!--撤单-->
             <div class="td td-operation">
-              <span class="click-operation chedanbutton text_blue-0" @click="cancelOrder(order)" v-if="!order.click">{{$t('orderPageCurrentEntrustment.cancel')}}</span>
+              <span class="click-operation chedanbutton"
+                    :class="$route.name == 'currentEntrust'?'text_blue-1':'text_blue-0'"
+                    @click="cancelOrder(order)" v-if="!order.click">{{$t('orderPageCurrentEntrustment.cancel')}}</span>
               <span class="click-operating chedanbutton" v-else>{{$t('orderPageCurrentEntrustment.canceling')}}</span>
             </div>
           </li>

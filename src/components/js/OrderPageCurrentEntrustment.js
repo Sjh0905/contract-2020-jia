@@ -145,6 +145,8 @@ root.methods.re_getOrder = function (data) {
     }
   })
   this.$store.commit('GET_OPEN_ORDER', open_order);
+
+  console.log('this.currentOrder',this.currentOrder)
   // this.loading = false
   // // 加载更多中
   // this.loadingMoreIng = false

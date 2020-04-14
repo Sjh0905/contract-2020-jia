@@ -89,7 +89,7 @@ tr, th, td {
 }
 
 .tr-td:hover {
-  background-color:rgba(196,62,78,0.03);
+  background-color:rgba(53,118,245,0.03);
 }
 
 .td-order {
@@ -103,18 +103,22 @@ tr, th, td {
 
 .td-time {
   flex: 9.3;
+
+}
+.td-time1 {
+  flex: 6.3;
   padding-left: 25px;
 }
 
 .td-category {
-  flex: 9.3;
+  flex: 7.3;
 }
 .td-category-1 {
   flex: 6.3;
 }
 
 .td-market {
-  flex: 9.3;
+  flex: 7.3;
 }
 
 .td-price {
@@ -122,7 +126,7 @@ tr, th, td {
 }
 
 .td-number {
-  flex: 7.3;
+  flex: 6.3;
 }
 
 .td-amount {
@@ -150,10 +154,15 @@ tr, th, td {
   height: 28px;
   border:1px solid #3576F5;
   line-height:28px;
-  border-radius: 4px;
+  border-radius: 2px;
 }
 .text_blue-0 {
+  /*color: #3576F5;*/
+  color: #FFFFFF;
+}
+.text_blue-1 {
   color: #3576F5;
+  /*color: #FFFFFF;*/
 }
 
 .chedanbutton:hover {
@@ -162,7 +171,7 @@ tr, th, td {
   padding: 0 15px;
   height: 28px;
   line-height:28px;
-  border-radius: 4px;
+  border-radius: 2px;
   background-color:#3576F5;
 }
 
