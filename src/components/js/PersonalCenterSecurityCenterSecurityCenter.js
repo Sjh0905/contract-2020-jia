@@ -83,7 +83,8 @@ root.data = function () {
     country: '0',
     // 驳回原因
     identityAuthWAReason_0: '',
-    identityAuthWAReason_1: ''
+    identityAuthWAReason_1: '',
+    createdAt:''
   }
 }
 
@@ -192,6 +193,7 @@ root.created = function () {
 
   this.getBDBInfo()
   this.getCheck()
+  this.getBuyRecords()
 }
 
 root.methods = {}
@@ -703,6 +705,39 @@ root.methods.error_getCheck = function (err) {
   console.log("this.err=====",err)
 }
 
+//会员购买记录get (query:{})
+root.methods.getBuyRecords= function () {
+
+  this.$http.send('GET_BUY_RECORDS', {
+    bind: this,
+    urlFragment: this.userId,
+    // query:{
+    //   gname: this.gname
+    // },
+    callBack: this.re_getBuyRecords,
+    errorHandler: this.error_getBuyRecords
+  })
+}
+
+root.methods.re_getBuyRecords = function (data) {
+  //检测data数据是JSON字符串转换JS字符串
+  typeof data === 'string' && (data = JSON.parse(data))
+  if (!data) {return}
+
+  this.records  = data.data
+  console.log('会员购买记录get', this.records)
+
+  let E2 = this.records[0]
+  this.createdAt =  E2.createdAt
+  this.createdAt =  this.$globalFunc.formatDateUitl(Number(this.createdAt), 'hh')
+
+  console.info('this.createdAt',this.createdAt)
+
+}
+
+root.methods.error_getBuyRecords = function (err) {
+  console.log("this.err=====",err)
+}
 
 //sss============= 修改登陆密码St
 // 判断密码

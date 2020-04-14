@@ -85,6 +85,10 @@ root.computed.amount = function () {
     console.log(v)
   })
 }
+// 获取userId
+root.computed.userId = function () {
+  return this.$store.state.authMessage.userId
+}
 
 /*---------------------- 生命周期 ---------------------*/
 
@@ -181,6 +185,10 @@ root.methods.testUID = function () {
     this.UIDInputWA = this.$t('请输入正确的UID')
     return false
   }
+  if (this.UIDInput == this.userId) {
+    this.UIDInputWA = this.$t('同账号不可内部转账')
+    return false
+  }
   this.UIDInputWA = ''
   console.log(this.UIDInput)
   return true
@@ -200,16 +208,16 @@ root.methods.testAmount = function () {
   // }
 
 // 获取币种可用余额
-//   let currencyObj = this.$store.state.currency.get(this.$route.query.currency)
-//   let currencyAmount = currencyObj.available
-//   // console.log(currencyAmount)
-//   if (this.amountInput >= currencyAmount) {
-//     // this.popOpen = true
-//     this.amountInputWA = '输入数量超出您的转账余额'
-//     // this.popText = '输入数量超出您的转账余额'
-//     this.amountInput = this.minAmount
-//     return false
-//   }
+  let currencyObj = this.$store.state.currency.get(this.$route.query.currency)
+  let currencyAmount = currencyObj.available
+  // console.log(currencyAmount)
+  if (this.amountInput >= currencyAmount) {
+    // this.popOpen = true
+    this.amountInputWA = '输入数量超出您的转账余额'
+    // this.popText = '输入数量超出您的转账余额'
+    // this.amountInput = this.minAmount
+    return false
+  }
 
   if (this.amountInput === '') {
     this.amountInputWA = '转账数量不可为空'

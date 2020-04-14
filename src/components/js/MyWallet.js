@@ -90,6 +90,7 @@ root.data = function () {
     isTransfer: false,//是否可以转账 false 为可以转账
 
     transferCurrency: '',
+    transferAvailable: '',
     feeRate: 0, //费率
     dayMaxAmount: 0, //每日限额
     singleMaxAmount: 0, //每次限额
@@ -849,6 +850,10 @@ root.methods.testUID_01 = function () {
     this.testUIDMsg_0 = this.$t('testUIDMsg_0')
     return false
   }
+  if (this.testUID_0 == this.userId) {
+    this.testUIDMsg_0 = this.$t('exceed3')
+    return false
+  }
   if (!this.$globalFunc.testNumber(this.testUID_0)) {
     this.testUIDMsg_0 = this.$t('testUIDMsg_1')
     return false
@@ -868,14 +873,15 @@ root.methods.testNum_01 = function () {
     this.testNumMsg_0 = this.$t('nameMsg_1')
     return false
   }
+  if (this.testNum_0 > this.transferAvailable) {
+    this.testNumMsg_0 = this.$t('exceed4')
+    return false
+  }
   if ((this.testNum_0) < this.minAmount) {
     this.testNumMsg_0 = this.$t('testNumMsg_03')
     return false
   }
-  // if (this.testNum_0 > this.maxAmount) {
-  //   this.testNumMsg_0 = this.$t('testNumMsg_04')
-  //   return false
-  // }
+
   this.testNumMsg_0 = ''
   return true
 }
@@ -889,6 +895,10 @@ root.methods.testName_0 = function () {
   }
   if (!this.$globalFunc.emailOrMobile(this.name_0)) {
     this.nameMsg_0 = this.$t('nameMsg_1')
+    return false
+  }
+  if (this.name_0 === '') {
+    this.nameMsg_0 = this.$t('nameMsg_0')
     return false
   }
   this.nameMsg_0 = ''
@@ -937,9 +947,11 @@ root.methods.testName_0 = function () {
 //sss 打开内部转账
 root.methods.internalTransfer = function (index, item) {
   this.transferCurrency = item.currency
+  this.transferAvailable = item.available
   this.transferDisabledss(item.currency)
 
-  console.log('item.currency=========================', item.currency)
+
+  console.log('item.currency=========================', item)
   this.transferCurrency = item.currency
 
   //sss屏蔽 2020.20.20 S
@@ -1502,7 +1514,7 @@ root.methods.re_commitStep2Verification = function (data) {
     }
     if (data.errorCode === 10) {
       this.buyConfirmSuccess = false
-      this.popText = this.$t('iKnowthe15') //24小时转账金额必须要在范围内
+      this.popText = this.$t('iKnowthe15') //轉帳失敗
       this.popType = 0
       this.popOpen = true
     }
