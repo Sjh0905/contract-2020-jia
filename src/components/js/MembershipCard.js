@@ -75,7 +75,8 @@ root.data = function () {
     getMobileVerificationCodeCountdown: 60, //获取手机验证码倒计时
     getMobileVerificationCode: false, //获取手机验证码倒计时
 
-    sending1:false
+    sending1:false,
+    createdAt:''
 
   }
 }
@@ -96,6 +97,8 @@ root.created = function () {
     this.picked = 2
     return;
   }
+
+
 
 }
 root.mounted = function () {}
@@ -166,6 +169,7 @@ root.computed.showPicker = function () {
 
 root.computed.computedRecord = function (item,index) {
   return this.records
+
 }
 
 /*------------------------------ 方法 -------------------------------*/
@@ -286,8 +290,9 @@ root.methods.re_getCheck = function (data) {
   this.flag = data.data.flag
   // this.cardType = data.data.cardType
   this.transferFee = data.data.transferFee
-  // this.$store.commit('IS_VIP', this.flag);
-  console.log('是否是会员get-----',data.data)
+
+
+  // console.log('是否是会员get-----',data.data)
 
 }
 root.methods.error_getCheck = function (err) {
@@ -316,6 +321,13 @@ root.methods.re_getBuyRecords = function (data) {
 
   this.records  = data.data
   console.log('会员购买记录get', this.records)
+
+  let E2 = this.records[0]
+  this.createdAt =  E2.createdAt
+  this.createdAt =  this.$globalFunc.formatDateUitl(Number(this.createdAt), 'hh')
+
+  console.info('this.createdAt',this.createdAt)
+
 }
 
 root.methods.error_getBuyRecords = function (err) {
@@ -962,6 +974,12 @@ root.methods.error_getMobileVerification = function (err) {
 root.methods.formatDateUitl = function (time) {
   return this.$globalFunc.formatDateUitl(Number(time), 'YYYY-MM-DD')
 }
+
+// // 格式化时间
+// root.methods.formatDateUitlTimeStamp = function (time) {
+//   return this.$globalFunc.formatDateUitl(Number(time), 'hh:mm:ss')
+// }
+
 
 // 手机 谷歌验证切换
 root.methods.open_mob = function (index) {
