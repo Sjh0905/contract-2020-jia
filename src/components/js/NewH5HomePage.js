@@ -1128,6 +1128,11 @@ root.methods.gotoZichan = function () {
   this.$router.push({name: 'MobileAssetRechargeAndWithdrawals'});
 }
 
+/*---------------------- 跳入到会员卡页面 ---------------------*/
+// root.methods.gotoVIP = function () {
+//   this.$router.push({name: 'membershipCard'});
+// }
+
 /*---------------------- 跳入到交易页面 ---------------------*/
 root.methods.gotoJiaoyi = function () {
   this.$router.push({name: 'mobileTradingHallDetail'});

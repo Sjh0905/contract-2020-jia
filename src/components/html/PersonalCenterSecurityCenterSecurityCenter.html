@@ -45,7 +45,10 @@
 <!--          我的2020会员-->
           <span class="ygm_hy">{{$t('mber')}}</span>
 <!--          什么时间到期-->
-          <span class="ygm_hy2">{{expires}}{{$t('expiration')}}</span>
+<!--          {{expires}}{{$t('expiration')}}-->
+          <span class="ygm_hy2">
+            {{((createdAt) < 16 && (createdAt) < 24) ? expires :$globalFunc.formatDateUitl(Number(expires_timestamp),'YYYY-MM-DD')}}{{$t('expiration')}}
+          </span>
         </div>
 
         <div class="wgm_lj1 pointer" @click="jumpMembershipCard">
