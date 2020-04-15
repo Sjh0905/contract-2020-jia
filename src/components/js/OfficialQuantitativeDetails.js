@@ -156,10 +156,15 @@ root.methods.re_getRegistrationRecord = function (data) {
   console.log("this.re_getRegistrationRecord查询报名记录get=====",data)
   this.records = data.data
 
+
+  if (this.records.length == 0 ) {
+    this.buyConfirmSuccess=true
+    return;
+  }
   let E2 = this.records[0]
   this.fstatus = E2.fstatus
 
-  if (this.records.length == 0 && this.fstatus != '已报名') {
+  if ((this.records.length == 1 && this.fstatus != '已报名')) {
     this.buyConfirmSuccess=true
     return;
   }
