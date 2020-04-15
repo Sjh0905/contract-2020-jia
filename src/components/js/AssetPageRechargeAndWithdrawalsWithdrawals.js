@@ -326,7 +326,7 @@ root.methods.re_getWithdrawalsFee = function (data) {
     return
   }
   // console.log(data)
-  this.currencyName = data.dataMap.withdrawRule.currency == "USDT2" ? "USDT" :data.dataMap.withdrawRule.currency;
+  this.currencyName = data.dataMap.withdrawRule.currency == "USDT2" ||data.dataMap.withdrawRule.currency == "USDT3" ? "USDT" :data.dataMap.withdrawRule.currency;
   this.feeRate = data.dataMap.withdrawRule.feeRate
   this.maximumFee = data.dataMap.withdrawRule.maximumFee
   this.minimumAmount = data.dataMap.withdrawRule.minimumAmount
@@ -468,7 +468,7 @@ root.methods.blurInputNumber = function () {
     this.amountWA = this.$t('amountWA_1')
     return false
   }
-  if (parseFloat(this.accMinus(this.amount, this.available)) > 0) {
+  if (parseFloat(this.accMinus(Number(this.amount), Number(this.available))) <= 0) {
     this.amountWA = this.$t('amountWA_2')
     return false
   }

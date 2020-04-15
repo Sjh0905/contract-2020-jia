@@ -378,7 +378,7 @@ root.methods.re_getAccounts = function (data) {
 
   let isERC20 = this.isERC20();
   let currency = this.title == "USDT" ? isERC20 : this.title
-  this.mobileRechargeRecordData = this.$store.state.currency.get(currency)
+  this.mobileRechargeRecordData = this.$store.state.currency.get((currency=='USDT2' || currency=='USDT3')?'USDT':currency)
 
   this.accountLoadingFlag = true;
 

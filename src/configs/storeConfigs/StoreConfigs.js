@@ -501,7 +501,7 @@ store.mutations.CHANGE_CURRENCY = (state, currencyArr) => {
       target.memo = currencyArr[i].memo || target.memo || 'no'
     }
 
-    if(target && target.isUSDT2){
+    if(target && (target.isUSDT2 || target.isUSDT3)){
       target.displayTime = new Date('2119-12-31').getTime()/1000;//由于不能显示USDT2币种，需要displayTime足够大，在前端入口处统一配置
     }
   }

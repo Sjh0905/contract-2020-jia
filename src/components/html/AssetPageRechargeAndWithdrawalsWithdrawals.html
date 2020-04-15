@@ -201,7 +201,7 @@
           <span class="withdrawals-number-all pointer text_blue" @click="withdrawalAll">{{$t('withdrawalsAll')}}</span>
         </div>
         <div class="can-not-empty wrong-msg">
-          <span v-if="amountWA!==''">{{amountWA}}！</span>
+          <span v-if="amountWA!==''">{{amountWA}}</span>
         </div>
       </div>
 
@@ -397,14 +397,14 @@
 
     <!--删除地址 begin-->
     <PopupWindow :switch="deleteAddressPopOpen" @close="closeDeleteAddressPop">
-      <div slot="header" class="">
+      <div slot="header" class="detele-header">
         {{$t('deletePopHeader')}}
       </div>
       <div slot="article" class="delete-pop-article">
         <!--您确认要删除此地址吗？-->
         {{deleteMsg}}
       </div>
-      <div slot="footer">
+      <div slot="footer" class="detele-footer">
         <template v-if="!deleteBack">
           <button class="button-base btn_simple pointer" @click="closeDeleteAddressPop">
             {{$t('deletePopCancel')}}
@@ -417,7 +417,7 @@
           </button>
         </template>
         <template v-else>
-          <button class="button-base btn_blue pointer" @click="closeDeleteAddressPop">
+          <button class="button-base1 btn_blue pointer" @click="closeDeleteAddressPop">
             {{$t('deletePopConfirm_2')}}
           </button>
         </template>

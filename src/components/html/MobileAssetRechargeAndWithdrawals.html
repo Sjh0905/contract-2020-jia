@@ -76,7 +76,7 @@
 <!--          <span class="asset-container-item-icon-box">-->
 <!--            <img class="asset-container-item-icon" :src="'http://logo.2020.exchange/' + item.currency +'.png'" alt="">-->
 <!--          </span>-->
-          <span>{{item.currency== 'USDT2' ? 'USDT' :item.currency}}</span>
+          <span>{{item.currency== 'USDT2' || item.currency== 'USDT3' ? 'USDT' : item.currency}}</span>
           <!--<span class="asset-container-item-title-description">({{item.description}})</span>-->
         </div>
         <div class="asset-container-item-assetNum">

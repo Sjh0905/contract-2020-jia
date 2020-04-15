@@ -549,6 +549,15 @@
   outline: none;
 }
 
+.button-base1 {
+  width: 390px;
+  height: 40px;
+  color: #fff;
+  font-size:14px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+}
+
 .get-verifications {
   display: inline-block;
   width: 30%;
@@ -626,13 +635,25 @@
 }
 
 /*删除提现地址*/
-.delete-pop-article {
-  padding: 20px 0 10px 0;
+
+.detele-header {
+  padding-left: 25px;
 }
 
+.delete-pop-article {
+  font-size:16px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color: #0D0E23;
+  padding: 35px 0 35px 25px;
+}
+
+.detele-footer {
+  margin-bottom: 15px;
+}
 /*弹窗button*/
 .button-base {
-  width: 195px;
+  width: 192px;
   margin-right: 20px;
 }
 
