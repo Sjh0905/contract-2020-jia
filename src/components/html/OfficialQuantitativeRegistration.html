@@ -21,7 +21,7 @@
         <div class="supporting">
           <span class="Account_number_">{{$t('supporting')}}</span>
           <template>
-          <el-select v-model="matchingAmount" name="gender" placeholder="请选择配套" popper-class="selectstyle" @blur="testMatchingAmount">
+          <el-select v-model="matchingAmount" name="gender" placeholder="请选择配套" popper-class="selectstyle">
             <el-option
               v-for="item in matchDataList"
               :key="item.fcode"

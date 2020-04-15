@@ -171,63 +171,6 @@ root.methods.showDetail = function () {
   this.clickThis = 1
 }
 
-
-
-// // 去绑定谷歌验证
-// root.methods.goToBindGA = function () {
-//   this.popWindowOpenShiM = false
-//   this.$router.push({name: 'bindGoogleAuthenticator'})
-// }
-// // 去绑定手机号
-// root.methods.goToBindMobile = function () {
-//   this.popWindowOpenShiM = false
-//   this.$router.push({name: 'bindMobile'})
-// }
-// // 去绑定邮箱
-// root.methods.goToBindEmail = function () {
-//   this.popWindowOpenShiM = false
-//   this.$router.push({name: 'bindEmail'})
-// }
-
-//查询配套数据get
-root.methods.getSupporting = function (item) {
-
-  this.$http.send('GET_MATCH_DATA', {
-    bind: this,
-    callBack: this.re_getSupporting,
-    errorHandler: this.error_getSupporting
-  })
-}
-root.methods.re_getSupporting = function (data) {
-
-  typeof data === 'string' && (data = JSON.parse(data))
-  if (!data) {return}
-
-  this.matchDataList = data.data || []
-  this.matchDataList.map((v,key) =>{
-
-    this.matchDataObj[v.fdesc] = v.fut_amt
-    this.matchDataFamt[v.fdesc] = v.next_famt
-    // this.matchDataXX[v.fdesc] = v.fut_amt
-    this.matchDataKey[v.fdesc] = v.fcode
-    // this.YTX = this.matchDataKey[this.matchingAmount].indexOf('y')
-    // this.TT = this.matchDataKey[this.matchingAmount].indexOf('x')
-
-    // this.YTX = this.matchDataKey[v.fdesc].substr(0,1)
-    // this.matchDataKey[v.fdesc]=YTX.substr(0,1)
-
-
-    console.log('v,key======',this.matchDataObj[v.fdesc])
-    console.log('v,key======',this.matchDataKey[v.fdesc])
-    console.log('v,key======',this.YTX)
-  })
-
-  console.log("this.data查询配套数据get=====",data)
-}
-root.methods.error_getSupporting = function (err) {
-  console.log("this.err=====",err)
-}
-
 //查询用户余额get (query:{})未完成
 root.methods.getBalance = function () {
   // /* TODO : 调试接口需要屏蔽 S*/
@@ -298,6 +241,47 @@ root.methods.error_getBalance = function (data) {
   console.log("this.err=====",data.data)
 }
 
+//查询配套数据get
+root.methods.getSupporting = function (item) {
+
+  this.$http.send('GET_MATCH_DATA', {
+    bind: this,
+    callBack: this.re_getSupporting,
+    errorHandler: this.error_getSupporting
+  })
+}
+root.methods.re_getSupporting = function (data) {
+
+  typeof data === 'string' && (data = JSON.parse(data))
+  if (!data) {return}
+
+  this.matchDataList = data.data || []
+  this.matchDataList.map((v,key) =>{
+
+    this.matchDataObj[v.fdesc] = v.fut_amt
+    this.matchDataFamt[v.fdesc] = v.next_famt
+    // this.matchDataXX[v.fdesc] = v.fut_amt
+    this.matchDataKey[v.fdesc] = v.fcode
+    // this.YTX = this.matchDataKey[this.matchingAmount].indexOf('y')
+    // this.TT = this.matchDataKey[this.matchingAmount].indexOf('x')
+
+    // this.YTX = this.matchDataKey[v.fdesc].substr(0,1)
+    // this.matchDataKey[v.fdesc]=YTX.substr(0,1)
+
+
+    console.log('v,key======',this.matchDataObj[v.fdesc])
+    console.log('v,key======',this.matchDataKey[v.fdesc])
+    console.log('v,key======',this.YTX)
+  })
+
+  this.getBalance()
+
+  console.log("this.data查询配套数据get=====",data)
+}
+root.methods.error_getSupporting = function (err) {
+  console.log("this.err=====",err)
+}
+
 //查询报名记录get
 root.methods.getRegistrationRecord = function () {
 
@@ -326,7 +310,7 @@ root.methods.re_getRegistrationRecord = function (data) {
   if (this.records.length !== 0) {
     this.balanceYY = (this.balanceYY - this.matchDataObj[this.matchingAmount])
     this.balanceTT = (this.balanceTT - this.matchDataFamt[this.matchingAmount])
-    this.balanceXX = (this.balanceXX - this.matchDataXX[this.matchingAmount])
+    this.balanceXX = (this.balanceXX - this.matchDataObj[this.matchingAmount])
   }
 
 }
@@ -355,16 +339,7 @@ root.methods.postActivities = function () {
     this.popWindowOpenShiM = true
     return
   }
-  //
-  // // 如果没有绑定邮箱，不允许报名
-  // if (!this.bindEmail) {
-  //   this.popWindowTitle = this.$t('bind_email_pop_title')
-  //   this.popWindowPrompt = this.$t('bind_email_pop_article')
-  //   this.popWindowStyle = '3'
-  //   this.popWindowOpenShiM = true
-  //   return
-  // }
-  //
+
   // // PC如果没有绑定谷歌或手机，不允许报名(邮箱注册,手机注册无限制)
   if (!this.bindGA && !this.bindMobile  && !this.isMobile) {
     this.popWindowTitle = this.$t('popWindowTitleWithdrawals')
@@ -388,23 +363,24 @@ root.methods.postActivities = function () {
     return
   }
 
-  let canSend = true
+  // let canSend = true
   // 判断用户名
   // 判断用户名
-  canSend = this.testMatchingAmount() && canSend
+  // canSend = this.testMatchingAmount() && canSend
 
+
+  if ((this.accMinus(this.matchDataFamt[this.matchingAmount] || '0', this.balanceTT || '0')) >= 0) {
+    this.matchingAmountMsg_0 = this.$t('distribution')
+    return false
+  }
   if (this.matchingAmount === '') {
     this.matchingAmountMsg_0 = this.$t('cannot')
-    canSend = false
+    return false
   }
-  if (this.accMinus(this.matchDataFamt[this.matchingAmount] || '0', this.balanceTT || '0') > 0) {
-    this.matchingAmountMsg_0 = this.$t('distribution')
-    canSend = false
-  }
-  if (!canSend) {
-    // console.log("不能发送！")
-    return
-  }
+  // if (!canSend) {
+  //   // console.log("不能发送！")
+  //   return
+  // }
 
   // TODO : 加变量的非空判断 正则判断
   // let params = {
