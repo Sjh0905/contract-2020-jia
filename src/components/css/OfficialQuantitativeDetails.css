@@ -184,13 +184,39 @@
   border:1px solid rgba(239,240,255,1);
   padding-bottom: 25px;
 }
-.record_div {
+.recordMining {
   width: 100%;
-  height:44px;
-  line-height: 44px;
+  height:46px;
   background:#F5F6FA;
   padding-left: 25px;
-  border-bottom: 1px solid #EFF0FF;
+}
+.record_div {
+  display: inline-block;
+  height:46px;
+  line-height: 46px;
+  color: #6B7DA2;
+  font-size:14px;
+  font-family:PingFangSC-Medium,PingFang SC;
+  font-weight:500;
+}
+.img-on {
+  width: 16px;
+  margin-bottom: -3px;
+}
+.selected_cardTypeML {
+  margin-left: 40px;
+}
+.account-click {
+  font-size:12px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color:rgba(53,118,245,1);
+}
+.selected_cardType {
+  display: inline-block;
+  height:46px;
+  line-height: 46px;
+  border-bottom: 2px solid #3576F5;
   color: #0D0E23;
   font-size:14px;
   font-family:PingFangSC-Medium,PingFang SC;
@@ -212,6 +238,28 @@
   width: 100%;
   min-height: 200px;
 }
+.application_liMining {
+  width: 98.5%;
+  /*height:148px;*/
+  min-height: 200px;
+  background:rgba(251,251,251,1);
+  border:1px solid rgba(239,240,255,1);
+  margin-left: 10px;
+  /*margin-right: 10px;*/
+  box-sizing: border-box;
+}
+.application_liMininghis {
+  width: 98.5%;
+  height:200px;
+  /*min-height: 200px;*/
+  background:rgba(251,251,251,1);
+  border:1px solid rgba(239,240,255,1);
+  margin-left: 10px;
+  /*margin-right: 10px;*/
+  box-sizing: border-box;
+  overflow:scroll;
+
+}
 
 .application_li {
   width: 100%;
@@ -227,9 +275,53 @@
   box-sizing: border-box;
 
 }
+.applicationDiv {
+  width: 100%;
+  height:50px;
+  line-height: 50px;
+  font-size:12px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color:#A2B5D9;
+  display: flex;
+  padding: 0 15px;
+  /*border-bottom: 1px solid #EFF0FF;*/
+  box-sizing: border-box;
+
+}
+/*.applicationDivHis {*/
+/*  width: 100%;*/
+/*  !*height:50px;*!*/
+/*  !*line-height: 50px;*!*/
+/*  !*margin-top: 500px;*!*/
+/*  font-size:12px;*/
+/*  font-family:PingFangSC-Regular,PingFang SC;*/
+/*  font-weight:400;*/
+/*  color:#A2B5D9;*/
+/*  display: flex;*/
+/*  padding: 0 15px;*/
+/*  position: fixed;*/
+/*  top:0;*/
+/*  !*border-bottom: 1px solid #EFF0FF;*!*/
+/*  box-sizing: border-box;*/
+
+/*}*/
 .application_header_div {
   justify-content:space-between;
   width: 25%;
+}
+.application_ {
+  justify-content:space-between;
+  width: 30%;
+}
+.application_1 {
+  justify-content:space-between;
+  width: 20%;
+}
+.application_right {
+  justify-content:space-between;
+  width: 20%;
+  text-align: right;
 }
 .application_header_div_right {
   justify-content:space-between;
@@ -518,4 +610,106 @@
 
 .loading-more span {
   cursor: pointer;
+}
+.mobileRecord_div {
+  display: inline-block;
+  height:0.88rem;
+  line-height: 0.88rem;
+  color: #6B7DA2;
+  font-size:0.28rem;
+  font-family:PingFangSC-Medium,PingFang SC;
+  font-weight:500;
+}
+.mobileSelected_cardTypeML {
+  margin-left: 0.4rem;
+}
+.mobileSelected_cardType {
+  display: inline-block;
+  height:0.88rem;
+  line-height: 0.88rem;
+  border-bottom: 2px solid #3576F5;
+  color: #0D0E23;
+  font-size:14px;
+  font-family:PingFangSC-Medium,PingFang SC;
+  font-weight:500;
+}
+.mobileRecordUl {
+  width: 7.5rem;
+  min-height: 4rem;
+}
+.mobileApplication_header {
+  width: 7.5rem;
+  height:0.8rem;
+  line-height: 0.8rem;
+  font-size:0.24rem;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color:#6B7DA2;
+  display: flex;
+  padding: 0 0.3rem;
+  box-sizing: border-box;
+}
+.mobileApplication_header_div {
+  justify-content:space-between;
+  width: 2.87rem;
+}
+.mobileApplication_header_divQ {
+  justify-content:space-between;
+  width: 1.4rem;
+}
+.mobileApplication_header_divS {
+  justify-content:space-between;
+  width: 1.87rem;
+}
+
+.mobileApplication_header_div_right {
+  justify-content:space-between;
+  width: 1.87rem;
+  text-align: right;
+}
+.mobileImgOn {
+  width: 0.32rem;
+  vertical-align: sub;
+}
+.mobilAapplication_liMining {
+  width: 7.5rem;
+  /*height:148px;*/
+  min-height: 4rem;
+  background:#EFF0FF;
+  border:0.02rem solid rgba(239,240,255,1);
+  /*margin-left: 0.2rem;*/
+  /*margin-right: 10px;*/
+  box-sizing: border-box;
+}
+
+.mobileApplicationDiv {
+  width: 7.5rem;
+  height:1rem;
+  line-height: 1rem;
+  font-size:0.24rem;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color:#A2B5D9;
+  display: flex;
+  padding: 0 0.3rem;
+  /*border-bottom: 1px solid #EFF0FF;*/
+  box-sizing: border-box;
+
+}
+.MobileApplication_ {
+  justify-content:space-between;
+  width: 30%;
+}
+.mobileULWT {
+  height: 4rem;
+  overflow:scroll;
+}
+.mobileULW {
+  width: 7.5rem;
+}
+.loading-more {
+  width: 100%;
+  text-align: center;
+  height: 50px;
+  line-height: 50px;
 }

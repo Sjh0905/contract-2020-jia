@@ -32,7 +32,7 @@
   "cannot":"配套数额不可为空",
   "distribution":"配套数额大于可用余额",
   "quantifying":"量化币种有误",
-  "Insufficient":"可用币种TT或YY余额不足",
+  "Insufficient":"可用币种余额不足",
   "parameter_error":"参数有误",
   "system_anomaly":"系统异常",
   "system_err":"参数配套编码有误",
@@ -52,7 +52,9 @@
   "disable":"禁用",
   "rejection":"驳回原因",
   "redemption":"重新兑换",
-  "applied":"已申请"
+  "applied":"已申请",
+  "applied3":"挖矿进行中，不能兑换其他矿源",
+  "applied4":"已报名挖矿,不能重复报名"
 
 },
 "EN": {
@@ -124,6 +126,8 @@
   "disable":"禁用",
   "rejection":"駁回原因",
   "redemption":"重新兌換",
-  "applied":"已申請"
+  "applied":"已申請",
+  "applied3":"挖礦進行中,不能兌換其他礦源",
+  "applied4":"已報名挖礦,不能重複報名"
 }
 }

@@ -436,6 +436,8 @@ requestAddress.GET_BALANCE = {url: urlHead+'/quant/getUserBalance/', method: 'ge
 requestAddress.GET_GETREG_DATA = {url: urlHead+'/quant/getRegData/', method: 'get'}//查询报名记录
 requestAddress.GET_USER_TRADE = {url: urlHead+'/quant/user/getUserTrade/', method: 'get'}//量化展示_量化交易记录
 requestAddress.GET_TRADE = {url: urlHead+'/quant/user/quantTrade/', method: 'get'}//量化展示_量化基本信息
+requestAddress.GET_HISTORY = {url: urlHead+'/quant/user/getHistRegAct/', method: 'get'}//量化展示_量化基本信息
+requestAddress.GET_HISTORICAL_DETAILS = {url: urlHead+'/quant/user/getRewardDetail/', method: 'get'}//量化展示_量化基本信息
 requestAddress.POST_REGACT = {url: urlHead+'/quant/regAct', method: 'post'}//活动报名
 
 

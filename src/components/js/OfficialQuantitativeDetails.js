@@ -10,8 +10,10 @@ root.data = () => {
   return {
     loading: true, // 加载中
     buyConfirmSuccess:false,
-    transaction:[],
-    records: [],
+    transaction:[], // 当前挖矿记录
+    records: [], //报名记录
+    historyRecords: [], //历史记录
+    historicalDetails: [], //历史挖矿记录详情
 
     totalAmount:'', //挖矿总数
     reward:'',     //挖矿奖励
@@ -21,20 +23,28 @@ root.data = () => {
     miningProgress:'',   //挖矿进度 0.95
     doSendReward:'',  //已释放的矿源奖励
     showLoadingMore: true,//是否显示加载更多
+    showLoadingMore1: true,//是否显示加载更多
     // loadingMoreIng: false, //是否正在加载更多
     loadingMoreShow:false,
+    loadingMoreShow1:false,
     currPage:1,
     pageSize:5,
     fdesc:'',
     fstatus:'',
 
     isApp:false,
-    isIOS:false
+    isIOS:false,
+    cardType:1,
+    historicalMining: false,
+    clickThis:-1,
+    id:''
   }
 }
 
 root.created = function () {
   this.getRegistrationRecord()
+  this.getHistoryRecord()
+
   this.getQuantifyransactions()
   this.getQuantifyBasicInformation()
   this.isAppQuery()
@@ -48,13 +58,20 @@ root.computed.isMobile = function () {
   return this.$store.state.isMobile
 }
 
-
+//报名记录
 root.computed.computedRecord = function (item,index) {
-  // console.log('jjjjjjjjjjj',item,'kkkkkkkk',index,'pppppp',this.records)
   return this.records
 }
+//历史挖矿记录
+root.computed.computedHistoryRecords = function (item,index) {
+  return this.historyRecords
+}
+//历史挖矿记录详情
+root.computed.computedHistoricalDetails = function (item,index) {
+  return this.historicalDetails
+}
+//当前挖矿记录
 root.computed.transactionRecording = function (item,index) {
-  // console.log('jjjjjjjjjjj',item,'kkkkkkkk',index,'pppppp',this.records)
   return this.transaction
 }
 // 用户名
@@ -80,12 +97,40 @@ root.computed.userId = function () {
 
 root.methods = {}
 
+root.methods.postWithd1 = function (cardType) {
+  this.cardType = cardType
+
+  console.log("cardType  ===== ",this.cardType)
+
+  // this.postBuyCard(cardType)
+}
+
+// root.methods.showDetail = function (details) {
+//   this.historicalMining = true
+// }
+
+// 显示详情
+// root.methods.showDetail = function () {
+//   if (this.clickThis == 1) {
+//     this.clickThis = 2
+//     return
+//   }
+//   this.clickThis = 1
+// }
+// 显示详情
+
+
 // 点击加载更多
 root.methods.clickLoadingMore = function () {
   this.loadingMoreIng = true
   this.getQuantifyransactions(this.userId)
 }
 
+// 点击加载更多
+root.methods.clickLoadingMoreHistory = function () {
+  this.loadingMoreIng1 = true
+  this.getHistoricalDetails()
+}
 root.methods.buyConfirmSuccessClose = function () {
   this.buyConfirmSuccess=false
 
@@ -111,24 +156,105 @@ root.methods.re_getRegistrationRecord = function (data) {
   console.log("this.re_getRegistrationRecord查询报名记录get=====",data)
   this.records = data.data
 
-
-  // console.log("this.re_getRegistrationRecord查询报名记录get=====",E2)
-
-  if (this.records.length == 0) {
-    this.buyConfirmSuccess=true
-    return;
-  }
-
   let E2 = this.records[0]
   this.fstatus = E2.fstatus
 
-  if (this.fstatus != '已报名') {
+  if (this.records.length == 0 && this.fstatus != '已报名') {
     this.buyConfirmSuccess=true
     return;
   }
+  // if (this.fstatus != '已报名') {
+  //   this.buyConfirmSuccess=true
+  //   return;
+  // }
   this.buyConfirmSuccess=false
 }
 root.methods.error_getRegistrationRecord = function (err) {
+  console.log("this.err=====",err)
+}
+
+
+//查询历史挖矿记录get
+root.methods.getHistoryRecord = function () {
+
+  this.$http.send('GET_HISTORY', {
+    bind: this,
+    urlFragment:this.userId,
+    // query:{
+    //   userId:this.uuid
+    // },
+    callBack: this.re_getHistoryRecord,
+    errorHandler: this.error_getHistoryRecord
+  })
+}
+root.methods.re_getHistoryRecord = function (data) {
+  typeof data === 'string' && (data = JSON.parse(data))
+  if (!data) {return}
+  this.historyRecords = data.data
+  console.log("this.re_getHistoryRecord查询历史挖矿记录=====",this.historyRecords)
+  data.data.forEach((v,index)=> {
+    if (v.id) {
+      console.log('查询历史挖矿记录id  index', index)
+      console.log('查询历史挖矿记录id  index', v.id)
+      this.id = Number(v.id)
+    }
+  })
+
+  console.log('this.id=========',this.id)
+
+}
+root.methods.error_getHistoryRecord = function (err) {
+  console.log("this.err=====",err)
+}
+
+
+root.methods.showDetail = function (id) {
+  if (this.clickThis == id) {
+    this.clickThis = -1
+    return
+  }
+  this.clickThis = id
+  this.getHistoricalDetails(id)
+}
+
+//查询历史挖矿记录详情get
+root.methods.getHistoricalDetails = function (id) {
+
+  this.$http.send('GET_HISTORICAL_DETAILS', {
+    bind: this,
+    urlFragment:(Number(id)),
+    // query:{
+    //   currPage: this.currPage,
+    //   pageSize: this.pageSize
+    // },
+    callBack: this.re_getHistoricalDetails,
+    errorHandler: this.error_getHistoricalDetails
+  })
+}
+root.methods.re_getHistoricalDetails = function (data) {
+
+  typeof data === 'string' && (data = JSON.parse(data))
+  if (!data) {return}
+  console.log("this.re_getHistoricalDetails查询历史挖矿记录详情=====",data)
+  this.historicalDetails = data.data.data
+
+  // this.transaction = data.data.data
+  // this.historicalDetails.push(...data.data.data)
+  //
+  //
+  // if (data.data.data.length < this.pageSize) {
+  //   this.showLoadingMore1 = false
+  // }
+  //
+  //
+  // this.currPage = this.currPage + 1
+  // this.pageSize = this.pageSize + 1
+  //
+  // this.loading = false
+  // this.loadingMoreIng1 = false
+
+}
+root.methods.error_getHistoricalDetails = function (err) {
   console.log("this.err=====",err)
 }
 
