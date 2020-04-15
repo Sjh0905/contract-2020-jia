@@ -9,7 +9,7 @@
   "exchang":"兑换",
   "passed":"1.请确保您的账号已经通过了实名认证",
   "bound":"2.请确保您的账户已绑定手机或谷歌二次验证",
-  "sufficient":"3.请确保您的账户有足够的YY、TT",
+  "sufficient":"3.请确保您的账户有足够的矿源",
   "registration1":"报名记录",
   "nper":"期数",
   "time":"时间",
@@ -54,7 +54,15 @@
   "redemption":"重新兑换",
   "applied":"已申请",
   "applied3":"挖矿进行中，不能兑换其他矿源",
-  "applied4":"已报名挖矿,不能重复报名"
+  "applied4":"已报名挖矿,不能重复报名",
+  "applied5":"审核",
+  "applied6":"进行中",
+  "applied7":"已完成",
+  "applied8":"收起",
+  "applied9":"当前挖矿记录",
+  "applied10":"历史挖矿记录",
+  "applied11":"详情",
+  "applied12":"矿源金额"
 
 },
 "EN": {
@@ -83,7 +91,7 @@
   "exchang":"兌換",
   "passed":"1.請確保您的帳號已經通過了實名認證",
   "bound":"2.請確保您的帳戶已綁定手機或谷歌二次驗證",
-  "sufficient":"3.請確保您的帳戶有足夠的YY、TT",
+  "sufficient":"3.請確保您的帳戶有足夠的礦源",
   "registration1":"報名記錄",
   "nper":"期數",
   "time":"時間",
@@ -128,6 +136,14 @@
   "redemption":"重新兌換",
   "applied":"已申請",
   "applied3":"挖礦進行中,不能兌換其他礦源",
-  "applied4":"已報名挖礦,不能重複報名"
+  "applied4":"已報名挖礦,不能重複報名",
+  "applied5":"審核",
+  "applied6":"進行中",
+  "applied7":"已完成",
+  "applied8":"收起",
+  "applied9":"當前挖礦記錄",
+  "applied10":"歷史挖礦記錄",
+  "applied11":"詳情",
+  "applied12":"礦源金額"
 }
 }

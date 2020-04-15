@@ -138,13 +138,13 @@
         <!--表头 S-->
         <li class="application_header">
           <!--          账号-->
-          <div class="application_header_div">{{$t('账号')}}</div>
+          <div class="application_header_div">{{$t('number')}}</div>
           <!--          期数-->
-          <div class="application_header_div">{{$t('期数')}}</div>
+          <div class="application_header_div">{{$t('nper')}}</div>
           <!--          配套-->
-          <div class="application_header_div">{{$t('配套')}}</div>
+          <div class="application_header_div">{{$t('supporting')}}</div>
           <!--          时间-->
-          <div class="application_header_div_right">{{$t('时间')}}</div>
+          <div class="application_header_div_right">{{$t('time')}}</div>
           <!--          操作-->
           <div class="application_header_div_right">{{$t('操作')}}</div>
         </li>
@@ -164,11 +164,11 @@
               <!--操作-->
               <div class="application_header_div_right pointer" @click="showDetail(item.id)"
                    v-if="clickThis!=item.id">
-                <span class="account-click pointer">{{$t('详情')}}</span>
+                <span class="account-click pointer">{{$t('applied11')}}</span>
                 <img class="img-on pointer" src="../../assets/shangla_icon.png" alt="">
               </div>
               <div class="application_header_div_right pointer " @click="showDetail(item.id)" v-if="clickThis==item.id">
-                <span class="account-click pointer">{{$t('收起')}}</span>
+                <span class="account-click pointer">{{$t('applied8')}}</span>
                 <img class="img-on pointer" src="../../assets/xiala_icon.png" alt="" >
               </div>
 
@@ -179,13 +179,13 @@
                   <li class="applicationDivHis">
                     <div class="flex applicationDiv" >
                       <!--账号-->
-                      <div class="application_ ">{{$t('日期')}}</div>
+                      <div class="application_ ">{{$t('date')}}</div>
                       <!--期数-->
-                      <div class="application_ ">{{$t('量化')}}</div>
+                      <div class="application_ ">{{$t('quanti')}}</div>
                       <!--配套-->
-                      <div class="application_1 ">{{$t('奖励')}}</div>
+                      <div class="application_1 ">{{$t('reward')}}</div>
                       <!--时间-->
-                      <div class="application_right ">{{$t('矿源金额')}}</div>
+                      <div class="application_right ">{{$t('applied12')}}</div>
                     </div>
                   </li>
                   <li v-for="(item,index) in computedHistoricalDetails" :key="item.id">

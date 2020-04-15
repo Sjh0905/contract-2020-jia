@@ -178,7 +178,7 @@
           <div class="application_header_div2">{{$t('supporting')}}</div>
           <div class="application_header_div3">{{$t('time')}}</div>
           <div class="application_header_div_right1">{{$t('状态')}}</div>
-          <div class="application_header_div_right2">{{$t('审核')}}</div>
+          <div class="application_header_div_right2">{{$t('applied5')}}</div>
           </li>
           <!--表头 E-->
 
@@ -195,9 +195,10 @@
                     <div class="application_header_div2 color_a2">{{item.fdesc}}</div>
                   <!--配套-->
                     <div class="application_header_div3 color_a2">{{formatDateUitl(item.updatedAt)}}</div>
-                  <!--时间-->
-                    <div class="application_header_div_right1 color_a2" v-if="item.complete == ''">进行中</div>
-                    <div class="application_header_div_right1 color_a2" v-if="item.complete == 'YES'">已完成</div>
+                  <!--进行中-->
+                    <div class="application_header_div_right1 color_a2" v-if="item.complete == ''">{{$t('applied6')}}</div>
+                    <!--已完成-->
+                    <div class="application_header_div_right1 color_a2" v-if="item.complete == 'YES'">{{$t('applied7')}}</div>
                   <!--状态-->
                     <div class="application_header_div_right2 mor-right color_a2bo pointer" v-if="item.fstatus == '驳回' && clickThis == 1">
                       <span class="account-click" @click="showDetail(1)" v-if="clickThis == 1"
@@ -206,7 +207,7 @@
                     </div>
                     <div class="application_header_div_right2 mor-right color_a2bo pointer" v-if="item.fstatus == '驳回' && clickThis == 2">
                       <span class="account-click" @click="showDetail(2)" v-if="clickThis == 2"
-                      >{{$t('收起')}}</span>
+                      >{{$t('applied8')}}</span>
                       <img class="img-on pointer" src="../../assets/bohuiOn_icon.png" alt="" @click="showDetail(2)">
                     </div>
                     <div class="application_header_div_right2 mor-right color_a2dai" v-if="item.fstatus == '未审核'">{{$t('unaudited')}}</div>
