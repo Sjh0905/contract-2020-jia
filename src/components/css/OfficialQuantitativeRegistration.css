@@ -508,13 +508,18 @@
   background-color: #FFFFFF;
   margin-top: -0.02rem;
 }
+
+.mobileApplication_header_div22 {
+  justify-content:space-between;
+  width: 2rem;
+}
 .mobileApplication_header_div {
   justify-content:space-between;
-  width: 2.7rem;
+  width: 3rem;
 }
 .mobileApplication_header_div_right {
   justify-content:space-between;
-  width: 2.1rem;
+  width: 2.2rem;
   text-align: right;
 }
 .mobileApplication_header1 {

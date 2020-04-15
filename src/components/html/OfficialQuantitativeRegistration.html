@@ -195,8 +195,10 @@
                     <div class="application_header_div2 color_a2">{{item.fdesc}}</div>
                   <!--配套-->
                     <div class="application_header_div3 color_a2">{{formatDateUitl(item.updatedAt)}}</div>
-                  <!--进行中-->
-                    <div class="application_header_div_right1 color_a2" v-if="item.complete == ''">{{$t('applied6')}}</div>
+
+                    <div class="application_header_div_right1 color_a2" v-if="item.complete == '' && item.fstatus != '已报名'">——</div>
+                    <!--进行中-->
+                    <div class="application_header_div_right1 color_a2" v-if="item.complete == '' && item.fstatus == '已报名'">{{$t('applied6')}}</div>
                     <!--已完成-->
                     <div class="application_header_div_right1 color_a2" v-if="item.complete == 'YES'">{{$t('applied7')}}</div>
                   <!--状态-->
@@ -401,7 +403,7 @@
       <!--表头 S-->
       <li class="application_header">
         <!--            <div class="application_header_div">{{$t('number')}}</div>-->
-        <div class="mobileApplication_header_div">{{$t('nper')}}</div>
+        <div class="mobileApplication_header_div22">{{$t('nper')}}</div>
         <div class="mobileApplication_header_div">{{$t('supporting')}}</div>
 <!--        <div class="mobileApplication_header_div_right">{{$t('time')}}</div>-->
         <div class="mobileApplication_header_div_right">{{$t('状态')}}</div>
@@ -416,7 +418,7 @@
             <!--账号-->
             <!--                <div class="application_header_div mor-left color_a2">{{$globalFunc.formatUserName(item.account)}}</div>-->
             <!--期数-->
-            <div class="mobileApplication_header_div">
+            <div class="mobileApplication_header_div22">
               <span class="mobileSpanDis">{{item.periodsNum}}</span>
               <span class="mobileSpanDisTime">{{formatDateUitl(item.updatedAt)}}</span>
             </div>
@@ -425,7 +427,8 @@
 
           <!-- 状态-->
             <div class="mobileApplication_header_div_right">
-              <div class="mobileUnderway" v-if="item.complete == ''">进行中</div>
+              <div class="mobileNoMining" v-if="item.complete == '' && item.fstatus != '已报名'">-</div>
+              <div class="mobileUnderway" v-if="item.complete == '' && item.fstatus == '已报名'">进行中</div>
               <div class="mobileUnderwayComplete" v-if="item.complete == 'YES'">已完成</div>
 <!--              <div class="mobileNoMining">-</div>-->
 

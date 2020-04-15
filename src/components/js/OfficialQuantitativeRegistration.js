@@ -56,9 +56,9 @@ root.data = () => {
 }
 
 root.created = function() {
+  this.getBalance()
   this.getSupporting()
   this.getRegistrationRecord()
-  this.getBalance()
   this.GET_AUTH_STATE()
   this.isAppQuery()
   this.isIOSQuery()
@@ -116,6 +116,8 @@ root.computed.bindEmail = function () {
 root.computed.bindIdentify = function () {
   return this.$store.state.authState.identity
 }
+
+
 // // uid
 // root.computed.uuid = function () {
 //   if(this.$store.state.authMessage.uuid == undefined){
@@ -170,58 +172,26 @@ root.methods.showDetail = function () {
 }
 
 
-// 弹出绑定身份，跳转到实名认证界面
-root.methods.goToBindIdentity = function () {
-  this.popWindowOpenShiM = false
-  this.$router.push({name: 'authenticate'})
-}
-// 去绑定谷歌验证
-root.methods.goToBindGA = function () {
-  this.popWindowOpenShiM = false
-  this.$router.push({name: 'bindGoogleAuthenticator'})
-}
-// 去绑定手机号
-root.methods.goToBindMobile = function () {
-  this.popWindowOpenShiM = false
-  this.$router.push({name: 'bindMobile'})
-}
-// 去绑定邮箱
-root.methods.goToBindEmail = function () {
-  this.popWindowOpenShiM = false
-  this.$router.push({name: 'bindEmail'})
-}
+
+// // 去绑定谷歌验证
+// root.methods.goToBindGA = function () {
+//   this.popWindowOpenShiM = false
+//   this.$router.push({name: 'bindGoogleAuthenticator'})
+// }
+// // 去绑定手机号
+// root.methods.goToBindMobile = function () {
+//   this.popWindowOpenShiM = false
+//   this.$router.push({name: 'bindMobile'})
+// }
+// // 去绑定邮箱
+// root.methods.goToBindEmail = function () {
+//   this.popWindowOpenShiM = false
+//   this.$router.push({name: 'bindEmail'})
+// }
 
 //查询配套数据get
 root.methods.getSupporting = function (item) {
-  // TODO: 要删除的
-  // var data = {
-  //   "data": [
-  //     {
-  //       "fcode": "qq100",
-  //       "fdesc": "10000 QQ"
-  //     },
-  //     {
-  //       "fcode": "qq110",
-  //       "fdesc": "20000 QQ"
-  //     },
-  //     {
-  //       "fcode": "qq120",
-  //       "fdesc": "30000 QQ"
-  //     },
-  //     {
-  //       "fcode": "qq130",
-  //       "fdesc": "40000 QQ"
-  //     },
-  //     {
-  //       "fcode": "qq140",
-  //       "fdesc": "50000 QQ"
-  //     }
-  //   ],
-  //   "status": "200",
-  //   "message": "success"
-  // }
-  // this.re_getSupporting(data)
-  //TODO: 要删除的
+
   this.$http.send('GET_MATCH_DATA', {
     bind: this,
     callBack: this.re_getSupporting,
@@ -245,6 +215,7 @@ root.methods.re_getSupporting = function (data) {
 
     // this.YTX = this.matchDataKey[v.fdesc].substr(0,1)
     // this.matchDataKey[v.fdesc]=YTX.substr(0,1)
+
 
     console.log('v,key======',this.matchDataObj[v.fdesc])
     console.log('v,key======',this.matchDataKey[v.fdesc])
@@ -658,6 +629,19 @@ root.methods.isIOSQuery = function () {
   } else {
     this.isIOS = false
   }
+}
+
+// 弹出绑定身份，跳转到实名认证界面
+root.methods.goToBindIdentity = function () {
+  this.popWindowOpenShiM = false
+  this.$router.push({name: 'authenticate'})
+}
+
+
+// 弹框跳安全中心
+root.methods.goToSecurityCenter = function () {
+  this.popWindowOpenShiM = false
+  this.$router.push({name: 'securityCenter'})
 }
 
 // 格式化时间
