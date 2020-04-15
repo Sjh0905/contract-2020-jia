@@ -145,7 +145,7 @@ root.data = function () {
 
     // 是否是WCG币对
     // isWCG: false,
-    selectTab: 1,
+    selectTab: 2,
 
 
   }
@@ -218,6 +218,16 @@ root.computed.withdrawalsFlagUSDT2 = function(){
   }
   let currencyObj = this.$store.state.currency.get('USDT2')
   sessionStorage.setItem("withdrawalsFlagUSDT2",JSON.stringify(currencyObj))
+  return currencyObj && currencyObj.withdrawEnabled
+}
+
+root.computed.withdrawalsFlagUSDT3 = function(){
+  if (!this.$store.state.currency.get('USDT3') ) {
+    let currencyO =  JSON.parse(sessionStorage.getItem("withdrawalsFlagUSDT3"))
+    return currencyO && currencyO.depositEnabled
+  }
+  let currencyObj = this.$store.state.currency.get('USDT3')
+  sessionStorage.setItem("withdrawalsFlagUSDT3",JSON.stringify(currencyObj))
   return currencyObj && currencyObj.withdrawEnabled
 }
 
@@ -314,7 +324,10 @@ root.methods.getCurrency = function () {
 root.methods.isERC20 = function () {
   // let currencyObj = this.$store.state.currency.get(this.title)
   // return currencyObj && (currencyObj.addressAliasTo === 'WCG' || this.currency === 'WCG')
-  return (this.title == "USDT" && this.selectTab == 2) ? "USDT2" : this.title;
+  // return (this.title == "USDT" && this.selectTab == 2) ? "USDT2" : this.title;
+  if(this.title == "USDT" && this.selectTab == 2) return "USDT2"
+  if(this.title == "USDT" && this.selectTab == 3) return "USDT3"
+  return this.title
 }
 
 // 获取币种回调
