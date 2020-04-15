@@ -148,15 +148,18 @@
 
 
         <!-- 兑换按钮-->
-        <div class="exchange_button pointer" @click="postActivities" v-if="(computedRecord.length == 0) && !getVerificationCode">{{$t('exchang')}}</div>
+        <div class="exchange_button pointer" @click="postActivities" v-if="(computedRecord.length == 0) && !sending1">{{$t('exchang')}}</div>
 <!--        <div class="exchange_button1" v-if="getVerificationCode">报名中</div>-->
 <!--        <div class="exchange_button1" v-if="computedRecord.length !== 0">已报名</div>-->
-        <div class="exchange_button1" v-if="fstatus == '未审核'">{{$t('unaudited')}}</div>
-        <div class="exchange_button1" v-if="fstatus == '已报名'&&complete == ''">{{$t('registered')}}</div>
-        <div class="exchange_button1" v-if="fstatus == '禁用'">{{$t('disable')}}</div>
-        <div class="exchange_button pointer" @click="postActivities" v-if="fstatus == '驳回'">{{$t('exchang')}}</div>
-        <div class="exchange_button pointer" @click="postActivities" v-if="complete == 'YES'&&fstatus == '已报名'">{{$t('exchang')}}</div>
 
+<!--        <div class="exchange_button pointer" @click="postActivities" v-if="fstatus == '驳回' && !getVerificationCode">{{$t('exchang')}}</div>-->
+<!--        <div class="exchange_button pointer" @click="postActivities" v-if="complete == 'YES' && fstatus == '已报名' && !getVerificationCode">{{$t('exchang')}}</div>-->
+        <div class="exchange_button pointer" @click="postActivities" v-if="fstatus == '驳回' && !sending1">{{$t('exchang')}}</div>
+        <div class="exchange_button pointer" @click="postActivities" v-if="complete == 'YES' && fstatus == '已报名' && !sending1">{{$t('exchang')}}</div>
+        <div class="exchange_button" v-if="sending1">{{$t('exchang')}}</div>
+        <div class="exchange_button1" v-if="fstatus == '未审核'">{{$t('unaudited')}}</div>
+        <div class="exchange_button1" v-if="fstatus == '已报名'&& complete == ''">{{$t('registered')}}</div>
+        <div class="exchange_button1" v-if="fstatus == '禁用'">{{$t('disable')}}</div>
 
         <!--  须知 1,2,3-->
         <div class="notice_div">
@@ -373,15 +376,16 @@
           </div>
         </div>
         <!-- 兑换按钮-->
-        <div class="exchange_button pointer" @click="postActivities" v-if="(computedRecord.length == 0) && !getVerificationCode">{{$t('exchang')}}</div>
+        <div class="exchange_button pointer" @click="postActivities" v-if="(computedRecord.length == 0) && !sending1">{{$t('exchang')}}</div>
 <!--        <div class="exchange_button1" v-if="getVerificationCode">报名中</div>-->
 <!--        <div class="exchange_button1" v-if="computedRecord.length !== 0">已报名</div>-->
+
+        <div class="exchange_button" @click="postActivities" v-if="fstatus == '驳回'&&!sending1">兑换</div>
+        <div class="exchange_button" @click="postActivities" v-if="complete == 'YES'&&fstatus == '已报名'&&!sending1">兑换</div>
+        <div class="exchange_button" v-if="sending1">{{$t('exchang')}}</div>
         <div class="exchange_button1" v-if="fstatus == '未审核'">待审核</div>
         <div class="exchange_button1" v-if="fstatus == '已报名'&&complete == ''">已通过审核</div>
         <div class="exchange_button1" v-if="fstatus == '禁用'">禁用</div>
-        <div class="exchange_button" @click="postActivities" v-if="fstatus == '驳回'">兑换</div>
-        <div class="exchange_button" @click="postActivities" v-if="complete == 'YES'&&fstatus == '已报名'">兑换</div>
-
 
         <!--  须知 1,2,3-->
         <div class="notice_div mobileMB">

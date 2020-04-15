@@ -47,6 +47,7 @@ root.data = () => {
     remark:'',
     complete:'',  //挖矿已完成或进行中
     clickThis:1,
+    sending1:false,
 
     isApp:false,
     isIOS:false,
@@ -307,8 +308,13 @@ root.methods.re_getRegistrationRecord = function (data) {
   this.complete = E2.complete
   // this.fstatus = data.data.fstatus
   // this.remark = this.records.getArrayIndex(5)
-  if (this.records.length !== 0) {
+  if ((this.records.length !== 0) && (this.matchDataKey[this.matchingAmount].indexOf('y') > -1)) {
     this.balanceYY = (this.balanceYY - this.matchDataObj[this.matchingAmount])
+    this.balanceTT = (this.balanceTT - this.matchDataFamt[this.matchingAmount])
+    // this.balanceXX = (this.balanceXX - this.matchDataObj[this.matchingAmount])
+  }
+  if ((this.records.length !== 0) && (this.matchDataKey[this.matchingAmount].indexOf('x') > -1)) {
+    // this.balanceYY = (this.balanceYY - this.matchDataObj[this.matchingAmount])
     this.balanceTT = (this.balanceTT - this.matchDataFamt[this.matchingAmount])
     this.balanceXX = (this.balanceXX - this.matchDataObj[this.matchingAmount])
   }
@@ -407,25 +413,23 @@ root.methods.postActivities = function () {
     // amount: this.matchDataObj[this.matchingAmount]//所需数额
   }
   console.log("postActivities + params ===== ",params)
-  /* TODO : 调试接口需要屏蔽 S*/
-  // this.re_postActivities()
-  /* TODO : 调试接口需要屏蔽 E*/
 
-  this.getVerificationCode = true
-  this.clickVerificationCodeButton = true
-  this.verificationCodeWA = ''
-
-  this.getVerificationCodeInterval && clearInterval(this.getVerificationCodeInterval)
-
-  this.getVerificationCodeInterval = setInterval(() => {
-    this.getVerificationCodeCountdown--
-    if (this.getVerificationCodeCountdown <= 0) {
-      this.getVerificationCode = false
-      this.getVerificationCodeCountdown = 60
-      clearInterval(this.getVerificationCodeInterval)
-    }
-  }, 1000)
-
+  //
+  // this.getVerificationCode = true
+  // this.clickVerificationCodeButton = true
+  // this.verificationCodeWA = ''
+  //
+  // this.getVerificationCodeInterval && clearInterval(this.getVerificationCodeInterval)
+  //
+  // this.getVerificationCodeInterval = setInterval(() => {
+  //   this.getVerificationCodeCountdown--
+  //   if (this.getVerificationCodeCountdown <= 0) {
+  //     this.getVerificationCode = false
+  //     this.getVerificationCodeCountdown = 60
+  //     clearInterval(this.getVerificationCodeInterval)
+  //   }
+  // }, 1)
+  this.sending1 = true
   this.$http.send('POST_REGACT', {
     bind: this,
     params: params,
@@ -434,6 +438,7 @@ root.methods.postActivities = function () {
   })
 }
 root.methods.re_postActivities = function (data) {
+  // this.sending1 = false
   typeof data === 'string' && (data = JSON.parse(data))
   if (!data) {return}
   console.log("this.re_postActivities活动报名=====",data)
@@ -514,9 +519,10 @@ root.methods.re_postActivities = function (data) {
         this.popOpen = true
       }, 100)
     }
-    this.getVerificationCodeInterval && clearInterval(this.getVerificationCodeInterval)
-    this.getVerificationCode = false
-    this.getVerificationCodeCountdown = 60
+    this.sending1 = false
+    // this.getVerificationCodeInterval && clearInterval(this.getVerificationCodeInterval)
+    // this.getVerificationCode = false
+    // this.getVerificationCodeCountdown = 60
   }
 
   if (this.fstatus == '已报名' && this.isMobile) {
@@ -560,6 +566,7 @@ root.methods.re_postActivities = function (data) {
   // }
 }
 root.methods.error_postActivities = function (err) {
+  this.sending1 = false
   console.log("this.err=====",err)
   console.warn('活动报名post 获取出错！', err)
 }
