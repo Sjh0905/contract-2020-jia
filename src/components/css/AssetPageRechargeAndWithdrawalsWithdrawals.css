@@ -52,6 +52,9 @@
   font-weight:400;
   color: #0D0E23;
 }
+.address-box {
+  font-size: 14px;
+}
 
 .address-ERC {
   display: inline-block;
@@ -60,7 +63,7 @@
   width: 120px;
   height: 36px;
   line-height: 36px;
-  background-color: #E5EBF5;
+  background-color: #EFF0FF ;
   color: #3576F5;
   border-radius: 1px;
   cursor: pointer;

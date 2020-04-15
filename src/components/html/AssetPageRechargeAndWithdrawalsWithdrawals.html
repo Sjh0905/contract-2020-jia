@@ -13,8 +13,10 @@
 
           <div v-if="withdrawalsFlagUSDT" class="address-ERC" @click="toggleStatus(1)" :class="selectTab ==1 ? 'address-si' : ''">OMNI</div>
           <div v-if="!withdrawalsFlagUSDT" class="address-OMNI-disabled">OMNI</div>
-          <div v-if="withdrawalsFlagUSDT2" class="address-OMNI" @click="toggleStatus(2)" :class="selectTab ==2 ? 'address-si' : ''">ERC20</div>
+          <div v-if="withdrawalsFlagUSDT2" class="address-ERC" @click="toggleStatus(2)" :class="selectTab ==2 ? 'address-si' : ''">ERC20</div>
           <div v-if="!withdrawalsFlagUSDT2" class="address-OMNI-disabled">ERC20</div>
+          <div v-if="withdrawalsFlagUSDT3" class="address-OMNI" @click="toggleStatus(3)" :class="selectTab ==3 ? 'address-si' : ''">TRC20</div>
+          <div v-if="!withdrawalsFlagUSDT3" class="address-OMNI-disabled">TRC20</div>
 
         </div>
       </div>
@@ -38,6 +40,10 @@
                    :placeholder="$t('placeholder_0')" v-model="description"
                    v-show="selectTab === 2"
                    @input="InputChangeDescription">
+            <input class="input-remarks input-unify border-container" type="text"
+                   :placeholder="$t('placeholder_0')" v-model="description"
+                   v-show="selectTab === 3"
+                   @input="InputChangeDescription">
 <!--@blur="blurInputDescription"-->
 
 
@@ -50,6 +56,10 @@
             <input class="input-address input-unify border-container flex" type="text"
                    :placeholder="$t('placeholder_1')" v-model="address"
                    v-show="selectTab === 2"
+                   @blur="blurInputAddress">
+            <input class="input-address input-unify border-container flex" type="text"
+                   :placeholder="$t('placeholder_1')" v-model="address"
+                   v-show="selectTab === 3"
                    @blur="blurInputAddress">
 
 
@@ -220,12 +230,15 @@
 <!--        &lt;!&ndash;注：提现{{currency}}同时需要一个充值地址和{{currency}} memo，如果未遵守{{currency}}提现规则，币会丢失。若钱包无memo，请输入任意字符。&ndash;&gt;-->
 <!--        {{/*isWCG && $t('memoPromptWCG',{currency:currency}) || */$t('memoPrompt',{currency:currency}) }}-->
 <!--      </li>-->
-      <li class="" v-show="(currency == 'USDT' || currency == 'USDT2') && (selectTab === 1)">
-        <span class="usdt_notice_dot"></span>{{$t('usdt_notice')}}
-      </li>
-      <li class="" v-show="(currency == 'USDT' || currency == 'USDT2') && (selectTab === 2)">
-        <span class="usdt_notice_dot"></span>{{$t('eusdt_notice')}}
-      </li>
+<!--      <li class="" v-show="(currency == 'USDT' || currency == 'USDT2' || currency == 'USDT3') && (selectTab === 1)">-->
+<!--        <span class="usdt_notice_dot"></span>{{$t('usdt_notice')}}-->
+<!--      </li>-->
+<!--      <li class="" v-show="(currency == 'USDT' || currency == 'USDT2' || currency == 'USDT3') && (selectTab === 2)">-->
+<!--        <span class="usdt_notice_dot"></span>{{$t('eusdt_notice')}}-->
+<!--      </li>-->
+<!--      <li class="" v-show="(currency == 'USDT' || currency == 'USDT2' || currency == 'USDT3') && (selectTab === 3)">-->
+<!--        <span class="usdt_notice_dot"></span>{{$t('tusdt_notice')}}-->
+<!--      </li>-->
       <li><span></span>
         <!-- {{$t('prompt_1',{ currency : currencyName,
         minimumAmount : computedMinimumAmount})}} -->

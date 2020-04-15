@@ -17,6 +17,7 @@
 
     "usdt_notice": "请勿向上述地址充值任何非OMNI_USDT资产，否则资产将不可找回；",
     "eusdt_notice": "请勿向上述地址充值任何非ERC20_ USDT资产，否则资产将不可找回；",
+    "tusdt_notice": "请勿向上述地址充值任何非TRC20_ USDT资产，否则资产将不可找回；",
     "memo": "充值备注",
     "copyMemo": "点击复制memo",
     "copyMemoEos": "点击复制充值备注",
@@ -103,6 +104,7 @@
     "popWindowButton_1": "返回",
     "usdt_notice": "請勿向上述位址充值任何非OMNI_USDT資產，否則資產將不可找回；",
     "eusdt_notice": "請勿向上述位址充值任何非ERC20_ USDT資產，否則資產將不可找回；",
+    "tusdt_notice": "請勿向上述位址充值任何非TRC20_ USDT資產,否則資產將不可找回；",
     "memo": "充值備註",
     "copyMemo": "點擊複製memo",
     "copyMemoEos": "點擊複製充值備註",

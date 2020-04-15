@@ -461,6 +461,7 @@ store.mutations.CHANGE_CURRENCY = (state, currencyArr) => {
       state.currency.set(currencyArr[i].name, {
         currency: currencyArr[i].name || '',
         isUSDT2: currencyArr[i].name == 'USDT2' || '',//是否是USDT2
+        isUSDT3: currencyArr[i].name == 'USDT3' || '',//是否是USDT3
         fullName: currencyArr[i].fullName || '',
         description: currencyArr[i].description || '',
         addressAliasTo: currencyArr[i].addressAliasTo || '',
@@ -482,6 +483,7 @@ store.mutations.CHANGE_CURRENCY = (state, currencyArr) => {
     if (target) {
       target.currency = currencyArr[i].name || target.currency || ''
       target.isUSDT2 = currencyArr[i].name == 'USDT2' || target.currency == 'USDT2' || ''
+      target.isUSDT3 = currencyArr[i].name == 'USDT3' || target.currency == 'USDT3' || ''
       target.fullName = currencyArr[i].fullName || target.fullName || ''
       target.description = currencyArr[i].description || target.description || ''
       target.addressAliasTo = currencyArr[i].addressAliasTo || target.addressAliasTo || ''
