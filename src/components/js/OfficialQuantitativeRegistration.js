@@ -18,10 +18,12 @@ root.data = () => {
     matchDataObj:{},
     matchDataKey:{},
     matchDataFamt:{},
+    matchDataXX:{},
     matchingAmount: '',
     records: [],
-    balance:'0',
-    balance1:'0',
+    balanceYY:'0',
+    balanceTT:'0',
+    balanceXX:'0',
     matchingAmountMsg_0:'',
 
     popType: 0,
@@ -41,11 +43,15 @@ root.data = () => {
     popWindowPrompt: '',//弹出样式提示
     popWindowStyle: 0,//跳转 0表示实名认证，1表示手机或谷歌，2只有确定
     popIdenOpen: false,
-    fstatus:'',
+    fstatus:'', //审核的状态
     remark:'',
+    complete:'',  //挖矿已完成或进行中
+    clickThis:1,
 
     isApp:false,
-    isIOS:false
+    isIOS:false,
+    YTX:0,
+    TT:0
   }
 }
 
@@ -154,6 +160,16 @@ root.methods.RE_GET_AUTH_STATE = function (res) {
 
 
 
+// 显示详情
+root.methods.showDetail = function () {
+  if (this.clickThis == 1) {
+    this.clickThis = 2
+    return
+  }
+  this.clickThis = 1
+}
+
+
 // 弹出绑定身份，跳转到实名认证界面
 root.methods.goToBindIdentity = function () {
   this.popWindowOpenShiM = false
@@ -222,9 +238,17 @@ root.methods.re_getSupporting = function (data) {
 
     this.matchDataObj[v.fdesc] = v.fut_amt
     this.matchDataFamt[v.fdesc] = v.next_famt
+    // this.matchDataXX[v.fdesc] = v.fut_amt
     this.matchDataKey[v.fdesc] = v.fcode
+    // this.YTX = this.matchDataKey[this.matchingAmount].indexOf('y')
+    // this.TT = this.matchDataKey[this.matchingAmount].indexOf('x')
+
+    // this.YTX = this.matchDataKey[v.fdesc].substr(0,1)
+    // this.matchDataKey[v.fdesc]=YTX.substr(0,1)
 
     console.log('v,key======',this.matchDataObj[v.fdesc])
+    console.log('v,key======',this.matchDataKey[v.fdesc])
+    console.log('v,key======',this.YTX)
   })
 
   console.log("this.data查询配套数据get=====",data)
@@ -275,17 +299,25 @@ root.methods.re_getBalance = function (data) {
   console.log('查询用户余额get  index',data)
   typeof data === 'string' && (data = JSON.parse(data))
   data.data.forEach((v,index)=>{
+    this.currency = v.currency
     if (v.currency == 'YY') {
       console.log('查询用户余额get  index',index)
       console.log('查询用户余额get  index',v.balance)
-      this.balance = v.balance
+      this.balanceYY = v.balance
       this.type = v.type
       this.currency = v.currency
     }
     if (v.currency == 'TT') {
       console.log('查询用户余额get  index',index)
       console.log('查询用户余额get  index',v.balance)
-      this.balance1 = v.balance
+      this.balanceTT = v.balance
+      this.type = v.type
+      this.currency = v.currency
+    }
+    if (v.currency == 'XX') {
+      console.log('查询用户余额get  index',index)
+      console.log('查询用户余额get  index',v.balance)
+      this.balanceXX = v.balance
       this.type = v.type
       this.currency = v.currency
     }
@@ -317,11 +349,13 @@ root.methods.re_getRegistrationRecord = function (data) {
 
   let E2 = this.records[0]
   this.fstatus = E2.fstatus
+  this.complete = E2.complete
   // this.fstatus = data.data.fstatus
   // this.remark = this.records.getArrayIndex(5)
   if (this.records.length !== 0) {
-    this.balance = (this.balance - this.matchDataObj[this.matchingAmount])
-    this.balance1 = (this.balance1 - this.matchDataFamt[this.matchingAmount])
+    this.balanceYY = (this.balanceYY - this.matchDataObj[this.matchingAmount])
+    this.balanceTT = (this.balanceTT - this.matchDataFamt[this.matchingAmount])
+    this.balanceXX = (this.balanceXX - this.matchDataXX[this.matchingAmount])
   }
 
 }
@@ -392,7 +426,7 @@ root.methods.postActivities = function () {
     this.matchingAmountMsg_0 = this.$t('cannot')
     canSend = false
   }
-  if (this.accMinus(this.matchDataObj[this.matchingAmount] || '0', this.balance || '0') > 0) {
+  if (this.accMinus(this.matchDataFamt[this.matchingAmount] || '0', this.balanceTT || '0') > 0) {
     this.matchingAmountMsg_0 = this.$t('distribution')
     canSend = false
   }
@@ -477,14 +511,14 @@ root.methods.re_postActivities = function (data) {
         this.popOpen = true
       }, 100)
     }
-    if (data.errorCode == "3") {
-      this.popOpen = true
-      this.popType = 0
-      this.popText = this.$t('system_err1') //用户已参加过报名活动
-      setTimeout(() => {
-        this.popOpen = true
-      }, 100)
-    }
+    // if (data.errorCode == "3") {
+    //   this.popOpen = true
+    //   this.popType = 0
+    //   this.popText = this.$t('system_err1') //用户已参加过报名活动
+    //   setTimeout(() => {
+    //     this.popOpen = true
+    //   }, 100)
+    // }
     if (data.errorCode == "4") {
       this.popOpen = true
       this.popType = 0
@@ -497,6 +531,22 @@ root.methods.re_postActivities = function (data) {
       this.popOpen = true
       this.popType = 0
       this.popText = this.$t('popWindowPromptWithdrawals') //您尚未通过实名认证
+      setTimeout(() => {
+        this.popOpen = true
+      }, 100)
+    }
+    if (data.errorCode == "7") {
+      this.popOpen = true
+      this.popType = 0
+      this.popText = this.$t('applied3') //挖矿进行中，不能兑换其他矿源
+      setTimeout(() => {
+        this.popOpen = true
+      }, 100)
+    }
+    if (data.errorCode == "8") {
+      this.popOpen = true
+      this.popType = 0
+      this.popText = this.$t('applied4') //已报名挖矿,不能重复报名
       setTimeout(() => {
         this.popOpen = true
       }, 100)
