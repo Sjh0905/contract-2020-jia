@@ -27,7 +27,7 @@
         <li class="detail-li" v-for="(item,index) in computedRecord" :key="item.id">
           <div class="li-container flex">
             <span class="time">{{$globalFunc.formatDateUitl(item.updatedAt,'YYYY-MM-DD hh:mm:ss')}}</span>
-            <span class="currency">{{item.currency == 'USDT2' ? 'USDT' :item.currency}}</span>
+            <span class="currency">{{item.currency == 'USDT2' || item.currency == 'USDT3' ? 'USDT' :item.currency}}</span>
             <span class="total">{{toFixed(item.amount,8)}}</span>
             <div class="address address-detail flex">
               <div class="address-detail-item flex">

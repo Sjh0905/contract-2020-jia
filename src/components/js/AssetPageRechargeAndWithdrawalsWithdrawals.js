@@ -104,7 +104,7 @@ root.data = function () {
 
     currency2:'USDT',
     currency1:'USDT2',
-    selectTab: (this.currency == 'USDT' && this.withdrawalsFlagUSDT) ? 1 : 2,
+    selectTab: (this.currency == 'USDT' && this.withdrawalsFlagUSDT2) ? 2 : 1,
 
   }
 }
@@ -159,6 +159,10 @@ root.computed.withdrawalsFlagUSDT = function(){
 }
 root.computed.withdrawalsFlagUSDT2 = function(){
   let currencyObj = this.$store.state.currency.get('USDT2')
+  return currencyObj && currencyObj.withdrawEnabled
+}
+root.computed.withdrawalsFlagUSDT3 = function(){
+  let currencyObj = this.$store.state.currency.get('USDT3')
   return currencyObj && currencyObj.withdrawEnabled
 }
 
@@ -246,7 +250,7 @@ root.watch.serverTime = function (oldVal, newVal) {
 /*--------------------------------- 生命周期 --------------------------------*/
 
 root.created = function () {
-  this.selectTab=(this.currency == 'USDT' && this.withdrawalsFlagUSDT) ? 1 : 2
+  this.selectTab=(this.currency == 'USDT' && this.withdrawalsFlagUSDT2) ? 2 : 1
   this.getAuthState()
   // this.getWithdrawalsAddress1()
   this.getWithdrawalsAddress()
@@ -322,7 +326,7 @@ root.methods.re_getWithdrawalsFee = function (data) {
     return
   }
   // console.log(data)
-  this.currencyName = data.dataMap.withdrawRule.currency == "USDT2" ? "USDT" :data.dataMap.withdrawRule.currency;
+  this.currencyName = data.dataMap.withdrawRule.currency == "USDT2" ||data.dataMap.withdrawRule.currency == "USDT3" ? "USDT" :data.dataMap.withdrawRule.currency;
   this.feeRate = data.dataMap.withdrawRule.feeRate
   this.maximumFee = data.dataMap.withdrawRule.maximumFee
   this.minimumAmount = data.dataMap.withdrawRule.minimumAmount
@@ -349,7 +353,10 @@ root.methods.error_getWithdrawalsFee = function (err) {
 root.methods.isERC20 = function () {
   let currencyObj = this.$store.state.currency.get(this.currency)
   // return currencyObj && (currencyObj.addressAliasTo === 'WCG' || this.currency === 'WCG')
-  return currencyObj && (this.currency == "USDT" && this.selectTab == 2) ? "USDT2" : this.currency;
+  // return currencyObj && (this.currency == "USDT" && this.selectTab == 2) ? "USDT2" : this.currency;
+  if(currencyObj && this.currency == "USDT" && this.selectTab == 2)return "USDT2"
+  if(currencyObj && this.currency == "USDT" && this.selectTab == 3)return "USDT3"
+  return currencyObj && this.currency;
 }
 
 // 切换状态
@@ -461,7 +468,7 @@ root.methods.blurInputNumber = function () {
     this.amountWA = this.$t('amountWA_1')
     return false
   }
-  if (parseFloat(this.accMinus(this.amount, this.available)) > 0) {
+  if (parseFloat(this.accMinus(Number(this.amount), Number(this.available))) <= 0) {
     this.amountWA = this.$t('amountWA_2')
     return false
   }

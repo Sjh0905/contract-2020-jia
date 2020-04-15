@@ -69,14 +69,14 @@
       <!--</div>-->
     <!--</div>-->
 
-    <div class="asset-container"  v-for="(item,index) in accountsComputed" v-if="serverT >= item.displayTime && (!agreement || (agreement && item.total != 0)) && !item.isUSDT2" :key="index" @click="jumpToDetail(item.currency)">
+    <div class="asset-container"  v-for="(item,index) in accountsComputed" v-if="serverT >= item.displayTime && (!agreement || (agreement && item.total != 0)) && !item.isUSDT2 && !item.isUSDT3" :key="index" @click="jumpToDetail(item.currency)">
       <div class="asset-info-title">
       <div class="asset-container-item clearfix">
         <div class="asset-container-item-title">
 <!--          <span class="asset-container-item-icon-box">-->
 <!--            <img class="asset-container-item-icon" :src="'http://logo.2020.exchange/' + item.currency +'.png'" alt="">-->
 <!--          </span>-->
-          <span>{{item.currency== 'USDT2' ? 'USDT' :item.currency}}</span>
+          <span>{{item.currency== 'USDT2' || item.currency== 'USDT3' ? 'USDT' : item.currency}}</span>
           <!--<span class="asset-container-item-title-description">({{item.description}})</span>-->
         </div>
         <div class="asset-container-item-assetNum">

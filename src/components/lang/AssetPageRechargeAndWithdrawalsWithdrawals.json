@@ -16,6 +16,7 @@
     "prompt_5": "请务必确认电脑及浏览器安全，防止信息被篡改或泄露。",
     "usdt_notice": "请勿向上述地址充值任何非OMNI_USDT资产，否则资产将不可找回；",
     "eusdt_notice": "请勿向上述地址充值任何非ERC20_ USDT资产，否则资产将不可找回；",
+    "tusdt_notice": "请勿向上述地址充值任何非TRC20_ USDT资产，否则资产将不可找回；",
     "verify": "验证",
     "promptWindow_1": "已向您的邮箱发送验证码",
     "promptWindow_2": "请于十分钟之内完成验证",

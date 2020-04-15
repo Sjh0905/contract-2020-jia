@@ -46,7 +46,7 @@ root.data = function () {
 
     publicKeyAgreement: false,
 
-    selectTab:1,
+    selectTab:2,
   }
 }
 root.components = {
@@ -97,6 +97,15 @@ root.computed.rechargeFlagUSDT2 = function(){
   }
   let currencyObj = this.$store.state.currency.get('USDT2')
   sessionStorage.setItem("rechargeFlagUSDT2",JSON.stringify(currencyObj))
+  return currencyObj && currencyObj.depositEnabled
+}
+root.computed.rechargeFlagUSDT3 = function(){
+  if (!this.$store.state.currency.get('USDT3') ) {
+    let currencyO =  JSON.parse(sessionStorage.getItem("rechargeFlagUSDT3"))
+    return currencyO && currencyO.depositEnabled
+  }
+  let currencyObj = this.$store.state.currency.get('USDT3')
+  sessionStorage.setItem("rechargeFlagUSDT3",JSON.stringify(currencyObj))
   return currencyObj && currencyObj.depositEnabled
 }
 
@@ -164,7 +173,10 @@ root.methods.copyPublicKeyValue = function () {
 root.methods.isERC20 = function () {
   // let currencyObj = this.$store.state.currency.get(this.title)
   // return currencyObj && (currencyObj.addressAliasTo === 'WCG' || this.currency === 'WCG')
-  return (this.title == "USDT" && this.selectTab == 2) ? "USDT2" : this.title;
+  // return (this.title == "USDT" && this.selectTab == 2) ? "USDT2" : this.title;
+  if(this.title == "USDT" && this.selectTab == 2)return "USDT2"
+  if(this.title == "USDT" && this.selectTab == 3)return "USDT3"
+  return this.title;
 }
 
 

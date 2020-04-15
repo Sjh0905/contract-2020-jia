@@ -30,7 +30,7 @@
     <!--有充币记录的样子-->
     <div v-if="computedRecord.length !== 0" class="recharge-list">
       <div v-for="(item,index) in computedRecord" :key="item.id" class="recharge-item" @click="toRechargeDetailPath(item)">
-        <div class="recharge-item-title">{{item.currency== 'USDT2' ? 'USDT' :item.currency}}</div>
+        <div class="recharge-item-title">{{item.currency== 'USDT2' || item.currency== 'USDT3' ? 'USDT' :item.currency}}</div>
         <div class="recharge-item-time">{{$globalFunc.formatDateUitl(item.updatedAt,'YYYY-MM-DD hh:mm:ss')}}</div>
         <div class="recharge-item-num">
           <!--<span class="recharge-item-num-title">数量</span>-->
@@ -71,7 +71,7 @@
       <!--</div>-->
       <div v-for="(item,index) in computedWithdraw" :key="item.id" class="withdraw-item" @click="toWithdrawDetailPath(item)">
         <div>
-          <div class="withdraw-item-title">{{item.currency== 'USDT2' ? 'USDT' :item.currency}}</div>
+          <div class="withdraw-item-title">{{item.currency== 'USDT2' || item.currency== 'USDT3'  ? 'USDT' :item.currency}}</div>
           <div class="withdraw-item-time">{{$globalFunc.formatDateUitl(item.updatedAt,'YYYY-MM-DD hh:mm:ss')}}</div>
           <div class="withdraw-item-num">
             <!--<span class="withdraw-item-num-title">数量</span>-->
@@ -119,7 +119,7 @@
 <!--      @click="toRewardRecord(item)"-->
       <div v-for="(item,index) in EventRewards" :key="item.id" class="withdraw-item" @click="toEventRewardsRecordPath(item)">
         <div>
-          <div class="withdraw-item-title">{{item.currency== 'USDT2' ? 'USDT' :item.currency}}
+          <div class="withdraw-item-title">{{item.currency== 'USDT2' || item.currency== 'USDT3' ? 'USDT' :item.currency}}
 <!--          <span class="grcActivity">(量化活动)</span>-->
           </div>
 
@@ -159,7 +159,7 @@
     <div v-if="computedCapitalTransfer.length !== 0" class="withdraw-list">
       <div v-for="(item,index) in computedCapitalTransfer" :key="item.id" class="withdraw-item" @click="toCapitalTransferDetailPath(item)">
         <div>
-          <div class="withdraw-item-title">{{item.currency== 'USDT2' ? 'USDT' :item.currency}}</div>
+          <div class="withdraw-item-title">{{item.currency== 'USDT2' || item.currency== 'USDT3' ? 'USDT' :item.currency}}</div>
           <div class="withdraw-item-time">{{$globalFunc.formatDateUitl(item.updatedAt,'YYYY-MM-DD hh:mm:ss')}}</div>
           <div class="withdraw-item-num">
             <!--<span class="withdraw-item-num-title">数量</span>-->
@@ -192,7 +192,7 @@
     <div v-if="computedInternalTransfer.length !== 0" class="withdraw-list">
       <div v-for="(item,index) in computedInternalTransfer" :key="item.id" class="withdraw-item" @click="toInternalTransferDetailPath(item)" v-if="item.updatedAt != 0">
         <div>
-          <div class="withdraw-item-title">{{item.currency== 'USDT2' ? 'USDT' :item.currency}}</div>
+          <div class="withdraw-item-title">{{item.currency== 'USDT2' || item.currency== 'USDT3' ? 'USDT' :item.currency}}</div>
           <div class="withdraw-item-time">{{$globalFunc.formatDateUitl(item.updatedAt,'YYYY-MM-DD hh:mm:ss')}}</div>
           <div class="withdraw-item-num">
             <!--<span class="withdraw-item-num-title">数量</span>-->
@@ -235,7 +235,7 @@
       <!--      @click="toRewardRecord(item)"-->
       <div v-for="(item,index) in ActivityRecord" :key="item.id" class="withdraw-item" @click="toRewardDetailPath(item)">
         <div>
-          <div class="withdraw-item-title">{{item.currency== 'USDT2' ? 'USDT' :item.currency}}
+          <div class="withdraw-item-title">{{item.currency== 'USDT2'  || item.currency== 'USDT3' ? 'USDT' :item.currency}}
             <!--          <span class="grcActivity">(量化活动)</span>-->
           </div>
 

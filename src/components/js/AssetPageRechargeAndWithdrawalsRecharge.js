@@ -46,8 +46,8 @@ root.data = function () {
     knowMemoRule: false,// 已阅读
     memoPopWindowOpen: false, // memo提示弹窗
 
-    // 默认为omni
-    selectTab: (this.currency == 'USDT' && this.rechargeFlagUSDT) ? 1 : 2,
+    // 默认为erc20
+    selectTab: (this.currency == 'USDT' && this.rechargeFlagUSDT2) ? 2 : 1,
     currency2:'USDT2',
     currency1:'USDT'
 
@@ -59,7 +59,7 @@ root.data = function () {
 
 // 初始化
 root.created = function () {
-  this.selectTab =(this.currency == 'USDT' && this.rechargeFlagUSDT) ? 1 : 2
+  this.selectTab =(this.currency == 'USDT' && this.rechargeFlagUSDT2) ? 2: 1
   this.getAuthState()
 
   this.getRecharge()
@@ -84,6 +84,10 @@ root.computed.rechargeFlagUSDT = function(){
 }
 root.computed.rechargeFlagUSDT2 = function(){
   let currencyObj = this.$store.state.currency.get('USDT2')
+  return currencyObj && currencyObj.depositEnabled
+}
+root.computed.rechargeFlagUSDT3 = function(){
+  let currencyObj = this.$store.state.currency.get('USDT3')
   return currencyObj && currencyObj.depositEnabled
 }
 
@@ -163,7 +167,10 @@ root.methods.toggleStatus= function (tab) {
 root.methods.isERC20 = function () {
   // let currencyObj = this.$store.state.currency.get(this.currency)
   // return currencyObj && (currencyObj.addressAliasTo === 'WCG' || this.currency === 'WCG')
-  return (this.currency == "USDT" && this.selectTab == 2) ? "USDT2" : this.currency;
+  if(this.currency == "USDT" && this.selectTab == 2)return "USDT2"
+  if(this.currency == "USDT" && this.selectTab == 3)return "USDT3"
+  // return (this.currency == "USDT" && this.selectTab == 2) ? "USDT2" : this.currency;
+  return this.currency;
 }
 
 
@@ -233,7 +240,7 @@ root.methods.clickCopy = function () {
   //   input2.select()
   // }
 
-  var obj = {1:'address', 2:'address1'}
+  var obj = {1:'address', 2:'address1',3:'address2'}
   let input = this.$refs[obj[this.selectTab]]
   input.select()
 

@@ -57,7 +57,7 @@
 
     <template v-if="!loading">
       <ul class="detail-container">
-        <li class="detail-li" v-for="(item,index) in accountsComputed" :key="index" v-if="serverT >= item.displayTime && !item.isUSDT2"
+        <li class="detail-li" v-for="(item,index) in accountsComputed" :key="index" v-if="serverT >= item.displayTime && !item.isUSDT2 && !item.isUSDT3"
             :class="{'li-select':activeIndex===index}">
           <div class="li-container flex">
           <span class="currency">

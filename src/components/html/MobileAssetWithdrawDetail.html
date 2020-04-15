@@ -20,16 +20,17 @@
 
           <div v-if="withdrawalsFlagUSDT || !withdrawalsFlagUSDT2" class="mobile-address-ERC" @click="toggleStatus(1)"   :class="selectTab == 1 ? 'mobile-address-si' : ''">OMNI</div>
           <div v-if="!withdrawalsFlagUSDT && withdrawalsFlagUSDT2" class="mobile-address-OMNI-disabled">OMNI</div>
-          <div v-if="withdrawalsFlagUSDT2 || !withdrawalsFlagUSDT" class="mobile-address-OMNI" @click="toggleStatus(2)" :class="selectTab == 2 ? 'mobile-address-si' : ''">ERC20</div>
+          <div v-if="withdrawalsFlagUSDT2 || !withdrawalsFlagUSDT" class="mobile-address-ERC" @click="toggleStatus(2)" :class="selectTab == 2 ? 'mobile-address-si' : ''">ERC20</div>
           <div v-if="!withdrawalsFlagUSDT2 && withdrawalsFlagUSDT" class="mobile-address-OMNI-disabled">ERC20</div>
-
+          <div v-if="withdrawalsFlagUSDT3 || !withdrawalsFlagUSDT" class="mobile-address-OMNI" @click="toggleStatus(3)" :class="selectTab == 3 ? 'mobile-address-si' : ''">TRC20</div>
+          <div v-if="!withdrawalsFlagUSDT3 && withdrawalsFlagUSDT" class="mobile-address-OMNI-disabled">TRC20</div>
         </div>
         <div class="mobile-asset-detail-container-title">
           提现数量
           <span class="mobile-asset-detail-container-title-right">
             <!--<img class="mobile-asset-detail-container-title-right-icon" src="" alt="" @click="openWindowToast">-->
             最小提现：
-            <span class="mobile-asset-detail-container-title-right-container">{{minimumAmount}} {{mobileRechargeRecordData.currency}}</span>
+            <span class="mobile-asset-detail-container-title-right-container">{{minimumAmount}} {{title}}</span>
           </span>
         </div>
         <div class="mobile-asset-detail-container-input-box">
@@ -39,13 +40,13 @@
         </div>
         <div class="mobile-asset-detail-container-price">
           <span class="mobile-asset-detail-container-price-title mobile-asset-detail-container-left">手续费：</span>
-          <span class="mobile-asset-detail-container-price-text mobile-asset-detail-container-left">{{computedFee}} {{mobileRechargeRecordData.currency}}</span>
+          <span class="mobile-asset-detail-container-price-text mobile-asset-detail-container-left">{{computedFee}} {{title}}</span>
           <div class="clear"></div>
         </div>
 
         <div class="mobile-asset-detail-container-price">
           <span class="mobile-asset-detail-container-price-title mobile-asset-detail-container-left">实际到账：</span>
-          <span class="mobile-asset-detail-container-price-text mobile-asset-detail-container-left">{{toFixed(realAccount,8)}} {{mobileRechargeRecordData.currency}}</span>
+          <span class="mobile-asset-detail-container-price-text mobile-asset-detail-container-left">{{toFixed(realAccount,8)}} {{title}}</span>
           <div class="clear"></div>
         </div>
 
@@ -96,12 +97,14 @@
             <div class="mobile-asset-detail-container-address-detail-left">备注</div>
             <div class="mobile-asset-detail-container-address-detail-right" v-show="selectTab === 1">{{defaultName}}</div>
             <div class="mobile-asset-detail-container-address-detail-right" v-show="selectTab === 2">{{defaultName}}</div>
+            <div class="mobile-asset-detail-container-address-detail-right" v-show="selectTab === 3">{{defaultName}}</div>
 
           </div>
           <div class="mobile-asset-detail-container-address-detail-address">
             <div class="mobile-asset-detail-container-address-detail-left">地址</div>
             <div class="mobile-asset-detail-container-address-detail-right" v-show="selectTab === 1">{{defaultAddress}}</div>
             <div class="mobile-asset-detail-container-address-detail-right" v-show="selectTab === 2">{{defaultAddress}}</div>
+            <div class="mobile-asset-detail-container-address-detail-right" v-show="selectTab === 3">{{defaultAddress}}</div>
 
           </div>
           <div v-if="isMemo" class="mobile-asset-detail-container-address-detail-address">
