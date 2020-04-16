@@ -16,7 +16,8 @@
 <!--    参加日期-->
     <div class="account_number_right">
       <span>{{$t('participation')}}:</span>
-      <span>{{formatDateUitl(createdate)}}</span>
+      <span v-if="records.length != 0 && fstatus == '已报名'">{{formatDateUitl(createdate)}}</span>
+      <span v-if="records.length == 0">——</span>
     </div>
 
     <div class="quantification_con" >
@@ -69,7 +70,8 @@
 <!--            已释放-->
             <div class="li_div_19">
               <p class="color_0">{{$t('released')}}</p>
-              <p class="color_7">{{miningProgress * 100}}%</p>
+              <p class="color_7" v-if="records.length == 0">0%</p>
+              <p class="color_7" v-if="records.length != 0 && fstatus == '已报名'">{{miningProgress * 100}}%</p>
             </div>
           </li>
         </ul>
