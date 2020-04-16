@@ -548,37 +548,26 @@
     </div>
     <div slot="article" class="Internal_siding">
 
-      <p class="Internal_siding_email m-t">
-<!--        <span class="color_red">*</span>-->
-        {{$t('mailbox')}}</p>
-<!--      :class="{'wrong-border':nameWA_0 ==='0' && nameWA_0 ==='0'}"-->
+      <p class="Internal_siding_email m-t">{{$t('mailbox')}}</p>
       <input class="input_input" type="text" :placeholder='userNamePlaceholderShow && $t("deletePopCancel2") || ""' v-model="name_0"
              @focus="closePlaceholder('userName')"
              @blur="testName_0">
-      <!--        <span class="wrong-msg detail-prompt" v-if="name_0==''">{{nameMsg_0}}</span>-->
       <div class="whit_0">
-      <span v-if="nameWA_0==='0'" class="prompt-span wrong-msg">{{nameMsg_0}}</span>
+        <span v-if="nameWA_0==='0'" class="prompt-span wrong-msg">{{nameMsg_0}}</span>
       </div>
 
-      <p class="Internal_siding_email">
-<!--        <span class="color_red">*-->
-<!--        </span>-->
-        UID</p>
-<!--      :class="{'wrong-border':testUID_012!=='0' && testUID_012!=='0'}"-->
+      <p class="Internal_siding_email">UID</p>
       <input class="input_input"  type="text"
              :placeholder='pswPlaceholderShow && $t("deletePopCancel3") || ""' v-model="testUID_0"
              @focus="closePlaceholder('psw')"
              @blur="testUID_01()">
       <div class="whit_0">
-      <span v-if="testUID_012==='0'" class="prompt-span wrong-msg">{{testUIDMsg_0}}</span>
-        </div>
+        <span v-if="testUID_012==='0'" class="prompt-span wrong-msg">{{testUIDMsg_0}}</span>
+      </div>
       <div class="Internal_siding_email">
-        <span>
-<!--        <span class="color_red">*</span>-->
-        {{$t('Number1')}}</span>
+        <span>{{$t('Number1')}}</span>
         <span class="email_span">{{$t('Number2')}}{{transferCurrency}}{{$t('Number3')}}{{dayMaxAmount}}</span>
       </div>
-<!--      :class="{'wrong-border':testNumWA_0!=='0' && testNumWA_0!=='0'}"-->
       <input class="input_input" type="text"
              :placeholder='verificationCodePlaceholderShow && $t("deletePopCancel5") || ""' v-model="testNum_0"
              @focus="closePlaceholder('verificationCode')"
@@ -587,11 +576,6 @@
         <span v-if="testNumWA_0 ==='0'" class="prompt-span wrong-msg whiteListwhit">{{testNumMsg_0}}</span>
         <p class="shouxu">{{$t('Number4')}}</p>
       </div>
-
-      <!--      <p class="Internal_siding_email margin_top"><span class="color_red">*</span>邮箱验证码</p>-->
-      <!--      <input class="input_input" type="text" placeholder="输入邮箱验证码" >-->
-      <!--      <p class="Internal_siding_email"> <span class="color_red">*</span>二次验证</p>-->
-      <!--      <input class="input_input" type="text" placeholder="输入谷歌验证码" >-->
 
       <div slot="footer">
         <button class="Internal_siding_email1 pointer" @click="GoToConfirmTransfer()">{{$t('Number5')}}</button>
@@ -617,12 +601,8 @@
 
       <div slot="footer">
         <!--        <button class="Internal_siding_email1" @click="goToConfirmTransfer"> 确认转账</button>-->
-        <button @click="popWindowClose1" class="button-base btn_simple pointer firm1">
-          {{$t('previousStep')}}
-        </button>
-        <button @click="goToConfirm" class=" btn_blue pointer zhuanzhangbut">
-          {{$t('confirmTransfer')}}
-        </button>
+        <button @click="popWindowClose1" class="button-base btn_simple pointer firm1">{{$t('previousStep')}}</button>
+        <button @click="goToConfirm" class=" btn_blue pointer zhuanzhangbut">{{$t('confirmTransfer')}}</button>
       </div>
 
     </div>
@@ -641,13 +621,9 @@
     </div>
     <div slot="footer" class="neizhuan">
 
-      <button @click="goToTransferRecord" class="pointer btn_simple ssss2 rig16 ">
-      {{$t('deletePopConfirm8')}}
-    </button>
+      <button @click="goToTransferRecord" class="pointer btn_simple ssss2 rig16 ">{{$t('deletePopConfirm8')}}</button>
 
-      <dev @click="buyConfirmSuccessClose" class=" pointer ssss12">
-        {{$t('确定')}}
-      </dev>
+      <dev @click="buyConfirmSuccessClose" class=" pointer ssss12">{{$t('确定')}}</dev>
 
     </div>
 
@@ -655,22 +631,17 @@
 
 <!--  验证码弹框-->
   <PopupWindow :switch="goToConfirmsjh" @close="goToConfirmsjhclose" class="popupWindow-container">
-    <div slot="header" class="popWindow-title0 ">{{$t('verify')}}
-    </div>
+    <div slot="header" class="popWindow-title0 ">{{$t('verify')}}</div>
     <!-- article begin 1 -->
     <div slot="article" class="popWindow-article" v-if="popWindowStep==1">
-      <div class="prompt-title">
-        <!--        {{$t('promptWindow_1')}}22222-->
-      </div>
-      <label for="email"
-             class="verification-title">{{$t('email')}}</label>
+      <div class="prompt-title"></div>
+      <label for="email" class="verification-title">{{$t('email')}}</label>
       <div class="verification-container flex" >
 
         <input type="text" id="email" class="verification-input input_padding"
                v-model="emailVerificationCode"
                @blur="testEmailVerification">
-        <div class="get-verification button-base pointer" v-if="!getEmailVerificationCode"
-                @click="getEmailVerification" >
+        <div class="get-verification button-base pointer" v-if="!getEmailVerificationCode" @click="getEmailVerification" >
           {{$t('GetVerificationCode')}}
         </div>
         <div class="get-verifications" v-if="getEmailVerificationCode" disabled>
@@ -685,63 +656,7 @@
     </div>
     <!-- article end 1 -->
 
-    <!-- article begin 2 -->
-<!--    <div slot="article" class="popWindow-article" v-if="popWindowStep==2">-->
-
-<!--&lt;!&ndash;      <div class="prompt-title" v-if="!step2Error">&ndash;&gt;-->
-<!--&lt;!&ndash;        {{$t('promptWindow_2')}}&ndash;&gt;-->
-<!--&lt;!&ndash;      </div>&ndash;&gt;-->
-<!--&lt;!&ndash;      v-if="showPicker"&ndash;&gt;-->
-
-<!--      <template v-if="!step2Error">-->
-<!--        <div class="prompt-show-picker-box">-->
-
-<!--          <div class="prompt-show-picker" >-->
-<!--            <div class="prompt-show-picker-detail-box">-->
-<!--              <input type="radio" name="picker" value="1" id="pick-ga" v-model="picker">-->
-<!--              <label for="pick-ga">{{$t('gaCode')}}</label>-->
-<!--            </div>-->
-<!--            <div class="prompt-show-picker-detail-box">-->
-<!--              <input type="radio" name="picker" value="2" id="pick-mobile" v-model="picker">-->
-<!--              <label for="pick-mobile">{{$t('mobile')}}</label>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--          <div class="verification-container flex" v-if="picker == 1">-->
-<!--            <label for="gaCode"-->
-<!--                   class="verification-title">{{$t('gaCode')}}</label>-->
-<!--            <input type="text" id="gaCode" class="verification-input input_padding" v-model="step2VerificationCode"-->
-<!--                   @blur="testGACodeVerification">-->
-<!--          </div>-->
-<!--          <div class="verification-container double-input-container flex" v-if="picker == 2">-->
-<!--            <label for="mobile"-->
-<!--                   class="verification-title">{{$t('mobile')}}</label>-->
-<!--            <input type="text" id="mobile" class="verification-input double-input input_padding"-->
-<!--                   v-model="step2VerificationCode"-->
-<!--                   @blur="testMobileVerification">-->
-<!--            <button class="get-verification button-base btn_blue" v-if="!getMobileVerificationCode"-->
-<!--                    @click="getMobileVerification">{{$t('reGet')}}-->
-<!--            </button>-->
-<!--            <button class="get-verification button-base btn_grey" v-if="getMobileVerificationCode" disabled>-->
-<!--              {{getMobileVerificationCodeCountdown}}-->
-<!--            </button>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </template>-->
-
-<!--      <div class="prompt-wrong wrong-msg" v-if="step2VerificationCodeWA!==''">-->
-<!--        {{step2VerificationCodeWA}}-->
-<!--      </div>-->
-<!--      <div class="prompt-wrong wrong-msg" v-else>-->
-
-<!--      </div>-->
-<!--    </div>-->
-
     <div slot="article" class="popWindow-article" v-if="popWindowStep==2">
-
-      <!--      <div class="prompt-title prompt-title-top flex" v-if="!step2Error">-->
-      <!--        <div>{{$t('gaCode')}}</div>-->
-      <!--        <div>{{$t('promptWindow_2')}}</div>-->
-      <!--      </div>-->
 
       <template v-if="!step2Error">
         <div class="prompt-show-picker-box">
@@ -758,31 +673,12 @@
                    :class="picked == 2?'mob-button-select':''"
               >{{$t("picker_2")}}</div>
             </div>
-<!--                        &lt;!&ndash;谷歌验证&ndash;&gt;-->
-<!--                        <div class="G-pop" @click="open_mob(1)"-->
-<!--                             :class="picked == 1?'mob-button-select':''"-->
-<!--                             id="pick-ga" v-model="picker"-->
-<!--                        >{{$t("picker_1")}}</div>-->
-<!--                        &lt;!&ndash;手机验证&ndash;&gt;-->
-<!--                        <div class="G-pop" @click="open_mob(2)"-->
-<!--                             id="pick-mobile" v-model="picker"-->
-<!--                             :class="picked ==2?'mob-button-select':''"-->
-<!--                        >{{$t("picker_2")}}</div>-->
 
-<!--            <div class="prompt-show-picker-detail-box">-->
-<!--              <input type="radio" name="picker" value="1" id="pick-ga" v-model="picker">-->
-<!--              <label for="pick-ga">{{$t('picker_1')}}</label>-->
-<!--            </div>-->
-<!--            <div class="prompt-show-picker-detail-box">-->
-<!--              <input type="radio" name="picker" value="2" id="pick-mobile" v-model="picker">-->
-<!--              <label for="pick-mobile">{{$t('picker_2')}}</label>-->
-<!--            </div>-->
           </div>
           <div v-if="picked == 1">
             <label for="gaCode" class="verification-title">{{$t('gaCode')}}</label>
             <div class="verification-container flex">
-              <input type="text" id="gaCode" class="verification-input input_padding" v-model="step2VerificationCode"
-                     @blur="testGACodeVerification">
+              <input type="text" id="gaCode" class="verification-input input_padding" v-model="step2VerificationCode" @blur="testGACodeVerification">
             </div>
           </div>
           <div class="" v-if="picked == 2">
@@ -791,6 +687,7 @@
               <input type="text" id="mobile" class="verification-input input_padding"
                      v-model="step2VerificationCode"
                      @blur="testMobileVerification">
+
               <div class="get-verification pointer" v-if="!getMobileVerificationCode"
                    @click="getMobileVerification">
                 {{$t('reGet')}}手机验证码
@@ -798,12 +695,9 @@
               <div class="get-verifications" v-if="getMobileVerificationCode" disabled>
                 {{getMobileVerificationCodeCountdown}}s
               </div>
-              <!--              <div class="prompt-wrong wrong-msg" v-if="emailVerificationCodeWA!==''">-->
-              <!--                {{emailVerificationCodeWA}}-->
-              <!--              </div>-->
+
             </div>
 
-            <!--            <div class="prompt-wrong wrong-msg" v-else="emailVerificationCodeWA!==''">{{emailVerificationCodeWA}}</div>-->
           </div>
         </div>
       </template>
@@ -863,26 +757,6 @@
   </PopupWindow>
 <!--  内部转账  end-->
 
-<!--  &lt;!&ndash;第一步通过手机找回&ndash;&gt;-->
-<!--  <PopPublic v-if="loginType === 0 && verificationOpen && bindEmail"-->
-<!--             :bindEmail="bindEmail"-->
-<!--             :popClose="closePopPublic"-->
-<!--             :popConfrim="confrimPopPublic"-->
-<!--             :popGetCode="click_getEmailVerificationCode"-->
-<!--             :emailVerificationCodeWA="emailVerificationCodeWA"-->
-<!--             :loading="loading"-->
-<!--  />-->
-<!--  &lt;!&ndash;第一步通过邮箱找回&ndash;&gt;-->
-<!--  <PopPublic v-if="loginType === 1 && verificationOpen && (bindGA || bindMobile)"-->
-<!--             :bindGA="bindGA"-->
-<!--             :bindMobile="bindMobile"-->
-<!--             :popClose="closePopPublic"-->
-<!--             :popConfrim="confrimPopPublic"-->
-<!--             :popGetCode="click_getVerificationCode"-->
-<!--             :GACodeWA="GACodeWA"-->
-<!--             :verificationCodeWA="verificationCodeWA"-->
-<!--             :loading="loading"-->
-<!--  />-->
   <!-- 提示 start -->
   <PopupPrompt :popType="popType" :popText="popText" :popOpen="popOpen"
                :popClose="closePopupPrompt"></PopupPrompt>

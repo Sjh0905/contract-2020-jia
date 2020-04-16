@@ -57,23 +57,6 @@ root.computed = {}
 root.computed.isMobile = function () {
   return this.$store.state.isMobile
 }
-
-//报名记录
-root.computed.computedRecord = function (item,index) {
-  return this.records
-}
-//历史挖矿记录
-root.computed.computedHistoryRecords = function (item,index) {
-  return this.historyRecords
-}
-//历史挖矿记录详情
-root.computed.computedHistoricalDetails = function (item,index) {
-  return this.historicalDetails
-}
-//当前挖矿记录
-root.computed.transactionRecording = function (item,index) {
-  return this.transaction
-}
 // 用户名
 root.computed.userName = function () {
   if (this.userType === 0) {
@@ -95,6 +78,23 @@ root.computed.userId = function () {
   return this.$store.state.authMessage.userId
 }
 
+//报名记录
+root.computed.computedRecord = function (item,index) {
+  return this.records
+}
+//历史挖矿记录
+root.computed.computedHistoryRecords = function (item,index) {
+  return this.historyRecords
+}
+//历史挖矿记录详情
+root.computed.computedHistoricalDetails = function (item,index) {
+  return this.historicalDetails
+}
+//当前挖矿记录
+root.computed.transactionRecording = function (item,index) {
+  return this.transaction
+}
+
 root.methods = {}
 
 root.methods.postWithd1 = function (cardType) {
@@ -104,21 +104,6 @@ root.methods.postWithd1 = function (cardType) {
 
   // this.postBuyCard(cardType)
 }
-
-// root.methods.showDetail = function (details) {
-//   this.historicalMining = true
-// }
-
-// 显示详情
-// root.methods.showDetail = function () {
-//   if (this.clickThis == 1) {
-//     this.clickThis = 2
-//     return
-//   }
-//   this.clickThis = 1
-// }
-// 显示详情
-
 
 // 点击加载更多
 root.methods.clickLoadingMore = function () {
