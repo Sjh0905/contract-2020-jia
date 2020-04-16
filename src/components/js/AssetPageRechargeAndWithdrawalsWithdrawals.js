@@ -468,7 +468,7 @@ root.methods.blurInputNumber = function () {
     this.amountWA = this.$t('amountWA_1')
     return false
   }
-  if (parseFloat(this.accMinus(Number(this.amount), Number(this.available))) <= 0) {
+  if (parseFloat(this.accMinus(Number(this.amount), Number(this.available))) > 0) {
     this.amountWA = this.$t('amountWA_2')
     return false
   }
