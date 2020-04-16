@@ -633,27 +633,27 @@
   <PopupWindow :switch="goToConfirmsjh" @close="goToConfirmsjhclose" class="popupWindow-container">
     <div slot="header" class="popWindow-title0 ">{{$t('verify')}}</div>
     <!-- article begin 1 -->
-    <div slot="article" class="popWindow-article" v-if="popWindowStep==1">
-      <div class="prompt-title"></div>
-      <label for="email" class="verification-title">{{$t('email')}}</label>
-      <div class="verification-container flex" >
+<!--    <div slot="article" class="popWindow-article" v-if="popWindowStep==1">-->
+<!--      <div class="prompt-title"></div>-->
+<!--      <label for="email" class="verification-title">{{$t('email')}}</label>-->
+<!--      <div class="verification-container flex" >-->
 
-        <input type="text" id="email" class="verification-input input_padding"
-               v-model="emailVerificationCode"
-               @blur="testEmailVerification">
-        <div class="get-verification button-base pointer" v-if="!getEmailVerificationCode" @click="getEmailVerification" >
-          {{$t('GetVerificationCode')}}
-        </div>
-        <div class="get-verifications" v-if="getEmailVerificationCode" disabled>
-          {{getEmailVerificationCodeCountdown}}s
-        </div>
-      </div>
-      <div class="double-input-container">
-        <span class="prompt-wrong wrong-msg" v-if="emailVerificationCodeWA!==''">{{emailVerificationCodeWA}}</span>
-        <span class="prompt-wrong wrong-msg" v-else="emailVerificationCodeWA!==''"></span>
-      </div>
+<!--        <input type="text" id="email" class="verification-input input_padding"-->
+<!--               v-model="emailVerificationCode"-->
+<!--               @blur="testEmailVerification">-->
+<!--        <div class="get-verification button-base pointer" v-if="!getEmailVerificationCode" @click="getEmailVerification" >-->
+<!--          {{$t('GetVerificationCode')}}-->
+<!--        </div>-->
+<!--        <div class="get-verifications" v-if="getEmailVerificationCode" disabled>-->
+<!--          {{getEmailVerificationCodeCountdown}}s-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="double-input-container">-->
+<!--        <span class="prompt-wrong wrong-msg" v-if="emailVerificationCodeWA!==''">{{emailVerificationCodeWA}}</span>-->
+<!--        <span class="prompt-wrong wrong-msg" v-else="emailVerificationCodeWA!==''"></span>-->
+<!--      </div>-->
 
-    </div>
+<!--    </div>-->
     <!-- article end 1 -->
 
     <div slot="article" class="popWindow-article" v-if="popWindowStep==2">
@@ -710,18 +710,18 @@
     <!-- article end 2 -->
 
     <!-- footer popWindow begin 1 -->
-    <div slot="footer" class="popWindow-footer " v-if="popWindowStep === 1">
-      <button class="pointer btn_simple ssss2 m-l14" @click="goToConfirmsjhclose">
-        {{$t('previousStep')}}
-      </button>
-      <button class="btn-commit btn_blue pointer ssss12" v-if="!emailVerificationSending"
-              @click="commitEmailVerification">
-        {{$t('commit')}}
-      </button>
-      <button class="btn-commit btn_grey pointer ssss12" v-if="emailVerificationSending" disabled>
-        {{$t('commiting')}}
-      </button>
-    </div>
+<!--    <div slot="footer" class="popWindow-footer " v-if="popWindowStep === 1">-->
+<!--      <button class="pointer btn_simple ssss2 m-l14" @click="goToConfirmsjhclose">-->
+<!--        {{$t('previousStep')}}-->
+<!--      </button>-->
+<!--      <button class="btn-commit btn_blue pointer ssss12" v-if="!emailVerificationSending"-->
+<!--              @click="commitEmailVerification">-->
+<!--        {{$t('commit')}}-->
+<!--      </button>-->
+<!--      <button class="btn-commit btn_grey pointer ssss12" v-if="emailVerificationSending" disabled>-->
+<!--        {{$t('commiting')}}-->
+<!--      </button>-->
+<!--    </div>-->
     <!-- footer popWindow end 1 -->
 
     <!-- footer popWindow begin 2 -->

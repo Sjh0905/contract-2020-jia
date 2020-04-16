@@ -98,7 +98,7 @@ root.data = function () {
     minimumFee: 0, //最低费率
     userNamePlaceholderShow: true,
     bindPicked: 0, //0表示谷歌验证
-    popWindowStep: 1, //1表示邮箱验证，2表示下一步验证
+    popWindowStep: 2, //1表示邮箱验证，2表示下一步验证
     popWindowLoading: false,//popWindow正在提交
 
     popText: '系统繁忙',
@@ -1773,67 +1773,71 @@ root.methods.error_commitEmailVerification = function (err) {
   // this.popOpen = true
 }
 
+//sss 4.16日 屏蔽不要邮箱验证 S
 
 // 获取邮箱验证码
-root.methods.getEmailVerification = function () {
-  // if (this.getEmailVerificationCode) {
-  //   return
-  // }
-  // let isERC20 = this.isERC20();
-  // let currency = this.currency == "USDT" ? isERC20 : this.currency
-    let params = {
-      type: 'email',
-      purpose: 'transfer',
-      // transferTime: this.formatDateUitl(this.serverT),
-      num:'',
-      currency: this.transferCurrency,
-      amount: parseFloat(this.testNum_0),
-      toEmail: this.name_0,
-      toUserId: this.toUserId
-    }
-  console.log('params===========',params)
-  this.$http.send('POST_VERIFICATION_CODE', {
-    bind: this,
-    params:params,
-    callBack: this.re_getEmailVerification,
-    errorHandler: this.error_getEmailVerification,
-  })
+// root.methods.getEmailVerification = function () {
+//   // if (this.getEmailVerificationCode) {
+//   //   return
+//   // }
+//   // let isERC20 = this.isERC20();
+//   // let currency = this.currency == "USDT" ? isERC20 : this.currency
+//     let params = {
+//       type: 'email',
+//       purpose: 'transfer',
+//       // transferTime: this.formatDateUitl(this.serverT),
+//       num:'',
+//       currency: this.transferCurrency,
+//       amount: parseFloat(this.testNum_0),
+//       toEmail: this.name_0,
+//       toUserId: this.toUserId
+//     }
+//   console.log('params===========',params)
+//   this.$http.send('POST_VERIFICATION_CODE', {
+//     bind: this,
+//     params:params,
+//     callBack: this.re_getEmailVerification,
+//     errorHandler: this.error_getEmailVerification,
+//   })
+//
+//   this.getEmailVerificationCodeCountdown = 60
+//   this.getEmailVerificationCode = true
+//   this.getEmailVerificationCodeInterval && clearInterval(this.getEmailVerificationCodeInterval) //获取邮箱验证码倒计时container
+//   this.getEmailVerificationCodeInterval = setInterval(() => {
+//     this.getEmailVerificationCodeCountdown--
+//     if (this.getEmailVerificationCodeCountdown < 0) {
+//       this.getEmailVerificationCodeInterval && clearInterval(this.getEmailVerificationCodeInterval) //获取邮箱验证码倒计时container
+//       this.getEmailVerificationCodeCountdown = 60
+//       this.getEmailVerificationCode = false
+//     }
+//   }, 1000)
+// }
+// // 获取邮箱验证码
+// root.methods.re_getEmailVerification = function (data) {
+//   // console.log(data.dataMap.code)
+//   typeof data === 'string' && (data = JSON.parse(data))
+//   // console.log('获取邮箱验证码==============',data)
+//   if (data.errorCode) {
+//     data.errorCode === 5 && (this.emailVerificationCodeWA = this.$t('emailVerificationCodeWA_5')) //验证码为空
+//     data.errorCode === 1 && (this.emailVerificationCodeWA = this.$t('emailVerificationCodeWA_1')) //用户未登录
+//     data.errorCode === 2 && (this.emailVerificationCodeWA = this.$t('emailVerificationCodeWA_2')) //已发送
+//     data.errorCode === 3 && (this.emailVerificationCodeWA = this.$t('emailVerificationCodeWA_3')) //邮件发送异常
+//     data.errorCode === 6 && (this.emailVerificationCodeWA = this.$t('step2VerificationCodeWA_10')) //收款账户不存在
+//     data.errorCode === 0 && (this.emailVerificationCodeWA = this.$t('emailVerificationCodeWA_0')) //成功
+//
+//     this.getEmailVerificationCodeInterval && clearInterval(this.getEmailVerificationCodeInterval) //获取邮箱验证码倒计时container
+//     this.getEmailVerificationCodeCountdown = 60
+//     this.getEmailVerificationCode = false
+//     this.emailVerificationCode = data.dataMap.code
+//   }
+// }
+// // 获取邮箱验证码出错
+// root.methods.error_getEmailVerification = function (err) {
+//   // console.warn('获取邮箱验证码出错', err)
+// }
 
-  this.getEmailVerificationCodeCountdown = 60
-  this.getEmailVerificationCode = true
-  this.getEmailVerificationCodeInterval && clearInterval(this.getEmailVerificationCodeInterval) //获取邮箱验证码倒计时container
-  this.getEmailVerificationCodeInterval = setInterval(() => {
-    this.getEmailVerificationCodeCountdown--
-    if (this.getEmailVerificationCodeCountdown < 0) {
-      this.getEmailVerificationCodeInterval && clearInterval(this.getEmailVerificationCodeInterval) //获取邮箱验证码倒计时container
-      this.getEmailVerificationCodeCountdown = 60
-      this.getEmailVerificationCode = false
-    }
-  }, 1000)
-}
-// 获取邮箱验证码
-root.methods.re_getEmailVerification = function (data) {
-  // console.log(data.dataMap.code)
-  typeof data === 'string' && (data = JSON.parse(data))
-  // console.log('获取邮箱验证码==============',data)
-  if (data.errorCode) {
-    data.errorCode === 5 && (this.emailVerificationCodeWA = this.$t('emailVerificationCodeWA_5')) //验证码为空
-    data.errorCode === 1 && (this.emailVerificationCodeWA = this.$t('emailVerificationCodeWA_1')) //用户未登录
-    data.errorCode === 2 && (this.emailVerificationCodeWA = this.$t('emailVerificationCodeWA_2')) //已发送
-    data.errorCode === 3 && (this.emailVerificationCodeWA = this.$t('emailVerificationCodeWA_3')) //邮件发送异常
-    data.errorCode === 6 && (this.emailVerificationCodeWA = this.$t('step2VerificationCodeWA_10')) //收款账户不存在
-    data.errorCode === 0 && (this.emailVerificationCodeWA = this.$t('emailVerificationCodeWA_0')) //成功
+//sss 4.16日 屏蔽不要邮箱验证 E
 
-    this.getEmailVerificationCodeInterval && clearInterval(this.getEmailVerificationCodeInterval) //获取邮箱验证码倒计时container
-    this.getEmailVerificationCodeCountdown = 60
-    this.getEmailVerificationCode = false
-    this.emailVerificationCode = data.dataMap.code
-  }
-}
-// 获取邮箱验证码出错
-root.methods.error_getEmailVerification = function (err) {
-  // console.warn('获取邮箱验证码出错', err)
-}
 
 // 获取手机验证码
 root.methods.getMobileVerification = function () {
@@ -2219,13 +2223,13 @@ root.methods.openRecharge = function (index, item) {
 
 // 进行验证第二步，手机、谷歌
 root.methods.beginVerificationStep2 = function () {
-  if (this.picker == 0) {
-    this.popText = this.$t('popWindowTitleNotVerified')
-    this.popType = 0
-    this.popOpen = true
-    this.sending = false
-    return
-  }
+  // if (this.picker == 0) {
+  //   this.popText = this.$t('popWindowTitleNotVerified')
+  //   this.popType = 0
+  //   this.popOpen = true
+  //   this.sending = false
+  //   return
+  // }
   this.popWindowStep = 2
   this.step2Error = false
   if (!this.showPicker && this.picked == 2) {
