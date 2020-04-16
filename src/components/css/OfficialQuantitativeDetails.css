@@ -237,6 +237,7 @@
 .recordUl {
   width: 100%;
   min-height: 200px;
+  padding-bottom: 50px;
 }
 .application_liMining {
   width: 98.5%;
@@ -636,6 +637,7 @@
 .mobileRecordUl {
   width: 7.5rem;
   min-height: 4rem;
+  padding-bottom: 1rem;
 }
 .mobileApplication_header {
   width: 7.5rem;
