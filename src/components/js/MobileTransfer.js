@@ -216,7 +216,7 @@ root.methods.testAmount = function () {
     this.amountInputWA = '转账数量不可为空'
     return false
   }
-  if (this.amountInput >= currencyAmount) {
+  if (Number(this.amountInput) >= Number(currencyAmount)) {
     // this.popOpen = true
     this.amountInputWA = '输入数量超出您的可用余额'
     // this.popText = '输入数量超出您的转账余额'
@@ -224,9 +224,10 @@ root.methods.testAmount = function () {
     return false
   }
 
-  if (this.amountInput > this.singleMaxAmount) {
+  if (Number(this.amountInput) > Number(this.singleMaxAmount)) {
     this.amountInput = this.singleMaxAmount
     this.amountInputWA = '输入数量超出每次转账数量'
+    console.info('================',typeof(Number(this.amountInput)),typeof(Number(this.singleMaxAmount)))
     return false
   }
 
@@ -238,7 +239,7 @@ root.methods.testAmount = function () {
   //   return false
   // }
 
-  if (this.amountInput < this.minAmount) {
+  if (Number(this.amountInput) < Number(this.minAmount)) {
     // this.popOpen = true
     this.amountInputWA = '转账数量小于最小值'
     this.popText = '转账数量小于最小值'
@@ -311,7 +312,7 @@ root.methods.ConfirmTransfer = function () {
     this.amountInputWA = '转账数量不可为空'
     canSend = false
   }
-  if (this.amountInput > this.singleMaxAmount) {
+  if (Number(this.amountInput) > Number(this.singleMaxAmount)) {
     this.amountInput = this.singleMaxAmount
     this.amountInputWA = '输入数量超出每次转账数量'
     canSend = false
