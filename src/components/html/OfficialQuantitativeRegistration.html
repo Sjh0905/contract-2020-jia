@@ -4,7 +4,7 @@
 
   <div class="qq_content" v-if="!isMobile">
 
-<!--    KK交易挖矿-->
+        <!--    KK交易挖矿-->
     <div class="qq_title">
       {{$t('tradingMining')}}
     </div>
@@ -12,43 +12,34 @@
      <!--   申请表格   -->
       <div class="application_form">
         <div class="application_title12">{{$t('application')}}</div>
-<!--        账号-->
+        <!--        账号-->
         <div class="Account_number">
           <span class="Account_number_">{{$t('number')}}</span>
           <div class="Account_number_input">{{$globalFunc.formatUserName(userName)}}</div>
         </div>
-<!--        配套-->
+         <!--        配套-->
         <div class="supporting">
           <span class="Account_number_">{{$t('supporting')}}</span>
           <template>
-          <el-select v-model="matchingAmount" name="gender" placeholder="请选择配套" popper-class="selectstyle">
-            <el-option
-              v-for="item in matchDataList"
-              :key="item.fcode"
-              :label="item.fdesc"
-              :value="item.fdesc"
-            >
-            </el-option>
-          </el-select>
-        </template>
+            <el-select v-model="matchingAmount" name="gender" placeholder="请选择配套" popper-class="selectstyle">
+              <el-option v-for="item in matchDataList" :key="item.fcode" :label="item.fdesc" :value="item.fdesc"></el-option>
+            </el-select>
+          </template>
           <span v-if="matchingAmountMsg_0 !=''" class="m-t wrong-msg">{{matchingAmountMsg_0}}</span>
 
         </div>
 
-
-
-       <div v-if="!matchDataKey[matchingAmount]">
-<!--        YY所需数额-->
-        <div class="number_amount">
+        <div v-if="!matchDataKey[matchingAmount]">
+       <!-- YY所需数额-->
+         <div class="number_amount">
           <p class="number_amount_p">{{$t('required')}}</p>
           <span class="number_amount_span"></span>
 <!--          <span class="amount_span">{{matchDataObj[matchingAmount]}}</span>-->
           <span class="amount_span">{{matchDataObj[matchingAmount]}}</span>
-        </div>
+         </div>
 
-
-<!--       YY账号余额 -->
-        <div class="number_amount">
+       <!--  YY账号余额 -->
+         <div class="number_amount">
           <p class="number_amount_p">{{$t('balance')}}</p>
           <span class="number_amount_span"></span>
           <span class="amount_span"></span>
@@ -57,44 +48,42 @@
 
 
         <!--        TT所需数额-->
-        <div class="number_amountTT">
+         <div class="number_amountTT">
           <span class="number_amount_span"></span>
           <span class="amount_span">{{matchDataFamt[matchingAmount]}}</span>
         </div>
 
         <!--       TT账号余额 -->
-        <div class="number_amountTT">
+         <div class="number_amountTT">
           <span class="number_amount_span"></span>
           <span class="amount_span"></span>
         </div>
       </div>
-       <div v-if="matchDataKey[matchingAmount] && matchDataKey[matchingAmount].indexOf('y') > -1">
-<!--        YY所需数额-->
-        <div class="number_amount">
+        <div v-if="matchDataKey[matchingAmount] && matchDataKey[matchingAmount].indexOf('y') > -1">
+            <!--        YY所需数额-->
+         <div class="number_amount">
           <p class="number_amount_p">{{$t('required')}}</p>
           <span class="number_amount_span">YY:</span>
-<!--          <span class="amount_span">{{matchDataObj[matchingAmount]}}</span>-->
           <span class="amount_span">{{matchDataObj[matchingAmount]}}</span>
         </div>
 
 
-<!--       YY账号余额 -->
-        <div class="number_amount">
+             <!--       YY账号余额 -->
+         <div class="number_amount">
           <p class="number_amount_p">{{$t('balance')}}</p>
           <span class="number_amount_span">YY:</span>
           <span class="amount_span">{{toFixed(balanceYY,8)}}</span>
-<!--          <span class="amount_span">{{toFixed(balance,8)}}</span>-->
         </div>
 
 
         <!--        TT所需数额-->
-        <div class="number_amountTT">
+         <div class="number_amountTT">
           <span class="number_amount_span">TT:</span>
           <span class="amount_span">{{matchDataFamt[matchingAmount]}}</span>
         </div>
 
         <!--       TT账号余额 -->
-        <div class="number_amountTT">
+         <div class="number_amountTT">
           <span class="number_amount_span">TT:</span>
           <span class="amount_span">{{toFixed(balanceTT,8)}}</span>
         </div>
@@ -134,19 +123,6 @@
           </div>
         </div>
 
-        <!--        &lt;!&ndash;        XX所需数额&ndash;&gt;-->
-<!--        <div class="number_amountTT">-->
-<!--          <span class="number_amount_span">XX:</span>-->
-<!--          <span class="amount_span">{{matchDataXX[matchingAmount]}}</span>-->
-<!--        </div>-->
-
-<!--        &lt;!&ndash;       XX账号余额 &ndash;&gt;-->
-<!--        <div class="number_amountTT">-->
-<!--          <span class="number_amount_span">XX:</span>-->
-<!--          <span class="amount_span">{{toFixed(balanceXX,8)}}</span>-->
-<!--        </div>-->
-
-
         <!-- 兑换按钮-->
         <div class="exchange_button pointer" @click="postActivities" v-if="(computedRecord.length == 0) && !sending1">{{$t('exchang')}}</div>
 <!--        <div class="exchange_button1" v-if="getVerificationCode">报名中</div>-->
@@ -177,11 +153,11 @@
         <ul >
           <!--表头 S-->
           <li class="PCapplication_header">
-          <div class="application_header_div1">{{$t('nper')}}</div>
-          <div class="application_header_div2">{{$t('supporting')}}</div>
-          <div class="application_header_div3">{{$t('time')}}</div>
-          <div class="application_header_div_right1">{{$t('状态')}}</div>
-          <div class="application_header_div_right2">{{$t('applied5')}}</div>
+            <div class="application_header_div1">{{$t('nper')}}</div>
+            <div class="application_header_div2">{{$t('supporting')}}</div>
+            <div class="application_header_div3">{{$t('time')}}</div>
+            <div class="application_header_div_right1">{{$t('状态')}}</div>
+            <div class="application_header_div_right2">{{$t('applied5')}}</div>
           </li>
           <!--表头 E-->
 
@@ -189,44 +165,42 @@
           <template>
 <!--            <template v-if="userId && currentOrderComputed.length!==0">-->
             <template v-if="computedRecord.length !== 0">
-                <li class="" v-for="(item,index) in computedRecord" :key="item.id">
+              <li class="" v-for="(item,index) in computedRecord" :key="item.id">
 
-                  <div class="flex application_header1">
+                <div class="flex application_header1">
                   <!--账号-->
-                    <div class="application_header_div1 mor-left color_a2">{{item.periodsNum}}</div>
+                  <div class="application_header_div1 mor-left color_a2">{{item.periodsNum}}</div>
                   <!--期数-->
-                    <div class="application_header_div2 color_a2">{{item.fdesc}}</div>
+                  <div class="application_header_div2 color_a2">{{item.fdesc}}</div>
                   <!--配套-->
-                    <div class="application_header_div3 color_a2">{{formatDateUitl(item.updatedAt)}}</div>
+                  <div class="application_header_div3 color_a2">{{formatDateUitl(item.updatedAt)}}</div>
 
-                    <div class="application_header_div_right1 color_a2" v-if="item.complete == '' && item.fstatus != '已报名'">——</div>
+                  <div class="application_header_div_right1 color_a2" v-if="item.complete == '' && item.fstatus != '已报名'">——</div>
                     <!--进行中-->
-                    <div class="application_header_div_right1 color_a2" v-if="item.complete == '' && item.fstatus == '已报名'">{{$t('applied6')}}</div>
+                  <div class="application_header_div_right1 color_a2" v-if="item.complete == '' && item.fstatus == '已报名'">{{$t('applied6')}}</div>
                     <!--已完成-->
-                    <div class="application_header_div_right1 color_a2" v-if="item.complete == 'YES'">{{$t('applied7')}}</div>
+                  <div class="application_header_div_right1 color_a2" v-if="item.complete == 'YES'">{{$t('applied7')}}</div>
                   <!--状态-->
-                    <div class="application_header_div_right2 mor-right color_a2bo pointer" v-if="item.fstatus == '驳回' && clickThis == 1">
-                      <span class="account-click" @click="showDetail(1)" v-if="clickThis == 1"
-                      >{{$t('rejected')}}</span>
-                      <img class="img-on pointer" src="../../assets/bohui_icon.png" alt="" @click="showDetail(1)">
-                    </div>
-                    <div class="application_header_div_right2 mor-right color_a2bo pointer" v-if="item.fstatus == '驳回' && clickThis == 2">
-                      <span class="account-click" @click="showDetail(2)" v-if="clickThis == 2"
-                      >{{$t('applied8')}}</span>
-                      <img class="img-on pointer" src="../../assets/bohuiOn_icon.png" alt="" @click="showDetail(2)">
-                    </div>
-                    <div class="application_header_div_right2 mor-right color_a2dai" v-if="item.fstatus == '未审核'">{{$t('unaudited')}}</div>
-                    <div class="application_header_div_right2 mor-right color_a2yi" v-if="item.fstatus == '已报名'">{{$t('registered')}}</div>
-                    <div class="application_header_div_right2 mor-right color_a2jin" v-if="item.fstatus == '禁用'">{{$t('disable')}}</div>
+                  <div class="application_header_div_right2 mor-right color_a2bo pointer" v-if="item.fstatus == '驳回' && clickThis == 1">
+                    <span class="account-click" @click="showDetail(1)" v-if="clickThis == 1"
+                    >{{$t('rejected')}}</span>
+                    <img class="img-on pointer" src="../../assets/bohui_icon.png" alt="" @click="showDetail(1)">
                   </div>
+                  <div class="application_header_div_right2 mor-right color_a2bo pointer" v-if="item.fstatus == '驳回' && clickThis == 2">
+                    <span class="account-click" @click="showDetail(2)" v-if="clickThis == 2"
+                    >{{$t('applied8')}}</span>
+                    <img class="img-on pointer" src="../../assets/bohuiOn_icon.png" alt="" @click="showDetail(2)">
+                  </div>
+                  <div class="application_header_div_right2 mor-right color_a2dai" v-if="item.fstatus == '未审核'">{{$t('unaudited')}}</div>
+                  <div class="application_header_div_right2 mor-right color_a2yi" v-if="item.fstatus == '已报名'">{{$t('registered')}}</div>
+                  <div class="application_header_div_right2 mor-right color_a2jin" v-if="item.fstatus == '禁用'">{{$t('disable')}}</div>
+                </div>
 
-                  <div class="color_a2bo bohui" v-if="item.remark!='' && clickThis == 2">{{$t('rejection')}}：{{item.remark}}</div>
-                </li>
+                <div class="color_a2bo bohui" v-if="item.remark!='' && clickThis == 2">{{$t('rejection')}}：{{item.remark}}</div>
+              </li>
 <!--              <div class="color_a2bo bohui" v-for="(item,index) in computedRecord" v-if="item.remark!='' && clickThis == 2">{{$t('rejection')}}：{{item.remark}}</div>-->
             </template>
-            <!-- 如果加载完成、已登录、有数据，则显示数据 end -->
 
-            <!-- 如果没加载完成、没登录、没数据，则显示'--' begin -->
             <template v-else>
               <li class="weit">
                 <div class="nhtu"><img src="../../assets/noOrders.png"></div>
@@ -249,10 +223,9 @@
     <div :class="(isApp||isIOS) ? 'isAppQQ_title':'mobileQQ_title'">
       <span>{{$t('tradingMining')}}</span>
       <span class="delails" @click="goToDelails"  v-if="isMobile && fstatus == '已报名' ">{{$t('挖矿详情')}}
-      <img class="jiantou" src="../../assets/wk_icon@2x.png" alt="">
+        <img class="jiantou" src="../../assets/wk_icon@2x.png" alt="">
       </span>
     </div>
-
 
     <div class="application">
       <!--   申请表格   -->
@@ -414,7 +387,6 @@
       </li>
       <!--表头 E-->
 
-      <!-- 如果加载完成、已登录、有数据，则显示数据 begin -->
       <template>
         <!--            <template v-if="userId && currentOrderComputed.length!==0">-->
         <template v-if="computedRecord.length !== 0">
@@ -440,13 +412,11 @@
               <div class="color_a2yi mobileZT" v-if="item.fstatus == '已报名'">已通过审核</div>
               <div class="color_a2dai mobileZT" v-if="item.fstatus == '未审核'">待审核</div>
               <div class="color_a2bo mobileZT" v-if="item.fstatus == '驳回' && clickThis == 1">
-                    <span class="account-click" @click="showDetail(1)" v-if="clickThis == 1"
-                    >{{$t('rejected')}}</span>
+                <span class="account-click" @click="showDetail(1)" v-if="clickThis == 1">{{$t('rejected')}}</span>
                 <img class="mobileImgOn" src="../../assets/bohui_icon.png" alt="" @click="showDetail(1)">
               </div>
               <div class="color_a2bo mobileZT" v-if="item.fstatus == '驳回' && clickThis == 2">
-                    <span class="account-click" @click="showDetail(2)" v-if="clickThis == 2"
-                    >{{$t('收起')}}</span>
+                <span class="account-click" @click="showDetail(2)" v-if="clickThis == 2">{{$t('收起')}}</span>
                 <img class="mobileImgOn" src="../../assets/bohuiOn_icon.png" alt="" @click="showDetail(2)">
               </div>
 
@@ -455,9 +425,7 @@
           </li>
           <div class="color_a2bo bohui" v-for="(item,index) in computedRecord" v-if="item.remark!='' && clickThis == 2">驳回原因：{{item.remark}}</div>
         </template>
-        <!-- 如果加载完成、已登录、有数据，则显示数据 end -->
 
-        <!-- 如果没加载完成、没登录、没数据，则显示'--' begin -->
         <template v-else>
           <li class="weit">
             <div class="nhtu"><img src="../../assets/noOrders.png"></div>
@@ -497,32 +465,19 @@
     <div slot="header">
       <span class="header_xuzhi">{{popWindowTitle}}</span>
     </div>
-    <div slot="article" class="pop-recharge">{{popWindowPrompt}}
-    </div>
+    <div slot="article" class="pop-recharge">{{popWindowPrompt}}</div>
     <div slot="footer" class="pop-recharge-bottom flex-center">
       <template v-if="popWindowStyle==0">
-        <button @click="popWindowCloseShiM" class="button-base33 btn_simple pointer">
-          {{$t('cancel')}}
-        </button>
-        <button @click="goToBindIdentity" class="button-base33 btn_blue pointer m-l">
-          {{$t('verification')}}
-        </button>
+        <button @click="popWindowCloseShiM" class="button-base33 btn_simple pointer">{{$t('cancel')}}</button>
+        <button @click="goToBindIdentity" class="button-base33 btn_blue pointer m-l">{{$t('verification')}}</button>
       </template>
       <template v-if="popWindowStyle==1">
-        <button @click="popWindowCloseShiM" class="button-base33 btn_simple pointer">
-          {{$t('cancel')}}
-        </button>
-        <button @click="goToSecurityCenter" class="button-base33 btn_blue pointer m-l">
-          {{$t('beBinding')}}
-        </button>
+        <button @click="popWindowCloseShiM" class="button-base33 btn_simple pointer">{{$t('cancel')}}</button>
+        <button @click="goToSecurityCenter" class="button-base33 btn_blue pointer m-l">{{$t('beBinding')}}</button>
       </template>
       <template v-if="popWindowStyle==3">
-        <button @click="popWindowCloseShiM" class="button-base33 btn_simple pointer">
-          {{$t('cancel')}}
-        </button>
-        <button @click="goToSecurityCenter" class="button-base33 btn_blue pointer m-l">
-          {{$t('beBinding')}}
-        </button>
+        <button @click="popWindowCloseShiM" class="button-base33 btn_simple pointer">{{$t('cancel')}}</button>
+        <button @click="goToSecurityCenter" class="button-base33 btn_blue pointer m-l">{{$t('beBinding')}}</button>
       </template>
 
     </div>
