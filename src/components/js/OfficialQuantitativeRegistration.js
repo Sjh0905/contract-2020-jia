@@ -18,10 +18,12 @@ root.data = () => {
     matchDataObj:{},
     matchDataKey:{},
     matchDataFamt:{},
+    matchDataXX:{},
     matchingAmount: '',
     records: [],
-    balance:'0',
-    balance1:'0',
+    balanceYY:'0',
+    balanceTT:'0',
+    balanceXX:'0',
     matchingAmountMsg_0:'',
 
     popType: 0,
@@ -41,18 +43,23 @@ root.data = () => {
     popWindowPrompt: '',//弹出样式提示
     popWindowStyle: 0,//跳转 0表示实名认证，1表示手机或谷歌，2只有确定
     popIdenOpen: false,
-    fstatus:'',
+    fstatus:'', //审核的状态
     remark:'',
+    complete:'',  //挖矿已完成或进行中
+    clickThis:1,
+    sending1:false,
 
     isApp:false,
-    isIOS:false
+    isIOS:false,
+    YTX:0,
+    TT:0
   }
 }
 
 root.created = function() {
+  this.getBalance()
   this.getSupporting()
   this.getRegistrationRecord()
-  this.getBalance()
   this.GET_AUTH_STATE()
   this.isAppQuery()
   this.isIOSQuery()
@@ -110,6 +117,8 @@ root.computed.bindEmail = function () {
 root.computed.bindIdentify = function () {
   return this.$store.state.authState.identity
 }
+
+
 // // uid
 // root.computed.uuid = function () {
 //   if(this.$store.state.authMessage.uuid == undefined){
@@ -154,83 +163,13 @@ root.methods.RE_GET_AUTH_STATE = function (res) {
 
 
 
-// 弹出绑定身份，跳转到实名认证界面
-root.methods.goToBindIdentity = function () {
-  this.popWindowOpenShiM = false
-  this.$router.push({name: 'authenticate'})
-}
-// 去绑定谷歌验证
-root.methods.goToBindGA = function () {
-  this.popWindowOpenShiM = false
-  this.$router.push({name: 'bindGoogleAuthenticator'})
-}
-// 去绑定手机号
-root.methods.goToBindMobile = function () {
-  this.popWindowOpenShiM = false
-  this.$router.push({name: 'bindMobile'})
-}
-// 去绑定邮箱
-root.methods.goToBindEmail = function () {
-  this.popWindowOpenShiM = false
-  this.$router.push({name: 'bindEmail'})
-}
-
-//查询配套数据get
-root.methods.getSupporting = function (item) {
-  // TODO: 要删除的
-  // var data = {
-  //   "data": [
-  //     {
-  //       "fcode": "qq100",
-  //       "fdesc": "10000 QQ"
-  //     },
-  //     {
-  //       "fcode": "qq110",
-  //       "fdesc": "20000 QQ"
-  //     },
-  //     {
-  //       "fcode": "qq120",
-  //       "fdesc": "30000 QQ"
-  //     },
-  //     {
-  //       "fcode": "qq130",
-  //       "fdesc": "40000 QQ"
-  //     },
-  //     {
-  //       "fcode": "qq140",
-  //       "fdesc": "50000 QQ"
-  //     }
-  //   ],
-  //   "status": "200",
-  //   "message": "success"
-  // }
-  // this.re_getSupporting(data)
-  //TODO: 要删除的
-  this.$http.send('GET_MATCH_DATA', {
-    bind: this,
-    callBack: this.re_getSupporting,
-    errorHandler: this.error_getSupporting
-  })
-}
-root.methods.re_getSupporting = function (data) {
-
-  typeof data === 'string' && (data = JSON.parse(data))
-  if (!data) {return}
-
-  this.matchDataList = data.data || []
-  this.matchDataList.map((v,key) =>{
-
-    this.matchDataObj[v.fdesc] = v.fut_amt
-    this.matchDataFamt[v.fdesc] = v.next_famt
-    this.matchDataKey[v.fdesc] = v.fcode
-
-    console.log('v,key======',this.matchDataObj[v.fdesc])
-  })
-
-  console.log("this.data查询配套数据get=====",data)
-}
-root.methods.error_getSupporting = function (err) {
-  console.log("this.err=====",err)
+// 显示详情
+root.methods.showDetail = function () {
+  if (this.clickThis == 1) {
+    this.clickThis = 2
+    return
+  }
+  this.clickThis = 1
 }
 
 //查询用户余额get (query:{})未完成
@@ -275,17 +214,25 @@ root.methods.re_getBalance = function (data) {
   console.log('查询用户余额get  index',data)
   typeof data === 'string' && (data = JSON.parse(data))
   data.data.forEach((v,index)=>{
+    this.currency = v.currency
     if (v.currency == 'YY') {
       console.log('查询用户余额get  index',index)
       console.log('查询用户余额get  index',v.balance)
-      this.balance = v.balance
+      this.balanceYY = v.balance
       this.type = v.type
       this.currency = v.currency
     }
     if (v.currency == 'TT') {
       console.log('查询用户余额get  index',index)
       console.log('查询用户余额get  index',v.balance)
-      this.balance1 = v.balance
+      this.balanceTT = v.balance
+      this.type = v.type
+      this.currency = v.currency
+    }
+    if (v.currency == 'XX') {
+      console.log('查询用户余额get  index',index)
+      console.log('查询用户余额get  index',v.balance)
+      this.balanceXX = v.balance
       this.type = v.type
       this.currency = v.currency
     }
@@ -293,6 +240,47 @@ root.methods.re_getBalance = function (data) {
 }
 root.methods.error_getBalance = function (data) {
   console.log("this.err=====",data.data)
+}
+
+//查询配套数据get
+root.methods.getSupporting = function (item) {
+
+  this.$http.send('GET_MATCH_DATA', {
+    bind: this,
+    callBack: this.re_getSupporting,
+    errorHandler: this.error_getSupporting
+  })
+}
+root.methods.re_getSupporting = function (data) {
+
+  typeof data === 'string' && (data = JSON.parse(data))
+  if (!data) {return}
+
+  this.matchDataList = data.data || []
+  this.matchDataList.map((v,key) =>{
+
+    this.matchDataObj[v.fdesc] = v.fut_amt
+    this.matchDataFamt[v.fdesc] = v.next_famt
+    // this.matchDataXX[v.fdesc] = v.fut_amt
+    this.matchDataKey[v.fdesc] = v.fcode
+    // this.YTX = this.matchDataKey[this.matchingAmount].indexOf('y')
+    // this.TT = this.matchDataKey[this.matchingAmount].indexOf('x')
+
+    // this.YTX = this.matchDataKey[v.fdesc].substr(0,1)
+    // this.matchDataKey[v.fdesc]=YTX.substr(0,1)
+
+
+    console.log('v,key======',this.matchDataObj[v.fdesc])
+    console.log('v,key======',this.matchDataKey[v.fdesc])
+    console.log('v,key======',this.YTX)
+  })
+
+  this.getBalance()
+
+  console.log("this.data查询配套数据get=====",data)
+}
+root.methods.error_getSupporting = function (err) {
+  console.log("this.err=====",err)
 }
 
 //查询报名记录get
@@ -317,11 +305,18 @@ root.methods.re_getRegistrationRecord = function (data) {
 
   let E2 = this.records[0]
   this.fstatus = E2.fstatus
+  this.complete = E2.complete
   // this.fstatus = data.data.fstatus
   // this.remark = this.records.getArrayIndex(5)
-  if (this.records.length !== 0) {
-    this.balance = (this.balance - this.matchDataObj[this.matchingAmount])
-    this.balance1 = (this.balance1 - this.matchDataFamt[this.matchingAmount])
+  if ((this.records.length !== 0) && (this.matchDataKey[this.matchingAmount].indexOf('y') > -1)) {
+    this.balanceYY = (this.balanceYY - this.matchDataObj[this.matchingAmount])
+    this.balanceTT = (this.balanceTT - this.matchDataFamt[this.matchingAmount])
+    // this.balanceXX = (this.balanceXX - this.matchDataObj[this.matchingAmount])
+  }
+  if ((this.records.length !== 0) && (this.matchDataKey[this.matchingAmount].indexOf('x') > -1)) {
+    // this.balanceYY = (this.balanceYY - this.matchDataObj[this.matchingAmount])
+    this.balanceTT = (this.balanceTT - this.matchDataFamt[this.matchingAmount])
+    this.balanceXX = (this.balanceXX - this.matchDataObj[this.matchingAmount])
   }
 
 }
@@ -350,16 +345,7 @@ root.methods.postActivities = function () {
     this.popWindowOpenShiM = true
     return
   }
-  //
-  // // 如果没有绑定邮箱，不允许报名
-  // if (!this.bindEmail) {
-  //   this.popWindowTitle = this.$t('bind_email_pop_title')
-  //   this.popWindowPrompt = this.$t('bind_email_pop_article')
-  //   this.popWindowStyle = '3'
-  //   this.popWindowOpenShiM = true
-  //   return
-  // }
-  //
+
   // // PC如果没有绑定谷歌或手机，不允许报名(邮箱注册,手机注册无限制)
   if (!this.bindGA && !this.bindMobile  && !this.isMobile) {
     this.popWindowTitle = this.$t('popWindowTitleWithdrawals')
@@ -383,23 +369,24 @@ root.methods.postActivities = function () {
     return
   }
 
-  let canSend = true
+  // let canSend = true
   // 判断用户名
   // 判断用户名
-  canSend = this.testMatchingAmount() && canSend
+  // canSend = this.testMatchingAmount() && canSend
 
+
+  if ((this.accMinus(this.matchDataFamt[this.matchingAmount] || '0', this.balanceTT || '0')) >= 0) {
+    this.matchingAmountMsg_0 = this.$t('distribution')
+    return false
+  }
   if (this.matchingAmount === '') {
     this.matchingAmountMsg_0 = this.$t('cannot')
-    canSend = false
+    return false
   }
-  if (this.accMinus(this.matchDataObj[this.matchingAmount] || '0', this.balance || '0') > 0) {
-    this.matchingAmountMsg_0 = this.$t('distribution')
-    canSend = false
-  }
-  if (!canSend) {
-    // console.log("不能发送！")
-    return
-  }
+  // if (!canSend) {
+  //   // console.log("不能发送！")
+  //   return
+  // }
 
   // TODO : 加变量的非空判断 正则判断
   // let params = {
@@ -426,25 +413,23 @@ root.methods.postActivities = function () {
     // amount: this.matchDataObj[this.matchingAmount]//所需数额
   }
   console.log("postActivities + params ===== ",params)
-  /* TODO : 调试接口需要屏蔽 S*/
-  // this.re_postActivities()
-  /* TODO : 调试接口需要屏蔽 E*/
 
-  this.getVerificationCode = true
-  this.clickVerificationCodeButton = true
-  this.verificationCodeWA = ''
-
-  this.getVerificationCodeInterval && clearInterval(this.getVerificationCodeInterval)
-
-  this.getVerificationCodeInterval = setInterval(() => {
-    this.getVerificationCodeCountdown--
-    if (this.getVerificationCodeCountdown <= 0) {
-      this.getVerificationCode = false
-      this.getVerificationCodeCountdown = 60
-      clearInterval(this.getVerificationCodeInterval)
-    }
-  }, 1000)
-
+  //
+  // this.getVerificationCode = true
+  // this.clickVerificationCodeButton = true
+  // this.verificationCodeWA = ''
+  //
+  // this.getVerificationCodeInterval && clearInterval(this.getVerificationCodeInterval)
+  //
+  // this.getVerificationCodeInterval = setInterval(() => {
+  //   this.getVerificationCodeCountdown--
+  //   if (this.getVerificationCodeCountdown <= 0) {
+  //     this.getVerificationCode = false
+  //     this.getVerificationCodeCountdown = 60
+  //     clearInterval(this.getVerificationCodeInterval)
+  //   }
+  // }, 1)
+  this.sending1 = true
   this.$http.send('POST_REGACT', {
     bind: this,
     params: params,
@@ -453,6 +438,7 @@ root.methods.postActivities = function () {
   })
 }
 root.methods.re_postActivities = function (data) {
+  // this.sending1 = false
   typeof data === 'string' && (data = JSON.parse(data))
   if (!data) {return}
   console.log("this.re_postActivities活动报名=====",data)
@@ -477,14 +463,14 @@ root.methods.re_postActivities = function (data) {
         this.popOpen = true
       }, 100)
     }
-    if (data.errorCode == "3") {
-      this.popOpen = true
-      this.popType = 0
-      this.popText = this.$t('system_err1') //用户已参加过报名活动
-      setTimeout(() => {
-        this.popOpen = true
-      }, 100)
-    }
+    // if (data.errorCode == "3") {
+    //   this.popOpen = true
+    //   this.popType = 0
+    //   this.popText = this.$t('system_err1') //用户已参加过报名活动
+    //   setTimeout(() => {
+    //     this.popOpen = true
+    //   }, 100)
+    // }
     if (data.errorCode == "4") {
       this.popOpen = true
       this.popType = 0
@@ -497,6 +483,22 @@ root.methods.re_postActivities = function (data) {
       this.popOpen = true
       this.popType = 0
       this.popText = this.$t('popWindowPromptWithdrawals') //您尚未通过实名认证
+      setTimeout(() => {
+        this.popOpen = true
+      }, 100)
+    }
+    if (data.errorCode == "7") {
+      this.popOpen = true
+      this.popType = 0
+      this.popText = this.$t('applied3') //挖矿进行中，不能兑换其他矿源
+      setTimeout(() => {
+        this.popOpen = true
+      }, 100)
+    }
+    if (data.errorCode == "8") {
+      this.popOpen = true
+      this.popType = 0
+      this.popText = this.$t('applied4') //已报名挖矿,不能重复报名
       setTimeout(() => {
         this.popOpen = true
       }, 100)
@@ -517,9 +519,10 @@ root.methods.re_postActivities = function (data) {
         this.popOpen = true
       }, 100)
     }
-    this.getVerificationCodeInterval && clearInterval(this.getVerificationCodeInterval)
-    this.getVerificationCode = false
-    this.getVerificationCodeCountdown = 60
+    this.sending1 = false
+    // this.getVerificationCodeInterval && clearInterval(this.getVerificationCodeInterval)
+    // this.getVerificationCode = false
+    // this.getVerificationCodeCountdown = 60
   }
 
   if (this.fstatus == '已报名' && this.isMobile) {
@@ -563,6 +566,7 @@ root.methods.re_postActivities = function (data) {
   // }
 }
 root.methods.error_postActivities = function (err) {
+  this.sending1 = false
   console.log("this.err=====",err)
   console.warn('活动报名post 获取出错！', err)
 }
@@ -608,6 +612,19 @@ root.methods.isIOSQuery = function () {
   } else {
     this.isIOS = false
   }
+}
+
+// 弹出绑定身份，跳转到实名认证界面
+root.methods.goToBindIdentity = function () {
+  this.popWindowOpenShiM = false
+  this.$router.push({name: 'authenticate'})
+}
+
+
+// 弹框跳安全中心
+root.methods.goToSecurityCenter = function () {
+  this.popWindowOpenShiM = false
+  this.$router.push({name: 'securityCenter'})
 }
 
 // 格式化时间

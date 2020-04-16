@@ -437,7 +437,7 @@ root.methods.postBuyCard = function () {
   //     clearInterval(this.getVerificationCodeInterval)
   //   }
   // }, 1000)
-this.sending1 = true
+  this.sending1 = true
   this.$http.send('POST_BUY_CARD', {
     bind: this,
     params:params,

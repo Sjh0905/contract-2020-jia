@@ -16,7 +16,8 @@
 <!--    参加日期-->
     <div class="account_number_right">
       <span>{{$t('participation')}}:</span>
-      <span>{{formatDateUitl(createdate)}}</span>
+      <span v-if="records.length != 0 && fstatus == '已报名'">{{formatDateUitl(createdate)}}</span>
+      <span v-if="records.length == 0">——</span>
     </div>
 
     <div class="quantification_con" >
@@ -56,7 +57,7 @@
           <li class="TodaysLi">
 <!--            矿源-->
             <div class="li_div_20">
-              <p class="color_0">{{$t('source')}}（YY + TT）</p>
+              <p class="color_0">{{$t('source')}}</p>
               <p class="color_3">{{fdesc}}</p>
 <!--              <p class="color_3">10000 YY + 100 TT</p>-->
             </div>
@@ -69,7 +70,8 @@
 <!--            已释放-->
             <div class="li_div_19">
               <p class="color_0">{{$t('released')}}</p>
-              <p class="color_7">{{miningProgress * 100}}%</p>
+              <p class="color_7" v-if="records.length == 0">0%</p>
+              <p class="color_7" v-if="records.length != 0 && fstatus == '已报名'">{{miningProgress * 100}}%</p>
             </div>
           </li>
         </ul>
@@ -86,9 +88,11 @@
     <div class="record">
 
 <!--      交易记录-->
-      <div class="record_div">{{$t('transactionRecord')}}</div>
-
-      <ul class="recordUl">
+      <div class="recordMining">
+        <div class="record_div pointer" @click="postWithd1(1)" :class="{'selected_cardType':cardType == 1}">{{$t('当前挖矿记录')}}</div>
+        <div class="record_div selected_cardTypeML pointer" @click="postWithd1(2)" :class="{'selected_cardType':cardType == 2}">{{$t('历史挖矿记录')}}</div>
+      </div>
+      <ul class="recordUl" v-if="cardType == 1">
         <!--表头 S-->
         <li class="application_header">
 <!--          日期-->
@@ -102,7 +106,7 @@
         </li>
       <template>
           <template v-if="transactionRecording.length !== 0">
-            <li class="flex application_li" v-for="(item,index) in transactionRecording" :key="item.id">
+            <li class="flex application_li" v-for="(item,index) in transactionRecording">
               <!--挖矿日期-->
               <div class="application_header_div borbot">{{item.createDate}}</div>
               <!--总量化数(挖矿总数)-->
@@ -131,6 +135,98 @@
         </template>
         </template>
       </ul>
+
+      <ul class="recordUl" v-if="cardType == 2">
+        <!--表头 S-->
+        <li class="application_header">
+          <!--          账号-->
+          <div class="application_header_div">{{$t('number')}}</div>
+          <!--          期数-->
+          <div class="application_header_div">{{$t('nper')}}</div>
+          <!--          配套-->
+          <div class="application_header_div">{{$t('supporting')}}</div>
+          <!--          时间-->
+          <div class="application_header_div_right">{{$t('time')}}</div>
+          <!--          操作-->
+          <div class="application_header_div_right">{{$t('操作')}}</div>
+        </li>
+        <template>
+          <template v-if="computedHistoryRecords.length !== 0">
+            <li class="" v-for="(item,index) in computedHistoryRecords" :key="item.id">
+<!--            <li class="" >-->
+              <div class="flex application_li">
+              <!--账号-->
+              <div class="application_header_div ">{{item.account}}</div>
+              <!--期数-->
+              <div class="application_header_div ">{{item.periodsNum}}</div>
+              <!--配套-->
+              <div class="application_header_div ">{{item.fdesc}}</div>
+              <!--时间-->
+              <div class="application_header_div_right ">{{formatDateUitl(item.createdAt)}}</div>
+              <!--操作-->
+              <div class="application_header_div_right pointer" @click="showDetail(item.id)"
+                   v-if="clickThis!=item.id">
+                <span class="account-click pointer">{{$t('applied11')}}</span>
+                <img class="img-on pointer" src="../../assets/shangla_icon.png" alt="">
+              </div>
+              <div class="application_header_div_right pointer " @click="showDetail(item.id)" v-if="clickThis==item.id">
+                <span class="account-click pointer">{{$t('applied8')}}</span>
+                <img class="img-on pointer" src="../../assets/xiala_icon.png" alt="" >
+              </div>
+
+              </div>
+                <!--  历史挖矿记录详情-->
+              <div class="application_liMininghis" v-if="clickThis==item.id">
+                <ul>
+                  <li class="applicationDivHis">
+                    <div class="flex applicationDiv" >
+                      <!--账号-->
+                      <div class="application_ ">{{$t('date')}}</div>
+                      <!--期数-->
+                      <div class="application_ ">{{$t('quanti')}}</div>
+                      <!--配套-->
+                      <div class="application_1 ">{{$t('reward')}}</div>
+                      <!--时间-->
+                      <div class="application_right ">{{$t('applied12')}}</div>
+                    </div>
+                  </li>
+                  <li v-for="(item,index) in computedHistoricalDetails" :key="item.id">
+                    <div class="flex applicationDiv" >
+                      <!--日期-->
+                      <div class="application_ ">{{item.createDate}}</div>
+                      <!--量化-->
+                      <div class="application_ ">{{item.totalAmount}}</div>
+                      <!--奖励-->
+                      <div class="application_1 ">{{item.reward}}</div>
+                      <!--矿源金额-->
+                      <div class="application_right ">{{item.surplus}}</div>
+                    </div>
+                  </li>
+                  <!--                  <div class="loading-more" v-if="showLoadingMore1">-->
+                  <!--                    <span class="text_blue pointer" v-if="!loadingMoreShow1" @click="clickLoadingMoreHistory">{{$t('orderPageHistoricalEntrustment.close_10')}}</span>-->
+                  <!--                    <span class="text_blue" v-else>{{$t('orderPageHistoricalEntrustment.close_11')}}</span>-->
+                  <!--                  </div>-->
+                </ul>
+              </div>
+          <!--  历史挖矿记录详情-->
+<!--              <template v-if="clickThis==id"></template>-->
+
+            </li>
+
+          </template>
+          <!-- 如果加载完成、已登录、有数据，则显示数据 end -->
+
+          <!-- 如果没加载完成、没登录、没数据，则显示'--' begin -->
+          <template v-else>
+            <li class="weit">
+              <div class="nhtu"><img src="../../assets/noOrders.png">
+                <p class="nhtu_p">{{$t('orderPageCurrentEntrustment.close_9')}}</p>
+              </div>
+            </li>
+          </template>
+        </template>
+      </ul>
+
 
     </div>
 
@@ -223,34 +319,89 @@
       </div>
      </div>
 
+<!--    <div class="mobile-record">-->
+
+<!--      &lt;!&ndash;      交易记录&ndash;&gt;-->
+<!--&lt;!&ndash;      <div class="record_divMobile">{{$t('transactionRecord')}}</div>&ndash;&gt;-->
+
+<!--      <ul class="recordUl">-->
+<!--        &lt;!&ndash;表头 S&ndash;&gt;-->
+<!--        <li class="application_headerMobile">-->
+<!--          &lt;!&ndash;          日期&ndash;&gt;-->
+<!--          <div class="application_divMobile">{{$t('date')}}</div>-->
+<!--          &lt;!&ndash;          量化&ndash;&gt;-->
+<!--          <div class="application_divMobile">{{$t('quanti')}}</div>-->
+<!--          &lt;!&ndash;          奖励&ndash;&gt;-->
+<!--          <div class="application_header_divMobile">{{$t('reward')}}</div>-->
+<!--          &lt;!&ndash;          矿源金额&ndash;&gt;-->
+<!--          <div class="application_header_div_rightMobile">{{$t('sourceAmount')}}</div>-->
+<!--        </li>-->
+<!--        <template>-->
+<!--          <template v-if="transactionRecording.length !== 0">-->
+<!--            <li class="flex application_liMobile" v-for="(item,index) in transactionRecording" :key="item.id">-->
+<!--              &lt;!&ndash;挖矿日期&ndash;&gt;-->
+<!--              <div class="application_divMobile borbot">{{item.createDate}}</div>-->
+<!--              &lt;!&ndash;总量化数(挖矿总数)&ndash;&gt;-->
+<!--              <div class="application_divMobile borbot">{{item.totalAmount}}</div>-->
+<!--              &lt;!&ndash;奖励&ndash;&gt;-->
+<!--              <div class="application_header_divMobile borbot">{{item.reward}}</div>-->
+<!--              &lt;!&ndash;剩余配套&ndash;&gt;-->
+<!--              <div class="application_header_div_rightMobile borbot">{{item.surplus}}</div>-->
+<!--            </li>-->
+<!--          </template>-->
+<!--          &lt;!&ndash; 如果加载完成、已登录、有数据，则显示数据 end &ndash;&gt;-->
+
+<!--          &lt;!&ndash; 如果没加载完成、没登录、没数据，则显示'&#45;&#45;' begin &ndash;&gt;-->
+<!--          <template v-else>-->
+<!--            <li class="weit">-->
+<!--              <div class="nhtu"><img src="../../assets/noOrders.png">-->
+<!--                <p class="nhtu_p">{{$t('orderPageCurrentEntrustment.close_9')}}</p>-->
+<!--              </div>-->
+<!--            </li>-->
+<!--          </template>-->
+
+<!--          <template v-if="showLoadingMore">-->
+<!--            <li class="loading-more">-->
+<!--              <span class="text_blue pointer" v-if="!loadingMoreShow" @click="clickLoadingMore">{{$t('orderPageHistoricalEntrustment.close_10')}}</span>-->
+<!--              <span class="text_blue" v-else>{{$t('orderPageHistoricalEntrustment.close_11')}}</span>-->
+<!--            </li>-->
+<!--          </template>-->
+<!--        </template>-->
+<!--      </ul>-->
+
+<!--    </div>-->
+
+
     <div class="mobile-record">
 
       <!--      交易记录-->
-      <div class="record_divMobile">{{$t('transactionRecord')}}</div>
-
-      <ul class="recordUl">
+      <div class="record_divMobile">
+        <div class="mobileRecord_div" @click="postWithd1(1)" :class="{'mobileSelected_cardType':cardType == 1}">{{$t('当前挖矿记录')}}</div>
+        <div class="mobileRecord_div mobileSelected_cardTypeML" @click="postWithd1(2)" :class="{'mobileSelected_cardType':cardType == 2}">{{$t('历史挖矿记录')}}</div>
+      </div>
+      <ul class="mobileRecordUl" v-if="cardType == 1">
         <!--表头 S-->
-        <li class="application_headerMobile">
+        <li class="mobileApplication_header">
           <!--          日期-->
-          <div class="application_divMobile">{{$t('date')}}</div>
+          <div class="mobileApplication_header_div">{{$t('date')}}</div>
           <!--          量化-->
-          <div class="application_divMobile">{{$t('quanti')}}</div>
+          <div class="mobileApplication_header_div">{{$t('quanti')}}</div>
           <!--          奖励-->
-          <div class="application_header_divMobile">{{$t('reward')}}</div>
+          <div class="mobileApplication_header_div">{{$t('reward')}}</div>
           <!--          矿源金额-->
-          <div class="application_header_div_rightMobile">{{$t('sourceAmount')}}</div>
+          <div class="mobileApplication_header_div_right">{{$t('sourceAmount')}}</div>
         </li>
         <template>
           <template v-if="transactionRecording.length !== 0">
             <li class="flex application_liMobile" v-for="(item,index) in transactionRecording" :key="item.id">
               <!--挖矿日期-->
-              <div class="application_divMobile borbot">{{item.createDate}}</div>
+              <div class="mobileApplication_header_div borbot">{{item.createDate}}</div>
               <!--总量化数(挖矿总数)-->
-              <div class="application_divMobile borbot">{{item.totalAmount}}</div>
+              <div class="mobileApplication_header_div borbot">{{item.totalAmount}}</div>
               <!--奖励-->
-              <div class="application_header_divMobile borbot">{{item.reward}}</div>
+              <div class="mobileApplication_header_div borbot">{{item.reward}}</div>
               <!--剩余配套-->
-              <div class="application_header_div_rightMobile borbot">{{item.surplus}}</div>
+              <div class="mobileApplication_header_div_right borbot">{{item.surplus}}</div>
             </li>
           </template>
           <!-- 如果加载完成、已登录、有数据，则显示数据 end -->
@@ -263,7 +414,6 @@
               </div>
             </li>
           </template>
-
           <template v-if="showLoadingMore">
             <li class="loading-more">
               <span class="text_blue pointer" v-if="!loadingMoreShow" @click="clickLoadingMore">{{$t('orderPageHistoricalEntrustment.close_10')}}</span>
@@ -273,7 +423,95 @@
         </template>
       </ul>
 
+      <ul class="mobileRecordUl" v-if="cardType == 2">
+        <!--表头 S-->
+        <li class="mobileApplication_header">
+          <!--          账号-->
+<!--          <div class="application_header_div">{{$t('账号')}}</div>-->
+          <!--          期数-->
+          <div class="mobileApplication_header_divQ">{{$t('期数')}}</div>
+          <!--          配套-->
+          <div class="mobileApplication_header_div">{{$t('配套')}}</div>
+          <!--          时间-->
+          <div class="mobileApplication_header_divS">{{$t('时间')}}</div>
+          <!--          操作-->
+          <div class="mobileApplication_header_div_right">{{$t('操作')}}</div>
+        </li>
+        <template>
+          <!--          <template v-if="transactionRecording.length !== 0">-->
+          <!--            <li class="flex application_li" v-for="(item,index) in transactionRecording" :key="item.id">-->
+          <li class="" v-for="(item,index) in computedHistoryRecords" :key="item.id">
+            <div class="flex application_liMobile" >
+              <!--账号-->
+<!--              <div class="application_header_div ">{{$t('账号')}}</div>-->
+              <!--期数-->
+              <div class="mobileApplication_header_divQ ">{{item.periodsNum}}</div>
+              <!--配套-->
+              <div class="mobileApplication_header_div ">{{item.fdesc}}</div>
+              <!--时间-->
+              <div class="mobileApplication_header_divS ">{{formatDateUitl(item.createdAt)}}</div>
+              <!--操作-->
+              <div class="mobileApplication_header_div_right " @click="showDetail(item.id)" v-if="clickThis != item.id">
+                <span class="account-click">{{$t('详情')}}</span>
+                <img class="mobileImgOn" src="../../assets/shangla_icon.png" alt="">
+              </div>
+              <div class="application_header_div_right " @click="showDetail(item.id)" v-if="clickThis == item.id">
+                <span class="account-click">{{$t('收起')}}</span>
+                <img class="mobileImgOn" src="../../assets/xiala_icon.png" alt="">
+              </div>
+            </div>
+            <div class="mobilAapplication_liMining mobileULWT" v-if="clickThis == item.id">
+<!--              <ul class="mobileULWT">-->
+                <li class="mobileULW">
+                  <div class="flex mobileApplicationDiv" >
+                    <!--账号-->
+                    <div class="mobileApplication_header_div ">{{$t('日期')}}</div>
+                    <!--期数-->
+                    <div class="mobileApplication_header_div ">{{$t('量化')}}</div>
+                    <!--配套-->
+                    <div class="mobileApplication_header_div ">{{$t('奖励')}}</div>
+                    <!--时间-->
+                    <div class="mobileApplication_header_div_right ">{{$t('矿源金额')}}</div>
+                  </div>
+                </li>
+                <li class="mobileULW" v-for="(item,index) in computedHistoricalDetails" :key="item.id">
+                  <div class="flex mobileApplicationDiv" >
+                    <!--账号-->
+                    <div class="mobileApplication_header_div ">{{item.createDate}}</div>
+                    <!--期数-->
+                    <div class="mobileApplication_header_div ">{{item.totalAmount}}</div>
+                    <!--配套-->
+                    <div class="mobileApplication_header_div ">{{item.reward}}</div>
+                    <!--时间-->
+                    <div class="mobileApplication_header_div_right ">{{item.surplus}}</div>
+                  </div>
+                </li>
+<!--              </ul>-->
+            </div>
+          </li>
+          <!--          </template>-->
+          <!-- 如果加载完成、已登录、有数据，则显示数据 end -->
+
+          <!-- 如果没加载完成、没登录、没数据，则显示'--' begin -->
+          <!--          <template v-else>-->
+          <!--            <li class="weit">-->
+          <!--              <div class="nhtu"><img src="../../assets/noOrders.png">-->
+          <!--                <p class="nhtu_p">{{$t('orderPageCurrentEntrustment.close_9')}}</p>-->
+          <!--              </div>-->
+          <!--            </li>-->
+          <!--          </template>-->
+<!--          <template v-if="showLoadingMore">-->
+<!--            <li class="loading-more">-->
+<!--              <span class="text_blue pointer" v-if="!loadingMoreShow" @click="clickLoadingMore">{{$t('orderPageHistoricalEntrustment.close_10')}}</span>-->
+<!--              <span class="text_blue" v-else>{{$t('orderPageHistoricalEntrustment.close_11')}}</span>-->
+<!--            </li>-->
+<!--          </template>-->
+        </template>
+      </ul>
+
+
     </div>
+
 
   </div>
 
