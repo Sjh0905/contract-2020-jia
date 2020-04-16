@@ -84,37 +84,37 @@ root.methods.clickCopy = function (id) {
 }
 
 // 点击查找
-root.methods.clickCheck = function (item) {
-  let currencyObj = this.$store.state.currency.get(item.currency)
-
-  // 如果是ETH的
-  if (item.currency === 'ETH' || (currencyObj && currencyObj.addressAliasTo === 'ETH')) {
-    window && window.open(`https://etherscan.io/tx/${item.uniqueId}`)
-    return
-  }
-
-  if (item.currency === 'ACT' || (currencyObj && currencyObj.addressAliasTo === 'ACT')) {
-    window && window.open(`https://browser.achain.com/#/tradeInfo/${item.uniqueId}`)
-    return
-  }
-
-  if (item.currency === 'EOSFORCEIO' || (currencyObj && currencyObj.addressAliasTo === 'EOSFORCEIO')) {
-    window && window.open(`https://explorer.eosforce.io/#/transaction_detail_view/${item.uniqueId}`)
-    return
-  }
-
-  if (item.currency === 'OMNI' || (currencyObj && currencyObj.addressAliasTo === 'OMNI')) {
-    window && window.open(`https://www.omniexplorer.info/tx/${item.uniqueId}`)
-    return
-  }
-
-  if (item.currency === 'EOSIO' || (currencyObj && currencyObj.addressAliasTo === 'EOSIO')) {
-    window && window.open(`https://eosflare.io/tx/${item.uniqueId}`)
-    return
-  }
-
-  window && window.open(`https://blockchain.info/zh-cn/tx/${item.uniqueId}`)
-}
+// root.methods.clickCheck = function (item) {
+//   let currencyObj = this.$store.state.currency.get(item.currency)
+//
+//   // 如果是ETH的
+//   if (item.currency === 'ETH' || (currencyObj && currencyObj.addressAliasTo === 'ETH')) {
+//     window && window.open(`https://etherscan.io/tx/${item.uniqueId}`)
+//     return
+//   }
+//
+//   if (item.currency === 'ACT' || (currencyObj && currencyObj.addressAliasTo === 'ACT')) {
+//     window && window.open(`https://browser.achain.com/#/tradeInfo/${item.uniqueId}`)
+//     return
+//   }
+//
+//   if (item.currency === 'EOSFORCEIO' || (currencyObj && currencyObj.addressAliasTo === 'EOSFORCEIO')) {
+//     window && window.open(`https://explorer.eosforce.io/#/transaction_detail_view/${item.uniqueId}`)
+//     return
+//   }
+//
+//   if (item.currency === 'OMNI' || (currencyObj && currencyObj.addressAliasTo === 'OMNI')) {
+//     window && window.open(`https://www.omniexplorer.info/tx/${item.uniqueId}`)
+//     return
+//   }
+//
+//   if (item.currency === 'EOSIO' || (currencyObj && currencyObj.addressAliasTo === 'EOSIO')) {
+//     window && window.open(`https://eosflare.io/tx/${item.uniqueId}`)
+//     return
+//   }
+//
+//   window && window.open(`https://blockchain.info/zh-cn/tx/${item.uniqueId}`)
+// }
 
 // 状态
 root.methods.state = function (item) {

@@ -140,7 +140,10 @@ root.methods.jumpToCheckAddress = function (item) {
     return
   }
 
-
+  if (item.currency === 'TRX' || (currencyObj && currencyObj.addressAliasTo === 'TRX')) {
+    window && window.open(`https://trx.tokenview.com/cn/tx/${item.tx}`)
+    return
+  }
 
   window && window.open(`https://blockchain.info/zh-cn/tx/${item.tx}`)
 
