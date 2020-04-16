@@ -9,8 +9,9 @@
         <div v-if="!rechargeFlagUSDT" class="address-OMNI-disabled">OMNI</div>
         <div v-if="rechargeFlagUSDT2" class="address-ERC" @click="toggleStatus(2)" :class="selectTab == 2 ? 'address-si' : ''">ERC20</div>
         <div v-if="!rechargeFlagUSDT2" class="address-OMNI-disabled">ERC20</div>
-        <div v-if="rechargeFlagUSDT3" class="address-OMNI" @click="toggleStatus(3)" :class="selectTab == 3 ? 'address-si' : ''">TRC20</div>
-        <div v-if="!rechargeFlagUSDT3" class="address-OMNI-disabled">TRC20</div>
+<!--        TRC20-->
+<!--        <div v-if="rechargeFlagUSDT3" class="address-OMNI" @click="toggleStatus(3)" :class="selectTab == 3 ? 'address-si' : ''">TRC20</div>-->
+<!--        <div v-if="!rechargeFlagUSDT3" class="address-OMNI-disabled">TRC20</div>-->
       </div>
       <!--充值地址 begin-->
       <div class="address-item">
@@ -21,7 +22,8 @@
 <!--          <input type="text" readonly v-model="address" @click="toggleStatus(1)" ref="address" class="address-input border_radius" v-if="currency= USDT2" />-->
           <input type="text" readonly v-model="address"  v-show="(selectTab === 1)" ref="address" class="address-input "/>
           <input type="text" readonly v-model="address" v-show="(selectTab === 2)" ref="address1" class="address-input "/>
-          <input type="text" readonly v-model="address" v-show="(selectTab === 3)" ref="address2" class="address-input "/>
+<!--          TRC20-->
+<!--          <input type="text" readonly v-model="address" v-show="(selectTab === 3)" ref="address2" class="address-input "/>-->
 <!--          <input type="text" readonly v-model="address" v-show="(currency != 'USDT' && currency != 'USDT2')" ref="address2" class="address-input border_radius"/>-->
 
           <div>
@@ -109,8 +111,8 @@
       </li>
       <li class="" v-show="(currency == 'USDT' || currency == 'USDT2') && selectTab === 2" ><span class="usdt_notice_dot"></span>{{$t('eusdt_notice',{currency:currency})}}
       </li>
-      <li class="" v-show="(currency == 'USDT' || currency == 'USDT3') && selectTab === 3" ><span class="usdt_notice_dot"></span>{{$t('tusdt_notice',{currency:currency})}}
-      </li>
+<!--      <li class="" v-show="(currency == 'USDT' || currency == 'USDT3') && selectTab === 3" ><span class="usdt_notice_dot"></span>{{$t('tusdt_notice',{currency:currency})}}-->
+<!--      </li>-->
       <li><span></span>{{$t('prohibitionRecharge',{currency:currency})}}</li>
       <li><span></span>{{$t('canNotRetrieved')}}</li>
       <li><span></span>{{$t('getAccount',{currency:currency})}}</li>
