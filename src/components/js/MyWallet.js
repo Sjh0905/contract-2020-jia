@@ -873,12 +873,16 @@ root.methods.testNum_01 = function () {
     this.testNumMsg_0 = this.$t('nameMsg_1')
     return false
   }
-  if (this.testNum_0 > this.transferAvailable) {
+  if (Number(this.testNum_0) > Number(this.transferAvailable)) {
     this.testNumMsg_0 = this.$t('exceed4')
+    // console.info('this.transferAvailable====',typeof(Number(this.transferAvailable)),this.transferAvailable)
+    // console.info('this.transferAvailable====',typeof(Number(this.testNum_0)),this.testNum_0)
     return false
   }
-  if ((this.testNum_0) < this.minAmount) {
+  if (Number(this.testNum_0) < Number(this.minAmount)) {
     this.testNumMsg_0 = this.$t('testNumMsg_03')
+    // console.info('this.transferAvailable====',typeof(Number(this.testNum_0)),this.testNum_0)
+    // console.info('this.transferAvailable====',typeof(Number(this.minAmount)),this.minAmount)
     return false
   }
 
@@ -952,6 +956,8 @@ root.methods.internalTransfer = function (index, item) {
 
 
   console.log('item.currency=========================', item)
+  console.info('item.currency=========================', item.currency)
+  console.info('item.currency=========================', item.available)
   this.transferCurrency = item.currency
 
   //sss屏蔽 2020.20.20 S
