@@ -1490,7 +1490,7 @@ root.methods.re_commitStep2Verification = function (data) {
     }
     if (data.errorCode === 5) {
       this.buyConfirmSuccess = false
-      this.popText = this.$t('iKnowthe10') //验证码错误
+      this.popText = this.$t('emailVerificationCodeWA_5') //修改密码未满24小时不能转账
       this.popType = 0
       this.popOpen = true
     }

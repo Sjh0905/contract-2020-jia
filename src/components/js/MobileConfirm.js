@@ -408,90 +408,90 @@ root.methods.changeSecondPicker = function (num) {
 
 
 /*---------------------- 提交邮箱验证码 ---------------------*/
-// 邮箱验证码页点击提交
-root.methods.submitStepTwo = function () {
-
-  // this.mobileToastOneFlag = false
-  // this.mobileToastTwoFlag = true
-  // this.$store.commit('changeMobileHeaderTitle', '提现确认');
-
-  console.log(this.amountInput)
-  if (this.mailCode === '' || this.mailCode.length != 6) {
-    this.mailCodeWA = '输入正确的邮箱验证码'
-    return
-  }
-  this.submitSendMail()
-  //
-}
-
-
-// 提交验证码
-root.methods.submitSendMail = function () {
-  this.$http.send('POST_COMMON_AUTH', {
-    bind: this,
-    params: {
-      type: 'email',
-      purpose: 'transfer',
-      code: this.mailCode,
-      currency:this.currentCurrency,
-      toEmail:this.emailInput,
-      toUserId:this.UIDInput,
-      amount:parseInt(this.amountInput),
-      fee:0
-    },
-    callBack: this.re_commitEmailVerification,
-    errorHandler: this.error_commitEmailVerification
-  })
-}
-root.methods.re_commitEmailVerification = function (data) {
-  typeof data === 'string' && (data = JSON.parse(data))
-  console.log('点击提交了', data)
-
-  // let resDataMap = data.dataMap;
-
-  if (data.errorCode) {
-    data.errorCode == 1 && (this.mailCodeWA = '用户未登录')
-    data.errorCode == 2 && (this.mailCodeWA = '验证码已过期')
-    data.errorCode == 3 && (this.mailCodeWA = '验证码错误')
-    data.errorCode == 4 && (this.mailCodeWA = '系统异常')
-    data.errorCode == 7 && (this.mailCodeWA = '收款人未实名认证')
-
-    // if (data.errorCode === 2 && resDataMap.times) {
-    //   this.SHOW_TIPS_FREQUENCY((resDataMap.times - resDataMap.wrong), resDataMap.times, (resDataMap.lock / 60));
-    //   setTimeout(() => {
-    //     this.popType = 0;
-    //     this.popOpen = true;
-    //   }, 200);
-    //   return
-    // }
-    //
-    // if (data.errorCode === 100 && resDataMap.lock) {
-    //   this.SHOW_TIPS(resDataMap.lock / 60);
-    //   setTimeout(() => {
-    //     this.popType = 0;
-    //     this.popOpen = true;
-    //   }, 200);
-    //   return
-    // }
-    return
-  }
-
-  // if(data.errorCode == 0 ){
-  // this.mailCodeWA = ''
-  this.mobileToastOneFlag = false
-  this.mobileToastTwoFlag = true
-  this.$store.commit('changeMobileHeaderTitle', '提现确认');
-  // }
-  this.mailCodeWA = ''
-  // this.mobileToastOneFlag = false
-  // this.mobileToastTwoFlag = true
-  // this.$store.commit('changeMobileHeaderTitle', '提现确认');
-}
-root.methods.error_commitEmailVerification = function (err) {
-  this.popText = '系统繁忙'
-  this.popType = 0
-  this.popOpen = true
-}
+// // 邮箱验证码页点击提交
+// root.methods.submitStepTwo = function () {
+//
+//   // this.mobileToastOneFlag = false
+//   // this.mobileToastTwoFlag = true
+//   // this.$store.commit('changeMobileHeaderTitle', '提现确认');
+//
+//   console.log(this.amountInput)
+//   if (this.mailCode === '' || this.mailCode.length != 6) {
+//     this.mailCodeWA = '输入正确的邮箱验证码'
+//     return
+//   }
+//   this.submitSendMail()
+//   //
+// }
+//
+//
+// // 提交验证码
+// root.methods.submitSendMail = function () {
+//   this.$http.send('POST_COMMON_AUTH', {
+//     bind: this,
+//     params: {
+//       type: 'email',
+//       purpose: 'transfer',
+//       code: this.mailCode,
+//       currency:this.currentCurrency,
+//       toEmail:this.emailInput,
+//       toUserId:this.UIDInput,
+//       amount:parseInt(this.amountInput),
+//       fee:0
+//     },
+//     callBack: this.re_commitEmailVerification,
+//     errorHandler: this.error_commitEmailVerification
+//   })
+// }
+// root.methods.re_commitEmailVerification = function (data) {
+//   typeof data === 'string' && (data = JSON.parse(data))
+//   console.log('点击提交了', data)
+//
+//   // let resDataMap = data.dataMap;
+//
+//   if (data.errorCode) {
+//     data.errorCode == 1 && (this.mailCodeWA = '用户未登录')
+//     data.errorCode == 2 && (this.mailCodeWA = '验证码已过期')
+//     data.errorCode == 3 && (this.mailCodeWA = '验证码错误')
+//     data.errorCode == 4 && (this.mailCodeWA = '系统异常')
+//     data.errorCode == 7 && (this.mailCodeWA = '收款人未实名认证')
+//
+//     // if (data.errorCode === 2 && resDataMap.times) {
+//     //   this.SHOW_TIPS_FREQUENCY((resDataMap.times - resDataMap.wrong), resDataMap.times, (resDataMap.lock / 60));
+//     //   setTimeout(() => {
+//     //     this.popType = 0;
+//     //     this.popOpen = true;
+//     //   }, 200);
+//     //   return
+//     // }
+//     //
+//     // if (data.errorCode === 100 && resDataMap.lock) {
+//     //   this.SHOW_TIPS(resDataMap.lock / 60);
+//     //   setTimeout(() => {
+//     //     this.popType = 0;
+//     //     this.popOpen = true;
+//     //   }, 200);
+//     //   return
+//     // }
+//     return
+//   }
+//
+//   // if(data.errorCode == 0 ){
+//   // this.mailCodeWA = ''
+//   this.mobileToastOneFlag = false
+//   this.mobileToastTwoFlag = true
+//   this.$store.commit('changeMobileHeaderTitle', '提现确认');
+//   // }
+//   this.mailCodeWA = ''
+//   // this.mobileToastOneFlag = false
+//   // this.mobileToastTwoFlag = true
+//   // this.$store.commit('changeMobileHeaderTitle', '提现确认');
+// }
+// root.methods.error_commitEmailVerification = function (err) {
+//   this.popText = '系统繁忙'
+//   this.popType = 0
+//   this.popOpen = true
+// }
 
 
 /*---------------------- 点击提交所有信息 start ---------------------*/
@@ -571,7 +571,7 @@ root.methods.re_commitStep2Verification = function (data) {
       data.errorCode == 2 && (this.googleCodeWA = '未进行邮箱验证')
       data.errorCode == 3 && (this.googleCodeWA = '未绑定手机')
       data.errorCode == 4 && (this.googleCodeWA = '验证码失效')
-      data.errorCode == 5 && (this.googleCodeWA = '验证码错误')
+      data.errorCode == 5 && (this.googleCodeWA = '修改密码未满24小时不能转账')
       data.errorCode == 6 && (this.googleCodeWA = '验证码过期')
       data.errorCode == 7 && (this.googleCodeWA = '输入转账数量无效')
       data.errorCode == 8 && (this.googleCodeWA = '用户余额不足')
@@ -587,7 +587,7 @@ root.methods.re_commitStep2Verification = function (data) {
       data.errorCode == 2 && (this.phoneCodeWA = '未进行邮箱验证')
       data.errorCode == 3 && (this.phoneCodeWA = '未绑定手机')
       data.errorCode == 4 && (this.phoneCodeWA = '验证码失效')
-      data.errorCode == 5 && (this.phoneCodeWA = '验证码错误')
+      data.errorCode == 5 && (this.phoneCodeWA = '修改密码未满24小时不能转账')
       data.errorCode == 6 && (this.phoneCodeWA = '验证码过期')
       data.errorCode == 7 && (this.phoneCodeWA = '输入转账数量无效')
       data.errorCode == 8 && (this.phoneCodeWA = '用户余额不足')
@@ -758,7 +758,7 @@ root.methods.gotoTransfer = function (){
 // 显示邮箱验证码页面
 root.methods.gotoTransferSuccess = function () {
   console.log(this.emailInput)
-  this.mobileToastOneFlag = true
+  this.mobileToastTwoFlag = true
   // this.$router.push({name:'MobileAssetWithdrawDetail',query:{currency:'USDT'}})
 }
 
