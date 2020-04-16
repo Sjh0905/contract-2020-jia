@@ -23,7 +23,7 @@
   margin-right: 40px;
 }
 .application_title {
-  width:7.5rem;
+  /*width:7.5rem;*/
   height:0.88rem;
   line-height: 0.88rem;
   background:rgba(245,246,250,1);
@@ -31,7 +31,16 @@
   font-family:PingFangSC-Semibold,PingFang SC;
   font-weight:500;
   color:#0D0E23;
-  /*margin-bottom: 20px;*/
+  /*padding-left: 0.3rem;*/
+  /*margin-bottom: 0.4rem;*/
+}
+
+.application_titlePG {
+  font-size:0.28rem;
+  font-family:PingFangSC-Semibold,PingFang SC;
+  font-weight:500;
+  color:#0D0E23;
+  margin-bottom: 0.4rem;
 }
 
 .application_title12 {
@@ -663,7 +672,8 @@
   background:rgba(53,118,245,1);
   border-radius:0.02rem;
   margin-top: 0.2rem;
-  margin-left: 0.76rem;
+  margin-left: 0.95rem;
+  /*margin-left: 0.76rem;*/
 }
 .mobileZT {
   line-height: 0.44rem;
@@ -681,7 +691,8 @@
   background:#D5DFF2;
   border-radius:0.02rem;
   margin-top: 0.2rem;
-  margin-left: 0.76rem;
+  margin-left: 0.95rem;
+  /*margin-left: 0.76rem;*/
 }
 .mobileNoMining {
   font-size:0.28rem;

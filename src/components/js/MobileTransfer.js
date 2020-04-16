@@ -212,6 +212,8 @@ root.methods.testAmount = function () {
   let currencyAmount = currencyObj.available
   // console.log(currencyAmount)
 
+  // this.amountInput = Number(this.amountInput)
+
   if (this.amountInput === '') {
     this.amountInputWA = '转账数量不可为空'
     return false
