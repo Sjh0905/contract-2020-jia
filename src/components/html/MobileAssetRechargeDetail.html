@@ -15,8 +15,8 @@
       <div v-if="rechargeFlagUSDT2 || !rechargeFlagUSDT" class="mobile-address-ERC" @click="toggleStatus(2)" :class="selectTab == 2 ? 'mobile-address-si' : ''">ERC20</div>
       <div v-if="!rechargeFlagUSDT2 && rechargeFlagUSDT" class="mobile-address-OMNI-disabled">ERC20</div>
 <!--      TRC20-->
-<!--      <div v-if="rechargeFlagUSDT3 || !rechargeFlagUSDT" class="mobile-address-ERC" @click="toggleStatus(3)" :class="selectTab == 3 ? 'mobile-address-si' : ''">TRC20</div>-->
-<!--      <div v-if="!rechargeFlagUSDT3 && rechargeFlagUSDT" class="mobile-address-OMNI-disabled">TRC20</div>-->
+      <div v-if="rechargeFlagUSDT3 || !rechargeFlagUSDT" class="mobile-address-ERC" @click="toggleStatus(3)" :class="selectTab == 3 ? 'mobile-address-si' : ''">TRC20</div>
+      <div v-if="!rechargeFlagUSDT3 && rechargeFlagUSDT" class="mobile-address-OMNI-disabled">TRC20</div>
 
     </div>
     <div class="mobile-asset-detail-container-address-box">

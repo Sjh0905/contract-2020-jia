@@ -966,6 +966,13 @@ root.methods.submitStepOne = function () {
     return
   }
 
+  if (currencyObj && (currencyObj.addressAliasTo === 'TRX' || this.mobileRechargeRecordData.currency === 'TRX') && !this.$globalFunc.testTRXAddress(this.defaultAddress)) {
+    this.popOpen = true
+    this.popType = 0
+    this.popText = this.$t('assetPageRechargeAndWithdrawals.wrongAddressInput')
+    return
+  }
+
 
 
   if (this.defaultAddress === '') {

@@ -118,7 +118,7 @@
 
         <!--实际到账 begin -->
         <div class="hidden-detail-article-1" v-if="orderDetail.length==1 && !orderType">
-          {{!replaced ? toFixed(actualAccount,8) : toFixed(accMinus(amount , accMinus(originalFee , refundedFee)),8)}}
+          {{!replaced ? toFixed(actualAccount,8) : toFixed(accMinus(amount ,symbol.split('_')[0] == "TT" ? replacedFee : accMinus(originalFee , refundedFee)),8)}}
           {{orderType?symbol.split('_')[1]:symbol.split('_')[0]}}
         </div>
         <div class="hidden-detail-article-1" v-if="orderDetail.length==1 && orderType">
@@ -194,7 +194,7 @@
         <!--如果开抵扣了，显示抵扣 end -->
 
         <div class="hidden-detail-article-1" v-if="!orderType">
-          {{!replaced ? toFixed(actualAccount,8) : toFixed(accMinus(amount , accMinus(originalFee , refundedFee)),8)}}
+          {{!replaced ? toFixed(actualAccount,8) : toFixed(accMinus(amount ,symbol.split('_')[0] == "TT" ? replacedFee : accMinus(originalFee , refundedFee)),8)}}
           {{orderType?symbol.split('_')[1]:symbol.split('_')[0]}}
         </div>
         <div class="hidden-detail-article-1" v-if="orderType">

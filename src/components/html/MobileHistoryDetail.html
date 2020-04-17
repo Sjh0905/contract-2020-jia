@@ -57,7 +57,7 @@
         <li class="flex-between">
             <span class="_m_od_ul2t">实际到账</span>
             <span v-if="order.type==='BUY_LIMIT'" class="_m_od_ul2c txt_80">
-              {{!replaced ? toFixed(actualAccount,8) : toFixed(accMinus(amount , accMinus(originalFee , refundedFee)),8)}}
+              {{!replaced ? toFixed(actualAccount,8) : toFixed(accMinus(amount , order.symbol.split('_')[0] == "TT" ? replacedFee : accMinus(originalFee , refundedFee)),8)}}
               {{order.type!=='BUY_LIMIT'?order.symbol.split('_')[1]:order.symbol.split('_')[0]}}
             </span>
             <span v-if="order.type!=='BUY_LIMIT'" class="_m_od_ul2c txt_80">

@@ -653,6 +653,10 @@ root.methods.commit = function () {
     canSend = false
   }
 
+  if (currencyObj && (currencyObj.addressAliasTo === 'TRX' || this.currency === 'TRX') && !this.$globalFunc.testTRXAddress(this.address)) {
+    this.addressWA = this.$t('assetPageRechargeAndWithdrawals.wrongAddressInput')
+    canSend = false
+  }
 
   if (this.address === '') {
     this.addressWA = this.$t('amountWA_5')
