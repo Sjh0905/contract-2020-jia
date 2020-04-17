@@ -898,13 +898,13 @@ root.methods.submitStepOne = function () {
   }
 
 
-  if (this.defaultName === '') {
-    // 请输入您的提现地址
-    this.popOpen = true
-    this.popType = 0
-    this.popText = '地址备注不能为空'
-    return
-  }
+  // if (this.defaultName === '') {
+  //   // 请输入您的提现地址
+  //   this.popOpen = true
+  //   this.popType = 0
+  //   this.popText = '地址备注不能为空'
+  //   return
+  // }
 
   let isERC20 = this.isERC20();
   let currency = this.title == "USDT" ? isERC20 : this.title
@@ -1225,13 +1225,15 @@ root.methods.submitStepThree = function () {
   if (!this.submitStepThreeFlag) return
   this.submitStepThreeFlag = false
   let description = '';
+  // let defaultName = this.defaultName
+  let defaultName = '地址标签'
   if(this.isMemo === true){
-    description = this.defaultName + this.remarkMemoConnect + this.defaultMemo
+    description = defaultName + this.remarkMemoConnect + this.defaultMemo
   }
   if(this.isMemo === false){
-    description = this.defaultName
+    description = defaultName
     if(this.isWCG){
-      description = this.defaultName + this.remarkMemoConnect + this.newPublicKey
+      description = defaultName + this.remarkMemoConnect + this.newPublicKey
     }
   }
 

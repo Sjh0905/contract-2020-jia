@@ -610,10 +610,10 @@ root.methods.commit = function () {
     this.amountWA = this.$t('amountWA_4')
     canSend = false
   }
-  if (this.description === '') {
-    this.addressWA = this.$t('amountWA_6')
-    canSend = false
-  }
+  // if (this.description === '') {
+  //   this.addressWA = this.$t('amountWA_6')
+  //   canSend = false
+  // }
 
   let isERC20 = this.isERC20();
   let currency = this.currency == "USDT" ? isERC20 : this.currency
@@ -992,7 +992,8 @@ root.methods.commitStep2Verification = function () {
   }
 
 
-  let description = this.description
+  // let description = this.description
+  let description = '地址备注'
   // 如果有memo，拼接到description上
   if (this.haveMemo === 'yes') {
     if(currencyObj && (currencyObj.addressAliasTo === 'WCG' || this.currency === 'WCG')){

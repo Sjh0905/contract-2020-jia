@@ -31,11 +31,11 @@
             <span class="total">{{toFixed(item.amount,8)}}</span>
             <div class="address address-detail flex">
               <div class="address-detail-item flex">
-                <span class="address-title">{{$t('withdrawalsAddress')}}:</span>
+                <span class="address-title">{{$t('withdrawalsAddress')}}：</span>
                 <span>{{item.toAddress}}</span>
               </div>
               <div v-if="item.memoAddress" class="address-detail-item flex">
-                <span class="address-title">memo:</span>
+                <span class="address-title">{{$t('withdrawalsAddress1')}}：</span>
                 <span class="memo-input">{{item.memoAddress}}</span>
               </div>
 
