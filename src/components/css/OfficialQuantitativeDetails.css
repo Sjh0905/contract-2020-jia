@@ -24,6 +24,9 @@
   color:rgba(107,125,162,1);
   margin-bottom: 15px;
 }
+.accountUid {
+  padding-left: 20px;
+}
 .account_number_right {
   display: inline-block;
   font-size:12px;
@@ -406,7 +409,7 @@
    font-weight:500;
    color:rgba(53,118,245,1);
    /*margin-top: ;*/
-   margin-bottom: 0.6rem;
+   margin-bottom: 0.16rem;
    padding-top: 0.6rem;
    padding-left: 0.3rem;
    padding-right: 0.3rem;
@@ -418,7 +421,7 @@
   font-weight:500;
   color:rgba(53,118,245,1);
   /*margin-top: ;*/
-  margin-bottom: 0.6rem;
+  margin-bottom: 0.16rem;
   padding-top: 0.6rem;
   padding-left: 0.3rem;
   padding-right: 0.3rem;
@@ -439,6 +442,16 @@
   height: 0.32rem;
   margin-top: 0.28rem;
   vertical-align: sub;
+}
+.accountNumberMobile {
+  height: 0.44rem;
+  line-height: 0.44rem;
+  font-size: 0.24rem;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color:rgba(107,125,162,1);
+  /*margin-bottom: 0.3rem;*/
+  padding-left: 0.3rem;
 }
 .account_numberMobile {
   display: inline-block;

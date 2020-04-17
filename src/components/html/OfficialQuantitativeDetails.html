@@ -9,13 +9,15 @@
 
 <!--账号-->
     <div class="account_number">
-      <span>{{$t('number')}}:</span>
+      <span>{{$t('number')}}：</span>
       <span>{{userName}}</span>
+      <span class="accountUid">UID：</span>
+      <span>{{userId}}</span>
     </div>
 
 <!--    参加日期-->
     <div class="account_number_right">
-      <span>{{$t('participation')}}:</span>
+      <span>{{$t('participation')}}：</span>
       <span v-if="records.length != 0 && fstatus == '已报名'">{{formatDateUitl(createdate)}}</span>
       <span v-if="records.length == 0">——</span>
     </div>
@@ -251,14 +253,18 @@
 
 
     <!--账号-->
-    <div class="account_numberMobile">
-      <span>{{$t('number')}}:</span>
+    <div class="accountNumberMobile">
+      <span>{{$t('number')}}：</span>
       <span>{{userName}}</span>
+    </div>
+    <div class="account_numberMobile">
+      <span>UID：</span>
+      <span>{{userId}}</span>
     </div>
 
     <!--    参加日期-->
     <div class="account_number_rightMobile">
-      <span>{{$t('participation')}}:</span>
+      <span>{{$t('participation')}}：</span>
       <span>{{formatDateUitl(createdate)}}</span>
     </div>
 
@@ -299,7 +305,7 @@
           <li class="TodaysLiMobile">
             <!--            矿源-->
             <div class="li_div_20Mobile">
-              <p class="mobileColor0">{{$t('source')}}（YY + TT）</p>
+              <p class="mobileColor0">{{$t('source')}}</p>
               <p class="mobileColor3">{{fdesc}}</p>
             </div>
             <!--            矿源奖励释放-->
