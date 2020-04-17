@@ -71,14 +71,14 @@
             <div class="li_div_19">
               <p class="color_0">{{$t('released')}}</p>
               <p class="color_7" v-if="records.length == 0">0%</p>
-              <p class="color_7" v-if="records.length != 0 && fstatus == '已报名'">{{miningProgress * 100}}%</p>
+              <p class="color_7" v-if="records.length != 0 && fstatus == '已报名'">{{numminingProgress}}%</p>
             </div>
           </li>
         </ul>
 
         <div class="border_50">
           <div class="progress_bar">
-            <el-progress :show-text="false" :stroke-width="16" :percentage="(miningProgress) * 100" color="#3576F5" status="exception" ></el-progress>
+            <el-progress :show-text="false" :stroke-width="16" :percentage="(numminingProgress)" color="#3576F5" status="exception" ></el-progress>
           </div>
         </div>
 
