@@ -299,6 +299,7 @@ root.watch.currencyChange = function () {
 }
 
 
+
 // ---------------------- 方法 ---------------------------
 
 root.methods = {};
@@ -701,6 +702,7 @@ root.methods.re_getWithdrawalsAddress = function (data) {
 
   if (data.dataMap.withdrawAddressList.length === 0) {
     this.oldAddress = ''
+    this.defaultAddress = ''
   }
   // this.loading = false
 
