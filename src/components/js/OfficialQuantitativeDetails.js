@@ -37,7 +37,8 @@ root.data = () => {
     cardType:1,
     historicalMining: false,
     clickThis:-1,
-    id:''
+    id:'',
+    numminingProgress:''
   }
 }
 
@@ -349,9 +350,11 @@ root.methods.re_getQuantifyBasicInformation = function (data) {
   this.createdate = data.data.recode.createdate   //挖矿日期
   this.quantStartEndTime = data.data.recode.quantStartEndTime    //量化起止时间
   this.fut_amt = data.data.recode.fut_amt    //配套总量
-  this.miningProgress = data.data.recode.miningProgress  //挖矿进度 0.95
+  this.miningProgress = data.data.recode.miningProgress * 10 //挖矿进度 0.95
   this.doSendReward = data.data.recode.doSendReward  //已释放的矿源奖励
   this.fdesc = data.data.recode.fdesc  //已释放的矿源奖励
+  this.numminingProgress = this.$globalFunc.accFixed((this.miningProgress * 10),2)
+  // console.log('this.numminingProgress======',this.$globalFunc.accFixed((0.9999 * 100),2))
 }
 root.methods.error_getQuantifyBasicInformation = function (err) {
   console.log("this.error_getQuantifyBasicInformation=====",err)
@@ -388,5 +391,11 @@ root.methods.isIOSQuery = function () {
 // 格式化时间
 root.methods.formatDateUitl = function (time) {
   return this.$globalFunc.formatDateUitl(Number(time), 'YYYY-MM-DD')
+}
+
+
+/*---------------------- 保留小数 begin ---------------------*/
+root.methods.toFixed = function (num, acc = 2) {
+  return this.$globalFunc.accFixed(num, acc)
 }
 export default root

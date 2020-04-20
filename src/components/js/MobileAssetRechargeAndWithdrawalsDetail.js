@@ -873,6 +873,12 @@ root.methods.internalTransfer = function () {
     this.openTips = true
     return
   }
+
+  // 如果没有绑定邮箱，不允许打开内部转账
+  if (!this.bindEmail) {
+    this.toastNobindShow = true
+    return
+  }
   if (this.bindIdentify) {
     if (!this.bindMobile && !this.bindGA) {
       this.popOpen = true

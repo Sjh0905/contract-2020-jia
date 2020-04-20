@@ -56,7 +56,10 @@
 
         <!--memo地址 begin-->
         <div class="address flex">
-          <span v-if="currency == 'EOS'">{{$t('memo')}}</span>
+          <span v-if="currency == 'EOS'">{{$t('memo')}}
+          <span v-if="currency == 'EOS'" class="text_red">{{$t('memoPrompt')}}</span>
+          </span>
+
           <span v-else>memo</span>
           <input type="text" readonly v-model="memo" ref="memo" class="address-input border_radius"/>
           <div class="flex">

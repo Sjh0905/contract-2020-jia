@@ -64,15 +64,15 @@
             <!--地址 begin-->
             <div class="address address-detail flex">
               <div class="address-detail-item flex">
-                <span class="address-title">{{$t('rechargeAddress')}}:</span>
+                <span class="address-title">{{$t('rechargeAddress')}}：</span>
                 <span>{{item.toAddress}}</span>
               </div>
               <div class="address-detail-item flex" v-if="item.memoAddress">
-                <span class="address-title">memo:</span>
+                <span class="address-title">{{$t('rechargeAddress1')}}：</span>
                 <span class="memo-input">{{item.memoAddress}}</span>
               </div>
               <div class="relative address-detail-item flex">
-                <span class="address-title">TXID:</span>
+                <span class="address-title">TXID：</span>
                 <!--<span class="uniqueId-text txt-green pointer" :ref="item.id">{{item.uniqueId}}</span>-->
                 <input type="text" readonly :value="item.uniqueId" class="unit-input text_blue"
                        :ref="item.id" @click="clickCheck(item)">

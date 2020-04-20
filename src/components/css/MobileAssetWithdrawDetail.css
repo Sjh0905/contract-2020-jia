@@ -311,6 +311,10 @@
   margin-bottom: 0.22rem;
 }
 
+.memo-red {
+  color: #EF5656;
+}
+
 .mobile-asset-detail-container-address-title-right{
   float: right;
   color: #3576F5;

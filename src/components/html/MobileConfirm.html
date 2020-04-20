@@ -57,29 +57,29 @@
   <PopupPrompt :popOpen="popOpen" :popClose="popClose" :popType="popType" :popText="popText"/>
 
   <!--邮箱弹窗-->
-  <div v-if="mobileToastOneFlag" class="mobile-toast-box">
-    <!--<div class="mobile-asset-detail-title">{{mobileRechargeRecordData.currency}}</div>-->
-    <div class="mail-container-box-title">{{sendMailMsg}}</div>
+<!--  <div v-if="mobileToastOneFlag" class="mobile-toast-box">-->
+<!--    &lt;!&ndash;<div class="mobile-asset-detail-title">{{mobileRechargeRecordData.currency}}</div>&ndash;&gt;-->
+<!--    <div class="mail-container-box-title">{{sendMailMsg}}</div>-->
 
-    <!--发送验证码-->
-    <div class="mail-container-box"
-         :class="{'wrong-answer':mailCodeWA!=''}"
-    >
-      <!--<span class="mail-input-title-icon-box">-->
-      <!--<img class="mail-input-title-icon" src="../../assets/h5form/mobile_mail.png" alt="">-->
-      <!--</span>-->
-      <input type="text" v-model="mailCode" @focus="closeMailWrong" placeholder="邮箱验证码" class="mail-input-container" />
-      <div class="cutter-line">|</div>
-      <span v-if="!getMailCode" class="mail-input-btn-on" @click="getMailVerificationCode">获取</span>
-      <span v-if="getMailCode" class="mail-input-btn-on">{{getEmailVerificationCodeCountdown}}</span>
-      <div class="clear"></div>
-    </div>
-    <div class="clear"></div>
-    <div class="unit-input-interval txt-red">
-      <span v-if="mailCodeWA!=''">{{mailCodeWA}}</span>
-    </div>
-    <div class="mail-submit-btn" @click="submitStepTwo">确定</div>
-  </div>
+<!--    &lt;!&ndash;发送验证码&ndash;&gt;-->
+<!--    <div class="mail-container-box"-->
+<!--         :class="{'wrong-answer':mailCodeWA!=''}"-->
+<!--    >-->
+<!--      &lt;!&ndash;<span class="mail-input-title-icon-box">&ndash;&gt;-->
+<!--      &lt;!&ndash;<img class="mail-input-title-icon" src="../../assets/h5form/mobile_mail.png" alt="">&ndash;&gt;-->
+<!--      &lt;!&ndash;</span>&ndash;&gt;-->
+<!--      <input type="text" v-model="mailCode" @focus="closeMailWrong" placeholder="邮箱验证码" class="mail-input-container" />-->
+<!--      <div class="cutter-line">|</div>-->
+<!--      <span v-if="!getMailCode" class="mail-input-btn-on" @click="getMailVerificationCode">获取</span>-->
+<!--      <span v-if="getMailCode" class="mail-input-btn-on">{{getEmailVerificationCodeCountdown}}</span>-->
+<!--      <div class="clear"></div>-->
+<!--    </div>-->
+<!--    <div class="clear"></div>-->
+<!--    <div class="unit-input-interval txt-red">-->
+<!--      <span v-if="mailCodeWA!=''">{{mailCodeWA}}</span>-->
+<!--    </div>-->
+<!--    <div class="mail-submit-btn" @click="submitStepTwo">确定</div>-->
+<!--  </div>-->
 
   <!--二级验证-->
   <!--<div class="mobile-toast-box">-->

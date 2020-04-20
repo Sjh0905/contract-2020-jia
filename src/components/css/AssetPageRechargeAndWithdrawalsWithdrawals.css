@@ -214,6 +214,12 @@
 .input-unify {
   padding-left: 15px;
 }
+.input-unify1 {
+  width: 100%;
+  border: 0;
+  padding-left: 15px;
+}
+
 
 /*选择框*/
 .select-address-button {
