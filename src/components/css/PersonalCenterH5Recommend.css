@@ -279,7 +279,7 @@
 
 .prompt-qrcode-box-close-btn {
   position: absolute;
-  top: 3.65rem;
+  top: 3.4rem;
   left: 5rem;
   /*margin: 3.6rem 0 0 5.1rem;*/
   width: 0.42rem;
@@ -287,16 +287,16 @@
   /*display: block;*/
 }
 
-.prompt-qrcode-box-title {
-  height: 32px;
-  line-height: 32px;
-  font-size: 14px;
-  color: #333;
-  text-align: center;
-  margin: 0 10px;
-  /*border-bottom: 1px solid #f2f2f2;*/
-  font-weight: bold;
-}
+/*.prompt-qrcode-box-title {*/
+/*  height: 32px;*/
+/*  line-height: 32px;*/
+/*  font-size: 14px;*/
+/*  color: #333;*/
+/*  text-align: center;*/
+/*  margin: 0 10px;*/
+/*  !*border-bottom: 1px solid #f2f2f2;*!*/
+/*  font-weight: bold;*/
+/*}*/
 
 .prompt-qrcode-box-img {
   margin: 10px auto 0;
@@ -776,6 +776,22 @@ show_poster{
 
 }
 .show_poster_body{
+  /*position: absolute;*/
+  /*width: 280px;*/
+  height: auto;
+  padding: 1.2rem 1.3rem;
+  box-sizing: border-box;
+  /*!*min-height: 300px;*!*/
+  /*left: 50%;*/
+  /*margin-left: -50%;*/
+  /*top: 50%;*/
+  /*margin-top: -50%;*/
+  /*z-index: 1000;*/
+  color: #fff;
+  /*background: #ccc;*/
+}
+
+.show-qrcode{
   /*position: absolute;*/
   /*width: 280px;*/
   height: auto;
