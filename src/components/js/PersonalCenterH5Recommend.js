@@ -33,7 +33,7 @@ root.data = function () {
     selectIndex: 1,
     offset: 1,
     limit: 10,
-    maxResults: 0,
+    maxResults: 10,
 
     // 已推荐注册人数
     size: 0,
@@ -87,6 +87,9 @@ root.data = function () {
 
     loadingMore: true,
     loadingMoreIng: false,
+
+
+    myInvites:[]
   }
 }
 
@@ -106,6 +109,7 @@ root.created = function () {
     origin: window.location.origin,
   }
 
+  this.getMyInvitesForBT()
   this.value = this.shareUrl;
 
   // 获取邀请人数和获得奖励的请求
@@ -120,7 +124,6 @@ root.created = function () {
   // 获取平台数据
   // this.getPlatformData()
 
-  this.getMyInvitesForBT()
 
   this.GET_POSTER_URL()
 

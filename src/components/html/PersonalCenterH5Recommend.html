@@ -220,7 +220,7 @@
         <!--每一行数据end-->
 
         <!--加载更多start-->
-        <li v-if="loadingMore && recordsLength!==0" class="loading-more">
+        <li v-if="loadingMore" class="loading-more">
           <span v-if="!loadingMoreIng" @click="clickToLoadMore" class="txt-green">加载更多</span>
           <span v-if="loadingMoreIng" class="txt-green">加载中...</span>
         </li>
@@ -327,7 +327,7 @@
 <!--        <p class="tips_poster">{{$t('personalCenter.poster_1', {activityRate:activityRate*100})}}</p>-->
 <!--        <p class="copy_poster">✽{{$t('personalCenter.poster_2')}}</p>-->
         <img :src="poster_url" class="recommend-banner">
-        <div class="prompt-qrcode-box-info">长按保存至手机</div>
+        <div class="prompt-qrcode-box-info">长按图片保存至手机</div>
 
       </div>
     </div>
