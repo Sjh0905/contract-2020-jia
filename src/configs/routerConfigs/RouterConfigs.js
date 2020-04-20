@@ -2651,25 +2651,24 @@ root.routes.push({
               },
               component: resolve => require(['@/components/btActivity/vue/BtActivityMyRecommend'], resolve)
             },
-
           ]
         },
 
         // H5我的推荐
-        // {
-        //   path: 'H5Recommend',
-        //   name: 'H5Recommend',
-        //
-        //   caseSensitive: true,
-        //   meta: {
-        //     pcname: 'Recommend',
-        //     h5name: 'H5Recommend',
-        //     requireLogin: true,
-        //     templateClose: false,
-        //     requireLoginOff: false,
-        //   },
-        //   component: resolve => require(['@/components/mobileVue/PersonalCenterH5Recommend'], resolve)
-        // },
+        {
+          path: 'H5Recommend',
+          name: 'H5Recommend',
+
+          caseSensitive: true,
+          meta: {
+            pcname: 'PcRecommend',
+            h5name: 'H5Recommend',
+            requireLogin: true,
+            templateClose: false,
+            requireLoginOff: false,
+          },
+          component: resolve => require(['@/components/mobileVue/PersonalCenterH5Recommend'], resolve)
+        },
 
         // H5我的专属海报
         // {

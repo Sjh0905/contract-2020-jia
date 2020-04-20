@@ -1138,6 +1138,11 @@ root.methods.gotoJiaoyi = function () {
   this.$router.push({name: 'mobileTradingHallDetail'});
 }
 
+root.methods.gotoRecommend = function () {
+  this.$router.push({name: 'H5Recommend'});
+}
+
+
 /*---------------------- cc sort在ios中不兼容的问题 ---------------------*/
 ;(function(w){
   if(/msie|applewebkit.+safari/i.test(w.navigator.userAgent)){
