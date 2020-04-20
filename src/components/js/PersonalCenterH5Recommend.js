@@ -104,6 +104,8 @@ root.created = function () {
   this.shareUrl = protocol + '//' + sharUrl;
 
   this.value = this.shareUrl;
+
+  this.qrsize = 160 / window.devicePixelRatio
   // let protocol = window.location.protocol;
   // this.shareUrl = protocol + '//' + document.location.host + '/index/register?uid=' + this.$store.state.authMessage.userId + '&source=share';
 
@@ -178,7 +180,7 @@ root.computed.uId = function () {
 }
 
 root.mounted = function () {
-  this.qrsize = 160 / window.devicePixelRatio
+
 }
 
 root.computed.btReward = function () {
