@@ -1,128 +1,376 @@
 <div class="mobile-recommend-box">
   <Loading v-if="loading"/>
   <div v-if="!loading">
+<!--    顶部title-->
+    <div class="mobile-my-recommend">
+      <span @click="gotoNewH5homePage"><img src="../../assets/H5img/return_white_background.png" alt=""></span>
+      <span class="mobile-recommend-title">我的邀请</span>
+    </div>
     <!--顶部banner-->
-    <div class="container-banner">
-      <img class="container-banner-img" src="" alt="">
-      <div class="container-banner-text">{{toFixed(accMul(headerRate,100),0)}}%</div>
+    <div class="mobile-banner">
+      <div class="mobile-banner-title">{{$t('personalCenterRecommend.banner_title')}}</div>
+      <div class="mobile-banner-subtitle">{{$t('personalCenterRecommend.banner_subtitle')}}</div>
     </div>
+<!--    <div class="container-banner">-->
+<!--      <img class="container-banner-img" src="" alt="">-->
+<!--      <div class="container-banner-text">{{toFixed(accMul(headerRate,100),0)}}%</div>-->
+<!--    </div>-->
+       <!--<img src="../../assets/banner_yqchina.png">-->
+       <!--<img v-if="lang=='CH'" src="../../assets/banner_yqchina.png">-->
+       <!--<img v-else src="../../assets/banner_yqchina.png">-->
+       <!--    <div class="activity-rate-box" :class="{'activity-rate-box-en':lang!=='CH'}">-->
+       <!--      {{activityRate * 100 || '--'}}%-->
+       <!--    </div>-->
+
+
     <!--我的推荐id和我的推荐链接-->
-    <div class="container-recommend-link">
-      <div class="container-recommend-link-title">
-        <span class="container-recommend-link-title-left">我的推荐ID</span>
-        <span class="container-recommend-link-title-right" @click="openQrCodeFlag()">
-        <img class="container-recommend-link-title-right-img" src="" alt="">
-        推荐二维码
-      </span>
-      </div>
-      <div class="container-recommend-link-id-box">
-        <div class="container-recommend-link-id-box-left">
-          <div class="container-recommend-link-id">{{userId}}</div>
-          <div class="container-recommend-link-id-btn" data-clipboard-target=".container-recommend-link-id" @click="copyUserId">复制</div>
-        </div>
-        <div class="container-recommend-link-id-box-right" @click="jumpToPoster()">我的专属邀请海报</div>
-      </div>
-      <div class="container-recommend-link-second-title">我的推荐链接</div>
-      <div class="container-recommend-link-address-box">
-        <div class="container-recommend-link-address">{{shareUrl}}</div>
-        <img class="container-recommend-link-address-btn" src="" @click="openShareFlag()">
-      </div>
-    </div>
-    <!--我的推荐玩家，我的推荐获取币-->
-    <div class="container-recommend-reward">
-      <div class="container-recommend-reward-person-box">
-        <div class="container-recommend-reward-person-num">{{size}}</div>
-        <div class="container-recommend-reward-person-info">已推荐朋友（个）</div>
-      </div>
-      <!--<div class="container-recommend-reward-price-box">-->
-        <!--<div class="container-recommend-reward-price-num">{{toFixed(totalPrice,8)}}</div>-->
-        <!--<div class="container-recommend-reward-price-info">已获得奖励（BT）</div>-->
-      <!--</div>-->
-    </div>
-    <!--活动细则-->
-    <div class="container-recommend-rule">
-      <div class="container-recommend-rule-title">
-        <div class="container-recommend-rule-title-side"></div>
-        <div class="container-recommend-rule-title-center">活动细则</div>
-        <div class="container-recommend-rule-title-side"></div>
-      </div>
-      <ul class="container-recommend-rule-list">
-        <li class="container-recommend-rule-list-item">
-          1. 邀请人可享受好友上月交易手续费{{toFixed(accMul(headerRate,100),0)}}%的BDB奖励，自注册成功之日生效。<br/>
-          举例：如好友2019年1月1日注册成功， 当月交易并产生交易手续费100BDB，则次月邀请人即可获得{{toFixed(accMul(headerRate,100),0)}}枚BDB奖励。
-        </li>
-        <li class="container-recommend-rule-list-item">
-          2. 邀请人当月获得奖励于次月8日由TwentyTwenty统一进行发放。
-        </li>
-        <li class="container-recommend-rule-list-item">
-          3. TwentyTwenty拥有邀请返佣比例调整的权力，如有调整请以TwentyTwenty公告为准。
-        </li>
-      </ul>
-    </div>
-
-    <!--专属推荐二维码弹窗-->
-    <div v-if="qrCodeFlag" class="prompt-qrcode">
-      <div class="prompt-qrcode-box">
-        <div class="prompt-qrcode-box-close-btn-box" @click="closeQrCodeFlag()">
-          <img class="prompt-qrcode-box-close-btn" src="" alt="">
-        </div>
-        <div class="prompt-qrcode-box-title">专属推荐二维码</div>
-        <Qrcode class="prompt-qrcode-box-img"
-                :size="qrsize"
-                :value="value"
-                :logo="logo"
-                :bgColor="bgColor"
-                :fgColor="fgColor"
-        >
-        </Qrcode>
-        <div class="prompt-qrcode-box-info">邀请好友得返利</div>
-      </div>
-    </div>
-
-    <!--分享到弹窗-->
-    <div v-show="shareFlag" class="prompt-share">
-      <div class="prompt-share-box">
-        <div class="prompt-share-box-title">分享到</div>
-
-        <div class="prompt-share-box-icon-box">
-          <a class="prompt-share-box-icon-item" :href="'https://service.weibo.com/share/share.php?url=' + shareConfig.url + '&title=' + shareConfig.title + '&pic=' + shareConfig.image + '&appkey=TwentyTwenty'" target="_blank">
-            <img class="prompt-share-box-icon-item-img" src="" alt="">
-            <span class="prompt-share-box-icon-item-text">新浪微博</span>
-          </a>
-          <a class="prompt-share-box-icon-item" :href="'https://www.facebook.com/sharer/sharer.php?u=' + shareConfig.url" target="_blank">
-            <img class="prompt-share-box-icon-item-img" src="" alt="">
-            <span class="prompt-share-box-icon-item-text">Facebook</span>
-          </a>
-          <a class="prompt-share-box-icon-item" :href="'https://twitter.com/intent/tweet?text=' + shareConfig.title + '&url=' + shareConfig.url + '&via=' + shareConfig.origin" target="_blank">
-            <img class="prompt-share-box-icon-item-img" src="" alt="">
-            <span class="prompt-share-box-icon-item-text">Twitter</span>
-          </a>
-        </div>
-        <div class="prompt-share-box-icon-box">
-          <div class="prompt-share-box-icon-item prompt-share-box-icon-item-copy" data-clipboard-target=".container-recommend-link-address" @click="copyUserAddress">
-            <img class="prompt-share-box-icon-item-img" src="" alt="" target="_blank">
-            <span class="prompt-share-box-icon-item-text">复制链接</span>
+    <div class="mobile-fenxbuzhou">
+      <div class="mobile-fenbuzhou-one flex">
+        <div class="mobile-buzhou">
+          <div class="mobile-buzhout">
+            <img src="../../assets/recommend-friend.png">
+          </div>
+          <div class="mobile-buzhouinfo1">
+            <div class="mobile-buzhou_title">发送邀请给好友</div>
+            <!--             <div class="mobile-buzhou_info">{{$t("Send.friend_1")}}</div>-->
           </div>
         </div>
 
-        <div class="prompt-share-box-cancel-btn" @click="closeShareFlag()">取消</div>
+<!--        <div class="mobile-buzhou">-->
+        <div class="mobile-line"></div>
+
+<!--        </div>-->
+
+        <div class="mobile-buzhou">
+          <div class="mobile-buzhout">
+            <img src="../../assets/recommend-friend_step2.png">
+          </div>
+          <div class="mobile-buzhouinfo">
+            <div class="mobile-buzhou_title">好友完成实名认证或进行首次币币交易</div>
+            <!--             <div class="buzhou_info">{{$t("Send.friend_3")}}</div>-->
+          </div>
+        </div>
+
+        <div class="mobile-line1"></div>
+
+        <div class="mobile-buzhou">
+          <div class="mobile-buzhout">
+            <img src="../../assets/recommend-friend_step2.png">
+          </div>
+          <div class="mobile-buzhouinfo1">
+            <div class="mobile-buzhou_title">邀请好友奖励</div>
+            <!--             <div class="buzhou_info">{{$t("Send.friend_3")}}</div>-->
+          </div>
+        </div>
       </div>
+
+      <!--      <div class="line"></div>-->
+      <!--      <div class="buzhout"><img src="../../assets/bzhou3.png"></div>-->
+      <!--      <div class="buzhouinfo">-->
+      <!--        <div class="buzhou_title">{{$t("Send.friend_4")}}</div>-->
+      <!--        <div class="buzhou_info">{{$t("Send.friend_5")}}</div>-->
+      <!--      </div>-->
+
     </div>
 
+    <div class="mobile-fenxbuzhou-back"></div>
+
+    <!-- 我的分享方式 start -->
+    <div class="mobile-share_container">
+      <div class="mobile-share_bj1">
+        <!--    <div class="sharetitle">-->
+        <!--      <span>{{$t('personalCenterRecommend.title')}}</span>-->
+        <!--    </div>-->
+        <div class="myercode">
+          <ul class="flex">
+            <!--          二维码-->
+            <!--               <li class="mobile-erweima-left">-->
+            <!--                 <div class="mobile-erwmwai">-->
+            <!--                   <div class="mobile-erweima">{{$t('专属邀请二维码')}}</div>-->
+            <!--                   <div class="mobile-erwmak">-->
+            <!--                     <div class="mobile-share_qrcode">-->
+            <!--                       <Qrcode class="mobile-qrcode"-->
+            <!--                               :size="qrsize"-->
+            <!--                               :value="value"-->
+            <!--                               :logo="logo"-->
+            <!--                               :bgColor="bgColor"-->
+            <!--                               :fgColor="fgColor"-->
+            <!--                       >-->
+            <!--                       </Qrcode>-->
+            <!--                       &lt;!&ndash;                    使用插件生成二维码&ndash;&gt;-->
+            <!--                       &lt;!&ndash;                  <Qrcoed class="qrcode">&ndash;&gt;-->
+            <!--                       &lt;!&ndash;                      &lt;!&ndash; 生成二维码开放接口:&ndash;&gt;-->
+            <!--                       &lt;!&ndash;                      二维码内容[通常为url]&ndash;&gt;-->
+            <!--                       &lt;!&ndash;                      二维码大小[限制为正方形]&ndash;&gt;-->
+            <!--                       &lt;!&ndash;                      二维码下方显示：文字&ndash;&gt;-->
+            <!--                       &lt;!&ndash;                      二维码中间显示：图片&ndash;&gt;&ndash;&gt;-->
+            <!--                       &lt;!&ndash;                    <div id="meQrcode" :title="qrText">&ndash;&gt;-->
+            <!--                       &lt;!&ndash;                      <div class="qrcode_box">&ndash;&gt;-->
+            <!--                       &lt;!&ndash;                        <img class="qrcode_canvas" id="qrcode_canvas" ref="qrcode_canvas" alt="二维码本图"/>&ndash;&gt;-->
+            <!--                       &lt;!&ndash;                        <img v-if="qrLogo" class="qrcode_logo" ref="qrcode_logo" :src="qrLogo" alt="公司logo"&ndash;&gt;-->
+            <!--                       &lt;!&ndash;                        />&ndash;&gt;-->
+            <!--                       &lt;!&ndash;                        <canvas :width="qrSize" :height="qrSize" class="canvas" ref="canvas"></canvas>&ndash;&gt;-->
+            <!--                       &lt;!&ndash;                      </div>&ndash;&gt;-->
+            <!--                       &lt;!&ndash;                    </div>&ndash;&gt;-->
+            <!--                       &lt;!&ndash;                  </Qrcoed>&ndash;&gt;-->
+
+            <!--                     </div>-->
+            <!--                   </div>-->
+            <!--                   &lt;!&ndash;              <p>{{$t('personalCenter.Qrcode')}}</p>&ndash;&gt;-->
+            <!--                 </div>-->
+            <!--               </li>-->
+            <!--          右边-->
+            <li class="mobile-erweima-right">
+              <div class="mobile-erweima-right-top flex">
+                <!--邀请ID-->
+                <div class="mobile-myyq">
+                  <span class="mobile-myyq-uid">我的推荐UID</span>
+                  <div class="mobile-zsyaoqm flex">
+                    <div class="mobile-zscode">
+                      <input  ref="getUid" v-model="uId"  readonly>
+                    </div>
+                    <!-- <span class="shut">|</span>-->
+                    <div class="mobile-copycode" @click="copyUid">复制</div>
+                  </div>
+                </div>
+                <!--我的邀请海报-->
+                <!--              <span>{{$t('personalCenterRecommend.qrcodeposter')}}</span>-->
+                <div class="mobile-myyqhb">
+                  <div class="mobile-myyqhb-right" @click="openQrCodeFlag()">推荐二维码</div>
+                  <div class="mobile-selecthbbut"  @click="SHOW_POSTER">我的专属邀请海报</div>
+                </div>
+              </div>
+              <!--复制链接-->
+              <div class="mobile-copy-url">
+                <div class="mobile-copy-url-title">我的推荐网址</div>
+                <div class="mobile-copy-url-input flex">
+                  <div class="mobile-zscode1">
+                    <input ref="getUrl" v-model="shareUrl" readonly>
+                  </div>
+                  <div @click="copyUrl" class="mobile-copy-url-url">复制</div>
+                </div>
+              </div>
+            </li>
+
+          </ul>
+        </div>
+      </div>
+    </div>
+    <!-- 我的分享方式 end -->
+
+    <div class="mobile-fenxbuzhou-back"></div>
+
+<!--    邀请人数  start-->
+    <div class="mobile-share_container-two">
+      <div class="mobile-share_bj flex">
+<!--        已推荐好友-->
+        <div class="mobile-share_bj-content">
+          <div class="mobile-recommend-title">已推荐好友(人)</div>
+          <div class="mobile-recommend-num">{{size || '--'}}</div>
+        </div>
+<!--        实名人数-->
+        <div class="mobile-share_bj-content">
+          <div class="mobile-recommend-title">已实名人数(人)</div>
+          <div class="mobile-recommend-num">{{realNums || '--'}}</div>
+        </div>
+      </div>
+
+      <div class="mobile-share_bj flex">
+<!--        首次交易人数-->
+        <div class="mobile-share_bj-content">
+          <div class="mobile-recommend-title">首次交易人数(人)</div>
+          <div class="mobile-recommend-num">{{exNums || '--'}}</div>
+        </div>
+<!--        获取返佣-->
+        <div class="mobile-share_bj-content">
+          <div class="mobile-recommend-title">已获得返佣(YY）</div>
+          <div class="mobile-recommend-num">{{(totalRegister + totalChangeStr)  || '--'}}</div>
+        </div>
+      </div>
+    </div>
+<!--    邀请人数  end-->
+
+<!--    邀请列表   begin-->
+    <div class="mobile-share-list">
+      <div class="mobile-share-list-title">邀请列表</div>
+      <div class="mobile-share-container-title flex">
+        <div class="mobile-name">账号</div>
+        <div class="mobile-states">实名状态</div>
+        <div class="mobile-first-exchange">首次交易</div>
+        <div class="mobile-rebate">返佣</div>
+      </div>
+      <ul class="mobile-log-container">
+        <li class="mobile-loading-box" v-if="loading">
+          <Loading/>
+        </li>
+        <!--每一行数据start-->
+        <li class="mobile-log-detail flex" v-for="(item,index) in records" :key="index">
+<!--          <span class="time">{{index+1}}</span>-->
+          <span class="mobile-name">{{handleName(item.beInvitedEmail)}}</span>
+          <span class="mobile-states">{{item.identityAuthStatus===2?$t('已认证'):$t('未认证')}}</span>
+          <span class="mobile-first-exchange">{{item.isExchange == false ? $t('未交易') : $t('已交易')}}</span>
+          <!--          <span class="reward">{{item.invitedNum===0?'&#45;&#45;':item.invitedNum}}</span>-->
+          <span class="mobile-rebate">{{(item.exchangeReward + item.identityReward)  ===0?'--':(item.exchangeReward + item.identityReward) + 'YY'}}</span>
+          <!--<span class="trading">-->
+          <!--{{item.isExchange==0?'&#45;&#45;':$t('personalCenterRecommend.yesorno')}}-->
+          <!--</span>-->
+          <!--<span class="reward">{{item.yesterdayReward ? toFixed(item.yesterdayReward,8): '-&#45;&#45;'}}</span>-->
+          <!--<span class="reward">{{item.totalRebate ? toFixed(item.totalRebate,8): '-&#45;&#45;'}}</span>-->
+        </li>
+        <!--每一行数据end-->
+
+        <!--加载更多start-->
+        <li v-if="loadingMore" class="loading-more">
+          <span v-if="!loadingMoreIng" @click="clickToLoadMore" class="txt-green">加载更多</span>
+          <span v-if="loadingMoreIng" class="txt-green">加载中...</span>
+        </li>
+        <!--加载更多end-->
+
+        <!--已全部显示start-->
+        <li class="loading-more"  v-if="!loadingMore && recordsLength!==0">
+          <span v-if="!loadingMoreIng"  class="pointer txt-green">已全部显示</span>
+        </li>
+
+        <template v-if="!loading && recordsLength === 0">
+          <div class="nohavedata">
+            <img src="../../assets/noOrders.png">
+            <p>暂无记录</p>
+            </div>
+        </template>
+      </ul>
+
+
+    </div>
+<!--    邀请列表   end-->
+
+
+
+<!--    <div class="container-recommend-link">-->
+<!--      <div class="container-recommend-link-title">-->
+<!--        <span class="container-recommend-link-title-left">我的推荐ID</span>-->
+<!--        <span class="container-recommend-link-title-right" @click="openQrCodeFlag()">-->
+<!--        <img class="container-recommend-link-title-right-img" src="" alt="">-->
+<!--        推荐二维码-->
+<!--      </span>-->
+<!--      </div>-->
+<!--      <div class="container-recommend-link-id-box">-->
+<!--        <div class="container-recommend-link-id-box-left">-->
+<!--          <div class="container-recommend-link-id">{{userId}}</div>-->
+<!--          <div class="container-recommend-link-id-btn" data-clipboard-target=".container-recommend-link-id" @click="copyUserId">复制</div>-->
+<!--        </div>-->
+<!--        <div class="container-recommend-link-id-box-right" @click="jumpToPoster()">我的专属邀请海报</div>-->
+<!--      </div>-->
+<!--      <div class="container-recommend-link-second-title">我的推荐链接</div>-->
+<!--      <div class="container-recommend-link-address-box">-->
+<!--        <div class="container-recommend-link-address">{{shareUrl}}</div>-->
+<!--        <img class="container-recommend-link-address-btn" src="" @click="openShareFlag()">-->
+<!--      </div>-->
+<!--    </div>-->
+
+
+
+
+    <!--我的推荐玩家，我的推荐获取币-->
+<!--    <div class="container-recommend-reward">-->
+<!--      <div class="container-recommend-reward-person-box">-->
+<!--        <div class="container-recommend-reward-person-num">{{size}}</div>-->
+<!--        <div class="container-recommend-reward-person-info">已推荐朋友（个）</div>-->
+<!--      </div>-->
+<!--      &lt;!&ndash;<div class="container-recommend-reward-price-box">&ndash;&gt;-->
+<!--        &lt;!&ndash;<div class="container-recommend-reward-price-num">{{toFixed(totalPrice,8)}}</div>&ndash;&gt;-->
+<!--        &lt;!&ndash;<div class="container-recommend-reward-price-info">已获得奖励（BT）</div>&ndash;&gt;-->
+<!--      &lt;!&ndash;</div>&ndash;&gt;-->
+<!--    </div>-->
+    <!--活动细则-->
+<!--    <div class="container-recommend-rule">-->
+<!--      <div class="container-recommend-rule-title">-->
+<!--        <div class="container-recommend-rule-title-side"></div>-->
+<!--        <div class="container-recommend-rule-title-center">活动细则</div>-->
+<!--        <div class="container-recommend-rule-title-side"></div>-->
+<!--      </div>-->
+<!--      <ul class="container-recommend-rule-list">-->
+<!--        <li class="container-recommend-rule-list-item">-->
+<!--          1. 邀请人可享受好友上月交易手续费{{toFixed(accMul(headerRate,100),0)}}%的BDB奖励，自注册成功之日生效。<br/>-->
+<!--          举例：如好友2019年1月1日注册成功， 当月交易并产生交易手续费100BDB，则次月邀请人即可获得{{toFixed(accMul(headerRate,100),0)}}枚BDB奖励。-->
+<!--        </li>-->
+<!--        <li class="container-recommend-rule-list-item">-->
+<!--          2. 邀请人当月获得奖励于次月8日由TwentyTwenty统一进行发放。-->
+<!--        </li>-->
+<!--        <li class="container-recommend-rule-list-item">-->
+<!--          3. TwentyTwenty拥有邀请返佣比例调整的权力，如有调整请以TwentyTwenty公告为准。-->
+<!--        </li>-->
+<!--      </ul>-->
+<!--    </div>-->
+
+    <!--专属推荐二维码弹窗-->
+    <div v-if="qrCodeFlag" class="prompt-qrcode" @click="closeQrCodeFlag()">
+
+        <div class="prompt-qrcode-box" >
+          <!--        <div class="prompt-qrcode-box-title">专属推荐二维码</div>-->
+           <div @click="notClick($event)">
+             <Qrcode class="prompt-qrcode-box-img"
+                     :size="qrsize"
+                     :value="value"
+                     :logo="logo"
+                     :bgColor="bgColor"
+                     :fgColor="fgColor"
+             >
+             </Qrcode>
+           </div>
+          <div class="prompt-qrcode-box-info1">长按图片保存至手机
+            <img class="prompt-qrcode-box-close-btn" src="../../assets/wrong-close.png" alt="">
+          </div>
+        </div>
+    </div>
+
+    <!-- 专属海报 start -->
+    <div class="prompt-qrcode" v-show="showPoster">
+      <div class="show_poster_body" @click="HIDE_POSTER">
+<!--        <div class="close_icon" @click="HIDE_POSTER">✕</div>-->
+<!--        <p class="tips_poster">{{$t('personalCenter.poster_1', {activityRate:activityRate*100})}}</p>-->
+<!--        <p class="copy_poster">✽{{$t('personalCenter.poster_2')}}</p>-->
+        <img :src="poster_url" class="recommend-banner" @click.stop="notClick($event)">
+        <div class="prompt-qrcode-box-info">长按图片保存至手机</div>
+        <img class="close_icon"  src="../../assets/wrong-close.png" alt="">
+
+      </div>
+    </div>
+    <!-- 专属海报 end -->
+
+<!--    分享到弹窗   -->
+<!--    <div v-show="shareFlag" class="prompt-share">-->
+<!--      <div class="prompt-share-box">-->
+<!--        <div class="prompt-share-box-title">分享到</div>-->
+
+<!--        <div class="prompt-share-box-icon-box">-->
+<!--          <a class="prompt-share-box-icon-item" :href="'https://service.weibo.com/share/share.php?url=' + shareConfig.url + '&title=' + shareConfig.title + '&pic=' + shareConfig.image + '&appkey=TwentyTwenty'" target="_blank">-->
+<!--            <img class="prompt-share-box-icon-item-img" src="" alt="">-->
+<!--            <span class="prompt-share-box-icon-item-text">新浪微博</span>-->
+<!--          </a>-->
+<!--          <a class="prompt-share-box-icon-item" :href="'https://www.facebook.com/sharer/sharer.php?u=' + shareConfig.url" target="_blank">-->
+<!--            <img class="prompt-share-box-icon-item-img" src="" alt="">-->
+<!--            <span class="prompt-share-box-icon-item-text">Facebook</span>-->
+<!--          </a>-->
+<!--          <a class="prompt-share-box-icon-item" :href="'https://twitter.com/intent/tweet?text=' + shareConfig.title + '&url=' + shareConfig.url + '&via=' + shareConfig.origin" target="_blank">-->
+<!--            <img class="prompt-share-box-icon-item-img" src="" alt="">-->
+<!--            <span class="prompt-share-box-icon-item-text">Twitter</span>-->
+<!--          </a>-->
+<!--        </div>-->
+<!--        <div class="prompt-share-box-icon-box">-->
+<!--          <div class="prompt-share-box-icon-item prompt-share-box-icon-item-copy" data-clipboard-target=".container-recommend-link-address" @click="copyUserAddress">-->
+<!--            <img class="prompt-share-box-icon-item-img" src="" alt="" target="_blank">-->
+<!--            <span class="prompt-share-box-icon-item-text">复制链接</span>-->
+<!--          </div>-->
+<!--        </div>-->
+
+<!--        <div class="prompt-share-box-cancel-btn" @click="closeShareFlag()">取消</div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    分享到弹窗  end-->
 
 
 
   </div>
-
-
-
-
-
-
-
-
-
-
 
 
   <!--弹窗-->
