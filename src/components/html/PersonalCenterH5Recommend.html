@@ -305,18 +305,20 @@
     <!--专属推荐二维码弹窗-->
     <div v-if="qrCodeFlag" class="prompt-qrcode" @click="closeQrCodeFlag()">
 
-        <div class="prompt-qrcode-box" @click="notClick($event)">
+        <div class="prompt-qrcode-box" >
           <!--        <div class="prompt-qrcode-box-title">专属推荐二维码</div>-->
-          <Qrcode class="prompt-qrcode-box-img"
-                  :size="qrsize"
-                  :value="value"
-                  :logo="logo"
-                  :bgColor="bgColor"
-                  :fgColor="fgColor"
-          >
-          </Qrcode>
+           <div @click="notClick($event)">
+             <Qrcode class="prompt-qrcode-box-img"
+                     :size="qrsize"
+                     :value="value"
+                     :logo="logo"
+                     :bgColor="bgColor"
+                     :fgColor="fgColor"
+             >
+             </Qrcode>
+           </div>
           <div class="prompt-qrcode-box-info1">长按图片保存至手机
-            <img class="prompt-qrcode-box-close-btn"  @click="closeQrCodeFlag()" src="../../assets/wrong-close.png" alt="">
+            <img class="prompt-qrcode-box-close-btn" src="../../assets/wrong-close.png" alt="">
           </div>
         </div>
     </div>
