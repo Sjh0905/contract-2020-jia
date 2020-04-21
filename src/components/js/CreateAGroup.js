@@ -398,10 +398,10 @@ if(type == 'referee'){
 
 // 输入拼团名称中
 root.methods.testInputIngPsw = function () {
-  if (this.gname.length > 10) {
+  if (this.gname.length > 7) {
     this.name_0 = this.$t('nameMsg')
   }
-  this.gname = this.gname.slice(0, 10)
+  this.gname = this.gname.slice(0, 7)
 }
 
 // 拼团名称输入
