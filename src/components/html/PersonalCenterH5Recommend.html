@@ -303,9 +303,9 @@
 <!--    </div>-->
 
     <!--专属推荐二维码弹窗-->
-    <div v-if="qrCodeFlag" class="prompt-qrcode">
+    <div v-if="qrCodeFlag" class="prompt-qrcode" @click="closeQrCodeFlag()">
 
-        <div class="prompt-qrcode-box">
+        <div class="prompt-qrcode-box" @click="notClick($event)">
           <!--        <div class="prompt-qrcode-box-title">专属推荐二维码</div>-->
           <Qrcode class="prompt-qrcode-box-img"
                   :size="qrsize"
@@ -323,13 +323,13 @@
 
     <!-- 专属海报 start -->
     <div class="prompt-qrcode" v-show="showPoster">
-      <div class="show_poster_body">
+      <div class="show_poster_body" @click="HIDE_POSTER">
 <!--        <div class="close_icon" @click="HIDE_POSTER">✕</div>-->
 <!--        <p class="tips_poster">{{$t('personalCenter.poster_1', {activityRate:activityRate*100})}}</p>-->
 <!--        <p class="copy_poster">✽{{$t('personalCenter.poster_2')}}</p>-->
-        <img :src="poster_url" class="recommend-banner">
+        <img :src="poster_url" class="recommend-banner" @click.stop="notClick($event)">
         <div class="prompt-qrcode-box-info">长按图片保存至手机</div>
-        <img class="close_icon"  @click="HIDE_POSTER" src="../../assets/wrong-close.png" alt="">
+        <img class="close_icon"  src="../../assets/wrong-close.png" alt="">
 
       </div>
     </div>

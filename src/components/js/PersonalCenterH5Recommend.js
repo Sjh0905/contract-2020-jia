@@ -197,6 +197,16 @@ root.methods = {}
 
 // 新增部分  begin
 
+root.methods.notClick = function (e) {
+  console.log('e=====',e)
+  try{
+    e.stopPropagation();//非IE浏览器
+  }
+  catch(e){
+    window.event.cancelBubble = true;//IE浏览器
+  }
+}
+
 // 返回首页
 root.methods.gotoNewH5homePage = function () {
   this.$router.push({name:'NewH5homePage'})

@@ -785,7 +785,7 @@ show_poster{
   /*position: absolute;*/
   /*width: 280px;*/
   height: auto;
-  padding: 1.2rem 1.3rem;
+  padding: 0.6rem 1.3rem;
   box-sizing: border-box;
   /*!*min-height: 300px;*!*/
   /*left: 50%;*/
@@ -815,12 +815,13 @@ show_poster{
 
 .show_poster_body .recommend-banner {
   width: 4.92rem;
+  vertical-align: middle;
   /*height: 100%;*/
 }
 .close_icon{
   /*margin: 0 0 0.26rem 4.5rem;*/
   display: block;
-  margin: 0.3rem auto;
+  margin: 0.3rem auto 0;
   width: 0.8rem;
 /*  width: 20px;*/
 /*  height: 20px;*/
