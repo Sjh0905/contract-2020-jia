@@ -45,8 +45,8 @@
                   popper-class="drowdown-box"
                   v-for="item in (searchCities ? cityList :cities)"
                   :key="item.groupId"
-                  :label="($store.state.lang == 'CH' || $store.state.lang == 'CHT')? item.gname : item.gname"
-                  :value="item.gname">
+                  :label="($store.state.lang == 'CH' || $store.state.lang == 'CHT')? item.concat_gname : item.concat_gname"
+                  :value="item.concat_gname">
                 </el-option>
               </el-select>
             </template>

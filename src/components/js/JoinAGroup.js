@@ -27,6 +27,7 @@ root.data = function () {
     quantDiscount:'',
     //组名
     gname:'',
+    concat_gname:'',
 
     popType: 0,
     popOpen: false,
@@ -154,15 +155,15 @@ root.watch.searchCities = function(v){
   this.cityList = []
   //不是数字的时候搜索nameCn nameEn
   if(isNaN(this.searchCities)){
-    this.cityList = this.cities.filter(v=>v.gname.includes(this.searchCities)
-      || v.gname.includes(this.searchCities)
-      || v.gname.includes(this.searchCities.toUpperCase())
+    this.cityList = this.cities.filter(v=>v.concat_gname.includes(this.searchCities)
+      || v.concat_gname.includes(this.searchCities)
+      || v.concat_gname.includes(this.searchCities.toUpperCase())
     )
   }
 
   //是数字的时候搜索areaCode
   if(!isNaN(this.searchCities)){
-    this.cityList = this.cities.filter(v=>v.gname.includes(this.searchCities))
+    this.cityList = this.cities.filter(v=>v.concat_gname.includes(this.searchCities))
   }
 
   this.cityList.length == 0 && (this.cityList = [{
@@ -258,6 +259,7 @@ root.methods.re_getFuzzyQuery = function (data) {
   this.cities = data.data
   this.citiesMap = {}
   this.cities.map(v=>this.citiesMap[v.gname] = v.groupId)
+  this.cities.map(v=>this.citiesMap[v.concat_gname] = v.groupId)
   console.log('this.getFuzzyQuery',this.getFuzzyQuery)
   // this.getCheckGroupDetails()
 }
