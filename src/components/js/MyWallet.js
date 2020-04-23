@@ -771,7 +771,7 @@ root.methods.re_transferDisabled = function (data) {
     return
   }
 
-  // 如果没有绑定谷歌或手机，不允许打开提现
+  // 如果没有绑定谷歌或手机，不允许打开转账
   if (!this.bindGA && !this.bindMobile) {
     this.popWindowTitle = this.$t('popWindowTitleWithdrawalsneibu')
     this.popWindowPrompt = this.$t('popWindowTitleBindGaWithdrawals')
@@ -781,7 +781,7 @@ root.methods.re_transferDisabled = function (data) {
     return
   }
   if (this.isTransfer == false) {
-    this.popText = this.$t('withdrawalsIsNotOpen')
+    this.popText = this.$t('withdrawalsIsNotOpen1')
     this.popWindowClose = false
     this.popWindowOpen2 = false
     this.popOpen = true
