@@ -1281,7 +1281,6 @@ root.methods.re_commit = function (data) {
         this.popOpen = true
       }, 1000)
     }
-
     if (data.errorCode == 3) {
       // this.popType = 0
       // this.popText = '上传失败'
@@ -1387,9 +1386,64 @@ root.methods.re_commit = function (data) {
         this.popOpen = true
       }, 1000)
     }
+    // 201 身份证号码无效
+    if (data.errorCode == 201) {
+      this.popType = 0
+      this.popText = this.$t('popText_201')
+      setTimeout(() => {
+        this.popOpen = true
+      }, 1000)
+    }
+    // 202 姓名无效
+    if (data.errorCode == 202) {
+      this.popType = 0
+      this.popText = this.$t('popText_202')
+      setTimeout(() => {
+        this.popOpen = true
+      }, 1000)
+    }
+    // 203 身份证和姓名不匹配
+    if (data.errorCode == 203) {
+      this.popType = 0
+      this.popText = this.$t('popText_203')
+      setTimeout(() => {
+        this.popOpen = true
+      }, 1000)
+    }
+    // 204 图像不清晰
+    if (data.errorCode == 204) {
+      this.popType = 0
+      this.popText = this.$t('popText_204')
+      setTimeout(() => {
+        this.popOpen = true
+      }, 1000)
+    }
+    // 205 其他参数错误
+    if (data.errorCode == 205) {
+      this.popType = 0
+      this.popText = this.$t('popText_205')
+      setTimeout(() => {
+        this.popOpen = true
+      }, 1000)
+    }
+    // 206 手持照片和身份证不匹配
+    if (data.errorCode == 206) {
+      this.popType = 0
+      this.popText = this.$t('popText_206')
+      setTimeout(() => {
+        this.popOpen = true
+      }, 1000)
+    }
+    // 207 其他错误
+    if (data.errorCode == 207) {
+      this.popType = 0
+      this.popText = this.$t('popText_207')
+      setTimeout(() => {
+        this.popOpen = true
+      }, 1000)
+    }
     return
   }
-
   this.$eventBus.notify({key:'REFRESH_AUTHENTICATE'});//this.$eventBus.notify 最好不要bind this，作用域容易出错
   this.$router.push('/index/personal')
 }
