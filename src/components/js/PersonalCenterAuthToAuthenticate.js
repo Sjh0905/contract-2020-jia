@@ -1272,6 +1272,7 @@ root.methods.re_commit = function (data) {
       setTimeout(() => {
         this.popOpen = true
       }, 1000)
+      return
     }
     //图片过大
     if (data.errorCode == 2) {
@@ -1280,7 +1281,9 @@ root.methods.re_commit = function (data) {
       setTimeout(() => {
         this.popOpen = true
       }, 1000)
+      return
     }
+    // 用户身份证或护照号已存在
     if (data.errorCode == 3) {
       // this.popType = 0
       // this.popText = '上传失败'
@@ -1291,28 +1294,33 @@ root.methods.re_commit = function (data) {
       this.country === '1' && (this.idCodeWA_1 = '0', this.idCodeMsg_1 = ' ')
       this.popWindowWord = this.$t('popText_3')
       this.popWindowOpen = true
+      return
     }
-    if (data.errorCode == 4) {
-      this.country === '0' && (this.idCodeWA_0 = '0', this.idCodeMsg_0 = ' ')
-      this.country === '1' && (this.idCodeWA_1 = '0', this.idCodeMsg_1 = ' ')
-      this.popWindowWord = this.$t('popText_4')
-      this.popWindowOpen = true
-    }
-    // face++认证中
+    // if (data.errorCode == 4) {
+    //   this.country === '0' && (this.idCodeWA_0 = '0', this.idCodeMsg_0 = ' ')
+    //   this.country === '1' && (this.idCodeWA_1 = '0', this.idCodeMsg_1 = ' ')
+    //   this.popWindowWord = this.$t('popText_4')
+    //   this.popWindowOpen = true
+    //   return
+    // }
+    // 认证中
     if (data.errorCode == 5) {
       this.openPop(this.$t('popText_5'))
+      return
     }
-    // face++用户认证已通过
+    // 该用户认证已通过
     if (data.errorCode == 6) {
       this.openPop(this.$t('popText_6'))
+      return
     }
-    // 7 请选择地区
+    // 7 请选择国籍
     if (data.errorCode == 7) {
       this.popType = 0
       this.popText = this.$t('popText_7')
       setTimeout(() => {
         this.popOpen = true
       }, 1000)
+      return
     }
     // 8 用户上传身份证照片不是人像面
     if (data.errorCode == 8) {
@@ -1321,71 +1329,80 @@ root.methods.re_commit = function (data) {
       setTimeout(() => {
         this.popOpen = true
       }, 1000)
+      return
     }
     // 9 身份证输入不对活上传照片数据部分有遮挡导致抓取错误
-    if (data.errorCode == 9) {
-      this.popType = 0
-      this.popText = this.$t('popText_9')
-      setTimeout(() => {
-        this.popOpen = true
-      }, 1000)
-    }
+    // if (data.errorCode == 9) {
+    //   this.popType = 0
+    //   this.popText = this.$t('popText_9')
+    //   setTimeout(() => {
+    //     this.popOpen = true
+    //   }, 1000)
+    //   return
+    // }
     // 10 姓名输入不对或上传照片数据部分有遮挡导致抓取错误
-    if (data.errorCode == 10) {
-      this.popType = 0
-      this.popText = this.$t('popText_10')
-      setTimeout(() => {
-        this.popOpen = true
-      }, 1000)
-    }
+    // if (data.errorCode == 10) {
+    //   this.popType = 0
+    //   this.popText = this.$t('popText_10')
+    //   setTimeout(() => {
+    //     this.popOpen = true
+    //   }, 1000)
+    //   return
+    // }
     // 11 性别输入不对或上传照片数据部分有遮挡导致抓取错误
-    if (data.errorCode == 11) {
-      this.popType = 0
-      this.popText = this.$t('popText_11')
-      setTimeout(() => {
-        this.popOpen = true
-      }, 500)
-    }
+    // if (data.errorCode == 11) {
+    //   this.popType = 0
+    //   this.popText = this.$t('popText_11')
+    //   setTimeout(() => {
+    //     this.popOpen = true
+    //   }, 500)
+    //   return
+    // }
     // 12 用户上传的不是真实身份证照片
-    if (data.errorCode == 12) {
-      this.popType = 0
-      this.popText = this.$t('popText_12')
-      setTimeout(() => {
-        this.popOpen = true
-      }, 1000)
-    }
+    // if (data.errorCode == 12) {
+    //   this.popType = 0
+    //   this.popText = this.$t('popText_12')
+    //   setTimeout(() => {
+    //     this.popOpen = true
+    //   }, 1000)
+    //   return
+    // }
     // 13 身份证不在有效时间内
-    if (data.errorCode == 13) {
-      this.popType = 0
-      this.popText = this.$t('popText_13')
-      setTimeout(() => {
-        this.popOpen = true
-      }, 1000)
-    }
+    // if (data.errorCode == 13) {
+    //   this.popType = 0
+    //   this.popText = this.$t('popText_13')
+    //   setTimeout(() => {
+    //     this.popOpen = true
+    //   }, 1000)
+    //   return
+    // }
     // 14 和身份证不是同一人
-    if (data.errorCode == 14) {
-      this.popType = 0
-      this.popText = this.$t('popText_14')
-      setTimeout(() => {
-        this.popOpen = true
-      }, 1000)
-    }
+    // if (data.errorCode == 14) {
+    //   this.popType = 0
+    //   this.popText = this.$t('popText_14')
+    //   setTimeout(() => {
+    //     this.popOpen = true
+    //   }, 1000)
+    //   return
+    // }
     // 100 上传的图片不是身份证正面
-    if (data.errorCode == 100) {
-      this.popType = 0
-      this.popText = this.$t('popText_100')
-      setTimeout(() => {
-        this.popOpen = true
-      }, 1000)
-    }
+    // if (data.errorCode == 100) {
+    //   this.popType = 0
+    //   this.popText = this.$t('popText_100')
+    //   setTimeout(() => {
+    //     this.popOpen = true
+    //   }, 1000)
+    //   return
+    // }
     // 102 上传的图片不是身份证反面
-    if (data.errorCode == 102) {
-      this.popType = 0
-      this.popText = this.$t('popText_102')
-      setTimeout(() => {
-        this.popOpen = true
-      }, 1000)
-    }
+    // if (data.errorCode == 102) {
+    //   this.popType = 0
+    //   this.popText = this.$t('popText_102')
+    //   setTimeout(() => {
+    //     this.popOpen = true
+    //   }, 1000)
+    //   return
+    // }
     // 201 身份证号码无效
     if (data.errorCode == 201) {
       this.popType = 0
@@ -1393,6 +1410,7 @@ root.methods.re_commit = function (data) {
       setTimeout(() => {
         this.popOpen = true
       }, 1000)
+      return
     }
     // 202 姓名无效
     if (data.errorCode == 202) {
@@ -1401,6 +1419,7 @@ root.methods.re_commit = function (data) {
       setTimeout(() => {
         this.popOpen = true
       }, 1000)
+      return
     }
     // 203 身份证和姓名不匹配
     if (data.errorCode == 203) {
@@ -1409,6 +1428,7 @@ root.methods.re_commit = function (data) {
       setTimeout(() => {
         this.popOpen = true
       }, 1000)
+      return
     }
     // 204 图像不清晰
     if (data.errorCode == 204) {
@@ -1417,6 +1437,7 @@ root.methods.re_commit = function (data) {
       setTimeout(() => {
         this.popOpen = true
       }, 1000)
+      return
     }
     // 205 其他参数错误
     if (data.errorCode == 205) {
@@ -1425,6 +1446,7 @@ root.methods.re_commit = function (data) {
       setTimeout(() => {
         this.popOpen = true
       }, 1000)
+      return
     }
     // 206 手持照片和身份证不匹配
     if (data.errorCode == 206) {
@@ -1433,6 +1455,7 @@ root.methods.re_commit = function (data) {
       setTimeout(() => {
         this.popOpen = true
       }, 1000)
+      return
     }
     // 207 其他错误
     if (data.errorCode == 207) {
@@ -1441,6 +1464,34 @@ root.methods.re_commit = function (data) {
       setTimeout(() => {
         this.popOpen = true
       }, 1000)
+      return
+    }
+    // 208 系统错误
+    if (data.errorCode == 208) {
+      this.popType = 0
+      this.popText = this.$t('popText_208')
+      setTimeout(() => {
+        this.popOpen = true
+      }, 1000)
+      return
+    }
+    // 209 返回结果为空
+    if (data.errorCode == 209) {
+      this.popType = 0
+      this.popText = this.$t('popText_209')
+      setTimeout(() => {
+        this.popOpen = true
+      }, 1000)
+      return
+    }
+    // 210 手持照片为空
+    if (data.errorCode == 210) {
+      this.popType = 0
+      this.popText = this.$t('popText_210')
+      setTimeout(() => {
+        this.popOpen = true
+      }, 1000)
+      return
     }
     return
   }
