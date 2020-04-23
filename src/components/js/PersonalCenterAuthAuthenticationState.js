@@ -477,6 +477,7 @@ root.methods.re_getAuthState = function (data) {
   // this.loading = !(this.stateReady && this.BDBReady && (this.stateStatusReady || !this.isMobile))
   this.loading = !(this.stateReady && (this.stateStatusReady || !this.isMobile))
 
+  console.info('data.dataMap==========',data)
 }
 // 获取状态出错
 root.methods.error_getAuthState = function (err) {
