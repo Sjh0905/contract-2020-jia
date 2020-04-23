@@ -75,7 +75,7 @@
   "Number3": "最大内部转账总额为",
   "Number4": "手续费0.1 TT",
   "Number5": "确认内部转账",
-  "Number6": "注：内部转账需要与对方联系获取对方的收款账号及UID,UID可在个人中心查看",
+  "Number6": "注：内部转账需要与对方联系获取对方的收款账号及UID，UID可在个人中心查看",
   "step2VerificationCodeWA_10": "收款人不存在",
   "step2VerificationCodeWA_UID": "传入用户邮箱和传入UID不是同一人",
   "step2VerificationCodeWA_Authentication": "转账用户未进行实名认证",
