@@ -18,8 +18,12 @@
 <!--    参加日期-->
     <div class="account_number_right">
       <span>{{$t('participation')}}：</span>
-      <span v-if="records.length != 0 && fstatus == '已报名'">{{formatDateUitl(createdate)}}</span>
-      <span v-if="records.length == 0">——</span>
+
+<!--      <span v-if="">——</span>-->
+
+
+      <span v-if="complete == 'YES' || records.length == 0">——</span>
+      <span v-if="records.length != 0 && fstatus == '已报名' && complete == ''">{{formatDateUitl(createdate)}}</span>
     </div>
 
     <div class="quantification_con" >
@@ -32,18 +36,18 @@
         </div>
 
 <!--        即将释放-->
-        <div class="to_be_released_soon">
-          <span class="to_be_re">{{$t('releasedSoon')}}</span>
-          <span class="to_be_re_div">{{reward}}</span>
-          <span>KK</span>
+        <div class="to_be_released_soon flex">
+          <div class="to_be_re">{{$t('releasedSoon')}}</div>
+          <div class="to_be_re_div">{{reward}}</div>
+          <div class="to_be_re">KK</div>
         </div>
 
 
 <!--        已量化-->
-        <div class="to_be_released_soon">
-          <span class="to_be_re">{{$t('quantified')}}</span>
-          <span class="to_be_re_div to_be_re_div_1">{{totalAmount}}</span>
-          <span>KK</span>
+        <div class="to_be_released_soon flex">
+          <div class="to_be_re">{{$t('quantified')}}</div>
+          <div class="to_be_re_div to_be_re_div_1">{{totalAmount}}</div>
+          <div class="to_be_re">KK</div>
         </div>
 <!--        <div class="to_be_released_soon">-->
 <!--          <span class="to_be_re">{{$t('quantified')}}</span>-->
@@ -132,7 +136,7 @@
           </template>
 
          <!--当前记录加载更多  -->
-          <template v-if="showLoadingMore">
+          <template v-if="showLoadingMore && transactionRecording.length !== 0">
           <li class="loading-more">
             <span class="text_blue pointer" v-if="!loadingMoreShow" @click="clickLoadingMore">{{$t('orderPageHistoricalEntrustment.close_10')}}</span>
             <span class="text_blue" v-else>{{$t('orderPageHistoricalEntrustment.close_11')}}</span>
@@ -142,7 +146,7 @@
         </template>
       </ul>
 
-      <ul class="recordUl" v-if="cardType == 2">
+      <ul class="recordUl1" v-if="cardType == 2">
         <!--历史挖矿记录表头 S-->
         <li class="application_header">
           <!--          账号-->
@@ -265,7 +269,9 @@
     <!--    参加日期-->
     <div class="account_number_rightMobile">
       <span>{{$t('participation')}}：</span>
-      <span>{{formatDateUitl(createdate)}}</span>
+      <span v-if="complete == 'YES' || records.length == 0">——</span>
+      <span v-if="records.length != 0 && fstatus == '已报名' && complete == ''">{{formatDateUitl(createdate)}}</span>
+<!--      <span>{{formatDateUitl(createdate)}}</span>-->
     </div>
 
     <div class="quantification_con" >

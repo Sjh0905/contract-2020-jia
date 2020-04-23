@@ -38,7 +38,9 @@ root.data = () => {
     historicalMining: false,
     clickThis:-1,
     id:'',
-    numminingProgress:''
+    numminingProgress:'',
+    complete:''
+
   }
 }
 
@@ -93,7 +95,7 @@ root.computed.computedHistoricalDetails = function (item,index) {
 }
 //当前挖矿记录
 root.computed.transactionRecording = function (item,index) {
-  return this.transaction
+  return this.transaction || {}
 }
 
 root.methods = {}
@@ -140,7 +142,7 @@ root.methods.re_getRegistrationRecord = function (data) {
   typeof data === 'string' && (data = JSON.parse(data))
   if (!data) {return}
   console.log("this.re_getRegistrationRecord查询报名记录get=====",data)
-  this.records = data.data
+  this.records = data.data || {}
 
 
   if (this.records.length == 0 ) {
@@ -149,6 +151,7 @@ root.methods.re_getRegistrationRecord = function (data) {
   }
   let E2 = this.records[0]
   this.fstatus = E2.fstatus
+  this.complete = E2.complete
 
   if ((this.records.length == 1 && this.fstatus != '已报名')) {
     this.buyConfirmSuccess=true
@@ -289,12 +292,16 @@ root.methods.re_getQuantifyransactions = function (data) {
   console.log("量化展示_量化交易记录get=====",data)
 
   // this.transaction = data.data.data
-  this.transaction.push(...data.data.data)
+  this.transaction.push(...data.data.data )
   //
   //
+  // if (data.data.data.length < 5) {
+  //   this.showLoadingMore = false
+  // }
   if (data.data.data.length < this.pageSize) {
     this.showLoadingMore = false
   }
+
   //
   //
   this.currPage = this.currPage + 1
@@ -340,11 +347,13 @@ root.methods.getQuantifyBasicInformation = function () {
     callBack: this.re_getQuantifyBasicInformation,
     errorHandler: this.error_getQuantifyBasicInformation
   })
+  console.info('this,userid===============ß',this.userId)
 }
 root.methods.re_getQuantifyBasicInformation = function (data) {
   typeof data === 'string' && (data = JSON.parse(data))
   if (!data) {return}
   console.log("量化展示_量化基本信息get=====",data)
+
   this.totalAmount = data.data.recode.totalAmount //挖矿总数
   this.reward = data.data.recode.reward     //挖矿奖励
   this.createdate = data.data.recode.createdate   //挖矿日期
@@ -354,7 +363,10 @@ root.methods.re_getQuantifyBasicInformation = function (data) {
   this.doSendReward = data.data.recode.doSendReward  //已释放的矿源奖励
   this.fdesc = data.data.recode.fdesc  //已释放的矿源奖励
   this.numminingProgress = this.$globalFunc.accFixed((this.miningProgress * 10),2)
+
+  // this.recode2 == data.data.recode
   // console.log('this.numminingProgress======',this.$globalFunc.accFixed((0.9999 * 100),2))
+  console.info('this.recode2=========',this.recode2)
 }
 root.methods.error_getQuantifyBasicInformation = function (err) {
   console.log("this.error_getQuantifyBasicInformation=====",err)
