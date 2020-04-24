@@ -35,6 +35,7 @@ requestAddress.RECHARGE_LOG = {url: urlHead+'/user/depositLog', method: 'post'} 
 requestAddress.WITHDRAWS_LOG = {url: urlHead+'/user/withdrawLog', method: 'post'}  //提现记录
 // requestAddress.GET_TRANSFER_LIST = {url: urlHead+'/user/inner/transfer/list', method: 'get'}  //转账记录
 requestAddress.GET_TRANSFER_LIST = {url: urlHead+'/user/inner/transfer/list', method: 'get'}  //内部转账记录
+requestAddress.PROHIBIT_ALL_CURRENCY = {url: urlHead+'/user/transfer/prohibitAllCurrency', method: 'get'}  //内部转账记录
 requestAddress.GET_TRANSFER_SPOT_LIST = {url: urlHead+'/user/transfer/spot/list', method: 'get'}  //划转记录
 requestAddress.POST_TRANSFER_SPOT = {url: urlHead+'/user/transfer/spot', method: 'post'}  //划转
 requestAddress.GET_IDENTITY_AUTH_STATUS = {url: urlHead+'/auth/getIdentityAuthStatus', method: 'get'} //获取身份认证状态

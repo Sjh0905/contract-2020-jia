@@ -148,12 +148,14 @@ root.data = function () {
     picker: 0, //验证类型
     picked:1,
     nowDateTime:'',
-    dividendTime:''
+    dividendTime:'',
+    prohibitAll:false
 
   }
 }
 /*------------------------------ 生命周期 -------------------------------*/
 root.created = function () {
+  this.getProhibitAll()
   this.$store.commit('changeJoinus', false);
   this.getInitData()
   // 获取验证状态
@@ -435,7 +437,46 @@ root.methods.error_getAuthState = function (err) {
   // this.close()
 }
 
+//该用户是否可以转账get (query:{})
+root.methods.getProhibitAll = function () {
+  // /* TODO : 调试接口需要屏蔽 E*/
+  this.$http.send('PROHIBIT_ALL_CURRENCY', {
+    bind: this,
+    // urlFragment: userId,
+    query:{
+      userId: this.userId
+    },
+    callBack: this.re_getProhibitAll,
+    errorHandler: this.error_getProhibitAll
+  })
+}
 
+root.methods.re_getProhibitAll = function (data) {
+  //检测data数据是JSON字符串转换JS字符串
+  typeof data === 'string' && (data = JSON.parse(data))
+  if(!data) return
+
+  if( data.errorCode ){
+    data.errorCode == 1 &&  (this.popText = '用户未登录')
+
+    this.popOpen = true
+    this.popType = 0
+
+    setTimeout(() => {
+      this.popOpen = true
+    }, 100)
+    // console.log('用户登录')
+  }
+  this.prohibitAll = data.dataMap.prohibitAll
+
+  console.info('this.re_getProhibitAll',this.getProhibitAll)
+  console.info('this.re_getProhibitAll++++++++++++',data)
+  // this.getCheckGroupDetails()
+}
+
+root.methods.error_getProhibitAll = function (err) {
+  console.log("this.err=====",err)
+}
 // 计算币种对USDT的估值
 root.methods.USDTAppraisement = function (item) {
   // console.log('item======',item)

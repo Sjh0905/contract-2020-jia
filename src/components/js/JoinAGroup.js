@@ -269,6 +269,7 @@ root.methods.error_getFuzzyQuery = function (err) {
 }
 
 
+
 //查询组详情get (query:{})
 root.methods.getCheckGroupDetails= function (groupId) {
 
