@@ -79,6 +79,9 @@ root.data = function () {
 /*---------------------- 生命周期 -----------------------*/
 
 root.created = function () {
+
+  // this.getProhibitAll()
+
   //从query获取的币种信息
   this.getCurrencyTitle()
 
@@ -167,7 +170,10 @@ root.computed.bindGA = function () {
 root.computed.bindIdentify = function () {
   return this.$store.state.authState.identity
 }
-
+// 获取userId
+root.computed.userId = function () {
+  return this.$store.state.authMessage.userId
+}
 // ajax获取的数据
 root.computed.currencylist = function () {
   let data;
@@ -843,10 +849,12 @@ root.methods.gotoTransfer = function (){
 
 // 判断是否可以转账
 root.methods.transferAble = function () {
-  this.$http.send('GET_TRANSFERDISABLED',{
+  console.info('this.$route.query.currency   sssssss',this.$route.query.currency)
+  this.$http.send('GET_TRANSFER_AMOUNT_INFO',{
     bind: this,
-    params:{
+    query:{
       currency:this.$route.query.currency
+      // currency:this.currencyTitle
     },
     callBack: this.re_transferAble,
     errorHandler: this.error_transferAble
@@ -854,15 +862,59 @@ root.methods.transferAble = function () {
   // this.currencyTitle = this.$route.query.currency
 }
 root.methods.re_transferAble = function (data) {
+  typeof (data) === 'string' && (data = JSON.parse(data))
+  if(!data) return
   this.isTransfer = data.dataMap.insideTransferAccount.transferDisabled
 
-  if (this.isTransfer) {
+  this.getProhibitAll()
+  if (!this.bindIdentify) {
+    this.popIdenOpen = true
+    return
+  }
+
+  // 如果没有绑定邮箱，不允许打开内部转账
+  if (!this.bindEmail) {
+    this.toastNobindShow = true
+    return
+  }
+
+  // this.transferAble()
+  // this.getProhibitAll()
+  if (this.prohibitAll) {
+    this.openTips = false
+    this.popOpen = true
+    this.popType = 0
+    this.popText = '该币种暂不支持内部转账转账，敬请期待'
+    return
+  }
+  if (!this.isTransfer) {
     this.openTips = false
     this.popOpen = true
     this.popType = 0
     this.popText = '该币种暂不支持转账'
     return
   }
+
+  if (this.bindIdentify && this.isTransfer == true) {
+    this.openTips = true
+    return
+  }
+  if (this.bindIdentify) {
+    if (!this.bindMobile && !this.bindGA) {
+      this.popOpen = true
+      this.popType = 0
+      this.popText = '请绑定谷歌验证或手机'
+      return
+    }
+    if (this.bindMobile || this.bindGA) {
+      // this.$store.commit('changeMobileRechargeRecordData',type)
+      // this.$router.push("/index/mobileAsset/mobileAssetRechargeDetail?currency=" + name)
+      this.openTips = true
+      return
+    }
+  }
+
+  console.info('this.re_transferAble--------------',data)
   console.log(data)
 }
 root.methods.error_transferAble = function (error) {
@@ -904,7 +956,7 @@ root.methods.re_getProhibitAll = function (data) {
   }
   this.prohibitAll = data.dataMap.prohibitAll
 
-  if (!this.prohibitAll) {
+  if (this.prohibitAll) {
     this.openTips = false
     this.popOpen = true
     this.popType = 0
@@ -921,68 +973,26 @@ root.methods.error_getProhibitAll = function (err) {
 }
 
 // 转账入口是否可以打开
-root.methods.internalTransfer = function () {
-
-  if (!this.bindIdentify) {
-    this.popIdenOpen = true
-    return
-  }
-
-  // 如果没有绑定邮箱，不允许打开内部转账
-  if (!this.bindEmail) {
-    this.toastNobindShow = true
-    return
-  }
-
-  // this.transferAble()
-  // this.getProhibitAll()
-  if (!this.prohibitAll) {
-    this.openTips = false
-    this.popOpen = true
-    this.popType = 0
-    this.popText = '该币种暂不支持转账'
-    return
-  }
-  if (!this.isTransfer) {
-    this.openTips = false
-    this.popOpen = true
-    this.popType = 0
-    this.popText = '该币种暂不支持转账'
-    return
-  }
-  if (this.bindIdentify && this.isTransfer == true) {
-    this.openTips = true
-    return
-  }
-  if (this.bindIdentify) {
-    if (!this.bindMobile && !this.bindGA) {
-      this.popOpen = true
-      this.popType = 0
-      this.popText = '请绑定谷歌验证或手机'
-      return
-    }
-    if (this.bindMobile || this.bindGA) {
-      // this.$store.commit('changeMobileRechargeRecordData',type)
-      // this.$router.push("/index/mobileAsset/mobileAssetRechargeDetail?currency=" + name)
-      this.openTips = true
-      return
-    }
-  }
-  // if(this.prohibitAll == true) {
-  //   this.openTips = false
-  //   this.popOpen = true
-  //   this.popType = 0
-  //   this.popText = '该币种暂不支持转账'
-  //   return
-  // }
-  // if(this.isTransfer == false) {
-  //   this.openTips = false
-  //   this.popOpen = true
-  //   this.popType = 0
-  //   this.popText = '该币种暂不支持转账'
-  //   return
-  // }
-}
+// root.methods.internalTransfer = function (index, item) {
+//
+//
+//   this.transferAble(item.currency)
+//
+//   // if(this.prohibitAll == true) {
+//   //   this.openTips = false
+//   //   this.popOpen = true
+//   //   this.popType = 0
+//   //   this.popText = '该币种暂不支持转账'
+//   //   return
+//   // }
+//   // if(this.isTransfer == false) {
+//   //   this.openTips = false
+//   //   this.popOpen = true
+//   //   this.popType = 0
+//   //   this.popText = '该币种暂不支持转账'
+//   //   return
+//   // }
+// }
 root.methods.openTipsBox = function (){
   this.openTips = true
 }
