@@ -54,6 +54,7 @@ root.data = function () {
 
     // 认证状态
     authType: 0, //认证状态，0表示通过，2表示待审核，1表示驳回，3表示未认证
+    passedTime: 0, // 认证通过时间
 
     showReleaseMobile:false,
     showBindMobile:false,
@@ -185,12 +186,10 @@ root.computed.userId = function () {
 }
 
 root.created = function () {
-  this.getAuthType()
-
   this.getAuthState();
+  this.getAuthType()
   this.getLogRecord()
   this.closeReleaseMobile()
-
   this.getBDBInfo()
   this.getCheck()
   this.getBuyRecords()
@@ -271,7 +270,12 @@ root.methods.re_getAuthType = function (data) {
   if (!data.dataMap) return
   this.authType = data.dataMap.status
   console.log(this.$store.state.authType)
-  console.log('获取状态', this.AuthType)
+  console.log('获取状态', this.authType)
+
+  if (this.authType == '2') {
+    this.authType = 2
+    this.passedTime = data.dataMap.time
+  }
   // 如果是被驳回状态，请求下认证状态
   if (this.authType === '1') {
     this.authType = 1
