@@ -80,7 +80,7 @@ root.data = function () {
 
 root.created = function () {
 
-  // this.getProhibitAll()
+  this.getProhibitAll()
 
   //从query获取的币种信息
   this.getCurrencyTitle()
@@ -894,6 +894,13 @@ root.methods.re_transferAble = function (data) {
     this.popText = '该币种暂不支持内部转账转账，敬请期待'
     return
   }
+  if (this.prohibitAll) {
+    this.openTips = false
+    this.popOpen = true
+    this.popType = 0
+    this.popText = '该币种暂不支持内部转账转账，敬请期待'
+    return
+  }
 
   if (this.bindIdentify && this.isTransfer == true) {
     this.openTips = true
@@ -956,13 +963,7 @@ root.methods.re_getProhibitAll = function (data) {
   }
   this.prohibitAll = data.dataMap.prohibitAll
 
-  if (this.prohibitAll) {
-    this.openTips = false
-    this.popOpen = true
-    this.popType = 0
-    this.popText = '该币种暂不支持内部转账转账，敬请期待'
-    return
-  }
+
   console.info('this.re_getProhibitAll',this.getProhibitAll)
   console.info('this.re_getProhibitAll++++++++++++',data)
   // this.getCheckGroupDetails()
