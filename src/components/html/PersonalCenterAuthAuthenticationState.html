@@ -224,6 +224,15 @@
             <!--                </span>-->
             <!--            </td>-->
           </tr>
+          <tr class="info-tr">
+            <td class="info-td-title">
+              <!--              <span class="info-li-dot"></span>-->
+              <span class="info-li-title">{{$t('time')}}</span>
+            </td>
+            <td class="info-td-content">
+              <span class="info-li-article">{{$globalFunc.formatDateUitl(passedTime || 0,'YYYY-MM-DD hh:mm:ss')}}</span>
+            </td>
+          </tr>
 
         </table>
         <ul class="info margin">

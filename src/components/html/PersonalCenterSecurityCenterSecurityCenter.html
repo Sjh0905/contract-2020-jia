@@ -77,9 +77,10 @@
             <span class="pointer review" >{{$t('toBeAudited')}}</span>
           </div>
 
-          <div class="identity-button"  v-if="authType==2" @click="toAuthentication">
+          <div class="identity-button-passed"  v-if="authType==2" @click="toAuthentication">
             <img src="../../assets/authentication/identity_pass_icon.png" alt="">
             <span class="pointer pass">{{$t('passed')}}</span>
+            <span class="passed-time pointer">{{$globalFunc.formatDateUitl(passedTime,'YYYY-MM-DD hh:mm:ss')}}</span>
           </div>
 
         </div>

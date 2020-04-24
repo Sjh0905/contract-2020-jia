@@ -31,6 +31,7 @@ root.data = function () {
     authState: '3',
     stateReady: false,
     stateStatusReady: false,
+    passedTime: 0,
 
     BDBInfo: false,
     BDBReady: false,
@@ -468,6 +469,9 @@ root.methods.re_getAuthState = function (data) {
   if (!data.dataMap) return
   // console.warn('获取状态', data)
   this.authState = data.dataMap.status
+  if(this.authState == 2){
+    this.passedTime = data.dataMap.time
+  }
 
   // 如果不是通过或者不是待审核状态，直接跳转到认证页面
   if(this.authState != 0 && this.authState != 2 && this.authState != 5 && this.authState != 6){

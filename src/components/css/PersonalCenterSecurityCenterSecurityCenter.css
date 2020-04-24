@@ -102,6 +102,16 @@
   font-size: 14px;
 }
 
+.identity-button-passed {
+  width: 100%;
+  /*padding: 5px 15px;*/
+  font-size: 14px;
+}
+
+.identity-button-passed img {
+  vertical-align: middle;
+}
+
 .identity-button1 {
   width: 100%;
 }
@@ -159,6 +169,17 @@
 .pass:hover {
   opacity:0.6;
   text-decoration: underline;
+}
+
+.passed-time {
+  font-size: 12px;
+  margin-left: 15px;
+  color: #A2B5D9;
+}
+
+.passed-time:hover {
+  opacity:0.6;
+  /*text-decoration: underline;*/
 }
 
 .identity-button button {
