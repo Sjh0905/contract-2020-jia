@@ -80,12 +80,14 @@
   box-sizing: border-box;
 }
 .to_be_re {
+  justify-content: space-between;
   font-size:12px;
   font-family:PingFangSC-Medium,PingFang SC;
   font-weight:500;
   color:rgba(53,118,245,1);
 }
 .to_be_re_div {
+  justify-content: space-between;
   display: inline-block;
   width: 63%;
   height:29px;
@@ -238,6 +240,11 @@
   box-sizing: border-box;
 }
 .recordUl {
+  width: 100%;
+  min-height: 200px;
+  /*padding-bottom: 50px;*/
+}
+.recordUl1 {
   width: 100%;
   min-height: 200px;
   padding-bottom: 50px;

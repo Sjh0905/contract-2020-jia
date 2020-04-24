@@ -145,12 +145,13 @@
               <!--sss打开转账 begin-->
 
               <span class="withdrawals-button button"
+                    v-if="!prohibitAll"
                   @click="internalTransfer(index,item)"
                   :class="{'recharge-button-select-transfer':activeIndex===index  && transferss}"
                   >
                 {{$t('internalTransfer')}}
               </span>
-<!--            <span class=" can-not-withdrawals" v-else>{{$t('internalTransfer')}}</span>-->
+            <span class=" can-not-withdrawals" v-if="prohibitAll">{{$t('internalTransfer')}}</span>
 
 <!-- v-if="serverT >= item.withdrawOpenTime"-->
 <!--              内部转账灰色按钮 begin-->
