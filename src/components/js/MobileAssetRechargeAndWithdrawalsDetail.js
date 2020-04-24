@@ -880,18 +880,18 @@ root.methods.re_transferAble = function (data) {
 
   // this.transferAble()
   // this.getProhibitAll()
-  if (this.prohibitAll) {
-    this.openTips = false
-    this.popOpen = true
-    this.popType = 0
-    this.popText = '该币种暂不支持内部转账转账，敬请期待'
-    return
-  }
+  // if (this.prohibitAll) {
+  //   this.openTips = false
+  //   this.popOpen = true
+  //   this.popType = 0
+  //   this.popText = '该币种暂不支持内部转账转账，敬请期待'
+  //   return
+  // }
   if (!this.isTransfer) {
     this.openTips = false
     this.popOpen = true
     this.popType = 0
-    this.popText = '该币种暂不支持转账'
+    this.popText = '该币种暂不支持内部转账转账，敬请期待'
     return
   }
 
@@ -960,7 +960,7 @@ root.methods.re_getProhibitAll = function (data) {
     this.openTips = false
     this.popOpen = true
     this.popType = 0
-    this.popText = '该币种暂不支持转账'
+    this.popText = '该币种暂不支持内部转账转账，敬请期待'
     return
   }
   console.info('this.re_getProhibitAll',this.getProhibitAll)
