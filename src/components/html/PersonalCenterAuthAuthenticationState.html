@@ -231,6 +231,7 @@
             </td>
             <td class="info-td-content">
               <span class="info-li-article" v-if="authState==='2'">{{$globalFunc.formatDateUitl(passedTime || 0,'YYYY-MM-DD hh:mm:ss')}}</span>
+              <span class="info-li-article" v-if="authState==='0'">{{'---'}}</span>
             </td>
           </tr>
 
