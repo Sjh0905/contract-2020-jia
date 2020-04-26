@@ -396,6 +396,7 @@ root.methods.re_getIdentityInfo = function (data) {
     surname, surnameWA,
     identityAuth, identityAuthWA
   let arr = data.dataMap.identityAuths
+  console.info('arr=====',arr)
   for (let i = 0; i < arr.length; i++) {
 
     if(arr[i].type === 'area'){
@@ -432,12 +433,18 @@ root.methods.re_getIdentityInfo = function (data) {
     this.genderWA_0 = genderWA
     this.idCode_0 = idCode
     this.idCodeWA_0 = idCodeWA
-    this.certificate_positive_url_0 = certificate_positive_url
-    this.frontImgWA_0 = '2'
-    this.certificate_negative_url_0 = certificate_negative_url
-    this.backImgWA_0 = '2'
-    this.held_certificate_url_0 = held_certificate_url
-    this.holdImgWA_0 = '2'
+    // this.certificate_positive_url_0 = certificate_positive_url
+    // this.frontImgWA_0 = '2'
+    this.certificate_positive_url_0 = ''
+    this.frontImgWA_0 = ''
+    // this.certificate_negative_url_0 = certificate_negative_url
+    // this.backImgWA_0 = '2'
+    this.certificate_negative_url_0 = ''
+    this.backImgWA_0 = ''
+    // this.held_certificate_url_0 = held_certificate_url
+    // this.holdImgWA_0 = '2'
+    this.held_certificate_url_0 = ''
+    this.holdImgWA_0 = ''
     this.identityAuthWAReason_0 = identityAuth
   }
   // 如果是护照
@@ -450,15 +457,24 @@ root.methods.re_getIdentityInfo = function (data) {
     this.genderWA_1 = genderWA
     this.idCode_1 = idCode
     this.idCodeWA_1 = idCodeWA
-    this.certificate_positive_url_1 = certificate_positive_url
+    // this.certificate_positive_url_1 = certificate_positive_url
+    // this.frontImgWA_1 = '2'
+    this.certificate_positive_url_1 = ''
+    this.frontImgWA_1 = ''
     // this.frontImgWA_1 = certificate_positive_url_WA
-    this.frontImgWA_1 = '2'
-    this.certificate_negative_url_1 = certificate_negative_url
+
+    // this.certificate_negative_url_1 = certificate_negative_url
+    // this.backImgWA_1 = '2'
+    this.certificate_negative_url_1 = ''
+    this.backImgWA_1 = ''
     // this.backImgWA_1 = certificate_negative_url_WA
-    this.backImgWA_1 = '2'
-    this.held_certificate_url_1 = held_certificate_url
+
+    // this.held_certificate_url_1 = held_certificate_url
+    // this.holdImgWA_1 = '2'
+    this.held_certificate_url_1 = ''
+    this.holdImgWA_1 = ''
     // this.holdImgWA_1 = held_certificate_url_WA
-    this.holdImgWA_1 = '2'
+
     this.identityAuthWAReason_1 = identityAuth
     this.surname_1 = surname
     this.surnameWA_1 = surnameWA
@@ -795,6 +811,8 @@ root.methods.testIdCode_1 = function () {
 root.methods.commit = function () {
 
   let canSend = true
+
+
   if (this.country === '0') {
     canSend = this.testName_0() && canSend
     canSend = this.testIdCode_0() && canSend
@@ -1192,7 +1210,6 @@ root.methods.sendInfo = function () {
     let holdImgTypeArr = holdImgInfo.split('.')
     let holdImgType = holdImgTypeArr[holdImgTypeArr.length - 1].toLocaleLowerCase()
 
-
     formData.append('identityStr', JSON.stringify({
       'name': this.name_0,
       'idCode': this.idCode_0,
@@ -1226,6 +1243,8 @@ root.methods.sendInfo = function () {
     let holdImgTypeArr = holdImgInfo.split('.')
     let holdImgType = holdImgTypeArr[holdImgTypeArr.length - 1].toLocaleLowerCase()
 
+
+
     formData.append('identityStr', JSON.stringify({
       'name': this.name_1,
       'surname': this.surname_1,
@@ -1242,10 +1261,17 @@ root.methods.sendInfo = function () {
     // formData.append('file', this.sendHoldImg, 'held_certificate.' + holdImgType)
     // sss=========E
 
-    this.sendFrontImg && formData.append('file', this.sendFrontImg, 'certificate_positive.' + frontImgType)
-    this.sendBackImg && formData.append('file', this.sendBackImg, 'certificate_negative.' + backImgType)
-    this.sendHoldImg && formData.append('file', this.sendHoldImg, 'held_certificate.' + holdImgType)
+    // this.sendFrontImg && formData.append('file', this.sendFrontImg, 'certificate_positive.' + frontImgType)
+    // this.sendBackImg && formData.append('file', this.sendBackImg, 'certificate_negative.' + backImgType)
+    // this.sendHoldImg && formData.append('file', this.sendHoldImg, 'held_certificate.' + holdImgType)
   }
+
+  // if(this.authType == 1){
+  //   this.frontOnChange()
+  //   this.backOnChange()
+  //   this.holdOnChange()
+  //   return
+  // }
 
 
   this.$http.sendFile('SEND_IDENTITY', formData, {
