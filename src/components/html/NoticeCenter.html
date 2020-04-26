@@ -33,7 +33,7 @@
             v-for="item in computedNoticeList" :key="item.id"
             @click="clickToDetail(item.id)"
         >{{maxTitleLength(item.title)}}
-          <div class="time">{{formatDateUitl(item.updatedAt)}}</div>
+          <div class="time">{{formatDateUitl(item.createdAt)}}</div>
         </li>
         <!--公告列表 end-->
 
