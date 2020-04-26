@@ -565,17 +565,23 @@
       <div class="whit_0">
         <span v-if="testUID_012==='0'" class="prompt-span wrong-msg">{{testUIDMsg_0}}</span>
       </div>
-      <div class="Internal_siding_email">
+      <div class="Internal_siding_email flex">
         <span>{{$t('Number1')}}</span>
-        <span class="email_span">{{$t('Number2')}}{{transferCurrency}}{{$t('Number3')}}{{dayMaxAmount}}</span>
+        <div>
+          <span>{{$t('available')}}：</span>
+          <span class="text_blue">{{transferAvailable}}</span>
+        </div>
       </div>
-      <input class="input_input" type="text"
-             :placeholder='verificationCodePlaceholderShow && $t("deletePopCancel5") || ""' v-model="testNum_0"
-             @focus="closePlaceholder('verificationCode')"
-             @blur="testNum_01()">
+     <div class="input-transfer-amount flex">
+       <input type="text" class="transfer-amount"
+              :placeholder='verificationCodePlaceholderShow && $t("deletePopCancel5") || ""' v-model="testNum_0"
+              @focus="closePlaceholder('verificationCode')"
+              @blur="testNum_01()">
+       <p class="shouxu">{{$t('Number4')}}</p>
+     </div>
       <div class="whit_0">
         <span v-if="testNumWA_0 ==='0'" class="prompt-span wrong-msg whiteListwhit">{{testNumMsg_0}}</span>
-        <p class="shouxu">{{$t('Number4')}}</p>
+        <div class="email_span">{{$t('Number2')}}{{transferCurrency}}{{$t('Number3')}}{{dayMaxAmount}}</div>
       </div>
 
       <div slot="footer">
