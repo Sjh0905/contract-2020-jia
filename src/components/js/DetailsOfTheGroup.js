@@ -46,7 +46,9 @@ root.data = function () {
     commRecommission:0,//普通区团长返佣累计
 
     isApp:false,
-    isIOS:false
+    isIOS:false,
+    organizationSetUpComponent: false,
+    organizationModifyComponent: false
   }
 }
 /*------------------------------ 生命周期 -------------------------------*/
@@ -380,6 +382,26 @@ root.methods.popClose = function () {
 root.methods.popWindowClose = function () {
   this.popWindowOpen = false
 }
+// 组织成员添加组件
+root.methods.organizationSetUpComponentClose = function () {
+  this.organizationSetUpComponent = false
+}
+
+//组织成员添加
+root.methods.organizationDeletion = function () {
+  this.organizationSetUpComponent = true
+}
+
+//组织成员修改组件
+root.methods.organizationModifyComponentClose = function () {
+  this.organizationModifyComponent = false
+}
+
+//组织成员修改
+root.methods.organizationModify = function () {
+  this.organizationModifyComponent = true
+}
+
 
 root.methods.isAppQuery = function (query) {
   if(this.$route.query.isApp) {

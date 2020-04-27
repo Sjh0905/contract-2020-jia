@@ -131,9 +131,62 @@
 
       </div>
     </div>
+    <!-- 组织成员-->
+    <div class="list_directory">
+
+      <div class="list_directory_column">
+        <div class="list_Member">{{$t('memberList')}}</div>
+        <div class="list_Member_column">
+          <img class="AddMember pointer" @click="organizationDeletion" src="../../assets/AddMember.png" alt=""><span class="member_span pointer" @click="organizationDeletion">{{$t('添加重要成员')}}</span>
+        </div>
+      </div>
+
+      <ol class="ul_Organization">
+        <!--        表头-->
+        <li class="list_directory_column_li">
+          <!--          序号-->
+          <div class="list_directory_column_li_div color_a2">{{$t('accountNumber')}}</div>
+          <!--          账号-->
+          <div class="list_directory_column_li_div color_a2">{{$t('职位')}}</div>
+          <!--          职位-->
+          <div class="list_directory_column_li_div color_a2 p-l">{{$t('分成比例')}}</div>
+          <!--          加入时间-->
+          <div class="list_directory_column_li_dii color_a2">{{$t('操作')}}</div>
+        </li>
+
+        <!--     序号   账号  职位 加入时间-->
+        <li class="directoryOrganization" v-for="(item,index) in computedRecord" :key="item.id">
+          <div class="list_directory_column_li_div">{{index + 1}}</div>
+          <div class="list_directory_column_li_div">{{$globalFunc.formatUserName(item.account)}}</div>
+          <div class="list_directory_column_li_div p-l">{{item.idType}}</div>
+          <div class="list_directory_column_li_dii m-r">
+              <span class="directory_Modify_span pointer" @click="organizationModify">修改</span>
+              <span class="directory_Modify_span pointer">删除</span>
+          </div>
+        </li>
+
+        <!-- 加载更多 如果loading结束、已经登录、获取的数据超过了limit，则显示 begin -->
+<!--        <template v-if="showLoadingMore">-->
+<!--          <li class="loading-more">-->
+<!--            <span class="text_blue pointer" v-if="!loadingMoreShow" @click="clickLoadingMore">{{$t('orderPageHistoricalEntrustment.close_10')}}</span>-->
+<!--            <span class="text_blue" v-else>{{$t('orderPageHistoricalEntrustment.close_11')}}</span>-->
+<!--          </li>-->
+<!--        </template>-->
+
+      </ol>
 
 
-<!--    团员列表-->
+      <!-- 加载更多 end -->
+      <!--        查看更多-->
+      <!--      <template v-if="!loading && tradinghallLimit===10 && historyOrderComputed.length >= 10">-->
+      <!--        <li class="loading-more" >-->
+      <!--          <span class="text_blue pointer" @click="toOrderHistory">{{$t('orderPageHistoricalEntrustment.close_12')}}</span>-->
+      <!--        </li>-->
+      <!--      </template>-->
+
+    </div>
+
+     <!-- 团员列表-->
     <div class="list_directory">
 
       <div class="list_directory_column">{{$t('memberList')}}</div>
@@ -141,7 +194,7 @@
 <!--        表头-->
         <li class="list_directory_column_li">
 <!--          序号-->
-          <div class="list_directory_column_li_div color_a2 m-t">{{$t('serialNumber')}}</div>
+          <div class="list_directory_column_li_div color_a2">{{$t('serialNumber')}}</div>
 <!--          账号-->
           <div class="list_directory_column_li_div color_a2">{{$t('accountNumber')}}</div>
 <!--          职位-->
@@ -152,7 +205,7 @@
 
 <!--     序号   账号  职位 加入时间-->
         <li class="list_directory_column_li_div_li" v-for="(item,index) in computedRecord" :key="item.id">
-          <div class="list_directory_column_li_div m-t">{{index + 1}}</div>
+          <div class="list_directory_column_li_div">{{index + 1}}</div>
           <div class="list_directory_column_li_div">{{$globalFunc.formatUserName(item.account)}}</div>
           <div class="list_directory_column_li_div p-l">{{item.idType}}</div>
           <div class="list_directory_column_li_dii m-r">{{formatDateUitl(item.joinTime)}}</div>
@@ -349,6 +402,100 @@
 
   </PopupWindow>
 
+  <!--  设置组织成员弹框-->
+  <PopupWindow :switch="organizationSetUpComponent" @close="organizationSetUpComponentClose">
+
+    <div slot="header" class="zhuanzhang">
+      <span class="">{{$t('设置成员')}}</span>
+    </div>
+    <div slot="article" class="Internal_siding">
+
+      <p class="Internal_siding_email m-t">{{$t('账号（账号必须是该团队成员）')}}</p>
+<!--      <input class="input_input" type="text" :placeholder='userNamePlaceholderShow && $t("deletePopCancel2") || ""' v-model="name_0"-->
+<!--             @focus="closePlaceholder('userName')"-->
+<!--             @blur="testName_0">-->
+      <input class="input_input" type="text" :placeholder='$t("输入添加账号") || ""' >
+      <div class="whit_0">
+<!--        <span v-if="nameWA_0==='0'" class="prompt-span wrong-msg">{{nameMsg_0}}</span>-->
+      </div>
+
+      <p class="Internal_siding_email">职位</p>
+<!--      <input class="input_input"  type="text"-->
+<!--             :placeholder='pswPlaceholderShow && $t("deletePopCancel3") || ""' v-model="testUID_0"-->
+<!--             @focus="closePlaceholder('psw')"-->
+<!--             @blur="testUID_01()">-->
+      <input class="input_input"  type="text"
+             :placeholder='$t("选择职位") || ""' >
+      <div class="whit_0">
+<!--        <span v-if="testUID_012==='0'" class="prompt-span wrong-msg">{{testUIDMsg_0}}</span>-->
+      </div>
+      <div class="Internal_siding_email">
+        <span>{{$t('设置比例')}}</span>
+<!--        <span class="email_span">{{$t('Number2')}}{{transferCurrency}}{{$t('Number3')}}{{dayMaxAmount}}</span>-->
+      </div>
+      <div class="input_input">
+        <input class="proportion" type="text" :placeholder='$t("输入分佣比例") || ""'>
+        <span class="proportionSpan">团长剩余比例 <span class="percentageSpan">100%</span></span>
+      </div>
+
+      <div slot="footer">
+<!--        <button class="Internal_siding_email1 pointer" @click="GoToConfirmTransfer()">{{$t('Number5')}}</button>-->
+        <div class="textRight">
+          <span class="Internal_siding_Cancel pointer" @click="organizationSetUpComponentClose">{{$t('取消')}}</span>
+          <span class="Internal_siding_email1 pointer">{{$t('确认')}}</span>
+        </div>
+      </div>
+
+    </div>
+
+  </PopupWindow>
+
+  <!--  编辑组织成员弹框-->
+  <PopupWindow :switch="organizationModifyComponent" @close="organizationModifyComponentClose">
+
+    <div slot="header" class="zhuanzhang">
+      <span class="">{{$t('编辑')}}</span>
+    </div>
+    <div slot="article" class="Internal_siding">
+
+      <p class="Internal_siding_email m-t">{{$t('账号')}}</p>
+      <!--      <input class="input_input" type="text" :placeholder='userNamePlaceholderShow && $t("deletePopCancel2") || ""' v-model="name_0"-->
+      <!--             @focus="closePlaceholder('userName')"-->
+      <!--             @blur="testName_0">-->
+      <div class="Internal_siding_div">2570167180@qq.com</div>
+      <div class="whit_0">
+        <!--        <span v-if="nameWA_0==='0'" class="prompt-span wrong-msg">{{nameMsg_0}}</span>-->
+      </div>
+
+      <p class="Internal_siding_email">职位</p>
+      <!--      <input class="input_input"  type="text"-->
+      <!--             :placeholder='pswPlaceholderShow && $t("deletePopCancel3") || ""' v-model="testUID_0"-->
+      <!--             @focus="closePlaceholder('psw')"-->
+      <!--             @blur="testUID_01()">-->
+      <div class="Internal_siding_div">副团长</div>
+      <div class="whit_0">
+        <!--        <span v-if="testUID_012==='0'" class="prompt-span wrong-msg">{{testUIDMsg_0}}</span>-->
+      </div>
+      <div class="Internal_siding_email">
+        <span>{{$t('设置比例')}}</span>
+        <!--        <span class="email_span">{{$t('Number2')}}{{transferCurrency}}{{$t('Number3')}}{{dayMaxAmount}}</span>-->
+      </div>
+      <div class="input_input">
+        <input class="proportion" type="text" :placeholder='$t("输入分佣比例") || ""'>
+        <span class="proportionSpan">团长剩余比例 <span class="percentageSpan">100%</span></span>
+      </div>
+
+      <div slot="footer">
+        <!--        <button class="Internal_siding_email1 pointer" @click="GoToConfirmTransfer()">{{$t('Number5')}}</button>-->
+        <div class="textRight">
+          <span class="Internal_siding_Cancel pointer" @click="organizationModifyComponentClose">{{$t('取消')}}</span>
+          <span class="Internal_siding_email1 pointer">{{$t('确认')}}</span>
+        </div>
+      </div>
+
+    </div>
+
+  </PopupWindow>
 
   <div v-if="isMobile && popWindowOpen" class="toast-window-nobind-email">
     <div class="toast-box-nobind-email">
