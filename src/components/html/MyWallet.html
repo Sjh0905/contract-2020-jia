@@ -574,14 +574,14 @@
       </div>
      <div class="input-transfer-amount flex">
        <input type="text" class="transfer-amount"
-              :placeholder='verificationCodePlaceholderShow && $t("deletePopCancel5") || ""' v-model="testNum_0"
+              :placeholder='verificationCodePlaceholderShow && $t("singleMaxAmount") + (" " + singleMaxAmount)  || ""' v-model="testNum_0"
               @focus="closePlaceholder('verificationCode')"
               @blur="testNum_01()">
        <p class="shouxu">{{$t('Number4')}}</p>
      </div>
-      <div class="whit_0">
+      <div class="whit_0" >
         <span v-if="testNumWA_0 ==='0'" class="prompt-span wrong-msg whiteListwhit">{{testNumMsg_0}}</span>
-        <div class="email_span">{{$t('Number2')}}{{transferCurrency}}{{$t('Number3')}}{{dayMaxAmount}}</div>
+        <span class="email_span">{{$t('Number2')}}{{transferCurrency}}{{$t('Number3')}}{{dayMaxAmount}}</span>
       </div>
 
       <div slot="footer">

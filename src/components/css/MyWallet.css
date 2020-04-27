@@ -424,7 +424,7 @@
   color: #172A4D;
 }
 .whiteListwhit {
-  width: 60%;
+  /*width: 60%;*/
 }
 
 .color_red {
@@ -490,7 +490,7 @@
   color: #6B7DA2;
 }
 .email_span {
-  /*float: right;*/
+  float: right;
   /*display: inline-block;*/
   margin-right: 25px;
   text-align: right;
@@ -778,6 +778,8 @@
 /*}*/
 .whit_0 {
   height: 25px;
+  line-height: 25px;
+  justify-content: space-between;
 }
 .ssss {
   margin-bottom: 15px;
