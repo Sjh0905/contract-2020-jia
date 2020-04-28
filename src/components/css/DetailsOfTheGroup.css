@@ -1063,3 +1063,35 @@ ul {
   color: #A2B5D9;
 }
 /*placeholder样式 end*/
+.input-inner-gender {
+  width: 410px;
+  height: 40px;
+  text-align: left;
+  line-height: 40px;
+  margin-left: 16px;
+  padding-left: 8px;
+  font-size: 12px;
+  color: #0D0E23;
+  /*border: 1px solid #E0E1F4;*/
+  box-sizing: border-box;
+}
+.input-inner-gender >>> .el-input__inner {
+  -web-kit-appearance: none;
+  -moz-appearance: none;
+  width: 410px;
+  height: 40px;
+  line-height: 35px;
+  outline: 0;
+  /*opacity: 0.7;*/
+  border: 1px solid #E0E1F4;
+  font-size: 12px;
+  /*color: #3576F5;*/
+  font-size: 16px;
+  color: #0D0E23;
+  letter-spacing: 0;
+  margin-right: 12px;
+  font-size: 12px;
+  border: 1px solid rgba(181,188,198,0.50);
+  border-radius: 1px;
+  /*margin-top: 20px;*/
+}

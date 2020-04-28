@@ -452,6 +452,11 @@ requestAddress.GET_MEMBER_LIST = {url: urlHead+'/assemble/queryMemberList/', met
 requestAddress.GET_GROUP_INFO = {url: urlHead+'/assemble/queryShowGroupInfo/', method: 'get'}//拼团展示团队详情
 requestAddress.GET_QUERY_GROUP_INFO = {url: urlHead+'/assemble/queryGroupInfo/', method: 'get'}//查询组详情
 requestAddress.GET_GROUP_LIST = {url: urlHead+'/assemble/queryGroupList/', method: 'get'}//模糊查询可加入小组
+requestAddress.GET_GROUP_MEMBERS = {url: urlHead+'/assemble/showImpGroupMembers/', method: 'get'}//显示重要团成员信息
+requestAddress.GET_GROUP_DISCOUNT = {url: urlHead+'/assemble/getGroupDiscount/', method: 'get'}//获取团长剩余折扣
+requestAddress.POST_SET_MEMBER = {url: urlHead+'/assemble/setGroupMember', method: 'post'} // 设置团成员折扣
+requestAddress.GET_EDIT_MEMBER = {url: urlHead+'/assemble/getEditQqMember/', method: 'get'} // 获取编辑member信息
+requestAddress.POST_MODIFY_DISCOUNT = {url: urlHead+'/assemble/reduceMemberDisCount', method: 'post'} // 组织成员降级
 
 //2020-02-18，转账相关接口
 // requestAddress.REGISTER_BY_MOBILE = {url: urlHead+'/user/registerByMobile', method: 'post'}  // 手机注册
