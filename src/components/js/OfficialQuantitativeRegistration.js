@@ -375,7 +375,7 @@ root.methods.postActivities = function () {
   // canSend = this.testMatchingAmount() && canSend
 
 
-  if ((this.accMinus(this.matchDataFamt[this.matchingAmount] || '0', this.balanceTT || '0')) >= 0) {
+  if ((this.accMinus(this.matchDataFamt[this.matchingAmount] || '0', this.balanceTT || '0')) > 0) {
     this.matchingAmountMsg_0 = this.$t('distribution')
     return false
   }
