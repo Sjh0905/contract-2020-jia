@@ -730,6 +730,11 @@ root.methods.Callback = function (data) {
   // 清空数量
   this.amount = '';
   this.$http.send('ACCOUNTS', {bind: this, callBack: this.RE_ACCOUNTS})
+
+  // setTimeout(()=>{
+  //   this.$http.send('ACCOUNTS', {bind: this, callBack: this.RE_ACCOUNTS})
+  // },5000)
+
 }
 
 root.methods.RE_ERROR = function (err) {
