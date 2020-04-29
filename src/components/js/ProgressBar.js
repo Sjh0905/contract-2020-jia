@@ -729,11 +729,11 @@ root.methods.Callback = function (data) {
   this.promptOpen = true;
   // 清空数量
   this.amount = '';
-  // this.$http.send('ACCOUNTS', {bind: this, callBack: this.RE_ACCOUNTS})
+  this.$http.send('ACCOUNTS', {bind: this, callBack: this.RE_ACCOUNTS})
 
-  setTimeout(()=>{
-    this.$http.send('ACCOUNTS', {bind: this, callBack: this.RE_ACCOUNTS})
-  },5000)
+  // setTimeout(()=>{
+  //   this.$http.send('ACCOUNTS', {bind: this, callBack: this.RE_ACCOUNTS})
+  // },5000)
 
 }
 
