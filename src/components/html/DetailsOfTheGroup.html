@@ -134,7 +134,7 @@
       </div>
     </div>
     <!-- 组织成员-->
-    <div class="list_directory">
+    <div class="list_directory" v-if="idType=='1'">
 
       <div class="list_directory_column">
         <div class="list_Member">{{$t('组织成员')}}</div>
@@ -151,7 +151,7 @@
           <!--          账号-->
           <div class="list_directory_column_li_div color_a2">{{$t('职位')}}</div>
           <!--          职位-->
-          <div class="list_directory_column_li_div color_a2 p-l">{{$t('分成比例')}}</div>
+          <div class="list_directory_column_li_div color_a2 p-l">{{$t('分佣比例')}}</div>
           <!--          加入时间-->
           <div class="list_directory_column_li_dii color_a2">{{$t('操作')}}</div>
         </li>
