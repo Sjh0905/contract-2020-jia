@@ -126,11 +126,15 @@
           <div class="withdraw-item-time">{{$globalFunc.formatDateUitl(item.updatedAt,'YYYY-MM-DD hh:mm:ss')}}</div>
           <div class="withdraw-item-num">
             <!--<span class="withdraw-item-num-title">数量</span>-->
-            <span class="withdraw-item-num-detail">{{toFixed(item.amount,2)}}</span>
+            <span class="withdraw-item-num-detail">{{toFixed(item.amount,8)}}</span>
           </div>
           <!--<div class="withdraw-item-right"></div>-->
         </div>
-        <div class="withdraw-item-state">{{item.source=='EXCHANGE'?'首次交易':'实名认证'}}</div>
+        <div class="withdraw-item-state" v-if="item.source=='EXCHANGE'">首次交易</div>
+        <div class="withdraw-item-state" v-if="item.source=='REALNAME'">实名认证</div>
+        <div class="withdraw-item-state" v-if="item.source=='GROUPWAGE'">团长工资</div>
+        <div class="withdraw-item-state" v-if="item.source=='GROUPRETCOMM'">团长返佣</div>
+
 <!--        <div v-if="item.status === 'WAITING_FOR_APPROVAL'" class="withdraw-item-state">待审核</div>-->
 <!--        <div v-if="item.status === 'WAITING_FOR_WALLET'" class="withdraw-item-state">待处理</div>-->
 <!--        <div v-if="item.status === 'DENIED'" class="withdraw-item-state">被驳回</div>-->
