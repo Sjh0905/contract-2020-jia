@@ -13,8 +13,10 @@
               <span v-if="glevel=='0'"></span>
               <span v-if="glevel=='1'"><img class="tupian_img" src="../../assets/weituan_icon.png" alt=""></span>
               <span v-if="glevel=='2'"><img class="tupian_img" src="../../assets/xiaotuan_icon.png" alt=""></span>
-              <span v-if="glevel=='3'"><img class="tupian_img" src="../../assets/2020_icon@2x.png" alt=""></span>
-              <span v-if="glevel=='4'"><img class="tupian_img" src="../../assets/zhongtuan_icon.png" alt=""></span>
+              <!-- 中团-->
+              <span v-if="glevel=='3'"><img class="tupian_img" src="../../assets/datuan_icon.png" alt=""></span>
+              <!-- 大团-->
+              <span v-if="glevel=='4'"><img class="tupian_img" src="../../assets/2020_icon@2x.png" alt=""></span>
               <span v-if="glevel=='5'"><img class="tupian_img" src="../../assets/chaotuan_icon.png" alt=""></span>
 
               <span class="" v-if="glevel=='0'"></span>
@@ -135,7 +137,7 @@
     <div class="list_directory">
 
       <div class="list_directory_column">
-        <div class="list_Member">{{$t('memberList')}}</div>
+        <div class="list_Member">{{$t('组织成员')}}</div>
         <div class="list_Member_column">
           <img class="AddMember pointer" @click="organizationDeletion" src="../../assets/AddMember.png" alt=""><span class="member_span pointer" @click="organizationDeletion">{{$t('添加重要成员')}}</span>
         </div>
@@ -162,7 +164,8 @@
           <div class="list_directory_column_li_div" v-if="item.idType==3">{{$t('团长')}}</div>
           <div class="list_directory_column_li_div" v-if="item.idType==4">{{$t('教官')}}</div>
           <div class="list_directory_column_li_div" v-if="item.idType==5">{{$t('副团长')}}</div>
-          <div class="list_directory_column_li_div p-l">{{item.discount * 100}}%</div>
+          <div class="list_directory_column_li_div p-l" v-if="item.idType==1">{{toFixed(surplusDiscount,2)}}%</div>
+          <div class="list_directory_column_li_div p-l" v-if="item.idType!=1">{{toFixed((item.discount * 100),2)}}%</div>
           <div class="list_directory_column_li_dii m-r">
               <span class="directory_Modify_span pointer" v-if="item.idType != 1" @click="getEditMember(item.id)">修改</span>
               <span class="directory_Modify_span pointer" v-if="item.idType == 4 || item.idType == 5" @click="organizationDelete(item)">删除</span>
@@ -246,8 +249,8 @@
           <span v-if="glevel=='0'"></span>
           <span v-if="glevel=='1'"><img class="mobiletupian_img" src="../../assets/wei_icon@2x.png" alt=""></span>
           <span v-if="glevel=='2'"><img class="mobiletupian_img" src="../../assets/xiao_icon@2x.png" alt=""></span>
-          <span v-if="glevel=='3'"><img class="mobiletupian_img" src="../../assets/2020_icon@2x.png" alt=""></span>
-          <span v-if="glevel=='4'"><img class="mobiletupian_img" src="../../assets/zhong_icon@2x.png" alt=""></span>
+          <span v-if="glevel=='3'"><img class="mobiletupian_img" src="../../assets/datuan_icon.png" alt=""></span>
+          <span v-if="glevel=='4'"><img class="mobiletupian_img" src="../../assets/2020_icon@2x.png" alt=""></span>
           <span v-if="glevel=='5'"><img class="mobiletupian_img" src="../../assets/chao_icon@2x.png" alt=""></span>
 
           <span class="" v-if="glevel=='0'"></span>
@@ -406,7 +409,7 @@
 
   </PopupWindow>
 
-  <!--  设置组织成员弹框-->
+  <!--  添加组织成员弹框-->
   <PopupWindow :switch="organizationSetUpComponent" @close="organizationSetUpComponentClose">
 
     <div slot="header" class="zhuanzhang">
@@ -419,11 +422,11 @@
 <!--             @focus="closePlaceholder('userName')"-->
 <!--             @blur="testName_0">-->
       <input class="input_input" type="text" :placeholder='pswPlaceholderShow && $t("输入添加账号") || ""'
-             v-model="account1"
+             v-model="accountAdd"
              @focus="closePlaceholder('account')"
              @blur="advanceAccountNumber()">
       <div class="whit_0">
-        <span v-if="account1===''" class="prompt-span wrong-msg">{{accountNumberMag}}</span>
+        <span v-if="accountNumberMag !=''" class="prompt-span wrong-msg">{{accountNumberMag}}</span>
       </div>
 
       <p class="Internal_siding_email">职位</p>
@@ -431,9 +434,9 @@
 <!--             :placeholder='pswPlaceholderShow && $t("deletePopCancel3") || ""' v-model="testUID_0"-->
 <!--             @focus="closePlaceholder('psw')"-->
 <!--             @blur="testUID_01()">-->
-      <div class="" >
+      <div class="select-position" >
         <template>
-          <el-select v-model="valuegender" name="gender" :placeholder='$t("请输入职位")' class="input-inner-gender" @change="changeTransferValue">
+          <el-select v-model="valuegender" name="gender" :placeholder='$t("请输入职位")' class="input-inner-gender" @change="changeIdTypeValue">
             <el-option
               v-for="item in optionsgender"
               :key="item.value"
@@ -445,7 +448,7 @@
         </template>
       </div>
       <div class="whit_0">
-        <span v-if="valuegender===''" class="prompt-span wrong-msg">{{valuegenderMag}}</span>
+        <span v-if="valuegenderMag!=''" class="prompt-span wrong-msg">{{valuegenderMag}}</span>
       </div>
       <div class="Internal_siding_email">
         <span>{{$t('设置比例')}}</span>
@@ -453,13 +456,14 @@
       </div>
       <div class="input_input">
         <input class="proportion" type="text" :placeholder='$t("输入分佣比例") || ""' v-model="proportion"
-               @focus="verificationCodePlaceholderShow('proportion')"
-               @blur="advanceProportion()">
-        <span class="proportionSpan">团长剩余比例 <span class="percentageSpan">{{surplusDiscount}}%</span></span>
+               @focus="closePlaceholder('proportion')"
+               @blur="advanceProportion()"
+               step="1"  min="0" onkeyup="this.value= this.value.match(/\d+(\.\d{0,2})?/) ? this.value.match(/\d+(\.\d{0,2})?/)[0] : ''">
+        <span class="proportionSpan">团长剩余比例 <span class="percentageSpan">{{toFixed(surplusDiscount,2)}}%</span></span>
       </div>
 
       <div class="whit_0">
-        <span v-if="proportion===''" class="prompt-span wrong-msg">{{proportionMag}}</span>
+        <span v-if="proportionMag !=''" class="prompt-span wrong-msg">{{proportionMag}}</span>
       </div>
 
       <div slot="footer">
@@ -474,7 +478,7 @@
 
   </PopupWindow>
 
-  <!--  编辑组织成员弹框-->
+  <!--  修改组织成员弹框-->
   <PopupWindow :switch="organizationModifyComponent" @close="organizationModifyComponentClose">
 
     <div slot="header" class="zhuanzhang">
@@ -507,17 +511,22 @@
         <!--        <span class="email_span">{{$t('Number2')}}{{transferCurrency}}{{$t('Number3')}}{{dayMaxAmount}}</span>-->
       </div>
       <div class="input_input">
-        <input class="proportion" type="text" :placeholder='$t("输入分佣比例") || ""'v-model="proportion"
-               @focus="verificationCodePlaceholderShow('proportion')"
-               @blur="advanceProportion()">
-        <span class="proportionSpan">团长剩余比例 <span class="percentageSpan">{{surplusDiscount}}%</span></span>
+        <input class="proportion" type="text" :placeholder='$t("输入分佣比例") || ""'v-model="proportionModify"
+               @focus="closePlaceholder('proportionModify')"
+               @blur="advanceProportion()"
+               step="1"  min="0" onkeyup="this.value= this.value.match(/\d+(\.\d{0,2})?/) ? this.value.match(/\d+(\.\d{0,2})?/)[0] : ''">
+        <span class="proportionSpan">团长剩余比例 <span class="percentageSpan">{{toFixed(surplusDiscount,2)}}%</span></span>
+      </div>
+
+      <div class="whit_0">
+        <span v-if="proportionModifyMag !=''" class="prompt-span wrong-msg">{{proportionModifyMag}}</span>
       </div>
 
       <div slot="footer">
         <!--        <button class="Internal_siding_email1 pointer" @click="GoToConfirmTransfer()">{{$t('Number5')}}</button>-->
         <div class="textRight">
           <span class="Internal_siding_Cancel pointer" @click="organizationModifyComponentClose">{{$t('取消')}}</span>
-          <span class="Internal_siding_email1 pointer" @click="postSetMember1()">{{$t('确认')}}</span>
+          <span class="Internal_siding_email1 pointer" @click="postModifyMember">{{$t('确认')}}</span>
         </div>
       </div>
 
@@ -532,7 +541,8 @@
     </div>
     <div slot="article" class="pop-recharge">
       <!--      请确认是否解散-->
-      <p class="consequences">{{$t('是否降级改成员')}} <span class="consequencesSpan"></span></p>
+      <p class="consequences" v-if="delItem.idType == '4'">{{$t('是否降级该')}} <span class="consequencesSpan">教官</span></p>
+      <p class="consequences" v-if="delItem.idType == '5'">{{$t('是否降级该')}} <span class="consequencesSpan">副团长</span></p>
     </div>
     <div slot="footer" class="pop-recharge-bottom">
       <button @click="popWindowOpenDeleteClose" class="button-base33 btn_simple pointer">

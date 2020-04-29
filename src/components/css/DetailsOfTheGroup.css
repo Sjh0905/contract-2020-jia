@@ -914,6 +914,10 @@ ul {
   color: #172A4D;
 }
 
+.select-position {
+
+}
+
 .m-t {
   margin-top: 20px;
 }
@@ -1086,12 +1090,30 @@ ul {
   border: 1px solid #E0E1F4;
   font-size: 12px;
   /*color: #3576F5;*/
-  font-size: 16px;
   color: #0D0E23;
   letter-spacing: 0;
   margin-right: 12px;
   font-size: 12px;
-  border: 1px solid rgba(181,188,198,0.50);
+  /*border: 1px solid rgba(181,188,198,0.50);*/
   border-radius: 1px;
   /*margin-top: 20px;*/
 }
+
+/**placeholder样式 begin*!*/
+.input-inner-gender >>> .el-input__inner::placeholder {
+  color: #A2B5D9;
+}
+
+.input-inner-gender >>> .el-input__inner::-moz-placeholder {
+  color: #A2B5D9;
+}
+
+.input-inner-gender >>> .el-input__inner::-webkit-input-placeholder {
+  color: #A2B5D9;
+}
+
+.input-inner-gender >>> .el-input__inner:-ms-input-placeholder {
+  color: #A2B5D9;
+}
+/*placeholder样式 end*/
+

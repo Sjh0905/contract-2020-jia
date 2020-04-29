@@ -48,14 +48,17 @@ root.data = function () {
 
 
     surplusDiscount:'', //团长剩余折扣
+    surplusDiscountAccuracy:'', //团长剩余折扣
 
-    account1:'',
+    accountAdd:'',
     accountNumberMag:'',
 
     proportion:'',//输入的比例
+    proportionModify:'',//输入的比例
+
     proportionMag:'',//输入的比例
-    TransferValue:0,//输入的比例
-    transferCurrencyObj:{},
+    proportionModifyMag:'',//输入的比例
+    idTypeValue:'',//输入的比例
 
     isApp:false,
     isIOS:false,
@@ -77,6 +80,7 @@ root.data = function () {
 
     pswPlaceholderShow: true,
     verificationCodePlaceholderShow: true,
+    verificationproportionModify: true,
     id:'',
 
     //要降级的数据
@@ -124,6 +128,15 @@ root.computed.userName = function () {
   return this.$globalFunc.formatUserName(this.$store.state.authMessage.email)
 }
 
+// 用户名
+root.computed.userNameAdd = function () {
+  if (this.userType === 0) {
+    return (this.$store.state.authMessage.mobile)
+  }
+
+  return (this.$store.state.authMessage.email)
+}
+
 // 用户类型，如果是手机用户，为0，如果是邮箱用户，为1
 root.computed.userType = function () {
   return this.$store.state.authMessage && this.$store.state.authMessage.province === 'mobile' ? 0 : 1
@@ -154,10 +167,11 @@ root.watch = {}
 /*------------------------------ 方法 -------------------------------*/
 root.methods = {}
 
-root.methods.changeTransferValue = function (value){
-  console.log('changeTransferCurrency==============',value)
+root.methods.changeIdTypeValue = function (value){
+  console.info('changeidTypeCurrency==============',value)
   // this.itemInfo = val
-  this.TransferValue = this.transferCurrencyObj[value] || 0;
+  this.idTypeValue = value
+  console.log('this.idTypeValue=======',this.idTypeValue)
 }
 
 //拼团展示团队详情get (query:{})  不知道对不对
@@ -411,23 +425,33 @@ root.methods.re_getGroupDiscount = function (data) {
   typeof data === 'string' && (data = JSON.parse(data))
   // this.records = data.data.data
 
-  this.surplusDiscount = data.data.surplusDiscount * 100 //团长剩余折扣
+  this.surplusDiscountAccuracy = data.data.surplusDiscount * 10 //团长剩余折扣  处理丢精度问题
+  this.surplusDiscount = this.surplusDiscountAccuracy * 10 //团长剩余折扣
 }
 root.methods.error_getGroupDiscount = function (err) {
   console.log("this.err=====",err)
 }
 
-// 副团长账号输入
+// 添加账号输入
 root.methods.advanceAccountNumber = function () {
   this.pswPlaceholderShow = true
 
-  if (this.account1 === '') {
-    this.accountNumberMag = this.$t('账号不可为空')
+  if (this.accountAdd === '') {
+    this.accountNumberMag = this.$t('账号不可为空 ')
+    return false
+  }
+
+  // if (this.accountAdd == (this.$store.state.authMessage.email)) {
+  //   this.accountNumberMag = this.$t('不可输入团长账号')
+  //   return false
+  // }
+  if (this.accountAdd == (this.userNameAdd)) {
+    this.accountNumberMag = this.$t('不可输入团长账号')
     return false
   }
 
   //如果既不是邮箱格式也不是手机格式
-  if (!this.$globalFunc.emailOrMobile(this.account1)) {
+  if (!this.$globalFunc.emailOrMobile(this.accountAdd)) {
     this.accountNumberMag = this.$t('register.userNameWA_0')
     return false
   }
@@ -450,6 +474,20 @@ root.methods.advanceProportion = function () {
   return true
 }
 
+// 修改比例输入
+root.methods.advanceModifyProportion = function () {
+  this.verificationproportionModify = true
+
+  if (this.proportionModify === '') {
+    this.proportionModifyMag = this.$t('分佣比例不可为空')
+    return false
+  }
+
+  this.proportionModifyMag = ''
+  return true
+}
+
+
 // 获取焦点后关闭placheholder
 root.methods.closePlaceholder = function (type) {
   // alert(type);
@@ -461,11 +499,14 @@ root.methods.closePlaceholder = function (type) {
   if(type == 'proportion'){
     this.verificationCodePlaceholderShow = false;
   }
+  if(type == 'proportionModify'){
+    this.verificationproportionModify = false;
+  }
 
 
 }
 
-//设置成员折扣(params:{})
+//添加组织成员折扣(params:{})
 root.methods.postSetMember = function () {
 
   let canSend = true
@@ -477,10 +518,11 @@ root.methods.postSetMember = function () {
   // canSend = this.testPsw() && canSend
   // canSend = this.testReferee() && canSend
   // 请输入拼团名称
-  if (this.account1 === '') {
+  if (this.accountAdd === '') {
     this.accountNumberMag = this.$t('账号不可为空')
     canSend = false
   }
+
   if (this.valuegender === '') {
     this.valuegenderMag = this.$t('职位不可为空')
     canSend = false
@@ -495,10 +537,10 @@ root.methods.postSetMember = function () {
 
   // TODO : 加变量的非空判断 正则判断
   let params = {
-    account: this.account1,
+    account: this.accountAdd,
     groupId: this.groupId,
     disCount: this.proportion / 100,
-    idType: this.valuegender == '教官'?4:5
+    idType: this.idTypeValue
   }
   console.log("postJoinGroup + params ===== ",params)
   /* TODO : 调试接口需要屏蔽 S*/
@@ -522,6 +564,10 @@ root.methods.re_postSetMember = function (data) {
     if (
       data.errorCode == 1 && (this.popText = this.$t('账户不存在')) ||//账户不存在
       data.errorCode == 2 && (this.popText = this.$t('设置折扣值大于团长剩余折扣')) || // 设置折扣值大于团长剩余折扣
+      data.errorCode == 3 && (this.popText = this.$t('团长职位不能修改')) || // 团长职位不能修改
+      data.errorCode == 4 && (this.popText = this.$t('成员类型有误')) || // 成员类型有误
+      data.errorCode == 5 && (this.popText = this.$t('联席团长职位不可更换')) || // 联席团长职位不可更换
+      data.errorCode == 6 && (this.popText = this.$t('设置比例折扣不能为0')) || // 设置比例折扣不能为0
       data.errorCode == 400 && (this.popText = this.$t('parameter_error')) //参数有误
     ) {
       this.popOpen = true
@@ -535,10 +581,12 @@ root.methods.re_postSetMember = function (data) {
   if (this.success == true) {
     this.popOpen = true
     this.popType = 1
-    this.popText = this.$t('设置成功') //'设置成功'
+    this.popText = this.$t('添加成功') //'添加成功'
     setTimeout(() => {
       this.popOpen = true
-      this.getImportantMembers()
+      this.getGroupDiscount(this.groupId)
+      this.getImportantMembers(this.groupId)
+      this.getMemberList(this.groupId)
       this.organizationSetUpComponent=false
     }, 1000)
     return;
@@ -550,19 +598,15 @@ root.methods.error_postSetMember = function (err) {
 }
 
 
-//bianji成员折扣(params:{})
-root.methods.postSetMember1 = function () {
+//修改成员折扣(params:{})
+root.methods.postModifyMember = function () {
 
   let canSend = true
-  // 判断用户名
-  // canSend = this.testName_0() && canSend
-  canSend = this.advanceProportion() && canSend
-  // canSend = this.testPswConfirm() && canSend
-  // canSend = this.testPsw() && canSend
-  // canSend = this.testReferee() && canSend
+
+  canSend = this.advanceModifyProportion() && canSend
   // 请输入拼团名称
 
-  if (this.proportion == '') {
+  if (this.proportionModify == '') {
     this.proportionMag = this.$t('比例不可为空')
   }
   if (!canSend) {
@@ -574,8 +618,8 @@ root.methods.postSetMember1 = function () {
   let params = {
     account: this.account,
     groupId: this.groupId,
-    disCount: this.proportion / 100,
-    idType: this.valuegender == '教官'?4:5
+    disCount: this.proportionModify / 100,
+    idType: this.idType
   }
   console.log("postJoinGroup + params ===== ",params)
   /* TODO : 调试接口需要屏蔽 S*/
@@ -584,11 +628,11 @@ root.methods.postSetMember1 = function () {
   this.$http.send('POST_SET_MEMBER', {
     bind: this,
     params: params,
-    callBack: this.re_postSetMember1,
-    errorHandler: this.error_postSetMember1
+    callBack: this.re_postModifyMember,
+    errorHandler: this.error_postModifyMember
   })
 }
-root.methods.re_postSetMember1 = function (data) {
+root.methods.re_postModifyMember = function (data) {
   console.log("this.res=====",data)
   typeof data === 'string' && (data = JSON.parse(data))
 
@@ -599,6 +643,10 @@ root.methods.re_postSetMember1 = function (data) {
     if (
       data.errorCode == 1 && (this.popText = this.$t('账户不存在')) ||//账户不存在
       data.errorCode == 2 && (this.popText = this.$t('设置折扣值大于团长剩余折扣')) || // 设置折扣值大于团长剩余折扣
+      data.errorCode == 3 && (this.popText = this.$t('团长职位不能修改')) || // 团长职位不能修改
+      data.errorCode == 4 && (this.popText = this.$t('成员类型有误')) || // 成员类型有误
+      data.errorCode == 5 && (this.popText = this.$t('联席团长职位不可更换')) || // 联席团长职位不可更换
+      data.errorCode == 6 && (this.popText = this.$t('设置比例折扣不能为0')) || // 设置比例折扣不能为0
       data.errorCode == 400 && (this.popText = this.$t('parameter_error')) //参数有误
     ) {
       this.popOpen = true
@@ -612,17 +660,21 @@ root.methods.re_postSetMember1 = function (data) {
   if (this.success == true) {
     this.popOpen = true
     this.popType = 1
-    this.popText = this.$t('设置成功') //'设置成功'
+    this.popText = this.$t('修改成功') //'修改成功'
     setTimeout(() => {
       this.popOpen = true
-      this.getImportantMembers()
-      this.organizationSetUpComponent=false
+
+      this.getGroupDiscount(this.groupId)
+      this.getImportantMembers(this.groupId)
+      this.getMemberList(this.groupId)
+
+      this.organizationModifyComponent=false
     }, 1000)
     return;
   }
 
 }
-root.methods.error_postSetMember1 = function (err) {
+root.methods.error_postModifyMember = function (err) {
   console.log("this.err=====",err)
 }
 
@@ -661,6 +713,8 @@ root.methods.re_postModifyDiscount = function (data) {
   if (data.errorCode) {
     if (
       data.errorCode == 1 && (this.popText = this.$t('该账户不存在于本团')) ||//账户不存在
+      data.errorCode == 2 && (this.popText = this.$t('团长职位不可删除')) ||//团长职位不可删除
+      data.errorCode == 3 && (this.popText = this.$t('联席团长职位不可删除')) ||//联席团长职位不可删除
       data.errorCode == 400 && (this.popText = this.$t('账户不能为空')) //参数有误
     ) {
       this.popOpen = true
@@ -677,7 +731,9 @@ root.methods.re_postModifyDiscount = function (data) {
     this.popText = this.$t('降级成功') //'降级成功'
     setTimeout(() => {
       this.popOpen = true
+      this.getGroupDiscount(this.groupId)
       this.getImportantMembers(this.groupId)
+      this.getMemberList(this.groupId)
       this.popWindowOpenDelete=false
     }, 1000)
     return;
