@@ -273,6 +273,21 @@ root.methods.re_postWithdraw = function (data) {
     }
   }
 
+
+  if (this.success == true && this.idType == 4 || this.idType == 5) {
+    this.popOpen = true
+    this.popType = 1
+    this.popText = this.$t('success') //'退出拼团成功'
+    setTimeout(() => {
+      this.popOpen = true
+    }, 1000)
+    if (!this.isMobile) {
+      setTimeout(() => {
+        this.$router.push({name: 'assembleARegiment'})
+      }, 1000)
+      return;
+    }
+  }
   if (this.success == true && this.idType == 1) {
     this.popOpen = true
     this.popType = 1
