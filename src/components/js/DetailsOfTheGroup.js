@@ -17,6 +17,7 @@ root.data = function () {
 
     deputyAccount:'',//副团账号
     idType:'', //团员类型  1：团长，2：副团，3：普通成员
+    ModifyidType:'', //修改团员类型  1：团长，2：副团，3：普通成员
     priAccount:'',  //团长账号
     joinTime:'',  //入团时间
     quantDiscount:'',  //量化手续费折扣
@@ -425,7 +426,7 @@ root.methods.re_getGroupDiscount = function (data) {
   typeof data === 'string' && (data = JSON.parse(data))
   // this.records = data.data.data
 
-  this.surplusDiscountAccuracy = data.data.surplusDiscount * 10 //团长剩余折扣  处理丢精度问题
+  this.surplusDiscountAccuracy = data.data.surplusDiscount * 10 //团长剩余折扣
   this.surplusDiscount = this.surplusDiscountAccuracy * 10 //团长剩余折扣
 }
 root.methods.error_getGroupDiscount = function (err) {
@@ -764,7 +765,7 @@ root.methods.re_getEditMember = function (data) {
   typeof data === 'string' && (data = JSON.parse(data))
   // this.records = data.data.data
 
-  this.idType = data.data.idType
+  this.ModifyidType = data.data.idType
   this.discount = data.data.discount
   this.id = data.data.id
   // this.userId1 = data.data.userId
