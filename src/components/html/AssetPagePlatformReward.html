@@ -41,14 +41,17 @@
 <!--              <span class="type">数据</span>-->
 <!--              formatDateUitl-->
 <!--              数量-->
-              <span class="total">{{toFixed(item.amount,2)}}</span>
+              <span class="total">{{toFixed(item.amount,8)}}</span>
 <!--              类型-->
-              <span class="address address-detail">{{item.source=='EXCHANGE'? $t('assetPagePlatformReward.firstExchange') : $t('assetPagePlatformReward.realName')}}</span>
+              <span class="address address-detail" v-if="item.source=='EXCHANGE'">{{$t('assetPagePlatformReward.firstExchange')}}</span>
+              <span class="address address-detail" v-if="item.source=='REALNAME'">{{$t('assetPagePlatformReward.realName')}}</span>
+              <span class="address address-detail" v-if="item.source=='GROUPWAGE'">{{ $t('团长工资')}}</span>
+              <span class="address address-detail" v-if="item.source=='GROUPRETCOMM'">{{ $t('团长返佣')}}</span>
 <!--              GRC量化活动-->
 <!--              {{item.descritption}}-->
               <span class="state">
 <!--                已发放-->
-                {{item.status == 'SUCCESS'? $t('assetPageWithdrawalsRecord.success'):$t('assetPageWithdrawalsRecord.state_4')}}
+                {{item.status == 'DONE'? $t('assetPageWithdrawalsRecord.success'):$t('assetPageWithdrawalsRecord.state_4')}}
 <!--                {{$t('assetPageWithdrawalsRecord.Issued')}}-->
               </span>
 <!--              <span class="th-prompt">-&#45;&#45;</span>-->
