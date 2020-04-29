@@ -620,7 +620,7 @@ root.methods.postModifyMember = function () {
     account: this.account,
     groupId: this.groupId,
     disCount: this.proportionModify / 100,
-    idType: this.idType
+    idType: this.ModifyidType
   }
   console.log("postJoinGroup + params ===== ",params)
   /* TODO : 调试接口需要屏蔽 S*/
