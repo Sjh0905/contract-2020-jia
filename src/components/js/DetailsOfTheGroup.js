@@ -564,7 +564,7 @@ root.methods.re_postSetMember = function (data) {
   if (data.errorCode) {
     if (
       data.errorCode == 1 && (this.popText = this.$t('账户不存在')) ||//账户不存在
-      data.errorCode == 2 && (this.popText = this.$t('设置折扣值大于团长剩余折扣')) || // 设置折扣值大于团长剩余折扣
+      data.errorCode == 2 && (this.popText = this.$t('团长剩余比例不足')) || // 团长剩余比例不足
       data.errorCode == 3 && (this.popText = this.$t('团长职位不能修改')) || // 团长职位不能修改
       data.errorCode == 4 && (this.popText = this.$t('成员类型有误')) || // 成员类型有误
       data.errorCode == 5 && (this.popText = this.$t('联席团长职位不可更换')) || // 联席团长职位不可更换
@@ -644,7 +644,7 @@ root.methods.re_postModifyMember = function (data) {
   if (data.errorCode) {
     if (
       data.errorCode == 1 && (this.popText = this.$t('账户不存在')) ||//账户不存在
-      data.errorCode == 2 && (this.popText = this.$t('设置折扣值大于团长剩余折扣')) || // 设置折扣值大于团长剩余折扣
+      data.errorCode == 2 && (this.popText = this.$t('团长剩余比例不足')) || // 团长剩余比例不足
       data.errorCode == 3 && (this.popText = this.$t('团长职位不能修改')) || // 团长职位不能修改
       data.errorCode == 4 && (this.popText = this.$t('成员类型有误')) || // 成员类型有误
       data.errorCode == 5 && (this.popText = this.$t('联席团长职位不可更换')) || // 联席团长职位不可更换
@@ -730,7 +730,7 @@ root.methods.re_postModifyDiscount = function (data) {
   if (this.success == true) {
     this.popOpen = true
     this.popType = 1
-    this.popText = this.$t('降级成功') //'降级成功'
+    this.popText = this.$t('移除成功') //'移除成功'
     setTimeout(() => {
       this.popOpen = true
       this.getGroupDiscount(this.groupId)
