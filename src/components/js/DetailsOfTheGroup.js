@@ -582,13 +582,14 @@ root.methods.re_postSetMember = function (data) {
   if (this.success == true) {
     this.popOpen = true
     this.popType = 1
-    this.popText = this.$t('添加成功') //'添加成功'
+    this.popText = this.$t('添加/修改成功') //'添加成功'
     setTimeout(() => {
       this.popOpen = true
       this.getGroupDiscount(this.groupId)
       this.getImportantMembers(this.groupId)
       this.getMemberList(this.groupId)
       this.organizationSetUpComponent=false
+
     }, 1000)
     return;
   }
@@ -757,6 +758,7 @@ root.methods.getEditMember= function (id) {
     callBack: this.re_getEditMember,
     errorHandler: this.error_getEditMember
   })
+  this.proportionModify=''
   this.organizationModifyComponent = true
 }
 root.methods.re_getEditMember = function (data) {
@@ -803,6 +805,9 @@ root.methods.organizationSetUpComponentClose = function () {
 
 //组织成员添加
 root.methods.organizationDeletion = function () {
+  this.accountAdd = ''
+  this.valuegender = ''
+  this.proportion = ''
   this.organizationSetUpComponent = true
 }
 

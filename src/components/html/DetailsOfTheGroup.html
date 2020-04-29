@@ -137,9 +137,9 @@
     <div class="list_directory" v-if="idType=='1'">
 
       <div class="list_directory_column">
-        <div class="list_Member">{{$t('组织成员')}}</div>
+        <div class="list_Member">{{$t('Organization')}}</div>
         <div class="list_Member_column">
-          <img class="AddMember pointer" @click="organizationDeletion" src="../../assets/AddMember.png" alt=""><span class="member_span pointer" @click="organizationDeletion">{{$t('添加重要成员')}}</span>
+          <img class="AddMember pointer" @click="organizationDeletion" src="../../assets/AddMember.png" alt=""><span class="member_span pointer" @click="organizationDeletion">{{$t('AddOrganization')}}</span>
         </div>
       </div>
 
@@ -149,26 +149,26 @@
           <!--          序号-->
           <div class="list_directory_column_li_div color_a2">{{$t('accountNumber')}}</div>
           <!--          账号-->
-          <div class="list_directory_column_li_div color_a2">{{$t('职位')}}</div>
+          <div class="list_directory_column_li_div color_a2">{{$t('Position')}}</div>
           <!--          职位-->
-          <div class="list_directory_column_li_div color_a2 p-l">{{$t('分佣比例')}}</div>
+          <div class="list_directory_column_li_div color_a2 p-l">{{$t('Proportion')}}</div>
           <!--          加入时间-->
-          <div class="list_directory_column_li_dii color_a2">{{$t('操作')}}</div>
+          <div class="list_directory_column_li_dii color_a2">{{$t('Operation')}}</div>
         </li>
 
         <!--     序号   账号  职位 加入时间-->
         <li class="directoryOrganization" v-for="(item,index) in computedImportantMembers" :key="item.id">
           <div class="list_directory_column_li_div">{{$globalFunc.formatUserName(item.account)}}</div>
-          <div class="list_directory_column_li_div" v-if="item.idType==1">{{$t('团长')}}</div>
-          <div class="list_directory_column_li_div" v-if="item.idType==2">{{$t('联席团长')}}</div>
-          <div class="list_directory_column_li_div" v-if="item.idType==3">{{$t('团长')}}</div>
-          <div class="list_directory_column_li_div" v-if="item.idType==4">{{$t('教官')}}</div>
-          <div class="list_directory_column_li_div" v-if="item.idType==5">{{$t('副团长')}}</div>
+          <div class="list_directory_column_li_div" v-if="item.idType==1">{{$t('Head')}}</div>
+          <div class="list_directory_column_li_div" v-if="item.idType==2">{{$t('JointHead')}}</div>
+          <div class="list_directory_column_li_div" v-if="item.idType==3">{{$t('League')}}</div>
+          <div class="list_directory_column_li_div" v-if="item.idType==4">{{$t('Instructors')}}</div>
+          <div class="list_directory_column_li_div" v-if="item.idType==5">{{$t('delegation')}}</div>
           <div class="list_directory_column_li_div p-l" v-if="item.idType==1">{{toFixed(surplusDiscount,2)}}%</div>
           <div class="list_directory_column_li_div p-l" v-if="item.idType!=1">{{toFixed((item.discount * 100),2)}}%</div>
           <div class="list_directory_column_li_dii m-r">
-              <span class="directory_Modify_span pointer" v-if="item.idType != 1" @click="getEditMember(item.id)">修改</span>
-              <span class="directory_Modify_span pointer" v-if="item.idType == 4 || item.idType == 5" @click="organizationDelete(item)">删除</span>
+              <span class="directory_Modify_span pointer" v-if="item.idType != 1" @click="getEditMember(item.id)">{{$t('Modify')}}</span>
+              <span class="directory_Modify_span pointer" v-if="item.idType == 4 || item.idType == 5" @click="organizationDelete(item)">{{$t('remove')}}</span>
           </div>
         </li>
 
@@ -413,11 +413,11 @@
   <PopupWindow :switch="organizationSetUpComponent" @close="organizationSetUpComponentClose">
 
     <div slot="header" class="zhuanzhang">
-      <span class="">{{$t('设置成员')}}</span>
+      <span class="">{{$t('添加/修改成员')}}</span>
     </div>
     <div slot="article" class="Internal_siding">
 
-      <p class="Internal_siding_email m-t">{{$t('账号（账号必须是该团队成员）')}}</p>
+      <p class="Internal_siding_email m-t">{{$t('账号（账号必须是该拼团成员）')}}</p>
 <!--      <input class="input_input" type="text" :placeholder='pswPlaceholderShow && $t("deletePopCancel2") || ""' v-model="name_0"-->
 <!--             @focus="closePlaceholder('userName')"-->
 <!--             @blur="testName_0">-->
@@ -537,12 +537,13 @@
   <!-- 删除组织成员弹框-->
   <PopupWindow :switch="popWindowOpenDelete" @close="popWindowOpenDeleteClose">
     <div slot="header">
-      <span class="header_xuzhi">{{$t('prompt')}}</span>
+      <span class="header_xuzhi">{{$t('移除提示')}}</span>
     </div>
     <div slot="article" class="pop-recharge">
       <!--      请确认是否解散-->
-      <p class="consequences" v-if="delItem.idType == '4'">{{$t('是否降级该')}} <span class="consequencesSpan">教官</span></p>
-      <p class="consequences" v-if="delItem.idType == '5'">{{$t('是否降级该')}} <span class="consequencesSpan">副团长</span></p>
+      <p class="consequences" v-if="delItem.idType == '4'">{{$t('是否移除该')}} <span class="consequencesSpan">教官</span></p>
+      <p class="consequences" v-if="delItem.idType == '5'">{{$t('是否移除该')}} <span class="consequencesSpan">副团长</span></p>
+      <p class="consequences">{{$t('移除后将恢复为普通成员身份')}}</p>
     </div>
     <div slot="footer" class="pop-recharge-bottom">
       <button @click="popWindowOpenDeleteClose" class="button-base33 btn_simple pointer">

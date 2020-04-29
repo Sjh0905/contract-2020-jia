@@ -106,7 +106,19 @@
 
   "invalid":"团长账号无效",
   "enter":"请输入团长账号",
-  "entertuan":"所需团费"
+  "entertuan":"所需团费",
+  "Organization":"组织成员",
+  "AddOrganization":"添加/修改组织成员",
+  "Position":"职位",
+  "Proportion":"分佣比例",
+  "Operation":"操作",
+  "JointHead": "联席团长",
+  "Instructors":"教官",
+  "Modify":"修改",
+  "remove":"移除",
+  "League":"团员",
+  "delegation":"副团长",
+  "Head":"团长"
 },
 "EN": {
   "dissolve":"Dissolve the regiment",
@@ -238,6 +250,20 @@
   "invalid":"團長帳號無效",
   "enter":"請輸入團長帳號",
 
-  "entertuan":"所需團費"
+  "entertuan":"所需團費",
+
+
+  "Organization":"組織成員",
+  "AddOrganization":"添加/修改組織成員",
+  "Position":"職位",
+  "Proportion":"分傭比例",
+  "Operation":"操作",
+  "JointHead": "聯席團長",
+  "Instructors":"教官",
+  "Modify":"修改",
+  "remove":"移除",
+  "League":"團員",
+  "delegation":"副團長",
+  "Head":"團長"
 }
 }
