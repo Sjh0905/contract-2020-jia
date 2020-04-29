@@ -413,15 +413,15 @@
   <PopupWindow :switch="organizationSetUpComponent" @close="organizationSetUpComponentClose">
 
     <div slot="header" class="zhuanzhang">
-      <span class="">{{$t('添加/修改成员')}}</span>
+      <span class="">{{$t('AddModifyMembers')}}</span>
     </div>
     <div slot="article" class="Internal_siding">
 
-      <p class="Internal_siding_email m-t">{{$t('账号（账号必须是该拼团成员）')}}</p>
+      <p class="Internal_siding_email m-t">{{$t('must')}}</p>
 <!--      <input class="input_input" type="text" :placeholder='pswPlaceholderShow && $t("deletePopCancel2") || ""' v-model="name_0"-->
 <!--             @focus="closePlaceholder('userName')"-->
 <!--             @blur="testName_0">-->
-      <input class="input_input" type="text" :placeholder='pswPlaceholderShow && $t("输入添加账号") || ""'
+      <input class="input_input" type="text" :placeholder='pswPlaceholderShow && $t("Enter") || ""'
              v-model="accountAdd"
              @focus="closePlaceholder('account')"
              @blur="advanceAccountNumber()">
@@ -429,14 +429,14 @@
         <span v-if="accountNumberMag !=''" class="prompt-span wrong-msg">{{accountNumberMag}}</span>
       </div>
 
-      <p class="Internal_siding_email">职位</p>
+      <p class="Internal_siding_email">{{$t('Position')}}</p>
 <!--      <input class="input_input"  type="text"-->
 <!--             :placeholder='pswPlaceholderShow && $t("deletePopCancel3") || ""' v-model="testUID_0"-->
 <!--             @focus="closePlaceholder('psw')"-->
 <!--             @blur="testUID_01()">-->
       <div class="select-position" >
         <template>
-          <el-select v-model="valuegender" name="gender" :placeholder='$t("请输入职位")' class="input-inner-gender" @change="changeIdTypeValue">
+          <el-select v-model="valuegender" name="gender" :placeholder='$t("PleaseEnter")' class="input-inner-gender" @change="changeIdTypeValue">
             <el-option
               v-for="item in optionsgender"
               :key="item.value"
@@ -451,15 +451,15 @@
         <span v-if="valuegenderMag!=''" class="prompt-span wrong-msg">{{valuegenderMag}}</span>
       </div>
       <div class="Internal_siding_email">
-        <span>{{$t('设置比例')}}</span>
+        <span>{{$t('scale')}}</span>
 <!--        <span class="email_span">{{$t('Number2')}}{{transferCurrency}}{{$t('Number3')}}{{dayMaxAmount}}</span>-->
       </div>
       <div class="input_input">
-        <input class="proportion" type="text" :placeholder='$t("输入分佣比例") || ""' v-model="proportion"
+        <input class="proportion" type="text" :placeholder='$t("percentage") || ""' v-model="proportion"
                @focus="closePlaceholder('proportion')"
                @blur="advanceProportion()"
                step="1"  min="0" onkeyup="this.value= this.value.match(/\d+(\.\d{0,2})?/) ? this.value.match(/\d+(\.\d{0,2})?/)[0] : ''">
-        <span class="proportionSpan">团长剩余比例 <span class="percentageSpan">{{toFixed(surplusDiscount,2)}}%</span></span>
+        <span class="proportionSpan">{{$t('delegationRemaining')}} <span class="percentageSpan">{{toFixed(surplusDiscount,2)}}%</span></span>
       </div>
 
       <div class="whit_0">
@@ -469,8 +469,8 @@
       <div slot="footer">
 <!--        <button class="Internal_siding_email1 pointer" @click="GoToConfirmTransfer()">{{$t('Number5')}}</button>-->
         <div class="textRight">
-          <span class="Internal_siding_Cancel pointer" @click="organizationSetUpComponentClose">{{$t('取消')}}</span>
-          <span class="Internal_siding_email1 pointer" @click="postSetMember()">{{$t('确认')}}</span>
+          <span class="Internal_siding_Cancel pointer" @click="organizationSetUpComponentClose">{{$t('cancel')}}</span>
+          <span class="Internal_siding_email1 pointer" @click="postSetMember()">{{$t('verification1')}}</span>
         </div>
       </div>
 
@@ -482,11 +482,11 @@
   <PopupWindow :switch="organizationModifyComponent" @close="organizationModifyComponentClose">
 
     <div slot="header" class="zhuanzhang">
-      <span class="">{{$t('编辑')}}</span>
+      <span class="">{{$t('EditNum')}}</span>
     </div>
     <div slot="article" class="Internal_siding">
 
-      <p class="Internal_siding_email m-t">{{$t('账号')}}</p>
+      <p class="Internal_siding_email m-t">{{$t('Edit')}}</p>
       <!--      <input class="input_input" type="text" :placeholder='userNamePlaceholderShow && $t("deletePopCancel2") || ""' v-model="name_0"-->
       <!--             @focus="closePlaceholder('userName')"-->
       <!--             @blur="testName_0">-->
@@ -495,27 +495,27 @@
         <!--        <span v-if="nameWA_0==='0'" class="prompt-span wrong-msg">{{nameMsg_0}}</span>-->
       </div>
 
-      <p class="Internal_siding_email">职位</p>
+      <p class="Internal_siding_email">{{$t('Position')}}</p>
       <!--      <input class="input_input"  type="text"-->
       <!--             :placeholder='pswPlaceholderShow && $t("deletePopCancel3") || ""' v-model="testUID_0"-->
       <!--             @focus="closePlaceholder('psw')"-->
       <!--             @blur="testUID_01()">-->
-      <div class="Internal_siding_div" v-if="ModifyidType == 2">联席团长</div>
-      <div class="Internal_siding_div" v-if="ModifyidType == 4">教官</div>
-      <div class="Internal_siding_div" v-if="ModifyidType == 5">副团长</div>
+      <div class="Internal_siding_div" v-if="ModifyidType == 2">{{$t('JointHead')}}</div>
+      <div class="Internal_siding_div" v-if="ModifyidType == 4">{{$t('Instructors')}}</div>
+      <div class="Internal_siding_div" v-if="ModifyidType == 5">{{$t('delegation')}}</div>
       <div class="whit_0">
         <!--        <span v-if="testUID_012==='0'" class="prompt-span wrong-msg">{{testUIDMsg_0}}</span>-->
       </div>
       <div class="Internal_siding_email">
-        <span>{{$t('设置比例')}}</span>
+        <span>{{$t('scale')}}</span>
         <!--        <span class="email_span">{{$t('Number2')}}{{transferCurrency}}{{$t('Number3')}}{{dayMaxAmount}}</span>-->
       </div>
       <div class="input_input">
-        <input class="proportion" type="text" :placeholder='$t("输入分佣比例") || ""'v-model="proportionModify"
+        <input class="proportion" type="text" :placeholder='$t("percentage") || ""'v-model="proportionModify"
                @focus="closePlaceholder('proportionModify')"
                @blur="advanceProportion()"
                step="1"  min="0" onkeyup="this.value= this.value.match(/\d+(\.\d{0,2})?/) ? this.value.match(/\d+(\.\d{0,2})?/)[0] : ''">
-        <span class="proportionSpan">团长剩余比例 <span class="percentageSpan">{{toFixed(surplusDiscount,2)}}%</span></span>
+        <span class="proportionSpan">{{$t('delegationRemaining')}} <span class="percentageSpan">{{toFixed(surplusDiscount,2)}}%</span></span>
       </div>
 
       <div class="whit_0">
@@ -525,8 +525,8 @@
       <div slot="footer">
         <!--        <button class="Internal_siding_email1 pointer" @click="GoToConfirmTransfer()">{{$t('Number5')}}</button>-->
         <div class="textRight">
-          <span class="Internal_siding_Cancel pointer" @click="organizationModifyComponentClose">{{$t('取消')}}</span>
-          <span class="Internal_siding_email1 pointer" @click="postModifyMember">{{$t('确认')}}</span>
+          <span class="Internal_siding_Cancel pointer" @click="organizationModifyComponentClose">{{$t('cancel')}}</span>
+          <span class="Internal_siding_email1 pointer" @click="postModifyMember">{{$t('verification1')}}</span>
         </div>
       </div>
 
@@ -537,13 +537,13 @@
   <!-- 删除组织成员弹框-->
   <PopupWindow :switch="popWindowOpenDelete" @close="popWindowOpenDeleteClose">
     <div slot="header">
-      <span class="header_xuzhi">{{$t('移除提示')}}</span>
+      <span class="header_xuzhi">{{$t('RemovePrompt')}}</span>
     </div>
     <div slot="article" class="pop-recharge">
       <!--      请确认是否解散-->
-      <p class="consequences" v-if="delItem.idType == '4'">{{$t('是否移除该')}} <span class="consequencesSpan">教官</span></p>
-      <p class="consequences" v-if="delItem.idType == '5'">{{$t('是否移除该')}} <span class="consequencesSpan">副团长</span></p>
-      <p class="consequences">{{$t('移除后将恢复为普通成员身份')}}</p>
+      <p class="consequences" v-if="delItem.idType == '4'">{{$t('want')}} <span class="consequencesSpan">{{$t('Instructors')}}</span></p>
+      <p class="consequences" v-if="delItem.idType == '5'">{{$t('want')}} <span class="consequencesSpan">{{$t('delegation')}}</span></p>
+      <p class="consequences">{{$t('After')}}</p>
     </div>
     <div slot="footer" class="pop-recharge-bottom">
       <button @click="popWindowOpenDeleteClose" class="button-base33 btn_simple pointer">

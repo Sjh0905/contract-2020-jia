@@ -118,7 +118,40 @@
   "remove":"移除",
   "League":"团员",
   "delegation":"副团长",
-  "Head":"团长"
+  "Head":"团长",
+
+
+  "AddModifyMembers":"添加/修改成员",
+  "must":"账号（账号必须是该团队成员）",
+  "Enter": "输入添加/修改账号",
+  "PleaseEnter":"请输入职位",
+  "scale":"设置比例",
+  "percentage":"输入分佣比例",
+  "delegationRemaining":"团长剩余比例",
+  "EditNum":"编辑",
+  "Edit":"账号",
+  "RemovePrompt":"移除提示",
+  "want":"是否移除该",
+  "After":"移除后将恢复为普通成员身份",
+
+
+  "cannot":"账号不可为空",
+  "colonelEntered":"不可输入团长账号",
+  "empty":"分佣比例不可为空",
+  "be-empty":"职位不可为空",
+  "The-proportion":"分佣比例不可为空",
+  "exist":"账户不存在",
+  "insufficient":"团长剩余比例不足",
+  "modified":"团长职位不能修改",
+  "Wrong":"成员类型有误",
+  "changed":"联席团长职位不可更换",
+  "Setting":"设置比例折扣不能为0",
+  "Successfully":"添加/修改成功",
+  "Modification":"修改成功",
+  "does":"该账户不存在于本团",
+  "deleted":"团长职位不可删除",
+  "joint-head":"联席团长职位不可删除",
+  "Removal-successful":"移除成功"
 },
 "EN": {
   "dissolve":"Dissolve the regiment",
@@ -264,6 +297,40 @@
   "remove":"移除",
   "League":"團員",
   "delegation":"副團長",
-  "Head":"團長"
+  "Head":"團長",
+
+
+
+  "AddModifyMembers":"添加/修改成員",
+  "must":"帳號(账號必須是該團隊成員)",
+  "Enter": "輸入添加/修改帳號",
+  "PleaseEnter":"請輸入職位",
+  "scale":"設置比例",
+  "percentage":"輸入分傭比例",
+  "delegationRemaining":"團長剩餘比例",
+  "EditNum":"編輯",
+  "Edit":"帳號",
+  "RemovePrompt":"移除提示",
+  "want":"是否移除該",
+  "After":"移除後將恢復為普通成員身份",
+
+
+  "cannot":"帳號不可為空",
+  "colonelEntered":"不可輸入團長账號",
+  "empty":"分傭比例不可為空",
+  "be-empty":"職位不可為空",
+  "The-proportion":"分傭比例不可為空",
+  "exist":"帳戶不存在",
+  "insufficient":"團長剩餘比例不足",
+  "modified":"團長職位不能修改",
+  "Wrong":"成員類型有誤",
+  "changed":"聯席團長職位不可更換",
+  "Setting":"設置比例折扣不能為0",
+  "Successfully":"添加/修改成功",
+  "Modification":"修改成功",
+  "does":"該帳戶不存在於本團",
+  "deleted":"團長職位不可刪除",
+  "joint-head":"聯席團長職位不可刪除",
+  "Removal-successful":"移除成功"
 }
 }
