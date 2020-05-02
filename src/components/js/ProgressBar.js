@@ -423,7 +423,7 @@ root.methods.RE_SET_PRICE = function (price) {
 }
 // 根据买卖设置买卖amount
 root.methods.RE_SET_AMOUNT = function (obj) {
-  console.info('orderType===============',amount)
+  // console.log('orderType===============',amount)
   if (obj.type == this.orderType) {
     this.amount = obj.amount;
   }
