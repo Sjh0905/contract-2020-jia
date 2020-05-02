@@ -18,6 +18,7 @@ root.data = () => {
     totalAmount:'', //挖矿总数
     reward:'',     //挖矿奖励
     createdate:'',    //挖矿日期
+    currentMaxMining:'',    //今日最大挖矿量
     quantStartEndTime:'',     //量化起止时间
     fut_amt:'',    //配套总量
     miningProgress:'',   //挖矿进度 0.95
@@ -362,11 +363,12 @@ root.methods.re_getQuantifyBasicInformation = function (data) {
   this.miningProgress = data.data.recode.miningProgress * 10 //挖矿进度 0.95
   this.doSendReward = data.data.recode.doSendReward  //已释放的矿源奖励
   this.fdesc = data.data.recode.fdesc  //已释放的矿源奖励
+  this.currentMaxMining = data.data.recode.currentMaxMining  //今日最大挖矿量
   this.numminingProgress = this.$globalFunc.accFixed((this.miningProgress * 10),2)
 
   // this.recode2 == data.data.recode
   // console.log('this.numminingProgress======',this.$globalFunc.accFixed((0.9999 * 100),2))
-  console.info('this.recode2=========',this.recode2)
+  console.info('this.recode2=========',this.currentMaxMining)
 }
 root.methods.error_getQuantifyBasicInformation = function (err) {
   console.log("this.error_getQuantifyBasicInformation=====",err)
