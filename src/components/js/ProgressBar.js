@@ -13,6 +13,7 @@ root.watch = {}
 // 观察货币对是否更改
 root.computed.symbol = function () {
   return this.$store.state.symbol;
+  console.info('this.$store.state.symbol;',this.$store.state.symbol)
 }
 // 观察账户信息是否更改
 root.computed.watchCurrency = function () {
@@ -421,6 +422,7 @@ root.methods.RE_SET_PRICE = function (price) {
 }
 // 根据买卖设置买卖amount
 root.methods.RE_SET_AMOUNT = function (obj) {
+  console.log('orderType===============',amount)
   if (obj.type == this.orderType) {
     this.amount = obj.amount;
   }
@@ -692,13 +694,16 @@ root.methods.tradeMarket = function (popWindowOpen1,type) {
   // 如果当前是ETH市场的话，price*amount<0.01不允许提交
   // 如果当前是BDB市场的话，price*amount<100不允许提交
   let turnover = Number(this.price) * Number(this.amount);
+  let turnoverAamount = Number(this.amount);
   let miniVolume;
+  let maxAmount;
   let tradingParameters = this.$store.state.tradingParameters;
   for (var i = 0; i < tradingParameters.length; i++) {
     let item = tradingParameters[i];
     let name = item.name;
     if (name == this.$store.state.symbol) {
       miniVolume = item.miniVolume;
+      maxAmount = item.maxAmount;
     }
   }
   if (Number(turnover) < Number(miniVolume)) {
@@ -707,6 +712,23 @@ root.methods.tradeMarket = function (popWindowOpen1,type) {
     this.promptOpen = true;
     return;
   }
+
+  if (Number(maxAmount)>0) {
+    if ((Number(turnoverAamount)>Number(maxAmount))) {
+      this.popType = 0;
+      this.popText = this.lang == 'CH' ? '数量不能大于' + maxAmount : 'Quantity cannot be greater than' + maxAmount;
+      this.promptOpen = true;
+      return;
+
+    }
+  }
+
+  // if (Number(turnoverAamount) > Number(maxAmount)) {
+  //   this.popType = 0;
+  //   this.popText = this.lang == 'CH' ? '交易数量不能高于' + maxAmount : 'Minimum trading amount' + maxAmount;
+  //   this.promptOpen = true;
+  //   return;
+  // }
   // console.info(params);
   // return;
   this.$http.send('TRADE_ORDERS',
