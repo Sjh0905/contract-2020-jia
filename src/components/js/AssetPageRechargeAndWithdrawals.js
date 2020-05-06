@@ -185,6 +185,7 @@ root.computed.accountsComputed = function () {
     this.transferCurrencyObj[val.currency] = val;
   })
 
+
   return this.accounts
 }
 // 基础货币
