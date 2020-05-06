@@ -14,7 +14,7 @@
               </div>
               <div class="currency-total-assets">
                 <span class="total-assets">{{toFixed(accAdd(total,0.00000000),8)}} BTC</span>
-                <span> ≈ 0.00 CNY</span>
+                <span> ≈ {{toFixed(accAdd(valuation,0.00000000),8)}} CNY</span>
               </div>
             </div>
             <!--          按钮-->
@@ -49,7 +49,7 @@
           <!--      法币账户-->
           <div class="coin-account pointer" @click="goToBiBi()">
             <div class="my-wallet-title">
-              <img src="../../assets/overviewOfAssets/bibi_icon.png" alt="">
+              <img src="../../assets/overviewOfAssets/legal_tende_icon.png" alt="">
               <span>{{$t('coinAccount')}}</span>
             </div>
             <div class="my-wallet-number">
