@@ -41,12 +41,12 @@
     "capitalTransfer": "资金划转",
     "from": "从",
     "reach": "到",
-    "coinAccount": "币币账户",
+    "coinAccount": "法币账户",
     "myWallet": "我的钱包",
     "amount": "数量",
     "mentioning": "可提",
     "allMention": "全提",
-    "totalAsset": "币币账户资产估值",
+    "totalAsset": "法币账户资产估值",
     "TransferIsNotOpen": "该币种暂未开放划转功能，敬请期待！",
     "transferCurrencyWA": "请输入币种信息",
     "transferAmountWA": "请输入划转数量",
@@ -55,9 +55,9 @@
     "transferAmountWA3": "超出划转可用余额",
     "transferAmountWA4": "低于划转最小额",
     "transfer_describe": "什么是资金划转?",
-    "transfer_describe1": "我的钱包和币币账户之间的资产相互划转，称为资金划转。我的钱包资产可提现，币币账户资产可交易，即：",
-    "transfer_describe2": "A. 币币交易：需将资产从我的钱包划转到币币账户。",
-    "transfer_describe3": "B. 资产提现：需将资产从币币账户划转到我的钱包。"
+    "transfer_describe1": "我的钱包和法币账户之间的资产相互划转，称为资金划转。我的钱包资产可提现，法币账户资产可进行法币交易，即：",
+    "transfer_describe2": "A. 法币交易：需将资产从我的钱包划转到法币账户。",
+    "transfer_describe3": "B. 资产提现：需将资产从法币账户划转到我的钱包。"
   },
   "EN": {
     "currency": "Coin",
@@ -169,12 +169,12 @@
     "capitalTransfer": "資金劃轉",
     "from": "從",
     "reach": "到",
-    "coinAccount": "幣幣帳戶",
+    "coinAccount": "法幣帳戶",
     "myWallet": "我的錢包",
     "amount": "數量",
     "mentioning": "可提",
     "allMention": "全提",
-    "totalAsset": "幣幣帳戶資產估值",
+    "totalAsset": "法幣帳戶資產估值",
     "TransferIsNotOpen": "該幣種暫未開放劃轉功能，敬請期待！ ",
     "transferCurrencyWA": "請輸入幣種資訊",
     "transferAmountWA": "請輸入劃轉數量",
@@ -183,9 +183,9 @@
     "transferAmountWA3": "超出劃轉可用餘額",
     "transferAmountWA4": "低於劃轉最小額",
     "transfer_describe": "什麼是資金劃轉?",
-    "transfer_describe1": "我的錢包和幣幣帳戶之間的資產相互劃轉，稱為資金劃轉。 我的錢包資產可提現，幣幣帳戶資產可交易，即：",
-    "transfer_describe2": "A. 幣幣交易：需將資產從我的錢包劃轉到幣幣帳戶。 ",
-    "transfer_describe3": "B. 資產提現：需將資產從幣幣帳戶劃轉到我的錢包。 "
+    "transfer_describe1": "我的錢包和法幣帳戶之間的資產相互劃轉，稱為資金劃轉。 我的錢包資產可提現，法幣賬戶資產可進行法幣交易，即：",
+    "transfer_describe2": "A. 法幣交易：需將資產從我的錢包劃轉到法幣帳戶。 ",
+    "transfer_describe3": "B. 資產提現：需將資產從法幣帳戶劃轉到我的錢包。 "
 
   },
   "JP": {

@@ -132,18 +132,18 @@
     <div class="detail-title flex">
 
 <!--      &lt;!&ndash;资产概览 begin&ndash;&gt;-->
-<!--      <router-link to="/index/asset/overviewOfAssets" class="title-tab flex-center tab-item-first"-->
-<!--                   active-class="selected text_blue"-->
-<!--                   :class="lang!='CH'?'title-tab-en':''"-->
-<!--      >-->
-<!--&lt;!&ndash;        资产概览&ndash;&gt;-->
-<!--&lt;!&ndash;        Overview of assets&ndash;&gt;-->
-<!--        {{$t('assetPage.overviewOfAssets')}}-->
-<!--      </router-link>-->
+      <router-link to="/index/asset/overviewOfAssets" class="title-tab flex-center tab-item-first"
+                   active-class="selected text_blue"
+                   :class="lang!='CH'?'title-tab-en':''"
+      >
+<!--        资产概览-->
+<!--        Overview of assets-->
+        {{$t('assetPage.overviewOfAssets')}}
+      </router-link>
 <!--      &lt;!&ndash;资产概览 end&ndash;&gt;-->
 
       <!--我的钱包 begin-->
-      <router-link to="/index/asset/myWallet" class="title-tab flex-center"
+      <router-link to="/index/asset/myWallet" class="title-tab flex-center margin-a-little"
                    active-class="selected text_blue"
                    :class="lang!='CH'?'title-tab-en':''"
       >
@@ -152,15 +152,16 @@
 <!--        My wallet-->
       </router-link>
       <!--我的钱包 end-->
+      <!--      &lt;!&ndash;币币账户 begin&ndash;&gt;-->
+      <router-link to="/index/asset/rechargeAndWithdrawals" class="title-tab flex-center tab-item-first margin-a-little"
+                   active-class="selected text_blue"
+                   :class="lang!='CH'?'title-tab-en':''"
+      >
+        {{$t('assetPage.withdrawalsAndRecharge')}}
+      </router-link>
+      <!--      &lt;!&ndash;币币账户 end&ndash;&gt;-->
       <span class="line"></span>
-<!--      &lt;!&ndash;币币账户 begin&ndash;&gt;-->
-<!--      <router-link to="/index/asset/rechargeAndWithdrawals" class="title-tab flex-center tab-item-first"-->
-<!--                   active-class="selected text_blue"-->
-<!--                   :class="lang!='CH'?'title-tab-en':''"-->
-<!--      >-->
-<!--        {{$t('assetPage.withdrawalsAndRecharge')}}-->
-<!--      </router-link>-->
-<!--      &lt;!&ndash;币币账户 end&ndash;&gt;-->
+
 
 
 
