@@ -70,10 +70,10 @@
         <!--提现地址输入已选择，选择并且没有下拉的时候显示-->
         <div class="withdrawals-input" v-if="addressId!=-1 && !selectAddress">
           <div class="address-container flex">
-           <input class="input-remarks input-unify border-container" type="text"
-                   :placeholder="$t('placeholder_0')" v-model="description"
-                   @blur="blurInputAddress" readonly>
-            <span class="input-connect">-</span>
+<!--           <input class="input-remarks input-unify border-container" type="text"-->
+<!--                   :placeholder="$t('placeholder_0')" v-model="description"-->
+<!--                   @blur="blurInputAddress" readonly>-->
+<!--            <span class="input-connect">-</span>-->
             <div class="select-address-container border-container">
               <input class="input-address input-unify no-border" type="text"
                      :placeholder="$t('placeholder_1')" v-model="address"
@@ -95,16 +95,16 @@
 
 
       <!-- 选择地址 只有下拉的时候显示 begin -->
-      <ul class="select-address">
+      <ul class="select-address-add">
         <!--<transition-group name="selectAddress">-->
         <li class="address-container select-address-detail flex pointer relative"
             v-for="(item,index) in computedAddress"
             :key="item.id" v-if="selectAddress"
         >
           <div class="select-address-input-container flex" @click="clickAddress(item)">
-            <input class="input-remarks pointer input-unify hover-border border-container" type="text" readonly
-                   :value="item.description">
-            <span class="input-connect">-</span>
+<!--            <input class="input-remarks pointer input-unify hover-border border-container" type="text" readonly-->
+<!--                   :value="item.description">-->
+<!--            <span class="input-connect">-</span>-->
             <div class="select-address-container border-container flex hover-border">
               <input class="select-address-input select-address-memo-input pointer input-unify" type="text" readonly
                      :value="item.address">
