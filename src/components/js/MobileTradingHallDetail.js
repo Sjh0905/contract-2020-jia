@@ -635,14 +635,14 @@ root.methods.tradeMarket = function (popIdenOpen,type) {
   //   this.promptOpen = true;
   //   return;
   // }
-  if (Number(maxAmount)>0) {
-    if(Number(turnoverAmount) > (Number(maxAmount))) {
-      this.popType = 0;
-      this.popText = '数量不能大于' + maxAmount;
-      this.promptOpen = true;
-      return;
-    }
-  }
+  // if (Number(maxAmount)>0) {
+  //   if(Number(turnoverAmount) > (Number(maxAmount))) {
+  //     this.popType = 0;
+  //     this.popText = '数量不能大于' + maxAmount;
+  //     this.promptOpen = true;
+  //     return;
+  //   }
+  // }
 
 
   this.$http.send('TRADE_ORDERS',
@@ -685,6 +685,16 @@ root.methods.RE_ERROR = function (err) {
   if (message == 'user_cannot_trade') {
     // txt = '无法交易'
     this.toastOpen = true
+    return
+  }
+
+  if (message == 'ORDER_GRANTER_THAN_MAXAMOUNT') {
+    // txt = '无法交易'
+    // txt = '数量不能大于'+err_type.split("|")[1] || "最大值"
+    // this.toastOpen = true
+    this.popText = '数量不能大于'+err_type.split("|")[1] || "最大值";
+    this.popType = 0;
+    this.promptOpen = true;
     return
   }
 

@@ -247,6 +247,7 @@ root.created = function () {
   this.show_now_price();
 
   this.getKKPriceRange();
+  // this.tradeMarket()
 
 }
 
@@ -694,7 +695,7 @@ root.methods.tradeMarket = function (popWindowOpen1,type) {
   // 如果当前是ETH市场的话，price*amount<0.01不允许提交
   // 如果当前是BDB市场的话，price*amount<100不允许提交
   let turnover = Number(this.price) * Number(this.amount);
-  let turnoverAamount = Number(this.amount);
+  // let turnoverAamount = Number(this.amount);
   let miniVolume;
   let maxAmount;
   let tradingParameters = this.$store.state.tradingParameters;
@@ -713,15 +714,17 @@ root.methods.tradeMarket = function (popWindowOpen1,type) {
     return;
   }
 
-  if (Number(maxAmount)>0) {
-    if ((Number(turnoverAamount)>Number(maxAmount))) {
-      this.popType = 0;
-      this.popText = this.lang == 'CH' ? '数量不能大于' + maxAmount : 'Quantity cannot be greater than' + maxAmount;
-      this.promptOpen = true;
-      return;
+  // if (Number(maxAmount)>0) {
+  //   if ((Number(turnoverAamount)>Number(maxAmount))) {
+  //     this.popType = 0;
+  //     this.popText = this.lang == 'CH' ? '数量不能大于' + maxAmount : 'Quantity cannot be greater than' + maxAmount;
+  //     this.promptOpen = true;
+  //     return;
+  //
+  //   }
+  // }
 
-    }
-  }
+
 
   // if (Number(turnoverAamount) > Number(maxAmount)) {
   //   this.popType = 0;
@@ -746,6 +749,8 @@ root.methods.tradeMarket = function (popWindowOpen1,type) {
 }
 
 root.methods.Callback = function (data) {
+  console.info('data,',data)
+
   this.popType = 1;
   this.popText = this.lang == 'CH' ? '挂单成功' : 'Order has been made';
   this.promptOpen = true;
@@ -756,6 +761,17 @@ root.methods.Callback = function (data) {
   // setTimeout(()=>{
   //   this.$http.send('ACCOUNTS', {bind: this, callBack: this.RE_ACCOUNTS})
   // },5000)
+
+
+  if (data.error == 'ORDER_GRANTER_THAN_MAXAMOUNT') {
+
+    let maxAmount = this.orderType && this.orderType.split("|")[1] || "最大值"
+
+      this.popType = 0;
+      this.popText = this.lang == 'CH' ? '交易数量不能高于' + maxAmount : 'Minimum trading amount' + maxAmount;
+      this.promptOpen = true;
+      return;
+  }
 
 }
 
@@ -794,6 +810,11 @@ root.methods.RE_ERROR = function (err) {
     txt = this.lang == 'CH' ? '价格不能高于'+err_type : 'Price cannot be higher than: '+err_type;
   }
 
+  if(message == 'ORDER_GRANTER_THAN_MAXAMOUNT'){
+
+    txt = this.lang == 'CH' ? '数量不能大于'+err_type.split("|")[1] || "最大值"
+      : 'Quantity cannot be greater than: '+err_type.split("|")[1] || "最大值";
+  }
   // console.warn("this is wrong", err)
   this.popText = txt;
   this.popType = 0;
