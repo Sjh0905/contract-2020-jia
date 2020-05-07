@@ -56,6 +56,37 @@ root.methods.unLockHouse = function (item) {
 root.methods.re_unLockHouse = function ( data ) {
   typeof (data) === 'string' && (data = JSON.parse(data))
   this.popOpen = true
+  if(data.errorCode){
+    if(data.errorCode == 1 ) {
+      this.popType = 1
+      this.popText = this.$t('unLockTips')
+      return
+    }
+    if(data.errorCode == 2 ) {
+      this.popType = 1
+      this.popText = this.$t('unLockTips_1')
+      return
+    }
+    if(data.errorCode == 3 ) {
+      this.popType = 1
+      this.popText = this.$t('unLockTips_2')
+      return
+    }
+    if(data.errorCode == 4 ) {
+      this.popType = 1
+      this.popText = this.$t('unLockTips_3')
+      return
+    }
+    if(data.errorCode == 5 ) {
+      this.popType = 1
+      this.popText = this.$t('unLockTips_4')
+      return
+    }
+
+    this.popType = 0
+    this.popText = this.$t('unLockTips_3')
+    return
+  }
   if(data.result == 'SUCCESS') {
     this.popType = 1
     this.popText = this.$t('lockSuccess')
@@ -63,8 +94,7 @@ root.methods.re_unLockHouse = function ( data ) {
     this.getLockCur()
     return
   }
-  this.popType = 0
-  this.popText = this.$t('lockFailed')
+
   // console.log(data)
 }
 root.methods.error_unLockHouse = function ( err ) {
