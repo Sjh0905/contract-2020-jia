@@ -65,13 +65,14 @@
             </span>
           </span>
 <!--            <span class="fullName">{item.description}}</span>-->
-            <span class="total">{{toFixed(parseFloat(toFixed(item.available,8)) + parseFloat(toFixed(item.frozen,8)) , 8)}}</span>
-            <span class="available">{{toFixed(item.available,8)}}</span>
-            <span class="frozen">{{toFixed(item.frozen,8)}}</span>
+            <span class="total">{{toFixed(parseFloat(toFixed(item.otcAvailable,8)) + parseFloat(toFixed(item.otcFrozen,8)) , 8)}}</span>
+            <span class="available">{{toFixed(item.otcAvailable,8)}}</span>
+            <span class="frozen">{{toFixed(item.otcFrozen,8)}}</span>
             <!-- <span class="valuation">{{(priceReady || initReady) && item.appraisement!=0 ? toFixed(item.appraisement,8) : '--'}}</span> -->
             <span class="valuation">
-              <font class="valuation_font" @mouseenter="get_now_price(index, item.appraisement, $event)"
-                    @mouseleave="hide_now_price">{{(priceReady || initReady) && item.appraisement!=0 ? toFixed(item.appraisement,8) : '--'}}</font>
+<!--              @mouseenter="get_now_price(index, item.appraisement, $event)"-->
+              <font class="valuation_font"
+                    @mouseleave="hide_now_price">{{(priceReady || initReady) && item.otcAppraisement!=0 ? toFixed(item.otcAppraisement,8) : '--'}}</font>
               <span class="show_tips" :class="show_key == index ? 'show' : ''">
                 {{change_price}}
                 <font></font>
@@ -98,16 +99,16 @@
               <!--关闭划转 end-->
 
               <!--打开去交易 begin-->
-            <span class="withdrawals-button button" @click="goToDeal(index,item)"
-                  :class="{'withdrawals-button-select':activeIndex===index}"
-                  v-if="withdrawalsFlag(item)"
-            >{{$t('toDealWith')}}
-<!--              {{$t('withdrawals')}}-->
-            </span>
-            <span class="not-margin can-not-withdrawals" v-else>
-              {{$t('toDealWith')}}
-<!--              {{$t('withdrawals')}}-->
-            </span>
+<!--            <span class="withdrawals-button button" @click="goToDeal(index,item)"-->
+<!--                  :class="{'withdrawals-button-select':activeIndex===index}"-->
+<!--                  v-if="withdrawalsFlag(item)"-->
+<!--            >{{$t('toDealWith')}}-->
+<!--&lt;!&ndash;              {{$t('withdrawals')}}&ndash;&gt;-->
+<!--            </span>-->
+<!--            <span class="not-margin can-not-withdrawals" v-else>-->
+<!--              {{$t('toDealWith')}}-->
+<!--&lt;!&ndash;              {{$t('withdrawals')}}&ndash;&gt;-->
+<!--            </span>-->
               <!--打开去交易 end-->
 
               <!--  sss 屏蔽结束-->

@@ -469,6 +469,10 @@ store.mutations.CHANGE_CURRENCY = (state, currencyArr) => {
         available: currencyArr[i].available || 0,
         frozen: currencyArr[i].frozen || 0,
         appraisement: currencyArr[i].appraisement || 0,
+        otcTotal: currencyArr[i].otcTotal || 0,
+        otcAvailable: currencyArr[i].otcAvailable || 0,
+        otcFrozen: currencyArr[i].otcFrozen || 0,
+        otcAppraisement: currencyArr[i].otcAppraisement || 0,
         rate: currencyArr[i].rate || 0,
         depositEnabled: currencyArr[i].depositEnabled || false,
         withdrawEnabled: currencyArr[i].withdrawEnabled || false,
@@ -491,6 +495,10 @@ store.mutations.CHANGE_CURRENCY = (state, currencyArr) => {
       target.available = currencyArr[i].available || target.available || 0
       target.frozen = currencyArr[i].frozen || target.frozen || 0
       target.appraisement = currencyArr[i].appraisement || target.appraisement || 0
+      target.otcTotal = currencyArr[i].otcTotal || target.otcTotal || 0,
+      target.otcAvailable = currencyArr[i].otcAvailable || target.otcAvailable || 0,
+      target.otcFrozen = currencyArr[i].otcFrozen || target.otcFrozen || 0,
+      target.otcAppraisement = currencyArr[i].otcAppraisement || target.otcAppraisement || 0
       target.rate = currencyArr[i].rate || target.rate || 0
       target.depositEnabled = currencyArr[i].depositEnabled || target.depositEnabled || false
       target.withdrawEnabled = currencyArr[i].withdrawEnabled || target.withdrawEnabled || false
@@ -540,6 +548,10 @@ store.mutations.CHANGE_ACCOUNT = (state, accounts) => {
         available: accounts[i].available || 0,
         frozen: accounts[i].frozen || 0,
         appraisement: accounts[i].appraisement || 0,
+        otcTotal: accounts[i].otcTotal || 0,
+        otcAvailable: accounts[i].otcAvailable || 0,
+        otcFrozen: accounts[i].otcFrozen || 0,
+        otcAppraisement: accounts[i].otcAppraisement || 0,
         rate: accounts[i].rate || 0,
         withdrawDisabled: accounts[i].withdrawDisabled || false,
         rechargeOpenTime: accounts[i].rechargeOpenTime || 0,
@@ -567,11 +579,24 @@ store.mutations.CHANGE_ACCOUNT = (state, accounts) => {
       target.locked = GlobalFunc.newFixed(accounts[i].balance, 8)
       // target.total = parseFloat(GlobalFunc.accAdd(target.available, target.frozen))
     }
+    // 扩充OTC可用
+    if (accounts[i].type === 'OTC_AVAILABLE') {
+      target.otcAvailable = GlobalFunc.newFixed(accounts[i].balance, 8)
+    }
+    // 扩充OTC冻结
+    if (accounts[i].type === 'OTC_FROZEN') {
+      target.otcFrozen = GlobalFunc.newFixed(accounts[i].balance, 8)
+    }
 
     // 修改总值
     target.total = parseFloat(GlobalFunc.accAdd(target.available, target.frozen))
     // 修改估值
     target.appraisement = parseFloat(GlobalFunc.accMul(target.total, target.rate))
+
+    // 修改OTC总值
+    target.otcTotal = parseFloat(GlobalFunc.accAdd(target.otcAvailable, target.otcFrozen))
+    // 修改OTC估值
+    target.otcAppraisement = parseFloat(GlobalFunc.accMul(target.otcTotal, target.rate))
 
 
   }

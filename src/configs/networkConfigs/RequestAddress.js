@@ -26,6 +26,8 @@ requestAddress.LOGIN_OFF = {url: urlHead+'/user/signout', method: 'post'} //登�
 requestAddress.RECHARGE_AND_WITHDRAWALS_RECORD = {url: urlHead+'/v1/user/currency/accounts', method: 'get'}//请求充值提现记录
 requestAddress.RECHARGE = {url: urlHead+'/user/deposit', method: 'post'} //充值
 requestAddress.GET_CURRENCY = {url: urlHead+'/user/currencys', method: 'get'} //获取币种
+
+requestAddress.GET_OTC_CURRENCY = {url: urlHead+'/user/otc/currency', method: 'get'} //获取法币
 requestAddress.GET_AUTH_STATE = {url: urlHead+'/auth/getAuths', method: 'post'} //获取认证状态
 requestAddress.FIND_BACK_PASSWORD = {url: urlHead+'/auth/commonAuth', method: 'post'} //找回密码
 requestAddress.VERIFYING_LOGIN_STATE = {url: urlHead+'/auth/isFalseLogin', method: 'post'} //验证伪登录状态
