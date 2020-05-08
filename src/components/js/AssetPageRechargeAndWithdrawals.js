@@ -695,15 +695,15 @@ root.methods.testTransferAmount  = function () {
   //   this.transferAmountWA = this.$t('transferAmountWA2')
   //   return false
   // }
-  if (this.amountInput > this.transferCurrencyAvailable) {
-    this.transferAmountWA = this.$t('transferAmountWA3')
-    return false
-  }
-  if (this.amountInput <= '0') {
-    this.amountInput = '0'
-    this.transferAmountWA = this.$t('transferAmountWA4')
-    return false
-  }
+  // if (this.amountInput > this.transferCurrencyAvailable) {
+  //   this.transferAmountWA = this.$t('transferAmountWA3')
+  //   return false
+  // }
+  // if (this.amountInput <= '0') {
+  //   this.amountInput = '0'
+  //   this.transferAmountWA = this.$t('transferAmountWA4')
+  //   return false
+  // }
 
   return true
 }
