@@ -1624,20 +1624,20 @@ root.routes.push({
         },
 
         // 资产概览
-        {
-          path: 'overviewOfAssets',
-          name: 'overviewOfAssets',
-          meta: {
-            pcname: 'overviewOfAssets',
-            h5name: 'mobileOverviewOfAssets',
-            requireLogin: true,
-            templateClose: false,
-            templatePath: '/index/assetPageT',
-            requireLoginOff: false,
-          },
-          caseSensitive: true,
-          component: resolve => require(['@/components/vue/OverviewOfAssets'], resolve),
-        },
+        // {
+        //   path: 'overviewOfAssets',
+        //   name: 'overviewOfAssets',
+        //   meta: {
+        //     pcname: 'overviewOfAssets',
+        //     h5name: 'mobileOverviewOfAssets',
+        //     requireLogin: true,
+        //     templateClose: false,
+        //     templatePath: '/index/assetPageT',
+        //     requireLoginOff: false,
+        //   },
+        //   caseSensitive: true,
+        //   component: resolve => require(['@/components/vue/OverviewOfAssets'], resolve),
+        // },
         // 我的钱包
         {
           path: 'myWallet',

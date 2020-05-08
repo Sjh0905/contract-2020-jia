@@ -161,6 +161,14 @@ store.state.currencyChange = 0 // 币种信息发送变化
 store.state.appraisementChange = 0 // 币种估值发生变化
 
 /**
+ * OTC货币种类
+ * @type {{}}
+ */
+store.state.OTCcurrency = new Map()
+store.state.OTCcurrencyChange = 0 // 币种信息发送变化
+store.state.OTCappraisementChange = 0 // 币种估值发生变化
+
+/**
  * 当前计价货币
  * @type {string}
  */

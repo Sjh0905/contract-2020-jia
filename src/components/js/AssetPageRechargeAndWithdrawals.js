@@ -147,7 +147,7 @@ root.computed.computedExchangeRate = function () {
 root.computed.total = function () {
   let total = 0
   for (let i = 0; i < this.accounts.length; i++) {
-    total = this.accAdd(total, this.accounts[i].appraisement)
+    total = this.accAdd(total, this.accounts[i].otcAppraisement)
   }
   return this.toFixed(total)
 }
@@ -646,7 +646,7 @@ root.methods.openTransfer = function (index, item) {
   //   }
   // }
   this.popWindowOpen1 = true
-  this.transferCurrencyAvailable = item.available
+  this.transferCurrencyAvailable = item.otcAvailable
   this.itemInfo = item
   this.currencyValue = this.itemInfo.currency
   // 再次打开清空输入框

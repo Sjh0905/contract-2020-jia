@@ -12,6 +12,7 @@ import Big from 'big.js'
 GlobalFunction.CryptoJS = CryptoJS
 
 GlobalFunction.testEmail = function (src) {
+  if(!src) return
   var src = src.trim();
   if (/^[_a-zA-Z0-9-\+]+(\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9]+)*(\.[a-zA-Z]{2,})$/.test(src)) {
     return true
@@ -136,6 +137,7 @@ GlobalFunction.testTRXAddress = function (src) {
 
 // 格式化用户名
 GlobalFunction.formatUserName = function (src) {
+  if(!src) return
   let userNameType = GlobalFunction.emailOrMobile(src)
   // 如果是手机号
   if (userNameType === 1) {
