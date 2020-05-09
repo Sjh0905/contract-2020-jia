@@ -18,12 +18,14 @@ root.data = () => {
     matchDataObj:{},
     matchDataKey:{},
     matchDataFamt:{},
+    matchDataffAmt:{},
     matchDataXX:{},
     matchingAmount: '',
     records: [],
     balanceYY:'0',
     balanceTT:'0',
     balanceXX:'0',
+    balanceFF:'0',
     matchingAmountMsg_0:'',
 
     popType: 0,
@@ -236,6 +238,13 @@ root.methods.re_getBalance = function (data) {
       this.type = v.type
       this.currency = v.currency
     }
+    if (v.currency == 'FF') {
+      console.log('查询用户余额get  index',index)
+      console.log('查询用户余额get  index',v.balance)
+      this.balanceFF = v.balance
+      this.type = v.type
+      this.currency = v.currency
+    }
   })
 }
 root.methods.error_getBalance = function (data) {
@@ -247,6 +256,7 @@ root.methods.getSupporting = function (item) {
 
   this.$http.send('GET_MATCH_DATA', {
     bind: this,
+    urlFragment:this.userId,
     callBack: this.re_getSupporting,
     errorHandler: this.error_getSupporting
   })
@@ -261,6 +271,7 @@ root.methods.re_getSupporting = function (data) {
 
     this.matchDataObj[v.fdesc] = v.fut_amt
     this.matchDataFamt[v.fdesc] = v.next_famt
+    this.matchDataffAmt[v.fdesc] = v.ffAmt
     // this.matchDataXX[v.fdesc] = v.fut_amt
     this.matchDataKey[v.fdesc] = v.fcode
     // this.YTX = this.matchDataKey[this.matchingAmount].indexOf('y')
@@ -311,12 +322,15 @@ root.methods.re_getRegistrationRecord = function (data) {
   if ((this.records.length !== 0) && (this.matchDataKey[this.matchingAmount].indexOf('y') > -1)) {
     this.balanceYY = (this.balanceYY - this.matchDataObj[this.matchingAmount])
     this.balanceTT = (this.balanceTT - this.matchDataFamt[this.matchingAmount])
+    this.balanceFF = (this.balanceFF - this.matchDataffAmt[this.matchingAmount])
     // this.balanceXX = (this.balanceXX - this.matchDataObj[this.matchingAmount])
   }
   if ((this.records.length !== 0) && (this.matchDataKey[this.matchingAmount].indexOf('x') > -1)) {
     // this.balanceYY = (this.balanceYY - this.matchDataObj[this.matchingAmount])
     this.balanceTT = (this.balanceTT - this.matchDataFamt[this.matchingAmount])
     this.balanceXX = (this.balanceXX - this.matchDataObj[this.matchingAmount])
+    this.balanceFF = (this.balanceFF - this.matchDataffAmt[this.matchingAmount])
+
   }
 
 }
