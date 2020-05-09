@@ -259,6 +259,19 @@
                     {{$t('currencyExchange')}}
 
                   </router-link>
+                  <!--隐藏的标签 币币交易 begin-->
+
+                  <!--隐藏的标签 end-->
+                </li>
+
+                <!--法币交易 begin-->
+                <li class="navigation-item-container flex">
+                  <div @click="goToFranchExchange"
+                    class="navigation-item-router flex pointer"
+                    active-class="navigation-item-router-selected"
+                  >
+                    {{$t('fiatDeal')}}
+                  </div>
                   <!--隐藏的标签 法币交易 begin-->
 
                   <!--隐藏的标签 end-->
@@ -726,13 +739,12 @@
                       </router-link>
                     </li>
                     <li class="navigation-item-hidden-list-item">
-                      <router-link
-                        :to="{name:'historicalEntrust'}"
-                        class="navigation-item-hidden-list-item-router"
+                      <div class="navigation-item-hidden-list-item-router"
+                           @click="goToFrenchCurrecy"
                         active-class="item_selected"
                       >
-                        {{$t('historicalEntrust')}}
-                      </router-link>
+                        {{$t('frenchCurrency')}}
+                      </div>
                     </li>
                   </ul>
                   <!--隐藏的标签 end-->

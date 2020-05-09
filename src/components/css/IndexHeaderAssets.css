@@ -163,11 +163,17 @@
   padding: 7px 30px 7px 30px;
   text-align: left;
 }
+
 .asset-li-a:last-of-type {
   border: 0;
 }
+
 .asset-alpha .asset-li-a {
   border-bottom: 1px solid transparent;
   background-color: #141823;
   color: #fff;
+}
+
+.france-setting {
+  color: #0D0E23;
 }
