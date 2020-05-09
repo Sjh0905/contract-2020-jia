@@ -76,7 +76,8 @@ root.data = function () {
     transferCurrencyWA:'',// 币种错误提示
     amountInput:'',// 输入框划转的数量
     transferAmountWA:'',// 数量错误提示
-    transferCurrencyAvailable:0,
+    transferCurrencyAvailable:0,  //我的钱包可用余额
+    transferCurrencyOTCAvailable:0, //法币账户可用余额
     transferCurrencyObj:{},
     sending:false,
 
@@ -646,7 +647,11 @@ root.methods.openTransfer = function (index, item) {
   //   }
   // }
   this.popWindowOpen1 = true
-  this.transferCurrencyAvailable = item.otcAvailable
+
+  // 法币可用余额
+  this.transferCurrencyOTCAvailable = item.otcAvailable
+  // 我的钱包可用余额
+  this.transferCurrencyAvailable = item.available
   this.itemInfo = item
   this.currencyValue = this.itemInfo.currency
   // 再次打开清空输入框
@@ -695,15 +700,19 @@ root.methods.testTransferAmount  = function () {
   //   this.transferAmountWA = this.$t('transferAmountWA2')
   //   return false
   // }
-  // if (this.amountInput > this.transferCurrencyAvailable) {
-  //   this.transferAmountWA = this.$t('transferAmountWA3')
-  //   return false
-  // }
-  // if (this.amountInput <= '0') {
-  //   this.amountInput = '0'
-  //   this.transferAmountWA = this.$t('transferAmountWA4')
-  //   return false
-  // }
+  if (Number(this.amountInput) > Number(this.transferCurrencyAvailable)) {
+    this.transferAmountWA = this.$t('transferAmountWA3')
+    return false
+  }
+  if ( Number(this.amountInput) > Number(this.transferCurrencyOTCAvailable)) {
+    this.transferAmountWA = this.$t('transferAmountWA3')
+    return false
+  }
+  if (Number(this.amountInput) <= 0) {
+    this.amountInput = '0'
+    this.transferAmountWA = this.$t('transferAmountWA4')
+    return false
+  }
 
   return true
 }
@@ -847,7 +856,11 @@ root.methods.error_transferCommit = function (err){
 
 // 点击全提
 root.methods.allMention = function () {
-  this.amountInput = this.transferCurrencyAvailable
+  if( this.assetAccountType == 'wallet'){
+    this.amountInput = this.transferCurrencyOTCAvailable
+    return
+  }
+    this.amountInput = this.transferCurrencyAvailable
 }
 // 打开划转  end
 

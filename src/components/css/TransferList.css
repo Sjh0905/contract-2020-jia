@@ -40,26 +40,25 @@
 }
 
 .currency {
-  flex: 9.3;
+  flex: 10.3;
   text-align: left;
   /*flex:19.9;*/
 }
 
 .type {
-  flex: 10;
+  flex: 12;
   text-align: left;
 }
 
 .total {
-  flex: 14.7;
+  flex: 12.7;
   text-align: left;
 }
 
 .state {
-  flex: 18.8;
+  flex: 8.8;
   text-align: right;
 }
-
 
 /*.address {*/
 /*  flex: 52.5;*/

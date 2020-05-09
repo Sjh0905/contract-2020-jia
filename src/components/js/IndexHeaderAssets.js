@@ -137,7 +137,7 @@ root.methods = {}
 // 跳转otc银行卡列表
 root.methods.goToBankList = function () {
   // console.log(process.env.DOMAIN)
-  window.location.replace( 'http://ccc.2020-ex.com:8080/index/PersonCenter/PaymentSet');
+  window.location.replace( 'http://otc.2020-ex.com/index/PersonCenter/PaymentSet');
 }
 
 // 获取认证状态

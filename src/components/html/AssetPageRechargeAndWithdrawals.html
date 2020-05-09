@@ -193,7 +193,7 @@
       <div class="amount block-input">
         <div class="block-input-title">
           <span>{{$t('amount')}}</span>
-          <span class="available-right">{{$t('mentioning')}}：{{transferCurrencyAvailable}} {{currencyValue}}</span>
+          <span class="available-right">{{$t('mentioning')}}：{{this.assetAccountType == 'wallet'? transferCurrencyOTCAvailable : transferCurrencyAvailable }} {{currencyValue}}</span>
         </div>
         <div class="amount-input flex">
           <input type="text" placeholder="" class="amount-input-box" v-model="amountInput">
