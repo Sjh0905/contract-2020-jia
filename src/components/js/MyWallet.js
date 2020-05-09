@@ -2450,21 +2450,48 @@ root.methods.commitLockHouse = function () {
 root.methods.re_commitLockHouse = function (data) {
   this.sending = false
   typeof data === 'string' && (data = JSON.parse(data))
-  console.log(data)
+  if(!data) return
 
-
-  if(data.result == 'SUCCESS'){
-    this.popOpen = true
-    this.popType = 1
-    this.popText = this.$t('lock_house_success')
-    // 关闭锁仓弹框
-    this.closeLockHouse()
-  }
-  if(data.result !== 'SUCCESS'){
+  if(data.errorCode) {
+    if(data.errorCode == 1){
+      this.popOpen = true
+      this.popType = 0
+      this.popText = this.$t('lock_house_tips')
+      return
+    }
+    if(data.errorCode == 2){
+      this.popOpen = true
+      this.popType = 0
+      this.popText = this.$t('lock_house_tips_1')
+      return
+    }
+    if(data.errorCode == 3){
+      this.popOpen = true
+      this.popType = 0
+      this.popText = this.$t('lock_house_tips_2')
+      return
+    }
+    if(data.errorCode == 4){
+      this.popOpen = true
+      this.popType = 0
+      this.popText = this.$t('lock_house_tips_3')
+      return
+    }
     this.popOpen = true
     this.popType = 0
     this.popText = this.$t('lock_house_failed')
+    return
   }
+  this.popOpen = true
+  this.popType = 1
+  this.popText = this.$t('lock_house_success')
+  // 关闭锁仓弹框
+  this.closeLockHouse()
+  // if(data.result !== 'SUCCESS'){
+  //   this.popOpen = true
+  //   this.popType = 0
+  //   this.popText = this.$t('lock_house_failed')
+  // }
 }
 
 root.methods.error_commitLockHouse = function (err) {

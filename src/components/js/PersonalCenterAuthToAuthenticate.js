@@ -1261,9 +1261,9 @@ root.methods.sendInfo = function () {
     // formData.append('file', this.sendHoldImg, 'held_certificate.' + holdImgType)
     // sss=========E
 
-    // this.sendFrontImg && formData.append('file', this.sendFrontImg, 'certificate_positive.' + frontImgType)
-    // this.sendBackImg && formData.append('file', this.sendBackImg, 'certificate_negative.' + backImgType)
-    // this.sendHoldImg && formData.append('file', this.sendHoldImg, 'held_certificate.' + holdImgType)
+    this.sendFrontImg && formData.append('file', this.sendFrontImg, 'certificate_positive.' + frontImgType)
+    this.sendBackImg && formData.append('file', this.sendBackImg, 'certificate_negative.' + backImgType)
+    this.sendHoldImg && formData.append('file', this.sendHoldImg, 'held_certificate.' + holdImgType)
   }
 
   // if(this.authType == 1){
