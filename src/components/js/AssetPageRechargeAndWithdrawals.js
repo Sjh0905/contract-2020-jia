@@ -163,6 +163,7 @@ root.computed.available = function () {
   let available = 0
   for (let i = 0; i < this.accounts.length; i++) {
     available = this.accAdd(available, this.accMul(this.accounts[i].available, this.accounts[i].rate))
+    console.info(this.accounts[i].rate)
   }
   return this.toFixed(available)
 }

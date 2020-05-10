@@ -22,19 +22,19 @@
         </div>
       </div>
 
-      <!--<div class="asset-check-box flex-around">-->
-        <!--<div class="asset-check-item" :class="(assetAccountType == 'wallet') ? 'asset-check-item-select':''" @click="changeAssetAccountType('wallet')">我的钱包</div>-->
-        <!--<div class="asset-check-item" :class="(assetAccountType != 'wallet') ? 'asset-check-item-select':''" @click="changeAssetAccountType('currency')">币币账户</div>-->
-      <!--</div>-->
+      <div class="asset-check-box flex-around">
+        <div class="asset-check-item" :class="(assetAccountType == 'wallet') ? 'asset-check-item-select':''" @click="changeAssetAccountType('wallet')">我的钱包</div>
+        <div class="asset-check-item" :class="(assetAccountType != 'wallet') ? 'asset-check-item-select':''" @click="changeAssetAccountType('currency')">法币账户</div>
+      </div>
 
-<!--      <div class="asset-total-box-item">-->
-<!--        <div class="lan-title-item">{{ assetAccountType == 'wallet' ? "我的钱包" : "币币账户"}}资产估值(BTC)</div>-->
-<!--        <div class="landata-item">-->
-<!--          <span class="BTC-asset-item">{{priceReady || initReady ? (isTotalAssetShow?toFixed(total,8)+' ':'******'):'&#45;&#45;&#45;&#45; '}} </span>-->
-<!--          <span class="CHN-asset-item">≈ </span>-->
-<!--          <span class="CHN-asset-item"> {{priceReady || initReady?(isTotalAssetShow?''+$globalFunc.accFixedCny(valuation,2):''):'&#45;&#45;&#45;&#45;'}}&nbsp;CNY</span>-->
-<!--        </div>-->
-<!--      </div>-->
+      <div class="asset-total-box-item">
+        <div class="lan-title-item">{{ assetAccountType == 'wallet' ? "我的钱包" : "法币账户"}}资产估值(BTC)</div>
+        <div class="landata-item">
+          <span class="BTC-asset-item">{{priceReady || initReady ? (isTotalAssetShow?toFixed((assetAccountType == 'wallet')? total : otcTotal,8)+' ':'******'):'---- '}} </span>
+          <span class="CHN-asset-item">≈ </span>
+          <span class="CHN-asset-item"> {{priceReady || initReady?(isTotalAssetShow?''+$globalFunc.accFixedCny((assetAccountType == 'wallet')? available : otcAvailable,2):''):'----'}}&nbsp;CNY</span>
+        </div>
+      </div>
 
       <div class="tiao1"></div>
 

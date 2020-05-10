@@ -54,7 +54,9 @@ root.data = function () {
 
     agreement: false,
 
-    assetAccountType:'wallet'//当前账户类型,默认显示我的钱包
+    assetAccountType:'wallet',//当前账户类型,默认显示我的钱包
+
+    otcCurrencyList:[] //法币账户列表
 
   }
 }
@@ -78,12 +80,12 @@ root.created = function () {
   // 获取汇率
   this.getExchangeRate()
   // 获取币种
-  let currency = [...this.$store.state.currency.values()]
-  if (currency.length === 0) {
+  // let currency = [...this.$store.state.currency.values()]
+  // if (currency.length === 0) {
     // 发送请求
     this.getCurrency()
-    return
-  }
+    // return
+  // }
   // 获取用户信息
   this.getAccounts()
 }
@@ -133,7 +135,7 @@ root.computed.bindIdentify = function () {
   return this.$store.state.authState.identity
 }
 
-// 账户总资产
+// 我的钱包账户总资产
 root.computed.total = function () {
   let total = 0
   for (let i = 0; i < this.accounts.length; i++) {
@@ -141,20 +143,49 @@ root.computed.total = function () {
   }
   return this.toFixed(total)
 }
-// 账户可用
+// 我的钱包账户可用
 root.computed.available = function () {
   let available = 0
   for (let i = 0; i < this.accounts.length; i++) {
     available = this.accAdd(available, this.accMul(this.accounts[i].available, this.accounts[i].rate))
+    console.log(this.accounts[i].rate)
   }
+
   return this.toFixed(available)
 }
 
-// 账户冻结
+// 我的钱包账户冻结
 root.computed.frozen = function () {
   let frozen = 0
   for (let i = 0; i < this.accounts.length; i++) {
     frozen = this.accAdd(frozen, this.accMul(this.accounts[i].frozen, this.accounts[i].rate))
+  }
+  return this.toFixed(frozen)
+}
+
+// 法币账户账户总资产
+root.computed.otcTotal = function () {
+  let total = 0
+  for (let i = 0; i < this.accounts.length; i++) {
+    total = this.accAdd(total, this.accounts[i].otcAppraisement)
+  }
+  return this.toFixed(total)
+}
+// 法币账户账户可用
+root.computed.otcAvailable = function () {
+  let available = 0
+  for (let i = 0; i < this.accounts.length; i++) {
+    available = this.accAdd(available, this.accMul(this.accounts[i].otcAvailable, this.accounts[i].rate))
+  }
+  console.log(available)
+  return this.toFixed(available)
+}
+
+// 我的钱包账户冻结
+root.computed.otcFrozen = function () {
+  let frozen = 0
+  for (let i = 0; i < this.accounts.length; i++) {
+    frozen = this.accAdd(frozen, this.accMul(this.accounts[i].otcFrozen, this.accounts[i].rate))
   }
   return this.toFixed(frozen)
 }
@@ -169,6 +200,12 @@ root.watch = {}
 root.watch.currencyChange = function (newVal, oldVal) {
   this.accounts = [...this.$store.state.currency.values()]
   console.log('1jdslkfjlkdsjfkldsjlf23',this.accounts)
+  // let otcAccounts = [];
+  // this.otcCurrencyList.map(v=>{
+  //   let item = this.$store.state.currency.get(v.currency);
+  //   otcAccounts.push(item)
+  // })
+  // this.accounts = otcAccounts
   // this.changeAppraisement(this.currentPrice)
   // this.changeAppraisement(this.currentPrice)
 }
@@ -334,7 +371,7 @@ root.methods.getExchangeRate = function () {
 root.methods.re_getExchangeRate = function (data) {
   typeof (data) === 'string' && (data = JSON.parse(data))
   if (!data || !data.dataMap) return
-  // console.warn("assetPage获取汇率！", data)
+  console.info("assetPage获取汇率！", data)
   if (data.result === 'SUCCESS') {
     this.exchangeRateReady = true
     this.exchangeRate = data.dataMap.exchangeRate.btcExchangeRate
@@ -350,7 +387,29 @@ root.methods.error_getExchangeRate = function (err) {
 /*---------------------- 获取汇率end ---------------------*/
 
 /*---------------------- 获取币种和账户信息begin ---------------------*/
-
+//
+//
+// // 获取币种
+// root.methods.getOtcCurrency = async function () {
+//   this.$http.send('GET_OTC_CURRENCY', {
+//     bind: this,
+//     callBack: this.re_getOtcCurrency,
+//     errorHandler: this.error_getOtcCurrency,
+//   })
+// }
+// // 获取币种的状态
+// root.methods.re_getOtcCurrency = function (data) {
+//   typeof (data) === 'string' && (data = JSON.parse(data))
+//   if (!data) {
+//     return
+//   }
+//   this.otcCurrencyList = data;
+//   // this.$store.commit('CHANGE_CURRENCY', data.dataMap.currencys)
+//   this.getAccounts()
+// }
+// root.methods.error_getOtcCurrency = function () {
+//
+// }
 
 // 获取币种
 root.methods.getCurrency = function () {
