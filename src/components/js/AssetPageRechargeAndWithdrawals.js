@@ -701,11 +701,11 @@ root.methods.testTransferAmount  = function () {
   //   this.transferAmountWA = this.$t('transferAmountWA2')
   //   return false
   // }
-  if (Number(this.amountInput) > Number(this.transferCurrencyAvailable)) {
+  if (Number(this.amountInput) > Number(this.transferCurrencyAvailable) && this.assetAccountType == 'wallet') {
     this.transferAmountWA = this.$t('transferAmountWA3')
     return false
   }
-  if ( Number(this.amountInput) > Number(this.transferCurrencyOTCAvailable)) {
+  if (Number(this.amountInput) > Number(this.transferCurrencyOTCAvailable) && this.assetAccountType == 'wallet') {
     this.transferAmountWA = this.$t('transferAmountWA3')
     return false
   }
