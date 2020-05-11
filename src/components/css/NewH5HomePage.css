@@ -104,6 +104,16 @@
   color: #39B496;
   letter-spacing: 0;
 }
+.td004{
+  width: 100%;
+  text-align: center;
+  /*font-family: Roboto-Regular;*/
+  font-size: 0.24rem;
+  color: #EF5656;
+  letter-spacing: 0;
+}
+
+
 
 .homepage-header-textswiper {
   height: 0.8rem;
