@@ -110,6 +110,7 @@ root.created = function () {
 
   // 获取汇率
   this.getExchangeRate()
+  console.info(this.$route.params.assetAccountType)
 }
 
 root.mounted = function () {
@@ -121,7 +122,10 @@ root.mounted = function () {
 // 计算
 root.computed = {}
 root.computed.isMyWallet = function () {
-  return true//现在只开放钱包
+  if(this.$route.params.assetAccountType == 'wallet'){
+    return true
+  }
+  return false//现在只开放钱包
   // return this.$route.params.assetAccountType == 'wallet'
 }
 root.computed.staticUrl = function () {

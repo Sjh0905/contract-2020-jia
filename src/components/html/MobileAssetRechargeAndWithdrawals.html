@@ -15,9 +15,9 @@
         <div class="asset-lan">
           <div class="lan-title">总资产估值(BTC)</div>
           <div class="landata">
-          <span class="asset-header-BTC-asset">{{((priceReady || initReady) && total > 0) ? (isTotalAssetShow?toFixed(total,8)+' ':'******'):'---- '}} </span>
+          <span class="asset-header-BTC-asset">{{((priceReady || initReady) && total > 0) ? (isTotalAssetShow?toFixed((accAdd(total,otcTotal)),8)+' ':'******'):'---- '}} </span>
             <span class="asset-header-CHN-asset">≈ </span>
-          <span class="asset-header-CHN-asset"> {{((priceReady || initReady) && valuation > 0) ? (isTotalAssetShow?''+$globalFunc.accFixedCny(valuation,2):''):'----'}}&nbsp;CNY</span>
+          <span class="asset-header-CHN-asset"> {{((priceReady || initReady) && valuation > 0) ? (isTotalAssetShow?''+$globalFunc.accFixedCny((accAdd(valuation,otcValuation)),2):''):'----'}}&nbsp;CNY</span>
           </div>
         </div>
       </div>
@@ -32,7 +32,7 @@
         <div class="landata-item">
           <span class="BTC-asset-item">{{priceReady || initReady ? (isTotalAssetShow?toFixed((assetAccountType == 'wallet')? total : otcTotal,8)+' ':'******'):'---- '}} </span>
           <span class="CHN-asset-item">≈ </span>
-          <span class="CHN-asset-item"> {{priceReady || initReady?(isTotalAssetShow?''+$globalFunc.accFixedCny((assetAccountType == 'wallet')? available : otcAvailable,2):''):'----'}}&nbsp;CNY</span>
+          <span class="CHN-asset-item"> {{priceReady || initReady?(isTotalAssetShow?''+$globalFunc.accFixedCny((assetAccountType == 'wallet')? valuation : otcValuation,2):''):'----'}}&nbsp;CNY</span>
         </div>
       </div>
 

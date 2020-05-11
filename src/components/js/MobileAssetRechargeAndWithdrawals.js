@@ -33,6 +33,7 @@ root.data = function () {
     recharge: false,
     withdrawals: false,
     accounts: [],
+    otcAccounts: [],
     currency: new Map(),
 
     tableOpenFlag: false, // 点击币种详情弹窗开关
@@ -83,11 +84,17 @@ root.created = function () {
   // let currency = [...this.$store.state.currency.values()]
   // if (currency.length === 0) {
     // 发送请求
-    this.getCurrency()
+  // this.getOtcCurrency()
+
+
     // return
   // }
   // 获取用户信息
   this.getAccounts()
+  this.getOtcCurrency()
+  this.getCurrency()
+
+
 }
 
 root.beforeDestroy = function () {
@@ -98,6 +105,10 @@ root.computed = {}
 //换算成人民币的估值
 root.computed.valuation = function () {
   return this.total * this.computedExchangeRate
+}
+//换算成人民币的法币估值
+root.computed.otcValuation = function () {
+  return this.otcTotal * this.computedExchangeRate
 }
 // 计算当前的服务器时间
 root.computed.serverT = function () {
@@ -120,7 +131,10 @@ root.computed.currencyChange = function () {
 }
 // 计算后的accounts，排序、筛选之类的放在这里！
 root.computed.accountsComputed = function () {
-  return this.accounts
+  if(this.assetAccountType == 'wallet'){
+    return this.accounts
+  }
+  return this.otcAccounts
 }
 // 是否绑定手机
 root.computed.bindMobile = function () {
@@ -141,6 +155,7 @@ root.computed.total = function () {
   for (let i = 0; i < this.accounts.length; i++) {
     total = this.accAdd(total, this.accounts[i].appraisement)
   }
+  console.info('total',total)
   return this.toFixed(total)
 }
 // 我的钱包账户可用
@@ -150,7 +165,6 @@ root.computed.available = function () {
     available = this.accAdd(available, this.accMul(this.accounts[i].available, this.accounts[i].rate))
     console.log(this.accounts[i].rate)
   }
-
   return this.toFixed(available)
 }
 
@@ -166,26 +180,26 @@ root.computed.frozen = function () {
 // 法币账户账户总资产
 root.computed.otcTotal = function () {
   let total = 0
-  for (let i = 0; i < this.accounts.length; i++) {
-    total = this.accAdd(total, this.accounts[i].otcAppraisement)
+  for (let i = 0; i < this.otcAccounts.length; i++) {
+    total = this.accAdd(total, this.otcAccounts[i].otcAppraisement)
   }
+  // console.info('OTC total',total)
   return this.toFixed(total)
 }
 // 法币账户账户可用
 root.computed.otcAvailable = function () {
   let available = 0
-  for (let i = 0; i < this.accounts.length; i++) {
-    available = this.accAdd(available, this.accMul(this.accounts[i].otcAvailable, this.accounts[i].rate))
+  for (let i = 0; i < this.otcAccounts.length; i++) {
+    available = this.accAdd(available, this.accMul(this.otcAccounts[i].otcAvailable, this.otcAccounts[i].rate))
   }
-  console.log(available)
   return this.toFixed(available)
 }
 
 // 我的钱包账户冻结
 root.computed.otcFrozen = function () {
   let frozen = 0
-  for (let i = 0; i < this.accounts.length; i++) {
-    frozen = this.accAdd(frozen, this.accMul(this.accounts[i].otcFrozen, this.accounts[i].rate))
+  for (let i = 0; i < this.otcAccounts.length; i++) {
+    frozen = this.accAdd(frozen, this.accMul(this.otcAccounts[i].otcFrozen, this.otcAccounts[i].rate))
   }
   return this.toFixed(frozen)
 }
@@ -198,14 +212,19 @@ root.watch = {}
 
 // 监听vuex中的变化
 root.watch.currencyChange = function (newVal, oldVal) {
-  this.accounts = [...this.$store.state.currency.values()]
-  console.log('1jdslkfjlkdsjfkldsjlf23',this.accounts)
-  // let otcAccounts = [];
-  // this.otcCurrencyList.map(v=>{
-  //   let item = this.$store.state.currency.get(v.currency);
-  //   otcAccounts.push(item)
-  // })
-  // this.accounts = otcAccounts
+
+  // console.log('1jdslkfjlkdsjfkldsjlf23',this.accounts)
+  let otcAccounts = [];
+  this.otcCurrencyList.map(v=>{
+    let item = this.$store.state.currency.get(v.currency);
+    otcAccounts.push(item)
+  })
+  if(this.assetAccountType == 'wallet'){
+    return this.accounts = [...this.$store.state.currency.values()]
+  }
+  return this.otcAccounts = otcAccounts
+
+
   // this.changeAppraisement(this.currentPrice)
   // this.changeAppraisement(this.currentPrice)
 }
@@ -215,7 +234,6 @@ root.methods = {};
 //切换我的钱包和币币账户
 root.methods.changeAssetAccountType = function (type) {
   if(this.assetAccountType == type)return
-
   this.assetAccountType = type
 };
 // 点击币种，是否弹出币种的详细信息开关
@@ -388,32 +406,31 @@ root.methods.error_getExchangeRate = function (err) {
 
 /*---------------------- 获取币种和账户信息begin ---------------------*/
 //
-//
-// // 获取币种
-// root.methods.getOtcCurrency = async function () {
-//   this.$http.send('GET_OTC_CURRENCY', {
-//     bind: this,
-//     callBack: this.re_getOtcCurrency,
-//     errorHandler: this.error_getOtcCurrency,
-//   })
-// }
-// // 获取币种的状态
-// root.methods.re_getOtcCurrency = function (data) {
-//   typeof (data) === 'string' && (data = JSON.parse(data))
-//   if (!data) {
-//     return
-//   }
-//   this.otcCurrencyList = data;
-//   // this.$store.commit('CHANGE_CURRENCY', data.dataMap.currencys)
-//   this.getAccounts()
-// }
-// root.methods.error_getOtcCurrency = function () {
-//
-// }
+// 获取币种
+root.methods.getOtcCurrency = async function () {
+  this.$http.send('GET_OTC_CURRENCY', {
+    bind: this,
+    callBack: this.re_getOtcCurrency,
+    errorHandler: this.error_getOtcCurrency,
+  })
+}
+// 获取币种的状态
+root.methods.re_getOtcCurrency = function (data) {
+  typeof (data) === 'string' && (data = JSON.parse(data))
+  if (!data) {
+    return
+  }
+  this.otcCurrencyList = data;
+  // this.$store.commit('CHANGE_CURRENCY', data.dataMap.currencys)
+  this.getAccounts()
+}
+root.methods.error_getOtcCurrency = function () {
+
+}
 
 // 获取币种
 root.methods.getCurrency = function () {
-  this.$http.send("GET_CURRENCY", {
+  this.$http.send("GET_OTC_CURRENCY", {
     bind: this,
     callBack: this.re_getCurrency,
     errorHandler: this.error_getCurrency
@@ -429,6 +446,7 @@ root.methods.re_getCurrency = function (data) {
     return
   }
   // console.warn("这是currency", data)
+  this.otcCurrencyList = data;
   this.$store.commit('CHANGE_CURRENCY', data.dataMap.currencys)
   // 获取账户信息
   this.getAccounts()
