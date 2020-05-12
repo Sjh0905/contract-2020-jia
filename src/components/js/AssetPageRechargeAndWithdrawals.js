@@ -701,20 +701,31 @@ root.methods.testTransferAmount  = function () {
   //   this.transferAmountWA = this.$t('transferAmountWA2')
   //   return false
   // }
-  if (Number(this.amountInput) > Number(this.transferCurrencyAvailable) && this.assetAccountType == 'wallet') {
-    this.transferAmountWA = this.$t('transferAmountWA3')
-    return false
+
+  if(this.assetAccountType == ' currency'){
+    if (Number(this.amountInput) > Number(this.transferCurrencyAvailable)) {
+      this.transferAmountWA = this.$t('transferAmountWA3')
+      return false
+    }
+    return true
   }
-  if (Number(this.amountInput) > Number(this.transferCurrencyOTCAvailable) && this.assetAccountType == 'wallet') {
-    this.transferAmountWA = this.$t('transferAmountWA3')
-    return false
+  if(this.assetAccountType == 'wallet'){
+    if (Number(this.amountInput) > Number(this.transferCurrencyOTCAvailable)) {
+      this.transferAmountWA = this.$t('transferAmountWA3')
+      return false
+    }
+    return true
   }
+
+  // if (Number(this.amountInput) > Number(this.transferCurrencyOTCAvailable) && this.assetAccountType == 'currency') {
+  //   this.transferAmountWA = this.$t('transferAmountWA3')
+  //   return false
+  // }
   if (Number(this.amountInput) <= 0) {
-    this.amountInput = '0'
+    this.amountInput = 0
     this.transferAmountWA = this.$t('transferAmountWA4')
     return false
   }
-
   return true
 }
 
