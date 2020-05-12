@@ -901,12 +901,13 @@ root.methods.goToNoticeCenter = function (id) {
 
 // 跳转法币订单
 root.methods.goToFrenchCurrecy = function (){
-  window.location.replace('http://otc.2020-ex.com/index/Order/OrderConduct')
+  window.location.replace(process.env.DOMAIN+'index/Order/OrderConduct')
 }
 
 // 跳转法币交易
 root.methods.goToFranchExchange = function (){
-  window.location.replace('http://otc.2020-ex.com/index/Transaction/TransactionBuy')
+  console.info(process.env.DOMAIN)
+  window.location.replace(process.env.DOMAIN+'index/Transaction/TransactionBuy')
 }
 
 export default root
