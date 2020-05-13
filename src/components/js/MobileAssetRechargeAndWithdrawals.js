@@ -181,8 +181,8 @@ root.computed.frozen = function () {
 // 法币账户账户总资产
 root.computed.otcTotal = function () {
   let total = 0
-  for (let i = 0; i < this.accounts.length; i++) {
-    total = this.accAdd(total, this.accounts[i].otcAppraisement)
+  for (let i = 0; i < this.otcAccounts.length; i++) {
+    total = this.accAdd(total, this.otcAccounts[i].otcAppraisement)
   }
   console.info('OTC total',total)
   return this.toFixed(total)
@@ -191,7 +191,7 @@ root.computed.otcTotal = function () {
 root.computed.otcAvailable = function () {
   let available = 0
   for (let i = 0; i < this.accounts.length; i++) {
-    available = this.accAdd(available, this.accMul(this.accounts[i].otcAvailable, this.accounts[i].rate))
+    available = this.accAdd(available, this.accMul(this.accounts[i].otcAvailable, this.otcAccounts[i].rate))
   }
   return this.toFixed(available)
 }
@@ -200,7 +200,7 @@ root.computed.otcAvailable = function () {
 root.computed.otcFrozen = function () {
   let frozen = 0
   for (let i = 0; i < this.accounts.length; i++) {
-    frozen = this.accAdd(frozen, this.accMul(this.accounts[i].otcFrozen, this.accounts[i].rate))
+    frozen = this.accAdd(frozen, this.accMul(this.accounts[i].otcFrozen, this.otcAccounts[i].rate))
   }
   return this.toFixed(frozen)
 }
@@ -213,19 +213,20 @@ root.watch = {}
 
 // 监听vuex中的变化
 root.watch.currencyChange = function (newVal, oldVal) {
-  this.accounts = [...this.$store.state.currency.values()]
+  // this.accounts = [...this.$store.state.currency.values()]
+
   // console.log('1jdslkfjlkdsjfkldsjlf23',this.accounts)
   let otcAccounts = [];
   this.otcCurrencyList.map(v=>{
     let item = this.$store.state.currency.get(v.currency);
+    console.info(item)
     otcAccounts.push(item)
   })
   if(this.assetAccountType == 'wallet'){
     return this.accounts = [...this.$store.state.currency.values()]
   }
-   this.otcAccounts = otcAccounts
-
-
+    return this.otcAccounts = otcAccounts
+  //
   // this.changeAppraisement(this.currentPrice)
   // this.changeAppraisement(this.currentPrice)
 }
@@ -292,7 +293,7 @@ root.methods.re_getInitData = function (data) {
   typeof data === 'string' && (data = JSON.parse(data))
 
   this.initReady = true
-  this.initData = data
+  this.initData = data.data
 
   // this.changeAppraisement(this.initData)
   this.$store.commit('CHANGE_PRICE_TO_BTC', data)
@@ -408,7 +409,7 @@ root.methods.error_getExchangeRate = function (err) {
 /*---------------------- 获取币种和账户信息begin ---------------------*/
 //
 // 获取币种
-root.methods.getOtcCurrency = async function () {
+root.methods.getOtcCurrency = function () {
   this.$http.send('GET_OTC_CURRENCY', {
     bind: this,
     callBack: this.re_getOtcCurrency,
@@ -422,6 +423,7 @@ root.methods.re_getOtcCurrency = function (data) {
     return
   }
   this.otcCurrencyList = data;
+  console.info(this.otcCurrencyList)
   // this.$store.commit('CHANGE_CURRENCY', data.dataMap.currencys)
   this.getAccounts()
 }
@@ -431,7 +433,7 @@ root.methods.error_getOtcCurrency = function () {
 
 // 获取币种
 root.methods.getCurrency = function () {
-  this.$http.send("GET_OTC_CURRENCY", {
+  this.$http.send("GET_CURRENCY", {
     bind: this,
     callBack: this.re_getCurrency,
     errorHandler: this.error_getCurrency
@@ -447,7 +449,8 @@ root.methods.re_getCurrency = function (data) {
     return
   }
   // console.warn("这是currency", data)
-  this.otcCurrencyList = data;
+  // this.otcCurrencyList = data;
+
   this.$store.commit('CHANGE_CURRENCY', data.dataMap.currencys)
   // 获取账户信息
   this.getAccounts()

@@ -150,7 +150,7 @@ root.computed.total = function () {
   for (let i = 0; i < this.accounts.length; i++) {
     total = this.accAdd(total, this.accounts[i].otcAppraisement)
   }
-  return this.toFixed(total)
+  return total
 }
 
 //换算成人民币的估值
