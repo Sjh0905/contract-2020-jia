@@ -87,18 +87,17 @@
       <div class="asset-info">
         <div class="asset-keyong">
           <div class="asky-title">可用</div>
-          <div class="asky-title-val">{{isTotalAssetShow?toFixed(item.available,8):'******'}}</div>
+          <div class="asky-title-val">{{isTotalAssetShow?toFixed(assetAccountType == 'wallet'? item.available:item.otcAvailable,8):'******'}}</div>
         </div>
         <div class="asset-keyong">
           <div class="asky-title">冻结</div>
-          <div class="asky-title-val">{{isTotalAssetShow?toFixed(item.frozen,8):'******'}}</div>
+          <div class="asky-title-val">{{isTotalAssetShow?toFixed(assetAccountType == 'wallet'?item.frozen:item.otcFrozen,8):'******'}}</div>
         </div>
         <div class="asset-keyong-right">
           <div class="asky-title-right">估值(CNY)</div>
 <!--          <div class="asky-title-right-val">{{item.total!== 0 ? $globalFunc.accFixedCny(item.total * $store.state.exchange_rate_dollar,2) : '-&#45;&#45;'}}</div>-->
-          <div class="asky-title-right-val">{{item.appraisement > 0 ? $globalFunc.accMul($globalFunc.accMul(item.appraisement, $store.state.exchange_rate.btcExchangeRate || 0), $store.state.exchange_rate_dollar) : '---'}}</div>
+          <div class="asky-title-right-val">{{item.appraisement > 0 || item.otcAppraisement > 0 ? $globalFunc.accMul($globalFunc.accMul(assetAccountType == 'wallet'?item.appraisement : item.otcAppraisement, $store.state.exchange_rate.btcExchangeRate || 0), $store.state.exchange_rate_dollar) : '---'}}</div>
         </div>
-
 <!--        <div class="asset-container-item-assetNum">{{isTotalAssetShow?toFixed(item.total,8):'******'}}</div>-->
       </div>
       <div class="tiao1"></div>

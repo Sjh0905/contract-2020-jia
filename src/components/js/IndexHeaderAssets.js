@@ -137,7 +137,7 @@ root.methods = {}
 // 跳转otc银行卡列表
 root.methods.goToBankList = function () {
   // console.log(process.env.DOMAIN)
-  window.location.reload( process.env.DOMAIN +'index/PersonCenter/PaymentSet');
+  window.location.replace( process.env.DOMAIN +'index/PersonCenter/PaymentSet');
 }
 
 // 获取认证状态

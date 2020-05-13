@@ -18,15 +18,15 @@
       <div class="detailinfo">
         <div class="detailinfo_l">
           <div class="detai_info_t">可用</div>
-          <div class="detai_info_d">{{toFixed(accountsComputed.available,8)}}</div>
+          <div class="detai_info_d">{{toFixed(isMyWallet ? accountsComputed.available : accountsComputed.otcAvailable,8)}}</div>
         </div>
         <div class="detailinfo_l">
           <div class="detai_info_t">冻结</div>
-          <div class="detai_info_d">{{toFixed(accountsComputed.frozen,8)}}</div>
+          <div class="detai_info_d">{{toFixed(isMyWallet ? accountsComputed.frozen: accountsComputed.otcFrozen,8)}}</div>
         </div>
         <div class="detailinfo_r">
           <div class="detai_info_t_r">折合(CNY) </div>
-          <div class="detai_info_d_r">{{valuation!== 0 ? $globalFunc.accFixedCny(valuation*$store.state.exchange_rate_dollar,2) : '---'}}</div>
+          <div class="detai_info_d_r">{{valuation!== 0 ? $globalFunc.accFixedCny((isMyWallet ? valuation : otcValuation) * btcRate,2) : '---'}}</div>
         </div>
       </div>
 

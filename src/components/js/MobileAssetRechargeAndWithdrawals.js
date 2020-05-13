@@ -120,6 +120,7 @@ root.computed.baseCurrency = function () {
 }
 // 计算汇率
 root.computed.computedExchangeRate = function () {
+  console.info(this.$store.state.exchange_rate_dollar)
   // todo h5国际化
   // if (this.$store.state.lang === 'CH') {
     return this.exchangeRate * this.$store.state.exchange_rate_dollar
@@ -180,17 +181,17 @@ root.computed.frozen = function () {
 // 法币账户账户总资产
 root.computed.otcTotal = function () {
   let total = 0
-  for (let i = 0; i < this.otcAccounts.length; i++) {
-    total = this.accAdd(total, this.otcAccounts[i].otcAppraisement)
+  for (let i = 0; i < this.accounts.length; i++) {
+    total = this.accAdd(total, this.accounts[i].otcAppraisement)
   }
-  // console.info('OTC total',total)
+  console.info('OTC total',total)
   return this.toFixed(total)
 }
 // 法币账户账户可用
 root.computed.otcAvailable = function () {
   let available = 0
-  for (let i = 0; i < this.otcAccounts.length; i++) {
-    available = this.accAdd(available, this.accMul(this.otcAccounts[i].otcAvailable, this.otcAccounts[i].rate))
+  for (let i = 0; i < this.accounts.length; i++) {
+    available = this.accAdd(available, this.accMul(this.accounts[i].otcAvailable, this.accounts[i].rate))
   }
   return this.toFixed(available)
 }
@@ -198,8 +199,8 @@ root.computed.otcAvailable = function () {
 // 我的钱包账户冻结
 root.computed.otcFrozen = function () {
   let frozen = 0
-  for (let i = 0; i < this.otcAccounts.length; i++) {
-    frozen = this.accAdd(frozen, this.accMul(this.otcAccounts[i].otcFrozen, this.otcAccounts[i].rate))
+  for (let i = 0; i < this.accounts.length; i++) {
+    frozen = this.accAdd(frozen, this.accMul(this.accounts[i].otcFrozen, this.accounts[i].rate))
   }
   return this.toFixed(frozen)
 }
@@ -212,7 +213,7 @@ root.watch = {}
 
 // 监听vuex中的变化
 root.watch.currencyChange = function (newVal, oldVal) {
-
+  this.accounts = [...this.$store.state.currency.values()]
   // console.log('1jdslkfjlkdsjfkldsjlf23',this.accounts)
   let otcAccounts = [];
   this.otcCurrencyList.map(v=>{
@@ -222,7 +223,7 @@ root.watch.currencyChange = function (newVal, oldVal) {
   if(this.assetAccountType == 'wallet'){
     return this.accounts = [...this.$store.state.currency.values()]
   }
-  return this.otcAccounts = otcAccounts
+   this.otcAccounts = otcAccounts
 
 
   // this.changeAppraisement(this.currentPrice)
@@ -497,7 +498,8 @@ root.methods.hideZeroItem = function () {
 
 /*---------------------- 点击item，跳转detail页start ---------------------*/
 root.methods.jumpToDetail = function (name) {
-  this.$router.push({name: 'MobileAssetRechargeAndWithdrawalsDetail',query:{currency: name},params:{assetAccountType:this.assetAccountType}})
+  this.$router.push({name: 'MobileAssetRechargeAndWithdrawalsDetail',query:{currency: name},
+    params:{assetAccountType:this.assetAccountType}})
 }
 
 /*---------------------- 点击item，跳转detail页end ---------------------*/

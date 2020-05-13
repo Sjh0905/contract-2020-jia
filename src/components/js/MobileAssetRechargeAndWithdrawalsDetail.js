@@ -43,11 +43,12 @@ root.data = function () {
 
     thisCurrencyToBtc: 0, // 估值btc的值
 
-
     exchangeRate: 0, //人民币汇率
     exchangeRateReady: false, //人民币汇率拿到
     exchangeRateInterval: null, //循环拿汇率
     valuation: 0,//换算成人民币的估值
+    otcValuation: 0,//换算成人民币的估值
+
 
     // 货币对列表
     currency_list: {},
@@ -107,10 +108,8 @@ root.created = function () {
   // 获取账户信息
   this.getAccounts()
 
-
   // 获取汇率
   this.getExchangeRate()
-  console.info(this.$route.params.assetAccountType)
 }
 
 root.mounted = function () {
@@ -128,6 +127,13 @@ root.computed.isMyWallet = function () {
   return false//现在只开放钱包
   // return this.$route.params.assetAccountType == 'wallet'
 }
+
+// 估值费率
+root.computed.btcRate = function () {
+
+  return this.$store.state.exchange_rate_dollar
+}
+
 root.computed.staticUrl = function () {
   return this.$store.state.static_url
 }
@@ -150,7 +156,11 @@ root.computed.accountsComputed = function () {
     this.thisCurrencyToBtc = item.appraisement
     this.valuation = this.exchangeRate * this.thisCurrencyToBtc
   }
-  // console.log('item',item)
+  if(item.otcAppraisement){
+    this.thisCurrencyToBtc = item.otcAppraisement
+    this.otcValuation = this.exchangeRate * this.thisCurrencyToBtc
+  }
+
   return item
 }
 
