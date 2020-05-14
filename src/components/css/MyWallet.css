@@ -1080,8 +1080,27 @@
 
 /*锁仓*/
 .pop-lock-house {
- padding: 10px 0 0;
+ /*padding: 10px 0 0;*/
 }
+
+.RiskAlert {
+  height:36px;
+  line-height: 36px;
+  background:rgba(255,249,242,1);
+  border-radius:1px;
+  border:1px solid rgba(255,197,139,1);
+  margin-bottom: 10px;
+}
+.RiskAlertImg {
+  width: 15px;
+  vertical-align:middle;
+  margin-left: 10px;
+  margin-right: 4px;
+}
+
+
+
+
 
 .lock-house-article {
   height: 87px;
@@ -1448,3 +1467,5 @@
   height: 12px;
   margin-bottom: 18px;
 }
+
+
