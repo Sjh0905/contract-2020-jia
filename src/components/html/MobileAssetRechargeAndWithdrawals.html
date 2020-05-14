@@ -15,7 +15,7 @@
         <div class="asset-lan">
           <div class="lan-title">总资产估值(BTC)</div>
           <div class="landata">
-          <span class="asset-header-BTC-asset">{{((priceReady || initReady) && total > 0) ? (isTotalAssetShow?toFixed((accAdd(total,otcTotal)),8)+' ':'******'):'---- '}} </span>
+          <span class="asset-header-BTC-asset">{{((priceReady || initReady) && total > 0) ? (isTotalAssetShow?totalAssets+' ':'******'):'---- '}} </span>
             <span class="asset-header-CHN-asset">≈ </span>
           <span class="asset-header-CHN-asset"> {{((priceReady || initReady) && valuation > 0) ? (isTotalAssetShow?''+$globalFunc.accFixedCny((accAdd(valuation,otcValuation)),2):''):'----'}}&nbsp;CNY</span>
           </div>
@@ -96,7 +96,7 @@
         <div class="asset-keyong-right">
           <div class="asky-title-right">估值(CNY)</div>
 <!--          <div class="asky-title-right-val">{{item.total!== 0 ? $globalFunc.accFixedCny(item.total * $store.state.exchange_rate_dollar,2) : '-&#45;&#45;'}}</div>-->
-          <div class="asky-title-right-val">{{item.appraisement > 0 || item.otcAppraisement > 0 ? $globalFunc.accMul($globalFunc.accMul(assetAccountType == 'wallet'?item.appraisement : item.otcAppraisement, $store.state.exchange_rate.btcExchangeRate || 0), $store.state.exchange_rate_dollar) : '---'}}</div>
+          <div class="asky-title-right-val">{{$globalFunc.accFixedCny(calculationAppraisement(item),2)}}</div>
         </div>
 <!--        <div class="asset-container-item-assetNum">{{isTotalAssetShow?toFixed(item.total,8):'******'}}</div>-->
       </div>
