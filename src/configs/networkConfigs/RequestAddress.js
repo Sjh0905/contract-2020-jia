@@ -435,7 +435,7 @@ requestAddress.POST_VOTE = {url: urlHead+'/activity/combinecoin/vote/', method: 
 requestAddress.GET_RECHARGE_RANKING_LIST = {url: urlHead+'/activity/promotion/ranking', method: 'get'}
 
 //2020-02-12,KK交易挖矿报名
-requestAddress.GET_MATCH_DATA = {url: urlHead+'/quant/matchData', method: 'get'}//查询配套数据
+requestAddress.GET_MATCH_DATA = {url: urlHead+'/quant/matchData/', method: 'get'}//查询配套数据
 requestAddress.GET_BALANCE = {url: urlHead+'/quant/getUserBalance/', method: 'get'}//查询用户余额
 requestAddress.GET_GETREG_DATA = {url: urlHead+'/quant/getRegData/', method: 'get'}//查询报名记录
 requestAddress.GET_USER_TRADE = {url: urlHead+'/quant/user/getUserTrade/', method: 'get'}//量化展示_量化交易记录

@@ -19,7 +19,11 @@
     "currentLock": "当前锁仓",
     "historyLock": "历史锁仓",
     "lockSuccess": "解锁成功",
-    "lockFailed": "解锁失败"
+    "unLockTips": "用户未登录",
+    "unLockTips_1": "参数错误",
+    "unLockTips_2": "用户已解锁",
+    "unLockTips_3": "解锁失败",
+    "unLockTips_4": "不能解锁，未满90天解锁日期"
   },
   "EN": {},
   "CA": {},
@@ -41,7 +45,11 @@
     "totalDividends": "累計分紅",
     "currentLock": "當前鎖倉",
     "historyLock": "歷史鎖倉",
-    "lockSuccess": "解鎖成功",
-    "lockFailed": "解鎖失敗"
+    "unLockTips": "使用者未登錄",
+    "unLockTips_1": "參數錯誤",
+    "unLockTips_2": "使用者已解鎖",
+    "unLockTips_3": "解鎖失敗",
+    "unLockTips_4": "不能解鎖,未滿90天解鎖日期",
+    "lockSuccess": "解鎖成功"
   }
 }

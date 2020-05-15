@@ -173,14 +173,16 @@
 <!--              锁仓灰色按钮-->
 <!--               v-if="serverT >= item.withdrawOpenTime"-->
 
-              <span class="withdrawals-button button"
-                   @click="openLockHouse(index,item)"
-                   v-if="item.currency === 'KK'|| item.currency === 'TT'"
-                  >
-               {{$t('lockWarehouse')}}
-              </span>
-              <span class="can-not-withdrawals" v-else>{{$t('lockWarehouse')}}</span>
-<!--               -->
+<!--              <span class="withdrawals-button button"-->
+<!--                   @click="openLockHouse(index,item)"-->
+<!--                   v-if="item.currency === 'KK'|| item.currency === 'TT'"-->
+<!--                  >-->
+<!--               {{$t('lockWarehouse')}}-->
+<!--              </span>-->
+              <span class="can-not-withdrawals" >{{$t('lockWarehouse')}}</span>
+
+<!--               v-else-->
+
 <!--              -->
               <!--sss 锁仓屏蔽结束-->
 
@@ -213,6 +215,18 @@
       <div>{{lockHouseCurrency}}{{$t('lock_house')}}</div>
     </div>
     <div slot="article"class="pop-lock-house">
+      <div class="RiskAlert">
+        <span style="display:inline-block">
+          <img class="RiskAlertImg" src="../../assets/pinchakan.png" alt="">
+        </span>
+
+        <span style="color: #6B7DA2; font-size:12px">锁仓周期</span>
+        <span style="color: #FD5555; font-size:12px">90</span>
+        <span style="color: #6B7DA2; font-size:12px">天，</span>
+        <span style="color: #FD5555; font-size:12px">90</span>
+        <span style="color: #6B7DA2; font-size:12px">天内不可解锁</span>
+      </div>
+
 <!--      锁仓输入框-->
       <div class="lock-house-article">
         <div class="lock-house-title flex">

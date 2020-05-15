@@ -77,16 +77,28 @@
 
 
         <!--        TT所需数额-->
-         <div class="number_amountTT">
+         <div class="number_amountTT YY">
           <span class="number_amount_span">TT:</span>
           <span class="amount_span">{{matchDataFamt[matchingAmount]}}</span>
         </div>
 
         <!--       TT账号余额 -->
-         <div class="number_amountTT">
+         <div class="number_amountTT YY">
           <span class="number_amount_span">TT:</span>
           <span class="amount_span">{{toFixed(balanceTT,8)}}</span>
         </div>
+
+          <!--        FF所需数额-->
+          <div class="number_amountTT">
+            <span class="number_amount_span">FF:</span>
+            <span class="amount_span">{{matchDataffAmt[matchingAmount]}}</span>
+          </div>
+
+          <!--       FF账号余额 -->
+          <div class="number_amountTT">
+            <span class="number_amount_span">FF:</span>
+            <span class="amount_span">{{toFixed(balanceFF,8)}}</span>
+          </div>
       </div>
         <div v-if="matchDataKey[matchingAmount] && matchDataKey[matchingAmount].indexOf('x') > -1">
           <!--        YY所需数额-->
@@ -110,18 +122,31 @@
 
 
           <!--        TT所需数额-->
-          <div class="number_amountTT">
+          <div class="number_amountTT YY">
             <span class="number_amount_span">TT:</span>
             <span class="amount_span">{{matchDataFamt[matchingAmount]}}</span>
 
           </div>
 
           <!--       TT账号余额 -->
-          <div class="number_amountTT">
+          <div class="number_amountTT YY">
             <span class="number_amount_span">TT:</span>
             <span class="amount_span">{{toFixed(balanceTT,8)}}</span>
           </div>
+
+          <!--        FF所需数额-->
+          <div class="number_amountTT">
+            <span class="number_amount_span">FF:</span>
+            <span class="amount_span">{{matchDataffAmt[matchingAmount]}}</span>
+          </div>
+
+          <!--       FF账号余额 -->
+          <div class="number_amountTT">
+            <span class="number_amount_span">FF:</span>
+            <span class="amount_span">{{toFixed(balanceFF,8)}}</span>
+          </div>
         </div>
+
 
         <!-- 兑换按钮-->
         <div class="exchange_button pointer" @click="postActivities" v-if="(computedRecord.length == 0) && !sending1">{{$t('exchang')}}</div>
@@ -172,6 +197,7 @@
                   <div class="application_header_div1 mor-left color_a2">{{item.periodsNum}}</div>
                   <!--期数-->
                   <div class="application_header_div2 color_a2">{{item.fdesc}}</div>
+<!--                  <div class="application_header_div2 color_a2"><span>36000 YY + 360 TT + 36 FF</span></div>-->
                   <!--配套-->
                   <div class="application_header_div3 color_a2">{{formatDateUitl(item.updatedAt)}}</div>
 
@@ -306,15 +332,27 @@
           </div>
 
           <!--        TT所需数额-->
-          <div class="number_amountTT">
+          <div class="number_amountTT YY">
             <span class="mobileNumber_amount_span">TT:</span>
             <span class="amount_span">{{matchDataFamt[matchingAmount]}}</span>
           </div>
 
           <!--       TT账号余额 -->
-          <div class="number_amountTT">
+          <div class="number_amountTT YY">
             <span class="mobileNumber_amount_span">TT:</span>
             <span class="amount_span">{{toFixed(balanceTT,8)}}</span>
+          </div>
+
+          <!--        FF所需数额-->
+          <div class="number_amountTT">
+            <span class="mobileNumber_amount_span">FF:</span>
+            <span class="amount_span">{{matchDataffAmt[matchingAmount]}}</span>
+          </div>
+
+          <!--       FF账号余额 -->
+          <div class="number_amountTT">
+            <span class="mobileNumber_amount_span">FF:</span>
+            <span class="amount_span">{{toFixed(balanceFF,8)}}</span>
           </div>
         </div>
         <div v-if="matchDataKey[matchingAmount] && matchDataKey[matchingAmount].indexOf('x') > -1">
@@ -337,15 +375,27 @@
           </div>
 
           <!--        TT所需数额-->
-          <div class="number_amountTT">
+          <div class="number_amountTT YY">
             <span class="mobileNumber_amount_span">TT:</span>
             <span class="amount_span">{{matchDataFamt[matchingAmount]}}</span>
           </div>
 
           <!--       TT账号余额 -->
-          <div class="number_amountTT">
+          <div class="number_amountTT YY">
             <span class="mobileNumber_amount_span">TT:</span>
             <span class="amount_span">{{toFixed(balanceTT,8)}}</span>
+          </div>
+
+          <!--        FF所需数额-->
+          <div class="number_amountTT">
+            <span class="mobileNumber_amount_span">FF:</span>
+            <span class="amount_span">{{matchDataffAmt[matchingAmount]}}</span>
+          </div>
+
+          <!--       FF账号余额 -->
+          <div class="number_amountTT">
+            <span class="mobileNumber_amount_span">FF:</span>
+            <span class="amount_span">{{toFixed(balanceFF,8)}}</span>
           </div>
         </div>
         <!-- 兑换按钮-->
@@ -399,7 +449,8 @@
               <span class="mobileSpanDisTime">{{formatDateUitl(item.updatedAt)}}</span>
             </div>
             <!--配套-->
-            <div class="mobileApplication_header_div mobilePT">{{item.fdesc}}</div>
+            <div class="mobileApplication_header_div mobilePT"><span>{{item.fdesc}}</span></div>
+
 
           <!-- 状态-->
             <div class="mobileApplication_header_div_right">
