@@ -219,15 +219,15 @@
           <!--首次挖矿报名-->
           <span class="source1">{{item.isFirstReport == 1 ? $t('已报名'):$t('未报名')}}</span>
           <!--奖励（FF）-->
-          <span class="source">{{item.ffReward == 0 ? toFixed(item.ffReward,2):toFixed(item.ffReward)}}
+          <span class="source">{{toFixed(item.ffReward,2)}}
             <!--奖励（FF）明细-->
-            <span class="details pointer" @click="openFFMining(item)">{{$t('personalCenterRecommend.details')}}</span>
+            <span class="details pointer" v-if="item.ffReward !=0" @click="openFFMining(item)">{{$t('personalCenterRecommend.details')}}</span>
           </span>
 <!--          <span class="reward">{{item.invitedNum===0?'&#45;&#45;':item.invitedNum}}</span>-->
           <!--奖励（KK）-->
           <span class="reward">{{item.userWages == 0 ? toFixed(item.userWages,2):toFixed(item.userWages)}}
             <!--奖励（KK）明细-->
-            <span class="details pointer" @click="openKKMining(item)">{{$t('personalCenterRecommend.details')}}</span>
+            <span class="details pointer" @click="openKKMining(item)" v-if="item.userWages !=0">{{$t('personalCenterRecommend.details')}}</span>
           </span>
           <!--<span class="trading">-->
               <!--{{item.isExchange==0?'&#45;&#45;':$t('personalCenterRecommend.yesorno')}}-->
