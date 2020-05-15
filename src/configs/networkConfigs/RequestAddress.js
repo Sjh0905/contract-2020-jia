@@ -308,6 +308,9 @@ requestAddress.GET_BT_PLATFORM_DIVIDEND_FOR_HISTORY = {url: urlHead+'/activity/d
 
 // 获取我的邀请奖励数据
 requestAddress.GET_USER_REWARD_FOR_INVITES = {url: urlHead+'/user/myinvitees', method: 'post'}
+requestAddress.GET_KK_REWARD_FOR_INVITES = {url: urlHead+'/user/getKKDetail/', method: 'get'}
+requestAddress.GET_FF_REWARD_FOR_INVITES = {url: urlHead+'/user/getFFDetail/', method: 'get'}
+
 
 // 获取收益记录
 requestAddress.GET_BT_GRAND_TOTAL = {url: urlHead+'/activity/grandTotal', method: 'get'}

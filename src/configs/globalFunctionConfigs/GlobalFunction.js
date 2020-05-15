@@ -70,7 +70,7 @@ GlobalFunction.emailOrMobile = function (src) {
 // 判断手机号
 GlobalFunction.testMobile = function (mobile) {
 
-  console.log("testMobile",mobile);
+  // console.log("testMobile",mobile);
   if(/[_a-zA-Z\@\.\u4E00-\u9FFF]/.test(mobile))return false//如果有特殊字符，非法
 
   return true
