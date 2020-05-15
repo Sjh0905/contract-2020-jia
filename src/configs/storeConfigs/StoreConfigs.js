@@ -476,6 +476,7 @@ store.mutations.CHANGE_CURRENCY = (state, currencyArr) => {
         total: currencyArr[i].total || 0,
         available: currencyArr[i].available || 0,
         frozen: currencyArr[i].frozen || 0,
+        locked: currencyArr[i].locked || 0,
         appraisement: currencyArr[i].appraisement || 0,
         otcTotal: currencyArr[i].otcTotal || 0,
         otcAvailable: currencyArr[i].otcAvailable || 0,
@@ -502,6 +503,7 @@ store.mutations.CHANGE_CURRENCY = (state, currencyArr) => {
       target.total = currencyArr[i].total || target.total || 0
       target.available = currencyArr[i].available || target.available || 0
       target.frozen = currencyArr[i].frozen || target.frozen || 0
+      target.locked = currencyArr[i].locked || target.locked || 0
       target.appraisement = currencyArr[i].appraisement || target.appraisement || 0
       target.otcTotal = currencyArr[i].otcTotal || target.otcTotal || 0,
       target.otcAvailable = currencyArr[i].otcAvailable || target.otcAvailable || 0,
@@ -555,6 +557,7 @@ store.mutations.CHANGE_ACCOUNT = (state, accounts) => {
         total: accounts[i].total || 0,
         available: accounts[i].available || 0,
         frozen: accounts[i].frozen || 0,
+        locked: accounts[i].locked || 0,
         appraisement: accounts[i].appraisement || 0,
         otcTotal: accounts[i].otcTotal || 0,
         otcAvailable: accounts[i].otcAvailable || 0,
@@ -598,6 +601,7 @@ store.mutations.CHANGE_ACCOUNT = (state, accounts) => {
 
     // 修改总值
     target.total = parseFloat(GlobalFunc.accAdd(target.available, target.frozen))
+    target.total = parseFloat(GlobalFunc.accAdd(target.total, target.locked))
     // 修改估值
     target.appraisement = parseFloat(GlobalFunc.accMul(target.total, target.rate))
 
