@@ -14,6 +14,8 @@
       <span class="total">{{$t('total')}}</span>
       <!--锁仓时间-->
       <span class="lock-house-time">{{$t('lockHouseTime')}}</span>
+      <!--到期时间-->
+      <span class="lock-house-time">{{$t('到期时间')}}</span>
 <!--      分红时间-->
       <span class="dividend-time">{{$t('dividendTime')}}</span>
 <!--      昨日收益-->
@@ -52,6 +54,11 @@
               {{$globalFunc.formatDateUitl(item.updatedAt,'YYYY-MM-DD hh:mm:ss')}}
             </span>
             <!--锁仓时间 end-->
+            <!--到期时间 begin-->
+            <span class="lock-house-time">
+              {{$globalFunc.formatDateUitl(item.expireTime,'YYYY-MM-DD hh:mm:ss')}}
+            </span>
+            <!--到期时间 end-->
 
             <!--      分红时间-->
             <span class="dividend-time">{{item.dateTime}}</span>

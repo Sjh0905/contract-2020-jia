@@ -58,27 +58,27 @@ root.methods.re_unLockHouse = function ( data ) {
   this.popOpen = true
   if(data.errorCode){
     if(data.errorCode == 1 ) {
-      this.popType = 1
+      this.popType = 0
       this.popText = this.$t('unLockTips')
       return
     }
     if(data.errorCode == 2 ) {
-      this.popType = 1
+      this.popType = 0
       this.popText = this.$t('unLockTips_1')
       return
     }
     if(data.errorCode == 3 ) {
-      this.popType = 1
+      this.popType = 0
       this.popText = this.$t('unLockTips_2')
       return
     }
     if(data.errorCode == 4 ) {
-      this.popType = 1
+      this.popType = 0
       this.popText = this.$t('unLockTips_3')
       return
     }
     if(data.errorCode == 5 ) {
-      this.popType = 1
+      this.popType = 0
       this.popText = this.$t('unLockTips_4')
       return
     }

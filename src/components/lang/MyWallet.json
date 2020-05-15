@@ -170,7 +170,7 @@
 
   "lock_house": "锁仓分红",
   "lock_house_amount": "锁仓数量",
-  "lock_house_input": "请输入锁仓数量",
+  "lock_house_input": "单笔最小数量 100",
   "lock_house_all": "全部",
   "lock_house_day": "锁仓日",
   "lock_house_rules": "查看锁仓细则",
@@ -185,7 +185,7 @@
   "lock_house_tips": "用户未登录",
   "lock_house_tips_1": "参数错误",
   "lock_house_tips_2": "本个交易日锁仓次数已达上限",
-  "lock_house_tips_3": "锁仓数量需大于1000",
+  "lock_house_tips_3": "锁仓数量需大于 100",
 
   "lock_house_failed": "锁仓失败",
   "exceed": "转账不可以超过500",
@@ -435,7 +435,7 @@
     "transfer_describe3": "B. 資產提現：需將資產從幣幣帳戶劃轉到我的錢包。 ",
     "lock_house": "鎖倉分紅",
     "lock_house_amount": "鎖倉數量",
-    "lock_house_input": "請輸入鎖倉數量",
+    "lock_house_input": "單筆最小數量 100",
     "lock_house_all": "全部",
     "lock_house_day": "鎖倉日",
     "lock_house_rules": "查看鎖倉細則",
@@ -453,7 +453,7 @@
     "lock_house_tips": "使用者未登錄",
     "lock_house_tips_1": "參數錯誤",
     "lock_house_tips_2": "本個交易日鎖倉次數已達上限",
-    "lock_house_tips_3": "鎖倉數量需大於1000",
+    "lock_house_tips_3": "鎖倉數量需大於100",
 
     "iKnowtheq":"超出當日限額",
     "exceed2": "轉帳數量不能小於0",
