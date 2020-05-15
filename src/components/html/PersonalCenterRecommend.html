@@ -402,7 +402,8 @@
   <!--   提示FF 弹窗-->
   <PopupWindow :switch="popWindowOpenFF" @close="popWindowCloseFF" :pop_width="true">
     <div slot="header" class="miningHeader">
-      {{$t('personalCenterRecommend.changeRewadDetails')}}
+<!--      首次挖矿报名奖励明细-->
+      {{$t('personalCenterRecommend.firstInvitation')}}
     </div>
     <div slot="article" class="minmingArticle">
       <!--添加明细列表-->
@@ -415,8 +416,8 @@
           <div class="date-ff">{{$t('personalCenterRecommend.date')}}</div>
           <!--类型-->
           <div class="type-ff">{{$t('personalCenterRecommend.type')}}</div>
-          <!--交易奖励-->
-          <div class="trading-reward-ff">{{$t('personalCenterRecommend.changeRewad')}}</div>
+          <!--邀请奖励-->
+          <div class="trading-reward-ff">{{$t('personalCenterRecommend.invitationAward')}}</div>
         </div>
         <!--明细列表详细信息-->
         <div class="miningListArcticle flex" v-for="(v, key) in FFMining" :key="key">
