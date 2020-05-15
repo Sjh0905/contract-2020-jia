@@ -69,7 +69,7 @@
             </span>
           </span>
 <!--            <span class="fullName">{{item.description}}</span>-->
-            <span class="total">{{toFixed(parseFloat(toFixed(item.available,8)) + parseFloat(toFixed(item.frozen,8)) , 8)}}</span>
+            <span class="total">{{toFixed(item.total,8)}}</span>
             <span class="available">{{toFixed(item.available,8)}}</span>
             <span class="frozen">{{toFixed(item.frozen,8)}}</span>
             <!-- <span class="valuation">{{(priceReady || initReady) && item.appraisement!=0 ? toFixed(item.appraisement,8) : '--'}}</span> -->
@@ -180,8 +180,8 @@
 <!--               {{$t('lockWarehouse')}}-->
 <!--              </span>-->
               <span class="can-not-withdrawals" >{{$t('lockWarehouse')}}</span>
-
 <!--               v-else-->
+
 
 <!--              -->
               <!--sss 锁仓屏蔽结束-->

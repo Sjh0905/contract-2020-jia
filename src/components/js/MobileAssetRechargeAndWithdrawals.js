@@ -104,11 +104,11 @@ root.beforeDestroy = function () {
 root.computed = {}
 //换算成人民币的估值
 root.computed.valuation = function () {
-  return this.total * this.computedExchangeRate
+  return this.$globalFunc.accFixedCny(this.total * this.computedExchangeRate,2)
 }
 //换算成人民币的法币估值
 root.computed.otcValuation = function () {
-  return this.otcTotal * this.computedExchangeRate
+  return this.$globalFunc.accFixedCny(this.otcTotal * this.computedExchangeRate,2)
 }
 // 计算当前的服务器时间
 root.computed.serverT = function () {
@@ -204,6 +204,10 @@ root.computed.otcFrozen = function () {
   }
   return this.toFixed(frozen)
 }
+// 所有账户总资产
+root.computed.totalAssets = function () {
+  return this.toFixed((this.accAdd(this.total,this.otcTotal)))
+}
 
 
 /*----------------------------- 监听 ------------------------------*/
@@ -222,10 +226,15 @@ root.watch.currencyChange = function (newVal, oldVal) {
     console.info(item)
     otcAccounts.push(item)
   })
-  if(this.assetAccountType == 'wallet'){
+
+  /*if(this.assetAccountType == 'wallet'){
     return this.accounts = [...this.$store.state.currency.values()]
   }
-    return this.otcAccounts = otcAccounts
+    return this.otcAccounts = otcAccounts*/
+
+  this.accounts = [...this.$store.state.currency.values()]
+  this.otcAccounts = otcAccounts
+
   //
   // this.changeAppraisement(this.currentPrice)
   // this.changeAppraisement(this.currentPrice)
@@ -304,6 +313,23 @@ root.methods.error_getInitData = function (err) {
   console.warn('获取init数据出错', err)
 }
 /*---------------------- 初始化end ---------------------*/
+
+/*---------------------- 计算每一行估值begin ---------------------*/
+root.methods.calculationAppraisement = function (item) {
+
+  let appraisement = 'appraisement'
+
+  if(this.assetAccountType == 'currency'){
+    appraisement = 'otcAppraisement'
+  }
+
+  if(item[appraisement] <= 0)return '---'
+
+  return this.$globalFunc.accMul(this.$globalFunc.accMul(item[appraisement], this.exchangeRate || 0), this.$store.state.exchange_rate_dollar)
+
+}
+
+/*---------------------- 计算每一行估值end ---------------------*/
 
 /*---------------------- 修改估值begin ---------------------*/
 
