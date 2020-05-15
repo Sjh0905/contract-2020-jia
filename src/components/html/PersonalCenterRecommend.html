@@ -377,10 +377,10 @@
         </div>
         <!--明细列表详细信息-->
         <div class="miningListArcticle flex" v-for="(v, key) in KKMining" :key="key">
-          <div class="accountNumber">{{v.beInvitedEmail}}</div>
+          <div class="account-number">{{handleName(v.beInvitedEmail)}}</div>
 <!--          <div class="date">2020-04-25</div>-->
           <div class="type">{{v.invitedlevel ==1 ? $t("personalCenterRecommend.directInvitation"): $t("personalCenterRecommend.indirectInvitation")}}</div>
-          <div class="tradingReward">{{v.allamount}}</div>
+          <div class="trading-reward">{{v.allamount}}</div>
         </div>
       </div>
     </div>
@@ -420,10 +420,10 @@
         </div>
         <!--明细列表详细信息-->
         <div class="miningListArcticle flex" v-for="(v, key) in FFMining" :key="key">
-          <div class="accountNumber">{{v.beInvitedEmail}}</div>
-          <div class="date">{{formatDateUitl(v.createdAt)}}</div>
-          <div class="type">{{v.invitedlevel == 1 ? $t("personalCenterRecommend.directInvitation"): $t("personalCenterRecommend.indirectInvitation")}}</div>
-          <div class="tradingReward">{{v.ffAmt}}</div>
+          <div class="account-number-ff">{{handleName(v.beInvitedEmail)}}</div>
+          <div class="date-ff">{{formatDateUitl(v.createdAt)}}</div>
+          <div class="type-ff">{{v.invitedlevel == 1 ? $t("personalCenterRecommend.directInvitation"): $t("personalCenterRecommend.indirectInvitation")}}</div>
+          <div class="trading-reward-ff">{{v.ffAmt}}</div>
         </div>
       </div>
 

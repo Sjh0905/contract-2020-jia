@@ -218,13 +218,13 @@ root.methods = {}
 
 // 格式化时间
 root.methods.formatDateUitl = function (time) {
-  return this.$globalFunc.formatDateUitl(time, 'YYYY-MM-DD hh:mm:ss')
+  return this.$globalFunc.formatDateUitl(time, 'YYYY-MM-DD')
 }
 // 查看FF明细
 root.methods.FFMiningDetails = function (item) {
   this.$http.send('GET_FF_REWARD_FOR_INVITES', {
-    bind: item.beInvitedUserId,
-    urlFragment:1,
+    bind: this,
+    urlFragment:item.beInvitedUserId,
     callBack: this.RE_FFMiningDetails,
     errorHandler: this.error_FFMiningDetails
   })
@@ -242,8 +242,8 @@ root.methods.error_FFMiningDetails = function () {
 // 查看KK明细
 root.methods.KKMiningDetails = function (item) {
   this.$http.send('GET_KK_REWARD_FOR_INVITES', {
-    bind: item.beInvitedUserId,
-    urlFragment:1,
+    bind: this,
+    urlFragment:item.beInvitedUserId,
     callBack: this.RE_KKMiningDetails,
     errorHandler: this.error_KKMiningDetails
   })
