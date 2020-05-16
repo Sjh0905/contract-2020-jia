@@ -192,13 +192,17 @@
 }
 
 .reward {
-  flex: 6.5;
+  flex: 12;
   text-align: right;
   /*position: relative;*/
 }
 
 .reward-txt {
   position: relative;
+}
+.details {
+  color: #3576F5;
+  margin-left: 10px;
 }
 
 /*问号*/
@@ -975,5 +979,83 @@
   margin-left: 15px;
   margin-top: 35px;
 }
+
+.miningHeader {
+  width: 600px;
+  padding-left: 25px;
+}
+
+.minmingArticle {
+  padding: 10px 25px 0;
+}
+
+.miningListTitle {
+  width: 100%;
+  height: 40px;
+  line-height: 40px;
+  font-size:12px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color: #6B7DA2;
+}
+
+.miningListArcticle {
+  width: 100%;
+  height: 50px;
+  line-height: 50px;
+  border-bottom: 1px solid #EFF0FF;
+}
+/*KK明细 begin*/
+.account-number {
+  flex: 14;
+  text-align: left;
+}
+.date {
+  flex: 10;
+  text-align: left;
+}
+
+.type {
+  flex: 10;
+  text-align: left;
+}
+
+.trading-reward {
+  flex: 10;
+  text-align: right;
+}
+/*KK明细 end*/
+
+
+/*FF明细 begin*/
+.account-number-ff {
+  flex: 10;
+  text-align: left;
+}
+.date-ff {
+  flex: 10;
+  text-align: left;
+}
+
+.type-ff {
+  flex: 10;
+  text-align: left;
+}
+
+.trading-reward-ff {
+  flex: 10;
+  text-align: right;
+}
+/*FF明细 end*/
+
+.mingingFooter {
+  width: 100%;
+  /*padding: 25px 0 35px;*/
+  padding: 5px 0 35px;
+}
+.minmingPageBar {
+  margin: 0 auto;
+}
+
 
 
