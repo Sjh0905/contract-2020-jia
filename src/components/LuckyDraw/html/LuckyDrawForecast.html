@@ -1,0 +1,29 @@
+<div class="body">
+
+  <div class="page">
+
+    <!-- header -->
+    <div class="index-header"
+         :class="{'min-width':!isMobile}"
+         v-if="showIndexHeader"
+    >
+      <IndexHeader/>
+    </div>
+
+    <!-- 内容部分 -->
+    <div
+      :class="{'min-width':!isMobile}"
+    >
+      <router-view></router-view>
+    </div>
+
+  </div>
+  <!-- footer -->
+  <div class="index-footer index-background-color"
+       :class="{'min-width':!isMobile}"
+  >
+    <IndexFooter/>
+  </div>
+
+</div>
+

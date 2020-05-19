@@ -1,0 +1,367 @@
+<div class="forecast">
+  <div class="forecast_container">
+    <div class="forecast_body">
+      <!-- 查看游戏规则 start -->
+      <div class="forecast_rules">
+        <font class="cursor" @click="SHOW_RULE_DIALOG">
+          {{$t('look_rules')}}
+          <span class="forecast_rules_icon"></span>
+        </font>
+      </div>
+      <!-- 查看游戏规则 end -->
+
+      <!-- 标题 start -->
+      <div class="forecast_title" :class="lang != 'CH' && 'en'"></div>
+      <!-- 标题 end -->
+
+      <!-- 竞猜类型 tab start -->
+      <div class="flex-row" :class="guess_tab.length > 1 ? 'forecast_tab' : 'forecast_tab_one'">
+        <div class="tab_one" v-if="guess_tab.length == 1">
+					<span v-for="(item, key) in guess_tab">
+						<font v-if="item.name == 'honourGuessList'">{{$t('diamond')}}</font>
+						<font v-if="item.name == 'kingGuessList'">{{$t('gold')}}</font>
+						<font v-if="item.name == 'strongestGuessList'">{{$t('silver')}}</font>
+					</span>
+          <span class="line left"></span>
+          <span class="line right"></span>
+        </div>
+        <div class="tab_width flex-row" v-if="guess_tab.length > 1">
+          <div class="tabs" :class="key == 0 ? 'first' : (key == (guess_tab.length - 1) && 'end')"
+               v-for="(item, key) in guess_tab" @click="TAB_FORECAST(key+1, item.name)">
+						<span :class="forecast_tab == (key+1) && 'select'">
+							<font v-if="item.name == 'honourGuessList'">{{$t('diamond')}}</font>
+							<font v-if="item.name == 'kingGuessList'">{{$t('gold')}}</font>
+							<font v-if="item.name == 'strongestGuessList'">{{$t('silver')}}</font>
+						</span>
+
+          </div>
+        </div>
+      </div>
+      <!-- 竞猜类型 tab end -->
+
+      <!-- 销毁记录和参与记录 start -->
+      <div class="forecast_record">
+        <span class="forecast_record_left cursor" @click="GET_DESTROY_RECORD">{{$t('destruction')}}</span>
+        <span class="forecast_record_right cursor" @click="GO_RECORD" v-if="is_login">{{$t('game')}}</span>
+      </div>
+      <!-- 销毁记录和参与记录 end -->
+
+      <!-- 抽奖期数 start -->
+      <div class="forecast_number">
+        <Loading v-if="loading"></Loading>
+        <div class="forecast_item flex-row" v-for="(item, key) in guess_list" :key="item.projectId" v-else>
+          <div class="forecast_item_corcol">
+            <div class="forecast_item_let">
+              <!-- <div class="border_circle"></div>
+                            <canvas class="canvas_div" :id="'canvas_' + item.projectId" width="100" height="100"></canvas>
+                            <p class="forecast_symbol">{{item.currency}}</p> -->
+
+              <svg width="100" height="100" viewBox="0 0 100 100" class="svg-progress">
+                <defs>
+                  <pattern id="fill-img" patternUnits="userSpaceOnUse" width="100" height="100">
+
+                    <image class="img-transform" xlink:href="" x="0" y="0" width="100"
+                           height="100"></image>
+<!--                    ../assets/rectangle_bg.png-->
+
+                  </pattern>
+                </defs>
+                <g>
+                  <circle cx="50" cy="50" r="44" stroke-width="9" stroke="url('#fill-img')" fill="none"
+                          :stroke-dasharray="changeSvg(item.residueTicket,item.eachs)" stroke-linecap="round"></circle>
+                </g>
+              </svg>
+              <p class="forecast_symbol">{{item.currency}}</p>
+            </div>
+          </div>
+          <div class="forecast_item_form">
+            <!-- 第几期 -->
+            <div class="number">
+							<span class="currency_icon">
+<!--								<img :src="'http://logo.eunex.group/'+item.currency + '.png'">-->
+							</span>
+              {{item.currency}} {{$t('round', {extPeriod: Number(item.extPeriod)})}}
+              <span class="number_record" @click="GET_PRIZE_LIST(item.projectId)">
+								{{$t('prize')}}
+							</span>
+            </div>
+            <!-- 输入框 -->
+            <div class="input">
+              {{$t('prediction', {eachAmount: item.eachAmount})}}
+              <div class="input_change"
+                   @click="GET_PERIOD_PARTAKE(item.projectId, item.extPeriod, item.projectStatus, item.currency)">
+                <span class="show_number">{{item.residueTicket}}</span>
+                /{{item.eachs}}
+                <span class="change_icon">›</span>
+              </div>
+            </div>
+            <!-- 奖池 -->
+            <div class="jackpot">
+              {{$t('pool')}}:
+              <span class="jackpot-number-detail">{{item.rewardAmount}} {{item.currency}}</span>
+              <span class="jackpot_mumber" v-if="item.preWinNumber">
+								{{$t('winningNumber')}}:
+                <span class="jackpot-number-detail">{{item.preWinNumber}}</span>
+							</span>
+            </div>
+            <!-- 按钮 -->
+            <!-- disabled -->
+            <div class="forecast_item_btn" v-if="item.projectStatus == 'PROCESSING' || item.projectStatus == 'CREATE'"
+                 @click="SHOW_BUY(item.projectId, item.extPeriod, item.currency, item.eachAmount)">
+              {{$t('tojoin')}}
+            </div>
+            <div class="forecast_item_btn disabled" v-if="item.projectStatus == 'PAUSE'">
+              {{$t('recess')}}...
+            </div>
+            <div class="forecast_item_btn disabled svg-btn"
+                 v-if="item.projectStatus == 'SOLD_OUT' || item.projectStatus == 'TXHASH' || item.projectStatus == 'ABNORMAL'">
+              <!--{{$t('processing')}}-->
+              <svg class='svg-btn'
+                   v-if="item.projectStatus === 'SOLD_OUT' || item.projectStatus === 'TXHASH' || item.projectStatus === 'ABNORMAL'"
+                   height="40" width="300">
+
+                <path d='M150 1
+              L280 1
+              A19 19 0 0 1 280 39
+              L20 39
+              A19 19 0 0 1 20 1
+              L150 1
+              Z' fill='transparent' stroke='#0ECFE5' stroke-width='1' stroke-dashoffset='650' stroke-dasharray='650'>
+
+                </path>
+                >
+                <text :x="lang === 'CH'?100:50" y="26" font-size="16">{{$t('processing')}}</text>
+
+
+              </svg>
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+      <!-- 抽奖期数 end -->
+
+
+      <!-- 参与预测弹框 start -->
+      <div class="forecast_dialog" v-if="show_buy">
+        <div class="forecast_dialog_body">
+          <div class="forecast_dialog_close" @click="HIDE_BUY">×</div>
+          <div class="forecast_dialog_content">
+            <!-- 标题 -->
+            <div class="forecast_dialog_title">
+              {{$t('join_game')}}
+            </div>
+            <!-- 内容 -->
+            <div class="forecast_dialog_detail flex-row">
+              <label for="" class="detail_title">{{$t('predictions')}}</label>
+              <input class="detail_input" type="text" name="" :placeholder='$t("please_enter")' v-model="predict_number"
+                     @keyup="INPUT_NUMBER">
+              <div class="forecast_buy" v-if="predict_number">
+                {{predict_number_amount}}<span>{{currency}}</span>
+              </div>
+            </div>
+            <div class="forecast_dialog_detail tips flex-row" style="display: none;">
+              <label for="" class="detail_title"></label>
+              <p class="detail_error">超出本期剩余参与份数</p>
+            </div>
+            <div class="forecast_dialog_detail tips flex-row">
+              <label for="" class="detail_title"></label>
+              <p class="detail_tips">
+                {{$t('vailable', {vailable: period_currency.periodMax})}}
+              </p>
+            </div>
+            <div class="forecast_btn" @click="BUY_PERIOD" v-if="!buying">
+              {{$t('confirm')}}
+            </div>
+            <div class="forecast_btn" v-else>
+              {{$t('buying')}}
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 参与预测弹框 end -->
+
+      <!-- 本期参与，开奖记录 start -->
+      <div class="forecast_dialog_list" v-if="show_destroy || show_prize || show_lottery_record_list">
+        <div class="forecast_dialog_list_body" :class="show_prize && 'list_width'">
+          <div class="forecast_dialog_list_close" @click="HIDE_DESTROY_DIALOG"></div>
+          <div class="forecast_dialog_list_content">
+            <div class="forecast_dialog_list_title">
+              <span v-if="show_destroy">{{$t('destruction')}}</span>
+              <span v-if="show_prize">{{$t('prize_records')}}</span>
+              <span v-if="show_lottery_record_list">{{$t('participants')}}</span>
+            </div>
+            <div class="forecast_dialog_list_emity"
+                 v-if="!destroy_list.length && !prize_list.length && !lottery_record_list.length">
+              <p class="is_emity">{{$t('norecords')}}~</p>
+            </div>
+            <!-- 销毁记录列表 -->
+            <div class="forecast_dialog_list_table" v-if="show_destroy && destroy_list.length">
+              <div class="table_title flex-row table_tr">
+                <div class="table_time">{{$t('destruction_id')}}</div>
+                <div class="table_number token">{{$t('destruction_token')}}</div>
+                <div class="table_name record">{{$t('destruction_records')}}</div>
+                <div class="table_name">{{$t('destruction_time')}}</div>
+              </div>
+              <div class="table_list_container">
+                <div class="table_list table_tr flex-row" v-for="(item, key) in destroy_list">
+                  <div class="table_time">{{item.projectId}}</div>
+                  <div class="table_number token">{{lang == 'CH' ? item.currencyAndDrawColumn :
+                    item.currencyAndDrawColumnEn}}
+                  </div>
+                  <div class="table_name record">{{item.destroyAmount}}</div>
+                  <div class="table_name">{{item.destroyPeriod}}</div>
+                </div>
+              </div>
+            </div>
+            <!-- 本期参与列表 -->
+            <div class="forecast_dialog_list_table" v-if="show_lottery_record_list && lottery_record_list.length">
+              <div class="table_title flex-row table_tr">
+                <div class="record_time">{{$t('time')}}</div>
+                <div class="record_number">{{$t('record_predictions')}}</div>
+                <div class="record_name">{{$t('user_uid')}}</div>
+              </div>
+              <div class="table_list_container">
+                <div class="table_list table_tr flex-row" v-for="(item, key) in lottery_record_list">
+                  <div class="record_time">{{$globalFunc.formatDateUitl(item.participateTime, 'YYYY-MM-DD hh:mm')}}
+                  </div>
+                  <div class="record_number">{{item.countId}}</div>
+                  <div class="record_name">{{changeUser(item.userName)}}</div>
+                </div>
+              </div>
+            </div>
+            <!-- 开奖记录列表 -->
+            <div class="forecast_dialog_list_table" v-if="show_prize && prize_list.length">
+              <div class="table_title flex-row table_tr">
+                <div class="table_time prize_time list_width">{{$t('prize_time')}}</div>
+                <div class="table_number_num">{{$t('prize_block')}}</div>
+                <div class="table_number prize_number list_width">{{$t('prize_number')}}</div>
+                <div class="table_number prize_total list_width">{{$t('prize_total')}}</div>
+                <div class="table_number prize_pool list_width">{{$t('prize_pool')}}</div>
+                <div class="table_number list_width">{{$t('prize_episode')}}</div>
+              </div>
+              <div class="table_list_container">
+                <div class="table_list table_tr flex-row" v-for="(item, key) in prize_list">
+                  <div class="table_time prize_time list_width">{{$globalFunc.formatDateUitl(item.lotteryTime,
+                    'YYYY-MM-DD hh:mm:ss')}}
+                  </div>
+                  <div class="table_number_num">
+                    <a href="#" @click="GO_URL_DETAIL(item.blockContractUrl)">{{item.blockContractNumber}}</a>
+                  </div>
+                  <div class="table_number prize_number list_width">{{item.winNumber}}</div>
+                  <div class="table_number prize_total list_width">{{item.totalQuantity}}</div>
+                  <div class="table_number prize_pool list_width">{{item.lotteryPoolNumber}}</div>
+                  <div class="table_number list_width">{{item.itemNumber}}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 本期参与，开奖记录 end -->
+
+      <!-- 活动规则 start -->
+      <div class="forecast_dialog_list" v-if="show_rules">
+        <div class="forecast_dialog_list_body dialog_rules list_width">
+          <div class="forecast_dialog_list_close" @click="HIDE_RULES_DIALOG"></div>
+          <div class="forecast_dialog_list_content">
+            <div class="forecast_dialog_list_title rules_title_header">
+              {{$t('rule')}}
+            </div>
+            <div class="forecast_dialog_rules box_shadow border_radius">
+              <p class="rules_p">{{$t('rule_title_1')}}</p>
+              <div class="rules_div">
+                <div class="rules_item_list">
+                  <p class="rules_title">
+                    {{$t('rule')}}
+                  </p>
+                  <p class="rules_p rules_item">
+                    {{$t('rule_item_1')}}
+                  </p>
+                  <p class="rules_p rules_item">
+                    {{$t('rule_item_2')}}
+                  </p>
+                  <p class="rules_p rules_item">
+                    {{$t('rule_item_3')}}
+                  </p>
+                  <p class="rules_p rules_item">
+                    {{$t('rule_item_4')}}
+                  </p>
+                  <p class="rules_p rules_item last-child">
+                    {{$t('rule_item_5')}}
+                  </p>
+                  <!--<p class="rules_p rules_item">-->
+                  <!--{{$t('rule_item_6')}}-->
+                  <!--</p>-->
+                  <!--<p class="rules_p last-child rules_item">-->
+                  <!--{{$t('rule_item_7')}}-->
+                  <!--</p>-->
+                  <p class="rules_title">
+                    {{$t('rule_title_2')}}
+                  </p>
+                  <p class="rules_p">
+                    1、{{$t('rule_item_8')}}
+                  </p>
+                  <p class="rules_p">
+                    2、{{$t('rule_item_9')}}
+                  </p>
+                  <!--<p class="rules_p">-->
+                  <!--3、{{$t('rule_item_10')}}-->
+                  <!--</p>-->
+                  <!--<p class="rules_p">-->
+                  <!--4、{{$t('rule_item_11')}}-->
+                  <!--</p>-->
+                  <p class="rules_p_tips">
+                    {{$t('rule_item_12')}}
+                  </p>
+                </div>
+              </div>
+              <div class="rules_check" v-if="is_login && !is_agree">
+                <label class="agree_ment" for="agree">
+                  <input id="agree" style="display: none;" type="checkbox" name="" v-model="agree_rules">
+                  <img v-if="!agree_rules" src="">
+<!--                  ../assets/mobileForecastHomePage/agreement_no_select.png-->
+                  <img v-else src="">
+<!--                  ../assets/mobileForecastHomePage/agreement_selected.png-->
+                  {{$t('rule_item_13')}}
+                </label>
+                <div class="rules_btns">
+                  <button class="btn join" @click="GO_JOIN">
+                    {{$t('join')}}
+                  </button>
+                  <button class="btn leave disabled" @click="GO_HOME">
+                    {{$t('leave')}}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 活动规则 end -->
+
+      <!-- 提示 -->
+      <PopupPrompt :popOpen="promptOpen" :waitTime="2000" :popClose="closePrompt" :popType="popType"
+                   :popText="popText"/>
+
+      <!-- 认证提示 -->
+      <PopupWindow :switch="popWindowOpen" @close="popWindowClose">
+        <div slot="header">
+          <span>{{$t('notice')}}</span>
+        </div>
+        <div slot="article" class="pop-article">
+          <p>{{$t('verfication')}}</p>
+        </div>
+        <div slot="footer" class="pop-footer flex">
+          <template>
+            <button class="button-base btn_blue" @click="GO_INDENTITY">
+              {{$t('complete')}}
+            </button>
+          </template>
+        </div>
+      </PopupWindow>
+
+    </div>
+  </div>
+</div>

@@ -156,56 +156,56 @@ root.routes.push({
 // 上币公告 3_9 end lost
 
 // 幸运抽奖 start 2018-9-10 TODO:要删除 check
-// root.routes.push({
-//   path: '/index/LuckyDraw',
-//   caseSensitive: true,
-//   meta: {
-//     requireLogin: false,
-//   },
-//   component: resolve => require(['@/components/LuckyDraw/vue/LuckyDrawForecast'], resolve),
-//   children: [
-//     { // 幸运抽奖
-//       path: 'Forecast',
-//       name: 'Forecast',
-//       caseSensitive: true,
-//       meta: {
-//         mobileHeaderTitle: '',
-//         pcname: 'Forecast',
-//         h5name: 'MobileForecastHomePage',
-//       },
-//       component: resolve => require(['@/components/LuckyDraw/vue/Forecast'], resolve),
-//       children: []
-//     },
-//     { // 我的记录
-//       path: 'Record',
-//       name: 'Record',
-//       caseSensitive: true,
-//       meta: {
-//         mobileHeaderTitle: '',
-//         pcname: 'Record',
-//         h5name: 'Record',
-//         requireLogin: true,
-//       },
-//       component: resolve => require(['@/components/LuckyDraw/vue/Record'], resolve),
-//       children: []
-//     },
-//   ]
-// })
+root.routes.push({
+  path: '/index/LuckyDraw',
+  caseSensitive: true,
+  meta: {
+    requireLogin: false,
+  },
+  component: resolve => require(['@/components/LuckyDraw/vue/LuckyDrawForecast'], resolve),
+  children: [
+    { // 幸运抽奖
+      path: 'Forecast',
+      name: 'Forecast',
+      caseSensitive: true,
+      meta: {
+        mobileHeaderTitle: '',
+        pcname: 'Forecast',
+        h5name: 'MobileForecastHomePage',
+      },
+      component: resolve => require(['@/components/LuckyDraw/vue/Forecast'], resolve),
+      children: []
+    },
+    { // 我的记录
+      path: 'Record',
+      name: 'Record',
+      caseSensitive: true,
+      meta: {
+        mobileHeaderTitle: '',
+        pcname: 'Record',
+        h5name: 'Record',
+        requireLogin: true,
+      },
+      component: resolve => require(['@/components/LuckyDraw/vue/Record'], resolve),
+      children: []
+    },
+  ]
+})
 
 // -------------------------------- mobile 部分 start ------------------------------------
 
 // 幸运预测活动  TODO:要删除 check
-// root.routes.push({
-//   path: '/index/mobileForecastHomePage',
-//   name: 'MobileForecastHomePage',
-//   meta: {
-//     requireLogin: false,
-//     pcname: 'Forecast',
-//     h5name: 'MobileForecastHomePage',
-//   },
-//   caseSensitive: true,
-//   component: resolve => require(['@/components/LuckyDraw/vue/MobileForecastHomePage'], resolve)
-// })
+root.routes.push({
+  path: '/index/mobileForecastHomePage',
+  name: 'MobileForecastHomePage',
+  meta: {
+    requireLogin: false,
+    pcname: '',
+    h5name: 'MobileForecastHomePage',
+  },
+  caseSensitive: true,
+  component: resolve => require(['@/components/LuckyDraw/vue/MobileForecastHomePage'], resolve)
+})
 
 
 // 双平台通证合并公投 TODO:要删除 check
@@ -957,48 +957,48 @@ root.routes.push({
 //     // 20170917 h5幸运预测活动
 //     // 幸运预测活动参与记录
 //     //TODO:要删除 没找到文件
-//     {
-//       path: 'mobileForecastJoinRecord',
-//       name: 'MobileForecastJoinRecord',
-//       caseSensitive: true,
-//       meta: {
-//         requireLogin: false,
-//         mobileHeaderTitle: '',
-//         pcname: '',
-//         h5name: 'MobileForecastJoinRecord',
-//       },
-//       component: resolve => require(['@/components/LuckyDraw/vue/MobileForecastJoinRecord'], resolve),
-//     },
+    {
+      path: 'mobileForecastJoinRecord',
+      name: 'MobileForecastJoinRecord',
+      caseSensitive: true,
+      meta: {
+        requireLogin: false,
+        mobileHeaderTitle: '',
+        pcname: '',
+        h5name: 'MobileForecastJoinRecord',
+      },
+      component: resolve => require(['@/components/LuckyDraw/vue/MobileForecastJoinRecord'], resolve),
+    },
 //
 //     // 幸运预测活动销毁记录
 //     //TODO:要删除 没找到文件
-//     {
-//       path: 'mobileForecastDesdroyRecord',
-//       name: 'MobileForecastDesdroyRecord',
-//       caseSensitive: true,
-//       meta: {
-//         requireLogin: false,
-//         mobileHeaderTitle: '',
-//         pcname: '',
-//         h5name: 'MobileForecastDesdroyRecord',
-//       },
-//       component: resolve => require(['@/components/LuckyDraw/vue/MobileForecastDesdroyRecord'], resolve),
-//     },
+    {
+      path: 'mobileForecastDesdroyRecord',
+      name: 'MobileForecastDesdroyRecord',
+      caseSensitive: true,
+      meta: {
+        requireLogin: false,
+        mobileHeaderTitle: '',
+        pcname: '',
+        h5name: 'MobileForecastDesdroyRecord',
+      },
+      component: resolve => require(['@/components/LuckyDraw/vue/MobileForecastDesdroyRecord'], resolve),
+    },
 //
 //     // 开奖记录
-//     //TODO:要删除 没找到文件
-//     {
-//       path: 'mobileForecastRewardRecord',
-//       name: 'MobileForecastRewardRecord',
-//       caseSensitive: true,
-//       meta: {
-//         requireLogin: false,
-//         mobileHeaderTitle: '',
-//         pcname: '',
-//         h5name: 'MobileForecastRewardRecord',
-//       },
-//       component: resolve => require(['@/components/LuckyDraw/vue/MobileForecastRewardRecord'], resolve),
-//     },
+//     //TODO:要删除 没找到文件  H5需要
+    {
+      path: 'mobileForecastRewardRecord',
+      name: 'MobileForecastRewardRecord',
+      caseSensitive: true,
+      meta: {
+        requireLogin: false,
+        mobileHeaderTitle: '',
+        pcname: '',
+        h5name: 'MobileForecastRewardRecord',
+      },
+      component: resolve => require(['@/components/LuckyDraw/vue/MobileForecastRewardRecord'], resolve),
+    },
 // //
 //      TODO:要删除 check
 //     // 超级为蜜

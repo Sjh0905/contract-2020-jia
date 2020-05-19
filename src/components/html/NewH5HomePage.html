@@ -29,7 +29,7 @@
       </div>
 
       <!--下面的 竖向新闻-->
-      <div class="homepage-header-textswiper">
+      <div class="homepage-header-textswiper flex">
         <img class="homepage-header-textswiper-icon" src="../../assets/index_home/notice_sound_icon.png"/>
         <div class="homepage-header-textswiper-container">
           <swiper :options="swiperTextOption" v-if="textDataReady">
@@ -66,6 +66,7 @@
             <div class="swiper-pagination" slot="pagination"></div>
           </swiper>
         </div>
+        <div class="homepage-textswiper-more" @click="goToNotice">查看更多</div>
       </div>
 
       <!--币对-->
