@@ -1,0 +1,81 @@
+.mobile-forecast-record-box {
+  position: absolute;
+  overflow: hidden;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  /*background: url("../assets/mobileForecastRecord/container_bg.png") center no-repeat;*/
+  background-size: 100% 100%;
+}
+
+.mobile-forecast-record-title {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 36px;
+  line-height: 36px;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  font-size: 14px;
+  color: rgba(255,255,255,0.6);
+  width: 100%;
+}
+
+.type {
+  flex: 33;
+}
+
+.detail {
+  flex: 30;
+  text-align: right
+}
+
+.num {
+  flex: 37;
+  text-align: right;
+}
+
+.mobile-forecast-record-list {
+  position: absolute;
+  top: 36px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow-y: scroll;
+}
+
+.mobile-forecast-record-item {
+  height: 26px;
+  line-height: 26px;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  color: #fff;
+  padding: 0 10px;
+  font-size: 12px;
+}
+
+.no-data-box {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  width: 100%;
+  transform: translate(-50%,-50%);
+}
+
+.no-data-img {
+  display: block;
+  /*position: absolute;*/
+  width: 151px;
+  margin: 0 auto;
+}
+
+.no-data-text {
+  text-align: center;
+  color: #4A6890;
+  font-size: 14px;
+  margin-top: -30px;
+}

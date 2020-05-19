@@ -49,6 +49,16 @@
   display: block;
 }
 
+.homepage-textswiper-more {
+  position: absolute;
+  right: 0.3rem;
+  z-index:100;
+  /*width: 1.4rem;*/
+  /*text-align: right;*/
+  line-height: 0.8rem;
+  /*margin-right: 0.3rem;*/
+}
+
 .homepage-header-textswiper-bidui {
   height: 1.6rem;
   /*margin-top: .3rem;*/

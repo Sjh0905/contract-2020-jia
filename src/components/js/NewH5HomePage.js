@@ -505,6 +505,9 @@ root.methods = {}
 // --------------- 初始化页面 start ---------------
 
 
+root.methods.goToNotice = function () {
+  this.$router.push('/index/mobileNotice')
+}
 // 点击切换版块
 // root.methods.changeEdition = function (type) {
 //   if (parseInt(type) === this.selectEdition) return
