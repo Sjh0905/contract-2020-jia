@@ -47,6 +47,11 @@ root.watch = {};
 
 
 root.methods = {};
+
+root.methods.ReturnToActivePage = function () {
+  this.$router.push({name:'MobileForecastHomePage'})
+}
+
 root.methods.getInitPage = function () {
   this.$http.send('POST_LUCKY_GUESS_CURRENT_PERIOD_PARTAKE', {
     bind: this,
