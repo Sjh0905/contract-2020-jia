@@ -9,7 +9,13 @@ root.components = {
 root.data = function () {
   return {
     loading: true,
-    dataList: [],
+    dataList: [
+      {
+        participateTime:23132142342,
+        countId:12,
+        userName:'KK 123213'
+      }
+    ],
 
     currency: '',
   }

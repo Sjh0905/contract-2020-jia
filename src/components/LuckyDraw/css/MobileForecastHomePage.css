@@ -29,9 +29,9 @@
 .forecast-activity-homepage {
   /*min-height: 100%;*/
   position: relative;
-  /*background: url("../assets/mobileForecastHomePage/header_bg.jpg") no-repeat;*/
-  /*background-size: 100% auto;*/
-  /*background-position: 0 top;*/
+  background: url("../assets/mobileForecastHomePage/header_bg.png") no-repeat;
+  background-size: 100% auto;
+  background-position: 0 top;
 }
 
 .forecast-activity-homepage-header-title {
@@ -76,7 +76,7 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 6px;
+  width: 0.32rem;
   transform: translate(-50%,-50%);
 }
 
@@ -92,7 +92,7 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 18px;
+  width: 0.36rem;
   transform: translate(-50%,-50%);
 }
 
@@ -271,13 +271,13 @@
 .forecast-activity-homepage-container-item-canvas-text {
   position: absolute;
   width: 100%;
-  height: 24px;
-  line-height: 24px;
-  font-family: Helvetica, Arial, sans-serif;
-  font-weight: bold;
-  font-size: 22px;
+  height: 0.58rem;
+  line-height: 0.58rem;
+  font-size:0.48rem;
+  font-family:Helvetica-Bold,Helvetica;
+  font-weight:bold;
   text-align: center;
-  /*background-image: -webkit-gradient(linear, 50% 10%, 50% 80%, from(#fff), to(#9a9a9a));*/
+  background: #fff;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   text-shadow: 0 2px 4px rgba(0,0,0,0.29);
@@ -312,19 +312,19 @@
 }
 
 .forecast-activity-homepage-container-item-info-title-left-text {
-  margin-left: 6px;
-  color: #C43E4E;
+  margin-left: 0.12rem;
+  color: #D0D4E9;
   font-size: 0.24rem;
   height: 0.32rem;
   line-height: 0.32rem;
 }
 
 .forecast-activity-homepage-container-item-info-title-right {
-  color: #B0CCE6;
+  color: #F57C35;
   font-size: 0.24rem;
   height: 0.32rem;
   line-height: 0.32rem;
-  opacity: 0.5;
+  /*opacity: 0.5;*/
 }
 
 
@@ -340,7 +340,7 @@
   border-radius: 4px;
   padding-left: 6px;
   padding-right: 10px;
-  color: #fff;
+  color: #D0D4E9;
   font-size: 0.28rem;
 }
 
@@ -370,17 +370,17 @@
 }
 
 .forecast-activity-homepage-container-item-info-last-left {
-  color: #B0CCE6;
+  color: #CFD3E9;
 }
 
 .forecast-activity-homepage-container-item-info-last-right {
-  color: #C43E4E;
+  color: #3576F5;
 }
 
 .forecast-activity-homepage-container-item-down {
   height: 1.6rem;
   display: flex;
-  border-top: 1px dashed #373798;
+  border-top: 1px solid #3E536C;
   box-sizing: content-box;
   align-items: center;
   justify-content: center;
@@ -391,7 +391,7 @@
   height: 40px;
   line-height: 40px;
   font-size: 16px;
-  border-radius: 4px;
+  border-radius: 20px;
   text-align: center;
   box-sizing: content-box;
 }
@@ -404,8 +404,8 @@
 
 .forecast-activity-homepage-container-item-down-btn-releace {
   background: transparent;
-  color: #C43E4E;
-  border: 1px solid #C43E4E;
+  color: #fff;
+  border: 1px solid #3576F5;
 }
 
 .svg-btn path{
@@ -674,20 +674,20 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%,-50%);
-  height: 274px;
+  height: 284px;
   width: 320px;
   background: #fff;
-  border-radius: 8px;
+  border-radius: 0.06rem;
   padding: 0 20px;
 }
 
 .forecast-activity-ruleToast-close-btn {
   position: absolute;
-  top: -40px;
-  right: -10px;
-  width: 40px;
+  /*top: -40px;*/
+  right: 0;
+  /*width: 40px;*/
   height: 40px;
-  padding: 10px;
+  padding: 0.3rem 0.4rem 0.2rem 0.2rem;
 }
 
 .forecast-activity-ruleToast-close-btn-img {
@@ -697,12 +697,12 @@
 }
 
 .forecast-activity-ruleToast-title {
-  height: 40px;
+  height: 1.04rem;
   font-size: 16px;
-  line-height: 40px;
+  line-height: 1.04rem;
   text-align: center;
   font-weight: bold;
-  color: #C43E4E;
+  color: #172841;
   border-bottom: 1px solid #f2f2f2;
   box-sizing: content-box;
 }
@@ -719,41 +719,55 @@
 
 .forecast-activity-ruleToast-content {
   position: absolute;
-  top: 50px;
+  top: 1.46rem;
   overflow-y: scroll;
   left: 20px;
   right: 20px;
-  height: 126px;
+  height: 2.52rem;
   padding-bottom: 20px;
 }
 
 .forecast-activity-ruleToast-content-info {
-  font-size: 11px;
-  color: rgba(0,0,0,0.6);
+  color: #172841;
+  font-size:0.24rem;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
   line-height: 16px;
   text-align: justify;
 }
 
 .forecast-activity-ruleToast-content-list {
+  color: #172841;
+  font-size:0.24rem;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
   padding: 0;
   margin: 0;
 }
 
+.forecast-activity-ruleToast-content-list-tit {
+  color: #172841;
+  font-size:0.24rem;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+}
+
 .forecast-activity-ruleToast-content-list-title {
-  font-size: 11px;
-  color: rgba(0,0,0,0.6);
+  color: #172841;
+  font-size:0.24rem;
+  font-family:PingFangSC-Medium,PingFang SC;
+  font-weight:400;
   line-height: 16px;
   height: 16px;
   margin-top: 15px;
 }
 
 .forecast-activity-ruleToast-content-item {
-  font-size: 10px;
-  color: rgba(0,0,0,0.6);
   line-height: 14px;
   min-height: 14px;
   margin-top: 7px;
   padding-left: 17px;
+  text-indent:-1em;
   position: relative;
 }
 
@@ -812,7 +826,7 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  margin-top: 146px;
+  margin-top: 3rem;
 }
 
 .forecast-activity-ruleToast-agreement-icon {
@@ -823,15 +837,13 @@
 }
 
 .forecast-activity-ruleToast-agreement-icon-selected {
-
-  /*background: url('../assets/mobileForecastHomePage/agreement_selected.png') no-repeat center;*/
-  /*background-size: 100% 100%;*/
+  background: url('../assets/mobileForecastHomePage/agreement_selected.png') no-repeat center;
+  background-size: 100% 100%;
 }
 
 .forecast-activity-ruleToast-agreement-icon-no-select {
-
-  /*background: url('../assets/mobileForecastHomePage/agreement_no_select.png') no-repeat center;*/
-  /*background-size: 100% 100%;*/
+  background: url('../assets/mobileForecastHomePage/agreement_no_select.png') no-repeat center;
+  background-size: 100% 100%;
 }
 
 .forecast-activity-ruleToast-agreement-text {
@@ -842,7 +854,7 @@
 }
 
 .forecast-activity-ruleToast-agreement-wrong-text {
-  color: #EA4040;
+  color: #FD5555;
   height: 14px;
   line-height: 14px;
   font-size: 10px;
@@ -868,20 +880,19 @@
   width: 130px;
   height: 32px;
   line-height: 30px;
-  border: 1px solid #C43E4E;
-  border-radius: 6px;
+  border: 1px solid #3576F5;
+  border-radius: 0.04rem;
   text-align: center;
   font-size: 14px;
-
 }
 
 .forecast-activity-ruleToast-btn-join {
   color: #fff;
-  background: #C43E4E;
+  background: #3576F5;
 }
 
 .forecast-activity-ruleToast-btn-leave {
-  color: #C43E4E;
+  color: #3576F5;
   background: #fff;
 }
 

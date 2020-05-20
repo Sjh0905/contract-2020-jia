@@ -747,6 +747,10 @@ root.methods.closeDownload = function () {
 
 // --------------------------------------------------------------------------- 顶部轮播逻辑 start ------------------------------------------------------------
 
+root.methods.goToTreasureChest = function () {
+  this.$router.push({name:'MobileForecastHomePage'})
+}
+
 // 获取通告信息
 root.methods.getNotice = function () {
   this.$http.send('POST_NOTICE_LIST', {

@@ -25,23 +25,47 @@ root.data = function () {
 
     headerTitle: '',
 
-    titleList: [],
+    titleList: [
+
+    ],
 
     pageInfoList: [],
 
     // 现显示的containerList
     containerList: [
       {
-        currency:'USDT',
-        extPeriod:2,
-        rewardAmount:232,
-        projectId:1,
-        eachAmount:12,
-        residueTicket:12,
-        eachs:100,
-        preWinNumber:1,
+        currency:'USDT', //币种
+        extPeriod:2, //几期
+        rewardAmount:232, //奖池总额
+        projectId:1, // 当前Id
+        eachAmount:12, // 每份多少枚
+        residueTicket:99, // 所占份数
+        eachs:100, // 总分数
+        preWinNumber:2, // 上期中奖编号
         projectStatus:'ABNORMAL',
 
+      },
+      {
+        currency:'USDT', //币种
+        extPeriod:2, //几期
+        rewardAmount:232, //奖池总额
+        projectId:1, // 当前Id
+        eachAmount:12, // 每份多少枚
+        residueTicket:99, // 所占份数
+        eachs:100, // 总分数
+        preWinNumber:2, // 上期中奖编号
+        projectStatus:'PAUSE',
+
+      } , {
+        currency:'USDT', //币种
+        extPeriod:2, //几期
+        rewardAmount:232, //奖池总额
+        projectId:1, // 当前Id
+        eachAmount:12, // 每份多少枚
+        residueTicket:99, // 所占份数
+        eachs:100, // 总分数
+        preWinNumber:2, // 上期中奖编号
+        projectStatus:'CREATE',
       }
     ],
 
@@ -570,9 +594,8 @@ root.methods.re_openToast = function (res) {
 root.methods.error_openToast = function (err) {
   this.openPop('服务器升级中，请稍后再试')
 }
-
-// 进入活动
-root.methods.joinTheActivity = function () {
+// 提示弹框
+root.methods.openRuleToastFlag = function () {
   if (!this.ruleAgreement) {
     this.ruleAgreementWA = '提示：请同意活动规则'
     return
@@ -580,10 +603,12 @@ root.methods.joinTheActivity = function () {
   if (this.ruleAgreementFlag) {
     return
   }
-
+  this.ruleToastFlag = false
   this.ruleAgreementFlag = true
+}
 
-
+// 进入活动
+root.methods.joinTheActivity = function () {
   this.$http.send('AGREE_ACTIVITY_RULES', {
     bind: this,
     callBack: this.re_joinTheActivity,

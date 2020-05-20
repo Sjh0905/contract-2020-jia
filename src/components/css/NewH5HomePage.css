@@ -177,7 +177,7 @@
 .homepage-icon-body {
   position: relative;
   min-height: 1.8rem;
-  margin: 0.2rem 0;
+  margin: 0.2rem 0 0;
   background: #131F30;
   padding-top: 0.3rem;
   padding-bottom: 0.2rem;
@@ -282,6 +282,15 @@ position: relative;
   width: 100%;
   bottom: 3px;
   left: 128px;
+}
+
+.treasure-chest {
+  width: 100%;
+  padding: 0 0.3rem;
+}
+
+.treasure-chest img {
+  width: 100%;
 }
 
 .homepage-body {

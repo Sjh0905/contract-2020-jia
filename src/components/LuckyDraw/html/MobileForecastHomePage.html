@@ -9,27 +9,28 @@
       <!--非ios头部-->
       <div v-show="!iosQuery" class="forecast-activity-homepage-header-title">
         <div class="forecast-activity-homepage-header-title-back-icon" @click="jumpToBack()">
-          <img class="forecast-activity-homepage-header-title-back-icon-img" src="" alt="">
+          <img class="forecast-activity-homepage-header-title-back-icon-img" src="../assets/mobileForecastHomePage/back_icon.png" alt="">
 <!--          ../assets/mobileForecastHomePage/back_icon.png-->
         </div>
-        <div class="forecast-activity-homepage-header-title-text" v-if="titleList.length <= 1">{{headerTitle}}</div>
-        <div class="forecast-activity-homepage-header-title-text-hidden" v-if="titleList.length > 1">{{headerTitle}}</div>
+<!--        <div class="forecast-activity-homepage-header-title-text" v-if="titleList.length <= 1">{{headerTitle}}</div>-->
+<!--        <div class="forecast-activity-homepage-header-title-text-hidden" v-if="titleList.length > 1">{{headerTitle}}</div>        -->
+        <div class="forecast-activity-homepage-header-title-text" v-if="titleList.length <= 1">百宝箱</div>
+        <div class="forecast-activity-homepage-header-title-text-hidden" v-if="titleList.length > 1">百宝箱</div>
         <div class="forecast-activity-homepage-header-title-info-icon" @click="jumpToInfo()">
-          <img class="forecast-activity-homepage-header-title-info-icon-img" src="" alt="">
-<!--          ../assets/mobileForecastHomePage/rule_icon.png-->
+          <img class="forecast-activity-homepage-header-title-info-icon-img" src="../assets/mobileForecastHomePage/rule_icon.png" alt="">
         </div>
       </div>
       <!--ios头部-->
       <div v-show="iosQuery" class="forecast-activity-homepage-header-title-ios-box">
         <div class="forecast-activity-homepage-header-ios"></div>
         <div class="forecast-activity-homepage-header-title-ios">
-          <!--<div class="forecast-activity-homepage-header-title-back-icon" @click="jumpToBack()">-->
-            <!--<img class="forecast-activity-homepage-header-title-back-icon-img" src="../assets/mobileForecastHomePage/back_icon.png" alt="">-->
-          <!--</div>-->
+          <div class="forecast-activity-homepage-header-title-back-icon" @click="jumpToBack()">
+            <img class="forecast-activity-homepage-header-title-back-icon-img" src="../assets/mobileForecastHomePage/back_icon.png" alt="">
+          </div>
           <div class="forecast-activity-homepage-header-title-text" v-if="titleList.length <= 1">{{headerTitle}}</div>
           <div class="forecast-activity-homepage-header-title-text-hidden" v-if="titleList.length > 1">{{headerTitle}}</div>
           <div class="forecast-activity-homepage-header-title-info-icon" @click="jumpToInfo()">
-            <img class="forecast-activity-homepage-header-title-info-icon-img" src="" alt="">
+            <img class="forecast-activity-homepage-header-title-info-icon-img" src="../assets/mobileForecastHomePage/rule_icon.png" alt="">
 <!--            ../assets/mobileForecastHomePage/rule_icon.png-->
           </div>
         </div>
@@ -60,8 +61,7 @@
                 <defs>
                   <pattern id="fill-img" patternUnits="userSpaceOnUse" width="100" height="100">
 
-                    <image class="img-transform" xlink:href="" x="0"y="0"width="86"height="86"></image>
-<!--                    ../assets/rectangl        e_bg.png-->
+                    <image class="img-transform" xlink:href="../assets/rectangle_bg.png" x="0"y="0"width="86"height="86"></image>
 
                   </pattern>
                 </defs>
@@ -73,11 +73,12 @@
             <div class="forecast-activity-homepage-container-item-info">
               <div class="forecast-activity-homepage-container-item-info-title">
                 <div class="forecast-activity-homepage-container-item-info-title-left">
-                  <img class="forecast-activity-homepage-container-item-info-title-left-logo" src="" alt="">
+                  <img class="forecast-activity-homepage-container-item-info-title-left-logo" src="../assets/mobileForecastHomePage/USDT.png" alt="">
 <!--                  'http://logo.eunex.group/' + item.currency + '.png'-->
                   <div class="forecast-activity-homepage-container-item-info-title-left-text">{{item.currency}} 第{{parseInt(item.extPeriod)}}期</div>
                 </div>
-                <div class="forecast-activity-homepage-container-item-info-title-right">奖池总额：{{item.rewardAmount}} {{item.currency}} </div>
+                <div class="forecast-activity-homepage-container-item-info-title-right">12:00 开奖</div>
+<!--                奖池总额：{{item.rewardAmount}} {{item.currency}}-->
               </div>
 
               <div class="forecast-activity-homepage-container-item-info-num"  @click="goToJoinRecord(item.projectId,item.extPeriod,item.currency)">
@@ -108,8 +109,8 @@
 		            A20 20 0 0 1 21 1
 		            L151 1
 		            Z' fill='transparent' stroke='#0ECFE5' stroke-width='1' stroke-dashoffset='650' stroke-dasharray='650'>
-
               </path>>
+
               <text x="100" y="26" font-size="16">区块生成开奖中</text>
 
             </svg>
@@ -121,30 +122,33 @@
       <div v-if="ruleToastFlag" class="forecast-activity-ruleToast">
         <div class="forecast-activity-ruleToast-box">
           <div class="forecast-activity-ruleToast-close-btn" @click="closeRuleToast">
-            <img class="forecast-activity-ruleToast-close-btn-img" src="" alt="">
+            <img class="forecast-activity-ruleToast-close-btn-img" src="../assets/mobileForecastHomePage/close_btn.png" alt="">
 <!--            ../assets/mobileForecastHomePage/close_btn.png-->
           </div>
           <div class="forecast-activity-ruleToast-title">活动规则</div>
           <div :class="!(isLogin && !viewAgreement)? 'forecast-activity-ruleToast-content-readonly':'forecast-activity-ruleToast-content'">
             <div class="forecast-activity-ruleToast-content-info">
-              欧联区块链幸运预测是基于以太坊智能合约的竞猜游戏，用户兑换的编号如与智能合约生成随机数一致，则竞猜成功获得奖励。
+              百日庆之百宝箱是基于以太坊智能合约的竞猜游戏，用户兑换的编号如与智能合约生成随机数一致或相近，则竞猜成功获得奖励。
             </div>
 
-            <div class="forecast-activity-ruleToast-content-list-title strong">活动规则</div>
+            <div class="forecast-activity-ruleToast-content-list-title strong">活动规则如下：</div>
             <div class="forecast-activity-ruleToast-content-list">
-              <div class="forecast-activity-ruleToast-content-item">用户每成功兑换一份奖池份额，即可获得1个随机编号；</div>
-              <div class="forecast-activity-ruleToast-content-item">奖池满额后立即通过区块链网络进行开奖；</div>
-              <div class="forecast-activity-ruleToast-content-item">竞猜成功后，中奖者获得当期奖池总额90%；</div>
-              <div class="forecast-activity-ruleToast-content-item">成功兑换参与活动后，已兑换份额不可再撤回；</div>
-              <div class="forecast-activity-ruleToast-content-item">单账户每日参与预测次数为50次。</div>
+              <div class="forecast-activity-ruleToast-content-list-tit">以太坊网络智能合约将在每期奖池开奖后，自动生成一个随机开奖号码；</div>
+              <div class="forecast-activity-ruleToast-content-item">1.用户每成功兑换一份奖池份额，即可获得1个随机2位数兑奖码；</div>
+              <div class="forecast-activity-ruleToast-content-item">2.同一用户每次可购买多份，也可以多次购买，如购买5份则有5个兑奖码；</div>
+              <div class="forecast-activity-ruleToast-content-item">3.兑奖码与开奖号码最后2位数相同即为中奖；</div>
+              <div class="forecast-activity-ruleToast-content-item">4.如当期用户兑奖码未与开奖号码后2位数完全匹配，则取最接近的1或者2位抽奖码用户中奖；</div>
+              <div class="forecast-activity-ruleToast-content-item">5.如中奖编号为68，68未完全匹配，则取67或69中奖，或者67和69同时中奖，如没有67和69，则继续类推至66和70；</div>
+              <div class="forecast-activity-ruleToast-content-item">6.竞猜成功后，中奖者获得当期奖池总额的90% ；</div>
+              <div class="forecast-activity-ruleToast-content-item">7.区块链竞猜每30分钟开奖一次，不足10份不开奖，自动延长30分钟开奖，每期最高销售100份；</div>
             </div>
 
-            <div class="forecast-activity-ruleToast-content-info-title strong">开奖规则</div>
-            <div class="forecast-activity-ruleToast-content-info">
-              以太坊网络智能合约将在每期奖池满额后，自动开始生成一个随机8位数；<br/>
-              您持有的编号与随机数后几位一致，则竞猜成功。例如您编号为2位数，则与随机数后两位一致则竞猜成功，以此类推。<br/>
-              本活动最终解释权归欧联所有。
-            </div>
+<!--            <div class="forecast-activity-ruleToast-content-info-title strong">开奖规则</div>-->
+<!--            <div class="forecast-activity-ruleToast-content-info">-->
+<!--              以太坊网络智能合约将在每期奖池满额后，自动开始生成一个随机8位数；<br/>-->
+<!--              您持有的编号与随机数后几位一致，则竞猜成功。例如您编号为2位数，则与随机数后两位一致则竞猜成功，以此类推。<br/>-->
+<!--              本活动最终解释权归欧联所有。-->
+<!--            </div>-->
           </div>
           <div v-if="isLogin && !viewAgreement" class="forecast-activity-ruleToast-agreement-box" @click="changeRuleAgreement">
             <div class="forecast-activity-ruleToast-agreement-icon" :class="ruleAgreement === false?'forecast-activity-ruleToast-agreement-icon-no-select':'forecast-activity-ruleToast-agreement-icon-selected'"></div>
@@ -155,7 +159,7 @@
             <div v-if="ruleAgreementWA" class="forecast-activity-ruleToast-agreement-wrong-text">{{ruleAgreementWA}}</div>
           </div>
           <div v-if="isLogin && !viewAgreement" class="forecast-activity-ruleToast-btn-box">
-            <div class="forecast-activity-ruleToast-btn forecast-activity-ruleToast-btn-join" @click="joinTheActivity">进入活动</div>
+            <div class="forecast-activity-ruleToast-btn forecast-activity-ruleToast-btn-join" @click="openRuleToastFlag">进入活动</div>
             <div class="forecast-activity-ruleToast-btn forecast-activity-ruleToast-btn-leave" @click="leaveTheActivity">离开</div>
           </div>
         </div>

@@ -1,6 +1,17 @@
 <div>
   <Loading v-if="loading"/>
-  <div v-if="!loading" class="mobile-forecast-record-box">
+  <div class="mobile-forecast-record-box">
+<!--    v-if="!loading"-->
+
+    <div class="mobile-forecast-record-box-title">
+      <img src="" alt="" class="divHeaderImg">
+      <span class="divHeaderSpan">本期参与</span>
+    </div>
+
+    <div class="divHeader" @click="ReturnToActivePage">
+
+    </div>
+
     <!--无数据-->
     <div v-if="dataList.length === 0" class="no-data-box">
       <img class="no-data-img" src="" alt="">
@@ -10,8 +21,8 @@
     <!--有数据-->
     <div v-if="dataList.length > 0" class="mobile-forecast-record-title">
       <div class="mobile-forecast-record-title-type type">认购时间</div>
-      <div class="mobile-forecast-record-title-detail detail">认购份数</div>
-      <div class="mobile-forecast-record-title-num num">用户注册名</div>
+      <div class="mobile-forecast-record-title-detail detail">认购数量</div>
+      <div class="mobile-forecast-record-title-num num">账号</div>
     </div>
     <div v-if="dataList.length > 0" class="mobile-forecast-record-list">
       <div v-for="(item,index) in dataList" :key="index" class="mobile-forecast-record-item">
