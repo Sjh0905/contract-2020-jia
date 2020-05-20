@@ -54,12 +54,12 @@
 }
 
 .process-center {
-  border-left: 1px solid rgba(196,62,78, 0.2);
-  border-right: 1px solid rgba(196,62,78, 0.2);
+  border-left: 1px solid rgba(53,118,245, 0.2);
+  border-right: 1px solid rgba(53,118,245, 0.2);
 }
 
 .process-item-selected {
-  background: #C43E4E;
+  background: #3576F5;
   color: white;
 }
 
@@ -131,11 +131,11 @@
 
 .list-title {
   font-size: 14px;
-  color: rgba(255, 255, 255, 0.6);
+  color: #CFD3E9;
 }
 
 .list-separate {
-  color: rgba(255, 255, 255, 0.6);
+  color: #CFD3E9;
   font-size: 12px;
   padding-left: 8px;
   padding-right: 18px;
@@ -200,7 +200,7 @@
 
 .list-description-reward-title {
   font-size: 14px;
-  color: rgba(255, 255, 255, 0.6);
+  color: #CFD3E9;
 }
 
 .list-description-reward-detail {
@@ -247,7 +247,7 @@
   height: 35px;
   line-height: 35px;
   justify-content: space-between;
-  border: 1px solid #C43E4E;
+  border: 1px solid #3576F5;
   color: white;
   margin: 0 auto;
   border-radius: 35px;
@@ -262,13 +262,13 @@
 }
 
 .h5-process-item-selected {
-  background: #C43E4E;
+  background: #3576F5;
   color: white;
 }
 
 .h5-process-center {
-  border-left: 1px solid rgba(196,62,78, 0.2);
-  border-right: 1px solid rgba(196,62,78, 0.2);
+  border-left: 1px solid rgba(53,118,245, 0.2);
+  border-right: 1px solid rgba(53,118,245, 0.2);
 }
 
 /*h5列表*/
@@ -277,16 +277,18 @@
   /*justify-content: center;*/
   align-items: center;
   width: 100%;
-  margin-top: 10px;
+  /*margin-top: 10px;*/
 }
 
 .h5-record-item-container {
   /*background-image: url("../assets/Record/h5-list-bg.png");*/
   /*background-repeat: no-repeat;*/
   /*background-size: contain;*/
-  width: 100%;
-  height: 2rem;
-  padding: 0.2rem 0.15rem 0.2rem 0.15rem;
+  background-color: #131F30;
+  box-shadow:0rem 0.04rem 0.26rem 0rem rgba(1,1,1,0.32);
+  width: 7.1rem;
+  height: 1.6rem;
+  margin: 0.3rem 0.2rem 0rem 0.2rem;
   box-sizing: border-box;
   justify-content: space-between;
   align-items: center;
@@ -312,7 +314,7 @@
 }
 
 .h5-record-item-right-container {
-  flex: 3.7;
+  flex: 2.2;
   position: relative;
 }
 
@@ -331,25 +333,25 @@
 }
 
 .h5-item-logo {
-  width: 0.28rem;
+  width: 0.48rem;
 }
 
 .h5-record-item-id-title {
   font-size: 0.24rem;
-  color: rgba(255, 255, 255, 0.6);
-  margin-left: 0.28rem;
+  color: #CFD3E9;
+  margin-left: 0.18rem;
 
 }
 
 .h5-record-item-id-currency {
   font-size: 0.24rem;
-  color: rgba(255, 255, 255, 0.6);
+  color: #CFD3E9;
   margin-left: 0.2rem;
 }
 
 .h5-record-item-id {
   font-size: 0.24rem;
-  color: rgba(255, 255, 255, 0.6);
+  color: #CFD3E9;
   margin-left: 0.2rem;
 }
 
@@ -366,7 +368,7 @@
 
 .h5-record-item-copies-title {
   font-size: 0.24rem;
-  color: rgba(255, 255, 255, 0.6);
+  color: #CFD3E9;
   line-height: 0.6rem;
   padding-left: 0.16rem;
 }
@@ -393,8 +395,8 @@
 }
 
 .h5-record-item-description-title {
-  font-size: 0.32rem;
-  color: white;
+  font-size: 0.26rem;
+  color: #CFD3E9;
 }
 
 .empty-item {
@@ -466,10 +468,13 @@
 
 .h5-forecast_dialog_body {
   position: absolute;
-  width: 6.58rem;
-  height: 6.26rem;
+  width:6rem;
+  height:5.06rem;
+  background:rgba(255,255,255,1);
+  box-shadow:0rem 0.1rem 0.2rem 0rem rgba(0,0,0,0.1);
+  border-radius:0.06rem;
   /*background: url('../assets/Record/h5-popup-window-bg.png') center no-repeat;*/
-  background-size: contain;
+  /*background-size: contain;*/
   left: 50%;
   /*margin: 0 auto;*/
   /*margin-left: -222px;*/
@@ -487,7 +492,7 @@
 
 .forecast_dialog_title {
   font-size: 18px;
-  color: #C43E4E;
+  color: #3576F5;
   height: 40px;
   line-height: 25px;
   text-align: center;
@@ -522,7 +527,7 @@
 
 .detail_tips {
   font-size: 12px;
-  color: #999999;
+  color: #6A83A8;
 }
 
 .detail_error {
@@ -640,7 +645,7 @@
 .popup-window-article-detail-title {
   width: 128px;
   text-align: right;
-  color: #999999;
+  color: #6A83A8;
 }
 
 .popup-window-article-detail {
@@ -671,34 +676,36 @@
 .h5-popup-window-article {
   flex-direction: column;
   height: 4rem;
-  padding: 0.3rem 0;
+  padding: 0.4rem 0.4rem;
   justify-content: space-between;
 }
 
 .h5-popup-window-article-detail-title {
   width: 18rem;
-  text-align: right;
-  color: #999999;
+  /*text-align: right;*/
+  font-size: 0.24rem;
+  color: #6A83A8;
 }
 
 .h5-popup-window-article-detail {
   width: 40rem;
-
+  font-size: 0.24rem;
+  color: #172841;
 }
 
 .h5-forecast_dialog_content {
   width: 100%;
   height: 100%;
-  padding: 0 0.7rem;
+  /*padding: 0 0.4rem;*/
 }
 
 .h5-forecast_dialog_title {
-  font-size: 0.36rem;
-  color: #C43E4E;
-  height: 0.8rem;
-  line-height: 0.8rem;
+  font-size: 0.32rem;
+  color: #131F30;
+  height: 1.04rem;
+  line-height: 1.04rem;
   text-align: center;
-  border-bottom: 1px solid #F2F2F2;;
+  border-bottom: 1px solid #F3F5FF;
 }
 
 .h5-forecast_btn {
@@ -730,4 +737,36 @@
   /*height: 4rem;*/
   height: 270px;
   position: relative;
+}
+.divHeader {
+  width: 7.5rem;
+  height: 1rem;
+  line-height: 1rem;
+  padding-left: 0.3rem;
+  background-color: #172841;
+}
+.divHeaderImg {
+  width: 0.32rem;
+}
+.divHeaderSpan {
+  display:inline-block;
+  width: 85%;
+  color: #CFD3E9;
+  font-size:0.32rem;
+  font-family:PingFangSC-Semibold,PingFang SC;
+  font-weight:600;
+  text-align: center;
+}
+.h5-record-item-descriptionImg {
+  width: 0.24rem;
+  margin-left: 0.2rem;
+  vertical-align: middle;
+}
+.h5-forecast_dialog_titleImg {
+  position: absolute;
+  margin-top: 0.3rem;
+  right: 0.4rem;
+}
+.h5-popup-window-pSpan {
+  color: #FFFFFF;
 }
