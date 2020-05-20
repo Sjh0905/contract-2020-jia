@@ -13,7 +13,7 @@ root.data = function () {
       {
         participateTime:23132142342,
         countId:12,
-        userName:'KK 123213'
+        userName:'2570167180@qq.com'
       }
     ],
 

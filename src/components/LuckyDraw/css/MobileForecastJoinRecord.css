@@ -36,27 +36,28 @@
   top: 1rem;
   left: 0;
   right: 0;
-  height: 36px;
-  line-height: 36px;
+  height: 0.72rem;
+  line-height: 0.72rem;
   display: flex;
   align-items: center;
-  padding: 0 10px;
-  font-size: 14px;
-  color: rgba(255,255,255,0.6);
-  width: 100%;
+  padding: 0 0.3rem;
+  font-size: 0.28rem;
+  color: #CFD3E9;
+  width: 7.5rem;
+  background-color: #131F30;
 }
 
 .type {
-  flex: 33;
+  flex: 24;
 }
 
 .detail {
-  flex: 30;
-  text-align: right
+  flex: 12;
+  /*text-align: right*/
 }
 
 .num {
-  flex: 37;
+  flex: 24;
   text-align: right;
 }
 
@@ -70,14 +71,15 @@
 }
 
 .mobile-forecast-record-item {
-  height: 26px;
-  line-height: 26px;
+  height: 0.84rem;
+  line-height: 0.84rem;
   display: flex;
   align-items: center;
-  width: 100%;
-  color: #fff;
-  padding: 0 10px;
-  font-size: 12px;
+  width: 7.5rem;
+  color: #D0D4E9;
+  padding: 0 0.3rem;
+  font-size: 0.24rem;
+  background-color: #131F30;
 }
 
 .no-data-box {
