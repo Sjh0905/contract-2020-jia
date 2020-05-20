@@ -8,8 +8,29 @@ root.components = {
 
 root.data = function () {
   return {
-    loading: true,
-    dataList: [],
+    loading: false,
+    dataList: [
+      {
+        winNumber:2,
+        itemNumber:10000020,
+        lotteryTime:1323231223122
+      },
+      {
+        winNumber:2,
+        itemNumber:10000020,
+        lotteryTime:1323231223122
+      },
+      {
+        winNumber:2,
+        itemNumber:10000020,
+        lotteryTime:1323231223122
+      },
+      {
+        winNumber:2,
+        itemNumber:10000020,
+        lotteryTime:1323231223122
+      }
+    ],
   }
 }
 
@@ -37,6 +58,9 @@ root.watch = {};
 
 
 root.methods = {};
+root.methods.ReturnToActivePage = function () {
+  this.$router.push('/index/mobileForecastHomePage')
+}
 root.methods.getInitPage = function () {
   this.$http.send('GET_LOOTERY_RECORD', {
     bind: this,

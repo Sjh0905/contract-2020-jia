@@ -1,36 +1,37 @@
 .mobile-forecast-record-box {
-  position: absolute;
-  overflow: hidden;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  /*position: absolute;*/
+  /*overflow: hidden;*/
+  /*top: 0;*/
+  /*left: 0;*/
+  /*right: 0;*/
+  /*bottom: 0;*/
   /*background: url("../assets/mobileForecastRecord/container_bg.png") center no-repeat;*/
-  background-size: 100% 100%;
+  /*background-size: 100% 100%;*/
 }
 
 .mobile-forecast-record-title {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 36px;
-  line-height: 36px;
+  /*position: absolute;*/
+  /*top: 0;*/
+  /*left: 0;*/
+  /*right: 0;*/
+  width: 7.5rem;
+  height:0.72rem;
+  background:rgba(19,31,48,1);
   display: flex;
   align-items: center;
-  padding: 0 10px;
-  font-size: 14px;
-  color: rgba(255,255,255,0.6);
-  width: 100%;
+  padding: 0 0.3rem;
+  font-size: 0.28rem;
+  color: #CFD3E9;
+
 }
 
 .type {
-  flex: 33;
+  flex: 43;
 }
 
 .detail {
-  flex: 34;
-  text-align: right
+  flex: 23;
+  /*text-align: right*/
 }
 
 .num {
@@ -39,23 +40,24 @@
 }
 
 .mobile-forecast-record-list {
-  position: absolute;
-  top: 36px;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  /*position: absolute;*/
+  /*top: 36px;*/
+  /*bottom: 0;*/
+  /*left: 0;*/
+  /*right: 0;*/
   overflow-y: scroll;
 }
 
 .mobile-forecast-record-item {
-  height: 26px;
-  line-height: 26px;
+  height: 0.84rem;
+  line-height: 0.84rem;
   display: flex;
   align-items: center;
-  width: 100%;
-  color: #fff;
-  padding: 0 10px;
-  font-size: 12px;
+  width: 7.5rem;
+  color: #D0D4E9;
+  padding: 0 0.3rem;
+  font-size: 0.24rem;
+  background:rgba(19,31,48,1);
 }
 
 .no-data-box {
@@ -78,4 +80,23 @@
   color: #4A6890;
   font-size: 14px;
   margin-top: -30px;
+}
+.divHeader {
+  width: 7.5rem;
+  height: 1rem;
+  line-height: 1rem;
+  padding-left: 0.3rem;
+  background-color: #172841;
+}
+.divHeaderImg {
+  width: 0.32rem;
+}
+.divHeaderSpan {
+  display:inline-block;
+  width: 85%;
+  color: #CFD3E9;
+  font-size:0.32rem;
+  font-family:PingFangSC-Semibold,PingFang SC;
+  font-weight:600;
+  text-align: center;
 }
