@@ -10,14 +10,14 @@ root.components = {
 
 root.data = function () {
   return {
-    recordType: 0, // 0是进行中 1是已中奖 2是未中奖
+    recordType: 1, // 0是进行中 1是已中奖 2是未中奖
 
     ingSelectIndex: 1, // 进行中当前页
     ingMaxPage: 1, // 进行中最大数据量
     ingLimit: 10, // 进行中一页查询
     ingInit: false, // 初始化
     ingLoading: true, // 加载中
-    h5IngLoading: true, // h5加载中
+    h5IngLoading: false, // h5加载中
 
     winSelectIndex: 1, // 已中奖当前页
     winMaxPage: 1, // 已中奖最大数据量
@@ -35,13 +35,44 @@ root.data = function () {
 
 
     recordList: [[], [], []], // 数据列表，0是进行中，1是已中奖，2是未中奖
-    h5RecordList: [[], [], []], // 数据列表，0是进行中，1是已中奖，2是未中奖
+    h5RecordList: [[
+      {
+        currency:'Usdt',
+        periodNumber:2,
+        countTotal:20,
+      },
+      {
+        currency:'Usdt',
+        periodNumber:2,
+        countTotal:20,
+      }
+    ], [
+      {
+        currency:'Usdt',
+        periodNumber:3,
+        countTotal:20,
+      }
+    ], [
+      {
+        currency:'Usdt',
+        periodNumber:4,
+        countTotal:20,
+      }
+    ]], // 数据列表，0是进行中，1是已中奖，2是未中奖
     recordChange: false, // 作用是提高反应速度
 
     showPopupWindow: false, // 显示详情弹窗
     h5ShowPopupWindow: false, // h5显示详情弹窗
     checkItemLoading: true, // 查询中
-    checkInfo: {}, // 查询回来的对象
+    checkInfo: {
+      // winNumber:1,
+      // predictNumber:95,
+      // participateTime:13242324343423423,
+      // countTotal:12,
+      // drawColumn:5432,
+      // currencyPeriodNumber:1995,
+      // periodNumber:4,
+    }, // 查询回来的对象
 
     h5LoadingMore: false, // h5加载更多
 
@@ -145,6 +176,10 @@ root.watch = {}
 
 
 root.methods = {}
+
+root.methods.ReturnToActivePage = function () {
+  this.$router.push('/index/mobileForecastHomePage')
+}
 
 // 点击切换页签
 root.methods.changeTag = function (n) {
@@ -263,7 +298,7 @@ root.methods.clickToCheckDetail = function (item) {
 // h5点击查看
 root.methods.h5ClickToCheckDetail = function (item) {
   this.h5ShowPopupWindow = true
-  this.checkItemLoading = true
+  this.checkItemLoading = false
   this.postDetail(item)
 }
 
@@ -283,6 +318,18 @@ root.methods.postDetail = function (item) {
     default:
       ticketStatus = 3
   }
+
+  this.checkInfo = {
+        rewardAmount:'未开奖',
+        winNumber:1,
+        predictNumber:90,
+        participateTime:1323231223122,
+        countTotal:12,
+        drawColumn:5432,
+        currencyPeriodNumber:1995,
+        periodNumber:4,
+  }
+  return
   let params = {
     projectId: item.projectId,
     periodNumber: item.periodNumber,
@@ -299,6 +346,7 @@ root.methods.postDetail = function (item) {
       console.warn('获取详细数据', data)
       this.h5LoadingMore = false
       this.checkItemLoading = false
+
       this.checkInfo = data.dataMap && data.dataMap || {}
 
 

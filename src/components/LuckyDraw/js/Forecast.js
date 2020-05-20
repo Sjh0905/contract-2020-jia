@@ -10,7 +10,7 @@ let get_list_interval = '';
 root.data = function () {
 	return {
 		// 记载
-		loading: true,
+		loading: false,
 	    // 弹框
 	    popType: 0,
 	    popText: '',
@@ -20,9 +20,9 @@ root.data = function () {
 		// 活动规则弹框
 		show_rules: false,
 		// 阅读并同意活动规则
-		agree_rules: false,
+		agree_rules: true,
 		// 是否阅读过活动规则
-		is_agree: false,
+		is_agree: true,
 		// 默认选中页签
 		forecast_tab: 1,
 		// 页面名称
@@ -30,9 +30,44 @@ root.data = function () {
 		// 所有竞猜列表
 		forecast_list: [],
 		// 竞猜类型tab个数数组
-		guess_tab: [],
+		guess_tab: [
+      {
+        name:'honourGuessList'
+      },
+      {
+        name:'kingGuessList'
+      },
+      {
+        name:'strongestGuessList'
+      }
+    ],
 		// 荣耀竞猜/王者竞猜/最强竞猜
-		guess_list: [],
+		guess_list: [
+      {
+        currency:'USDT', //币种
+        extPeriod:2, //几期
+        rewardAmount:232, //奖池总额
+        projectId:1, // 当前Id
+        eachAmount:12, // 每份多少枚
+        residueTicket:13, // 所占份数
+        eachs:100, // 总分数
+        preWinNumber:2, // 上期中奖编号
+        projectStatus:'PROCESSING',
+
+      },
+      {
+        currency:'USDT', //币种
+        extPeriod:2, //几期
+        rewardAmount:232, //奖池总额
+        projectId:1, // 当前Id
+        eachAmount:12, // 每份多少枚
+        residueTicket:13, // 所占份数
+        eachs:100, // 总分数
+        preWinNumber:2, // 上期中奖编号
+        projectStatus:'PROCESSING',
+
+      }
+    ],
 		// 销毁记录列表
 		destroy_list: [],
 		// 展示销毁记录列表
@@ -42,7 +77,7 @@ root.data = function () {
 		// 展示开奖记录列表
 		show_prize: false,
 		// 展示购买的弹框
-		show_buy: false,
+		show_buy: true,
 		// 本期参与记录
 		lottery_record_list: [],
 		// 展示参与记录列表
@@ -53,13 +88,14 @@ root.data = function () {
 		period_id: '',
 		// 每人限购份数和币种，展示用的
 		period_currency: {
-			periodMax: 0, //每人限投份数
+			periodMax: 10, //每人限投份数
 			currency: '' //币种
 		},
 		// 币种
-		currency: '',
+		// currency: '',
+		currency: 'USDT',
 		// 每份购买数量
-		eachAmount: 1,
+		eachAmount: 100,
 		// 购买份数，提交用的
 		predict_number: '',
 		// 购买份数数量
