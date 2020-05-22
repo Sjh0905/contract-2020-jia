@@ -1,19 +1,16 @@
 <div class="activity-box">
-  <Loading v-if="!loading"/>
+  <Loading v-if="!loading" />
   <div v-if="loading" class="forecast-activity-homepage-box">
-
     <div class="forecast-activity-homepage">
-
       <div v-show="iosQuery" class="forecast-activity-homepage-header-ios"></div>
-
       <!--非ios头部-->
       <div v-show="!iosQuery" class="forecast-activity-homepage-header-title">
         <div class="forecast-activity-homepage-header-title-back-icon" @click="jumpToBack()">
           <img class="forecast-activity-homepage-header-title-back-icon-img" src="../assets/mobileForecastHomePage/back_icon.png" alt="">
-<!--          ../assets/mobileForecastHomePage/back_icon.png-->
+          <!-- ../assets/mobileForecastHomePage/back_icon.png-->
         </div>
-<!--        <div class="forecast-activity-homepage-header-title-text" v-if="titleList.length <= 1">{{headerTitle}}</div>-->
-<!--        <div class="forecast-activity-homepage-header-title-text-hidden" v-if="titleList.length > 1">{{headerTitle}}</div>        -->
+        <!-- <div class="forecast-activity-homepage-header-title-text" v-if="titleList.length <=1 ">{{headerTitle}}</div>-->
+        <!-- <div class="forecast-activity-homepage-header-title-text-hidden" v-if="titleList.length> 1">{{headerTitle}}</div>        -->
         <div class="forecast-activity-homepage-header-title-text" v-if="titleList.length <= 1">百宝箱</div>
         <div class="forecast-activity-homepage-header-title-text-hidden" v-if="titleList.length > 1">百宝箱</div>
         <div class="forecast-activity-homepage-header-title-info-icon" @click="jumpToInfo()">
@@ -31,7 +28,7 @@
           <div class="forecast-activity-homepage-header-title-text-hidden" v-if="titleList.length > 1">{{headerTitle}}</div>
           <div class="forecast-activity-homepage-header-title-info-icon" @click="jumpToInfo()">
             <img class="forecast-activity-homepage-header-title-info-icon-img" src="../assets/mobileForecastHomePage/rule_icon.png" alt="">
-<!--            ../assets/mobileForecastHomePage/rule_icon.png-->
+            <!-- ../assets/mobileForecastHomePage/rule_icon.png-->
           </div>
         </div>
       </div>
@@ -47,10 +44,9 @@
       <div class="forecast-activity-homepage-header-tab-no-list" v-if="titleList.length <= 1"></div>
       <div class="forecast-activity-homepage-address">
         <div class="forecast-activity-homepage-header-address-left"></div>
-<!--        @click="goToDesdroyRecord" 销毁记录-->
+        <!-- @click="goToDesdroyRecord" 销毁记录-->
         <div v-if="isLogin" class="forecast-activity-homepage-header-address-right" @click="goToRecord">参与记录</div>
       </div>
-
       <div class="forecast-activity-homepage-container">
         <div class="forecast-activity-homepage-container-item" v-for="(item,index) in containerList" :key="item.projectId">
           <div class="forecast-activity-homepage-container-item-up">
@@ -60,13 +56,11 @@
               <svg class="svg-progress" width="86" height="86" viewBox="0 0 86 86">
                 <defs>
                   <pattern id="fill-img" patternUnits="userSpaceOnUse" width="100" height="100">
-
-                    <image class="img-transform" xlink:href="../assets/rectangle_bg.png" x="0"y="0"width="86"height="86"></image>
-
+                    <image class="img-transform" xlink:href="../assets/rectangle_bg.png" x="0" y="0" width="86" height="86"></image>
                   </pattern>
                 </defs>
                 <g>
-                  <circle class="circle-progress" cx="43" cy="43" r="38" stroke-width="7" stroke="url('#fill-img')" fill="none" :stroke-dasharray="changeSvg(item.residueTicket,item.eachs)"  stroke-linecap="round"></circle>
+                  <circle class="circle-progress" cx="43" cy="43" r="38" stroke-width="7" stroke="url('#fill-img')" fill="none" :stroke-dasharray="changeSvg(item.residueTicket,item.eachs)" stroke-linecap="round"></circle>
                 </g>
               </svg>
             </div>
@@ -74,22 +68,19 @@
               <div class="forecast-activity-homepage-container-item-info-title">
                 <div class="forecast-activity-homepage-container-item-info-title-left">
                   <img class="forecast-activity-homepage-container-item-info-title-left-logo" src="../assets/mobileForecastHomePage/KK.png" alt="">
-<!--                  'http://logo.eunex.group/' + item.currency + '.png'-->
+                  <!-- 'http://logo.eunex.group/' + item.currency + '.png'-->
                   <div class="forecast-activity-homepage-container-item-info-title-left-text">{{item.currency}} 第{{parseInt(item.extPeriod)}}期</div>
                 </div>
-                <div class="forecast-activity-homepage-container-item-info-title-right">12:00 开奖</div>
-<!--                奖池总额：{{item.rewardAmount}} {{item.currency}}-->
+                <div class="forecast-activity-homepage-container-item-info-title-right">{{timeAddition(item)}}</div>
+                <!-- 奖池总额：{{item.rewardAmount}} {{item.currency}}-->
               </div>
-
-              <div class="forecast-activity-homepage-container-item-info-num"  @click="goToJoinRecord(item.projectId,item.extPeriod,item.currency)">
+              <div class="forecast-activity-homepage-container-item-info-num" @click="goToJoinRecord(item.projectId,item.extPeriod,item.currency)">
                 <div class="forecast-activity-homepage-container-item-info-num-left">每份{{item.eachAmount}}枚</div>
-                <div class="forecast-activity-homepage-container-item-info-num-right">
-                  {{item.residueTicket}}/{{item.eachs}}
-                  <img class="forecast-activity-homepage-container-item-info-num-right-img" src="" alt="">
-<!--                  ../assets/mobileForecastHomePage/item_right_icon.png-->
+                <div class="forecast-activity-homepage-container-item-info-num-right">{{item.residueTicket}}/{{item.eachs}}
+                  <img class="forecast-activity-homepage-container-item-info-num-right-img" src="../assets/mobileForecastHomePage/item_right_icon.png" alt="">
+                  <!-- ../assets/mobileForecastHomePage/item_right_icon.png-->
                 </div>
               </div>
-
               <div v-if="item.preWinNumber" class="forecast-activity-homepage-container-item-info-last">
                 <div class="forecast-activity-homepage-container-item-info-last-left">上期中奖编号：{{item.preWinNumber}}</div>
                 <div class="forecast-activity-homepage-container-item-info-last-right" @click="goToRewardRecord(item.projectId)">开奖记录</div>
@@ -99,38 +90,30 @@
           <div class="forecast-activity-homepage-container-item-down">
             <div v-if="item.projectStatus === 'PROCESSING' || item.projectStatus === 'CREATED'" class="forecast-activity-homepage-container-item-down-btn forecast-activity-homepage-container-item-down-btn-join" @click="openAmountToast(item)">点击参与</div>
             <div v-if="item.projectStatus === 'PAUSE' || item.projectStatus === 'PAUSEING'" class="forecast-activity-homepage-container-item-down-btn forecast-activity-homepage-container-item-down-btn-releace">休息中...</div>
-            <!--<div v-if="item.projectStatus === 'SOLD_OUT' || item.projectStatus === 'TXHASH' || item.projectStatus === 'ABNORMAL'" class="forecast-activity-homepage-container-item-down-btn forecast-activity-homepage-container-item-down-btn-releace">区块生成开奖中</div>-->
+            <!--<div v-if="item.projectStatus===' SOLD_OUT' || item.projectStatus===' TXHASH' || item.projectStatus===' ABNORMAL'" class="forecast-activity-homepage-container-item-down-btn forecast-activity-homepage-container-item-down-btn-releace">区块生成开奖中</div>-->
             <svg class='svg-btn' v-if="item.projectStatus === 'SOLD_OUT' || item.projectStatus === 'TXHASH' || item.projectStatus === 'ABNORMAL'" height="42" width="302">
-
               <path d='M151 1
 		            L281 1
 		            A20 20 0 0 1 281 41
 		            L21 41
 		            A20 20 0 0 1 21 1
 		            L151 1
-		            Z' fill='transparent' stroke='#0ECFE5' stroke-width='1' stroke-dashoffset='650' stroke-dasharray='650'>
-              </path>>
-
+		            Z' fill='transparent' stroke='#0ECFE5' stroke-width='1' stroke-dashoffset='650' stroke-dasharray='650'></path>>
               <text x="100" y="26" font-size="16">区块生成开奖中</text>
-
             </svg>
           </div>
         </div>
       </div>
-
       <!--初始进入会有活动规则弹窗-->
       <div v-if="ruleToastFlag" class="forecast-activity-ruleToast">
         <div class="forecast-activity-ruleToast-box">
           <div class="forecast-activity-ruleToast-close-btn" @click="closeRuleToast">
             <img class="forecast-activity-ruleToast-close-btn-img" src="../assets/mobileForecastHomePage/close_btn.png" alt="">
-<!--            ../assets/mobileForecastHomePage/close_btn.png-->
+            <!-- ../assets/mobileForecastHomePage/close_btn.png-->
           </div>
           <div class="forecast-activity-ruleToast-title">活动规则</div>
           <div :class="!(isLogin && !viewAgreement)? 'forecast-activity-ruleToast-content-readonly':'forecast-activity-ruleToast-content'">
-            <div class="forecast-activity-ruleToast-content-info">
-              百日庆之百宝箱是基于以太坊智能合约的竞猜游戏，用户兑换的编号如与智能合约生成随机数一致或相近，则竞猜成功获得奖励。
-            </div>
-
+            <div class="forecast-activity-ruleToast-content-info">百日庆之百宝箱是基于以太坊智能合约的竞猜游戏，用户兑换的编号如与智能合约生成随机数一致或相近，则竞猜成功获得奖励。</div>
             <div class="forecast-activity-ruleToast-content-list-title strong">活动规则如下：</div>
             <div class="forecast-activity-ruleToast-content-list">
               <div class="forecast-activity-ruleToast-content-list-tit">以太坊网络智能合约将在每期奖池开奖后，自动生成一个随机开奖号码；</div>
@@ -142,13 +125,12 @@
               <div class="forecast-activity-ruleToast-content-item">6.竞猜成功后，中奖者获得当期奖池总额的90% ；</div>
               <div class="forecast-activity-ruleToast-content-item">7.区块链竞猜每30分钟开奖一次，不足10份不开奖，自动延长30分钟开奖，每期最高销售100份；</div>
             </div>
-
-<!--            <div class="forecast-activity-ruleToast-content-info-title strong">开奖规则</div>-->
-<!--            <div class="forecast-activity-ruleToast-content-info">-->
-<!--              以太坊网络智能合约将在每期奖池满额后，自动开始生成一个随机8位数；<br/>-->
-<!--              您持有的编号与随机数后几位一致，则竞猜成功。例如您编号为2位数，则与随机数后两位一致则竞猜成功，以此类推。<br/>-->
-<!--              本活动最终解释权归欧联所有。-->
-<!--            </div>-->
+            <!-- <div class="forecast-activity-ruleToast-content-info-title strong">开奖规则</div>-->
+            <!-- <div class="forecast-activity-ruleToast-content-info">-->
+            <!-- 以太坊网络智能合约将在每期奖池满额后，自动开始生成一个随机8位数；<br/>-->
+            <!-- 您持有的编号与随机数后几位一致，则竞猜成功。例如您编号为2位数，则与随机数后两位一致则竞猜成功，以此类推。<br/>-->
+            <!-- 本活动最终解释权归欧联所有。-->
+            <!-- </div>-->
           </div>
           <div v-if="isLogin && !viewAgreement" class="forecast-activity-ruleToast-agreement-box" @click="changeRuleAgreement">
             <div class="forecast-activity-ruleToast-agreement-icon" :class="ruleAgreement === false?'forecast-activity-ruleToast-agreement-icon-no-select':'forecast-activity-ruleToast-agreement-icon-selected'"></div>
@@ -164,80 +146,67 @@
           </div>
         </div>
       </div>
-
       <!--点击参与弹窗-->
       <div v-if="toastFlag" class="forecast-activity-toast">
         <div class="forecast-activity-toast-box">
-          <div class="forecast-activity-toast-title">
-            参与预测
-            <span class="forecast-activity-toast-close-btn" @click="closeToast">
+          <div class="forecast-activity-toast-title">参与预测 <span class="forecast-activity-toast-close-btn" @click="closeToast">
               <img class="forecast-activity-toast-close-btn-img" src="../assets/mobileForecastHomePage/close_btn.png" alt="">
-              <!--            ../assets/mobileForecastHomePage/close_btn.png-->
+            <!--            ../assets/mobileForecastHomePage/close_btn.png-->
             </span>
-          </div>
 
+          </div>
           <div class="forecast-activity-toast-content">
-            <div class="forecast-activity-toast-content-left flex">
-              参与份数
-              <div>
-                <span>剩余份数：</span>
+            <div class="forecast-activity-toast-content-left flex">参与份数
+              <div> <span>剩余份数：</span>
                 <span class="remain-amount">{{remainingShares}}</span>
+
               </div>
             </div>
           </div>
           <div class="forecast-activity-toast-content-right">
             <input class="forecast-activity-toast-content-right-input" v-model="inputUserAmount" @input="inputUserAmountInput" placeholder="请输入参与份数">
-            <div class="forecast-activity-toast-content-right-account">{{inputUserAmount ? toFixed(accMul(toastInfo.eachAmount,inputUserAmount),0):'0'}}
-            <span class="remain-amount">{{toastInfo2.currency}}</span>
+            <div class="forecast-activity-toast-content-right-account">{{inputUserAmount ? toFixed(accMul(toastInfo.eachAmount,inputUserAmount),0):'0'}} <span class="remain-amount">{{toastInfo2.currency}}</span>
+
             </div>
           </div>
           <div class="forecast-activity-toast-content-wrong">
-<!--            <div class="forecast-activity-toast-content-info-left">aaaaaa</div>-->
+            <!-- <div class="forecast-activity-toast-content-info-left">aaaaaa</div>-->
             <div class="forecast-activity-toast-content-wrong-right" v-if="wrongWA">{{wrongWA}}</div>
           </div>
-          <div class="forecast-activity-toast-btn" @click='submitToastInfo'>
-            确 定
-          </div>
-
-<!--          <div class="forecast-activity-toast-content-info">-->
-<!--            <div class="forecast-activity-toast-content-info-left"></div>-->
-<!--            <div class="forecast-activity-toast-content-info-right">1份起投，每人限投{{toastInfo2.periodMax}}份</div>-->
-<!--          </div>-->
-
+          <div class="forecast-activity-toast-btn" @click='submitToastInfo'>确 定</div>
+          <!-- <div class="forecast-activity-toast-content-info">-->
+          <!-- <div class="forecast-activity-toast-content-info-left"></div>-->
+          <!-- <div class="forecast-activity-toast-content-info-right">1份起投，每人限投{{toastInfo2.periodMax}}份</div>-->
+          <!-- </div>-->
         </div>
       </div>
-
     </div>
   </div>
-
-  <PopupPrompt :popOpen="popOpen" :popClose="closePop" :popType="popType" :popText="popText" :waitTime="waitTime"/>
-    <!--<div v-if="popOpen && popType === 2"  slot="pop-detail" class="pop-detail">-->
-      <!--<img class="pop-detail-img" src="../assets/mobileForecastHomePage/mobile_computer.png" alt="">-->
-      <!--<div class="pop-detail-text">请前往PC端登录欧联官网</div>-->
-      <!--<div class="pop-detail-text">(www.eunex.group)进行</div>-->
-      <!--<div class="pop-detail-text">{{popWindowText}}</div>-->
-      <!--<div class="pop-detail-btn" @click="closePop">我知道了</div>-->
-    <!--</div>-->
+  <PopupPrompt :popOpen="popOpen" :popClose="closePop" :popType="popType" :popText="popText" :waitTime="waitTime" />
+  <!--<div v-if="popOpen && popType===2 " slot="pop-detail" class="pop-detail">-->
+  <!--<img class="pop-detail-img" src="../assets/mobileForecastHomePage/mobile_computer.png" alt="">-->
+  <!--<div class="pop-detail-text">请前往PC端登录欧联官网</div>-->
+  <!--<div class="pop-detail-text">(www.eunex.group)进行</div>-->
+  <!--<div class="pop-detail-text">{{popWindowText}}</div>-->
+  <!--<div class="pop-detail-btn" @click="closePop">我知道了</div>-->
+  <!--</div>-->
   </PopupPrompt>
-
   <!--弹窗-->
   <div v-if="popIdenOpen" class="lock-position-confirm-toast">
     <div class="lock-position-confirm-toast-window">
       <!--关闭按钮-->
       <div class="lock-position-confirm-toast-close-btn" @click="popIdenClose">
         <img class="lock-position-confirm-toast-close-btn-img" src="" alt="">
-<!--        ../assets/mobileForecastHomePage/close_btn.png-->
+        <!-- ../assets/mobileForecastHomePage/close_btn.png-->
       </div>
       <!--顶部标题-->
       <div class="lock-position-confirm-toast-title">提示</div>
       <div class="lock-position-confirm-toast-list">
-        <div class="lock-position-confirm-toast-item">
-          该操作需要身份认证，请立刻前往app端个人中心完成
-        </div>
+        <div class="lock-position-confirm-toast-item">该操作需要身份认证，请立刻前往app端个人中心完成</div>
       </div>
       <div class="lock-position-confirm-toast-btns">
-        <div class="lock-position-confirm-toast-btn-close" @click="popIdenClose">取消</div>
-        <a class="lock-position-confirm-toast-btn-confirm" href="https://download.eunex.group/" target="_blank">下载app</a>
+        <div class="lock-position-confirm-toast-btn-close" @click="popIdenClose">取消</div> <a class="lock-position-confirm-toast-btn-confirm" href="https://download.eunex.group/" target="_blank">下载app</a>
+
       </div>
     </div>
   </div>

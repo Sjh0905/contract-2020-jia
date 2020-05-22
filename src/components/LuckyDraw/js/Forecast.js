@@ -43,30 +43,30 @@ root.data = function () {
     ],
 		// 荣耀竞猜/王者竞猜/最强竞猜
 		guess_list: [
-      {
-        currency:'USDT', //币种
-        extPeriod:2, //几期
-        rewardAmount:232, //奖池总额
-        projectId:1, // 当前Id
-        eachAmount:12, // 每份多少枚
-        residueTicket:13, // 所占份数
-        eachs:100, // 总分数
-        preWinNumber:2, // 上期中奖编号
-        projectStatus:'PROCESSING',
-
-      },
-      {
-        currency:'USDT', //币种
-        extPeriod:2, //几期
-        rewardAmount:232, //奖池总额
-        projectId:1, // 当前Id
-        eachAmount:12, // 每份多少枚
-        residueTicket:13, // 所占份数
-        eachs:100, // 总分数
-        preWinNumber:2, // 上期中奖编号
-        projectStatus:'PROCESSING',
-
-      }
+      // {
+      //   currency:'USDT', //币种
+      //   extPeriod:2, //几期
+      //   rewardAmount:232, //奖池总额
+      //   projectId:1, // 当前Id
+      //   eachAmount:12, // 每份多少枚
+      //   residueTicket:13, // 所占份数
+      //   eachs:100, // 总分数
+      //   preWinNumber:2, // 上期中奖编号
+      //   projectStatus:'PROCESSING',
+      //
+      // },
+      // {
+      //   currency:'USDT', //币种
+      //   extPeriod:2, //几期
+      //   rewardAmount:232, //奖池总额
+      //   projectId:1, // 当前Id
+      //   eachAmount:12, // 每份多少枚
+      //   residueTicket:13, // 所占份数
+      //   eachs:100, // 总分数
+      //   preWinNumber:2, // 上期中奖编号
+      //   projectStatus:'PROCESSING',
+      //
+      // }
     ],
 		// 销毁记录列表
 		destroy_list: [],

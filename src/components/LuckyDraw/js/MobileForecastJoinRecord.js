@@ -49,7 +49,7 @@ root.watch = {};
 root.methods = {};
 
 root.methods.ReturnToActivePage = function () {
-  this.$router.push({name:'MobileForecastHomePage'})
+  this.$router.push({name:'treasureBox'})
 }
 
 root.methods.getInitPage = function () {

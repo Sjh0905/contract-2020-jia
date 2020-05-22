@@ -748,7 +748,7 @@ root.methods.closeDownload = function () {
 // --------------------------------------------------------------------------- 顶部轮播逻辑 start ------------------------------------------------------------
 
 root.methods.goToTreasureChest = function () {
-  this.$router.push({name:'MobileForecastHomePage'})
+  this.$router.push({name:'treasureBox'})
 }
 
 // 获取通告信息

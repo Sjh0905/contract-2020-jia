@@ -59,7 +59,7 @@ root.watch = {};
 
 root.methods = {};
 root.methods.ReturnToActivePage = function () {
-  this.$router.push('/index/mobileForecastHomePage')
+  this.$router.push('/index/treasureBox')
 }
 root.methods.getInitPage = function () {
   this.$http.send('GET_LOOTERY_RECORD', {

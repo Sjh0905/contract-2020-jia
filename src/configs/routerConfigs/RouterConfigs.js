@@ -196,15 +196,15 @@ root.routes.push({
 
 // 幸运预测活动  TODO:要删除 check
 root.routes.push({
-  path: '/index/mobileForecastHomePage',
-  name: 'MobileForecastHomePage',
+  path: '/index/treasureBox',
+  name: 'treasureBox',
   meta: {
     requireLogin: false,
     pcname: '',
-    h5name: 'MobileForecastHomePage',
+    h5name: 'treasureBox',
   },
   caseSensitive: true,
-  component: resolve => require(['@/components/LuckyDraw/vue/MobileForecastHomePage'], resolve)
+  component: resolve => require(['@/components/LuckyDraw/vue/treasureBox'], resolve)
 })
 
 
