@@ -97,7 +97,7 @@
             </div>
           </div>
           <div class="forecast-activity-homepage-container-item-down">
-            <div v-if="item.projectStatus === 'PROCESSING' || item.projectStatus === 'CREATE'" class="forecast-activity-homepage-container-item-down-btn forecast-activity-homepage-container-item-down-btn-join" @click="openToast(item)">点击参与</div>
+            <div v-if="item.projectStatus === 'PROCESSING' || item.projectStatus === 'CREATED'" class="forecast-activity-homepage-container-item-down-btn forecast-activity-homepage-container-item-down-btn-join" @click="openAmountToast(item)">点击参与</div>
             <div v-if="item.projectStatus === 'PAUSE' || item.projectStatus === 'PAUSEING'" class="forecast-activity-homepage-container-item-down-btn forecast-activity-homepage-container-item-down-btn-releace">休息中...</div>
             <!--<div v-if="item.projectStatus === 'SOLD_OUT' || item.projectStatus === 'TXHASH' || item.projectStatus === 'ABNORMAL'" class="forecast-activity-homepage-container-item-down-btn forecast-activity-homepage-container-item-down-btn-releace">区块生成开奖中</div>-->
             <svg class='svg-btn' v-if="item.projectStatus === 'SOLD_OUT' || item.projectStatus === 'TXHASH' || item.projectStatus === 'ABNORMAL'" height="42" width="302">
@@ -168,38 +168,44 @@
       <!--点击参与弹窗-->
       <div v-if="toastFlag" class="forecast-activity-toast">
         <div class="forecast-activity-toast-box">
-          <div class="forecast-activity-toast-close-btn" @click="closeToast">
-            <img class="forecast-activity-toast-close-btn-img" src="" alt="">
-<!--            ../assets/mobileForecastHomePage/close_btn.png-->
+          <div class="forecast-activity-toast-title">
+            参与预测
+            <span class="forecast-activity-toast-close-btn" @click="closeToast">
+              <img class="forecast-activity-toast-close-btn-img" src="../assets/mobileForecastHomePage/close_btn.png" alt="">
+              <!--            ../assets/mobileForecastHomePage/close_btn.png-->
+            </span>
           </div>
 
-          <div class="forecast-activity-toast-title">参与预测</div>
           <div class="forecast-activity-toast-content">
-            <div class="forecast-activity-toast-content-left">参与份数：</div>
-            <div class="forecast-activity-toast-content-right">
-              <input class="forecast-activity-toast-content-right-input" v-model="inputUserAmount" @input="inputUserAmountInput" placeholder="请输入参与份数">
-              <div class="forecast-activity-toast-content-right-account">{{inputUserAmount ? toFixed(accMul(toastInfo.eachAmount,inputUserAmount),0):'0'}} {{toastInfo2.currency}}</div>
+            <div class="forecast-activity-toast-content-left flex">
+              参与份数
+              <div>
+                <span>剩余份数：</span>
+                <span class="remain-amount">{{remainingShares}}</span>
+              </div>
             </div>
           </div>
-
-          <div class="forecast-activity-toast-content-info">
-            <div class="forecast-activity-toast-content-info-left"></div>
-            <div class="forecast-activity-toast-content-info-right">1份起投，每人限投{{toastInfo2.periodMax}}份</div>
+          <div class="forecast-activity-toast-content-right">
+            <input class="forecast-activity-toast-content-right-input" v-model="inputUserAmount" @input="inputUserAmountInput" placeholder="请输入参与份数">
+            <div class="forecast-activity-toast-content-right-account">{{inputUserAmount ? toFixed(accMul(toastInfo.eachAmount,inputUserAmount),0):'0'}}
+            <span class="remain-amount">{{toastInfo2.currency}}</span>
+            </div>
           </div>
-
           <div class="forecast-activity-toast-content-wrong">
-            <div class="forecast-activity-toast-content-info-left"></div>
+<!--            <div class="forecast-activity-toast-content-info-left">aaaaaa</div>-->
             <div class="forecast-activity-toast-content-wrong-right" v-if="wrongWA">{{wrongWA}}</div>
           </div>
-
           <div class="forecast-activity-toast-btn" @click='submitToastInfo'>
             确 定
           </div>
 
+<!--          <div class="forecast-activity-toast-content-info">-->
+<!--            <div class="forecast-activity-toast-content-info-left"></div>-->
+<!--            <div class="forecast-activity-toast-content-info-right">1份起投，每人限投{{toastInfo2.periodMax}}份</div>-->
+<!--          </div>-->
+
         </div>
       </div>
-
-
 
     </div>
   </div>

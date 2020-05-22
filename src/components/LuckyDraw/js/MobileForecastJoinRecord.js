@@ -10,11 +10,11 @@ root.data = function () {
   return {
     loading: true,
     dataList: [
-      {
-        participateTime:23132142342,
-        countId:12,
-        userName:'2570167180@qq.com'
-      }
+      // {
+      //   participateTime:23132142342,
+      //   countId:12,
+      //   userName:'2570167180@qq.com'
+      // }
     ],
 
     currency: '',
