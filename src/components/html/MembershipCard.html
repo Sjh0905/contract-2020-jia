@@ -25,7 +25,8 @@
            <!--          到期-->
 <!--           {{expires}}{{$t('expiration')}}-->
            <div class="VIP_time">
-             {{((createdAt) < 16 && (createdAt) < 24) ? expires :$globalFunc.formatDateUitl(Number(expires_timestamp),'YYYY-MM-DD')}}{{$t('expiration')}}
+<!--             {{((createdAt) < 16 && (createdAt) < 24) ? expires :$globalFunc.formatDateUitl(Number(expires_timestamp),'YYYY-MM-DD')}}{{$t('expiration')}}-->
+             {{((createdAt) < 8) ? $globalFunc.formatDateUitl(Number(expires_timestamp),'YYYY-MM-DD') : expires}}{{$t('expiration')}}
            </div>
          </div>
        </div>
@@ -149,7 +150,8 @@
 <!--                   <div class="application_header_div_right width4 tlc mor-right color_a2" v-if="( 16 < ($globalFunc.formatDateUitl(Number(item.createdAt),'hh')) > 24  )">{{(item.expires)}}</div>-->
 <!--                   <div class="application_header_div_right width4 tlc mor-right color_a2" v-else>{{formatDateUitl(item.expires)}}</div>-->
                    <div class="application_header_div_right width4 tlc mor-right color_a2" >
-                     {{(($globalFunc.formatDateUitl(Number(item.createdAt),'hh')) < 16 && ($globalFunc.formatDateUitl(Number(item.createdAt),'hh')) < 24) ? item.expires :$globalFunc.formatDateUitl(Number(item.expires_timestamp),'YYYY-MM-DD')}}
+<!--                     {{(($globalFunc.formatDateUitl(Number(item.createdAt),'hh')) < 16 && ($globalFunc.formatDateUitl(Number(item.createdAt),'hh')) < 24) ? item.expires :$globalFunc.formatDateUitl(Number(item.expires_timestamp),'YYYY-MM-DD')}}-->
+                     {{(($globalFunc.formatDateUitl(Number(item.createdAt),'hh')) < 8) ? $globalFunc.formatDateUitl(Number(item.expires_timestamp),'YYYY-MM-DD') : item.expires}}
                    </div>
                  </li>
                </ul>
