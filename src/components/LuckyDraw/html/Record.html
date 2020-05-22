@@ -54,12 +54,14 @@
 
               <!--logo begin-->
               <div class="list-logo-container flex">
+                <img src="../../../assets/中国国旗.png" alt="" class="list-logo">
 <!--                <img :src="'http://logo.eunex.group/'+item.currency + '.png'" alt="" class="list-logo">-->
               </div>
               <!--logo end-->
 
               <!--项目编号 begin-->
               <div class="list-id-container flex">
+
                 <div class="list-title list-id-title">
                   <!--项目编号-->
                   {{$t('li_item_id')}}
@@ -95,11 +97,15 @@
             <!--奖金 begin-->
             <div class="list-description-container flex">
 
+              <div class="description-container-kong">
+                <div class="description-container-yuan"></div>
+              </div>
               <!--进行中的情况 begin-->
               <div class="list-description-detail list-description-ing flex" v-if="recordType===0">
                 <div class="list-description-ing-title">
                   <!--进行中-->
-                  {{$t('li_description_1')}}
+<!--                  {{$t('li_description_1')}}-->
+                  <img class="Pitem-descriptionImg" src="../../../assets/ParticipationRecord.png" alt="">
                 </div>
                 <div class="list-open-icon"></div>
               </div>
