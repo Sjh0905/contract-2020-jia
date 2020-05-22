@@ -65,13 +65,14 @@
             </span>
           </span>
 <!--            <span class="fullName">{item.description}}</span>-->
-            <span class="total">{{toFixed(parseFloat(toFixed(item.available,8)) + parseFloat(toFixed(item.frozen,8)) , 8)}}</span>
-            <span class="available">{{toFixed(item.available,8)}}</span>
-            <span class="frozen">{{toFixed(item.frozen,8)}}</span>
+            <span class="total">{{toFixed(parseFloat(toFixed(item.otcAvailable,8)) + parseFloat(toFixed(item.otcFrozen,8)) , 8)}}</span>
+            <span class="available">{{toFixed(item.otcAvailable,8)}}</span>
+            <span class="frozen">{{toFixed(item.otcFrozen,8)}}</span>
             <!-- <span class="valuation">{{(priceReady || initReady) && item.appraisement!=0 ? toFixed(item.appraisement,8) : '--'}}</span> -->
             <span class="valuation">
-              <font class="valuation_font" @mouseenter="get_now_price(index, item.appraisement, $event)"
-                    @mouseleave="hide_now_price">{{(priceReady || initReady) && item.appraisement!=0 ? toFixed(item.appraisement,8) : '--'}}</font>
+<!--              @mouseenter="get_now_price(index, item.appraisement, $event)"-->
+              <font class="valuation_font"
+                    @mouseleave="hide_now_price">{{(priceReady || initReady) && item.otcAppraisement!=0 ? toFixed(item.otcAppraisement,8) : '--'}}</font>
               <span class="show_tips" :class="show_key == index ? 'show' : ''">
                 {{change_price}}
                 <font></font>
@@ -80,24 +81,24 @@
             <span class="rechargeAndWithdrawals">
 
          <!--  sss 屏蔽-->
-<!--            &lt;!&ndash;打开划转 begin&ndash;&gt;-->
-<!--            <span class="recharge-button button" @click="openTransfer(index,item)"-->
-<!--                  :class="{'recharge-button-select':activeIndex === index  && recharge}"-->
-<!--                  v-if="rechargeFlag(item)">-->
-<!--              {{$t('transfer')}}-->
-<!--&lt;!&ndash;              {{$t('recharge')}}&ndash;&gt;-->
-<!--            </span>-->
-<!--              &lt;!&ndash;打开划转 end&ndash;&gt;-->
+            <!--打开划转 begin-->
+            <span class="recharge-button button" @click="openTransfer(index,item)"
+                  :class="{'recharge-button-select':activeIndex === index  && recharge}"
+                  v-if="rechargeFlag(item)">
+              {{$t('transfer')}}
+<!--              {{$t('recharge')}}-->
+            </span>
+              <!--打开划转 end-->
 
-<!--              &lt;!&ndash;关闭划转 begin&ndash;&gt;-->
-<!--              <span class="can-not-withdrawals"-->
-<!--                    :class="{'recharge-button-select':activeIndex === index}" v-else>-->
-<!--                {{$t('transfer')}}-->
-<!--&lt;!&ndash;                {{$t('recharge')}}&ndash;&gt;-->
-<!--              </span>-->
-<!--              &lt;!&ndash;关闭划转 end&ndash;&gt;-->
+              <!--关闭划转 begin-->
+              <span class="can-not-withdrawals"
+                    :class="{'recharge-button-select':activeIndex === index}" v-else>
+                {{$t('transfer')}}
+<!--                {{$t('recharge')}}-->
+              </span>
+              <!--关闭划转 end-->
 
-<!--              &lt;!&ndash;打开去交易 begin&ndash;&gt;-->
+              <!--打开去交易 begin-->
 <!--            <span class="withdrawals-button button" @click="goToDeal(index,item)"-->
 <!--                  :class="{'withdrawals-button-select':activeIndex===index}"-->
 <!--                  v-if="withdrawalsFlag(item)"-->
@@ -108,16 +109,16 @@
 <!--              {{$t('toDealWith')}}-->
 <!--&lt;!&ndash;              {{$t('withdrawals')}}&ndash;&gt;-->
 <!--            </span>-->
-<!--              &lt;!&ndash;打开去交易 end&ndash;&gt;-->
+              <!--打开去交易 end-->
 
               <!--  sss 屏蔽结束-->
 
               <!--打开划转 begin-->
-            <span class="recharge-buttons buttons">{{$t('transfer')}}</span>
+<!--            <span class="recharge-buttons buttons">{{$t('transfer')}}</span>-->
               <!--打开划转 end-->
 
               <!--打开去交易 begin-->
-            <span class="recharge-buttons buttons">{{$t('toDealWith')}}</span>
+<!--            <span class="recharge-buttons buttons">{{$t('toDealWith')}}</span>-->
               <!--打开去交易 end-->
 
               <!--关闭去交易 begin-->
@@ -157,9 +158,9 @@
           </div>
         </div>
         <div class="wallet-to-account-content" :class="(assetAccountType == 'wallet') ? 'flex-colum':'flex-colum-reverse'">
-          <div>币币账户</div>
+          <div>{{$t('coinAccount')}}</div>
           <div class="wallet-to-account-content-line"/>
-          <div>我的钱包</div>
+          <div>{{$t('myWallet')}}</div>
         </div>
         <div class="wallet-to-account-right pointer flex" @click="changeAssetAccountType()">
           <img src="../../assets/myWallet/record_change_icon.png" alt="">
@@ -192,7 +193,7 @@
       <div class="amount block-input">
         <div class="block-input-title">
           <span>{{$t('amount')}}</span>
-          <span class="available-right">{{$t('mentioning')}}：{{transferCurrencyAvailable}} {{currencyValue}}</span>
+          <span class="available-right">{{$t('mentioning')}}：{{this.assetAccountType == 'wallet'? transferCurrencyOTCAvailable : transferCurrencyAvailable }} {{currencyValue}}</span>
         </div>
         <div class="amount-input flex">
           <input type="text" placeholder="" class="amount-input-box" v-model="amountInput">

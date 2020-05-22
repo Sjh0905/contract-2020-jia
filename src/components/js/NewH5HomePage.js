@@ -971,7 +971,7 @@ root.methods.getExchangeRate = function () {
 root.methods.setExchangeRateRate = function (data) {
   typeof (data) === 'string' && (data = JSON.parse(data));
   let rateObj = data.dataMap.exchangeRate;
-  // this.$store.commit('SET_EXCHANGE_RATE', rateObj);
+  this.$store.commit('SET_EXCHANGE_RATE', rateObj);
 }
 
 root.methods.symbolList_priceList = function (symbol_list) {

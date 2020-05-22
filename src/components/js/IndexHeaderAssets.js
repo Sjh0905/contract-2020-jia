@@ -134,6 +134,11 @@ root.watch.watchCurrency = function () {
 
 
 root.methods = {}
+// 跳转otc银行卡列表
+root.methods.goToBankList = function () {
+  // console.log(process.env.DOMAIN)
+  window.location.replace( process.env.DOMAIN +'index/PersonCenter/PaymentSet');
+}
 
 // 获取认证状态
 root.methods.getAuthState = function () {

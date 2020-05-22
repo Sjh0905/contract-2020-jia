@@ -7,6 +7,8 @@ import logo from '../../assets/download-icon.png'
 root.components = {
   'Loading': resolve => require(['../vue/Loading'], resolve),
   'PopupPrompt': resolve => require(['../vue/PopupPrompt'], resolve),
+  'PopupWindow': resolve => require(['../vue/PopupWindow'], resolve),
+  'BasePageBar': resolve => require(['../vue/BasePageBar'], resolve),
   'Qrcode': resolve => require(['qrcode-vue'], resolve),
 }
 
@@ -30,6 +32,8 @@ root.data = function () {
     size: 0, //已推荐朋友
     totalRegister: 0,//注册奖励
     totalChangeStr: 0,//注册奖励
+    allKKAmount:0,  // KK总奖励
+    allFFAmount:0,  // FF总奖励
     exNums: 0,//注册奖励000
     totalRebate: 0,//累计奖励
     // identityAuthCount: 0,//实名认证人数
@@ -73,8 +77,14 @@ root.data = function () {
     fromIndex: 0,
     toIndex: 10,
 
-    myInvites:[]
+    myInvites:[],
+    // 邀请明细弹框
+    popWindowOpen:false,
+    popWindowOpenFF:false,
 
+    // 分分明细
+    FFMining:[],
+    KKMining:[]
   }
 }
 
@@ -205,6 +215,71 @@ root.watch.lang = function (newValue, oldValue) {
 /*------------------------------ 方法 ------------------------------*/
 
 root.methods = {}
+
+// 格式化时间
+root.methods.formatDateUitl = function (time) {
+  return this.$globalFunc.formatDateUitl(time, 'YYYY-MM-DD')
+}
+// 查看FF明细
+root.methods.FFMiningDetails = function (item) {
+  this.$http.send('GET_FF_REWARD_FOR_INVITES', {
+    bind: this,
+    urlFragment:item.beInvitedUserId,
+    callBack: this.RE_FFMiningDetails,
+    errorHandler: this.error_FFMiningDetails
+  })
+}
+root.methods.RE_FFMiningDetails = function (data) {
+  typeof (data) === 'string' && (data = JSON.parse(data))
+  if (!data) return
+  this.FFMining = data.dataMap.ffLists
+  console.info(data)
+}
+root.methods.error_FFMiningDetails = function () {
+
+}
+
+// 查看KK明细
+root.methods.KKMiningDetails = function (item) {
+  this.$http.send('GET_KK_REWARD_FOR_INVITES', {
+    bind: this,
+    urlFragment:item.beInvitedUserId,
+    callBack: this.RE_KKMiningDetails,
+    errorHandler: this.error_KKMiningDetails
+  })
+}
+root.methods.RE_KKMiningDetails = function (data) {
+  typeof (data) === 'string' && (data = JSON.parse(data))
+  if (!data) return
+  this.KKMining = data.dataMap.kkLists
+  console.info(data)
+}
+root.methods.error_KKMiningDetails = function () {
+
+}
+
+// 打开FF明细弹框
+root.methods.openFFMining = function (item) {
+  this.FFMiningDetails(item)
+  console.info(item)
+  this.popWindowOpenFF = true
+}
+// 关闭FF弹窗
+root.methods.popWindowCloseFF  =function (){
+  this.popWindowOpenFF = false
+}
+
+// 打开KK明细弹框
+root.methods.openKKMining = function (item) {
+  this.KKMiningDetails(item)
+  console.info(item)
+  this.popWindowOpen = true
+}
+
+// 关闭KK弹窗
+root.methods.popWindowClose  =function (){
+  this.popWindowOpen = false
+}
 
 //sss 屏蔽 3.11
 // 获取海报
@@ -392,6 +467,8 @@ root.methods.re_getMyInvitesForBT = function (data) {
   this.size = res.size
   this.totalRegister = res.totalRegister
   this.totalChangeStr = res.totalChangeStr
+  this.allKKAmount = res.allKKAmount
+  this.allFFAmount = res.allFFAmount
   this.exNums = res.exNums
   for(var i = 0;i<res.myInvites.length;i++){
     //实名认证
@@ -405,8 +482,8 @@ root.methods.re_getMyInvitesForBT = function (data) {
     this.loadingMore = false
   }
 
-  this.fromIndex = this.fromIndex+this.maxResults;
-  this.toIndex = this.toIndex+this.maxResults;
+  this.fromIndex = this.fromIndex + this.maxResults;
+  this.toIndex = this.toIndex + this.maxResults;
 }
 root.methods.error_getMyInvitesForBT = function (err) {
   console.warn('获取列表出错', err)

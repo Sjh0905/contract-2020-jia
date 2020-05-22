@@ -899,5 +899,19 @@ root.methods.goToNoticeCenter = function (id) {
 
 // 获取汇率
 
+// 跳转法币订单
+root.methods.goToFrenchCurrecy = function (){
+  window.location.replace(process.env.DOMAIN+'index/Order/OrderConduct')
+}
+
+// 跳转法币交易
+root.methods.goToFranchExchange = function (){
+  console.info(process.env.DOMAIN)
+  if(!this.isLogin){
+    this.$router.push('/index/sign/login')
+    return;
+  }
+  window.location.replace(process.env.DOMAIN+'index/Transaction/TransactionBuy')
+}
 
 export default root

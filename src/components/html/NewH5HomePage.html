@@ -77,7 +77,7 @@
                 <span class="">{{item.name.split('_')[0]}}&nbsp;{{'/&nbsp;'+item.name.split('_')[1]}}</span>
               </div>
               <div class="td002">{{toFixed(item.close, !!quoteScale_list[item.name] ? quoteScale_list[item.name].quoteScale : 2)}}</div>
-              <div class="td003">{{diff24(item.open,item.close)>0?'+':''}}{{diff24(item.open,item.close)}}%</div>
+              <div :class="diff24(item.open,item.close)>=0? 'td003': 'td004' ">{{diff24(item.open,item.close)>0?'+':''}}{{diff24(item.open,item.close)}}%</div>
             </td>
 
           </tr>

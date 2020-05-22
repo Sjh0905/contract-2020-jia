@@ -42,6 +42,8 @@ root.data = function () {
     totalRebate: 0,//累计奖励
     totalChangeStr: 0,//注册奖励
     totalRegister: 0,//注册奖励
+    allKKAmount: 0,
+    allFFAmount:0,
 
     // 已获得返利
     totalPrice: 0,
@@ -375,6 +377,9 @@ root.methods.re_getMyInvitesForBT = function (data) {
   this.size = res.size
   this.totalRegister = res.totalRegister
   this.totalChangeStr = res.totalChangeStr
+  this.allKKAmount = res.allKKAmount
+  this.allFFAmount = res.allFFAmount
+
   this.exNums = res.exNums
   for(var i = 0;i < res.myInvites.length;i++){
     //实名认证

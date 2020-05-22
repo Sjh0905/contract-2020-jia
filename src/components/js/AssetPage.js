@@ -200,8 +200,8 @@ root.methods.re_getExchangeRate = function (data) {
   // console.warn("assetPage获取汇率！", data)
   if (data.result === 'SUCCESS') {
     this.exchangeRateReady = true;
-    // this.exchangeRate = data.dataMap.exchangeRate.btcExchangeRate;
-    // this.$store.commit('SET_EXCHANGE_RATE', data.dataMap.exchangeRate);
+    this.exchangeRate = data.dataMap.exchangeRate.btcExchangeRate;
+    this.$store.commit('SET_EXCHANGE_RATE', data.dataMap.exchangeRate);
   }
 
 }

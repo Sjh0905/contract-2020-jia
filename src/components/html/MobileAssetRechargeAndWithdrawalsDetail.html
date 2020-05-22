@@ -18,15 +18,15 @@
       <div class="detailinfo">
         <div class="detailinfo_l">
           <div class="detai_info_t">可用</div>
-          <div class="detai_info_d">{{toFixed(accountsComputed.available,8)}}</div>
+          <div class="detai_info_d">{{toFixed(isMyWallet ? accountsComputed.available : accountsComputed.otcAvailable,8)}}</div>
         </div>
         <div class="detailinfo_l">
           <div class="detai_info_t">冻结</div>
-          <div class="detai_info_d">{{toFixed(accountsComputed.frozen,8)}}</div>
+          <div class="detai_info_d">{{toFixed(isMyWallet ? accountsComputed.frozen: accountsComputed.otcFrozen,8)}}</div>
         </div>
         <div class="detailinfo_r">
           <div class="detai_info_t_r">折合(CNY) </div>
-          <div class="detai_info_d_r">{{valuation!== 0 ? $globalFunc.accFixedCny(valuation*$store.state.exchange_rate_dollar,2) : '---'}}</div>
+          <div class="detai_info_d_r">{{valuation!== 0 ? $globalFunc.accFixedCny((isMyWallet ? valuation : otcValuation) * btcRate,2) : '---'}}</div>
         </div>
       </div>
 
@@ -104,10 +104,10 @@
 <!--            <img class="asset-oper-btn-item-img" src="../../assets/H5img/asset_withdraw.png" alt="">-->
 <!--            <span class="asset-oper-btn-item-text">提币</span>-->
 <!--          </div>-->
-          <!--<div class="asset-oper-btn-item" @click="goExpecting">-->
-            <!--<img class="asset-oper-btn-item-img" src="../../assets/H5img/asset_capital_transfer.png" alt="">-->
-            <!--<span class="asset-oper-btn-item-text">划转</span>-->
-          <!--</div>-->
+          <div v-if="!isMyWallet" class="asset-oper-btn-item" @click="goExpecting">
+            <img class="asset-oper-btn-item-img" src="../../assets/H5img/asset_capital_transfer.png" alt="">
+            <span class="asset-oper-btn-item-text">划转</span>
+          </div>
           <div v-if="isMyWallet" @click="transferAble(currencyTitle)" class="asset-oper-btn-item">
 <!--          <div v-if="isMyWallet" @click="goExpecting" class="asset-oper-btn-item">-->
 
@@ -122,14 +122,60 @@
             <img class="asset-oper-btn-item-img" src="../../assets/H5img/asset_lock.png" alt="">
             <span class="asset-oper-btn-item-text">锁仓</span>
           </div>
-          <div v-if="!isMyWallet" @click="gotoJiaoyi" class="asset-oper-btn-item">
-            <img class="asset-oper-btn-item-img" src="../../assets/H5img/asset_internal_transfer.png" alt="">
-            <span class="asset-oper-btn-item-text">交易</span>
-          </div>
+<!--          <div v-if="!isMyWallet" @click="gotoJiaoyi" class="asset-oper-btn-item">-->
+<!--            <img class="asset-oper-btn-item-img" src="../../assets/H5img/asset_internal_transfer.png" alt="">-->
+<!--            <span class="asset-oper-btn-item-text">交易</span>-->
+<!--          </div>-->
         </div>
       </div>
 
     </div>
+<!--    <div class="asset-body">-->
+
+<!--      <div class="asset-oper-btn-box">-->
+<!--        <div class="asset-oper-btn-list">-->
+<!--&lt;!&ndash;          <div class="asset-oper-btn-item" @click="jumpToRecharge(currencyTitle)">&ndash;&gt;-->
+<!--&lt;!&ndash;            <img class="asset-oper-btn-item-img" src="../../assets/H5img/asset_recharge.png" alt="">&ndash;&gt;-->
+<!--&lt;!&ndash;            <span class="asset-oper-btn-item-text">充币</span>&ndash;&gt;-->
+<!--&lt;!&ndash;          </div>&ndash;&gt;-->
+<!--&lt;!&ndash;          <div v-if="isMyWallet" class="asset-oper-btn-item" @click="goExpecting">&ndash;&gt;-->
+<!--&lt;!&ndash;            <img class="asset-oper-btn-item-img" src="../../assets/H5img/asset_recharge.png" alt="">&ndash;&gt;-->
+<!--&lt;!&ndash;            <span class="asset-oper-btn-item-text">充币</span>&ndash;&gt;-->
+<!--&lt;!&ndash;          </div>&ndash;&gt;-->
+<!--          <div  class="asset-oper-btn-item" @click="jumpToWithdraw(accountsComputed)">-->
+<!--            <img class="asset-oper-btn-item-img" src="../../assets/H5img/asset_withdraw.png" alt="">-->
+<!--            <span class="asset-oper-btn-item-text">提币</span>-->
+<!--          </div>-->
+<!--&lt;!&ndash;          <div v-if="isMyWallet" class="asset-oper-btn-item" @click="goExpecting">&ndash;&gt;-->
+<!--&lt;!&ndash;            <img class="asset-oper-btn-item-img" src="../../assets/H5img/asset_withdraw.png" alt="">&ndash;&gt;-->
+<!--&lt;!&ndash;            <span class="asset-oper-btn-item-text">提币</span>&ndash;&gt;-->
+<!--&lt;!&ndash;          </div>&ndash;&gt;-->
+<!--          &lt;!&ndash;<div class="asset-oper-btn-item" @click="goExpecting">&ndash;&gt;-->
+<!--            &lt;!&ndash;<img class="asset-oper-btn-item-img" src="../../assets/H5img/asset_capital_transfer.png" alt="">&ndash;&gt;-->
+<!--            &lt;!&ndash;<span class="asset-oper-btn-item-text">划转</span>&ndash;&gt;-->
+<!--          &lt;!&ndash;</div>&ndash;&gt;-->
+<!--          <div @click="transferAble(currencyTitle)" class="asset-oper-btn-item">-->
+<!--&lt;!&ndash;          <div v-if="isMyWallet" @click="goExpecting" class="asset-oper-btn-item">&ndash;&gt;-->
+
+<!--            <img class="asset-oper-btn-item-img" src="../../assets/H5img/asset_internal_transfer.png" alt="">-->
+<!--            <span class="asset-oper-btn-item-text">内部转账</span>-->
+<!--          </div>-->
+<!--&lt;!&ndash;          <div v-if="isMyWallet" class="asset-oper-btn-item" @click="goExpecting">&ndash;&gt;-->
+<!--&lt;!&ndash;            <img class="asset-oper-btn-item-img" src="../../assets/H5img/asset_lock.png" alt="">&ndash;&gt;-->
+<!--&lt;!&ndash;            <span class="asset-oper-btn-item-text">锁仓</span>&ndash;&gt;-->
+<!--&lt;!&ndash;          </div>&ndash;&gt;-->
+<!--          <div v-if="!isMyWallet" class="asset-oper-btn-item" @click="goLockHouse(currencyTitle)">-->
+<!--            <img class="asset-oper-btn-item-img" src="../../assets/H5img/asset_lock.png" alt="">-->
+<!--            <span class="asset-oper-btn-item-text">锁仓</span>-->
+<!--          </div>-->
+<!--          <div v-if="!isMyWallet" @click="gotoJiaoyi" class="asset-oper-btn-item">-->
+<!--            <img class="asset-oper-btn-item-img" src="../../assets/H5img/asset_internal_transfer.png" alt="">-->
+<!--            <span class="asset-oper-btn-item-text">交易</span>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+
+<!--    </div>-->
   </div>
 
   <PopupPrompt :popOpen="popOpen" :popClose="popClose" :popType="popType" :popText="popText"/>

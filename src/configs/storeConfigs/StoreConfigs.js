@@ -161,6 +161,14 @@ store.state.currencyChange = 0 // 币种信息发送变化
 store.state.appraisementChange = 0 // 币种估值发生变化
 
 /**
+ * OTC货币种类
+ * @type {{}}
+ */
+store.state.OTCcurrency = new Map()
+store.state.OTCcurrencyChange = 0 // 币种信息发送变化
+store.state.OTCappraisementChange = 0 // 币种估值发生变化
+
+/**
  * 当前计价货币
  * @type {string}
  */
@@ -468,7 +476,12 @@ store.mutations.CHANGE_CURRENCY = (state, currencyArr) => {
         total: currencyArr[i].total || 0,
         available: currencyArr[i].available || 0,
         frozen: currencyArr[i].frozen || 0,
+        locked: currencyArr[i].locked || 0,
         appraisement: currencyArr[i].appraisement || 0,
+        otcTotal: currencyArr[i].otcTotal || 0,
+        otcAvailable: currencyArr[i].otcAvailable || 0,
+        otcFrozen: currencyArr[i].otcFrozen || 0,
+        otcAppraisement: currencyArr[i].otcAppraisement || 0,
         rate: currencyArr[i].rate || 0,
         depositEnabled: currencyArr[i].depositEnabled || false,
         withdrawEnabled: currencyArr[i].withdrawEnabled || false,
@@ -490,7 +503,12 @@ store.mutations.CHANGE_CURRENCY = (state, currencyArr) => {
       target.total = currencyArr[i].total || target.total || 0
       target.available = currencyArr[i].available || target.available || 0
       target.frozen = currencyArr[i].frozen || target.frozen || 0
+      target.locked = currencyArr[i].locked || target.locked || 0
       target.appraisement = currencyArr[i].appraisement || target.appraisement || 0
+      target.otcTotal = currencyArr[i].otcTotal || target.otcTotal || 0,
+      target.otcAvailable = currencyArr[i].otcAvailable || target.otcAvailable || 0,
+      target.otcFrozen = currencyArr[i].otcFrozen || target.otcFrozen || 0,
+      target.otcAppraisement = currencyArr[i].otcAppraisement || target.otcAppraisement || 0
       target.rate = currencyArr[i].rate || target.rate || 0
       target.depositEnabled = currencyArr[i].depositEnabled || target.depositEnabled || false
       target.withdrawEnabled = currencyArr[i].withdrawEnabled || target.withdrawEnabled || false
@@ -539,7 +557,12 @@ store.mutations.CHANGE_ACCOUNT = (state, accounts) => {
         total: accounts[i].total || 0,
         available: accounts[i].available || 0,
         frozen: accounts[i].frozen || 0,
+        locked: accounts[i].locked || 0,
         appraisement: accounts[i].appraisement || 0,
+        otcTotal: accounts[i].otcTotal || 0,
+        otcAvailable: accounts[i].otcAvailable || 0,
+        otcFrozen: accounts[i].otcFrozen || 0,
+        otcAppraisement: accounts[i].otcAppraisement || 0,
         rate: accounts[i].rate || 0,
         withdrawDisabled: accounts[i].withdrawDisabled || false,
         rechargeOpenTime: accounts[i].rechargeOpenTime || 0,
@@ -567,11 +590,25 @@ store.mutations.CHANGE_ACCOUNT = (state, accounts) => {
       target.locked = GlobalFunc.newFixed(accounts[i].balance, 8)
       // target.total = parseFloat(GlobalFunc.accAdd(target.available, target.frozen))
     }
+    // 扩充OTC可用
+    if (accounts[i].type === 'OTC_AVAILABLE') {
+      target.otcAvailable = GlobalFunc.newFixed(accounts[i].balance, 8)
+    }
+    // 扩充OTC冻结
+    if (accounts[i].type === 'OTC_FROZEN') {
+      target.otcFrozen = GlobalFunc.newFixed(accounts[i].balance, 8)
+    }
 
     // 修改总值
     target.total = parseFloat(GlobalFunc.accAdd(target.available, target.frozen))
+    target.total = parseFloat(GlobalFunc.accAdd(target.total, target.locked))
     // 修改估值
     target.appraisement = parseFloat(GlobalFunc.accMul(target.total, target.rate))
+
+    // 修改OTC总值
+    target.otcTotal = parseFloat(GlobalFunc.accAdd(target.otcAvailable, target.otcFrozen))
+    // 修改OTC估值
+    target.otcAppraisement = parseFloat(GlobalFunc.accMul(target.otcTotal, target.rate))
 
 
   }
@@ -618,10 +655,11 @@ store.mutations.CHANGE_PRICE_TO_BTC = (state, price) => {
   state.price = Object.assign(state.price, price)
   price = state.price
 
-  state.exchange_rate = {
-    btcExchangeRate : price['BTC_USDT'] && price['BTC_USDT'][4] || 1,
-    ethExchangeRate : price['ETH_USDT'] && price['ETH_USDT'][4] || 1,
-  }
+  //以下代码解决了汇率接口调取出问题时汇率无值的BUG，现在默认汇率接口没问题，又为了保证资产和APP数值相同，暂时屏蔽
+  // state.exchange_rate = {
+  //   btcExchangeRate : price['BTC_USDT'] && price['BTC_USDT'][4] || 1,
+  //   ethExchangeRate : price['ETH_USDT'] && price['ETH_USDT'][4] || 1,
+  // }
 
   let baseSymbol = 'BTC', middleSymbol = ['ETH', 'USDT']
 

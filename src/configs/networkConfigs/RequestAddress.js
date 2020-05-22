@@ -26,6 +26,8 @@ requestAddress.LOGIN_OFF = {url: urlHead+'/user/signout', method: 'post'} //登�
 requestAddress.RECHARGE_AND_WITHDRAWALS_RECORD = {url: urlHead+'/v1/user/currency/accounts', method: 'get'}//请求充值提现记录
 requestAddress.RECHARGE = {url: urlHead+'/user/deposit', method: 'post'} //充值
 requestAddress.GET_CURRENCY = {url: urlHead+'/user/currencys', method: 'get'} //获取币种
+
+requestAddress.GET_OTC_CURRENCY = {url: urlHead+'/user/otc/currency', method: 'get'} //获取法币
 requestAddress.GET_AUTH_STATE = {url: urlHead+'/auth/getAuths', method: 'post'} //获取认证状态
 requestAddress.FIND_BACK_PASSWORD = {url: urlHead+'/auth/commonAuth', method: 'post'} //找回密码
 requestAddress.VERIFYING_LOGIN_STATE = {url: urlHead+'/auth/isFalseLogin', method: 'post'} //验证伪登录状态
@@ -37,7 +39,8 @@ requestAddress.WITHDRAWS_LOG = {url: urlHead+'/user/withdrawLog', method: 'post'
 requestAddress.GET_TRANSFER_LIST = {url: urlHead+'/user/inner/transfer/list', method: 'get'}  //内部转账记录
 requestAddress.PROHIBIT_ALL_CURRENCY = {url: urlHead+'/user/transfer/prohibitAllCurrency', method: 'get'}  //内部转账记录
 requestAddress.GET_TRANSFER_SPOT_LIST = {url: urlHead+'/user/transfer/spot/list', method: 'get'}  //划转记录
-requestAddress.POST_TRANSFER_SPOT = {url: urlHead+'/user/transfer/spot', method: 'post'}  //划转
+// requestAddress.POST_TRANSFER_SPOT = {url: urlHead+'/user/transfer/spot', method: 'post'}  //划转
+requestAddress.POST_TRANSFER_SPOT = {url: urlHead+'/user/transferBetweenAccount', method: 'post'}  //划转
 requestAddress.GET_IDENTITY_AUTH_STATUS = {url: urlHead+'/auth/getIdentityAuthStatus', method: 'get'} //获取身份认证状态
 requestAddress.FIND_FEE_BDB_INFO = {url: urlHead+'/user/findfeebdbinfo', method: 'get'} //查询BDB是否抵扣
 requestAddress.FIND_FEE_DEDUCTION_INFO = {url: urlHead+'/user/findFeeDeductionInfo', method: 'get'} //查询BDB是否抵扣
@@ -308,6 +311,9 @@ requestAddress.GET_BT_PLATFORM_DIVIDEND_FOR_HISTORY = {url: urlHead+'/activity/d
 
 // 获取我的邀请奖励数据
 requestAddress.GET_USER_REWARD_FOR_INVITES = {url: urlHead+'/user/myinvitees', method: 'post'}
+requestAddress.GET_KK_REWARD_FOR_INVITES = {url: urlHead+'/user/getKKDetail/', method: 'get'}
+requestAddress.GET_FF_REWARD_FOR_INVITES = {url: urlHead+'/user/getFFDetail/', method: 'get'}
+
 
 // 获取收益记录
 requestAddress.GET_BT_GRAND_TOTAL = {url: urlHead+'/activity/grandTotal', method: 'get'}

@@ -135,47 +135,53 @@
       </div>
       <div class="shutt1"/>
       <div class="yaoqrs">
-        <div class="titless1">{{$t('personalCenterRecommend.yihuorenshu')}}</div>
-        <div class="titless2"><span>{{realNums || '--'}}</span></div>
-      </div>
-      <div class="shutt1"/>
-      <div class="yaoqrs">
-        <div class="titless1">{{$t('personalCenterRecommend.jiaoyirenshu')}}</div>
-        <div class="titless2"><span>{{exNums || '--'}}</span></div>
-      </div>
-      <div class="shutt1"/>
-      <div class="yaoqrs">
         <div class="titless1">{{$t('personalCenterRecommend.yihuodejinbi')}}（YY）</div>
         <div class="titless2"><span>{{(totalRegister + totalChangeStr)  || '--'}}</span></div>
       </div>
+      <div class="shutt1"/>
+      <div class="yaoqrs">
+        <div class="titless1">{{$t('personalCenterRecommend.yihuodejinbi')}}（FF）</div>
+        <div class="titless2"><span>{{allFFAmount || '--'}}</span></div>
+      </div>
+      <div class="shutt1"/>
+      <div class="yaoqrs">
+        <div class="titless1">{{$t('personalCenterRecommend.yihuodejinbi')}}（KK）</div>
+        <div class="titless2"><span>{{allKKAmount || '--'}}</span></div>
+      </div>
+
     </div>
     </div>
   </div>
   <!-- 邀请人数end -->
 
 
-  <!--查看历史 title begin-->
+<!--查看历史 title begin-->
 <!--  <div v-if="historyShow" class="record-title-box">-->
 <!--    <router-link :to="{name:'BtActivityRecommend'}" class="record-title-detail text_blue">-->
 <!--      &lt;!&ndash;查看历史&ndash;&gt;-->
 <!--      {{$t('personalCenterRecommend.checkHistory')}}-->
 <!--    </router-link>-->
 <!--  </div>-->
-  <!--查看历史 title end-->
+<!--查看历史 title end-->
 
 
   <!-- 明细start -->
   <div class=" share_container article border_radius ">
     <div class="share_list">
+      <!--邀请列表-->
       <div class="invitation-list">{{$t('personalCenterRecommend.invitationList')}}</div>
       <div class="log-title flex">
+      <!--序号-->
       <span class="time">{{$t('personalCenterRecommend.index')}}</span>
+      <!--账号-->
       <span class="ip">{{$t('personalCenterRecommend.zhanghao')}}</span>
-      <span class="source1">{{$t('personalCenterRecommend.authState')}}</span>
-      <span class="source">{{$t('personalCenterRecommend.shoucijiaoyi')}}</span>
+      <!--首次挖矿报名-->
+      <span class="source1">{{$t('personalCenterRecommend.firstMining')}}</span>
+      <!--首次交易-->
+      <span class="source">{{$t('personalCenterRecommend.jiangli')}} (FF)</span>
       <span class="reward">
         <!--注册返利-->
-        {{$t('personalCenterRecommend.jiangli')}}
+        {{$t('personalCenterRecommend.jiangli')}} (KK)
       </span>
       <!--<span class="trading">-->
         <!--{{$t('personalCenterRecommend.trading')}}-->
@@ -205,12 +211,24 @@
 
         <!--每一行数据start-->
         <li class="log-detail flex" v-for="(item,index) in records" :key="index">
+          <!--序号-->
           <span class="time">{{index+1}}</span>
+<!--          需要进行修改部分-->
+          <!--账号-->
           <span class="ip">{{handleName(item.beInvitedEmail)}}</span>
-          <span class="source1">{{item.identityAuthStatus===2?$t('personalCenterRecommend.yesAuth'):$t('personalCenterRecommend.noAuth')}}</span>
-          <span class="source">{{item.isExchange == false ? $t('personalCenterRecommend.weijiaoyi') : $t('personalCenterRecommend.yijiaoyi')}}</span>
+          <!--首次挖矿报名-->
+          <span class="source1">{{item.isFirstReport == 1 ? $t('已报名'):$t('未报名')}}</span>
+          <!--奖励（FF）-->
+          <span class="source">{{toFixed(item.ffReward,2)}}
+            <!--奖励（FF）明细-->
+            <span class="details pointer" v-if="item.ffReward !=0" @click="openFFMining(item)">{{$t('personalCenterRecommend.details')}}</span>
+          </span>
 <!--          <span class="reward">{{item.invitedNum===0?'&#45;&#45;':item.invitedNum}}</span>-->
-          <span class="reward">{{(item.exchangeReward + item.identityReward)  ===0?'--':(item.exchangeReward + item.identityReward) + 'YY'}}</span>
+          <!--奖励（KK）-->
+          <span class="reward">{{item.userWages == 0 ? toFixed(item.userWages,2):toFixed(item.userWages)}}
+            <!--奖励（KK）明细-->
+            <span class="details pointer" @click="openKKMining(item)" v-if="item.userWages !=0">{{$t('personalCenterRecommend.details')}}</span>
+          </span>
           <!--<span class="trading">-->
               <!--{{item.isExchange==0?'&#45;&#45;':$t('personalCenterRecommend.yesorno')}}-->
             <!--</span>-->
@@ -338,5 +356,93 @@
   </div>
   <!-- 专属海报 end -->
 
+  <!--   提示KK 弹窗-->
+  <PopupWindow :switch="popWindowOpen" @close="popWindowClose" :pop_width="true">
+    <div slot="header" class="miningHeader">
+      {{$t('personalCenterRecommend.changeRewadDetails')}}
+    </div>
+    <div slot="article" class="minmingArticle">
+    <!--添加明细列表-->
+      <div class="miningList">
+        <!--明细列表顶部-->
+        <div class="miningListTitle flex">
+          <!--账号-->
+          <div class="account-number">{{$t('personalCenterRecommend.zhanghao')}}</div>
+          <!--日期-->
+<!--          <div class="date">{{$t('personalCenterRecommend.date')}}</div>-->
+          <!--类型-->
+          <div class="type">{{$t('personalCenterRecommend.type')}}</div>
+          <!--交易奖励-->
+          <div class="trading-reward">{{$t('personalCenterRecommend.changeRewad')}}</div>
+        </div>
+        <!--明细列表详细信息-->
+        <div class="miningListArcticle flex" v-for="(v, key) in KKMining" :key="key">
+          <div class="account-number">{{handleName(v.beInvitedEmail)}}</div>
+<!--          <div class="date">2020-04-25</div>-->
+          <div class="type">{{v.invitedlevel ==1 ? $t("personalCenterRecommend.directInvitation"): $t("personalCenterRecommend.indirectInvitation")}}</div>
+          <div class="trading-reward">{{v.allamount}}</div>
+        </div>
+      </div>
+    </div>
+    <div slot="footer" class="mingingFooter">
+    <!--底部+分页-->
+      <!-- 分页插件 start  v-if="maxPage > 1" -->
+<!--      <BasePageBar v-if="2 > 1 && 1 != 0 && !loading"-->
+<!--                   class="minmingPageBar"-->
+<!--                   :maxPage=1-->
+<!--                   :selectIndex="1"-->
+<!--                   :clickChangePage="HIDE_POSTER"-->
+<!--                   :currentDisplay=2-->
+<!--                   :initDisplay=2>-->
+<!--      </BasePageBar>-->
+      <!-- 分页插件 end -->
+    </div>
+  </PopupWindow>
+
+  <!--   提示FF 弹窗-->
+  <PopupWindow :switch="popWindowOpenFF" @close="popWindowCloseFF" :pop_width="true">
+    <div slot="header" class="miningHeader">
+<!--      首次挖矿报名奖励明细-->
+      {{$t('personalCenterRecommend.firstInvitation')}}
+    </div>
+    <div slot="article" class="minmingArticle">
+      <!--添加明细列表-->
+      <div class="miningList">
+        <!--明细列表顶部-->
+        <div class="miningListTitle flex">
+          <!--账号-->
+          <div class="account-number-ff">{{$t('personalCenterRecommend.zhanghao')}}</div>
+          <!--日期-->
+          <div class="date-ff">{{$t('personalCenterRecommend.date')}}</div>
+          <!--类型-->
+          <div class="type-ff">{{$t('personalCenterRecommend.type')}}</div>
+          <!--邀请奖励-->
+          <div class="trading-reward-ff">{{$t('personalCenterRecommend.invitationAward')}}</div>
+        </div>
+        <!--明细列表详细信息-->
+        <div class="miningListArcticle flex" v-for="(v, key) in FFMining" :key="key">
+          <div class="account-number-ff">{{handleName(v.beInvitedEmail)}}</div>
+          <div class="date-ff">{{v.createdAt != null ? formatDateUitl(v.createdAt) : '---'}}</div>
+          <div class="type-ff">{{v.invitedlevel == 1 ? $t("personalCenterRecommend.directInvitation"): $t("personalCenterRecommend.indirectInvitation")}}</div>
+          <div class="trading-reward-ff">{{v.ffAmt}}</div>
+        </div>
+      </div>
+
+    </div>
+    <div slot="footer" class="mingingFooter">
+      <!--底部+分页-->
+      <!-- 分页插件 start  v-if="maxPage > 1" -->
+      <!--      <BasePageBar v-if="2 > 1 && 1 != 0 && !loading"-->
+      <!--                   class="minmingPageBar"-->
+      <!--                   :maxPage=1-->
+      <!--                   :selectIndex="1"-->
+      <!--                   :clickChangePage="HIDE_POSTER"-->
+      <!--                   :currentDisplay=2-->
+      <!--                   :initDisplay=2>-->
+      <!--      </BasePageBar>-->
+      <!-- 分页插件 end -->
+    </div>
+
+  </PopupWindow>
 
 </div>

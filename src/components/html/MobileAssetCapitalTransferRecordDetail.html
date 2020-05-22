@@ -19,8 +19,8 @@
       <!--类型-->
       <div class="header-box-state">
         <span class="header-box-state-title">类型</span>
-        <div v-if="rechargeDetailData.transferTo === 'WALLET'" class="header-box-state-container">从币币到钱包</div>
-        <div v-else-if="rechargeDetailData.transferTo === 'SPOTS'" class="header-box-state-container">从钱包到币币</div>
+        <div v-if="rechargeDetailData.transferTo === 'OTC'" class="header-box-state-container">从法币到钱包</div>
+        <div v-else-if="rechargeDetailData.transferTo !== 'OTC'" class="header-box-state-container">从钱包到法币</div>
       </div>
 
       <!--币种-->

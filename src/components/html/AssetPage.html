@@ -152,15 +152,16 @@
 <!--        My wallet-->
       </router-link>
       <!--我的钱包 end-->
+      <!--      &lt;!&ndash;币币账户 begin&ndash;&gt;-->
+      <router-link to="/index/asset/rechargeAndWithdrawals" class="title-tab flex-center tab-item-first margin-a-little"
+                   active-class="selected text_blue"
+                   :class="lang!='CH'?'title-tab-en':''"
+      >
+        {{$t('assetPage.withdrawalsAndRecharge')}}
+      </router-link>
+      <!--      &lt;!&ndash;币币账户 end&ndash;&gt;-->
       <span class="line"></span>
-<!--      &lt;!&ndash;币币账户 begin&ndash;&gt;-->
-<!--      <router-link to="/index/asset/rechargeAndWithdrawals" class="title-tab flex-center tab-item-first"-->
-<!--                   active-class="selected text_blue"-->
-<!--                   :class="lang!='CH'?'title-tab-en':''"-->
-<!--      >-->
-<!--        {{$t('assetPage.withdrawalsAndRecharge')}}-->
-<!--      </router-link>-->
-<!--      &lt;!&ndash;币币账户 end&ndash;&gt;-->
+
 
 
 

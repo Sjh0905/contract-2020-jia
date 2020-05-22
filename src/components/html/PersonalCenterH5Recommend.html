@@ -168,24 +168,34 @@
           <div class="mobile-recommend-title">已推荐好友(人)</div>
           <div class="mobile-recommend-num">{{size || '--'}}</div>
         </div>
-<!--        实名人数-->
-        <div class="mobile-share_bj-content">
-          <div class="mobile-recommend-title">已实名人数(人)</div>
-          <div class="mobile-recommend-num">{{realNums || '--'}}</div>
-        </div>
-      </div>
-
-      <div class="mobile-share_bj flex">
-<!--        首次交易人数-->
-        <div class="mobile-share_bj-content">
-          <div class="mobile-recommend-title">首次交易人数(人)</div>
-          <div class="mobile-recommend-num">{{exNums || '--'}}</div>
-        </div>
-<!--        获取返佣-->
+<!--        已获得返佣(YY)-->
         <div class="mobile-share_bj-content">
           <div class="mobile-recommend-title">已获得返佣(YY）</div>
           <div class="mobile-recommend-num">{{(totalRegister + totalChangeStr)  || '--'}}</div>
         </div>
+      </div>
+
+      <div class="mobile-share_bj flex">
+        <!--        已获得返佣(FF)-->
+        <div class="mobile-share_bj-content">
+          <div class="mobile-recommend-title">已获得返佣(FF）</div>
+          <div class="mobile-recommend-num">{{allFFAmount  || '--'}}</div>
+        </div>
+        <!--        已获得返佣(KK)-->
+        <div class="mobile-share_bj-content">
+          <div class="mobile-recommend-title">已获得返佣(KK）</div>
+          <div class="mobile-recommend-num">{{allKKAmount || '--'}}</div>
+        </div>
+<!--&lt;!&ndash;        首次交易人数&ndash;&gt;-->
+<!--        <div class="mobile-share_bj-content">-->
+<!--          <div class="mobile-recommend-title">首次交易人数(人)</div>-->
+<!--          <div class="mobile-recommend-num">{{exNums || '&#45;&#45;'}}</div>-->
+<!--        </div>-->
+<!--&lt;!&ndash;        获取返佣&ndash;&gt;-->
+<!--        <div class="mobile-share_bj-content">-->
+<!--          <div class="mobile-recommend-title">已获得返佣(YY）</div>-->
+<!--          <div class="mobile-recommend-num">{{(totalRegister + totalChangeStr)  || '&#45;&#45;'}}</div>-->
+<!--        </div>-->
       </div>
     </div>
 <!--    邀请人数  end-->
@@ -195,9 +205,9 @@
       <div class="mobile-share-list-title">邀请列表</div>
       <div class="mobile-share-container-title flex">
         <div class="mobile-name">账号</div>
-        <div class="mobile-states">实名状态</div>
-        <div class="mobile-first-exchange">首次交易</div>
-        <div class="mobile-rebate">返佣</div>
+        <div class="mobile-states">首次挖矿报名</div>
+        <div class="mobile-first-exchange">奖励(FF)</div>
+        <div class="mobile-rebate">奖励(KK)</div>
       </div>
       <ul class="mobile-log-container">
         <li class="mobile-loading-box" v-if="loading">
@@ -206,11 +216,13 @@
         <!--每一行数据start-->
         <li class="mobile-log-detail flex" v-for="(item,index) in records" :key="index">
 <!--          <span class="time">{{index+1}}</span>-->
+
+<!--          需要进行修改-->
           <span class="mobile-name">{{handleName(item.beInvitedEmail)}}</span>
-          <span class="mobile-states">{{item.identityAuthStatus===2?$t('已认证'):$t('未认证')}}</span>
-          <span class="mobile-first-exchange">{{item.isExchange == false ? $t('未交易') : $t('已交易')}}</span>
+          <span class="mobile-states">{{item.isFirstReport == 1?$t('已报名'):$t('未报名')}}</span>
+          <span class="mobile-first-exchange">{{item.ffReward == 0 ? toFixed(item.ffReward,2):toFixed(item.ffReward)}}</span>
           <!--          <span class="reward">{{item.invitedNum===0?'&#45;&#45;':item.invitedNum}}</span>-->
-          <span class="mobile-rebate">{{(item.exchangeReward + item.identityReward)  ===0?'--':(item.exchangeReward + item.identityReward) + 'YY'}}</span>
+          <span class="mobile-rebate">{{item.userWages == 0 ? toFixed(item.userWages,2):toFixed(item.userWages)}}</span>
           <!--<span class="trading">-->
           <!--{{item.isExchange==0?'&#45;&#45;':$t('personalCenterRecommend.yesorno')}}-->
           <!--</span>-->

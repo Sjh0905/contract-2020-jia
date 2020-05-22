@@ -28,6 +28,15 @@
 <!--        <p>{{accountReady || priceReady ? toFixed(total,8) : '&#45;&#45;&#45;&#45;'}}BTC</p>-->
 <!--      </router-link>-->
 <!--    </li>-->
+<!--    法币设置-->
+    <li class="asset-li">
+      <div  @click="goToBankList">
+        <p class="pointer france-setting">{{$t('法币设置')}}</p>
+      </div>
+
+    </li>
+
+<!--    身份认证-->
     <li class="asset-li">
       <router-link to="/index/personal/auth">
         <p class="pointer">{{$t('authentication')}}</p>

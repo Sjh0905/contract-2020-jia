@@ -14,18 +14,18 @@
               </div>
               <div class="currency-total-assets">
                 <span class="total-assets">{{toFixed(accAdd(total,0.00000000),8)}} BTC</span>
-                <span> ≈ 0.00 CNY</span>
+                <span> ≈ {{toFixed(accAdd(valuation,0.00000000),8)}} CNY</span>
               </div>
             </div>
             <!--          按钮-->
             <div>
            <!-- sss 屏蔽-->
-<!--              <button class="capital-transfer pointer" @click="openTransfer()">{{$t('capitalTransfer')}}</button>-->
+              <button class="capital-transfer pointer" @click="openTransfer()">{{$t('capitalTransfer')}}</button>
           <!--   sss 屏蔽结束-->
-              <div class="capital-transfers">
-<!--                {{$t('indexHeader.forward')}}-->
-                {{$t('capitalTransfer')}}
-              </div>
+<!--              <div class="capital-transfers">-->
+<!--&lt;!&ndash;                {{$t('indexHeader.forward')}}&ndash;&gt;-->
+<!--                {{$t('capitalTransfer')}}-->
+<!--              </div>-->
             </div>
           </div>
         </div>
@@ -46,10 +46,10 @@
             </div>
           </div>
 
-          <!--      币币账户-->
+          <!--      法币账户-->
           <div class="coin-account pointer" @click="goToBiBi()">
             <div class="my-wallet-title">
-              <img src="../../assets/overviewOfAssets/bibi_icon.png" alt="">
+              <img src="../../assets/overviewOfAssets/legal_tende_icon.png" alt="">
               <span>{{$t('coinAccount')}}</span>
             </div>
             <div class="my-wallet-number">
@@ -91,9 +91,9 @@
               </div>
             </div>
             <div class="wallet-to-account-content" :class="(assetAccountType == 'wallet') ? 'flex-colum':'flex-colum-reverse'">
-              <div>我的钱包</div>
+              <div>{{$t('myWallet')}}</div>
               <div class="wallet-to-account-content-line"/>
-              <div>币币账户</div>
+              <div>{{$t('coinAccount')}}</div>
 <!--              <input type="text" :placeholder='$t("coinAccount")' v-model="bibiAccount">-->
 <!--              <input type="text" :placeholder='$t("myWallet")'  v-model="account">-->
             </div>
@@ -126,7 +126,7 @@
           <div class="amount block-input">
             <div class="block-input-title">
               <span>{{$t('amount')}}</span>
-              <span class="available-right">{{$t('mentioning')}}可提：{{transferCurrencyAvailable}} {{currencyValue}}</span>
+              <span class="available-right">{{$t('mentioning')}}：{{transferCurrencyAvailable}} {{currencyValue}}</span>
             </div>
             <div class="amount-input flex">
               <input type="text" placeholder="" class="amount-input-box" v-model="amountInput">

@@ -69,7 +69,7 @@
             </span>
           </span>
 <!--            <span class="fullName">{{item.description}}</span>-->
-            <span class="total">{{toFixed(parseFloat(toFixed(item.available,8)) + parseFloat(toFixed(item.frozen,8)) , 8)}}</span>
+            <span class="total">{{toFixed(item.total,8)}}</span>
             <span class="available">{{toFixed(item.available,8)}}</span>
             <span class="frozen">{{toFixed(item.frozen,8)}}</span>
             <!-- <span class="valuation">{{(priceReady || initReady) && item.appraisement!=0 ? toFixed(item.appraisement,8) : '--'}}</span> -->
@@ -181,6 +181,8 @@
               </span>
               <span class="can-not-withdrawals" v-else>{{$t('lockWarehouse')}}</span>
 <!--               v-else-->
+
+
 <!--              -->
               <!--sss 锁仓屏蔽结束-->
 
@@ -251,7 +253,7 @@
           <div class="lock-house-rules-right flex">
             <div class="lock-house-day">{{$t('lock_house_day')}}</div>
             <!--锁仓规则-->
-            <a target="_blank" href="http://www.2020-ex.com/index/notice/noticeDetail?columnId=0&id=80"
+            <a target="_blank" href="https://www.2020.exchange/index/notice/noticeDetail?columnId=0&id=100692"
                class="lock-house-rule pointer">
               <img src="../../assets/myWallet/lock_house.png" alt="">
               <span>{{$t('lock_house_rules')}}</span>

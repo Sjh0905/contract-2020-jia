@@ -76,11 +76,12 @@ root.data = function () {
     transferCurrencyWA:'',// 币种错误提示
     amountInput:'',// 输入框划转的数量
     transferAmountWA:'',// 数量错误提示
-    transferCurrencyAvailable:0,
+    transferCurrencyAvailable:0,  //我的钱包可用余额
+    transferCurrencyOTCAvailable:0, //法币账户可用余额
     transferCurrencyObj:{},
-    sending:false
+    sending:false,
 
-
+    otcCurrencyList:[]//法币币种列表
   }
 }
 
@@ -95,12 +96,12 @@ root.created = function () {
   this.getAuthState()
   // 监听socket
   this.getPrice()
-  let currency = [...this.$store.state.currency]
-  if (!currency) {
+  // let currency = [...this.$store.state.currency]
+  // if (!currency) {
     // 获取币种状态
     this.getCurrency()
-    return
-  }
+    // return
+  // }
   // 获取账户信息
   this.getAccounts()
 
@@ -147,9 +148,9 @@ root.computed.computedExchangeRate = function () {
 root.computed.total = function () {
   let total = 0
   for (let i = 0; i < this.accounts.length; i++) {
-    total = this.accAdd(total, this.accounts[i].appraisement)
+    total = this.accAdd(total, this.accounts[i].otcAppraisement)
   }
-  return this.toFixed(total)
+  return total
 }
 
 //换算成人民币的估值
@@ -162,6 +163,7 @@ root.computed.available = function () {
   let available = 0
   for (let i = 0; i < this.accounts.length; i++) {
     available = this.accAdd(available, this.accMul(this.accounts[i].available, this.accounts[i].rate))
+    console.info(this.accounts[i].rate)
   }
   return this.toFixed(available)
 }
@@ -173,7 +175,7 @@ root.computed.accountsComputed = function () {
     return this.accounts.filter((val,inx) => {
       val.currencyKey = val.currency+'-'+inx;
 
-      this.transferCurrencyObj[val.currency] = val;
+      // this.transferCurrencyObj[val.currency] = val;
       return val.total !== 0
     })
   }
@@ -182,8 +184,9 @@ root.computed.accountsComputed = function () {
     val.currencyKey = val.currency+'-'+inx;
     // val.currency == 'USDTK' && console.log(JSON.stringify(val))
     // console.log(JSON.stringify(val.id))
-    this.transferCurrencyObj[val.currency] = val;
+    // this.transferCurrencyObj[val.currency] = val;
   })
+
 
   return this.accounts
 }
@@ -224,7 +227,15 @@ root.computed.btc_rate = function () {
 root.watch = {}
 // 监听vuex中的变化
 root.watch.currencyChange = function (newVal, oldVal) {
-  this.accounts = [...this.$store.state.currency.values()]
+
+  // let accounts = [...this.$store.state.currency.values()];
+  let otcAccounts = [];
+  this.otcCurrencyList.map(v=>{
+    let item = this.$store.state.currency.get(v.currency);
+    otcAccounts.push(item)
+  })
+  this.accounts = otcAccounts
+  console.log('this.accounts zpy============== ',this.accounts)
 }
 
 root.watch.loading = function (newVal, oldVal) {
@@ -352,7 +363,7 @@ root.methods.changeAppraisement = function (dataObj) {
     if (baseName !== this.baseCurrency) continue
     for (let i = 0; i < this.accounts.length; i++) {
       if (this.accounts[i].currency !== targetName) continue
-      this.accounts[i].appraisement = this.accounts[i].total * data[key][4]
+      this.accounts[i].appraisement = this.accounts[i].otcTotal * data[key][4]
       break
     }
   }
@@ -360,7 +371,7 @@ root.methods.changeAppraisement = function (dataObj) {
   // 特殊处理，如果是基础货币
   for (let i = 0; i < this.accounts.length; i++) {
     if (this.accounts[i].currency !== this.baseCurrency) continue
-    this.accounts[i].appraisement = this.accounts[i].total
+    this.accounts[i].appraisement = this.accounts[i].otcTotal
   }
 
 }
@@ -398,7 +409,7 @@ root.methods.re_getPrice = function (data) {
 
 // 获取币种
 root.methods.getCurrency = async function () {
-  this.$http.send('GET_CURRENCY', {
+  this.$http.send('GET_OTC_CURRENCY', {
     bind: this,
     callBack: this.re_getCurrency,
     errorHandler: this.error_getCurrency,
@@ -407,10 +418,11 @@ root.methods.getCurrency = async function () {
 // 获取币种的状态
 root.methods.re_getCurrency = function (data) {
   typeof (data) === 'string' && (data = JSON.parse(data))
-  if (!data.dataMap || !data.dataMap.currencys) {
+  if (!data) {
     return
   }
-  this.$store.commit('CHANGE_CURRENCY', data.dataMap.currencys)
+  this.otcCurrencyList = data;
+  // this.$store.commit('CHANGE_CURRENCY', data.dataMap.currencys)
   this.getAccounts()
 }
 // 获取币种失败
@@ -636,6 +648,10 @@ root.methods.openTransfer = function (index, item) {
   //   }
   // }
   this.popWindowOpen1 = true
+
+  // 法币可用余额
+  this.transferCurrencyOTCAvailable = item.otcAvailable
+  // 我的钱包可用余额
   this.transferCurrencyAvailable = item.available
   this.itemInfo = item
   this.currencyValue = this.itemInfo.currency
@@ -685,16 +701,31 @@ root.methods.testTransferAmount  = function () {
   //   this.transferAmountWA = this.$t('transferAmountWA2')
   //   return false
   // }
-  if (this.amountInput > this.transferCurrencyAvailable) {
-    this.transferAmountWA = this.$t('transferAmountWA3')
-    return false
+
+  if(this.assetAccountType == ' currency'){
+    if (Number(this.amountInput) > Number(this.transferCurrencyAvailable)) {
+      this.transferAmountWA = this.$t('transferAmountWA3')
+      return false
+    }
+    return true
   }
-  if (this.amountInput <= '0') {
-    this.amountInput = '0'
+  if(this.assetAccountType == 'wallet'){
+    if (Number(this.amountInput) > Number(this.transferCurrencyOTCAvailable)) {
+      this.transferAmountWA = this.$t('transferAmountWA3')
+      return false
+    }
+    return true
+  }
+
+  // if (Number(this.amountInput) > Number(this.transferCurrencyOTCAvailable) && this.assetAccountType == 'currency') {
+  //   this.transferAmountWA = this.$t('transferAmountWA3')
+  //   return false
+  // }
+  if (Number(this.amountInput) <= 0) {
+    this.amountInput = 0
     this.transferAmountWA = this.$t('transferAmountWA4')
     return false
   }
-
   return true
 }
 
@@ -755,7 +786,8 @@ root.methods.transferCommit = function () {
     params: {
       currency: this.currencyValue,
       amount: this.amountInput,
-      system: this.assetAccountType == 'wallet' ? 'WALLET':'SPOTS'
+      transferFrom: this.assetAccountType == 'wallet' ? 'OTC':'WALLET',
+      transferTo: this.assetAccountType != 'wallet' ? 'OTC':'WALLET'
     },
     callBack: this.re_transferCommit,
     errorHandler: this.error_transferCommit
@@ -773,8 +805,9 @@ root.methods.re_transferCommit = function (data){
 
   if( data.errorCode ){
     data.errorCode == 1 &&  (this.popupPromptText = '用户未登录')
-    data.errorCode == 2 &&  (this.popupPromptText = '划转金额小于零')
-    data.errorCode == 3 &&  (this.popupPromptText = '收款账户系统不存在')
+    data.errorCode == 2 &&  (this.popupPromptText = '数量错误')
+    data.errorCode == 3 &&  (this.popupPromptText = '系统账户不存在')
+    data.errorCode == 4 &&  (this.popupPromptText = '余额不足')
     // this.popupPromptOpen = true
     // this.popupPromptType = 0
     // setTimeout(() => {
@@ -782,8 +815,13 @@ root.methods.re_transferCommit = function (data){
     // }, 100)
     // console.log('用户登录')
   }
-
-  this.popupPromptText = '划转成功'
+  if(data.errorCode == 0) {
+    this.popupPromptText = '划转成功'
+    this.popupPromptType = 1
+    setTimeout(() => {
+      this.popupPromptOpen = true
+    }, 1000)
+  }
   this.popWindowOpen1 = false
 
 
@@ -830,7 +868,11 @@ root.methods.error_transferCommit = function (err){
 
 // 点击全提
 root.methods.allMention = function () {
-  this.amountInput = this.transferCurrencyAvailable
+  if( this.assetAccountType == 'wallet'){
+    this.amountInput = this.transferCurrencyOTCAvailable
+    return
+  }
+    this.amountInput = this.transferCurrencyAvailable
 }
 // 打开划转  end
 
