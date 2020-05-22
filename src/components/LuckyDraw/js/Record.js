@@ -10,7 +10,7 @@ root.components = {
 
 root.data = function () {
   return {
-    recordType: 1, // 0是进行中 1是已中奖 2是未中奖
+    recordType: 0, // 0是进行中 1是已中奖 2是未中奖
 
     ingSelectIndex: 1, // 进行中当前页
     ingMaxPage: 1, // 进行中最大数据量
@@ -36,28 +36,28 @@ root.data = function () {
 
     recordList: [[], [], []], // 数据列表，0是进行中，1是已中奖，2是未中奖
     h5RecordList: [[
-      {
-        currency:'Usdt',
-        periodNumber:2,
-        countTotal:20,
-      },
-      {
-        currency:'Usdt',
-        periodNumber:2,
-        countTotal:20,
-      }
+      // {
+      //   currency:'Usdt',
+      //   periodNumber:2,
+      //   countTotal:20,
+      // },
+      // {
+      //   currency:'Usdt',
+      //   periodNumber:2,
+      //   countTotal:20,
+      // }
     ], [
-      {
-        currency:'Usdt',
-        periodNumber:3,
-        countTotal:20,
-      }
+      // {
+      //   currency:'Usdt',
+      //   periodNumber:3,
+      //   countTotal:20,
+      // }
     ], [
-      {
-        currency:'Usdt',
-        periodNumber:4,
-        countTotal:20,
-      }
+      // {
+      //   currency:'Usdt',
+      //   periodNumber:4,
+      //   countTotal:20,
+      // }
     ]], // 数据列表，0是进行中，1是已中奖，2是未中奖
     recordChange: false, // 作用是提高反应速度
 
@@ -319,17 +319,17 @@ root.methods.postDetail = function (item) {
       ticketStatus = 3
   }
 
-  this.checkInfo = {
-        rewardAmount:'未开奖',
-        winNumber:1,
-        predictNumber:90,
-        participateTime:1323231223122,
-        countTotal:12,
-        drawColumn:5432,
-        currencyPeriodNumber:1995,
-        periodNumber:4,
-  }
-  return
+  // this.checkInfo = {
+  //       rewardAmount:'未开奖',
+  //       winNumber:1,
+  //       predictNumber:90,
+  //       participateTime:1323231223122,
+  //       countTotal:12,
+  //       drawColumn:5432,
+  //       currencyPeriodNumber:1995,
+  //       periodNumber:4,
+  // }
+  // return
   let params = {
     projectId: item.projectId,
     periodNumber: item.periodNumber,

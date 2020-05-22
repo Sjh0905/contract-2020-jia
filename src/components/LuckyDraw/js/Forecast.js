@@ -11,12 +11,12 @@ root.data = function () {
 	return {
 		// 记载
 		loading: false,
-	    // 弹框
-	    popType: 0,
-	    popText: '',
-	    promptOpen: false,
-	    // 认证弹框
-	    popWindowOpen: false,
+    // 弹框
+    popType: 0,
+    popText: '',
+    promptOpen: false,
+    // 认证弹框
+    popWindowOpen: false,
 		// 活动规则弹框
 		show_rules: false,
 		// 阅读并同意活动规则
