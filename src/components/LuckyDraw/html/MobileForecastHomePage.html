@@ -39,7 +39,7 @@
         <div class="forecast-activity-homepage-header-list">
           <div v-for="(item,index) in titleList" :key="index" class="forecast-activity-homepage-header-item" :class="selectedIndex === index?'forecast-activity-homepage-header-item-active':''" @click="clickToSelectIndex(index)">
             <div class="forecast-activity-homepage-header-item-text">{{item}}</div>
-            <div v-if="titleList.length>2 && selectedIndex != index && selectedIndex != index+1" class="forecast-activity-homepage-header-item-cutter"></div>
+            <div v-if="titleList.length>2 && sforecast-activity-homepage-container-item-info-title-left-logoelectedIndex != index && selectedIndex != index+1" class="forecast-activity-homepage-header-item-cutter"></div>
             <div v-if="titleList.length>2 && (selectedIndex === index || selectedIndex === index+1)" class="forecast-activity-homepage-header-item-cutter-active"></div>
           </div>
         </div>
@@ -73,7 +73,7 @@
             <div class="forecast-activity-homepage-container-item-info">
               <div class="forecast-activity-homepage-container-item-info-title">
                 <div class="forecast-activity-homepage-container-item-info-title-left">
-                  <img class="forecast-activity-homepage-container-item-info-title-left-logo" src="../assets/mobileForecastHomePage/USDT.png" alt="">
+                  <img class="forecast-activity-homepage-container-item-info-title-left-logo" src="../assets/mobileForecastHomePage/KK.png" alt="">
 <!--                  'http://logo.eunex.group/' + item.currency + '.png'-->
                   <div class="forecast-activity-homepage-container-item-info-title-left-text">{{item.currency}} 第{{parseInt(item.extPeriod)}}期</div>
                 </div>

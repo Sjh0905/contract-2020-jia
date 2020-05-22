@@ -372,7 +372,6 @@ root.methods.re_viewActivity = function (res) {
       // 未读过是 2
       case 2:
         this.ruleToastFlag = true
-
         this.viewAgreement = false
         break;
     }
@@ -381,8 +380,6 @@ root.methods.re_viewActivity = function (res) {
 
   this.ruleToastFlag = false
   this.viewAgreement = true
-
-
 }
 
 
@@ -578,6 +575,7 @@ root.methods.openRuleToastFlag = function () {
   }
   this.ruleToastFlag = false
   this.ruleAgreementFlag = true
+  this.joinTheActivity()
 }
 
 // 进入活动
