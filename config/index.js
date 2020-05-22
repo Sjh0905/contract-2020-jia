@@ -12,12 +12,12 @@ module.exports = {
     proxyTable: {
       '/apis': {
         // target: 'https://www.highdefi.com', //新测试环境1
-        // target: 'http://www.2020-ex.com', //新测试环境1
+        target: 'http://www.2020-ex.com', //新测试环境1
         // target: 'http://13.114.169.150:8000', //新测试环境1
         // target: 'http://18.163.24.239:8000', //新测试环境1
         // target: 'http://18.162.188.176:8000', // 2020.03.25测试服环境
         // target: 'https://2020.highdefi.com', //新测试环境1
-        target: 'http://10.113.8.21:8000', // 强哥电脑
+        // target: 'http://10.113.8.21:8000', // 强哥电脑
         // target: 'http://18.162.188.176:8000', //新测试环境2020
         // target: 'http://13.230.43.250:8080', //新测试环境2020.04.01
         // target: 'https://www.2020.exchange', //新测试环境2
