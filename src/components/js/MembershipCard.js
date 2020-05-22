@@ -1,3 +1,5 @@
+import GlobalFunction from "../../configs/globalFunctionConfigs/GlobalFunction";
+
 const root = {}
 root.name = 'membershipCard'
 /*------------------------------ 组件 ------------------------------*/
@@ -97,7 +99,6 @@ root.created = function () {
     this.picked = 2
     return;
   }
-
 
 
 }
@@ -282,6 +283,8 @@ root.methods.getCheck= function () {
 
 root.methods.re_getCheck = function (data) {
   console.log('是否是会员get-----',123)
+  console.info('GlobalFunction.comparedWithGreenwichTime==========', this.$globalFunc.comparedWithGreenwichTime(Number(this.createdAt)))
+
   //检测data数据是JSON字符串转换JS字符串
   typeof data === 'string' && (data = JSON.parse(data))
   console.log('是否是会员get-----',123)
@@ -974,6 +977,10 @@ root.methods.error_getMobileVerification = function (err) {
 root.methods.formatDateUitl = function (time) {
   return this.$globalFunc.formatDateUitl(Number(time), 'YYYY-MM-DD')
 }
+
+// root.methods.comparedWithGreenwichTime = function (time) {
+//   return this.$globalFunc.comparedWithGreenwichTime(Number(time), 'YYYY-MM-DD')
+// }
 
 // // 格式化时间
 // root.methods.formatDateUitlTimeStamp = function (time) {
