@@ -33,40 +33,6 @@ root.data = function () {
 
     // 现显示的containerList
     containerList: [
-      {
-        currency:'USDT', //币种
-        extPeriod:2, //几期
-        rewardAmount:232, //奖池总额
-        projectId:1, // 当前Id
-        eachAmount:12, // 每份多少枚
-        residueTicket:99, // 所占份数
-        eachs:100, // 总分数
-        preWinNumber:2, // 上期中奖编号
-        projectStatus:'ABNORMAL',
-
-      },
-      {
-        currency:'USDT', //币种
-        extPeriod:2, //几期
-        rewardAmount:232, //奖池总额
-        projectId:1, // 当前Id
-        eachAmount:12, // 每份多少枚
-        residueTicket:99, // 所占份数
-        eachs:100, // 总分数
-        preWinNumber:2, // 上期中奖编号
-        projectStatus:'PAUSE',
-
-      } , {
-        currency:'USDT', //币种
-        extPeriod:2, //几期
-        rewardAmount:232, //奖池总额
-        projectId:1, // 当前Id
-        eachAmount:12, // 每份多少枚
-        residueTicket:99, // 所占份数
-        eachs:100, // 总分数
-        preWinNumber:2, // 上期中奖编号
-        projectStatus:'CREATE',
-      }
     ],
 
     selectedIndex: 0,
@@ -103,6 +69,7 @@ root.data = function () {
 
 
     popWindowText: '',
+    remainingShares:0 // 剩余份数
   }
 }
 
@@ -118,9 +85,9 @@ root.created = function () {
   let that = this
 
   // TODO:上线时打开(轮询)
-  // that.pageInfoInterval = setInterval(function () {
-  //   that.getActivityInfo()
-  // }, 3000);
+  that.pageInfoInterval = setInterval(function () {
+    that.getActivityInfo()
+  }, 3000);
 
 
   if (this.iosQuery) {
@@ -420,7 +387,8 @@ root.methods.re_viewActivity = function (res) {
 
 
 root.methods.inputUserAmountInput = function () {
-  this.inputUserAmount = this.inputNumbers(this.inputUserAmount)
+  // this.inputUserAmount = this.inputNumbers(this.inputUserAmount)
+  this.inputUserAmount = this.inputUserAmount
 }
 // 幸运抽奖首页列表
 // init获取活动信息
@@ -448,25 +416,25 @@ root.methods.re_getActivityInfo = function (res) {
     titleList.push('荣耀竞猜')
     pageInfoList.push(data.honourGuessList)
   }
-  if (data.kingGuessList && data.kingGuessList.length != 0) {
-    titleList.push('王者竞猜')
-    pageInfoList.push(data.kingGuessList)
-  }
-  if (data.strongestGuessList && data.strongestGuessList.length != 0) {
-    titleList.push('最强竞猜')
-    pageInfoList.push(data.strongestGuessList)
-  }
+  // if (data.kingGuessList && data.kingGuessList.length != 0) {
+  //   titleList.push('王者竞猜')
+  //   pageInfoList.push(data.kingGuessList)
+  // }
+  // if (data.strongestGuessList && data.strongestGuessList.length != 0) {
+  //   titleList.push('最强竞猜')
+  //   pageInfoList.push(data.strongestGuessList)
+  // }
   // console.log('pageInfoList',pageInfoList[this.selectedIndex])
 
   this.titleList = titleList
   this.pageInfoList = pageInfoList
 
   this.containerList = pageInfoList[this.selectedIndex]
-  // console.log('页面数据',this.containerList)
+  console.info('页面数据',this.containerList)
 
   this.headerTitle = this.titleList[this.selectedIndex]
 
-  this.loading = false
+  this.loading = true
 
 }
 
@@ -536,6 +504,13 @@ root.methods.closeToast = function () {
   this.toastFlag = false
 }
 
+// 点击参与按钮弹框
+root.methods.openAmountToast = function (item) {
+  this.toastFlag = true
+  this.remainingShares = item.eachs - item.residueTicket
+  this.openToast(item)
+}
+
 // 点击点击参与按钮弹窗
 root.methods.openToast = function (item) {
   if (!this.isLogin) {
@@ -584,8 +559,6 @@ root.methods.re_openToast = function (res) {
     return
   }
 
-
-  this.toastFlag = true
   this.toastInfo2 = res.dataMap
   // console.log('toastInfo',item)
 }

@@ -512,21 +512,21 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%,-50%);
-  height: 221px;
-  width: 329px;
-
+  width:6rem;
+  height:4.4rem;
+  background: #fff;
+  box-shadow:0rem 0.1rem 0.2rem 0rem rgba(0,0,0,0.1);
+  border-radius:0.06rem;
   /*background: url("../assets/mobileForecastHomePage/toast_bg.png") no-repeat center;*/
   /*background-size: 100% 100%;*/
 }
 
 .forecast-activity-toast-close-btn {
   position: absolute;
-  top: -40px;
-  right: -10px;
-  width: 40px;
-  height: 40px;
-  padding: 12px;
-
+  top: 0.4rem;
+  right: 0.4rem;
+  /*width: 40px;*/
+  /*height: 40px;*/
 }
 
 .forecast-activity-toast-close-btn-img {
@@ -536,40 +536,47 @@
 }
 
 .forecast-activity-toast-title {
-  margin-top: 8px;
-  height: 25px;
-  font-size: 18px;
-  line-height: 25px;
+  /*margin-top: 8px;*/
+  height: 1.04rem;
+  font-size:0.32rem;
+  font-family:PingFangSC-Medium,PingFang SC;
+  font-weight:500;
+  line-height: 1.04rem;
   text-align: center;
-  font-weight: bold;
-  color: #C43E4E;
+  color: #172841;
+  border-bottom: 1px solid #F3F5FF;
 
 }
 
 .forecast-activity-toast-content{
-  margin: 29px auto 0;
-  width: 250px;
+  margin: 0.3rem auto 0;
+  width: 5.2rem;
   height: 28px;
   line-height: 28px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-direction: row;
+  /*display: flex;*/
+  /*align-items: center;*/
+  /*justify-content: space-between;*/
+  /*flex-direction: row;*/
 }
 
 .forecast-activity-toast-content-left {
   font-size: 14px;
   color: #000;
   flex-basis:76px;
-
+  justify-content: space-between;
+  margin-bottom: 0.2rem;
 }
 
+.remain-amount {
+  color: #3576F5;
+}
 .forecast-activity-toast-content-right {
   /*flex-grow: 3;*/
-  width: 180px;
-  height: 28px;
-  border: 1px solid #C43E4E;
-  border-radius: 6px;
+  margin: 0.3rem auto 0;
+  width: 5.2rem;
+  height: 0.8rem;
+  border: 1px solid #E0E1F4;
+  border-radius: 0.02rem;
   padding: 0 8px;
   box-sizing: border-box;
   position: relative;
@@ -610,7 +617,9 @@
   font-size: 14px;
   color: #000;
   flex-basis:76px;
-
+  width: 180px;
+  height: 17px;
+  margin-left: 0.3rem;
 }
 
 .forecast-activity-toast-content-info-right {
@@ -625,31 +634,32 @@
 }
 
 .forecast-activity-toast-content-wrong {
-  margin: 2px auto 0;
-  width: 250px;
-  height: 17px;
+  margin: 0 auto 0;
+  /*width: 250px;*/
+  height: 0.4rem;
+  line-height: 0.4rem;
   line-height: 17px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-direction: row;
+  color: #0D0E23;
+  /*display: flex;*/
+  /*align-items: center;*/
+  /*justify-content: space-between;*/
+  /*flex-direction: row;*/
 }
 
 .forecast-activity-toast-content-wrong-right {
-  width: 180px;
+  /*width: 180px;*/
   height: 17px;
-  padding: 0 8px;
+  padding: 0 0.4rem;
   box-sizing: border-box;
   font-size: 12px;
   line-height: 17px;
-  color: #FF4C4C;
+  color: #FD5555;
 }
 
 .forecast-activity-toast-btn {
-  margin: 35px auto 0;
-  width: 187px;
-  height: 43px;
-
+  margin: auto 0.4rem;
+  height: 0.8rem;
+  background: #3576F5;
   /*background: url("../assets/mobileForecastHomePage/toast_btn.png") no-repeat center;*/
   /*background-size: 100% 100%;*/
   text-align: center;
@@ -667,7 +677,6 @@
   background: rgba(0,0,0,0.8);
   z-index: 200;
 }
-
 
 .forecast-activity-ruleToast-box {
   position: absolute;
@@ -691,8 +700,8 @@
 }
 
 .forecast-activity-ruleToast-close-btn-img {
-  width: 20px;
-  height: 20px;
+  width: 0.32rem;
+  height: 0.32rem;
   display: block;
 }
 

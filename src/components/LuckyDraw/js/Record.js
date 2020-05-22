@@ -35,30 +35,28 @@ root.data = function () {
 
 
     recordList: [[], [], []], // 数据列表，0是进行中，1是已中奖，2是未中奖
-    h5RecordList: [[
-      // {
-      //   currency:'Usdt',
-      //   periodNumber:2,
-      //   countTotal:20,
-      // },
-      // {
-      //   currency:'Usdt',
-      //   periodNumber:2,
-      //   countTotal:20,
-      // }
-    ], [
-      // {
-      //   currency:'Usdt',
-      //   periodNumber:3,
-      //   countTotal:20,
-      // }
-    ], [
-      // {
-      //   currency:'Usdt',
-      //   periodNumber:4,
-      //   countTotal:20,
-      // }
-    ]], // 数据列表，0是进行中，1是已中奖，2是未中奖
+    h5RecordList: [[], [], []], // 数据列表，0是进行中，1是已中奖，2是未中奖
+    //{
+    //         currency:'Usdt',
+    //         periodNumber:2,
+    //         countTotal:20,
+    //       },
+    //       {
+    //         currency:'Usdt',
+    //         periodNumber:2,
+    //         countTotal:20,
+    //       }
+    //{
+    //         currency:'Usdt',
+    //         periodNumber:4,
+    //         countTotal:20,
+    //       }
+    // {
+    //         currency:'Usdt',
+    //         periodNumber:3,
+    //         countTotal:20,
+    //       }
+
     recordChange: false, // 作用是提高反应速度
 
     showPopupWindow: false, // 显示详情弹窗
