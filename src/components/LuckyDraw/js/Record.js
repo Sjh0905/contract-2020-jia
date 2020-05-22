@@ -176,7 +176,7 @@ root.watch = {}
 root.methods = {}
 
 root.methods.ReturnToActivePage = function () {
-  this.$router.push('/index/mobileForecastHomePage')
+  this.$router.push('/index/treasureBox')
 }
 
 // 点击切换页签

@@ -352,9 +352,9 @@
 
 .forecast-activity-homepage-container-item-info-num-right-img {
   display: block;
-  width: 0.1rem;
-  height: 0.2rem;
-  margin-left: 10px;
+  width: 0.2rem;
+  /*height: 0.2rem;*/
+  margin-left: 0.1rem;
 }
 
 .forecast-activity-homepage-container-item-info-last {
