@@ -49,12 +49,6 @@ root.created = function () {
       method: 'revertHeader'
     }))
     window.postMessage(JSON.stringify({
-      method: 'transparentHeader',
-      parameters: {
-        color:'#ffffff',
-      }
-    }))
-    window.postMessage(JSON.stringify({
         method: 'setTitle',
         parameters: '开奖记录'
       })
@@ -79,7 +73,7 @@ root.methods = {};
 
 root.methods.goToCurrentPre = function (item) {
   console.info('item=====',item)
-  this.$router.push({name: 'MobileForecastJoinRecord', query: {projectId: item.projectId,periodNumber:item.itemNumber,currency:item.currency}})
+  this.$router.push({name: 'MobileForecastJoinRecord', query: {projectId: item.projectId,periodNumber:item.itemNumber,currency:item.currency,isIOS:this.isIOS}})
   // this.$router.push('/static/mobileForecastJoinRecord?projectId='+item.projectId)
   // mobileForecastJoinRecord?projectId=1&periodNumber=00000003&currency=KK
 }
