@@ -1,6 +1,6 @@
 <div class="activity-box">
-  <Loading v-if="!loading" />
-  <div v-if="loading" class="forecast-activity-homepage-box">
+  <Loading v-if="loading" />
+  <div v-if="!loading" class="forecast-activity-homepage-box">
     <div class="forecast-activity-homepage">
       <div v-show="iosQuery" class="forecast-activity-homepage-header-ios"></div>
       <!--非ios头部-->
@@ -23,9 +23,9 @@
           <div class="forecast-activity-homepage-header-title-back-icon" @click="jumpToBack()">
             <img class="forecast-activity-homepage-header-title-back-icon-img" src="../assets/mobileForecastHomePage/back_icon.png" alt="">
           </div>
-          <div class="forecast-activity-homepage-header-title-text" v-if="titleList.length <= 1">{{headerTitle}}</div>
-          <div class="forecast-activity-homepage-header-title-text-hidden" v-if="titleList.length > 1">{{headerTitle}}</div>
-          <div class="forecast-activity-homepage-header-title-info-icon" @click="jumpToInfo()">
+          <div class="forecast-activity-homepage-header-title-text" v-if="titleList.length <= 1">百宝箱</div>
+          <div class="forecast-activity-homepage-header-title-text-hidden" v-if="titleList.length > 1">百宝箱</div>
+          <div class="forecast-activity-homepage-header-title-info-icon">
             <img class="forecast-activity-homepage-header-title-info-icon-img" src="../assets/mobileForecastHomePage/rule_icon.png" alt="">
           </div>
         </div>
@@ -43,7 +43,7 @@
       <div class="forecast-activity-homepage-address">
         <div class="forecast-activity-homepage-header-address-left"></div>
         <!-- @click="goToDesdroyRecord" 销毁记录-->
-        <div v-if="isLogin" class="forecast-activity-homepage-header-address-right" @click="goToRecord">参与记录</div>
+        <div v-if="(isLogin || iosLogin)" class="forecast-activity-homepage-header-address-right" @click="goToRecord">参与记录</div>
       </div>
       <div class="forecast-activity-homepage-container">
         <div class="forecast-activity-homepage-container-item" v-for="(item,index) in containerList" :key="item.projectId">
@@ -87,7 +87,8 @@
           <div class="forecast-activity-homepage-container-item-down">
             <div v-if="item.projectStatus === 'PROCESSING' || item.projectStatus === 'CREATED'" class="forecast-activity-homepage-container-item-down-btn forecast-activity-homepage-container-item-down-btn-join" @click="openAmountToast(item)">点击参与</div>
 <!--            <div v-if="item.projectStatus === 'PAUSE' || item.projectStatus === 'PAUSEING'" class="forecast-activity-homepage-container-item-down-btn forecast-activity-homepage-container-item-down-btn-releace">休息中...</div>-->
-            <div v-if="item.projectStatus===' SOLD_OUT' || item.projectStatus===' TXHASH' || item.projectStatus===' ABNORMAL'" class="forecast-activity-homepage-container-item-down-btn forecast-activity-homepage-container-item-down-btn-releace">区块生成开奖中</div>
+            <div v-if="item.projectStatus === 'COMPLETED'" class="forecast-activity-homepage-container-item-down-btn forecast-activity-homepage-container-item-down-btn-releace">已完成</div>
+            <div v-if="item.projectStatus==='SOLD_OUT' || item.projectStatus===' TXHASH' || item.projectStatus===' ABNORMAL'" class="forecast-activity-homepage-container-item-down-btn forecast-activity-homepage-container-item-down-btn-releace">区块生成开奖中</div>
             <svg class='svg-btn' v-if="item.projectStatus === 'SOLD_OUT' || item.projectStatus === 'TXHASH' || item.projectStatus === 'ABNORMAL'" height="42" width="302">
               <path d='M151 1
 		            L281 1
@@ -118,7 +119,7 @@
               <div class="forecast-activity-ruleToast-content-item">3.兑奖码与开奖号码最后2位数相同即为中奖；</div>
               <div class="forecast-activity-ruleToast-content-item">4.如当期用户兑奖码未与开奖号码后2位数完全匹配，则取最接近的1或者2位抽奖码用户中奖；</div>
               <div class="forecast-activity-ruleToast-content-item">5.如中奖编号为68，68未完全匹配，则取67或69中奖，或者67和69同时中奖，如没有67和69，则继续类推至66和70；</div>
-              <div class="forecast-activity-ruleToast-content-item">6.竞猜成功后，中奖者获得当期奖池总额的90% ；</div>
+              <div class="forecast-activity-ruleToast-content-item">6.竞猜成功后，中奖者获得当期奖池总额的90%；</div>
               <div class="forecast-activity-ruleToast-content-item">7.区块链竞猜每30分钟开奖一次，不足10份不开奖，自动延长30分钟开奖，每期最高销售100份；</div>
             </div>
             <!-- <div class="forecast-activity-ruleToast-content-info-title strong">开奖规则</div>-->
@@ -160,7 +161,7 @@
           </div>
           <div class="forecast-activity-toast-content-right">
             <input class="forecast-activity-toast-content-right-input" v-model="inputUserAmount" @input="inputUserAmountInput" placeholder="请输入参与份数">
-            <div class="forecast-activity-toast-content-right-account">{{inputUserAmount ? toFixed(accMul(toastInfo.eachAmount,inputUserAmount),0):'0'}} <span class="remain-amount">{{toastInfo2.currency}}</span>
+            <div class="forecast-activity-toast-content-right-account">{{inputUserAmount ? toFixed(accMul(toastInfo.eachAmount,inputUserAmount),0):''}} <span class="remain-amount">{{toastInfo2.currency}}</span>
 
             </div>
           </div>

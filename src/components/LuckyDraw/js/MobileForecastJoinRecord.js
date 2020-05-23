@@ -18,6 +18,8 @@ root.data = function () {
     ],
 
     currency: '',
+    isApp:false,
+    isIOS:false
   }
 }
 
@@ -32,11 +34,28 @@ root.created = function () {
   this.$store.commit('changeMobileHeaderTitle', '本期参与');
   if(this.$route.query.isIOS) {
     window.postMessage(JSON.stringify({
+      method: 'revertHeader'
+    }))
+    window.postMessage(JSON.stringify({
+      method: 'transparentHeader',
+      parameters: {
+        color:'#ffffff',//因为其他页面写成transparent隐藏了APP返回箭头，所以需要初始化
+      }
+    }))
+    window.postMessage(JSON.stringify({
         method: 'setTitle',
         parameters: '本期参与'
       })
     );
+    window.postMessage(JSON.stringify({
+      method: 'setH5Back',
+      parameters: {
+        canGoH5Back:true
+      }
+    }))
   }
+
+  this.isIOSQuery()
 
   this.getInitPage()
   this.getPeriodRecord()
@@ -108,6 +127,14 @@ root.methods.changeUser = function (userName) {
   } else {
     let newUserName = userName
     return newUserName.substr(0,3) + '****' + newUserName.substr(newUserName.length-2,2)
+  }
+}
+// 判断是否是ios打开
+root.methods.isIOSQuery = function () {
+  if(this.$route.query.isIOS) {
+    this.isIOS = true
+  } else {
+    this.isIOS = false
   }
 }
 

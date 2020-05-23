@@ -31,6 +31,8 @@ root.data = function () {
       //   lotteryTime:1323231223122
       // }
     ],
+    isApp:false,
+    isIOS:false
   }
 }
 
@@ -44,11 +46,27 @@ root.created = function () {
   this.$store.commit('changeMobileHeaderTitle', '开奖记录');
   if(this.$route.query.isIOS) {
     window.postMessage(JSON.stringify({
+      method: 'revertHeader'
+    }))
+    window.postMessage(JSON.stringify({
+      method: 'transparentHeader',
+      parameters: {
+        color:'#ffffff',
+      }
+    }))
+    window.postMessage(JSON.stringify({
         method: 'setTitle',
         parameters: '开奖记录'
       })
     );
+    window.postMessage(JSON.stringify({
+      method: 'setH5Back',
+      parameters: {
+        canGoH5Back:true
+      }
+    }))
   }
+  this.isIOSQuery()
   this.getInitPage()
 }
 
@@ -88,6 +106,15 @@ root.methods.re_getInitPage = function (res) {
   }
 
   this.loading = false
+}
+
+// 判断是否是ios打开
+root.methods.isIOSQuery = function () {
+  if(this.$route.query.isIOS) {
+    this.isIOS = true
+  } else {
+    this.isIOS = false
+  }
 }
 
 export default root;
