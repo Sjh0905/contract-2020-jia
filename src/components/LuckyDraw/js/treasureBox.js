@@ -595,7 +595,7 @@ root.methods.openRuleToastFlag = function () {
   if (this.ruleAgreementFlag) {
     return
   }
-  this.ruleToastFlag = false
+  this.ruleToastFlag = true
   this.ruleAgreementFlag = true
   this.joinTheActivity()
 }
@@ -698,13 +698,13 @@ root.methods.re_submitToastInfo = function (res) {
         this.openPop('超出个人每天最大次数')
         break;
       case 6:
-        this.openPop('超出可用数量')
+        this.openPop('用户余额不足')
         break;
       case 7:
         this.openPop('本期已售完，下期要抓紧哦～')
         break;
       case 8:
-        this.openPop('超出本期剩余参与份数')
+        this.openPop('剩余份数不足')
         break;
       case 9:
         this.openPop('项目已下架')
