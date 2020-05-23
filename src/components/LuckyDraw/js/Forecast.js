@@ -10,7 +10,7 @@ let get_list_interval = '';
 root.data = function () {
 	return {
 		// 记载
-		loading: false,
+		loading: true,
     // 弹框
     popType: 0,
     popText: '',
@@ -22,7 +22,7 @@ root.data = function () {
 		// 阅读并同意活动规则
 		agree_rules: true,
 		// 是否阅读过活动规则
-		is_agree: true,
+		is_agree: false,
 		// 默认选中页签
 		forecast_tab: 1,
 		// 页面名称
@@ -81,7 +81,9 @@ root.data = function () {
 		identity: false,
 		// 购买中
 		buying: false,
-    remainingShares:0 // 剩余份数
+    remainingShares:0, // 剩余份数
+    dataList:[],
+    show_lotteryt:false
 	}
 }
 
@@ -341,9 +343,11 @@ root.methods.HIDE_DESTROY_DIALOG = function () {
 	this.show_destroy = false;
 	this.show_prize = false;
 	this.show_lottery_record_list = false;
+	this.show_lotteryt = false;
 	this.prize_list = [];
 	this.destroy_list = [];
 	this.lottery_record_list = [];
+	this.dataList = [];
 	this.currency = '';
 }
 
@@ -361,8 +365,9 @@ root.methods.GET_PRIZE_LIST = function (projectId) {
 root.methods.RE_GET_LOOTERY_RECORD = function (res) {
 	typeof(res) == 'string' && (res = JSON.parse(res));
 	if (res.result != 'FAIL') {
-		console.log(1)
+
 		this.prize_list = !!res.dataMap && res.dataMap.lotteryRecordList;
+    console.info('1,prize_list========',this.prize_list)
 	}
 }
 
@@ -545,43 +550,49 @@ root.methods.RE_BUY_PERIOD = function (res) {
 	}
 }
 
+root.methods.PurchaseRecord = function () {
+
+  this.show_lotteryt = false
+}
+
 // 本期记录列表
 root.methods.GET_PERIOD_PARTAKE = function (projectId, periodNumber, ticketStatus, currency) {
 	this.currency = currency;
-	this.$http.send('POST_LUCKY_GUESS_CURRENT_PERIOD_PARTAKE', {
+	this.$http.send('GET_PERIOD_RECORD', {
 		bind: this,
-		params: {
+		query: {
 			projectId: projectId,
 			periodNumber: periodNumber,
-			ticketStatus: ticketStatus,
+			currency: currency,
 		},
 		callBack: this.RE_GET_PERIOD_PARTAKE,
 		errorHandler: this.ERROR_GET_PERIOD_PARTAKE
 	})
 }
 
-root.methods.ERROR_GET_PERIOD_PARTAKE = function () {
-
-}
-
 root.methods.RE_GET_PERIOD_PARTAKE = function (res) {
   typeof(res) == 'string' && (res = JSON.parse(res));
   if (res.result != 'FAIL') {
   	this.show_lottery_record_list = true;
-    this.lottery_record_list = res.dataMap.currentPeriodPartakeList;
+    this.lottery_record_list = res.dataMap.lotteryRecordList;
   }
 }
 
-// 邮箱加密
-root.methods.changeUser = function (userName) {
-  if(this.$globalFunc.testEmail(userName)){
-    let newUserName = userName.split('@')
-    return newUserName[0].substr(0,2) + '****' + newUserName[0].substr(newUserName[0].length-2,2) + '@' + newUserName[1]
-  } else {
-    let newUserName = userName
-    return newUserName.substr(0,3) + '****' + newUserName.substr(newUserName.length-2,2)
-  }
+root.methods.ERROR_GET_PERIOD_PARTAKE = function () {
+
 }
+
+
+// 邮箱加密
+// root.methods.changeUser = function (userName) {
+//   if(this.$globalFunc.testEmail(userName)){
+//     let newUserName = userName.split('@')
+//     return newUserName[0].substr(0,2) + '****' + newUserName[0].substr(newUserName[0].length-2,2) + '@' + newUserName[1]
+//   } else {
+//     let newUserName = userName
+//     return newUserName.substr(0,3) + '****' + newUserName.substr(newUserName.length-2,2)
+//   }
+// }
 
 // 合约地址
 root.methods.GO_URL_DETAIL = function (url) {
@@ -597,6 +608,36 @@ root.methods.changeSvg = function (num1,num2) {
   return ''+this.toFixed(Number(num1) * 267/ Number(num2),0) + ' 276'
 
 }
+
+
+
+root.methods.getInitPage = function (projectId,itemNumber,currency) {
+  // this.show_lotteryt = true
+  this.$http.send('GET_PERIOD_RECORD', {
+    bind: this,
+    query: {
+      projectId: projectId,
+      periodNumber:itemNumber,
+      currency:currency
+    },
+    callBack: this.re_getInitPage
+  })
+}
+
+root.methods.re_getInitPage = function (res) {
+
+  typeof(res) == 'string' && (res = JSON.parse(res));
+
+  if (res.result != 'FAIL') {
+    this.show_prize = false
+    this.show_lotteryt = true
+    this.dataList = res.dataMap.lotteryRecordList
+    console.info(' this.show_prize = false',this.dataList)
+  }
+
+  this.loading = false
+}
+
 
 // 组件结束后删掉轮询
 root.beforeDestroy = function () {
@@ -638,5 +679,6 @@ root.methods.accDiv = function (num1, num2) {
   return this.$globalFunc.accDiv(num1, num2)
 }
 /*---------------------- 除法运算 end ---------------------*/
+
 
 export default root;

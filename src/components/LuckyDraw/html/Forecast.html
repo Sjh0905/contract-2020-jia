@@ -5,7 +5,7 @@
       <div class="forecast_rules">
         <font class="cursor colorF" @click="SHOW_RULE_DIALOG">
           {{$t('look_rules')}}
-          <img src="../../../assets/pinchakan.png" alt="" class="cursorImg">
+          <img src="../assets/mobileForecastHomePage/rule_icon.png" alt="" class="cursorImg">
           <span class="forecast_rules_icon"></span>
         </font>
       </div>
@@ -141,6 +141,10 @@
                  @click="SHOW_BUY(item.projectId, item.extPeriod, item.currency, item.eachAmount, item.eachs, item.residueTicket)">
               {{$t('tojoin')}}
             </div>
+             <!-- 哟完成-->
+            <div class="forecast_item_btn" v-if="item.projectStatus === 'PROCESSING' || item.projectStatus === 'COMPLETED'">
+              {{$t('已完成')}}
+            </div>
 <!--            <div class="forecast_item_btn disabled" v-if="item.projectStatus == 'PAUSE'">-->
 <!--              {{$t('recess')}}...-->
 <!--            </div>-->
@@ -261,16 +265,18 @@
             <!-- 本期参与列表 -->
             <div class="forecast_dialog_list_table" v-if="show_lottery_record_list && lottery_record_list.length">
               <div class="table_title flex-row table_tr">
-                <div class="record_time">{{$t('time')}}</div>
-                <div class="record_number">{{$t('record_predictions')}}</div>
-                <div class="record_name">{{$t('user_uid')}}</div>
+                <div class="record_time23">{{$t('time')}}</div>
+                <div class="record_number23">{{$t('record_predictions')}}</div>
+                <div class="record_number23">抽奖号码</div>
+                <div class="record_name23">UID</div>
               </div>
               <div class="table_list_container">
                 <div class="table_list table_tr flex-row" v-for="(item, key) in lottery_record_list">
-                  <div class="record_time">{{$globalFunc.formatDateUitl(item.participateTime, 'YYYY-MM-DD hh:mm')}}
+                  <div class="record_time23">{{$globalFunc.formatDateUitl(item.participateTime, 'YYYY-MM-DD hh:mm')}}
                   </div>
-                  <div class="record_number">{{item.countId}}</div>
-                  <div class="record_name">{{changeUser(item.userName)}}</div>
+                  <div class="record_number23">{{item.amount}}{{item.currency}}</div>
+                  <div class="record_number23">{{item.predictNumber}}</div>
+                  <div class="record_name23">{{(item.userId)}}</div>
                 </div>
               </div>
             </div>
@@ -286,7 +292,7 @@
                 <div class="table_number list_width">{{$t('prize_episode')}}</div>
               </div>
               <div class="table_list_container">
-                <div class="table_list table_tr flex-row" v-for="(item, key) in prize_list">
+                <div class="table_list table_tr flex-row cursorPointer" v-for="(item, key) in prize_list" @click="getInitPage(item.projectId, item.itemNumber, item.currency)">
                   <div class="table_time prize_time list_width">{{$globalFunc.formatDateUitl(item.lotteryTime,
                     'YYYY-MM-DD hh:mm:ss')}}
                   </div>
@@ -297,20 +303,41 @@
                   <div class="table_number prize_number list_width">{{item.winNumber}}</div>
                   <div class="table_number prize_total list_width">{{item.totalQuantity}}</div>
 <!--                  <div class="table_number prize_pool list_width">{{item.lotteryPoolNumber}}</div>-->
-                  <div class="table_number list_width">{{item.itemNumber}}
+                  <div class="table_number list_width" >{{item.currency}}{{item.itemNumber}}
+                    <img src="../assets/mobileForecastHomePage/item_icon@2x.png" alt="" class="itemIcon">
                   </div>
                 </div>
               </div>
             </div>
+
+
           </div>
         </div>
       </div>
+
+      <!-- 本期参与列表000000 -->
+<!--      <div class="forecast_dialog_list_table" v-if="show_lotteryt">-->
+<!--        <div class="table_title flex-row table_tr">-->
+<!--          <div class="record_time">{{$t('time1')}}</div>-->
+<!--          <div class="record_number">{{$t('record_predictions1')}}</div>-->
+<!--          <div class="record_name">{{$t('user_uid1')}}</div>-->
+<!--        </div>-->
+<!--        <div class="table_list_container">-->
+<!--          <div class="table_list table_tr flex-row" v-for="(item, key) in dataList">-->
+<!--            <div class="record_time">{{$globalFunc.formatDateUitl(item.participateTime, 'YYYY-MM-DD hh:mm')}}-->
+<!--            </div>-->
+<!--            <div class="record_number">{{item.countId}}</div>-->
+<!--            <div class="record_name">{{(item.userName)}}</div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
       <!-- 本期参与，开奖记录 end -->
 
       <!-- 活动规则 start -->
       <div class="forecast_dialog_list" v-if="show_rules">
         <div class="forecast_dialog_list_body dialog_rules list_width">
-          <div class="forecast_dialog_list_close" @click="HIDE_RULES_DIALOG"></div>
+<!--          <div class="forecast_dialog_list_close" @click="HIDE_RULES_DIALOG"></div>-->
+          <img src="../../../assets/弹窗-取消-icon@2x.png" alt="" class="iconImg" @click="HIDE_RULES_DIALOG">
           <div class="forecast_dialog_list_content">
             <div class="forecast_dialog_list_title rules_title_header">
               {{$t('rule')}}
@@ -369,9 +396,9 @@
               <div class="rules_check" v-if="is_login && !is_agree">
                 <label class="agree_ment" for="agree">
                   <input id="agree" style="display: none;" type="checkbox" name="" v-model="agree_rules">
-                  <img v-if="!agree_rules" src="">
+                  <img v-if="!agree_rules" src="../assets/mobileForecastHomePage/agreement_no_select.png">
 <!--                  ../assets/mobileForecastHomePage/agreement_no_select.png-->
-                  <img v-else src="">
+                  <img v-else src="../assets/mobileForecastHomePage/agreement_selected.png">
 <!--                  ../assets/mobileForecastHomePage/agreement_selected.png-->
                   {{$t('rule_item_13')}}
                 </label>
@@ -390,6 +417,31 @@
       </div>
       <!-- 活动规则 end -->
 
+      <div class="forecast_dialog_list" v-if="show_lotteryt">
+        <div class="forecast_dialog_list_body dialog_rules list_width"  v-for="(item, key) in dataList">
+<!--          <div class="forecast_dialog_list_close" @click="PurchaseRecord"></div>-->
+          <img src="../../../assets/弹窗-取消-icon@2x.png" alt="" class="iconImg" @click="PurchaseRecord">
+
+          <div class="periodNumberDiv">本期参与({{item.periodNumber}})</div>
+                  <div class="table_title23 flex-row">
+                    <div class="record_time23">{{$t('time')}}</div>
+                    <div class="record_number23">{{$t('record_predictions')}}</div>
+                    <div class="record_number23">抽奖号码</div>
+                    <div class="record_name23">UID</div>
+                  </div>
+                  <div class="table_list_container23" >
+                    <div class="table_list mar16 flex-row" v-for="(item, key) in dataList">
+                      <div class="record_time23">{{$globalFunc.formatDateUitl(item.participateTime, 'YYYY-MM-DD hh:mm')}}
+                      </div>
+                      <div class="record_number23">{{item.amount}}{{item.currency}}</div>
+                      <div class="record_number23">{{item.predictNumber}}</div>
+                      <div class="record_name23"><span v-if="item.ticketStatus && item.ticketStatus == 5" style="color: #F57C35">中奖</span>
+                        {{(item.userId)}}</div>
+                    </div>
+                  </div>
+
+        </div>
+      </div>
       <!-- 提示 -->
       <PopupPrompt :popOpen="promptOpen" :waitTime="2000" :popClose="closePrompt" :popType="popType"
                    :popText="popText"/>
