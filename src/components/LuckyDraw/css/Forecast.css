@@ -27,6 +27,7 @@ input:-ms-input-placeholder {
 
 .cursorImg {
   width: 19px;
+  margin-left: 5px;
   vertical-align: text-top;
 }
 .forecast {
@@ -40,6 +41,7 @@ input:-ms-input-placeholder {
   width: 100%;
   min-height: 1028px;
   /*background: url('../assets/bj-2.png') top no-repeat #070B26;*/
+  background: url('../assets/baibao.png') top no-repeat #070B26;
 }
 
 .forecast_body {
@@ -586,6 +588,7 @@ input:-ms-input-placeholder {
 }
 
 .forecast_dialog_list_table {
+  width: 100%;
   margin-top: 10px;
   min-height: 200px;
   border-radius: 10px;
@@ -595,9 +598,12 @@ input:-ms-input-placeholder {
 .table_tr {
   padding: 0px 25px;
   line-height: 35px;
+  /*cursor: pointer;*/
   /*border-bottom: 1px solid #fafafa;*/
 }
-
+.cursorPointer {
+  cursor: pointer;
+}
 .table_title {
   width: 100%;
   font-size:13px;
@@ -610,10 +616,34 @@ input:-ms-input-placeholder {
   padding-right: 4px;
 }
 
+.table_title23 {
+  width: 100%;
+  font-size:13px;
+  font-family:PingFangSC-Semibold,PingFang SC;
+  font-weight:600;
+  color:rgba(13,14,35,1);
+  padding: 0px 25px;
+  padding-top: 13px;
+  line-height: 35px;
+}
+
+.table_title23 div:nth-last-child(1) {
+  padding-right: 4px;
+}
+
 .table_list_container {
   width: 100%;
   max-height: 250px;
   overflow-y: scroll;
+}
+.table_list_container23 {
+  width: 100%;
+  max-height: 250px;
+  overflow-y: scroll;
+  padding: 0 25px;
+}
+.mar16 {
+  margin-bottom: 16px;
 }
 
 .table_list {
@@ -777,9 +807,16 @@ input:-ms-input-placeholder {
 .record_time {
   width: 30%;
 }
+.record_time23 {
+  width: 36%;
+}
 
 .record_number {
   width: 20%;
+  text-align: right;
+}
+.record_number23 {
+  width: 25%;
   text-align: right;
 }
 
@@ -787,7 +824,10 @@ input:-ms-input-placeholder {
   width: 50%;
   text-align: right;
 }
-
+.record_name23 {
+  width: 38%;
+  text-align: right;
+}
 .border_circle {
   width: 94px;
   height: 94px;
@@ -871,7 +911,7 @@ input:-ms-input-placeholder {
 
 /*rules*/
 .rules_title_header {
-  font-weight: bold;
+  font-weight: 400;
   color: #172A4D;
 }
 
@@ -1026,7 +1066,7 @@ input:-ms-input-placeholder {
 
 /*活动规则滚动*/
 .rules_item_list {
-  max-height: 210px;
+  max-height: 214px;
   overflow-y: scroll;
   overflow-x: hidden;
 }
@@ -1128,4 +1168,24 @@ input:-ms-input-placeholder {
 .list-logo {
   width: 18px;
   margin-right: 11px;
+}
+.periodNumberDiv {
+  width: 100%;
+  height:60px;
+  line-height: 60px;
+  background:rgba(239,240,255,1);
+  border-radius:1px 1px 0px 0px;;
+  padding: 0 25px;
+  font-size:18px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color: #0D0E23;
+}
+.mobile-record-winning {
+
+}
+.itemIcon {
+  width: 5px;
+  vertical-align: unset;
+  margin-bottom: 1px;
 }

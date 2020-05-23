@@ -17,14 +17,17 @@
 
     <div v-if="dataList.length > 0" class="mobile-forecast-record-title">
       <div class="mobile-forecast-record-title-type type">开奖时间</div>
-      <div class="mobile-forecast-record-title-detail detail">中奖编号</div>
+      <div class="mobile-forecast-record-title-detail detail">中奖号码</div>
       <div class="mobile-forecast-record-title-num num">项目编号</div>
     </div>
     <div v-if="dataList.length > 0" class="mobile-forecast-record-list">
       <div v-for="(item,index) in dataList" :key="index" class="mobile-forecast-record-item" @click="goToCurrentPre(item)">
         <div class="mobile-forecast-record-title-type type">{{$globalFunc.formatDateUitl(item.lotteryTime, 'YYYY-MM-DD hh:mm')}}</div>
         <div class="mobile-forecast-record-title-detail detail">{{item.winNumber}}</div>
-        <div class="mobile-forecast-record-title-num num">{{item.currency}}{{item.itemNumber}}</div>
+        <div class="num">
+          {{item.currency}}{{item.itemNumber}}
+          <img src="../assets/mobileForecastHomePage/item_icon@2x.png" class="mobile-forecast-record-title-num" alt="">
+        </div>
       </div>
     </div>
   </div>
