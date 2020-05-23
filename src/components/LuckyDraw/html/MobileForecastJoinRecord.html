@@ -1,35 +1,31 @@
 <div>
-<!--  <Loading v-if="loading"/>-->
+  <!-- <Loading v-if="loading"/>-->
   <div class="mobile-forecast-record-box">
-<!--    v-if="!loading"-->
-
+    <!-- v-if="!loading"-->
     <div class="mobile-forecast-record-box-title">
-      <img class="divHeaderImg" src="../../../assets/fanhui.png" alt="" @click="ReturnToActivePage">
-      <span class="divHeaderSpan">本期参与</span>
-    </div>
-
-    <div class="divHeader" @click="ReturnToActivePage">
+      <img class="divHeaderImg" src="../../../assets/fanhui.png" alt="" @click="ReturnToActivePage"> <span class="divHeaderSpan">本期参与({{$route.query.currency}}{{$route.query.periodNumber}})</span>
 
     </div>
-
+    <div class="divHeader" @click="ReturnToActivePage"></div>
     <!--无数据-->
     <div v-if="dataList.length === 0" class="no-data-box">
       <img class="no-data-img" src="" alt="">
-<!--      ../assets/mobileForecastRecord/no_record_img.png-->
+      <!-- ../assets/mobileForecastRecord/no_record_img.png-->
       <div class="no-data-text">暂无记录~</div>
     </div>
     <!--有数据-->
     <div v-if="dataList.length > 0" class="mobile-forecast-record-title">
       <div class="mobile-forecast-record-title-type type">认购时间</div>
-      <div class="mobile-forecast-record-title-detail detail">认购数量</div>
+      <div class="mobile-forecast-record-title-detail amount">认购数量</div>
+      <div class="mobile-forecast-record-title-detail detail">预测奖号</div>
       <div class="mobile-forecast-record-title-num num">UID</div>
     </div>
     <div v-if="dataList.length > 0" class="mobile-forecast-record-list">
       <div v-for="(item,index) in dataList" :key="index" class="mobile-forecast-record-item">
-        <div class="mobile-forecast-record-title-type type">{{$globalFunc.formatDateUitl(item.participateTime, 'YYYY-MM-DD hh:mm')}}</div>
-        <div class="mobile-forecast-record-title-detail detail">{{item.ticketStatus? item.amount:item.countId + '份'}}</div>
-        <div class="mobile-forecast-record-title-num num">
-          <span v-if="item.ticketStatus && item.ticketStatus == 5" class="mobile-record-winning">中奖</span>
+        <div class="mobile-forecast-record-title-type type">{{$globalFunc.formatDateUitl(item.participateTime, 'MM-DD hh:mm')}}</div>
+        <div class="mobile-forecast-record-title-detail amount">{{item.ticketStatus? item.amount:item.countId + '份'}}</div>
+        <div class="mobile-forecast-record-title-detail detail">{{item.predictNumber}}</div>
+        <div class="mobile-forecast-record-title-num num"> <span v-if="item.ticketStatus && item.ticketStatus == 5" class="mobile-record-winning">中奖</span>
           {{item.userId}}</div>
       </div>
     </div>

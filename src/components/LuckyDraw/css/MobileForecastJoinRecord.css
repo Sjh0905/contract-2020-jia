@@ -48,16 +48,20 @@
 }
 
 .type {
-  flex: 24;
+  flex: 18;
 }
 
 .detail {
-  flex: 12;
+  flex: 10;
   /*text-align: right*/
 }
 
+.amount {
+  flex: 14;
+}
+
 .num {
-  flex: 12;
+  flex: 18;
   text-align: right;
 }
 
