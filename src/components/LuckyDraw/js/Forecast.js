@@ -155,7 +155,7 @@ root.methods.popWindowClose = function () {
 }
 // 跳到验证界面
 root.methods.GO_INDENTITY = function () {
-	this.$router.push({name: "authentication"});
+	this.$router.push({name: "securityCenter"});
 }
 // 判断验证状态
 root.methods.getAuthState = function () {
