@@ -455,7 +455,7 @@ root.methods.re_getActivityInfo = function (res) {
 
   this.headerTitle = this.titleList[this.selectedIndex]
 
-  this.loading = true
+  this.loading = false
 
 }
 
