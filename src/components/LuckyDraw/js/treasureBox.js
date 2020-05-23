@@ -589,7 +589,7 @@ root.methods.openRuleToastFlag = function () {
   if (this.ruleAgreementFlag) {
     return
   }
-  this.ruleToastFlag = false
+  this.ruleToastFlag = true
   this.ruleAgreementFlag = true
   this.joinTheActivity()
 }
