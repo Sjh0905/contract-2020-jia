@@ -291,6 +291,8 @@ root.methods.scrollPage = function () {
 
 // 初始进入页面需要登录才执行的方法
 root.methods.initNeedLoginMethods = function () {
+  this.$store.commit('SET_IOS_LOGIN', true)
+  this.checkLogin();
   this.getAuthState()
   this.viewActivity()
 }
@@ -783,6 +785,12 @@ root.methods.goToJoinRecord = function (projectId, periodNumber, currency) {
 }
 // 点击跳转参与记录
 root.methods.goToRecord = function () {
+  // if(!this.isLogin) {
+  //   alert(JSON.stringify(this.$store.state.authMessage))
+  //   alert(this.isLogin)
+  //   this.checkLogin()
+  //   return
+  // }
   this.$router.push({name: 'Record'})
 }
 

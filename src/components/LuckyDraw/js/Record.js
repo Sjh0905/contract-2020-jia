@@ -106,6 +106,7 @@ root.computed.isMobile = function () {
 }
 // 是否登录
 root.computed.isLogin = function () {
+  return this.$store.state.isLogin;
   return this.$store.state.authMessage && this.$store.state.authMessage.userId || ''
 }
 // 当前列表

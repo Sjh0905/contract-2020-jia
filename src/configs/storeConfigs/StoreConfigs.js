@@ -782,6 +782,10 @@ store.mutations.SET_AUTH_MESSAGE = (state, info) => {
   state.isLogin = info.userId ? true : false
 }
 
+store.mutations.SET_IOS_LOGIN = (state, info) => {
+  state.isLogin =  info
+}
+
 /**
  * 设置用户id和name
  * @param state
