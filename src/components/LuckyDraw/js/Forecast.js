@@ -42,32 +42,7 @@ root.data = function () {
       }
     ],
 		// 荣耀竞猜/王者竞猜/最强竞猜
-		guess_list: [
-      // {
-      //   currency:'USDT', //币种
-      //   extPeriod:2, //几期
-      //   rewardAmount:232, //奖池总额
-      //   projectId:1, // 当前Id
-      //   eachAmount:12, // 每份多少枚
-      //   residueTicket:13, // 所占份数
-      //   eachs:100, // 总分数
-      //   preWinNumber:2, // 上期中奖编号
-      //   projectStatus:'PROCESSING',
-      //
-      // },
-      // {
-      //   currency:'USDT', //币种
-      //   extPeriod:2, //几期
-      //   rewardAmount:232, //奖池总额
-      //   projectId:1, // 当前Id
-      //   eachAmount:12, // 每份多少枚
-      //   residueTicket:13, // 所占份数
-      //   eachs:100, // 总分数
-      //   preWinNumber:2, // 上期中奖编号
-      //   projectStatus:'PROCESSING',
-      //
-      // }
-    ],
+		guess_list: [],
 		// 销毁记录列表
 		destroy_list: [],
 		// 展示销毁记录列表
@@ -77,7 +52,7 @@ root.data = function () {
 		// 展示开奖记录列表
 		show_prize: false,
 		// 展示购买的弹框
-		show_buy: true,
+		show_buy: false,
 		// 本期参与记录
 		lottery_record_list: [],
 		// 展示参与记录列表
@@ -88,7 +63,7 @@ root.data = function () {
 		period_id: '',
 		// 每人限购份数和币种，展示用的
 		period_currency: {
-			periodMax: 10, //每人限投份数
+			periodMax: 100, //每人限投份数
 			currency: '' //币种
 		},
 		// 币种
@@ -96,6 +71,8 @@ root.data = function () {
 		currency: 'USDT',
 		// 每份购买数量
 		eachAmount: 100,
+    eachs: 0,
+    residueTicket: 0,
 		// 购买份数，提交用的
 		predict_number: '',
 		// 购买份数数量
@@ -104,7 +81,7 @@ root.data = function () {
 		identity: false,
 		// 购买中
 		buying: false,
-
+    remainingShares:0 // 剩余份数
 	}
 }
 
@@ -145,6 +122,35 @@ root.watch = {};
 
 
 root.methods = {};
+
+
+// 开奖时间的增加
+root.methods.timeAddition = function (item) {
+  // let addTime = 30 * 60 * 1000
+  // let nowTime = (new Date()).valueOf();
+  // console.info(item.openTime)
+  // 当前时间大于开奖时间 显示开奖中
+  // if(nowTime > item.openTime) return '正在开奖中'
+  // if (true) {
+  //   let nextTime = item.openTime + addTime
+  //   // setTimeout( console.info('nextTime ======',nextTime),1000)
+  //   return this.$globalFunc.formatDateUitl(nextTime, 'MM-DD hh:mm') + ' 开奖'
+  // }
+  return this.$globalFunc.formatDateUitl(item.openTime,'MM-DD hh:mm') + ' 开奖'
+}
+
+
+// 在页面上画圆环
+root.methods.drawCanvas = function () {
+  // window.cancelAnimationFrame();
+  this.containerList && this.containerList.forEach((v) => {
+    let residueTicket = v.residueTicket;
+    setTimeout(function () {
+      toCanvas('canvas_' + v.projectId, residueTicket * 100 / v.eachs, 38, 6)
+    }, 0)
+  })
+
+}
 // 跳到详情页
 root.methods.GO_RECORD = function () {
 	this.$router.push({name: "Record"});
@@ -211,22 +217,27 @@ root.methods.GET_GUESS_INDEX = function () {
 }
 root.methods.RE_GET_GUESS_INDEX = function (res) {
 	typeof(res) == 'string' && (res = JSON.parse(res));
+
 	let data = res.dataMap;
 	this.forecast_list = data;
+	// this.forecast_list = data.honourGuessList;
+  console.info('datassssssss======',this.forecast_list)
 	if (!this.forecast_name) {
 		if (!!data.honourGuessList) {
 			this.forecast_name = 'honourGuessList';
 			return;
 		}
-		if (!!data.kingGuessList) {
-			this.forecast_name = 'kingGuessList';
-			return;
-		}
-		if (!!data.strongestGuessList) {
-			this.forecast_name = 'strongestGuessList';
-			return;
-		}
+		// if (!!data.kingGuessList) {
+		// 	this.forecast_name = 'kingGuessList';
+		// 	return;
+		// }
+		// if (!!data.strongestGuessList) {
+		// 	this.forecast_name = 'strongestGuessList';
+		// 	return;
+		// }
 	}
+
+
 	this.TAB_FORECAST(this.forecast_tab, this.forecast_name);
 }
 
@@ -299,14 +310,14 @@ root.methods.TAB_FORECAST = function (tab, name) {
 // 重新加载列表
 root.methods.RELOAD_CIRCLE = function (tab, name) {
 	if (!!this.forecast_list.honourGuessList) {
-		this.guess_tab.push({name:"honourGuessList", list: this.forecast_list.honourGuessList});
+		this.guess_tab.push({name:"honourGuessList"});
 	}
-	if (!!this.forecast_list.kingGuessList) {
-		this.guess_tab.push({name:"kingGuessList", list: this.forecast_list.kingGuessList});
-	}
-	if (!!this.forecast_list.strongestGuessList) {
-		this.guess_tab.push({name:"strongestGuessList", list: this.forecast_list.strongestGuessList});
-	}
+	// if (!!this.forecast_list.kingGuessList) {
+	// 	this.guess_tab.push({name:"kingGuessList", list: this.forecast_list.kingGuessList});
+	// }
+	// if (!!this.forecast_list.strongestGuessList) {
+	// 	this.guess_tab.push({name:"strongestGuessList", list: this.forecast_list.strongestGuessList});
+	// }
 	this.loading = false;
 }
 
@@ -358,9 +369,12 @@ root.methods.RE_GET_LOOTERY_RECORD = function (res) {
 // 没有认证的话，跳到去认证界面
 
 // 参与抽奖-展示买入弹框
-root.methods.SHOW_BUY = function (project_id, period_id, currency, eachAmount) {
+root.methods.SHOW_BUY = function (project_id, period_id, currency, eachAmount,eachs,residueTicket) {
 	this.currency = currency; // 币种
 	this.eachAmount = eachAmount; //每份数量
+	this.eachs = eachs; //每份数量
+	this.residueTicket = residueTicket; //每份数量
+  this.remainingShares = this.eachs - this.residueTicket
 	// 如果没有登录，跳到登录界面
 	if (!this.is_login) {
 		this.$router.push({name: "login", query: {name: 'Forecast'}});
@@ -408,6 +422,7 @@ root.methods.RE_SHOW_BUY = function (res) {
 	    this.promptOpen = true;
 	    return;
 	}
+
 }
 
 // 隐藏买入弹框
@@ -421,12 +436,13 @@ root.methods.HIDE_BUY = function () {
 
 // 购买只能输入数量
 root.methods.INPUT_NUMBER = function () {
-	this.predict_number = this.predict_number.replace(/\D/g,'');
-	if (Number(this.predict_number) > Number(this.period_currency.periodMax)) {
-		this.predict_number = this.period_currency.periodMax + '';
-	}
-	// 每份实际数量
-	this.predict_number_amount = this.predict_number * this.eachAmount;
+	// this.predict_number = this.predict_number.replace(/\D/g,'');
+	// if (Number(this.predict_number) > Number(this.period_currency.periodMax)) {
+	// 	this.predict_number = this.period_currency.periodMax + '';
+	// }
+	// // 每份实际数量
+	// this.predict_number_amount = this.predict_number * this.eachAmount;
+  this.predict_number = this.predict_number
 }
 
 // 买入期数
@@ -586,5 +602,41 @@ root.methods.changeSvg = function (num1,num2) {
 root.beforeDestroy = function () {
 	clearInterval(get_list_interval);
 }
+
+
+
+/*---------------------- 保留小数 begin ---------------------*/
+root.methods.toFixed = function (num, acc = 8) {
+  return this.$globalFunc.accFixed(num, acc)
+}
+/*---------------------- 保留小数 end ---------------------*/
+
+/*---------------------- 加法运算 begin ---------------------*/
+root.methods.accAdd = function (num1, num2) {
+  num1 = parseFloat(num1)
+  num2 = parseFloat(num2)
+  return this.$globalFunc.accAdd(num1, num2)
+}
+/*---------------------- 加法运算 end ---------------------*/
+
+/*---------------------- 减法运算 begin ---------------------*/
+root.methods.accMinus = function (num1, num2) {
+  num1 = parseFloat(num1)
+  num2 = parseFloat(num2)
+  return this.$globalFunc.accMinus(num1, num2)
+}
+/*---------------------- 减法运算 end ---------------------*/
+
+/*---------------------- 乘法运算 begin ---------------------*/
+root.methods.accMul = function (num1, num2) {
+  return this.$globalFunc.accMul(num1, num2)
+}
+/*---------------------- 乘法运算 end ---------------------*/
+
+/*---------------------- 除法运算 begin ---------------------*/
+root.methods.accDiv = function (num1, num2) {
+  return this.$globalFunc.accDiv(num1, num2)
+}
+/*---------------------- 除法运算 end ---------------------*/
 
 export default root;

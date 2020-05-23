@@ -18,7 +18,17 @@ input:-ms-input-placeholder {
 .cursor {
   cursor: pointer;
 }
+.colorF {
+  color: #F5F6FA;
+}
+.colorF:hover {
+  color: #3576F5;
+}
 
+.cursorImg {
+  width: 19px;
+  vertical-align: text-top;
+}
 .forecast {
   width: 100%;
   min-height: 700px;
@@ -43,7 +53,7 @@ input:-ms-input-placeholder {
 .forecast_rules {
   padding: 30px 0px;
   font-size: 16px;
-  color: #C43E4E;
+  color: #3576F5;
   text-align: right;
   font-weight: 300;
 }
@@ -85,7 +95,7 @@ input:-ms-input-placeholder {
 .tab_width {
   width: auto;
   margin: 0 auto;
-  border: 1px solid #C43E4E;
+  border: 1px solid #3576F5;
   background: #191D4E;
   border-radius: 20px;
 }
@@ -147,7 +157,7 @@ input:-ms-input-placeholder {
 }
 
 .select {
-  background: #C43E4E;
+  background: #3576F5;
 }
 
 .select font {
@@ -185,7 +195,7 @@ input:-ms-input-placeholder {
 }
 
 .forecast_record_left:hover, .forecast_record_right:hover {
-  color: #C43E4E;
+  color: #3576F5;
 }
 
 /*抽奖期数*/
@@ -203,14 +213,14 @@ input:-ms-input-placeholder {
 
 .forecast_symbol {
   position: absolute;
-  height: 90px;
-  width: 90px;
-  left: 50%;
-  margin-left: -45px;
-  top: 50%;
-  margin-top: -45px;
+  height: 100px;
+  width: 100px;
+  left: 46%;
+  margin-left: -50px;
+  top: 56%;
+  margin-top: -50px;
   z-index: 10;
-  line-height: 90px;
+  line-height: 100px;
   text-align: center;
   font-size: 20px;
   font-weight: bolder;
@@ -260,8 +270,8 @@ input:-ms-input-placeholder {
 
 .number {
   margin-top: 24px;
-  font-size: 13px;
-  color: #C43E4E;
+  font-size: 14px;
+  color: #D0D4E9;
   font-weight: 400;
 }
 
@@ -281,7 +291,12 @@ input:-ms-input-placeholder {
   float: right;
   cursor: pointer;
 }
-
+.number_recordkaijaing {
+  font-size:14px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color:#F57C35;
+}
 .input {
   margin-top: 10px;
   width: 372px;
@@ -293,43 +308,51 @@ input:-ms-input-placeholder {
   padding: 0px 10px;
   font-size: 14px;
   color: #FFFFFF;
-  font-weight: 100;
+  font-weight: 400;
 }
 
 .input_change {
   display: inline-block;
-  font-weight: 100;
+  color: #FFFFFF;
+  font-weight: 400;
   float: right;
   cursor: pointer;
 }
 
 .show_number {
-  font-weight: 600;
+  color: #FFFFFF;
+  font-weight: 400;
 }
 
 .change_icon {
-  color: #C43E4E;
-  font-size: 20px;
+  color: #3576F5;
+  font-size: 30px;
   font-weight: 100;
   margin-left: 5px;
   vertical-align: middle;
   display: inline-block;
   height: 35px;
-  margin-top: -3px;
+  margin-top: -8px;
 }
 
 .jackpot {
-  font-weight: 100;
+  height: 15px;
+  font-weight: 400;
   margin-top: 10px;
   font-size: 12px;
   color: #B0CCE6;
 }
 
 .jackpot_mumber {
+  display: inline-block;
+  /*height: 30px;*/
   float: right;
+  cursor: pointer;
+  color: #3576F5;
 }
 
 .jackpot-number-detail {
+  /*height: 20px;*/
   color: #fff;
 }
 
@@ -338,8 +361,8 @@ input:-ms-input-placeholder {
   height: 40px;
   margin: 0 auto;
   margin-top: 20px;
-  background: #C43E4E;
-  border: 1px solid #C43E4E;
+  background: #3576F5;
+  border: 1px solid #3576F5;
   border-radius: 20px;
   font-size: 16px;
   color: #FFFFFF;
@@ -352,9 +375,9 @@ input:-ms-input-placeholder {
 .forecast_item_btn.disabled {
   background: none;
   opacity: 0.4;
-  border: 1px solid #C43E4E;
+  border: 1px solid #3576F5;
   font-size: 16px;
-  color: #C43E4E;
+  color: #3576F5;
   cursor: inherit;
 }
 
@@ -414,6 +437,17 @@ input:-ms-input-placeholder {
   position: relative;
 }
 
+.forecast_dialog_width {
+  width: 89%;
+  height: 40px;
+  border-radius:1px;
+  border:1px solid rgba(224,225,244,1);
+  padding-left: 3%;
+  margin: 0 25px;
+  margin-bottom: 34px;
+
+}
+
 .detail_title {
   width: 25%;
   /*text-align: right;*/
@@ -421,15 +455,25 @@ input:-ms-input-placeholder {
   margin-right: 5%;
 }
 
+.detail_titlefen {
+  /*width: 25%;*/
+  /*text-align: right;*/
+  line-height: 40px;
+  margin-right: 5.5%;
+  position: absolute;
+  right: 0px;
+}
+
 .detail_input {
-  width: 86%;
-  height: 40px;
-  border-radius:1px;
-  border:1px solid rgba(224,225,244,1);
-  padding-left: 3%;
-  margin: 0 25px;
-  margin-bottom: 34px;
+  /*width: 86%;*/
+  /*height: 40px;*/
+  /*border-radius:1px;*/
+  /*border:1px solid rgba(224,225,244,1);*/
+  /*padding-left: 3%;*/
+  /*margin: 0 25px;*/
+  /*margin-bottom: 34px;*/
   /*box-sizing: border-box;*/
+  border:0;
 }
 
 .forecast_dialog_detail.tips {
@@ -518,12 +562,12 @@ input:-ms-input-placeholder {
   background: #fff;
   border: 1px solid #ccc;
   border-radius: 1px;
-  padding: 20px;
+  /*padding: 20px;*/
 }
 
 .forecast_dialog_list_body.list_width {
-  min-width: 840px;
-  max-width: 840px;
+  min-width: 640px;
+  max-width: 640px;
 }
 
 .forecast_dialog_list_content {
@@ -616,7 +660,7 @@ input:-ms-input-placeholder {
 }
 
 .table_number.list_width {
-  width: 23%;
+  width: 30%;
 }
 
 .table_name.list_width {
@@ -716,14 +760,14 @@ input:-ms-input-placeholder {
 
 .join {
   color: #fff;
-  background: #C43E4E;
-  border: 1px solid #C43E4E;
+  background: #3576F5;
+  border: 1px solid #3576F5;
 }
 
 .leave {
   margin-left: 10%;
-  color: #C43E4E;
-  border-color: #C43E4E;
+  color: #3576F5;
+  border-color: #3576F5;
 }
 
 .prompt-detail {
@@ -762,9 +806,12 @@ input:-ms-input-placeholder {
 
 .forecast_buy {
   position: absolute;
-  right: 35px;
+  right: 15px;
   top: 9px;
-  color: #666;
+  color: #3576F5;
+  font-size:12px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
 }
 
 .forecast_buy span {
@@ -773,7 +820,7 @@ input:-ms-input-placeholder {
 }
 
 .table_time.prize_time {
-  width: 23%;
+  width: 33%;
 }
 
 .table_number.prize_number {
@@ -781,7 +828,7 @@ input:-ms-input-placeholder {
 }
 
 .table_number.prize_total {
-  width: 20%;
+  width: 25%;
 }
 
 .table_number.prize_pool {
@@ -1024,4 +1071,61 @@ input:-ms-input-placeholder {
   background-color: #FFFFFF;
   margin-right: 6%;
   margin-bottom: 15px;
+}
+
+/*placeholder样式 begin*/
+.forecast_dialog_width input::placeholder {
+  color: #A2B5D9;
+}
+
+.forecast_dialog_width input::-moz-placeholder {
+  color: #A2B5D9;
+}
+
+.forecast_dialog_width input::-webkit-input-placeholder {
+  color: #A2B5D9;
+}
+
+.forecast_dialog_width input:-ms-input-placeholder {
+  color: #A2B5D9;
+}
+/*placeholder样式 end*/
+
+
+.svg-progress {
+  transform: rotate(-84.05deg);
+}
+.circle-progress {
+  transition: stroke-dasharray .2s;
+}
+
+.forecast-activity-homepage-container-item-canvas {
+  width: 86px;
+  height: 86px;
+
+  /*background: url("../assets/mobileForecastHomePage/progress_bar_bg.png") center center no-repeat;*/
+  /*background-size: 80px 80px;*/
+  position: relative;
+}
+
+.forecast-activity-homepage-container-item-canvas-text {
+  position: absolute;
+  width: 100%;
+  height: 116px;
+  line-height: 116px;
+  font-size: 24px;
+  font-family:Helvetica-Bold,Helvetica;
+  font-weight:bold;
+  text-align: center;
+  background: #fff;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.29);
+  top: 52%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
+.list-logo {
+  width: 18px;
+  margin-right: 11px;
 }
