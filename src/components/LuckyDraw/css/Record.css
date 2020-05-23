@@ -18,7 +18,7 @@
   position: absolute;
   width: 6px;
   height: 18px;
-  background: #C43E4E;
+  background: #3576F5;
   top: 50%;
   left: 0;
   transform: translateY(-50%);
@@ -27,7 +27,7 @@
 .header-title {
   font-size: 18px;
   line-height: 18px;
-  color: #C43E4E;
+  color: #3576F5;
 }
 
 /*开奖选择栏 begin */
@@ -40,7 +40,7 @@
   height: 40px;
   line-height: 40px;
   border-radius: 20px;
-  border: 1px solid #C43E4E;
+  border: 1px solid #3576F5;
   font-size: 16px;
   color: white;
   margin-top: 37px;
@@ -71,23 +71,27 @@
 
 /*项目编号 begin*/
 .list-container {
-  width: 1108px;
+  width: 1100px;
   margin: 0 auto;
-  margin-top: 68px;
+  margin-top: 66px;
   flex-direction: column;
   min-height: 300px;
 }
 
 .list-item-container {
   width: 100%;
-  height: 88px;
+  height: 80px;
   background-repeat: no-repeat;
   background-size: contain;
   /*background-image: url("../assets/Record/list-bg.png");*/
   /*padding: 2px 4px 6px 4px;*/
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 7px;
+  margin-bottom: 16px;
+  background:rgba(23,40,65,1);
+  box-shadow:0px 2px 4px 0px rgba(13,20,39,1);
+  border:1px solid rgba(49,66,114,1);
+  border-radius: 6px;
 }
 
 .list-item-container:last-of-type {
@@ -113,9 +117,11 @@
 }
 
 .list-logo {
-  width: 22px;
+  width: 36px;
 }
-
+.Pitem-descriptionImg {
+  width: 17px;
+}
 .list-id-container {
   margin-left: 37px;
   align-items: center;
@@ -131,11 +137,11 @@
 
 .list-title {
   font-size: 14px;
-  color: #CFD3E9;
+  color: #A2B5D9;
 }
 
 .list-separate {
-  color: #CFD3E9;
+  color: #A2B5D9;
   font-size: 12px;
   padding-left: 8px;
   padding-right: 18px;
@@ -143,7 +149,7 @@
 
 .list-detail {
   font-size: 14px;
-  color: white;
+  color: #F5F6FA;
 }
 
 /*参与份数 end*/
@@ -156,9 +162,39 @@
 
 /*中奖编号 end*/
 /*奖金 begin*/
+
+.description-container-kong {
+  width:3px;
+  height:64px;
+  border-left: 1px dotted #314272;
+}
+.description-container-yuan {
+  width: 16px;
+  height: 8px;
+  border-radius: 0 0 16px 16px;
+  border:1px solid rgba(49,66,114,1);
+  border-left: 1px solid transparent;
+  border-top: 1px solid transparent;
+  position: relative;
+  top:-8px;
+  left: -8px;
+  background-color:#0A1824 !important;
+}
+.description-container-yuanxia {
+  width: 16px;
+  height: 8px;
+  border-radius: 16px 16px 0 0;
+  border:1px solid rgba(49,66,114,1);
+  border-right: 1px solid transparent;
+  border-bottom: 1px solid transparent;
+  position: relative;
+  bottom:-58px;
+  left: -8px;
+  background-color:#0A1824 !important;
+}
 .list-description-container {
   /*border: 1px solid red;*/
-  width: 232px;
+  width: 25%;
   margin-right: 4px;
   margin-top: -2px;
   height: 80px;
@@ -194,7 +230,7 @@
 }
 
 .list-description-win {
-  justify-content: space-between;
+  /*justify-content: space-between;*/
   padding: 0 24px;
 }
 
@@ -205,6 +241,7 @@
 
 .list-description-reward-detail {
   align-items: center;
+  padding-left: 25px;
 }
 
 .list-description-reward {
@@ -457,13 +494,14 @@
 .forecast_dialog_body {
   position: absolute;
   width: 442px;
-  height: 428px;
+  /*height: 428px;*/
   /*background: url('../assets/Record/popup-window-bg.png') center no-repeat;*/
   left: 50%;
   margin-left: -222px;
   top: 50%;
   margin-top: -150px;
   z-index: 12;
+  background-color: #FFFFFF;
 }
 
 .h5-forecast_dialog_body {
@@ -487,18 +525,28 @@
 .forecast_dialog_content {
   width: 100%;
   height: 100%;
-  padding: 20px 35px;
+  /*padding: 20px 35px;*/
 }
 
 .forecast_dialog_title {
   font-size: 18px;
-  color: #3576F5;
-  height: 40px;
-  line-height: 25px;
-  text-align: center;
-  border-bottom: 1px solid #F2F2F2;;
-}
+  color: #0D0E23;
+  height:60px;
+  border-radius:1px 1px 0px 0px;
+  line-height: 60px;
+  /*text-align: center;*/
+  background-color: #EFF0FF;
+  padding: 0 25px;
 
+  /*border-bottom: 1px solid #F2F2F2;;*/
+}
+.iconImg {
+  width: 15px;
+  position: absolute;
+  right: 25px;
+  margin-top: 20px;
+  cursor: pointer;
+}
 .forecast_dialog_detail {
   margin-top: 20px;
   font-size: 14px;
@@ -631,8 +679,8 @@
 
 .popup-window-article {
   flex-direction: column;
-  height: 270px;
-  padding: 20px 0;
+  /*height: 270px;*/
+  padding: 25px 0;
   justify-content: space-between;
 }
 
@@ -640,19 +688,23 @@
   width: 100%;
   line-height: 20px;
   font-size: 14px;
+  margin-bottom: 10px;
 }
 
 .popup-window-article-detail-title {
   width: 128px;
   text-align: right;
-  color: #6A83A8;
+  color: #999999;
 }
 
 .popup-window-article-detail {
   width: 256px;
   padding-left: 5px;
+  color: #333333;
 }
-
+.marign15 {
+  margin-bottom: 0px;
+}
 .popup-forecast {
   max-height: 50px;
   overflow-y: scroll;

@@ -154,23 +154,24 @@
             </div>
             <!-- 内容 -->
             <div class="forecast_dialog_detail flex-row">
-              <label for="" class="detail_title">{{$t('predictions')}}</label>
+              <div class="detail_title">{{$t('predictions')}}</div>
               <input class="detail_input" type="text" name="" :placeholder='$t("please_enter")' v-model="predict_number"
                      @keyup="INPUT_NUMBER">
               <div class="forecast_buy" v-if="predict_number">
                 {{predict_number_amount}}<span>{{currency}}</span>
               </div>
             </div>
+
             <div class="forecast_dialog_detail tips flex-row" style="display: none;">
               <label for="" class="detail_title"></label>
               <p class="detail_error">超出本期剩余参与份数</p>
             </div>
-            <div class="forecast_dialog_detail tips flex-row">
-              <label for="" class="detail_title"></label>
-              <p class="detail_tips">
-                {{$t('vailable', {vailable: period_currency.periodMax})}}
-              </p>
-            </div>
+<!--            <div class="forecast_dialog_detail tips flex-row">-->
+<!--              <label for="" class="detail_title"></label>-->
+<!--              <p class="detail_tips">-->
+<!--                {{$t('vailable', {vailable: period_currency.periodMax})}}-->
+<!--              </p>-->
+<!--            </div>-->
             <div class="forecast_btn" @click="BUY_PERIOD" v-if="!buying">
               {{$t('confirm')}}
             </div>
@@ -185,7 +186,8 @@
       <!-- 本期参与，开奖记录 start -->
       <div class="forecast_dialog_list" v-if="show_destroy || show_prize || show_lottery_record_list">
         <div class="forecast_dialog_list_body" :class="show_prize && 'list_width'">
-          <div class="forecast_dialog_list_close" @click="HIDE_DESTROY_DIALOG"></div>
+<!--          <div class="forecast_dialog_list_close" @click="HIDE_DESTROY_DIALOG">2323</div>-->
+          <img src="../../../assets/弹窗-取消-icon@2x.png" alt="" class="iconImg" @click="HIDE_DESTROY_DIALOG">
           <div class="forecast_dialog_list_content">
             <div class="forecast_dialog_list_title">
               <span v-if="show_destroy">{{$t('destruction')}}</span>
@@ -238,7 +240,7 @@
                 <div class="table_number_num">{{$t('prize_block')}}</div>
                 <div class="table_number prize_number list_width">{{$t('prize_number')}}</div>
                 <div class="table_number prize_total list_width">{{$t('prize_total')}}</div>
-                <div class="table_number prize_pool list_width">{{$t('prize_pool')}}</div>
+<!--                <div class="table_number prize_pool list_width">{{$t('prize_pool')}}</div>-->
                 <div class="table_number list_width">{{$t('prize_episode')}}</div>
               </div>
               <div class="table_list_container">
@@ -251,7 +253,7 @@
                   </div>
                   <div class="table_number prize_number list_width">{{item.winNumber}}</div>
                   <div class="table_number prize_total list_width">{{item.totalQuantity}}</div>
-                  <div class="table_number prize_pool list_width">{{item.lotteryPoolNumber}}</div>
+<!--                  <div class="table_number prize_pool list_width">{{item.lotteryPoolNumber}}</div>-->
                   <div class="table_number list_width">{{item.itemNumber}}</div>
                 </div>
               </div>
@@ -351,14 +353,17 @@
       <!-- 认证提示 -->
       <PopupWindow :switch="popWindowOpen" @close="popWindowClose">
         <div slot="header">
-          <span>{{$t('notice')}}</span>
+          <span class="notice">{{$t('notice')}}</span>
         </div>
         <div slot="article" class="pop-article">
           <p>{{$t('verfication')}}</p>
         </div>
         <div slot="footer" class="pop-footer flex">
           <template>
-            <button class="button-base btn_blue" @click="GO_INDENTITY">
+            <button class="button-base2 button-base23" @click="popWindowClose">
+              {{$t('取消')}}
+            </button>
+            <button class="button-base2 btn_blue" @click="GO_INDENTITY">
               {{$t('complete')}}
             </button>
           </template>
