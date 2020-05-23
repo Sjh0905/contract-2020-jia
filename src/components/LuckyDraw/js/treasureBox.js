@@ -224,6 +224,15 @@ root.methods.timeAddition = function (item) {
   // }
   return this.$globalFunc.formatDateUitl(item.openTime,'MM-DD hh:mm') + ' 开奖'
 }
+// 开奖中
+root.methods.inLottery = function (item) {
+  let addTime = 30 * 1000
+  let nowTime = (new Date()).valueOf();
+  if(nowTime > (item.openTime - addTime)){
+    return true
+  }
+}
+
 
 // 检测是不是顶部滑动
 root.methods.scrollPage = function () {
