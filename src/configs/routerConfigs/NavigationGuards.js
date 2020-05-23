@@ -23,7 +23,7 @@ export default function ($route, $event, $store, $http, $cookies,zE) {
 
 
     if (to.meta.requireLogin) {
-      if (!$store.state.authMessage.userId) {
+      if (!query.isApp && !query.isIOS && !$store.state.authMessage.userId) {
         next('/index/sign/login')
         return
       }
