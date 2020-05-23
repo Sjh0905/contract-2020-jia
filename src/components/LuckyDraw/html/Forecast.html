@@ -3,8 +3,9 @@
     <div class="forecast_body">
       <!-- 查看游戏规则 start -->
       <div class="forecast_rules">
-        <font class="cursor" @click="SHOW_RULE_DIALOG">
+        <font class="cursor colorF" @click="SHOW_RULE_DIALOG">
           {{$t('look_rules')}}
+          <img src="../../../assets/pinchakan.png" alt="" class="cursorImg">
           <span class="forecast_rules_icon"></span>
         </font>
       </div>
@@ -16,32 +17,32 @@
 
       <!-- 竞猜类型 tab start -->
       <div class="flex-row" :class="guess_tab.length > 1 ? 'forecast_tab' : 'forecast_tab_one'">
-        <div class="tab_one" v-if="guess_tab.length == 1">
+        <div class="tab_one" v-if="guess_tab.length <= 1">
 					<span v-for="(item, key) in guess_tab">
-						<font v-if="item.name == 'honourGuessList'">{{$t('diamond')}}</font>
-						<font v-if="item.name == 'kingGuessList'">{{$t('gold')}}</font>
-						<font v-if="item.name == 'strongestGuessList'">{{$t('silver')}}</font>
+						<font v-if="item.name == 'honourGuessList'">{{$t('百宝箱')}}</font>
+<!--						<font v-if="item.name == 'kingGuessList'">{{$t('gold')}}</font>-->
+<!--						<font v-if="item.name == 'strongestGuessList'">{{$t('silver')}}</font>-->
 					</span>
           <span class="line left"></span>
           <span class="line right"></span>
         </div>
-        <div class="tab_width flex-row" v-if="guess_tab.length > 1">
-          <div class="tabs" :class="key == 0 ? 'first' : (key == (guess_tab.length - 1) && 'end')"
-               v-for="(item, key) in guess_tab" @click="TAB_FORECAST(key+1, item.name)">
-						<span :class="forecast_tab == (key+1) && 'select'">
-							<font v-if="item.name == 'honourGuessList'">{{$t('diamond')}}</font>
-							<font v-if="item.name == 'kingGuessList'">{{$t('gold')}}</font>
-							<font v-if="item.name == 'strongestGuessList'">{{$t('silver')}}</font>
-						</span>
+<!--        <div class="tab_width flex-row" v-if="guess_tab.length > 1">-->
+<!--          <div class="tabs" :class="key == 0 ? 'first' : (key == (guess_tab.length - 1) && 'end')"-->
+<!--               v-for="(item, key) in guess_tab" @click="TAB_FORECAST(key+1, item.name)">-->
+<!--						<span :class="forecast_tab == (key+1) && 'select'">-->
+<!--							<font v-if="item.name == 'honourGuessList'">{{$t('diamond')}}32</font>-->
+<!--							<font v-if="item.name == 'kingGuessList'">{{$t('gold')}}</font>-->
+<!--							<font v-if="item.name == 'strongestGuessList'">{{$t('silver')}}</font>-->
+<!--						</span>-->
 
-          </div>
-        </div>
+<!--          </div>-->
+<!--        </div>-->
       </div>
       <!-- 竞猜类型 tab end -->
 
       <!-- 销毁记录和参与记录 start -->
       <div class="forecast_record">
-        <span class="forecast_record_left cursor" @click="GET_DESTROY_RECORD">{{$t('destruction')}}</span>
+<!--        <span class="forecast_record_left cursor" @click="GET_DESTROY_RECORD">{{$t('destruction')}}</span>-->
         <span class="forecast_record_right cursor" @click="GO_RECORD" v-if="is_login">{{$t('game')}}</span>
       </div>
       <!-- 销毁记录和参与记录 end -->
@@ -60,30 +61,53 @@
                 <defs>
                   <pattern id="fill-img" patternUnits="userSpaceOnUse" width="100" height="100">
 
-                    <image class="img-transform" xlink:href="" x="0" y="0" width="100"
+                    <image class="img-transform" xlink:href="../assets/rectangle_bg.png" x="0" y="0" width="100"
                            height="100"></image>
 <!--                    ../assets/rectangle_bg.png-->
 
                   </pattern>
                 </defs>
                 <g>
-                  <circle cx="50" cy="50" r="44" stroke-width="9" stroke="url('#fill-img')" fill="none"
+                  <circle class="circle-progress" cx="43" cy="43" r="38" stroke-width="7" stroke="url('#fill-img')" fill="none"
                           :stroke-dasharray="changeSvg(item.residueTicket,item.eachs)" stroke-linecap="round"></circle>
+
+<!--                  <circle cx="50" cy="50" r="44" stroke-width="9" stroke="url('#fill-img')" fill="none"-->
+<!--                          :stroke-dasharray="changeSvg(item.residueTicket,item.eachs)" stroke-linecap="round"></circle>-->
                 </g>
               </svg>
               <p class="forecast_symbol">{{item.currency}}</p>
             </div>
+<!--            <div class="forecast-activity-homepage-container-item-canvas">-->
+<!--              <div class="forecast-activity-homepage-container-item-canvas-text">{{item.currency}}</div>-->
+<!--              &lt;!&ndash;<canvas :id="'canvas_' + item.projectId" width="86" height="86"></canvas>&ndash;&gt;-->
+<!--              <svg class="svg-progress" width="86" height="86" viewBox="0 0 86 86">-->
+<!--                <defs>-->
+<!--                  <pattern id="fill-img" patternUnits="userSpaceOnUse" width="100" height="100">-->
+<!--                    <image class="img-transform" xlink:href="../assets/rectangle_bg.png" x="0" y="0" width="86" height="86"></image>-->
+<!--                  </pattern>-->
+<!--                </defs>-->
+<!--                <g>-->
+<!--                  <circle class="circle-progress" cx="43" cy="43" r="38" stroke-width="7" stroke="url('#fill-img')" fill="none"-->
+<!--                          :stroke-dasharray="changeSvg(item.residueTicket,item.eachs)" stroke-linecap="round"></circle>-->
+<!--                </g>-->
+<!--              </svg>-->
+<!--            </div>-->
           </div>
           <div class="forecast_item_form">
             <!-- 第几期 -->
             <div class="number">
 							<span class="currency_icon">
 <!--								<img :src="'http://logo.eunex.group/'+item.currency + '.png'">-->
+                <img :src="require(`../assets/PCForecastHomePage/${item.currency}.png`)" class="list-logo">
 							</span>
               {{item.currency}} {{$t('round', {extPeriod: Number(item.extPeriod)})}}
-              <span class="number_record" @click="GET_PRIZE_LIST(item.projectId)">
-								{{$t('prize')}}
-							</span>
+<!--              <span class="number_record" @click="GET_PRIZE_LIST(item.projectId)">-->
+<!--								{{$t('prize')}}-->
+<!--							</span>-->
+
+              <span class="number_record number_recordkaijaing">
+                {{timeAddition(item)}}
+              </span>
             </div>
             <!-- 输入框 -->
             <div class="input">
@@ -97,22 +121,29 @@
             </div>
             <!-- 奖池 -->
             <div class="jackpot">
-              {{$t('pool')}}:
-              <span class="jackpot-number-detail">{{item.rewardAmount}} {{item.currency}}</span>
-              <span class="jackpot_mumber" v-if="item.preWinNumber">
+<!--              {{$t('pool')}}:-->
+<!--              <span class="jackpot-number-detail">{{item.rewardAmount}} {{item.currency}}</span>-->
+<!--              <span class="jackpot_mumber" v-if="item.preWinNumber">-->
+<!--								{{$t('winningNumber')}}:-->
+<!--                <span class="jackpot-number-detail">{{item.preWinNumber}}</span>-->
+<!--							</span>-->
+              <span class="" v-if="item.preWinNumber">
 								{{$t('winningNumber')}}:
                 <span class="jackpot-number-detail">{{item.preWinNumber}}</span>
+							</span>
+              <span class="jackpot_mumber" @click="GET_PRIZE_LIST(item.projectId)">
+								{{$t('prize')}}
 							</span>
             </div>
             <!-- 按钮 -->
             <!-- disabled -->
-            <div class="forecast_item_btn" v-if="item.projectStatus == 'PROCESSING' || item.projectStatus == 'CREATE'"
-                 @click="SHOW_BUY(item.projectId, item.extPeriod, item.currency, item.eachAmount)">
+            <div class="forecast_item_btn" v-if="item.projectStatus === 'PROCESSING' || item.projectStatus === 'CREATED'"
+                 @click="SHOW_BUY(item.projectId, item.extPeriod, item.currency, item.eachAmount, item.eachs, item.residueTicket)">
               {{$t('tojoin')}}
             </div>
-            <div class="forecast_item_btn disabled" v-if="item.projectStatus == 'PAUSE'">
-              {{$t('recess')}}...
-            </div>
+<!--            <div class="forecast_item_btn disabled" v-if="item.projectStatus == 'PAUSE'">-->
+<!--              {{$t('recess')}}...-->
+<!--            </div>-->
             <div class="forecast_item_btn disabled svg-btn"
                  v-if="item.projectStatus == 'SOLD_OUT' || item.projectStatus == 'TXHASH' || item.projectStatus == 'ABNORMAL'">
               <!--{{$t('processing')}}-->
@@ -161,13 +192,15 @@
 <!--              <div class="forecast_buy" v-if="predict_number">-->
 <!--                {{predict_number_amount}}<span>{{currency}}</span>-->
 <!--              </div>-->
+              <div class="detail_titlefen">剩余份数：<span style="color: #3576F5">{{remainingShares}}</span></div>
             </div>
 
             <div class="forecast_dialog_detail forecast_dialog_width flex-row">
               <input class="detail_input" type="text" name="" :placeholder='$t("please_enter")' v-model="predict_number"
-                     @keyup="INPUT_NUMBER">
-              <div class="forecast_buy" v-if="predict_number">
-                {{predict_number_amount}}<span>{{currency}}</span>
+                     @input="INPUT_NUMBER()">
+<!--              <div class="forecast_buy" v-if="predict_number">-->
+              <div class="forecast_buy">
+                {{predict_number ? toFixed(accMul(eachAmount,predict_number),0):'0'}}<span>{{currency}}</span>
               </div>
             </div>
             <div class="forecast_dialog_detail tips flex-row" style="display: none;">
@@ -245,7 +278,8 @@
             <div class="forecast_dialog_list_table" v-if="show_prize && prize_list.length">
               <div class="table_title flex-row table_tr">
                 <div class="table_time prize_time list_width">{{$t('prize_time')}}</div>
-                <div class="table_number_num">{{$t('prize_block')}}</div>
+                    <!--  区块合约编号  -->
+<!--                <div class="table_number_num">{{$t('prize_block')}}</div>-->
                 <div class="table_number prize_number list_width">{{$t('prize_number')}}</div>
                 <div class="table_number prize_total list_width">{{$t('prize_total')}}</div>
 <!--                <div class="table_number prize_pool list_width">{{$t('prize_pool')}}</div>-->
@@ -256,13 +290,15 @@
                   <div class="table_time prize_time list_width">{{$globalFunc.formatDateUitl(item.lotteryTime,
                     'YYYY-MM-DD hh:mm:ss')}}
                   </div>
-                  <div class="table_number_num">
-                    <a href="#" @click="GO_URL_DETAIL(item.blockContractUrl)">{{item.blockContractNumber}}</a>
-                  </div>
+                  <!--  区块合约编号  -->
+<!--                  <div class="table_number_num">-->
+<!--                    <a href="#" @click="GO_URL_DETAIL(item.blockContractUrl)">{{item.blockContractNumber}}</a>-->
+<!--                  </div>-->
                   <div class="table_number prize_number list_width">{{item.winNumber}}</div>
                   <div class="table_number prize_total list_width">{{item.totalQuantity}}</div>
 <!--                  <div class="table_number prize_pool list_width">{{item.lotteryPoolNumber}}</div>-->
-                  <div class="table_number list_width">{{item.itemNumber}}</div>
+                  <div class="table_number list_width">{{item.itemNumber}}
+                  </div>
                 </div>
               </div>
             </div>
