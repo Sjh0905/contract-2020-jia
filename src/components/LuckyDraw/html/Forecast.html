@@ -146,7 +146,8 @@
       <!-- 参与预测弹框 start -->
       <div class="forecast_dialog" v-if="show_buy">
         <div class="forecast_dialog_body">
-          <div class="forecast_dialog_close" @click="HIDE_BUY">×</div>
+<!--          <div class="forecast_dialog_close" @click="HIDE_BUY">×</div>-->
+          <img src="../../../assets/弹窗-取消-icon@2x.png" alt="" class="iconImg" @click="HIDE_BUY">
           <div class="forecast_dialog_content">
             <!-- 标题 -->
             <div class="forecast_dialog_title">
@@ -155,13 +156,20 @@
             <!-- 内容 -->
             <div class="forecast_dialog_detail flex-row">
               <div class="detail_title">{{$t('predictions')}}</div>
+<!--              <input class="detail_input" type="text" name="" :placeholder='$t("please_enter")' v-model="predict_number"-->
+<!--                     @keyup="INPUT_NUMBER">-->
+<!--              <div class="forecast_buy" v-if="predict_number">-->
+<!--                {{predict_number_amount}}<span>{{currency}}</span>-->
+<!--              </div>-->
+            </div>
+
+            <div class="forecast_dialog_detail forecast_dialog_width flex-row">
               <input class="detail_input" type="text" name="" :placeholder='$t("please_enter")' v-model="predict_number"
                      @keyup="INPUT_NUMBER">
               <div class="forecast_buy" v-if="predict_number">
                 {{predict_number_amount}}<span>{{currency}}</span>
               </div>
             </div>
-
             <div class="forecast_dialog_detail tips flex-row" style="display: none;">
               <label for="" class="detail_title"></label>
               <p class="detail_error">超出本期剩余参与份数</p>

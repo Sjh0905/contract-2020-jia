@@ -414,6 +414,17 @@ input:-ms-input-placeholder {
   position: relative;
 }
 
+.forecast_dialog_width {
+  width: 86%;
+  height: 40px;
+  border-radius:1px;
+  border:1px solid rgba(224,225,244,1);
+  padding-left: 3%;
+  margin: 0 25px;
+  margin-bottom: 34px;
+
+}
+
 .detail_title {
   width: 25%;
   /*text-align: right;*/
@@ -422,14 +433,15 @@ input:-ms-input-placeholder {
 }
 
 .detail_input {
-  width: 86%;
-  height: 40px;
-  border-radius:1px;
-  border:1px solid rgba(224,225,244,1);
-  padding-left: 3%;
-  margin: 0 25px;
-  margin-bottom: 34px;
+  /*width: 86%;*/
+  /*height: 40px;*/
+  /*border-radius:1px;*/
+  /*border:1px solid rgba(224,225,244,1);*/
+  /*padding-left: 3%;*/
+  /*margin: 0 25px;*/
+  /*margin-bottom: 34px;*/
   /*box-sizing: border-box;*/
+  border:0;
 }
 
 .forecast_dialog_detail.tips {
