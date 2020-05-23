@@ -254,15 +254,15 @@ root.methods.scrollPage = function () {
     iosTitle = $('.forecast-activity-homepage-header-title-text');
     iosTitleHidden = $('.forecast-activity-homepage-header-title-text-hidden');
 
-    if (scrollTop > pageHeaderHeight) {
+    // if (scrollTop > pageHeaderHeight) {
       color = '#ffffff'
       shadowColor = '0 4px 16px rgba(0,0,0,0.2)'
       titleColor='#0D0E23'
-    } else {
-      color = 'rgba(255,255,255,' + this.toFixed(scrollTop / pageHeaderHeight, 2) + ')'
-      shadowColor = '0 4px 16px rgba(0,0,0,' + this.toFixed(0.2 * scrollTop / pageHeaderHeight, 2) + ')'
-      titleColor = 'rgba(13,14,35,' + this.toFixed(0.2 * scrollTop / pageHeaderHeight, 2) + ')'
-    }
+    // } else {s
+    //   color = 'rgba(255,255,255,' + this.toFixed(scrollTop / pageHeaderHeight, 2) + ')'
+    //   shadowColor = '0 4px 16px rgba(0,0,0,' + this.toFixed(0.2 * scrollTop / pageHeaderHeight, 2) + ')'
+    //   titleColor = 'rgba(13,14,35,' + this.toFixed(0.2 * scrollTop / pageHeaderHeight, 2) + ')'
+    // }
   }
   if (!this.iosQuery) {
     pageHeaderHeight = this.windowWidth * 88 / 375
