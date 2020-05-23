@@ -479,10 +479,10 @@ input:-ms-input-placeholder {
   position: absolute;
   width: 20px;
   height: 20px;
-  /*background: url('../assets/close.png') center no-repeat #242424;*/
+  background: url('../assets/mobileForecastHomePage/close_btn.png') center no-repeat #fff;
   right: 0px;
   top: -30px;
-  opacity: 0.8;
+  /*opacity: 0.8;*/
   border: 1px solid #FFFFFF;
   border-radius: 4px;
   font-size: 20px;
@@ -499,7 +499,7 @@ input:-ms-input-placeholder {
   min-height: 300px;
   background: #fff;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 1px;
   padding: 20px;
 }
 
@@ -633,21 +633,21 @@ input:-ms-input-placeholder {
 
 .forecast_dialog_rules {
   padding: 15px;
-  font-size: 13px;
-  color: #666;
+  font-size: 12px;
+  color: #172841;
   margin: 20px 0px;
 }
 
 .rules_title {
   font-size: 15px;
-  color: #666;
+  color: #172841;
   font-weight: bolder;
   margin: 10px 0px 5px;
 }
 
 .rules_p {
   /*text-indent: 2em;*/
-  color: rgba(0, 0, 0, 0.6);
+  /*color: rgba(0, 0, 0, 0.6);*/
   line-height: 20px;
 }
 
@@ -791,16 +791,27 @@ input:-ms-input-placeholder {
 /*rules*/
 .rules_title_header {
   font-weight: bold;
-  color: #C43E4E;
+  color: #172A4D;
+}
+
+.rules_item_title{
+  line-height: 14px;
+  min-height: 14px;
+  margin-top: 7px;
+  padding-left: 1em;
+  text-indent:-1em;
+  position: relative;
 }
 
 .rules_item {
-  color: rgba(0, 0, 0, 0.6);
+  /*color: rgba(0, 0, 0, 0.6);*/
   line-height: 14px;
   min-height: 14px;
   margin-top: 7px;
   padding-left: 17px;
+  text-indent:-1em;
   position: relative;
+
 }
 
 .rules_item:before {

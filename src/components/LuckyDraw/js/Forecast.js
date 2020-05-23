@@ -587,11 +587,4 @@ root.beforeDestroy = function () {
 	clearInterval(get_list_interval);
 }
 
-
-
-
-
-
-
-
 export default root;

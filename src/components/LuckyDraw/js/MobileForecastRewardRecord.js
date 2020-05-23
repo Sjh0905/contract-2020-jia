@@ -58,6 +58,13 @@ root.watch = {};
 
 
 root.methods = {};
+
+root.methods.goToCurrentPre = function (item) {
+  console.info('item=====',item)
+  this.$router.push({name: 'MobileForecastJoinRecord', query: {projectId: item.projectId}})
+  // mobileForecastJoinRecord?projectId=1&periodNumber=00000003&currency=KK
+}
+
 root.methods.ReturnToActivePage = function () {
   this.$router.push('/index/treasureBox')
 }

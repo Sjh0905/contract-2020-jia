@@ -7,7 +7,6 @@
       <div v-show="!iosQuery" class="forecast-activity-homepage-header-title">
         <div class="forecast-activity-homepage-header-title-back-icon" @click="jumpToBack()">
           <img class="forecast-activity-homepage-header-title-back-icon-img" src="../assets/mobileForecastHomePage/back_icon.png" alt="">
-          <!-- ../assets/mobileForecastHomePage/back_icon.png-->
         </div>
         <!-- <div class="forecast-activity-homepage-header-title-text" v-if="titleList.length <=1 ">{{headerTitle}}</div>-->
         <!-- <div class="forecast-activity-homepage-header-title-text-hidden" v-if="titleList.length> 1">{{headerTitle}}</div>        -->
@@ -28,7 +27,6 @@
           <div class="forecast-activity-homepage-header-title-text-hidden" v-if="titleList.length > 1">{{headerTitle}}</div>
           <div class="forecast-activity-homepage-header-title-info-icon" @click="jumpToInfo()">
             <img class="forecast-activity-homepage-header-title-info-icon-img" src="../assets/mobileForecastHomePage/rule_icon.png" alt="">
-            <!-- ../assets/mobileForecastHomePage/rule_icon.png-->
           </div>
         </div>
       </div>
@@ -67,7 +65,7 @@
             <div class="forecast-activity-homepage-container-item-info">
               <div class="forecast-activity-homepage-container-item-info-title">
                 <div class="forecast-activity-homepage-container-item-info-title-left">
-                  <img class="forecast-activity-homepage-container-item-info-title-left-logo" src="../assets/mobileForecastHomePage/KK.png" alt="">
+                  <img class="forecast-activity-homepage-container-item-info-title-left-logo" :src="require(`../assets/mobileForecastHomePage/${item.currency}.png`)" alt="">
                   <!-- 'http://logo.eunex.group/' + item.currency + '.png'-->
                   <div class="forecast-activity-homepage-container-item-info-title-left-text">{{item.currency}} 第{{parseInt(item.extPeriod)}}期</div>
                 </div>
@@ -78,7 +76,6 @@
                 <div class="forecast-activity-homepage-container-item-info-num-left">每份{{item.eachAmount}}枚</div>
                 <div class="forecast-activity-homepage-container-item-info-num-right">{{item.residueTicket}}/{{item.eachs}}
                   <img class="forecast-activity-homepage-container-item-info-num-right-img" src="../assets/mobileForecastHomePage/item_right_icon.png" alt="">
-                  <!-- ../assets/mobileForecastHomePage/item_right_icon.png-->
                 </div>
               </div>
               <div v-if="item.preWinNumber" class="forecast-activity-homepage-container-item-info-last">
@@ -89,7 +86,7 @@
           </div>
           <div class="forecast-activity-homepage-container-item-down">
             <div v-if="item.projectStatus === 'PROCESSING' || item.projectStatus === 'CREATED'" class="forecast-activity-homepage-container-item-down-btn forecast-activity-homepage-container-item-down-btn-join" @click="openAmountToast(item)">点击参与</div>
-            <div v-if="item.projectStatus === 'PAUSE' || item.projectStatus === 'PAUSEING'" class="forecast-activity-homepage-container-item-down-btn forecast-activity-homepage-container-item-down-btn-releace">休息中...</div>
+<!--            <div v-if="item.projectStatus === 'PAUSE' || item.projectStatus === 'PAUSEING'" class="forecast-activity-homepage-container-item-down-btn forecast-activity-homepage-container-item-down-btn-releace">休息中...</div>-->
             <!--<div v-if="item.projectStatus===' SOLD_OUT' || item.projectStatus===' TXHASH' || item.projectStatus===' ABNORMAL'" class="forecast-activity-homepage-container-item-down-btn forecast-activity-homepage-container-item-down-btn-releace">区块生成开奖中</div>-->
             <svg class='svg-btn' v-if="item.projectStatus === 'SOLD_OUT' || item.projectStatus === 'TXHASH' || item.projectStatus === 'ABNORMAL'" height="42" width="302">
               <path d='M151 1
@@ -109,7 +106,6 @@
         <div class="forecast-activity-ruleToast-box">
           <div class="forecast-activity-ruleToast-close-btn" @click="closeRuleToast">
             <img class="forecast-activity-ruleToast-close-btn-img" src="../assets/mobileForecastHomePage/close_btn.png" alt="">
-            <!-- ../assets/mobileForecastHomePage/close_btn.png-->
           </div>
           <div class="forecast-activity-ruleToast-title">活动规则</div>
           <div :class="!(isLogin && !viewAgreement)? 'forecast-activity-ruleToast-content-readonly':'forecast-activity-ruleToast-content'">
@@ -151,7 +147,6 @@
         <div class="forecast-activity-toast-box">
           <div class="forecast-activity-toast-title">参与预测 <span class="forecast-activity-toast-close-btn" @click="closeToast">
               <img class="forecast-activity-toast-close-btn-img" src="../assets/mobileForecastHomePage/close_btn.png" alt="">
-            <!--            ../assets/mobileForecastHomePage/close_btn.png-->
             </span>
 
           </div>
