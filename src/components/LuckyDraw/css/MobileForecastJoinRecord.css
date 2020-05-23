@@ -48,17 +48,29 @@
 }
 
 .type {
-  flex: 24;
+  flex: 18;
 }
 
 .detail {
-  flex: 12;
+  flex: 10;
   /*text-align: right*/
 }
 
+.amount {
+  flex: 14;
+}
+
 .num {
-  flex: 24;
+  flex: 18;
   text-align: right;
+}
+
+.mobile-record-winning {
+  margin-right: 0.08rem;
+  font-size:0.24rem;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color: #F57C35;
 }
 
 .mobile-forecast-record-list {
