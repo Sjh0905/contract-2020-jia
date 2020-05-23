@@ -398,6 +398,9 @@ requestAddress.POST_MY_PREDICT_RECORD = {url: urlHead+'/luckyGuess/myPredictReco
 requestAddress.POST_MY_PREDICT_RECORD_DETAIL = {url: urlHead+'/luckyGuess/predictRecordDetail', method: 'post'}
 // 本期参与记录
 requestAddress.POST_LUCKY_GUESS_CURRENT_PERIOD_PARTAKE = {url: urlHead+'/luckyGuess/currentPeriodPartake', method: 'post'}
+requestAddress.GET_PERIOD_RECORD = {url: urlHead+'/luckyGuess/getperiodRecord', method: 'get'}
+
+
 
 
 // 2018-9-13 超级为蜜

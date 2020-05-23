@@ -23,7 +23,7 @@ root.data = function () {
 
 root.created = function () {
   if(!(this.$route.query.projectId && this.$route.query.periodNumber && this.$route.query.currency)) {
-    this.$router.replace({name:'MobileForecastHomePage'})
+    this.$router.replace({name:'treasureBox'})
     return
   }
 
@@ -38,7 +38,8 @@ root.created = function () {
     );
   }
 
-  this.getInitPage()
+  // this.getInitPage()
+  this.getPeriodRecord()
 }
 
 root.computed = {};
@@ -57,7 +58,6 @@ root.methods.getInitPage = function () {
     bind: this,
     params: {
       projectId: this.$route.query.projectId,
-      periodNumber: this.$route.query.periodNumber,
     },
     callBack: this.re_getInitPage
   })
@@ -69,7 +69,30 @@ root.methods.re_getInitPage = function (res) {
 
 
   if (res.result != 'FAIL') {
+    console.info(res)
     this.dataList = res.dataMap.currentPeriodPartakeList;
+  }
+
+  this.loading = false
+}
+
+// 获取历史期数记录
+root.methods.getPeriodRecord = function () {
+  this.$http.send('GET_PERIOD_RECORD', {
+    bind: this,
+    query: {
+      projectId: this.$route.query.projectId,
+    },
+    callBack: this.re_getPeriodRecord
+  })
+}
+root.methods.re_getPeriodRecord = function (res) {
+
+  typeof(res) == 'string' && (res = JSON.parse(res));
+
+
+  if (res.result != 'FAIL') {
+    this.dataList = res
   }
 
   this.loading = false

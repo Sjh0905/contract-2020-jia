@@ -21,7 +21,7 @@
       <div class="mobile-forecast-record-title-num num">项目编号</div>
     </div>
     <div v-if="dataList.length > 0" class="mobile-forecast-record-list">
-      <div v-for="(item,index) in dataList" :key="index" class="mobile-forecast-record-item">
+      <div v-for="(item,index) in dataList" :key="index" class="mobile-forecast-record-item" @click="goToCurrentPre(item)">
         <div class="mobile-forecast-record-title-type type">{{$globalFunc.formatDateUitl(item.lotteryTime, 'YYYY-MM-DD hh:mm')}}</div>
         <div class="mobile-forecast-record-title-detail detail">{{item.winNumber}}</div>
         <div class="mobile-forecast-record-title-num num">{{item.itemNumber}}</div>

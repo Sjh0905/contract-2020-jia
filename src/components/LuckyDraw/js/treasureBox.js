@@ -3,7 +3,7 @@ import GlobalFunction from "../../../configs/globalFunctionConfigs/GlobalFunctio
 
 const root = {};
 
-root.name = 'MobileForecastHomePage';
+root.name = 'treasureBox';
 
 root.components = {
   'PopupPrompt': resolve => require(['../../vue/PopupPrompt'], resolve),
@@ -206,16 +206,16 @@ root.methods = {};
 
 // 开奖时间的增加
 root.methods.timeAddition = function (item) {
-  let addTime = 30 * 60 * 1000
-  let nowTime = (new Date()).valueOf();
-  console.info(item.openTime)
+  // let addTime = 30 * 60 * 1000
+  // let nowTime = (new Date()).valueOf();
+  // console.info(item.openTime)
   // 当前时间大于开奖时间 显示开奖中
   // if(nowTime > item.openTime) return '正在开奖中'
-  if (true) {
-    let nextTime = item.openTime + addTime
-    // setTimeout( console.info('nextTime ======',nextTime),1000)
-    return this.$globalFunc.formatDateUitl(nextTime, 'MM-DD hh:mm') + ' 开奖'
-  }
+  // if (true) {
+  //   let nextTime = item.openTime + addTime
+  //   // setTimeout( console.info('nextTime ======',nextTime),1000)
+  //   return this.$globalFunc.formatDateUitl(nextTime, 'MM-DD hh:mm') + ' 开奖'
+  // }
   return this.$globalFunc.formatDateUitl(item.openTime,'MM-DD hh:mm') + ' 开奖'
 }
 
@@ -740,7 +740,7 @@ root.methods.goToLogin = function () {
     }))
     return
   } else {
-    this.$router.push({name: 'login', query: {name: 'MobileForecastHomePage'}});
+    this.$router.push({name: 'login', query: {name: 'treasureBox'}});
   }
 }
 
