@@ -10,33 +10,33 @@ root.data = function () {
   return {
     loading: false,
     dataList: [
-      {
-        winNumber:2,
-        itemNumber:10000020,
-        lotteryTime:1323231223122
-      },
-      {
-        winNumber:2,
-        itemNumber:10000020,
-        lotteryTime:1323231223122
-      },
-      {
-        winNumber:2,
-        itemNumber:10000020,
-        lotteryTime:1323231223122
-      },
-      {
-        winNumber:2,
-        itemNumber:10000020,
-        lotteryTime:1323231223122
-      }
+      // {
+      //   winNumber:2,
+      //   itemNumber:10000020,
+      //   lotteryTime:1323231223122
+      // },
+      // {
+      //   winNumber:2,
+      //   itemNumber:10000020,
+      //   lotteryTime:1323231223122
+      // },
+      // {
+      //   winNumber:2,
+      //   itemNumber:10000020,
+      //   lotteryTime:1323231223122
+      // },
+      // {
+      //   winNumber:2,
+      //   itemNumber:10000020,
+      //   lotteryTime:1323231223122
+      // }
     ],
   }
 }
 
 root.created = function () {
   if(!this.$route.query.projectId) {
-    this.$router.replace({name:'MobileForecastHomePage'})
+    this.$router.replace({name:'treasureBox'})
     return
   }
 
@@ -61,7 +61,8 @@ root.methods = {};
 
 root.methods.goToCurrentPre = function (item) {
   console.info('item=====',item)
-  this.$router.push({name: 'MobileForecastJoinRecord', query: {projectId: item.projectId}})
+  this.$router.push({name: 'MobileForecastJoinRecord', query: {projectId: item.projectId,periodNumber:item.itemNumber,currency:item.currency}})
+  // this.$router.push('/static/mobileForecastJoinRecord?projectId='+item.projectId)
   // mobileForecastJoinRecord?projectId=1&periodNumber=00000003&currency=KK
 }
 

@@ -87,7 +87,7 @@
           <div class="forecast-activity-homepage-container-item-down">
             <div v-if="item.projectStatus === 'PROCESSING' || item.projectStatus === 'CREATED'" class="forecast-activity-homepage-container-item-down-btn forecast-activity-homepage-container-item-down-btn-join" @click="openAmountToast(item)">点击参与</div>
 <!--            <div v-if="item.projectStatus === 'PAUSE' || item.projectStatus === 'PAUSEING'" class="forecast-activity-homepage-container-item-down-btn forecast-activity-homepage-container-item-down-btn-releace">休息中...</div>-->
-            <!--<div v-if="item.projectStatus===' SOLD_OUT' || item.projectStatus===' TXHASH' || item.projectStatus===' ABNORMAL'" class="forecast-activity-homepage-container-item-down-btn forecast-activity-homepage-container-item-down-btn-releace">区块生成开奖中</div>-->
+            <div v-if="item.projectStatus===' SOLD_OUT' || item.projectStatus===' TXHASH' || item.projectStatus===' ABNORMAL'" class="forecast-activity-homepage-container-item-down-btn forecast-activity-homepage-container-item-down-btn-releace">区块生成开奖中</div>
             <svg class='svg-btn' v-if="item.projectStatus === 'SOLD_OUT' || item.projectStatus === 'TXHASH' || item.projectStatus === 'ABNORMAL'" height="42" width="302">
               <path d='M151 1
 		            L281 1

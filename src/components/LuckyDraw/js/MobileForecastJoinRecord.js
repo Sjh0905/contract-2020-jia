@@ -22,10 +22,10 @@ root.data = function () {
 }
 
 root.created = function () {
-  if(!(this.$route.query.projectId && this.$route.query.periodNumber && this.$route.query.currency)) {
-    this.$router.replace({name:'treasureBox'})
-    return
-  }
+  // if(!(this.$route.query.projectId && this.$route.query.periodNumber && this.$route.query.currency)) {
+  //   this.$router.replace({name:'treasureBox'})
+  //   return
+  // }
 
   this.currency = this.$route.query.currency
 
@@ -38,7 +38,7 @@ root.created = function () {
     );
   }
 
-  // this.getInitPage()
+  this.getInitPage()
   this.getPeriodRecord()
 }
 
@@ -49,6 +49,7 @@ root.watch = {};
 
 root.methods = {};
 
+
 root.methods.ReturnToActivePage = function () {
   this.$router.push({name:'treasureBox'})
 }
@@ -58,6 +59,7 @@ root.methods.getInitPage = function () {
     bind: this,
     params: {
       projectId: this.$route.query.projectId,
+      periodNumber: this.$route.query.periodNumber,
     },
     callBack: this.re_getInitPage
   })
@@ -66,7 +68,6 @@ root.methods.getInitPage = function () {
 root.methods.re_getInitPage = function (res) {
 
   typeof(res) == 'string' && (res = JSON.parse(res));
-
 
   if (res.result != 'FAIL') {
     console.info(res)
@@ -82,6 +83,8 @@ root.methods.getPeriodRecord = function () {
     bind: this,
     query: {
       projectId: this.$route.query.projectId,
+      periodNumber: this.$route.query.periodNumber,
+      currency: this.$route.query.currency,
     },
     callBack: this.re_getPeriodRecord
   })
@@ -90,9 +93,8 @@ root.methods.re_getPeriodRecord = function (res) {
 
   typeof(res) == 'string' && (res = JSON.parse(res));
 
-
   if (res.result != 'FAIL') {
-    this.dataList = res
+    this.dataList = res.dataMap.lotteryRecordList
   }
 
   this.loading = false
