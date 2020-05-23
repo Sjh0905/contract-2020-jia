@@ -121,23 +121,23 @@ root.created = function () {
     }
 
     let that = this
-    document.addEventListener('message',
-      function ({data}) {
-        that.loading = true
-        that.$store.commit('LOGIN_OUT')
-
-
-
-        data = JSON.parse(data)
-        if (!data.parameters) {
-          that.loading = false
-          this.ruleToastFlag = false
-          this.viewAgreement = true
-          return
-        }
-        that.getCookie(data.parameters)
-      }
-    )
+    // document.addEventListener('message',
+    //   function ({data}) {
+    //     that.loading = true
+    //     that.$store.commit('LOGIN_OUT')
+    //
+    //
+    //
+    //     data = JSON.parse(data)
+    //     if (!data.parameters) {
+    //       that.loading = false
+    //       this.ruleToastFlag = false
+    //       this.viewAgreement = true
+    //       return
+    //     }
+    //     that.getCookie(data.parameters)
+    //   }
+    // )
     this.clientLoad()
 
 
@@ -302,12 +302,12 @@ root.methods.clientLoad = function () {
 
 // IOS请求putCookie
 root.methods.getCookie = function (data) {
-  return this.$http.send('PUT_COOKIE', {
-    params: data,
-    bind: this,
-    callBack: this.re_getCookie,
-    errorHandler: this.error_getCookie
-  })
+  // return this.$http.send('PUT_COOKIE', {
+  //   params: data,
+  //   bind: this,
+  //   callBack: this.re_getCookie,
+  //   errorHandler: this.error_getCookie
+  // })
 }
 
 root.methods.re_getCookie = function (data) {
