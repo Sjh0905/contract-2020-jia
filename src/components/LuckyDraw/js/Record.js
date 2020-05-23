@@ -429,4 +429,11 @@ root.methods.formatDateUtils = function (time, type = 'YYYY-MM-DD hh:mm:ss') {
 }
 
 
+/*---------------------- 保留小数 begin ---------------------*/
+root.methods.toFixed = function (num, acc = 8) {
+  return this.$globalFunc.accFixed(num, acc)
+}
+/*---------------------- 保留小数 end ---------------------*/
+
+
 export default root;

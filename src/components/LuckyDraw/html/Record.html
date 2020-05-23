@@ -54,8 +54,10 @@
 
               <!--logo begin-->
               <div class="list-logo-container flex">
-                <img src="../../../assets/中国国旗.png" alt="" class="list-logo">
+<!--                <img src="../../../assets/中国国旗.png" alt="" class="list-logo">-->
 <!--                <img :src="'http://logo.eunex.group/'+item.currency + '.png'" alt="" class="list-logo">-->
+                <img :src="require(`../assets/PCForecastHomePage/${item.currency}.png`)" class="list-logo">
+
               </div>
               <!--logo end-->
 
@@ -67,7 +69,7 @@
                   {{$t('li_item_id')}}
                 </div>
                 <div class="list-separate">|</div>
-                <div class="list-detail list-id">{{item.periodNumber}}</div>
+                <div class="list-detail list-id">{{item.currency}}{{item.periodNumber}}</div>
               </div>
               <!--项目编号 end-->
 
@@ -98,14 +100,15 @@
             <div class="list-description-container flex">
 
               <div class="description-container-kong">
-                <div class="description-container-yuan"></div>
+<!--                <div class="description-container-yuan"></div>-->
+<!--                <div class="description-container-yuanxia"></div>-->
               </div>
               <!--进行中的情况 begin-->
               <div class="list-description-detail list-description-ing flex" v-if="recordType===0">
                 <div class="list-description-ing-title">
                   <!--进行中-->
 <!--                  {{$t('li_description_1')}}-->
-                  <img class="Pitem-descriptionImg" src="../../../assets/ParticipationRecord.png" alt="">
+                  <img class="Pitem-descriptionImg" src="../../../assets/xiangqign@2x.png" alt="">
                 </div>
                 <div class="list-open-icon"></div>
               </div>
@@ -118,7 +121,8 @@
                   {{$t('li_description_2')}}
                 </div>
                 <div class="list-description-reward-detail flex">
-                  <span class="list-description-reward">{{item.rewardAmount}}</span>
+                  <span class="list-description-reward">{{toFixed(item.rewardAmount,8)}}{{item.currency}}</span>
+                  <img class="Pitem-descriptionImg" src="../../../assets/xiangqign@2x.png" alt="">
                   <div class="list-open-icon"></div>
                 </div>
               </div>
@@ -131,6 +135,7 @@
                   <!--{{$t('li_description_3')}}-->
                   {{lang === 'CH' ? item.winStatus : item.winStatusEn}}
                 </div>
+                <img class="Pitem-descriptionImg" src="../../../assets/xiangqign@2x.png" alt="">
                 <div class="list-open-icon"></div>
               </div>
               <!--未中奖的情况 end-->
@@ -333,12 +338,13 @@
   <!-- 显示详情弹窗 start -->
   <div class="forecast_dialog" v-if="showPopupWindow">
     <div class="forecast_dialog_body">
-      <div class="forecast_dialog_close" @click="closePopupWindow">×</div>
+<!--      <div class="forecast_dialog_close" @click="closePopupWindow">×</div>-->
       <div class="forecast_dialog_content">
         <!-- 标题 begin -->
         <div class="forecast_dialog_title">
           <!--参与详情-->
           {{$t('prompt_title')}}
+          <img src="../../../assets/弹窗-取消-icon@2x.png" alt="" class="iconImg" @click="closePopupWindow">
         </div>
         <!-- 标题 end -->
 
@@ -404,15 +410,15 @@
           <!--参与份数 end-->
 
           <!--场次类型 begin-->
-          <div class="popup-window-p flex">
-            <div class="popup-window-article-detail-title">
-              <!--场次类型：-->
-              {{$t('prompt_article_title_7')}}
-            </div>
-            <div class="popup-window-article-detail">
-              {{lang === 'CH' ? checkInfo.drawColumn : checkInfo.drawColumnEn}}
-            </div>
-          </div>
+<!--          <div class="popup-window-p flex">-->
+<!--            <div class="popup-window-article-detail-title">-->
+<!--              &lt;!&ndash;场次类型：&ndash;&gt;-->
+<!--              {{$t('prompt_article_title_7')}}-->
+<!--            </div>-->
+<!--            <div class="popup-window-article-detail">-->
+<!--              {{lang === 'CH' ? checkInfo.drawColumn : checkInfo.drawColumnEn}}-->
+<!--            </div>-->
+<!--          </div>-->
           <!--场次类型 end-->
 
           <!--项目编号 begin-->
@@ -426,7 +432,7 @@
           <!--项目编号 end-->
 
           <!--期数 begin-->
-          <div class="popup-window-p flex">
+          <div class="popup-window-p flex marign15">
             <div class="popup-window-article-detail-title">
               <!--期数：-->
               {{$t('prompt_article_title_9')}}
@@ -443,10 +449,10 @@
           <Loading/>
         </div>
         <!-- 内容 end -->
-        <div class="forecast_btn" @click="closePopupWindow">
-          <!--关闭-->
-          {{$t('prompt_close')}}
-        </div>
+<!--        <div class="forecast_btn" @click="closePopupWindow">-->
+<!--          &lt;!&ndash;关闭&ndash;&gt;-->
+<!--          {{$t('prompt_close')}}-->
+<!--        </div>-->
       </div>
     </div>
   </div>
