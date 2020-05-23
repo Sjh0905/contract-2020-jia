@@ -105,6 +105,12 @@ root.created = function () {
         parameters: ''
       })
     )
+    window.postMessage(JSON.stringify({
+      method: 'setH5Back',
+      parameters: {
+        canGoH5Back:false
+      }
+    }))
 
 
     if (this.iosLogin) {
