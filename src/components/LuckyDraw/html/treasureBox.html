@@ -79,17 +79,17 @@
                 </div>
               </div>
               <div v-if="item.preWinNumber" class="forecast-activity-homepage-container-item-info-last">
-                <div class="forecast-activity-homepage-container-item-info-last-left">上期中奖编号：{{item.preWinNumber}}</div>
+                <div class="forecast-activity-homepage-container-item-info-last-left">上期中奖号码：{{item.preWinNumber}}</div>
                 <div class="forecast-activity-homepage-container-item-info-last-right" @click="goToRewardRecord(item.projectId)">开奖记录</div>
               </div>
             </div>
           </div>
           <div class="forecast-activity-homepage-container-item-down">
-            <div v-if="item.projectStatus === 'PROCESSING' || item.projectStatus === 'CREATED'" class="forecast-activity-homepage-container-item-down-btn forecast-activity-homepage-container-item-down-btn-join" @click="openAmountToast(item)">点击参与</div>
+            <div v-if="(item.projectStatus === 'PROCESSING' || item.projectStatus === 'CREATED')&& !inLottery(item)" class="forecast-activity-homepage-container-item-down-btn forecast-activity-homepage-container-item-down-btn-join" @click="openAmountToast(item)">点击参与</div>
 <!--            <div v-if="item.projectStatus === 'PAUSE' || item.projectStatus === 'PAUSEING'" class="forecast-activity-homepage-container-item-down-btn forecast-activity-homepage-container-item-down-btn-releace">休息中...</div>-->
             <div v-if="item.projectStatus === 'COMPLETED'" class="forecast-activity-homepage-container-item-down-btn forecast-activity-homepage-container-item-down-btn-releace">已完成</div>
             <div v-if="item.projectStatus==='SOLD_OUT' || item.projectStatus===' TXHASH' || item.projectStatus===' ABNORMAL'" class="forecast-activity-homepage-container-item-down-btn forecast-activity-homepage-container-item-down-btn-releace">区块生成开奖中</div>
-            <svg class='svg-btn' v-if="item.projectStatus === 'SOLD_OUT' || item.projectStatus === 'TXHASH' || item.projectStatus === 'ABNORMAL'" height="42" width="302">
+            <svg class='svg-btn' v-if="item.projectStatus === 'SOLD_OUT' || item.projectStatus === 'TXHASH' || item.projectStatus === 'ABNORMAL'|| inLottery(item)" height="42" width="302">
               <path d='M151 1
 		            L281 1
 		            A20 20 0 0 1 281 41
@@ -118,7 +118,7 @@
               <div class="forecast-activity-ruleToast-content-item">2.同一用户每次可购买多份，也可以多次购买，如购买5份则有5个兑奖码；</div>
               <div class="forecast-activity-ruleToast-content-item">3.兑奖码与开奖号码最后2位数相同即为中奖；</div>
               <div class="forecast-activity-ruleToast-content-item">4.如当期用户兑奖码未与开奖号码后2位数完全匹配，则取最接近的1或者2位抽奖码用户中奖；</div>
-              <div class="forecast-activity-ruleToast-content-item">5.如中奖编号为68，68未完全匹配，则取67或69中奖，或者67和69同时中奖，如没有67和69，则继续类推至66和70；</div>
+              <div class="forecast-activity-ruleToast-content-item">5.如中奖号码为68，68未完全匹配，则取67或69中奖，或者67和69同时中奖，如没有67和69，则继续类推至66和70；</div>
               <div class="forecast-activity-ruleToast-content-item">6.竞猜成功后，中奖者获得当期奖池总额的90%；</div>
               <div class="forecast-activity-ruleToast-content-item">7.区块链竞猜每30分钟开奖一次，不足10份不开奖，自动延长30分钟开奖，每期最高销售100份；</div>
             </div>

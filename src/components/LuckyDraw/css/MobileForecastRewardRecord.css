@@ -43,6 +43,12 @@
   text-align: right;
 }
 
+.mobile-forecast-record-title-num {
+  width: 0.1rem;
+  height: 0.18rem;
+  margin-left: 0.12rem;
+}
+
 .mobile-forecast-record-list {
   /*position: absolute;*/
   /*top: 36px;*/
