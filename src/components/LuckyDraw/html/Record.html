@@ -220,7 +220,7 @@
 
   <template v-if="isMobile">
 
-    <div class="divHeader">
+    <div v-if="!(isApp||isIOS)" class="divHeader">
       <img class="divHeaderImg" src="../../../assets/fanhui.png" alt="" @click="ReturnToActivePage">
       <span class="divHeaderSpan">参与记录</span>
     </div>

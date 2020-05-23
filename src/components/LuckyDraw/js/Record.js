@@ -82,6 +82,31 @@ root.created = function () {
   this.isMobile && window.addEventListener('scroll', this.scrollToEnd)
 
   this.isMobile && this.$store.commit('changeMobileHeaderTitle', '参与记录');
+  if(this.$route.query.isIOS) {
+    window.postMessage(JSON.stringify({
+      method: 'revertHeader'
+    }))
+    window.postMessage(JSON.stringify({
+      method: 'transparentHeader',
+      parameters: {
+        color:'#ffffff',//因为其他页面写成transparent隐藏了APP返回箭头，所以需要初始化
+      }
+    }))
+    window.postMessage(JSON.stringify({
+        method: 'setTitle',
+        parameters: '参与记录'
+      })
+    );
+    window.postMessage(JSON.stringify({
+      method: 'setH5Back',
+      parameters: {
+        canGoH5Back:true
+      }
+    }))
+  }
+
+  this.isIOSQuery()
+
   // 进行中
   this.postIngRecord()
   // 已中奖
@@ -427,6 +452,15 @@ root.methods.changePredictNumber = function (arr) {
 // 格式化时间
 root.methods.formatDateUtils = function (time, type = 'YYYY-MM-DD hh:mm:ss') {
   return this.$globalFunc.formatDateUitl(time, type)
+}
+
+// 判断是否是ios打开
+root.methods.isIOSQuery = function () {
+  if(this.$route.query.isIOS) {
+    this.isIOS = true
+  } else {
+    this.isIOS = false
+  }
 }
 
 /*---------------------- 保留小数 begin ---------------------*/
