@@ -228,7 +228,7 @@ root.methods.timeAddition = function (item) {
 root.methods.inLottery = function (item) {
   let addTime = 30 * 1000
   let nowTime = (new Date()).valueOf();
-  if(nowTime > (item.openTime - addTime)){
+  if(nowTime > (item.openTime - addTime) && nowTime < (item.openTime + addTime)){
     return true
   }
 }
@@ -653,6 +653,11 @@ root.methods.submitToastInfo = function () {
 
   if (!this.inputUserAmount || this.inputUserAmount == 0) {
     this.openPop('请输入参与份数')
+    return
+  }
+  if (! /^\d+$/.test(this.inputUserAmount)) {
+    // this.openPop('请输入正确的份数')
+    this.wrongWA = '请输入正确的份数'
     return
   }
 
