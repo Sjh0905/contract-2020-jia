@@ -226,9 +226,9 @@ root.methods.timeAddition = function (item) {
 }
 // 开奖中
 root.methods.inLottery = function (item) {
-  let addTime = 30 * 1000
+  let addTime = 20 * 1000
   let nowTime = (new Date()).valueOf();
-  if(nowTime > (item.openTime - addTime) && nowTime < (item.openTime + addTime)){
+  if(nowTime > (item.openTime - addTime) && nowTime < (item.openTime + addTime) && item.residueTicket >=10){
     return true
   }
 }
