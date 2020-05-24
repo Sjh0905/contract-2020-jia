@@ -93,18 +93,39 @@ root.created = function () {
 
 
   if (this.iosQuery) {
-    window.postMessage(JSON.stringify({
-      method: 'transparentHeader',
-      parameters: {
-        color:'transparent',
-        hiddenRight:true
-      }
-    }))
-    window.postMessage(JSON.stringify({
-        method: 'setTitle',
-        parameters: ''
-      })
-    )
+
+    var postFunc = function(){
+      window.postMessage(JSON.stringify({
+        method: 'transparentHeader',
+        parameters: {
+          color:'transparent',
+          hiddenRight:true
+        }
+      }))
+      window.postMessage(JSON.stringify({
+          method: 'setTitle',
+          parameters: ''
+        })
+      )
+    }
+
+    postFunc()
+    setTimeout(()=>{
+      postFunc()
+    },500)//为了避免头部隐藏失败，多执行一次，时间过长会影响其他页面
+
+    // window.postMessage(JSON.stringify({
+    //   method: 'transparentHeader',
+    //   parameters: {
+    //     color:'transparent',
+    //     hiddenRight:true
+    //   }
+    // }))
+    // window.postMessage(JSON.stringify({
+    //     method: 'setTitle',
+    //     parameters: ''
+    //   })
+    // )
     window.postMessage(JSON.stringify({
       method: 'setH5Back',
       parameters: {
@@ -504,6 +525,12 @@ root.methods.drawCanvas = function () {
 
 root.methods.jumpToBack = function () {
   this.$router.replace({name: 'NewH5homePage'})
+}
+
+root.methods.jumpToBackIOS = function () {
+  window.postMessage(JSON.stringify({
+    method: 'toHomePage'
+  }))
 }
 
 
