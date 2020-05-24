@@ -239,35 +239,50 @@ root.methods.scrollPage = function () {
   let scrollTop = window.pageYOffset || document.documentElement.scrollTop
 
   let box = ''
+  let iosTitle = ''
+  let iosTitleHidden = ''
   let pageHeaderHeight = 0
+
+  let color = 'transparent'
+  let shadowColor = 'none'
+  let titleColor = '#ffffff'
 
   if (this.iosQuery) {
     pageHeaderHeight = this.windowWidth * 128 / 375
 
     box = $('.forecast-activity-homepage-header-title-ios-box');
+    iosTitle = $('.forecast-activity-homepage-header-title-text');
+    iosTitleHidden = $('.forecast-activity-homepage-header-title-text-hidden');
+
+    // if (scrollTop > pageHeaderHeight) {
+      color = '#ffffff'
+      shadowColor = '0 4px 16px rgba(0,0,0,0.2)'
+      titleColor='#0D0E23'
+    // } else {s
+    //   color = 'rgba(255,255,255,' + this.toFixed(scrollTop / pageHeaderHeight, 2) + ')'
+    //   shadowColor = '0 4px 16px rgba(0,0,0,' + this.toFixed(0.2 * scrollTop / pageHeaderHeight, 2) + ')'
+    //   titleColor = 'rgba(13,14,35,' + this.toFixed(0.2 * scrollTop / pageHeaderHeight, 2) + ')'
+    // }
   }
   if (!this.iosQuery) {
     pageHeaderHeight = this.windowWidth * 88 / 375
 
     box = $('.forecast-activity-homepage-header-title');
-  }
 
-  let color = 'transparent'
-
-  let shadowColor = 'none'
-
-
-  if (scrollTop > pageHeaderHeight) {
-    color = '#243156'
-    shadowColor = '0 4px 16px rgba(0,0,0,0.2)'
-  } else {
-    color = 'rgba(36,49,86,' + this.toFixed(scrollTop / pageHeaderHeight, 2) + ')'
-    shadowColor = '0 4px 16px rgba(0,0,0,' + this.toFixed(0.2 * scrollTop / pageHeaderHeight, 2) + ')'
+    if (scrollTop > pageHeaderHeight) {
+      color = '#172841'
+      shadowColor = '0 4px 16px rgba(0,0,0,0.2)'
+    } else {
+      color = 'rgba(23,40,65,' + this.toFixed(scrollTop / pageHeaderHeight, 2) + ')'
+      shadowColor = '0 4px 16px rgba(0,0,0,' + this.toFixed(0.2 * scrollTop / pageHeaderHeight, 2) + ')'
+    }
   }
 
 
   box.css("background-color", color);
   box.css("box-shadow", shadowColor);
+  iosTitle.css("color", titleColor);
+  iosTitleHidden.css("box-shadow", titleColor);
 
   if (this.titleList.length <= 1) {
     return

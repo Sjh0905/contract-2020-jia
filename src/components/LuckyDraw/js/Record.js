@@ -87,12 +87,6 @@ root.created = function () {
       method: 'revertHeader'
     }))
     window.postMessage(JSON.stringify({
-      method: 'transparentHeader',
-      parameters: {
-        color:'#ffffff',//因为其他页面写成transparent隐藏了APP返回箭头，所以需要初始化
-      }
-    }))
-    window.postMessage(JSON.stringify({
         method: 'setTitle',
         parameters: '参与记录'
       })
