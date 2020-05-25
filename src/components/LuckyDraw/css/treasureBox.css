@@ -311,7 +311,7 @@
 
 
 .svg-progress {
-  transform: rotate(-84.05deg);
+  transform: rotate(-90deg);
 }
 .circle-progress {
   transition: stroke-dasharray .2s;
