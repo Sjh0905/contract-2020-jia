@@ -74,6 +74,8 @@ root.data = function () {
 
     h5LoadingMore: false, // h5加载更多
 
+    isApp:false,
+    isIOS:false
 
   }
 }

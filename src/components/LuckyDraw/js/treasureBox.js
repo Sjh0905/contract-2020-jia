@@ -279,11 +279,14 @@ root.methods.scrollPage = function () {
       color = '#ffffff'
       shadowColor = '0 4px 16px rgba(0,0,0,0.2)'
       titleColor='#0D0E23'
-    // } else {s
+    // } else {
     //   color = 'rgba(255,255,255,' + this.toFixed(scrollTop / pageHeaderHeight, 2) + ')'
     //   shadowColor = '0 4px 16px rgba(0,0,0,' + this.toFixed(0.2 * scrollTop / pageHeaderHeight, 2) + ')'
     //   titleColor = 'rgba(13,14,35,' + this.toFixed(0.2 * scrollTop / pageHeaderHeight, 2) + ')'
     // }
+
+    iosTitle.css("color", titleColor);
+    iosTitleHidden.css("box-shadow", shadowColor);
   }
   if (!this.iosQuery) {
     pageHeaderHeight = this.windowWidth * 88 / 375
@@ -302,8 +305,6 @@ root.methods.scrollPage = function () {
 
   box.css("background-color", color);
   box.css("box-shadow", shadowColor);
-  iosTitle.css("color", titleColor);
-  iosTitleHidden.css("box-shadow", titleColor);
 
   if (this.titleList.length <= 1) {
     return
