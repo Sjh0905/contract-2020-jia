@@ -4,15 +4,15 @@
 }
 
 .forecast-activity-homepage-box {
-  position: absolute;
+  position: relative;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  /*background: #081724;*/
+  /*background: #3E99F8;*/
 
   /*background: url("../assets/mobileForecastHomePage/header_bg.jpg") #102033 no-repeat;*/
-  /*background-size: 100% auto;*/
+  background-size: 100% auto;
   background-position: 0 top;
 }
 
@@ -29,9 +29,10 @@
 .forecast-activity-homepage {
   /*min-height: 100%;*/
   position: relative;
-  background: url("../assets/mobileForecastHomePage/header_bg.png") no-repeat;
-  background-size: 100% auto;
-  background-position: 0 top;
+  background: #3E99F8 no-repeat fixed center;
+  /*background: #3E99F8;*/
+  background-size: 80% auto;
+  background-position: center top;
 }
 
 .forecast-activity-homepage-header-title {
@@ -42,6 +43,7 @@
   justify-content: center;
   align-items: center;
   top: 0;
+  background: #fff;
   z-index: 100;
 }
 
@@ -84,9 +86,14 @@
 .forecast-activity-homepage-header-title-info-icon {
   position: absolute;
   top: 0;
-  right: 0;
-  width: 0.88rem;
+  right: 0.3rem;
+  color: #3E536C;
+  font-size:0.28rem;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  /*width: 0.88rem;*/
   height: 0.88rem;
+  line-height: 0.88rem;
 }
 
 .forecast-activity-homepage-header-title-info-icon-img {
@@ -98,10 +105,11 @@
 }
 
 .forecast-activity-homepage-header-title-text {
-  height: 18px;
-  line-height: 18px;
-  font-size: 17px;
-  color: #fff;
+  height:0.44rem;
+  font-size:0.32rem;
+  font-family:PingFangSC-Semibold,PingFang SC;
+  font-weight:600;
+  color: #0B0B27;
 }
 
 .forecast-activity-homepage-header-title-text-hidden {
@@ -128,7 +136,7 @@
 }
 
 .forecast-activity-homepage-header-tab {
-  margin-top: 3rem;
+  /*margin-top: 3rem;*/
   /*height: 0.8rem;*/
   display: flex;
   align-items: center;
@@ -140,6 +148,36 @@
   margin: 0;
   height: 2.64rem;
   display: block;
+}
+
+.forecast-activity-homepage-top-img {
+  position: relative;
+  height: 3.8rem;
+  margin-top: 0.88rem;
+  width: 100%;
+  /*margin: 0.6rem auto 0;*/
+}
+
+.forecast-activity-homepage-top-img img {
+  display: block;
+  margin: 0 auto;
+  width: 6.48rem;
+}
+
+.forecast-activity-homepage-top-record {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  width: 1.36rem;
+  height: 0.46rem;
+  line-height: 0.46rem;
+  text-align: center;
+  color: #172841;
+  font-size:0.24rem;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  border-radius: 0.24rem 0 0 0.24rem;
+  background:linear-gradient(180deg,rgba(255,233,35,1) 0%,rgba(255,214,19,1) 100%);
 }
 
 .forecast-activity-homepage-header-list {
@@ -223,17 +261,17 @@
 }
 
 .forecast-activity-homepage-container {
-  margin-top: 0.36rem;
+  /*margin-top: 0.36rem;*/
   padding: 0 10px 20px;
 }
 
 .forecast-activity-homepage-container-item {
   width: 100%;
-  background: #172841;
-  background:rgba(23,40,65,1);
-  box-shadow:0px 3px 4px 0px rgba(0,0,0,0.28);
-  border-radius:3px;
-  margin-bottom: 10px;
+  background: #fff;
+  /*background:rgba(23,40,65,1);*/
+  box-shadow:0rem 0.2rem 0.24rem -0.12rem rgba(0,2,40,0.2);
+  border-radius: 0.04rem;
+  margin-bottom: 0.4rem;
 }
 
 .forecast-activity-homepage-container-item-up {
@@ -293,10 +331,10 @@
   font-family:Helvetica-Bold,Helvetica;
   font-weight:bold;
   text-align: center;
-  background: #fff;
+  background: #172841;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  text-shadow: 0 2px 4px rgba(0,0,0,0.29);
+  /*text-shadow: 0 2px 4px rgba(0,0,0,0.29);*/
   top: 52%;
   left: 50%;
   transform: translate(-50%,-50%);
@@ -329,7 +367,7 @@
 
 .forecast-activity-homepage-container-item-info-title-left-text {
   margin-left: 0.12rem;
-  color: #D0D4E9;
+  color: #172841;
   font-size: 0.24rem;
   height: 0.32rem;
   line-height: 0.32rem;
@@ -350,13 +388,13 @@
   height: 0.72rem;
   align-items: center;
   justify-content: space-between;
-  background: #141F3D;
-  border: 1px solid #203867;
+  background: #F2F4FB;
+  border: 1px solid #CFD3E9;
   margin-top: 0.2rem;
-  border-radius: 4px;
+  border-radius: 0.04rem;
   padding-left: 6px;
   padding-right: 10px;
-  color: #D0D4E9;
+  color: #172841;
   font-size: 0.28rem;
 }
 
@@ -386,7 +424,7 @@
 }
 
 .forecast-activity-homepage-container-item-info-last-left {
-  color: #CFD3E9;
+  color: #172841;
 }
 
 .forecast-activity-homepage-container-item-info-last-right {
@@ -396,18 +434,18 @@
 .forecast-activity-homepage-container-item-down {
   height: 1.6rem;
   display: flex;
-  border-top: 1px solid #3E536C;
+  border-top: 1px solid #D6DFEB;
   box-sizing: content-box;
   align-items: center;
   justify-content: center;
 }
 
 .forecast-activity-homepage-container-item-down-btn {
-  width: 300px;
-  height: 40px;
-  line-height: 40px;
-  font-size: 16px;
-  border-radius: 20px;
+  width: 6rem;
+  height: 0.8rem;
+  line-height: 0.8rem;
+  font-size: 0.32rem;
+  border-radius:0.08rem;
   text-align: center;
   box-sizing: content-box;
 }
@@ -415,13 +453,15 @@
 .forecast-activity-homepage-container-item-down-btn-join {
   color: #fff;
   background:linear-gradient(270deg,rgba(53,118,245,1) 0%,rgba(69,154,245,1) 100%);
-  box-shadow:0px 10px 12px -6px rgba(0,2,40,0.2);
+  box-shadow:0rem 0.2rem 0.24rem -0.12rem rgba(53,118,245,0.7);
 }
 
 .forecast-activity-homepage-container-item-down-btn-releace {
   background: transparent;
-  color: #fff;
-  border: 1px solid #3576F5;
+  color: #6A83A8;
+  background: #F2F4FB;
+  box-shadow:0rem 0.2rem 0.24rem -0.12rem rgba(0,2,40,0.2);
+  /*border: 1px solid #3576F5;*/
 }
 
 .svg-btn path{
@@ -615,7 +655,6 @@
   transform: translateY(-50%);
   font-size: 12px;
   color: #000;
-
 }
 
 .forecast-activity-toast-content-info {

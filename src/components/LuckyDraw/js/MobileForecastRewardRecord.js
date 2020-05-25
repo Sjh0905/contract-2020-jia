@@ -73,7 +73,7 @@ root.methods = {};
 
 root.methods.goToCurrentPre = function (item) {
   console.info('item=====',item)
-  this.$router.push({name: 'MobileForecastJoinRecord', query: {projectId: item.projectId,periodNumber:item.itemNumber,currency:item.currency,isIOS:this.isIOS}})
+  this.$router.push({name: 'MobileForecastJoinRecord', query: {projectId: item.projectId,periodNumber:item.itemNumber,currency:item.currency,isIOS:this.isIOS,blockContractUrl:item.blockContractUrl}})
   // this.$router.push('/static/mobileForecastJoinRecord?projectId='+item.projectId)
   // mobileForecastJoinRecord?projectId=1&periodNumber=00000003&currency=KK
 }

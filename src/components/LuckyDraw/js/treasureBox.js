@@ -78,7 +78,7 @@ root.data = function () {
 root.created = function () {
 
   // 监听windows高度
-  window.addEventListener('scroll', this.scrollPage)
+  // window.addEventListener('scroll', this.scrollPage)
 
 
   // 获取页面信息
@@ -178,7 +178,7 @@ root.mounted = function () {
 }
 
 root.beforeDestroy = function () {
-  window.removeEventListener('scroll', this.scrollPage)
+  // window.removeEventListener('scroll', this.scrollPage)
 
   clearInterval(this.pageInfoInterval);
 

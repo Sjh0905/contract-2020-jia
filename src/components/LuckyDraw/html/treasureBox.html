@@ -13,7 +13,8 @@
         <div class="forecast-activity-homepage-header-title-text" v-if="titleList.length <= 1">百宝箱</div>
         <div class="forecast-activity-homepage-header-title-text-hidden" v-if="titleList.length > 1">百宝箱</div>
         <div class="forecast-activity-homepage-header-title-info-icon" @click="jumpToInfo()">
-          <img class="forecast-activity-homepage-header-title-info-icon-img" src="../assets/mobileForecastHomePage/rule_icon.png" alt="">
+          活动规则
+<!--          <img class="forecast-activity-homepage-header-title-info-icon-img" src="../assets/mobileForecastHomePage/rule_icon.png" alt="">-->
         </div>
       </div>
       <!--ios头部-->
@@ -30,21 +31,30 @@
           </div>
         </div>
       </div>
-      <div class="forecast-activity-homepage-header-tab" v-if="titleList.length > 1">
-        <div class="forecast-activity-homepage-header-list">
-          <div v-for="(item,index) in titleList" :key="index" class="forecast-activity-homepage-header-item" :class="selectedIndex === index?'forecast-activity-homepage-header-item-active':''" @click="clickToSelectIndex(index)">
-            <div class="forecast-activity-homepage-header-item-text">{{item}}</div>
-            <div v-if="titleList.length>2 && sforecast-activity-homepage-container-item-info-title-left-logoelectedIndex != index && selectedIndex != index+1" class="forecast-activity-homepage-header-item-cutter"></div>
-            <div v-if="titleList.length>2 && (selectedIndex === index || selectedIndex === index+1)" class="forecast-activity-homepage-header-item-cutter-active"></div>
-          </div>
+
+<!--      <div class="forecast-activity-homepage-header-tab" v-if="titleList.length > 1">-->
+<!--        <div class="forecast-activity-homepage-header-list">-->
+<!--          <div v-for="(item,index) in titleList" :key="index" class="forecast-activity-homepage-header-item" :class="selectedIndex === index?'forecast-activity-homepage-header-item-active':''" @click="clickToSelectIndex(index)">-->
+<!--            <div class="forecast-activity-homepage-header-item-text">{{item}}</div>-->
+<!--            <div v-if="titleList.length>2 && sforecast-activity-homepage-container-item-info-title-left-logoelectedIndex != index && selectedIndex != index+1" class="forecast-activity-homepage-header-item-cutter"></div>-->
+<!--            <div v-if="titleList.length>2 && (selectedIndex === index || selectedIndex === index+1)" class="forecast-activity-homepage-header-item-cutter-active"></div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="forecast-activity-homepage-header-tab-no-list" v-if="titleList.length <= 1"></div>-->
+      <div class="forecast-activity-homepage-top-img">
+        <img src="../assets/mobileForecastHomePage/header_bg.png" alt="">
+        <div v-if="(isLogin || iosLogin)" @click="goToRecord"  class="forecast-activity-homepage-top-record">
+          参与记录
         </div>
       </div>
-      <div class="forecast-activity-homepage-header-tab-no-list" v-if="titleList.length <= 1"></div>
-      <div class="forecast-activity-homepage-address">
-        <div class="forecast-activity-homepage-header-address-left"></div>
-        <!-- @click="goToDesdroyRecord" 销毁记录-->
-        <div v-if="(isLogin || iosLogin)" class="forecast-activity-homepage-header-address-right" @click="goToRecord">参与记录</div>
-      </div>
+
+
+<!--      <div class="forecast-activity-homepage-address">-->
+<!--        <div class="forecast-activity-homepage-header-address-left"></div>-->
+<!--        &lt;!&ndash; @click="goToDesdroyRecord" 销毁记录&ndash;&gt;-->
+<!--        <div class="forecast-activity-homepage-header-address-right" >参与记录</div>-->
+<!--      </div>-->
       <div class="forecast-activity-homepage-container">
         <div class="forecast-activity-homepage-container-item" v-for="(item,index) in containerList" :key="item.projectId">
           <div class="forecast-activity-homepage-container-item-up">

@@ -31,6 +31,8 @@ root.created = function () {
 
   this.currency = this.$route.query.currency
 
+  console.info(this.$route.query.blockContractUrl)
+
   this.$store.commit('changeMobileHeaderTitle', '本期参与');
   if(this.$route.query.isIOS) {
     window.postMessage(JSON.stringify({
