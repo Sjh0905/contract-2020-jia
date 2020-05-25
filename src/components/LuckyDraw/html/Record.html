@@ -218,7 +218,7 @@
 
   <template v-if="isMobile">
 
-    <div class="divHeader">
+    <div v-if="!(isApp||isIOS)" class="divHeader">
       <img class="divHeaderImg" src="../../../assets/fanhui.png" alt="" @click="ReturnToActivePage">
       <span class="divHeaderSpan">参与记录</span>
     </div>
@@ -476,7 +476,7 @@
           <div class="h5-popup-window-p flex">
             <div class="h5-popup-window-article-detail-title">我的中奖：</div>
             <div class="h5-popup-window-article-detail">
-              {{checkInfo.rewardAmount ? checkInfo.rewardAmount : checkInfo.winStatus}}
+              {{checkInfo.rewardAmount ? toFixed(checkInfo.rewardAmount,4) + ' '+checkInfo.currency: checkInfo.winStatus}}
             </div>
           </div>
           <div class="h5-popup-window-p flex" v-if="checkInfo.winNumber">

@@ -18,6 +18,10 @@
   /*background-size: 100% 100%;*/
 }
 
+.mobile-forecast-record-box-app {
+  top: -50px;
+}
+
 .mobile-forecast-record-title {
   /*position: absolute;*/
   /*top: 0;*/
@@ -53,7 +57,7 @@
 
 .mobile-forecast-record-title-num {
   width: 0.1rem;
-  height: 0.18rem;
+  /*height: 0.18rem;*/
   margin-left: 0.12rem;
 }
 

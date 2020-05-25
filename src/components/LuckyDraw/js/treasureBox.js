@@ -93,18 +93,39 @@ root.created = function () {
 
 
   if (this.iosQuery) {
-    window.postMessage(JSON.stringify({
-      method: 'transparentHeader',
-      parameters: {
-        color:'transparent',
-        hiddenRight:true
-      }
-    }))
-    window.postMessage(JSON.stringify({
-        method: 'setTitle',
-        parameters: ''
-      })
-    )
+
+    var postFunc = function(){
+      window.postMessage(JSON.stringify({
+        method: 'transparentHeader',
+        parameters: {
+          color:'transparent',
+          hiddenRight:true
+        }
+      }))
+      window.postMessage(JSON.stringify({
+          method: 'setTitle',
+          parameters: ''
+        })
+      )
+    }
+
+    postFunc()
+    setTimeout(()=>{
+      postFunc()
+    },500)//为了避免头部隐藏失败，多执行一次，时间过长会影响其他页面
+
+    // window.postMessage(JSON.stringify({
+    //   method: 'transparentHeader',
+    //   parameters: {
+    //     color:'transparent',
+    //     hiddenRight:true
+    //   }
+    // }))
+    // window.postMessage(JSON.stringify({
+    //     method: 'setTitle',
+    //     parameters: ''
+    //   })
+    // )
     window.postMessage(JSON.stringify({
       method: 'setH5Back',
       parameters: {
@@ -121,23 +142,23 @@ root.created = function () {
     }
 
     let that = this
-    document.addEventListener('message',
-      function ({data}) {
-        that.loading = true
-        that.$store.commit('LOGIN_OUT')
-
-
-
-        data = JSON.parse(data)
-        if (!data.parameters) {
-          that.loading = false
-          this.ruleToastFlag = false
-          this.viewAgreement = true
-          return
-        }
-        that.getCookie(data.parameters)
-      }
-    )
+    // document.addEventListener('message',
+    //   function ({data}) {
+    //     that.loading = true
+    //     that.$store.commit('LOGIN_OUT')
+    //
+    //
+    //
+    //     data = JSON.parse(data)
+    //     if (!data.parameters) {
+    //       that.loading = false
+    //       this.ruleToastFlag = false
+    //       this.viewAgreement = true
+    //       return
+    //     }
+    //     that.getCookie(data.parameters)
+    //   }
+    // )
     this.clientLoad()
 
 
@@ -226,9 +247,9 @@ root.methods.timeAddition = function (item) {
 }
 // 开奖中
 root.methods.inLottery = function (item) {
-  let addTime = 30 * 1000
+  let addTime = 20 * 1000
   let nowTime = (new Date()).valueOf();
-  if(nowTime > (item.openTime - addTime)){
+  if(nowTime > (item.openTime - addTime) && nowTime < (item.openTime + addTime) && item.residueTicket >=10){
     return true
   }
 }
@@ -239,35 +260,50 @@ root.methods.scrollPage = function () {
   let scrollTop = window.pageYOffset || document.documentElement.scrollTop
 
   let box = ''
+  let iosTitle = ''
+  let iosTitleHidden = ''
   let pageHeaderHeight = 0
+
+  let color = 'transparent'
+  let shadowColor = 'none'
+  let titleColor = '#ffffff'
 
   if (this.iosQuery) {
     pageHeaderHeight = this.windowWidth * 128 / 375
 
     box = $('.forecast-activity-homepage-header-title-ios-box');
+    iosTitle = $('.forecast-activity-homepage-header-title-text');
+    iosTitleHidden = $('.forecast-activity-homepage-header-title-text-hidden');
+
+    // if (scrollTop > pageHeaderHeight) {
+      color = '#ffffff'
+      shadowColor = '0 4px 16px rgba(0,0,0,0.2)'
+      titleColor='#0D0E23'
+    // } else {s
+    //   color = 'rgba(255,255,255,' + this.toFixed(scrollTop / pageHeaderHeight, 2) + ')'
+    //   shadowColor = '0 4px 16px rgba(0,0,0,' + this.toFixed(0.2 * scrollTop / pageHeaderHeight, 2) + ')'
+    //   titleColor = 'rgba(13,14,35,' + this.toFixed(0.2 * scrollTop / pageHeaderHeight, 2) + ')'
+    // }
   }
   if (!this.iosQuery) {
     pageHeaderHeight = this.windowWidth * 88 / 375
 
     box = $('.forecast-activity-homepage-header-title');
-  }
 
-  let color = 'transparent'
-
-  let shadowColor = 'none'
-
-
-  if (scrollTop > pageHeaderHeight) {
-    color = '#243156'
-    shadowColor = '0 4px 16px rgba(0,0,0,0.2)'
-  } else {
-    color = 'rgba(36,49,86,' + this.toFixed(scrollTop / pageHeaderHeight, 2) + ')'
-    shadowColor = '0 4px 16px rgba(0,0,0,' + this.toFixed(0.2 * scrollTop / pageHeaderHeight, 2) + ')'
+    if (scrollTop > pageHeaderHeight) {
+      color = '#172841'
+      shadowColor = '0 4px 16px rgba(0,0,0,0.2)'
+    } else {
+      color = 'rgba(23,40,65,' + this.toFixed(scrollTop / pageHeaderHeight, 2) + ')'
+      shadowColor = '0 4px 16px rgba(0,0,0,' + this.toFixed(0.2 * scrollTop / pageHeaderHeight, 2) + ')'
+    }
   }
 
 
   box.css("background-color", color);
   box.css("box-shadow", shadowColor);
+  iosTitle.css("color", titleColor);
+  iosTitleHidden.css("box-shadow", titleColor);
 
   if (this.titleList.length <= 1) {
     return
@@ -311,12 +347,12 @@ root.methods.clientLoad = function () {
 
 // IOS请求putCookie
 root.methods.getCookie = function (data) {
-  return this.$http.send('PUT_COOKIE', {
-    params: data,
-    bind: this,
-    callBack: this.re_getCookie,
-    errorHandler: this.error_getCookie
-  })
+  // return this.$http.send('PUT_COOKIE', {
+  //   params: data,
+  //   bind: this,
+  //   callBack: this.re_getCookie,
+  //   errorHandler: this.error_getCookie
+  // })
 }
 
 root.methods.re_getCookie = function (data) {
@@ -470,7 +506,7 @@ root.methods.re_getActivityInfo = function (res) {
 
 // svg在页面上画圆环
 root.methods.changeSvg = function (num1, num2) {
-  return '' + this.toFixed(Number(num1) * 231 / Number(num2), 0) + ' 251'
+  return '' + this.toFixed(Number(num1) * 236 / Number(num2), 0) + ' 251'
 
 }
 
@@ -489,6 +525,12 @@ root.methods.drawCanvas = function () {
 
 root.methods.jumpToBack = function () {
   this.$router.replace({name: 'NewH5homePage'})
+}
+
+root.methods.jumpToBackIOS = function () {
+  window.postMessage(JSON.stringify({
+    method: 'toHomePage'
+  }))
 }
 
 
@@ -653,6 +695,11 @@ root.methods.submitToastInfo = function () {
 
   if (!this.inputUserAmount || this.inputUserAmount == 0) {
     this.openPop('请输入参与份数')
+    return
+  }
+  if (! /^\d+$/.test(this.inputUserAmount)) {
+    // this.openPop('请输入正确的份数')
+    this.wrongWA = '请输入正确的份数'
     return
   }
 
