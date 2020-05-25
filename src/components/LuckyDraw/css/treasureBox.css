@@ -667,8 +667,8 @@
   height: 17px;
   padding: 0 0.4rem;
   box-sizing: border-box;
-  font-size: 12px;
-  line-height: 17px;
+  font-size: 0.24rem;
+  line-height: 0.34rem;
   color: #FD5555;
 }
 
@@ -680,8 +680,8 @@
   /*background-size: 100% 100%;*/
   text-align: center;
   color: #fff;
-  line-height: 36px;
-  font-size: 14px;
+  line-height: 0.72rem;
+  font-size: 0.28rem;
 }
 
 .forecast-activity-ruleToast {
@@ -695,16 +695,7 @@
 }
 
 .title {
-  position: absolute;
-  top: 27.5%;
-  left: 50%;
-  transform: translate(-50%,-50%);
-  /*min-height: 284px; !*使用min-height是为了兼容首次进入有按钮的样式*!*/
-  width: 320px;
   background: #EFF0FF;
-  border-radius: 0.06rem 0.06rem 0 0;
-  padding: 0 20px;
-  z-index: 1;
 }
 
 .forecast-activity-ruleToast-box {
@@ -716,7 +707,6 @@
   width: 6.4rem;
   background: #fff;
   border-radius: 0.06rem;
-  padding: 0 20px;
 }
 
 .forecast-activity-ruleToast-close-btn {
@@ -773,6 +763,7 @@
   font-weight:400;
   line-height: 0.32rem;
   text-align: justify;
+  padding: 0 0.4rem;
 }
 
 .forecast-activity-ruleToast-content-list {

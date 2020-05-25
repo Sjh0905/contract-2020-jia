@@ -107,14 +107,17 @@
       <!--初始进入会有活动规则弹窗-->
       <div v-if="ruleToastFlag" class="forecast-activity-ruleToast">
 
-        <div class="title">
-          <div class="forecast-activity-ruleToast-close-btn" @click="closeRuleToast">
-            <img class="forecast-activity-ruleToast-close-btn-img" src="../assets/mobileForecastHomePage/close_btn.png" alt="">
-          </div>
-          <div class="forecast-activity-ruleToast-title">活动规则</div>
-        </div>
+<!--        <div class="title">-->
+
+<!--        </div>-->
 
         <div class="forecast-activity-ruleToast-box">
+         <div class="title">
+           <div class="forecast-activity-ruleToast-close-btn" @click="closeRuleToast">
+             <img class="forecast-activity-ruleToast-close-btn-img" src="../assets/mobileForecastHomePage/close_btn.png" alt="">
+           </div>
+           <div class="forecast-activity-ruleToast-title">活动规则</div>
+         </div>
           <div :class="!(isLogin && !viewAgreement)? 'forecast-activity-ruleToast-content-readonly':'forecast-activity-ruleToast-content'">
             <div class="forecast-activity-ruleToast-content-info">“百宝箱”是基于以太坊区块链数据的竞猜游戏，游戏获胜者可独享奖池。</div>
 <!--            <div class="forecast-activity-ruleToast-content-list-title strong">活动规则如下：</div>-->

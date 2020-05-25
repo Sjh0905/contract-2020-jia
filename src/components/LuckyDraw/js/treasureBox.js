@@ -506,7 +506,7 @@ root.methods.re_getActivityInfo = function (res) {
 
 // svg在页面上画圆环
 root.methods.changeSvg = function (num1, num2) {
-  return '' + this.toFixed(Number(num1) * 231 / Number(num2), 0) + ' 251'
+  return '' + this.toFixed(Number(num1) * 236 / Number(num2), 0) + ' 251'
 
 }
 
