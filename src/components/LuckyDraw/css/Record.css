@@ -287,33 +287,36 @@
 /*h5*/
 .h5-process-container {
   overflow: hidden;
-  width: 270px;
-  height: 35px;
-  line-height: 35px;
+  /*width: 270px;*/
+  height: 0.88rem;
+  line-height: 0.88rem;
   justify-content: space-between;
-  border: 1px solid #3576F5;
-  color: white;
+  /*border: 1px solid #3576F5;*/
+  /*color: white;*/
   margin: 0 auto;
-  border-radius: 35px;
-  margin-top: 15px;
+  padding: 0 0.9rem;
+  /*border-radius: 35px;*/
+  /*margin-top: 15px;*/
+  background-color: #FFFFFF;
 }
 
 .h5-process-item {
-  flex: 1;
+  /*flex: 1;*/
   text-align: center;
   height: 100%;
   color: #6A83A8;
 }
 
 .h5-process-item-selected {
-  background: #3576F5;
-  color: white;
+  /*background: #3576F5;*/
+  border-bottom: 2px solid #3576F5;
+  color: #3576F5;
 }
 
 
 .h5-process-center {
-  border-left: 1px solid rgba(53,118,245, 0.2);
-  border-right: 1px solid rgba(53,118,245, 0.2);
+  /*border-left: 1px solid rgba(53,118,245, 0.2);*/
+  /*border-right: 1px solid rgba(53,118,245, 0.2);*/
 }
 
 /*h5列表*/
