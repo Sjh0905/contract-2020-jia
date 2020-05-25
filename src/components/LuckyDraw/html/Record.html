@@ -478,7 +478,7 @@
           <div class="h5-popup-window-p flex">
             <div class="h5-popup-window-article-detail-title">我的中奖：</div>
             <div class="h5-popup-window-article-detail">
-              {{checkInfo.rewardAmount ? checkInfo.rewardAmount : checkInfo.winStatus}}
+              {{checkInfo.rewardAmount ? toFixed(checkInfo.rewardAmount,4) + checkInfo.currency: checkInfo.winStatus}}
             </div>
           </div>
           <div class="h5-popup-window-p flex" v-if="checkInfo.winNumber">
