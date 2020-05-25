@@ -43,9 +43,24 @@
   text-align: center;
 }
 
+.examine {
+  height: 0.6rem;
+  line-height: 0.6rem;
+  padding: 0 0.3rem;
+  width: 7.5rem;
+  background: #D2E1FF;
+  color: #131F30;
+  justify-content: space-between;
+}
+
+
+.examine-img img {
+  vertical-align: text-top;
+}
+
 .mobile-forecast-record-title {
   position: absolute;
-  top: 1rem;
+  top: 1.6rem;
   left: 0;
   right: 0;
   width: 7.5rem;
@@ -73,7 +88,7 @@
 }
 
 .num {
-  flex: 11;
+  flex: 14;
   text-align: right;
 }
 

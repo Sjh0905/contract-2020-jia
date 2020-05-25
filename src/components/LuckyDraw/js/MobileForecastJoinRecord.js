@@ -19,7 +19,9 @@ root.data = function () {
 
     currency: '',
     isApp:false,
-    isIOS:false
+    isIOS:false,
+    winningNumber:'',
+    winningBool:false
   }
 }
 
@@ -58,12 +60,23 @@ root.created = function () {
 }
 
 root.computed = {};
+// root.computed.computedwinningNumber = function () {
+//   this.dataList.forEach(v=>{
+//     console.info('vvvv========',v)
+//     if(v.ticketStatus == 5){
+//       return this.winningNumber = v.predictNumber
+//     }
+//   })
+// }
 
 root.watch = {};
 
 
 root.methods = {};
 
+root.methods.goToBlocks = function () {
+  window.open(this.$route.query.blockContractUrl)
+}
 
 root.methods.ReturnToActivePage = function () {
   this.$router.push({name:'treasureBox'})
@@ -111,7 +124,11 @@ root.methods.re_getPeriodRecord = function (res) {
   if (res.result != 'FAIL') {
     this.dataList = res.dataMap.lotteryRecordList
   }
-
+  this.dataList.forEach(v=>{
+    if(v.ticketStatus == 5){
+      this.winningNumber = v.predictNumber
+    }
+  })
   this.loading = false
 }
 
