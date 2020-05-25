@@ -2,11 +2,22 @@
   width: 100%;
   margin: 0;
   padding: 0;
-  min-width: 1280px;
+  min-width: 1200px;
   position: relative;
   height: 100%;
   overflow-x: hidden;
   background: #070B26;
+}
+
+.body-mobile {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  /*min-width: 1200px;*/
+  position: relative;
+  height: 100%;
+  overflow-x: hidden;
+  background: #F7F8FA;
 }
 
 .page {
@@ -17,7 +28,12 @@
 
 /*最小宽*/
 .min-width {
-  min-width: 1280px;
+  min-width: 1200px;
+}
+
+.isMobile-min-width {
+  height: 100%;
+
 }
 
 /*头部*/
