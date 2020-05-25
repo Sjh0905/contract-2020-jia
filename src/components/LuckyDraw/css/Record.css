@@ -121,7 +121,11 @@
 }
 .Pitem-descriptionImg {
   width: 17px;
-  margin-top: 10px;
+  /*margin-top: 10px;*/
+}
+.descriptionImg {
+  position: relative;
+  right: 25px;
 }
 .list-id-container {
   margin-left: 37px;
@@ -243,6 +247,7 @@
 .list-description-reward-detail {
   align-items: center;
   padding-left: 25px;
+  width: 75%;
 }
 
 .list-description-reward {
