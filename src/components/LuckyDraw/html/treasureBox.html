@@ -128,8 +128,8 @@
            </div>
            <div class="forecast-activity-ruleToast-title">活动规则</div>
          </div>
-          <div :class="!(isLogin && !viewAgreement)? 'forecast-activity-ruleToast-content-readonly':'forecast-activity-ruleToast-content'">
-            <div class="forecast-activity-ruleToast-content-info">“百宝箱”是基于以太坊区块链数据的竞猜游戏，游戏获胜者可独享奖池。</div>
+          <div :class="(isLogin && !viewAgreement)? 'forecast-activity-ruleToast-content-readonly ':'forecast-activity-ruleToast-content'">
+            <div class="forecast-activity-ruleToast-cont?nt-info">“百宝箱”是基于以太坊区块链数据的竞猜游戏，游戏获胜者可独享奖池。</div>
 <!--            <div class="forecast-activity-ruleToast-content-list-title strong">活动规则如下：</div>-->
             <div class="forecast-activity-ruleToast-content-list">
 <!--              <div class="forecast-activity-ruleToast-content-list-tit">以太坊网络智能合约将在每期奖池开奖后，自动生成一个随机开奖号码；</div>-->
@@ -148,7 +148,7 @@
             <!-- 本活动最终解释权归欧联所有。-->
             <!-- </div>-->
           </div>
-          <div v-if="isLogin && !viewAgreement" class="forecast-activity-ruleToast-agreement-box" @click="changeRuleAgreement">
+          <div v-if="isLogin && !viewAgreement"  class="forecast-activity-ruleToast-agreement-box" @click="changeRuleAgreement">
             <div class="forecast-activity-ruleToast-agreement-icon" :class="ruleAgreement === false?'forecast-activity-ruleToast-agreement-icon-no-select':'forecast-activity-ruleToast-agreement-icon-selected'"></div>
             <div class="forecast-activity-ruleToast-agreement-text">我已阅读并同意该活动规则</div>
           </div>
