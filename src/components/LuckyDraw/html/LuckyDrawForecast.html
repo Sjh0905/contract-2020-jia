@@ -1,4 +1,4 @@
-<div class="body">
+<div :class="!isMobile?'body':'body-mobile'">
 
   <div class="page">
 
@@ -12,7 +12,7 @@
 
     <!-- 内容部分 -->
     <div
-      :class="{'min-width':!isMobile}"
+      :class="!isMobile?'min-width':'isMobile-min-width'"
     >
       <router-view></router-view>
     </div>

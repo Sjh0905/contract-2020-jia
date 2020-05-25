@@ -2,6 +2,10 @@
   height:100%;
   background: #131f30;
 }
+.mobile-forecast-record-page-web {
+  height:100%;
+  background-color: #F7F8FA;
+}
 .mobile-forecast-record-box {
   position: absolute;
   overflow: hidden;
@@ -20,7 +24,7 @@
 .mobile-forecast-record-box-title {
   width: 100%;
   height: 1rem;
-  background-color: #172841;
+  background-color: #FFFFFF;
   line-height: 1rem;
   padding-left: 0.3rem;
 }
@@ -32,7 +36,7 @@
 .divHeaderSpan {
   display:inline-block;
   width: 85%;
-  color: #CFD3E9;
+  color: #131F30;
   font-size:0.32rem;
   font-family:PingFangSC-Semibold,PingFang SC;
   font-weight:600;
@@ -44,15 +48,15 @@
   top: 1rem;
   left: 0;
   right: 0;
+  width: 7.5rem;
   height: 0.72rem;
   line-height: 0.72rem;
   display: flex;
   align-items: center;
   padding: 0 0.3rem;
-  font-size: 0.28rem;
-  color: #CFD3E9;
-  width: 7.5rem;
-  background-color: #131F30;
+  font-size: 0.24rem;
+  color:rgba(19,31,48,.6);
+  background-color: #F7F8FA;
 }
 
 .type {
@@ -69,7 +73,7 @@
 }
 
 .num {
-  flex: 18;
+  flex: 11;
   text-align: right;
 }
 
@@ -91,15 +95,15 @@
 }
 
 .mobile-forecast-record-item {
-  height: 0.84rem;
-  line-height: 0.84rem;
+  height: 0.88rem;
+  line-height: 0.88rem;
   display: flex;
   align-items: center;
   width: 7.5rem;
-  color: #D0D4E9;
+  color: #131F30;
   padding: 0 0.3rem;
   font-size: 0.24rem;
-  background-color: #131F30;
+  background-color: #FFFFFF;
 }
 
 .no-data-box {
