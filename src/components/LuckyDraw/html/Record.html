@@ -308,7 +308,7 @@
             <!--已中奖 begin-->
             <div class="h5-record-item-description-container h5-record-item-description-win-container flex"
                  v-if="recordType === 1">
-              <div class="h5-record-item-description-title h5-record-item-description-win">{{toFixed(Number(item.rewardAmount))}}{{item.currency}}</div>
+              <div class="h5-record-item-description-title h5-record-item-description-win">{{toFixed(Number(item.rewardAmount),2)}}{{item.currency}}</div>
               <div class="h5-record-item-open-icon"></div>
             </div>
             <!--已中奖 end-->
