@@ -250,27 +250,27 @@ input:-ms-input-placeholder {
   padding: 25px;
   border-top-left-radius: 9px;
   border-bottom-left-radius: 9px;
-  /*background: url('../assets/mobileForecastHomePage/progress_bar_bg.png') center no-repeat;*/
+  background: url('../assets/mobileForecastHomePage/progress_bar_bg.png') center no-repeat;
   background-size: 63%;
 }
 
 .forecast_symbol {
   position: absolute;
-  height: 100px;
-  width: 100px;
-  left: 46%;
-  margin-left: -50px;
-  top: 56%;
-  margin-top: -50px;
+  height: 120px;
+  width: 120px;
+  left: 50%;
+  margin-left: -60px;
+  top: 50%;
+  margin-top: -60px;
   z-index: 10;
-  line-height: 100px;
+  line-height: 120px;
   text-align: center;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: bolder;
   background-image: -webkit-gradient(linear, 50% 10%, 50% 80%, from(#fff), to(#9a9a9a));
   -webkit-background-clip: text;
   -webkit-text-fill-color: #172841;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.29);
+  /*text-shadow: 0 2px 4px rgba(0, 0, 0, 0.29);*/
   font-family: Helvetica, Arial, sans-serif;
 }
 
@@ -873,13 +873,13 @@ input:-ms-input-placeholder {
   text-align: right;
 }
 .border_circle {
-  width: 94px;
-  height: 94px;
+  width: 120px;
+  height: 120px;
   border-radius: 50%;
-  border: 1px solid #364B68;
+  /*border: 1px solid #364B68;*/
   position: absolute;
-  top: 29px;
-  left: 30px;
+  top: 15px;
+  left: 15px;
 }
 
 .canvas_div {
@@ -941,7 +941,7 @@ input:-ms-input-placeholder {
 
 /*圆环*/
 .svg-progress {
-  transform: rotate(-83.05deg);
+  transform: rotate(-89deg);
 }
 
 .svg-progress circle {
@@ -949,8 +949,8 @@ input:-ms-input-placeholder {
 }
 
 .img-transform {
-  transform: rotate(83deg);
-  transform-origin: 50% 50%;
+  transform: rotate(89deg);
+  transform-origin: 52% 50%;
 }
 
 /*rules*/
@@ -1177,7 +1177,7 @@ input:-ms-input-placeholder {
 
 
 .svg-progress {
-  transform: rotate(-84.05deg);
+  transform: rotate(-89.05deg);
 }
 .circle-progress {
   transition: stroke-dasharray .2s;
