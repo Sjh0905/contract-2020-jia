@@ -7,7 +7,7 @@
         <!--幸运预测活动-->
         {{$t('header_title_1')}}
       </router-link>
-      <span>></span>
+      <span class="spanbf">></span>
       <!--我的参与记录-->
       {{$t('header_title_2')}}
     </div>
@@ -66,7 +66,7 @@
                   <!--项目编号-->
                   {{$t('li_item_id')}}
                 </div>
-                <div class="list-separate">|</div>
+                <div class="list-separate"></div>
                 <div class="list-detail list-id">{{item.currency}}{{item.periodNumber}}</div>
               </div>
               <!--项目编号 end-->
@@ -77,7 +77,7 @@
                   <!--参与份数-->
                   {{$t('li_item_copies')}}
                 </div>
-                <div class="list-separate">|</div>
+                <div class="list-separate"></div>
                 <div class="list-detail list-copies">{{item.countTotal}}</div>
               </div>
               <!--参与份数 end-->
@@ -88,7 +88,7 @@
                   <!--中奖编号-->
                   {{$t('li_win_number')}}
                 </div>
-                <div class="list-separate">|</div>
+                <div class="list-separate"></div>
                 <div class="list-detail list-award-number">{{item.winNumber}}</div>
               </div>
               <!--中奖编号 end-->
@@ -97,10 +97,10 @@
             <!--奖金 begin-->
             <div class="list-description-container flex">
 
-              <div class="description-container-kong">
+<!--              <div class="description-container-kong">-->
 <!--                <div class="description-container-yuan"></div>-->
 <!--                <div class="description-container-yuanxia"></div>-->
-              </div>
+<!--              </div>-->
               <!--进行中的情况 begin-->
               <div class="list-description-detail list-description-ing flex" v-if="recordType===0">
                 <div class="list-description-ing-title">
@@ -218,7 +218,7 @@
 
   <template v-if="isMobile">
 
-    <div class="divHeader">
+    <div v-if="!(isApp||isIOS)" class="divHeader">
       <img class="divHeaderImg" src="../../../assets/fanhui.png" alt="" @click="ReturnToActivePage">
       <span class="divHeaderSpan">参与记录</span>
     </div>

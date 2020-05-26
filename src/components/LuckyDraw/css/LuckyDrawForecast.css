@@ -29,6 +29,7 @@
 /*最小宽*/
 .min-width {
   min-width: 1200px;
+  background-color: #FFFFFF;
 }
 
 .isMobile-min-width {

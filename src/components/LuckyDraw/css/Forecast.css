@@ -19,11 +19,14 @@ input:-ms-input-placeholder {
   cursor: pointer;
 }
 .colorF {
-  color: #F5F6FA;
+  color: #0D0E23;
+  font-size:16px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
 }
-.colorF:hover {
-  color: #3576F5;
-}
+/*.colorF:hover {*/
+/*  color: #3576F5;*/
+/*}*/
 
 .cursorImg {
   width: 19px;
@@ -33,19 +36,47 @@ input:-ms-input-placeholder {
 .forecast {
   width: 100%;
   min-height: 700px;
-  background-image: radial-gradient(28% 37%, #010F4C 18%, #000522 44%);
+  background: #FFFFFF;
 
 }
 
 .forecast_container {
   width: 100%;
-  min-height: 1028px;
+  /*height: 206px;*/
+  /*min-height: 1028px;*/
   /*background: url('../assets/bj-2.png') top no-repeat #070B26;*/
-  background: url('../assets/baibao.png') top no-repeat #070B26;
+  /*background: url('../assets/mobileForecastHomePage/TreasureChest.png') top no-repeat #070B26;*/
+  /*height: 206px;*/
 }
+.forecast_container-img-box{
+  position: relative;
+  width: 100%;
+  height: 206px;
+}
+.forecast_container-img {
+  position:absolute;
+  top:50%;
+  left:50%;
+  /*width: 100%;*/
+  height: 206px;
 
+  -webkit-transform: translate(-50%,-50%);
+  -moz-transform: translate(-50%,-50%);
+  transform:translate(-50%,-50%);
+
+  /*margin: 0 auto;*/
+  /*background: url('../assets/mobileForecastHomePage/TreasureChest.png');*/
+  /*background-image: url('../assets/mobileForecastHomePage/BG.png');*/
+  /*background-repeat: no-repeat;*/
+  /*background-size: 100% 100%;*/
+
+  /*display: flex;*/
+  /*flex-direction: column;*/
+  /*justify-content: center;*/
+  /*align-items: center;*/
+}
 .forecast_body {
-  max-width: 1280px;
+  max-width: 1200px;
   height: 100%;
   min-height: 200px;
   margin: 0 auto;
@@ -182,7 +213,7 @@ input:-ms-input-placeholder {
   width: 100%;
   height: 25px;
   line-height: 25px;
-  margin-top: 50px;
+  margin-top: 5px;
   font-size: 16px;
   color: #FFFFFF;
   font-weight: 300;
@@ -198,6 +229,12 @@ input:-ms-input-placeholder {
 
 .forecast_record_left:hover, .forecast_record_right:hover {
   color: #3576F5;
+}
+.forcolor{
+  color: #3576F5;
+  font-size:16px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
 }
 
 /*抽奖期数*/
@@ -228,7 +265,7 @@ input:-ms-input-placeholder {
   font-weight: bolder;
   background-image: -webkit-gradient(linear, 50% 10%, 50% 80%, from(#fff), to(#9a9a9a));
   -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  -webkit-text-fill-color: #172841;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.29);
   font-family: Helvetica, Arial, sans-serif;
 }
@@ -243,16 +280,17 @@ input:-ms-input-placeholder {
 
 .forecast_item {
   float: left;
-  width: 610px;
+  width: 48.7%;
   height: 200px;
-  background: #243156;
+  background: #FFFFFF;
   border-radius: 9px;
   margin-bottom: 30px;
-  box-shadow: 0px 0px 20px #0c0c27;
+  /*box-shadow: 0px 0px 20px #0c0c27;*/
+  border:1px solid rgba(216,227,248,1);
 }
 
 .forecast_item:nth-child(odd) {
-  margin-right: 60px;
+  margin-right: 2.41%;
 }
 
 .forecast_item_corcol {
@@ -263,17 +301,17 @@ input:-ms-input-placeholder {
 
 .forecast_item_form {
   width: 439px;
-  background: #263358;
-  border-left: 1px dashed #373798;
+  background: #FFFFFF;
+  /*border-left: 1px dashed #D8E3F8;*/
   border-top-right-radius: 9px;
   border-bottom-right-radius: 9px;
-  padding: 0px 34px;
+  padding: 0px 24px;
 }
 
 .number {
   margin-top: 24px;
-  font-size: 14px;
-  color: #D0D4E9;
+  font-size: 12px;
+  color: #172841;
   font-weight: 400;
 }
 
@@ -294,7 +332,7 @@ input:-ms-input-placeholder {
   cursor: pointer;
 }
 .number_recordkaijaing {
-  font-size:14px;
+  font-size:12px;
   font-family:PingFangSC-Regular,PingFang SC;
   font-weight:400;
   color:#F57C35;
@@ -303,26 +341,26 @@ input:-ms-input-placeholder {
   margin-top: 10px;
   width: 372px;
   height: 36px;
-  background: #141F3D;
-  border: 1px solid #203867;
+  background: #D8E3F8;
+  border: 1px solid #CFD3E9;
   border-radius: 4px;
   line-height: 36px;
   padding: 0px 10px;
   font-size: 14px;
-  color: #FFFFFF;
+  color: #172841;
   font-weight: 400;
 }
 
 .input_change {
   display: inline-block;
-  color: #FFFFFF;
+  color: #172841;
   font-weight: 400;
   float: right;
   cursor: pointer;
 }
 
 .show_number {
-  color: #FFFFFF;
+  color: #172841;
   font-weight: 400;
 }
 
@@ -342,7 +380,7 @@ input:-ms-input-placeholder {
   font-weight: 400;
   margin-top: 10px;
   font-size: 12px;
-  color: #B0CCE6;
+  color: #172841;
 }
 
 .jackpot_mumber {
@@ -355,7 +393,7 @@ input:-ms-input-placeholder {
 
 .jackpot-number-detail {
   /*height: 20px;*/
-  color: #fff;
+  color: #172841;
 }
 
 .forecast_item_btn {
@@ -372,6 +410,7 @@ input:-ms-input-placeholder {
   line-height: 40px;
   font-weight: 400;
   cursor: pointer;
+  box-shadow:0px 10px 12px -6px rgba(53,118,245,0.7);
 }
 
 .forecast_item_btn.disabled {
