@@ -57,7 +57,7 @@
 
       <!-- 抽奖期数 start -->
       <div class="forecast_number ">
-        <Loading v-if="loading"></Loading>
+        <Loading v-if="loading && !show_rules"></Loading>
         <div class="forecast_item flex-row " v-for="(item, key) in guess_list" :key="item.projectId" v-else>
           <div class="forecast_item_corcol ">
             <div class="forecast_item_let ">

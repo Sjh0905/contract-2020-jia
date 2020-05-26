@@ -256,6 +256,7 @@ root.methods.RE_GET_GUESS_INDEX = function (res) {
 
 // 查看活动规则弹框
 root.methods.SHOW_RULE_DIALOG = function () {
+  // this.loading = false
 	this.show_rules = true;
 }
 

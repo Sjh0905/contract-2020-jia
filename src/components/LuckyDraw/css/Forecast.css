@@ -43,6 +43,7 @@ input:-ms-input-placeholder {
 
 .forecast_container {
   width: 100%;
+
   /*height: 206px;*/
   /*min-height: 1028px;*/
   /*background: url('../assets/bj-2.png') top no-repeat #070B26;*/
@@ -895,7 +896,7 @@ input:-ms-input-placeholder {
   color: #3576F5;
   font-size:12px;
   font-family:PingFangSC-Regular,PingFang SC;
-  font-weight:400;
+  font-weight:600;
 }
 
 .forecast_buy span {
