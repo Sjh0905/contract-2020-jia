@@ -9,7 +9,7 @@
     </div>
 
 
-    <div class="examine flex" v-if="$route.query.winNumber">
+    <div class="examine flex" :class="(isApp||isIOS) ? 'examine-app':''" v-if="$route.query.winNumber">
       <div>本期中奖号码: {{$route.query.winNumber}}</div>
       <div class="examine-img" @click="goToBlocks">
         <span class="text_blue">立即查验</span>
