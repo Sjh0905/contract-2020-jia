@@ -145,7 +145,7 @@
   -webkit-justify-content: space-between;
   align-items: center;
   -webkit-align-items: center;
-  height: 40px;
+  min-height: 40px;
 }
 
 .input-remarks {
@@ -228,7 +228,9 @@
 }
 
 .input-unify {
+
   padding-left: 15px;
+  /*border: 0;*/
 }
 .input-unify1 {
   width: 100%;
@@ -245,7 +247,7 @@
   font-weight: bolder;
   font-size: 1.8rem;
   line-height: 30px;
-  right: 512px;
+  right: 514px;
   top: 86px;
   color: #3576F5;
   text-align: center;
@@ -261,8 +263,8 @@
   font-weight: bolder;
   font-size: 1.8rem;
   line-height: 30px;
-  right: 512px;
-  top: 86px;
+  right: 514px;
+  top: 178px;
   color: #3576F5;
   text-align: center;
   background-repeat: no-repeat;

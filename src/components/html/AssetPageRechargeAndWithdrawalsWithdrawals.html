@@ -84,16 +84,14 @@
 
 
         <!--下拉框-->
-        <span class="select-address-button pointer" @click="changeSelectAddress"
-              :class="selectAddress?'select-address-button-close':'select-address-button-open'"
-              v-if="oldAddress.length!==0 && (addressId==-1 || !selectAddress)"
-        ></span>
-
         <span class="select-address-button-usdt pointer" @click="changeSelectAddress"
               :class="selectAddress?'select-address-button-close':'select-address-button-open'"
-              v-if="oldAddress.length!==0 && (addressId==-1 || !selectAddress) && currency=='USDT' "
+              v-if="oldAddress.length!==0 && (addressId==-1 || !selectAddress)&&currency =='USDT'"
         ></span>
-
+        <span class="select-address-button pointer" @click="changeSelectAddress"
+              :class="selectAddress?'select-address-button-close':'select-address-button-open'"
+              v-if="oldAddress.length!==0 && (addressId==-1 || !selectAddress) && currency !='USDT'"
+        ></span>
 
 
         <div class="clear"></div>
@@ -113,12 +111,12 @@
                    :value="item.description">
             <span class="input-connect-select">-</span>
             <div class="select-address-container  flex hover-border" :class="item.memoAddress ?'border-container-memo':'border-container'">
-              <input class="select-address-input select-address-memo-input pointer input-unify" type="text" readonly
+              <input class=" select-address-memo-input pointer input-unify" type="text" readonly
                      :value="item.address">
 
               <template v-if="item.memoAddress">
-                <span class="select-address-memo-separate">{{$t('memo')}}</span>
-                <input class="select-memo-input  select-address-memo-input pointer input-unify" type="text" readonly
+                <span class="select-address-memo-separate">{{$t('memo_1')}}</span>
+                <input class=" select-address-memo-input pointer input-unify" type="text" readonly
                        :value="item.memoAddress">
               </template>
             </div>
@@ -151,7 +149,7 @@
           <div class="withdrawals-number-container address-detail">
             <span class="input-title">{{$t('memo_1')}}</span>
             <div class="border-container flex">
-              <input type="text" class="input-unify" v-model="memo" readonly>
+              <input type="text" class="input-unify1" v-model="memo" readonly>
             </div>
           </div>
         </template>
