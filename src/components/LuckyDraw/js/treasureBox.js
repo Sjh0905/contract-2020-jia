@@ -60,7 +60,7 @@ root.data = function () {
     ruleAgreementWA: '',
 
     // 参与预测input框内
-    inputUserAmount: '',
+    inputUserAmount: '1',
     // 每人限投多少份
     limitEveryOneNum: 0,
     // 错误框提示错误
@@ -579,6 +579,7 @@ root.methods.closeToast = function () {
 
 // 点击参与按钮弹框
 root.methods.openAmountToast = function (item) {
+
   this.toastFlag = true
   this.remainingShares = item.eachs - item.residueTicket
   this.openToast(item)
@@ -592,6 +593,8 @@ root.methods.openToast = function (item) {
   }
 
   if (!this.bindIdentify) {
+    this.popIdenOpen = true
+    this.toastFlag = false
     this.goToAuthenticate()
     return
   }
@@ -827,7 +830,7 @@ root.methods.goToJoinRecord = function (projectId, periodNumber, currency) {
   } else {
     this.$router.push({
       name: 'MobileForecastJoinRecord',
-      query: {projectId: projectId, periodNumber: periodNumber, currency: currency}
+      query: {projectId: projectId, periodNumber: periodNumber, currency: currency,winNumber:''}
     })
   }
 }

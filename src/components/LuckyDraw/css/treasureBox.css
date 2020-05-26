@@ -1,5 +1,5 @@
 .activity-box {
-  background: #081724;
+  background: #fff;
   min-height: 100%;
 }
 
@@ -798,10 +798,10 @@
 
 .forecast-activity-ruleToast-content-info {
   color: #172841;
-  font-size:0.28rem;
+  font-size: 0.28rem;
   font-family:PingFangSC-Regular,PingFang SC;
   font-weight:400;
-  line-height: 0.32rem;
+  line-height: 0.4rem;
   text-align: justify;
   /*padding: 0 0.4rem;*/
 }
@@ -1030,7 +1030,7 @@
   right: 0.5rem;
   transform: translateY(-50%);
   background: #fff;
-  border-radius: 0.16rem;
+  border-radius: 0.06rem;
   padding: 0 0.4rem;
 }
 
@@ -1052,7 +1052,7 @@
   height: 0.8rem;
   line-height: 0.8rem;
   text-align: center;
-  color: #C43E4E;
+  color: #3576F5;
   font-size: 0.32rem;
   box-sizing: border-box;
   border-bottom: 1px solid #f2f2f2;
@@ -1076,15 +1076,6 @@
   color: rgba(0,0,0,0.4);
 }
 
-.lock-position-confirm-toast-info {
-  margin-top: 0.1rem;
-  line-height: 0.34rem;
-  color: #FF1B1B;
-  font-size: 0.28rem;
-  text-indent: -5em;
-  padding-left: 5em;
-}
-
 .lock-position-confirm-toast-btns {
   display: flex;
   align-items: center;
@@ -1099,20 +1090,20 @@
   background: #fff;
   height: 0.8rem;
   line-height: 0.8rem;
-  color: #C43E4E;
-  border: 1px solid #C43E4E;
+  color: #3576F5;
+  border: 1px solid #3576F5;
   box-sizing: border-box;
   text-align: center;
-  border-radius: 4px;
+  border-radius: 0.04rem;
 }
 
 .lock-position-confirm-toast-btn-confirm {
-  width: 45%;
-  background: #C43E4E;
+  width: 100%;
+  background: #3576F5;
   height: 0.8rem;
   line-height: 0.8rem;
   color: #fff;
   box-sizing: border-box;
   text-align: center;
-  border-radius: 4px;
+  border-radius: 0.04rem;
 }

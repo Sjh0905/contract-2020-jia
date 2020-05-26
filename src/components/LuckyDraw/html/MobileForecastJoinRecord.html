@@ -9,8 +9,8 @@
     </div>
 
 
-    <div class="examine flex">
-      <div>本期中奖号码: {{winningNumber}}</div>
+    <div class="examine flex" v-if="$route.query.winNumber">
+      <div>本期中奖号码: {{$route.query.winNumber}}</div>
       <div class="examine-img" @click="goToBlocks">
         <span class="text_blue">立即查验</span>
         <img src="../assets/mobileForecastHomePage/item_right_icon.png" alt="">
@@ -23,13 +23,13 @@
       <div class="no-data-text">暂无记录~</div>
     </div>
     <!--有数据-->
-    <div v-if="dataList.length > 0" class="mobile-forecast-record-title">
+    <div v-if="dataList.length > 0" :class="$route.query.winNumber ? 'mobile-forecast-record-title-have' : 'mobile-forecast-record-title'">
       <div class="mobile-forecast-record-title-type type">认购时间</div>
       <div class="mobile-forecast-record-title-detail amount">认购数量</div>
       <div class="mobile-forecast-record-title-detail detail">抽奖号码</div>
       <div class="mobile-forecast-record-title-num num">UID</div>
     </div>
-    <div v-if="dataList.length > 0" class="mobile-forecast-record-list">
+    <div v-if="dataList.length > 0" :class="$route.query.winNumber ? 'mobile-forecast-record-list':'mobile-forecast-record-list-no'">
       <div v-for="(item,index) in dataList" :key="index" class="mobile-forecast-record-item">
         <div class="mobile-forecast-record-title-type type">{{$globalFunc.formatDateUitl(item.participateTime, 'MM-DD hh:mm')}}</div>
         <div class="mobile-forecast-record-title-detail amount">{{item.amount}}{{item.currency}}</div>
