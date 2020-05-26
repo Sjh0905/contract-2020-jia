@@ -783,7 +783,7 @@ root.methods.re_submitToastInfo = function (res) {
 
   this.openPop('您已成功购买'+successFrequency+'份，请前往参与记录查看',1)
 
-  this.inputUserAmount = ''
+  // this.inputUserAmount = ''
 
   // 获取页面信息
   this.getActivityInfo()

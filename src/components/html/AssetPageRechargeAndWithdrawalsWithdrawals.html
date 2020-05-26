@@ -89,6 +89,13 @@
               v-if="oldAddress.length!==0 && (addressId==-1 || !selectAddress)"
         ></span>
 
+        <span class="select-address-button-usdt pointer" @click="changeSelectAddress"
+              :class="selectAddress?'select-address-button-close':'select-address-button-open'"
+              v-if="oldAddress.length!==0 && (addressId==-1 || !selectAddress) && currency=='USDT' "
+        ></span>
+
+
+
         <div class="clear"></div>
 
       </div>
@@ -104,10 +111,11 @@
           <div class="select-address-input-container flex" @click="clickAddress(item)">
             <input class="input-remarks pointer input-unify hover-border border-container" type="text" readonly
                    :value="item.description">
-            <span class="input-connect">-</span>
-            <div class="select-address-container border-container flex hover-border">
+            <span class="input-connect-select">-</span>
+            <div class="select-address-container  flex hover-border" :class="item.memoAddress ?'border-container-memo':'border-container'">
               <input class="select-address-input select-address-memo-input pointer input-unify" type="text" readonly
                      :value="item.address">
+
               <template v-if="item.memoAddress">
                 <span class="select-address-memo-separate">{{$t('memo')}}</span>
                 <input class="select-memo-input  select-address-memo-input pointer input-unify" type="text" readonly
@@ -121,7 +129,7 @@
 
         <!-- 点击添加新地址 begin -->
         <!--<transition name="addNewAddress">-->
-        <li class="add-new-address flex-center pointer btn_blue" v-if="selectAddress" :key="-1"
+        <li class="add-new-address flex-center pointer" v-if="selectAddress" :key="-1"
             @click="clickAddNewAddress">
           <span class="">{{$t('addAddress')}}</span>
         </li>

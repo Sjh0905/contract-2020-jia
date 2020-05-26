@@ -304,7 +304,7 @@
             <!--已中奖 begin-->
             <div class="h5-record-item-description-container h5-record-item-description-win-container flex"
                  v-if="recordType === 1">
-              <div class="h5-record-item-description-title h5-record-item-description-win">{{toFixed(Number(item.rewardAmount))}}{{item.currency}}</div>
+              <div class="h5-record-item-description-title h5-record-item-description-win">{{toFixed(Number(item.rewardAmount),2)}}{{item.currency}}</div>
               <div class="h5-record-item-open-icon"></div>
             </div>
             <!--已中奖 end-->
@@ -476,7 +476,7 @@
           <div class="h5-popup-window-p flex">
             <div class="h5-popup-window-article-detail-title">我的中奖：</div>
             <div class="h5-popup-window-article-detail">
-              {{checkInfo.rewardAmount ? toFixed(checkInfo.rewardAmount,4) + ' '+checkInfo.currency: checkInfo.winStatus}}
+              {{checkInfo.rewardAmount ? toFixed(checkInfo.rewardAmount,2) + ' '+checkInfo.currency: checkInfo.winStatus}}
             </div>
           </div>
           <div class="h5-popup-window-p flex" v-if="checkInfo.winNumber">
