@@ -249,7 +249,8 @@ root.methods.timeAddition = function (item) {
 root.methods.inLottery = function (item) {
   let addTime = 20 * 1000
   let nowTime = (new Date()).valueOf();
-  if(nowTime > (item.openTime - addTime) && nowTime < (item.openTime + addTime) && item.residueTicket >=10){
+  // nowTime 大于 （openTime-20） && nowTime 小于 （openTime+20）&& 份数 >= 5份
+  if(nowTime > (item.openTime - addTime) && nowTime < (item.openTime + addTime) && item.residueTicket >=5){
     return true
   }
 }
@@ -579,7 +580,6 @@ root.methods.closeToast = function () {
 
 // 点击参与按钮弹框
 root.methods.openAmountToast = function (item) {
-
   this.toastFlag = true
   this.remainingShares = item.eachs - item.residueTicket
   this.openToast(item)
