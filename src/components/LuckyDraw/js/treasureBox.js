@@ -94,24 +94,13 @@ root.created = function () {
 
   if (this.iosQuery) {
 
-    var postFunc = function(){
-      window.postMessage(JSON.stringify({
-        method: 'transparentHeader',
-        parameters: {
-          color:'transparent',
-          hiddenRight:true
-        }
-      }))
-      window.postMessage(JSON.stringify({
-          method: 'setTitle',
-          parameters: ''
-        })
-      )
-    }
+    // var postFunc = function(){
+    //
+    // }
 
-    postFunc()
+    this.toHideAppHeader()
     setTimeout(()=>{
-      postFunc()
+      this.toHideAppHeader()
     },500)//为了避免头部隐藏失败，多执行一次，时间过长会影响其他页面
 
     // window.postMessage(JSON.stringify({
@@ -183,9 +172,9 @@ root.beforeDestroy = function () {
   clearInterval(this.pageInfoInterval);
 
   if (this.$route.query.isIOS) {
-    window.postMessage(JSON.stringify({
-      method: 'revertHeader'
-    }))
+    // window.postMessage(JSON.stringify({
+    //   method: 'revertHeader'
+    // }))
   }
 
 
@@ -230,6 +219,21 @@ root.watch = {};
 
 
 root.methods = {};
+
+root.methods.toHideAppHeader = function () {
+  window.postMessage(JSON.stringify({
+    method: 'transparentHeader',
+    parameters: {
+      color:'transparent',
+      hiddenRight:true
+    }
+  }))
+  window.postMessage(JSON.stringify({
+      method: 'setTitle',
+      parameters: ''
+    })
+  )
+}
 
 // 开奖时间的增加
 root.methods.timeAddition = function (item) {
@@ -530,6 +534,7 @@ root.methods.jumpToBack = function () {
 }
 
 root.methods.jumpToBackIOS = function () {
+  this.toHideAppHeader();
   window.postMessage(JSON.stringify({
     method: 'toHomePage'
   }))

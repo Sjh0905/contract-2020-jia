@@ -53,9 +53,12 @@
   justify-content: space-between;
 }
 
-
 .examine-img img {
   vertical-align: text-top;
+}
+
+.examine-app {
+  margin-top: 0.96rem;
 }
 
 .mobile-forecast-record-title {
