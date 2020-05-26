@@ -1,49 +1,57 @@
 <div class="forecast">
   <div class="forecast_container">
+    <div class="forecast_container-img-box">
+      <img src="../assets/mobileForecastHomePage/BG.png" alt="" class="forecast_container-img">
+    </div>
+
     <div class="forecast_body">
-      <!-- 查看游戏规则 start -->
-      <div class="forecast_rules">
-        <font class="cursor colorF" @click="SHOW_RULE_DIALOG">
-          {{$t('look_rules')}}
-          <img src="../assets/mobileForecastHomePage/rule_icon.png" alt="" class="cursorImg">
-          <span class="forecast_rules_icon"></span>
-        </font>
-      </div>
-      <!-- 查看游戏规则 end -->
 
       <!-- 标题 start -->
-      <div class="forecast_title" :class="lang != 'CH' && 'en'"></div>
+<!--      <div class="forecast_title" :class="lang != 'CH' && 'en'"></div>-->
       <!-- 标题 end -->
 
       <!-- 竞猜类型 tab start -->
-      <div class="flex-row" :class="guess_tab.length > 1 ? 'forecast_tab' : 'forecast_tab_one'">
-        <div class="tab_one" v-if="guess_tab.length <= 1">
-					<span v-for="(item, key) in guess_tab">
-						<font v-if="item.name == 'honourGuessList'">{{$t('百宝箱')}}</font>
-<!--						<font v-if="item.name == 'kingGuessList'">{{$t('gold')}}</font>-->
-<!--						<font v-if="item.name == 'strongestGuessList'">{{$t('silver')}}</font>-->
-					</span>
-          <span class="line left"></span>
-          <span class="line right"></span>
-        </div>
-<!--        <div class="tab_width flex-row" v-if="guess_tab.length > 1">-->
-<!--          <div class="tabs" :class="key == 0 ? 'first' : (key == (guess_tab.length - 1) && 'end')"-->
-<!--               v-for="(item, key) in guess_tab" @click="TAB_FORECAST(key+1, item.name)">-->
-<!--						<span :class="forecast_tab == (key+1) && 'select'">-->
-<!--							<font v-if="item.name == 'honourGuessList'">{{$t('diamond')}}32</font>-->
-<!--							<font v-if="item.name == 'kingGuessList'">{{$t('gold')}}</font>-->
-<!--							<font v-if="item.name == 'strongestGuessList'">{{$t('silver')}}</font>-->
-<!--						</span>-->
-
-<!--          </div>-->
+<!--      <div class="flex-row" :class="guess_tab.length > 1 ? 'forecast_tab' : 'forecast_tab_one'">-->
+<!--        <div class="tab_one" v-if="guess_tab.length <= 1">-->
+<!--					<span v-for="(item, key) in guess_tab">-->
+<!--						<font v-if="item.name == 'honourGuessList'">{{$t('百宝箱')}}</font>-->
+<!--&lt;!&ndash;						<font v-if="item.name == 'kingGuessList'">{{$t('gold')}}</font>&ndash;&gt;-->
+<!--&lt;!&ndash;						<font v-if="item.name == 'strongestGuessList'">{{$t('silver')}}</font>&ndash;&gt;-->
+<!--					</span>-->
+<!--          <span class="line left"></span>-->
+<!--          <span class="line right"></span>-->
 <!--        </div>-->
-      </div>
+<!--&lt;!&ndash;        <div class="tab_width flex-row" v-if="guess_tab.length > 1">&ndash;&gt;-->
+<!--&lt;!&ndash;          <div class="tabs" :class="key == 0 ? 'first' : (key == (guess_tab.length - 1) && 'end')"&ndash;&gt;-->
+<!--&lt;!&ndash;               v-for="(item, key) in guess_tab" @click="TAB_FORECAST(key+1, item.name)">&ndash;&gt;-->
+<!--&lt;!&ndash;						<span :class="forecast_tab == (key+1) && 'select'">&ndash;&gt;-->
+<!--&lt;!&ndash;							<font v-if="item.name == 'honourGuessList'">{{$t('diamond')}}32</font>&ndash;&gt;-->
+<!--&lt;!&ndash;							<font v-if="item.name == 'kingGuessList'">{{$t('gold')}}</font>&ndash;&gt;-->
+<!--&lt;!&ndash;							<font v-if="item.name == 'strongestGuessList'">{{$t('silver')}}</font>&ndash;&gt;-->
+<!--&lt;!&ndash;						</span>&ndash;&gt;-->
+
+<!--&lt;!&ndash;          </div>&ndash;&gt;-->
+<!--&lt;!&ndash;        </div>&ndash;&gt;-->
+<!--      </div>-->
       <!-- 竞猜类型 tab end -->
 
       <!-- 销毁记录和参与记录 start -->
       <div class="forecast_record">
-<!--        <span class="forecast_record_left cursor" @click="GET_DESTROY_RECORD">{{$t('destruction')}}</span>-->
-        <span class="forecast_record_right cursor" @click="GO_RECORD" v-if="is_login">{{$t('game')}}</span>
+        <!-- 查看游戏规则 start -->
+<!--        <div class="forecast_rules">-->
+<!--          <font class="cursor colorF" @click="SHOW_RULE_DIALOG">-->
+<!--            {{$t('look_rules')}}-->
+<!--            <img src="../assets/mobileForecastHomePage/rule_icon.png" alt="" class="cursorImg">-->
+<!--            <span class="forecast_rules_icon"></span>-->
+<!--          </font>-->
+<!--        </div>-->
+        <!-- 查看游戏规则 end -->
+        <span class="forecast_record_left colorF cursor" @click="SHOW_RULE_DIALOG" v-if="is_login">{{$t('look_rules')}}
+          <img src="../assets/mobileForecastHomePage/rule_icon.png" alt="" class="cursorImg">
+        </span>
+
+        <!--        <span class="forecast_record_left cursor" @click="GET_DESTROY_RECORD">{{$t('destruction')}}</span>-->
+        <span class="forecast_record_right forcolor cursor" @click="GO_RECORD" v-if="is_login">{{$t('game')}}</span>
       </div>
       <!-- 销毁记录和参与记录 end -->
 
