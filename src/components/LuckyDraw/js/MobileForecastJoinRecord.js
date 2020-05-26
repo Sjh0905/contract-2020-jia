@@ -19,7 +19,8 @@ root.data = function () {
 
     currency: '',
     isApp:false,
-    isIOS:false
+    isIOS:false,
+    winningBool:false
   }
 }
 
@@ -53,44 +54,59 @@ root.created = function () {
 
   this.isIOSQuery()
 
-  this.getInitPage()
+  // this.getInitPage()
   this.getPeriodRecord()
 }
 
 root.computed = {};
+// root.computed.computedwinningNumber = function () {
+//   this.dataList.forEach(v=>{
+//     console.info('vvvv========',v)
+//     if(v.ticketStatus == 5){
+//       return this.winningNumber = v.predictNumber
+//     }
+//   })
+// }
+// root.computed.winningNumber = function () {
+//   console.info(this.$router.query.winNumber)
+//   return this.$router.query.winNumber
+// }
 
 root.watch = {};
 
 
 root.methods = {};
 
+root.methods.goToBlocks = function () {
+  window.open(this.$route.query.blockContractUrl)
+}
 
 root.methods.ReturnToActivePage = function () {
   this.$router.push({name:'treasureBox'})
 }
 
-root.methods.getInitPage = function () {
-  this.$http.send('POST_LUCKY_GUESS_CURRENT_PERIOD_PARTAKE', {
-    bind: this,
-    params: {
-      projectId: this.$route.query.projectId,
-      periodNumber: this.$route.query.periodNumber,
-    },
-    callBack: this.re_getInitPage
-  })
-}
-
-root.methods.re_getInitPage = function (res) {
-
-  typeof(res) == 'string' && (res = JSON.parse(res));
-
-  if (res.result != 'FAIL') {
-    console.info(res)
-    this.dataList = res.dataMap.currentPeriodPartakeList;
-  }
-
-  this.loading = false
-}
+// root.methods.getInitPage = function () {
+//   this.$http.send('POST_LUCKY_GUESS_CURRENT_PERIOD_PARTAKE', {
+//     bind: this,
+//     params: {
+//       projectId: this.$route.query.projectId,
+//       periodNumber: this.$route.query.periodNumber,
+//     },
+//     callBack: this.re_getInitPage
+//   })
+// }
+//
+// root.methods.re_getInitPage = function (res) {
+//
+//   typeof(res) == 'string' && (res = JSON.parse(res));
+//
+//   if (res.result != 'FAIL') {
+//     console.info(res)
+//     this.dataList = res.dataMap.currentPeriodPartakeList;
+//   }
+//
+//   this.loading = false
+// }
 
 // 获取历史期数记录
 root.methods.getPeriodRecord = function () {
@@ -111,7 +127,11 @@ root.methods.re_getPeriodRecord = function (res) {
   if (res.result != 'FAIL') {
     this.dataList = res.dataMap.lotteryRecordList
   }
+  // this.dataList.forEach(v=>{
+  //   if(v.ticketStatus == 5){
 
+    // }
+  // })
   this.loading = false
 }
 

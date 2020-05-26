@@ -128,18 +128,25 @@
            </div>
            <div class="forecast-activity-ruleToast-title">活动规则</div>
          </div>
-          <div :class="!(isLogin && !viewAgreement)? 'forecast-activity-ruleToast-content-readonly':'forecast-activity-ruleToast-content'">
+          <div :class="(isLogin && !viewAgreement)? 'forecast-activity-ruleToast-content-readonly ':'forecast-activity-ruleToast-content'">
             <div class="forecast-activity-ruleToast-content-info">“百宝箱”是基于以太坊区块链数据的竞猜游戏，游戏获胜者可独享奖池。</div>
 <!--            <div class="forecast-activity-ruleToast-content-list-title strong">活动规则如下：</div>-->
             <div class="forecast-activity-ruleToast-content-list">
 <!--              <div class="forecast-activity-ruleToast-content-list-tit">以太坊网络智能合约将在每期奖池开奖后，自动生成一个随机开奖号码；</div>-->
-              <div class="forecast-activity-ruleToast-content-item">【游戏原则】秉承“公平公正公开”的原则，所有数据链上可查询，所有记录平台可追溯；</div>
-              <div class="forecast-activity-ruleToast-content-item">【每局奖池】所有玩家参与量的90%投入奖池，最后由获胜者独享；每局开奖后奖池清算归零；</div>
-              <div class="forecast-activity-ruleToast-content-item">【开奖时间】每局半小时；若半小时内参与量不足十份，则开奖时间顺延半小时，直至份数足够；</div>
-              <div class="forecast-activity-ruleToast-content-item">【抽奖号码】玩家参与每份时，可获一个系统随机号码；参与多份或多次参与，可获多个号码；</div>
-              <div class="forecast-activity-ruleToast-content-item">【中奖号码】开奖时以太坊区块最新高度倒推五个区块的Nonce值的最后两位；</div>
-              <div class="forecast-activity-ruleToast-content-item">【中奖规则】与中奖号码相同或最接近的抽奖号码；若无相同号码，则可能存在两位获胜者；</div>
-              <div class="forecast-activity-ruleToast-content-item">【举例说明】若中奖号码为68，抽奖号码中若有玩家持有68，则该玩家获胜；若无68，则在68前后寻找最接近的抽奖号码；如果同时存在66和70，则有两位获胜者平分奖池。</div>
+              <div class="forecast-activity-ruleToast-content-item">
+                <span class="text_blue">【游戏原则】</span>秉承“公平公正公开”的原则，所有数据链上可查询，所有记录平台可追溯；</div>
+              <div class="forecast-activity-ruleToast-content-item">
+                <span class="text_blue">【每局奖池】</span>所有玩家参与量的90%投入奖池，最后由获胜者独享；每局开奖后奖池清算归零；</div>
+              <div class="forecast-activity-ruleToast-content-item">
+                <span class="text_blue">【开奖时间】</span>每局半小时；若半小时内参与量不足五份，则开奖时间顺延半小时，直至份数足够；</div>
+              <div class="forecast-activity-ruleToast-content-item">
+                <span class="text_blue">【抽奖号码】</span>玩家参与每份时，可获一个系统随机号码；参与多份或多次参与，可获多个号码；</div>
+              <div class="forecast-activity-ruleToast-content-item">
+                <span class="text_blue">【中奖号码】</span>开奖时以太坊区块最新高度倒推五个区块的Nonce值的最后两位；</div>
+              <div class="forecast-activity-ruleToast-content-item">
+                <span class="text_blue">【中奖规则】</span>与中奖号码相同或最接近的抽奖号码；若无相同号码，则可能存在两位获胜者；</div>
+              <div class="forecast-activity-ruleToast-content-item">
+                <span class="text_blue">【举例说明】</span>若中奖号码为68，抽奖号码中若有玩家持有68，则该玩家获胜；若无68，则在68前后寻找最接近的抽奖号码；如果同时存在66和70，则有两位获胜者平分奖池。</div>
             </div>
             <!-- <div class="forecast-activity-ruleToast-content-info-title strong">开奖规则</div>-->
             <!-- <div class="forecast-activity-ruleToast-content-info">-->
@@ -148,7 +155,7 @@
             <!-- 本活动最终解释权归欧联所有。-->
             <!-- </div>-->
           </div>
-          <div v-if="isLogin && !viewAgreement" class="forecast-activity-ruleToast-agreement-box" @click="changeRuleAgreement">
+          <div v-if="isLogin && !viewAgreement"  class="forecast-activity-ruleToast-agreement-box" @click="changeRuleAgreement">
             <div class="forecast-activity-ruleToast-agreement-icon" :class="ruleAgreement === false?'forecast-activity-ruleToast-agreement-icon-no-select':'forecast-activity-ruleToast-agreement-icon-selected'"></div>
             <div class="forecast-activity-ruleToast-agreement-text">我已阅读并同意该活动规则</div>
           </div>
@@ -219,9 +226,13 @@
       <div class="lock-position-confirm-toast-list">
         <div class="lock-position-confirm-toast-item">该操作需要身份认证，请立刻前往app端个人中心完成</div>
       </div>
+<!--      <div class="lock-position-confirm-toast-btns">-->
+<!--        <div class="lock-position-confirm-toast-btn-close" @click="popIdenClose">取消</div> -->
+<!--        <a class="lock-position-confirm-toast-btn-confirm" href="https://download.2020.exchange/" target="_blank">下载app</a>-->
+<!--      </div>-->
       <div class="lock-position-confirm-toast-btns">
-        <div class="lock-position-confirm-toast-btn-close" @click="popIdenClose">取消</div> <a class="lock-position-confirm-toast-btn-confirm" href="https://download.eunex.group/" target="_blank">下载app</a>
-
+        <div class="lock-position-confirm-toast-btn-confirm" @click="popIdenClose">我知道了</div>
+<!--        <a class="lock-position-confirm-toast-btn-confirm" href="https://download.2020.exchange/" target="_blank">下载app</a>-->
       </div>
     </div>
   </div>

@@ -43,9 +43,40 @@
   text-align: center;
 }
 
+.examine {
+  height: 0.6rem;
+  line-height: 0.6rem;
+  padding: 0 0.3rem;
+  width: 7.5rem;
+  background: #D2E1FF;
+  color: #131F30;
+  justify-content: space-between;
+}
+
+
+.examine-img img {
+  vertical-align: text-top;
+}
+
 .mobile-forecast-record-title {
   position: absolute;
-  top: 1rem;
+  top: 0.88rem;
+  left: 0;
+  right: 0;
+  width: 7.5rem;
+  height: 0.72rem;
+  line-height: 0.72rem;
+  display: flex;
+  align-items: center;
+  padding: 0 0.3rem;
+  font-size: 0.24rem;
+  color:rgba(19,31,48,.6);
+  background-color: #F7F8FA;
+}
+
+.mobile-forecast-record-title-have {
+  position: absolute;
+  top: 1.6rem;
   left: 0;
   right: 0;
   width: 7.5rem;
@@ -73,7 +104,7 @@
 }
 
 .num {
-  flex: 11;
+  flex: 14;
   text-align: right;
 }
 
@@ -86,6 +117,16 @@
 }
 
 .mobile-forecast-record-list {
+  position: absolute;
+
+  top: 2.32rem;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow-y: scroll;
+}
+
+.mobile-forecast-record-list-no {
   position: absolute;
   top: 1.72rem;
   bottom: 0;

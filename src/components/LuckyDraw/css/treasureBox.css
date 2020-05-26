@@ -1,5 +1,5 @@
 .activity-box {
-  background: #081724;
+  background: #fff;
   min-height: 100%;
 }
 
@@ -152,7 +152,7 @@
 
 .forecast-activity-homepage-top-img {
   position: relative;
-  height: 3.8rem;
+  height: 3.36rem;
   margin-top: 0.88rem;
   width: 100%;
   /*margin: 0.6rem auto 0;*/
@@ -278,7 +278,7 @@
   min-height: 2.5rem;
   display: flex;
   justify-content: space-between;
-  padding: 0.32rem 0.2rem;
+  padding: 0.3rem 0.4rem;
 
 }
 
@@ -304,14 +304,14 @@
   width: 86px;
   height: 86px;
 
-  /*background: url("../assets/mobileForecastHomePage/progress_bar_bg.png") center center no-repeat;*/
-  /*background-size: 80px 80px;*/
+  background: url("../assets/mobileForecastHomePage/progress_bar_bg.png") center center no-repeat;
+  background-size: 80px 80px;
   position: relative;
 }
 
 
 .svg-progress {
-  transform: rotate(-84.05deg);
+  transform: rotate(-90deg);
 }
 .circle-progress {
   transition: stroke-dasharray .2s;
@@ -327,7 +327,7 @@
   width: 100%;
   height: 0.58rem;
   line-height: 0.58rem;
-  font-size:0.44rem;
+  font-size:0.4rem;
   font-family:Helvetica-Bold,Helvetica;
   font-weight:bold;
   text-align: center;
@@ -341,7 +341,7 @@
 }
 
 .forecast-activity-homepage-container-item-info {
-  width: 4.7rem;
+  width: 4.14rem;
 
 }
 
@@ -362,7 +362,7 @@
 .forecast-activity-homepage-container-item-info-title-left-logo {
   max-height: 0.32rem;
   display: block;
-  margin-left: 5px;
+  /*margin-left: 5px;*/
 }
 
 .forecast-activity-homepage-container-item-info-title-left-text {
@@ -384,7 +384,7 @@
 
 .forecast-activity-homepage-container-item-info-num {
   display: flex;
-  width: 4.7rem;
+  width: 4.14rem;
   height: 0.72rem;
   align-items: center;
   justify-content: space-between;
@@ -396,6 +396,7 @@
   padding-right: 10px;
   color: #172841;
   font-size: 0.28rem;
+  box-sizing: border-box;
 }
 
 .forecast-activity-homepage-container-item-info-num-right {
@@ -413,14 +414,14 @@
 
 .forecast-activity-homepage-container-item-info-last {
   display: flex;
-  width: 4.7rem;
+  width: 4.14rem;
   height: 0.34rem;
   align-items: center;
   justify-content: space-between;
   margin-top: 0.2rem;
   border-radius: 4px;
   font-size: 0.24rem;
-  padding-left: 7px;
+  /*padding-left: 7px;*/
 }
 
 .forecast-activity-homepage-container-item-info-last-left {
@@ -441,11 +442,11 @@
 }
 
 .forecast-activity-homepage-container-item-down-btn {
-  width: 6rem;
+  width: 6.3rem;
   height: 0.8rem;
   line-height: 0.8rem;
   font-size: 0.32rem;
-  border-radius:0.08rem;
+  border-radius:0.4rem;
   text-align: center;
   box-sizing: content-box;
 }
@@ -754,7 +755,7 @@
   right: 0;
   /*width: 40px;*/
   height: 0.8rem;
-  padding: 0.3rem 0.4rem 0.2rem 0.2rem;
+  padding: 0.32rem 0.4rem 0.2rem 0.2rem;
 }
 
 .forecast-activity-ruleToast-close-btn-img {
@@ -776,13 +777,13 @@
 
 .forecast-activity-ruleToast-content-readonly {
   position: absolute;
-  top: 20%;
+  top: 16%;
   overflow-y: scroll;
   left: 0.4rem;
   right: 0.4rem;
   padding: 0 0.24rem 0.4rem 0;
   /*padding-bottom: 20px;*/
-  bottom: 0.4rem;
+  bottom: 1.7rem;
 }
 
 .forecast-activity-ruleToast-content {
@@ -791,18 +792,18 @@
   overflow-y: scroll;
   left: 0.4rem;
   right: 0.4rem;
-  height: 2.52rem;
+  height: 5rem;
   padding-bottom: 0.4rem;
 }
 
 .forecast-activity-ruleToast-content-info {
   color: #172841;
-  font-size:0.28rem;
+  font-size: 0.28rem;
   font-family:PingFangSC-Regular,PingFang SC;
   font-weight:400;
-  line-height: 0.32rem;
+  line-height: 0.4rem;
   text-align: justify;
-  padding: 0 0.4rem;
+  /*padding: 0 0.4rem;*/
 }
 
 .forecast-activity-ruleToast-content-list {
@@ -894,12 +895,13 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  margin-top: 3rem;
+  margin: 6.4rem 0.3rem 0 0.3rem;
+
 }
 
 .forecast-activity-ruleToast-agreement-icon {
-  height: 0.28rem;
-  width: 0.28rem;
+  height: 0.3rem;
+  width: 0.3rem;
   display: block;
   margin-right: 0.12rem;
 }
@@ -915,10 +917,10 @@
 }
 
 .forecast-activity-ruleToast-agreement-text {
-  color: #333;
+  color: #172841;
   height: 0.28rem;
   line-height: 0.28rem;
-  font-size: 0.2rem;
+  font-size: 0.28rem;
 }
 
 .forecast-activity-ruleToast-agreement-wrong-text {
@@ -952,16 +954,19 @@
   border-radius: 0.04rem;
   text-align: center;
   font-size: 0.28rem;
+  margin-top: 0.2rem;
 }
 
 .forecast-activity-ruleToast-btn-join {
   color: #fff;
   background: #3576F5;
+  margin-left: 0.3rem;
 }
 
 .forecast-activity-ruleToast-btn-leave {
   color: #3576F5;
   background: #fff;
+  margin-right: 0.3rem;
 }
 
 .pop-detail {
@@ -1025,7 +1030,7 @@
   right: 0.5rem;
   transform: translateY(-50%);
   background: #fff;
-  border-radius: 0.16rem;
+  border-radius: 0.06rem;
   padding: 0 0.4rem;
 }
 
@@ -1047,7 +1052,7 @@
   height: 0.8rem;
   line-height: 0.8rem;
   text-align: center;
-  color: #C43E4E;
+  color: #3576F5;
   font-size: 0.32rem;
   box-sizing: border-box;
   border-bottom: 1px solid #f2f2f2;
@@ -1071,15 +1076,6 @@
   color: rgba(0,0,0,0.4);
 }
 
-.lock-position-confirm-toast-info {
-  margin-top: 0.1rem;
-  line-height: 0.34rem;
-  color: #FF1B1B;
-  font-size: 0.28rem;
-  text-indent: -5em;
-  padding-left: 5em;
-}
-
 .lock-position-confirm-toast-btns {
   display: flex;
   align-items: center;
@@ -1094,20 +1090,20 @@
   background: #fff;
   height: 0.8rem;
   line-height: 0.8rem;
-  color: #C43E4E;
-  border: 1px solid #C43E4E;
+  color: #3576F5;
+  border: 1px solid #3576F5;
   box-sizing: border-box;
   text-align: center;
-  border-radius: 4px;
+  border-radius: 0.04rem;
 }
 
 .lock-position-confirm-toast-btn-confirm {
-  width: 45%;
-  background: #C43E4E;
+  width: 100%;
+  background: #3576F5;
   height: 0.8rem;
   line-height: 0.8rem;
   color: #fff;
   box-sizing: border-box;
   text-align: center;
-  border-radius: 4px;
+  border-radius: 0.04rem;
 }
