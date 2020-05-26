@@ -45,6 +45,7 @@ root.data = function () {
     orderVal:false,
     // 活动
     activeVal:true,
+    chest:true,
     // 字体切换
     jttext:'',
     logo: logo,
@@ -678,6 +679,17 @@ root.methods.enterActive = function () {
 root.methods.leaveActive = function () {
   $(".langfont-active").attr("style","color: (255, 255, 255, 0.8);");
   this.activeVal = true;
+}
+
+// 百宝鼠标移入
+root.methods.enterTreasure = function () {
+  $(".langfont-treasure").attr("style","color: #fff;");
+  this.chest = false;
+}
+
+root.methods.leaveTreasure = function () {
+  $(".langfont-treasure").attr("style","color: (255, 255, 255, 0.8);");
+  this.chest = true;
 }
 
 // 钱包鼠标移入
