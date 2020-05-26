@@ -262,6 +262,7 @@
 
 .forecast-activity-homepage-container {
   /*margin-top: 0.36rem;*/
+  position: relative;
   padding: 0 10px 20px;
 }
 
