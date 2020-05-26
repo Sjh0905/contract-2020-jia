@@ -419,6 +419,25 @@ input:-ms-input-placeholder {
   box-shadow:0px 10px 12px -6px rgba(53,118,245,0.7);
 }
 
+
+.forecast_item_btn1 {
+  width: 300px;
+  height: 40px;
+  margin: 0 auto;
+  margin-top: 20px;
+  /*background: #3576F5;*/
+  /*border: 1px solid #3576F5;*/
+  border-radius: 20px;
+  font-size: 16px;
+  color: #FFFFFF;
+  text-align: center;
+  line-height: 40px;
+  font-weight: 400;
+  /*cursor: pointer;*/
+  /*box-shadow:0px 10px 12px -6px rgba(53,118,245,0.7);*/
+}
+
+
 .forecast_item_btn.disabled {
   background: none;
   opacity: 0.4;
