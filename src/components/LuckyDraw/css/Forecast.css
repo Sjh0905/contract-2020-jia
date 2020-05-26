@@ -29,9 +29,10 @@ input:-ms-input-placeholder {
 /*}*/
 
 .cursorImg {
-  width: 19px;
+  width: 14px;
   margin-left: 5px;
-  vertical-align: text-top;
+  vertical-align: initial;
+  margin-bottom: -1px;
 }
 .forecast {
   width: 100%;
@@ -193,6 +194,9 @@ input:-ms-input-placeholder {
   background: #3576F5;
 }
 
+.selectcolor {
+  color: #3576F5;
+}
 .select font {
   font-weight: 400;
 }
@@ -276,6 +280,7 @@ input:-ms-input-placeholder {
   overflow: hidden;
   min-height: 200px;
   position: relative;
+  padding-bottom: 70px;
 }
 
 .forecast_item {
@@ -329,7 +334,7 @@ input:-ms-input-placeholder {
 
 .number_record {
   float: right;
-  cursor: pointer;
+  /*cursor: pointer;*/
 }
 .number_recordkaijaing {
   font-size:12px;
@@ -341,7 +346,7 @@ input:-ms-input-placeholder {
   margin-top: 10px;
   width: 372px;
   height: 36px;
-  background: #D8E3F8;
+  background: rgba(242,244,251,1);
   border: 1px solid #CFD3E9;
   border-radius: 4px;
   line-height: 36px;
@@ -607,8 +612,8 @@ input:-ms-input-placeholder {
 }
 
 .forecast_dialog_list_body.list_width {
-  min-width: 640px;
-  max-width: 640px;
+  min-width: 840px;
+  max-width: 840px;
 }
 
 .forecast_dialog_list_content {
@@ -720,7 +725,7 @@ input:-ms-input-placeholder {
 }
 
 .table_number_num {
-  width: 22%;
+  width: 34%;
   text-align: left;
 }
 
@@ -779,8 +784,8 @@ input:-ms-input-placeholder {
 }
 
 .forecast_dialog_rules {
-  padding: 15px;
-  font-size: 12px;
+  padding: 25px;
+  font-size: 14px;
   color: #172841;
   margin: 20px 0px;
 }
@@ -899,7 +904,7 @@ input:-ms-input-placeholder {
 }
 
 .table_time.prize_time {
-  width: 33%;
+  width: 30%;
 }
 
 .table_number.prize_number {
@@ -907,7 +912,7 @@ input:-ms-input-placeholder {
 }
 
 .table_number.prize_total {
-  width: 25%;
+  width: 17%;
 }
 
 .table_number.prize_pool {
@@ -965,9 +970,9 @@ input:-ms-input-placeholder {
 
 .rules_item {
   /*color: rgba(0, 0, 0, 0.6);*/
-  line-height: 14px;
-  min-height: 14px;
-  margin-top: 7px;
+  line-height: 22px;
+  min-height: 22px;
+  /*margin-top: 10px;*/
   padding-left: 17px;
   text-indent:-1em;
   position: relative;
@@ -1105,7 +1110,7 @@ input:-ms-input-placeholder {
 
 /*活动规则滚动*/
 .rules_item_list {
-  max-height: 214px;
+  max-height: 250px;
   overflow-y: scroll;
   overflow-x: hidden;
 }
