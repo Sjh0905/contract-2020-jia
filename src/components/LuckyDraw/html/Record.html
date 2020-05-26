@@ -1,17 +1,21 @@
 <!--<div :class="{'h5-record-container':isMobile,'record-container':!isMobile}">-->
-  <div :class="(isMobile) ? 'h5-record-container1':'record-container'">
+  <div :class="(isMobile) ? 'h5-record-container1':'record-container1'">
 
-  <template v-if="!isMobile">
-    <div class="header">
-      <router-link :to="{name:'Forecast'}" class="header-title">
-        <!--幸运预测活动-->
-        {{$t('header_title_1')}}
-      </router-link>
-      <span class="spanbf">></span>
-      <!--我的参与记录-->
-      {{$t('header_title_2')}}
+  <template v-if="!isMobile" >
+    <div class="record-container2">
+      <div class="header">
+        <router-link :to="{name:'Forecast'}" class="header-title">
+          <!--幸运预测活动-->
+          {{$t('header_title_1')}}
+        </router-link>
+        <span class="spanbf">></span>
+        <!--我的参与记录-->
+        {{$t('header_title_2')}}
+      </div>
     </div>
-    <div class="article">
+    <div class="article record-container">
+
+      <div class="record-box">我的参与记录</div>
       <!--导航栏 begin-->
       <div class="process-container flex">
         <div class="process-item process-ing pointer"
@@ -54,7 +58,7 @@
               <div class="list-logo-container flex">
 <!--                <img src="../../../assets/中国国旗.png" alt="" class="list-logo">-->
 <!--                <img :src="'http://logo.eunex.group/'+item.currency + '.png'" alt="" class="list-logo">-->
-                <img :src="require(`../assets/PCForecastHomePage/${item.currency}.png`)" class="list-logo">
+                <img :src="require(`../assets/mobileForecastHomePage/${item.currency}.png`)" class="list-logo">
 
               </div>
               <!--logo end-->
@@ -119,7 +123,7 @@
                   {{$t('li_description_2')}}
                 </div>
                 <div class="list-description-reward-detail flex">
-                  <span class="list-description-reward">{{toFixed(item.rewardAmount,4)}} {{item.currency}}</span>
+                  <span class="list-description-reward">{{toFixed(item.rewardAmount,2)}} {{item.currency}}</span>
                   <div class="list-open-icon"></div>
                 </div>
                 <img class="Pitem-descriptionImg" src="../../../assets/xiangqign@2x.png" alt="">
@@ -171,11 +175,11 @@
           :clickChangePage="ingChangeIndex"
           :maxPage="ingMaxPage"
           :selectIndex="ingSelectIndex"
-          color="rgba(255,255,255,0.6)"
-          pageCellBgColor="#243156"
-          pageCellBorderColor="#314272"
-          pageCellSelectedBgColor="#2d3e6c"
-          pageCellSelectedColor="#C43E4E"
+          color="#3576F5"
+          pageCellBgColor="#FFFFFF"
+          pageCellBorderColor="#3576F5"
+          pageCellSelectedBgColor="#3576F5"
+          pageCellSelectedColor="#FFFFFF"
         />
       </template>
       <!--进行中分页 end-->
@@ -187,11 +191,11 @@
           :clickChangePage="winChangeIndex"
           :maxPage="winMaxPage"
           :selectIndex="winSelectIndex"
-          color="rgba(255,255,255,0.6)"
-          pageCellBgColor="#243156"
-          pageCellBorderColor="#314272"
-          pageCellSelectedBgColor="#2d3e6c"
-          pageCellSelectedColor="#C43E4E"
+          color="#3576F5"
+          pageCellBgColor="#FFFFFF"
+          pageCellBorderColor="#3576F5"
+          pageCellSelectedBgColor="#3576F5"
+          pageCellSelectedColor="#FFFFFF"
         />
       </template>
       <!--已中奖分页 end-->
@@ -203,11 +207,11 @@
           :clickChangePage="loseChangeIndex"
           :maxPage="loseMaxPage"
           :selectIndex="loseSelectIndex"
-          color="rgba(255,255,255,0.6)"
-          pageCellBgColor="#243156"
-          pageCellBorderColor="#314272"
-          pageCellSelectedBgColor="#2d3e6c"
-          pageCellSelectedColor="#C43E4E"
+          color="#3576F5"
+          pageCellBgColor="#FFFFFF"
+          pageCellBorderColor="#3576F5"
+          pageCellSelectedBgColor="#3576F5"
+          pageCellSelectedColor="#FFFFFF"
         />
       </template>
       <!--未中奖分页 end-->
@@ -357,7 +361,7 @@
             </div>
             <div class="popup-window-article-detail text_blue">
               {{
-              checkInfo.rewardAmount ? checkInfo.rewardAmount :
+              toFixed(checkInfo.rewardAmount,2) ? toFixed(checkInfo.rewardAmount,2) :
               lang === 'CH' ? checkInfo.winStatus : checkInfo.winStatusEn
               }}
             </div>
@@ -476,7 +480,7 @@
           <div class="h5-popup-window-p flex">
             <div class="h5-popup-window-article-detail-title">我的中奖：</div>
             <div class="h5-popup-window-article-detail">
-              {{checkInfo.rewardAmount ? toFixed(checkInfo.rewardAmount,4) + ' '+checkInfo.currency: checkInfo.winStatus}}
+              {{checkInfo.rewardAmount ? toFixed(checkInfo.rewardAmount,2) + ' '+checkInfo.currency: checkInfo.winStatus}}
             </div>
           </div>
           <div class="h5-popup-window-p flex" v-if="checkInfo.winNumber">
