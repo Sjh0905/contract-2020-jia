@@ -142,6 +142,17 @@ root.methods.timeAddition = function (item) {
 }
 
 
+// 开奖中
+root.methods.inLottery = function (item) {
+  let addTime = 20 * 1000
+  let nowTime = (new Date()).valueOf();
+  // nowTime 大于 （openTime-20） && nowTime 小于 （openTime+20）&& 份数 >= 5份
+  if(nowTime > (item.openTime - addTime) && nowTime < (item.openTime + addTime) && item.residueTicket >=5){
+    return true
+  }
+}
+
+
 // 在页面上画圆环
 root.methods.drawCanvas = function () {
   // window.cancelAnimationFrame();
@@ -605,7 +616,7 @@ root.methods.toFixed = function (num, acc = 8) {
 
 // svg在页面上画圆环
 root.methods.changeSvg = function (num1,num2) {
-  return ''+this.toFixed(Number(num1) * 267/ Number(num2),0) + ' 276'
+  return ''+this.toFixed(Number(num1) * 236/ Number(num2),0) + ' 251'
 
 }
 

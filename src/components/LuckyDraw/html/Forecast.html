@@ -56,34 +56,36 @@
       <!-- 销毁记录和参与记录 end -->
 
       <!-- 抽奖期数 start -->
-      <div class="forecast_number">
+      <div class="forecast_number ">
         <Loading v-if="loading"></Loading>
-        <div class="forecast_item flex-row" v-for="(item, key) in guess_list" :key="item.projectId" v-else>
-          <div class="forecast_item_corcol">
-            <div class="forecast_item_let">
-              <!-- <div class="border_circle"></div>
-                            <canvas class="canvas_div" :id="'canvas_' + item.projectId" width="100" height="100"></canvas>
-                            <p class="forecast_symbol">{{item.currency}}</p> -->
+        <div class="forecast_item flex-row " v-for="(item, key) in guess_list" :key="item.projectId" v-else>
+          <div class="forecast_item_corcol ">
+            <div class="forecast_item_let ">
+               <div class="border_circle">
+                 <p class="forecast_symbol">{{item.currency}}</p>
+               </div>
+<!--                            <canvas class="canvas_div" :id="'canvas_' + item.projectId" width="100" height="100"></canvas>-->
 
-              <svg width="100" height="100" viewBox="0 0 100 100" class="svg-progress">
+
+              <svg width="120" height="120" viewBox="-15 2 100 100" class="svg-progress ">
                 <defs>
-                  <pattern id="fill-img" patternUnits="userSpaceOnUse" width="100" height="100">
+                  <pattern id="fill-img" patternUnits="userSpaceOnUse" width="120" height="120">
 
-                    <image class="img-transform" xlink:href="../assets/rectangle_bg.png" x="0" y="0" width="100"
-                           height="100"></image>
+                    <image class="img-transform " xlink:href="../assets/rectangle_bg.png" x="0" y="0" width="120"
+                           height="120"></image>
 <!--                    ../assets/rectangle_bg.png-->
 
                   </pattern>
                 </defs>
                 <g>
-                  <circle class="circle-progress" cx="43" cy="43" r="38" stroke-width="7" stroke="url('#fill-img')" fill="none"
+                  <circle class="circle-progress" cx="43" cy="43" r="38" stroke-width="6" stroke="url('#fill-img')" fill="none"
                           :stroke-dasharray="changeSvg(item.residueTicket,item.eachs)" stroke-linecap="round"></circle>
 
 <!--                  <circle cx="50" cy="50" r="44" stroke-width="9" stroke="url('#fill-img')" fill="none"-->
 <!--                          :stroke-dasharray="changeSvg(item.residueTicket,item.eachs)" stroke-linecap="round"></circle>-->
                 </g>
               </svg>
-              <p class="forecast_symbol">{{item.currency}}</p>
+<!--              <p class="forecast_symbol ">{{item.currency}}</p>-->
             </div>
 <!--            <div class="forecast-activity-homepage-container-item-canvas">-->
 <!--              <div class="forecast-activity-homepage-container-item-canvas-text">{{item.currency}}</div>-->
@@ -144,23 +146,23 @@
 							</span>
             </div>
             <!-- 按钮 -->
-            <!-- disabled -->
-            <div class="forecast_item_btn" v-if="item.projectStatus === 'PROCESSING' || item.projectStatus === 'CREATED'"
+            <!-- disabled 点击参与-->
+            <div class="forecast_item_btn" v-if="item.projectStatus === 'PROCESSING' || item.projectStatus === 'CREATED' && !inLottery(item)"
                  @click="SHOW_BUY(item.projectId, item.extPeriod, item.currency, item.eachAmount, item.eachs, item.residueTicket)">
               {{$t('tojoin')}}
             </div>
              <!-- 哟完成-->
-            <div class="forecast_item_btn" v-if="item.projectStatus === 'PROCESSING' || item.projectStatus === 'COMPLETED'">
+            <div class="forecast_item_btn" v-if="item.projectStatus === 'COMPLETED'">
               {{$t('已完成')}}
             </div>
 <!--            <div class="forecast_item_btn disabled" v-if="item.projectStatus == 'PAUSE'">-->
 <!--              {{$t('recess')}}...-->
 <!--            </div>-->
             <div class="forecast_item_btn disabled svg-btn"
-                 v-if="item.projectStatus == 'SOLD_OUT' || item.projectStatus == 'TXHASH' || item.projectStatus == 'ABNORMAL'">
+                 v-if="item.projectStatus == 'SOLD_OUT' || item.projectStatus == 'TXHASH' || item.projectStatus == 'ABNORMAL' || inLottery(item)">
               <!--{{$t('processing')}}-->
               <svg class='svg-btn'
-                   v-if="item.projectStatus === 'SOLD_OUT' || item.projectStatus === 'TXHASH' || item.projectStatus === 'ABNORMAL'"
+                   v-if="item.projectStatus === 'SOLD_OUT' || item.projectStatus === 'TXHASH' || item.projectStatus === 'ABNORMAL' || inLottery(item)"
                    height="40" width="300">
 
                 <path d='M150 1
@@ -173,6 +175,7 @@
 
                 </path>
                 >
+                  <!-- 区块生成开奖中-->
                 <text :x="lang === 'CH'?100:50" y="26" font-size="16">{{$t('processing')}}</text>
 
 
