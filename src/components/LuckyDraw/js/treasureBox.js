@@ -163,7 +163,10 @@ root.created = function () {
 }
 
 root.mounted = function () {
-
+  if(!this.$store.state.isAndroid){
+    // alert('这是iOS')
+    this.toHideAppHeader()
+  }
 }
 
 root.beforeDestroy = function () {
