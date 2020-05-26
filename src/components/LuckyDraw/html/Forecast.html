@@ -106,7 +106,7 @@
             <div class="number">
 							<span class="currency_icon">
 <!--								<img :src="'http://logo.eunex.group/'+item.currency + '.png'">-->
-                <img :src="require(`../assets/PCForecastHomePage/${item.currency}.png`)" class="list-logo">
+                <img :src="require(`../assets/mobileForecastHomePage/${item.currency}.png`)" class="list-logo">
 							</span>
               {{item.currency}} {{$t('round', {extPeriod: Number(item.extPeriod)})}}
 <!--              <span class="number_record" @click="GET_PRIZE_LIST(item.projectId)">-->
@@ -293,25 +293,25 @@
               <div class="table_title flex-row table_tr">
                 <div class="table_time prize_time list_width">{{$t('prize_time')}}</div>
                     <!--  区块合约编号  -->
-<!--                <div class="table_number_num">{{$t('prize_block')}}</div>-->
+                <div class="table_number_num">{{$t('prize_block')}}</div>
                 <div class="table_number prize_number list_width">{{$t('prize_number')}}</div>
                 <div class="table_number prize_total list_width">{{$t('prize_total')}}</div>
 <!--                <div class="table_number prize_pool list_width">{{$t('prize_pool')}}</div>-->
                 <div class="table_number list_width">{{$t('prize_episode')}}</div>
               </div>
               <div class="table_list_container">
-                <div class="table_list table_tr flex-row cursorPointer" v-for="(item, key) in prize_list" @click="getInitPage(item.projectId, item.itemNumber, item.currency)">
+                <div class="table_list table_tr flex-row " v-for="(item, key) in prize_list">
                   <div class="table_time prize_time list_width">{{$globalFunc.formatDateUitl(item.lotteryTime,
                     'YYYY-MM-DD hh:mm:ss')}}
                   </div>
                   <!--  区块合约编号  -->
-<!--                  <div class="table_number_num">-->
-<!--                    <a href="#" @click="GO_URL_DETAIL(item.blockContractUrl)">{{item.blockContractNumber}}</a>-->
-<!--                  </div>-->
+                  <div class="table_number_num">
+                    <a href="#" @click="GO_URL_DETAIL(item.blockContractUrl)">{{item.blockContractNumber}}</a>
+                  </div>
                   <div class="table_number prize_number list_width">{{item.winNumber}}</div>
                   <div class="table_number prize_total list_width">{{item.totalQuantity}}</div>
 <!--                  <div class="table_number prize_pool list_width">{{item.lotteryPoolNumber}}</div>-->
-                  <div class="table_number list_width" >{{item.currency}}{{item.itemNumber}}
+                  <div class="table_number list_width cursorPointer" @click="getInitPage(item.projectId, item.itemNumber, item.currency)">{{item.currency}}{{item.itemNumber}}
                     <img src="../assets/mobileForecastHomePage/item_icon@2x.png" alt="" class="itemIcon">
                   </div>
                 </div>
@@ -357,30 +357,37 @@
                   <p class="rules_title">
                     {{$t('rule')}}
                   </p>
-                  <p class="rules_p rules_item_title">
+                  <p class="rules_p rules_item">
+                    <span class="selectcolor"> 【游戏原则】</span>
                     {{$t('rule_item_0')}}
                   </p>
                   <p class="rules_p rules_item">
+                    <span class="selectcolor">【每局奖池】</span>
                     {{$t('rule_item_1')}}
                   </p>
                   <p class="rules_p rules_item">
+                    <span class="selectcolor">【开奖时间】</span>
                     {{$t('rule_item_2')}}
                   </p>
                   <p class="rules_p rules_item">
+                    <span class="selectcolor">【抽奖号码】</span>
                     {{$t('rule_item_3')}}
                   </p>
                   <p class="rules_p rules_item">
+                    <span class="selectcolor">【中奖号码】</span>
                     {{$t('rule_item_4')}}
                   </p>
                   <p class="rules_p rules_item last-child">
+                    <span class="selectcolor">【中奖规则】</span>
                     {{$t('rule_item_5')}}
                   </p>
                   <p class="rules_p rules_item">
+                    <span class="selectcolor">【举例说明】</span>
                   {{$t('rule_item_6')}}
                   </p>
-                  <p class="rules_p last-child rules_item">
-                  {{$t('rule_item_7')}}
-                  </p>
+<!--                  <p class="rules_p last-child rules_item">-->
+<!--                  {{$t('rule_item_7')}}-->
+<!--                  </p>-->
 <!--                  <p class="rules_title">-->
 <!--                    {{$t('rule_title_2')}}-->
 <!--                  </p>-->
