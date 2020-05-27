@@ -191,6 +191,17 @@ GlobalFunction.formatDateUitl = function (time, formatString, offset = 8) {
   return formatString;
 }
 
+//目前仅限用于会员卡到期，比较客户端时间与格林威治标准时间,如果为true，取时间戳，否则取格式化后的时间，time：接口返回的会员卡购买时间
+GlobalFunction.comparedWithGreenwichTime = function (time) {
+  if(!time)return false
+
+  let d = new Date(time),h = d.getHours(),m = d.getMinutes()
+  let totalM = h * 60 + m
+  //返回格林威治时间和本地时间之间的时差，以分钟为单位
+  let offsetMinute = Math.abs(new Date().getTimezoneOffset())
+  return totalM < offsetMinute
+}
+
 //倒计时,new Date("2019/03/10 00:00:00").getTime()可以将指定时间转化为时间戳
 GlobalFunction.timeCountdown = function (nowTime = 0,beginTime = 0) {
   let stepTime = beginTime - nowTime;

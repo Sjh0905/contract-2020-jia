@@ -47,7 +47,8 @@
 <!--          什么时间到期-->
 <!--          {{expires}}{{$t('expiration')}}-->
           <span class="ygm_hy2">
-            {{((createdAt) < 16 && (createdAt) < 24) ? expires :$globalFunc.formatDateUitl(Number(expires_timestamp),'YYYY-MM-DD')}}{{$t('expiration')}}
+<!--            {{((createdAt) < 16 && (createdAt) < 24) ? expires :$globalFunc.formatDateUitl(Number(expires_timestamp),'YYYY-MM-DD')}}{{$t('expiration')}}-->
+            {{$globalFunc.comparedWithGreenwichTime(Number(createdAt)) == true ? $globalFunc.formatDateUitl(Number(expires_timestamp),'YYYY-MM-DD') : expires}}{{$t('expiration')}}
           </span>
         </div>
 
