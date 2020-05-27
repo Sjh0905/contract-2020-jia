@@ -209,6 +209,53 @@ root.routes.push({
   component: resolve => require(['@/components/LuckyDraw/vue/treasureBox'], resolve)
 })
 
+// 基金理财
+root.routes.push({
+  path: '/index/mobileFinancialFund',
+  name: 'mobileFinancialFund',
+  meta: {
+    requireLogin: true,
+    pcname: '',
+    h5name: 'mobileFinancialFund',
+  },
+  caseSensitive: true,
+  component: resolve => require(['@/components/fundProducts/vue/mobileFinancialFund'], resolve),
+  children:[
+    {
+      path: '',
+      caseSensitive: true,
+      redirect: 'mobileFundProducts',
+      meta: {
+        pcname: '',
+        h5name: 'mobileFundProducts',
+      },
+    },
+    // 基金产品页面
+    {
+      path: '/index/mobileFinancialFund/mobileFundProducts',
+      caseSensitive: true,
+      meta: {
+        requireLogin: false,
+        pcname: '',
+        h5name: 'mobileFundProducts',
+      },
+      component: resolve => require(['@/components/fundProducts/vue/mobileFundProducts'], resolve),
+    },
+
+    // 基金资产页面
+    {
+      path: '/index/mobileFinancialFund/mobileFundAssets',
+      caseSensitive: true,
+      meta: {
+        requireLogin: false,
+        pcname: '',
+        h5name: 'mobileFundAssets',
+      },
+      component: resolve => require(['@/components/fundProducts/vue/mobileFundAssets'], resolve),
+    },
+  ]
+})
+
 
 // 双平台通证合并公投 TODO:要删除 check
 // root.routes.push({
