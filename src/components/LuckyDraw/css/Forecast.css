@@ -43,6 +43,7 @@ input:-ms-input-placeholder {
 
 .forecast_container {
   width: 100%;
+
   /*height: 206px;*/
   /*min-height: 1028px;*/
   /*background: url('../assets/bj-2.png') top no-repeat #070B26;*/
@@ -417,6 +418,25 @@ input:-ms-input-placeholder {
   cursor: pointer;
   box-shadow:0px 10px 12px -6px rgba(53,118,245,0.7);
 }
+
+
+.forecast_item_btn1 {
+  width: 300px;
+  height: 40px;
+  margin: 0 auto;
+  margin-top: 20px;
+  /*background: #3576F5;*/
+  /*border: 1px solid #3576F5;*/
+  border-radius: 20px;
+  font-size: 16px;
+  color: #FFFFFF;
+  text-align: center;
+  line-height: 40px;
+  font-weight: 400;
+  /*cursor: pointer;*/
+  /*box-shadow:0px 10px 12px -6px rgba(53,118,245,0.7);*/
+}
+
 
 .forecast_item_btn.disabled {
   background: none;
@@ -895,7 +915,7 @@ input:-ms-input-placeholder {
   color: #3576F5;
   font-size:12px;
   font-family:PingFangSC-Regular,PingFang SC;
-  font-weight:400;
+  font-weight:600;
 }
 
 .forecast_buy span {

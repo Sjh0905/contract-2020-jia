@@ -8,6 +8,7 @@
     "order": "订单",
     "assets": "资产",
     "activity": "活动",
+    "activitywakuang": "挖矿",
     "ExchangeThreeTeaSources": "兑换茶叁茶源",
     "TeaTeaSource": "茶叁茶源",
     "GRCTradeEvent": "易物点通证量化活动",
@@ -56,7 +57,8 @@
 
     "miningDetails":"KK交易挖矿详情",
     "OfficialQuantitativeRegistration": "KK交易挖矿",
-    "lockHouseRecord": "锁仓记录"
+    "lockHouseRecord": "锁仓记录",
+    "celebration": "百日庆之百宝箱"
 
   },
   "EN": {
@@ -181,6 +183,7 @@
     "order": "訂單",
     "assets": "資產",
     "activity": "活動",
+    "activitywakuang": "挖礦",
     "ExchangeThreeTeaSources": "兌換茶三茶源",
     "TeaTeaSource": "茶三茶源",
     "GRCTradeEvent": "易物點通證量化活動",
@@ -226,7 +229,8 @@
     "lockHouseRecord": "鎖倉記錄",
     "miningDetails":"KK交易挖礦詳情",
     "OfficialQuantitativeRegistration": "KK交易挖礦",
-    "lockHouseRecord": "鎖倉記錄"
+    "lockHouseRecord": "鎖倉記錄",
+    "celebration": "百日慶之百寶箱"
   },
   "JP": {
     "website": "TwentyTwenty",
