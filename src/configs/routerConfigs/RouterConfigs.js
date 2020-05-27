@@ -213,6 +213,7 @@ root.routes.push({
 root.routes.push({
   path: '/index/mobileFinancialFund',
   name: 'mobileFinancialFund',
+  requireLogin: true,
   meta: {
     requireLogin: true,
     pcname: '',
@@ -235,7 +236,7 @@ root.routes.push({
       path: '/index/mobileFinancialFund/mobileFundProducts',
       caseSensitive: true,
       meta: {
-        requireLogin: false,
+        requireLogin: true,
         pcname: '',
         h5name: 'mobileFundProducts',
       },
@@ -247,7 +248,7 @@ root.routes.push({
       path: '/index/mobileFinancialFund/mobileFundAssets',
       caseSensitive: true,
       meta: {
-        requireLogin: false,
+        requireLogin: true,
         pcname: '',
         h5name: 'mobileFundAssets',
       },
