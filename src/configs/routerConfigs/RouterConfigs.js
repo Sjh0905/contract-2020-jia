@@ -168,7 +168,9 @@ root.routes.push({
       path: 'Forecast',
       name: 'Forecast',
       caseSensitive: true,
+
       meta: {
+        requireLogin: true,
         mobileHeaderTitle: '',
         pcname: 'Forecast',
         h5name: 'MobileForecastHomePage',
@@ -199,7 +201,7 @@ root.routes.push({
   path: '/index/treasureBox',
   name: 'treasureBox',
   meta: {
-    requireLogin: false,
+    requireLogin: true,
     pcname: '',
     h5name: 'treasureBox',
   },
