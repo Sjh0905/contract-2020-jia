@@ -74,7 +74,7 @@ root.data = function () {
     eachs: 0,
     residueTicket: 0,
 		// 购买份数，提交用的
-		predict_number: '',
+		predict_number: '1',
 		// 购买份数数量
 		predict_number_amount: '',
 		// 是否认证
@@ -447,7 +447,7 @@ root.methods.HIDE_BUY = function () {
 	this.show_buy = false;
 	this.project_id = '';
 	this.period_id = '';
-	this.predict_number = '';
+	// this.predict_number = '';
 	this.currency = '';
 }
 
