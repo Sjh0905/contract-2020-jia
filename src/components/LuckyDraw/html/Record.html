@@ -355,7 +355,11 @@
 
           <!--我的中奖 begin-->
           <div class="popup-window-p flex">
-            <div class="popup-window-article-detail-title">
+            <div class="popup-window-article-detail-title" v-if="!checkInfo.winNumber">
+              <!--我的中奖：-->
+              未开奖：
+            </div>
+            <div class="popup-window-article-detail-title" v-if="checkInfo.winNumber">
               <!--我的中奖：-->
               {{$t('prompt_article_title_1')}}
             </div>
