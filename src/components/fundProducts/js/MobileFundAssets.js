@@ -1,5 +1,5 @@
 const root = {}
-root.name = 'mobileFundAssets'
+root.name = 'MobileFundAssets'
 /*------------------------------ 组件 ------------------------------*/
 //root.components = {
 //  'Loading': resolve => require(['../Loading/Loading.vue'], resolve),

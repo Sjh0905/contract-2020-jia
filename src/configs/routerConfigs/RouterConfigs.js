@@ -220,7 +220,7 @@ root.routes.push({
     h5name: 'mobileFinancialFund',
   },
   caseSensitive: true,
-  component: resolve => require(['@/components/fundProducts/vue/mobileFinancialFund'], resolve),
+  component: resolve => require(['@/components/fundProducts/vue/MobileFinancialFund'], resolve),
   children:[
     {
       path: '',
@@ -240,7 +240,7 @@ root.routes.push({
         pcname: '',
         h5name: 'mobileFundProducts',
       },
-      component: resolve => require(['@/components/fundProducts/vue/mobileFundProducts'], resolve),
+      component: resolve => require(['@/components/fundProducts/vue/MobileFundProducts'], resolve),
     },
 
     // 基金资产页面
@@ -252,7 +252,7 @@ root.routes.push({
         pcname: '',
         h5name: 'mobileFundAssets',
       },
-      component: resolve => require(['@/components/fundProducts/vue/mobileFundAssets'], resolve),
+      component: resolve => require(['@/components/fundProducts/vue/MobileFundAssets'], resolve),
     },
   ]
 })
