@@ -355,17 +355,17 @@
 
           <!--我的中奖 begin-->
           <div class="popup-window-p flex">
-            <div class="popup-window-article-detail-title" v-if="!checkInfo.winNumber">
-              <!--我的中奖：-->
-              未开奖：
-            </div>
-            <div class="popup-window-article-detail-title" v-if="checkInfo.winNumber">
+<!--            <div class="popup-window-article-detail-title" v-if="!checkInfo.winNumber">-->
+<!--              &lt;!&ndash;我的中奖：&ndash;&gt;-->
+<!--              未开奖：-->
+<!--            </div>-->
+            <div class="popup-window-article-detail-title">
               <!--我的中奖：-->
               {{$t('prompt_article_title_1')}}
             </div>
             <div class="popup-window-article-detail text_blue">
               {{
-              toFixed(checkInfo.rewardAmount,2) ? toFixed(checkInfo.rewardAmount,2) :
+              checkInfo.rewardAmount ? toFixed(checkInfo.rewardAmount,2) :
               lang === 'CH' ? checkInfo.winStatus : checkInfo.winStatusEn
               }}
             </div>
