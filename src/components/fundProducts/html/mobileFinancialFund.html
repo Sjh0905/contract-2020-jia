@@ -1,0 +1,20 @@
+<div class="mobile-fund-container">
+  <div class="mobile-fund-title">
+    <div class="detail-title flex">
+      <!--基金产品 begin-->
+      <router-link to="/index/mobileFinancialFund/mobileFundProducts" class="title-tab flex-center" active-class="selected text_blue">
+        基金产品
+      </router-link>
+      <!--基金产品 end-->
+      <!--基金理财 begin-->
+      <router-link to="/index/mobileFinancialFund/mobileFundAssets" class="title-tab flex-center" active-class="selected text_blue">
+        基金理财
+      </router-link>
+      <!--基金理财 end-->
+    </div>
+    <div class="mobile-fund-detail">
+      <router-view></router-view>
+    </div>
+  </div>
+<!--  <div class="clear"></div>-->
+</div>
