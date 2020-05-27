@@ -82,6 +82,10 @@ root.methods.goToBlocks = function () {
 }
 
 root.methods.ReturnToActivePage = function () {
+  if(this.$route.query.winNumber){
+    this.$router.push('/static/mobileForecastRewardRecord?projectId=1')
+    return
+  }
   this.$router.push({name:'treasureBox'})
 }
 
