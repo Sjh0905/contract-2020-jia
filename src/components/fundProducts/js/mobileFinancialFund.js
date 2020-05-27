@@ -18,4 +18,8 @@ root.computed = {}
 root.watch = {}
 /*------------------------------ 方法 -------------------------------*/
 root.methods = {}
+// 跳转首页
+root.methods.returnNewH5homePage = function () {
+  this.$router.push({name:'NewH5homePage'})
+}
 export default root

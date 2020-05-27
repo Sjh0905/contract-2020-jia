@@ -1,14 +1,26 @@
 <div class="mobile-fund-container">
+
+<!--  TKF顶部-->
+  <div class="mobile-fund-top flex">
+    <div class="mobile-fund-image" @click="returnNewH5homePage">
+      <img src="../../LuckyDraw/assets/mobileForecastHomePage/back_icon.png" alt="" class="mobile-fund-top-img">
+    </div>
+    <div class="mobile-fund-top-title">TKF</div>
+  </div>
+
   <div class="mobile-fund-title">
-    <div class="detail-title flex">
+    <div class="mobile-fund-title-img">
+      <img src="../assets/fund_banner.png" alt="" class="mobile-fund-title-img">
+    </div>
+    <div class="mobile-fund-title-content flex">
       <!--基金产品 begin-->
-      <router-link to="/index/mobileFinancialFund/mobileFundProducts" class="title-tab flex-center" active-class="selected text_blue">
-        基金产品
+      <router-link to="/index/mobileFinancialFund/mobileFundProducts" class="fund-products flex-center" active-class="text-white">
+        产品
       </router-link>
       <!--基金产品 end-->
       <!--基金理财 begin-->
-      <router-link to="/index/mobileFinancialFund/mobileFundAssets" class="title-tab flex-center" active-class="selected text_blue">
-        基金理财
+      <router-link to="/index/mobileFinancialFund/mobileFundAssets" class="fund-products flex-center" active-class="selected text-white">
+        理财
       </router-link>
       <!--基金理财 end-->
     </div>
