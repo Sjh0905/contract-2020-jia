@@ -1,0 +1,249 @@
+<div class="mobile-fund-products">
+  <div>
+    <div class="product-name flex">
+      <div class="produc-selected" :class="{'h5-item-selected':recordType===0}"
+           @click="changeTag(0)">拔头筹</div>
+      <div class="product-vertical">|</div>
+      <div class="produc-selected" :class="{'h5-item-selected':recordType===1}"
+           @click="changeTag(1)">群雄起</div>
+      <div class="product-vertical">|</div>
+      <div class="produc-selected" :class="{'h5-item-selected':recordType===2}"
+           @click="changeTag(2)">步步高</div>
+      <div class="product-vertical">|</div>
+      <div class="produc-selected" :class="{'h5-item-selected':recordType===3}"
+           @click="changeTag(3)">天下同</div>
+    </div>
+
+    <div class="TKF-take-the-lead" v-if="recordType===0">
+      <div>
+        <div class="TKF-take-the">托肯放之拔头筹-1期</div>
+        <!--        <div class="TKF-take-the">托肯放之群雄起-1期</div>-->
+        <!--        <div class="TKF-take-the">托肯放之步步高-1期</div>-->
+        <!--        <div class="TKF-take-the">托肯放之天下同-1期</div>-->
+        <div class="flex">
+          <div class="TKF-take-the-box">
+            <span class="each-copy color-a8">每份额度</span>
+            <span class="each-copy padding-top color-bik">100<span class="TKF-usdt">USDT</span></span>
+          </div>
+          <div class="TKF-take-the-box">
+            <span class="each-copy color-a8">发行份数</span>
+            <span class="each-copy padding-top color-bik">300</span>
+          </div>
+          <div class="TKF-take-the-box">
+            <span class="each-copy color-a8">基金周期</span>
+            <span class="each-copy padding-top color-bik">7 天</span>
+          </div>
+        </div>
+        <div class="TKF-strategy">理财策略（七日年化收益率）</div>
+        <div class="flex">
+          <div class="TKF-take-the-box">
+            <span class="each-copy color-bik">10000%</span>
+            <span class="each-copy padding-top color-a8">1 份</span>
+          </div>
+          <div class="TKF-take-the-box">
+            <span class="each-copy color-bik">10%</span>
+            <span class="each-copy padding-top color-a8">100 份</span>
+          </div>
+          <div class="TKF-take-the-box">
+            <span class="each-copy color-bik">1%</span>
+            <span class="each-copy padding-top color-a8">199 份</span>
+          </div>
+        </div>
+
+        <div>
+          <div class="TKF-purchase" @click="goToPurchase">申购</div>
+        </div>
+      </div>
+    </div>
+    <div class="TKF-take-the-lead" v-if="recordType===0">
+      <div>
+        <div class="TKF-take-the">托肯放之拔头筹-1期</div>
+        <div class="flex">
+          <div class="TKF-take-the-box">
+            <span class="each-copy color-a8">每份额度</span>
+            <span class="each-copy padding-top color-bik">100<span class="TKF-usdt">USDT</span></span>
+          </div>
+          <div class="TKF-take-the-box">
+            <span class="each-copy color-a8">发行份数</span>
+            <span class="each-copy padding-top color-bik">300</span>
+          </div>
+          <div class="TKF-take-the-box">
+            <span class="each-copy color-a8">基金周期</span>
+            <span class="each-copy padding-top color-bik">7 天</span>
+          </div>
+        </div>
+        <div class="TKF-strategy">理财策略（七日年化收益率）</div>
+        <div class="flex">
+          <div class="TKF-take-the-box">
+            <span class="each-copy color-bik">10000%</span>
+            <span class="each-copy padding-top color-a8">1 份</span>
+          </div>
+          <div class="TKF-take-the-box">
+            <span class="each-copy color-bik">10%</span>
+            <span class="each-copy padding-top color-a8">100 份</span>
+          </div>
+          <div class="TKF-take-the-box">
+            <span class="each-copy color-bik">1%</span>
+            <span class="each-copy padding-top color-a8">199 份</span>
+          </div>
+        </div>
+
+        <div>
+          <div class="TKF-purchase" @click="goToPurchase">申购</div>
+        </div>
+      </div>
+    </div>
+    <div class="TKF-take-the-lead" v-if="recordType===0">
+      <div>
+        <div class="TKF-take-the">托肯放之拔头筹-1期</div>
+        <div class="flex">
+          <div class="TKF-take-the-box">
+            <span class="each-copy color-a8">每份额度</span>
+            <span class="each-copy padding-top color-bik">100<span class="TKF-usdt">USDT</span></span>
+          </div>
+          <div class="TKF-take-the-box">
+            <span class="each-copy color-a8">发行份数</span>
+            <span class="each-copy padding-top color-bik">300</span>
+          </div>
+          <div class="TKF-take-the-box">
+            <span class="each-copy color-a8">基金周期</span>
+            <span class="each-copy padding-top color-bik">7 天</span>
+          </div>
+        </div>
+        <div class="TKF-strategy">理财策略（七日年化收益率）</div>
+        <div class="flex">
+          <div class="TKF-take-the-box">
+            <span class="each-copy color-bik">10000%</span>
+            <span class="each-copy padding-top color-a8">1 份</span>
+          </div>
+          <div class="TKF-take-the-box">
+            <span class="each-copy color-bik">10%</span>
+            <span class="each-copy padding-top color-a8">100 份</span>
+          </div>
+          <div class="TKF-take-the-box">
+            <span class="each-copy color-bik">1%</span>
+            <span class="each-copy padding-top color-a8">199 份</span>
+          </div>
+        </div>
+
+        <div>
+          <div class="TKF-purchase" @click="goToPurchase">申购</div>
+        </div>
+      </div>
+    </div>
+    <div class="TKF-take-the-lead" v-if="recordType===1">
+      <div>
+        <div class="TKF-take-the">托肯放之群雄起-1期</div>
+        <div class="flex">
+          <div class="TKF-take-the-box">
+            <span class="each-copy color-a8">每份额度</span>
+            <span class="each-copy padding-top color-bik">100<span class="TKF-usdt">USDT</span></span>
+          </div>
+          <div class="TKF-take-the-box">
+            <span class="each-copy color-a8">发行份数</span>
+            <span class="each-copy padding-top color-bik">300</span>
+          </div>
+          <div class="TKF-take-the-box">
+            <span class="each-copy color-a8">基金周期</span>
+            <span class="each-copy padding-top color-bik">7 天</span>
+          </div>
+        </div>
+        <div class="TKF-strategy">理财策略（七日年化收益率）</div>
+        <div class="flex">
+          <div class="TKF-take-the-box">
+            <span class="each-copy color-bik">1000%</span>
+            <span class="each-copy padding-top color-a8">10 份</span>
+          </div>
+          <div class="TKF-take-the-box">
+            <span class="each-copy color-bik">10%</span>
+            <span class="each-copy padding-top color-a8">100 份</span>
+          </div>
+          <div class="TKF-take-the-box">
+            <span class="each-copy color-bik">1%</span>
+            <span class="each-copy padding-top color-a8">190 份</span>
+          </div>
+        </div>
+
+        <div>
+          <div class="TKF-purchase" @click="goToPurchase">申购</div>
+        </div>
+      </div>
+    </div>
+    <div class="TKF-take-the-lead" v-if="recordType===2">
+      <div>
+        <div class="TKF-take-the">托肯放之步步高-1期</div>
+        <div class="flex">
+          <div class="TKF-take-the-box">
+            <span class="each-copy color-a8">每份额度</span>
+            <span class="each-copy padding-top color-bik">100<span class="TKF-usdt">USDT</span></span>
+          </div>
+          <div class="TKF-take-the-box">
+            <span class="each-copy color-a8">发行份数</span>
+            <span class="each-copy padding-top color-bik">300</span>
+          </div>
+          <div class="TKF-take-the-box">
+            <span class="each-copy color-a8">基金周期</span>
+            <span class="each-copy padding-top color-bik">7 天</span>
+          </div>
+        </div>
+        <div class="TKF-strategy">理财策略（七日年化收益率）</div>
+        <div class="flex">
+          <div class="TKF-take-the-box">
+            <span class="each-copy color-bik">200%</span>
+            <span class="each-copy padding-top color-a8">50 份</span>
+          </div>
+          <div class="TKF-take-the-box">
+            <span class="each-copy color-bik">10%</span>
+            <span class="each-copy padding-top color-a8">100 份</span>
+          </div>
+          <div class="TKF-take-the-box">
+            <span class="each-copy color-bik">1%</span>
+            <span class="each-copy padding-top color-a8">150 份</span>
+          </div>
+        </div>
+
+        <div>
+          <div class="TKF-purchase" @click="goToPurchase">申购</div>
+        </div>
+      </div>
+    </div>
+    <div class="TKF-take-the-lead" v-if="recordType===3">
+      <div>
+        <div class="TKF-take-the">托肯放之天下同-1期</div>
+        <div class="flex">
+          <div class="TKF-take-the-box">
+            <span class="each-copy color-a8">每份额度</span>
+            <span class="each-copy padding-top color-bik">100<span class="TKF-usdt">USDT</span></span>
+          </div>
+          <div class="TKF-take-the-box">
+            <span class="each-copy color-a8">发行份数</span>
+            <span class="each-copy padding-top color-bik">300</span>
+          </div>
+          <div class="TKF-take-the-box">
+            <span class="each-copy color-a8">基金周期</span>
+            <span class="each-copy padding-top color-bik">7 天</span>
+          </div>
+        </div>
+        <div class="TKF-strategy">理财策略（七日年化收益率）</div>
+        <div class="flex">
+          <div class="TKF-take-the-box">
+            <span class="each-copy color-bik">100%</span>
+            <span class="each-copy padding-top color-a8">100 份</span>
+          </div>
+          <div class="TKF-take-the-box">
+            <span class="each-copy color-bik">10%</span>
+            <span class="each-copy padding-top color-a8">100 份</span>
+          </div>
+          <div class="TKF-take-the-box">
+            <span class="each-copy color-bik">1%</span>
+            <span class="each-copy padding-top color-a8">100 份</span>
+          </div>
+        </div>
+
+        <div>
+          <div class="TKF-purchase" @click="goToPurchase">申购</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

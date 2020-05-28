@@ -213,13 +213,14 @@ root.routes.push({
 root.routes.push({
   path: '/index/mobileFinancialFund',
   name: 'mobileFinancialFund',
+  requireLogin: true,
   meta: {
     requireLogin: true,
     pcname: '',
     h5name: 'mobileFinancialFund',
   },
   caseSensitive: true,
-  component: resolve => require(['@/components/fundProducts/vue/mobileFinancialFund'], resolve),
+  component: resolve => require(['@/components/fundProducts/vue/MobileFinancialFund'], resolve),
   children:[
     {
       path: '',
@@ -235,11 +236,11 @@ root.routes.push({
       path: '/index/mobileFinancialFund/mobileFundProducts',
       caseSensitive: true,
       meta: {
-        requireLogin: false,
+        requireLogin: true,
         pcname: '',
         h5name: 'mobileFundProducts',
       },
-      component: resolve => require(['@/components/fundProducts/vue/mobileFundProducts'], resolve),
+      component: resolve => require(['@/components/fundProducts/vue/MobileFundProducts'], resolve),
     },
 
     // 基金资产页面
@@ -247,11 +248,11 @@ root.routes.push({
       path: '/index/mobileFinancialFund/mobileFundAssets',
       caseSensitive: true,
       meta: {
-        requireLogin: false,
+        requireLogin: true,
         pcname: '',
         h5name: 'mobileFundAssets',
       },
-      component: resolve => require(['@/components/fundProducts/vue/mobileFundAssets'], resolve),
+      component: resolve => require(['@/components/fundProducts/vue/MobileFundAssets'], resolve),
     },
   ]
 })
