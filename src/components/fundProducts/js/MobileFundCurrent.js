@@ -13,7 +13,7 @@ root.created = function () {
   if(this.$route.query.isApp) {
     window.postMessage(JSON.stringify({
         method: 'setTitle',
-        parameters: '本期购买'
+        parameters: '本期申购'
       })
     );
     window.postMessage(JSON.stringify({
