@@ -1,0 +1,194 @@
+.fund-buy-activity{
+  background: #F7F8FA;
+  height: 100%;
+  overflow-y: scroll;
+}
+.fund-buy-main{
+  /*background: green;*/
+  /*flex: 1;*/
+  min-height: 100%;
+  margin-top: 0.88rem;
+  margin-bottom:1.48rem;
+}
+.fund-buy-main-app{
+  margin-top: 0;
+}
+.fund-buy-input-box{
+  width:100%;
+  height:2.16rem;
+  padding:0 0.3rem;
+  margin-bottom: 0.2rem;
+  background-color: #ffffff;
+}
+.fund-buy-input-title{
+  padding-top: 0.5rem;
+  margin-bottom: 0.1rem;
+  /*height:0.32rem;*/
+  font-size:0.24rem;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color:rgba(25,54,98,1);
+  line-height:0.32rem;
+}
+.fund-buy-input-item{
+  height:0.72rem;
+  padding:0.12rem auto;
+  /*background-color: #0a8415;*/
+  border-bottom: 0.01rem solid #E7EBEE;
+  color: #172841;
+  font-size:0.32rem;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+}
+.fund-buy-input-item-left {
+  border: none;
+  width: 80%;
+  height: 100%;
+  display: block;
+  box-sizing: border-box;
+}
+.fund-buy-input-item-account {
+  padding-top: 0.05rem;
+  align-items: center;
+  font-size:0.28rem;;
+}
+.buy-currency {
+  margin-left: 0.06rem;
+  color: #86651F;
+}
+.fund-buy-input-item input::-webkit-input-placeholder{
+  /* WebKit browsers */
+  font-size:0.32rem;
+  color:#ACBDDE;
+}
+.fund-buy-input-item input:-moz-placeholder {
+  /* Mozilla Firefox 4 to 18 */
+  font-size:0.32rem;
+  color:#ACBDDE;
+}
+.fund-buy-input-item input::-moz-placeholder {
+  /* Mozilla Firefox 19+ */
+  font-size:0.32rem;
+  color:#ACBDDE;
+}
+.fund-buy-input-item input:-ms-input-placeholder {
+  /* Internet Explorer 10+ */
+  font-size:0.32rem;
+  color:#ACBDDE;
+}
+.fund-buy-input-desc{
+  margin-top: 0.04rem;
+  height:0.32rem;
+  font-size:0.24rem;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color:#ACBDDE;
+  line-height:0.32rem;
+}
+.fund-buy-section-title{
+  width:100%;
+  height:0.88rem;
+  font-size:0.28rem;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color:rgba(19,31,48,1);
+  line-height:0.88rem;
+  padding-left: 0.3rem;
+  border-bottom: 0.01rem solid #ECEEF8;
+  background-color: #ffffff;
+
+}
+.fund-description-info{
+  width: 100%;
+  padding: 0.3rem;
+  background-color: #ffffff;
+  margin-bottom: 0.2rem;
+}
+.fund-description-info-item{
+  display: flex;
+  flex-direction: row;
+}
+.fund-description-info-left{
+  margin-right: 0.58rem;
+  margin-bottom: 0.2rem;
+  width: 1.04rem;
+  height:0.36rem;
+  font-size:0.26rem;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color:#172841;
+  line-height:0.36rem;
+}
+.fund-description-info-right{
+  width: 5.28rem;
+  font-size:0.26rem;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color:#3E536C;
+  line-height:0.36rem;
+}
+.fund-buy-type-of-strategy{
+  width: 100%;
+}
+.fund-buy-type-of-strategy-img{
+  width: 100%;
+}
+.fund-buy-btn-box{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width:100%;
+  height:1.48rem;
+  background:rgba(255,255,255,1);
+  box-shadow:0rem -0.04rem 0.26rem 0.22rem rgba(161,161,161,0.07);
+}
+.fund-buy-btn{
+  width:6.9rem;
+  height:0.88rem;
+  background:linear-gradient(90deg,rgba(255,221,111,1) 0%,rgba(254,200,83,1) 100%);
+  border-radius:0.03rem;
+  margin: 0.3rem auto;
+  text-align: center;
+  font-size:0.28rem;
+  font-weight:600;
+  color:rgba(134,101,31,1);
+  line-height:0.88rem;
+}
+
+.fund-buy-header-title {
+  height: 0.88rem;
+  width: 100%;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  background: #fff;
+  z-index: 100;
+  border-bottom: 0.02rem solid #F7F8FA ;
+}
+
+.fund-buy-header-title-back-icon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0.88rem;
+  height: 0.88rem;
+}
+
+.fund-buy-header-title-back-icon-img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0.32rem;
+  transform: translate(-50%,-50%);
+}
+.fund-buy-header-title-text {
+  height:0.44rem;
+  font-size:0.32rem;
+  font-family:PingFangSC-Semibold,PingFang SC;
+  font-weight:600;
+  color:rgba(11,11,39,1);
+  line-height:0.44rem;
+}
+

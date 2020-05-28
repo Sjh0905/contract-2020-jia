@@ -287,6 +287,19 @@ root.routes.push({
   component: resolve => require(['@/components/fundProducts/vue/MobileFundCurrent'], resolve),
 })
 
+//基金理财购买
+root.routes.push({
+  path: '/index/mobileFundBuy',
+  name: 'mobileFundBuy',
+  meta: {
+    requireLogin: true,
+    pcname: '',
+    h5name: 'mobileFundBuy',
+  },
+  caseSensitive: true,
+  component: resolve => require(['@/components/fundProducts/vue/MobileFundBuy'], resolve)
+})
+
 
 // 双平台通证合并公投 TODO:要删除 check
 // root.routes.push({
