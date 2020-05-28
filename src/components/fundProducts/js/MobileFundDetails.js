@@ -23,4 +23,9 @@ root.methods = {}
 root.methods.returnMobileFundAssets  =function () {
   this.$router.push({name:'mobileFundAssets'})
 }
+
+// 跳转本期购买
+root.methods.gotoFundCurrent  =function () {
+  this.$router.push({name:'mobileFundCurrent'})
+}
 export default root
