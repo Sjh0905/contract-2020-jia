@@ -6,7 +6,9 @@ root.name = 'mobileFundCurrent'
 //}
 /*------------------------------ data -------------------------------*/
 root.data = function () {
-  return {}
+  return {
+    currentBuyList:[]
+  }
 }
 /*------------------------------ 生命周期 -------------------------------*/
 root.created = function () {}
@@ -18,7 +20,7 @@ root.computed = {}
 root.watch = {}
 /*------------------------------ 方法 -------------------------------*/
 root.methods = {}
-
+// 跳转详情页面
 root.methods.returnFundDetails = function () {
   this.$router.push({name:'mobileFundDetails'})
 }
