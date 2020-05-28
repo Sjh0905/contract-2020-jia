@@ -1,6 +1,6 @@
 <div class="mobile-fund-container">
   <!--本期购买顶部-->
-  <div class="mobile-fund-top flex">
+  <div v-if="!isApp" class="mobile-fund-top flex">
     <div class="mobile-fund-image" @click="returnFundDetails">
       <img src="../../LuckyDraw/assets/mobileForecastHomePage/back_icon.png" alt="" class="mobile-fund-top-img">
     </div>
