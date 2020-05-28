@@ -66,6 +66,10 @@ root.methods = {}
 root.methods.inputUserCopiesInput = function () {
   // this.inputUserCopies = this.inputUserCopies
 }
+
+root.methods.jumpToBack = function () {
+  this.$router.push({'path':'/index/mobileFinancialFund/mobileFundProducts'})
+}
 // 申购操作
 root.methods.toBuyFund = function () {
   if (!this.isLogin) {
