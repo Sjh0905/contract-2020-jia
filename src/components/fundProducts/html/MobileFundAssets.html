@@ -1,3 +1,84 @@
-<div class="container">
-  基金资产
+<div class="fund-asset-container">
+  <div class="fund-asset-content">
+    <!--背景图-->
+    <div class="fund-asset-background">
+      <div class="fund-asset-title">总资产（USDT）</div>
+      <div class="fund-asset-amount">700,123.25</div>
+    </div>
+    <!--累计收益图-->
+    <div class="fund-asset-income flex">
+      <div class="fund-asset-total-income">
+        <div class="fund-asset-total-incom-title">累计总收益</div>
+        <div class="fund-asset-total-incom-amount">5258.123214 USDT</div>
+      </div>
+      <div class="fund-asset-total-income">
+        <div class="fund-asset-total-incom-title">最新收益</div>
+        <div class="fund-asset-total-incom-amount">12312.123214 USDT</div>
+      </div>
+    </div>
+
+    <!--空隙-->
+    <div class="fund-asset-null"></div>
+
+    <!--基金收益状态-->
+    <div class="fund-asset-status">
+      <!--状态title-->
+      <div class="fund-asset-status-title flex">
+        <div class="fund-asset-status-subscription" :class="{'selected':selectedType===1}" @click="getAssetStatus(1)">申购中</div>
+        <div class="line">|</div>
+        <div class="fund-asset-status-subscription" :class="{'selected':selectedType===2}" @click="getAssetStatus(2)">收益中</div>
+        <div class="line">|</div>
+        <div class="fund-asset-status-subscription" :class="{'selected':selectedType===3}" @click="getAssetStatus(3)">已结束</div>
+
+      </div>
+
+      <!--申购中-->
+      <div class="fund-asset-status-containter flex" v-if="selectedType === 1">
+        <div class="fund-asset-status-containter-left">
+          <div class="fund-asset-status-nper">托肯放之拔头筹-3期</div>
+          <div class="fund-asset-status-acount">
+            <span class="fund-asset-status-number">3</span>
+            <span class="fund-asset-status-text">购买份数</span>
+          </div>
+        </div>
+        <div class="fund-asset-status-containter-right flex">
+          <div class="sub-scription">申购中</div>
+          <div><img src="../assets/go_detail.png" alt="" class="go-detail"></div>
+        </div>
+      </div>
+
+      <!--收益中-->
+      <div class="fund-asset-status-containter flex" v-if="selectedType === 2">
+        <div class="fund-asset-status-containter-left">
+          <div class="fund-asset-status-nper">托肯放之拔头筹-2期</div>
+          <div class="fund-asset-status-acount">
+            <span class="fund-asset-status-number">3</span>
+            <span class="fund-asset-status-text">购买份数</span>
+          </div>
+        </div>
+        <div class="fund-asset-status-containter-right flex">
+          <div class="sub-scription">收益中</div>
+          <div><img src="../assets/go_detail.png" alt="" class="go-detail"></div>
+        </div>
+      </div>
+
+      <!--已结束-->
+      <div class="fund-asset-status-containter flex" v-if="selectedType === 3">
+        <div class="fund-asset-status-containter-left">
+          <div class="fund-asset-status-nper">托肯放之拔头筹-1期</div>
+          <div class="fund-asset-status-acount">
+            <span class="fund-asset-status-number">3</span>
+            <span class="fund-asset-status-text">购买份数</span>
+          </div>
+        </div>
+        <div class="fund-asset-status-containter-right flex">
+          <div class="sub-scription">已结束</div>
+          <div><img src="../assets/go_detail.png" alt="" class="go-detail"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
 </div>

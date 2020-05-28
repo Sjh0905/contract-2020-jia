@@ -6,7 +6,9 @@ root.name = 'MobileFundAssets'
 //}
 /*------------------------------ data -------------------------------*/
 root.data = function () {
-  return {}
+  return {
+    selectedType: 1,  // 1:申购中  2：收益中  3：已结束
+  }
 }
 /*------------------------------ 生命周期 -------------------------------*/
 root.created = function () {}
@@ -18,4 +20,9 @@ root.computed = {}
 root.watch = {}
 /*------------------------------ 方法 -------------------------------*/
 root.methods = {}
+
+root.methods.getAssetStatus = function (type) {
+  this.selectedType = type
+
+}
 export default root
