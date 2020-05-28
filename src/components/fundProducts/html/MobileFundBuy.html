@@ -1,14 +1,14 @@
 <div class="fund-buy-activity">
   <!--非ios头部-->
-  <div v-show="!iosQuery" class="fund-buy-header-title">
+  <div v-show="!isApp" class="fund-buy-header-title">
     <div class="fund-buy-header-title-back-icon" @click="jumpToBack()">
       <img class="fund-buy-header-title-back-icon-img" src="../../LuckyDraw/assets/mobileForecastHomePage/back_icon.png" alt="">
     </div>
-    <div class="fund-buy-header-title-text">基金购买</div>
+    <div class="fund-buy-header-title-text">基金申购</div>
   </div>
 
   <!--主体部分-->
-  <div class="fund-buy-main" :class="iosQuery ? 'fund-buy-main-app' : ''">
+  <div class="fund-buy-main" :class="isApp ? 'fund-buy-main-app' : ''">
     <div class="fund-buy-input-box">
 
       <div class="fund-buy-input-title">购买份数</div>
