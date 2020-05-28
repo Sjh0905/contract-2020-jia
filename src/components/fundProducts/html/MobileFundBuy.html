@@ -1,6 +1,6 @@
 <div class="fund-buy-activity">
   <!--非ios头部-->
-  <div class="fund-buy-header-title">
+  <div v-show="!iosQuery" class="fund-buy-header-title">
     <div class="fund-buy-header-title-back-icon" @click="jumpToBack()">
       <img class="fund-buy-header-title-back-icon-img" src="../../LuckyDraw/assets/mobileForecastHomePage/back_icon.png" alt="">
     </div>
@@ -8,12 +8,12 @@
   </div>
 
   <!--主体部分-->
-  <div class="fund-buy-main">
+  <div class="fund-buy-main" :class="iosQuery ? 'fund-buy-main-app' : ''">
     <div class="fund-buy-input-box">
       <div class="fund-buy-input-title">购买份数</div>
       <div class="fund-buy-input-item flex-between">
-        <input class="fund-buy-input-item-left" v-model="inputUserAmount" @input="inputUserAmountInput"  placeholder="请输入购买份数">
-        <div class="fund-buy-input-item-account flex-between">{{inputUserAmount ? toFixed(accMul(eachAmount,inputUserAmount),0):''}}<span class="buy-currency">{{'USDT'}}</span>
+        <input class="fund-buy-input-item-left" v-model="inputUserCopies" @input="inputUserCopiesInput"  placeholder="请输入购买份数">
+        <div class="fund-buy-input-item-account flex-between">{{inputUserCopies ? toFixed(accMul(eachAmount,inputUserCopies),0):''}}<span class="buy-currency">{{'USDT'}}</span>
         </div>
       </div>
       <div class="fund-buy-input-desc">剩余份数{{remainingCopies}}</div>
@@ -49,8 +49,10 @@
 
   <!--底部按钮-->
   <div class="fund-buy-btn-box">
-    <div class="fund-buy-btn">
+    <div class="fund-buy-btn" @click="toBuyFund()">
       申购
     </div>
   </div>
+
+  <PopupPrompt :popOpen="popOpen" :popClose="closePop" :popType="popType" :popText="popText" :waitTime="waitTime" />
 </div>
