@@ -21,6 +21,12 @@ root.watch = {}
 /*------------------------------ 方法 -------------------------------*/
 root.methods = {}
 
+// 跳转基金详情页
+root.methods.gotoDetails = function () {
+  this.$router.push({name:'mobileFundDetails'})
+}
+
+// 切换产品
 root.methods.getAssetStatus = function (type) {
   this.selectedType = type
 
