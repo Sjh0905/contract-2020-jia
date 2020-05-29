@@ -2,6 +2,7 @@
   width: 7.5rem;
   height: 100%;
   background-color: #F7F8FA;
+  padding-bottom: 0.2rem;/*保证能遮住黑色底部，去除底部的黑边*/
 }
 .product-name {
   padding: 0.5rem 0.3rem 0.32rem;
@@ -42,6 +43,7 @@
   display: block;
 }
 .TKF-take-the-box {
+  display: inline-block;
   width: 33%;
 }
 .padding-top {

@@ -1,20 +1,20 @@
 <div class="fund-buy-activity">
   <!--非ios头部-->
-  <div v-show="!iosQuery" class="fund-buy-header-title">
+  <div v-show="!isApp" class="fund-buy-header-title">
     <div class="fund-buy-header-title-back-icon" @click="jumpToBack()">
       <img class="fund-buy-header-title-back-icon-img" src="../../LuckyDraw/assets/mobileForecastHomePage/back_icon.png" alt="">
     </div>
-    <div class="fund-buy-header-title-text">基金购买</div>
+    <div class="fund-buy-header-title-text">基金申购</div>
   </div>
 
   <!--主体部分-->
-  <div class="fund-buy-main" :class="iosQuery ? 'fund-buy-main-app' : ''">
+  <div class="fund-buy-main" :class="isApp ? 'fund-buy-main-app' : ''">
     <div class="fund-buy-input-box">
 
       <div class="fund-buy-input-title">购买份数</div>
       <div class="fund-buy-input-item flex-between">
         <input class="fund-buy-input-item-left" v-model="inputUserCopies" @input="inputUserCopiesInput"  placeholder="请输入购买份数">
-        <div class="fund-buy-input-item-account flex-between">{{inputUserCopies ? toFixed(accMul(eachAmount,inputUserCopies),0):''}}<span class="buy-currency">{{'USDT'}}</span>
+        <div class="fund-buy-input-item-account flex-between">{{inputUserCopies ? toFixed(accMul(period.quota,inputUserCopies),0):''}}<span class="buy-currency">{{'USDT'}}</span>
         </div>
       </div>
       <div class="fund-buy-input-desc">剩余份数{{remainingCopies}}</div>
@@ -22,24 +22,36 @@
     <div class="fund-buy-section-title">基金说明</div>
     <div class="fund-description-info">
       <div class="fund-description-info-item">
+        <div class="fund-description-info-left">基金名称</div>
+        <div class="fund-description-info-right">{{firstList.drawCNName}}</div>
+      </div>
+      <div class="fund-description-info-item">
         <div class="fund-description-info-left">每份额度</div>
-        <div class="fund-description-info-right">{{eachAmount}}USDT</div>
+        <div class="fund-description-info-right">{{eachAmount}} USDT</div>
       </div>
       <div class="fund-description-info-item">
         <div class="fund-description-info-left">发行份数</div>
-        <div class="fund-description-info-right">{{issueCopies}}份</div>
+        <div class="fund-description-info-right">{{period.copies}} 份</div>
+      </div>
+      <div class="fund-description-info-item">
+        <div class="fund-description-info-left">基金周期</div>
+        <div class="fund-description-info-right">{{period.cycle}} 天</div>
       </div>
       <div class="fund-description-info-item">
         <div class="fund-description-info-left">基金开始</div>
-        <div class="fund-description-info-right">{{'2020年05月28日 15:00:00'}}</div>
+        <div class="fund-description-info-right">{{formatDateUitl(period.startTime)}}</div>
       </div>
       <div class="fund-description-info-item">
         <div class="fund-description-info-left">基金结束</div>
-        <div class="fund-description-info-right">{{'2020年05月28日 15:00:00'}}</div>
+        <div class="fund-description-info-right">{{formatDateUitl(period.endTime)}}</div>
+      </div>
+      <div class="fund-description-info-item">
+        <div class="fund-description-info-left">收益类型</div>
+        <div class="fund-description-info-right">{{remainingType == 'BREAKEVEN' ? '保本型' : '非保本型'}}</div>
       </div>
       <div class="fund-description-info-item">
         <div class="fund-description-info-left">策略确定</div>
-        <div class="fund-description-info-right">{{'申购时获随机购买编号，赎回时根据以太坊区块 Nounce 值与购买编号的绝对差值大小，确定理财策略星级。'}}</div>
+        <div class="fund-description-info-right">{{'申购时获随机购买编号，赎回时根据以太坊区块 Nonce 值与购买编号的绝对差值大小，确定理财策略星级。'}}</div>
       </div>
     </div>
     <div class="fund-buy-section-title">策略种类</div>
