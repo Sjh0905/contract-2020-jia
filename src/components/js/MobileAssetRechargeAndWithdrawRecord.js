@@ -41,6 +41,10 @@ root.data = function () {
     ActivityRecord:[], // 挖矿奖励
     EventRewards:[], // 活动奖励
 
+    fundListLists:[], //基金奖励
+
+
+
     // 获取多少条消息
     capitalTransferLimit: 10,
     //是否Transfer获取ajax结果 默认为false
@@ -643,6 +647,45 @@ root.methods.error_getInternalTransferList = function (err) {
 }
 
 
+// 获取理财记录
+root.methods.getFundList = function () {
+  if(this.ajaxInternalTransferFlag === true){
+    return;
+  }
+  this.ajaxInternalTransferFlag = true
+
+  this.$http.send("", {
+    bind: this,
+    query:{
+    },
+    callBack: this.re_getFundList,
+    errorHandler: this.error_getFundList
+  })
+}
+// 获取理财记录返回，类型为{}
+root.methods.re_getFundList = function (data) {
+  this.ajaxInternalTransferFlag = false
+  typeof data === 'string' && (data = JSON.parse(data))
+  if (!data) return
+  this.fundListLists = data.dataMap
+
+  if (this.fundListLists.length < this.fundListLists){
+    this.isShowGetMoreInternalTransfer = false
+  } else {
+    this.internalTransferLimit += 10;
+  }
+
+  this.loading = false
+}
+// 获取理财记录出错
+root.methods.error_getFundList = function (err) {
+  console.warn("转账获取记录出错！", err)
+  this.ajaxInternalTransferFlag = true
+  if(this.ajaxInternalTransferFlag === true){
+    this.loading = false
+  }
+}
+
 // 点击跳转充值详情页
 root.methods.toRechargeDetailPath = function (type) {
   console.log(123123123,type)
@@ -678,6 +721,13 @@ root.methods.toInternalTransferDetailPath = function (item) {
   this.$store.commit('changeMobileRechargeRecordData',item)
   this.$router.push("/index/mobileAsset/mobileAssetInternalTransferRecordDetail/")
 }
+// 点击跳进基金详情页
+root.methods.tofundDetailsPath = function (item) {
+  this.$store.commit('changeMobileRechargeRecordData',item)
+  this.$router.push("/index/mobileAsset/mobileAssetInternalTransferRecordDetail/")
+}
+
+
 // 关闭pop提示
 root.methods.popClose = function () {
   this.popOpen = false

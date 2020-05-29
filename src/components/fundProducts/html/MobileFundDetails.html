@@ -14,12 +14,15 @@
     <!--标题及状态-->
     <div class="mobile-fund-content-title flex">
       <div>托肯放只拔头筹-1期</div>
-      <div>申购中</div>
+      <div v-if="$route.params.selectedType == 1">申购中</div>
+      <div v-if="$route.params.selectedType == 2">收益中</div>
+      <div v-if="$route.params.selectedType == 3">已结束</div>
+
     </div>
 
     <div class="mobile-fund-content-content">
       <!--已结束-->
-      <div class="mobile-fund-income" v-if="true">本期收益（USDT）
+      <div class="mobile-fund-income" v-if="$route.params.selectedType == 3">本期收益（USDT）
         <div class="mobile-fund-income-number">700,123.25</div>
       </div>
       <!--中间内容-->
@@ -43,7 +46,7 @@
           <!--中奖号码-->
           <div class="mobile-fund-text flex">
             <div class="text">中奖号码</div>
-            <div class="content">4</div>
+            <div class="content">{{$route.params.selectedType == 1 ? '未抽取':'4'}}</div>
           </div>
           <!--抽签号码-->
           <div class="mobile-fund-text flex">

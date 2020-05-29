@@ -490,4 +490,7 @@ requestAddress.UNLOCK_ASSET_RECODE = {url: urlHead+'/asset/user/unlock/asset', m
 requestAddress.TOTAL_LOCK_REWARD = {url: urlHead+'/asset/user/total/reward', method: 'get'} // 锁仓累计
 requestAddress.LOCK_COUNT = {url: urlHead+'/asset/user/lock/count', method: 'get'} // 锁仓次数
 
+
+requestAddress.TKF_FINANCIAL_RECORDS = {url: urlHead+'/tkf/financialRecords', method: 'get'}  //理财基金状态
+
 export default requestAddress
