@@ -153,6 +153,22 @@ root.methods.toBuyFund = function () {
     this.openPop('购买份数不能大于发行份数')
     return
   }
+  // 接口调通后放入正确的回调中
+  this.$router.push({name:'mobileFundAssets'})
+  // this.$http.send('',
+  //   {
+  //     bind: this,
+  //     params: {
+  //
+  //     },
+  //     callBack: this.re_toBuyFund,
+  //     errorHandler: this.error_toBuyFund
+  //   }
+  // )
+}
+
+root.methods.re_toBuyFund = function (res) {
+  typeof(res) == 'string' && (res = JSON.parse(res));
 
 
   this.$http.send('POST_PURCHASE_TKF',

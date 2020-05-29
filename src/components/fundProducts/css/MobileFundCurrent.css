@@ -82,6 +82,19 @@
   opacity: 0.6;
 }
 
+.mobile-forecast-record-item {
+  height: 0.88rem;
+  line-height: 0.88rem;
+  display: flex;
+  align-items: center;
+  width: 7.5rem;
+  color: #131F30;
+  padding: 0 0.3rem;
+  font-size: 0.24rem;
+  background-color: #FFFFFF;
+  border-bottom: 1px solid #ECEEF8;
+}
+
 .type {
   flex: 18;
 }
@@ -100,15 +113,10 @@
   text-align: right;
 }
 
-.mobile-forecast-record-item {
-  height: 0.88rem;
-  line-height: 0.88rem;
-  display: flex;
-  align-items: center;
-  width: 7.5rem;
-  color: #131F30;
-  padding: 0 0.3rem;
-  font-size: 0.24rem;
-  background-color: #FFFFFF;
-  border-bottom: 1px solid #ECEEF8;
+.mobile-record-winning img {
+  width: 0.32rem;
+  vertical-align: sub;
 }
+
+
+
