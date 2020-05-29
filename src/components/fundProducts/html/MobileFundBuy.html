@@ -23,7 +23,7 @@
     <div class="fund-description-info">
       <div class="fund-description-info-item">
         <div class="fund-description-info-left">基金名称</div>
-        <div class="fund-description-info-right">{{firstList.drawCNName}}</div>
+        <div class="fund-description-info-right">{{drawCNName}}</div>
       </div>
       <div class="fund-description-info-item">
         <div class="fund-description-info-left">每份额度</div>
@@ -62,8 +62,11 @@
 
   <!--底部按钮-->
   <div class="fund-buy-btn-box">
-    <div class="fund-buy-btn" @click="toBuyFund()">
+    <div class="fund-buy-btn" v-if="subscription" @click="toBuyFund()">
       申购
+    </div>
+    <div v-if="!subscription" class="fund-buy-btn">
+      申购中
     </div>
   </div>
 
