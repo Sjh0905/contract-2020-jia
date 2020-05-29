@@ -35,6 +35,20 @@ root.created = function () {
   this.firstList = this.$route.query.firstList
 
   this.getProductList()
+
+  if(this.$route.query.isApp) {
+    window.postMessage(JSON.stringify({
+        method: 'setTitle',
+        parameters: '基金申购'
+      })
+    );
+    window.postMessage(JSON.stringify({
+      method: 'setH5Back',
+      parameters: {
+        canGoH5Back:true
+      }
+    }))
+  }
 }
 root.mounted = function () {}
 root.beforeDestroy = function () {}
@@ -51,9 +65,9 @@ root.computed.userId = function () {
   return this.$store.state.authMessage.userId ? this.$store.state.authMessage.userId : 0
 }
 
-// 检验是否是ios
-root.computed.iosQuery = function () {
-  return this.$route.query.isIOS
+// 检验是否是APP
+root.computed.isApp = function () {
+  return this.$route.query.isApp ? true : false
 }
 
 // 检验ios是否登录

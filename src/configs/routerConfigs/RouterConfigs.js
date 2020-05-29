@@ -234,6 +234,7 @@ root.routes.push({
     // 基金产品页面
     {
       path: '/index/mobileFinancialFund/mobileFundProducts',
+      name:'mobileFundProducts',
       caseSensitive: true,
       meta: {
         requireLogin: true,
@@ -246,6 +247,7 @@ root.routes.push({
     // 基金资产页面
     {
       path: '/index/mobileFinancialFund/mobileFundAssets',
+      name: 'mobileFundAssets',
       caseSensitive: true,
       meta: {
         requireLogin: true,
@@ -255,6 +257,34 @@ root.routes.push({
       component: resolve => require(['@/components/fundProducts/vue/MobileFundAssets'], resolve),
     },
   ]
+})
+
+// 基金理财详情
+root.routes.push({
+  path: '/index/mobileFundDetails',
+  name: 'mobileFundDetails',
+  requireLogin: true,
+  meta: {
+    requireLogin: false,
+    pcname: '',
+    h5name: 'mobileFundDetails',
+  },
+  caseSensitive: true,
+  component: resolve => require(['@/components/fundProducts/vue/MobileFundDetails'], resolve),
+})
+
+// 基金本期购买
+root.routes.push({
+  path: '/index/mobileFundCurrent',
+  name: 'mobileFundCurrent',
+  requireLogin: true,
+  meta: {
+    requireLogin: false,
+    pcname: '',
+    h5name: 'mobileFundCurrent',
+  },
+  caseSensitive: true,
+  component: resolve => require(['@/components/fundProducts/vue/MobileFundCurrent'], resolve),
 })
 
 //基金理财购买

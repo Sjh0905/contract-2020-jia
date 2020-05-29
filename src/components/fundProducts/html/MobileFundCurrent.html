@@ -1,0 +1,49 @@
+<div class="mobile-fund-container">
+  <!--本期购买顶部-->
+  <div v-if="!isApp" class="mobile-fund-top flex">
+    <div class="mobile-fund-image" @click="returnFundDetails">
+      <img src="../../LuckyDraw/assets/mobileForecastHomePage/back_icon.png" alt="" class="mobile-fund-top-img">
+    </div>
+    <div class="mobile-fund-top-title">本期申购</div>
+  </div>
+
+  <!--本期购买 中奖编号-->
+  <div class="examine flex">
+    <div>本期中奖号码:12</div>
+    <div class="examine-img">
+      <span class="examine-text">立即查验</span>
+      <img src="../assets/go_detail.png" alt="">
+    </div>
+  </div>
+  <!--无数据-->
+  <div  class="no-data-box" v-if="false">
+    <img class="no-data-img" src="" alt="">
+    <!-- ../assets/mobileForecastRecord/no_record_img.png-->
+    <div class="no-data-text">暂无记录~</div>
+  </div>
+  <!--有数据-->
+  <div class="mobile-fund-current flex">
+    <div class="type">认购时间</div>
+    <div class="amount">认购数量</div>
+    <div class="detail">抽奖号码</div>
+    <div class="num">UID</div>
+  </div>
+  <div >
+    <div class="mobile-forecast-record-item">
+      <div class="type">2121</div>
+      <div class="amount">12312312</div>
+      <div class="detail">123</div>
+      <div class="num">
+        <span class="mobile-record-winning">中奖</span>
+        1231</div>
+    </div>
+    <div class="mobile-forecast-record-item">
+      <div class="type">2121</div>
+      <div class="amount">12312312</div>
+      <div class="detail">123</div>
+      <div class="num">
+        <span class="mobile-record-winning">中奖</span>
+        1231</div>
+    </div>
+  </div>
+</div>
