@@ -104,20 +104,21 @@ root.methods.changeTag = function (n) {
   if (parseInt(n) === this.recordType) return
   this.recordType = parseInt(n)
 }
-root.methods.goToPurchase = function(firstList,item) {
-  this.$router.push({'path':'/index/mobileFundBuy',query:{firstList:firstList,item:item}})
+root.methods.goToPurchase = function(id,currency,item) {
+  this.$router.push({'path':'/index/mobileFundBuy',query:{id:id, currency:currency,item:item}})
 }
 
-root.methods.goToPurchase1 = function(fourthList,item) {
-  this.$router.push({'path':'/index/mobileFundBuy',query:{firstList:fourthList,item:item}})
+root.methods.goToPurchase1 = function(id,currency,item) {
+  // this.$router.push({'path':'/index/mobileFundBuy',query:{firstList:fourthList,item:item}})
+  this.$router.push({'path':'/index/mobileFundBuy',query:{id:id, currency:currency, item:item}})
 }
 
-root.methods.goToPurchase2 = function(thirdList,item) {
-  this.$router.push({'path':'/index/mobileFundBuy',query:{firstList:thirdList,item:item}})
+root.methods.goToPurchase2 = function(id,currency,item) {
+  this.$router.push({'path':'/index/mobileFundBuy',query:{id:id, currency:currency,item:item}})
 }
 
-root.methods.goToPurchase3 = function(fourthList,item) {
-  this.$router.push({'path':'/index/mobileFundBuy',query:{firstList:fourthList,item:item}})
+root.methods.goToPurchase3 = function(id,currency,item) {
+  this.$router.push({'path':'/index/mobileFundBuy',query:{id:id, currency:currency,item:item}})
 }
 
 // 产品列表get
