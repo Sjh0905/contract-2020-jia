@@ -490,4 +490,14 @@ requestAddress.UNLOCK_ASSET_RECODE = {url: urlHead+'/asset/user/unlock/asset', m
 requestAddress.TOTAL_LOCK_REWARD = {url: urlHead+'/asset/user/total/reward', method: 'get'} // 锁仓累计
 requestAddress.LOCK_COUNT = {url: urlHead+'/asset/user/lock/count', method: 'get'} // 锁仓次数
 
+
+
+//2020-05-28TKF理财相关接口
+requestAddress.GET_PROJECT_LIST = {url: urlHead+'/tkf/projectList', method: 'get'} // TKF产品简介
+requestAddress.POST_PURCHASE_TKF = {url: urlHead+'/tkf/purchase', method: 'post'} // 申购TKF
+requestAddress.GET_FUND_DETAILS = {url: urlHead+'/tkf/purchasePageInfo', method: 'get'} // 申购基金详情
+
+
+
+
 export default requestAddress
