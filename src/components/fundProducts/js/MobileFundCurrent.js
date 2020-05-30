@@ -38,8 +38,8 @@ root.computed.isApp = function () {
 root.watch = {}
 /*------------------------------ 方法 -------------------------------*/
 root.methods = {}
-// 跳转详情页面
+// 跳转上一级页面
 root.methods.returnFundDetails = function () {
-  this.$router.push({name:'mobileFundDetails'})
+  history.go(-1)
 }
 export default root
