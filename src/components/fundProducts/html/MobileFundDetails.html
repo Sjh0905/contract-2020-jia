@@ -51,15 +51,16 @@
           <!--抽签号码-->
           <div class="mobile-fund-text flex">
             <div class="text">抽签号码</div>
-            <div class="content">{{drawNumbers}}</div>
+            <!--TODO:返回数组逗号连接，转成字符串用顿号连接-->
+            <div class="content">{{drawNumbers.toString().replace(/,/ig,'、') || '--'}}</div>
           </div>
         </div>
       </div>
       <!--跳转本期申购-->
-<!--      <div class="mobile-fund-income-foot" @click="gotoFundCurrent">-->
-<!--        查看本期申购-->
-<!--        <img src="../assets/see_details.png" alt="">-->
-<!--      </div>-->
+      <div class="mobile-fund-income-foot" @click="gotoFundCurrent">
+        查看本期申购
+        <img src="../assets/see_details.png" alt="">
+      </div>
     </div>
   </div>
 
