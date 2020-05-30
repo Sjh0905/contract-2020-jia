@@ -154,22 +154,7 @@ root.methods.toBuyFund = function () {
     return
   }
   // 接口调通后放入正确的回调中
-  this.$router.push({name:'mobileFundAssets'})
-  // this.$http.send('',
-  //   {
-  //     bind: this,
-  //     params: {
-  //
-  //     },
-  //     callBack: this.re_toBuyFund,
-  //     errorHandler: this.error_toBuyFund
-  //   }
-  // )
-}
-
-root.methods.re_toBuyFund = function (res) {
-  typeof(res) == 'string' && (res = JSON.parse(res));
-
+  // this.$router.push({name:'mobileFundAssets'})
 
   this.$http.send('POST_PURCHASE_TKF',
     {
@@ -183,8 +168,8 @@ root.methods.re_toBuyFund = function (res) {
       errorHandler: this.error_toBuyFund
     }
   )
-
 }
+
 root.methods.re_toBuyFund = function (data) {
   typeof(data) == 'string' && (data = JSON.parse(data));
   // console.log(res)
