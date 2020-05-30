@@ -1,4 +1,5 @@
 <div class="fund-buy-activity">
+  <Loading v-if="loading"/>
   <!--非ios头部-->
   <div v-show="!isApp" class="fund-buy-header-title">
     <div class="fund-buy-header-title-back-icon" @click="jumpToBack()">
@@ -7,8 +8,11 @@
     <div class="fund-buy-header-title-text">基金申购</div>
   </div>
 
+
+
   <!--主体部分-->
-  <div class="fund-buy-main" :class="isApp ? 'fund-buy-main-app' : ''">
+  <div class="fund-buy-main" :class="isApp ? 'fund-buy-main-app' : ''" v-if="!loading">
+
     <div class="fund-buy-input-box">
 
       <div class="fund-buy-input-title">购买份数</div>
@@ -69,7 +73,7 @@
   </div>
 
   <!--底部按钮-->
-  <div class="fund-buy-btn-box">
+  <div class="fund-buy-btn-box" v-if="!loading">
     <div class="fund-buy-btn" v-if="subscription" @click="toBuyFund()">
       申购
     </div>

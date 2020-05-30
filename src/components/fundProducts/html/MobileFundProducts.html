@@ -1,5 +1,6 @@
 <div class="mobile-fund-products">
   <div>
+    <Loading v-if="loading"/>
     <div class="product-name flex">
       <div class="produc-selected" :class="{'h5-item-selected':recordType===0}"
            @click="changeTag(0)">一见倾心</div>
