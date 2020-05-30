@@ -58,13 +58,13 @@
     <div class="fund-buy-type-of-strategy">
       <!--每种产品一张图片-->
       <!--一见倾心-->
-      <img class="fund-buy-type-of-strategy-img" src="../assets/fund_buy_type_of_strategy.png" alt="">
+      <img class="fund-buy-type-of-strategy-img" v-if="$route.query.id == 1 " src="../assets/first_one_pic.png" alt="">
       <!--三生三生-->
-      <!--<img class="fund-buy-type-of-strategy-img" src="../assets/fund_buy_type_of_strategy.png" alt="">-->
+      <img class="fund-buy-type-of-strategy-img" v-if="$route.query.id == 2 "  src="../assets/three_two_pic.png" alt="">
       <!--风雨同路-->
-      <!--<img class="fund-buy-type-of-strategy-img" src="../assets/fund_buy_type_of_strategy.png" alt="">-->
+      <img class="fund-buy-type-of-strategy-img" v-if="$route.query.id == 3 " src="../assets/same_way_three.png" alt="">
       <!--天长地久-->
-      <!--<img class="fund-buy-type-of-strategy-img" src="../assets/fund_buy_type_of_strategy.png" alt="">-->
+      <img class="fund-buy-type-of-strategy-img" v-if="$route.query.id == 4 " src="../assets/forever_four.png" alt="">
     </div>
   </div>
 
