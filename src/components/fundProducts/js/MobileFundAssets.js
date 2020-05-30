@@ -1,9 +1,9 @@
 const root = {}
 root.name = 'MobileFundAssets'
 /*------------------------------ 组件 ------------------------------*/
-// root.components = {
-//   'Loading': resolve => require(['../../vue/Loading'], resolve),
-// }
+root.components = {
+  'Loading': resolve => require(['../../vue/Loading'], resolve),
+}
 /*------------------------------ data -------------------------------*/
 root.data = function () {
   return {
@@ -16,6 +16,7 @@ root.data = function () {
     hasEndedList:[],
     totalBalance:0, // 总资产
     newQuantity:0, // 最新收益
+    loading:true
   }
 }
 /*------------------------------ 生命周期 -------------------------------*/
@@ -81,6 +82,7 @@ root.methods.re_getPurchase = function (data) {
   this.purchaseList = data.dataMap.list
   this.totalBalance = data.dataMap.balance
   this.newQuantity = data.dataMap.quantity
+  this.loading = false
 
 }
 root.methods.error_getPurchase = function (err) {
@@ -103,6 +105,7 @@ root.methods.re_getIncome = function (data){
   if(!data)return
   this.incomeList = data.dataMap.list
   this.totalBalance = data.dataMap.balance
+  this.loading = false
 }
 root.methods.error_getIncome = function (err){
   console.warn('err====',err)
@@ -123,7 +126,7 @@ root.methods.re_getHasEnded = function (data){
   typeof (data) == 'string' && (data= JSON.parse(data))
   if(!data)return
   this.hasEndedList = data.dataMap.list
-
+  this.loading = false
 }
 root.methods.error_getHasEnded = function (err) {
 

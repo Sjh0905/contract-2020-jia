@@ -1,5 +1,6 @@
 <div class="fund-asset-container">
-  <div class="fund-asset-content">
+  <Loading v-if="loading"></Loading>
+  <div class="fund-asset-content" v-if="!loading">
     <!--背景图-->
     <div class="fund-asset-background">
       <div class="fund-asset-title">总资产（USDT）</div>
