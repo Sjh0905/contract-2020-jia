@@ -8,6 +8,7 @@ root.components = {
 /*------------------------------ data -------------------------------*/
 root.data = function () {
   return {
+    loading: true,
     // 弹框
     popType: 0,
     popText: '',
@@ -121,6 +122,7 @@ root.methods.getProductList = function () {
 root.methods.re_getProductList = function (data) {
   typeof data === 'string' && (data = JSON.parse(data))
   if(!data) return
+  this.loading = false
   this.remainingCopies = data.dataMap.count // 剩余份数
   this.remainingType = data.dataMap.type // 剩余份数
   this.drawCNName = data.dataMap.drawCNName // 剩余份数
