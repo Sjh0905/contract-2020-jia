@@ -131,15 +131,6 @@ root.methods.error_getProductList = function (err) {
   // console.warn('获取err出错', err)
 }
 
-
-
-
-
-
-
-
-
-
 // 申购操作
 root.methods.toBuyFund = function () {
 
