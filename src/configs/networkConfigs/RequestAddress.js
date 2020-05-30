@@ -495,6 +495,7 @@ requestAddress.GET_PROJECT_LIST = {url: urlHead+'/tkf/projectList', method: 'get
 requestAddress.POST_PURCHASE_TKF = {url: urlHead+'/tkf/purchase', method: 'post'} // 申购TKF
 requestAddress.GET_FUND_DETAILS = {url: urlHead+'/tkf/purchasePageInfo', method: 'get'} // 申购基金详情
 requestAddress.TKF_FINANCIAL_RECORDS = {url: urlHead+'/tkf/financialRecords', method: 'get'}  //理财基金状态
+requestAddress.TKF_PREDICT_RECORD_DETAIL = {url: urlHead+'/tkf/predictRecordDetail', method: 'post'}  //基金详情
 
 
 export default requestAddress

@@ -13,16 +13,16 @@
   <div class="mobile-fund-content">
     <!--标题及状态-->
     <div class="mobile-fund-content-title flex">
-      <div>托肯放只拔头筹-1期</div>
-      <div v-if="$route.params.selectedType == 1">申购中</div>
-      <div v-if="$route.params.selectedType == 2">收益中</div>
-      <div v-if="$route.params.selectedType == 3">已结束</div>
+      <div>区块恋之{{fundPeriods.drawCNName}}-{{Number(fundPeriods.period)}}期</div>
+      <div v-if="$route.query.selectedType == 1">申购中</div>
+      <div v-if="$route.query.selectedType == 2">收益中</div>
+      <div v-if="$route.query.selectedType == 3">已结束</div>
 
     </div>
 
     <div class="mobile-fund-content-content">
       <!--已结束-->
-      <div class="mobile-fund-income" v-if="$route.params.selectedType == 3">本期收益（USDT）
+      <div class="mobile-fund-income" v-if="$route.query.selectedType == 3">本期收益（USDT）
         <div class="mobile-fund-income-number">700,123.25</div>
       </div>
       <!--中间内容-->
@@ -31,35 +31,35 @@
           <!--份数-->
           <div class="mobile-fund-text flex">
             <div class="text">份数</div>
-            <div class="content">4</div>
+            <div class="content">{{JSON.parse(this.$route.query.item).successed}}</div>
           </div>
           <!--每份-->
           <div class="mobile-fund-text flex">
             <div class="text">每份</div>
-            <div class="content">4</div>
+            <div class="content">{{prices}}</div>
           </div>
           <!--申购时间-->
           <div class="mobile-fund-text flex">
             <div class="text">申购时间</div>
-            <div class="content">4</div>
+            <div class="content">{{(JSON.parse(this.$route.query.item).purchaseTime)}}</div>
           </div>
           <!--中奖号码-->
           <div class="mobile-fund-text flex">
             <div class="text">中奖号码</div>
-            <div class="content">{{$route.params.selectedType == 1 ? '未抽取':'4'}}</div>
+            <div class="content">{{$route.query.selectedType == 1 ? '未抽取':''}}</div>
           </div>
           <!--抽签号码-->
           <div class="mobile-fund-text flex">
             <div class="text">抽签号码</div>
-            <div class="content">4、12、321、232、4、12、321、232、4、12、321、232、4、12、321、232、4、12、321、232、</div>
+            <div class="content">{{drawNumbers}}</div>
           </div>
         </div>
       </div>
       <!--跳转本期申购-->
-      <div class="mobile-fund-income-foot" @click="gotoFundCurrent">
-        查看本期申购
-        <img src="../assets/see_details.png" alt="">
-      </div>
+<!--      <div class="mobile-fund-income-foot" @click="gotoFundCurrent">-->
+<!--        查看本期申购-->
+<!--        <img src="../assets/see_details.png" alt="">-->
+<!--      </div>-->
     </div>
   </div>
 

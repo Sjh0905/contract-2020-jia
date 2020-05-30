@@ -12,15 +12,20 @@ root.data = function () {
     purchaseList:[],
     // 收益中
     incomeList:[],
-    // 已结束
-    hasEndedList:[]
-
+    // // 已结束
+    hasEndedList:[],
+    totalBalance:0, // 总资产
+    newQuantity:0, // 最新收益
   }
 }
 /*------------------------------ 生命周期 -------------------------------*/
 root.created = function () {
   // 申购中
-  // this.getPurchase()
+  this.getPurchase()
+  // 收益中
+  this.getIncome()
+  // 已结束
+  this.getHasEnded
 }
 root.mounted = function () {}
 root.beforeDestroy = function () {}
@@ -32,8 +37,11 @@ root.watch = {}
 root.methods = {}
 
 // 跳转基金详情页
-root.methods.gotoDetails = function (type) {
-  this.$router.push({name:'mobileFundDetails',params:{selectedType: type}})
+root.methods.gotoDetails = function (type,item) {
+  this.$router.push({name:'mobileFundDetails',query:{selectedType: type,
+      // purchaseTime:item.purchaseTime, period:item.period, projectId:item.projectId
+      item:JSON.stringify(item)
+  }})
 }
 // 切换理财状态
 root.methods.getAssetStatus = function (type) {
@@ -61,6 +69,7 @@ root.methods.getPurchase = function () {
     bind: this,
     query:{
       status: 'APPLY',
+
     },
     callBack: this.re_getPurchase,
     errorHandler:this.error_getPurchase
@@ -70,6 +79,8 @@ root.methods.re_getPurchase = function (data) {
   typeof(data) == 'string' && (data = JSON.parse(data));
   if(!data)return
   this.purchaseList = data.dataMap.list
+  this.totalBalance = data.dataMap.balance
+  this.newQuantity = data.dataMap.quantity
 
 }
 root.methods.error_getPurchase = function (err) {
@@ -91,6 +102,7 @@ root.methods.re_getIncome = function (data){
   typeof(data) == 'string' && (data = JSON.parse(data))
   if(!data)return
   this.incomeList = data.dataMap.list
+  this.totalBalance = data.dataMap.balance
 }
 root.methods.error_getIncome = function (err){
   console.warn('err====',err)
@@ -111,6 +123,7 @@ root.methods.re_getHasEnded = function (data){
   typeof (data) == 'string' && (data= JSON.parse(data))
   if(!data)return
   this.hasEndedList = data.dataMap.list
+
 }
 root.methods.error_getHasEnded = function (err) {
 
