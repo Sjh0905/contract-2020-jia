@@ -1,13 +1,14 @@
 const root = {}
 root.name = 'mobileFundCurrent'
 /*------------------------------ 组件 ------------------------------*/
-//root.components = {
-//  'Loading': resolve => require(['../Loading/Loading.vue'], resolve),
-//}
+root.components = {
+ 'Loading': resolve => require(['../../vue/Loading.vue'], resolve),
+}
 /*------------------------------ data -------------------------------*/
 root.data = function () {
   return {
-    currentBuyList:[]
+    currentBuyList:[],
+    loading:true
   }
 }
 /*------------------------------ 生命周期 -------------------------------*/
@@ -27,7 +28,9 @@ root.created = function () {
   }
 }
 root.mounted = function () {}
-root.beforeDestroy = function () {}
+root.beforeDestroy = function () {
+
+}
 /*------------------------------ 计算 -------------------------------*/
 root.computed = {}
 // 检验是否是APP

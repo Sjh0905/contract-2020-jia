@@ -1,14 +1,15 @@
 const root = {}
 root.name = 'mobileFundDetails'
 /*------------------------------ 组件 ------------------------------*/
-//root.components = {
-//  'Loading': resolve => require(['../Loading/Loading.vue'], resolve),
-//}
+root.components = {
+ 'Loading': resolve => require(['../../vue/Loading.vue'], resolve),
+}
 /*------------------------------ data -------------------------------*/
 root.data = function () {
   return {
     drawNumbers:[],
     prices:0,
+    loading:true
   }
 }
 /*------------------------------ 生命周期 -------------------------------*/
@@ -50,6 +51,7 @@ root.methods = {}
 
 // 查看详情接口
 root.methods.viewDetails = function () {
+
   let item = JSON.parse(this.$route.query.item)
   this.$http.send('TKF_PREDICT_RECORD_DETAIL',{
     bind:this,
@@ -68,6 +70,7 @@ root.methods.re_viewDetails = function (data) {
   if(!data)return
   this.drawNumbers = data.dataMap.presaleNo
   this.prices = data.dataMap.prices
+  this.loading = false
 }
 root.methods.error_viewDetails = function () {
 }

@@ -1,4 +1,5 @@
 <div class="mobile-fund-container">
+<!--  <Loading v-if="loading"></Loading>-->
   <!--本期购买顶部-->
   <div v-if="!isApp" class="mobile-fund-top flex">
     <div class="mobile-fund-image" @click="returnFundDetails">
@@ -8,7 +9,7 @@
   </div>
 
   <!--本期购买 中奖编号-->
-  <div class="examine flex">
+  <div class="examine flex" >
     <div>本期中奖号码:12</div>
     <div class="examine-img">
       <span class="examine-text">立即查验</span>
@@ -31,7 +32,7 @@
   </div>
   <!--数据内容-->
   <div >
-    <!--v-if="currentBuyList.length != 0"-->
+    <!--v-if="currentBuyList.length != 0 && !loading"-->
     <div class="mobile-forecast-record-item">
       <div class="type">2121</div>
       <div class="amount">12312312</div>
