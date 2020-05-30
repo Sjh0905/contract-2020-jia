@@ -24,7 +24,7 @@ root.data = function () {
     remainingCopies:0,
     remainingType:'',
     // productsDataList:1
-    firstList:{},
+    // firstList:{},
     period:{},
     drawCNName:'',
     subscription: true
@@ -35,7 +35,7 @@ root.data = function () {
 /*------------------------------ 生命周期 -------------------------------*/
 root.created = function () {
   // console.info('this.$route.query.item======',this.$route.query.item)
-  console.info('this.$route.query.firstList.startTime',this.$route.query.id,this.$route.query.item)
+  // console.info('this.$route.query.firstList.startTime',this.$route.query.id,this.$route.query.item)
   // this.drawCNName = this.$route.query.drawCNName
 
   this.getProductList()
@@ -120,7 +120,7 @@ root.methods.getProductList = function () {
 // 基金详情get返回
 root.methods.re_getProductList = function (data) {
   typeof data === 'string' && (data = JSON.parse(data))
-
+  if(!data) return
   this.remainingCopies = data.dataMap.count // 剩余份数
   this.remainingType = data.dataMap.type // 剩余份数
   this.drawCNName = data.dataMap.drawCNName // 剩余份数

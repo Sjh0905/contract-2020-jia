@@ -1,9 +1,9 @@
 const root = {}
 root.name = 'MobileFundAssets'
 /*------------------------------ 组件 ------------------------------*/
-//root.components = {
-//  'Loading': resolve => require(['../Loading/Loading.vue'], resolve),
-//}
+// root.components = {
+//   'Loading': resolve => require(['../../vue/Loading'], resolve),
+// }
 /*------------------------------ data -------------------------------*/
 root.data = function () {
   return {
