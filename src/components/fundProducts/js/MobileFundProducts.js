@@ -1,12 +1,13 @@
 const root = {}
 root.name = 'mobileFundProducts'
 /*------------------------------ 组件 ------------------------------*/
-//root.components = {
-//  'Loading': resolve => require(['../Loading/Loading.vue'], resolve),
-//}
+root.components = {
+  'Loading': resolve => require(['../../vue/Loading'], resolve),
+}
 /*------------------------------ data -------------------------------*/
 root.data = function () {
   return {
+    loading:true,
     recordType: 0,// 0是拔头筹 1是群雄起 2是步步高 3是天下同
     firstList:{},  // 拔头筹
     periodList:[],  //  拔头筹
@@ -133,6 +134,7 @@ root.methods.getProductList = function () {
 root.methods.re_getProductList = function (data) {
   typeof data === 'string' && (data = JSON.parse(data))
 
+  this.loading = false
   this.firstList = data.dataMap.firstList  //拔头筹
   this.periodList = data.dataMap.firstList.periodList  //拔头筹份额
   this.periodList1 = JSON.parse(data.dataMap.firstList.periodList[0].extra);
