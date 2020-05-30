@@ -1,4 +1,5 @@
 <div class="mobile-fund-container">
+  <Loading v-if="loading"></Loading>
   <!--详情顶部-->
   <div v-if="!isApp" class="mobile-fund-top flex">
     <div class="mobile-fund-image" @click="returnMobileFundAssets">
@@ -10,16 +11,19 @@
   <!--空隙-->
   <div class="mobile-fund-null"/>
 
-  <div class="mobile-fund-content">
+  <div class="mobile-fund-content" v-if="!loading">
     <!--标题及状态-->
     <div class="mobile-fund-content-title flex">
-      <div>托肯放只拔头筹-1期</div>
-      <div>申购中</div>
+      <div>区块恋之{{fundPeriods.drawCNName}}-{{Number(fundPeriods.period)}}期</div>
+      <div v-if="$route.query.selectedType == 1">申购中</div>
+      <div v-if="$route.query.selectedType == 2">收益中</div>
+      <div v-if="$route.query.selectedType == 3">已结束</div>
+
     </div>
 
     <div class="mobile-fund-content-content">
       <!--已结束-->
-      <div class="mobile-fund-income" v-if="true">本期收益（USDT）
+      <div class="mobile-fund-income" v-if="$route.query.selectedType == 3">本期收益（USDT）
         <div class="mobile-fund-income-number">700,123.25</div>
       </div>
       <!--中间内容-->
@@ -28,27 +32,28 @@
           <!--份数-->
           <div class="mobile-fund-text flex">
             <div class="text">份数</div>
-            <div class="content">4</div>
+            <div class="content">{{JSON.parse(this.$route.query.item).successed}}</div>
           </div>
           <!--每份-->
           <div class="mobile-fund-text flex">
             <div class="text">每份</div>
-            <div class="content">4</div>
+            <div class="content">{{prices}}</div>
           </div>
           <!--申购时间-->
           <div class="mobile-fund-text flex">
             <div class="text">申购时间</div>
-            <div class="content">4</div>
+            <div class="content">{{(formatDateUitl(JSON.parse(this.$route.query.item).purchaseTime))}}</div>
           </div>
           <!--中奖号码-->
           <div class="mobile-fund-text flex">
             <div class="text">中奖号码</div>
-            <div class="content">4</div>
+            <div class="content">{{$route.query.selectedType == 1 ? '未抽取':''}}</div>
           </div>
           <!--抽签号码-->
           <div class="mobile-fund-text flex">
             <div class="text">抽签号码</div>
-            <div class="content">4、12、321、232、4、12、321、232、4、12、321、232、4、12、321、232、4、12、321、232、</div>
+            <!--TODO:返回数组逗号连接，转成字符串用顿号连接-->
+            <div class="content">{{drawNumbers.toString().replace(/,/ig,'、') || '--'}}</div>
           </div>
         </div>
       </div>

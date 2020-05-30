@@ -1,249 +1,201 @@
 <div class="mobile-fund-products">
   <div>
+    <Loading v-if="loading"/>
     <div class="product-name flex">
       <div class="produc-selected" :class="{'h5-item-selected':recordType===0}"
-           @click="changeTag(0)">拔头筹</div>
+           @click="changeTag(0)">一见倾心</div>
       <div class="product-vertical">|</div>
       <div class="produc-selected" :class="{'h5-item-selected':recordType===1}"
-           @click="changeTag(1)">群雄起</div>
+           @click="changeTag(1)">三生三世</div>
       <div class="product-vertical">|</div>
       <div class="produc-selected" :class="{'h5-item-selected':recordType===2}"
-           @click="changeTag(2)">步步高</div>
+           @click="changeTag(2)">风雨同洲</div>
       <div class="product-vertical">|</div>
       <div class="produc-selected" :class="{'h5-item-selected':recordType===3}"
-           @click="changeTag(3)">天下同</div>
+           @click="changeTag(3)">天长地久</div>
     </div>
 
-    <div class="TKF-take-the-lead" v-if="recordType===0">
-      <div>
-        <div class="TKF-take-the">托肯放之拔头筹-1期</div>
-        <!--        <div class="TKF-take-the">托肯放之群雄起-1期</div>-->
-        <!--        <div class="TKF-take-the">托肯放之步步高-1期</div>-->
-        <!--        <div class="TKF-take-the">托肯放之天下同-1期</div>-->
-        <div class="flex">
-          <div class="TKF-take-the-box">
-            <span class="each-copy color-a8">每份额度</span>
-            <span class="each-copy padding-top color-bik">100<span class="TKF-usdt">USDT</span></span>
-          </div>
-          <div class="TKF-take-the-box">
-            <span class="each-copy color-a8">发行份数</span>
-            <span class="each-copy padding-top color-bik">300</span>
-          </div>
-          <div class="TKF-take-the-box">
-            <span class="each-copy color-a8">基金周期</span>
-            <span class="each-copy padding-top color-bik">7 天</span>
-          </div>
-        </div>
-        <div class="TKF-strategy">理财策略（七日年化收益率）</div>
-        <div class="flex">
-          <div class="TKF-take-the-box">
-            <span class="each-copy color-bik">10000%</span>
-            <span class="each-copy padding-top color-a8">1 份</span>
-          </div>
-          <div class="TKF-take-the-box">
-            <span class="each-copy color-bik">10%</span>
-            <span class="each-copy padding-top color-a8">100 份</span>
-          </div>
-          <div class="TKF-take-the-box">
-            <span class="each-copy color-bik">1%</span>
-            <span class="each-copy padding-top color-a8">199 份</span>
-          </div>
-        </div>
 
-        <div>
-          <div class="TKF-purchase" @click="goToPurchase">申购</div>
-        </div>
-      </div>
-    </div>
-    <div class="TKF-take-the-lead" v-if="recordType===0">
-      <div>
-        <div class="TKF-take-the">托肯放之拔头筹-1期</div>
-        <div class="flex">
-          <div class="TKF-take-the-box">
-            <span class="each-copy color-a8">每份额度</span>
-            <span class="each-copy padding-top color-bik">100<span class="TKF-usdt">USDT</span></span>
-          </div>
-          <div class="TKF-take-the-box">
-            <span class="each-copy color-a8">发行份数</span>
-            <span class="each-copy padding-top color-bik">300</span>
-          </div>
-          <div class="TKF-take-the-box">
-            <span class="each-copy color-a8">基金周期</span>
-            <span class="each-copy padding-top color-bik">7 天</span>
-          </div>
-        </div>
-        <div class="TKF-strategy">理财策略（七日年化收益率）</div>
-        <div class="flex">
-          <div class="TKF-take-the-box">
-            <span class="each-copy color-bik">10000%</span>
-            <span class="each-copy padding-top color-a8">1 份</span>
-          </div>
-          <div class="TKF-take-the-box">
-            <span class="each-copy color-bik">10%</span>
-            <span class="each-copy padding-top color-a8">100 份</span>
-          </div>
-          <div class="TKF-take-the-box">
-            <span class="each-copy color-bik">1%</span>
-            <span class="each-copy padding-top color-a8">199 份</span>
-          </div>
-        </div>
+      <ul v-if="recordType===0">
+        <li>
+          <li v-for="(item,index) in computedPeriodList">
+            <div class="TKF-take-the-lead">
+              <div>
+                <div class="TKF-take-the">{{firstList.drawCNName}}-{{Number(item.period)}}期</div>
+                <div class="flex">
+                  <div class="TKF-take-the-box">
+                    <span class="each-copy color-a8">每份额度</span>
+                    <span class="each-copy padding-top color-bik">{{firstList.quota}}<span class="TKF-usdt">{{firstList.currency}}</span></span>
+                  </div>
+                  <div class="TKF-take-the-box">
+                    <span class="each-copy color-a8">发行份数</span>
+                    <span class="each-copy padding-top color-bik">{{firstList.totalCopies}}</span>
+                  </div>
+                  <div class="TKF-take-the-box">
+                    <span class="each-copy color-a8">基金周期</span>
+                    <span class="each-copy padding-top color-bik">{{firstList.cycle}} 天</span>
+                  </div>
+                </div>
+                <div class="TKF-strategy">理财策略（七日年化收益率）</div>
+                <div class="flex">
+                  <div class="TKF-take-the-box">
+                    <span class="each-copy color-bik">{{periodList1.FIRST.yield * 10 * 10}}%</span>
+                    <span class="each-copy padding-top color-a8">{{periodList1.FIRST.copies}} 份</span>
+                  </div>
+                  <div class="TKF-take-the-box">
+                    <span class="each-copy color-bik">{{periodList1.SECOND.yield * 10 * 10}}%</span>
+                    <span class="each-copy padding-top color-a8">{{periodList1.SECOND.copies}} 份</span>
+                  </div>
+                  <div class="TKF-take-the-box">
+                    <span class="each-copy color-bik">{{periodList1.THIRD.yield * 10 * 10}}%</span>
+                    <span class="each-copy padding-top color-a8">{{periodList1.THIRD.copies}} 份</span>
+                  </div>
+                </div>
+                <div>
+<!--                  <div class="TKF-purchase" @click="goToPurchase(firstList,item.period)">申购</div>-->
+                  <div class="TKF-purchase" v-if="firstList.surplus != 0" @click="goToPurchase(firstList.id, firstList.currency, item.period)">申购</div>
+                  <div class="TKF-purchase1" v-if="firstList.surplus == 0">售罄</div>
+                </div>
 
-        <div>
-          <div class="TKF-purchase" @click="goToPurchase">申购</div>
-        </div>
-      </div>
-    </div>
-    <div class="TKF-take-the-lead" v-if="recordType===0">
-      <div>
-        <div class="TKF-take-the">托肯放之拔头筹-1期</div>
-        <div class="flex">
-          <div class="TKF-take-the-box">
-            <span class="each-copy color-a8">每份额度</span>
-            <span class="each-copy padding-top color-bik">100<span class="TKF-usdt">USDT</span></span>
-          </div>
-          <div class="TKF-take-the-box">
-            <span class="each-copy color-a8">发行份数</span>
-            <span class="each-copy padding-top color-bik">300</span>
-          </div>
-          <div class="TKF-take-the-box">
-            <span class="each-copy color-a8">基金周期</span>
-            <span class="each-copy padding-top color-bik">7 天</span>
-          </div>
-        </div>
-        <div class="TKF-strategy">理财策略（七日年化收益率）</div>
-        <div class="flex">
-          <div class="TKF-take-the-box">
-            <span class="each-copy color-bik">10000%</span>
-            <span class="each-copy padding-top color-a8">1 份</span>
-          </div>
-          <div class="TKF-take-the-box">
-            <span class="each-copy color-bik">10%</span>
-            <span class="each-copy padding-top color-a8">100 份</span>
-          </div>
-          <div class="TKF-take-the-box">
-            <span class="each-copy color-bik">1%</span>
-            <span class="each-copy padding-top color-a8">199 份</span>
-          </div>
-        </div>
+              </div>
+            </div>
+          </li>
+        </li>
 
-        <div>
-          <div class="TKF-purchase" @click="goToPurchase">申购</div>
-        </div>
-      </div>
-    </div>
-    <div class="TKF-take-the-lead" v-if="recordType===1">
-      <div>
-        <div class="TKF-take-the">托肯放之群雄起-1期</div>
-        <div class="flex">
-          <div class="TKF-take-the-box">
-            <span class="each-copy color-a8">每份额度</span>
-            <span class="each-copy padding-top color-bik">100<span class="TKF-usdt">USDT</span></span>
-          </div>
-          <div class="TKF-take-the-box">
-            <span class="each-copy color-a8">发行份数</span>
-            <span class="each-copy padding-top color-bik">300</span>
-          </div>
-          <div class="TKF-take-the-box">
-            <span class="each-copy color-a8">基金周期</span>
-            <span class="each-copy padding-top color-bik">7 天</span>
-          </div>
-        </div>
-        <div class="TKF-strategy">理财策略（七日年化收益率）</div>
-        <div class="flex">
-          <div class="TKF-take-the-box">
-            <span class="each-copy color-bik">1000%</span>
-            <span class="each-copy padding-top color-a8">10 份</span>
-          </div>
-          <div class="TKF-take-the-box">
-            <span class="each-copy color-bik">10%</span>
-            <span class="each-copy padding-top color-a8">100 份</span>
-          </div>
-          <div class="TKF-take-the-box">
-            <span class="each-copy color-bik">1%</span>
-            <span class="each-copy padding-top color-a8">190 份</span>
-          </div>
-        </div>
+      </ul>
 
-        <div>
-          <div class="TKF-purchase" @click="goToPurchase">申购</div>
-        </div>
-      </div>
-    </div>
-    <div class="TKF-take-the-lead" v-if="recordType===2">
-      <div>
-        <div class="TKF-take-the">托肯放之步步高-1期</div>
-        <div class="flex">
-          <div class="TKF-take-the-box">
-            <span class="each-copy color-a8">每份额度</span>
-            <span class="each-copy padding-top color-bik">100<span class="TKF-usdt">USDT</span></span>
-          </div>
-          <div class="TKF-take-the-box">
-            <span class="each-copy color-a8">发行份数</span>
-            <span class="each-copy padding-top color-bik">300</span>
-          </div>
-          <div class="TKF-take-the-box">
-            <span class="each-copy color-a8">基金周期</span>
-            <span class="each-copy padding-top color-bik">7 天</span>
-          </div>
-        </div>
-        <div class="TKF-strategy">理财策略（七日年化收益率）</div>
-        <div class="flex">
-          <div class="TKF-take-the-box">
-            <span class="each-copy color-bik">200%</span>
-            <span class="each-copy padding-top color-a8">50 份</span>
-          </div>
-          <div class="TKF-take-the-box">
-            <span class="each-copy color-bik">10%</span>
-            <span class="each-copy padding-top color-a8">100 份</span>
-          </div>
-          <div class="TKF-take-the-box">
-            <span class="each-copy color-bik">1%</span>
-            <span class="each-copy padding-top color-a8">150 份</span>
-          </div>
-        </div>
 
-        <div>
-          <div class="TKF-purchase" @click="goToPurchase">申购</div>
-        </div>
-      </div>
-    </div>
-    <div class="TKF-take-the-lead" v-if="recordType===3">
-      <div>
-        <div class="TKF-take-the">托肯放之天下同-1期</div>
-        <div class="flex">
-          <div class="TKF-take-the-box">
-            <span class="each-copy color-a8">每份额度</span>
-            <span class="each-copy padding-top color-bik">100<span class="TKF-usdt">USDT</span></span>
-          </div>
-          <div class="TKF-take-the-box">
-            <span class="each-copy color-a8">发行份数</span>
-            <span class="each-copy padding-top color-bik">300</span>
-          </div>
-          <div class="TKF-take-the-box">
-            <span class="each-copy color-a8">基金周期</span>
-            <span class="each-copy padding-top color-bik">7 天</span>
-          </div>
-        </div>
-        <div class="TKF-strategy">理财策略（七日年化收益率）</div>
-        <div class="flex">
-          <div class="TKF-take-the-box">
-            <span class="each-copy color-bik">100%</span>
-            <span class="each-copy padding-top color-a8">100 份</span>
-          </div>
-          <div class="TKF-take-the-box">
-            <span class="each-copy color-bik">10%</span>
-            <span class="each-copy padding-top color-a8">100 份</span>
-          </div>
-          <div class="TKF-take-the-box">
-            <span class="each-copy color-bik">1%</span>
-            <span class="each-copy padding-top color-a8">100 份</span>
-          </div>
-        </div>
+      <ul v-if="recordType===1">
+        <li v-for="(item,index) in computedPeriodListQ">
+          <div class="TKF-take-the-lead" >
+            <div>
+              <div class="TKF-take-the">{{secondList.drawCNName}}-{{Number(item.period)}}期</div>
+              <div class="flex">
+                <div class="TKF-take-the-box">
+                  <span class="each-copy color-a8">每份额度</span>
+                  <span class="each-copy padding-top color-bik">{{secondList.quota}}<span class="TKF-usdt">{{secondList.currency}}</span></span>
+                </div>
+                <div class="TKF-take-the-box">
+                  <span class="each-copy color-a8">发行份数</span>
+                  <span class="each-copy padding-top color-bik">{{secondList.totalCopies}}</span>
+                </div>
+                <div class="TKF-take-the-box">
+                  <span class="each-copy color-a8">基金周期</span>
+                  <span class="each-copy padding-top color-bik">{{secondList.cycle}} 天</span>
+                </div>
+              </div>
+              <div class="TKF-strategy">理财策略（七日年化收益率）</div>
+              <div class="flex">
+                <div class="TKF-take-the-box">
+                  <span class="each-copy color-bik">{{periodListQ1.FIRST.yield * 10 * 10}}%</span>
+                  <span class="each-copy padding-top color-a8">{{periodListQ1.FIRST.copies}} 份</span>
+                </div>
+                <div class="TKF-take-the-box">
+                  <span class="each-copy color-bik">{{periodListQ1.SECOND.yield * 10 * 10}}%</span>
+                  <span class="each-copy padding-top color-a8">{{periodListQ1.SECOND.copies}} 份</span>
+                </div>
+                <div class="TKF-take-the-box">
+                  <span class="each-copy color-bik">{{periodListQ1.THIRD.yield * 10 * 10}}%</span>
+                  <span class="each-copy padding-top color-a8">{{periodListQ1.THIRD.copies}} 份</span>
+                </div>
+              </div>
 
-        <div>
-          <div class="TKF-purchase" @click="goToPurchase">申购</div>
-        </div>
-      </div>
-    </div>
+              <div>
+                <div class="TKF-purchase" v-if="secondList.surplus != 0" @click="goToPurchase1(secondList.id, secondList.currency ,item.period)">申购</div>
+                <div class="TKF-purchase1" v-if="secondList.surplus == 0">售罄</div>
+<!--                <div class="TKF-purchase" v-if="!subscription">申购中</div>-->
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+
+      <ul v-if="recordType===2">
+        <li v-for="(item,index) in computedThirdListB">
+          <div class="TKF-take-the-lead">
+            <div>
+              <div class="TKF-take-the">{{thirdList.drawCNName}}-{{Number(item.period)}}期</div>
+              <div class="flex">
+                <div class="TKF-take-the-box">
+                  <span class="each-copy color-a8">每份额度</span>
+                  <span class="each-copy padding-top color-bik">{{thirdList.quota}}<span class="TKF-usdt">{{thirdList.currency}}</span></span>
+                </div>
+                <div class="TKF-take-the-box">
+                  <span class="each-copy color-a8">发行份数</span>
+                  <span class="each-copy padding-top color-bik">{{thirdList.totalCopies}}</span>
+                </div>
+                <div class="TKF-take-the-box">
+                  <span class="each-copy color-a8">基金周期</span>
+                  <span class="each-copy padding-top color-bik">{{thirdList.cycle}} 天</span>
+                </div>
+              </div>
+              <div class="TKF-strategy">理财策略（七日年化收益率）</div>
+              <div class="flex">
+                <div class="TKF-take-the-box">
+                  <span class="each-copy color-bik">{{thirdListB1.FIRST.yield * 10 * 10}}%</span>
+                  <span class="each-copy padding-top color-a8">{{thirdListB1.FIRST.copies}} 份</span>
+                </div>
+                <div class="TKF-take-the-box">
+                  <span class="each-copy color-bik">{{thirdListB1.SECOND.yield * 10 * 10}}%</span>
+                  <span class="each-copy padding-top color-a8">{{thirdListB1.SECOND.copies}} 份</span>
+                </div>
+                <div class="TKF-take-the-box">
+                  <span class="each-copy color-bik">{{thirdListB1.THIRD.yield * 10 * 10}}%</span>
+                  <span class="each-copy padding-top color-a8">{{thirdListB1.THIRD.copies}} 份</span>
+                </div>
+              </div>
+
+              <div>
+                <div class="TKF-purchase" v-if="thirdList.surplus != 0" @click="goToPurchase2(thirdList.id, thirdList.currency ,item.period)">申购</div>
+                <div class="TKF-purchase1" v-if="thirdList.surplus == 0">售罄</div>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+
+      <ul v-if="recordType===3">
+        <li v-for="(item,index) in computedFourthList">
+          <div class="TKF-take-the-lead">
+              <div class="TKF-take-the">{{fourthList.drawCNName}}-{{Number(item.period)}}期</div>
+              <div class="flex">
+                <div class="TKF-take-the-box">
+                  <span class="each-copy color-a8">每份额度</span>
+                  <span class="each-copy padding-top color-bik">{{fourthList.quota}}<span class="TKF-usdt">{{fourthList.currency}}</span></span>
+                </div>
+                <div class="TKF-take-the-box">
+                  <span class="each-copy color-a8">发行份数</span>
+                  <span class="each-copy padding-top color-bik">{{fourthList.totalCopies}}</span>
+                </div>
+                <div class="TKF-take-the-box">
+                  <span class="each-copy color-a8">基金周期</span>
+                  <span class="each-copy padding-top color-bik">{{fourthList.cycle}} 天</span>
+                </div>
+              </div>
+              <div class="TKF-strategy">理财策略（七日年化收益率）</div>
+              <div class="flex">
+                <div class="TKF-take-the-box">
+                  <span class="each-copy color-bik">{{fourthListT1.FIRST.yield * 10 * 10}}%</span>
+                  <span class="each-copy padding-top color-a8">{{fourthListT1.FIRST.copies}} 份</span>
+                </div>
+                <div class="TKF-take-the-box">
+                  <span class="each-copy color-bik">{{fourthListT1.SECOND.yield * 10 * 10}}%</span>
+                  <span class="each-copy padding-top color-a8">{{fourthListT1.SECOND.copies}} 份</span>
+                </div>
+                <div class="TKF-take-the-box">
+                  <span class="each-copy color-bik">{{fourthListT1.THIRD.yield * 10 * 10}}%</span>
+                  <span class="each-copy padding-top color-a8">{{fourthListT1.THIRD.copies}} 份</span>
+                </div>
+              </div>
+
+              <div>
+                <div class="TKF-purchase" v-if="fourthList.surplus != 0" @click="goToPurchase3(fourthList.id ,fourthList.currency, item.period)">申购</div>
+                <div class="TKF-purchase1" v-if="fourthList.surplus == 0">售罄</div>
+              </div>
+            </div>
+
+        </li>
+      </ul>
+
   </div>
 </div>

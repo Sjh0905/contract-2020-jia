@@ -8,6 +8,7 @@ root.components = {
 /*------------------------------ data -------------------------------*/
 root.data = function () {
   return {
+    loading: true,
     // 弹框
     popType: 0,
     popText: '',
@@ -19,13 +20,27 @@ root.data = function () {
     //每份的USDT数量
     eachAmount:100,
     //发行份数
-    issueCopies:300,
+    // issueCopies:300,
     //剩余份数
-    // remainingCopies:0,
+    remainingCopies:0,
+    remainingType:'',
+    // productsDataList:1
+    // firstList:{},
+    period:{},
+    drawCNName:'',
+    subscription: true
+
+
   }
 }
 /*------------------------------ 生命周期 -------------------------------*/
 root.created = function () {
+  // console.info('this.$route.query.item======',this.$route.query.item)
+  // console.info('this.$route.query.firstList.startTime',this.$route.query.id,this.$route.query.item)
+  // this.drawCNName = this.$route.query.drawCNName
+
+  this.getProductList()
+
   if(this.$route.query.isApp) {
     window.postMessage(JSON.stringify({
         method: 'setTitle',
@@ -44,6 +59,9 @@ root.mounted = function () {}
 root.beforeDestroy = function () {}
 /*------------------------------ 计算 -------------------------------*/
 root.computed = {}
+
+
+
 root.computed.isLogin = function () {
   return this.$store.state.isLogin;
 }
@@ -67,10 +85,10 @@ root.computed.windowWidth = function () {
   return window.innerWidth
 }
 
-root.computed.remainingCopies = function () {
-  let remainingCopies = this.accMinus(this.issueCopies,this.inputUserCopies || 0)
-  return remainingCopies > 0 ? remainingCopies : 0
-}
+// root.computed.remainingCopies = function () {
+//   let remainingCopies = this.accMinus(this.period.copies,this.inputUserCopies || 0)
+//   return remainingCopies > 0 ? remainingCopies : 0
+// }
 /*------------------------------ 观察 -------------------------------*/
 root.watch = {}
 /*------------------------------ 方法 -------------------------------*/
@@ -82,41 +100,137 @@ root.methods.inputUserCopiesInput = function () {
 root.methods.jumpToBack = function () {
   this.$router.push({'path':'/index/mobileFinancialFund/mobileFundProducts'})
 }
+
+
+
+
+// 基金详情get
+root.methods.getProductList = function () {
+  this.$http.send('GET_FUND_DETAILS', {
+    bind: this,
+    query:{
+      currency:this.$route.query.currency,
+      projectId:(this.$route.query.id),
+      period:this.$route.query.item
+
+    },
+    callBack: this.re_getProductList,
+    errorHandler: this.error_getProductList
+  })
+}
+// 基金详情get返回
+root.methods.re_getProductList = function (data) {
+  typeof data === 'string' && (data = JSON.parse(data))
+  if(!data) return
+  this.loading = false
+  this.remainingCopies = data.dataMap.count // 剩余份数
+  this.remainingType = data.dataMap.type // 剩余份数
+  this.drawCNName = data.dataMap.drawCNName // 剩余份数
+  this.period = data.dataMap.period // 剩余份数
+}
+// 基金详情get出错
+root.methods.error_getProductList = function (err) {
+  // console.warn('获取err出错', err)
+}
+
 // 申购操作
 root.methods.toBuyFund = function () {
+
+  this.subscription = false
   if (!this.isLogin) {
     this.goToLogin()
     return
   }
 
-  if(this.inputUserCopies > 0 && this.inputUserCopies > this.issueCopies){
+  if(this.inputUserCopies > 0 && this.inputUserCopies > this.period.copies){
     this.openPop('购买份数不能大于发行份数')
     return
   }
+  // 接口调通后放入正确的回调中
+  // this.$router.push({name:'mobileFundAssets'})
 
-  // this.$http.send('',
-  //   {
-  //     bind: this,
-  //     params: {
-  //
-  //     },
-  //     callBack: this.re_toBuyFund,
-  //     errorHandler: this.error_toBuyFund
-  //   }
-  // )
-
+  this.$http.send('POST_PURCHASE_TKF',
+    {
+      bind: this,
+      params: {
+        projectId:this.period.projectId,//id
+        periodNumber:this.$route.query.item,//第几期
+        predictNumber:this.inputUserCopies,//输入的分数
+      },
+      callBack: this.re_toBuyFund,
+      errorHandler: this.error_toBuyFund
+    }
+  )
 }
-root.methods.re_toBuyFund = function (res) {
-  typeof(res) == 'string' && (res = JSON.parse(res));
-  // console.log(res)
-  if (res.errorCode) {
 
+root.methods.re_toBuyFund = function (data) {
+  typeof(data) == 'string' && (data = JSON.parse(data));
+  // console.log(res)
+
+  if (data.errorCode == 0) {
+    this.popOpen = true
+    this.popText = '购买成功'
+    this.popType = 1
+    // this.openPop('购买成功',1)
+
+    setTimeout(() => {
+      this.$router.push({'path':'/index/mobileFinancialFund/mobileFundAssets'})
+    }, 1000)
+    return;
   }
+  if (data.errorCode) {
+
+    console.log(data)
+
+    switch (data.errorCode) {
+      case -1:
+        this.openPop('传递的参数为空')
+        break;
+      case 1:
+        this.openPop('您当前未登录，请先登录')
+        break;
+      case 2:
+        this.openPop('您当前未实名认证，请先前往实名认证')
+        break;
+      case 3:
+        this.openPop('已经不存在这个场景')
+        break;
+      case 4:
+        this.openPop('超出每期可投份数')
+        break;
+      case 5:
+        this.openPop('超出个人每天最大次数')
+        break;
+      case 6:
+        this.openPop('用户余额不足')
+        break;
+      case 7:
+        this.openPop('本期已售完，下期要抓紧哦～')
+        break;
+      case 8:
+        this.openPop('剩余份数不足')
+        break;
+      case 9:
+        this.openPop('项目已下架')
+        break;
+      case 10:
+        this.openPop('服务器升级中，请稍后再试')
+        break;
+    }
+    return
+  }
+
+  this.subscription = true
+
 }
 
 root.methods.error_toBuyFund = function (err) {
   this.openPop('服务器升级中，请稍后再试')
 }
+
+
+
+
 
 root.methods.goToLogin = function () {
   if (this.iosQuery) {
@@ -146,6 +260,12 @@ root.methods.toFixed = function (num, acc = 8) {
 }
 /*---------------------- 保留小数 end ---------------------*/
 
+
+
+// 格式化时间
+root.methods.formatDateUitl = function (time) {
+  return this.$globalFunc.formatDateUitl(time, 'YYYY-MM-DD hh:mm:ss')
+}
 /*---------------------- 加法运算 begin ---------------------*/
 root.methods.accAdd = function (num1, num2) {
   num1 = parseFloat(num1)
