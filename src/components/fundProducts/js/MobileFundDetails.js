@@ -82,7 +82,7 @@ root.methods.returnMobileFundAssets  =function () {
 
 // 跳转本期购买
 root.methods.gotoFundCurrent  =function () {
-  this.$router.push({name:'mobileFundCurrent'})
+  this.$router.push({name:'mobileFundCurrent',query:{item:this.$route.query.item}})
 }
 
 // 格式化时间

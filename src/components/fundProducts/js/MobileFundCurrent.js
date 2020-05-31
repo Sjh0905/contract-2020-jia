@@ -8,7 +8,11 @@ root.components = {
 root.data = function () {
   return {
     currentBuyList:[],
-    loading:true
+    limit:30,
+    lastId:0,
+    loading:true,
+    ajaxWithdrawFlag:false,
+    isShowGetMoreRecord:false
   }
 }
 /*------------------------------ 生命周期 -------------------------------*/
@@ -26,6 +30,8 @@ root.created = function () {
       }
     }))
   }
+  console.info('item=================',JSON.parse(this.$route.query.item))
+  this.getTkfTickets()
 }
 root.mounted = function () {}
 root.beforeDestroy = function () {
@@ -44,5 +50,45 @@ root.methods = {}
 // 跳转上一级页面
 root.methods.returnFundDetails = function () {
   history.go(-1)
+}
+root.methods.getTkfTickets = function () {
+  if(this.ajaxWithdrawFlag===true)return
+  let item =JSON.parse(this.$route.query.item)
+  this.$http.send('GET_TKF_TICKETS',{
+    bind:this,
+    query:{
+      projectId: item.projectId,
+      period: item.period,
+      currency:'USDT',
+      limit:this.limit,
+      id:this.lastId
+    },
+    callBack:this.re_getTkfTickets,
+    errorHandler:this.error_getTkfTickets
+  })
+}
+root.methods.re_getTkfTickets = function (data) {
+  typeof (data)=='string'&& (data = JSON.parse(data))
+  this.ajaxWithdrawFlag = false
+  if (!data || data.dataMap.list.length === 0) {
+    this.loading=false
+    this.ajaxWithdrawFlag = true
+    return
+  }
+  if (data.dataMap.list.length < this.limit){
+    this.isShowGetMoreRecord = false
+  } else {
+    this.limit += 10;
+  }
+  console.info(data)
+  this.currentBuyList = data.dataMap.list
+  // this.ajaxWithdrawFlag = false
+}
+root.methods.error_getTkfTickets = function (err) {
+}
+
+// 格式化时间
+root.methods.formatDateUitl = function (time) {
+  return this.$globalFunc.formatDateUitl(time, 'MM-DD hh:mm:ss')
 }
 export default root

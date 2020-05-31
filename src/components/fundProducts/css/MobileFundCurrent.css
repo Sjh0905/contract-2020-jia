@@ -118,5 +118,33 @@
   vertical-align: sub;
 }
 
+.mobile-forecast-record-loading {
+  height: 50px;
+  position: relative;
+}
+
+.withdraw-list-no-more {
+  height: 0.88rem;
+  line-height: 0.88rem;
+  text-align: center;
+  color: #92b2cc;
+  /*margin: 0.48rem auto;*/
+  font-size: 0.24rem;
+}
+
+.withdraw-list-btn-get-more{
+  /*position: relative;*/
+  /*width:6rem;*/
+  /*border:1px solid #274868;*/
+  color: #92b2cc;
+  /*background: transparent;*/
+  /*margin: 1rem auto 0;*/
+  border-radius: 0.03rem;
+  height: 0.88rem;
+  line-height: 0.88rem;
+  text-align: center;
+  font-size: 0.24rem;
+}
+
 
 

@@ -496,6 +496,9 @@ requestAddress.POST_PURCHASE_TKF = {url: urlHead+'/tkf/purchase', method: 'post'
 requestAddress.GET_FUND_DETAILS = {url: urlHead+'/tkf/purchasePageInfo', method: 'get'} // 申购基金详情
 requestAddress.TKF_FINANCIAL_RECORDS = {url: urlHead+'/tkf/financialRecords', method: 'get'}  //理财基金状态
 requestAddress.TKF_PREDICT_RECORD_DETAIL = {url: urlHead+'/tkf/predictRecordDetail', method: 'post'}  //基金详情
+requestAddress.FUND_RECORDS_LISTS = {url: urlHead+'/tkf/tkfPayRecord', method: 'get'}  //基金记录页面
+requestAddress.GET_TKF_TICKETS = {url: urlHead+'/tkf/getTkftickets', method: 'get'}  //开奖记录页面
+
 
 
 export default requestAddress

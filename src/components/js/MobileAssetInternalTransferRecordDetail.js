@@ -36,6 +36,7 @@ root.created = function () {
   if(!this.$store.state.mobileRechargeRecordData.currency) {
     this.$router.push({name: 'MobileAssetRechargeAndWithdrawRecord'})
   }
+  console.info(this.rechargeDetailData)
 }
 
 root.computed = {}

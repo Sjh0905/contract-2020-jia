@@ -51,9 +51,9 @@
       <!--收益中-->
       <div class="fund-asset-status-containter flex" v-if="selectedType === 2" @click="gotoDetails(2)" v-for="(item,index) in incomeList" :key="index">
         <div class="fund-asset-status-containter-left">
-          <div class="fund-asset-status-nper">托肯放之拔头筹-2期</div>
+          <div class="fund-asset-status-nper">区块恋之{{item.drawCNName}}-{{Number(item.period)}}期</div>
           <div class="fund-asset-status-acount">
-            <span class="fund-asset-status-number">3</span>
+            <span class="fund-asset-status-number">{{item.successed}}</span>
             <span class="fund-asset-status-text">购买份数</span>
           </div>
         </div>
@@ -66,9 +66,9 @@
       <!--已结束-->
       <div class="fund-asset-status-containter flex" v-if="selectedType === 3" @click="gotoDetails(3)" v-for="(item,index) in hasEndedList" :key="index">
         <div class="fund-asset-status-containter-left">
-          <div class="fund-asset-status-nper">托肯放之拔头筹-1期</div>
+          <div class="fund-asset-status-nper">区块恋之{{item.drawCNName}}-{{Number(item.period)}}期</div>
           <div class="fund-asset-status-acount">
-            <span class="fund-asset-status-number">3</span>
+            <span class="fund-asset-status-number">{{item.successed}}</span>
             <span class="fund-asset-status-text">购买份数</span>
           </div>
         </div>

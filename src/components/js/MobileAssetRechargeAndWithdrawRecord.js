@@ -150,6 +150,9 @@ root.methods.changeOpenTypeQuery = function () {
   if(num == 6) {
     this.getRewardRecord()
   }
+  if(num == 7) {
+    this.getFundList()
+  }
 
 }
 
@@ -198,6 +201,11 @@ root.methods.changeOpenType = function(num){
     this.$router.push({'path':'/index/mobileAsset/MobileAssetRechargeAndWithdrawRecord',query:{id:6}})
     this.$store.commit('changeMobileHeaderTitle', '');
     this.getRewardRecord()
+  }
+  if(num === 7) {
+    this.$router.push({'path':'/index/mobileAsset/MobileAssetRechargeAndWithdrawRecord',query:{id:7}})
+    this.$store.commit('changeMobileHeaderTitle', '');
+    this.getFundList()
   }
 
 }
@@ -654,10 +662,8 @@ root.methods.getFundList = function () {
   }
   this.ajaxInternalTransferFlag = true
 
-  this.$http.send("", {
+  this.$http.send("FUND_RECORDS_LISTS", {
     bind: this,
-    query:{
-    },
     callBack: this.re_getFundList,
     errorHandler: this.error_getFundList
   })
@@ -667,7 +673,7 @@ root.methods.re_getFundList = function (data) {
   this.ajaxInternalTransferFlag = false
   typeof data === 'string' && (data = JSON.parse(data))
   if (!data) return
-  this.fundListLists = data.dataMap
+  this.fundListLists = data.dataMap.list
 
   if (this.fundListLists.length < this.fundListLists){
     this.isShowGetMoreInternalTransfer = false
@@ -724,7 +730,7 @@ root.methods.toInternalTransferDetailPath = function (item) {
 // 点击跳进基金详情页
 root.methods.tofundDetailsPath = function (item) {
   this.$store.commit('changeMobileRechargeRecordData',item)
-  this.$router.push("/index/mobileAsset/mobileAssetInternalTransferRecordDetail/")
+  this.$router.push("/index/mobileAsset/mobileAssetInternalTransferRecordDetail/?openType=7")
 }
 
 
