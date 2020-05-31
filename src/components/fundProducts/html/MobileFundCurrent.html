@@ -39,13 +39,19 @@
       <div class="amount">{{v.amount}}</div>
       <div class="detail">{{v.presaleNo}}</div>
       <div class="num">
-<!--        <span class="mobile-record-winning">-->
-<!--           <img src="../assets/one_star.png" alt="">-->
-<!--        </span>-->
+        <span class="mobile-record-winning" v-if="v.type=='FIRST'">
+           <img src="../assets/one_star.png" alt="">
+        </span>
+        <span class="mobile-record-winning" v-if="v.type=='SECOND'">
+           <img src="../assets/two_star.png" alt="">
+        </span>
+        <span class="mobile-record-winning" v-if="v.type=='THIRD'">
+           <img src="../assets/three_star.png" alt="">
+        </span>
         {{v.userId}}</div>
     </div>
 
-    <div v-if="c" class="mobile-forecast-record-loading">
+    <div v-if="ajaxWithdrawFlag" class="mobile-forecast-record-loading">
       <Loading/>
     </div>
 
