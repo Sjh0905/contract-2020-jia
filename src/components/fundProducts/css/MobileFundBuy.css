@@ -1,17 +1,18 @@
 .fund-buy-activity{
   background: #F7F8FA;
   height: 100%;
-  overflow-y: scroll;
+  overflow-y: hidden;
 }
 .fund-buy-main{
   /*background: green;*/
   /*flex: 1;*/
-  min-height: 100%;
-  margin-top: 0.88rem;
-  margin-bottom:1.48rem;
+  height: 100%;
+  overflow-y: scroll;
+  padding-top: 0.88rem;
+  /*margin-bottom:1.48rem;*/
 }
 .fund-buy-main-app{
-  margin-top: 0;
+  padding-top: 0;
 }
 .fund-buy-input-box{
   width:100%;
@@ -129,6 +130,7 @@
 }
 .fund-buy-type-of-strategy{
   width: 100%;
+  margin-bottom: 1.58rem;
 }
 .fund-buy-type-of-strategy-img{
   width: 100%;
