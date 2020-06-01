@@ -9,7 +9,9 @@ root.data = function () {
   return {
     drawNumbers:[],
     prices:0,
-    loading:true
+    loading:true,
+    nonce1:'',
+    nonce:'',
   }
 }
 /*------------------------------ 生命周期 -------------------------------*/
@@ -70,6 +72,13 @@ root.methods.re_viewDetails = function (data) {
   if(!data)return
   this.drawNumbers = data.dataMap.presaleNo
   this.prices = data.dataMap.prices
+
+  this.nonce = data.dataMap.nonce
+  let disLength = this.nonce.length;
+  this.nonce1 = this.nonce.substring(disLength-3);
+
+
+  console.info('nonce1======',this.nonce1)
   this.loading = false
 }
 root.methods.error_viewDetails = function () {
