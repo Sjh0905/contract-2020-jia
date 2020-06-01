@@ -36,7 +36,7 @@
                     <span class="each-copy padding-top color-bik">{{firstList.cycle}} 天</span>
                   </div>
                 </div>
-                <div class="TKF-strategy">理财策略（七日年化收益率）</div>
+                <div class="TKF-strategy">理财策略（年化收益率）</div>
                 <div class="flex">
                   <div class="TKF-take-the-box">
                     <span class="each-copy color-bik" v-if="periodList1.FIRST.yield != '99900'">{{periodList1.FIRST.yield * 10 * 10}}%</span>
@@ -54,8 +54,9 @@
                 </div>
                 <div>
 <!--                  <div class="TKF-purchase" @click="goToPurchase(firstList,item.period)">申购</div>-->
-                  <div class="TKF-purchase" v-if="firstList.surplus != 0" @click="goToPurchase(firstList.id, firstList.currency, item.period)">申购</div>
-                  <div class="TKF-purchase1" v-if="firstList.surplus == 0">售罄</div>
+                  <div class="TKF-purchase" v-if="firstList.surplus != 0 && Number(nowTime) < Number(endTime1)" @click="goToPurchase(firstList.id, firstList.currency, item.period)">申购</div>
+                  <div class="TKF-purchase1" v-if="firstList.surplus == 0 || Number(nowTime) >= Number(endTime1)">售罄</div>
+<!--                  <div class="TKF-purchase1" v-if="Number(nowTime) >= Number(endTime1)">售罄</div>-->
                 </div>
 
               </div>
@@ -85,7 +86,7 @@
                   <span class="each-copy padding-top color-bik">{{secondList.cycle}} 天</span>
                 </div>
               </div>
-              <div class="TKF-strategy">理财策略（七日年化收益率）</div>
+              <div class="TKF-strategy">理财策略（年化收益率）</div>
               <div class="flex">
                 <div class="TKF-take-the-box">
                   <span class="each-copy color-bik">{{periodListQ1.FIRST.yield * 10 * 10}}%</span>
@@ -102,8 +103,9 @@
               </div>
 
               <div>
-                <div class="TKF-purchase" v-if="secondList.surplus != 0" @click="goToPurchase1(secondList.id, secondList.currency ,item.period)">申购</div>
-                <div class="TKF-purchase1" v-if="secondList.surplus == 0">售罄</div>
+                <div class="TKF-purchase" v-if="secondList.surplus != 0 && Number(nowTime) < Number(endTime2)" @click="goToPurchase1(secondList.id, secondList.currency ,item.period)">申购</div>
+                <div class="TKF-purchase1" v-if="secondList.surplus == 0 || Number(nowTime) >= Number(endTime2)">售罄</div>
+<!--                <div class="TKF-purchase1" v-if="Number(nowTime) >= Number(endTime2)">售罄</div>-->
 <!--                <div class="TKF-purchase" v-if="!subscription">申购中</div>-->
               </div>
             </div>
@@ -130,7 +132,7 @@
                   <span class="each-copy padding-top color-bik">{{thirdList.cycle}} 天</span>
                 </div>
               </div>
-              <div class="TKF-strategy">理财策略（七日年化收益率）</div>
+              <div class="TKF-strategy">理财策略（年化收益率）</div>
               <div class="flex">
                 <div class="TKF-take-the-box">
                   <span class="each-copy color-bik">{{thirdListB1.FIRST.yield * 10 * 10}}%</span>
@@ -147,8 +149,9 @@
               </div>
 
               <div>
-                <div class="TKF-purchase" v-if="thirdList.surplus != 0" @click="goToPurchase2(thirdList.id, thirdList.currency ,item.period)">申购</div>
-                <div class="TKF-purchase1" v-if="thirdList.surplus == 0">售罄</div>
+                <div class="TKF-purchase" v-if="thirdList.surplus != 0 && Number(nowTime) < Number(endTime3)" @click="goToPurchase2(thirdList.id, thirdList.currency ,item.period)">申购</div>
+                <div class="TKF-purchase1" v-if="thirdList.surplus == 0 || Number(nowTime) >= Number(endTime3)">售罄</div>
+<!--                <div class="TKF-purchase1" v-if="Number(nowTime) >= Number(endTime3)">售罄</div>-->
               </div>
             </div>
           </div>
@@ -173,7 +176,7 @@
                   <span class="each-copy padding-top color-bik">{{fourthList.cycle}} 天</span>
                 </div>
               </div>
-              <div class="TKF-strategy">理财策略（七日年化收益率）</div>
+              <div class="TKF-strategy">理财策略（年化收益率）</div>
               <div class="flex">
                 <div class="TKF-take-the-box">
                   <span class="each-copy color-bik">{{fourthListT1.FIRST.yield * 10 * 10}}%</span>
@@ -190,8 +193,9 @@
               </div>
 
               <div>
-                <div class="TKF-purchase" v-if="fourthList.surplus != 0" @click="goToPurchase3(fourthList.id ,fourthList.currency, item.period)">申购</div>
-                <div class="TKF-purchase1" v-if="fourthList.surplus == 0">售罄</div>
+                <div class="TKF-purchase" v-if="fourthList.surplus != 0 && Number(nowTime) < Number(endTime4)" @click="goToPurchase3(fourthList.id ,fourthList.currency, item.period)">申购</div>
+                <div class="TKF-purchase1" v-if="fourthList.surplus == 0 || Number(nowTime) >= Number(endTime4)">售罄</div>
+<!--                <div class="TKF-purchase1" v-if="Number(nowTime) >= Number(endTime4)">售罄</div>-->
               </div>
             </div>
 
