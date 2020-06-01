@@ -140,9 +140,16 @@
 
         <!--状态-->
         <div class="header-box-state">
+          <span class="header-box-state-title">类型</span>
+          <div v-if="rechargeDetailData.fromUserId == userId" class="header-box-state-container">从钱包到基金</div>
+          <div v-else class="header-box-state-container">从基金到钱包</div>
+        </div>
+
+        <!--状态-->
+        <div class="header-box-state">
           <span class="header-box-state-title">状态</span>
-          <div v-if="rechargeDetailData.fromUserId === userId" class="header-box-state-container">从基金到钱包</div>
-          <div v-else class="header-box-state-container">从钱包到基金</div>
+          <div class="header-box-state-container">{{rechargeDetailData.resultInfo=='success'?'成功':'失败'}}</div>
+<!--          <div v-else class="header-box-state-container">从钱包到基金</div>-->
         </div>
 
       </div>
