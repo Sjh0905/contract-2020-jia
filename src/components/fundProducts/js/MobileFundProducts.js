@@ -138,6 +138,7 @@ root.methods.re_getProductList = function (data) {
   this.firstList = data.dataMap.firstList  //拔头筹
   this.periodList = data.dataMap.firstList.periodList  //拔头筹份额
   this.periodList1 = JSON.parse(data.dataMap.firstList.periodList[0].extra);
+  console.info('this.periodList1 ======',this.periodList1)
 
 
   this.secondList = data.dataMap.secondList//群雄起
