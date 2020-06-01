@@ -1,0 +1,52 @@
+.fund-container{
+  width: 100%;
+  height: 100%;
+  background: #F7F8FA;
+}
+
+
+.fund-title-img {
+  justify-content: center;
+}
+
+.fund-title-img {
+  height: 160px;
+}
+
+.fund-title-content {
+  width: 100%;
+  height: 44px;
+  line-height: 44px;
+  background: #313131;
+}
+
+.fund-title-center {
+  width: 1200px;
+  margin: 0 auto;
+}
+
+.fund-products {
+  display: inline-block;
+  height: 44px;
+  font-size:14px;
+  font-family:PingFangSC-Semibold,PingFang SC;
+  font-weight:600;
+  color: #FFFFFF;
+  box-sizing: border-box;
+}
+
+.fund-products:first-child {
+  margin-right: 50px;
+}
+
+.text-yellow {
+  height: 44px;
+  border-bottom: 2px solid #FFDC6E;
+}
+
+.fund-detail {
+  width: 100%;
+  height: 100%;
+}
+
+

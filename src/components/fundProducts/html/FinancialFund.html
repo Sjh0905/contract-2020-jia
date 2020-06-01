@@ -1,0 +1,24 @@
+<div class="fund-container">
+  <div class="fund-title">
+    <div class="fund-title-img flex">
+      <img src="../assets/PC_fund_banner.png" alt="" class="fund-title-img">
+    </div>
+    <div class="fund-title-content">
+      <div class="fund-title-center">
+        <!--基金产品 begin-->
+        <router-link to="/index/financialFund/fundProducts" class="fund-products" active-class="text-yellow">
+         产品
+        </router-link>
+        <!--基金产品 end-->
+        <!--基金理财 begin-->
+        <router-link to="/index/financialFund/fundAssets" class="fund-products" active-class="text-yellow">
+         理财
+        </router-link>
+        <!--基金理财 end-->
+      </div>
+    </div>
+    <div class="fund-detail">
+      <router-view></router-view>
+    </div>
+  </div>
+</div>
