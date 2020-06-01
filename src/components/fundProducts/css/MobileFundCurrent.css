@@ -99,6 +99,10 @@
   flex: 18;
 }
 
+.type1 {
+  flex: 24;
+}
+
 .detail {
   flex: 10;
   /*text-align: right*/
