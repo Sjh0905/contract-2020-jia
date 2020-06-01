@@ -12,7 +12,9 @@ root.data = function () {
     lastId:0,
     loading:true,
     ajaxWithdrawFlag:false,
-    isShowGetMoreRecord:false
+    isShowGetMoreRecord:false,
+    nonce:'' ,
+    blockContractUrl:''
   }
 }
 /*------------------------------ 生命周期 -------------------------------*/
@@ -82,9 +84,15 @@ root.methods.re_getTkfTickets = function (data) {
   }
   console.info(data)
   this.currentBuyList = data.dataMap.list
+  this.nonce = data.dataMap.nonce.substring(data.dataMap.nonce.length-3)
+  this.blockContractUrl = data.dataMap.blockContractUrl
   // this.ajaxWithdrawFlag = false
 }
 root.methods.error_getTkfTickets = function (err) {
+}
+
+root.methods.gotoNonce = function () {
+  window.open(this.blockContractUrl)
 }
 
 // 格式化时间

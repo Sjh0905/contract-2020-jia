@@ -10,8 +10,8 @@
 
   <!--本期购买 中奖编号-->
   <div class="examine flex" v-if="JSON.parse($route.query.item).projectId == 1">
-    <div>本期中奖号码:--</div>
-    <div class="examine-img">
+    <div>本期中奖号码：{{nonce}}</div>
+    <div class="examine-img" @click="gotoNonce()">
       <span class="examine-text">立即查验</span>
       <img src="../assets/go_detail.png" alt="">
     </div>
@@ -36,7 +36,7 @@
     <div class="mobile-forecast-record-item"
          v-for="(v,index) in currentBuyList" :key="index"
          >
-      <div :class="JSON.parse($route.query.item).projectId == 1? 'type':'type1'">{{formatDateUitl(v.createdAt)}}</div>
+      <div :class="JSON.parse($route.query.item).projectId == 1? 'type':'type1'">{{formatDateUitl(v.purchaseTime)}}</div>
       <div class="amount">{{v.amount}}</div>
       <div class="detail" v-if="JSON.parse($route.query.item).projectId == 1">{{v.presaleNo}}</div>
       <div class="num">
