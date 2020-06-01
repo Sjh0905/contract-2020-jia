@@ -209,6 +209,8 @@ root.routes.push({
   component: resolve => require(['@/components/LuckyDraw/vue/treasureBox'], resolve)
 })
 
+
+/*-----------------  基金理财H5 begin  ------------------------*/
 // 基金理财
 root.routes.push({
   path: '/index/mobileFinancialFund',
@@ -273,7 +275,7 @@ root.routes.push({
   component: resolve => require(['@/components/fundProducts/vue/MobileFundDetails'], resolve),
 })
 
-// 基金本期购买
+// 基金本期申购
 root.routes.push({
   path: '/index/mobileFundCurrent',
   name: 'mobileFundCurrent',
@@ -299,7 +301,7 @@ root.routes.push({
   caseSensitive: true,
   component: resolve => require(['@/components/fundProducts/vue/MobileFundBuy'], resolve)
 })
-
+/*-----------------  基金理财H5 end  ------------------------*/
 
 // 双平台通证合并公投 TODO:要删除 check
 // root.routes.push({
@@ -3094,6 +3096,70 @@ root.routes.push({
       },
       component: resolve => require(['@/components/vue/OfficialQuantitativeDetails'], resolve),
     },
+
+    /*-----------------  基金理财PC begin  ------------------------*/
+// 基金理财
+    {
+      path: 'financialFund',
+      name: 'financialFund',
+      requireLogin: true,
+      caseSensitive: true,
+      meta: {
+        requireLogin: true,
+        pcname: 'financialFund',
+        h5name: '',
+      },
+      component: resolve => require(['@/components/fundProducts/vue/FinancialFund'], resolve),
+      children:[
+        {
+          path: '',
+          caseSensitive: true,
+          redirect: 'fundProducts',
+          meta: {
+            pcname: 'fundProducts',
+            h5name: 'fundProducts',
+          },
+        },
+        // 基金产品页面
+        {
+          path: 'fundProducts',
+          name:'fundProducts',
+          caseSensitive: true,
+          meta: {
+            requireLogin: true,
+            pcname: 'fundProducts',
+            h5name: '',
+          },
+          component: resolve => require(['@/components/fundProducts/vue/FundProducts'], resolve),
+        },
+
+        // 基金资产页面
+        {
+          path: 'fundAssets',
+          name: 'fundAssets',
+          caseSensitive: true,
+          meta: {
+            requireLogin: true,
+            pcname: 'fundAssets',
+            h5name: '',
+          },
+          component: resolve => require(['@/components/fundProducts/vue/FundAssets'], resolve),
+        },
+      ]
+    },
+    //基金理财购买
+    {
+      path: 'fundBuy',
+      name: 'fundBuy',
+      meta: {
+        requireLogin: true,
+        pcname: 'fundBuy',
+        h5name: '',
+      },
+      caseSensitive: true,
+      component: resolve => require(['@/components/fundProducts/vue/FundBuy'], resolve)
+    }
+    /*-----------------  基金理PC end  ------------------------*/
 
     // TODO:不能删除 check
     // cc 活动------茶币路由
