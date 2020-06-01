@@ -24,6 +24,11 @@ root.data = function () {
 
 
     copies1:1,
+    nowTime:0,
+    endTime1:0,
+    endTime2:0,
+    endTime3:0,
+    endTime4:0,
 
   }
 }
@@ -135,25 +140,30 @@ root.methods.re_getProductList = function (data) {
   typeof data === 'string' && (data = JSON.parse(data))
 
   this.loading = false
+  this.nowTime = (new Date()).valueOf();
   this.firstList = data.dataMap.firstList  //拔头筹
   this.periodList = data.dataMap.firstList.periodList  //拔头筹份额
   this.periodList1 = JSON.parse(data.dataMap.firstList.periodList[0].extra);
+  this.endTime1 = data.dataMap.firstList.periodList[0].endTime;
   console.info('this.periodList1 ======',this.periodList1)
 
 
   this.secondList = data.dataMap.secondList//群雄起
   this.periodListQ = data.dataMap.secondList.periodList  //群雄起
   this.periodListQ1 = JSON.parse(data.dataMap.secondList.periodList[0].extra)//群雄起
+  this.endTime2 = data.dataMap.secondList.periodList[0].endTime;
 
 
   this.thirdList = data.dataMap.thirdList    // 步步高
   this.thirdListB = data.dataMap.thirdList.periodList   // 步步高
   this.thirdListB1 = JSON.parse(data.dataMap.thirdList.periodList[0].extra)   // 步步高
+  this.endTime3 = data.dataMap.thirdList.periodList[0].endTime;
 
 
   this.fourthList = data.dataMap.fourthList//天下同
   this.fourthListT = data.dataMap.fourthList.periodList//天下同
   this.fourthListT1 = JSON.parse(data.dataMap.fourthList.periodList[0].extra)//天下同
+  this.endTime4 = data.dataMap.fourthList.periodList[0].endTime;
 
 }
 // 产品列表get出错
