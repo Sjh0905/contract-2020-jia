@@ -37,7 +37,7 @@
           <!--每份-->
           <div class="mobile-fund-text flex">
             <div class="text">每份</div>
-            <div class="content">{{prices}}</div>
+            <div class="content">{{prices}} USDT</div>
           </div>
           <!--申购时间-->
           <div class="mobile-fund-text flex">
@@ -45,12 +45,12 @@
             <div class="content">{{(formatDateUitl(JSON.parse(this.$route.query.item).purchaseTime))}}</div>
           </div>
           <!--中奖号码-->
-          <div class="mobile-fund-text flex">
+          <div class="mobile-fund-text flex" v-if="JSON.parse(this.$route.query.item).projectId == 1" >
             <div class="text">中奖号码</div>
             <div class="content">{{$route.query.selectedType == 1 ? '未抽取':''}}</div>
           </div>
           <!--抽签号码-->
-          <div class="mobile-fund-text flex">
+          <div class="mobile-fund-text flex" v-if="JSON.parse(this.$route.query.item).projectId == 1">
             <div class="text">抽签号码</div>
             <!--TODO:返回数组逗号连接，转成字符串用顿号连接-->
             <div class="content">{{drawNumbers.toString().replace(/,/ig,'、') || '--'}}</div>

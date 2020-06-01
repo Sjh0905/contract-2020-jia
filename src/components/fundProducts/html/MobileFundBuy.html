@@ -53,7 +53,7 @@
         <div class="fund-description-info-left">收益类型</div>
         <div class="fund-description-info-right">{{remainingType == 'BREAKEVEN' ? '保本型' : '非保本型'}}</div>
       </div>
-      <div class="fund-description-info-item">
+      <div class="fund-description-info-item" v-if="$route.query.id == 1">
         <div class="fund-description-info-left">策略确定</div>
         <div class="fund-description-info-right">{{'申购时获随机购买编号，赎回时根据以太坊区块 Nonce 值与购买编号的绝对差值大小，确定理财策略星级。'}}</div>
       </div>
