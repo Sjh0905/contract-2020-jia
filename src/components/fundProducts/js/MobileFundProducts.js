@@ -157,7 +157,7 @@ root.methods.re_getProductList = function (data) {
 
 
 
-    this.secondList = data.dataMap.secondList//群雄起
+  this.secondList = data.dataMap.secondList//群雄起
   this.periodListQ = data.dataMap.secondList.periodList  //群雄起
   // this.periodListQ1 = JSON.parse(data.dataMap.secondList.periodList[0].extra)//群雄起
   // this.endTime2 = data.dataMap.secondList.periodList[0].endTime;

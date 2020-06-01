@@ -36,7 +36,7 @@
     <div class="mobile-forecast-record-item"
          v-for="(v,index) in currentBuyList" :key="index"
          >
-      <div :class="JSON.parse($route.query.item).projectId == 1? 'type':'type1'">{{formatDateUitl(v.createdAt)}}</div>
+      <div :class="JSON.parse($route.query.item).projectId == 1? 'type':'type1'">{{formatDateUitl(v.purchaseTime)}}</div>
       <div class="amount">{{v.amount}}</div>
       <div class="detail" v-if="JSON.parse($route.query.item).projectId == 1">{{v.presaleNo}}</div>
       <div class="num">
