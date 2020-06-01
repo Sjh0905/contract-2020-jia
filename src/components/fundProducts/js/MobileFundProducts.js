@@ -143,28 +143,50 @@ root.methods.re_getProductList = function (data) {
   this.nowTime = (new Date()).valueOf();
   this.firstList = data.dataMap.firstList  //拔头筹
   this.periodList = data.dataMap.firstList.periodList  //拔头筹份额
-  this.periodList1 = JSON.parse(data.dataMap.firstList.periodList[0].extra);
-  this.endTime1 = data.dataMap.firstList.periodList[0].endTime;
-  console.info('this.periodList1 ======',this.periodList1)
+  // this.periodList1 = JSON.parse(data.dataMap.firstList.periodList[0].extra);
+  // this.endTime1 = data.dataMap.firstList.periodList[0].endTime;
+
+  this.periodList.forEach((num, index) => {
+    this.periodList1 = JSON.parse(num.extra)
+    this.endTime1 = num.endTime
+    // console.info('this.periodList1=====wwwwwwww',this.periodList1,this.endTime1);
+  })
 
 
-  this.secondList = data.dataMap.secondList//群雄起
+
+
+
+
+    this.secondList = data.dataMap.secondList//群雄起
   this.periodListQ = data.dataMap.secondList.periodList  //群雄起
-  this.periodListQ1 = JSON.parse(data.dataMap.secondList.periodList[0].extra)//群雄起
-  this.endTime2 = data.dataMap.secondList.periodList[0].endTime;
-
+  // this.periodListQ1 = JSON.parse(data.dataMap.secondList.periodList[0].extra)//群雄起
+  // this.endTime2 = data.dataMap.secondList.periodList[0].endTime;
+  this.periodListQ.forEach((num, index) => {
+    this.periodListQ1 = JSON.parse(num.extra)
+    this.endTime2 = num.endTime
+    // console.info('this.periodList1=====wwwwwwww',this.periodListQ1,this.endTime2);
+  })
 
   this.thirdList = data.dataMap.thirdList    // 步步高
   this.thirdListB = data.dataMap.thirdList.periodList   // 步步高
-  this.thirdListB1 = JSON.parse(data.dataMap.thirdList.periodList[0].extra)   // 步步高
-  this.endTime3 = data.dataMap.thirdList.periodList[0].endTime;
-
+  // this.thirdListB1 = JSON.parse(data.dataMap.thirdList.periodList[0].extra)   // 步步高
+  // this.endTime3 = data.dataMap.thirdList.periodList[0].endTime;
+  this.thirdListB.forEach((num, index) => {
+    this.thirdListB1 = JSON.parse(num.extra)
+    this.endTime3 = num.endTime
+    // console.info('this.periodList1=====wwwwwwww',this.thirdListB1,this.endTime3);
+  })
 
   this.fourthList = data.dataMap.fourthList//天下同
   this.fourthListT = data.dataMap.fourthList.periodList//天下同
-  this.fourthListT1 = JSON.parse(data.dataMap.fourthList.periodList[0].extra)//天下同
-  this.endTime4 = data.dataMap.fourthList.periodList[0].endTime;
+  // this.fourthListT1 = JSON.parse(data.dataMap.fourthList.periodList[0].extra)//天下同
+  // this.endTime4 = data.dataMap.fourthList.periodList[0].endTime;
 
+  this.fourthListT.forEach((num, index) => {
+    this.fourthListT1 = JSON.parse(num.extra)
+    this.endTime4 = num.endTime
+    // console.info('this.periodList1=====wwwwwwww',this.fourthListT1,this.endTime4);
+  })
 }
 // 产品列表get出错
 root.methods.error_getProductList = function (err) {
