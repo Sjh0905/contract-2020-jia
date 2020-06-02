@@ -58,7 +58,7 @@
 
 .fund-asset-total-incom-amount {
   font-size: 24px;
-  font-family:PingFangSC-Semibold,PingFang SC;
+  font-family:Roboto-Regular,Roboto;
   font-weight:600;
   color: #0D0E23;
   margin-top: 12px;
@@ -143,3 +143,17 @@
   vertical-align: sub;
 }
 
+.fund-details-title {
+  padding-left: 25px;
+}
+
+.fund-details-article {
+  min-height: 284px;
+  padding: 28px 25px 15px;
+}
+
+.fund-text-content {
+  font-size:14px;
+  font-family:MicrosoftYaHei;
+  color: #999999;
+}

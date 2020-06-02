@@ -10,7 +10,7 @@
       <div class="fund-asset-income flex">
         <div class="fund-asset-total-income">
           <div class="fund-asset-total-incom-title">总资产</div>
-          <div class="fund-asset-total-incom-amount">{{$globalFunc.accFixed(newQuantity,4)}} USDT</div>
+          <div class="fund-asset-total-incom-amount">{{$globalFunc.accFixed(accAdd(totalBalance,newQuantity),4)}} USDT</div>
         </div>
         <div class="fund-asset-total-income">
           <div class="fund-asset-total-incom-title">累计总收益</div>
@@ -19,7 +19,7 @@
         <!--最新收益-->
         <div class="fund-asset-total-income">
           <div class="fund-asset-total-incom-title">最新收益</div>
-          <div class="fund-asset-total-incom-amount">{{$globalFunc.accFixed(0,4)}} USDT</div>
+          <div class="fund-asset-total-incom-amount">{{$globalFunc.accFixed(newQuantity,4)}} USDT</div>
         </div>
       </div>
 
@@ -85,9 +85,18 @@
 
     <!--参与详情弹框-->
     <PopupWindow :switch="openFundDitail" @close="closeFundDitail">
-      <div slot="header">参与详情</div>
-      <div slot="article"></div>
-      <div slot="footer"></div>
+      <div slot="header" class="fund-details-title">参与详情</div>
+      <div slot="article" class="fund-details-article">
+
+        <div class="fund-text-content">
+          <div class="fund-text">
+            <div class="text">中奖号码</div>
+            <div class="content">未抽取</div>
+          </div>
+        </div>
+
+      </div>
+<!--      <div slot="footer"></div>-->
     </PopupWindow>
 
     <!--本期申购弹框-->
