@@ -1,0 +1,157 @@
+.fund-products-pc {
+  width: 1200px;
+  margin: 0 auto;
+  min-height: 600px;
+  height: 100%;
+  background-color: #F7F8FA;
+}
+.product-name {
+
+  padding-top: 25px;
+  padding-bottom: 15px;
+}
+.product-vertical {
+  padding: 0 0.3rem;
+}
+.TKF-take-the-lead {
+  /*width: 6.9rem;*/
+  height: 144px;
+  margin: 0 auto;
+  padding: 15px;
+  background-color: #FFFFFF;
+  /*margin-bottom: 0.3rem;*/
+  margin-bottom: 15px;
+  box-shadow:0px 4px 12px -4px rgba(1,1,1,0.1);
+}
+.pc-limit {
+  width: 50%;
+  margin-bottom: 15px;
+}
+.pc-Income {
+  /*width: 36%;*/
+}
+.pc-Income1 {
+  width: 36%;
+}
+.strategy {
+  width: 40%;
+  padding-left: 15%;
+  font-size:12px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color: #6A83A8;
+}
+.TKF-take-the {
+  font-size: 14px;
+  color: #131F30;
+  padding-bottom: 18px;
+  font-family:PingFangSC-Semibold,PingFang SC;
+  font-weight:600;
+}
+
+.produc-selected {
+  color: #6B7DA2;
+  font-size: 14px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  padding-right: 40px
+}
+.h5-item-selected {
+  color: #86651F;
+  font-size: 14px;
+  font-family:PingFangSC-Medium,PingFang SC;
+  font-weight:500;
+}
+.each-copy {
+  display: block;
+}
+.TKF-take-the-box {
+  display: inline-block;
+  width: 33%;
+  height: 70px;
+  border-right: 1px solid #F5F6FA;
+  text-align: center;
+}
+.TKF-take-the-box-lv {
+  display: inline-block;
+  width: 33%;
+  padding-left: 15%;
+}
+.padding-top {
+  padding-top: 3px;
+}
+.TKF-strategy {
+  width: 100%;
+  font-size:12px;
+  color: #6A83A8;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  height: 22px;
+  /*padding-top: 0.40rem;*/
+  /*padding-bottom: 0.15rem;*/
+}
+.TKF-usdt {
+  color: #172841;
+  font-size: 0.28rem;
+  font-family:Roboto-Regular,Roboto;
+  font-weight:400;
+}
+.TKF-purchase {
+  width:127px;
+  height:40px;
+  line-height: 40px;
+  color: #FEC955;
+  font-size: 14px;
+  text-align: center;
+  background:rgba(255,255,255,1);
+  box-shadow:0px 4px 12px -4px rgba(1,1,1,0.1);
+  border-radius: 3px;
+  margin-left: 20px;
+  border:1px solid rgba(254,201,85,1);
+}
+.TKF-purchase:hover {
+  width:127px;
+  height:40px;
+  line-height: 40px;
+  color: #86651F;
+  font-size: 14px;
+  text-align: center;
+  background:linear-gradient(90deg,rgba(255,221,111,1) 0%,rgba(254,200,83,1) 100%);
+  border-radius: 3px;
+  margin-left: 20px;
+  /*margin-top: 0.28rem;*/
+}
+
+.TKF-purchase1 {
+  line-height: 40px;
+  color: #FFFFFF;
+  font-size: 14px;
+  text-align: center;
+  width:127px;
+  height:40px;
+  background:rgba(225,222,213,1);
+  border-radius: 3px;
+  margin-left: 20px;
+  /*margin-top: 0.28rem;*/
+}
+.color-bik {
+  color: #172841;
+  font-size: 24px;
+  font-family:Roboto-Regular,Roboto;
+  font-weight:400;
+  /*line-height: 28px;*/
+}
+.color-bik-pc {
+  color: #172841;
+  font-size: 18px;
+  font-family:Roboto-Regular,Roboto;
+  font-weight:400;
+  /*line-height: 28px;*/
+}
+.color-a8 {
+  color: #6A83A8;
+  font-size:12px;
+  line-height: 17px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+}
