@@ -47,7 +47,7 @@
           <!--中奖号码-->
           <div class="mobile-fund-text flex" v-if="JSON.parse(this.$route.query.item).projectId == 1" >
             <div class="text">中奖号码</div>
-            <div class="content">{{$route.query.selectedType == 1 ? '未抽取': nonce}}</div>
+            <div class="content">{{$route.query.selectedType == 1 && nonce? '未抽取': nonce}}</div>
           </div>
           <!--抽签号码-->
           <div class="mobile-fund-text flex" v-if="JSON.parse(this.$route.query.item).projectId == 1">

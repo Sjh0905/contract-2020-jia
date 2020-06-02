@@ -73,8 +73,10 @@ root.methods.re_viewDetails = function (data) {
   this.prices = data.dataMap.prices
   this.loading = false
 
-  if(this.$route.query.selectedType != 1) {
+  if(this.$route.query.selectedType != 1 && data.dataMap.nonce) {
     this.nonce = data.dataMap.nonce.substring(data.dataMap.nonce.length-3)
+  }else {
+    this.nonce = '未开奖'
   }
   // let disLength = this.nonce.length;
   // this.nonce1 = this.nonce.substring(disLength-3);
@@ -91,7 +93,7 @@ root.methods.returnMobileFundAssets  =function () {
 
 // 跳转本期购买
 root.methods.gotoFundCurrent  =function () {
-  this.$router.push({name:'mobileFundCurrent',query:{item:this.$route.query.item}})
+  this.$router.push({name:'mobileFundCurrent',query:{selectedType:this.$route.query.selectedType,item:this.$route.query.item}})
 }
 
 // 格式化时间
