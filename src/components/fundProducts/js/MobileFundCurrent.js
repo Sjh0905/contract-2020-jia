@@ -80,7 +80,7 @@ root.methods.re_getTkfTickets = function (data) {
   if (data.dataMap.list.length < this.limit){
     this.isShowGetMoreRecord = false
   } else {
-    this.lastId += this.limit;
+    this.lastId += 10;
   }
   console.info(data)
   this.currentBuyList = data.dataMap.list
