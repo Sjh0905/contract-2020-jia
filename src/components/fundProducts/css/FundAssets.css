@@ -173,6 +173,14 @@
   color: #9D7A2B;
 }
 
+.content-status-inspection {
+  width:70px;
+  height:25px;
+  background: #C3A97B;
+  border-radius:2px;
+  text-align: center;
+}
+
 .content {
   flex: 1;
   color: #333333;
@@ -186,10 +194,12 @@
   text-align: center;
   margin-bottom: 15px;
   font-size:14px;
+  color: #9D7A2B;
   font-family:PingFangSC-Semibold,PingFang SC;
   font-weight:600;
 }
 
 .fund-current-see img {
+  margin-left: 10px;
   width: 12px;
 }
