@@ -134,5 +134,13 @@ root.methods.error_getHasEnded = function (err) {
 
 }
 
+/*---------------------- 加法运算 begin ---------------------*/
+root.methods.accAdd = function (num1, num2) {
+  num1 = parseFloat(num1)
+  num2 = parseFloat(num2)
+  return this.$globalFunc.accAdd(num1, num2)
+}
+/*---------------------- 加法运算 end ---------------------*/
+
 
 export default root
