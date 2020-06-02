@@ -10,7 +10,7 @@ root.data = function () {
     drawNumbers:[],
     prices:0,
     loading:true,
-    nonce1:'',
+    // nonce1:'',
     nonce:'',
   }
 }
@@ -53,7 +53,6 @@ root.methods = {}
 
 // 查看详情接口
 root.methods.viewDetails = function () {
-
   let item = JSON.parse(this.$route.query.item)
   this.$http.send('TKF_PREDICT_RECORD_DETAIL',{
     bind:this,
@@ -72,16 +71,17 @@ root.methods.re_viewDetails = function (data) {
   if(!data)return
   this.drawNumbers = data.dataMap.presaleNo
   this.prices = data.dataMap.prices
-
-  this.nonce = data.dataMap.nonce
-  let disLength = this.nonce.length;
-  this.nonce1 = this.nonce.substring(disLength-3);
-
-
-  console.info('nonce1======',this.nonce1)
   this.loading = false
+
+  if(this.$route.query.selectedType != 1) {
+    this.nonce = data.dataMap.nonce.substring(data.dataMap.nonce.length-3)
+  }
+  // let disLength = this.nonce.length;
+  // this.nonce1 = this.nonce.substring(disLength-3);
+  // console.info('nonce1======',this.nonce1)
 }
-root.methods.error_viewDetails = function () {
+root.methods.error_viewDetails = function (err) {
+  console.info(err)
 }
 
 // 返回基金资产页面

@@ -219,9 +219,7 @@ root.methods.re_toBuyFund = function (data) {
     }
     return
   }
-
   this.subscription = true
-
 }
 
 root.methods.error_toBuyFund = function (err) {
