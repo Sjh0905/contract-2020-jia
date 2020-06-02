@@ -25,7 +25,7 @@
     <div class="fund-asset-status">
       <!--状态title-->
       <div class="fund-asset-status-title flex">
-        <div class="fund-asset-status-subscription" :class="selectedType==1?'selected':''" @click="getAssetStatus(1)">申购中</div>
+        <div class="fund-asset-status-subscription" :class="selectedType==1?'selected':''" @click="getAssetStatus(1)">已申购</div>
         <div class="line">|</div>
         <div class="fund-asset-status-subscription" :class="selectedType==2?'selected':''" @click="getAssetStatus(2)">收益中</div>
         <div class="line">|</div>
@@ -43,7 +43,7 @@
           </div>
         </div>
         <div class="fund-asset-status-containter-right flex">
-          <div class="sub-scription">申购中</div>
+          <div class="sub-scription">申购成功</div>
           <div><img src="../assets/go_detail.png" alt="" class="go-detail"></div>
         </div>
       </div>
