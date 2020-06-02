@@ -15,7 +15,8 @@ root.data = function () {
     // // 已结束
     hasEndedList:[],
     totalBalance:0, // 总资产
-    newQuantity:0, // 最新收益
+    newQuantity:0, // 累计总收益
+    last:0, // 最新收益
     loading:true
   }
 }
@@ -82,6 +83,7 @@ root.methods.re_getPurchase = function (data) {
   this.purchaseList = data.dataMap.list
   this.totalBalance = data.dataMap.balance
   this.newQuantity = data.dataMap.quantity
+  this.last = data.dataMap.last
   this.loading = false
 
 }
@@ -130,6 +132,14 @@ root.methods.re_getHasEnded = function (data){
 }
 root.methods.error_getHasEnded = function (err) {
 }
+
+/*---------------------- 加法运算 begin ---------------------*/
+root.methods.accAdd = function (num1, num2) {
+  num1 = parseFloat(num1)
+  num2 = parseFloat(num2)
+  return this.$globalFunc.accAdd(num1, num2)
+}
+/*---------------------- 加法运算 end ---------------------*/
 
 
 export default root

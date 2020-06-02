@@ -174,7 +174,7 @@ root.methods.re_toBuyFund = function (data) {
     // this.openPop('购买成功',1)
 
     setTimeout(() => {
-      this.$router.push({'path':'/index/mobileFinancialFund/mobileFundAssets'})
+      this.$router.push({'path':'/index/financialFund/fundAssets'})
     }, 1000)
     return;
   }

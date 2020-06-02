@@ -4,7 +4,7 @@
     <!--背景图-->
     <div class="fund-asset-background">
       <div class="fund-asset-title">总资产（USDT）</div>
-      <div class="fund-asset-amount">{{$globalFunc.accFixed(totalBalance, 4)}}</div>
+      <div class="fund-asset-amount">{{$globalFunc.accFixed(accAdd(totalBalance,last), 4)}}</div>
     </div>
     <!--累计收益图-->
     <div class="fund-asset-income flex">
@@ -14,7 +14,7 @@
       </div>
       <div class="fund-asset-total-income">
         <div class="fund-asset-total-incom-title">最新收益</div>
-        <div class="fund-asset-total-incom-amount">{{$globalFunc.accFixed(0,4)}} USDT</div>
+        <div class="fund-asset-total-incom-amount">{{$globalFunc.accFixed(last,4)}} USDT</div>
       </div>
     </div>
 

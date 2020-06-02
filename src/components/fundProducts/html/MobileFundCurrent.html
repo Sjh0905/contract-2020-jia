@@ -9,7 +9,7 @@
   </div>
 
   <!--本期购买 中奖编号-->
-  <div class="examine flex" v-if="JSON.parse($route.query.item).projectId == 1">
+  <div class="examine flex" v-if="JSON.parse($route.query.item).projectId == 1 && $route.query.selectedType != 1">
     <div>本期中奖号码：{{nonce}}</div>
     <div class="examine-img" @click="gotoNonce()">
       <span class="examine-text">立即查验</span>
@@ -54,12 +54,12 @@
         {{v.userId}}</div>
     </div>
 
-    <div v-if="ajaxWithdrawFlag" class="mobile-forecast-record-loading">
-      <Loading/>
-    </div>
+<!--    <div v-if="ajaxWithdrawFlag" class="mobile-forecast-record-loading">-->
+<!--      <Loading/>-->
+<!--    </div>-->
 
-    <div class="withdraw-list-no-more" v-if="currentBuyList.length !== 0 && isShowGetMoreRecord">已经全部加载完毕</div>
   </div>
   <div v-if="currentBuyList.length !== 0 && isShowGetMoreRecord === false && !ajaxWithdrawFlag" class="withdraw-list-btn-get-more" @click="getTkfTickets">加载更多</div>
+  <div class="withdraw-list-no-more" v-if="currentBuyList.length !== 0 && !isShowGetMoreRecord && ajaxWithdrawFlag">已经全部加载完毕</div>
   </div>
 </div>

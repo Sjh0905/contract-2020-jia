@@ -183,26 +183,26 @@ root.methods.re_toBuyFund = function (data) {
     console.log(data)
 
     switch (data.errorCode) {
-      case -1:
-        this.openPop('传递的参数为空')
-        break;
+      // case -1:
+      //   this.openPop('传递的参数为空')
+      //   break;
       case 1:
         this.openPop('您当前未登录，请先登录')
         break;
       case 2:
         this.openPop('您当前未实名认证，请先前往实名认证')
         break;
-      case 3:
-        this.openPop('已经不存在这个场景')
-        break;
+      // case 3:
+      //   this.openPop('已经不存在这个场景')
+      //   break;
       case 4:
         this.openPop('超出每期可投份数')
         break;
-      case 5:
-        this.openPop('超出个人每天最大次数')
-        break;
+      // case 5:
+      //   this.openPop('超出个人每天最大次数')
+      //   break;
       case 6:
-        this.openPop('用户余额不足')
+        this.openPop('账户余额不足')
         break;
       case 7:
         this.openPop('本期已售完，下期要抓紧哦～')
@@ -211,7 +211,7 @@ root.methods.re_toBuyFund = function (data) {
         this.openPop('剩余份数不足')
         break;
       case 9:
-        this.openPop('项目已下架')
+        this.openPop('项目已结束')
         break;
       case 10:
         this.openPop('服务器升级中，请稍后再试')
@@ -219,9 +219,7 @@ root.methods.re_toBuyFund = function (data) {
     }
     return
   }
-
   this.subscription = true
-
 }
 
 root.methods.error_toBuyFund = function (err) {
