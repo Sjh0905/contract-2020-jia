@@ -51,10 +51,16 @@ root.methods.closeFundDitail = function () {
   this.openFundDitail = false
 }
 
+root.methods.goTopPriodDetails = function () {
+  this.openFundPurchase = true
+  this.closeFundDitail()
+}
+
 // 跳转基金详情页
-root.methods.gotoDetails = function () {
+root.methods.gotoDetails = function (item) {
   console.log('跳转基金详情页（弹框形式）')
   this.openFundDitail = true
+  console.info('item=======',item)
 }
 
 // 切换理财状态
@@ -143,6 +149,13 @@ root.methods.re_getHasEnded = function (data){
 }
 root.methods.error_getHasEnded = function (err) {
 }
+
+
+
+
+
+
+
 
 /*---------------------- 加法运算 begin ---------------------*/
 root.methods.accAdd = function (num1, num2) {

@@ -159,6 +159,20 @@
   padding: 28px 25px 15px;
 }
 
+.fund-current-income {
+  font-size:12px;
+  font-family:PingFangSC-Semibold,PingFang SC;
+  font-weight:600;
+}
+
+.fund-current-income-amount {
+  font-size:24px;
+  font-family:Roboto-Bold,Roboto;
+  font-weight:bold;
+  color: #906D1C;
+  margin: 5px 0 18px;
+}
+
 .fund-text {
   margin-bottom: 10px;
 }
@@ -174,11 +188,18 @@
 }
 
 .content-status-inspection {
+  display: inline-block;
   width:70px;
   height:25px;
+  line-height:25px;
   background: #C3A97B;
+  color: #fff;
+  font-size:12px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
   border-radius:2px;
   text-align: center;
+  margin-left: 20px;
 }
 
 .content {

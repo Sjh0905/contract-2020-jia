@@ -36,7 +36,7 @@
         </div>
 
         <!--申购中-->
-        <div class="fund-asset-status-containter pointer flex" v-if="selectedType === 1" @click="gotoDetails(1)" v-for="(item,index) in purchaseList" :key="index">
+        <div class="fund-asset-status-containter pointer flex" v-if="selectedType === 1" @click="gotoDetails(item)" v-for="(item,index) in purchaseList" :key="index">
           <div class="fund-asset-status-containter-left flex">
             <div class="fund-asset-status-nper">区块恋之{{item.drawCNName}}-{{Number(item.period)}}期</div>
             <div class="fund-asset-status-acount">
@@ -51,7 +51,7 @@
         </div>
 
         <!--收益中-->
-        <div class="fund-asset-status-containter pointer flex" v-if="selectedType === 2" @click="gotoDetails(2)" v-for="(item,index) in incomeList" :key="index">
+        <div class="fund-asset-status-containter pointer flex" v-if="selectedType === 2" @click="gotoDetails(item)" v-for="(item,index) in incomeList" :key="index">
           <div class="fund-asset-status-containter-left flex">
             <div class="fund-asset-status-nper">区块恋之{{item.drawCNName}}-{{Number(item.period)}}期</div>
             <div class="fund-asset-status-acount">
@@ -67,7 +67,7 @@
         </div>
 
         <!--已结束-->
-        <div class="fund-asset-status-containter pointer flex" v-if="selectedType === 3" @click="gotoDetails(3)" v-for="(item,index) in hasEndedList" :key="index">
+        <div class="fund-asset-status-containter pointer flex" v-if="selectedType === 3" @click="gotoDetails(item)" v-for="(item,index) in hasEndedList" :key="index">
           <div class="fund-asset-status-containter-left flex">
             <div class="fund-asset-status-nper">区块恋之{{item.drawCNName}}-{{Number(item.period)}}期</div>
             <div class="fund-asset-status-acount">
@@ -87,36 +87,46 @@
     <PopupWindow :switch="openFundDitail" @close="closeFundDitail">
       <div slot="header" class="fund-details-title">参与详情</div>
       <div slot="article" class="fund-details-article">
-
         <div class="fund-text-content">
+          <!--本期收益-->
+          <div class="fund-current-income" v-if="selectedType == 3">
+            <div>本期收益（USDT）</div>
+            <div class="fund-current-income-amount">123456765432</div>
+          </div>
+          <!--中奖号码-->
           <div class="fund-text flex">
             <div class="text">中奖号码:</div>
             <div class="content-status">未抽取
-              <span class="content-status-inspection">立即查验</span>
+              <span class="content-status-inspection" v-if="selectedType == 3">立即查验</span>
             </div>
           </div>
+          <!--抽奖号码-->
           <div class="fund-text flex">
             <div class="text">抽奖号码:</div>
             <div class="content">12、123、123、12、12、12、21、12、12、21、、21、2、1、2、1、2、1、2、1、2</div>
           </div>
+          <!--申购时间-->
           <div class="fund-text flex">
             <div class="text">申购时间:</div>
             <div class="content">2019-08-12 18:30</div>
           </div>
+          <!--参与份数-->
           <div class="fund-text flex">
             <div class="text">参与份数:</div>
             <div class="content">4</div>
           </div>
+          <!--项目编号-->
           <div class="fund-text flex">
             <div class="text">项目编号:</div>
             <div class="content">BT0000008</div>
           </div>
+          <!--期数-->
           <div class="fund-text flex">
             <div class="text">期数:</div>
             <div class="content">nmnkdnkfnkfnkj</div>
           </div>
         </div>
-        <div class="fund-current-see">
+        <div class="fund-current-see" @click="goTopPriodDetails">
           查看本期申购
           <img src="../assets/see_details.png" alt="">
         </div>
@@ -126,9 +136,10 @@
 
     <!--本期申购弹框-->
     <PopupWindow :switch="openFundPurchase" @close="closeFundPurchase">
-      <div slot="header">本期申购</div>
-      <div slot="article"></div>
-      <div slot="footer"></div>
+      <div slot="header" class="fund-details-title">本期申购</div>
+      <div slot="article">
+      </div>
+<!--      <div slot="footer"></div>-->
     </PopupWindow>
   </div>
 
