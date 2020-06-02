@@ -54,8 +54,8 @@
                 </div>
                 <div>
 <!--                  <div class="TKF-purchase" @click="goToPurchase(firstList,item.period)">申购</div>-->
-                  <div class="TKF-purchase" v-if="firstList.surplus != 0 && Number(nowTime) < Number(endTime1)" @click="goToPurchase(firstList.id, firstList.currency, item.period)">申购</div>
-                  <div class="TKF-purchase1" v-if="firstList.surplus == 0 || Number(nowTime) >= Number(endTime1)">售罄</div>
+                  <div class="TKF-purchase" v-if="firstList.surplus != 0 && Number(nowTime) < Number(item.startTime)" @click="goToPurchase(firstList.id, firstList.currency, item.period)">申购</div>
+                  <div class="TKF-purchase1" v-if="firstList.surplus == 0 || Number(nowTime) >= Number(item.startTime)">售罄</div>
 <!--                  <div class="TKF-purchase1" v-if="Number(nowTime) >= Number(endTime1)">售罄</div>-->
                 </div>
 
@@ -103,8 +103,8 @@
               </div>
 
               <div>
-                <div class="TKF-purchase" v-if="secondList.surplus != 0 && Number(nowTime) < Number(endTime2)" @click="goToPurchase1(secondList.id, secondList.currency ,item.period)">申购</div>
-                <div class="TKF-purchase1" v-if="secondList.surplus == 0 || Number(nowTime) >= Number(endTime2)">售罄</div>
+                <div class="TKF-purchase" v-if="secondList.surplus != 0 && Number(nowTime) < Number(item.startTime)" @click="goToPurchase1(secondList.id, secondList.currency ,item.period)">申购</div>
+                <div class="TKF-purchase1" v-if="secondList.surplus == 0 || Number(nowTime) >= Number(item.startTime)">售罄</div>
 <!--                <div class="TKF-purchase1" v-if="Number(nowTime) >= Number(endTime2)">售罄</div>-->
 <!--                <div class="TKF-purchase" v-if="!subscription">申购中</div>-->
               </div>
@@ -149,8 +149,8 @@
               </div>
 
               <div>
-                <div class="TKF-purchase" v-if="thirdList.surplus != 0 && Number(nowTime) < Number(endTime3)" @click="goToPurchase2(thirdList.id, thirdList.currency ,item.period)">申购</div>
-                <div class="TKF-purchase1" v-if="thirdList.surplus == 0 || Number(nowTime) >= Number(endTime3)">售罄</div>
+                <div class="TKF-purchase" v-if="thirdList.surplus != 0 && Number(nowTime) < Number(item.startTime)" @click="goToPurchase2(thirdList.id, thirdList.currency ,item.period)">申购</div>
+                <div class="TKF-purchase1" v-if="thirdList.surplus == 0 || Number(nowTime) >= Number(item.startTime)">售罄</div>
 <!--                <div class="TKF-purchase1" v-if="Number(nowTime) >= Number(endTime3)">售罄</div>-->
               </div>
             </div>
@@ -193,8 +193,8 @@
               </div>
 
               <div>
-                <div class="TKF-purchase" v-if="fourthList.surplus != 0 && Number(nowTime) < Number(endTime4)" @click="goToPurchase3(fourthList.id ,fourthList.currency, item.period)">申购</div>
-                <div class="TKF-purchase1" v-if="fourthList.surplus == 0 || Number(nowTime) >= Number(endTime4)">售罄</div>
+                <div class="TKF-purchase" v-if="fourthList.surplus != 0 && Number(nowTime) < Number(item.startTime)" @click="goToPurchase3(fourthList.id ,fourthList.currency, item.period)">申购</div>
+                <div class="TKF-purchase1" v-if="fourthList.surplus == 0 || Number(nowTime) >= Number(item.startTime)">售罄</div>
 <!--                <div class="TKF-purchase1" v-if="Number(nowTime) >= Number(endTime4)">售罄</div>-->
               </div>
             </div>
