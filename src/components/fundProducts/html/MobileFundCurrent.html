@@ -54,12 +54,12 @@
         {{v.userId}}</div>
     </div>
 
-    <div v-if="ajaxWithdrawFlag" class="mobile-forecast-record-loading">
-      <Loading/>
-    </div>
+<!--    <div v-if="ajaxWithdrawFlag" class="mobile-forecast-record-loading">-->
+<!--      <Loading/>-->
+<!--    </div>-->
 
-    <div class="withdraw-list-no-more" v-if="currentBuyList.length !== 0 && isShowGetMoreRecord">已经全部加载完毕</div>
   </div>
   <div v-if="currentBuyList.length !== 0 && isShowGetMoreRecord === false && !ajaxWithdrawFlag" class="withdraw-list-btn-get-more" @click="getTkfTickets">加载更多</div>
+  <div class="withdraw-list-no-more" v-if="currentBuyList.length !== 0 && !isShowGetMoreRecord && ajaxWithdrawFlag">已经全部加载完毕</div>
   </div>
 </div>
