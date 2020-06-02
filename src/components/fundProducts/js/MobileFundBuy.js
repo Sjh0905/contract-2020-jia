@@ -211,7 +211,7 @@ root.methods.re_toBuyFund = function (data) {
         this.openPop('剩余份数不足')
         break;
       case 9:
-        this.openPop('项目已下架')
+        this.openPop('项目已结束')
         break;
       case 10:
         this.openPop('服务器升级中，请稍后再试')
