@@ -148,7 +148,7 @@ root.methods.re_getProductList = function (data) {
 
   this.periodList.forEach((num, index) => {
     this.periodList1 = JSON.parse(num.extra)
-    this.endTime1 = num.endTime
+    this.endTime1 = num.startTime
     // console.info('this.periodList1=====wwwwwwww',this.periodList1,this.endTime1);
   })
 
@@ -163,7 +163,7 @@ root.methods.re_getProductList = function (data) {
   // this.endTime2 = data.dataMap.secondList.periodList[0].endTime;
   this.periodListQ.forEach((num, index) => {
     this.periodListQ1 = JSON.parse(num.extra)
-    this.endTime2 = num.endTime
+    this.endTime2 = num.startTime
     // console.info('this.periodList1=====wwwwwwww',this.periodListQ1,this.endTime2);
   })
 
@@ -173,7 +173,7 @@ root.methods.re_getProductList = function (data) {
   // this.endTime3 = data.dataMap.thirdList.periodList[0].endTime;
   this.thirdListB.forEach((num, index) => {
     this.thirdListB1 = JSON.parse(num.extra)
-    this.endTime3 = num.endTime
+    this.endTime3 = num.startTime
     // console.info('this.periodList1=====wwwwwwww',this.thirdListB1,this.endTime3);
   })
 
@@ -184,7 +184,7 @@ root.methods.re_getProductList = function (data) {
 
   this.fourthListT.forEach((num, index) => {
     this.fourthListT1 = JSON.parse(num.extra)
-    this.endTime4 = num.endTime
+    this.endTime4 = num.startTime
     // console.info('this.periodList1=====wwwwwwww',this.fourthListT1,this.endTime4);
   })
 }
