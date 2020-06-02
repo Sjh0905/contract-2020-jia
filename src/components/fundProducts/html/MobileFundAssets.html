@@ -34,7 +34,7 @@
       </div>
 
       <!--申购中-->
-      <div class="fund-asset-status-containter flex" v-if="selectedType === 1" @click="gotoDetails(1,item)" v-for="(item,index) in purchaseList" :key="index">
+      <div class="fund-asset-status-containter flex" v-if="selectedType === 1 &&purchaseList.length != 0 " @click="gotoDetails(1,item)" v-for="(item,index) in purchaseList" :key="index">
         <div class="fund-asset-status-containter-left">
           <div class="fund-asset-status-nper">区块恋之{{item.drawCNName}}-{{Number(item.period)}}期</div>
           <div class="fund-asset-status-acount">
@@ -49,7 +49,7 @@
       </div>
 
       <!--收益中-->
-      <div class="fund-asset-status-containter flex" v-if="selectedType === 2" @click="gotoDetails(2,item)" v-for="(item,index) in incomeList" :key="index">
+      <div class="fund-asset-status-containter flex" v-if="selectedType === 2 && incomeList.length != 0" @click="gotoDetails(2,item)" v-for="(item,index) in incomeList" :key="index">
         <div class="fund-asset-status-containter-left">
           <div class="fund-asset-status-nper">区块恋之{{item.drawCNName}}-{{Number(item.period)}}期</div>
           <div class="fund-asset-status-acount">
@@ -64,7 +64,7 @@
       </div>
 
       <!--已结束-->
-      <div class="fund-asset-status-containter flex" v-if="selectedType === 3" @click="gotoDetails(3,item)" v-for="(item,index) in hasEndedList" :key="index">
+      <div class="fund-asset-status-containter flex" v-if="selectedType === 3 && hasEndedList.length!= 0" @click="gotoDetails(3,item)" v-for="(item,index) in hasEndedList" :key="index">
         <div class="fund-asset-status-containter-left">
           <div class="fund-asset-status-nper">区块恋之{{item.drawCNName}}-{{Number(item.period)}}期</div>
           <div class="fund-asset-status-acount">
