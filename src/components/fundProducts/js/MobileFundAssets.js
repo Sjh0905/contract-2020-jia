@@ -17,7 +17,7 @@ root.data = function () {
     totalBalance:0, // 总资产
     newQuantity:0, // 累计总收益
     last:0, // 最新收益
-    loading:true
+    // loading:true
   }
 }
 /*------------------------------ 生命周期 -------------------------------*/
@@ -84,7 +84,7 @@ root.methods.re_getPurchase = function (data) {
   this.totalBalance = data.dataMap.balance
   this.newQuantity = data.dataMap.quantity
   this.last = data.dataMap.last
-  this.loading = false
+  // this.loading = false
 
 }
 root.methods.error_getPurchase = function (err) {
@@ -107,7 +107,7 @@ root.methods.re_getIncome = function (data){
   if(!data)return
   this.incomeList = data.dataMap.list
   this.totalBalance = data.dataMap.balance
-  this.loading = false
+  // this.loading = false
 }
 root.methods.error_getIncome = function (err){
   console.warn('err====',err)
@@ -128,7 +128,7 @@ root.methods.re_getHasEnded = function (data){
   typeof (data) == 'string' && (data= JSON.parse(data))
   if(!data)return
   this.hasEndedList = data.dataMap.list
-  this.loading = false
+  // this.loading = false
 }
 root.methods.error_getHasEnded = function (err) {
 
