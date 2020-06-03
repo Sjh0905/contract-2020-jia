@@ -1,1 +1,194 @@
-<div></div>
+<div class="fund-asset-container">
+  <Loading v-if="loading"></Loading>
+  <div class="fund-asset-content" v-if="!loading">
+    <!--背景图-->
+    <div class="fund-asset-background">
+    </div>
+
+    <div class="fund-asset-income-content">
+      <!--累计收益图-->
+      <div class="fund-asset-income flex">
+        <div class="fund-asset-total-income">
+          <div class="fund-asset-total-incom-title">总资产</div>
+          <div class="fund-asset-total-incom-amount">{{$globalFunc.accFixed(accAdd(totalBalance,newQuantity),4)}} USDT</div>
+        </div>
+        <div class="fund-asset-total-income">
+          <div class="fund-asset-total-incom-title">累计总收益</div>
+          <div class="fund-asset-total-incom-amount">{{$globalFunc.accFixed(newQuantity,4)}} USDT</div>
+        </div>
+        <!--最新收益-->
+        <div class="fund-asset-total-income">
+          <div class="fund-asset-total-incom-title">最新收益</div>
+          <div class="fund-asset-total-incom-amount">{{$globalFunc.accFixed(newQuantity,4)}} USDT</div>
+        </div>
+      </div>
+
+      <!--空隙-->
+      <div class="fund-asset-null"></div>
+
+      <!--基金收益状态-->
+      <div class="fund-asset-status">
+        <!--状态title-->
+        <div class="fund-asset-status-title flex">
+          <div class="fund-asset-status-subscription pointer" :class="{'selected':selectedType===1}" @click="getAssetStatus(1)">申购中</div>
+          <div class="fund-asset-status-subscription pointer" :class="{'selected':selectedType===2}" @click="getAssetStatus(2)">收益中</div>
+          <div class="fund-asset-status-subscription pointer" :class="{'selected':selectedType===3}" @click="getAssetStatus(3)">已结束</div>
+        </div>
+
+        <!--申购中-->
+        <div class="fund-asset-status-containter pointer flex" v-if="selectedType === 1" @click="gotoDetails(item)" v-for="(item,index) in purchaseList" :key="index">
+          <div class="fund-asset-status-containter-left flex">
+            <div class="fund-asset-status-nper">区块恋之{{item.drawCNName}}-{{Number(item.period)}}期</div>
+            <div class="fund-asset-status-acount">
+              <span class="fund-asset-status-text">购买份数</span>
+              <span class="fund-asset-status-number">{{item.successed}}</span>
+            </div>
+          </div>
+          <div class="fund-asset-status-containter-right flex">
+            <div class="sub-scription">申购中</div>
+            <div><img src="../assets/go_detail.png" alt="" class="go-detail"></div>
+          </div>
+        </div>
+
+        <!--收益中-->
+        <div class="fund-asset-status-containter pointer flex" v-if="selectedType === 2" @click="gotoDetails(item)" v-for="(item,index) in incomeList" :key="index">
+          <div class="fund-asset-status-containter-left flex">
+            <div class="fund-asset-status-nper">区块恋之{{item.drawCNName}}-{{Number(item.period)}}期</div>
+            <div class="fund-asset-status-acount">
+              <span class="fund-asset-status-text">购买份数</span>
+              <span class="fund-asset-status-number">{{item.successed}}</span>
+
+            </div>
+          </div>
+          <div class="fund-asset-status-containter-right flex">
+            <div class="sub-scription">收益中</div>
+            <div><img src="../assets/go_detail.png" alt="" class="go-detail"></div>
+          </div>
+        </div>
+
+        <!--已结束-->
+        <div class="fund-asset-status-containter pointer flex" v-if="selectedType === 3" @click="gotoDetails(item)" v-for="(item,index) in hasEndedList" :key="index">
+          <div class="fund-asset-status-containter-left flex">
+            <div class="fund-asset-status-nper">区块恋之{{item.drawCNName}}-{{Number(item.period)}}期</div>
+            <div class="fund-asset-status-acount">
+              <span class="fund-asset-status-text">购买份数</span>
+              <span class="fund-asset-status-number">{{item.successed}}</span>
+            </div>
+          </div>
+          <div class="fund-asset-status-containter-right flex">
+            <div class="sub-scription">已结束</div>
+            <div><img src="../assets/go_detail.png" alt="" class="go-detail"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--参与详情弹框-->
+    <PopupWindow :switch="openFundDitail" @close="closeFundDitail">
+      <div slot="header" class="fund-details-title">参与详情</div>
+      <div slot="article" class="fund-details-article">
+        <div class="fund-text-content">
+          <!--本期收益-->
+          <div class="fund-current-income" v-if="selectedType == 3">
+            <div>本期收益（USDT）</div>
+            <div class="fund-current-income-amount">123456765432</div>
+          </div>
+          <!--中奖号码-->
+          <div class="fund-text flex" v-if="dataList.projectId == 1">
+            <div class="text">中奖号码:</div>
+            <div class="content-status">{{selectedType == 1 && nonce? '未抽取': nonce}}
+              <span class="content-status-inspection" v-if="selectedType == 3">立即查验</span>
+            </div>
+          </div>
+          <!--抽奖号码-->
+          <div class="fund-text flex" v-if="dataList.projectId == 1">
+            <div class="text">抽签号码:</div>
+            <div class="content">{{drawNumbers.toString().replace(/,/ig,'、') || '--'}}</div>
+          </div>
+          <!--申购时间-->
+          <div class="fund-text flex">
+            <div class="text">申购时间:</div>
+            <div class="content">{{formatDateUitl(dataList.purchaseTime)}}</div>
+          </div>
+          <!--参与份数-->
+          <div class="fund-text flex">
+            <div class="text">参与份数:</div>
+            <div class="content">{{dataList.successed}}</div>
+          </div>
+<!--          &lt;!&ndash;项目编号&ndash;&gt;-->
+<!--          <div class="fund-text flex">-->
+<!--            <div class="text">项目编号:</div>-->
+<!--            <div class="content">BT0000008</div>-->
+<!--          </div>-->
+          <!--期数-->
+          <div class="fund-text flex">
+            <div class="text">期数:</div>
+            <div class="content">第 {{Number(dataList.period)}} 期</div>
+          </div>
+        </div>
+        <div class="fund-current-see pointer" @click="goTopPriodDetails(dataList)">
+          查看本期申购
+          <img src="../assets/see_details.png" alt="">
+        </div>
+      </div>
+    </PopupWindow>
+
+    <!--本期申购弹框-->
+    <PopupWindow :switch="openFundPurchase" @close="closeFundPurchase">
+      <div slot="header" class="fund-details-title">本期申购</div>
+      <div slot="article" class="fund-details-article">
+        <div class="fund-text-content">
+          <!--顶部title-->
+          <div class="fund-current flex">
+            <div class="type">认购时间</div>
+            <div class="amount">认购数量</div>
+            <div class="detail">抽奖号码</div>
+            <div class="num">UID</div>
+          </div>
+          <!--无数据-->
+          <div class="no-data-box" v-if="currentBuyList.length === 0">
+            <img class="no-data-img" src="" alt="">
+            <!-- ../assets/mobileForecastRecord/no_record_img.png-->
+            <div class="no-data-text">暂无购买记录~</div>
+          </div>
+          <!--有数据-->
+          <div v-if="currentBuyList.length != 0">
+
+            <div class="fund-data-list">
+              <div class="forecast-record-item"
+                   v-for="(v,index) in currentBuyList" :key="index">
+                <div class="type">{{$globalFunc.formatDateUitl(v.purchaseTime,'MM-DD hh:mm:ss')}}</div>
+                <div class="amount">{{v.amount}}</div>
+                <div class="detail">{{v.presaleNo}}</div>
+                <div class="num">
+                <span >
+                    <span class="mobile-record-winning" v-if="v.type=='FIRST'">
+                     <img src="../assets/one_star.png" alt="">
+                  </span>
+                  <span class="mobile-record-winning" v-if="v.type=='SECOND'">
+                     <img src="../assets/two_star.png" alt="">
+                  </span>
+                  <span class="mobile-record-winning" v-if="v.type=='THIRD'">
+                     <img src="../assets/three_star.png" alt="">
+                  </span>
+                </span>
+                  {{v.userId}}
+                </div>
+              </div>
+              <div v-if="currentBuyList.length !== 0 && isShowGetMoreRecord === false && !ajaxWithdrawFlag" class="withdraw-list-btn-get-more pointer" @click="getTkfTickets">加载更多</div>
+              <div class="withdraw-list-no-more" v-if="currentBuyList.length !== 0 && !isShowGetMoreRecord && ajaxWithdrawFlag">已经全部加载完毕</div>
+
+            </div>
+            <!--    <div v-if="ajaxWithdrawFlag" class="mobile-forecast-record-loading">-->
+            <!--      <Loading/>-->
+            <!--    </div>-->
+          </div>
+
+        </div>
+
+      </div>
+<!--      <div slot="footer"></div>-->
+    </PopupWindow>
+  </div>
+
+</div>

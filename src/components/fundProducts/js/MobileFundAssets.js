@@ -131,7 +131,6 @@ root.methods.re_getHasEnded = function (data){
   this.loading = false
 }
 root.methods.error_getHasEnded = function (err) {
-
 }
 
 /*---------------------- 加法运算 begin ---------------------*/
