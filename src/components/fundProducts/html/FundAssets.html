@@ -155,7 +155,7 @@
             <div :class="projectId !== 1 ?'type-1':'type'">{{$t('subscriptionTime')}}</div>
             <div :class="projectId !== 1 ?'amount1':'amount'">{{$t('numberOfSubscriptions')}}</div>
             <div class="detail" v-if="projectId == 1">{{$t('lotteryNumber')}}</div>
-            <div class="num">UID</div>
+            <div class="num1">UID</div>
           </div>
           <!--无数据-->
           <div class="no-data-box" v-if="currentBuyList.length === 0">
@@ -171,7 +171,7 @@
                 <div :class="projectId !== 1 ?'type-1':'type'">{{$globalFunc.formatDateUitl(v.purchaseTime,'MM-DD hh:mm:ss')}}</div>
                 <div :class="projectId !== 1 ?'amount1':'amount'">{{v.amount}}</div>
                 <div class="detail" v-if="projectId == 1">{{v.presaleNo}}</div>
-                <div class="num">
+                <div class="num1">
                   <span>
                     <span class="mobile-record-winning" v-if="v.type=='FIRST'">
                        <img src="../assets/one_star.png" alt="">
