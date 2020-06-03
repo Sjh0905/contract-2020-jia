@@ -3,27 +3,20 @@
 
   <div class="record-container2">
     <div class="header">
-      <router-link :to="{name:'Forecast'}" class="header-title">
+      <router-link :to="{name:'fundProducts'}" class="header-title">
         <!--幸运预测活动-->
-        {{$t('header_title_1')}}
+        {{$t('区块恋首页')}}
       </router-link>
       <span class="spanbf">></span>
       <!--我的参与记录-->
-      {{$t('header_title_2')}}
+      {{drawCNName}}—{{Number(JSON.parse(period.extra).THIRD.period)}}期
     </div>
   </div>
 
-  <!--非ios头部-->
-  <div v-show="!isApp" class="fund-buy-header-title">
-    <div class="fund-buy-header-title-back-icon" @click="jumpToBack()">
-      <img class="fund-buy-header-title-back-icon-img" src="../../LuckyDraw/assets/mobileForecastHomePage/back_icon.png" alt="">
-    </div>
-    <div class="fund-buy-header-title-text">基金申购</div>
-  </div>
 
 
   <div class="fund-buy-name">
-    <div class="fund-buy-draw">{{drawCNName}}</div>
+    <div class="fund-buy-draw">{{drawCNName}}-{{Number(JSON.parse(period.extra).THIRD.period)}}期</div>
     <div class="fund-buy-con">
       <div>
         <div class="flex">
@@ -35,7 +28,7 @@
             <p class="fund-buy-input-desc">发行份数</p>
             <p class="fund-buy-p">{{period.copies}} 份</p>
           </div>
-          <div class="fund-buy-per none-border">
+          <div class="none-border">
             <p class="fund-buy-input-desc">基金周期</p>
             <p class="fund-buy-p">{{period.cycle}} 天</p>
           </div>
@@ -83,18 +76,18 @@
 
   </div>
 
-  <div>
+  <div class="fund-buy-se">
     <div class="fund-buy-section-title">策略种类</div>
     <div class="fund-buy-type-of-strategy">
       <!--每种产品一张图片-->
       <!--一见倾心-->
-      <img class="fund-buy-type-of-strategy-img" v-if="$route.query.id == 1 " src="../assets/first_one_pic.png" alt="">
+      <img class="fund-buy-type-of-strategy-img" v-if="$route.query.id == 1 " src="../assets/onePC.png" alt="">
       <!--三生三生-->
-      <img class="fund-buy-type-of-strategy-img" v-if="$route.query.id == 2 "  src="../assets/three_two_pic.png" alt="">
+      <img class="fund-buy-type-of-strategy-img" v-if="$route.query.id == 2 "  src="../assets/twoPC.png" alt="">
       <!--风雨同路-->
-      <img class="fund-buy-type-of-strategy-img" v-if="$route.query.id == 3 " src="../assets/same_way_three.png" alt="">
+      <img class="fund-buy-type-of-strategy-img" v-if="$route.query.id == 3 " src="../assets/threePC.png" alt="">
       <!--天长地久-->
-      <img class="fund-buy-type-of-strategy-img" v-if="$route.query.id == 4 " src="../assets/forever_four.png" alt="">
+      <img class="fund-buy-type-of-strategy-img" v-if="$route.query.id == 4 " src="../assets/fourPC.png" alt="">
     </div>
   </div>
 

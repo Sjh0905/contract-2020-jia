@@ -217,6 +217,7 @@ root.methods.re_toBuyFund = function (data) {
         this.openPop('服务器升级中，请稍后再试')
         break;
     }
+    this.subscription = true
     return
   }
 

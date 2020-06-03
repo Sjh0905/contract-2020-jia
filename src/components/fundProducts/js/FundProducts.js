@@ -67,10 +67,10 @@ root.computed.windowWidth = function () {
 
 //拔头筹
 root.computed.computedFirstList = function () {
-  return this.FirstList
+  return this.FirstList || []
 }
 root.computed.computedPeriodList = function () {
-  return this.periodList
+  return this.periodList || []
 }
 
 
@@ -78,27 +78,27 @@ root.computed.computedPeriodList = function () {
 
 // 群雄起
 root.computed.computedSecondList = function (item,index) {
-  return this.secondList
+  return this.secondList || []
 }
 root.computed.computedPeriodListQ = function () {
-  return this.periodListQ
+  return this.periodListQ || []
 }
 
 
 // 步步高
 root.computed.computedThirdList = function (item,index) {
-  return this.thirdList
+  return this.thirdList || []
 }
 root.computed.computedThirdListB = function (item,index) {
-  return this.thirdListB
+  return this.thirdListB || []
 }
 // 天下同
 root.computed.computedFourthList = function (item,index) {
-  return this.fourthList
+  return this.fourthList || []
 }
 
 root.computed.computedFourthList = function (item,index) {
-  return this.fourthListT
+  return this.fourthListT || []
 }
 /*------------------------------ 观察 -------------------------------*/
 root.watch = {}
@@ -141,8 +141,8 @@ root.methods.re_getProductList = function (data) {
 
   this.loading = false
   this.nowTime = (new Date()).valueOf();
-  this.firstList = data.dataMap.firstList  //拔头筹
-  this.periodList = data.dataMap.firstList.periodList  //拔头筹份额
+  this.firstList = data.dataMap.firstList || [] //拔头筹
+  this.periodList = data.dataMap.firstList.periodList || [] //拔头筹份额
   // this.periodList1 = JSON.parse(data.dataMap.firstList.periodList[0].extra);
   // this.endTime1 = data.dataMap.firstList.periodList[0].endTime;
 
@@ -157,8 +157,8 @@ root.methods.re_getProductList = function (data) {
 
 
 
-  this.secondList = data.dataMap.secondList//群雄起
-  this.periodListQ = data.dataMap.secondList.periodList  //群雄起
+  this.secondList = data.dataMap.secondList|| []//群雄起
+  this.periodListQ = data.dataMap.secondList.periodList || [] //群雄起
   // this.periodListQ1 = JSON.parse(data.dataMap.secondList.periodList[0].extra)//群雄起
   // this.endTime2 = data.dataMap.secondList.periodList[0].endTime;
   this.periodListQ.forEach((num, index) => {
@@ -167,8 +167,8 @@ root.methods.re_getProductList = function (data) {
     // console.info('this.periodList1=====wwwwwwww',this.periodListQ1,this.endTime2);
   })
 
-  this.thirdList = data.dataMap.thirdList    // 步步高
-  this.thirdListB = data.dataMap.thirdList.periodList   // 步步高
+  this.thirdList = data.dataMap.thirdList || []  // 步步高
+  this.thirdListB = data.dataMap.thirdList.periodList || [] // 步步高
   // this.thirdListB1 = JSON.parse(data.dataMap.thirdList.periodList[0].extra)   // 步步高
   // this.endTime3 = data.dataMap.thirdList.periodList[0].endTime;
   this.thirdListB.forEach((num, index) => {
@@ -177,8 +177,8 @@ root.methods.re_getProductList = function (data) {
     // console.info('this.periodList1=====wwwwwwww',this.thirdListB1,this.endTime3);
   })
 
-  this.fourthList = data.dataMap.fourthList//天下同
-  this.fourthListT = data.dataMap.fourthList.periodList//天下同
+  this.fourthList = data.dataMap.fourthList || []//天下同
+  this.fourthListT = data.dataMap.fourthList.periodList || []//天下同
   // this.fourthListT1 = JSON.parse(data.dataMap.fourthList.periodList[0].extra)//天下同
   // this.endTime4 = data.dataMap.fourthList.periodList[0].endTime;
 
