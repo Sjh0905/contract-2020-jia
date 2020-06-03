@@ -115,7 +115,6 @@ root.methods.error_getTkfTickets = function (err) {
 
 // 跳转基金详情页
 root.methods.gotoDetails = function (item) {
-  console.log('跳转基金详情页（弹框形式）')
   this.openFundDitail = true
   this.projectId = item.projectId
   this.period = item.period
@@ -139,13 +138,13 @@ root.methods.viewDetails = function (item) {
 root.methods.re_viewDetails = function (data) {
   typeof(data)=='string'&& (data=JSON.parse(data))
   if(!data)return
-  this.drawNumbers = data.dataMap.presaleNo
-  this.prices = data.dataMap.prices
+  this.drawNumbers = data.dataMap.presaleNo || []
+  this.prices = data.dataMap.prices || 0
 
   if(this.$route.query.selectedType != 1 && data.dataMap.nonce) {
     this.nonce = data.dataMap.nonce.substring(data.dataMap.nonce.length-3)
   }else {
-    this.nonce = '未开奖'
+    this.nonce = this.$t('noAward')  //未开奖
   }
   // let disLength = this.nonce.length;
   // this.nonce1 = this.nonce.substring(disLength-3);
@@ -214,8 +213,8 @@ root.methods.getIncome = function (){
 root.methods.re_getIncome = function (data){
   typeof(data) == 'string' && (data = JSON.parse(data))
   if(!data)return
-  this.incomeList = data.dataMap.list
-  this.totalBalance = data.dataMap.balance
+  this.incomeList = data.dataMap.list || []
+  this.totalBalance = data.dataMap.balance || 0
   this.loading = false
 }
 root.methods.error_getIncome = function (err){
@@ -236,7 +235,7 @@ root.methods.getHasEnded = function () {
 root.methods.re_getHasEnded = function (data){
   typeof (data) == 'string' && (data= JSON.parse(data))
   if(!data)return
-  this.hasEndedList = data.dataMap.list
+  this.hasEndedList = data.dataMap.list ||[]
   this.loading = false
 }
 root.methods.error_getHasEnded = function (err) {
