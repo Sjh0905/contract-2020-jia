@@ -15,9 +15,9 @@
   padding-top: 25px;
   padding-bottom: 15px;
 }
-.product-vertical {
-  padding: 0 0.3rem;
-}
+/*.product-vertical {*/
+/*  padding: 0 1.5px;*/
+/*}*/
 .TKF-take-the-lead {
   /*width: 6.9rem;*/
   height: 144px;
@@ -99,7 +99,7 @@
 }
 .TKF-usdt {
   color: #172841;
-  font-size: 0.28rem;
+  font-size: 14px;
   font-family:Roboto-Regular,Roboto;
   font-weight:400;
 }
