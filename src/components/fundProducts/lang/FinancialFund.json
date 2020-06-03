@@ -1,5 +1,54 @@
 {
 "CH": {
+  "loveat":"一见倾心",
+  "Three":"三生三世",
+  "unmatchable":"风雨同路",
+  "universe":"天长地久",
+  "Period":"期",
+  "share":"每份额度",
+  "copies":"发行份数",
+  "cycle":"基金周期",
+  "day":"天",
+  "Strategy":"理财策略（年化收益率)",
+  "times":"倍",
+  "Part":"份",
+  "purchase":"去申购",
+  "soldOut":"售罄",
+  "HomePage": "区块恋首页",
+
+
+
+  "FundStart":"基金开始",
+  "EndOfFund":"基金结束",
+  "IncomeType":"收益类型",
+  "determination":"策略确定",
+  "purchasing":"申购时获随机购买编号，赎回时根据以太坊区块 Nonce 值与购买编号的绝对差值大小，确定理财策略星级。",
+  "purchased":"购买份数",
+  "enter":"请输入购买份数",
+  "Remaining":"剩余份数",
+  "Purchase":"申购",
+  "subscription":"申购中",
+  "Under":"策略种类",
+  "guaranteed":"保本型",
+  "preservation":"非保本型",
+
+
+
+
+  "purchased2":"购买份数不能大于发行份数",
+  "issued":"购买成功",
+  "Successful":"传递的参数为空",
+  "passed":"您当前未登录，请先登录",
+  "currently":"您当前未实名认证，请先前往实名认证",
+  "authentication":"已经不存在这个场景",
+  "real":"超出每期可投份数",
+  "longer":"超出个人每天最大次数",
+  "votes": "用户余额不足",
+  "maximum":"本期已售完，下期要抓紧哦～",
+  "Insufficient":"剩余份数不足",
+  "remaining":"项目已结束",
+  "upgrade":"服务器升级中，请稍后再试",
+
   "totalIncome": "总资产",
   "cumulativeTotalRevenue": "累计总收益",
   "latestEarnings": "最新收益",

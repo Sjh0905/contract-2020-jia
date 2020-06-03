@@ -26,7 +26,9 @@ root.data = function () {
     remainingType:'',
     // productsDataList:1
     // firstList:{},
-    period:{},
+    period1:{},
+    extra:{},
+    period:0,
     drawCNName:'',
     subscription: true
 
@@ -122,11 +124,14 @@ root.methods.getProductList = function () {
 root.methods.re_getProductList = function (data) {
   typeof data === 'string' && (data = JSON.parse(data))
   if(!data) return
-  this.loading = false
   this.remainingCopies = data.dataMap.count // 剩余份数
   this.remainingType = data.dataMap.type // 剩余份数
   this.drawCNName = data.dataMap.drawCNName // 剩余份数
-  this.period = data.dataMap.period // 剩余份数
+  this.period1 = data.dataMap.period // 剩余份数
+  this.extra = JSON.parse(data.dataMap.period.extra) // 剩余份数
+  this.period = Number(this.extra.FIRST.period)// 剩余份数
+  this.loading = false
+  // console.info('extra======',this.extra)
 }
 // 基金详情get出错
 root.methods.error_getProductList = function (err) {
@@ -142,8 +147,9 @@ root.methods.toBuyFund = function () {
     return
   }
 
-  if(this.inputUserCopies > 0 && this.inputUserCopies > this.period.copies){
-    this.openPop('购买份数不能大于发行份数')
+  if(this.inputUserCopies > 0 && this.inputUserCopies > this.period1.copies ||0){
+    this.openPop(this.$t('purchased2'))
+    this.subscription = true
     return
   }
   // 接口调通后放入正确的回调中
@@ -153,7 +159,7 @@ root.methods.toBuyFund = function () {
     {
       bind: this,
       params: {
-        projectId:this.period.projectId,//id
+        projectId:this.period1.projectId,//id
         periodNumber:this.$route.query.item,//第几期
         predictNumber:this.inputUserCopies,//输入的分数
       },
@@ -169,7 +175,7 @@ root.methods.re_toBuyFund = function (data) {
 
   if (data.errorCode == 0) {
     this.popOpen = true
-    this.popText = '购买成功'
+    this.popText = this.$t('issued')//购买成功
     this.popType = 1
     // this.openPop('购买成功',1)
 
@@ -183,38 +189,38 @@ root.methods.re_toBuyFund = function (data) {
     console.log(data)
 
     switch (data.errorCode) {
-      case -1:
-        this.openPop('传递的参数为空')
-        break;
+      // case -1:
+      //   this.openPop(this.$t('Successful')) //传递的参数为空
+      //   break;
       case 1:
-        this.openPop('您当前未登录，请先登录')
+        this.openPop(this.$t('passed')) //您当前未登录，请先登录
         break;
       case 2:
-        this.openPop('您当前未实名认证，请先前往实名认证')
+        this.openPop(this.$t('currently')) //您当前未实名认证，请先前往实名认证
         break;
-      case 3:
-        this.openPop('已经不存在这个场景')
-        break;
+      // case 3:
+      //   this.openPop(this.$t('authentication')) //已经不存在这个场景
+      //   break;
       case 4:
-        this.openPop('超出每期可投份数')
+        this.openPop(this.$t('real'))  //超出每期可投份数
         break;
-      case 5:
-        this.openPop('超出个人每天最大次数')
-        break;
+      // case 5:
+      //   this.openPop(this.$t('longer')) //超出个人每天最大次数
+      //   break;
       case 6:
-        this.openPop('用户余额不足')
+        this.openPop(this.$t('votes')) //用户余额不足
         break;
       case 7:
-        this.openPop('本期已售完，下期要抓紧哦～')
+        this.openPop(this.$t('maximum')) //本期已售完，下期要抓紧哦～
         break;
       case 8:
-        this.openPop('剩余份数不足')
+        this.openPop(this.$t('Insufficient')) //剩余份数不足
         break;
       case 9:
-        this.openPop('项目已下架')
+        this.openPop(this.$t('remaining')) //项目已结束
         break;
       case 10:
-        this.openPop('服务器升级中，请稍后再试')
+        this.openPop(this.$t('upgrade')) //服务器升级中，请稍后再试
         break;
     }
     this.subscription = true
@@ -226,7 +232,7 @@ root.methods.re_toBuyFund = function (data) {
 }
 
 root.methods.error_toBuyFund = function (err) {
-  this.openPop('服务器升级中，请稍后再试')
+  this.openPop(this.$t('upgrade')) //服务器升级中，请稍后再试
 }
 
 

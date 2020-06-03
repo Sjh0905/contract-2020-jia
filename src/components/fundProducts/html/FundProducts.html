@@ -4,17 +4,21 @@
     <div>
       <Loading v-if="loading"/>
       <div class="product-name flex">
+<!--        一见倾心-->
         <div class="produc-selected" :class="{'h5-item-selected':recordType===0}"
-             @click="changeTag(0)">一见倾心</div>
+             @click="changeTag(0)">{{$t('loveat')}}</div>
         <!--      <div class="product-vertical">|</div>-->
+<!--        三生三世-->
         <div class="produc-selected" :class="{'h5-item-selected':recordType===1}"
-             @click="changeTag(1)">三生三世</div>
+             @click="changeTag(1)">{{$t('Three')}}</div>
         <!--      <div class="product-vertical">|</div>-->
+<!--        风雨同路-->
         <div class="produc-selected" :class="{'h5-item-selected':recordType===2}"
-             @click="changeTag(2)">风雨同路</div>
+             @click="changeTag(2)">{{$t('unmatchable')}}</div>
         <!--      <div class="product-vertical">|</div>-->
+<!--        天长地久-->
         <div class="produc-selected" :class="{'h5-item-selected':recordType===3}"
-             @click="changeTag(3)">天长地久</div>
+             @click="changeTag(3)">{{$t('universe')}}</div>
       </div>
 
 
@@ -22,48 +26,54 @@
         <li>
         <li v-for="(item,index) in computedPeriodList">
           <div class="TKF-take-the-lead">
-            <div class="TKF-take-the">{{firstList.drawCNName}}-{{Number(item.period)}}期</div>
+            <div class="TKF-take-the">{{firstList.drawCNName}}-{{Number(item.period)}}{{$t('Period')}}</div>
             <div class="flex">
               <div class="pc-limit flex">
                 <div class="TKF-take-the-box">
-                  <span class="each-copy color-a8">每份额度</span>
+<!--                  每份额度-->
+                  <span class="each-copy color-a8">{{$t('share')}}</span>
                   <span class="each-copy padding-top color-bik">{{firstList.quota}}<span class="TKF-usdt">{{firstList.currency}}</span></span>
                 </div>
+<!--                发行份数-->
                 <div class="TKF-take-the-box">
-                  <span class="each-copy color-a8">发行份数</span>
+                  <span class="each-copy color-a8">{{$t('copies')}}</span>
                   <span class="each-copy padding-top color-bik">{{firstList.totalCopies}}</span>
                 </div>
+<!--                基金周期-->
                 <div class="TKF-take-the-box">
-                  <span class="each-copy color-a8">基金周期</span>
-                  <span class="each-copy padding-top color-bik">{{firstList.cycle}} 天</span>
+                  <span class="each-copy color-a8">{{$t('cycle')}}</span>
+                  <span class="each-copy padding-top color-bik">{{firstList.cycle}} {{$t('day')}}</span>
                 </div>
               </div>
 
 
               <div class="pc-Income1">
-                <span class="strategy">理财策略（年化收益率)</span>
+<!--                理财策略（年化收益率)-->
+                <span class="strategy">{{$t('Strategy')}}</span>
 
                 <div class="pc-Income flex">
 
                   <div class="TKF-take-the-box-lv">
                     <span class="each-copy color-bik-pc" v-if="JSON.parse(item.extra).FIRST.yield != '99900'">{{JSON.parse(item.extra).FIRST.yield * 10 * 10}}%</span>
-                    <span class="each-copy color-bik-pc" v-if="JSON.parse(item.extra).FIRST.yield == '99900'">999 倍</span>
-                    <span class="each-copy color-a8">{{JSON.parse(item.extra).FIRST.copies}} 份</span>
+                    <span class="each-copy color-bik-pc" v-if="JSON.parse(item.extra).FIRST.yield == '99900'">999 {{$t('times')}}</span>
+                    <span class="each-copy color-a8">{{JSON.parse(item.extra).FIRST.copies}} {{$t('Part')}}</span>
                   </div>
                   <div class="TKF-take-the-box-lv">
                     <span class="each-copy color-bik-pc">{{JSON.parse(item.extra).SECOND.yield * 10 * 10}}%</span>
-                    <span class="each-copy color-a8">{{JSON.parse(item.extra).SECOND.copies}} 份</span>
+                    <span class="each-copy color-a8">{{JSON.parse(item.extra).SECOND.copies}} {{$t('Part')}}</span>
                   </div>
                   <div class="TKF-take-the-box-lv">
                     <span class="each-copy color-bik-pc">{{JSON.parse(item.extra).THIRD.yield * 10 * 10}}%</span>
-                    <span class="each-copy color-a8">{{JSON.parse(item.extra).THIRD.copies}} 份</span>
+                    <span class="each-copy color-a8">{{JSON.parse(item.extra).THIRD.copies}} {{$t('Part')}}</span>
                   </div>
                 </div>
               </div>
               <div>
                 <!--                  <div class="TKF-purchase" @click="goToPurchase(firstList,item.period)">申购</div>-->
-                <div class="TKF-purchase" v-if="firstList.surplus != 0 && Number(nowTime) < Number(item.startTime)" @click="goToPurchase(firstList.id, firstList.currency, item.period)">去申购</div>
-                <div class="TKF-purchase1" v-if="firstList.surplus == 0 || Number(nowTime) >= Number(item.startTime)">售罄</div>
+<!--                去申购-->
+                <div class="TKF-purchase" v-if="firstList.surplus != 0 && Number(nowTime) < Number(item.startTime)" @click="goToPurchase(firstList.id, firstList.currency, item.period)">{{$t('purchase')}}</div>
+<!--                售罄-->
+                <div class="TKF-purchase1" v-if="firstList.surplus == 0 || Number(nowTime) >= Number(item.startTime)">{{$t('soldOut')}}</div>
                 <!--                  <div class="TKF-purchase1" v-if="Number(nowTime) >= Number(endTime1)">售罄</div>-->
               </div>
 
@@ -78,47 +88,47 @@
         <li>
         <li v-for="(item,index) in computedPeriodListQ">
           <div class="TKF-take-the-lead">
-            <div class="TKF-take-the">{{secondList.drawCNName}}-{{Number(item.period)}}期</div>
+            <div class="TKF-take-the">{{secondList.drawCNName}}-{{Number(item.period)}}{{$t('Period')}}</div>
             <div class="flex">
               <div class="pc-limit flex">
                 <div class="TKF-take-the-box">
-                  <span class="each-copy color-a8">每份额度</span>
+                  <span class="each-copy color-a8">{{$t('share')}}</span>
                   <span class="each-copy padding-top color-bik">{{secondList.quota}}<span class="TKF-usdt">{{secondList.currency}}</span></span>
                 </div>
                 <div class="TKF-take-the-box">
-                  <span class="each-copy color-a8">发行份数</span>
+                  <span class="each-copy color-a8">{{$t('copies')}}</span>
                   <span class="each-copy padding-top color-bik">{{secondList.totalCopies}}</span>
                 </div>
                 <div class="TKF-take-the-box">
-                  <span class="each-copy color-a8">基金周期</span>
-                  <span class="each-copy padding-top color-bik">{{secondList.cycle}} 天</span>
+                  <span class="each-copy color-a8">{{$t('cycle')}}</span>
+                  <span class="each-copy padding-top color-bik">{{secondList.cycle}} {{$t('day')}}</span>
                 </div>
               </div>
 
 
               <div class="pc-Income1">
-                <span class="strategy">理财策略（年化收益率)</span>
+                <span class="strategy">{{$t('Strategy')}}</span>
 
                 <div class="pc-Income flex">
 
                   <div class="TKF-take-the-box-lv">
                     <span class="each-copy color-bik-pc">{{JSON.parse(item.extra).FIRST.yield * 10 * 10}}%</span>
-                    <span class="each-copy color-a8">{{JSON.parse(item.extra).FIRST.copies}} 份</span>
+                    <span class="each-copy color-a8">{{JSON.parse(item.extra).FIRST.copies}} {{$t('Part')}}</span>
                   </div>
                   <div class="TKF-take-the-box-lv">
                     <span class="each-copy color-bik-pc">{{JSON.parse(item.extra).SECOND.yield * 10 * 10}}%</span>
-                    <span class="each-copy color-a8">{{JSON.parse(item.extra).SECOND.copies}} 份</span>
+                    <span class="each-copy color-a8">{{JSON.parse(item.extra).SECOND.copies}} {{$t('Part')}}</span>
                   </div>
                   <div class="TKF-take-the-box-lv">
                     <span class="each-copy color-bik-pc">{{JSON.parse(item.extra).THIRD.yield * 10 * 10}}%</span>
-                    <span class="each-copy color-a8">{{JSON.parse(item.extra).THIRD.copies}} 份</span>
+                    <span class="each-copy color-a8">{{JSON.parse(item.extra).THIRD.copies}} {{$t('Part')}}</span>
                   </div>
                 </div>
               </div>
               <div>
                 <!--                  <div class="TKF-purchase" @click="goToPurchase(firstList,item.period)">申购</div>-->
-                <div class="TKF-purchase" v-if="secondList.surplus != 0 && Number(nowTime) < Number(item.startTime)" @click="goToPurchase(secondList.id, secondList.currency, item.period)">去申购</div>
-                <div class="TKF-purchase1" v-if="secondList.surplus == 0 || Number(nowTime) >= Number(item.startTime)">售罄</div>
+                <div class="TKF-purchase" v-if="secondList.surplus != 0 && Number(nowTime) < Number(item.startTime)" @click="goToPurchase(secondList.id, secondList.currency, item.period)">{{$t('purchase')}}</div>
+                <div class="TKF-purchase1" v-if="secondList.surplus == 0 || Number(nowTime) >= Number(item.startTime)">{{$t('soldOut')}}</div>
                 <!--                  <div class="TKF-purchase1" v-if="Number(nowTime) >= Number(endTime1)">售罄</div>-->
               </div>
 
@@ -129,97 +139,52 @@
 
       </ul>
 
-      <!--    <ul v-if="recordType===1">-->
-      <!--      <li v-for="(item,index) in computedPeriodListQ">-->
-      <!--        <div class="TKF-take-the-lead" >-->
-      <!--          <div>-->
-      <!--            <div class="TKF-take-the">{{secondList.drawCNName}}-{{Number(item.period)}}期</div>-->
-      <!--            <div class="flex">-->
-      <!--              <div class="TKF-take-the-box">-->
-      <!--                <span class="each-copy color-a8">每份额度</span>-->
-      <!--                <span class="each-copy padding-top color-bik">{{secondList.quota}}<span class="TKF-usdt">{{secondList.currency}}</span></span>-->
-      <!--              </div>-->
-      <!--              <div class="TKF-take-the-box">-->
-      <!--                <span class="each-copy color-a8">发行份数</span>-->
-      <!--                <span class="each-copy padding-top color-bik">{{secondList.totalCopies}}</span>-->
-      <!--              </div>-->
-      <!--              <div class="TKF-take-the-box">-->
-      <!--                <span class="each-copy color-a8">基金周期</span>-->
-      <!--                <span class="each-copy padding-top color-bik">{{secondList.cycle}} 天</span>-->
-      <!--              </div>-->
-      <!--            </div>-->
-      <!--            <div class="TKF-strategy">理财策略（年化收益率）</div>-->
-      <!--            <div class="flex">-->
-      <!--              <div class="TKF-take-the-box">-->
-      <!--                <span class="each-copy color-bik">{{periodListQ1.FIRST.yield * 10 * 10}}%</span>-->
-      <!--                <span class="each-copy padding-top color-a8">{{periodListQ1.FIRST.copies}} 份</span>-->
-      <!--              </div>-->
-      <!--              <div class="TKF-take-the-box">-->
-      <!--                <span class="each-copy color-bik">{{periodListQ1.SECOND.yield * 10 * 10}}%</span>-->
-      <!--                <span class="each-copy padding-top color-a8">{{periodListQ1.SECOND.copies}} 份</span>-->
-      <!--              </div>-->
-      <!--              <div class="TKF-take-the-box">-->
-      <!--                <span class="each-copy color-bik">{{periodListQ1.THIRD.yield * 10 * 10}}%</span>-->
-      <!--                <span class="each-copy padding-top color-a8">{{periodListQ1.THIRD.copies}} 份</span>-->
-      <!--              </div>-->
-      <!--            </div>-->
-
-      <!--            <div>-->
-      <!--              <div class="TKF-purchase" v-if="secondList.surplus != 0 && Number(nowTime) < Number(endTime2)" @click="goToPurchase1(secondList.id, secondList.currency ,item.period)">申购</div>-->
-      <!--              <div class="TKF-purchase1" v-if="secondList.surplus == 0 || Number(nowTime) >= Number(endTime2)">售罄</div>-->
-      <!--              &lt;!&ndash;                <div class="TKF-purchase1" v-if="Number(nowTime) >= Number(endTime2)">售罄</div>&ndash;&gt;-->
-      <!--              &lt;!&ndash;                <div class="TKF-purchase" v-if="!subscription">申购中</div>&ndash;&gt;-->
-      <!--            </div>-->
-      <!--          </div>-->
-      <!--        </div>-->
-      <!--      </li>-->
-      <!--    </ul>-->
 
       <ul v-if="recordType===2">
         <li>
         <li v-for="(item,index) in computedThirdListB">
           <div class="TKF-take-the-lead">
-            <div class="TKF-take-the">{{thirdList.drawCNName}}-{{Number(item.period)}}期</div>
+            <div class="TKF-take-the">{{thirdList.drawCNName}}-{{Number(item.period)}}{{$t('Period')}}</div>
             <div class="flex">
               <div class="pc-limit flex">
                 <div class="TKF-take-the-box">
-                  <span class="each-copy color-a8">每份额度</span>
+                  <span class="each-copy color-a8">{{$t('share')}}</span>
                   <span class="each-copy padding-top color-bik">{{thirdList.quota}}<span class="TKF-usdt">{{thirdList.currency}}</span></span>
                 </div>
                 <div class="TKF-take-the-box">
-                  <span class="each-copy color-a8">发行份数</span>
+                  <span class="each-copy color-a8">{{$t('copies')}}</span>
                   <span class="each-copy padding-top color-bik">{{thirdList.totalCopies}}</span>
                 </div>
                 <div class="TKF-take-the-box">
-                  <span class="each-copy color-a8">基金周期</span>
-                  <span class="each-copy padding-top color-bik">{{thirdList.cycle}} 天</span>
+                  <span class="each-copy color-a8">{{$t('cycle')}}</span>
+                  <span class="each-copy padding-top color-bik">{{thirdList.cycle}} {{$t('day')}}</span>
                 </div>
               </div>
 
 
               <div class="pc-Income1">
-                <span class="strategy">理财策略（年化收益率)</span>
+                <span class="strategy">{{$t('Strategy')}}</span>
 
                 <div class="pc-Income flex">
 
                   <div class="TKF-take-the-box-lv">
                     <span class="each-copy color-bik-pc">{{JSON.parse(item.extra).FIRST.yield * 10 * 10}}%</span>
-                    <span class="each-copy color-a8">{{JSON.parse(item.extra).FIRST.copies}} 份</span>
+                    <span class="each-copy color-a8">{{JSON.parse(item.extra).FIRST.copies}} {{$t('Part')}}</span>
                   </div>
                   <div class="TKF-take-the-box-lv">
                     <span class="each-copy color-bik-pc">{{JSON.parse(item.extra).SECOND.yield * 10 * 10}}%</span>
-                    <span class="each-copy color-a8">{{JSON.parse(item.extra).SECOND.copies}} 份</span>
+                    <span class="each-copy color-a8">{{JSON.parse(item.extra).SECOND.copies}} {{$t('Part')}}</span>
                   </div>
                   <div class="TKF-take-the-box-lv">
                     <span class="each-copy color-bik-pc">{{JSON.parse(item.extra).THIRD.yield * 10 * 10}}%</span>
-                    <span class="each-copy color-a8">{{JSON.parse(item.extra).THIRD.copies}} 份</span>
+                    <span class="each-copy color-a8">{{JSON.parse(item.extra).THIRD.copies}} {{$t('Part')}}</span>
                   </div>
                 </div>
               </div>
               <div>
                 <!--                  <div class="TKF-purchase" @click="goToPurchase(firstList,item.period)">申购</div>-->
-                <div class="TKF-purchase" v-if="thirdList.surplus != 0 && Number(nowTime) < Number(item.startTime)" @click="goToPurchase(thirdList.id, thirdList.currency, item.period)">去申购</div>
-                <div class="TKF-purchase1" v-if="thirdList.surplus == 0 || Number(nowTime) >= Number(item.startTime)">售罄</div>
+                <div class="TKF-purchase" v-if="thirdList.surplus != 0 && Number(nowTime) < Number(item.startTime)" @click="goToPurchase(thirdList.id, thirdList.currency, item.period)">{{$t('purchase')}}</div>
+                <div class="TKF-purchase1" v-if="thirdList.surplus == 0 || Number(nowTime) >= Number(item.startTime)">{{$t('soldOut')}}</div>
               </div>
 
             </div>
@@ -229,97 +194,51 @@
 
       </ul>
 
-      <!--    <ul v-if="recordType===2">-->
-      <!--      <li v-for="(item,index) in computedThirdListB">-->
-      <!--        <div class="TKF-take-the-lead">-->
-      <!--          <div>-->
-      <!--            <div class="TKF-take-the">{{thirdList.drawCNName}}-{{Number(item.period)}}期</div>-->
-      <!--            <div class="flex">-->
-      <!--              <div class="TKF-take-the-box">-->
-      <!--                <span class="each-copy color-a8">每份额度</span>-->
-      <!--                <span class="each-copy padding-top color-bik">{{thirdList.quota}}<span class="TKF-usdt">{{thirdList.currency}}</span></span>-->
-      <!--              </div>-->
-      <!--              <div class="TKF-take-the-box">-->
-      <!--                <span class="each-copy color-a8">发行份数</span>-->
-      <!--                <span class="each-copy padding-top color-bik">{{thirdList.totalCopies}}</span>-->
-      <!--              </div>-->
-      <!--              <div class="TKF-take-the-box">-->
-      <!--                <span class="each-copy color-a8">基金周期</span>-->
-      <!--                <span class="each-copy padding-top color-bik">{{thirdList.cycle}} 天</span>-->
-      <!--              </div>-->
-      <!--            </div>-->
-      <!--            <div class="TKF-strategy">理财策略（年化收益率）</div>-->
-      <!--            <div class="flex">-->
-      <!--              <div class="TKF-take-the-box">-->
-      <!--                <span class="each-copy color-bik">{{thirdListB1.FIRST.yield * 10 * 10}}%</span>-->
-      <!--                <span class="each-copy padding-top color-a8">{{thirdListB1.FIRST.copies}} 份</span>-->
-      <!--              </div>-->
-      <!--              <div class="TKF-take-the-box">-->
-      <!--                <span class="each-copy color-bik">{{thirdListB1.SECOND.yield * 10 * 10}}%</span>-->
-      <!--                <span class="each-copy padding-top color-a8">{{thirdListB1.SECOND.copies}} 份</span>-->
-      <!--              </div>-->
-      <!--              <div class="TKF-take-the-box">-->
-      <!--                <span class="each-copy color-bik">{{thirdListB1.THIRD.yield * 10 * 10}}%</span>-->
-      <!--                <span class="each-copy padding-top color-a8">{{thirdListB1.THIRD.copies}} 份</span>-->
-      <!--              </div>-->
-      <!--            </div>-->
-
-      <!--            <div>-->
-      <!--              <div class="TKF-purchase" v-if="thirdList.surplus != 0 && Number(nowTime) < Number(endTime3)" @click="goToPurchase2(thirdList.id, thirdList.currency ,item.period)">申购</div>-->
-      <!--              <div class="TKF-purchase1" v-if="thirdList.surplus == 0 || Number(nowTime) >= Number(endTime3)">售罄</div>-->
-      <!--              &lt;!&ndash;                <div class="TKF-purchase1" v-if="Number(nowTime) >= Number(endTime3)">售罄</div>&ndash;&gt;-->
-      <!--            </div>-->
-      <!--          </div>-->
-      <!--        </div>-->
-      <!--      </li>-->
-      <!--    </ul>-->
-
-
       <ul v-if="recordType===3">
         <li>
         <li v-for="(item,index) in computedFourthList">
           <div class="TKF-take-the-lead">
-            <div class="TKF-take-the">{{fourthList.drawCNName}}-{{Number(item.period)}}期</div>
+            <div class="TKF-take-the">{{fourthList.drawCNName}}-{{Number(item.period)}}{{$t('Period')}}</div>
             <div class="flex">
               <div class="pc-limit flex">
                 <div class="TKF-take-the-box">
-                  <span class="each-copy color-a8">每份额度</span>
+                  <span class="each-copy color-a8">{{$t('share')}}</span>
                   <span class="each-copy padding-top color-bik">{{fourthList.quota}}<span class="TKF-usdt">{{fourthList.currency}}</span></span>
                 </div>
                 <div class="TKF-take-the-box">
-                  <span class="each-copy color-a8">发行份数</span>
+                  <span class="each-copy color-a8">{{$t('copies')}}</span>
                   <span class="each-copy padding-top color-bik">{{fourthList.totalCopies}}</span>
                 </div>
                 <div class="TKF-take-the-box">
-                  <span class="each-copy color-a8">基金周期</span>
-                  <span class="each-copy padding-top color-bik">{{fourthList.cycle}} 天</span>
+                  <span class="each-copy color-a8">{{$t('cycle')}}</span>
+                  <span class="each-copy padding-top color-bik">{{fourthList.cycle}} {{$t('day')}}</span>
                 </div>
               </div>
 
 
               <div class="pc-Income1">
-                <span class="strategy">理财策略（年化收益率)</span>
+                <span class="strategy">{{$t('Strategy')}}</span>
 
                 <div class="pc-Income flex">
 
                   <div class="TKF-take-the-box-lv">
                     <span class="each-copy color-bik-pc">{{JSON.parse(item.extra).FIRST.yield * 10 * 10}}%</span>
-                    <span class="each-copy color-a8">{{JSON.parse(item.extra).FIRST.copies}} 份</span>
+                    <span class="each-copy color-a8">{{JSON.parse(item.extra).FIRST.copies}} {{$t('Part')}}</span>
                   </div>
                   <div class="TKF-take-the-box-lv">
                     <span class="each-copy color-bik-pc">{{JSON.parse(item.extra).SECOND.yield * 10 * 10}}%</span>
-                    <span class="each-copy color-a8">{{JSON.parse(item.extra).SECOND.copies}} 份</span>
+                    <span class="each-copy color-a8">{{JSON.parse(item.extra).SECOND.copies}} {{$t('Part')}}</span>
                   </div>
                   <div class="TKF-take-the-box-lv">
                     <span class="each-copy color-bik-pc">{{JSON.parse(item.extra).THIRD.yield * 10 * 10}}%</span>
-                    <span class="each-copy color-a8">{{JSON.parse(item.extra).THIRD.copies}} 份</span>
+                    <span class="each-copy color-a8">{{JSON.parse(item.extra).THIRD.copies}} {{$t('Part')}}</span>
                   </div>
                 </div>
               </div>
               <div>
                 <!--                  <div class="TKF-purchase" @click="goToPurchase(firstList,item.period)">申购</div>-->
-                <div class="TKF-purchase" v-if="fourthList.surplus != 0 && Number(nowTime) < Number(item.startTime)" @click="goToPurchase(fourthList.id, fourthList.currency, item.period)">去申购</div>
-                <div class="TKF-purchase1" v-if="fourthList.surplus == 0 || Number(nowTime) >= Number(item.startTime)">售罄</div>
+                <div class="TKF-purchase" v-if="fourthList.surplus != 0 && Number(nowTime) < Number(item.startTime)" @click="goToPurchase(fourthList.id, fourthList.currency, item.period)">{{$t('purchase')}}</div>
+                <div class="TKF-purchase1" v-if="fourthList.surplus == 0 || Number(nowTime) >= Number(item.startTime)">{{$t('soldOut')}}</div>
                 <!--                  <div class="TKF-purchase1" v-if="Number(nowTime) >= Number(endTime1)">售罄</div>-->
               </div>
 
@@ -329,49 +248,6 @@
         </li>
 
       </ul>
-      <!--    <ul v-if="recordType===3">-->
-      <!--      <li v-for="(item,index) in computedFourthList">-->
-      <!--        <div class="TKF-take-the-lead">-->
-      <!--          <div class="TKF-take-the">{{fourthList.drawCNName}}-{{Number(item.period)}}期</div>-->
-      <!--          <div class="flex">-->
-      <!--            <div class="TKF-take-the-box">-->
-      <!--              <span class="each-copy color-a8">每份额度</span>-->
-      <!--              <span class="each-copy padding-top color-bik">{{fourthList.quota}}<span class="TKF-usdt">{{fourthList.currency}}</span></span>-->
-      <!--            </div>-->
-      <!--            <div class="TKF-take-the-box">-->
-      <!--              <span class="each-copy color-a8">发行份数</span>-->
-      <!--              <span class="each-copy padding-top color-bik">{{fourthList.totalCopies}}</span>-->
-      <!--            </div>-->
-      <!--            <div class="TKF-take-the-box">-->
-      <!--              <span class="each-copy color-a8">基金周期</span>-->
-      <!--              <span class="each-copy padding-top color-bik">{{fourthList.cycle}} 天</span>-->
-      <!--            </div>-->
-      <!--          </div>-->
-      <!--          <div class="TKF-strategy">理财策略（年化收益率）</div>-->
-      <!--          <div class="flex">-->
-      <!--            <div class="TKF-take-the-box">-->
-      <!--              <span class="each-copy color-bik">{{fourthListT1.FIRST.yield * 10 * 10}}%</span>-->
-      <!--              <span class="each-copy padding-top color-a8">{{fourthListT1.FIRST.copies}} 份</span>-->
-      <!--            </div>-->
-      <!--            <div class="TKF-take-the-box">-->
-      <!--              <span class="each-copy color-bik">{{fourthListT1.SECOND.yield * 10 * 10}}%</span>-->
-      <!--              <span class="each-copy padding-top color-a8">{{fourthListT1.SECOND.copies}} 份</span>-->
-      <!--            </div>-->
-      <!--            <div class="TKF-take-the-box">-->
-      <!--              <span class="each-copy color-bik">{{fourthListT1.THIRD.yield * 10 * 10}}%</span>-->
-      <!--              <span class="each-copy padding-top color-a8">{{fourthListT1.THIRD.copies}} 份</span>-->
-      <!--            </div>-->
-      <!--          </div>-->
-
-      <!--          <div>-->
-      <!--            <div class="TKF-purchase" v-if="fourthList.surplus != 0 && Number(nowTime) < Number(endTime4)" @click="goToPurchase3(fourthList.id ,fourthList.currency, item.period)">申购</div>-->
-      <!--            <div class="TKF-purchase1" v-if="fourthList.surplus == 0 || Number(nowTime) >= Number(endTime4)">售罄</div>-->
-      <!--            &lt;!&ndash;                <div class="TKF-purchase1" v-if="Number(nowTime) >= Number(endTime4)">售罄</div>&ndash;&gt;-->
-      <!--          </div>-->
-      <!--        </div>-->
-
-      <!--      </li>-->
-      <!--    </ul>-->
 
     </div>
   </div>
