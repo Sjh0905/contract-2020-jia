@@ -70,7 +70,9 @@
   "loadMore": "加载更多",
   "haveBeenCompleted": "已经全部加载完毕",
   "notExtracted": "未抽取",
-  "noAward": "未开奖"
+  "noAward": "未开奖",
+  "product": "产品",
+  "assets": "理财"
 },
 "EN": {},
 "CA": {},
@@ -145,6 +147,8 @@
   "loadMore": "載入更多",
   "haveBeenCompleted": "已經全部載入完畢",
   "notExtracted": "未抽取",
-  "noAward": "未開獎"
+  "noAward": "未開獎",
+  "product": "產品",
+  "assets": "理財"
 }
 }
