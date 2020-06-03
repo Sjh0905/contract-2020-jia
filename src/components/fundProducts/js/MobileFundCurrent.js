@@ -8,10 +8,12 @@ root.components = {
 root.data = function () {
   return {
     currentBuyList:[],
-    limit:30,
-    lastId:0,
+    limit: 30, //每页显示条数
+    lastId:0, // 每页最后ID
     loading:true,
     ajaxWithdrawFlag:false,
+    isFirstGetWithdrawFlag: true,
+    fundCurrentFlag:false,
     isShowGetMoreRecord:false,
     nonce:'' ,
     blockContractUrl:''
@@ -72,21 +74,23 @@ root.methods.getTkfTickets = function () {
 root.methods.re_getTkfTickets = function (data) {
   typeof (data)=='string'&& (data = JSON.parse(data))
   this.ajaxWithdrawFlag = false
+  this.isFirstGetWithdrawFlag = false
   if (!data || data.dataMap.list.length === 0) {
     this.loading=false
-    this.ajaxWithdrawFlag = true
+    this.fundCurrentFlag = false
     return
   }
   if (data.dataMap.list.length < this.limit){
     this.isShowGetMoreRecord = false
   } else {
-    this.lastId += 10;
+    this.limit += 10;
+    this.isShowGetMoreRecord = true
   }
-  console.info(data)
+  // console.info(data)
   this.currentBuyList = data.dataMap.list
-  this.nonce = data.dataMap.nonce.substring(data.dataMap.nonce.length-3)
+  this.nonce = data.dataMap.nonce.substring(data.dataMap.nonce.length-3) || ''
   this.blockContractUrl = data.dataMap.blockContractUrl
-  // this.ajaxWithdrawFlag = false
+  this.fundCurrentFlag = true
 }
 root.methods.error_getTkfTickets = function (err) {
 }
