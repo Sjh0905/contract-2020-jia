@@ -1,7 +1,12 @@
+.pc-products {
+  width: 100%;
+  background-color: #F7F8FA;
+}
+
 .fund-products-pc {
   width: 1200px;
   margin: 0 auto;
-  min-height: 600px;
+  min-height: 450px;
   height: 100%;
   background-color: #F7F8FA;
 }
