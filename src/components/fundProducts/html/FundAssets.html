@@ -8,16 +8,16 @@
       <!--累计收益图-->
       <div class="fund-asset-income flex">
         <div class="fund-asset-total-income">
-          <div class="fund-asset-total-incom-title">总资产</div>
-          <div class="fund-asset-total-incom-amount">{{$globalFunc.accFixed(accAdd(totalBalance,newQuantity),4)}} USDT</div>
+          <div class="fund-asset-total-incom-title">{{$t('totalIncome')}}</div>
+          <div class="fund-asset-total-incom-amount">{{$globalFunc.accFixed(accAdd(totalBalance ,newQuantity),4)}} USDT</div>
         </div>
         <div class="fund-asset-total-income">
-          <div class="fund-asset-total-incom-title">累计总收益</div>
+          <div class="fund-asset-total-incom-title">{{$t('cumulativeTotalRevenue')}}</div>
           <div class="fund-asset-total-incom-amount">{{$globalFunc.accFixed(newQuantity,4)}} USDT</div>
         </div>
         <!--最新收益-->
         <div class="fund-asset-total-income">
-          <div class="fund-asset-total-incom-title">最新收益</div>
+          <div class="fund-asset-total-incom-title">{{$t('latestEarnings')}}</div>
           <div class="fund-asset-total-incom-amount">{{$globalFunc.accFixed(newQuantity,4)}} USDT</div>
         </div>
       </div>
@@ -29,22 +29,22 @@
       <div class="fund-asset-status">
         <!--状态title-->
         <div class="fund-asset-status-title flex">
-          <div class="fund-asset-status-subscription pointer" :class="{'selected':selectedType===1}" @click="getAssetStatus(1)">申购中</div>
-          <div class="fund-asset-status-subscription pointer" :class="{'selected':selectedType===2}" @click="getAssetStatus(2)">收益中</div>
-          <div class="fund-asset-status-subscription pointer" :class="{'selected':selectedType===3}" @click="getAssetStatus(3)">已结束</div>
+          <div class="fund-asset-status-subscription pointer" :class="{'selected':selectedType===1}" @click="getAssetStatus(1)">{{$t('underSubscription')}}</div>
+          <div class="fund-asset-status-subscription pointer" :class="{'selected':selectedType===2}" @click="getAssetStatus(2)">{{$t('revenue')}}</div>
+          <div class="fund-asset-status-subscription pointer" :class="{'selected':selectedType===3}" @click="getAssetStatus(3)">{{$t('hasEnded')}}</div>
         </div>
 
         <!--申购中-->
         <div class="fund-asset-status-containter pointer flex" v-if="selectedType === 1" @click="gotoDetails(item)" v-for="(item,index) in purchaseList" :key="index">
           <div class="fund-asset-status-containter-left flex">
-            <div class="fund-asset-status-nper">区块恋之{{item.drawCNName}}-{{Number(item.period)}}期</div>
+            <div class="fund-asset-status-nper">{{$t('blockLove')}}{{item.drawCNName}}-{{Number(item.period)}}{{$t('period')}}</div>
             <div class="fund-asset-status-acount">
-              <span class="fund-asset-status-text">购买份数</span>
+              <span class="fund-asset-status-text">{{$t('numberOfCopiesPurchased')}}</span>
               <span class="fund-asset-status-number">{{item.successed}}</span>
             </div>
           </div>
           <div class="fund-asset-status-containter-right flex">
-            <div class="sub-scription">申购中</div>
+            <div class="sub-scription">{{$t('goToPurchase')}}</div>
             <div><img src="../assets/go_detail.png" alt="" class="go-detail"></div>
           </div>
         </div>
@@ -52,15 +52,15 @@
         <!--收益中-->
         <div class="fund-asset-status-containter pointer flex" v-if="selectedType === 2" @click="gotoDetails(item)" v-for="(item,index) in incomeList" :key="index">
           <div class="fund-asset-status-containter-left flex">
-            <div class="fund-asset-status-nper">区块恋之{{item.drawCNName}}-{{Number(item.period)}}期</div>
+            <div class="fund-asset-status-nper">{{$t('blockLove')}}{{item.drawCNName}}-{{Number(item.period)}}{{$t('period')}}</div>
             <div class="fund-asset-status-acount">
-              <span class="fund-asset-status-text">购买份数</span>
+              <span class="fund-asset-status-text">{{$t('numberOfCopiesPurchased')}}</span>
               <span class="fund-asset-status-number">{{item.successed}}</span>
 
             </div>
           </div>
           <div class="fund-asset-status-containter-right flex">
-            <div class="sub-scription">收益中</div>
+            <div class="sub-scription">{{$t('revenue')}}</div>
             <div><img src="../assets/go_detail.png" alt="" class="go-detail"></div>
           </div>
         </div>
@@ -68,14 +68,14 @@
         <!--已结束-->
         <div class="fund-asset-status-containter pointer flex" v-if="selectedType === 3" @click="gotoDetails(item)" v-for="(item,index) in hasEndedList" :key="index">
           <div class="fund-asset-status-containter-left flex">
-            <div class="fund-asset-status-nper">区块恋之{{item.drawCNName}}-{{Number(item.period)}}期</div>
+            <div class="fund-asset-status-nper">{{$t('blockLove')}}{{item.drawCNName}}-{{Number(item.period)}}{{$t('period')}}</div>
             <div class="fund-asset-status-acount">
-              <span class="fund-asset-status-text">购买份数</span>
+              <span class="fund-asset-status-text">{{$t('numberOfCopiesPurchased')}}</span>
               <span class="fund-asset-status-number">{{item.successed}}</span>
             </div>
           </div>
           <div class="fund-asset-status-containter-right flex">
-            <div class="sub-scription">已结束</div>
+            <div class="sub-scription">{{$t('hasEnded')}}</div>
             <div><img src="../assets/go_detail.png" alt="" class="go-detail"></div>
           </div>
         </div>
@@ -84,34 +84,34 @@
 
     <!--参与详情弹框-->
     <PopupWindow :switch="openFundDitail" @close="closeFundDitail">
-      <div slot="header" class="fund-details-title">参与详情</div>
+      <div slot="header" class="fund-details-title">{{$t('detailsOfParticipation')}}</div>
       <div slot="article" class="fund-details-article">
         <div class="fund-text-content">
           <!--本期收益-->
           <div class="fund-current-income" v-if="selectedType == 3">
-            <div>本期收益（USDT）</div>
+            <div>{{$t('currentIncome')}}（USDT）</div>
             <div class="fund-current-income-amount">123456765432</div>
           </div>
           <!--中奖号码-->
           <div class="fund-text flex" v-if="dataList.projectId == 1">
-            <div class="text">中奖号码:</div>
-            <div class="content-status">{{selectedType == 1 && nonce? '未抽取': nonce}}
-              <span class="content-status-inspection" v-if="dataList.projectId == 1 && selectedType != 1">立即查验</span>
+            <div class="text">{{$t('winningNumber')}}：</div>
+            <div class="content-status">{{selectedType == 1 && nonce?  $t('notExtracted'): nonce}}
+              <span class="content-status-inspection" v-if="dataList.projectId == 1 && selectedType != 1">{{$t('immediateInspection')}}</span>
             </div>
           </div>
-          <!--抽奖号码-->
+          <!--抽签号码-->
           <div class="fund-text flex" v-if="dataList.projectId == 1">
-            <div class="text">抽签号码:</div>
+            <div class="text">{{$t('drawNumbers')}}：</div>
             <div class="content">{{drawNumbers.toString().replace(/,/ig,'、') || '--'}}</div>
           </div>
           <!--申购时间-->
           <div class="fund-text flex">
-            <div class="text">申购时间:</div>
+            <div class="text">{{$t('purchaseTime')}}：</div>
             <div class="content">{{formatDateUitl(dataList.purchaseTime)}}</div>
           </div>
           <!--参与份数-->
           <div class="fund-text flex">
-            <div class="text">参与份数:</div>
+            <div class="text">{{$t('numberOfParticipants')}}：</div>
             <div class="content">{{dataList.successed}}</div>
           </div>
 <!--          &lt;!&ndash;项目编号&ndash;&gt;-->
@@ -121,12 +121,12 @@
 <!--          </div>-->
           <!--期数-->
           <div class="fund-text flex">
-            <div class="text">期数:</div>
-            <div class="content">第 {{Number(dataList.period)}} 期</div>
+            <div class="text">{{$t('nper')}}：</div>
+            <div class="content">{{$t('No')}} {{Number(dataList.period)}} {{$t('period')}}</div>
           </div>
         </div>
         <div class="fund-current-see pointer" @click="goTopPriodDetails()">
-          查看本期申购
+          {{$t('viewCurrentSubscription')}}
           <img src="../assets/see_details.png" alt="">
         </div>
       </div>
@@ -134,21 +134,21 @@
 
     <!--本期申购弹框-->
     <PopupWindow :switch="openFundPurchase" @close="closeFundPurchase">
-      <div slot="header" class="fund-details-title">本期申购</div>
+      <div slot="header" class="fund-details-title">{{$t('currentSubscription')}}</div>
       <div slot="article" class="fund-details-article">
         <div class="fund-text-content">
           <!--顶部title-->
           <div class="fund-current flex">
-            <div class="type">认购时间</div>
-            <div class="amount">认购数量</div>
-            <div class="detail" v-if="projectId == 1">抽奖号码</div>
+            <div class="type">{{$t('subscriptionTime')}}</div>
+            <div class="amount">{{$t('numberOfSubscriptions')}}</div>
+            <div class="detail" v-if="projectId == 1">{{$t('lotteryNumber')}}</div>
             <div class="num">UID</div>
           </div>
           <!--无数据-->
           <div class="no-data-box" v-if="currentBuyList.length === 0">
             <img class="no-data-img" src="" alt="">
             <!-- ../assets/mobileForecastRecord/no_record_img.png-->
-            <div class="no-data-text">暂无购买记录~</div>
+            <div class="no-data-text">{{$t('noPurchaseRecord')}}~</div>
           </div>
           <!--有数据-->
           <div v-if="currentBuyList.length != 0">
@@ -174,8 +174,8 @@
                   {{v.userId}}
                 </div>
               </div>
-              <div v-if="currentBuyList.length !== 0 && isShowGetMoreRecord === true && !ajaxWithdrawFlag" class="withdraw-list-btn-get-more pointer" @click="getTkfTickets">加载更多</div>
-              <div class="withdraw-list-no-more" v-if="currentBuyList.length !== 0 && isShowGetMoreRecord === false">已经全部加载完毕</div>
+              <div v-if="currentBuyList.length !== 0 && isShowGetMoreRecord === true && !ajaxWithdrawFlag" class="withdraw-list-btn-get-more pointer" @click="getTkfTickets">{{$t('loadMore')}}</div>
+              <div class="withdraw-list-no-more" v-if="currentBuyList.length !== 0 && isShowGetMoreRecord === false">{{$t('haveBeenCompleted')}}</div>
 
             </div>
             <!--    <div v-if="ajaxWithdrawFlag" class="mobile-forecast-record-loading">-->
