@@ -84,13 +84,35 @@
 
     <!--参与详情弹框-->
     <PopupWindow :switch="openFundDitail" @close="closeFundDitail">
-      <div slot="header" class="fund-details-title">{{$t('detailsOfParticipation')}}</div>
+      <div slot="header" class="fund-details-title">{{$t('blockLove')}}{{dataList.drawCNName}}-{{Number(dataList.period)}}{{$t('period')}}</div>
       <div slot="article" class="fund-details-article">
-        <div class="fund-text-content">
+        <div class="fund-text-content-detail">
           <!--本期收益-->
           <div class="fund-current-income" v-if="selectedType == 3">
             <div>{{$t('currentIncome')}}（USDT）</div>
             <div class="fund-current-income-amount">123456765432</div>
+          </div>
+          <!--状态-->
+          <div class="fund-text flex" v-if="dataList.projectId == 1">
+            <div class="text">{{$t('status')}}：</div>
+            <div class="content" v-if="selectedType == 1">{{$t('goToPurchase')}}</div>
+            <div class="content" v-if="selectedType == 2">{{$t('revenue')}}</div>
+            <div class="content" v-if="selectedType == 3">{{$t('hasEnded')}}</div>
+          </div>
+          <!--份数-->
+          <div class="fund-text flex">
+            <div class="text">{{$t('numberOfParticipants')}}：</div>
+            <div class="content">{{dataList.successed}}</div>
+          </div>
+          <!--每份-->
+          <div class="fund-text flex">
+            <div class="text">{{$t('eachCopy')}}：</div>
+            <div class="content">{{prices}}</div>
+          </div>
+          <!--申购时间-->
+          <div class="fund-text flex">
+            <div class="text">{{$t('purchaseTime')}}：</div>
+            <div class="content">{{formatDateUitl(dataList.purchaseTime)}}</div>
           </div>
           <!--中奖号码-->
           <div class="fund-text flex" v-if="dataList.projectId == 1">
@@ -104,26 +126,17 @@
             <div class="text">{{$t('drawNumbers')}}：</div>
             <div class="content">{{drawNumbers.toString().replace(/,/ig,'、') || '--'}}</div>
           </div>
-          <!--申购时间-->
-          <div class="fund-text flex">
-            <div class="text">{{$t('purchaseTime')}}：</div>
-            <div class="content">{{formatDateUitl(dataList.purchaseTime)}}</div>
-          </div>
-          <!--参与份数-->
-          <div class="fund-text flex">
-            <div class="text">{{$t('numberOfParticipants')}}：</div>
-            <div class="content">{{dataList.successed}}</div>
-          </div>
+
 <!--          &lt;!&ndash;项目编号&ndash;&gt;-->
 <!--          <div class="fund-text flex">-->
 <!--            <div class="text">项目编号:</div>-->
 <!--            <div class="content">BT0000008</div>-->
 <!--          </div>-->
           <!--期数-->
-          <div class="fund-text flex">
-            <div class="text">{{$t('nper')}}：</div>
-            <div class="content">{{$t('No')}} {{Number(dataList.period)}} {{$t('period')}}</div>
-          </div>
+<!--          <div class="fund-text flex">-->
+<!--            <div class="text">{{$t('nper')}}：</div>-->
+<!--            <div class="content">{{$t('No')}} {{Number(dataList.period)}} {{$t('period')}}</div>-->
+<!--          </div>-->
         </div>
         <div class="fund-current-see pointer" @click="goTopPriodDetails()">
           {{$t('viewCurrentSubscription')}}
@@ -139,7 +152,7 @@
         <div class="fund-text-content">
           <!--顶部title-->
           <div class="fund-current flex">
-            <div class="type">{{$t('subscriptionTime')}}</div>
+            <div :class="projectId !== 1 ?'type-1':'type'">{{$t('subscriptionTime')}}</div>
             <div class="amount">{{$t('numberOfSubscriptions')}}</div>
             <div class="detail" v-if="projectId == 1">{{$t('lotteryNumber')}}</div>
             <div class="num">UID</div>
@@ -156,27 +169,26 @@
             <div class="fund-data-list">
               <div class="forecast-record-item"
                    v-for="(v,index) in currentBuyList" :key="index">
-                <div class="type">{{$globalFunc.formatDateUitl(v.purchaseTime,'MM-DD hh:mm:ss')}}</div>
+                <div :class="projectId !== 1 ?'type-1':'type'">{{$globalFunc.formatDateUitl(v.purchaseTime,'MM-DD hh:mm:ss')}}</div>
                 <div class="amount">{{v.amount}}</div>
                 <div class="detail" v-if="projectId == 1">{{v.presaleNo}}</div>
                 <div class="num">
-                <span >
+                  <span>
                     <span class="mobile-record-winning" v-if="v.type=='FIRST'">
-                     <img src="../assets/one_star.png" alt="">
+                       <img src="../assets/one_star.png" alt="">
+                    </span>
+                    <span class="mobile-record-winning" v-if="v.type=='SECOND'">
+                       <img src="../assets/two_star.png" alt="">
+                    </span>
+                    <span class="mobile-record-winning" v-if="v.type=='THIRD'">
+                       <img src="../assets/three_star.png" alt="">
+                    </span>
                   </span>
-                  <span class="mobile-record-winning" v-if="v.type=='SECOND'">
-                     <img src="../assets/two_star.png" alt="">
-                  </span>
-                  <span class="mobile-record-winning" v-if="v.type=='THIRD'">
-                     <img src="../assets/three_star.png" alt="">
-                  </span>
-                </span>
                   {{v.userId}}
                 </div>
               </div>
               <div v-if="currentBuyList.length !== 0 && isShowGetMoreRecord === true && !ajaxWithdrawFlag" class="withdraw-list-btn-get-more pointer" @click="getTkfTickets">{{$t('loadMore')}}</div>
               <div class="withdraw-list-no-more" v-if="currentBuyList.length !== 0 && isShowGetMoreRecord === false">{{$t('haveBeenCompleted')}}</div>
-
             </div>
             <!--    <div v-if="ajaxWithdrawFlag" class="mobile-forecast-record-loading">-->
             <!--      <Loading/>-->

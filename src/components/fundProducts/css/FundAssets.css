@@ -157,7 +157,15 @@
   font-size:14px;
   font-family:MicrosoftYaHei;
   color: #999999;
-  padding: 28px 25px 15px;
+  padding: 23px 0 15px;
+}
+
+.fund-text-content-detail {
+  min-height: 200px;
+  font-size:14px;
+  font-family:MicrosoftYaHei;
+  color: #999999;
+  padding: 23px 25px 15px;
 }
 
 .fund-current-income {
@@ -207,6 +215,10 @@
   flex: 1;
   color: #333333;
 }
+/*.content-scoll {*/
+/*  height: 40px;*/
+/*  overflow-y: scroll;*/
+/*}*/
 
 .fund-current-see {
   width: 100%;
@@ -247,11 +259,16 @@
   font-family:PingFangSC-Semibold,PingFang SC;
   font-weight:600;
   color: #0D0E23;
+  padding: 0 25px;
 }
 
 
 .type {
   flex: 18;
+}
+
+.type-1 {
+  flex: 24;
 }
 
 .detail {
@@ -289,6 +306,7 @@
 .fund-data-list {
   height: 260px;
   overflow-y: scroll;
+  padding: 0 25px;
 }
 
 .forecast-record-item {
