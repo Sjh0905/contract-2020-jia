@@ -2,8 +2,7 @@
   <Loading v-if="loading"></Loading>
   <div class="fund-asset-content" v-if="!loading">
     <!--背景图-->
-    <div class="fund-asset-background">
-    </div>
+    <div class="fund-asset-background"></div>
 
     <div class="fund-asset-income-content">
       <!--累计收益图-->
@@ -97,7 +96,7 @@
           <div class="fund-text flex" v-if="dataList.projectId == 1">
             <div class="text">中奖号码:</div>
             <div class="content-status">{{selectedType == 1 && nonce? '未抽取': nonce}}
-              <span class="content-status-inspection" v-if="selectedType == 3">立即查验</span>
+              <span class="content-status-inspection" v-if="dataList.projectId == 1 && selectedType != 1">立即查验</span>
             </div>
           </div>
           <!--抽奖号码-->
@@ -126,7 +125,7 @@
             <div class="content">第 {{Number(dataList.period)}} 期</div>
           </div>
         </div>
-        <div class="fund-current-see pointer" @click="goTopPriodDetails(dataList)">
+        <div class="fund-current-see pointer" @click="goTopPriodDetails()">
           查看本期申购
           <img src="../assets/see_details.png" alt="">
         </div>
@@ -142,7 +141,7 @@
           <div class="fund-current flex">
             <div class="type">认购时间</div>
             <div class="amount">认购数量</div>
-            <div class="detail">抽奖号码</div>
+            <div class="detail" v-if="projectId == 1">抽奖号码</div>
             <div class="num">UID</div>
           </div>
           <!--无数据-->
@@ -159,7 +158,7 @@
                    v-for="(v,index) in currentBuyList" :key="index">
                 <div class="type">{{$globalFunc.formatDateUitl(v.purchaseTime,'MM-DD hh:mm:ss')}}</div>
                 <div class="amount">{{v.amount}}</div>
-                <div class="detail">{{v.presaleNo}}</div>
+                <div class="detail" v-if="projectId == 1">{{v.presaleNo}}</div>
                 <div class="num">
                 <span >
                     <span class="mobile-record-winning" v-if="v.type=='FIRST'">
@@ -175,8 +174,8 @@
                   {{v.userId}}
                 </div>
               </div>
-              <div v-if="currentBuyList.length !== 0 && isShowGetMoreRecord === false && !ajaxWithdrawFlag" class="withdraw-list-btn-get-more pointer" @click="getTkfTickets">加载更多</div>
-              <div class="withdraw-list-no-more" v-if="currentBuyList.length !== 0 && !isShowGetMoreRecord && ajaxWithdrawFlag">已经全部加载完毕</div>
+              <div v-if="currentBuyList.length !== 0 && isShowGetMoreRecord === true && !ajaxWithdrawFlag" class="withdraw-list-btn-get-more pointer" @click="getTkfTickets">加载更多</div>
+              <div class="withdraw-list-no-more" v-if="currentBuyList.length !== 0 && isShowGetMoreRecord === false">已经全部加载完毕</div>
 
             </div>
             <!--    <div v-if="ajaxWithdrawFlag" class="mobile-forecast-record-loading">-->

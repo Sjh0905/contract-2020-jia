@@ -27,12 +27,14 @@ root.data = function () {
     currentBuyList:[],// 本期申购列表
     limit: 30,
     lastId:0,
+    blockContractUrl:'',
+    projectId:'',
+    period:'',
+    // 分页控制变量
+    fundCurrentFlag:false,
+    isFirstGetWithdrawFlag:false,
     ajaxWithdrawFlag:false,
     isShowGetMoreRecord:false,
-    blockContractUrl:'',
-
-    projectId:'',
-    period:''
   }
 }
 /*------------------------------ 生命周期 -------------------------------*/
@@ -90,26 +92,26 @@ root.methods.getTkfTickets = function () {
 root.methods.re_getTkfTickets = function (data) {
   typeof (data)=='string'&& (data = JSON.parse(data))
   this.ajaxWithdrawFlag = false
+  this.isFirstGetWithdrawFlag = false
   if (!data || data.dataMap.list.length === 0) {
     this.loading=false
-    this.ajaxWithdrawFlag = true
+    this.fundCurrentFlag = false
     return
   }
   if (data.dataMap.list.length < this.limit){
     this.isShowGetMoreRecord = false
   } else {
-    this.lastId += this.limit;
+    this.limit += 20;
+    this.isShowGetMoreRecord = true
   }
-  console.info(data)
+  // console.info(data)
   this.currentBuyList = data.dataMap.list
-  this.nonce = data.dataMap.nonce.substring(data.dataMap.nonce.length-3)
+  this.nonce = data.dataMap.nonce.substring(data.dataMap.nonce.length-3) || ''
   this.blockContractUrl = data.dataMap.blockContractUrl
-  // this.ajaxWithdrawFlag = false
+  this.fundCurrentFlag = true
 }
 root.methods.error_getTkfTickets = function (err) {
 }
-
-
 
 // 跳转基金详情页
 root.methods.gotoDetails = function (item) {
