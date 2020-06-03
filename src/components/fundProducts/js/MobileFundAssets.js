@@ -49,17 +49,17 @@ root.methods.gotoDetails = function (type,item) {
 root.methods.getAssetStatus = function (type) {
   this.selectedType = type
   // 申购中
-  if(type === 1){
+  if(type == 1){
     this.getPurchase()
     return
   }
   // 收益中
-  if(type === 2){
+  if(type == 2){
     this.getIncome()
     return
   }
   // 已结束
-  if(type === 3){
+  if(type == 3){
     this.getHasEnded()
     return
   }
@@ -80,7 +80,7 @@ root.methods.getPurchase = function () {
 root.methods.re_getPurchase = function (data) {
   typeof(data) == 'string' && (data = JSON.parse(data));
   if(!data)return
-  this.purchaseList = data.dataMap.list
+  this.purchaseList = data.dataMap.list || []
   this.totalBalance = data.dataMap.balance
   this.newQuantity = data.dataMap.quantity
   this.last = data.dataMap.last
@@ -105,7 +105,7 @@ root.methods.getIncome = function (){
 root.methods.re_getIncome = function (data){
   typeof(data) == 'string' && (data = JSON.parse(data))
   if(!data)return
-  this.incomeList = data.dataMap.list
+  this.incomeList = data.dataMap.list ||[]
   this.totalBalance = data.dataMap.balance
   this.loading = false
 }
@@ -127,7 +127,7 @@ root.methods.getHasEnded = function () {
 root.methods.re_getHasEnded = function (data){
   typeof (data) == 'string' && (data= JSON.parse(data))
   if(!data)return
-  this.hasEndedList = data.dataMap.list
+  this.hasEndedList = data.dataMap.list || []
   this.loading = false
 }
 root.methods.error_getHasEnded = function (err) {
