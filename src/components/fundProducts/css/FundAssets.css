@@ -157,7 +157,7 @@
   font-size:14px;
   font-family:MicrosoftYaHei;
   color: #999999;
-  padding: 23px 0 15px;
+  padding: 23px 25px 15px;
 }
 
 .fund-text-content-detail {
@@ -259,16 +259,16 @@
   font-family:PingFangSC-Semibold,PingFang SC;
   font-weight:600;
   color: #0D0E23;
-  padding: 0 25px;
+  /*padding: 0 25px;*/
 }
 
 
 .type {
-  flex: 18;
+  flex: 14;
 }
 
 .type-1 {
-  flex: 24;
+  flex: 18;
 }
 
 .detail {
@@ -277,12 +277,16 @@
 }
 
 .amount {
+  flex: 10;
+}
+
+.amount1 {
   flex: 14;
 }
 
 .num {
-  flex: 14;
-  text-align: right;
+  flex: 10;
+  /*text-align: right;*/
 }
 
 .fund-current {
@@ -306,7 +310,7 @@
 .fund-data-list {
   height: 260px;
   overflow-y: scroll;
-  padding: 0 25px;
+  /*padding: 0 25px;*/
 }
 
 .forecast-record-item {
