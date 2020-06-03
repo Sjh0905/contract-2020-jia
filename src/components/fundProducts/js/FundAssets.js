@@ -23,7 +23,16 @@ root.data = function () {
     dataList:{},
     drawNumbers:[],
     prices:0,
-    nonce:''
+    nonce:'',
+    currentBuyList:[],// 本期申购列表
+    limit: 30,
+    lastId:0,
+    ajaxWithdrawFlag:false,
+    isShowGetMoreRecord:false,
+    blockContractUrl:'',
+
+    projectId:'',
+    period:''
   }
 }
 /*------------------------------ 生命周期 -------------------------------*/
@@ -54,13 +63,50 @@ root.methods.closeFundDitail = function () {
   this.openFundDitail = false
 }
 
-root.methods.goTopPriodDetails = function (item) {
+root.methods.goTopPriodDetails = function () {
   // 打开申购弹框
   this.openFundPurchase = true
   // 关闭详情弹框
   this.closeFundDitail()
   // 调取本期申购接口
-  console.info('item========',item)
+  this.getTkfTickets()
+}
+
+root.methods.getTkfTickets = function () {
+  if(this.ajaxWithdrawFlag===true)return
+  this.$http.send('GET_TKF_TICKETS',{
+    bind:this,
+    query:{
+      projectId: this.projectId,
+      period: this.period,
+      currency:'USDT',
+      limit:this.limit,
+      id:this.lastId
+    },
+    callBack:this.re_getTkfTickets,
+    errorHandler:this.error_getTkfTickets
+  })
+}
+root.methods.re_getTkfTickets = function (data) {
+  typeof (data)=='string'&& (data = JSON.parse(data))
+  this.ajaxWithdrawFlag = false
+  if (!data || data.dataMap.list.length === 0) {
+    this.loading=false
+    this.ajaxWithdrawFlag = true
+    return
+  }
+  if (data.dataMap.list.length < this.limit){
+    this.isShowGetMoreRecord = false
+  } else {
+    this.lastId += this.limit;
+  }
+  console.info(data)
+  this.currentBuyList = data.dataMap.list
+  this.nonce = data.dataMap.nonce.substring(data.dataMap.nonce.length-3)
+  this.blockContractUrl = data.dataMap.blockContractUrl
+  // this.ajaxWithdrawFlag = false
+}
+root.methods.error_getTkfTickets = function (err) {
 }
 
 
@@ -69,7 +115,8 @@ root.methods.goTopPriodDetails = function (item) {
 root.methods.gotoDetails = function (item) {
   console.log('跳转基金详情页（弹框形式）')
   this.openFundDitail = true
-  console.info('item=======',item)
+  this.projectId = item.projectId
+  this.period = item.period
   this.dataList = item
   this.viewDetails(item)
 }

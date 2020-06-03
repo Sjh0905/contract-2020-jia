@@ -138,6 +138,52 @@
       <div slot="header" class="fund-details-title">本期申购</div>
       <div slot="article" class="fund-details-article">
         <div class="fund-text-content">
+          <!--顶部title-->
+          <div class="fund-current flex">
+            <div class="type">认购时间</div>
+            <div class="amount">认购数量</div>
+            <div class="detail">抽奖号码</div>
+            <div class="num">UID</div>
+          </div>
+          <!--无数据-->
+          <div class="no-data-box" v-if="currentBuyList.length === 0">
+            <img class="no-data-img" src="" alt="">
+            <!-- ../assets/mobileForecastRecord/no_record_img.png-->
+            <div class="no-data-text">暂无购买记录~</div>
+          </div>
+          <!--有数据-->
+          <div v-if="currentBuyList.length != 0">
+
+            <div class="fund-data-list">
+              <div class="forecast-record-item"
+                   v-for="(v,index) in currentBuyList" :key="index">
+                <div class="type">{{$globalFunc.formatDateUitl(v.purchaseTime,'MM-DD hh:mm:ss')}}</div>
+                <div class="amount">{{v.amount}}</div>
+                <div class="detail">{{v.presaleNo}}</div>
+                <div class="num">
+                <span >
+                    <span class="mobile-record-winning" v-if="v.type=='FIRST'">
+                     <img src="../assets/one_star.png" alt="">
+                  </span>
+                  <span class="mobile-record-winning" v-if="v.type=='SECOND'">
+                     <img src="../assets/two_star.png" alt="">
+                  </span>
+                  <span class="mobile-record-winning" v-if="v.type=='THIRD'">
+                     <img src="../assets/three_star.png" alt="">
+                  </span>
+                </span>
+                  {{v.userId}}
+                </div>
+              </div>
+              <div v-if="currentBuyList.length !== 0 && isShowGetMoreRecord === false && !ajaxWithdrawFlag" class="withdraw-list-btn-get-more pointer" @click="getTkfTickets">加载更多</div>
+              <div class="withdraw-list-no-more" v-if="currentBuyList.length !== 0 && !isShowGetMoreRecord && ajaxWithdrawFlag">已经全部加载完毕</div>
+
+            </div>
+            <!--    <div v-if="ajaxWithdrawFlag" class="mobile-forecast-record-loading">-->
+            <!--      <Loading/>-->
+            <!--    </div>-->
+          </div>
+
         </div>
 
       </div>
