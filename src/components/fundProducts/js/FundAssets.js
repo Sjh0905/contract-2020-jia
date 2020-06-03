@@ -20,7 +20,10 @@ root.data = function () {
     loading:true,
     openFundDitail:false, //基金详情弹窗
     openFundPurchase:false, //本期申购弹窗
-
+    dataList:{},
+    drawNumbers:[],
+    prices:0,
+    nonce:''
   }
 }
 /*------------------------------ 生命周期 -------------------------------*/
@@ -51,16 +54,56 @@ root.methods.closeFundDitail = function () {
   this.openFundDitail = false
 }
 
-root.methods.goTopPriodDetails = function () {
+root.methods.goTopPriodDetails = function (item) {
+  // 打开申购弹框
   this.openFundPurchase = true
+  // 关闭详情弹框
   this.closeFundDitail()
+  // 调取本期申购接口
+  console.info('item========',item)
 }
+
+
 
 // 跳转基金详情页
 root.methods.gotoDetails = function (item) {
   console.log('跳转基金详情页（弹框形式）')
   this.openFundDitail = true
   console.info('item=======',item)
+  this.dataList = item
+  this.viewDetails(item)
+}
+
+root.methods.viewDetails = function (item) {
+  this.$http.send('TKF_PREDICT_RECORD_DETAIL',{
+    bind:this,
+    params:{
+      participateTime: item.purchaseTime,
+      periodNumber: item.period,
+      projectId: item.projectId,
+      ticketStatus: item.status
+    },
+    callBack:this.re_viewDetails,
+    errorHandler:this.error_viewDetails,
+  })
+}
+root.methods.re_viewDetails = function (data) {
+  typeof(data)=='string'&& (data=JSON.parse(data))
+  if(!data)return
+  this.drawNumbers = data.dataMap.presaleNo
+  this.prices = data.dataMap.prices
+
+  if(this.$route.query.selectedType != 1 && data.dataMap.nonce) {
+    this.nonce = data.dataMap.nonce.substring(data.dataMap.nonce.length-3)
+  }else {
+    this.nonce = '未开奖'
+  }
+  // let disLength = this.nonce.length;
+  // this.nonce1 = this.nonce.substring(disLength-3);
+  // console.info('nonce1======',this.nonce1)
+}
+root.methods.error_viewDetails = function (err) {
+  console.info(err)
 }
 
 // 切换理财状态
@@ -98,9 +141,9 @@ root.methods.getPurchase = function () {
 root.methods.re_getPurchase = function (data) {
   typeof(data) == 'string' && (data = JSON.parse(data));
   if(!data)return
-  this.purchaseList = data.dataMap.list
-  this.totalBalance = data.dataMap.balance
-  this.newQuantity = data.dataMap.quantity
+  this.purchaseList = data.dataMap.list || []
+  this.totalBalance = data.dataMap.balance || 0
+  this.newQuantity = data.dataMap.quantity || 0
   this.loading = false
 
 }
@@ -153,9 +196,10 @@ root.methods.error_getHasEnded = function (err) {
 
 
 
-
-
-
+// 格式化时间
+root.methods.formatDateUitl = function (time) {
+  return this.$globalFunc.formatDateUitl(time, 'YYYY-MM-DD hh:mm:ss')
+}
 
 /*---------------------- 加法运算 begin ---------------------*/
 root.methods.accAdd = function (num1, num2) {

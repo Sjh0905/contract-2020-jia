@@ -43,7 +43,7 @@
   width: 1200px;
   height: 103px;
   background: #fff;
-  padding: 23px 0 0 25px;
+  padding: 26px 0 0 25px;
   box-shadow:0px 4px 12px -4px rgba(1,1,1,0.08);
   border-radius: 3px;
 }
@@ -61,7 +61,7 @@
   font-family:Roboto-Regular,Roboto;
   font-weight:600;
   color: #0D0E23;
-  margin-top: 12px;
+  margin-top: 4px;
 }
 
 .fund-asset-null {
@@ -148,11 +148,11 @@
 }
 
 .fund-details-article {
-  min-height: 284px;
-
+  min-height: 244px;
 }
 
 .fund-text-content {
+  min-height: 200px;
   font-size:14px;
   font-family:MicrosoftYaHei;
   color: #999999;

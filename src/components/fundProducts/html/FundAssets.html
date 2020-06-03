@@ -94,50 +94,52 @@
             <div class="fund-current-income-amount">123456765432</div>
           </div>
           <!--中奖号码-->
-          <div class="fund-text flex">
+          <div class="fund-text flex" v-if="dataList.projectId == 1">
             <div class="text">中奖号码:</div>
-            <div class="content-status">未抽取
+            <div class="content-status">{{selectedType == 1 && nonce? '未抽取': nonce}}
               <span class="content-status-inspection" v-if="selectedType == 3">立即查验</span>
             </div>
           </div>
           <!--抽奖号码-->
-          <div class="fund-text flex">
-            <div class="text">抽奖号码:</div>
-            <div class="content">12、123、123、12、12、12、21、12、12、21、、21、2、1、2、1、2、1、2、1、2</div>
+          <div class="fund-text flex" v-if="dataList.projectId == 1">
+            <div class="text">抽签号码:</div>
+            <div class="content">{{drawNumbers.toString().replace(/,/ig,'、') || '--'}}</div>
           </div>
           <!--申购时间-->
           <div class="fund-text flex">
             <div class="text">申购时间:</div>
-            <div class="content">2019-08-12 18:30</div>
+            <div class="content">{{formatDateUitl(dataList.purchaseTime)}}</div>
           </div>
           <!--参与份数-->
           <div class="fund-text flex">
             <div class="text">参与份数:</div>
-            <div class="content">4</div>
+            <div class="content">{{dataList.successed}}</div>
           </div>
-          <!--项目编号-->
-          <div class="fund-text flex">
-            <div class="text">项目编号:</div>
-            <div class="content">BT0000008</div>
-          </div>
+<!--          &lt;!&ndash;项目编号&ndash;&gt;-->
+<!--          <div class="fund-text flex">-->
+<!--            <div class="text">项目编号:</div>-->
+<!--            <div class="content">BT0000008</div>-->
+<!--          </div>-->
           <!--期数-->
           <div class="fund-text flex">
             <div class="text">期数:</div>
-            <div class="content">nmnkdnkfnkfnkj</div>
+            <div class="content">第 {{Number(dataList.period)}} 期</div>
           </div>
         </div>
-        <div class="fund-current-see" @click="goTopPriodDetails">
+        <div class="fund-current-see pointer" @click="goTopPriodDetails(dataList)">
           查看本期申购
           <img src="../assets/see_details.png" alt="">
         </div>
-
       </div>
     </PopupWindow>
 
     <!--本期申购弹框-->
     <PopupWindow :switch="openFundPurchase" @close="closeFundPurchase">
       <div slot="header" class="fund-details-title">本期申购</div>
-      <div slot="article">
+      <div slot="article" class="fund-details-article">
+        <div class="fund-text-content">
+        </div>
+
       </div>
 <!--      <div slot="footer"></div>-->
     </PopupWindow>
