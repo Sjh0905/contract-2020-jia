@@ -8,16 +8,16 @@
       <!--累计收益图-->
       <div class="fund-asset-income flex">
         <div class="fund-asset-total-income">
-          <div class="fund-asset-total-incom-title">总资产</div>
+          <div class="fund-asset-total-incom-title">{{$t('totalIncome')}}</div>
           <div class="fund-asset-total-incom-amount">{{$globalFunc.accFixed(accAdd(totalBalance,newQuantity),4)}} USDT</div>
         </div>
         <div class="fund-asset-total-income">
-          <div class="fund-asset-total-incom-title">累计总收益</div>
+          <div class="fund-asset-total-incom-title">{{$t('cumulativeTotalRevenue')}}</div>
           <div class="fund-asset-total-incom-amount">{{$globalFunc.accFixed(newQuantity,4)}} USDT</div>
         </div>
         <!--最新收益-->
         <div class="fund-asset-total-income">
-          <div class="fund-asset-total-incom-title">最新收益</div>
+          <div class="fund-asset-total-incom-title">{{$t('latestEarnings')}}</div>
           <div class="fund-asset-total-incom-amount">{{$globalFunc.accFixed(newQuantity,4)}} USDT</div>
         </div>
       </div>
@@ -29,22 +29,22 @@
       <div class="fund-asset-status">
         <!--状态title-->
         <div class="fund-asset-status-title flex">
-          <div class="fund-asset-status-subscription pointer" :class="{'selected':selectedType===1}" @click="getAssetStatus(1)">申购中</div>
-          <div class="fund-asset-status-subscription pointer" :class="{'selected':selectedType===2}" @click="getAssetStatus(2)">收益中</div>
-          <div class="fund-asset-status-subscription pointer" :class="{'selected':selectedType===3}" @click="getAssetStatus(3)">已结束</div>
+          <div class="fund-asset-status-subscription pointer" :class="{'selected':selectedType===1}" @click="getAssetStatus(1)">{{$t('underSubscription')}}</div>
+          <div class="fund-asset-status-subscription pointer" :class="{'selected':selectedType===2}" @click="getAssetStatus(2)">{{$t('revenue')}}</div>
+          <div class="fund-asset-status-subscription pointer" :class="{'selected':selectedType===3}" @click="getAssetStatus(3)">{{$t('hasEnded')}}</div>
         </div>
 
         <!--申购中-->
         <div class="fund-asset-status-containter pointer flex" v-if="selectedType === 1" @click="gotoDetails(item)" v-for="(item,index) in purchaseList" :key="index">
           <div class="fund-asset-status-containter-left flex">
-            <div class="fund-asset-status-nper">区块恋之{{item.drawCNName}}-{{Number(item.period)}}期</div>
+            <div class="fund-asset-status-nper">{{$t('blockLove')}}{{item.drawCNName}}-{{Number(item.period)}}{{$t('period')}}</div>
             <div class="fund-asset-status-acount">
-              <span class="fund-asset-status-text">购买份数</span>
+              <span class="fund-asset-status-text">{{$t('numberOfCopiesPurchased')}}</span>
               <span class="fund-asset-status-number">{{item.successed}}</span>
             </div>
           </div>
           <div class="fund-asset-status-containter-right flex">
-            <div class="sub-scription">申购中</div>
+            <div class="sub-scription">{{$t('goToPurchase')}}</div>
             <div><img src="../assets/go_detail.png" alt="" class="go-detail"></div>
           </div>
         </div>
@@ -52,15 +52,15 @@
         <!--收益中-->
         <div class="fund-asset-status-containter pointer flex" v-if="selectedType === 2" @click="gotoDetails(item)" v-for="(item,index) in incomeList" :key="index">
           <div class="fund-asset-status-containter-left flex">
-            <div class="fund-asset-status-nper">区块恋之{{item.drawCNName}}-{{Number(item.period)}}期</div>
+            <div class="fund-asset-status-nper">{{$t('blockLove')}}{{item.drawCNName}}-{{Number(item.period)}}{{$t('period')}}</div>
             <div class="fund-asset-status-acount">
-              <span class="fund-asset-status-text">购买份数</span>
+              <span class="fund-asset-status-text">{{$t('numberOfCopiesPurchased')}}</span>
               <span class="fund-asset-status-number">{{item.successed}}</span>
 
             </div>
           </div>
           <div class="fund-asset-status-containter-right flex">
-            <div class="sub-scription">收益中</div>
+            <div class="sub-scription">{{$t('revenue')}}</div>
             <div><img src="../assets/go_detail.png" alt="" class="go-detail"></div>
           </div>
         </div>
@@ -68,14 +68,14 @@
         <!--已结束-->
         <div class="fund-asset-status-containter pointer flex" v-if="selectedType === 3" @click="gotoDetails(item)" v-for="(item,index) in hasEndedList" :key="index">
           <div class="fund-asset-status-containter-left flex">
-            <div class="fund-asset-status-nper">区块恋之{{item.drawCNName}}-{{Number(item.period)}}期</div>
+            <div class="fund-asset-status-nper">{{$t('blockLove')}}{{item.drawCNName}}-{{Number(item.period)}}{{$t('period')}}</div>
             <div class="fund-asset-status-acount">
-              <span class="fund-asset-status-text">购买份数</span>
+              <span class="fund-asset-status-text">{{$t('numberOfCopiesPurchased')}}</span>
               <span class="fund-asset-status-number">{{item.successed}}</span>
             </div>
           </div>
           <div class="fund-asset-status-containter-right flex">
-            <div class="sub-scription">已结束</div>
+            <div class="sub-scription">{{$t('hasEnded')}}</div>
             <div><img src="../assets/go_detail.png" alt="" class="go-detail"></div>
           </div>
         </div>

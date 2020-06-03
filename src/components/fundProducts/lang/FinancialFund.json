@@ -1,5 +1,16 @@
 {
-"CH": {},
+"CH": {
+  "totalIncome": "总资产",
+  "cumulativeTotalRevenue": "累计总收益",
+  "latestEarnings": "最新收益",
+  "underSubscription": "申购中",
+  "revenue": "收益中",
+  "hasEnded": "已结束",
+  "blockLove": "区块恋之",
+  "period": "期",
+  "numberOfCopiesPurchased": "购买份数",
+  "goToPurchase": "去申购"
+},
 "EN": {},
 "CA": {}
 }

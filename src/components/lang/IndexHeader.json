@@ -58,7 +58,8 @@
     "miningDetails":"KK交易挖矿详情",
     "OfficialQuantitativeRegistration": "KK交易挖矿",
     "lockHouseRecord": "锁仓记录",
-    "celebration": "百日庆之百宝箱"
+    "celebration": "百日庆之百宝箱",
+    "blockLove": "区块恋"
 
   },
   "EN": {
@@ -230,7 +231,8 @@
     "miningDetails":"KK交易挖礦詳情",
     "OfficialQuantitativeRegistration": "KK交易挖礦",
     "lockHouseRecord": "鎖倉記錄",
-    "celebration": "百日慶之百寶箱"
+    "celebration": "百日慶之百寶箱",
+    "blockLove": "區塊戀"
   },
   "JP": {
     "website": "TwentyTwenty",
