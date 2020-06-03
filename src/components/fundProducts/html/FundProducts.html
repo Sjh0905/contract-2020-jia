@@ -46,24 +46,24 @@
                 <div class="pc-Income flex">
 
                   <div class="TKF-take-the-box-lv">
-                    <span class="each-copy color-bik-pc" v-if="periodList1.FIRST.yield != '99900'">{{periodList1.FIRST.yield * 10 * 10}}%</span>
-                    <span class="each-copy color-bik-pc" v-if="periodList1.FIRST.yield == '99900'">999 倍</span>
-                    <span class="each-copy color-a8">{{periodList1.FIRST.copies}} 份</span>
+                    <span class="each-copy color-bik-pc" v-if="JSON.parse(item.extra).FIRST.yield != '99900'">{{JSON.parse(item.extra).FIRST.yield * 10 * 10}}%</span>
+                    <span class="each-copy color-bik-pc" v-if="JSON.parse(item.extra).FIRST.yield == '99900'">999 倍</span>
+                    <span class="each-copy color-a8">{{JSON.parse(item.extra).FIRST.copies}} 份</span>
                   </div>
                   <div class="TKF-take-the-box-lv">
-                    <span class="each-copy color-bik-pc">{{periodList1.SECOND.yield * 10 * 10}}%</span>
-                    <span class="each-copy color-a8">{{periodList1.SECOND.copies}} 份</span>
+                    <span class="each-copy color-bik-pc">{{JSON.parse(item.extra).SECOND.yield * 10 * 10}}%</span>
+                    <span class="each-copy color-a8">{{JSON.parse(item.extra).SECOND.copies}} 份</span>
                   </div>
                   <div class="TKF-take-the-box-lv">
-                    <span class="each-copy color-bik-pc">{{periodList1.THIRD.yield * 10 * 10}}%</span>
-                    <span class="each-copy color-a8">{{periodList1.THIRD.copies}} 份</span>
+                    <span class="each-copy color-bik-pc">{{JSON.parse(item.extra).THIRD.yield * 10 * 10}}%</span>
+                    <span class="each-copy color-a8">{{JSON.parse(item.extra).THIRD.copies}} 份</span>
                   </div>
                 </div>
               </div>
               <div>
                 <!--                  <div class="TKF-purchase" @click="goToPurchase(firstList,item.period)">申购</div>-->
-                <div class="TKF-purchase" v-if="firstList.surplus != 0 && Number(nowTime) < Number(endTime1)" @click="goToPurchase(firstList.id, firstList.currency, item.period)">去申购</div>
-                <div class="TKF-purchase1" v-if="firstList.surplus == 0 || Number(nowTime) >= Number(endTime1)">售罄</div>
+                <div class="TKF-purchase" v-if="firstList.surplus != 0 && Number(nowTime) < Number(item.startTime)" @click="goToPurchase(firstList.id, firstList.currency, item.period)">去申购</div>
+                <div class="TKF-purchase1" v-if="firstList.surplus == 0 || Number(nowTime) >= Number(item.startTime)">售罄</div>
                 <!--                  <div class="TKF-purchase1" v-if="Number(nowTime) >= Number(endTime1)">售罄</div>-->
               </div>
 
@@ -102,23 +102,23 @@
                 <div class="pc-Income flex">
 
                   <div class="TKF-take-the-box-lv">
-                    <span class="each-copy color-bik-pc">{{periodListQ1.FIRST.yield * 10 * 10}}%</span>
-                    <span class="each-copy color-a8">{{periodListQ1.FIRST.copies}} 份</span>
+                    <span class="each-copy color-bik-pc">{{JSON.parse(item.extra).FIRST.yield * 10 * 10}}%</span>
+                    <span class="each-copy color-a8">{{JSON.parse(item.extra).FIRST.copies}} 份</span>
                   </div>
                   <div class="TKF-take-the-box-lv">
-                    <span class="each-copy color-bik-pc">{{periodListQ1.SECOND.yield * 10 * 10}}%</span>
-                    <span class="each-copy color-a8">{{periodListQ1.SECOND.copies}} 份</span>
+                    <span class="each-copy color-bik-pc">{{JSON.parse(item.extra).SECOND.yield * 10 * 10}}%</span>
+                    <span class="each-copy color-a8">{{JSON.parse(item.extra).SECOND.copies}} 份</span>
                   </div>
                   <div class="TKF-take-the-box-lv">
-                    <span class="each-copy color-bik-pc">{{periodListQ1.THIRD.yield * 10 * 10}}%</span>
-                    <span class="each-copy color-a8">{{periodListQ1.THIRD.copies}} 份</span>
+                    <span class="each-copy color-bik-pc">{{JSON.parse(item.extra).THIRD.yield * 10 * 10}}%</span>
+                    <span class="each-copy color-a8">{{JSON.parse(item.extra).THIRD.copies}} 份</span>
                   </div>
                 </div>
               </div>
               <div>
                 <!--                  <div class="TKF-purchase" @click="goToPurchase(firstList,item.period)">申购</div>-->
-                <div class="TKF-purchase" v-if="secondList.surplus != 0 && Number(nowTime) < Number(endTime2)" @click="goToPurchase(secondList.id, secondList.currency, item.period)">去申购</div>
-                <div class="TKF-purchase1" v-if="secondList.surplus == 0 || Number(nowTime) >= Number(endTime2)">售罄</div>
+                <div class="TKF-purchase" v-if="secondList.surplus != 0 && Number(nowTime) < Number(item.startTime)" @click="goToPurchase(secondList.id, secondList.currency, item.period)">去申购</div>
+                <div class="TKF-purchase1" v-if="secondList.surplus == 0 || Number(nowTime) >= Number(item.startTime)">售罄</div>
                 <!--                  <div class="TKF-purchase1" v-if="Number(nowTime) >= Number(endTime1)">售罄</div>-->
               </div>
 
@@ -203,24 +203,23 @@
                 <div class="pc-Income flex">
 
                   <div class="TKF-take-the-box-lv">
-                    <span class="each-copy color-bik-pc">{{thirdListB1.FIRST.yield * 10 * 10}}%</span>
-                    <span class="each-copy color-a8">{{thirdListB1.FIRST.copies}} 份</span>
+                    <span class="each-copy color-bik-pc">{{JSON.parse(item.extra).FIRST.yield * 10 * 10}}%</span>
+                    <span class="each-copy color-a8">{{JSON.parse(item.extra).FIRST.copies}} 份</span>
                   </div>
                   <div class="TKF-take-the-box-lv">
-                    <span class="each-copy color-bik-pc">{{thirdListB1.SECOND.yield * 10 * 10}}%</span>
-                    <span class="each-copy color-a8">{{thirdListB1.SECOND.copies}} 份</span>
+                    <span class="each-copy color-bik-pc">{{JSON.parse(item.extra).SECOND.yield * 10 * 10}}%</span>
+                    <span class="each-copy color-a8">{{JSON.parse(item.extra).SECOND.copies}} 份</span>
                   </div>
                   <div class="TKF-take-the-box-lv">
-                    <span class="each-copy color-bik-pc">{{thirdListB1.THIRD.yield * 10 * 10}}%</span>
-                    <span class="each-copy color-a8">{{thirdListB1.THIRD.copies}} 份</span>
+                    <span class="each-copy color-bik-pc">{{JSON.parse(item.extra).THIRD.yield * 10 * 10}}%</span>
+                    <span class="each-copy color-a8">{{JSON.parse(item.extra).THIRD.copies}} 份</span>
                   </div>
                 </div>
               </div>
               <div>
                 <!--                  <div class="TKF-purchase" @click="goToPurchase(firstList,item.period)">申购</div>-->
-                <div class="TKF-purchase" v-if="thirdList.surplus != 0" @click="goToPurchase(thirdList.id, thirdList.currency, item.period)">去申购</div>
-                <!--              <div class="TKF-purchase1" v-if="thirdList.surplus == 0 || Number(nowTime) >= Number(endTime3)">售罄</div>-->
-                <!--                  <div class="TKF-purchase1" v-if="Number(nowTime) >= Number(endTime1)">售罄</div>-->
+                <div class="TKF-purchase" v-if="thirdList.surplus != 0 && Number(nowTime) < Number(item.startTime)" @click="goToPurchase(thirdList.id, thirdList.currency, item.period)">去申购</div>
+                <div class="TKF-purchase1" v-if="thirdList.surplus == 0 || Number(nowTime) >= Number(item.startTime)">售罄</div>
               </div>
 
             </div>
@@ -304,23 +303,23 @@
                 <div class="pc-Income flex">
 
                   <div class="TKF-take-the-box-lv">
-                    <span class="each-copy color-bik-pc">{{fourthListT1.FIRST.yield * 10 * 10}}%</span>
-                    <span class="each-copy color-a8">{{fourthListT1.FIRST.copies}} 份</span>
+                    <span class="each-copy color-bik-pc">{{JSON.parse(item.extra).FIRST.yield * 10 * 10}}%</span>
+                    <span class="each-copy color-a8">{{JSON.parse(item.extra).FIRST.copies}} 份</span>
                   </div>
                   <div class="TKF-take-the-box-lv">
-                    <span class="each-copy color-bik-pc">{{fourthListT1.SECOND.yield * 10 * 10}}%</span>
-                    <span class="each-copy color-a8">{{fourthListT1.SECOND.copies}} 份</span>
+                    <span class="each-copy color-bik-pc">{{JSON.parse(item.extra).SECOND.yield * 10 * 10}}%</span>
+                    <span class="each-copy color-a8">{{JSON.parse(item.extra).SECOND.copies}} 份</span>
                   </div>
                   <div class="TKF-take-the-box-lv">
-                    <span class="each-copy color-bik-pc">{{fourthListT1.THIRD.yield * 10 * 10}}%</span>
-                    <span class="each-copy color-a8">{{fourthListT1.THIRD.copies}} 份</span>
+                    <span class="each-copy color-bik-pc">{{JSON.parse(item.extra).THIRD.yield * 10 * 10}}%</span>
+                    <span class="each-copy color-a8">{{JSON.parse(item.extra).THIRD.copies}} 份</span>
                   </div>
                 </div>
               </div>
               <div>
                 <!--                  <div class="TKF-purchase" @click="goToPurchase(firstList,item.period)">申购</div>-->
-                <div class="TKF-purchase" v-if="fourthList.surplus != 0 && Number(nowTime) < Number(endTime4)" @click="goToPurchase(fourthList.id, fourthList.currency, item.period)">去申购</div>
-                <div class="TKF-purchase1" v-if="fourthList.surplus == 0 || Number(nowTime) >= Number(endTime4)">售罄</div>
+                <div class="TKF-purchase" v-if="fourthList.surplus != 0 && Number(nowTime) < Number(item.startTime)" @click="goToPurchase(fourthList.id, fourthList.currency, item.period)">去申购</div>
+                <div class="TKF-purchase1" v-if="fourthList.surplus == 0 || Number(nowTime) >= Number(item.startTime)">售罄</div>
                 <!--                  <div class="TKF-purchase1" v-if="Number(nowTime) >= Number(endTime1)">售罄</div>-->
               </div>
 
