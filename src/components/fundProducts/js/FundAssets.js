@@ -50,6 +50,9 @@ root.mounted = function () {}
 root.beforeDestroy = function () {}
 /*------------------------------ 计算 -------------------------------*/
 root.computed = {}
+root.computed.userId = function () {
+  return this.$store.state.authMessage.userId ? this.$store.state.authMessage.userId : 0
+}
 /*------------------------------ 观察 -------------------------------*/
 root.watch = {}
 /*------------------------------ 方法 -------------------------------*/

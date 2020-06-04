@@ -167,6 +167,7 @@
           <div v-if="currentBuyList.length != 0">
             <div class="fund-data-list">
               <div class="forecast-record-item"
+                   :class="v.userId == userId ? 'background-orange':''"
                    v-for="(v,index) in currentBuyList" :key="index">
                 <div :class="projectId !== 1 ?'type-1':'type'">{{$globalFunc.formatDateUitl(v.purchaseTime,'MM-DD hh:mm:ss')}}</div>
                 <div :class="projectId !== 1 ?'amount1':'amount'">{{v.amount}}</div>

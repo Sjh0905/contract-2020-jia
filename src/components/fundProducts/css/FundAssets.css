@@ -326,9 +326,9 @@
 }
 
 .forecast-record-item {
-  /*height: 0.88rem;*/
+  height: 40px;
   /*height: 240px;*/
-  /*line-height: 0.88rem;*/
+  line-height: 40px;
   display: flex;
   align-items: center;
   font-size:14px;
@@ -338,7 +338,7 @@
   color: #6B7DA2;
   /*padding: 0 0.3rem;*/
   font-size: 14px;
-  margin-bottom: 16px;
+  /*margin-bottom: 16px;*/
 }
 
 .withdraw-list-btn-get-more{
@@ -377,5 +377,9 @@
 ::-webkit-scrollbar-track{
   border-radius: 1em;
   background-color: rgba(50,50,50,.1);
+}
+
+.background-orange {
+  background: #fff6ee;
 }
 
