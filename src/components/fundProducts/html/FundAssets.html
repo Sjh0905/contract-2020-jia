@@ -182,9 +182,7 @@
                     <span class="mobile-record-winning" v-if="v.type=='THIRD'">
                        <img src="../assets/three_star.png" alt="">
                     </span>
-                  </span>
-                  {{v.userId}}
-                </div>
+                  </span>{{v.userId}}</div>
               </div>
               <div v-if="currentBuyList.length !== 0 && isShowGetMoreRecord === true && !ajaxWithdrawFlag" class="withdraw-list-btn-get-more pointer" @click="getTkfTickets">{{$t('loadMore')}}</div>
               <div class="withdraw-list-no-more" v-if="currentBuyList.length !== 0 && isShowGetMoreRecord === false">{{$t('haveBeenCompleted')}}</div>
