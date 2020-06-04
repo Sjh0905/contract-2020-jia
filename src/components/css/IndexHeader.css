@@ -1273,6 +1273,13 @@
   color: rgba(255,255,255,0.8);
 }
 
+.hot-icon {
+  width: 18px;
+  position: absolute;
+  top: 8px;
+  left: 46px;
+}
+
 .navigation-item-container img {
   padding-right: 0;
 }
