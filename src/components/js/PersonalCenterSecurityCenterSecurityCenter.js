@@ -666,6 +666,11 @@ root.methods.jumpMembershipCard = function () {
   this.$router.push({name: 'membershipCard'})
 }
 
+//跳转热度列表页面
+root.methods.goToHeatList = function () {
+  this.$router.push({name: 'heatList'})
+}
+
 
 //是否是会员get (query:{})
 root.methods.getCheck= function () {

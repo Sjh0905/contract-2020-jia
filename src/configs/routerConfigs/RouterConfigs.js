@@ -2680,6 +2680,21 @@ root.routes.push({
               },
               component: resolve => require(['@/components/vue/MembershipCard'], resolve),
             },
+            // sss 热度列表
+            {
+              path: 'heatList',
+              name: 'heatList',
+              caseSensitive: true,
+              meta: {
+                pcname: 'heatList',
+                // h5name: 'membershipCard',
+                requireLogin: true,
+                templateClose: false,
+                requireLoginOff: false,
+
+              },
+              component: resolve => require(['@/components/vue/HeatList'], resolve),
+            },
 
           ]
         },
