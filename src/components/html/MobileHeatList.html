@@ -1,0 +1,33 @@
+<div :class="(isApp||isIOS) ? '':'mobile-forecast-record-page-web'">
+
+  <div v-if="!(isApp||isIOS)" class="divHeader" >
+    <img class="divHeaderImg" src="../../assets/fanhui.png" alt="" @click="ReturnToActivePage">
+    <span class="divHeaderSpan">热度明细</span>
+  </div>
+<!--  <Loading v-if="loading"/>-->
+
+  <div class="mobile-forecast-record-box">
+    <!--无数据-->
+<!--    <div v-if="dataList.length === 0" class="no-data-box">-->
+<!--      <img class="no-data-img" src="" alt="">-->
+<!--      &lt;!&ndash;      ../assets/mobileForecastRecord/no_record_img.png&ndash;&gt;-->
+<!--      <div class="no-data-text">暂无记录~</div>-->
+<!--    </div>-->
+    <!--有数据-->
+
+    <div class="mobile-forecast-record-title col-list">
+      <div class="mobile-forecast-record-title-type type">日期</div>
+      <div class="mobile-forecast-record-title-detail detail">日均资产(U)</div>
+      <div class="mobile-forecast-record-title-num num">月均资产(U)</div>
+      <div class="mobile-forecast-record-title-num num1">热度</div>
+    </div>
+    <div  class="mobile-forecast-record-list ">
+      <div class="flex col-list">
+        <div class="mobile-forecast-record-title-type type">{{'2020-05-30'}}</div>
+        <div class="mobile-forecast-record-title-detail detail">{{'1500'}}</div>
+        <div class="num">{{'1212'}}</div>
+        <div class="num1">{{'1.50'}}</div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -750,7 +750,10 @@ root.methods.closeDownload = function () {
 root.methods.goToTreasureChest = function () {
   this.$router.push({name:'treasureBox'})
 }
-
+//跳转到热度
+root.methods.gotoHeatList = function () {
+  this.$router.push({name:'mobileHeatList'})
+}
 // 获取通告信息
 root.methods.getNotice = function () {
   this.$http.send('POST_NOTICE_LIST', {

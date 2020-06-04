@@ -1314,6 +1314,20 @@ root.routes.push({
       component: resolve => require(['@/components/mobileVue/NewH5HomePage'], resolve),
     },
 
+    {
+      path: 'mobileHeatList',
+      name: 'mobileHeatList',
+      // redirect: 'h5home',
+      meta: {
+        requireLogin: false,
+        mobileHeaderTitle: '',
+        pcname: '',
+        h5name: 'mobileHeatList',
+      },
+      caseSensitive: true,
+      component: resolve => require(['@/components/vue/MobileHeatList'], resolve),
+    },
+
 
     {
       path: 'tradingHall',
