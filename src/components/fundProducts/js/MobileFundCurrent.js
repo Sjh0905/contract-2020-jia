@@ -47,6 +47,9 @@ root.computed = {}
 root.computed.isApp = function () {
   return this.$route.query.isApp ? true : false
 }
+root.computed.userId = function () {
+  return this.$store.state.authMessage.userId ? this.$store.state.authMessage.userId : 0
+}
 /*------------------------------ 观察 -------------------------------*/
 root.watch = {}
 /*------------------------------ 方法 -------------------------------*/

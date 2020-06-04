@@ -34,6 +34,7 @@
   <div v-if="currentBuyList.length != 0">
 
     <div class="mobile-forecast-record-item"
+         :class="v.userId == userId ? 'background-orange':''"
          v-for="(v,index) in currentBuyList" :key="index"
          >
       <div :class="JSON.parse($route.query.item).projectId == 1? 'type':'type1'">{{formatDateUitl(v.purchaseTime)}}</div>
@@ -51,7 +52,8 @@
            <img src="../assets/three_star.png" alt="">
         </span>
        </span>
-        {{v.userId}}</div>
+        <span>{{v.userId}}</span>
+      </div>
     </div>
 
 <!--    <div v-if="ajaxWithdrawFlag" class="mobile-forecast-record-loading">-->
