@@ -545,7 +545,7 @@ position: relative;
 
 .mobile-market-table-box-get-more {
   height: 116px;
-  line-height: 91px;
+  /*line-height: 91px;*/
   text-align: center;
   padding-bottom: 1.2rem;
   color: #6f7678;
@@ -570,7 +570,7 @@ position: relative;
   width: auto;
   float: left;
   /*height: 30px;*/
-  line-height: 1rem;
+  /*line-height: 1rem;*/
   /*position: absolute;*/
   margin-left: 0.2rem;
 }
@@ -596,8 +596,40 @@ position: relative;
 }
 
 .mobile-market-table-box-get-more .myinfos .myheadinfo .info-uid{
-  margin-bottom: 0rem;
+  display: inline-block;
+  margin-top: 0.1rem;
   font-weight: 400;
+  /*width:1.42rem;*/
+  /*height:0.36rem;*/
+  border-radius:0.26rem;
+  border:0.01rem solid rgba(62,83,108,1);
+  padding: 0.0rem 0.14rem;
+  font-size:0.2rem;
+  font-family:Roboto-Regular,Roboto;
+  font-weight:400;
+}
+.mebile-left {
+  margin-left: 0.01rem;
+}
+
+.uidHeatcolor {
+  color: #3576F5;
+}
+.uidHeatImg {
+  width: 0.2rem;
+  vertical-align: sub;
+  margin-bottom: 0.04rem;
+}
+.color-d9 {
+  padding-left: 0.04rem;
+  font-size:0.2rem;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color:#A2B5D9;
+}
+.uidHeatQian {
+  width: 0.16rem;
+  vertical-align: initial;
 }
 
 .mobile-market-table-box-get-more .myinfos .myheadinfo ul{

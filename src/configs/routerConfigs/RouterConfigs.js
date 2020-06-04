@@ -1314,6 +1314,20 @@ root.routes.push({
       component: resolve => require(['@/components/mobileVue/NewH5HomePage'], resolve),
     },
 
+    {
+      path: 'mobileHeatList',
+      name: 'mobileHeatList',
+      // redirect: 'h5home',
+      meta: {
+        requireLogin: false,
+        mobileHeaderTitle: '',
+        pcname: '',
+        h5name: 'mobileHeatList',
+      },
+      caseSensitive: true,
+      component: resolve => require(['@/components/vue/MobileHeatList'], resolve),
+    },
+
 
     {
       path: 'tradingHall',
@@ -2679,6 +2693,21 @@ root.routes.push({
 
               },
               component: resolve => require(['@/components/vue/MembershipCard'], resolve),
+            },
+            // sss 热度列表
+            {
+              path: 'heatList',
+              name: 'heatList',
+              caseSensitive: true,
+              meta: {
+                pcname: 'heatList',
+                // h5name: 'membershipCard',
+                requireLogin: true,
+                templateClose: false,
+                requireLoginOff: false,
+
+              },
+              component: resolve => require(['@/components/vue/HeatList'], resolve),
             },
 
           ]
