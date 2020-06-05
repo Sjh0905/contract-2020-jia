@@ -80,7 +80,8 @@
 }
 .uidHeatQian {
   width: 10px;
-  vertical-align: initial;
+  vertical-align: sub;
+  margin-bottom: 2px;
 }
 .last-time {
   font-size:12px;
