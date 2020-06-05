@@ -119,7 +119,8 @@
             <div class="text">{{$t('winningNumber')}}：</div>
             <div class="content-status">
               <!--如果是一见倾心并没有nonce-->
-              <span v-if="dataList.projectId == 1 && !nonce">{{nonce1}}</span>
+              <span v-if="dataList.projectId == 1 && nonce">{{dataList.projectId == 1 && nonce ? nonce : nonce1}}</span>
+<!--              <span v-if-else="dataList.projectId == 1 && nonce">{{nonce}}</span>-->
               <span v-else>{{$t('notExtracted')}}</span>
               <span class="content-status-inspection" @click="gotoNonce" v-if="dataList.projectId == 1 && selectedType != 1 && nonce">{{$t('immediateInspection')}}</span>
             </div>
