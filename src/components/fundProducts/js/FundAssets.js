@@ -23,6 +23,7 @@ root.data = function () {
     dataList:{},
     drawNumbers:[],
     prices:0,
+    profit:0,
     nonce:'',
     nonce1:'',
     currentBuyList:[],// 本期申购列表
@@ -144,6 +145,7 @@ root.methods.re_viewDetails = function (data) {
   if(!data)return
   this.drawNumbers = data.dataMap.presaleNo || []
   this.prices = data.dataMap.prices || 0
+  this.profit = data.dataMap.profit || 0
 
   if(this.selectedType != 1 && data.dataMap.nonce) {
     this.nonce = data.dataMap.nonce.substring(data.dataMap.nonce.length-3) || ''

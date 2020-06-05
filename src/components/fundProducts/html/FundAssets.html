@@ -90,7 +90,7 @@
           <!--本期收益-->
           <div class="fund-current-income" v-if="selectedType == 3">
             <div>{{$t('currentIncome')}}（USDT）</div>
-            <div class="fund-current-income-amount">--</div>
+            <div class="fund-current-income-amount">{{profit ? profit  : '---' }}</div>
           </div>
           <!--状态-->
           <div class="fund-text flex" v-if="dataList.projectId == 1">
@@ -122,7 +122,7 @@
               <span v-if="dataList.projectId == 1 && nonce">{{dataList.projectId == 1 && nonce ? nonce : nonce1}}</span>
 <!--              <span v-if-else="dataList.projectId == 1 && nonce">{{nonce}}</span>-->
               <span v-else>{{$t('notExtracted')}}</span>
-              <span class="content-status-inspection" @click="gotoNonce" v-if="dataList.projectId == 1 && selectedType != 1 && nonce">{{$t('immediateInspection')}}</span>
+              <span class="content-status-inspection pointer" @click="gotoNonce" v-if="dataList.projectId == 1 && selectedType != 1 && nonce">{{$t('immediateInspection')}}</span>
             </div>
           </div>
           <!--抽签号码-->

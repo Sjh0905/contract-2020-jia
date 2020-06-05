@@ -12,6 +12,7 @@ root.data = function () {
     loading:true,
     // nonce1:'',
     nonce:'',
+    profit: 0
   }
 }
 /*------------------------------ 生命周期 -------------------------------*/
@@ -71,6 +72,7 @@ root.methods.re_viewDetails = function (data) {
   if(!data)return
   this.drawNumbers = data.dataMap.presaleNo
   this.prices = data.dataMap.prices
+  this.profit = data.dataMap.profit
   this.loading = false
 
   if(this.$route.query.selectedType != 1 && data.dataMap.nonce) {
