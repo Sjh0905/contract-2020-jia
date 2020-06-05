@@ -7,6 +7,7 @@ root.components = {
 /*------------------------------ data -------------------------------*/
 root.data = function () {
   return {
+    loading: true,
     heatList:[]
   }
 }
@@ -44,6 +45,7 @@ root.methods.re_getHeatList = function (data) {
   typeof(data) == 'string' && (data = JSON.parse(data));
   console.info('data======sssss',)
   this.heatList = data.data
+  this.loading = false
   console.info('data======sssss',this.heatList)
 }
 

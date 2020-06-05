@@ -1,5 +1,5 @@
 <div class="record-container2">
-<!--  <Loading v-if="loading"/>-->
+  <Loading v-if="loading"/>
   <div class="heatHeader">
     <div class="header">
       <router-link :to="{name:'securityCenter'}" class="header-title">
@@ -12,7 +12,7 @@
     </div>
 
 
-    <div class="heatlist">
+    <div class="heatlist" v-if="!loading">
       <div class="HeatDetail">热度明细</div>
 
       <div class="border_box border_radius">
@@ -59,12 +59,12 @@
 <!--            </div>-->
 
             <!--无数据时显示 begin-->
-<!--            <li class="detail-li-no-data" v-if="computedRecord.length===0">-->
-<!--              <div class="no-data-content">-->
-<!--                <img src="../../assets/assetPageRecord/no-order-light.png" alt="">-->
-<!--                <div class="no-record">{{$t('orderPageCurrentEntrustment.close_9')}}</div>-->
-<!--              </div>-->
-<!--            </li>-->
+            <li class="detail-li-no-data" v-if="heatList.length===0">
+              <div class="no-data-content">
+                <img src="../../assets/assetPageRecord/no-order-light.png" alt="">
+                <div class="no-record">{{$t('orderPageCurrentEntrustment.close_9')}}</div>
+              </div>
+            </li>
             <!--无数据时显示 end-->
 
 
