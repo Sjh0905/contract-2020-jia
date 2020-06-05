@@ -9,18 +9,22 @@ root.components = {
 root.data = function () {
   return {
     loading: false,
-    dataList: [],
+    heatList: [],
     isApp:false,
     isIOS:false
   }
 }
 
 root.created = function () {
+  this.getHeatList()
   this.isIOSQuery()
-  this.getInitPage()
 }
 
 root.computed = {};
+// 获取userId
+root.computed.userId = function () {
+  return this.$store.state.authMessage.userId
+}
 
 root.watch = {};
 
@@ -33,19 +37,22 @@ root.methods.ReturnToActivePage = function () {
 }
 
 
-root.methods.getInitPage = function () {
-  this.$http.send('', {
+root.methods.getHeatList = function () {
+  this.$http.send('GET_HEAT_LIST', {
     bind: this,
-    params: {
-
-    },
-    callBack: this.re_getInitPage
+    urlFragment: this.userId,
+    // query:{
+    //   gname: this.gname
+    // },
+    callBack: this.re_getHeatList
   })
 }
 
-root.methods.re_getInitPage = function (res) {
+root.methods.re_getHeatList = function (data) {
 
-  typeof(res) == 'string' && (res = JSON.parse(res));
+  typeof(data) == 'string' && (data = JSON.parse(data));
+  console.info('data======sssss',data)
+  this.heatList = data.data
 }
 
 // 判断是否是ios打开
@@ -57,4 +64,9 @@ root.methods.isIOSQuery = function () {
   }
 }
 
+
+// 保留小数点后8位
+root.methods.toFixed = function (num, acc = 8) {
+  return this.$globalFunc.accFixed(num, acc)
+}
 export default root;

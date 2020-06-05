@@ -167,6 +167,11 @@ root.components = {
 
 root.computed = {}
 
+// 是否绑定了手机
+root.computed.authHotVal = function () {
+  return this.$store.state.authHotVal
+}
+
 root.computed.marketList = function () {
   // // 如果是自选区，不能从store里选取!
   // if (this.selectEdition === 2) {

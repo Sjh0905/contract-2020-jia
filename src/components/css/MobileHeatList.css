@@ -43,7 +43,7 @@
 }
 
 .type {
-  flex: 25;
+  flex: 20;
 }
 
 .detail {
@@ -102,27 +102,27 @@
 .no-data-box {
   position: absolute;
   top: 40%;
-  left: 50%;
-  width: 100%;
-  transform: translate(-50%,-50%);
-  height: 100%;
+  /*left: 50%;*/
+  /*width: 100%;*/
+  /*transform: translate(-50%,-50%);*/
+  /*height: 100%;*/
   width: 7.5rem;
-  background-color: #F7F8FA;
-  padding-bottom: 4rem;
+  /*background-color: #F7F8FA;*/
+  /*padding-bottom: 4rem;*/
 }
 
 .no-data-img {
   display: block;
-  /*position: absolute;*/
-  width: 151px;
   margin: 0 auto;
+  /*position: absolute;*/
+  width: 2rem;
 }
 
 .no-data-text {
   text-align: center;
-  color: #131F30;
-  font-size: 14px;
-  margin-top: -30px;
+  color: rgba(19,31,48,.6);
+  font-size: 0.28rem;
+  margin-top: 0.15rem;
 }
 .divHeader {
   width: 7.5rem;
