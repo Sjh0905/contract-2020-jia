@@ -24,7 +24,7 @@
     <div class="mobile-fund-content-content">
       <!--已结束-->
       <div class="mobile-fund-income" v-if="$route.query.selectedType == 3">本期收益（USDT）
-        <div class="mobile-fund-income-number">{{profit ? profit :'---'}}</div>
+        <div class="mobile-fund-income-number">{{profit ? $globalFunc.accFixed(profit,4) :'---'}}</div>
       </div>
       <!--中间内容-->
       <div class="mobile-fund-income-cont">

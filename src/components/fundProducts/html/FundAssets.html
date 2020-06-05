@@ -90,7 +90,7 @@
           <!--本期收益-->
           <div class="fund-current-income" v-if="selectedType == 3">
             <div>{{$t('currentIncome')}}（USDT）</div>
-            <div class="fund-current-income-amount">{{profit ? profit  : '---' }}</div>
+            <div class="fund-current-income-amount">{{profit ? $globalFunc.accFixed(profit,4)  : '---' }}</div>
           </div>
           <!--状态-->
           <div class="fund-text flex" v-if="dataList.projectId == 1">
