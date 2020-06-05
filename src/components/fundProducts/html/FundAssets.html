@@ -9,7 +9,7 @@
       <div class="fund-asset-income flex">
         <div class="fund-asset-total-income">
           <div class="fund-asset-total-incom-title">{{$t('totalIncome')}}</div>
-          <div class="fund-asset-total-incom-amount">{{$globalFunc.accFixed(accAdd(totalBalance ,newQuantity),4)}} USDT</div>
+          <div class="fund-asset-total-incom-amount">{{$globalFunc.accFixed(accAdd(totalBalance ,notReleased),4)}} USDT</div>
         </div>
         <div class="fund-asset-total-income">
           <div class="fund-asset-total-incom-title">{{$t('cumulativeTotalRevenue')}}</div>
@@ -18,7 +18,7 @@
         <!--最新收益-->
         <div class="fund-asset-total-income">
           <div class="fund-asset-total-incom-title">{{$t('latestEarnings')}}</div>
-          <div class="fund-asset-total-incom-amount">{{$globalFunc.accFixed(newQuantity,4)}} USDT</div>
+          <div class="fund-asset-total-incom-amount">{{$globalFunc.accFixed(last,4)}} USDT</div>
         </div>
       </div>
 

@@ -17,6 +17,8 @@ root.data = function () {
     hasEndedList:[],
     totalBalance:0, // 总资产
     newQuantity:0, // 最新收益
+    last:0, // 最新收益
+    notReleased:0, // 最新收益
     loading:true,
     openFundDitail:false, //基金详情弹窗
     openFundPurchase:false, //本期申购弹窗
@@ -199,6 +201,8 @@ root.methods.re_getPurchase = function (data) {
   this.purchaseList = data.dataMap.list || []
   this.totalBalance = data.dataMap.balance || 0
   this.newQuantity = data.dataMap.quantity || 0
+  this.last = data.dataMap.last || 0
+  this.notReleased = data.dataMap.notReleased || 0
   this.loading = false
 
 }

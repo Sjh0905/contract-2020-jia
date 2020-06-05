@@ -17,6 +17,7 @@ root.data = function () {
     totalBalance:0, // 总资产
     newQuantity:0, // 累计总收益
     last:0, // 最新收益
+    notReleased:0, // 最新收益
     loading:true
   }
 }
@@ -84,6 +85,7 @@ root.methods.re_getPurchase = function (data) {
   this.totalBalance = data.dataMap.balance
   this.newQuantity = data.dataMap.quantity
   this.last = data.dataMap.last
+  this.notReleased = data.dataMap.notReleased || 0
   this.loading = false
 
 }
