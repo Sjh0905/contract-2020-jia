@@ -1719,7 +1719,7 @@ root.routes.push({
       },
       component: resolve => require(['@/components/vue/AssetPage'], resolve),
       children: [
-        // 默认资产概览
+        // 默认我的钱包
         {
           path: '',
           meta: {
@@ -1778,6 +1778,22 @@ root.routes.push({
           },
           caseSensitive: true,
           component: resolve => require(['@/components/vue/AssetPageRechargeAndWithdrawals'], resolve),
+        },
+
+        // 主流账户
+        {
+          path: 'mainstreamAccount',
+          name: 'mainstreamAccount',
+          meta: {
+            pcname: 'mainstreamAccount',
+            h5name: 'MobilemainstreamAccount',
+            requireLogin: true,
+            templateClose: false,
+            templatePath: '/index/assetPageT',
+            requireLoginOff: false,
+          },
+          caseSensitive: true,
+          component: resolve => require(['@/components/vue/MainstreamAccount'], resolve),
         },
         //临时打开充值提现页面
         // {
