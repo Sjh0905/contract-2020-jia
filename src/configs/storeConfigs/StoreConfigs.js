@@ -146,6 +146,7 @@ store.state.authMessage = {
 }
 //会员卡是否为VIP
 store.state.flag = false
+store.state.authHotVal = 0
 
 store.state.isVIP = {
   expires: '',
@@ -780,6 +781,9 @@ store.mutations.RESET_CURRENCY = (state, info) => {
 store.mutations.SET_AUTH_MESSAGE = (state, info) => {
   state.authMessage = info
   state.isLogin = info.userId ? true : false
+}
+store.mutations.SET_AUTH_HOTVAL = (state, info) => {
+  state.authHotVal = info
 }
 
 store.mutations.SET_IOS_LOGIN = (state, info) => {

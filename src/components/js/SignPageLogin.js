@@ -476,6 +476,7 @@ root.methods.re_login = async function (data) {
 
   this.$store.commit('SET_AUTH_MESSAGE', data.dataMap.userProfile)
 
+
   // 获取登录状态
   this.$globalFunc.getAuthState(this)
 

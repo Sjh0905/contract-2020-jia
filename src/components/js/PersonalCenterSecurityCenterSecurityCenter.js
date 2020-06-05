@@ -95,10 +95,10 @@ root.computed = {}
 // root.computed.expires = function () {
 //   return this.$store.state.isVIP.expires
 // }
-// // 是否绑定了手机
-// root.computed.flag = function () {
-//   return this.$store.state.isVIP.flag
-// }
+// 是否绑定了手机
+root.computed.authHotVal = function () {
+  return this.$store.state.authHotVal
+}
 
 // 是否绑定了谷歌
 root.computed.bindGA = function () {
@@ -186,6 +186,7 @@ root.computed.userId = function () {
 }
 
 root.created = function () {
+  // console.info('this.$store.state.authHotVal--------',this.$store.state.authHotVal)
   this.getAuthState();
   this.getAuthType()
   this.getLogRecord()
@@ -196,6 +197,30 @@ root.created = function () {
 }
 
 root.methods = {}
+
+// root.methods.checkLogin = function () {
+//   this.$http.send('CHECKLOGININ', {
+//     bind: this,
+//     callBack: this.re_checkLogin,
+//     errorHandler: this.error_checkLogin
+//   })
+// }
+// root.methods.re_checkLogin = function (data) {
+//   let dataObj = JSON.parse(data)
+//   console.info('sssssssssssssssdata',data)
+//   if (dataObj.result === 'FAIL' || dataObj.errorCode) {
+//     this.loading = false;
+//     return
+//   }
+//   this.$store.commit('SET_AUTH_MESSAGE', dataObj.dataMap.userProfile)
+//
+//   this.loading = false;
+//
+// }
+// root.methods.error_checkLogin = function (err) {
+//   console.warn("出错了！", err)
+//
+// }
 
 // BDB是否抵扣
 root.methods.getBDBInfo = function () {

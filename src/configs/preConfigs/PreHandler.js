@@ -50,6 +50,7 @@ export default async function ($http, $store, $cookie, $i18n) {
           return
         }
         $store.commit('SET_AUTH_MESSAGE', data.dataMap.userProfile)
+        $store.commit('SET_AUTH_HOTVAL', data.dataMap.hotVal)
         // 判断用户登录后最后选择的币对
         let user_symbol = $cookie.get('user_symbol_cookie'), user_id = data.dataMap.userProfile.userId
         if (!!user_id && !!user_symbol && user_symbol.split('-')[0] == user_id) {

@@ -499,6 +499,6 @@ requestAddress.TKF_PREDICT_RECORD_DETAIL = {url: urlHead+'/tkf/predictRecordDeta
 requestAddress.FUND_RECORDS_LISTS = {url: urlHead+'/tkf/tkfPayRecord', method: 'get'}  //基金记录页面
 requestAddress.GET_TKF_TICKETS = {url: urlHead+'/tkf/getTkftickets', method: 'get'}  //开奖记录页面
 
-
-
+//2020-06-05 获取热度值接口
+requestAddress.GET_HEAT_LIST = {url: urlHead+'/memberCard/queryHotDetail/', method: 'get'}  //获取热度列表
 export default requestAddress
