@@ -610,8 +610,6 @@ store.mutations.CHANGE_ACCOUNT = (state, accounts) => {
     target.otcTotal = parseFloat(GlobalFunc.accAdd(target.otcAvailable, target.otcFrozen))
     // 修改OTC估值
     target.otcAppraisement = parseFloat(GlobalFunc.accMul(target.otcTotal, target.rate))
-
-
   }
 
   // 因为Map对象并不会触发vuex和watch的检测，所以使用另外的属性进行检测，每次变动，对currencyChange进行修改，观测currencyChange即可

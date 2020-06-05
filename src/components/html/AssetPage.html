@@ -145,37 +145,42 @@
       <!--我的钱包 begin-->
       <router-link to="/index/asset/myWallet" class="title-tab flex-center"
                    active-class="selected text_blue"
-                   :class="lang!='CH'?'title-tab-en':''"
-      >
+                   :class="lang!='CH'?'title-tab-en':''">
         {{$t('assetPage.myWallet')}}
-<!--        我的钱包-->
-<!--        My wallet-->
       </router-link>
       <!--我的钱包 end-->
-      <!--      &lt;!&ndash;币币账户 begin&ndash;&gt;-->
+
+      <!--法币账户 begin-->
       <router-link to="/index/asset/rechargeAndWithdrawals" class="title-tab flex-center tab-item-first margin-a-little"
                    active-class="selected text_blue"
-                   :class="lang!='CH'?'title-tab-en':''"
-      >
+                   :class="lang!='CH'?'title-tab-en':''">
         {{$t('assetPage.withdrawalsAndRecharge')}}
       </router-link>
-      <!--      &lt;!&ndash;币币账户 end&ndash;&gt;-->
+      <!--法币账户 end-->
+
+      <!--主流账户 begin-->
+<!--      <router-link to="/index/asset/mainstreamAccount" class="title-tab flex-center tab-item-first margin-a-little"-->
+<!--                   active-class="selected text_blue"-->
+<!--                   :class="lang!='CH'?'title-tab-en':''">-->
+<!--        {{$t('assetPage.mainstreamAccount')}}-->
+<!--      </router-link>-->
+
+      <!--主流账户 end-->
       <span class="line"></span>
-
-
-
 
       <!--财务记录打开 begin-->
       <router-link to="/index/asset/record/" class="title-tab flex-center"
                    :class="lang!='CH'?'title-tab-en':''"
-                   active-class="selected text_blue">{{$t('assetPage.financialRecords')}}
+                   active-class="selected text_blue">
+        {{$t('assetPage.financialRecords')}}
       </router-link>
       <!--财务记录打开 end-->
 
       <!--锁仓记录打开 begin-->
       <router-link to="/index/asset/lockingRecord/" class="title-tab flex-center margin-a-little"
                    :class="lang!='CH'?'title-tab-en':''"
-                   active-class="selected text_blue">{{$t('assetPage.lockingRecord')}}
+                   active-class="selected text_blue">
+        {{$t('assetPage.lockingRecord')}}
       </router-link>
       <!--锁仓记录打开 end-->
 
