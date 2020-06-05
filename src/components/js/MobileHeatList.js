@@ -16,6 +16,20 @@ root.data = function () {
 }
 
 root.created = function () {
+  if(this.$route.query.isApp) {
+    window.postMessage(JSON.stringify({
+        method: 'setTitle',
+        parameters: '热度明细'
+      })
+    );
+    window.postMessage(JSON.stringify({
+      method: 'setH5Back',
+      parameters: {
+        canGoH5Back:false
+      }
+    }))
+  }
+
   this.getHeatList()
   this.isIOSQuery()
 }
