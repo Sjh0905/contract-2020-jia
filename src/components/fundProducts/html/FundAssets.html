@@ -117,8 +117,11 @@
           <!--中奖号码-->
           <div class="fund-text flex" v-if="dataList.projectId == 1">
             <div class="text">{{$t('winningNumber')}}：</div>
-            <div class="content-status">{{selectedType == 1 && nonce?  $t('notExtracted'): nonce}}
-              <span class="content-status-inspection" v-if="dataList.projectId == 1 && selectedType != 1">{{$t('immediateInspection')}}</span>
+            <div class="content-status">
+              <!--如果是一见倾心并没有nonce-->
+              <span v-if="dataList.projectId == 1 && !nonce">{{nonce1}}</span>
+              <span v-else>{{$t('notExtracted')}}</span>
+              <span class="content-status-inspection" @click="gotoNonce" v-if="dataList.projectId == 1 && selectedType != 1 && nonce">{{$t('immediateInspection')}}</span>
             </div>
           </div>
           <!--抽签号码-->

@@ -9,7 +9,7 @@
   </div>
 
   <!--本期购买 中奖编号-->
-  <div class="examine flex" v-if="JSON.parse($route.query.item).projectId == 1 && $route.query.selectedType != 1">
+  <div class="examine flex" v-if="JSON.parse($route.query.item).projectId == 1 && $route.query.selectedType != 1 && nonce">
     <div>本期中奖号码：{{nonce}}</div>
     <div class="examine-img" @click="gotoNonce()">
       <span class="examine-text">立即查验</span>
