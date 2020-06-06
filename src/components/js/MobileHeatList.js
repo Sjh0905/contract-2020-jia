@@ -10,12 +10,26 @@ root.data = function () {
   return {
     loading: true,
     heatList: [],
-    isApp:false,
+    // isApp:false,
     isIOS:false
   }
 }
 
 root.created = function () {
+  if(this.$route.query.isApp) {
+    window.postMessage(JSON.stringify({
+        method: 'setTitle',
+        parameters: '热度明细'
+      })
+    );
+    window.postMessage(JSON.stringify({
+      method: 'setH5Back',
+      parameters: {
+        canGoH5Back:false
+      }
+    }))
+  }
+
   this.getHeatList()
   this.isIOSQuery()
 }
@@ -24,6 +38,11 @@ root.computed = {};
 // 获取userId
 root.computed.userId = function () {
   return this.$store.state.authMessage.userId
+}
+
+// 检验是否是APP
+root.computed.isApp = function () {
+  return this.$route.query.isApp ? true : false
 }
 
 root.watch = {};

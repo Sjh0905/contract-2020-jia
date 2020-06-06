@@ -61,6 +61,8 @@ root.created = function () {
 
   this.isIOSQuery()
 
+  this.isWhiteQuery()
+
   // console.log(this.isClose,'bbb')
 
 }
