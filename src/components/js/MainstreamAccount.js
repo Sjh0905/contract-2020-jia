@@ -80,7 +80,7 @@ root.data = function () {
     sending:false,
 
     // otcCurrencyList:[],//法币币种列表
-    mainsCurrencyList:['BCH','BTC','EOS','ETH','LTC','TRX']
+    mainsCurrencyList:['BCH','BTC','EOS','ETH','LTC']
   }
 }
 
