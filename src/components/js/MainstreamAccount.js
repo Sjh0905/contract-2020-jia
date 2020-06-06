@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const root = {}
-root.name = 'AssetPageRechargeAndWithdrawals'
+root.name = 'MainstreamAccount'
 
 /*----------------------------- 组件 ------------------------------*/
 
@@ -56,7 +56,6 @@ root.data = function () {
     change_price: 0,  // 当前价格
     show_key: '-1',  // 展示当前价格
 
-
     rechargeAddressChangePrompt: false, //充值地址变更的弹窗提示
 
     hideZeroAsset: false, //隐藏零资产币种
@@ -75,11 +74,13 @@ root.data = function () {
     amountInput:'',// 输入框划转的数量
     transferAmountWA:'',// 数量错误提示
     transferCurrencyAvailable:0,  //我的钱包可用余额
-    transferCurrencyOTCAvailable:0, //法币账户可用余额
+    // transferCurrencyOTCAvailable:0, //法币账户可用余额
+    transferCurrencyMainAvailable: 0, //法币账户可用余额
     transferCurrencyObj:{},
     sending:false,
 
-    otcCurrencyList:[]//法币币种列表
+    // otcCurrencyList:[],//法币币种列表
+    mainsCurrencyList:['BCH','BTC','EOS','ETH','LTC','TRX']
   }
 }
 
@@ -100,14 +101,11 @@ root.created = function () {
   this.getCurrency()
   // 获取账户信息
   this.getAccounts()
-
   // 如果已经cookies记录的弹出过，则不弹出，如果没有，弹窗，并记录
   if (!this.$cookies.get('rechargeAddressChanged')) {
     this.$cookies.set('rechargeAddressChanged', true, 60 * 60 * 6)
     this.rechargeAddressChangePrompt = true
   }
-
-
 }
 
 /*----------------------------- 计算 ------------------------------*/
@@ -144,7 +142,7 @@ root.computed.computedExchangeRate = function () {
 root.computed.total = function () {
   let total = 0
   for (let i = 0; i < this.accounts.length; i++) {
-    total = this.accAdd(total, this.accounts[i].otcAppraisement)
+    total = this.accAdd(total, this.accounts[i].mainAppraisement)
   }
   return total
 }
@@ -170,9 +168,9 @@ root.computed.accountsComputed = function () {
   if (this.hideZeroAsset) {
     return this.accounts.filter((val,inx) => {
       val.currencyKey = val.currency+'-'+inx;
-
+      console.info('val',val)
       // this.transferCurrencyObj[val.currency] = val;
-      return val.total !== 0
+      return val.mainTotal !== 0
     })
   }
 
@@ -182,6 +180,7 @@ root.computed.accountsComputed = function () {
     // console.log(JSON.stringify(val.id))
     // this.transferCurrencyObj[val.currency] = val;
   })
+  // console.info('this.accounts====',this.accounts)
   return this.accounts
 }
 // 基础货币
@@ -222,14 +221,19 @@ root.watch = {}
 // 监听vuex中的变化
 root.watch.currencyChange = function (newVal, oldVal) {
 
-  // let accounts = [...this.$store.state.currency.values()];
-  let otcAccounts = [];
-  this.otcCurrencyList.map(v=>{
-    let item = this.$store.state.currency.get(v.currency);
-    otcAccounts.push(item)
+  let accounts = [...this.$store.state.currency.values()];
+  // let otcAccounts = [];
+  // this.mainsCurrencyList.map(v=>{
+  //   let item = this.$store.state.currency.get(v.currency);
+  //   otcAccounts.push(item)
+  // })
+  let mainsAccounts = []
+  this.mainsCurrencyList.map(v =>{
+    let item = this.$store.state.currency.get(v)
+    mainsAccounts.push(item)
   })
-  this.accounts = otcAccounts
-  console.log('this.accounts zpy============== ',this.accounts)
+  this.accounts = mainsAccounts
+  // console.log('this.accounts zpy============== ',this.accounts)
 }
 
 root.watch.loading = function (newVal, oldVal) {
@@ -251,23 +255,23 @@ root.watch.loading = function (newVal, oldVal) {
 
 root.methods = {}
 
-// 去交易
-root.methods.goToDeal = function (item) {
-  let symbol = item.currency+'_USDT'
-  let haveSymbol =  this.$store.state.tradingParameters.find(v=>v.name==symbol)
-  if(!haveSymbol){
-    this.$router.push({name: 'tradingHall'})
-    return
-  }
-  this.$store.commit('SET_SYMBOL', symbol);
-
-  let user_id = this.$store.state.authMessage.userId;
-  let user_id_symbol = user_id + '-' + symbol;
-  !user_id && this.$cookies.set('unlogin_user_symbol_cookie', symbol, 60 * 60 * 24 * 30,"/");
-  // !!user_id && this.$cookies.set('user_symbol_cookie', user_id_symbol, 60 * 60 * 24)
-  !!user_id && this.$cookies.set('user_symbol_cookie', user_id_symbol, 60 * 60 * 24 * 30,"/");
-  this.$router.push({name: 'tradingHall'})
-}
+// // 去交易
+// root.methods.goToDeal = function (item) {
+//   let symbol = item.currency+'_USDT'
+//   let haveSymbol =  this.$store.state.tradingParameters.find(v=>v.name==symbol)
+//   if(!haveSymbol){
+//     this.$router.push({name: 'tradingHall'})
+//     return
+//   }
+//   this.$store.commit('SET_SYMBOL', symbol);
+//
+//   let user_id = this.$store.state.authMessage.userId;
+//   let user_id_symbol = user_id + '-' + symbol;
+//   !user_id && this.$cookies.set('unlogin_user_symbol_cookie', symbol, 60 * 60 * 24 * 30,"/");
+//   // !!user_id && this.$cookies.set('user_symbol_cookie', user_id_symbol, 60 * 60 * 24)
+//   !!user_id && this.$cookies.set('user_symbol_cookie', user_id_symbol, 60 * 60 * 24 * 30,"/");
+//   this.$router.push({name: 'tradingHall'})
+// }
 
 // 计算当前币对折合多少人民币  2018-4-4 start
 root.methods.get_now_price = function (key, price, e) {
@@ -324,8 +328,6 @@ root.methods.getAuthState = function () {
   this.authStateReady = true
   this.loading = !(this.currencyReady && this.authStateReady)
 }
-
-
 // 判断验证状态回调
 root.methods.re_getAuthState = function (data) {
   typeof data === 'string' && (data = JSON.parse(data))
@@ -354,14 +356,14 @@ root.methods.changeAppraisement = function (dataObj) {
     if (baseName !== this.baseCurrency) continue
     for (let i = 0; i < this.accounts.length; i++) {
       if (this.accounts[i].currency !== targetName) continue
-      this.accounts[i].appraisement = this.accounts[i].otcTotal * data[key][4]
+      this.accounts[i].appraisement = this.accounts[i].mainTotal * data[key][4]
       break
     }
   }
   // 特殊处理，如果是基础货币
   for (let i = 0; i < this.accounts.length; i++) {
     if (this.accounts[i].currency !== this.baseCurrency) continue
-    this.accounts[i].appraisement = this.accounts[i].otcTotal
+    this.accounts[i].appraisement = this.accounts[i].mainTotal
   }
 
 }
@@ -375,7 +377,6 @@ root.methods.getPrice = function () {
       callBack: this.re_getPrice
     })
 }
-
 // socket估值发生变化！
 root.methods.re_getPrice = function (data) {
   if (this.socketTime % this.socketBase !== 0) {
@@ -385,10 +386,8 @@ root.methods.re_getPrice = function (data) {
   this.socketTime = 1
   typeof (data) === 'string' && (data = JSON.parse(data))
   if (!data) return
-
   this.priceReady = true
   this.loading = !(this.currencyReady && this.authStateReady)
-
   // 记录最近的price
   this.currentPrice = data
   this.$store.commit('CHANGE_PRICE_TO_BTC', data)
@@ -397,7 +396,7 @@ root.methods.re_getPrice = function (data) {
 
 // 获取币种
 root.methods.getCurrency = async function () {
-  this.$http.send('GET_OTC_CURRENCY', {
+  this.$http.send('GET_CURRENCY', {
     bind: this,
     callBack: this.re_getCurrency,
     errorHandler: this.error_getCurrency,
@@ -409,13 +408,13 @@ root.methods.re_getCurrency = function (data) {
   if (!data) {
     return
   }
-  this.otcCurrencyList = data;
-  // this.$store.commit('CHANGE_CURRENCY', data.dataMap.currencys)
+  this.$store.commit('CHANGE_CURRENCY', data.dataMap.currencys)
   this.getAccounts()
 }
 // 获取币种失败
 root.methods.error_getCurrency = function (err) {
 }
+
 //获取账户信息
 root.methods.getAccounts = function () {
   // 请求各项估值
@@ -435,11 +434,9 @@ root.methods.re_getAccount = function (data) {
   // 关闭loading
   this.currencyReady = true
   this.loading = !(this.currencyReady && this.authStateReady)
-
 }
 // 获取账户信息失败
 root.methods.error_getAccount = function (err) {
-  // console.warn("获取账户内容失败", err)
 }
 
 
@@ -468,7 +465,7 @@ root.methods.goToBindEmail = function () {
   this.$router.push({name: 'bindEmail'})
 }
 
-// 打开划转  begin
+/*---------- 打开划转  begin ----------*/
 // 打开划转
 root.methods.openTransfer = function (index, item) {
   // if (item.currency !=='USDT' && this.serverT < item.withdrawOpenTime) {
@@ -528,8 +525,9 @@ root.methods.openTransfer = function (index, item) {
   // }
   this.popWindowOpen1 = true
 
-  // 法币可用余额
-  this.transferCurrencyOTCAvailable = item.otcAvailable
+  // 主流账户可用余额
+  // this.transferCurrencyOTCAvailable = item.mainAvailable
+  this.transferCurrencyMainAvailable = item.mainAvailable
   // 我的钱包可用余额
   this.transferCurrencyAvailable = item.available
   this.itemInfo = item
@@ -537,7 +535,6 @@ root.methods.openTransfer = function (index, item) {
   // 再次打开清空输入框
   this.amountInput = ''
   this.transferAmountWA = ''
-
 }
 
 // 划转弹窗关闭
@@ -557,7 +554,8 @@ root.methods.click_rel_em = function () {
 }
 
 root.methods.changeTransferCurrency = function (currency){
-  console.log('changeTransferCurrency==============',currency)
+
+  console.info('changeTransferCurrency==============',currency)
   // this.itemInfo = val
   this.transferCurrencyAvailable = this.transferCurrencyObj[currency].available || 0;
 }
@@ -581,7 +579,7 @@ root.methods.testTransferAmount  = function () {
     return true
   }
   if(this.assetAccountType == 'wallet'){
-    if (Number(this.amountInput) > Number(this.transferCurrencyOTCAvailable)) {
+    if (Number(this.amountInput) > Number(this.transferCurrencyMainAvailable)) {
       this.transferAmountWA = this.$t('transferAmountWA3')
       return false
     }
@@ -608,29 +606,25 @@ root.methods.canCommit = function () {
     this.transferAmountWA = this.$t('transferAmountWA')
     return canSend = false
   }
-
   return canSend
 }
 
 // 划转提交
 root.methods.transferCommit = function () {
-
   if (this.sending) return
   if (!this.canCommit()) {
     return
   }
-
   this.sending = true
   // this.popupPromptType = 2
   // this.popupPromptOpen = true
-
   this.$http.send('POST_TRANSFER_SPOT', {
     bind: this,
     params: {
       currency: this.currencyValue,
       amount: this.amountInput,
-      transferFrom: this.assetAccountType == 'wallet' ? 'OTC':'WALLET',
-      transferTo: this.assetAccountType != 'wallet' ? 'OTC':'WALLET'
+      transferFrom: this.assetAccountType == 'wallet' ? 'BINANCE':'WALLET',
+      transferTo: this.assetAccountType != 'wallet' ? 'BINANCE':'WALLET'
     },
     callBack: this.re_transferCommit,
     errorHandler: this.error_transferCommit
@@ -641,11 +635,8 @@ root.methods.re_transferCommit = function (data){
   console.log('发送成功====================')
   this.sending = false
   typeof data === 'string' && (data = JSON.parse(data))
-  console.log(data.errorCode)
-
   this.popupPromptOpen = true
   this.popupPromptType = 0
-
   if( data.errorCode ){
     data.errorCode == 1 &&  (this.popupPromptText = '用户未登录')
     data.errorCode == 2 &&  (this.popupPromptText = '数量错误')
@@ -670,64 +661,57 @@ root.methods.error_transferCommit = function (err){
 // 点击全提
 root.methods.allMention = function () {
   if( this.assetAccountType == 'wallet'){
-    this.amountInput = this.transferCurrencyOTCAvailable
+    this.amountInput = this.transferCurrencyMainAvailable
     return
   }
   this.amountInput = this.transferCurrencyAvailable
 }
-// 打开划转  end
+/*---------- 打开划转  end ----------*/
 
 // 关闭toast弹窗
 root.methods.closePopupPrompt = function () {
   this.popupPromptOpen = false
 }
 
-// 关闭充值地址变更的弹窗提示
-root.methods.closeRechargeAddressChangePrompt = function () {
-  this.rechargeAddressChangePrompt = false
-}
+// // 关闭充值地址变更的弹窗提示
+// root.methods.closeRechargeAddressChangePrompt = function () {
+//   this.rechargeAddressChangePrompt = false
+// }
 
 //判断充值按钮能否打开
 root.methods.rechargeFlag = function (item) {
-
   let currencyObj = this.$store.state.currency.get(item.currency)
   let rechargeOpenTime = currencyObj && currencyObj.rechargeOpenTime
-
   //只有当USDT MONI类型未开放提现时才判断USDT2是否开放，当两个都未开放时才拦截
   if(item.currency == 'USDT' && (currencyObj && !currencyObj.depositEnabled)){
     let currencyUSDT2 = this.$store.state.currency.get('USDT2')
     if(currencyUSDT2 && !currencyUSDT2.depositEnabled)return false
   }
-
   if(item.currency != 'USDT' && rechargeOpenTime && this.serverT < rechargeOpenTime)return false
-
   return true
 }
 
 //判断提现按钮能否打开
 root.methods.withdrawalsFlag = function (item) {
-
   let currencyObj = this.$store.state.currency.get(item.currency)
   let withdrawOpenTime = currencyObj && currencyObj.withdrawOpenTime
-
   //只有当USDT MONI类型未开放提现时才判断USDT2是否开放，当两个都未开放时才拦截
   if(item.currency == 'USDT' && (currencyObj && !currencyObj.withdrawEnabled)){
     let currencyUSDT2 = this.$store.state.currency.get('USDT2')
     if(currencyUSDT2 && !currencyUSDT2.withdrawEnabled)return false
   }
-
   if(item.currency != 'USDT' && withdrawOpenTime && this.serverT < withdrawOpenTime)return false
-
   return true
 }
 
+/*-------------- 鼠标移入什么是划转，展示具体信息  begin------------------*/
 root.methods.closeWhatTransfer= function () {
   $(".transfer-explain").attr("style","display:none");
 }
-
 root.methods.openWhatTransfer = function () {
   $(".transfer-explain").attr("style","display:block");
 }
+/*-------------- 鼠标移入什么是划转，展示具体信息  end------------------*/
 
 /*---------------------- 保留小数 begin ---------------------*/
 root.methods.toFixed = function (num, acc = 8) {

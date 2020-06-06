@@ -483,6 +483,10 @@ store.mutations.CHANGE_CURRENCY = (state, currencyArr) => {
         otcAvailable: currencyArr[i].otcAvailable || 0,
         otcFrozen: currencyArr[i].otcFrozen || 0,
         otcAppraisement: currencyArr[i].otcAppraisement || 0,
+        mainTotal: currencyArr[i].mainTotal || 0,
+        mainAvailable: currencyArr[i].mainAvailable || 0,
+        mainFrozen: currencyArr[i].mainFrozen || 0,
+        mainAppraisement: currencyArr[i].mainAppraisement || 0,
         rate: currencyArr[i].rate || 0,
         depositEnabled: currencyArr[i].depositEnabled || false,
         withdrawEnabled: currencyArr[i].withdrawEnabled || false,
@@ -510,6 +514,10 @@ store.mutations.CHANGE_CURRENCY = (state, currencyArr) => {
       target.otcAvailable = currencyArr[i].otcAvailable || target.otcAvailable || 0,
       target.otcFrozen = currencyArr[i].otcFrozen || target.otcFrozen || 0,
       target.otcAppraisement = currencyArr[i].otcAppraisement || target.otcAppraisement || 0
+      target.mainTotal = currencyArr[i].mainTotal || target.mainTotal || 0,  //主流账户总资产
+      target.mainAvailable = currencyArr[i].mainAvailable || target.mainAvailable || 0,
+      target.mainFrozen = currencyArr[i].mainFrozen || target.mainFrozen || 0,
+      target.mainAppraisement = currencyArr[i].mainAppraisement || target.mainAppraisement || 0,
       target.rate = currencyArr[i].rate || target.rate || 0
       target.depositEnabled = currencyArr[i].depositEnabled || target.depositEnabled || false
       target.withdrawEnabled = currencyArr[i].withdrawEnabled || target.withdrawEnabled || false
@@ -564,6 +572,10 @@ store.mutations.CHANGE_ACCOUNT = (state, accounts) => {
         otcAvailable: accounts[i].otcAvailable || 0,
         otcFrozen: accounts[i].otcFrozen || 0,
         otcAppraisement: accounts[i].otcAppraisement || 0,
+        mainTotal: accounts[i].mainTotal || 0,
+        mainAvailable: accounts[i].mainAvailable || 0,
+        mainFrozen: accounts[i].mainFrozen || 0,
+        mainAppraisement: accounts[i].mainAppraisement || 0,
         rate: accounts[i].rate || 0,
         withdrawDisabled: accounts[i].withdrawDisabled || false,
         rechargeOpenTime: accounts[i].rechargeOpenTime || 0,
@@ -600,6 +612,15 @@ store.mutations.CHANGE_ACCOUNT = (state, accounts) => {
       target.otcFrozen = GlobalFunc.newFixed(accounts[i].balance, 8)
     }
 
+    // 扩充主流账号可用
+    if (accounts[i].type === 'BINANCE_SPOT_AVAILABLE') {
+      target.mainAvailable = GlobalFunc.newFixed(accounts[i].balance, 8)
+    }
+    // 扩充主流账户冻结
+    if (accounts[i].type === 'BINANCE_SPOT_FROZEN') {
+      target.mainFrozen = GlobalFunc.newFixed(accounts[i].balance, 8)
+    }
+
     // 修改总值
     target.total = parseFloat(GlobalFunc.accAdd(target.available, target.frozen))
     target.total = parseFloat(GlobalFunc.accAdd(target.total, target.locked))
@@ -610,6 +631,11 @@ store.mutations.CHANGE_ACCOUNT = (state, accounts) => {
     target.otcTotal = parseFloat(GlobalFunc.accAdd(target.otcAvailable, target.otcFrozen))
     // 修改OTC估值
     target.otcAppraisement = parseFloat(GlobalFunc.accMul(target.otcTotal, target.rate))
+
+    // 修改主流币种总值
+    target.mainTotal = parseFloat(GlobalFunc.accAdd(target.mainAvailable, target.mainFrozen))
+    // 修改主流币种估值
+    target.mainAppraisement = parseFloat(GlobalFunc.accMul(target.mainTotal, target.rate))
   }
 
   // 因为Map对象并不会触发vuex和watch的检测，所以使用另外的属性进行检测，每次变动，对currencyChange进行修改，观测currencyChange即可
