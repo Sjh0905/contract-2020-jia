@@ -48,12 +48,12 @@
 <!--            普通区折扣-->
             <div class=" color_hui">
               <div>{{$t('ordinaryDiscount')}}</div>
-              <div class="color_bik_9">{{toFixed(accMul(commonDiscount,100),0) }}%</div>
+              <div class="color_bik_9">{{toFixed(accMul(commonDiscount || 0,100),0) }}%</div>
             </div>
 <!--            量化区折扣-->
             <div class=" color_hui_s">
               <div>{{$t('quantifiedDiscount')}}</div>
-              <div class="color_bik_9">{{toFixed(accMul(quantDiscount,100),0) }}%</div>
+              <div class="color_bik_9">{{toFixed(accMul(quantDiscount || 0,100),0) }}%</div>
             </div>
           </li>
 <!--          团长，副团长 建团时间-->
@@ -287,13 +287,13 @@
         <div class="mobileFoldL">
 <!--          <div class="mobileFoldLdiv">-->
           <span class="mobileFoldSapn">普通区折扣</span>
-          <span class="mobileFoldSapnF">{{toFixed(accMul(commonDiscount,100),0) }}%</span>
+          <span class="mobileFoldSapnF">{{toFixed(accMul(commonDiscount || 0,100),0) }}%</span>
 <!--        </div>-->
         </div>
         <div class="mobileX"></div>
         <div class="mobileFoldLw">
           <span class="mobileFoldSapn">挖矿区折扣</span>
-          <span class="mobileFoldSapnF">{{toFixed(accMul(quantDiscount,100),0) }}%</span>
+          <span class="mobileFoldSapnF">{{toFixed(accMul(quantDiscount || 0,100),0) }}%</span>
         </div>
       </div>
       <!--      账号-->
@@ -461,7 +461,7 @@
                @focus="closePlaceholder('proportion')"
                @blur="advanceProportion()"
                step="1"  min="0" onkeyup="this.value= this.value.match(/\d+(\.\d{0,2})?/) ? this.value.match(/\d+(\.\d{0,2})?/)[0] : ''">
-        <span class="proportionSpan">{{$t('delegationRemaining')}} <span class="percentageSpan">{{toFixed(surplusDiscount,2)}}%</span></span>
+        <span class="proportionSpan">{{$t('delegationRemaining')}} <span class="percentageSpan">{{toFixed(surplusDiscount || 0,2)}}%</span></span>
       </div>
 
       <div class="whit_0">
@@ -516,7 +516,7 @@
                @focus="closePlaceholder('proportionModify')"
                @blur="advanceProportion()"
                step="1"  min="0" onkeyup="this.value= this.value.match(/\d+(\.\d{0,2})?/) ? this.value.match(/\d+(\.\d{0,2})?/)[0] : ''">
-        <span class="proportionSpan">{{$t('delegationRemaining')}} <span class="percentageSpan">{{toFixed(surplusDiscount,2)}}%</span></span>
+        <span class="proportionSpan">{{$t('delegationRemaining')}} <span class="percentageSpan">{{toFixed(surplusDiscount || 0,2)}}%</span></span>
       </div>
 
       <div class="whit_0">

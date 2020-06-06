@@ -85,7 +85,7 @@
 
         <div class="border_50">
           <div class="progress_bar">
-            <el-progress :show-text="false" :stroke-width="16" :percentage="(numminingProgress)" color="#3576F5" status="exception" ></el-progress>
+            <el-progress :show-text="false" :stroke-width="16" :percentage="(numminingProgress) || 0" color="#3576F5" status="exception" ></el-progress>
           </div>
         </div>
 
@@ -328,7 +328,7 @@
 
         <div class="border_50Mobile">
           <div class="progress_bar">
-            <el-progress :show-text="false" :stroke-width="16" :percentage="(numminingProgress)" color="#3576F5" status="exception" ></el-progress>
+            <el-progress :show-text="false" :stroke-width="16" :percentage="(numminingProgress) || 0" color="#3576F5" status="exception" ></el-progress>
           </div>
         </div>
 
