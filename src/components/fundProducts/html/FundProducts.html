@@ -70,10 +70,10 @@
               </div>
               <div>
                 <!--                  <div class="TKF-purchase" @click="goToPurchase(firstList,item.period)">申购</div>-->
-<!--                去申购-->
-                <div class="TKF-purchase" v-if="firstList.surplus != 0 && Number(nowTime) < Number(item.startTime)" @click="goToPurchase(firstList.id, firstList.currency, item.period)">{{$t('purchase')}}</div>
-<!--                售罄-->
-                <div class="TKF-purchase1" v-if="firstList.surplus == 0 || Number(nowTime) >= Number(item.startTime)">{{$t('soldOut')}}</div>
+                <!--去申购-->
+                <div class="TKF-purchase" v-if="item.surplus != 0 && Number(nowTime) < Number(item.startTime)" @click="goToPurchase(firstList.id, firstList.currency, item.period)">{{$t('purchase')}}</div>
+                <!--售罄-->
+                <div class="TKF-purchase1" v-if="item.surplus == 0 || Number(nowTime) >= Number(item.startTime)">{{$t('soldOut')}}</div>
                 <!--                  <div class="TKF-purchase1" v-if="Number(nowTime) >= Number(endTime1)">售罄</div>-->
               </div>
 
@@ -127,8 +127,8 @@
               </div>
               <div>
                 <!--                  <div class="TKF-purchase" @click="goToPurchase(firstList,item.period)">申购</div>-->
-                <div class="TKF-purchase" v-if="secondList.surplus != 0 && Number(nowTime) < Number(item.startTime)" @click="goToPurchase(secondList.id, secondList.currency, item.period)">{{$t('purchase')}}</div>
-                <div class="TKF-purchase1" v-if="secondList.surplus == 0 || Number(nowTime) >= Number(item.startTime)">{{$t('soldOut')}}</div>
+                <div class="TKF-purchase" v-if="item.surplus != 0 && Number(nowTime) < Number(item.startTime)" @click="goToPurchase(secondList.id, secondList.currency, item.period)">{{$t('purchase')}}</div>
+                <div class="TKF-purchase1" v-if="item.surplus == 0 || Number(nowTime) >= Number(item.startTime)">{{$t('soldOut')}}</div>
                 <!--                  <div class="TKF-purchase1" v-if="Number(nowTime) >= Number(endTime1)">售罄</div>-->
               </div>
 
@@ -183,8 +183,8 @@
               </div>
               <div>
                 <!--                  <div class="TKF-purchase" @click="goToPurchase(firstList,item.period)">申购</div>-->
-                <div class="TKF-purchase" v-if="thirdList.surplus != 0 && Number(nowTime) < Number(item.startTime)" @click="goToPurchase(thirdList.id, thirdList.currency, item.period)">{{$t('purchase')}}</div>
-                <div class="TKF-purchase1" v-if="thirdList.surplus == 0 || Number(nowTime) >= Number(item.startTime)">{{$t('soldOut')}}</div>
+                <div class="TKF-purchase" v-if="item.surplus != 0 && Number(nowTime) < Number(item.startTime)" @click="goToPurchase(thirdList.id, thirdList.currency, item.period)">{{$t('purchase')}}</div>
+                <div class="TKF-purchase1" v-if="item.surplus == 0 || Number(nowTime) >= Number(item.startTime)">{{$t('soldOut')}}</div>
               </div>
 
             </div>
@@ -237,8 +237,8 @@
               </div>
               <div>
                 <!--                  <div class="TKF-purchase" @click="goToPurchase(firstList,item.period)">申购</div>-->
-                <div class="TKF-purchase" v-if="fourthList.surplus != 0 && Number(nowTime) < Number(item.startTime)" @click="goToPurchase(fourthList.id, fourthList.currency, item.period)">{{$t('purchase')}}</div>
-                <div class="TKF-purchase1" v-if="fourthList.surplus == 0 || Number(nowTime) >= Number(item.startTime)">{{$t('soldOut')}}</div>
+                <div class="TKF-purchase" v-if="item.surplus != 0 && Number(nowTime) < Number(item.startTime)" @click="goToPurchase(fourthList.id, fourthList.currency, item.period)">{{$t('purchase')}}</div>
+                <div class="TKF-purchase1" v-if="item.surplus == 0 || Number(nowTime) >= Number(item.startTime)">{{$t('soldOut')}}</div>
                 <!--                  <div class="TKF-purchase1" v-if="Number(nowTime) >= Number(endTime1)">售罄</div>-->
               </div>
 

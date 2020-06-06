@@ -10,7 +10,7 @@ root.data = function () {
   return {
     loading: true,
     heatList: [],
-    isApp:false,
+    // isApp:false,
     isIOS:false
   }
 }
@@ -38,6 +38,11 @@ root.computed = {};
 // 获取userId
 root.computed.userId = function () {
   return this.$store.state.authMessage.userId
+}
+
+// 检验是否是APP
+root.computed.isApp = function () {
+  return this.$route.query.isApp ? true : false
 }
 
 root.watch = {};

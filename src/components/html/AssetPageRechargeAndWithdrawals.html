@@ -41,13 +41,13 @@
 
     <div class="detail-header flex">
       <span class="currency">{{$t('currency')}}</span>
-<!--      <span class="fullName">{{$t('fullName')}}</span>-->
+      <!--      <span class="fullName">{{$t('fullName')}}</span>-->
       <span class="total">{{$t('total')}}</span>
       <span class="available">{{$t('available')}}</span>
       <span class="frozen">{{$t('frozen')}}</span>
       <span class="valuation">{{$t('valuation')}}(BTC)</span>
       <span class="rechargeAndWithdrawals">{{$t('operation')}}
-<!--        {{$t('recharge')}} / {{$t('withdrawals')}}-->
+        <!--        {{$t('recharge')}} / {{$t('withdrawals')}}-->
       </span>
     </div>
 
@@ -58,13 +58,13 @@
           <div class="li-container flex">
           <span class="currency">
 <!--            <span class="currency-icon">-->
-<!--              <img class="currency-icon-img" :src="'http://logo.2020.exchange/'+item.currency + '.png'" alt="">-->
-<!--            </span>-->
+            <!--              <img class="currency-icon-img" :src="'http://logo.2020.exchange/'+item.currency + '.png'" alt="">-->
+            <!--            </span>-->
             <span class="currency_name">
               {{item.currency}}
             </span>
           </span>
-<!--            <span class="fullName">{item.description}}</span>-->
+            <!--            <span class="fullName">{item.description}}</span>-->
             <span class="total">{{toFixed(parseFloat(toFixed(item.otcAvailable,8)) + parseFloat(toFixed(item.otcFrozen,8)) , 8)}}</span>
             <span class="available">{{toFixed(item.otcAvailable,8)}}</span>
             <span class="frozen">{{toFixed(item.otcFrozen,8)}}</span>
@@ -81,12 +81,12 @@
             <span class="rechargeAndWithdrawals">
 
          <!--  sss 屏蔽-->
-            <!--打开划转 begin-->
+              <!--打开划转 begin-->
             <span class="recharge-button button" @click="openTransfer(index,item)"
                   :class="{'recharge-button-select':activeIndex === index  && recharge}"
                   v-if="rechargeFlag(item)">
               {{$t('transfer')}}
-<!--              {{$t('recharge')}}-->
+              <!--              {{$t('recharge')}}-->
             </span>
               <!--打开划转 end-->
 
@@ -94,31 +94,31 @@
               <span class="can-not-withdrawals"
                     :class="{'recharge-button-select':activeIndex === index}" v-else>
                 {{$t('transfer')}}
-<!--                {{$t('recharge')}}-->
+                <!--                {{$t('recharge')}}-->
               </span>
               <!--关闭划转 end-->
 
               <!--打开去交易 begin-->
-<!--            <span class="withdrawals-button button" @click="goToDeal(index,item)"-->
-<!--                  :class="{'withdrawals-button-select':activeIndex===index}"-->
-<!--                  v-if="withdrawalsFlag(item)"-->
-<!--            >{{$t('toDealWith')}}-->
-<!--&lt;!&ndash;              {{$t('withdrawals')}}&ndash;&gt;-->
-<!--            </span>-->
-<!--            <span class="not-margin can-not-withdrawals" v-else>-->
-<!--              {{$t('toDealWith')}}-->
-<!--&lt;!&ndash;              {{$t('withdrawals')}}&ndash;&gt;-->
-<!--            </span>-->
+              <!--            <span class="withdrawals-button button" @click="goToDeal(index,item)"-->
+              <!--                  :class="{'withdrawals-button-select':activeIndex===index}"-->
+              <!--                  v-if="withdrawalsFlag(item)"-->
+              <!--            >{{$t('toDealWith')}}-->
+              <!--&lt;!&ndash;              {{$t('withdrawals')}}&ndash;&gt;-->
+              <!--            </span>-->
+              <!--            <span class="not-margin can-not-withdrawals" v-else>-->
+              <!--              {{$t('toDealWith')}}-->
+              <!--&lt;!&ndash;              {{$t('withdrawals')}}&ndash;&gt;-->
+              <!--            </span>-->
               <!--打开去交易 end-->
 
               <!--  sss 屏蔽结束-->
 
               <!--打开划转 begin-->
-<!--            <span class="recharge-buttons buttons">{{$t('transfer')}}</span>-->
+              <!--            <span class="recharge-buttons buttons">{{$t('transfer')}}</span>-->
               <!--打开划转 end-->
 
               <!--打开去交易 begin-->
-<!--            <span class="recharge-buttons buttons">{{$t('toDealWith')}}</span>-->
+              <!--            <span class="recharge-buttons buttons">{{$t('toDealWith')}}</span>-->
               <!--打开去交易 end-->
 
               <!--关闭去交易 begin-->
@@ -129,14 +129,14 @@
 
 
           </div>
-<!--          充值页面组件-->
-<!--          <RechargeAndWithdrawalsRecharge v-if="activeIndex === index  && recharge" @close="openRecharge(index,item)"-->
-<!--                                          :currency="item.currency"/>-->
-<!--          提现页面组件-->
-<!--          <RechargeAndWithdrawalsWithdrawals v-if="activeIndex===index  && withdrawals"-->
-<!--                                             @close="openWithdrawals(index,item)"-->
-<!--                                             :currency="item.currency" :available="item.available"-->
-<!--                                             :haveMemo="item.memo"/>-->
+          <!--          充值页面组件-->
+          <!--          <RechargeAndWithdrawalsRecharge v-if="activeIndex === index  && recharge" @close="openRecharge(index,item)"-->
+          <!--                                          :currency="item.currency"/>-->
+          <!--          提现页面组件-->
+          <!--          <RechargeAndWithdrawalsWithdrawals v-if="activeIndex===index  && withdrawals"-->
+          <!--                                             @close="openWithdrawals(index,item)"-->
+          <!--                                             :currency="item.currency" :available="item.available"-->
+          <!--                                             :haveMemo="item.memo"/>-->
         </li>
       </ul>
     </template>
@@ -183,7 +183,7 @@
           </el-option>
         </el-select>
 
-<!--        <input type="text" placeholder="BTC">-->
+        <!--        <input type="text" placeholder="BTC">-->
         <div class="amount-not-empty">
           <span>{{transferCurrencyWA}}</span>
         </div>

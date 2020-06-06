@@ -17,13 +17,17 @@ root.data = function () {
     hasEndedList:[],
     totalBalance:0, // 总资产
     newQuantity:0, // 最新收益
+    last:0, // 最新收益
+    notReleased:0, // 最新收益
     loading:true,
     openFundDitail:false, //基金详情弹窗
     openFundPurchase:false, //本期申购弹窗
     dataList:{},
     drawNumbers:[],
     prices:0,
+    profit:0,
     nonce:'',
+    nonce1:'',
     currentBuyList:[],// 本期申购列表
     limit: 30,
     lastId:0,
@@ -109,8 +113,8 @@ root.methods.re_getTkfTickets = function (data) {
   }
   // console.info(data)
   this.currentBuyList = data.dataMap.list
-  this.nonce = data.dataMap.nonce.substring(data.dataMap.nonce.length-3) || ''
-  this.blockContractUrl = data.dataMap.blockContractUrl
+  // this.nonce = data.dataMap.nonce.substring(data.dataMap.nonce.length-3) || ''
+
   this.fundCurrentFlag = true
 }
 root.methods.error_getTkfTickets = function (err) {
@@ -143,11 +147,13 @@ root.methods.re_viewDetails = function (data) {
   if(!data)return
   this.drawNumbers = data.dataMap.presaleNo || []
   this.prices = data.dataMap.prices || 0
+  this.profit = data.dataMap.profit || 0
 
-  if(this.$route.query.selectedType != 1 && data.dataMap.nonce) {
-    this.nonce = data.dataMap.nonce.substring(data.dataMap.nonce.length-3)
+  if(this.selectedType != 1 && data.dataMap.nonce) {
+    this.nonce = data.dataMap.nonce.substring(data.dataMap.nonce.length-3) || ''
+    this.blockContractUrl = data.dataMap.blockContractUrl
   }else {
-    this.nonce = this.$t('noAward')  //未开奖
+    this.nonce1 = this.$t('noAward')  //未开奖
   }
   // let disLength = this.nonce.length;
   // this.nonce1 = this.nonce.substring(disLength-3);
@@ -195,6 +201,8 @@ root.methods.re_getPurchase = function (data) {
   this.purchaseList = data.dataMap.list || []
   this.totalBalance = data.dataMap.balance || 0
   this.newQuantity = data.dataMap.quantity || 0
+  this.last = data.dataMap.last || 0
+  this.notReleased = data.dataMap.notReleased || 0
   this.loading = false
 
 }
@@ -244,7 +252,9 @@ root.methods.re_getHasEnded = function (data){
 root.methods.error_getHasEnded = function (err) {
 }
 
-
+root.methods.gotoNonce = function () {
+  window.open(this.blockContractUrl)
+}
 
 
 // 格式化时间
