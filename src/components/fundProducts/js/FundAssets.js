@@ -29,7 +29,7 @@ root.data = function () {
     nonce:'',
     nonce1:'',
     currentBuyList:[],// 本期申购列表
-    limit: 30,
+    limit: 100,
     lastId:0,
     blockContractUrl:'',
     projectId:'',
@@ -108,7 +108,7 @@ root.methods.re_getTkfTickets = function (data) {
   if (data.dataMap.list.length < this.limit){
     this.isShowGetMoreRecord = false
   } else {
-    this.limit += 20;
+    this.limit += 100;
     this.isShowGetMoreRecord = true
   }
   // console.info(data)

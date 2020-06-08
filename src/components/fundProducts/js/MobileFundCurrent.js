@@ -8,7 +8,7 @@ root.components = {
 root.data = function () {
   return {
     currentBuyList:[],
-    limit: 30, //每页显示条数
+    limit: 100, //每页显示条数
     lastId:0, // 每页最后ID
     loading:true,
     ajaxWithdrawFlag:false,
@@ -86,7 +86,7 @@ root.methods.re_getTkfTickets = function (data) {
   if (data.dataMap.list.length < this.limit){
     this.isShowGetMoreRecord = false
   } else {
-    this.limit += 10;
+    this.limit += 100;
     this.isShowGetMoreRecord = true
   }
   // console.info(data)
