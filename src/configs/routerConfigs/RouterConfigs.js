@@ -2018,7 +2018,21 @@ root.routes.push({
               caseSensitive: true,
               component: resolve => require(['@/components/vue/AssetPagePlatformReward'], resolve),
             },
-
+            // 基金奖励
+            {
+              path: 'fundAward',
+              name: 'fundAward',
+              meta: {
+                pcname: 'fundAward',
+                h5name: '',
+                requireLogin: true,
+                templateClose: false,
+                // templatePath: '/index/assetPageT',
+                requireLoginOff: false,
+              },
+              caseSensitive: true,
+              component: resolve => require(['@/components/fundProducts/vue/fundAward'], resolve),
+            },
           ]
         },
 

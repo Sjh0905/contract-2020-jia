@@ -60,6 +60,13 @@
         </router-link>
         <!-- 平台奖励 end -->
 
+        <!-- 平台奖励 begin -->
+        <router-link :to="{name:'fundAward'}" class="title-tab flex-center margin-a-little tab-item-last"
+                     :class="lang!='CH'?'title-tab-en':''"
+                     active-class="selected text_blue">
+          {{$t('assetPage.fundManagement')}}
+        </router-link>
+        <!-- 平台奖励 end -->
 
 
     </div>

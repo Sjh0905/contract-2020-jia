@@ -72,7 +72,12 @@
   "notExtracted": "未抽取",
   "noAward": "未开奖",
   "product": "产品",
-  "assets": "理财"
+  "assets": "理财",
+  "fundToWallet": "从基金到钱包",
+  "walletToFund": "从钱包到基金",
+  "success": "成功",
+  "falied": "失败"
+
 },
 "EN": {},
 "CA": {},
@@ -149,6 +154,10 @@
   "notExtracted": "未抽取",
   "noAward": "未開獎",
   "product": "產品",
-  "assets": "理財"
+  "assets": "理財",
+  "fundToWallet": "從基金到錢包",
+  "walletToFund": "從錢包到基金",
+  "success": "成功",
+  "falied": "失敗"
 }
 }

@@ -1550,6 +1550,7 @@ root.basePageBar = {}
 root.basePageBar.index = '首页'
 
 root.assetPage.platformReward = '活动奖励'
+root.assetPage.fundManagement = '基金奖励'
 root.assetPage.miningReward = '挖矿奖励'
 
 root.assetPagePlatformReward = {}
