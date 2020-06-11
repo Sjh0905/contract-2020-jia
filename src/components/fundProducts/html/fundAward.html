@@ -52,7 +52,7 @@
         <!--无数据时显示 begin-->
         <li class="detail-li-no-data" v-if="computedRecord.length===0">
           <div class="no-data-content">
-<!--            <img src="../assets/assetPageRecord/no-order-light.png" alt="">-->
+            <img src="../../../assets/assetPageRecord/no-order-light.png" alt="">
             <div class="no-record">{{$t('orderPageCurrentEntrustment.close_9')}}</div>
           </div>
         </li>
@@ -60,10 +60,10 @@
 
       </ul>
       <!--平台奖励具体 end-->
-      <div class="loading-more text_blue" v-if="loadingMoreShow">
-        <span v-if="!loadingMoreShowing" @click="loadingMore">{{$t('assetPageWithdrawalsRecord.loadingMore')}}</span>
-        <span v-if="loadingMoreShowing"><Loading/></span>
-      </div>
+<!--      <div class="loading-more text_blue" v-if="loadingMoreShow">-->
+<!--        <span v-if="!loadingMoreShowing" @click="loadingMore">{{$t('assetPageWithdrawalsRecord.loadingMore')}}</span>-->
+<!--        <span v-if="loadingMoreShowing"><Loading/></span>-->
+<!--      </div>-->
     </template>
   </div>
   <Loading v-if="loading"/>
