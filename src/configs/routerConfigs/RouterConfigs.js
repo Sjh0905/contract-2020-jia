@@ -223,7 +223,7 @@ root.routes.push({
   caseSensitive: true,
   component: resolve => require(['@/components/followTrade/vue/MobileFollowTrade'], resolve)
 })
-
+//H5  跟单策略
 root.routes.push({
   path: '/index/mobileFollowTradeStrategy',
   name: 'mobileFollowTradeStrategy',
@@ -235,7 +235,6 @@ root.routes.push({
   caseSensitive: true,
   component: resolve => require(['@/components/followTrade/vue/MobileFollowTradeStrategy'], resolve)
 })
-
 /*-----------------  跟单H5 end  ------------------------*/
 
 
