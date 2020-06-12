@@ -1,3 +1,22 @@
-<div>
+<div class="mobile-follow-trade">
   你好世界
+<!--  非ios头部-->
+  <div v-show="!isApp" class="fund-buy-header-title">
+    <div class="fund-buy-header-title-back-icon" @click="jumpToBack">
+      <img class="fund-buy-header-title-back-icon-img" src="../../LuckyDraw/assets/mobileForecastHomePage/back_icon.png" alt="">
+    </div>
+    <div class="fund-buy-header-title-text">策略跟单</div>
+  </div>
+
+<!--  策略跟单主体部分-->
+  <div class="fund-buy-main" :class="isApp ? 'fund-buy-main-app' : '' ">
+<!--    顶部banner-->
+    <div class="folloe-banner"></div>
+
+    <div class="with-list flex">
+      <div class="with-billboard">带单龙虎榜</div>
+      <div class="my-with-single">我的跟单</div>
+      <div><img src="" alt=""></div>
+    </div>
+  </div>
 </div>
