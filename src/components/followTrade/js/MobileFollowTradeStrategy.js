@@ -6,7 +6,9 @@ root.name = 'mobileFollowTradeStrategy'
 //}
 /*------------------------------ data -------------------------------*/
 root.data = function () {
-  return {}
+  return {
+
+  }
 }
 /*------------------------------ 生命周期 -------------------------------*/
 root.created = function () {}
@@ -18,4 +20,8 @@ root.computed = {}
 root.watch = {}
 /*------------------------------ 方法 -------------------------------*/
 root.methods = {}
+// 返回跟单首页
+root.methods.jumpToFollowTrade = function () {
+  this.$router.push({name:'mobileFollowTrade'})
+}
 export default root
