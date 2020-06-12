@@ -208,8 +208,18 @@ root.routes.push({
   caseSensitive: true,
   component: resolve => require(['@/components/LuckyDraw/vue/treasureBox'], resolve)
 })
-
-
+//H5  跟单首页
+root.routes.push({
+  path: '/index/mobileFollowTrade',
+  name: 'mobileFollowTrade',
+  meta: {
+    requireLogin: true,
+    pcname: '',
+    h5name: 'mobileFollowTrade',
+  },
+  caseSensitive: true,
+  component: resolve => require(['@/components/vue/MobileFollowTrade'], resolve)
+})
 /*-----------------  基金理财H5 begin  ------------------------*/
 // 基金理财
 root.routes.push({

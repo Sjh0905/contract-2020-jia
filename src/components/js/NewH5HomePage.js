@@ -1156,6 +1156,10 @@ root.methods.gotoJiaoyi = function () {
 root.methods.gotoRecommend = function () {
   this.$router.push({name: 'H5Recommend'});
 }
+//跟单
+root.methods.gotoFollowTrade = function () {
+  this.$router.push({name: 'mobileFollowTrade'});
+}
 
 
 /*---------------------- cc sort在ios中不兼容的问题 ---------------------*/
