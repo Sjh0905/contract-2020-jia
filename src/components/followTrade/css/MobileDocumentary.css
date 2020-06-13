@@ -1,0 +1,195 @@
+.mobile-follow-trade{
+  background: #FFFFFF;
+  height: 100%;
+  overflow-y: hidden;
+}
+
+/*非ios头部 样式Start*/
+.fund-buy-header-title {
+  height: 0.88rem;
+  width: 100%;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  background: #fff;
+  z-index: 100;
+  /*border-bottom: 0.02rem solid #F7F8FA ;*/
+}
+.fund-buy {
+  position: absolute;
+  top: 0.2rem;
+  right: 0.3rem;
+  width: 0.48rem;
+  height: 0.48rem;
+}
+
+.fund-buy-header-title-back-icon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0.88rem;
+  height: 0.88rem;
+}
+
+.fund-buy-header-title-back-icon-img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0.32rem;
+  transform: translate(-50%,-50%);
+}
+.fund-buy-header-title-text {
+  height:0.44rem;
+  font-size:0.32rem;
+  font-family:PingFangSC-Semibold,PingFang SC;
+  font-weight:600;
+  color:rgba(11,11,39,1);
+  line-height:0.44rem;
+}
+/*非ios头部 样式End*/
+/*策略跟单主体部分样式Start*/
+.fund-buy-main{
+  /*background: green;*/
+  /*flex: 1;*/
+  /*height: 100%;*/
+  overflow-y: scroll;
+  padding-top: 0.88rem;
+  /*margin-bottom:1.48rem;*/
+}
+.fund-buy-main-app{
+  padding-top: 0;
+}
+
+.fund-description-info{
+  width: 100%;
+  padding: 0 0.3rem;
+  background-color: #ffffff;
+  margin-bottom: 0.2rem;
+}
+.fund-description-info-item{
+  display: flex;
+  flex-direction: row;
+  padding: 0.34rem  0rem;
+}
+.fund-description-felx{
+  display: flex;
+  flex-direction: row;
+  padding: 0.34rem  0rem 0.2rem 0;
+}
+.fund-description-info-left{
+  flex:1;
+  /*margin-right: 0.58rem;*/
+  /*margin-bottom: 0.2rem;*/
+  /*width: 1.04rem;*/
+  height:0.32rem;
+  font-size:0.28rem;
+  font-family:PingFangSC-Medium,PingFang SC;
+  font-weight:500;
+  color:#193662;
+  line-height:0.32rem;
+}
+.fund-description-info-right{
+  flex:1;
+  /*width: 5.28rem;*/
+  text-align: right;
+  font-size:0.28rem;
+  font-family:PingFangSC-Semibold,PingFang SC;
+  font-weight:600;
+  color:#A2B5D9;
+  line-height:0.32rem;
+}
+.fund-description-info-right-input {
+  /*flex:1;*/
+  /*width: 1.4rem;*/
+  /*text-align: right;*/
+  font-size:0.28rem;
+  font-family:PingFangSC-Semibold,PingFang SC;
+  font-weight:600;
+  color:#193662;
+  height:0.48rem;
+  line-height: 0.48rem;
+  /*background:rgba(255,255,255,1);*/
+  /*border-radius:0.03rem;*/
+  /*border:0.01rem solid rgba(208,212,233,1);*/
+  /*margin-right: 0.01rem;*/
+}
+input {
+  width: 1.4rem;
+  text-align: left;
+  font-size:0.28rem;
+  font-family:PingFangSC-Semibold,PingFang SC;
+  font-weight:600;
+  color:#193662;
+  height:0.48rem;
+  line-height: 0.48rem;
+  background:rgba(255,255,255,1);
+  border-radius:0.03rem;
+  border:0.01rem solid rgba(208,212,233,1);
+  padding-left: 0.15rem;
+  margin-right: 0.06rem;
+}
+.fixed-amount-proportion {
+  height:0.6rem;
+  line-height: 0.6rem;
+  color: #6A83A8;
+  font-size:0.28rem;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  background:rgba(230,232,244,1);
+  border-radius:0.03rem;
+  padding: 0 0.34rem;
+  margin-right: 0.4rem;
+}
+.fund-description-amount{
+  display: flex;
+  flex-direction: row;
+  padding: 0.34rem 0rem 0.1rem 0;
+}
+.fixed-amount {
+  height:0.6rem;
+  line-height: 0.6rem;
+  color: #FFFFFF;
+  background:rgba(53,118,245,1);
+  border-radius:0.03rem;
+  border:0.01rem solid rgba(45,91,181,1);
+}
+.fund-description-usdt{
+  flex:1;
+  /*margin-right: 0.58rem;*/
+  /*margin-bottom: 0.2rem;*/
+  /*width: 1.04rem;*/
+  /*height:0.32rem;*/
+  font-size:0.28rem;
+  font-family:PingFangSC-Medium,PingFang SC;
+  font-weight:500;
+  color:#193662;
+  line-height:0.6rem;
+}
+.remind {
+  color: #6A83A8;
+  font-size:0.24rem;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+}
+.documentary-box {
+  position: fixed;
+  bottom:0;
+  padding: 0.3rem;
+  background:rgba(255,255,255,1);
+  box-shadow:0rem -0.04rem 0.26rem 0.22rem rgba(161,161,161,0.07);
+}
+
+.documentary-button {
+  width:6.9rem;
+  height:0.88rem;
+  line-height: 0.88rem;
+  color: #FFFFFF;
+  text-align: center;
+  background:linear-gradient(270deg,rgba(53,118,245,1) 0%,rgba(69,154,245,1) 100%);
+  border-radius:0.03rem;
+  font-size:0.32rem;
+  font-family:PingFangSC-Semibold,PingFang SC;
+  font-weight:600;
+}

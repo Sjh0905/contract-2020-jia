@@ -1,5 +1,5 @@
 const root = {}
-root.name = 'mobileFollowTradeStrategy'
+root.name = 'mobileDocumentaryGod'
 /*------------------------------ 组件 ------------------------------*/
 //root.components = {
 //  'Loading': resolve => require(['../Loading/Loading.vue'], resolve),
@@ -8,7 +8,15 @@ root.name = 'mobileFollowTradeStrategy'
 root.data = function () {
   return {
     followType:1,
-    historicalList:[],
+    historicalList:[
+      {type:true},
+      {type:true},
+      {type:false},
+      {type:false},
+      {type:true},
+      {type:false},
+      {type:true},
+    ],
     followerList:[]
   }
 }
@@ -47,9 +55,5 @@ root.methods.toggleType = function (type) {
 // 返回跟单首页
 root.methods.jumpToFollowTrade = function () {
   this.$router.push({name:'mobileFollowTrade'})
-}
-// 个人设置
-root.methods.personalSetting = function () {
-  console.info('personalSetting=======个人设置',)
 }
 export default root

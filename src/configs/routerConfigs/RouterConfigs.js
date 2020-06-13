@@ -223,7 +223,7 @@ root.routes.push({
   caseSensitive: true,
   component: resolve => require(['@/components/followTrade/vue/MobileFollowTrade'], resolve)
 })
-//H5  跟单策略
+//H5  跟单策略个人
 root.routes.push({
   path: '/index/mobileFollowTradeStrategy',
   name: 'mobileFollowTradeStrategy',
@@ -234,6 +234,42 @@ root.routes.push({
   },
   caseSensitive: true,
   component: resolve => require(['@/components/followTrade/vue/MobileFollowTradeStrategy'], resolve)
+})
+//H5  跟单策略大神
+root.routes.push({
+  path: '/index/mobileDocumentaryGod',
+  name: 'mobileDocumentaryGod',
+  meta: {
+    requireLogin: true,
+    pcname: '',
+    h5name: 'mobileDocumentaryGod',
+  },
+  caseSensitive: true,
+  component: resolve => require(['@/components/followTrade/vue/mobileDocumentaryGod'], resolve)
+})
+//H5  跟单
+root.routes.push({
+  path: '/index/mobileDocumentary',
+  name: 'mobileDocumentary',
+  meta: {
+    requireLogin: true,
+    pcname: '',
+    h5name: 'mobileDocumentary',
+  },
+  caseSensitive: true,
+  component: resolve => require(['@/components/followTrade/vue/MobileDocumentary'], resolve)
+})
+//H5  带单管理
+root.routes.push({
+  path: '/index/mobileTapeListManage',
+  name: 'mobileTapeListManage',
+  meta: {
+    requireLogin: true,
+    pcname: '',
+    h5name: 'mobileTapeListManage',
+  },
+  caseSensitive: true,
+  component: resolve => require(['@/components/followTrade/vue/MobileTapeListManage'], resolve)
 })
 //H5  我的跟单
 root.routes.push({

@@ -1,0 +1,50 @@
+<div class="mobile-follow-trade">
+  <!--  非ios头部-->
+  <div v-show="!isApp" class="fund-buy-header-title">
+    <div class="fund-buy-header-title-back-icon" @click="goToFollowTrade">
+      <img class="fund-buy-header-title-back-icon-img" src="../../LuckyDraw/assets/mobileForecastHomePage/back_icon.png" alt="">
+    </div>
+    <div class="fund-buy-header-title-text">跟单</div>
+  </div>
+
+  <!--  跟单主体部分-->
+  <div class="fund-buy-main" :class="isApp ? 'fund-buy-main-app' : '' ">
+
+    <div class="fund-description-info">
+      <div class="fund-description-info-item">
+        <div class="fund-description-info-left">跟单</div>
+        <div class="fund-description-info-right">1000017</div>
+      </div>
+      <div class="fund-description-info-item">
+        <div class="fund-description-info-left">跟单币对</div>
+        <div class="fund-description-info-right">BTC/USDT</div>
+      </div>
+      <div class="fund-description-felx">
+        <div class="fund-description-info-left">跟单方式</div>
+      </div>
+      <div class="flex">
+        <div class="fixed-amount-proportion" :class="followType == 1 ? 'fixed-amount' : '' " @click="fixedType(1)">固定金额</div>
+        <div class="fixed-amount-proportion" :class="followType == 2 ? 'fixed-amount' : '' " @click="fixedType(2)">固定比例</div>
+      </div>
+      <div class="fund-description-amount" v-if="followType == 1">
+        <div class="fund-description-usdt">跟单金额(USDT)</div>
+        <div class="fund-description-info-right-input">
+          <input type="text">
+        </div>
+      </div>
+      <div class="fund-description-amount" v-if="followType == 2">
+        <div class="fund-description-usdt">单位基准(USDT/单位)</div>
+        <div class="fund-description-info-right-input">
+          <input type="text"> %
+        </div>
+      </div>
+      <div class="remind">开启后双重盈利开启后双重盈利开启后双重盈利开启后双重盈利开启后双重盈利</div>
+
+    </div>
+  </div>
+
+<!-- 跟单按钮 -->
+  <div class="documentary-box">
+    <div class="documentary-button">立即跟单</div>
+  </div>
+</div>
