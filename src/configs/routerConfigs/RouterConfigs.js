@@ -259,6 +259,18 @@ root.routes.push({
   caseSensitive: true,
   component: resolve => require(['@/components/followTrade/vue/MobileDocumentary'], resolve)
 })
+//H5  带单管理
+root.routes.push({
+  path: '/index/mobileTapeListManage',
+  name: 'mobileTapeListManage',
+  meta: {
+    requireLogin: true,
+    pcname: '',
+    h5name: 'mobileTapeListManage',
+  },
+  caseSensitive: true,
+  component: resolve => require(['@/components/followTrade/vue/MobileTapeListManage'], resolve)
+})
 /*-----------------  跟单H5 end  ------------------------*/
 
 
