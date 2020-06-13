@@ -124,16 +124,9 @@ root.methods.re_postDocumentaryImmediately = function (data) {
   // }
   //
   // if (this.success == true) {
-  //   this.popOpen = true
-  //   this.popType = 1
-  //   this.popText = this.$t('Successfully') //'添加成功'
+  //   this.openPop('跟单成功',1)
   //   setTimeout(() => {
-  //     this.popOpen = true
-  //     this.getGroupDiscount(this.groupId)
-  //     this.getImportantMembers(this.groupId)
-  //     this.getMemberList(this.groupId)
-  //     this.organizationSetUpComponent=false
-  //
+  //     this.$router.push({'path':'/index/mobileMyFollowOrder'})
   //   }, 1000)
   //   return;
   // }

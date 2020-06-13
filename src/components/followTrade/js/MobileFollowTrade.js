@@ -68,4 +68,9 @@ root.methods.goToMobileFollowTradeStrategy = function () {
 root.methods.goToDocumentary = function () {
   this.$router.push({'path':'/index/mobileDocumentary'})
 }
+
+// 返回我的跟单，正在跟随
+root.methods.goToMobileMyFollowOrder = function () {
+  this.$router.push({name:'mobileMyFollowOrder'})
+}
 export default root
