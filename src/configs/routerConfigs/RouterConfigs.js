@@ -245,7 +245,7 @@ root.routes.push({
     h5name: 'mobileDocumentaryGod',
   },
   caseSensitive: true,
-  component: resolve => require(['@/components/followTrade/vue/MobileDocumentaryGod'], resolve)
+  component: resolve => require(['@/components/followTrade/vue/mobileDocumentaryGod'], resolve)
 })
 /*-----------------  跟单H5 end  ------------------------*/
 

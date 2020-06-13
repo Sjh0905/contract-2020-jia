@@ -1,0 +1,132 @@
+<div class="mobile-trade-strategy">
+
+  <!--顶部标题-->
+  <div class="mobile-trade-header-title">
+    <!--返回按钮-->
+    <div class="mobile-trade-header-title-back-icon" @click="jumpToFollowTrade()">
+      <img class="mobile-trade-header-title-back-icon-img" src="../../LuckyDraw/assets/mobileForecastHomePage/back_icon.png" alt="">
+    </div>
+    <!--UID标题-->
+    <div class="fund-buy-header-title-text">1000012</div>
+<!--    &lt;!&ndash;设置按钮&ndash;&gt;-->
+<!--    <div class="mobile-trade-header-title-setting-icon" @click="personalSetting()">-->
+<!--      <img class="mobile-trade-header-title-back-icon-img" src="../assets/setting_icon.png" alt="">-->
+<!--    </div>-->
+  </div>
+
+  <div class="mobile-trade-header-null"></div>
+
+  <!--内容上部-->
+  <div class="mobile-trade-top">
+    <div class="mobile-trade-top-banner flex">
+      <div class="mobile-trade-top-banner-img">
+        <img src="../assets/management_personal_icon.png" alt="" class="mobile-trade-img">
+      </div>
+      <div class="mobile-trade-top-banner-text">1000012</div>
+    </div>
+    <div class="mobile-trade-top-data flex">
+
+      <div class="mobile-trade-data-item">
+        <div class="mobile-trade-data">- -</div>
+        <div>累计交易量</div>
+      </div>
+
+      <div class="mobile-trade-data-item">
+        <div class="mobile-trade-data">- -</div>
+        <div>交易笔数</div>
+      </div>
+
+      <div class="mobile-trade-data-item">
+        <div class="mobile-trade-data">- -</div>
+        <div>跟单人数</div>
+      </div>
+
+      <div class="mobile-trade-data-item">
+        <div class="mobile-trade-data text-green">- -</div>
+        <div>累计收益率</div>
+      </div>
+    </div>
+  </div>
+  <!--内容下部-->
+
+  <!--内容中部-->
+  <div class="mobile-trade-center" >
+    <div class="mobile-trade-center-title  flex">
+      <div class="mobile-trade-center-title-only mobile-trade-center-title-history" :class="followType == 1 ?'mobile-trade-center-title-selected':''" @click="toggleType(1)">
+        历史持仓
+      </div>
+      <div class="mobile-trade-center-title-line"></div>
+      <div class="mobile-trade-center-title-only mobile-trade-center-title-follower" :class="followType == 2?'mobile-trade-center-title-selected':''" @click="toggleType(2)">
+        跟随者
+      </div>
+    </div>
+    <div class="mobile-trade-center-content" v-if="followType == 1">
+      <div class="mobile-trade-center-content-item" v-for="(item,index) in historicalList" :key="index">
+        <div class="mobile-trade-item-top flex">
+          <div class="mobile-trade-item-top-left">
+            <span>USDT</span>
+            <span class="mobile-trade-buy text-green" :class="item.type?'text-green':'text-red'">{{item.type? '买入':'卖出'}}</span>
+          </div>
+          <div class="mobile-trade-item-top-right">06/11 02:18:07</div>
+        </div>
+        <div class="mobile-trade-item-content">
+          <div class="mobile-trade-item-content-title flex">
+            <div class="mobile-trade-price">价格</div>
+            <div class="mobile-trade-amount">数量</div>
+            <div class="mobile-trade-money">金额</div>
+          </div>
+          <div class="mobile-trade-item-content-container flex">
+            <div class="mobile-trade-price">9812.21</div>
+            <div class="mobile-trade-amount">1</div>
+            <div class="mobile-trade-money">9812.12</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mobile-trade-center-content" v-if="followType == 2">
+      <div class="mobile-trade-center-follower flex">
+        <div class="mobile-trader-follower-img">
+          <img src="../assets/big-brother.png" alt="">
+        </div>
+        <div class="mobile-trader-follower-content">
+          <div class="mobile-trader-follower-content-top flex">
+            <div class="mobile-trader-follower-UID">100061</div>
+            <div class="mobile-trader-follower-income">98765.12</div>
+          </div>
+          <div class="mobile-trader-follower-content-top flex">
+            <div class="mobile-trader-follower-text">跟单总额 15123.12 USDT</div>
+            <div class="mobile-trader-follower-text">跟随收益(USDT)</div>
+          </div>
+        </div>
+      </div>
+      <div class="mobile-trade-center-follower flex">
+        <div class="mobile-trader-follower-img">
+          <img src="../assets/big-brother.png" alt="">
+        </div>
+        <div class="mobile-trader-follower-content">
+          <div class="mobile-trader-follower-content-top flex">
+            <div class="mobile-trader-follower-UID">100061</div>
+            <div class="mobile-trader-follower-income">98765.12</div>
+          </div>
+          <div class="mobile-trader-follower-content-top flex">
+            <div class="mobile-trader-follower-text">跟单总额 15123.12 USDT</div>
+            <div class="mobile-trader-follower-text">跟随收益(USDT)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--内容底部-->
+  <div class="mobile-trade-no-data">
+
+    <div class="mobile-trade-open-exchange">
+      <div class="mobile-trade-open-exchange-text flex">
+        <div class="mobile-trade-fee">费用</div>
+        <div class="mobile-trade-order-fee text-blue">100.00USDT/7天</div>
+      </div>
+      <div class="mobile-trade-open-exchange-button">跟单</div>
+    </div>
+  </div>
+
+</div>
+
