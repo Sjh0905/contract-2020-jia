@@ -7,7 +7,7 @@ root.name = 'mobileFollowTradeStrategy'
 /*------------------------------ data -------------------------------*/
 root.data = function () {
   return {
-
+    followType:1
   }
 }
 /*------------------------------ 生命周期 -------------------------------*/
@@ -20,8 +20,16 @@ root.computed = {}
 root.watch = {}
 /*------------------------------ 方法 -------------------------------*/
 root.methods = {}
+// 切换历史跟单和跟随者
+root.methods.toggleType = function (type) {
+  this.followType = type
+}
 // 返回跟单首页
 root.methods.jumpToFollowTrade = function () {
   this.$router.push({name:'mobileFollowTrade'})
+}
+// 个人设置
+root.methods.personalSetting = function () {
+  console.info('personalSetting=======个人设置',)
 }
 export default root
