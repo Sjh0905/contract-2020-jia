@@ -1,12 +1,14 @@
 const root = {}
-root.name = 'mobileFollowTrade'
+root.name = 'mobileDocumentary'
 /*------------------------------ 组件 ------------------------------*/
 //root.components = {
 //  'Loading': resolve => require(['../vue/Loading'], resolve),
 //}
 /*------------------------------ data -------------------------------*/
 root.data = function () {
-  return {}
+  return {
+    followType:1
+  }
 }
 /*------------------------------ 生命周期 -------------------------------*/
 root.created = function () {
@@ -14,7 +16,7 @@ root.created = function () {
   if(this.$route.query.isApp) {
     window.postMessage(JSON.stringify({
         method: 'setTitle',
-        parameters: '策略跟单'
+        parameters: '跟单'
       })
     );
     window.postMessage(JSON.stringify({
@@ -56,16 +58,14 @@ root.computed.windowWidth = function () {
 root.watch = {}
 /*------------------------------ 方法 -------------------------------*/
 root.methods = {}
-//跳转首页
-root.methods.jumpToBack = function () {
-  this.$router.push({'path':'/index/newH5homePage'})
-}
+
 //跳转个人策略跟单
-root.methods.goToMobileFollowTradeStrategy = function () {
-  this.$router.push({'path':'/index/mobileFollowTradeStrategy'})
+root.methods.goToFollowTrade = function () {
+  this.$router.push({'path':'/index/mobileFollowTrade'})
 }
 
-root.methods.goToDocumentary = function () {
-  this.$router.push({'path':'/index/mobileDocumentary'})
+// 切换历史跟单和跟随者
+root.methods.fixedType = function (type) {
+  this.followType = type
 }
 export default root

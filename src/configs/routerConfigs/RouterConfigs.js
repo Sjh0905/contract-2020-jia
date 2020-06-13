@@ -247,6 +247,18 @@ root.routes.push({
   caseSensitive: true,
   component: resolve => require(['@/components/followTrade/vue/mobileDocumentaryGod'], resolve)
 })
+//H5  跟单
+root.routes.push({
+  path: '/index/mobileDocumentary',
+  name: 'mobileDocumentary',
+  meta: {
+    requireLogin: true,
+    pcname: '',
+    h5name: 'mobileDocumentary',
+  },
+  caseSensitive: true,
+  component: resolve => require(['@/components/followTrade/vue/MobileDocumentary'], resolve)
+})
 /*-----------------  跟单H5 end  ------------------------*/
 
 

@@ -17,6 +17,13 @@
   z-index: 100;
   border-bottom: 0.02rem solid #F7F8FA ;
 }
+.fund-buy {
+  position: absolute;
+  top: 0.2rem;
+  right: 0.3rem;
+  width: 0.48rem;
+  height: 0.48rem;
+}
 
 .fund-buy-header-title-back-icon {
   position: absolute;
@@ -50,7 +57,7 @@
   /*flex: 1;*/
   height: 100%;
   overflow-y: scroll;
-  padding-top: 0.5rem;
+  padding-top: 0.88rem;
   /*margin-bottom:1.48rem;*/
 }
 .fund-buy-main-app{
