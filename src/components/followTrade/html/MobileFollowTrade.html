@@ -1,5 +1,4 @@
 <div class="mobile-follow-trade">
-  你好世界
 <!--  非ios头部-->
   <div v-show="!isApp" class="fund-buy-header-title">
     <div class="fund-buy-header-title-back-icon" @click="jumpToBack">
@@ -32,7 +31,7 @@
         </div>
         <div class="big-brother-uid">100000</div>
         <div class="documentary-details">
-          <div class=""><span class="documentary">跟单</span></div>
+          <div class="" @click="goToDocumentary"><span class="documentary">跟单</span></div>
           <div class="interest-rate">100.00 USDT/30 天</div>
         </div>
       </div>
