@@ -235,6 +235,18 @@ root.routes.push({
   caseSensitive: true,
   component: resolve => require(['@/components/followTrade/vue/MobileFollowTradeStrategy'], resolve)
 })
+// //H5  跟单
+// root.routes.push({
+//   path: '/index/mobileFollowTradeStrategy',
+//   name: 'mobileFollowTradeStrategy',
+//   meta: {
+//     requireLogin: true,
+//     pcname: '',
+//     h5name: 'mobileFollowTradeStrategy',
+//   },
+//   caseSensitive: true,
+//   component: resolve => require(['@/components/followTrade/vue/MobileFollowTradeStrategy'], resolve)
+// })
 /*-----------------  跟单H5 end  ------------------------*/
 
 

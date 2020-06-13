@@ -60,4 +60,8 @@ root.methods = {}
 root.methods.jumpToBack = function () {
   this.$router.push({'path':'/index/newH5homePage'})
 }
+//跳转个人策略跟单
+root.methods.goToMobileFollowTradeStrategy = function () {
+  this.$router.push({'path':'/index/mobileFollowTradeStrategy'})
+}
 export default root
