@@ -104,6 +104,9 @@
 .text-red {
   color: #EF5656;
 }
+.text-blue {
+  color: #3576F5;
+}
 /*------------ 上部内容  end -------------*/
 
 /*------------ 中部内容  begin -------------*/
@@ -239,7 +242,6 @@
 }
 .mobile-trade-no-data {
   width: 7.5rem;
-  height: 8.98rem;
   text-align: center;
 }
 .mobile-trade-no-data-text {
@@ -253,9 +255,14 @@
   position: fixed;
   bottom: 0;
   width: 7.5rem;
-  height: 1.48rem;
-  justify-content: center;
-  align-items: center;
+  height: 1.9rem;
+  background: #fff;
+  padding: 0.28rem 0.3rem 0;
+  font-size:0.28rem;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color: #8994A5;
+
 }
 .mobile-trade-open-exchange-button {
   width:6.9rem;
@@ -268,11 +275,18 @@
   background:linear-gradient(270deg,rgba(53,118,245,1) 0%,rgba(69,154,245,1) 100%);
   border-radius: 0.03rem;
   text-align: center;
+  margin: 0 auto;
 }
 
 /*------------ 中部内容  end -------------*/
-
-
-/*------------ 中部内容  begin -------------*/
-/*------------ 中部内容  end -------------*/
-
+/*------------ 底部内容  begin -------------*/
+.mobile-trade-open-exchange-text {
+  justify-content: space-between;
+  margin-bottom: 0.16rem;
+}
+.mobile-trade-order-fee {
+  font-size:0.28rem;
+  font-family:Roboto-Medium,Roboto;
+  font-weight:500;
+}
+/*------------ 底部内容  end -------------*/

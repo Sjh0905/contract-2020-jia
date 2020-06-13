@@ -8,10 +8,10 @@
     </div>
     <!--UID标题-->
     <div class="fund-buy-header-title-text">1000012</div>
-    <!--设置按钮-->
-    <div class="mobile-trade-header-title-setting-icon" @click="personalSetting()">
-      <img class="mobile-trade-header-title-back-icon-img" src="../assets/setting_icon.png" alt="">
-    </div>
+<!--    &lt;!&ndash;设置按钮&ndash;&gt;-->
+<!--    <div class="mobile-trade-header-title-setting-icon" @click="personalSetting()">-->
+<!--      <img class="mobile-trade-header-title-back-icon-img" src="../assets/setting_icon.png" alt="">-->
+<!--    </div>-->
   </div>
 
   <div class="mobile-trade-header-null"></div>
@@ -50,7 +50,7 @@
   <!--内容下部-->
 
   <!--内容中部-->
-  <div class="mobile-trade-center" v-if="historicalList.length != 0 || followerList.length != 0">
+  <div class="mobile-trade-center" >
     <div class="mobile-trade-center-title  flex">
       <div class="mobile-trade-center-title-only mobile-trade-center-title-history" :class="followType == 1 ?'mobile-trade-center-title-selected':''" @click="toggleType(1)">
         历史持仓
@@ -61,32 +61,11 @@
       </div>
     </div>
     <div class="mobile-trade-center-content" v-if="followType == 1">
-      <div class="mobile-trade-center-content-item">
+      <div class="mobile-trade-center-content-item" v-for="(item,index) in historicalList" :key="index">
         <div class="mobile-trade-item-top flex">
           <div class="mobile-trade-item-top-left">
             <span>USDT</span>
-            <span class="mobile-trade-buy text-green">买入</span>
-          </div>
-          <div class="mobile-trade-item-top-right">06/11 02:18:07</div>
-        </div>
-        <div class="mobile-trade-item-content">
-          <div class="mobile-trade-item-content-title flex">
-            <div class="mobile-trade-price">价格</div>
-            <div class="mobile-trade-amount">数量</div>
-            <div class="mobile-trade-money">金额</div>
-          </div>
-          <div class="mobile-trade-item-content-container flex">
-            <div class="mobile-trade-price">9812.21</div>
-            <div class="mobile-trade-amount">1</div>
-            <div class="mobile-trade-money">9812.12</div>
-          </div>
-        </div>
-      </div>
-      <div class="mobile-trade-center-content-item">
-        <div class="mobile-trade-item-top flex">
-          <div class="mobile-trade-item-top-left">
-            <span>USDT</span>
-            <span class="mobile-trade-buy text-red">卖出</span>
+            <span class="mobile-trade-buy text-green" :class="item.type?'text-green':'text-red'">{{item.type? '买入':'卖出'}}</span>
           </div>
           <div class="mobile-trade-item-top-right">06/11 02:18:07</div>
         </div>
@@ -104,7 +83,6 @@
         </div>
       </div>
     </div>
-
     <div class="mobile-trade-center-content" v-if="followType == 2">
       <div class="mobile-trade-center-follower flex">
         <div class="mobile-trader-follower-img">
@@ -138,13 +116,17 @@
       </div>
     </div>
   </div>
-
   <!--内容底部-->
-  <div class="mobile-trade-no-data" v-if="historicalList.length == 0 && followerList.length == 0">
-    <div class="mobile-trade-no-data-text">该用户未分享交易活动</div>
-    <div class="mobile-trade-open-exchange flex">
-      <div class="mobile-trade-open-exchange-button">开启带单交易，双重获利</div>
+  <div class="mobile-trade-no-data">
+
+    <div class="mobile-trade-open-exchange">
+      <div class="mobile-trade-open-exchange-text flex">
+        <div class="mobile-trade-fee">费用</div>
+        <div class="mobile-trade-order-fee text-blue">100.00USDT/7天</div>
+      </div>
+      <div class="mobile-trade-open-exchange-button">跟单</div>
     </div>
   </div>
 
 </div>
+
