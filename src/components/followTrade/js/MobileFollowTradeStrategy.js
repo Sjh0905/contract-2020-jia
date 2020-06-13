@@ -7,7 +7,9 @@ root.name = 'mobileFollowTradeStrategy'
 /*------------------------------ data -------------------------------*/
 root.data = function () {
   return {
-    followType:1
+    followType:1,
+    historicalList:[],
+    followerList:[]
   }
 }
 /*------------------------------ 生命周期 -------------------------------*/

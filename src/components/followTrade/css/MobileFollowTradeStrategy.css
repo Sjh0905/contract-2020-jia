@@ -16,12 +16,23 @@
   z-index: 100;
   border-bottom: 0.02rem solid #F7F8FA;
 }
+
+.mobile-trade-header-null {
+  width: 100%;
+  height: 0.88rem;
+}
 .mobile-trade-header-title-back-icon {
   position: absolute;
   top: 0;
   left: 0;
   width: 0.88rem;
   height: 0.88rem;
+}
+.fund-buy-header-title-text {
+  font-size:0.32rem;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color: #0B0B27;
 }
 .mobile-trade-header-title-back-icon-img {
   position: absolute;
@@ -43,7 +54,6 @@
 .mobile-trade-top {
   width: 7.5rem;
   height: 3.08rem;
-  margin-top: 0.88rem;
   background: #fff;
 }
 .mobile-trade-top-banner {
@@ -190,9 +200,75 @@
   text-align: right;
 }
 .mobile-trade-center-follower {
-
+  width: 7.5rem;
+  height: 1.38rem;
+  padding: 0.3rem 0.3rem 0;
 }
-
+.mobile-trader-follower-img {
+  width: 0.68rem;
+  height: 100%;
+  /*background: pink;*/
+}
+.mobile-trader-follower-img img {
+  margin-top: 0.06rem;
+  width: 0.68rem;
+}
+.mobile-trader-follower-content {
+  font-size:0.24rem;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color: #6A83A8;
+  margin-left: 0.3rem;
+  flex: 1;
+}
+.mobile-trader-follower-content-top {
+  justify-content: space-between;
+  margin-bottom: 0.1rem;
+}
+.mobile-trader-follower-UID {
+  font-size:0.32rem;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color: #172841;
+}
+.mobile-trader-follower-income {
+  font-size:0.32rem;
+  font-family:Roboto-Regular,Roboto;
+  font-weight:400;
+  color: #3576F5;
+}
+.mobile-trade-no-data {
+  width: 7.5rem;
+  height: 8.98rem;
+  text-align: center;
+}
+.mobile-trade-no-data-text {
+  padding-top: 2.78rem;
+  font-size:0.24rem;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color: #CFD3E9;
+}
+.mobile-trade-open-exchange{
+  position: fixed;
+  bottom: 0;
+  width: 7.5rem;
+  height: 1.48rem;
+  justify-content: center;
+  align-items: center;
+}
+.mobile-trade-open-exchange-button {
+  width:6.9rem;
+  height:0.88rem;
+  line-height:0.88rem;
+  font-size:0.32rem;
+  font-family:PingFangSC-Semibold,PingFang SC;
+  font-weight:600;
+  color: #fff;
+  background:linear-gradient(270deg,rgba(53,118,245,1) 0%,rgba(69,154,245,1) 100%);
+  border-radius: 0.03rem;
+  text-align: center;
+}
 
 /*------------ 中部内容  end -------------*/
 
