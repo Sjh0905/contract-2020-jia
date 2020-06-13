@@ -223,7 +223,7 @@ root.routes.push({
   caseSensitive: true,
   component: resolve => require(['@/components/followTrade/vue/MobileFollowTrade'], resolve)
 })
-//H5  跟单策略
+//H5  跟单策略个人
 root.routes.push({
   path: '/index/mobileFollowTradeStrategy',
   name: 'mobileFollowTradeStrategy',
@@ -234,6 +234,18 @@ root.routes.push({
   },
   caseSensitive: true,
   component: resolve => require(['@/components/followTrade/vue/MobileFollowTradeStrategy'], resolve)
+})
+//H5  跟单策略大神
+root.routes.push({
+  path: '/index/mobileDocumentaryGod',
+  name: 'mobileDocumentaryGod',
+  meta: {
+    requireLogin: true,
+    pcname: '',
+    h5name: 'mobileDocumentaryGod',
+  },
+  caseSensitive: true,
+  component: resolve => require(['@/components/followTrade/vue/MobileDocumentaryGod'], resolve)
 })
 /*-----------------  跟单H5 end  ------------------------*/
 
