@@ -8,7 +8,9 @@ root.name = 'mobileFollowTradeStrategy'
 root.data = function () {
   return {
     followType:1,
-    historicalList:[],
+    historicalList:[
+      {}
+    ],
     followerList:[]
   }
 }
@@ -54,6 +56,6 @@ root.methods.jumpToFollowTrade = function () {
 }
 // 个人设置
 root.methods.personalSetting = function () {
-  console.info('personalSetting=======个人设置',)
+  this.$router.push({name:'mobileTapeListManage'})
 }
 export default root

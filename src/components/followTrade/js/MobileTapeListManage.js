@@ -8,9 +8,10 @@ root.name = 'mobileTapeListManage'
 root.data = function () {
   return {
     incomeDetaisList:[
-
     ],
     openMaskWindow:false,
+    // 是否开启带单
+    isTapeList: false
   }
 }
 /*------------------------------ 生命周期 -------------------------------*/

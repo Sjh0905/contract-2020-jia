@@ -6,22 +6,33 @@
       <img class="mobile-trade-header-title-back-icon-img" src="../../LuckyDraw/assets/mobileForecastHomePage/back_icon.png" alt="">
     </div>
     <!--UID标题-->
-    <div class="fund-buy-header-title-text">1000012</div>
+    <div class="fund-buy-header-title-text">带单管理</div>
   </div>
 
   <div class="mobile-trade-header-null-data"></div>
 
   <div class="mobile-open-tape-list">
-  <!--开启带单-->
-    <div class="mobile-open-tape-list-btn">
-      <div class="mobile-open-tape-list-top flex">
-       <div class="mobile-open-tape-list-title">开启带单</div>
-       <div class="mobile-open-tape-list-button" @click="openMask">开启</div>
-      </div>
-      <div class="mobile-open-tape-list-text">
-        开启后双重盈利开启后双重盈利开启后双重盈利开启后双重盈利开启后双重盈利
+    <!--没有开启带单-->
+    <div v-if="isTapeList" >
+      <div class="mobile-open-tape-list-btn-top flex">
+        <div class="mobile-open-tape-list-fee">订阅费用：
+          <span class="text_blue">300USDT/7天</span>
+        </div>
+        <div class="mobile-open-tape-list-operation">
+          <img src="../assets/single_setting_icon.png" alt="">
+        </div>
       </div>
     </div>
+    <!--已开启带单-->
+    <div class="mobile-open-tape-list-btn" v-else>
+    <div class="mobile-open-tape-list-top flex">
+      <div class="mobile-open-tape-list-title">开启带单</div>
+      <div class="mobile-open-tape-list-button" @click="openMask">开启</div>
+    </div>
+    <div class="mobile-open-tape-list-text">
+      开启后双重盈利开启后双重盈利开启后双重盈利开启后双重盈利开启后双重盈利
+    </div>
+  </div>
     <!--带单收益-->
     <div class="mobile-tape-list-income">
       <div class="mobile-tape-list-income-describe">

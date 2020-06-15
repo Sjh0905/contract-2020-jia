@@ -68,4 +68,8 @@ root.methods.goToMobileFollowTradeStrategy = function () {
 root.methods.goToDocumentary = function () {
   this.$router.push({'path':'/index/mobileDocumentary'})
 }
+// 去大神页面
+root.methods.goToDocumentaryGod = function () {
+  this.$router.push({name:'mobileDocumentaryGod'})
+}
 export default root

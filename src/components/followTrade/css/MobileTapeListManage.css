@@ -50,6 +50,28 @@
 /*------------ 上部title  begin -------------*/
 .mobile-open-tape-list-btn {
   width: 7.5rem;
+  padding: 0.3rem 0.3rem 0;
+  margin-bottom: 0.7rem;
+}
+.mobile-open-tape-list-btn-top {
+  width: 7.5rem;
+  /*background: pink;*/
+  padding: 0.3rem 0.3rem 0;
+  margin-bottom: 0.7rem;
+  justify-content: space-between;
+}
+.mobile-open-tape-list-fee {
+  font-size:0.24rem;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color: #131F30;
+}
+.mobile-open-tape-list-operation img {
+  width: 0.3rem;
+  vertical-align: text-top;
+}
+.mobile-open-tape-list-btn {
+  width: 7.5rem;
   min-height: 1rem;
   /*background: pink;*/
   padding: 0.3rem 0.3rem 0;
@@ -59,7 +81,6 @@
   justify-content: space-between;
   margin-bottom: 0.2rem;
 }
-
 .mobile-open-tape-list-text {
   font-size:0.24rem;
   font-family:PingFangSC-Regular,PingFang SC;
