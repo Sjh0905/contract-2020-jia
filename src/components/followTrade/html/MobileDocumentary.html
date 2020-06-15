@@ -13,7 +13,7 @@
     <div class="fund-description-info">
       <div class="fund-description-info-item">
         <div class="fund-description-info-left">跟单</div>
-        <div class="fund-description-info-right">1000017</div>
+        <div class="fund-description-info-right">{{$route.params.item.userId}}</div>
       </div>
       <div class="fund-description-info-item">
         <div class="fund-description-info-left">跟单币对</div>
@@ -23,20 +23,20 @@
         <div class="fund-description-info-left">跟单方式</div>
       </div>
       <div class="flex">
-        <div class="fixed-amount-proportion" :class="followType == 1 ? 'fixed-amount' : '' " @click="fixedType(1)">固定金额</div>
-        <div class="fixed-amount-proportion" :class="followType == 2 ? 'fixed-amount' : '' " @click="fixedType(2)">固定比例</div>
+        <div class="fixed-amount-proportion" :class="followType == 'LOT' ? 'fixed-amount' : '' " @click="fixedType('LOT')">固定金额</div>
+        <div class="fixed-amount-proportion" :class="followType == 'RATE' ? 'fixed-amount' : '' " @click="fixedType('RATE')">固定比例</div>
       </div>
-      <div class="fund-description-amount" v-if="followType == 1">
+      <div class="fund-description-amount" v-if="followType == 'LOT'">
         <div class="fund-description-usdt">跟单金额(USDT)</div>
         <div class="fund-description-info-right-input">
           <input v-model="fixedAmount" placeholder="输入金额"
                  step="1"  min="0" onkeyup="this.value= this.value.match(/\d+(\.\d{0,2})?/) ? this.value.match(/\d+(\.\d{0,2})?/)[0] : ''">
         </div>
       </div>
-      <div class="fund-description-amount" v-if="followType == 2">
+      <div class="fund-description-amount" v-if="followType == 'RATE'">
         <div class="fund-description-usdt">单位基准(USDT/单位)</div>
         <div class="fund-description-info-right-input">
-          <input v-model="fixedDescription" placeholder="输入比例"
+          <input v-model="fixedAmount" placeholder="输入比例"
                  step="1"  min="0" onkeyup="this.value= this.value.match(/\d+(\.\d{0,2})?/) ? this.value.match(/\d+(\.\d{0,2})?/)[0] : ''"> %
         </div>
       </div>

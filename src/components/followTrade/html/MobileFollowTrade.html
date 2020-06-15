@@ -23,16 +23,16 @@
     <div class="data-update">数据每小时更新一次</div>
 
     <!--遍历大佬详细信息Start-->
-    <div class="big-brother-start">
+    <div class="big-brother-start" v-for="(item,index) in listGod">
     <!--大佬头像Start-->
       <div class="big-brother-large-box flex">
         <div>
           <img class="big-brother-img" src="../assets/big-brother.png" alt="">
         </div>
-        <div class="big-brother-uid">100000</div>
+        <div class="big-brother-uid">{{item.userId}}</div>
         <div class="documentary-details">
-          <div class="" @click="goToDocumentary"><span class="documentary">跟单</span></div>
-          <div class="interest-rate">100.00 USDT/30 天</div>
+          <div class="" @click="goToDocumentary(item)"><span class="documentary">跟单</span></div>
+          <div class="interest-rate">{{item.fee}} USDT/30 天</div>
         </div>
       </div>
       <!--大佬头像End-->
@@ -40,15 +40,15 @@
       <!--大佬交易详情Start-->
       <div class="details-of-big-brother-transaction flex">
         <div class="accumulated-income">
-          <div class="percentage">345.12%</div>
+          <div class="percentage">{{item.rate * 10 * 10}}%</div>
           <div class="padding-bottom color-a2">累计收益率</div>
-          <div class="color-13">2343223242</div>
+          <div class="color-13">{{item.sum}}</div>
           <div class="color-a2">累计交易量</div>
         </div>
         <div class="accumulated-income">
-          <div class="color-13">3451</div>
+          <div class="color-13">{{item.count}}</div>
           <div class="padding-bottom color-a2">交易笔数</div>
-          <div class="color-13">2343223</div>
+          <div class="color-13">{{item.followCount}}</div>
           <div class="color-a2">累计跟单人数</div>
         </div>
 

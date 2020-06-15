@@ -504,5 +504,7 @@ requestAddress.GET_HEAT_LIST = {url: urlHead+'/memberCard/queryHotDetail/', meth
 
 
 //2020-06-15  跟单相关接口
-requestAddress.BIG_BROTHER_LIST = {url: urlHead+'/memberCard/queryHotDetail/', method: 'get'} //首页大佬列表
+requestAddress.BIG_BROTHER_LIST = {url: urlHead+'/follow/listGod', method: 'post'} //首页大佬列表
+requestAddress.POST_ADDFOLLOWER= {url: urlHead+'/follow/user/addFollower', method: 'post'}  //跟单
+
 export default requestAddress
