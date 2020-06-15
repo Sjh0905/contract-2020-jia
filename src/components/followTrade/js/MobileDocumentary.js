@@ -1,13 +1,23 @@
 const root = {}
 root.name = 'mobileDocumentary'
 /*------------------------------ 组件 ------------------------------*/
-//root.components = {
-//  'Loading': resolve => require(['../vue/Loading'], resolve),
-//}
+root.components = {
+ // 'Loading': resolve => require(['../vue/Loading'], resolve),
+  'PopupPrompt': resolve => require(['../../vue/PopupPrompt'], resolve),
+}
 /*------------------------------ data -------------------------------*/
 root.data = function () {
   return {
-    followType:1
+    followType:1,
+    fixedAmount:'',//输入的固定金额
+    fixedDescription:'',
+
+    // 弹框
+    popType: 0,
+    popText: '',
+    popOpen: false,
+    waitTime: 2000,
+
   }
 }
 /*------------------------------ 生命周期 -------------------------------*/
@@ -64,8 +74,78 @@ root.methods.goToFollowTrade = function () {
   this.$router.push({'path':'/index/mobileFollowTrade'})
 }
 
-// 切换历史跟单和跟随者
+// 切换固定金额和固定比例
 root.methods.fixedType = function (type) {
   this.followType = type
+}
+
+//立即跟单postDocumentaryImmediately
+root.methods.postDocumentaryImmediately = function () {
+
+  let canSend = true
+  if (this.fixedAmount == '') {
+    this.openPop('固定金额/固定比例不可为空')
+  }
+  if (!canSend) {
+    return
+  }
+
+  let params = {}
+  this.$http.send('', {
+    bind: this,
+    params: params,
+    callBack: this.re_postDocumentaryImmediately,
+    errorHandler: this.error_postDocumentaryImmediately
+  })
+}
+root.methods.re_postDocumentaryImmediately = function (data) {
+  console.log("this.res=====",data)
+  typeof data === 'string' && (data = JSON.parse(data))
+  //
+  // this.success = data.data.success
+  // console.log("re_postJoinGroup + data=====",data)
+  //
+  // if (data.errorCode) {
+  //   if (
+  //     data.errorCode == 1 && (this.popText = this.$t('exist')) ||//账户不存在
+  //     data.errorCode == 2 && (this.popText = this.$t('insufficient')) || // 团长剩余比例不足
+  //     data.errorCode == 3 && (this.popText = this.$t('modified')) || // 团长职位不能修改
+  //     data.errorCode == 4 && (this.popText = this.$t('Wrong')) || // 成员类型有误
+  //     data.errorCode == 5 && (this.popText = this.$t('changed')) || // 联席团长职位不可更换
+  //     data.errorCode == 6 && (this.popText = this.$t('Setting')) || // 设置比例折扣不能为0
+  //     data.errorCode == 400 && (this.popText = this.$t('parameter_error')) //参数有误
+  //   ) {
+  //     this.popOpen = true
+  //     this.popType = 0
+  //     setTimeout(() => {
+  //       this.popOpen = true
+  //     }, 100)
+  //   }
+  // }
+  //
+  // if (this.success == true) {
+  //   this.openPop('跟单成功',1)
+  //   setTimeout(() => {
+  //     this.$router.push({'path':'/index/mobileMyFollowOrder'})
+  //   }, 1000)
+  //   return;
+  // }
+
+}
+root.methods.error_postDocumentaryImmediately = function (err) {
+  console.log("this.err=====",err)
+}
+
+
+// 打开toast
+root.methods.openPop = function (popText, popType, waitTime) {
+  this.popText = popText
+  this.popType = popType || 0
+  this.popOpen = true
+  this.waitTime = waitTime || 2000
+}
+// 关闭toast
+root.methods.closePop = function () {
+  this.popOpen = false;
 }
 export default root

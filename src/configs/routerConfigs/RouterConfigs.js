@@ -271,6 +271,18 @@ root.routes.push({
   caseSensitive: true,
   component: resolve => require(['@/components/followTrade/vue/MobileTapeListManage'], resolve)
 })
+//H5  我的跟单
+root.routes.push({
+  path: '/index/mobileMyFollowOrder',
+  name: 'mobileMyFollowOrder',
+  meta: {
+    requireLogin: true,
+    pcname: '',
+    h5name: 'mobileMyFollowOrder',
+  },
+  caseSensitive: true,
+  component: resolve => require(['@/components/followTrade/vue/MobileMyFollowOrder'], resolve)
+})
 /*-----------------  跟单H5 end  ------------------------*/
 
 

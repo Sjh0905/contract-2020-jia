@@ -29,13 +29,15 @@
       <div class="fund-description-amount" v-if="followType == 1">
         <div class="fund-description-usdt">跟单金额(USDT)</div>
         <div class="fund-description-info-right-input">
-          <input type="text">
+          <input v-model="fixedAmount" placeholder="输入金额"
+                 step="1"  min="0" onkeyup="this.value= this.value.match(/\d+(\.\d{0,2})?/) ? this.value.match(/\d+(\.\d{0,2})?/)[0] : ''">
         </div>
       </div>
       <div class="fund-description-amount" v-if="followType == 2">
         <div class="fund-description-usdt">单位基准(USDT/单位)</div>
         <div class="fund-description-info-right-input">
-          <input type="text"> %
+          <input v-model="fixedDescription" placeholder="输入比例"
+                 step="1"  min="0" onkeyup="this.value= this.value.match(/\d+(\.\d{0,2})?/) ? this.value.match(/\d+(\.\d{0,2})?/)[0] : ''"> %
         </div>
       </div>
       <div class="remind">开启后双重盈利开启后双重盈利开启后双重盈利开启后双重盈利开启后双重盈利</div>
@@ -45,6 +47,9 @@
 
 <!-- 跟单按钮 -->
   <div class="documentary-box">
-    <div class="documentary-button">立即跟单</div>
+    <div class="documentary-button" @click="postDocumentaryImmediately">立即跟单</div>
   </div>
+
+  <PopupPrompt :popOpen="popOpen" :popClose="closePop" :popType="popType" :popText="popText" :waitTime="waitTime" />
+
 </div>
