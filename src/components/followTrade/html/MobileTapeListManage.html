@@ -1,1 +1,109 @@
-<div>带单管理</div>
+<div class="mobile-trade-tape-manage">
+  <!--顶部标题-->
+  <div class="mobile-trade-header-title">
+    <!--返回按钮-->
+    <div class="mobile-trade-header-title-back-icon" @click="jumpToFollowTradeStrategy()">
+      <img class="mobile-trade-header-title-back-icon-img" src="../../LuckyDraw/assets/mobileForecastHomePage/back_icon.png" alt="">
+    </div>
+    <!--UID标题-->
+    <div class="fund-buy-header-title-text">带单管理</div>
+  </div>
+
+  <div class="mobile-trade-header-null-data"></div>
+
+  <div class="mobile-open-tape-list">
+    <!--没有开启带单-->
+    <div v-if="isTapeList" >
+      <div class="mobile-open-tape-list-btn-top flex">
+        <div class="mobile-open-tape-list-fee">订阅费用：
+          <span class="text_blue">300USDT/7天</span>
+        </div>
+        <div class="mobile-open-tape-list-operation">
+          <img src="../assets/single_setting_icon.png" alt="">
+        </div>
+      </div>
+    </div>
+    <!--已开启带单-->
+    <div class="mobile-open-tape-list-btn" v-else>
+    <div class="mobile-open-tape-list-top flex">
+      <div class="mobile-open-tape-list-title">开启带单</div>
+      <div class="mobile-open-tape-list-button" @click="openMask">开启</div>
+    </div>
+    <div class="mobile-open-tape-list-text">
+      开启后双重盈利开启后双重盈利开启后双重盈利开启后双重盈利开启后双重盈利
+    </div>
+  </div>
+    <!--带单收益-->
+    <div class="mobile-tape-list-income">
+      <div class="mobile-tape-list-income-describe">
+        <span class="text_blue">0 人</span>
+        <span>跟单中，持仓</span>
+        <span class="text-blue">0 笔</span>
+        <span>跟随订单</span>
+      </div>
+      <div class="mobile-income-describe-display flex">
+        <div class="mobile-income-describe-today">
+          <div class="mobile-income-describe-text">今日收益（USDT）</div>
+          <div class="mobile-income-describe-amount">1000</div>
+        </div>
+        <div class="mobile-income-describe-total">
+          <div class="mobile-income-describe-text">累计收益（USDT）</div>
+          <div class="mobile-income-describe-amount">1000</div>
+        </div>
+      </div>
+    </div>
+    <!--带单收益明细-->
+    <div class="mobile-tape-list-income-details">
+      <div class="mobile-tape-list-income-details-title">收益明细</div>
+
+        <div class="mobile-trade-center-follower flex" v-for="(item,index) in incomeDetaisList" :key="index" v-if="incomeDetaisList.length !== 0">
+          <div class="mobile-tape-list-income-img">
+            <img src="../assets/big-brother.png" alt="">
+          </div>
+          <div class="mobile-tape-list-income-content flex">
+            <div class="mobile-tape-list-income-left">
+              <div class="mobile-tape-list-income-uid">{{item.uid}}</div>
+              <div class="mobile-tape-list-income-time">06-11 02:18:07</div>
+            </div>
+            <div class="mobile-tape-list-income-right">9812.12USDT</div>
+          </div>
+        </div>
+        <div class="mobile-trade-center-not-data" v-if="incomeDetaisList.length == 0">
+          <div class="mobile-trade-center-not-data-img">
+            <img src="../assets/no_list.png" alt="">
+          </div>
+          <div class="mobile-trade-center-not-data-text">暂无记录</div>
+      </div>
+      </div>
+    </div>
+
+  <!--遮罩层-->
+  <div class="mobile-tape-mask" v-if="openMaskWindow">
+    <div class="mobile-open-tape-pop-window">
+      <div class="mobile-open-tape-pop-window-title flex">
+        <div class="mobile-open-tape-pop-list-window-title">开启带单</div>
+        <div class="mobile-window-title-btn flex">
+          <div class="confirm">确认</div>
+          <div class="cancel" @click="closeMaskWindow">取消</div>
+        </div>
+      </div>
+
+      <div class="mobile-open-tape-pop-window-content">
+        <div class="mobile-open-tape-pop-window-content-item flex">
+          <div class="mobile-open-tape-pop-window-content-currency-pair">带单币对</div>
+          <div class="mobile-open-tape-pop-window-content-currency">BTC/USDT</div>
+        </div>
+
+        <div class="mobile-open-tape-pop-window-content-item flex">
+          <div class="mobile-open-tape-pop-window-content-currency-pair">订阅费用(USDT)</div>
+          <div class="mobile-open-tape-pop-window-content-currency">
+            <input type="text" >
+            /7天</div>
+        </div>
+        <div class="mobile-open-tape-pop-window-content-text">
+          开启后双重盈利开启后双重盈利开启后双重盈利开启后双重盈利开启后双重盈利
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

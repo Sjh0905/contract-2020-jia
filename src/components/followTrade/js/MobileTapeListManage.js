@@ -1,12 +1,18 @@
 const root = {}
-root.name = 'MobileTapeListManage'
+root.name = 'mobileTapeListManage'
 /*------------------------------ 组件 ------------------------------*/
 //root.components = {
 //  'Loading': resolve => require(['../Loading/Loading.vue'], resolve),
 //}
 /*------------------------------ data -------------------------------*/
 root.data = function () {
-  return {}
+  return {
+    incomeDetaisList:[
+    ],
+    openMaskWindow:false,
+    // 是否开启带单
+    isTapeList: false
+  }
 }
 /*------------------------------ 生命周期 -------------------------------*/
 root.created = function () {}
@@ -18,4 +24,15 @@ root.computed = {}
 root.watch = {}
 /*------------------------------ 方法 -------------------------------*/
 root.methods = {}
+root.methods.jumpToFollowTradeStrategy = function () {
+  this.$router.push({name:'mobileFollowTradeStrategy'})
+}
+// 打开蒙层
+root.methods.openMask = function () {
+  this.openMaskWindow = true
+}
+// 关闭蒙层
+root.methods.closeMaskWindow = function () {
+  this.openMaskWindow = false
+}
 export default root
