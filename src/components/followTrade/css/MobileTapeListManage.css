@@ -273,6 +273,12 @@
   font-family:PingFangSC-Regular,PingFang SC;
   font-weight:400;
 }
+.currency-account {
+  font-size:0.24rem;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color: #193662;
+}
 
 /*placeholder样式 begin*/
 .currency-account::placeholder {
