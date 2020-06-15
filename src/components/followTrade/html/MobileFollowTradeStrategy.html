@@ -143,7 +143,7 @@
   <div class="mobile-trade-no-data" v-if="historicalList.length == 0 && followerList.length == 0">
     <div class="mobile-trade-no-data-text">该用户未分享交易活动</div>
     <div class="mobile-trade-open-exchange flex">
-      <div class="mobile-trade-open-exchange-button">开启带单交易，双重获利</div>
+      <div class="mobile-trade-open-exchange-button" @click="personalSetting()">开启带单交易，双重获利</div>
     </div>
   </div>
 

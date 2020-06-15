@@ -64,7 +64,7 @@ root.methods.jumpToBack = function () {
 root.methods.goToMobileFollowTradeStrategy = function () {
   this.$router.push({'path':'/index/mobileFollowTradeStrategy'})
 }
-
+// 跳转我的跟单
 root.methods.goToDocumentary = function () {
   this.$router.push({'path':'/index/mobileDocumentary'})
 }

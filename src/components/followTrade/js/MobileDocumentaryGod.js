@@ -56,4 +56,8 @@ root.methods.toggleType = function (type) {
 root.methods.jumpToFollowTrade = function () {
   this.$router.push({name:'mobileFollowTrade'})
 }
+// 点击跟单
+root.methods.jumpToFollowDocumentary = function () {
+  this.$router.push({name:'mobileMyFollowOrder'})
+}
 export default root

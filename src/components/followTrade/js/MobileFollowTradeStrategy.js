@@ -8,9 +8,7 @@ root.name = 'mobileFollowTradeStrategy'
 root.data = function () {
   return {
     followType:1,
-    historicalList:[
-      {}
-    ],
+    historicalList:[],
     followerList:[]
   }
 }
