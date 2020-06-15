@@ -83,11 +83,11 @@
   font-weight:600;
 }
 .folloe-banner-img {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%,-50%);
-  width: 100%;
+  /*position: absolute;*/
+  /*top: 50%;*/
+  /*left: 50%;*/
+  /*transform: translate(-50%,-50%);*/
+  /*width: 101%;*/
   height: 1.48rem;
 }
 .my-with-single {
@@ -143,12 +143,13 @@
 }
 .documentary {
   display: inline-block;
-  height:0.5rem;
-  line-height: 0.5rem;
+  height:0.44rem;
+  line-height: 0.44rem;
   color: #FFFFFF;
   background: #386FF9;
   border-radius:0.03rem;
   padding: 0 0.34rem;
+  margin-bottom: 0.04rem;
 }
 .interest-rate {
   color: #6A83A8;

@@ -6,10 +6,14 @@ root.name = 'mobileFollowTrade'
 //}
 /*------------------------------ data -------------------------------*/
 root.data = function () {
-  return {}
+  return {
+    listGod:[]
+  }
 }
 /*------------------------------ 生命周期 -------------------------------*/
 root.created = function () {
+
+  this.getBigBrotherList()
 
   if(this.$route.query.isApp) {
     window.postMessage(JSON.stringify({
@@ -65,8 +69,9 @@ root.methods.goToMobileFollowTradeStrategy = function () {
   this.$router.push({'path':'/index/mobileFollowTradeStrategy'})
 }
 // 跳转我的跟单
-root.methods.goToDocumentary = function () {
-  this.$router.push({'path':'/index/mobileDocumentary'})
+root.methods.goToDocumentary = function (item) {
+  // this.$router.push({name:'mobileDocumentary',params: {item:item}})
+  this.$router.push({name:'mobileDocumentaryGod',params:{item:item}})
 }
 // 去大神页面
 root.methods.goToDocumentaryGod = function () {
@@ -76,4 +81,26 @@ root.methods.goToDocumentaryGod = function () {
 root.methods.goToMobileMyFollowOrder = function () {
   this.$router.push({name:'mobileMyFollowOrder'})
 }
+
+
+// 大佬列表
+root.methods.getBigBrotherList = function () {
+  this.$http.send('BIG_BROTHER_LIST', {
+    bind: this,
+    // query:{},
+    callBack: this.re_getBigBrotherList,
+    errorHandler:this.error_getBigBrotherList
+  })
+}
+root.methods.re_getBigBrotherList = function (data) {
+  typeof(data) == 'string' && (data = JSON.parse(data));
+  if(!data)return
+  this.listGod = data.dataMap.list
+
+
+}
+root.methods.error_getBigBrotherList = function (err) {
+  console.log('err=====',err)
+}
+
 export default root

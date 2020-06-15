@@ -501,4 +501,10 @@ requestAddress.GET_TKF_TICKETS = {url: urlHead+'/tkf/getTkftickets', method: 'ge
 
 //2020-06-05 获取热度值接口
 requestAddress.GET_HEAT_LIST = {url: urlHead+'/memberCard/queryHotDetail/', method: 'get'}  //获取热度列表
+
+
+//2020-06-15  跟单相关接口
+requestAddress.BIG_BROTHER_LIST = {url: urlHead+'/follow/listGod', method: 'post'} //首页大佬列表
+requestAddress.POST_ADDFOLLOWER= {url: urlHead+'/follow/user/addFollower', method: 'post'}  //跟单
+
 export default requestAddress

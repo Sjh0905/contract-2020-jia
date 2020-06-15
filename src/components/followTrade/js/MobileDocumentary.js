@@ -8,7 +8,7 @@ root.components = {
 /*------------------------------ data -------------------------------*/
 root.data = function () {
   return {
-    followType:1,
+    followType:'LOT',
     fixedAmount:'',//输入的固定金额
     fixedDescription:'',
 
@@ -22,6 +22,7 @@ root.data = function () {
 }
 /*------------------------------ 生命周期 -------------------------------*/
 root.created = function () {
+console.info('params: {item:item}',this.$route.params.item)
 
   if(this.$route.query.isApp) {
     window.postMessage(JSON.stringify({
@@ -90,8 +91,12 @@ root.methods.postDocumentaryImmediately = function () {
     return
   }
 
-  let params = {}
-  this.$http.send('', {
+  let params = {
+    followId: this.$route.params.item.userId,
+    followType: this.followType ,    //固定金额LOT   固定比例RATE
+    val: this.fixedAmount,
+  }
+  this.$http.send('POST_ADDFOLLOWER', {
     bind: this,
     params: params,
     callBack: this.re_postDocumentaryImmediately,
@@ -105,10 +110,17 @@ root.methods.re_postDocumentaryImmediately = function (data) {
   // this.success = data.data.success
   // console.log("re_postJoinGroup + data=====",data)
   //
+  if (data.errorCode == 0) {
+    this.openPop('跟单成功',1)
+    setTimeout(() => {
+      this.$router.push({'path':'/index/mobileMyFollowOrder'})
+    }, 1000)
+    return;
+  }
   // if (data.errorCode) {
   //   if (
   //     data.errorCode == 1 && (this.popText = this.$t('exist')) ||//账户不存在
-  //     data.errorCode == 2 && (this.popText = this.$t('insufficient')) || // 团长剩余比例不足
+  //     data.errorCode == 2 && (this.popText = this.$t('资产')) || // 团长剩余比例不足
   //     data.errorCode == 3 && (this.popText = this.$t('modified')) || // 团长职位不能修改
   //     data.errorCode == 4 && (this.popText = this.$t('Wrong')) || // 成员类型有误
   //     data.errorCode == 5 && (this.popText = this.$t('changed')) || // 联席团长职位不可更换
@@ -120,16 +132,11 @@ root.methods.re_postDocumentaryImmediately = function (data) {
   //     setTimeout(() => {
   //       this.popOpen = true
   //     }, 100)
+  //     return;
   //   }
   // }
-  //
-  // if (this.success == true) {
-  //   this.openPop('跟单成功',1)
-  //   setTimeout(() => {
-  //     this.$router.push({'path':'/index/mobileMyFollowOrder'})
-  //   }, 1000)
-  //   return;
-  // }
+
+
 
 }
 root.methods.error_postDocumentaryImmediately = function (err) {
