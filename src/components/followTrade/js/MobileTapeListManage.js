@@ -24,6 +24,9 @@ root.computed = {}
 root.watch = {}
 /*------------------------------ 方法 -------------------------------*/
 root.methods = {}
+root.methods.jumpToFollowTradeStrategy = function () {
+  this.$router.push({name:'mobileFollowTradeStrategy'})
+}
 // 打开蒙层
 root.methods.openMask = function () {
   this.openMaskWindow = true
