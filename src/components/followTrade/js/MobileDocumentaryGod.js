@@ -25,7 +25,7 @@ root.created = function () {
   if(this.$route.query.isApp) {
     window.postMessage(JSON.stringify({
         method: 'setTitle',
-        parameters: '区块恋'
+        parameters: '区块恋' // TODO     这里需要大神的UID
       })
     );
     window.postMessage(JSON.stringify({

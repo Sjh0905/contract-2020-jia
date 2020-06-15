@@ -1,0 +1,262 @@
+.mobile-trade-tape-manage {
+  background: #FFFFFF;
+  height: 100%;
+}
+
+/*------------ 顶部title  begin -------------*/
+.mobile-trade-header-title {
+  height: 0.88rem;
+  width: 100%;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  background: #fff;
+  z-index: 100;
+  border-bottom: 0.02rem solid #F7F8FA;
+}
+
+.mobile-trade-header-null {
+  width: 100%;
+  height: 0.88rem;
+}
+.mobile-trade-header-title-back-icon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0.88rem;
+  height: 0.88rem;
+}
+.fund-buy-header-title-text {
+  font-size:0.32rem;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color: #0B0B27;
+}
+.mobile-trade-header-title-back-icon-img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0.32rem;
+  transform: translate(-50%,-50%);
+}
+/*------------ 顶部title  end -------------*/
+
+.mobile-trade-header-null-data {
+  height: 0.88rem;
+}
+
+/*------------ 上部title  begin -------------*/
+.mobile-open-tape-list-btn {
+  width: 7.5rem;
+  min-height: 1rem;
+  /*background: pink;*/
+  padding: 0.3rem 0.3rem 0;
+  margin-bottom: 0.7rem;
+}
+.mobile-open-tape-list-top {
+  justify-content: space-between;
+  margin-bottom: 0.2rem;
+}
+
+.mobile-open-tape-list-text {
+  font-size:0.24rem;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color: #6A83A8;
+}
+.mobile-open-tape-list-title {
+  font-size:0.36rem;
+  font-family:PingFangSC-Medium,PingFang SC;
+  font-weight:500;
+  color: #131F30;
+}
+.mobile-open-tape-list-button {
+  width: 1.16rem;
+  height: 0.5rem;
+  line-height: 0.5rem;
+  background: #386FF9;
+  border-radius:0.03rem;
+  text-align: center;
+  color: #fff;
+}
+/*------------ 上部title  end -------------*/
+/*------------ 中间部分  begin -------------*/
+.mobile-tape-list-income {
+  padding: 0 0.3rem;
+}
+.mobile-tape-list-income-describe {
+  font-size:0.28rem;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color: #172841;
+  margin-bottom: 0.66rem;
+}
+.mobile-income-describe-display {
+  justify-content: space-around;
+  text-align: center;
+  font-size:0.24rem;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color: #A2B5D9;
+  margin-bottom: 0.74rem;
+}
+.mobile-income-describe-text {
+  margin-bottom: 0.14rem;
+}
+.mobile-income-describe-amount {
+  font-size:0.32rem;
+  font-family:Roboto-Regular,Roboto;
+  font-weight:400;
+  color: #193662;
+}
+.mobile-tape-list-income-details {
+}
+.mobile-tape-list-income-details-title {
+  color: #0B0B27;
+  font-size:0.36rem;
+  font-family:PingFangSC-Medium,PingFang SC;
+  font-weight:500;
+  padding: 0 0.3rem;
+}
+.mobile-trade-center-follower {
+  width: 7.5rem;
+  height: 1.38rem;
+  padding: 0.3rem 0.3rem;
+}
+.mobile-tape-list-income-img img {
+  /*margin-top: 0.06rem;*/
+  margin-right: 0.3rem;
+  width: 0.68rem;
+  height: auto;
+}
+.mobile-tape-list-income-content {
+  flex: 1;
+  justify-content: space-between;
+  align-items: center;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  font-size:0.24rem;
+  color: #6A83A8;
+}
+.mobile-tape-list-income-uid {
+  color: #172841;
+  font-size: 0.32rem;
+  margin-bottom: 0.1rem;
+}
+.mobile-tape-list-income-right {
+  font-size:0.32rem;
+  font-family:Roboto-Regular,Roboto;
+  font-weight:400;
+  color: #3576F5;
+}
+.mobile-trade-center-not-data {
+  width: 7.5rem;
+  height: 5.68rem;
+  padding-top: 1.3rem;
+}
+.mobile-trade-center-not-data-img {
+  width: 1.76rem;
+  margin: 0 auto;
+}
+.mobile-trade-center-not-data-img img {
+  margin: 0 auto;
+  vertical-align: middle;
+}
+.mobile-trade-center-not-data-text {
+  width: 1.76rem;
+  text-align: center;
+  font-size:0.24rem;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color: #6B7DA2;
+  margin: 0 auto;
+}
+/*------------ 中间部分  end -------------*/
+/*------------ 蒙层部分  begin -------------*/
+.mobile-tape-mask {
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 100;
+}
+.mobile-open-tape-pop-window {
+  width: 100%;
+  min-height: 3.94rem;
+  background: #fff;
+  margin-top: 0.88rem;
+  padding: 0.3rem;
+}
+.mobile-open-tape-pop-window-title {
+  justify-content: space-between;
+  font-size:0.24rem;
+  font-family:PingFangSC-Medium,PingFang SC;
+  font-weight:500;
+  color: #6A83A8;
+  margin-bottom: 0.31rem;
+}
+.mobile-open-tape-pop-list-window-title {
+  font-size:0.36rem;
+  color: #131F30;
+}
+.mobile-window-title-btn {
+  height:0.5rem;
+  line-height: 0.5rem;
+}
+.confirm {
+  padding: 0 0.34rem;
+  background: #386FF9;
+  border-radius:0.03rem;
+  color: #fff;
+}
+.cancel {
+  margin-left: 0.4rem;
+}
+.mobile-open-tape-pop-window-content {
+  width: 100%;
+  min-height: 2.74rem;
+}
+.mobile-open-tape-pop-window-content-item {
+  height: 0.8rem;
+  line-height: 0.8rem;
+  font-size:0.29rem;
+  color: #193662;
+  justify-content: space-between;
+}
+.mobile-open-tape-pop-window-content-currency-pair {
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+}
+.mobile-open-tape-pop-window-content-currency {
+  font-family:PingFangSC-Semibold,PingFang SC;
+  font-weight:600;
+}
+.mobile-open-tape-pop-window-content-currency input {
+  width:1.44rem;
+  height:0.48rem;
+  border-radius:0.03rem;
+  border:0.01rem solid #D0D4E9;
+  margin-right: 0.18rem;
+  padding-left: 0.2rem;
+  box-sizing: border-box;
+}
+.mobile-open-tape-pop-window-content-text {
+  margin-top: 0.2rem;
+  min-height: 0.64rem;
+  color: #6A83A8;
+  font-size:0.24rem;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+}
+/*------------ 蒙层部分  end -------------*/
+
+
+
+
+
+
+
