@@ -11,6 +11,8 @@ root.data = function () {
 /*------------------------------ 生命周期 -------------------------------*/
 root.created = function () {
 
+  // this.getBigBrotherList()
+
   if(this.$route.query.isApp) {
     window.postMessage(JSON.stringify({
         method: 'setTitle',
@@ -73,4 +75,25 @@ root.methods.goToDocumentary = function () {
 root.methods.goToMobileMyFollowOrder = function () {
   this.$router.push({name:'mobileMyFollowOrder'})
 }
+
+
+// 大佬列表
+root.methods.getBigBrotherList = function () {
+  this.$http.send('BIG_BROTHER_LIST', {
+    bind: this,
+    // query:{},
+    callBack: this.re_getBigBrotherList,
+    errorHandler:this.error_getBigBrotherList
+  })
+}
+root.methods.re_getBigBrotherList = function (data) {
+  typeof(data) == 'string' && (data = JSON.parse(data));
+  if(!data)return
+
+
+}
+root.methods.error_getBigBrotherList = function (err) {
+  console.log('err=====',err)
+}
+
 export default root
