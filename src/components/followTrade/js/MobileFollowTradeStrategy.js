@@ -15,15 +15,15 @@ root.data = function () {
 /*------------------------------ 生命周期 -------------------------------*/
 root.created = function () {
   if(this.$route.query.isApp) {
-    window.postMessage(JSON.stringify({
+    /*window.postMessage(JSON.stringify({
         method: 'setTitle',
         parameters: this.userId
       })
-    );
+    );*/
     window.postMessage(JSON.stringify({
       method: 'setH5Back',
       parameters: {
-        canGoH5Back:false
+        canGoH5Back:true
       }
     }))
   }
