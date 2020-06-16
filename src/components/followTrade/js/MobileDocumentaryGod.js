@@ -16,7 +16,7 @@ root.data = function () {
 }
 /*------------------------------ 生命周期 -------------------------------*/
 root.created = function () {
-  console.info('params: {item:item}',this.$route.params.item)
+  console.info('params: {item:item}',this.$route.query.userId)
 
   this.postBigBrotherHistory()
   this.postFollowUser()
@@ -57,7 +57,7 @@ root.methods.jumpToFollowTrade = function () {
 // 点击跟单
 root.methods.jumpToFollowDocumentary = function () {
   // this.$router.push({name:'mobileMyFollowOrder'})
-  this.$router.push({name:'mobileDocumentary',params:{item:this.$route.params.item}})
+  this.$router.push({name:'mobileDocumentary',query:{item:this.$route.query.userId}})
 }
 
 
@@ -65,7 +65,7 @@ root.methods.jumpToFollowDocumentary = function () {
 //大神历史持仓
 root.methods.postBigBrotherHistory = function () {
   let params = {
-    followId: this.$route.params.item.userId,
+    followId: this.$route.query.userId,
   }
   this.$http.send('POST_BROTHER_ORDER', {
     bind: this,
@@ -89,7 +89,7 @@ root.methods.error_postBigBrotherHistory = function (err) {
 //大佬跟随者
 root.methods.postFollowUser = function () {
   let params = {
-    followId: this.$route.params.item.userId ,
+    followId: this.$route.query.userId ,
   }
   this.$http.send('POST_FOLLOWUSER', {
     bind: this,
