@@ -78,8 +78,8 @@ root.methods.re_postBigBrotherHistory = function (data) {
   console.log("this.res=====",data)
   typeof data === 'string' && (data = JSON.parse(data))
   console.info('data',data)
-  this.godInfo = data.dataMap.godInfo
-  this.godHistorList = data.dataMap.list
+  this.godInfo = data.dataMap.godInfo || {}
+  this.godHistorList = data.dataMap.list || []
 }
 root.methods.error_postBigBrotherHistory = function (err) {
   console.log("this.err=====",err)
