@@ -27,7 +27,7 @@
     <div class="mobile-trade-top-data flex">
 
       <div class="mobile-trade-data-item">
-        <div class="mobile-trade-data">{{godInfo.sum ? godInfo.sum : '- -'}}</div>
+        <div class="mobile-trade-data">{{godInfo.sum}}</div>
         <div>累计交易量</div>
       </div>
 
@@ -91,11 +91,11 @@
         </div>
         <div class="mobile-trader-follower-content">
           <div class="mobile-trader-follower-content-top flex">
-            <div class="mobile-trader-follower-UID">100061</div>
-            <div class="mobile-trader-follower-income">98765.12</div>
+            <div class="mobile-trader-follower-UID">{{item.userId}}</div>
+            <div class="mobile-trader-follower-income">{{item.profit}}</div>
           </div>
           <div class="mobile-trader-follower-content-top flex">
-            <div class="mobile-trader-follower-text">跟单总额 15123.12 USDT</div>
+            <div class="mobile-trader-follower-text">跟单总额 {{item.amount}} USDT</div>
             <div class="mobile-trader-follower-text">跟随收益(USDT)</div>
           </div>
         </div>
@@ -109,7 +109,7 @@
     <div class="mobile-trade-open-exchange">
       <div class="mobile-trade-open-exchange-text flex">
         <div class="mobile-trade-fee">费用</div>
-        <div class="mobile-trade-order-fee text-blue">100.00USDT/7天</div>
+        <div class="mobile-trade-order-fee text-blue">{{godInfo.fee}} USDT / 7天</div>
       </div>
       <div class="mobile-trade-open-exchange-button" @click="jumpToFollowDocumentary">跟单</div>
     </div>

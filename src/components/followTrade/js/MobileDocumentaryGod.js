@@ -89,7 +89,7 @@ root.methods.error_postBigBrotherHistory = function (err) {
 //大佬跟随者
 root.methods.postFollowUser = function () {
   let params = {
-    followId: this.$route.params.item.userId,
+    followId: this.$route.params.item.userId ,
   }
   this.$http.send('POST_FOLLOWUSER', {
     bind: this,

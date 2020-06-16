@@ -7,11 +7,13 @@ root.name = 'mobileFollowTradeStrategy'
 /*------------------------------ data -------------------------------*/
 root.data = function () {
   return {
-    followType:1
+
   }
 }
 /*------------------------------ 生命周期 -------------------------------*/
-root.created = function () {}
+root.created = function () {
+  this.postMyDocumentary()
+}
 root.mounted = function () {}
 root.beforeDestroy = function () {}
 /*------------------------------ 计算 -------------------------------*/
@@ -20,10 +22,6 @@ root.computed = {}
 root.watch = {}
 /*------------------------------ 方法 -------------------------------*/
 root.methods = {}
-// 切换历史跟单和跟随者
-root.methods.toggleType = function (type) {
-  this.followType = type
-}
 // 返回跟单首页
 root.methods.jumpToFollowTrade = function () {
   this.$router.push({name:'mobileFollowTrade'})
@@ -31,5 +29,28 @@ root.methods.jumpToFollowTrade = function () {
 // 个人设置
 root.methods.personalSetting = function () {
   console.info('personalSetting=======个人设置',)
+}
+
+
+//我的跟单
+root.methods.postMyDocumentary = function () {
+  // let params = {
+  //   followId: this.$route.params.item.userId ,
+  // }
+  this.$http.send('POST_MY_USER', {
+    bind: this,
+    // params: params,
+    callBack: this.re_postMyDocumentary,
+    errorHandler: this.error_postMyDocumentary
+  })
+}
+root.methods.re_postMyDocumentary = function (data) {
+  console.log("this.res=====",data)
+  typeof data === 'string' && (data = JSON.parse(data))
+  console.info('data',data)
+  // this.followUserList = data.dataMap.list || []
+}
+root.methods.error_postMyDocumentary = function (err) {
+  console.log("this.err=====",err)
 }
 export default root
