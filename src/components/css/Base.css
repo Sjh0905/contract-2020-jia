@@ -625,5 +625,35 @@ input {
     font-weight: normal;
     /*font: 12px/1.5 'Arial', "Microsoft YaHei", sans-serif;*/
   }
+  /*app头部 样式Start*/
+  .mobile-header-ios {
+    height: 0.88rem;
+    width: 100%;
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0.4rem;
+    background: #fff;
+    z-index: 100;
+    border-bottom: 0.02rem solid #F7F8FA ;
+  }
+  .mobile-status-bar-ios {
+    width: 100%;
+    height: 0.4rem;
+    position: fixed;
+    background: #fff;
+    z-index: 100;
+  }
+  .mobile-status-bar-bg-ios {
+    width: 100%;
+    height: 0.4rem;
+    background: #fff;
+    z-index: 100;
+  }
+  .mobile-main-content-app{
+    padding-top: 1.28rem;
+  }
+  /*app头部 样式End*/
 }
 

@@ -1,5 +1,5 @@
 <div class="mobile-trade-strategy">
-
+  <Loading v-if="loading"/>
   <!--顶部标题-->
   <div class="mobile-trade-header-title">
     <!--返回按钮-->
@@ -82,7 +82,7 @@
           </div>
         </div>
       </div>
-      <div class="history-no-data" v-if="godHistorList.length==0">暂无数据</div>
+      <div class="history-no-data" v-if="godHistorList.length==0 && !loading">暂无数据</div>
     </div>
     <div class="mobile-trade-center-content" v-if="followType == 2">
       <div class="mobile-trade-center-follower flex" v-for="(item,index) in followUserList">
@@ -100,7 +100,7 @@
           </div>
         </div>
       </div>
-      <div class="history-no-data" v-if="followUserList.length==0">暂无数据</div>
+      <div class="history-no-data" v-if="followUserList.length==0 && !loading">暂无数据</div>
     </div>
   </div>
   <!--内容底部-->

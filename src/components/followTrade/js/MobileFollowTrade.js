@@ -1,12 +1,13 @@
 const root = {}
 root.name = 'mobileFollowTrade'
 /*------------------------------ 组件 ------------------------------*/
-//root.components = {
-//  'Loading': resolve => require(['../vue/Loading'], resolve),
-//}
+root.components = {
+ 'Loading': resolve => require(['../../vue/Loading'], resolve),
+}
 /*------------------------------ data -------------------------------*/
 root.data = function () {
   return {
+    loading:true,
     listGod:[]
   }
 }
@@ -16,11 +17,6 @@ root.created = function () {
   this.getBigBrotherList()
 
   if(this.$route.query.isApp) {
-    window.postMessage(JSON.stringify({
-        method: 'setTitle',
-        parameters: '策略跟单'
-      })
-    );
     window.postMessage(JSON.stringify({
       method: 'setH5Back',
       parameters: {
@@ -46,6 +42,10 @@ root.computed.userId = function () {
 root.computed.isApp = function () {
   return this.$route.query.isApp ? true : false
 }
+// 检验是否是安卓
+root.computed.isAndroid = function () {
+  return this.$store.state.isAndroid
+}
 
 // 检验ios是否登录
 root.computed.iosLogin = function () {
@@ -69,9 +69,9 @@ root.methods.goToMobileFollowTradeStrategy = function () {
   this.$router.push({'path':'/index/mobileFollowTradeStrategy'})
 }
 // 跳转我的跟单
-root.methods.goToDocumentary = function (userId) {
+root.methods.goToDocumentary = function (userId,fee) {
   // this.$router.push({name:'mobileDocumentary',params: {item:item}})
-  this.$router.push({name:'mobileDocumentaryGod',query:{userId:userId}})
+  this.$router.push({name:'mobileDocumentaryGod',query:{userId:userId,fee:fee}})
 }
 // 去大神页面
 root.methods.goToDocumentaryGod = function () {
@@ -95,6 +95,7 @@ root.methods.getBigBrotherList = function () {
 root.methods.re_getBigBrotherList = function (data) {
   typeof(data) == 'string' && (data = JSON.parse(data));
   if(!data)return
+  this.loading = false
   this.listGod = data.dataMap.list
 
 

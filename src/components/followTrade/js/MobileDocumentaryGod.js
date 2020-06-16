@@ -1,12 +1,13 @@
 const root = {}
 root.name = 'mobileDocumentaryGod'
 /*------------------------------ 组件 ------------------------------*/
-//root.components = {
-//  'Loading': resolve => require(['../Loading/Loading.vue'], resolve),
-//}
+root.components = {
+  'Loading': resolve => require(['../../vue/Loading'], resolve),
+}
 /*------------------------------ data -------------------------------*/
 root.data = function () {
   return {
+    loading:true,
     followType:1,
     godHistorList:[],
     followerList:[],
@@ -16,7 +17,7 @@ root.data = function () {
 }
 /*------------------------------ 生命周期 -------------------------------*/
 root.created = function () {
-  console.info('params: {item:item}',this.$route.query.userId)
+  console.info('params: {item:item}',this.$route.query.userId ,this.$route.query.fee)
 
   this.postBigBrotherHistory()
   this.postFollowUser()
@@ -57,7 +58,7 @@ root.methods.jumpToFollowTrade = function () {
 // 点击跟单
 root.methods.jumpToFollowDocumentary = function () {
   // this.$router.push({name:'mobileMyFollowOrder'})
-  this.$router.push({name:'mobileDocumentary',query:{userId:this.$route.query.userId}})
+  this.$router.push({name:'mobileDocumentary',query:{userId:this.$route.query.userId,fee:this.$route.query.fee}})
 }
 
 
@@ -78,6 +79,7 @@ root.methods.re_postBigBrotherHistory = function (data) {
   console.log("this.res=====",data)
   typeof data === 'string' && (data = JSON.parse(data))
   console.info('data',data)
+  this.loading = false
   this.godInfo = data.dataMap.godInfo || {}
   this.godHistorList = data.dataMap.list || []
 }

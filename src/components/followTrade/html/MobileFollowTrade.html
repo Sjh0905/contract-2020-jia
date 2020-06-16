@@ -1,6 +1,12 @@
 <div class="mobile-follow-trade">
-<!--  非ios头部-->
-  <div v-show="!isApp" class="fund-buy-header-title">
+  <Loading v-if="loading"/>
+
+  <!--ios status栏-->
+  <div v-if="(isApp && !isAndroid)" class="mobile-status-bar-ios"/>
+  <div v-if="(isApp && !isAndroid)" class="mobile-status-bar-bg-ios"/>
+
+  <!--头部-->
+  <div :class="(isApp && !isAndroid) ? 'mobile-header-ios' : 'fund-buy-header-title' ">
     <div class="fund-buy-header-title-back-icon" @click="jumpToBack">
       <img class="fund-buy-header-title-back-icon-img" src="../../LuckyDraw/assets/mobileForecastHomePage/back_icon.png" alt="">
     </div>
@@ -9,7 +15,7 @@
   </div>
 
 <!--  策略跟单主体部分-->
-  <div class="fund-buy-main" :class="isApp ? 'fund-buy-main-app' : '' ">
+  <div class="fund-buy-main">
 <!--    顶部banner-->
     <div class="folloe-banner">
       <img class="folloe-banner-img" src="../assets/with-banner.png" alt="">
@@ -31,7 +37,7 @@
         </div>
         <div class="big-brother-uid">{{item.userId}}</div>
         <div class="documentary-details">
-          <div class="" @click="goToDocumentary(item.userId)"><span class="documentary">跟单</span></div>
+          <div class="" @click="goToDocumentary(item.userId,item.fee)"><span class="documentary">跟单</span></div>
           <div class="interest-rate">{{item.fee}} USDT/30 天</div>
         </div>
       </div>
