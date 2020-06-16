@@ -509,5 +509,6 @@ requestAddress.POST_ADDFOLLOWER= {url: urlHead+'/follow/user/addFollower', metho
 requestAddress.POST_BROTHER_ORDER= {url: urlHead+'/follow/user/historyOrderList', method: 'post'}  //大佬历史持仓
 requestAddress.POST_FOLLOWUSER= {url: urlHead+'/follow/user/listFollowUser', method: 'post'}  //大佬跟随者
 requestAddress.POST_MY_USER= {url: urlHead+'/follow/user/myFollowList', method: 'post'}  //我的跟单
+requestAddress.POST_DEL_FOLLOWER= {url: urlHead+'/follow/user/delFollower', method: 'post'}  //取消跟随
 
 export default requestAddress

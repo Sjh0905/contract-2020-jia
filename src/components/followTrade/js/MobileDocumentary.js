@@ -3,7 +3,7 @@ root.name = 'mobileDocumentary'
 /*------------------------------ 组件 ------------------------------*/
 root.components = {
  // 'Loading': resolve => require(['../vue/Loading'], resolve),
-  'PopupPrompt': resolve => require(['../../vue/PopupPrompt'], resolve),
+ //  'PopupPrompt': resolve => require(['../../vue/PopupPrompt'], resolve),
 }
 /*------------------------------ data -------------------------------*/
 root.data = function () {
@@ -12,12 +12,16 @@ root.data = function () {
     fixedAmount:'',//输入的固定金额
     fixedDescription:'',
 
+    isModify:false, // 是否为修改  默认为 不修改
+
     // 弹框
     popType: 0,
     popText: '',
     popOpen: false,
     waitTime: 2000,
 
+    delFollowOpen:false,
+    // 确认弹窗
   }
 }
 /*------------------------------ 生命周期 -------------------------------*/
@@ -69,7 +73,33 @@ root.computed.windowWidth = function () {
 root.watch = {}
 /*------------------------------ 方法 -------------------------------*/
 root.methods = {}
+// 确定修改跟单币比例
+root.methods.commitModify = function () {
+  this.$http.send('', {
+    bind: this,
+    params: params,
+    callBack: this.re_commitModify,
+    errorHandler: this.error_commitModify
+  })
 
+  this.delFollowClose()
+}
+root.methods.re_commitModify = function (data) {
+  typeof data === 'string' && (data = JSON.parse(data))
+  if(!data) return
+  this.delFollowClose()
+}
+root.methods.error_commitModify = function (err){
+  console.info('err==========',err)
+}
+// 打开确认修改弹框
+root.methods.openModifyWindow = function (){
+this.delFollowOpen = true
+}
+// 关闭修改跟单弹窗
+root.methods.delFollowClose = function () {
+  this.delFollowOpen = false
+}
 //跳转个人策略跟单
 root.methods.goToFollowTrade = function () {
   this.$router.push({'path':'/index/mobileFollowTrade'})

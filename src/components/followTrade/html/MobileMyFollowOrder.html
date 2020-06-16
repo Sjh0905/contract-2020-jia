@@ -58,7 +58,7 @@
               <div class="mobile-trade-item-top-right">06/11 02:18:07</div>
             </div>
           </div>
-          <div class="mobile-trade-item-follower-cancle-btn">取消跟随</div>
+          <div class="mobile-trade-item-follower-cancle-btn" @click="delFollow">取消跟随</div>
         </div>
 
         <div class="mobile-trade-item-top flex">
@@ -91,12 +91,41 @@
           </div>
         </div>
       </div>
-
-
     </div>
-
   </div>
   <!--正在跟随 end-->
+<!--  &lt;!&ndash;弹窗&ndash;&gt;-->
+<!--  <PopupWindow :switch="delFollowOpen" @close="delFollowClose">-->
+<!--    <div slot="header" class="del-follow flex">-->
+<!--      <div>取消跟随</div>-->
+<!--      <div class="del-follow-img">-->
+<!--        <img src="../../../components/LuckyDraw/assets/mobileForecastHomePage/close_btn.png" alt="">-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <div slot="article" class="pop-article">{{}}</div>-->
+<!--    <div slot="footer" class="pop-footer flex-center">-->
+<!--      <template>-->
+<!--        <button class="button-base btn_blue pointer">-->
+<!--          {{$t('ensure')}}-->
+<!--        </button>-->
+<!--      </template>-->
+<!--    </div>-->
+<!--  </PopupWindow>-->
+
+
+
+  <div v-if="delFollowOpen" class="forecast-activity-toast">
+    <div class="forecast-activity-toast-box">
+      <div class="forecast-activity-toast-title">参与预测 <span class="forecast-activity-toast-close-btn" @click="delFollowClose">
+              <img class="forecast-activity-toast-close-btn-img" src="../../../components/LuckyDraw/assets/mobileForecastHomePage/close_btn.png" alt="">
+            </span>
+      </div>
+      <div class="del-follow-text">是否取消对
+        <span class="text_blue">10086</span>
+        的跟随</div>
+      <div class="forecast-activity-toast-btn" @click='followList'>确 定</div>
+    </div>
+  </div>
 
 
 </div>

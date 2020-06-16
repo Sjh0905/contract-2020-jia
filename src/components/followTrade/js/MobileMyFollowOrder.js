@@ -1,14 +1,17 @@
 const root = {}
 root.name = 'mobileFollowTradeStrategy'
 /*------------------------------ 组件 ------------------------------*/
-//root.components = {
+root.components = {
 //  'Loading': resolve => require(['../Loading/Loading.vue'], resolve),
-//}
+    'PopupWindow': resolve => require(['../../vue/PopupWindow'], resolve),
+}
 /*------------------------------ data -------------------------------*/
 root.data = function () {
   return {
     followType:1,
-    isAutomatic:false
+    isAutomatic:false,
+
+    delFollowOpen:false
   }
 }
 /*------------------------------ 生命周期 -------------------------------*/
@@ -23,9 +26,57 @@ root.computed = {}
 root.watch = {}
 /*------------------------------ 方法 -------------------------------*/
 root.methods = {}
+// 取消跟随
+root.methods.delFollow = function (){
+  this.delFollowOpen = true
+}
+// 关闭取消跟随弹窗
+root.methods.delFollowClose = function () {
+  this.delFollowOpen = false
+}
 // 点击修改跟单
 root.methods.modifyDocumentary = function () {
   this.$router.push({name:'mobileDocumentary'})
+}
+// 获取跟随列表
+root.methods.followList = function () {
+  this.$http.send('POST_MY_USER', {
+    bind: this,
+    params: {},
+    callBack: this.re_followList,
+    errorHandler: this.error_followList
+  })
+}
+// 获取跟随列表
+root.methods.re_followList = function (data) {
+  typeof (data) === 'string' && (data = JSON.parse(data))
+
+}
+// 获取跟随列表
+root.methods.error_followList = function (err) {
+  console.warn('点击切换自动续费', err)
+}
+
+
+
+// 取消跟随
+root.methods.followList = function () {
+  this.$http.send('POST_DEL_FOLLOWER', {
+    bind: this,
+    params: {},
+    callBack: this.re_followList,
+    errorHandler: this.error_followList
+  })
+}
+// 取消跟随
+root.methods.re_followList = function (data) {
+  typeof (data) === 'string' && (data = JSON.parse(data))
+
+  this.delFollowClose()
+}
+// 取消跟随
+root.methods.error_followList = function (err) {
+  console.warn('点击切换自动续费', err)
 }
 
 // 点击切换自动续费
@@ -48,6 +99,7 @@ root.methods.re_clickToggle = function (data) {
 root.methods.error_clickToggle = function (err) {
   console.warn('点击切换自动续费', err)
 }
+
 // 切换历史跟单和跟随者
 root.methods.toggleType = function (type) {
   this.followType = type

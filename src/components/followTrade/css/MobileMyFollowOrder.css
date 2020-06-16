@@ -234,3 +234,61 @@
 
 /*------------ 中部内容  end -------------*/
 
+/*弹框样式*/
+.forecast-activity-toast {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0,0,0,0.8);
+  z-index: 200;
+}
+.forecast-activity-toast-box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  width:6rem;
+  height:3.8rem;
+  background: #fff;
+  box-shadow:0rem 0.1rem 0.2rem 0rem rgba(0,0,0,0.1);
+  border-radius:0.04rem;
+}
+.forecast-activity-toast-title {
+  /*margin-top: 8px;*/
+  height: 1.04rem;
+  font-size:0.32rem;
+  font-family:PingFangSC-Medium,PingFang SC;
+  font-weight:500;
+  line-height: 1.04rem;
+  text-align: center;
+  color: #172841;
+  border-bottom: 1px solid #F3F5FF;
+}
+
+.forecast-activity-toast-close-btn {
+  position: absolute;
+  top: 0.36rem;
+  right: 0.4rem;
+}
+.forecast-activity-toast-close-btn-img {
+  width: 16px;
+  height: 16px;
+  display: block;
+}
+.forecast-activity-toast-btn {
+  margin: auto 0.4rem;
+  height: 0.8rem;
+  background: #3576F5;
+  text-align: center;
+  color: #fff;
+  line-height: 0.72rem;
+  font-size: 0.28rem;
+}
+.del-follow-text {
+  font-size:0.29rem;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  padding: 0.6rem 0.4rem;
+}
