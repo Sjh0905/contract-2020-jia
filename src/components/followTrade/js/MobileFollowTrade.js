@@ -68,9 +68,9 @@ root.methods.goToMobileFollowTradeStrategy = function () {
   this.$router.push({'path':'/index/mobileFollowTradeStrategy'})
 }
 // 跳转我的跟单
-root.methods.goToDocumentary = function (userId) {
+root.methods.goToDocumentary = function (userId,fee) {
   // this.$router.push({name:'mobileDocumentary',params: {item:item}})
-  this.$router.push({name:'mobileDocumentaryGod',query:{userId:userId}})
+  this.$router.push({name:'mobileDocumentaryGod',query:{userId:userId,fee:fee}})
 }
 // 去大神页面
 root.methods.goToDocumentaryGod = function () {
