@@ -56,7 +56,7 @@
   <div class="documentary-box">
     <div class="mobile-trade-open-exchange-text flex" v-if="!isModify">
       <div class="mobile-trade-fee">费用</div>
-      <div class="mobile-trade-order-fee text_blue">100.00USDT/7天</div>
+      <div class="mobile-trade-order-fee text_blue">{{$route.query.fee}} USDT / 7天</div>
     </div>
     <div class="documentary-button" @click="postDocumentaryImmediately" v-if="!isModify">立即跟单</div>
     <div class="documentary-button" @click="openModifyWindow" v-if="isModify">确认修改</div>

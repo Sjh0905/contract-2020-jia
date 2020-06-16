@@ -3,7 +3,7 @@ root.name = 'mobileDocumentary'
 /*------------------------------ 组件 ------------------------------*/
 root.components = {
  // 'Loading': resolve => require(['../vue/Loading'], resolve),
- //  'PopupPrompt': resolve => require(['../../vue/PopupPrompt'], resolve),
+  'PopupPrompt': resolve => require(['../../vue/PopupPrompt'], resolve),
 }
 /*------------------------------ data -------------------------------*/
 root.data = function () {
