@@ -16,11 +16,11 @@
       <div class="open-automatic-renew-title">自动续费</div>
       <div class="open-automatic-renew-img">
         <!--关闭按钮-->
-        <div @click="clickToggle" v-if="isAutomatic">
+        <div @click="clickToggle" v-if="!isAutomatic">
           <img src="../../../assets/personalCenter/personal_center_close.png" alt="">
         </div>
         <!--              打开按钮-->
-        <div @click="clickToggle" v-if="!isAutomatic">
+        <div @click="clickToggle" v-if="isAutomatic">
           <img src="../../../assets/personalCenter/personal_center_open.png" alt="">
         </div>
       </div>
@@ -49,13 +49,13 @@
     <div class="mobile-trade-center-title">正在跟随</div>
     <div class="mobile-trade-center-content">
 
-      <div class="mobile-trade-center-content-item">
+      <div class="mobile-trade-center-content-item" v-for="(item,index) in followUserList" :key="index">
         <!--跟随者信息-->
         <div class="mobile-trade-item-follower flex-between">
           <div class="mobile-trade-item-follower-info flex-row">
             <img src="../assets/big-brother.png" class="mobile-trade-item-follower-avatar">
-            <div class="mobile-trade-item-follower-uid">100002
-              <div class="mobile-trade-item-top-right">06/11 02:18:07</div>
+            <div class="mobile-trade-item-follower-uid">{{item.followId}}
+              <div class="mobile-trade-item-top-right">{{formatDateUitl(item.createdAt)}}</div>
             </div>
           </div>
           <div class="mobile-trade-item-follower-cancle-btn" @click="delFollow">取消跟随</div>
@@ -66,11 +66,11 @@
             <div class="mobile-trade-item-currency">
               <div class="mobile-trade-item-currency-label">
                 <div>USDT</div>
-                <span class="mobile-trade-item-currency-bgd">固定金额：1000USDT</span>
-                <span class="mobile-trade-item-currency-bgd">现货</span>
+                <span class="mobile-trade-item-currency-bgd">固定金额：{{item.lot}}USDT</span>
+                <span class="mobile-trade-item-currency-bgd">{{item.type == 'SPOT'?'现货':'--'}}</span>
               </div>
             </div>
-            <div class="modify" @click="modifyDocumentary">
+            <div class="modify" @click="modifyDocumentary(item)">
               修改
               <img src="../../LuckyDraw/assets/mobileForecastHomePage/item_right_icon.png" alt="">
             </div>
@@ -85,9 +85,9 @@
             <div class="mobile-trade-money">累计收益</div>
           </div>
           <div class="mobile-trade-item-content-container flex">
-            <div class="mobile-trade-price">9812.21</div>
-            <div class="mobile-trade-amount">1</div>
-            <div class="mobile-trade-money">9812.12</div>
+            <div class="mobile-trade-price">{{item.amount || '--'}}</div>
+            <div class="mobile-trade-amount">{{item.count || '--'}}</div>
+            <div class="mobile-trade-money">{{item.profit || '--'}}</div>
           </div>
         </div>
       </div>
@@ -96,14 +96,14 @@
 
   <div v-if="delFollowOpen" class="forecast-activity-toast">
     <div class="forecast-activity-toast-box">
-      <div class="forecast-activity-toast-title">参与预测 <span class="forecast-activity-toast-close-btn" @click="delFollowClose">
+      <div class="forecast-activity-toast-title">取消跟随 <span class="forecast-activity-toast-close-btn" @click="delFollowClose">
               <img class="forecast-activity-toast-close-btn-img" src="../../../components/LuckyDraw/assets/mobileForecastHomePage/close_btn.png" alt="">
             </span>
       </div>
       <div class="del-follow-text">是否取消对
         <span class="text_blue">10086</span>
         的跟随</div>
-      <div class="forecast-activity-toast-btn" @click='followList'>确 定</div>
+      <div class="forecast-activity-toast-btn" @click='delFollowList'>确 定</div>
     </div>
   </div>
 

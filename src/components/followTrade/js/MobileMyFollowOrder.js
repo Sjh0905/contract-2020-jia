@@ -10,6 +10,7 @@ root.data = function () {
   return {
     followType:1,
     isAutomatic:false,
+    isAutomaticing:false,
     followUserList:[],
     profit:{}, // 总金额+总收益
 
@@ -20,7 +21,6 @@ root.data = function () {
 root.created = function () {
   // 我的跟随
   this.postMyDocumentary()
-
 }
 root.mounted = function () {}
 root.beforeDestroy = function () {}
@@ -39,8 +39,8 @@ root.methods.delFollowClose = function () {
   this.delFollowOpen = false
 }
 // 点击修改跟单
-root.methods.modifyDocumentary = function () {
-  this.$router.push({name:'mobileDocumentary'})
+root.methods.modifyDocumentary = function (item) {
+  this.$router.push({name:'mobileDocumentary',query:{item:JSON.stringify(item)}})
 }
 
 //我的跟单
@@ -54,12 +54,45 @@ root.methods.postMyDocumentary = function () {
 root.methods.re_postMyDocumentary = function (data) {
   console.log("this.res=====",data)
   typeof data === 'string' && (data = JSON.parse(data))
-  console.info('data',data)
   this.followUserList = data.dataMap.list || []
   this.profit = data.dataMap.profit || {}
+  if(data.dataMap.followSetting.autoType=="YES"){
+    this.isAutomatic = true
+    return
+  }
+  if(data.dataMap.followSetting.autoType=="NO"){
+    this.isAutomatic = false
+    return
+  }
 }
 root.methods.error_postMyDocumentary = function (err) {
   console.log("this.err=====",err)
+}
+
+// 点击切换自动续费
+root.methods.clickToggle = function () {
+  this.isAutomatic = !this.isAutomatic
+  this.$http.send('POST_AUTO_RENEW', {
+    bind: this,
+    params: {
+      val:this.isAutomatic ? 'YES':'NO'
+    },
+    callBack: this.re_clickToggle,
+    errorHandler: this.error_clickToggle
+  })
+}
+// 点击切换自动续费
+root.methods.re_clickToggle = function (data) {
+  typeof (data) === 'string' && (data = JSON.parse(data))
+  if(!data) return
+  if(data.errorCode == 0) {
+    this.isAutomatic = data.dataMap.followSetting.autoType=='YES'? true:false
+  }
+  console.info('data======',data)
+}
+// 点击切换自动续费失败
+root.methods.error_clickToggle = function (err) {
+  console.warn('点击切换自动续费', err)
 }
 
 // 取消跟随
@@ -81,26 +114,6 @@ root.methods.error_delFollowList = function (err) {
   console.warn('点击切换自动续费', err)
 }
 
-// 点击切换自动续费
-root.methods.clickToggle = function () {
-  this.isAutomatic = !this.isAutomatic
-  this.$http.send('', {
-    bind: this,
-    params: {
-    },
-    callBack: this.re_clickToggle,
-    errorHandler: this.error_clickToggle
-  })
-}
-// 点击切换自动续费
-root.methods.re_clickToggle = function (data) {
-  typeof (data) === 'string' && (data = JSON.parse(data))
-
-}
-// 点击切换自动续费失败
-root.methods.error_clickToggle = function (err) {
-  console.warn('点击切换自动续费', err)
-}
 
 // 切换历史跟单和跟随者
 root.methods.toggleType = function (type) {
@@ -120,4 +133,10 @@ root.methods.toFixed = function (num, acc = 8) {
   return this.$globalFunc.accFixed(num, acc)
 }
 /*---------------------- 保留小数 end ---------------------*/
+
+/*---------------------- 格式化时间 begin ---------------------*/
+root.methods.formatDateUitl = function (time) {
+  return this.$globalFunc.formatDateUitl(time, 'YYYY-MM-DD hh:mm:ss')
+}
+/*---------------------- 格式化时间 end ---------------------*/
 export default root

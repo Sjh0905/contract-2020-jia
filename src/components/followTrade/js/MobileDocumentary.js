@@ -26,7 +26,7 @@ root.data = function () {
 }
 /*------------------------------ 生命周期 -------------------------------*/
 root.created = function () {
-console.info('params: {item:item}',this.$route.query.userId)
+console.info('quey: {item:item}',this.$route.query.item)
 
   if(this.$route.query.isApp) {
     window.postMessage(JSON.stringify({
