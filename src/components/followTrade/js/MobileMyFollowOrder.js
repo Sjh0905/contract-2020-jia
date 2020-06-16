@@ -10,13 +10,17 @@ root.data = function () {
   return {
     followType:1,
     isAutomatic:false,
+    followUserList:[],
+    profit:{}, // 总金额+总收益
 
     delFollowOpen:false
   }
 }
 /*------------------------------ 生命周期 -------------------------------*/
 root.created = function () {
+  // 我的跟随
   this.postMyDocumentary()
+
 }
 root.mounted = function () {}
 root.beforeDestroy = function () {}
@@ -38,44 +42,42 @@ root.methods.delFollowClose = function () {
 root.methods.modifyDocumentary = function () {
   this.$router.push({name:'mobileDocumentary'})
 }
-// 获取跟随列表
-root.methods.followList = function () {
+
+//我的跟单
+root.methods.postMyDocumentary = function () {
   this.$http.send('POST_MY_USER', {
     bind: this,
-    params: {},
-    callBack: this.re_followList,
-    errorHandler: this.error_followList
+    callBack: this.re_postMyDocumentary,
+    errorHandler: this.error_postMyDocumentary
   })
 }
-// 获取跟随列表
-root.methods.re_followList = function (data) {
-  typeof (data) === 'string' && (data = JSON.parse(data))
-
+root.methods.re_postMyDocumentary = function (data) {
+  console.log("this.res=====",data)
+  typeof data === 'string' && (data = JSON.parse(data))
+  console.info('data',data)
+  this.followUserList = data.dataMap.list || []
+  this.profit = data.dataMap.profit || {}
 }
-// 获取跟随列表
-root.methods.error_followList = function (err) {
-  console.warn('点击切换自动续费', err)
+root.methods.error_postMyDocumentary = function (err) {
+  console.log("this.err=====",err)
 }
-
-
 
 // 取消跟随
-root.methods.followList = function () {
+root.methods.delFollowList = function () {
   this.$http.send('POST_DEL_FOLLOWER', {
     bind: this,
     params: {},
-    callBack: this.re_followList,
-    errorHandler: this.error_followList
+    callBack: this.re_delFollowList,
+    errorHandler: this.error_delFollowList
   })
 }
 // 取消跟随
-root.methods.re_followList = function (data) {
+root.methods.re_delFollowList = function (data) {
   typeof (data) === 'string' && (data = JSON.parse(data))
-
   this.delFollowClose()
 }
 // 取消跟随
-root.methods.error_followList = function (err) {
+root.methods.error_delFollowList = function (err) {
   console.warn('点击切换自动续费', err)
 }
 
@@ -113,26 +115,9 @@ root.methods.personalSetting = function () {
   console.info('personalSetting=======个人设置',)
 }
 
-
-//我的跟单
-root.methods.postMyDocumentary = function () {
-  // let params = {
-  //   followId: this.$route.params.item.userId ,
-  // }
-  this.$http.send('POST_MY_USER', {
-    bind: this,
-    // params: params,
-    callBack: this.re_postMyDocumentary,
-    errorHandler: this.error_postMyDocumentary
-  })
+/*---------------------- 保留小数 begin ---------------------*/
+root.methods.toFixed = function (num, acc = 8) {
+  return this.$globalFunc.accFixed(num, acc)
 }
-root.methods.re_postMyDocumentary = function (data) {
-  console.log("this.res=====",data)
-  typeof data === 'string' && (data = JSON.parse(data))
-  console.info('data',data)
-  // this.followUserList = data.dataMap.list || []
-}
-root.methods.error_postMyDocumentary = function (err) {
-  console.log("this.err=====",err)
-}
+/*---------------------- 保留小数 end ---------------------*/
 export default root

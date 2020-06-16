@@ -35,11 +35,11 @@
   <div class="follow-statistics flex-around">
     <div class="follow-statistics-item">
       <div class="follow-statistics-item-title">累计跟单总金额(USDT)</div>
-      <div class="follow-statistics-item-money">1000</div>
+      <div class="follow-statistics-item-money">{{profit.amount? toFixed(profit.amount,2):'--'}}</div>
     </div>
     <div class="follow-statistics-item">
       <div class="follow-statistics-item-title">跟单总收益(USDT)</div>
-      <div class="follow-statistics-item-money">1000</div>
+      <div class="follow-statistics-item-money">{{profit.profit ? toFixed(profit.profit,2):'--'}}</div>
     </div>
   </div>
   <!--跟单统计end-->
@@ -93,26 +93,6 @@
       </div>
     </div>
   </div>
-  <!--正在跟随 end-->
-<!--  &lt;!&ndash;弹窗&ndash;&gt;-->
-<!--  <PopupWindow :switch="delFollowOpen" @close="delFollowClose">-->
-<!--    <div slot="header" class="del-follow flex">-->
-<!--      <div>取消跟随</div>-->
-<!--      <div class="del-follow-img">-->
-<!--        <img src="../../../components/LuckyDraw/assets/mobileForecastHomePage/close_btn.png" alt="">-->
-<!--      </div>-->
-<!--    </div>-->
-<!--    <div slot="article" class="pop-article">{{}}</div>-->
-<!--    <div slot="footer" class="pop-footer flex-center">-->
-<!--      <template>-->
-<!--        <button class="button-base btn_blue pointer">-->
-<!--          {{$t('ensure')}}-->
-<!--        </button>-->
-<!--      </template>-->
-<!--    </div>-->
-<!--  </PopupWindow>-->
-
-
 
   <div v-if="delFollowOpen" class="forecast-activity-toast">
     <div class="forecast-activity-toast-box">

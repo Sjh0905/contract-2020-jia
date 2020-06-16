@@ -64,15 +64,14 @@
 
   <PopupPrompt :popOpen="popOpen" :popClose="closePop" :popType="popType" :popText="popText" :waitTime="waitTime" />
 
-
   <!--弹窗-->
   <div v-if="delFollowOpen" class="forecast-activity-toast">
     <div class="forecast-activity-toast-box">
-      <div class="forecast-activity-toast-title">跟单确认 <span class="forecast-activity-toast-close-btn" @click="delFollowClose">
+      <div class="forecast-activity-toast-title">跟单确认
+        <span class="forecast-activity-toast-close-btn" @click="delFollowClose">
               <img class="forecast-activity-toast-close-btn-img" src="../../../components/LuckyDraw/assets/mobileForecastHomePage/close_btn.png" alt="">
-            </span>
+        </span>
       </div>
-
       <div class="del-follow-text">
         <div>跟随者：<span class="text_blue">100886</span></div>
         <div>
