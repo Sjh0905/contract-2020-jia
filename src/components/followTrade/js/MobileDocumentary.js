@@ -26,7 +26,7 @@ root.data = function () {
 }
 /*------------------------------ 生命周期 -------------------------------*/
 root.created = function () {
-// console.info('params: {item:item}',this.$route.params.item)
+console.info('params: {item:item}',this.$route.query.userId)
 
   if(this.$route.query.isApp) {
     window.postMessage(JSON.stringify({
@@ -123,7 +123,7 @@ root.methods.postDocumentaryImmediately = function () {
   }
 
   let params = {
-    followId: this.$route.params.item.userId,
+    followId: this.$route.query.userId,
     followType: this.followType ,    //固定金额LOT   固定比例RATE
     val: this.fixedAmount,
   }
