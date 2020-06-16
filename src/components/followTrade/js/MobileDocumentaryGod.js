@@ -57,7 +57,7 @@ root.methods.jumpToFollowTrade = function () {
 // 点击跟单
 root.methods.jumpToFollowDocumentary = function () {
   // this.$router.push({name:'mobileMyFollowOrder'})
-  this.$router.push({name:'mobileDocumentary',query:{item:this.$route.query.userId}})
+  this.$router.push({name:'mobileDocumentary',query:{userId:this.$route.query.userId}})
 }
 
 
