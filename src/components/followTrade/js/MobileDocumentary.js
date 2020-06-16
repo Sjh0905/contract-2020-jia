@@ -2,12 +2,13 @@ const root = {}
 root.name = 'mobileDocumentary'
 /*------------------------------ 组件 ------------------------------*/
 root.components = {
- // 'Loading': resolve => require(['../vue/Loading'], resolve),
+ // 'Loading': resolve => require(['../../vue/Loading'], resolve),
   'PopupPrompt': resolve => require(['../../vue/PopupPrompt'], resolve),
 }
 /*------------------------------ data -------------------------------*/
 root.data = function () {
   return {
+    loading:true,
     followType:'LOT',
     fixedAmount:'',//输入的固定金额
     fixedDescription:'',

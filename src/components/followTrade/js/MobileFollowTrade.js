@@ -1,12 +1,13 @@
 const root = {}
 root.name = 'mobileFollowTrade'
 /*------------------------------ 组件 ------------------------------*/
-//root.components = {
-//  'Loading': resolve => require(['../vue/Loading'], resolve),
-//}
+root.components = {
+ 'Loading': resolve => require(['../../vue/Loading'], resolve),
+}
 /*------------------------------ data -------------------------------*/
 root.data = function () {
   return {
+    loading:true,
     listGod:[]
   }
 }
@@ -95,6 +96,7 @@ root.methods.getBigBrotherList = function () {
 root.methods.re_getBigBrotherList = function (data) {
   typeof(data) == 'string' && (data = JSON.parse(data));
   if(!data)return
+  this.loading = false
   this.listGod = data.dataMap.list
 
 

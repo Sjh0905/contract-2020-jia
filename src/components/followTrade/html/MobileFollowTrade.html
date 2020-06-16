@@ -1,4 +1,5 @@
 <div class="mobile-follow-trade">
+  <Loading v-if="loading"/>
 <!--  非ios头部-->
   <div v-show="!isApp" class="fund-buy-header-title">
     <div class="fund-buy-header-title-back-icon" @click="jumpToBack">
