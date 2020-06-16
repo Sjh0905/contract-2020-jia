@@ -86,6 +86,7 @@ root.methods.postDocumentaryImmediately = function () {
   let canSend = true
   if (this.fixedAmount == '') {
     this.openPop('固定金额/固定比例不可为空')
+    return
   }
   if (!canSend) {
     return
