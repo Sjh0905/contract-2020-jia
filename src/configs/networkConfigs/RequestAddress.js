@@ -508,5 +508,6 @@ requestAddress.BIG_BROTHER_LIST = {url: urlHead+'/follow/listGod', method: 'post
 requestAddress.POST_ADDFOLLOWER= {url: urlHead+'/follow/user/addFollower', method: 'post'}  //跟单
 requestAddress.POST_BROTHER_ORDER= {url: urlHead+'/follow/user/historyOrderList', method: 'post'}  //大佬历史持仓
 requestAddress.POST_FOLLOWUSER= {url: urlHead+'/follow/user/listFollowUser', method: 'post'}  //大佬跟随者
+requestAddress.POST_MY_USER= {url: urlHead+'/follow/user/myFollowList', method: 'post'}  //我的跟单
 
 export default requestAddress
