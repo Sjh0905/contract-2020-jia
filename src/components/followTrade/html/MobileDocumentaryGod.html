@@ -22,27 +22,27 @@
       <div class="mobile-trade-top-banner-img">
         <img src="../assets/management_personal_icon.png" alt="" class="mobile-trade-img">
       </div>
-      <div class="mobile-trade-top-banner-text">{{godInfo.userId}}</div>
+      <div class="mobile-trade-top-banner-text">{{godInfo.userId ? godInfo.userId : $route.params.item.userId}}</div>
     </div>
     <div class="mobile-trade-top-data flex">
 
       <div class="mobile-trade-data-item">
-        <div class="mobile-trade-data">{{godInfo.sum}}</div>
+        <div class="mobile-trade-data">{{godInfo.sum ? godInfo.sum : '- -'}}</div>
         <div>累计交易量</div>
       </div>
 
       <div class="mobile-trade-data-item">
-        <div class="mobile-trade-data">{{godInfo.count}}</div>
+        <div class="mobile-trade-data">{{godInfo.count ? godInfo.count : '- -'}}</div>
         <div>交易笔数</div>
       </div>
 
       <div class="mobile-trade-data-item">
-        <div class="mobile-trade-data">{{godInfo.followCount}}</div>
+        <div class="mobile-trade-data">{{godInfo.followCount ? godInfo.followCount : '- -'}}</div>
         <div>跟单人数</div>
       </div>
 
       <div class="mobile-trade-data-item">
-        <div class="mobile-trade-data text-green">{{godInfo.rate * 10 * 10}} %</div>
+        <div class="mobile-trade-data text-green">{{godInfo.rate ? godInfo.rate * 10 * 10 : '- -'}} %</div>
         <div>累计收益率</div>
       </div>
     </div>
@@ -82,9 +82,10 @@
           </div>
         </div>
       </div>
+      <div class="history-no-data" v-if="godHistorList.length==0">暂无数据</div>
     </div>
     <div class="mobile-trade-center-content" v-if="followType == 2">
-      <div class="mobile-trade-center-follower flex">
+      <div class="mobile-trade-center-follower flex" v-for="(item,index) in followUserList">
         <div class="mobile-trader-follower-img">
           <img src="../assets/big-brother.png" alt="">
         </div>
@@ -99,21 +100,7 @@
           </div>
         </div>
       </div>
-      <div class="mobile-trade-center-follower flex">
-        <div class="mobile-trader-follower-img">
-          <img src="../assets/big-brother.png" alt="">
-        </div>
-        <div class="mobile-trader-follower-content">
-          <div class="mobile-trader-follower-content-top flex">
-            <div class="mobile-trader-follower-UID">100061</div>
-            <div class="mobile-trader-follower-income">98765.12</div>
-          </div>
-          <div class="mobile-trader-follower-content-top flex">
-            <div class="mobile-trader-follower-text">跟单总额 15123.12 USDT</div>
-            <div class="mobile-trader-follower-text">跟随收益(USDT)</div>
-          </div>
-        </div>
-      </div>
+      <div class="history-no-data" v-if="followUserList.length==0">暂无数据</div>
     </div>
   </div>
   <!--内容底部-->

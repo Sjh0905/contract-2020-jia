@@ -297,3 +297,14 @@
   font-weight:500;
 }
 /*------------ 底部内容  end -------------*/
+/*暂无数据*/
+.history-no-data {
+  min-height: 4rem;
+  line-height: 4rem;
+  text-align: center;
+  font-size:0.28rem;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color: #8994A5;
+
+}
