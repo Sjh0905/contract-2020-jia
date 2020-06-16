@@ -273,30 +273,24 @@
   font-family:PingFangSC-Regular,PingFang SC;
   font-weight:400;
 }
+.currency-account {
+  font-size:0.24rem;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color: #193662;
+}
 
 /*placeholder样式 begin*/
 .currency-account::placeholder {
-  font-size:0.24rem;
-  font-family:PingFangSC-Regular,PingFang SC;
-  font-weight:400;
   color: #193662;
 }
 .currency-account::-moz-placeholder {
-  font-size:0.24rem;
-  font-family:PingFangSC-Regular,PingFang SC;
-  font-weight:400;
   color: #193662;
 }
 .currency-account::-webkit-input-placeholder {
-  font-size:0.24rem;
-  font-family:PingFangSC-Regular,PingFang SC;
-  font-weight:400;
   color: #193662;
 }
 .currency-account:-ms-input-placeholder {
-  font-size:0.24rem;
-  font-family:PingFangSC-Regular,PingFang SC;
-  font-weight:400;
   color: #193662;
 }
 /*placeholder样式 end*/

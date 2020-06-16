@@ -40,12 +40,43 @@
 }
 /*------------ 顶部  end -------------*/
 
+.mobile-trade-header-null {
+  height: 0.88rem;
+}
+
+/*------------ 打开自动续费  begin -------------*/
+.open-automatic-renew {
+  min-height: 3rem;
+  padding: 0.3rem 0.3rem 0.9rem;
+}
+.open-automatic-renew-top {
+  height: 0.6rem;
+  line-height: 0.6rem;
+  font-size:0.36rem;
+  font-family:PingFangSC-Medium,PingFang SC;
+  font-weight:500;
+  color: #131F30;
+  justify-content: space-between;
+  margin-bottom: 0.34rem;
+}
+.open-automatic-renew-img img {
+  width: 1.16rem;
+  vertical-align: middle;
+}
+.open-automatic-renew-text {
+  color: #6A83A8;
+  font-size:0.24rem;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+}
+/*------------ 打开自动续费  end -------------*/
+
 /*------------ 跟单统计  -------------*/
 .follow-statistics{
   width: 100%;
   height:1.78rem;
-  margin-top: 0.88rem;
-  padding-top: 0.4rem;
+  /*margin-top: 0.88rem;*/
+  /*padding-top: 0.4rem;*/
   /*align-items: center;*/
   border-bottom: 0.1rem solid rgba(247,248,250,1);
 }
@@ -87,7 +118,7 @@
 }
 .mobile-trade-center-content-item {
   width: 7.5rem;
-  height: 3.26rem;
+  height: 3.68rem;
   padding: 0.3rem;
   border-bottom: 0.02rem solid #F7F8FA;
 }
@@ -130,7 +161,35 @@
   color: #172841;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 0.24rem;
+}
+.mobile-trade-item-top-left {
+  width: 100%;
+  height: 1.08rem;
+  justify-content: space-between;
+}
+.mobile-trade-item-currency-label {
+  margin-top: 0.06rem;
+  font-size:0.2rem;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color: #6A83A8;
+}
+.mobile-trade-item-currency-bgd {
+  padding: 0 0.12rem;
+  height: 0.34rem;
+  line-height: 0.34rem;
+  background: #E5E7F3;
+  border-radius:0.18rem;
+}
+.mobile-trade-item-currency-bgd span:first-child {
+  margin-right: 0.2rem;
+}
+.modify {
+  color: #3576F5;
+  font-size:0.24rem;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  line-height: 1.08rem;
 }
 .mobile-trade-buy {
   font-size:0.3rem;
@@ -175,3 +234,61 @@
 
 /*------------ 中部内容  end -------------*/
 
+/*弹框样式*/
+.forecast-activity-toast {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0,0,0,0.8);
+  z-index: 200;
+}
+.forecast-activity-toast-box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  width:6rem;
+  height:3.8rem;
+  background: #fff;
+  box-shadow:0rem 0.1rem 0.2rem 0rem rgba(0,0,0,0.1);
+  border-radius:0.04rem;
+}
+.forecast-activity-toast-title {
+  /*margin-top: 8px;*/
+  height: 1.04rem;
+  font-size:0.32rem;
+  font-family:PingFangSC-Medium,PingFang SC;
+  font-weight:500;
+  line-height: 1.04rem;
+  text-align: center;
+  color: #172841;
+  border-bottom: 1px solid #F3F5FF;
+}
+
+.forecast-activity-toast-close-btn {
+  position: absolute;
+  top: 0.36rem;
+  right: 0.4rem;
+}
+.forecast-activity-toast-close-btn-img {
+  width: 16px;
+  height: 16px;
+  display: block;
+}
+.forecast-activity-toast-btn {
+  margin: auto 0.4rem;
+  height: 0.8rem;
+  background: #3576F5;
+  text-align: center;
+  color: #fff;
+  line-height: 0.72rem;
+  font-size: 0.28rem;
+}
+.del-follow-text {
+  font-size:0.29rem;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  padding: 0.6rem 0.4rem;
+}

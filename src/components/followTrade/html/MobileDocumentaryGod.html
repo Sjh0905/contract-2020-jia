@@ -22,27 +22,27 @@
       <div class="mobile-trade-top-banner-img">
         <img src="../assets/management_personal_icon.png" alt="" class="mobile-trade-img">
       </div>
-      <div class="mobile-trade-top-banner-text">1000012</div>
+      <div class="mobile-trade-top-banner-text">{{godInfo.userId ? godInfo.userId : $route.query.userId}}</div>
     </div>
     <div class="mobile-trade-top-data flex">
 
       <div class="mobile-trade-data-item">
-        <div class="mobile-trade-data">- -</div>
+        <div class="mobile-trade-data">{{godInfo.sum}}</div>
         <div>累计交易量</div>
       </div>
 
       <div class="mobile-trade-data-item">
-        <div class="mobile-trade-data">- -</div>
+        <div class="mobile-trade-data">{{godInfo.count ? godInfo.count : '- -'}}</div>
         <div>交易笔数</div>
       </div>
 
       <div class="mobile-trade-data-item">
-        <div class="mobile-trade-data">- -</div>
+        <div class="mobile-trade-data">{{godInfo.followCount ? godInfo.followCount : '- -'}}</div>
         <div>跟单人数</div>
       </div>
 
       <div class="mobile-trade-data-item">
-        <div class="mobile-trade-data text-green">- -</div>
+        <div class="mobile-trade-data text-green">{{godInfo.rate ? godInfo.rate * 10 * 10 : '- -'}} %</div>
         <div>累计收益率</div>
       </div>
     </div>
@@ -61,13 +61,13 @@
       </div>
     </div>
     <div class="mobile-trade-center-content" v-if="followType == 1">
-      <div class="mobile-trade-center-content-item" v-for="(item,index) in historicalList" :key="index">
+      <div class="mobile-trade-center-content-item" v-for="(item,index) in godHistorList" :key="index">
         <div class="mobile-trade-item-top flex">
           <div class="mobile-trade-item-top-left">
-            <span>USDT</span>
-            <span class="mobile-trade-buy text-green" :class="item.type?'text-green':'text-red'">{{item.type? '买入':'卖出'}}</span>
+            <span>{{item.feeCurrency}}</span>
+            <span class="mobile-trade-buy text-green" :class="item.type=='BUY_LIMIT'?'text-green':'text-red'">{{item.type == 'BUY_LIMIT'? '买入':'卖出'}}</span>
           </div>
-          <div class="mobile-trade-item-top-right">06/11 02:18:07</div>
+          <div class="mobile-trade-item-top-right">{{$globalFunc.formatDateUitl(Number(item.createdAt),'MM/DD hh:mm:ss')}}</div>
         </div>
         <div class="mobile-trade-item-content">
           <div class="mobile-trade-item-content-title flex">
@@ -76,44 +76,31 @@
             <div class="mobile-trade-money">金额</div>
           </div>
           <div class="mobile-trade-item-content-container flex">
-            <div class="mobile-trade-price">9812.21</div>
-            <div class="mobile-trade-amount">1</div>
-            <div class="mobile-trade-money">9812.12</div>
+            <div class="mobile-trade-price">{{item.price}}</div>
+            <div class="mobile-trade-amount">{{item.amount}}</div>
+            <div class="mobile-trade-money">{{toFixed(item.price * item.amount,2)}}</div>
           </div>
         </div>
       </div>
+      <div class="history-no-data" v-if="godHistorList.length==0">暂无数据</div>
     </div>
     <div class="mobile-trade-center-content" v-if="followType == 2">
-      <div class="mobile-trade-center-follower flex">
+      <div class="mobile-trade-center-follower flex" v-for="(item,index) in followUserList">
         <div class="mobile-trader-follower-img">
           <img src="../assets/big-brother.png" alt="">
         </div>
         <div class="mobile-trader-follower-content">
           <div class="mobile-trader-follower-content-top flex">
-            <div class="mobile-trader-follower-UID">100061</div>
-            <div class="mobile-trader-follower-income">98765.12</div>
+            <div class="mobile-trader-follower-UID">{{item.userId}}</div>
+            <div class="mobile-trader-follower-income">{{item.profit}}</div>
           </div>
           <div class="mobile-trader-follower-content-top flex">
-            <div class="mobile-trader-follower-text">跟单总额 15123.12 USDT</div>
+            <div class="mobile-trader-follower-text">跟单总额 {{item.amount}} USDT</div>
             <div class="mobile-trader-follower-text">跟随收益(USDT)</div>
           </div>
         </div>
       </div>
-      <div class="mobile-trade-center-follower flex">
-        <div class="mobile-trader-follower-img">
-          <img src="../assets/big-brother.png" alt="">
-        </div>
-        <div class="mobile-trader-follower-content">
-          <div class="mobile-trader-follower-content-top flex">
-            <div class="mobile-trader-follower-UID">100061</div>
-            <div class="mobile-trader-follower-income">98765.12</div>
-          </div>
-          <div class="mobile-trader-follower-content-top flex">
-            <div class="mobile-trader-follower-text">跟单总额 15123.12 USDT</div>
-            <div class="mobile-trader-follower-text">跟随收益(USDT)</div>
-          </div>
-        </div>
-      </div>
+      <div class="history-no-data" v-if="followUserList.length==0">暂无数据</div>
     </div>
   </div>
   <!--内容底部-->
@@ -122,7 +109,7 @@
     <div class="mobile-trade-open-exchange">
       <div class="mobile-trade-open-exchange-text flex">
         <div class="mobile-trade-fee">费用</div>
-        <div class="mobile-trade-order-fee text-blue">100.00USDT/7天</div>
+        <div class="mobile-trade-order-fee text-blue">{{godInfo.fee}} USDT / 7天</div>
       </div>
       <div class="mobile-trade-open-exchange-button" @click="jumpToFollowDocumentary">跟单</div>
     </div>

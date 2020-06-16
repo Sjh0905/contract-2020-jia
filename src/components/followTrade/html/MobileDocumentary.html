@@ -13,7 +13,7 @@
     <div class="fund-description-info">
       <div class="fund-description-info-item">
         <div class="fund-description-info-left">跟单</div>
-        <div class="fund-description-info-right">{{$route.params.item.userId}}</div>
+        <div class="fund-description-info-right">{{$route.query.userId || '--'}}</div>
       </div>
       <div class="fund-description-info-item">
         <div class="fund-description-info-left">跟单币对</div>
@@ -54,9 +54,31 @@
 
 <!-- 跟单按钮 -->
   <div class="documentary-box">
-    <div class="documentary-button" @click="postDocumentaryImmediately">立即跟单</div>
+    <div class="mobile-trade-open-exchange-text flex" v-if="!isModify">
+      <div class="mobile-trade-fee">费用</div>
+      <div class="mobile-trade-order-fee text_blue">100.00USDT/7天</div>
+    </div>
+    <div class="documentary-button" @click="postDocumentaryImmediately" v-if="!isModify">立即跟单</div>
+    <div class="documentary-button" @click="openModifyWindow" v-if="isModify">确认修改</div>
   </div>
 
   <PopupPrompt :popOpen="popOpen" :popClose="closePop" :popType="popType" :popText="popText" :waitTime="waitTime" />
 
+  <!--弹窗-->
+  <div v-if="delFollowOpen" class="forecast-activity-toast">
+    <div class="forecast-activity-toast-box">
+      <div class="forecast-activity-toast-title">跟单确认
+        <span class="forecast-activity-toast-close-btn" @click="delFollowClose">
+              <img class="forecast-activity-toast-close-btn-img" src="../../../components/LuckyDraw/assets/mobileForecastHomePage/close_btn.png" alt="">
+        </span>
+      </div>
+      <div class="del-follow-text">
+        <div>跟随者：<span class="text_blue">100886</span></div>
+        <div>
+          将扣除 <span class="text_blue">100 USDT</span> 订阅费用
+        </div>
+      </div>
+      <div class="forecast-activity-toast-btn" @click="commitModify">确 定</div>
+    </div>
+  </div>
 </div>

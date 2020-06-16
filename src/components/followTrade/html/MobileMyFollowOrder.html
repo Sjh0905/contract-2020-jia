@@ -10,15 +10,36 @@
     <div class="mobile-trade-header-title-text">我的跟单</div>
   </div>
 
+  <div class="mobile-trade-header-null"></div>
+  <div class="open-automatic-renew">
+    <div class="open-automatic-renew-top flex">
+      <div class="open-automatic-renew-title">自动续费</div>
+      <div class="open-automatic-renew-img">
+        <!--关闭按钮-->
+        <div @click="clickToggle" v-if="isAutomatic">
+          <img src="../../../assets/personalCenter/personal_center_close.png" alt="">
+        </div>
+        <!--              打开按钮-->
+        <div @click="clickToggle" v-if="!isAutomatic">
+          <img src="../../../assets/personalCenter/personal_center_open.png" alt="">
+        </div>
+      </div>
+    </div>
+
+    <div class="open-automatic-renew-text">
+      订阅到期后，将自动续费原带单员，带单员的订阅费用可能会随时调整，自动续费金额以带单员最新订阅费用为准，请随时关注，如不想自动续费，请关闭自动续费功能。
+    </div>
+  </div>
+
   <!--跟单统计-->
   <div class="follow-statistics flex-around">
     <div class="follow-statistics-item">
       <div class="follow-statistics-item-title">累计跟单总金额(USDT)</div>
-      <div class="follow-statistics-item-money">1000</div>
+      <div class="follow-statistics-item-money">{{profit.amount? toFixed(profit.amount,2):'--'}}</div>
     </div>
     <div class="follow-statistics-item">
       <div class="follow-statistics-item-title">跟单总收益(USDT)</div>
-      <div class="follow-statistics-item-money">1000</div>
+      <div class="follow-statistics-item-money">{{profit.profit ? toFixed(profit.profit,2):'--'}}</div>
     </div>
   </div>
   <!--跟单统计end-->
@@ -33,17 +54,29 @@
         <div class="mobile-trade-item-follower flex-between">
           <div class="mobile-trade-item-follower-info flex-row">
             <img src="../assets/big-brother.png" class="mobile-trade-item-follower-avatar">
-            <div class="mobile-trade-item-follower-uid">100002</div>
+            <div class="mobile-trade-item-follower-uid">100002
+              <div class="mobile-trade-item-top-right">06/11 02:18:07</div>
+            </div>
           </div>
-          <div class="mobile-trade-item-follower-cancle-btn">取消跟随</div>
+          <div class="mobile-trade-item-follower-cancle-btn" @click="delFollow">取消跟随</div>
         </div>
 
         <div class="mobile-trade-item-top flex">
-          <div class="mobile-trade-item-top-left">
-            <span>USDT</span>
+          <div class="mobile-trade-item-top-left flex">
+            <div class="mobile-trade-item-currency">
+              <div class="mobile-trade-item-currency-label">
+                <div>USDT</div>
+                <span class="mobile-trade-item-currency-bgd">固定金额：1000USDT</span>
+                <span class="mobile-trade-item-currency-bgd">现货</span>
+              </div>
+            </div>
+            <div class="modify" @click="modifyDocumentary">
+              修改
+              <img src="../../LuckyDraw/assets/mobileForecastHomePage/item_right_icon.png" alt="">
+            </div>
 <!--            <span class="mobile-trade-buy text-green">买入</span>-->
           </div>
-          <div class="mobile-trade-item-top-right">06/11 02:18:07</div>
+
         </div>
         <div class="mobile-trade-item-content">
           <div class="mobile-trade-item-content-title flex">
@@ -58,12 +91,21 @@
           </div>
         </div>
       </div>
-
-
     </div>
-
   </div>
-  <!--正在跟随 end-->
+
+  <div v-if="delFollowOpen" class="forecast-activity-toast">
+    <div class="forecast-activity-toast-box">
+      <div class="forecast-activity-toast-title">参与预测 <span class="forecast-activity-toast-close-btn" @click="delFollowClose">
+              <img class="forecast-activity-toast-close-btn-img" src="../../../components/LuckyDraw/assets/mobileForecastHomePage/close_btn.png" alt="">
+            </span>
+      </div>
+      <div class="del-follow-text">是否取消对
+        <span class="text_blue">10086</span>
+        的跟随</div>
+      <div class="forecast-activity-toast-btn" @click='followList'>确 定</div>
+    </div>
+  </div>
 
 
 </div>

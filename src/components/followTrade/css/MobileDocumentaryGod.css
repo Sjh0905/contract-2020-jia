@@ -174,7 +174,11 @@
   font-size:0.3rem;
   font-family:PingFangSC-Regular,PingFang SC;
   font-weight:400;
-  margin-left: 0.2rem;
+  padding-right: 0.2rem;
+  float: right;
+}
+.mobile-trade-item-top-left {
+  width: 28%;
 }
 .mobile-trade-item-top-right {
   font-size:0.24rem;
@@ -293,3 +297,14 @@
   font-weight:500;
 }
 /*------------ 底部内容  end -------------*/
+/*暂无数据*/
+.history-no-data {
+  min-height: 4rem;
+  line-height: 4rem;
+  text-align: center;
+  font-size:0.28rem;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color: #8994A5;
+
+}
