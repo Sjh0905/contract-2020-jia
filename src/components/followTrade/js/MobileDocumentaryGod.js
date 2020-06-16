@@ -8,21 +8,18 @@ root.name = 'mobileDocumentaryGod'
 root.data = function () {
   return {
     followType:1,
-    historicalList:[
-      {type:true},
-      {type:true},
-      {type:false},
-      {type:false},
-      {type:true},
-      {type:false},
-      {type:true},
-    ],
-    followerList:[]
+    godHistorList:[],
+    followerList:[],
+    godInfo:{},
+    followUserList:[]
   }
 }
 /*------------------------------ 生命周期 -------------------------------*/
 root.created = function () {
   console.info('params: {item:item}',this.$route.params.item)
+
+  this.postBigBrotherHistory()
+  this.postFollowUser()
   if(this.$route.query.isApp) {
     window.postMessage(JSON.stringify({
         method: 'setTitle',
@@ -59,6 +56,64 @@ root.methods.jumpToFollowTrade = function () {
 }
 // 点击跟单
 root.methods.jumpToFollowDocumentary = function () {
-  this.$router.push({name:'mobileMyFollowOrder'})
+  // this.$router.push({name:'mobileMyFollowOrder'})
+  this.$router.push({name:'mobileDocumentary',params:{item:this.$route.params.item}})
 }
+
+
+
+//大神信息postBigBrotherHistory
+root.methods.postBigBrotherHistory = function () {
+  let params = {
+    followId: this.$route.params.item.userId,
+  }
+  this.$http.send('POST_BROTHER_ORDER', {
+    bind: this,
+    params: params,
+    callBack: this.re_postBigBrotherHistory,
+    errorHandler: this.error_postBigBrotherHistory
+  })
+}
+root.methods.re_postBigBrotherHistory = function (data) {
+  console.log("this.res=====",data)
+  typeof data === 'string' && (data = JSON.parse(data))
+  console.info('data',data)
+  this.godInfo = data.dataMap.godInfo || {}
+  this.godHistorList = data.dataMap.list || []
+}
+root.methods.error_postBigBrotherHistory = function (err) {
+  console.log("this.err=====",err)
+}
+
+//大佬跟随者
+root.methods.postFollowUser = function () {
+  let params = {
+    followId: this.$route.params.item.userId,
+  }
+  this.$http.send('POST_FOLLOWUSER', {
+    bind: this,
+    params: params,
+    callBack: this.re_postFollowUser,
+    errorHandler: this.error_postFollowUser
+  })
+}
+root.methods.re_postFollowUser = function (data) {
+  console.log("this.res=====",data)
+  typeof data === 'string' && (data = JSON.parse(data))
+  console.info('data',data)
+}
+root.methods.error_postFollowUser = function (err) {
+  console.log("this.err=====",err)
+}
+
+
+
+
+/*---------------------- 保留小数 begin ---------------------*/
+root.methods.toFixed = function (num, acc = 8) {
+  return this.$globalFunc.accFixed(num, acc)
+}
+/*---------------------- 保留小数 end ---------------------*/
+
+
 export default root
