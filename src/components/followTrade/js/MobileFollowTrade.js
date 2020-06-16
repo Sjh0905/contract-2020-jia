@@ -18,11 +18,6 @@ root.created = function () {
 
   if(this.$route.query.isApp) {
     window.postMessage(JSON.stringify({
-        method: 'setTitle',
-        parameters: '策略跟单'
-      })
-    );
-    window.postMessage(JSON.stringify({
       method: 'setH5Back',
       parameters: {
         canGoH5Back:false
@@ -46,6 +41,10 @@ root.computed.userId = function () {
 // 检验是否是APP
 root.computed.isApp = function () {
   return this.$route.query.isApp ? true : false
+}
+// 检验是否是安卓
+root.computed.isAndroid = function () {
+  return this.$store.state.isAndroid
 }
 
 // 检验ios是否登录

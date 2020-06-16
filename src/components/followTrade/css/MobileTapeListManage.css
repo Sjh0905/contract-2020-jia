@@ -212,6 +212,13 @@
   margin-top: 0.88rem;
   padding: 0.3rem;
 }
+.mobile-open-tape-pop-window-app {
+  width: 100%;
+  min-height: 3.94rem;
+  background: #fff;
+  margin-top: 1.28rem;
+  padding: 0.3rem;
+}
 .mobile-open-tape-pop-window-title {
   justify-content: space-between;
   font-size:0.24rem;

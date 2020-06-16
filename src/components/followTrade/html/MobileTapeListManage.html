@@ -1,6 +1,10 @@
 <div class="mobile-trade-tape-manage">
+  <!--ios status栏-->
+  <div v-if="(isApp && !isAndroid)" class="mobile-status-bar-ios"/>
+  <div v-if="(isApp && !isAndroid)" class="mobile-status-bar-bg-ios"/>
+
   <!--顶部标题-->
-  <div class="mobile-trade-header-title">
+  <div :class="(isApp && !isAndroid) ? 'mobile-header-ios' : 'mobile-trade-header-title' ">
     <!--返回按钮-->
     <div class="mobile-trade-header-title-back-icon" @click="jumpToFollowTradeStrategy()">
       <img class="mobile-trade-header-title-back-icon-img" src="../../LuckyDraw/assets/mobileForecastHomePage/back_icon.png" alt="">
@@ -79,7 +83,7 @@
 
   <!--遮罩层-->
   <div class="mobile-tape-mask" v-if="openMaskWindow">
-    <div class="mobile-open-tape-pop-window">
+    <div class="mobile-open-tape-pop-window" :class="(isApp && !isAndroid) ? 'mobile-open-tape-pop-window-app' : 'mobile-open-tape-pop-window' ">
       <div class="mobile-open-tape-pop-window-title flex">
         <div class="mobile-open-tape-pop-list-window-title">开启带单</div>
         <div class="mobile-window-title-btn flex">
