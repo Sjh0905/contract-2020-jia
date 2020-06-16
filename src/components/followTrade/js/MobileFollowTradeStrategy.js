@@ -40,6 +40,10 @@ root.computed.userId = function () {
 root.computed.isApp = function () {
   return this.$route.query.isApp ? true : false
 }
+// 检验是否是安卓
+root.computed.isAndroid = function () {
+  return this.$store.state.isAndroid
+}
 /*------------------------------ 观察 -------------------------------*/
 root.watch = {}
 /*------------------------------ 方法 -------------------------------*/

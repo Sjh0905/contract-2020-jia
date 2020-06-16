@@ -1,7 +1,10 @@
 <div class="mobile-trade-strategy">
+  <!--ios status栏-->
+  <div v-if="(isApp && !isAndroid)" class="mobile-status-bar-ios"/>
+  <div v-if="(isApp && !isAndroid)" class="mobile-status-bar-bg-ios"/>
 
   <!--顶部标题-->
-  <div class="mobile-trade-header-title">
+  <div :class="(isApp && !isAndroid) ? 'mobile-header-ios' : 'mobile-trade-header-title' ">
     <!--返回按钮-->
     <div class="mobile-trade-header-title-back-icon" @click="jumpToFollowTrade()">
       <img class="mobile-trade-header-title-back-icon-img" src="../../LuckyDraw/assets/mobileForecastHomePage/back_icon.png" alt="">
