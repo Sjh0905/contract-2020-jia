@@ -13,7 +13,7 @@
     <div class="fund-description-info">
       <div class="fund-description-info-item">
         <div class="fund-description-info-left">跟单</div>
-        <div class="fund-description-info-right">{{$route.params.item.userId}}</div>
+        <div class="fund-description-info-right">{{$route.params.item.userId || '--'}}</div>
       </div>
       <div class="fund-description-info-item">
         <div class="fund-description-info-left">跟单币对</div>
@@ -54,6 +54,10 @@
 
 <!-- 跟单按钮 -->
   <div class="documentary-box">
+    <div class="mobile-trade-open-exchange-text flex">
+      <div class="mobile-trade-fee">费用</div>
+      <div class="mobile-trade-order-fee text_blue">100.00USDT/7天</div>
+    </div>
     <div class="documentary-button" @click="postDocumentaryImmediately">立即跟单</div>
   </div>
 

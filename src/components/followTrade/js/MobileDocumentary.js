@@ -22,7 +22,7 @@ root.data = function () {
 }
 /*------------------------------ 生命周期 -------------------------------*/
 root.created = function () {
-console.info('params: {item:item}',this.$route.params.item)
+// console.info('params: {item:item}',this.$route.params.item)
 
   if(this.$route.query.isApp) {
     window.postMessage(JSON.stringify({
