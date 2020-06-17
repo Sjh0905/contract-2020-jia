@@ -3,7 +3,7 @@ root.name = 'mobileFollowTradeStrategy'
 /*------------------------------ 组件 ------------------------------*/
 root.components = {
 //  'Loading': resolve => require(['../Loading/Loading.vue'], resolve),
-    'PopupWindow': resolve => require(['../../vue/PopupWindow'], resolve),
+  'PopupPrompt': resolve => require(['../../vue/PopupPrompt'], resolve),
 }
 /*------------------------------ data -------------------------------*/
 root.data = function () {
@@ -13,6 +13,13 @@ root.data = function () {
     isAutomaticing:false,
     followUserList:[],
     profit:{}, // 总金额+总收益
+    followId:'',
+
+    // 弹框
+    popType: 0,
+    popText: '',
+    popOpen: false,
+    waitTime: 2000,
 
     delFollowOpen:false
   }
@@ -30,6 +37,10 @@ root.computed = {}
 root.watch = {}
 /*------------------------------ 方法 -------------------------------*/
 root.methods = {}
+
+root.methods.isFollowId = function (item) {
+  return this.followId = item.followId
+}
 // 取消跟随
 root.methods.delFollow = function (){
   this.delFollowOpen = true
@@ -99,7 +110,9 @@ root.methods.error_clickToggle = function (err) {
 root.methods.delFollowList = function () {
   this.$http.send('POST_DEL_FOLLOWER', {
     bind: this,
-    params: {},
+    params: {
+      followId: this.followId
+    },
     callBack: this.re_delFollowList,
     errorHandler: this.error_delFollowList
   })
@@ -107,6 +120,15 @@ root.methods.delFollowList = function () {
 // 取消跟随
 root.methods.re_delFollowList = function (data) {
   typeof (data) === 'string' && (data = JSON.parse(data))
+  if(!data) return
+  if(data.errorCode != 0){
+    this.openPop('系统错误',0)
+    return
+  }
+  if(data.errorCode == 0){
+    this.openPop('取消跟随成功',1)
+    this.postMyDocumentary()
+  }
   this.delFollowClose()
 }
 // 取消跟随
@@ -114,6 +136,17 @@ root.methods.error_delFollowList = function (err) {
   console.warn('点击切换自动续费', err)
 }
 
+// 打开toast
+root.methods.openPop = function (popText, popType, waitTime) {
+  this.popText = popText
+  this.popType = popType || 0
+  this.popOpen = true
+  this.waitTime = waitTime || 2000
+}
+// 关闭toast
+root.methods.closePop = function () {
+  this.popOpen = false;
+}
 
 // 切换历史跟单和跟随者
 root.methods.toggleType = function (type) {
