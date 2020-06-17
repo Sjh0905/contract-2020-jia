@@ -9,6 +9,7 @@ root.components = {
 root.data = function () {
   return {
     loading:true,
+    follow:true,
     followType:'LOT',
     fixedAmount:'',//输入的固定金额
     fixedDescription:'',
@@ -137,10 +138,11 @@ root.methods.fixedType = function (type) {
 
 //立即跟单postDocumentaryImmediately
 root.methods.postDocumentaryImmediately = function () {
-
+  this.follow = false
   let canSend = true
   if (this.fixedAmount == '') {
     this.openPop('固定金额/固定比例不可为空')
+    this.follow = true
     return
   }
   if (!canSend) {
@@ -162,7 +164,7 @@ root.methods.postDocumentaryImmediately = function () {
 root.methods.re_postDocumentaryImmediately = function (data) {
   console.log("this.res=====",data)
   typeof data === 'string' && (data = JSON.parse(data))
-  //
+  this.follow = true
   // this.success = data.data.success
   // console.log("re_postJoinGroup + data=====",data)
   //
@@ -171,6 +173,11 @@ root.methods.re_postDocumentaryImmediately = function (data) {
     setTimeout(() => {
       this.$router.push({'path':'/index/mobileMyFollowOrder'})
     }, 1000)
+    return;
+  }
+
+  if (data.errorCode != 0) {
+    this.openPop('系统有误')
     return;
   }
   // if (data.errorCode) {

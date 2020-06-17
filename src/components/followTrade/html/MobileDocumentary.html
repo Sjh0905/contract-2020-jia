@@ -62,7 +62,8 @@
       <div class="mobile-trade-fee">费用</div>
       <div class="mobile-trade-order-fee text_blue">{{$route.query.fee}} USDT / 7天</div>
     </div>
-    <div class="documentary-button" @click="postDocumentaryImmediately" v-if="!isHasItem">立即跟单</div>
+    <div class="documentary-button" @click="postDocumentaryImmediately" v-if="!isHasItem && follow">立即跟单</div>
+    <div class="documentary-button" @click="postDocumentaryImmediately" v-if="!isHasItem && !follow">跟单中</div>
     <div class="documentary-button" @click="openModifyWindow" v-if="isHasItem">确认修改</div>
   </div>
 
