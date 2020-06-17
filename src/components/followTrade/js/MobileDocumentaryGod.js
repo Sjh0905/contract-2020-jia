@@ -22,15 +22,15 @@ root.created = function () {
   this.postBigBrotherHistory()
   this.postFollowUser()
   if(this.$route.query.isApp) {
-    window.postMessage(JSON.stringify({
-        method: 'setTitle',
-        parameters: '区块恋' // TODO     这里需要大神的UID
-      })
-    );
+    // window.postMessage(JSON.stringify({
+    //     method: 'setTitle',
+    //     parameters: '区块恋' // TODO     这里需要大神的UID，最新方案先不要这段代码了
+    //   })
+    // );
     window.postMessage(JSON.stringify({
       method: 'setH5Back',
       parameters: {
-        canGoH5Back:false
+        canGoH5Back:true
       }
     }))
   }
@@ -42,6 +42,10 @@ root.computed = {}
 // 检验是否是APP
 root.computed.isApp = function () {
   return this.$route.query.isApp ? true : false
+}
+// 检验是否是安卓
+root.computed.isAndroid = function () {
+  return this.$store.state.isAndroid
 }
 /*------------------------------ 观察 -------------------------------*/
 root.watch = {}

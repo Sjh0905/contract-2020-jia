@@ -1,7 +1,11 @@
 <div class="mobile-follow-trade">
 <!--  <Loading v-if="loading"/>-->
-  <!--  非ios头部-->
-  <div v-show="!isApp" class="fund-buy-header-title">
+  <!--ios status栏-->
+  <div v-if="(isApp && !isAndroid)" class="mobile-status-bar-ios"/>
+  <div v-if="(isApp && !isAndroid)" class="mobile-status-bar-bg-ios"/>
+
+  <!-- 头部-->
+  <div :class="(isApp && !isAndroid) ? 'mobile-header-ios' : 'fund-buy-header-title' ">
     <div class="fund-buy-header-title-back-icon" @click="goToFollowTrade">
       <img class="fund-buy-header-title-back-icon-img" src="../../LuckyDraw/assets/mobileForecastHomePage/back_icon.png" alt="">
     </div>
@@ -9,7 +13,7 @@
   </div>
 
   <!--  跟单主体部分-->
-  <div class="fund-buy-main" :class="isApp ? 'fund-buy-main-app' : '' ">
+  <div class="fund-buy-main">
 
     <div class="fund-description-info">
       <div class="fund-description-info-item">
