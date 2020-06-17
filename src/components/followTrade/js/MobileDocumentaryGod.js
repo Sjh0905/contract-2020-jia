@@ -10,7 +10,6 @@ root.data = function () {
     loading:true,
     followType:1,
     godHistorList:[],
-    followerList:[],
     godInfo:{},
     followUserList:[]
   }

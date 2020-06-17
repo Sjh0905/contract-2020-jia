@@ -513,5 +513,6 @@ requestAddress.POST_DEL_FOLLOWER= {url: urlHead+'/follow/user/delFollower', meth
 requestAddress.POST_AUTO_RENEW= {url: urlHead+'/follow/user/autoRenew', method: 'post'}  //自动续费
 requestAddress.POST_UPDATE_RATEORLOT= {url: urlHead+'/follow/user/updateFollowRateOrLot', method: 'post'}  //确认修改
 requestAddress.POST_GOD= {url: urlHead+'/follow/god', method: 'post'}  //自动续费
+requestAddress.POST_GOD_BY_USERID= {url: urlHead+'/follow/godByUserId', method: 'post'}  //是否开启带单
 
 export default requestAddress

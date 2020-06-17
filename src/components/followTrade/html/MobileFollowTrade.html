@@ -32,7 +32,7 @@
     <div class="big-brother-start" v-for="(item,index) in listGod">
     <!--大佬头像Start-->
       <div class="big-brother-large-box flex">
-        <div @click="goToDocumentaryGod">
+        <div @click="goToDocumentary(item.userId,item.fee)">
           <img class="big-brother-img" src="../assets/big-brother.png" alt="">
         </div>
         <div class="big-brother-uid">{{item.userId}}</div>
