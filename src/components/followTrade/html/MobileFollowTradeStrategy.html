@@ -53,7 +53,7 @@
   <!--内容下部-->
 
   <!--内容中部-->
-  <div class="mobile-trade-center" v-if="isTapeList != 0">
+  <div class="mobile-trade-center" v-if="isTapeList">
     <div class="mobile-trade-center-title  flex">
       <div class="mobile-trade-center-title-only mobile-trade-center-title-history" :class="followType == 1 ? 'mobile-trade-center-title-selected':''" @click="toggleType(1)">
         历史持仓
@@ -128,7 +128,7 @@
   </div>
 
   <!--内容底部-->
-  <div class="mobile-trade-no-data" v-if="isTapeList == 0">
+  <div class="mobile-trade-no-data" v-if="!isTapeList">
     <div class="mobile-trade-no-data-text">该用户未分享交易活动</div>
     <div class="mobile-trade-open-exchange flex">
       <div class="mobile-trade-open-exchange-button" @click="personalSetting()">开启带单交易，双重获利</div>
