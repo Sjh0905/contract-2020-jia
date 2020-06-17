@@ -73,10 +73,10 @@ root.methods.goToDocumentary = function (userId,fee) {
   // this.$router.push({name:'mobileDocumentary',params: {item:item}})
   this.$router.push({name:'mobileDocumentaryGod',query:{userId:userId,fee:fee}})
 }
-// 去大神页面
-root.methods.goToDocumentaryGod = function () {
-  this.$router.push({name: 'mobileDocumentaryGod'})
-}
+// // 去大神页面
+// root.methods.goToDocumentaryGod = function () {
+//   this.$router.push({name: 'mobileDocumentaryGod'})
+// }
 // 返回我的跟单，正在跟随
 root.methods.goToMobileMyFollowOrder = function () {
   this.$router.push({name:'mobileMyFollowOrder'})

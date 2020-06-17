@@ -11,7 +11,10 @@ root.data = function () {
     loading:true,
     follow:true,
     followType:'LOT',
-    fixedAmount:'',//输入的固定金额
+    fixedLotAmount: '',//输入的固定金额
+    fixedRateAmount: '',//输入的固定比例
+    fixedAmountLot:'',//修改输入的固定金额
+    fixedAmountRate:'',//修改输入的固定金额
     fixedDescription:'',
 
     isModify:false,
@@ -29,6 +32,24 @@ root.data = function () {
 /*------------------------------ 生命周期 -------------------------------*/
 root.created = function () {
 console.info('quey: {item:item}',this.$route.query.item)
+
+
+  if(this.isHasItem) {
+    this.followType = this.queryItem.followType ||'LOT'
+  }
+  if(this.queryItem.lot) {
+    this.fixedAmountLot = this.queryItem.lot
+  }else {
+    this.fixedAmountLot = ''
+  }
+
+  if(this.queryItem.rate){
+    this.fixedAmountRate = this.queryItem.rate
+  }else{
+    this.fixedAmountRate = ''
+  }
+
+
 
   if(this.$route.query.isApp) {
     // window.postMessage(JSON.stringify({
@@ -59,15 +80,25 @@ root.computed = {}
 //   }
 //   return this.fixedAmount
 // }
+// // 修改固定金额
+// root.methods.fixedAmountModify = function () {
+//   if(this.isHasItem && this.queryItem.followType == 'LOT'){
+//     return this.queryItem.lot
+//   }
+//   if(this.isHasItem && this.queryItem.followType == 'RATE'){
+//     return this.queryItem.rate
+//   }
+// }
 root.computed.queryItem = function () {
-  return JSON.parse(this.$route.query.item) || {}
+  let queryItem = this.$route.query.item
+  return typeof queryItem == 'string' && JSON.parse(queryItem) || {}
 }
 // 判断是否为修改
 root.computed.isHasItem = function () {
-  if(this.queryItem) {
-    return true
+  if(JSON.stringify(this.queryItem) == '{}') {
+    return false
   }
-  return false
+  return true
 }
 root.computed.followId = function () {
   return this.$route.query.item.followId
@@ -102,28 +133,55 @@ root.computed.windowWidth = function () {
 root.watch = {}
 /*------------------------------ 方法 -------------------------------*/
 root.methods = {}
-// 确定修改跟单币比例
-root.methods.commitModify = function () {
+// // 确定修改跟单币比例
+// root.methods.commitModify = function () {
+//   this.$http.send('POST_UPDATE_RATEORLOT', {
+//     bind: this,
+//     params: params,
+//     callBack: this.re_commitModify,
+//     errorHandler: this.error_commitModify
+//   })
+//
+//   this.delFollowClose()
+// }
+// root.methods.re_commitModify = function (data) {
+//   typeof data === 'string' && (data = JSON.parse(data))
+//   if(!data) return
+//   if(data.errorCode == 0) {
+//     this.openPop('修改跟单成功')
+//   }
+//   if(data.errorCode == 1) {
+//     this.openPop('修改跟单成功')
+//   }
+//   this.delFollowClose()
+// }
+// root.methods.error_commitModify = function (err){
+//   console.info('err==========',err)
+// }
+// 确认修改
+root.methods.commitModify = function (){
   this.$http.send('POST_UPDATE_RATEORLOT', {
     bind: this,
-    params: params,
+    params: {
+      followId: this.queryItem.followId,
+      followType: this.followType,
+      val: this.followType == 'LOT' ? this.fixedAmountLot:this.fixedAmountRate,
+    },
     callBack: this.re_commitModify,
     errorHandler: this.error_commitModify
   })
-
-  this.delFollowClose()
 }
 root.methods.re_commitModify = function (data) {
   typeof data === 'string' && (data = JSON.parse(data))
-  if(!data) return
-  this.delFollowClose()
+  if(data.errorCode == 0) {
+    this.openPop('修改跟单成功',1)
+  }
+  if(data.errorCode == 1) {
+    this.openPop('修改跟单成功',0)
+  }
 }
-root.methods.error_commitModify = function (err){
-  console.info('err==========',err)
-}
-// 打开确认修改弹框
-root.methods.openModifyWindow = function (){
-this.delFollowOpen = true
+root.methods.error_commitModify = function (err) {
+  console.log('err======',err)
 }
 // 关闭修改跟单弹窗
 root.methods.delFollowClose = function () {
@@ -143,11 +201,23 @@ root.methods.fixedType = function (type) {
 root.methods.postDocumentaryImmediately = function () {
   this.follow = false
   let canSend = true
-  if (this.fixedAmount == '') {
+  if ( this.followType == 'LOT' && this.fixedAmountLot == '') {
     this.openPop('固定金额/固定比例不可为空')
     this.follow = true
     return
   }
+  if (this.followType == 'RATE' && this.fixedAmountRate == '') {
+    this.openPop('固定金额/固定比例不可为空')
+    this.follow = true
+    return
+  }
+
+  // if () {
+  //   this.openPop('固定金额/固定比例不可为空')
+  //   this.follow = true
+  //   return
+  // }
+
   if (!canSend) {
     return
   }
@@ -155,7 +225,7 @@ root.methods.postDocumentaryImmediately = function () {
   let params = {
     followId: this.$route.query.userId,
     followType: this.followType ,    //固定金额LOT   固定比例RATE
-    val: this.fixedAmount,
+    val: this.followType == 'LOT' ? this.fixedAmountLot : this.fixedAmountRate,
   }
   this.$http.send('POST_ADDFOLLOWER', {
     bind: this,
