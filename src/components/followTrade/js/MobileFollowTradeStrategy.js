@@ -11,7 +11,7 @@ root.data = function () {
     godInfo:{},
     godHistorList:[],
     followUserList:[],
-    isTapeList:0
+    isTapeList:false
   }
 }
 /*------------------------------ 生命周期 -------------------------------*/
@@ -61,20 +61,20 @@ root.methods.toggleType = function (type) {
 
 // 是否开启带单
 root.methods.isOpenFollow = function () {
-  let params = {
-    followId: this.userId,
-  }
   this.$http.send('POST_GOD_BY_USERID', {
     bind: this,
-    params: params,
     callBack: this.re_isOpenFollow,
     errorHandler: this.error_isOpenFollow
   })
 }
 root.methods.re_isOpenFollow = function (data) {
   typeof data === 'string' && (data = JSON.parse(data))
-  console.info('data',data)
-  this.isTapeList = data.dataMap.godInfo.followCount || 0
+  if(!data && !data.dataMap)return
+  if(JSON.stringify(data.dataMap.godInfo) != '{}') {
+    this.isTapeList = true
+    return
+  }
+    this.isTapeList = false
 }
 root.methods.error_isOpenFollow = function (err) {
   console.log("this.err=====",err)
