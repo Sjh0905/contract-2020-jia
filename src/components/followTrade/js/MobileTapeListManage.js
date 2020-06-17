@@ -81,10 +81,10 @@ root.methods.postCommitFee = function () {
     this.openPop ('订阅费用不能为空')
     return
   }
-  if(this.currencyPair == 0){
-    this.openPop ('订阅费用不能为0')
-    return
-  }
+  // if(this.currencyPair == 0){
+  //   this.openPop ('订阅费用不能为0')
+  //   return
+  // }
   let params = {
     fee: this.currencyPair,
   }

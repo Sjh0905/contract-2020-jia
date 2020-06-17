@@ -133,6 +133,19 @@ root.computed.windowWidth = function () {
 root.watch = {}
 /*------------------------------ 方法 -------------------------------*/
 root.methods = {}
+root.methods.openDocumentaryWindow = function () {
+  if ( this.followType == 'LOT' && this.fixedAmountLot == '') {
+    this.openPop('固定金额/固定比例不可为空')
+    this.follow = true
+    return
+  }
+  if (this.followType == 'RATE' && this.fixedAmountRate == '') {
+    this.openPop('固定金额/固定比例不可为空')
+    this.follow = true
+    return
+  }
+  this.delFollowOpen = true
+}
 // // 确定修改跟单币比例
 // root.methods.commitModify = function () {
 //   this.$http.send('POST_UPDATE_RATEORLOT', {
@@ -177,8 +190,11 @@ root.methods.re_commitModify = function (data) {
     this.openPop('修改跟单成功',1)
   }
   if(data.errorCode == 1) {
-    this.openPop('修改跟单成功',0)
+    this.openPop('系统错误',0)
   }
+  setTimeout(() => {
+    this.$router.push({name:'mobileMyFollowOrder'})
+  }, 2000)
 }
 root.methods.error_commitModify = function (err) {
   console.log('err======',err)
@@ -197,26 +213,12 @@ root.methods.fixedType = function (type) {
   this.followType = type
 }
 
+
 //立即跟单postDocumentaryImmediately
 root.methods.postDocumentaryImmediately = function () {
   this.follow = false
   let canSend = true
-  if ( this.followType == 'LOT' && this.fixedAmountLot == '') {
-    this.openPop('固定金额/固定比例不可为空')
-    this.follow = true
-    return
-  }
-  if (this.followType == 'RATE' && this.fixedAmountRate == '') {
-    this.openPop('固定金额/固定比例不可为空')
-    this.follow = true
-    return
-  }
 
-  // if () {
-  //   this.openPop('固定金额/固定比例不可为空')
-  //   this.follow = true
-  //   return
-  // }
 
   if (!canSend) {
     return

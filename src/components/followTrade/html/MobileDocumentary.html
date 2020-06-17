@@ -64,28 +64,28 @@
       <div class="mobile-trade-fee">费用</div>
       <div class="mobile-trade-order-fee text_blue">{{$route.query.fee}} USDT / 7天</div>
     </div>
-    <div class="documentary-button" @click="postDocumentaryImmediately" v-if="!isHasItem && follow">立即跟单</div>
-    <div class="documentary-button" @click="postDocumentaryImmediately" v-if="!isHasItem && !follow">跟单中</div>
+    <div class="documentary-button" @click="openDocumentaryWindow" v-if="!isHasItem">立即跟单</div>
+<!--    <div class="documentary-button" @click="openDocumentaryWindow" v-if="!isHasItem && !follow">跟单中</div>-->
     <div class="documentary-button" @click="commitModify" v-if="isHasItem">确认修改</div>
   </div>
 
   <PopupPrompt :popOpen="popOpen" :popClose="closePop" :popType="popType" :popText="popText" :waitTime="waitTime" />
 
   <!--弹窗-->
-  <div v-if="delFollowOpen && !isHasItem" class="forecast-activity-toast">
+  <div v-if="delFollowOpen" class="forecast-activity-toast">
     <div class="forecast-activity-toast-box">
       <div class="forecast-activity-toast-title">跟单确认
         <span class="forecast-activity-toast-close-btn" @click="delFollowClose">
-              <img class="forecast-activity-toast-close-btn-img" src="../../../components/LuckyDraw/assets/mobileForecastHomePage/close_btn.png" alt="">
+          <img class="forecast-activity-toast-close-btn-img" src="../../../components/LuckyDraw/assets/mobileForecastHomePage/close_btn.png" alt="">
         </span>
       </div>
       <div class="del-follow-text">
-        <div>跟随者：<span class="text_blue">100886</span></div>
+        <div>跟随者：<span class="text_blue">{{$route.query.userId || ''}}</span></div>
         <div>
-          将扣除 <span class="text_blue">100 USDT</span> 订阅费用
+          将扣除 <span class="text_blue">{{$route.query.fee}} USDT</span> 订阅费用
         </div>
       </div>
-      <div class="forecast-activity-toast-btn" @click="commitModify">确 定</div>
+      <div class="forecast-activity-toast-btn" @click="postDocumentaryImmediately">确 定</div>
     </div>
   </div>
 </div>
