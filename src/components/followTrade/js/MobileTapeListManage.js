@@ -87,10 +87,6 @@ root.methods.postCommitFee = function () {
     this.openPop ('订阅费用不能为0')
     return
   }
-  if (!this.$globalFunc.testNumber(this.currencyPair)) {
-    this.openPop ('请输入正确的订阅费用')
-    return
-  }
   let params = {
     fee: this.currencyPair,
   }
