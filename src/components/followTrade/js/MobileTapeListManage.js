@@ -85,6 +85,16 @@ root.methods.re_postCommitFee = function (data) {
   console.log("this.res=====",data)
   typeof data === 'string' && (data = JSON.parse(data))
   console.info('data',data)
+  if(data.errorCode == 0) {
+    this.openMaskWindow = false
+    this.isTapeList = true
+    this.openPop('订阅成功',1)
+  }
+  if(data.errorCode != 0) {
+    this.openMaskWindow = false
+    this.isTapeList = true
+    this.openPop('系统有误')
+  }
 }
 root.methods.error_postCommitFee = function (err) {
   console.log("this.err=====",err)
