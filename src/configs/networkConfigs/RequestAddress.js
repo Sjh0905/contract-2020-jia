@@ -514,5 +514,6 @@ requestAddress.POST_AUTO_RENEW= {url: urlHead+'/follow/user/autoRenew', method: 
 requestAddress.POST_UPDATE_RATEORLOT= {url: urlHead+'/follow/user/updateFollowRateOrLot', method: 'post'}  //确认修改
 requestAddress.POST_GOD= {url: urlHead+'/follow/god', method: 'post'}  //自动续费
 requestAddress.POST_GOD_BY_USERID= {url: urlHead+'/follow/godByUserId', method: 'post'}  //是否开启带单
+requestAddress.POST_REVISION_FEE= {url: urlHead+'/follow/updateFee', method: 'post'}  //修改带单费用
 
 export default requestAddress
