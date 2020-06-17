@@ -52,15 +52,15 @@ console.info('quey: {item:item}',this.$route.query.item)
 
 
   if(this.$route.query.isApp) {
-    window.postMessage(JSON.stringify({
-        method: 'setTitle',
-        parameters: '跟单'
-      })
-    );
+    // window.postMessage(JSON.stringify({
+    //     method: 'setTitle',
+    //     parameters: '跟单'
+    //   })
+    // );
     window.postMessage(JSON.stringify({
       method: 'setH5Back',
       parameters: {
-        canGoH5Back:false
+        canGoH5Back:true
       }
     }))
   }
@@ -116,7 +116,10 @@ root.computed.userId = function () {
 root.computed.isApp = function () {
   return this.$route.query.isApp ? true : false
 }
-
+// 检验是否是安卓
+root.computed.isAndroid = function () {
+  return this.$store.state.isAndroid
+}
 // 检验ios是否登录
 root.computed.iosLogin = function () {
   return this.$route.query.iosLogin
