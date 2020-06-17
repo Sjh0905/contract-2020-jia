@@ -106,7 +106,7 @@
   vertical-align: text-bottom;
   margin-bottom: 0.02rem;
   margin-left: 0.2rem;
-  vertical-align: inherit;
+  vertical-align: middle;
 }
 .data-update {
   height:0.34rem;

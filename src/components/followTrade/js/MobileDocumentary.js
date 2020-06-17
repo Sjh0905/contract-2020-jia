@@ -13,7 +13,7 @@ root.data = function () {
     fixedAmount:'',//输入的固定金额
     fixedDescription:'',
 
-    isModify:false, // 是否为修改  默认为 不修改
+    isModify:false,
 
     // 弹框
     popType: 0,
@@ -48,6 +48,30 @@ root.mounted = function () {}
 root.beforeDestroy = function () {}
 /*------------------------------ 计算 -------------------------------*/
 root.computed = {}
+// // 处理是否为修改的输入框的值
+// root.computed.fixedAmount = function () {
+//   if(this.isHasItem && this.followType == 'LOT') {
+//     return this.fixedAmount = this.$route.query.item.lot
+//   }
+//   if(this.isHasItem && this.followType == 'RATE') {
+//     return this.fixedAmount = this.$route.query.item.lot
+//   }
+//   return this.fixedAmount
+// }
+root.computed.queryItem = function () {
+  return JSON.parse(this.$route.query.item) || {}
+}
+// 判断是否为修改
+root.computed.isHasItem = function () {
+  if(this.queryItem) {
+    return true
+  }
+  return false
+}
+root.computed.followId = function () {
+  return this.$route.query.item.followId
+}
+
 root.computed.isLogin = function () {
   return this.$store.state.isLogin;
 }
@@ -76,7 +100,7 @@ root.watch = {}
 root.methods = {}
 // 确定修改跟单币比例
 root.methods.commitModify = function () {
-  this.$http.send('', {
+  this.$http.send('POST_UPDATE_RATEORLOT', {
     bind: this,
     params: params,
     callBack: this.re_commitModify,

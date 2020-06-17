@@ -54,7 +54,7 @@
         <div class="mobile-trade-item-follower flex-between">
           <div class="mobile-trade-item-follower-info flex-row">
             <img src="../assets/big-brother.png" class="mobile-trade-item-follower-avatar">
-            <div class="mobile-trade-item-follower-uid">{{item.followId}}
+            <div class="mobile-trade-item-follower-uid">{{isFollowId(item)}}
               <div class="mobile-trade-item-top-right">{{formatDateUitl(item.createdAt)}}</div>
             </div>
           </div>
@@ -93,6 +93,8 @@
       </div>
     </div>
   </div>
+  <!--tost弹框-->
+  <PopupPrompt :popOpen="popOpen" :popClose="closePop" :popType="popType" :popText="popText" :waitTime="waitTime" />
 
   <div v-if="delFollowOpen" class="forecast-activity-toast">
     <div class="forecast-activity-toast-box">
@@ -101,11 +103,12 @@
             </span>
       </div>
       <div class="del-follow-text">是否取消对
-        <span class="text_blue">10086</span>
+        <span class="text_blue">{{followId}}</span>
         的跟随</div>
       <div class="forecast-activity-toast-btn" @click='delFollowList'>确 定</div>
     </div>
   </div>
+
 
 
 </div>

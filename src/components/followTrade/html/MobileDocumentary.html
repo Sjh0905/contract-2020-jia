@@ -14,7 +14,8 @@
     <div class="fund-description-info">
       <div class="fund-description-info-item">
         <div class="fund-description-info-left">跟单</div>
-        <div class="fund-description-info-right">{{$route.query.userId || '--'}}</div>
+        <div class="fund-description-info-right" v-if="!isHasItem">{{$route.query.userId || '--'}}</div>
+        <div class="fund-description-info-right" v-if="isHasItem">{{queryItem.followId || '--'}}</div>
       </div>
       <div class="fund-description-info-item">
         <div class="fund-description-info-left">跟单币对</div>
@@ -30,7 +31,9 @@
       <div class="fund-description-amount" v-if="followType == 'LOT'">
         <div class="fund-description-usdt">跟单金额(USDT)</div>
         <div class="fund-description-info-right-input">
-          <input v-model="fixedAmount" placeholder="输入金额"
+          <input v-model="fixedAmount" placeholder="输入金额" v-if="!queryItem"
+                 step="1"  min="0" onkeyup="this.value= this.value.match(/\d+(\.\d{0,2})?/) ? this.value.match(/\d+(\.\d{0,2})?/)[0] : ''">
+          <input v-model="queryItem.lot" placeholder="输入金额" v-if="queryItem && queryItem.followType == 'LOT'"
                  step="1"  min="0" onkeyup="this.value= this.value.match(/\d+(\.\d{0,2})?/) ? this.value.match(/\d+(\.\d{0,2})?/)[0] : ''">
         </div>
       </div>
@@ -55,12 +58,12 @@
 
 <!-- 跟单按钮 -->
   <div class="documentary-box">
-    <div class="mobile-trade-open-exchange-text flex" v-if="!isModify">
+    <div class="mobile-trade-open-exchange-text flex" v-if="!isHasItem">
       <div class="mobile-trade-fee">费用</div>
       <div class="mobile-trade-order-fee text_blue">{{$route.query.fee}} USDT / 7天</div>
     </div>
-    <div class="documentary-button" @click="postDocumentaryImmediately" v-if="!isModify">立即跟单</div>
-    <div class="documentary-button" @click="openModifyWindow" v-if="isModify">确认修改</div>
+    <div class="documentary-button" @click="postDocumentaryImmediately" v-if="!isHasItem">立即跟单</div>
+    <div class="documentary-button" @click="openModifyWindow" v-if="isHasItem">确认修改</div>
   </div>
 
   <PopupPrompt :popOpen="popOpen" :popClose="closePop" :popType="popType" :popText="popText" :waitTime="waitTime" />
