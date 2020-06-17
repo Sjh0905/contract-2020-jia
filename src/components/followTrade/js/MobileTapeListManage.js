@@ -13,6 +13,7 @@ root.data = function () {
     // 是否开启带单
     isTapeList: false,
     currencyPair:'', //订阅费用
+    currencyPairText:'',
 
     // 弹框
     popType: 0,
@@ -66,11 +67,30 @@ root.methods.openMask = function () {
 root.methods.closeMaskWindow = function () {
   this.openMaskWindow = false
 }
+root.methods.testCurrencyPair = function () {
+  if(this.currencyPair == ''){
+    this.currencyPairText = '订阅费用不能为空'
+    return
+  }
+}
+
 
 
 
 //成为大神
 root.methods.postCommitFee = function () {
+  if(this.currencyPair == ''){
+    this.openPop ('订阅费用不能为空')
+    return
+  }
+  if(this.currencyPair == 0){
+    this.openPop ('订阅费用不能为0')
+    return
+  }
+  if (!this.$globalFunc.testNumber(this.currencyPair)) {
+    this.openPop ('请输入正确的订阅费用')
+    return
+  }
   let params = {
     fee: this.currencyPair,
   }
