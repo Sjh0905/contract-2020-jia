@@ -511,5 +511,6 @@ requestAddress.POST_FOLLOWUSER= {url: urlHead+'/follow/user/listFollowUser', met
 requestAddress.POST_MY_USER= {url: urlHead+'/follow/user/myFollowList', method: 'post'}  //我的跟单
 requestAddress.POST_DEL_FOLLOWER= {url: urlHead+'/follow/user/delFollower', method: 'post'}  //取消跟随
 requestAddress.POST_AUTO_RENEW= {url: urlHead+'/follow/user/autoRenew', method: 'post'}  //自动续费
+requestAddress.POST_GOD= {url: urlHead+'/follow/god', method: 'post'}  //自动续费
 
 export default requestAddress

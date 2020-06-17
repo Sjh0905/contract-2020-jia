@@ -87,7 +87,7 @@
       <div class="mobile-open-tape-pop-window-title flex">
         <div class="mobile-open-tape-pop-list-window-title">开启带单</div>
         <div class="mobile-window-title-btn flex">
-          <div class="confirm" @click="commit">确认</div>
+          <div class="confirm" @click="postCommitFee">确认</div>
           <div class="cancel" @click="closeMaskWindow">取消</div>
         </div>
       </div>
@@ -101,8 +101,8 @@
         <div class="mobile-open-tape-pop-window-content-item flex">
           <div class="mobile-open-tape-pop-window-content-currency-pair">订阅费用(USDT)</div>
           <div class="mobile-open-tape-pop-window-content-currency">
-            <input type="text" class="currency-account" v-moble="currencyPair" :placeholder="currencyPair" onkeyup="value = value.match(/\d+(\.\d{0,2})?/) ? value.match(/\d+(\.\d{0,2})?/)[0] : ''">
-            /7天</div>
+            <input v-model="currencyPair" class="currency-account" onkeyup="value = value.match(/\d+(\.\d{0,2})?/) ? value.match(/\d+(\.\d{0,2})?/)[0] : ''">
+            / 7天</div>
         </div>
         <div class="mobile-open-tape-pop-window-content-text">
           开启后，如您收益率靠前，您将可能出现在带单龙虎榜榜单中，同时可被用户跟单，零成本获得额外的带单收益，双重盈利。

@@ -8,12 +8,11 @@ root.components = {
 /*------------------------------ data -------------------------------*/
 root.data = function () {
   return {
-    incomeDetaisList:[
-    ],
+    incomeDetaisList:[],
     openMaskWindow:false,
     // 是否开启带单
     isTapeList: false,
-    currencyPair:0, //订阅费用
+    currencyPair:'', //订阅费用
 
     // 弹框
     popType: 0,
@@ -55,12 +54,6 @@ root.computed.isAndroid = function () {
 root.watch = {}
 /*------------------------------ 方法 -------------------------------*/
 root.methods = {}
-// 判断数字
-root.methods.commit = function () {
-  if(this.currencyPair == 0 ) {
-    this.openPop('请输入正确的数字')
-  }
-}
 // 返回个人页面
 root.methods.jumpToFollowTradeStrategy = function () {
   this.$router.push({name:'mobileFollowTradeStrategy'})
@@ -72,6 +65,29 @@ root.methods.openMask = function () {
 // 关闭蒙层
 root.methods.closeMaskWindow = function () {
   this.openMaskWindow = false
+}
+
+
+
+//成为大神
+root.methods.postCommitFee = function () {
+  let params = {
+    fee: this.currencyPair,
+  }
+  this.$http.send('POST_GOD', {
+    bind: this,
+    params: params,
+    callBack: this.re_postCommitFee,
+    errorHandler: this.error_postCommitFee
+  })
+}
+root.methods.re_postCommitFee = function (data) {
+  console.log("this.res=====",data)
+  typeof data === 'string' && (data = JSON.parse(data))
+  console.info('data',data)
+}
+root.methods.error_postCommitFee = function (err) {
+  console.log("this.err=====",err)
 }
 
 
