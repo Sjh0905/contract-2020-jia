@@ -173,7 +173,7 @@ root.methods.toggleType = function (type) {
 }
 // 返回跟单首页
 root.methods.jumpToFollowTrade = function () {
-  this.$router.go(-3)
+  this.$router.go(-1)
 }
 // 个人设置
 root.methods.personalSetting = function () {
