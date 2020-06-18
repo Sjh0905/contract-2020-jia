@@ -3,12 +3,19 @@ root.name = 'mobileFollowTrade'
 /*------------------------------ 组件 ------------------------------*/
 root.components = {
  'Loading': resolve => require(['../../vue/Loading'], resolve),
+  'PopupPrompt': resolve => require(['../../vue/PopupPrompt'], resolve),
 }
 /*------------------------------ data -------------------------------*/
 root.data = function () {
   return {
     loading:true,
-    listGod:[]
+    listGod:[],
+
+    // 弹框
+    popType: 0,
+    popText: '',
+    popOpen: false,
+    waitTime: 2000,
   }
 }
 /*------------------------------ 生命周期 -------------------------------*/
@@ -70,6 +77,10 @@ root.methods.goToMobileFollowTradeStrategy = function () {
 }
 // 跳转我的跟单
 root.methods.goToDocumentary = function (userId,fee) {
+  if(this.userId == userId){
+    this.openPop('自己不能跟随自己哦')
+    return
+  }
   // this.$router.push({name:'mobileDocumentary',params: {item:item}})
   this.$router.push({name:'mobileDocumentaryGod',query:{userId:userId,fee:fee}})
 }
@@ -94,14 +105,25 @@ root.methods.getBigBrotherList = function () {
 }
 root.methods.re_getBigBrotherList = function (data) {
   typeof(data) == 'string' && (data = JSON.parse(data));
-  if(!data)return
+  if(!data && !data.dataMap)return
   this.loading = false
-  this.listGod = data.dataMap.list
 
+  this.listGod = data.dataMap.list || []
 
 }
 root.methods.error_getBigBrotherList = function (err) {
   console.log('err=====',err)
 }
 
+// 打开toast
+root.methods.openPop = function (popText, popType, waitTime) {
+  this.popText = popText
+  this.popType = popType || 0
+  this.popOpen = true
+  this.waitTime = waitTime || 2000
+}
+// 关闭toast
+root.methods.closePop = function () {
+  this.popOpen = false;
+}
 export default root

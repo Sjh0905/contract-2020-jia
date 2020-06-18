@@ -38,7 +38,7 @@
         <div class="big-brother-uid">{{item.userId}}</div>
         <div class="documentary-details">
           <div class="" @click="goToDocumentary(item.userId,item.fee)"><span class="documentary">跟单</span></div>
-          <div class="interest-rate">{{item.fee}} USDT/30 天</div>
+          <div class="interest-rate">{{item.fee}} USDT/ {{item.days}}天</div>
         </div>
       </div>
       <!--大佬头像End-->
@@ -48,13 +48,13 @@
         <div class="accumulated-income">
           <div class="percentage">{{item.rate * 10 * 10}}%</div>
           <div class="padding-bottom color-a2">累计收益率</div>
-          <div class="color-13">{{item.sum}}</div>
+          <div class="color-13">{{item.sum || '0'}}</div>
           <div class="color-a2">累计交易量</div>
         </div>
         <div class="accumulated-income">
           <div class="color-13">{{item.count}}</div>
           <div class="padding-bottom color-a2">交易笔数</div>
-          <div class="color-13">{{item.followCount}}</div>
+          <div class="color-13">{{item.followCount || '0'}}</div>
           <div class="color-a2">累计跟单人数</div>
         </div>
 
@@ -62,6 +62,9 @@
       <!--大佬交易详情End-->
     </div>
     <!--遍历大佬详细信息End-->
-
   </div>
+
+  <!--toast弹框-->
+  <PopupPrompt :popOpen="popOpen" :popClose="closePop" :popType="popType" :popText="popText" :waitTime="waitTime" />
+
 </div>

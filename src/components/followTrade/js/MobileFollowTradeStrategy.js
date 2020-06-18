@@ -69,8 +69,8 @@ root.methods.isOpenFollow = function () {
 }
 root.methods.re_isOpenFollow = function (data) {
   typeof data === 'string' && (data = JSON.parse(data))
-  if(!data && !data.dataMap)return
-  if(JSON.stringify(data.dataMap.godInfo) != '{}') {
+  if(!data) return
+  if(JSON.stringify(data.dataMap) != '{}' && JSON.stringify(data.dataMap.godInfo) != '{}') {
     this.isTapeList = true
     return
   }

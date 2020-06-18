@@ -25,6 +25,7 @@ root.data = function () {
     sumFee:0, //累计收益
     todayFee:0, //今日收益
     userFollowFees:[], //收益明细
+    followDay:'', // 跟单天数
     godInfo:{} //是否开启带单
 
   }
@@ -173,19 +174,17 @@ root.methods.postManage = function () {
   })
 }
 root.methods.re_postManage = function (data) {
-  console.log("this.res=====",data)
   typeof data === 'string' && (data = JSON.parse(data))
-  console.info('data',data)
-  this.countFollower = data.dataMap.countFollower
-  this.sumFee = data.dataMap.sumFee
-  this.todayFee = data.dataMap.todayFee
+  this.countFollower = data.dataMap.countFollower || '0'
+  this.sumFee = data.dataMap.sumFee || '0'
+  this.todayFee = data.dataMap.todayFee || '0'
   this.userFollowFees = data.dataMap.userFollowFees || []
   this.godInfo = data.dataMap.godInfo || {}
+  this.followDay = data.dataMap.days || '0'
 }
 root.methods.error_postManage = function (err) {
   console.log("this.err=====",err)
 }
-
 
 //修改带单费用
 root.methods.RevisionFee = function () {
