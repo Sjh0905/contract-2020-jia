@@ -21,7 +21,9 @@ root.data = function () {
     popOpen: false,
     waitTime: 2000,
 
-    delFollowOpen:false
+    delFollowOpen:false,
+
+    fromName : 'mobileFollowTrade'
   }
 }
 /*------------------------------ 生命周期 -------------------------------*/
@@ -42,6 +44,14 @@ root.created = function () {
   // 我的跟随
   this.postMyDocumentary()
 }
+
+//检测从哪个路由进来的
+root.beforeRouteEnter = function (to, from, next) {
+  next(vm => {
+    vm.fromName = from.name
+  });
+}
+
 root.mounted = function () {}
 root.beforeDestroy = function () {}
 /*------------------------------ 计算 -------------------------------*/
@@ -173,7 +183,14 @@ root.methods.toggleType = function (type) {
 }
 // 返回跟单首页
 root.methods.jumpToFollowTrade = function () {
-  this.$router.go(-1)
+
+  if (this.fromName != 'mobileFollowTrade') {
+    this.$router.go(-3)
+    console.info('LLLLLLLLLLLLLLLLLLL')
+    return
+  }
+   this.$router.go(-1)
+    console.info('ssssssssssss')
 }
 // 个人设置
 root.methods.personalSetting = function () {
