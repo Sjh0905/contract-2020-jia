@@ -87,6 +87,7 @@
   font-weight:400;
   color: #6A83A8;
 }
+
 .mobile-open-tape-list-title {
   font-size:0.36rem;
   font-family:PingFangSC-Medium,PingFang SC;
@@ -171,6 +172,7 @@
   font-family:Roboto-Regular,Roboto;
   font-weight:400;
   color: #3576F5;
+  text-align: right;
 }
 .mobile-trade-center-not-data {
   width: 7.5rem;

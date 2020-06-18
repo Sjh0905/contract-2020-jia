@@ -8,7 +8,6 @@ root.components = {
 /*------------------------------ data -------------------------------*/
 root.data = function () {
   return {
-    incomeDetaisList:[],
     openMaskWindow:false,
     // 是否开启带单
     isTapeList: false,
@@ -22,10 +21,18 @@ root.data = function () {
     popOpen: false,
     waitTime: 2000,
 
+    countFollower:0, //跟单人数
+    sumFee:0, //累计收益
+    todayFee:0, //今日收益
+    userFollowFees:[], //收益明细
+    godInfo:{} //是否开启带单
+
   }
 }
 /*------------------------------ 生命周期 -------------------------------*/
 root.created = function () {
+
+  this.postManage()
   if(this.$route.query.isApp) {
     // window.postMessage(JSON.stringify({
     //     method: 'setTitle',
@@ -44,6 +51,13 @@ root.mounted = function () {}
 root.beforeDestroy = function () {}
 /*------------------------------ 计算 -------------------------------*/
 root.computed = {}
+
+root.computed.isHasItem = function () {
+  if(JSON.stringify(this.godInfo) == '{}') {
+    return false
+  }
+  return true
+}
 // 检验是否是APP
 root.computed.isApp = function () {
   return this.$route.query.isApp ? true : false
@@ -103,6 +117,7 @@ root.methods.re_postCommitFee = function (data) {
     this.openMaskWindow = false
     this.isTapeList = true
     this.openPop('订阅成功',1)
+    this.postManage()
   }
   if(data.errorCode != 0) {
     this.openMaskWindow = false
@@ -140,6 +155,7 @@ root.methods.re_postRevisionFee = function (data) {
     this.openMaskWindow = false
     this.isTapeList = true
     this.openPop('修改成功',1)
+    this.postManage()
   }
   if(data.errorCode != 0) {
     this.openMaskWindow = false
@@ -148,6 +164,29 @@ root.methods.re_postRevisionFee = function (data) {
   }
 }
 root.methods.error_postRevisionFee = function (err) {
+  console.log("this.err=====",err)
+}
+
+//个人带单管理
+root.methods.postManage = function () {
+  this.$http.send('POST_MANAGE', {
+    bind: this,
+    // params: params,
+    callBack: this.re_postManage,
+    errorHandler: this.error_postManage
+  })
+}
+root.methods.re_postManage = function (data) {
+  console.log("this.res=====",data)
+  typeof data === 'string' && (data = JSON.parse(data))
+  console.info('data',data)
+  this.countFollower = data.dataMap.countFollower
+  this.sumFee = data.dataMap.sumFee
+  this.todayFee = data.dataMap.todayFee
+  this.userFollowFees = data.dataMap.userFollowFees || []
+  this.godInfo = data.dataMap.godInfo || {}
+}
+root.methods.error_postManage = function (err) {
   console.log("this.err=====",err)
 }
 
