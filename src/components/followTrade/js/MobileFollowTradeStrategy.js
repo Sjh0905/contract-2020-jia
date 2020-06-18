@@ -125,7 +125,7 @@ root.methods.error_postPersonalFollowUser = function (err) {
 
 // 返回跟单首页
 root.methods.jumpToFollowTrade = function () {
-  this.$router.push({name:'mobileFollowTrade'})
+  this.$router.go(-1)
 }
 // 个人设置
 root.methods.personalSetting = function () {
