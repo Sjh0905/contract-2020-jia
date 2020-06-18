@@ -71,7 +71,7 @@
   <div :class="!isHasItem ? 'documentary-box' : 'documentary-box-has-item'">
     <div class="mobile-trade-open-exchange-text flex" v-if="!isHasItem">
       <div class="mobile-trade-fee">费用</div>
-      <div class="mobile-trade-order-fee text_blue">{{$route.query.fee}} USDT / 7天</div>
+      <div class="mobile-trade-order-fee text_blue">{{$route.query.fee}} USDT / {{$route.query.days}}天</div>
     </div>
     <div class="documentary-button" @click="openDocumentaryWindow" v-if="!isHasItem">立即跟单</div>
 <!--    <div class="documentary-button" @click="openDocumentaryWindow" v-if="!isHasItem && !follow">跟单中</div>-->
