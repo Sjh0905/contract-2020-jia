@@ -72,7 +72,7 @@ root.watch = {}
 root.methods = {}
 // 返回个人页面
 root.methods.jumpToFollowTradeStrategy = function () {
-  this.$router.push({name:'mobileFollowTradeStrategy'})
+  this.$router.go(-1)
 }
 // 打开蒙层
 root.methods.openMask = function () {
