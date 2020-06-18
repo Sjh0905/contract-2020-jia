@@ -67,13 +67,6 @@ root.created = function () {
 
 
 
-root.beforeRouteEnter = function (to, from, next) {
-  next(vm => {
-    if(from.name === 'mobileMyFollowOrder'){
-      vm.$router.go(-2)
-    }
-  });
-}
 
 root.mounted = function () {}
 root.beforeDestroy = function () {}
