@@ -151,6 +151,18 @@
   padding: 0 0.34rem;
   margin-bottom: 0.04rem;
 }
+.documentary-follow {
+  display: inline-block;
+  font-size:0.24rem;
+  font-family:PingFangSC-Medium,PingFang SC;
+  font-weight:500;
+  height:0.44rem;
+  line-height: 0.44rem;
+  color: #A2B5D9;
+  border-radius:0.03rem;
+  /*padding: 0 0.34rem;*/
+  margin-bottom: 0.04rem;
+}
 .interest-rate {
   color: #6A83A8;
   font-size:0.24rem;

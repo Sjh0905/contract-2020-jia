@@ -11,7 +11,7 @@
       <img class="mobile-trade-header-title-back-icon-img" src="../../LuckyDraw/assets/mobileForecastHomePage/back_icon.png" alt="">
     </div>
     <!--UID标题-->
-    <div class="fund-buy-header-title-text">1000012</div>
+    <div class="fund-buy-header-title-text">{{godInfo.userId ? godInfo.userId : $route.query.userId}}</div>
 <!--    &lt;!&ndash;设置按钮&ndash;&gt;-->
 <!--    <div class="mobile-trade-header-title-setting-icon" @click="personalSetting()">-->
 <!--      <img class="mobile-trade-header-title-back-icon-img" src="../assets/setting_icon.png" alt="">-->
@@ -110,12 +110,13 @@
   <!--内容底部-->
   <div class="mobile-trade-no-data" v-if="!loading">
 
-    <div class="mobile-trade-open-exchange">
+    <div class="mobile-trade-open-exchange" >
       <div class="mobile-trade-open-exchange-text flex">
         <div class="mobile-trade-fee">费用</div>
         <div class="mobile-trade-order-fee text-blue">{{godInfo.fee}} USDT / {{godInfo.days}}天</div>
       </div>
-      <div class="mobile-trade-open-exchange-button" @click="jumpToFollowDocumentary">跟单</div>
+      <div class="mobile-trade-open-exchange-button" @click="jumpToFollowDocumentary" v-if="$route.query.isFollow >= 0">跟单</div>
+      <div class="mobile-trade-open-exchange-button-isfollow" v-if="$route.query.isFollow < 0">已跟随</div>
     </div>
   </div>
 
