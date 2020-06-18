@@ -10,6 +10,8 @@ root.data = function () {
   return {
     loading:true,
     listGod:[],
+    godList:[],
+    isFollow:false,
 
     // 弹框
     popType: 0,
@@ -37,6 +39,19 @@ root.mounted = function () {}
 root.beforeDestroy = function () {}
 /*------------------------------ 计算 -------------------------------*/
 root.computed = {}
+// root.computed.isFollow = function () {
+//   this.godList.forEach(v=>{
+//     if(this.listGod.indexOf(v) >= 0 ) {
+//       console.info('v=======大神uid',v)
+//       return true
+//     }
+//     return
+//     if(this.listGod.indexOf(v) < 0 ) {
+//       return false
+//     }
+//   })
+// }
+
 root.computed.isLogin = function () {
   return this.$store.state.isLogin;
 }
@@ -82,7 +97,7 @@ root.methods.goToDocumentary = function (userId,fee,days) {
     return
   }
   // this.$router.push({name:'mobileDocumentary',params: {item:item}})
-  this.$router.push({name:'mobileDocumentaryGod',query:{userId:userId,fee:fee,days:days}})
+  this.$router.push({name:'mobileDocumentaryGod',query:{userId:userId,fee:fee,days:days,isFollow:this.godList.indexOf(userId)}})
 }
 // // 去大神页面
 // root.methods.goToDocumentaryGod = function () {
@@ -107,9 +122,9 @@ root.methods.re_getBigBrotherList = function (data) {
   typeof(data) == 'string' && (data = JSON.parse(data));
   if(!data && !data.dataMap)return
   this.loading = false
-
-  this.listGod = data.dataMap.list || []
-
+  this.listGod = data.dataMap.list || [] // 大神列表
+  this.days = data.dataMap.days || '0'
+  this.godList = data.dataMap.godList || []   // 已跟随大神列表
 }
 root.methods.error_getBigBrotherList = function (err) {
   console.log('err=====',err)
