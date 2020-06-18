@@ -96,9 +96,7 @@ root.methods.postCommitFee = function () {
   })
 }
 root.methods.re_postCommitFee = function (data) {
-  console.log("this.res=====",data)
   typeof data === 'string' && (data = JSON.parse(data))
-  console.info('data',data)
   if(data.errorCode == 0) {
     this.openMaskWindow = false
     this.isTapeList = true
@@ -133,9 +131,7 @@ root.methods.postRevisionFee = function () {
   })
 }
 root.methods.re_postRevisionFee = function (data) {
-  console.log("this.res=====",data)
   typeof data === 'string' && (data = JSON.parse(data))
-  console.info('data',data)
   if(data.errorCode == 0) {
     this.openMaskWindow = false
     this.isTapeList = true

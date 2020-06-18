@@ -84,7 +84,6 @@ root.methods.postMyDocumentary = function () {
   })
 }
 root.methods.re_postMyDocumentary = function (data) {
-  console.log("this.res=====",data)
   typeof data === 'string' && (data = JSON.parse(data))
   this.followUserList = data.dataMap.list || []
   this.profit = data.dataMap.profit || {}
@@ -120,7 +119,6 @@ root.methods.re_clickToggle = function (data) {
   if(data.errorCode == 0) {
     this.isAutomatic = data.dataMap.followSetting.autoType=='YES'? true:false
   }
-  console.info('data======',data)
 }
 // 点击切换自动续费失败
 root.methods.error_clickToggle = function (err) {

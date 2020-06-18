@@ -31,7 +31,6 @@ root.data = function () {
 }
 /*------------------------------ 生命周期 -------------------------------*/
 root.created = function () {
-console.info('quey: {item:item}',this.$route.query.item)
 
 
   if(this.isHasItem) {
@@ -43,11 +42,11 @@ console.info('quey: {item:item}',this.$route.query.item)
     this.fixedAmountLot = ''
   }
 
-  if(this.queryItem.rate){
-    this.fixedAmountRate = this.queryItem.rate
-  }else{
-    this.fixedAmountRate = ''
-  }
+  // if(this.queryItem.rate){
+  //   this.fixedAmountRate = this.queryItem.rate
+  // }else{
+  //   this.fixedAmountRate = ''
+  // }
 
 
 
@@ -135,15 +134,15 @@ root.watch = {}
 root.methods = {}
 root.methods.openDocumentaryWindow = function () {
   if ( this.followType == 'LOT' && this.fixedAmountLot == '') {
-    this.openPop('固定金额/固定比例不可为空')
+    this.openPop('固定金额不可为空')
     this.follow = true
     return
   }
-  if (this.followType == 'RATE' && this.fixedAmountRate == '') {
-    this.openPop('固定金额/固定比例不可为空')
-    this.follow = true
-    return
-  }
+  // if (this.followType == 'RATE' && this.fixedAmountRate == '') {
+  //   this.openPop('固定金额/固定比例不可为空')
+  //   this.follow = true
+  //   return
+  // }
   this.delFollowOpen = true
 }
 // // 确定修改跟单币比例
@@ -237,7 +236,6 @@ root.methods.postDocumentaryImmediately = function () {
   })
 }
 root.methods.re_postDocumentaryImmediately = function (data) {
-  console.log("this.res=====",data)
   typeof data === 'string' && (data = JSON.parse(data))
   this.follow = true
   // this.success = data.data.success

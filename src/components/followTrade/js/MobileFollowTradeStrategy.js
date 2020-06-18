@@ -93,7 +93,6 @@ root.methods.postPersonalrHistory = function () {
 }
 root.methods.re_postPersonalrHistory = function (data) {
   typeof data === 'string' && (data = JSON.parse(data))
-  console.info('data',data)
   this.loading = false
   this.godInfo = data.dataMap.godInfo || {}
   this.godHistorList = data.dataMap.list || []
@@ -116,9 +115,7 @@ root.methods.postPersonalFollowUser = function () {
   })
 }
 root.methods.re_postPersonalFollowUser = function (data) {
-  console.log("this.res=====",data)
   typeof data === 'string' && (data = JSON.parse(data))
-  console.info('data',data)
   this.followUserList = data.dataMap.list || []
 }
 root.methods.error_postPersonalFollowUser = function (err) {
