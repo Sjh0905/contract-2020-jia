@@ -192,7 +192,7 @@ root.methods.re_commitModify = function (data) {
     this.openPop('系统错误',0)
   }
   setTimeout(() => {
-    this.$router.push({name:'mobileMyFollowOrder'})
+    this.$router.go(-1)
   }, 2000)
 }
 root.methods.error_commitModify = function (err) {
@@ -204,7 +204,8 @@ root.methods.delFollowClose = function () {
 }
 //跳转个人策略跟单
 root.methods.goToFollowTrade = function () {
-  this.$router.push({'path':'/index/mobileFollowTrade'})
+  // this.$router.push({'path':'/index/mobileDocumentaryGod'})
+  this.$router.go(-1)
 }
 
 // 切换固定金额和固定比例
