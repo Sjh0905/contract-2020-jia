@@ -91,13 +91,13 @@ root.methods.goToMobileFollowTradeStrategy = function () {
   this.$router.push({'path':'/index/mobileFollowTradeStrategy'})
 }
 // 跳转我的跟单
-root.methods.goToDocumentary = function (userId,fee,days) {
+root.methods.goToDocumentary = function (userId,fee) {
   if(this.userId == userId){
     this.openPop('自己不能跟随自己哦')
     return
   }
   // this.$router.push({name:'mobileDocumentary',params: {item:item}})
-  this.$router.push({name:'mobileDocumentaryGod',query:{userId:userId,fee:fee,days:days,isFollow:this.godList.indexOf(userId)}})
+  this.$router.push({name:'mobileDocumentaryGod',query:{userId:userId,fee:fee,days:this.days,isFollow:this.godList.indexOf(userId)}})
 }
 // // 去大神页面
 // root.methods.goToDocumentaryGod = function () {
