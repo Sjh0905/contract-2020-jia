@@ -115,8 +115,8 @@
         <div class="mobile-trade-fee">费用</div>
         <div class="mobile-trade-order-fee text-blue">{{godInfo.fee}} USDT / {{godInfo.days}}天</div>
       </div>
-      <div class="mobile-trade-open-exchange-button" @click="jumpToFollowDocumentary" v-if="$route.query.isFollow >= 0">跟单</div>
-      <div class="mobile-trade-open-exchange-button-isfollow" v-if="$route.query.isFollow < 0">已跟随</div>
+      <div class="mobile-trade-open-exchange-button" @click="jumpToFollowDocumentary" v-if="$route.query.isFollow < 0">跟单</div>
+      <div class="mobile-trade-open-exchange-button-isfollow" v-if="$route.query.isFollow >= 0">已跟随</div>
     </div>
   </div>
 
