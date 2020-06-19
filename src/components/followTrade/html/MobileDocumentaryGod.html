@@ -80,8 +80,8 @@
             <div class="mobile-trade-money">金额</div>
           </div>
           <div class="mobile-trade-item-content-container flex">
-            <div class="mobile-trade-price">{{item.price}}</div>
-            <div class="mobile-trade-amount">{{item.amount}}</div>
+            <div class="mobile-trade-price">{{item.price || '0'}}</div>
+            <div class="mobile-trade-amount">{{item.amount || '0'}}</div>
             <div class="mobile-trade-money">{{toFixed(item.price * item.amount,2)}}</div>
           </div>
         </div>
@@ -96,10 +96,10 @@
         <div class="mobile-trader-follower-content">
           <div class="mobile-trader-follower-content-top flex">
             <div class="mobile-trader-follower-UID">{{item.userId}}</div>
-            <div class="mobile-trader-follower-income">{{item.profit}}</div>
+            <div class="mobile-trader-follower-income">{{item.profit || '0'}}</div>
           </div>
           <div class="mobile-trader-follower-content-top flex">
-            <div class="mobile-trader-follower-text">跟单总额 {{item.amount}} USDT</div>
+            <div class="mobile-trader-follower-text">跟单总额 {{item.amount || '0'}} USDT</div>
             <div class="mobile-trader-follower-text">跟随收益(USDT)</div>
           </div>
         </div>
@@ -113,7 +113,7 @@
     <div class="mobile-trade-open-exchange" >
       <div class="mobile-trade-open-exchange-text flex">
         <div class="mobile-trade-fee">费用</div>
-        <div class="mobile-trade-order-fee text-blue">{{$route.query.fee}} USDT / {{$route.query.days}}天</div>
+        <div class="mobile-trade-order-fee text-blue">{{$route.query.fee || '0'}} USDT / {{$route.query.days  || '0'}}天</div>
       </div>
       <div class="mobile-trade-open-exchange-button" @click="jumpToFollowDocumentary" v-if="$route.query.isFollow < 0">跟单</div>
       <div class="mobile-trade-open-exchange-button-isfollow" v-if="$route.query.isFollow >= 0">已跟随</div>

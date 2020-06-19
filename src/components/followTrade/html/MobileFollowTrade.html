@@ -41,7 +41,7 @@
             <span class="documentary" v-if="godList.indexOf(item.userId) < 0">跟单</span>
             <span class="documentary-follow" v-if="godList.indexOf(item.userId) >= 0">已跟随</span>
           </div>
-          <div class="interest-rate">{{item.fee}} USDT/ {{days}}天</div>
+          <div class="interest-rate">{{item.fee || '0'}} USDT/ {{days || '0'}}天</div>
         </div>
       </div>
       <!--大佬头像End-->
