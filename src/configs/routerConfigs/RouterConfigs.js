@@ -3298,18 +3298,30 @@ root.routes.push({
 
 
     /*-----------------  跟单PC begin  ------------------------*/
-  //PC  跟单首页
-  //   {
-  //     path: 'followTrade',
-  //     name: 'followTrade',
-  //     meta: {
-  //       requireLogin: true,
-  //       pcname: 'followTrade',
-  //       h5name: '',
-  //     },
-  //     caseSensitive: true,
-  //     component: resolve => require(['@/components/followTrade/vue/FollowTrade'], resolve)
-  //   }
+     //PC  跟单首页
+    {
+      path: 'followTrade',
+      name: 'followTrade',
+      meta: {
+        requireLogin: true,
+        pcname: 'followTrade',
+        h5name: '',
+      },
+      caseSensitive: true,
+      component: resolve => require(['@/components/followTrade/vue/FollowTrade'], resolve)
+    },
+    {
+      path: 'documentaryGod',
+      name: 'documentaryGod',
+      meta: {
+        requireLogin: true,
+        pcname: 'documentaryGod',
+        h5name: 'mobileDocumentaryGod',
+      },
+      caseSensitive: true,
+      component: resolve => require(['@/components/followTrade/vue/DocumentaryGod'], resolve)
+    }
+
 
     // TODO:不能删除 check
     // cc 活动------茶币路由

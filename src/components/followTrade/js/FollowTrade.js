@@ -97,7 +97,7 @@ root.methods.goToDocumentary = function (userId,fee,days) {
     return
   }
   // this.$router.push({name:'mobileDocumentary',params: {item:item}})
-  this.$router.push({name:'mobileDocumentaryGod',query:{userId:userId,fee:fee,days:days,isFollow:this.godList.indexOf(userId)}})
+  this.$router.push({name:'documentaryGod',query:{userId:userId,fee:fee,days:days,isFollow:this.godList.indexOf(userId)}})
 }
 // // 去大神页面
 // root.methods.goToDocumentaryGod = function () {

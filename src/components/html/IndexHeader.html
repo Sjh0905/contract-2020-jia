@@ -575,19 +575,27 @@
 
                 <!--sss拼团 begin-->
                 <li class="navigation-item-container flex">
-
-<!--                  :to="{name: 'assembleARegiment'}"-->
                   <div
                     @click="getGroupLevel"
                     class="navigation-item-router flex"
-                    active-class="navigation-item-router-selected"
-                  >{{$t('platform_5')}}
-                    <!--                                      {{$t('currencyQuotation')}}-->
+                    active-class="navigation-item-router-selected">
+                    {{$t('platform_5')}}
                   </div>
-                  <!--隐藏的标签 法币交易 begin-->
-                  <!--隐藏的标签 end-->
                 </li>
                 <!--sss拼团 end-->
+
+                <!--sss跟单 begin-->
+                <li class="navigation-item-container flex">
+                  <router-link
+                    :to="{name:'followTrade'}"
+                    class="navigation-item-router flex"
+                    active-class="navigation-item-router-selected">
+                    {{$t('跟单')}}
+                  </router-link>
+                </li>
+                <!--sss跟单 end-->
+
+
 <!--                <li class="navigation-item-container flex">-->
 <!--                  <router-link-->
 <!--                    :to="{name: 'tradingHall', query: {symbol: $store.state.symbol} }"-->
