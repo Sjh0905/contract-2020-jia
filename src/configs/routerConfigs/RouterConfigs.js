@@ -3293,8 +3293,23 @@ root.routes.push({
       },
       caseSensitive: true,
       component: resolve => require(['@/components/fundProducts/vue/FundBuy'], resolve)
-    }
+    },
     /*-----------------  基金理PC end  ------------------------*/
+
+
+    /*-----------------  跟单PC begin  ------------------------*/
+  //PC  跟单首页
+  //   {
+  //     path: 'followTrade',
+  //     name: 'followTrade',
+  //     meta: {
+  //       requireLogin: true,
+  //       pcname: 'followTrade',
+  //       h5name: '',
+  //     },
+  //     caseSensitive: true,
+  //     component: resolve => require(['@/components/followTrade/vue/FollowTrade'], resolve)
+  //   }
 
     // TODO:不能删除 check
     // cc 活动------茶币路由
