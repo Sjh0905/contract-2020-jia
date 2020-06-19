@@ -84,7 +84,7 @@ root.methods.postPersonalrHistory = function () {
   let params = {
     followId: this.userId,
   }
-  this.$http.send('POST_BROTHER_ORDER', {
+  this.$http.send('POST_BROTHER_ORDER_SELF', {
     bind: this,
     params: params,
     callBack: this.re_postPersonalrHistory,
@@ -104,12 +104,12 @@ root.methods.error_postPersonalrHistory = function (err) {
 
 //个人跟随者
 root.methods.postPersonalFollowUser = function () {
-  let params = {
-    followId: this.userId ,
-  }
-  this.$http.send('POST_FOLLOWUSER', {
+  // let params = {
+  //   followId: this.userId ,
+  // }
+  this.$http.send('POST_FOLLOWUSER_LIST', {
     bind: this,
-    params: params,
+    // params: params,
     callBack: this.re_postPersonalFollowUser,
     errorHandler: this.error_postPersonalFollowUser
   })

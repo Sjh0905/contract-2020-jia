@@ -67,7 +67,7 @@
       <div class="mobile-trade-center-content-item" v-for="(item,index) in godHistorList" :key="index">
         <div class="mobile-trade-item-top flex">
           <div class="mobile-trade-item-top-left">
-            <span>{{item.feeCurrency}}</span>
+            <span>{{item.symbol.replace('_','/')}}</span>
             <span class="mobile-trade-buy " :class="item.type=='SELL_LIMIT'? 'text-red':' text-green'">{{item.type == 'SELL_LIMIT'?'卖出':'买入'}}</span>
           </div>
           <div class="mobile-trade-item-top-right">{{$globalFunc.formatDateUitl(Number(item.createdAt),'MM/DD hh:mm:ss')}}</div>
@@ -82,27 +82,6 @@
             <div class="mobile-trade-price">{{item.price}}</div>
             <div class="mobile-trade-amount">{{item.amount}}</div>
             <div class="mobile-trade-money">{{toFixed(item.price * item.amount,2)}}</div>
-          </div>
-        </div>
-      </div>
-      <div class="mobile-trade-center-content-item">
-        <div class="mobile-trade-item-top flex">
-          <div class="mobile-trade-item-top-left">
-            <span>USDT</span>
-            <span class="mobile-trade-buy text-red">卖出</span>
-          </div>
-          <div class="mobile-trade-item-top-right">06/11 02:18:07</div>
-        </div>
-        <div class="mobile-trade-item-content">
-          <div class="mobile-trade-item-content-title flex">
-            <div class="mobile-trade-price">价格</div>
-            <div class="mobile-trade-amount">数量</div>
-            <div class="mobile-trade-money">金额</div>
-          </div>
-          <div class="mobile-trade-item-content-container flex">
-            <div class="mobile-trade-price">9812.21</div>
-            <div class="mobile-trade-amount">1</div>
-            <div class="mobile-trade-money">9812.12</div>
           </div>
         </div>
       </div>
