@@ -68,7 +68,7 @@
       <div class="mobile-trade-center-content-item" v-for="(item,index) in godHistorList" :key="index">
         <div class="mobile-trade-item-top flex">
           <div class="mobile-trade-item-top-left">
-            <span>{{item.feeCurrency}}</span>
+            <span>{{item.symbol.replace('_','/')}}</span>
             <span class="mobile-trade-buy text-green" :class="item.type=='BUY_LIMIT'?'text-green':'text-red'">{{item.type == 'BUY_LIMIT'? '买入':'卖出'}}</span>
           </div>
           <div class="mobile-trade-item-top-right">{{$globalFunc.formatDateUitl(Number(item.createdAt),'MM/DD hh:mm:ss')}}</div>
