@@ -103,9 +103,7 @@ root.methods.postFollowUser = function () {
   })
 }
 root.methods.re_postFollowUser = function (data) {
-  console.log("this.res=====",data)
   typeof data === 'string' && (data = JSON.parse(data))
-  console.info('data',data)
   this.followUserList = data.dataMap.list || []
 }
 root.methods.error_postFollowUser = function (err) {
