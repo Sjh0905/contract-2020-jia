@@ -3320,6 +3320,17 @@ root.routes.push({
       },
       caseSensitive: true,
       component: resolve => require(['@/components/followTrade/vue/DocumentaryGod'], resolve)
+    },
+    {
+      path: 'myFollowOrder',
+      name: 'myFollowOrder',
+      meta: {
+        requireLogin: true,
+        pcname: 'myFollowOrder',
+        h5name: 'mobileMyFollowOrder',
+      },
+      caseSensitive: true,
+      component: resolve => require(['@/components/followTrade/vue/MyFollowOrder'], resolve)
     }
 
 
