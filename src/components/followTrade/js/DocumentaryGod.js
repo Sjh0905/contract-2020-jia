@@ -3,15 +3,29 @@ root.name = 'mobileDocumentaryGod'
 /*------------------------------ 组件 ------------------------------*/
 root.components = {
   'Loading': resolve => require(['../../vue/Loading'], resolve),
+  'PopupPrompt': resolve => require(['../../vue/PopupPrompt'], resolve),
+  'PopupWindow': resolve => require(['../../vue/PopupWindow'], resolve),
 }
 /*------------------------------ data -------------------------------*/
 root.data = function () {
   return {
     loading:true,
-    followType:1,
+    fixedFollow:1,
+    followType:'LOT',
     godHistorList:[],
     godInfo:{},
-    followUserList:[]
+    followUserList:[],
+
+    // 弹框
+    popType: 0,
+    popText: '',
+    popOpen: false,
+    waitTime: 2000,
+
+    fixedAmountLot:'',
+
+
+    popWindowOpen: false
   }
 }
 /*------------------------------ 生命周期 -------------------------------*/
@@ -52,7 +66,7 @@ root.watch = {}
 root.methods = {}
 // 切换历史跟单和跟随者
 root.methods.toggleType = function (type) {
-  this.followType = type
+  this.fixedFollow = type
 }
 // 返回跟单首页
 root.methods.jumpToFollowTrade = function () {
@@ -60,9 +74,97 @@ root.methods.jumpToFollowTrade = function () {
 }
 // 点击跟单
 root.methods.jumpToFollowDocumentary = function () {
+  this.popWindowOpen = true
   // this.$router.push({name:'mobileMyFollowOrder'})
   // this.$router.push({name:'mobileDocumentary',query:{userId:this.$route.query.userId,fee:this.$route.query.fee,days:this.$route.query.days}})
 }
+// 关闭跟单弹框
+root.methods.popWindowClose= function () {
+  this.popWindowOpen = false
+}
+
+// 切换固定金额和固定比例
+root.methods.fixedType = function (type) {
+  this.followType = type
+}
+
+
+//立即跟单postDocumentaryImmediately
+root.methods.postDocumentaryImmediately = function () {
+  this.follow = false
+  let canSend = true
+  if (this.followType == 'LOT' && this.fixedAmountLot == '') {
+    this.openPop('固定金额不可为空')
+    this.follow = true
+    return
+  }
+  if (!canSend) {
+    return
+  }
+
+  let params = {
+    followId: this.$route.query.userId,
+    followType: this.followType ,    //固定金额LOT   固定比例RATE
+    val: this.followType == 'LOT' ? this.fixedAmountLot : this.fixedAmountRate,
+  }
+  this.$http.send('POST_ADDFOLLOWER', {
+    bind: this,
+    params: params,
+    callBack: this.re_postDocumentaryImmediately,
+    errorHandler: this.error_postDocumentaryImmediately
+  })
+}
+root.methods.re_postDocumentaryImmediately = function (data) {
+  typeof data === 'string' && (data = JSON.parse(data))
+  this.follow = true
+  // this.success = data.data.success
+  // console.log("re_postJoinGroup + data=====",data)
+  //
+
+  if (data.errorCode == 3) {
+    this.openPop('不能自己跟随自己哦')
+    return;
+  }
+  if (data.errorCode != 0) {
+    this.openPop('系统有误')
+    return;
+  }
+  if (data.errorCode == 0) {
+    this.openPop('跟单成功',1)
+    setTimeout(() => {
+      this.popWindowOpen = false
+      this.postBigBrotherHistory()
+      this.postFollowUser()
+    }, 1000)
+    return;
+  }
+
+  // if (data.errorCode) {
+  //   if (
+  //     data.errorCode == 1 && (this.popText = this.$t('exist')) ||//账户不存在
+  //     data.errorCode == 2 && (this.popText = this.$t('资产')) || // 团长剩余比例不足
+  //     data.errorCode == 3 && (this.popText = this.$t('modified')) || // 团长职位不能修改
+  //     data.errorCode == 4 && (this.popText = this.$t('Wrong')) || // 成员类型有误
+  //     data.errorCode == 5 && (this.popText = this.$t('changed')) || // 联席团长职位不可更换
+  //     data.errorCode == 6 && (this.popText = this.$t('Setting')) || // 设置比例折扣不能为0
+  //     data.errorCode == 400 && (this.popText = this.$t('parameter_error')) //参数有误
+  //   ) {
+  //     this.popOpen = true
+  //     this.popType = 0
+  //     setTimeout(() => {
+  //       this.popOpen = true
+  //     }, 100)
+  //     return;
+  //   }
+  // }
+
+
+
+}
+root.methods.error_postDocumentaryImmediately = function (err) {
+  console.log("this.err=====",err)
+}
+
 
 
 
@@ -113,6 +215,18 @@ root.methods.error_postFollowUser = function (err) {
   console.log("this.err=====",err)
 }
 
+// 打开toast
+root.methods.openPop = function (popText, popType, waitTime) {
+  this.popText = popText
+  this.popType = popType || 0
+  this.popOpen = true
+  this.waitTime = waitTime || 2000
+}
+
+// 关闭toast
+root.methods.closePop = function () {
+  this.popOpen = false;
+}
 
 
 

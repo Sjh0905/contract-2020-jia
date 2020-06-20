@@ -1,0 +1,51 @@
+.documentary-god {
+  width: 100%;
+  min-height: 700px;
+  background-color: #F7F8FA;
+}
+.record-container2 {
+  height: 46px;
+  line-height: 46px;
+  background:rgba(255,255,255,1);
+  box-shadow:0px 2px 6px 0px rgba(0,0,0,0.06);
+}
+.header {
+  width: 1200px;
+  margin: 0 auto;
+  font-size: 14px;
+  line-height: 46px;
+  color: #6B7DA2;
+  /*margin-top: 70px;*/
+  position: relative;
+  /*padding-left: 15px;*/
+}
+.header-title {
+  font-size: 14px;
+  line-height: 18px;
+  color: #6B7DA2;
+  padding-right: 20px;
+}
+.header-title:hover {
+  color: #3576F5;
+}
+.spanbf {
+  padding-right: 20px;
+}
+
+.tape {
+  width: 1200px;
+  margin: 0 auto;
+  justify-content: space-between;
+}
+.modify {
+  width:58px;
+  height:30px;
+  line-height: 30px;
+  font-size:14px;
+  color: #FFFFFF;
+  text-align: center;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  background:rgba(53,118,245,1);
+  border-radius:1px;
+}

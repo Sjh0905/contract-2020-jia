@@ -1,0 +1,32 @@
+<div class="documentary-god">
+<!--  面包屑-->
+  <div class="record-container2">
+    <div class="header">
+      <router-link :to="{name:'followTrade'}" class="header-title">
+        <!--幸运预测活动-->
+        {{$t('策略跟单')}}
+      </router-link>
+      <span class="spanbf">></span>
+      <!--我的参与记录-->
+      <router-link :to="{name:'followTrade'}" class="header-title">
+        <!--幸运预测活动-->
+        {{$t('我的主页')}}
+      </router-link>
+      <span class="spanbf">></span>
+      <span :to="{name:'followTrade'}" class="">
+        <!--幸运预测活动-->
+        {{$t('带单管理')}}
+      </span>
+    </div>
+  </div>
+
+
+<!--  主要内容-->
+  <div class="flex tape">
+    <div class="flex">
+      <div>订阅费用：</div>
+      <div>30USDT/20天</div>
+    </div>
+    <div class="modify">修改</div>
+  </div>
+</div>

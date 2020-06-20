@@ -13,8 +13,8 @@
         <div class="follow-xue">数据每小时更新一次</div>
       </div>
       <div class="follow-my">
-        <div class="follow-my-bix">我要带单</div>
-        <div class="follow-my-bix follow-my-box">我的跟单</div>
+        <div class="follow-my-bix" @click="goTofollowTradeStrategy">我要带单</div>
+        <div class="follow-my-bix follow-my-box" @click="goToMyFollowOrder">我的跟单</div>
       </div>
     </div>
 
@@ -60,6 +60,8 @@
 
   </div>
 
+  <!--toast弹框-->
+  <PopupPrompt :popOpen="popOpen" :popClose="closePop" :popType="popType" :popText="popText" :waitTime="waitTime" />
 
 
 </div>

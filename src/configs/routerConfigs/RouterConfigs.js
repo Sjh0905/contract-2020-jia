@@ -3331,6 +3331,17 @@ root.routes.push({
       },
       caseSensitive: true,
       component: resolve => require(['@/components/followTrade/vue/MyFollowOrder'], resolve)
+    },
+    {
+      path: 'tapeListManage',
+      name: 'tapeListManage',
+      meta: {
+        requireLogin: true,
+        pcname: 'tapeListManage',
+        h5name: 'mobileTapeListManage',
+      },
+      caseSensitive: true,
+      component: resolve => require(['@/components/followTrade/vue/TapeListManage'], resolve)
     }
 
 
