@@ -1,13 +1,13 @@
 <div class="documentary-god">
   <div class="record-container2">
     <div class="header">
-      <router-link :to="{name:'Forecast'}" class="header-title">
+      <router-link :to="{name:'followTrade'}" class="header-title">
         <!--幸运预测活动-->
         {{$t('策略跟单')}}
       </router-link>
       <span class="spanbf">></span>
       <!--我的参与记录-->
-      {{$t('1234567')}}
+      {{godInfo.userId ? godInfo.userId : $route.query.userId}}
     </div>
 
     <div class="documentary-conter">
@@ -15,33 +15,34 @@
       <div class="follow-data" >
         <div class="follow-data-box flex">
           <img class="follow-data-box-img" src="../assets/big-brother.png" alt="">
-          <div class="follow-data-box-img-box">121212</div>
+          <div class="follow-data-box-img-box">{{godInfo.userId ? godInfo.userId : $route.query.userId}}</div>
         </div>
 
         <div class="flex">
           <div class="flex follow-buw">
             <div class="follow-wi">
-              <div class="follow-bink">12</div>
+              <div class="follow-bink">{{godInfo.sum || '- -'}}</div>
               <div class="follow-gru2">累计交易量</div>
             </div>
             <div class="follow-wi">
-              <div class="follow-bink">2434</div>
+              <div class="follow-bink">{{godInfo.count ? godInfo.count : '- -'}}</div>
               <div class="follow-gru2">交易笔数</div>
             </div>
             <div class="follow-wi">
-              <div class="follow-bink">0987654</div>
+              <div class="follow-bink">{{godInfo.followCount ? godInfo.followCount : '- -'}}</div>
               <div class="follow-gru2">累计跟单人数</div>
             </div>
             <div class="follow-wi">
-              <div class="follow-gru">098765</div>
+              <div class="follow-gru">{{godInfo.rate ? godInfo.rate * 10 * 10 : '- -'}} %</div>
               <div class="follow-gru2">累计收益率</div>
             </div>
 
 
           </div>
           <div class="follow-btn-box">
-            <div class="follow-gde">20 USDT/09天</div>
-            <div class="follow-fff">跟单</div>
+            <div class="follow-gde">{{$route.query.fee || '0'}} USDT / {{$route.query.days  || '0'}}天</div>
+            <div class="follow-fff" v-if="$route.query.isFollow < 0" @click="jumpToFollowDocumentary">跟单</div>
+            <div class="follow-c" v-if="$route.query.isFollow >= 0">已跟随</div>
           </div>
         </div>
 
@@ -78,13 +79,13 @@
                 <!--时间-->
                 <div class="application_header_div borbot">{{$globalFunc.formatDateUitl(Number(item.createdAt),'MM/DD hh:mm:ss')}}</div>
                 <!--交易对-->
-                <div class="application_header_div borbot">{{item.feeCurrency}}</div>
+                <div class="application_header_div borbot">{{item.symbol.replace('_','/')}}</div>
                 <!--类型-->
                 <div class="application_header_div borbot" :class="item.type=='BUY_LIMIT'?'text-green':'text-red'">{{item.type == 'BUY_LIMIT'? '买入':'卖出'}}</div>
                 <!--价格-->
-                <div class="application_header_div borbot">{{item.price}}</div>
+                <div class="application_header_div borbot">{{item.price || '0'}}</div>
                 <!--数量-->
-                <div class="application_header_div borbot">{{item.amount}}</div>
+                <div class="application_header_div borbot">{{item.amount || '0'}}</div>
                 <!--金额-->
                 <div class="application_header_div_right borbot">{{toFixed(item.price * item.amount,2)}}</div>
               </li>
@@ -129,9 +130,9 @@
                   <!--账号-->
                   <div class="application_header_div ">{{item.userId}}</div>
                   <!--期数-->
-                  <div class="application_header_div ">{{item.amount}}</div>
+                  <div class="application_header_div ">{{item.amount || '0'}}</div>
                   <!--配套-->
-                  <div class="application_header_div ">{{item.profit}}</div>
+                  <div class="application-header-div-box">{{item.profit || '0'}}</div>
 
                 </div>
               </li>
