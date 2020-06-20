@@ -58,9 +58,9 @@
 
       <div class="follow-asset-topic-content flex" v-for="(item,index) in followUserList" :key="index">
         <div class="time">{{formatDateUitl(item.createdAt)}}</div>
-        <div class="exchange-pair">ETH/USDT</div>
+        <div class="exchange-pair">{{item.symbol.replace('_','/')}}</div>
         <div class="type">{{item.type == 'SPOT'?'现货':'--'}}</div>
-        <div class="follow-type">{{item.followType == 'LOT'? '固定金额：' + item.lot +'USDT' :'固定比例'}}</div>
+        <div class="follow-type">{{item.followType == 'LOT'? '固定金额：' + item.lot || 0 +'USDT' :'固定比例'}}</div>
         <div class="total-acount">{{item.amount || '--'}}</div>
         <div class="total-money">{{item.count || '--'}}</div>
         <div class="total-income">{{item.profit || '--'}}</div>

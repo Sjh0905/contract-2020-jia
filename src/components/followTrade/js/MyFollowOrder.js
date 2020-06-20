@@ -24,8 +24,6 @@ root.data = function () {
 
     delFollowOpen:false,
 
-    fromName : 'mobileFollowTrade',
-
     // 信息弹框
     popWindowOpen:false,
 
@@ -53,30 +51,16 @@ root.created = function () {
   this.postMyDocumentary()
 }
 
-//检测从哪个路由进来的
-root.beforeRouteEnter = function (to, from, next) {
-  next(vm => {
-    vm.fromName = from.name
-  });
-}
-
 root.mounted = function () {}
 root.beforeDestroy = function () {}
 /*------------------------------ 计算 -------------------------------*/
 root.computed = {}
-// 检验是否是APP
-root.computed.isApp = function () {
-  return this.$route.query.isApp ? true : false
-}
-// 检验是否是安卓
-root.computed.isAndroid = function () {
-  return this.$store.state.isAndroid
-}
+
 /*------------------------------ 观察 -------------------------------*/
 root.watch = {}
 /*------------------------------ 方法 -------------------------------*/
 root.methods = {}
-// 关闭弹框
+// 关闭修改策略弹框
 root.methods.popWindowClose= function () {
   this.popWindowOpen = false
 }
@@ -135,7 +119,7 @@ root.methods.clickToggle = function () {
     errorHandler: this.error_clickToggle
   })
 }
-// 点击切换自动续费
+// 点击切换自动续费成功
 root.methods.re_clickToggle = function (data) {
   typeof (data) === 'string' && (data = JSON.parse(data))
   if(!data) return
@@ -178,19 +162,9 @@ root.methods.error_delFollowList = function (err) {
   console.warn('点击切换自动续费', err)
 }
 
-
-
 // 切换固定金额和固定比例
 root.methods.fixedType = function (type) {
   this.followType = type
-}
-
-root.methods.closeRenew= function () {
-  $(".descript").attr("style","display:none");
-}
-
-root.methods.openRenew = function () {
-  $(".descript").attr("style","display:block");
 }
 
 // 确认修改
@@ -231,6 +205,16 @@ root.methods.openPop = function (popText, popType, waitTime) {
 root.methods.closePop = function () {
   this.popOpen = false;
 }
+
+// 鼠标移上去显示开启续费的框
+root.methods.closeRenew= function () {
+  $(".descript").attr("style","display:none");
+}
+
+root.methods.openRenew = function () {
+  $(".descript").attr("style","display:block");
+}
+
 /*---------------------- 保留小数 begin ---------------------*/
 root.methods.toFixed = function (num, acc = 8) {
   return this.$globalFunc.accFixed(num, acc)
