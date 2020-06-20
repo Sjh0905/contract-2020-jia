@@ -252,6 +252,30 @@ root.methods.re_postDocumentaryImmediately = function (data) {
     this.openPop('不能自己跟随自己哦')
     return;
   }
+  if (data.errorCode == 10) {
+    this.openPop('跟随失败')
+    return;
+  }
+  if (data.errorCode == 8 || data.errorCode == 12) {
+    this.openPop('用户余额不足')
+    return;
+  }
+  if (data.errorCode == 9) {
+    this.openPop('转账不能为负值')
+    return;
+  }
+  if (data.errorCode == 15) {
+    this.openPop('转账币种限额不存在')
+    return;
+  }
+  if (data.errorCode == 7) {
+    this.openPop('超出单比额度限制')
+    return;
+  }
+  if (data.errorCode == 11) {
+    this.openPop('24小时转账金额必须要在范围内')
+    return;
+  }
   if (data.errorCode != 0) {
     this.openPop('系统有误')
     return;
