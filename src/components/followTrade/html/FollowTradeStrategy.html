@@ -1,0 +1,163 @@
+<div class="container">
+  <!--    面包屑-->
+  <div class="follow-info">
+    <div class="follow-container">
+      <div class="follow-trande-bread">
+        <router-link to="/index/followTrade" class="management">{{$t('followOrder')}}</router-link>
+        <span> > </span>
+        {{$t('myHomePage')}}
+      </div>
+    </div>
+  </div>
+
+  <div class="follow-asset">
+    <div class="follow-asset-title">
+      <div class="trade-top-banner flex">
+        <div class="flex">
+          <div>
+            <img src="../assets/management_personal_icon.png" alt="" class="trade-img">
+          </div>
+          <div class="trade-top-banner-text">{{userId}}</div>
+        </div>
+        <div class="follow-management pointer" v-if="isTapeList">
+          <img src="../assets/setting_icon.png" alt="">
+          <span>带单管理</span>
+        </div>
+      </div>
+      <div class="trade-top-data flex">
+
+        <div class="trade-data-item">
+          <div class="trade-data">{{121}}</div>
+          <div>累计交易量</div>
+        </div>
+
+        <div class="trade-data-item">
+          <div class="trade-data">{{121}}</div>
+          <div>交易笔数</div>
+        </div>
+
+        <div class="trade-data-item">
+          <div class="trade-data">{{121}}</div>
+          <div>跟单人数</div>
+        </div>
+
+        <div class="trade-data-item">
+          <div class="trade-data text-green">{{121}} %</div>
+          <div>累计收益率</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="trade-top-data-two" v-if="!isTapeList">
+      <div class="trade-top-data-text">
+        <div class="trade-top-data-no">该用户未分享交易活动</div>
+        <div class="trade-top-data-btn" @click="">开启带单交易，双重获利</div>
+      </div>
+
+    </div>
+
+    <!-- 自己持仓-->
+    <div class="record" v-if="isTapeList">
+      <!--   当前持仓/跟随者-->
+      <div class="recordMining">
+        <div class="record_div pointer" @click="toggleType(1)" :class="{'selected_cardType':followType == 1}">{{$t('历史持仓')}}</div>
+        <div class="record_div selected_cardTypeML pointer" @click="toggleType(2)" :class="{'selected_cardType':followType == 2}">{{$t('跟随者')}}</div>
+      </div>
+      <!-- 当前持仓 -->
+      <ul class="recordUl" v-if="followType == 1">
+        <!--表头 S-->
+        <li class="application_header">
+          <!-- 日期-->
+          <div class="application_header_div">{{$t('时间')}}</div>
+          <!-- 量化-->
+          <div class="application_header_div">{{$t('交易对')}}</div>
+          <!-- 奖励-->
+          <div class="application_header_div">{{$t('类型')}}</div>
+          <!-- 矿源金额-->
+          <div class="application_header_div">{{$t('价格')}}</div>
+          <div class="application_header_div">{{$t('数量')}}</div>
+          <div class="application_header_div_right">{{$t('金额')}}</div>
+        </li>
+        <template>
+          <!-- 当前挖矿记录 -->
+          <template v-if="godHistorList.length !== 0">
+            <li class="flex application_li" v-for="(item,index) in godHistorList">
+              <!--时间-->
+              <div class="application_header_div borbot">{{$globalFunc.formatDateUitl(Number(item.createdAt),'MM/DD hh:mm:ss')}}</div>
+              <!--交易对-->
+              <div class="application_header_div borbot">{{item.feeCurrency}}</div>
+              <!--类型-->
+              <div class="application_header_div borbot" :class="item.type=='BUY_LIMIT'?'text-green':'text-red'">{{item.type == 'BUY_LIMIT'? '买入':'卖出'}}</div>
+              <!--价格-->
+              <div class="application_header_div borbot">{{item.price}}</div>
+              <!--数量-->
+              <div class="application_header_div borbot">{{item.amount}}</div>
+              <!--金额-->
+              <div class="application_header_div_right borbot">{{toFixed(item.price * item.amount,2)}}</div>
+            </li>
+          </template>
+
+          <!-- 无数据图片 -->
+          <template v-else>
+            <li class="weit">
+              <div class="nhtu"><img src="">
+                <p class="nhtu_p">{{$t('orderPageCurrentEntrustment.close_9')}}</p>
+              </div>
+            </li>
+          </template>
+
+          <!--当前记录加载更多  -->
+          <!--            <template v-if="showLoadingMore && godHistorList.length !== 0">-->
+          <!--              <li class="loading-more">-->
+          <!--                <span class="text_blue pointer" v-if="!loadingMoreShow" @click="clickLoadingMore">{{$t('orderPageHistoricalEntrustment.close_10')}}</span>-->
+          <!--                <span class="text_blue" v-else>{{$t('orderPageHistoricalEntrustment.close_11')}}</span>-->
+          <!--              </li>-->
+          <!--            </template>-->
+
+        </template>
+      </ul>
+      <!-- 跟随者 -->
+      <ul class="recordUl1" v-if="followType == 2">
+        <!--历史挖矿记录表头 S-->
+        <li class="application_header">
+          <!--          账号-->
+          <div class="application_header_div">{{$t('账号')}}</div>
+          <!--          期数-->
+          <div class="application_header_div">{{$t('跟单总额（USDT）')}}</div>
+          <!--          配套-->
+          <div class="application-header-div-box">{{$t('跟随收益（USDT）')}}</div>
+        </li>
+        <template>
+          <!-- 历史挖矿记录-->
+          <template v-if="followUserList.length !== 0">
+            <li class="" v-for="(item,index) in followUserList" :key="item.id">
+
+              <div class="flex application_li">
+                <!--账号-->
+                <div class="application_header_div ">{{item.userId}}</div>
+                <!--期数-->
+                <div class="application_header_div ">{{item.amount || '0'}}</div>
+                <!--配套-->
+                <div class="application-header-div-box ">{{item.profit || '0'}}</div>
+
+              </div>
+            </li>
+
+          </template>
+          <!-- 如果加载完成、已登录、有数据，则显示数据 end -->
+
+          <!-- 如果没加载完成、没登录、没数据，则显示'--' begin -->
+          <template v-else>
+            <li class="weit">
+              <div class="nhtu"><img src="">
+                <p class="nhtu_p">{{$t('orderPageCurrentEntrustment.close_9')}}</p>
+              </div>
+            </li>
+          </template>
+        </template>
+      </ul>
+
+    </div>
+  </div>
+
+</div>
