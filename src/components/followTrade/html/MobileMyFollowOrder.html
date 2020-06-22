@@ -58,11 +58,11 @@
         <div class="mobile-trade-item-follower flex-between">
           <div class="mobile-trade-item-follower-info flex-row">
             <img src="../assets/big-brother.png" class="mobile-trade-item-follower-avatar">
-            <div class="mobile-trade-item-follower-uid">{{isFollowId(item)}}
+            <div class="mobile-trade-item-follower-uid">{{item.followId}}
               <div class="mobile-trade-item-top-right">{{formatDateUitl(item.createdAt)}}</div>
             </div>
           </div>
-          <div class="mobile-trade-item-follower-cancle-btn" @click="delFollow">取消跟随</div>
+          <div class="mobile-trade-item-follower-cancle-btn" @click="delFollow(item)">取消跟随</div>
         </div>
 
         <div class="mobile-trade-item-top flex">

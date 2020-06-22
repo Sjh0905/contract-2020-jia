@@ -23,7 +23,7 @@ root.data = function () {
 
     delFollowOpen:false,
 
-    fromName : 'mobileFollowTrade'
+    fromPageType : ''//进入此页面的3种情况：1.从策略跟单直接进入 '' 2.修改跟单后进入'' 3.添加跟单后进入 addFollower，只有3需要go（-3）
   }
 }
 /*------------------------------ 生命周期 -------------------------------*/
@@ -48,12 +48,27 @@ root.created = function () {
 //检测从哪个路由进来的
 root.beforeRouteEnter = function (to, from, next) {
   next(vm => {
-    vm.fromName = from.name
-  });
+    vm.fromPageType = to.params.fromPageType || ''
+    if (vm.fromPageType == 'addFollower') {
+      //由于this.$router.go(-2)导致不能通过postMessage设置canGoH5Back:false，所以干脆隐藏返回按钮，直接用H5的返回按钮
+      window.postMessage(JSON.stringify({
+        method: 'setHeaderWithTo0'
+      }))
+    }
+  })
 }
 
-root.mounted = function () {}
-root.beforeDestroy = function () {}
+root.mounted = function () {
+  // if (window.history && window.history.pushState) {
+    // 向历史记录中插入了当前页
+    // history.pushState(null, null, document.URL);
+    window.addEventListener('popstate', this.goBack, false);
+  // }
+}
+root.destroyed = function () {
+  // 由于退出本页面后才触发监听，所以不能在这里删除监听，否则不能执行
+  // window.removeEventListener('popstate',this.goBack,false)
+}
 /*------------------------------ 计算 -------------------------------*/
 root.computed = {}
 // 检验是否是APP
@@ -73,7 +88,8 @@ root.methods.isFollowId = function (item) {
   return this.followId = item.followId
 }
 // 取消跟随
-root.methods.delFollow = function (){
+root.methods.delFollow = function (item){
+  this.followId = item.followId
   this.delFollowOpen = true
 }
 // 关闭取消跟随弹窗
@@ -82,6 +98,7 @@ root.methods.delFollowClose = function () {
 }
 // 点击修改跟单
 root.methods.modifyDocumentary = function (item) {
+  this.removeEventPopstate();
   this.$router.push({name:'mobileDocumentary',query:{item:JSON.stringify(item)}})
 }
 
@@ -183,14 +200,34 @@ root.methods.toggleType = function (type) {
 }
 // 返回跟单首页
 root.methods.jumpToFollowTrade = function () {
-
-  if (this.fromName != 'mobileFollowTrade') {
+  this.removeEventPopstate();
+  if (this.fromPageType == 'addFollower') {
     this.$router.go(-3)
-    console.info('LLLLLLLLLLLLLLLLLLL')
     return
   }
-   this.$router.go(-1)
-    console.info('ssssssssssss')
+  this.$router.go(-1)
+}
+// 监听事件返回跟单首页
+root.methods.goBack = function () {
+  // return
+  this.removeEventPopstate();
+
+  if (this.fromPageType == 'addFollower') {
+    // window.postMessage(JSON.stringify({
+    //   method: 'setH5Back',
+    //   parameters: {
+    //     canGoH5Back:false
+    //   }
+    // }))
+    // history.pushState(null, null, document.URL);
+    //由于点击浏览器回退键后才会触发回调，相当于已经执行了go(-1)才进入回调，所以这里是-2，正常情况不作处理
+    this.$router.go(-2)
+    return
+  }
+  // history.pushState(null, null, document.URL);
+}
+root.methods.removeEventPopstate = function () {
+  window.removeEventListener('popstate',this.goBack,false)
 }
 // 个人设置
 root.methods.personalSetting = function () {

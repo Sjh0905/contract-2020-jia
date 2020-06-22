@@ -21,6 +21,19 @@ root.data = function () {
   }
 }
 /*------------------------------ 生命周期 -------------------------------*/
+// root.beforeRouteEnter = function (to, from, next) {
+  // next(vm => {
+  //   console.log('beforeRouteEnter  ',to)
+  //   if(to.name == "mobileFollowTrade" && vm.$route.query.isApp){
+  //     window.postMessage(JSON.stringify({
+  //       method: 'setH5Back',
+  //       parameters: {
+  //         canGoH5Back:false
+  //       }
+  //     }))
+  //   }
+  // });
+// }
 root.created = function () {
 
   this.getBigBrotherList()
@@ -84,6 +97,14 @@ root.watch = {}
 root.methods = {}
 //跳转首页
 root.methods.jumpToBack = function () {
+
+  if(this.$route.query.isApp){
+    window.postMessage(JSON.stringify({
+      method: 'toHomePage'
+    }))
+    return
+  }
+
   this.$router.push({'path':'/index/newH5homePage'})
 }
 //跳转个人策略跟单

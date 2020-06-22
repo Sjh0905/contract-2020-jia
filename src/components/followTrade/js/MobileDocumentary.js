@@ -259,7 +259,7 @@ root.methods.re_postDocumentaryImmediately = function (data) {
   if (data.errorCode == 0) {
     this.openPop('跟单成功',1)
     setTimeout(() => {
-      this.$router.push({'path':'/index/mobileMyFollowOrder'})
+      this.$router.push({'name':'mobileMyFollowOrder',params:{fromPageType:'addFollower'}})
     }, 1000)
     return;
   }
