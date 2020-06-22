@@ -88,7 +88,7 @@ root.methods.jumpToBack = function () {
 }
 //跳转个人策略跟单
 root.methods.goTofollowTradeStrategy = function () {
-  // this.$router.push({'path':'/index/followTradeStrategy'})
+  this.$router.push({'path':'/index/followTradeStrategy'})
 }
 // 跳转我的跟单
 root.methods.goToDocumentary = function (userId,fee,days) {
@@ -140,5 +140,10 @@ root.methods.openPop = function (popText, popType, waitTime) {
 // 关闭toast
 root.methods.closePop = function () {
   this.popOpen = false;
+}
+
+// 保留小数点后8位
+root.methods.toFixed = function (num, acc = 8) {
+  return this.$globalFunc.accFixed(num, acc)
 }
 export default root

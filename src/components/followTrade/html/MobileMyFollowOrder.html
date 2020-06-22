@@ -39,11 +39,11 @@
   <div class="follow-statistics flex-around">
     <div class="follow-statistics-item">
       <div class="follow-statistics-item-title">累计跟单总金额(USDT)</div>
-      <div class="follow-statistics-item-money">{{profit.amount? toFixed(profit.amount,2):'--'}}</div>
+      <div class="follow-statistics-item-money">{{toFixed(profit.amount||'0',2)}}</div>
     </div>
     <div class="follow-statistics-item">
       <div class="follow-statistics-item-title">跟单总收益(USDT)</div>
-      <div class="follow-statistics-item-money">{{profit.profit ? toFixed(profit.profit,2):'--'}}</div>
+      <div class="follow-statistics-item-money">{{toFixed(profit.profit|| '0',2)}}</div>
     </div>
   </div>
   <!--跟单统计end-->

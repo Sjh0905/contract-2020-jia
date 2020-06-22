@@ -27,7 +27,7 @@
       <div class="flex">
         <div class="flex follow-buw">
           <div class="follow-wi">
-            <div class="follow-bink">{{item.sum || '0'}}</div>
+            <div class="follow-bink">{{toFixed(item.sum || '0',2)}}</div>
             <div class="follow-gru2">累计交易量</div>
           </div>
           <div class="follow-wi">
@@ -39,7 +39,7 @@
             <div class="follow-gru2">累计跟单人数</div>
           </div>
           <div class="follow-wi">
-            <div class="follow-gru">{{item.rate * 10 * 10}}%</div>
+            <div class="follow-gru">{{toFixed(item.rate * 10 * 10,2)}}%</div>
             <div class="follow-gru2">累计收益率</div>
           </div>
 

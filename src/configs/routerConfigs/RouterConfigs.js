@@ -217,7 +217,7 @@ root.routes.push({
   name: 'mobileFollowTrade',
   meta: {
     requireLogin: true,
-    pcname: '',
+    pcname: 'followTrade',
     h5name: 'mobileFollowTrade',
   },
   caseSensitive: true,
@@ -229,7 +229,7 @@ root.routes.push({
   name: 'mobileFollowTradeStrategy',
   meta: {
     requireLogin: true,
-    pcname: '',
+    pcname: 'followTradeStrategy',
     h5name: 'mobileFollowTradeStrategy',
   },
   caseSensitive: true,
@@ -241,7 +241,7 @@ root.routes.push({
   name: 'mobileDocumentaryGod',
   meta: {
     requireLogin: true,
-    pcname: '',
+    pcname: 'documentaryGod',
     h5name: 'mobileDocumentaryGod',
   },
   caseSensitive: true,
@@ -253,7 +253,7 @@ root.routes.push({
   name: 'mobileDocumentary',
   meta: {
     requireLogin: true,
-    pcname: '',
+    pcname: 'documentary',
     h5name: 'mobileDocumentary',
   },
   caseSensitive: true,
@@ -265,7 +265,7 @@ root.routes.push({
   name: 'mobileTapeListManage',
   meta: {
     requireLogin: true,
-    pcname: '',
+    pcname: 'tapeListManage',
     h5name: 'mobileTapeListManage',
   },
   caseSensitive: true,
@@ -277,7 +277,7 @@ root.routes.push({
   name: 'mobileMyFollowOrder',
   meta: {
     requireLogin: true,
-    pcname: '',
+    pcname: 'myFollowOrder',
     h5name: 'mobileMyFollowOrder',
   },
   caseSensitive: true,
