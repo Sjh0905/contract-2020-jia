@@ -78,7 +78,7 @@
           <template v-if="godHistorList.length !== 0">
             <li class="flex application_li" v-for="(item,index) in godHistorList">
               <!--时间-->
-              <div class="application_header_div">{{$globalFunc.formatDateUitl(Number(item.createdAt),'MM/DD hh:mm:ss')}}</div>
+              <div class="application_header_div">{{$globalFunc.formatDateUitl(Number(item.createdAt),'YYYY-MM-DD hh:mm:ss')}}</div>
               <!--交易对-->
               <div class="application_header_div">{{item.symbol.replace('_','/')}}</div>
               <!--类型-->

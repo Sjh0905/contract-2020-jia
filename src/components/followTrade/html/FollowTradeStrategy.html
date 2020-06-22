@@ -59,7 +59,7 @@
     <!-- 自己持仓-->
     <div class="record" v-if="isTapeList">
       <!--   当前持仓/跟随者-->
-      <div class="recordMining">
+      <div class="recordMining borbot">
         <div class="record_div pointer" @click="toggleType(1)" :class="{'selected_cardType':followType == 1}">{{$t('历史持仓')}}</div>
         <div class="record_div selected_cardTypeML pointer" @click="toggleType(2)" :class="{'selected_cardType':followType == 2}">{{$t('跟随者')}}</div>
       </div>
@@ -85,17 +85,17 @@
           <template v-if="godHistorList.length !== 0">
             <li class="flex application_li" v-for="(item,index) in godHistorList">
               <!--时间-->
-              <div class="application_header_div borbot">{{$globalFunc.formatDateUitl(Number(item.createdAt),'MM/DD hh:mm:ss')}}</div>
+              <div class="application_header_div">{{$globalFunc.formatDateUitl(Number(item.createdAt),'YYYY-MM-DD hh:mm:ss')}}</div>
               <!--交易对-->
-              <div class="application_header_div borbot">{{item.feeCurrency}}</div>
+              <div class="application_header_div">{{item.feeCurrency}}</div>
               <!--类型-->
-              <div class="application_header_div borbot" :class="item.type=='BUY_LIMIT'?'text-green':'text-red'">{{item.type == 'BUY_LIMIT'? '买入':'卖出'}}</div>
+              <div class="application_header_div" :class="item.type=='BUY_LIMIT'?'text-green':'text-red'">{{item.type == 'BUY_LIMIT'? '买入':'卖出'}}</div>
               <!--价格-->
-              <div class="application_header_div borbot">{{item.price}}</div>
+              <div class="application_header_div">{{item.price}}</div>
               <!--数量-->
-              <div class="application_header_div borbot">{{item.amount}}</div>
+              <div class="application_header_div">{{item.amount}}</div>
               <!--金额-->
-              <div class="application_header_div_right borbot">{{toFixed(item.price * item.amount,2)}}</div>
+              <div class="application_header_div_right">{{toFixed(item.price * item.amount,2)}}</div>
             </li>
           </template>
 
