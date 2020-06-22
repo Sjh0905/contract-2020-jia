@@ -1,0 +1,263 @@
+.container {
+  width: 100%;
+  min-height: 200px;
+  background: #F7F8FA;
+}
+
+
+/*面包屑导航*/
+.follow-info {
+  width: 100%;
+  height:46px;
+  line-height:46px;
+  background:rgba(255,255,255,1);
+  box-shadow:0px 2px 6px 0px rgba(0,0,0,0.06);
+  margin-bottom: 25px;
+}
+
+.follow-container {
+  width: 1200px;
+  height: 46px;
+  margin: 0 auto;
+}
+
+.follow-trande-bread {
+  line-height: 46px;
+  width: 100%;
+  overflow: hidden;
+  color: #6B7DA2;
+  font-size: 14px;
+}
+
+.management {
+  color: #6B7DA2;
+}
+.follow-trande-bread span {
+  margin: 0 20px;
+}
+
+.management:hover {
+  color: #3576F5;
+}
+/*面包屑导航*/
+
+.follow-asset {
+  width: 1200px;
+  min-height: 600px;
+  margin: 0 auto;
+  /*background: #fff;*/
+}
+.follow-asset-title {
+  width:100%;
+  height:180px;
+  background:#fff;
+  border-radius:3px;
+  padding: 25px 25px 0;
+  font-size:16px;
+  font-family:PingFangSC-Medium,PingFang SC;
+  font-weight:500;
+  margin-bottom: 15px;
+  justify-content: space-between;
+}
+
+.trade-top-banner {
+  width: 100%;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+.trade-top-banner-pic {
+  width: 300px;
+}
+.trade-img {
+  width: 40px;
+  vertical-align: middle;
+  margin-right: 15px;
+}
+.trade-top-banner-text {
+  line-height: 40px;
+  font-size:16px;
+  font-family:PingFangSC-Semibold,PingFang SC;
+  font-weight:600;
+  color: #131F30;
+}
+.follow-management {
+  line-height: 40px;
+  color: #0D0E23;
+  font-size:14px;
+  font-family:PingFangSC-Semibold,PingFang SC;
+  font-weight:600;
+}
+.follow-management img {
+  vertical-align: middle;
+  width: 16px;
+}
+.trade-top-data {
+  width: 100%;
+  /*justify-content: space-between;*/
+}
+.trade-data-item {
+  width: 190px;
+  font-size:14px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color: #A2B5D9;
+  /*text-align: center;*/
+}
+.trade-data {
+  font-size:22px;
+  font-family:Roboto-Regular,Roboto;
+  font-weight:400;
+  color: #172841;
+  margin-bottom: 5px;
+}
+
+.trade-top-data-two {
+  width: 100%;
+  height: 240px;
+  background: #fff;
+  padding-top: 70px;
+}
+.trade-top-data-text {
+  width: 345px;
+  margin: 0 auto;
+  text-align: center;
+  font-size:12px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color: #A2B5D9;
+}
+.trade-top-data-no {
+  margin-bottom: 50px;
+}
+.trade-top-data-btn {
+  width:345px;
+  height:44px;
+  line-height:44px;
+  background:linear-gradient(270deg,rgba(53,118,245,1) 0%,rgba(69,154,245,1) 100%);
+  border-radius:1px;
+  text-align: center;
+  font-size:16px;
+  font-family:PingFangSC-Semibold,PingFang SC;
+  font-weight:600;
+  color:#fff;
+}
+.record {
+  width: 100%;
+  border:1px solid rgba(239,240,255,1);
+  margin-bottom: 25px;
+  background-color: #FFFFFF;
+}
+.recordMining {
+  width: 100%;
+  height:46px;
+  background:#FFFFFF;
+  padding-left: 25px;
+}
+.record_div {
+  display: inline-block;
+  height:46px;
+  line-height: 46px;
+  color: #6B7DA2;
+  font-size:14px;
+  font-family:PingFangSC-Medium,PingFang SC;
+  font-weight:500;
+}
+.selected_cardType {
+  display: inline-block;
+  height:46px;
+  line-height: 46px;
+  border-bottom: 2px solid #3576F5;
+  color: #0D0E23;
+  font-size:14px;
+  font-family:PingFangSC-Medium,PingFang SC;
+  font-weight:500;
+}
+
+.selected_cardTypeML {
+  margin-left: 40px;
+}
+.recordUl {
+  width: 100%;
+  min-height: 200px;
+}
+.application_header {
+  width: 100%;
+  height:40px;
+  line-height: 40px;
+  font-size:12px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color:#6B7DA2;
+  display: flex;
+  padding: 0 25px;
+  box-sizing: border-box;
+  justify-content: space-between;
+}
+.application_header_div {
+  width: 40%;
+}
+.application_header_div_right {
+  justify-content:space-between;
+  width: 15%;
+  text-align: right;
+}
+.application_li {
+  width: 100%;
+  height:50px;
+  line-height: 50px;
+  font-size:12px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color:#0D0E23;
+  display: flex;
+  padding: 0 25px;
+  box-sizing: border-box;
+}
+.borbot {
+  border-bottom: 1px solid #EFF0FF;
+}
+.weit{
+  width: 100%;
+  height: 200px;
+  text-align: center;
+  box-sizing: border-box;
+}
+.nhtu{
+  width: 100%;
+  height: 120px;
+  margin: 0 auto;
+  margin-top: 30px;
+}
+.nhtu_p{
+  width: 100%;
+  height: 14px;
+  line-height: 14px;
+  text-align: center;
+  font-size:12px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color:rgba(107,125,162,1);
+  float: left;
+}
+.recordUl1 {
+  width: 100%;
+  min-height: 200px;
+  padding-bottom: 50px;
+}
+.application_header {
+  width: 100%;
+  height:40px;
+  line-height: 40px;
+  font-size:12px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color:#6B7DA2;
+  display: flex;
+  padding: 0 25px;
+  box-sizing: border-box;
+  justify-content: space-between;
+}
+.application-header-div-box {
+  width: 20%;
+  text-align: right;
+}

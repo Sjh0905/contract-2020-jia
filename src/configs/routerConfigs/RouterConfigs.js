@@ -3310,6 +3310,7 @@ root.routes.push({
       caseSensitive: true,
       component: resolve => require(['@/components/followTrade/vue/FollowTrade'], resolve)
     },
+    // 大神跟单页面
     {
       path: 'documentaryGod',
       name: 'documentaryGod',
@@ -3321,6 +3322,7 @@ root.routes.push({
       caseSensitive: true,
       component: resolve => require(['@/components/followTrade/vue/DocumentaryGod'], resolve)
     },
+    // 我的跟单
     {
       path: 'myFollowOrder',
       name: 'myFollowOrder',
@@ -3342,6 +3344,18 @@ root.routes.push({
       },
       caseSensitive: true,
       component: resolve => require(['@/components/followTrade/vue/TapeListManage'], resolve)
+    },
+    // 自己跟单页面
+    {
+      path: 'followTradeStrategy',
+      name: 'followTradeStrategy',
+      meta: {
+        requireLogin: true,
+        pcname: 'followTradeStrategy',
+        h5name: 'mobileFollowTradeStrategy',
+      },
+      caseSensitive: true,
+      component: resolve => require(['@/components/followTrade/vue/FollowTradeStrategy'], resolve)
     }
 
 

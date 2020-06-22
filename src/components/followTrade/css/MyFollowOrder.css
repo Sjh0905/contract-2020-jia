@@ -1,3 +1,10 @@
+.container {
+  width: 100%;
+  min-height: 200px;
+  background: #F7F8FA;
+}
+
+
 /*面包屑导航*/
 .follow-info {
   width: 100%;
@@ -32,7 +39,7 @@
 .management:hover {
   color: #3576F5;
 }
-
+/*面包屑*/
 .follow-asset {
   width: 1200px;
   min-height: 600px;
@@ -43,7 +50,7 @@
   position: relative;
   width:100%;
   height:103px;
-  /*background:lightpink;*/
+  background:#fff;
   border-radius:3px;
   padding: 23px 25px 0;
   font-size:16px;
@@ -98,7 +105,7 @@
 .follow-asset-content {
   width: 100%;
   min-height: 290px;
-  /*background: #0babb6;*/
+  background: #fff;
 }
 .follow-asset-content-title {
   height: 50px;

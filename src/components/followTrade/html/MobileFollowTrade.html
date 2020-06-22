@@ -49,9 +49,9 @@
       <!--大佬交易详情Start-->
       <div class="details-of-big-brother-transaction flex">
         <div class="accumulated-income">
-          <div class="percentage">{{item.rate * 10 * 10}}%</div>
+          <div class="percentage">{{toFixed(item.rate* 10 * 10,2) }}%</div>
           <div class="padding-bottom color-a2">累计收益率</div>
-          <div class="color-13">{{item.sum || '0'}}</div>
+          <div class="color-13">{{toFixed(item.sum,2) || '0'}}</div>
           <div class="color-a2">累计交易量</div>
         </div>
         <div class="accumulated-income">
