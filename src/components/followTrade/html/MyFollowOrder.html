@@ -68,7 +68,7 @@
         <div class="total-income">{{item.profit || '--'}}</div>
         <div class="operation">
           <span class="btn-size update pointer" @click="openFollowWindow(item)">修改策略</span>
-          <span class="btn-size pointer" @click="delFollowList">取消跟随</span>
+          <span class="btn-size pointer" @click="delFollow(item)">取消跟随</span>
         </div>
       </div>
 <!--      <div class="follow-asset-not-data" >-->
@@ -79,6 +79,7 @@
 <!--      </div>-->
     </div>
   </div>
+  <!--修改跟单策略-->
   <PopupWindow :switch="popWindowOpen" @close="popWindowClose">
     <div slot="header">
       <span class="update-follow">修改策略跟单</span>
@@ -134,8 +135,24 @@
     <div slot="footer" class="pop-recharge-bottom">
       <div class="documentary-button pointer" @click="commitModify">确认修改</div>
     </div>
-
   </PopupWindow>
+  <!--取消跟随弹框-->
   <PopupPrompt :popOpen="popOpen" :popClose="closePop" :popType="popType" :popText="popText" :waitTime="waitTime" />
+
+
+  <PopupWindow :switch="delFollowOpen" @close="delFollowClose">
+    <div slot="header">
+      <span class="update-follow">取消跟随</span>
+    </div>
+    <div slot="article" class="cancel-follow-article">
+      <div>是否取消对
+      <span class="text_blue">{{followId}}</span>
+      的跟随</div>
+    </div>
+    <div slot="footer" class="pop-recharge-bottom">
+      <div class="documentary-button pointer" @click="delFollowList">确 定</div>
+    </div>
+  </PopupWindow>
+
 
 </div>

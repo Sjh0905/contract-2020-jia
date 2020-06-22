@@ -74,7 +74,8 @@ root.methods.openFollowWindow = function (item) {
   this.popWindowOpen = true
 }
 // 取消跟随
-root.methods.delFollow = function (){
+root.methods.delFollow = function (item){
+  this.followId = item.followId
   this.delFollowOpen = true
 }
 // 关闭取消跟随弹窗

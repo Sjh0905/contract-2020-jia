@@ -291,3 +291,12 @@
   font-weight:600;
   margin-bottom: 15px;
 }
+
+/*弹框样式*/
+.cancel-follow-article {
+  padding: 35px 25px;
+  color: #0D0E23;
+  font-size:16px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+}

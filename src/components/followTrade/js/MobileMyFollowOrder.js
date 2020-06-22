@@ -70,6 +70,7 @@ root.watch = {}
 root.methods = {}
 
 root.methods.isFollowId = function (item) {
+  console.info('item====','执行啦几次呢？？?')
   return this.followId = item.followId
 }
 // 取消跟随
