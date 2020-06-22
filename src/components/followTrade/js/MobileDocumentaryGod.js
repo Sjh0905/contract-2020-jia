@@ -16,7 +16,6 @@ root.data = function () {
 }
 /*------------------------------ 生命周期 -------------------------------*/
 root.created = function () {
-  console.info('params: {item:item}',this.$route.query.userId ,this.$route.query.fee)
 
   this.postBigBrotherHistory()
   this.postFollowUser()
@@ -104,9 +103,7 @@ root.methods.postFollowUser = function () {
   })
 }
 root.methods.re_postFollowUser = function (data) {
-  console.log("this.res=====",data)
   typeof data === 'string' && (data = JSON.parse(data))
-  console.info('data',data)
   this.followUserList = data.dataMap.list || []
 }
 root.methods.error_postFollowUser = function (err) {

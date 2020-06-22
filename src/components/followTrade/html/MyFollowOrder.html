@@ -1,0 +1,158 @@
+<div class="container">
+  <!--    面包屑-->
+  <div class="follow-info">
+    <div class="follow-container">
+      <div class="follow-trande-bread">
+        <router-link to="/index/followTrade" class="management">{{$t('followOrder')}}</router-link>
+        <span> > </span>
+        {{$t('myFollowOrder')}}
+      </div>
+    </div>
+  </div>
+
+  <div class="follow-asset">
+    <div class="follow-asset-title flex">
+
+      <div class="follow-asset-total-data flex">
+        <div class="follow-asset-total">
+          <div>累计跟单总金额（USDT）</div>
+          <div class="follow-asset-acount">{{toFixed(profit.amount||'0',2)}}</div>
+        </div>
+        <div class="follow-asset-total">
+          <div>跟单总收益（USDT）</div>
+          <div class="follow-asset-acount">{{toFixed(profit.profit||'0',2)}}</div>
+        </div>
+      </div>
+      <div class="follow-asset-renewal flex">
+        <div class="follow-asset-remind pointer" @mouseenter="openRenew()" @mouseleave="closeRenew()">
+          <img src="../assets/remind_icon.png" alt="" >
+        </div>
+        <div>开启自动续费</div>
+        <!--关闭按钮-->
+        <div class="follow-asset-close-open pointer" @click="clickToggle" v-if="!isAutomatic">
+          <img src="../../../assets/personalCenter/personal_center_close.png" alt="">
+        </div>
+        <!--打开按钮-->
+        <div class="follow-asset-close-open pointer" @click="clickToggle" v-if="isAutomatic">
+          <img src="../../../assets/personalCenter/personal_center_open.png" alt="">
+        </div>
+      </div>
+      <!--隐藏的方块-->
+      <div class="descript">
+        订阅到期后，将自动续费原带单员，带单员的订阅费用可能会随时调整，自动续费金额以带单员最新订阅费用为准，请随时关注，如不想自动续费，请关闭自动续费功能。
+      </div>
+    </div>
+    <div class="follow-asset-content" v-if="followUserList.length != 0">
+      <div class="follow-asset-content-title">正在跟随</div>
+
+      <div class="follow-asset-topic-title flex">
+        <div class="UID">UID</div>
+        <div class="time">时间</div>
+        <div class="exchange-pair">交易对</div>
+        <div class="type">类型</div>
+        <div class="follow-type">交易方式</div>
+        <div class="total-acount">累计笔数</div>
+        <div class="total-money">累计金额</div>
+        <div class="total-income">累计收益</div>
+        <div class="operation">操作</div>
+      </div>
+
+      <div class="follow-asset-topic-content flex" v-for="(item,index) in followUserList" :key="index">
+        <div class="UID">{{item.followId}}</div>
+        <div class="time">{{formatDateUitl(item.createdAt)}}</div>
+        <div class="exchange-pair">{{item.symbol.replace('_','/')}}</div>
+        <div class="type">{{item.type == 'SPOT'?'现货':'--'}}</div>
+        <div class="follow-type">{{item.followType == 'LOT'? '固定金额：' + item.lot || 0 +'USDT' :'固定比例'}}</div>
+        <div class="total-acount">{{item.amount || '--'}}</div>
+        <div class="total-money">{{item.count || '--'}}</div>
+        <div class="total-income">{{item.profit || '--'}}</div>
+        <div class="operation">
+          <span class="btn-size update pointer" @click="openFollowWindow(item)">修改策略</span>
+          <span class="btn-size pointer" @click="delFollow(item)">取消跟随</span>
+        </div>
+      </div>
+<!--      <div class="follow-asset-not-data" >-->
+<!--        <div>-->
+<!--          <img src="../../../assets/noOrders.png" alt="">-->
+<!--        </div>-->
+<!--        暂无数据-->
+<!--      </div>-->
+    </div>
+  </div>
+  <!--修改跟单策略-->
+  <PopupWindow :switch="popWindowOpen" @close="popWindowClose">
+    <div slot="header">
+      <span class="update-follow">修改策略跟单</span>
+    </div>
+    <div slot="article" class="update-follow-article">
+      <div class="follow-order flex">
+        <div>跟单</div>
+        <div class="follow-order-data">{{followId}}</div>
+      </div>
+      <div class="follow-order flex">
+        <div>跟单币对</div>
+        <div class="follow-order-data">BTC/USDT</div>
+      </div>
+      <div class="follow-order">
+        <div class="follow-order-title">跟单方式</div>
+        <div class="flex">
+          <div class="fixed-amount-proportion pointer" :class="followType == 'LOT' ? 'fixed-amount' : '' " @click="fixedType('LOT')">固定金额</div>
+          <div class="fixed-amount-proportion pointer" :class="followType == 'RATE' ? 'fixed-amount' : '' " @click="fixedType('RATE')">固定比例</div>
+        </div>
+      </div>
+      <div class="fund-description-amount" v-if="followType == 'LOT'">
+        <div class="fund-description-usdt">跟单金额(USDT)</div>
+        <div class="fund-description-info-right-input">
+          <input v-model="fixedAmountLot" placeholder="输入金额"
+                 step="1"  min="0" onkeyup="this.value= this.value.match(/\d+(\.\d{0,2})?/) ? this.value.match(/\d+(\.\d{0,2})?/)[0] : ''">
+        </div>
+      </div>
+      <div class="fund-description-amount" v-if="followType == 'RATE'">
+        <!--        <div class="fund-description-usdt">单位基准(USDT/单位)</div>-->
+        <!--        <div class="fund-description-info-right-input">-->
+        <!--          <input v-model="fixedAmountRate" placeholder="输入比例"-->
+        <!--                 step="1"  min="0" onkeyup="this.value= this.value.match(/\d+(\.\d{0,2})?/) ? this.value.match(/\d+(\.\d{0,2})?/)[0] : ''"> %-->
+        <!--        </div>-->
+      </div>
+      <div class="remind" v-if="followType == 'LOT'" >
+        <div>固定金额跟单：</div>
+        <div>1、例如您设置跟单金额为100USDT，交易员下单时，无论交易员以多少金额下单，您都将以100USDT作为本金以交易员相同的价格跟随下单；</div>
+        <div>2、交易员每下一次单，您都将以每次100USDT的本金进行跟单操作，当您的可用资产小于100USDT时，此次跟单失败；</div>
+        <div>3、当交易员撤掉时，您同步跟随的该笔订单将同步被撤销；</div>
+        <div>4、在交易员未进行撤单操作时，您也可以自行取消该笔跟单操作；</div>
+        <div>5、买入、卖出均已USDT进行核算，例：以一个BTC10000美金为例，100USDT固定金额相当于 0.01BTC。</div>
+      </div>
+      <div class="remind" v-if="followType == 'RATE'">
+        <div>固定比例跟单：</div>
+        <div>1、按比例跟单，如果交易员以10%的仓位本金进行下单时，您将以自己仓位的10%的本金进行自动跟单；</div>
+        <div>2、比如交易员仓位1000美金，下单100美金，占仓位的10%，您仓位有500美金，则以50美金进行跟单；</div>
+        <div>3、如果交易员仓位1000美金，以1000美金下单，占仓位的100%，您仓位有10000美金，则以10000美金进行全仓跟单；</div>
+        <div>4、跟单时将与带单交易员相同的价格进行下单，直至您的可用资金不足为止；</div>
+        <div>5、当交易员撤掉时，您同步跟随的该笔订单将同步被撤销；</div>
+        <div>6、在交易员未进行撤单操作时，您也可以自行取消该笔跟单操作。</div>
+      </div>
+    </div>
+    <div slot="footer" class="pop-recharge-bottom">
+      <div class="documentary-button pointer" @click="commitModify">确认修改</div>
+    </div>
+  </PopupWindow>
+  <!--取消跟随弹框-->
+  <PopupPrompt :popOpen="popOpen" :popClose="closePop" :popType="popType" :popText="popText" :waitTime="waitTime" />
+
+
+  <PopupWindow :switch="delFollowOpen" @close="delFollowClose">
+    <div slot="header">
+      <span class="update-follow">取消跟随</span>
+    </div>
+    <div slot="article" class="cancel-follow-article">
+      <div>是否取消对
+      <span class="text_blue">{{followId}}</span>
+      的跟随</div>
+    </div>
+    <div slot="footer" class="pop-recharge-bottom">
+      <div class="documentary-button pointer" @click="delFollowList">确 定</div>
+    </div>
+  </PopupWindow>
+
+
+</div>

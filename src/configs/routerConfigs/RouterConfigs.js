@@ -217,7 +217,7 @@ root.routes.push({
   name: 'mobileFollowTrade',
   meta: {
     requireLogin: true,
-    pcname: '',
+    pcname: 'followTrade',
     h5name: 'mobileFollowTrade',
   },
   caseSensitive: true,
@@ -229,7 +229,7 @@ root.routes.push({
   name: 'mobileFollowTradeStrategy',
   meta: {
     requireLogin: true,
-    pcname: '',
+    pcname: 'followTradeStrategy',
     h5name: 'mobileFollowTradeStrategy',
   },
   caseSensitive: true,
@@ -241,7 +241,7 @@ root.routes.push({
   name: 'mobileDocumentaryGod',
   meta: {
     requireLogin: true,
-    pcname: '',
+    pcname: 'documentaryGod',
     h5name: 'mobileDocumentaryGod',
   },
   caseSensitive: true,
@@ -253,7 +253,7 @@ root.routes.push({
   name: 'mobileDocumentary',
   meta: {
     requireLogin: true,
-    pcname: '',
+    pcname: 'documentary',
     h5name: 'mobileDocumentary',
   },
   caseSensitive: true,
@@ -265,7 +265,7 @@ root.routes.push({
   name: 'mobileTapeListManage',
   meta: {
     requireLogin: true,
-    pcname: '',
+    pcname: 'tapeListManage',
     h5name: 'mobileTapeListManage',
   },
   caseSensitive: true,
@@ -277,7 +277,7 @@ root.routes.push({
   name: 'mobileMyFollowOrder',
   meta: {
     requireLogin: true,
-    pcname: '',
+    pcname: 'myFollowOrder',
     h5name: 'mobileMyFollowOrder',
   },
   caseSensitive: true,
@@ -3298,18 +3298,66 @@ root.routes.push({
 
 
     /*-----------------  跟单PC begin  ------------------------*/
-  //PC  跟单首页
-  //   {
-  //     path: 'followTrade',
-  //     name: 'followTrade',
-  //     meta: {
-  //       requireLogin: true,
-  //       pcname: 'followTrade',
-  //       h5name: '',
-  //     },
-  //     caseSensitive: true,
-  //     component: resolve => require(['@/components/followTrade/vue/FollowTrade'], resolve)
-  //   }
+     //PC  跟单首页
+    {
+      path: 'followTrade',
+      name: 'followTrade',
+      meta: {
+        requireLogin: true,
+        pcname: 'followTrade',
+        h5name: 'mobileFollowTrade',
+      },
+      caseSensitive: true,
+      component: resolve => require(['@/components/followTrade/vue/FollowTrade'], resolve)
+    },
+    // 大神跟单页面
+    {
+      path: 'documentaryGod',
+      name: 'documentaryGod',
+      meta: {
+        requireLogin: true,
+        pcname: 'documentaryGod',
+        h5name: 'mobileDocumentaryGod',
+      },
+      caseSensitive: true,
+      component: resolve => require(['@/components/followTrade/vue/DocumentaryGod'], resolve)
+    },
+    // 我的跟单
+    {
+      path: 'myFollowOrder',
+      name: 'myFollowOrder',
+      meta: {
+        requireLogin: true,
+        pcname: 'myFollowOrder',
+        h5name: 'mobileMyFollowOrder',
+      },
+      caseSensitive: true,
+      component: resolve => require(['@/components/followTrade/vue/MyFollowOrder'], resolve)
+    },
+    {
+      path: 'tapeListManage',
+      name: 'tapeListManage',
+      meta: {
+        requireLogin: true,
+        pcname: 'tapeListManage',
+        h5name: 'mobileTapeListManage',
+      },
+      caseSensitive: true,
+      component: resolve => require(['@/components/followTrade/vue/TapeListManage'], resolve)
+    },
+    // 自己跟单页面
+    {
+      path: 'followTradeStrategy',
+      name: 'followTradeStrategy',
+      meta: {
+        requireLogin: true,
+        pcname: 'followTradeStrategy',
+        h5name: 'mobileFollowTradeStrategy',
+      },
+      caseSensitive: true,
+      component: resolve => require(['@/components/followTrade/vue/FollowTradeStrategy'], resolve)
+    }
+
 
     // TODO:不能删除 check
     // cc 活动------茶币路由

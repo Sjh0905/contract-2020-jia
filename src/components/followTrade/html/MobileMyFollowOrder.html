@@ -11,7 +11,8 @@
       <img class="mobile-trade-header-title-back-icon-img" src="../../LuckyDraw/assets/mobileForecastHomePage/back_icon.png" alt="">
     </div>
     <!--标题-->
-    <div class="mobile-trade-header-title-text">我的跟单</div>
+    <!--我的跟单-->
+    <div class="mobile-trade-header-title-text">{{$t('myFollowOrder')}}</div>
   </div>
 
   <div class="mobile-trade-header-null"></div>
@@ -39,11 +40,11 @@
   <div class="follow-statistics flex-around">
     <div class="follow-statistics-item">
       <div class="follow-statistics-item-title">累计跟单总金额(USDT)</div>
-      <div class="follow-statistics-item-money">{{profit.amount? toFixed(profit.amount,2):'--'}}</div>
+      <div class="follow-statistics-item-money">{{toFixed(profit.amount||'0',2)}}</div>
     </div>
     <div class="follow-statistics-item">
       <div class="follow-statistics-item-title">跟单总收益(USDT)</div>
-      <div class="follow-statistics-item-money">{{profit.profit ? toFixed(profit.profit,2):'--'}}</div>
+      <div class="follow-statistics-item-money">{{toFixed(profit.profit|| '0',2)}}</div>
     </div>
   </div>
   <!--跟单统计end-->
@@ -69,7 +70,7 @@
           <div class="mobile-trade-item-top-left flex">
             <div class="mobile-trade-item-currency">
               <div class="mobile-trade-item-currency-label">
-                <div>USDT</div>
+                <div>{{item.symbol.replace('_','/')}}</div>
                 <span class="mobile-trade-item-currency-bgd" v-if="item.followType == 'LOT'">固定金额：{{item.lot}}USDT</span>
                 <span class="mobile-trade-item-currency-bgd" v-if="item.followType == 'RATE'">固定比例</span>
                 <span class="mobile-trade-item-currency-bgd">{{item.type == 'SPOT'?'现货':'--'}}</span>

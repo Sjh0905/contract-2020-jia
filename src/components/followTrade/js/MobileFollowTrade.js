@@ -113,13 +113,13 @@ root.methods.goToMobileFollowTradeStrategy = function () {
   this.$router.push({'path':'/index/mobileFollowTradeStrategy'})
 }
 // 跳转我的跟单
-root.methods.goToDocumentary = function (userId,fee,days) {
-  if(this.userId == userId){
+root.methods.goToDocumentary = function (item) {
+  if(this.userId == item.userId){
     this.openPop('自己不能跟随自己哦')
     return
   }
   // this.$router.push({name:'mobileDocumentary',params: {item:item}})
-  this.$router.push({name:'mobileDocumentaryGod',query:{userId:userId,fee:fee,days:days,isFollow:this.godList.indexOf(userId)}})
+  this.$router.push({name:'mobileDocumentaryGod',query:{userId:item.userId,fee:item.fee,days:this.days,isFollow:this.godList.indexOf(item.userId)}})
 }
 // // 去大神页面
 // root.methods.goToDocumentaryGod = function () {
@@ -163,4 +163,9 @@ root.methods.openPop = function (popText, popType, waitTime) {
 root.methods.closePop = function () {
   this.popOpen = false;
 }
+// 保留小数点后8位
+root.methods.toFixed = function (num, acc = 8) {
+  return this.$globalFunc.accFixed(num, acc)
+}
+
 export default root

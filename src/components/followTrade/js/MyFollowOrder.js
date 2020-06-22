@@ -1,14 +1,15 @@
 const root = {}
-root.name = 'MobileMyFollowOrder'
+root.name = 'MyFollowOrder'
 /*------------------------------ 组件 ------------------------------*/
 root.components = {
 //  'Loading': resolve => require(['../Loading/Loading.vue'], resolve),
   'PopupPrompt': resolve => require(['../../vue/PopupPrompt'], resolve),
+  'PopupWindow': resolve => require(['../../vue/PopupWindow'], resolve),
 }
 /*------------------------------ data -------------------------------*/
 root.data = function () {
   return {
-    followType:1,
+    followType:'',
     isAutomatic:false,
     isAutomaticing:false,
     followUserList:[],
@@ -23,8 +24,13 @@ root.data = function () {
 
     delFollowOpen:false,
 
-    fromPageType : ''//进入此页面的3种情况：1.从策略跟单直接进入 '' 2.修改跟单后进入'' 3.添加跟单后进入 addFollower，只有3需要go（-3）
+    // 信息弹框
+    popWindowOpen:false,
+
+    fixedAmountLot:'',//修改输入的固定金额
+
   }
+
 }
 /*------------------------------ 生命周期 -------------------------------*/
 root.created = function () {
@@ -45,48 +51,27 @@ root.created = function () {
   this.postMyDocumentary()
 }
 
-//检测从哪个路由进来的
-root.beforeRouteEnter = function (to, from, next) {
-  next(vm => {
-    vm.fromPageType = to.params.fromPageType || ''
-    if (vm.fromPageType == 'addFollower') {
-      //由于this.$router.go(-2)导致不能通过postMessage设置canGoH5Back:false，所以干脆隐藏返回按钮，直接用H5的返回按钮
-      window.postMessage(JSON.stringify({
-        method: 'setHeaderWithTo0'
-      }))
-    }
-  })
-}
-
-root.mounted = function () {
-  // if (window.history && window.history.pushState) {
-    // 向历史记录中插入了当前页
-    // history.pushState(null, null, document.URL);
-    window.addEventListener('popstate', this.goBack, false);
-  // }
-}
-root.destroyed = function () {
-  // 由于退出本页面后才触发监听，所以不能在这里删除监听，否则不能执行
-  // window.removeEventListener('popstate',this.goBack,false)
-}
+root.mounted = function () {}
+root.beforeDestroy = function () {}
 /*------------------------------ 计算 -------------------------------*/
 root.computed = {}
-// 检验是否是APP
-root.computed.isApp = function () {
-  return this.$route.query.isApp ? true : false
-}
-// 检验是否是安卓
-root.computed.isAndroid = function () {
-  return this.$store.state.isAndroid
-}
+
 /*------------------------------ 观察 -------------------------------*/
 root.watch = {}
 /*------------------------------ 方法 -------------------------------*/
 root.methods = {}
-
-root.methods.isFollowId = function (item) {
-  console.info('item====','执行啦几次呢？？?')
-  return this.followId = item.followId
+// 关闭修改策略弹框
+root.methods.popWindowClose= function () {
+  this.popWindowOpen = false
+}
+// 打开修改策略弹框
+root.methods.openFollowWindow = function (item) {
+  this.followId=item.followId
+  this.followType = item.followType
+  if(item.followType == 'LOT'){
+    this.fixedAmountLot = item.lot || '0'
+  }
+  this.popWindowOpen = true
 }
 // 取消跟随
 root.methods.delFollow = function (item){
@@ -96,11 +81,6 @@ root.methods.delFollow = function (item){
 // 关闭取消跟随弹窗
 root.methods.delFollowClose = function () {
   this.delFollowOpen = false
-}
-// 点击修改跟单
-root.methods.modifyDocumentary = function (item) {
-  this.removeEventPopstate();
-  this.$router.push({name:'mobileDocumentary',query:{item:JSON.stringify(item)}})
 }
 
 //我的跟单
@@ -140,7 +120,7 @@ root.methods.clickToggle = function () {
     errorHandler: this.error_clickToggle
   })
 }
-// 点击切换自动续费
+// 点击切换自动续费成功
 root.methods.re_clickToggle = function (data) {
   typeof (data) === 'string' && (data = JSON.parse(data))
   if(!data) return
@@ -183,6 +163,38 @@ root.methods.error_delFollowList = function (err) {
   console.warn('点击切换自动续费', err)
 }
 
+// 切换固定金额和固定比例
+root.methods.fixedType = function (type) {
+  this.followType = type
+}
+
+// 确认修改
+root.methods.commitModify = function (){
+  this.$http.send('POST_UPDATE_RATEORLOT', {
+    bind: this,
+    params: {
+      followId: this.followId,
+      followType: this.followType,
+      val: this.followType == 'LOT' ? this.fixedAmountLot:this.fixedAmountRate,
+    },
+    callBack: this.re_commitModify,
+    errorHandler: this.error_commitModify
+  })
+}
+root.methods.re_commitModify = function (data) {
+  typeof data === 'string' && (data = JSON.parse(data))
+  if(data.errorCode == 0) {
+    this.openPop('修改跟单成功',1)
+    this.popWindowClose()
+    this.postMyDocumentary()
+  }
+  if(data.errorCode == 1) {
+    this.openPop('系统错误',0)
+  }
+}
+root.methods.error_commitModify = function (err) {
+  console.log('err======',err)
+}
 // 打开toast
 root.methods.openPop = function (popText, popType, waitTime) {
   this.popText = popText
@@ -195,44 +207,13 @@ root.methods.closePop = function () {
   this.popOpen = false;
 }
 
-// 切换历史跟单和跟随者
-root.methods.toggleType = function (type) {
-  this.followType = type
+// 鼠标移上去显示开启续费的框
+root.methods.closeRenew= function () {
+  $(".descript").attr("style","display:none");
 }
-// 返回跟单首页
-root.methods.jumpToFollowTrade = function () {
-  this.removeEventPopstate();
-  if (this.fromPageType == 'addFollower') {
-    this.$router.go(-3)
-    return
-  }
-  this.$router.go(-1)
-}
-// 监听事件返回跟单首页
-root.methods.goBack = function () {
-  // return
-  this.removeEventPopstate();
 
-  if (this.fromPageType == 'addFollower') {
-    // window.postMessage(JSON.stringify({
-    //   method: 'setH5Back',
-    //   parameters: {
-    //     canGoH5Back:false
-    //   }
-    // }))
-    // history.pushState(null, null, document.URL);
-    //由于点击浏览器回退键后才会触发回调，相当于已经执行了go(-1)才进入回调，所以这里是-2，正常情况不作处理
-    this.$router.go(-2)
-    return
-  }
-  // history.pushState(null, null, document.URL);
-}
-root.methods.removeEventPopstate = function () {
-  window.removeEventListener('popstate',this.goBack,false)
-}
-// 个人设置
-root.methods.personalSetting = function () {
-  console.info('personalSetting=======个人设置',)
+root.methods.openRenew = function () {
+  $(".descript").attr("style","display:block");
 }
 
 /*---------------------- 保留小数 begin ---------------------*/

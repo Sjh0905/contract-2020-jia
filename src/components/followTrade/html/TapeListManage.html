@@ -1,0 +1,125 @@
+<div class="documentary-god">
+<!--  面包屑-->
+  <div class="record-container2">
+    <div class="header">
+      <router-link :to="{name:'followTrade'}" class="header-title">
+        <!--策略跟单-->
+        {{$t('followOrder')}}
+      </router-link>
+      <span class="spanbf">></span>
+      <!--我的主页-->
+      <router-link :to="{name:'followTradeStrategy'}" class="header-title">
+        {{$t('myHomePage')}}
+      </router-link>
+      <span class="spanbf">></span>
+      <!-- 带单管理-->
+      <span :to="{name:'followTrade'}" class="">
+        {{$t('带单管理')}}
+      </span>
+    </div>
+  </div>
+
+
+<!--  主要内容-->
+  <div class="tape-center">
+
+<!--    第一部分-->
+    <div class="flex tape">
+      <div class="flex">
+        <div class="tape-flex-bule">订阅费用：</div>
+        <div class="days">{{godInfo.fee}} USDT / {{followDay}}天</div>
+      </div>
+      <div class="modify" @click="goToModify(godInfo.fee)">修改</div>
+    </div>
+    <!--    第二部分-->
+    <div class="flex tape-tow">
+      <div class="tape-tow-box">
+        <div class="days-to">今日收益（USDT）</div>
+        <div class="days-num">{{toFixed(todayFee,2)}}</div>
+      </div>
+      <div class="tape-tow-box">
+        <div class="days-to">累计收益（USDT）</div>
+        <div class="days-num">{{toFixed(sumFee,2)}}</div>
+      </div>
+      <div class="days-box">
+        <div><span class="days-bul">{{countFollower}}人 </span>跟单中</div>
+      </div>
+    </div>
+<!--    第三部分-->
+    <!-- 当前持仓 -->
+    <ul class="recordUl">
+      <li class="days-details">收益明细</li>
+      <!--表头 S-->
+      <li class="application_header">
+        <!-- 账号-->
+        <div class="application_header_div">{{$t('账号')}}</div>
+        <!-- 时间-->
+        <div class="application_header_div">{{$t('时间')}}</div>
+        <!-- 跟随订阅收益-->
+        <div class="application_header_div_right">{{$t('跟随订阅收益（USDT)')}}</div>
+      </li>
+      <template>
+        <!-- 当前挖矿记录 -->
+        <template v-if="">
+          <li class="flex application_li" v-for="(item,index) in userFollowFees" :key="index" v-if="userFollowFees.length != 0">
+            <!--账号-->
+            <div class="application_header_div">{{item.userId}}</div>
+            <!--时间-->
+            <div class="application_header_div">{{$globalFunc.formatDateUitl(Number(item.createdAt),'YYYY-MM-DD hh:mm:ss')}}</div>
+            <!--跟随订阅收益-->
+            <div class="application_header_div_right">{{item.fee || '0'}}</div>
+          </li>
+        </template>
+
+        <!-- 无数据图片 -->
+        <template v-if="userFollowFees.length == 0">
+          <li class="weit">
+            <div class="nhtu"><img src="../assets/no_list.png">
+              <p class="nhtu_p">{{$t('orderPageCurrentEntrustment.close_9')}}</p>
+            </div>
+          </li>
+        </template>
+
+        <!--当前记录加载更多  -->
+        <!--            <template v-if="showLoadingMore && godHistorList.length !== 0">-->
+        <!--              <li class="loading-more">-->
+        <!--                <span class="text_blue pointer" v-if="!loadingMoreShow" @click="clickLoadingMore">{{$t('orderPageHistoricalEntrustment.close_10')}}</span>-->
+        <!--                <span class="text_blue" v-else>{{$t('orderPageHistoricalEntrustment.close_11')}}</span>-->
+        <!--              </li>-->
+        <!--            </template>-->
+
+      </template>
+    </ul>
+  </div>
+
+  <PopupWindow :switch="popWindowOpen" @close="popWindowClose">
+    <div slot="header">
+      <span class="update-follow">修改策略跟单</span>
+    </div>
+    <div slot="article" class="update-follow-article">
+
+      <div class="follow-order flex">
+        <div>跟单币对</div>
+        <div class="follow-order-data">BTC/USDT</div>
+      </div>
+      <div class="follow-order-item flex">
+        <div class="follow-order-pair">订阅费用(USDT)</div>
+        <div class="follow-order-currency">
+          <input v-model="currencyPair" v-if="!isHasItem" class="currency-account" onkeyup="value = value.match(/\d+(\.\d{0,2})?/) ? value.match(/\d+(\.\d{0,2})?/)[0] : ''">
+          <input v-model="currencyPairFee" v-if="isHasItem" class="currency-account" onkeyup="value = value.match(/\d+(\.\d{0,2})?/) ? value.match(/\d+(\.\d{0,2})?/)[0] : ''">
+          / {{followDay}}天
+        </div>
+      </div>
+      <div class="mobile-open-tape-pop-window-content-text">
+        开启后，如您收益率靠前，您将可能出现在带单龙虎榜榜单中，同时可被用户跟单，零成本获得额外的带单收益，双重盈利。
+      </div>
+    </div>
+    <div slot="footer" class="pop-recharge-bottom">
+      <div class="documentary-button pointer" @click="postRevisionFee">确认修改</div>
+    </div>
+
+  </PopupWindow>
+
+  <PopupPrompt :popOpen="popOpen" :popClose="closePop" :popType="popType" :popText="popText" :waitTime="waitTime" />
+
+</div>

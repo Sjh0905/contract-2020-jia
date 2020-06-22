@@ -87,8 +87,8 @@ root.methods.jumpToBack = function () {
   this.$router.push({'path':'/index/newH5homePage'})
 }
 //跳转个人策略跟单
-root.methods.goToMobileFollowTradeStrategy = function () {
-  this.$router.push({'path':'/index/mobileFollowTradeStrategy'})
+root.methods.goTofollowTradeStrategy = function () {
+  this.$router.push({'path':'/index/followTradeStrategy'})
 }
 // 跳转我的跟单
 root.methods.goToDocumentary = function (userId,fee,days) {
@@ -97,15 +97,15 @@ root.methods.goToDocumentary = function (userId,fee,days) {
     return
   }
   // this.$router.push({name:'mobileDocumentary',params: {item:item}})
-  this.$router.push({name:'mobileDocumentaryGod',query:{userId:userId,fee:fee,days:days,isFollow:this.godList.indexOf(userId)}})
+  this.$router.push({name:'documentaryGod',query:{userId:userId,fee:fee,days:days,isFollow:this.godList.indexOf(userId)}})
 }
 // // 去大神页面
 // root.methods.goToDocumentaryGod = function () {
 //   this.$router.push({name: 'mobileDocumentaryGod'})
 // }
 // 返回我的跟单，正在跟随
-root.methods.goToMobileMyFollowOrder = function () {
-  this.$router.push({name:'mobileMyFollowOrder'})
+root.methods.goToMyFollowOrder = function () {
+  this.$router.push({name:'myFollowOrder'})
 }
 
 
@@ -140,5 +140,10 @@ root.methods.openPop = function (popText, popType, waitTime) {
 // 关闭toast
 root.methods.closePop = function () {
   this.popOpen = false;
+}
+
+// 保留小数点后8位
+root.methods.toFixed = function (num, acc = 8) {
+  return this.$globalFunc.accFixed(num, acc)
 }
 export default root
