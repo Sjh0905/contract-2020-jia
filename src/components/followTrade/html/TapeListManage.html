@@ -30,7 +30,7 @@
         <div class="tape-flex-bule">订阅费用：</div>
         <div class="days">{{godInfo.fee}} USDT / {{followDay}}天</div>
       </div>
-      <div class="modify">修改</div>
+      <div class="modify" @click="goToModify">修改</div>
     </div>
     <!--    第二部分-->
     <div class="flex tape-tow">
@@ -49,6 +49,7 @@
 <!--    第三部分-->
     <!-- 当前持仓 -->
     <ul class="recordUl">
+      <li class="days-details">收益明细</li>
       <!--表头 S-->
       <li class="application_header">
         <!-- 账号-->
@@ -61,24 +62,24 @@
       <template>
         <!-- 当前挖矿记录 -->
         <template v-if="">
-          <li class="flex application_li" v-for="(item,index) in godHistorList">
+          <li class="flex application_li" v-for="(item,index) in userFollowFees" :key="index" v-if="userFollowFees.length != 0">
             <!--账号-->
-            <div class="application_header_div borbot">{{item.symbol.replace('_','/')}}</div>
+            <div class="application_header_div borbot">{{item.userId}}</div>
             <!--时间-->
             <div class="application_header_div borbot">{{$globalFunc.formatDateUitl(Number(item.createdAt),'MM/DD hh:mm:ss')}}</div>
             <!--跟随订阅收益-->
-            <div class="application_header_div borbot">{{item.price || '0'}}</div>
+            <div class="application_header_div borbot">{{item.fee || '0'}}</div>
           </li>
         </template>
 
         <!-- 无数据图片 -->
-<!--        <template v-else>-->
-<!--          <li class="weit">-->
-<!--            <div class="nhtu"><img src="">-->
-<!--              <p class="nhtu_p">{{$t('orderPageCurrentEntrustment.close_9')}}</p>-->
-<!--            </div>-->
-<!--          </li>-->
-<!--        </template>-->
+        <template v-if="userFollowFees.length == 0">
+          <li class="weit">
+            <div class="nhtu"><img src="../assets/no_list.png">
+              <p class="nhtu_p">{{$t('orderPageCurrentEntrustment.close_9')}}</p>
+            </div>
+          </li>
+        </template>
 
         <!--当前记录加载更多  -->
         <!--            <template v-if="showLoadingMore && godHistorList.length !== 0">-->
@@ -92,5 +93,34 @@
     </ul>
   </div>
 
+  <PopupWindow :switch="popWindowOpen" @close="popWindowClose">
+    <div slot="header">
+      <span class="update-follow">修改策略跟单</span>
+    </div>
+    <div slot="article" class="update-follow-article">
+
+      <div class="follow-order flex">
+        <div>跟单币对</div>
+        <div class="follow-order-data">BTC/USDT</div>
+      </div>
+      <div class="follow-order-item flex">
+        <div class="follow-order-pair">订阅费用(USDT)</div>
+        <div class="follow-order-currency">
+          <input v-model="currencyPair" v-if="!isHasItem" class="currency-account" onkeyup="value = value.match(/\d+(\.\d{0,2})?/) ? value.match(/\d+(\.\d{0,2})?/)[0] : ''">
+          <input v-model="currencyPairFee" v-if="isHasItem" class="currency-account" onkeyup="value = value.match(/\d+(\.\d{0,2})?/) ? value.match(/\d+(\.\d{0,2})?/)[0] : ''">
+          / {{followDay}}天
+        </div>
+      </div>
+      <div class="mobile-open-tape-pop-window-content-text">
+        开启后，如您收益率靠前，您将可能出现在带单龙虎榜榜单中，同时可被用户跟单，零成本获得额外的带单收益，双重盈利。
+      </div>
+    </div>
+    <div slot="footer" class="pop-recharge-bottom">
+      <div class="documentary-button pointer" @click="postRevisionFee">确认修改</div>
+    </div>
+
+  </PopupWindow>
+
+  <PopupPrompt :popOpen="popOpen" :popClose="closePop" :popType="popType" :popText="popText" :waitTime="waitTime" />
 
 </div>

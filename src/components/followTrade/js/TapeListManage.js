@@ -4,6 +4,7 @@ root.name = 'tapeListManage'
 root.components = {
   // 'Loading': resolve => require(['../Loading/Loading.vue'], resolve),
   'PopupPrompt': resolve => require(['../../vue/PopupPrompt'], resolve),
+  'PopupWindow': resolve => require(['../../vue/PopupWindow'], resolve),
 }
 /*------------------------------ data -------------------------------*/
 root.data = function () {
@@ -26,7 +27,10 @@ root.data = function () {
     todayFee:0, //今日收益
     userFollowFees:[], //收益明细
     followDay:'', // 跟单天数
-    godInfo:{} //是否开启带单
+    godInfo:{}, //是否开启带单
+
+    // 信息弹框
+    popWindowOpen:false,
 
   }
 }
@@ -71,6 +75,14 @@ root.computed.isAndroid = function () {
 root.watch = {}
 /*------------------------------ 方法 -------------------------------*/
 root.methods = {}
+//修改跟单
+root.methods.goToModify = function () {
+  this.popWindowOpen = true
+}
+// 关闭修改策略弹框
+root.methods.popWindowClose= function () {
+  this.popWindowOpen = false
+}
 // 返回个人页面
 root.methods.jumpToFollowTradeStrategy = function () {
   this.$router.go(-1)
@@ -152,6 +164,7 @@ root.methods.re_postRevisionFee = function (data) {
     this.openMaskWindow = false
     this.isTapeList = true
     this.openPop('修改成功',1)
+    this.popWindowClose()
     this.postManage()
   }
   if(data.errorCode != 0) {
