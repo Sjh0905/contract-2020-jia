@@ -16,11 +16,11 @@
       <div class="follow-asset-total-data flex">
         <div class="follow-asset-total">
           <div>累计跟单总金额（USDT）</div>
-          <div class="follow-asset-acount">{{profit.amount? toFixed(profit.amount,2):'--'}}</div>
+          <div class="follow-asset-acount">{{toFixed(profit.amount||'0',2)}}</div>
         </div>
         <div class="follow-asset-total">
           <div>跟单总收益（USDT）</div>
-          <div class="follow-asset-acount">{{profit.profit ? toFixed(profit.profit,2):'--'}}</div>
+          <div class="follow-asset-acount">{{toFixed(profit.profit||'0',2)}}</div>
         </div>
       </div>
       <div class="follow-asset-renewal flex">
