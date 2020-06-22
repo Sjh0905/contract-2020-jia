@@ -30,7 +30,7 @@
     <div class="mobile-trade-top-data flex">
 
       <div class="mobile-trade-data-item">
-        <div class="mobile-trade-data">{{godInfo.sum || '- -'}}</div>
+        <div class="mobile-trade-data">{{toFixed(godInfo.sum || '0',2)}}</div>
         <div>累计交易量</div>
       </div>
 
@@ -45,7 +45,7 @@
       </div>
 
       <div class="mobile-trade-data-item">
-        <div class="mobile-trade-data text-green">{{godInfo.rate || '- -'}} %</div>
+        <div class="mobile-trade-data text-green">{{toFixed(godInfo.rate*10*10 || '0',2)}} %</div>
         <div>累计收益率</div>
       </div>
     </div>

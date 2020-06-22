@@ -36,14 +36,14 @@
     <div class="flex tape-tow">
       <div class="tape-tow-box">
         <div class="days-to">今日收益（USDT）</div>
-        <div class="days-num">{{todayFee}}</div>
+        <div class="days-num">{{toFixed(todayFee,2)}}</div>
       </div>
       <div class="tape-tow-box">
         <div class="days-to">累计收益（USDT）</div>
-        <div class="days-num">{{sumFee}}</div>
+        <div class="days-num">{{toFixed(sumFee,2)}}</div>
       </div>
       <div class="days-box">
-        <div><span class="days-bul">{{countFollower}} 人</span>跟单中</div>
+        <div><span class="days-bul">{{countFollower}}人 </span>跟单中</div>
       </div>
     </div>
 <!--    第三部分-->

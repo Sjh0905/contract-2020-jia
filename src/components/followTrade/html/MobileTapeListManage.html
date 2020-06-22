@@ -48,11 +48,11 @@
       <div class="mobile-income-describe-display flex">
         <div class="mobile-income-describe-today">
           <div class="mobile-income-describe-text">今日收益（USDT）</div>
-          <div class="mobile-income-describe-amount">{{todayFee}}</div>
+          <div class="mobile-income-describe-amount">{{toFixed(todayFee,2)}}</div>
         </div>
         <div class="mobile-income-describe-total">
           <div class="mobile-income-describe-text">累计收益（USDT）</div>
-          <div class="mobile-income-describe-amount">{{sumFee}}</div>
+          <div class="mobile-income-describe-amount">{{toFixed(sumFee,2)}}</div>
         </div>
       </div>
     </div>
