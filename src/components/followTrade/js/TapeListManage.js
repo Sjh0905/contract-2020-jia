@@ -76,7 +76,8 @@ root.watch = {}
 /*------------------------------ 方法 -------------------------------*/
 root.methods = {}
 //修改跟单
-root.methods.goToModify = function () {
+root.methods.goToModify = function (fee) {
+  this.currencyPairFee = fee
   this.popWindowOpen = true
 }
 // 关闭修改策略弹框
