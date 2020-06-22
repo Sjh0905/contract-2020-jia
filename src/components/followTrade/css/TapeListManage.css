@@ -140,15 +140,16 @@
   color:#6B7DA2;
   display: flex;
   padding: 0 25px;
+  /*border-bottom: 1px solid #EFF0FF;*/
   box-sizing: border-box;
   justify-content: space-between;
 }
 .application_header_div {
-  width: 28%;
+  width: 42%;
 }
 .application_header_div_right {
-  justify-content:space-between;
-  width: 15%;
+  /*justify-content:space-between;*/
+  width: 16%;
   text-align: right;
 }
 .application_li {
@@ -159,7 +160,7 @@
   font-family:PingFangSC-Regular,PingFang SC;
   font-weight:400;
   color:#0D0E23;
-  display: flex;
+  /*display: flex;*/
   padding: 0 25px;
   /*border-bottom: 1px solid #EFF0FF;*/
   box-sizing: border-box;

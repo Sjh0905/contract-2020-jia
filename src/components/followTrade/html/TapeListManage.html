@@ -64,11 +64,11 @@
         <template v-if="">
           <li class="flex application_li" v-for="(item,index) in userFollowFees" :key="index" v-if="userFollowFees.length != 0">
             <!--账号-->
-            <div class="application_header_div borbot">{{item.userId}}</div>
+            <div class="application_header_div">{{item.userId}}</div>
             <!--时间-->
-            <div class="application_header_div borbot">{{$globalFunc.formatDateUitl(Number(item.createdAt),'MM/DD hh:mm:ss')}}</div>
+            <div class="application_header_div">{{$globalFunc.formatDateUitl(Number(item.createdAt),'MM/DD hh:mm:ss')}}</div>
             <!--跟随订阅收益-->
-            <div class="application_header_div borbot">{{item.fee || '0'}}</div>
+            <div class="application_header_div_right">{{item.fee || '0'}}</div>
           </li>
         </template>
 
