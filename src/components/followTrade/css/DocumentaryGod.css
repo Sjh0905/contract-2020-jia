@@ -38,7 +38,7 @@
 .follow-data {
   width: 100%;
   height: 180px;
-  padding: 25px 60px 35px 60px;/*上右下左*/
+  padding: 25px 25px 35px;/*上右下左*/
   background:#FFFFFF;
   border-radius:6px;
   margin-bottom: 25px;

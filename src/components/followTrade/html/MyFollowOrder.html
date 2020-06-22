@@ -46,6 +46,7 @@
       <div class="follow-asset-content-title">正在跟随</div>
 
       <div class="follow-asset-topic-title flex">
+        <div class="UID">UID</div>
         <div class="time">时间</div>
         <div class="exchange-pair">交易对</div>
         <div class="type">类型</div>
@@ -57,6 +58,7 @@
       </div>
 
       <div class="follow-asset-topic-content flex" v-for="(item,index) in followUserList" :key="index">
+        <div class="UID">{{item.followId}}</div>
         <div class="time">{{formatDateUitl(item.createdAt)}}</div>
         <div class="exchange-pair">{{item.symbol.replace('_','/')}}</div>
         <div class="type">{{item.type == 'SPOT'?'现货':'--'}}</div>

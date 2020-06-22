@@ -15,7 +15,7 @@
       <div class="trade-top-banner flex">
         <div class="flex">
           <div>
-            <img src="../assets/management_personal_icon.png" alt="" class="trade-img">
+            <img src="../assets/big-brother.png" alt="" class="trade-img">
           </div>
           <div class="trade-top-banner-text">{{userId}}</div>
         </div>
@@ -51,7 +51,7 @@
     <div class="trade-top-data-two" v-if="!isTapeList">
       <div class="trade-top-data-text">
         <div class="trade-top-data-no">该用户未分享交易活动</div>
-        <div class="trade-top-data-btn" @click="">开启带单交易，双重获利</div>
+        <div class="trade-top-data-btn pointer" @click="openTapeList">开启带单交易，双重获利</div>
       </div>
 
     </div>
@@ -161,5 +161,33 @@
 
     </div>
   </div>
+
+  <!--开启策略跟单弹框-->
+  <PopupWindow :switch="popWindowOpen" @close="popWindowClose">
+    <div slot="header">
+      <span class="update-follow">开启策略跟单</span>
+    </div>
+    <div slot="article" class="update-follow-article">
+      <div class="follow-order flex">
+        <div>跟单币对</div>
+        <div class="follow-order-data">BTC/USDT</div>
+      </div>
+      <div class="follow-order-item flex">
+        <div class="follow-order-pair">订阅费用(USDT)</div>
+        <div class="follow-order-currency">
+          <input v-model="currencyPair" v-if="!isHasItem" class="currency-account" onkeyup="value = value.match(/\d+(\.\d{0,2})?/) ? value.match(/\d+(\.\d{0,2})?/)[0] : ''">
+        </div>
+      </div>
+      <div class="mobile-open-tape-pop-window-content-text">
+        开启后，如您收益率靠前，您将可能出现在带单龙虎榜榜单中，同时可被用户跟单，零成本获得额外的带单收益，双重盈利。
+      </div>
+    </div>
+    <div slot="footer" class="pop-recharge-bottom">
+      <div class="documentary-button pointer" @click="postCommitFee">确认开启</div>
+    </div>
+  </PopupWindow>
+
+  <!--toast弹框-->
+  <PopupPrompt :popOpen="popOpen" :popClose="closePop" :popType="popType" :popText="popText" :waitTime="waitTime" />
 
 </div>

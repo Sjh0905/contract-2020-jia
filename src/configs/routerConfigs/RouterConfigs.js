@@ -3305,7 +3305,7 @@ root.routes.push({
       meta: {
         requireLogin: true,
         pcname: 'followTrade',
-        h5name: '',
+        h5name: 'mobileFollowTrade',
       },
       caseSensitive: true,
       component: resolve => require(['@/components/followTrade/vue/FollowTrade'], resolve)
