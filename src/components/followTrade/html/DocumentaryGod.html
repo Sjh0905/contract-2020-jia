@@ -22,19 +22,19 @@
       <div class="flex">
         <div class="flex follow-buw">
           <div class="follow-wi">
-            <div class="follow-bink">{{godInfo.sum || '- -'}}</div>
+            <div class="follow-bink">{{toFixed(godInfo.sum,2) || '0'}}</div>
             <div class="follow-gru2">累计交易量</div>
           </div>
           <div class="follow-wi">
-            <div class="follow-bink">{{godInfo.count ? godInfo.count : '- -'}}</div>
+            <div class="follow-bink">{{godInfo.count ? godInfo.count : '0'}}</div>
             <div class="follow-gru2">交易笔数</div>
           </div>
           <div class="follow-wi">
-            <div class="follow-bink">{{godInfo.followCount ? godInfo.followCount : '- -'}}</div>
+            <div class="follow-bink">{{godInfo.followCount ? godInfo.followCount : '0'}}</div>
             <div class="follow-gru2">累计跟单人数</div>
           </div>
           <div class="follow-wi">
-            <div class="follow-gru">{{godInfo.rate ? godInfo.rate * 10 * 10 : '- -'}} %</div>
+            <div class="follow-gru">{{godInfo.rate ? godInfo.rate * 10 * 10 : '0'}} %</div>
             <div class="follow-gru2">累计收益率</div>
           </div>
 
@@ -54,7 +54,7 @@
     <!-- 大神持仓-->
     <div class="record">
       <!--   当前持仓/跟随者-->
-      <div class="recordMining">
+      <div class="recordMining borbot">
         <div class="record_div pointer" @click="toggleType(1)" :class="{'selected_cardType':fixedFollow == 1}">{{$t('历史持仓')}}</div>
         <div class="record_div selected_cardTypeML pointer" @click="toggleType(2)" :class="{'selected_cardType':fixedFollow == 2}">{{$t('跟随者')}}</div>
       </div>
@@ -78,17 +78,17 @@
           <template v-if="godHistorList.length !== 0">
             <li class="flex application_li" v-for="(item,index) in godHistorList">
               <!--时间-->
-              <div class="application_header_div borbot">{{$globalFunc.formatDateUitl(Number(item.createdAt),'MM/DD hh:mm:ss')}}</div>
+              <div class="application_header_div">{{$globalFunc.formatDateUitl(Number(item.createdAt),'MM/DD hh:mm:ss')}}</div>
               <!--交易对-->
-              <div class="application_header_div borbot">{{item.symbol.replace('_','/')}}</div>
+              <div class="application_header_div">{{item.symbol.replace('_','/')}}</div>
               <!--类型-->
-              <div class="application_header_div borbot" :class="item.type=='BUY_LIMIT'?'text-green':'text-red'">{{item.type == 'BUY_LIMIT'? '买入':'卖出'}}</div>
+              <div class="application_header_div" :class="item.type=='BUY_LIMIT'?'text-green':'text-red'">{{item.type == 'BUY_LIMIT'? '买入':'卖出'}}</div>
               <!--价格-->
-              <div class="application_header_div borbot">{{item.price || '0'}}</div>
+              <div class="application_header_div">{{item.price || '0'}}</div>
               <!--数量-->
-              <div class="application_header_div borbot">{{item.amount || '0'}}</div>
+              <div class="application_header_div">{{item.amount || '0'}}</div>
               <!--金额-->
-              <div class="application_header_div_right borbot">{{toFixed(item.price * item.amount,2)}}</div>
+              <div class="application_header_div_right">{{toFixed(item.price * item.amount,2)}}</div>
             </li>
           </template>
 
@@ -127,7 +127,7 @@
           <template v-if="followUserList.length !== 0">
             <li class="" v-for="(item,index) in followUserList" :key="item.id">
 
-              <div class="flex application_li">
+              <div class="flex application_li2">
                 <!--账号-->
                 <div class="application_header_div ">{{item.userId}}</div>
                 <!--期数-->
