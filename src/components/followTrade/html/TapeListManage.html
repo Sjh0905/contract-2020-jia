@@ -30,7 +30,7 @@
         <div class="tape-flex-bule">订阅费用：</div>
         <div class="days">{{godInfo.fee}} USDT / {{followDay}}天</div>
       </div>
-      <div class="modify">修改</div>
+      <div class="modify" @click="goToModify">修改</div>
     </div>
     <!--    第二部分-->
     <div class="flex tape-tow">
@@ -64,11 +64,11 @@
         <template v-if="">
           <li class="flex application_li" v-for="(item,index) in userFollowFees" :key="index" v-if="userFollowFees.length != 0">
             <!--账号-->
-            <div class="application_header_div borbot">{{item.symbol.replace('_','/')}}</div>
+            <div class="application_header_div borbot">{{item.userId}}</div>
             <!--时间-->
             <div class="application_header_div borbot">{{$globalFunc.formatDateUitl(Number(item.createdAt),'MM/DD hh:mm:ss')}}</div>
             <!--跟随订阅收益-->
-            <div class="application_header_div borbot">{{item.price || '0'}}</div>
+            <div class="application_header_div borbot">{{item.fee || '0'}}</div>
           </li>
         </template>
 
@@ -93,5 +93,34 @@
     </ul>
   </div>
 
+  <PopupWindow :switch="popWindowOpen" @close="popWindowClose">
+    <div slot="header">
+      <span class="update-follow">修改策略跟单</span>
+    </div>
+    <div slot="article" class="update-follow-article">
+
+      <div class="follow-order flex">
+        <div>跟单币对</div>
+        <div class="follow-order-data">BTC/USDT</div>
+      </div>
+      <div class="follow-order-item flex">
+        <div class="follow-order-pair">订阅费用(USDT)</div>
+        <div class="follow-order-currency">
+          <input v-model="currencyPair" v-if="!isHasItem" class="currency-account" onkeyup="value = value.match(/\d+(\.\d{0,2})?/) ? value.match(/\d+(\.\d{0,2})?/)[0] : ''">
+          <input v-model="currencyPairFee" v-if="isHasItem" class="currency-account" onkeyup="value = value.match(/\d+(\.\d{0,2})?/) ? value.match(/\d+(\.\d{0,2})?/)[0] : ''">
+          / {{followDay}}天
+        </div>
+      </div>
+      <div class="mobile-open-tape-pop-window-content-text">
+        开启后，如您收益率靠前，您将可能出现在带单龙虎榜榜单中，同时可被用户跟单，零成本获得额外的带单收益，双重盈利。
+      </div>
+    </div>
+    <div slot="footer" class="pop-recharge-bottom">
+      <div class="documentary-button pointer" @click="postRevisionFee">确认修改</div>
+    </div>
+
+  </PopupWindow>
+
+  <PopupPrompt :popOpen="popOpen" :popClose="closePop" :popType="popType" :popText="popText" :waitTime="waitTime" />
 
 </div>

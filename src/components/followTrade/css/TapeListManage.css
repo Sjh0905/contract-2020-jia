@@ -58,6 +58,7 @@
   font-weight:400;
   background:rgba(53,118,245,1);
   border-radius:1px;
+  cursor: pointer;
 }
 .days {
   color: #3576F5;
@@ -191,4 +192,69 @@
   font-weight:400;
   color:rgba(107,125,162,1);
   float: left;
+}
+/*弹框*/
+.update-follow {
+  padding-left: 25px;
+}
+.update-follow-article {
+  padding: 30px 25px 22px 25px;
+}
+.follow-order {
+  color: #193662;
+  font-size:14px;
+  font-family:PingFangSC-Medium,PingFang SC;
+  font-weight:500;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+.follow-order-data {
+  font-family:PingFangSC-Semibold,PingFang SC;
+  font-weight:600;
+  color: #A2B5D9;
+}
+.documentary-button {
+  width:410px;
+  height:40px;
+  line-height: 40px;
+  color: #FFFFFF;
+  text-align: center;
+  background:linear-gradient(270deg,rgba(53,118,245,1) 0%,rgba(69,154,245,1) 100%);
+  border-radius:1px;
+  font-size:16px;
+  font-family:PingFangSC-Semibold,PingFang SC;
+  font-weight:600;
+  margin-bottom: 15px;
+}
+.follow-order-item {
+  height: 40px;
+  line-height: 40px;
+  font-size:14px;
+  color: #193662;
+  justify-content: space-between;
+}
+.follow-order-pair {
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+}
+.follow-order-currency {
+  font-family:PingFangSC-Semibold,PingFang SC;
+  font-weight:600;
+}
+.follow-order-currency input {
+  width:72px;
+  height:24px;
+  border-radius:2px;
+  border:1px solid #D0D4E9;
+  margin-right: 10px;
+  padding-left: 10px;
+  box-sizing: border-box;
+}
+.mobile-open-tape-pop-window-content-text {
+  margin-top: 10px;
+  min-height: 16px;
+  color: #6A83A8;
+  font-size:12px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
 }
