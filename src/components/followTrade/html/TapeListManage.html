@@ -3,18 +3,17 @@
   <div class="record-container2">
     <div class="header">
       <router-link :to="{name:'followTrade'}" class="header-title">
-        <!--幸运预测活动-->
+        <!--策略跟单-->
         {{$t('策略跟单')}}
       </router-link>
       <span class="spanbf">></span>
-      <!--我的参与记录-->
+      <!--我的主页-->
       <router-link :to="{name:'followTradeStrategy'}" class="header-title">
-        <!--幸运预测活动-->
         {{$t('我的主页')}}
       </router-link>
       <span class="spanbf">></span>
+      <!-- 带单管理-->
       <span :to="{name:'followTrade'}" class="">
-        <!--幸运预测活动-->
         {{$t('带单管理')}}
       </span>
     </div>
