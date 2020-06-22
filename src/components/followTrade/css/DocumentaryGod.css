@@ -285,10 +285,11 @@
 
 /*}*/
 .application-header-div-box {
+  width: 16%;
   text-align: right;
 }
 .application_header_div {
-  width: 28%;
+  width: 42%;
 }
 .application_ {
   justify-content:space-between;
