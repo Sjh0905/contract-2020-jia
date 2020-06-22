@@ -27,22 +27,22 @@
       <div class="trade-top-data flex">
 
         <div class="trade-data-item">
-          <div class="trade-data">{{121}}</div>
+          <div class="trade-data">{{godInfo.sum || '- -'}}</div>
           <div>累计交易量</div>
         </div>
 
         <div class="trade-data-item">
-          <div class="trade-data">{{121}}</div>
+          <div class="trade-data">{{godInfo.count || '- -'}}</div>
           <div>交易笔数</div>
         </div>
 
         <div class="trade-data-item">
-          <div class="trade-data">{{121}}</div>
+          <div class="trade-data">{{godInfo.followCount || '- -'}}</div>
           <div>跟单人数</div>
         </div>
 
         <div class="trade-data-item">
-          <div class="trade-data text-green">{{121}} %</div>
+          <div class="trade-data text-green">{{godInfo.rate || '- -'}} %</div>
           <div>累计收益率</div>
         </div>
       </div>
