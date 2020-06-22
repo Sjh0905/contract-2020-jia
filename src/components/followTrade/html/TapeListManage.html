@@ -49,6 +49,7 @@
 <!--    第三部分-->
     <!-- 当前持仓 -->
     <ul class="recordUl">
+      <li class="days-details">收益明细</li>
       <!--表头 S-->
       <li class="application_header">
         <!-- 账号-->
@@ -61,7 +62,7 @@
       <template>
         <!-- 当前挖矿记录 -->
         <template v-if="">
-          <li class="flex application_li" v-for="(item,index) in godHistorList">
+          <li class="flex application_li" v-for="(item,index) in userFollowFees" :key="index" v-if="userFollowFees.length != 0">
             <!--账号-->
             <div class="application_header_div borbot">{{item.symbol.replace('_','/')}}</div>
             <!--时间-->
@@ -72,13 +73,13 @@
         </template>
 
         <!-- 无数据图片 -->
-<!--        <template v-else>-->
-<!--          <li class="weit">-->
-<!--            <div class="nhtu"><img src="">-->
-<!--              <p class="nhtu_p">{{$t('orderPageCurrentEntrustment.close_9')}}</p>-->
-<!--            </div>-->
-<!--          </li>-->
-<!--        </template>-->
+        <template v-if="userFollowFees.length == 0">
+          <li class="weit">
+            <div class="nhtu"><img src="../assets/no_list.png">
+              <p class="nhtu_p">{{$t('orderPageCurrentEntrustment.close_9')}}</p>
+            </div>
+          </li>
+        </template>
 
         <!--当前记录加载更多  -->
         <!--            <template v-if="showLoadingMore && godHistorList.length !== 0">-->
