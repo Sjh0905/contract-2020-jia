@@ -135,6 +135,7 @@ root.methods.re_postDocumentaryImmediately = function (data) {
       this.popWindowOpen = false
       this.postBigBrotherHistory()
       this.postFollowUser()
+      this.$route.query.isFollow = true
     }, 1000)
     return;
   }

@@ -65,7 +65,7 @@
             <!--账号-->
             <div class="application_header_div">{{item.userId}}</div>
             <!--时间-->
-            <div class="application_header_div">{{$globalFunc.formatDateUitl(Number(item.createdAt),'MM/DD hh:mm:ss')}}</div>
+            <div class="application_header_div">{{$globalFunc.formatDateUitl(Number(item.createdAt),'YYYY-MM-DD hh:mm:ss')}}</div>
             <!--跟随订阅收益-->
             <div class="application_header_div_right">{{item.fee || '0'}}</div>
           </li>
