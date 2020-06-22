@@ -53,6 +53,10 @@ root.computed.isAndroid = function () {
 root.watch = {}
 /*------------------------------ 方法 -------------------------------*/
 root.methods = {}
+// 跳转到带单管理
+root.methods.goToTapeListManage = function () {
+  this.$router.push({name:'tapeListManage'})
+}
 
 // 切换历史跟单和跟随者
 root.methods.toggleType = function (type) {

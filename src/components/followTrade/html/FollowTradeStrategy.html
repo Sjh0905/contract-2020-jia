@@ -19,7 +19,7 @@
           </div>
           <div class="trade-top-banner-text">{{userId}}</div>
         </div>
-        <div class="follow-management pointer" v-if="isTapeList">
+        <div class="follow-management pointer" @click="goToTapeListManage" v-if="isTapeList">
           <img src="../assets/setting_icon.png" alt="">
           <span>带单管理</span>
         </div>
@@ -67,15 +67,17 @@
       <ul class="recordUl" v-if="followType == 1">
         <!--表头 S-->
         <li class="application_header">
-          <!-- 日期-->
+          <!--时间-->
           <div class="application_header_div">{{$t('时间')}}</div>
-          <!-- 量化-->
+          <!--交易对-->
           <div class="application_header_div">{{$t('交易对')}}</div>
-          <!-- 奖励-->
+          <!--类型-->
           <div class="application_header_div">{{$t('类型')}}</div>
-          <!-- 矿源金额-->
+          <!--价格-->
           <div class="application_header_div">{{$t('价格')}}</div>
+          <!--数量-->
           <div class="application_header_div">{{$t('数量')}}</div>
+          <!--金额-->
           <div class="application_header_div_right">{{$t('金额')}}</div>
         </li>
         <template>
