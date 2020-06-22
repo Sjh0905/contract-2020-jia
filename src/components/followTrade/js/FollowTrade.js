@@ -88,7 +88,7 @@ root.methods.jumpToBack = function () {
 }
 //跳转个人策略跟单
 root.methods.goTofollowTradeStrategy = function () {
-  // this.$router.push({'path':'/index/followTradeStrategy'})
+  this.$router.push({'path':'/index/followTradeStrategy'})
 }
 // 跳转我的跟单
 root.methods.goToDocumentary = function (userId,fee,days) {

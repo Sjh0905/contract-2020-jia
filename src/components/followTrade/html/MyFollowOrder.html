@@ -29,11 +29,11 @@
         </div>
         <div>开启自动续费</div>
         <!--关闭按钮-->
-        <div class="follow-asset-close-open" @click="clickToggle" v-if="!isAutomatic">
+        <div class="follow-asset-close-open pointer" @click="clickToggle" v-if="!isAutomatic">
           <img src="../../../assets/personalCenter/personal_center_close.png" alt="">
         </div>
         <!--打开按钮-->
-        <div class="follow-asset-close-open" @click="clickToggle" v-if="isAutomatic">
+        <div class="follow-asset-close-open pointer" @click="clickToggle" v-if="isAutomatic">
           <img src="../../../assets/personalCenter/personal_center_open.png" alt="">
         </div>
       </div>
