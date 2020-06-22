@@ -135,6 +135,9 @@
   font-weight:400;
   color: #0D0E23;
 }
+.UID {
+  flex: 1.5;
+}
 .time {
   flex: 3;
 }

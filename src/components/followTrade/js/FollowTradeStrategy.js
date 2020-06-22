@@ -11,7 +11,8 @@ root.data = function () {
     godInfo:{},
     godHistorList:[],
     followUserList:[],
-    isTapeList:false
+    isTapeList:false,
+    currencyPair:''
   }
 }
 /*------------------------------ 生命周期 -------------------------------*/
@@ -53,6 +54,49 @@ root.computed.isAndroid = function () {
 root.watch = {}
 /*------------------------------ 方法 -------------------------------*/
 root.methods = {}
+root.methods.openTapeList = function () {
+
+}
+
+
+//成为大神
+root.methods.postCommitFee = function () {
+  if(this.currencyPair == ''){
+    this.openPop ('订阅费用不能为空')
+    return
+  }
+  // if(this.currencyPair == 0){
+  //   this.openPop ('订阅费用不能为0')
+  //   return
+  // }
+  let params = {
+    fee: this.currencyPair,
+  }
+  this.$http.send('POST_GOD', {
+    bind: this,
+    params: params,
+    callBack: this.re_postCommitFee,
+    errorHandler: this.error_postCommitFee
+  })
+}
+root.methods.re_postCommitFee = function (data) {
+  typeof data === 'string' && (data = JSON.parse(data))
+  if(data.errorCode == 0) {
+    this.openMaskWindow = false
+    this.isTapeList = true
+    this.openPop('订阅成功',1)
+    this.postManage()
+  }
+  if(data.errorCode != 0) {
+    this.openMaskWindow = false
+    this.isTapeList = true
+    this.openPop('系统有误')
+  }
+}
+root.methods.error_postCommitFee = function (err) {
+  console.log("this.err=====",err)
+}
+
 // 跳转到带单管理
 root.methods.goToTapeListManage = function () {
   this.$router.push({name:'tapeListManage'})
