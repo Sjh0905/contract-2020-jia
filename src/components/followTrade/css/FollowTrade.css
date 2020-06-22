@@ -53,6 +53,7 @@
 }
 .follow-my-bix {
   float: right;
+  cursor: pointer;
 }
 .follow-my-box {
   margin-right: 40px;

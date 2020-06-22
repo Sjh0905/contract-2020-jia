@@ -87,8 +87,8 @@ root.methods.jumpToBack = function () {
   this.$router.push({'path':'/index/newH5homePage'})
 }
 //跳转个人策略跟单
-root.methods.goToMobileFollowTradeStrategy = function () {
-  this.$router.push({'path':'/index/mobileFollowTradeStrategy'})
+root.methods.goTofollowTradeStrategy = function () {
+  // this.$router.push({'path':'/index/followTradeStrategy'})
 }
 // 跳转我的跟单
 root.methods.goToDocumentary = function (userId,fee,days) {
@@ -104,8 +104,8 @@ root.methods.goToDocumentary = function (userId,fee,days) {
 //   this.$router.push({name: 'mobileDocumentaryGod'})
 // }
 // 返回我的跟单，正在跟随
-root.methods.goToMobileMyFollowOrder = function () {
-  this.$router.push({name:'mobileMyFollowOrder'})
+root.methods.goToMyFollowOrder = function () {
+  this.$router.push({name:'myFollowOrder'})
 }
 
 

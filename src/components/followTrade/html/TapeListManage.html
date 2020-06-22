@@ -1,0 +1,96 @@
+<div class="documentary-god">
+<!--  面包屑-->
+  <div class="record-container2">
+    <div class="header">
+      <router-link :to="{name:'followTrade'}" class="header-title">
+        <!--幸运预测活动-->
+        {{$t('策略跟单')}}
+      </router-link>
+      <span class="spanbf">></span>
+      <!--我的参与记录-->
+      <router-link :to="{name:'followTrade'}" class="header-title">
+        <!--幸运预测活动-->
+        {{$t('我的主页')}}
+      </router-link>
+      <span class="spanbf">></span>
+      <span :to="{name:'followTrade'}" class="">
+        <!--幸运预测活动-->
+        {{$t('带单管理')}}
+      </span>
+    </div>
+  </div>
+
+
+<!--  主要内容-->
+  <div class="tape-center">
+
+<!--    第一部分-->
+    <div class="flex tape">
+      <div class="flex">
+        <div class="tape-flex-bule">订阅费用：</div>
+        <div class="days">30USDT/20天</div>
+      </div>
+      <div class="modify">修改</div>
+    </div>
+    <!--    第二部分-->
+    <div class="flex tape-tow">
+      <div class="tape-tow-box">
+        <div class="days-to">今日收益(USDT)</div>
+        <div class="days-num">700,123.25</div>
+      </div>
+      <div class="tape-tow-box">
+        <div class="days-to">今日收益(USDT)</div>
+        <div class="days-num">700,123.25</div>
+      </div>
+      <div class="days-box">
+        <div><span class="days-bul">0人</span>跟单中</div>
+      </div>
+    </div>
+<!--    第三部分-->
+    <!-- 当前持仓 -->
+    <ul class="recordUl">
+      <!--表头 S-->
+      <li class="application_header">
+        <!-- 账号-->
+        <div class="application_header_div">{{$t('账号')}}</div>
+        <!-- 时间-->
+        <div class="application_header_div">{{$t('时间')}}</div>
+        <!-- 跟随订阅收益-->
+        <div class="application_header_div_right">{{$t('跟随订阅收益（USDT)')}}</div>
+      </li>
+      <template>
+        <!-- 当前挖矿记录 -->
+        <template v-if="">
+          <li class="flex application_li" v-for="(item,index) in godHistorList">
+            <!--账号-->
+            <div class="application_header_div borbot">{{item.symbol.replace('_','/')}}</div>
+            <!--时间-->
+            <div class="application_header_div borbot">{{$globalFunc.formatDateUitl(Number(item.createdAt),'MM/DD hh:mm:ss')}}</div>
+            <!--跟随订阅收益-->
+            <div class="application_header_div borbot">{{item.price || '0'}}</div>
+          </li>
+        </template>
+
+        <!-- 无数据图片 -->
+<!--        <template v-else>-->
+<!--          <li class="weit">-->
+<!--            <div class="nhtu"><img src="">-->
+<!--              <p class="nhtu_p">{{$t('orderPageCurrentEntrustment.close_9')}}</p>-->
+<!--            </div>-->
+<!--          </li>-->
+<!--        </template>-->
+
+        <!--当前记录加载更多  -->
+        <!--            <template v-if="showLoadingMore && godHistorList.length !== 0">-->
+        <!--              <li class="loading-more">-->
+        <!--                <span class="text_blue pointer" v-if="!loadingMoreShow" @click="clickLoadingMore">{{$t('orderPageHistoricalEntrustment.close_10')}}</span>-->
+        <!--                <span class="text_blue" v-else>{{$t('orderPageHistoricalEntrustment.close_11')}}</span>-->
+        <!--              </li>-->
+        <!--            </template>-->
+
+      </template>
+    </ul>
+  </div>
+
+
+</div>
