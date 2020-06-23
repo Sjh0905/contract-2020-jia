@@ -115,7 +115,7 @@ root.methods.goToMobileFollowTradeStrategy = function () {
 // 跳转我的跟单
 root.methods.goToDocumentary = function (item) {
   if(this.userId == item.userId){
-    this.openPop('自己不能跟随自己哦')
+    this.openPop('不能跟随自己哦')
     return
   }
   // this.$router.push({name:'mobileDocumentary',params: {item:item}})

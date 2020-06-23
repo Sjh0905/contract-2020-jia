@@ -95,9 +95,13 @@
             <!--类别-->
             <div class="td td-category">{{order.symbol.split('_')[0]}}/{{order.symbol.split('_')[1]}}</div>
             <!--市场-->
-            <div class="td td-category-1" :class="order.type==='BUY_LIMIT'?'text_blue-3':'text_red-4'">
+            <div class="td td-category-1" :class="order.type==='BUY_LIMIT'?'text_blue-3':'text_red-4'" v-if="!order.isFollow">
               {{order.type === 'BUY_LIMIT' && $t('orderPageCurrentEntrustment.buy') ||
               $t('orderPageCurrentEntrustment.sale')}}
+            </div>
+            <div class="td td-category-1" :class="order.type==='BUY_LIMIT'?'text_blue-3':'text_red-4'" v-if="order.isFollow">
+              {{order.type === 'BUY_LIMIT' && $t('orderPageCurrentEntrustment.followBuy') ||
+              $t('orderPageCurrentEntrustment.followSale')}}
             </div>
             <!--单价-->
             <div class="td td-market">{{toFixed(order.price, !!quoteScale_list[order.symbol] ? quoteScale_list[order.symbol].quoteScale : 8)}}</div>
