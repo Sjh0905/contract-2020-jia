@@ -105,7 +105,7 @@
               <!--价格-->
               <div class="application_header_div">{{item.price}}</div>
               <!--数量-->
-              <div class="application_header_div">{{item.amount}}</div>
+              <div class="application_header_div">{{toFixed(item.amount,2)}}</div>
               <!--金额-->
               <div class="application_header_div_right">{{toFixed(item.price * item.amount,2)}}</div>
             </li>
