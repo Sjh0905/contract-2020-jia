@@ -149,11 +149,12 @@ root.methods.re_delFollowList = function (data) {
   typeof (data) === 'string' && (data = JSON.parse(data))
   if(!data) return
   if(data.errorCode != 0){
-    this.openPop('系统错误',0)
+    //系统错误
+    this.openPop(this.$t('systemError'),0)
     return
   }
   if(data.errorCode == 0){
-    this.openPop('取消跟随成功',1)
+    this.openPop(this.$t('cancelFollowSuccess'),1)
     this.postMyDocumentary()
   }
   this.delFollowClose()
@@ -184,12 +185,12 @@ root.methods.commitModify = function (){
 root.methods.re_commitModify = function (data) {
   typeof data === 'string' && (data = JSON.parse(data))
   if(data.errorCode == 0) {
-    this.openPop('修改跟单成功',1)
+    this.openPop(this.$t('updateFollowSuccess'),1)
     this.popWindowClose()
     this.postMyDocumentary()
   }
   if(data.errorCode == 1) {
-    this.openPop('系统错误',0)
+    this.openPop(this.$t('systemError'),0)
   }
 }
 root.methods.error_commitModify = function (err) {

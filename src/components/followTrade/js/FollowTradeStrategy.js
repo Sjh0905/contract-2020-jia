@@ -84,7 +84,7 @@ root.methods.popWindowClose= function () {
 //成为大神
 root.methods.postCommitFee = function () {
   if(this.currencyPair == ''){
-    this.openPop ('订阅费用不能为空')
+    this.openPop (this.$t('cannotBeBlank'))
     return
   }
   // if(this.currencyPair == 0){
@@ -106,14 +106,14 @@ root.methods.re_postCommitFee = function (data) {
   if(data.errorCode == 0) {
     this.openMaskWindow = false
     this.isTapeList = true
-    this.openPop('订阅成功',1)
+    this.openPop(this.$t('subscriptionSuccessful'),1)
     this.popWindowClose()
     this.postManage()
   }
   if(data.errorCode != 0) {
     this.openMaskWindow = false
     this.isTapeList = true
-    this.openPop('系统有误')
+    this.openPop(this.$t('systemError'))
   }
 }
 root.methods.error_postCommitFee = function (err) {

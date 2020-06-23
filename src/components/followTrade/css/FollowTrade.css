@@ -138,6 +138,22 @@
 .follow-fff:hover {
   background:rgba(92,147,255,1);
 }
+.following {
+  float: right;
+  width:127px;
+  height:40px;
+  line-height: 40px;
+  margin-top: 6px;
+  color: #FFFFFF;
+  font-size:14px;
+  font-family:PingFangSC-Semibold,PingFang SC;
+  font-weight:600;
+  text-align: center;
+  background:#A8C6FF;
+  border-radius:2px;
+  cursor: pointer;
+}
+
 .follow-wi {
   width: 25%;
 }

@@ -21,37 +21,44 @@
         </div>
         <div class="follow-management pointer" @click="goToTapeListManage" v-if="isTapeList">
           <img src="../assets/setting_icon.png" alt="">
-          <span>带单管理</span>
+          <!--带单管理-->
+          <span>{{$t('tapeListManagement')}}</span>
         </div>
       </div>
       <div class="trade-top-data flex">
 
         <div class="trade-data-item">
           <div class="trade-data">{{toFixed(godInfo.sum || '0',2)}}</div>
-          <div>累计交易量</div>
+          <!--累计交易量-->
+          <div>{{$t('totalTransactionVolume')}}</div>
         </div>
 
         <div class="trade-data-item">
           <div class="trade-data">{{godInfo.count || '- -'}}</div>
-          <div>交易笔数</div>
+          <!--交易笔数-->
+          <div>{{$t('numberOfTransactions')}}</div>
         </div>
 
         <div class="trade-data-item">
           <div class="trade-data">{{godInfo.followCount || '- -'}}</div>
-          <div>跟单人数</div>
+          <!--跟单人数-->
+          <div>{{$t('totalDocumentaryNumber')}}</div>
         </div>
 
         <div class="trade-data-item">
           <div class="trade-data text-green">{{toFixed(godInfo.rate || '0',2)}} %</div>
-          <div>累计收益率</div>
+          <!--累计收益率-->
+          <div>{{$t('totalIncomeRate')}}</div>
         </div>
       </div>
     </div>
 
     <div class="trade-top-data-two" v-if="!isTapeList">
       <div class="trade-top-data-text">
-        <div class="trade-top-data-no">该用户未分享交易活动</div>
-        <div class="trade-top-data-btn pointer" @click="openTapeList">开启带单交易，双重获利</div>
+        <!--该用户未分享交易活动-->
+        <div class="trade-top-data-no">{{$t('notShare')}}</div>
+        <!--开启带单交易，双重获利-->
+        <div class="trade-top-data-btn pointer" @click="openTapeList">{{$t('doubleProfit')}}</div>
       </div>
 
     </div>
@@ -60,25 +67,27 @@
     <div class="record" v-if="isTapeList">
       <!--   当前持仓/跟随者-->
       <div class="recordMining borbot">
-        <div class="record_div pointer" @click="toggleType(1)" :class="{'selected_cardType':followType == 1}">{{$t('历史持仓')}}</div>
-        <div class="record_div selected_cardTypeML pointer" @click="toggleType(2)" :class="{'selected_cardType':followType == 2}">{{$t('跟随者')}}</div>
+        <!--历史持仓-->
+        <div class="record_div pointer" @click="toggleType(1)" :class="{'selected_cardType':followType == 1}">{{$t('historicalPosition')}}</div>
+        <!--跟随者-->
+        <div class="record_div selected_cardTypeML pointer" @click="toggleType(2)" :class="{'selected_cardType':followType == 2}">{{$t('henchman')}}</div>
       </div>
       <!-- 当前持仓 -->
       <ul class="recordUl" v-if="followType == 1">
         <!--表头 S-->
         <li class="application_header">
           <!--时间-->
-          <div class="application_header_div">{{$t('时间')}}</div>
+          <div class="application_header_div">{{$t('time')}}</div>
           <!--交易对-->
-          <div class="application_header_div">{{$t('交易对')}}</div>
+          <div class="application_header_div">{{$t('transactionPair')}}</div>
           <!--类型-->
-          <div class="application_header_div">{{$t('类型')}}</div>
+          <div class="application_header_div">{{$t('type')}}</div>
           <!--价格-->
-          <div class="application_header_div">{{$t('价格')}}</div>
+          <div class="application_header_div">{{$t('henchman')}}</div>
           <!--数量-->
-          <div class="application_header_div">{{$t('数量')}}</div>
+          <div class="application_header_div">{{$t('amount')}}</div>
           <!--金额-->
-          <div class="application_header_div_right">{{$t('金额')}}</div>
+          <div class="application_header_div_right">{{$t('money')}}</div>
         </li>
         <template>
           <!-- 当前挖矿记录 -->
@@ -89,7 +98,10 @@
               <!--交易对-->
               <div class="application_header_div">{{item.feeCurrency}}</div>
               <!--类型-->
-              <div class="application_header_div" :class="item.type=='BUY_LIMIT'?'text-green':'text-red'">{{item.type == 'BUY_LIMIT'? '买入':'卖出'}}</div>
+              <div class="application_header_div" :class="item.type=='BUY_LIMIT'?'text-green':'text-red'">
+                <!--买入/卖出-->
+                {{item.type == 'BUY_LIMIT'? $t('buyIn'):$t('selllOut')}}
+              </div>
               <!--价格-->
               <div class="application_header_div">{{item.price}}</div>
               <!--数量-->
@@ -123,11 +135,11 @@
         <!--历史挖矿记录表头 S-->
         <li class="application_header">
           <!--          账号-->
-          <div class="application_header_div">{{$t('账号')}}</div>
-          <!--          期数-->
-          <div class="application_header_div">{{$t('跟单总额（USDT）')}}</div>
-          <!--          配套-->
-          <div class="application-header-div-box">{{$t('跟随收益（USDT）')}}</div>
+          <div class="application_header_div">{{$t('accountNumber')}}</div>
+          <!--          跟单总额-->
+          <div class="application_header_div">{{$t('totalDocumentaryAmount')}}（USDT）</div>
+          <!--          跟随收益-->
+          <div class="application-header-div-box">{{$t('followUpIncome')}}（USDT）</div>
         </li>
         <template>
           <!-- 历史挖矿记录-->
@@ -165,25 +177,30 @@
   <!--开启策略跟单弹框-->
   <PopupWindow :switch="popWindowOpen" @close="popWindowClose">
     <div slot="header">
-      <span class="update-follow">开启策略跟单</span>
+      <!--开启策略跟单-->
+      <span class="update-follow">{{$t('openStrategyDocumentary')}}</span>
     </div>
     <div slot="article" class="update-follow-article">
       <div class="follow-order flex">
-        <div>跟单币对</div>
+        <!--跟单币对-->
+        <div>{{$t('documentaryCurrencyPair')}}</div>
         <div class="follow-order-data">BTC/USDT</div>
       </div>
       <div class="follow-order-item flex">
-        <div class="follow-order-pair">订阅费用(USDT)</div>
+        <!--订阅费用-->
+        <div class="follow-order-pair">{{$t('subscriptionFee')}}(USDT)</div>
         <div class="follow-order-currency">
           <input v-model="currencyPair" v-if="!isHasItem" class="currency-account" onkeyup="value = value.match(/\d+(\.\d{0,2})?/) ? value.match(/\d+(\.\d{0,2})?/)[0] : ''">
         </div>
       </div>
       <div class="mobile-open-tape-pop-window-content-text">
-        开启后，如您收益率靠前，您将可能出现在带单龙虎榜榜单中，同时可被用户跟单，零成本获得额外的带单收益，双重盈利。
+        <!--开启后，如您收益率靠前，您将可能出现在带单龙虎榜榜单中，同时可被用户跟单，零成本获得额外的带单收益，双重盈利。-->
+        {{$t('openInterpretation')}}
       </div>
     </div>
     <div slot="footer" class="pop-recharge-bottom">
-      <div class="documentary-button pointer" @click="postCommitFee">确认开启</div>
+      <!--确认开启-->
+      <div class="documentary-button pointer" @click="postCommitFee">{{$t('commitOpen')}}</div>
     </div>
   </PopupWindow>
 

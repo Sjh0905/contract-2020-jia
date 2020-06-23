@@ -94,7 +94,7 @@ root.methods.postDocumentaryImmediately = function () {
   this.follow = false
   let canSend = true
   if (this.followType == 'LOT' && this.fixedAmountLot == '') {
-    this.openPop('固定金额不可为空')
+    this.openPop(this.$t('cannotBeEmpty'))
     this.follow = true
     return
   }
@@ -122,15 +122,15 @@ root.methods.re_postDocumentaryImmediately = function (data) {
   //
 
   if (data.errorCode == 3) {
-    this.openPop('不能自己跟随自己哦')
+    this.openPop(this.$t('canNotFollowMyself'))
     return;
   }
   if (data.errorCode != 0) {
-    this.openPop('系统有误')
+    this.openPop(this.$t('systemError'))
     return;
   }
   if (data.errorCode == 0) {
-    this.openPop('跟单成功',1)
+    this.openPop(this.$t('followSuccess'),1)
     setTimeout(() => {
       this.popWindowOpen = false
       this.postBigBrotherHistory()

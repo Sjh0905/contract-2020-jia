@@ -93,7 +93,8 @@ root.methods.goTofollowTradeStrategy = function () {
 // 跳转我的跟单
 root.methods.goToDocumentary = function (userId,fee,days) {
   if(this.userId == userId){
-    this.openPop('自己不能跟随自己哦')
+    // 自己不能跟随自己哦
+    this.openPop(this.$t('canNotFollowMyself'))
     return
   }
   // this.$router.push({name:'mobileDocumentary',params: {item:item}})
