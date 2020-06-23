@@ -55,7 +55,7 @@ root.methods.toggleType = function (type) {
 }
 // 返回跟单首页
 root.methods.jumpToFollowTrade = function () {
-  this.$router.push({name:'mobileFollowTrade'})
+  this.$router.go(-1)
 }
 // 点击跟单
 root.methods.jumpToFollowDocumentary = function () {
