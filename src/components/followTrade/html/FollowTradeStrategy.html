@@ -90,7 +90,7 @@
           <div class="application_header_div_right">{{$t('money')}}</div>
         </li>
         <template>
-          <!-- 当前挖矿记录 -->
+          <!-- 历史持仓 -->
           <template v-if="godHistorList.length !== 0">
             <li class="flex application_li" v-for="(item,index) in godHistorList">
               <!--时间-->
@@ -149,9 +149,9 @@
               <div class="flex application_li">
                 <!--账号-->
                 <div class="application_header_div ">{{item.userId}}</div>
-                <!--期数-->
+                <!--跟单总额-->
                 <div class="application_header_div ">{{item.amount || '0'}}</div>
-                <!--配套-->
+                <!--跟随收益-->
                 <div class="application-header-div-box ">{{item.profit || '0'}}</div>
 
               </div>
