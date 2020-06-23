@@ -63,8 +63,6 @@ root.methods.jumpToFollowDocumentary = function () {
   this.$router.push({name:'mobileDocumentary',query:{userId:this.$route.query.userId,fee:this.$route.query.fee,days:this.$route.query.days}})
 }
 
-
-
 //大神历史持仓
 root.methods.postBigBrotherHistory = function () {
   let params = {
