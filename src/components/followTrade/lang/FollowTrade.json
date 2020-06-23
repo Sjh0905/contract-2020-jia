@@ -83,7 +83,14 @@
     "incomeDetails": "收益明细",
     "followSubscriptionRevenue": "跟随订阅收益",
     "modificationFeeCannotBeBlank": "修改费用不可为空",
-    "updateSuccess": "修改成功"
+    "updateSuccess": "修改成功",
+    "followDetails": "跟随失败",
+    "followDetails_1": "用户余额不足",
+    "followDetails_2": "转账不能为负值",
+    "followDetails_3": "转账币种限额不存在",
+    "followDetails_4": "超出单比额度限制",
+    "followDetails_5": "24小时转账金额必须要在范围内"
+
   },
   "EN": {},
   "CA": {},
@@ -171,6 +178,12 @@
     "incomeDetails": "收益明細",
     "followSubscriptionRevenue": "跟隨訂閱收益",
     "modificationFeeCannotBeBlank": "修改費用不可為空",
-    "updateSuccess": "修改成功"
+    "updateSuccess": "修改成功",
+    "followDetails": "跟隨失敗",
+    "followDetails_1": "用戶餘額不足",
+    "followDetails_2": "轉帳不能為負值",
+    "followDetails_3": "轉帳幣種限額不存在",
+    "followDetails_4": "超出單比額度限制",
+    "followDetails_5": "24小時轉帳金額必須要在範圍內"
   }
 }

@@ -125,6 +125,30 @@ root.methods.re_postDocumentaryImmediately = function (data) {
     this.openPop(this.$t('canNotFollowMyself'))
     return;
   }
+  if (data.errorCode == 10) {
+    this.openPop(this.$t('followDetails'))
+    return;
+  }
+  if (data.errorCode == 8 || data.errorCode == 12) {
+    this.openPop(this.$t('followDetails_1'))
+    return;
+  }
+  if (data.errorCode == 9) {
+    this.openPop(this.$t('followDetails_2'))
+    return;
+  }
+  if (data.errorCode == 15) {
+    this.openPop(this.$t('followDetails_3'))
+    return;
+  }
+  if (data.errorCode == 7) {
+    this.openPop(this.$t('followDetails_4'))
+    return;
+  }
+  if (data.errorCode == 11) {
+    this.openPop(this.$t('followDetails_5'))
+    return;
+  }
   if (data.errorCode != 0) {
     this.openPop(this.$t('systemError'))
     return;
