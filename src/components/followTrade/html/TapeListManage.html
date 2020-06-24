@@ -3,7 +3,7 @@
   <div class="record-container2">
     <div class="header">
       <router-link :to="{name:'followTrade'}" class="header-title">
-        <!--策略跟单-->
+        <!--镜像交易-->
         {{$t('followOrder')}}
       </router-link>
       <span class="spanbf">></span>
@@ -97,7 +97,7 @@
 
   <PopupWindow :switch="popWindowOpen" @close="popWindowClose">
     <div slot="header">
-<!--      修改策略跟单-->
+<!--      修改镜像交易-->
       <span class="update-follow">{{$t('modifyPolicyOrders')}}</span>
     </div>
     <div slot="article" class="update-follow-article">

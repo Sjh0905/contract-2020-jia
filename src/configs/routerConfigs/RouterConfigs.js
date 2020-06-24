@@ -271,7 +271,7 @@ root.routes.push({
   caseSensitive: true,
   component: resolve => require(['@/components/followTrade/vue/MobileTapeListManage'], resolve)
 })
-//H5  我的跟单
+//H5  我的镜像交易
 root.routes.push({
   path: '/index/mobileMyFollowOrder',
   name: 'mobileMyFollowOrder',
@@ -3322,7 +3322,7 @@ root.routes.push({
       caseSensitive: true,
       component: resolve => require(['@/components/followTrade/vue/DocumentaryGod'], resolve)
     },
-    // 我的跟单
+    // 我的镜像交易
     {
       path: 'myFollowOrder',
       name: 'myFollowOrder',

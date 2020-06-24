@@ -83,7 +83,7 @@ root.methods.delFollowClose = function () {
   this.delFollowOpen = false
 }
 
-//我的跟单
+//我的镜像交易
 root.methods.postMyDocumentary = function () {
   this.$http.send('POST_MY_USER', {
     bind: this,

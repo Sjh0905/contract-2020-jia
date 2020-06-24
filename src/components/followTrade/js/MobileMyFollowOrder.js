@@ -23,7 +23,7 @@ root.data = function () {
 
     delFollowOpen:false,
 
-    fromPageType : ''//进入此页面的3种情况：1.从策略跟单直接进入 '' 2.修改跟单后进入'' 3.添加跟单后进入 addFollower，只有3需要go（-3）
+    fromPageType : ''//进入此页面的3种情况：1.从镜像交易直接进入 '' 2.修改跟单后进入'' 3.添加跟单后进入 addFollower，只有3需要go（-3）
   }
 }
 /*------------------------------ 生命周期 -------------------------------*/
@@ -103,7 +103,7 @@ root.methods.modifyDocumentary = function (item) {
   this.$router.push({name:'mobileDocumentary',query:{item:JSON.stringify(item)}})
 }
 
-//我的跟单
+//我的镜像交易
 root.methods.postMyDocumentary = function () {
   this.$http.send('POST_MY_USER', {
     bind: this,

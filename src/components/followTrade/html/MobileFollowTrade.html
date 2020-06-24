@@ -10,23 +10,23 @@
     <div class="fund-buy-header-title-back-icon" @click="jumpToBack">
       <img class="fund-buy-header-title-back-icon-img" src="../../LuckyDraw/assets/mobileForecastHomePage/back_icon.png" alt="">
     </div>
-    <div class="fund-buy-header-title-text">策略跟单</div>
+    <div class="fund-buy-header-title-text">镜像交易</div>
     <div @click="goToMobileFollowTradeStrategy"><img class="fund-buy" src="../assets/manage_with_orders_icon.png" alt=""></div>
   </div>
 
-<!--  策略跟单主体部分-->
+  <!--镜像交易主体部分-->
   <div class="fund-buy-main">
-<!--    顶部banner-->
+    <!--顶部banner-->
     <div class="folloe-banner">
       <img class="folloe-banner-img" src="../assets/with-banner.png" alt="">
     </div>
 
     <div class="with-list flex">
       <div class="with-billboard">带单龙虎榜</div>
-      <div class="my-with-single" @click="goToMobileMyFollowOrder">我的跟单</div>
+      <div class="my-with-single" @click="goToMobileMyFollowOrder">我的镜像交易</div>
       <div @click="goToMobileMyFollowOrder"><img class="my-with-single-img" src="../../LuckyDraw/assets/mobileForecastHomePage/item_right_icon.png" alt=""></div>
     </div>
-    <div class="data-update">数据每小时更新一次</div>
+<!--    <div class="data-update">数据每小时更新一次</div>-->
 
     <!--遍历大佬详细信息Start-->
     <div class="big-brother-start" v-for="(item,index) in listGod" @click="goToDocumentary(item)">

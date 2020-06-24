@@ -205,7 +205,7 @@ root.methods.error_commitModify = function (err) {
 root.methods.delFollowClose = function () {
   this.delFollowOpen = false
 }
-//跳转个人策略跟单
+//跳转个人镜像交易
 root.methods.goToFollowTrade = function () {
   this.$router.go(-1)
 }

@@ -108,11 +108,11 @@ root.methods.jumpToBack = function () {
   this.$router.go(-1)
   // this.$router.push({'path':'/index/newH5homePage'})
 }
-//跳转个人策略跟单
+//跳转个人镜像交易
 root.methods.goToMobileFollowTradeStrategy = function () {
   this.$router.push({'path':'/index/mobileFollowTradeStrategy'})
 }
-// 跳转我的跟单
+// 跳转我的镜像交易
 root.methods.goToDocumentary = function (item) {
   if(this.userId == item.userId){
     this.openPop('不能跟随自己哦')
@@ -125,7 +125,7 @@ root.methods.goToDocumentary = function (item) {
 // root.methods.goToDocumentaryGod = function () {
 //   this.$router.push({name: 'mobileDocumentaryGod'})
 // }
-// 返回我的跟单，正在跟随
+// 返回我的镜像交易，正在跟随
 root.methods.goToMobileMyFollowOrder = function () {
   this.$router.push({name:'mobileMyFollowOrder'})
 }

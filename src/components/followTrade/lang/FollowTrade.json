@@ -1,7 +1,7 @@
 {
   "CH": {
-    "followOrder": "策略跟单",
-    "myFollowOrder": "我的跟单",
+    "followOrder": "镜像交易",
+    "myFollowOrder": "我的镜像交易",
     "myHomePage": "我的主页",
     "listOfDragonsAndTigers": "带单龙虎榜",
     "updatedEveryHour": "数据每小时更新一次",
@@ -55,7 +55,7 @@
     "tapeListManagement": "带单管理",
     "notShare": "该用户未分享交易活动",
     "doubleProfit": "开启带单交易，双重获利",
-    "openStrategyDocumentary": "开启策略跟单",
+    "openStrategyDocumentary": "开启镜像交易",
     "subscriptionFee": "订阅费用",
     "openInterpretation": "开启后，如您收益率靠前，您将可能出现在带单龙虎榜榜单中，同时可被用户跟单，零成本获得额外的带单收益，双重盈利。",
     "commitOpen": "确认开启",
@@ -69,7 +69,7 @@
     "operation": "操作",
     "spot": "现货",
     "modifyPolicy": "修改策略",
-    "modifyPolicyOrders": "修改策略跟单",
+    "modifyPolicyOrders": "修改镜像交易",
     "cancelFollowing": "取消跟随",
     "commitUpdate": "确认修改",
     "wantToCancel": "是否取消对",

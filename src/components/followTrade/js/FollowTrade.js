@@ -86,11 +86,11 @@ root.methods = {}
 root.methods.jumpToBack = function () {
   this.$router.push({'path':'/index/newH5homePage'})
 }
-//跳转个人策略跟单
+//跳转个人镜像交易
 root.methods.goTofollowTradeStrategy = function () {
   this.$router.push({'path':'/index/followTradeStrategy'})
 }
-// 跳转我的跟单
+// 跳转我的镜像交易
 root.methods.goToDocumentary = function (userId,fee,days) {
   if(this.userId == userId){
     // 自己不能跟随自己哦
@@ -104,7 +104,7 @@ root.methods.goToDocumentary = function (userId,fee,days) {
 // root.methods.goToDocumentaryGod = function () {
 //   this.$router.push({name: 'mobileDocumentaryGod'})
 // }
-// 返回我的跟单，正在跟随
+// 返回我的镜像交易，正在跟随
 root.methods.goToMyFollowOrder = function () {
   this.$router.push({name:'myFollowOrder'})
 }
