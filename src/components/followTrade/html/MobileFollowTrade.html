@@ -2,11 +2,11 @@
   <Loading v-if="loading"/>
 
   <!--ios status栏-->
-  <div v-if="(isApp && !isAndroid)" class="mobile-status-bar-ios"/>
-  <div v-if="(isApp && !isAndroid)" class="mobile-status-bar-bg-ios"/>
+  <div v-if="(isApp)" class="mobile-status-bar-ios"/>
+  <div v-if="(isApp)" class="mobile-status-bar-bg-ios"/>
 
   <!--头部-->
-  <div :class="(isApp && !isAndroid) ? 'mobile-header-ios' : 'fund-buy-header-title' ">
+  <div :class="(isApp) ? 'mobile-header-ios' : 'fund-buy-header-title' ">
     <div class="fund-buy-header-title-back-icon" @click="jumpToBack">
       <img class="fund-buy-header-title-back-icon-img" src="../../LuckyDraw/assets/mobileForecastHomePage/back_icon.png" alt="">
     </div>
