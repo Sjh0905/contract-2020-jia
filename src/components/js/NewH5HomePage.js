@@ -160,7 +160,6 @@ root.destroyed = function () {
 root.components = {
   'Loading': resolve => require(['../vue/Loading'], resolve),
   'PopupPrompt': resolve => require(['../vue/PopupPrompt'], resolve),
-  'DetailsOfTheGroup': resolve => require(['../vue/DetailsOfTheGroup'], resolve),
 }
 
 // ------------------------------------ 计算 --------------------------------------

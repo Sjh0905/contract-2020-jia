@@ -114,18 +114,6 @@ root.routes.push({
   component: resolve => require(['@/components/mobileVue/MobileStaticForNeteaseInfo.vue'], resolve),
 })
 
-// 0907 修改超级为蜜
-// 20180607 H5BT活动首页
-// root.routes.push({
-//   path: '/static/mobileSuperBeeActivity',
-//   name: 'MobileSuperBeeActivity',
-//   caseSensitive: true,
-//   meta: {
-//     pcname: '',
-//     h5name: 'MobileSuperBeeActivity',
-//   },
-//   component: resolve => require(['@/components/activity/vue/MobileSuperBeeActivity.vue'], resolve),
-// })
 
 
 // 上币公告 3_6 start
@@ -141,243 +129,10 @@ root.routes.push({
 //   component: resolve => require(['@/components/vue/currencyNotice'], resolve)
 // })
 
-//     TODO：不能删除 check
-// 上币公告 3_6 end
-// 上币公告 3_9 start lost
-root.routes.push({
-  path: '/index/lostNotice',
-  // redirect: '/index/tradingHall',   //关闭入口，重新指向交易大厅
-  meta: {
-    requireLogin: false,
-  },
-  caseSensitive: true,
-  component: resolve => require(['@/components/activity/vue/noticeLost'], resolve)
-})
 // 上币公告 3_9 end lost
 
-// 幸运抽奖 start 2018-9-10 TODO:要删除 check
-root.routes.push({
-  path: '/index/LuckyDraw',
-  caseSensitive: true,
-  meta: {
-    requireLogin: false,
-  },
-  component: resolve => require(['@/components/LuckyDraw/vue/LuckyDrawForecast'], resolve),
-  children: [
-    { // 幸运抽奖
-      path: 'Forecast',
-      name: 'Forecast',
-      caseSensitive: true,
-
-      meta: {
-        requireLogin: true,
-        mobileHeaderTitle: '',
-        pcname: 'Forecast',
-        h5name: 'MobileForecastHomePage',
-      },
-      component: resolve => require(['@/components/LuckyDraw/vue/Forecast'], resolve),
-      children: []
-    },
-    { // 我的记录
-      path: 'Record',
-      name: 'Record',
-      caseSensitive: true,
-      meta: {
-        mobileHeaderTitle: '',
-        pcname: 'Record',
-        h5name: 'Record',
-        requireLogin: true,
-      },
-      component: resolve => require(['@/components/LuckyDraw/vue/Record'], resolve),
-      children: []
-    },
-  ]
-})
 
 // -------------------------------- mobile 部分 start ------------------------------------
-
-// 幸运预测活动  TODO:要删除 check
-root.routes.push({
-  path: '/index/treasureBox',
-  name: 'treasureBox',
-  meta: {
-    requireLogin: true,
-    pcname: '',
-    h5name: 'treasureBox',
-  },
-  caseSensitive: true,
-  component: resolve => require(['@/components/LuckyDraw/vue/treasureBox'], resolve)
-})
-
-
-/*-----------------  跟单H5 begin  ------------------------*/
-//H5  跟单首页
-root.routes.push({
-  path: '/index/mobileFollowTrade',
-  name: 'mobileFollowTrade',
-  meta: {
-    requireLogin: true,
-    pcname: 'followTrade',
-    h5name: 'mobileFollowTrade',
-  },
-  caseSensitive: true,
-  component: resolve => require(['@/components/followTrade/vue/MobileFollowTrade'], resolve)
-})
-//H5  跟单策略个人
-root.routes.push({
-  path: '/index/mobileFollowTradeStrategy',
-  name: 'mobileFollowTradeStrategy',
-  meta: {
-    requireLogin: true,
-    pcname: 'followTradeStrategy',
-    h5name: 'mobileFollowTradeStrategy',
-  },
-  caseSensitive: true,
-  component: resolve => require(['@/components/followTrade/vue/MobileFollowTradeStrategy'], resolve)
-})
-//H5  跟单策略大神
-root.routes.push({
-  path: '/index/mobileDocumentaryGod',
-  name: 'mobileDocumentaryGod',
-  meta: {
-    requireLogin: true,
-    pcname: 'documentaryGod',
-    h5name: 'mobileDocumentaryGod',
-  },
-  caseSensitive: true,
-  component: resolve => require(['@/components/followTrade/vue/MobileDocumentaryGod'], resolve)
-})
-//H5  跟单
-root.routes.push({
-  path: '/index/mobileDocumentary',
-  name: 'mobileDocumentary',
-  meta: {
-    requireLogin: true,
-    pcname: 'documentary',
-    h5name: 'mobileDocumentary',
-  },
-  caseSensitive: true,
-  component: resolve => require(['@/components/followTrade/vue/MobileDocumentary'], resolve)
-})
-//H5  带单管理
-root.routes.push({
-  path: '/index/mobileTapeListManage',
-  name: 'mobileTapeListManage',
-  meta: {
-    requireLogin: true,
-    pcname: 'tapeListManage',
-    h5name: 'mobileTapeListManage',
-  },
-  caseSensitive: true,
-  component: resolve => require(['@/components/followTrade/vue/MobileTapeListManage'], resolve)
-})
-//H5  我的镜像交易
-root.routes.push({
-  path: '/index/mobileMyFollowOrder',
-  name: 'mobileMyFollowOrder',
-  meta: {
-    requireLogin: true,
-    pcname: 'myFollowOrder',
-    h5name: 'mobileMyFollowOrder',
-  },
-  caseSensitive: true,
-  component: resolve => require(['@/components/followTrade/vue/MobileMyFollowOrder'], resolve)
-})
-/*-----------------  跟单H5 end  ------------------------*/
-
-
-/*-----------------  基金理财H5 begin  ------------------------*/
-// 基金理财
-root.routes.push({
-  path: '/index/mobileFinancialFund',
-  name: 'mobileFinancialFund',
-  requireLogin: true,
-  meta: {
-    requireLogin: true,
-    pcname: '',
-    h5name: 'mobileFinancialFund',
-  },
-  caseSensitive: true,
-  component: resolve => require(['@/components/fundProducts/vue/MobileFinancialFund'], resolve),
-  children:[
-    {
-      path: '',
-      caseSensitive: true,
-      redirect: 'mobileFundProducts',
-      meta: {
-        pcname: '',
-        h5name: 'mobileFundProducts',
-      },
-    },
-    // 基金产品页面
-    {
-      path: '/index/mobileFinancialFund/mobileFundProducts',
-      name:'mobileFundProducts',
-      caseSensitive: true,
-      meta: {
-        requireLogin: true,
-        pcname: '',
-        h5name: 'mobileFundProducts',
-      },
-      component: resolve => require(['@/components/fundProducts/vue/MobileFundProducts'], resolve),
-    },
-
-    // 基金资产页面
-    {
-      path: '/index/mobileFinancialFund/mobileFundAssets',
-      name: 'mobileFundAssets',
-      caseSensitive: true,
-      meta: {
-        requireLogin: true,
-        pcname: '',
-        h5name: 'mobileFundAssets',
-      },
-      component: resolve => require(['@/components/fundProducts/vue/MobileFundAssets'], resolve),
-    },
-  ]
-})
-
-// 基金理财详情
-root.routes.push({
-  path: '/index/mobileFundDetails',
-  name: 'mobileFundDetails',
-  requireLogin: true,
-  meta: {
-    requireLogin: false,
-    pcname: '',
-    h5name: 'mobileFundDetails',
-  },
-  caseSensitive: true,
-  component: resolve => require(['@/components/fundProducts/vue/MobileFundDetails'], resolve),
-})
-
-// 基金本期申购
-root.routes.push({
-  path: '/index/mobileFundCurrent',
-  name: 'mobileFundCurrent',
-  requireLogin: true,
-  meta: {
-    requireLogin: false,
-    pcname: '',
-    h5name: 'mobileFundCurrent',
-  },
-  caseSensitive: true,
-  component: resolve => require(['@/components/fundProducts/vue/MobileFundCurrent'], resolve),
-})
-
-//基金理财购买
-root.routes.push({
-  path: '/index/mobileFundBuy',
-  name: 'mobileFundBuy',
-  meta: {
-    requireLogin: true,
-    pcname: '',
-    h5name: 'mobileFundBuy',
-  },
-  caseSensitive: true,
-  component: resolve => require(['@/components/fundProducts/vue/MobileFundBuy'], resolve)
-})
-/*-----------------  基金理财H5 end  ------------------------*/
 
 // 双平台通证合并公投 TODO:要删除 check
 // root.routes.push({
@@ -1048,40 +803,8 @@ root.routes.push({
     //     },
     //   ],
     // },
-//
-//     // 交易排位赛H5版
-//
-//     //TODO:要删除  check
-//     {
-//       path: 'H5RankActivity',
-//       name: 'H5RankActivity',
-//       caseSensitive: true,
-//       meta: {
-//         requireLogin: false,
-//         mobileHeaderTitle: '',
-//         pcname: 'rankActivity',
-//         h5name: 'H5RankActivity',
-//       },
-//       component: resolve => require(['@/components/activity/vue/H5RankActivity'], resolve),
-//     },
-//
-//     // 交易排位赛PC版
-//
-//     //TODO:不要删除 check
-//     {
-//       path: 'rankActivity',
-//       name: 'rankActivity',
-//       caseSensitive: true,
-//       meta: {
-//         requireLogin: false,
-//         mobileHeaderTitle: '',
-//         pcname: 'rankActivity',
-//         h5name: 'H5RankActivity',
-//       },
-//       component: resolve => require(['@/components/activity/vue/rankActivity'], resolve),
-//     },
-//     // 交易排位赛H5版
-//
+
+
 //     //TODO:要删除  check
 //     {
 //       path: 'H5RechargeActivity',
@@ -1127,50 +850,7 @@ root.routes.push({
 //
 //     // 20170917 h5幸运预测活动
 //     // 幸运预测活动参与记录
-//     //TODO:要删除 没找到文件
-    {
-      path: 'mobileForecastJoinRecord',
-      name: 'MobileForecastJoinRecord',
-      caseSensitive: true,
-      meta: {
-        requireLogin: false,
-        mobileHeaderTitle: '',
-        pcname: '',
-        h5name: 'MobileForecastJoinRecord',
-      },
-      component: resolve => require(['@/components/LuckyDraw/vue/MobileForecastJoinRecord'], resolve),
-    },
-//
-//     // 幸运预测活动销毁记录
-//     //TODO:要删除 没找到文件
-    {
-      path: 'mobileForecastDesdroyRecord',
-      name: 'MobileForecastDesdroyRecord',
-      caseSensitive: true,
-      meta: {
-        requireLogin: false,
-        mobileHeaderTitle: '',
-        pcname: '',
-        h5name: 'MobileForecastDesdroyRecord',
-      },
-      component: resolve => require(['@/components/LuckyDraw/vue/MobileForecastDesdroyRecord'], resolve),
-    },
-//
-//     // 开奖记录
-//     //TODO:要删除 没找到文件  H5需要
-    {
-      path: 'mobileForecastRewardRecord',
-      name: 'MobileForecastRewardRecord',
-      caseSensitive: true,
-      meta: {
-        requireLogin: false,
-        mobileHeaderTitle: '',
-        pcname: '',
-        h5name: 'MobileForecastRewardRecord',
-      },
-      component: resolve => require(['@/components/LuckyDraw/vue/MobileForecastRewardRecord'], resolve),
-    },
-// //
+
 //      TODO:要删除 check
 //     // 超级为蜜
 //     {
@@ -1250,21 +930,6 @@ root.routes.push({
   name: 'aboutUs',
   component: resolve => require(['@/components/vue/IndexAboutUs'], resolve),
 })
-
-// 新手指南页面
-root.routes.push({
-  path: '/index/beginnersGuide',
-  caseSensitive: true,
-  meta: {
-    mobileHeaderTitle: '',
-    pcname: 'beginnersGuide',
-    h5name: '',
-  },
-  name: 'beginnersGuide',
-  component: resolve => require(['@/components/vue/IndexbeginnersGuide'], resolve),
-})
-
-
 
 // 关于我们页面
 root.routes.push({
@@ -1389,7 +1054,6 @@ root.routes.push({
       caseSensitive: true,
       component: resolve => require(['@/components/mobileVue/NewH5HomePage'], resolve),
     },
-
     {
       path: 'mobileHeatList',
       name: 'mobileHeatList',
@@ -1650,7 +1314,7 @@ root.routes.push({
         //   caseSensitive: true,
         //   component: resolve => require(['@/components/vue/HelpProblem'], resolve),
         // },
-        // // 提交工单
+        // 提交工单  TODO 合约删除
         {
           path: 'wordOrder',
           name: 'wordOrder',
@@ -1675,7 +1339,7 @@ root.routes.push({
           component: resolve => require(['@/components/mobileVue/H5WordOrder'], resolve),
         },
         //
-        // // 设置白名单 2018-06-20
+        // // 设置白名单 2018-06-20  TODO 合约删除
         // {
         //   path: 'whiteList',
         //   name: 'whiteList',
@@ -1688,30 +1352,30 @@ root.routes.push({
         //   component: resolve => require(['@/components/whiteList/vue/whiteList'], resolve),
         // },
 
-
-        {
-          path: 'workOrderInfo',
-          meta: {
-            pcname: 'workOrderInfo',
-            h5name: '',
-            requireLogin: true,
-          },
-          caseSensitive: true,
-          component: resolve => require(['@/components/vue/WorkOrderInfo'], resolve),
-        },
-
-        {
-          path: 'workOrderList',
-          name: 'workOrderList',
-          meta: {
-            pcname: 'workOrderList',
-            h5name: '',
-            requireLogin: true,
-          },
-          caseSensitive: true,
-          component: resolve => require(['@/components/vue/WorkOrderList'], resolve),
-        },
-        // // 客户服务
+        // TODO 合约删除
+        // {
+        //   path: 'workOrderInfo',
+        //   meta: {
+        //     pcname: 'workOrderInfo',
+        //     h5name: '',
+        //     requireLogin: true,
+        //   },
+        //   caseSensitive: true,
+        //   component: resolve => require(['@/components/vue/WorkOrderInfo'], resolve),
+        // },
+        // TODO 合约删除
+        // {
+        //   path: 'workOrderList',
+        //   name: 'workOrderList',
+        //   meta: {
+        //     pcname: 'workOrderList',
+        //     h5name: '',
+        //     requireLogin: true,
+        //   },
+        //   caseSensitive: true,
+        //   component: resolve => require(['@/components/vue/WorkOrderList'], resolve),
+        // },
+        // // 客户服务  TODO 合约删除
         // {
         //   path: 'service',
         //   caseSensitive: true,
@@ -1723,417 +1387,67 @@ root.routes.push({
         //   caseSensitive: true,
         //   component: resolve => require(['@/components/vue/HelpProposal'], resolve),
         // },
-        // 上币申请
-        {
-          path: 'applyToList',
-          name: 'applyToList',
-          caseSensitive: true,
-          meta: {
-            pcname: 'applyToList',
-            h5name: '',
-            requireLogin: false,
-            templateClose: false,
-            requireLoginOff: false,
-          },
-          component: resolve => require(['@/components/vue/HelpApplyToList'], resolve),
-        },
-        // 二零二零用户协议
-        {
-          path: 'userAgreement',
-          name: 'userAgreement',
-          caseSensitive: true,
-          meta: {
-            pcname: 'userAgreement',
-            h5name: 'userAgreement',
-            requireLogin: false,
-            templateClose: false,
-            requireLoginOff: false,
-          },
-          component: resolve => require(['@/components/vue/HelpUserAgreement'], resolve),
-        },
-        // 二零二零隐私协议
-        {
-          path: 'userPrivacy',
-          name: 'userPrivacy',
-          caseSensitive: true,
-          meta: {
-            pcname: 'userPrivacy',
-            h5name: 'userPrivacy',
-            requireLogin: false,
-            templateClose: false,
-            requireLoginOff: false,
-          },
-          component: resolve => require(['@/components/vue/HelpuserPrivacy'], resolve),
-        },
+        // 上币申请  TODO 合约删除
+        // {
+        //   path: 'applyToList',
+        //   name: 'applyToList',
+        //   caseSensitive: true,
+        //   meta: {
+        //     pcname: 'applyToList',
+        //     h5name: '',
+        //     requireLogin: false,
+        //     templateClose: false,
+        //     requireLoginOff: false,
+        //   },
+        //   component: resolve => require(['@/components/vue/HelpApplyToList'], resolve),
+        // },
+        // 二零二零用户协议  TODO 合约删除
+        // {
+        //   path: 'userAgreement',
+        //   name: 'userAgreement',
+        //   caseSensitive: true,
+        //   meta: {
+        //     pcname: 'userAgreement',
+        //     h5name: 'userAgreement',
+        //     requireLogin: false,
+        //     templateClose: false,
+        //     requireLoginOff: false,
+        //   },
+        //   component: resolve => require(['@/components/vue/HelpUserAgreement'], resolve),
+        // },
+        // 二零二零隐私协议  TODO 合约删除
+        // {
+        //   path: 'userPrivacy',
+        //   name: 'userPrivacy',
+        //   caseSensitive: true,
+        //   meta: {
+        //     pcname: 'userPrivacy',
+        //     h5name: 'userPrivacy',
+        //     requireLogin: false,
+        //     templateClose: false,
+        //     requireLoginOff: false,
+        //   },
+        //   component: resolve => require(['@/components/vue/HelpuserPrivacy'], resolve),
+        // },
         // TODO:不能删除 check
         // 费率标准
-        {
-          path: 'rateStandard',
-          name: 'rateStandard',
-          caseSensitive: true,
-          meta: {
-            pcname: 'rateStandard',
-            h5name: '',
-            requireLogin: false,
-            templateClose: false,
-            requireLoginOff: false,
-          },
-          component: resolve => require(['@/components/vue/HelpRateStandard'], resolve),
-        },
+        // {
+        //   path: 'rateStandard',
+        //   name: 'rateStandard',
+        //   caseSensitive: true,
+        //   meta: {
+        //     pcname: 'rateStandard',
+        //     h5name: '',
+        //     requireLogin: false,
+        //     templateClose: false,
+        //     requireLoginOff: false,
+        //   },
+        //   component: resolve => require(['@/components/vue/HelpRateStandard'], resolve),
+        // },
       ]
     },
     // 帮助路由  @liufei  end
     // 资产路由 pc端
-    {
-      path: 'asset',
-      caseSensitive: true,
-      meta: {
-        requireLogin: true,
-        templateClose: false,
-        templatePath: '/index/assetPageT',
-        requireLoginOff: false,
-      },
-      component: resolve => require(['@/components/vue/AssetPage'], resolve),
-      children: [
-        // 默认我的钱包
-        {
-          path: '',
-          meta: {
-            requireLogin: true,
-            templateClose: false,
-            templatePath: '/index/assetPageT',
-            requireLoginOff: false,
-          },
-          redirect: 'myWallet',
-          caseSensitive: true,
-        },
-
-        // 资产概览
-        // {
-        //   path: 'overviewOfAssets',
-        //   name: 'overviewOfAssets',
-        //   meta: {
-        //     pcname: 'overviewOfAssets',
-        //     h5name: 'mobileOverviewOfAssets',
-        //     requireLogin: true,
-        //     templateClose: false,
-        //     templatePath: '/index/assetPageT',
-        //     requireLoginOff: false,
-        //   },
-        //   caseSensitive: true,
-        //   component: resolve => require(['@/components/vue/OverviewOfAssets'], resolve),
-        // },
-        // 我的钱包
-        {
-          path: 'myWallet',
-          name: 'myWallet',
-          meta: {
-            pcname: 'myWallet',
-            h5name: 'mobileMyWallet',
-            requireLogin: true,
-            templateClose: false,
-            templatePath: '/index/assetPageT',
-            requireLoginOff: false,
-          },
-          caseSensitive: true,
-          component: resolve => require(['@/components/vue/MyWallet'], resolve),
-        },
-
-
-        // 充值提现
-        {
-          path: 'rechargeAndWithdrawals',
-          name: 'rechargeAndWithdrawals',
-          meta: {
-            pcname: 'rechargeAndWithdrawals',
-            h5name: 'MobileAssetRechargeAndWithdrawals',
-            requireLogin: true,
-            templateClose: false,
-            templatePath: '/index/assetPageT',
-            requireLoginOff: false,
-          },
-          caseSensitive: true,
-          component: resolve => require(['@/components/vue/AssetPageRechargeAndWithdrawals'], resolve),
-        },
-
-        // 主流账户
-        {
-          path: 'mainstreamAccount',
-          name: 'mainstreamAccount',
-          meta: {
-            pcname: 'mainstreamAccount',
-            h5name: 'MobilemainstreamAccount',
-            requireLogin: true,
-            templateClose: false,
-            templatePath: '/index/assetPageT',
-            requireLoginOff: false,
-          },
-          caseSensitive: true,
-          component: resolve => require(['@/components/vue/MainstreamAccount'], resolve),
-        },
-        //临时打开充值提现页面
-        // {
-        //   path: 'rechargeAndWithdrawals/temporary/some/route/1vcjkq8f/1235m1ec/14sq/124s/t',
-        //   meta: {
-        //     requireLogin: true,
-        //     templateClose: false,
-        //     templatePath: '/index/assetPageT',
-        //     requireLoginOff: false,
-        //   },
-        //   caseSensitive: true,
-        //   component: resolve => require(['@/components/temporary/AssetPageRechargeAndWithdrawalsTemporary.vue'], resolve),
-        // },
-
-        // 充值记录
-        // {
-        //   path: 'rechargeRecord',
-        //   name: 'rechargeRecord',
-        //   meta: {
-        //     pcname: 'rechargeRecord',
-        //     h5name: 'MobileAssetRechargeAndWithdrawRecord',
-        //     requireLogin: true,
-        //     templateClose: false,
-        //     templatePath: '/index/asset/rechargeAndWithdrawals',
-        //     // templatePath: '/index/assetPageT',
-        //
-        //     requireLoginOff: false,
-        //   },
-        //   caseSensitive: true,
-        //   component: resolve => require(['@/components/vue/AssetPageRechargeRecord'], resolve),
-        // },
-
-
-        // 锁仓记录
-        {
-          path: 'lockingRecord',
-          name: 'lockingRecord',
-          caseSensitive: true,
-          meta: {
-            requireLogin: true,
-            templateClose: false,
-            templatePath: '/index/assetPageT',
-            requireLoginOff: false,
-          },
-          component: resolve => require(['@/components/vue/lockingRecord'], resolve),
-          children:[
-            {
-              path: '',
-              meta: {
-                requireLogin: true,
-                templateClose: false,
-                templatePath: '/index/assetPageT',
-                requireLoginOff: false,
-              },
-              redirect: 'currentLockHouse',
-              caseSensitive: true,
-            },
-
-            // 当前锁仓记录
-            {
-              path: 'currentLockHouse',
-              name: 'currentLockHouse',
-              meta: {
-                pcname: 'currentLockHouse',
-                h5name: 'MobileCurrentLockHouse',
-                requireLogin: true,
-                // 临时关闭
-                templateClose: false,
-                templatePath: '/index/asset/rechargeAndWithdrawals',
-                // templatePath: '/index/assetPageT',
-                requireLoginOff: false,
-              },
-              caseSensitive: true,
-              component: resolve => require(['@/components/vue/currentLockHouse'], resolve),
-            },
-
-
-            // 历史锁仓记录
-            {
-              path: 'historyLockHouse',
-              name: 'historyLockHouse',
-              meta: {
-                pcname: 'historyLockHouse',
-                h5name: 'MobileHistoryLockHouse',
-                requireLogin: true,
-                // 临时关闭
-                templateClose: false,
-                templatePath: '/index/asset/rechargeAndWithdrawals',
-                // templatePath: '/index/assetPageT',
-                requireLoginOff: false,
-              },
-              caseSensitive: true,
-              component: resolve => require(['@/components/vue/historyLockHouse'], resolve),
-            },
-          ]
-        },
-
-
-        {
-          path: 'record',
-          caseSensitive: true,
-          meta: {
-            requireLogin: true,
-            templateClose: false,
-            templatePath: '/index/assetPageT',
-            requireLoginOff: false,
-          },
-          component: resolve => require(['@/components/vue/record'], resolve),
-          children:[
-
-            {
-              path: '',
-              meta: {
-                requireLogin: true,
-                templateClose: false,
-                templatePath: '/index/assetPageT',
-                requireLoginOff: false,
-              },
-              redirect: 'rechargeRecord',
-              caseSensitive: true,
-            },
-
-            // 充值记录
-            {
-              path: 'rechargeRecord',
-              name: 'rechargeRecord',
-              meta: {
-                pcname: 'rechargeRecord',
-                h5name: 'MobileAssetRechargeAndWithdrawRecord',
-                requireLogin: true,
-                templateClose: false,
-                templatePath: '/index/asset/rechargeAndWithdrawals',
-                // templatePath: '/index/assetPageT',
-
-                requireLoginOff: false,
-              },
-              component: resolve => require(['@/components/vue/AssetPageRechargeRecord'], resolve),
-              caseSensitive: true,
-            },
-
-
-            // 提现记录
-            {
-              path: 'withdrawalsRecord',
-              name: 'withdrawalsRecord',
-              meta: {
-                pcname: 'withdrawalsRecord',
-                h5name: 'MobileAssetRechargeAndWithdrawRecord',
-                requireLogin: true,
-                // 临时关闭
-                templateClose: false,
-                templatePath: '/index/asset/rechargeAndWithdrawals',
-                // templatePath: '/index/assetPageT',
-                requireLoginOff: false,
-              },
-              caseSensitive: true,
-              component: resolve => require(['@/components/vue/AssetPageWithdrawalsRecord'], resolve),
-            },
-            // 转账记录
-            {
-              path: 'transferRecord',
-              name: 'transferRecord',
-              meta: {
-                pcname: 'transferRecord',
-                h5name: 'MobileTransferRecord',
-                requireLogin: true,
-                templateClose: false,
-                templatePath: '/index/asset/rechargeAndWithdrawals',
-                // templatePath: '/index/assetPageT',
-
-                requireLoginOff: false,
-              },
-              caseSensitive: true,
-              component: resolve => require(['@/components/vue/TransferRecord'], resolve),
-            },
-            // 划转记录
-            {
-              path: 'transferRecords',
-              name: 'transferRecords',
-              meta: {
-                pcname: 'transferRecords',
-                h5name: 'MobileTransferRecords',
-                requireLogin: true,
-                templateClose: false,
-                templatePath: '/index/asset/rechargeAndWithdrawals',
-                // templatePath: '/index/assetPageT',
-
-                requireLoginOff: false,
-              },
-              caseSensitive: true,
-              component: resolve => require(['@/components/vue/TransferList'], resolve),
-            },
-
-            // 挖矿奖励
-            {
-              path: 'miningReward',
-              name: 'miningReward',
-              meta: {
-                pcname: 'miningReward',
-                h5name: '',
-                requireLogin: true,
-                templateClose: false,
-                // templatePath: '/index/assetPageT',
-                requireLoginOff: false,
-              },
-              caseSensitive: true,
-              component: resolve => require(['@/components/vue/miningReward'], resolve),
-            },
-
-            // 平台奖励
-            {
-              path: 'platformReward',
-              name: 'platformReward',
-              meta: {
-                pcname: 'platformReward',
-                h5name: '',
-                requireLogin: true,
-                templateClose: false,
-                // templatePath: '/index/assetPageT',
-                requireLoginOff: false,
-              },
-              caseSensitive: true,
-              component: resolve => require(['@/components/vue/AssetPagePlatformReward'], resolve),
-            },
-            // 基金奖励
-            {
-              path: 'fundAward',
-              name: 'fundAward',
-              meta: {
-                pcname: 'fundAward',
-                h5name: '',
-                requireLogin: true,
-                templateClose: false,
-                // templatePath: '/index/assetPageT',
-                requireLoginOff: false,
-              },
-              caseSensitive: true,
-              component: resolve => require(['@/components/fundProducts/vue/fundAward'], resolve),
-            },
-          ]
-        },
-
-
-
-
-
-
-
-        // 提现记录临时页面
-        // {
-        //   path: 'withdrawalsRecord/temporary/some/route/2xws24351/12fsx/2144mdm/1233m3mfm2icm12/t',
-        //   meta: {
-        //     requireLogin: true,
-        //     // 临时关闭
-        //     templateClose: false,
-        //     templatePath: '/index/asset/rechargeAndWithdrawals',
-        //     // templatePath: '/index/assetPageT',
-        //     requireLoginOff: false,
-        //   },
-        //   caseSensitive: true,
-        //   component: resolve => require(['@/components/vue/AssetPageWithdrawalsRecord'], resolve),
-        // },
-      ]
-    },
 
     {
       path: 'MobileHistoryOrder',
@@ -2785,37 +2099,6 @@ root.routes.push({
               },
               component: resolve => require(['@/components/vue/PersonalCenterSecurityCenterManageApi'], resolve)
             },
-            // sss 会员卡
-            {
-              path: 'membershipCard',
-              name: 'membershipCard',
-              caseSensitive: true,
-              meta: {
-                pcname: 'membershipCard',
-                // h5name: 'membershipCard',
-                requireLogin: true,
-                templateClose: false,
-                requireLoginOff: false,
-
-              },
-              component: resolve => require(['@/components/vue/MembershipCard'], resolve),
-            },
-            // sss 热度列表
-            {
-              path: 'heatList',
-              name: 'heatList',
-              caseSensitive: true,
-              meta: {
-                pcname: 'heatList',
-                // h5name: 'membershipCard',
-                requireLogin: true,
-                templateClose: false,
-                requireLoginOff: false,
-
-              },
-              component: resolve => require(['@/components/vue/HeatList'], resolve),
-            },
-
           ]
         },
         // 安全日志
@@ -2832,57 +2115,6 @@ root.routes.push({
           },
           component: resolve => require(['@/components/vue/PersonalCenterSecurityLog'], resolve)
         },
-        // 我的推荐，此处为
-        {
-          path: 'Recommend',
-          caseSensitive: true,
-          meta: {
-            requireLogin: true,
-            templateClose: false,
-            requireLoginOff: false,
-            mobileHeaderTitle: ''
-          },
-          component: resolve => require(['@/components/vue/PersonalCenterRecommendRoute'], resolve),
-          children: [
-            {
-              path: '',
-              redirect: 'PcRecommend',
-              meta: {
-                requireLogin: true,
-                templateClose: false,
-                requireLoginOff: false,
-                mobileHeaderTitle: '个人中心'
-              },
-              caseSensitive: true,
-            },
-            {
-              path: 'PcRecommend',
-              name: 'Recommend',
-              caseSensitive: true,
-              meta: {
-                pcname: 'PcRecommend',
-                h5name: 'H5Recommend',
-                requireLogin: true,
-                templateClose: false,
-                requireLoginOff: false,
-              },
-              component: resolve => require(['@/components/vue/PersonalCenterRecommend'], resolve)
-            },
-            {
-              path: 'BtActivityRecommend',
-              name: 'BtActivityRecommend',
-              caseSensitive: true,
-              meta: {
-                pcname: 'BtActivityRecommend',
-                h5name: '',
-                requireLogin: true,
-                templateClose: false,
-                requireLoginOff: false,
-              },
-              component: resolve => require(['@/components/btActivity/vue/BtActivityMyRecommend'], resolve)
-            },
-          ]
-        },
 
         // H5我的推荐
         {
@@ -2891,7 +2123,7 @@ root.routes.push({
 
           caseSensitive: true,
           meta: {
-            pcname: 'PcRecommend',
+            pcname: '',
             h5name: 'H5Recommend',
             requireLogin: true,
             templateClose: false,
@@ -2993,7 +2225,7 @@ root.routes.push({
 
           ]
         },
-        // 我的为蜜
+        // 我的为蜜  TODO 合约删除
         // {
         //   path: 'mySuperBee',
         //   name: 'mySuperBee',
@@ -3007,7 +2239,7 @@ root.routes.push({
         //   },
         //   component: resolve => require(['@/components/vue/PersonalCenterMySuperBee'], resolve)
         // },
-        // TODO:要删除
+        // TODO:要删除  TODO 合约删除
         // 挖矿收益
         // {
         //   path: 'btActivity',
@@ -3024,7 +2256,7 @@ root.routes.push({
       ]
     },
 
-    // 行情
+    // 行情  TODO 合约删除
     {
       path: 'indexHomeMarket',
       name: 'indexHomeMarket',
@@ -3038,66 +2270,7 @@ root.routes.push({
       component: resolve => require(['@/components/vue/IndexHomeMarket'], resolve),
     },
 
-    // sss 拼团
-    {
-      path: 'assembleARegiment',
-      name: 'assembleARegiment',
-      caseSensitive: true,
-      meta: {
-        requireLogin: true,
-        mobileHeaderTitle: '',
-        pcname: 'assembleARegiment',
-        h5name: 'assembleARegiment',
-        requireLoginOff: false,
-        // h5name: 'mobileTradingHall',
-      },
-      component: resolve => require(['@/components/vue/AssembleARegiment'], resolve),
-    },
-    // sss 拼团--创建团队
-    {
-      path: 'createAGroup',
-      name: 'createAGroup',
-      caseSensitive: true,
-      meta: {
-        requireLogin: false,
-        mobileHeaderTitle: '',
-        pcname: 'createAGroup',
-        h5name: 'createAGroup',
-        // h5name: 'mobileTradingHall',
-      },
-      component: resolve => require(['@/components/vue/CreateAGroup'], resolve),
-    },
-    // sss 拼团--加入拼团
-    {
-      path: 'joinAGroup',
-      name: 'joinAGroup',
-      caseSensitive: true,
-      meta: {
-        requireLogin: false,
-        mobileHeaderTitle: '',
-        pcname: 'joinAGroup',
-        h5name: 'joinAGroup',
-        // h5name: 'mobileTradingHall',
-      },
-      component: resolve => require(['@/components/vue/JoinAGroup'], resolve),
-    },
-    // sss 拼团--拼团详情
-    {
-      path: 'detailsOfTheGroup',
-      name: 'detailsOfTheGroup',
-      caseSensitive: true,
-      meta: {
-        requireLogin: false,
-        mobileHeaderTitle: '',
-        pcname: 'detailsOfTheGroup',
-        h5name: 'detailsOfTheGroup',
-      },
-      component: resolve => require(['@/components/vue/DetailsOfTheGroup'], resolve),
-    },
-
-
-
-    // TODO：弹框组件临时显示（记得删除）
+    // TODO：弹框组件临时显示（记得删除）  TODO 合约保留
     // {
     //   path: 'PopPublic',
     //   name: 'PopPublic',
@@ -3114,7 +2287,7 @@ root.routes.push({
     // },
 
 
-    // 订单
+    // 订单  TODO 合约保留
     {
       path: 'order',
       caseSensitive: true,
@@ -3172,7 +2345,7 @@ root.routes.push({
       ]
     },
 
-    // TODO:要删除 check
+    // TODO:要删除 check  TODO 合约删除
     // {
     //   path: 'tradingHallT',
     //   caseSensitive: true,
@@ -3180,7 +2353,7 @@ root.routes.push({
     //   meta: {},
     // },
 
-    // TODO:要删除 check
+    // TODO:要删除 check   TOD`O 合约删除
     // {
     //   path: 'assetPageT',
     //   caseSensitive: true,
@@ -3190,7 +2363,7 @@ root.routes.push({
     //   },
     // },
 
-    // TODO:要删除 check
+    // TODO:要删除 check  TODO 合约删除
     // {
     //   path: 'orderPageT',
     //   caseSensitive: true,
@@ -3198,218 +2371,6 @@ root.routes.push({
     //   meta: {
     //     requireLogin: true,
     //   },
-    // },
-
-    // sss 活动------KK交易挖矿报名
-    {
-      path: 'officialQuantitativeRegistration',
-      name: 'officialQuantitativeRegistration',
-      caseSensitive: true,
-      meta: {
-        requireLogin: true,
-        mobileHeaderTitle: '',
-        pcname: 'officialQuantitativeRegistration',
-        h5name: 'officialQuantitativeRegistration',
-        requireLoginOff: false,
-
-      },
-      component: resolve => require(['@/components/vue/OfficialQuantitativeRegistration'], resolve),
-    },
-
-    // sss 活动------KK交易挖矿详情
-    {
-      path: 'officialQuantitativeDetails',
-      name: 'officialQuantitativeDetails',
-      caseSensitive: true,
-      meta: {
-        requireLogin: true,
-        requireLoginOff: false,
-        mobileHeaderTitle: '',
-        pcname: 'officialQuantitativeDetails',
-        h5name: 'officialQuantitativeDetails',
-
-      },
-      component: resolve => require(['@/components/vue/OfficialQuantitativeDetails'], resolve),
-    },
-
-    /*-----------------  基金理财PC begin  ------------------------*/
-// 基金理财
-    {
-      path: 'financialFund',
-      name: 'financialFund',
-      requireLogin: true,
-      caseSensitive: true,
-      meta: {
-        requireLogin: true,
-        pcname: 'financialFund',
-        h5name: '',
-      },
-      component: resolve => require(['@/components/fundProducts/vue/FinancialFund'], resolve),
-      children:[
-        {
-          path: '',
-          caseSensitive: true,
-          redirect: 'fundProducts',
-          meta: {
-            pcname: 'fundProducts',
-            h5name: 'fundProducts',
-          },
-        },
-        // 基金产品页面
-        {
-          path: 'fundProducts',
-          name:'fundProducts',
-          caseSensitive: true,
-          meta: {
-            requireLogin: true,
-            pcname: 'fundProducts',
-            h5name: '',
-          },
-          component: resolve => require(['@/components/fundProducts/vue/FundProducts'], resolve),
-        },
-
-        // 基金资产页面
-        {
-          path: 'fundAssets',
-          name: 'fundAssets',
-          caseSensitive: true,
-          meta: {
-            requireLogin: true,
-            pcname: 'fundAssets',
-            h5name: '',
-          },
-          component: resolve => require(['@/components/fundProducts/vue/FundAssets'], resolve),
-        },
-      ]
-    },
-    //基金理财购买
-    {
-      path: 'fundBuy',
-      name: 'fundBuy',
-      meta: {
-        requireLogin: true,
-        pcname: 'fundBuy',
-        h5name: '',
-      },
-      caseSensitive: true,
-      component: resolve => require(['@/components/fundProducts/vue/FundBuy'], resolve)
-    },
-    /*-----------------  基金理PC end  ------------------------*/
-
-
-    /*-----------------  跟单PC begin  ------------------------*/
-     //PC  跟单首页
-    {
-      path: 'followTrade',
-      name: 'followTrade',
-      meta: {
-        requireLogin: true,
-        pcname: 'followTrade',
-        h5name: 'mobileFollowTrade',
-      },
-      caseSensitive: true,
-      component: resolve => require(['@/components/followTrade/vue/FollowTrade'], resolve)
-    },
-    // 大神跟单页面
-    {
-      path: 'documentaryGod',
-      name: 'documentaryGod',
-      meta: {
-        requireLogin: true,
-        pcname: 'documentaryGod',
-        h5name: 'mobileDocumentaryGod',
-      },
-      caseSensitive: true,
-      component: resolve => require(['@/components/followTrade/vue/DocumentaryGod'], resolve)
-    },
-    // 我的镜像交易
-    {
-      path: 'myFollowOrder',
-      name: 'myFollowOrder',
-      meta: {
-        requireLogin: true,
-        pcname: 'myFollowOrder',
-        h5name: 'mobileMyFollowOrder',
-      },
-      caseSensitive: true,
-      component: resolve => require(['@/components/followTrade/vue/MyFollowOrder'], resolve)
-    },
-    {
-      path: 'tapeListManage',
-      name: 'tapeListManage',
-      meta: {
-        requireLogin: true,
-        pcname: 'tapeListManage',
-        h5name: 'mobileTapeListManage',
-      },
-      caseSensitive: true,
-      component: resolve => require(['@/components/followTrade/vue/TapeListManage'], resolve)
-    },
-    // 自己跟单页面
-    {
-      path: 'followTradeStrategy',
-      name: 'followTradeStrategy',
-      meta: {
-        requireLogin: true,
-        pcname: 'followTradeStrategy',
-        h5name: 'mobileFollowTradeStrategy',
-      },
-      caseSensitive: true,
-      component: resolve => require(['@/components/followTrade/vue/FollowTradeStrategy'], resolve)
-    }
-
-
-    // TODO:不能删除 check
-    // cc 活动------茶币路由
-    // {
-    //   path: 'TeaCoinActivities',
-    //   name: 'TeaCoinActivities',
-    //   caseSensitive: true,
-    //   meta: {
-    //     requireLogin: false,
-    //     mobileHeaderTitle: '',
-    //     name: 'TeaCoinActivities',
-    //   },
-    //   component: resolve => require(['@/components/vue/TeaCoinActivities'], resolve),
-    // },
-
-    // TODO:不能删除 check
-    // cc 活动-----茶叁茶源
-    // {
-    //   path: 'TeaSource',
-    //   name: 'TeaSource',
-    //   caseSensitive: true,
-    //   meta: {
-    //     requireLogin: false,
-    //     mobileHeaderTitle: '',
-    //     name: 'TeaSource',
-    //   },
-    //   component: resolve => require(['@/components/vue/TeaSource'], resolve),
-    // },
-     // TODO:要删除  check
-    // 20180529 app下载页
-    // // 扫一扫下载app
-    // {
-    //   path: 'AllAppDownLoad',
-    //   name: 'AllAppDownLoad',
-    //   caseSensitive: true,
-    //   meta: {
-    //     pcname: 'androidOnline',
-    //     h5name: 'AllAppDownLoad',
-    //   },
-    //   component: resolve => require(['@/components/AppDownLoad/AllAppDownLoad.vue'], resolve),
-    // },
-    //
-    // // 扫一扫下载app
-    // {
-    //   path: 'AppDownLoad',
-    //   name: 'AppDownLoad',
-    //   caseSensitive: true,
-    //   meta: {
-    //     pcname: 'androidOnline',
-    //     h5name: 'AppDownLoad',
-    //   },
-    //   component: resolve => require(['@/components/AppDownLoad/AppDownLoad.vue'], resolve),
     // },
   ]
 })
