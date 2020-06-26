@@ -1392,28 +1392,24 @@ root.basePageBar.index = 'Home'
 
 root.assetPage.platformReward = 'Activity Award'
 
-root.assetPagePlatformReward = {}
-root.assetPagePlatformReward.state1 = 'Instruction'
-root.assetPagePlatformReward.success = 'Completed'
-
-
-root.assetPagePlatformReward.currency = 'Coin'
-root.assetPagePlatformReward.time = 'Date'
-root.assetPagePlatformReward.amount = 'Amount'
-root.assetPagePlatformReward.state = 'Status'
-root.assetPagePlatformReward.address = 'Address'
-root.assetPagePlatformReward.remarks = 'Note'
-
-
-root.assetPagePlatformReward.description_0 = 'The early bird share distribution'
-root.assetPagePlatformReward.description_1 = 'Bonus of the Alpha Test Prize Quiz'
-root.assetPagePlatformReward.description_2 = 'Bonus of the Alpha Test Ranking Program'
-root.assetPagePlatformReward.description_3 = 'ICC Airdrop Program Bonus'
-root.assetPagePlatformReward.description_4 = 'Item side asset replenishment'
-root.assetPagePlatformReward.description_5 = 'Bonus of the Referral Program'
-root.assetPagePlatformReward.description_6 = 'Volunteer Bonus'
-root.assetPagePlatformReward.description_7 = 'Community Proposal Bonus'
-root.assetPagePlatformReward.description_8 = 'Commission'
+// root.assetPagePlatformReward = {}
+// root.assetPagePlatformReward.state1 = 'Instruction'
+// root.assetPagePlatformReward.success = 'Completed'
+// root.assetPagePlatformReward.currency = 'Coin'
+// root.assetPagePlatformReward.time = 'Date'
+// root.assetPagePlatformReward.amount = 'Amount'
+// root.assetPagePlatformReward.state = 'Status'
+// root.assetPagePlatformReward.address = 'Address'
+// root.assetPagePlatformReward.remarks = 'Note'
+// root.assetPagePlatformReward.description_0 = 'The early bird share distribution'
+// root.assetPagePlatformReward.description_1 = 'Bonus of the Alpha Test Prize Quiz'
+// root.assetPagePlatformReward.description_2 = 'Bonus of the Alpha Test Ranking Program'
+// root.assetPagePlatformReward.description_3 = 'ICC Airdrop Program Bonus'
+// root.assetPagePlatformReward.description_4 = 'Item side asset replenishment'
+// root.assetPagePlatformReward.description_5 = 'Bonus of the Referral Program'
+// root.assetPagePlatformReward.description_6 = 'Volunteer Bonus'
+// root.assetPagePlatformReward.description_7 = 'Community Proposal Bonus'
+// root.assetPagePlatformReward.description_8 = 'Commission'
 
 
 root.indexHeader.platformReward = 'Activity Award'
@@ -1463,20 +1459,20 @@ root.currencyIntroduction.detail_IOST_18 = 'Blockchain explorer:'
 root.currencyIntroduction.detail_IOST_19 = 'https://etherscan.io/token/0xfa1a856cfa3409cfa145fa4e20eb270df3eb21ab'
 
 
-root.assetPagePlatformReward.description_9 = 'ELF deposit reward'
-root.assetPagePlatformReward.description_10 = 'ELF transacation reward'
+// root.assetPagePlatformReward.description_9 = 'ELF deposit reward'
+// root.assetPagePlatformReward.description_10 = 'ELF transacation reward'
 root.personalCenterRecommend.currentMouthComission = 'Commission (current month)'
 root.personalCenterRecommend.totalCommission = 'Commission (Total)'
 root.personalCenterRecommend.Approx = 'Approx.'
 
 
 // 2018.3.13 平台奖励
-root.assetPagePlatformReward.description_11 = 'IOST deposit reward'
-root.assetPagePlatformReward.description_12 = 'IOST transaction reward'
-root.assetPagePlatformReward.description_13 = 'IOST registration reward'
-
-// 3-14
-root.assetPagePlatformReward.description_14 = 'TwentyTwenty reward'
+// root.assetPagePlatformReward.description_11 = 'IOST deposit reward'
+// root.assetPagePlatformReward.description_12 = 'IOST transaction reward'
+// root.assetPagePlatformReward.description_13 = 'IOST registration reward'
+//
+// // 3-14
+// root.assetPagePlatformReward.description_14 = 'TwentyTwenty reward'
 
 
 // 3-28
@@ -1632,10 +1628,10 @@ root.currencyIntroduction.detail_DVT_19 = 'https://etherscan.io/token/0x745a9679
 
 
 // 2018.4.3 平台奖励新字段
-root.assetPagePlatformReward.description_15 = 'March new member bonus'
-root.assetPagePlatformReward.description_16 = 'March referral bonus'
-root.assetPagePlatformReward.description_17 = 'March referral bonus (KYC verified)'
-root.assetPagePlatformReward.description_18 = 'March TwentyTwenty Lottery'
+// root.assetPagePlatformReward.description_15 = 'March new member bonus'
+// root.assetPagePlatformReward.description_16 = 'March referral bonus'
+// root.assetPagePlatformReward.description_17 = 'March referral bonus (KYC verified)'
+// root.assetPagePlatformReward.description_18 = 'March TwentyTwenty Lottery'
 
 
 // 币种资料USDT
@@ -2116,59 +2112,59 @@ root.signPageResetPassword.verifyingWA_0 = 'Drag the silder to verify'
 
 
 
-
-//二零二零隐私协议
-root.helpuserPrivacy = {}
-root.helpuserPrivacy.zwtitle = 'TwentyTwenty Privacy agreement'
-root.helpuserPrivacy.zwtitle01 = '一、The two sides'
-root.helpuserPrivacy.zwtitle01_1 = '1、 TwentyTwenty Global Ltd.(hereinafter referred to as the "company") is a according to relevant laws in Singapore registered company, the company operating site https://www.2020.exchange (hereinafter referred to as "this site" or "site"), the site is a special digital assets for user transactions, and provide related services (hereinafter referred to as "the service" or "services"). For the convenience of this agreement, the company and the website use "we" or other first-person terms in this agreement.'
-root.helpuserPrivacy.zwtitle01_2 = '2、 For the convenience of this agreement, "you" or other second person will be used as below, as long as the natural person or other entity logging into this website is the user of this website.'
-root.helpuserPrivacy.zwtitle01_3 = '3、 For the convenience of this agreement, we and you are collectively referred to as "parties" and we or you as "parties".'
-root.helpuserPrivacy.zwtitle02 = '二、The purpose of the privacy policy'
-root.helpuserPrivacy.zwtitle02_1 = 'The privacy policy specifies the type of information we collect from you only by logging on to the website, registering on the website and/or using the services provided by us, and how we use and protect such information.'
-root.helpuserPrivacy.zwtitle03 = '三、Your approval'
-root.helpuserPrivacy.zwtitle03_11 = 'To ensure that you have full confidence in our handling of your personal data, it is important that you read and understand the privacy policy in detail. In particular, once you log on to our website, whether or not you register on the website, you indicate to us your acceptance, consent, commitment and confirmation:'
-root.helpuserPrivacy.zwtitle03_1 = '1、 You disclose your personal data to us voluntarily with the required consent;'
-root.helpuserPrivacy.zwtitle03_2 = '2、 You will comply with all terms and limitations of this privacy policy;'
-root.helpuserPrivacy.zwtitle03_3 = '3、 You agree that we collect your information through your login, registration and/or use of the services provided by us; You agree to any future changes to our privacy policy;'
-root.helpuserPrivacy.zwtitle03_4 = '4、 You agree that our subsidiaries, affiliates, and employees may contact you about products and services that you may be interested in (unless you have indicated that you do not wish to receive such information).'
-root.helpuserPrivacy.zwtitle04 = '四、Collected information'
-root.helpuserPrivacy.zwtitle04_1 = '1、 When you use this site, you agree that we will start using cookies to track your every move and collect and remember all the information you leave, including but not limited to your IP address, geographical location and other information.'
-root.helpuserPrivacy.zwtitle04_2 = '2、 If you are willing to use the services provided by this website, you need to fill in and provide the following two kinds of information:'
-root.helpuserPrivacy.zwtitle04_21 = '●  Identity information. This information can help us to verify whether you are eligible to register as members of this site, including but not limited to your name, your address, mailing address, your other issued by the state or government have different certificates to prove your identity information, and involves the number, and all other information can help us to verify your identity (hereinafter referred to as the "identity").'
-root.helpuserPrivacy.zwtitle04_22 = '●  Service information. This information helps us contact you and smoothly provide services to you, including but not limited to your telephone number, fax number, valid E-mail address, mailing address and your debit card information and/or other account information (hereinafter referred to as "service information").'
-root.helpuserPrivacy.zwtitle04_3 = '3、 In your use of this web site or the services it provides, we may be in order to improve the use function of the site, increase your use of this web site and its services and its safety experience or according to the jurisdiction of the court or the applicable laws and regulations or other government agencies of the command, the public through this website belong to our mailbox or other the way we think compliance to collect more necessary information.'
-root.helpuserPrivacy.zwtitle04_4 = '4、 If you access any links to other third party websites or cooperating third parties on the site, you agree to and abide by the separate and independent privacy policies of such third party websites. We are not responsible for the content and activities of these websites or partners.'
-root.helpuserPrivacy.zwtitle05 = '五、Cookies'
-root.helpuserPrivacy.zwtitle05_1 = '1、 When you visit our site, we use Google Stats through cookies to track our performance and check the effectiveness of online ads. Cookies are small amounts of data sent to your browser and stored on your computer\'s hard drive. Cookies can only be sent to your hard drive when you use your computer to access our website.'
-root.helpuserPrivacy.zwtitle05_2 = '2、 Cookies are often used to record the habits and preferences of visitors when they visit various items on our site. The information collected by Cookies is anonymous collective statistics and does not contain personal information.'
-root.helpuserPrivacy.zwtitle05_3 = '3、 Cookies cannot be used to obtain data on your hard drive, your email address, and your personal data, which enables the website or service provider system to recognize your browser and capture and remember information. Most browsers are designed to accept Cookies. You can choose to set your browser to not accept Cookies, or to notify you as soon as Cookies are installed. However, if Cookies are disabled, you may not be able to activate or use certain features of our site.'
-root.helpuserPrivacy.zwtitle06 = '六、Information usage'
-root.helpuserPrivacy.zwtitle06_1 = '1、 We use your information collected by us for the following purposes or in the following ways:'
-root.helpuserPrivacy.zwtitle06_11 = '●  Through our website to provide you with our services;'
-root.helpuserPrivacy.zwtitle06_12 = '●  Identify and confirm your identity when using our website;'
-root.helpuserPrivacy.zwtitle06_13 = '●  In order to improve and improve the service of the website (help us improve the service of the website according to the information and feedback we receive from you, so that we can respond to your service requests and support needs more effectively);'
-root.helpuserPrivacy.zwtitle06_14 = '●  Statistics of our website usage data and data analysis of cooperation with government agencies and institutions;'
-root.helpuserPrivacy.zwtitle06_15 = '●  Personalize your experience (your information will help us better respond to your personalized needs);'
-root.helpuserPrivacy.zwtitle06_16 = '●  Processing transactions (your information, whether public or private, will not be sold, exchanged, transferred, or made available to any other company for any reason whatsoever without your consent, except for the express purpose of completing the transaction as required by you);'
-root.helpuserPrivacy.zwtitle06_17 = '●  Send email regularly (you provide the email address of order processing, except occasionally receive our news, updates, related products or services information, etc., which can be used to send information and update your order to you);'
-root.helpuserPrivacy.zwtitle06_18 = '●  Other purposes set forth in the user agreement of the website and all lawful means to meet such purposes.'
-root.helpuserPrivacy.zwtitle06_2 = '2、 We will not give in to the other party to sell, trade or otherwise transfer or allow others to collect information, the use of information, but does not include the following the other party, and the following information: our related party, help we have been in our website, do business, or provide you with services of a trusted third party, as long as the parties agreed to keep such information confidential; When we believe that the information disclosed is appropriate, is in compliance with laws, regulations, rules and regulations or from the order of the court or other competent authorities, to implement our website strategy, the normal operation of the website, the related party to provide services required or protect the rights, property or safety of us or others. However, your information will not be provided to other parties for marketing, advertising or other purposes.'
-root.helpuserPrivacy.zwtitle07 = '七、Protection of personal data'
-root.helpuserPrivacy.zwtitle07_1 = '1、 We implement appropriate physical, electronic, management and technical measures to protect and protect the security of your personal data. We do our best to ensure that any personal information collected through our website is free from third parties who are not related to us. Our security measures include but are not limited to:'
-root.helpuserPrivacy.zwtitle07_11 = '●  Physical measures: records containing your personal information will be stored in a locked place.'
-root.helpuserPrivacy.zwtitle07_12 = '●  Electronic measures: computer data containing your personal information will be stored on computer systems and storage media with strict access restrictions.'
-root.helpuserPrivacy.zwtitle07_13 = '●  Management measures: access to your personal data is restricted to authorized staff who are subject to our internal code of conduct on the confidentiality of personal data.'
-root.helpuserPrivacy.zwtitle07_14 = '●  Technical measures: there may be Encryption techniques like Secure Socket Layer Encryption to transfer your personal data.'
-root.helpuserPrivacy.zwtitle07_15 = '●  Other measures: our network servers are protected by "firewalls".'
-root.helpuserPrivacy.zwtitle07_2 = '2、 If you are aware of any security breach on our website, please contact us immediately so that we can take appropriate action as soon as possible.'
-root.helpuserPrivacy.zwtitle07_3 = '3、 Despite the implementation of the above technical and security measures, we cannot guarantee the absolute security of the transfer of information over the Internet, so we cannot guarantee the security of your personal data provided to us through our website at all times. We are not responsible for any unauthorized access to your personal data, and we are not responsible for any loss or damage caused or caused in this regard.'
-root.helpuserPrivacy.zwtitle08 = '八、Revision of privacy policy'
-root.helpuserPrivacy.zwtitle08_1 = 'We reserve the right to modify this privacy policy at any time. We inform you that our privacy policy has been revised by the effective date of the update and release of the new version, and highlight the revision office. Sometimes we will issue notices to inform you that the privacy policy has been revised, but this is not an obligation of us. You should check the privacy policy regularly and pay attention to its revision. If you do not agree with the contents of the revision, you should stop accessing the website immediately. When an updated version of the privacy policy is released, your continued access to the website displays and indicates that you agree to the updated content and agree to abide by the updated privacy policy.'
-root.helpuserPrivacy.zwtitle09 = '九、Communicate with us'
-root.helpuserPrivacy.zwtitle09_1 = '1、 If you have any requirements and opinions, you can email support@2020.exchange, which is the only valid and official email we communicate with you, so we do not take any responsibility for your failure to use valid contact information.'
-root.helpuserPrivacy.zwtitle09_2 = '2、 We only release announcements and information through the effective contact information on this website or post announcements on this website, so we are not responsible for any losses arising from your trust in the information not obtained through the above means.'
-root.helpuserPrivacy.zwtitle09_3 = '3、 If you have any questions about our privacy policy, please feel free to contact us.'
+//
+// //二零二零隐私协议
+// root.helpuserPrivacy = {}
+// root.helpuserPrivacy.zwtitle = 'TwentyTwenty Privacy agreement'
+// root.helpuserPrivacy.zwtitle01 = '一、The two sides'
+// root.helpuserPrivacy.zwtitle01_1 = '1、 TwentyTwenty Global Ltd.(hereinafter referred to as the "company") is a according to relevant laws in Singapore registered company, the company operating site https://www.2020.exchange (hereinafter referred to as "this site" or "site"), the site is a special digital assets for user transactions, and provide related services (hereinafter referred to as "the service" or "services"). For the convenience of this agreement, the company and the website use "we" or other first-person terms in this agreement.'
+// root.helpuserPrivacy.zwtitle01_2 = '2、 For the convenience of this agreement, "you" or other second person will be used as below, as long as the natural person or other entity logging into this website is the user of this website.'
+// root.helpuserPrivacy.zwtitle01_3 = '3、 For the convenience of this agreement, we and you are collectively referred to as "parties" and we or you as "parties".'
+// root.helpuserPrivacy.zwtitle02 = '二、The purpose of the privacy policy'
+// root.helpuserPrivacy.zwtitle02_1 = 'The privacy policy specifies the type of information we collect from you only by logging on to the website, registering on the website and/or using the services provided by us, and how we use and protect such information.'
+// root.helpuserPrivacy.zwtitle03 = '三、Your approval'
+// root.helpuserPrivacy.zwtitle03_11 = 'To ensure that you have full confidence in our handling of your personal data, it is important that you read and understand the privacy policy in detail. In particular, once you log on to our website, whether or not you register on the website, you indicate to us your acceptance, consent, commitment and confirmation:'
+// root.helpuserPrivacy.zwtitle03_1 = '1、 You disclose your personal data to us voluntarily with the required consent;'
+// root.helpuserPrivacy.zwtitle03_2 = '2、 You will comply with all terms and limitations of this privacy policy;'
+// root.helpuserPrivacy.zwtitle03_3 = '3、 You agree that we collect your information through your login, registration and/or use of the services provided by us; You agree to any future changes to our privacy policy;'
+// root.helpuserPrivacy.zwtitle03_4 = '4、 You agree that our subsidiaries, affiliates, and employees may contact you about products and services that you may be interested in (unless you have indicated that you do not wish to receive such information).'
+// root.helpuserPrivacy.zwtitle04 = '四、Collected information'
+// root.helpuserPrivacy.zwtitle04_1 = '1、 When you use this site, you agree that we will start using cookies to track your every move and collect and remember all the information you leave, including but not limited to your IP address, geographical location and other information.'
+// root.helpuserPrivacy.zwtitle04_2 = '2、 If you are willing to use the services provided by this website, you need to fill in and provide the following two kinds of information:'
+// root.helpuserPrivacy.zwtitle04_21 = '●  Identity information. This information can help us to verify whether you are eligible to register as members of this site, including but not limited to your name, your address, mailing address, your other issued by the state or government have different certificates to prove your identity information, and involves the number, and all other information can help us to verify your identity (hereinafter referred to as the "identity").'
+// root.helpuserPrivacy.zwtitle04_22 = '●  Service information. This information helps us contact you and smoothly provide services to you, including but not limited to your telephone number, fax number, valid E-mail address, mailing address and your debit card information and/or other account information (hereinafter referred to as "service information").'
+// root.helpuserPrivacy.zwtitle04_3 = '3helpuserPrivacy、 In your use of this web site or the services it provides, we may be in order to improve the use function of the site, increase your use of this web site and its services and its safety experience or according to the jurisdiction of the court or the applicable laws and regulations or other government agencies of the command, the public through this website belong to our mailbox or other the way we think compliance to collect more necessary information.'
+// root.helpuserPrivacy.zwtitle04_4 = '4、 If you access any links to other third party websites or cooperating third parties on the site, you agree to and abide by the separate and independent privacy policies of such third party websites. We are not responsible for the content and activities of these websites or partners.'
+// root.helpuserPrivacy.zwtitle05 = '五、Cookies'
+// root.helpuserPrivacy.zwtitle05_1 = '1、 When you visit our site, we use Google Stats through cookies to track our performance and check the effectiveness of online ads. Cookies are small amounts of data sent to your browser and stored on your computer\'s hard drive. Cookies can only be sent to your hard drive when you use your computer to access our website.'
+// root.helpuserPrivacy.zwtitle05_2 = '2、 Cookies are often used to record the habits and preferences of visitors when they visit various items on our site. The information collected by Cookies is anonymous collective statistics and does not contain personal information.'
+// root.helpuserPrivacy.zwtitle05_3 = '3、 Cookies cannot be used to obtain data on your hard drive, your email address, and your personal data, which enables the website or service provider system to recognize your browser and capture and remember information. Most browsers are designed to accept Cookies. You can choose to set your browser to not accept Cookies, or to notify you as soon as Cookies are installed. However, if Cookies are disabled, you may not be able to activate or use certain features of our site.'
+// root.helpuserPrivacy.zwtitle06 = '六、Information usage'
+// root.helpuserPrivacy.zwtitle06_1 = '1、 We use your information collected by us for the following purposes or in the following ways:'
+// root.helpuserPrivacy.zwtitle06_11 = '●  Through our website to provide you with our services;'
+// root.helpuserPrivacy.zwtitle06_12 = '●  Identify and confirm your identity when using our website;'
+// root.helpuserPrivacy.zwtitle06_13 = '●  In order to improve and improve the service of the website (help us improve the service of the website according to the information and feedback we receive from you, so that we can respond to your service requests and support needs more effectively);'
+// root.helpuserPrivacy.zwtitle06_14 = '●  Statistics of our website usage data and data analysis of cooperation with government agencies and institutions;'
+// root.helpuserPrivacy.zwtitle06_15 = '●  Personalize your experience (your information will help us better respond to your personalized needs);'
+// root.helpuserPrivacy.zwtitle06_16 = '●  Processing transactions (your information, whether public or private, will not be sold, exchanged, transferred, or made available to any other company for any reason whatsoever without your consent, except for the express purpose of completing the transaction as required by you);'
+// root.helpuserPrivacy.zwtitle06_17 = '●  Send email regularly (you provide the email address of order processing, except occasionally receive our news, updates, related products or services information, etc., which can be used to send information and update your order to you);'
+// root.helpuserPrivacy.zwtitle06_18 = '●  Other purposes set forth in the user agreement of the website and all lawful means to meet such purposes.'
+// root.helpuserPrivacy.zwtitle06_2 = '2、 We will not give in to the other party to sell, trade or otherwise transfer or allow others to collect information, the use of information, but does not include the following the other party, and the following information: our related party, help we have been in our website, do business, or provide you with services of a trusted third party, as long as the parties agreed to keep such information confidential; When we believe that the information disclosed is appropriate, is in compliance with laws, regulations, rules and regulations or from the order of the court or other competent authorities, to implement our website strategy, the normal operation of the website, the related party to provide services required or protect the rights, property or safety of us or others. However, your information will not be provided to other parties for marketing, advertising or other purposes.'
+// root.helpuserPrivacy.zwtitle07 = '七、Protection of personal data'
+// root.helpuserPrivacy.zwtitle07_1 = '1、 We implement appropriate physical, electronic, management and technical measures to protect and protect the security of your personal data. We do our best to ensure that any personal information collected through our website is free from third parties who are not related to us. Our security measures include but are not limited to:'
+// root.helpuserPrivacy.zwtitle07_11 = '●  Physical measures: records containing your personal information will be stored in a locked place.'
+// root.helpuserPrivacy.zwtitle07_12 = '●  Electronic measures: computer data containing your personal information will be stored on computer systems and storage media with strict access restrictions.'
+// root.helpuserPrivacy.zwtitle07_13 = '●  Management measures: access to your personal data is restricted to authorized staff who are subject to our internal code of conduct on the confidentiality of personal data.'
+// root.helpuserPrivacy.zwtitle07_14 = '●  Technical measures: there may be Encryption techniques like Secure Socket Layer Encryption to transfer your personal data.'
+// root.helpuserPrivacy.zwtitle07_15 = '●  Other measures: our network servers are protected by "firewalls".'
+// root.helpuserPrivacy.zwtitle07_2 = '2、 If you are aware of any security breach on our website, please contact us immediately so that we can take appropriate action as soon as possible.'
+// root.helpuserPrivacy.zwtitle07_3 = '3、 Despite the implementation of the above technical and security measures, we cannot guarantee the absolute security of the transfer of information over the Internet, so we cannot guarantee the security of your personal data provided to us through our website at all times. We are not responsible for any unauthorized access to your personal data, and we are not responsible for any loss or damage caused or caused in this regard.'
+// root.helpuserPrivacy.zwtitle08 = '八、Revision of privacy policy'
+// root.helpuserPrivacy.zwtitle08_1 = 'We reserve the right to modify this privacy policy at any time. We inform you that our privacy policy has been revised by the effective date of the update and release of the new version, and highlight the revision office. Sometimes we will issue notices to inform you that the privacy policy has been revised, but this is not an obligation of us. You should check the privacy policy regularly and pay attention to its revision. If you do not agree with the contents of the revision, you should stop accessing the website immediately. When an updated version of the privacy policy is released, your continued access to the website displays and indicates that you agree to the updated content and agree to abide by the updated privacy policy.'
+// root.helpuserPrivacy.zwtitle09 = '九、Communicate with us'
+// root.helpuserPrivacy.zwtitle09_1 = '1、 If you have any requirements and opinions, you can email support@2020.exchange, which is the only valid and official email we communicate with you, so we do not take any responsibility for your failure to use valid contact information.'
+// root.helpuserPrivacy.zwtitle09_2 = '2、 We only release announcements and information through the effective contact information on this website or post announcements on this website, so we are not responsible for any losses arising from your trust in the information not obtained through the above means.'
+// root.helpuserPrivacy.zwtitle09_3 = '3、 If you have any questions about our privacy policy, please feel free to contact us.'
 
 
 

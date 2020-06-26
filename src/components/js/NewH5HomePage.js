@@ -160,7 +160,6 @@ root.destroyed = function () {
 root.components = {
   'Loading': resolve => require(['../vue/Loading'], resolve),
   'PopupPrompt': resolve => require(['../vue/PopupPrompt'], resolve),
-  'DetailsOfTheGroup': resolve => require(['../vue/DetailsOfTheGroup'], resolve),
 }
 
 // ------------------------------------ 计算 --------------------------------------
@@ -1155,6 +1154,10 @@ root.methods.gotoJiaoyi = function () {
 
 root.methods.gotoRecommend = function () {
   this.$router.push({name: 'H5Recommend'});
+}
+//跟单
+root.methods.gotoFollowTrade = function () {
+  this.$router.push({name: 'mobileFollowTrade'});
 }
 
 

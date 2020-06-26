@@ -1,4 +1,4 @@
-import root from "../../components/fundProducts/js/MobileFundBuy";
+// import root from "../../components/fundProducts/js/MobileFundBuy";
 
 const GlobalFunction = {}
 
@@ -467,8 +467,8 @@ GlobalFunction.removeArray = function (item, arr) {
   return [...newSet]
 }
 
-// 格式化时间
-root.methods.formatDateUitl = function (time) {
-  return this.$globalFunc.formatDateUitl(time, 'YYYY-MM-DD hh:mm:ss')
-}
+// // 格式化时间
+// root.methods.formatDateUitl = function (time) {
+//   return this.$globalFunc.formatDateUitl(time, 'YYYY-MM-DD hh:mm:ss')
+// }
 export default GlobalFunction

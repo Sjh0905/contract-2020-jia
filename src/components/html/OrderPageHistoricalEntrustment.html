@@ -89,9 +89,13 @@
             <!--市场 end -->
 
             <!--类别 begin -->
-            <div class="td td-category" :class="order.type==='BUY_LIMIT'?'text_blue-3':'text_red-4'">
+            <div class="td td-category" :class="order.type==='BUY_LIMIT'?'text_blue-3':'text_red-4'" v-if="!order.isFollow">
               {{order.type === 'BUY_LIMIT' && $t('orderPageHistoricalEntrustment.buy') ||
               $t('orderPageHistoricalEntrustment.sale') }}
+            </div>
+            <div class="td td-category" :class="order.type==='BUY_LIMIT'?'text_blue-3':'text_red-4'" v-if="order.isFollow">
+              {{order.type === 'BUY_LIMIT' && $t('orderPageHistoricalEntrustment.followBuy') ||
+              $t('orderPageHistoricalEntrustment.followSale') }}
             </div>
             <!--类别 end -->
 

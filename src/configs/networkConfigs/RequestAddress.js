@@ -501,4 +501,22 @@ requestAddress.GET_TKF_TICKETS = {url: urlHead+'/tkf/getTkftickets', method: 'ge
 
 //2020-06-05 获取热度值接口
 requestAddress.GET_HEAT_LIST = {url: urlHead+'/memberCard/queryHotDetail/', method: 'get'}  //获取热度列表
+
+
+//2020-06-15  跟单相关接口
+requestAddress.BIG_BROTHER_LIST = {url: urlHead+'/follow/listGod', method: 'post'} //首页大佬列表
+requestAddress.POST_ADDFOLLOWER= {url: urlHead+'/follow/user/addFollower', method: 'post'}  //跟单
+requestAddress.POST_BROTHER_ORDER= {url: urlHead+'/follow/user/historyOrderList', method: 'post'}  //大佬历史持仓
+requestAddress.POST_BROTHER_ORDER_SELF= {url: urlHead+'/follow/historyOrderList', method: 'post'}  //用户历史持仓
+requestAddress.POST_FOLLOWUSER= {url: urlHead+'/follow/user/listFollowUser', method: 'post'}  //大佬跟随者
+requestAddress.POST_FOLLOWUSER_LIST= {url: urlHead+'/follow/listFollowUser', method: 'post'}  //用户跟随者
+requestAddress.POST_MY_USER= {url: urlHead+'/follow/user/myFollowList', method: 'post'}  //我的镜像交易
+requestAddress.POST_DEL_FOLLOWER= {url: urlHead+'/follow/user/delFollower', method: 'post'}  //取消跟随
+requestAddress.POST_AUTO_RENEW= {url: urlHead+'/follow/user/autoRenew', method: 'post'}  //自动续费
+requestAddress.POST_UPDATE_RATEORLOT= {url: urlHead+'/follow/user/updateFollowRateOrLot', method: 'post'}  //确认修改
+requestAddress.POST_GOD= {url: urlHead+'/follow/god', method: 'post'}  //自动续费
+requestAddress.POST_GOD_BY_USERID= {url: urlHead+'/follow/godByUserId', method: 'post'}  //是否开启带单
+requestAddress.POST_REVISION_FEE= {url: urlHead+'/follow/updateFee', method: 'post'}  //修改带单费用
+requestAddress.POST_MANAGE = {url: urlHead+'/follow/followManage', method: 'post'}  //修改带单费用
+
 export default requestAddress

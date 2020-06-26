@@ -110,8 +110,8 @@ store.state.langZendeskObj = {
   'EN':'en-US',
   'CA':'en-US',
   'CHT':'zh-tw',
-  'KOR':'ko',
-  'JP':'ja'
+  // 'KOR':'ko',
+  // 'JP':'ja'
 }
 /**
  * 存储当前币对最小交易额和深度图满条值
