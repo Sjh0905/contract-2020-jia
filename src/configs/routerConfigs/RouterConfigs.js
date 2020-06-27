@@ -1833,428 +1833,428 @@ root.routes.push({
         // },
       ]
     },
-
-    {
-      path: 'personal',
-      // name: 'personal',
-      caseSensitive: true,
-      meta: {
-        requireLogin: true,
-      },
-      component: resolve => require(['@/components/vue/PersonalCenter'], resolve),
-      children: [
-        // 默认身份认证
-        {
-          path: '',
-          redirect: 'auth',
-          meta: {
-            requireLogin: true,
-            templateClose: false,
-            requireLoginOff: false,
-            mobileHeaderTitle: '个人中心'
-          },
-          caseSensitive: true,
-        },
-        // 安全中心
-        {
-          path: 'securityCenter',
-          name: 'securityCenter',
-          caseSensitive: true,
-          meta: {
-            requireLogin: true,
-            templateClose: false,
-            requireLoginOff: false,
-            mobileHeaderTitle: ''
-          },
-          component: resolve => require(['@/components/vue/PersonalCenterSecurityCenter'], resolve),
-          children: [
-            // 安全中心默认
-            {
-              path: '',
-              caseSensitive: true,
-              name: 'securityCenter',
-              meta: {
-                pcname: 'securityCenter',
-                h5name: 'authentication',
-                requireLogin: true,
-                templateClose: false,
-                requireLoginOff: false,
-                mobileHeaderTitle: ''
-              },
-              component: resolve => require(['@/components/vue/PersonalCenterSecurityCenterSecurityCenter'], resolve)
-            },
-            // 临时增加api
-            // {
-            //   path: 'templateApi',
-            //   caseSensitive: true,
-            //   meta: {
-            //     requireLogin: true,
-            //   },
-            //   component: resolve => require(['@/components/vue/TemplateApi'], resolve)
-            // },
-            // 修改登录密码
-            {
-              path: 'modifyLoginPassword',
-              name: 'modifyLoginPassword',
-
-              caseSensitive: true,
-              meta: {
-                pcname: 'modifyLoginPassword',
-                h5name: 'modifyLoginPassword',
-                requireLogin: true,
-                templateClose: false,
-                requireLoginOff: false,
-                mobileHeaderTitle: '修改密码'
-              },
-              component: resolve => require(['@/components/vue/PersonalCenterSecurityCenterModifyLoginPassword'], resolve)
-            },
-            // // 设置资金密码
-            // {
-            //   path: 'setAssetPassword',
-            //   caseSensitive: true,
-            //   meta: {
-            //     requireLogin: true,
-            //   },
-            //   component: resolve => require(['@/components/vue/PersonalCenterSecurityCenterSetAssetPassword'], resolve)
-            // },
-            // // 修改资金密码
-            // {
-            //   path: 'modifyAssetPassword',
-            //   caseSensitive: true,
-            //   meta: {
-            //     requireLogin: true,
-            //   },
-            //   component: resolve => require(['@/components/vue/PersonalCenterSecurityCenterModifyAssetPassword'], resolve)
-            // },
-            // // 找回资金密码
-            // {
-            //   path: 'retrieveAssetPassword',
-            //   caseSensitive: true,
-            //   meta: {
-            //     requireLogin: true,
-            //   },
-            //   component: resolve => require(['@/components/vue/PersonalCenterSecurityCenterRetrieveAssetPassword'], resolve)
-            // },
-            // 绑定谷歌验证
-            {
-              path: 'bindGoogleAuthenticator',
-              name: 'bindGoogleAuthenticator',
-
-              caseSensitive: true,
-              meta: {
-                pcname: 'bindGoogleAuthenticator',
-                h5name: 'MobileBindGoogleAuthenticator',
-                requireLogin: true,
-                templateClose: false,
-                requireLoginOff: false,
-                mobileHeaderTitle: ''
-              },
-              component: resolve => require(['@/components/vue/PersonalCenterSecurityCenterBindGoogleAuthenticator'], resolve)
-            },
-            //手机绑定谷歌验证码
-            {
-              path: 'MobileBindGoogleAuthenticator',
-              name: 'MobileBindGoogleAuthenticator',
-
-              caseSensitive: true,
-              meta: {
-                pcname: 'bindGoogleAuthenticator',
-                h5name: 'MobileBindGoogleAuthenticator',
-                requireLogin: true,
-                templateClose: false,
-                requireLoginOff: false,
-                mobileHeaderTitle: ''
-              },
-              component: resolve => require(['@/components/mobileVue/MobileBindGoogleAuthenticator'], resolve)
-            },
-            //手机 去 绑定谷歌验证码
-            {
-              path: 'MobileGoBindGoogleAuthenticator',
-              name: 'MobileGoBindGoogleAuthenticator',
-
-              caseSensitive: true,
-              meta: {
-                pcname: '',
-                h5name: 'MobileGoBindGoogleAuthenticator',
-                requireLogin: true,
-                templateClose: false,
-                requireLoginOff: false,
-                mobileHeaderTitle: ''
-              },
-              component: resolve => require(['@/components/mobileVue/MobileGoBindGoogleAuthenticator'], resolve)
-            },
-            //手机 去解绑 谷歌验证码
-            {
-              path: 'MobileReleaseGoogleAuthenticator',
-              name: 'MobileReleaseGoogleAuthenticator',
-              caseSensitive: true,
-              meta: {
-                pcname: 'releaseGoogleAuthenticator',
-                h5name: 'MobileReleaseGoogleAuthenticator',
-                requireLogin: true,
-                templateClose: false,
-                requireLoginOff: false,
-                mobileHeaderTitle: ''
-              },
-              component: resolve => require(['@/components/mobileVue/MobileReleaseGoogleAuthenticator'], resolve)
-            },
-            // 解绑谷歌验证
-            {
-              path: 'releaseGoogleAuthenticator',
-              name: 'releaseGoogleAuthenticator',
-              caseSensitive: true,
-              meta: {
-                pcname: 'releaseGoogleAuthenticator',
-                h5name: 'MobileReleaseGoogleAuthenticator',
-                requireLogin: true,
-                templateClose: false,
-                requireLoginOff: false,
-                mobileHeaderTitle: ''
-              },
-              component: resolve => require(['@/components/vue/PersonalCenterSecurityCenterReleaseGoogleAuthenticator'], resolve)
-            },
-            // 绑定手机号
-            {
-              path: 'bindMobile',
-              name: 'bindMobile',
-              caseSensitive: true,
-              meta: {
-                pcname: 'bindMobile',
-                h5name: 'bindMobile',
-                requireLogin: true,
-                mobileHeaderTitle: '绑定手机号'
-              },
-              component: resolve => require(['@/components/vue/PersonalCenterSecurityCenterBindMobile'], resolve)
-            },
-            // 解绑手机号
-            {
-              path: 'releaseMobile',
-              name: 'releaseMobile',
-              caseSensitive: true,
-              meta: {
-                pcname: 'releaseMobile',
-                h5name: 'releaseMobile',
-                requireLogin: true,
-                templateClose: false,
-                requireLoginOff: false,
-                mobileHeaderTitle: '解绑手机号'
-              },
-              component: resolve => require(['@/components/vue/PersonalCenterSecurityCenterReleaseMobile'], resolve)
-            },
-            // 绑定邮箱
-            {
-              path: 'bindEmail',
-              name: 'bindEmail',
-              caseSensitive: true,
-              meta: {
-                pcname: 'bindEmail',
-                h5name: 'bindEmail',
-                requireLogin: true,
-                mobileHeaderTitle: '绑定邮箱'
-              },
-              component: resolve => require(['@/components/vue/PersonalCenterSecurityCenterBindEmail'], resolve)
-            },
-            // 解绑邮箱
-            {
-              path: 'releaseEmail',
-              name: 'releaseEmail',
-              caseSensitive: true,
-              meta: {
-                pcname: 'releaseEmail',
-                h5name: 'releaseEmail',
-                requireLogin: true,
-                templateClose: false,
-                requireLoginOff: false,
-                mobileHeaderTitle: '解绑邮箱'
-              },
-              component: resolve => require(['@/components/vue/PersonalCenterSecurityCenterReleaseEmail'], resolve)
-            },
-            // 启用API
-            {
-              path: 'openApi',
-              name: 'openApi',
-              caseSensitive: true,
-              meta: {
-                pcname: 'openApi',
-                h5name: 'openApi',
-                requireLogin: true,
-                templateClose: false,
-                requireLoginOff: false,
-                mobileHeaderTitle: '启用API'
-              },
-              component: resolve => require(['@/components/vue/PersonalCenterSecurityCenterOpenApi'], resolve)
-            },
-            // 管理API
-            {
-              path: 'manageApi',
-              name: 'manageApi',
-              caseSensitive: true,
-              meta: {
-                pcname: 'manageApi',
-                h5name: 'manageApi',
-                requireLogin: true,
-                templateClose: false,
-                requireLoginOff: false,
-                mobileHeaderTitle: '管理API'
-              },
-              component: resolve => require(['@/components/vue/PersonalCenterSecurityCenterManageApi'], resolve)
-            },
-          ]
-        },
-        // 安全日志
-        {
-          path: 'securityLog',
-          name: 'securityLog',
-          caseSensitive: true,
-          meta: {
-            pcname: 'securityLog',
-            h5name: '',
-            requireLogin: true,
-            templateClose: false,
-            requireLoginOff: false,
-          },
-          component: resolve => require(['@/components/vue/PersonalCenterSecurityLog'], resolve)
-        },
-
-        // H5我的推荐
-        {
-          path: 'H5Recommend',
-          name: 'H5Recommend',
-
-          caseSensitive: true,
-          meta: {
-            pcname: '',
-            h5name: 'H5Recommend',
-            requireLogin: true,
-            templateClose: false,
-            requireLoginOff: false,
-          },
-          component: resolve => require(['@/components/mobileVue/PersonalCenterH5Recommend'], resolve)
-        },
-
-        // H5我的专属海报
-        // {
-        //   path: 'H5PosterInvitation',
-        //   name: 'H5PosterInvitation',
-        //
-        //   caseSensitive: true,
-        //   meta: {
-        //     pcname: '',
-        //     h5name: 'H5PosterInvitation',
-        //     requireLogin: true,
-        //     templateClose: false,
-        //     requireLoginOff: false,
-        //   },
-        //   component: resolve => require(['@/components/mobileVue/PersonalCenterH5PosterInvitation'], resolve)
-        // },
-        // 安全策略
-        // {
-        //   path: 'securityStrategy',
-        //   caseSensitive: true,
-        //   meta: {
-        //     requireLogin: true,
-        //   },
-        //   component: resolve => require(['@/components/vue/PersonalCenterSecurityStrategy'], resolve)
-        // },
-
-
-        // 身份认证
-        {
-          path: 'auth',
-          caseSensitive: true,
-          meta: {
-            requireLogin: true,
-            templateClose: false,
-            requireLoginOff: false,
-          },
-          component: resolve => require(['@/components/vue/PersonalCenterAuth'], resolve),
-          children: [
-            // 默认认证状态
-            {
-              path: '',
-              caseSensitive: true,
-              meta: {
-                requireLogin: true,
-                templateClose: false,
-                requireLoginOff: false,
-              },
-              redirect: 'authentication'
-            },
-            // 认证状态
-            {
-              path: 'authentication',
-              name: 'authentication',
-              caseSensitive: true,
-              meta: {
-                pcname: 'authentication',
-                h5name: 'authentication',
-                requireLogin: true,
-                templateClose: false,
-                requireLoginOff: false,
-              },
-              component: resolve => require(['@/components/vue/PersonalCenterAuthAuthenticationState'], resolve)
-            },
-            // 去认证
-            {
-              path: 'authenticate',
-              name: 'authenticate',
-              caseSensitive: true,
-              meta: {
-                pcname: 'authenticate',
-                h5name: '',
-                requireLogin: true,
-                templateClose: false,
-                requireLoginOff: false,
-              },
-              component: resolve => require(['@/components/vue/PersonalCenterAuthToAuthenticate'], resolve)
-            },
-            //燃烧BDB收益
-            {
-              path: 'burnBDBProfit',
-              name: 'burnBDBProfit',
-              caseSensitive: true,
-              meta: {
-                pcname: 'burnBDBProfit',
-                h5name: '',
-                requireLogin: true,
-                templateClose: false,
-                requireLoginOff: false,
-              },
-              component: resolve => require(['@/components/btActivity/vue/BtActivityBDBBurnProfit'], resolve)
-            },
-
-          ]
-        },
-        // 我的为蜜  TODO 合约删除
-        // {
-        //   path: 'mySuperBee',
-        //   name: 'mySuperBee',
-        //   caseSensitive: true,
-        //   meta: {
-        //     pcname: 'mySuperBee',
-        //     h5name: '',
-        //     requireLogin: true,
-        //     templateClose: false,
-        //     requireLoginOff: false,
-        //   },
-        //   component: resolve => require(['@/components/vue/PersonalCenterMySuperBee'], resolve)
-        // },
-        // TODO:要删除  TODO 合约删除
-        // 挖矿收益
-        // {
-        //   path: 'btActivity',
-        //   name: 'btActivity',
-        //   caseSensitive: true,
-        //   meta: {
-        //     mobileHeaderTitle: '',
-        //     pcname: 'btActivity',
-        //     h5name: 'MobileBTActivityHomePage',
-        //     requireLogin: true,
-        //   },
-        //   component: resolve => require(['@/components/btActivity/vue/BtActivity.vue'], resolve),
-        // },
-      ]
-    },
+    // TODO：合约删除
+    // {
+    //   path: 'personal',
+    //   // name: 'personal',
+    //   caseSensitive: true,
+    //   meta: {
+    //     requireLogin: true,
+    //   },
+    //   component: resolve => require(['@/components/vue/PersonalCenter'], resolve),
+    //   children: [
+    //     // 默认身份认证
+    //     {
+    //       path: '',
+    //       redirect: 'auth',
+    //       meta: {
+    //         requireLogin: true,
+    //         templateClose: false,
+    //         requireLoginOff: false,
+    //         mobileHeaderTitle: '个人中心'
+    //       },
+    //       caseSensitive: true,
+    //     },
+    //     // 安全中心  TODO：合约删除
+    //     // {
+    //     //   path: 'securityCenter',
+    //     //   name: 'securityCenter',
+    //     //   caseSensitive: true,
+    //     //   meta: {
+    //     //     requireLogin: true,
+    //     //     templateClose: false,
+    //     //     requireLoginOff: false,
+    //     //     mobileHeaderTitle: ''
+    //     //   },
+    //     //   component: resolve => require(['@/components/vue/PersonalCenterSecurityCenter'], resolve),
+    //     //   children: [
+    //     //     // 安全中心默认  TODO：合约删除
+    //     //     // {
+    //     //     //   path: '',
+    //     //     //   caseSensitive: true,
+    //     //     //   name: 'securityCenter',
+    //     //     //   meta: {
+    //     //     //     pcname: 'securityCenter',
+    //     //     //     h5name: 'authentication',
+    //     //     //     requireLogin: true,
+    //     //     //     templateClose: false,
+    //     //     //     requireLoginOff: false,
+    //     //     //     mobileHeaderTitle: ''
+    //     //     //   },
+    //     //     //   component: resolve => require(['@/components/vue/PersonalCenterSecurityCenterSecurityCenter'], resolve)
+    //     //     // },
+    //     //     // 临时增加api TODO：合约删除
+    //     //     // {
+    //     //     //   path: 'templateApi',
+    //     //     //   caseSensitive: true,
+    //     //     //   meta: {
+    //     //     //     requireLogin: true,
+    //     //     //   },
+    //     //     //   component: resolve => require(['@/components/vue/TemplateApi'], resolve)
+    //     //     // },
+    //     //     // 修改登录密码  TODO：合约删除
+    //     //     // {
+    //     //     //   path: 'modifyLoginPassword',
+    //     //     //   name: 'modifyLoginPassword',
+    //     //     //
+    //     //     //   caseSensitive: true,
+    //     //     //   meta: {
+    //     //     //     pcname: 'modifyLoginPassword',
+    //     //     //     h5name: 'modifyLoginPassword',
+    //     //     //     requireLogin: true,
+    //     //     //     templateClose: false,
+    //     //     //     requireLoginOff: false,
+    //     //     //     mobileHeaderTitle: '修改密码'
+    //     //     //   },
+    //     //     //   component: resolve => require(['@/components/vue/PersonalCenterSecurityCenterModifyLoginPassword'], resolve)
+    //     //     // },
+    //     //     // // 设置资金密码   TODO 合约删除
+    //     //     // {
+    //     //     //   path: 'setAssetPassword',
+    //     //     //   caseSensitive: true,
+    //     //     //   meta: {
+    //     //     //     requireLogin: true,
+    //     //     //   },
+    //     //     //   component: resolve => require(['@/components/vue/PersonalCenterSecurityCenterSetAssetPassword'], resolve)
+    //     //     // },
+    //     //     // // 修改资金密码   TODO 合约删除
+    //     //     // {
+    //     //     //   path: 'modifyAssetPassword',
+    //     //     //   caseSensitive: true,
+    //     //     //   meta: {
+    //     //     //     requireLogin: true,
+    //     //     //   },
+    //     //     //   component: resolve => require(['@/components/vue/PersonalCenterSecurityCenterModifyAssetPassword'], resolve)
+    //     //     // },
+    //     //     // // 找回资金密码   TODO 合约删除
+    //     //     // {
+    //     //     //   path: 'retrieveAssetPassword',
+    //     //     //   caseSensitive: true,
+    //     //     //   meta: {
+    //     //     //     requireLogin: true,
+    //     //     //   },
+    //     //     //   component: resolve => require(['@/components/vue/PersonalCenterSecurityCenterRetrieveAssetPassword'], resolve)
+    //     //     // },
+    //     //     // 绑定谷歌验证   TODO 合约删除
+    //     //     {
+    //     //       path: 'bindGoogleAuthenticator',
+    //     //       name: 'bindGoogleAuthenticator',
+    //     //
+    //     //       caseSensitive: true,
+    //     //       meta: {
+    //     //         pcname: 'bindGoogleAuthenticator',
+    //     //         h5name: 'MobileBindGoogleAuthenticator',
+    //     //         requireLogin: true,
+    //     //         templateClose: false,
+    //     //         requireLoginOff: false,
+    //     //         mobileHeaderTitle: ''
+    //     //       },
+    //     //       component: resolve => require(['@/components/vue/PersonalCenterSecurityCenterBindGoogleAuthenticator'], resolve)
+    //     //     },
+    //     //     //手机绑定谷歌验证码 TODO 合约删除
+    //     //     {
+    //     //       path: 'MobileBindGoogleAuthenticator',
+    //     //       name: 'MobileBindGoogleAuthenticator',
+    //     //
+    //     //       caseSensitive: true,
+    //     //       meta: {
+    //     //         pcname: 'bindGoogleAuthenticator',
+    //     //         h5name: 'MobileBindGoogleAuthenticator',
+    //     //         requireLogin: true,
+    //     //         templateClose: false,
+    //     //         requireLoginOff: false,
+    //     //         mobileHeaderTitle: ''
+    //     //       },
+    //     //       component: resolve => require(['@/components/mobileVue/MobileBindGoogleAuthenticator'], resolve)
+    //     //     },
+    //     //     //手机 去 绑定谷歌验证码 TODO 合约删除
+    //     //     {
+    //     //       path: 'MobileGoBindGoogleAuthenticator',
+    //     //       name: 'MobileGoBindGoogleAuthenticator',
+    //     //
+    //     //       caseSensitive: true,
+    //     //       meta: {
+    //     //         pcname: '',
+    //     //         h5name: 'MobileGoBindGoogleAuthenticator',
+    //     //         requireLogin: true,
+    //     //         templateClose: false,
+    //     //         requireLoginOff: false,
+    //     //         mobileHeaderTitle: ''
+    //     //       },
+    //     //       component: resolve => require(['@/components/mobileVue/MobileGoBindGoogleAuthenticator'], resolve)
+    //     //     },
+    //     //     //手机 去解绑 谷歌验证码 TODO 合约删除
+    //     //     {
+    //     //       path: 'MobileReleaseGoogleAuthenticator',
+    //     //       name: 'MobileReleaseGoogleAuthenticator',
+    //     //       caseSensitive: true,
+    //     //       meta: {
+    //     //         pcname: 'releaseGoogleAuthenticator',
+    //     //         h5name: 'MobileReleaseGoogleAuthenticator',
+    //     //         requireLogin: true,
+    //     //         templateClose: false,
+    //     //         requireLoginOff: false,
+    //     //         mobileHeaderTitle: ''
+    //     //       },
+    //     //       component: resolve => require(['@/components/mobileVue/MobileReleaseGoogleAuthenticator'], resolve)
+    //     //     },
+    //     //     // 解绑谷歌验证   TODO 合约删除
+    //     //     {
+    //     //       path: 'releaseGoogleAuthenticator',
+    //     //       name: 'releaseGoogleAuthenticator',
+    //     //       caseSensitive: true,
+    //     //       meta: {
+    //     //         pcname: 'releaseGoogleAuthenticator',
+    //     //         h5name: 'MobileReleaseGoogleAuthenticator',
+    //     //         requireLogin: true,
+    //     //         templateClose: false,
+    //     //         requireLoginOff: false,
+    //     //         mobileHeaderTitle: ''
+    //     //       },
+    //     //       component: resolve => require(['@/components/vue/PersonalCenterSecurityCenterReleaseGoogleAuthenticator'], resolve)
+    //     //     },
+    //     //     // 绑定手机号  TODO 合约删除
+    //     //     {
+    //     //       path: 'bindMobile',
+    //     //       name: 'bindMobile',
+    //     //       caseSensitive: true,
+    //     //       meta: {
+    //     //         pcname: 'bindMobile',
+    //     //         h5name: 'bindMobile',
+    //     //         requireLogin: true,
+    //     //         mobileHeaderTitle: '绑定手机号'
+    //     //       },
+    //     //       component: resolve => require(['@/components/vue/PersonalCenterSecurityCenterBindMobile'], resolve)
+    //     //     },
+    //     //     // 解绑手机号 TODO 合约删除
+    //     //     {
+    //     //       path: 'releaseMobile',
+    //     //       name: 'releaseMobile',
+    //     //       caseSensitive: true,
+    //     //       meta: {
+    //     //         pcname: 'releaseMobile',
+    //     //         h5name: 'releaseMobile',
+    //     //         requireLogin: true,
+    //     //         templateClose: false,
+    //     //         requireLoginOff: false,
+    //     //         mobileHeaderTitle: '解绑手机号'
+    //     //       },
+    //     //       component: resolve => require(['@/components/vue/PersonalCenterSecurityCenterReleaseMobile'], resolve)
+    //     //     },
+    //     //     // 绑定邮箱  TODO 合约删除
+    //     //     {
+    //     //       path: 'bindEmail',
+    //     //       name: 'bindEmail',
+    //     //       caseSensitive: true,
+    //     //       meta: {
+    //     //         pcname: 'bindEmail',
+    //     //         h5name: 'bindEmail',
+    //     //         requireLogin: true,
+    //     //         mobileHeaderTitle: '绑定邮箱'
+    //     //       },
+    //     //       component: resolve => require(['@/components/vue/PersonalCenterSecurityCenterBindEmail'], resolve)
+    //     //     },
+    //     //     // 解绑邮箱  TODO 合约删除
+    //     //     {
+    //     //       path: 'releaseEmail',
+    //     //       name: 'releaseEmail',
+    //     //       caseSensitive: true,
+    //     //       meta: {
+    //     //         pcname: 'releaseEmail',
+    //     //         h5name: 'releaseEmail',
+    //     //         requireLogin: true,
+    //     //         templateClose: false,
+    //     //         requireLoginOff: false,
+    //     //         mobileHeaderTitle: '解绑邮箱'
+    //     //       },
+    //     //       component: resolve => require(['@/components/vue/PersonalCenterSecurityCenterReleaseEmail'], resolve)
+    //     //     },
+    //     //     // 启用API TODO 合约删除
+    //     //     {
+    //     //       path: 'openApi',
+    //     //       name: 'openApi',
+    //     //       caseSensitive: true,
+    //     //       meta: {
+    //     //         pcname: 'openApi',
+    //     //         h5name: 'openApi',
+    //     //         requireLogin: true,
+    //     //         templateClose: false,
+    //     //         requireLoginOff: false,
+    //     //         mobileHeaderTitle: '启用API'
+    //     //       },
+    //     //       component: resolve => require(['@/components/vue/PersonalCenterSecurityCenterOpenApi'], resolve)
+    //     //     },
+    //     //     // 管理API TODO 合约删除
+    //     //     {
+    //     //       path: 'manageApi',
+    //     //       name: 'manageApi',
+    //     //       caseSensitive: true,
+    //     //       meta: {
+    //     //         pcname: 'manageApi',
+    //     //         h5name: 'manageApi',
+    //     //         requireLogin: true,
+    //     //         templateClose: false,
+    //     //         requireLoginOff: false,
+    //     //         mobileHeaderTitle: '管理API'
+    //     //       },
+    //     //       component: resolve => require(['@/components/vue/PersonalCenterSecurityCenterManageApi'], resolve)
+    //     //     },
+    //     //   ]
+    //     // },
+    //     // 安全日志  todo 合约删除
+    //     // {
+    //     //   path: 'securityLog',
+    //     //   name: 'securityLog',
+    //     //   caseSensitive: true,
+    //     //   meta: {
+    //     //     pcname: 'securityLog',
+    //     //     h5name: '',
+    //     //     requireLogin: true,
+    //     //     templateClose: false,
+    //     //     requireLoginOff: false,
+    //     //   },
+    //     //   component: resolve => require(['@/components/vue/PersonalCenterSecurityLog'], resolve)
+    //     // },
+    //
+    //     // H5我的推荐 TODO 合约删除
+    //     {
+    //       path: 'H5Recommend',
+    //       name: 'H5Recommend',
+    //
+    //       caseSensitive: true,
+    //       meta: {
+    //         pcname: '',
+    //         h5name: 'H5Recommend',
+    //         requireLogin: true,
+    //         templateClose: false,
+    //         requireLoginOff: false,
+    //       },
+    //       component: resolve => require(['@/components/mobileVue/PersonalCenterH5Recommend'], resolve)
+    //     },
+    //
+    //     // H5我的专属海报  TODO 合约删除
+    //     // {
+    //     //   path: 'H5PosterInvitation',
+    //     //   name: 'H5PosterInvitation',
+    //     //
+    //     //   caseSensitive: true,
+    //     //   meta: {
+    //     //     pcname: '',
+    //     //     h5name: 'H5PosterInvitation',
+    //     //     requireLogin: true,
+    //     //     templateClose: false,
+    //     //     requireLoginOff: false,
+    //     //   },
+    //     //   component: resolve => require(['@/components/mobileVue/PersonalCenterH5PosterInvitation'], resolve)
+    //     // },
+    //     // 安全策略  TODO 合约删除
+    //     // {
+    //     //   path: 'securityStrategy',
+    //     //   caseSensitive: true,
+    //     //   meta: {
+    //     //     requireLogin: true,
+    //     //   },
+    //     //   component: resolve => require(['@/components/vue/PersonalCenterSecurityStrategy'], resolve)
+    //     // },
+    //
+    //
+    //     // 身份认证 TODO 合约删除
+    //     {
+    //       path: 'auth',
+    //       caseSensitive: true,
+    //       meta: {
+    //         requireLogin: true,
+    //         templateClose: false,
+    //         requireLoginOff: false,
+    //       },
+    //       component: resolve => require(['@/components/vue/PersonalCenterAuth'], resolve),
+    //       children: [
+    //         // 默认认证状态
+    //         {
+    //           path: '',
+    //           caseSensitive: true,
+    //           meta: {
+    //             requireLogin: true,
+    //             templateClose: false,
+    //             requireLoginOff: false,
+    //           },
+    //           redirect: 'authentication'
+    //         },
+    //         // 认证状态 TODO 合约删除
+    //         {
+    //           path: 'authentication',
+    //           name: 'authentication',
+    //           caseSensitive: true,
+    //           meta: {
+    //             pcname: 'authentication',
+    //             h5name: 'authentication',
+    //             requireLogin: true,
+    //             templateClose: false,
+    //             requireLoginOff: false,
+    //           },
+    //           component: resolve => require(['@/components/vue/PersonalCenterAuthAuthenticationState'], resolve)
+    //         },
+    //         // 去认证  TODO 合约删除
+    //         {
+    //           path: 'authenticate',
+    //           name: 'authenticate',
+    //           caseSensitive: true,
+    //           meta: {
+    //             pcname: 'authenticate',
+    //             h5name: '',
+    //             requireLogin: true,
+    //             templateClose: false,
+    //             requireLoginOff: false,
+    //           },
+    //           component: resolve => require(['@/components/vue/PersonalCenterAuthToAuthenticate'], resolve)
+    //         },
+    //         //燃烧BDB收益   TODO 合约删除
+    //         {
+    //           path: 'burnBDBProfit',
+    //           name: 'burnBDBProfit',
+    //           caseSensitive: true,
+    //           meta: {
+    //             pcname: 'burnBDBProfit',
+    //             h5name: '',
+    //             requireLogin: true,
+    //             templateClose: false,
+    //             requireLoginOff: false,
+    //           },
+    //           component: resolve => require(['@/components/btActivity/vue/BtActivityBDBBurnProfit'], resolve)
+    //         },
+    //
+    //       ]
+    //     },
+    //     // 我的为蜜  TODO 合约删除
+    //     // {
+    //     //   path: 'mySuperBee',
+    //     //   name: 'mySuperBee',
+    //     //   caseSensitive: true,
+    //     //   meta: {
+    //     //     pcname: 'mySuperBee',
+    //     //     h5name: '',
+    //     //     requireLogin: true,
+    //     //     templateClose: false,
+    //     //     requireLoginOff: false,
+    //     //   },
+    //     //   component: resolve => require(['@/components/vue/PersonalCenterMySuperBee'], resolve)
+    //     // },
+    //     // TODO:要删除  TODO 合约删除
+    //     // 挖矿收益
+    //     // {
+    //     //   path: 'btActivity',
+    //     //   name: 'btActivity',
+    //     //   caseSensitive: true,
+    //     //   meta: {
+    //     //     mobileHeaderTitle: '',
+    //     //     pcname: 'btActivity',
+    //     //     h5name: 'MobileBTActivityHomePage',
+    //     //     requireLogin: true,
+    //     //   },
+    //     //   component: resolve => require(['@/components/btActivity/vue/BtActivity.vue'], resolve),
+    //     // },
+    //   ]
+    // },
 
     // 行情  TODO 合约删除
     {
