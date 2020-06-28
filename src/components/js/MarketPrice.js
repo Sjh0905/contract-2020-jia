@@ -147,7 +147,7 @@ root.computed.currencylist = function () {
     //   return
     // }
 
-    !o[0].optionalArea && (o[0].optionalArea = [])
+    /*!o[0].optionalArea && (o[0].optionalArea = [])
     !o[0].createArea && (o[0].createArea = [])
     // 如果是自选区
     if (collectionMarketSet.has(symbol)) {
@@ -163,7 +163,7 @@ root.computed.currencylist = function () {
 
       o[0].createArea.push(initData);
       return;
-    }
+    }*/
 
     // 如果不是
     !o[0][currency] && (o[0][currency] = []);
@@ -178,10 +178,10 @@ root.computed.currencylist = function () {
 // 选中的市场数据
 root.computed.computedMarketList = function () {
   let ans = this.selectMarketChange
-  if(this.selectMarket[this.selectEdition] === this.$t('Favorites'))return this.currencylist[this.selectEdition].optionalArea
-  if(this.selectMarket[this.selectEdition] === this.$t('Innovation'))return this.currencylist[this.selectEdition].createArea
+  // if(this.selectMarket[this.selectEdition] === this.$t('Favorites'))return this.currencylist[this.selectEdition].optionalArea
+  // if(this.selectMarket[this.selectEdition] === this.$t('Innovation'))return this.currencylist[this.selectEdition].createArea
 
-  // console.log('hhhhh====',this.currencylist,this.selectEdition,this.selectMarket,this.selectEdition)
+  console.log('hhhhh====',this.currencylist,this.selectEdition,this.selectMarket,this.selectEdition)
   return (this.currencylist[this.selectEdition][this.selectMarket[this.selectEdition]] || []).sort((a,b)=>!b.open && b.open - a.open) || []
 }
 

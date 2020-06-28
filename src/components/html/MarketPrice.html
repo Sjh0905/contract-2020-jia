@@ -38,27 +38,20 @@
 
 <!--  <div class="border-box">-->
 <!-- cc 遍历标题-->
-    <div class="market-list-container flex">
-      <div v-for="item in marketList"
-           class="market-list-detail"
-           :class="{'selected-market':selectedMarket(item)}"
-      >
-        <span class="market-list-click-area pointer"
-              @click="changeMarket(item)"
-        >
-          <!--<img src="../../assets/selectedSelf_icon.png" class="selected-self-icon" v-if="item=== $t('Favorites')"  alt="">-->
-          {{item}}
-          <span class="reduce_icon" :class="lang != 'CH' && 'en'"
-                v-if="reduce_list.indexOf(item) > '-1'"
-          >
-            <font v-if="lang == 'CH'">免</font>
-            <font v-else>fee</font>
-            <span v-if="lang != 'CH'" class="reduce_icon_line"></span>
-          </span>
-        </span>
-      </div>
-    </div>
-
+    <!--<div class="market-list-container flex">-->
+      <!--<div v-for="item in marketList"-->
+           <!--class="market-list-detail"-->
+           <!--:class="{'selected-market':selectedMarket(item)}"-->
+      <!--&gt;-->
+        <!--<span class="market-list-click-area pointer"-->
+              <!--@click="changeMarket(item)"-->
+        <!--&gt;-->
+          <!--&lt;!&ndash;<img src="../../assets/selectedSelf_icon.png" class="selected-self-icon" v-if="item=== $t('Favorites')"  alt="">&ndash;&gt;-->
+          <!--{{item}}-->
+        <!--</span>-->
+      <!--</div>-->
+    <!--</div>-->
+    <div class="market-type-title">永续合约</div>
     <div class="market-price-title11">
 <!--      <div  class="tt1">市场</div>-->
       <div  class="tt2">

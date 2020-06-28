@@ -24,7 +24,13 @@
   /*margin-top: 10px;*/
   justify-content: space-between;
 }
-
+.traddinghall-market-wrap {
+  /*margin-left: 6px;*/
+  /*width: 16.312%;*/
+  width: 300px;
+  /*background-color: aliceblue;*/
+  background-color: #0D111F;
+}
 .traddinghall-mid-left {
   /*width: 18.997%;*/
   width: 300px;
