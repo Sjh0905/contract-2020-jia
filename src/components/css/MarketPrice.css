@@ -78,7 +78,19 @@
   text-align: center;
 }
 
+.market-type-title {
+  width:300px;
+  height:44px;
+  line-height: 44px;
+  background:#0D111F;
+  border-bottom: 1px solid #1E1F22;
+  padding-left: 15px;
 
+  font-size:12px;
+  font-family:PingFangSC-Medium,PingFang SC;
+  font-weight:500;
+  color:rgba(137,147,165,1);
+}
 .market-price-title11 {
   margin: 8px 15px 13px;
   /* height: 40px; */

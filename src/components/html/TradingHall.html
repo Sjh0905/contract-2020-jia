@@ -9,132 +9,134 @@
 
   <div class="traddinghall-main-wrap flex-row  ">
     <!--左侧 货币对 和 饼图-->
-    <div class="traddinghall-right-wrap">
-
+    <div class="traddinghall-market-wrap">
       <div class="MarketPrice-wrap" style="border-bottom: 0">
         <MarketPrice :currency_list="currency_list" :socket_price="socket_price" :btc_eth_rate="btc_eth_rate"
                      :socket_tick="socket_tick"/>
       </div>
-
     </div>
 
-    <!--中路 k线 和 买卖-->
-    <div class="traddinghall-mid-wrap">
-      <!--币种资料-->
-      <!--<div class="bizhonginfo"    @mouseenter="showInfo()" @mouseleave="closeInfo()" v-if="showinfo">-->
-         <!--<div src="../../assets/sanjiao.png" class="sanjimg"/>-->
-        <!--<CurrencyIntroduction/>-->
-      <!--</div>-->
-      <!--币种资料 end-->
-      <div class="centertop">
-        <div class="cen1"    @mouseenter="showInfo()" @mouseleave="closeInfo()">{{symbol.split('_')[0]}}<em class="txt_light">/</em>{{symbol.split('_')[1]}}</div>
-        <div class="cen2"><div class="cen21"> {{isNowPrice}}</div><div class="cen22"><em class="txt_light">≈</em>{{isCnyPrice}}</div></div>
-        <div class="cen2"><div class="cen31"> {{$t('Change')}}</div><div class="cen32">
-          <span class="txt" :class="diff24 > 0 ? 'txt-price' : (diff24 == 0 ? '' : 'txt-price-red')"><span
-            style="font-size: 1.4rem">{{diff24 > 0 ? '+' : ''}}{{diff24Ratio}}%</span> <em class="up_down_icon"
-                                                                                           :class="diff24 > 0 ? 'up_icon' : (diff24 == 0 ? '' : 'down_icon')"></em></span>
-        </div></div>
-        <div class="cen2"><div class="cen31"> {{$t('High')}} </div><div class="cen32">
-          <span class="txt detail_txt">{{high24}}</span>
-        </div></div>
-        <div class="cen2"><div class="cen31"> {{$t('Low')}}</div><div class="cen32">
-          <span class="txt detail_txt">{{low24}}</span>
-        </div></div>
-        <div class="cen2"><div class="cen31"> {{$t('Volum')}}</div><div class="cen32">
-          <span class="txt detail_txt">{{volume}}&nbsp;{{symbol.split('_')[0]}}</span>
-        </div></div>
-      </div>
-      <div class="TradingView-wrap">
-        <TradeContainer :topic_bar="topic_bar"/>
+    <!--交易页市场的右侧-->
+    <div class="traddinghall-main-right flex-colum">
+
+      <div class="traddinghall-main-right-top">
       </div>
 
-
-      <div class="trading-wrap">
-        <div class="progress-bar-title traddinghall-border-bottom relative ">
-          <div class="progress-bar-title-brand ">
-            {{$t("fixedPrice")}}
-          </div>
-<!--          <div class="progress-bar-title-brand-default">-->
-<!--            市价-->
-<!--          </div>-->
-<!--          <div class="progress-bar-title-brand-default">-->
-<!--            止损-->
-<!--          </div>-->
-<!--          <div class="progress-bar-title-brand-default">-->
-<!--            限价止损-->
-<!--          </div>-->
-<!--          <div class="progress-bar-title-brand-default">-->
-<!--            移动止损-->
-<!--          </div>-->
-
-
-          <!--<div class="service_charge ">-->
-              <!--<span>-->
-                <!--{{$t("serverCharge")}}: <em :class="{'delete' : BDBInfo}">0.2%</em> <em-->
-                <!--:class="{'delete' : !BDBInfo}"> 0.14%</em>-->
-                <!--&lt;!&ndash;{{$t('useBtMining',{btReward:btReward})}}&ndash;&gt;-->
-                <!--<font class="use_bob_fire">-->
-                  <!--{{$t("serverUser")}}-->
-                  <!--<router-link to="/index/help/rateStandard" class="text_blue"-->
-                               <!--:class="{'bdb_gray': !BDBInfo}">BDB</router-link>-->
-                  <!--{{$t("serverFire")}}-->
-                <!--</font>-->
-              <!--</span>-->
-            <!--&lt;!&ndash;<a href="#" class="toggle account-info-toggle"&ndash;&gt;-->
-            <!--&lt;!&ndash;:class="{'toggle&#45;&#45;off':!BDBInfo,'toggle&#45;&#45;on':BDBInfo,'toggle&#45;&#45;moving':BDBChanging}"&ndash;&gt;-->
-            <!--&lt;!&ndash;@click="clickToggle($event)"></a>&ndash;&gt;-->
-            <!--&lt;!&ndash;BDB折扣开关 begin&ndash;&gt;-->
-            <!--&lt;!&ndash;<div class="toggle-box vertical-middle">&ndash;&gt;-->
-              <!--&lt;!&ndash;<Toggle :toggleOpen="BDBInfo" :switchFunc="clickToggle"/>&ndash;&gt;-->
-            <!--&lt;!&ndash;</div>&ndash;&gt;-->
-            <!--&lt;!&ndash;BDB折扣开关 end&ndash;&gt;-->
+      <div class="traddinghall-main-right-bottom flex-row">
+        <!--中路 K线 和 买卖-->
+        <div class="traddinghall-mid-wrap">
+          <!--币种资料-->
+          <!--<div class="bizhonginfo"    @mouseenter="showInfo()" @mouseleave="closeInfo()" v-if="showinfo">-->
+          <!--<div src="../../assets/sanjiao.png" class="sanjimg"/>-->
+          <!--<CurrencyIntroduction/>-->
           <!--</div>-->
-        </div>
-        <div class="flex-row" style="margin: auto">
-          <div class="ProgressBar-wrap">
-            <!--买-->
-            <ProgressBar :orderType='0' :fee="BDBInfo" :btc_eth_rate="btc_eth_rate" :socket_price="socket_price"
-                         :symbol_config_times="symbol_config_times"/>
+          <!--币种资料 end-->
+          <div class="centertop">
+            <div class="cen1"    @mouseenter="showInfo()" @mouseleave="closeInfo()">{{symbol.split('_')[0]}}<em class="txt_light">/</em>{{symbol.split('_')[1]}}</div>
+            <div class="cen2"><div class="cen21"> {{isNowPrice}}</div><div class="cen22"><em class="txt_light">≈</em>{{isCnyPrice}}</div></div>
+            <div class="cen2"><div class="cen31"> {{$t('Change')}}</div><div class="cen32">
+            <span class="txt" :class="diff24 > 0 ? 'txt-price' : (diff24 == 0 ? '' : 'txt-price-red')"><span
+              style="font-size: 1.4rem">{{diff24 > 0 ? '+' : ''}}{{diff24Ratio}}%</span> <em class="up_down_icon"
+                                                                                             :class="diff24 > 0 ? 'up_icon' : (diff24 == 0 ? '' : 'down_icon')"></em></span>
+            </div></div>
+            <div class="cen2"><div class="cen31"> {{$t('High')}} </div><div class="cen32">
+              <span class="txt detail_txt">{{high24}}</span>
+            </div></div>
+            <div class="cen2"><div class="cen31"> {{$t('Low')}}</div><div class="cen32">
+              <span class="txt detail_txt">{{low24}}</span>
+            </div></div>
+            <div class="cen2"><div class="cen31"> {{$t('Volum')}}</div><div class="cen32">
+              <span class="txt detail_txt">{{volume}}&nbsp;{{symbol.split('_')[0]}}</span>
+            </div></div>
           </div>
 
-          <div class="ProgressBar-wrap">
-            <!--卖-->
-            <ProgressBar :orderType='1' :fee="BDBInfo" :btc_eth_rate="btc_eth_rate" :socket_price="socket_price"
-                         :symbol_config_times="symbol_config_times"/>
+          <!--K线-->
+          <div class="TradingView-wrap">
+            <TradeContainer :topic_bar="topic_bar"/>
+          </div>
+
+          <!--交易挂单区域-->
+          <div class="trading-wrap">
+            <div class="progress-bar-title traddinghall-border-bottom relative ">
+              <div class="progress-bar-title-brand ">
+                {{$t("fixedPrice")}}
+              </div>
+              <!--          <div class="progress-bar-title-brand-default">-->
+              <!--            市价-->
+              <!--          </div>-->
+              <!--          <div class="progress-bar-title-brand-default">-->
+              <!--            止损-->
+              <!--          </div>-->
+              <!--          <div class="progress-bar-title-brand-default">-->
+              <!--            限价止损-->
+              <!--          </div>-->
+              <!--          <div class="progress-bar-title-brand-default">-->
+              <!--            移动止损-->
+              <!--          </div>-->
+
+
+              <!--<div class="service_charge ">-->
+              <!--<span>-->
+              <!--{{$t("serverCharge")}}: <em :class="{'delete' : BDBInfo}">0.2%</em> <em-->
+              <!--:class="{'delete' : !BDBInfo}"> 0.14%</em>-->
+              <!--&lt;!&ndash;{{$t('useBtMining',{btReward:btReward})}}&ndash;&gt;-->
+              <!--<font class="use_bob_fire">-->
+              <!--{{$t("serverUser")}}-->
+              <!--<router-link to="/index/help/rateStandard" class="text_blue"-->
+              <!--:class="{'bdb_gray': !BDBInfo}">BDB</router-link>-->
+              <!--{{$t("serverFire")}}-->
+              <!--</font>-->
+              <!--</span>-->
+              <!--&lt;!&ndash;<a href="#" class="toggle account-info-toggle"&ndash;&gt;-->
+              <!--&lt;!&ndash;:class="{'toggle&#45;&#45;off':!BDBInfo,'toggle&#45;&#45;on':BDBInfo,'toggle&#45;&#45;moving':BDBChanging}"&ndash;&gt;-->
+              <!--&lt;!&ndash;@click="clickToggle($event)"></a>&ndash;&gt;-->
+              <!--&lt;!&ndash;BDB折扣开关 begin&ndash;&gt;-->
+              <!--&lt;!&ndash;<div class="toggle-box vertical-middle">&ndash;&gt;-->
+              <!--&lt;!&ndash;<Toggle :toggleOpen="BDBInfo" :switchFunc="clickToggle"/>&ndash;&gt;-->
+              <!--&lt;!&ndash;</div>&ndash;&gt;-->
+              <!--&lt;!&ndash;BDB折扣开关 end&ndash;&gt;-->
+              <!--</div>-->
+            </div>
+            <div class="flex-row" style="margin: auto">
+              <div class="ProgressBar-wrap">
+                <!--买-->
+                <ProgressBar :orderType='0' :fee="BDBInfo" :btc_eth_rate="btc_eth_rate" :socket_price="socket_price"
+                             :symbol_config_times="symbol_config_times"/>
+              </div>
+
+              <div class="ProgressBar-wrap">
+                <!--卖-->
+                <ProgressBar :orderType='1' :fee="BDBInfo" :btc_eth_rate="btc_eth_rate" :socket_price="socket_price"
+                             :symbol_config_times="symbol_config_times"/>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <!--右侧实时买卖-->
+        <div class="traddinghall-mid-left">
+          <div class="pankou"><span @click="showStockFunc" :class="(!latestDealSpread && stockShow)?'text_blue':''" >{{$t("Handicap")}}</span>
+            <span class="sscj"  v-show="!latestDealSpread"  :class="(!latestDealSpread && !stockShow)?'text_blue':''" @click="showLatestDeal">{{$t("RealTime")}}</span></div>
+          <div class="StockCross-wrap" v-show="stockShow">
+            <StockCross :trade_loading="trade_loading" :buy_sale_list="buy_sale_list" :socket_snap_shot="socket_snap_shot"
+                        :socket_tick="socket_tick" :btc_eth_rate="btc_eth_rate" :socket_price="socket_price"
+                        :currency_list="currency_list"></StockCross>
+          </div>
+          <div class="AssetOverview-wrap" v-show="!stockShow">
+            <LatestDeal :trade_loading="trade_loading" :socket_tick_arr="socket_tick_arr"
+                        :socket_tick_obj="socket_tick_obj"/>
+          </div>
+
+        </div>
+        <!--右侧展开后的实时成交-->
+        <div class="traddinghall-right-wrap" style="margin-left: 6px" v-show="latestDealSpread">
+          <div class="pankou">{{$t("RealTime")}}</div>
+          <div class="AssetOverview-wrap">
+            <LatestDeal :trade_loading="trade_loading" :socket_tick_arr="socket_tick_arr"
+                        :socket_tick_obj="socket_tick_obj"/>
           </div>
         </div>
       </div>
-
-    </div>
-
-
-
-
-    <!--右侧实时买卖-->
-    <div class="traddinghall-mid-left">
-      <div class="pankou"><span @click="showStockFunc" :class="(!latestDealSpread && stockShow)?'text_blue':''" >{{$t("Handicap")}}</span>
-        <span class="sscj"  v-show="!latestDealSpread"  :class="(!latestDealSpread && !stockShow)?'text_blue':''" @click="showLatestDeal">{{$t("RealTime")}}</span></div>
-      <div class="StockCross-wrap" v-show="stockShow">
-        <StockCross :trade_loading="trade_loading" :buy_sale_list="buy_sale_list" :socket_snap_shot="socket_snap_shot"
-                    :socket_tick="socket_tick" :btc_eth_rate="btc_eth_rate" :socket_price="socket_price"
-                    :currency_list="currency_list"></StockCross>
-      </div>
-      <div class="AssetOverview-wrap" v-show="!stockShow">
-        <LatestDeal :trade_loading="trade_loading" :socket_tick_arr="socket_tick_arr"
-                    :socket_tick_obj="socket_tick_obj"/>
-      </div>
-
-    </div>
-
-    <div class="traddinghall-right-wrap" style="margin-left: 6px" v-show="latestDealSpread">
-      <div class="pankou">{{$t("RealTime")}}</div>
-      <div class="AssetOverview-wrap">
-
-        <LatestDeal :trade_loading="trade_loading" :socket_tick_arr="socket_tick_arr"
-                    :socket_tick_obj="socket_tick_obj"/>
-      </div>
-
-
     </div>
 
   </div>
