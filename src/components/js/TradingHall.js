@@ -15,6 +15,7 @@ root.components = {
   'orderCurrent': resolve => require(['../vue/OrderPageCurrentEntrustment'], resolve),
   'orderHistory': resolve => require(['../vue/OrderPageHistoricalEntrustment'], resolve),
   'PopupPrompt': resolve => require(['../vue/PopupPrompt'], resolve),
+  'PositionModeBulletBox': resolve => require(['../vue/PositionModeBulletBox'], resolve),
   // 实时成交
   'LatestDeal': resolve => require(['../vue/LatestDeal'], resolve),
   // BDB开关
@@ -91,8 +92,16 @@ root.data = function () {
     // pankqh:true,
     showinfo : false,
 
-    tradinghallLimit:10
+    tradinghallLimit:10,
 
+    //仓位模式Start
+    popWindowPositionModeBulletBox: false, //仓位模式弹框
+    cardType:1, //仓位模式选择初始值
+    //仓位模式End
+
+    //保证金模式Strat
+    popWindowSecurityDepositMode: true,
+    //保证金模式End
   }
 }
 
@@ -762,6 +771,21 @@ root.methods.closeInfo = function(data){
 }
 
 
+//仓位模式Start
+// 仓位模式
+root.methods.popWindowClosePositionModeBulletBox = function () {
+  this.popWindowPositionModeBulletBox = false
+}
+// 仓位模式选择
+root.methods.PositionModeSelected = function (cardType) {
+  this.cardType = cardType
+}
+//仓位模式End
+
+//保证金模式Strat
+root.methods.popWindowCloseSecurityDepositMode = function () {
+  this.popWindowSecurityDepositMode = false
+}
 root.props = {}
 // root.props.currency_list = {
 //   type: Object,
