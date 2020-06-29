@@ -72,16 +72,31 @@
   <div class="container-bottom">
     <div class="detail-title flex">
       <div class="detail-order-1">
-        <img src="../../assets/weituo_icon.png" alt="" class="order-img">
-        {{$t('orderPage.order')}}
+<!--        <img src="../../assets/weituo_icon.png" alt="" class="order-img">-->
+        合约{{$t('orderPage.order')}}
       </div>
 
+      <!--当前委托-->
       <router-link to="/index/order/currentEntrust" class="title-tab flex-center tab-item-first" active-class="selected text_blue-7">
         {{$t('orderPage.currentEntrust')}}
       </router-link>
+
+      <!--历史委托-->
       <router-link to="/index/order/historicalEntrust" class="title-tab flex-center margin-a-little tab-item-last"
                    active-class="selected text_blue-7">
         {{$t('orderPage.historicalEntrust')}}
+      </router-link>
+
+      <!--历史成交-->
+      <router-link to="/index/order/historicalTransaction" class="title-tab flex-center margin-a-little tab-item-last"
+                   active-class="selected text_blue-7">
+        {{$t('历史成交')}}
+      </router-link>
+
+      <!--资金流水-->
+      <router-link to="/index/order/capitalFlow" class="title-tab flex-center margin-a-little tab-item-last"
+                   active-class="selected text_blue-7">
+        {{$t('资金流水')}}
       </router-link>
       <div class="xian"></div>
     </div>

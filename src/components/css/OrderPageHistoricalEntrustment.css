@@ -96,13 +96,14 @@ tr, th, td {
 /*width: 3.8%;*/
 /*}*/
 
-.td-time {
-  flex: 9.3;
-  /*padding-left: 25px;*/
-}
 .td-time1 {
-  flex: 6.3;
+  flex: 9.3;
   padding-left: 25px;
+}
+
+.td-time {
+  flex: 6.3;
+  /*padding-left: 25px;*/
 }
 
 .td-category {

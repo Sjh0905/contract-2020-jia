@@ -147,41 +147,60 @@
 <!--      <div class="tradinghall-order-tab tab-item-first  tradinghall-order-tab-first">{{$t("now")}}111-->
 <!--      </div>-->
 
+      <!--仓位（4）-->
+      <div class="tradinghall-order-tab txt-bold"
+           :class="isNow==4?'tradinghall-order-activetab':'tradinghall-order-tab3'"
+           @click="clickTab(4)">{{$t("仓位（4）")}}
+      </div>
+      <!--保证金余额-->
+      <div class="tradinghall-order-tab txt-bold"
+           :class="isNow==5?'tradinghall-order-activetab':'tradinghall-order-tab3'"
+           @click="clickTab(5)">{{$t("保证金余额")}}
+      </div>
+      <!--当前委托-->
       <div class="tradinghall-order-tab txt-bold"
            :class="isNow==0?'tradinghall-order-activetab':'tradinghall-order-tab3'"
            @click="clickTab(0)">{{$t("now")}}
       </div>
+      <!--历史委托-->
       <div class="tradinghall-order-tab txt-bold"
            :class="isNow==1?'tradinghall-order-activetab':'tradinghall-order-tab3'"
            @click="clickTab(1)">{{$t("history")}}
       </div>
-<!--      <div class="tradinghall-order-tab txt-bold"-->
-<!--           :class="isNow==2?'text_blue tradinghall-order-activetab':''"-->
-<!--           @click="clickTab(2)">-->
-<!--        {{$t('currencyInfo')}}-->
-<!--      </div>-->
-      <!--<div class="tradinghall-order-tab tab-item-last box_shadow"-->
-           <!--:class="isNow==3?'text_blue tradinghall-order-activetab':''"-->
-           <!--@click="clickTab(3)"-->
-           <!--v-if="showSuperBeeIntroduction"-->
-      <!--&gt;-->
-        <!--&lt;!&ndash;为蜜简介&ndash;&gt;-->
-        <!--{{$t('bee_introduction')}}-->
-      <!--</div>-->
+      <!--历史成交-->
+      <div class="tradinghall-order-tab txt-bold"
+           :class="isNow==2?'text_blue tradinghall-order-activetab':''"
+           @click="clickTab(2)">
+        {{$t('历史成交')}}
+      </div>
+      <!--资金流水-->
+      <div class="tradinghall-order-tab tab-item-last box_shadow"
+           :class="isNow==3?'text_blue tradinghall-order-activetab':''"
+           @click="clickTab(3)"
+      >
+        <!--资金流水-->
+        {{$t('资金流水')}}
+      </div>
     </div>
 
+    <div v-if="isNow === 4" class="trading-hall-order-box-detail">
+      <OrderPosition :tradinghallLimit="tradinghallLimit"/>
+    </div>
+    <div v-if="isNow === 5" class="trading-hall-order-box-detail">
+      <OrderMarginBalance :tradinghallLimit="tradinghallLimit"/>
+    </div>
     <div v-if="isNow === 0" class="trading-hall-order-box-detail">
       <orderCurrent :tradinghallLimit="tradinghallLimit"/>
     </div>
     <div v-if="isNow === 1" class="trading-hall-order-box-detail">
       <orderHistory :tradinghallLimit="tradinghallLimit"/>
     </div>
-<!--    <div v-if="isNow === 2" class="trading-hall-order-box-detail">-->
-<!--      <CurrencyIntroduction/>-->
-<!--    </div>-->
-<!--    <div v-if="isNow === 3" class="trading-hall-order-box-detail">-->
-<!--      <SuperBeeIntroduction/>-->
-<!--    </div>-->
+    <div v-if="isNow === 2" class="trading-hall-order-box-detail">
+      <HistoricalTransaction/>
+    </div>
+    <div v-if="isNow === 3" class="trading-hall-order-box-detail">
+      <CapitalFlow/>
+    </div>
   </div>
 <!--  <div class="traddinghall-order-wrap">-->
 <!--    <div class="flex-row traddinghall-order-wrap-title">-->

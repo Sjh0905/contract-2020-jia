@@ -100,7 +100,8 @@ Vue.filter('e', function (value) {
 const i18n = new VueI18n({
   locale: store.state.lang,
   fallbackLocale: 'CH',
-  messages: LanguageConfig
+  messages: LanguageConfig,
+  silentTranslationWarn: true
 })
 
 Vue.config.productionTip = false
