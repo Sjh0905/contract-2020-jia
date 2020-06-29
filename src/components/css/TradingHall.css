@@ -31,6 +31,25 @@
   /*background-color: aliceblue;*/
   background-color: #0D111F;
 }
+
+.traddinghall-main-right {
+  flex:1;
+  margin-left: 6px;
+}
+
+.traddinghall-main-right-top {
+  width:100%;
+  height:44px;
+  background:rgba(11,14,22,1);
+  /*flex:1;*/
+  /*margin-left: 6px;*/
+}
+
+.traddinghall-main-right-bottom {
+  flex:1;
+  margin-top: 6px;
+}
+
 .traddinghall-mid-left {
   /*width: 18.997%;*/
   width: 300px;
@@ -42,7 +61,7 @@
   /*width: 47%;*/
   flex:1;
   position: relative;
-  margin: auto 6px;
+  margin-right: 6px;
 }
 
 .traddinghall-right-wrap {
