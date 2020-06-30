@@ -858,4 +858,18 @@
   display: table;
   clear: both;
 }
+.mode-only-lever {
+  margin: 33px 0 14px 0;
+  color: #6B7DA2;
+  font-size:12px;
+  font-family:PingFangSC-Semibold,PingFang SC;
+  font-weight:600;
+}
+.mode-only-lever-super {
+  color: #EFF0FF;
+  font-size:12px;
+  font-family:PingFangSC-Semibold,PingFang SC;
+  font-weight:600;
+  margin-bottom: 28px;
+}
 /*调整杠杆 End*/

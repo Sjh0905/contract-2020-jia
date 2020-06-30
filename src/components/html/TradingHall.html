@@ -364,22 +364,19 @@
             :class="'el-slider_blu'"
             :marks="marks"
             show-input
-            max="75"
+            :max="75"
+            :min="1"
             :format-tooltip="formatTooltip"
           >
           </el-slider>
         </div>
       </div>
-      <div class="mode-only">· 调整保证金模式仅对当前合约生效。</div>
-      <div class="mode-error">当前合约存在持仓和挂单，不支持调整保证金模式</div>
+      <div class="mode-only-lever">· 当前杠杆倍数最高可持有头寸： 5,000,000 USDT</div>
+<!--      <div class="mode-error">当前合约存在持仓和挂单，不支持调整保证金模式</div>-->
+      <div class="mode-only-lever-super">· 持仓和当前委托价值超过 1,000,000 USDT, 您的最大可用杠杆是 50x</div>
       <div class="money-confirmation" @click="">确认</div>
       <!--确认不可点击状态-->
       <!--      <div class="money-confirmation-ash">确认</div>-->
-      <div class="money-explanation">
-        <div class="money-explanation-one">什么是全仓和逐仓模式？</div>
-        <div class="money-explanation-two">全仓保证金模式: 所有仓位共用合约账户中的保证金来避免仓位被强平。在强平事件中，交易者可能会损失所有的保证金和仓位。</div>
-        <div class="money-explanation-three">逐仓保证金模式: 一定数量保证金被分配到仓位上。如果仓位保证金亏损到低于维持保证金的水平，仓位将被强平。在逐仓模式下，您可以为这个仓位添加和减少保证金。</div>
-      </div>
     </div>
   </PositionModeBulletBox>
   <!--  调整杠杆 End-->
