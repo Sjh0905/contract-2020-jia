@@ -43,6 +43,9 @@
   background:rgba(11,14,22,1);
   /*flex:1;*/
   /*margin-left: 6px;*/
+
+  align-items: center;
+  display: flex;
 }
 
 .traddinghall-main-right-bottom {
@@ -563,12 +566,12 @@
 /*}*/
 
 .centertop{
-  width: 100%;
+  /*width: 100%;*/
   height: 44px;
   background: #0B0E16;
   align-items: center;
   display: flex;
-  border-bottom: 1px solid #1E1F22;
+  /*border-bottom: 1px solid #1E1F22;*/
 }
 .cen1{
   line-height: 19px;
@@ -581,7 +584,7 @@
   font-weight:500;
 }
 .cen2{
-  padding: 8px 20px 5px 0px;
+  padding: 5px 20px 5px 0px;
   float: left;
 }
 .cen2 .cen21{
@@ -615,6 +618,38 @@
   font-weight:400;
   color:#A2B5D9;
   line-height:15px;
+}
+.border-dashed {
+  display: inline-block;
+  cursor: pointer;
+  border-bottom: 1px dashed #6B7DA2;
+}
+.border-dashed:hover {
+  display: inline-block;
+  opacity: 0.8;
+  border-bottom: 1px dashed #6B7DA2;
+}
+.position-mode-box{
+  cursor: pointer;
+  margin-right: 25px;
+  align-items: center;
+}
+.position-mode-box:hover{
+  opacity: 0.8;
+}
+.position-mode-icon{
+  width: 14px;
+  height: 14px;
+  margin-right: 7px;
+}
+.position-mode-text{
+  font-size:12px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color:rgba(162,181,217,1);
+}
+.txt-blue{
+  color: #3576F5;
 }
 .txt-price{
   color: #08D0AC;
@@ -662,7 +697,165 @@
 }
 
 
+/*仓位模式弹框 Strat*/
+.positionMode-tit {
+  padding-left: 25px;
+}
+.riskAlert {
+  color: #E0E1F4;
+  font-size:14px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  padding-bottom: 30px;
+}
+.pop-lock-house {
+  padding: 17px 25px 13px 25px;
+  background-color: #16171D;
+}
+.lock-house-footer {
+  width: 100%;
+  /*padding: 0 25px;*/
+  background-color: #16171D;
+}
+.day-surplus {
+  width: 100%;
+  height:40px;
+  line-height: 40px;
+  text-align: center;
+  color: #FFFFFF;
+  font-size:14px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  background:linear-gradient(270deg,rgba(53,118,245,1) 0%,rgba(69,154,245,1) 100%);
+  border-radius:1px;
+  margin-bottom: 30px;
+  cursor: pointer;
+}
 
+.single-position-img {
+  width: 16px;
+  height: 16px;
+  margin-right: 10px;
+}
+.selected-positions-cod {
+  margin-top: -2px;
+  color: #6B7DA2;
+  font-size:14px;
+  font-family:Ping
+}
+.selected-positions {
+  margin-top: -1.5px;
+  color: #6B7DA2;
+  font-size:14px;
+  font-family:PingFangSC-Semibold,PingFang SC;
+  font-weight:600;
+}
+.position-explanation {
+  margin: 4px 0px 17px 0px;
+  color: #A2B5D9;
+  font-size:12px;
+  font-family:PingFangSC-Semibold,PingFang SC;
+  font-weight:600;
+}
+.selected_cardType {
+  /*margin-top: -1.5px;*/
+  font-size:14px;
+  font-family:PingFangSC-Semibold,PingFang SC;
+  font-weight:600;
+  color: #E0E1F4;
+}
+/*仓位模式弹框 End*/
 
+/*保证金模式 Strat*/
+.selected-mode {
+  width: 47%;
+  height:40px;
+  color: #F5F6FA;
+  font-size:14px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  line-height: 40px;
+  text-align: center;
+  border-radius:2px;
+  border:1px solid rgba(87,88,97,1);
+  cursor: pointer;
+}
+.selected-cardType-mode {
+  border:1px solid rgba(53,118,245,1);
+}
+.selected-cardType-left {
+  margin-right: 6%;
+}
+.mode-only {
+  margin: 20px 0;
+  color: #A2B5D9;
+  font-size:12px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+}
+.mode-error {
+  margin-bottom: 15px;
+  color: #EF5656;
+  font-size:12px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+}
+.money-confirmation {
+  width: 100%;
+  height:40px;
+  line-height:40px;
+  text-align:center;
+  font-size:14px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color:#FFFFFF;
+  background:linear-gradient(270deg,rgba(53,118,245,1) 0%,rgba(69,154,245,1) 100%);
+  border-radius:1px;
+  margin-bottom: 15px;
+  cursor: pointer;
+}
+.money-confirmation-ash {
+  width: 100%;
+  height:40px;
+  line-height:40px;
+  text-align:center;
+  font-size:14px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color:#A2B0CC;
+  background:#465674;
+  border-radius:1px;
+  margin-bottom: 15px;
+}
+.money-explanation {
+  width: 100%;
+  padding: 15px;
+  background-color: #16171D;
+  color: #A2B5D9;
+  font-size:12px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  margin-bottom: 15px;
+}
+.money-explanation-one {
 
+}
+.money-explanation-two {
+  margin: 15px 0;
+}
+.money-explanation-three {
+  padding-bottom: 15px;
+}
+/*保证金模式 End*/
 
+/*调整杠杆 Strat*/
+.body {
+  width: 97%;
+  padding: 0px;
+  margin-top: 40px;
+  text-align: center;
+  content: "";
+  display: table;
+  clear: both;
+}
+/*调整杠杆 End*/

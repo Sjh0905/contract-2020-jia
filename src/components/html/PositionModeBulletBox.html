@@ -1,0 +1,69 @@
+<transition name="popWindow">
+  <div class="popWindow-container min-width" v-if="show">
+
+    <div class="background">
+
+    </div>
+
+    <div :class="!pop_width ? 'popup' : 'min-popup'" v-if="!isMobile">
+      <div class="popWindow-title">
+        <slot name="header">
+          <span>{{$t("pupupWindow.title")}}</span>
+        </slot>
+        <img src="../../assets/WhiteCancellation.png" alt="" v-if="closeBtnShow" class="vertical-middle close" @click="closeClick">
+      </div>
+      <div class="popWindow-article">
+        <slot name="article">
+
+        </slot>
+      </div>
+      <div class="popWindow-article2">
+        <slot name="article2">
+
+        </slot>
+      </div>
+      <div class="flex popWindow-footer"
+           :class="footerBorderTop?'popWindow-footer-mobile':''">
+        <slot name="footer">
+          <!--          <button>{{$t("pupupWindow.cancel")}}</button>-->
+        </slot>
+      </div>
+
+      <slot name="other">
+
+      </slot>
+    </div>
+
+
+    <div :class="!pop_width ? 'mobilePopup' : 'min-popup'" v-if="isMobile">
+      <div class="mobilePopWindow-title">
+        <slot name="header">
+          <span>{{$t("pupupWindow.title")}}</span>
+        </slot>
+        <img src="../../assets/弹窗-取消-icon@2x.png" alt="" v-if="closeBtnShow" class="vertical-middle close" @click="closeClick">
+      </div>
+      <div class="mobilePopWindow-article">
+        <slot name="article">
+
+        </slot>
+      </div>
+      <!--      <div class="mobilePopWindow-article2">-->
+      <!--        <slot name="article2">-->
+
+      <!--        </slot>-->
+      <!--      </div>-->
+      <div class="flex popWindow-footer"
+           :class="footerBorderTop?'popWindow-footer-mobile':''">
+        <slot name="footer">
+          <!--          <button>{{$t("pupupWindow.cancel")}}</button>-->
+        </slot>
+      </div>
+
+      <slot name="other">
+
+      </slot>
+    </div>
+
+
+  </div>
+</transition>

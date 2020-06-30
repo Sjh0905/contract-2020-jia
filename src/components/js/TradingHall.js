@@ -15,6 +15,7 @@ root.components = {
   'orderCurrent': resolve => require(['../vue/OrderPageCurrentEntrustment'], resolve),
   'orderHistory': resolve => require(['../vue/OrderPageHistoricalEntrustment'], resolve),
   'PopupPrompt': resolve => require(['../vue/PopupPrompt'], resolve),
+  'PositionModeBulletBox': resolve => require(['../vue/PositionModeBulletBox'], resolve),
   // 实时成交
   'LatestDeal': resolve => require(['../vue/LatestDeal'], resolve),
   // BDB开关
@@ -96,8 +97,29 @@ root.data = function () {
     // pankqh:true,
     showinfo : false,
 
-    tradinghallLimit:10
+    tradinghallLimit:10,
 
+    //仓位模式Start
+    popWindowPositionModeBulletBox: false, //仓位模式弹框
+    cardType:1, //仓位模式选择初始值
+    //仓位模式End
+
+    //保证金模式Strat
+    popWindowSecurityDepositMode: false,
+    //保证金模式End
+
+    //调整杠杆 Strat
+    popWindowAdjustingLever: true,
+    value:0,
+    marks: {
+      0: '',
+      15: '',
+      30: '',
+      45:'',
+      60:'',
+      75:''
+    },
+    //调整杠杆 End
   }
 }
 
@@ -764,6 +786,34 @@ root.methods.showInfo = function(data){
 root.methods.closeInfo = function(data){
   this.showinfo = false;
 }
+
+
+//仓位模式Start
+// 仓位模式
+root.methods.popWindowClosePositionModeBulletBox = function () {
+  this.popWindowPositionModeBulletBox = false
+}
+// 仓位模式选择
+root.methods.PositionModeSelected = function (cardType) {
+  this.cardType = cardType
+}
+//仓位模式End
+
+//保证金模式 Strat
+root.methods.popWindowCloseSecurityDepositMode = function () {
+  this.popWindowSecurityDepositMode = false
+}
+//保证金模式 End
+
+//调整杠杆 Strat
+root.methods.popWindowCloseAdjustingLever = function () {
+  this.popWindowAdjustingLever = false
+}
+// 处理滑动条显示框内容
+root.methods.formatTooltip=(val)=>{
+  return  val + 'X';
+}
+//调整杠杆 End
 
 
 root.props = {}
