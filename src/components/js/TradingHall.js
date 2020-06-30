@@ -109,15 +109,15 @@ root.data = function () {
     //保证金模式End
 
     //调整杠杆 Strat
-    popWindowAdjustingLever: true,
+    popWindowAdjustingLever: false,
     value:0,
     marks: {
-      0: '',
-      15: '',
-      30: '',
-      45:'',
-      60:'',
-      75:''
+      0: '1X',
+      15: '15X',
+      30: '30X',
+      45:'45X',
+      60:'60X',
+      75:'75X'
     },
     //调整杠杆 End
   }
