@@ -2,80 +2,31 @@
 <!--  this.$route.name==currentEntrust?'current-entrustment-container':'current-entrustment-shiying'-->
 
   <ul class="" :class="$route.name == 'currentEntrust'?'detail':'detail-1'">
-    <!-- 表头 begin -->
-<!--    <li class="tr-th flex">-->
-<!--      &lt;!&ndash;单号&ndash;&gt;-->
-<!--      &lt;!&ndash;<div class="th td-order">{{$t('orderPageCurrentEntrustment.order')}}</div>&ndash;&gt;-->
-<!--      &lt;!&ndash;委托时间&ndash;&gt;-->
-<!--      <div class="th td-time txt-bold">{{$t('orderPageCurrentEntrustment.time')}}</div>-->
-<!--      &lt;!&ndash;类别&ndash;&gt;-->
-<!--      <div class="th td-category txt-bold">{{$t('orderPageCurrentEntrustment.category')}}</div>-->
-<!--      &lt;!&ndash;市场&ndash;&gt;-->
-<!--      <div class="th td-market txt-bold">{{$t('orderPageCurrentEntrustment.market')}}</div>-->
-<!--      &lt;!&ndash;单价&ndash;&gt;-->
-<!--      <div class="th td-price txt-bold">{{$t('orderPageCurrentEntrustment.price')}}</div>-->
-<!--      &lt;!&ndash;数量&ndash;&gt;-->
-<!--      <div class="th td-number txt-bold">{{$t('orderPageCurrentEntrustment.number')}}</div>-->
-<!--      &lt;!&ndash;金额&ndash;&gt;-->
-<!--      <div class="th td-amount txt-bold">{{$t('orderPageCurrentEntrustment.amount')}}</div>-->
-<!--      &lt;!&ndash;成交率&ndash;&gt;-->
-<!--      <div class="th td-turnover txt-bold">{{$t('orderPageCurrentEntrustment.turnover')}}</div>-->
-<!--      &lt;!&ndash;全撤&ndash;&gt;-->
-<!--      <div class="th td-operation txt-bold">-->
-<!--        <span class="click-operation text_blue" v-if="loading || currentOrderComputed.length===0">{{$t('orderPageCurrentEntrustment.cancelAll')}}</span>-->
-<!--        <span class="click-operation text_blue" v-if="!loading && currentOrderComputed.length!==0"-->
-<!--              @click="cancelAllOrder">{{$t('orderPageCurrentEntrustment.cancelAll')}}</span>-->
-<!--      </div>-->
-<!--    </li>-->
+
     <li class="tr-th flex">
-      <!--单号-->
-      <!--<div class="th td-order">{{$t('orderPageCurrentEntrustment.order')}}</div>-->
-      <!--订单id-->
-      <div class="th td-time1">{{$t('订单ID')}}</div>
-      <!--委托时间-->
-      <div class="th td-time">{{$t('time1')}}</div>
-      <!--交易对-->
-      <div class="th td-category">{{$t('TransactionPairs')}}</div>
-      <!--类别-->
-      <div class="th td-category-1">{{$t('type')}}</div>
-      <!--方式-->
-      <div class="th td-market">{{$t('price1')}}</div>
+      <!--时间-->
+      <div class="th td-time1">{{$t('time1')}}</div>
+      <!--合约-->
+      <div class="th td-time">{{$t('合约')}}</div>
+      <!--类型-->
+      <div class="th td-category">{{$t('type')}}</div>
       <!--方向-->
-      <div class="th td-market">{{$t('number')}}</div>
-      <!--单价-->
-      <div class="th td-price">{{$t('TotalEntrustedAmount')}}</div>
+      <div class="th td-category-1">{{$t('方向')}}</div>
+      <!--价格-->
+      <div class="th td-market">{{$t('price1')}}</div>
       <!--数量-->
-      <div class="th td-number">{{$t('state')}}</div>
+      <div class="th td-number">{{$t('number')}}</div>
+      <!--完成度-->
+      <div class="th td-price">{{$t('完成度')}}</div>
+      <!--触发条件-->
+      <div class="th td-trigger">{{$t('触发条件')}}</div>
 
-      <!--金额-->
-<!--      <div class="th td-time">{{$t('orderPageCurrentEntrustment.close_1')}}</div>-->
-<!--      &lt;!&ndash;交易对&ndash;&gt;-->
-<!--      <div class="th td-category">{{$t('orderPageCurrentEntrustment.close_2')}}</div>-->
-<!--      &lt;!&ndash;类别&ndash;&gt;-->
-<!--      <div class="th td-category">{{$t('orderPageCurrentEntrustment.close_3')}}</div>-->
-<!--      &lt;!&ndash;方式&ndash;&gt;-->
-<!--      <div class="th td-market">{{$t('orderPageCurrentEntrustment.close_4')}}</div>-->
-<!--      &lt;!&ndash;方向&ndash;&gt;-->
-<!--      <div class="th td-market">{{$t('orderPageCurrentEntrustment.close_5')}}</div>-->
-<!--      &lt;!&ndash;单价&ndash;&gt;-->
-<!--      <div class="th td-price">{{$t('orderPageCurrentEntrustment.close_6')}}</div>-->
-<!--      &lt;!&ndash;数量&ndash;&gt;-->
-<!--      <div class="th td-number">{{$t('orderPageCurrentEntrustment.close_7')}}</div>-->
-      <!--金额-->
-
-<!--      <div class="th td-amount">详情</div>-->
-<!--      &lt;!&ndash;成交率&ndash;&gt;-->
-<!--      <div class="th td-turnover">触发条件<img src="../../assets/chufa.png" width="9.8px"> </div>-->
-<!--      &lt;!&ndash;成交率&ndash;&gt;-->
-<!--      <div class="th td-turnover">已成交 </div>-->
-<!--      &lt;!&ndash;成交率&ndash;&gt;-->
-<!--      <div class="th td-turnover">未成交 </div>-->
       <!--全撤-->
-      <div class="th td-operation ">
-        <span class="click-operation" v-if="loading || currentOrderComputed.length===0">{{$t('operation')}}</span>
+      <div class="th td-operation text_blue">
+        <span class="click-operation" v-if="loading || currentOrderComputed.length===0">{{$t('全部撤单')}}</span>
 <!--        <span class="click-operation" v-if="loading || currentOrderComputed.length===0">{{$t('orderPageCurrentEntrustment.close_8')}}</span>-->
         <span class="click-operation cancelAll" v-if="!loading && currentOrderComputed.length!==0"
-              @click="cancelAllOrder">{{$t('orderPageCurrentEntrustment.cancelAll')}}</span>
+              @click="cancelAllOrder">{{$t('全部撤单')}}</span>
       </div>
     </li>
     <!-- 表头 end -->
@@ -86,33 +37,28 @@
           <li class="flex"
               :class="$route.name == 'currentEntrust'?'tr-td':'tr-td-col'"
               v-for="(order,index) in currentOrderComputed" :key="order.id">
-            <!--单号-->
-            <!--<div class="td td-order">{{order.id}}</div>-->
-            <!--订单id-->
+
+            <!--时间-->
             <div class="td td-time1">{{(order.id)}}</div>
-            <!--委托时间-->
+            <!--合约-->
             <div class="td td-time">{{$globalFunc.formatDateUitl(order.createdAt,'YYYY-MM-DD hh:mm:ss')}}</div>
-            <!--类别-->
+            <!--类型-->
             <div class="td td-category">{{order.symbol.split('_')[0]}}/{{order.symbol.split('_')[1]}}</div>
-            <!--市场-->
-            <div class="td td-category-1" :class="order.type==='BUY_LIMIT'?'text_blue-3':'text_red-4'" v-if="!order.isFollow">
+            <!--方向-->
+            <div class="td td-category-1" :class="order.type==='BUY_LIMIT'?'text_blue-3':'text_red-4'">
               {{order.type === 'BUY_LIMIT' && $t('orderPageCurrentEntrustment.buy') ||
               $t('orderPageCurrentEntrustment.sale')}}
             </div>
-            <div class="td td-category-1" :class="order.type==='BUY_LIMIT'?'text_blue-3':'text_red-4'" v-if="order.isFollow">
-              {{order.type === 'BUY_LIMIT' && $t('orderPageCurrentEntrustment.followBuy') ||
-              $t('orderPageCurrentEntrustment.followSale')}}
-            </div>
-            <!--单价-->
+            <!--价格-->
             <div class="td td-market">{{toFixed(order.price, !!quoteScale_list[order.symbol] ? quoteScale_list[order.symbol].quoteScale : 8)}}</div>
             <!--数量-->
-            <div class="td td-market">{{toFixed(order.amount, !!quoteScale_list[order.symbol] ? quoteScale_list[order.symbol].baseScale : 8)}}</div>
-            <!--金额-->
-            <div class="td td-price">{{toFixed(order.price * order.amount,8)}}</div>
-            <!--成交率-->
             <div class="td td-number">{{((order.filledAmount / order.amount) * 100).toFixed(2) + '%'}}</div>
+            <!--完成度-->
+            <div class="td td-price">{{((order.filledAmount / order.amount)).toFixed(2)}}</div>
+            <!--触发条件-->
+            <div class="td td-trigger">{{0 || '--'}}</div>
             <!--撤单-->
-            <div class="td td-operation">
+            <div class="td td-operation text_blue">
               <span class="click-operation chedanbutton"
                     :class="$route.name == 'currentEntrust'?'text_blue-1':'text_blue-0'"
                     @click="cancelOrder(order)" v-if="!order.click">{{$t('orderPageCurrentEntrustment.cancel')}}</span>

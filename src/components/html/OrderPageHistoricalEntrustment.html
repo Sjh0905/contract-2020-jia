@@ -1,60 +1,26 @@
 <div class="history-container">
 <!--  <ul class="detail  border_radius">-->
     <ul class="" :class="$route.name == 'historicalEntrust'?'detail':'detail-1'">
-    <!-- 表头 begin -->
-<!--    <li class="tr-th flex-center">-->
-<!--      &lt;!&ndash;单号&ndash;&gt;-->
-<!--      &lt;!&ndash;<div class="th td-order">{{$t('orderPageHistoricalEntrustment.order')}}</div>&ndash;&gt;-->
-<!--      &lt;!&ndash;时间&ndash;&gt;-->
-<!--      <div class="th td-time txt-bold">{{$t('orderPageHistoricalEntrustment.time')}}</div>-->
-<!--      &lt;!&ndash;类别&ndash;&gt;-->
-<!--      <div class="th td-category txt-bold">{{$t('orderPageHistoricalEntrustment.category')}}</div>-->
-<!--      &lt;!&ndash;市场&ndash;&gt;-->
-<!--      <div class="th td-market txt-bold">{{$t('orderPageHistoricalEntrustment.market')}}</div>-->
-<!--      &lt;!&ndash;单价&ndash;&gt;-->
-<!--      <div class="th td-price txt-bold">{{$t('orderPageHistoricalEntrustment.price')}}</div>-->
-<!--      &lt;!&ndash;数量&ndash;&gt;-->
-<!--      <div class="th td-number txt-bold">{{$t('orderPageHistoricalEntrustment.number')}}</div>-->
-<!--      &lt;!&ndash;成交数量&ndash;&gt;-->
-<!--      <div class="th td-turnover txt-bold">{{$t('orderPageHistoricalEntrustment.turnover')}}</div>-->
-<!--      &lt;!&ndash;<div class="th td-amount">成交金额</div>&ndash;&gt;-->
-<!--      &lt;!&ndash;应收手续费&ndash;&gt;-->
-<!--      &lt;!&ndash;<div class="th td-charge">{{$t('orderPageHistoricalEntrustment.charge')}}</div>&ndash;&gt;-->
-<!--      &lt;!&ndash;状态&ndash;&gt;-->
-<!--      <div class="th td-state txt-bold">{{$t('orderPageHistoricalEntrustment.state')}}</div>-->
-<!--      &lt;!&ndash;查看详情&ndash;&gt;-->
-<!--      <div class="th td-account txt-bold">{{$t('orderPageHistoricalEntrustment.account')}}</div>-->
-<!--    </li>-->
-    <!-- 表头 end -->
+
     <li class="tr-th flex-center">
-      <!--单号-->
-      <!--<div class="th td-order">{{$t('orderPageHistoricalEntrustment.order')}}</div>-->
       <!--时间-->
-      <div class="th td-time1 ">{{$t('orderPageHistoricalEntrustment.close_id')}}</div>
-      <!--时间-->
-      <div class="th td-time ">{{$t('orderPageHistoricalEntrustment.close_1')}}</div>
-
-      <!--交易对-->
-      <div class="th td-market ">{{$t('orderPageHistoricalEntrustment.close_3')}}</div>
-      <!--类型-->
-      <div class="th td-category ">{{$t('orderPageHistoricalEntrustment.close_2')}}</div>
-
-      <!--单价-->
+      <div class="th td-time1 ">{{$t('orderPageHistoricalEntrustment.close_1')}}</div>
+      <!--合约-->
+      <div class="th td-time ">{{$t('合约')}}</div>
+      <!--订单类型-->
+      <div class="th td-category ">{{$t('订单类型')}}</div>
+      <!--方向-->
+      <div class="th td-market ">{{$t('方向')}}</div>
+      <!--价格-->
       <div class="th td-market ">{{$t('orderPageHistoricalEntrustment.close_4')}}</div>
+      <!--成交价格-->
+      <div class="th td-market ">{{$t('成交价格')}}</div>
       <!--数量-->
-      <div class="th td-market ">{{$t('orderPageHistoricalEntrustment.close_5')}}</div>
-      <!--成交额-->
-      <div class="th td-price ">{{$t('orderPageHistoricalEntrustment.close_6')}}</div>
-      <!--成交数量-->
-      <div class="th td-category ">{{$t('orderPageHistoricalEntrustment.close_7')}}</div>
-      <div class="th  td-turnover ">{{$t('orderPageHistoricalEntrustment.close_8')}}</div>
-
-      <!--应收手续费-->
-      <!--<div class="th td-charge">{{$t('orderPageHistoricalEntrustment.charge')}}</div>-->
-<!--      &lt;!&ndash;状态&ndash;&gt;-->
-<!--      <div class="th td-state ">{{$t('orderPageHistoricalEntrustment.state')}}</div>-->
-<!--      &lt;!&ndash;查看详情&ndash;&gt;-->
-<!--      <div class="th td-account ">{{$t('orderPageHistoricalEntrustment.account')}}</div>-->
+      <div class="th td-category ">{{$t('数量')}}</div>
+      <!--触发条件-->
+      <div class="th td-price ">{{$t('触发条件')}}</div>
+      <!--状态-->
+      <div class="th  td-turnover ">{{$t('状态')}}</div>
     </li>
 
 
@@ -68,65 +34,44 @@
         >
           <div class="tr-detail flex-center" >
 
-            <!--单号 begin -->
-            <div class="td td-time1">{{order.id}}</div>
-            <!--单号 end -->
-
             <!--时间 begin -->
-            <div class="td td-time">
-<!--              <p>-->
-                <!--{{$t('orderPageHistoricalEntrustment.entrustment')}}-->
-                {{$globalFunc.formatDateUitl(order.createdAt,'YYYY-MM-DD hh:mm:ss')}}
-<!--              </p>-->
-              <!--<p v-if="order.updatedAt">-->
-                <!--{{$t('orderPageHistoricalEntrustment.down')}}-->
-                <!--{{$globalFunc.formatDateUitl(order.updatedAt,'YYYY-MM-DD hh:mm:ss')}}</p>-->
+            <div class="td td-time1">
+              {{$globalFunc.formatDateUitl(order.createdAt,'YYYY-MM-DD hh:mm:ss')}}
             </div>
             <!--时间 end -->
 
-            <!--市场 begin -->
-            <div class="td td-market">{{order.symbol.split('_')[0]}}/{{order.symbol.split('_')[1]}}</div>
-            <!--市场 end -->
+            <!--合约 begin -->
+            <div class="td td-time">{{order.id}}</div>
+            <!--合约 end -->
 
-            <!--类别 begin -->
+            <!--订单类型 begin -->
             <div class="td td-category" :class="order.type==='BUY_LIMIT'?'text_blue-3':'text_red-4'" v-if="!order.isFollow">
               {{order.type === 'BUY_LIMIT' && $t('orderPageHistoricalEntrustment.buy') ||
               $t('orderPageHistoricalEntrustment.sale') }}
             </div>
-            <div class="td td-category" :class="order.type==='BUY_LIMIT'?'text_blue-3':'text_red-4'" v-if="order.isFollow">
-              {{order.type === 'BUY_LIMIT' && $t('orderPageHistoricalEntrustment.followBuy') ||
-              $t('orderPageHistoricalEntrustment.followSale') }}
-            </div>
-            <!--类别 end -->
+            <!--订单类型 end -->
 
-            <!--单价 begin -->
+            <!--方向 begin -->
+            <div class="td td-market">{{order.symbol.split('_')[0]}}/{{order.symbol.split('_')[1]}}</div>
+            <!--方向 end -->
+
+            <!--价格 begin -->
             <div class="td td-market">{{toFixed(order.price, !!quoteScale_list[order.symbol] ? quoteScale_list[order.symbol].quoteScale : 8)}} {{order.symbol.split('_')[1]}}</div>
-            <!--单价 end -->
+            <!--价格 end -->
+
+            <!--成交价格 begin -->
+            <div class="td td-market">{{toFixed(order.amount, !!quoteScale_list[order.symbol] ? quoteScale_list[order.symbol].baseScale : 8)}} {{order.symbol.split('_')[0]}}</div>
+            <!--成交价格 end -->
 
             <!--数量 begin -->
-            <div class="td td-market">{{toFixed(order.amount, !!quoteScale_list[order.symbol] ? quoteScale_list[order.symbol].baseScale : 8)}} {{order.symbol.split('_')[0]}}</div>
+            <div class="td td-category">{{getStatus(order)}}</div>
             <!--数量 end -->
 
-            <!--成交数量 begin -->
+            <!--触发条件 begin -->
             <div class="td td-price">{{toFixed(order.filledAmount, !!quoteScale_list[order.symbol] ? quoteScale_list[order.symbol].baseScale : 8)}} {{order.symbol.split('_')[0]}}</div>
-            <!--成交数量 end-->
-
-            <!--<div class="td td-amount">{{ (order.filledAmount * order.price).toFixed(8) }}</div>-->
-
-            <!--费率 begin -->
-            <!--<div class="td td-charge">-->
-              <!--{{toFixed(order.fee,8)}} {{order.type === 'BUY_LIMIT' ?-->
-              <!--order.symbol.split('_')[0]:order.symbol.split('_')[1]}}-->
-            <!--</div>-->
-            <!--费率 end -->
-
+            <!--触发条件 end-->
 
             <!--状态 begin -->
-            <div class="td td-category">{{getStatus(order)}}</div>
-            <!--状态 end -->
-
-
-            <!--查看详情 begin -->
             <div class="td td-turnover" @click="showDetail(order.id)"
                  v-if="canShowDetail(order) && clickThis!==order.id">
               <span class="account-click"
@@ -140,7 +85,7 @@
               <img src="../../assets/xiala_icon.png" alt="" class="img-on">
             </div>
             <div class="td td-turnover" v-if="!canShowDetail(order)">--</div>
-            <!--查看详情 end -->
+            <!--状态 end -->
 
           </div>
           <div v-if="clickThis === order.id" class="tr-hidden">

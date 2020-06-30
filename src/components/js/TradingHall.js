@@ -21,11 +21,16 @@ root.components = {
   // BDB开关
   'Toggle': resolve => require(['../vue/BaseToggle'], resolve),
 
-  //币种介绍
-  'CurrencyIntroduction': resolve => require(['../vue/CurrencyIntroduction'], resolve),
+  // 历史成交
+  'HistoricalTransaction': resolve => require(['../vue/HistoricalTransaction'], resolve),
+  // 资金流水
+  'CapitalFlow': resolve => require(['../vue/CapitalFlow'], resolve),
 
-  // 为蜜简介
-  'SuperBeeIntroduction': resolve => require(['../vue/SuperBeeIntroduction'], resolve),
+  // 仓位
+  'OrderPosition': resolve => require(['../vue/OrderPosition'], resolve),
+
+  // 保证金余额
+  'OrderMarginBalance': resolve => require(['../vue/OrderMarginBalance'], resolve),
 
   // 移动端
   'MobileTradingHall': resolve => require(['../mobileVue/MobileTradingHall'], resolve)
@@ -66,7 +71,7 @@ root.data = function () {
     // 是否开启BDB燃烧
     BDBInfo: true,
     BDBChanging: false,
-    isNow: 0,
+    isNow: 4,
 
     // 币对时间配置
     symbol_config_times: [],
@@ -683,7 +688,6 @@ root.methods.re_getExchangeRate = function (data) {
 root.methods.clickTab = function (num) {
   this.isNow = num
   console.warn('this is num', this.isNow)
-
 }
 
 // 提示信息
