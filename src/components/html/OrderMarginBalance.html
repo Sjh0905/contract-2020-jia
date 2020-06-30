@@ -44,7 +44,7 @@
             <!--可用下单余额-->
             <div class="th td-number ">{{order.type}}</div>
             <!--划转-->
-            <div class="td td-trigger text_blue trasfer-hover">划转</div>
+            <div class="td td-trigger text_blue trasfer-hover" @click="goToTransfer">划转</div>
           </li>
         </transition-group>
       </template>
