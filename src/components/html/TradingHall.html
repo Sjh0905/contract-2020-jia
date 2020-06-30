@@ -109,56 +109,54 @@
               <div class="progress-bar-title-brand ">
                 {{$t("fixedPrice")}}
               </div>
-              <!--          <div class="progress-bar-title-brand-default">-->
-              <!--            市价-->
-              <!--          </div>-->
-              <!--          <div class="progress-bar-title-brand-default">-->
-              <!--            止损-->
-              <!--          </div>-->
-              <!--          <div class="progress-bar-title-brand-default">-->
-              <!--            限价止损-->
-              <!--          </div>-->
-              <!--          <div class="progress-bar-title-brand-default">-->
-              <!--            移动止损-->
-              <!--          </div>-->
-
+              <!--<div class="progress-bar-title-brand-default">-->
+                <!--市价-->
+              <!--</div>-->
+              <!--<div class="progress-bar-title-brand-default">-->
+                <!--止损-->
+              <!--</div>-->
+              <!--<div class="progress-bar-title-brand-default">-->
+                <!--限价止损-->
+              <!--</div>-->
+              <!--<div class="progress-bar-title-brand-default">-->
+                <!--移动止损-->
+              <!--</div>-->
 
               <!--<div class="service_charge ">-->
-              <!--<span>-->
-                <!--{{$t("serverCharge")}}: <em :class="{'delete' : BDBInfo}">0.2%</em> <em-->
-                <!--:class="{'delete' : !BDBInfo}"> 0.14%</em>-->
-                <!--&lt;!&ndash;{{$t('useBtMining',{btReward:btReward})}}&ndash;&gt;-->
-                <!--<font class="use_bob_fire">-->
-                  <!--{{$t("serverUser")}}-->
-                  <!--<router-link to="/index/help/rateStandard" class="text_blue"-->
-                               <!--:class="{'bdb_gray': !BDBInfo}">BDB</router-link>-->
-                  <!--{{$t("serverFire")}}-->
-                <!--</font>-->
-              <!--</span>-->
-            <!--&lt;!&ndash;<a href="#" class="toggle account-info-toggle"&ndash;&gt;-->
-            <!--&lt;!&ndash;:class="{'toggle&#45;&#45;off':!BDBInfo,'toggle&#45;&#45;on':BDBInfo,'toggle&#45;&#45;moving':BDBChanging}"&ndash;&gt;-->
-            <!--&lt;!&ndash;@click="clickToggle($event)"></a>&ndash;&gt;-->
-            <!--&lt;!&ndash;BDB折扣开关 begin&ndash;&gt;-->
-            <!--&lt;!&ndash;<div class="toggle-box vertical-middle">&ndash;&gt;-->
-              <!--&lt;!&ndash;<Toggle :toggleOpen="BDBInfo" :switchFunc="clickToggle"/>&ndash;&gt;-->
-            <!--&lt;!&ndash;</div>&ndash;&gt;-->
-            <!--&lt;!&ndash;BDB折扣开关 end&ndash;&gt;-->
-          <!--</div>-->
-        </div>
-        <div class="flex-row" style="margin: auto">
-          <div class="ProgressBar-wrap">
-            <!--买-->
-            <ProgressBar :orderType='0' :fee="BDBInfo" :btc_eth_rate="btc_eth_rate" :socket_price="socket_price"
-                         :symbol_config_times="symbol_config_times"/>
+                <!--<span>-->
+                  <!--{{$t("serverCharge")}}: <em :class="{'delete' : BDBInfo}">0.2%</em> <em-->
+                  <!--:class="{'delete' : !BDBInfo}"> 0.14%</em>-->
+                  <!--&lt;!&ndash;{{$t('useBtMining',{btReward:btReward})}}&ndash;&gt;-->
+                  <!--<font class="use_bob_fire">-->
+                    <!--{{$t("serverUser")}}-->
+                    <!--<router-link to="/index/help/rateStandard" class="text_blue"-->
+                                 <!--:class="{'bdb_gray': !BDBInfo}">BDB</router-link>-->
+                    <!--{{$t("serverFire")}}-->
+                  <!--</font>-->
+                <!--</span>-->
+                <!--<a href="#" class="toggle account-info-toggle"-->
+                <!--:class="{'toggle&#45;&#45;off':!BDBInfo,'toggle&#45;&#45;on':BDBInfo,'toggle&#45;&#45;moving':BDBChanging}"-->
+                <!--@click="clickToggle($event)"></a>-->
+                <!--BDB折扣开关 begin-->
+                <!--<div class="toggle-box vertical-middle">-->
+                  <!--<Toggle :toggleOpen="BDBInfo" :switchFunc="clickToggle"/>-->
+                <!--</div>-->
+                <!--BDB折扣开关 end-->
+              <!--</div>-->
+            </div>
+            <div class="flex-row" style="margin: auto">
+              <div class="ProgressBar-wrap">
+                <!--买-->
+                <ProgressBar :orderType='0' :fee="BDBInfo" :btc_eth_rate="btc_eth_rate" :socket_price="socket_price"
+                             :symbol_config_times="symbol_config_times"/>
+              </div>
+              <div class="ProgressBar-wrap">
+                <!--卖-->
+                <ProgressBar :orderType='1' :fee="BDBInfo" :btc_eth_rate="btc_eth_rate" :socket_price="socket_price"
+                             :symbol_config_times="symbol_config_times"/>
+              </div>
+            </div>
           </div>
-
-          <div class="ProgressBar-wrap">
-            <!--卖-->
-            <ProgressBar :orderType='1' :fee="BDBInfo" :btc_eth_rate="btc_eth_rate" :socket_price="socket_price"
-                         :symbol_config_times="symbol_config_times"/>
-          </div>
-        </div>
-      </div>
 
         </div>
         <!--右侧实时买卖-->
