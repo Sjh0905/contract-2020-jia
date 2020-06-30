@@ -72,22 +72,26 @@
             <!--触发条件 end-->
 
             <!--状态 begin -->
-            <div class="td td-turnover" @click="showDetail(order.id)"
-                 v-if="canShowDetail(order) && clickThis!==order.id">
-              <span class="account-click"
-                    :class="$route.name == 'historicalEntrust'?'text_blue-1':'text_blue-01'"
-                    @click="showDetail(order.id)">{{$t('orderPageHistoricalEntrustment.detail')}}</span>
-              <img class="img-on" src="../../assets/shangla_icon.png" alt="" @click="showDetail(order.id)">
-            </div>
-            <div class="td td-turnover account-click"
-                 :class="$route.name == 'historicalEntrust'?'text_blue-1':'text_blue-01'"
-                 v-if="canShowDetail(order) && clickThis===order.id">{{$t('orderPageHistoricalEntrustment.close')}}
-              <img src="../../assets/xiala_icon.png" alt="" class="img-on">
-            </div>
-            <div class="td td-turnover" v-if="!canShowDetail(order)">--</div>
-            <!--状态 end -->
+           <div class="td td-turnover" v-if="canShowDetail(order) && $route.name == 'historicalEntrust'">
+             <div class="td" @click="showDetail(order.id)"
+                  v-if="canShowDetail(order) && clickThis!==order.id">
+                <span class="account-click"
+                      :class="$route.name == 'historicalEntrust'?'text_blue-1':'text_blue-01'"
+                      @click="showDetail(order.id)">{{$t('orderPageHistoricalEntrustment.detail')}}</span>
+               <img class="img-on" src="../../assets/shangla_icon.png" alt="" @click="showDetail(order.id)">
+             </div>
+             <div class="td account-click"
+                  :class="$route.name == 'historicalEntrust'?'text_blue-1':'text_blue-01'"
+                  v-if="canShowDetail(order) && clickThis===order.id">{{$t('orderPageHistoricalEntrustment.close')}}
+               <img src="../../assets/xiala_icon.png" alt="" class="img-on">
+             </div>
+           </div>
+            <div class="td td-turnover" v-if="!canShowDetail(order) && $route.name == 'historicalEntrust'">--</div>
+           <div v-if="canShowDetail(order) && $route.name != 'historicalEntrust'" class="td td-turnover">完全成交</div>
+           <div class="td td-turnover" v-if="!canShowDetail(order) && $route.name != 'historicalEntrust'">--</div>
+              <!--状态 end -->
 
-          </div>
+            </div>
           <div v-if="clickThis === order.id" class="tr-hidden">
             <HiddenDetail :orderId="order.id" :symbol="order.symbol"
                           :orderType="order.type ==='BUY_LIMIT'?0:1"

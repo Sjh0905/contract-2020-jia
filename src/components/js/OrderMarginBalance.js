@@ -46,6 +46,12 @@ root.computed.historicalTransaction = function () {
 root.watch = {}
 /*------------------------------ 方法 -------------------------------*/
 root.methods = {}
+
+// 要跳划转页面
+root.methods.goToTransfer = function () {
+  this.$router.push({name:''})
+}
+
 /*---------------------- 账户余额 begin ---------------------*/
 root.methods.closeShowDescriptBox= function () {
   $(".show-descript").attr("style","display:none");
@@ -54,6 +60,7 @@ root.methods.openShowDescriptBox = function () {
   $(".show-descript").attr("style","display:block");
 }
 /*---------------------- 账户余额 end ---------------------*/
+
 /*---------------------- 未实现盈亏 begin ---------------------*/
 root.methods.closeGainsAndLosses= function () {
   $(".gains-and-losses").attr("style","display:none");
@@ -62,6 +69,7 @@ root.methods.openGainsAndLosses = function () {
   $(".gains-and-losses").attr("style","display:block");
 }
 /*---------------------- 未实现盈亏 end ---------------------*/
+
 /*---------------------- 可用下单余额 begin ---------------------*/
 root.methods.closeOrderBalance= function () {
   $(".order-balance").attr("style","display:none");
@@ -70,6 +78,7 @@ root.methods.openOrderBalance = function () {
   $(".order-balance").attr("style","display:block");
 }
 /*---------------------- 可用下单余额 end ---------------------*/
+
 
 /*---------------------- 保留小数 begin ---------------------*/
 root.methods.toFixed = function (num, acc = 8) {
