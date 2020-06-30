@@ -100,8 +100,21 @@ root.data = function () {
     //仓位模式End
 
     //保证金模式Strat
-    popWindowSecurityDepositMode: true,
+    popWindowSecurityDepositMode: false,
     //保证金模式End
+
+    //调整杠杆 Strat
+    popWindowAdjustingLever: true,
+    value:0,
+    marks: {
+      0: '',
+      15: '',
+      30: '',
+      45:'',
+      60:'',
+      75:''
+    },
+    //调整杠杆 End
   }
 }
 
@@ -782,10 +795,23 @@ root.methods.PositionModeSelected = function (cardType) {
 }
 //仓位模式End
 
-//保证金模式Strat
+//保证金模式 Strat
 root.methods.popWindowCloseSecurityDepositMode = function () {
   this.popWindowSecurityDepositMode = false
 }
+//保证金模式 End
+
+//调整杠杆 Strat
+root.methods.popWindowCloseAdjustingLever = function () {
+  this.popWindowAdjustingLever = false
+}
+// 处理滑动条显示框内容
+root.methods.formatTooltip=(val)=>{
+  return  val + 'X';
+}
+//调整杠杆 End
+
+
 root.props = {}
 // root.props.currency_list = {
 //   type: Object,

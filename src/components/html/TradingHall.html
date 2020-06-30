@@ -90,6 +90,7 @@
             <!--&lt;!&ndash;BDB折扣开关 end&ndash;&gt;-->
           <!--</div>-->
         </div>
+
         <div class="flex-row" style="margin: auto">
           <div class="ProgressBar-wrap">
             <!--买-->
@@ -253,7 +254,7 @@
   </PositionModeBulletBox>
   <!--  仓位模式End-->
 
-  <!--  保证金模式-->
+  <!--  保证金模式 Strat-->
   <PositionModeBulletBox :switch="popWindowSecurityDepositMode" @close="popWindowCloseSecurityDepositMode" >
     <div slot="header">
       <div class="positionMode-tit">BTCUSDT保证金模式</div>
@@ -275,6 +276,47 @@
       </div>
     </div>
   </PositionModeBulletBox>
+  <!--  保证金模式 End-->
+
+  <!--  调整杠杆 Strat-->
+  <PositionModeBulletBox :switch="popWindowAdjustingLever" @close="popWindowCloseAdjustingLever" >
+    <div slot="header">
+      <div class="positionMode-tit">调整杠杆</div>
+    </div>
+    <div slot="article"class="pop-lock-house">
+      <div class="body">
+        <div class="block"  style="margin: 4px auto">
+          <!-- <span class="demonstration">默认</span> -->
+          <p :class="'radiusa_blu1'" v-if="value>=0" @click="value=0" style="cursor:pointer"></p>
+          <p :class="'radiusa_blu2'" v-if="value>=15"@click="value=15" style="cursor:pointer"></p>
+          <p :class="'radiusa_blu3'" v-if="value>=30"@click="value=30" style="cursor:pointer"></p>
+          <p :class="'radiusa_blu4'" v-if="value>=45"@click="value=45" style="cursor:pointer"></p>
+          <p :class="'radiusa_blu5'" v-if="value>=60"@click="value=60" style="cursor:pointer"></p>
+          <p :class="'radiusa_blu6'" v-if="value>=75"@click="value=75" style="cursor:pointer"></p>
+          <el-slider
+            v-model="value"
+            :class="'el-slider_blu'"
+            :marks="marks"
+            show-input
+            max="75"
+            :format-tooltip="formatTooltip"
+          >
+          </el-slider>
+        </div>
+      </div>
+      <div class="mode-only">· 调整保证金模式仅对当前合约生效。</div>
+      <div class="mode-error">当前合约存在持仓和挂单，不支持调整保证金模式</div>
+      <div class="money-confirmation" @click="">确认</div>
+      <!--确认不可点击状态-->
+      <!--      <div class="money-confirmation-ash">确认</div>-->
+      <div class="money-explanation">
+        <div class="money-explanation-one">什么是全仓和逐仓模式？</div>
+        <div class="money-explanation-two">全仓保证金模式: 所有仓位共用合约账户中的保证金来避免仓位被强平。在强平事件中，交易者可能会损失所有的保证金和仓位。</div>
+        <div class="money-explanation-three">逐仓保证金模式: 一定数量保证金被分配到仓位上。如果仓位保证金亏损到低于维持保证金的水平，仓位将被强平。在逐仓模式下，您可以为这个仓位添加和减少保证金。</div>
+      </div>
+    </div>
+  </PositionModeBulletBox>
+  <!--  调整杠杆 End-->
 </div>
 
 <div class="TraddingHall-container" v-else>

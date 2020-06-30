@@ -656,12 +656,12 @@
 }
 .pop-lock-house {
   padding: 17px 25px 13px 25px;
-  background-color: #202133;
+  background-color: #16171D;
 }
 .lock-house-footer {
   width: 100%;
   /*padding: 0 25px;*/
-  background-color: #202133;
+  background-color: #16171D;
 }
 .day-surplus {
   width: 100%;
@@ -724,6 +724,7 @@
   text-align: center;
   border-radius:2px;
   border:1px solid rgba(87,88,97,1);
+  cursor: pointer;
 }
 .selected-cardType-mode {
   border:1px solid rgba(53,118,245,1);
@@ -757,6 +758,7 @@
   background:linear-gradient(270deg,rgba(53,118,245,1) 0%,rgba(69,154,245,1) 100%);
   border-radius:1px;
   margin-bottom: 15px;
+  cursor: pointer;
 }
 .money-confirmation-ash {
   width: 100%;
@@ -774,7 +776,7 @@
 .money-explanation {
   width: 100%;
   padding: 15px;
-  background-color: #1D1E25;
+  background-color: #16171D;
   color: #A2B5D9;
   font-size:12px;
   font-family:PingFangSC-Regular,PingFang SC;
@@ -791,3 +793,15 @@
   padding-bottom: 15px;
 }
 /*保证金模式 End*/
+
+/*调整杠杆 Strat*/
+.body {
+  width: 97%;
+  padding: 0px;
+  margin-top: 40px;
+  text-align: center;
+  content: "";
+  display: table;
+  clear: both;
+}
+/*调整杠杆 End*/
