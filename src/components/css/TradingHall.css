@@ -571,7 +571,7 @@
   background: #0B0E16;
   align-items: center;
   display: flex;
-  border-bottom: 1px solid #1E1F22;
+  /*border-bottom: 1px solid #1E1F22;*/
 }
 .cen1{
   line-height: 19px;
@@ -619,10 +619,23 @@
   color:#A2B5D9;
   line-height:15px;
 }
+.border-dashed {
+  display: inline-block;
+  cursor: pointer;
+  border-bottom: 1px dashed #6B7DA2;
+}
+.border-dashed:hover {
+  display: inline-block;
+  opacity: 0.8;
+  border-bottom: 1px dashed #6B7DA2;
+}
 .position-mode-box{
   cursor: pointer;
   margin-right: 25px;
   align-items: center;
+}
+.position-mode-box:hover{
+  opacity: 0.8;
 }
 .position-mode-icon{
   width: 14px;

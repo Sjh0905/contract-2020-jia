@@ -25,12 +25,12 @@
           <div class="cen1"    @mouseenter="showInfo()" @mouseleave="closeInfo()">{{symbol.split('_')[0]}}<em class="txt_light">/</em>{{symbol.split('_')[1]}}</div>
           <div class="cen2"><div class="cen21"> {{isNowPrice}}</div><div class="cen22"><em class="txt_light">≈</em>{{isCnyPrice}}</div></div>
           <div class="cen2">
-            <div class="cen31"> 标记价格 </div>
+            <div class="cen31 border-dashed"> 标记价格 </div>
             <div class="cen32"><span class="txt detail_txt">{{high24}}</span></div>
           </div>
           <div class="cen2">
-            <div class="cen31"><span class="capital-rate">资金费率</span><span>/</span><span>每八小时</span></div>
-            <div class="cen32"><span class="txt detail_txt txt-blue">{{high24}}</span> <span class="txt detail_txt">{{high24}}</span></div>
+            <div class="cen31"><span class="capital-rate border-dashed">资金费率/每八小时</span></div>
+            <div class="cen32"><span class="txt detail_txt txt-blue">{{high24}}</span> <span class="txt detail_txt border-dashed">{{high24}}</span></div>
           </div>
           <div class="cen2">
             <div class="cen31"> {{$t('Change')}}</div>
