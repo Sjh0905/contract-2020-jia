@@ -43,6 +43,9 @@
   background:rgba(11,14,22,1);
   /*flex:1;*/
   /*margin-left: 6px;*/
+
+  align-items: center;
+  display: flex;
 }
 
 .traddinghall-main-right-bottom {
@@ -563,7 +566,7 @@
 /*}*/
 
 .centertop{
-  width: 100%;
+  /*width: 100%;*/
   height: 44px;
   background: #0B0E16;
   align-items: center;
@@ -581,7 +584,7 @@
   font-weight:500;
 }
 .cen2{
-  padding: 8px 20px 5px 0px;
+  padding: 5px 20px 5px 0px;
   float: left;
 }
 .cen2 .cen21{
@@ -615,6 +618,25 @@
   font-weight:400;
   color:#A2B5D9;
   line-height:15px;
+}
+.position-mode-box{
+  cursor: pointer;
+  margin-right: 25px;
+  align-items: center;
+}
+.position-mode-icon{
+  width: 14px;
+  height: 14px;
+  margin-right: 7px;
+}
+.position-mode-text{
+  font-size:12px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color:rgba(162,181,217,1);
+}
+.txt-blue{
+  color: #3576F5;
 }
 .txt-price{
   color: #08D0AC;

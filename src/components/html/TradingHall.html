@@ -19,7 +19,48 @@
     <!--交易页市场的右侧-->
     <div class="traddinghall-main-right flex-colum">
 
-      <div class="traddinghall-main-right-top">
+      <div class="traddinghall-main-right-top flex-between">
+
+        <div class="centertop">
+          <div class="cen1"    @mouseenter="showInfo()" @mouseleave="closeInfo()">{{symbol.split('_')[0]}}<em class="txt_light">/</em>{{symbol.split('_')[1]}}</div>
+          <div class="cen2"><div class="cen21"> {{isNowPrice}}</div><div class="cen22"><em class="txt_light">≈</em>{{isCnyPrice}}</div></div>
+          <div class="cen2">
+            <div class="cen31"> 标记价格 </div>
+            <div class="cen32"><span class="txt detail_txt">{{high24}}</span></div>
+          </div>
+          <div class="cen2">
+            <div class="cen31"><span class="capital-rate">资金费率</span><span>/</span><span>每八小时</span></div>
+            <div class="cen32"><span class="txt detail_txt txt-blue">{{high24}}</span> <span class="txt detail_txt">{{high24}}</span></div>
+          </div>
+          <div class="cen2">
+            <div class="cen31"> {{$t('Change')}}</div>
+            <div class="cen32">
+                <span class="txt" :class="diff24 > 0 ? 'txt-price' : (diff24 == 0 ? '' : 'txt-price-red')">
+                  <span style="font-size: 1.4rem">{{diff24 > 0 ? '+' : ''}}{{diff24Ratio}}%</span>
+                  <em class="up_down_icon" :class="diff24 > 0 ? 'up_icon' : (diff24 == 0 ? '' : 'down_icon')"></em>
+                </span>
+            </div>
+          </div>
+          <div class="cen2">
+            <div class="cen31"> {{$t('High')}} </div>
+            <div class="cen32"><span class="txt detail_txt">{{high24}}</span></div>
+          </div>
+          <div class="cen2">
+            <div class="cen31"> {{$t('Low')}}</div>
+            <div class="cen32"><span class="txt detail_txt">{{low24}}</span></div>
+          </div>
+          <div class="cen2">
+            <div class="cen31"> {{$t('Volum')}}</div>
+            <div class="cen32"><span class="txt detail_txt">{{volume}}&nbsp;{{symbol.split('_')[0]}}</span></div>
+          </div>
+        </div>
+
+        <div class="position-mode-box flex-row">
+          <img class="position-mode-icon" src="../../assets/position_mode_setting.png" alt="">
+          <div class="position-mode-text">仓位模式</div>
+        </div>
+
+
       </div>
 
       <div class="traddinghall-main-right-bottom flex-row">
@@ -31,24 +72,31 @@
           <!--<CurrencyIntroduction/>-->
           <!--</div>-->
           <!--币种资料 end-->
-          <div class="centertop">
-            <div class="cen1"    @mouseenter="showInfo()" @mouseleave="closeInfo()">{{symbol.split('_')[0]}}<em class="txt_light">/</em>{{symbol.split('_')[1]}}</div>
-            <div class="cen2"><div class="cen21"> {{isNowPrice}}</div><div class="cen22"><em class="txt_light">≈</em>{{isCnyPrice}}</div></div>
-            <div class="cen2"><div class="cen31"> {{$t('Change')}}</div><div class="cen32">
-            <span class="txt" :class="diff24 > 0 ? 'txt-price' : (diff24 == 0 ? '' : 'txt-price-red')"><span
-              style="font-size: 1.4rem">{{diff24 > 0 ? '+' : ''}}{{diff24Ratio}}%</span> <em class="up_down_icon"
-                                                                                             :class="diff24 > 0 ? 'up_icon' : (diff24 == 0 ? '' : 'down_icon')"></em></span>
-            </div></div>
-            <div class="cen2"><div class="cen31"> {{$t('High')}} </div><div class="cen32">
-              <span class="txt detail_txt">{{high24}}</span>
-            </div></div>
-            <div class="cen2"><div class="cen31"> {{$t('Low')}}</div><div class="cen32">
-              <span class="txt detail_txt">{{low24}}</span>
-            </div></div>
-            <div class="cen2"><div class="cen31"> {{$t('Volum')}}</div><div class="cen32">
-              <span class="txt detail_txt">{{volume}}&nbsp;{{symbol.split('_')[0]}}</span>
-            </div></div>
-          </div>
+          <!--<div class="centertop">-->
+            <!--<div class="cen1"    @mouseenter="showInfo()" @mouseleave="closeInfo()">{{symbol.split('_')[0]}}<em class="txt_light">/</em>{{symbol.split('_')[1]}}</div>-->
+            <!--<div class="cen2"><div class="cen21"> {{isNowPrice}}</div><div class="cen22"><em class="txt_light">≈</em>{{isCnyPrice}}</div></div>-->
+            <!--<div class="cen2">-->
+              <!--<div class="cen31"> {{$t('Change')}}</div>-->
+              <!--<div class="cen32">-->
+                <!--<span class="txt" :class="diff24 > 0 ? 'txt-price' : (diff24 == 0 ? '' : 'txt-price-red')">-->
+                  <!--<span style="font-size: 1.4rem">{{diff24 > 0 ? '+' : ''}}{{diff24Ratio}}%</span>-->
+                  <!--<em class="up_down_icon" :class="diff24 > 0 ? 'up_icon' : (diff24 == 0 ? '' : 'down_icon')"></em>-->
+                <!--</span>-->
+              <!--</div>-->
+            <!--</div>-->
+            <!--<div class="cen2">-->
+              <!--<div class="cen31"> {{$t('High')}} </div>-->
+              <!--<div class="cen32"><span class="txt detail_txt">{{high24}}</span></div>-->
+            <!--</div>-->
+            <!--<div class="cen2">-->
+              <!--<div class="cen31"> {{$t('Low')}}</div>-->
+              <!--<div class="cen32"><span class="txt detail_txt">{{low24}}</span></div>-->
+            <!--</div>-->
+            <!--<div class="cen2">-->
+              <!--<div class="cen31"> {{$t('Volum')}}</div>-->
+              <!--<div class="cen32"><span class="txt detail_txt">{{volume}}&nbsp;{{symbol.split('_')[0]}}</span></div>-->
+            <!--</div>-->
+          <!--</div>-->
 
           <!--K线-->
           <div class="TradingView-wrap">
