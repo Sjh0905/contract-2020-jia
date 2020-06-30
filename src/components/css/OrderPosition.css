@@ -1,0 +1,319 @@
+.current-entrustment-container {
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+  background-color: #fff;
+}
+
+tr, th, td {
+  box-sizing: border-box;
+}
+
+.detail {
+  width: 1200px;
+  margin: 0 auto;
+  overflow: hidden;
+  border-top-left-radius: 0 !important;
+  min-height: 200px;
+  border:1px solid rgba(239,240,255,1);
+  margin-top: 25px;
+  box-sizing: border-box;
+}
+.detail-1 {
+  width: 100%;
+  margin: 0 auto;
+  overflow: hidden;
+  border-top-left-radius: 0 !important;
+  min-height: 200px;
+  box-sizing: border-box;
+  background-color: #0D111F;
+  color: #F5F6FA;
+}
+.tr-th {
+  width: 100%;
+  height: 40px;
+  /*line-height: 40px;*/
+  align-items: center;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  font-size: 12px;
+  color: #6B7DA2;
+  text-align: left;
+}
+.tr-td {
+  width: 100%;
+  height: 50px;
+  align-items: center;
+  text-align: left;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color:#F5F6FA;
+}
+.td-time1 {
+  flex: 6.3;
+  padding-left: 25px;
+}
+.td-time {
+  flex: 9.3;
+}
+.td-category-1 {
+  flex: 6.3;
+}
+.td-market {
+  flex: 7.3;
+}
+.td-number {
+  flex: 6.3;
+}
+.td-flat-price {
+  flex: 6.3;
+}
+.td-price {
+  flex: 6.3;
+}
+.td-deposit {
+  flex: 6;
+}
+.td-return-rate {
+  flex: 6.3;
+}
+.td-reduce-positions {
+  flex: 4.3;
+}
+.td-reduce-positions img {
+  width: 21px;
+}
+.td-trigger {
+  flex: 10;
+  text-align: right;
+  padding-right: 25px;
+}
+.td-trigger-btn {
+  margin-left: 77px;
+}
+.td-trigger-btn input {
+  width: 80px;
+  height: 28px;
+  line-height: 28px;
+  border: 0;
+  background: 0;
+  padding: 0 10px;
+  color: #F5F6FA;
+  box-sizing: border-box;
+  border: 1px solid #393F4D;
+
+}
+.td-trigger-btn input:focus {
+  border: 1px solid #6B7DA2;
+}
+.margin-right {
+  margin-right: 10px;
+}
+.market-price {
+  display: inline-block;
+  float: right;
+  /*width: 54px;*/
+  padding: 0 15px;
+  height: 28px;
+  line-height: 28px;
+  background: #3576F5;
+  cursor: pointer;
+  border-radius:1px;
+
+}
+.market-price:hover {
+  /*width: 54px;*/
+  padding: 0 15px;
+  height: 28px;
+  line-height: 28px;
+  background: rgba(53,118,245,.5);
+  cursor: pointer;
+  border-radius:1px;
+}
+.td-time1-currency {
+  align-items: center;
+}
+.text_blue-3 {
+  font-size:12px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color:rgba(8,208,172,1);
+}
+.text_red-4 {
+  font-size:12px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color:rgba(239,86,86,1);
+}
+.td-time1-green {
+  width: 2px;
+  height: 30px;
+  background: #08D0AC;
+}
+.td-time1-red {
+  width: 2px;
+  height: 30px;
+  background: #EF5656;
+}
+.td-currency {
+  margin: 0 10px 0 8px;
+}
+.td-currency-btn {
+  padding: 0 5px;
+  height: 18px;
+  border: 1px solid #3576F5;
+  border-radius: 2px;
+}
+
+.weit{
+  width: 100%;
+  height: 240px;
+  line-height: 240px;
+  text-align: center;
+  box-sizing: border-box;
+}
+.weit .nhtu{
+  width: 100%;
+  height: 120px;
+  float: left;
+  margin: 0 auto;
+  margin-top: 30px;
+}
+.weit span{
+  width: 100%;
+  height: 24px;
+  text-align: center;
+  font-size:12px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color:rgba(107,125,162,1);
+  line-height: 24px;
+  float: left;
+}
+.seeMore {
+  text-align: center;
+  padding: 10px 0;
+}
+
+.border-dashed {
+  display: inline-block;
+  cursor: pointer;
+  border-bottom: 1px dashed #6B7DA2;
+}
+.border-dashed:hover {
+  display: inline-block;
+  opacity: 0.8;
+  border-bottom: 1px dashed #6B7DA2;
+}
+.open-position-box {
+  display: none;
+  position: absolute;
+  top: 32px;
+  left:300px;
+  font-size:12px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color: #0D0E23;
+  background: #fff;
+  padding: 10px;
+}
+.open-marked-price-box {
+  display: none;
+  position: absolute;
+  width: 300px;
+  height:auto;
+  top: 32px;
+  left: 444px;
+  font-size:12px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color: #0D0E23;
+  background: #fff;
+  padding: 10px;
+}
+.open-flat-price-box {
+  display: none;
+  position: absolute;
+  width: 300px;
+  height:auto;
+  top: 32px;
+  left: 650px;
+  font-size:12px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color: #0D0E23;
+  background: #fff;
+  padding: 10px;
+}
+.open-price-box {
+  display: none;
+  position: absolute;
+  width: 300px;
+  height:auto;
+  top: 32px;
+  left: 838px;
+  font-size:12px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color: #0D0E23;
+  background: #fff;
+  padding: 10px;
+}
+.open-security-deposit-box {
+  display: none;
+  position: absolute;
+  /*width: 300px;*/
+  height:auto;
+  top: 32px;
+  left: 1096px;
+  font-size:12px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color: #0D0E23;
+  background: #fff;
+  padding: 10px;
+}
+.open-return-rate-box {
+  display: none;
+  position: absolute;
+  width: 300px;
+  height:auto;
+  top: 32px;
+  left: 1200px;
+  font-size:12px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color: #0D0E23;
+  background: #fff;
+  padding: 10px;
+}
+.open-educe-positions-box {
+  display: none;
+  position: absolute;
+  width: 300px;
+  height:auto;
+  top: 32px;
+  right: 250px;
+  font-size:12px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color: #0D0E23;
+  background: #fff;
+  padding: 10px;
+}
+.open-liquidation-box {
+  display: none;
+  position: absolute;
+  width: 300px;
+  height:auto;
+  top: 32px;
+  right: 25px;
+  font-size:12px;
+  text-align: left;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color: #0D0E23;
+  background: #fff;
+  padding: 10px;
+}
+

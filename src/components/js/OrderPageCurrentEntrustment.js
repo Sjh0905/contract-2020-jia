@@ -15,7 +15,7 @@ root.components = {
 
 root.data = () => {
   return {
-    loading: true, // 加载中
+    loading: false, // 加载中
     currentOrder: [],
     popOpen: false,
 
@@ -62,7 +62,6 @@ root.created = function () {
   this.currentInterval = setInterval(this.getOrder, 5000)
 
   console.log('this.$route=======',this.$route.name)
-  // console.log(('this.$router==========第四季',this.$router))
 }
 
 root.beforeDestroy = function () {
@@ -75,7 +74,15 @@ root.beforeDestroy = function () {
 root.computed = {}
 // 计算后的order，排序之类的放在这里
 root.computed.currentOrderComputed = function () {
-  return this.currentOrder
+  return this.currentOrder = [
+    {
+      id:12,
+      createdAt:123452,
+      symbol:'BTC_USDT',
+      amount:123,
+      filledAmount:123
+    }
+  ]
 }
 // 用户id，判断是否登录
 root.computed.userId = function () {
@@ -111,13 +118,11 @@ root.methods.getOrder = function () {
         offsetId: this.offsetId,
         limit: (this.tradinghallLimit===10) ? this.tradinghallLimit : this.limit, //一次请求多少条订单,
         isFinalStatus: false,
-
       },
       callBack: this.re_getOrder,
       errorHandler: this.error_getOrder,
     })
 }
-
 // 获取订单回调
 root.methods.re_getOrder = function (data) {
   // console.warn('订单信息获取到了！！！！', data)
@@ -161,7 +166,6 @@ root.methods.re_getOrder = function (data) {
   //   this.showLoadingMore = false
   // }
 }
-
 // 获取订单出错
 root.methods.error_getOrder = function (err) {
   console.warn("获取订单出错！")
@@ -171,7 +175,6 @@ root.methods.error_getOrder = function (err) {
 root.methods.toCurrentHistory = function (err) {
   this.$router.push({name:'currentEntrust'})
 }
-
 root.methods.TRADED = function (para) {
   this.getOrder()
 }

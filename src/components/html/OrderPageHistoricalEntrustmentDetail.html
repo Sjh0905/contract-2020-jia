@@ -1,48 +1,70 @@
 <!--<div class="OrderPageHistoricalEntrustmentDetail-container loading-min-height">-->
-<div class=" loading-min-height" :class="$route.name == 'historicalEntrust'?'OrderPageHistoricalEntrustmentDetail-container':'OrderPageHistoricalEntrustmentDetail-container-1'">
+<div class="loading-min-height" :class="$route.name == 'historicalEntrust'?'OrderPageHistoricalEntrustmentDetail-container':'OrderPageHistoricalEntrustmentDetail-container-1'">
   <Loading v-if="loading"/>
   <template v-if="!loading">
+
+    <div class="hidden-detail-container-total flex">
+      <div class="exchange-total-amount">
+        交易总量：
+        <span class="text_black">234234.123 USDT</span>
+      </div>
+
+      <div class="exchange-total-amount">
+        总盈亏：
+        <span class="text_black">234234.123 USDT</span>
+      </div>
+
+      <div class="exchange-total-amount">
+        总手续费：
+        <span class="text_black">234234.123 USDT</span>
+      </div>
+
+    </div>
+
     <ul class="hidden-detail-container">
+
       <li class="hidden-detail-li hidden-detail-li-title flex">
-        <div class="hidden-detail-title">{{$t('orderPageHistoricalEntrustmentDetail.time')}}</div>
-        <div class="hidden-detail-title">{{$t('orderPageHistoricalEntrustmentDetail.price')}}</div>
+        <!--时间-->
+        <div class="hidden-detail-title">{{$t('时间')}}</div>
+        <!--交易价格-->
+        <div class="hidden-detail-title">{{$t('交易价格')}}</div>
+        <!--成交数量-->
         <div class="hidden-detail-title">{{$t('orderPageHistoricalEntrustmentDetail.number')}}</div>
-        <div class="hidden-detail-title">{{$t('orderPageHistoricalEntrustmentDetail.amount')}}</div>
-        <!--应收手续费 begin -->
-        <div class="hidden-detail-title" v-if="orderDetail.length!=1">
-          {{$t('orderPageHistoricalEntrustmentDetail.charge')}}
+        <!--手续费-->
+        <div class="hidden-detail-title">{{$t('手续费')}}</div>
+        <!--盈亏 begin -->
+        <div class="hidden-detail-title">
+          {{$t('盈亏')}}
         </div>
-        <div class="hidden-detail-title" v-if="orderDetail.length==1">
-          {{$t('orderPageHistoricalEntrustmentDetail.charge')}}
-        </div>
-        <!--应收手续费 end -->
-        <!--实际到账 begin -->
+        <!--盈亏 end -->
+        <!--成交量 begin -->
         <div class="hidden-detail-title-1">
-          {{$t('orderPageHistoricalEntrustmentDetail.realAccount')}}
+          {{$t('成交量')}}
         </div>
-        <!--实际到账 end -->
+        <!--成交量 end -->
       </li>
+
       <li class="hidden-detail-li hidden-detail-li-article flex-center" v-for="(detail,index) in orderDetail"
           :key="index">
-        <!--成交时间 begin -->
+        <!--时间 begin -->
         <div class="hidden-detail-article">{{$globalFunc.formatDateUitl(detail.createdAt,'YYYY-MM-DD hh:mm:ss')}}</div>
-        <!--成交时间 end -->
+        <!--时间 end -->
 
-        <!--成交价 begin -->
+        <!--交易价格 begin -->
         <div class="hidden-detail-article">{{toFixed(detail.price, !!quoteScale_list[symbol] ? quoteScale_list[symbol].quoteScale : 8)}} {{symbol.split('_')[1]}}</div>
-        <!--成交价 end -->
+        <!--交易价格 end -->
 
         <!--成交数量 begin -->
         <div class="hidden-detail-article">{{toFixed(detail.amount, !!quoteScale_list[symbol] ? quoteScale_list[symbol].baseScale : 8)}} {{symbol.split('_')[0]}}</div>
         <!--成交数量 end -->
 
-        <!--成交金额 begin -->
+        <!--手续费 begin -->
         <div class="hidden-detail-article">{{toFixed(accMul(detail.price , detail.amount, 8))}}
           {{symbol.split('_')[1]}}
         </div>
-        <!--成交金额 end -->
+        <!--手续费 end -->
 
-        <!--手续费 begin -->
+        <!--盈亏 begin -->
         <!--订单数量如果超过1并且没开抵扣，显示一条的 begin -->
         <div class="hidden-detail-article" v-if="orderDetail.length!==1 && !replaced">
           {{toFixed(detail.fee,8)}}
@@ -67,56 +89,30 @@
 
         <!--如果没开抵扣，显示原币种 begin -->
         <div class="hidden-detail-article" v-if="orderDetail.length==1 && !replaced">
-          <!--<p class="hidden-detail-article-box hidden-detail-article-original-currency">-->
-            <!--<span class="hidden-detail-article-title hidden-detail-article-original-currency-title"-->
-                  <!--:class="{'hidden-detail-article-title-en':lang!=='CH'}"-->
-            <!--&gt;{{$t('orderPageHistoricalEntrustmentDetail.originalCurrency')}}</span>-->
-            <span
-              class="hidden-detail-article-item hidden-detail-article-original-currency-item">{{toFixed(detail.fee,8)}} {{detail.feeCurrency}}</span>
-          <!--</p>-->
-          <!--<p class="hidden-detail-article-box hidden-detail-article-really-currency">-->
-            <!--<span class="hidden-detail-article-title hidden-detail-article-really-currency-title"-->
-                  <!--:class="{'hidden-detail-article-title-en':lang!=='CH'}"-->
-            <!--&gt;{{$t('orderPageHistoricalEntrustmentDetail.reallyCurrency')}}</span>-->
-            <!--<span-->
-              <!--class="hidden-detail-article-item hidden-detail-article-really-currency-item"-->
-            <!--&gt;{{toFixed(totalFee,8)}} {{orderType?symbol.split('_')[1]:symbol.split('_')[0]}}</span>-->
-          <!--</p>-->
+            <span class="hidden-detail-article-item hidden-detail-article-original-currency-item">{{toFixed(detail.fee,8)}} {{detail.feeCurrency}}</span>
         </div>
         <!--如果没开抵扣，显示原币种 end -->
 
 
         <!--如果开抵扣了，显示抵扣 begin -->
         <div class="hidden-detail-article" v-if="orderDetail.length==1 && replaced">
-          <!--<p class="hidden-detail-article-box hidden-detail-article-original-currency">-->
-            <!--<span class="hidden-detail-article-title hidden-detail-article-original-currency-title"-->
-                  <!--:class="{'hidden-detail-article-title-en':lang!=='CH'}"-->
-            <!--&gt;{{$t('orderPageHistoricalEntrustmentDetail.originalCurrency')}}</span>-->
-            <!--<span-->
-              <!--class="hidden-detail-article-item hidden-detail-article-original-currency-item">{{toFixed(originalFee,8)}} {{originalCurrency}}</span>-->
-          <!--</p>-->
+
           <p class="hidden-detail-article-box hidden-detail-article-really-currency">
-            <!--<span class="hidden-detail-article-title hidden-detail-article-really-currency-title"-->
-                  <!--:class="{'hidden-detail-article-title-en':lang!=='CH'}"-->
-            <!--&gt;{{$t('orderPageHistoricalEntrustmentDetail.reallyCurrency')}}</span>-->
-            <span
-              class="hidden-detail-article-item hidden-detail-article-really-currency-item"
-              v-if="originalFee !==refundedFee"
-            >{{toFixed(accMinus(originalFee , refundedFee,8))}} {{originalCurrency}}</span>
-            <span
-              class="hidden-detail-article-item hidden-detail-article-really-currency-item"
-              v-if="replacedFee !==0"
-            >{{toFixed(replacedFee,8)}} {{replacedCurrency}}</span>
+            <span class="hidden-detail-article-item hidden-detail-article-really-currency-item"
+              v-if="originalFee !==refundedFee">
+              {{toFixed(accMinus(originalFee , refundedFee,8))}} {{originalCurrency}}
+            </span>
+            <span class="hidden-detail-article-item hidden-detail-article-really-currency-item"
+                  v-if="replacedFee !==0">
+              {{toFixed(replacedFee,8)}} {{replacedCurrency}}
+            </span>
           </p>
         </div>
         <!--如果开抵扣了，显示抵扣 end -->
-
         <!--订单数量如果只有1条，显示为总计 end -->
+        <!--盈亏 end -->
 
-
-        <!--手续费 end -->
-
-        <!--实际到账 begin -->
+        <!--成交量 begin -->
         <div class="hidden-detail-article-1" v-if="orderDetail.length==1 && !orderType">
           {{!replaced ? toFixed(actualAccount,8) : toFixed(accMinus(amount ,symbol.split('_')[0] == "TT" ? replacedFee : accMinus(originalFee , refundedFee)),8)}}
           {{orderType?symbol.split('_')[1]:symbol.split('_')[0]}}
@@ -128,7 +124,7 @@
         <div class="hidden-detail-article-1" v-if="orderDetail.length!=1">
           ---
         </div>
-        <!--实际到账 end -->
+        <!--成交量 end -->
       </li>
 
       <li class="hidden-detail-li hidden-detail-li-article" v-if="loadingMoreShow">

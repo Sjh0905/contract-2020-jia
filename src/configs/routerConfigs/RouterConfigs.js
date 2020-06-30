@@ -2341,6 +2341,37 @@ root.routes.push({
             requireLoginOff: false,
           },
         },
+        // 历史成交
+        {
+          path: 'historicalTransaction',
+          name: 'historicalTransaction',
+          caseSensitive: true,
+          component: resolve => require(['@/components/vue/HistoricalTransaction'], resolve),
+          meta: {
+            pcname: 'historicalTransaction',
+            h5name: '',
+            requireLogin: true,
+            templateClose: false,
+            templatePath: '/index/orderPageT',
+            requireLoginOff: false,
+          },
+        },
+        // 资金流水
+        {
+          path: 'capitalFlow',
+          name: 'capitalFlow',
+          caseSensitive: true,
+          component: resolve => require(['@/components/vue/CapitalFlow'], resolve),
+          meta: {
+            pcname: 'capitalFlow',
+            h5name: '',
+            requireLogin: true,
+            templateClose: false,
+            templatePath: '/index/orderPageT',
+            requireLoginOff: false,
+          },
+        },
+
 
       ]
     },

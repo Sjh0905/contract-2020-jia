@@ -5,7 +5,7 @@
   /*min-height: 50px;*/
   /*padding: 0 10px 0 10px;*/
   /*box-shadow: 0 0 1px 1px rgba(118, 125, 127, 0.08) inset;*/
-  background-color: #fcfcfc;
+  /*background-color: #fcfcfc;*/
 }
 .OrderPageHistoricalEntrustmentDetail-container-1 {
   width: 100%;
@@ -21,12 +21,31 @@
   min-height: 50px;
 }
 
-.hidden-detail-container {
-  /*width: 100%;*/
+.hidden-detail-container-total {
+  width: 1180px;
   margin: 0 auto;
-  margin: 0 10px;
-  /*background:rgba(251,251,251,1);*/
-  /*border:1px solid rgba(239,240,255,1);*/
+  font-size:14px;
+  font-family:PingFangHK-Regular,PingFangHK;
+  color: #A2B5D9;
+  font-weight:400;
+  padding: 0 25px;
+  box-sizing: border-box;
+}
+.text_black {
+  color: #0D0E23;
+}
+.exchange-total-amount {
+  height: 45px;
+  line-height: 45px;
+  margin-right: 37px;
+}
+
+.hidden-detail-container {
+  width: 1180px;
+  margin: 0 auto;
+  /*margin: 0 10px;*/
+  background:#FBFBFB;
+  border:1px solid #EFF0FF;
   font-size:12px;
   font-family:PingFangSC-Regular,PingFang SC;
   font-weight:400;
