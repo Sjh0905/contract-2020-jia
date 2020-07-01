@@ -698,10 +698,10 @@
 
 
 /*仓位模式弹框 Strat*/
-.positionMode-tit {
+.position-mode-tit {
   padding-left: 25px;
 }
-.riskAlert {
+.risk-alert {
   color: #E0E1F4;
   font-size:14px;
   font-family:PingFangSC-Regular,PingFang SC;

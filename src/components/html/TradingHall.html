@@ -55,7 +55,7 @@
           </div>
         </div>
 
-        <div class="position-mode-box flex-row">
+        <div class="position-mode-box flex-row" @click="turnOnLocationMode">
           <img class="position-mode-icon" src="../../assets/position_mode_setting.png" alt="">
           <div class="position-mode-text">仓位模式</div>
         </div>
@@ -289,23 +289,23 @@
   <!--  仓位模式Strat-->
   <PositionModeBulletBox :switch="popWindowPositionModeBulletBox" @close="popWindowClosePositionModeBulletBox" >
     <div slot="header">
-      <div class="positionMode-tit">仓位模式</div>
+      <div class="position-mode-tit">仓位模式</div>
     </div>
     <div slot="article"class="pop-lock-house">
-      <div class="riskAlert">
+      <div class="risk-alert">
         若有合约存在持仓或者挂单，不允许调整仓位模式。仓位模式调整对所有合约统一生效。
       </div>
-      <div class="flex" @click="PositionModeSelected(1)">
-        <img class="single-position-img" src="../../assets/Contract/ContractNoSelected.png" alt="" v-if="cardType == 2">
-        <img class="single-position-img" src="../../assets/Contract/ContractSelected.png" alt="" v-if="cardType == 1">
+      <div class="flex" @click="positionModeSelected(1)">
+        <img class="single-position-img" src="../../assets/contract/contract_no_selected.png" alt="" v-if="cardType == 2">
+        <img class="single-position-img" src="../../assets/contract/contract_selected.png" alt="" v-if="cardType == 1">
         <div class="">
           <div class="selected-positions-cod" :class="{'selected_cardType':cardType == 1}">单项持仓</div>
           <div class="position-explanation">单向持仓模式下，一个合约只允许持有一个方向的仓位</div>
         </div>
       </div>
-      <div class="flex" @click="PositionModeSelected(2)">
-        <img class="single-position-img" src="../../assets/Contract/ContractNoSelected.png" alt="" v-if="cardType == 1">
-        <img class="single-position-img" src="../../assets/Contract/ContractSelected.png" alt="" v-if="cardType == 2">
+      <div class="flex" @click="positionModeSelected(2)">
+        <img class="single-position-img" src="../../assets/contract/contract_no_selected.png" alt="" v-if="cardType == 1">
+        <img class="single-position-img" src="../../assets/contract/contract_selected.png" alt="" v-if="cardType == 2">
         <div class="">
           <div class="selected-positions" :class="{'selected_cardType':cardType == 2}">双向持仓</div>
           <div class="position-explanation">双向持仓模式下，一个合约可允许同时持有多空两个方向的仓位，并且同一合约下不同方向仓位风险对冲</div>
@@ -323,12 +323,12 @@
   <!--  保证金模式 Strat-->
   <PositionModeBulletBox :switch="popWindowSecurityDepositMode" @close="popWindowCloseSecurityDepositMode" >
     <div slot="header">
-      <div class="positionMode-tit">BTCUSDT保证金模式</div>
+      <div class="position-mode-tit">BTCUSDT保证金模式</div>
     </div>
     <div slot="article"class="pop-lock-house">
       <div class="flex">
-        <div class="selected-mode selected-cardType-left" :class="{'selected-cardType-mode':cardType == 1}" @click="PositionModeSelected(1)">全仓</div>
-        <div class="selected-mode" :class="{'selected-cardType-mode':cardType == 2}" @click="PositionModeSelected(2)">逐仓</div>
+        <div class="selected-mode selected-cardType-left" :class="{'selected-cardType-mode':cardType == 1}" @click="positionModeSelected(1)">全仓</div>
+        <div class="selected-mode" :class="{'selected-cardType-mode':cardType == 2}" @click="positionModeSelected(2)">逐仓</div>
       </div>
       <div class="mode-only">· 调整保证金模式仅对当前合约生效。</div>
       <div class="mode-error">当前合约存在持仓和挂单，不支持调整保证金模式</div>
@@ -347,7 +347,7 @@
   <!--  调整杠杆 Strat-->
   <PositionModeBulletBox :switch="popWindowAdjustingLever" @close="popWindowCloseAdjustingLever" >
     <div slot="header">
-      <div class="positionMode-tit">调整杠杆</div>
+      <div class="position-mode-tit">调整杠杆</div>
     </div>
     <div slot="article"class="pop-lock-house">
       <div class="body">
