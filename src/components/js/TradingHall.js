@@ -109,15 +109,15 @@ root.data = function () {
     //保证金模式End
 
     //调整杠杆 Strat
-    popWindowAdjustingLever: false,
-    value:0,
+    popWindowAdjustingLever: true,
+    value:1,
     marks: {
-      0: '',
-      15: '',
-      30: '',
-      45:'',
-      60:'',
-      75:''
+      1: '1X',
+      15: '15X',
+      30: '30X',
+      45:'45X',
+      60:'60X',
+      75:'75X'
     },
     //调整杠杆 End
   }
@@ -786,6 +786,10 @@ root.methods.showInfo = function(data){
 root.methods.closeInfo = function(data){
   this.showinfo = false;
 }
+//打开仓位模式
+root.methods.turnOnLocationMode = function () {
+  this.popWindowPositionModeBulletBox = true
+}
 
 
 //仓位模式Start
@@ -794,7 +798,7 @@ root.methods.popWindowClosePositionModeBulletBox = function () {
   this.popWindowPositionModeBulletBox = false
 }
 // 仓位模式选择
-root.methods.PositionModeSelected = function (cardType) {
+root.methods.positionModeSelected = function (cardType) {
   this.cardType = cardType
 }
 //仓位模式End

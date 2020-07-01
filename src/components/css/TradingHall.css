@@ -760,10 +760,10 @@
 
 
 /*仓位模式弹框 Strat*/
-.positionMode-tit {
+.position-mode-tit {
   padding-left: 25px;
 }
-.riskAlert {
+.risk-alert {
   color: #E0E1F4;
   font-size:14px;
   font-family:PingFangSC-Regular,PingFang SC;
@@ -914,10 +914,24 @@
 .body {
   width: 97%;
   padding: 0px;
-  margin-top: 40px;
+  margin-top: 50px;
   text-align: center;
   content: "";
   display: table;
   clear: both;
+}
+.mode-only-lever {
+  margin: 33px 0 14px 0;
+  color: #6B7DA2;
+  font-size:12px;
+  font-family:PingFangSC-Semibold,PingFang SC;
+  font-weight:600;
+}
+.mode-only-lever-super {
+  color: #EFF0FF;
+  font-size:12px;
+  font-family:PingFangSC-Semibold,PingFang SC;
+  font-weight:600;
+  margin-bottom: 28px;
 }
 /*调整杠杆 End*/
