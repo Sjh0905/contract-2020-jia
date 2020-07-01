@@ -109,7 +109,7 @@ root.data = function () {
     //保证金模式End
 
     //调整杠杆 Strat
-    popWindowAdjustingLever: true,
+    popWindowAdjustingLever: false,
     value:1,
     marks: {
       1: '1X',
