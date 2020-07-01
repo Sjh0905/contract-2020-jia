@@ -89,7 +89,7 @@ tr, th, td {
   padding-right: 25px;
 }
 .td-trigger-btn {
-  margin-left: 77px;
+  justify-content: flex-end;
 }
 .td-trigger-btn input {
   width: 80px;
@@ -101,7 +101,6 @@ tr, th, td {
   color: #F5F6FA;
   box-sizing: border-box;
   border: 1px solid #393F4D;
-
 }
 .td-trigger-btn input:focus {
   border: 1px solid #6B7DA2;
@@ -119,7 +118,6 @@ tr, th, td {
   background: #3576F5;
   cursor: pointer;
   border-radius:1px;
-
 }
 .market-price:hover {
   /*width: 54px;*/
@@ -164,7 +162,6 @@ tr, th, td {
   border: 1px solid #3576F5;
   border-radius: 2px;
 }
-
 .weit{
   width: 100%;
   height: 240px;
@@ -316,4 +313,6 @@ tr, th, td {
   background: #fff;
   padding: 10px;
 }
+.border-dashed {
 
+}
