@@ -105,22 +105,38 @@
 
           <!--交易挂单区域-->
           <div class="trading-wrap">
-            <div class="progress-bar-title traddinghall-border-bottom relative ">
-              <div class="progress-bar-title-brand ">
-                {{$t("fixedPrice")}}
+            <!--双仓模式下开启此项-->
+            <div class="progress-bar-title traddinghall-border-bottom relative flex-row">
+              <div class="progress-bar-position-title progress-bar-position-title-sel1">开仓</div>
+              <div class="progress-bar-position-title progress-bar-position-title-sel">平仓</div>
+            </div>
+
+
+            <div class="progress-bar-title traddinghall-border-bottom relative flex-between">
+              <!--交易类型-->
+              <div class="progress-bar-title-left">
+                <div class="progress-bar-title-brand " style="margin-left: 15px">
+                  {{$t("fixedPrice")}}
+                </div>
+                <div class="progress-bar-title-brand-default">
+                  市价
+                </div>
+                <div class="progress-bar-title-brand-default">
+                  限价止盈止损
+                </div>
+                <div class="progress-bar-title-brand-default">
+                  市价止盈止损
+                </div>
               </div>
-              <!--<div class="progress-bar-title-brand-default">-->
-                <!--市价-->
-              <!--</div>-->
-              <!--<div class="progress-bar-title-brand-default">-->
-                <!--止损-->
-              <!--</div>-->
-              <!--<div class="progress-bar-title-brand-default">-->
-                <!--限价止损-->
-              <!--</div>-->
-              <!--<div class="progress-bar-title-brand-default">-->
-                <!--移动止损-->
-              <!--</div>-->
+
+              <!---->
+              <div class="progress-bar-title-right flex-row">
+                <img src="../../assets/progress_bar_title_assets.png" class="progress-bar-title-assets-icon">
+                <div class="progress-bar-title-assets-available">10591.00 USDT</div>
+                <div class="progress-bar-title-vertical-line"/>
+                <img src="../../assets/progress_bar_title_calculator.png" class="progress-bar-title-assets-calculator">
+              </div>
+
 
               <!--<div class="service_charge ">-->
                 <!--<span>-->
