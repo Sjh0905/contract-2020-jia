@@ -55,7 +55,7 @@
           </div>
         </div>
 
-        <div class="position-mode-box flex-row">
+        <div class="position-mode-box flex-row" @click="turnOnLocationMode">
           <img class="position-mode-icon" src="../../assets/position_mode_setting.png" alt="">
           <div class="position-mode-text">仓位模式</div>
         </div>
@@ -105,60 +105,74 @@
 
           <!--交易挂单区域-->
           <div class="trading-wrap">
-            <div class="progress-bar-title traddinghall-border-bottom relative ">
-              <div class="progress-bar-title-brand ">
-                {{$t("fixedPrice")}}
+            <!--双仓模式下开启此项-->
+            <div class="progress-bar-title traddinghall-border-bottom relative flex-row">
+              <div class="progress-bar-position-title progress-bar-position-title-sel1">开仓</div>
+              <div class="progress-bar-position-title progress-bar-position-title-sel">平仓</div>
+            </div>
+
+
+            <div class="progress-bar-title traddinghall-border-bottom relative flex-between">
+              <!--交易类型-->
+              <div class="progress-bar-title-left">
+                <div class="progress-bar-title-brand " style="margin-left: 15px">
+                  {{$t("fixedPrice")}}
+                </div>
+                <div class="progress-bar-title-brand-default">
+                  市价
+                </div>
+                <div class="progress-bar-title-brand-default">
+                  限价止盈止损
+                </div>
+                <div class="progress-bar-title-brand-default">
+                  市价止盈止损
+                </div>
               </div>
-              <!--          <div class="progress-bar-title-brand-default">-->
-              <!--            市价-->
-              <!--          </div>-->
-              <!--          <div class="progress-bar-title-brand-default">-->
-              <!--            止损-->
-              <!--          </div>-->
-              <!--          <div class="progress-bar-title-brand-default">-->
-              <!--            限价止损-->
-              <!--          </div>-->
-              <!--          <div class="progress-bar-title-brand-default">-->
-              <!--            移动止损-->
-              <!--          </div>-->
+
+              <!---->
+              <div class="progress-bar-title-right flex-row">
+                <img src="../../assets/progress_bar_title_assets.png" class="progress-bar-title-assets-icon">
+                <div class="progress-bar-title-assets-available">10591.00 USDT</div>
+                <div class="progress-bar-title-vertical-line"/>
+                <img src="../../assets/progress_bar_title_calculator.png" class="progress-bar-title-assets-calculator">
+              </div>
 
 
               <!--<div class="service_charge ">-->
-              <!--<span>-->
-                <!--{{$t("serverCharge")}}: <em :class="{'delete' : BDBInfo}">0.2%</em> <em-->
-                <!--:class="{'delete' : !BDBInfo}"> 0.14%</em>-->
-                <!--&lt;!&ndash;{{$t('useBtMining',{btReward:btReward})}}&ndash;&gt;-->
-                <!--<font class="use_bob_fire">-->
-                  <!--{{$t("serverUser")}}-->
-                  <!--<router-link to="/index/help/rateStandard" class="text_blue"-->
-                               <!--:class="{'bdb_gray': !BDBInfo}">BDB</router-link>-->
-                  <!--{{$t("serverFire")}}-->
-                <!--</font>-->
-              <!--</span>-->
-            <!--&lt;!&ndash;<a href="#" class="toggle account-info-toggle"&ndash;&gt;-->
-            <!--&lt;!&ndash;:class="{'toggle&#45;&#45;off':!BDBInfo,'toggle&#45;&#45;on':BDBInfo,'toggle&#45;&#45;moving':BDBChanging}"&ndash;&gt;-->
-            <!--&lt;!&ndash;@click="clickToggle($event)"></a>&ndash;&gt;-->
-            <!--&lt;!&ndash;BDB折扣开关 begin&ndash;&gt;-->
-            <!--&lt;!&ndash;<div class="toggle-box vertical-middle">&ndash;&gt;-->
-              <!--&lt;!&ndash;<Toggle :toggleOpen="BDBInfo" :switchFunc="clickToggle"/>&ndash;&gt;-->
-            <!--&lt;!&ndash;</div>&ndash;&gt;-->
-            <!--&lt;!&ndash;BDB折扣开关 end&ndash;&gt;-->
-          <!--</div>-->
-        </div>
-        <div class="flex-row" style="margin: auto">
-          <div class="ProgressBar-wrap">
-            <!--买-->
-            <ProgressBar :orderType='0' :fee="BDBInfo" :btc_eth_rate="btc_eth_rate" :socket_price="socket_price"
-                         :symbol_config_times="symbol_config_times"/>
+                <!--<span>-->
+                  <!--{{$t("serverCharge")}}: <em :class="{'delete' : BDBInfo}">0.2%</em> <em-->
+                  <!--:class="{'delete' : !BDBInfo}"> 0.14%</em>-->
+                  <!--&lt;!&ndash;{{$t('useBtMining',{btReward:btReward})}}&ndash;&gt;-->
+                  <!--<font class="use_bob_fire">-->
+                    <!--{{$t("serverUser")}}-->
+                    <!--<router-link to="/index/help/rateStandard" class="text_blue"-->
+                                 <!--:class="{'bdb_gray': !BDBInfo}">BDB</router-link>-->
+                    <!--{{$t("serverFire")}}-->
+                  <!--</font>-->
+                <!--</span>-->
+                <!--<a href="#" class="toggle account-info-toggle"-->
+                <!--:class="{'toggle&#45;&#45;off':!BDBInfo,'toggle&#45;&#45;on':BDBInfo,'toggle&#45;&#45;moving':BDBChanging}"-->
+                <!--@click="clickToggle($event)"></a>-->
+                <!--BDB折扣开关 begin-->
+                <!--<div class="toggle-box vertical-middle">-->
+                  <!--<Toggle :toggleOpen="BDBInfo" :switchFunc="clickToggle"/>-->
+                <!--</div>-->
+                <!--BDB折扣开关 end-->
+              <!--</div>-->
+            </div>
+            <div class="flex-row" style="margin: auto">
+              <div class="ProgressBar-wrap">
+                <!--买-->
+                <ProgressBar :orderType='0' :fee="BDBInfo" :btc_eth_rate="btc_eth_rate" :socket_price="socket_price"
+                             :symbol_config_times="symbol_config_times"/>
+              </div>
+              <div class="ProgressBar-wrap">
+                <!--卖-->
+                <ProgressBar :orderType='1' :fee="BDBInfo" :btc_eth_rate="btc_eth_rate" :socket_price="socket_price"
+                             :symbol_config_times="symbol_config_times"/>
+              </div>
+            </div>
           </div>
-
-          <div class="ProgressBar-wrap">
-            <!--卖-->
-            <ProgressBar :orderType='1' :fee="BDBInfo" :btc_eth_rate="btc_eth_rate" :socket_price="socket_price"
-                         :symbol_config_times="symbol_config_times"/>
-          </div>
-        </div>
-      </div>
 
         </div>
         <!--右侧实时买卖-->
@@ -291,23 +305,23 @@
   <!--  仓位模式Strat-->
   <PositionModeBulletBox :switch="popWindowPositionModeBulletBox" @close="popWindowClosePositionModeBulletBox" >
     <div slot="header">
-      <div class="positionMode-tit">仓位模式</div>
+      <div class="position-mode-tit">仓位模式</div>
     </div>
     <div slot="article"class="pop-lock-house">
-      <div class="riskAlert">
+      <div class="risk-alert">
         若有合约存在持仓或者挂单，不允许调整仓位模式。仓位模式调整对所有合约统一生效。
       </div>
-      <div class="flex" @click="PositionModeSelected(1)">
-        <img class="single-position-img" src="../../assets/Contract/ContractNoSelected.png" alt="" v-if="cardType == 2">
-        <img class="single-position-img" src="../../assets/Contract/ContractSelected.png" alt="" v-if="cardType == 1">
+      <div class="flex" @click="positionModeSelected(1)">
+        <img class="single-position-img" src="../../assets/contract/contract_no_selected.png" alt="" v-if="cardType == 2">
+        <img class="single-position-img" src="../../assets/contract/contract_selected.png" alt="" v-if="cardType == 1">
         <div class="">
           <div class="selected-positions-cod" :class="{'selected_cardType':cardType == 1}">单项持仓</div>
           <div class="position-explanation">单向持仓模式下，一个合约只允许持有一个方向的仓位</div>
         </div>
       </div>
-      <div class="flex" @click="PositionModeSelected(2)">
-        <img class="single-position-img" src="../../assets/Contract/ContractNoSelected.png" alt="" v-if="cardType == 1">
-        <img class="single-position-img" src="../../assets/Contract/ContractSelected.png" alt="" v-if="cardType == 2">
+      <div class="flex" @click="positionModeSelected(2)">
+        <img class="single-position-img" src="../../assets/contract/contract_no_selected.png" alt="" v-if="cardType == 1">
+        <img class="single-position-img" src="../../assets/contract/contract_selected.png" alt="" v-if="cardType == 2">
         <div class="">
           <div class="selected-positions" :class="{'selected_cardType':cardType == 2}">双向持仓</div>
           <div class="position-explanation">双向持仓模式下，一个合约可允许同时持有多空两个方向的仓位，并且同一合约下不同方向仓位风险对冲</div>
@@ -325,12 +339,12 @@
   <!--  保证金模式 Strat-->
   <PositionModeBulletBox :switch="popWindowSecurityDepositMode" @close="popWindowCloseSecurityDepositMode" >
     <div slot="header">
-      <div class="positionMode-tit">BTCUSDT保证金模式</div>
+      <div class="position-mode-tit">BTCUSDT保证金模式</div>
     </div>
     <div slot="article"class="pop-lock-house">
       <div class="flex">
-        <div class="selected-mode selected-cardType-left" :class="{'selected-cardType-mode':cardType == 1}" @click="PositionModeSelected(1)">全仓</div>
-        <div class="selected-mode" :class="{'selected-cardType-mode':cardType == 2}" @click="PositionModeSelected(2)">逐仓</div>
+        <div class="selected-mode selected-cardType-left" :class="{'selected-cardType-mode':cardType == 1}" @click="positionModeSelected(1)">全仓</div>
+        <div class="selected-mode" :class="{'selected-cardType-mode':cardType == 2}" @click="positionModeSelected(2)">逐仓</div>
       </div>
       <div class="mode-only">· 调整保证金模式仅对当前合约生效。</div>
       <div class="mode-error">当前合约存在持仓和挂单，不支持调整保证金模式</div>
@@ -349,7 +363,7 @@
   <!--  调整杠杆 Strat-->
   <PositionModeBulletBox :switch="popWindowAdjustingLever" @close="popWindowCloseAdjustingLever" >
     <div slot="header">
-      <div class="positionMode-tit">调整杠杆</div>
+      <div class="position-mode-tit">调整杠杆</div>
     </div>
     <div slot="article"class="pop-lock-house">
       <div class="body">
@@ -366,22 +380,19 @@
             :class="'el-slider_blu'"
             :marks="marks"
             show-input
-            max="75"
+            :max="75"
+            :min="1"
             :format-tooltip="formatTooltip"
           >
           </el-slider>
         </div>
       </div>
-      <div class="mode-only">· 调整保证金模式仅对当前合约生效。</div>
-      <div class="mode-error">当前合约存在持仓和挂单，不支持调整保证金模式</div>
+      <div class="mode-only-lever">· 当前杠杆倍数最高可持有头寸： 5,000,000 USDT</div>
+<!--      <div class="mode-error">当前合约存在持仓和挂单，不支持调整保证金模式</div>-->
+      <div class="mode-only-lever-super">· 持仓和当前委托价值超过 1,000,000 USDT, 您的最大可用杠杆是 50x</div>
       <div class="money-confirmation" @click="">确认</div>
       <!--确认不可点击状态-->
       <!--      <div class="money-confirmation-ash">确认</div>-->
-      <div class="money-explanation">
-        <div class="money-explanation-one">什么是全仓和逐仓模式？</div>
-        <div class="money-explanation-two">全仓保证金模式: 所有仓位共用合约账户中的保证金来避免仓位被强平。在强平事件中，交易者可能会损失所有的保证金和仓位。</div>
-        <div class="money-explanation-three">逐仓保证金模式: 一定数量保证金被分配到仓位上。如果仓位保证金亏损到低于维持保证金的水平，仓位将被强平。在逐仓模式下，您可以为这个仓位添加和减少保证金。</div>
-      </div>
     </div>
   </PositionModeBulletBox>
   <!--  调整杠杆 End-->

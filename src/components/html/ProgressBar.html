@@ -91,6 +91,31 @@
 
       </label>
     </div>
+    <div class="flex flex-between pro-bar-input-box">
+      <div class="progress-bar-input-title" :class="{'progress-bar-price-en':lang!='CH'&&lang!='CHT'}"><span v-if="!orderType">{{$t("BuyingVolume")}}</span><span v-if="orderType">{{$t("SellingVolume")}}</span></div>
+      <label :for="'pro-bar-amount' + orderType" class="progress-bar-amount flex-row border_radius"
+             :class="{'focus-color-green':inputColor=='amount'+orderType && !orderType,'focus-color-red':inputColor=='amount'+orderType && orderType}"
+      >
+        <input :id="'pro-bar-amount' + orderType" :ref="'buy_sall_amount_' + orderType" class="txt-small txt-light" type="text" v-model="amount"
+               @focus="changeColor('amount' + orderType)"
+               @blur="changeColor(0)"
+               @keyup="keyBoard('pro-bar-amount' + orderType)"
+               autocomplete="off"
+        >
+        <!-- @keyup="keyBoard('pro-bar-amount' + orderType)" -->
+        <!-- <span class="pro-bar-price-tit txt-small txt-light">{{orderType && $t("progressBar.saleNum") + this.$store.state.symbol.split('_')[0] || $t("progressBar.buyNum") + this.$store.state.symbol.split('_')[0]}}
+        </span> -->
+        <span class="pro-bar-price-tit txt-small txt-light">{{orderType && this.$store.state.symbol.split('_')[0] || this.$store.state.symbol.split('_')[0]}}
+      </span>
+        <!-- <div class="progress_up_down">
+          <ul>
+            <li @click="plusNum('amount')">⌃</li>
+            <li @click="reduceNum('amount')">⌃</li>
+          </ul>
+        </div> -->
+
+      </label>
+    </div>
 
 <!--    <div class="progress-bar-progress flex-row">-->
 <!--      <div class="progress-bar-option border_radius" @click="sectionSelect(0.25)">25%</div>-->

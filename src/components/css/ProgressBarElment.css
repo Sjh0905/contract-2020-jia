@@ -380,7 +380,7 @@
   width: 8px;
   /*background: #1D232D;*/
   border: 2px solid #3576F5;
-  left: 20%;
+  left: 19%;
 }
 .block .radiusa_blu3 {
   position: absolute;
@@ -393,7 +393,7 @@
   width: 8px;
   /*background: #1D232D;*/
   border: 2px solid #3576F5;
-  left: 40%;
+  left: 39.3%;
 }
 .block .radiusa_blu4 {
   position: absolute;
@@ -406,7 +406,7 @@
   width: 8px;
   /*background: #1D232D;*/
   border: 2px solid #3576F5;
-  left: 60%;
+  left: 59.5%;
 }
 .block .radiusa_blu5 {
   position: absolute;
@@ -419,7 +419,7 @@
   width: 8px;
   /*background: #1D232D;*/
   border: 2px solid #3576F5;
-  left: 80%;
+  left: 79.5%;
 }
 .block .radiusa_blu6 {
   position: absolute;
@@ -434,11 +434,20 @@
   border: 2px solid #3576F5;
   left: 100%;
 }
+.radiusa_blu1_span {
+  display: block;
+  margin-top: 24px;
+  margin-left: -3px;
+  color: #6B7DA2;
+  font-size:12px;
+  font-family:Roboto-Regular,Roboto;
+  font-weight:400;
+}
 
 /* ----------  输入框样式修改 begin ----------*/
 .el-slider_blu .el-slider__input {
   position: absolute;
-  top: -40px;
+  top: -50px;
   /*left: 60px;*/
   left: 50%;
   transform: translateX(-50%);
@@ -500,4 +509,9 @@
   border: 0;
   outline: 0;
 }
+
+.el-slider_blu .el-slider__marks-text {
+  margin-top: -10px;
+}
+
 /* ----------  输入框样式修改 end ----------*/
