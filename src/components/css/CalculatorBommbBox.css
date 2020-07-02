@@ -1,0 +1,324 @@
+
+/*-----------  计算器弹框样式 begin -------------*/
+.calculator-title {
+  font-size:16px;
+  font-family:PingFangSC-Medium,PingFang SC;
+  font-weight:500;
+  color: #A2B5D9;
+  width: 655px;
+  padding-left: 25px;
+  height: 60px;
+}
+.positionMode-tit {
+  margin-right: 40px;
+}
+.border-bottom {
+  color: #fff;
+  border-bottom: 2px solid #3576F5;
+}
+.pop-calculator {
+  width: 655px;
+  height: 404px;
+  background: #202133;
+  padding: 30px 25px;
+  box-sizing: border-box;
+}
+.pop-calculator-left {
+  width: 286px;
+  height: 338px;
+}
+.pop-calculator-left-title {
+  height: 38px;
+  line-height: 38px;
+  border-radius: 1px;
+  text-align: center;
+  border:1px solid #262C39;
+  font-size:14px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color: #fff;
+  margin-bottom: 30px;
+  box-sizing: border-box;
+}
+.wrong-text {
+  font-size:12px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+.wrong-text-red {
+  color: #EF5656;
+}
+.wrong-text-grey {
+  color: #6B7DA2;
+}
+.more-empty-btn {
+  width: 143px;
+}
+.more-empty-btn-bck {
+  background: #3576F5;
+}
+.pop-calculator-right {
+  width: 285px;
+  height: 338px;
+  padding: 28px 20px 25px;
+  margin-left: 35px;
+  background: #1D1E25;
+}
+.pop-calculator-right-flat-price {
+  position: relative;
+  width: 285px;
+  height: 338px;
+  padding: 28px 20px 25px;
+  margin-left: 35px;
+  background: #1D1E25;
+}
+.pop-calculator-flat-price {
+  width: 245px;
+  position: absolute;
+  bottom: 25px;
+  font-size:14px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color: #A2B5D9;
+}
+.pop-calculator-right-result {
+  font-size:18px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color: #E0E1F4;
+  margin-bottom: 25px;
+}
+.pop-calculator-right-content {
+  justify-content: space-between;
+  margin-bottom: 15px;
+  font-size:14px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color: #A2B5D9;
+}
+.opening-price {
+  width: 285px;
+  border: 1px solid #384256;
+  height: 30px;
+  line-height: 30px;
+  padding: 0 10px;
+  box-sizing: border-box;
+  font-size:12px;
+  font-family:Roboto-Regular,Roboto;
+  font-weight:400;
+  color:#A2B5D9;
+  margin-bottom: 10px;
+}
+.target-price {
+  width: 285px;
+  border: 1px solid #384256;
+  height: 30px;
+  line-height: 30px;
+  padding: 0 10px;
+  box-sizing: border-box;
+  font-size:12px;
+  font-family:Roboto-Regular,Roboto;
+  font-weight:400;
+  color:#A2B5D9;
+  margin-bottom: 30px;
+}
+.target-price-last {
+  margin-bottom: 45px;
+}
+.opening-price-last {
+  margin-bottom: 25px;
+}
+.opening-price-ipt {
+  display: inline-block;
+  outline: none;
+  background: transparent;
+  border-color: transparent;
+  border-radius: 1px;
+  border-width: 0;
+  caret-color:#fff;
+  color: #fff;
+}
+
+.calculate-button {
+  width:285px;
+  height:40px;
+  line-height:40px;
+  text-align: center;
+  font-size:14px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color: #fff;
+  background:rgba(70,86,116,1);
+  border-radius:1px;
+}
+
+/* ----------------  placeholder样式 begin ----------------*/
+.opening-price-ipt input::placeholder {
+  color: #6B7DA2;
+}
+.opening-price-ipt input::-moz-placeholder {
+  color: #6B7DA2;
+}
+.opening-price-ipt input::-webkit-input-placeholder {
+  color: #6B7DA2;
+}
+.opening-price-ipt input:-ms-input-placeholder {
+  color: #6B7DA2;
+}
+/* ----------------  placeholder样式 end ----------------*/
+
+
+/* ----------------  滑块样式 begin ----------------*/
+.el-slider-style {
+  width: 270px;
+
+}
+
+.el-slider-style >>> .el-slider__runway {
+  background: #fff;
+  height: 4px;
+  width: 348px;
+  width: 100%;
+  margin: 10px 0px 10px 5px;
+  /* overflow: hidden; */
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+  /* 拖拽按钮 */
+  /* 小断点 */
+}
+.el-slider-style >>> .el-slider__runway .el-slider__bar {
+  background: #3576F5;
+  height: 4px;
+  /* background-color: #409EFF; */
+  border-top-left-radius: 2px;
+  border-bottom-left-radius: 2px;
+  position: absolute;
+}
+.el-slider-style .el-slider__runway .el-slider__button-wrapper {
+  position: relative;
+  z-index:1;
+  /* width: 19px;
+  height: 19px;
+  top: -10px;
+  left: -5px; */
+}
+.el-slider-style >>> .el-slider__runway .el-slider__button-wrapper .el-slider__button {
+  position: absolute;
+  top: 24%;
+  left: 34%;
+  height: 16px;
+  width: 16px;
+  background-color: #fff;
+  border: 3px solid #3576F5;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.el-slider-style .el-slider__runway .el-slider__button-wrapper .el-slider__button:hover {
+  box-shadow: 0 0 0 5.5px rgba(229, 67, 70, 0.3);
+}
+.el-slider-style .el-slider__runway .el-slider__button-wrapper .el-slider__button:focus {
+  box-shadow: 0 0 0 7px rgba(1, 170, 120, 0.3) !important;
+}
+.el-slider-style >>> .el-slider__runway .el-slider__stop {
+  position: absolute;
+  top: -3.3px;
+  left: 10px;
+  display: inline-block;
+  height: 10px;
+  width: 10px;
+  background: #4D596B;
+  /*border: 2px solid #0E0F1F;*/
+  border-radius: 10px;
+  cursor: pointer;
+}
+.el-slider-style >>>.el-slider__runway .el-slider__marks-text {
+  margin-top: 15px;
+}
+
+.block {
+  position: relative;
+  width: 100%;
+  margin: 0px;
+}
+.block .radiusa_green {
+  position: absolute;
+  background-color: #3576F5;
+  border-radius: 50%;
+  top: 22%;
+  left: 0;
+  z-index: 1;
+  height: 10px;
+  width: 10px;
+  /*background: #1D232D;*/
+  border: 2px solid #3576F5;
+}
+.block .radiusb_green {
+  position: absolute;
+  background-color: #3576F5;
+  border-radius: 50%;
+  top: 22%;
+  z-index: 1;
+  height: 10px;
+  width: 10px;
+  /*background: #1D232D;*/
+  border: 2px solid #3576F5;
+  left: 18.5%;
+}
+.block .radiusc_green {
+  position: absolute;
+  background-color: #3576F5;
+  border-radius: 50%;
+  top: 22%;
+  z-index: 1;
+  height: 10px;
+  width: 10px;
+  /*background: #1D232D;*/
+  border: 2px solid #3576F5;
+  left: 37.5%;
+}
+.block .radiusd_green {
+  position: absolute;
+  background-color: #3576F5;
+  border-radius: 50%;
+  top: 22%;
+  z-index: 1;
+  height: 10px;
+  width: 10px;
+  /*background: #1D232D;*/
+  border: 2px solid #3576F5;
+  /*border-radius: 10px;*/
+  left: 56.5%;
+}
+.block .radiuse_green {
+  position: absolute;
+  background-color: #3576F5;
+  border-radius: 50%;
+  top: 22%;
+  z-index: 1;
+  height: 10px;
+  width: 10px;
+  /*background: #1D232D;*/
+  border: 2px solid #3576F5;
+  /*border-radius: 10px;*/
+  left: 75%;
+}
+
+/* ----------------  滑块样式 end ----------------*/
+
+
+.opening-price-curency {
+  display: inline-block;
+  float: right;
+}
+.text_white {
+  color: #fff;
+}
+.border-dashed {
+  display: inline-block;
+  cursor: pointer;
+  border-bottom: 1px dashed #6B7DA2;
+}
+/*-----------  计算器弹框样式 end -------------*/
