@@ -104,16 +104,15 @@
   /*outline: 1px solid #E5EBF5;*/
 }
 
-/*add  new  css*/
-.progress-bar-title {
+.progress-bar-position-title-box {
   width: 100%;
   height: 36px;
   line-height: 36px;
   background: #0B0E16;
-  /*border-bottom: 1px solid #F2F6FA;*/
 }
 
 .progress-bar-position-title {
+  flex: 0.5;
   height: 36px;
   border-bottom: 2px solid transparent;
   width: auto;
@@ -139,6 +138,16 @@
   /*font-weight:500;*/
   /*font-size: 14px;*/
   color: #ffffff;
+  background-color: rgba(255,255,255,0.03);
+}
+
+/*add  new  css*/
+.progress-bar-title {
+  width: 100%;
+  height: 38px;
+  line-height: 38px;
+  background: #0B0E16;
+  /*border-bottom: 1px solid #F2F6FA;*/
 }
 
 .progress-bar-title-left {
@@ -169,14 +178,116 @@
 }
 
 .progress-bar-title-assets-calculator {
-  margin-right: 15px;
+  margin-right: 13px;
   width:18px;
   height:18px;
 }
 
+.service-type-selection-box {
+  width:100%;
+  height:52px;
+  align-items: center;
+  padding: 0 15px;
+}
+
+.service-type-selection-left {
+  align-items: center;
+}
+
+.passive-delegation {
+  align-items: center;
+  margin-right: 15px;
+}
+
+.passive-delegation-icon {
+  margin-right: 6px;
+  width:18px;
+  height:18px;
+}
+
+.passive-delegation-text {
+  font-size:12px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color:rgba(162,181,217,1);
+  line-height:17px;
+}
+
+.effective-time {
+  height: 18px;
+  margin-right: 25px;
+  padding-right: 25px;
+  align-items: center;
+  border-right: 1px solid #39415C;
+}
+
+.effective-time-icon {
+}
+
+.effective-time-text {
+}
+
+.effective-time-select {
+  margin-left: 12px;
+  font-size:12px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color:rgba(53,118,245,1);
+  line-height:17px;
+}
+
+.reduce-positions {
+  height: 18px;
+  margin-right: 25px;
+  padding-right: 25px;
+  align-items: center;
+  border-right: 1px solid #39415C;
+}
+
+.reduce-positions-icon {
+  margin-right: 6px;
+  width:16px;
+  height:16px;
+}
+
+.reduce-positions-text {
+}
+
+.trigger-type {
+  height:18px;
+}
+
+.trigger-type-text {
+}
+
+.trigger-type-select {
+}
+
+.service-type-selection-right {
+  align-items: center;
+}
+
+.margin-mode-btn {
+  background:rgba(53,118,245,0.1);
+  border-radius:1px;
+  border:1px solid rgba(53,118,245,1);
+  font-size:14px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color:rgba(224,225,244,1);
+  line-height:20px;
+  padding: 0 5px;
+}
+
+.lever-num {
+  margin-left: 5px;
+}
+
+
+
 .ProgressBar-wrap {
   width: 50%;
-  height: 262px;
+  height: 240px;
 }
 
 .ProgressBar-wrap:nth-child(2) {
@@ -288,8 +399,8 @@
 /* new add css */
 .progress-bar-title-brand {
   /*cursor: pointer ;*/
-  height: 36px;
-  line-height:36px;
+  /*height: 36px;*/
+  line-height:38px;
   border-bottom: 2px solid #3576F5;
   width: auto;
   float: left;
@@ -303,7 +414,7 @@
 }
 
 .progress-bar-title-brand-default {
-  height: 36px;
+  line-height: 38px;
   border-bottom: 2px solid transparent;
   width: auto;
   float: left;
