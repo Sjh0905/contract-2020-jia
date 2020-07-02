@@ -29,6 +29,7 @@
   text-align: left;
 }
 .pro-bar-input-box{
+  margin-bottom: 9px;
   align-items: center;
 }
 .progress-bar-input-title{
@@ -147,7 +148,7 @@
   height: 30px;
   padding-right: 2px;
   float: right;
-  margin-top: 9px;
+  /*margin-top: 9px;*/
   border: 1px solid #384256;
   border-radius: 2px;
 }
@@ -209,12 +210,40 @@
   justify-content: space-between;
 }
 
+.progress-security-deposit-box {
+}
+
+.security-deposit {
+}
+
+.security-deposit-text {
+  font-size:12px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color:rgba(162,181,217,1);
+  margin-right: 27px;
+}
+
+.security-deposit-amount {
+  font-size:12px;
+  font-family:Roboto-Regular,Roboto;
+  font-weight:400;
+  color:rgba(224,225,244,1);
+}
+
+.can-be-opened {
+}
+.can-be-opened-text {
+}
+.can-be-opened-amount {
+}
+
 .progress-bar-btn-wrap {
   /*width: 77.028%;*/
   width: 100%;
   float: right;
   /*margin: 0 auto;*/
-  margin-top: 18px;
+  margin-top: 10px;
 }
 
 .progress-bar-btn {
@@ -229,8 +258,8 @@
 
 .progress-bar-nologin-btn {
   width: 100%;
-  height: 30px;
-  line-height: 30px;
+  /*height: 30px;*/
+  line-height: 32px;
   text-align: center;
   border: 1px solid #384256;
   border-radius: 1px;

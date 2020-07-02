@@ -328,6 +328,18 @@ input {
   outline: none
 }
 
+/*文字下划线底边框虚线 and hover*/
+.border-dashed {
+  display: inline-block;
+  cursor: pointer;
+  border-bottom: 1px dashed #6B7DA2;
+}
+.border-dashed:hover {
+  /*display: inline-block;*/
+  opacity: 0.8;
+  /*border-bottom: 1px dashed #6B7DA2;*/
+}
+
 /* 新规范样式 字体颜色、btn背景色、border颜色、input的border颜色 */
 
 /* ===============字体颜色================ */
