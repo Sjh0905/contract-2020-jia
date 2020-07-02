@@ -106,12 +106,12 @@
           <!--交易挂单区域-->
           <div class="trading-wrap">
             <!--双仓模式下开启此项-->
-            <div class="progress-bar-title traddinghall-border-bottom relative flex-row">
+            <div class="progress-bar-position-title-box traddinghall-border-bottom relative flex-row">
               <div class="progress-bar-position-title progress-bar-position-title-sel1">开仓</div>
               <div class="progress-bar-position-title progress-bar-position-title-sel">平仓</div>
             </div>
 
-
+            <!--交易类型和资产-->
             <div class="progress-bar-title traddinghall-border-bottom relative flex-between">
               <!--交易类型-->
               <div class="progress-bar-title-left">
@@ -129,7 +129,7 @@
                 </div>
               </div>
 
-              <!---->
+              <!--可用资产余额-->
               <div class="progress-bar-title-right flex-row">
                 <img src="../../assets/progress_bar_title_assets.png" class="progress-bar-title-assets-icon">
                 <div class="progress-bar-title-assets-available">10591.00 USDT</div>
@@ -160,6 +160,36 @@
                 <!--BDB折扣开关 end-->
               <!--</div>-->
             </div>
+
+            <!--多种业务类型选择-->
+            <div class="service-type-selection-box flex-between">
+              <!--类型选择左侧-->
+              <div class="service-type-selection-left flex-row">
+                <div class="passive-delegation flex-row">
+                  <img class="passive-delegation-icon" src="../../assets/Contract/contract_selected.png" alt="">
+                  <div class="passive-delegation-text border-dashed">被动委托</div>
+                </div>
+                <div class="effective-time flex-row">
+                  <img class="passive-delegation-icon" src="../../assets/Contract/contract_selected.png" alt="">
+                  <div class="passive-delegation-text border-dashed">生效时间</div>
+                  <div class="effective-time-select">GTC</div>
+                </div>
+                <div class="reduce-positions flex-row">
+                  <img class="reduce-positions-icon" src="../../assets/Contract/check_box_selected.png" alt="">
+                  <div class="passive-delegation-text border-dashed">只减仓</div>
+                </div>
+                <div class="trigger-type flex-row">
+                  <div class="passive-delegation-text border-dashed">触发类型</div>
+                  <div class="effective-time-select">最新价格</div>
+                </div>
+              </div>
+              <!--类型选择右侧-->
+              <div class="service-type-selection-right flex-row">
+                <div class="margin-mode-btn">全仓</div>
+                <div class="margin-mode-btn lever-num">10X</div>
+              </div>
+            </div>
+
             <div class="flex-row" style="margin: auto">
               <div class="ProgressBar-wrap">
                 <!--买-->

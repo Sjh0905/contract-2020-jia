@@ -150,6 +150,8 @@ root.props.symbol_config_times = {
 root.components = {
   'PopupPrompt': resolve => require(['../vue/PopupPrompt'], resolve),
   'PopupWindow': resolve => require(['../vue/PopupWindow'], resolve),
+  'PositionModeBulletBox': resolve => require(['../vue/PositionModeBulletBox'], resolve),
+  'CalculatorBommbBox': resolve => require(['../vue/CalculatorBommbBox'], resolve),
 }
 
 /*----------------------------- data ------------------------------*/
@@ -228,7 +230,10 @@ root.data = function () {
     // 弹框提示信息
     priceCont:'',
     // 弹框打开/关闭
-    popWindowOpen1:false
+    popWindowOpen1:false,
+
+
+
   }
 }
 
@@ -264,15 +269,11 @@ root.watch.value = function (newValue, oldValue) {
   if (newValue == oldValue) return;
   // console.log(newValue)
   this.sectionSelect(newValue/100);
-
 }
 
 // root.watch.KKPriceRange = function (val,oldVal) {
 //   console.log(val,oldVal)
 // }
-
-
-
 /*----------------------------- 方法 ------------------------------*/
 
 
