@@ -15,7 +15,6 @@
                      :socket_tick="socket_tick"/>
       </div>
     </div>
-
     <!--交易页市场的右侧-->
     <div class="traddinghall-main-right flex-colum">
 
@@ -97,12 +96,10 @@
               <!--<div class="cen32"><span class="txt detail_txt">{{volume}}&nbsp;{{symbol.split('_')[0]}}</span></div>-->
             <!--</div>-->
           <!--</div>-->
-
           <!--K线-->
           <div class="TradingView-wrap">
             <TradeContainer :topic_bar="topic_bar"/>
           </div>
-
           <!--交易挂单区域-->
           <div class="trading-wrap">
             <!--双仓模式下开启此项-->
@@ -110,8 +107,6 @@
               <div class="progress-bar-position-title progress-bar-position-title-sel1">开仓</div>
               <div class="progress-bar-position-title progress-bar-position-title-sel">平仓</div>
             </div>
-
-
             <div class="progress-bar-title traddinghall-border-bottom relative flex-between">
               <!--交易类型-->
               <div class="progress-bar-title-left">
@@ -128,16 +123,13 @@
                   市价止盈止损
                 </div>
               </div>
-
               <!---->
               <div class="progress-bar-title-right flex-row">
                 <img src="../../assets/progress_bar_title_assets.png" class="progress-bar-title-assets-icon">
                 <div class="progress-bar-title-assets-available">10591.00 USDT</div>
                 <div class="progress-bar-title-vertical-line"/>
-                <img src="../../assets/progress_bar_title_calculator.png" class="progress-bar-title-assets-calculator" @click="openCalculator">
+                <img src="../../assets/progress_bar_title_calculator.png" class="progress-bar-title-assets-calculator pointer" @click="openCalculatorWindow">
               </div>
-
-
               <!--<div class="service_charge ">-->
                 <!--<span>-->
                   <!--{{$t("serverCharge")}}: <em :class="{'delete' : BDBInfo}">0.2%</em> <em-->

@@ -193,12 +193,9 @@ root.mounted = function () {
 
 // 初始化各子组件
 root.methods = {}
-root.methods.openCalculator = function () {
+root.methods.openCalculatorWindow = function () {
   this.openCalculator = true
 }
-
-
-
 
 // 关闭弹窗
 root.methods.closeCalculatorWindow = function () {
