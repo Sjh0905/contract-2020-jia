@@ -1,5 +1,40 @@
 const root = {}
 root.name = 'CalculatorBommbBox'
+// root.props = {}
+//
+// root.props.openCalculator = {
+//   type: Boolean,
+//   default: false
+// }
+// root.props.closeCalculator = {
+//   type: Function,
+//   default: ()=>_
+// }
+root.props = {}
+
+root.props.switch = {
+  type: Boolean,
+  default: false
+}
+root.props.close = {
+  type: Function
+}
+
+root.props.pop_width = {
+  type: Boolean,
+  default: false
+}
+
+root.props.closeBtnShow = {
+  type: Boolean,
+  default: true
+}
+
+root.props.footerBorderTop = {
+  type: Boolean,
+  default: false
+}
+
 /*------------------------------ 组件 ------------------------------*/
 root.components = {
  // 'Loading': resolve => require(['../Loading/Loading.vue'], resolve),
@@ -11,9 +46,9 @@ root.data = function () {
     // 计算器
     styleType:1,
     moreEmptyType:1,
-    openCalculator:true,
+    // openCalculator:true,
 
-    calculatorValue:1,
+    calculatorValue: 1,
     calculatorMarks:{
       1: '1X',
       15: '15X',
@@ -31,6 +66,13 @@ root.mounted = function () {}
 root.beforeDestroy = function () {}
 /*------------------------------ 计算 -------------------------------*/
 root.computed = {}
+root.computed.show = function () {
+  return this.switch
+}
+// 判断是否是手机
+root.computed.isMobile = function () {
+  return this.$store.state.isMobile
+}
 /*------------------------------ 观察 -------------------------------*/
 root.watch = {}
 /*------------------------------ 方法 -------------------------------*/
@@ -47,8 +89,8 @@ root.methods.selectType = function (type) {
 root.methods.formatTooltip=(val)=>{
   return  val + '%';
 }
-// 关闭计算器弹窗
-root.methods.closeCalculator = function () {
-  this.openCalculator =false
+// // 关闭计算器弹窗
+root.methods.closeClick = function () {
+  this.$emit('close')
 }
 export default root

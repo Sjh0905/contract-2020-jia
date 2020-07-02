@@ -134,7 +134,7 @@
                 <img src="../../assets/progress_bar_title_assets.png" class="progress-bar-title-assets-icon">
                 <div class="progress-bar-title-assets-available">10591.00 USDT</div>
                 <div class="progress-bar-title-vertical-line"/>
-                <img src="../../assets/progress_bar_title_calculator.png" class="progress-bar-title-assets-calculator">
+                <img src="../../assets/progress_bar_title_calculator.png" class="progress-bar-title-assets-calculator" @click="openCalculator">
               </div>
 
 
@@ -396,6 +396,9 @@
     </div>
   </PositionModeBulletBox>
   <!--  调整杠杆 End-->
+
+  <!--计算器组件-->
+  <CalculatorBommbBox :switch="openCalculator" @close="closeCalculatorWindow" :pop_width="true"></CalculatorBommbBox>
 </div>
 
 <div class="TraddingHall-container" v-else>

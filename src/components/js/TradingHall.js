@@ -33,7 +33,10 @@ root.components = {
   'OrderMarginBalance': resolve => require(['../vue/OrderMarginBalance'], resolve),
 
   // 移动端
-  'MobileTradingHall': resolve => require(['../mobileVue/MobileTradingHall'], resolve)
+  'MobileTradingHall': resolve => require(['../mobileVue/MobileTradingHall'], resolve),
+  // 计算机组件
+  'CalculatorBommbBox': resolve => require(['../vue/CalculatorBommbBox'], resolve)
+
 }
 
 root.data = function () {
@@ -109,7 +112,7 @@ root.data = function () {
     //保证金模式End
 
     //调整杠杆 Strat
-    popWindowAdjustingLever: true,
+    popWindowAdjustingLever: false,
     value:1,
     marks: {
       1: '1X',
@@ -120,6 +123,10 @@ root.data = function () {
       75:'75X'
     },
     //调整杠杆 End
+
+    // 计算器弹框 begin
+    openCalculator:false
+    // 计算器弹框 end
   }
 }
 
@@ -174,7 +181,6 @@ root.mounted = function () {
   }
 
   // window.onresize = function () {
-  //
   //     window.screenWidth = document.body.clientWidth
   //     that.screenWidth = window.screenWidth
   //
@@ -183,25 +189,29 @@ root.mounted = function () {
   //
   //
   // }
-
-
-
 }
-
 
 // 初始化各子组件
 root.methods = {}
+root.methods.openCalculator = function () {
+  this.openCalculator = true
+}
 
+
+
+
+// 关闭弹窗
+root.methods.closeCalculatorWindow = function () {
+  this.openCalculator = false
+}
 root.methods.watchScreenWidth = function () {
   //必须声明局部变量，否则this.screenWidth不能触发页面渲染
   var screenWidth = document.body.clientWidth
   // console.log("this.screenWidth====watchScreenWidth=======",screenWidth);
-
   if(screenWidth<1450){
     this.latestDealSpread = false;
     // this.pankqh = false;
   }
-
   if(screenWidth>=1450){
     this.latestDealSpread = true;
     // this.pankqh = true;
