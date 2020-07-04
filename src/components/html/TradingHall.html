@@ -180,7 +180,8 @@
                   </div>
                 </div>
                 <div v-if="isHasModule('reducePositions')" class="reduce-positions flex-row">
-                  <img class="reduce-positions-icon" src="../../assets/contract/check_box_selected.png" alt="">
+                  <img v-if="reducePositionsSelected" class="reduce-positions-icon" src="../../assets/contract/check_box_selected.png" @click="changeReducePositions()" alt="">
+                  <img v-else class="reduce-positions-icon" src="../../assets/contract/check_box_no_selected.png" @click="changeReducePositions()" alt="">
                   <div class="passive-delegation-text border-dashed">只减仓</div>
                 </div>
                 <div v-if="isHasModule('triggerType')" class="trigger-type flex-row">

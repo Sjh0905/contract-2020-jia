@@ -47,6 +47,8 @@ root.data = function () {
     positionModeSecond:'openWarehouse',//单仓 singleWarehouse 开仓 openWarehouse 平仓 closeWarehouse
     pendingOrderType:'limitPrice',//限价 limitPrice 市价 marketPrice 限价止盈止损 limitProfitStopLoss 市价止盈止损 marketPriceProfitStopLoss
 
+    reducePositionsSelected:false,//只减仓状态
+
     socket:null,
     // 货币对列表
     currency_list: {},
@@ -856,6 +858,9 @@ root.methods.isHasModule = function (type) {
   return isHas
 }
 //页面功能模块显示逻辑判断 End
+root.methods.changeReducePositions = function(status){
+  this.reducePositionsSelected = !this.reducePositionsSelected
+}
 
 //保证金模式 Strat
 root.methods.popWindowCloseSecurityDepositMode = function () {
