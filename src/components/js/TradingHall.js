@@ -867,6 +867,9 @@ root.methods.popWindowCloseSecurityDepositMode = function () {
 root.methods.popWindowCloseAdjustingLever = function () {
   this.popWindowAdjustingLever = false
 }
+root.methods.openLever = function () {
+  this.popWindowAdjustingLever = true
+}
 // 处理滑动条显示框内容
 root.methods.formatTooltip=(val)=>{
   return  val + 'X';
