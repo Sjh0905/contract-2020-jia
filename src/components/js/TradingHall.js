@@ -878,18 +878,23 @@ root.methods.openLatestPrice = function () {
 /*---------------------- 最新价格 end ---------------------*/
 root.methods.goToGtc = function () {
   this.effectiveTime = 'GTC'
+  $(".effective-time-drop-down").attr("style","display:none");
 }
 root.methods.goToIoc = function () {
   this.effectiveTime = 'IOC'
+  $(".effective-time-drop-down").attr("style","display:none");
 }
 root.methods.goToFok = function () {
   this.effectiveTime = 'FOK'
+  $(".effective-time-drop-down").attr("style","display:none");
 }
 root.methods.goToLatestPrice = function () {
   this.latestPrice = '最新价格'
+  $(".effective-time-drop-down-pic").attr("style","display:none");
 }
 root.methods.goToMarkedPrice = function () {
   this.latestPrice = '标记价格'
+  $(".effective-time-drop-down-pic").attr("style","display:none");
 }
 
 root.props = {}
