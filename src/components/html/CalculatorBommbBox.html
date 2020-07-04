@@ -21,16 +21,17 @@
             <div class="pop-calculator-left-slider">
               <div class="block"  style="margin: 6px auto">
                 <p class="radiusa_green" v-if="calculatorValue>= 1" @click="calculatorValue= 1" style="cursor:pointer"></p>
-                <p class="radiusb_green" v-if="calculatorValue>=15" @click="calculatorValue=15" style="cursor:pointer"></p>
-                <p class="radiusc_green" v-if="calculatorValue>=30" @click="calculatorValue=30" style="cursor:pointer"></p>
-                <p class="radiusd_green" v-if="calculatorValue>=45" @click="calculatorValue=45" style="cursor:pointer"></p>
-                <p class="radiuse_green" v-if="calculatorValue>=60" @click="calculatorValue=60" style="cursor:pointer"></p>
+                <p class="radiusb_green" v-if="calculatorValue>=25" @click="calculatorValue=25" style="cursor:pointer"></p>
+                <p class="radiusc_green" v-if="calculatorValue>=50" @click="calculatorValue=50" style="cursor:pointer"></p>
+                <p class="radiusd_green" v-if="calculatorValue>=75" @click="calculatorValue=75" style="cursor:pointer"></p>
+                <p class="radiuse_green" v-if="calculatorValue>=100" @click="calculatorValue=100" style="cursor:pointer"></p>
                 <el-slider
                   v-model="calculatorValue"
                   class="el-slider-style"
                   :marks="calculatorMarks"
                   :format-tooltip="formatTooltip"
-                  :max="'75'"
+                  :max="125"
+                  :min="1"
                 >
                 </el-slider>
               </div>
@@ -40,22 +41,32 @@
             <!--输入框内容-->
             <div class="pop-calculator-input">
               <!--开仓价格-->
-              <div class="opening-price">
-                <input type="text" class="opening-price-ipt" placeholder="开仓价格">
+              <div class="opening-price flex">
+                <div class="bn-input-prefix css-vurnku">
+                  <div class="css-5h0skw">开仓价格</div>
+                </div>
+                <input type="text" class="opening-price-ipt" placeholder="0" v-model="openingPrice">
                 <span class="opening-price-curency">USDT</span>
               </div>
               <!--开仓价格-->
-              <div class="opening-price">
-                <input type="text" class="opening-price-ipt" placeholder="平仓价格">
+              <div class="opening-price flex">
+                <div class="bn-input-prefix css-vurnku">
+                  <div class="css-5h0skw">平仓价格</div>
+                </div>
+                <input type="text" class="opening-price-ipt" placeholder="0" v-model="closingPrice">
                 <span class="opening-price-curency">USDT</span>
               </div>
               <!--开仓价格-->
-              <div class="opening-price opening-price-last">
-                <input type="text" class="opening-price-ipt" placeholder="成交数量">
+              <div class="opening-price opening-price-last flex">
+                <div class="bn-input-prefix css-vurnku">
+                  <div class="css-5h0skw">成交数量</div>
+                </div>
+
+                <input type="text" class="opening-price-ipt" placeholder="0" v-model="transactionQuantity">
                 <span class="opening-price-curency">BTC</span>
               </div>
               <!--计算按钮-->
-              <div class="calculate-button pointer">计算</div>
+              <div class="calculate-button pointer" :class="isStyle?'':'btn_blue'" @click="clickCalculation">计算</div>
             </div>
           </div>
           <!--计算器右侧-->
@@ -66,20 +77,21 @@
               <div class="pop-calculator-price">
                 <span class="border-dashed">起始保证金</span>
               </div>
-              <div class="pop-calculator-price"><span class="text_white">0.50 </span>USDT</div>
+              <div class="pop-calculator-price"><span class="text_white">{{securityDeposit}}</span> USDT</div>
             </div>
             <!--收益-->
             <div class="pop-calculator-right-content flex">
               <div class="pop-calculator-price">收益</div>
-              <div class="pop-calculator-price"><span class="text_white">0.00 </span>USDT</div>
+              <div class="pop-calculator-price"><span class="text_white">{{income}}</span> USDT</div>
             </div>
             <!--收益-->
             <div class="pop-calculator-right-content flex">
               <div class="pop-calculator-price">回报率</div>
-              <div class="pop-calculator-price"><span class="text_white">0.00 </span>%</div>
+              <div class="pop-calculator-price"><span class="text_white">{{returnRate}}</span> %</div>
             </div>
           </div>
         </div>
+
         <div class="pop-calculator flex" v-if="styleType == 2">
           <!--计算器左侧-->
           <div class="pop-calculator-left">
@@ -90,16 +102,17 @@
             <div class="pop-calculator-left-slider">
               <div class="block"  style="margin: 6px auto">
                 <p class="radiusa_green" v-if="calculatorValue>= 1" @click="calculatorValue= 1" style="cursor:pointer"></p>
-                <p class="radiusb_green" v-if="calculatorValue>=15" @click="calculatorValue=15" style="cursor:pointer"></p>
-                <p class="radiusc_green" v-if="calculatorValue>=30" @click="calculatorValue=30" style="cursor:pointer"></p>
-                <p class="radiusd_green" v-if="calculatorValue>=45" @click="calculatorValue=45" style="cursor:pointer"></p>
-                <p class="radiuse_green" v-if="calculatorValue>=60" @click="calculatorValue=60" style="cursor:pointer"></p>
+                <p class="radiusb_green" v-if="calculatorValue>=25" @click="calculatorValue=25" style="cursor:pointer"></p>
+                <p class="radiusc_green" v-if="calculatorValue>=50" @click="calculatorValue=50" style="cursor:pointer"></p>
+                <p class="radiusd_green" v-if="calculatorValue>=75" @click="calculatorValue=75" style="cursor:pointer"></p>
+                <p class="radiuse_green" v-if="calculatorValue>=100" @click="calculatorValue=100" style="cursor:pointer"></p>
                 <el-slider
-                  v-model="calculatorValue"
+                  v-model="targetCalculatorValue"
                   class="el-slider-style"
-                  :marks="calculatorMarks"
+                  :marks="targetCalculatorMarks"
                   :format-tooltip="formatTooltip"
-                  :max="'75'"
+                  :max="125"
+                  :min="1"
                 >
                 </el-slider>
               </div>
@@ -109,17 +122,23 @@
             <!--输入框内容-->
             <div class="pop-calculator-input">
               <!--开仓价格-->
-              <div class="target-price">
-                <input type="text" class="opening-price-ipt" placeholder="开仓价格">
+              <div class="target-price flex">
+                <div class="bn-input-prefix css-vurnku">
+                  <div class="css-5h0skw">开仓价格</div>
+                </div>
+                <input type="text" class="opening-price-ipt" placeholder="0" v-model="targetOpeningPrice">
                 <span class="opening-price-curency">USDT</span>
               </div>
               <!--回报率-->
-              <div class="target-price target-price-last">
-                <input type="text" class="opening-price-ipt" placeholder="回报率">
+              <div class="target-price target-price-last flex">
+                <div class="bn-input-prefix css-vurnku">
+                  <div class="css-5h0skw">回报率</div>
+                </div>
+                <input type="text" class="opening-price-ipt" placeholder="0" v-model="returnRate">
                 <span class="opening-price-curency">%</span>
               </div>
               <!--计算按钮-->
-              <div class="calculate-button btn_blue pointer">计算</div>
+              <div class="calculate-button pointer" :class="isTargePrice?'':'btn_blue'" @click="calculateTargePrice">计算</div>
             </div>
           </div>
           <!--计算器右侧-->
@@ -128,7 +147,7 @@
             <div class="pop-calculator-right-result">计算结果</div>
             <div class="pop-calculator-right-content flex">
               <div class="pop-calculator-price">目标价格</div>
-              <div class="pop-calculator-price"><span class="text_white">0.50 </span>USDT</div>
+              <div class="pop-calculator-price"><span class="text_white">{{targetPrice}}</span> USDT</div>
             </div>
           </div>
         </div>
@@ -142,41 +161,51 @@
             <div class="pop-calculator-left-slider">
               <div class="block"  style="margin: 6px auto">
                 <p class="radiusa_green" v-if="calculatorValue>= 1" @click="calculatorValue= 1" style="cursor:pointer"></p>
-                <p class="radiusb_green" v-if="calculatorValue>=15" @click="calculatorValue=15" style="cursor:pointer"></p>
-                <p class="radiusc_green" v-if="calculatorValue>=30" @click="calculatorValue=30" style="cursor:pointer"></p>
-                <p class="radiusd_green" v-if="calculatorValue>=45" @click="calculatorValue=45" style="cursor:pointer"></p>
-                <p class="radiuse_green" v-if="calculatorValue>=60" @click="calculatorValue=60" style="cursor:pointer"></p>
+                <p class="radiusb_green" v-if="calculatorValue>=25" @click="calculatorValue=25" style="cursor:pointer"></p>
+                <p class="radiusc_green" v-if="calculatorValue>=50" @click="calculatorValue=50" style="cursor:pointer"></p>
+                <p class="radiusd_green" v-if="calculatorValue>=75" @click="calculatorValue=75" style="cursor:pointer"></p>
+                <p class="radiuse_green" v-if="calculatorValue>=100" @click="calculatorValue=100" style="cursor:pointer"></p>
                 <el-slider
                   v-model="calculatorValue"
                   class="el-slider-style"
                   :marks="calculatorMarks"
                   :format-tooltip="formatTooltip"
-                  :max="75"
+                  :max="125"
+                  :min="1"
                 >
                 </el-slider>
               </div>
-              <div class="wrong-text" :class="calculatorValue>=20 ? 'wrong-text-red':'wrong-text-grey'">当前杠杆倍数最高可持有头寸：
-                <span :class="calculatorValue>=20 ? 'wrong-text-red':'text_white'">5,000,000</span> USDT</div>
+              <div class="wrong-text" :class="calculatorValue>=25 ? 'wrong-text-red':'wrong-text-grey'">当前杠杆倍数最高可持有头寸：
+                <span :class="calculatorValue>=25 ? 'wrong-text-red':'text_white'">5,000,000</span> USDT</div>
             </div>
             <!--输入框内容-->
             <div class="pop-calculator-input">
               <!--开仓价格-->
-              <div class="opening-price">
+              <div class="opening-price flex">
+                <div class="bn-input-prefix css-vurnku">
+                  <div class="css-5h0skw">开仓价格</div>
+                </div>
                 <input type="text" class="opening-price-ipt" placeholder="开仓价格">
                 <span class="opening-price-curency">USDT</span>
               </div>
               <!--成交数量-->
-              <div class="opening-price">
+              <div class="opening-price flex">
+                <div class="bn-input-prefix css-vurnku">
+                  <div class="css-5h0skw">成交数量</div>
+                </div>
                 <input type="text" class="opening-price-ipt" placeholder="成交数量">
                 <span class="opening-price-curency">BTC</span>
               </div>
               <!--钱包余额-->
-              <div class="opening-price opening-price-last">
-                <input type="text" class="opening-price-ipt" placeholder="钱包余额">
-                <span class="opening-price-curency"><span class="text_white">0.50 </span>USDT</span>
+              <div class="opening-price opening-price-last flex">
+                <div class="bn-input-prefix css-vurnku">
+                  <div class="css-5h0skw">钱包余额</div>
+                </div>
+                <input type="text" class="opening-price-ipt text_white" placeholder="钱包余额">
+                <span class="opening-price-curency">USDT</span>
               </div>
               <!--计算按钮-->
-              <div class="calculate-button pointer">计算</div>
+              <div class="calculate-button pointer" >计算</div>
             </div>
           </div>
           <!--计算器右侧-->

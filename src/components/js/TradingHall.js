@@ -193,10 +193,13 @@ root.mounted = function () {
 
 // 初始化各子组件
 root.methods = {}
+
+root.methods.openSecurityDepositMode = function () {
+  this.popWindowSecurityDepositMode = true
+}
 root.methods.openCalculatorWindow = function () {
   this.openCalculator = true
 }
-
 // 关闭弹窗
 root.methods.closeCalculatorWindow = function () {
   this.openCalculator = false
