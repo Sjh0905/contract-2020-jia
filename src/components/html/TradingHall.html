@@ -104,24 +104,24 @@
           <div class="trading-wrap">
             <!--双仓模式下开启此项-->
             <div class="progress-bar-position-title-box traddinghall-border-bottom relative flex-row">
-              <div class="progress-bar-position-title progress-bar-position-title-sel1">开仓</div>
-              <div class="progress-bar-position-title progress-bar-position-title-sel">平仓</div>
+              <div class="progress-bar-position-title" :class="positionModeSecond == 'openWarehouse' ? 'progress-bar-position-title-sel':''" @click="changePositionModeSecond('openWarehouse')">开仓</div>
+              <div class="progress-bar-position-title" :class="positionModeSecond == 'closeWarehouse' ? 'progress-bar-position-title-sel':''" @click="changePositionModeSecond('closeWarehouse')">平仓</div>
             </div>
 
             <!--交易类型和资产-->
             <div class="progress-bar-title traddinghall-border-bottom relative flex-between">
               <!--交易类型-->
               <div class="progress-bar-title-left">
-                <div class="progress-bar-title-brand " style="margin-left: 15px">
+                <div class="progress-bar-title-brand-default" style="margin-left: 15px" :class="pendingOrderType == 'limitPrice' ? 'progress-bar-title-brand':''" @click="changePendingOrderType('limitPrice')">
                   {{$t("fixedPrice")}}
                 </div>
-                <div class="progress-bar-title-brand-default">
+                <div class="progress-bar-title-brand-default" :class="pendingOrderType == 'marketPrice' ? 'progress-bar-title-brand':''" @click="changePendingOrderType('marketPrice')">
                   市价
                 </div>
-                <div class="progress-bar-title-brand-default">
+                <div class="progress-bar-title-brand-default" :class="pendingOrderType == 'limitProfitStopLoss' ? 'progress-bar-title-brand':''" @click="changePendingOrderType('limitProfitStopLoss')">
                   限价止盈止损
                 </div>
-                <div class="progress-bar-title-brand-default">
+                <div class="progress-bar-title-brand-default" :class="pendingOrderType == 'marketPriceProfitStopLoss' ? 'progress-bar-title-brand':''" @click="changePendingOrderType('marketPriceProfitStopLoss')">
                   市价止盈止损
                 </div>
               </div>
@@ -161,20 +161,20 @@
             <div class="service-type-selection-box flex-between">
               <!--类型选择左侧-->
               <div class="service-type-selection-left flex-row">
-                <div class="passive-delegation flex-row">
+                <div v-if="isHasModule('passiveDelegation')" class="passive-delegation flex-row">
                   <img class="passive-delegation-icon" src="../../assets/Contract/contract_selected.png" alt="">
                   <div class="passive-delegation-text border-dashed">被动委托</div>
                 </div>
-                <div class="effective-time flex-row">
+                <div v-if="isHasModule('effectiveTime')" class="effective-time flex-row">
                   <img class="passive-delegation-icon" src="../../assets/Contract/contract_selected.png" alt="">
                   <div class="passive-delegation-text border-dashed">生效时间</div>
                   <div class="effective-time-select">GTC</div>
                 </div>
-                <div class="reduce-positions flex-row">
+                <div v-if="isHasModule('reducePositions')" class="reduce-positions flex-row">
                   <img class="reduce-positions-icon" src="../../assets/Contract/check_box_selected.png" alt="">
                   <div class="passive-delegation-text border-dashed">只减仓</div>
                 </div>
-                <div class="trigger-type flex-row">
+                <div v-if="isHasModule('triggerType')" class="trigger-type flex-row">
                   <div class="passive-delegation-text border-dashed">触发类型</div>
                   <div class="effective-time-select">最新价格</div>
                 </div>

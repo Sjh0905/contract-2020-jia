@@ -112,6 +112,7 @@
 }
 
 .progress-bar-position-title {
+  cursor: pointer;
   flex: 0.5;
   height: 36px;
   border-bottom: 2px solid transparent;
@@ -414,8 +415,9 @@
 }
 
 .progress-bar-title-brand-default {
+  cursor: pointer;
   line-height: 38px;
-  border-bottom: 2px solid transparent;
+  /*border-bottom: 2px solid transparent;*/
   width: auto;
   float: left;
   text-align: center;
