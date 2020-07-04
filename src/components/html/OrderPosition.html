@@ -9,42 +9,42 @@
       <div class="th td-number">{{$t('数量')}}</div>
       <!--开仓价格-->
       <div class="th td-category-1 ">
-        <span class="border-dashed" @mouseenter="openPositionBox()" @mouseleave="closePositionBox()">{{$t('开仓价格')}}</span>
+        <span class="border-dashed" @mouseenter="openPositionBox('open-position-box')" @mouseleave="closePositionBox('open-position-box')">{{$t('开仓价格')}}</span>
         <div class="open-position-box">你的持仓的平均买入/卖出成交价格。</div>
       </div>
       <!--标记价格-->
       <div class="th td-market">
-        <span class="border-dashed" @mouseenter="openMarkedPriceBox()" @mouseleave="closeMarkedPriceBox()">{{$t('标记价格')}}</span>
+        <span class="border-dashed" @mouseenter="openPositionBox('open-marked-price-box')" @mouseleave="closePositionBox('open-marked-price-box')">{{$t('标记价格')}}</span>
         <div class="open-marked-price-box">该合约的实时标记价格。此标记价格将用于计算盈亏及保证金，可能与合约最新成交价格有所偏差，以避免价格操纵。</div>
       </div>
       <!--强平价格-->
-      <div class="th td-flat-price" @mouseenter="openFlatPriceBox()" @mouseleave="closeFlatPriceBox()">
+      <div class="th td-flat-price" @mouseenter="openPositionBox('open-flat-price-box')" @mouseleave="closePositionBox('open-flat-price-box')">
         <span class="border-dashed">{{$t('强平价格')}}</span>
         <div class="open-flat-price-box">若多仓的标记价格低于此强平价格，或是空仓的标记价格高于此强平价格，你的持仓将被强平。</div>
       </div>
       <!--保证金比率-->
       <div class="th td-price">
-        <span class="border-dashed" @mouseenter="openPriceBox()" @mouseleave="closePriceBox()">{{$t('保证金比率')}}</span>
+        <span class="border-dashed" @mouseenter="openPositionBox('open-price-box')" @mouseleave="closePositionBox('open-price-box')">{{$t('保证金比率')}}</span>
         <div class="open-price-box">保证金比率越低，仓位的风险相对较小。当保证金比率到达100%时，仓位将被强平。</div>
       </div>
       <!--保证金-->
       <div class="th td-deposit">
-        <span class="border-dashed" @mouseenter="openSecurityepositBox()" @mouseleave="closeSecurityepositBox()">{{$t('保证金')}}</span>
+        <span class="border-dashed" @mouseenter="openPositionBox('open-security-deposit-box')" @mouseleave="closePositionBox('open-security-deposit-box')">{{$t('保证金')}}</span>
         <div class="open-security-deposit-box">仓位占用的保证金。</div>
       </div>
       <!--未实现盈亏（回报率）-->
       <div class="th td-return-rate">
-        <span class="border-dashed" @mouseenter="openReturRateBox()" @mouseleave="closeReturRateBox()">{{$t('未实现盈亏（回报率）')}}</span>
+        <span class="border-dashed" @mouseenter="openPositionBox('open-return-rate-box')" @mouseleave="closePositionBox('open-return-rate-box')">{{$t('未实现盈亏（回报率）')}}</span>
         <div class="open-return-rate-box">"采用标记价格计算得出的未实现盈亏，以及回报率。"</div>
       </div>
       <!--自动减仓-->
       <div class="th td-reduce-positions">
-        <span class="border-dashed" @mouseenter="openEducePositionsBox()" @mouseleave="closeEducePositionsBox()">{{$t('自动减仓')}}</span>
+        <span class="border-dashed" @mouseenter="openPositionBox('open-educe-positions-box')" @mouseleave="closePositionBox('open-educe-positions-box')">{{$t('自动减仓')}}</span>
         <div class="open-educe-positions-box">此指标代表你在自动减仓序列中的排序。若指示灯全部亮起，发生平仓事件后，您的持仓可能被减少。</div>
       </div>
       <!--平仓-->
       <div class="th td-trigger">
-        <span class="border-dashed" @mouseenter="openLiquidationBox()" @mouseleave="closeLiquidationBox()">{{$t('平仓')}}</span>
+        <span class="border-dashed" @mouseenter="openPositionBox('open-liquidation-box')" @mouseleave="closePositionBox('open-liquidation-box')">{{$t('平仓')}}</span>
         <div class="open-liquidation-box">你可以在此平仓，这将会根据你的选择向市场送出抵销目前仓位的市价单或限价单。</div>
       </div>
     </li>

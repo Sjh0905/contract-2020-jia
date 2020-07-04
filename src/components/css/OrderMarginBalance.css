@@ -151,7 +151,7 @@ tr, th, td {
   padding: 10px;
 }
 .gains-and-losses {
-  display: block;
+  display: none;
   position: absolute;
   /*width: 300px;*/
   height:auto;
@@ -166,7 +166,7 @@ tr, th, td {
   padding: 10px;
 }
 .order-balance {
-  display: block;
+  display: none;
   position: absolute;
   width: 300px;
   height:auto;

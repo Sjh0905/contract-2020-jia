@@ -53,31 +53,31 @@ root.methods.goToTransfer = function () {
 }
 
 /*---------------------- 账户余额 begin ---------------------*/
-root.methods.closeShowDescriptBox= function () {
-  $(".show-descript").attr("style","display:none");
+root.methods.closeShowDescriptBox= function (name) {
+  $("." + name).attr("style","display:none");
 }
-root.methods.openShowDescriptBox = function () {
-  $(".show-descript").attr("style","display:block");
+root.methods.openShowDescriptBox = function (name) {
+  $("." + name).attr("style","display:block");
 }
 /*---------------------- 账户余额 end ---------------------*/
-
-/*---------------------- 未实现盈亏 begin ---------------------*/
-root.methods.closeGainsAndLosses= function () {
-  $(".gains-and-losses").attr("style","display:none");
-}
-root.methods.openGainsAndLosses = function () {
-  $(".gains-and-losses").attr("style","display:block");
-}
-/*---------------------- 未实现盈亏 end ---------------------*/
-
-/*---------------------- 可用下单余额 begin ---------------------*/
-root.methods.closeOrderBalance= function () {
-  $(".order-balance").attr("style","display:none");
-}
-root.methods.openOrderBalance = function () {
-  $(".order-balance").attr("style","display:block");
-}
-/*---------------------- 可用下单余额 end ---------------------*/
+//
+// /*---------------------- 未实现盈亏 begin ---------------------*/
+// root.methods.closeGainsAndLosses= function () {
+//   $(".gains-and-losses").attr("style","display:none");
+// }
+// root.methods.openGainsAndLosses = function () {
+//   $(".gains-and-losses").attr("style","display:block");
+// }
+// /*---------------------- 未实现盈亏 end ---------------------*/
+//
+// /*---------------------- 可用下单余额 begin ---------------------*/
+// root.methods.closeOrderBalance= function () {
+//   $(".order-balance").attr("style","display:none");
+// }
+// root.methods.openOrderBalance = function () {
+//   $(".order-balance").attr("style","display:block");
+// }
+// /*---------------------- 可用下单余额 end ---------------------*/
 
 
 /*---------------------- 保留小数 begin ---------------------*/

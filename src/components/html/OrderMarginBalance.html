@@ -5,19 +5,19 @@
       <div class="th td-time1">{{$t('资产种类')}}</div>
       <!--账户余额-->
       <div class="th td-price ">
-        <span class="border-dashed" @mouseenter="openShowDescriptBox()" @mouseleave="closeShowDescriptBox()">{{$t('账户余额')}}</span>
+        <span class="border-dashed" @mouseenter="openShowDescriptBox('show-descript')" @mouseleave="closeShowDescriptBox('show-descript')">{{$t('账户余额')}}</span>
         <div class="show-descript">账户余额 ＝ 总共净划入+ 总共已实现盈亏 + 总共净资金费用 - 总共手续费</div>
       </div>
       <!--未实现盈亏-->
       <div class="th td-category-1">
-        <span class="border-dashed" @mouseenter="openGainsAndLosses()" @mouseleave="closeGainsAndLosses()">{{$t('未实现盈亏')}}</span>
+        <span class="border-dashed" @mouseenter="openShowDescriptBox('gains-and-losses')" @mouseleave="closeShowDescriptBox('gains-and-losses')">{{$t('未实现盈亏')}}</span>
         <div class="gains-and-losses">采用标记价格计算得出的未实现盈亏。</div>
       </div>
       <!--保证金余额-->
       <div class="th td-market">{{$t('保证金余额')}}</div>
       <!--可用下单余额-->
       <div class="th td-number">
-        <span class="border-dashed" @mouseenter="openOrderBalance()" @mouseleave="closeOrderBalance()">{{$t('可用下单余额')}}</span>
+        <span class="border-dashed" @mouseenter="openShowDescriptBox('order-balance')" @mouseleave="closeShowDescriptBox('order-balance')">{{$t('可用下单余额')}}</span>
         <div class="order-balance">可用下单余额 = 保证金余额 - 开仓保证金，代表你可用于开新仓的金额。</div>
       </div>
       <!--操作-->

@@ -49,69 +49,13 @@ root.watch = {}
 root.methods = {}
 
 /*---------------------- 开仓价格 begin ---------------------*/
-root.methods.closePositionBox= function () {
-  $(".open-position-box").attr("style","display:none");
+root.methods.closePositionBox= function (name) {
+  $("." + name).attr("style","display:none");
 }
-root.methods.openPositionBox = function () {
-  $(".open-position-box").attr("style","display:block");
+root.methods.openPositionBox = function (name) {
+  $("." + name).attr("style","display:block");
 }
 /*---------------------- 开仓价格 end ---------------------*/
-/*---------------------- 标记价格 begin ---------------------*/
-root.methods.closeMarkedPriceBox= function () {
-  $(".open-marked-price-box").attr("style","display:none");
-}
-root.methods.openMarkedPriceBox = function () {
-  $(".open-marked-price-box").attr("style","display:block");
-}
-/*---------------------- 标记价格 end ---------------------*/
-/*---------------------- 强平价格 begin ---------------------*/
-root.methods.closeFlatPriceBox= function () {
-  $(".open-flat-price-box").attr("style","display:none");
-}
-root.methods.openFlatPriceBox = function () {
-  $(".open-flat-price-box").attr("style","display:block");
-}
-/*---------------------- 强平价格 end ---------------------*/
-/*---------------------- 保证金比率 begin ---------------------*/
-root.methods.closePriceBox= function () {
-  $(".open-price-box").attr("style","display:none");
-}
-root.methods.openPriceBox = function () {
-  $(".open-price-box").attr("style","display:block");
-}
-/*---------------------- 保证金比率 end ---------------------*/
-/*---------------------- 保证金 begin ---------------------*/
-root.methods.closeSecurityepositBox= function () {
-  $(".open-security-deposit-box").attr("style","display:none");
-}
-root.methods.openSecurityepositBox = function () {
-  $(".open-security-deposit-box").attr("style","display:block");
-}
-/*---------------------- 保证金 end ---------------------*/
-/*---------------------- 回报率 begin ---------------------*/
-root.methods.closeReturRateBox= function () {
-  $(".open-return-rate-box").attr("style","display:none");
-}
-root.methods.openReturRateBox = function () {
-  $(".open-return-rate-box").attr("style","display:block");
-}
-/*---------------------- 回报率 end ---------------------*/
-/*---------------------- 自动减仓 begin ---------------------*/
-root.methods.closeEducePositionsBox= function () {
-  $(".open-educe-positions-box").attr("style","display:none");
-}
-root.methods.openEducePositionsBox = function () {
-  $(".open-educe-positions-box").attr("style","display:block");
-}
-/*---------------------- 自动减仓 end ---------------------*/
-/*---------------------- 平仓 begin ---------------------*/
-root.methods.closeLiquidationBox= function () {
-  $(".open-liquidation-box").attr("style","display:none");
-}
-root.methods.openLiquidationBox = function () {
-  $(".open-liquidation-box").attr("style","display:block");
-}
-/*---------------------- 平仓 end ---------------------*/
 
 /*---------------------- 保留小数 begin ---------------------*/
 root.methods.toFixed = function (num, acc = 8) {
