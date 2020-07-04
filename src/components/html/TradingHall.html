@@ -103,7 +103,7 @@
           <!--交易挂单区域-->
           <div class="trading-wrap">
             <!--双仓模式下开启此项-->
-            <div class="progress-bar-position-title-box traddinghall-border-bottom relative flex-row">
+            <div v-if="positionModeFirst == 'doubleWarehouseMode'" class="progress-bar-position-title-box traddinghall-border-bottom relative flex-row">
               <div class="progress-bar-position-title" :class="positionModeSecond == 'openWarehouse' ? 'progress-bar-position-title-sel':''" @click="changePositionModeSecond('openWarehouse')">开仓</div>
               <div class="progress-bar-position-title" :class="positionModeSecond == 'closeWarehouse' ? 'progress-bar-position-title-sel':''" @click="changePositionModeSecond('closeWarehouse')">平仓</div>
             </div>
@@ -353,25 +353,25 @@
       <div class="risk-alert">
         若有合约存在持仓或者挂单，不允许调整仓位模式。仓位模式调整对所有合约统一生效。
       </div>
-      <div class="flex" @click="positionModeSelected(1)">
-        <img class="single-position-img" src="../../assets/contract/contract_no_selected.png" alt="" v-if="cardType == 2">
-        <img class="single-position-img" src="../../assets/contract/contract_selected.png" alt="" v-if="cardType == 1">
+      <div class="flex" @click="positionModeSelected('singleWarehouseMode')">
+        <img class="single-position-img" src="../../assets/contract/contract_selected.png" alt="" v-if="positionModeFirstTemp == 'singleWarehouseMode'">
+        <img class="single-position-img" src="../../assets/contract/contract_no_selected.png" alt="" v-else>
         <div class="">
-          <div class="selected-positions-cod" :class="{'selected_cardType':cardType == 1}">单项持仓</div>
+          <div class="selected-positions-cod" :class="{'selected_cardType':positionModeFirstTemp == 'singleWarehouseMode'}">单项持仓</div>
           <div class="position-explanation">单向持仓模式下，一个合约只允许持有一个方向的仓位</div>
         </div>
       </div>
-      <div class="flex" @click="positionModeSelected(2)">
-        <img class="single-position-img" src="../../assets/contract/contract_no_selected.png" alt="" v-if="cardType == 1">
-        <img class="single-position-img" src="../../assets/contract/contract_selected.png" alt="" v-if="cardType == 2">
+      <div class="flex" @click="positionModeSelected('doubleWarehouseMode')">
+        <img class="single-position-img" src="../../assets/contract/contract_selected.png" alt="" v-if="positionModeFirstTemp == 'doubleWarehouseMode'">
+        <img class="single-position-img" src="../../assets/contract/contract_no_selected.png" alt="" v-else>
         <div class="">
-          <div class="selected-positions" :class="{'selected_cardType':cardType == 2}">双向持仓</div>
+          <div class="selected-positions" :class="{'selected_cardType':positionModeFirstTemp == 'doubleWarehouseMode'}">双向持仓</div>
           <div class="position-explanation">双向持仓模式下，一个合约可允许同时持有多空两个方向的仓位，并且同一合约下不同方向仓位风险对冲</div>
         </div>
       </div>
     </div>
     <div slot="footer" class="lock-house-footer">
-      <div class="day-surplus">
+      <div class="day-surplus" @click="positionModeSelectedConfirm">
         {{$t('确认')}}
       </div>
     </div>

@@ -43,6 +43,7 @@ root.components = {
 root.data = function () {
   return {
     positionModeFirst:'doubleWarehouseMode',//单仓模式 singleWarehouseMode 双仓模式 doubleWarehouseMode
+    positionModeFirstTemp:'',//临时存储值，等用户点击弹窗确认按钮后才真正改变positionModeFirst的值
     positionModeSecond:'openWarehouse',//单仓 singleWarehouse 开仓 openWarehouse 平仓 closeWarehouse
     pendingOrderType:'limitPrice',//限价 limitPrice 市价 marketPrice 限价止盈止损 limitProfitStopLoss 市价止盈止损 marketPriceProfitStopLoss
 
@@ -803,20 +804,25 @@ root.methods.showInfo = function(data){
 root.methods.closeInfo = function(data){
   this.showinfo = false;
 }
+//仓位模式Start
 //打开仓位模式
 root.methods.turnOnLocationMode = function () {
+  this.positionModeFirstTemp = this.positionModeFirst;//打开弹窗前需要初始化positionModeFirstTemp的值，必须和positionModeFirst一致
   this.popWindowPositionModeBulletBox = true
 }
-
-
-//仓位模式Start
 // 仓位模式
 root.methods.popWindowClosePositionModeBulletBox = function () {
   this.popWindowPositionModeBulletBox = false
+  this.positionModeFirstTemp = this.positionModeFirst;//直接关闭弹窗后需要还原positionModeFirstTemp的值，必须和positionModeFirst一致
 }
 // 仓位模式选择
-root.methods.positionModeSelected = function (cardType) {
-  this.cardType = cardType
+root.methods.positionModeSelected = function (type) {
+  this.positionModeFirstTemp = type
+}
+// 仓位模式选择确认
+root.methods.positionModeSelectedConfirm = function () {
+  this.positionModeFirst = this.positionModeFirstTemp;
+  this.popWindowPositionModeBulletBox = false
 }
 //仓位模式End
 
@@ -837,9 +843,16 @@ root.methods.changePendingOrderType = function (type) {
 
 //页面功能模块显示逻辑判断 Start
 root.methods.isHasModule = function (type) {
-  let isHas = this.positionModeConfigs[this.positionModeFirst][this.positionModeSecond][this.pendingOrderType][type]
+  let isHas = '';
+  //单仓模式
+  if(this.positionModeFirst == 'singleWarehouseMode'){
+    isHas = this.positionModeConfigs[this.positionModeFirst][this.pendingOrderType][type]
+    console.log('singleWarehouseMode-' + type,isHas);
+    return isHas
+  }
+  //双仓模式
+  isHas = this.positionModeConfigs[this.positionModeFirst][this.positionModeSecond][this.pendingOrderType][type]
   console.log(type,isHas);
-
   return isHas
 }
 //页面功能模块显示逻辑判断 End
