@@ -193,7 +193,10 @@ root.mounted = function () {
 
 // 初始化各子组件
 root.methods = {}
-
+root.methods.openAdjustingLever = function () {
+  this.popWindowAdjustingLever = true
+}
+// 打开双仓模式
 root.methods.openSecurityDepositMode = function () {
   this.popWindowSecurityDepositMode = true
 }
