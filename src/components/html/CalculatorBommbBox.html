@@ -1,198 +1,451 @@
+<transition name="popWindow">
+  <div class="popWindow-container min-width" v-if="show">
+    <div class="background"></div>
+    <div :class="!pop_width ? 'popup' : 'min-popup'" v-if="!isMobile">
+      <div class="popWindow-title">
+        <div slot="header" class="calculator-title flex">
+          <div class="positionMode-tit pointer" :class="{'border-bottom':styleType == 1}" @click="selectType(1)">收益</div>
+          <div class="positionMode-tit pointer" :class="{'border-bottom':styleType == 2}" @click="selectType(2)">目标价格</div>
+          <div class="positionMode-tit pointer" :class="{'border-bottom':styleType == 3}" @click="selectType(3)">强平价格</div>
+        </div>
+        <img src="../../assets/WhiteCancellation.png" alt="" v-if="closeBtnShow" class="vertical-middle close" @click="closeClick">
+      </div>
+      <div class="popWindow-article">
+        <div class="pop-calculator flex" v-if="styleType == 1">
+          <!--计算器左侧-->
+          <div class="pop-calculator-left">
+            <div class="pop-calculator-left-title flex">
+              <div class="more-empty-btn pointer" :class="{'more-empty-btn-bck':moreEmptyType == 1}" @click="selectMoreEmptyType(1)">做多</div>
+              <div class="more-empty-btn pointer" :class="{'more-empty-btn-bck':moreEmptyType == 2}" @click="selectMoreEmptyType(2)">做空</div>
+            </div>
+            <div class="pop-calculator-left-slider">
+              <div class="block"  style="margin: 6px auto">
+                <p class="radiusa_green" v-if="calculatorValue>= 1" @click="calculatorValue= 1" style="cursor:pointer"></p>
+                <p class="radiusb_green" v-if="calculatorValue>=25" @click="calculatorValue=25" style="cursor:pointer"></p>
+                <p class="radiusc_green" v-if="calculatorValue>=50" @click="calculatorValue=50" style="cursor:pointer"></p>
+                <p class="radiusd_green" v-if="calculatorValue>=75" @click="calculatorValue=75" style="cursor:pointer"></p>
+                <p class="radiuse_green" v-if="calculatorValue>=100" @click="calculatorValue=100" style="cursor:pointer"></p>
+                <el-slider
+                  v-model="calculatorValue"
+                  class="el-slider-style"
+                  :marks="calculatorMarks"
+                  :format-tooltip="formatTooltip"
+                  :max="125"
+                  :min="1"
+                >
+                </el-slider>
+              </div>
+              <div class="wrong-text" :class="calculatorValue>=20 ? 'wrong-text-red':'wrong-text-grey'">当前杠杆倍数最高可持有头寸：
+                <span :class="calculatorValue>=20 ? '':'text_white'">5,000,000</span> USDT</div>
+            </div>
+            <!--输入框内容-->
+            <div class="pop-calculator-input">
+              <!--开仓价格-->
+              <div class="opening-price flex">
+                <div class="bn-input-prefix css-vurnku">
+                  <div class="css-5h0skw">开仓价格</div>
+                </div>
+                <input type="text" class="opening-price-ipt" placeholder="0" v-model="openingPrice">
+                <span class="opening-price-curency">USDT</span>
+              </div>
+              <!--开仓价格-->
+              <div class="opening-price flex">
+                <div class="bn-input-prefix css-vurnku">
+                  <div class="css-5h0skw">平仓价格</div>
+                </div>
+                <input type="text" class="opening-price-ipt" placeholder="0" v-model="closingPrice">
+                <span class="opening-price-curency">USDT</span>
+              </div>
+              <!--开仓价格-->
+              <div class="opening-price opening-price-last flex">
+                <div class="bn-input-prefix css-vurnku">
+                  <div class="css-5h0skw">成交数量</div>
+                </div>
+
+                <input type="text" class="opening-price-ipt" placeholder="0" v-model="transactionQuantity">
+                <span class="opening-price-curency">BTC</span>
+              </div>
+              <!--计算按钮-->
+              <div class="calculate-button pointer" :class="isStyle?'':'btn_blue'" @click="clickCalculation">计算</div>
+            </div>
+          </div>
+          <!--计算器右侧-->
+          <div class="pop-calculator-right">
+            <!--计算结果-->
+            <div class="pop-calculator-right-result">计算结果</div>
+            <div class="pop-calculator-right-content flex">
+              <div class="pop-calculator-price">
+                <span class="border-dashed">起始保证金</span>
+              </div>
+              <div class="pop-calculator-price"><span class="text_white">{{securityDeposit}}</span> USDT</div>
+            </div>
+            <!--收益-->
+            <div class="pop-calculator-right-content flex">
+              <div class="pop-calculator-price">收益</div>
+              <div class="pop-calculator-price"><span class="text_white">{{income}}</span> USDT</div>
+            </div>
+            <!--收益-->
+            <div class="pop-calculator-right-content flex">
+              <div class="pop-calculator-price">回报率</div>
+              <div class="pop-calculator-price"><span class="text_white">{{returnRate}}</span> %</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pop-calculator flex" v-if="styleType == 2">
+          <!--计算器左侧-->
+          <div class="pop-calculator-left">
+            <div class="pop-calculator-left-title flex">
+              <div class="more-empty-btn pointer" :class="{'more-empty-btn-bck':moreEmptyType == 1}" @click="selectMoreEmptyType(1)">做多</div>
+              <div class="more-empty-btn pointer" :class="{'more-empty-btn-bck':moreEmptyType == 2}" @click="selectMoreEmptyType(2)">做空</div>
+            </div>
+            <div class="pop-calculator-left-slider">
+              <div class="block"  style="margin: 6px auto">
+                <p class="radiusa_green" v-if="calculatorValue>= 1" @click="calculatorValue= 1" style="cursor:pointer"></p>
+                <p class="radiusb_green" v-if="calculatorValue>=25" @click="calculatorValue=25" style="cursor:pointer"></p>
+                <p class="radiusc_green" v-if="calculatorValue>=50" @click="calculatorValue=50" style="cursor:pointer"></p>
+                <p class="radiusd_green" v-if="calculatorValue>=75" @click="calculatorValue=75" style="cursor:pointer"></p>
+                <p class="radiuse_green" v-if="calculatorValue>=100" @click="calculatorValue=100" style="cursor:pointer"></p>
+                <el-slider
+                  v-model="targetCalculatorValue"
+                  class="el-slider-style"
+                  :marks="targetCalculatorMarks"
+                  :format-tooltip="formatTooltip"
+                  :max="125"
+                  :min="1"
+                >
+                </el-slider>
+              </div>
+              <div class="wrong-text" :class="calculatorValue>=20 ? 'wrong-text-red':'wrong-text-grey'">当前杠杆倍数最高可持有头寸：
+                <span :class="calculatorValue>=20 ? 'wrong-text-red':'text_white'">5,000,000</span> USDT</div>
+            </div>
+            <!--输入框内容-->
+            <div class="pop-calculator-input">
+              <!--开仓价格-->
+              <div class="target-price flex">
+                <div class="bn-input-prefix css-vurnku">
+                  <div class="css-5h0skw">开仓价格</div>
+                </div>
+                <input type="text" class="opening-price-ipt" placeholder="0" v-model="targetOpeningPrice">
+                <span class="opening-price-curency">USDT</span>
+              </div>
+              <!--回报率-->
+              <div class="target-price target-price-last flex">
+                <div class="bn-input-prefix css-vurnku">
+                  <div class="css-5h0skw">回报率</div>
+                </div>
+                <input type="text" class="opening-price-ipt" placeholder="0" v-model="returnRate">
+                <span class="opening-price-curency">%</span>
+              </div>
+              <!--计算按钮-->
+              <div class="calculate-button pointer" :class="isTargePrice?'':'btn_blue'" @click="calculateTargePrice">计算</div>
+            </div>
+          </div>
+          <!--计算器右侧-->
+          <div class="pop-calculator-right">
+            <!--计算结果-->
+            <div class="pop-calculator-right-result">计算结果</div>
+            <div class="pop-calculator-right-content flex">
+              <div class="pop-calculator-price">目标价格</div>
+              <div class="pop-calculator-price"><span class="text_white">{{targetPrice}}</span> USDT</div>
+            </div>
+          </div>
+        </div>
+        <div class="pop-calculator flex" v-if="styleType == 3">
+          <!--计算器左侧-->
+          <div class="pop-calculator-left">
+            <div class="pop-calculator-left-title flex">
+              <div class="more-empty-btn pointer" :class="{'more-empty-btn-bck':moreEmptyType == 1}" @click="selectMoreEmptyType(1)">做多</div>
+              <div class="more-empty-btn pointer" :class="{'more-empty-btn-bck':moreEmptyType == 2}" @click="selectMoreEmptyType(2)">做空</div>
+            </div>
+            <div class="pop-calculator-left-slider">
+              <div class="block"  style="margin: 6px auto">
+                <p class="radiusa_green" v-if="calculatorValue>= 1" @click="calculatorValue= 1" style="cursor:pointer"></p>
+                <p class="radiusb_green" v-if="calculatorValue>=25" @click="calculatorValue=25" style="cursor:pointer"></p>
+                <p class="radiusc_green" v-if="calculatorValue>=50" @click="calculatorValue=50" style="cursor:pointer"></p>
+                <p class="radiusd_green" v-if="calculatorValue>=75" @click="calculatorValue=75" style="cursor:pointer"></p>
+                <p class="radiuse_green" v-if="calculatorValue>=100" @click="calculatorValue=100" style="cursor:pointer"></p>
+                <el-slider
+                  v-model="calculatorValue"
+                  class="el-slider-style"
+                  :marks="calculatorMarks"
+                  :format-tooltip="formatTooltip"
+                  :max="125"
+                  :min="1"
+                >
+                </el-slider>
+              </div>
+              <div class="wrong-text" :class="calculatorValue>=25 ? 'wrong-text-red':'wrong-text-grey'">当前杠杆倍数最高可持有头寸：
+                <span :class="calculatorValue>=25 ? 'wrong-text-red':'text_white'">5,000,000</span> USDT</div>
+            </div>
+            <!--输入框内容-->
+            <div class="pop-calculator-input">
+              <!--开仓价格-->
+              <div class="opening-price flex">
+                <div class="bn-input-prefix css-vurnku">
+                  <div class="css-5h0skw">开仓价格</div>
+                </div>
+                <input type="text" class="opening-price-ipt" placeholder="开仓价格">
+                <span class="opening-price-curency">USDT</span>
+              </div>
+              <!--成交数量-->
+              <div class="opening-price flex">
+                <div class="bn-input-prefix css-vurnku">
+                  <div class="css-5h0skw">成交数量</div>
+                </div>
+                <input type="text" class="opening-price-ipt" placeholder="成交数量">
+                <span class="opening-price-curency">BTC</span>
+              </div>
+              <!--钱包余额-->
+              <div class="opening-price opening-price-last flex">
+                <div class="bn-input-prefix css-vurnku">
+                  <div class="css-5h0skw">钱包余额</div>
+                </div>
+                <input type="text" class="opening-price-ipt text_white" placeholder="钱包余额">
+                <span class="opening-price-curency">USDT</span>
+              </div>
+              <!--计算按钮-->
+              <div class="calculate-button pointer" >计算</div>
+            </div>
+          </div>
+          <!--计算器右侧-->
+          <div class="pop-calculator-right-flat-price">
+            <!--计算结果-->
+            <div class="pop-calculator-right-result">计算结果</div>
+            <!--强平价格-->
+            <div class="pop-calculator-right-content flex">
+              <div class="pop-calculator-price">强平价格</div>
+              <div class="pop-calculator-price"><span class="text_white">0.00 </span>USDT</div>
+            </div>
+            <div class="pop-calculator-flat-price">
+              * 强平价格的计算考虑了您现有的持仓，持有仓位的未实现盈亏和占用保证金将影响强平价格计算。
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div :class="!pop_width ? 'mobilePopup' : 'min-popup'" v-if="isMobile">
+      <div class="mobilePopWindow-title">
+        <slot name="header">
+          <span>{{$t("pupupWindow.title")}}</span>
+        </slot>
+        <img src="../../assets/弹窗-取消-icon@2x.png" alt="" v-if="closeBtnShow" class="vertical-middle close" @click="closeClick">
+      </div>
+      <div class="mobilePopWindow-article">
+        <slot name="article">
+
+        </slot>
+      </div>
+      <!--      <div class="mobilePopWindow-article2">-->
+      <!--        <slot name="article2">-->
+
+      <!--        </slot>-->
+      <!--      </div>-->
+      <div class="flex popWindow-footer"
+           :class="footerBorderTop?'popWindow-footer-mobile':''">
+        <slot name="footer">
+          <!--          <button>{{$t("pupupWindow.cancel")}}</button>-->
+        </slot>
+      </div>
+
+      <slot name="other">
+
+      </slot>
+    </div>
+  </div>
+</transition>
+
+
+
 <!--计算器-->
-<PositionModeBulletBox :switch="openCalculator" @close="closeCalculator" :pop_width="true">
-  <div slot="header" class="calculator-title flex">
-    <div class="positionMode-tit pointer" :class="{'border-bottom':styleType == 1}" @click="selectType(1)">收益</div>
-    <div class="positionMode-tit pointer" :class="{'border-bottom':styleType == 2}" @click="selectType(2)">目标价格</div>
-    <div class="positionMode-tit pointer" :class="{'border-bottom':styleType == 3}" @click="selectType(3)">强平价格</div>
-  </div>
-  <div slot="article" class="pop-calculator flex" v-if="styleType == 1">
-    <!--计算器左侧-->
-    <div class="pop-calculator-left">
-      <div class="pop-calculator-left-title flex">
-        <div class="more-empty-btn pointer" :class="{'more-empty-btn-bck':moreEmptyType == 1}" @click="selectMoreEmptyType(1)">做多</div>
-        <div class="more-empty-btn pointer" :class="{'more-empty-btn-bck':moreEmptyType == 2}" @click="selectMoreEmptyType(2)">做空</div>
-      </div>
-      <div class="pop-calculator-left-slider">
+<!--<PositionModeBulletBox :switch="openCalculator" @close="closeClick" :pop_width="true">-->
+<!--  <div slot="header" class="calculator-title flex">-->
+<!--    <div class="positionMode-tit pointer" :class="{'border-bottom':styleType == 1}" @click="selectType(1)">收益</div>-->
+<!--    <div class="positionMode-tit pointer" :class="{'border-bottom':styleType == 2}" @click="selectType(2)">目标价格</div>-->
+<!--    <div class="positionMode-tit pointer" :class="{'border-bottom':styleType == 3}" @click="selectType(3)">强平价格</div>-->
+<!--  </div>-->
+<!--  <div slot="article" class="pop-calculator flex" v-if="styleType == 1">-->
+<!--    &lt;!&ndash;计算器左侧&ndash;&gt;-->
+<!--    <div class="pop-calculator-left">-->
+<!--      <div class="pop-calculator-left-title flex">-->
+<!--        <div class="more-empty-btn pointer" :class="{'more-empty-btn-bck':moreEmptyType == 1}" @click="selectMoreEmptyType(1)">做多</div>-->
+<!--        <div class="more-empty-btn pointer" :class="{'more-empty-btn-bck':moreEmptyType == 2}" @click="selectMoreEmptyType(2)">做空</div>-->
+<!--      </div>-->
+<!--      <div class="pop-calculator-left-slider">-->
+<!--        <div class="block"  style="margin: 6px auto">-->
+<!--          <p class="radiusa_green" v-if="calculatorValue>= 1" @click="calculatorValue= 1" style="cursor:pointer"></p>-->
+<!--          <p class="radiusb_green" v-if="calculatorValue>=15" @click="calculatorValue=15" style="cursor:pointer"></p>-->
+<!--          <p class="radiusc_green" v-if="calculatorValue>=30" @click="calculatorValue=30" style="cursor:pointer"></p>-->
+<!--          <p class="radiusd_green" v-if="calculatorValue>=45" @click="calculatorValue=45" style="cursor:pointer"></p>-->
+<!--          <p class="radiuse_green" v-if="calculatorValue>=60" @click="calculatorValue=60" style="cursor:pointer"></p>-->
+<!--          <el-slider-->
+<!--            v-model="calculatorValue"-->
+<!--            class="el-slider-style"-->
+<!--            :marks="calculatorMarks"-->
+<!--            :format-tooltip="formatTooltip"-->
+<!--            :max="'75'"-->
+<!--          >-->
+<!--          </el-slider>-->
+<!--        </div>-->
+<!--        <div class="wrong-text" :class="calculatorValue>=20 ? 'wrong-text-red':'wrong-text-grey'">当前杠杆倍数最高可持有头寸：-->
+<!--          <span :class="calculatorValue>=20 ? '':'text_white'">5,000,000</span> USDT</div>-->
+<!--      </div>-->
+<!--      &lt;!&ndash;输入框内容&ndash;&gt;-->
+<!--      <div class="pop-calculator-input">-->
+<!--        &lt;!&ndash;开仓价格&ndash;&gt;-->
+<!--        <div class="opening-price">-->
+<!--          <input type="text" class="opening-price-ipt" placeholder="开仓价格">-->
+<!--          <span class="opening-price-curency">USDT</span>-->
+<!--        </div>-->
+<!--        &lt;!&ndash;开仓价格&ndash;&gt;-->
+<!--        <div class="opening-price">-->
+<!--          <input type="text" class="opening-price-ipt" placeholder="平仓价格">-->
+<!--          <span class="opening-price-curency">USDT</span>-->
+<!--        </div>-->
+<!--        &lt;!&ndash;开仓价格&ndash;&gt;-->
+<!--        <div class="opening-price opening-price-last">-->
+<!--          <input type="text" class="opening-price-ipt" placeholder="成交数量">-->
+<!--          <span class="opening-price-curency">BTC</span>-->
+<!--        </div>-->
+<!--        &lt;!&ndash;计算按钮&ndash;&gt;-->
+<!--        <div class="calculate-button pointer">计算</div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    &lt;!&ndash;计算器右侧&ndash;&gt;-->
+<!--    <div class="pop-calculator-right">-->
+<!--      &lt;!&ndash;计算结果&ndash;&gt;-->
+<!--      <div class="pop-calculator-right-result">计算结果</div>-->
+<!--      <div class="pop-calculator-right-content flex">-->
+<!--        <div class="pop-calculator-price">-->
+<!--          <span class="border-dashed">起始保证金</span>-->
+<!--        </div>-->
+<!--        <div class="pop-calculator-price"><span class="text_white">0.50 </span>USDT</div>-->
+<!--      </div>-->
+<!--      &lt;!&ndash;收益&ndash;&gt;-->
+<!--      <div class="pop-calculator-right-content flex">-->
+<!--        <div class="pop-calculator-price">收益</div>-->
+<!--        <div class="pop-calculator-price"><span class="text_white">0.00 </span>USDT</div>-->
+<!--      </div>-->
+<!--      &lt;!&ndash;收益&ndash;&gt;-->
+<!--      <div class="pop-calculator-right-content flex">-->
+<!--        <div class="pop-calculator-price">回报率</div>-->
+<!--        <div class="pop-calculator-price"><span class="text_white">0.00 </span>%</div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--  <div slot="article" class="pop-calculator flex" v-if="styleType == 2">-->
+<!--    &lt;!&ndash;计算器左侧&ndash;&gt;-->
+<!--    <div class="pop-calculator-left">-->
+<!--      <div class="pop-calculator-left-title flex">-->
+<!--        <div class="more-empty-btn pointer" :class="{'more-empty-btn-bck':moreEmptyType == 1}" @click="selectMoreEmptyType(1)">做多</div>-->
+<!--        <div class="more-empty-btn pointer" :class="{'more-empty-btn-bck':moreEmptyType == 2}" @click="selectMoreEmptyType(2)">做空</div>-->
+<!--      </div>-->
+<!--      <div class="pop-calculator-left-slider">-->
+<!--        <div class="block"  style="margin: 6px auto">-->
+<!--          <p class="radiusa_green" v-if="calculatorValue>= 1" @click="calculatorValue= 1" style="cursor:pointer"></p>-->
+<!--          <p class="radiusb_green" v-if="calculatorValue>=15" @click="calculatorValue=15" style="cursor:pointer"></p>-->
+<!--          <p class="radiusc_green" v-if="calculatorValue>=30" @click="calculatorValue=30" style="cursor:pointer"></p>-->
+<!--          <p class="radiusd_green" v-if="calculatorValue>=45" @click="calculatorValue=45" style="cursor:pointer"></p>-->
+<!--          <p class="radiuse_green" v-if="calculatorValue>=60" @click="calculatorValue=60" style="cursor:pointer"></p>-->
+<!--          <el-slider-->
+<!--            v-model="calculatorValue"-->
+<!--            class="el-slider-style"-->
+<!--            :marks="calculatorMarks"-->
+<!--            :format-tooltip="formatTooltip"-->
+<!--            :max="'75'"-->
+<!--          >-->
+<!--          </el-slider>-->
+<!--        </div>-->
+<!--        <div class="wrong-text" :class="calculatorValue>=20 ? 'wrong-text-red':'wrong-text-grey'">当前杠杆倍数最高可持有头寸：-->
+<!--          <span :class="calculatorValue>=20 ? 'wrong-text-red':'text_white'">5,000,000</span> USDT</div>-->
+<!--      </div>-->
+<!--      &lt;!&ndash;输入框内容&ndash;&gt;-->
+<!--      <div class="pop-calculator-input">-->
+<!--        &lt;!&ndash;开仓价格&ndash;&gt;-->
+<!--        <div class="target-price">-->
+<!--          <input type="text" class="opening-price-ipt" placeholder="开仓价格">-->
+<!--          <span class="opening-price-curency">USDT</span>-->
+<!--        </div>-->
+<!--        &lt;!&ndash;回报率&ndash;&gt;-->
+<!--        <div class="target-price target-price-last">-->
+<!--          <input type="text" class="opening-price-ipt" placeholder="回报率">-->
+<!--          <span class="opening-price-curency">%</span>-->
+<!--        </div>-->
+<!--        &lt;!&ndash;计算按钮&ndash;&gt;-->
+<!--        <div class="calculate-button btn_blue pointer">计算</div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    &lt;!&ndash;计算器右侧&ndash;&gt;-->
+<!--    <div class="pop-calculator-right">-->
+<!--      &lt;!&ndash;计算结果&ndash;&gt;-->
+<!--      <div class="pop-calculator-right-result">计算结果</div>-->
+<!--      <div class="pop-calculator-right-content flex">-->
+<!--        <div class="pop-calculator-price">目标价格</div>-->
+<!--        <div class="pop-calculator-price"><span class="text_white">0.50 </span>USDT</div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--  <div slot="article" class="pop-calculator flex" v-if="styleType == 3">-->
+<!--    &lt;!&ndash;计算器左侧&ndash;&gt;-->
+<!--    <div class="pop-calculator-left">-->
+<!--      <div class="pop-calculator-left-title flex">-->
+<!--        <div class="more-empty-btn pointer" :class="{'more-empty-btn-bck':moreEmptyType == 1}" @click="selectMoreEmptyType(1)">做多</div>-->
+<!--        <div class="more-empty-btn pointer" :class="{'more-empty-btn-bck':moreEmptyType == 2}" @click="selectMoreEmptyType(2)">做空</div>-->
+<!--      </div>-->
+<!--      <div class="pop-calculator-left-slider">-->
+<!--        <div class="block"  style="margin: 6px auto">-->
+<!--          <p class="radiusa_green" v-if="calculatorValue>= 1" @click="calculatorValue= 1" style="cursor:pointer"></p>-->
+<!--          <p class="radiusb_green" v-if="calculatorValue>=15" @click="calculatorValue=15" style="cursor:pointer"></p>-->
+<!--          <p class="radiusc_green" v-if="calculatorValue>=30" @click="calculatorValue=30" style="cursor:pointer"></p>-->
+<!--          <p class="radiusd_green" v-if="calculatorValue>=45" @click="calculatorValue=45" style="cursor:pointer"></p>-->
+<!--          <p class="radiuse_green" v-if="calculatorValue>=60" @click="calculatorValue=60" style="cursor:pointer"></p>-->
+<!--          <el-slider-->
+<!--            v-model="calculatorValue"-->
+<!--            class="el-slider-style"-->
+<!--            :marks="calculatorMarks"-->
+<!--            :format-tooltip="formatTooltip"-->
+<!--            :max="'75'"-->
+<!--          >-->
+<!--          </el-slider>-->
 
-        <div class="block"  style="margin: 6px auto">
-          <p class="radiusa_green" v-if="calculatorValue>= 1" @click="calculatorValue= 1" style="cursor:pointer"></p>
-          <p class="radiusb_green" v-if="calculatorValue>=15" @click="calculatorValue=15" style="cursor:pointer"></p>
-          <p class="radiusc_green" v-if="calculatorValue>=30" @click="calculatorValue=30" style="cursor:pointer"></p>
-          <p class="radiusd_green" v-if="calculatorValue>=45" @click="calculatorValue=45" style="cursor:pointer"></p>
-          <p class="radiuse_green" v-if="calculatorValue>=60" @click="calculatorValue=60" style="cursor:pointer"></p>
-          <el-slider
-            v-model="calculatorValue"
-            class="el-slider-style"
-            :marks="calculatorMarks"
-            :format-tooltip="formatTooltip"
-            :max="'75'"
-          >
-          </el-slider>
-        </div>
+<!--        </div>-->
+<!--        <div class="wrong-text" :class="calculatorValue>=20 ? 'wrong-text-red':'wrong-text-grey'">当前杠杆倍数最高可持有头寸：-->
+<!--          <span :class="calculatorValue>=20 ? 'wrong-text-red':'text_white'">5,000,000</span> USDT</div>-->
+<!--      </div>-->
+<!--      &lt;!&ndash;输入框内容&ndash;&gt;-->
+<!--      <div class="pop-calculator-input">-->
+<!--        &lt;!&ndash;开仓价格&ndash;&gt;-->
+<!--        <div class="opening-price">-->
+<!--          <input type="text" class="opening-price-ipt" placeholder="开仓价格">-->
+<!--          <span class="opening-price-curency">USDT</span>-->
+<!--        </div>-->
+<!--        &lt;!&ndash;成交数量&ndash;&gt;-->
+<!--        <div class="opening-price">-->
+<!--          <input type="text" class="opening-price-ipt" placeholder="成交数量">-->
+<!--          <span class="opening-price-curency">BTC</span>-->
+<!--        </div>-->
+<!--        &lt;!&ndash;钱包余额&ndash;&gt;-->
+<!--        <div class="opening-price opening-price-last">-->
+<!--          <input type="text" class="opening-price-ipt" placeholder="钱包余额">-->
+<!--          <span class="opening-price-curency"><span class="text_white">0.50 </span>USDT</span>-->
+<!--        </div>-->
+<!--        &lt;!&ndash;计算按钮&ndash;&gt;-->
+<!--        <div class="calculate-button pointer">计算</div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    &lt;!&ndash;计算器右侧&ndash;&gt;-->
+<!--    <div class="pop-calculator-right-flat-price">-->
+<!--      &lt;!&ndash;计算结果&ndash;&gt;-->
+<!--      <div class="pop-calculator-right-result">计算结果</div>-->
+<!--      &lt;!&ndash;强平价格&ndash;&gt;-->
+<!--      <div class="pop-calculator-right-content flex">-->
+<!--        <div class="pop-calculator-price">强平价格</div>-->
+<!--        <div class="pop-calculator-price"><span class="text_white">0.00 </span>USDT</div>-->
+<!--      </div>-->
+<!--      <div class="pop-calculator-flat-price">-->
+<!--        * 强平价格的计算考虑了您现有的持仓，持有仓位的未实现盈亏和占用保证金将影响强平价格计算。-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
 
-        <div class="wrong-text" :class="calculatorValue>=20 ? 'wrong-text-red':'wrong-text-grey'">当前杠杆倍数最高可持有头寸：
-          <span :class="calculatorValue>=20 ? 'wrong-text-red':'text_white'">5,000,000</span> USDT</div>
-      </div>
-      <!--输入框内容-->
-      <div class="pop-calculator-input">
-        <!--开仓价格-->
-        <div class="opening-price">
-          <input type="text" class="opening-price-ipt" placeholder="开仓价格">
-          <span class="opening-price-curency">USDT</span>
-        </div>
-        <!--开仓价格-->
-        <div class="opening-price">
-          <input type="text" class="opening-price-ipt" placeholder="平仓价格">
-          <span class="opening-price-curency">USDT</span>
-        </div>
-        <!--开仓价格-->
-        <div class="opening-price opening-price-last">
-          <input type="text" class="opening-price-ipt" placeholder="成交数量">
-          <span class="opening-price-curency">BTC</span>
-        </div>
-        <!--计算按钮-->
-        <div class="calculate-button pointer">计算</div>
-      </div>
-    </div>
-    <!--计算器右侧-->
-    <div class="pop-calculator-right">
-      <!--计算结果-->
-      <div class="pop-calculator-right-result">计算结果</div>
-      <div class="pop-calculator-right-content flex">
-        <div class="pop-calculator-price">
-          <span class="border-dashed">起始保证金</span>
-        </div>
-        <div class="pop-calculator-price"><span class="text_white">0.50 </span>USDT</div>
-      </div>
-      <!--收益-->
-      <div class="pop-calculator-right-content flex">
-        <div class="pop-calculator-price">收益</div>
-        <div class="pop-calculator-price"><span class="text_white">0.00 </span>USDT</div>
-      </div>
-      <!--收益-->
-      <div class="pop-calculator-right-content flex">
-        <div class="pop-calculator-price">回报率</div>
-        <div class="pop-calculator-price"><span class="text_white">0.00 </span>%</div>
-      </div>
-    </div>
-  </div>
-  <div slot="article" class="pop-calculator flex" v-if="styleType == 2">
-    <!--计算器左侧-->
-    <div class="pop-calculator-left">
-      <div class="pop-calculator-left-title flex">
-        <div class="more-empty-btn pointer" :class="{'more-empty-btn-bck':moreEmptyType == 1}" @click="selectMoreEmptyType(1)">做多</div>
-        <div class="more-empty-btn pointer" :class="{'more-empty-btn-bck':moreEmptyType == 2}" @click="selectMoreEmptyType(2)">做空</div>
-      </div>
-      <div class="pop-calculator-left-slider">
-        <div class="block"  style="margin: 6px auto">
-          <p class="radiusa_green" v-if="calculatorValue>= 1" @click="calculatorValue= 1" style="cursor:pointer"></p>
-          <p class="radiusb_green" v-if="calculatorValue>=15" @click="calculatorValue=15" style="cursor:pointer"></p>
-          <p class="radiusc_green" v-if="calculatorValue>=30" @click="calculatorValue=30" style="cursor:pointer"></p>
-          <p class="radiusd_green" v-if="calculatorValue>=45" @click="calculatorValue=45" style="cursor:pointer"></p>
-          <p class="radiuse_green" v-if="calculatorValue>=60" @click="calculatorValue=60" style="cursor:pointer"></p>
-          <el-slider
-            v-model="calculatorValue"
-            class="el-slider-style"
-            :marks="calculatorMarks"
-            :format-tooltip="formatTooltip"
-            :max="'75'"
-          >
-          </el-slider>
-
-        </div>
-        <div class="wrong-text" :class="calculatorValue>=20 ? 'wrong-text-red':'wrong-text-grey'">当前杠杆倍数最高可持有头寸：
-          <span :class="calculatorValue>=20 ? 'wrong-text-red':'text_white'">5,000,000</span> USDT</div>
-      </div>
-      <!--输入框内容-->
-      <div class="pop-calculator-input">
-        <!--开仓价格-->
-        <div class="target-price">
-          <input type="text" class="opening-price-ipt" placeholder="开仓价格">
-          <span class="opening-price-curency">USDT</span>
-        </div>
-        <!--回报率-->
-        <div class="target-price target-price-last">
-          <input type="text" class="opening-price-ipt" placeholder="回报率">
-          <span class="opening-price-curency">%</span>
-        </div>
-        <!--计算按钮-->
-        <div class="calculate-button btn_blue pointer">计算</div>
-      </div>
-    </div>
-    <!--计算器右侧-->
-    <div class="pop-calculator-right">
-      <!--计算结果-->
-      <div class="pop-calculator-right-result">计算结果</div>
-      <div class="pop-calculator-right-content flex">
-        <div class="pop-calculator-price">目标价格</div>
-        <div class="pop-calculator-price"><span class="text_white">0.50 </span>USDT</div>
-      </div>
-
-    </div>
-  </div>
-  <div slot="article" class="pop-calculator flex" v-if="styleType == 3">
-    <!--计算器左侧-->
-    <div class="pop-calculator-left">
-      <div class="pop-calculator-left-title flex">
-        <div class="more-empty-btn pointer" :class="{'more-empty-btn-bck':moreEmptyType == 1}" @click="selectMoreEmptyType(1)">做多</div>
-        <div class="more-empty-btn pointer" :class="{'more-empty-btn-bck':moreEmptyType == 2}" @click="selectMoreEmptyType(2)">做空</div>
-      </div>
-      <div class="pop-calculator-left-slider">
-        <div class="block"  style="margin: 6px auto">
-          <p class="radiusa_green" v-if="calculatorValue>= 1" @click="calculatorValue= 1" style="cursor:pointer"></p>
-          <p class="radiusb_green" v-if="calculatorValue>=15" @click="calculatorValue=15" style="cursor:pointer"></p>
-          <p class="radiusc_green" v-if="calculatorValue>=30" @click="calculatorValue=30" style="cursor:pointer"></p>
-          <p class="radiusd_green" v-if="calculatorValue>=45" @click="calculatorValue=45" style="cursor:pointer"></p>
-          <p class="radiuse_green" v-if="calculatorValue>=60" @click="calculatorValue=60" style="cursor:pointer"></p>
-          <el-slider
-            v-model="calculatorValue"
-            class="el-slider-style"
-            :marks="calculatorMarks"
-            :format-tooltip="formatTooltip"
-            :max="'75'"
-          >
-          </el-slider>
-
-        </div>
-        <div class="wrong-text" :class="calculatorValue>=20 ? 'wrong-text-red':'wrong-text-grey'">当前杠杆倍数最高可持有头寸：
-          <span :class="calculatorValue>=20 ? 'wrong-text-red':'text_white'">5,000,000</span> USDT</div>
-      </div>
-      <!--输入框内容-->
-      <div class="pop-calculator-input">
-        <!--开仓价格-->
-        <div class="opening-price">
-          <input type="text" class="opening-price-ipt" placeholder="开仓价格">
-          <span class="opening-price-curency">USDT</span>
-        </div>
-        <!--成交数量-->
-        <div class="opening-price">
-          <input type="text" class="opening-price-ipt" placeholder="成交数量">
-          <span class="opening-price-curency">BTC</span>
-        </div>
-        <!--钱包余额-->
-        <div class="opening-price opening-price-last">
-          <input type="text" class="opening-price-ipt" placeholder="钱包余额">
-          <span class="opening-price-curency"><span class="text_white">0.50 </span>USDT</span>
-        </div>
-        <!--计算按钮-->
-        <div class="calculate-button pointer">计算</div>
-      </div>
-    </div>
-    <!--计算器右侧-->
-    <div class="pop-calculator-right-flat-price">
-      <!--计算结果-->
-      <div class="pop-calculator-right-result">计算结果</div>
-      <!--强平价格-->
-      <div class="pop-calculator-right-content flex">
-        <div class="pop-calculator-price">强平价格</div>
-        <div class="pop-calculator-price"><span class="text_white">0.00 </span>USDT</div>
-      </div>
-      <div class="pop-calculator-flat-price">
-        * 强平价格的计算考虑了您现有的持仓，持有仓位的未实现盈亏和占用保证金将影响强平价格计算。
-        <!--        The calculation of the strong flat price takes into account your existing position, and the unrealized profit and loss of the holding position and the occupation margin will affect the calculation of the strong flat price.-->
-      </div>
-
-    </div>
-  </div>
-
-</PositionModeBulletBox>
+<!--</PositionModeBulletBox>-->

@@ -1,4 +1,5 @@
 import axios from "axios";
+import tradingHallData from "../../dataUtils/TradingHallDataUtils";
 
 const root = {}
 root.name = 'TradingHall'
@@ -33,11 +34,18 @@ root.components = {
   'OrderMarginBalance': resolve => require(['../vue/OrderMarginBalance'], resolve),
 
   // 移动端
-  'MobileTradingHall': resolve => require(['../mobileVue/MobileTradingHall'], resolve)
+  'MobileTradingHall': resolve => require(['../mobileVue/MobileTradingHall'], resolve),
+  // 计算机组件
+  'CalculatorBommbBox': resolve => require(['../vue/CalculatorBommbBox'], resolve)
+
 }
 
 root.data = function () {
   return {
+    positionModeFirst:'doubleWarehouseMode',//单仓模式 singleWarehouseMode 双仓模式 doubleWarehouseMode
+    positionModeSecond:'openWarehouse',//单仓 singleWarehouse 开仓 openWarehouse 平仓 closeWarehouse
+    pendingOrderType:'limitPrice',//限价 limitPrice 市价 marketPrice 限价止盈止损 limitProfitStopLoss 市价止盈止损 marketPriceProfitStopLoss
+
     socket:null,
     // 货币对列表
     currency_list: {},
@@ -122,7 +130,10 @@ root.data = function () {
     //调整杠杆 End
 
     effectiveTime:'GTC',
-    latestPrice:'最新价格'
+    latestPrice:'最新价格',
+    // 计算器弹框 begin
+    openCalculator:false
+    // 计算器弹框 end
   }
 }
 
@@ -177,7 +188,6 @@ root.mounted = function () {
   }
 
   // window.onresize = function () {
-  //
   //     window.screenWidth = document.body.clientWidth
   //     that.screenWidth = window.screenWidth
   //
@@ -186,25 +196,29 @@ root.mounted = function () {
   //
   //
   // }
-
-
-
 }
-
 
 // 初始化各子组件
 root.methods = {}
 
+root.methods.openSecurityDepositMode = function () {
+  this.popWindowSecurityDepositMode = true
+}
+root.methods.openCalculatorWindow = function () {
+  this.openCalculator = true
+}
+// 关闭弹窗
+root.methods.closeCalculatorWindow = function () {
+  this.openCalculator = false
+}
 root.methods.watchScreenWidth = function () {
   //必须声明局部变量，否则this.screenWidth不能触发页面渲染
   var screenWidth = document.body.clientWidth
   // console.log("this.screenWidth====watchScreenWidth=======",screenWidth);
-
   if(screenWidth<1450){
     this.latestDealSpread = false;
     // this.pankqh = false;
   }
-
   if(screenWidth>=1450){
     this.latestDealSpread = true;
     // this.pankqh = true;
@@ -806,6 +820,30 @@ root.methods.positionModeSelected = function (cardType) {
 }
 //仓位模式End
 
+//仓位模式二级切换 Start
+root.methods.changePositionModeSecond = function (type) {
+  this.positionModeSecond = type;
+}
+//仓位模式二级切换 End
+
+//交易类型切换 Start
+root.methods.changePendingOrderType = function (type) {
+  if(this.pendingOrderType == type)return
+
+  this.pendingOrderType = type;
+  console.log('交易类型切换',this.positionModeConfigs[this.positionModeFirst][this.positionModeSecond][this.pendingOrderType]['passiveDelegation']);
+}
+//交易类型切换 Start
+
+//页面功能模块显示逻辑判断 Start
+root.methods.isHasModule = function (type) {
+  let isHas = this.positionModeConfigs[this.positionModeFirst][this.positionModeSecond][this.pendingOrderType][type]
+  console.log(type,isHas);
+
+  return isHas
+}
+//页面功能模块显示逻辑判断 End
+
 //保证金模式 Strat
 root.methods.popWindowCloseSecurityDepositMode = function () {
   this.popWindowSecurityDepositMode = false
@@ -978,15 +1016,6 @@ root.computed.listenSymbol = function () {
 root.computed.isMobile = function () {
   return this.$store.state.isMobile
 }
-
-// bt奖励比率
-root.computed.btReward = function () {
-  return this.$store.state.btReward;
-}
-// bt活动
-root.computed.btActivity = function () {
-  return this.$store.state.btActivity;
-}
 // 特殊专区
 root.computed.specialSymbol = function () {
   return this.$store.state.specialSymbol
@@ -997,6 +1026,12 @@ root.computed.showSuperBeeIntroduction = function () {
   //   return true
   // }
   return false
+}
+//页面功能模块显示逻辑配置信息
+root.computed.positionModeConfigs = function () {
+  let data = tradingHallData.positionModeConfigs;
+  // console.log(data);
+  return data
 }
 
 
