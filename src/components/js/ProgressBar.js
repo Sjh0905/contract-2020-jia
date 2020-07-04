@@ -1,5 +1,7 @@
 // import SlideBar from './slide'
 // Object.definePrototype(Vue.prototype, '$SlideBarjs', { value: SlideBarjs });
+import tradingHallData from "../../dataUtils/TradingHallDataUtils";
+
 const root = {}
 root.name = 'ProgressBar'
 const interval = '';
@@ -51,6 +53,13 @@ root.computed.topic_price = function () {
 // 服务器时间
 root.computed.serverTime = function () {
   return this.$store.state.serverTime;
+}
+
+//页面功能模块显示逻辑配置信息
+root.computed.positionModeConfigs = function () {
+  let data = tradingHallData.positionModeConfigs;
+  // console.log(data);
+  return data
 }
 
 
@@ -143,6 +152,19 @@ root.props.symbol_config_times = {
   default: function () {
     return []
   }
+}
+
+root.props.positionModeFirst = {
+  type: String,
+  default: 'singleWarehouseMode'
+}
+root.props.positionModeSecond = {
+  type: String,
+  default: 'openWarehouse'
+}
+root.props.pendingOrderType = {
+  type: String,
+  default: 'limitPrice'
 }
 
 /*----------------------------- 组件 ------------------------------*/
@@ -504,6 +526,21 @@ root.methods.show_now_price = function () {
 // 关闭提示信息
 root.methods.closePrompt = function () {
   this.promptOpen = false;
+}
+
+//页面功能模块显示逻辑判断
+root.methods.isHasModule = function (type) {
+  let isHas = '';
+  //单仓模式
+  if(this.positionModeFirst == 'singleWarehouseMode'){
+    isHas = this.positionModeConfigs[this.positionModeFirst][this.pendingOrderType][type]
+    console.log('ProgressBar 单仓模式-' + type,isHas);
+    return isHas
+  }
+  //双仓模式
+  isHas = this.positionModeConfigs[this.positionModeFirst][this.positionModeSecond][this.pendingOrderType][type]
+  console.log('ProgressBar 双仓模式-' + type,isHas);
+  return isHas
 }
 
 // input框选择颜色

@@ -38,7 +38,7 @@
 
   <div class="progress-bar-main">
     <!--触发价格-->
-    <div class="flex flex-between pro-bar-input-box">
+    <div v-if="isHasModule('triggerPrice')" class="flex flex-between pro-bar-input-box">
       <div class="progress-bar-input-title" :class="{'progress-bar-price-en':lang!='CH'&&lang!='CHT'}">
         <span/>
         <span>触发价</span>
@@ -68,7 +68,7 @@
       </label>
     </div>
     <!--价格-->
-    <div class="flex flex-between pro-bar-input-box">
+    <div v-if="isHasModule('price')" class="flex flex-between pro-bar-input-box">
       <div class="progress-bar-input-title" :class="{'progress-bar-price-en':lang!='CH'&&lang!='CHT'}">
         <span v-if="!orderType">{{$t("BuyingPrice")}}</span>
         <span v-if="orderType">{{$t("SellingPrice")}}</span>
@@ -205,12 +205,13 @@
 
     <!--保证金-->
     <div class="progress-security-deposit-box flex-between">
-      <div class="security-deposit flex-between">
+      <div v-if="isHasModule('securityDeposit')" class="security-deposit flex-between">
         <span class="security-deposit-text border-dashed">保证金</span>
         <span class="security-deposit-amount">0.0000 USDT</span>
       </div>
       <div class="can-be-opened flex-between">
-        <span class="security-deposit-text">可开</span>
+        <span v-if="isHasModule('kaipingType') == 1" class="security-deposit-text">可开</span>
+        <span v-if="isHasModule('kaipingType') == 2" class="security-deposit-text">可平</span>
         <span class="security-deposit-amount">0.0000 BTC</span>
       </div>
     </div>
@@ -221,7 +222,19 @@
 
       <div class="progress-bar-btn txt-nomal border_radius"
            :class="orderType?'progress-bar-redbtn btn_red_box_shadow':'progress-bar-greenbtn btn_green_box_shadow'"
-           v-if="$store.state.authMessage.userId">
+           v-if="$store.state.authMessage.userId && isHasModule('buttonType') == 1">
+        {{orderType&& '买入/做多' || '卖出/做空'}}
+      </div>
+
+      <div class="progress-bar-btn txt-nomal border_radius"
+           :class="orderType?'progress-bar-redbtn btn_red_box_shadow':'progress-bar-greenbtn btn_green_box_shadow'"
+           v-if="$store.state.authMessage.userId && isHasModule('buttonType') == 2">
+        {{orderType&& '开多' || '开空'}}
+      </div>
+
+      <div class="progress-bar-btn txt-nomal border_radius"
+           :class="orderType?'progress-bar-redbtn btn_red_box_shadow':'progress-bar-greenbtn btn_green_box_shadow'"
+           v-if="$store.state.authMessage.userId && isHasModule('buttonType') == 3">
         {{orderType&& '平空' || '平多'}}
       </div>
 
