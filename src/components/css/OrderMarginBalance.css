@@ -136,27 +136,12 @@ tr, th, td {
   border-bottom: 1px dashed #6B7DA2;
 }
 .show-descript {
-  /*display: none;*/
-  position: absolute;
-  width: 300px;
-  height:auto;
-  top: 32px;
-  left: 230px;
-  font-size:12px;
-  text-align: left;
-  font-family:PingFangSC-Regular,PingFang SC;
-  font-weight:400;
-  color: #0D0E23;
-  background: #fff;
-  padding: 10px;
-}
-.show-descript {
   display: none;
   position: absolute;
   width: 300px;
   height:auto;
   top: 32px;
-  left: 226px;
+  left:12%;
   font-size:12px;
   text-align: left;
   font-family:PingFangSC-Regular,PingFang SC;
@@ -166,12 +151,12 @@ tr, th, td {
   padding: 10px;
 }
 .gains-and-losses {
-  display: none;
+  display: block;
   position: absolute;
   /*width: 300px;*/
   height:auto;
   top: 32px;
-  left: 566px;
+  left: 30%;
   font-size:12px;
   text-align: left;
   font-family:PingFangSC-Regular,PingFang SC;
@@ -181,12 +166,12 @@ tr, th, td {
   padding: 10px;
 }
 .order-balance {
-  display: none;
+  display: block;
   position: absolute;
   width: 300px;
   height:auto;
   top: 32px;
-  right: 400px;
+  right: 21%;
   font-size:12px;
   text-align: left;
   font-family:PingFangSC-Regular,PingFang SC;

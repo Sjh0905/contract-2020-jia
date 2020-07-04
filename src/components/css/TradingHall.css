@@ -9,7 +9,6 @@
   margin-bottom: -10px;
   padding-bottom: 6px;
 }
-
 .HeaderTitle-wrap {
   margin-top: 5px;
   width: 100%;
@@ -18,7 +17,6 @@
   position: relative;
   outline: 1px solid #E5EBF5;
 }
-
 .traddinghall-main-wrap {
   width: 100%;
   /*margin-top: 10px;*/
@@ -31,42 +29,35 @@
   /*background-color: aliceblue;*/
   background-color: #0D111F;
 }
-
 .traddinghall-main-right {
   flex:1;
   margin-left: 6px;
 }
-
 .traddinghall-main-right-top {
   width:100%;
   height:44px;
   background:rgba(11,14,22,1);
   /*flex:1;*/
   /*margin-left: 6px;*/
-
   align-items: center;
   display: flex;
 }
-
 .traddinghall-main-right-bottom {
   flex:1;
   margin-top: 6px;
 }
-
 .traddinghall-mid-left {
   /*width: 18.997%;*/
   width: 300px;
   background: #0D111F;
   /*overflow: hidden;*/
 }
-
 .traddinghall-mid-wrap {
   /*width: 47%;*/
   flex:1;
   position: relative;
   margin-right: 6px;
 }
-
 .traddinghall-right-wrap {
   /*margin-left: 6px;*/
   /*width: 16.312%;*/
@@ -267,7 +258,6 @@
 .service-type-selection-right {
   align-items: center;
 }
-
 .margin-mode-btn {
   background:rgba(53,118,245,0.1);
   border-radius:1px;
@@ -279,7 +269,9 @@
   line-height:20px;
   padding: 0 5px;
 }
-
+.margin-mode-btn:hover {
+  background:rgba(53,118,245,0.4);
+}
 .lever-num {
   margin-left: 5px;
 }
