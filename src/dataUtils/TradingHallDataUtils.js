@@ -25,7 +25,56 @@ const tradingHallData = {}
  * buttonType: 1.买入/做多+卖出/做空 2.开多+开空 3.平空+平多
  */
 tradingHallData.positionModeConfigs = {
-  singleWarehouseMode:{},
+  singleWarehouseMode:{
+    limitPrice:{
+      passiveDelegation:true,
+      effectiveTime:true,
+      reducePositions:true,
+      triggerType:false,
+      triggerPrice:false,
+      price:true,
+      amount:true,
+      securityDeposit:true,
+      kaipingType:1,//1.可开 2.可平
+      buttonType:1,//1.买入/做多+卖出/做空 2.开多+开空 3.平空+平多
+    },
+    marketPrice:{
+      passiveDelegation:false,
+      effectiveTime:false,
+      reducePositions:true,
+      triggerType:false,
+      triggerPrice:false,
+      price:false,
+      amount:true,
+      securityDeposit:true,
+      kaipingType:1,//1.可开 2.可平
+      buttonType:1,//1.买入/做多+卖出/做空 2.开多+开空 3.平空+平多
+    },
+    limitProfitStopLoss:{
+      passiveDelegation:false,
+      effectiveTime:true,
+      reducePositions:true,
+      triggerType:true,
+      triggerPrice:true,
+      price:true,
+      amount:true,
+      securityDeposit:true,
+      kaipingType:1,//1.可开 2.可平
+      buttonType:1,//1.买入/做多+卖出/做空 2.开多+开空 3.平空+平多
+    },
+    marketPriceProfitStopLoss:{
+      passiveDelegation:false,
+      effectiveTime:false,
+      reducePositions:true,
+      triggerType:true,
+      triggerPrice:true,
+      price:false,
+      amount:true,
+      securityDeposit:true,
+      kaipingType:1,//1.可开 2.可平
+      buttonType:1,//1.买入/做多+卖出/做空 2.开多+开空 3.平空+平多
+    },
+  },
   doubleWarehouseMode:{
     openWarehouse:{
       limitPrice:{
