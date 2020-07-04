@@ -103,6 +103,7 @@
 }
 
 .progress-bar-position-title {
+  cursor: pointer;
   flex: 0.5;
   height: 36px;
   border-bottom: 2px solid transparent;
@@ -219,14 +220,39 @@
 }
 
 .effective-time-select {
+  width: 50px;
+  padding: 1px 6px;
   margin-left: 12px;
   font-size:12px;
   font-family:PingFangSC-Regular,PingFang SC;
   font-weight:400;
   color:rgba(53,118,245,1);
   line-height:17px;
+  background:rgba(53,118,245,0.1);
+  border-radius:2px;
+  cursor: pointer;
+  align-items: center;
+  position: relative;
 }
-
+.effective-time-select-pic {
+  padding: 1px 6px;
+  margin-left: 12px;
+  font-size:12px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color:rgba(53,118,245,1);
+  line-height:17px;
+  background:rgba(53,118,245,0.1);
+  border-radius:2px;
+  cursor: pointer;
+  align-items: center;
+  position: relative;
+}
+.effective-time-select23 {
+  cursor: pointer;
+  align-items: center;
+  box-sizing: border-box;
+}
 .reduce-positions {
   height: 18px;
   margin-right: 25px;
@@ -406,8 +432,9 @@
 }
 
 .progress-bar-title-brand-default {
+  cursor: pointer;
   line-height: 38px;
-  border-bottom: 2px solid transparent;
+  /*border-bottom: 2px solid transparent;*/
   width: auto;
   float: left;
   text-align: center;
@@ -1038,3 +1065,103 @@
   margin-bottom: 28px;
 }
 /*调整杠杆 End*/
+
+
+/*下拉框*/
+.drop-down {
+  width: 6px;
+  height: 4px;
+  float: right;
+  margin:6px 0 2px 6px;
+}
+
+.effective-time-drop-down {
+  display:none;
+  width: 100%;
+  position: absolute;
+  top: 19px;
+  left: 0;
+  border-radius:2px;
+  cursor: pointer;
+  font-size:12px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color: #E0E1F4;
+  background:rgba(33,41,70,1);
+  line-height:22px;
+  z-index: 99;
+}
+.effective-time-drop-down-gtc {
+  padding: 1px 0px 1px 6px;
+  cursor: pointer;
+}
+.effective-time-drop-down-gtc:hover {
+  padding: 1px 0px 1px 6px;
+  color: #3576F5;
+  background:rgba(23,30,58,1);
+}
+.effective-time-drop-down-ioc {
+  padding: 1px 0px 1px 6px;
+  cursor: pointer;
+}
+.effective-time-drop-down-ioc:hover {
+  padding: 1px 0px 1px 6px;
+  color: #3576F5;
+  background:rgba(23,30,58,1);
+}
+.effective-time-drop {
+  padding: 1px 0px 1px 6px;
+  color: #3576F5;
+  background:rgba(23,30,58,1);
+}
+.effective-time-drop-down-fok {
+  padding: 1px 0px 1px 6px;
+  cursor: pointer;
+}
+.effective-time-drop-down-fok:hover {
+  padding: 1px 0px 1px 6px;
+  color: #3576F5;
+  background:rgba(23,30,58,1);
+}
+.effective-time-drop-down-pic {
+  display:none;
+  position: absolute;
+  top: 19px;
+  left: 0px;
+  margin-left: 12px;
+  border-radius:2px;
+  cursor: pointer;
+  font-size:12px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color: #E0E1F4;
+  background:rgba(33,41,70,1);
+  line-height:22px;
+  z-index: 99;
+}
+.letes-price {
+  position: relative;
+}
+.latest-price-select {
+  padding: 1px 6px;
+  padding-right: 18px;
+  cursor: pointer;
+}
+.latest-price-select:hover {
+  color: #3576F5;
+  background:rgba(23,30,58,1);
+}
+.marked-price-select {
+  padding: 1px 6px;
+  padding-right: 18px;
+  cursor: pointer;
+}
+.marked-price-select:hover {
+  color: #3576F5;
+  background:rgba(23,30,58,1);
+}
+.latest-price-drop {
+  padding: 1px 6px;
+  color: #3576F5;
+  background:rgba(23,30,58,1);
+}
