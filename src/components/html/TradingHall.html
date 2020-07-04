@@ -15,7 +15,6 @@
                      :socket_tick="socket_tick"/>
       </div>
     </div>
-
     <!--交易页市场的右侧-->
     <div class="traddinghall-main-right flex-colum">
 
@@ -97,47 +96,44 @@
               <!--<div class="cen32"><span class="txt detail_txt">{{volume}}&nbsp;{{symbol.split('_')[0]}}</span></div>-->
             <!--</div>-->
           <!--</div>-->
-
           <!--K线-->
           <div class="TradingView-wrap">
             <TradeContainer :topic_bar="topic_bar"/>
           </div>
-
           <!--交易挂单区域-->
           <div class="trading-wrap">
             <!--双仓模式下开启此项-->
             <div class="progress-bar-position-title-box traddinghall-border-bottom relative flex-row">
-              <div class="progress-bar-position-title progress-bar-position-title-sel1">开仓</div>
-              <div class="progress-bar-position-title progress-bar-position-title-sel">平仓</div>
+              <div class="progress-bar-position-title" :class="positionModeSecond == 'openWarehouse' ? 'progress-bar-position-title-sel':''" @click="changePositionModeSecond('openWarehouse')">开仓</div>
+              <div class="progress-bar-position-title" :class="positionModeSecond == 'closeWarehouse' ? 'progress-bar-position-title-sel':''" @click="changePositionModeSecond('closeWarehouse')">平仓</div>
             </div>
 
             <!--交易类型和资产-->
             <div class="progress-bar-title traddinghall-border-bottom relative flex-between">
               <!--交易类型-->
               <div class="progress-bar-title-left">
-                <div class="progress-bar-title-brand " style="margin-left: 15px">
+                <div class="progress-bar-title-brand-default" style="margin-left: 15px" :class="pendingOrderType == 'limitPrice' ? 'progress-bar-title-brand':''" @click="changePendingOrderType('limitPrice')">
                   {{$t("fixedPrice")}}
                 </div>
-                <div class="progress-bar-title-brand-default">
+                <div class="progress-bar-title-brand-default" :class="pendingOrderType == 'marketPrice' ? 'progress-bar-title-brand':''" @click="changePendingOrderType('marketPrice')">
                   市价
                 </div>
-                <div class="progress-bar-title-brand-default">
+                <div class="progress-bar-title-brand-default" :class="pendingOrderType == 'limitProfitStopLoss' ? 'progress-bar-title-brand':''" @click="changePendingOrderType('limitProfitStopLoss')">
                   限价止盈止损
                 </div>
-                <div class="progress-bar-title-brand-default">
+                <div class="progress-bar-title-brand-default" :class="pendingOrderType == 'marketPriceProfitStopLoss' ? 'progress-bar-title-brand':''" @click="changePendingOrderType('marketPriceProfitStopLoss')">
                   市价止盈止损
                 </div>
               </div>
-
+              <!---->
               <!--可用资产余额-->
+
               <div class="progress-bar-title-right flex-row">
                 <img src="../../assets/progress_bar_title_assets.png" class="progress-bar-title-assets-icon">
                 <div class="progress-bar-title-assets-available">10591.00 USDT</div>
                 <div class="progress-bar-title-vertical-line"/>
-                <img src="../../assets/progress_bar_title_calculator.png" class="progress-bar-title-assets-calculator">
+                <img src="../../assets/progress_bar_title_calculator.png" class="progress-bar-title-assets-calculator pointer" @click="openCalculatorWindow">
               </div>
-
-
               <!--<div class="service_charge ">-->
                 <!--<span>-->
                   <!--{{$t("serverCharge")}}: <em :class="{'delete' : BDBInfo}">0.2%</em> <em-->
@@ -165,46 +161,27 @@
             <div class="service-type-selection-box flex-between">
               <!--类型选择左侧-->
               <div class="service-type-selection-left flex-row">
-                <div class="passive-delegation flex-row">
-                  <img class="passive-delegation-icon" src="../../assets/contract/contract_selected.png" alt="">
+                <div v-if="isHasModule('passiveDelegation')" class="passive-delegation flex-row">
+                  <img class="passive-delegation-icon" src="../../assets/Contract/contract_selected.png" alt="">
                   <div class="passive-delegation-text border-dashed">被动委托</div>
                 </div>
-                <div class="effective-time flex-row">
-                  <img class="passive-delegation-icon" src="../../assets/contract/contract_selected.png" alt="">
+                <div v-if="isHasModule('effectiveTime')" class="effective-time flex-row">
+                  <img class="passive-delegation-icon" src="../../assets/Contract/contract_selected.png" alt="">
                   <div class="passive-delegation-text border-dashed">生效时间</div>
-                  <div class="">
-                    <div class="effective-time-select" @mouseenter="openDropDownTime()" @mouseleave="closeDropDownTime()">
-                      <div class="effective-time-select23">{{effectiveTime}}<img class="drop-down" src="../../assets/drop_down.png" alt=""></div>
-                      <div class="effective-time-drop-down">
-                        <div class="effective-time-drop-down-gtc" :class="effectiveTime=='GTC'?'effective-time-drop':''" @click="goToGtc">GTC</div>
-                        <div class="effective-time-drop-down-ioc" :class="effectiveTime=='IOC'?'effective-time-drop':''" @click="goToIoc">IOC</div>
-                        <div class="effective-time-drop-down-fok" :class="effectiveTime=='FOK'?'effective-time-drop':''" @click="goToFok">FOK</div>
-                      </div>
-
-
-                    </div>
-                  </div>
-
+                  <div class="effective-time-select">GTC</div>
                 </div>
-                <div class="reduce-positions flex-row">
-                  <img class="reduce-positions-icon" src="../../assets/contract/check_box_selected.png" alt="">
+                <div v-if="isHasModule('reducePositions')" class="reduce-positions flex-row">
+                  <img class="reduce-positions-icon" src="../../assets/Contract/check_box_selected.png" alt="">
                   <div class="passive-delegation-text border-dashed">只减仓</div>
                 </div>
-                <div class="trigger-type flex-row">
+                <div v-if="isHasModule('triggerType')" class="trigger-type flex-row">
                   <div class="passive-delegation-text border-dashed">触发类型</div>
-                  <div class="letes-price" @mouseenter="openLatestPrice()" @mouseleave="closeLatestPrice()">
-                    <div class="effective-time-select-pic">{{latestPrice}}<img class="drop-down" src="../../assets/drop_down.png" alt=""></div>
-                    <div class="effective-time-drop-down-pic">
-                      <div class="latest-price-select" :class="latestPrice=='最新价格'?'latest-price-drop':''" @click="goToLatestPrice">最新价格</div>
-                      <div class="marked-price-select" :class="latestPrice=='标记价格'?'latest-price-drop':''" @click="goToMarkedPrice">标记价格</div>
-                    </div>
-                  </div>
-
+                  <div class="effective-time-select">最新价格</div>
                 </div>
               </div>
               <!--类型选择右侧-->
               <div class="service-type-selection-right flex-row">
-                <div class="margin-mode-btn">全仓</div>
+                <div class="margin-mode-btn pointer" @click="openSecurityDepositMode">全仓</div>
                 <div class="margin-mode-btn lever-num">10X</div>
               </div>
             </div>
@@ -445,6 +422,9 @@
     </div>
   </PositionModeBulletBox>
   <!--  调整杠杆 End-->
+
+  <!--计算器组件-->
+  <CalculatorBommbBox :switch="openCalculator" @close="closeCalculatorWindow" :pop_width="true"></CalculatorBommbBox>
 </div>
 
 <div class="TraddingHall-container" v-else>
