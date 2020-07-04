@@ -120,6 +120,9 @@ root.data = function () {
       75:'75X'
     },
     //调整杠杆 End
+
+    effectiveTime:'GTC',
+    latestPrice:'最新价格'
   }
 }
 
@@ -819,6 +822,37 @@ root.methods.formatTooltip=(val)=>{
 }
 //调整杠杆 End
 
+/*---------------------- 生效时间 begin ---------------------*/
+root.methods.closeDropDownTime= function () {
+  $(".effective-time-drop-down").attr("style","display:none");
+}
+root.methods.openDropDownTime = function () {
+  $(".effective-time-drop-down").attr("style","display:block");
+}
+/*---------------------- 生效时间 end ---------------------*/
+/*---------------------- 最新价格 begin ---------------------*/
+root.methods.closeLatestPrice= function () {
+  $(".effective-time-drop-down-pic").attr("style","display:none");
+}
+root.methods.openLatestPrice = function () {
+  $(".effective-time-drop-down-pic").attr("style","display:block");
+}
+/*---------------------- 最新价格 end ---------------------*/
+root.methods.goToGtc = function () {
+  this.effectiveTime = 'GTC'
+}
+root.methods.goToIoc = function () {
+  this.effectiveTime = 'IOC'
+}
+root.methods.goToFok = function () {
+  this.effectiveTime = 'FOK'
+}
+root.methods.goToLatestPrice = function () {
+  this.latestPrice = '最新价格'
+}
+root.methods.goToMarkedPrice = function () {
+  this.latestPrice = '标记价格'
+}
 
 root.props = {}
 // root.props.currency_list = {

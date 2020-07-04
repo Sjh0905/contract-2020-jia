@@ -166,21 +166,40 @@
               <!--类型选择左侧-->
               <div class="service-type-selection-left flex-row">
                 <div class="passive-delegation flex-row">
-                  <img class="passive-delegation-icon" src="../../assets/Contract/contract_selected.png" alt="">
+                  <img class="passive-delegation-icon" src="../../assets/contract/contract_selected.png" alt="">
                   <div class="passive-delegation-text border-dashed">被动委托</div>
                 </div>
                 <div class="effective-time flex-row">
-                  <img class="passive-delegation-icon" src="../../assets/Contract/contract_selected.png" alt="">
+                  <img class="passive-delegation-icon" src="../../assets/contract/contract_selected.png" alt="">
                   <div class="passive-delegation-text border-dashed">生效时间</div>
-                  <div class="effective-time-select">GTC</div>
+                  <div class="">
+                    <div class="effective-time-select" @mouseenter="openDropDownTime()" @mouseleave="closeDropDownTime()">
+                      <div class="effective-time-select23">{{effectiveTime}}<img class="drop-down" src="../../assets/drop_down.png" alt=""></div>
+                      <div class="effective-time-drop-down">
+                        <div class="effective-time-drop-down-gtc" :class="effectiveTime=='GTC'?'effective-time-drop':''" @click="goToGtc">GTC</div>
+                        <div class="effective-time-drop-down-ioc" :class="effectiveTime=='IOC'?'effective-time-drop':''" @click="goToIoc">IOC</div>
+                        <div class="effective-time-drop-down-fok" :class="effectiveTime=='FOK'?'effective-time-drop':''" @click="goToFok">FOK</div>
+                      </div>
+
+
+                    </div>
+                  </div>
+
                 </div>
                 <div class="reduce-positions flex-row">
-                  <img class="reduce-positions-icon" src="../../assets/Contract/check_box_selected.png" alt="">
+                  <img class="reduce-positions-icon" src="../../assets/contract/check_box_selected.png" alt="">
                   <div class="passive-delegation-text border-dashed">只减仓</div>
                 </div>
                 <div class="trigger-type flex-row">
                   <div class="passive-delegation-text border-dashed">触发类型</div>
-                  <div class="effective-time-select">最新价格</div>
+                  <div class="letes-price" @mouseenter="openLatestPrice()" @mouseleave="closeLatestPrice()">
+                    <div class="effective-time-select-pic">{{latestPrice}}<img class="drop-down" src="../../assets/drop_down.png" alt=""></div>
+                    <div class="effective-time-drop-down-pic">
+                      <div class="latest-price-select" :class="latestPrice=='最新价格'?'latest-price-drop':''" @click="goToLatestPrice">最新价格</div>
+                      <div class="marked-price-select" :class="latestPrice=='标记价格'?'latest-price-drop':''" @click="goToMarkedPrice">标记价格</div>
+                    </div>
+                  </div>
+
                 </div>
               </div>
               <!--类型选择右侧-->
