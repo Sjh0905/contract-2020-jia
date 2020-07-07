@@ -447,6 +447,12 @@
   font-size: 14px;
   color: #A2B5D9;
 }
+.progress-bar-title-brand-default img {
+  width: 13px;
+  height: 13px;
+  vertical-align: middle;
+  margin-bottom: 2px;
+}
 
 .service_charge {
   width: auto;
