@@ -161,13 +161,18 @@
             <div class="service-type-selection-box flex-between">
               <!--类型选择左侧-->
               <div class="service-type-selection-left flex-row">
-                <div v-if="isHasModule('passiveDelegation')" class="passive-delegation flex-row">
-                  <img class="passive-delegation-icon" src="../../assets/contract/contract_selected.png" alt="">
+                <div v-if="isHasModule('passiveDelegation')" class="passive-delegation flex-row" @click="priceLimitSelection(1)">
+                  <img v-if="checkPrice == 1" class="passive-delegation-icon" src="../../assets/contract/contract_selected.png" alt="">
+                  <img v-if="checkPrice == 2" class="passive-delegation-icon" src="../../assets/contract/contract_no_selected.png" alt="">
                   <div class="passive-delegation-text border-dashed">被动委托</div>
                 </div>
                 <div v-if="isHasModule('effectiveTime')" class="effective-time flex-row">
-                  <img class="passive-delegation-icon" src="../../assets/contract/contract_selected.png" alt="">
-                  <div class="passive-delegation-text border-dashed">生效时间</div>
+                  <div @click="priceLimitSelection(2)" class="flex-row">
+                    <img v-if="checkPrice == 2" class="passive-delegation-icon" src="../../assets/contract/contract_selected.png" alt="">
+                    <img v-if="checkPrice == 1 && this.pendingOrderType == 'limitProfitStopLoss'" class="passive-delegation-icon" src="../../assets/contract/contract_selected.png" alt="">
+                    <img v-if="checkPrice == 1 && this.pendingOrderType != 'limitProfitStopLoss'" class="passive-delegation-icon" src="../../assets/contract/contract_no_selected.png" alt="">
+                    <div class="passive-delegation-text border-dashed">生效时间</div>
+                  </div>
                   <div class="">
                     <div class="effective-time-select" @mouseenter="openDropDownTime()" @mouseleave="closeDropDownTime()">
                       <div class="effective-time-select23">{{effectiveTime}}<img class="drop-down" src="../../assets/drop_down.png" alt=""></div>
@@ -385,8 +390,8 @@
     </div>
     <div slot="article"class="pop-lock-house">
       <div class="flex">
-        <div class="selected-mode selected-cardType-left" :class="{'selected-cardType-mode':cardType == 1}" @click="positionModeSelected(1)">全仓</div>
-        <div class="selected-mode" :class="{'selected-cardType-mode':cardType == 2}" @click="positionModeSelected(2)">逐仓</div>
+        <div class="selected-mode selected-cardType-left" :class="{'selected-cardType-mode':cardType == 1}" @click="securityDepositMode(1)">全仓</div>
+        <div class="selected-mode" :class="{'selected-cardType-mode':cardType == 2}" @click="securityDepositMode(2)">逐仓</div>
       </div>
       <div class="mode-only">· 调整保证金模式仅对当前合约生效。</div>
       <div class="mode-error">当前合约存在持仓和挂单，不支持调整保证金模式</div>

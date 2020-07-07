@@ -135,8 +135,10 @@ root.data = function () {
     effectiveTime:'GTC',
     latestPrice:'最新价格',
     // 计算器弹框 begin
-    openCalculator:false
+    openCalculator:false,
     // 计算器弹框 end
+  //  限价---被动委托，生效时间选择
+    checkPrice:1
   }
 }
 
@@ -869,6 +871,10 @@ root.methods.changeReducePositions = function(status){
 root.methods.popWindowCloseSecurityDepositMode = function () {
   this.popWindowSecurityDepositMode = false
 }
+
+root.methods.securityDepositMode = function (cardType) {
+  this.cardType = cardType
+}
 //保证金模式 End
 
 //调整杠杆 Strat
@@ -886,7 +892,10 @@ root.methods.formatTooltip=(val)=>{
   return  val + 'X';
 }
 //调整杠杆 End
-
+//被动委托
+root.methods.priceLimitSelection = function (checkPrice) {
+  this.checkPrice = checkPrice
+}
 /*---------------------- 生效时间 begin ---------------------*/
 root.methods.closeDropDownTime= function () {
   $(".effective-time-drop-down").attr("style","display:none");
