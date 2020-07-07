@@ -24,15 +24,20 @@
           <div class="cen1"    @mouseenter="showInfo()" @mouseleave="closeInfo()">{{symbol.split('_')[0]}}<em class="txt_light">/</em>{{symbol.split('_')[1]}}</div>
           <div class="cen2"><div class="cen21"> {{isNowPrice}}</div><div class="cen22"><em class="txt_light">≈</em>{{isCnyPrice}}</div></div>
           <div class="cen2">
-            <div class="cen31 border-dashed"> 标记价格 </div>
+            <div class="cen31 border-dashed" @mouseenter="openPositionBox('marked-price')" @mouseleave="closePositionBox('marked-price')"> 标记价格 </div>
+            <div class="marked-price">你的持仓的平均买入/卖出成交价格。</div>
             <div class="cen32"><span class="txt detail_txt">{{high24}}</span></div>
           </div>
           <div class="cen2">
-            <div class="cen31"><span class="capital-rate border-dashed">资金费率/每八小时</span></div>
-            <div class="cen32"><span class="txt detail_txt txt-blue">{{high24}}</span> <span class="txt detail_txt border-dashed">{{high24}}</span></div>
+            <div class="cen31"><span class="capital-rate border-dashed" @mouseenter="openPositionBox('capital-rate-block')" @mouseleave="closePositionBox('capital-rate-block')">资金费率/每八小时</span></div>
+            <div class="capital-rate-block">买方及卖方在下个资金时段要交换的资金费率。</div>
+            <div class="cen32"><span class="txt detail_txt txt-blue">{{high24}}</span>
+              <span class="txt detail_txt border-dashed" @mouseenter="openPositionBox('residual-time')" @mouseleave="closePositionBox('residual-time')">{{high24}}</span>
+            </div>
+            <div class="residual-time">直到下个资金时段的剩余时间。</div>
           </div>
           <div class="cen2">
-            <div class="cen31"> {{$t('Change')}}</div>
+            <div class="cen31">{{$t('Change')}}</div>
             <div class="cen32">
                 <span class="txt" :class="diff24 > 0 ? 'txt-price' : (diff24 == 0 ? '' : 'txt-price-red')">
                   <span style="font-size: 1.4rem">{{diff24 > 0 ? '+' : ''}}{{diff24Ratio}}%</span>
@@ -163,11 +168,13 @@
               <div class="service-type-selection-left flex-row">
                 <div v-if="isHasModule('passiveDelegation')" class="passive-delegation flex-row">
                   <img class="passive-delegation-icon" src="../../assets/contract/contract_selected.png" alt="">
-                  <div class="passive-delegation-text border-dashed">被动委托</div>
+                  <div class="passive-delegation-text border-dashed" @mouseenter="openPositionBox('passive-delegation-block')" @mouseleave="closePositionBox('passive-delegation-block')">被动委托</div>
                 </div>
+                <!--被动委托解释-->
+                <div class="passive-delegation-block">订单不会立即在市场成交，否则将被取消。</div>
                 <div v-if="isHasModule('effectiveTime')" class="effective-time flex-row">
                   <img class="passive-delegation-icon" src="../../assets/contract/contract_selected.png" alt="">
-                  <div class="passive-delegation-text border-dashed">生效时间</div>
+                  <div class="passive-delegation-text border-dashed" @mouseenter="openPositionBox('effective-time-block')" @mouseleave="closePositionBox('effective-time-block')">生效时间</div>
                   <div class="">
                     <div class="effective-time-select" @mouseenter="openDropDownTime()" @mouseleave="closeDropDownTime()">
                       <div class="effective-time-select23">{{effectiveTime}}<img class="drop-down" src="../../assets/drop_down.png" alt=""></div>
@@ -179,10 +186,17 @@
                     </div>
                   </div>
                 </div>
+                <!--生效时间解释-->
+                <div class="effective-time-block">
+                  <div>• GTC (有效直到取消): 此种订单将持续有效直到完全成交或被取消。</div>
+                  <div>• IOC (立即成交或取消): 此种订单将会立即成交全部或部分订单，并且取消剩余未成交的部分。</div>
+                  <div>• FOK (全部成交或取消): 此种订单必须立即全部成交，否则将被全部取消。</div>
+                </div>
                 <div v-if="isHasModule('reducePositions')" class="reduce-positions flex-row">
                   <img v-if="reducePositionsSelected" class="reduce-positions-icon" src="../../assets/contract/check_box_selected.png" @click="changeReducePositions()" alt="">
                   <img v-else class="reduce-positions-icon" src="../../assets/contract/check_box_no_selected.png" @click="changeReducePositions()" alt="">
-                  <div class="passive-delegation-text border-dashed">只减仓</div>
+                  <div class="passive-delegation-text border-dashed" @mouseenter="openPositionBox('lighten-up-positions')" @mouseleave="closePositionBox('lighten-up-positions')">只减仓</div>
+                  <div class="lighten-up-positions">只减仓订单仅允许减少仓位的委托，确保你的仓位不会增加。</div>
                 </div>
                 <div v-if="isHasModule('triggerType')" class="trigger-type flex-row">
                   <div class="passive-delegation-text border-dashed">触发类型</div>
