@@ -205,6 +205,16 @@ root.mounted = function () {
 
 // 初始化各子组件
 root.methods = {}
+
+/*---------------------- hover弹框 begin ---------------------*/
+root.methods.closePositionBox= function (name) {
+  $("." + name).attr("style","display:none");
+}
+root.methods.openPositionBox = function (name) {
+  $("." + name).attr("style","display:block");
+}
+/*---------------------- hover弹框 end ---------------------*/
+
 root.methods.openAdjustingLever = function () {
   this.popWindowAdjustingLever = true
 }

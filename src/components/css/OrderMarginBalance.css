@@ -138,10 +138,10 @@ tr, th, td {
 .show-descript {
   display: none;
   position: absolute;
-  width: 300px;
+  width: 250px;
   height:auto;
   top: 32px;
-  left:12%;
+  left:12.5%;
   font-size:12px;
   text-align: left;
   font-family:PingFangSC-Regular,PingFang SC;
@@ -153,7 +153,7 @@ tr, th, td {
 .gains-and-losses {
   display: none;
   position: absolute;
-  /*width: 300px;*/
+  /*width: 250px;*/
   height:auto;
   top: 32px;
   left: 30%;
@@ -168,10 +168,10 @@ tr, th, td {
 .order-balance {
   display: none;
   position: absolute;
-  width: 300px;
+  width: 250px;
   height:auto;
   top: 32px;
-  right: 21%;
+  right: 22%;
   font-size:12px;
   text-align: left;
   font-family:PingFangSC-Regular,PingFang SC;
