@@ -43,21 +43,21 @@
         <span/>
         <span>触发价</span>
       </div>
-      <label :for="'pro-bar-price'+ orderType" class="progress-bar-price flex-row border_radius"
-             :class="{'focus-color-green':inputColor=='price'+orderType && !orderType,'focus-color-red':inputColor=='price'+orderType && orderType}"
+      <label :for="'pro-bar-trigger-price'+ orderType" class="progress-bar-price flex-row border_radius"
+             :class="{'focus-color-green':inputColor=='triggerPrice'+orderType && !orderType,'focus-color-red':inputColor=='triggerPrice'+orderType && orderType}"
       >
-        <input :id="'pro-bar-price' + orderType" class="txt-small txt-light" type="text" v-model="price"
-               @focus="changeColor('price' + orderType)"
+        <input :id="'pro-bar-trigger-price' + orderType" class="txt-small txt-light" type="text" v-model="triggerPrice"
+               @focus="changeColor('triggerPrice' + orderType)"
                @blur="changeColor(0)"
-               @keyup="keyBoard('pro-bar-price' + orderType)"
+               @keyup="keyBoard('pro-bar-trigger-price' + orderType)"
                autocomplete="off"
         >
         <!-- @keyup="keyBoard('pro-bar-price' + orderType)" -->
         <!-- <span class="pro-bar-price-tit txt-small txt-light">{{orderType && $t("progressBar.salePrice") + this.$store.state.symbol.split('_')[1] || $t("progressBar.buyPrice") + this.$store.state.symbol.split('_')[1]}}</span> -->
         <span class="pro-bar-price-tit txt-small txt-light">{{orderType && this.$store.state.symbol.split('_')[1] || this.$store.state.symbol.split('_')[1]}}</span>
-        <span class="buy_sall_tips" :class="!orderType ? 'buy' : 'sall'" v-show="inputColor=='price'+orderType">
+        <span class="buy_sall_tips" :class="!orderType ? 'buy' : 'sall'" v-show="inputColor=='triggerPrice'+orderType">
           <em class="arrow"></em>
-          {{change_price}}
+          {{changeTriggerPrice}}
         </span>
         <!-- <div class="progress_up_down">
           <ul>

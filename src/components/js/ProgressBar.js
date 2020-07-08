@@ -92,6 +92,13 @@ root.watch.watchCurrency = function () {
 
 // 18-2-7 添加的新需求 start
 
+// 观察触发价格的变化，然后折合人民币或者美金
+root.computed.getTriggerPrice = function () {
+  return this.triggerPrice;
+}
+root.watch.getTriggerPrice = function () {
+  this.get_now_price();
+}
 // 观察价格的变化，然后折合人民币或者美金
 root.computed.get_price = function () {
   return this.price;
@@ -180,6 +187,7 @@ root.components = {
 
 root.data = function () {
   return {
+    triggerPrice:'',
     price: this.depth_price,
     priceNow: '0',
     amount: '',
@@ -208,6 +216,7 @@ root.data = function () {
     bdb_rate: 0,
 
     // 每次切换价格时候，折合多少人民币或者美元
+    changeTriggerPrice: 0,
     change_price: 0,
 
     popWindowOpen: false, // 弹窗开放
@@ -413,9 +422,11 @@ root.methods.get_rate = function () {
 root.methods.get_now_price = function () {
   let lang = this.$store.state.lang;
   let price = this.price;
+  let triggerPrice = this.triggerPrice;
   let rate = this.get_rate() || 0;
   if (lang === 'CH') {
     this.change_price = ('￥' + this.$globalFunc.accFixedCny(this.$store.state.exchange_rate_dollar * (price * rate), 2));
+    this.changeTriggerPrice = ('￥' + this.$globalFunc.accFixedCny(this.$store.state.exchange_rate_dollar * (triggerPrice * rate), 2));
   } else {
     this.change_price = ('$' + this.$globalFunc.accFixedCny((price * rate), 2));
   }
@@ -880,12 +891,13 @@ root.methods.keyBoard = function (id) {
   this.inputnumbers(id);
   // 限制位数
   let l, l2
-  if ((id === 'pro-bar-price0') || (id === 'pro-bar-price1')) {
+  if ((id === 'pro-bar-price0') || (id === 'pro-bar-price1') || (id === 'pro-bar-trigger-price0') || (id === 'pro-bar-trigger-price1')) {
     l = this.quoteScale
   }
   if ((id === 'pro-bar-amount0') || (id === 'pro-bar-amount1')) {
     l2 = this.baseScale
   }
+  this.triggerPrice.indexOf('.') > 0 && (this.triggerPrice.split('.')[1].length > l) && (this.triggerPrice = this.triggerPrice.split('.')[0] + '.' + this.triggerPrice.split('.')[1].substr(0, l));
   this.price.indexOf('.') > 0 && (this.price.split('.')[1].length > l) && (this.price = this.price.split('.')[0] + '.' + this.price.split('.')[1].substr(0, l));
   this.amount.indexOf('.') > 0 && (this.amount.split('.')[1].length > l2) && (this.amount = this.amount.split('.')[0] + '.' + this.amount.split('.')[1].substr(0, l2));
 }
@@ -893,11 +905,20 @@ root.methods.keyBoard = function (id) {
 // 金额和数量只能输入数字
 root.methods.inputnumbers = function (id) {
   let value = $('#' + id).val().replace(/[^0-9.]/g, '').replace(".", "$#$").replace(/\./g, "").replace("$#$", ".");
-  if (id.indexOf('price') > -1) {
-    this.price = value;
-  } else {
-    this.amount = value;
+
+  if (id.indexOf('pro-bar-trigger-price') > -1) {
+    this.triggerPrice = value
+    return
   }
+
+  if (id.indexOf('pro-bar-price') > -1) {
+    this.price = value;
+    return
+  }
+
+  // else {
+    this.amount = value;
+  // }
 }
 
 // 登录
