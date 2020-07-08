@@ -113,6 +113,7 @@ root.data = function () {
     //仓位模式Start
     popWindowPositionModeBulletBox: false, //仓位模式弹框
     cardType:1, //仓位模式选择初始值
+    marginModeType:1,
     //仓位模式End
 
     //保证金模式Strat
@@ -918,6 +919,16 @@ root.methods.popWindowCloseSecurityDepositMode = function () {
 
 root.methods.securityDepositMode = function (cardType) {
   this.cardType = cardType
+}
+
+root.methods.marginModeConfirm = function () {
+  if (this.cardType == 1) {
+    this.marginModeType = 1
+  }
+  if (this.cardType == 2) {
+    this.marginModeType = 2
+  }
+  this.popWindowSecurityDepositMode = false
 }
 //保证金模式 End
 

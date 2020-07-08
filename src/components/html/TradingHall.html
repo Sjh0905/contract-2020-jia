@@ -259,7 +259,8 @@
               </div>
               <!--类型选择右侧-->
               <div class="service-type-selection-right flex-row">
-                <div class="margin-mode-btn pointer" @click="openSecurityDepositMode">全仓</div>
+                <div class="margin-mode-btn pointer" @click="openSecurityDepositMode" v-if="marginModeType == 1">全仓</div>
+                <div class="margin-mode-btn pointer" @click="openSecurityDepositMode" v-if="marginModeType == 2">逐仓</div>
                 <div class="margin-mode-btn lever-num pointer" @click="openLever">10X</div>
               </div>
             </div>
@@ -451,7 +452,7 @@
       </div>
       <div class="mode-only">· 调整保证金模式仅对当前合约生效。</div>
       <div class="mode-error">当前合约存在持仓和挂单，不支持调整保证金模式</div>
-      <div class="money-confirmation" @click="">确认</div>
+      <div class="money-confirmation" @click="marginModeConfirm">确认</div>
       <!--确认不可点击状态-->
 <!--      <div class="money-confirmation-ash">确认</div>-->
       <div class="money-explanation">
