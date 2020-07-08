@@ -302,8 +302,14 @@ root.watch.value = function (newValue, oldValue) {
 // 处理滑动条显示框内容
 root.methods.formatTooltip=(val)=>{
   return  val + '%';
-  }
-
+}
+/*---------------------- hover弹框 begin ---------------------*/
+root.methods.closePositionBox= function (name) {
+  $("." + name).attr("style","display:none");
+}
+root.methods.openPositionBox = function (name) {
+  $("." + name).attr("style","display:block");
+}
 
 
 

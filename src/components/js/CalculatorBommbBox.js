@@ -116,6 +116,13 @@ root.computed.isMobile = function () {
 root.watch = {}
 /*------------------------------ 方法 -------------------------------*/
 root.methods = {}
+/*---------------------- hover弹框 begin ---------------------*/
+root.methods.closePositionBox= function (name) {
+  $("." + name).attr("style","display:none");
+}
+root.methods.openPositionBox = function (name) {
+  $("." + name).attr("style","display:block");
+}
 // // 判断计算按钮样式
 // root.methods.isStyle = function () {
 //   if(this.openingPrice==0 || this.openingPrice==0 || this.transactionQuantity==0) return false

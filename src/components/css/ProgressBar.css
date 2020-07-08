@@ -709,6 +709,37 @@
   margin-left: 34px;
 }
 
+.security-deposit-block {
+  display: none;
+  position: absolute;
+  /*width: 250px;*/
+  line-height: 24px;
+  top: 85%;
+  left: 1.5%;
+  font-size:12px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color: #0D0E23;
+  background: #fff;
+  padding: 10px;
+  z-index: 10;
+}
+.security-deposit-block-buy {
+  display: none;
+  position: absolute;
+  /*width: 250px;*/
+  line-height: 24px;
+  top: 85%;
+  left: 51.5%;
+  font-size:12px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color: #0D0E23;
+  background: #fff;
+  padding: 10px;
+  z-index: 10;
+}
+
 /*.tempClass-wrap{*/
 /*border: 1px solid red;*/
 

@@ -398,8 +398,6 @@
 }
 
 /* ----------------  滑块样式 end ----------------*/
-
-
 .opening-price-curency {
   display: inline-block;
   float: right;
@@ -413,3 +411,19 @@
   border-bottom: 1px dashed #6B7DA2;
 }
 /*-----------  计算器弹框样式 end -------------*/
+
+.initial-margin{
+  display: none;
+  position: absolute;
+  width: 250px;
+  line-height: 24px;
+  top: 32.5%;
+  left: -20%;
+  font-size:12px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color: #0D0E23;
+  background: #fff;
+  padding: 10px;
+  z-index: 1;
+}

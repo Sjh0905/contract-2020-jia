@@ -125,11 +125,26 @@
                 </div>
                 <div class="progress-bar-title-brand-default" :class="pendingOrderType == 'limitProfitStopLoss' ? 'progress-bar-title-brand':''" @click="changePendingOrderType('limitProfitStopLoss')">
                   限价止盈止损
-                  <img src="../../assets/contract/restricted_introduction.png" alt="">
+                  <img class="pointer"
+                       @mouseenter="openPositionBox('limit-profit-stop-loss')"
+                       @mouseleave="closePositionBox('limit-profit-stop-loss')"
+                       src="../../assets/contract/restricted_introduction.png" alt="">
+                </div>
+                <div class="limit-profit-stop-loss">
+                  <div>限价止盈止损：</div>
+                  当设定的价格被触发时，限价止盈止损委托会自动触发。交易者需要设定一个价格去触发该类型委托。该类委托可以应用于设置限价止损和限价止盈委托。请注意，当保证金不足或仓位超过上限时系统会自动撤销执行该委托。
                 </div>
                 <div class="progress-bar-title-brand-default" :class="pendingOrderType == 'marketPriceProfitStopLoss' ? 'progress-bar-title-brand':''" @click="changePendingOrderType('marketPriceProfitStopLoss')">
                   市价止盈止损
-                  <img src="../../assets/contract/restricted_introduction.png" alt="">
+                  <img class="pointer"
+                       @mouseenter="openPositionBox('market-price-profit-stop-loss')"
+                       @mouseleave="closePositionBox('market-price-profit-stop-loss')"
+                       src="../../assets/contract/restricted_introduction.png" alt="">
+                </div>
+
+                <div class="market-price-profit-stop-loss">
+                  <div>市价止盈止损：</div>
+                  当设定的价格被触发时，市价止盈止损委托会自动触发。交易者需要设定一个价格去触发该类型委托。该类委托可以应用于设置市价止损和市价止盈委托。请注意，当保证金不足或仓位超过上限时系统会自动撤销执行该委托。
                 </div>
               </div>
               <!---->
@@ -178,9 +193,11 @@
                 <div v-if="isHasModule('effectiveTime')" class="effective-time flex-row">
                   <div @click="priceLimitSelection(2)" class="flex-row">
                     <img v-if="checkPrice == 2" class="passive-delegation-icon" src="../../assets/contract/contract_selected.png" alt="">
-                    <img v-if="checkPrice == 1 && this.pendingOrderType == 'limitProfitStopLoss'" class="passive-delegation-icon" src="../../assets/contract/contract_selected.png" alt="">
-                    <img v-if="checkPrice == 1 && this.pendingOrderType != 'limitProfitStopLoss'" class="passive-delegation-icon" src="../../assets/contract/contract_no_selected.png" alt="">
-                    <div class="passive-delegation-text border-dashed" @mouseenter="openPositionBox('effective-time-block')" @mouseleave="closePositionBox('effective-time-block')">生效时间</div>
+                    <img v-if="checkPrice == 1 && pendingOrderType == 'limitProfitStopLoss'" class="passive-delegation-icon" src="../../assets/contract/contract_selected.png" alt="">
+                    <img v-if="checkPrice == 1 && pendingOrderType != 'limitProfitStopLoss'" class="passive-delegation-icon" src="../../assets/contract/contract_no_selected.png" alt="">
+                    <div class="passive-delegation-text border-dashed"
+                         @mouseenter="openPositionBox('effectiveTimeModule')"
+                         @mouseleave="closePositionBox('effectiveTimeModule')">生效时间</div>
                   </div>
                   <div class="">
                     <div class="effective-time-select" @mouseenter="openDropDownTime()" @mouseleave="closeDropDownTime()">
@@ -193,8 +210,14 @@
                     </div>
                   </div>
                 </div>
-                <!--生效时间解释-->
+                <!--生效时间解释 限价-->
                 <div class="effective-time-block">
+                  <div>• GTC (有效直到取消): 此种订单将持续有效直到完全成交或被取消。</div>
+                  <div>• IOC (立即成交或取消): 此种订单将会立即成交全部或部分订单，并且取消剩余未成交的部分。</div>
+                  <div>• FOK (全部成交或取消): 此种订单必须立即全部成交，否则将被全部取消。</div>
+                </div>
+                <!--生效时间解释 止损-->
+                <div class="effective-time-block-box">
                   <div>• GTC (有效直到取消): 此种订单将持续有效直到完全成交或被取消。</div>
                   <div>• IOC (立即成交或取消): 此种订单将会立即成交全部或部分订单，并且取消剩余未成交的部分。</div>
                   <div>• FOK (全部成交或取消): 此种订单必须立即全部成交，否则将被全部取消。</div>
@@ -202,11 +225,29 @@
                 <div v-if="isHasModule('reducePositions')" class="reduce-positions flex-row">
                   <img v-if="reducePositionsSelected" class="reduce-positions-icon" src="../../assets/contract/check_box_selected.png" @click="changeReducePositions()" alt="">
                   <img v-else class="reduce-positions-icon" src="../../assets/contract/check_box_no_selected.png" @click="changeReducePositions()" alt="">
-                  <div class="passive-delegation-text border-dashed" @mouseenter="openPositionBox('lighten-up-positions')" @mouseleave="closePositionBox('lighten-up-positions')">只减仓</div>
+                  <!--限价-------只减仓 -->
+                  <div class="passive-delegation-text border-dashed"
+                       @mouseenter="openPositionBox('reducePositionsModule')"
+                       @mouseleave="closePositionBox('reducePositionsModule')">只减仓</div>
                   <div class="lighten-up-positions">只减仓订单仅允许减少仓位的委托，确保你的仓位不会增加。</div>
+                  <!--市价-------只减仓 -->
+                  <div class="lighten-up-positions-market-price">只减仓订单仅允许减少仓位的委托，确保你的仓位不会增加。</div>
+                  <!--限价止盈止损-------只减仓 -->
+                  <div class="lighten-up-positions-full-stop">只减仓订单仅允许减少仓位的委托，确保你的仓位不会增加。</div>
+                  <!--市价止盈止损-------只减仓 -->
+                  <div class="lighten-up-positions-market-price-stop">只减仓订单仅允许减少仓位的委托，确保你的仓位不会增加。</div>
                 </div>
+
+
+
                 <div v-if="isHasModule('triggerType')" class="trigger-type flex-row">
-                  <div class="passive-delegation-text border-dashed">触发类型</div>
+                  <div class="passive-delegation-text border-dashed"
+                       @mouseenter="openPositionBox('triggerTypeModule')"
+                       @mouseleave="closePositionBox('triggerTypeModule')">触发类型</div>
+
+                  <div class="trigger-type-block">请选择触发次订单的价格。</div>
+                  <div class="trigger-type-block-market-price">请选择触发次订单的价格。</div>
+
                   <div class="letes-price" @mouseenter="openLatestPrice()" @mouseleave="closeLatestPrice()">
                     <div class="effective-time-select-pic">{{latestPrice}}<img class="drop-down" src="../../assets/drop_down.png" alt=""></div>
                     <div class="effective-time-drop-down-pic">
@@ -214,7 +255,6 @@
                       <div class="marked-price-select" :class="latestPrice=='标记价格'?'latest-price-drop':''" @click="goToMarkedPrice">标记价格</div>
                     </div>
                   </div>
-
                 </div>
               </div>
               <!--类型选择右侧-->

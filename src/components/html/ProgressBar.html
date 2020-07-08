@@ -1,4 +1,4 @@
-<div class="ProgressBar-container ">
+<div class="ProgressBar-container">
 
 
   <!--<div class="progress-bar-tit flex-row">-->
@@ -206,15 +206,27 @@
     <!--保证金-->
     <div class="progress-security-deposit-box flex-between">
       <div v-if="isHasModule('securityDeposit')" class="security-deposit flex-between">
-        <span class="security-deposit-text border-dashed">保证金</span>
-        <span class="security-deposit-amount">0.0000 USDT</span>
+<!--        orderType-->
+        <div v-if="!orderType" class="security-deposit-text border-dashed"
+             @mouseenter="openPositionBox('security-deposit-block')"
+             @mouseleave="closePositionBox('security-deposit-block')"
+        >保证金</div>
+        <div v-if="orderType" class="security-deposit-text border-dashed"
+             @mouseenter="openPositionBox('security-deposit-block-buy')"
+             @mouseleave="closePositionBox('security-deposit-block-buy')"
+        >保证金</div>
+<!--        <span class="security-deposit-text border-dashed">保证金</span>-->
+        <div class="security-deposit-amount">0.0000 USDT</div>
       </div>
+      <div :class="orderType?'security-deposit-block':'security-deposit-block-buy'">仓位占用的保证金。</div>
+
       <div class="can-be-opened flex-between">
         <span v-if="isHasModule('kaipingType') == 1" class="security-deposit-text">可开</span>
         <span v-if="isHasModule('kaipingType') == 2" class="security-deposit-text">可平</span>
         <span class="security-deposit-amount">0.0000 BTC</span>
       </div>
     </div>
+
 
     <!--    sss 屏蔽-->
     <!--交易按钮 begin-->

@@ -70,13 +70,17 @@
             </div>
           </div>
           <!--计算器右侧-->
-          <div class="pop-calculator-right">
+          <div class="pop-calculator-right relative">
             <!--计算结果-->
             <div class="pop-calculator-right-result">计算结果</div>
             <div class="pop-calculator-right-content flex">
-              <div class="pop-calculator-price">
+              <div class="pop-calculator-price"
+                   @mouseenter="openPositionBox('initial-margin')"
+                   @mouseleave="closePositionBox('initial-margin')">
                 <span class="border-dashed">起始保证金</span>
               </div>
+              <div class="initial-margin">起始保证金有时会小于下单所需的保证金。下单所需保证金 = 起始保证金 + 开仓亏损，其中开仓亏损考虑了盘口最新情况与标记价格之间的差异。</div>
+
               <div class="pop-calculator-price"><span class="text_white">{{securityDeposit}}</span> USDT</div>
             </div>
             <!--收益-->

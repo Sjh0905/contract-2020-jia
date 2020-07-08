@@ -208,11 +208,44 @@ root.methods = {}
 
 /*---------------------- hover弹框 begin ---------------------*/
 root.methods.closePositionBox= function (name) {
+  if(name == 'reducePositionsModule')name = this.getReducePositionsHoverClassName();
+  if(name == 'triggerTypeModule')name = this.getTriggerTypeClassName();
+  if(name == 'effectiveTimeModule')name = this.getEffectiveTimeClassName();
+
   $("." + name).attr("style","display:none");
 }
 root.methods.openPositionBox = function (name) {
+  if(name == 'reducePositionsModule')name = this.getReducePositionsHoverClassName();
+  if(name == 'triggerTypeModule')name = this.getTriggerTypeClassName();
+  if(name == 'effectiveTimeModule')name = this.getEffectiveTimeClassName();
   $("." + name).attr("style","display:block");
 }
+// 只减仓模块
+root.methods.getReducePositionsHoverClassName = function () {
+  let className = ''
+  this.pendingOrderType == 'limitPrice' && (className = 'lighten-up-positions')
+  this.pendingOrderType == 'marketPrice' && (className = 'lighten-up-positions-market-price')
+  this.pendingOrderType == 'limitProfitStopLoss' && (className = 'lighten-up-positions-full-stop')
+  this.pendingOrderType == 'marketPriceProfitStopLoss' && (className = 'lighten-up-positions-market-price-stop')
+  return className
+}
+
+// 触发类型模块
+root.methods.getTriggerTypeClassName = function () {
+  let className = ''
+  this.pendingOrderType == 'limitProfitStopLoss' && (className = 'trigger-type-block')
+  this.pendingOrderType == 'marketPriceProfitStopLoss' && (className = 'trigger-type-block-market-price')
+  return className
+}
+
+// 生效时间模块
+root.methods.getEffectiveTimeClassName = function () {
+  let className = ''
+  this.pendingOrderType == 'limitPrice' && (className = 'effective-time-block')
+  this.pendingOrderType == 'limitProfitStopLoss' && (className = 'effective-time-block-box')
+  return className
+}
+
 /*---------------------- hover弹框 end ---------------------*/
 
 root.methods.openAdjustingLever = function () {
@@ -854,7 +887,8 @@ root.methods.changePendingOrderType = function (type) {
   if(this.pendingOrderType == type)return
 
   this.pendingOrderType = type;
-  console.log('交易类型切换',this.positionModeConfigs[this.positionModeFirst][this.positionModeSecond][this.pendingOrderType]['passiveDelegation']);
+  console.log('交易切换类型this.pendingOrderType========',this.pendingOrderType)
+  // console.log('交易类型切换',this.positionModeConfigs[this.positionModeFirst][this.positionModeSecond][this.pendingOrderType]['passiveDelegation']);
 }
 //交易类型切换 Start
 

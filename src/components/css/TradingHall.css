@@ -1229,6 +1229,7 @@
   padding: 10px;
   z-index: 1;
 }
+/*生效时间 限价*/
 .effective-time-block {
   display: none;
   position: absolute;
@@ -1243,13 +1244,133 @@
   padding: 10px;
   z-index: 1;
 }
-/*只减仓*/
+/*生效时间 止损*/
+.effective-time-block-box {
+  display: none;
+  position: absolute;
+  width: 250px;
+  top: 80%;
+  left:3%;
+  font-size:12px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color: #0D0E23;
+  background: #fff;
+  padding: 10px;
+  z-index: 1;
+}
+/*只减仓 限价*/
 .lighten-up-positions {
   display: none;
   position: absolute;
   width: 250px;
   top: 80%;
   left:22%;
+  font-size:12px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color: #0D0E23;
+  background: #fff;
+  padding: 10px;
+  z-index: 1;
+}
+/*只减仓 市价*/
+.lighten-up-positions-market-price {
+  display: none;
+  position: absolute;
+  width: 250px;
+  top: 80%;
+  left:3.5%;
+  font-size:12px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color: #0D0E23;
+  background: #fff;
+  padding: 10px;
+  z-index: 1;
+}
+/*触发类型 限价止盈止损*/
+.trigger-type-block {
+  display: none;
+  position: absolute;
+  /*width: 250px;*/
+  top: 80%;
+  left:15%;
+  font-size:12px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color: #0D0E23;
+  background: #fff;
+  padding: 10px;
+  z-index: 1;
+}
+/*触发类型 市价止盈止损*/
+.trigger-type-block-market-price {
+  display: none;
+  position: absolute;
+  /*width: 250px;*/
+  top: 80%;
+  left:1.5%;
+  font-size:12px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color: #0D0E23;
+  background: #fff;
+  padding: 10px;
+  z-index: 1;
+}
+/*只减仓 限价止盈止损*/
+.lighten-up-positions-full-stop {
+  display: none;
+  position: absolute;
+  width: 250px;
+  top: 80%;
+  left: 12%;
+  font-size:12px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color: #0D0E23;
+  background: #fff;
+  padding: 10px;
+  z-index: 1;
+}
+/*只减仓 市价止盈止损*/
+.lighten-up-positions-market-price-stop {
+  display: none;
+  position: absolute;
+  width: 250px;
+  top: 80%;
+  left: 3.5%;
+  font-size:12px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color: #0D0E23;
+  background: #fff;
+  padding: 10px;
+  z-index: 1;
+}
+.limit-profit-stop-loss {
+  display: none;
+  position: absolute;
+  width: 250px;
+  line-height: 24px;
+  top: 90%;
+  left: 6%;
+  font-size:12px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color: #0D0E23;
+  background: #fff;
+  padding: 10px;
+  z-index: 1;
+}
+.market-price-profit-stop-loss {
+  display: none;
+  position: absolute;
+  width: 250px;
+  line-height: 24px;
+  top: 90%;
+  left: 22%;
   font-size:12px;
   font-family:PingFangSC-Regular,PingFang SC;
   font-weight:400;
