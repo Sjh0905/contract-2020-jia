@@ -15,7 +15,7 @@ root.watch = {}
 // 观察货币对是否更改
 root.computed.symbol = function () {
   return this.$store.state.symbol;
-  console.info('this.$store.state.symbol;',this.$store.state.symbol)
+  // console.info('this.$store.state.symbol;',this.$store.state.symbol)
 }
 // 观察账户信息是否更改
 root.computed.watchCurrency = function () {
@@ -457,7 +457,7 @@ root.methods.getScaleConfig = function () {
 
 // 设置当前price
 root.methods.RE_SET_PRICE = function (price) {
-  console.log('comparePriceNow===============',price)
+  // console.log('comparePriceNow===============',price)
   this.price = price
   this.priceNow = price;
 }
@@ -551,12 +551,12 @@ root.methods.isHasModule = function (type) {
   //单仓模式
   if(this.positionModeFirst == 'singleWarehouseMode'){
     isHas = this.positionModeConfigs[this.positionModeFirst][this.pendingOrderType][type]
-    console.log('ProgressBar 单仓模式-' + type,isHas);
+    // console.log('ProgressBar 单仓模式-' + type,isHas);
     return isHas
   }
   //双仓模式
   isHas = this.positionModeConfigs[this.positionModeFirst][this.positionModeSecond][this.pendingOrderType][type]
-  console.log('ProgressBar 双仓模式-' + type,isHas);
+  // console.log('ProgressBar 双仓模式-' + type,isHas);
   return isHas
 }
 
@@ -614,11 +614,11 @@ root.methods.popIdenComfirms = function () {
 }
 
 root.methods.comparePriceNow = function () {
-  console.log(this.priceNow)
+  // console.log(this.priceNow)
 
   if (this.priceNow <= 0 || this.price <=0)return true
   let multiple = this.accDiv(this.price,Number(this.priceNow));
-  console.log('wwwww===========',this.price,this.priceNow)
+  // console.log('wwwww===========',this.price,this.priceNow)
 
 
   let priceCont = ''
@@ -635,7 +635,7 @@ root.methods.comparePriceNow = function () {
 
 // 买卖提交
 root.methods.tradeMarket = function (popWindowOpen1,type) {
-  console.log(this.priceNow)
+  // console.log(this.priceNow)
 
   this.orderType1 = type;
   // this.popWindowOpen = false;
@@ -804,7 +804,7 @@ root.methods.tradeMarket = function (popWindowOpen1,type) {
 }
 
 root.methods.Callback = function (data) {
-  console.info('data,',data)
+  // console.info('data,',data)
 
   this.popType = 1;
   this.popText = this.lang == 'CH' ? '挂单成功' : 'Order has been made';
@@ -877,7 +877,7 @@ root.methods.RE_ERROR = function (err) {
 }
 
 root.methods.RE_ACCOUNTS = function (data) {
-  console.log('ACCOUNTS=====ProgressBar.js====', data)
+  // console.log('ACCOUNTS=====ProgressBar.js====', data)
   typeof (data) === 'string' && (data = JSON.parse(data))
   if (!data || !data.accounts) {
     return

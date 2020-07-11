@@ -887,7 +887,7 @@ root.methods.changePendingOrderType = function (type) {
   if(this.pendingOrderType == type)return
 
   this.pendingOrderType = type;
-  console.log('交易切换类型this.pendingOrderType========',this.pendingOrderType)
+  // console.log('交易切换类型this.pendingOrderType========',this.pendingOrderType)
   // console.log('交易类型切换',this.positionModeConfigs[this.positionModeFirst][this.positionModeSecond][this.pendingOrderType]['passiveDelegation']);
 }
 //交易类型切换 Start
@@ -898,12 +898,12 @@ root.methods.isHasModule = function (type) {
   //单仓模式
   if(this.positionModeFirst == 'singleWarehouseMode'){
     isHas = this.positionModeConfigs[this.positionModeFirst][this.pendingOrderType][type]
-    console.log('singleWarehouseMode-' + type,isHas);
+    // console.log('singleWarehouseMode-' + type,isHas);
     return isHas
   }
   //双仓模式
   isHas = this.positionModeConfigs[this.positionModeFirst][this.positionModeSecond][this.pendingOrderType][type]
-  console.log(type,isHas);
+  // console.log(type,isHas);
   return isHas
 }
 //页面功能模块显示逻辑判断 End
