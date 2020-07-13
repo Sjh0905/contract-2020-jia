@@ -1,5 +1,6 @@
 import axios from "axios";
 import tradingHallData from "../../dataUtils/TradingHallDataUtils";
+const Binance = require('node-binance-api');
 
 const root = {}
 root.name = 'TradingHall'
@@ -177,6 +178,7 @@ root.created = function () {
   // this.getBtReward();
   // this.initWebSocket(this.$store.state.symbol);
 
+  this.initBNSocket()
 }
 
 root.mounted = function () {
@@ -524,6 +526,29 @@ root.methods.func_topic_prices = function(message){
   // 取消板块loading
   this.trade_loading = false;
 }*/
+root.methods.initBNSocket = async function () {
+  const binance = new Binance().options({
+    test:true,
+    // APIKEY: '<key>',
+    // APISECRET: '<secret>'
+  });
+  // console.info('binance.futuresTime', await binance.futuresTime() );
+  // console.info('binance.futuresExchangeInfo()', await binance.futuresExchangeInfo() );
+  // console.info('binance.futuresCandles( "BTCUSDT", "1m" )', await binance.futuresCandles( "BTCUSDT", "1m" ) );
+  console.info('binance.futuresDepth( "BTCUSDT" )', await binance.futuresDepth( "BTCUSDT" ) );
+  // console.info('binance========',this.BN())
+}
+
+// root.methods.BN = function () {
+//   console.info('axios======',)
+//   axios.defaults.withCredentials = true
+//   axios('https://testnet.binancefuture.com/fapi/v1/depth?symbol=BTCUSDT').then(({data}) => {
+//     console.info('data==========',data)
+//       }).catch(response => {
+//     console.info('response====',response)
+//       })
+// }
+
 
 
 // 初始化socket
@@ -657,9 +682,6 @@ root.methods.initGetDatas = function () {
 
 }
 
-
-
-// 请求price
 root.methods.getPrices = function () {
   this.$http.send('MARKET_PRICES', {
     bind: this,

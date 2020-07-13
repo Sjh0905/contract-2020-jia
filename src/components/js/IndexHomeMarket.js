@@ -533,7 +533,7 @@ root.methods.getPrices = function () {
 
 // price接口数据返回
 root.methods.re_getCurrencyLists = function (data) {
-  console.log('data==============',data)
+  // console.log('data==============',data)
   typeof(data) == 'string' && (data = JSON.parse(data));
   this.currency_list = this.$globalFunc.mergeObj(data, this.currency_list);
 }
