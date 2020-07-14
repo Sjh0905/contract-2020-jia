@@ -38,13 +38,17 @@ export default async function ($http, $store, $cookie, $i18n) {
   $store.commit('changeIsAndroid', isAndroidFn()) //是否是安卓
 
 
-  // 请求是否登录
-  function checkLogin() {
-    return $http.send('CHECKLOGININ', {
+  //请求个人信息
+  function userAuthInfo () {
+    return $http.send('GET_USER_AUTH_INFO',{
       callBack: function (data) {
-        typeof data === 'string' && (data = JSON.parse(data))
-        if (data.result === 'FAIL' || data.errorCode) {
-          let user_symbol = $cookie.get('unlogin_user_symbol_cookie') || 'KK_USDT'
+        typeof(data) === 'string' && (data = JSON.stringify(data));
+        if(data.code != 401){
+          let res = data.data;
+          $store.commit('SET_AUTH_STATE', res);
+        }
+        if(data.code == 401){
+          let user_symbol = $cookie.get('unlogin_user_symbol_cookie') || 'BTC_USDT'
           $store.commit('SET_SYMBOL', user_symbol)     // 如果没有用户登录选择币对，则为ETH_USDT币对
           // $store.commit('SET_SYMBOL', 'GRC_USDT')     // 如果没有用户登录选择币对，则为GRC_USDT币对
           return
@@ -57,17 +61,48 @@ export default async function ($http, $store, $cookie, $i18n) {
           $store.commit('SET_SYMBOL', user_symbol.split('-')[1])
           return
         }
-        $store.commit('SET_SYMBOL', 'KK_USDT')  // 如果没有用户登录选择币对，则为ETH_USDT币对
+        $store.commit('SET_SYMBOL', 'BTC_USDT')  // 如果没有用户登录选择币对，则为ETH_USDT币对
         // $store.commit('SET_SYMBOL', 'GRC_USDT')  // 如果没有用户登录选择币对，则为GRC_USDT币对
       },
       errorHandler: function (err) {
-        let user_symbol = $cookie.get('unlogin_user_symbol_cookie') || 'KK_USDT'
+        let user_symbol = $cookie.get('unlogin_user_symbol_cookie') || 'BTC_USDT'
         // console.warn('出错', err)
         $store.commit('SET_SYMBOL', user_symbol)  // 如果没有用户登录选择币对，则为ETH_USDT币对
         // $store.commit('SET_SYMBOL', 'GRC_USDT')  // 如果没有用户登录选择币对，则为GRC_USDT币对
       }
     })
   }
+
+  // 请求是否登录
+  // function checkLogin() {
+  //   return $http.send('CHECKLOGININ', {
+  //     callBack: function (data) {
+  //       typeof data === 'string' && (data = JSON.parse(data))
+  //       if (data.result === 'FAIL' || data.errorCode) {
+  //         let user_symbol = $cookie.get('unlogin_user_symbol_cookie') || 'BTC_USDT'
+  //         $store.commit('SET_SYMBOL', user_symbol)     // 如果没有用户登录选择币对，则为ETH_USDT币对
+  //         // $store.commit('SET_SYMBOL', 'GRC_USDT')     // 如果没有用户登录选择币对，则为GRC_USDT币对
+  //         return
+  //       }
+  //       $store.commit('SET_AUTH_MESSAGE', data.dataMap.userProfile)
+  //       $store.commit('SET_AUTH_HOTVAL', data.dataMap.hotVal)
+  //       // 判断用户登录后最后选择的币对
+  //       let user_symbol = $cookie.get('user_symbol_cookie'), user_id = data.dataMap.userProfile.userId
+  //       if (!!user_id && !!user_symbol && user_symbol.split('-')[0] == user_id) {
+  //         $store.commit('SET_SYMBOL', user_symbol.split('-')[1])
+  //         return
+  //       }
+  //       $store.commit('SET_SYMBOL', 'BTC_USDT')  // 如果没有用户登录选择币对，则为ETH_USDT币对
+  //       // $store.commit('SET_SYMBOL', 'GRC_USDT')  // 如果没有用户登录选择币对，则为GRC_USDT币对
+  //     },
+  //     errorHandler: function (err) {
+  //       let user_symbol = $cookie.get('unlogin_user_symbol_cookie') || 'BTC_USDT'
+  //       // console.warn('出错', err)
+  //       $store.commit('SET_SYMBOL', user_symbol)  // 如果没有用户登录选择币对，则为ETH_USDT币对
+  //       // $store.commit('SET_SYMBOL', 'GRC_USDT')  // 如果没有用户登录选择币对，则为GRC_USDT币对
+  //     }
+  //   })
+  // }
 
   // 请求动态获取symbols
   function getCommonSymbols() {
@@ -118,7 +153,7 @@ export default async function ($http, $store, $cookie, $i18n) {
   }
 
 
-  await Promise.all([checkLogin(), getCommonSymbols(), getServerTime()]).then(res => {
+  await Promise.all([userAuthInfo(), getCommonSymbols(), getServerTime()]).then(res => {
     // console.warn('')
   }) // 请求同时发送 统一拦截
 

@@ -17,6 +17,7 @@ root.components = {
   'orderHistory': resolve => require(['../vue/OrderPageHistoricalEntrustment'], resolve),
   'PopupPrompt': resolve => require(['../vue/PopupPrompt'], resolve),
   'PositionModeBulletBox': resolve => require(['../vue/PositionModeBulletBox'], resolve),
+  'ContractRiskWarning': resolve => require(['../vue/ContractRiskWarning'], resolve),
   // 实时成交
   'LatestDeal': resolve => require(['../vue/LatestDeal'], resolve),
   // BDB开关
@@ -122,6 +123,8 @@ root.data = function () {
 
     //调整杠杆 Strat
     popWindowAdjustingLever: false,
+    // 合约风险提示
+    popWindowContractRiskWarning: false,
     value:1,
     marks: {
       1: '1X',
@@ -144,6 +147,8 @@ root.data = function () {
 }
 
 root.created = function () {
+  this.isFirstVisit()
+  this.POST_MANA_INFO()
   // if(this.screenWidth<1450){
   //   this.latestDealSpread = false;
   //   // this.pankqh = false;
@@ -986,6 +991,50 @@ root.methods.goToLatestPrice = function () {
 root.methods.goToMarkedPrice = function () {
   this.latestPrice = '标记价格'
   $(".effective-time-drop-down-pic").attr("style","display:none");
+}
+// 合约首次风险提示弹窗关闭确认按钮
+root.methods.popCloseTemporarilyClosed = function () {
+  this.popWindowContractRiskWarning = false
+  this.$router.push('index/home')
+}
+
+// 第一次进入是否弹窗
+root.methods.isFirstVisit = function () {
+  // this.$http.send('POST_MANAGE_TIME', {
+  this.$http.send('POST_MANAGE_API',{
+    bind: this,
+    callBack: this.re_isFirstVisit
+  })
+}
+root.methods.re_isFirstVisit = function (data) {
+  typeof(data) == 'string' && (data = JSON.parse(data));
+  if (data.code == 1000) {
+    this.popWindowContractRiskWarning = true
+  } else {
+    this.popWindowContractRiskWarning = false
+  }
+}
+
+// 合约首次风险提示弹窗确认按钮
+root.methods.openAContract = function () {
+  this.$http.send('POST_MANAGE_TIME',{
+    bind: this,
+    query: {},
+    callBack: this.re_openAContract
+  })
+}
+root.methods.re_openAContract = function (data) {
+  typeof(data) == 'string' && (data = JSON.parse(data));
+  if (data.code == 200) {
+    this.popWindowContractRiskWarning = false
+  }
+}
+// 合约首次风险提示弹窗确认按钮
+root.methods.POST_MANA_INFO = function () {
+  this.$http.send('POST_MANAGE_INFO',{
+    bind: this,
+    query: {},
+  })
 }
 
 root.props = {}

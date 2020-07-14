@@ -1379,3 +1379,35 @@
   padding: 10px;
   z-index: 1;
 }
+
+
+/*合约风险提示*/
+.footer-btn {
+  /*padding-right: 30px;*/
+  /*margin-bottom: 20px;*/
+  justify-content:flex-end;
+}
+.popWindow-article2 {
+  height: 32px;
+  line-height: 32px;
+  text-align: center;
+  font-size: 14px;
+  color: #6B7DA2;
+  padding: 0 27px;
+  border-radius:3px;
+  border:1px solid rgba(231,235,238,1);
+  cursor: pointer;
+}
+.popWindow-btn{
+  height: 32px;
+  line-height: 32px;
+  text-align: center;
+  font-size: 14px;
+  color: #F7F7FB;
+  padding: 0 41px;
+  background:rgba(53,118,245,1);
+  border-radius:3px;
+  margin-left: 10px;
+  cursor: pointer;
+}
+/*合约风险提示*/

@@ -251,16 +251,13 @@
 
                 <!--币币交易 begin-->
                 <li class="navigation-item-container flex">
-                  <router-link
-                    :to="{name: 'tradingHall', query: {symbol: $store.state.symbol} }"
-                    class="navigation-item-router flex"
-                    active-class="navigation-item-router-selected"
+                  <!--隐藏的标签 币币交易 begin-->
+                  <div @click="goToFranchExchange"
+                       class="navigation-item-router flex pointer"
+                       active-class="navigation-item-router-selected"
                   >
                     {{$t('currencyExchange')}}
-
-                  </router-link>
-                  <!--隐藏的标签 币币交易 begin-->
-
+                  </div>
                   <!--隐藏的标签 end-->
                 </li>
 
@@ -278,6 +275,15 @@
                 </li>
 
                 <!--合约交易 begin-->
+                <li class="navigation-item-container flex">
+                  <router-link
+                    :to="{name: 'tradingHall', query: {symbol: $store.state.symbol} }"
+                    class="navigation-item-router flex"
+                    active-class="navigation-item-router-selected"
+                  >
+                    {{$t('合约交易')}}
+                  </router-link>
+                </li>
 
 
 <!--                &lt;!&ndash; 法币交易 &ndash;&gt;-->

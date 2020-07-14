@@ -11,11 +11,8 @@
 
            <span><img class="VIP_img" src="../../assets/selectedVIP_icon.png" alt="" v-if="flag"></span>
            <span><img class="VIP_img" src="../../assets/selected_noVIP_icon.png" alt="" v-if="!flag"></span>
-           <div class="not-certified" v-if="authType==3">{{$t('uncertified')}}</div>
-<!--           <div class="not-certified" v-if="true">待审核</div>  TODO:新加的，切勿删除-->
-           <div class="not-certified" v-if="authType==1">{{$t('beDismissed')}}</div>
-           <div class="not-certified" v-if="authType==0||authType==5||authType==6">{{$t('toBeAudited')}}</div>
-           <div class="certified" v-if="authType==2">{{$t('passed')}}</div>
+           <div class="not-certified" v-if="!authType">{{$t('未认证')}}</div>
+           <div class="certified" v-if="authType ">{{$t('已认证')}}</div>
          </div>
         </div>
 

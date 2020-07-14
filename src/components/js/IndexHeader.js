@@ -138,7 +138,7 @@ root.computed = {}
 
 // 获取userId
 root.computed.userId = function () {
-  return this.$store.state.authMessage.userId
+  return this.$store.state.authState.userId
 }
 
 // 是否是会员
@@ -203,9 +203,14 @@ root.computed.mobileHeaderTitle = function () {
 }
 
 // 是否登录
+// root.computed.isLogin = function () {
+//   if (this.$store.state.authMessage.userId !== '') return true
+//   return false
+// }
 root.computed.isLogin = function () {
-  if (this.$store.state.authMessage.userId !== '') return true
+  if (this.$store.state.authState.userId !== '') return true
   return false
+  // return this.$store.state.isLogin;
 }
 // 是否显示右侧菜单
 root.computed.changePopOpen = function () {

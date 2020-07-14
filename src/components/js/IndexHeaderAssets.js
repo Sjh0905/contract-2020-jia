@@ -42,7 +42,7 @@ root.data = function () {
 
     initData: {},
     // 获取认证状态
-    authType:0
+    // authType:0
 
 
 
@@ -79,20 +79,24 @@ root.computed.baseCurrency = function () {
   return this.$store.state.baseCurrency
 }
 
-// 用户名
-root.computed.userName = function () {
-  if (this.userType === 0) {
-    return this.$globalFunc.formatUserName(this.$store.state.authMessage.mobile)
-  }
-  if (!this.$store.state.authMessage.email) {
-    return '****@****'
-  }
-  return this.$globalFunc.formatUserName(this.$store.state.authMessage.email)
-}
-
 // 用户类型，如果是手机用户，为0，如果是邮箱用户，为1
 root.computed.userType = function () {
-  return this.$store.state.authMessage && this.$store.state.authMessage.province === 'mobile' ? 0 : 1
+  return this.$store.state.authState && this.$store.state.authState.registerType === 'mobile' ? 1 : 0
+}
+// 是否实名认证
+root.computed.authType = function () {
+  if(this.$store.state.authState.idType !='NONE')return true
+  return false
+}
+// 邮箱
+root.computed.userName = function () {
+  if (this.userType === 0) {
+    return this.$globalFunc.formatUserName(this.$store.state.authState.number)
+  }
+  if (!this.$store.state.authState.number) {
+    return '****@****'
+  }
+  return this.$globalFunc.formatUserName(this.$store.state.authState.number)
 }
 
 
@@ -142,7 +146,7 @@ root.methods.goToBankList = function () {
 
 // 获取认证状态
 root.methods.getAuthState = function () {
-  this.$http.send("GET_IDENTITY_AUTH_STATUS", {
+  this.$http.send("GET_USER_AUTH_INFO", {
     bind: this,
     callBack: this.re_getAuthState,
     errorHandler: this.error_getAuthState,
@@ -153,7 +157,7 @@ root.methods.re_getAuthState = function (data) {
   typeof (data) === 'string' && (data = JSON.parse(data))
   if (!data.dataMap) return
   console.log('获取状态', data)
-  this.authType = data.dataMap.status
+  // this.authType = data.dataMap.status
 
 }
 // 获取认证失败
