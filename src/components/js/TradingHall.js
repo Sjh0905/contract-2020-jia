@@ -182,6 +182,7 @@ root.created = function () {
   // this.getBtReward();
   // this.initWebSocket(this.$store.state.symbol);
 
+  this.initBNSocket()
 }
 
 root.mounted = function () {
@@ -529,6 +530,35 @@ root.methods.func_topic_prices = function(message){
   // 取消板块loading
   this.trade_loading = false;
 }*/
+root.methods.initBNSocket =  async function () {
+  // const binance = new Binance().options({
+  //   test:true,
+  //   // APIKEY: '<key>',
+  //   // APISECRET: '<secret>'
+  // });
+  // console.info('binance.futuresTime', await binance.futuresTime() );
+  // console.info('binance.futuresExchangeInfo()', await binance.futuresExchangeInfo() );
+  // console.info('binance.futuresCandles( "BTCUSDT", "1m" )', await binance.futuresCandles( "BTCUSDT", "1m" ) );
+  // console.info('binance.futuresDepth( "BTCUSDT" )', await binance.futuresDepth( "BTCUSDT" ) );
+  // console.info('binance.futuresDepth( "BTCUSDT" )', await binance.bookTickers( "BTCUSDT" ) );
+
+  this.$binance.futuresMarkPrice(
+  ).then((data)=>{
+    console.info('binance.futuresDepth( "BTCUSDT" )',data);
+  }).catch((err)=>{
+    console.info('binance.futuresDepth( "BTCUSDT" )出错',err);
+  })
+  // this.$binance.futuresQuote("BTCUSDT" ).then((data)=>{
+  //   console.info('binance.futuresDepth( "BTCUSDT" )',data);
+  // }).catch((err)=>{
+  //   console.info('binance.futuresDepth( "BTCUSDT" )出错',err);
+  // })
+
+
+
+
+}
+
 
 
 // 初始化socket
@@ -662,9 +692,6 @@ root.methods.initGetDatas = function () {
 
 }
 
-
-
-// 请求price
 root.methods.getPrices = function () {
   this.$http.send('MARKET_PRICES', {
     bind: this,
