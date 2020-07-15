@@ -53,14 +53,15 @@ root.props.tradinghallLimit = {
 //sss===
 
 root.created = function () {
-  this.$store.commit('changeJoinus', false);
-  this.$eventBus.listen(this, 'TRADED', this.TRADED)
-  // 获取订单
-  this.loading = true
-  this.getOrder()
-  this.currentInterval && clearInterval(this.currentInterval)
-  this.currentInterval = setInterval(this.getOrder, 5000)
-
+  // this.$store.commit('changeJoinus', false);
+  // this.$eventBus.listen(this, 'TRADED', this.TRADED)
+  // // 获取订单
+  // this.loading = true
+  // this.getOrder()
+  // this.currentInterval && clearInterval(this.currentInterval)
+  // this.currentInterval = setInterval(this.getOrder, 5000)
+  this.initTicket24Hr()
+  this.initTicket24Hr1()
   console.log('this.$route=======',this.$route.name)
 }
 
@@ -104,6 +105,18 @@ root.computed.quoteScale_list = function () {
 
 
 root.methods = {}
+
+// // 当前委托
+root.methods.initTicket24Hr =  async function () {
+  this.$binance.futuresOpenOrders(
+    'BTCUSDT'
+  ).then((data)=>{
+    typeof(data) == 'string' && (data = JSON.parse(data));
+   console.log('binance-data-----------',data)
+  }).catch((err)=>{
+    console.info('binance.futuresDepth( "BTCUSDT" )出错',err);
+  })
+}
 
 // 获取订单
 root.methods.getOrder = function () {
