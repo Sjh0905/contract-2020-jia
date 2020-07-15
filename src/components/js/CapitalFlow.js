@@ -29,7 +29,7 @@ root.computed.quoteScale_list = function () {
 }
 // 用户id，判断是否登录
 root.computed.userId = function () {
-  return this.$store.state.authMessage.userId
+  return this.$store.state.authState.userId
 }
 root.computed.capitalFlowComputed = function () {
   return this.capitalFlowList = [
@@ -38,7 +38,8 @@ root.computed.capitalFlowComputed = function () {
       createdAt:12031238291,
       type:'BUY_LIMIT',
       filledAmount:80,
-      amount:100
+      amount:100,
+      price:2020
     }
   ]
 }

@@ -16,8 +16,8 @@
     </li>
     <!-- 表头 end -->
     <!-- 如果加载完成、已登录、有数据，则显示数据 begin -->
-    <template v-if="!loading">
-      <template v-if="userId && capitalFlowComputed.length!==0">
+<!--    <template v-if="!loading">-->
+      <template v-if="userId && capitalFlowComputed.length!=0">
         <transition-group name="fade">
           <li class="flex"
               :class="$route.name == 'capitalFlow'?'tr-td':'tr-td-col'"
@@ -36,20 +36,20 @@
       <!-- 如果加载完成、已登录、有数据，则显示数据 end -->
 
       <!-- 如果没加载完成、没登录、没数据，则显示'--' begin -->
-      <template v-else>
-        <li class="weit">
-          <div class="nhtu" v-if="$route.name == 'capitalFlow'"><img src="../../assets/noOrders.png"></div>
-          <div class="nhtu" v-if="$route.name !== 'capitalFlow'"><img src="../../assets/noOrderDark.png"></div>
-          <span>{{$t('orderPageCurrentEntrustment.close_9')}}</span>
-        </li>
-      </template>
+<!--      <template v-else>-->
+<!--        <li class="weit">-->
+<!--          <div class="nhtu" v-if="$route.name == 'capitalFlow'"><img src="../../assets/noOrders.png"></div>-->
+<!--          <div class="nhtu" v-if="$route.name !== 'capitalFlow'"><img src="../../assets/noOrderDark.png"></div>-->
+<!--          <span>{{$t('orderPageCurrentEntrustment.close_9')}}</span>-->
+<!--        </li>-->
+<!--      </template>-->
       <!-- 如果没加载完成、没登录、没数据，则显示'--' begin -->
       <template v-if="!loading && userId && tradinghallLimit===10 && capitalFlowComputed.length >= 10">
         <li class="seeMore" >
           <span class="text_blue pointer" @click="toCurrentHistory">{{$t('orderPageHistoricalEntrustment.close_12')}}</span>
         </li>
       </template>
-    </template>
+<!--    </template>-->
   </ul>
   <!-- 加载更多 begin -->
   <div class="" v-if="loading && userId">
