@@ -181,6 +181,10 @@ requestAddress.GET_TRANSFER_AMOUNT_INFO = {url: urlHead+'/user/transfer/getTrans
 //合约账户接口 2020-07-13
 requestAddress.POST_MANAGE_TIME = {url: urlHead+'/future/user/createFutureAccount', method: 'post'}  //合约账户首次进入确认
 requestAddress.POST_MANAGE_API = {url: urlHead+'/future/user/getUserApi', method: 'get'}//合约首次进入
-
 requestAddress.GET_USER_AUTH_INFO = {url: urlHead + '/future/user/getUserAuthInfo', method: 'get',} //合约个人信息
+requestAddress.GET_SYMBOLS = {url: urlHead + '/future/common/symbols', method: 'get',} // 合约获取币种
+requestAddress.GET_TICKER_24HR = {url: urlHead + '/future/common/ticker24hr', method: 'get',} // 合约24小时价格变动接口
+requestAddress.GET_MARKET_PRICE = {url: urlHead + '/future/common/marketPrice', method: 'get',} // 合约最新标记价格和资金费率
+requestAddress.GET_TICKER_PIRCE = {url: urlHead + '/future/common/tickerPirce', method: 'get',} // 合约最新价格
+
 export default requestAddress

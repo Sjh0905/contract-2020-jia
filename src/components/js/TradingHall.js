@@ -2,8 +2,33 @@ import axios from "axios";
 import tradingHallData from "../../dataUtils/TradingHallDataUtils";
 
 const root = {}
-root.name = 'TradingHall'
+root.props = {}
+// root.props.currency_list = {
+//   type: Object,
+//   default: {}
+// }
+// root.props.socket_tick = {
+//   type: Object,
+//   default: {}
+// }
+// root.props.socket_snap_shot = {
+//   type: Object,
+//   default: {}
+// }
+// root.props.socket_price = {
+//   type: Object,
+//   default: {}
+// }
+// root.props.btc_eth_rate = {
+//   type: Object,
+//   default: {}
+// }
+// root.props.buy_sale_list = {
+//   type: Object,
+//   default: {}
+// }
 
+root.name = 'TradingHall'
 
 root.components = {
   'Loading': resolve => require(['../vue/Loading'], resolve), // loading
@@ -27,13 +52,10 @@ root.components = {
   'HistoricalTransaction': resolve => require(['../vue/HistoricalTransaction'], resolve),
   // 资金流水
   'CapitalFlow': resolve => require(['../vue/CapitalFlow'], resolve),
-
   // 仓位
   'OrderPosition': resolve => require(['../vue/OrderPosition'], resolve),
-
   // 保证金余额
   'OrderMarginBalance': resolve => require(['../vue/OrderMarginBalance'], resolve),
-
   // 移动端
   'MobileTradingHall': resolve => require(['../mobileVue/MobileTradingHall'], resolve),
   // 计算机组件
@@ -43,13 +65,6 @@ root.components = {
 
 root.data = function () {
   return {
-    positionModeFirst:'singleWarehouseMode',//单仓模式 singleWarehouseMode 双仓模式 doubleWarehouseMode
-    positionModeFirstTemp:'',//临时存储值，等用户点击弹窗确认按钮后才真正改变positionModeFirst的值
-    positionModeSecond:'openWarehouse',//单仓 singleWarehouse 开仓 openWarehouse 平仓 closeWarehouse
-    pendingOrderType:'limitPrice',//限价 limitPrice 市价 marketPrice 限价止盈止损 limitProfitStopLoss 市价止盈止损 marketPriceProfitStopLoss
-
-    reducePositionsSelected:false,//只减仓状态
-
     socket:null,
     // 货币对列表
     currency_list: {},
@@ -117,6 +132,18 @@ root.data = function () {
     marginModeType:1,
     //仓位模式End
 
+
+
+
+    /* TODO ================================    合约数据   =================================== */
+
+    positionModeFirst:'singleWarehouseMode',//单仓模式 singleWarehouseMode 双仓模式 doubleWarehouseMode
+    positionModeFirstTemp:'',//临时存储值，等用户点击弹窗确认按钮后才真正改变positionModeFirst的值
+    positionModeSecond:'openWarehouse',//单仓 singleWarehouse 开仓 openWarehouse 平仓 closeWarehouse
+    pendingOrderType:'limitPrice',//限价 limitPrice 市价 marketPrice 限价止盈止损 limitProfitStopLoss 市价止盈止损 marketPriceProfitStopLoss
+
+    reducePositionsSelected:false,//只减仓状态
+
     //保证金模式Strat
     popWindowSecurityDepositMode: false,
     //保证金模式End
@@ -142,13 +169,22 @@ root.data = function () {
     openCalculator:false,
     // 计算器弹框 end
   //  限价---被动委托，生效时间选择
-    checkPrice:1
+    checkPrice:1,
+    highPrice: '', // 24小时最高价
+    lowPrice: '', // 24小时最低价
+    volume: '', // 24小时量
+    priceChangePercent: '', // 24涨幅
+    marketPrice: '', // 标记价格
+    lastFundingRate: '', // 资金费率
+    nextFundingTime: '',   // 下次资金费时间
+    Latestrice: '',   // 最新价格
+
+
   }
 }
 
 root.created = function () {
   this.isFirstVisit()
-  this.POST_MANA_INFO()
   // if(this.screenWidth<1450){
   //   this.latestDealSpread = false;
   //   // this.pankqh = false;
@@ -158,7 +194,6 @@ root.created = function () {
   //   this.showStockFunc()
   // }
   // console.log("latestDealSpread---------"+this.latestDealSpread);
-
   this.watchScreenWidth();
   // 获取兑换汇率
   this.getCny();
@@ -166,7 +201,7 @@ root.created = function () {
   // this.changeCny();
 
   // 判断是否有 props currency_list带过来的值，如果没有请求
-  !this.currency_list[this.symbol] ? this.getCurrencyList() : (this.loading = false);
+  !this.currency_list[this.symbol] ? this.getSymbolsList() : (this.loading = false);
 
   // 获取小数位
   this.getScaleConfig();
@@ -182,7 +217,9 @@ root.created = function () {
   // this.getBtReward();
   // this.initWebSocket(this.$store.state.symbol);
 
-  this.initBNSocket()
+  this.initTicket24Hr()  // 获取币安24小时价格变动接口
+  this.getMarkPricesAndCapitalRates()  // 获取币安最新标记价格和资金费率
+  this.getLatestrice()  // 获取币安最新价格
 }
 
 root.mounted = function () {
@@ -212,6 +249,116 @@ root.mounted = function () {
 
 // 初始化各子组件
 root.methods = {}
+/*---------------------- 合约接口部分 begin ---------------------*/
+// 获取币安24小时价格变动接口
+root.methods.initTicket24Hr = function () {
+  this.$http.send('GET_TICKER_24HR',{
+    bind: this,
+    query:{
+      symbol:'BTCUSDT'
+    },
+    callBack: this.re_initTicket24Hr,
+    errorHandler:this.error_initTicket24Hr
+  })
+}
+// 获取币安24小时价格变动正确回调
+root.methods.re_initTicket24Hr = function (data) {
+  typeof(data) == 'string' && (data = JSON.parse(data));
+  if(!data && !data.data)return
+  console.info('data====',data.data[0])
+  this.highPrice = data.data[0].highPrice || '--'
+  this.lowPrice = data.data[0].lowPrice || '--'
+  this.volume = data.data[0].volume || '--'
+  this.priceChangePercent = data.data[0].priceChangePercent || '--'
+}
+// 获取币安24小时价格变动错误回调
+root.methods.error_initTicket24Hr = function (err) {
+  console.log('获取币安24小时价格变动接口',err)
+}
+
+// 获取币安最新标记价格和资金费率
+root.methods.getMarkPricesAndCapitalRates = function () {
+  this.$http.send('GET_MARKET_PRICE',{
+    bind: this,
+    query:{
+      symbol:'BTCUSDT'
+    },
+    callBack: this.re_getMarkPricesAndCapitalRates,
+    errorHandler:this.error_getMarkPricesAndCapitalRates
+  })
+}
+// 获取币安最新标记价格和资金费率正确回调
+root.methods.re_getMarkPricesAndCapitalRates = function (data) {
+  typeof(data) == 'string' && (data = JSON.parse(data));
+  console.info('data========',data.data[0])
+  this.marketPrice = data.data[0].markPrice || '--'
+  this.lastFundingRate = data.data[0].lastFundingRate || '--'
+  this.nextFundingTime = data.data[0].nextFundingTime || '--'
+//
+}
+// 获取币安最新标记价格和资金费率错误回调
+root.methods.error_getMarkPricesAndCapitalRates = function (err) {
+  console.log('获取币安24小时价格变动接口',err)
+}
+
+// 获取币安最新价格接口
+root.methods.getLatestrice = function () {
+  this.$http.send('GET_TICKER_PIRCE',{
+    bind: this,
+    query:{
+      symbol:'BTCUSDT',
+    },
+    callBack: this.re_getLatestrice,
+    errorHandler:this.error_getLatestrice
+  })
+}
+// 获取币安最新价格接口正确回调
+root.methods.re_getLatestrice = function (data) {
+  typeof(data) == 'string' && (data = JSON.parse(data));
+  console.info('data========',data.data)
+  this.Latestrice = data.data[0].price
+}
+// 获取币安最新价格接口错误回调
+root.methods.error_getLatestrice = function (err) {
+  console.log('获取币安24小时价格变动接口',err)
+}
+
+// 请求所有币对信息, header, right都需要此数据
+root.methods.getSymbolsList = function () {
+  this.$http.send('GET_SYMBOLS', {
+    bind: this,
+    callBack: this.re_getSymbolsList
+  });
+}
+// 渲染币对列表信息
+root.methods.re_getSymbolsList = function (data) {
+  let self = this;
+  this.getPrices();
+  typeof(data) == 'string' && (data = JSON.parse(data));
+
+  // let symbol_list = [];
+  // for (let symbol in data) {
+  // 	symbol_list.push(symbol);
+  // }
+  // if (symbol_list.indexOf(this.$store.state.symbol) < 0) {
+  // 	if (!!symbol_list[0]) {
+  // 		this.$store.commit('SET_SYMBOL', symbol_list[0]);
+  // 	}
+  // }
+
+  let objs = this.symbolList_priceList(data);
+  this.currency_list = objs;
+  // this.currency_list = {
+  //   BTC_USDT:[0,0,0,0,0,0]
+  // };
+
+  // 记录当前币对开始结束时间
+  data.symbols.forEach(function (v, i) {
+    self.symbol_config_times.push({name: v.name, startTime: v.startTime, endTime: v.endTime});
+  });
+
+}
+/*---------------------- 合约接口部分 end ---------------------*/
 
 /*---------------------- hover弹框 begin ---------------------*/
 root.methods.closePositionBox= function (name) {
@@ -236,7 +383,6 @@ root.methods.getReducePositionsHoverClassName = function () {
   this.pendingOrderType == 'marketPriceProfitStopLoss' && (className = 'lighten-up-positions-market-price-stop')
   return className
 }
-
 // 触发类型模块
 root.methods.getTriggerTypeClassName = function () {
   let className = ''
@@ -244,7 +390,6 @@ root.methods.getTriggerTypeClassName = function () {
   this.pendingOrderType == 'marketPriceProfitStopLoss' && (className = 'trigger-type-block-market-price')
   return className
 }
-
 // 生效时间模块
 root.methods.getEffectiveTimeClassName = function () {
   let className = ''
@@ -255,6 +400,7 @@ root.methods.getEffectiveTimeClassName = function () {
 
 /*---------------------- hover弹框 end ---------------------*/
 
+// 打开调整杠杆
 root.methods.openAdjustingLever = function () {
   this.popWindowAdjustingLever = true
 }
@@ -262,13 +408,67 @@ root.methods.openAdjustingLever = function () {
 root.methods.openSecurityDepositMode = function () {
   this.popWindowSecurityDepositMode = true
 }
+// 打开计算机
 root.methods.openCalculatorWindow = function () {
   this.openCalculator = true
 }
-// 关闭弹窗
+// 关闭计算器
 root.methods.closeCalculatorWindow = function () {
   this.openCalculator = false
 }
+
+
+// 获取币安24小时价格变动接口
+// root.methods.initTicket24Hr =  async function () {
+//   this.$binance.futuresDaily(
+//     'BTCUSDT'
+//   ).then((data)=>{
+//     typeof(data) == 'string' && (data = JSON.parse(data));
+//     this.highPrice = data.highPrice || '--'
+//     this.lowPrice = data.lowPrice || '--'
+//     this.volume = data.volume || '--'
+//     this.priceChangePercent = data.priceChangePercent || '--'
+//   }).catch((err)=>{
+//     console.info('binance.futuresDepth( "BTCUSDT" )出错',err);
+//   })
+// }
+
+// 获取币安最新标记价格和资金费率
+// root.methods.getMarkPricesAndCapitalRates =  async function () {
+//   this.$binance.futuresMarkPrice(
+//     'BTCUSDT'
+//   ).then((data)=>{
+//     typeof(data) == 'string' && (data = JSON.parse(data));
+//     this.marketPrice = data.markPrice || '--'
+//     this.lastFundingRate = data.lastFundingRate || '--'
+//     this.nextFundingTime = data.nextFundingTime || '--'
+//
+//   }).catch((err)=>{
+//     console.info('binance.futuresDepth( "BTCUSDT" )出错',err);
+//   })
+// }
+
+// // 获取币安最新价格接口
+// root.methods.getLatestrice =  async function () {
+//   this.$binance.price(
+//     'BTCUSDT',(err,ticket) =>{
+//       console.info('Price BTC===',ticket.BTC)
+//     }
+//   )
+//   //   .then((data)=>{
+//   //     typeof(data) == 'string' && (data = JSON.parse(data));
+//   //     console.info('data=======',data)
+//   //
+//   //   }).catch((err)=>{
+//   //   console.info('binance.futuresDepth( "BTCUSDT" )出错',err);
+//   // })
+// }
+
+
+
+
+
+
 root.methods.watchScreenWidth = function () {
   //必须声明局部变量，否则this.screenWidth不能触发页面渲染
   var screenWidth = document.body.clientWidth
@@ -291,6 +491,32 @@ root.methods.getScaleConfig =  function () {
       v.name === this.$store.state.symbol && (this.baseScale = v.baseScale , this.quoteScale = v.quoteScale)
     }
   )
+}
+
+
+// 如果没有属性带过来，请求一遍
+root.methods.getCurrencyList = function () {
+  this.$http.send('MARKET_PRICES',{
+    bind: this,
+    callBack: this.re_getCurrencyList
+  })
+}
+
+// 渲染币对列表信息
+root.methods.re_getCurrencyList = function (data) {
+  typeof(data) == 'string' && (data = JSON.parse(data));
+  this.get_currency_list = data;
+  this.loading = false;
+}
+
+// 获取汇率
+root.methods.getCny = function () {
+  this.$http.send('GET_EXCHANGE__RAGE', {bind: this, callBack: this.getNowCny})
+}
+// 判断汇率
+root.methods.getNowCny = function (data) {
+  typeof(data) == 'string' && (data = JSON.parse(data));
+  this.GET_RATE(data);
 }
 // 获取汇率
 root.methods.GET_RATE = function (data) {
@@ -318,32 +544,6 @@ root.methods.GET_RATE = function (data) {
       break;
   }
 }
-
-// 如果没有属性带过来，请求一遍
-root.methods.getCurrencyList = function () {
-  this.$http.send('MARKET_PRICES',{
-    bind: this,
-    callBack: this.re_getCurrencyList
-  })
-}
-
-// 渲染币对列表信息
-root.methods.re_getCurrencyList = function (data) {
-  typeof(data) == 'string' && (data = JSON.parse(data));
-  this.get_currency_list = data;
-  this.loading = false;
-}
-
-// 获取汇率
-root.methods.getCny = function () {
-  this.$http.send('GET_EXCHANGE__RAGE', {bind: this, callBack: this.getNowCny})
-}
-// 判断汇率
-root.methods.getNowCny = function (data) {
-  typeof(data) == 'string' && (data = JSON.parse(data));
-  this.GET_RATE(data);
-}
-
 
 // 一小时轮询一次汇率
 root.methods.changeCny = function () {
@@ -530,34 +730,8 @@ root.methods.func_topic_prices = function(message){
   // 取消板块loading
   this.trade_loading = false;
 }*/
-root.methods.initBNSocket =  async function () {
-  // const binance = new Binance().options({
-  //   test:true,
-  //   // APIKEY: '<key>',
-  //   // APISECRET: '<secret>'
-  // });
-  // console.info('binance.futuresTime', await binance.futuresTime() );
-  // console.info('binance.futuresExchangeInfo()', await binance.futuresExchangeInfo() );
-  // console.info('binance.futuresCandles( "BTCUSDT", "1m" )', await binance.futuresCandles( "BTCUSDT", "1m" ) );
-  // console.info('binance.futuresDepth( "BTCUSDT" )', await binance.futuresDepth( "BTCUSDT" ) );
-  // console.info('binance.futuresDepth( "BTCUSDT" )', await binance.bookTickers( "BTCUSDT" ) );
-
-  this.$binance.futuresMarkPrice(
-  ).then((data)=>{
-    console.info('binance.futuresDepth( "BTCUSDT" )',data);
-  }).catch((err)=>{
-    console.info('binance.futuresDepth( "BTCUSDT" )出错',err);
-  })
-  // this.$binance.futuresQuote("BTCUSDT" ).then((data)=>{
-  //   console.info('binance.futuresDepth( "BTCUSDT" )',data);
-  // }).catch((err)=>{
-  //   console.info('binance.futuresDepth( "BTCUSDT" )出错',err);
-  // })
 
 
-
-
-}
 
 
 
@@ -669,20 +843,20 @@ root.methods.initSocket = function () {
 }
 
 
-// 获取bt奖励比率
-root.methods.getBtReward = function () {
-  /*let that = this
-  this.$globalFunc.getBTRegulationConfig(this, (data) => {
-    this.btRewardReady = true
-    this.loading = !(this.stateReady && this.BDBReady && this.btRewardReady && (this.stateStatusReady || !this.isMobile))
-
-  })*/
-}
+// // 获取bt奖励比率
+// root.methods.getBtReward = function () {
+//   /*let that = this
+//   this.$globalFunc.getBTRegulationConfig(this, (data) => {
+//     this.btRewardReady = true
+//     this.loading = !(this.stateReady && this.BDBReady && this.btRewardReady && (this.stateStatusReady || !this.isMobile))
+//
+//   })*/
+// }
 
 // 初始化数据请求
 root.methods.initGetDatas = function () {
   // 请求所有币对信息 right和header都需要此数据
-  // this.getCurrencyList();
+  // this.getSymbolsList();
 
   // 根据当前币对请求买或卖列表
   this.getCurrencyBuyOrSaleList();
@@ -698,17 +872,21 @@ root.methods.getPrices = function () {
     callBack: this.re_getCurrencyLists
   })
 }
-
-// 请求所有币对信息, header, right都需要此数据
-root.methods.getCurrencyList = function () {
-  this.$http.send('COMMON_SYMBOLS', {
-    bind: this,
-    callBack: this.re_getCurrencyList
-  });
+// price接口数据返回
+root.methods.re_getCurrencyLists = function (data) {
+  typeof(data) == 'string' && (data = JSON.parse(data));
+  this.currency_list = this.$globalFunc.mergeObj(data, this.currency_list);
 }
 
+// 请求所有币对信息, header, right都需要此数据
+root.methods.getSymbolsList = function () {
+  this.$http.send('GET_SYMBOLS', {
+    bind: this,
+    callBack: this.re_getSymbolsList
+  });
+}
 // 渲染币对列表信息
-root.methods.re_getCurrencyList = function (data) {
+root.methods.re_getSymbolsList = function (data) {
   let self = this;
   this.getPrices();
   typeof(data) == 'string' && (data = JSON.parse(data));
@@ -725,6 +903,9 @@ root.methods.re_getCurrencyList = function (data) {
 
   let objs = this.symbolList_priceList(data);
   this.currency_list = objs;
+  // this.currency_list = {
+  //   BTC_USDT:[0,0,0,0,0,0]
+  // };
 
   // 记录当前币对开始结束时间
   data.symbols.forEach(function (v, i) {
@@ -733,17 +914,11 @@ root.methods.re_getCurrencyList = function (data) {
 
 }
 
-// price接口数据返回
-root.methods.re_getCurrencyLists = function (data) {
-  typeof(data) == 'string' && (data = JSON.parse(data));
-  this.currency_list = this.$globalFunc.mergeObj(data, this.currency_list);
-}
-
 // 对symbol获取的数据进行处理，处理成 {symbol: [time, 1,2,3,4,5]}的格式
 // 例如：{ETX_BTX:[1517653957367, 0.097385, 0.101657, 0.097385, 0.101658, 815.89]}
 root.methods.symbolList_priceList = function (symbol_list) {
   let obj = {};
-  let objs = symbol_list.symbols;
+  let objs = symbol_list.data;
   objs.forEach((v, i) => {
     obj[v.name] = [0, 0, 0, 0, 0, 0];
   })
@@ -1056,39 +1231,6 @@ root.methods.re_openAContract = function (data) {
     this.popWindowContractRiskWarning = false
   }
 }
-// 合约首次风险提示弹窗确认按钮
-root.methods.POST_MANA_INFO = function () {
-  this.$http.send('POST_MANAGE_INFO',{
-    bind: this,
-    query: {},
-  })
-}
-
-root.props = {}
-// root.props.currency_list = {
-//   type: Object,
-//   default: {}
-// }
-// root.props.socket_tick = {
-//   type: Object,
-//   default: {}
-// }
-// root.props.socket_snap_shot = {
-//   type: Object,
-//   default: {}
-// }
-// root.props.socket_price = {
-//   type: Object,
-//   default: {}
-// }
-// root.props.btc_eth_rate = {
-//   type: Object,
-//   default: {}
-// }
-// root.props.buy_sale_list = {
-//   type: Object,
-//   default: {}
-// }
 
 
 // 计算symbol变化
@@ -1142,11 +1284,11 @@ root.computed.high24 = function () {
   return high24;
 }
 // 24小时成交量
-root.computed.volume = function () {
-  if (!this.mergeList[this.symbol]) return;
-  let volume = this.$globalFunc.accFixed(this.mergeList[this.symbol][5], 0);
-  return volume;
-}
+// root.computed.volume = function () {
+//   if (!this.mergeList[this.symbol]) return;
+//   let volume = this.$globalFunc.accFixed(this.mergeList[this.symbol][5], 0);
+//   return volume;
+// }
 
 // 实时价格 需要取BDB/ETH的时价和汇率来算BDB的汇率
 root.computed.topic_price = function () {
@@ -1192,13 +1334,13 @@ root.computed.isMobile = function () {
 root.computed.specialSymbol = function () {
   return this.$store.state.specialSymbol
 }
-// 是否显示为蜜简介
-root.computed.showSuperBeeIntroduction = function () {
-  // if (this.specialSymbol[0].has(this.listenSymbol)) {
-  //   return true
-  // }
-  return false
-}
+// // 是否显示为蜜简介
+// root.computed.showSuperBeeIntroduction = function () {
+//   // if (this.specialSymbol[0].has(this.listenSymbol)) {
+//   //   return true
+//   // }
+//   return false
+// }
 //页面功能模块显示逻辑配置信息
 root.computed.positionModeConfigs = function () {
   let data = tradingHallData.positionModeConfigs;
@@ -1255,12 +1397,12 @@ root.watch.listenSymbol = function (newValue, oldValue) {
   this.$router.push({name: 'tradingHall', query: {symbol: newValue}});
 }
 
-// 如果切换市场的时候，在超级为蜜区，并且打开了为蜜资料
-root.watch.showSuperBeeIntroduction = function (newValue, oldValue) {
-  if (!newValue && oldValue && this.isNow == 3) {
-    this.isNow = 0
-  }
-}
+// // 如果切换市场的时候，在超级为蜜区，并且打开了为蜜资料
+// root.watch.showSuperBeeIntroduction = function (newValue, oldValue) {
+//   if (!newValue && oldValue && this.isNow == 3) {
+//     this.isNow = 0
+//   }
+// }
 
 // 组件卸载前取消订阅
 root.beforeDestroy = function () {
@@ -1303,5 +1445,9 @@ root.methods.accDiv = function (num1, num2) {
 }
 /*---------------------- 除法运算 end ---------------------*/
 
-
+/*---------------------- 格式化时间 begin ---------------------*/
+root.methods.formatDateUitll = function(time) {
+  return this.$globalFunc.formatDateUitl(time, 'hh:mm:ss')
+}
+/*---------------------- 格式化时间 end ---------------------*/
 export default root
