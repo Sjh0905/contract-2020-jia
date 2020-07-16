@@ -183,6 +183,10 @@ tr, th, td {
   /*padding: 10px 0;*/
   /*border-top: 1px solid #e5e5e5;*/
 }
+.historica {
+  height: 500px;
+  overflow: scroll;
+}
 
 /*显示的内容*/
 .tr-detail {

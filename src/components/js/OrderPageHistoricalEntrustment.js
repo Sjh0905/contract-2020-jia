@@ -37,7 +37,7 @@ root.computed.historyOrderComputed = function () {
 }
 // 获取登录状态
 root.computed.userId = function () {
-  return this.$store.state.authMessage.userId
+  return this.$store.state.authState.userId
 }
 
 // 所有币对精度信息
@@ -49,7 +49,9 @@ root.computed.quoteScale_list = function () {
   })
   return quoteScale_obj;
 }
-
+root.computed.serverTime = function () {
+  return new Date().getTime();
+}
 /*----------------------------- 生命周期 ------------------------------*/
 
 
@@ -65,20 +67,22 @@ root.created = function () {
 root.methods = {}
 // 发送请求获取
 root.methods.getOrder = function () {
-  if (!this.$store.state.authMessage.userId) {
-    this.loading = false
-    return
-  }
+  // if (!this.$store.state.authState.userId) {
+  //   this.loading = false
+  //   return
+  // }
   // this.loading = true
 
-  this.$http.send('POST_USER_ORDERS',
+  this.$http.send('GET_CAPITAL_ALL_FLOW',
     {
       bind: this,
-      params: {
-        updatedAt:this.updatedAt,//最后的订单更新时间
-        offsetId: this.offsetId, //最后一条订单的id
-        limit: (this.tradinghallLimit===10) ? this.tradinghallLimit : this.limit, //一次请求多少条订单
-        isFinalStatus: true //是否是历史订单
+      query: {
+        // updatedAt:this.updatedAt,//最后的订单更新时间
+        // offsetId: this.offsetId, //最后一条订单的id
+        // limit: (this.tradinghallLimit===10) ? this.tradinghallLimit : this.limit, //一次请求多少条订单
+        // isFinalStatus: true //是否是历史订单
+        symbol:'BTCUSDT',
+        timestamp:this.serverTime
       },
       callBack: this.re_getOrder,
       errorHandler: this.error_getOrder
@@ -86,22 +90,23 @@ root.methods.getOrder = function () {
 }
 // 获取历史订单回调
 root.methods.re_getOrder = function (data) {
-  this.historyOrder.push(...data.orders.filter(
-    v => {
-      return ((v.status === 'PARTIAL_CANCELLED') || (v.status === 'FULLY_CANCELLED') || (v.status === 'FULLY_FILLED'))
-    }
-  ))
+  // this.historyOrder.push(...data.data.filter(
+  //   v => {
+  //     return ((v.status === 'PARTIAL_CANCELLED') || (v.status === 'FULLY_CANCELLED') || (v.status === 'FULLY_FILLED'))
+  //   }
+  // ))
+  this.historyOrder = data.data
   this.loading = false
   // 加载更多中
   this.loadingMoreIng = false
 
   // 如果获取
-  data.orders.length !== 0 && (this.offsetId = data.orders[data.orders.length - 1].id)
-  data.orders.length !== 0 && (this.updatedAt = data.orders[data.orders.length - 1].updatedAt)
+  data.data.length !== 0 && (this.offsetId = data.data[data.data.length - 1].id)
+  data.data.length !== 0 && (this.updatedAt = data.data[data.data.length - 1].updatedAt)
 
   // 是否显示加载更多
   // console.warn('this is order length', data.orders.length, this.limit)
-  if (data.orders.length < this.limit) {
+  if (data.data.length < this.limit) {
     this.showLoadingMore = false
   }
 
@@ -127,14 +132,14 @@ root.methods.canShowDetail = function (order) {
   if (order.status === 'FULLY_FILLED') return true
 }
 
-// 显示详情
-root.methods.showDetail = function (id) {
-  if (this.clickThis === id) {
-    this.clickThis = -1
-    return
-  }
-  this.clickThis = id
-}
+// // 显示详情
+// root.methods.showDetail = function (id) {
+//   if (this.clickThis === id) {
+//     this.clickThis = -1
+//     return
+//   }
+//   this.clickThis = id
+// }
 
 // 点击加载更多
 root.methods.clickLoadingMore = function () {

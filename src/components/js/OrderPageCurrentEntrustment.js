@@ -57,11 +57,9 @@ root.created = function () {
   // this.$eventBus.listen(this, 'TRADED', this.TRADED)
   // // 获取订单
   // this.loading = true
-  // this.getOrder()
+  this.getOrder()
   // this.currentInterval && clearInterval(this.currentInterval)
   // this.currentInterval = setInterval(this.getOrder, 5000)
-  this.initTicket24Hr()
-  this.initTicket24Hr1()
   console.log('this.$route=======',this.$route.name)
 }
 
@@ -77,17 +75,35 @@ root.computed = {}
 root.computed.currentOrderComputed = function () {
   return this.currentOrder = [
     {
-      id:12,
-      createdAt:123452,
-      symbol:'BTC_USDT',
-      amount:123,
-      filledAmount:123
+      "avgPrice": "0.00000",              // 平均成交价
+      "clientOrderId": "abc",             // 用户自定义的订单号
+      "cumQuote": "0",                        // 成交金额
+      "executedQty": "0",                 // 成交数量
+      "orderId": 1917641,                 // 系统订单号
+      "origQty": "0.40",                  // 原始委托数量
+      "origType": "TRAILING_STOP_MARKET", // 触发前订单类型
+      "price": "0",                   // 委托价格
+      "reduceOnly": false,                // 是否仅减仓
+      "side": "BUY",                      // 买卖方向
+      "positionSide": "SHORT", // 持仓方向
+      "status": "NEW",                    // 订单状态
+      "stopPrice": "9300",                    // 触发价，对`TRAILING_STOP_MARKET`无效
+      "closePosition": false,   // 是否条件全平仓
+      "symbol": "BTCUSDT",                // 交易对
+      "time": 1579276756075,              // 订单时间
+      "timeInForce": "GTC",               // 有效方法
+      "type": "TRAILING_STOP_MARKET",     // 订单类型
+      "activatePrice": "9020", // 跟踪止损激活价格, 仅`TRAILING_STOP_MARKET` 订单返回此字段
+      "priceRate": "0.3", // 跟踪止损回调比例, 仅`TRAILING_STOP_MARKET` 订单返回此字段
+      "updateTime": 1579276756075,        // 更新时间
+      "workingType": "CONTRACT_PRICE"     // 条件价格触发类型
+
     }
   ]
 }
 // 用户id，判断是否登录
 root.computed.userId = function () {
-  return this.$store.state.authMessage.userId
+  return this.$store.state.authState.userId
 }
 
 // 所有币对精度信息
@@ -99,38 +115,32 @@ root.computed.quoteScale_list = function () {
   })
   return quoteScale_obj;
 }
-
+root.computed.serverTime = function () {
+  return new Date().getTime();
+}
 
 /*----------------------------- 方法 ------------------------------*/
 
 
 root.methods = {}
 
-// // 当前委托
-root.methods.initTicket24Hr =  async function () {
-  this.$binance.futuresOpenOrders(
-    'BTCUSDT'
-  ).then((data)=>{
-    typeof(data) == 'string' && (data = JSON.parse(data));
-   console.log('binance-data-----------',data)
-  }).catch((err)=>{
-    console.info('binance.futuresDepth( "BTCUSDT" )出错',err);
-  })
-}
 
 // 获取订单
 root.methods.getOrder = function () {
-  if (!this.$store.state.authMessage.userId) {
+  if (!this.$store.state.authState.userId) {
     this.loading = false
     return
   }
-  this.$http.send('POST_USER_ORDERS',
+  this.$http.send('GET_CURRENT_DELEGATION',
     {
       bind: this,
-      params: {
-        offsetId: this.offsetId,
-        limit: (this.tradinghallLimit===10) ? this.tradinghallLimit : this.limit, //一次请求多少条订单,
-        isFinalStatus: false,
+      query: {
+        symbol:'BTCUSDT',
+        timestamp:this.serverTime,
+        orderId:'1231212'
+        // offsetId: this.offsetId,
+        // limit: (this.tradinghallLimit===10) ? this.tradinghallLimit : this.limit, //一次请求多少条订单,
+        // isFinalStatus: false,
       },
       callBack: this.re_getOrder,
       errorHandler: this.error_getOrder,
@@ -138,7 +148,7 @@ root.methods.getOrder = function () {
 }
 // 获取订单回调
 root.methods.re_getOrder = function (data) {
-  // console.warn('订单信息获取到了！！！！', data)
+  console.info('订单信息获取到了！！！！--------', data)
   this.loading = false
   let open_order = [];
   let symbol = this.$store.state.symbol;
@@ -150,7 +160,7 @@ root.methods.re_getOrder = function (data) {
       // 是否点击过撤单
       v.click = false
       // 如果已经点击过撤单
-      this.clickOrder.has(v.id) && (v.click = true)
+      this.clickOrder.has(v.orderId) && (v.click = true)
 
       return (v.status !== 'PARTIAL_CANCELLED') && (v.status !== 'FULLY_CANCELLED') && (v.status !== 'FULLY_FILLED')
     }
@@ -223,12 +233,13 @@ root.methods.initInterval = function () {
 
 // 撤单
 root.methods.cancelOrder = async function (order, cancelAll = false) {
-  this.clickOrder.add(order.id)
+  this.clickOrder.add(order.orderId)
   order.click = true
   let params = {
-    targetOrderId: order.id,
+    orderId: order.orderId,
     symbol: order.symbol,
-    type: order.type === 'BUY_LIMIT' ? 'CANCEL_BUY' : 'CANCEL_SELL'
+    // type: order.type === 'BUY_LIMIT' ? 'CANCEL_BUY' : 'CANCEL_SELL'
+    timestamp:order.updateTime
   }
   if (!cancelAll) {
     await new Promise(function (resolve, reject) {
@@ -236,7 +247,7 @@ root.methods.cancelOrder = async function (order, cancelAll = false) {
     })
   }
   // console.warn("params", params)
-  await this.$http.send('TRADE_ORDERS', {
+  await this.$http.send('GET_CAPITAL_CANCEL', {
     bind: this,
     params: params,
     callBack: this.re_cancelOrder,
@@ -256,8 +267,8 @@ root.methods.error_cancelOrder = function (err) {
 }
 
 // 判断是否点击了某个订单
-root.methods.clickOneOrder = function (id) {
-  return !this.clickOrder.has(id)
+root.methods.clickOneOrder = function (orderId) {
+  return !this.clickOrder.has(orderId)
 }
 
 // 全撤
@@ -272,15 +283,36 @@ root.methods.closePop = function () {
 }
 // 确认全撤
 root.methods.ensurePop = async function () {
-  this.cancelAll = true
-  this.popOpen = false
-  this.promptType = 2
-  this.promptOpen = true
-  for (let i = 0; i < this.currentOrder.length; i++) {
-    await this.cancelOrder(this.currentOrder[i], true)
+  // this.cancelAll = true
+  // this.popOpen = false
+  // this.promptType = 2
+  // this.promptOpen = true
+  // for (let i = 0; i < this.currentOrder.length; i++) {
+  //   await this.cancelOrder(this.currentOrder[i], true)
+  // }
+  // this.promptOpen = false
+  // this.cancelAll = false
+  let params = {
+    // orderId: order.orderId,
+    symbol: 'BTCUSDT',
+    timestamp:this.serverTime
   }
-  this.promptOpen = false
-  this.cancelAll = false
+  this.$http.send('GET_CAPITAL_CANCELALL',{
+    bind: this,
+    params: params,
+    callBack: this.re_ensurePop,
+    errorHandler:this.error_ensurePop
+  })
+}
+// 获取币安24小时价格变动正确回调
+root.methods.re_ensurePop = function (data) {
+  typeof(data) == 'string' && (data = JSON.parse(data));
+  if(!data && !data.data)return
+  console.info('data====',data.data)
+}
+// 获取币安24小时价格变动错误回调
+root.methods.error_ensurePop = function (err) {
+  console.log('获取币安24小时价格变动接口',err)
 }
 
 
