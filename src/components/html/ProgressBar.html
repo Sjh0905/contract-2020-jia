@@ -234,19 +234,19 @@
 
       <div class="progress-bar-btn txt-nomal border_radius"
            :class="orderType?'progress-bar-redbtn btn_red_box_shadow':'progress-bar-greenbtn btn_green_box_shadow'"
-           v-if="$store.state.authMessage.userId && isHasModule('buttonType') == 1">
+           v-if="this.$store.state.authState.userId && isHasModule('buttonType') == 1">
         {{orderType&& '买入/做多' || '卖出/做空'}}
       </div>
 
       <div class="progress-bar-btn txt-nomal border_radius"
            :class="orderType?'progress-bar-redbtn btn_red_box_shadow':'progress-bar-greenbtn btn_green_box_shadow'"
-           v-if="$store.state.authMessage.userId && isHasModule('buttonType') == 2">
+           v-if="this.$store.state.authState.userId && isHasModule('buttonType') == 2">
         {{orderType&& '开多' || '开空'}}
       </div>
 
       <div class="progress-bar-btn txt-nomal border_radius"
            :class="orderType?'progress-bar-redbtn btn_red_box_shadow':'progress-bar-greenbtn btn_green_box_shadow'"
-           v-if="$store.state.authMessage.userId && isHasModule('buttonType') == 3">
+           v-if="this.$store.state.authState.userId && isHasModule('buttonType') == 3">
         {{orderType&& '平空' || '平多'}}
       </div>
 
@@ -255,7 +255,7 @@
         <!--{{$t('progressBar.unavailable')}}-->
       <!--</div>-->
 
-      <div class="progress-bar-btn progress-bar-nologin-btn ptxt-nomal" v-if="!$store.state.authMessage.userId">
+      <div class="progress-bar-btn progress-bar-nologin-btn ptxt-nomal" v-if="!this.$store.state.authState.userId">
         <span style="cursor: pointer" class="text_blue" @click="goLogin">{{$t("progressBar.login")}}</span> 或 <span
         class="text_blue" style="cursor: pointer" @click="goRegister">{{$t("progressBar.register")}}</span>
       </div>

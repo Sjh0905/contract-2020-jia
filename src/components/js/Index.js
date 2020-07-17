@@ -37,7 +37,9 @@ root.data = function () {
     getTimeInterval:null,
     getTimeout:10,
     show:false,
-    borderTop:true
+    borderTop:true,
+
+    listenKey:''
   }
 }
 
@@ -63,8 +65,11 @@ root.created = function () {
 
   this.isWhiteQuery()
 
-  // console.log(this.isClose,'bbb')
-
+  this.getListenKey()  // 获取listenKey信息
+  setInterval(()=>{
+    this.dealWithListenKey()
+    // 设定55分钟时间搓
+  },55 * 60 * 1000)
 }
 
 root.mounted = function () {
@@ -159,6 +164,63 @@ root.watch.screenWidth = function (oldVal, newVal) {
 
 
 root.methods = {}
+
+root.methods.dealWithListenKey = function () {
+  console.info('hhhhhhhhhhhhhhhhhh========55分钟到了，改掉接口啦',new Date())
+  if(!this.$store.state.listenKey){
+      this.getListenKey()
+    return
+  }
+    this.getListenKey()
+}
+
+// 获取 listenKey 信息
+root.methods.getListenKey = function () {
+  this.$http.send('GET_USER_LISTENKEY', {
+    bind: this,
+    callBack: this.re_getListenKey
+  });
+}
+// 获取 listenKey 信息
+root.methods.re_getListenKey = function (data) {
+  typeof(data) == 'string' && (data = JSON.parse(data));
+  console.info('listen======',data.data)
+  this.listenKey = data.data || ""
+  this.$store.commit("CHANGE_LISTENKEY",this.listenKey);
+}
+
+// 延长 listenKey 信息
+root.methods.postKeepListenKey = function () {
+  this.$http.send('POST_KEEP_LISTENKEY', {
+    bind: this,
+    params:{
+      listenKey : this.$store.state.listenKey,
+    },
+    callBack: this.re_postKeepListenKey
+  });
+}
+// 获取 listenKey 信息
+root.methods.re_postKeepListenKey = function (data) {
+  typeof(data) == 'string' && (data = JSON.parse(data));
+
+}
+
+// 关闭 listenKey 信息
+root.methods.postcloseListenKey = function () {
+  this.$http.send('POST_CLOSE_LISTENKEY', {
+    bind: this,
+    params: {
+      listenKey:this.$store.state.listenKey
+    },
+    callBack: this.re_postcloseListenKey
+  });
+}
+// 关闭 listenKey 信息
+root.methods.re_postcloseListenKey = function (data) {
+  typeof(data) == 'string' && (data = JSON.parse(data));
+  console.info('data======',data)
+}
+
 // 刷新频繁操作
 root.methods.refreshTipsPop = function () {
 

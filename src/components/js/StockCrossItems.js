@@ -4,7 +4,8 @@ root.name = 'StockCrossItems'
 
 root.props = {}
 root.props.transactionData = {
-  type: Array, default: function () {
+  type: Array,
+  default: function () {
     return []
   }
 }

@@ -53,6 +53,12 @@ store.state.themeColor = 1
 store.state.downloadShow=true,
 
 /**
+ * socket ListenKey
+ * @type {string}
+ */
+store.state.listenKey = ''
+
+/**
  * 用户的id！注意，这里要非常注意
  * @type {string}
  */
@@ -273,6 +279,11 @@ store.state.areaCode = '0086'
  * @type {{}}
  */
 store.mutations = {}
+
+// 改变 listenKey
+store.mutations.CHANGE_LISTENKEY = (state, info) => {
+  state.listenKey = info;
+}
 
 // 注册类型
 store.mutations.REGISTER_TYPE = (state, info) => {
