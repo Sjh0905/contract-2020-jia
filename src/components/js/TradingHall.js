@@ -1076,12 +1076,36 @@ root.methods.popWindowClosePositionModeBulletBox = function () {
 // 仓位模式选择
 root.methods.positionModeSelected = function (type) {
   this.positionModeFirstTemp = type
+  console.info('this.positionModeFirstTemp',this.positionModeFirstTemp)
 }
 // 仓位模式选择确认
 root.methods.positionModeSelectedConfirm = function () {
-  this.positionModeFirst = this.positionModeFirstTemp;
-  this.popWindowPositionModeBulletBox = false
-}
+
+    this.$http.send('POST_SINGLE_DOUBLE',{
+      bind: this,
+      params:{
+        dualSidePosition: this.positionModeFirstTemp == 'singleWarehouseMode' ? false : true,
+        timestamp: this.serverTime
+      },
+      callBack: this.re_positionModeSelectedConfirm,
+      errorHandler:this.error_positionModeSelectedConfirm
+    })
+  }
+// 获取币安24小时价格变动正确回调
+  root.methods.re_positionModeSelectedConfirm = function (data) {
+    typeof(data) == 'string' && (data = JSON.parse(data));
+    if(!data && !data.data)return
+    if (data.code == 200) {
+      this.positionModeFirst = this.positionModeFirstTemp;
+      this.popWindowPositionModeBulletBox = false
+      console.info('data====',data.code)
+    }
+  }
+// 获取币安24小时价格变动错误回调
+  root.methods.error_positionModeSelectedConfirm = function (err) {
+    console.log('获取币安24小时价格变动接口',err)
+  }
+
 //仓位模式End
 
 //仓位模式二级切换 Start
@@ -1346,6 +1370,9 @@ root.computed.positionModeConfigs = function () {
   let data = tradingHallData.positionModeConfigs;
   // console.log(data);
   return data
+}
+root.computed.serverTime = function () {
+  return new Date().getTime();
 }
 
 

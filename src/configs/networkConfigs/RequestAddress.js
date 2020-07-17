@@ -192,5 +192,9 @@ requestAddress.GET_CAPITAL_ALL_FLOW = {url: urlHead + '/future/orders/allOrders'
 requestAddress.GET_CAPITAL_DEAL = {url: urlHead + '/future/orders/userTrades', method: 'get',} // 历史成交
 requestAddress.GET_CAPITAL_CANCEL = {url: urlHead + '/future/orders/cancel', method: 'post',} // 取消订单
 requestAddress.GET_CAPITAL_CANCELALL = {url: urlHead + '/future/orders/cancelAll', method: 'post',} // 取消全部订单
+requestAddress.POST_CAPITAL_BIAN = {url: urlHead + '/future/account/userAccount', method: 'get',} // 保证金余额
+requestAddress.POST_SINGLE_DOUBLE = {url: urlHead + '/future/account/positionSide', method: 'post',} // 切换单双仓
+
+
 
 export default requestAddress
