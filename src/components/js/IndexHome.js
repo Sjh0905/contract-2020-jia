@@ -174,7 +174,7 @@ root.methods.GET_MARKET = function () {
   // 初始化数据请求
   this.initGetDatas();
   // 初始化socket
-  this.initSocket();
+  // this.initSocket();
 }
 
 // 初始化请求

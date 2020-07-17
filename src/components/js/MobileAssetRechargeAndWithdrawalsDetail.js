@@ -113,7 +113,7 @@ root.created = function () {
 }
 
 root.mounted = function () {
-  setTimeout(this.initSocket(), 1000)
+  // setTimeout(this.initSocket(), 1000)
 }
 
 /*----------------------------- 计算 ------------------------------*/
@@ -624,7 +624,7 @@ root.methods.error_getExchangeRate = function (err) {
 /*---------------------- 获取币对市场的值 begin ---------------------*/
 root.methods.init = function () {
   // 初始化订阅socket
-  this.initSocket();
+  // this.initSocket();
 
 }
 
