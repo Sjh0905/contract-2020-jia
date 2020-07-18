@@ -135,7 +135,7 @@ root.created = function () {
   // 拉取列表数据
   this.getDepthInfo();
   // 订阅socket
-  this.initSocket();
+  // this.initSocket();
 
 
   // 获取可用数量
@@ -1096,7 +1096,7 @@ root.watch.symbol = function (newValue, oldValue) {
 
   this.price = 0;
 
-  this.initSocket();
+  // this.initSocket();
 
   // 获取汇率
   !!this.$store.state.exchange_rate.btcExchangeRate || this.getExchangeRate();

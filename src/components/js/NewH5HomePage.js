@@ -898,7 +898,7 @@ root.methods.getMarkets = function () {
   // 初始化数据请求----cc 请求币对信息
   this.initGetMarketDatas();
   // 初始化socket
-  this.initSocket();
+  // this.initSocket();
   // 获取rate值
   this.getExchangeRate();
   // 获取首页币对信息
