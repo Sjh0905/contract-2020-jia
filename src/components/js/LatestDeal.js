@@ -136,18 +136,36 @@ root.methods.getScaleConfig = function () {
 }
 
 // 拉取数据
+// root.methods.tickCache = function () {
+//   let params = {
+//     symbol: this.symbol
+//   };
+//   this.$http.send("GET_TICK_CACHE", {
+//     bind: this,
+//     query: params,
+//     callBack: this.RE_GET_LATEST_DEAL,
+//     errorHandler: this.error_getCurrency
+//   })
+// }
+// root.methods.RE_GET_LATEST_DEAL = function (res) {
+//   // console.log("res---------"+res);
+//   if(!res)return
+//   let data = res.splice(0,50);
+//   this.socket_list_arrls = data;
+// }
+// 拉取实时成交数据
 root.methods.tickCache = function () {
   let params = {
     symbol: this.symbol
   };
-  this.$http.send("GET_TICK_CACHE", {
+  this.$http.send("GET_TRADES", {
     bind: this,
     query: params,
-    callBack: this.RE_GET_LATEST_DEAL,
+    callBack: this.RE_tickCache,
     errorHandler: this.error_getCurrency
   })
 }
-root.methods.RE_GET_LATEST_DEAL = function (res) {
+root.methods.RE_tickCache = function (res) {
   // console.log("res---------"+res);
   if(!res)return
   let data = res.splice(0,50);

@@ -320,7 +320,7 @@ root.watch.symbol = function (newValue, oldValue) {
   // 获取不同货币对精度
   // this.getScaleConfig();
 
-  this.initSocket();
+  // this.initSocket();
 
   this.getHeaderInfo();
   // 根据当前币对请求买或卖列表
@@ -375,7 +375,7 @@ root.created = function () {
   // 获取货币对列表
   this.getHeaderInfo();
   // 订阅socket
-  this.initSocket();
+  // this.initSocket();
   // 获取深度图 用来渲染header的price信息
   // this.getDepthInfo();
 

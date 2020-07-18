@@ -61,7 +61,7 @@ requestAddress.POST_CHANGE_PASSWORD = {url: urlHead+'/user/alterLoginPassword', 
 requestAddress.POST_CHANGE_PASSWORD_BY_MOBILE = {url: urlHead+'/user/alterLoginPasswordByMobile', method: 'post'} //手机用户修改密码接口
 
 
-// requestAddress.DEPTH = {baseURL: '', url: urlHead+'/v1/market/depth', method: 'get'} //深度
+requestAddress.DEPTH = {baseURL: '', url: urlHead+'/v1/market/depth', method: 'get'} //深度
 requestAddress.TRADE_ORDERS = {url: urlHead+'/v1/trade/orders', method: 'post'} // 买卖/撤单
 // requestAddress.KK_PRICE_RANGE = {url: urlHead+'/user/kk/symbol/priceRange', method: 'get'} // 获取KKPriceRange 的接口
 requestAddress.GRC_ACTIVITYREWARDS = {url: urlHead+'/user/getGrcActivityRewards', method: 'post'} // 获取grc 详情列表的接口
@@ -196,5 +196,12 @@ requestAddress.POST_CAPITAL_BIAN = {url: urlHead + '/future/account/userAccount'
 requestAddress.POST_SINGLE_DOUBLE = {url: urlHead + '/future/account/positionSide', method: 'post',} // 切换单双仓
 
 
+requestAddress.GET_DEPTH = {url: urlHead + '/future/common/depth', method: 'get',} // 合约深度
+requestAddress.GET_TRADES = {url: urlHead + '/future/common/recentTrade', method: 'get',} // 获取实时成交
+requestAddress.GET_USER_LISTENKEY = {url: urlHead + '/future/user/listenKey', method: 'get',} // 获取 listenKey 信息
+requestAddress.POST_KEEP_LISTENKEY = {url: urlHead + '/future/user/keepListenKey', method: 'post',} // 延长 listenKey 信息
+requestAddress.POST_CLOSE_LISTENKEY = {url: urlHead + '/future/user/closeListenKey', method: 'post',} // 关闭 listenKey 信息
+requestAddress.POST_ORDERS_POSITION = {url: urlHead + '/future/orders/closePosition', method: 'post',} // 平仓
+requestAddress.POST_ORDERS_CREATE = {url: urlHead + '/future/orders/create ', method: 'post',} // 开仓
 
 export default requestAddress

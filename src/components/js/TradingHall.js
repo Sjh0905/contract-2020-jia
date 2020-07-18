@@ -1,32 +1,9 @@
 import axios from "axios";
 import tradingHallData from "../../dataUtils/TradingHallDataUtils";
+import {parse} from "echarts/extension-src/dataTool/gexf";
 
 const root = {}
 root.props = {}
-// root.props.currency_list = {
-//   type: Object,
-//   default: {}
-// }
-// root.props.socket_tick = {
-//   type: Object,
-//   default: {}
-// }
-// root.props.socket_snap_shot = {
-//   type: Object,
-//   default: {}
-// }
-// root.props.socket_price = {
-//   type: Object,
-//   default: {}
-// }
-// root.props.btc_eth_rate = {
-//   type: Object,
-//   default: {}
-// }
-// root.props.buy_sale_list = {
-//   type: Object,
-//   default: {}
-// }
 
 root.name = 'TradingHall'
 
@@ -220,6 +197,8 @@ root.created = function () {
   this.initTicket24Hr()  // 获取币安24小时价格变动接口
   this.getMarkPricesAndCapitalRates()  // 获取币安最新标记价格和资金费率
   this.getLatestrice()  // 获取币安最新价格
+  this.getDepth()  // 获取币安深度
+
 }
 
 root.mounted = function () {
@@ -247,6 +226,119 @@ root.mounted = function () {
   // }
 }
 
+// 计算symbol变化
+root.computed = {};
+// 当前货币对
+root.computed.symbol = function () {
+  return this.$store.state.symbol;
+}
+// 实时价格
+root.computed.isNowPrice = function () {
+  // console.log('socket_snap_shot====',this.socket_snap_shot,this.buy_sale_list,this.quoteScale)
+  let price = this.$globalFunc.mergeObj(this.socket_snap_shot.price, this.buy_sale_list.price) || 0;
+  let priceObj = this.$globalFunc.mergeObj(this.socket_tick, {price: price});
+  let now_price = this.$globalFunc.accFixed(priceObj.price, this.quoteScale);
+  document.title = now_price+" "+this.$store.state.symbol.replace('_', '/')+" "+this.$t('document_title');
+  // if (!!this.socket_snap_shot.price)
+  return now_price;
+}
+// 实时价格的升降
+root.computed.direction = function () {
+  return this.socket_tick.direction;
+}
+// 实时价格cny
+root.computed.isCnyPrice = function () {
+  let close = this.isNowPrice || 0;
+  // if (this.$store.state.lang === 'CH') {
+  return ('￥' + this.$globalFunc.accFixedCny(this.$store.state.exchange_rate_dollar * (close * this.rate), 2));
+  // }
+  // else {
+  //   return ('$' + this.$globalFunc.accFixedCny((close * this.rate), 2));
+  // }
+  // if (this.$store.state.lang === 'EN') {
+  // 	return ('$' + ((close * this.rate)).toFixed(2));
+  // }
+}
+
+// 24小时最低价
+root.computed.low24 = function () {
+  // console.log('list', this.mergeList[this.symbol][3])
+  if (!this.mergeList[this.symbol]) return;
+  let low = Math.min((this.isNowPrice || 10000), this.mergeList[this.symbol][3]);
+  let low24 = this.$globalFunc.accFixed(low, this.quoteScale);
+  return low24;
+}
+// 24小时最高价
+root.computed.high24 = function () {
+  // console.log('list', this.mergeList[this.symbol][2])
+  if (!this.mergeList[this.symbol]) return;
+  let high = Math.max(this.isNowPrice, this.mergeList[this.symbol][2]);
+  let high24 = this.$globalFunc.accFixed(high, this.quoteScale);
+  return high24;
+}
+// 24小时成交量
+// root.computed.volume = function () {
+//   if (!this.mergeList[this.symbol]) return;
+//   let volume = this.$globalFunc.accFixed(this.mergeList[this.symbol][5], 0);
+//   return volume;
+// }
+
+// 实时价格 需要取BDB/ETH的时价和汇率来算BDB的汇率
+root.computed.topic_price = function () {
+  return this.socket_price;
+}
+
+root.computed.mergeList = function () {
+  let list = this.$globalFunc.mergeObj(this.socket_price, this.currency_list);
+  return list;
+}
+
+// 24小时涨跌
+root.computed.diff24 = function () {
+  // let diff = this.isNowPrice  - Number(this.mergeList[this.symbol][1])
+  // 减法
+  if (!this.mergeList[this.symbol]) return;
+  let diff = this.$globalFunc.accFixed(this.$globalFunc.accMinus(this.isNowPrice, this.mergeList[this.symbol][1]), this.quoteScale);
+  return diff;
+}
+// 24小时涨跌百分比 (现价 - 开盘价) / 开盘价
+root.computed.diff24Ratio = function () {
+  if (!this.mergeList[this.symbol]) return;
+  let now_price = this.isNowPrice || 0;
+  let diff = ((Number(now_price) - Number(this.mergeList[this.symbol][1])) / Number(this.mergeList[this.symbol][1])*100).toFixed(2);
+  // let diff = this.toFixed(this.accMul(this.accDiv(this.accMinus(now_price, this.mergeList[this.symbol][1]), this.mergeList[this.symbol][1] || 1), 100), 2)
+  if (this.mergeList[this.symbol][1] == 0) {
+    return 0
+  } else {
+    return diff;
+  }
+}
+
+/*****************************************************/
+root.computed.listenSymbol = function () {
+  return this.$store.state.symbol;
+}
+// 判断是否为移动端
+root.computed.isMobile = function () {
+  return this.$store.state.isMobile
+}
+// 特殊专区
+root.computed.specialSymbol = function () {
+  return this.$store.state.specialSymbol
+}
+// // 是否显示为蜜简介
+// root.computed.showSuperBeeIntroduction = function () {
+//   // if (this.specialSymbol[0].has(this.listenSymbol)) {
+//   //   return true
+//   // }
+//   return false
+// }
+//页面功能模块显示逻辑配置信息
+root.computed.positionModeConfigs = function () {
+  let data = tradingHallData.positionModeConfigs;
+  // console.log(data);
+  return data
+}
 // 初始化各子组件
 root.methods = {}
 /*---------------------- 合约接口部分 begin ---------------------*/
@@ -255,7 +347,7 @@ root.methods.initTicket24Hr = function () {
   this.$http.send('GET_TICKER_24HR',{
     bind: this,
     query:{
-      symbol:'BTCUSDT'
+      symbol:this.symbol
     },
     callBack: this.re_initTicket24Hr,
     errorHandler:this.error_initTicket24Hr
@@ -265,7 +357,7 @@ root.methods.initTicket24Hr = function () {
 root.methods.re_initTicket24Hr = function (data) {
   typeof(data) == 'string' && (data = JSON.parse(data));
   if(!data && !data.data)return
-  console.info('data====',data.data[0])
+  // console.info('data====',data.data[0])
   this.highPrice = data.data[0].highPrice || '--'
   this.lowPrice = data.data[0].lowPrice || '--'
   this.volume = data.data[0].volume || '--'
@@ -281,7 +373,7 @@ root.methods.getMarkPricesAndCapitalRates = function () {
   this.$http.send('GET_MARKET_PRICE',{
     bind: this,
     query:{
-      symbol:'BTCUSDT'
+      symbol:this.symbol
     },
     callBack: this.re_getMarkPricesAndCapitalRates,
     errorHandler:this.error_getMarkPricesAndCapitalRates
@@ -290,7 +382,7 @@ root.methods.getMarkPricesAndCapitalRates = function () {
 // 获取币安最新标记价格和资金费率正确回调
 root.methods.re_getMarkPricesAndCapitalRates = function (data) {
   typeof(data) == 'string' && (data = JSON.parse(data));
-  console.info('data========',data.data[0])
+  // console.info('data========',data.data[0])
   this.marketPrice = data.data[0].markPrice || '--'
   this.lastFundingRate = data.data[0].lastFundingRate || '--'
   this.nextFundingTime = data.data[0].nextFundingTime || '--'
@@ -306,7 +398,7 @@ root.methods.getLatestrice = function () {
   this.$http.send('GET_TICKER_PIRCE',{
     bind: this,
     query:{
-      symbol:'BTCUSDT',
+      symbol:this.symbol
     },
     callBack: this.re_getLatestrice,
     errorHandler:this.error_getLatestrice
@@ -315,7 +407,7 @@ root.methods.getLatestrice = function () {
 // 获取币安最新价格接口正确回调
 root.methods.re_getLatestrice = function (data) {
   typeof(data) == 'string' && (data = JSON.parse(data));
-  console.info('data========',data.data)
+  this.currency_list = this.$globalFunc.mergeObj(data.data[0], this.currency_list);
   this.Latestrice = data.data[0].price
 }
 // 获取币安最新价格接口错误回调
@@ -333,7 +425,8 @@ root.methods.getSymbolsList = function () {
 // 渲染币对列表信息
 root.methods.re_getSymbolsList = function (data) {
   let self = this;
-  this.getPrices();
+  // this.getPrices();
+  this.getLatestrice()
   typeof(data) == 'string' && (data = JSON.parse(data));
 
   // let symbol_list = [];
@@ -348,16 +441,35 @@ root.methods.re_getSymbolsList = function (data) {
 
   let objs = this.symbolList_priceList(data);
   this.currency_list = objs;
-  // this.currency_list = {
-  //   BTC_USDT:[0,0,0,0,0,0]
-  // };
 
   // 记录当前币对开始结束时间
-  data.symbols.forEach(function (v, i) {
-    self.symbol_config_times.push({name: v.name, startTime: v.startTime, endTime: v.endTime});
-  });
+  // data.symbols.forEach(function (v, i) {
+  //   self.symbol_config_times.push({name: v.name, startTime: v.startTime, endTime: v.endTime});
+  // });
 
 }
+
+// 获取深度信息
+root.methods.getDepth = function () {
+  this.$http.send('GET_DEPTH', {
+    bind: this,
+    query:{
+      symbol:'BTCUSDT',
+      limit: 50
+    },
+    callBack: this.re_getDepth
+  });
+}
+// 获取深度信息正确回调
+root.methods.re_getDepth = function (data) {
+  typeof(data) == 'string' && (data = JSON.parse(data));
+  // console.info('data======',data)
+  this.buy_sale_list = data;
+}
+
+
+
+
 /*---------------------- 合约接口部分 end ---------------------*/
 
 /*---------------------- hover弹框 begin ---------------------*/
@@ -463,11 +575,6 @@ root.methods.closeCalculatorWindow = function () {
 //   //   console.info('binance.futuresDepth( "BTCUSDT" )出错',err);
 //   // })
 // }
-
-
-
-
-
 
 root.methods.watchScreenWidth = function () {
   //必须声明局部变量，否则this.screenWidth不能触发页面渲染
@@ -865,54 +972,56 @@ root.methods.initGetDatas = function () {
   this.getExchangeRate();
 
 }
+// todo 币币交易获取价格接口处理
+// root.methods.getPrices = function () {
+//   this.$http.send('MARKET_PRICES', {
+//     bind: this,
+//     callBack: this.re_getCurrencyLists
+//   })
+// }
+// // price接口数据返回
+// root.methods.re_getCurrencyLists = function (data) {
+//   typeof(data) == 'string' && (data = JSON.parse(data));
+//   this.currency_list = this.$globalFunc.mergeObj(data, this.currency_list);
+// }
 
-root.methods.getPrices = function () {
-  this.$http.send('MARKET_PRICES', {
-    bind: this,
-    callBack: this.re_getCurrencyLists
-  })
-}
-// price接口数据返回
-root.methods.re_getCurrencyLists = function (data) {
-  typeof(data) == 'string' && (data = JSON.parse(data));
-  this.currency_list = this.$globalFunc.mergeObj(data, this.currency_list);
-}
-
+/* todo 重复获取币对 begin*/
 // 请求所有币对信息, header, right都需要此数据
-root.methods.getSymbolsList = function () {
-  this.$http.send('GET_SYMBOLS', {
-    bind: this,
-    callBack: this.re_getSymbolsList
-  });
-}
-// 渲染币对列表信息
-root.methods.re_getSymbolsList = function (data) {
-  let self = this;
-  this.getPrices();
-  typeof(data) == 'string' && (data = JSON.parse(data));
-
-  // let symbol_list = [];
-  // for (let symbol in data) {
-  // 	symbol_list.push(symbol);
-  // }
-  // if (symbol_list.indexOf(this.$store.state.symbol) < 0) {
-  // 	if (!!symbol_list[0]) {
-  // 		this.$store.commit('SET_SYMBOL', symbol_list[0]);
-  // 	}
-  // }
-
-  let objs = this.symbolList_priceList(data);
-  this.currency_list = objs;
-  // this.currency_list = {
-  //   BTC_USDT:[0,0,0,0,0,0]
-  // };
-
-  // 记录当前币对开始结束时间
-  data.symbols.forEach(function (v, i) {
-    self.symbol_config_times.push({name: v.name, startTime: v.startTime, endTime: v.endTime});
-  });
-
-}
+// root.methods.getSymbolsList = function () {
+//   this.$http.send('GET_SYMBOLS', {
+//     bind: this,
+//     callBack: this.re_getSymbolsList
+//   });
+// }
+// // 渲染币对列表信息
+// root.methods.re_getSymbolsList = function (data) {
+//   let self = this;
+//   // this.getPrices();
+//   typeof(data) == 'string' && (data = JSON.parse(data));
+//
+//   // let symbol_list = [];
+//   // for (let symbol in data) {
+//   // 	symbol_list.push(symbol);
+//   // }
+//   // if (symbol_list.indexOf(this.$store.state.symbol) < 0) {
+//   // 	if (!!symbol_list[0]) {
+//   // 		this.$store.commit('SET_SYMBOL', symbol_list[0]);
+//   // 	}
+//   // }
+//
+//   let objs = this.symbolList_priceList(data);
+//   this.currency_list = objs;
+//   // this.currency_list = {
+//   //   BTC_USDT:[0,0,0,0,0,0]
+//   // };
+//
+//   // // 记录当前币对开始结束时间
+//   // data.symbols.forEach(function (v, i) {
+//   //   self.symbol_config_times.push({name: v.name, startTime: v.startTime, endTime: v.endTime});
+//   // });
+//
+// }
+/* todo 重复获取币对 end*/
 
 // 对symbol获取的数据进行处理，处理成 {symbol: [time, 1,2,3,4,5]}的格式
 // 例如：{ETX_BTX:[1517653957367, 0.097385, 0.101657, 0.097385, 0.101658, 815.89]}
@@ -920,7 +1029,7 @@ root.methods.symbolList_priceList = function (symbol_list) {
   let obj = {};
   let objs = symbol_list.data;
   objs.forEach((v, i) => {
-    obj[v.name] = [0, 0, 0, 0, 0, 0];
+    obj[v.baseName+'_'+ v.quoteName] = [0, 0, 0, 0, 0, 0];
   })
   return obj;
 }
@@ -1376,6 +1485,7 @@ root.computed.serverTime = function () {
 }
 
 
+
 // 监听symbol 做一些操作
 root.watch = {};
 
@@ -1405,8 +1515,8 @@ root.watch.listenSymbol = function (newValue, oldValue) {
   this.socket_tick_obj = {};
 
   // this.buy_sale_list = {}//为了保证切换币对时价不显示0
-  this.buy_sale_list.sellOrders = []
-  this.buy_sale_list.buyOrders = []
+  this.buy_sale_list.asks = []
+  this.buy_sale_list.bids = []
 
   this.header_price = {}
   // socket_price: {}, //总价格
