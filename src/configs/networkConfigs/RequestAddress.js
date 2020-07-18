@@ -191,6 +191,7 @@ requestAddress.GET_TRADES = {url: urlHead + '/future/common/recentTrade', method
 requestAddress.GET_USER_LISTENKEY = {url: urlHead + '/future/user/listenKey', method: 'get',} // 获取 listenKey 信息
 requestAddress.POST_KEEP_LISTENKEY = {url: urlHead + '/future/user/keepListenKey', method: 'post',} // 延长 listenKey 信息
 requestAddress.POST_CLOSE_LISTENKEY = {url: urlHead + '/future/user/closeListenKey', method: 'post',} // 关闭 listenKey 信息
-requestAddress.POST_CLOSE_POSITION = {url: urlHead + '/future/orders/closePosition', method: 'post',} // 开仓
+requestAddress.POST_ORDERS_POSITION = {url: urlHead + '/future/orders/closePosition', method: 'post',} // 平仓
+requestAddress.POST_ORDERS_CREATE = {url: urlHead + '/future/orders/create ', method: 'post',} // 开仓
 
 export default requestAddress

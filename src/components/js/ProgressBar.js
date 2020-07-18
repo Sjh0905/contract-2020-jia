@@ -26,11 +26,11 @@ root.computed.isLogin = function () {
 }
 // 是否绑定谷歌验证
 root.computed.bindGa = function () {
-  return this.$store.state.authState.ga
+  return this.$store.state.authState.gaAuth
 }
 // 是否绑定手机
 root.computed.bindMobile = function () {
-  return this.$store.state.authState.sms
+  return this.$store.state.authState.mobile
 }
 // 是否绑定邮箱
 root.computed.bindEmail = function () {
@@ -284,6 +284,8 @@ root.created = function () {
 
   this.getKKPriceRange();
   // this.tradeMarket()
+  this.postOrdersPosition()
+  this.postOrdersCreate()
 
 }
 
@@ -319,13 +321,44 @@ root.methods.closePositionBox= function (name) {
 root.methods.openPositionBox = function (name) {
   $("." + name).attr("style","display:block");
 }
-
+/*---------------------- hover弹框 end ---------------------*/
 
 
 /*----------------------------- 方法 ------------------------------*/
-root.methods.createSlider = () =>{
-
+// 开仓
+root.methods.postOrdersCreate = function () {
+  this.$http.send('POST_ORDERS_CREATE',{
+    bind: this,
+    callBack: this.re_postOrdersCreate,
+    errorHandler: this.error_postOrdersCreate
+  })
 }
+root.methods.re_postOrdersCreate = function (data) {
+  typeof (data) === 'string' && (data = JSON.parse(data))
+  if (!data) return
+  console.info('data=======',data)
+}
+root.methods.error_postOrdersCreate = function (err) {
+  console.info('err======',err)
+}
+
+// 平仓
+root.methods.postOrdersPosition = function () {
+  this.$http.send('POST_ORDERS_POSITION',{
+    bind: this,
+    callBack: this.re_postOrdersPosition,
+    errorHandler: this.error_postOrdersPosition
+  })
+}
+root.methods.re_postOrdersPosition = function (data) {
+  typeof (data) === 'string' && (data = JSON.parse(data))
+  if (!data) return
+  console.info('data=======',data)
+}
+root.methods.error_postOrdersPosition = function (err) {
+  console.info('err====',err)
+}
+
 // 判断当前币是否可交易
 root.methods.SYMBOL_ENTRANSACTION = function () {
   let self = this;
@@ -646,7 +679,7 @@ root.methods.tradeMarket = function (popWindowOpen1,type) {
   let txt = !this.orderType ? this.lang == 'CH' ? '买入' : 'Buy' : this.lang == 'CH' ? '卖出' : 'Sell';
   let symbol = this.$store.state.symbol;
   // 判断有没有登录
-  if (!this.$store.state.authMessage.userId) {
+  if (!this.$store.state.authState.userId) {
     this.$router.push({name: 'login'})
     return
   }
