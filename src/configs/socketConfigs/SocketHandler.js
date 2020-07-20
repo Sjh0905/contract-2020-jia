@@ -1,5 +1,6 @@
 import wsServer from './SocketServer'
 import Vue from 'vue'
+const STREAMNAMEARR = ['aggTrade','depth','markPrice','miniTicker']
 
 export default class {
   constructor() {
@@ -26,11 +27,12 @@ export default class {
 
     this.socket.onopen = ()=> {//这里必须写箭头函数，否则作用域出错
       this.socketInterval = null;//清空定时器
-      this.socket.send(JSON.stringify({
-        action: 'subscribe',
-        symbol: symbol || this.symbol
-      }));
+      // this.socket.send(JSON.stringify({
+      //   method: 'SUBSCRIBE',
+      //   symbol: symbol || this.symbol
+      // }));
       // this.emit('subscribe', {symbol:symbol});
+      this.emit('SUBSCRIBE', ["btcusdt@depth","btcusdt@aggTrade"]);
     }
 
     //------------------func2------------------//
@@ -41,13 +43,14 @@ export default class {
     this.socket.onmessage = (event)=>{
       // console.log("this.data = 服务端返回 ========"+event.data);
       var data = JSON.parse(event.data);
-      if (Array.isArray(data) && data.length==2) {
+      if (Object.prototype.toString.call(data) == "[object Object]") {
         // console.log("this.data= callBack ========",data);
-        var topic = data[0],
-          message = data[1];
+        var stream = data.stream || '',
+            message = data.data,
+            streamKey = STREAMNAMEARR.find(v=>stream.indexOf(v)>-1);
 
         this.onMap.forEach(function(keyMap,key){
-          let funcArr = keyMap.get(topic);
+          let funcArr = keyMap.get(streamKey);
           funcArr && funcArr.map(function(callBack){
             // console.log('funcArr ========',callBack);
             callBack(message);
@@ -121,19 +124,20 @@ export default class {
 
   /**
    * 触发一个自定义事件
-   * @param key     字符串，事件名称
+   * @param method     字符串，事件名称
    * @param params  币对名称
    */
-  emit(key, params) {
+  emit(method, params) {
 
     //存储当期币对
     this.symbol = params && params.symbol || '';
-    if (this.socket.readyState===1 && params && params.symbol) {
+    // if (this.socket.readyState===1 && params && params.symbol) {
       this.socket.send(JSON.stringify({
-        action: key,
-        symbol: params.symbol
+        id:1,
+        method,
+        params
       }));
-    }
+    // }
   }
 
   /**
@@ -173,6 +177,7 @@ export default class {
    * @param callBack  函数
    */
   off({key, bind, callBack}) {
+    return
     // 如果没有写bind，则表示取消绑定一个函数
     if (bind instanceof Vue === false) {
       // this.io.off(key, callBack)

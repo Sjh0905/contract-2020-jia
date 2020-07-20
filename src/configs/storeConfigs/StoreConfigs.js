@@ -182,10 +182,7 @@ store.state.OTCappraisementChange = 0 // 币种估值发生变化
 store.state.baseCurrency = 'BTC'
 
 store.state.quoteConfig = [
-  {name: 'BDB_BTC', baseScale: 0, quoteScale: 8},
-  {name: 'BDB_ETH', baseScale: 2, quoteScale: 6},
-  {name: 'BTC_USD', baseScale: 4, quoteScale: 2},
-  {name: 'ETH_BTC', baseScale: 3, quoteScale: 6},
+  {name: 'BTC_USDT', baseScale: 3, quoteScale: 2},
 ]
 
 /**
@@ -222,6 +219,7 @@ store.state.buy_or_sale_type = 1
 store.state.authState = null
 
 store.state.symbol = ''
+store.state.subscribeSymbol = 'BTCUSDT'
 
 /**
  * 服务器时间

@@ -6,12 +6,12 @@ let interval;
 
 root.data = function () {
 	return {
-		list: [],
-		baseScale: 0,
-    quoteScale: 8,
-    socket_list_arrls: [],
-    newsymbol: '',
-    tickboolean:1
+      list: [],
+      baseScale: 0,
+      quoteScale: 8,
+      socketListArrls: [],
+      newsymbol: '',
+      tickboolean:1
 	}
 }
 
@@ -21,18 +21,18 @@ root.components = {
 
 root.props = {};
 
-root.props.socket_tick_arr = {
+root.props.socketTickArr = {
 	type: Array,
 	default: function () {
 		return [];
 	}
 }
-root.props.socket_tick_obj = {
+root.props.socketTickObj = {
 	type: Object,
 	default: {}
 }
 
-root.props.trade_loading = {
+root.props.tradeLoading = {
 	type: Boolean,
 	default: true
 }
@@ -58,26 +58,27 @@ root.computed.amountName = function () {
 root.computed.symbol = function () {
 	return this.$store.state.symbol;
 }
+// 当前socket订阅货币对
+root.computed.subscribeSymbol = function () {
+  return this.$store.state.subscribeSymbol;
+}
 
-root.computed.socket_list = function () {
+root.computed.socketList = function () {
 
-	if (this.socket_tick_arr.length > 0) {
-		var list = this.socket_tick_arr.splice(0, 50);
+	// if (this.socketTickArr.length > 0) {
+	// 	var list = this.socketTickArr.splice(0, 50);
+	// }
+
+	if (!!this.socketTickObj.s) {
+		this.list.unshift(this.socketTickObj);
+		this.list = this.list.splice(0, 50);
 		// this.list = list;
 	}
-
-	if (!!this.socket_tick_obj.symbol) {
-		var lists = [];
-		lists.unshift(this.socket_tick_obj);
-		var list = lists.splice(0, 50);
-		// this.list = list;
-
-	}
-	let socket_list_arr = [];
+	let socketListArr = [];
 	let self = this;
-	!!list && list.forEach((v) => {
-		if (v.symbol == self.symbol) {
-			socket_list_arr.push(v);
+	!!this.list && this.list.forEach((v) => {
+		if (v.s == self.subscribeSymbol) {
+			socketListArr.push(v);
 		}
 	})
 
@@ -85,43 +86,36 @@ root.computed.socket_list = function () {
     this.newsymbol = this.symbol;
   }
 
-  this.socket_list_arrls.length > 50 && (this.socket_list_arrls = this.socket_list_arrls.splice(0,50))
+  //TODO this.socketListArrls.length > 50 && (this.socketListArrls = this.socketListArrls.splice(0,50))
 
-  if(socket_list_arr.length>0){
-    // this.socket_list_arrls = socket_list_arr;
-    this.newsymbol = this.symbol;
+  // if(socketListArr.length>0){
+  //   this.newsymbol = this.symbol;
+  //   this.socketListArrls = socketListArr.concat(this.socketListArrls)
+  //
+  //   socketListArr = this.socketListArrls;
+  //
+  // }else if(this.newsymbol != this.symbol && socketListArr.length==0){
+  //   socketListArr = this.socketListArrls;
+  // }else{
 
-    // console.log("socket_list_arr=============",socket_list_arr);
-    // this.socket_list_arrls.unshift(socket_list_arr[0])
+    //TODO socketListArr = this.socketListArrls;
+  // }
 
-    this.socket_list_arrls = socket_list_arr.concat(this.socket_list_arrls)
+  // console.log("this.socketListArrls=============",this.socketListArrls);
+  socketListArr > 50 && (socketListArr = socketListArr.splice(0,50))
 
-    socket_list_arr = this.socket_list_arrls;
-
-  }else if(this.newsymbol != this.symbol && socket_list_arr.length==0){
-    socket_list_arr = this.socket_list_arrls;
-    // return socket_list_arr || [];
-  }else{
-
-    socket_list_arr = this.socket_list_arrls;
-  }
-
-  // console.log("this.socket_list_arrls=============",this.socket_list_arrls);
-  socket_list_arr > 50 && (socket_list_arr = socket_list_arr.splice(0,50))
-
-  // return socket_list_arr || [];
-  return socket_list_arr;
-
+  // return socketListArr || [];
+  return socketListArr;
 }
 
 
 root.watch = {};
 
 root.watch.symbol = function (newValue, oldValue) {
-	if (newValue == oldValue) return;
-	this.getScaleConfig();
+  if (newValue == oldValue) return;
+  this.getScaleConfig();
   this.tickCache();
-  this.socket_list;
+  this.socketList;
 }
 
 
@@ -130,7 +124,7 @@ root.methods = {};
 root.methods.getScaleConfig = function () {
   this.$store.state.quoteConfig.forEach(
     v => {
-      v.name === this.$store.state.symbol && (this.baseScale = v.baseScale , this.quoteScale = v.quoteScale)
+      v.name === this.symbol && (this.baseScale = v.baseScale , this.quoteScale = v.quoteScale)
     }
   )
 }
@@ -151,7 +145,7 @@ root.methods.getScaleConfig = function () {
 //   // console.log("res---------"+res);
 //   if(!res)return
 //   let data = res.splice(0,50);
-//   this.socket_list_arrls = data;
+//   this.socketListArrls = data;
 // }
 // 拉取实时成交数据
 root.methods.tickCache = function () {
@@ -161,15 +155,15 @@ root.methods.tickCache = function () {
   this.$http.send("GET_TRADES", {
     bind: this,
     query: params,
-    callBack: this.RE_tickCache,
+    callBack: this.re_tickCache,
     errorHandler: this.error_getCurrency
   })
 }
-root.methods.RE_tickCache = function (res) {
-  // console.log("res---------"+res);
+root.methods.re_tickCache = function (res) {
+  // console.log("GET_TRADES---------",res);
   if(!res)return
   let data = res.splice(0,50);
-  this.socket_list_arrls = data;
+  this.socketListArrls = data;
 }
 
 // 组件销毁前清除

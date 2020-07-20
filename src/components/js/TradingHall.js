@@ -59,8 +59,8 @@ root.data = function () {
     socket_snap_shot: {}, //深度图
     socket_snap_shot_temp: {}, //记录最近一次时间间隔小于500ms的深度图
     snap_shot_timeout: null, //定时器，判断是否刷新最近一次时间间隔小于500ms的深度图
-    socket_tick_arr: [], // 第一次tick推送 数组，用作全站成交
-    socket_tick_obj: {}, // 单个成交推送 对象，用作全站成交
+    socketTickArr: [], // 第一次tick推送 数组，用作全站成交
+    socketTickObj: {}, // 单个成交推送 对象，用作全站成交
 
     // 信息提示
     popType: 0,
@@ -211,9 +211,7 @@ root.mounted = function () {
   this.$router.push({name: 'tradingHall', query: {symbol: this.$store.state.symbol}});
 
   var that = this
-  window.onresize = ()=>{
-    that.watchScreenWidth()
-  }
+  window.onresize = () => that.watchScreenWidth()//为了避免页面刷新后监听失效，去掉函数的{}
 
   // window.onresize = function () {
   //     window.screenWidth = document.body.clientWidth
@@ -232,8 +230,13 @@ root.computed = {};
 root.computed.symbol = function () {
   return this.$store.state.symbol;
 }
+// 当前socket订阅货币对
+root.computed.subscribeSymbol = function () {
+  return this.$store.state.subscribeSymbol;
+}
 // 实时价格
 root.computed.isNowPrice = function () {
+  return 0//TODO 以后再说
   // console.log('socket_snap_shot====',this.socket_snap_shot,this.buy_sale_list,this.quoteScale)
   let price = this.$globalFunc.mergeObj(this.socket_snap_shot.price, this.buy_sale_list.price) || 0;
   let priceObj = this.$globalFunc.mergeObj(this.socket_tick, {price: price});
@@ -244,6 +247,7 @@ root.computed.isNowPrice = function () {
 }
 // 实时价格的升降
 root.computed.direction = function () {
+  return 0//TODO 以后再说
   return this.socket_tick.direction;
 }
 // 实时价格cny
@@ -784,8 +788,8 @@ root.methods.func_topic_tick = function(message){
     this.socket_tick = {}
   }
   // this.socket_tick = message instanceof Array && message[0] || message;
-  this.socket_tick_arr = message instanceof Array && (message[0]['symbol'] === this.$store.state.symbol && message) || [];
-  this.socket_tick_obj = message instanceof Array && {} || (message.symbol === this.$store.state.symbol && message);
+  this.socketTickArr = message instanceof Array && (message[0]['symbol'] === this.$store.state.symbol && message) || [];
+  this.socketTickObj = message instanceof Array && {} || (message.symbol === this.$store.state.symbol && message);
   // 取消板块loading
   this.trade_loading = false;
 }
@@ -846,106 +850,126 @@ root.methods.func_topic_prices = function(message){
 root.methods.initSocket = function () {
   let that = this;
   // 订阅某个币对的信息
-  this.$socket.emit('unsubscribe', {symbol: this.$store.state.symbol});
-  this.$socket.emit('subscribe', {symbol: this.$store.state.symbol});
+  // this.$socket.emit('UNSUBSCRIBE', {symbol: this.$store.state.symbol});
+  // this.$socket.emit('SUBSCRIBE', ["btcusdt@depth"]);
 
-  this.$socket.on({key: 'connect',bind: this,callBack: ()=>{
-      // console.log("监听socket连接状态，成功，订阅消息")
-      this.$socket.emit('unsubscribe', {symbol: this.$store.state.symbol});
-      this.$socket.emit('subscribe', {symbol: this.$store.state.symbol});
-      }
+  // 获取深度图信息
+  this.$socket.on({
+    key: 'depth', bind: this, callBack: (message) => {
+      // console.log('depth is ===',message);
     }
-  )
+  })
+
+  // 获取最新成交，归集交易
+  this.$socket.on({
+    key: 'aggTrade', bind: this, callBack: (message) => {
+      if(!message)return
+
+      this.socket_tick = message.s === this.subscribeSymbol && message || {}
+      this.socketTickObj = message.s === this.subscribeSymbol && message || {}
+      // 取消板块loading
+      this.trade_loading = false;
+        // console.log('aggTrade is ===',message);
+      }
+  })
+
+  // this.$socket.on({key: 'connect',bind: this,callBack: ()=>{
+  //     // console.log("监听socket连接状态，成功，订阅消息")
+  //     this.$socket.emit('unsubscribe', {symbol: this.$store.state.symbol});
+  //     this.$socket.emit('subscribe', {symbol: this.$store.state.symbol});
+  //     }
+  //   }
+  // )
 
   // this.$socket.on({key: 'reconnect',bind: this,callBack: (data)=>{
   //   console.log("监听socket连接状态，重连",data)
   // }})
 
   // k线
-  this.$socket.on({
-    key: 'topic_bar', bind: this, callBack: (message) => {
-      if (this.$store.state.symbol == message.symbol) {
-        this.topic_bar = message;
-      }
-    }
-  })
+  // this.$socket.on({
+  //   key: 'topic_bar', bind: this, callBack: (message) => {
+  //     if (this.$store.state.symbol == message.symbol) {
+  //       this.topic_bar = message;
+  //     }
+  //   }
+  // })
   // console.log("topic_bar 订阅成功")
 
   // 获取所有币对价格
-  this.$socket.on({
-    key: 'topic_tick', bind: this, callBack: (message) => {
-      this.socket_tick = message instanceof Array && (message[0]['symbol'] === this.$store.state.symbol && message[0]) || (message.symbol === this.$store.state.symbol && message)
-      //当this.socket_tick为false的时候，给一个默认值{}
-      if(!this.socket_tick){
-        this.socket_tick = {}
-      }
-      // this.socket_tick = message instanceof Array && message[0] || message;
-      this.socket_tick_arr = message instanceof Array && (message[0]['symbol'] === this.$store.state.symbol && message) || [];
-      this.socket_tick_obj = message instanceof Array && {} || (message.symbol === this.$store.state.symbol && message || {});
-      // 取消板块loading
-      this.trade_loading = false;
-    }
-  })
+  // this.$socket.on({
+  //   key: 'topic_tick', bind: this, callBack: (message) => {
+  //     this.socket_tick = message instanceof Array && (message[0]['symbol'] === this.$store.state.symbol && message[0]) || (message.symbol === this.$store.state.symbol && message)
+  //     //当this.socket_tick为false的时候，给一个默认值{}
+  //     if(!this.socket_tick){
+  //       this.socket_tick = {}
+  //     }
+  //     // this.socket_tick = message instanceof Array && message[0] || message;
+  //     this.socketTickArr = message instanceof Array && (message[0]['symbol'] === this.$store.state.symbol && message) || [];
+  //     this.socketTickObj = message instanceof Array && {} || (message.symbol === this.$store.state.symbol && message || {});
+  //     // 取消板块loading
+  //     this.trade_loading = false;
+  //   }
+  // })
   // console.log("topic_tick 订阅成功")
 
 
   // 获取深度图信息 左侧列表
-  this.$socket.on({
-    key: 'topic_snapshot', bind: this, callBack: (message) => {
-      // console.log(this.$store.state.symbol+"----------------11111111111111-------------------"+message.symbol);
-      if (this.$store.state.symbol == message.symbol) {
-        if (Number(message.timestamp) - Number(this.refreshTime) > this.refresh) {
-
-          this.snap_shot_timeout && clearTimeout(this.snap_shot_timeout);
-          // console.log('正常刷新，清空定时器',this.snap_shot_timeout);
-          this.socket_snap_shot = message;
-          this.refreshTime = message.timestamp;
-        }else {
-          this.socket_snap_shot_temp = message;
-
-          this.snap_shot_timeout && clearTimeout(this.snap_shot_timeout);
-          this.snap_shot_timeout = setTimeout(()=>{
-            let refreshTime = this.socket_snap_shot_temp.timestamp;
-            // console.log('小于最近一次时间间隔小于500ms深度图的时间',this.refreshTime < refreshTime);
-            // console.log('刷新为',this.socket_snap_shot_temp);
-            // 如果最后一次刷新时间小于最近一次时间间隔小于500ms深度图的时间，说明没有任何推送，主动刷新
-            if (this.refreshTime < refreshTime){
-              this.socket_snap_shot = this.socket_snap_shot_temp;
-              this.refreshTime = refreshTime;
-            }
-          },this.refresh)
-        }
-        //延迟500ms刷新，如果不写else代码，如果当前没有推送，上一次刷新间隔时间小于500ms，
-        // 则不会进行最后一次数据的刷新，直到下一次推送才会重新判断时间，以下写法只会让所有推送延迟刷新
-        // 并不会减少刷新次数
-        // setTimeout(()=>{
-        //
-        //   //如果this.refresh为0，则说明切换了币对或第一次进入，只有在当前币对页面停留才需要延迟500ms
-        //   this.refresh == 0 && (this.refresh = 500);
-        //
-        //   this.socket_snap_shot = message;
-        //   // this.refreshTime = message.timestamp;
-        // },this.refresh)
-      }
-      // 取消板块loading
-      this.trade_loading = false;
-    }
-  })
+  // this.$socket.on({
+  //   key: 'topic_snapshot', bind: this, callBack: (message) => {
+  //     // console.log(this.$store.state.symbol+"----------------11111111111111-------------------"+message.symbol);
+  //     if (this.$store.state.symbol == message.symbol) {
+  //       if (Number(message.timestamp) - Number(this.refreshTime) > this.refresh) {
+  //
+  //         this.snap_shot_timeout && clearTimeout(this.snap_shot_timeout);
+  //         // console.log('正常刷新，清空定时器',this.snap_shot_timeout);
+  //         this.socket_snap_shot = message;
+  //         this.refreshTime = message.timestamp;
+  //       }else {
+  //         this.socket_snap_shot_temp = message;
+  //
+  //         this.snap_shot_timeout && clearTimeout(this.snap_shot_timeout);
+  //         this.snap_shot_timeout = setTimeout(()=>{
+  //           let refreshTime = this.socket_snap_shot_temp.timestamp;
+  //           // console.log('小于最近一次时间间隔小于500ms深度图的时间',this.refreshTime < refreshTime);
+  //           // console.log('刷新为',this.socket_snap_shot_temp);
+  //           // 如果最后一次刷新时间小于最近一次时间间隔小于500ms深度图的时间，说明没有任何推送，主动刷新
+  //           if (this.refreshTime < refreshTime){
+  //             this.socket_snap_shot = this.socket_snap_shot_temp;
+  //             this.refreshTime = refreshTime;
+  //           }
+  //         },this.refresh)
+  //       }
+  //       //延迟500ms刷新，如果不写else代码，如果当前没有推送，上一次刷新间隔时间小于500ms，
+  //       // 则不会进行最后一次数据的刷新，直到下一次推送才会重新判断时间，以下写法只会让所有推送延迟刷新
+  //       // 并不会减少刷新次数
+  //       // setTimeout(()=>{
+  //       //
+  //       //   //如果this.refresh为0，则说明切换了币对或第一次进入，只有在当前币对页面停留才需要延迟500ms
+  //       //   this.refresh == 0 && (this.refresh = 500);
+  //       //
+  //       //   this.socket_snap_shot = message;
+  //       //   // this.refreshTime = message.timestamp;
+  //       // },this.refresh)
+  //     }
+  //     // 取消板块loading
+  //     this.trade_loading = false;
+  //   }
+  // })
   // console.log("topic_snapshot 订阅成功")
 
   // 接收所有币对实时价格
-  this.$socket.on({
-    key: 'topic_prices', bind: this, callBack: (message) => {
-      this.socket_price = message;
-      // console.warn('this is topic_price',message)
-      // let obj = {}
-      // obj[this.$store.state.symbol] = [0,0,0,0,0,0]
-      // this.socket_price = this.$globalFunc.mergeObj(message,obj)
-
-      // 取消板块loading
-      this.trade_loading = false;
-    }
-  })
+  // this.$socket.on({
+  //   key: 'topic_prices', bind: this, callBack: (message) => {
+  //     this.socket_price = message;
+  //     // console.warn('this is topic_price',message)
+  //     // let obj = {}
+  //     // obj[this.$store.state.symbol] = [0,0,0,0,0,0]
+  //     // this.socket_price = this.$globalFunc.mergeObj(message,obj)
+  //
+  //     // 取消板块loading
+  //     this.trade_loading = false;
+  //   }
+  // })
   // console.log("topic_prices 订阅成功")
 }
 
@@ -1366,8 +1390,8 @@ root.watch.listenSymbol = function (newValue, oldValue) {
   this.socket_snap_shot = {};
   this.socket_tick = {};
   this.topic_bar = {};
-  this.socket_tick_arr = [];
-  this.socket_tick_obj = {};
+  this.socketTickArr = [];
+  this.socketTickObj = {};
 
   // this.buy_sale_list = {}//为了保证切换币对时价不显示0
   this.buy_sale_list.asks = []

@@ -187,6 +187,8 @@ root.methods.re_getListenKey = function (data) {
   console.info('listen======',data.data)
   this.listenKey = data.data || ""
   this.$store.commit("CHANGE_LISTENKEY",this.listenKey);
+
+  // this.$socket.emit('SUBSCRIBE', [this.listenKey]);
 }
 
 // 延长 listenKey 信息
