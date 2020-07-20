@@ -446,9 +446,9 @@ root.methods.slectSymbol = function (symbol, item) {
   }, this.$globalFunc.accFixed(item.close, quoteScale))
 
   //  console.log(item.close)
-  this.$socket.emit('unsubscribe', {
-    symbol: this.$store.state.symbol
-  });
+  // this.$socket.emit('unsubscribe', {
+  //   symbol: this.$store.state.symbol
+  // });
   // this.$store.commit('SET_SYMBOL', symbol);
   // 把当前选中的币对写入cookie
   let user_id = this.$store.state.authMessage.userId;

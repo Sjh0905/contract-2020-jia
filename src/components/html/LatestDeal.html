@@ -6,16 +6,16 @@
 			<div class="title_li valome">{{$t('latestDeal.amount')}} ({{amountName}})</div>
 		<!--</ul>-->
 	</div>
-	<div class="detail" v-show="trade_loading">
+	<div class="detail" v-show="tradeLoading">
 		<Loading/>
 	</div>
-	<div class="detail" v-show="!trade_loading" v-if="socket_list.length != 0">
-		<ul v-if="socket_list.length > 0" class="detail_ul flex-row" v-for="item in socket_list">
-      <li class="title_li time">{{$globalFunc.formatDateUitl(item.createdAt, 'hh:mm:ss')}}</li>
-			<li class="title_li price" :class="item.direction ? 'buy' : 'sall'">{{$globalFunc.accFixed(item.price, quoteScale)}}</li>
-			<li class="title_li valome">{{$globalFunc.accFixed(item.amount, baseScale)}}</li>
+	<div class="detail" v-show="!tradeLoading" v-if="socketList.length != 0">
+		<ul v-if="socketList.length > 0" class="detail_ul flex-row" v-for="item in socketList">
+      <li class="title_li time">{{$globalFunc.formatDateUitl(item.T, 'hh:mm:ss')}}</li>
+			<li class="title_li price" :class="!item.m ? 'buy' : 'sall'">{{$globalFunc.accFixed(item.p, quoteScale || 2)}}</li>
+			<li class="title_li valome">{{$globalFunc.accFixed(item.q, baseScale || 3)}}</li>
 		</ul>
-		<ul class="no_list flex-center" v-if="socket_list.length == 0">
+		<ul class="no_list flex-center" v-if="socketList.length == 0">
 			{{$t('latestDeal.available')}}
 		</ul>
 	</div>
