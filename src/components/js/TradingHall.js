@@ -109,7 +109,7 @@ root.data = function () {
     marginModeType:1,
     //仓位模式End
 
-
+    leverage:'', // 杠杆倍数
 
 
     /* TODO ================================    合约数据   =================================== */
@@ -155,6 +155,8 @@ root.data = function () {
     lastFundingRate: '', // 资金费率
     nextFundingTime: '',   // 下次资金费时间
     Latestrice: '',   // 最新价格
+    maxNotionalValue: '',   // 当前杠杆倍数下允许的最大名义价值
+    marginType:''
 
 
   }
@@ -198,6 +200,7 @@ root.created = function () {
   this.getMarkPricesAndCapitalRates()  // 获取币安最新标记价格和资金费率
   this.getLatestrice()  // 获取币安最新价格
   this.getDepth()  // 获取币安深度
+  this.positionRisk()  // 获取全逐仓状态
 
 }
 
@@ -454,7 +457,7 @@ root.methods.getDepth = function () {
   this.$http.send('GET_DEPTH', {
     bind: this,
     query:{
-      symbol:'BTCUSDT',
+      symbol:'BTC_USDT',
       limit: 50
     },
     callBack: this.re_getDepth
@@ -516,9 +519,10 @@ root.methods.getEffectiveTimeClassName = function () {
 root.methods.openAdjustingLever = function () {
   this.popWindowAdjustingLever = true
 }
-// 打开双仓模式
+// 打开全仓逐仓弹窗
 root.methods.openSecurityDepositMode = function () {
   this.popWindowSecurityDepositMode = true
+
 }
 // 打开计算机
 root.methods.openCalculatorWindow = function () {
@@ -533,7 +537,7 @@ root.methods.closeCalculatorWindow = function () {
 // 获取币安24小时价格变动接口
 // root.methods.initTicket24Hr =  async function () {
 //   this.$binance.futuresDaily(
-//     'BTCUSDT'
+//     'BTC_USDT'
 //   ).then((data)=>{
 //     typeof(data) == 'string' && (data = JSON.parse(data));
 //     this.highPrice = data.highPrice || '--'
@@ -541,14 +545,14 @@ root.methods.closeCalculatorWindow = function () {
 //     this.volume = data.volume || '--'
 //     this.priceChangePercent = data.priceChangePercent || '--'
 //   }).catch((err)=>{
-//     console.info('binance.futuresDepth( "BTCUSDT" )出错',err);
+//     console.info('binance.futuresDepth( "BTC_USDT" )出错',err);
 //   })
 // }
 
 // 获取币安最新标记价格和资金费率
 // root.methods.getMarkPricesAndCapitalRates =  async function () {
 //   this.$binance.futuresMarkPrice(
-//     'BTCUSDT'
+//     'BTC_USDT'
 //   ).then((data)=>{
 //     typeof(data) == 'string' && (data = JSON.parse(data));
 //     this.marketPrice = data.markPrice || '--'
@@ -556,7 +560,7 @@ root.methods.closeCalculatorWindow = function () {
 //     this.nextFundingTime = data.nextFundingTime || '--'
 //
 //   }).catch((err)=>{
-//     console.info('binance.futuresDepth( "BTCUSDT" )出错',err);
+//     console.info('binance.futuresDepth( "BTC_USDT" )出错',err);
 //   })
 // }
 
@@ -1260,28 +1264,89 @@ root.methods.popWindowCloseSecurityDepositMode = function () {
 root.methods.securityDepositMode = function (cardType) {
   this.cardType = cardType
 }
+root.methods.positionRisk = function () {
+  this.$http.send('GET_POSITION_RISK',{
+    bind: this,
+    // query:{
+    //   "symbol":'BTCUSDT'
+    // },
+    callBack: this.re_positionRisk
+  })
+}
+root.methods.re_positionRisk = function (data) {
+  typeof(data) == 'string' && (data = JSON.parse(data));
+  console.info('data=====',data)
+  data.data.forEach(v=>{
+    if (v.symbol == 'BTCUSDT') {
+      v.marginType == 'isolated'? this.marginType = 'ISOLATED' : this.marginType = 'CROSSED'
+    }
+  })
+}
 
 root.methods.marginModeConfirm = function () {
+  if ((this.cardType == 2 && this.marginType == 'ISOLATED')|| (this.cardType == 1 && this.marginType == 'CROSSED')) {
+    this.popType = 0;
+    this.popText = '不需要切换仓位模式';
+    this.promptOpen = true;
+    return
+  }
   if (this.cardType == 1) {
     this.marginModeType = 1
   }
   if (this.cardType == 2) {
     this.marginModeType = 2
   }
+
+
+  this.$http.send('POST_MARGIN_TYPE',{
+    bind: this,
+    params:{
+      "symbol": "BTCUSDT",
+      "marginType": this.marginModeType == 2 ? 'ISOLATED':'CROSSED'
+      // "timestamp": new Date().getTime()
+    },
+    callBack: this.re_marginModeConfirm,
+    errorHandler:this.error_marginModeConfirm
+  })
+
+}
+root.methods.re_marginModeConfirm = function (data) {
+  typeof(data) == 'string' && (data = JSON.parse(data));
+  this.positionRisk()
   this.popWindowSecurityDepositMode = false
+}
+root.methods.error_marginModeConfirm = function (err) {
 }
 //保证金模式 End
 
-//调整杠杆 Strat
-root.methods.popWindowCloseAdjustingLever = function () {
-  this.popWindowAdjustingLever = false
-}
-//调整杠杆 End
+
 //打开调整杠杆 Strat
 root.methods.openLever = function () {
   this.popWindowAdjustingLever = true
 }
 //打开调整杠杆 End
+// 调整杠杆接口调取
+root.methods.postLevelrage = function () {
+  this.$http.send('POST_LEVELRAGE',{
+    bind: this,
+    params:{
+      "symbol":"BTCUSDT",
+      "leverage": this.value,
+    },
+    callBack: this.re_postLevelrage
+  })
+}
+root.methods.re_postLevelrage = function (data) {
+  typeof(data) == 'string' && (data = JSON.parse(data));
+  this.leverage = data.data.leverage
+}
+
+// 关闭调整杠杆 Strat
+root.methods.popWindowCloseAdjustingLever = function () {
+  this.popWindowAdjustingLever = false
+}
+// 关闭调整杠杆 End
+
 // 处理滑动条显示框内容
 root.methods.formatTooltip=(val)=>{
   return  val + 'X';

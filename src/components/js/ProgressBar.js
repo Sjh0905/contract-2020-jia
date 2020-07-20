@@ -160,15 +160,17 @@ root.props.symbol_config_times = {
     return []
   }
 }
-
+// 单仓模式 singleWarehouseMode 双仓模式 doubleWarehouseMode
 root.props.positionModeFirst = {
   type: String,
   default: 'singleWarehouseMode'
 }
+// 单仓 singleWarehouse 开仓 openWarehouse 平仓 closeWarehouse
 root.props.positionModeSecond = {
   type: String,
   default: 'openWarehouse'
 }
+// 限价 limitPrice 市价 marketPrice 限价止盈止损 limitProfitStopLoss 市价止盈止损 marketPriceProfitStopLoss
 root.props.pendingOrderType = {
   type: String,
   default: 'limitPrice'
