@@ -1209,12 +1209,36 @@ root.methods.popWindowClosePositionModeBulletBox = function () {
 // 仓位模式选择
 root.methods.positionModeSelected = function (type) {
   this.positionModeFirstTemp = type
+  console.info('this.positionModeFirstTemp',this.positionModeFirstTemp)
 }
 // 仓位模式选择确认
 root.methods.positionModeSelectedConfirm = function () {
-  this.positionModeFirst = this.positionModeFirstTemp;
-  this.popWindowPositionModeBulletBox = false
-}
+
+    this.$http.send('POST_SINGLE_DOUBLE',{
+      bind: this,
+      params:{
+        dualSidePosition: this.positionModeFirstTemp == 'singleWarehouseMode' ? false : true,
+        timestamp: this.serverTime
+      },
+      callBack: this.re_positionModeSelectedConfirm,
+      errorHandler:this.error_positionModeSelectedConfirm
+    })
+  }
+// 获取币安24小时价格变动正确回调
+  root.methods.re_positionModeSelectedConfirm = function (data) {
+    typeof(data) == 'string' && (data = JSON.parse(data));
+    if(!data && !data.data)return
+    if (data.code == 200) {
+      this.positionModeFirst = this.positionModeFirstTemp;
+      this.popWindowPositionModeBulletBox = false
+      console.info('data====',data.code)
+    }
+  }
+// 获取币安24小时价格变动错误回调
+  root.methods.error_positionModeSelectedConfirm = function (err) {
+    console.log('获取币安24小时价格变动接口',err)
+  }
+
 //仓位模式End
 
 //仓位模式二级切换 Start
@@ -1364,6 +1388,127 @@ root.methods.re_openAContract = function (data) {
     this.popWindowContractRiskWarning = false
   }
 }
+
+
+// 计算symbol变化
+root.computed = {};
+// 当前货币对
+root.computed.symbol = function () {
+  return this.$store.state.symbol;
+}
+// 实时价格
+root.computed.isNowPrice = function () {
+  // console.log('socket_snap_shot====',this.socket_snap_shot,this.buy_sale_list,this.quoteScale)
+  let price = this.$globalFunc.mergeObj(this.socket_snap_shot.price, this.buy_sale_list.price) || 0;
+  let priceObj = this.$globalFunc.mergeObj(this.socket_tick, {price: price});
+  let now_price = this.$globalFunc.accFixed(priceObj.price, this.quoteScale);
+  document.title = now_price+" "+this.$store.state.symbol.replace('_', '/')+" "+this.$t('document_title');
+  // if (!!this.socket_snap_shot.price)
+  return now_price;
+}
+// 实时价格的升降
+root.computed.direction = function () {
+  return this.socket_tick.direction;
+}
+// 实时价格cny
+root.computed.isCnyPrice = function () {
+  let close = this.isNowPrice || 0;
+  // if (this.$store.state.lang === 'CH') {
+    return ('￥' + this.$globalFunc.accFixedCny(this.$store.state.exchange_rate_dollar * (close * this.rate), 2));
+  // }
+  // else {
+  //   return ('$' + this.$globalFunc.accFixedCny((close * this.rate), 2));
+  // }
+  // if (this.$store.state.lang === 'EN') {
+  // 	return ('$' + ((close * this.rate)).toFixed(2));
+  // }
+}
+
+// 24小时最低价
+root.computed.low24 = function () {
+  // console.log('list', this.mergeList[this.symbol][3])
+  if (!this.mergeList[this.symbol]) return;
+  let low = Math.min((this.isNowPrice || 10000), this.mergeList[this.symbol][3]);
+  let low24 = this.$globalFunc.accFixed(low, this.quoteScale);
+  return low24;
+}
+// 24小时最高价
+root.computed.high24 = function () {
+  // console.log('list', this.mergeList[this.symbol][2])
+  if (!this.mergeList[this.symbol]) return;
+  let high = Math.max(this.isNowPrice, this.mergeList[this.symbol][2]);
+  let high24 = this.$globalFunc.accFixed(high, this.quoteScale);
+  return high24;
+}
+// 24小时成交量
+// root.computed.volume = function () {
+//   if (!this.mergeList[this.symbol]) return;
+//   let volume = this.$globalFunc.accFixed(this.mergeList[this.symbol][5], 0);
+//   return volume;
+// }
+
+// 实时价格 需要取BDB/ETH的时价和汇率来算BDB的汇率
+root.computed.topic_price = function () {
+  return this.socket_price;
+}
+
+
+root.computed.mergeList = function () {
+  let list = this.$globalFunc.mergeObj(this.socket_price, this.currency_list);
+  return list;
+}
+
+// 24小时涨跌
+root.computed.diff24 = function () {
+  // let diff = this.isNowPrice  - Number(this.mergeList[this.symbol][1])
+  // 减法
+  if (!this.mergeList[this.symbol]) return;
+  let diff = this.$globalFunc.accFixed(this.$globalFunc.accMinus(this.isNowPrice, this.mergeList[this.symbol][1]), this.quoteScale);
+  return diff;
+}
+// 24小时涨跌百分比 (现价 - 开盘价) / 开盘价
+root.computed.diff24Ratio = function () {
+  if (!this.mergeList[this.symbol]) return;
+  let now_price = this.isNowPrice || 0;
+  let diff = ((Number(now_price) - Number(this.mergeList[this.symbol][1])) / Number(this.mergeList[this.symbol][1])*100).toFixed(2);
+  // let diff = this.toFixed(this.accMul(this.accDiv(this.accMinus(now_price, this.mergeList[this.symbol][1]), this.mergeList[this.symbol][1] || 1), 100), 2)
+  if (this.mergeList[this.symbol][1] == 0) {
+    return 0
+  } else {
+    return diff;
+  }
+}
+
+/*****************************************************/
+root.computed.listenSymbol = function () {
+  return this.$store.state.symbol;
+}
+// 判断是否为移动端
+root.computed.isMobile = function () {
+  return this.$store.state.isMobile
+}
+// 特殊专区
+root.computed.specialSymbol = function () {
+  return this.$store.state.specialSymbol
+}
+// // 是否显示为蜜简介
+// root.computed.showSuperBeeIntroduction = function () {
+//   // if (this.specialSymbol[0].has(this.listenSymbol)) {
+//   //   return true
+//   // }
+//   return false
+// }
+//页面功能模块显示逻辑配置信息
+root.computed.positionModeConfigs = function () {
+  let data = tradingHallData.positionModeConfigs;
+  // console.log(data);
+  return data
+}
+root.computed.serverTime = function () {
+  return new Date().getTime();
+}
+
+
 
 // 监听symbol 做一些操作
 root.watch = {};

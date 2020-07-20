@@ -186,11 +186,22 @@ requestAddress.GET_SYMBOLS = {url: urlHead + '/future/common/symbols', method: '
 requestAddress.GET_TICKER_24HR = {url: urlHead + '/future/common/ticker24hr', method: 'get',} // 合约24小时价格变动接口
 requestAddress.GET_MARKET_PRICE = {url: urlHead + '/future/common/marketPrice', method: 'get',} // 合约最新标记价格和资金费率
 requestAddress.GET_TICKER_PIRCE = {url: urlHead + '/future/common/tickerPirce', method: 'get',} // 合约最新价格
+requestAddress.GET_CURRENT_DELEGATION = {url: urlHead + '/future/orders/openOrders', method: 'get',} // 当前委托
+requestAddress.GET_CAPITAL_FLOW = {url: urlHead + '/future/orders/income', method: 'get',} // 资金流水
+requestAddress.GET_CAPITAL_ALL_FLOW = {url: urlHead + '/future/orders/allOrders', method: 'get',} // 历史委托
+requestAddress.GET_CAPITAL_DEAL = {url: urlHead + '/future/orders/userTrades', method: 'get',} // 历史成交
+requestAddress.GET_CAPITAL_CANCEL = {url: urlHead + '/future/orders/cancel', method: 'post',} // 取消订单
+requestAddress.GET_CAPITAL_CANCELALL = {url: urlHead + '/future/orders/cancelAll', method: 'post',} // 取消全部订单
+requestAddress.POST_CAPITAL_BIAN = {url: urlHead + '/future/account/userAccount', method: 'get',} // 保证金余额
+requestAddress.POST_SINGLE_DOUBLE = {url: urlHead + '/future/account/positionSide', method: 'post',} // 切换单双仓
+
+
 requestAddress.GET_DEPTH = {url: urlHead + '/future/common/depth', method: 'get',} // 合约深度
 requestAddress.GET_TRADES = {url: urlHead + '/future/common/recentTrade', method: 'get',} // 获取实时成交
 requestAddress.GET_USER_LISTENKEY = {url: urlHead + '/future/user/listenKey', method: 'get',} // 获取 listenKey 信息
 requestAddress.POST_KEEP_LISTENKEY = {url: urlHead + '/future/user/keepListenKey', method: 'post',} // 延长 listenKey 信息
 requestAddress.POST_CLOSE_LISTENKEY = {url: urlHead + '/future/user/closeListenKey', method: 'post',} // 关闭 listenKey 信息
-requestAddress.POST_CLOSE_POSITION = {url: urlHead + '/future/orders/closePosition', method: 'post',} // 开仓
+requestAddress.POST_ORDERS_POSITION = {url: urlHead + '/future/orders/closePosition', method: 'post',} // 平仓
+requestAddress.POST_ORDERS_CREATE = {url: urlHead + '/future/orders/create ', method: 'post',} // 开仓
 
 export default requestAddress

@@ -8,12 +8,15 @@ root.name = 'OrderMarginBalance'
 root.data = function () {
   return {
     loading:false,
-    historicaList:[],
+    capitalFlowListData:[],
+    capitalFlowList:{},
     tradinghallLimit: 10
   }
 }
 /*------------------------------ 生命周期 -------------------------------*/
-root.created = function () {}
+root.created = function () {
+  this.getCapitalFlow()
+}
 root.mounted = function () {}
 root.beforeDestroy = function () {}
 /*------------------------------ 计算 -------------------------------*/
@@ -29,18 +32,13 @@ root.computed.quoteScale_list = function () {
 }
 // 用户id，判断是否登录
 root.computed.userId = function () {
-  return this.$store.state.authMessage.userId
+  return this.$store.state.authState.userId
 }
-root.computed.historicalTransaction = function () {
-  return this.historicaList = [
-    {
-      id: 'BTC_USDT',
-      createdAt:12031238291,
-      type:'BUY_LIMIT',
-      filledAmount:80,
-      amount:100
-    }
-  ]
+// root.computed.historicalTransaction = function () {
+//   return this.capitalFlowList
+// }
+root.computed.serverTime = function () {
+  return new Date().getTime();
 }
 /*------------------------------ 观察 -------------------------------*/
 root.watch = {}
@@ -51,6 +49,35 @@ root.methods = {}
 root.methods.goToTransfer = function () {
   this.$router.push({name:''})
 }
+
+// 账户余额
+root.methods.getCapitalFlow = function () {
+  this.$http.send('POST_CAPITAL_BIAN',{
+    bind: this,
+    query:{
+      // symbol:'BTCUSDT'
+      timestamp:this.serverTime
+    },
+    callBack: this.re_getCapitalFlow,
+    errorHandler:this.error_getCapitalFlow
+  })
+}
+// 账户余额正确回调
+root.methods.re_getCapitalFlow = function (data) {
+  typeof(data) == 'string' && (data = JSON.parse(data));
+  if(!data && !data.data)return
+  this.loading = false
+  console.info('data====',data.data)
+  this.capitalFlowListData = data.data.assets
+  this.capitalFlowList = data.data
+
+
+}
+// 账户余额错误回调
+root.methods.error_getCapitalFlow = function (err) {
+  console.log('获取币安24小时价格变动接口',err)
+}
+
 
 /*---------------------- 账户余额 begin ---------------------*/
 root.methods.closeShowDescriptBox= function (name) {

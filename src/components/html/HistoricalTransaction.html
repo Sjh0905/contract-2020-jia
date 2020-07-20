@@ -21,33 +21,33 @@
 
     </li>
     <!-- 表头 end -->
-    <!-- 如果加载完成、已登录、有数据，则显示数据 begin -->
     <template v-if="!loading">
+    <!-- 如果加载完成、已登录、有数据，则显示数据 begin -->
       <template v-if="userId && historicalTransaction.length!==0">
-        <transition-group name="fade">
-          <li class="flex"
+        <div class="historica">
+          <li class="flex tr-td"
               :class="$route.name == 'currentEntrust'?'tr-td':'tr-td-col'"
               v-for="(order,index) in historicalTransaction" :key="order.id">
 
             <!--时间-->
-            <div class="td td-time1">{{(order.id)}}</div>
+            <div class="td td-time1">{{$globalFunc.formatDateUitl(order.time,'YYYY-MM-DD hh:mm:ss')}}</div>
             <!--合约-->
-            <div class="td td-time">{{$globalFunc.formatDateUitl(order.createdAt,'YYYY-MM-DD hh:mm:ss')}}</div>
+            <div class="td td-time">{{order.symbol}}</div>
             <!--方向-->
-            <div class="td td-category-1" :class="order.type==='BUY_LIMIT'?'text_blue-3':'text_red-4'">
-              {{order.type === 'BUY_LIMIT' && $t('orderPageCurrentEntrustment.buy') ||
+            <div class="td td-category-1" :class="order.side==='BUY'?'text_blue-3':'text_red-4'">
+              {{order.side === 'BUY' && $t('orderPageCurrentEntrustment.buy') ||
               $t('orderPageCurrentEntrustment.sale')}}
             </div>
             <!--价格-->
-            <div class="td td-market">{{toFixed(order.price, !!quoteScale_list[order.symbol] ? quoteScale_list[order.symbol].quoteScale : 8)}}</div>
+            <div class="td td-market">{{toFixed(order.price,8)}}</div>
             <!--数量-->
-            <div class="td td-number">{{((order.filledAmount / order.amount) * 100).toFixed(2) + '%'}}</div>
-            <!--完成度-->
-            <div class="td td-price">{{((order.filledAmount / order.amount)).toFixed(2)}}</div>
-            <!--触发条件-->
-            <div class="td td-trigger">{{0 || '--'}}</div>
+            <div class="td td-number">{{toFixed(order.qty,8)}}</div>
+            <!--手续费-->
+            <div class="td td-price">{{toFixed(order.commission,8)}}</div>
+            <!--实现盈亏-->
+            <div class="td td-trigger">{{toFixed(order.realizedPnl,8)}}</div>
           </li>
-        </transition-group>
+        </div>
       </template>
       <!-- 如果加载完成、已登录、有数据，则显示数据 end -->
 
@@ -59,13 +59,13 @@
           <span>{{$t('orderPageCurrentEntrustment.close_9')}}</span>
         </li>
       </template>
-      <!-- 如果没加载完成、没登录、没数据，则显示'--' begin -->
-      <template v-if="!loading && userId && tradinghallLimit===10 && historicalTransaction.length >= 10">
-        <li class="seeMore" >
-          <span class="text_blue pointer" @click="toCurrentHistory">{{$t('orderPageHistoricalEntrustment.close_12')}}</span>
-        </li>
-      </template>
     </template>
+<!--      &lt;!&ndash; 如果没加载完成、没登录、没数据，则显示'&#45;&#45;' begin &ndash;&gt;-->
+<!--      <template v-if="!loading && userId && tradinghallLimit===10 && historicalTransaction.length >= 10">-->
+<!--        <li class="seeMore" >-->
+<!--          <span class="text_blue pointer" @click="toCurrentHistory">{{$t('orderPageHistoricalEntrustment.close_12')}}</span>-->
+<!--        </li>-->
+<!--      </template>-->
   </ul>
   <!-- 加载更多 begin -->
   <div class="" v-if="loading && userId">

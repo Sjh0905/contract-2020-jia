@@ -33,30 +33,35 @@
     <!-- 如果加载完成、已登录、有数据，则显示数据 begin -->
     <template v-if="!loading">
       <template v-if="userId && currentOrderComputed.length!==0">
-        <transition-group name="fade">
           <li class="flex"
               :class="$route.name == 'currentEntrust'?'tr-td':'tr-td-col'"
-              v-for="(order,index) in currentOrderComputed" :key="order.id">
+              v-for="(order,index) in currentOrderComputed" :key="order.orderId">
 
             <!--时间-->
-            <div class="td td-time1">{{(order.id)}}</div>
+            <div class="td td-time1">{{$globalFunc.formatDateUitl(order.updateTime,'YYYY-MM-DD hh:mm:ss')}}</div>
             <!--合约-->
-            <div class="td td-time">{{$globalFunc.formatDateUitl(order.createdAt,'YYYY-MM-DD hh:mm:ss')}}</div>
+            <div class="td td-time">{{order.symbol}}</div>
             <!--类型-->
-            <div class="td td-category">{{order.symbol.split('_')[0]}}/{{order.symbol.split('_')[1]}}</div>
+            <div class="td td-category" v-if="order.type == 'LIMIT'">限价单</div>
+            <div class="td td-category" v-if="order.type == 'MARKET'">市价单</div>
+            <div class="td td-category" v-if="order.type == 'STOP'">止损限价单</div>
+            <div class="td td-category" v-if="order.type == 'STOP_MARKET'">止损市价单</div>
+            <div class="td td-category" v-if="order.type == 'TAKE_PROFIT'">止盈限价单</div>
+            <div class="td td-category" v-if="order.type == 'TAKE_PROFIT_MARKET'">止盈市价单</div>
+            <div class="td td-category" v-if="order.type == 'TRAILING_STOP_MARKET'">跟踪止损单</div>
             <!--方向-->
-            <div class="td td-category-1" :class="order.type==='BUY_LIMIT'?'text_blue-3':'text_red-4'">
-              {{order.type === 'BUY_LIMIT' && $t('orderPageCurrentEntrustment.buy') ||
+            <div class="td td-category-1" :class="order.side==='BUY'?'text_blue-3':'text_red-4'">
+              {{order.side === 'BUY' && $t('orderPageCurrentEntrustment.buy') ||
               $t('orderPageCurrentEntrustment.sale')}}
             </div>
             <!--价格-->
-            <div class="td td-market">{{toFixed(order.price, !!quoteScale_list[order.symbol] ? quoteScale_list[order.symbol].quoteScale : 8)}}</div>
+            <div class="td td-market">{{toFixed(order.price, 8)}}</div>
             <!--数量-->
-            <div class="td td-number">{{((order.filledAmount / order.amount) * 100).toFixed(2) + '%'}}</div>
+            <div class="td td-number">{{toFixed(order.origQty,8)}}</div>
             <!--完成度-->
-            <div class="td td-price">{{((order.filledAmount / order.amount)).toFixed(2)}}</div>
+            <div class="td td-price">{{((order.executedQty / order.origQty) * 10 * 10).toFixed(2)}}%</div>
             <!--触发条件-->
-            <div class="td td-trigger">{{0 || '--'}}</div>
+            <div class="td td-trigger">{{order.workingType}}</div>
             <!--撤单-->
             <div class="td td-operation text_blue">
               <span class="click-operation chedanbutton"
@@ -65,7 +70,6 @@
               <span class="click-operating chedanbutton" v-else>{{$t('orderPageCurrentEntrustment.canceling')}}</span>
             </div>
           </li>
-        </transition-group>
       </template>
       <!-- 如果加载完成、已登录、有数据，则显示数据 end -->
 
@@ -88,11 +92,11 @@
         </li>
       </template>
       <!-- 如果没加载完成、没登录、没数据，则显示'--' begin -->
-      <template v-if="!loading && userId && tradinghallLimit===10 && currentOrderComputed.length >= 10">
-        <li class="loading-more seeMore" >
-          <span class="text_blue pointer" @click="toCurrentHistory">{{$t('orderPageHistoricalEntrustment.close_12')}}</span>
-        </li>
-      </template>
+<!--      <template v-if="!loading && userId && tradinghallLimit===10 && currentOrderComputed.length >= 10">-->
+<!--        <li class="loading-more seeMore" >-->
+<!--          <span class="text_blue pointer" @click="toCurrentHistory">{{$t('orderPageHistoricalEntrustment.close_12')}}</span>-->
+<!--        </li>-->
+<!--      </template>-->
     </template>
   </ul>
   <!-- 加载更多 begin -->

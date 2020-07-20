@@ -27,99 +27,65 @@
     <template v-if="!loading">
       <!-- 如果loading结束、已经登录、有值，则显示值 begin -->
       <template v-if="userId && historyOrderComputed.length !==0">
-<!--        :class="{'show-detail':clickThis===order.id}"-->
-        <li  v-for="(order,index) in historyOrderComputed" :key="order.id"
-            :class="$route.name == 'historicalEntrust'?'tr-td':'tr-td-col'"
-            @click="showDetail(order.id)"
-        >
-          <div class="tr-detail flex-center" >
+        <div class="historica">
+         <li  v-for="(order,index) in historyOrderComputed" :key="order.id"
+             :class="$route.name == 'historicalEntrust'?'tr-td':'tr-td-col'">
+           <div class="tr-detail flex-center" >
 
             <!--时间 begin -->
-            <div class="td td-time1">
-              {{$globalFunc.formatDateUitl(order.createdAt,'YYYY-MM-DD hh:mm:ss')}}
-            </div>
+            <div class="td td-time1">{{$globalFunc.formatDateUitl(order.updateTime,'YYYY-MM-DD hh:mm:ss')}}</div>
             <!--时间 end -->
-
             <!--合约 begin -->
-            <div class="td td-time">{{order.id}}</div>
+            <div class="td td-time">{{order.symbol}}</div>
             <!--合约 end -->
-
             <!--订单类型 begin -->
-            <div class="td td-category" :class="order.type==='BUY_LIMIT'?'text_blue-3':'text_red-4'" v-if="!order.isFollow">
-              {{order.type === 'BUY_LIMIT' && $t('orderPageHistoricalEntrustment.buy') ||
-              $t('orderPageHistoricalEntrustment.sale') }}
-            </div>
+            <div class="td td-category" v-if="order.type == 'LIMIT'">限价单</div>
+            <div class="td td-category" v-if="order.type == 'MARKET'">市价单</div>
+            <div class="td td-category" v-if="order.type == 'STOP'">止损限价单</div>
+            <div class="td td-category" v-if="order.type == 'STOP_MARKET'">止损市价单</div>
+            <div class="td td-category" v-if="order.type == 'TAKE_PROFIT'">止盈限价单</div>
+            <div class="td td-category" v-if="order.type == 'TAKE_PROFIT_MARKET'">止盈市价单</div>
+            <div class="td td-category" v-if="order.type == 'TRAILING_STOP_MARKET'">跟踪止损单</div>
             <!--订单类型 end -->
-
             <!--方向 begin -->
-            <div class="td td-market">{{order.symbol.split('_')[0]}}/{{order.symbol.split('_')[1]}}</div>
+            <div class="td td-market" :class="order.side==='BUY'?'text_blue-3':'text_red-4'">
+              {{order.type === 'BUY' && $t('orderPageHistoricalEntrustment.buy') ||
+              $t('orderPageHistoricalEntrustment.sale') }}</div>
             <!--方向 end -->
 
             <!--价格 begin -->
-            <div class="td td-market">{{toFixed(order.price, !!quoteScale_list[order.symbol] ? quoteScale_list[order.symbol].quoteScale : 8)}} {{order.symbol.split('_')[1]}}</div>
+            <div class="td td-market">{{toFixed(order.avgPrice, 8)}}</div>
             <!--价格 end -->
 
             <!--成交价格 begin -->
-            <div class="td td-market">{{toFixed(order.amount, !!quoteScale_list[order.symbol] ? quoteScale_list[order.symbol].baseScale : 8)}} {{order.symbol.split('_')[0]}}</div>
+            <div class="td td-market">{{toFixed(order.price, 8)}}</div>
             <!--成交价格 end -->
 
             <!--数量 begin -->
-            <div class="td td-category">{{getStatus(order)}}</div>
+            <div class="td td-category">{{(order.executedQty)}}</div>
             <!--数量 end -->
 
             <!--触发条件 begin -->
-            <div class="td td-price">{{toFixed(order.filledAmount, !!quoteScale_list[order.symbol] ? quoteScale_list[order.symbol].baseScale : 8)}} {{order.symbol.split('_')[0]}}</div>
+            <div class="td td-price">{{(order.workingType)}}</div>
             <!--触发条件 end-->
 
             <!--状态 begin -->
-           <div class="td td-turnover" v-if="canShowDetail(order) && $route.name == 'historicalEntrust'">
-             <div class="td" @click="showDetail(order.id)"
-                  v-if="canShowDetail(order) && clickThis!==order.id">
-                <span class="account-click"
-                      :class="$route.name == 'historicalEntrust'?'text_blue-1':'text_blue-01'"
-                      @click="showDetail(order.id)">{{$t('orderPageHistoricalEntrustment.detail')}}</span>
-               <img class="img-on" src="../../assets/shangla_icon.png" alt="" @click="showDetail(order.id)">
-             </div>
-             <div class="td account-click"
-                  :class="$route.name == 'historicalEntrust'?'text_blue-1':'text_blue-01'"
-                  v-if="canShowDetail(order) && clickThis===order.id">{{$t('orderPageHistoricalEntrustment.close')}}
-               <img src="../../assets/xiala_icon.png" alt="" class="img-on">
-             </div>
+
+            <div class="td td-turnover" v-if="order.status == 'NEW'">新建订单</div>
+            <div class="td td-turnover" v-if="order.status == 'PARTIALLY_FILLED'">部分成交</div>
+            <div class="td td-turnover" v-if="order.status == 'FILLED'">全部成交</div>
+            <div class="td td-turnover" v-if="order.status == 'CANCELED'">已撤销</div>
+            <div class="td td-turnover" v-if="order.status == 'REJECTED'">订单被拒绝</div>
+            <div class="td td-turnover" v-if="order.status == 'EXPIRED'">订单过期</div>
            </div>
-            <div class="td td-turnover" v-if="!canShowDetail(order) && $route.name == 'historicalEntrust'">--</div>
-           <div v-if="canShowDetail(order) && $route.name != 'historicalEntrust'" class="td td-turnover">完全成交</div>
-           <div class="td td-turnover" v-if="!canShowDetail(order) && $route.name != 'historicalEntrust'">--</div>
-              <!--状态 end -->
-
-            </div>
-          <div v-if="clickThis === order.id" class="tr-hidden">
-            <HiddenDetail :orderId="order.id" :symbol="order.symbol"
-                          :orderType="order.type ==='BUY_LIMIT'?0:1"
-            />
-          </div>
-
-        </li>
+         </li>
+        </div>
       </template>
       <!-- 如果loading结束、已经登录、有值，则显示值 end -->
 
       <!-- 如果loading没结束、没登录、没值，则显示'--' begin -->
       <template v-else>
         <li class="weit">
-<!--          <div class="td td-order">&#45;&#45;</div>-->
-<!--          <div class="td td-time">-->
-<!--            &#45;&#45;-->
-<!--          </div>-->
-<!--          <div class="td td-category">&#45;&#45;</div>-->
-<!--          <div class="td td-market">&#45;&#45;</div>-->
-<!--          <div class="td td-price">&#45;&#45;</div>-->
-<!--          <div class="td td-number">&#45;&#45;</div>-->
-<!--          <div class="td td-turnover">&#45;&#45;</div>-->
-<!--          &lt;!&ndash;<div class="td td-amount">&#45;&#45;</div>&ndash;&gt;-->
-<!--          <div class="td td-charge">-->
-<!--            &#45;&#45;-->
-<!--          </div>-->
-<!--          <div class="td td-state">&#45;&#45;</div>-->
-<!--          <div class="td td-account">&#45;&#45;</div>-->
           <div class="nhtu" v-if="$route.name == 'historicalEntrust'"><img src="../../assets/noOrders.png"></div>
           <div class="nhtu" v-if="$route.name !== 'historicalEntrust'"><img src="../../assets/noOrderDark.png"></div>
           <span>{{$t('orderPageHistoricalEntrustment.close_9')}}</span>
@@ -136,20 +102,15 @@
       </template>
       <!-- 加载更多 end -->
 <!--        查看更多-->
-      <template v-if="!loading && userId && tradinghallLimit===10 && historyOrderComputed.length >= 10">
-        <li class="loading-more" >
-          <span class="text_blue pointer" @click="toOrderHistory">{{$t('orderPageHistoricalEntrustment.close_12')}}</span>
-        </li>
-      </template>
+<!--      <template v-if="!loading && userId && tradinghallLimit===10 && historyOrderComputed.length >= 10">-->
+<!--        <li class="loading-more" >-->
+<!--          <span class="text_blue pointer" @click="toOrderHistory">{{$t('orderPageHistoricalEntrustment.close_12')}}</span>-->
+<!--        </li>-->
+<!--      </template>-->
 
     </template>
 
   </ul>
-
-<!--  ssssssssssssss-->
-<!--  <div class="loading box_shadow border_radius" v-if="loading && userId">-->
-<!--    <Loading/>-->
-<!--  </div>-->
   <div class="" v-if="loading && userId">
     <Loading/>
   </div>

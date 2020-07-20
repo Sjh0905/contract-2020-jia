@@ -45,10 +45,14 @@ tr, th, td {
   height: 50px;
   line-height: 50px;
   text-align: left;
-  background-color: #ffffff;
+  background-color: #0D111F;
   font-family:PingFangSC-Regular,PingFang SC;
   font-weight:400;
-  color:#0D0E23;
+  color:#F5F6FA;
+}
+.temp-capit {
+  height: 500px;
+  overflow: scroll;
 }
 .td-time1 {
   flex: 6.3;
