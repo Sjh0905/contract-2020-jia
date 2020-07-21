@@ -102,7 +102,7 @@ root.computed.socketList = function () {
   // }
 
   // console.log("this.socketListArrls=============",this.socketListArrls);
-  socketListArr > 50 && (socketListArr = socketListArr.splice(0,50))
+  socketListArr.length > 50 && (socketListArr = socketListArr.splice(0,50))
 
   // return socketListArr || [];
   return socketListArr;
