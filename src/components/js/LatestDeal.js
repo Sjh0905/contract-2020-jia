@@ -150,7 +150,9 @@ root.methods.getScaleConfig = function () {
 // 拉取实时成交数据
 root.methods.tickCache = function () {
   let params = {
-    symbol: this.symbol
+    // symbol: this.symbol
+    symbol: 'BTCUSDT',
+    // fromId: '26129'
   };
   this.$http.send("GET_TRADES", {
     bind: this,
