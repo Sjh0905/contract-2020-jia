@@ -156,27 +156,6 @@
                 <div class="progress-bar-title-vertical-line"/>
                 <img src="../../assets/progress_bar_title_calculator.png" class="progress-bar-title-assets-calculator pointer" @click="openCalculatorWindow">
               </div>
-              <!--<div class="service_charge ">-->
-                <!--<span>-->
-                  <!--{{$t("serverCharge")}}: <em :class="{'delete' : BDBInfo}">0.2%</em> <em-->
-                  <!--:class="{'delete' : !BDBInfo}"> 0.14%</em>-->
-                  <!--&lt;!&ndash;{{$t('useBtMining',{btReward:btReward})}}&ndash;&gt;-->
-                  <!--<font class="use_bob_fire">-->
-                    <!--{{$t("serverUser")}}-->
-                    <!--<router-link to="/index/help/rateStandard" class="text_blue"-->
-                                 <!--:class="{'bdb_gray': !BDBInfo}">BDB</router-link>-->
-                    <!--{{$t("serverFire")}}-->
-                  <!--</font>-->
-                <!--</span>-->
-                <!--<a href="#" class="toggle account-info-toggle"-->
-                <!--:class="{'toggle&#45;&#45;off':!BDBInfo,'toggle&#45;&#45;on':BDBInfo,'toggle&#45;&#45;moving':BDBChanging}"-->
-                <!--@click="clickToggle($event)"></a>-->
-                <!--BDB折扣开关 begin-->
-                <!--<div class="toggle-box vertical-middle">-->
-                  <!--<Toggle :toggleOpen="BDBInfo" :switchFunc="clickToggle"/>-->
-                <!--</div>-->
-                <!--BDB折扣开关 end-->
-              <!--</div>-->
             </div>
 
             <!--多种业务类型选择-->
@@ -374,37 +353,6 @@
       <CapitalFlow/>
     </div>
   </div>
-<!--  <div class="traddinghall-order-wrap">-->
-<!--    <div class="flex-row traddinghall-order-wrap-title">-->
-<!--            <div class="tradinghall-order-tab2">{{$t("history")}}222-->
-<!--&lt;!&ndash;              <span>({{$t("InTheLastWeek")}})</span>&ndash;&gt;-->
-<!--            </div>-->
-<!--      &lt;!&ndash;      <div class="tradinghall-order-tab txt-bold"&ndash;&gt;-->
-<!--      &lt;!&ndash;           :class="isNow==2?'text_blue tradinghall-order-activetab':''"&ndash;&gt;-->
-<!--      &lt;!&ndash;           @click="clickTab(2)">&ndash;&gt;-->
-<!--      &lt;!&ndash;        {{$t('currencyInfo')}}&ndash;&gt;-->
-<!--      &lt;!&ndash;      </div>&ndash;&gt;-->
-<!--      &lt;!&ndash;<div class="tradinghall-order-tab tab-item-last box_shadow"&ndash;&gt;-->
-<!--      &lt;!&ndash;:class="isNow==3?'text_blue tradinghall-order-activetab':''"&ndash;&gt;-->
-<!--      &lt;!&ndash;@click="clickTab(3)"&ndash;&gt;-->
-<!--      &lt;!&ndash;v-if="showSuperBeeIntroduction"&ndash;&gt;-->
-<!--      &lt;!&ndash;&gt;&ndash;&gt;-->
-<!--      &lt;!&ndash;&lt;!&ndash;为蜜简介&ndash;&gt;&ndash;&gt;-->
-<!--      &lt;!&ndash;{{$t('bee_introduction')}}&ndash;&gt;-->
-<!--      &lt;!&ndash;</div>&ndash;&gt;-->
-<!--    </div>-->
-
-
-<!--        <div v-if="1=== 1" class="trading-hall-order-box-detail">-->
-<!--          <orderHistory :tradinghallLimit="tradinghallLimit"/>-->
-<!--        </div>-->
-<!--    &lt;!&ndash;    <div v-if="isNow === 2" class="trading-hall-order-box-detail">&ndash;&gt;-->
-<!--    &lt;!&ndash;      <CurrencyIntroduction/>&ndash;&gt;-->
-<!--    &lt;!&ndash;    </div>&ndash;&gt;-->
-<!--    &lt;!&ndash;    <div v-if="isNow === 3" class="trading-hall-order-box-detail">&ndash;&gt;-->
-<!--    &lt;!&ndash;      <SuperBeeIntroduction/>&ndash;&gt;-->
-<!--    &lt;!&ndash;    </div>&ndash;&gt;-->
-<!--  </div>-->
 
 
   <PopupPrompt :popType="popType" :popText="popText" :popOpen="promptOpen" :popClose="closePrompt"></PopupPrompt>

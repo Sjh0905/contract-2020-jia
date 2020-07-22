@@ -67,10 +67,7 @@ root.computed.positionModeConfigs = function () {
 
 root.watch.serverTime = function (newValue, oldValue) {
 
-  // console.log('this is ProgressBar serverTime',newValue,oldValue);
-
   if (newValue == oldValue) return;
-  // console.log('this is ProgressBar serverTime',new Date(newValue));
 
   this.SYMBOL_ENTRANSACTION();
 }
@@ -312,9 +309,6 @@ root.watch.value = function (newValue, oldValue) {
   this.sectionSelect(newValue/100);
 }
 
-// root.watch.KKPriceRange = function (val,oldVal) {
-//   console.log(val,oldVal)
-// }
 /*----------------------------- 方法 ------------------------------*/
 
 
@@ -334,29 +328,6 @@ root.methods.openPositionBox = function (name) {
 
 /*----------------------------- 方法 ------------------------------*/
 
-// 参数处理
-// root.methods.parameter = function () {
-//   let obj = {}
-//   // 如果是单仓 开仓 限价
-//   if (this.isHasModule('kaipingType') == 1 && this.isHasModule('buttonType') == 1 && this.pendingOrderType == 'limitPrice') {
-//     obj = {
-//       leverage: this.$store.state.leverage,
-//       positionSide: "BOTH",
-//       price: this.price,
-//       quantity: this.amount,
-//       reduceOnly: false,
-//       side: "BUY",
-//       symbol: "BTCUSDT",
-//       timeInForce: "GTX",
-//       type: "LIMIT",
-//     }
-//     console.info('obj=',obj)
-//     return
-//     // }
-//   }
-//   console.info('不是限价')
-//   return obj
-// }
 // 开仓
 root.methods.postOrdersCreate = function () {
   let params = {}

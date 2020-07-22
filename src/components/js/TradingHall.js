@@ -335,13 +335,7 @@ root.computed.isMobile = function () {
 root.computed.specialSymbol = function () {
   return this.$store.state.specialSymbol
 }
-// // 是否显示为蜜简介
-// root.computed.showSuperBeeIntroduction = function () {
-//   // if (this.specialSymbol[0].has(this.listenSymbol)) {
-//   //   return true
-//   // }
-//   return false
-// }
+
 //页面功能模块显示逻辑配置信息
 root.computed.positionModeConfigs = function () {
   let data = tradingHallData.positionModeConfigs;
@@ -537,53 +531,6 @@ root.methods.openCalculatorWindow = function () {
 root.methods.closeCalculatorWindow = function () {
   this.openCalculator = false
 }
-
-
-// 获取币安24小时价格变动接口
-// root.methods.initTicket24Hr =  async function () {
-//   this.$binance.futuresDaily(
-//     'BTC_USDT'
-//   ).then((data)=>{
-//     typeof(data) == 'string' && (data = JSON.parse(data));
-//     this.highPrice = data.highPrice || '--'
-//     this.lowPrice = data.lowPrice || '--'
-//     this.volume = data.volume || '--'
-//     this.priceChangePercent = data.priceChangePercent || '--'
-//   }).catch((err)=>{
-//     console.info('binance.futuresDepth( "BTC_USDT" )出错',err);
-//   })
-// }
-
-// 获取币安最新标记价格和资金费率
-// root.methods.getMarkPricesAndCapitalRates =  async function () {
-//   this.$binance.futuresMarkPrice(
-//     'BTC_USDT'
-//   ).then((data)=>{
-//     typeof(data) == 'string' && (data = JSON.parse(data));
-//     this.marketPrice = data.markPrice || '--'
-//     this.lastFundingRate = data.lastFundingRate || '--'
-//     this.nextFundingTime = data.nextFundingTime || '--'
-//
-//   }).catch((err)=>{
-//     console.info('binance.futuresDepth( "BTC_USDT" )出错',err);
-//   })
-// }
-
-// // 获取币安最新价格接口
-// root.methods.getLatestrice =  async function () {
-//   this.$binance.price(
-//     'BTCUSDT',(err,ticket) =>{
-//       console.info('Price BTC===',ticket.BTC)
-//     }
-//   )
-//   //   .then((data)=>{
-//   //     typeof(data) == 'string' && (data = JSON.parse(data));
-//   //     console.info('data=======',data)
-//   //
-//   //   }).catch((err)=>{
-//   //   console.info('binance.futuresDepth( "BTCUSDT" )出错',err);
-//   // })
-// }
 
 root.methods.watchScreenWidth = function () {
   //必须声明局部变量，否则this.screenWidth不能触发页面渲染
@@ -1002,56 +949,6 @@ root.methods.initGetDatas = function () {
   this.getExchangeRate();
 
 }
-// todo 币币交易获取价格接口处理
-// root.methods.getPrices = function () {
-//   this.$http.send('MARKET_PRICES', {
-//     bind: this,
-//     callBack: this.re_getCurrencyLists
-//   })
-// }
-// // price接口数据返回
-// root.methods.re_getCurrencyLists = function (data) {
-//   typeof(data) == 'string' && (data = JSON.parse(data));
-//   this.currency_list = this.$globalFunc.mergeObj(data, this.currency_list);
-// }
-
-/* todo 重复获取币对 begin*/
-// 请求所有币对信息, header, right都需要此数据
-// root.methods.getSymbolsList = function () {
-//   this.$http.send('GET_SYMBOLS', {
-//     bind: this,
-//     callBack: this.re_getSymbolsList
-//   });
-// }
-// // 渲染币对列表信息
-// root.methods.re_getSymbolsList = function (data) {
-//   let self = this;
-//   // this.getPrices();
-//   typeof(data) == 'string' && (data = JSON.parse(data));
-//
-//   // let symbol_list = [];
-//   // for (let symbol in data) {
-//   // 	symbol_list.push(symbol);
-//   // }
-//   // if (symbol_list.indexOf(this.$store.state.symbol) < 0) {
-//   // 	if (!!symbol_list[0]) {
-//   // 		this.$store.commit('SET_SYMBOL', symbol_list[0]);
-//   // 	}
-//   // }
-//
-//   let objs = this.symbolList_priceList(data);
-//   this.currency_list = objs;
-//   // this.currency_list = {
-//   //   BTC_USDT:[0,0,0,0,0,0]
-//   // };
-//
-//   // // 记录当前币对开始结束时间
-//   // data.symbols.forEach(function (v, i) {
-//   //   self.symbol_config_times.push({name: v.name, startTime: v.startTime, endTime: v.endTime});
-//   // });
-//
-// }
-/* todo 重复获取币对 end*/
 
 // 对symbol获取的数据进行处理，处理成 {symbol: [time, 1,2,3,4,5]}的格式
 // 例如：{ETX_BTX:[1517653957367, 0.097385, 0.101657, 0.097385, 0.101658, 815.89]}
@@ -1273,8 +1170,6 @@ root.methods.changePositionModeSecond = function (type) {
 root.methods.changePendingOrderType = function (type) {
   if(this.pendingOrderType == type)return
   this.pendingOrderType = type;
-  // console.log('交易切换类型this.pendingOrderType========',this.pendingOrderType)
-  // console.log('交易类型切换',this.positionModeConfigs[this.positionModeFirst][this.positionModeSecond][this.pendingOrderType]['passiveDelegation']);
 }
 //交易类型切换 Start
 
@@ -1651,13 +1546,6 @@ root.watch.listenSymbol = function (newValue, oldValue) {
 
   this.$router.push({name: 'tradingHall', query: {symbol: newValue}});
 }
-
-// // 如果切换市场的时候，在超级为蜜区，并且打开了为蜜资料
-// root.watch.showSuperBeeIntroduction = function (newValue, oldValue) {
-//   if (!newValue && oldValue && this.isNow == 3) {
-//     this.isNow = 0
-//   }
-// }
 
 // 组件卸载前取消订阅
 root.beforeDestroy = function () {
