@@ -272,12 +272,16 @@
               <div class="ProgressBar-wrap">
                 <!--买-->
                 <ProgressBar :orderType='0' :fee="BDBInfo" :btc_eth_rate="btc_eth_rate" :socket_price="socket_price"
-                             :symbol_config_times="symbol_config_times" :positionModeFirst = "positionModeFirst" :positionModeSecond = "positionModeSecond" :pendingOrderType = "pendingOrderType" />
+                             :symbol_config_times="symbol_config_times" :positionModeFirst = "positionModeFirst"
+                             :positionModeSecond = "positionModeSecond" :pendingOrderType = "pendingOrderType"
+                              :effectiveTime = 'effectiveTime' :reducePositionsSelected = 'reducePositionsSelected'/>
               </div>
               <div class="ProgressBar-wrap">
                 <!--卖-->
                 <ProgressBar :orderType='1' :fee="BDBInfo" :btc_eth_rate="btc_eth_rate" :socket_price="socket_price"
-                             :symbol_config_times="symbol_config_times" :positionModeFirst = "positionModeFirst" :positionModeSecond = "positionModeSecond" :pendingOrderType = "pendingOrderType"/>
+                             :symbol_config_times="symbol_config_times" :positionModeFirst = "positionModeFirst"
+                             :positionModeSecond = "positionModeSecond" :pendingOrderType = "pendingOrderType"
+                             :effectiveTime = 'effectiveTime' :reducePositionsSelected = 'reducePositionsSelected'/>
               </div>
             </div>
           </div>
