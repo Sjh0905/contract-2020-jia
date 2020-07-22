@@ -858,6 +858,7 @@ root.methods.initSocket = function () {
   // this.$socket.emit('UNSUBSCRIBE', {symbol: this.$store.state.symbol});
   // this.$socket.emit('SUBSCRIBE', ["btcusdt@depth"]);
 
+  let subscribeSymbol = this.$store.state.subscribeSymbol;
   // 获取深度图信息
   this.$socket.on({
     key: 'depth', bind: this, callBack: (message) => {
@@ -870,8 +871,8 @@ root.methods.initSocket = function () {
     key: 'aggTrade', bind: this, callBack: (message) => {
       if(!message)return
 
-      this.socket_tick = message.s === this.subscribeSymbol && message || {}
-      this.socketTickObj = message.s === this.subscribeSymbol && message || {}
+      this.socket_tick = message.s === subscribeSymbol && message || {}
+      this.socketTickObj = message.s === subscribeSymbol && message || {}
       // 取消板块loading
       this.trade_loading = false;
         // console.log('aggTrade is ===',message);

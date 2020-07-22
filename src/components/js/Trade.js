@@ -21,6 +21,9 @@ root.data = function () {
     istoday: true
 	}
 }
+root.created = function () {
+  // this.getLatestrice()
+}
 
 root.props = {}
 root.props.topic_bar = {
@@ -56,6 +59,27 @@ root.watch.lang = function (newValue, oldValue) {
 }
 
 root.methods = {};
+//
+// root.methods.getLatestrice = function () {
+//   this.$http.send('POST_STICK_K',{
+//     bind: this,
+//     query:{
+//       symbol:'BTCUSDT',
+//       interval:new_interval
+//     },
+//     callBack: this.re_getLatestrice,
+//     errorHandler:this.error_getLatestrice
+//   })
+// }
+// //
+// root.methods.re_getLatestrice = function (data) {
+//   typeof(data) == 'string' && (data = JSON.parse(data));
+//
+// }
+// //
+// root.methods.error_getLatestrice = function (err) {
+//   console.log('获取币安24小时价格变动接口',err)
+// }
 
 // 初始化k线
 root.methods.initTrade = function () {
@@ -224,14 +248,14 @@ root.methods.initViews = function (lang) {
 		}
 
 		var resolution_mapping = {
-			'1S': 'K_1_SEC',
-			'1': 'K_1_MIN',
-			'5': 'K_1_MIN',
-			'15': 'K_1_MIN',
-			'30': 'K_1_MIN',
-			'60': 'K_1_HOUR',
-			'240': 'K_1_HOUR',
-			'D': 'K_1_DAY'
+			'1S': '1m',
+			'1': '1m',
+			'5': '5m',
+			'15': '15m',
+			'30': '30m',
+			'60': '1h',
+			'240': '4h',
+			'D': '1d'
 		};
 
 
@@ -239,7 +263,7 @@ root.methods.initViews = function (lang) {
     //  localStorage.clear();
 
     //日线放缓存
-    if(resolution == '15'){
+    if(resolution == '15------'){
       //k线放入缓存
       this.bartemphc = JSON.parse(localStorage.getItem(symbolInfo.ticker+"_bars"));
       this.starttimehc = localStorage.getItem(symbolInfo.ticker+"_time");
@@ -255,36 +279,51 @@ root.methods.initViews = function (lang) {
 
       //判断缓存里的数据是否为空，如果为空或者时间不是当天的，则去调用接口
       if(this.bartemphc == null || this.starttimehc == null || !this.istoday){
-        this._send(self.urlHead+'/v1/market/bars/' + symbolInfo.ticker + '/' + resolution_mapping[resolution], {
+        // this._send(self.urlHead+'/v1/market/bars/' + symbolInfo.ticker + '/' + resolution_mapping[resolution], {
+        //   start: fromTime * 1000,
+        //   end: toTime * 1000
+        // })
+        this._send(self.urlHead+'future/common/candlestick', {
+          // symbol:symbolInfo.ticker,
+          symbol:'BTCUSDT',
+          interval:new_interval + 'm',
           start: fromTime * 1000,
           end: toTime * 1000
         })
           .done(function (response) {
             if (response) {
 
-              var data = response.bars;
+              var data = response.data;
+              console.info("data.length==",response.data);
               var i, b;
-              bars.length > 0 && (bars = []);
-              var length = data.length;
+              // bars.length > 0 && (bars = []);
+              bars = {};
+              // var length = data.length;
               var time = "";
-              // console.log("data.length=="+data.length);
-              for(var i = 0; i < data.length; ++i) {
+
+              // for(var i = 0; i < data.length; ++i) {
                 // t, OHLC, V
 
-                b = data[i];
+                b = data;
                 startTime = response.startTime || 0;
                 bars.push({
-                  time: b[0],
-                  open: b[1],
-                  high: b[2],
-                  low: b[3],
-                  close: b[4],
-                  volume: b[5]
+                  // time: b[0],
+                  // open: b[1],
+                  // high: b[2],
+                  // low: b[3],
+                  // close: b[4],
+                  // volume: b[5]
+                  time: b.openTime,
+                  open: b.open,
+                  high: b.high,
+                  low: b.low,
+                  close: b.close,
+                  volume: b.volume
                 });
-                if(i == length-1){
-                  time = b[0];
-                }
-              }
+                // if(i == length-1){
+                //   time = b[0];
+                // }
+              // }
 
               //k线放入缓存
               localStorage.setItem(symbolInfo.ticker+"_bars",JSON.stringify(bars));
@@ -296,16 +335,24 @@ root.methods.initViews = function (lang) {
         onHistoryCallback(this.bartemphc);
       }
     }else{
-      this._send(self.urlHead+'/v1/market/bars/' + symbolInfo.ticker + '/' + resolution_mapping[resolution], {
+      // this._send(self.urlHead+'/v1/market/bars/' + symbolInfo.ticker + '/' + resolution_mapping[resolution], {
+      //   start: fromTime * 1000,
+      //   end: toTime * 1000
+      // })
+      this._send(self.urlHead+'future/common/candlestick', {
+        // symbol:symbolInfo.ticker,
+        symbol:'BTCUSDT',
+        interval:resolution_mapping[resolution],
         start: fromTime * 1000,
         end: toTime * 1000
       })
         .done(function (response) {
           if (response) {
-            var data = response.bars;
+            var data = response.data;
             var i, b;
-            bars.length > 0 && (bars = []);
-            var length = data.length;
+            // bars.length > 0 && (bars = []);
+            bars = [];
+            // var length = data.length;
             var time = "";
             // console.log("data.length=="+data.length);
             for(var i = 0; i < data.length; ++i) {
@@ -314,16 +361,22 @@ root.methods.initViews = function (lang) {
               b = data[i];
               startTime = response.startTime || 0;
               bars.push({
-                time: b[0],
-                open: b[1],
-                high: b[2],
-                low: b[3],
-                close: b[4],
-                volume: b[5]
+                // time: b[0],
+                // open: b[1],
+                // high: b[2],
+                // low: b[3],
+                // close: b[4],
+                // volume: b[5]
+                time: b.openTime,
+                open: b.open,
+                high: b.high,
+                low: b.low,
+                close: b.close,
+                volume: b.volume
               });
-              if(i == length-1){
-                time = b[0];
-              }
+              // if(i == length-1){
+              //   time = b[0];
+              // }
             }
             onHistoryCallback(bars);
           }
@@ -334,7 +387,7 @@ root.methods.initViews = function (lang) {
 	};
 
 
-	BitexDataFeed.prototype.subscribeBars = function (symbolInfo, resolution, onRealtimeCallback, subscriberUID, onResetCacheNeededCallback) {
+	/*BitexDataFeed.prototype.subscribeBars = function (symbolInfo, resolution, onRealtimeCallback, subscriberUID, onResetCacheNeededCallback) {
 		// console.error('[subscribeBars: symbolInfo = ' + symbolInfo.ticker + ', resolution = ' + resolution
 		// 	+ ', subscriberUID = ' + subscriberUID);
 
@@ -371,18 +424,24 @@ root.methods.initViews = function (lang) {
 		    	if (!b || self.$store.state.symbol != message.symbol) return;
 	    		if (resolution_mapping[resolution] == message.type) {
 	    			onRealtimeCallback({
-						time: b[0],
-						open: b[1],
-						high: b[2],
-						low: b[3],
-						close: b[4],
-						volume: b[5]
+						// time: b[0],
+						// open: b[1],
+						// high: b[2],
+						// low: b[3],
+						// close: b[4],
+						// volume: b[5]
+            time: b.openTime,
+						open: b.open,
+						high: b.high,
+						low: b.low,
+						close: b.close,
+						volume: b.volume
 					});
 		    	}
 		    }
 	  	})
 
-	};
+	};*/
 
 	BitexDataFeed.prototype.unsubscribeBars = function (subscriberUID) {
 		// console.error('[unsubscribeBars: subscriberUID = ' + subscriberUID);
