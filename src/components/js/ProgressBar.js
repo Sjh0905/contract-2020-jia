@@ -151,7 +151,6 @@ root.props.orderType = {
 
 root.props.fee = {
   type: Boolean,
-  default: false
 }
 
 root.props.symbol_config_times = {
@@ -174,6 +173,13 @@ root.props.positionModeSecond = {
 root.props.pendingOrderType = {
   type: String,
   default: 'limitPrice'
+}
+root.props.effectiveTime = {
+  type: String,
+  default: 'GTX'
+}
+root.props.reducePositionsSelected = {
+  type: Boolean,
 }
 
 /*----------------------------- 组件 ------------------------------*/
@@ -286,8 +292,8 @@ root.created = function () {
 
   this.getKKPriceRange();
   // this.tradeMarket()
-  this.postOrdersPosition()
-  this.postOrdersCreate()
+  // this.postOrdersPosition()
+  // this.postOrdersCreate()
 
 }
 
@@ -327,10 +333,67 @@ root.methods.openPositionBox = function (name) {
 
 
 /*----------------------------- 方法 ------------------------------*/
+
+// 参数处理
+// root.methods.parameter = function () {
+//   let obj = {}
+//   // 如果是单仓 开仓 限价
+//   if (this.isHasModule('kaipingType') == 1 && this.isHasModule('buttonType') == 1 && this.pendingOrderType == 'limitPrice') {
+//     obj = {
+//       leverage: this.$store.state.leverage,
+//       positionSide: "BOTH",
+//       price: this.price,
+//       quantity: this.amount,
+//       reduceOnly: false,
+//       side: "BUY",
+//       symbol: "BTCUSDT",
+//       timeInForce: "GTX",
+//       type: "LIMIT",
+//     }
+//     console.info('obj=',obj)
+//     return
+//     // }
+//   }
+//   console.info('不是限价')
+//   return obj
+// }
 // 开仓
 root.methods.postOrdersCreate = function () {
+  let params = {}
+  // 单仓 限价
+  if (this.isHasModule('kaipingType') == 1 && this.isHasModule('buttonType') == 1 && this.pendingOrderType == 'limitPrice' && this.checkPrice != '2') {
+    params = {
+      leverage: this.$store.state.leverage,
+      positionSide: "BOTH",
+      price: this.price,
+      quantity: this.amount,
+      reduceOnly: this.reducePositionsSelected ? true : false,
+      side: this.orderType ? 'SELL':' BUY',
+      stopPrice: null,
+      symbol: this.symbol,
+      timeInForce: this.effectiveTime,
+      type: "LIMIT",
+      workingType: null
+    }
+  }
+  // 单仓 市价
+  if (this.isHasModule('kaipingType') == 1 && this.isHasModule('buttonType') == 1 && this.pendingOrderType == 'marketPrice') {
+    params = {
+      leverage: this.$store.state.leverage,
+      positionSide: "BOTH",
+      price: this.price,
+      quantity: this.amount,
+      reduceOnly: this.reducePositionsSelected ? true : false,
+      side: this.orderType ? 'SELL':' BUY',
+      symbol: this.symbol,
+      type: "MARKET",
+    }
+  }
+
+  // Object.assign(params, {type: "LIMIT",});
   this.$http.send('POST_ORDERS_CREATE',{
     bind: this,
+    params,
     callBack: this.re_postOrdersCreate,
     errorHandler: this.error_postOrdersCreate
   })
@@ -345,21 +408,21 @@ root.methods.error_postOrdersCreate = function (err) {
 }
 
 // 平仓
-root.methods.postOrdersPosition = function () {
-  this.$http.send('POST_ORDERS_POSITION',{
-    bind: this,
-    callBack: this.re_postOrdersPosition,
-    errorHandler: this.error_postOrdersPosition
-  })
-}
-root.methods.re_postOrdersPosition = function (data) {
-  typeof (data) === 'string' && (data = JSON.parse(data))
-  if (!data) return
-  console.info('data=======',data)
-}
-root.methods.error_postOrdersPosition = function (err) {
-  console.info('err====',err)
-}
+// root.methods.postOrdersPosition = function () {
+//   this.$http.send('POST_ORDERS_POSITION',{
+//     bind: this,
+//     callBack: this.re_postOrdersPosition,
+//     errorHandler: this.error_postOrdersPosition
+//   })
+// }
+// root.methods.re_postOrdersPosition = function (data) {
+//   typeof (data) === 'string' && (data = JSON.parse(data))
+//   if (!data) return
+//   console.info('data=======',data)
+// }
+// root.methods.error_postOrdersPosition = function (err) {
+//   console.info('err====',err)
+// }
 
 // 判断当前币是否可交易
 root.methods.SYMBOL_ENTRANSACTION = function () {

@@ -103,13 +103,7 @@ root.data = function () {
 
     tradinghallLimit:10,
 
-    //仓位模式Start
-    popWindowPositionModeBulletBox: false, //仓位模式弹框
-    cardType:1, //仓位模式选择初始值
-    marginModeType:1,
-    //仓位模式End
 
-    leverage:'', // 杠杆倍数
 
 
     /* TODO ================================    合约数据   =================================== */
@@ -140,13 +134,22 @@ root.data = function () {
     },
     //调整杠杆 End
 
-    effectiveTime:'GTC',
+    //仓位模式Start
+    popWindowPositionModeBulletBox: false, //仓位模式弹框
+    cardType:1, //仓位模式选择初始值
+    marginModeType:1,  // 1 全仓、2 逐仓
+    //仓位模式End
+
+    leverage:'', // 杠杆倍数
+
+    effectiveTime:'GTX',
     latestPrice:'最新价格',
     // 计算器弹框 begin
     openCalculator:false,
     // 计算器弹框 end
   //  限价---被动委托，生效时间选择
     checkPrice:1,
+
     highPrice: '', // 24小时最高价
     lowPrice: '', // 24小时最低价
     volume: '', // 24小时量
@@ -156,8 +159,8 @@ root.data = function () {
     nextFundingTime: '',   // 下次资金费时间
     Latestrice: '',   // 最新价格
     maxNotionalValue: '',   // 当前杠杆倍数下允许的最大名义价值
-    marginType:''
-
+    marginType:'',
+    dualSidePosition:''  // "true": 双向持仓模式；"false": 单向持仓模式
 
   }
 }
@@ -201,6 +204,7 @@ root.created = function () {
   this.getLatestrice()  // 获取币安最新价格
   this.getDepth()  // 获取币安深度
   this.positionRisk()  // 获取全逐仓状态
+  this.getPositionsideDual() // 获取仓位模式
 
 }
 
@@ -222,8 +226,6 @@ root.mounted = function () {
   //
   //     // console.log("this.screenWidth====watch=======",that.screenWidth);
   //     // that.screenWidth = that.screenWidth == oldValue ? newValue : newValue;
-  //
-  //
   // }
 }
 
@@ -453,7 +455,6 @@ root.methods.re_getSymbolsList = function (data) {
   // data.symbols.forEach(function (v, i) {
   //   self.symbol_config_times.push({name: v.name, startTime: v.startTime, endTime: v.endTime});
   // });
-
 }
 
 // 获取深度信息
@@ -1213,36 +1214,52 @@ root.methods.popWindowClosePositionModeBulletBox = function () {
 // 仓位模式选择
 root.methods.positionModeSelected = function (type) {
   this.positionModeFirstTemp = type
-  console.info('this.positionModeFirstTemp',this.positionModeFirstTemp)
 }
+// 获取仓位模式
+root.methods.getPositionsideDual = function () {
+  this.$http.send('GET_POSITIONSIDE_DUAL',{
+    bind: this,
+    callBack: this.re_getPositionsideDual,
+    errorHandler:this.error_getPositionsideDual
+  })
+}
+// 获取仓位模式正确回调
+root.methods.re_getPositionsideDual = function (data) {
+  typeof(data) == 'string' && (data = JSON.parse(data));
+  console.info('data===',data)
+  this.dualSidePosition = data.data.dualSidePosition
+}
+// 获取仓位模式错误回调
+root.methods.error_getPositionsideDual = function (err) {
+  console.log('获取币安24小时价格变动接口',err)
+}
+
 // 仓位模式选择确认
 root.methods.positionModeSelectedConfirm = function () {
-
     this.$http.send('POST_SINGLE_DOUBLE',{
       bind: this,
       params:{
-        dualSidePosition: this.positionModeFirstTemp == 'singleWarehouseMode' ? false : true,
-        timestamp: this.serverTime
+        dualSidePosition: this.dualSidePosition ? false : true,
+        // timestamp: this.serverTime
       },
       callBack: this.re_positionModeSelectedConfirm,
       errorHandler:this.error_positionModeSelectedConfirm
     })
   }
 // 获取币安24小时价格变动正确回调
-  root.methods.re_positionModeSelectedConfirm = function (data) {
+root.methods.re_positionModeSelectedConfirm = function (data) {
     typeof(data) == 'string' && (data = JSON.parse(data));
     if(!data && !data.data)return
     if (data.code == 200) {
       this.positionModeFirst = this.positionModeFirstTemp;
+      this.getPositionsideDual()
       this.popWindowPositionModeBulletBox = false
-      console.info('data====',data.code)
     }
   }
 // 获取币安24小时价格变动错误回调
-  root.methods.error_positionModeSelectedConfirm = function (err) {
-    console.log('获取币安24小时价格变动接口',err)
-  }
-
+root.methods.error_positionModeSelectedConfirm = function (err) {
+  console.log('获取币安24小时价格变动接口',err)
+}
 //仓位模式End
 
 //仓位模式二级切换 Start
@@ -1254,7 +1271,6 @@ root.methods.changePositionModeSecond = function (type) {
 //交易类型切换 Start
 root.methods.changePendingOrderType = function (type) {
   if(this.pendingOrderType == type)return
-
   this.pendingOrderType = type;
   // console.log('交易切换类型this.pendingOrderType========',this.pendingOrderType)
   // console.log('交易类型切换',this.positionModeConfigs[this.positionModeFirst][this.positionModeSecond][this.pendingOrderType]['passiveDelegation']);
@@ -1276,7 +1292,7 @@ root.methods.isHasModule = function (type) {
   return isHas
 }
 //页面功能模块显示逻辑判断 End
-root.methods.changeReducePositions = function(status){
+root.methods.changeReducePositions = function(){
   this.reducePositionsSelected = !this.reducePositionsSelected
 }
 
@@ -1302,6 +1318,7 @@ root.methods.re_positionRisk = function (data) {
   console.info('data=====',data)
   data.data.forEach(v=>{
     if (v.symbol == 'BTCUSDT') {
+      this.$store.commit("CHANGE_LEVERAGE", v.leverage);
       v.marginType == 'isolated'? this.marginType = 'ISOLATED' : this.marginType = 'CROSSED'
     }
   })
@@ -1337,7 +1354,7 @@ root.methods.marginModeConfirm = function () {
 root.methods.re_marginModeConfirm = function (data) {
   typeof(data) == 'string' && (data = JSON.parse(data));
   this.positionRisk()
-  this.popWindowSecurityDepositMode = false
+  this.popWindowCloseSecurityDepositMode()
 }
 root.methods.error_marginModeConfirm = function (err) {
 }
@@ -1363,6 +1380,8 @@ root.methods.postLevelrage = function () {
 root.methods.re_postLevelrage = function (data) {
   typeof(data) == 'string' && (data = JSON.parse(data));
   this.leverage = data.data.leverage
+  this.positionRisk()
+  this.popWindowCloseAdjustingLever()
 }
 
 // 关闭调整杠杆 Strat
@@ -1379,6 +1398,11 @@ root.methods.formatTooltip=(val)=>{
 //被动委托
 root.methods.priceLimitSelection = function (checkPrice) {
   this.checkPrice = checkPrice
+  if(checkPrice == '1') {
+    this.effectiveTime = 'GTX'
+    return
+  }
+  this.effectiveTime = 'GTC'
 }
 /*---------------------- 生效时间 begin ---------------------*/
 root.methods.closeDropDownTime= function () {
@@ -1582,6 +1606,10 @@ root.watch.isNowPrice = function (newValue, oldValue) {
   this.GET_RATE('');
 }
 
+root.watch.positionRisk = function (newValue, oldValue) {
+  if (newValue == oldValue) return;
+  this.positionRisk()
+}
 root.watch.symbol = function (newValue, oldValue) {
   if (newValue == oldValue) return;
   // this.getScaleConfig();
