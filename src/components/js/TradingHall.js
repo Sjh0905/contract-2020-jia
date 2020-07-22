@@ -151,7 +151,7 @@ root.data = function () {
     lowPrice: '', // 24小时最低价
     volume: '', // 24小时量
     priceChangePercent: '', // 24涨幅
-    marketPrice: '', // 标记价格
+    markPrice: '', // 标记价格
     lastFundingRate: '', // 资金费率
     nextFundingTime: '',   // 下次资金费时间
     Latestrice: '',   // 最新价格
@@ -236,6 +236,13 @@ root.computed.symbol = function () {
 // 当前socket订阅货币对
 root.computed.subscribeSymbol = function () {
   return this.$store.state.subscribeSymbol;
+}
+//直到下个资金时段的剩余时间
+root.computed.toNextFundingTime = function () {
+  return 0
+  let nowTime = new Date().getTime();
+  let remainTime = this.$globalFunc.timeCountdown(nowTime,this.nextFundingTime,':h');
+  return remainTime
 }
 // 实时价格
 root.computed.isNowPrice = function () {
@@ -390,7 +397,7 @@ root.methods.getMarkPricesAndCapitalRates = function () {
 root.methods.re_getMarkPricesAndCapitalRates = function (data) {
   typeof(data) == 'string' && (data = JSON.parse(data));
   // console.info('data========',data.data[0])
-  this.marketPrice = data.data[0].markPrice || '--'
+  this.markPrice = data.data[0].markPrice || '--'
   this.lastFundingRate = data.data[0].lastFundingRate || '--'
   this.nextFundingTime = data.data[0].nextFundingTime || '--'
 //
@@ -858,6 +865,18 @@ root.methods.initSocket = function () {
   // this.$socket.emit('SUBSCRIBE', ["btcusdt@depth"]);
 
   let subscribeSymbol = this.$store.state.subscribeSymbol;
+  // 获取最新标记价格
+  this.$socket.on({
+    key: 'markPrice', bind: this, callBack: (message) => {
+      // console.log('markPrice is ===',message);
+      if(message.s === subscribeSymbol){
+        message.p > 0 && (this.markPrice = message.p)// 标记价格
+        message.r > 0 && (this.lastFundingRate = message.r)// 资金费率
+        message.T > 0 && (this.nextFundingTime = message.T)//下个资金时间
+      }
+    }
+  })
+
   // 获取深度图信息
   this.$socket.on({
     key: 'depth', bind: this, callBack: (message) => {

@@ -26,13 +26,16 @@
           <div class="cen2">
             <div class="cen31 border-dashed" @mouseenter="openPositionBox('marked-price')" @mouseleave="closePositionBox('marked-price')">标记价格</div>
             <div class="marked-price">你的持仓的平均买入/卖出成交价格。</div>
-            <div class="cen32"><span class="txt detail_txt">{{marketPrice}}</span></div>
+            <div class="cen32"><span class="txt detail_txt">{{markPrice}}</span></div>
           </div>
           <div class="cen2">
             <div class="cen31"><span class="capital-rate border-dashed" @mouseenter="openPositionBox('capital-rate-block')" @mouseleave="closePositionBox('capital-rate-block')">资金费率/每八小时</span></div>
             <div class="capital-rate-block">买方及卖方在下个资金时段要交换的资金费率。</div>
-            <div class="cen32"><span class="txt detail_txt txt-blue">{{toFixed(lastFundingRate || 0,4)}} %</span>
-              <span class="txt detail_txt border-dashed" @mouseenter="openPositionBox('residual-time')" @mouseleave="closePositionBox('residual-time')">{{formatDateUitll(nextFundingTime || 0)}}</span>
+            <div class="cen32"><span class="txt detail_txt txt-blue">{{toFixed((lastFundingRate * 100) || 0,4)}} %</span>
+              <span class="txt detail_txt border-dashed" @mouseenter="openPositionBox('residual-time')" @mouseleave="closePositionBox('residual-time')">
+                {{$globalFunc.timeCountdown(new Date().getTime(),nextFundingTime,':h')}}
+                <!--{{toNextFundingTime}}-->
+              </span>
             </div>
             <div class="residual-time">直到下个资金时段的剩余时间。</div>
           </div>
