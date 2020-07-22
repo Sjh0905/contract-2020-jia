@@ -103,7 +103,7 @@
       <label :for="'pro-bar-amount' + orderType" class="progress-bar-amount flex-row border_radius"
              :class="{'focus-color-green':inputColor=='amount'+orderType && !orderType,'focus-color-red':inputColor=='amount'+orderType && orderType}"
       >
-        <input :id="'pro-bar-amount' + orderType" :ref="'buy_sall_amount_' + orderType" class="txt-small txt-light" type="text" v-model="amount"
+        <input :id="'pro-bar-amount' + orderType" :ref="'buy_sall_amount_' + orderType" class="txt-small txt-light" type="text" v-model="value ? value + '%' : amount"
                @focus="changeColor('amount' + orderType)"
                @blur="changeColor(0)"
                @keyup="keyBoard('pro-bar-amount' + orderType)"
@@ -230,24 +230,25 @@
 
     <!--    sss 屏蔽-->
     <!--交易按钮 begin-->
-    <div class="progress-bar-btn-wrap" @click="tradeMarket(true,orderType)" :class="btn_click ? 'progress-bar-active' : ''">
+    <div class="progress-bar-btn-wrap" >
+<!--      @click="tradeMarket(true,orderType)" :class="btn_click ? 'progress-bar-active' : ''"-->
 
-      <div class="progress-bar-btn txt-nomal border_radius"
+      <div class="progress-bar-btn txt-nomal border_radius" @click="postOrdersCreate()"
            :class="orderType?'progress-bar-redbtn btn_red_box_shadow':'progress-bar-greenbtn btn_green_box_shadow'"
            v-if="$store.state.authState.userId && isHasModule('buttonType') == 1">
-        {{orderType&& '买入/做多' || '卖出/做空'}}
+        {{orderType && '卖出/做空'  || '买入/做多' }}
       </div>
 
       <div class="progress-bar-btn txt-nomal border_radius"
            :class="orderType?'progress-bar-redbtn btn_red_box_shadow':'progress-bar-greenbtn btn_green_box_shadow'"
            v-if="$store.state.authState.userId && isHasModule('buttonType') == 2">
-        {{orderType&& '开多' || '开空'}}
+        {{orderType && '开多' || '开空'}}
       </div>
 
       <div class="progress-bar-btn txt-nomal border_radius"
            :class="orderType?'progress-bar-redbtn btn_red_box_shadow':'progress-bar-greenbtn btn_green_box_shadow'"
            v-if="$store.state.authState.userId && isHasModule('buttonType') == 3">
-        {{orderType&& '平空' || '平多'}}
+        {{orderType && '平空' || '平多'}}
       </div>
 
       <!--<div class="progress-bar-btn progress-bar-nologin-btn ptxt-nomal"-->

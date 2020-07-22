@@ -193,6 +193,7 @@ requestAddress.GET_CAPITAL_DEAL = {url: urlHead + '/future/orders/userTrades', m
 requestAddress.GET_CAPITAL_CANCEL = {url: urlHead + '/future/orders/cancel', method: 'post',} // 取消订单
 requestAddress.GET_CAPITAL_CANCELALL = {url: urlHead + '/future/orders/cancelAll', method: 'post',} // 取消全部订单
 requestAddress.POST_CAPITAL_BIAN = {url: urlHead + '/future/account/userAccount', method: 'get',} // 保证金余额
+requestAddress.GET_POSITIONSIDE_DUAL = {url: urlHead + '/future/account/positionSide/dual', method: 'get',} // 查询单双仓模式
 requestAddress.POST_SINGLE_DOUBLE = {url: urlHead + '/future/account/positionSide', method: 'post',} // 切换单双仓
 requestAddress.POST_LEVELRAGE = {url: urlHead + '/future/account/levelrage', method: 'post',} // 调整杠杆接口
 requestAddress.POST_MARGIN_TYPE = {url: urlHead + '/future/account/marginType ', method: 'post',} // 变换全仓逐仓

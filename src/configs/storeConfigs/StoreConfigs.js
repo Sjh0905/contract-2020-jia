@@ -52,11 +52,7 @@ store.state.themeColor = 1
 // 控制隐藏显示
 store.state.downloadShow=true,
 
-/**
- * socket ListenKey
- * @type {string}
- */
-store.state.listenKey = ''
+
 
 /**
  * 用户的id！注意，这里要非常注意
@@ -272,11 +268,32 @@ store.state.initPriceSymbol = []
 //手机区域number
 store.state.areaCode = '0086'
 
+
+/**
+ * 杠杆倍数  leverage
+ * @type {Number}
+ */
+store.state.leverage = 0
+/**
+ * socket ListenKey
+ * @type {string}
+ */
+store.state.listenKey = ''
+
 /**
  * 同步修改state
  * @type {{}}
  */
 store.mutations = {}
+
+/**
+ * 合约相关内容
+ * @type {Number}
+ */
+// 改变 杠杆倍数
+store.mutations.CHANGE_LEVERAGE = (state, info) => {
+  state.leverage = info;
+}
 
 // 改变 listenKey
 store.mutations.CHANGE_LISTENKEY = (state, info) => {
