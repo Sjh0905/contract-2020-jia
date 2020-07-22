@@ -154,7 +154,7 @@ root.data = function () {
     lowPrice: '', // 24小时最低价
     volume: '', // 24小时量
     priceChangePercent: '', // 24涨幅
-    marketPrice: '', // 标记价格
+    markPrice: '', // 标记价格
     lastFundingRate: '', // 资金费率
     nextFundingTime: '',   // 下次资金费时间
     Latestrice: '',   // 最新价格
@@ -238,6 +238,13 @@ root.computed.symbol = function () {
 // 当前socket订阅货币对
 root.computed.subscribeSymbol = function () {
   return this.$store.state.subscribeSymbol;
+}
+//直到下个资金时段的剩余时间
+root.computed.toNextFundingTime = function () {
+  return 0
+  let nowTime = new Date().getTime();
+  let remainTime = this.$globalFunc.timeCountdown(nowTime,this.nextFundingTime,':h');
+  return remainTime
 }
 // 实时价格
 root.computed.isNowPrice = function () {
@@ -386,7 +393,7 @@ root.methods.getMarkPricesAndCapitalRates = function () {
 root.methods.re_getMarkPricesAndCapitalRates = function (data) {
   typeof(data) == 'string' && (data = JSON.parse(data));
   // console.info('data========',data.data[0])
-  this.marketPrice = data.data[0].markPrice || '--'
+  this.markPrice = data.data[0].markPrice || '--'
   this.lastFundingRate = data.data[0].lastFundingRate || '--'
   this.nextFundingTime = data.data[0].nextFundingTime || '--'
 //
@@ -663,141 +670,6 @@ root.methods.re_getAuthState = function (data) {
   this.$store.commit('SET_AUTH_STATE', data.dataMap)
 }
 
-//临时调试socket添加的方法
-/*root.methods.initWebSocket = function (CURRENT_SYMBOL){
-  // let that = this;
-  // console.log('that=====',that)
-  // socket = new WebSocket('wss://wss.highdefi.com/v1/market/notification');
-  let func_snapshot = this.func_snapshot
-
-  let func_topic_bar = this.func_topic_bar
-  let func_topic_prices = this.func_topic_prices
-  let func_topic_tick = this.func_topic_tick
-
-  this.socket = new WebSocket('wss://wss.highdefi.com/v1/market/notification');
-  this.socket.onopen = ()=> {
-    console.log('this',this);
-    console.log('window.symbol',window.symbol);
-    this.socket.send(JSON.stringify({
-      action: 'subscribe',
-      symbol: CURRENT_SYMBOL
-    }));
-  }
-  this.socket.onclose = ()=> {
-    console.log('web socket disconnected.');
-    closeWebSocket();
-    setTimeout(initWebSocket, 10000);
-  };
-  this.socket.onerror = ()=> {
-    console.log('web socket error.');
-    closeWebSocket();
-    setTimeout(initWebSocket, 10000);
-  };
-  this.socket.onmessage = function() {
-    var data = JSON.parse(event.data);
-    // console.log('this is onmessage data',data);
-    if (Array.isArray(data) && data.length==2) {
-      var
-        topic = data[0],
-        message = data[1];
-      if (topic === 'topic_snapshot') {
-        func_snapshot(message);
-        console.log('this is topic_snapshot data',message);
-        // onTopicSnapshot(message);
-      } else if (topic === 'topic_bar') {
-        func_topic_bar(message)
-        console.log('this is topic_bar data',message);
-        // onTopicBar(message);
-      } else if (topic === 'topic_prices') {
-        func_topic_prices(message)
-        console.log('this is topic_prices data',message);
-        // onTopicPrices(message);
-      } else if (topic === 'topic_tick') {
-        func_topic_tick(message)
-        // onTopicTick(message);
-      } else if (topic === 'topic_order') {
-        // onTopicOrder(message);
-      }
-    }
-  };
-}
-
-root.methods.closeWebSocket= function() {
-  if (window.socket) {
-    window.socket.close();
-    window.socket = null;
-  }
-}
-root.methods.func_topic_bar = function(message){
-  if (this.$store.state.symbol == message.symbol) {
-    this.topic_bar = message;
-  }
-}
-root.methods.func_topic_tick = function(message){
-  this.socket_tick = message instanceof Array && (message[0]['symbol'] === this.$store.state.symbol && message[0]) || (message.symbol === this.$store.state.symbol && message)
-  //当this.socket_tick为false的时候，给一个默认值{}
-  if(!this.socket_tick){
-    this.socket_tick = {}
-  }
-  // this.socket_tick = message instanceof Array && message[0] || message;
-  this.socketTickArr = message instanceof Array && (message[0]['symbol'] === this.$store.state.symbol && message) || [];
-  this.socketTickObj = message instanceof Array && {} || (message.symbol === this.$store.state.symbol && message);
-  // 取消板块loading
-  this.trade_loading = false;
-}
-root.methods.func_snapshot= function(message){
-  if (this.$store.state.symbol == message.symbol) {
-    if (Number(message.timestamp) - Number(this.refreshTime) > this.refresh) {
-
-      this.snap_shot_timeout && clearTimeout(this.snap_shot_timeout);
-      // console.log('正常刷新，清空定时器',this.snap_shot_timeout);
-      this.socket_snap_shot = message;
-      this.refreshTime = message.timestamp;
-    }else {
-      this.socket_snap_shot_temp = message;
-
-      this.snap_shot_timeout && clearTimeout(this.snap_shot_timeout);
-      this.snap_shot_timeout = setTimeout(()=>{
-        let refreshTime = this.socket_snap_shot_temp.timestamp;
-        // console.log('小于最近一次时间间隔小于500ms深度图的时间',this.refreshTime < refreshTime);
-        // console.log('刷新为',this.socket_snap_shot_temp);
-        // 如果最后一次刷新时间小于最近一次时间间隔小于500ms深度图的时间，说明没有任何推送，主动刷新
-        if (this.refreshTime < refreshTime){
-          this.socket_snap_shot = this.socket_snap_shot_temp;
-          this.refreshTime = refreshTime;
-        }
-      },this.refresh)
-    }
-    //延迟500ms刷新，如果不写else代码，如果当前没有推送，上一次刷新间隔时间小于500ms，
-    // 则不会进行最后一次数据的刷新，直到下一次推送才会重新判断时间，以下写法只会让所有推送延迟刷新
-    // 并不会减少刷新次数
-    // setTimeout(()=>{
-    //
-    //   //如果this.refresh为0，则说明切换了币对或第一次进入，只有在当前币对页面停留才需要延迟500ms
-    //   this.refresh == 0 && (this.refresh = 500);
-    //
-    //   this.socket_snap_shot = message;
-    //   // this.refreshTime = message.timestamp;
-    // },this.refresh)
-  }
-  // 取消板块loading
-  this.trade_loading = false;
-}
-root.methods.func_topic_prices = function(message){
-  this.socket_price = message;
-  // console.warn('this is topic_price',message)
-  // let obj = {}
-  // obj[this.$store.state.symbol] = [0,0,0,0,0,0]
-  // this.socket_price = this.$globalFunc.mergeObj(message,obj)
-
-  // 取消板块loading
-  this.trade_loading = false;
-}*/
-
-
-
-
-
 // 初始化socket
 root.methods.initSocket = function () {
   let that = this;
@@ -806,6 +678,18 @@ root.methods.initSocket = function () {
   // this.$socket.emit('SUBSCRIBE', ["btcusdt@depth"]);
 
   let subscribeSymbol = this.$store.state.subscribeSymbol;
+  // 获取最新标记价格
+  this.$socket.on({
+    key: 'markPrice', bind: this, callBack: (message) => {
+      // console.log('markPrice is ===',message);
+      if(message.s === subscribeSymbol){
+        message.p > 0 && (this.markPrice = message.p)// 标记价格
+        message.r > 0 && (this.lastFundingRate = message.r)// 资金费率
+        message.T > 0 && (this.nextFundingTime = message.T)//下个资金时间
+      }
+    }
+  })
+
   // 获取深度图信息
   this.$socket.on({
     key: 'depth', bind: this, callBack: (message) => {

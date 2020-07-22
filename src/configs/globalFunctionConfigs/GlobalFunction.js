@@ -205,7 +205,7 @@ GlobalFunction.comparedWithGreenwichTime = function (time) {
 }
 
 //倒计时,new Date("2019/03/10 00:00:00").getTime()可以将指定时间转化为时间戳
-GlobalFunction.timeCountdown = function (nowTime = 0,beginTime = 0) {
+GlobalFunction.timeCountdown = function (nowTime = 0,beginTime = 0,type = '') {
   let stepTime = beginTime - nowTime;
   if(stepTime <= 0)return 0;
 
@@ -222,6 +222,10 @@ GlobalFunction.timeCountdown = function (nowTime = 0,beginTime = 0) {
   stepMinute < 10 && (stepMinute = "0" + stepMinute);
 
   stepSecond < 10 && (stepSecond = "0" + stepSecond);
+
+  if(type == ":h"){
+    return stepHour + ":" + stepMinute + ":" + stepSecond
+  }
 
   return stepDay + "天" + stepHour + "时" + stepMinute + "分" + stepSecond + "秒"
 }

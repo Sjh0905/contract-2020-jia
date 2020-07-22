@@ -32,7 +32,7 @@ export default class {
       //   symbol: symbol || this.symbol
       // }));
       // this.emit('subscribe', {symbol:symbol});
-      this.emit('SUBSCRIBE', ["btcusdt@depth","btcusdt@aggTrade","btcusdt@kline_1d"]);
+      this.emit('SUBSCRIBE', ["btcusdt@depth","btcusdt@aggTrade","btcusdt@kline_15m","btcusdt@markPrice"]);
     }
 
     //------------------func2------------------//
