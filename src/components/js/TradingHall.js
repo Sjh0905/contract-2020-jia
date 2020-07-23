@@ -366,7 +366,7 @@ root.methods.initTicket24Hr = function () {
 // 获取币安24小时价格变动正确回调
 root.methods.re_initTicket24Hr = function (data) {
   typeof(data) == 'string' && (data = JSON.parse(data));
-  if(!data && !data.data)return
+  if(!data || !data.data || !data.data[0])return
   // console.info('data====',data.data[0])
   this.highPrice = data.data[0].highPrice || '--'
   this.lowPrice = data.data[0].lowPrice || '--'
@@ -686,6 +686,22 @@ root.methods.initSocket = function () {
         message.p > 0 && (this.markPrice = message.p)// 标记价格
         message.r > 0 && (this.lastFundingRate = message.r)// 资金费率
         message.T > 0 && (this.nextFundingTime = message.T)//下个资金时间
+      }
+    }
+  })
+
+  // 获取币安24小时价格变动
+  this.$socket.on({
+    key: 'ticker', bind: this, callBack: (message) => {
+      // console.log('ticker is ===',message);
+
+      var tickerData = message.find(v=>v.s === subscribeSymbol)
+
+      if(tickerData){
+        tickerData.P && (this.priceChangePercent = tickerData.P)// 24小时价格变化(百分比)
+        tickerData.h > 0 && (this.highPrice = tickerData.h)// 24小时内最高成交价
+        tickerData.l > 0 && (this.lowPrice = tickerData.l)// 24小时内最低成交加
+        tickerData.v && (this.volume = tickerData.v)// 24小时内成交量
       }
     }
   })

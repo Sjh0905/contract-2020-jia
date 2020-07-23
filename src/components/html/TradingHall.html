@@ -43,7 +43,7 @@
             <div class="cen31">{{$t('Change')}}</div>
             <div class="cen32">
                 <span class="txt" :class="priceChangePercent > 0 ? 'txt-price' : (priceChangePercent == 0 ? '' : 'txt-price-red')">
-                  <span style="font-size: 1.4rem">{{priceChangePercent > 0 ? '+' : ''}}{{priceChangePercent || 0}}%</span>
+                  <span style="font-size: 1.4rem">{{priceChangePercent > 0 ? '+' : ''}}{{toFixed(priceChangePercent || 0,2) || 0}}%</span>
                   <em class="up_down_icon" :class="diff24 > 0 ? 'up_icon' : (priceChangePercent == 0 ? '' : 'down_icon')"></em>
                 </span>
             </div>

@@ -286,7 +286,7 @@ root.methods.initViews = function (lang) {
         this._send(self.urlHead+'future/common/candlestick', {
           // symbol:symbolInfo.ticker,
           symbol:'BTCUSDT',
-          interval:new_interval,
+          interval:resolution_mapping[resolution],
           start: fromTime * 1000,
           end: toTime * 1000
         })
