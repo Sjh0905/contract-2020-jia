@@ -263,7 +263,7 @@ root.methods.initViews = function (lang) {
     //  localStorage.clear();
 
     //日线放缓存
-    if(resolution == '15------'){
+    if(resolution == '15'){
       //k线放入缓存
       this.bartemphc = JSON.parse(localStorage.getItem(symbolInfo.ticker+"_bars"));
       this.starttimehc = localStorage.getItem(symbolInfo.ticker+"_time");
@@ -286,7 +286,7 @@ root.methods.initViews = function (lang) {
         this._send(self.urlHead+'future/common/candlestick', {
           // symbol:symbolInfo.ticker,
           symbol:'BTCUSDT',
-          interval:new_interval + 'm',
+          interval:resolution_mapping[resolution],
           start: fromTime * 1000,
           end: toTime * 1000
         })
@@ -294,17 +294,16 @@ root.methods.initViews = function (lang) {
             if (response) {
 
               var data = response.data;
-              console.info("data.length==",response.data);
               var i, b;
               // bars.length > 0 && (bars = []);
-              bars = {};
+              bars = [];
               // var length = data.length;
               var time = "";
 
-              // for(var i = 0; i < data.length; ++i) {
+              for(var i = 0; i < data.length; ++i) {
                 // t, OHLC, V
 
-                b = data;
+                b = data[i];
                 startTime = response.startTime || 0;
                 bars.push({
                   // time: b[0],
@@ -323,13 +322,14 @@ root.methods.initViews = function (lang) {
                 // if(i == length-1){
                 //   time = b[0];
                 // }
-              // }
+              }
 
               //k线放入缓存
               localStorage.setItem(symbolInfo.ticker+"_bars",JSON.stringify(bars));
               localStorage.setItem(symbolInfo.ticker+"_time",time.toString());
               onHistoryCallback(bars);
             }
+
           })
       }else if(this.bartemphc != null && this.starttimehc != null){
         onHistoryCallback(this.bartemphc);
