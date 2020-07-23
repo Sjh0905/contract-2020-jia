@@ -178,6 +178,10 @@ root.props.effectiveTime = {
 root.props.reducePositionsSelected = {
   type: Boolean,
 }
+root.props.latestPrice = {
+  type: String,
+  default: '最新价格'
+}
 
 /*----------------------------- 组件 ------------------------------*/
 
@@ -308,6 +312,10 @@ root.watch.value = function (newValue, oldValue) {
   // console.log(newValue)
   this.sectionSelect(newValue/100);
 }
+root.watch.pendingOrderType = function (newValue, oldValue) {
+  this.value = 0
+  this.amount = ''
+}
 
 /*----------------------------- 方法 ------------------------------*/
 
@@ -339,14 +347,15 @@ root.methods.postOrdersCreate = function () {
       price: this.price,
       quantity: this.amount,
       reduceOnly: this.reducePositionsSelected ? true : false,
-      side: this.orderType ? 'SELL':' BUY',
+      orderSide: this.orderType ? 'SELL':'BUY',
       stopPrice: null,
-      symbol: this.symbol,
+      symbol: 'BTCUSDT',
       timeInForce: this.effectiveTime,
-      type: "LIMIT",
+      orderType: "LIMIT",
       workingType: null
     }
   }
+
   // 单仓 市价
   if (this.isHasModule('kaipingType') == 1 && this.isHasModule('buttonType') == 1 && this.pendingOrderType == 'marketPrice') {
     params = {
@@ -355,11 +364,73 @@ root.methods.postOrdersCreate = function () {
       price: this.price,
       quantity: this.amount,
       reduceOnly: this.reducePositionsSelected ? true : false,
-      side: this.orderType ? 'SELL':' BUY',
-      symbol: this.symbol,
-      type: "MARKET",
+      orderSide: this.orderType ? 'SELL':'BUY',
+      symbol: 'BTCUSDT',
+      orderType: "MARKET",
     }
   }
+
+  // 双仓 限价
+  if (this.isHasModule('kaipingType') == 1 && this.isHasModule('buttonType') == 2 && this.pendingOrderType == 'limitPrice') {
+    params = {
+      leverage: this.$store.state.leverage,
+      positionSide: this.orderType ? 'SHORT' : 'LONG',
+      price: this.price,
+      quantity: this.amount,
+      // reduceOnly: this.reducePositionsSelected ? true : false,
+      orderSide: this.orderType ? 'SELL':'BUY',
+      symbol: 'BTCUSDT',
+      timeInForce: this.effectiveTime,
+      orderType: "LIMIT",
+    }
+  }
+
+  // 双仓 市价
+  if (this.isHasModule('kaipingType') == 1 && this.isHasModule('buttonType') == 2 && this.pendingOrderType == 'marketPrice') {
+    params = {
+      leverage: this.$store.state.leverage,
+      positionSide: this.orderType ? 'SHORT' : 'LONG',  // 开多传 "LONG" ，开空传 "SHORT"
+      price: this.price,
+      quantity: this.amount,
+      // reduceOnly: this.reducePositionsSelected ? true : false,
+      orderSide: this.orderType ? 'SELL':'BUY',
+      symbol: 'BTCUSDT',
+      orderType: "MARKET",
+    }
+  }
+
+  // 单仓 限价止盈止损
+  // if (this.isHasModule('kaipingType') == 1 && this.isHasModule('buttonType') == 1 && this.pendingOrderType == 'limitProfitStopLoss') {
+  //   params = {
+  //     leverage: this.$store.state.leverage,
+  //     positionSide: "BOTH",
+  //     price: this.price,
+  //     quantity: 1,
+  //     reduceOnly: true,
+  //     orderSide: this.orderType ? 'SELL':'BUY',
+  //     stopPrice: this.triggerPrice,
+  //     symbol: "BTCUSDT",
+  //     timeInForce: this.effectiveTime,
+  //     orderType: 'TAKE_PROFIT',
+  //     workingType: this.latestPrice == '最新价格'? 'CONTRACT_PRICE':'MARK_PRICE',
+  //   }
+  // }
+  // // 单仓 市价止盈止损
+  // if (this.isHasModule('kaipingType') == 1 && this.isHasModule('buttonType') == 1 && this.pendingOrderType == 'marketPriceProfitStopLoss') {
+  //   params = {
+  //     leverage: this.$store.state.leverage,
+  //     positionSide: "BOTH",
+  //     price: "9352.50",
+  //     quantity: 1,
+  //     reduceOnly: true,
+  //     orderSide: this.orderType ? 'SELL':'BUY',
+  //     stopPrice: this.triggerPrice,
+  //     symbol: "BTCUSDT",
+  //     timeInForce: this.effectiveTime,
+  //     orderType: "TAKE_PROFIT_MARKET",
+  //     workingType: this.latestPrice == '最新价格'? 'CONTRACT_PRICE':'MARK_PRICE',
+  //   }
+  // }
 
   // Object.assign(params, {type: "LIMIT",});
   this.$http.send('POST_ORDERS_CREATE',{
@@ -379,21 +450,45 @@ root.methods.error_postOrdersCreate = function (err) {
 }
 
 // 平仓
-// root.methods.postOrdersPosition = function () {
-//   this.$http.send('POST_ORDERS_POSITION',{
-//     bind: this,
-//     callBack: this.re_postOrdersPosition,
-//     errorHandler: this.error_postOrdersPosition
-//   })
-// }
-// root.methods.re_postOrdersPosition = function (data) {
-//   typeof (data) === 'string' && (data = JSON.parse(data))
-//   if (!data) return
-//   console.info('data=======',data)
-// }
-// root.methods.error_postOrdersPosition = function (err) {
-//   console.info('err====',err)
-// }
+root.methods.postOrdersPosition = function () {
+  let params = {}
+  // 双仓 平仓 限价
+  if (this.isHasModule('kaipingType') == 2 && this.isHasModule('buttonType') == 3 && this.pendingOrderType == 'limitPrice') {
+    params = {
+      leverage: 20,
+      positionSide: "LONG",
+      price: "9510.00",
+      quantity: 2,
+      side: "SELL",
+      stopPrice: null,
+      symbol: "BTCUSDT",
+      timeInForce: "GTC",
+      type: "LIMIT",
+      workingType: null,
+    }
+  }
+
+  // 双仓 平仓 市价
+  if (this.isHasModule('kaipingType') == 2 && this.isHasModule('buttonType') == 3 && this.pendingOrderType == 'marketPrice') {
+    params = {
+
+    }
+  }
+
+
+  this.$http.send('POST_ORDERS_POSITION',{
+    bind: this,
+    callBack: this.re_postOrdersPosition,
+    errorHandler: this.error_postOrdersPosition
+  })
+}
+root.methods.re_postOrdersPosition = function (data) {
+  typeof (data) === 'string' && (data = JSON.parse(data))
+  if (!data) return
+}
+root.methods.error_postOrdersPosition = function (err) {
+  console.info('err====',err)
+}
 
 // 判断当前币是否可交易
 root.methods.SYMBOL_ENTRANSACTION = function () {
