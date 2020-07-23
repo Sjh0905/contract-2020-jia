@@ -23,7 +23,8 @@ server.socket = {}
 // server.socket.url = process.env.SOCKET || 'wss://wss.highdax.com' //node地址
 // server.socket.url = process.env.SOCKET || 'wss://wss.eunex.group/v1/market/notification' //后台socket（java）地址
 // server.socket.url = process.env.SOCKET || 'wss://wss.2020.exchange/v1/market/notification' //生产后台socket（java）地址
-server.socket.url = process.env.SOCKET || 'wss://fstream.yshyqxx.com/stream' //binance 合约国内生产地址
+// server.socket.url = process.env.SOCKET || 'wss://fstream.yshyqxx.com/stream' //binance 合约国内生产地址
+server.socket.url = process.env.SOCKET || 'wss://stream.binancefuture.com/stream' //binance 合约国内测试地址
 
 server.socket.path = '/v1/market' //请求路径
 server.socket.transports = ['websocket'] //请求类型

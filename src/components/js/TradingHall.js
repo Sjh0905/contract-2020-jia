@@ -157,7 +157,7 @@ root.data = function () {
     markPrice: '', // 标记价格
     lastFundingRate: '', // 资金费率
     nextFundingTime: '',   // 下次资金费时间
-    Latestrice: '',   // 最新价格
+    latestPriceVal: '',   // 最新价格
     maxNotionalValue: '',   // 当前杠杆倍数下允许的最大名义价值
     marginType:'',
     dualSidePosition:''  // "true": 双向持仓模式；"false": 单向持仓模式
@@ -418,7 +418,7 @@ root.methods.getLatestrice = function () {
 root.methods.re_getLatestrice = function (data) {
   typeof(data) == 'string' && (data = JSON.parse(data));
   this.currency_list = this.$globalFunc.mergeObj(data.data[0], this.currency_list);
-  this.Latestrice = data.data[0].price
+  this.latestPriceVal = data.data[0].price
 }
 // 获取币安最新价格接口错误回调
 root.methods.error_getLatestrice = function (err) {
@@ -720,6 +720,8 @@ root.methods.initSocket = function () {
 
       this.socket_tick = message.s === subscribeSymbol && message || {}
       this.socketTickObj = message.s === subscribeSymbol && message || {}
+
+      this.latestPriceVal = this.socketTickObj && this.socketTickObj.p || this.latestPriceVal
       // 取消板块loading
       this.trade_loading = false;
         // console.log('aggTrade is ===',message);

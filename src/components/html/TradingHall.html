@@ -22,11 +22,13 @@
 
         <div class="centertop">
           <div class="cen1" @mouseenter="showInfo()" @mouseleave="closeInfo()">{{symbol.split('_')[0]}}<em class="txt_light">/</em>{{symbol.split('_')[1]}}</div>
-          <div class="cen2"><div class="cen21"> {{Latestrice}}</div><div class="cen22"><em class="txt_light">≈</em>{{isCnyPrice}}</div></div>
+          <div class="cen2"><div class="cen21"> {{latestPriceVal}}</div>
+            <!--<div class="cen22"><em class="txt_light">≈</em>{{isCnyPrice}}</div>-->
+          </div>
           <div class="cen2">
             <div class="cen31 border-dashed" @mouseenter="openPositionBox('marked-price')" @mouseleave="closePositionBox('marked-price')">标记价格</div>
             <div class="marked-price">你的持仓的平均买入/卖出成交价格。</div>
-            <div class="cen32"><span class="txt detail_txt">{{markPrice}}</span></div>
+            <div class="cen32"><span class="txt detail_txt">{{toFixed(markPrice || 0,2)}}</span></div>
           </div>
           <div class="cen2">
             <div class="cen31"><span class="capital-rate border-dashed" @mouseenter="openPositionBox('capital-rate-block')" @mouseleave="closePositionBox('capital-rate-block')">资金费率/每八小时</span></div>
