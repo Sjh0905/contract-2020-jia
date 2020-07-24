@@ -411,7 +411,7 @@ root.methods.initViews = function (lang) {
 		    	let b = message.k;
 		    	if (!b || self.$store.state.subscribeSymbol != b.s) return;
 	    		if (resolution_mapping[resolution] == b.i) {
-            console.log('获取k线数据',b.i,message);
+            // console.log('获取k线数据',b.i,message);
 	    			onRealtimeCallback({
               time: b.t,
               open: b.o,
