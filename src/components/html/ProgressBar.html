@@ -155,7 +155,7 @@
       </div>
       <div class="nowbar">
       </div> -->
-      <div class="block">
+      <div class="block" v-if="pendingOrderType == 'limitPrice'">
           <!-- <span class="demonstration">默认</span> -->
           <p :class="orderType ? 'radiusa_red' : 'radiusa_green'" v-if="value>=0" @click="value=0" style="cursor:pointer"></p>
           <p :class="orderType ? 'radiusb_red' : 'radiusb_green'" v-if="value>=25"@click="value=25" style="cursor:pointer"></p>
@@ -169,6 +169,52 @@
             >
           </el-slider>
       </div>
+
+      <div class="block" v-if="pendingOrderType == 'marketPrice'">
+        <!-- <span class="demonstration">默认</span> -->
+        <p :class="orderType ? 'radiusa_red' : 'radiusa_green'" v-if="value>=0" @click="value=0" style="cursor:pointer"></p>
+        <p :class="orderType ? 'radiusb_red' : 'radiusb_green'" v-if="value>=25"@click="value=25" style="cursor:pointer"></p>
+        <p :class="orderType ? 'radiusc_red' : 'radiusc_green'" v-if="value>=50"@click="value=50" style="cursor:pointer"></p>
+        <p :class="orderType ? 'radiusd_red' : 'radiusd_green'" v-if="value>=75"@click="value=75" style="cursor:pointer"></p>
+        <el-slider
+          v-model="value"
+          :class="orderType ? 'el-slider_green' : 'el-slider_red'"
+          :marks="marks"
+          :format-tooltip="formatTooltip"
+        >
+        </el-slider>
+      </div>
+
+      <div class="block" v-if="pendingOrderType == 'limitProfitStopLoss'">
+        <!-- <span class="demonstration">默认</span> -->
+        <p :class="orderType ? 'radiusa_red' : 'radiusa_green'" v-if="value>=0" @click="value=0" style="cursor:pointer"></p>
+        <p :class="orderType ? 'radiusb_red' : 'radiusb_green'" v-if="value>=25"@click="value=25" style="cursor:pointer"></p>
+        <p :class="orderType ? 'radiusc_red' : 'radiusc_green'" v-if="value>=50"@click="value=50" style="cursor:pointer"></p>
+        <p :class="orderType ? 'radiusd_red' : 'radiusd_green'" v-if="value>=75"@click="value=75" style="cursor:pointer"></p>
+        <el-slider
+          v-model="value"
+          :class="orderType ? 'el-slider_green' : 'el-slider_red'"
+          :marks="marks"
+          :format-tooltip="formatTooltip"
+        >
+        </el-slider>
+      </div>
+
+      <div class="block" v-if="pendingOrderType == 'marketPriceProfitStopLoss'">
+        <!-- <span class="demonstration">默认</span> -->
+        <p :class="orderType ? 'radiusa_red' : 'radiusa_green'" v-if="value>=0" @click="value=0" style="cursor:pointer"></p>
+        <p :class="orderType ? 'radiusb_red' : 'radiusb_green'" v-if="value>=25"@click="value=25" style="cursor:pointer"></p>
+        <p :class="orderType ? 'radiusc_red' : 'radiusc_green'" v-if="value>=50"@click="value=50" style="cursor:pointer"></p>
+        <p :class="orderType ? 'radiusd_red' : 'radiusd_green'" v-if="value>=75"@click="value=75" style="cursor:pointer"></p>
+        <el-slider
+          v-model="value"
+          :class="orderType ? 'el-slider_green' : 'el-slider_red'"
+          :marks="marks"
+          :format-tooltip="formatTooltip"
+        >
+        </el-slider>
+      </div>
+
     </div>
 
 
@@ -230,7 +276,7 @@
 
     <!--    sss 屏蔽-->
     <!--交易按钮 begin-->
-    <div class="progress-bar-btn-wrap" >
+    <div class="progress-bar-btn-wrap">
 <!--      @click="tradeMarket(true,orderType)" :class="btn_click ? 'progress-bar-active' : ''"-->
 
       <div class="progress-bar-btn txt-nomal border_radius" @click="postOrdersCreate()"
@@ -239,16 +285,16 @@
         {{orderType && '卖出/做空'  || '买入/做多' }}
       </div>
 
-      <div class="progress-bar-btn txt-nomal border_radius"
+      <div class="progress-bar-btn txt-nomal border_radius" @click="postOrdersCreate()"
            :class="orderType?'progress-bar-redbtn btn_red_box_shadow':'progress-bar-greenbtn btn_green_box_shadow'"
            v-if="$store.state.authState.userId && isHasModule('buttonType') == 2">
-        {{orderType && '开多' || '开空'}}
+        {{orderType && '开空' || '开多'}}
       </div>
 
       <div class="progress-bar-btn txt-nomal border_radius"
            :class="orderType?'progress-bar-redbtn btn_red_box_shadow':'progress-bar-greenbtn btn_green_box_shadow'"
            v-if="$store.state.authState.userId && isHasModule('buttonType') == 3">
-        {{orderType && '平空' || '平多'}}
+        {{orderType && '平多' || '平空'}}
       </div>
 
       <!--<div class="progress-bar-btn progress-bar-nologin-btn ptxt-nomal"-->

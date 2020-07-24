@@ -208,5 +208,8 @@ requestAddress.POST_ORDERS_POSITION = {url: urlHead + '/future/orders/closePosit
 requestAddress.POST_ORDERS_CREATE = {url: urlHead + '/future/orders/create', method: 'post',} // 开仓
 // requestAddress.POST_STICK_K = {url: urlHead + 'future/common/candlestick', method: 'get',} // K线数据
 
+requestAddress.GET_BALAN = {url: urlHead+'/future/account/userBalancev2', method: 'get'}  //账户余额
+requestAddress.GET_BALAN1 = {url: urlHead+'/future/account/userAccountv2', method: 'get'}  //账户信息
+
 
 export default requestAddress
