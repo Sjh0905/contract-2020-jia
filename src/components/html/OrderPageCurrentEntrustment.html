@@ -31,8 +31,8 @@
     </li>
     <!-- 表头 end -->
     <!-- 如果加载完成、已登录、有数据，则显示数据 begin -->
-    <template v-if="!loading">
-      <template v-if="userId && currentOrderComputed.length!==0">
+<!--    <template v-if="!loading">-->
+      <template v-if="currentOrderComputed.length!==0">
           <li class="flex"
               :class="$route.name == 'currentEntrust'?'tr-td':'tr-td-col'"
               v-for="(order,index) in currentOrderComputed" :key="order.orderId">
@@ -76,16 +76,6 @@
       <!-- 如果没加载完成、没登录、没数据，则显示'--' begin -->
       <template v-else>
         <li class="weit">
-<!--          <div class="td td-order">&#45;&#45;</div>-->
-<!--          <div class="td td-time">&#45;&#45;</div>-->
-<!--          <div class="td td-category">&#45;&#45;</div>-->
-<!--          <div class="td td-market">&#45;&#45;</div>-->
-<!--          <div class="td td-price">&#45;&#45;</div>-->
-<!--          <div class="td td-number">&#45;&#45;</div>-->
-<!--          <div class="td td-amount">&#45;&#45;</div>-->
-<!--          <div class="td td-turnover">&#45;&#45;</div>-->
-<!--          <div class="td td-operation">&#45;&#45;</div>-->
-
           <div class="nhtu" v-if="$route.name == 'currentEntrust'"><img src="../../assets/noOrders.png"></div>
           <div class="nhtu" v-if="$route.name !== 'currentEntrust'"><img src="../../assets/noOrderDark.png"></div>
           <span>{{$t('orderPageCurrentEntrustment.close_9')}}</span>
@@ -97,7 +87,7 @@
 <!--          <span class="text_blue pointer" @click="toCurrentHistory">{{$t('orderPageHistoricalEntrustment.close_12')}}</span>-->
 <!--        </li>-->
 <!--      </template>-->
-    </template>
+<!--    </template>-->
   </ul>
   <!-- 加载更多 begin -->
   <div class="" v-if="loading && userId">
@@ -124,17 +114,17 @@
   <!-- 是否全部撤单 end -->
 
   <!-- 是否单个撤单 begin -->
-  <PopupWindow :switch="cancelConfirm" @close="cancelConfirmClose">
-    <div slot="header">{{$t('orderPageCurrentEntrustment.close_10')}}</div>
-    <div slot="article">
-      {{$t('orderPageCurrentEntrustment.close_11')}}
-    </div>
-    <div slot="footer" class="pop-footer flex">
-      <button class="button-base" @click="clickToCancelConfirm" v-if="!waitForCancel">{{$t('orderPageCurrentEntrustment.close_10')}}</button>
-      <button class="button-base button-grey" v-if="waitForCancel" disabled>{{waitForCancelTime}}s</button>
-      <button class="button-base" @click="cancelConfirmClose">{{$t('orderPageCurrentEntrustment.close')}}</button>
-    </div>
-  </PopupWindow>
+<!--  <PopupWindow :switch="cancelConfirm" @close="cancelConfirmClose">-->
+<!--    <div slot="header">{{$t('orderPageCurrentEntrustment.close_10')}}</div>-->
+<!--    <div slot="article">-->
+<!--      {{$t('orderPageCurrentEntrustment.close_11')}}-->
+<!--    </div>-->
+<!--    <div slot="footer" class="pop-footer flex">-->
+<!--      <button class="button-base" @click="clickToCancelConfirm" v-if="!waitForCancel">{{$t('orderPageCurrentEntrustment.close_10')}}</button>-->
+<!--      <button class="button-base button-grey" v-if="waitForCancel" disabled>{{waitForCancelTime}}s</button>-->
+<!--      <button class="button-base" @click="cancelConfirmClose">{{$t('orderPageCurrentEntrustment.close')}}</button>-->
+<!--    </div>-->
+<!--  </PopupWindow>-->
   <!-- 是否单个撤单 end -->
 
 

@@ -197,7 +197,7 @@ requestAddress.GET_POSITIONSIDE_DUAL = {url: urlHead + '/future/account/position
 requestAddress.POST_SINGLE_DOUBLE = {url: urlHead + '/future/account/positionSide', method: 'post',} // 切换单双仓
 requestAddress.POST_LEVELRAGE = {url: urlHead + '/future/account/levelrage', method: 'post',} // 调整杠杆接口
 requestAddress.POST_MARGIN_TYPE = {url: urlHead + '/future/account/marginType ', method: 'post',} // 变换全仓逐仓
-requestAddress.GET_POSITION_RISK = {url: urlHead + '/future/account/positionRiskv2', method: 'get' ,} // 查询全仓逐仓
+requestAddress.GET_POSITION_RISK = {url: urlHead + '/future/account/positionRiskv2', method: 'get' ,} // 查询全仓逐仓 杠杆倍数 最大头寸
 
 requestAddress.GET_DEPTH = {url: urlHead + '/future/common/depth', method: 'get',} // 合约深度
 requestAddress.GET_TRADES = {url: urlHead + '/future/common/aggTrades', method: 'get',} // 获取实时成交
@@ -206,10 +206,10 @@ requestAddress.POST_KEEP_LISTENKEY = {url: urlHead + '/future/user/keepListenKey
 requestAddress.POST_CLOSE_LISTENKEY = {url: urlHead + '/future/user/closeListenKey', method: 'post',} // 关闭 listenKey 信息
 requestAddress.POST_ORDERS_POSITION = {url: urlHead + '/future/orders/closePosition', method: 'post',} // 平仓
 requestAddress.POST_ORDERS_CREATE = {url: urlHead + '/future/orders/create', method: 'post',} // 开仓
-// requestAddress.POST_STICK_K = {url: urlHead + 'future/common/candlestick', method: 'get',} // K线数据
+requestAddress.POST_STOP_POSITION = {url: urlHead+'/future/orders/stopPosition', method: 'post'}  //止盈止损接口
 
-requestAddress.GET_BALAN = {url: urlHead+'/future/account/userBalancev2', method: 'get'}  //账户余额
-requestAddress.GET_BALAN1 = {url: urlHead+'/future/account/userAccountv2', method: 'get'}  //账户信息
+requestAddress.GET_BALAN_ACCOUNT = {url: urlHead+'/future/account/userBalancev2', method: 'get'}  //账户余额
+requestAddress.GET_POSITION_RISKV = {url: urlHead + '/future/account/positionRiskv2', method: 'get' ,} // 查询全仓逐仓
 
 
 export default requestAddress

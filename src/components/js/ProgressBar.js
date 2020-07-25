@@ -10,8 +10,102 @@ root.computed = {}
 root.methods = {}
 root.watch = {}
 
-/*----------------------------- 计算 ------------------------------*/
 
+/*----------------------------- props ------------------------------*/
+
+
+root.props.btc_eth_rate = {
+  type: Object,
+  default: {}
+}
+
+root.props.socket_price = {
+  type: Object,
+  default: {}
+}
+
+// 18-2-7 添加的新需求 end
+
+root.props.orderType = {
+  type: Number,
+  default: 0
+}
+
+root.props.fee = {
+  type: Boolean,
+}
+
+root.props.symbol_config_times = {
+  type: Array,
+  default: function () {
+    return []
+  }
+}
+// 单仓模式 singleWarehouseMode 双仓模式 doubleWarehouseMode
+root.props.positionModeFirst = {
+  type: String,
+  default: 'singleWarehouseMode'
+}
+// 单仓 singleWarehouse 开仓 openWarehouse 平仓 closeWarehouse
+root.props.positionModeSecond = {
+  type: String,
+  default: 'openWarehouse'
+}
+// 限价 limitPrice 市价 marketPrice 限价止盈止损 limitProfitStopLoss 市价止盈止损 marketPriceProfitStopLoss
+root.props.pendingOrderType = {
+  type: String,
+  default: 'limitPrice'
+}
+root.props.effectiveTime = {
+  type: String,
+  default: 'GTX'
+}
+root.props.reducePositionsSelected = {
+  type: Boolean,
+}
+// 触发类型
+root.props.latestPrice = {
+  type: String,
+  default: '最新价格'
+}
+// 最新价格/市价
+root.props.latestPriceVal = {
+  type: String,
+  default: ''
+}
+// 可用余额
+root.props.availableBalance = {
+  type: Number,
+  default: 0
+}
+// 当前杠杆倍数下允许的最大头寸
+root.props.maxNotionalValue = {
+  type: String,
+  default: ''
+}
+// 标记价格
+root.props.markPrice = {
+  type: String,
+  default: ''
+}
+
+
+/*----------------------------- 计算 ------------------------------*/
+// 输入的数量
+root.computed.computedValue = function () {
+  // 判定除数不为0的情况
+  if (this.value == 0 || this.latestPriceVal == 0) return
+  let ValueAmount
+  ValueAmount = this.toFixed(this.accMul(this.accDiv (this.accDiv(Number(this.availableBalance) ,Number(this.latestPriceVal)) ,Number(this.value) || 0 ),100),2)
+  // ValueAmount = this.toFixed(Number(this.availableBalance * this.value / Number(this.latestPriceVal)) , 2)0
+  return ValueAmount || 0
+}
+
+// 保证金计算
+root.computed.securityDeposit = function () {
+  let amount = !this.amount ? this.computedValue || 0 : this.amount || 0
+  // return this.toFixed(Number(price * amount) / this.$store.state.leverage,2)
+}
 // 观察货币对是否更改
 root.computed.symbol = function () {
   return this.$store.state.symbol;
@@ -64,6 +158,11 @@ root.computed.positionModeConfigs = function () {
 
 
 /*----------------------------- 观察 ------------------------------*/
+
+// 杠杆最大头寸
+root.watch.maxNotionalValue = function (newValue, oldValue) {
+  if (newValue == oldValue) return;
+}
 
 root.watch.serverTime = function (newValue, oldValue) {
 
@@ -126,62 +225,7 @@ root.watch.topic_price = function (newValue, oldValue) {
   }
 }
 
-/*----------------------------- props ------------------------------*/
 
-
-root.props.btc_eth_rate = {
-  type: Object,
-  default: {}
-}
-
-root.props.socket_price = {
-  type: Object,
-  default: {}
-}
-
-// 18-2-7 添加的新需求 end
-
-root.props.orderType = {
-  type: Number,
-  default: 0
-}
-
-root.props.fee = {
-  type: Boolean,
-}
-
-root.props.symbol_config_times = {
-  type: Array,
-  default: function () {
-    return []
-  }
-}
-// 单仓模式 singleWarehouseMode 双仓模式 doubleWarehouseMode
-root.props.positionModeFirst = {
-  type: String,
-  default: 'singleWarehouseMode'
-}
-// 单仓 singleWarehouse 开仓 openWarehouse 平仓 closeWarehouse
-root.props.positionModeSecond = {
-  type: String,
-  default: 'openWarehouse'
-}
-// 限价 limitPrice 市价 marketPrice 限价止盈止损 limitProfitStopLoss 市价止盈止损 marketPriceProfitStopLoss
-root.props.pendingOrderType = {
-  type: String,
-  default: 'limitPrice'
-}
-root.props.effectiveTime = {
-  type: String,
-  default: 'GTX'
-}
-root.props.reducePositionsSelected = {
-  type: Boolean,
-}
-root.props.latestPrice = {
-  type: String,
-  default: '最新价格'
-}
 
 /*----------------------------- 组件 ------------------------------*/
 
@@ -335,6 +379,56 @@ root.methods.openPositionBox = function (name) {
 
 
 /*----------------------------- 方法 ------------------------------*/
+// 止盈止损接口
+root.methods.postFullStop = function () {
+  let params = {}
+
+  // 单仓 限价止盈止损
+  if (this.isHasModule('kaipingType') == 1 && this.isHasModule('buttonType') == 1 && this.pendingOrderType == 'limitProfitStopLoss') {
+    params = {
+      leverage: this.$store.state.leverage,
+      positionSide: "BOTH",
+      price: this.latestPriceVal,
+      quantity: 1,
+      reduceOnly: true,
+      orderSide: this.orderType ? 'SELL':'BUY',
+      stopPrice: this.triggerPrice,
+      symbol: "BTCUSDT",
+      timeInForce: this.effectiveTime,
+      orderType: 'TAKE_PROFIT',
+      workingType: this.latestPrice == '最新价格'? 'CONTRACT_PRICE':'MARK_PRICE',
+    }
+  }
+  // 单仓 市价止盈止损
+  if (this.isHasModule('kaipingType') == 1 && this.isHasModule('buttonType') == 1 && this.pendingOrderType == 'marketPriceProfitStopLoss') {
+    params = {
+      leverage: this.$store.state.leverage,
+      positionSide: "BOTH",
+      quantity: 0.1,
+      reduceOnly: true,
+      orderSide: this.orderType ? 'SELL':'BUY',
+      stopPrice: this.triggerPrice,
+      symbol: "BTCUSDT",
+      orderType: this.orderType ? "STOP_MARKET" : "TAKE_PROFIT_MARKET",
+      workingType: this.latestPrice == '最新价格'? 'CONTRACT_PRICE':'MARK_PRICE',
+    }
+  }
+
+  // Object.assign(params, {type: "LIMIT",});
+  this.$http.send('POST_STOP_POSITION',{
+    bind: this,
+    params,
+    callBack: this.re_postFullStop,
+    errorHandler: this.error_postFullStop
+  })
+}
+root.methods.re_postFullStop = function (data) {
+  typeof (data) === 'string' && (data = JSON.parse(data))
+  if (!data) return
+}
+root.methods.error_postFullStop = function (err) {
+  console.info('止盈止损接口错误回调',err)
+}
 
 // 开仓
 root.methods.postOrdersCreate = function () {
@@ -344,7 +438,7 @@ root.methods.postOrdersCreate = function () {
     params = {
       leverage: this.$store.state.leverage,
       positionSide: "BOTH",
-      price: this.price,
+      price: this.price ? this.price.toString() : this.latestPriceVal,
       quantity: this.amount,
       reduceOnly: this.reducePositionsSelected ? true : false,
       orderSide: this.orderType ? 'SELL':'BUY',
@@ -361,7 +455,7 @@ root.methods.postOrdersCreate = function () {
     params = {
       leverage: this.$store.state.leverage,
       positionSide: "BOTH",
-      price: this.price,
+      // price: this.latestPriceVal,
       quantity: this.amount,
       reduceOnly: this.reducePositionsSelected ? true : false,
       orderSide: this.orderType ? 'SELL':'BUY',
@@ -375,7 +469,7 @@ root.methods.postOrdersCreate = function () {
     params = {
       leverage: this.$store.state.leverage,
       positionSide: this.orderType ? 'SHORT' : 'LONG',
-      price: this.price,
+      price: this.price ? this.price : this.latestPriceVal,
       quantity: this.amount,
       // reduceOnly: this.reducePositionsSelected ? true : false,
       orderSide: this.orderType ? 'SELL':'BUY',
@@ -390,7 +484,7 @@ root.methods.postOrdersCreate = function () {
     params = {
       leverage: this.$store.state.leverage,
       positionSide: this.orderType ? 'SHORT' : 'LONG',  // 开多传 "LONG" ，开空传 "SHORT"
-      price: this.price,
+      // price: this.latestPriceVal,
       quantity: this.amount,
       // reduceOnly: this.reducePositionsSelected ? true : false,
       orderSide: this.orderType ? 'SELL':'BUY',
@@ -442,8 +536,37 @@ root.methods.postOrdersCreate = function () {
 }
 root.methods.re_postOrdersCreate = function (data) {
   typeof (data) === 'string' && (data = JSON.parse(data))
-  if (!data) return
-  console.info('data=======',data)
+  if (!data || !data.data) return
+  this.promptOpen = true;
+  this.popType = 1;
+  if(data.data.status == 'NEW') {
+    this.popText = '下单成功';
+    return
+  }
+  if(data.data.status == 'PARTIALLY_FILLED') {
+    this.popText = '您的订单成交了一部分';
+    return
+  }
+  if(data.data.status == 'FILLED') {
+    this.popText = '完全成交';
+    return
+  }
+  if(data.data.status == 'CANCELED') {
+    this.popText = '自己撤销的订单';
+    return
+  }
+  if(data.data.status == 'EXPIRED') {
+    this.popText = '您的订单已过期';
+    return
+  }
+  if(data.data.status == 'NEW_INSURANCE') {
+    this.popText = '风险保障基金(强平)';
+    return
+  }
+  if(data.data.status == 'NEW_ADL') {
+    this.popText = '自动减仓序列(强平)';
+    return
+  }
 }
 root.methods.error_postOrdersCreate = function (err) {
   console.info('err======',err)
@@ -452,39 +575,74 @@ root.methods.error_postOrdersCreate = function (err) {
 // 平仓
 root.methods.postOrdersPosition = function () {
   let params = {}
-  // 双仓 平仓 限价
+  // 双仓 平仓 限价 平多 传LONG ; 平空 传SHORT
   if (this.isHasModule('kaipingType') == 2 && this.isHasModule('buttonType') == 3 && this.pendingOrderType == 'limitPrice') {
     params = {
-      leverage: 20,
-      positionSide: "LONG",
-      price: "9510.00",
-      quantity: 2,
-      side: "SELL",
+      leverage: this.$store.state.leverage,
+      positionSide: this.orderType ? "LONG":'SHORT',
+      price: this.latestPriceVal,
+      quantity: this.amount,
+      orderSide: this.orderType ? 'SELL':'BUY',
       stopPrice: null,
       symbol: "BTCUSDT",
-      timeInForce: "GTC",
-      type: "LIMIT",
+      timeInForce: this.effectiveTime,
+      orderType: "LIMIT",
       workingType: null,
     }
   }
-
-  // 双仓 平仓 市价
+  // 双仓 平仓 市价  平多 传LONG ; 平空 传SHORT
   if (this.isHasModule('kaipingType') == 2 && this.isHasModule('buttonType') == 3 && this.pendingOrderType == 'marketPrice') {
     params = {
-
+      leverage: this.$store.state.leverage,
+      positionSide: this.orderType ? "LONG":'SHORT',
+      quantity: this.amount,
+      orderSide: this.orderType ? 'SELL':'BUY',
+      stopPrice: null,
+      symbol: "BTCUSDT",
+      orderType: "MARKET",
     }
   }
 
-
   this.$http.send('POST_ORDERS_POSITION',{
     bind: this,
+    params,
     callBack: this.re_postOrdersPosition,
     errorHandler: this.error_postOrdersPosition
   })
 }
 root.methods.re_postOrdersPosition = function (data) {
   typeof (data) === 'string' && (data = JSON.parse(data))
-  if (!data) return
+  if (!data || !data.data) return
+  this.promptOpen = true;
+  this.popType = 1;
+  if(data.data.status == 'NEW') {
+    this.popText = '下单成功';
+    return
+  }
+  if(data.data.status == 'PARTIALLY_FILLED') {
+    this.popText = '您的订单成交了一部分';
+    return
+  }
+  if(data.data.status == 'FILLED') {
+    this.popText = '完全成交';
+    return
+  }
+  if(data.data.status == 'CANCELED') {
+    this.popText = '自己撤销的订单';
+    return
+  }
+  if(data.data.status == 'EXPIRED') {
+    this.popText = '您的订单已过期';
+    return
+  }
+  if(data.data.status == 'NEW_INSURANCE') {
+    this.popText = '风险保障基金(强平)';
+    return
+  }
+  if(data.data.status == 'NEW_ADL') {
+    this.popText = '自动减仓序列(强平)';
+    return
+  }
 }
 root.methods.error_postOrdersPosition = function (err) {
   console.info('err====',err)
@@ -778,7 +936,6 @@ root.methods.popIdenComfirms = function () {
 }
 
 root.methods.comparePriceNow = function () {
-  // console.log(this.priceNow)
 
   if (this.priceNow <= 0 || this.price <=0)return true
   let multiple = this.accDiv(this.price,Number(this.priceNow));
@@ -1239,8 +1396,34 @@ root.methods.countNum = function(num) {
   this.sectionSelect(this.nowNum/100);
 
 }
+
+/*---------------------- 保留小数 begin ---------------------*/
+root.methods.toFixed = function (num, acc = 8) {
+  return this.$globalFunc.accFixed(num, acc)
+}
+/*---------------------- 保留小数 end ---------------------*/
+
+/*---------------------- 加法运算 begin ---------------------*/
+root.methods.accAdd = function (num1, num2) {
+  return this.$globalFunc.accAdd(num1, num2)
+}
+/*---------------------- 加法运算 end ---------------------*/
+
+/*---------------------- 减法运算 begin ---------------------*/
+root.methods.accMinus = function (num1, num2) {
+  return this.$globalFunc.accMinus(num1, num2)
+}
+/*---------------------- 减法运算 end ---------------------*/
+
+/*---------------------- 乘法运算 begin ---------------------*/
+root.methods.accMul = function (num1, num2) {
+  return this.$globalFunc.accMul(num1, num2)
+}
+/*---------------------- 乘法运算 end ---------------------*/
+
+/*---------------------- 除法运算 begin ---------------------*/
 root.methods.accDiv = function (num1, num2) {
   return this.$globalFunc.accDiv(num1, num2)
 }
-
+/*---------------------- 除法运算 end ---------------------*/
 export default root
