@@ -15,7 +15,7 @@ let startTime = 0;
 
 root.data = function () {
 	return {
-		quoteScale: 8,
+		quoteScale: 2,
     bartemphc: '',
     starttimehc: '',
     istoday: true
@@ -263,7 +263,8 @@ root.methods.initViews = function (lang) {
     //  localStorage.clear();
 
     //日线放缓存
-    if(resolution == '15'){
+    // if(resolution == '15'){
+    if(false){//目前不做缓存
       //k线放入缓存
       this.bartemphc = JSON.parse(localStorage.getItem(symbolInfo.ticker+"_bars"));
       this.starttimehc = localStorage.getItem(symbolInfo.ticker+"_time");
@@ -387,61 +388,42 @@ root.methods.initViews = function (lang) {
 	};
 
 
-	/*BitexDataFeed.prototype.subscribeBars = function (symbolInfo, resolution, onRealtimeCallback, subscriberUID, onResetCacheNeededCallback) {
-		// console.error('[subscribeBars: symbolInfo = ' + symbolInfo.ticker + ', resolution = ' + resolution
+	BitexDataFeed.prototype.subscribeBars = function (symbolInfo, resolution, onRealtimeCallback, subscriberUID, onResetCacheNeededCallback) {
+		// console.log('[subscribeBars: symbolInfo = ' + symbolInfo.ticker + ', resolution = ' + resolution
 		// 	+ ', subscriberUID = ' + subscriberUID);
 
-		// setInterval(function () {
-		// 	var t = parseInt(new Date().getTime() / 1000 / 60) * 60 * 1000;
-		// 	console.log('onRealtimeCallback: t = ' + t + ', ' + new Date(t).toUTCString());
-		// 	onRealtimeCallback({
-		// 		time: t,
-		// 		open: 100,
-		// 		high: 200 + Math.random() * 100,
-		// 		low: 300 - Math.random() * 100,
-		// 		close: 100,
-		// 		volume: 10
-		// 	})
-		// }, 1000);
-		// return;
-		var resolution_mapping = {
-			'1S': 'K_1_SEC',
-			'1': 'K_1_MIN',
-			'5': 'K_1_MIN',
-			'15': 'K_1_MIN',
-			'30': 'K_1_MIN',
-			'60': 'K_1_HOUR',
-			'240': 'K_1_HOUR',
-			'D': 'K_1_DAY'
-		};
+    var resolution_mapping = {
+      '1S': '1m',
+      '1': '1m',
+      '5': '5m',
+      '15': '15m',
+      '30': '30m',
+      '60': '1h',
+      '240': '4h',
+      'D': '1d'
+    };
 		// 获取k线数据
 		self.$socket.on({
-		    key: 'topic_bar',
+		    key: 'kline',
 		    bind: self,
 		    callBack: (message) => {
-		    	let b = message.data;
-				// let b = self.topic_bar.data;
-		    	if (!b || self.$store.state.symbol != message.symbol) return;
-	    		if (resolution_mapping[resolution] == message.type) {
+
+		    	let b = message.k;
+		    	if (!b || self.$store.state.subscribeSymbol != b.s) return;
+	    		if (resolution_mapping[resolution] == b.i) {
+            console.log('获取k线数据',b.i,message);
 	    			onRealtimeCallback({
-						// time: b[0],
-						// open: b[1],
-						// high: b[2],
-						// low: b[3],
-						// close: b[4],
-						// volume: b[5]
-            time: b.openTime,
-						open: b.open,
-						high: b.high,
-						low: b.low,
-						close: b.close,
-						volume: b.volume
-					});
+              time: b.t,
+              open: b.o,
+              high: b.h,
+              low: b.l,
+              close: b.c,
+              volume: b.v
+            });
 		    	}
 		    }
 	  	})
-
-	};*/
+	};
 
 	BitexDataFeed.prototype.unsubscribeBars = function (subscriberUID) {
 		// console.error('[unsubscribeBars: subscriberUID = ' + subscriberUID);

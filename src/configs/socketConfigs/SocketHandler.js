@@ -1,6 +1,6 @@
 import wsServer from './SocketServer'
 import Vue from 'vue'
-const STREAMNAMEARR = ['aggTrade','depth','markPrice','ticker']
+const STREAMNAMEARR = ['aggTrade','depth','markPrice','ticker','kline']
 
 export default class {
   constructor() {
@@ -32,7 +32,17 @@ export default class {
       //   symbol: symbol || this.symbol
       // }));
       // this.emit('subscribe', {symbol:symbol});
-      this.emit('SUBSCRIBE', ["btcusdt@depth","btcusdt@aggTrade","btcusdt@kline_15m","btcusdt@markPrice","!ticker@arr"]);
+      let subscribeStreamArr = ["btcusdt@depth","btcusdt@aggTrade","btcusdt@markPrice","!ticker@arr"]
+
+      // subscribeStreamArr.push("btcusdt@kline_1m");
+      // subscribeStreamArr.push("btcusdt@kline_5m");
+      subscribeStreamArr.push("btcusdt@kline_15m");
+      // subscribeStreamArr.push("btcusdt@kline_30m");
+      // subscribeStreamArr.push("btcusdt@kline_1h");
+      // subscribeStreamArr.push("btcusdt@kline_4h");
+      // subscribeStreamArr.push("btcusdt@kline_1d");
+
+      this.emit('SUBSCRIBE', subscribeStreamArr);
     }
 
     //------------------func2------------------//

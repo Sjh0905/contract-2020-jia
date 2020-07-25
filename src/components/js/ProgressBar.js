@@ -93,8 +93,10 @@ root.props.markPrice = {
 /*----------------------------- 计算 ------------------------------*/
 // 输入的数量
 root.computed.computedValue = function () {
+  // 判定除数不为0的情况
+  if (this.value == 0 || this.latestPriceVal == 0) return
   let ValueAmount
-  ValueAmount = this.toFixed(this.accMul(this.accDiv(Number(this.availableBalance || 0),Number(this.latestPriceVal || 0)) , this.accDiv(Number(this.value || 0),100)),2)
+  ValueAmount = this.toFixed(this.accMul(this.accDiv (this.accDiv(Number(this.availableBalance) ,Number(this.latestPriceVal)) ,Number(this.value) || 0 ),100),2)
   // ValueAmount = this.toFixed(Number(this.availableBalance * this.value / Number(this.latestPriceVal)) , 2)0
   return ValueAmount || 0
 }

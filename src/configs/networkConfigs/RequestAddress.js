@@ -208,9 +208,8 @@ requestAddress.POST_ORDERS_POSITION = {url: urlHead + '/future/orders/closePosit
 requestAddress.POST_ORDERS_CREATE = {url: urlHead + '/future/orders/create', method: 'post',} // 开仓
 requestAddress.POST_STOP_POSITION = {url: urlHead+'/future/orders/stopPosition', method: 'post'}  //止盈止损接口
 
-// requestAddress.POST_STICK_K = {url: urlHead + 'future/common/candlestick', method: 'get',} // K线数据
-requestAddress.GET_BALAN = {url: urlHead+'/future/account/userBalancev2', method: 'get'}  //账户余额
-requestAddress.GET_BALAN1 = {url: urlHead+'/future/account/userAccountv2', method: 'get'}  //账户信息
+requestAddress.GET_BALAN_ACCOUNT = {url: urlHead+'/future/account/userBalancev2', method: 'get'}  //账户余额
+requestAddress.GET_POSITION_RISKV = {url: urlHead + '/future/account/positionRiskv2', method: 'get' ,} // 查询全仓逐仓
 
 
 export default requestAddress
