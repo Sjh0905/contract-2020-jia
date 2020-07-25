@@ -160,8 +160,8 @@ root.data = function () {
     Latestrice: '',   // 最新价格
     maxNotionalValue: '',   // 当前杠杆倍数下允许的最大名义价值
     marginType:'',
-    dualSidePosition:''  // "true": 双向持仓模式；"false": 单向持仓模式
-
+    dualSidePosition:'',  // "true": 双向持仓模式；"false": 单向持仓模式
+    recordsIndex:0
   }
 }
 
@@ -205,7 +205,7 @@ root.created = function () {
   this.getDepth()  // 获取币安深度
   this.positionRisk()  // 获取全逐仓状态
   this.getPositionsideDual() // 获取仓位模式
-
+  this.getPositionRisk()
 }
 
 root.mounted = function () {
@@ -351,6 +351,28 @@ root.computed.positionModeConfigs = function () {
 }
 // 初始化各子组件
 root.methods = {}
+
+// 仓位
+root.methods.getPositionRisk = function () {
+
+  this.$http.send("GET_POSITION_RISKV", {
+    bind: this,
+    query: {
+      timestamp: this.serverTime
+    },
+    callBack: this.re_getPositionRisk,
+    errorHandler: this.error_getPositionRisk
+  })
+}
+// 获取记录返回，类型为{}
+root.methods.re_getPositionRisk = function (data) {
+  typeof data === 'string' && (data = JSON.parse(data))
+  if (!data) return
+  this.records = data.data
+  this.recordsIndex = this.records.length
+  console.info('this.records======仓位',this.records)
+
+}
 /*---------------------- 合约接口部分 begin ---------------------*/
 // 获取币安24小时价格变动接口
 root.methods.initTicket24Hr = function () {

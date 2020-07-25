@@ -50,67 +50,58 @@
     </li>
     <!-- 表头 end -->
     <!-- 如果加载完成、已登录、有数据，则显示数据 begin -->
-    <template v-if="!loading">
-      <template v-if="userId && historicalTransaction.length!==0">
-        <transition-group name="fade">
-          <li class="flex tr-td"
-              v-for="(order,index) in historicalTransaction" :key="order.id">
-            <!--时间-->
-            <div class="td td-time1">
-              <div class="td-time1-currency flex">
-                <div :class="order.type==='BUY_LIMIT'?'td-time1-green':'td-time1-red'"></div>
-                <div class="td-currency">BTC/USDT</div>
-                <div class="td-currency-btn">10X</div>
-              </div>
-            </div>
-            <!--数量-->
-            <div class="td td-number" :class="order.type==='BUY_LIMIT'?'text_blue-3':'text_red-4'">10:00</div>
-            <!--开仓价格-->
-            <div class="td td-category-1">943242</div>
-            <!--标记价格-->
-            <div class="td td-market">9882.12</div>
-            <!--强平价格-->
-            <div class="td td-flat-price text_blue">{{((order.filledAmount / order.amount) * 100).toFixed(2) + '%'}}</div>
-            <!--保证金比率-->
-            <div class="td td-price">{{((order.filledAmount / order.amount)).toFixed(2)}}</div>
-            <!--保证金-->
-            <div class="td td-deposit">保证金</div>
-            <!--未实现盈亏（回报率）-->
-            <div class="td td-return-rate" :class="order.type==='BUY_LIMIT'?'text_blue-3':'text_red-4'">未实现盈亏（回报率）</div>
-            <!--自动减仓-->
-            <div class="td td-reduce-positions">
-              <img src="../../assets/reduce_positions1.png" alt="">
-            </div>
-            <!--平仓-->
-            <div class="td td-trigger">
-              <div class="td-trigger-btn flex">
-                <div class="market-price margin-right">市价</div>
-                <div class="market-price margin-right">限价</div>
-                <input type="text" v-model="parity">
-              </div>
-            </div>
-          </li>
-        </transition-group>
-      </template>
+    <li class="flex tr-td" v-if="records.length != 0" v-for="(item,index) in records">
+      <!--时间-->
+      <div class="td td-time1">
+        <div class="td-time1-currency flex">
+          <div :class="item.positionAmt > 0 ?'td-time1-green':'td-time1-red'"></div>
+          <div class="td-currency">{{item.symbol}}</div>
+          <div class="td-currency-btn">10X</div>
+        </div>
+      </div>
+      <!--数量-->
+      <div class="td td-number" :class="item.positionAmt > 0 ?'text_blue-3':'text_red-4'">{{item.positionAmt}}</div>
+      <!--开仓价格-->
+      <div class="td td-category-1">{{item.entryPrice}}</div>
+      <!--标记价格-->
+      <div class="td td-market">{{item.markPrice}}</div>
+      <!--强平价格-->
+      <div class="td td-flat-price text_blue">{{item.liquidationPrice}}</div>
+      <!--保证金比率-->
+      <div class="td td-price">{{((item.isolatedMargin / item.positionAmt) * 10 * 10).toFixed(2)+ '%'}}</div>
+      <!--保证金-->
+      <div class="td td-deposit">{{item.isolatedMargin}}</div>
+      <!--未实现盈亏（回报率）-->
+      <div class="td td-return-rate" :class="item.unrealizedProfit>0?'text_blue-3':'text_red-4'">{{item.unrealizedProfit}} (-0.5%)</div>
+      <!--自动减仓-->
+      <div class="td td-reduce-positions">
+        <img src="../../assets/reduce_positions1.png" alt="">
+      </div>
+      <!--平仓-->
+      <div class="td td-trigger">
+        <div class="td-trigger-btn flex">
+          <div class="market-price margin-right">市价</div>
+          <div class="market-price margin-right">限价</div>
+          <input type="text" v-model="parity">
+        </div>
+      </div>
+    </li>
       <!-- 如果加载完成、已登录、有数据，则显示数据 end -->
 
       <!-- 如果没加载完成、没登录、没数据，则显示'--' begin -->
-      <template v-else>
-        <li class="weit">
-          <div class="nhtu"><img src="../../assets/noOrderDark.png"></div>
-          <span>{{$t('orderPageCurrentEntrustment.close_9')}}</span>
-        </li>
-      </template>
+    <li class="weit" v-if="records.length == 0">
+      <div class="nhtu"><img src="../../assets/noOrderDark.png"></div>
+      <span>{{$t('orderPageCurrentEntrustment.close_9')}}</span>
+    </li>
       <!-- 如果没加载完成、没登录、没数据，则显示'--' begin -->
-      <template v-if="!loading && userId && tradinghallLimit===10 && historicalTransaction.length >= 10">
-        <li class="seeMore" >
-          <span class="text_blue pointer" @click="toCurrentHistory">{{$t('orderPageHistoricalEntrustment.close_12')}}</span>
-        </li>
-      </template>
-    </template>
+<!--      <template v-if="!loading && userId && tradinghallLimit===10 && computedRecord.length >= 10">-->
+<!--        <li class="seeMore" >-->
+<!--          <span class="text_blue pointer" @click="toCurrentHistory">{{$t('orderPageHistoricalEntrustment.close_12')}}</span>-->
+<!--        </li>-->
+<!--      </template>-->
   </ul>
   <!-- 加载更多 begin -->
-  <div v-if="loading && userId">
+  <div v-if="loading">
     <Loading/>
   </div>
   <!-- 加载更多 end -->

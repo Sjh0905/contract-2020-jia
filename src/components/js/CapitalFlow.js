@@ -15,6 +15,7 @@ root.data = function () {
 /*------------------------------ 生命周期 -------------------------------*/
 root.created = function () {
   this.getCapitalFlow()
+  this.bianBalance()
 }
 root.mounted = function () {}
 root.beforeDestroy = function () {}
@@ -70,6 +71,33 @@ root.methods.re_getCapitalFlow = function (data) {
 root.methods.error_getCapitalFlow = function (err) {
   console.log('获取币安24小时价格变动接口',err)
 }
+// 资产
+root.methods.bianBalance = function (item) {
+  // console.log(item.id)
+  this.$http.send("GET_BALAN_ACCOUNT", {
+    bind: this,
+    query: {
+      timestamp: this.serverTime
+    },
+    callBack: this.re_bianBalance,
+    errorHandler: this.error_bianBalance
+  })
+}
+
+root.methods.re_bianBalance = function ( data ) {
+  typeof (data) === 'string' && (data = JSON.parse(data))
+
+  // this.balance = data.data[0]
+  // console.info('币安接口账户余额',this.balance)
+  console.info('币安接口账户余额',data)
+  this.totalWalletBalance = data.data.totalWalletBalance
+  this.totalUnrealizedProfit = data.data.totalUnrealizedProfit
+  this.totalMarginBalance = data.data.totalMarginBalance
+}
+root.methods.error_bianBalance = function ( err ) {
+  console.log(err)
+}
+
 /*---------------------- 保留小数 begin ---------------------*/
 root.methods.toFixed = function (num, acc = 8) {
   return this.$globalFunc.accFixed(num, acc)
