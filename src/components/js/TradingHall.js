@@ -473,8 +473,11 @@ root.methods.getDepth = function () {
 // 获取深度信息正确回调
 root.methods.re_getDepth = function (data) {
   typeof(data) == 'string' && (data = JSON.parse(data));
-  // console.info('data======',data)
-  this.buy_sale_list = data;
+  if(!data || !data.data)return
+
+  this.buy_sale_list = data.data;
+  this.trade_loading = false
+  console.info('this.buy_sale_list======',this.buy_sale_list)
 }
 
 
@@ -846,7 +849,7 @@ root.methods.initGetDatas = function () {
   // this.getSymbolsList();
 
   // 根据当前币对请求买或卖列表
-  this.getCurrencyBuyOrSaleList();
+  // this.getCurrencyBuyOrSaleList();
 
   // 请求btc->cny汇率，header需要
   this.getExchangeRate();
@@ -864,6 +867,7 @@ root.methods.symbolList_priceList = function (symbol_list) {
   return obj;
 }
 
+/* TODO 准备删除
 // 根据当前币对请求买或卖列表
 root.methods.getCurrencyBuyOrSaleList = function () {
   this.$http.send('DEPTH', {
@@ -884,6 +888,7 @@ root.methods.re_getCurrencyBuyOrSaleList = function (data) {
   this.trade_loading = false;
   // console.log(this.buy_sale_list)
 }
+*/
 
 // 请求btc->cny汇率，header需要
 root.methods.getExchangeRate = function () {

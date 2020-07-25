@@ -166,7 +166,7 @@ root.watch.screenWidth = function (oldVal, newVal) {
 root.methods = {}
 
 root.methods.dealWithListenKey = function () {
-  console.info('hhhhhhhhhhhhhhhhhh========55分钟到了，改掉接口啦',new Date())
+  // console.info('hhhhhhhhhhhhhhhhhh========55分钟到了，改掉接口啦',new Date())
   if(!this.$store.state.listenKey){
       this.getListenKey()
     return
