@@ -22,11 +22,13 @@
 
         <div class="centertop">
           <div class="cen1" @mouseenter="showInfo()" @mouseleave="closeInfo()">{{symbol.split('_')[0]}}<em class="txt_light">/</em>{{symbol.split('_')[1]}}</div>
-          <div class="cen2"><div class="cen21"> {{Latestrice}}</div><div class="cen22"><em class="txt_light">≈</em>{{isCnyPrice}}</div></div>
+          <div class="cen2"><div class="cen21"> {{latestPriceVal}}</div>
+            <!--<div class="cen22"><em class="txt_light">≈</em>{{isCnyPrice}}</div>-->
+          </div>
           <div class="cen2">
             <div class="cen31 border-dashed" @mouseenter="openPositionBox('marked-price')" @mouseleave="closePositionBox('marked-price')">标记价格</div>
             <div class="marked-price">你的持仓的平均买入/卖出成交价格。</div>
-            <div class="cen32"><span class="txt detail_txt">{{markPrice}}</span></div>
+            <div class="cen32"><span class="txt detail_txt">{{toFixed(markPrice || 0,2)}}</span></div>
           </div>
           <div class="cen2">
             <div class="cen31"><span class="capital-rate border-dashed" @mouseenter="openPositionBox('capital-rate-block')" @mouseleave="closePositionBox('capital-rate-block')">资金费率/每八小时</span></div>
@@ -43,7 +45,7 @@
             <div class="cen31">{{$t('Change')}}</div>
             <div class="cen32">
                 <span class="txt" :class="priceChangePercent > 0 ? 'txt-price' : (priceChangePercent == 0 ? '' : 'txt-price-red')">
-                  <span style="font-size: 1.4rem">{{priceChangePercent > 0 ? '+' : ''}}{{priceChangePercent || 0}}%</span>
+                  <span style="font-size: 1.4rem">{{priceChangePercent > 0 ? '+' : ''}}{{toFixed(priceChangePercent || 0,2) || 0}}%</span>
                   <em class="up_down_icon" :class="diff24 > 0 ? 'up_icon' : (priceChangePercent == 0 ? '' : 'down_icon')"></em>
                 </span>
             </div>
@@ -205,12 +207,23 @@
                   <div>• FOK (全部成交或取消): 此种订单必须立即全部成交，否则将被全部取消。</div>
                 </div>
                 <div v-if="isHasModule('reducePositions')" class="reduce-positions flex-row">
-                  <img v-if="reducePositionsSelected" class="reduce-positions-icon" src="../../assets/contract/check_box_selected.png" @click="changeReducePositions()" alt="">
-                  <img v-else class="reduce-positions-icon" src="../../assets/contract/check_box_no_selected.png" @click="changeReducePositions()" alt="">
                   <!--限价-------只减仓 -->
-                  <div class="passive-delegation-text border-dashed"
-                       @mouseenter="openPositionBox('reducePositionsModule')"
-                       @mouseleave="closePositionBox('reducePositionsModule')">只减仓</div>
+
+                    <img v-if="reducePositionsSelected" class="reduce-positions-icon" src="../../assets/contract/check_box_selected.png" @click="changeReducePositions()" alt="">
+                    <img v-else class="reduce-positions-icon" src="../../assets/contract/check_box_no_selected.png" @click="changeReducePositions()" alt="">
+                    <div class="passive-delegation-text border-dashed"
+                          @mouseenter="openPositionBox('reducePositionsModule')"
+                          @mouseleave="closePositionBox('reducePositionsModule')">只减仓</div>
+
+<!--                  <div v-if="pendingOrderType == 'marketPrice'">-->
+<!--                    <img v-if="reducePositionsSelected" class="reduce-positions-icon" src="../../assets/contract/check_box_selected.png" @click="changeReducePositions()" alt="">-->
+<!--                    <img v-else class="reduce-positions-icon" src="../../assets/contract/check_box_no_selected.png" @click="changeReducePositions()" alt="">-->
+<!--                    <div class="passive-delegation-text border-dashed"-->
+<!--                         @mouseenter="openPositionBox('reducePositionsModule')"-->
+<!--                         @mouseleave="closePositionBox('reducePositionsModule')">只减仓</div>-->
+<!--                  </div>-->
+
+
                   <div class="lighten-up-positions">只减仓订单仅允许减少仓位的委托，确保你的仓位不会增加。</div>
                   <!--市价-------只减仓 -->
                   <div class="lighten-up-positions-market-price">只减仓订单仅允许减少仓位的委托，确保你的仓位不会增加。</div>
@@ -243,7 +256,7 @@
               <div class="service-type-selection-right flex-row">
                 <div class="margin-mode-btn pointer" @click="openSecurityDepositMode" v-if="marginModeType == 1">全仓</div>
                 <div class="margin-mode-btn pointer" @click="openSecurityDepositMode" v-if="marginModeType == 2">逐仓</div>
-                <div class="margin-mode-btn lever-num pointer" @click="openLever">10X</div>
+                <div class="margin-mode-btn lever-num pointer" @click="openLever">{{leverage}}X</div>
               </div>
             </div>
 
@@ -253,14 +266,16 @@
                 <ProgressBar :orderType='0' :fee="BDBInfo" :btc_eth_rate="btc_eth_rate" :socket_price="socket_price"
                              :symbol_config_times="symbol_config_times" :positionModeFirst = "positionModeFirst"
                              :positionModeSecond = "positionModeSecond" :pendingOrderType = "pendingOrderType"
-                              :effectiveTime = 'effectiveTime' :reducePositionsSelected = 'reducePositionsSelected'/>
+                              :effectiveTime = 'effectiveTime' :reducePositionsSelected = 'reducePositionsSelected'
+                             :latestPrice = 'latestPrice'/>
               </div>
               <div class="ProgressBar-wrap">
                 <!--卖-->
                 <ProgressBar :orderType='1' :fee="BDBInfo" :btc_eth_rate="btc_eth_rate" :socket_price="socket_price"
                              :symbol_config_times="symbol_config_times" :positionModeFirst = "positionModeFirst"
                              :positionModeSecond = "positionModeSecond" :pendingOrderType = "pendingOrderType"
-                             :effectiveTime = 'effectiveTime' :reducePositionsSelected = 'reducePositionsSelected'/>
+                             :effectiveTime = 'effectiveTime' :reducePositionsSelected = 'reducePositionsSelected'
+                             :latestPrice = 'latestPrice'/>
               </div>
             </div>
           </div>

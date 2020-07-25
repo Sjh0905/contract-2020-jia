@@ -113,7 +113,7 @@ root.data = function () {
     positionModeSecond:'openWarehouse',//单仓 singleWarehouse 开仓 openWarehouse 平仓 closeWarehouse
     pendingOrderType:'limitPrice',//限价 limitPrice 市价 marketPrice 限价止盈止损 limitProfitStopLoss 市价止盈止损 marketPriceProfitStopLoss
 
-    reducePositionsSelected:false,//只减仓状态
+    reducePositionsSelected: false,//只减仓状态
 
     //保证金模式Strat
     popWindowSecurityDepositMode: false,
@@ -140,7 +140,7 @@ root.data = function () {
     marginModeType:1,  // 1 全仓、2 逐仓
     //仓位模式End
 
-    leverage:'', // 杠杆倍数
+    leverage:'20', // 杠杆倍数
 
     effectiveTime:'GTX',
     latestPrice:'最新价格',
@@ -157,7 +157,7 @@ root.data = function () {
     markPrice: '', // 标记价格
     lastFundingRate: '', // 资金费率
     nextFundingTime: '',   // 下次资金费时间
-    Latestrice: '',   // 最新价格
+    latestPriceVal: '',   // 最新价格
     maxNotionalValue: '',   // 当前杠杆倍数下允许的最大名义价值
     marginType:'',
     dualSidePosition:'',  // "true": 双向持仓模式；"false": 单向持仓模式
@@ -166,7 +166,6 @@ root.data = function () {
 }
 
 root.created = function () {
-  this.isFirstVisit()
   // if(this.screenWidth<1450){
   //   this.latestDealSpread = false;
   //   // this.pankqh = false;
@@ -175,37 +174,38 @@ root.created = function () {
   //   // this.pankqh = true;
   //   this.showStockFunc()
   // }
-  // console.log("latestDealSpread---------"+this.latestDealSpread);
   this.watchScreenWidth();
   // 获取兑换汇率
   this.getCny();
   // 一小时更新一次汇率
   // this.changeCny();
-
   // 判断是否有 props currency_list带过来的值，如果没有请求
   !this.currency_list[this.symbol] ? this.getSymbolsList() : (this.loading = false);
 
   // 获取小数位
   this.getScaleConfig();
+
   // window.CURRENT_SYMBOL = this.$store.state.symbol
   this.$store.commit('changeJoinus', false);
-
   // 判断是否开启BDB燃烧
   this.getBDBInfo();
+
   // 判断是否进行实名认证
   this.getAuthState();
-
   //获取bt燃烧比例
   // this.getBtReward();
   // this.initWebSocket(this.$store.state.symbol);
 
   this.initTicket24Hr()  // 获取币安24小时价格变动接口
+
   this.getMarkPricesAndCapitalRates()  // 获取币安最新标记价格和资金费率
   this.getLatestrice()  // 获取币安最新价格
   this.getDepth()  // 获取币安深度
   this.positionRisk()  // 获取全逐仓状态
   this.getPositionsideDual() // 获取仓位模式
   this.getPositionRisk()
+// console.log("latestDealSpread---------"+this.latestDealSpread);
+  this.isFirstVisit()
 }
 
 root.mounted = function () {
@@ -388,7 +388,7 @@ root.methods.initTicket24Hr = function () {
 // 获取币安24小时价格变动正确回调
 root.methods.re_initTicket24Hr = function (data) {
   typeof(data) == 'string' && (data = JSON.parse(data));
-  if(!data && !data.data)return
+  if(!data || !data.data || !data.data[0])return
   // console.info('data====',data.data[0])
   this.highPrice = data.data[0].highPrice || '--'
   this.lowPrice = data.data[0].lowPrice || '--'
@@ -440,7 +440,7 @@ root.methods.getLatestrice = function () {
 root.methods.re_getLatestrice = function (data) {
   typeof(data) == 'string' && (data = JSON.parse(data));
   this.currency_list = this.$globalFunc.mergeObj(data.data[0], this.currency_list);
-  this.Latestrice = data.data[0].price
+  this.latestPriceVal = data.data[0].price
 }
 // 获取币安最新价格接口错误回调
 root.methods.error_getLatestrice = function (err) {
@@ -712,6 +712,22 @@ root.methods.initSocket = function () {
     }
   })
 
+  // 获取币安24小时价格变动
+  this.$socket.on({
+    key: 'ticker', bind: this, callBack: (message) => {
+      // console.log('ticker is ===',message);
+
+      var tickerData = message.find(v=>v.s === subscribeSymbol)
+
+      if(tickerData){
+        tickerData.P && (this.priceChangePercent = tickerData.P)// 24小时价格变化(百分比)
+        tickerData.h > 0 && (this.highPrice = tickerData.h)// 24小时内最高成交价
+        tickerData.l > 0 && (this.lowPrice = tickerData.l)// 24小时内最低成交加
+        tickerData.v && (this.volume = tickerData.v)// 24小时内成交量
+      }
+    }
+  })
+
   // 获取深度图信息
   this.$socket.on({
     key: 'depth', bind: this, callBack: (message) => {
@@ -726,6 +742,8 @@ root.methods.initSocket = function () {
 
       this.socket_tick = message.s === subscribeSymbol && message || {}
       this.socketTickObj = message.s === subscribeSymbol && message || {}
+
+      this.latestPriceVal = this.socketTickObj && this.socketTickObj.p || this.latestPriceVal
       // 取消板块loading
       this.trade_loading = false;
         // console.log('aggTrade is ===',message);
@@ -1030,27 +1048,28 @@ root.methods.getPositionsideDual = function () {
 // 获取仓位模式正确回调
 root.methods.re_getPositionsideDual = function (data) {
   typeof(data) == 'string' && (data = JSON.parse(data));
-  console.info('data===',data)
   this.dualSidePosition = data.data.dualSidePosition
 }
 // 获取仓位模式错误回调
 root.methods.error_getPositionsideDual = function (err) {
-  console.log('获取币安24小时价格变动接口',err)
+  console.log('获取币安获取仓位模式接口',err)
 }
 
 // 仓位模式选择确认
 root.methods.positionModeSelectedConfirm = function () {
+
+    // return
     this.$http.send('POST_SINGLE_DOUBLE',{
       bind: this,
       params:{
-        dualSidePosition: this.dualSidePosition ? false : true,
+        dualSidePosition: !this.dualSidePosition ? true : false,
         // timestamp: this.serverTime
       },
       callBack: this.re_positionModeSelectedConfirm,
       errorHandler:this.error_positionModeSelectedConfirm
     })
   }
-// 获取币安24小时价格变动正确回调
+// 仓位模式选择确认正确回调
 root.methods.re_positionModeSelectedConfirm = function (data) {
     typeof(data) == 'string' && (data = JSON.parse(data));
     if(!data && !data.data)return
@@ -1060,7 +1079,7 @@ root.methods.re_positionModeSelectedConfirm = function (data) {
       this.popWindowPositionModeBulletBox = false
     }
   }
-// 获取币安24小时价格变动错误回调
+// 仓位模式选择确认错误回调
 root.methods.error_positionModeSelectedConfirm = function (err) {
   console.log('获取币安24小时价格变动接口',err)
 }
@@ -1200,7 +1219,7 @@ root.methods.formatTooltip=(val)=>{
 //被动委托
 root.methods.priceLimitSelection = function (checkPrice) {
   this.checkPrice = checkPrice
-  if(checkPrice == '1') {
+  if(checkPrice == 1) {
     this.effectiveTime = 'GTX'
     return
   }
@@ -1403,6 +1422,13 @@ root.computed.serverTime = function () {
 
 // 监听symbol 做一些操作
 root.watch = {};
+root.watch.pendingOrderType  = function (){
+  if(this.pendingOrderType == 'limitPrice' || this.pendingOrderType == 'marketPrice') {
+    this.reducePositionsSelected = false
+    return
+  }
+  this.reducePositionsSelected = true
+}
 
 root.watch.isNowPrice = function (newValue, oldValue) {
   this.GET_RATE('');
