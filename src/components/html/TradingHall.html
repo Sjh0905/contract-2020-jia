@@ -157,7 +157,7 @@
 
               <div class="progress-bar-title-right flex-row">
                 <img src="../../assets/progress_bar_title_assets.png" class="progress-bar-title-assets-icon">
-                <div class="progress-bar-title-assets-available">10591.00 USDT</div>
+                <div class="progress-bar-title-assets-available">{{toFixed(availableBalance,2)}} USDT</div>
                 <div class="progress-bar-title-vertical-line"/>
                 <img src="../../assets/progress_bar_title_calculator.png" class="progress-bar-title-assets-calculator pointer" @click="openCalculatorWindow">
               </div>
@@ -267,7 +267,8 @@
                              :symbol_config_times="symbol_config_times" :positionModeFirst = "positionModeFirst"
                              :positionModeSecond = "positionModeSecond" :pendingOrderType = "pendingOrderType"
                               :effectiveTime = 'effectiveTime' :reducePositionsSelected = 'reducePositionsSelected'
-                             :latestPrice = 'latestPrice'/>
+                             :latestPrice = 'latestPrice' :latestPriceVal = 'latestPriceVal' :availableBalance = 'availableBalance'
+                             :maxNotionalValue = 'maxNotionalValue' :markPrice="markPrice"/>
               </div>
               <div class="ProgressBar-wrap">
                 <!--卖-->
@@ -275,7 +276,8 @@
                              :symbol_config_times="symbol_config_times" :positionModeFirst = "positionModeFirst"
                              :positionModeSecond = "positionModeSecond" :pendingOrderType = "pendingOrderType"
                              :effectiveTime = 'effectiveTime' :reducePositionsSelected = 'reducePositionsSelected'
-                             :latestPrice = 'latestPrice'/>
+                             :latestPrice = 'latestPrice' :latestPriceVal = 'latestPriceVal' :availableBalance = 'availableBalance'
+                             :maxNotionalValue = 'maxNotionalValue' :markPrice="markPrice"/>
               </div>
             </div>
           </div>

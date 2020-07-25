@@ -1,6 +1,7 @@
 import axios from "axios";
 import tradingHallData from "../../dataUtils/TradingHallDataUtils";
 import {parse} from "echarts/extension-src/dataTool/gexf";
+import {isUndefined} from "element-ui/src/utils/types";
 
 const root = {}
 root.props = {}
@@ -157,10 +158,11 @@ root.data = function () {
     markPrice: '', // 标记价格
     lastFundingRate: '', // 资金费率
     nextFundingTime: '',   // 下次资金费时间
-    latestPriceVal: '',   // 最新价格
+    latestPriceVal: '' ,   // 最新价格
     maxNotionalValue: '',   // 当前杠杆倍数下允许的最大名义价值
-    marginType:'',
-    dualSidePosition:''  // "true": 双向持仓模式；"false": 单向持仓模式
+    marginType:'', // 全仓逐仓
+    dualSidePosition:false,  // "true": 双向持仓模式；"false": 单向持仓模式
+    availableBalance:0  // 可用余额
 
   }
 }
@@ -202,11 +204,11 @@ root.created = function () {
   this.getLatestrice()  // 获取币安最新价格
   this.getDepth()  // 获取币安深度
   this.positionRisk()  // 获取全逐仓状态
-  this.getPositionsideDual() // 获取仓位模式
+  // this.getPositionsideDual() // 获取仓位模式
 // console.log("latestDealSpread---------"+this.latestDealSpread);
   this.isFirstVisit()
 
-
+  this.getBalance()
 }
 
 root.mounted = function () {
@@ -353,6 +355,26 @@ root.computed.positionModeConfigs = function () {
 // 初始化各子组件
 root.methods = {}
 /*---------------------- 合约接口部分 begin ---------------------*/
+
+// 获取用户可用余额
+root.methods.getBalance = function () {
+  this.$http.send('GET_BALAN',{
+    bind: this,
+    callBack: this.re_getBalance,
+    errorHandler:this.error_getBalance
+  })
+}
+// 获取用户可用余额正确回调
+root.methods.re_getBalance = function (data) {
+  typeof(data) == 'string' && (data = JSON.parse(data));
+  if(!data || !data.data || !data.data[0])return
+  this.availableBalance  = data.data[0].availableBalance || 0
+
+}
+// 获取用户可用余额错误回调
+root.methods.error_getBalance = function (err) {
+  console.log('获取用户可用余额',err)
+}
 // 获取币安24小时价格变动接口
 root.methods.initTicket24Hr = function () {
   this.$http.send('GET_TICKER_24HR',{
@@ -394,7 +416,7 @@ root.methods.getMarkPricesAndCapitalRates = function () {
 root.methods.re_getMarkPricesAndCapitalRates = function (data) {
   typeof(data) == 'string' && (data = JSON.parse(data));
   // console.info('data========',data.data[0])
-  this.markPrice = data.data[0].markPrice || '--'
+  this.markPrice = (data.data[0].markPrice || '').toString()
   this.lastFundingRate = data.data[0].lastFundingRate || '--'
   this.nextFundingTime = data.data[0].nextFundingTime || '--'
 //
@@ -418,8 +440,21 @@ root.methods.getLatestrice = function () {
 // 获取币安最新价格接口正确回调
 root.methods.re_getLatestrice = function (data) {
   typeof(data) == 'string' && (data = JSON.parse(data));
+  if(!data || !data.data || !data.data[0]) return
   this.currency_list = this.$globalFunc.mergeObj(data.data[0], this.currency_list);
-  this.latestPriceVal = data.data[0].price
+
+  let price = data.data[0].price
+  this.latestPriceVal = (price || '').toString()
+  // this.latestPriceVal = ((price != undefined || price != null) &&  price) || ''
+  // this.latestPriceVal = (Number(price) || '').toString()
+
+  // try{
+  //   data.data[0].price = null;//1.null
+  //   // delete data.data[0].price;//2.undefined
+  //   this.latestPriceVal = String(data.data[0].price) || ''
+  // }catch (ex) {
+  //   console.error('this is err data.data[0].price.toString()',ex);
+  // }
 }
 // 获取币安最新价格接口错误回调
 root.methods.error_getLatestrice = function (err) {
@@ -1027,7 +1062,11 @@ root.methods.getPositionsideDual = function () {
 // 获取仓位模式正确回调
 root.methods.re_getPositionsideDual = function (data) {
   typeof(data) == 'string' && (data = JSON.parse(data));
-  this.dualSidePosition = data.data.dualSidePosition
+  if(data.data.dualSidePosition){
+    this.positionModeFirstTemp == 'singleWarehouseMode'
+    return
+  }
+  this.positionModeFirstTemp == 'doubleWarehouseMode'
 }
 // 获取仓位模式错误回调
 root.methods.error_getPositionsideDual = function (err) {
@@ -1036,12 +1075,14 @@ root.methods.error_getPositionsideDual = function (err) {
 
 // 仓位模式选择确认
 root.methods.positionModeSelectedConfirm = function () {
-
+    // this.positionModeFirst = this.positionModeFirstTemp;
+    // this.getPositionsideDual()
+    // this.popWindowPositionModeBulletBox = false
     // return
     this.$http.send('POST_SINGLE_DOUBLE',{
       bind: this,
       params:{
-        dualSidePosition: !this.dualSidePosition ? true : false,
+        dualSidePosition: this.positionModeFirstTemp == 'singleWarehouseMode' ? true : false,
         // timestamp: this.serverTime
       },
       callBack: this.re_positionModeSelectedConfirm,
@@ -1060,7 +1101,7 @@ root.methods.re_positionModeSelectedConfirm = function (data) {
   }
 // 仓位模式选择确认错误回调
 root.methods.error_positionModeSelectedConfirm = function (err) {
-  console.log('获取币安24小时价格变动接口',err)
+  console.log('仓位模式选择确认接口',err)
 }
 //仓位模式End
 
@@ -1107,9 +1148,6 @@ root.methods.securityDepositMode = function (cardType) {
 root.methods.positionRisk = function () {
   this.$http.send('GET_POSITION_RISK',{
     bind: this,
-    // query:{
-    //   "symbol":'BTCUSDT'
-    // },
     callBack: this.re_positionRisk
   })
 }
@@ -1131,14 +1169,6 @@ root.methods.marginModeConfirm = function () {
     this.promptOpen = true;
     return
   }
-  if (this.cardType == 1) {
-    this.marginModeType = 1
-  }
-  if (this.cardType == 2) {
-    this.marginModeType = 2
-  }
-
-
   this.$http.send('POST_MARGIN_TYPE',{
     bind: this,
     params:{
@@ -1153,6 +1183,12 @@ root.methods.marginModeConfirm = function () {
 }
 root.methods.re_marginModeConfirm = function (data) {
   typeof(data) == 'string' && (data = JSON.parse(data));
+  if (this.cardType == 1) {
+    this.marginModeType = 1
+  }
+  if (this.cardType == 2) {
+    this.marginModeType = 2
+  }
   this.positionRisk()
   this.popWindowCloseSecurityDepositMode()
 }
@@ -1180,6 +1216,7 @@ root.methods.postLevelrage = function () {
 root.methods.re_postLevelrage = function (data) {
   typeof(data) == 'string' && (data = JSON.parse(data));
   this.leverage = data.data.leverage
+  this.maxNotionalValue = data.data.maxNotionalValue || ''
   this.positionRisk()
   this.popWindowCloseAdjustingLever()
 }
