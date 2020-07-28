@@ -83,7 +83,7 @@ root.methods.re_getAccount = function (data) {
   if (!data) return
   this.getAssets = data.data.assets[0]
   this.initialMargin = this.getAssets.initialMargin
-  console.info('this.initialMargin',this.initialMargin)
+  // console.info('this.initialMargin',this.initialMargin)
 
 
 }
@@ -109,6 +109,11 @@ root.methods.re_getPositionRisk = function (data) {
   typeof data === 'string' && (data = JSON.parse(data))
   if (!data) return
   this.records = data.data
+  this.records.forEach((v,index)=>{
+    this.markPrice = v.markPrice
+  })
+  console.info('this.markPrice======标机价格',this.markPrice)
+
 }
 // 获取记录出错
 root.methods.error_getPositionRisk = function (err) {
