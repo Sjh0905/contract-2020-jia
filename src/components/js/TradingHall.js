@@ -210,6 +210,7 @@ root.created = function () {
   this.isFirstVisit()
 
   this.getBalance()
+  this.getPositionRisk()
 }
 
 root.mounted = function () {
