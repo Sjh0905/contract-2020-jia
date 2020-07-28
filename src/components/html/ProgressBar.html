@@ -103,7 +103,7 @@
       <label :for="'pro-bar-amount' + orderType" class="progress-bar-amount flex-row border_radius"
              :class="{'focus-color-green':inputColor=='amount'+orderType && !orderType,'focus-color-red':inputColor=='amount'+orderType && orderType}"
       >
-        <input :id="'pro-bar-amount' + orderType" :ref="'buy_sall_amount_' + orderType" class="txt-small txt-light" type="text" v-model="!amount ? computedValue : amount"
+        <input :id="'pro-bar-amount' + orderType" :ref="'buy_sall_amount_' + orderType" class="txt-small txt-light" type="text" v-model="amount"
                @focus="changeColor('amount' + orderType)"
                @blur="changeColor(0)"
                @keyup="keyBoard('pro-bar-amount' + orderType)"
@@ -269,7 +269,7 @@
       <div class="can-be-opened flex-between">
         <span v-if="isHasModule('kaipingType') == 1" class="security-deposit-text">可开</span>
         <span v-if="isHasModule('kaipingType') == 2" class="security-deposit-text">可平</span>
-        <span class="security-deposit-amount">0.0000 BTC</span>
+        <span class="security-deposit-amount">{{canBeOpened}} BTC</span>
       </div>
     </div>
 

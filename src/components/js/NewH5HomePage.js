@@ -546,7 +546,7 @@ root.methods.re_getRegistrationRecord = function (data) {
   this.records = data.data
 
   if (this.records == 0) {
-    this.$router.push({name: 'officialQuantitativeRegistration'})
+    // this.$router.push({name: 'officialQuantitativeRegistration'})
     return;
   }
 
@@ -555,12 +555,12 @@ root.methods.re_getRegistrationRecord = function (data) {
 
   if (this.fstatus !== '已报名') {
     // this.goGroupLevel()
-    console.log("this.re_getRegistrationRecord查询报名记录get=====",this.records.fstatus)
-    this.$router.push({name: 'officialQuantitativeRegistration'})
+    // console.log("this.re_getRegistrationRecord查询报名记录get=====",this.records.fstatus)
+    // this.$router.push({name: 'officialQuantitativeRegistration'})
     return;
   }
   if (this.fstatus == '已报名') {
-    this.$router.push({name: 'officialQuantitativeDetails'})
+    // this.$router.push({name: 'officialQuantitativeDetails'})
     return;
   }
 

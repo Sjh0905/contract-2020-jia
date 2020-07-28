@@ -127,11 +127,11 @@ root.data = function () {
     value:1,
     marks: {
       1: '1X',
-      15: '15X',
-      30: '30X',
-      45:'45X',
-      60:'60X',
-      75:'75X'
+      25: '25X',
+      50: '50X',
+      75:'75X',
+      100:'100X',
+      125:'125X'
     },
     //调整杠杆 End
 
@@ -381,7 +381,7 @@ root.methods.re_getPositionRisk = function (data) {
 
 // 获取用户可用余额
 root.methods.getBalance = function () {
-  this.$http.send('GET_BALAN',{
+  this.$http.send('GET_BALAN_ACCOUNT',{
     bind: this,
     callBack: this.re_getBalance,
     errorHandler:this.error_getBalance
@@ -1098,10 +1098,10 @@ root.methods.error_getPositionsideDual = function (err) {
 
 // 仓位模式选择确认
 root.methods.positionModeSelectedConfirm = function () {
-    // this.positionModeFirst = this.positionModeFirstTemp;
-    // this.getPositionsideDual()
-    // this.popWindowPositionModeBulletBox = false
-    // return
+    this.positionModeFirst = this.positionModeFirstTemp;
+    this.getPositionsideDual()
+    this.popWindowPositionModeBulletBox = false
+    return
     this.$http.send('POST_SINGLE_DOUBLE',{
       bind: this,
       params:{
@@ -1176,7 +1176,7 @@ root.methods.positionRisk = function () {
 }
 root.methods.re_positionRisk = function (data) {
   typeof(data) == 'string' && (data = JSON.parse(data));
-  console.info('data=====',data)
+  if(!data || !data.data || data.data == []) return
   data.data.forEach(v=>{
     if (v.symbol == 'BTCUSDT') {
       this.$store.commit("CHANGE_LEVERAGE", v.leverage);
@@ -1238,7 +1238,7 @@ root.methods.postLevelrage = function () {
 }
 root.methods.re_postLevelrage = function (data) {
   typeof(data) == 'string' && (data = JSON.parse(data));
-  this.leverage = data.data.leverage
+  this.leverage = data.data.leverage || ''
   this.maxNotionalValue = data.data.maxNotionalValue || ''
   this.positionRisk()
   this.popWindowCloseAdjustingLever()
