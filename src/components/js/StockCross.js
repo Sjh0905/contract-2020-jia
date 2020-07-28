@@ -82,22 +82,22 @@ root.computed.sellOrders = function () {
 
   let list = this.$globalFunc.mergeObj(this.socket_snap_shot, this.buy_sale_list);
 
-  if(list.symbol != this.symbol)return []
+  // if(list.symbol != this.symbol)return []
 
   // console.log('<<<<<>>>>>',list);
   // console.log('=====rer=====1',list.sellOrders);
 
-  return list.sellOrders;
+  return list.asks || [];
 }
 root.computed.buyOrders = function () {
 
 	let list = this.$globalFunc.mergeObj(this.socket_snap_shot, this.buy_sale_list);
 
-  if(list.symbol != this.symbol)return []
+  // if(list.symbol != this.symbol)return []
 
   // console.log('==========2',list);
 
-  return list.buyOrders;
+  return list.bids || [];
 }
 
 // 实时价格

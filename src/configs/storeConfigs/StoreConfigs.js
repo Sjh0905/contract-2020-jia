@@ -244,6 +244,9 @@ store.state.openOrder = []
 // 深度图时价，默认填写到买卖价格中
 store.state.depth_price = '';
 
+//买、卖盘中数量总和的最大值，缺省值是数量精度单位，避免过大不被赋值
+store.state.depthMaxTotalAmount = 0.001;
+
 // 交易大厅 or 币对
 store.state.hall_symbol = true;
 
@@ -947,6 +950,13 @@ store.mutations.SET_DEPTH_PRICE = (state, price) => {
   state.depth_price = price //|| 0
 }
 
+store.mutations.SET_DEPTH_MAX_TOTAL_AMOUNT = (state, val) => {
+  // state.depthMaxTotalAmount = val
+  if(val > 0){
+    state.depthMaxTotalAmount = Math.max(state.depthMaxTotalAmount,val)
+  }
+}
+
 store.mutations.SET_SERVER_TIME = (state, time) => {
   state.serverTime = time
   state.serverTimeInterval && clearInterval(state.serverTimeInterval)
@@ -964,7 +974,7 @@ store.mutations.SET_SERVER_TIME = (state, time) => {
 }
 
 store.mutations.SET_SERVER_TIME_CALL_BACK = (state, callback) => {
-  console.log('this is serverTimeCallBack',callback);
+  // console.log('this is serverTimeCallBack',callback);
   state.serverTimeCallBack = callback
 }
 

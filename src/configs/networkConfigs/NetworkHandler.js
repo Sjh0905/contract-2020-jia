@@ -28,7 +28,7 @@ export default class {
 
 
     if (typeof (configure) === 'undefined') {
-      console.log("network hasn't configure!", key)
+      // console.log("network hasn't configure!", key)
       return false
     }
 

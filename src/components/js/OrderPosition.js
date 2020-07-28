@@ -107,7 +107,7 @@ root.methods.getPositionRisk = function () {
 // 获取记录返回，类型为{}
 root.methods.re_getPositionRisk = function (data) {
   typeof data === 'string' && (data = JSON.parse(data))
-  if (!data) return
+  if (!data || !data.data || data.data.length == []) return
   this.records = data.data
   this.records.forEach((v,index)=>{
     this.markPrice = v.markPrice
