@@ -53,11 +53,11 @@ root.computed.symbol = function () {
   return this.$store.state.symbol;
 }
 
-// 获取价格区间
+/*// 获取价格区间
 root.computed.KKPriceRange = function () {
   // return ['0.2504','0.2506']
   return this.$store.state.KKPriceRange;
-}
+}*/
 
 root.computed.depth_list = function () {
   // let list = [];
@@ -66,7 +66,7 @@ root.computed.depth_list = function () {
 
   let transactionData = this.transactionData
 
-  if(this.symbol == 'KK_USDT' && this.KKPriceRange.length >0){
+  /*if(this.symbol == 'KK_USDT' && this.KKPriceRange.length >0){
     let minPrice = this.KKPriceRange[0] || 0;
     let maxPrice = this.KKPriceRange[this.KKPriceRange.length -1] || 10;
 
@@ -74,7 +74,7 @@ root.computed.depth_list = function () {
 
     if(transactionData instanceof Array)
       transactionData = transactionData.filter(v => !!v && v.price >= minPrice && v.price <= maxPrice)
-  }
+  }*/
   // let depth;
   // this.type < 3 ? (depth = this.transactionData.slice(0,32)) : (depth = this.transactionData.slice(0, 16))
 
@@ -93,10 +93,11 @@ root.computed.depth_list = function () {
 
   let list2 = [];
   let totalAmount = depth.reduce((pre,curr)=> {
-    curr.perAmount= (curr && curr.amount || 0) + pre
+    let currPrice = (curr && Number(curr[1]) || 0)
+    curr.perAmount= this.accAdd(currPrice,pre)
     list2.push({
-      price: curr.price,
-      amount: curr.amount,
+      price: curr[0],
+      amount: curr[1],
       is_select: false,
       perAmount:curr.perAmount
     })
@@ -106,9 +107,16 @@ root.computed.depth_list = function () {
   let arrStep = Array(lengthStep).fill({is_select: false,amount:'-',perAmount:'-',price:'-'})
   list2 = [...list2,...arrStep]
 
-  this.totalAmount = totalAmount || 1;
+  // this.totalAmount = totalAmount || 100;
+  this.$store.commit('SET_DEPTH_MAX_TOTAL_AMOUNT', totalAmount)
+
   // console.log('this is depth_list',list2,totalAmount)
-  return this.transactionData instanceof Array ? list2 : [];
+  return list2 instanceof Array ? list2 : [];
+}
+
+// 买、卖盘中数量总和的最大值
+root.computed.depthMaxTotalAmount = function () {
+  return this.$store.state.depthMaxTotalAmount
 }
 
 // 当前委托价格list
@@ -358,8 +366,11 @@ root.methods.excuteStye = function (transactionType,type ) {
   if(!type && transactionType) return  'flex-direction:column'
   if(type) return  'flex-direction:column-reverse'*/
 
+}
 
-
+/*---------------------- 加法运算 begin ---------------------*/
+root.methods.accAdd = function (num1, num2) {
+  return this.$globalFunc.accAdd(num1, num2)
 }
 
 export default root

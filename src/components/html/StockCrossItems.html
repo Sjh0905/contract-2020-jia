@@ -6,7 +6,6 @@
         <li class="flex-row"
             v-for="(item,index) in list"
             :class="transactionType?(item.is_select ? 'StockCrossItems-li1 is_select' : 'StockCrossItems-li1'):(item.is_select ? 'StockCrossItems-li2 is_select' : 'StockCrossItems-li2')"
-             @mouseenter="get_now_price(index, item.price)" @mouseleave="hide_now_price"
             >
             <!-- <div class="stockcrossitem-type">{{transactionType&&'买'||'卖'}}{{index + 1}}</div> -->
             <div class="stockcrossitem-price" @click="updatePrice(transactionType, formatnumber(item.price,quoteScale))">
@@ -23,10 +22,10 @@
             <!--<div class="stockcrossitem-shadow"//原来的深度计算方法-->
                  <!--:style="[{width:(transactionType ? (item.amount/deep.buy_deeps > 100 ? 100 : item.amount/deep.buy_deeps) : (item.amount/deep.sall_deeps > 100 ? 100 : item.amount/deep.sall_deeps)) +'%'},{'background-color':transactionType?'#edf9ea':'#ffeeed'}]"></div>-->
             <div class="stockcrossitem-shadow"
-                 :style="[{width:((item.perAmount * 100 / totalAmount) || 0) +'%'},{'background-color':transactionType?'#08D0AC':'#EF5656'}]"></div>
-            <span class="show_tips" :class="{'show': index == show_key}">{{change_price}}
-              <font></font>
-            </span>
+                 :style="[{width:((item.perAmount * 100 / depthMaxTotalAmount) || 0) +'%'},{'background-color':transactionType?'#08D0AC':'#EF5656'}]"></div>
+            <!--<span class="show_tips" :class="{'show': index == show_key}">{{change_price}}-->
+              <!--<font></font>-->
+            <!--</span>-->
         </li>
     </ul>
 </div>
