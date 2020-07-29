@@ -9,6 +9,18 @@ root.props.transactionData = {
     return []
   }
 }
+root.props.lastUpdateId = {
+  type: Number,
+  default: 0
+}
+root.props.dMaxTotalAmount = {
+  type: Number,
+  default: 0.001
+}
+root.props.setDMaxTotalAmount = {
+  type: Function,
+  default: ()=>_
+}
 root.props.socket_price = {
   type: Object,
   default: {}
@@ -38,7 +50,9 @@ root.data = function () {
     bdb_rate: 0,
     change_price: 0,  // 当前价格
     show_key: '-1',  // 展示当前价格
-    totalAmount:1//用户计算深度的总值，相当于分母
+    totalAmount:1,//用户计算深度的总值，相当于分母
+
+    // depth_list:[]
   }
 }
 
@@ -65,7 +79,7 @@ root.computed.depth_list = function () {
   // console.log('KKPriceRange=======',this.KKPriceRange)
 
   let transactionData = this.transactionData
-
+  // console.log('this is transactionData',JSON.stringify(transactionData))
   /*if(this.symbol == 'KK_USDT' && this.KKPriceRange.length >0){
     let minPrice = this.KKPriceRange[0] || 0;
     let maxPrice = this.KKPriceRange[this.KKPriceRange.length -1] || 10;
@@ -107,19 +121,20 @@ root.computed.depth_list = function () {
   let arrStep = Array(lengthStep).fill({is_select: false,amount:'-',perAmount:'-',price:'-'})
   list2 = [...list2,...arrStep]
 
-  // this.totalAmount = totalAmount || 100;
+  this.totalAmount = totalAmount;
+  // this.hide_now_price([this.lastUpdateId,totalAmount])
   this.$store.commit('SET_DEPTH_MAX_TOTAL_AMOUNT', totalAmount)
 
-  // console.log('this is depth_list',list2,totalAmount)
+  // console.log('this is depth_list',JSON.stringify(list2))
   return list2 instanceof Array ? list2 : [];
 }
 
 // 买、卖盘中数量总和的最大值
-root.computed.depthMaxTotalAmount = function () {
-  return this.$store.state.depthMaxTotalAmount
-}
+// root.computed.depthMaxTotalAmount = function () {
+//   return this.$store.state.depthMaxTotalAmount
+// }
 
-// 当前委托价格list
+/*// 当前委托价格list
 root.computed.order_list = function () {
   return this.$store.state.openOrder
 }
@@ -143,29 +158,32 @@ root.computed.deep = function () {
     }
   }
   return deeps;
-}
+}*/
 
 root.watch = {};
+
+/*root.watch.lastUpdateId = function (newValue, oldValue) {
+  // console.log('StockCrossItems lastUpdateId',this.lastUpdateId)
+  this.itemsLastUpdateId = this.lastUpdateId
+  // this.depth_list = this.getDepthList()
+}*/
 root.watch.depth_list = function (newValue, oldValue) {
   this.getScaleConfig();
-  this.contrastDeepthOpenOrder(this.order_list, newValue);
+  // this.contrastDeepthOpenOrder(this.order_list, newValue);
 }
 
-root.watch.order_list = function (newValue, oldValue) {
+/*root.watch.order_list = function (newValue, oldValue) {
   this.contrastDeepthOpenOrder(newValue, this.depth_list);
-}
+}*/
 
-root.watch.symbol_list = function (newValue, oldValue) {
-  let self = this;
-  for (let key in newValue) {
-    if (key == 'BDB_ETH') {
-      self.bdb_rate = newValue[key][4];
-    }
+root.watch.totalAmount = function (newValue, oldValue){
+  if(newValue != oldValue){
+    this.$props.setDMaxTotalAmount([this.lastUpdateId,this.totalAmount]);
+    // console.log('StockCrossItems totalAmount is success watch');
   }
 }
 
 root.methods = {}
-
 // 计算当前币对折合多少人民币  2018-4-4 start
 root.methods.get_now_price = function (key, price) {
   if (!this.btc_eth_rate.dataMap) return;
@@ -198,7 +216,7 @@ root.methods.hide_now_price = function () {
 }
 // 2018-4-4  end
 
-// 深度图和当前委托价格对比，如果深度图的价格和当前委托价格有一样的，需要变色显示
+/*// 深度图和当前委托价格对比，如果深度图的价格和当前委托价格有一样的，需要变色显示
 root.methods.contrastDeepthOpenOrder = function (order_list, depth_list) {
   let self = this;
   depth_list.forEach(v => {
@@ -220,7 +238,7 @@ root.methods.contrastDeepthOpenOrder = function (order_list, depth_list) {
 
   // console.log('list==============',this.list)
 
-}
+}*/
 
 root.methods.sortList = function(list){
   return this.transactionType ? list : list.reverse()

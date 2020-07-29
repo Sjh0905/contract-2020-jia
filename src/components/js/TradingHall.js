@@ -532,10 +532,12 @@ root.methods.getDepth = function () {
 root.methods.re_getDepth = function (data) {
   typeof(data) == 'string' && (data = JSON.parse(data));
   if(!data || !data.data)return
-
-  this.buy_sale_list = data.data;
+  let d = data.data
+  d.a = d.asks
+  d.b = d.bids
+  this.buy_sale_list = d;
   this.trade_loading = false
-  console.info('this.buy_sale_list======',this.buy_sale_list)
+  // console.info('this.buy_sale_list======',this.buy_sale_list)
 }
 
 
@@ -772,6 +774,9 @@ root.methods.initSocket = function () {
   this.$socket.on({
     key: 'depth', bind: this, callBack: (message) => {
       // console.log('depth is ===',message);
+      message.asks = message.a;
+      message.bids = message.b;
+      this.socket_snap_shot = message
     }
   })
 

@@ -59,7 +59,16 @@ root.data = function () {
     value: '',
 
     type: 3,
+    lastUpdateId:0,
+    // orderDepthList : {},
 
+    sellOrders:[],
+
+    buyOrders:[],
+    buy_sale_list_temp:{},
+    dMaxTotalAmount:0.001,
+    totalAmountArr:[],//[<lastUpdateId>,<totalAmount>]
+    // sellTotalAmountArr:[],
 	}
 }
 
@@ -73,32 +82,209 @@ root.created = function () {
   // console.log(this.isNowPrice);
   // console.log(this.isPriceNow);
 
+  this.buy_sale_list_temp = Object.assign(this.buy_sale_list,{})
 
 }
 
 root.computed = {}
+/*root.computed.orderDepthList = function () {
+
+  let asks = this.buy_sale_list_temp.a || []
+  let bids = this.buy_sale_list_temp.b || []
+  this.lastUpdateId = this.lastUpdateId == 0 && this.buy_sale_list_temp.lastUpdateId || 0
+
+  let socketAsks = this.socket_snap_shot.a || [];
+  let socketBids = this.socket_snap_shot.b || [];
+  // console.log('StockCross buyOrders',JSON.stringify(socketBids));
+
+  // let asks = [[102,2], [103,3], [110,0], [104,4]]
+  // let socketAsks = [[101,1], [103,0], [110,10], [105,5]]
+
+  let asksTemp = []
+  let bidsTemp = []
+
+  //卖单
+  for (let i = 0; i < socketAsks.length; i++) {
+    let sAItem = socketAsks[i];
+    if(!sAItem)continue
+
+    for (let j = 0; j < asks.length; j++) {
+      let aItem = asks[j];
+      if(!aItem)continue
+
+      //如果socket推过来的是之前没出现的价格，做好缓存
+      if (j == asks.length - 1 && sAItem[0] != aItem[0]  && sAItem[1] > 0){
+       asksTemp.push(sAItem)
+      }
+
+      //如果价格一致
+      if(sAItem[0] == aItem[0]){
+        //如果最新数量是0
+        if(sAItem[1] == 0){
+          asks.splice(j,1)
+          j--;
+          break;
+        }
+        //如果数量大于0,socket推送的值直接赋值
+        aItem[1] = sAItem[1]
+        break;
+      }
+    }
+  }
+
+  //买单
+  for (let h = 0; h < socketBids.length; h++) {
+    let bAItem = socketBids[h];
+    if(!bAItem)continue
+
+    for (let k = 0; k < bids.length; k++) {
+      let bItem = bids[k];
+      if(!bItem)continue
+
+      //如果socket推过来的是之前没出现的价格，做好缓存
+      if (k == bids.length - 1 && bAItem[0] != bItem[0]  && bAItem[1] > 0){
+        bidsTemp.push(bAItem)
+      }
+
+      //如果价格一致
+      if(bAItem[0] == bItem[0]){
+        //如果最新数量是0
+        if(bAItem[1] == 0){
+          bids.splice(k,1)
+          k--;
+          // break;
+        }
+        //如果数量大于0,socket推送的值直接赋值
+        bItem[1] = bAItem[1]
+        // break;
+      }
+    }
+  }
+
+  let asksList = asks.concat(asksTemp)//.sort((a,b) => a[0] - b[0]);
+  let bidsList = bids.concat(bidsTemp)//.sort((a,b) => a[0] - b[0]);
+  // console.log('StockCross asksList',asksList);
+  console.log('StockCross buyOrders',JSON.stringify(bidsList));
+
+  this.sellOrders = asksList;
+  this.buyOrders = bidsList;
+
+  // this.buy_sale_list_temp.a = asks
+  // this.buy_sale_list_temp.b = bids
+  // this.buy_sale_list_temp.lastUpdateId = this.socket_snap_shot.U
+
+  this.lastUpdateId = this.socket_snap_shot.U
+  let obj = {a:asksList,b:bidsList,lastUpdateId:this.socket_snap_shot.U}
+  this.buy_sale_list_temp = obj;
+  // console.log('StockCross orderDepthList',obj) ;
+  return obj
+}*/
+
 // 买卖列表
-root.computed.sellOrders = function () {
+/*root.computed.sellOrders = function () {
 
-  let list = this.$globalFunc.mergeObj(this.socket_snap_shot, this.buy_sale_list);
+  let asks = this.buy_sale_list_temp.a || []
+  this.lastUpdateId = this.lastUpdateId == 0 && this.buy_sale_list_temp.lastUpdateId || 0
 
-  // if(list.symbol != this.symbol)return []
+  let socketAsks = this.socket_snap_shot.a || [];
+  // console.log('StockCross buyOrders',JSON.stringify(socketBids));
 
-  // console.log('<<<<<>>>>>',list);
-  // console.log('=====rer=====1',list.sellOrders);
+  // let asks = [[102,2], [103,3], [110,0], [104,4]]
+  // let socketAsks = [[101,1], [103,0], [110,10], [105,5]]
 
-  return list.asks || [];
+  let asksTemp = []
+
+  //卖单
+  for (let i = 0; i < socketAsks.length; i++) {
+    let sAItem = socketAsks[i];
+    if(!sAItem)continue
+
+    for (let j = 0; j < asks.length; j++) {
+      let aItem = asks[j];
+      if(!aItem)continue
+
+      //如果socket推过来的是之前没出现的价格，做好缓存
+      if (j == asks.length - 1 && sAItem[0] != aItem[0]  && sAItem[1] > 0){
+        asksTemp.push(sAItem)
+      }
+
+      //如果价格一致
+      if(sAItem[0] == aItem[0]){
+        //如果最新数量是0
+        if(sAItem[1] == 0){
+          asks.splice(j,1)
+          j--;
+          // break;
+        }
+        //如果数量大于0,socket推送的值直接赋值
+        aItem[1] = sAItem[1]
+        // break;
+      }
+    }
+
+  }
+
+  if(asks.length == 0){
+    asksTemp = socketAsks
+  }
+
+  let asksList = asks.concat(asksTemp).sort((a,b) => a[0] - b[0]);
+  console.log('StockCross asksList',asksList);
+
+  this.buy_sale_list_temp.a = asks
+  this.buy_sale_list_temp.lastUpdateId = this.socket_snap_shot.U
+
+  return asksList || [];
 }
 root.computed.buyOrders = function () {
 
-	let list = this.$globalFunc.mergeObj(this.socket_snap_shot, this.buy_sale_list);
+  let bids = this.buy_sale_list_temp.b || []
+  this.lastUpdateId = this.lastUpdateId == 0 && this.buy_sale_list_temp.lastUpdateId || 0
 
-  // if(list.symbol != this.symbol)return []
+  let socketBids = this.socket_snap_shot.b || [];
+  // console.log('StockCross buyOrders',JSON.stringify(socketBids));
 
-  // console.log('==========2',list);
+  let bidsTemp = []
 
-  return list.bids || [];
-}
+  //买单
+  for (let h = 0; h < socketBids.length; h++) {
+    let bAItem = socketBids[h];
+    if(!bAItem)continue
+
+    for (let k = 0; k < bids.length; k++) {
+      let bItem = bids[k];
+      if(!bItem)continue
+
+      //如果socket推过来的是之前没出现的价格，做好缓存
+      if (k == bids.length - 1 && bAItem[0] != bItem[0]  && bAItem[1] > 0){
+        bidsTemp.push(bAItem)
+      }
+
+      //如果价格一致
+      if(bAItem[0] == bItem[0]){
+        //如果最新数量是0
+        if(bAItem[1] == 0){
+          bids.splice(k,1)
+          k--;
+          // break;
+        }
+        //如果数量大于0,socket推送的值直接赋值
+        bItem[1] = bAItem[1]
+        // break;
+      }
+    }
+  }
+
+  if(bids.length == 0){
+    bidsTemp = socketBids
+  }
+
+  let bidsList = bids.concat(bidsTemp).sort((a,b) => a[0] - b[0]);
+  console.log('StockCross buyOrders',JSON.stringify(bidsList));
+  this.buy_sale_list_temp.b = bids
+  this.buy_sale_list_temp.lastUpdateId = this.socket_snap_shot.U
+  return  bidsList || [];
+}*/
 
 // 实时价格
 root.computed.isPriceNow = function () {
@@ -173,12 +359,122 @@ root.computed.price=function(){
 }
 
 root.watch = {};
+root.watch.socket_snap_shot = function () {
+  this.getOrderDepthList();
+};
 
 root.watch.symbol = function (newValue, oldValue) {
 	if (newValue == oldValue) return;
 	this.getScaleConfig();
 }
+//设置买卖盘累计最大值
+root.methods.setDMaxTotalAmount = function (arr) {
+  if(arr[0] == this.totalAmountArr[0]){
+    this.dMaxTotalAmount = Math.max(this.totalAmountArr[1],arr[1]) || 0.001
+    this.totalAmountArr = []
+    return
+  }
+  this.totalAmountArr = arr
+}
+root.methods.getOrderDepthList = function () {
+  let asks = this.buy_sale_list_temp.a || []
+  let bids = this.buy_sale_list_temp.b || []
+  this.lastUpdateId = this.lastUpdateId == 0 && this.buy_sale_list_temp.lastUpdateId || 0
 
+  let socketAsks = this.socket_snap_shot.a || [];
+  let socketBids = this.socket_snap_shot.b || [];
+  // console.log('StockCross buyOrders',JSON.stringify(socketBids));
+
+  // let asks = [[102,2], [103,3], [110,0], [104,4]]
+  // let socketAsks = [[101,1], [103,0], [110,10], [105,5]]
+
+  let asksTemp = [],bidsTemp = []
+
+  //卖单
+  for (let i = 0; i < socketAsks.length; i++) {
+    let sAItem = socketAsks[i];
+    if(!sAItem)continue
+
+    for (let j = 0; j < asks.length; j++) {
+      let aItem = asks[j];
+      if(!aItem)continue
+
+      //如果socket推过来的是之前没出现的价格，做好缓存
+      if (j == asks.length - 1 && sAItem[0] != aItem[0]  && sAItem[1] > 0){
+        asksTemp.push(sAItem)
+      }
+
+      //如果价格一致
+      if(sAItem[0] == aItem[0]){
+        //如果最新数量是0
+        if(sAItem[1] == 0){
+          asks.splice(j,1)
+          j--;
+          break;
+        }
+        //如果数量大于0,socket推送的值直接赋值
+        aItem[1] = sAItem[1]
+        break;
+      }
+    }
+  }
+
+  if(asks.length == 0){
+    asksTemp = socketAsks.filter(v=>v[1] > 0) || []
+  }
+
+  //买单
+  for (let h = 0; h < socketBids.length; h++) {
+    let bAItem = socketBids[h];
+    if(!bAItem)continue
+
+    for (let k = 0; k < bids.length; k++) {
+      let bItem = bids[k];
+      if(!bItem)continue
+
+      //如果socket推过来的是之前没出现的价格，做好缓存
+      if (k == bids.length - 1 && bAItem[0] != bItem[0]  && bAItem[1] > 0){
+        bidsTemp.push(bAItem)
+      }
+
+      //如果价格一致
+      if(bAItem[0] == bItem[0]){
+        //如果最新数量是0
+        if(bAItem[1] == 0){
+          bids.splice(k,1)
+          k--;
+          // break;
+        }
+        //如果数量大于0,socket推送的值直接赋值
+        bItem[1] = bAItem[1]
+        // break;
+      }
+    }
+  }
+
+  if(bids.length == 0){
+    bidsTemp = socketBids.filter(v=>v[1] > 0) || []
+  }
+
+  let asksList = asks.concat(asksTemp).sort((a,b) => a[0] - b[0]);
+  let bidsList = bids.concat(bidsTemp).sort((a,b) => b[0] - a[0]);
+  // console.log('StockCross asksList',asksList);
+  // console.log('StockCross buyOrders',JSON.stringify(bidsList));
+
+  this.sellOrders = asksList;
+  this.buyOrders = bidsList;
+
+  // this.buy_sale_list_temp.a = asks
+  // this.buy_sale_list_temp.b = bids
+  // this.buy_sale_list_temp.lastUpdateId = this.socket_snap_shot.U
+
+  this.lastUpdateId = this.socket_snap_shot.U
+  let obj = {a:asksList,b:bidsList,lastUpdateId:this.socket_snap_shot.U}
+  this.buy_sale_list_temp = obj;
+  // console.log('StockCross orderDepthList',obj) ;
+  // return obj
+
+}
 root.methods.computerdPrice = function (v){
     this.optionQuote = v
   // console.log('this.optionQuote=====',this.optionQuote)
