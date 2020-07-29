@@ -78,11 +78,6 @@ root.props.availableBalance = {
   type: Number,
   default: 0
 }
-// 当前杠杆倍数下允许的最大头寸
-root.props.maxNotionalValue = {
-  type: String,
-  default: ''
-}
 // 标记价格
 root.props.markPrice = {
   type: String,
@@ -91,20 +86,59 @@ root.props.markPrice = {
 
 
 /*----------------------------- 计算 ------------------------------*/
-// 输入的数量
-root.computed.computedValue = function () {
-  // 判定除数不为0的情况
-  if (this.value == 0 || this.latestPriceVal == 0) return
-  let ValueAmount
-  ValueAmount = this.toFixed(this.accMul(this.accDiv (this.accDiv(Number(this.availableBalance) ,Number(this.latestPriceVal)) ,Number(this.value) || 0 ),100),2)
-  // ValueAmount = this.toFixed(Number(this.availableBalance * this.value / Number(this.latestPriceVal)) , 2)0
-  return ValueAmount || 0
+// 可开BTC
+root.computed.canBeOpened = function () {
+  if(Number(this.latestPriceVal) == 0) return
+  let num = this.accDiv(Number(this.availableBalance) ,Number(this.latestPriceVal))
+  return this.toFixed(this.accMul(num , this.$store.state.leverage),2)
 }
 
 // 保证金计算
 root.computed.securityDeposit = function () {
-  let amount = !this.amount ? this.computedValue || 0 : this.amount || 0
+  let securityDeposit = 0
+  let position = this.accMul(Number(this.markPrice) , Number(this.amount))
+  if(this.$store.state.leverage > 100 && this.$store.state.leverage <= 125){
+    securityDeposit = this.toFixed(position * this.initialMarginRate[0],2)
+    return securityDeposit
+  }
+  if(this.$store.state.leverage > 50 && this.$store.state.leverage <= 100){
+    securityDeposit = this.toFixed(position * this.initialMarginRate[1],2)
+    return securityDeposit
+  }
+  if(this.$store.state.leverage > 20 && this.$store.state.leverage <= 50){
+    securityDeposit = this.toFixed(position * this.initialMarginRate[2],2)
+    return securityDeposit
+  }
+  if(this.$store.state.leverage > 10 && this.$store.state.leverage <= 20){
+    securityDeposit = this.toFixed(position * this.initialMarginRate[3],2)
+    return securityDeposit
+  }
+  if(this.$store.state.leverage > 5 && this.$store.state.leverage <= 10){
+    securityDeposit = this.toFixed(position * this.initialMarginRate[4],2)
+    return securityDeposit
+  }
+  if(this.$store.state.leverage = 5){
+    securityDeposit = this.toFixed(position * this.initialMarginRate[5],2)
+    return securityDeposit
+  }
+  if(this.$store.state.leverage = 4){
+    securityDeposit = this.toFixed(position * this.initialMarginRate[6],2)
+    return securityDeposit
+  }
+  if(this.$store.state.leverage = 3){
+    securityDeposit = this.toFixed(position * this.initialMarginRate[7],2)
+    return securityDeposit
+  }
+  if(this.$store.state.leverage = 2){
+    securityDeposit = this.toFixed(position * this.initialMarginRate[8],2)
+    return securityDeposit
+  }
+  if(this.$store.state.leverage = 1){
+    securityDeposit = this.toFixed(position * this.initialMarginRate[9],2)
+    return securityDeposit
+  }
   // return this.toFixed(Number(price * amount) / this.$store.state.leverage,2)
+  // console.info('Number(this.markPrice)',Number(this.markPrice),'Number(amount)',Number(amount),'this.initialMarginRate[0]',this.initialMarginRate[0],'securityDeposit',securityDeposit)
 }
 // 观察货币对是否更改
 root.computed.symbol = function () {
@@ -158,11 +192,6 @@ root.computed.positionModeConfigs = function () {
 
 
 /*----------------------------- 观察 ------------------------------*/
-
-// 杠杆最大头寸
-root.watch.maxNotionalValue = function (newValue, oldValue) {
-  if (newValue == oldValue) return;
-}
 
 root.watch.serverTime = function (newValue, oldValue) {
 
@@ -315,6 +344,8 @@ root.data = function () {
     priceCont:'',
     // 弹框打开/关闭
     popWindowOpen1:false,
+    // 初始保证金率
+    initialMarginRate :[0.008, 0.01, 0.02, 0.05, 0.1, 0.2, 0.25, 0.333, 0.5, 1]
 
 
 
@@ -354,9 +385,11 @@ root.mounted = function () {
 root.watch.value = function (newValue, oldValue) {
   if (newValue == oldValue) return;
   // console.log(newValue)
+  this.computedValue()
   this.sectionSelect(newValue/100);
 }
 root.watch.pendingOrderType = function (newValue, oldValue) {
+  this.triggerPrice = ''
   this.value = 0
   this.amount = ''
 }
@@ -388,28 +421,89 @@ root.methods.postFullStop = function () {
     params = {
       leverage: this.$store.state.leverage,
       positionSide: "BOTH",
-      price: this.latestPriceVal,
-      quantity: 1,
-      reduceOnly: true,
+      price: this.price,
+      quantity: this.latestPriceVal || this.price,
+      reduceOnly: this.reducePositionsSelected,
       orderSide: this.orderType ? 'SELL':'BUY',
       stopPrice: this.triggerPrice,
       symbol: "BTCUSDT",
       timeInForce: this.effectiveTime,
-      orderType: 'TAKE_PROFIT',
+      //(this.orderType && this.triggerPrice < this.latestPriceVal) ||
+      orderType: ((this.orderType && Number(this.triggerPrice) < Number(this.latestPriceVal)) ||(!this.orderType && Number(this.triggerPrice) >= Number(this.latestPriceVal))) ? "STOP" : "TAKE_PROFIT",
       workingType: this.latestPrice == '最新价格'? 'CONTRACT_PRICE':'MARK_PRICE',
+
     }
+    // console.info('!this.orderType',!this.orderType,'this.triggerPrice >= this.latestPriceVal',this.triggerPrice , this.latestPriceVal)
   }
   // 单仓 市价止盈止损
   if (this.isHasModule('kaipingType') == 1 && this.isHasModule('buttonType') == 1 && this.pendingOrderType == 'marketPriceProfitStopLoss') {
     params = {
       leverage: this.$store.state.leverage,
       positionSide: "BOTH",
-      quantity: 0.1,
-      reduceOnly: true,
+      quantity: this.amount,
+      reduceOnly: this.reducePositionsSelected,
       orderSide: this.orderType ? 'SELL':'BUY',
       stopPrice: this.triggerPrice,
       symbol: "BTCUSDT",
-      orderType: this.orderType ? "STOP_MARKET" : "TAKE_PROFIT_MARKET",
+      orderType: ((this.orderType && Number(this.triggerPrice) < Number(this.latestPriceVal)) || (!this.orderType && Number(this.triggerPrice) >= Number(this.latestPriceVal))) ? "STOP_MARKET" : "TAKE_PROFIT_MARKET",
+      workingType: this.latestPrice == '最新价格'? 'CONTRACT_PRICE':'MARK_PRICE',
+    }
+    // console.info('!this.orderType',!this.orderType,'this.triggerPrice >= this.latestPriceVal',this.triggerPrice , this.latestPriceVal)
+  }
+  // 双仓 开仓 限价止盈止损
+  if (this.isHasModule('kaipingType') == 1 && this.isHasModule('buttonType') == 2 && this.pendingOrderType == 'limitProfitStopLoss') {
+    params = {
+      leverage: this.$store.state.leverage,
+      positionSide: this.orderType ? 'SHORT':'LONG',
+      price: this.latestPriceVal,
+      quantity: this.amount,
+      orderSide: this.orderType ? 'SELL':'BUY',
+      stopPrice: this.triggerPrice,
+      symbol: "BTCUSDT",
+      timeInForce: this.effectiveTime,
+      orderType: ((this.orderType && Number(this.triggerPrice) < Number(this.latestPriceVal)) || (!this.orderType && Number(this.triggerPrice) >= Number(this.latestPriceVal))) ? 'STOP' : 'TAKE_PROFIT',
+      workingType: this.latestPrice == '最新价格'? 'CONTRACT_PRICE':'MARK_PRICE',
+    }
+  }
+  // 双仓 开仓 市价止盈止损
+  if (this.isHasModule('kaipingType') == 1 && this.isHasModule('buttonType') == 2 && this.pendingOrderType == 'marketPriceProfitStopLoss') {
+    params = {
+      leverage: this.$store.state.leverage,
+      positionSide: this.orderType ? 'LONG':'SHORT',
+      quantity: this.amount,
+      orderSide: this.orderType ? 'SELL':'BUY',
+      stopPrice: this.triggerPrice,
+      symbol: "BTCUSDT",
+      orderType: ((!this.orderType && Number(this.triggerPrice) < Number(this.latestPriceVal)) || (this.orderType && Number(this.triggerPrice) >= Number(this.latestPriceVal))) ? "TAKE_PROFIT_MARKET" : "STOP_MARKET",
+      workingType: this.latestPrice == '最新价格'? 'CONTRACT_PRICE':'MARK_PRICE',
+    }
+  }
+
+  // 双仓 平仓 限价止盈止损
+  if (this.isHasModule('kaipingType') == 2 && this.isHasModule('buttonType') == 3 && this.pendingOrderType == 'limitProfitStopLoss') {
+    params = {
+      leverage: this.$store.state.leverage,
+      positionSide: this.orderType ? 'LONG':'SHORT',
+      price: this.latestPriceVal,
+      quantity: this.amount,
+      orderSide: this.orderType ? 'SELL':'BUY',
+      stopPrice: this.triggerPrice,
+      symbol: "BTCUSDT",
+      timeInForce: this.effectiveTime,
+      orderType: ((this.orderType && Number(this.triggerPrice) < Number(this.latestPriceVal))||(!this.orderType && Number(this.triggerPrice) >= Number(this.latestPriceVal))) ? 'TAKE_PROFIT_MARKET' : 'STOP_MARKET',
+      workingType: this.latestPrice == '最新价格'? 'CONTRACT_PRICE':'MARK_PRICE',
+    }
+  }
+  // 双仓 平仓 市价止盈止损
+  if (this.isHasModule('kaipingType') == 2 && this.isHasModule('buttonType') == 3 && this.pendingOrderType == 'marketPriceProfitStopLoss') {
+    params = {
+      leverage: this.$store.state.leverage,
+      positionSide: this.orderType ? 'LONG':'SHORT',
+      quantity: this.amount,
+      orderSide: this.orderType ? 'SELL':'BUY',
+      stopPrice: this.triggerPrice,
+      symbol: "BTCUSDT",
+      orderType: ((this.orderType && Number(this.triggerPrice) < Number(this.latestPriceVal)) || (!this.orderType && Number(this.triggerPrice) >=  Number(this.latestPriceVal))) ? "STOP_MARKET" : "TAKE_PROFIT_MARKET",
       workingType: this.latestPrice == '最新价格'? 'CONTRACT_PRICE':'MARK_PRICE',
     }
   }
@@ -662,6 +756,16 @@ root.methods.SYMBOL_ENTRANSACTION = function () {
     }
   });
 }
+// 输入的数量
+root.methods.computedValue = function () {
+  // 判定除数不为0的情况
+  if (Number(this.latestPriceVal) == 0) return 0
+  let num = this.accDiv(Number(this.availableBalance) ,Number(this.latestPriceVal))
+  let num1 = this.accMul(num, Number(this.value))
+  let ValueAmount = this.toFixed(this.accDiv(num1 , 10*10),2)
+  this.amount = ValueAmount
+}
+
 
 // 获取grc交易价格区间
 root.methods.getKKPriceRange = function () {
@@ -953,6 +1057,7 @@ root.methods.comparePriceNow = function () {
   this.priceCont = priceCont;
   return false;
 }
+
 
 // 买卖提交
 root.methods.tradeMarket = function (popWindowOpen1,type) {

@@ -184,7 +184,7 @@ root.methods.getListenKey = function () {
 // 获取 listenKey 信息
 root.methods.re_getListenKey = function (data) {
   typeof(data) == 'string' && (data = JSON.parse(data));
-  console.info('listen======',data.data)
+  // console.info('listen======',data.data)
   this.listenKey = data.data || ""
   this.$store.commit("CHANGE_LISTENKEY",this.listenKey);
 

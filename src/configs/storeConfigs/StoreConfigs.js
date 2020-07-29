@@ -974,7 +974,7 @@ store.mutations.SET_SERVER_TIME = (state, time) => {
 }
 
 store.mutations.SET_SERVER_TIME_CALL_BACK = (state, callback) => {
-  console.log('this is serverTimeCallBack',callback);
+  // console.log('this is serverTimeCallBack',callback);
   state.serverTimeCallBack = callback
 }
 

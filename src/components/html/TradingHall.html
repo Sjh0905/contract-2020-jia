@@ -268,7 +268,7 @@
                              :positionModeSecond = "positionModeSecond" :pendingOrderType = "pendingOrderType"
                               :effectiveTime = 'effectiveTime' :reducePositionsSelected = 'reducePositionsSelected'
                              :latestPrice = 'latestPrice' :latestPriceVal = 'latestPriceVal' :availableBalance = 'availableBalance'
-                             :maxNotionalValue = 'maxNotionalValue' :markPrice="markPrice"/>
+                             :markPrice="markPrice"/>
               </div>
               <div class="ProgressBar-wrap">
                 <!--卖-->
@@ -277,7 +277,7 @@
                              :positionModeSecond = "positionModeSecond" :pendingOrderType = "pendingOrderType"
                              :effectiveTime = 'effectiveTime' :reducePositionsSelected = 'reducePositionsSelected'
                              :latestPrice = 'latestPrice' :latestPriceVal = 'latestPriceVal' :availableBalance = 'availableBalance'
-                             :maxNotionalValue = 'maxNotionalValue' :markPrice="markPrice"/>
+                             :markPrice="markPrice"/>
               </div>
             </div>
           </div>
@@ -446,17 +446,17 @@
         <div class="block"  style="margin: 4px auto">
           <!-- <span class="demonstration">默认</span> -->
           <p :class="'radiusa_blu1'" v-if="value>=0" @click="value=0" style="cursor:pointer"></p>
-          <p :class="'radiusa_blu2'" v-if="value>=15"@click="value=15" style="cursor:pointer"></p>
-          <p :class="'radiusa_blu3'" v-if="value>=30"@click="value=30" style="cursor:pointer"></p>
-          <p :class="'radiusa_blu4'" v-if="value>=45"@click="value=45" style="cursor:pointer"></p>
-          <p :class="'radiusa_blu5'" v-if="value>=60"@click="value=60" style="cursor:pointer"></p>
-          <p :class="'radiusa_blu6'" v-if="value>=75"@click="value=75" style="cursor:pointer"></p>
+          <p :class="'radiusa_blu2'" v-if="value>=25"@click="value=25" style="cursor:pointer"></p>
+          <p :class="'radiusa_blu3'" v-if="value>=50"@click="value=50" style="cursor:pointer"></p>
+          <p :class="'radiusa_blu4'" v-if="value>=75"@click="value=75" style="cursor:pointer"></p>
+          <p :class="'radiusa_blu5'" v-if="value>=100"@click="value=100" style="cursor:pointer"></p>
+          <p :class="'radiusa_blu6'" v-if="value>=125"@click="value=125" style="cursor:pointer"></p>
           <el-slider
             v-model="value"
             :class="'el-slider_blu'"
             :marks="marks"
             show-input
-            :max="75"
+            :max="125"
             :min="1"
             :format-tooltip="formatTooltip"
           >
