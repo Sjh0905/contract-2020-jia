@@ -427,10 +427,6 @@ root.methods.getOrderDepthList = function () {
     asksTemp = socketAsks.filter(v=>v[1] > 0) || []
   }
 
-  if(socketAsks.length == 0){
-    asksTemp = asks.filter(v=>v[1] > 0) || []
-  }
-
   //买单
   for (let h = 0; h < socketBids.length; h++) {
     let bAItem = socketBids[h];
@@ -462,10 +458,6 @@ root.methods.getOrderDepthList = function () {
 
   if(bids.length == 0){
     bidsTemp = socketBids.filter(v=>v[1] > 0) || []
-  }
-
-  if(socketBids.length == 0){
-    bidsTemp = bids.filter(v=>v[1] > 0) || []
   }
 
   let asksList = asks.concat(asksTemp).sort((a,b) => a[0] - b[0]);

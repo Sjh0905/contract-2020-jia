@@ -125,6 +125,7 @@ root.computed.depth_list = function () {
   // this.hide_now_price([this.lastUpdateId,totalAmount])
   this.$store.commit('SET_DEPTH_MAX_TOTAL_AMOUNT', totalAmount)
 
+  // console.log('this is lastUpdateId',this.transactionType,this.lastUpdateId)
   // console.log('this is depth_list',JSON.stringify(list2))
   return list2 instanceof Array ? list2 : [];
 }
@@ -176,11 +177,11 @@ root.watch.depth_list = function (newValue, oldValue) {
   this.contrastDeepthOpenOrder(newValue, this.depth_list);
 }*/
 
-root.watch.totalAmount = function (newValue, oldValue){
-  if(newValue != oldValue){
+root.watch.lastUpdateId = function (newValue, oldValue){
+  // if(newValue != oldValue){//为了保证socket不推送时也能执行，屏蔽这行
     this.$props.setDMaxTotalAmount([this.lastUpdateId,this.totalAmount]);
-    // console.log('StockCrossItems totalAmount is success watch');
-  }
+    // console.log('StockCrossItems totalAmount is success watch',this.transactionType);
+  // }
 }
 
 root.methods = {}
