@@ -66,7 +66,7 @@ root.data = function () {
 
     buyOrders:[],
     buy_sale_list_temp:{},
-    dMaxTotalAmount:0.001,
+    dMaxTotalAmount:0.0001,
     totalAmountArr:[],//[<lastUpdateId>,<totalAmount>]
     // sellTotalAmountArr:[],
 	}
@@ -359,6 +359,10 @@ root.computed.price=function(){
 }
 
 root.watch = {};
+root.watch.buy_sale_list = function () {
+  this.buy_sale_list_temp = Object.assign(this.buy_sale_list,{})
+  this.getOrderDepthList();
+};
 root.watch.socket_snap_shot = function () {
   this.getOrderDepthList();
 };
@@ -423,6 +427,10 @@ root.methods.getOrderDepthList = function () {
     asksTemp = socketAsks.filter(v=>v[1] > 0) || []
   }
 
+  if(socketAsks.length == 0){
+    asksTemp = asks.filter(v=>v[1] > 0) || []
+  }
+
   //买单
   for (let h = 0; h < socketBids.length; h++) {
     let bAItem = socketBids[h];
@@ -454,6 +462,10 @@ root.methods.getOrderDepthList = function () {
 
   if(bids.length == 0){
     bidsTemp = socketBids.filter(v=>v[1] > 0) || []
+  }
+
+  if(socketBids.length == 0){
+    bidsTemp = bids.filter(v=>v[1] > 0) || []
   }
 
   let asksList = asks.concat(asksTemp).sort((a,b) => a[0] - b[0]);
