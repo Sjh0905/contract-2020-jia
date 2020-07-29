@@ -447,11 +447,11 @@ root.methods.getOrderDepthList = function () {
         if(bAItem[1] == 0){
           bids.splice(k,1)
           k--;
-          // break;
+          break;
         }
         //如果数量大于0,socket推送的值直接赋值
         bItem[1] = bAItem[1]
-        // break;
+        break;
       }
     }
   }
