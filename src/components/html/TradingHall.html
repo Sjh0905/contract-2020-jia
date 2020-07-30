@@ -323,11 +323,6 @@
            :class="isNow==4?'tradinghall-order-activetab':'tradinghall-order-tab3'"
            @click="clickTab(4),getPositionRisk">{{$t("仓位")}} ({{recordsIndex}})
       </div>
-      <!--保证金余额-->
-      <div class="tradinghall-order-tab txt-bold"
-           :class="isNow==5?'tradinghall-order-activetab':'tradinghall-order-tab3'"
-           @click="clickTab(5)">{{$t("保证金余额")}}
-      </div>
       <!--当前委托-->
       <div class="tradinghall-order-tab txt-bold"
            :class="isNow==0?'tradinghall-order-activetab':'tradinghall-order-tab3'"
@@ -343,6 +338,11 @@
            :class="isNow==2?'text_blue tradinghall-order-activetab':''"
            @click="clickTab(2)">
         {{$t('历史成交')}}
+      </div>
+      <!--保证金余额-->
+      <div class="tradinghall-order-tab txt-bold"
+           :class="isNow==5?'tradinghall-order-activetab':'tradinghall-order-tab3'"
+           @click="clickTab(5)">{{$t("保证金余额")}}
       </div>
       <!--资金流水-->
       <div class="tradinghall-order-tab tab-item-last box_shadow"

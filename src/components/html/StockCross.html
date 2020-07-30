@@ -15,7 +15,8 @@
         <div v-show="!trade_loading">
             <!--卖-->
             <div :class="type!== 2 && type !== 1?'stockitem-box1':'stockitem-box'" v-show="type!==2">
-                <StockCrossItems :type = "type" :transactionData = "sellOrders" :transactionType = "0" :btc_eth_rate="btc_eth_rate" :socket_price="socket_price" :currency_list="currency_list"/>
+                <StockCrossItems :type = "type" :lastUpdateId="lastUpdateId" :transactionData = "sellOrders" :dMaxTotalAmount="dMaxTotalAmount" :setDMaxTotalAmount="setDMaxTotalAmount"
+                                 :transactionType = "0" :btc_eth_rate="btc_eth_rate" :socket_price="socket_price" :currency_list="currency_list"/>
             </div>
 
             <div class="StockCross-mid txt-nomal"  :class="direction?'StockCross-mid-price-green':'StockCross-mid-price-red'">
@@ -27,7 +28,8 @@
 
             <!--买-->
             <div :class="type!==2 && type!==1?'stockitem-box1':'stockitem-box'" v-show="type!==1">
-                <StockCrossItems :type="type" :transactionData = "buyOrders" :transactionType = "1" :btc_eth_rate="btc_eth_rate" :socket_price="socket_price" :currency_list="currency_list"/>
+                <StockCrossItems :type="type" :lastUpdateId="lastUpdateId" :transactionData = "buyOrders" :dMaxTotalAmount="dMaxTotalAmount" :setDMaxTotalAmount="setDMaxTotalAmount"
+                                 :transactionType = "1" :btc_eth_rate="btc_eth_rate" :socket_price="socket_price" :currency_list="currency_list"/>
             </div>
 
           <div class="bottombutton">
