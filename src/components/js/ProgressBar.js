@@ -410,8 +410,8 @@ root.methods.openPositionBox = function (name) {
 /*----------------------------- 方法 ------------------------------*/
 // 止盈止损接口
 root.methods.postFullStop = function () {
-  let params = {}
 
+  let params = {}
   // 单仓 限价止盈止损
   if (this.isHasModule('kaipingType') == 1 && this.isHasModule('buttonType') == 1 && this.pendingOrderType == 'limitProfitStopLoss') {
     params = {
@@ -470,7 +470,6 @@ root.methods.postFullStop = function () {
       workingType: this.latestPrice == '最新价格'? 'CONTRACT_PRICE':'MARK_PRICE',
     }
   }
-
   // 双仓 平仓 限价止盈止损
   if (this.isHasModule('kaipingType') == 2 && this.isHasModule('buttonType') == 3 && this.pendingOrderType == 'limitProfitStopLoss') {
     params = {

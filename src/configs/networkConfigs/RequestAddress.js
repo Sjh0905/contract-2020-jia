@@ -196,7 +196,7 @@ requestAddress.POST_CAPITAL_BIAN = {url: urlHead + '/future/account/userAccount'
 requestAddress.GET_POSITIONSIDE_DUAL = {url: urlHead + '/future/account/positionSide/dual', method: 'get',} // 查询单双仓模式
 requestAddress.POST_SINGLE_DOUBLE = {url: urlHead + '/future/account/positionSide', method: 'post',} // 切换单双仓
 requestAddress.POST_LEVELRAGE = {url: urlHead + '/future/account/levelrage', method: 'post',} // 调整杠杆接口
-requestAddress.POST_MARGIN_TYPE = {url: urlHead + '/future/account/marginType ', method: 'post',} // 变换全仓逐仓
+requestAddress.POST_MARGIN_TYPE = {url: urlHead + '/future/account/marginType', method: 'post',} // 变换全仓逐仓
 requestAddress.GET_POSITION_RISK = {url: urlHead + '/future/account/positionRiskv2', method: 'get' ,} // 查询全仓逐仓 杠杆倍数 最大头寸
 
 requestAddress.GET_DEPTH = {url: urlHead + '/future/common/depth', method: 'get',} // 合约深度

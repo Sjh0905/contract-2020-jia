@@ -549,8 +549,6 @@ root.methods.re_getDepth = function (data) {
 }
 
 
-
-
 /*---------------------- 合约接口部分 end ---------------------*/
 
 /*---------------------- hover弹框 begin ---------------------*/
@@ -1104,10 +1102,12 @@ root.methods.getPositionsideDual = function () {
 root.methods.re_getPositionsideDual = function (data) {
   typeof(data) == 'string' && (data = JSON.parse(data));
   if(data.data.dualSidePosition){
-    this.positionModeFirstTemp == 'singleWarehouseMode'
+    this.dualSidePosition = true
+    this.positionModeFirst = 'doubleWarehouseMode'
     return
   }
-  this.positionModeFirstTemp == 'doubleWarehouseMode'
+  this.dualSidePosition = false
+  this.positionModeFirst = 'singleWarehouseMode'
 }
 // 获取仓位模式错误回调
 root.methods.error_getPositionsideDual = function (err) {
@@ -1116,37 +1116,37 @@ root.methods.error_getPositionsideDual = function (err) {
 
 // 仓位模式选择确认
 root.methods.positionModeSelectedConfirm = function () {
-    // this.positionModeFirst = this.positionModeFirstTemp;
-    // // this.getPositionsideDual()
-    // this.popWindowPositionModeBulletBox = false
-    // return
-    this.$http.send('POST_SINGLE_DOUBLE',{
-      bind: this,
-      params:{
-        dualSidePosition: this.positionModeFirstTemp == 'singleWarehouseMode' ? "false" : "true",
-        // timestamp: this.serverTime
-      },
-      callBack: this.re_positionModeSelectedConfirm,
-      errorHandler:this.error_positionModeSelectedConfirm
-    })
+  // 如果是相同仓位切换，直接关闭
+  if((this.dualSidePosition == false && this.positionModeFirstTemp == 'singleWarehouseMode') || (this.dualSidePosition == true && this.positionModeFirstTemp == 'doubleWarehouseMode')){
+    this.popWindowPositionModeBulletBox = false
+    return
   }
+  this.$http.send('POST_SINGLE_DOUBLE',{
+    bind: this,
+    params:{
+      dualSidePosition: this.positionModeFirst == 'singleWarehouseMode' ? "true" : "false",
+      // timestamp: this.serverTime
+    },
+    callBack: this.re_positionModeSelectedConfirm,
+    errorHandler:this.error_positionModeSelectedConfirm
+  })
+}
 // 仓位模式选择确认正确回调
 root.methods.re_positionModeSelectedConfirm = function (data) {
-    typeof(data) == 'string' && (data = JSON.parse(data));
-    if(!data && !data.data)return
-    if (data.code == 200) {
-      this.popType = 1;
-      this.popText = '调整仓位模式成功';
-      this.promptOpen = true;
-      this.positionModeFirst = this.positionModeFirstTemp;
-      this.getPositionsideDual()
-      this.popWindowPositionModeBulletBox = false
-    }
-
+  typeof(data) == 'string' && (data = JSON.parse(data));
+  if(!data && !data.data)return
+  this.promptOpen = true;
+  if (data.code == 200) {
+    this.popType = 1;
+    this.popText = '调整仓位模式成功';
+    this.positionModeFirst = this.positionModeFirstTemp;
+    this.getPositionsideDual()
+    this.popWindowPositionModeBulletBox = false
+    return
+  }
   this.popType = 0;
   this.popText = '调整仓位模式失败';
-  this.promptOpen = true;
-  }
+}
 // 仓位模式选择确认错误回调
 root.methods.error_positionModeSelectedConfirm = function (err) {
   console.log('仓位模式选择确认接口',err)
