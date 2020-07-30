@@ -321,7 +321,7 @@
       <!--仓位（4）-->
       <div class="tradinghall-order-tab txt-bold"
            :class="isNow==4?'tradinghall-order-activetab':'tradinghall-order-tab3'"
-           @click="clickTab(4)">{{$t("仓位")}} ({{recordsIndex}})
+           @click="clickTab(4),getPositionRisk">{{$t("仓位")}} ({{recordsIndex}})
       </div>
       <!--保证金余额-->
       <div class="tradinghall-order-tab txt-bold"
@@ -355,7 +355,7 @@
     </div>
 
     <div v-if="isNow === 4" class="trading-hall-order-box-detail">
-      <OrderPosition :tradinghallLimit="tradinghallLimit"/>
+      <OrderPosition :tradinghallLimit="tradinghallLimit" :latestPriceVal = 'latestPriceVal' :effectiveTime = 'effectiveTime'/>
     </div>
     <div v-if="isNow === 5" class="trading-hall-order-box-detail">
       <OrderMarginBalance :tradinghallLimit="tradinghallLimit"/>

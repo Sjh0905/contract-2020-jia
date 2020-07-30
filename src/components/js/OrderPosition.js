@@ -10,6 +10,7 @@ root.data = function () {
   return {
     loading:false,
     records:[],
+    records1:[],
     recordsIndex:0,
     tradinghallLimit: 10,
     parity:this.markPrice,
@@ -20,7 +21,6 @@ root.data = function () {
     popType: 0,
     popText: '',
     promptOpen: false,
-    latestPriceVal:''
   }
 }
 root.props = {}
@@ -109,11 +109,15 @@ root.methods.re_getPositionRisk = function (data) {
   typeof data === 'string' && (data = JSON.parse(data))
   if (!data || !data.data || data.data.length == []) return
   this.records = data.data
-  this.records.forEach((v,index)=>{
-    this.markPrice = v.markPrice
+  this.records.map((v,index)=>{
+    if (v.positionAmt != 0) {
+      let aa = []
+      aa.push(v)
+      this.records1 = aa
+    }
   })
-  console.info('this.markPrice======标机价格',this.markPrice)
-
+  this.recordsIndex = this.records.length
+  this.$emit('getPositionRisk',this.recordsIndex);
 }
 // 获取记录出错
 root.methods.error_getPositionRisk = function (err) {
