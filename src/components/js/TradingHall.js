@@ -205,7 +205,7 @@ root.created = function () {
   this.getLatestrice()  // 获取币安最新价格
   this.getDepth()  // 获取币安深度
   this.positionRisk()  // 获取全逐仓状态
-  // this.getPositionsideDual() // 获取仓位模式
+  this.getPositionsideDual() // 获取仓位模式
 // console.log("latestDealSpread---------"+this.latestDealSpread);
   this.isFirstVisit()
 
@@ -392,7 +392,6 @@ root.methods.re_getBalance = function (data) {
   typeof(data) == 'string' && (data = JSON.parse(data));
   if(!data || !data.data || !data.data[0])return
   this.availableBalance  = data.data[0].availableBalance || 0
-
 }
 // 获取用户可用余额错误回调
 root.methods.error_getBalance = function (err) {
@@ -1103,14 +1102,14 @@ root.methods.error_getPositionsideDual = function (err) {
 
 // 仓位模式选择确认
 root.methods.positionModeSelectedConfirm = function () {
-    this.positionModeFirst = this.positionModeFirstTemp;
-    this.getPositionsideDual()
-    this.popWindowPositionModeBulletBox = false
-    return
+    // this.positionModeFirst = this.positionModeFirstTemp;
+    // // this.getPositionsideDual()
+    // this.popWindowPositionModeBulletBox = false
+    // return
     this.$http.send('POST_SINGLE_DOUBLE',{
       bind: this,
       params:{
-        dualSidePosition: this.positionModeFirstTemp == 'singleWarehouseMode' ? true : false,
+        dualSidePosition: this.positionModeFirstTemp == 'singleWarehouseMode' ? "false" : "true",
         // timestamp: this.serverTime
       },
       callBack: this.re_positionModeSelectedConfirm,
@@ -1122,10 +1121,17 @@ root.methods.re_positionModeSelectedConfirm = function (data) {
     typeof(data) == 'string' && (data = JSON.parse(data));
     if(!data && !data.data)return
     if (data.code == 200) {
+      this.popType = 1;
+      this.popText = '调整仓位模式成功';
+      this.promptOpen = true;
       this.positionModeFirst = this.positionModeFirstTemp;
       this.getPositionsideDual()
       this.popWindowPositionModeBulletBox = false
     }
+
+  this.popType = 0;
+  this.popText = '调整仓位模式失败';
+  this.promptOpen = true;
   }
 // 仓位模式选择确认错误回调
 root.methods.error_positionModeSelectedConfirm = function (err) {

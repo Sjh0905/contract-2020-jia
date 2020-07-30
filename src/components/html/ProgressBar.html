@@ -76,7 +76,7 @@
       <label :for="'pro-bar-price'+ orderType" class="progress-bar-price flex-row border_radius"
              :class="{'focus-color-green':inputColor=='price'+orderType && !orderType,'focus-color-red':inputColor=='price'+orderType && orderType}"
       >
-        <input :id="'pro-bar-price' + orderType" class="txt-small txt-light" type="text" v-model="price? price : latestPriceVal"
+        <input :id="'pro-bar-price' + orderType" class="txt-small txt-light" type="text" v-model="price != '' ? price : latestPriceVal"
                @focus="changeColor('price' + orderType)"
                @blur="changeColor(0)"
                @keyup="keyBoard('pro-bar-price' + orderType)"
@@ -315,7 +315,7 @@
       <div class="progress-bar-btn txtvalue-nomal border_radius" @click="postFullStop()"
            :class="orderType?'progress-bar-redbtn btn_red_box_shadow':'progress-bar-greenbtn btn_green_box_shadow'"
            v-if="$store.state.authState.userId && isHasModule('buttonType') == 3 && (pendingOrderType == 'limitProfitStopLoss' || pendingOrderType == 'marketPriceProfitStopLoss')">
-        {{orderType && '平多' || '平空'}}
+        {{orderType && '平空' || '平多'}}
       </div>
 
       <!--<div class="progress-bar-btn progress-bar-nologin-btn ptxt-nomal"-->
