@@ -191,7 +191,7 @@ root.created = function () {
   // window.CURRENT_SYMBOL = this.$store.state.symbol
   this.$store.commit('changeJoinus', false);
   // 判断是否开启BDB燃烧
-  this.getBDBInfo();
+  // this.getBDBInfo();
 
   // 判断是否进行实名认证
   this.getAuthState();
@@ -978,7 +978,7 @@ root.methods.closePrompt = function () {
   this.promptOpen = false;
 }
 
-// BDB是否抵扣
+/*// BDB是否抵扣
 root.methods.getBDBInfo = function () {
   if (!!this.$store.state.authMessage.userId) {
     this.$http.send('FIND_FEE_DEDUCTION_INFO', {
@@ -1045,7 +1045,7 @@ root.methods.error_clickToggle = function (err) {
   console.warn('点击切换手续费折扣失败', err)
   this.BDBInfo = !this.BDBInfo
   this.BDBChanging = false
-}
+}*/
 
 //点击切换显示盘口还是实时成交
 root.methods.showStockFunc = function(data){
