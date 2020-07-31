@@ -26,20 +26,20 @@
     <!-- 表头 end -->
     <!-- 如果加载完成、已登录、有数据，则显示数据 begin -->
     <template v-if="!loading">
-      <template v-if="userId && capitalFlowListData.length!==0">
+      <template v-if="balance">
           <li class="flex tr-td">
             <!--资产种类-->
-            <div class="td td-time1">USDT</div>
+            <div class="td td-time1">{{balance.asset || '——'}}</div>
             <!--账户余额-->
-            <div class="td td-price">{{capitalFlowList.totalWalletBalance}}</div>
+            <div class="td td-price">{{balance.walletBalance || 0}}</div>
             <!--未实现盈亏-->
             <div class="td td-category-1">
-              {{capitalFlowList.totalUnrealizedProfit}}
+              {{toFixed(balance.unrealizedProfit,8) || 0}}
             </div>
             <!--保证金余额-->
             <div class="td td-market">{{toFixed(capitalFlowList.totalMarginBalance,8)}}</div>
             <!--可用下单余额-->
-            <div class="th td-number ">{{capitalFlowList.availableBalance}}</div>
+            <div class="th td-number ">{{balance.availableBalance || 0}}</div>
             <!--划转-->
             <div class="td td-trigger text_blue trasfer-hover" @click="goToTransfer">划转</div>
           </li>

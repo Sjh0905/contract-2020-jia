@@ -357,32 +357,6 @@ root.computed.positionModeConfigs = function () {
 // 初始化各子组件
 root.methods = {}
 
-// // 仓位
-// // root.methods.getPositionRisk = function () {
-// //
-// //   this.$http.send("GET_POSITION_RISKV", {
-// //     bind: this,
-// //     query: {
-// //       timestamp: this.serverTime
-// //     },
-// //     callBack: this.re_getPositionRisk,
-// //     errorHandler: this.error_getPositionRisk
-// //   })
-// // }
-// // // 获取记录返回，类型为{}
-// // root.methods.re_getPositionRisk = function (data) {
-// //   typeof data === 'string' && (data = JSON.parse(data))
-// //   if (!data) return
-// //   this.records = data.data
-// //   this.records.map((v,index)=>{
-// //     if (v.positionAmt != 0) {
-// //       let aa = []
-// //       aa.push(v)
-// //       this.records1 = aa
-// //     }
-// //   })
-// //   this.recordsIndex = this.records1.length
-// // }
 root.methods.getPositionRisk = function () {
   this.recordsIndex = this.recordsIndex
 }

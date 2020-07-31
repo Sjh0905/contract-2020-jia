@@ -10,7 +10,8 @@ root.data = function () {
     loading:false,
     capitalFlowListData:[],
     capitalFlowList:{},
-    tradinghallLimit: 10
+    tradinghallLimit: 10,
+    balance:[]
   }
 }
 /*------------------------------ 生命周期 -------------------------------*/
@@ -52,7 +53,7 @@ root.methods.goToTransfer = function () {
 
 // 账户余额
 root.methods.getCapitalFlow = function () {
-  this.$http.send('POST_CAPITAL_BIAN',{
+  this.$http.send('GET_BALAN__BIAN',{
     bind: this,
     query:{
       // symbol:'BTCUSDT'
@@ -68,8 +69,9 @@ root.methods.re_getCapitalFlow = function (data) {
   if(!data && !data.data)return
   this.loading = false
   console.info('data====',data.data)
-  this.capitalFlowListData = data.data.assets
+  // this.capitalFlowListData = data.data.assets
   this.capitalFlowList = data.data
+  this.balance = data.data.assets[0]
 
 
 }
