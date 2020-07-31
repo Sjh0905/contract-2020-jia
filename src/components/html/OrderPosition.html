@@ -50,29 +50,29 @@
     </li>
     <!-- 表头 end -->
     <!-- 如果加载完成、已登录、有数据，则显示数据 begin -->
-    <li class="flex tr-td" v-if="records.length != 0" v-for="(item,index) in records">
+    <li class="flex tr-td" v-if="records1.length != 0" v-for="(item,index) in records1" >
       <!--时间-->
       <div class="td td-time1">
         <div class="td-time1-currency flex">
-          <div :class="item.positionAmt > 0 ?'td-time1-green':'td-time1-red'"></div>
+          <div :class="(item.positionAmt || 0) > 0 ?'td-time1-green':'td-time1-red'"></div>
           <div class="td-currency">{{item.symbol}}</div>
           <div class="td-currency-btn">10X</div>
         </div>
       </div>
       <!--数量-->
-      <div class="td td-number" :class="item.positionAmt > 0 ?'text_blue-3':'text_red-4'">{{item.positionAmt}}</div>
+      <div class="td td-number" :class="(item.positionAmt || 0) > 0 ?'text_blue-3':'text_red-4'">{{item.positionAmt || 0}}</div>
       <!--开仓价格-->
-      <div class="td td-category-1">{{item.entryPrice}}</div>
+      <div class="td td-category-1">{{item.entryPrice || 0}}</div>
       <!--标记价格-->
-      <div class="td td-market">{{item.markPrice}}</div>
+      <div class="td td-market">{{toFixed(item.markPrice,2) || 0}}</div>
       <!--强平价格-->
-      <div class="td td-flat-price text_blue">{{item.liquidationPrice}}</div>
+      <div class="td td-flat-price text_blue">{{toFixed(item.liquidationPrice,2) || 0}}</div>
       <!--保证金比率-->
-      <div class="td td-price">{{((item.isolatedMargin / item.positionAmt) * 10 * 10).toFixed(2)+ '%'}}</div>
+      <div class="td td-price">{{toFixed(item.isolatedMargin,2) + '%'}}</div>
       <!--保证金-->
-      <div class="td td-deposit">{{item.isolatedMargin}}</div>
+      <div class="td td-deposit">{{toFixed(item.isolatedMargin,2)}}</div>
       <!--未实现盈亏（回报率）-->
-      <div class="td td-return-rate" :class="item.unrealizedProfit>0?'text_blue-3':'text_red-4'">{{item.unrealizedProfit}} (-0.5%)</div>
+      <div class="td td-return-rate" :class="item.unrealizedProfit>0?'text_blue-3':'text_red-4'">{{toFixed(item.unrealizedProfit,2) || 0}} (9%)</div>
       <!--自动减仓-->
       <div class="td td-reduce-positions">
         <img src="../../assets/reduce_positions1.png" alt="">
@@ -80,8 +80,8 @@
       <!--平仓-->
       <div class="td td-trigger">
         <div class="td-trigger-btn flex">
-          <div class="market-price margin-right">市价</div>
-          <div class="market-price margin-right">限价</div>
+          <div class="market-price margin-right" @click="marketPrice(item)">市价</div>
+          <div class="market-price margin-right" @click="checkPrice(item)">限价</div>
           <input type="text" v-model="parity">
         </div>
       </div>
@@ -89,7 +89,7 @@
       <!-- 如果加载完成、已登录、有数据，则显示数据 end -->
 
       <!-- 如果没加载完成、没登录、没数据，则显示'--' begin -->
-    <li class="weit" v-if="records.length == 0">
+    <li class="weit" v-if="records1.length == 0">
       <div class="nhtu"><img src="../../assets/noOrderDark.png"></div>
       <span>{{$t('orderPageCurrentEntrustment.close_9')}}</span>
     </li>
@@ -105,6 +105,7 @@
     <Loading/>
   </div>
   <!-- 加载更多 end -->
+  <PopupPrompt :popType="popType" :popText="popText" :popOpen="promptOpen" :popClose="closePrompt"></PopupPrompt>
 
   <!--  <PopupPrompt :popType="promptType" :popOpen="promptOpen" :popClose="closePrompt"/>-->
 </div>

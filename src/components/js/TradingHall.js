@@ -120,6 +120,10 @@ root.data = function () {
 
     //保证金模式Strat
     popWindowSecurityDepositMode: false,
+    // cardType:1, //仓位模式选择初始值
+    marginModeType: 'quanCang',  // "quanCang":全仓  "zhuCang":逐仓
+    marginType: 'CROSSED', // 全仓逐仓
+    marginModeTypeTemp:'',// 临时存储值，等用户点击弹窗确认按钮后才真正改变 marginModeType 的值
     //保证金模式End
 
     //调整杠杆 Strat
@@ -139,8 +143,7 @@ root.data = function () {
 
     //仓位模式Start
     popWindowPositionModeBulletBox: false, //仓位模式弹框
-    cardType:1, //仓位模式选择初始值
-    marginModeType:1,  // 1 全仓、2 逐仓
+
     //仓位模式End
 
     leverage:'20', // 杠杆倍数
@@ -163,7 +166,7 @@ root.data = function () {
     latestPriceVal: '' ,   // 最新价格，用于价格输入框显示
     latestPriceArr: [] ,   // 最新价格数组，用于判断价格升降和盘口显示
     maxNotionalValue: '',   // 当前杠杆倍数下允许的最大名义价值
-    marginType:'', // 全仓逐仓
+
     dualSidePosition:false,  // "true": 双向持仓模式；"false": 单向持仓模式
     availableBalance:0 , // 可用余额
 
@@ -208,7 +211,7 @@ root.created = function () {
   this.getDepth()  // 获取币安深度
   this.getAggTrades() //获取归集交易
   this.positionRisk()  // 获取全逐仓状态
-  // this.getPositionsideDual() // 获取仓位模式
+  this.getPositionsideDual() // 获取仓位模式
 // console.log("latestDealSpread---------"+this.latestDealSpread);
   this.isFirstVisit()
 
@@ -365,27 +368,38 @@ root.computed.serverTime = function () {
 // 初始化各子组件
 root.methods = {}
 
-// 仓位
-root.methods.getPositionRisk = function () {
-
-  this.$http.send("GET_POSITION_RISKV", {
-    bind: this,
-    query: {
-      timestamp: this.serverTime
-    },
-    callBack: this.re_getPositionRisk,
-    errorHandler: this.error_getPositionRisk
-  })
-}
-// 获取记录返回，类型为{}
-root.methods.re_getPositionRisk = function (data) {
-  typeof data === 'string' && (data = JSON.parse(data))
-  if (!data) return
-  this.records = data.data
-  this.recordsIndex = this.records.length
-  console.info('this.records======仓位',this.records)
-
-}
+// root.methods.getPositionRisk = function () {
+//   this.recordsIndex = this.recordsIndex
+// }
+// // 仓位
+// // root.methods.getPositionRisk = function () {
+// //
+// //   this.$http.send("GET_POSITION_RISKV", {
+// //     bind: this,
+// //     query: {
+// //       timestamp: this.serverTime
+// //     },
+// //     callBack: this.re_getPositionRisk,
+// //     errorHandler: this.error_getPositionRisk
+// //   })
+// // }
+// // // 获取记录返回，类型为{}
+// // root.methods.re_getPositionRisk = function (data) {
+// //   typeof data === 'string' && (data = JSON.parse(data))
+// //   if (!data) return
+// //   this.records = data.data
+// //   this.records.map((v,index)=>{
+// //     if (v.positionAmt != 0) {
+// //       let aa = []
+// //       aa.push(v)
+// //       this.records1 = aa
+// //     }
+// //   })
+// //   this.recordsIndex = this.records1.length
+// // }
+// root.methods.getPositionRisk = function () {
+//   this.recordsIndex = this.recordsIndex
+// }
 /*---------------------- 合约接口部分 begin ---------------------*/
 
 // 获取用户可用余额
@@ -401,7 +415,6 @@ root.methods.re_getBalance = function (data) {
   typeof(data) == 'string' && (data = JSON.parse(data));
   if(!data || !data.data || !data.data[0])return
   this.availableBalance  = data.data[0].availableBalance || 0
-
 }
 // 获取用户可用余额错误回调
 root.methods.error_getBalance = function (err) {
@@ -580,8 +593,6 @@ root.methods.re_getAggTrades = function (data) {
   this.latestPriceArr.push(price1)
 }
 
-
-
 /*---------------------- 合约接口部分 end ---------------------*/
 
 /*---------------------- hover弹框 begin ---------------------*/
@@ -630,9 +641,105 @@ root.methods.openAdjustingLever = function () {
 }
 // 打开全仓逐仓弹窗
 root.methods.openSecurityDepositMode = function () {
+  this.marginModeTypeTemp = this.marginModeType
   this.popWindowSecurityDepositMode = true
+}
+//保证金模式
+root.methods.popWindowCloseSecurityDepositMode = function () {
+  this.marginModeTypeTemp = this.marginModeType
+  this.popWindowSecurityDepositMode = false
+}
+
+// 关闭但不改变其中的值
+root.methods.popWindowClosePositionModeBullet = function () {
+  this.marginModeType = this.marginModeTypeTemp
+  this.popWindowSecurityDepositMode = false
+}
+// 切换保证金模式
+root.methods.securityDepositMode = function (cardType) {
+  this.marginModeTypeTemp = cardType
+}
+root.methods.positionRisk = function () {
+  this.$http.send('GET_POSITION_RISK',{
+    bind: this,
+    callBack: this.re_positionRisk
+  })
+}
+root.methods.re_positionRisk = function (data) {
+  typeof(data) == 'string' && (data = JSON.parse(data));
+  if(!data || !data.data || data.data == []) return
+  data.data.forEach(v=>{
+    if (v.symbol == 'BTCUSDT') {
+      this.$store.commit("CHANGE_LEVERAGE", v.leverage);
+      if(v.marginType == 'isolated'){
+        this.marginType = 'ISOLATED'
+        this.marginModeType = 'zhuCang'
+        return
+      }
+      this.marginType = 'CROSSED'
+      this.marginModeType = 'quanCang'
+    }
+  })
+}
+
+// 切换全仓逐仓
+root.methods.marginModeConfirm = function () {
+  if ((this.marginType == 'CROSSED' && this.marginModeTypeTemp == 'quanCang')|| (this.marginType == 'ISOLATED' && this.marginModeTypeTemp == 'zhuCang')) {
+    this.popType = 0;
+    this.popText = '不需要切换仓位模式';
+    this.promptOpen = true;
+    return
+  }
+
+  // if (this.marginModeTypeTemp == 'zhuCang') {
+  //   this.marginModeType = 'zhuCang'
+  //   return
+  // }
+  // if (this.marginModeTypeTemp == 'quanCang') {
+  //   this.marginModeType = 'quanCang'
+  // }
+  // this.positionRisk()
+  // this.popWindowCloseSecurityDepositMode()
+  // return
+  this.$http.send('POST_MARGIN_TYPE',{
+    bind: this,
+    params:{
+      "symbol": "BTCUSDT",
+      "marginType": this.marginType == 'ISOLATED' ? "CROSSED": "ISOLATED"
+    },
+    callBack: this.re_marginModeConfirm,
+    errorHandler:this.error_marginModeConfirm
+  })
 
 }
+root.methods.re_marginModeConfirm = function (data) {
+  typeof(data) == 'string' && (data = JSON.parse(data));
+  if(data.code == 200) {
+    this.popType = 1;
+    this.popText = '调整保证金模式成功';
+    this.promptOpen = true;
+    if (this.marginType == 'ISOLATED') {
+      this.marginModeType = 'quanCang'
+      this.popWindowCloseSecurityDepositMode()
+      return
+    }
+    if (this.marginType == 'CROSSED') {
+      this.marginModeType = 'zhuCang'
+    }
+    this.positionRisk()
+    this.popWindowCloseSecurityDepositMode()
+    return
+  }
+  this.popType = 0;
+  this.popText = '调整保证金模式失败';
+  this.promptOpen = true;
+}
+root.methods.error_marginModeConfirm = function (err) {
+}
+//保证金模式 End
+
+
+
 // 打开计算机
 root.methods.openCalculatorWindow = function () {
   this.openCalculator = true
@@ -1018,18 +1125,18 @@ root.methods.showInfo = function(data){
 root.methods.closeInfo = function(data){
   this.showinfo = false;
 }
-//仓位模式Start
+// TODO 仓位模式Start
 //打开仓位模式
 root.methods.turnOnLocationMode = function () {
   this.positionModeFirstTemp = this.positionModeFirst;//打开弹窗前需要初始化positionModeFirstTemp的值，必须和positionModeFirst一致
   this.popWindowPositionModeBulletBox = true
 }
-// 仓位模式
+// TODO 仓位模式
 root.methods.popWindowClosePositionModeBulletBox = function () {
   this.popWindowPositionModeBulletBox = false
   this.positionModeFirstTemp = this.positionModeFirst;//直接关闭弹窗后需要还原positionModeFirstTemp的值，必须和positionModeFirst一致
 }
-// 仓位模式选择
+// TODO 仓位模式选择
 root.methods.positionModeSelected = function (type) {
   this.positionModeFirstTemp = type
 }
@@ -1045,10 +1152,12 @@ root.methods.getPositionsideDual = function () {
 root.methods.re_getPositionsideDual = function (data) {
   typeof(data) == 'string' && (data = JSON.parse(data));
   if(data.data.dualSidePosition){
-    this.positionModeFirstTemp == 'singleWarehouseMode'
+    this.dualSidePosition = true
+    this.positionModeFirst = 'doubleWarehouseMode'
     return
   }
-  this.positionModeFirstTemp == 'doubleWarehouseMode'
+  this.dualSidePosition = false
+  this.positionModeFirst = 'singleWarehouseMode'
 }
 // 获取仓位模式错误回调
 root.methods.error_getPositionsideDual = function (err) {
@@ -1057,30 +1166,37 @@ root.methods.error_getPositionsideDual = function (err) {
 
 // 仓位模式选择确认
 root.methods.positionModeSelectedConfirm = function () {
+  // 如果是相同仓位切换，直接关闭
+  if((this.dualSidePosition == false && this.positionModeFirstTemp == 'singleWarehouseMode') || (this.dualSidePosition == true && this.positionModeFirstTemp == 'doubleWarehouseMode')){
+    this.popWindowPositionModeBulletBox = false
+    return
+  }
+  this.$http.send('POST_SINGLE_DOUBLE',{
+    bind: this,
+    params:{
+      dualSidePosition: this.positionModeFirst == 'singleWarehouseMode' ? "true" : "false",
+      // timestamp: this.serverTime
+    },
+    callBack: this.re_positionModeSelectedConfirm,
+    errorHandler:this.error_positionModeSelectedConfirm
+  })
+}
+// 仓位模式选择确认正确回调
+root.methods.re_positionModeSelectedConfirm = function (data) {
+  typeof(data) == 'string' && (data = JSON.parse(data));
+  if(!data && !data.data)return
+  this.promptOpen = true;
+  if (data.code == 200) {
+    this.popType = 1;
+    this.popText = '调整仓位模式成功';
     this.positionModeFirst = this.positionModeFirstTemp;
     this.getPositionsideDual()
     this.popWindowPositionModeBulletBox = false
     return
-    this.$http.send('POST_SINGLE_DOUBLE',{
-      bind: this,
-      params:{
-        dualSidePosition: this.positionModeFirstTemp == 'singleWarehouseMode' ? true : false,
-        // timestamp: this.serverTime
-      },
-      callBack: this.re_positionModeSelectedConfirm,
-      errorHandler:this.error_positionModeSelectedConfirm
-    })
   }
-// 仓位模式选择确认正确回调
-root.methods.re_positionModeSelectedConfirm = function (data) {
-    typeof(data) == 'string' && (data = JSON.parse(data));
-    if(!data && !data.data)return
-    if (data.code == 200) {
-      this.positionModeFirst = this.positionModeFirstTemp;
-      this.getPositionsideDual()
-      this.popWindowPositionModeBulletBox = false
-    }
-  }
+  this.popType = 0;
+  this.popText = '调整仓位模式失败';
+}
 // 仓位模式选择确认错误回调
 root.methods.error_positionModeSelectedConfirm = function (err) {
   console.log('仓位模式选择确认接口',err)
@@ -1119,64 +1235,7 @@ root.methods.changeReducePositions = function(){
   this.reducePositionsSelected = !this.reducePositionsSelected
 }
 
-//保证金模式 Strat
-root.methods.popWindowCloseSecurityDepositMode = function () {
-  this.popWindowSecurityDepositMode = false
-}
 
-root.methods.securityDepositMode = function (cardType) {
-  this.cardType = cardType
-}
-root.methods.positionRisk = function () {
-  this.$http.send('GET_POSITION_RISK',{
-    bind: this,
-    callBack: this.re_positionRisk
-  })
-}
-root.methods.re_positionRisk = function (data) {
-  typeof(data) == 'string' && (data = JSON.parse(data));
-  if(!data || !data.data || data.data == []) return
-  data.data.forEach(v=>{
-    if (v.symbol == 'BTCUSDT') {
-      this.$store.commit("CHANGE_LEVERAGE", v.leverage);
-      v.marginType == 'isolated'? this.marginType = 'ISOLATED' : this.marginType = 'CROSSED'
-    }
-  })
-}
-
-root.methods.marginModeConfirm = function () {
-  if ((this.cardType == 2 && this.marginType == 'ISOLATED')|| (this.cardType == 1 && this.marginType == 'CROSSED')) {
-    this.popType = 0;
-    this.popText = '不需要切换仓位模式';
-    this.promptOpen = true;
-    return
-  }
-  this.$http.send('POST_MARGIN_TYPE',{
-    bind: this,
-    params:{
-      "symbol": "BTCUSDT",
-      "marginType": this.marginModeType == 2 ? 'ISOLATED':'CROSSED'
-      // "timestamp": new Date().getTime()
-    },
-    callBack: this.re_marginModeConfirm,
-    errorHandler:this.error_marginModeConfirm
-  })
-
-}
-root.methods.re_marginModeConfirm = function (data) {
-  typeof(data) == 'string' && (data = JSON.parse(data));
-  if (this.cardType == 1) {
-    this.marginModeType = 1
-  }
-  if (this.cardType == 2) {
-    this.marginModeType = 2
-  }
-  this.positionRisk()
-  this.popWindowCloseSecurityDepositMode()
-}
-root.methods.error_marginModeConfirm = function (err) {
-}
-//保证金模式 End
 
 
 //打开调整杠杆 Strat

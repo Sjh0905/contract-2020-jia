@@ -270,7 +270,7 @@ root.components = {
 root.data = function () {
   return {
     triggerPrice:'',
-    price: this.depth_price,
+    price: this.latestPriceVal,
     priceNow: '0',
     amount: '',
     currentSymbol: {
@@ -346,9 +346,6 @@ root.data = function () {
     popWindowOpen1:false,
     // 初始保证金率
     initialMarginRate :[0.008, 0.01, 0.02, 0.05, 0.1, 0.2, 0.25, 0.333, 0.5, 1]
-
-
-
   }
 }
 
@@ -370,7 +367,6 @@ root.created = function () {
   // this.tradeMarket()
   // this.postOrdersPosition()
   // this.postOrdersCreate()
-
 }
 
 root.mounted = function () {
@@ -399,7 +395,7 @@ root.watch.pendingOrderType = function (newValue, oldValue) {
 
 // 处理滑动条显示框内容
 root.methods.formatTooltip=(val)=>{
-  return  val + '%';
+  return val + '%';
 }
 /*---------------------- hover弹框 begin ---------------------*/
 root.methods.closePositionBox= function (name) {
@@ -414,26 +410,23 @@ root.methods.openPositionBox = function (name) {
 /*----------------------------- 方法 ------------------------------*/
 // 止盈止损接口
 root.methods.postFullStop = function () {
-  let params = {}
 
+  let params = {}
   // 单仓 限价止盈止损
   if (this.isHasModule('kaipingType') == 1 && this.isHasModule('buttonType') == 1 && this.pendingOrderType == 'limitProfitStopLoss') {
     params = {
       leverage: this.$store.state.leverage,
       positionSide: "BOTH",
       price: this.price,
-      quantity: this.latestPriceVal || this.price,
+      quantity: this.amount,
       reduceOnly: this.reducePositionsSelected,
       orderSide: this.orderType ? 'SELL':'BUY',
       stopPrice: this.triggerPrice,
       symbol: "BTCUSDT",
       timeInForce: this.effectiveTime,
-      //(this.orderType && this.triggerPrice < this.latestPriceVal) ||
       orderType: ((this.orderType && Number(this.triggerPrice) < Number(this.latestPriceVal)) ||(!this.orderType && Number(this.triggerPrice) >= Number(this.latestPriceVal))) ? "STOP" : "TAKE_PROFIT",
       workingType: this.latestPrice == '最新价格'? 'CONTRACT_PRICE':'MARK_PRICE',
-
     }
-    // console.info('!this.orderType',!this.orderType,'this.triggerPrice >= this.latestPriceVal',this.triggerPrice , this.latestPriceVal)
   }
   // 单仓 市价止盈止损
   if (this.isHasModule('kaipingType') == 1 && this.isHasModule('buttonType') == 1 && this.pendingOrderType == 'marketPriceProfitStopLoss') {
@@ -448,20 +441,19 @@ root.methods.postFullStop = function () {
       orderType: ((this.orderType && Number(this.triggerPrice) < Number(this.latestPriceVal)) || (!this.orderType && Number(this.triggerPrice) >= Number(this.latestPriceVal))) ? "STOP_MARKET" : "TAKE_PROFIT_MARKET",
       workingType: this.latestPrice == '最新价格'? 'CONTRACT_PRICE':'MARK_PRICE',
     }
-    // console.info('!this.orderType',!this.orderType,'this.triggerPrice >= this.latestPriceVal',this.triggerPrice , this.latestPriceVal)
   }
   // 双仓 开仓 限价止盈止损
   if (this.isHasModule('kaipingType') == 1 && this.isHasModule('buttonType') == 2 && this.pendingOrderType == 'limitProfitStopLoss') {
     params = {
       leverage: this.$store.state.leverage,
       positionSide: this.orderType ? 'SHORT':'LONG',
-      price: this.latestPriceVal,
+      price: this.price,
       quantity: this.amount,
       orderSide: this.orderType ? 'SELL':'BUY',
       stopPrice: this.triggerPrice,
       symbol: "BTCUSDT",
       timeInForce: this.effectiveTime,
-      orderType: ((this.orderType && Number(this.triggerPrice) < Number(this.latestPriceVal)) || (!this.orderType && Number(this.triggerPrice) >= Number(this.latestPriceVal))) ? 'STOP' : 'TAKE_PROFIT',
+      orderType: ((this.orderType && (Number(this.triggerPrice) < Number(this.latestPriceVal))) || (!this.orderType && (Number(this.triggerPrice) >= Number(this.latestPriceVal)))) ? 'STOP' : 'TAKE_PROFIT',
       workingType: this.latestPrice == '最新价格'? 'CONTRACT_PRICE':'MARK_PRICE',
     }
   }
@@ -469,7 +461,7 @@ root.methods.postFullStop = function () {
   if (this.isHasModule('kaipingType') == 1 && this.isHasModule('buttonType') == 2 && this.pendingOrderType == 'marketPriceProfitStopLoss') {
     params = {
       leverage: this.$store.state.leverage,
-      positionSide: this.orderType ? 'LONG':'SHORT',
+      positionSide: this.orderType ? 'SHORT':'LONG',
       quantity: this.amount,
       orderSide: this.orderType ? 'SELL':'BUY',
       stopPrice: this.triggerPrice,
@@ -478,13 +470,12 @@ root.methods.postFullStop = function () {
       workingType: this.latestPrice == '最新价格'? 'CONTRACT_PRICE':'MARK_PRICE',
     }
   }
-
   // 双仓 平仓 限价止盈止损
   if (this.isHasModule('kaipingType') == 2 && this.isHasModule('buttonType') == 3 && this.pendingOrderType == 'limitProfitStopLoss') {
     params = {
       leverage: this.$store.state.leverage,
       positionSide: this.orderType ? 'LONG':'SHORT',
-      price: this.latestPriceVal,
+      price: this.price,
       quantity: this.amount,
       orderSide: this.orderType ? 'SELL':'BUY',
       stopPrice: this.triggerPrice,
@@ -518,7 +509,37 @@ root.methods.postFullStop = function () {
 }
 root.methods.re_postFullStop = function (data) {
   typeof (data) === 'string' && (data = JSON.parse(data))
-  if (!data) return
+  if (!data || !data.data) return
+  this.promptOpen = true;
+  this.popType = 1;
+  if(data.data.status == 'NEW') {
+    this.popText = '下单成功';
+    return
+  }
+  if(data.data.status == 'PARTIALLY_FILLED') {
+    this.popText = '您的订单成交了一部分';
+    return
+  }
+  if(data.data.status == 'FILLED') {
+    this.popText = '完全成交';
+    return
+  }
+  if(data.data.status == 'CANCELED') {
+    this.popText = '自己撤销的订单';
+    return
+  }
+  if(data.data.status == 'EXPIRED') {
+    this.popText = '您的订单已过期';
+    return
+  }
+  if(data.data.status == 'NEW_INSURANCE') {
+    this.popText = '风险保障基金(强平)';
+    return
+  }
+  if(data.data.status == 'NEW_ADL') {
+    this.popText = '自动减仓序列(强平)';
+    return
+  }
 }
 root.methods.error_postFullStop = function (err) {
   console.info('止盈止损接口错误回调',err)
@@ -543,7 +564,6 @@ root.methods.postOrdersCreate = function () {
       workingType: null
     }
   }
-
   // 单仓 市价
   if (this.isHasModule('kaipingType') == 1 && this.isHasModule('buttonType') == 1 && this.pendingOrderType == 'marketPrice') {
     params = {
@@ -557,7 +577,6 @@ root.methods.postOrdersCreate = function () {
       orderType: "MARKET",
     }
   }
-
   // 双仓 限价
   if (this.isHasModule('kaipingType') == 1 && this.isHasModule('buttonType') == 2 && this.pendingOrderType == 'limitPrice') {
     params = {
@@ -572,7 +591,6 @@ root.methods.postOrdersCreate = function () {
       orderType: "LIMIT",
     }
   }
-
   // 双仓 市价
   if (this.isHasModule('kaipingType') == 1 && this.isHasModule('buttonType') == 2 && this.pendingOrderType == 'marketPrice') {
     params = {
@@ -586,7 +604,6 @@ root.methods.postOrdersCreate = function () {
       orderType: "MARKET",
     }
   }
-
   // 单仓 限价止盈止损
   // if (this.isHasModule('kaipingType') == 1 && this.isHasModule('buttonType') == 1 && this.pendingOrderType == 'limitProfitStopLoss') {
   //   params = {
@@ -619,7 +636,6 @@ root.methods.postOrdersCreate = function () {
   //     workingType: this.latestPrice == '最新价格'? 'CONTRACT_PRICE':'MARK_PRICE',
   //   }
   // }
-
   // Object.assign(params, {type: "LIMIT",});
   this.$http.send('POST_ORDERS_CREATE',{
     bind: this,
@@ -762,7 +778,7 @@ root.methods.computedValue = function () {
   if (Number(this.latestPriceVal) == 0) return 0
   let num = this.accDiv(Number(this.availableBalance) ,Number(this.latestPriceVal))
   let num1 = this.accMul(num, Number(this.value))
-  let ValueAmount = this.toFixed(this.accDiv(num1 , 10*10),2)
+  let ValueAmount = this.toFixed(this.accMul(this.accDiv(num1 , 10*10), Number(this.$store.state.leverage)) ,2)
   this.amount = ValueAmount
 }
 

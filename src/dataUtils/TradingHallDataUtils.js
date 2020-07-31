@@ -161,7 +161,7 @@ tradingHallData.positionModeConfigs = {
         amount:true,
         securityDeposit:false,
         kaipingType:1,//1.可开 2.可平
-        buttonType:2,//1.买入/做多+卖出/做空 2.开多+开空 3.平空+平多
+        buttonType:3,//1.买入/做多+卖出/做空 2.开多+开空 3.平空+平多
       },
       marketPriceProfitStopLoss:{
         passiveDelegation:false,
