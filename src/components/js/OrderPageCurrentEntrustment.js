@@ -15,7 +15,7 @@ root.components = {
 
 root.data = () => {
   return {
-    loading: false, // 加载中
+    loading: true, // 加载中
     currentOrder: [],
     popOpen: false,
 

@@ -8,7 +8,7 @@ root.components = {
 /*------------------------------ data -------------------------------*/
 root.data = function () {
   return {
-    loading:false,
+    loading:true,
     records:[],
     records1:[],
     recordsIndex:0,
@@ -81,6 +81,7 @@ root.methods.getAccount = function () {
 root.methods.re_getAccount = function (data) {
   typeof data === 'string' && (data = JSON.parse(data))
   if (!data) return
+  this.loading = false
   this.getAssets = data.data.assets[0]
   this.initialMargin = this.getAssets.initialMargin
   // console.info('this.initialMargin',this.initialMargin)

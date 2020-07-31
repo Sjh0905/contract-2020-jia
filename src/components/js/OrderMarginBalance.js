@@ -1,13 +1,13 @@
 const root = {}
 root.name = 'OrderMarginBalance'
 /*------------------------------ 组件 ------------------------------*/
-//root.components = {
-//  'Loading': resolve => require(['../Loading/Loading.vue'], resolve),
-//}
+root.components = {
+  'Loading': resolve => require(['../vue/Loading'], resolve), // loading
+  }
 /*------------------------------ data -------------------------------*/
 root.data = function () {
   return {
-    loading:false,
+    loading:true,
     capitalFlowListData:[],
     capitalFlowList:{},
     tradinghallLimit: 10,

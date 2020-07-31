@@ -31,7 +31,7 @@
     </li>
     <!-- 表头 end -->
     <!-- 如果加载完成、已登录、有数据，则显示数据 begin -->
-<!--    <template v-if="!loading">-->
+    <template v-if="!loading">
       <template v-if="currentOrderComputed.length!==0">
           <li class="flex"
               :class="$route.name == 'currentEntrust'?'tr-td':'tr-td-col'"
@@ -87,7 +87,7 @@
 <!--          <span class="text_blue pointer" @click="toCurrentHistory">{{$t('orderPageHistoricalEntrustment.close_12')}}</span>-->
 <!--        </li>-->
 <!--      </template>-->
-<!--    </template>-->
+    </template>
   </ul>
   <!-- 加载更多 begin -->
   <div class="" v-if="loading && userId">
