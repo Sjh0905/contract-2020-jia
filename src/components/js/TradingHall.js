@@ -262,7 +262,7 @@ root.computed.isNowPrice = function () {
   let nowPrice = this.latestPriceArr[this.latestPriceArr.length-1]
 
   document.title = nowPrice+" "+this.symbol.replace('_', '/')+" "+this.$t('document_title');
-  return nowPrice || this.latestPriceVal;//当nowPrice为 0 或者 undefined时返回latestPriceVal，避免出现0
+  return (nowPrice || this.latestPriceVal).toString();//当nowPrice为 0 或者 undefined时返回latestPriceVal，避免出现0
 }
 // 实时价格的升降
 root.computed.direction = function () {
