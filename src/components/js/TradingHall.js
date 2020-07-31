@@ -385,9 +385,9 @@ root.methods = {}
 // //   })
 // //   this.recordsIndex = this.records1.length
 // // }
-root.methods.getPositionRisk = function () {
-  this.recordsIndex = this.recordsIndex
-}
+// root.methods.getPositionRisk = function () {
+//   this.recordsIndex = this.recordsIndex
+// }
 /*---------------------- 合约接口部分 begin ---------------------*/
 
 // 获取用户可用余额
