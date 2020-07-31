@@ -54,7 +54,7 @@ root.data = function () {
     selectArray:[], // 自选区数据
     currentId:null, // 当前币对信息
 
-    biduival: [],
+    // biduival: [],
 
     // 价格初始化标识
     pricesymbol:[],
