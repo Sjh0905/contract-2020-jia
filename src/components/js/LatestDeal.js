@@ -149,12 +149,14 @@ root.methods.getScaleConfig = function () {
 // }
 // 拉取实时成交数据
 root.methods.tickCache = function () {
+  return //TODO 暂时不用这个，父组件有了
   let params = {
     // symbol: this.symbol
     symbol: 'BTCUSDT',
+    limit:80
     // fromId: '26129'
   };
-  this.$http.send("GET_TRADES", {
+  this.$http.send("GET_AGG_TRADES", {
     bind: this,
     query: params,
     callBack: this.re_tickCache,
@@ -162,7 +164,7 @@ root.methods.tickCache = function () {
   })
 }
 root.methods.re_tickCache = function (res) {
-  // console.log("GET_TRADES---------",res);
+  // console.log("GET_AGG_TRADES---------",res);
   if(!res)return
   let data = res.splice(0,50);
   this.socketListArrls = data;
