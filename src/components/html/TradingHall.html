@@ -254,8 +254,8 @@
               </div>
               <!--类型选择右侧-->
               <div class="service-type-selection-right flex-row">
-                <div class="margin-mode-btn pointer" @click="openSecurityDepositMode" v-if="marginModeType == 1">全仓</div>
-                <div class="margin-mode-btn pointer" @click="openSecurityDepositMode" v-if="marginModeType == 2">逐仓</div>
+                <div class="margin-mode-btn pointer" @click="openSecurityDepositMode" v-if="marginModeType == 'quanCang'">全仓</div>
+                <div class="margin-mode-btn pointer" @click="openSecurityDepositMode" v-if="marginModeType == 'zhuCang'">逐仓</div>
                 <div class="margin-mode-btn lever-num pointer" @click="openLever">{{leverage}}X</div>
               </div>
             </div>
@@ -379,7 +379,7 @@
   <!-- 提示信息 end -->
 
   <!--  仓位模式Strat-->
-  <PositionModeBulletBox :switch="popWindowPositionModeBulletBox" @close="popWindowClosePositionModeBulletBox" >
+  <PositionModeBulletBox :switch="popWindowPositionModeBulletBox" @close="popWindowClosePositionModeBullet" >
     <div slot="header">
       <div class="position-mode-tit">仓位模式</div>
     </div>
@@ -419,8 +419,8 @@
     </div>
     <div slot="article"class="pop-lock-house">
       <div class="flex">
-        <div class="selected-mode selected-cardType-left" :class="{'selected-cardType-mode':cardType == 1}" @click="securityDepositMode(1)">全仓</div>
-        <div class="selected-mode" :class="{'selected-cardType-mode':cardType == 2}" @click="securityDepositMode(2)">逐仓</div>
+        <div class="selected-mode selected-cardType-left" :class="{'selected-cardType-mode':marginModeTypeTemp == 'quanCang'}" @click="securityDepositMode('quanCang')">全仓</div>
+        <div class="selected-mode" :class="{'selected-cardType-mode':marginModeTypeTemp == 'zhuCang'}" @click="securityDepositMode('zhuCang')">逐仓</div>
       </div>
       <div class="mode-only">· 调整保证金模式仅对当前合约生效。</div>
       <div class="mode-error">当前合约存在持仓和挂单，不支持调整保证金模式</div>

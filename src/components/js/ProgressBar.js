@@ -564,7 +564,6 @@ root.methods.postOrdersCreate = function () {
       workingType: null
     }
   }
-
   // 单仓 市价
   if (this.isHasModule('kaipingType') == 1 && this.isHasModule('buttonType') == 1 && this.pendingOrderType == 'marketPrice') {
     params = {
@@ -578,7 +577,6 @@ root.methods.postOrdersCreate = function () {
       orderType: "MARKET",
     }
   }
-
   // 双仓 限价
   if (this.isHasModule('kaipingType') == 1 && this.isHasModule('buttonType') == 2 && this.pendingOrderType == 'limitPrice') {
     params = {
@@ -593,7 +591,6 @@ root.methods.postOrdersCreate = function () {
       orderType: "LIMIT",
     }
   }
-
   // 双仓 市价
   if (this.isHasModule('kaipingType') == 1 && this.isHasModule('buttonType') == 2 && this.pendingOrderType == 'marketPrice') {
     params = {
@@ -607,7 +604,6 @@ root.methods.postOrdersCreate = function () {
       orderType: "MARKET",
     }
   }
-
   // 单仓 限价止盈止损
   // if (this.isHasModule('kaipingType') == 1 && this.isHasModule('buttonType') == 1 && this.pendingOrderType == 'limitProfitStopLoss') {
   //   params = {
@@ -640,7 +636,6 @@ root.methods.postOrdersCreate = function () {
   //     workingType: this.latestPrice == '最新价格'? 'CONTRACT_PRICE':'MARK_PRICE',
   //   }
   // }
-
   // Object.assign(params, {type: "LIMIT",});
   this.$http.send('POST_ORDERS_CREATE',{
     bind: this,
