@@ -60,8 +60,10 @@ root.data = function () {
     socket_snap_shot: {}, //深度图
     socket_snap_shot_temp: {}, //记录最近一次时间间隔小于500ms的深度图
     snap_shot_timeout: null, //定时器，判断是否刷新最近一次时间间隔小于500ms的深度图
-    socketTickArr: [], // 第一次tick推送 数组，用作全站成交
-    socketTickObj: {}, // 单个成交推送 对象，用作全站成交
+    socketTickArr: [], // 最新成交，归集交易，暂时没用到
+    socketTickObj: {}, // 单个归集交易推送
+
+    apiTickArr: [], // 第一次接口获取的最新归集交易
 
     // 信息提示
     popType: 0,
@@ -158,7 +160,8 @@ root.data = function () {
     markPrice: '', // 标记价格
     lastFundingRate: '', // 资金费率
     nextFundingTime: '',   // 下次资金费时间
-    latestPriceVal: '' ,   // 最新价格
+    latestPriceVal: '' ,   // 最新价格，用于价格输入框显示
+    latestPriceArr: [] ,   // 最新价格数组，用于判断价格升降和盘口显示
     maxNotionalValue: '',   // 当前杠杆倍数下允许的最大名义价值
     marginType:'', // 全仓逐仓
     dualSidePosition:false,  // "true": 双向持仓模式；"false": 单向持仓模式
@@ -198,12 +201,12 @@ root.created = function () {
   //获取bt燃烧比例
   // this.getBtReward();
   // this.initWebSocket(this.$store.state.symbol);
-
+  this.getLatestrice()  // 获取币安最新价格
   this.initTicket24Hr()  // 获取币安24小时价格变动接口
 
   this.getMarkPricesAndCapitalRates()  // 获取币安最新标记价格和资金费率
-  this.getLatestrice()  // 获取币安最新价格
   this.getDepth()  // 获取币安深度
+  this.getAggTrades() //获取归集交易
   this.positionRisk()  // 获取全逐仓状态
   // this.getPositionsideDual() // 获取仓位模式
 // console.log("latestDealSpread---------"+this.latestDealSpread);
@@ -252,21 +255,25 @@ root.computed.toNextFundingTime = function () {
 }
 // 实时价格
 root.computed.isNowPrice = function () {
-  return 0//TODO 以后再说
-  // console.log('socket_snap_shot====',this.socket_snap_shot,this.buy_sale_list,this.quoteScale)
-  let price = this.$globalFunc.mergeObj(this.socket_snap_shot.price, this.buy_sale_list.price) || 0;
-  let priceObj = this.$globalFunc.mergeObj(this.socket_tick, {price: price});
-  let now_price = this.$globalFunc.accFixed(priceObj.price, this.quoteScale);
-  document.title = now_price+" "+this.$store.state.symbol.replace('_', '/')+" "+this.$t('document_title');
-  // if (!!this.socket_snap_shot.price)
-  return now_price;
+
+  let nowPrice = this.latestPriceArr[this.latestPriceArr.length-1]
+
+  document.title = nowPrice+" "+this.symbol.replace('_', '/')+" "+this.$t('document_title');
+  return nowPrice || this.latestPriceVal;//当nowPrice为 0 或者 undefined时返回latestPriceVal，避免出现0
 }
 // 实时价格的升降
 root.computed.direction = function () {
-  return 0//TODO 以后再说
-  return this.socket_tick.direction;
+
+  let currPrice = this.latestPriceArr[this.latestPriceArr.length-1];
+  let prePrice = this.latestPriceArr[this.latestPriceArr.length-2];
+
+  let step = currPrice - prePrice,className = 'txt-white'
+  step > 0 && (className = 'txt-price-green')
+  step < 0 && (className = 'txt-price-red')
+
+  return className;
 }
-// 实时价格cny
+/*// 实时价格cny
 root.computed.isCnyPrice = function () {
   let close = this.isNowPrice || 0;
   // if (this.$store.state.lang === 'CH') {
@@ -278,9 +285,9 @@ root.computed.isCnyPrice = function () {
   // if (this.$store.state.lang === 'EN') {
   // 	return ('$' + ((close * this.rate)).toFixed(2));
   // }
-}
+}*/
 
-// 24小时最低价
+/*// 24小时最低价
 root.computed.low24 = function () {
   // console.log('list', this.mergeList[this.symbol][3])
   if (!this.mergeList[this.symbol]) return;
@@ -304,16 +311,16 @@ root.computed.high24 = function () {
 // }
 
 // 实时价格 需要取BDB/ETH的时价和汇率来算BDB的汇率
-root.computed.topic_price = function () {
-  return this.socket_price;
-}
+// root.computed.topic_price = function () {
+//   return this.socket_price;
+// }*/
 
 root.computed.mergeList = function () {
   let list = this.$globalFunc.mergeObj(this.socket_price, this.currency_list);
   return list;
 }
 
-// 24小时涨跌
+/*// 24小时涨跌
 root.computed.diff24 = function () {
   // let diff = this.isNowPrice  - Number(this.mergeList[this.symbol][1])
   // 减法
@@ -332,9 +339,8 @@ root.computed.diff24Ratio = function () {
   } else {
     return diff;
   }
-}
+}*/
 
-/*****************************************************/
 root.computed.listenSymbol = function () {
   return this.$store.state.symbol;
 }
@@ -352,6 +358,9 @@ root.computed.positionModeConfigs = function () {
   let data = tradingHallData.positionModeConfigs;
   // console.log(data);
   return data
+}
+root.computed.serverTime = function () {
+  return new Date().getTime();
 }
 // 初始化各子组件
 root.methods = {}
@@ -540,6 +549,36 @@ root.methods.re_getDepth = function (data) {
   // console.info('this.buy_sale_list======',this.buy_sale_list)
 }
 
+// 获取实时成交归集交易
+root.methods.getAggTrades = function () {
+  let query = {
+    // symbol: this.symbol
+    symbol: 'BTCUSDT',
+    limit:80
+  };
+  this.$http.send("GET_AGG_TRADES", {
+    bind: this,
+    query,
+    callBack: this.re_getAggTrades,
+    errorHandler: this.error_getAggTrades
+  })
+}
+root.methods.re_getAggTrades = function (data) {
+  // console.log("getAggTrades---------",data);
+  if(!data)return
+  data = data.data || {}
+  this.apiTickArr = data;
+  let price1 = data[data.length - 1] && data[data.length - 1].p || 0;//最后一条价格最新
+
+  if(this.latestPriceArr.length == 0){//如果一条数据都没有，至少填两条
+    let price2 = data[data.length - 2] && data[data.length - 2].p || 0;
+
+    this.latestPriceArr = [price2,price1]
+    return
+  }
+
+  this.latestPriceArr.push(price1)
+}
 
 
 
@@ -788,7 +827,14 @@ root.methods.initSocket = function () {
       this.socket_tick = message.s === subscribeSymbol && message || {}
       this.socketTickObj = message.s === subscribeSymbol && message || {}
 
-      this.latestPriceVal = this.socketTickObj && this.socketTickObj.p || this.latestPriceVal
+      let currPrice = this.socketTickObj && this.socketTickObj.p || 0
+      let lpal = this.latestPriceArr.length - 50;
+
+      lpal == -50 && (this.latestPriceArr = [0,currPrice])//说明length是0
+      lpal > -50 && this.latestPriceArr.push(currPrice);//length > 0
+      lpal > 0 && this.latestPriceArr.splice(0,lpal);//避免数组溢出
+
+      // this.latestPriceVal = this.socketTickObj && this.socketTickObj.p || this.latestPriceVal
       // 取消板块loading
       this.trade_loading = false;
         // console.log('aggTrade is ===',message);
@@ -1252,7 +1298,7 @@ root.methods.re_openAContract = function (data) {
 }
 
 
-// 计算symbol变化
+/*// 计算symbol变化
 root.computed = {};
 // 当前货币对
 root.computed.symbol = function () {
@@ -1341,7 +1387,7 @@ root.computed.diff24Ratio = function () {
   }
 }
 
-/*****************************************************/
+/!*****************************************************!/
 root.computed.listenSymbol = function () {
   return this.$store.state.symbol;
 }
@@ -1368,7 +1414,7 @@ root.computed.positionModeConfigs = function () {
 }
 root.computed.serverTime = function () {
   return new Date().getTime();
-}
+}*/
 
 
 

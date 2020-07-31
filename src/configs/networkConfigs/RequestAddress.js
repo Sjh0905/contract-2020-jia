@@ -200,7 +200,7 @@ requestAddress.POST_MARGIN_TYPE = {url: urlHead + '/future/account/marginType ',
 requestAddress.GET_POSITION_RISK = {url: urlHead + '/future/account/positionRiskv2', method: 'get' ,} // 查询全仓逐仓 杠杆倍数 最大头寸
 
 requestAddress.GET_DEPTH = {url: urlHead + '/future/common/depth', method: 'get',} // 合约深度
-requestAddress.GET_TRADES = {url: urlHead + '/future/common/aggTrades', method: 'get',} // 获取实时成交
+requestAddress.GET_AGG_TRADES = {url: urlHead + '/future/common/aggTrades', method: 'get',} // 获取实时成交
 requestAddress.GET_USER_LISTENKEY = {url: urlHead + '/future/user/listenKey', method: 'get',} // 获取 listenKey 信息
 requestAddress.POST_KEEP_LISTENKEY = {url: urlHead + '/future/user/keepListenKey', method: 'post',} // 延长 listenKey 信息
 requestAddress.POST_CLOSE_LISTENKEY = {url: urlHead + '/future/user/closeListenKey', method: 'post',} // 关闭 listenKey 信息

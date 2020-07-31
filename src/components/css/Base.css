@@ -245,6 +245,14 @@ body {
   color: rgba(253, 85, 85 , .5)
 }
 
+.txt-price-red {
+  color: #EF5656;
+}
+
+.txt-price-green {
+  color: #08D0AC;
+}
+
 .txt-small {
   font-size: 1.2rem;
 }

@@ -33,6 +33,18 @@ root.props.currency_list = {
   type: Object,
   default: {}
 }
+root.props.isNowPrice = {
+  type: String,
+  default: '0'
+}
+root.props.markPrice = {
+  type: String,
+  default: '0'
+}
+root.props.direction = {
+  type: String,
+  default: 'txt-white'
+}
 
 root.props.trade_loading = {
 	type: Boolean,
@@ -286,7 +298,7 @@ root.computed.buyOrders = function () {
   return  bidsList || [];
 }*/
 
-// 实时价格
+/*// 实时价格
 root.computed.isPriceNow = function () {
 	// let priceObj = this.$globalFunc.mergeObj(this.socket_snap_shot, this.buy_sale_list);
 	// let priceNow = priceObj.price;
@@ -309,7 +321,7 @@ root.computed.isPriceNow = function () {
   // if (!!this.socket_snap_shot.price)
   // console.log("isPriceNow==stockCross====="+now_price);
   return now_price;
-}
+}*/
 
 // 实时价格
 // root.computed.isNowPrice = function () {
@@ -322,10 +334,10 @@ root.computed.isPriceNow = function () {
 //   return now_price;
 // }
 
-// 获取上升或下降
-root.computed.direction = function () {
-	return this.socket_tick.direction;
-}
+// // 获取上升或下降
+// root.computed.direction = function () {
+// 	return this.socket_tick.direction;
+// }
 
 root.computed.symbol = function () {
 	return this.$store.state.symbol;
