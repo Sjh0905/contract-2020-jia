@@ -1,6 +1,7 @@
 import wsServer from './SocketServer'
 import Vue from 'vue'
-const STREAMNAMEARR = ['aggTrade','depth','markPrice','ticker','kline']
+const EVENTNAMEARR = ['aggTrade','depthUpdate','markPriceUpdate','24hrTicker','kline','ORDER_TRADE_UPDATE']
+const CONNECTEDKEY = 'connect'
 
 export default class {
   constructor() {
@@ -25,14 +26,22 @@ export default class {
     //初始化socket后需要执行func1或func2,二者不能混写
     //------------------func1------------------//
 
-    this.socket.onopen = ()=> {//这里必须写箭头函数，否则作用域出错
+    this.socket.onopen = (event)=> {//这里必须写箭头函数，否则作用域出错
       this.socketInterval = null;//清空定时器
       // this.socket.send(JSON.stringify({
       //   method: 'SUBSCRIBE',
       //   symbol: symbol || this.symbol
       // }));
-      // this.emit('subscribe', {symbol:symbol});
-      let subscribeStreamArr = ["btcusdt@depth","btcusdt@aggTrade","btcusdt@markPrice","!ticker@arr"]
+      this.onMap.forEach(function(keyMap,key){
+        let funcArr = keyMap.get(CONNECTEDKEY);
+        funcArr && funcArr.map(function(callBack){
+          // console.log('funcArr ========',callBack);
+          callBack(event);
+        });
+        // console.log('this.onMap========',value);
+      });
+
+      let subscribeStreamArr = [/*"btcusdt@depth",*/"btcusdt@aggTrade","btcusdt@markPrice","!ticker@arr"]
 
       // subscribeStreamArr.push("btcusdt@kline_1m");
       // subscribeStreamArr.push("btcusdt@kline_5m");
@@ -51,21 +60,22 @@ export default class {
 
 
     this.socket.onmessage = (event)=>{
-      // console.log("this.data = 服务端返回 ========"+event.data);
       var data = JSON.parse(event.data);
       if (Object.prototype.toString.call(data) == "[object Object]") {
-        // console.log("this.data= callBack ========",data);
-        var stream = data.stream || '',
-            message = data.data,
-            streamKey = STREAMNAMEARR.find(v=>stream.includes(v));//用includes比indexOf更准确，可以区分大小写
+        // var stream = data.stream || '',
+        //     message = data.data,
+        //     streamKey = STREAMNAMEARR.find(v=>message.e.includes(v));//用includes比indexOf更准确，可以区分大小写
+
+        var message = data.data || {},
+            eName = message instanceof Array && (message[0] && message[0].e) || message.e || '',//如果订阅的是所有币对，返回的是数组
+            // eName = message.e || '',
+            eNameKey = EVENTNAMEARR.find(v=>v == eName)
 
         this.onMap.forEach(function(keyMap,key){
-          let funcArr = keyMap.get(streamKey);
+          let funcArr = keyMap.get(eNameKey);
           funcArr && funcArr.map(function(callBack){
-            // console.log('funcArr ========',callBack);
             callBack(message);
           });
-          // console.log('this.onMap========',value);
         });
 
         // if (topic === 'topic_snapshot') {

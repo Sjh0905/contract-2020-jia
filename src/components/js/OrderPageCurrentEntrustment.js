@@ -40,6 +40,9 @@ root.data = () => {
     showLoadingMore: true,//是否显示加载更多
     loadingMoreIng: false, //是否正在加载更多
 
+    orderTradeUpdate:{},
+    socketOrders:[]
+
   }
 }
 
@@ -50,10 +53,14 @@ root.props.tradinghallLimit = {
   type: Number
 }
 
-
+root.watch = {};
 
 root.created = function () {
   this.getOrder()
+  this.receiveSocket()
+  // this.orderTradeUpdate = this.$store.state.orderTradeUpdate
+  // console.info('this.orderTradeUpdate ===',this.orderTradeUpdate)
+  console.info('this.socketOrdersArr ===',this.socketOrdersArr)
 }
 
 root.beforeDestroy = function () {
@@ -64,6 +71,13 @@ root.beforeDestroy = function () {
 
 
 root.computed = {}
+// socket推送过来的对象  组成数组进行页面渲染
+root.computed.socketOrdersArr = function (){
+  // 处理socket返回对象
+  console.info('this.$store.state.orderTradeUpdate',)
+  console.info('socketOrders ===',this.socketOrders.length)
+  return this.socketOrders || []
+}
 // 计算后的order，排序之类的放在这里
 root.computed.currentOrderComputed = function () {
   return this.currentOrder
@@ -90,7 +104,17 @@ root.computed.serverTime = function () {
 
 
 root.methods = {}
-
+// 接收 socket 信息
+root.methods.receiveSocket = function () {
+  // 获取当前委托的数据
+  // let subscribeSymbol = this.$store.state.subscribeSymbol;
+  this.$socket.on({
+    key: 'ORDER_TRADE_UPDATE', bind: this, callBack: (message) => {
+      if(!message)return
+      this.$store.commit('CHANGE_CURRENT_ORDER',message)
+    }
+  })
+}
 
 // 获取订单
 root.methods.getOrder = function () {
@@ -112,10 +136,11 @@ root.methods.getOrder = function () {
 }
 // 获取订单回调
 root.methods.re_getOrder = function (data) {
-  console.info('订单信息获取到了！！！！--------', data)
+  typeof(data) == 'string' && (data = JSON.parse(data));
   this.loading = false
-  this.currentOrder = data.data
-  // console.log('this.currentOrder==当前委托',this.currentOrder)
+  this.currentOrder = data.data || []
+
+  this.currentOrder.push()
 
 }
 // 获取订单出错
@@ -157,7 +182,6 @@ root.methods.clickToCancel = function (order) {
 //       this.waitForCancelInterval && clearInterval(this.waitForCancelInterval)
 //     }
 //   }, 1000)
-//
 // }
 
 // 撤单

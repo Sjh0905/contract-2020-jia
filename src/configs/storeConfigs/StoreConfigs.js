@@ -284,10 +284,42 @@ store.state.leverage = 0
 store.state.listenKey = ''
 
 /**
+ * ORDER_TRADE_UPDATE 当前委托订单
+ * @type {Object}
+ */
+store.state.orderTradeUpdate = {}
+
+
+/**
  * 同步修改state
  * @type {{}}
  */
 store.mutations = {}
+
+/**
+ * ORDER_TRADE_UPDATE 当前委托订单
+ * @type {string}
+ */
+store.mutations.CHANGE_CURRENT_ORDER = (state, info) => {
+  // if (!info || info instanceof Array === false) return
+  // // 扩充currency
+  // for (let i = 0; i < info.length; i++) {
+  //   // 如果没有name这个属性，跳过即可
+  //   if (!info[i].name) {
+  //     continue
+  //   }
+  //
+  //
+  //   if(target && (target.isUSDT2 || target.isUSDT3)){
+  //     target.displayTime = new Date('2119-12-31').getTime()/1000;//由于不能显示USDT2币种，需要displayTime足够大，在前端入口处统一配置
+  //   }
+  // }
+  // // 因为Map对象并不会触发vuex和watch的检测，所以使用另外的属性进行检测，每次变动，对currencyChange进行修改，观测currencyChange即可
+  // state.currencyChange++
+  // if (state.currencyChange > 100) state.currencyChange = 0
+
+  state.orderTradeUpdate = info;
+}
 
 /**
  * 合约相关内容

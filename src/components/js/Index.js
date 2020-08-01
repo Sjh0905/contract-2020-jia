@@ -1,3 +1,5 @@
+import fa from "element-ui/src/locale/lang/fa";
+
 const REFRESH_KEY = 'refreshDataObj'
 const REFRESH_TIME_STEP = 10000
 const REFRESH_COUNT = 5
@@ -39,7 +41,10 @@ root.data = function () {
     show:false,
     borderTop:true,
 
-    listenKey:''
+    listenKey:'',
+    socketConnected:false,
+    listenKeyLoaded:false
+
   }
 }
 
@@ -56,6 +61,7 @@ root.created = function () {
   this.$eventBus.listen(this, 'BIND_AUTH_POP', this.listen_popup)
   this.$eventBus.listen(this, 'BIND_EMAIL_POP', this.listen_email_pop)
 
+  this.initSocket();
   // 获取订单状态
   this.getCurrencyAndAccount()
 
@@ -165,8 +171,17 @@ root.watch.screenWidth = function (oldVal, newVal) {
 
 root.methods = {}
 
+root.methods.initSocket = function () {
+  this.$socket.on({key: 'connect',bind: this,callBack: (message)=>{
+        this.socketConnected = true;
+        if(this.socketConnected && this.listenKeyLoaded){
+          this.$socket.emit('SUBSCRIBE', [this.listenKey]);
+        }
+      }
+    }
+  )
+}
 root.methods.dealWithListenKey = function () {
-  // console.info('hhhhhhhhhhhhhhhhhh========55分钟到了，改掉接口啦',new Date())
   if(!this.$store.state.listenKey){
       this.getListenKey()
     return
@@ -176,6 +191,7 @@ root.methods.dealWithListenKey = function () {
 
 // 获取 listenKey 信息
 root.methods.getListenKey = function () {
+  this.listenKeyLoaded = false;
   this.$http.send('GET_USER_LISTENKEY', {
     bind: this,
     callBack: this.re_getListenKey
@@ -188,6 +204,10 @@ root.methods.re_getListenKey = function (data) {
   this.listenKey = data.data || ""
   this.$store.commit("CHANGE_LISTENKEY",this.listenKey);
 
+  this.listenKeyLoaded = true;
+  if(this.socketConnected && this.listenKeyLoaded){
+    this.$socket.emit('SUBSCRIBE', [this.listenKey]);
+  }
   // this.$socket.emit('SUBSCRIBE', [this.listenKey]);
 }
 
@@ -353,7 +373,6 @@ root.methods.listen_email_pop = function () {
     this.bindEmailPopOpen = true
   }
 }
-
 
 // 绑定手机页面
 root.methods.click_bind_mobile = function () {
