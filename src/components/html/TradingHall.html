@@ -2,7 +2,7 @@
 
 <!--  <div class="HeaderTitle-wrap">-->
 <!--    <Loading v-show="trade_loading"/>-->
-<!--    <HeaderTitle v-show="!trade_loading" :currency_list="currency_list" :socket_tick="socket_tick"-->
+<!--    <HeaderTitle v-show="!trade_loading" :currency_list="marketSymbolList" :socket_tick="socket_tick"-->
 <!--                 :socket_snap_shot="socket_snap_shot"-->
 <!--                 :socket_price="socket_price" :btc_eth_rate="btc_eth_rate" :buy_sale_list="buy_sale_list"/>-->
 <!--  </div>-->
@@ -11,7 +11,7 @@
     <!--左侧 货币对 和 饼图-->
     <div class="traddinghall-market-wrap">
       <div class="MarketPrice-wrap" style="border-bottom: 0">
-        <MarketPrice :currency_list="currency_list" :socket_price="socket_price" :btc_eth_rate="btc_eth_rate"
+        <MarketPrice :marketSymbolList="marketSymbolList" :socket24hrTicker="socket24hrTicker" :btc_eth_rate="btc_eth_rate"
                      :socket_tick="socket_tick"/>
       </div>
     </div>
@@ -290,7 +290,7 @@
           <div class="StockCross-wrap" v-show="stockShow">
             <StockCross :trade_loading="trade_loading" :buy_sale_list="buy_sale_list" :socket_snap_shot="socket_snap_shot"
                         :socket_tick="socket_tick" :btc_eth_rate="btc_eth_rate" :socket_price="socket_price"
-                        :currency_list="currency_list" :isNowPrice="isNowPrice" :direction="direction" :markPrice="markPrice"/>
+                        :currency_list="marketSymbolList" :isNowPrice="isNowPrice" :direction="direction" :markPrice="markPrice"/>
           </div>
           <div class="AssetOverview-wrap" v-show="!stockShow">
             <LatestDeal :tradeLoading="trade_loading" :socketTickArr="socketTickArr"

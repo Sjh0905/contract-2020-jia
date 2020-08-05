@@ -29,10 +29,10 @@ root.props.btc_eth_rate = {
   type: Object,
   default: {}
 }
-root.props.currency_list = {
-  type: Object,
-  default: {}
-}
+// root.props.currency_list = {
+//   type: Array,
+//   default: []
+// }
 
 root.props.transactionType = {type: Number}
 
@@ -58,9 +58,9 @@ root.data = function () {
 
 root.computed = {}
 // 所有币对信息
-root.computed.symbol_list = function () {
-  return this.$globalFunc.mergeObj(this.socket_price, this.currency_list);
-}
+// root.computed.symbol_list = function () {
+//   return this.$globalFunc.mergeObj(this.socket_price, this.currency_list);
+// }
 
 // 获取当前币对
 root.computed.symbol = function () {

@@ -29,10 +29,10 @@ root.props.btc_eth_rate = {
   type: Object,
   default: {}
 }
-root.props.currency_list = {
-  type: Object,
-  default: {}
-}
+// root.props.currency_list = {
+//   type: Array,
+//   default: []
+// }
 root.props.isNowPrice = {
   type: String,
   default: '0'

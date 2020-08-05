@@ -178,7 +178,8 @@ store.state.OTCappraisementChange = 0 // 币种估值发生变化
 store.state.baseCurrency = 'BTC'
 
 store.state.quoteConfig = [
-  {name: 'BTC_USDT', baseScale: 3, quoteScale: 2},
+  {name: 'BTC_USDT', baseScale: 2, quoteScale: 2},
+  {name: 'BTCUSDT', baseScale: 2, quoteScale: 2},
 ]
 
 /**

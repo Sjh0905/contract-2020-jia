@@ -4,13 +4,13 @@ const root = {}
 root.name = 'MarketPrice'
 
 root.props = {}
-root.props.currency_list = {
-  type: Object,
-  default: {}
+root.props.marketSymbolList = {
+  type: Array,
+  default: []
 }
-root.props.socket_price = {
-  type: Object,
-  default: {}
+root.props.socket24hrTicker = {
+  type: Array,
+  default: []
 }
 root.props.btc_eth_rate = {
   type: Object,
@@ -60,12 +60,15 @@ root.data = function () {
     pricesymbol:[],
     // 搜索内容
     searchText:'',
-    searchList:[]
+    searchList:[],
+
+    mSymbolListTemp:[],//市场存储
+    mSymbolListPrice:{},//市场价格列表存储
   }
 }
 
 root.created = function () {
-  this.getUSDThl();
+  // this.getUSDThl();
   // console.log('marketprice')
   this.getCollectionMarket()
 }
@@ -125,21 +128,102 @@ root.computed.quoteScale_list = function () {
 }
 // 所有币对信息
 root.computed.symbol_list = function () {
-  return this.$globalFunc.mergeObj(this.socket_price, this.currency_list);
+  return this.marketSymbolList;
 }
+//价格处理
+root.computed.compareSymbolPrePrice = function (list) {
+
+  list.map(v=>{
+    if(!v.priceChangeArr){
+      v.priceChangeArr = [v.c]
+      // v.priceStep = 0
+    }
+
+    v.priceChangeArr.push(v.c);
+    let len = v.priceChangeArr.length
+    let step = len - 5
+    if(step > 0 ){
+      v.priceChangeArr.splice(0,step)
+      len = v.priceChangeArr.length
+    }
+    v.priceStep = v.priceChangeArr[len-1] - v.priceChangeArr[len-2]
+  })
+
+  return list;
+}
+
 // ajax获取的数据
-root.computed.currencylist = function () {
-  // 把对象按字母排序
-  let currencyList = this.$globalFunc.mergeObj(this.socket_price, this.currency_list);
+root.computed.mSymbolList = function () {
+
+  //mSymbolListTemp.length为0说明首次进入，mSymbolList取marketSymbolList的值,默认不刷新页面情况下币对个数不会变化，mSymbolListTemp.length>0就一直取本身
+  let mSymbolList = this.mSymbolListTemp.length > 0 ? this.mSymbolListTemp : this.marketSymbolList,
+      socket24hrTicker = this.socket24hrTicker
+
+  //默认接口不会调用多次，第一次进入后socket还没推送
+  if(socket24hrTicker.length == 0 && mSymbolList.length >= 0){
+
+    mSymbolList > 0 && (mSymbolList = this.compareSymbolPrePrice(mSymbolList))
+    this.mSymbolListTemp = mSymbolList;
+    return mSymbolList;
+  }
+
+  //收到socket推送但是接口没返回的情况，很少
+  if(socket24hrTicker.length > 0 && mSymbolList.length == 0){
+    socket24hrTicker = this.compareSymbolPrePrice(socket24hrTicker)
+    this.mSymbolListTemp = socket24hrTicker;
+    return socket24hrTicker;
+  }
+
+  //由于只有发生变化的ticker更新才会被推送，默认为socket24hrTicker.length <  mSymbolList.length,外层循环少的
+  // if(socket24hrTicker.length > 0 && mSymbolList.length > 0) {
+    for (let i = 0; i < socket24hrTicker.length; i++) {
+      let sItem = socket24hrTicker[i];
+      for (let j = 0; j < mSymbolList.length; j++) {
+        let v = mSymbolList[j];
+
+        if(!v.priceChangeArr){
+          v.priceChangeArr = [v.c]
+          // v.priceStep = 0
+        }
+
+        if(v.s == sItem.s){
+          // v = this.$globalFunc.mergeObj(v, sItem)
+
+          v.c = sItem.c
+          v.P = sItem.P
+          v.p = sItem.p
+
+          v.priceChangeArr.push(v.c);
+          let len = v.priceChangeArr.length
+          let step = len - 5
+          if(step > 0 ){
+            v.priceChangeArr.splice(0,step)
+            len = v.priceChangeArr.length
+          }
+          v.priceStep = this.accMinus(v.priceChangeArr[len-1] || 0, v.priceChangeArr[len-2] || 0)
+
+          // v.s == "BTCUSDT" && console.log('this is priceChangeArr priceStep',v.s,v.priceChangeArr,v.priceStep,v.priceStep>0);
+        }
+      }
+    }
+  // }
+
+  this.mSymbolListTemp = mSymbolList;
+  return mSymbolList;
+
+
+
+  //----------------------------------------------------------- 把对象按字母排序
+
   let collectionMarketSet = new Set(this.collectionMarket)
 
   let o = [{}, {}];
-  Object.keys(currencyList).sort().forEach(symbol => {
+  Object.keys(mSymbolList).sort().forEach(symbol => {
     let currency = symbol.split('_')[1];
     if (!currency) return;
     let initData = {};
     initData.name = symbol;
-    [initData.time, initData.open, initData.high, initData.low, initData.close, initData.volume] = [...currencyList[symbol]]
+    [initData.time, initData.open, initData.high, initData.low, initData.close, initData.volume] = [...mSymbolList[symbol]]
     // 如果是超级为蜜区
     // if (this.specialSymbol[0] && this.specialSymbol[0].has(symbol)) {
     //   !o[1][currency] && (o[1][currency] = [])
@@ -178,30 +262,30 @@ root.computed.currencylist = function () {
 // 选中的市场数据
 root.computed.computedMarketList = function () {
   let ans = this.selectMarketChange
-  // if(this.selectMarket[this.selectEdition] === this.$t('Favorites'))return this.currencylist[this.selectEdition].optionalArea
-  // if(this.selectMarket[this.selectEdition] === this.$t('Innovation'))return this.currencylist[this.selectEdition].createArea
+  // if(this.selectMarket[this.selectEdition] === this.$t('Favorites'))return this.mSymbolList[this.selectEdition].optionalArea
+  // if(this.selectMarket[this.selectEdition] === this.$t('Innovation'))return this.mSymbolList[this.selectEdition].createArea
 
-  // console.log('hhhhh====',this.currencylist,this.selectEdition,this.selectMarket,this.selectEdition)
-  return (this.currencylist[this.selectEdition][this.selectMarket[this.selectEdition]] || []).sort((a,b)=>!b.open && b.open - a.open) || []
+  // console.log('hhhhh====',this.mSymbolList,this.selectEdition,this.selectMarket,this.selectEdition)
+  return (this.mSymbolList[this.selectEdition][this.selectMarket[this.selectEdition]] || [])//.sort((a,b)=>!b.open && b.open - a.open) || []
 }
 
 
 
 // // ajax获取的数据2
-// root.computed.currencylist = function () {
+// root.computed.mSymbolList = function () {
 //   // 把对象按字母排序
-//   let currencyList = this.$globalFunc.mergeObj(this.socket_price, this.currency_list);
+//   let mSymbolList = this.$globalFunc.mergeObj(this.socket_price, this.marketSymbolList);
 //   let o = [];
 //   let count = 0;
-//   // Object.keys(currencyList).sort().forEach(symbol => {
-//   Object.keys(currencyList).forEach(symbol => {
+//   // Object.keys(mSymbolList).sort().forEach(symbol => {
+//   Object.keys(mSymbolList).forEach(symbol => {
 //     // if(this.filterCurrency.indexOf(symbol) != -1) {
 //
 //     let currency = symbol.split('_')[1];
 //     if (!currency) return;
 //     let initData = {};
 //     initData.name = symbol;
-//     [initData.time, initData.open, initData.high, initData.low, initData.close, initData.volume] = [...currencyList[symbol]]
+//     [initData.time, initData.open, initData.high, initData.low, initData.close, initData.volume] = [...mSymbolList[symbol]]
 //
 //     if(initData.time == 0 || initData.open == 0 || initData.high == 0 || initData.low == 0){
 //       count++;
@@ -222,7 +306,7 @@ root.computed.computedMarketList = function () {
 // // 选中的市场数据2
 // root.computed.computedMarketList = function () {
 //   let ans = this.selectMarketChange
-//   return this.currencylist || []
+//   return this.mSymbolList || []
 // }
 
 // 获取当前symbol
@@ -244,7 +328,7 @@ root.computed.lang = function () {
 root.computed.reduce_list = function () {
   let symbol_list = this.$store.state.reduce_fee;
   let ans = this.selectMarketChange
-  let currentMarketList = this.currencylist[this.selectEdition]
+  let currentMarketList = this.mSymbolList[this.selectEdition]
   let reduce_list = [];
   symbol_list.forEach(v => {
     if (!v.feeDiscount) {
@@ -274,24 +358,16 @@ root.watch.searchText = function(v){
   // console.log(this.computedMarketList.name )
   // console.log('this.searchList====111',this.searchList)
 
-  this.searchList = this.computedMarketList.filter(v=>v.name.includes(this.searchText) || v.name.includes(this.searchText.toUpperCase()))
+  this.searchList = this.mSymbolList.filter(v=>v.s.includes(this.searchText) || v.s.includes(this.searchText.toUpperCase()))
 
   // console.log('this.searchList====',this.searchList , this.computedMarketList)
 
 }
 
-root.watch.symbol_list = function (newValue, oldValue) {
-  let self = this;
-  for (let key in newValue) {
-    if (key == 'BDB_ETH') {
-      self.bdb_rate = newValue[key][4];
-    }
-  }
-}
 // 2018-4-4  end
 
 // 判断选中的是哪个市场  18-4-9 新加
-root.watch.currencylist = function (newValue, oldValue) {
+root.watch.mSymbolList = function (newValue, oldValue) {
   if (!this.clickTab) this.initTab()
 }
 
@@ -304,7 +380,7 @@ root.watch.symbol = function (newValue, oldValue) {
 root.methods = {}
 
 // root.methods.search  = function (){
-//   console.log(this.searchText , this.currencylist)
+//   console.log(this.searchText , this.mSymbolList)
 // }
 
 // 切换星星是否显示
@@ -315,7 +391,7 @@ root.methods = {}
 //     this.selectStar.push(value.name)
 //     // this.getCollectionMarket()
 //     this.handleCollectionMarket(value.name,true)
-//     console.log(this.currencylist[this.selectEdition].optionalArea)
+//     console.log(this.mSymbolList[this.selectEdition].optionalArea)
 //     return;
 //   }
 //   this.selectStar.splice(this.selectStar.indexOf(value.name),1)
@@ -365,10 +441,10 @@ root.methods.tabChange = function (type, name) {
 
 // 初始化切换栏
 root.methods.initTab = function () {
-  for (let i = 0; i < this.currencylist.length; i++) {
-    if (!this.currencylist[i]) continue
-    for (let j in this.currencylist[i]) {
-      let marketList = this.currencylist[i][j]
+  for (let i = 0; i < this.mSymbolList.length; i++) {
+    if (!this.mSymbolList[i]) continue
+    for (let j in this.mSymbolList[i]) {
+      let marketList = this.mSymbolList[i][j]
       if (!marketList) continue
       for (let k = 0; k < marketList.length; k++) {
         //处理挖矿区域
@@ -629,6 +705,12 @@ root.methods.handleCollectionMarket = function (symbol, type) {
     })
    return false
 }
+
+/*---------------------- 减法运算 begin ---------------------*/
+root.methods.accMinus = function (num1, num2) {
+  return this.$globalFunc.accMinus(num1, num2)
+}
+/*---------------------- 减法运算 end ---------------------*/
 
 
 export default root

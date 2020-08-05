@@ -293,12 +293,13 @@ line-height: 36px;
 }
 
 .market-price-list-marcket {
-  width: 34.47%;
+  /*width: 34.47%;*/
+  width: 40.47%;
   height:28px;
   line-height:28px;
   /*text-align: center;*/
   text-align: left;
-  padding-left: 6px;
+  /*padding-left: 6px;*/
   color: #E0E1F4;
   font-size:12px;
   font-family:Roboto-Regular,Roboto;

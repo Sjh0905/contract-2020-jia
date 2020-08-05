@@ -45,7 +45,7 @@ root.data = function () {
   return {
     socket:null,
     // 货币对列表
-    currency_list: {},
+    marketSymbolList: [],
     // left买卖列表
     buy_sale_list: {},
     // btc和eth汇率
@@ -60,9 +60,9 @@ root.data = function () {
     socket_snap_shot: {}, //深度图
     socket_snap_shot_temp: {}, //记录最近一次时间间隔小于500ms的深度图
     snap_shot_timeout: null, //定时器，判断是否刷新最近一次时间间隔小于500ms的深度图
+    socket24hrTicker:[],//symbol24小时ticker信息
     socketTickArr: [], // 最新成交，归集交易，暂时没用到
     socketTickObj: {}, // 单个归集交易推送
-
     apiTickArr: [], // 第一次接口获取的最新归集交易
 
     // 信息提示
@@ -188,8 +188,8 @@ root.created = function () {
   this.getCny();
   // 一小时更新一次汇率
   // this.changeCny();
-  // 判断是否有 props currency_list带过来的值，如果没有请求
-  !this.currency_list[this.symbol] ? this.getSymbolsList() : (this.loading = false);
+  // 请求币对列表
+  this.getSymbolsList()
 
   // 获取小数位
   this.getScaleConfig();
@@ -318,12 +318,12 @@ root.computed.high24 = function () {
 //   return this.socket_price;
 // }*/
 
-root.computed.mergeList = function () {
-  let list = this.$globalFunc.mergeObj(this.socket_price, this.currency_list);
+/*root.computed.mergeList = function () {
+  let list = this.$globalFunc.mergeObj(this.socket_price, this.marketSymbolList);
   return list;
 }
 
-/*// 24小时涨跌
+// 24小时涨跌
 root.computed.diff24 = function () {
   // let diff = this.isNowPrice  - Number(this.mergeList[this.symbol][1])
   // 减法
@@ -436,10 +436,21 @@ root.methods.re_initTicket24Hr = function (data) {
   typeof(data) == 'string' && (data = JSON.parse(data));
   if(!data || !data.data || !data.data[0])return
   // console.info('data====',data.data[0])
-  this.highPrice = data.data[0].highPrice || '--'
-  this.lowPrice = data.data[0].lowPrice || '--'
-  this.volume = data.data[0].volume || '--'
-  this.priceChangePercent = data.data[0].priceChangePercent || '--'
+  data = data.data;
+  this.highPrice = data[0].highPrice || '--'
+  this.lowPrice = data[0].lowPrice || '--'
+  this.volume = data[0].volume || '--'
+  this.priceChangePercent = data[0].priceChangePercent || '--'
+
+  // data[1] = {...data[0]};//为了前端自造数据，不能写成data[1] = data[0]，否则MarketPrice.js里v.priceStep属性计算会出错
+  data.map(v=>{
+    v.P = v.priceChangePercent
+    v.p = v.priceChange
+    v.c = v.lastPrice
+    v.s = v.symbol
+  })
+
+  this.marketSymbolList = data
 }
 // 获取币安24小时价格变动错误回调
 root.methods.error_initTicket24Hr = function (err) {
@@ -486,7 +497,7 @@ root.methods.getLatestrice = function () {
 root.methods.re_getLatestrice = function (data) {
   typeof(data) == 'string' && (data = JSON.parse(data));
   if(!data || !data.data || !data.data[0]) return
-  this.currency_list = this.$globalFunc.mergeObj(data.data[0], this.currency_list);
+  // this.marketSymbolList = this.$globalFunc.mergeObj(data.data[0], this.marketSymbolList);
 
   let price = data.data[0].price
   this.latestPriceVal = (price || '').toString()
@@ -530,8 +541,8 @@ root.methods.re_getSymbolsList = function (data) {
   // 	}
   // }
 
-  let objs = this.symbolList_priceList(data);
-  this.currency_list = objs;
+  // let objs = this.symbolList_priceList(data);
+  // this.marketSymbolList = objs;
 
   // 记录当前币对开始结束时间
   // data.symbols.forEach(function (v, i) {
@@ -890,7 +901,7 @@ root.methods.initSocket = function () {
   let subscribeSymbol = this.$store.state.subscribeSymbol;
   // 获取最新标记价格
   this.$socket.on({
-    key: 'markPrice', bind: this, callBack: (message) => {
+    key: 'markPriceUpdate', bind: this, callBack: (message) => {
       // console.log('markPrice is ===',message);
       if(message.s === subscribeSymbol){
         message.p > 0 && (this.markPrice = message.p)// 标记价格
@@ -902,9 +913,10 @@ root.methods.initSocket = function () {
 
   // 获取币安24小时价格变动
   this.$socket.on({
-    key: 'ticker', bind: this, callBack: (message) => {
-      // console.log('ticker is ===',message);
+    key: '24hrTicker', bind: this, callBack: (message) => {
+      // console.log('24hrTicker is ===',message);
 
+      this.socket24hrTicker = message;
       var tickerData = message.find(v=>v.s === subscribeSymbol)
 
       if(tickerData){
@@ -918,7 +930,7 @@ root.methods.initSocket = function () {
 
   // 获取深度图信息
   this.$socket.on({
-    key: 'depth', bind: this, callBack: (message) => {
+    key: 'depthUpdate', bind: this, callBack: (message) => {
       // console.log('depth is ===',message);
       message.asks = message.a;
       message.bids = message.b;
@@ -975,7 +987,7 @@ root.methods.initGetDatas = function () {
 
 }
 
-// 对symbol获取的数据进行处理，处理成 {symbol: [time, 1,2,3,4,5]}的格式
+/*// 对symbol获取的数据进行处理，处理成 {symbol: [time, 1,2,3,4,5]}的格式
 // 例如：{ETX_BTX:[1517653957367, 0.097385, 0.101657, 0.097385, 0.101658, 815.89]}
 root.methods.symbolList_priceList = function (symbol_list) {
   let obj = {};
@@ -984,7 +996,7 @@ root.methods.symbolList_priceList = function (symbol_list) {
     obj[v.baseName+'_'+ v.quoteName] = [0, 0, 0, 0, 0, 0];
   })
   return obj;
-}
+}*/
 
 /* TODO 准备删除
 // 根据当前币对请求买或卖列表
@@ -1421,7 +1433,7 @@ root.computed.topic_price = function () {
 
 
 root.computed.mergeList = function () {
-  let list = this.$globalFunc.mergeObj(this.socket_price, this.currency_list);
+  let list = this.$globalFunc.mergeObj(this.socket_price, this.marketSymbolList);
   return list;
 }
 

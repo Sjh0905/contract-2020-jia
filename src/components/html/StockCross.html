@@ -16,7 +16,7 @@
             <!--卖-->
             <div :class="type!== 2 && type !== 1?'stockitem-box1':'stockitem-box'" v-show="type!==2">
                 <StockCrossItems :type = "type" :lastUpdateId="lastUpdateId" :transactionData = "sellOrders" :dMaxTotalAmount="dMaxTotalAmount" :setDMaxTotalAmount="setDMaxTotalAmount"
-                                 :transactionType = "0" :btc_eth_rate="btc_eth_rate" :socket_price="socket_price" :currency_list="currency_list"/>
+                                 :transactionType = "0" :btc_eth_rate="btc_eth_rate" :socket_price="socket_price" />
             </div>
 
             <div class="StockCross-mid txt-nomal flex"  :class="direction">
@@ -29,7 +29,7 @@
             <!--买-->
             <div :class="type!==2 && type!==1?'stockitem-box1':'stockitem-box'" v-show="type!==1">
                 <StockCrossItems :type="type" :lastUpdateId="lastUpdateId" :transactionData = "buyOrders" :dMaxTotalAmount="dMaxTotalAmount" :setDMaxTotalAmount="setDMaxTotalAmount"
-                                 :transactionType = "1" :btc_eth_rate="btc_eth_rate" :socket_price="socket_price" :currency_list="currency_list"/>
+                                 :transactionType = "1" :btc_eth_rate="btc_eth_rate" :socket_price="socket_price"/>
             </div>
 
           <div class="bottombutton">

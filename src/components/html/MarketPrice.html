@@ -83,53 +83,51 @@
       <ul ref="scroll_top">
         <li class="market-price-list-li flex-row market-price-list-acbg"
             :class="symbol == item.name ? 'market-price-list-li-background' : ''"
-            v-for="(item,key) in (searchText ? searchList : computedMarketList)"
-            @click="slectSymbol(item.name,item)" @mouseenter="get_now_price(key, item.close,item.name)"
-            @mouseleave="hide_now_price">
+            v-for="(item,key) in (searchText ? searchList : mSymbolList)"
+            @click="slectSymbol(item.name,item)">
 
-          <img src="../../assets/selected_trade_icon.png" class="imgSelect" v-show="(collectionMarket.includes(item.name))" @click="handleCollectionMarket(item.name,false)" alt="">
-          <img src="../../assets/noSelected_trade_icon.png" class="imgSelect" v-show="!(collectionMarket.includes(item.name))" @click="handleCollectionMarket(item.name,true)" alt="">
+          <!--<img src="../../assets/selected_trade_icon.png" class="imgSelect" v-show="(collectionMarket.includes(item.name))" @click="handleCollectionMarket(item.name,false)" alt="">-->
+          <!--<img src="../../assets/noSelected_trade_icon.png" class="imgSelect" v-show="!(collectionMarket.includes(item.name))" @click="handleCollectionMarket(item.name,true)" alt="">-->
+          <!--占位-->
+          <div class="imgSelect"/>
 
 
           <div class="market-price-list-li1 flex-row">
             <!--币对名称 begin-->
-            <div class="market-price-list-marcket txt-dark txt-small">{{item.name | e}}</div>
+            <div class="market-price-list-marcket txt-dark txt-small">{{item.s}}</div>
             <!--币对名称 end-->
 
             <!--最新价 begin-->
-            <div class="market-price-list-price  txt-dark txt-small" v-if="socket_tick.symbol != item.name">
-              <!-- {{$globalFunc.accFixed(item.close, !!quoteScale_list[item.name] ? quoteScale_list[item.name].quoteScale :
-              8)}} -->
-              <!-- {{ !!quoteScale_list[item.name]? quoteScale_list[item.name].quoteScale : 8  }} -->
-              <!-- {{item.close}} -->
-              {{$globalFunc.accFixed(item.close,!!quoteScale_list[item.name]? quoteScale_list[item.name].quoteScale : 4)}}
+            <!--<div class="market-price-list-price  txt-dark txt-small" v-if="socket_tick.symbol != item.name">-->
+              <!--&lt;!&ndash; {{$globalFunc.accFixed(item.close, !!quoteScale_list[item.name] ? quoteScale_list[item.name].quoteScale :-->
+              <!--8)}} &ndash;&gt;-->
+              <!--&lt;!&ndash; {{ !!quoteScale_list[item.name]? quoteScale_list[item.name].quoteScale : 8  }} &ndash;&gt;-->
+              <!--&lt;!&ndash; {{item.close}} &ndash;&gt;-->
+              <!--{{$globalFunc.accFixed(item.close,!!quoteScale_list[item.name]? quoteScale_list[item.name].quoteScale : 4)}}-->
+            <!--</div>-->
+            <div class="market-price-list-price txt-dark txt-small" :class="(item.priceStep>0) && 'txt_green' || ((item.priceStep<0) && 'txt_red' || '')">
+              <!--{{JSON.stringify(item.priceChangeArr)}}-->
+              {{$globalFunc.accFixed(item.c,!!quoteScale_list[item.s] ? quoteScale_list[item.s].quoteScale : 2)}}
             </div>
-            <div class="market-price-list-price txt-dark txt-small" v-else>
-              <!-- {{$globalFunc.accFixed(socket_tick.price, !!quoteScale_list[item.name] ?
-              quoteScale_list[item.name].quoteScale : 8)}} -->
-              <!-- {{socket_tick.price}} -->
-              <!-- {{!!quoteScale_list[item.name]}} -->
-              {{$globalFunc.accFixed(socket_tick.price,!!quoteScale_list[item.name] ? quoteScale_list[item.name].quoteScale : 4)}}
-            </div>
+            <!--<div class="market-price-list-price txt-dark txt-small" :class="(item.priceStep>0) && 'txt_green' || ((item.priceStep<0) && 'txt_red' || '')">-->
+              <!--{{$globalFunc.accFixed(item.c,!!quoteScale_list[item.s] ? quoteScale_list[item.s].quoteScale : 2)}}-->
+            <!--</div>-->
             <!--最新价 end-->
 
             <!--成交量 begin-->
-            <div class="market-price-list-volum  txt-small" v-if="!volumeType">{{Math.floor(item.volume)}}</div>
+            <!--<div class="market-price-list-volum  txt-small" v-if="!volumeType">{{Math.floor(item.volume)}}</div>-->
             <!--成交量 end-->
 
             <!--涨跌额 begin-->
-            <div class="market-price-list-volum  txt-small"
-                 :class="(item.close-item.open>=0)&&'txt_green'||'txt_red'" v-else>
-              {{item.open ===0 || item.close-item.open <= 0 ? '':'+' }}{{item.open == 0 ? '0%' : ((item.close-item.open)/item.open*100).toFixed(2) + '%'}}
+            <div class="market-price-list-volum  txt-small" :class="(item.p>=0)&&'txt_green'||'txt_red'">
+              <!--{{item.open ===0 || item.close-item.open <= 0 ? '':'+' }}{{item.open == 0 ? '0%' : ((item.close-item.open)/item.open*100).toFixed(2) + '%'}}-->
+              {{$globalFunc.accFixed(item.p,!!quoteScale_list[item.s] ? quoteScale_list[item.s].quoteScale : 2)}}
             </div>
             <!--涨跌额 end-->
 
             <!--估值 begin-->
-            <span class="show_tips" :style="{top: tips_top}" :class="{'show': key == show_key}">{{change_price}}
-          <font></font>
-          </span>
+            <!--<span class="show_tips" :style="{top: tips_top}" :class="{'show': key == show_key}">{{change_price}}<font></font></span>-->
             <!--估值 end-->
-
 
           </div>
         </li>
