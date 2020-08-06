@@ -50,7 +50,7 @@
     </li>
     <!-- 表头 end -->
     <!-- 如果加载完成、已登录、有数据，则显示数据 begin -->
-    <li class="flex tr-td" v-if="records1.length != 0" v-for="(item,index) in records1" >
+    <li class="flex tr-td" v-if="records.length != 0 && !loading" v-for="(item,index) in records" >
       <!--时间-->
       <div class="td td-time1">
         <div class="td-time1-currency flex">
@@ -82,14 +82,14 @@
         <div class="td-trigger-btn flex">
           <div class="market-price margin-right" @click="marketPrice(item)">市价</div>
           <div class="market-price margin-right" @click="checkPrice(item)">限价</div>
-          <input type="text" v-model="parity">
+          <input type="text" id='markPrice' :value="toFixed(item.markPrice,2)">
         </div>
       </div>
     </li>
       <!-- 如果加载完成、已登录、有数据，则显示数据 end -->
 
       <!-- 如果没加载完成、没登录、没数据，则显示'--' begin -->
-    <li class="weit" v-if="records1.length == 0">
+    <li class="weit" v-if="records.length == 0 && !loading">
       <div class="nhtu"><img src="../../assets/noOrderDark.png"></div>
       <span>{{$t('orderPageCurrentEntrustment.close_9')}}</span>
     </li>

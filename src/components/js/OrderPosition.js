@@ -8,12 +8,13 @@ root.components = {
 /*------------------------------ data -------------------------------*/
 root.data = function () {
   return {
-    loading:false,
+    loading:true,
     records:[],
     records1:[],
     recordsIndex:0,
     tradinghallLimit: 10,
-    parity:this.markPrice,
+    parity:'',
+    markPrice:'',
     getAssets:[],
     initialMargin:0,
 
@@ -81,6 +82,7 @@ root.methods.getAccount = function () {
 root.methods.re_getAccount = function (data) {
   typeof data === 'string' && (data = JSON.parse(data))
   if (!data) return
+  this.loading = false
   this.getAssets = data.data.assets[0]
   this.initialMargin = this.getAssets.initialMargin
   // console.info('this.initialMargin',this.initialMargin)
@@ -109,15 +111,19 @@ root.methods.re_getPositionRisk = function (data) {
   typeof data === 'string' && (data = JSON.parse(data))
   if (!data || !data.data || data.data.length == []) return
   this.records = data.data
-  this.records.map((v,index)=>{
+
+  let filterRecords = []
+  this.records.forEach((v,index)=>{
     if (v.positionAmt != 0) {
-      let aa = []
-      aa.push(v)
-      this.records1 = aa
+      filterRecords.push(v)
     }
   })
+  this.records = filterRecords
+  // aa.push(...records)
   this.recordsIndex = this.records.length
   this.$emit('getPositionRisk',this.recordsIndex);
+  // console.info('this.records1=======',this.records)
+
 }
 // 获取记录出错
 root.methods.error_getPositionRisk = function (err) {
@@ -126,6 +132,8 @@ root.methods.error_getPositionRisk = function (err) {
 
 // 市价
 root.methods.marketPrice = function (item) {
+
+  // var v = ipt.value;//获取input的值
   let params = {
     leverage: this.$store.state.leverage,
     positionSide: item.positionSide,
@@ -155,10 +163,11 @@ root.methods.re_marketPrice = function (data) {
 }
 // 限价
 root.methods.checkPrice = function (item) {
+  let markPrice = document.getElementById('markPrice').value;//获取input的节点bai
   let  params = {
     leverage: this.$store.state.leverage,
     positionSide: item.positionSide,
-    price: this.parity,
+    price: markPrice,
     quantity: Math.abs(item.positionAmt),
     orderSide: (item.positionAmt>0) ? 'BUY':'SELL',
     stopPrice: null,
