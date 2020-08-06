@@ -18,7 +18,8 @@ root.data = function () {
 		quoteScale: 2,
     bartemphc: '',
     starttimehc: '',
-    istoday: true
+    istoday: true,
+    currResolution:new_interval
 	}
 }
 root.created = function () {
@@ -402,7 +403,23 @@ root.methods.initViews = function (lang) {
       '240': '4h',
       'D': '1d'
     };
-		// 获取k线数据
+
+    //TODO:1.将币对拆分出来，2.socket合并城城代码 3.初始化写在哪里合适
+    if(self.currResolution != resolution){
+      var lastKlineStream = "btcusdt@kline_" + resolution_mapping[self.currResolution]
+      console.log('this is curr resolution',self.currResolution,resolution_mapping[self.currResolution]);
+      self.$socket.emit('UNSUBSCRIBE', [lastKlineStream])
+
+      self.currResolution = resolution
+
+      var newKlineStream = "btcusdt@kline_" + resolution_mapping[self.currResolution]
+      console.log('this is curr resolution',self.currResolution,resolution_mapping[self.currResolution]);
+      self.$socket.emit('SUBSCRIBE', [newKlineStream])
+    }
+
+
+
+    // 获取k线数据
 		self.$socket.on({
 		    key: 'kline',
 		    bind: self,
