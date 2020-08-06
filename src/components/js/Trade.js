@@ -106,13 +106,22 @@ root.methods.getScaleConfig = function () {
 root.methods.initViews = function (lang) {
 
 	let self = this;
+  const resolution_mapping = {
+    '1S': '1m',
+    '1': '1m',
+    '5': '5m',
+    '15': '15m',
+    '30': '30m',
+    '60': '1h',
+    '240': '4h',
+    'D': '1d'
+  };
 
 	$(function () {
 		initTradingView();
 	});
 
-	function BitexDataFeed() {
-	}
+	function BitexDataFeed() {}
 
 	BitexDataFeed.prototype.onReady = function (callback) {
 		// console.error('[onReady]');
@@ -248,17 +257,6 @@ root.methods.initViews = function (lang) {
 			}, 0);
 		}
 
-		var resolution_mapping = {
-			'1S': '1m',
-			'1': '1m',
-			'5': '5m',
-			'15': '15m',
-			'30': '30m',
-			'60': '1h',
-			'240': '4h',
-			'D': '1d'
-		};
-
 
 		//清空缓存测试
     //  localStorage.clear();
@@ -286,8 +284,7 @@ root.methods.initViews = function (lang) {
         //   end: toTime * 1000
         // })
         this._send(self.urlHead+'future/common/candlestick', {
-          // symbol:symbolInfo.ticker,
-          symbol:'BTCUSDT',
+          symbol:self.$globalFunc.toOnlyCapitalLetters(symbolInfo.ticker),
           interval:resolution_mapping[resolution],
           start: fromTime * 1000,
           end: toTime * 1000
@@ -342,8 +339,7 @@ root.methods.initViews = function (lang) {
       //   end: toTime * 1000
       // })
       this._send(self.urlHead+'future/common/candlestick', {
-        // symbol:symbolInfo.ticker,
-        symbol:'BTCUSDT',
+        symbol:self.$globalFunc.toOnlyCapitalLetters(symbolInfo.ticker),
         interval:resolution_mapping[resolution],
         start: fromTime * 1000,
         end: toTime * 1000
@@ -393,7 +389,7 @@ root.methods.initViews = function (lang) {
 		// console.log('[subscribeBars: symbolInfo = ' + symbolInfo.ticker + ', resolution = ' + resolution
 		// 	+ ', subscriberUID = ' + subscriberUID);
 
-    var resolution_mapping = {
+    /*var resolution_mapping = {
       '1S': '1m',
       '1': '1m',
       '5': '5m',
@@ -402,21 +398,27 @@ root.methods.initViews = function (lang) {
       '60': '1h',
       '240': '4h',
       'D': '1d'
-    };
+    };*/
+
+    var getKLineStream = (symbol,currResolution)=>{
+      return symbol + "@kline_" + resolution_mapping[currResolution]
+    }
 
     //TODO:1.将币对拆分出来，2.socket合并城城代码 3.初始化写在哪里合适
     if(self.currResolution != resolution){
-      var lastKlineStream = "btcusdt@kline_" + resolution_mapping[self.currResolution]
-      console.log('this is curr resolution',self.currResolution,resolution_mapping[self.currResolution]);
+
+      let symbol = self.$globalFunc.toOnlyCapitalLetters(symbolInfo.ticker,true);
+
+      let lastKlineStream = getKLineStream(symbol,self.currResolution)
+      console.log('this is curr resolution',symbol,self.currResolution,lastKlineStream);
       self.$socket.emit('UNSUBSCRIBE', [lastKlineStream])
 
       self.currResolution = resolution
 
-      var newKlineStream = "btcusdt@kline_" + resolution_mapping[self.currResolution]
-      console.log('this is curr resolution',self.currResolution,resolution_mapping[self.currResolution]);
+      let newKlineStream = getKLineStream(symbol,self.currResolution)
+      console.log('this is curr resolution',symbol,self.currResolution,newKlineStream);
       self.$socket.emit('SUBSCRIBE', [newKlineStream])
     }
-
 
 
     // 获取k线数据

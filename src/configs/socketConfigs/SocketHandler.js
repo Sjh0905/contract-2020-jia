@@ -1,5 +1,6 @@
 import wsServer from './SocketServer'
 import Vue from 'vue'
+import GlobalFunction from '../globalFunctionConfigs/GlobalFunction'
 const EVENTNAMEARR = ['aggTrade','depthUpdate','markPriceUpdate','24hrTicker','kline','ORDER_TRADE_UPDATE']
 const CONNECTEDKEY = 'connect'
 
@@ -15,7 +16,10 @@ export default class {
   test() {}
 
   init(symbol) {
-    symbol && (this.symbol = symbol)
+    if(symbol){
+      symbol = GlobalFunction.toOnlyCapitalLetters(symbol,true)
+      this.symbol = symbol
+    }
 
     if (this.socket) {
       return;
@@ -41,11 +45,16 @@ export default class {
         // console.log('this.onMap========',value);
       });
 
-      let subscribeStreamArr = [/*"btcusdt@depth",*/"btcusdt@aggTrade","btcusdt@markPrice","!ticker@arr"]
+      let subscribeStreamArr = [
+        this.symbol + "@depth",
+        this.symbol + "@aggTrade",
+        this.symbol + "@markPrice",
+        "!ticker@arr"
+      ]
 
       // subscribeStreamArr.push("btcusdt@kline_1m");
       // subscribeStreamArr.push("btcusdt@kline_5m");
-      subscribeStreamArr.push("btcusdt@kline_15m");
+      subscribeStreamArr.push(this.symbol + "@kline_15m");
       // subscribeStreamArr.push("btcusdt@kline_30m");
       // subscribeStreamArr.push("btcusdt@kline_1h");
       // subscribeStreamArr.push("btcusdt@kline_4h");
