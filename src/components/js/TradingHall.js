@@ -128,7 +128,7 @@ root.data = function () {
     popWindowAdjustingLever: false,
     // 合约风险提示
     popWindowContractRiskWarning: false,
-    value:1,
+    value: 20,
     marks: {
       1: '1X',
       25: '25X',
