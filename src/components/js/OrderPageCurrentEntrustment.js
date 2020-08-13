@@ -74,8 +74,8 @@ root.computed = {}
 // socket推送过来的对象  组成数组进行页面渲染
 root.computed.socketOrdersArr = function (){
   // 处理socket返回对象
-  console.info('this.$store.state.orderTradeUpdate',)
-  console.info('socketOrders ===',this.socketOrders.length)
+  // console.info('this.$store.state.orderTradeUpdate',)
+  // console.info('socketOrders ===',this.socketOrders.length)
   return this.socketOrders || []
 }
 // 计算后的order，排序之类的放在这里
