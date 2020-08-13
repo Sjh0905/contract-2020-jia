@@ -1,3 +1,4 @@
+import tradingHallData from '../../dataUtils/TradingHallDataUtils'
 const root = {}
 root.name = 'OrderPageCurrentEntrustment'
 
@@ -41,7 +42,12 @@ root.data = () => {
     loadingMoreIng: false, //是否正在加载更多
 
     orderTradeUpdate:{},
-    socketOrders:[]
+    socketOrders:[],
+
+    workingTypeMap : {
+      MARK_PRICE:"标记价格",
+      CONTRACT_PRICE:"合约最新价"
+    }
 
   }
 }
@@ -60,7 +66,7 @@ root.created = function () {
   this.receiveSocket()
   // this.orderTradeUpdate = this.$store.state.orderTradeUpdate
   // console.info('this.orderTradeUpdate ===',this.orderTradeUpdate)
-  console.info('this.socketOrdersArr ===',this.socketOrdersArr)
+  // console.info('this.socketOrdersArr ===',this.socketOrdersArr)
 }
 
 root.beforeDestroy = function () {
@@ -71,6 +77,12 @@ root.beforeDestroy = function () {
 
 
 root.computed = {}
+// 存储订单/交易更新推送Key值的映射关系
+root.computed.socketOrderKeyMap = function () {
+  let data = tradingHallData.socketOrderKeyMap;
+  // console.log(data);
+  return data
+}
 // socket推送过来的对象  组成数组进行页面渲染
 root.computed.socketOrdersArr = function (){
   // 处理socket返回对象
@@ -108,10 +120,46 @@ root.methods = {}
 root.methods.receiveSocket = function () {
   // 获取当前委托的数据
   // let subscribeSymbol = this.$store.state.subscribeSymbol;
+
+  let socketOrderKeyMap = this.socketOrderKeyMap
+
   this.$socket.on({
-    key: 'ORDER_TRADE_UPDATE', bind: this, callBack: (message) => {
+    key: 'ORDER_TRADE_UPDATE', bind: this, callBack: (messageObj,stream) => {
+      let message = messageObj.o || {}
       if(!message)return
-      this.$store.commit('CHANGE_CURRENT_ORDER',message)
+
+      for(let k in socketOrderKeyMap){
+        let smk = socketOrderKeyMap[k];
+        smk && (message[smk] = message[k])
+      }
+
+      if(message.X == 'NEW' ){//新增委托
+        this.currentOrder.unshift(message);
+        return
+      }
+
+      if(message.X == 'PARTIAL_FILL'){//部分成交直接替换
+        for (let i = 0; i <this.currentOrder.length ; i++) {
+          let item = this.currentOrder[i]
+          if(message.orderId == item.orderId){
+            item = message
+            break;
+          }
+        }
+        return
+      }
+
+      //其他情况需要删除
+      for (let i = 0; i <this.currentOrder.length ; i++) {
+        let item = this.currentOrder[i]
+        if(message.orderId == item.orderId){
+          this.currentOrder.splice(i,1)
+          break;
+        }
+      }
+
+      console.info('this.currentOrder ===',message,stream)
+      // this.$store.commit('CHANGE_CURRENT_ORDER',message)
     }
   })
 }
@@ -136,11 +184,12 @@ root.methods.getOrder = function () {
 }
 // 获取订单回调
 root.methods.re_getOrder = function (data) {
+  console.log('this is currOrder',JSON.stringify(data));
   typeof(data) == 'string' && (data = JSON.parse(data));
   this.loading = false
   this.currentOrder = data.data || []
 
-  this.currentOrder.push()
+  // this.currentOrder.push()
 
 }
 // 获取订单出错
@@ -152,9 +201,9 @@ root.methods.error_getOrder = function (err) {
 root.methods.toCurrentHistory = function (err) {
   this.$router.push({name:'currentEntrust'})
 }
-root.methods.TRADED = function (para) {
-  this.getOrder()
-}
+// root.methods.TRADED = function (para) {
+//   this.getOrder()
+// }
 
 // 撤单确认
 root.methods.clickToCancel = function (order) {
@@ -208,7 +257,7 @@ root.methods.cancelOrder = async function (order, cancelAll = false) {
 }
 // 返回
 root.methods.re_cancelOrder = function (data) {
-  this.$eventBus.notify({key: 'CANCEL_ORDER'})
+  // this.$eventBus.notify({key: 'CANCEL_ORDER'})
 
   this.getOrder()
 }
@@ -277,4 +326,9 @@ root.methods.toFixed = function (num, acc = 8) {
 }
 /*---------------------- 保留小数 end ---------------------*/
 
+/*---------------------- 除法运算 begin ---------------------*/
+root.methods.accDiv = function (num1, num2) {
+  return this.$globalFunc.accDiv(num1, num2)
+}
+/*---------------------- 除法运算 end ---------------------*/
 export default root

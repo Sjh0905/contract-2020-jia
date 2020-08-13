@@ -189,7 +189,7 @@ const initLang = function (){
     script.src = "https://static.zdassets.com/ekr/snippet.js?key=ba133a50-3f72-4fb1-bd7f-79d6b8852a19";
     document.head.appendChild(script);
     setTimeout(()=>{
-      zE('webWidget', 'setLocale', state.langZendeskObj[state.lang]);
+      zE && zE('webWidget', 'setLocale', state.langZendeskObj[state.lang]);
     },1000)
   }else if(window.location.href.indexOf("isApp") == -1 && window.location.href.indexOf("isIOS") == -1){//当isApp、isIOS不存在时才显示
     window.zESettings = {
@@ -208,7 +208,7 @@ const initLang = function (){
     document.head.appendChild(script);
 
     setTimeout(()=>{
-      zE('webWidget', 'setLocale', 'zh-cn');
+      zE && zE('webWidget', 'setLocale', 'zh-cn');
       setTimeout(()=>{
           // (to.name === 'newH5homePage') && zE('webWidget', 'show');
           // zE('webWidget', 'hide');

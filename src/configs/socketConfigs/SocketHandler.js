@@ -45,10 +45,11 @@ export default class {
         // console.log('this.onMap========',value);
       });
 
+      symbol = (symbol || this.symbol)
       let subscribeStreamArr = [
-        this.symbol + "@depth",
-        this.symbol + "@aggTrade",
-        this.symbol + "@markPrice",
+        symbol + "@depth",
+        symbol + "@aggTrade",
+        symbol + "@markPrice",
         "!ticker@arr"
       ]
 
@@ -69,6 +70,7 @@ export default class {
 
 
     this.socket.onmessage = (event)=>{
+      // console.log('this is socket message',event.data);
       var data = JSON.parse(event.data);
       if (Object.prototype.toString.call(data) == "[object Object]") {
         // var stream = data.stream || '',
@@ -76,6 +78,7 @@ export default class {
         //     streamKey = STREAMNAMEARR.find(v=>message.e.includes(v));//用includes比indexOf更准确，可以区分大小写
 
         var message = data.data || {},
+            stream = data.stream || '',
             eName = message instanceof Array && (message[0] && message[0].e) || message.e || '',//如果订阅的是所有币对，返回的是数组
             // eName = message.e || '',
             eNameKey = EVENTNAMEARR.find(v=>v == eName)
@@ -83,7 +86,7 @@ export default class {
         this.onMap.forEach(function(keyMap,key){
           let funcArr = keyMap.get(eNameKey);
           funcArr && funcArr.map(function(callBack){
-            callBack(message);
+            callBack(message,stream);
           });
         });
 
