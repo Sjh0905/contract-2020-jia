@@ -132,6 +132,7 @@ root.computed.symbol_list = function () {
 }
 //价格处理
 root.computed.compareSymbolPrePrice = function (list) {
+  if(!list || list.length == 0)return []
 
   list.map(v=>{
     if(!v.priceChangeArr){

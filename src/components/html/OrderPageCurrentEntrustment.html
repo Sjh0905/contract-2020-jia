@@ -37,8 +37,9 @@
               :class="$route.name == 'currentEntrust'?'tr-td':'tr-td-col'"
               v-for="(order,index) in currentOrderComputed" :key="order.orderId">
 
-            <!--时间-->
-            <div class="td td-time1">{{$globalFunc.formatDateUitl(order.updateTime,'YYYY-MM-DD hh:mm:ss')}}</div>
+            <!--时间 TODO：等接口加上time后需要删除updateTime-->
+            <div class="td td-time1">{{$globalFunc.formatDateUitl(order.updateTime || order.time,'YYYY-MM-DD hh:mm:ss')}}</div>
+            <!--<div class="td td-time1">{{order.updateTime}}</div>-->
             <!--合约-->
             <div class="td td-time">{{order.symbol}}</div>
             <!--类型-->
@@ -59,9 +60,10 @@
             <!--数量-->
             <div class="td td-number">{{toFixed(order.origQty,8)}}</div>
             <!--完成度-->
-            <div class="td td-price">{{((order.executedQty / order.origQty) * 10 * 10).toFixed(2)}}%</div>
-            <!--触发条件-->
-            <div class="td td-trigger">{{order.workingType}}</div>
+            <!--<div class="td td-price">{{((order.executedQty / order.origQty) * 10 * 10).toFixed(2)}}%</div>-->
+            <div class="td td-price">{{order.origQty > 0 ? ((accDiv(order.executedQty || 0,order.origQty) * 100 || 0).toFixed(2)+'%') : ''}}</div>
+            <!--触发条件 TODO:需要进一步研究-->
+            <div class="td td-trigger">{{workingTypeMap[order.workingType]}}</div>
             <!--撤单-->
             <div class="td td-operation text_blue">
               <span class="click-operation chedanbutton"
