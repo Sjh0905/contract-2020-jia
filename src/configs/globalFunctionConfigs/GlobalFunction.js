@@ -479,6 +479,43 @@ GlobalFunction.toOnlyCapitalLetters = function (text,isLowerCase) {
 
   return textTemp
 }
+
+//合约订单方向
+GlobalFunction.getOrderSide = function (positionSide,side) {
+
+  let orderSideMap = {
+    "SHORT":{
+      "BUY":"平空",
+      "SELL":"开空"
+    },
+    "LONG":{
+      "BUY":"开多",
+      "SELL":"平多"
+    },
+    "BOTH":{
+      "BUY":"买入",
+      "SELL":"卖出"
+    }
+  }
+
+  //国际化时可以返回变量字符串
+  // orderSideMap = {
+  //   "SHORT":{
+  //     "SELL":"sale",
+  //     "BUY":"sale"
+  //   },
+  //   "LONG":{
+  //     "BUY":"sale",
+  //     "SELL":"sale"
+  //   },
+  //   "BOTH":{
+  //     "SELL":"sale",
+  //     "BUY":"sale"
+  //   }
+  // }
+
+  return orderSideMap[positionSide] && orderSideMap[positionSide][side] || ""
+}
 // // 格式化时间
 // root.methods.formatDateUitl = function (time) {
 //   return this.$globalFunc.formatDateUitl(time, 'YYYY-MM-DD hh:mm:ss')

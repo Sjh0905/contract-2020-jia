@@ -52,8 +52,7 @@
             <div class="td td-category" v-if="order.type == 'TRAILING_STOP_MARKET'">跟踪止损单</div>
             <!--方向-->
             <div class="td td-category-1" :class="order.side==='BUY'?'text_blue-3':'text_red-4'">
-              {{order.side === 'BUY' && $t('orderPageCurrentEntrustment.buy') ||
-              $t('orderPageCurrentEntrustment.sale')}}
+              {{$globalFunc.getOrderSide(order.positionSide,order.side)}}
             </div>
             <!--价格-->
             <div class="td td-market">{{toFixed(order.price, 8)}}</div>
@@ -63,7 +62,7 @@
             <!--<div class="td td-price">{{((order.executedQty / order.origQty) * 10 * 10).toFixed(2)}}%</div>-->
             <div class="td td-price">{{order.origQty > 0 ? ((accDiv(order.executedQty || 0,order.origQty) * 100 || 0).toFixed(2)+'%') : ''}}</div>
             <!--触发条件 TODO:需要进一步研究-->
-            <div class="td td-trigger">{{workingTypeMap[order.workingType]}}</div>
+            <div class="td td-trigger">{{order.stopPrice > 0 ? (workingTypeMap[order.workingType]+' <= '+toFixed(order.stopPrice, 2)) : '-'}}</div>
             <!--撤单-->
             <div class="td td-operation text_blue">
               <span class="click-operation chedanbutton"

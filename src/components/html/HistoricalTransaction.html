@@ -35,8 +35,7 @@
             <div class="td td-time">{{order.symbol}}</div>
             <!--方向-->
             <div class="td td-category-1" :class="order.side==='BUY'?'text_blue-3':'text_red-4'">
-              {{order.side === 'BUY' && $t('orderPageCurrentEntrustment.buy') ||
-              $t('orderPageCurrentEntrustment.sale')}}
+              {{$globalFunc.getOrderSide(order.positionSide,order.side)}}
             </div>
             <!--价格-->
             <div class="td td-market">{{toFixed(order.price,8)}}</div>
