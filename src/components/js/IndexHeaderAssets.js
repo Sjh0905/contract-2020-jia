@@ -165,23 +165,31 @@ root.methods.error_getAuthState = function (err) {
   console.warn("拿不到认证数据！", err)
 }
 
-// 登出
-root.methods.loginOff = function () {
-  let ctc_url = process.env.DOMAIN;
-  let domain_url = window.location.origin;
-  let replace_url = ctc_url;
-  console.log(replace_url)
-  this.$http.send('LOGIN_OFF', {bind: this})
-    .then(({data}) => {
-      // 清除cookie
-      this.$cookies.remove("popShow");
-      this.$store.commit('LOGIN_OUT');
-      // window.location.reload();
-      this.$router.push('index/home')
-      // window.location.replace(replace_url);
-    })
+//跳转退出登录PaymentSet
+root.methods.goOutRegain = function () {
+  this.$http.send('LOGIN_OFF',
+    {
+      bind: this,
+      params: {},
+      callBack: this.re_login_off_callback
+    }
+  ).then(({data}) => {
+    this.$store.commit('LOGIN_OUT');
+    // window.location.reload();
+    window.location.replace(this.$store.state.contract_url + 'index/sign/login')
+  })
 }
+root.methods.re_login_off_callback = function ({data}) {
+  // 清除cookie
+  // this.$cookies.remove("popShow");
+  alert('123123123');
+  this.$store.commit('LOGIN_OUT');
+  window.location.reload();
+  window.location.replace(this.$store.state.contract_url + 'index/sign/login')
 
+  // this.$router.push('index/sign/login')
+  // window.location.replace(this.$store.state.domain_url + 'index/sign/login');
+}
 
 // 获取初始data
 root.methods.getInitData = function () {
@@ -320,6 +328,24 @@ root.methods.changeAppraisement = function (dataObj) {
   this.frozen = frozen
   this.available = available
 
+}
+
+//跳转到个人中心页面
+root.methods.goToSecurityCenter = function () {
+  window.location.replace(this.$store.state.contract_url + 'index/personal/securityCenter');
+}
+//跳转到身份认证页面
+root.methods.goToAuth = function () {
+  window.location.replace(this.$store.state.contract_url + 'index/personal/auth/authentication');
+}
+//跳转到安全日志页面
+root.methods.goToSecurityLog = function () {
+  window.location.replace(this.$store.state.contract_url + 'index/personal/securityLog');
+}
+
+//跳转到我的邀请页面
+root.methods.goToPcRecommend = function () {
+  window.location.replace(this.$store.state.contract_url + 'index/personal/Recommend/PcRecommend');
 }
 
 /*---------------------- 保留小数 begin ---------------------*/

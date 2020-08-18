@@ -26,7 +26,7 @@
       <template v-if="userId && historicalTransaction.length!==0">
         <div class="historica">
           <li class="flex tr-td"
-              :class="$route.name == 'currentEntrust'?'tr-td':'tr-td-col'"
+              :class="$route.name == 'historicalTransaction'?'tr-td':'tr-td-col'"
               v-for="(order,index) in historicalTransaction" :key="order.id">
 
             <!--时间-->

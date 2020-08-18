@@ -102,7 +102,7 @@ tr, th, td {
 /*}*/
 
 .td-time {
-  flex: 9.3;
+  flex: 6.3;
 
 }
 .td-time1 {
@@ -111,10 +111,10 @@ tr, th, td {
 }
 
 .td-category {
-  flex: 7.3;
+  flex: 5.3;
 }
 .td-category-1 {
-  flex: 6.3;
+  flex: 5.3;
 }
 
 .td-market {

@@ -20,6 +20,8 @@ store.state.urlHead = '/apis'
 // 静态页地址
 store.state.static_url = process.env.STATIC_URL || 'http://static.2020.exchange'
 
+store.state.contract_url = process.env.CONTRACT_URL || 'http://www.2020-ex.com/'
+
 //GRC活动地址
 store.state.GRC_URL = process.env.GRC_URL || 'https://build.2020.exchange/events/grc-token-mining'
 // store.state.GRC_URL = 'https://build.highdefi.com/events/grc-token-mining'  // TODO:生产打版需要屏蔽掉
