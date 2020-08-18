@@ -45,6 +45,16 @@ tr, th, td {
   height: 50px;
   line-height: 50px;
   text-align: left;
+  background-color: #FFFFFF;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color:#0D0E23;
+}
+.tr-td-col {
+  width: 100%;
+  height: 50px;
+  line-height: 50px;
+  text-align: left;
   background-color: #0D111F;
   font-family:PingFangSC-Regular,PingFang SC;
   font-weight:400;

@@ -24,27 +24,6 @@
       <!--  </div>-->
     </template>
 
-    <!--<template v-if="isMobile">-->
-    <!--<div v-if="!loading && downloadShow" class="homepage-body-download" ref="downloadView">-->
-
-    <!--<img class="index-home-header-img" src="../../assets/mobile_app_download.png" alt="">-->
-    <!--<div class="logofont">-->
-    <!--二零二零APP-->
-    <!--</div>-->
-    <!--<div class="logofont2">-->
-    <!--安全可靠，值得信赖-->
-    <!--</div>-->
-    <!--<a :href="staticUrl"  class="index-home-header-address" target="_blank">-->
-    <!--下载-->
-    <!--</a>-->
-    <!--<img class="index-home-header-close-img" @click="closeDownload" src="" alt="">-->
-    <!--&lt;!&ndash;    <div class="index-home-header-close" @click="closeDownload">&ndash;&gt;-->
-    <!--&lt;!&ndash;      <img src="../../assets/mobile_download_close.png" class="index-home-header-img-close" alt="">&ndash;&gt;-->
-    <!--&lt;!&ndash;    </div>&ndash;&gt;-->
-    <!--</div>-->
-    <!--</template>-->
-
-    <!--  <div class="header min-width relative">-->
     <div class="header min-width relative">
       <div class="header-container min-width">
         <!-- 移动端头部logo -->
@@ -225,10 +204,10 @@
               <!--logo begin-->
               <!-- <router-link to="/index/homePage" class="index-header-logo"><img src="../../assets/logo.png" class="header-logo"> -->
              <div class="baobao-logo">
-              <router-link :to="{name:'home'}" @click.native="reFresh()" class="index-header-logo">
+              <div @click="reFresh" @click.native="reFresh()" class="index-header-logo">
                 <img src="../../assets/2020_web_logo@2x.png" class="navigation-logo" v-show="lang==='CH'">
                 <img src="../../assets/2020_web_logo@2x.png" class="navigation-logo" v-show="lang!=='CH'">
-              </router-link>
+              </div>
              </div>
               <!--logo end-->
 
@@ -238,13 +217,12 @@
                 <!--行情 begin-->
                 <li class="navigation-item-container flex">
                   <!--                行情-->
-                  <router-link
-                    :to="{name: 'indexHomeMarket'}"
+                  <div @click="goToIndexHomeMarket"
                     class="navigation-item-router flex"
                     active-class="navigation-item-router-selected"
                   >{{$t('quotes')}}
 <!--                                      {{$t('currencyQuotation')}}-->
-                  </router-link>
+                  </div>
                   <!--隐藏的标签 法币交易 begin-->
                   <!--隐藏的标签 end-->
                 </li>
@@ -252,7 +230,7 @@
                 <!--币币交易 begin-->
                 <li class="navigation-item-container flex">
                   <!--隐藏的标签 币币交易 begin-->
-                  <div @click="goToFranchExchange"
+                  <div @click="goToTradingHall"
                        class="navigation-item-router flex pointer"
                        active-class="navigation-item-router-selected"
                   >
@@ -285,151 +263,6 @@
                   </router-link>
                 </li>
 
-
-<!--                &lt;!&ndash; 法币交易 &ndash;&gt;-->
-<!--                <li class="navigation-item-container flex">-->
-<!--                  &lt;!&ndash;                法币交易&ndash;&gt;-->
-<!--                  <div-->
-<!--                    @click="GO_OTC"-->
-<!--                    class="navigation-item-router flex"-->
-<!--                    active-class="navigation-item-router-selected item_selected text_blue"-->
-<!--                  >-->
-<!--                    {{$t('fiatDeal')}}-->
-<!--                    &lt;!&ndash;                  <div class="language-jt-down"></div>&ndash;&gt;-->
-<!--                  </div>-->
-<!--                  &lt;!&ndash; 隐藏的标签 begin&ndash;&gt;-->
-<!--                  &lt;!&ndash;                <ul class="flex navigation-item-hidden-list"&ndash;&gt;-->
-<!--                  &lt;!&ndash;                    :class="{'navigation-item-hidden-list-black':isBlack}"&ndash;&gt;-->
-<!--                  &lt;!&ndash;                >&ndash;&gt;-->
-<!--                  &lt;!&ndash;                  <li class="navigation-item-hidden-list-item">&ndash;&gt;-->
-<!--                  &lt;!&ndash;                    <router-link&ndash;&gt;-->
-<!--                  &lt;!&ndash;                      :to="{name:''}"&ndash;&gt;-->
-<!--                  &lt;!&ndash;                      class="navigation-item-hidden-list-item-router"&ndash;&gt;-->
-<!--                  &lt;!&ndash;                      active-class="item_selected">&ndash;&gt;-->
-<!--                  &lt;!&ndash;                      C2C交易&ndash;&gt;-->
-<!--                  &lt;!&ndash;                    </router-link>&ndash;&gt;-->
-<!--                  &lt;!&ndash;                  </li>&ndash;&gt;-->
-<!--                  &lt;!&ndash;                  <li class="navigation-item-hidden-list-item">&ndash;&gt;-->
-<!--                  &lt;!&ndash;                    <div&ndash;&gt;-->
-<!--                  &lt;!&ndash;                      @click="GO_OTC"&ndash;&gt;-->
-<!--                  &lt;!&ndash;                      class="navigation-item-hidden-list-item-router"&ndash;&gt;-->
-<!--                  &lt;!&ndash;                      active-class="item_selected"&ndash;&gt;-->
-<!--                  &lt;!&ndash;                    >&ndash;&gt;-->
-<!--                  &lt;!&ndash;                      OTC交易&ndash;&gt;-->
-<!--                  &lt;!&ndash;                    </div>&ndash;&gt;-->
-<!--                  &lt;!&ndash;                  </li>&ndash;&gt;-->
-<!--                  &lt;!&ndash;                </ul>&ndash;&gt;-->
-<!--                  &lt;!&ndash; 隐藏的标签 end &ndash;&gt;-->
-<!--                </li>-->
-<!--                &lt;!&ndash;                 法币交易 begin&ndash;&gt;-->
-<!--                &lt;!&ndash;              <li class="navigation-item-container flex">&ndash;&gt;-->
-<!--                &lt;!&ndash;                <router-link&ndash;&gt;-->
-<!--                &lt;!&ndash;                  :to="{name: 'tradingHall', query: {symbol: $store.state.symbol} }"&ndash;&gt;-->
-<!--                &lt;!&ndash;                  class="navigation-item-router flex"&ndash;&gt;-->
-<!--                &lt;!&ndash;                  active-class="navigation-item-router-selected "&ndash;&gt;-->
-<!--                &lt;!&ndash;                >&ndash;&gt;-->
-<!--                &lt;!&ndash;                  &lt;!&ndash;{{$t('currencyExchange')}}&ndash;&gt;&ndash;&gt;-->
-<!--                &lt;!&ndash;                  法币交易&ndash;&gt;-->
-<!--                &lt;!&ndash;                  <div class="language-jt-down"></div>&ndash;&gt;-->
-<!--                &lt;!&ndash;                </router-link>&ndash;&gt;-->
-<!--                &lt;!&ndash;隐藏的标签 法币交易 begin&ndash;&gt;-->
-<!--                &lt;!&ndash;                隐藏的标签 end&ndash;&gt;-->
-<!--                </li>-->
-
-<!--                </li>-->
-<!--                &lt;!&ndash;订单 begin&ndash;&gt;-->
-<!--                <li class="navigation-item-container flex"  @mouseenter="enter()" @mouseleave="leave()">-->
-<!--                  <router-link-->
-<!--                    :to="{name:'currentEntrust'}"-->
-<!--                    class="navigation-item-router flex"-->
-<!--                    active-class="navigation-item-router-selected text_blue"-->
-<!--                  >-->
-<!--                    <span class="langfont">{{$t('order')}}</span>-->
-<!--                    &lt;!&ndash;                  <div :class="jtval=='up'?'language-jt-up':'language-jt-down'"></div>&ndash;&gt;-->
-<!--                    <div class="language-jt-down"></div>-->
-<!--                  </router-link>-->
-
-<!--                  &lt;!&ndash;隐藏的标签 begin&ndash;&gt;-->
-<!--                  <ul class="flex navigation-item-hidden-list"-->
-<!--                      :class="{'navigation-item-hidden-list-black':isBlack}"-->
-<!--                  >-->
-<!--                    <li class="navigation-item-hidden-list-item">-->
-<!--                      <router-link-->
-<!--                        :to="{name:'currentEntrust'}"-->
-<!--                        class="navigation-item-hidden-list-item-router"-->
-<!--                        active-class="item_selected">-->
-<!--                        {{$t('currentEntrust')}}-->
-<!--                      </router-link>-->
-<!--                    </li>-->
-<!--                    <li class="navigation-item-hidden-list-item">-->
-<!--                      <router-link-->
-<!--                        :to="{name:'historicalEntrust'}"-->
-<!--                        class="navigation-item-hidden-list-item-router"-->
-<!--                        active-class="item_selected text_red"-->
-<!--                      >-->
-<!--                        {{$t('historicalEntrust')}}-->
-<!--                      </router-link>-->
-<!--                    </li>-->
-<!--                  </ul>-->
-<!--                  &lt;!&ndash;隐藏的标签 end&ndash;&gt;-->
-<!--                </li>-->
-                <!--订单 end-->
-
-                <!--资产 begin-->
-<!--                <li class="navigation-item-container flex"  @mouseenter="enter()" @mouseleave="leave()">-->
-<!--                  <router-link-->
-<!--                    :to="{name: 'rechargeAndWithdrawals'}"-->
-<!--                    class="navigation-item-router flex"-->
-<!--                    active-class="navigation-item-router-selected text_blue"-->
-<!--                  >-->
-<!--                    <span class="langfont">{{$t('assets')}}</span>-->
-<!--                    <div class="language-jt-down"></div>-->
-<!--                  </router-link>-->
-<!--                  &lt;!&ndash;隐藏的标签 begin&ndash;&gt;-->
-<!--                  <ul class="flex navigation-item-hidden-list"-->
-<!--                      :class="{'navigation-item-hidden-list-asset-en':lang!=='CH',-->
-<!--                    'navigation-item-hidden-list-black':isBlack}"-->
-<!--                  >-->
-<!--                    <li class="navigation-item-hidden-list-item">-->
-<!--                      <router-link-->
-<!--                        :to="{name:'rechargeAndWithdrawals'}"-->
-<!--                        class="navigation-item-hidden-list-item-router"-->
-<!--                        active-class="item_selected">-->
-<!--                        {{$t('recharge')}}-->
-<!--                      </router-link>-->
-<!--                    </li>-->
-<!--                    <li class="navigation-item-hidden-list-item">-->
-<!--                      <router-link-->
-<!--                        :to="{name:'rechargeRecord'}"-->
-<!--                        class="navigation-item-hidden-list-item-router"-->
-<!--                        active-class="item_selected"-->
-<!--                      >-->
-<!--                        {{$t('rechargeRecord')}}-->
-<!--                      </router-link>-->
-<!--                    </li>-->
-<!--                    <li class="navigation-item-hidden-list-item">-->
-<!--                    <router-link-->
-<!--                      :to="{name:'withdrawalsRecord'}"-->
-<!--                      class="navigation-item-hidden-list-item-router"-->
-<!--                      active-class="item_selected"-->
-<!--                    >-->
-<!--                      {{$t('withdrawalsRecord')}}-->
-<!--                    </router-link>-->
-<!--                  </li>-->
-<!--                    <li class="navigation-item-hidden-list-item">-->
-<!--                      <router-link-->
-<!--                        :to="{name:'platformReward'}"-->
-<!--                        class="navigation-item-hidden-list-item-router"-->
-<!--                        active-class="item_selected"-->
-<!--                      >-->
-<!--                        {{$t('assetPage.platformReward')}}-->
-<!--                      </router-link>-->
-<!--                    </li>-->
-<!--                  </ul>-->
-<!--                  &lt;!&ndash;隐藏的标签 end&ndash;&gt;-->
-<!--                </li>-->
-<!--                &lt;!&ndash;资产 end&ndash;&gt;-->
-
                 <!--挖矿 begin-->
                 <li class="navigation-item-container flex"  @mouseenter="enterActive()" @mouseleave="leaveActive()">
 
@@ -446,91 +279,26 @@
                     'navigation-item-hidden-list-black':isBlack}"
                   >
 
-<!--                    <li class="navigation-item-hidden-list-item">-->
-<!--                      <div-->
-<!--                        @click="getGroupLevel1"-->
-<!--                        class="navigation-item-hidden-list-item-routers"-->
-<!--                        active-class="item_selected">-->
-<!--                        &lt;!&ndash;KK交易挖矿活动&ndash;&gt;-->
-<!--                        {{$t('indexHeader.forward')}}-->
-<!--                      </div>-->
-<!--                    </li>-->
-
-<!--                    <li class="navigation-item-hidden-list-item">-->
-<!--                      <div-->
-<!--                        @click="getGroupLevel1"-->
-<!--                        class="navigation-item-hidden-list-item-router"-->
-<!--                        active-class="item_selected">-->
-<!--                        &lt;!&ndash;KK交易挖矿活动&ndash;&gt;-->
-<!--                        {{$t('OfficialQuantitativeRegistration')}}-->
-<!--                      </div>-->
-<!--                    </li>-->
-
-                    <!-- sss 量化详情 敬请期待-->
-<!--                    <li class="navigation-item-hidden-list-item">-->
-<!--                      <div-->
-<!--                        @click="getGroupLevel1"-->
-<!--                        class="navigation-item-hidden-list-item-router"-->
-<!--                        active-class="item_selected">-->
-<!--                        {{$t('miningDetails')}}-->
-<!--                      </div>-->
-<!--                    </li>-->
-
                     <!-- sss 量化详情 敬请期待 屏蔽  -->
                     <!-- sss 量化报名-->
                     <li class="navigation-item-hidden-list-item">
-                      <router-link
-                        :to="{name:'officialQuantitativeRegistration'}"
+                      <div @click="goToOfficialQuantitativeRegistration"
                         class="navigation-item-hidden-list-item-router"
                         active-class="item_selected">
                      <!--KK交易挖矿活动-->
                         {{$t('OfficialQuantitativeRegistration')}}
-                      </router-link>
+                      </div>
                     </li>
 
 <!--                    &lt;!&ndash; sss 量化详情&ndash;&gt;-->
                     <li class="navigation-item-hidden-list-item">
-                      <router-link
-                        :to="{name:'officialQuantitativeDetails'}"
+                      <div @click="goToOfficialQuantitativeDetails"
                         class="navigation-item-hidden-list-item-router"
                         active-class="item_selected">
                         {{$t('miningDetails')}}
-                      </router-link>
+                      </div>
                     </li>
                     <!-- sss 屏蔽结束  -->
-
-
-<!--                     cc 兑换茶叁茶源-->
-<!--                    <li class="navigation-item-hidden-list-item">-->
-<!--                      <router-link-->
-<!--                        :to="{name:'TeaCoinActivities'}"-->
-<!--                        class="navigation-item-hidden-list-item-router"-->
-<!--                        active-class="item_selected">-->
-<!--                        {{$t('ExchangeThreeTeaSources')}}-->
-<!--                      </router-link>-->
-<!--                    </li>-->
-<!--                     cc 茶叁茶源-->
-<!--                    <li class="navigation-item-hidden-list-item">-->
-<!--                      <router-link-->
-<!--                        :to="{name:'TeaSource'}"-->
-<!--                        class="navigation-item-hidden-list-item-router"-->
-<!--                        active-class="item_selected"-->
-<!--                      >-->
-<!--                        {{$t('TeaTeaSource')}}-->
-<!--                      </router-link>-->
-<!--                    </li>-->
-                    <!--zpy 易物点通证量化活动-->
-<!--                    <li class="navigation-item-hidden-list-item">-->
-<!--                      <div-->
-<!--                        @click="GO_GRC"-->
-<!--                        class="navigation-item-hidden-list-item-router"-->
-<!--                        active-class="item_selected"-->
-<!--                      >-->
-<!--                        {{$t('GRCTradeEvent')}}-->
-
-<!--                      </div>-->
-<!--                    </li>-->
-
                   </ul>
                   <!--隐藏的标签 end-->
                 </li>
@@ -555,24 +323,22 @@
 
                     <!-- sss 百宝箱-->
                     <li class="navigation-item-hidden-list-item">
-                      <router-link
-                        :to="{name:'Forecast'}"
+                      <div @click="goToRecord"
                         class="navigation-item-hidden-list-item-router"
                         active-class="item_selected">
                         <!--百日庆之百宝箱-->
                         {{$t('celebration')}}
-                      </router-link>
+                      </div>
                     </li>
 
                     <!--区块恋-->
                     <li class="navigation-item-hidden-list-item">
-                      <router-link
-                        :to="{name:'fundProducts'}"
+                      <div @click="goToProducts"
                         class="navigation-item-hidden-list-item-router"
                         active-class="item_selected">
                         <!--区块恋-->
                         {{$t('blockLove')}}
-                      </router-link>
+                      </div>
                     </li>
 
                   </ul>
@@ -582,7 +348,7 @@
                 <!--sss拼团 begin-->
                 <li class="navigation-item-container flex">
                   <div
-                    @click="getGroupLevel"
+                    @click="goToAssembleARegiment"
                     class="navigation-item-router flex"
                     active-class="navigation-item-router-selected">
                     {{$t('platform_5')}}
@@ -592,28 +358,13 @@
 
                 <!--sss跟单 begin-->
                 <li class="navigation-item-container flex">
-                  <router-link
-                    :to="{name:'followTrade'}"
+                  <div @click="goToFollowTrade"
                     class="navigation-item-router flex"
                     active-class="navigation-item-router-selected">
                     {{$t('镜像交易')}}
-                  </router-link>
+                  </div>
                 </li>
                 <!--sss跟单 end-->
-
-
-<!--                <li class="navigation-item-container flex">-->
-<!--                  <router-link-->
-<!--                    :to="{name: 'tradingHall', query: {symbol: $store.state.symbol} }"-->
-<!--                    class="navigation-item-router flex"-->
-<!--                    active-class="navigation-item-router-selected"-->
-<!--                  >活动-->
-<!--                    &lt;!&ndash;                    {{$t('currencyExchange')}}&ndash;&gt;-->
-<!--                  </router-link>-->
-<!--                  &lt;!&ndash;隐藏的标签 法币交易 begin&ndash;&gt;-->
-
-<!--                  &lt;!&ndash;隐藏的标签 end&ndash;&gt;-->
-<!--                </li>-->
 
               </ul>
               <!--左侧导航条 end-->
@@ -648,163 +399,93 @@
 
                 <!--登录后 begin-->
                 <li class="navigation-item-container flex" v-if="isLogin" @mouseenter="enterMoney()" @mouseleave="leaveMoney()">
-                  <router-link
-                    :to="{name:'myWallet'}"
+                  <div @click="goToMyWallet"
                     class="navigation-item-router flex"
                     active-class="navigation-item-router-selected"
                   >
                     <span class="langfont-money" >{{$t('assets')}}</span>
                     <div class="language-jt-down" :class="moneyVal?'language-jt-down':'language-jt-up'" ></div>
-                  </router-link>
+                  </div>
 
                   <!--隐藏的标签 begin-->
                   <ul class="flex navigation-item-hidden-list"
                       :class="{'navigation-item-hidden-list-asset-en':lang!=='CH',
                     'navigation-item-hidden-list-black':isBlack}"
                   >
-<!--                    资产概览 暂时屏蔽 begin-->
-<!--                    <li class="navigation-item-hidden-list-item">-->
-<!--                      <router-link-->
-<!--                        :to="{name:'overviewOfAssets'}"-->
-<!--                        class="navigation-item-hidden-list-item-router"-->
-<!--                        active-class="item_selected">-->
-<!--&lt;!&ndash;                        资产概览&ndash;&gt;-->
-<!--                       {{$t('overviewOfAssets')}}-->
-<!--                      </router-link>-->
-<!--                    </li>-->
-
-<!--                    资产概览 暂时屏蔽 end-->
 
                     <li class="navigation-item-hidden-list-item">
-                      <router-link
-                        :to="{name:'myWallet'}"
+                      <div @click="goToMyWallet"
                         class="navigation-item-hidden-list-item-router"
                         active-class="item_selected">
 <!--                        我的钱包-->
                         {{$t('myWallet')}}
-                      </router-link>
+                      </div>
                     </li>
 
                     <!-- 法币账户 暂时屏蔽 bebgin-->
                     <li class="navigation-item-hidden-list-item">
-                      <router-link
-                        :to="{name:'rechargeAndWithdrawals'}"
+                      <div @click="goToLegalCurrency"
                         class="navigation-item-hidden-list-item-router"
                         active-class="item_selected">
                         {{$t('recharge')}}
-                      </router-link>
+                      </div>
                     </li>
                     <!--法币账户 暂时屏蔽 end-->
-
-                    <!-- 主流账户 bebgin-->
-<!--                    <li class="navigation-item-hidden-list-item">-->
-<!--                      <router-link-->
-<!--                        :to="{name:'mainstreamAccount'}"-->
-<!--                        class="navigation-item-hidden-list-item-router"-->
-<!--                        active-class="item_selected">-->
-<!--                        {{$t('mainstreamAccount')}}-->
-<!--                      </router-link>-->
-<!--                    </li>-->
-                    <!--主流账户 end-->
+                    <!-- 合约账户 暂时屏蔽 bebgin-->
+                    <li class="navigation-item-hidden-list-item">
+                      <div @click="goToLegalPosition"
+                           class="navigation-item-hidden-list-item-router"
+                           active-class="item_selected">
+                        {{$t('合约账户')}}
+                      </div>
+                    </li>
+                    <!--合约账户 暂时屏蔽 end-->
 
 <!--                    财务记录-->
                     <li class="navigation-item-hidden-list-item">
-                      <router-link
-                        :to="{name:'rechargeRecord'}"
+                      <div @click="goToRechargeRecord"
                         class="navigation-item-hidden-list-item-router"
                         active-class="item_selected">
                         {{$t('financeRecord')}}
-                      </router-link>
+                      </div>
                     </li>
 
 <!--                    锁仓记录-->
                     <li class="navigation-item-hidden-list-item">
-                      <router-link
-                        :to="{name:'currentLockHouse'}"
+                      <div @click="goToCurrentLockHouse"
                         class="navigation-item-hidden-list-item-router"
                         active-class="item_selected">
                         {{$t('lockHouseRecord')}}
-                      </router-link>
+                      </div>
                     </li>
 
-<!--                    <li class="navigation-item-hidden-list-item">-->
-<!--                      <router-link-->
-<!--                        :to="{name:'rechargeRecord'}"-->
-<!--                        class="navigation-item-hidden-list-item-router"-->
-<!--                        active-class="item_selected"-->
-<!--                      >-->
-<!--                        {{$t('rechargeRecord')}}-->
-<!--                      </router-link>-->
-<!--                    </li>-->
-
-<!--                    <li class="navigation-item-hidden-list-item">-->
-<!--                      <router-link-->
-<!--                        :to="{name:'withdrawalsRecord'}"-->
-<!--                        class="navigation-item-hidden-list-item-router"-->
-<!--                        active-class="item_selected"-->
-<!--                      >-->
-<!--                        {{$t('withdrawalsRecord')}}-->
-<!--                      </router-link>-->
-<!--                    </li>-->
-
-<!--                    <li class="navigation-item-hidden-list-item">-->
-<!--                      <router-link-->
-<!--                        :to="{name:'transferrecord'}"-->
-<!--                        class="navigation-item-hidden-list-item-router"-->
-<!--                        active-class="item_selected"-->
-<!--                      >-->
-<!--&lt;!&ndash;                        划转记录&ndash;&gt;-->
-<!--                        {{$t('transferRecord')}}-->
-<!--                      </router-link>-->
-<!--                    </li>-->
-
-<!--                    <li class="navigation-item-hidden-list-item">-->
-<!--                      <router-link-->
-<!--                        :to="{name:'transferrecords'}"-->
-<!--                        class="navigation-item-hidden-list-item-router"-->
-<!--                        active-class="item_selected"-->
-<!--                      >-->
-<!--&lt;!&ndash;                        转账记录&ndash;&gt;-->
-<!--                        {{$t('transferRecords')}}-->
-<!--                      </router-link>-->
-<!--                    </li>-->
-
-<!--                    <li class="navigation-item-hidden-list-item">-->
-<!--                      <router-link-->
-<!--                        :to="{name:'platformReward'}"-->
-<!--                        class="navigation-item-hidden-list-item-router"-->
-<!--                        active-class="item_selected"-->
-<!--                      >-->
-<!--                        {{$t('platformReward')}}-->
-<!--                      </router-link>-->
-<!--                    </li>-->
                   </ul>
                   <!--隐藏的标签 end-->
                 </li>
 
+                <!-- 币币订单-->
                 <li class="navigation-item-container flex" v-if="isLogin" @mouseenter="enterOrder()" @mouseleave="leaveOrder()">
-                  <router-link
-                    :to="{name:'currentEntrust'}"
+                  <div @click="goToCurrentEntrust"
                     class="navigation-item-router flex"
                     active-class="navigation-item-router-selected"
                   >
 <!--                    <img src="../../assets/geren.png" alt="" class="login-header-name flex-center personal-icon">-->
                     <span class="langfont-order">{{$t('order')}}</span>
                     <div class="language-jt-down" :class="orderVal?'language-jt-down':'language-jt-up'" ></div>
-                  </router-link>
-                  <!--隐藏的标签 begin-->
+                  </div>
                   <!--隐藏的标签 begin-->
                   <ul class="flex navigation-item-hidden-list"
                       :class="{'navigation-item-hidden-list-black':isBlack}"
                   >
+                    <!-- 币币订单-->
                     <li class="navigation-item-hidden-list-item">
-                      <router-link
-                        :to="{name:'currentEntrust'}"
+                      <div @click="goToCurrentEntrust"
                         class="navigation-item-hidden-list-item-router"
                         active-class="item_selected">
                         {{$t('currentEntrust')}}
-                      </router-link>
+                      </div>
                     </li>
+                    <!-- 法币订单-->
                     <li class="navigation-item-hidden-list-item">
                       <div class="navigation-item-hidden-list-item-router"
                            @click="goToFrenchCurrecy"
@@ -813,13 +494,22 @@
                         {{$t('frenchCurrency')}}
                       </div>
                     </li>
+                    <!-- 合约订单-->
+                    <li class="navigation-item-hidden-list-item">
+                      <div class="navigation-item-hidden-list-item-router"
+                           @click="goToFrenchApi"
+                        active-class="item_selected"
+                      >
+                        {{$t('合约订单')}}
+                      </div>
+                    </li>
                   </ul>
                   <!--隐藏的标签 end-->
                 </li>
 
+               <!-- 个人中心-->
                 <li class="navigation-item-container flex" v-if="isLogin">
-                  <router-link
-                    :to="{name:'securityCenter'}"
+                  <div @click="goToSecurityCenter"
                     class="navigation-item-router flex"
                     active-class="navigation-item-router-selected"
                   >
@@ -829,7 +519,7 @@
                     <img src="../../assets/geren.png" alt="" class="login-header-name flex-center personal-icon" v-if="!flag">
                     <!-- 是会员-->
                     <img src="../../assets/head_icon.png" alt="" class="login-header-name flex-center personal-icons" v-if="flag">
-                  </router-link>
+                  </div>
 
 
 
@@ -865,31 +555,10 @@
                       :class="{'navigation-item-hidden-list-asset-en':lang!=='CH',
                     'navigation-item-hidden-list-black':isBlack}"
                   >
-<!--                    <li-->
-<!--                      class="navigation-item-hidden-list-item-k"-->
-<!--                    >-->
-<!--                      <p id="navigation-item-hidden-list-item-l" >{{$t('platform')}}</p>-->
-<!--                    </li>-->
-                    <!--                  <li  class="navigation-item-hidden-list-item-i"-->
-                    <!--                       v-for="(value, key) in noticeList" :key="key"  @click="goNotice(value.id)">-->
-                    <!--                    <p id="navigation-item-hidden-list-item-i">{{value.title}}</p>-->
-                    <!--&lt;!&ndash;                    ( {{$globalFunc.formatDateUitl(value.beginTime,'MM-DD')}} )&ndash;&gt;-->
-                    <!--                  </li>-->
                     <li  class="navigation-item-hidden-list-item-i"
                          v-for="(value, key) in noticeList" :key="key"  @click="goNotice(value.id)">
                       <p id="navigation-item-hidden-list-item-i">{{value.title}}</p>
-                      <!--                    ( {{$globalFunc.formatDateUitl(value.beginTime,'MM-DD')}} )-->
                     </li>
-                    <!--                  <li  class="navigation-item-hidden-list-item-i">-->
-                    <!--                    <p id="navigation-item-hidden-list-item-i"><a href="https://customerservice8872.zendesk.com/hc/zh-cn/articles/360034740012-正式开放注册启事">正式开放注册启事</a></p>-->
-                    <!--                  </li>-->
-                    <!--                  <li  class="navigation-item-hidden-list-item-i">-->
-                    <!--                    <p id="navigation-item-hidden-list-item-i"><a href="https://customerservice8872.zendesk.com/hc/zh-cn/articles/360035114331-二零二零交易所验证邮件延迟公告">二零二零交易所验证邮件延迟公告</a></p>-->
-                    <!--                  </li>-->
-                    <!--                  <li  class="navigation-item-hidden-list-item-i">-->
-                    <!--                    <p id="navigation-item-hidden-list-item-i"><a href="https://customerservice8872.zendesk.com/hc/zh-cn/articles/360035121071-关于二零二零交易所">关于二零二零交易所</a></p>-->
-                    <!--                  </li>-->
-
                     <li class="navigation-item-hidden-list-item-z">
                       <router-link to="/index/notice?columnId=0" @click.native="goToNoticeCenter('0')" id="navigation-item-hidden-list-item-j">
                         {{$t('seeMore')}}
@@ -969,72 +638,14 @@
                       </div>
                       <div class="languagediv" @click="changeLanguageLS">
                         <img src="../../assets/e_icon.png" alt="" class="language-icon">
-<!--                        {$t('indexHeader.forward')}}-->
                         Русский
                       </div>
-<!--                      <div class="languagediv"  @click="changeLanguage('KOR')">-->
-<!--                        <img src="../../assets/韩国.png" alt="" class="language-icon in2">한국어</div>-->
-<!--                      <div class="languagediv"  @click="changeLanguage('JP')">-->
-<!--                        <img src="../../assets/日本.png" alt="" class="language-icon in3">日本語</div>-->
-                      <!--                    <div class="languagediv"  @click="changeLanguage('CA')">Deutsch</div>-->
-                      <!--                    <div class="languagediv"  @click="changeLanguage('CA')">Español</div>-->
-                      <!--                    <div class="languagediv"  @click="changeLanguage('CA')">ไทย</div>-->
-
                     </li>
-                    <!--                  <li class="navigation-item-hidden-language-item language-item flex" @click="changeLanguage('CHT')">-->
-                    <!--                    <img src="../../assets/香港国旗.png" alt="" class="language-icon">-->
-                    <!--                    繁体中文-->
-                    <!--                  </li>-->
-                    <!--                  <li class="navigation-item-hidden-language-item language-item flex" @click="changeLanguage('CA')">-->
-                    <!--                    <img src="../../assets/英国国旗.png" alt="" class="language-icon">-->
-                    <!--                    English-->
-                    <!--                  </li>-->
-                    <!--                  <li class="navigation-item-hidden-language-item language-item flex" @click="changeLanguage('CH')">-->
-                    <!--                    <img src="../../assets/中国国旗.png" alt="" class="language-icon">-->
-                    <!--                    简体中文-->
-                    <!--                  </li>-->
-                    <!--                  <li class="navigation-item-hidden-language-item language-item flex" @click="changeLanguage('CHT')">-->
-                    <!--                    <img src="../../assets/香港国旗.png" alt="" class="language-icon">-->
-                    <!--                    繁体中文-->
-                    <!--                  </li>-->
-                    <!--                  <li class="navigation-item-hidden-language-item language-item flex" @click="changeLanguage('CA')">-->
-                    <!--                    <img src="../../assets/英国国旗.png" alt="" class="language-icon">-->
-                    <!--                    English-->
-                    <!--                  </li>-->
-                    <!--                  <li class="navigation-item-hidden-language-item language-item flex" @click="changeLanguage('CH')">-->
-                    <!--                    <img src="../../assets/中国国旗.png" alt="" class="language-icon">-->
-                    <!--                    简体中文-->
-                    <!--                  </li>-->
-                    <!--<li class="navigation-item-hidden-list-item language-item flex" @click="changeLanguage('KOR')">-->
-                    <!--<img src="" alt="" class="language-icon">-->
-                    <!--한국어-->
-                    <!--</li>-->
                   </ul>
                   <!--隐藏的标签 end-->
                 </li>
                 <!--语言 end-->
               </ul>
-
-
-              <!--&lt;!&ndash;语言 begin&ndash;&gt;-->
-              <!--<div class="language flex-center">-->
-              <!--&lt;!&ndash;<img src="" alt="">&ndash;&gt;-->
-              <!--<div class="language-img">-->
-              <!--<div class="language-img-box" :class="lang"></div>-->
-              <!--</div>-->
-
-              <!--<ul class="language-box">-->
-              <!--<li v-if="lang !== 'CH'">-->
-              <!--<img src="/static/images/中国.png" alt="" @click="changeLanguage('CH')">-->
-              <!--</li>-->
-              <!--<li v-else>-->
-              <!--<img src="" alt="" @click="changeLanguage('CA')">-->
-              <!--</li>-->
-              <!--</ul>-->
-              <!--</div>-->
-              <!--&lt;!&ndash;语言 end&ndash;&gt;-->
-
-
               <!--皮肤 begin-->
               <div class="change-color-container flex pointer" v-if="changeThemeColor">
                 <img src="" alt="" class="change-color-icon"
