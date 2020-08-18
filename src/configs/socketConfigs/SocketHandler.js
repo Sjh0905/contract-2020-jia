@@ -1,5 +1,6 @@
 import wsServer from './SocketServer'
 import Vue from 'vue'
+import GlobalFunction from '../globalFunctionConfigs/GlobalFunction'
 const EVENTNAMEARR = ['aggTrade','depthUpdate','markPriceUpdate','24hrTicker','kline','ORDER_TRADE_UPDATE']
 const CONNECTEDKEY = 'connect'
 
@@ -15,7 +16,10 @@ export default class {
   test() {}
 
   init(symbol) {
-    symbol && (this.symbol = symbol)
+    if(symbol){
+      symbol = GlobalFunction.toOnlyCapitalLetters(symbol,true)
+      this.symbol = symbol
+    }
 
     if (this.socket) {
       return;
@@ -41,11 +45,17 @@ export default class {
         // console.log('this.onMap========',value);
       });
 
-      let subscribeStreamArr = [/*"btcusdt@depth",*/"btcusdt@aggTrade","btcusdt@markPrice","!ticker@arr"]
+      symbol = (symbol || this.symbol)
+      let subscribeStreamArr = [
+        symbol + "@depth",
+        symbol + "@aggTrade",
+        symbol + "@markPrice",
+        "!ticker@arr"
+      ]
 
       // subscribeStreamArr.push("btcusdt@kline_1m");
       // subscribeStreamArr.push("btcusdt@kline_5m");
-      subscribeStreamArr.push("btcusdt@kline_15m");
+      subscribeStreamArr.push(this.symbol + "@kline_15m");
       // subscribeStreamArr.push("btcusdt@kline_30m");
       // subscribeStreamArr.push("btcusdt@kline_1h");
       // subscribeStreamArr.push("btcusdt@kline_4h");
@@ -60,6 +70,7 @@ export default class {
 
 
     this.socket.onmessage = (event)=>{
+      // console.log('this is socket message',event.data);
       var data = JSON.parse(event.data);
       if (Object.prototype.toString.call(data) == "[object Object]") {
         // var stream = data.stream || '',
@@ -67,6 +78,7 @@ export default class {
         //     streamKey = STREAMNAMEARR.find(v=>message.e.includes(v));//用includes比indexOf更准确，可以区分大小写
 
         var message = data.data || {},
+            stream = data.stream || '',
             eName = message instanceof Array && (message[0] && message[0].e) || message.e || '',//如果订阅的是所有币对，返回的是数组
             // eName = message.e || '',
             eNameKey = EVENTNAMEARR.find(v=>v == eName)
@@ -74,7 +86,7 @@ export default class {
         this.onMap.forEach(function(keyMap,key){
           let funcArr = keyMap.get(eNameKey);
           funcArr && funcArr.map(function(callBack){
-            callBack(message);
+            callBack(message,stream);
           });
         });
 

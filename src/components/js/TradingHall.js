@@ -555,7 +555,7 @@ root.methods.getDepth = function () {
   this.$http.send('GET_DEPTH', {
     bind: this,
     query:{
-      symbol:'BTC_USDT',
+      symbol:this.symbol,
       limit: 50
     },
     callBack: this.re_getDepth
@@ -577,7 +577,7 @@ root.methods.re_getDepth = function (data) {
 root.methods.getAggTrades = function () {
   let query = {
     // symbol: this.symbol
-    symbol: 'BTCUSDT',
+    symbol: this.symbol,
     limit:80
   };
   this.$http.send("GET_AGG_TRADES", {
@@ -602,6 +602,10 @@ root.methods.re_getAggTrades = function (data) {
   }
 
   this.latestPriceArr.push(price1)
+}
+// 获取实时成交归集交易接口错误回调
+root.methods.error_getAggTrades = function (err) {
+  console.log('获取实时成交归集交易接口出错',err)
 }
 
 /*---------------------- 合约接口部分 end ---------------------*/
@@ -898,7 +902,8 @@ root.methods.initSocket = function () {
   // this.$socket.emit('UNSUBSCRIBE', {symbol: this.$store.state.symbol});
   // this.$socket.emit('SUBSCRIBE', ["btcusdt@depth"]);
 
-  let subscribeSymbol = this.$store.state.subscribeSymbol;
+  // let subscribeSymbol = this.$store.state.subscribeSymbol;
+  let subscribeSymbol = this.$globalFunc.toOnlyCapitalLetters(this.$store.state.symbol);
   // 获取最新标记价格
   this.$socket.on({
     key: 'markPriceUpdate', bind: this, callBack: (message) => {

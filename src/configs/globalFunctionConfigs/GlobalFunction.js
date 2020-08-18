@@ -471,6 +471,14 @@ GlobalFunction.removeArray = function (item, arr) {
   return [...newSet]
 }
 
+//转化到只有字母,默认全大写，如果传第二个参数则为全小写
+GlobalFunction.toOnlyCapitalLetters = function (text,isLowerCase) {
+  let textTemp = text.replace(/[^A-Z]/g,'')
+
+  if(isLowerCase)return textTemp.toLowerCase()
+
+  return textTemp
+}
 // // 格式化时间
 // root.methods.formatDateUitl = function (time) {
 //   return this.$globalFunc.formatDateUitl(time, 'YYYY-MM-DD hh:mm:ss')

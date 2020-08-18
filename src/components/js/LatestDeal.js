@@ -60,7 +60,8 @@ root.computed.symbol = function () {
 }
 // 当前socket订阅货币对
 root.computed.subscribeSymbol = function () {
-  return this.$store.state.subscribeSymbol;
+  return this.$globalFunc.toOnlyCapitalLetters(this.symbol);
+  // return this.$store.state.subscribeSymbol;
 }
 
 root.computed.socketList = function () {
