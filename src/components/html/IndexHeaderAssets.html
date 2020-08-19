@@ -2,7 +2,7 @@
   <Loading v-if="loading"/>
   <ul class="asset-container" :class="{'asset-alpha':black}" v-else>
     <li class="asset-li-2">
-      <router-link :to="{name:'securityCenter'}">
+      <div @click="goToSecurityCenter">
 <!--        <p class="asset-li-title">{{$t('userName')}}</p>-->
 
         <div class="asset-li-title-left">
@@ -17,7 +17,7 @@
         </div>
 
         <div class="certified-img"><img src="../../assets/goto.png" alt=""></div>
-      </router-link>
+      </div>
     </li>
 <!--    <li class="asset-li">-->
 <!--      <router-link :to="{name:'rechargeAndWithdrawals'}">-->
@@ -35,9 +35,9 @@
 
 <!--    身份认证-->
     <li class="asset-li">
-      <router-link to="/index/personal/auth">
+      <div @click="goToAuth">
         <p class="pointer">{{$t('authentication')}}</p>
-      </router-link>
+      </div>
     </li>
 <!--    <li class="asset-li">-->
 <!--      <router-link to="/index/personal/securityCenter">-->
@@ -45,24 +45,16 @@
 <!--      </router-link>-->
 <!--    </li>-->
     <li class="asset-li">
-      <router-link :to="{name:'securityLog'}">
+      <div @click="goToSecurityLog">
         <p class="pointer">{{$t('securityLog')}}</p>
-      </router-link>
+      </div>
     </li>
     <li class="asset-li">
-      <router-link to="/index/personal/Recommend">
+      <div @click="goToPcRecommend">
         <p class="pointer">{{$t('mynvitation')}}</p>
-      </router-link>
+      </div>
     </li>
-    <!--<li class="asset-li flex-center">-->
-    <!--<p>{{$t('available')}}</p>-->
-    <!--<p>{{accountReady || priceReady ? available.toFixed(8) : '&#45;&#45;&#45;&#45;'}}</p>-->
-    <!--</li>-->
-    <!--<li class="asset-li flex-center">-->
-    <!--<p>{{$t('frozen')}}</p>-->
-    <!--<p>{{accountReady || priceReady ? frozen.toFixed(8) : '&#45;&#45;&#45;&#45;'}}</p>-->
-    <!--</li>-->
-    <li class="asset-li" @click="loginOff">
+    <li class="asset-li" @click="goOutRegain">
       <div class="login-off flex">
         <p class="pointer">{{$t('loginOff')}}</p>
       </div>

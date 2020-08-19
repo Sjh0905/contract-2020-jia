@@ -21,6 +21,11 @@ root.data = () => {
     updatedAt:1,//最后的订单更新时间,默认为1
     showLoadingMore: true,//是否显示加载更多
     loadingMoreIng: false, //是否正在加载更多
+
+    workingTypeMap : {
+      MARK_PRICE:"标记价格",
+      CONTRACT_PRICE:"最新价格"
+    }
   }
 }
 

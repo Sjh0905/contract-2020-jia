@@ -1017,6 +1017,7 @@ root.routes.push({
       path: 'home',
       name: 'home',
       // redirect: 'home',
+      redirect: '/index/tradingHall',
       caseSensitive: true,
       meta: {
         mobileHeaderTitle: '',
@@ -2292,7 +2293,7 @@ root.routes.push({
       path: 'order',
       caseSensitive: true,
       meta: {
-        requireLogin: true,
+        requireLogin: false,
       },
       component: resolve => require(['@/components/vue/OrderPage'], resolve),
       children: [
@@ -2304,7 +2305,7 @@ root.routes.push({
           meta: {
             pcname: 'currentEntrust',
             h5name: 'mobileTradingHallDetail',
-            requireLogin: true,
+            requireLogin: false,
             templateClose: false,
             templatePath: '/index/orderPageT',
             requireLoginOff: false,
@@ -2319,7 +2320,7 @@ root.routes.push({
           meta: {
             pcname: 'currentEntrust',
             h5name: 'mobileTradingHallDetail',
-            requireLogin: true,
+            requireLogin: false,
             templateClose: false,
             templatePath: '/index/orderPageT',
             requireLoginOff: false,
@@ -2334,7 +2335,7 @@ root.routes.push({
           meta: {
             pcname: 'historicalEntrust',
             h5name: 'MobileHistoryOrder',
-            requireLogin: true,
+            requireLogin: false,
             templateClose: false,
             templatePath: '/index/orderPageT',
             requireLoginOff: false,
@@ -2349,7 +2350,7 @@ root.routes.push({
           meta: {
             pcname: 'historicalTransaction',
             h5name: '',
-            requireLogin: true,
+            requireLogin: false,
             templateClose: false,
             templatePath: '/index/orderPageT',
             requireLoginOff: false,
@@ -2364,7 +2365,7 @@ root.routes.push({
           meta: {
             pcname: 'capitalFlow',
             h5name: '',
-            requireLogin: true,
+            requireLogin: false,
             templateClose: false,
             templatePath: '/index/orderPageT',
             requireLoginOff: false,

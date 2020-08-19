@@ -916,11 +916,6 @@ root.methods.goToNoticeCenter = function (id) {
 
 // 获取汇率
 
-// 跳转法币订单
-root.methods.goToFrenchCurrecy = function (){
-  window.location.replace(process.env.DOMAIN+'index/Order/OrderConduct')
-}
-
 // 跳转法币交易
 root.methods.goToFranchExchange = function (){
   console.info(process.env.DOMAIN)
@@ -930,5 +925,140 @@ root.methods.goToFranchExchange = function (){
   }
   window.location.replace(process.env.DOMAIN+'index/Transaction/TransactionBuy')
 }
+// // 跳转币币交易
+// root.methods.goToBiBiExchange = function (){
+//   if(!this.isLogin){
+//     this.$router.push('/index/sign/login')
+//     return;
+//   }
+//   // window.location.replace(process.env.CONTRACT_URL+'index/tradingHall?symbol=KK_USDT')
+//   window.location.replace(this.$store.state.contract_url + 'index/tradingHall?symbol=KK_USDT');
+//
+// }
+
+//跳转到行情页面
+root.methods.goToIndexHomeMarket = function () {
+  window.location.replace(this.$store.state.contract_url + 'index/indexHomeMarket');
+}
+
+//跳转到币币交易页面
+root.methods.goToTradingHall = function () {
+  window.location.replace(this.$store.state.contract_url + 'index/tradingHall?symbol=KK_USDT');
+}
+//跳转到挖矿报名页面
+root.methods.goToOfficialQuantitativeRegistration = function () {
+  window.location.replace(this.$store.state.contract_url + 'index/officialQuantitativeRegistration');
+}
+//跳转到挖矿详情页面
+root.methods.goToOfficialQuantitativeDetails = function () {
+  window.location.replace(this.$store.state.contract_url + 'index/officialQuantitativeDetails');
+}
+
+//跳转到百宝箱详情页面
+root.methods.goToRecord = function () {
+  window.location.replace(this.$store.state.contract_url + 'index/LuckyDraw/Forecast');
+}
+//跳转到区块恋详情页面
+root.methods.goToProducts = function () {
+  window.location.replace(this.$store.state.contract_url + 'index/financialFund/fundProducts');
+}
+//跳转到拼团详情页面
+root.methods.goToTransactionBuy = function () {
+  this.$router.push({name:'TransactionBuy'});
+}
+//跳转到拼团详情页面
+root.methods.goToAssembleARegiment = function () {
+  window.location.replace(this.$store.state.contract_url + 'index/assembleARegiment');
+}
+//跳转跟单页面
+root.methods.goToFollowTrade = function () {
+  window.location.replace(this.$store.state.contract_url + 'index/followTrade');
+}
+//跳转到我的钱包页面
+root.methods.goToMyWallet = function () {
+  window.location.replace(this.$store.state.contract_url + 'index/asset/myWallet');
+}
+//跳转到法币账户页面
+root.methods.goToLegalCurrency = function () {
+  window.location.replace(this.$store.state.contract_url + 'index/asset/rechargeAndWithdrawals');
+}
+//跳转到合约账户页面
+root.methods.goToLegalPosition = function () {
+  window.location.replace(this.$store.state.contract_url + 'index/asset/contractRecord/warehousePosition');
+}
+//跳转到财务记录页面
+root.methods.goToRechargeRecord = function () {
+  window.location.replace(this.$store.state.contract_url + 'index/asset/record/rechargeRecord');
+}
+//跳转到锁仓记录页面
+root.methods.goToCurrentLockHouse = function () {
+  window.location.replace(this.$store.state.contract_url + 'index/asset/lockingRecord/currentLockHouse');
+}
+//跳转到币币订单页面
+root.methods.goToCurrentEntrust = function () {
+  window.location.replace(this.$store.state.contract_url + 'index/order/currentEntrust');
+}
+// 跳转法币订单DOMAIN
+root.methods.goToFrenchCurrecy = function (){
+  window.location.replace(process.env.DOMAIN+'index/Order/OrderConduct')
+}
+// 跳转合约订单DOMAIN
+root.methods.goToFrenchApi = function (){
+  this.$router.push('/index/order/currentEntrust')
+}
+//跳转到个人中心页面
+root.methods.goToSecurityCenter = function () {
+  window.location.replace(this.$store.state.contract_url + 'index/personal/securityCenter');
+}
+//跳转到法币设置页面
+root.methods.goToPaymentSet = function () {
+  this.$router.push('/index/PersonCenter/PaymentSet');
+}
+//跳转到身份认证页面
+root.methods.goToAuthentication = function () {
+  window.location.replace(this.$store.state.contract_url + 'index/personal/auth/authentication');
+}
+//跳转到安全日志页面
+root.methods.goToSecurityLog = function () {
+  window.location.replace(this.$store.state.contract_url + 'index/personal/securityLog');
+}
+//跳转到我的邀请页面
+root.methods.goToRecommend = function () {
+  window.location.replace(this.$store.state.contract_url + 'index/personal/Recommend/PcRecommend');
+}
+//跳转登录页面
+root.methods.goToLogin = function () {
+  window.location.replace(this.$store.state.contract_url + 'index/sign/login');
+}
+//跳转注册页面
+root.methods.goToRegister = function () {
+  window.location.replace(this.$store.state.contract_url + 'index/register');
+}
+
+
+//跳转退出登录PaymentSet
+root.methods.goOutRegain = function () {
+  this.$http.send('LOGIN_OFF',
+    {
+      bind: this,
+      params: {},
+      callBack: this.re_login_off_callback
+    }
+  ).then(({data}) => {
+    this.$store.commit('LOGIN_OUT');
+    // window.location.reload();
+    window.location.replace(this.$store.state.contract_url + 'index/sign/login')
+  })
+}
+
+root.methods.reFresh  = function () {
+  // if (this.$route.name == 'home') {
+  //   this.$router.go(0)
+  // }
+  window.location.replace(this.$store.state.contract_url + 'index/home')
+
+}
+
+
 
 export default root

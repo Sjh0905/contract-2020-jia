@@ -46,7 +46,7 @@ root.data = () => {
 
     workingTypeMap : {
       MARK_PRICE:"标记价格",
-      CONTRACT_PRICE:"合约最新价"
+      CONTRACT_PRICE:"最新价格"
     }
 
   }

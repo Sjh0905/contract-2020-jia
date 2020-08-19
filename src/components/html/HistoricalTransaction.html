@@ -26,7 +26,7 @@
       <template v-if="userId && historicalTransaction.length!==0">
         <div class="historica">
           <li class="flex tr-td"
-              :class="$route.name == 'currentEntrust'?'tr-td':'tr-td-col'"
+              :class="$route.name == 'historicalTransaction'?'tr-td':'tr-td-col'"
               v-for="(order,index) in historicalTransaction" :key="order.id">
 
             <!--时间-->
@@ -35,8 +35,7 @@
             <div class="td td-time">{{order.symbol}}</div>
             <!--方向-->
             <div class="td td-category-1" :class="order.side==='BUY'?'text_blue-3':'text_red-4'">
-              {{order.side === 'BUY' && $t('orderPageCurrentEntrustment.buy') ||
-              $t('orderPageCurrentEntrustment.sale')}}
+              {{$globalFunc.getOrderSide(order.positionSide,order.side)}}
             </div>
             <!--价格-->
             <div class="td td-market">{{toFixed(order.price,8)}}</div>

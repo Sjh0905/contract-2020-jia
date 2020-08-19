@@ -48,9 +48,11 @@
             <div class="td td-category" v-if="order.type == 'TRAILING_STOP_MARKET'">跟踪止损单</div>
             <!--订单类型 end -->
             <!--方向 begin -->
-            <div class="td td-market" :class="order.side==='BUY'?'text_blue-3':'text_red-4'">
-              {{order.type === 'BUY' && $t('orderPageHistoricalEntrustment.buy') ||
-              $t('orderPageHistoricalEntrustment.sale') }}</div>
+
+             <div class="td td-market" :class="order.side==='BUY'?'text_blue-3':'text_red-4'">
+             {{$globalFunc.getOrderSide(order.positionSide,order.side)}}
+             <!--国际化时用这个{{$t('orderPageHistoricalEntrustment.'+$globalFunc.getOrderSide(order.positionSide,order.side))}}-->
+             </div>
             <!--方向 end -->
 
             <!--价格 begin -->
@@ -66,7 +68,7 @@
             <!--数量 end -->
 
             <!--触发条件 begin -->
-            <div class="td td-price">{{(order.workingType)}}</div>
+            <div class="td td-price">{{order.stopPrice > 0 ? (workingTypeMap[order.workingType]+' <= '+toFixed(order.stopPrice, 2)) : '-'}}</div>
             <!--触发条件 end-->
 
             <!--状态 begin -->
