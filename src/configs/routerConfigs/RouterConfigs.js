@@ -2300,7 +2300,6 @@ root.routes.push({
         {
           path: '',
           redirect: 'currentEntrust',
-
           caseSensitive: true,
           meta: {
             pcname: 'currentEntrust',
