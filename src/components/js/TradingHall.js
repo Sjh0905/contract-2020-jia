@@ -1338,7 +1338,7 @@ root.methods.goToMarkedPrice = function () {
 // 合约首次风险提示弹窗关闭确认按钮
 root.methods.popCloseTemporarilyClosed = function () {
   this.popWindowContractRiskWarning = false
-  this.$router.push('index/home')
+  window.location.replace(this.$store.state.contract_url + 'index/tradingHall?symbol=KK_USDT');
 }
 
 // 第一次进入是否弹窗
