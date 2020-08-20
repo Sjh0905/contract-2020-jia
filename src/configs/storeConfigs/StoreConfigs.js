@@ -15,7 +15,7 @@ store.state.registerType = 1 // 0为手机注册，1为邮箱注册
 store.state.save_cookie = ''
 
 // 接口前缀
-store.state.urlHead = ''
+store.state.urlHead = 'apis'
 
 // 静态页地址
 store.state.static_url = process.env.STATIC_URL || 'http://static.2020.exchange'
