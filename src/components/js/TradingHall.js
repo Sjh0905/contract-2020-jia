@@ -1043,7 +1043,7 @@ root.methods.re_getExchangeRate = function (data) {
 //切换委托
 root.methods.clickTab = function (num) {
   this.isNow = num
-  console.warn('this is num', this.isNow)
+  // console.warn('this is num', this.isNow)
 }
 
 // 提示信息

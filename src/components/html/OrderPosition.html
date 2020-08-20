@@ -56,7 +56,7 @@
         <div class="td-time1-currency flex">
           <div :class="(item.positionAmt || 0) > 0 ?'td-time1-green':'td-time1-red'"></div>
           <div class="td-currency">{{item.symbol}}</div>
-          <div class="td-currency-btn">10X</div>
+          <div class="td-currency-btn">{{$store.state.leverage}}X</div>
         </div>
       </div>
       <!--数量-->
@@ -70,7 +70,11 @@
       <!--保证金比率-->
       <div class="td td-price">{{toFixed(item.isolatedMargin,2) + '%'}}</div>
       <!--保证金-->
-      <div class="td td-deposit">{{toFixed(item.isolatedMargin,2)}}</div>
+      <div class="td td-deposit">{{toFixed(item.isolatedWallet,2)}}{{item.marginType == 'cross'?'(全仓)':'(逐仓)'}}
+        <span class="modify-margin pointer" v-if="item.marginType == 'isolated'" @click="openModifyMargin(item)"></span>
+      </div>
+
+
       <!--未实现盈亏（回报率）-->
       <div class="td td-return-rate" :class="item.unrealizedProfit>0?'text_blue-3':'text_red-4'">{{toFixed(item.unrealizedProfit,2) || 0}} (9%)</div>
       <!--自动减仓-->
@@ -107,5 +111,66 @@
   <!-- 加载更多 end -->
   <PopupPrompt :popType="popType" :popText="popText" :popOpen="promptOpen" :popClose="closePrompt"></PopupPrompt>
 
-  <!--  <PopupPrompt :popType="promptType" :popOpen="promptOpen" :popClose="closePrompt"/>-->
+  <PositionModeBulletBox :switch="modifyMarginOpen" @close="modifyMarginClose">
+    <div slot="header" class="calculator-title flex">
+      <div class="positionMode-tit pointer" :class="{'border-bottom':styleType == 1}" @click="selectType(1)">增加保证金</div>
+      <div class="positionMode-tit pointer" :class="{'border-bottom':styleType == 2}" @click="selectType(2)">减少保证金</div>
+    </div>
+    <div slot="article" class="pop-article">
+      <div v-if="styleType == 1">
+        <div class="modify-margin-box">
+          <div class="total-money">总额（USDT）</div>
+          <div class="modify-margin-input flex">
+            <input type="text" placeholder="输入金额" v-model="increaseAmount">
+            <div class="modify-margin-text">最大：{{toFixed(availableBalance,2)}} USDT</div>
+          </div>
+          <div>{{AmountText}}</div>
+        </div>
+        <!--当前仓位保证金 USDT-->
+        <div class="modify-margin-des flex">
+          <div class="modify-margin-des-title">当前仓位保证金 USDT：</div>
+          <div class="modify-margin-des-number">{{toFixed(Number(modifyMarginMoney) || 0,2)}} USDT</div>
+        </div>
+        <!--可用余额-->
+        <div class="modify-margin-des flex">
+          <div class="modify-margin-des-title">可用余额：</div>
+          <div class="modify-margin-des-number">{{toFixed(availableBalance || 0,2)}} USDT</div>
+        </div>
+        <!--调整后强平价格-->
+        <div class="modify-margin-des flex">
+          <div class="modify-margin-des-title">调整后强平价格：</div>
+          <div class="modify-margin-des-number">{{toFixed(Number(liquidationPrice),2)}} USDT</div>
+        </div>
+      </div>
+
+      <div v-if="styleType == 2">
+        <div class="modify-margin-box">
+          <div class="total-money">总额（USDT）</div>
+          <div class="modify-margin-input flex">
+            <input type="text" placeholder="输入金额" v-model="reduceAmount">
+            <div class="modify-margin-text">最大：{{toFixed(Number(modifyMarginMoney) || 0,2)}} USDT</div>
+          </div>
+        </div>
+        <!--当前仓位保证金 USDT-->
+        <div class="modify-margin-des flex">
+          <div class="modify-margin-des-title">当前仓位保证金 USDT：</div>
+          <div class="modify-margin-des-number">{{toFixed(Number(modifyMarginMoney) || 0,2)}} USDT</div>
+        </div>
+        <!--最多可减少-->
+        <div class="modify-margin-des flex">
+          <div class="modify-margin-des-title">最多可减少：</div>
+          <div class="modify-margin-des-number">{{toFixed(Number(modifyMarginMoney) || 0,2)}} USDT</div>
+        </div>
+        <!--减少后强平价格-->
+        <div class="modify-margin-des flex">
+          <div class="modify-margin-des-title">减少后强平价格：</div>
+          <div class="modify-margin-des-number">{{toFixed(Number(liquidationPrice),2)}} USDT</div>
+        </div>
+      </div>
+
+    </div>
+    <div slot="footer" class="pop-footer flex-center">
+      <div class="modify-margin-commit" @click="commitModifyMargin">确认</div>
+    </div>
+  </PositionModeBulletBox>
 </div>

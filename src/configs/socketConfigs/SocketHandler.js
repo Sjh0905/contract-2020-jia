@@ -1,7 +1,7 @@
 import wsServer from './SocketServer'
 import Vue from 'vue'
 import GlobalFunction from '../globalFunctionConfigs/GlobalFunction'
-const EVENTNAMEARR = ['aggTrade','depthUpdate','markPriceUpdate','24hrTicker','kline','ORDER_TRADE_UPDATE']
+const EVENTNAMEARR = ['aggTrade','depthUpdate','markPriceUpdate','24hrTicker','kline','ORDER_TRADE_UPDATE','ACCOUNT_UPDATE']
 const CONNECTEDKEY = 'connect'
 
 export default class {

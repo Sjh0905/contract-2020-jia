@@ -86,8 +86,8 @@ root.computed.socketOrderKeyMap = function () {
 // socket推送过来的对象  组成数组进行页面渲染
 root.computed.socketOrdersArr = function (){
   // 处理socket返回对象
-  console.info('this.$store.state.orderTradeUpdate',)
-  console.info('socketOrders ===',this.socketOrders.length)
+  // console.info('this.$store.state.orderTradeUpdate',)
+  // console.info('socketOrders ===',this.socketOrders.length)
   return this.socketOrders || []
 }
 // 计算后的order，排序之类的放在这里
@@ -114,7 +114,6 @@ root.computed.serverTime = function () {
 
 /*----------------------------- 方法 ------------------------------*/
 
-
 root.methods = {}
 // 接收 socket 信息
 root.methods.receiveSocket = function () {
@@ -133,13 +132,13 @@ root.methods.receiveSocket = function () {
         smk && (message[smk] = message[k])
       }
 
-      if(message.X == 'NEW' ){//新增委托
+      if(message.X == 'NEW' ){ //新增委托
         this.currentOrder.unshift(message);
         return
       }
 
       if(message.X == 'PARTIAL_FILL'){//部分成交直接替换
-        for (let i = 0; i <this.currentOrder.length ; i++) {
+        for (let i = 0; i <this.currentOrder.length; i++) {
           let item = this.currentOrder[i]
           if(message.orderId == item.orderId){
             item = message
