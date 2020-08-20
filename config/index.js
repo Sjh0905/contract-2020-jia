@@ -25,9 +25,9 @@ module.exports = {
         // target: 'https://www.2020.exchange', //新测试环境2
         changeOrigin: true,
         // TODO 连测试、生产环境可以不用打开(有问题再说) 连IP也打开 如果连接后端人员个人电脑需要打开
-        pathRewrite: {
-          '^/apis': ''
-        }
+        // pathRewrite: {
+        //   '^/apis': ''
+        // }
       },
       '/crypto': {
         // target: 'http://192.168.2.163', //新测试环境1

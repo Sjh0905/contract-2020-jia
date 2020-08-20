@@ -105,7 +105,7 @@ root.methods.commitModifyMargin = function () {
 }
 root.methods.re_commitModifyMargin = function (data) {
   typeof data === 'string' && (data = JSON.parse(data))
-
+  this.getPositionRisk()
   this.increaseAmount = ''
   this.reduceAmount = ''
   this.modifyMarginClose()
@@ -128,7 +128,6 @@ root.methods.openModifyMargin = function (item) {
     return
   }
   this.positionSide = 'BOTH'
-
 }
 // 关闭逐仓弹框
 root.methods.modifyMarginClose = function () {
