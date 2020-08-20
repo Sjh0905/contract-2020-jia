@@ -15,7 +15,7 @@
   right: -100%;
   bottom: 0;
   background-color: #081724;
-  opacity: 0.4;
+  opacity: 0.7;
 }
 
 .popup {
@@ -27,7 +27,7 @@
   left: 50%;
   transform: translateY(-50%) translateX(-50%);
   border-radius: 1px;
-  box-shadow: 0 5px 10px 10px rgba(0, 0, 0, 0.05);
+  box-shadow:0px 0px 60px 0px rgba(255,255,255,0.1);
 
 }
 .min-popup{
@@ -39,7 +39,7 @@
   left: 50%;
   transform: translateY(-50%) translateX(-50%);
   border-radius: 1px;
-  box-shadow: 0 5px 10px 10px rgba(0, 0, 0, 0.05);
+  box-shadow:0px 0px 60px 0px rgba(255,255,255,0.1);
 }
 
 .popWindow-title {
@@ -138,7 +138,7 @@
     right: -100%;
     bottom: 0;
     background-color: #081724;
-    opacity: 0.4;
+    opacity: 0.7;
   }
 
   .popup {
