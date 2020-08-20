@@ -1,5 +1,5 @@
 // /apis->/crypto
-const urlHead = 'apis'
+const urlHead = ''
 const requestAddress = {}
 
 //合约账户接口 2020-07-13
