@@ -114,6 +114,9 @@
   margin-top: 30px;
   margin-bottom: 20px;
 }
+.empty-box {
+  height: 40px;
+}
 .wrong-text-red {
   color: #EF5656;
 }
@@ -356,7 +359,7 @@
   width: 10px;
   /*background: #1D232D;*/
   border: 2px solid #3576F5;
-  left: 18.5%;
+  left: 17.5%;
 }
 .block .radiusc_green {
   position: absolute;
@@ -368,7 +371,7 @@
   width: 10px;
   /*background: #1D232D;*/
   border: 2px solid #3576F5;
-  left: 37.5%;
+  left: 36.5%;
 }
 .block .radiusd_green {
   position: absolute;
@@ -381,7 +384,7 @@
   /*background: #1D232D;*/
   border: 2px solid #3576F5;
   /*border-radius: 10px;*/
-  left: 56.5%;
+  left: 55.5%;
 }
 .block .radiuse_green {
   position: absolute;
