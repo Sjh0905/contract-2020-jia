@@ -10,7 +10,7 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      '/apis': {
+      '/future': {
         // target: 'https://www.highdefi.com', //新测试环境1
         // target: 'http://www.2020-ex.com', //新测试环境1
         // target: 'http://13.114.169.150:8000', //新测试环境1
@@ -25,26 +25,26 @@ module.exports = {
         // target: 'https://www.2020.exchange', //新测试环境2
         changeOrigin: true,
         // TODO 连测试、生产环境可以不用打开(有问题再说) 连IP也打开 如果连接后端人员个人电脑需要打开
-        pathRewrite: {
-          '^/apis': ''
-        }
+        // pathRewrite: {
+        //   '^/apis': ''
+        // }
       },
-      '/crypto': {
-        // target: 'http://192.168.2.163', //新测试环境1
-        // target: 'http://www.2020.exchange', //新测试环境2
-        target:'https://www.2020.exchange',
-        changeOrigin: true,
-        pathRewrite: {
-          '^/crypto': ''
-        }
-      },
-      '/v1': {
-        target: 'http://192.168.2.70:8080/',
-        changeOrigin: true,
-        pathRewrite: {
-          '^/v1': '/v1'
-        }
-      },
+      // '/crypto': {
+      //   // target: 'http://192.168.2.163', //新测试环境1
+      //   // target: 'http://www.2020.exchange', //新测试环境2
+      //   target:'https://www.2020.exchange',
+      //   changeOrigin: true,
+      //   pathRewrite: {
+      //     '^/crypto': ''
+      //   }
+      // },
+      // '/v1': {
+      //   target: 'http://192.168.2.70:8080/',
+      //   changeOrigin: true,
+      //   pathRewrite: {
+      //     '^/v1': '/v1'
+      //   }
+      // },
       '/socket': {
         target: 'ws://staging-node.2020.exchange/',
         changeOrigin: true,

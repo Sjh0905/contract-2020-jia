@@ -11,7 +11,6 @@ import VueCookies from 'vue-cookies'
 
 import 'babel-polyfill'
 import ElementUI from 'element-ui';
-import Binance from 'node-binance-api';
 import 'element-ui/lib/theme-chalk/index.css';
 import LanguageConfig from './configs/languageConfigs/Language'
 import StoreConfigs from './configs/storeConfigs/StoreConfigs'
@@ -52,7 +51,6 @@ Vue.use(SocketConfigs)
 // Vue.component('vote-chart', ECharts)
 // Vue.use(Slider).use(MessageBox)
 Vue.use(ElementUI);
-Vue.use(Binance);
 
 
 const store = new Vuex.Store(StoreConfigs)
@@ -97,14 +95,6 @@ if (Vue.cookies) {
 Vue.filter('e', function (value) {
   return value.replace('_', '/');
 })
-
-// 添加币安接口至于全局
-const binance = new Binance().options({
-  test:true,
-  APIKEY: 'nwwpYwsP3MK1dGy1OOYK8hhSypP5hbj9O4XkkbyqjJshkQ4uDgRnSOoYkiIt9zMI',
-  APISECRET: 'ycvUHIbWvrdCxVxdOoBKqN9SWX7imb3DUMhlEzXvKmv9uVSNg5vbIZxjJNho4nQc'
-});
-Vue.prototype.$binance = binance
 
 const i18n = new VueI18n({
   locale: store.state.lang,

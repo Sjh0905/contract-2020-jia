@@ -214,4 +214,23 @@ tradingHallData.socketOrderKeyMap = {
   "cr":"priceRate",// 追踪止损回调比例/跟踪止损回调比例
   "rp":"",// 该交易实现盈亏
 }
+tradingHallData.socketPositionOrders = {
+  "s":"symbol",// 交易对
+  "pa":"positionAmt",  // 仓位
+  "ep":"entryPrice",  // 开仓价格
+  "cr":"",  // (费前)累计实现损益
+  "up":"unRealizedProfit",  // 持仓未实现盈亏
+  "mt":"marginType",  // 保证金模式
+  "iw":"isolatedMargin", // 若为逐仓，仓位保证金
+  "ps":"positionSide" , // 持仓方向
+
+
+  // "isAutoAddMargin": "false",
+  // "leverage": "10", // 当前杠杆倍数  aa
+  // "liquidationPrice": "0", // 参考强平价格  aa
+  // "markPrice": "6679.50671178",   // 当前标记价格  aa
+  // "maxNotionalValue": "20000000", // 当前杠杆倍数允许的名义价值上限
+
+}
+
 export default tradingHallData

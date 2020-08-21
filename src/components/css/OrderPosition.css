@@ -314,3 +314,105 @@ tr, th, td {
   background: #fff;
   padding: 10px;
 }
+.modify-margin {
+  display: inline-block;
+  width: 13px;
+  height: 13px;
+  vertical-align: sub;
+  background: url("../../assets/modify-margin.png") no-repeat center;
+  background-size: 100%;
+}
+.modify-margin:hover {
+  display: inline-block;
+  width: 13px;
+  height: 13px;
+  vertical-align: sub;
+  background: url("../../assets/modify-margin(hover).png") no-repeat center;
+  background-size: 100%;
+}
+.calculator-title {
+  font-size:16px;
+  font-family:PingFangSC-Medium,PingFang SC;
+  font-weight:500;
+  color: #A2B5D9;
+  width: 655px;
+  padding-left: 25px;
+  height: 60px;
+}
+.positionMode-tit {
+  margin-right: 40px;
+}
+.border-bottom {
+  color: #fff;
+  border-bottom: 2px solid #3576F5;
+}
+.pop-article {
+  padding: 25px 25px 20px;
+}
+
+.modify-margin-box {
+  width:350px;
+  height:87px;
+  font-size:12px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color:#A2B5D9;
+  margin-bottom: 15px;
+}
+.total-money {
+  margin-bottom: 10px;
+}
+.modify-margin-input {
+  height:40px;
+  line-height:40px;
+  border-radius:1px;
+  justify-content: space-between;
+  border:1px solid #384256;
+  padding: 0 15px;
+  color: #A2B5D9;
+  box-sizing: border-box;
+}
+.modify-margin-input input {
+  background: transparent;
+  border: none;
+  color: #A2B5D9;
+}
+/*placeholder样式*/
+.modify-margin-input input::placeholder {
+  color: #A2B5D9;
+}
+.modify-margin-input input::-moz-placeholder {
+  color: #A2B5D9;
+}
+.modify-margin-input input::-webkit-input-placeholder {
+  color: #A2B5D9;
+}
+.modify-margin-input input:-ms-input-placeholder {
+  color: #A2B5D9;
+}
+
+.modify-margin-des {
+  font-size:12px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color: #A2B5D9;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.pop-footer {
+  width: 100%;
+}
+.modify-margin-commit {
+  width: 100%;
+  height:40px;
+  line-height:40px;
+  text-align:center;
+  font-size:14px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color:#FFFFFF;
+  background:linear-gradient(270deg,rgba(53,118,245,1) 0%,rgba(69,154,245,1) 100%);
+  border-radius:1px;
+  margin-bottom: 30px;
+  cursor: pointer;
+}
