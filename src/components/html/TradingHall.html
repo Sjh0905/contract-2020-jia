@@ -387,7 +387,7 @@
       <div class="risk-alert">
         若有合约存在持仓或者挂单，不允许调整仓位模式。仓位模式调整对所有合约统一生效。
       </div>
-      <div class="flex" @click="positionModeSelected('singleWarehouseMode')">
+      <div class="flex pointer" @click="positionModeSelected('singleWarehouseMode')">
         <img class="single-position-img" src="../../assets/contract/contract_selected.png" alt="" v-if="positionModeFirstTemp == 'singleWarehouseMode'">
         <img class="single-position-img" src="../../assets/contract/contract_no_selected.png" alt="" v-else>
         <div class="">
@@ -395,7 +395,7 @@
           <div class="position-explanation">单向持仓模式下，一个合约只允许持有一个方向的仓位</div>
         </div>
       </div>
-      <div class="flex" @click="positionModeSelected('doubleWarehouseMode')">
+      <div class="flex pointer" @click="positionModeSelected('doubleWarehouseMode')">
         <img class="single-position-img" src="../../assets/contract/contract_selected.png" alt="" v-if="positionModeFirstTemp == 'doubleWarehouseMode'">
         <img class="single-position-img" src="../../assets/contract/contract_no_selected.png" alt="" v-else>
         <div class="">

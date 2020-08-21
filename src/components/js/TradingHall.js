@@ -1360,6 +1360,8 @@ root.methods.re_isFirstVisit = function (data) {
 
 // 合约首次风险提示弹窗确认按钮
 root.methods.openAContract = function () {
+  this.popWindowContractRiskWarning = false
+  return
   this.$http.send('POST_MANAGE_TIME',{
     bind: this,
     query: {},
