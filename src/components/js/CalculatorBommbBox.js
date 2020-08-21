@@ -203,14 +203,11 @@ root.methods.clickCalculation = function (){
   if(this.closingPrice == '' || this.openingPrice == '' || this.transactionQuantity == '') return
   if(this.moreEmptyType == 1){
     // 收益计算
-    // this.income = this.toFixed((Number(this.closingPrice) - Number(this.openingPrice)) * Number(this.transactionQuantity),2)
     this.income = this.toFixed(this.accMul((this.accMinus(Number(this.closingPrice) , Number(this.openingPrice))),Number(this.transactionQuantity)),2)
   }else{
-    // this.income = this.toFixed((Number(this.openingPrice) - Number(this.closingPrice)) * Number(this.transactionQuantity),2)
     this.income = this.toFixed(this.accMul((this.accMinus(Number(this.openingPrice),Number(this.closingPrice))),Number(this.transactionQuantity)),2)
   }
   // 起始保证金计算
-  // this.securityDeposit = this.toFixed(Number(this.openingPrice) * Number(this.transactionQuantity) / Number(this.calculatorValue),2)
   this.securityDeposit = this.toFixed(this.accDiv(this.accMul(Number(this.openingPrice), Number(this.transactionQuantity)),Number(this.calculatorValue)),2)
   // 回报率计算
   this.returnRate = this.toFixed( this.accDiv(this.income,(this.securityDeposit * 10 * 10)),2) +'%'
