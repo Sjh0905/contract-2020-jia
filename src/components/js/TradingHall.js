@@ -137,7 +137,7 @@ root.data = function () {
       50: '50X',
       75:'75X',
       100:'100X',
-      125:'125X'
+      125:'125X',
     },
     //调整杠杆 End
 
@@ -169,8 +169,9 @@ root.data = function () {
 
     dualSidePosition:false,  // "true": 双向持仓模式；"false": 单向持仓模式
     availableBalance:0 , // 可用余额
-
-    recordsIndex:0
+    recordsIndex:0,
+    // 显示的最大头寸
+    maximumPosition : ['50,000','250,000','100,0000','5,000,000','20,000,000','50,000,000','100,000,000','200,000,000'],
   }
 }
 
@@ -241,6 +242,44 @@ root.mounted = function () {
 
 // 计算symbol变化
 root.computed = {};
+// 最大头寸计算
+root.computed.maxPosition = function () {
+  let maxPosition = ''
+  if(this.value > 100 && this.value <= 125) {
+    maxPosition = this.maximumPosition[0]
+    return maxPosition
+  }
+  if(this.value > 50 && this.value <= 100) {
+    maxPosition = this.maximumPosition[1]
+    return maxPosition
+  }
+  if(this.value > 20 && this.value <= 50) {
+    maxPosition = this.maximumPosition[2]
+    return maxPosition
+  }
+  if(this.value > 10 && this.value <= 20) {
+    maxPosition = this.maximumPosition[3]
+    return maxPosition
+  }
+  if(this.value > 5 && this.value <= 10) {
+    maxPosition = this.maximumPosition[4]
+    return maxPosition
+  }
+  if(this.value = 5) {
+    maxPosition = this.maximumPosition[5]
+    return maxPosition
+  }
+  if(this.value = 4) {
+    maxPosition = this.maximumPosition[6]
+    return maxPosition
+  }
+  if(this.value =3) {
+    maxPosition = this.maximumPosition[7]
+    return maxPosition
+  }
+  maxPosition = ''
+  return maxPosition
+}
 // 当前货币对
 root.computed.symbol = function () {
   return this.$store.state.symbol;

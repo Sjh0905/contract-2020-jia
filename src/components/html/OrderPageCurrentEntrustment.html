@@ -38,7 +38,7 @@
               v-for="(order,index) in currentOrderComputed" :key="order.orderId">
 
             <!--时间 TODO：等接口加上time后需要删除updateTime-->
-            <div class="td td-time1">{{$globalFunc.formatDateUitl(order.updateTime || order.time,'YYYY-MM-DD hh:mm:ss')}}</div>
+            <div class="td td-time1">{{$globalFunc.formatDateUitl(order.time,'YYYY-MM-DD hh:mm:ss')}}</div>
             <!--<div class="td td-time1">{{order.updateTime}}</div>-->
             <!--合约-->
             <div class="td td-time">{{order.symbol}}</div>

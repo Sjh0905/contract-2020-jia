@@ -35,7 +35,7 @@ requestAddress.POST_STOP_POSITION = {url: urlHead+'/future/orders/stopPosition',
 requestAddress.GET_BALAN_ACCOUNT = {url: urlHead+'/future/account/userBalancev2', method: 'get'}  //账户
 requestAddress.GET_BALAN__BIAN = {url: urlHead+'/future/account/userAccountv2', method: 'get'}  //保障金余额
 requestAddress.GET_POSITION_RISKV = {url: urlHead + '/future/account/positionRiskv2', method: 'get' ,} // 仓位
-requestAddress.POST_POSITION_MARGIN = {url: urlHead + 'future/account/positionMargin', method: 'post' ,} // 调整逐仓保证金
+requestAddress.POST_POSITION_MARGIN = {url: urlHead + '/future/account/positionMargin', method: 'post' ,} // 调整逐仓保证金
 
 
 // requestAddress.INDEXHEADER = {url: '', method: 'get', timeout: null, responseType: null} //demo
@@ -201,8 +201,6 @@ requestAddress.POST_POSITION_MARGIN = {url: urlHead + 'future/account/positionMa
 // // 点击取消\添加自选区
 // requestAddress.POST_COLLECTION_SYMBOL = {url: urlHead+'/user/collectSymbol', method: 'post'}
 //
-//
-//
 // //2020-02-18，转账相关接口
 // // requestAddress.REGISTER_BY_MOBILE = {url: urlHead+'/user/registerByMobile', method: 'post'}  // 手机注册
 // // requestAddress.LOGIN_BY_MOBILE = {url: urlHead+'/user/signInByMobile', method: 'post'}  // 手机登录
@@ -211,7 +209,7 @@ requestAddress.POST_POSITION_MARGIN = {url: urlHead + 'future/account/positionMa
 // requestAddress.POST_VERIFYIDENTITY_USER = {url: urlHead+'/user/verifyIsIdentityUser', method: 'post'} //验证收款人是否为实名认证用户
 // // 查询当前币种的转账数量限制与手续费等信息
 // requestAddress.GET_TRANSFER_AMOUNT_INFO = {url: urlHead+'/user/transfer/getTransferAmountInfo', method: 'get'} // 获取当前币种是否可以转账
-//
+
 
 
 

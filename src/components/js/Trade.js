@@ -283,7 +283,7 @@ root.methods.initViews = function (lang) {
         //   start: fromTime * 1000,
         //   end: toTime * 1000
         // })
-        this._send(self.urlHead+'future/common/candlestick', {
+        this._send(self.urlHead+'/future/common/candlestick', {
           symbol:self.$globalFunc.toOnlyCapitalLetters(symbolInfo.ticker),
           interval:resolution_mapping[resolution],
           start: fromTime * 1000,
@@ -338,7 +338,7 @@ root.methods.initViews = function (lang) {
       //   start: fromTime * 1000,
       //   end: toTime * 1000
       // })
-      this._send(self.urlHead+'future/common/candlestick', {
+      this._send(self.urlHead+'/future/common/candlestick', {
         symbol:self.$globalFunc.toOnlyCapitalLetters(symbolInfo.ticker),
         interval:resolution_mapping[resolution],
         start: fromTime * 1000,

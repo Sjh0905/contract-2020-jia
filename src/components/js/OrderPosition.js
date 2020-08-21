@@ -87,9 +87,17 @@ root.watch = {}
 root.methods = {}
 
 root.methods.commitModifyMargin = function () {
-
-  if(this.increaseAmount==''){
-
+  if(this.increaseAmount == '') {
+    this.popText = '请输入数量'
+    this.popType = 0;
+    this.promptOpen = true;
+    return
+  }
+  if(this.reduceAmount == '') {
+    this.popText = '请输入数量'
+    this.popType = 0;
+    this.promptOpen = true;
+    return
   }
   this.$http.send("POST_POSITION_MARGIN", {
     bind: this,
