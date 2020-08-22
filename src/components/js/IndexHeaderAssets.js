@@ -182,7 +182,7 @@ root.methods.goOutRegain = function () {
 root.methods.re_login_off_callback = function ({data}) {
   // 清除cookie
   // this.$cookies.remove("popShow");
-  alert('123123123');
+  // alert('123123123');
   this.$store.commit('LOGIN_OUT');
   window.location.reload();
   window.location.replace(this.$store.state.contract_url + 'index/sign/login')

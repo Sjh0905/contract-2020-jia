@@ -227,7 +227,7 @@ root.methods.error_getAccount = function (err) {
 
 // 仓位
 root.methods.getPositionRisk = function () {
-  this.$http.send("GET_POSITION_RISKV", {
+  this.$http.send("GET_POSITION_RISK", {
     bind: this,
     query: {
       timestamp: this.serverTime
@@ -248,7 +248,9 @@ root.methods.re_getPositionRisk = function (data) {
     }
   })
   this.records = filterRecords
-  this.recordsIndex = this.records.length
+  if(this.records.length == 0) return
+  this.recordsIndex = filterRecords.length
+  // console.info('this.recordsIndex===',this.recordsIndex)
   this.$emit('getPositionRisk',this.recordsIndex);
 }
 // 获取记录出错

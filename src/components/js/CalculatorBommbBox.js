@@ -182,9 +182,6 @@ root.watch.moreEmptyType = function (oldVal,newVal) {
 }
 /*------------------------------ 方法 -------------------------------*/
 root.methods = {}
-
-
-
 /*---------------------- hover弹框 begin ---------------------*/
 root.methods.closePositionBox= function (name) {
   $("." + name).attr("style","display:none");
@@ -210,7 +207,7 @@ root.methods.clickCalculation = function (){
   // 起始保证金计算
   this.securityDeposit = this.toFixed(this.accDiv(this.accMul(Number(this.openingPrice), Number(this.transactionQuantity)),Number(this.calculatorValue)),2)
   // 回报率计算
-  this.returnRate = this.toFixed( this.accDiv(this.income,(this.securityDeposit * 10 * 10)),2) +'%'
+  this.returnRate = this.toFixed( this.accDiv(this.income,(this.securityDeposit * 10 * 10)),2)
 }
 
 // 目标价格计算
@@ -242,6 +239,7 @@ root.methods.selectType = function (type) {
 }
 // 处理滑动条显示框内容
 root.methods.formatTooltip=(val)=>{
+  console.info(val)
   return  val + '%';
 }
 // // 关闭计算器弹窗

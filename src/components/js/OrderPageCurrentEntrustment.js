@@ -47,7 +47,8 @@ root.data = () => {
     workingTypeMap : {
       MARK_PRICE:"标记价格",
       CONTRACT_PRICE:"最新价格"
-    }
+    },
+    currentOrdersLength:0
 
   }
 }
@@ -60,6 +61,11 @@ root.props.tradinghallLimit = {
 }
 
 root.watch = {};
+root.watch.currentOrder = function (newVal,oldVal){
+  this.currentOrdersLength = newVal.length
+  this.$emit('getcurrentOrdersLength',this.currentOrdersLength);
+  // console.info('newVal===',newVal,this.currentOrdersLength)
+}
 
 root.created = function () {
   this.getOrder()
@@ -169,8 +175,7 @@ root.methods.getOrder = function () {
     this.loading = false
     return
   }
-  this.$http.send('GET_CURRENT_DELEGATION',
-    {
+  this.$http.send('GET_CURRENT_DELEGATION', {
       bind: this,
       query: {
         symbol:'BTCUSDT',
@@ -183,13 +188,14 @@ root.methods.getOrder = function () {
 }
 // 获取订单回调
 root.methods.re_getOrder = function (data) {
-  console.log('this is currOrder',JSON.stringify(data));
+  // console.log('this is currOrder',JSON.stringify(data));
   typeof(data) == 'string' && (data = JSON.parse(data));
   this.loading = false
   this.currentOrder = data.data || []
-
+  this.currentOrdersLength = this.currentOrder.length
+  this.$emit('getcurrentOrdersLength',this.currentOrdersLength);
+  // console.info('this.currentOrdersLength',this.currentOrdersLength)
   // this.currentOrder.push()
-
 }
 // 获取订单出错
 root.methods.error_getOrder = function (err) {

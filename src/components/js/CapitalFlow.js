@@ -62,10 +62,8 @@ root.methods.re_getCapitalFlow = function (data) {
   typeof(data) == 'string' && (data = JSON.parse(data));
   if(!data && !data.data)return
   this.loading = false
-  console.info('data====',data.data)
+  // console.info('data====',data.data)
   this.capitalFlowList = data.data
-
-
 }
 // 资金流水错误回调
 root.methods.error_getCapitalFlow = function (err) {
@@ -86,10 +84,6 @@ root.methods.bianBalance = function (item) {
 
 root.methods.re_bianBalance = function ( data ) {
   typeof (data) === 'string' && (data = JSON.parse(data))
-
-  // this.balance = data.data[0]
-  // console.info('币安接口账户余额',this.balance)
-  console.info('币安接口账户余额',data)
   this.totalWalletBalance = data.data.totalWalletBalance
   this.totalUnrealizedProfit = data.data.totalUnrealizedProfit
   this.totalMarginBalance = data.data.totalMarginBalance

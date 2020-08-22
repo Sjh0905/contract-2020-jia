@@ -531,8 +531,7 @@ root.methods.changeLanguage = function (lang) {
 }
 // 登出
 root.methods.loginOff = function () {
-  this.$http.send('LOGIN_OFF',
-    {
+  this.$http.send('LOGIN_OFF', {
       bind: this,
       params: {},
       callBack: this.re_login_off_callback
@@ -545,6 +544,7 @@ root.methods.re_login_off_callback = function (data) {
   this.$cookies.remove("popShow");
   this.$store.commit('LOGIN_OUT');
   window.location.reload();
+  // window.location.replace(process.env.CONTRACT_URL+'index/sign/login')
 }
 
 

@@ -169,9 +169,11 @@ root.data = function () {
 
     dualSidePosition:false,  // "true": 双向持仓模式；"false": 单向持仓模式
     availableBalance:0 , // 可用余额
-    recordsIndex:0,
+    recordsIndex:0, // 仓位数量
+    currentLength:0, // 当前委托数量
     // 显示的最大头寸
     maximumPosition : ['50,000','250,000','100,0000','5,000,000','20,000,000','50,000,000','100,000,000','200,000,000'],
+
   }
 }
 
@@ -242,6 +244,11 @@ root.mounted = function () {
 
 // 计算symbol变化
 root.computed = {};
+// 计算是否有仓位和当前委托
+root.computed.isHasOrders = function (){
+  if(this.currentLength && this.recordsIndex) return false
+  return true
+}
 // 最大头寸计算
 root.computed.maxPosition = function () {
   let maxPosition = ''
@@ -713,6 +720,45 @@ root.methods.popWindowClosePositionModeBullet = function () {
 root.methods.securityDepositMode = function (cardType) {
   this.marginModeTypeTemp = cardType
 }
+// 获取订单
+root.methods.getOrder = function () {
+  if (!this.$store.state.authState.userId) {
+    this.loading = false
+    return
+  }
+  this.$http.send('GET_CURRENT_DELEGATION', {
+    bind: this,
+    query: {
+      symbol:'BTCUSDT',
+      timestamp:this.serverTime,
+      orderId:'1231212'
+    },
+    callBack: this.re_getOrder,
+    errorHandler: this.error_getOrder,
+  })
+}
+// 获取订单回调
+root.methods.re_getOrder = function (data) {
+  // console.log('this is currOrder',JSON.stringify(data));
+  typeof(data) == 'string' && (data = JSON.parse(data));
+  let currentOrder = data.data || []
+  this.currentLength = currentOrder.length
+  // console.info('this.currentOrdersLength',this.currentOrdersLength)
+  // this.currentOrder.push()
+}
+// 获取订单出错
+root.methods.error_getOrder = function (err) {
+  console.warn("获取订单出错！")
+}
+
+// 获取仓位子组件的值
+root.methods.getIndex = function (index) {
+  this.recordsIndex = index
+}
+// 获取当前委托子组件的值
+root.methods.getOrdersLength = function (index) {
+  this.currentLength = index
+}
 root.methods.positionRisk = function () {
   this.$http.send('GET_POSITION_RISK',{
     bind: this,
@@ -722,6 +768,7 @@ root.methods.positionRisk = function () {
 root.methods.re_positionRisk = function (data) {
   typeof(data) == 'string' && (data = JSON.parse(data));
   if(!data || !data.data || data.data == []) return
+  let filterRecords = []
   data.data.forEach(v=>{
     if (v.symbol == 'BTCUSDT') {
       this.$store.commit("CHANGE_LEVERAGE", v.leverage);
@@ -732,6 +779,10 @@ root.methods.re_positionRisk = function (data) {
       }
       this.marginType = 'CROSSED'
       this.marginModeType = 'quanCang'
+
+      // if (v.positionAmt != 0) {
+      //   filterRecords.push(v)
+      // }
     }
   })
 }
@@ -912,9 +963,7 @@ root.methods.init = function () {
   this.initSocket();
   // 初始化数据请求
   this.initGetDatas();
-
 }
-
 
 // 判断验证状态
 root.methods.getAuthState = function () {
@@ -1225,6 +1274,12 @@ root.methods.positionModeSelectedConfirm = function () {
   // 如果是相同仓位切换，直接关闭
   if((this.dualSidePosition == false && this.positionModeFirstTemp == 'singleWarehouseMode') || (this.dualSidePosition == true && this.positionModeFirstTemp == 'doubleWarehouseMode')){
     this.popWindowPositionModeBulletBox = false
+    return
+  }
+  if(this.isHasOrders){
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '调整仓位失败';
     return
   }
   this.$http.send('POST_SINGLE_DOUBLE',{

@@ -47,7 +47,7 @@
       <li class="hidden-detail-li hidden-detail-li-article flex-center" v-for="(detail,index) in orderDetail"
           :key="index">
         <!--时间 begin -->
-        <div class="hidden-detail-article">{{$globalFunc.formatDateUitl(detail.createdAt,'YYYY-MM-DD hh:mm:ss')}}</div>
+        <div class="hidden-detail-article">{{$globalFunc.formatDateUitl(detail.time,'YYYY-MM-DD hh:mm:ss')}}</div>
         <!--时间 end -->
 
         <!--交易价格 begin -->
@@ -55,11 +55,11 @@
         <!--交易价格 end -->
 
         <!--成交数量 begin -->
-        <div class="hidden-detail-article">{{toFixed(detail.amount, !!quoteScale_list[symbol] ? quoteScale_list[symbol].baseScale : 8)}} {{symbol.split('_')[0]}}</div>
+        <div class="hidden-detail-article">{{toFixed(detail.executedQty, !!quoteScale_list[symbol] ? quoteScale_list[symbol].baseScale : 8)}} {{symbol.split('_')[0]}}</div>
         <!--成交数量 end -->
 
         <!--手续费 begin -->
-        <div class="hidden-detail-article">{{toFixed(accMul(detail.price , detail.amount, 8))}}
+        <div class="hidden-detail-article">{{toFixed(commission, 8)}}
           {{symbol.split('_')[1]}}
         </div>
         <!--手续费 end -->
@@ -96,7 +96,6 @@
 
         <!--如果开抵扣了，显示抵扣 begin -->
         <div class="hidden-detail-article" v-if="orderDetail.length==1 && replaced">
-
           <p class="hidden-detail-article-box hidden-detail-article-really-currency">
             <span class="hidden-detail-article-item hidden-detail-article-really-currency-item"
               v-if="originalFee !==refundedFee">

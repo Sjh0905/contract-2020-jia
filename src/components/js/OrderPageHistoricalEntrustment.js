@@ -138,13 +138,13 @@ root.methods.canShowDetail = function (order) {
 }
 
 // // 显示详情
-// root.methods.showDetail = function (id) {
-//   if (this.clickThis === id) {
-//     this.clickThis = -1
-//     return
-//   }
-//   this.clickThis = id
-// }
+root.methods.showDetail = function (id) {
+  if (this.clickThis === id) {
+    this.clickThis = -1
+    return
+  }
+  this.clickThis = id
+}
 
 // 点击加载更多
 root.methods.clickLoadingMore = function () {

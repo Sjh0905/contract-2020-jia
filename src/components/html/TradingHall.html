@@ -326,7 +326,7 @@
       <!--当前委托-->
       <div class="tradinghall-order-tab txt-bold"
            :class="isNow==0?'tradinghall-order-activetab':'tradinghall-order-tab3'"
-           @click="clickTab(0)">{{$t("now")}}
+           @click="clickTab(0)">{{$t("now")}}({{currentLength}})
       </div>
       <!--历史委托-->
       <div class="tradinghall-order-tab txt-bold"
@@ -355,13 +355,13 @@
     </div>
 
     <div v-if="isNow === 4" class="trading-hall-order-box-detail">
-      <OrderPosition :tradinghallLimit="tradinghallLimit" :latestPriceVal = 'latestPriceVal' :effectiveTime = 'effectiveTime' :availableBalance='availableBalance'/>
+      <OrderPosition :tradinghallLimit="tradinghallLimit" :latestPriceVal = 'latestPriceVal' :effectiveTime = 'effectiveTime' :availableBalance='availableBalance' @getPositionRisk="getIndex"/>
     </div>
     <div v-if="isNow === 5" class="trading-hall-order-box-detail">
       <OrderMarginBalance :tradinghallLimit="tradinghallLimit"/>
     </div>
     <div v-if="isNow === 0" class="trading-hall-order-box-detail">
-      <orderCurrent :tradinghallLimit="tradinghallLimit"/>
+      <orderCurrent :tradinghallLimit="tradinghallLimit" @getcurrentOrdersLength="getOrdersLength"/>
     </div>
     <div v-if="isNow === 1" class="trading-hall-order-box-detail">
       <orderHistory :tradinghallLimit="tradinghallLimit"/>
@@ -423,7 +423,7 @@
         <div class="selected-mode" :class="{'selected-cardType-mode':marginModeTypeTemp == 'zhuCang'}" @click="securityDepositMode('zhuCang')">逐仓</div>
       </div>
       <div class="mode-only">· 调整保证金模式仅对当前合约生效。</div>
-      <div class="mode-error">当前合约存在持仓和挂单，不支持调整保证金模式</div>
+      <div class="mode-error" v-if="isHasOrders">当前合约存在持仓和挂单，不支持调整保证金模式</div>
       <div class="money-confirmation" @click="marginModeConfirm">确认</div>
       <!--确认不可点击状态-->
 <!--      <div class="money-confirmation-ash">确认</div>-->

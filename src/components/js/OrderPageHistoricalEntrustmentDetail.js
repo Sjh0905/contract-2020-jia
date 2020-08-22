@@ -27,6 +27,9 @@ root.data = function () {
 
     feeDetailReady: false, //获取费率详情成功
     orderDetailReady: false,//获取各订单成功
+    historicaList:[], // 历史成交订单
+    commission:'', // 手续费
+    commissionAsset:'' , // 手续费单位
   }
 }
 
@@ -43,10 +46,10 @@ root.props.symbol = {
   type: String,
   required: true
 }
-root.props.orderType = {
-  type: Number,
-  required: true
-}
+// root.props.orderType = {
+//   type: Number,
+//   required: true
+// }
 
 /*------------------------------ 计算 -------------------------------*/
 
@@ -124,33 +127,65 @@ root.computed.quoteScale_list = function () {
 
 root.created = function () {
   this.getDetail()
-  this.getFeeDetail()
+  // this.getFeeDetail()
+  // this.getHistorTrans()
 }
-
 
 /*------------------------------ 方法 -------------------------------*/
 
 root.methods = {}
+// 历史成交
+// root.methods.getHistorTrans = function () {
+//   this.$http.send('GET_CAPITAL_DEAL',{
+//     bind: this,
+//     query:{
+//       symbol:'BTCUSDT',
+//       timestamp:this.serverTime
+//     },
+//     callBack: this.re_getHistorTrans,
+//     errorHandler:this.error_getHistorTrans
+//   })
+// }
+// // 历史成交正确回调
+// root.methods.re_getHistorTrans = function (data) {
+//   typeof(data) == 'string' && (data = JSON.parse(data));
+//   if(!data && !data.data) return
+//   this.historicaList = data.data || []
+//   this.historicaList.forEach(v=>{
+//     if(v.orderId === this.orderId){
+//       this.commission = v.commission
+//       this.commissionAsset = v.commissionAsset
+//     }
+//     console.info('this.commission=',this.commission,this.commissionAsset)
+//   })
+//   this.loading = !this.orderDetailReady
+//   this.orderDetailReady = true
+//
+// }
+// 历史成交错误回调
+// root.methods.error_getHistorTrans = function (err) {
+//   console.log('获取币安24小时价格变动接口',err)
+// }
+
 // 获取订单详情
 root.methods.getDetail = function () {
-  this.$http.send('GET_ORDERS_DETAIL', {
+  this.$http.send('GET_CAPITAL_ALL_FLOW', {
     bind: this,
-    urlFragment: `/${this.orderId}/matches`,
-    params: {
-      limit: this.limit,
+    query: {
+      symbol: this.symbol,
+      orderId:this.orderId
     },
     callBack: this.re_getDetail,
     errorHandler: this.error_getDetail,
   })
 }
-
 // 获取订单详情回调
 root.methods.re_getDetail = function (data) {
   typeof data === 'string' && (data = JSON.parse(data))
-  if (!data || !data.matches) return false
+  if (!data) return false
   // console.warn("order detail获取到数据！", data)
-  this.orderDetail = data.matches
-  console.log('===============================',data.matches)
+  this.orderDetail = data.data
+  // console.log('===============================',data.matches)
   this.orderDetailReady = true
   this.loading = !this.orderDetailReady
 }
@@ -159,46 +194,44 @@ root.methods.error_getDetail = function (err) {
   console.warn("order detail获取数据失败！", err)
 }
 
-
-// 获取费率
-root.methods.getFeeDetail = function () {
-  this.$http.send('POST_FEE_DETAIL', {
-    bind: this,
-    params: {
-      orderId: this.orderId,
-      // orderId: '2817743'
-    },
-    callBack: this.re_getFeeDetail,
-    errorHandler: this.error_getFeeDetail
-  })
-}
-
-// 获取费率回调
-root.methods.re_getFeeDetail = function (data) {
-  typeof data === 'string' && (data = JSON.parse(data))
-  if (!data) return
-  console.warn("获取费率详情！", data)
-  this.feeDetailReady = true
-  this.loading = !(this.orderDetailReady && this.feeDetailReady)
-  if (data.errorCode) {
-    this.originalFee = this.totalFee
-    return
-  }
-  this.replaced = true
-  let fundObj = data.dataMap.extOrderFeeRefund
-  this.originalCurrency = fundObj.originalFeeCurrency
-  this.replacedCurrency = fundObj.replacedFeeCurrency
-  this.originalFee = fundObj.originalFee
-  this.refundedFee = fundObj.refundedFee
-  this.replacedFee = fundObj.replacedFee
-
-}
-// 获取费率失败
-root.methods.error_getFeeDetail = function (err) {
-  console.warn("获取费率详情出错！", err)
-  this.feeDetailReady = true
-  this.loading = !this.orderDetailReady
-}
+// // 获取费率
+// root.methods.getFeeDetail = function () {
+//   this.$http.send('POST_FEE_DETAIL', {
+//     bind: this,
+//     params: {
+//       orderId: this.orderId,
+//       // orderId: '2817743'
+//     },
+//     callBack: this.re_getFeeDetail,
+//     errorHandler: this.error_getFeeDetail
+//   })
+// }
+// // 获取费率回调
+// root.methods.re_getFeeDetail = function (data) {
+//   typeof data === 'string' && (data = JSON.parse(data))
+//   if (!data) return
+//   // console.warn("获取费率详情！", data)
+//   this.feeDetailReady = true
+//   this.loading = !(this.orderDetailReady && this.feeDetailReady)
+//   if (data.errorCode) {
+//     this.originalFee = this.totalFee
+//     return
+//   }
+//   this.replaced = true
+//   let fundObj = data.dataMap.extOrderFeeRefund
+//   this.originalCurrency = fundObj.originalFeeCurrency
+//   this.replacedCurrency = fundObj.replacedFeeCurrency
+//   this.originalFee = fundObj.originalFee
+//   this.refundedFee = fundObj.refundedFee
+//   this.replacedFee = fundObj.replacedFee
+//
+// }
+// // 获取费率失败
+// root.methods.error_getFeeDetail = function (err) {
+//   console.warn("获取费率详情出错！", err)
+//   this.feeDetailReady = true
+//   this.loading = !this.orderDetailReady
+// }
 
 /*---------------------- 保留小数 begin ---------------------*/
 root.methods.toFixed = function (num, acc = 8) {

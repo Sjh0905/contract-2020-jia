@@ -21,7 +21,7 @@ requestAddress.GET_POSITIONSIDE_DUAL = {url: urlHead + '/future/account/position
 requestAddress.POST_SINGLE_DOUBLE = {url: urlHead + '/future/account/positionSide', method: 'post',} // 切换单双仓
 requestAddress.POST_LEVELRAGE = {url: urlHead + '/future/account/levelrage', method: 'post',} // 调整杠杆接口
 requestAddress.POST_MARGIN_TYPE = {url: urlHead + '/future/account/marginType', method: 'post',} // 变换全仓逐仓
-requestAddress.GET_POSITION_RISK = {url: urlHead + '/future/account/positionRiskv2', method: 'get' ,} // 查询全仓逐仓 杠杆倍数 最大头寸
+requestAddress.GET_POSITION_RISK = {url: urlHead + '/future/account/positionRiskv2', method: 'get' ,} // 仓位接口 查询全仓逐仓 杠杆倍数 最大头寸
 
 requestAddress.GET_DEPTH = {url: urlHead + '/future/common/depth', method: 'get',} // 合约深度
 requestAddress.GET_AGG_TRADES = {url: urlHead + '/future/common/aggTrades', method: 'get',} // 获取实时成交
@@ -33,9 +33,11 @@ requestAddress.POST_ORDERS_CREATE = {url: urlHead + '/future/orders/create', met
 requestAddress.POST_STOP_POSITION = {url: urlHead+'/future/orders/stopPosition', method: 'post'}  //止盈止损接口
 
 requestAddress.GET_BALAN_ACCOUNT = {url: urlHead+'/future/account/userBalancev2', method: 'get'}  //账户
-requestAddress.GET_BALAN__BIAN = {url: urlHead+'/future/account/userAccountv2', method: 'get'}  //保障金余额
-requestAddress.GET_POSITION_RISKV = {url: urlHead + '/future/account/positionRiskv2', method: 'get' ,} // 仓位
 requestAddress.POST_POSITION_MARGIN = {url: urlHead + '/future/account/positionMargin', method: 'post' ,} // 调整逐仓保证金
+requestAddress.LOGIN_OFF = {url: urlHead+'/future/common/signout', method: 'post'} //登出
+requestAddress.GET_BALAN__BIAN = {url: urlHead+'/future/account/userAccountv2', method: 'get'}  //保障金余额
+// requestAddress.GET_POSITION_RISKV = {url: urlHead + '/future/account/positionRiskv2', method: 'get' ,} // 仓位
+
 
 
 // requestAddress.INDEXHEADER = {url: '', method: 'get', timeout: null, responseType: null} //demo
@@ -53,7 +55,7 @@ requestAddress.POST_POSITION_MARGIN = {url: urlHead + '/future/account/positionM
 // requestAddress.GOOGLEVALIDATIONSECOND = {url: urlHead+'/auth/bindGA', method: 'post'} //谷歌验证
 // requestAddress.CHECKLOGININ = {url: urlHead+'/user/checkLogin', method: 'post'} //检查登录
 // requestAddress.POST_VERIFICATION_CODE = {url: urlHead+'/auth/getVerificationCode', method: 'post'} //发起各种验证码请求，如谷歌、手机等
-// requestAddress.LOGIN_OFF = {url: urlHead+'/user/signout', method: 'post'} //登出
+// requestAddress.LOGIN_OFF = {url: urlHead+'/apis/user/signout', method: 'post'} //登出
 // requestAddress.RECHARGE_AND_WITHDRAWALS_RECORD = {url: urlHead+'/v1/user/currency/accounts', method: 'get'}//请求充值提现记录
 // requestAddress.RECHARGE = {url: urlHead+'/user/deposit', method: 'post'} //充值
 // // requestAddress.GET_CURRENCY = {url: urlHead+'/user/currencys', method: 'get'} //获取币种
