@@ -1379,7 +1379,7 @@ root.methods.popWindowCloseAdjustingLever = function () {
 // 关闭调整杠杆 End
 
 // 处理滑动条显示框内容
-root.methods.formatTooltip=(val)=>{
+root.methods.formatTooltip =(val)=>{
   return  val + 'X';
 }
 //调整杠杆 End

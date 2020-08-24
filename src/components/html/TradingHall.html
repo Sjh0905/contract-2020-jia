@@ -27,7 +27,7 @@
           </div>
           <div class="cen2">
             <div class="cen31 border-dashed" @mouseenter="openPositionBox('marked-price')" @mouseleave="closePositionBox('marked-price')">标记价格</div>
-            <div class="marked-price">你的持仓的平均买入/卖出成交价格。</div>
+            <div class="marked-price">该合约的实时标记价格。此标记价格将用于计算盈亏及保证金，可能与合约最新成交价格有所偏差，以避免价格操纵。</div>
             <div class="cen32"><span class="txt detail_txt">{{toFixed(markPrice || 0,quoteScale)}}</span></div>
           </div>
           <div class="cen2">
