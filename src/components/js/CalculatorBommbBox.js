@@ -240,7 +240,7 @@ root.methods.selectType = function (type) {
 // 处理滑动条显示框内容
 root.methods.formatTooltip=(val)=>{
   console.info(val)
-  return  val + '%';
+  return  val + 'X';
 }
 // // 关闭计算器弹窗
 root.methods.closeClick = function () {

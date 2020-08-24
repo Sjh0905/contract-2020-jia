@@ -816,6 +816,7 @@
 .marked-price {
   display: none;
   position: absolute;
+  width: 250px;
   top: 60%;
   left:16.5%;
   font-size:12px;

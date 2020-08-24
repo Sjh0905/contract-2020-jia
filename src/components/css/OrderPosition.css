@@ -113,7 +113,9 @@ tr, th, td {
   display: inline-block;
   float: right;
   /*width: 54px;*/
-  padding: 0 15px;
+  /*padding: 0 15px;*/
+  width: 25%;
+  text-align: center;
   height: 28px;
   line-height: 28px;
   background: #3576F5;
@@ -122,12 +124,12 @@ tr, th, td {
 }
 .market-price:hover {
   /*width: 54px;*/
-  padding: 0 15px;
-  height: 28px;
-  line-height: 28px;
+  /*padding: 0 15px;*/
+  /*height: 28px;*/
+  /*line-height: 28px;*/
   background: rgba(53,118,245,.5);
   cursor: pointer;
-  border-radius:1px;
+  /*border-radius:1px;*/
 }
 .td-time1-currency {
   align-items: center;
