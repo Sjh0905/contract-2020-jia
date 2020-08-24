@@ -83,7 +83,16 @@ root.props.markPrice = {
   type: String,
   default: ''
 }
-
+// 可平数量
+root.props.positionAmtLong = {
+  type: Number,
+  default: 0
+}
+// 可平数量
+root.props.positionAmtShort = {
+  type: Number,
+  default: 0
+}
 
 /*----------------------------- 计算 ------------------------------*/
 // 可开BTC
@@ -361,6 +370,7 @@ root.created = function () {
   this.show_now_price();
 
   this.getKKPriceRange();
+  console.info('positionAmt====',this.positionAmtShort,this.positionAmtLong)
   // this.tradeMarket()
   // this.postOrdersPosition()
   // this.postOrdersCreate()
@@ -600,39 +610,6 @@ root.methods.postOrdersCreate = function () {
       orderType: "MARKET",
     }
   }
-  // 单仓 限价止盈止损
-  // if (this.isHasModule('kaipingType') == 1 && this.isHasModule('buttonType') == 1 && this.pendingOrderType == 'limitProfitStopLoss') {
-  //   params = {
-  //     leverage: this.$store.state.leverage,
-  //     positionSide: "BOTH",
-  //     price: this.price,
-  //     quantity: 1,
-  //     reduceOnly: true,
-  //     orderSide: this.orderType ? 'SELL':'BUY',
-  //     stopPrice: this.triggerPrice,
-  //     symbol: "BTCUSDT",
-  //     timeInForce: this.effectiveTime,
-  //     orderType: 'TAKE_PROFIT',
-  //     workingType: this.latestPrice == '最新价格'? 'CONTRACT_PRICE':'MARK_PRICE',
-  //   }
-  // }
-  // // 单仓 市价止盈止损
-  // if (this.isHasModule('kaipingType') == 1 && this.isHasModule('buttonType') == 1 && this.pendingOrderType == 'marketPriceProfitStopLoss') {
-  //   params = {
-  //     leverage: this.$store.state.leverage,
-  //     positionSide: "BOTH",
-  //     price: "9352.50",
-  //     quantity: 1,
-  //     reduceOnly: true,
-  //     orderSide: this.orderType ? 'SELL':'BUY',
-  //     stopPrice: this.triggerPrice,
-  //     symbol: "BTCUSDT",
-  //     timeInForce: this.effectiveTime,
-  //     orderType: "TAKE_PROFIT_MARKET",
-  //     workingType: this.latestPrice == '最新价格'? 'CONTRACT_PRICE':'MARK_PRICE',
-  //   }
-  // }
-  // Object.assign(params, {type: "LIMIT",});
   this.$http.send('POST_ORDERS_CREATE',{
     bind: this,
     params,

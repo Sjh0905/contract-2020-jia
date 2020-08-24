@@ -68,7 +68,7 @@ root.methods.re_getCapitalFlow = function (data) {
   typeof(data) == 'string' && (data = JSON.parse(data));
   if(!data && !data.data)return
   this.loading = false
-  console.info('data====',data.data)
+  // console.info('data====',data.data)
   // this.capitalFlowListData = data.data.assets
   this.capitalFlowList = data.data
   this.balance = data.data.assets[0]

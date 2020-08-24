@@ -130,7 +130,7 @@ root.data = function () {
     popWindowAdjustingLever: false,
     // 合约风险提示
     popWindowContractRiskWarning: false,
-    value: 20,
+    value: 0,
     marks: {
       1: '1X',
       25: '25X',
@@ -173,7 +173,8 @@ root.data = function () {
     currentLength:0, // 当前委托数量
     // 显示的最大头寸
     maximumPosition : ['50,000','250,000','100,0000','5,000,000','20,000,000','50,000,000','100,000,000','200,000,000'],
-
+    positionAmtLong:0,
+    positionAmtShort:0
   }
 }
 
@@ -241,7 +242,6 @@ root.mounted = function () {
   //     // console.log("this.screenWidth====watch=======",that.screenWidth);
   //     // that.screenWidth = that.screenWidth == oldValue ? newValue : newValue;
   // }
-  console.info('isHasOrders',this.isHasOrders)
 }
 
 // 计算symbol变化
@@ -772,6 +772,12 @@ root.methods.re_positionRisk = function (data) {
   let filterRecords = []
   data.data.forEach(v=>{
     if (v.symbol == 'BTCUSDT') {
+      if(v.positionSide == 'LONG'){
+        this.positionAmtLong = v.positionAmt
+      }
+      if(v.positionSide == 'SHORT'){
+        this.positionAmtShort = v.positionAmt
+      }
       this.leverage = v.leverage
       this.$store.commit("CHANGE_LEVERAGE", v.leverage);
       if(v.marginType == 'isolated'){
@@ -799,7 +805,7 @@ root.methods.marginModeConfirm = function () {
   }
   if(!this.isHasOrders){
     this.popType = 0;
-    this.popText = '您可能存在仓位或者当前委托';
+    this.popText = '您可能存在挂单或仓位，不支持调整保证金模式';
     this.promptOpen = true;
     return
   }
@@ -1281,7 +1287,7 @@ root.methods.positionModeSelectedConfirm = function () {
   if(!this.isHasOrders){
     this.promptOpen = true;
     this.popType = 0;
-    this.popText = '调整仓位失败';
+    this.popText = '您可能存在挂单或仓位，不支持调整仓位模式';
     return
   }
   this.$http.send('POST_SINGLE_DOUBLE',{
@@ -1351,6 +1357,7 @@ root.methods.changeReducePositions = function(){
 //打开调整杠杆 Strat
 root.methods.openLever = function () {
   this.popWindowAdjustingLever = true
+  this.value = this.$store.state.leverage
 }
 //打开调整杠杆 End
 // 调整杠杆接口调取

@@ -98,7 +98,7 @@ root.computed.socketOrdersArr = function (){
 }
 // 计算后的order，排序之类的放在这里
 root.computed.currentOrderComputed = function () {
-  return this.currentOrder
+  return this.currentOrder || []
 }
 // 用户id，判断是否登录
 root.computed.userId = function () {
@@ -163,7 +163,7 @@ root.methods.receiveSocket = function () {
         }
       }
 
-      console.info('this.currentOrder ===',message,stream)
+      // console.info('this.currentOrder ===',message,stream)
       // this.$store.commit('CHANGE_CURRENT_ORDER',message)
     }
   })

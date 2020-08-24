@@ -207,7 +207,7 @@ root.methods.clickCalculation = function (){
   // 起始保证金计算
   this.securityDeposit = this.toFixed(this.accDiv(this.accMul(Number(this.openingPrice), Number(this.transactionQuantity)),Number(this.calculatorValue)),2)
   // 回报率计算
-  this.returnRate = this.toFixed( this.accDiv(this.income,(this.securityDeposit * 10 * 10)),2)
+  this.returnRate = this.toFixed(this.accMul(this.accDiv(this.income,(this.securityDeposit)),10*10) ,2)
 }
 
 // 目标价格计算
