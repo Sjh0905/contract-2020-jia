@@ -186,6 +186,9 @@ root.created = function () {
   //   // this.pankqh = true;
   //   this.showStockFunc()
   // }
+  this.$eventBus.listen(this, 'GET_ORDERS', this.getOrder)
+  this.$eventBus.listen(this, 'GET_POSITION', this.positionRisk)
+
   this.watchScreenWidth();
   // 获取兑换汇率
   this.getCny();
@@ -215,9 +218,7 @@ root.created = function () {
   this.getAggTrades() //获取归集交易
   this.positionRisk()  // 获取全逐仓状态
   this.getPositionsideDual() // 获取仓位模式
-// console.log("latestDealSpread---------"+this.latestDealSpread);
   this.isFirstVisit()
-
   this.getBalance()
 }
 
@@ -240,14 +241,15 @@ root.mounted = function () {
   //     // console.log("this.screenWidth====watch=======",that.screenWidth);
   //     // that.screenWidth = that.screenWidth == oldValue ? newValue : newValue;
   // }
+  console.info('isHasOrders',this.isHasOrders)
 }
 
 // 计算symbol变化
 root.computed = {};
 // 计算是否有仓位和当前委托
 root.computed.isHasOrders = function (){
-  if(this.currentLength && this.recordsIndex) return false
-  return true
+  if(!this.currentLength && !this.recordsIndex) return true
+  return false
 }
 // 最大头寸计算
 root.computed.maxPosition = function () {
@@ -495,7 +497,6 @@ root.methods.re_initTicket24Hr = function (data) {
     v.c = v.lastPrice
     v.s = v.symbol
   })
-
   this.marketSymbolList = data
 }
 // 获取币安24小时价格变动错误回调
@@ -771,6 +772,7 @@ root.methods.re_positionRisk = function (data) {
   let filterRecords = []
   data.data.forEach(v=>{
     if (v.symbol == 'BTCUSDT') {
+      this.leverage = v.leverage
       this.$store.commit("CHANGE_LEVERAGE", v.leverage);
       if(v.marginType == 'isolated'){
         this.marginType = 'ISOLATED'
@@ -795,17 +797,17 @@ root.methods.marginModeConfirm = function () {
     this.promptOpen = true;
     return
   }
+  if(!this.isHasOrders){
+    this.popType = 0;
+    this.popText = '您可能存在仓位或者当前委托';
+    this.promptOpen = true;
+    return
+  }
 
   // if (this.marginModeTypeTemp == 'zhuCang') {
   //   this.marginModeType = 'zhuCang'
   //   return
   // }
-  // if (this.marginModeTypeTemp == 'quanCang') {
-  //   this.marginModeType = 'quanCang'
-  // }
-  // this.positionRisk()
-  // this.popWindowCloseSecurityDepositMode()
-  // return
   this.$http.send('POST_MARGIN_TYPE',{
     bind: this,
     params:{
@@ -815,7 +817,6 @@ root.methods.marginModeConfirm = function () {
     callBack: this.re_marginModeConfirm,
     errorHandler:this.error_marginModeConfirm
   })
-
 }
 root.methods.re_marginModeConfirm = function (data) {
   typeof(data) == 'string' && (data = JSON.parse(data));
@@ -826,6 +827,7 @@ root.methods.re_marginModeConfirm = function (data) {
     if (this.marginType == 'ISOLATED') {
       this.marginModeType = 'quanCang'
       this.popWindowCloseSecurityDepositMode()
+      this.positionRisk()
       return
     }
     if (this.marginType == 'CROSSED') {
@@ -1276,7 +1278,7 @@ root.methods.positionModeSelectedConfirm = function () {
     this.popWindowPositionModeBulletBox = false
     return
   }
-  if(this.isHasOrders){
+  if(!this.isHasOrders){
     this.promptOpen = true;
     this.popType = 0;
     this.popText = '调整仓位失败';
@@ -1345,9 +1347,6 @@ root.methods.isHasModule = function (type) {
 root.methods.changeReducePositions = function(){
   this.reducePositionsSelected = !this.reducePositionsSelected
 }
-
-
-
 
 //打开调整杠杆 Strat
 root.methods.openLever = function () {

@@ -85,7 +85,7 @@ root.computed.computedRecords = function () {
 root.watch = {}
 /*------------------------------ 方法 -------------------------------*/
 root.methods = {}
-
+// 增加 或 减少保证金接口
 root.methods.commitModifyMargin = function () {
   if(this.increaseAmount == '') {
     this.popText = '请输入数量'
@@ -166,7 +166,7 @@ root.methods.positionSocket = function () {
       //   // }
       // })
       // this.records = socketRecords
-      console.info('message====',message)
+      // console.info('message====',message)
       this.getPositionRisk()
 
       // this.socketRecords.forEach(v=>{
@@ -248,9 +248,7 @@ root.methods.re_getPositionRisk = function (data) {
     }
   })
   this.records = filterRecords
-  if(this.records.length == 0) return
-  this.recordsIndex = filterRecords.length
-  // console.info('this.recordsIndex===',this.recordsIndex)
+  this.recordsIndex = filterRecords.length || 0
   this.$emit('getPositionRisk',this.recordsIndex);
 }
 // 获取记录出错

@@ -194,9 +194,7 @@ root.computed.positionModeConfigs = function () {
 /*----------------------------- 观察 ------------------------------*/
 
 root.watch.serverTime = function (newValue, oldValue) {
-
   if (newValue == oldValue) return;
-
   this.SYMBOL_ENTRANSACTION();
 }
 
@@ -356,7 +354,6 @@ root.created = function () {
   this.$eventBus.listen(this, 'SET_PRICE', this.RE_SET_PRICE);
   //  根据买卖设置买卖amount，买对应卖，卖对应买
   this.$eventBus.listen(this, 'SET_AMOUNT', this.RE_SET_AMOUNT);
-
   this.$eventBus.listen(this, 'GET_GRC_PRICE_RANGE', this.getKKPriceRange);
   // 获取精度
   this.getScaleConfig();
@@ -372,7 +369,6 @@ root.created = function () {
 root.mounted = function () {
   this.dragWidth = $('.dragbox').width();
   // console.log(this.dragWidth)
-
 }
 
 /*----------------------------- 监测属性 ------------------------------*/
@@ -410,7 +406,6 @@ root.methods.openPositionBox = function (name) {
 /*----------------------------- 方法 ------------------------------*/
 // 止盈止损接口
 root.methods.postFullStop = function () {
-
   let params = {}
   // 单仓 限价止盈止损
   if (this.isHasModule('kaipingType') == 1 && this.isHasModule('buttonType') == 1 && this.pendingOrderType == 'limitProfitStopLoss') {
@@ -498,7 +493,6 @@ root.methods.postFullStop = function () {
       workingType: this.latestPrice == '最新价格'? 'CONTRACT_PRICE':'MARK_PRICE',
     }
   }
-
   // Object.assign(params, {type: "LIMIT",});
   this.$http.send('POST_STOP_POSITION',{
     bind: this,
@@ -512,6 +506,8 @@ root.methods.re_postFullStop = function (data) {
   if (!data || !data.data) return
   this.promptOpen = true;
   this.popType = 1;
+  this.$eventBus.notify({key:'GET_ORDERS'})
+  this.$eventBus.notify({key:'GET_POSITION'})
   if(data.data.status == 'NEW') {
     this.popText = '下单成功';
     return
@@ -649,6 +645,8 @@ root.methods.re_postOrdersCreate = function (data) {
   if (!data || !data.data) return
   this.promptOpen = true;
   this.popType = 1;
+  this.$eventBus.notify({key:'GET_ORDERS'})
+  this.$eventBus.notify({key:'GET_POSITION'})
   if(data.data.status == 'NEW') {
     this.popText = '下单成功';
     return
@@ -712,7 +710,6 @@ root.methods.postOrdersPosition = function () {
       orderType: "MARKET",
     }
   }
-
   this.$http.send('POST_ORDERS_POSITION',{
     bind: this,
     params,
@@ -725,6 +722,8 @@ root.methods.re_postOrdersPosition = function (data) {
   if (!data || !data.data) return
   this.promptOpen = true;
   this.popType = 1;
+  this.$eventBus.notify({key:'GET_ORDERS'})
+  this.$eventBus.notify({key:'GET_POSITION'})
   if(data.data.status == 'NEW') {
     this.popText = '下单成功';
     return
