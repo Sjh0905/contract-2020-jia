@@ -57,15 +57,15 @@
             <!--方向 end -->
 
             <!--价格 begin -->
-            <div class="td td-market">{{toFixed(order.price, 8)}}</div>
+            <div class="td td-market">{{order.price != 0 ? toFixed(order.price, 2) : '--'}}</div>
             <!--价格 end -->
 
-            <!--成交价格 begin -->
-            <div class="td td-market">{{toFixed(order.avgPrice, 8)}}</div>
-            <!--成交价格 end -->
+            <!--成交均价 begin -->
+            <div class="td td-market">{{order.avgPrice !=0 ? toFixed(order.avgPrice, 2) : '--'}}</div>
+            <!--成交均价 end -->
 
             <!--数量 begin -->
-            <div class="td td-category">{{(order.executedQty)}}</div>
+            <div class="td td-category">{{toFixed(order.executedQty,3)}}</div>
             <!--数量 end -->
 
             <!--触发条件 begin -->

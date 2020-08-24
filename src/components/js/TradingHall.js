@@ -154,7 +154,7 @@ root.data = function () {
     openCalculator:false,
     // 计算器弹框 end
   //  限价---被动委托，生效时间选择
-    checkPrice:1,
+    checkPrice:2,
 
     highPrice: '', // 24小时最高价
     lowPrice: '', // 24小时最低价
@@ -1404,7 +1404,9 @@ root.methods.closeDropDownTime= function () {
   $(".effective-time-drop-down").attr("style","display:none");
 }
 root.methods.openDropDownTime = function () {
-  $(".effective-time-drop-down").attr("style","display:block");
+  if (this.checkPrice == 2) {
+    $(".effective-time-drop-down").attr("style","display:block");
+  }
 }
 /*---------------------- 生效时间 end ---------------------*/
 /*---------------------- 最新价格 begin ---------------------*/
