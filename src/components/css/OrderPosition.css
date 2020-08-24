@@ -58,25 +58,25 @@ tr, th, td {
   flex: 9.3;
 }
 .td-category-1 {
-  flex: 6.3;
+  flex: 5.3;
 }
 .td-market {
-  flex: 7.3;
+  flex: 5.3;
 }
 .td-number {
-  flex: 6.3;
+  flex: 4.3;
 }
 .td-flat-price {
-  flex: 6.3;
+  flex: 4.3;
 }
 .td-price {
-  flex: 6.3;
+  flex: 5.3;
 }
 .td-deposit {
   flex: 6;
 }
 .td-return-rate {
-  flex: 6.3;
+  flex: 8.3;
 }
 .td-reduce-positions {
   flex: 4.3;

@@ -55,12 +55,12 @@
               {{$globalFunc.getOrderSide(order.positionSide,order.side)}}
             </div>
             <!--价格-->
-            <div class="td td-market">{{toFixed(order.price, 8)}}</div>
+            <div class="td td-market">{{order.price != 0 ? toFixed(order.price, 2) : '--'}}</div>
             <!--数量-->
-            <div class="td td-number">{{toFixed(order.origQty,8)}}</div>
+            <div class="td td-number">{{toFixed(order.origQty,3)}}</div>
             <!--完成度-->
             <!--<div class="td td-price">{{((order.executedQty / order.origQty) * 10 * 10).toFixed(2)}}%</div>-->
-            <div class="td td-price">{{order.origQty > 0 ? ((accDiv(order.executedQty || 0,order.origQty) * 100 || 0).toFixed(2)+'%') : ''}}</div>
+            <div class="td td-price">{{order.origQty > 0 ? ((accDiv(order.executedQty || 0,order.origQty) * 100 || 0).toFixed(3)+'%') : ''}}</div>
             <!--触发条件 TODO:需要进一步研究-->
             <div class="td td-trigger">{{order.stopPrice > 0 ? (workingTypeMap[order.workingType]+' <= '+toFixed(order.stopPrice, 2)) : '-'}}</div>
             <!--撤单-->
