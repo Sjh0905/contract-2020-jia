@@ -48,7 +48,7 @@ root.methods = {}
 
 // 要跳划转页面
 root.methods.goToTransfer = function () {
-  this.$router.push({name:''})
+  window.location.replace(this.$store.state.contract_url + 'index/asset/contractRecord/propertyAssets');
 }
 
 // 账户余额
@@ -68,7 +68,7 @@ root.methods.re_getCapitalFlow = function (data) {
   typeof(data) == 'string' && (data = JSON.parse(data));
   if(!data && !data.data)return
   this.loading = false
-  console.info('data====',data.data)
+  // console.info('data====',data.data)
   // this.capitalFlowListData = data.data.assets
   this.capitalFlowList = data.data
   this.balance = data.data.assets[0]

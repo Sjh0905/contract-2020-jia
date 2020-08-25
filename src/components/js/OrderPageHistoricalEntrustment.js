@@ -62,7 +62,7 @@ root.computed.serverTime = function () {
 
 root.created = function () {
   // console.warn('历史订单！！！')
-  console.log('this.$route=======historicalEntrust',this.$route.name)
+  // console.log('this.$route=======historicalEntrust',this.$route.name)
   this.getOrder()
 }
 

@@ -37,7 +37,7 @@
             <div class="td td-category-1" :class="order.side==='BUY'?'text_blue-3':'text_red-4'">
               {{$globalFunc.getOrderSide(order.positionSide,order.side)}}
             </div>
-            <!--价格-->
+            <!--成交均价-->
             <div class="td td-market">{{toFixed(order.price,8)}}</div>
             <!--数量-->
             <div class="td td-number">{{toFixed(order.qty,8)}}</div>

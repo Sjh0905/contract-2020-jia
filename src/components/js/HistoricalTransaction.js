@@ -60,7 +60,7 @@ root.methods.re_getHistorTrans = function (data) {
   typeof(data) == 'string' && (data = JSON.parse(data));
   if(!data && !data.data)return
   this.loading = false
-  console.info('data====',data.data)
+  // console.info('data====',data.data)
   this.historicaList = data.data
 
 

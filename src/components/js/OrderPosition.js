@@ -54,6 +54,7 @@ root.props.availableBalance = {
 }
 /*------------------------------ 生命周期 -------------------------------*/
 root.created = function () {
+  this.$eventBus.listen(this, 'GET_POSITION', this.positionRisk)
   this.positionSocket()
   this.getPositionRisk()
   this.getAdlQuantile()
@@ -72,7 +73,7 @@ root.computed.serverTime = function () {
 }
 root.computed.computedRecords = function () {
   this.socketRecords.forEach(v=>{
-    console.info('v===',v)
+    // console.info('v===',v)
   })
 }
 // 存储订单/交易更新推送Key值的映射关系
@@ -146,7 +147,6 @@ root.methods.modifyMarginClose = function () {
 
 // 接收仓位 socket 信息
 root.methods.positionSocket = function () {
-
   let socketPositionOrders = this.socketPositionOrders
   // 获取仓位的数据
   this.$socket.on({
@@ -217,8 +217,6 @@ root.methods.re_getAccount = function (data) {
   this.getAssets = data.data.assets[0]
   this.initialMargin = this.getAssets.initialMargin
   // console.info('this.initialMargin',this.initialMargin)
-
-
 }
 // 获取记录出错
 root.methods.error_getAccount = function (err) {
@@ -304,10 +302,36 @@ root.methods.marketPrice = function (item) {
 root.methods.re_marketPrice = function (data) {
   typeof data === 'string' && (data = JSON.parse(data))
   if (!data) return
-  if (data.code == 200) {
-    this.popText = '订单已成交'
-    this.popType = 1;
-    this.promptOpen = true;
+  this.$eventBus.notify({key:'GET_POSITION'})
+  this.promptOpen = true;
+  this.popType = 1;
+  if(data.data.status == 'NEW') {
+    this.popText = '下单成功';
+    return
+  }
+  if(data.data.status == 'PARTIALLY_FILLED') {
+    this.popText = '您的订单成交了一部分';
+    return
+  }
+  if(data.data.status == 'FILLED') {
+    this.popText = '完全成交';
+    return
+  }
+  if(data.data.status == 'CANCELED') {
+    this.popText = '自己撤销的订单';
+    return
+  }
+  if(data.data.status == 'EXPIRED') {
+    this.popText = '您的订单已过期';
+    return
+  }
+  if(data.data.status == 'NEW_INSURANCE') {
+    this.popText = '风险保障基金(强平)';
+    return
+  }
+  if(data.data.status == 'NEW_ADL') {
+    this.popText = '自动减仓序列(强平)';
+    return
   }
   this.getPositionRisk()
 }
@@ -337,10 +361,36 @@ root.methods.checkPrice = function (item) {
 root.methods.re_marketPrice = function (data) {
   typeof data === 'string' && (data = JSON.parse(data))
   if (!data) return
-  if (data.code == 200) {
-    this.popText = '订单已成交'
-    this.popType = 1;
-    this.promptOpen = true;
+  this.$eventBus.notify({key:'GET_POSITION'})
+  this.promptOpen = true;
+  this.popType = 1;
+  if(data.data.status == 'NEW') {
+    this.popText = '下单成功';
+    return
+  }
+  if(data.data.status == 'PARTIALLY_FILLED') {
+    this.popText = '您的订单成交了一部分';
+    return
+  }
+  if(data.data.status == 'FILLED') {
+    this.popText = '完全成交';
+    return
+  }
+  if(data.data.status == 'CANCELED') {
+    this.popText = '自己撤销的订单';
+    return
+  }
+  if(data.data.status == 'EXPIRED') {
+    this.popText = '您的订单已过期';
+    return
+  }
+  if(data.data.status == 'NEW_INSURANCE') {
+    this.popText = '风险保障基金(强平)';
+    return
+  }
+  if(data.data.status == 'NEW_ADL') {
+    this.popText = '自动减仓序列(强平)';
+    return
   }
   this.getPositionRisk()
 }

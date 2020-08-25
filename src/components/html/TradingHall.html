@@ -268,7 +268,7 @@
                              :positionModeSecond = "positionModeSecond" :pendingOrderType = "pendingOrderType"
                               :effectiveTime = 'effectiveTime' :reducePositionsSelected = 'reducePositionsSelected'
                              :latestPrice = 'latestPrice' :latestPriceVal = 'latestPriceVal' :availableBalance = 'availableBalance'
-                             :markPrice="markPrice"/>
+                             :markPrice="markPrice" :positionAmtLong="positionAmtLong"/>
               </div>
               <div class="ProgressBar-wrap">
                 <!--卖-->
@@ -277,7 +277,7 @@
                              :positionModeSecond = "positionModeSecond" :pendingOrderType = "pendingOrderType"
                              :effectiveTime = 'effectiveTime' :reducePositionsSelected = 'reducePositionsSelected'
                              :latestPrice = 'latestPrice' :latestPriceVal = 'latestPriceVal' :availableBalance = 'availableBalance'
-                             :markPrice="markPrice"/>
+                             :markPrice="markPrice" :positionAmtShort="positionAmtShort"/>
               </div>
             </div>
           </div>
@@ -345,7 +345,7 @@
            @click="clickTab(5)">{{$t("保证金余额")}}
       </div>
       <!--资金流水-->
-      <div class="tradinghall-order-tab tab-item-last box_shadow"
+      <div class="tradinghall-order-tab tab-item-last"
            :class="isNow==3?'text_blue tradinghall-order-activetab':''"
            @click="clickTab(3)"
       >

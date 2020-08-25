@@ -185,7 +185,7 @@ root.methods.re_getDetail = function (data) {
   if (!data) return false
   // console.warn("order detail获取到数据！", data)
   this.orderDetail = data.data
-  // console.log('===============================',data.matches)
+  console.log('===============================',this.orderDetail)
   this.orderDetailReady = true
   this.loading = !this.orderDetailReady
 }
