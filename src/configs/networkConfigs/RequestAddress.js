@@ -36,6 +36,7 @@ requestAddress.GET_BALAN_ACCOUNT = {url: urlHead+'/future/account/userBalancev2'
 requestAddress.POST_POSITION_MARGIN = {url: urlHead + '/future/account/positionMargin', method: 'post' ,} // 调整逐仓保证金
 requestAddress.LOGIN_OFF = {url: urlHead+'/future/common/signout', method: 'post'} //登出
 requestAddress.GET_BALAN__BIAN = {url: urlHead+'/future/account/userAccountv2', method: 'get'}  //保障金余额
+requestAddress.GET_ADL_QUANTILE = {url: urlHead+'/future/account/adlQuantile', method: 'get'}  //持仓ADL队列估算
 // requestAddress.GET_POSITION_RISKV = {url: urlHead + '/future/account/positionRiskv2', method: 'get' ,} // 仓位
 
 

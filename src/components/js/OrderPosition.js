@@ -57,6 +57,7 @@ root.created = function () {
   this.$eventBus.listen(this, 'GET_POSITION', this.positionRisk)
   this.positionSocket()
   this.getPositionRisk()
+  this.getAdlQuantile()
   this.getAccount()
 }
 root.mounted = function () {}
@@ -254,6 +255,29 @@ root.methods.error_getPositionRisk = function (err) {
   console.warn("充值获取记录出错！", err)
 }
 
+// 自动减仓持仓ADL队列估算
+root.methods.getAdlQuantile = function () {
+  this.$http.send("GET_ADL_QUANTILE", {
+    bind: this,
+    query: {
+      timestamp: this.serverTime
+    },
+    callBack: this.re_getAdlQuantile,
+    errorHandler: this.error_getAdlQuantile
+  })
+}
+// 自动减仓持仓ADL队列估算返回
+root.methods.re_getAdlQuantile = function (data) {
+  typeof data === 'string' && (data = JSON.parse(data))
+  if (!data) return
+
+  console.log('this is getAdlQuantile',data);
+}
+// 自动减仓持仓ADL队列估算返回出错
+root.methods.error_getAdlQuantile = function (err) {
+  console.warn("自动减仓持仓ADL队列估算返回出错！", err)
+}
+
 // 市价
 root.methods.marketPrice = function (item) {
 
@@ -280,32 +304,44 @@ root.methods.re_marketPrice = function (data) {
   if (!data) return
   this.$eventBus.notify({key:'GET_POSITION'})
   this.promptOpen = true;
-  this.popType = 1;
+
+  if(data.code == 303) {
+    this.popType = 0;
+    this.popText = '下单失败';
+    return
+  }
   if(data.data.status == 'NEW') {
+    this.popType = 1;
     this.popText = '下单成功';
     return
   }
   if(data.data.status == 'PARTIALLY_FILLED') {
+    this.popType = 1;
     this.popText = '您的订单成交了一部分';
     return
   }
   if(data.data.status == 'FILLED') {
+    this.popType = 1;
     this.popText = '完全成交';
     return
   }
   if(data.data.status == 'CANCELED') {
+    this.popType = 1;
     this.popText = '自己撤销的订单';
     return
   }
   if(data.data.status == 'EXPIRED') {
+    this.popType = 0;
     this.popText = '您的订单已过期';
     return
   }
   if(data.data.status == 'NEW_INSURANCE') {
+    this.popType = 1;
     this.popText = '风险保障基金(强平)';
     return
   }
   if(data.data.status == 'NEW_ADL') {
+    this.popType = 1;
     this.popText = '自动减仓序列(强平)';
     return
   }
@@ -339,32 +375,44 @@ root.methods.re_marketPrice = function (data) {
   if (!data) return
   this.$eventBus.notify({key:'GET_POSITION'})
   this.promptOpen = true;
-  this.popType = 1;
+
+  if(data.code == 303) {
+    this.popType = 0;
+    this.popText = '下单失败';
+    return
+  }
   if(data.data.status == 'NEW') {
+    this.popType = 1;
     this.popText = '下单成功';
     return
   }
   if(data.data.status == 'PARTIALLY_FILLED') {
+    this.popType = 1;
     this.popText = '您的订单成交了一部分';
     return
   }
   if(data.data.status == 'FILLED') {
+    this.popType = 1;
     this.popText = '完全成交';
     return
   }
   if(data.data.status == 'CANCELED') {
+    this.popType = 1;
     this.popText = '自己撤销的订单';
     return
   }
   if(data.data.status == 'EXPIRED') {
+    this.popType = 0;
     this.popText = '您的订单已过期';
     return
   }
   if(data.data.status == 'NEW_INSURANCE') {
+    this.popType = 1;
     this.popText = '风险保障基金(强平)';
     return
   }
   if(data.data.status == 'NEW_ADL') {
+    this.popType = 1;
     this.popText = '自动减仓序列(强平)';
     return
   }
