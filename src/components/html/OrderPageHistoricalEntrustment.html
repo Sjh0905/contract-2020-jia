@@ -31,7 +31,7 @@
          <li  v-for="(order,index) in historyOrderComputed" :key="order.id"
              :class="$route.name == 'historicalEntrust'?'tr-td':'tr-td-col'"
               @click="showDetail(order.orderId)">
-           <div class="tr-detail flex-center">
+           <div class="flex-center" :class="order.status == 'FILLED'? 'tr-detail':'tr-detail-opacity'">
 
             <!--时间 begin -->
             <div class="td td-time1">{{$globalFunc.formatDateUitl(order.updateTime,'YYYY-MM-DD hh:mm:ss')}}</div>
@@ -75,10 +75,12 @@
             <!--状态 begin -->
               <div class="td td-turnover" v-if="order.status == 'NEW'">新建订单</div>
               <div class="td td-turnover" v-if="order.status == 'PARTIALLY_FILLED'">部分成交</div>
-              <div class="td td-turnover" v-if="order.status == 'FILLED'">全部成交</div>
+              <div class="td td-turnover" v-if="order.status == 'FILLED'">全部成交
+                <img class="drop-down" src="../../assets/drop_down.png" alt=""></div>
               <div class="td td-turnover" v-if="order.status == 'CANCELED'">已撤销</div>
               <div class="td td-turnover" v-if="order.status == 'REJECTED'">订单被拒绝</div>
               <div class="td td-turnover" v-if="order.status == 'EXPIRED'">订单过期</div>
+
            </div>
            <!--展示详情(如果在交易，打不开详情)-->
            <div v-if="clickThis === order.orderId && $route.name== 'historicalEntrust' && order.status == 'FILLED'"  class="tr-hidden">

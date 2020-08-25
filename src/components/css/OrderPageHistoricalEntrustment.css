@@ -128,9 +128,16 @@ tr, th, td {
 
 .td-turnover {
   flex: 5.3;
-  text-align: right;
+  text-align: left;
   line-height: 50px;
   padding-right: 25px;
+}
+.drop-down {
+  width: 8px;
+  /*margin: auto 0;*/
+  /*height: 4px;*/
+  float: right;
+  margin:24px 0 2px 20px;
 }
 .text-bule {
   font-size:12px;
@@ -191,6 +198,12 @@ tr, th, td {
 /*显示的内容*/
 .tr-detail {
  text-align: left;
+
+}
+.tr-detail-opacity {
+  text-align: left;
+  background-color:rgb(250,250,252);
+  opacity: 0.5;
 }
 
 .show-detail {

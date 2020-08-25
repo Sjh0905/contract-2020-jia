@@ -63,7 +63,7 @@ root.methods.re_getCapitalFlow = function (data) {
   if(!data && !data.data)return
   this.loading = false
   // console.info('data====',data.data)
-  this.capitalFlowList = data.data
+  this.capitalFlowList = data.data || []
 }
 // 资金流水错误回调
 root.methods.error_getCapitalFlow = function (err) {
