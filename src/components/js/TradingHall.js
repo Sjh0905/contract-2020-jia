@@ -174,7 +174,8 @@ root.data = function () {
     // 显示的最大头寸
     maximumPosition : ['50,000','250,000','100,0000','5,000,000','20,000,000','50,000,000','100,000,000','200,000,000'],
     positionAmtLong:0,
-    positionAmtShort:0
+    positionAmtShort:0,
+    popTextLeverage:''
   }
 }
 
@@ -1356,6 +1357,7 @@ root.methods.changeReducePositions = function(){
 
 //打开调整杠杆 Strat
 root.methods.openLever = function () {
+  this.popTextLeverage=''
   this.popWindowAdjustingLever = true
   this.value = this.$store.state.leverage
 }
@@ -1372,6 +1374,12 @@ root.methods.postLevelrage = function () {
   })
 }
 root.methods.re_postLevelrage = function (data) {
+  // console.info('超过当前杠杆的最大允许持仓量',data,data.code)
+  if (data.code == 303 && data.errCode == 2027) {
+    this.popTextLeverage = '超过当前杠杆的最大允许持仓量';
+    return
+  }
+
   typeof(data) == 'string' && (data = JSON.parse(data));
   this.leverage = data.data.leverage || ''
   this.maxNotionalValue = data.data.maxNotionalValue || ''

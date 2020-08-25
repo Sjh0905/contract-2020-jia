@@ -467,6 +467,7 @@
 <!--      <div class="mode-error">当前合约存在持仓和挂单，不支持调整保证金模式</div>-->
       <div class="mode-only-lever-super txt-price-red" v-if="value > 20">· 当前杠杆倍数较高，请注意风险。</div>
       <div class="mode-only-lever-high" v-else></div>
+      <div class="mode-only-lever-super txt-price-red" v-if="popTextLeverage">· {{popTextLeverage}}</div>
       <div class="money-confirmation" @click="postLevelrage">确认</div>
       <!--确认不可点击状态-->
       <!--      <div class="money-confirmation-ash">确认</div>-->

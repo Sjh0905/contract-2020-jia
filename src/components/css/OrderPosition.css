@@ -122,6 +122,19 @@ tr, th, td {
   cursor: pointer;
   border-radius:1px;
 }
+.market-price-click {
+  display: inline-block;
+  float: right;
+  /*width: 54px;*/
+  /*padding: 0 15px;*/
+  width: 25%;
+  text-align: center;
+  height: 28px;
+  line-height: 28px;
+  background: rgba(53,118,245,.5);
+  cursor: pointer;
+  border-radius:1px;
+}
 .market-price:hover {
   /*width: 54px;*/
   /*padding: 0 15px;*/
@@ -417,4 +430,96 @@ tr, th, td {
   border-radius:1px;
   margin-bottom: 30px;
   cursor: pointer;
+}
+
+
+/*弹窗相关*/
+
+.pop-header {
+  padding-left: 25px;
+
+}
+.pop-footer {
+  width: 100%;
+  margin-bottom: 15px;
+  align-items: center;
+  /*-webkit-align-items: center;*/
+  /*justify-content: space-around;*/
+  /*-webkit-justify-content: space-around;*/
+}
+
+/*动画效果*/
+.fade-enter-active, .fade-leave-active {
+  transition: all .5s;
+}
+
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */
+{
+  height: 0;
+  transform: scaleY(0);
+  opacity: 0;
+}
+
+/*弹窗button*/
+
+.pop-article {
+  padding: 35px 25px;
+  color: #0D0E23;
+  font-size:16px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+}
+
+.button-base {
+  width: 195px;
+  height: 40px;
+  /* background-color: #3576F5; */
+  color: #fff;
+  border-radius: 1px;
+  border: 0 solid transparent;
+  margin-right: 2px;
+  outline: none;
+}
+
+.m-r {
+  margin-left: 20px;
+}
+
+.button-base:last-of-type {
+  margin-right: 0;
+}
+
+
+.weit .nhtu{
+  width: 100%;
+  height: 120px;
+  float: left;
+  margin: 0 auto;
+  margin-top: 30px;
+}
+.weit .nhtu img{
+  /*height: 36px;*/
+}
+.weit span{
+  width: 100%;
+  height: 24px;
+  text-align: center;
+  font-size:12px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color:rgba(107,125,162,1);
+  line-height: 24px;
+  float: left;
+}
+.text_blue-3 {
+  font-size:12px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color:rgba(8,208,172,1);
+}
+.text_red-4 {
+  font-size:12px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color:rgba(239,86,86,1);
 }
