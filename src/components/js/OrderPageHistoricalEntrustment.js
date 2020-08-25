@@ -86,7 +86,7 @@ root.methods.getOrder = function () {
         // updatedAt:this.updatedAt,//最后的订单更新时间
         // offsetId: this.offsetId, //最后一条订单的id
         // limit: (this.tradinghallLimit===10) ? this.tradinghallLimit : this.limit, //一次请求多少条订单
-        limit: 10, //一次请求多少条订单
+        // limit: 10, //一次请求多少条订单
         // isFinalStatus: true //是否是历史订单
         symbol:'BTCUSDT',
         timestamp:this.serverTime
