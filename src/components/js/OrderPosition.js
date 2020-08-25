@@ -57,6 +57,7 @@ root.created = function () {
   this.$eventBus.listen(this, 'GET_POSITION', this.positionRisk)
   this.positionSocket()
   this.getPositionRisk()
+  this.getAdlQuantile()
   this.getAccount()
 }
 root.mounted = function () {}
@@ -252,6 +253,29 @@ root.methods.re_getPositionRisk = function (data) {
 // 获取记录出错
 root.methods.error_getPositionRisk = function (err) {
   console.warn("充值获取记录出错！", err)
+}
+
+// 自动减仓持仓ADL队列估算
+root.methods.getAdlQuantile = function () {
+  this.$http.send("GET_ADL_QUANTILE", {
+    bind: this,
+    query: {
+      timestamp: this.serverTime
+    },
+    callBack: this.re_getAdlQuantile,
+    errorHandler: this.error_getAdlQuantile
+  })
+}
+// 自动减仓持仓ADL队列估算返回
+root.methods.re_getAdlQuantile = function (data) {
+  typeof data === 'string' && (data = JSON.parse(data))
+  if (!data) return
+
+  console.log('this is getAdlQuantile',data);
+}
+// 自动减仓持仓ADL队列估算返回出错
+root.methods.error_getAdlQuantile = function (err) {
+  console.warn("自动减仓持仓ADL队列估算返回出错！", err)
 }
 
 // 市价
