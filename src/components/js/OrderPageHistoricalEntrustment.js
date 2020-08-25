@@ -21,7 +21,8 @@ root.data = () => {
     updatedAt:1,//最后的订单更新时间,默认为1
     showLoadingMore: true,//是否显示加载更多
     loadingMoreIng: false, //是否正在加载更多
-
+    strtTime:0 , // 起始时间
+    endTime:0 , // 结束时间
     workingTypeMap : {
       MARK_PRICE:"标记价格",
       CONTRACT_PRICE:"最新价格"
@@ -85,6 +86,7 @@ root.methods.getOrder = function () {
         // updatedAt:this.updatedAt,//最后的订单更新时间
         // offsetId: this.offsetId, //最后一条订单的id
         // limit: (this.tradinghallLimit===10) ? this.tradinghallLimit : this.limit, //一次请求多少条订单
+        limit: 10, //一次请求多少条订单
         // isFinalStatus: true //是否是历史订单
         symbol:'BTCUSDT',
         timestamp:this.serverTime
@@ -144,6 +146,13 @@ root.methods.showDetail = function (id) {
     return
   }
   this.clickThis = id
+  this.historyOrder.length !== 0 && this.historyOrder.forEach(v=>{
+    if(this.clickThis == v.orderId) {
+      this.startTime = v.time - 1
+      this.endTime = v.updateTime + 1
+    }
+  })
+  // console.info('this.firstTime===',this.startTime,this.endTime)
 }
 
 // 点击加载更多

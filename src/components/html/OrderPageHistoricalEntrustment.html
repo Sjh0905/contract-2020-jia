@@ -82,7 +82,7 @@
            </div>
            <!--展示详情(如果在交易，打不开详情)-->
            <div v-if="clickThis === order.orderId && $route.name== 'historicalEntrust' && order.status == 'FILLED'"  class="tr-hidden">
-             <HiddenDetail :orderId="order.orderId" :symbol="order.symbol"/>
+             <HiddenDetail :orderId="order.orderId" :symbol="order.symbol" :startTime="startTime" :endTime="endTime"/>
            </div>
 
          </li>

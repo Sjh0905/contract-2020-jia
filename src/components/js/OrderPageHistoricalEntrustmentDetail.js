@@ -27,7 +27,7 @@ root.data = function () {
 
     feeDetailReady: false, //获取费率详情成功
     orderDetailReady: false,//获取各订单成功
-    historicaList:[], // 历史成交订单
+    historicaList : [], // 历史成交订单
     commission:'', // 手续费
     commissionAsset:'' , // 手续费单位
   }
@@ -46,14 +46,45 @@ root.props.symbol = {
   type: String,
   required: true
 }
-// root.props.orderType = {
-//   type: Number,
-//   required: true
-// }
+root.props.startTime = {
+  type: Number,
+  required: true
+}
+root.props.endTime = {
+  type: Number,
+  required: true
+}
 
 /*------------------------------ 计算 -------------------------------*/
 
 root.computed = {}
+// 计算总交易量
+root.computed.totalAmount = function () {
+  let total = 0
+  this.histortyOrderDetail.forEach(v=>{
+    total += v.quoteQty
+  })
+  return this.toFixed(total ,8)
+}
+// 计算总盈亏
+root.computed.totalRealizedPnl = function () {
+  let realizedPnl = 0
+  this.histortyOrderDetail.forEach(v=>{
+    realizedPnl += v.realizedPnl
+  })
+  return this.toFixed(realizedPnl ,8)
+}
+// 计算总手续费
+root.computed.totalCommission = function () {
+  let commission = 0
+  this.histortyOrderDetail.forEach(v=>{
+    commission += v.commission
+  })
+  return this.toFixed(commission ,8)
+}
+root.computed.histortyOrderDetail = function () {
+  return this.historicaList || []
+}
 // 均值
 root.computed.averagePrice = function () {
   let avargePrice = 0, price = 0, amount = 0
@@ -126,7 +157,8 @@ root.computed.quoteScale_list = function () {
 /*------------------------------ 生命周期 -------------------------------*/
 
 root.created = function () {
-  this.getDetail()
+  // this.getDetail()
+  this.getHistorTrans()
   // this.getFeeDetail()
   // this.getHistorTrans()
 }
@@ -134,65 +166,65 @@ root.created = function () {
 /*------------------------------ 方法 -------------------------------*/
 
 root.methods = {}
-// 历史成交
-// root.methods.getHistorTrans = function () {
-//   this.$http.send('GET_CAPITAL_DEAL',{
-//     bind: this,
-//     query:{
-//       symbol:'BTCUSDT',
-//       timestamp:this.serverTime
-//     },
-//     callBack: this.re_getHistorTrans,
-//     errorHandler:this.error_getHistorTrans
-//   })
-// }
-// // 历史成交正确回调
-// root.methods.re_getHistorTrans = function (data) {
-//   typeof(data) == 'string' && (data = JSON.parse(data));
-//   if(!data && !data.data) return
-//   this.historicaList = data.data || []
-//   this.historicaList.forEach(v=>{
-//     if(v.orderId === this.orderId){
-//       this.commission = v.commission
-//       this.commissionAsset = v.commissionAsset
-//     }
-//     console.info('this.commission=',this.commission,this.commissionAsset)
-//   })
-//   this.loading = !this.orderDetailReady
-//   this.orderDetailReady = true
-//
-// }
-// 历史成交错误回调
-// root.methods.error_getHistorTrans = function (err) {
-//   console.log('获取币安24小时价格变动接口',err)
+// root.methods.totalVolume = function (order) {
+//   let volume = 0
+//   volume = this.toFixed(this.accMul(order.price,order.qty) , 8)
+//   return volume
 // }
 
-// 获取订单详情
-root.methods.getDetail = function () {
-  this.$http.send('GET_CAPITAL_ALL_FLOW', {
+// 历史成交
+root.methods.getHistorTrans = function () {
+  let symbol = this.$globalFunc.toOnlyCapitalLetters(this.$store.state.symbol)
+  this.$http.send('GET_CAPITAL_DEAL',{
     bind: this,
-    query: {
-      symbol: this.symbol,
-      orderId:this.orderId
+    query:{
+      symbol,
+      startTime:this.startTime,
+      endTime:this.endTime,
     },
-    callBack: this.re_getDetail,
-    errorHandler: this.error_getDetail,
+    callBack: this.re_getHistorTrans,
+    errorHandler:this.error_getHistorTrans
   })
 }
-// 获取订单详情回调
-root.methods.re_getDetail = function (data) {
-  typeof data === 'string' && (data = JSON.parse(data))
-  if (!data) return false
-  // console.warn("order detail获取到数据！", data)
-  this.orderDetail = data.data
-  console.log('===============================',this.orderDetail)
+// 历史成交正确回调
+root.methods.re_getHistorTrans = function (data) {
+  typeof(data) == 'string' && (data = JSON.parse(data));
+  if(!data && !data.data) return
+  // console.info('data====',data.data)
+  this.historicaList = data.data || []
+
   this.orderDetailReady = true
   this.loading = !this.orderDetailReady
 }
-// 获取订单详情失败
-root.methods.error_getDetail = function (err) {
-  console.warn("order detail获取数据失败！", err)
+// 历史成交错误回调
+root.methods.error_getHistorTrans = function (err) {
+  console.log('获取币安24小时价格变动接口',err)
 }
+
+// // 获取订单详情
+// root.methods.getDetail = function () {
+//   this.$http.send('GET_CAPITAL_ALL_FLOW', {
+//     bind: this,
+//     query: {
+//       symbol: this.symbol,
+//       orderId:this.orderId
+//     },
+//     callBack: this.re_getDetail,
+//     errorHandler: this.error_getDetail,
+//   })
+// }
+// // 获取订单详情回调
+// root.methods.re_getDetail = function (data) {
+//   typeof data === 'string' && (data = JSON.parse(data))
+//   if (!data) return false
+//   this.orderDetail = data.data || []
+//   this.orderDetailReady = true
+//   this.loading = !this.orderDetailReady
+// }
+// // 获取订单详情失败
+// root.methods.error_getDetail = function (err) {
+//   console.warn("order detail获取数据失败！", err)
+// }
 
 // // 获取费率
 // root.methods.getFeeDetail = function () {
