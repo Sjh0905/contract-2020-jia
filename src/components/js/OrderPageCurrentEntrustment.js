@@ -188,14 +188,11 @@ root.methods.getOrder = function () {
 }
 // 获取订单回调
 root.methods.re_getOrder = function (data) {
-  // console.log('this is currOrder',JSON.stringify(data));
   typeof(data) == 'string' && (data = JSON.parse(data));
   this.loading = false
   this.currentOrder = data.data || []
   this.currentOrdersLength = this.currentOrder.length
   this.$emit('getcurrentOrdersLength',this.currentOrdersLength);
-  // console.info('this.currentOrdersLength',this.currentOrdersLength)
-  // this.currentOrder.push()
 }
 // 获取订单出错
 root.methods.error_getOrder = function (err) {
@@ -206,9 +203,7 @@ root.methods.error_getOrder = function (err) {
 root.methods.toCurrentHistory = function (err) {
   this.$router.push({name:'currentEntrust'})
 }
-// root.methods.TRADED = function (para) {
-//   this.getOrder()
-// }
+
 
 // 撤单确认
 root.methods.clickToCancel = function (order) {

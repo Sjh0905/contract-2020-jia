@@ -5,6 +5,7 @@ root.name = 'orderPosition'
 root.components = {
   'Loading': resolve => require(['../vue/Loading'], resolve), // loading
   'PopupPrompt': resolve => require(['../vue/PopupPrompt'], resolve),
+  'PopupWindow': resolve => require(['../vue/PopupWindow'], resolve),
   'PositionModeBulletBox': resolve => require(['../vue/PositionModeBulletBox'], resolve),
 
 }
@@ -34,7 +35,11 @@ root.data = function () {
     liquidationPrice:'',
     AmountText:'',  // 修改逐仓保证金输入弹框
     symbol:'' ,// 仓位币种
-    positionSide:'' // 仓位方向
+    positionSide:'', // 仓位方向
+    marketPriceClick: false, //市价不能多次点击设置
+    checkPriceClick: false, //限价不能多次点击设置
+    popOpen:false,   // 一键平仓弹框
+    waitForCancel: false, //是否开启等待
   }
 }
 root.props = {}
@@ -291,6 +296,7 @@ root.methods.marketPrice = function (item) {
     symbol: "BTCUSDT",
     orderType: "MARKET",
   }
+  this.marketPriceClick = true
   this.$http.send("POST_ORDERS_POSITION", {
     bind: this,
     params: params,
@@ -300,14 +306,21 @@ root.methods.marketPrice = function (item) {
 }
 // 获取记录返回，类型为{}
 root.methods.re_marketPrice = function (data) {
+  this.marketPriceClick = false
   typeof data === 'string' && (data = JSON.parse(data))
   if (!data) return
+  this.popOpen = false
   this.$eventBus.notify({key:'GET_POSITION'})
   this.promptOpen = true;
 
   if(data.code == 303) {
     this.popType = 0;
     this.popText = '下单失败';
+    return
+  }
+  if(data.code == 302) {
+    this.popType = 0;
+    this.popText = '参数错误';
     return
   }
   if(data.data.status == 'NEW') {
@@ -362,6 +375,7 @@ root.methods.checkPrice = function (item) {
     orderType: "LIMIT",
     workingType: null,
   }
+  this.checkPriceClick = true
   this.$http.send("POST_ORDERS_POSITION", {
     bind: this,
     params: params,
@@ -371,6 +385,7 @@ root.methods.checkPrice = function (item) {
 }
 // 获取记录返回，类型为{}
 root.methods.re_marketPrice = function (data) {
+  this.checkPriceClick = false
   typeof data === 'string' && (data = JSON.parse(data))
   if (!data) return
   this.$eventBus.notify({key:'GET_POSITION'})
@@ -379,6 +394,11 @@ root.methods.re_marketPrice = function (data) {
   if(data.code == 303) {
     this.popType = 0;
     this.popText = '下单失败';
+    return
+  }
+  if(data.code == 302) {
+    this.popType = 0;
+    this.popText = '参数错误';
     return
   }
   if(data.data.status == 'NEW') {
@@ -418,6 +438,98 @@ root.methods.re_marketPrice = function (data) {
   }
   this.getPositionRisk()
 }
+
+
+
+
+//一键平仓
+root.methods.closePositions = function () {
+  this.popOpen = true
+}
+//一键平仓
+root.methods.closePop = function () {
+  this.popOpen = false
+}
+
+// 确认全平
+root.methods.ensurePop = async function (item) {
+
+  this.marketPrice(item)
+  // let params = {
+  //   leverage: this.$store.state.leverage,
+  //   positionSide: item.positionSide,
+  //   quantity: Math.abs(item.positionAmt),
+  //   orderSide: (item.positionAmt<0) ? 'BUY':'SELL',
+  //   stopPrice: null,
+  //   symbol: "BTCUSDT",
+  //   orderType: "MARKET",
+  // }
+  // this.marketPriceClick = true
+  // this.$http.send("POST_ORDERS_POSITION", {
+  //   bind: this,
+  //   params: params,
+  //   callBack: this.re_ensurePop,
+  //   errorHandler: this.error_ensurePop
+  // })
+}
+// 获取币安24小时价格变动正确回调
+// 获取记录返回，类型为{}
+// root.methods.re_ensurePop = function (data) {
+//   this.checkPriceClick = false
+//   typeof data === 'string' && (data = JSON.parse(data))
+//   if (!data) return
+//   this.$eventBus.notify({key:'GET_POSITION'})
+//   this.promptOpen = true;
+//
+//   if(data.code == 303) {
+//     this.popType = 0;
+//     this.popText = '下单失败';
+//     return
+//   }
+//   if(data.data.status == 'NEW') {
+//     this.popType = 1;
+//     this.popText = '下单成功';
+//     return
+//   }
+//   if(data.data.status == 'PARTIALLY_FILLED') {
+//     this.popType = 1;
+//     this.popText = '您的订单成交了一部分';
+//     return
+//   }
+//   if(data.data.status == 'FILLED') {
+//     this.popType = 1;
+//     this.popText = '完全成交';
+//     return
+//   }
+//   if(data.data.status == 'CANCELED') {
+//     this.popType = 1;
+//     this.popText = '自己撤销的订单';
+//     return
+//   }
+//   if(data.data.status == 'EXPIRED') {
+//     this.popType = 0;
+//     this.popText = '您的订单已过期';
+//     return
+//   }
+//   if(data.data.status == 'NEW_INSURANCE') {
+//     this.popType = 1;
+//     this.popText = '风险保障基金(强平)';
+//     return
+//   }
+//   if(data.data.status == 'NEW_ADL') {
+//     this.popType = 1;
+//     this.popText = '自动减仓序列(强平)';
+//     return
+//   }
+//   this.getPositionRisk()
+// }
+//
+//
+// // 获取币安24小时价格变动错误回调
+// root.methods.error_ensurePop = function (err) {
+//   console.log('获取币安24小时价格变动接口',err)
+// }
+
 // 获取记录出错
 root.methods.error_marketPrice = function (err) {
   console.warn("充值获取记录出错！", err)

@@ -422,7 +422,7 @@ root.methods.postFullStop = function () {
     params = {
       leverage: this.$store.state.leverage,
       positionSide: "BOTH",
-      price: this.price,
+      price: this.price ? this.price : this.latestPriceVal,
       quantity: this.amount,
       reduceOnly: this.reducePositionsSelected,
       orderSide: this.orderType ? 'SELL':'BUY',
