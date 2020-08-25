@@ -515,34 +515,46 @@ root.methods.re_postFullStop = function (data) {
   typeof (data) === 'string' && (data = JSON.parse(data))
   if (!data || !data.data) return
   this.promptOpen = true;
-  this.popType = 1;
+
   this.$eventBus.notify({key:'GET_ORDERS'})
   this.$eventBus.notify({key:'GET_POSITION'})
+  if(data.code == 303) {
+    this.popType = 0;
+    this.popText = '下单失败';
+    return
+  }
   if(data.data.status == 'NEW') {
+    this.popType = 1;
     this.popText = '下单成功';
     return
   }
   if(data.data.status == 'PARTIALLY_FILLED') {
+    this.popType = 1;
     this.popText = '您的订单成交了一部分';
     return
   }
   if(data.data.status == 'FILLED') {
+    this.popType = 1;
     this.popText = '完全成交';
     return
   }
   if(data.data.status == 'CANCELED') {
+    this.popType = 1;
     this.popText = '自己撤销的订单';
     return
   }
   if(data.data.status == 'EXPIRED') {
+    this.popType = 0;
     this.popText = '您的订单已过期';
     return
   }
   if(data.data.status == 'NEW_INSURANCE') {
+    this.popType = 1;
     this.popText = '风险保障基金(强平)';
     return
   }
   if(data.data.status == 'NEW_ADL') {
+    this.popType = 1;
     this.popText = '自动减仓序列(强平)';
     return
   }
@@ -618,37 +630,50 @@ root.methods.postOrdersCreate = function () {
   })
 }
 root.methods.re_postOrdersCreate = function (data) {
+  if(data.code == 303) {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '下单失败';
+    return
+  }
   typeof (data) === 'string' && (data = JSON.parse(data))
   if (!data || !data.data) return
+  console.info('下单失败',data,data.errCode,data.code)
   this.promptOpen = true;
-  this.popType = 1;
   this.$eventBus.notify({key:'GET_ORDERS'})
   this.$eventBus.notify({key:'GET_POSITION'})
   if(data.data.status == 'NEW') {
+    this.popType = 1;
     this.popText = '下单成功';
     return
   }
   if(data.data.status == 'PARTIALLY_FILLED') {
+    this.popType = 1;
     this.popText = '您的订单成交了一部分';
     return
   }
   if(data.data.status == 'FILLED') {
+    this.popType = 1;
     this.popText = '完全成交';
     return
   }
   if(data.data.status == 'CANCELED') {
+    this.popType = 1;
     this.popText = '自己撤销的订单';
     return
   }
   if(data.data.status == 'EXPIRED') {
+    this.popType = 0;
     this.popText = '您的订单已过期';
     return
   }
   if(data.data.status == 'NEW_INSURANCE') {
+    this.popType = 1;
     this.popText = '风险保障基金(强平)';
     return
   }
   if(data.data.status == 'NEW_ADL') {
+    this.popType = 1;
     this.popText = '自动减仓序列(强平)';
     return
   }
@@ -697,38 +722,54 @@ root.methods.postOrdersPosition = function () {
 root.methods.re_postOrdersPosition = function (data) {
   typeof (data) === 'string' && (data = JSON.parse(data))
   if (!data || !data.data) return
+  console.info('下单失败',data,data.code,data.errCode)
+
   this.promptOpen = true;
-  this.popType = 1;
+
   this.$eventBus.notify({key:'GET_ORDERS'})
   this.$eventBus.notify({key:'GET_POSITION'})
+
   if(data.data.status == 'NEW') {
+    this.popType = 1;
     this.popText = '下单成功';
     return
   }
   if(data.data.status == 'PARTIALLY_FILLED') {
+    this.popType = 1;
     this.popText = '您的订单成交了一部分';
     return
   }
   if(data.data.status == 'FILLED') {
+    this.popType = 1;
     this.popText = '完全成交';
     return
   }
   if(data.data.status == 'CANCELED') {
+    this.popType = 1;
     this.popText = '自己撤销的订单';
     return
   }
   if(data.data.status == 'EXPIRED') {
+    this.popType = 0;
     this.popText = '您的订单已过期';
     return
   }
   if(data.data.status == 'NEW_INSURANCE') {
+    this.popType = 1;
     this.popText = '风险保障基金(强平)';
     return
   }
   if(data.data.status == 'NEW_ADL') {
+    this.popType = 1;
     this.popText = '自动减仓序列(强平)';
     return
   }
+  if(data.errCode == '2022') {
+    this.popType = 0;
+    this.popText = '下单失败';
+    return
+  }
+
 }
 root.methods.error_postOrdersPosition = function (err) {
   console.info('err====',err)

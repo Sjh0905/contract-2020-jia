@@ -280,32 +280,44 @@ root.methods.re_marketPrice = function (data) {
   if (!data) return
   this.$eventBus.notify({key:'GET_POSITION'})
   this.promptOpen = true;
-  this.popType = 1;
+
+  if(data.code == 303) {
+    this.popType = 0;
+    this.popText = '下单失败';
+    return
+  }
   if(data.data.status == 'NEW') {
+    this.popType = 1;
     this.popText = '下单成功';
     return
   }
   if(data.data.status == 'PARTIALLY_FILLED') {
+    this.popType = 1;
     this.popText = '您的订单成交了一部分';
     return
   }
   if(data.data.status == 'FILLED') {
+    this.popType = 1;
     this.popText = '完全成交';
     return
   }
   if(data.data.status == 'CANCELED') {
+    this.popType = 1;
     this.popText = '自己撤销的订单';
     return
   }
   if(data.data.status == 'EXPIRED') {
+    this.popType = 0;
     this.popText = '您的订单已过期';
     return
   }
   if(data.data.status == 'NEW_INSURANCE') {
+    this.popType = 1;
     this.popText = '风险保障基金(强平)';
     return
   }
   if(data.data.status == 'NEW_ADL') {
+    this.popType = 1;
     this.popText = '自动减仓序列(强平)';
     return
   }
@@ -339,32 +351,44 @@ root.methods.re_marketPrice = function (data) {
   if (!data) return
   this.$eventBus.notify({key:'GET_POSITION'})
   this.promptOpen = true;
-  this.popType = 1;
+
+  if(data.code == 303) {
+    this.popType = 0;
+    this.popText = '下单失败';
+    return
+  }
   if(data.data.status == 'NEW') {
+    this.popType = 1;
     this.popText = '下单成功';
     return
   }
   if(data.data.status == 'PARTIALLY_FILLED') {
+    this.popType = 1;
     this.popText = '您的订单成交了一部分';
     return
   }
   if(data.data.status == 'FILLED') {
+    this.popType = 1;
     this.popText = '完全成交';
     return
   }
   if(data.data.status == 'CANCELED') {
+    this.popType = 1;
     this.popText = '自己撤销的订单';
     return
   }
   if(data.data.status == 'EXPIRED') {
+    this.popType = 0;
     this.popText = '您的订单已过期';
     return
   }
   if(data.data.status == 'NEW_INSURANCE') {
+    this.popType = 1;
     this.popText = '风险保障基金(强平)';
     return
   }
   if(data.data.status == 'NEW_ADL') {
+    this.popType = 1;
     this.popText = '自动减仓序列(强平)';
     return
   }
