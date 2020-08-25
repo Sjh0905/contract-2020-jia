@@ -132,6 +132,12 @@ tr, th, td {
   line-height: 50px;
   padding-right: 25px;
 }
+.td-turnover1 {
+  flex: 5.3;
+  text-align: right;
+  line-height: 50px;
+  padding-right: 25px;
+}
 .drop-down {
   width: 8px;
   /*margin: auto 0;*/

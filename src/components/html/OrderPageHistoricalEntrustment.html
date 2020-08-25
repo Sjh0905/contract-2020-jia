@@ -20,7 +20,7 @@
       <!--触发条件-->
       <div class="th td-price">{{$t('触发条件')}}</div>
       <!--状态-->
-      <div class="th td-turnover">{{$t('状态')}}</div>
+      <div class="th td-turnover" :class="$route.name == 'historicalEntrust'?'td-turnover':'td-turnover1'">{{$t('状态')}}</div>
     </li>
 
 
@@ -87,9 +87,9 @@
            </div>
 
          </li>
-         <li v-else v-for="(order,index) in historyOrderComputed" :key="order.id"
+         <li v-if="$route.name != 'historicalEntrust'" v-for="(order,index) in historyOrderComputed" :key="order.id"
                class="tr-td-col" @click="showDetail(order.orderId)">
-           <div class="flex-center" :class="order.status == 'FILLED' ? 'tr-detail':'tr-detail-opacity'">
+           <div class="tr-detail flex-center">
 
             <!--时间 begin -->
             <div class="td td-time1">{{$globalFunc.formatDateUitl(order.updateTime,'YYYY-MM-DD hh:mm:ss')}}</div>
@@ -131,13 +131,12 @@
             <!--触发条件 end-->
 
             <!--状态 begin -->
-              <div class="td td-turnover" v-if="order.status == 'NEW'">新建订单</div>
-              <div class="td td-turnover" v-if="order.status == 'PARTIALLY_FILLED'">部分成交</div>
-              <div class="td td-turnover" v-if="order.status == 'FILLED'">全部成交
-                <img class="drop-down" src="../../assets/drop_down.png" alt=""></div>
-              <div class="td td-turnover" v-if="order.status == 'CANCELED'">已撤销</div>
-              <div class="td td-turnover" v-if="order.status == 'REJECTED'">订单被拒绝</div>
-              <div class="td td-turnover" v-if="order.status == 'EXPIRED'">订单过期</div>
+              <div class="td td-turnover1" v-if="order.status == 'NEW'">新建订单</div>
+              <div class="td td-turnover1" v-if="order.status == 'PARTIALLY_FILLED'">部分成交</div>
+              <div class="td td-turnover1" v-if="order.status == 'FILLED'">全部成交</div>
+              <div class="td td-turnover1" v-if="order.status == 'CANCELED'">已撤销</div>
+              <div class="td td-turnover1" v-if="order.status == 'REJECTED'">订单被拒绝</div>
+              <div class="td td-turnover1" v-if="order.status == 'EXPIRED'">订单过期</div>
 
            </div>
            <!--展示详情(如果在交易，打不开详情)-->
