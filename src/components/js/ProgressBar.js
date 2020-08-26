@@ -630,15 +630,14 @@ root.methods.postOrdersCreate = function () {
   })
 }
 root.methods.re_postOrdersCreate = function (data) {
+  typeof (data) === 'string' && (data = JSON.parse(data))
+  if (!data || !data.data) return
   if(data.code == 303) {
     this.promptOpen = true;
     this.popType = 0;
     this.popText = '下单失败';
     return
   }
-  typeof (data) === 'string' && (data = JSON.parse(data))
-  if (!data || !data.data) return
-  console.info('下单失败',data,data.errCode,data.code)
   this.promptOpen = true;
   this.$eventBus.notify({key:'GET_ORDERS'})
   this.$eventBus.notify({key:'GET_POSITION'})
@@ -722,10 +721,14 @@ root.methods.postOrdersPosition = function () {
 root.methods.re_postOrdersPosition = function (data) {
   typeof (data) === 'string' && (data = JSON.parse(data))
   if (!data || !data.data) return
-  console.info('下单失败',data,data.code,data.errCode)
+  if(data.code == 303) {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '下单失败';
+    return
+  }
 
   this.promptOpen = true;
-
   this.$eventBus.notify({key:'GET_ORDERS'})
   this.$eventBus.notify({key:'GET_POSITION'})
 

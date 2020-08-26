@@ -180,6 +180,7 @@ root.data = function () {
 }
 
 root.created = function () {
+  this.checkPrice ==1 ? this.effectiveTime='GTX' : this.effectiveTime='GTC'
   // if(this.screenWidth<1450){
   //   this.latestDealSpread = false;
   //   // this.pankqh = false;
@@ -800,7 +801,7 @@ root.methods.re_positionRisk = function (data) {
 root.methods.marginModeConfirm = function () {
   if ((this.marginType == 'CROSSED' && this.marginModeTypeTemp == 'quanCang')|| (this.marginType == 'ISOLATED' && this.marginModeTypeTemp == 'zhuCang')) {
     this.popType = 0;
-    this.popText = '不需要切换仓位模式';
+    this.popText = '暂不需要调整保证金模式';
     this.promptOpen = true;
     return
   }
@@ -1004,7 +1005,6 @@ root.methods.initSocket = function () {
   // 获取最新标记价格
   this.$socket.on({
     key: 'markPriceUpdate', bind: this, callBack: (message) => {
-      // console.log('markPrice is ===',message);
       if(message.s === subscribeSymbol){
         message.p > 0 && (this.markPrice = message.p)// 标记价格
         message.r > 0 && (this.lastFundingRate = message.r)// 资金费率
@@ -1401,11 +1401,11 @@ root.methods.formatTooltip =(val)=>{
 //被动委托
 root.methods.priceLimitSelection = function (checkPrice) {
   this.checkPrice = checkPrice
-  if(checkPrice == 1) {
-    this.effectiveTime = 'GTX'
+  if(checkPrice == 2) {
+    this.effectiveTime = 'GTC'
     return
   }
-  this.effectiveTime = 'GTC'
+  this.effectiveTime = 'GTX'
 }
 /*---------------------- 生效时间 begin ---------------------*/
 root.methods.closeDropDownTime= function () {
