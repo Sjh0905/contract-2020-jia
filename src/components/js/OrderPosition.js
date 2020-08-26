@@ -452,83 +452,12 @@ root.methods.closePop = function () {
 }
 
 // 确认全平
-root.methods.ensurePop = async function (item) {
-
-  this.marketPrice(item)
-  // let params = {
-  //   leverage: this.$store.state.leverage,
-  //   positionSide: item.positionSide,
-  //   quantity: Math.abs(item.positionAmt),
-  //   orderSide: (item.positionAmt<0) ? 'BUY':'SELL',
-  //   stopPrice: null,
-  //   symbol: "BTCUSDT",
-  //   orderType: "MARKET",
-  // }
-  // this.marketPriceClick = true
-  // this.$http.send("POST_ORDERS_POSITION", {
-  //   bind: this,
-  //   params: params,
-  //   callBack: this.re_ensurePop,
-  //   errorHandler: this.error_ensurePop
-  // })
+root.methods.ensurePop = async function () {
+  this.records.forEach(v=>{
+    this.marketPrice(v)
+  })
+  this.closePop()
 }
-// 获取币安24小时价格变动正确回调
-// 获取记录返回，类型为{}
-// root.methods.re_ensurePop = function (data) {
-//   this.checkPriceClick = false
-//   typeof data === 'string' && (data = JSON.parse(data))
-//   if (!data) return
-//   this.$eventBus.notify({key:'GET_POSITION'})
-//   this.promptOpen = true;
-//
-//   if(data.code == 303) {
-//     this.popType = 0;
-//     this.popText = '下单失败';
-//     return
-//   }
-//   if(data.data.status == 'NEW') {
-//     this.popType = 1;
-//     this.popText = '下单成功';
-//     return
-//   }
-//   if(data.data.status == 'PARTIALLY_FILLED') {
-//     this.popType = 1;
-//     this.popText = '您的订单成交了一部分';
-//     return
-//   }
-//   if(data.data.status == 'FILLED') {
-//     this.popType = 1;
-//     this.popText = '完全成交';
-//     return
-//   }
-//   if(data.data.status == 'CANCELED') {
-//     this.popType = 1;
-//     this.popText = '自己撤销的订单';
-//     return
-//   }
-//   if(data.data.status == 'EXPIRED') {
-//     this.popType = 0;
-//     this.popText = '您的订单已过期';
-//     return
-//   }
-//   if(data.data.status == 'NEW_INSURANCE') {
-//     this.popType = 1;
-//     this.popText = '风险保障基金(强平)';
-//     return
-//   }
-//   if(data.data.status == 'NEW_ADL') {
-//     this.popType = 1;
-//     this.popText = '自动减仓序列(强平)';
-//     return
-//   }
-//   this.getPositionRisk()
-// }
-//
-//
-// // 获取币安24小时价格变动错误回调
-// root.methods.error_ensurePop = function (err) {
-//   console.log('获取币安24小时价格变动接口',err)
-// }
 
 // 获取记录出错
 root.methods.error_marketPrice = function (err) {
