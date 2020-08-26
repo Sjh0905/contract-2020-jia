@@ -20,7 +20,7 @@
       <!--触发条件-->
       <div class="th td-price">{{$t('触发条件')}}</div>
       <!--状态-->
-      <div class="th td-turnover">{{$t('状态')}}</div>
+      <div class="th td-turnover" :class="$route.name == 'historicalEntrust'?'td-turnover':'td-turnover1'">{{$t('状态')}}</div>
     </li>
 
 
@@ -28,10 +28,9 @@
       <!-- 如果loading结束、已经登录、有值，则显示值 begin -->
       <template v-if="userId && historyOrderComputed.length !==0">
         <div class="historica">
-         <li  v-for="(order,index) in historyOrderComputed" :key="order.id"
-             :class="$route.name == 'historicalEntrust'?'tr-td':'tr-td-col'"
-              @click="showDetail(order.orderId)">
-           <div class="flex-center" :class="order.status == 'FILLED'? 'tr-detail':'tr-detail-opacity'">
+         <li v-if="$route.name == 'historicalEntrust'" v-for="(order,index) in historyOrderComputed" :key="order.id"
+              class="tr-td" @click="showDetail(order.orderId)">
+           <div class="flex-center" :class="order.status == 'FILLED' ? 'tr-detail':'tr-detail-opacity'">
 
             <!--时间 begin -->
             <div class="td td-time1">{{$globalFunc.formatDateUitl(order.updateTime,'YYYY-MM-DD hh:mm:ss')}}</div>
@@ -80,6 +79,64 @@
               <div class="td td-turnover" v-if="order.status == 'CANCELED'">已撤销</div>
               <div class="td td-turnover" v-if="order.status == 'REJECTED'">订单被拒绝</div>
               <div class="td td-turnover" v-if="order.status == 'EXPIRED'">订单过期</div>
+
+           </div>
+           <!--展示详情(如果在交易，打不开详情)-->
+           <div v-if="clickThis === order.orderId && $route.name== 'historicalEntrust' && order.status == 'FILLED'"  class="tr-hidden">
+             <HiddenDetail :orderId="order.orderId" :symbol="order.symbol" :startTime="startTime" :endTime="endTime"/>
+           </div>
+
+         </li>
+         <li v-if="$route.name != 'historicalEntrust'" v-for="(order,index) in historyOrderComputed" :key="order.id"
+               class="tr-td-col" @click="showDetail(order.orderId)">
+           <div class="tr-detail flex-center">
+
+            <!--时间 begin -->
+            <div class="td td-time1">{{$globalFunc.formatDateUitl(order.updateTime,'YYYY-MM-DD hh:mm:ss')}}</div>
+            <!--时间 end -->
+            <!--合约 begin -->
+            <div class="td td-time">{{order.symbol}}</div>
+            <!--合约 end -->
+            <!--订单类型 begin -->
+            <div class="td td-category" v-if="order.type == 'LIMIT'">限价单</div>
+            <div class="td td-category" v-if="order.type == 'MARKET'">市价单</div>
+            <div class="td td-category" v-if="order.type == 'STOP'">止损限价单</div>
+            <div class="td td-category" v-if="order.type == 'STOP_MARKET'">止损市价单</div>
+            <div class="td td-category" v-if="order.type == 'TAKE_PROFIT'">止盈限价单</div>
+            <div class="td td-category" v-if="order.type == 'TAKE_PROFIT_MARKET'">止盈市价单</div>
+            <div class="td td-category" v-if="order.type == 'TRAILING_STOP_MARKET'">跟踪止损单</div>
+            <!--订单类型 end -->
+            <!--方向 begin -->
+
+             <div class="td td-market" :class="order.side==='BUY'?'text_blue-3':'text_red-4'">
+             {{$globalFunc.getOrderSide(order.positionSide,order.side)}}
+             <!--国际化时用这个{{$t('orderPageHistoricalEntrustment.'+$globalFunc.getOrderSide(order.positionSide,order.side))}}-->
+             </div>
+            <!--方向 end -->
+
+            <!--价格 begin -->
+            <div class="td td-market">{{order.price != 0 ? toFixed(order.price, 2) : '--'}}</div>
+            <!--价格 end -->
+
+            <!--成交均价 begin -->
+            <div class="td td-market">{{order.avgPrice !=0 ? toFixed(order.avgPrice, 2) : '--'}}</div>
+            <!--成交均价 end -->
+
+            <!--数量 begin -->
+            <div class="td td-category">{{toFixed(order.executedQty,3)}}</div>
+            <!--数量 end -->
+
+            <!--触发条件 begin -->
+            <div class="td td-price">{{order.stopPrice > 0 ? (workingTypeMap[order.workingType]+' <= '+toFixed(order.stopPrice, 2)) : '-'}}</div>
+            <!--触发条件 end-->
+
+            <!--状态 begin -->
+              <div class="td td-turnover1" v-if="order.status == 'NEW'">新建订单</div>
+              <div class="td td-turnover1" v-if="order.status == 'PARTIALLY_FILLED'">部分成交</div>
+              <div class="td td-turnover1" v-if="order.status == 'FILLED'">全部成交</div>
+              <div class="td td-turnover1" v-if="order.status == 'CANCELED'">已撤销</div>
+              <div class="td td-turnover1" v-if="order.status == 'REJECTED'">订单被拒绝</div>
+              <div class="td td-turnover1" v-if="order.status == 'EXPIRED'">订单过期</div>
 
            </div>
            <!--展示详情(如果在交易，打不开详情)-->
