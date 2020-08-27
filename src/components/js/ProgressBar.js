@@ -352,7 +352,9 @@ root.data = function () {
     // 弹框打开/关闭
     popWindowOpen1:false,
     // 初始保证金率
-    initialMarginRate :[0.008, 0.01, 0.02, 0.05, 0.1, 0.2, 0.25, 0.333, 0.5, 1]
+    initialMarginRate :[0.008, 0.01, 0.02, 0.05, 0.1, 0.2, 0.25, 0.333, 0.5, 1],
+  //  买卖限流
+    currentLimiting:false,
   }
 }
 
@@ -416,6 +418,7 @@ root.methods.openPositionBox = function (name) {
 /*----------------------------- 方法 ------------------------------*/
 // 止盈止损接口
 root.methods.postFullStop = function () {
+  this.currentLimiting = true
   let params = {}
   // 单仓 限价止盈止损
   if (this.isHasModule('kaipingType') == 1 && this.isHasModule('buttonType') == 1 && this.pendingOrderType == 'limitProfitStopLoss') {
@@ -512,17 +515,26 @@ root.methods.postFullStop = function () {
   })
 }
 root.methods.re_postFullStop = function (data) {
-  typeof (data) === 'string' && (data = JSON.parse(data))
-  if (!data || !data.data) return
-  this.promptOpen = true;
+  this.currentLimiting = false
 
-  this.$eventBus.notify({key:'GET_ORDERS'})
-  this.$eventBus.notify({key:'GET_POSITION'})
-  if(data.code == 303) {
+  if(data.code == 303 && data.errCode == '2022') {
+    this.promptOpen = true;
     this.popType = 0;
     this.popText = '下单失败';
     return
   }
+
+  if(data.code == '303' && data.errCode == '2021') {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '订单可能被立刻触发';//当前无仓位，不能下单
+    return
+  }
+  typeof (data) === 'string' && (data = JSON.parse(data))
+  if (!data || !data.data) return
+  this.promptOpen = true;
+  this.$eventBus.notify({key:'GET_ORDERS'})
+  this.$eventBus.notify({key:'GET_POSITION'})
   if(data.data.status == 'NEW') {
     this.popType = 1;
     this.popText = '下单成功';
@@ -565,6 +577,7 @@ root.methods.error_postFullStop = function (err) {
 
 // 开仓
 root.methods.postOrdersCreate = function () {
+  this.currentLimiting = true
   let params = {}
   // 单仓 限价
   if (this.isHasModule('kaipingType') == 1 && this.isHasModule('buttonType') == 1 && this.pendingOrderType == 'limitPrice' && this.checkPrice != '2') {
@@ -630,10 +643,17 @@ root.methods.postOrdersCreate = function () {
   })
 }
 root.methods.re_postOrdersCreate = function (data) {
-  if(data.code == 303) {
+  this.currentLimiting = false
+  if(data.code == 303 && data.errCode == 2022) {
     this.promptOpen = true;
     this.popType = 0;
     this.popText = '下单失败';
+    return
+  }
+  if(data.code == '303' && data.errCode == '2021') {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '订单可能被立刻触发';//当前无仓位，不能下单
     return
   }
   typeof (data) === 'string' && (data = JSON.parse(data))
@@ -684,6 +704,7 @@ root.methods.error_postOrdersCreate = function (err) {
 
 // 平仓
 root.methods.postOrdersPosition = function () {
+  this.currentLimiting = true
   let params = {}
   // 双仓 平仓 限价 平多 传LONG ; 平空 传SHORT
   if (this.isHasModule('kaipingType') == 2 && this.isHasModule('buttonType') == 3 && this.pendingOrderType == 'limitPrice') {
@@ -720,9 +741,22 @@ root.methods.postOrdersPosition = function () {
   })
 }
 root.methods.re_postOrdersPosition = function (data) {
+  // console.info('下单失败',data,data.code,data.errCode)
+  this.currentLimiting = false
+  if(data.code == '303' && data.errCode == '2022') {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '下单失败';//当前无仓位，不能下单
+    return
+  }
+  if(data.code == '303' && data.errCode == '2021') {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '订单可能被立刻触发';//当前无仓位，不能下单
+    return
+  }
   typeof (data) === 'string' && (data = JSON.parse(data))
   if (!data || !data.data) return
-  console.info('下单失败',data,data.code,data.errCode)
 
   this.promptOpen = true;
 
@@ -762,11 +796,6 @@ root.methods.re_postOrdersPosition = function (data) {
   if(data.data.status == 'NEW_ADL') {
     this.popType = 1;
     this.popText = '自动减仓序列(强平)';
-    return
-  }
-  if(data.errCode == '2022') {
-    this.popType = 0;
-    this.popText = '下单失败';
     return
   }
 
