@@ -96,6 +96,10 @@ root.computed.isStyle = function () {
   if(this.closingPrice == 0 || this.openingPrice == 0 || this.transactionQuantity == 0) return true
   return false
 }
+root.computed.maximunPosition = function () {
+  return this.accMul(Number(this.openingPrice), Number(this.transactionQuantity))
+}
+
 // 判断目标价格输入框是否为空
 root.computed.isTargePrice = function () {
   if(this.targetOpeningPrice == '' || this.targetReturnRate == '') return true
@@ -155,9 +159,21 @@ root.computed.maxPosition = function () {
   maxPosition = ''
   return maxPosition
 }
-
+// 是否可以计算
+root.computed.isComputed = function (){
+  if(Number((this.maxPosition).replace(/\,/g,'')) < this.accMul(Number(this.openingPrice), Number(this.transactionQuantity)))return true
+  return false
+}
 /*------------------------------ 观察 -------------------------------*/
 root.watch = {}
+root.watch.maximunPosition = function (newVal,oldVal) {
+}
+root.watch.maxPosition = function (newVal,oldVal) {
+}
+root.watch.calculatorValue = function (newVal,oldVal) {
+}
+// root.watch.transactionQuantity = function (newVal,oldVal) {
+// }
 root.watch.styleType = function (oldVal,newVal) {
   if(oldVal == newVal) return
   this.calculatorValue = 1
@@ -198,6 +214,7 @@ root.methods.openPositionBox = function (name) {
 // 计算收益
 root.methods.clickCalculation = function (){
   if(this.closingPrice == '' || this.openingPrice == '' || this.transactionQuantity == '') return
+  if(this.maxPosition < this.accMul(Number(this.openingPrice), Number(this.transactionQuantity))) return
   if(this.moreEmptyType == 1){
     // 收益计算
     this.income = this.toFixed(this.accMul((this.accMinus(Number(this.closingPrice) , Number(this.openingPrice))),Number(this.transactionQuantity)),2)
@@ -239,7 +256,7 @@ root.methods.selectType = function (type) {
 }
 // 处理滑动条显示框内容
 root.methods.formatTooltip=(val)=>{
-  console.info(val)
+  // console.info(val)
   return  val + 'X';
 }
 // // 关闭计算器弹窗

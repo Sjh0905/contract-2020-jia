@@ -35,8 +35,9 @@
                 >
                 </el-slider>
               </div>
-              <div v-if="calculatorValue > 2" class="wrong-text wrong-text-grey" >当前杠杆倍数最高可持有头寸：
-                <span>{{maxPosition}}</span> USDT</div>
+              <div v-if="calculatorValue > 2" class="wrong-text wrong-text-grey" :class="isComputed? 'text_red': ''">当前杠杆倍数最高可持有头寸：
+                <span>{{maxPosition}}</span> USDT
+              </div>
               <div v-else class="empty-box"></div>
             </div>
             <!--输入框内容-->
@@ -118,8 +119,7 @@
                   :format-tooltip="formatTooltip"
                   :max="125"
                   :min="1"
-                >
-                </el-slider>
+                />
               </div>
               <div v-if="calculatorValue>2" class="wrong-text wrong-text-grey">当前杠杆倍数最高可持有头寸：
                 <span>{{maxPosition}}</span> USDT</div>

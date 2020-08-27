@@ -83,12 +83,12 @@ root.props.markPrice = {
   type: String,
   default: ''
 }
-// 可平数量
+// 可平空数量
 root.props.positionAmtLong = {
   type: Number,
   default: 0
 }
-// 可平数量
+// 可平多数量
 root.props.positionAmtShort = {
   type: Number,
   default: 0
@@ -733,6 +733,14 @@ root.methods.postOrdersPosition = function () {
       orderType: "MARKET",
     }
   }
+  // 如果是平空或者平多，买入量不得大于可平数量
+  if((!this.orderType && this.positionAmtShort < Number(this.amount)) || (this.orderType && this.positionAmtLong < Number(this.amount))){
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '您输入的数量超过可平数量';
+    return
+  }
+
   this.$http.send('POST_ORDERS_POSITION',{
     bind: this,
     params,
@@ -757,12 +765,15 @@ root.methods.re_postOrdersPosition = function (data) {
   }
   typeof (data) === 'string' && (data = JSON.parse(data))
   if (!data || !data.data) return
-
   this.promptOpen = true;
-
   this.$eventBus.notify({key:'GET_ORDERS'})
   this.$eventBus.notify({key:'GET_POSITION'})
-
+  if(data.code == 303) {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '下单失败';
+    return
+  }
   if(data.data.status == 'NEW') {
     this.popType = 1;
     this.popText = '下单成功';

@@ -275,7 +275,6 @@ root.methods.getAdlQuantile = function () {
 root.methods.re_getAdlQuantile = function (data) {
   typeof data === 'string' && (data = JSON.parse(data))
   if (!data) return
-
   console.log('this is getAdlQuantile',data);
 }
 // 自动减仓持仓ADL队列估算返回出错
@@ -363,17 +362,17 @@ root.methods.re_marketPrice = function (data) {
 // 限价
 root.methods.checkPrice = function (item) {
   let markPrice = document.getElementById('markPrice').value;//获取input的节点bai
-  let  params = {
+  let params = {
     leverage: this.$store.state.leverage,
     positionSide: item.positionSide,
     price: markPrice,
     quantity: Math.abs(item.positionAmt),
-    orderSide: (item.positionAmt>0) ? 'BUY':'SELL',
-    stopPrice: null,
+    orderSide: (item.positionAmt > 0) ? 'SELL':'BUY',
+    // stopPrice: null,
     symbol: "BTCUSDT",
     timeInForce: this.effectiveTime,
     orderType: "LIMIT",
-    workingType: null,
+    // workingType: null,
   }
   this.checkPriceClick = true
   this.$http.send("POST_ORDERS_POSITION", {
@@ -438,9 +437,6 @@ root.methods.re_marketPrice = function (data) {
   }
   this.getPositionRisk()
 }
-
-
-
 
 //一键平仓
 root.methods.closePositions = function () {

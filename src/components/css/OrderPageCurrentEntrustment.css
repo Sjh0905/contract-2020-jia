@@ -141,6 +141,9 @@ tr, th, td {
   flex: 5;
 }
 
+.td-position {
+  flex: 5;
+}
 .td-operation {
   flex: 5.3;
   text-align: right;

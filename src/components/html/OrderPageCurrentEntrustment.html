@@ -18,6 +18,8 @@
       <div class="th td-number">{{$t('number')}}</div>
       <!--完成度-->
       <div class="th td-price">{{$t('完成度')}}</div>
+      <!--只减仓-->
+      <div class="th td-position">{{$t('只减仓')}}</div>
       <!--触发条件-->
       <div class="th td-trigger">{{$t('触发条件')}}</div>
 
@@ -61,6 +63,8 @@
             <!--完成度-->
             <!--<div class="td td-price">{{((order.executedQty / order.origQty) * 10 * 10).toFixed(2)}}%</div>-->
             <div class="td td-price">{{order.origQty > 0 ? ((accDiv(order.executedQty || 0,order.origQty) * 100 || 0).toFixed(3)+'%') : ''}}</div>
+            <!--只减仓-->
+            <div class="th td-position">{{'--'}}</div>
             <!--触发条件 TODO:需要进一步研究-->
             <div class="td td-trigger">{{order.stopPrice > 0 ? (workingTypeMap[order.workingType]+' <= '+toFixed(order.stopPrice, 2)) : '-'}}</div>
             <!--撤单-->

@@ -270,7 +270,7 @@
         <span v-if="isHasModule('kaipingType') == 1" class="security-deposit-text">可开</span>
         <span v-if="isHasModule('kaipingType') == 2" class="security-deposit-text">可平</span>
         <span class="security-deposit-amount" v-if="isHasModule('kaipingType') == 1">{{canBeOpened}} BTC</span>
-        <span class="security-deposit-amount" v-if="isHasModule('kaipingType') == 2">{{orderType ? positionAmtShort:positionAmtLong}} BTC</span>
+        <span class="security-deposit-amount" v-if="isHasModule('kaipingType') == 2">{{orderType ? positionAmtLong : positionAmtShort}} BTC</span>
       </div>
     </div>
 
