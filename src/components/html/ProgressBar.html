@@ -267,8 +267,8 @@
       <div :class="orderType?'security-deposit-block':'security-deposit-block-buy'">仓位占用的保证金。</div>
 
       <div class="can-be-opened flex-between">
-        <span v-if="isHasModule('kaipingType') == 1 && !currentLimiting" class="security-deposit-text">可开2</span>
-        <span v-if="isHasModule('kaipingType') == 2 && !currentLimiting" class="security-deposit-text">可平3</span>
+        <span v-if="isHasModule('kaipingType') == 1" class="security-deposit-text">可开</span>
+        <span v-if="isHasModule('kaipingType') == 2" class="security-deposit-text">可平</span>
         <span class="security-deposit-amount" v-if="isHasModule('kaipingType') == 1">{{canBeOpened}} BTC</span>
         <span class="security-deposit-amount" v-if="isHasModule('kaipingType') == 2">{{orderType ? positionAmtShort:positionAmtLong}} BTC</span>
       </div>
@@ -321,20 +321,20 @@
       <div class="progress-bar-btn txt-nomal border_radius" @click="postOrdersPosition()"
            :class="orderType?'progress-bar-redbtn btn_red_box_shadow':'progress-bar-greenbtn btn_green_box_shadow'"
            v-if="$store.state.authState.userId && !currentLimiting && isHasModule('buttonType') == 3 && (pendingOrderType == 'limitPrice' || pendingOrderType == 'marketPrice')">
-        {{orderType && '平多' || '平空'}}22
+        {{orderType && '平多' || '平空'}}
       </div>
 
       <!--双仓 平仓  限价止盈止损  市价止盈止损 -->
       <div class="progress-bar-btn txtvalue-nomal border_radius" @click="postFullStop()"
            :class="orderType?'progress-bar-redbtn btn_red_box_shadow':'progress-bar-greenbtn btn_green_box_shadow'"
            v-if="$store.state.authState.userId && !currentLimiting && isHasModule('buttonType') == 3 && (pendingOrderType == 'limitProfitStopLoss' || pendingOrderType == 'marketPriceProfitStopLoss')">
-        {{orderType && '平空' || '平多'}}33
+        {{orderType && '平空' || '平多'}}
       </div>
 
       <div class="progress-bar-btn txt-nomal border_radius"
            :class="orderType?'progress-bar-redbtn btn_red_box_shadow':'progress-bar-greenbtn btn_green_box_shadow'"
            v-if="$store.state.authState.userId && currentLimiting && isHasModule('buttonType') == 3"
-      >{{orderType && '平空' || '平多'}}11
+      >{{orderType && '平空' || '平多'}}
       </div>
       <!--<div class="progress-bar-btn progress-bar-nologin-btn ptxt-nomal"-->
            <!--v-if="$store.state.authMessage.userId && (!symbol_transaction || !symbol_transaction_diy)">-->
