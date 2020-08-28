@@ -658,7 +658,7 @@ root.methods.re_postOrdersCreate = function (data) {
   }
   typeof (data) === 'string' && (data = JSON.parse(data))
   if (!data || !data.data) return
-  console.info('下单失败',data,data.errCode,data.code)
+  // console.info('下单失败',data,data.errCode,data.code)
   this.promptOpen = true;
   this.$eventBus.notify({key:'GET_ORDERS'})
   this.$eventBus.notify({key:'GET_POSITION'})
