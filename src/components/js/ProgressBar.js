@@ -98,8 +98,77 @@ root.props.positionAmtShort = {
 // 可开BTC
 root.computed.canBeOpened = function () {
   if(Number(this.latestPriceVal) == 0) return
-  let num = this.accDiv(Number(this.availableBalance) ,Number(this.latestPriceVal))
-  return this.toFixed(this.accMul(num , this.$store.state.leverage),2)
+  let leverage = this.$store.state.leverage // 杠杆倍数
+  let availableBalance = Number(this.availableBalance) // 钱包余额
+  let latestPriceVal = Number(this.latestPriceVal) // 市价
+  let positionCalculation = 0  // 头寸计算
+  let canOpenAvailable = 0  //可开最大头寸
+  let num = 0 // 可开数量
+  // console.info('latestPriceVal===',latestPriceVal)
+  // this.initialMarginRate :[0.008, 0.01, 0.02, 0.05, 0.1, 0.2, 0.25, 0.333, 0.5, 1],
+  // this.maxPosition : [50000,250000,1000000,5000000,20000000,50000000,100000000,200000000],
+  if(leverage <=125 && leverage>100) {
+    positionCalculation = this.accDiv(availableBalance , this.initialMarginRate[0])
+    canOpenAvailable = positionCalculation > this.maxPosition[0] ? this.maxPosition[0]: positionCalculation
+    num = this.toFixed(this.accDiv(canOpenAvailable , latestPriceVal) ,3)
+    return num
+  }
+  if(leverage <= 100 && leverage > 50) {
+    positionCalculation = this.accDiv(availableBalance , this.initialMarginRate[1])
+    canOpenAvailable = positionCalculation > this.maxPosition[1] ? this.maxPosition[1]: positionCalculation
+    num = this.toFixed(this.accDiv(canOpenAvailable , latestPriceVal) ,3)
+    return num
+  }
+  if(leverage <= 50 && leverage > 20) {
+    positionCalculation = this.accDiv(availableBalance , this.initialMarginRate[2])
+    canOpenAvailable = positionCalculation > this.maxPosition[2] ? this.maxPosition[2]: positionCalculation
+    num = this.toFixed(this.accDiv(canOpenAvailable , latestPriceVal) ,3)
+    return num
+  }
+  if(leverage <= 20 && leverage > 10) {
+    positionCalculation = this.accDiv(availableBalance , this.initialMarginRate[3])
+    canOpenAvailable = positionCalculation > this.maxPosition[3] ? this.maxPosition[3]: positionCalculation
+    num = this.toFixed(this.accDiv(canOpenAvailable , latestPriceVal) ,3)
+    return num
+  }
+  if(leverage <= 10 && leverage > 5) {
+    positionCalculation = this.accDiv(availableBalance , this.initialMarginRate[4])
+    canOpenAvailable = positionCalculation > this.maxPosition[4] ? this.maxPosition[4]: positionCalculation
+    num = this.toFixed(this.accDiv(canOpenAvailable , latestPriceVal) ,3)
+    return num
+  }
+  if(leverage == 5) {
+    positionCalculation = this.accDiv(availableBalance , this.initialMarginRate[5])
+    canOpenAvailable = positionCalculation > this.maxPosition[5] ? this.maxPosition[5]: positionCalculation
+    num = this.toFixed(this.accDiv(canOpenAvailable , latestPriceVal) ,3)
+    return num
+  }
+  if(leverage == 4) {
+    positionCalculation = this.accDiv(availableBalance , this.initialMarginRate[6])
+    canOpenAvailable = positionCalculation > this.maxPosition[6] ? this.maxPosition[6]: positionCalculation
+    num = this.toFixed(this.accDiv(canOpenAvailable , latestPriceVal) ,3)
+    return num
+  }
+  if(leverage == 3) {
+    positionCalculation = this.accDiv(availableBalance , this.initialMarginRate[7])
+    canOpenAvailable = positionCalculation > this.maxPosition[7] ? this.maxPosition[7]: positionCalculation
+    num = this.toFixed(this.accDiv(canOpenAvailable , latestPriceVal) ,3)
+    return num
+  }
+  if(leverage == 2) {
+    positionCalculation = this.accDiv(availableBalance , this.initialMarginRate[8])
+    canOpenAvailable = positionCalculation > this.maxPosition[8] ? this.maxPosition[8]: positionCalculation
+    num = this.toFixed(this.accDiv(canOpenAvailable , latestPriceVal) ,3)
+    return num
+  }
+  if(leverage == 1) {
+    positionCalculation = this.accDiv(availableBalance , this.initialMarginRate[9])
+    canOpenAvailable = positionCalculation > this.maxPosition[9] ? this.maxPosition[9]: positionCalculation
+    num = this.toFixed(this.accDiv(canOpenAvailable , latestPriceVal) ,3)
+    return num
+  }
+  // let num = this.accDiv(Number(this.availableBalance) ,Number(this.latestPriceVal))
+  // return this.toFixed(this.accMul(num , this.$store.state.leverage),2)
 }
 
 // 保证金计算
@@ -126,23 +195,23 @@ root.computed.securityDeposit = function () {
     securityDeposit = this.toFixed(position * this.initialMarginRate[4],2)
     return securityDeposit
   }
-  if(this.$store.state.leverage = 5){
+  if(this.$store.state.leverage == 5){
     securityDeposit = this.toFixed(position * this.initialMarginRate[5],2)
     return securityDeposit
   }
-  if(this.$store.state.leverage = 4){
+  if(this.$store.state.leverage == 4){
     securityDeposit = this.toFixed(position * this.initialMarginRate[6],2)
     return securityDeposit
   }
-  if(this.$store.state.leverage = 3){
+  if(this.$store.state.leverage == 3){
     securityDeposit = this.toFixed(position * this.initialMarginRate[7],2)
     return securityDeposit
   }
-  if(this.$store.state.leverage = 2){
+  if(this.$store.state.leverage == 2){
     securityDeposit = this.toFixed(position * this.initialMarginRate[8],2)
     return securityDeposit
   }
-  if(this.$store.state.leverage = 1){
+  if(this.$store.state.leverage == 1){
     securityDeposit = this.toFixed(position * this.initialMarginRate[9],2)
     return securityDeposit
   }
@@ -201,6 +270,10 @@ root.computed.positionModeConfigs = function () {
 
 
 /*----------------------------- 观察 ------------------------------*/
+// 监听时价
+root.watch.latestPriceVal = function (newVal,oldVal) {
+  // console.info(newVal)
+}
 
 root.watch.serverTime = function (newValue, oldValue) {
   if (newValue == oldValue) return;
@@ -353,6 +426,7 @@ root.data = function () {
     popWindowOpen1:false,
     // 初始保证金率
     initialMarginRate :[0.008, 0.01, 0.02, 0.05, 0.1, 0.2, 0.25, 0.333, 0.5, 1],
+    maxPosition : [50000,250000,1000000,5000000,20000000,50000000,100000000,200000000],
   //  买卖限流
     currentLimiting:false,
   }
