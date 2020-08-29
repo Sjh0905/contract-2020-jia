@@ -60,9 +60,9 @@
         </div>
       </div>
       <!--数量-->
-      <div class="td td-number" :class="(item.positionAmt || 0) > 0 ?'text_blue-3':'text_red-4'">{{item.positionAmt || 0}}</div>
+      <div class="td td-number" :class="(item.positionAmt || 0) > 0 ?'text_blue-3':'text_red-4'">{{toFixed(item.positionAmt,3) || 0}}</div>
       <!--开仓价格-->
-      <div class="td td-category-1">{{toFixed(item.entryPrice) || 0}}</div>
+      <div class="td td-category-1">{{toFixed(item.entryPrice,2) || 0}}</div>
       <!--标记价格-->
       <div class="td td-market">{{toFixed(markPrice,2) || 0}}</div>
       <!--强平价格-->
@@ -70,7 +70,7 @@
       <!--保证金比率-->
       <div class="td td-price">{{toFixed(item.isolatedMargin,2) + '%'}}</div>
       <!--保证金-->
-      <div class="td td-deposit">{{toFixed(item.isolatedMargin,2)}}{{item.marginType == 'cross'?'(全仓)':'(逐仓)'}}
+      <div class="td td-deposit">{{toFixed(item.isolatedMargin,2)}} {{item.marginType == 'cross'?'(全仓)':'(逐仓)'}}
         <span class="modify-margin pointer" v-if="item.marginType == 'isolated'" @click="openModifyMargin(item)"></span>
       </div>
 
