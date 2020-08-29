@@ -328,7 +328,7 @@
       <div class="progress-bar-btn txtvalue-nomal border_radius" @click="postFullStop()"
            :class="orderType?'progress-bar-redbtn btn_red_box_shadow':'progress-bar-greenbtn btn_green_box_shadow'"
            v-if="$store.state.authState.userId && !currentLimiting && isHasModule('buttonType') == 3 && (pendingOrderType == 'limitProfitStopLoss' || pendingOrderType == 'marketPriceProfitStopLoss')">
-        {{orderType && '平空' || '平多'}}
+        {{orderType && '平多' || '平空'}}
       </div>
 
       <div class="progress-bar-btn txt-nomal border_radius"

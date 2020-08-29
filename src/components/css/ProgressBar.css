@@ -247,6 +247,7 @@
 }
 
 .progress-bar-btn {
+  font-size: 14px;
   /*width: 98.3%;*/
   height: 34px;
   line-height: 34px;
