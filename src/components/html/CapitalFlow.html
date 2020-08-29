@@ -32,7 +32,8 @@
             <div class="td td-time" v-if="order.incomeType == 'COMMISSION'">手续费</div>
             <div class="td td-time" v-if="order.incomeType == 'INSURANCE_CLEAR'">爆仓清算</div>
             <!--总额-->
-            <div class="td td-market">{{toFixed(order.income, !!quoteScale_list[order.symbol] ? quoteScale_list[order.symbol].quoteScale : 8)}}</div>
+<!--            <div class="td td-market">{{toFixed(order.income, !!quoteScale_list[order.symbol] ? quoteScale_list[order.symbol].quoteScale : 8)}}</div>-->
+            <div class="td td-market">{{toFixed(order.income,8)}}</div>
             <!--资产种类-->
             <div class="td td-trigger">{{order.asset}}</div>
           </li>
