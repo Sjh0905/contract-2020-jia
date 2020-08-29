@@ -79,7 +79,7 @@ root.created = function () {
   this.getPositionRisk()
   this.getAdlQuantile()
   this.getAccount()
-  console.info('钱包总余额===',this.$store.state.walletBalance,'除去逐仓仓位的钱包总余额===',this.$store.state.crossWalletBalance)
+  // console.info('钱包总余额===',this.$store.state.walletBalance,'除去逐仓仓位的钱包总余额===',this.$store.state.crossWalletBalance)
 }
 root.mounted = function () {}
 root.beforeDestroy = function () {}

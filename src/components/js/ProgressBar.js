@@ -104,7 +104,7 @@ root.computed.canBeOpened = function () {
   let positionCalculation = 0  // 头寸计算
   let canOpenAvailable = 0  //可开最大头寸
   let num = 0 // 可开数量
-  console.info('latestPriceVal===',latestPriceVal)
+  // console.info('latestPriceVal===',latestPriceVal)
   // this.initialMarginRate :[0.008, 0.01, 0.02, 0.05, 0.1, 0.2, 0.25, 0.333, 0.5, 1],
   // this.maxPosition : [50000,250000,1000000,5000000,20000000,50000000,100000000,200000000],
   if(leverage <=125 && leverage>100) {
@@ -272,7 +272,7 @@ root.computed.positionModeConfigs = function () {
 /*----------------------------- 观察 ------------------------------*/
 // 监听时价
 root.watch.latestPriceVal = function (newVal,oldVal) {
-  console.info(newVal)
+  // console.info(newVal)
 }
 
 root.watch.serverTime = function (newValue, oldValue) {
