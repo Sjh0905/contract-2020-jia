@@ -38,9 +38,9 @@
               {{$globalFunc.getOrderSide(order.positionSide,order.side)}}
             </div>
             <!--成交均价-->
-            <div class="td td-market">{{toFixed(order.price,8)}}</div>
+            <div class="td td-market">{{toFixed(order.price,2)}}</div>
             <!--数量-->
-            <div class="td td-number">{{toFixed(order.qty,8)}}</div>
+            <div class="td td-number">{{toFixed(order.qty,3)}}</div>
             <!--手续费-->
             <div class="td td-price">{{toFixed(order.commission,8)}}</div>
             <!--实现盈亏-->
