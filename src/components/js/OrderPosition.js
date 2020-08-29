@@ -1,6 +1,26 @@
 import tradingHallData from '../../dataUtils/TradingHallDataUtils'
 const root = {}
 root.name = 'orderPosition'
+root.props = {}
+root.props.effectiveTime = {
+  type: String,
+  default: 'GTX'
+}
+// 最新价格/市价
+root.props.latestPriceVal = {
+  type: String,
+  default: ''
+}
+// 最新价格/市价
+root.props.availableBalance = {
+  type: Number,
+  default: 0
+}
+// 最新标记价格
+root.props.markPrice = {
+  type: String,
+  default: ''
+}
 /*------------------------------ 组件 ------------------------------*/
 root.components = {
   'Loading': resolve => require(['../vue/Loading'], resolve), // loading
@@ -18,7 +38,7 @@ root.data = function () {
     recordsIndex:0,
     tradinghallLimit: 10,
     parity:'',
-    markPrice:'',
+    // markPrice:'',
     getAssets:[],
     initialMargin:0,
 
@@ -40,22 +60,17 @@ root.data = function () {
     checkPriceClick: false, //限价不能多次点击设置
     popOpen:false,   // 一键平仓弹框
     waitForCancel: false, //是否开启等待
+
+    crossWalletBalance:'' ,// 全仓可用保证金
+    // isolatedWalletBalance:'', // 逐仓仓可用保证金
+    walletBalance:'', // 钱包余额
+    reduceMoreAmount: 0 , // 最多可减少
   }
 }
-root.props = {}
-root.props.effectiveTime = {
-  type: String,
-  default: 'GTX'
-}
-// 最新价格/市价
-root.props.latestPriceVal = {
-  type: String,
-  default: ''
-}
-// 最新价格/市价
-root.props.availableBalance = {
-  type: Number,
-  default: 0
+/*------------------------------ 观察 -------------------------------*/
+root.watch = {}
+root.watch.markPrice = function(newVal,oldVal) {
+  // console.info(newVal)
 }
 /*------------------------------ 生命周期 -------------------------------*/
 root.created = function () {
@@ -64,6 +79,7 @@ root.created = function () {
   this.getPositionRisk()
   this.getAdlQuantile()
   this.getAccount()
+  console.info('钱包总余额===',this.$store.state.walletBalance,'除去逐仓仓位的钱包总余额===',this.$store.state.crossWalletBalance)
 }
 root.mounted = function () {}
 root.beforeDestroy = function () {}
@@ -76,11 +92,6 @@ root.computed.userId = function () {
 root.computed.serverTime = function () {
   return new Date().getTime();
 }
-root.computed.computedRecords = function () {
-  this.socketRecords.forEach(v=>{
-    // console.info('v===',v)
-  })
-}
 // 存储订单/交易更新推送Key值的映射关系
 // root.computed.socketPositionOrders = function () {
 //   let data = tradingHallData.socketPositionOrders
@@ -88,19 +99,11 @@ root.computed.computedRecords = function () {
 //   return data
 // }
 
-/*------------------------------ 观察 -------------------------------*/
-root.watch = {}
 /*------------------------------ 方法 -------------------------------*/
 root.methods = {}
 // 增加 或 减少保证金接口
 root.methods.commitModifyMargin = function () {
-  if(this.increaseAmount == '') {
-    this.popText = '请输入数量'
-    this.popType = 0;
-    this.promptOpen = true;
-    return
-  }
-  if(this.reduceAmount == '') {
+  if((this.styleType == 1 && this.increaseAmount == '') || (this.styleType == 2 && this.reduceAmount == '')) {
     this.popText = '请输入数量'
     this.popType = 0;
     this.promptOpen = true;
@@ -112,7 +115,7 @@ root.methods.commitModifyMargin = function () {
       symbol: this.symbol,
       positionSide: this.positionSide,
       amount:this.styleType == 1? this.increaseAmount : this.reduceAmount,
-      type:this.styleType
+      type:this.styleType,  // 1是增加逐仓保障金；2 是减少逐仓保证金
     },
     callBack: this.re_commitModifyMargin,
     errorHandler: this.error_commitModifyMargin
@@ -134,6 +137,8 @@ root.methods.selectType = function (type) {
 }
 // 打开逐仓弹框
 root.methods.openModifyMargin = function (item) {
+  // console.info('item===',item)
+  this.reduceMostAmount(item)
   this.modifyMarginMoney = item.isolatedMargin
   this.liquidationPrice =item.liquidationPrice
   this.symbol = item.symbol
@@ -144,6 +149,22 @@ root.methods.openModifyMargin = function (item) {
   }
   this.positionSide = 'BOTH'
 }
+
+root.methods.reduceMostAmount = function (item){
+  // 计算最多可减少     // isolatedWalletBalance, isolatedWalletBalance + size * (Latest_Mark_Price - Entry_Price) - Latest_Mark_Price * abs(size) * IMR
+  let walletBalance = this.$store.state.walletBalance // 钱包总余额
+  let crossWalletBalance = this.$store.state.crossWalletBalance // 全仓钱包余额
+  let isolatedWalletBalance = this.accMinus(walletBalance,crossWalletBalance) // 逐仓钱包余额
+  let leverage = this.$store.state.leverage
+  if(item.marginType == "isolated") {
+    this.reduceMoreAmount = Number(isolatedWalletBalance) + item.positionAmt *(Number(this.markPrice) - Number(item.entryPrice)) - (Number(this.markPrice) * Math.abs(item.positionAmt) *  1 / leverage)
+  } else {
+    this.reduceMoreAmount = Number(crossWalletBalance) + (item.positionAmt * (Number(this.markPrice) - item.entryPrice) - (Number(this.markPrice) * Math.abs(item.positionAmt) *  1 / leverage))
+  }
+  // console.info('this.reduceMoreAmount===',this.reduceMoreAmount,'markPrice===',this.markPrice)
+  return this.reduceMoreAmount < 0 ? this.reduceMoreAmount = 0 : this.reduceMoreAmount
+}
+
 // 关闭逐仓弹框
 root.methods.modifyMarginClose = function () {
   this.modifyMarginOpen = false
@@ -157,7 +178,15 @@ root.methods.positionSocket = function () {
   this.$socket.on({
     key: 'ACCOUNT_UPDATE', bind: this, callBack: (message) => {
       if(!message) return
-      // let socketRecords = message.a.P || []
+      let socketRecords = message.a.B[0] || {}
+
+      // console.info('socketRecords===',socketRecords)
+      if(!socketRecords.wb) return socketRecords.wb
+      if(!socketRecords.cw) return socketRecords.cw
+
+      this.getPositionRisk()
+
+
       // socketRecords.forEach(v=>{
       //   // for(let k in socketPositionOrders){
       //   //   let smk = socketPositionOrders[k];
@@ -172,8 +201,8 @@ root.methods.positionSocket = function () {
       //   // }
       // })
       // this.records = socketRecords
-      // console.info('message====',message)
-      this.getPositionRisk()
+
+
 
       // this.socketRecords.forEach(v=>{
       //   if(v.ps == "BOTH") {
@@ -205,7 +234,7 @@ root.methods.openPositionBox = function (name) {
 /*---------------------- 开仓价格 end ---------------------*/
 // 仓位
 root.methods.getAccount = function () {
-  this.$http.send("POST_CAPITAL_BIAN", {
+  this.$http.send("GET_BALAN__BIAN", {
     bind: this,
     query: {
       timestamp: this.serverTime
@@ -275,7 +304,7 @@ root.methods.getAdlQuantile = function () {
 root.methods.re_getAdlQuantile = function (data) {
   typeof data === 'string' && (data = JSON.parse(data))
   if (!data) return
-  console.log('this is getAdlQuantile',data);
+  // console.log('this is getAdlQuantile',data);
 }
 // 自动减仓持仓ADL队列估算返回出错
 root.methods.error_getAdlQuantile = function (err) {
@@ -459,6 +488,32 @@ root.methods.ensurePop = async function () {
 root.methods.error_marketPrice = function (err) {
   console.warn("充值获取记录出错！", err)
 }
+
+
+/*---------------------- 加法运算 begin ---------------------*/
+root.methods.accAdd = function (num1, num2) {
+  return this.$globalFunc.accAdd(num1, num2)
+}
+/*---------------------- 加法运算 end ---------------------*/
+
+/*---------------------- 减法运算 begin ---------------------*/
+root.methods.accMinus = function (num1, num2) {
+  return this.$globalFunc.accMinus(num1, num2)
+}
+/*---------------------- 减法运算 end ---------------------*/
+
+/*---------------------- 乘法运算 begin ---------------------*/
+root.methods.accMul = function (num1, num2) {
+  return this.$globalFunc.accMul(num1, num2)
+}
+/*---------------------- 乘法运算 end ---------------------*/
+
+/*---------------------- 除法运算 begin ---------------------*/
+root.methods.accDiv = function (num1, num2) {
+  return this.$globalFunc.accDiv(num1, num2)
+}
+/*---------------------- 除法运算 end ---------------------*/
+
 /*---------------------- 保留小数 begin ---------------------*/
 root.methods.toFixed = function (num, acc = 8) {
   return this.$globalFunc.accFixed(num, acc)
@@ -466,3 +521,6 @@ root.methods.toFixed = function (num, acc = 8) {
 /*---------------------- 保留小数 end ---------------------*/
 
 export default root
+
+
+

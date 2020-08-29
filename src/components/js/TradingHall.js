@@ -146,7 +146,7 @@ root.data = function () {
 
     //仓位模式End
 
-    leverage:'20', // 杠杆倍数
+    leverage:20, // 杠杆倍数
 
     effectiveTime:'GTX',
     latestPrice:'最新价格',

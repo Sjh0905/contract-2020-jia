@@ -62,15 +62,15 @@
       <!--数量-->
       <div class="td td-number" :class="(item.positionAmt || 0) > 0 ?'text_blue-3':'text_red-4'">{{item.positionAmt || 0}}</div>
       <!--开仓价格-->
-      <div class="td td-category-1">{{item.entryPrice || 0}}</div>
+      <div class="td td-category-1">{{toFixed(item.entryPrice) || 0}}</div>
       <!--标记价格-->
-      <div class="td td-market">{{toFixed(item.markPrice,2) || 0}}</div>
+      <div class="td td-market">{{toFixed(markPrice,2) || 0}}</div>
       <!--强平价格-->
       <div class="td td-flat-price text_blue">{{toFixed(item.liquidationPrice,2) || 0}}</div>
       <!--保证金比率-->
       <div class="td td-price">{{toFixed(item.isolatedMargin,2) + '%'}}</div>
       <!--保证金-->
-      <div class="td td-deposit">{{toFixed(item.isolatedWallet,2)}}{{item.marginType == 'cross'?'(全仓)':'(逐仓)'}}
+      <div class="td td-deposit">{{toFixed(item.isolatedMargin,2)}}{{item.marginType == 'cross'?'(全仓)':'(逐仓)'}}
         <span class="modify-margin pointer" v-if="item.marginType == 'isolated'" @click="openModifyMargin(item)"></span>
       </div>
 
@@ -161,7 +161,7 @@
         <!--最多可减少-->
         <div class="modify-margin-des flex">
           <div class="modify-margin-des-title">最多可减少：</div>
-          <div class="modify-margin-des-number">{{toFixed(Number(modifyMarginMoney) || 0,2)}} USDT</div>
+          <div class="modify-margin-des-number">{{toFixed(Number(reduceMoreAmount) || 0,2)}} USDT</div>
         </div>
         <!--减少后强平价格-->
         <div class="modify-margin-des flex">

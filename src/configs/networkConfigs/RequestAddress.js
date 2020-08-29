@@ -16,7 +16,6 @@ requestAddress.GET_CAPITAL_ALL_FLOW = {url: urlHead + '/future/orders/allOrders'
 requestAddress.GET_CAPITAL_DEAL = {url: urlHead + '/future/orders/userTrades', method: 'get',} // 历史成交
 requestAddress.GET_CAPITAL_CANCEL = {url: urlHead + '/future/orders/cancel', method: 'post',} // 取消订单
 requestAddress.GET_CAPITAL_CANCELALL = {url: urlHead + '/future/orders/cancelAll', method: 'post',} // 取消全部订单
-requestAddress.POST_CAPITAL_BIAN = {url: urlHead + '/future/account/userAccount', method: 'get',} // 保证金余额
 requestAddress.GET_POSITIONSIDE_DUAL = {url: urlHead + '/future/account/positionSide/dual', method: 'get',} // 查询单双仓模式
 requestAddress.POST_SINGLE_DOUBLE = {url: urlHead + '/future/account/positionSide', method: 'post',} // 切换单双仓
 requestAddress.POST_LEVELRAGE = {url: urlHead + '/future/account/levelrage', method: 'post',} // 调整杠杆接口
@@ -35,7 +34,7 @@ requestAddress.POST_STOP_POSITION = {url: urlHead+'/future/orders/stopPosition',
 requestAddress.GET_BALAN_ACCOUNT = {url: urlHead+'/future/account/userBalancev2', method: 'get'}  //账户
 requestAddress.POST_POSITION_MARGIN = {url: urlHead + '/future/account/positionMargin', method: 'post' ,} // 调整逐仓保证金
 requestAddress.LOGIN_OFF = {url: urlHead+'/future/common/signout', method: 'post'} //登出
-requestAddress.GET_BALAN__BIAN = {url: urlHead+'/future/account/userAccountv2', method: 'get'}  //保障金余额
+requestAddress.GET_BALAN__BIAN = {url: urlHead+'/future/account/userAccountv2', method: 'get'}  //保证金余额
 requestAddress.GET_ADL_QUANTILE = {url: urlHead+'/future/account/adlQuantile', method: 'get'}  //持仓ADL队列估算
 // requestAddress.GET_POSITION_RISKV = {url: urlHead + '/future/account/positionRiskv2', method: 'get' ,} // 仓位
 

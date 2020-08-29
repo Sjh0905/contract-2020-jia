@@ -276,6 +276,17 @@ store.state.areaCode = '0086'
 
 
 /**
+ * 钱包总余额  walletBalance
+ * @type {Number}
+ */
+store.state.walletBalance = 0
+/**
+ * 除去逐仓仓位保证金的钱包余额  crossWalletBalance
+ * @type {Number}
+ */
+store.state.crossWalletBalance = 0
+
+/**
  * 杠杆倍数  leverage
  * @type {Number}
  */
@@ -321,6 +332,21 @@ store.mutations.CHANGE_CURRENT_ORDER = (state, info) => {
   // if (state.currencyChange > 100) state.currencyChange = 0
 
   state.orderTradeUpdate = info;
+}
+
+/**
+ * 合约钱包余额
+ * @type {Number}
+ */
+store.mutations.CHANGE_WALLET_BALANCE = (state, info) => {
+  state.walletBalance = info;
+}
+/**
+ * 除去逐仓仓位保证金的钱包余额
+ * @type {Number}
+ */
+store.mutations.CHANGE_CROSS_WALLET_BALANCE = (state, info) => {
+  state.crossWalletBalance = info;
 }
 
 /**

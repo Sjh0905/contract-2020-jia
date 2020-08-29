@@ -372,7 +372,6 @@ root.created = function () {
   this.show_now_price();
 
   this.getKKPriceRange();
-  console.info('positionAmt====',this.positionAmtShort,this.positionAmtLong)
   // this.tradeMarket()
   // this.postOrdersPosition()
   // this.postOrdersCreate()
@@ -734,10 +733,11 @@ root.methods.postOrdersPosition = function () {
     }
   }
   // 如果是平空或者平多，买入量不得大于可平数量
-  if((!this.orderType && this.positionAmtShort < Number(this.amount)) || (this.orderType && this.positionAmtLong < Number(this.amount))){
+  if((!this.orderType && Math.abs(this.positionAmtShort) < Number(this.amount)) || (this.orderType && Math.abs(this.positionAmtLong) < Number(this.amount))){
     this.promptOpen = true;
     this.popType = 0;
     this.popText = '您输入的数量超过可平数量';
+    this.currentLimiting = false
     return
   }
 
