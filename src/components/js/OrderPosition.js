@@ -65,6 +65,9 @@ root.data = function () {
     // isolatedWalletBalance:'', // 逐仓仓可用保证金
     walletBalance:'', // 钱包余额
     reduceMoreAmount: 0 , // 最多可减少
+    priceCheck:0,  // 平仓价格在多少
+    order:{},
+    priceCheck1:0
   }
 }
 /*------------------------------ 观察 -------------------------------*/
@@ -234,6 +237,9 @@ root.methods.openPositionBox = function (name) {
 /*---------------------- 开仓价格 end ---------------------*/
 // 仓位
 root.methods.getAccount = function () {
+  // if (this.priceCheck != 0) {
+  //   this.priceCheck = (localStorage.getItem('PRICE_CHECK'));
+  // }
   this.$http.send("GET_BALAN__BIAN", {
     bind: this,
     query: {
@@ -283,6 +289,7 @@ root.methods.re_getPositionRisk = function (data) {
   this.records = filterRecords
   this.recordsIndex = filterRecords.length || 0
   this.$emit('getPositionRisk',this.recordsIndex);
+  // this.priceCheck = localStorage.setItem('priceCheck');
 }
 // 获取记录出错
 root.methods.error_getPositionRisk = function (err) {
@@ -335,22 +342,25 @@ root.methods.marketPrice = function (item) {
 // 获取记录返回，类型为{}
 root.methods.re_marketPrice = function (data) {
   this.marketPriceClick = false
+
+  if(data.code == 303) {
+    this.popType = 0;
+    this.promptOpen = true;
+    this.popText = '下单失败';
+    return
+  }
+  if(data.code == 302) {
+    this.popType = 0;
+    this.promptOpen = true;
+    this.popText = '参数错误';
+    return
+  }
   typeof data === 'string' && (data = JSON.parse(data))
   if (!data) return
   this.popOpen = false
   this.$eventBus.notify({key:'GET_POSITION'})
   this.promptOpen = true;
 
-  if(data.code == 303) {
-    this.popType = 0;
-    this.popText = '下单失败';
-    return
-  }
-  if(data.code == 302) {
-    this.popType = 0;
-    this.popText = '参数错误';
-    return
-  }
   if(data.data.status == 'NEW') {
     this.popType = 1;
     this.popText = '下单成功';
@@ -414,21 +424,33 @@ root.methods.checkPrice = function (item) {
 // 获取记录返回，类型为{}
 root.methods.re_marketPrice = function (data) {
   this.checkPriceClick = false
-  typeof data === 'string' && (data = JSON.parse(data))
-  if (!data) return
-  this.$eventBus.notify({key:'GET_POSITION'})
-  this.promptOpen = true;
 
   if(data.code == 303) {
+    this.promptOpen = true;
     this.popType = 0;
     this.popText = '下单失败';
     return
   }
   if(data.code == 302) {
+    this.promptOpen = true;
     this.popType = 0;
     this.popText = '参数错误';
     return
   }
+  typeof data === 'string' && (data = JSON.parse(data))
+  if (!data) return
+  this.$eventBus.notify({key:'GET_POSITION'})
+  this.promptOpen = true;
+  this.priceCheck = data.data.price
+
+  // this.priceCheck = localStorage.setItem('PRICE_CHECK',data.data.price);
+  //
+  // if (this.priceCheck != 0) {
+  //   this.priceCheck = JSON.parse(localStorage.getItem('PRICE_CHECK'));
+  // }
+  console.info('this.priceCheck',this.priceCheck)
+  this.order = data.data
+
   if(data.data.status == 'NEW') {
     this.popType = 1;
     this.popText = '下单成功';
@@ -464,6 +486,7 @@ root.methods.re_marketPrice = function (data) {
     this.popText = '自动减仓序列(强平)';
     return
   }
+
   this.getPositionRisk()
 }
 
@@ -489,6 +512,31 @@ root.methods.error_marketPrice = function (err) {
   console.warn("充值获取记录出错！", err)
 }
 
+
+//取消平仓
+root.methods.cancelThePosition = async function () {
+  let params = {
+    orderId: this.order.orderId,
+    symbol: this.order.symbol,
+    timestamp: this.order.updateTime
+  }
+  await this.$http.send('GET_CAPITAL_CANCEL', {
+    bind: this,
+    params: params,
+    callBack: this.re_cancelOrder,
+    errorHandler: this.error_cancelOrder
+  })
+}
+// 返回
+root.methods.re_cancelOrder = function (data) {
+  // this.$eventBus.notify({key: 'CANCEL_ORDER'})
+  this.priceCheck = 0
+  this.getPositionRisk()
+
+}
+root.methods.error_cancelOrder = function (err) {
+  console.warn("撤单错误！", err)
+}
 
 /*---------------------- 加法运算 begin ---------------------*/
 root.methods.accAdd = function (num1, num2) {

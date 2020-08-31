@@ -86,11 +86,11 @@ tr, th, td {
 }
 .td-trigger {
   flex: 10;
-  text-align: right;
+  /*text-align: right;*/
   padding-right: 25px;
 }
 .td-trigger-btn {
-  justify-content: flex-end;
+  /*justify-content: flex-end;*/
 }
 .td-trigger-btn input {
   width: 80px;
@@ -236,7 +236,7 @@ tr, th, td {
   width: 250px;
   height:auto;
   top: 32px;
-  left: 24%;
+  left: 22%;
   font-size:12px;
   font-family:PingFangSC-Regular,PingFang SC;
   font-weight:400;
@@ -250,7 +250,7 @@ tr, th, td {
   width: 250px;
   height:auto;
   top: 32px;
-  left: 35%;
+  left: 31%;
   font-size:12px;
   font-family:PingFangSC-Regular,PingFang SC;
   font-weight:400;
@@ -264,7 +264,7 @@ tr, th, td {
   width: 250px;
   height:auto;
   top: 32px;
-  left: 45%;
+  left: 38.5%;
   font-size:12px;
   font-family:PingFangSC-Regular,PingFang SC;
   font-weight:400;
@@ -278,7 +278,7 @@ tr, th, td {
   /*width: 300px;*/
   height:auto;
   top: 32px;
-  left: 56.5%;
+  left: 49.5%;
   font-size:12px;
   font-family:PingFangSC-Regular,PingFang SC;
   font-weight:400;
@@ -292,7 +292,7 @@ tr, th, td {
   width: 250px;
   height:auto;
   top: 32px;
-  left: 64%;
+  left: 58%;
   font-size:12px;
   font-family:PingFangSC-Regular,PingFang SC;
   font-weight:400;
@@ -306,7 +306,7 @@ tr, th, td {
   width: 250px;
   height:auto;
   top: 32px;
-  right: 15%;
+  right: 17%;
   font-size:12px;
   font-family:PingFangSC-Regular,PingFang SC;
   font-weight:400;
@@ -320,7 +320,7 @@ tr, th, td {
   width: 250px;
   height:auto;
   top: 32px;
-  right: 1.2%;
+  right: 10%;
   font-size:12px;
   text-align: left;
   font-family:PingFangSC-Regular,PingFang SC;
@@ -522,4 +522,16 @@ tr, th, td {
   font-family:PingFangSC-Regular,PingFang SC;
   font-weight:400;
   color:rgba(239,86,86,1);
+}
+.cencon {
+  float: right;
+  text-align: right;
+  color: #3576F5;
+  cursor: pointer;
+}
+.market-price-width {
+  width: 62%;
+}
+.market-price-width38 {
+  width: 38%;
 }
