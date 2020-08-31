@@ -139,7 +139,7 @@ root.methods.selectType = function (type) {
 root.methods.openModifyMargin = function (item) {
   // console.info('item===',item)
   this.reduceMostAmount(item)
-  this.modifyMarginMoney = item.isolatedMargin
+  // this.modifyMarginMoney = item.isolatedMargin
   this.liquidationPrice =item.liquidationPrice
   this.symbol = item.symbol
   this.modifyMarginOpen = true
@@ -157,7 +157,7 @@ root.methods.reduceMostAmount = function (item){
   let isolatedWalletBalance = this.accMinus(walletBalance,crossWalletBalance) // 逐仓钱包余额
   let leverage = this.$store.state.leverage
   if(item.marginType == "isolated") {
-    this.reduceMoreAmount = Number(isolatedWalletBalance) + item.positionAmt *(Number(this.markPrice) - Number(item.entryPrice)) - (Number(this.markPrice) * Math.abs(item.positionAmt) *  1 / leverage)
+    this.reduceMoreAmount = Number(isolatedWalletBalance) + (item.positionAmt *(Number(this.markPrice) - Number(item.entryPrice))) - (Number(this.markPrice) * Math.abs(item.positionAmt) *  1 / leverage)
   } else {
     this.reduceMoreAmount = Number(crossWalletBalance) + (item.positionAmt * (Number(this.markPrice) - item.entryPrice) - (Number(this.markPrice) * Math.abs(item.positionAmt) *  1 / leverage))
   }

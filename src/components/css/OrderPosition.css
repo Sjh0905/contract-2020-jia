@@ -28,7 +28,7 @@ tr, th, td {
   box-sizing: border-box;
   background-color: #0D111F;
   color: #F5F6FA;
-  overflow: scroll;
+  /*overflow: scroll;*/
 }
 .tr-th {
   width: 100%;

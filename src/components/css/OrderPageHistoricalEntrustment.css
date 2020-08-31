@@ -110,6 +110,9 @@ tr, th, td {
 .td-category {
   flex: 6.3;
 }
+.td-position {
+  flex: 5;
+}
 
 .td-market {
   flex: 7.3;

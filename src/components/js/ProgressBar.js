@@ -95,8 +95,9 @@ root.props.positionAmtShort = {
 }
 
 /*----------------------------- 计算 ------------------------------*/
-// 可开BTC
+// 可开数量
 root.computed.canBeOpened = function () {
+  if(this.reducePositionsSelected && this.positionModeFirst == 'singleWarehouseMode') return 0
   if(Number(this.latestPriceVal) == 0) return
   let leverage = this.$store.state.leverage // 杠杆倍数
   let availableBalance = Number(this.availableBalance) // 钱包余额
@@ -104,68 +105,67 @@ root.computed.canBeOpened = function () {
   let positionCalculation = 0  // 头寸计算
   let canOpenAvailable = 0  //可开最大头寸
   let num = 0 // 可开数量
-  // console.info('latestPriceVal===',latestPriceVal)
   // this.initialMarginRate :[0.008, 0.01, 0.02, 0.05, 0.1, 0.2, 0.25, 0.333, 0.5, 1],
   // this.maxPosition : [50000,250000,1000000,5000000,20000000,50000000,100000000,200000000],
   if(leverage <=125 && leverage>100) {
     positionCalculation = this.accDiv(availableBalance , this.initialMarginRate[0])
     canOpenAvailable = positionCalculation > this.maxPosition[0] ? this.maxPosition[0]: positionCalculation
     num = this.toFixed(this.accDiv(canOpenAvailable , latestPriceVal) ,3)
-    return num
+    return num || 0
   }
   if(leverage <= 100 && leverage > 50) {
     positionCalculation = this.accDiv(availableBalance , this.initialMarginRate[1])
     canOpenAvailable = positionCalculation > this.maxPosition[1] ? this.maxPosition[1]: positionCalculation
     num = this.toFixed(this.accDiv(canOpenAvailable , latestPriceVal) ,3)
-    return num
+    return num || 0
   }
   if(leverage <= 50 && leverage > 20) {
     positionCalculation = this.accDiv(availableBalance , this.initialMarginRate[2])
     canOpenAvailable = positionCalculation > this.maxPosition[2] ? this.maxPosition[2]: positionCalculation
     num = this.toFixed(this.accDiv(canOpenAvailable , latestPriceVal) ,3)
-    return num
+    return num || 0
   }
   if(leverage <= 20 && leverage > 10) {
     positionCalculation = this.accDiv(availableBalance , this.initialMarginRate[3])
     canOpenAvailable = positionCalculation > this.maxPosition[3] ? this.maxPosition[3]: positionCalculation
     num = this.toFixed(this.accDiv(canOpenAvailable , latestPriceVal) ,3)
-    return num
+    return num || 0
   }
   if(leverage <= 10 && leverage > 5) {
     positionCalculation = this.accDiv(availableBalance , this.initialMarginRate[4])
     canOpenAvailable = positionCalculation > this.maxPosition[4] ? this.maxPosition[4]: positionCalculation
     num = this.toFixed(this.accDiv(canOpenAvailable , latestPriceVal) ,3)
-    return num
+    return num || 0
   }
   if(leverage == 5) {
     positionCalculation = this.accDiv(availableBalance , this.initialMarginRate[5])
     canOpenAvailable = positionCalculation > this.maxPosition[5] ? this.maxPosition[5]: positionCalculation
     num = this.toFixed(this.accDiv(canOpenAvailable , latestPriceVal) ,3)
-    return num
+    return num || 0
   }
   if(leverage == 4) {
     positionCalculation = this.accDiv(availableBalance , this.initialMarginRate[6])
     canOpenAvailable = positionCalculation > this.maxPosition[6] ? this.maxPosition[6]: positionCalculation
     num = this.toFixed(this.accDiv(canOpenAvailable , latestPriceVal) ,3)
-    return num
+    return num || 0
   }
   if(leverage == 3) {
     positionCalculation = this.accDiv(availableBalance , this.initialMarginRate[7])
     canOpenAvailable = positionCalculation > this.maxPosition[7] ? this.maxPosition[7]: positionCalculation
     num = this.toFixed(this.accDiv(canOpenAvailable , latestPriceVal) ,3)
-    return num
+    return num || 0
   }
   if(leverage == 2) {
     positionCalculation = this.accDiv(availableBalance , this.initialMarginRate[8])
     canOpenAvailable = positionCalculation > this.maxPosition[8] ? this.maxPosition[8]: positionCalculation
     num = this.toFixed(this.accDiv(canOpenAvailable , latestPriceVal) ,3)
-    return num
+    return num || 0
   }
   if(leverage == 1) {
     positionCalculation = this.accDiv(availableBalance , this.initialMarginRate[9])
     canOpenAvailable = positionCalculation > this.maxPosition[9] ? this.maxPosition[9]: positionCalculation
     num = this.toFixed(this.accDiv(canOpenAvailable , latestPriceVal) ,3)
-    return num
+    return num || 0
   }
   // let num = this.accDiv(Number(this.availableBalance) ,Number(this.latestPriceVal))
   // return this.toFixed(this.accMul(num , this.$store.state.leverage),2)
@@ -643,6 +643,8 @@ root.methods.re_postFullStop = function (data) {
     this.popText = '自动减仓序列(强平)';
     return
   }
+  this.popType = 0;
+  this.popText = '下单失败';
 }
 root.methods.error_postFullStop = function (err) {
   console.info('止盈止损接口错误回调',err)
@@ -770,6 +772,8 @@ root.methods.re_postOrdersCreate = function (data) {
     this.popText = '自动减仓序列(强平)';
     return
   }
+  this.popType = 0;
+  this.popText = '下单失败';
 }
 root.methods.error_postOrdersCreate = function (err) {
   console.info('err======',err)
@@ -883,7 +887,8 @@ root.methods.re_postOrdersPosition = function (data) {
     this.popText = '自动减仓序列(强平)';
     return
   }
-
+  this.popType = 0;
+  this.popText = '下单失败';
 }
 root.methods.error_postOrdersPosition = function (err) {
   console.info('err====',err)
@@ -907,10 +912,10 @@ root.methods.SYMBOL_ENTRANSACTION = function () {
 root.methods.computedValue = function () {
   // 判定除数不为0的情况
   if (Number(this.latestPriceVal) == 0) return 0
-  let num = this.accDiv(Number(this.availableBalance) ,Number(this.latestPriceVal))
-  let num1 = this.accMul(num, Number(this.value))
-  let ValueAmount = this.toFixed(this.accMul(this.accDiv(num1 , 10*10), Number(this.$store.state.leverage)) ,2)
-  this.amount = ValueAmount
+  let val = this.accDiv(this.value , 10 * 10)
+  let num = this.toFixed(this.accMul(this.canBeOpened, val),3)
+  // let ValueAmount = this.toFixed(this.accMul(num1 , 10 * 10),3)
+  this.amount = num
 }
 
 
@@ -1678,4 +1683,13 @@ root.methods.accDiv = function (num1, num2) {
   return this.$globalFunc.accDiv(num1, num2)
 }
 /*---------------------- 除法运算 end ---------------------*/
+
+
+// max[0,
+// Avail for Order + present initial margin -
+// (position_notional_value + open order's bid_notional) * IMR] /
+// {contract_multiplier * (assuming price * IMR + abs(min[0, side * (mark price - order's Price)]))}
+
+// 50493.73 +
+
 export default root
