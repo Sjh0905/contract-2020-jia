@@ -298,8 +298,6 @@ GlobalFunction.handlePrice = function (currency, initData) {
       0,
     ]
   }
-
-
 }
 
 // 精度处理不保留四舍五入，只舍弃，不进位

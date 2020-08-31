@@ -276,15 +276,15 @@ root.computed.maxPosition = function () {
     maxPosition = this.maximumPosition[4]
     return maxPosition
   }
-  if(this.value = 5) {
+  if(this.value == 5) {
     maxPosition = this.maximumPosition[5]
     return maxPosition
   }
-  if(this.value = 4) {
+  if(this.value == 4) {
     maxPosition = this.maximumPosition[6]
     return maxPosition
   }
-  if(this.value =3) {
+  if(this.value == 3) {
     maxPosition = this.maximumPosition[7]
     return maxPosition
   }
