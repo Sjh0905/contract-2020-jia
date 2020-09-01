@@ -144,15 +144,15 @@ root.computed.maxPosition = function () {
     maxPosition = this.maximumPosition[4]
     return maxPosition
   }
-  if(this.calculatorValue = 5) {
+  if(this.calculatorValue == 5) {
     maxPosition = this.maximumPosition[5]
     return maxPosition
   }
-  if(this.calculatorValue = 4) {
+  if(this.calculatorValue == 4) {
     maxPosition = this.maximumPosition[6]
     return maxPosition
   }
-  if(this.calculatorValue =3) {
+  if(this.calculatorValue == 3) {
     maxPosition = this.maximumPosition[7]
     return maxPosition
   }
