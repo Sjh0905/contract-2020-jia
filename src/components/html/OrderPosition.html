@@ -83,12 +83,16 @@
       </div>
       <!--平仓-->
       <div class="td td-trigger">
-        <div class="td-trigger-btn flex">
+        <div class="td-trigger-btn flex" v-if="priceCheck == 0">
           <div class="market-price margin-right" v-if="!marketPriceClick" @click="marketPrice(item)">市价</div>
           <div class="market-price margin-right" v-if="marketPriceClick" >市价</div>
           <div class="market-price margin-right" v-if="!checkPriceClick" @click="checkPrice(item)">限价</div>
           <div class="market-price margin-right" v-if="checkPriceClick">限价</div>
           <input type="text" id='markPrice' :value="toFixed(item.markPrice,2)">
+        </div>
+        <div class="flex" v-if=" priceCheck != 0 && toFixed(item.entryPrice,2) != priceCheck">
+          <div class="market-price-width">平仓委托在{{priceCheck}}</div>
+          <div class="cencon market-price-width38" @click="cancelThePosition">取消</div>
         </div>
       </div>
     </li>
