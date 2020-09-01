@@ -97,7 +97,7 @@ root.props.positionAmtShort = {
 /*----------------------------- 计算 ------------------------------*/
 // 可开数量
 root.computed.canBeOpened = function () {
-  if(this.reducePositionsSelected && this.positionModeFirst == 'singleWarehouseMode') return 0
+  if(this.reducePositionsSelected && this.positionModeFirst == 'singleWarehouseMode' && (this.pendingOrderType=='limitProfitStopLoss' || this.pendingOrderType=='marketPriceProfitStopLoss')) return 0
   if(Number(this.latestPriceVal) == 0) return
   let leverage = this.$store.state.leverage // 杠杆倍数
   let availableBalance = Number(this.availableBalance) // 钱包余额
@@ -349,7 +349,7 @@ root.components = {
 
 root.data = function () {
   return {
-    triggerPrice:'',
+    triggerPrice:'', // 触发价格
     price: this.latestPriceVal,
     priceNow: '0',
     amount: '',
@@ -446,6 +446,7 @@ root.created = function () {
   this.show_now_price();
 
   this.getKKPriceRange();
+  this.getOrderbookTicker()
   // this.tradeMarket()
   // this.postOrdersPosition()
   // this.postOrdersCreate()
@@ -472,7 +473,23 @@ root.watch.pendingOrderType = function (newValue, oldValue) {
 }
 
 /*----------------------------- 方法 ------------------------------*/
-
+// 获取最新价格
+root.methods.getOrderbookTicker = function () {
+  this.$http.send('GET_ORDERBOOK_TICKER',{
+    bind: this,
+    callBack: this.re_getOrderbookTicker,
+    errorHandler: this.error_getOrderbookTicker
+  })
+}
+// 获取grc交易价格区间成功
+root.methods.re_getOrderbookTicker = function (data) {
+  // console.info('当前服务器时间 获取grc交易价格区间成功',data);
+  if(!data)return
+  console.info('data=',data)
+}
+// 获取grc交易价格区间报错
+root.methods.error_getOrderbookTicker = function () {
+}
 
 // 处理滑动条显示框内容
 root.methods.formatTooltip=(val)=>{
