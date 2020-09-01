@@ -157,8 +157,8 @@ export default async function ($http, $store, $cookie, $i18n) {
       callBack: function (data) {
         typeof data === 'string' && (data = JSON.parse(data))
         // console.info('data===',data.data.assets[0])
-        $store.commit('CHANGE_WALLET_BALANCE', data.data.assets[0].walletBalance)
-        $store.commit('CHANGE_CROSS_WALLET_BALANCE', data.data.assets[0].crossWalletBalance)
+        $store.commit('CHANGE_ASSETS', data.data.assets[0] || {})
+        // $store.commit('CHANGE_CROSS_WALLET_BALANCE', data.data.assets[0].crossWalletBalance)
         // console.info('全仓钱包余额', data.data[0].crossWalletBalance,'钱包总余额', data.data[0].balance)
       }
     })

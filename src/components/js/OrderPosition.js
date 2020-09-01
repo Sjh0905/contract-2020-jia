@@ -27,7 +27,6 @@ root.components = {
   'PopupPrompt': resolve => require(['../vue/PopupPrompt'], resolve),
   'PopupWindow': resolve => require(['../vue/PopupWindow'], resolve),
   'PositionModeBulletBox': resolve => require(['../vue/PositionModeBulletBox'], resolve),
-
 }
 /*------------------------------ data -------------------------------*/
 root.data = function () {
@@ -61,9 +60,9 @@ root.data = function () {
     popOpen:false,   // 一键平仓弹框
     waitForCancel: false, //是否开启等待
 
-    crossWalletBalance:'' ,// 全仓可用保证金
+    // crossWalletBalance:'' ,// 全仓可用保证金
     // isolatedWalletBalance:'', // 逐仓仓可用保证金
-    walletBalance:'', // 钱包余额
+    // walletBalance:'', // 钱包余额
     reduceMoreAmount: 0 , // 最多可减少
     priceCheck:0,  // 平仓价格在多少
     order:{},
@@ -73,6 +72,12 @@ root.data = function () {
 /*------------------------------ 观察 -------------------------------*/
 root.watch = {}
 root.watch.markPrice = function(newVal,oldVal) {
+  // console.info(newVal)
+}
+root.watch.walletBalance = function(newVal,oldVal) {
+  // console.info(newVal)
+}
+root.watch.crossWalletBalance = function(newVal,oldVal) {
   // console.info(newVal)
 }
 /*------------------------------ 生命周期 -------------------------------*/
@@ -88,6 +93,14 @@ root.mounted = function () {}
 root.beforeDestroy = function () {}
 /*------------------------------ 计算 -------------------------------*/
 root.computed = {}
+// 钱包余额
+root.computed.walletBalance = function () {
+  return this.$store.state.assets.walletBalance
+}
+// 除去逐仓仓位保证金的钱包余额
+root.computed.crossWalletBalance = function () {
+  return this.$store.state.assets.crossWalletBalance
+}
 // 用户id，判断是否登录
 root.computed.userId = function () {
   return this.$store.state.authState.userId
@@ -154,17 +167,18 @@ root.methods.openModifyMargin = function (item) {
 }
 
 root.methods.reduceMostAmount = function (item){
+  console.info('this.walletBalance',this.walletBalance,this.crossWalletBalance)
   // 计算最多可减少     // isolatedWalletBalance, isolatedWalletBalance + size * (Latest_Mark_Price - Entry_Price) - Latest_Mark_Price * abs(size) * IMR
-  let walletBalance = this.$store.state.walletBalance // 钱包总余额
-  let crossWalletBalance = this.$store.state.crossWalletBalance // 全仓钱包余额
-  let isolatedWalletBalance = this.accMinus(walletBalance,crossWalletBalance) // 逐仓钱包余额
+  // let walletBalance = this.$store.state.assets.walletBalance // 钱包总余额
+  // let crossWalletBalance = this.$store.state.assets.crossWalletBalance // 全仓钱包余额
+  let isolatedWalletBalance = this.accMinus(this.walletBalance,this.crossWalletBalance) // 逐仓钱包余额
   let leverage = this.$store.state.leverage
   if(item.marginType == "isolated") {
     this.reduceMoreAmount = Number(isolatedWalletBalance) + (item.positionAmt *(Number(this.markPrice) - Number(item.entryPrice))) - (Number(this.markPrice) * Math.abs(item.positionAmt) *  1 / leverage)
   } else {
-    this.reduceMoreAmount = Number(crossWalletBalance) + (item.positionAmt * (Number(this.markPrice) - item.entryPrice) - (Number(this.markPrice) * Math.abs(item.positionAmt) *  1 / leverage))
+    this.reduceMoreAmount = Number(this.crossWalletBalance) + (item.positionAmt * (Number(this.markPrice) - item.entryPrice) - (Number(this.markPrice) * Math.abs(item.positionAmt) *  1 / leverage))
   }
-  // console.info('this.reduceMoreAmount===',this.reduceMoreAmount,'markPrice===',this.markPrice)
+  // console.info('this.reduceMoreAmount===',walletBalance)
   return this.reduceMoreAmount < 0 ? this.reduceMoreAmount = 0 : this.reduceMoreAmount
 }
 
@@ -183,12 +197,18 @@ root.methods.positionSocket = function () {
       if(!message) return
       let socketRecords = message.a.B[0] || {}
 
-      // console.info('socketRecords===',socketRecords)
-      if(!socketRecords.wb) return socketRecords.wb
-      if(!socketRecords.cw) return socketRecords.cw
+      let socketAssets = {
+        walletBalance:socketRecords.wb || 0,
+        crossWalletBalance:socketRecords.cw || 0
+      }
+      this.$store.commit('CHANGE_ASSETS', socketAssets)
+      // socketRecords.wb &&
+      // socketRecords.cw && this.$store.commit('CHANGE_ASSETS', {crossWalletBalance:socketRecords.cw})
+      // console.info('this.walletBalance',this.walletBalance,socketRecords.wb,socketRecords.cw,
+      //   this.$globalFunc.accAdd(this.crossWalletBalance,10000000)
+      // )
 
       this.getPositionRisk()
-
 
       // socketRecords.forEach(v=>{
       //   // for(let k in socketPositionOrders){
@@ -568,6 +588,13 @@ root.methods.toFixed = function (num, acc = 8) {
 }
 /*---------------------- 保留小数 end ---------------------*/
 
+// max[0, min(crossWalletBalance, Avail for Order) + present initial margin - (position_notional_value + open order's bid_notional) * IMR] / {contract_multiplier * (assuming price * IMR + abs(min[0, side * (mark price - order's Price)]))}
+// min(crossWalletBalance, Avail for Order) + present initial margin - (position_notional_value + open order's bid_notional) * IMR
+// 46703.37279291 + 47.37672 - (11894.87 + 0)*1/3
+// {contract_multiplier * (assuming price * IMR + abs(min[0, side * (mark price - order's Price)]))}
+//1*(11894.87 * 1/3 + 1 *(11894.87 - 11891.63))
+// min(crossWalletBalance, Avail for Order) + present initial margin - (position_notional_value + open order's bid_notional) * IMR
+// 46703.37279291 + 3948.06 - (11880.84 + 0)*1/3 / 1*(11891.63*1/3 + 1 *(11880.84-11891.63))
 export default root
 
 

@@ -276,15 +276,28 @@ store.state.areaCode = '0086'
 
 
 /**
- * 钱包总余额  walletBalance
+ * 资产对象合集  assets
  * @type {Number}
  */
-store.state.walletBalance = 0
-/**
- * 除去逐仓仓位保证金的钱包余额  crossWalletBalance
- * @type {Number}
- */
-store.state.crossWalletBalance = 0
+store.state.assets = {
+  asset: "",
+  availableBalance: 0,
+  crossUnPnl: 0,
+  crossWalletBalance: 0,
+  initialMargin: 0,
+  maintMargin: 0,
+  marginBalance: 0,
+  maxWithdrawAmount: 0,
+  openOrderInitialMargin: 0,
+  positionInitialMargin: 0,
+  unrealizedProfit: 0,
+  walletBalance: 0,
+}
+// /**
+//  * 除去逐仓仓位保证金的钱包余额  crossWalletBalance
+//  * @type {Number}
+//  */
+// store.state.crossWalletBalance = 0
 
 /**
  * 杠杆倍数  leverage
@@ -335,19 +348,20 @@ store.mutations.CHANGE_CURRENT_ORDER = (state, info) => {
 }
 
 /**
- * 合约钱包余额
+ * 资产对象合集
  * @type {Number}
  */
-store.mutations.CHANGE_WALLET_BALANCE = (state, info) => {
-  state.walletBalance = info;
+store.mutations.CHANGE_ASSETS = (state, info) => {
+  state.assets = Object.assign(state.assets,info);
+  // console.log('state.assets=',state.assets);
 }
-/**
- * 除去逐仓仓位保证金的钱包余额
- * @type {Number}
- */
-store.mutations.CHANGE_CROSS_WALLET_BALANCE = (state, info) => {
-  state.crossWalletBalance = info;
-}
+// /**
+//  * 除去逐仓仓位保证金的钱包余额
+//  * @type {Number}
+//  */
+// store.mutations.CHANGE_CROSS_WALLET_BALANCE = (state, info) => {
+//   state.crossWalletBalance = info;
+// }
 
 /**
  * 合约相关内容
