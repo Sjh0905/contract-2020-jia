@@ -66,13 +66,15 @@ root.data = function () {
     reduceMoreAmount: 0 , // 最多可减少
     priceCheck:0,  // 平仓价格在多少
     order:{},
-    priceCheck1:0
+    priceCheck1:0,
+    currSAdlQuantile:''
   }
 }
 /*------------------------------ 观察 -------------------------------*/
 root.watch = {}
 root.watch.markPrice = function(newVal,oldVal) {
   // console.info(newVal)
+  this.handleWithMarkPrice(this.records)
 }
 root.watch.walletBalance = function(newVal,oldVal) {
   // console.info(newVal)
@@ -107,6 +109,12 @@ root.computed.userId = function () {
 }
 root.computed.serverTime = function () {
   return new Date().getTime();
+}
+root.computed.currSymbol = function () {
+  return this.$store.state.symbol;
+}
+root.computed.leverage = function () {
+  return this.$store.state.leverage;
 }
 // 存储订单/交易更新推送Key值的映射关系
 // root.computed.socketPositionOrders = function () {
@@ -299,9 +307,9 @@ root.methods.getPositionRisk = function () {
 root.methods.re_getPositionRisk = function (data) {
   typeof data === 'string' && (data = JSON.parse(data))
   if (!data || !data.data || data.data.length == []) return
-  this.records = data.data
-  let filterRecords = []
-  this.records.forEach((v,index)=>{
+
+  let records = data.data,filterRecords = []
+  records.forEach((v,index)=>{
     if (v.positionAmt != 0) {
       filterRecords.push(v)
     }
@@ -309,11 +317,49 @@ root.methods.re_getPositionRisk = function (data) {
   this.records = filterRecords
   this.recordsIndex = filterRecords.length || 0
   this.$emit('getPositionRisk',this.recordsIndex);
+
+  if(this.records.length > 0){
+
+    //需要用到标记价格计算
+    this.handleWithMarkPrice(this.records);
+
+    //自动减仓数据拼接
+    if(this.currSAdlQuantile)this.addAdlQuantile(this.currSAdlQuantile,this.records)
+  }
   // this.priceCheck = localStorage.setItem('priceCheck');
 }
 // 获取记录出错
 root.methods.error_getPositionRisk = function (err) {
   console.warn("充值获取记录出错！", err)
+}
+//计算保证金和保证金比率
+root.methods.handleWithMarkPrice = function(records){
+  let markPrice = this.markPrice;
+  let leverag =  this.$store.state.leverage;
+
+  records.map((v,i)=>{
+    //保证金公式：全仓→size*markprice*1/leverag，逐仓→isolatedMargin - unRealizedProfit
+    if(v.marginType == 'cross'){
+      v.securityDeposit = this.accDiv(this.accMul(Math.abs(v.positionAmt) || 0,this.markPrice || 0),this.leverage || 1)
+    }
+    if(v.marginType == 'isolated'){
+      v.securityDeposit = this.accMinus(v.isolatedMargin,v.unrealizedProfit)
+    }
+
+    //回报率：全仓逐仓均是ROE = ( ( Mark Price - Entry Price ) * size ) / （Mark Price * abs(size) * IMR）
+    let priceStep = this.accMul(this.accMinus(this.markPrice || 0,v.entryPrice || 0),Math.abs(v.positionAmt)),
+        msi = this.accDiv(this.accMul(Math.abs(v.positionAmt) || 0,this.markPrice || 0),this.leverage || 1)
+    v.responseRate = this.accMul(this.accDiv(priceStep || 0,msi || 1),100)
+    console.log('v.responseRate',i,v.responseRate)
+    // v.responseRate = this.toFixed(v.responseRate,2)
+    v.responseRate = Number(v.responseRate).toFixed(2) + '%'
+    console.log('v.responseRate.toFixed',i,v.responseRate)
+
+    //保证金比率
+  })
+
+  this.records = records;
+
 }
 
 // 自动减仓持仓ADL队列估算
@@ -330,12 +376,29 @@ root.methods.getAdlQuantile = function () {
 // 自动减仓持仓ADL队列估算返回
 root.methods.re_getAdlQuantile = function (data) {
   typeof data === 'string' && (data = JSON.parse(data))
-  if (!data) return
+  if (!data || !data.data) return
+
+  //TODO:list中每个币对只返回一个对象吗？
+  this.currSAdlQuantile = data.data.find(v=>v.symbol==this.$globalFunc.toOnlyCapitalLetters(this.currSymbol));
+
+  if(this.records.length > 0 && this.currSAdlQuantile)
+    this.addAdlQuantile(this.currSAdlQuantile,this.records)
   // console.log('this is getAdlQuantile',data);
 }
 // 自动减仓持仓ADL队列估算返回出错
 root.methods.error_getAdlQuantile = function (err) {
   console.warn("自动减仓持仓ADL队列估算返回出错！", err)
+}
+//仓位添加自动减仓数据
+root.methods.addAdlQuantile = function(currSAdlQuantile,records){
+
+  let indicatorLight = currSAdlQuantile.adlQuantile.json;
+  records.map(v=>{
+    v.adlQuantile = indicatorLight[v.positionSide] + ''
+  })
+  this.records = records;
+
+  console.log('currSAdlQuantile,records',currSAdlQuantile,records);
 }
 
 // 市价

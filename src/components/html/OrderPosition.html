@@ -51,7 +51,7 @@
     <!-- 表头 end -->
     <!-- 如果加载完成、已登录、有数据，则显示数据 begin -->
     <li class="flex tr-td" v-if="records.length != 0 && !loading" v-for="(item,index) in records" >
-      <!--时间-->
+      <!--币对和杠杆-->
       <div class="td td-time1">
         <div class="td-time1-currency flex">
           <div :class="(item.positionAmt || 0) > 0 ?'td-time1-green':'td-time1-red'"></div>
@@ -70,16 +70,20 @@
       <!--保证金比率-->
       <div class="td td-price">{{toFixed(item.isolatedMargin,2) + '%'}}</div>
       <!--保证金-->
-      <div class="td td-deposit">{{toFixed(item.isolatedMargin,2)}} {{item.marginType == 'cross'?'(全仓)':'(逐仓)'}}
+      <div class="td td-deposit">{{toFixed(item.securityDeposit,2)}} {{item.marginType == 'cross'?'(全仓)':'(逐仓)'}}
         <span class="modify-margin pointer" v-if="item.marginType == 'isolated'" @click="openModifyMargin(item)"></span>
       </div>
 
 
       <!--未实现盈亏（回报率）-->
-      <div class="td td-return-rate" :class="item.unrealizedProfit>0?'text_blue-3':'text_red-4'">{{toFixed(item.unrealizedProfit,2) || 0}} (9%)</div>
+      <div class="td td-return-rate" :class="item.unrealizedProfit>0?'text_blue-3':'text_red-4'">{{toFixed(item.unrealizedProfit,2) || 0}} ({{item.responseRate}})</div>
       <!--自动减仓-->
       <div class="td td-reduce-positions">
-        <img src="../../assets/reduce_positions1.png" alt="">
+        <img v-if="item.adlQuantile == 0" src="../../assets/reduce_positions_0.png" alt="">
+        <img v-if="item.adlQuantile == 1" src="../../assets/reduce_positions_1.png" alt="">
+        <img v-if="item.adlQuantile == 2" src="../../assets/reduce_positions_2.png" alt="">
+        <img v-if="item.adlQuantile == 3" src="../../assets/reduce_positions_3.png" alt="">
+        <img v-if="item.adlQuantile == 4" src="../../assets/reduce_positions_4.png" alt="">
       </div>
       <!--平仓-->
       <div class="td td-trigger">
