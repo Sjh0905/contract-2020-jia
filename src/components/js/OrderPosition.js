@@ -350,10 +350,10 @@ root.methods.handleWithMarkPrice = function(records){
     let priceStep = this.accMul(this.accMinus(this.markPrice || 0,v.entryPrice || 0),Math.abs(v.positionAmt)),
         msi = this.accDiv(this.accMul(Math.abs(v.positionAmt) || 0,this.markPrice || 0),this.leverage || 1)
     v.responseRate = this.accMul(this.accDiv(priceStep || 0,msi || 1),100)
-    console.log('v.responseRate',i,v.responseRate)
+    // console.log('v.responseRate',i,v.responseRate)
     // v.responseRate = this.toFixed(v.responseRate,2)
     v.responseRate = Number(v.responseRate).toFixed(2) + '%'
-    console.log('v.responseRate.toFixed',i,v.responseRate)
+    // console.log('v.responseRate.toFixed',i,v.responseRate)
 
     //保证金比率
   })
@@ -398,7 +398,7 @@ root.methods.addAdlQuantile = function(currSAdlQuantile,records){
   })
   this.records = records;
 
-  console.log('currSAdlQuantile,records',currSAdlQuantile,records);
+  // console.log('currSAdlQuantile,records',currSAdlQuantile,records);
 }
 
 // 市价

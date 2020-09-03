@@ -164,19 +164,7 @@ export default async function ($http, $store, $cookie, $i18n) {
     })
   }
 
-  function getLeverageBracket() {
-    return $http.send('GET_LEVERAGE_BRACKET', {
-      query:{
-        symbol:'BTCUSDT'
-      },
-      callBack: function (data) {
-        typeof data === 'string' && (data = JSON.parse(data))
-        console.info('data=',data)
-      }
-    })
-  }
-
-  await Promise.all([userAuthInfo(), getCommonSymbols(), getServerTime(),getUserBalance(),getLeverageBracket()]).then(res => {
+  await Promise.all([userAuthInfo(), getCommonSymbols(), getServerTime(),getUserBalance()]).then(res => {
     // console.warn('')
   }) // 请求同时发送 统一拦截
 

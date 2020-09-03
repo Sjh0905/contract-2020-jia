@@ -304,6 +304,13 @@ store.state.assets = {
  * @type {Number}
  */
 store.state.leverage = 0
+
+/**
+ * 查询杠杆分层标准，用于计算维持保证金
+ * @type {Array}
+ */
+store.state.leverageBracket = []
+
 /**
  * socket ListenKey
  * @type {string}
@@ -370,6 +377,11 @@ store.mutations.CHANGE_ASSETS = (state, info) => {
 // 改变 杠杆倍数
 store.mutations.CHANGE_LEVERAGE = (state, info) => {
   state.leverage = info;
+}
+
+// 改变 杠杆分层标准
+store.mutations.CHANGE_LEVERAGE_BRACKET = (state, info) => {
+  state.leverageBracket = info;
 }
 
 // 改变 listenKey
