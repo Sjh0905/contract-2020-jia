@@ -45,6 +45,9 @@ tr, th, td {
   height: 500px;
   overflow: scroll;
 }
+.historica::-webkit-scrollbar {
+  display: none;
+}
 
 .tr-td {
   width: 100%;

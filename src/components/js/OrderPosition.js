@@ -426,6 +426,25 @@ root.methods.marketPrice = function (item) {
 root.methods.re_marketPrice = function (data) {
   this.marketPriceClick = false
 
+  if(data.code == '303' && data.errCode == '2019') {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '杠杆账户余额不足';//当前无仓位，不能下单
+    return
+  }
+
+  if(data.code == '303' && data.errCode == '4061') {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '订单的持仓方向和用户设置不一致';//订单的持仓方向和用户设置不一致
+    return
+  }
+  if(data.code == '303' && data.errCode == '4077') {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '订单的持仓方向和用户设置不一致';//订单的持仓方向和用户设置不一致
+    return
+  }
   if(data.code == 303) {
     this.popType = 0;
     this.promptOpen = true;
@@ -508,6 +527,25 @@ root.methods.checkPrice = function (item) {
 root.methods.re_marketPrice = function (data) {
   this.checkPriceClick = false
 
+  if(data.code == '303' && data.errCode == '2019') {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '杠杆账户余额不足';//当前无仓位，不能下单
+    return
+  }
+
+  if(data.code == '303' && data.errCode == '4061') {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '订单的持仓方向和用户设置不一致';//订单的持仓方向和用户设置不一致
+    return
+  }
+  if(data.code == '303' && data.errCode == '4077') {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '订单的持仓方向和用户设置不一致';//订单的持仓方向和用户设置不一致
+    return
+  }
   if(data.code == 303) {
     this.promptOpen = true;
     this.popType = 0;
