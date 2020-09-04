@@ -63,10 +63,13 @@ root.data = function () {
     // crossWalletBalance:'' ,// 全仓可用保证金
     // isolatedWalletBalance:'', // 逐仓仓可用保证金
     // walletBalance:'', // 钱包余额
-    reduceMoreAmount: 0 , // 最多可减少
+    // reduceMoreAmount: 0 , // 最多可减少
     priceCheck:0,  // 平仓价格在多少
     order:{},
-    priceCheck1:0
+    priceCheck1:0,
+    positionAmt:0, // 当前仓位的数量
+    entryPrice: 0, // 当前仓位的开仓价格
+    marginType:'',
   }
 }
 /*------------------------------ 观察 -------------------------------*/
@@ -93,6 +96,23 @@ root.mounted = function () {}
 root.beforeDestroy = function () {}
 /*------------------------------ 计算 -------------------------------*/
 root.computed = {}
+root.computed.reduceMostAmount1 = function (){
+  // 计算最多可减少     // isolatedWalletBalance, isolatedWalletBalance + size * (Latest_Mark_Price - Entry_Price) - Latest_Mark_Price * abs(size) * IMR
+  let isolatedWalletBalance = this.accMinus(this.walletBalance,this.crossWalletBalance) // 逐仓钱包余额
+  let leverage = this.$store.state.leverage
+  let reduceMoreAmount = 0
+  // console.info('this.walletBalance,this.crossWalletBalance',this.walletBalance,this.crossWalletBalance)
+  let priceDiff= this.accMul(this.positionAmt ,this.accMinus(Number(this.markPrice) , Number(this.entryPrice)))
+  let markPosition = this.accDiv(this.accMul(Number(this.markPrice) , Math.abs(this.positionAmt)) , leverage)
+  if(this.marginType == "isolated") {
+    reduceMoreAmount = this.accMinus(this.accAdd(Number(isolatedWalletBalance) , priceDiff) , markPosition || 1)
+  } else {
+    reduceMoreAmount = this.accMinus(this.accAdd(Number(isolatedWalletBalance) , priceDiff) , markPosition || 1)
+  }
+  reduceMoreAmount = reduceMoreAmount < 0 ? reduceMoreAmount = 0 : this.toFixed(reduceMoreAmount,2)
+  // console.info('this.reduceMoreAmount===', reduceMoreAmount, this.markPrice)
+  return reduceMoreAmount
+}
 // 钱包余额
 root.computed.walletBalance = function () {
   return this.$store.state.assets.walletBalance
@@ -154,7 +174,10 @@ root.methods.selectType = function (type) {
 // 打开逐仓弹框
 root.methods.openModifyMargin = function (item) {
   // console.info('item===',item)
-  this.reduceMostAmount(item)
+  // this.reduceMostAmount(item)
+  this.positionAmt = item.positionAmt || 0
+  this.entryPrice = item.entryPrice || 0
+  this.marginType = item.marginType || ''
   // this.modifyMarginMoney = item.isolatedMargin
   this.liquidationPrice =item.liquidationPrice
   this.symbol = item.symbol
@@ -166,21 +189,7 @@ root.methods.openModifyMargin = function (item) {
   this.positionSide = 'BOTH'
 }
 
-root.methods.reduceMostAmount = function (item){
-  console.info('this.walletBalance',this.walletBalance,this.crossWalletBalance)
-  // 计算最多可减少     // isolatedWalletBalance, isolatedWalletBalance + size * (Latest_Mark_Price - Entry_Price) - Latest_Mark_Price * abs(size) * IMR
-  // let walletBalance = this.$store.state.assets.walletBalance // 钱包总余额
-  // let crossWalletBalance = this.$store.state.assets.crossWalletBalance // 全仓钱包余额
-  let isolatedWalletBalance = this.accMinus(this.walletBalance,this.crossWalletBalance) // 逐仓钱包余额
-  let leverage = this.$store.state.leverage
-  if(item.marginType == "isolated") {
-    this.reduceMoreAmount = Number(isolatedWalletBalance) + (item.positionAmt *(Number(this.markPrice) - Number(item.entryPrice))) - (Number(this.markPrice) * Math.abs(item.positionAmt) *  1 / leverage)
-  } else {
-    this.reduceMoreAmount = Number(this.crossWalletBalance) + (item.positionAmt * (Number(this.markPrice) - item.entryPrice) - (Number(this.markPrice) * Math.abs(item.positionAmt) *  1 / leverage))
-  }
-  // console.info('this.reduceMoreAmount===',walletBalance)
-  return this.reduceMoreAmount < 0 ? this.reduceMoreAmount = 0 : this.reduceMoreAmount
-}
+
 
 // 关闭逐仓弹框
 root.methods.modifyMarginClose = function () {

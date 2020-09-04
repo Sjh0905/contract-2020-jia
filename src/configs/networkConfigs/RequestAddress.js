@@ -36,7 +36,7 @@ requestAddress.POST_POSITION_MARGIN = {url: urlHead + '/future/account/positionM
 requestAddress.LOGIN_OFF = {url: urlHead+'/future/common/signout', method: 'post'} //登出
 requestAddress.GET_BALAN__BIAN = {url: urlHead+'/future/account/userAccountv2', method: 'get'}  //保证金余额
 requestAddress.GET_ADL_QUANTILE = {url: urlHead+'/future/account/adlQuantile', method: 'get'}  //持仓ADL队列估算
-requestAddress.GET_ORDERBOOK_TICKER = {url: urlHead + '/future/common/orderBookTicker', method: 'get' ,} // 获取当前最新价格
+requestAddress.GET_ORDERBOOK_TICKER = {url: urlHead + '/future/common/orderBookTicker', method: 'get' ,} // 获取当前最优价格
 requestAddress.GET_LEVERAGE_BRACKET = {url: urlHead + '/future/user/leverageBracket', method: 'get' ,} // 杠杆分层标准
 
 

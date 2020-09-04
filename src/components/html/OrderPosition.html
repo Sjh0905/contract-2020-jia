@@ -154,7 +154,7 @@
           <div class="total-money">总额（USDT）</div>
           <div class="modify-margin-input flex">
             <input type="text" placeholder="输入金额" v-model="reduceAmount">
-            <div class="modify-margin-text">最大：{{toFixed(Number(modifyMarginMoney) || 0,2)}} USDT</div>
+            <div class="modify-margin-text">最大：{{reduceMostAmount1}} USDT</div>
           </div>
         </div>
         <!--当前仓位保证金 USDT-->
@@ -165,7 +165,7 @@
         <!--最多可减少-->
         <div class="modify-margin-des flex">
           <div class="modify-margin-des-title">最多可减少：</div>
-          <div class="modify-margin-des-number">{{toFixed(Number(reduceMoreAmount) || 0,2)}} USDT</div>
+          <div class="modify-margin-des-number">{{reduceMostAmount1}} USDT</div>
         </div>
         <!--减少后强平价格-->
         <div class="modify-margin-des flex">
