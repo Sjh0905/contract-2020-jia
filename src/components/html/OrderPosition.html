@@ -62,21 +62,21 @@
       <!--数量-->
       <div class="td td-number" :class="(item.positionAmt || 0) > 0 ?'text_blue-3':'text_red-4'">{{toFixed(item.positionAmt,3) || 0}}</div>
       <!--开仓价格-->
-      <div class="td td-category-1">{{toFixed(item.entryPrice,2) || 0}}</div>
+      <div class="td td-category-1">{{toFixed(item.entryPrice,2) || '-'}}</div>
       <!--标记价格-->
-      <div class="td td-market">{{toFixed(markPrice,2) || 0}}</div>
+      <div class="td td-market">{{!!markPrice && Number(markPrice).toFixed(2) || '-'}}</div>
       <!--强平价格-->
-      <div class="td td-flat-price text_blue">{{toFixed(item.liquidationPrice,2) || 0}}</div>
+      <div class="td td-flat-price">{{!!item.liquidationPrice && Number(item.liquidationPrice).toFixed(2) || '-'}}</div>
       <!--保证金比率-->
-      <div class="td td-price">{{toFixed(item.isolatedMargin,2) + '%'}}</div>
+      <div class="td td-price">{{item.marginType == 'cross'?crossMaintMarginRate:item.maintMarginRate}}</div>
       <!--保证金-->
-      <div class="td td-deposit">{{toFixed(item.securityDeposit,2)}} {{item.marginType == 'cross'?'(全仓)':'(逐仓)'}}
+      <div class="td td-deposit">{{!!item.securityDeposit && Number(item.securityDeposit).toFixed(2) || '-'}} {{item.marginType == 'cross'?'(全仓)':'(逐仓)'}}
         <span class="modify-margin pointer" v-if="item.marginType == 'isolated'" @click="openModifyMargin(item)"></span>
       </div>
 
 
-      <!--未实现盈亏（回报率）-->
-      <div class="td td-return-rate" :class="item.unrealizedProfit>0?'text_blue-3':'text_red-4'">{{toFixed(item.unrealizedProfit,2) || 0}} ({{item.responseRate}})</div>
+      <!--未实现盈亏（回报率）由于四舍五入，使用原生toFixed-->
+      <div class="td td-return-rate" :class="item.unrealizedProfit>0?'text_blue-3':'text_red-4'">{{Number(item.unrealizedProfitPage || 0).toFixed(2) }} ({{item.responseRate}})</div>
       <!--自动减仓-->
       <div class="td td-reduce-positions">
         <img v-if="item.adlQuantile == 0" src="../../assets/reduce_positions_0.png" alt="">
