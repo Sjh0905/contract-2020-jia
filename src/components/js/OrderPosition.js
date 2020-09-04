@@ -70,12 +70,16 @@ root.data = function () {
     positionAmt:0, // 当前仓位的数量
     entryPrice: 0, // 当前仓位的开仓价格
     marginType:'',
+    currSAdlQuantile:'',
+    crossMaintMarginRate:0//全仓保证金比率
+
   }
 }
 /*------------------------------ 观察 -------------------------------*/
 root.watch = {}
 root.watch.markPrice = function(newVal,oldVal) {
   // console.info(newVal)
+  this.handleWithMarkPrice(this.records)
 }
 root.watch.walletBalance = function(newVal,oldVal) {
   // console.info(newVal)
@@ -117,9 +121,13 @@ root.computed.reduceMostAmount1 = function (){
 root.computed.walletBalance = function () {
   return this.$store.state.assets.walletBalance
 }
-// 除去逐仓仓位保证金的钱包余额
+// 除去逐仓仓位保证金的钱包余额，即全仓保证金余额
 root.computed.crossWalletBalance = function () {
   return this.$store.state.assets.crossWalletBalance
+}
+// 逐仓钱包余额
+root.computed.isolatedWalletBalance = function () {
+  return this.accMinus(this.walletBalance,this.crossWalletBalance)
 }
 // 用户id，判断是否登录
 root.computed.userId = function () {
@@ -127,6 +135,15 @@ root.computed.userId = function () {
 }
 root.computed.serverTime = function () {
   return new Date().getTime();
+}
+root.computed.currSymbol = function () {
+  return this.$store.state.symbol;
+}
+root.computed.leverage = function () {
+  return this.$store.state.leverage;
+}
+root.computed.leverageBracket = function () {
+  return this.$store.state.leverageBracket
 }
 // 存储订单/交易更新推送Key值的映射关系
 // root.computed.socketPositionOrders = function () {
@@ -308,9 +325,9 @@ root.methods.getPositionRisk = function () {
 root.methods.re_getPositionRisk = function (data) {
   typeof data === 'string' && (data = JSON.parse(data))
   if (!data || !data.data || data.data.length == []) return
-  this.records = data.data
-  let filterRecords = []
-  this.records.forEach((v,index)=>{
+
+  let records = data.data,filterRecords = []
+  records.forEach((v,index)=>{
     if (v.positionAmt != 0) {
       filterRecords.push(v)
     }
@@ -318,11 +335,89 @@ root.methods.re_getPositionRisk = function (data) {
   this.records = filterRecords
   this.recordsIndex = filterRecords.length || 0
   this.$emit('getPositionRisk',this.recordsIndex);
+
+  if(this.records.length > 0){
+
+    //需要用到标记价格计算
+    this.handleWithMarkPrice(this.records);
+
+    //自动减仓数据拼接
+    if(this.currSAdlQuantile)this.addAdlQuantile(this.currSAdlQuantile,this.records)
+  }
   // this.priceCheck = localStorage.setItem('priceCheck');
 }
 // 获取记录出错
 root.methods.error_getPositionRisk = function (err) {
   console.warn("充值获取记录出错！", err)
+}
+//计算保证金和保证金比率
+root.methods.handleWithMarkPrice = function(records){
+  let totalMaintMargin = 0,totalUnrealizedProfit = 0;
+
+  //由于四舍五入，以下均使用原生toFixed
+  records.map((v,i)=>{
+    let notional = this.accMul(Math.abs(v.positionAmt) || 0,this.markPrice || 0)
+    let args = this.getCalMaintenanceArgs(notional),maintMarginRatio = args.maintMarginRatio || 0,notionalCum = args.notionalCum || 0
+
+    //全仓维持保证金：Notional * MMR - cum；Notional= abs(positionAmt) * Latest_Mark_Price
+    //逐仓维持保证金：abs(position size) * Latest_Mark_Price * MMR -cum
+    v.maintMargin = this.accMinus(this.accMul(notional,maintMarginRatio),notionalCum)
+
+    v.unrealizedProfitPage = v.unrealizedProfit//由于unrealizedProfit要用于计算逐仓保证金，值不能改变，但是页面和计算的值需要变化
+
+    //回报率：全仓逐仓均是ROE = ( ( Mark Price - Entry Price ) * size ) / （Mark Price * abs(size) * IMR）,IMR = 1/杠杆倍数
+    v.unrealizedProfitPage = this.accMul( this.accMinus(this.markPrice || 0,v.entryPrice || 0),v.positionAmt || 0 )//实时变化的未实现盈亏
+    let msi = this.accDiv( this.accMul(Math.abs(v.positionAmt) || 0,this.markPrice || 0) , this.leverage || 1 )
+    v.responseRate = this.accMul(this.accDiv(v.unrealizedProfitPage || 0,msi || 1),100)
+    v.responseRate = Number(v.responseRate).toFixed(2) + '%'
+
+    // console.log('v.responseRate.toFixed',i,v.responseRate)
+
+    if(v.marginType == 'cross'){
+      //全仓保证金：size * markprice * 1 / leverage，size = abs(positionAmt)
+      v.securityDeposit = this.accDiv(notional,this.leverage || 1)
+
+      totalMaintMargin = this.accAdd(totalMaintMargin,v.maintMargin || 0)
+      totalUnrealizedProfit = this.accAdd(totalUnrealizedProfit,v.unrealizedProfitPage || 0)
+    }
+    if(v.marginType == 'isolated'){
+
+      //逐仓保证金：isolatedMargin - unRealizedProfit
+      v.securityDeposit = this.accMinus(v.isolatedMargin,v.unrealizedProfit)
+
+      //逐仓保证金比率=维持保证金/(实时变的未实现盈亏+逐仓保证钱包金余额 iw)；其中的iw → ws取，或者等于接口的isolatedMargin - unRealizedProfit
+      v.maintMarginRate = this.accDiv(v.maintMargin,this.accAdd(v.unrealizedProfitPage || 0,v.securityDeposit))
+      v.maintMarginRate = Number(v.maintMarginRate * 100).toFixed(2) + '%'
+    }
+
+  })
+  //全仓保证金比率 = 各仓位的maintMargin字段之和 /（各仓位的unrealizedProfit之和+全仓账户余额 crossWalletBalance)
+  this.crossMaintMarginRate = this.accDiv(totalMaintMargin,this.accAdd(totalUnrealizedProfit,this.crossWalletBalance) || 1)
+  this.crossMaintMarginRate = Number(this.crossMaintMarginRate * 100).toFixed(2) + '%'
+
+  this.records = records;
+
+}
+//计算维持保证金首先获取比率、速算数等信息
+root.methods.getCalMaintenanceArgs = function(notional=0){
+  let bracketSingle = {};
+
+  if(notional == 0){
+    bracketSingle = this.leverageBracket.find(v=> v.notionalCap == 0)
+  }
+  //notional > notionalFloor && notional <= notionalCap 可推出 notional - notionalFloor > 0  && notional - notionalCap <= 0
+  for (let i = 0; i < this.leverageBracket.length; i++) {
+    let v = this.leverageBracket[i];
+    let floorStep = this.accMinus(notional,v.notionalFloor || 0)
+    let capStep = this.accMinus(notional,v.notionalCap || 0)
+
+    if(floorStep > 0 && capStep <= 0){
+      bracketSingle = v;
+      break;
+    }
+  }
+
+  return bracketSingle;
 }
 
 // 自动减仓持仓ADL队列估算
@@ -339,12 +434,29 @@ root.methods.getAdlQuantile = function () {
 // 自动减仓持仓ADL队列估算返回
 root.methods.re_getAdlQuantile = function (data) {
   typeof data === 'string' && (data = JSON.parse(data))
-  if (!data) return
+  if (!data || !data.data) return
+
+  //TODO:list中每个币对只返回一个对象吗？
+  this.currSAdlQuantile = data.data.find(v=>v.symbol==this.$globalFunc.toOnlyCapitalLetters(this.currSymbol));
+
+  if(this.records.length > 0 && this.currSAdlQuantile)
+    this.addAdlQuantile(this.currSAdlQuantile,this.records)
   // console.log('this is getAdlQuantile',data);
 }
 // 自动减仓持仓ADL队列估算返回出错
 root.methods.error_getAdlQuantile = function (err) {
   console.warn("自动减仓持仓ADL队列估算返回出错！", err)
+}
+//仓位添加自动减仓数据
+root.methods.addAdlQuantile = function(currSAdlQuantile,records){
+
+  let indicatorLight = currSAdlQuantile.adlQuantile.json;
+  records.map(v=>{
+    v.adlQuantile = indicatorLight[v.positionSide] + ''
+  })
+  this.records = records;
+
+  // console.log('currSAdlQuantile,records',currSAdlQuantile,records);
 }
 
 // 市价
@@ -372,6 +484,25 @@ root.methods.marketPrice = function (item) {
 root.methods.re_marketPrice = function (data) {
   this.marketPriceClick = false
 
+  if(data.code == '303' && data.errCode == '2019') {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '杠杆账户余额不足';//当前无仓位，不能下单
+    return
+  }
+
+  if(data.code == '303' && data.errCode == '4061') {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '订单的持仓方向和用户设置不一致';//订单的持仓方向和用户设置不一致
+    return
+  }
+  if(data.code == '303' && data.errCode == '4077') {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '订单的持仓方向和用户设置不一致';//订单的持仓方向和用户设置不一致
+    return
+  }
   if(data.code == 303) {
     this.popType = 0;
     this.promptOpen = true;
@@ -454,6 +585,25 @@ root.methods.checkPrice = function (item) {
 root.methods.re_marketPrice = function (data) {
   this.checkPriceClick = false
 
+  if(data.code == '303' && data.errCode == '2019') {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '杠杆账户余额不足';//当前无仓位，不能下单
+    return
+  }
+
+  if(data.code == '303' && data.errCode == '4061') {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '订单的持仓方向和用户设置不一致';//订单的持仓方向和用户设置不一致
+    return
+  }
+  if(data.code == '303' && data.errCode == '4077') {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '订单的持仓方向和用户设置不一致';//订单的持仓方向和用户设置不一致
+    return
+  }
   if(data.code == 303) {
     this.promptOpen = true;
     this.popType = 0;

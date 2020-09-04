@@ -264,7 +264,7 @@
 <!--        <span class="security-deposit-text border-dashed">保证金</span>-->
         <div class="security-deposit-amount">{{securityDeposit}} USDT</div>
       </div>
-      <div :class="orderType?'security-deposit-block':'security-deposit-block-buy'">仓位占用的保证金。</div>
+
 
       <div class="can-be-opened flex-between">
         <span v-if="isHasModule('kaipingType') == 1" class="security-deposit-text">可开</span>
@@ -299,7 +299,7 @@
 
       <div class="progress-bar-btn txt-nomal border_radius"
            :class="orderType?'progress-bar-redbtn btn_red_box_shadow':'progress-bar-greenbtn btn_green_box_shadow'"
-           v-if="$store.state.authState.userId && currentLimiting && isHasModule('buttonType') == 1"
+           v-if="$store.state.authState.userId && currentLimiting && isHasModule('buttonType') == 1 && (pendingOrderType == 'limitProfitStopLoss' || pendingOrderType == 'marketPriceProfitStopLoss')"
       >{{orderType && '卖出/做空'  || '买入/做多' }}
       </div>
 
@@ -353,6 +353,7 @@
            v-if="$store.state.authState.userId && currentLimiting && isHasModule('buttonType') == 3 && (pendingOrderType == 'limitProfitStopLoss' || pendingOrderType == 'marketPriceProfitStopLoss')">
         {{orderType && '平多' || '平空'}}
       </div>
+      <div :class="orderType?'security-deposit-block':'security-deposit-block-buy'">仓位占用的保证金。</div>
       <!--<div class="progress-bar-btn progress-bar-nologin-btn ptxt-nomal"-->
            <!--v-if="$store.state.authMessage.userId && (!symbol_transaction || !symbol_transaction_diy)">-->
         <!--{{$t('progressBar.unavailable')}}-->

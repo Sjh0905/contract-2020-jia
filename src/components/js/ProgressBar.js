@@ -146,7 +146,7 @@ root.computed.assumingPrice = function () {
 }
 
 root.computed.canMore = function () {
-  console.info('this.assumingPrice',this.assumingPrice,this.bidPrice,this.askPrice)
+  // console.info('this.assumingPrice',this.assumingPrice,this.bidPrice,this.askPrice)
   let crossWalletBalance = Number(this.crossWalletBalance) // 全仓钱包余额
   // 向上取整IMR
   let leverage = this.$globalFunc.accFixedCny(this.accDiv(1 , Number(this.$store.state.leverage)||1),4)
@@ -751,6 +751,31 @@ root.methods.re_postFullStop = function (data) {
     this.popText = '订单可能被立刻触发';//当前无仓位，不能下单
     return
   }
+
+  if(data.code == '303' && data.errCode == '2019') {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '杠杆账户余额不足';//杠杆账户余额不足
+    return
+  }
+  if(data.code == '303' && data.errCode == '4061') {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '订单的持仓方向和用户设置不一致';//订单的持仓方向和用户设置不一致
+    return
+  }
+  if(data.code == '303' && data.errCode == '4077') {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '订单的持仓方向和用户设置不一致';//订单的持仓方向和用户设置不一致
+    return
+  }
+  if(data.code == '303') {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '下单失败';//当前无仓位，不能下单
+    return
+  }
   typeof (data) === 'string' && (data = JSON.parse(data))
   if (!data || !data.data) return
   this.promptOpen = true;
@@ -879,6 +904,32 @@ root.methods.re_postOrdersCreate = function (data) {
     this.popText = '订单可能被立刻触发';//当前无仓位，不能下单
     return
   }
+
+  if(data.code == '303' && data.errCode == '2019') {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '杠杆账户余额不足';//当前无仓位，不能下单
+    return
+  }
+
+  if(data.code == '303' && data.errCode == '4061') {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '订单的持仓方向和用户设置不一致';//订单的持仓方向和用户设置不一致
+    return
+  }
+  if(data.code == '303' && data.errCode == '4077') {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '订单的持仓方向和用户设置不一致';//订单的持仓方向和用户设置不一致
+    return
+  }
+  if(data.code == '303') {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '下单失败';//当前无仓位，不能下单
+    return
+  }
   typeof (data) === 'string' && (data = JSON.parse(data))
   if (!data || !data.data) return
   // console.info('下单失败',data,data.errCode,data.code)
@@ -1000,6 +1051,37 @@ root.methods.re_postOrdersPosition = function (data) {
       this.popText = '订单可能被立刻触发';//当前无仓位，不能下单
       return
     }
+    this.popText = '下单失败';//当前无仓位，不能下单
+    return
+  }
+  if(data.code == '303' && data.errCode == '2021') {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '订单可能被立刻触发';//当前无仓位，不能下单
+    return
+  }
+  if(data.code == '303' && data.errCode == '2019') {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '杠杆账户余额不足';//当前无仓位，不能下单
+    return
+  }
+
+  if(data.code == '303' && data.errCode == '4061') {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '订单的持仓方向和用户设置不一致';//订单的持仓方向和用户设置不一致
+    return
+  }
+  if(data.code == '303' && data.errCode == '4077') {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '订单的持仓方向和用户设置不一致';//订单的持仓方向和用户设置不一致
+    return
+  }
+  if(data.code == '303') {
+    this.promptOpen = true;
+    this.popType = 0;
     this.popText = '下单失败';//当前无仓位，不能下单
     return
   }
