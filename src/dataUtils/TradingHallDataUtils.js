@@ -214,23 +214,41 @@ tradingHallData.socketOrderKeyMap = {
   "cr":"priceRate",// 追踪止损回调比例/跟踪止损回调比例
   "rp":"",// 该交易实现盈亏
 }
-tradingHallData.socketPositionOrders = {
+/**
+ * 存储Position更新推送与接口Key值的映射关系
+ * @type {{s: string, pa: string, ep: string, cr: string, up: string, mt: string, iw: string, ps: string}}
+ */
+tradingHallData.socketPositionKeyMap = {
   "s":"symbol",// 交易对
   "pa":"positionAmt",  // 仓位
   "ep":"entryPrice",  // 开仓价格
   "cr":"",  // (费前)累计实现损益
-  "up":"unRealizedProfit",  // 持仓未实现盈亏
+  "up":"unrealizedProfit",  // 持仓未实现盈亏，注意大小写哦，接口返回的是unrealizedProfit，API文档写的是unRealizedProfit
   "mt":"marginType",  // 保证金模式
-  "iw":"isolatedMargin", // 若为逐仓，仓位保证金
+  // "iw":"isolatedMargin", // iw = isolatedWallet ，而isolatedMargin = isolatedWallet + unRealizedProfi，所以不能映射
   "ps":"positionSide" , // 持仓方向
-
-
   // "isAutoAddMargin": "false",
   // "leverage": "10", // 当前杠杆倍数  aa
   // "liquidationPrice": "0", // 参考强平价格  aa
   // "markPrice": "6679.50671178",   // 当前标记价格  aa
   // "maxNotionalValue": "20000000", // 当前杠杆倍数允许的名义价值上限
 
+}
+/**
+ * 存储 Risk for BTC 表中 Level 和 速算数cum_fast_maintenance_amount 的关系
+ * 格式为{Level:cum_fast_maintenance_amount}
+ * @type {{"1": number, "2": number, "3": number, "4": number, "5": number, "6": number, "7": number, "8": number, "9": number}}
+ */
+tradingHallData.cumFastMaintenanceAmount = {
+  "1":0,
+  "2":50,
+  "3":1300,
+  "4":16300,
+  "5":141300,
+  "6":1141300,
+  "7":2391300,
+  "8":4891300,
+  "9":24891300,
 }
 
 export default tradingHallData

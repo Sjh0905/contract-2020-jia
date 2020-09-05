@@ -1,4 +1,5 @@
 import fa from "element-ui/src/locale/lang/fa";
+import tradingHallData from "../../dataUtils/TradingHallDataUtils";
 
 const REFRESH_KEY = 'refreshDataObj'
 const REFRESH_TIME_STEP = 10000
@@ -76,6 +77,8 @@ root.created = function () {
     this.dealWithListenKey()
     // 设定55分钟时间搓
   },55 * 60 * 1000)
+
+  this.getLeverageBracket();
 }
 
 root.mounted = function () {
@@ -125,8 +128,19 @@ root.computed.bindGa = function () {
   return this.$store.state.authState.ga
 }
 
-root.computed.isClose=function(){
+root.computed.isClose = function(){
   return this.$store.state.downloadShow
+}
+root.computed.symbol = function(){
+  return this.$store.state.symbol
+}
+
+root.computed.onlyCapitalSymbol = function(){
+  return this.$globalFunc.toOnlyCapitalLetters(this.symbol)
+}
+
+root.computed.cumFastMaintenanceAmount = function () {
+  return tradingHallData.cumFastMaintenanceAmount;
 }
 
 root.computed.timeOut = function (){
@@ -241,6 +255,35 @@ root.methods.postcloseListenKey = function () {
 root.methods.re_postcloseListenKey = function (data) {
   typeof(data) == 'string' && (data = JSON.parse(data));
   console.info('data======',data)
+}
+//查询杠杆分层标准，用于计算维持保证金
+root.methods.getLeverageBracket = function(){
+  this.$http.send('GET_LEVERAGE_BRACKET', {
+    query:{
+      symbol:this.onlyCapitalSymbol
+    },
+    callBack: this.re_getLeverageBracket,
+    errorHandler:this.err_getLeverageBracket
+  })
+}
+//查询杠杆分层标准返回
+root.methods.re_getLeverageBracket = function(data){
+  typeof data === 'string' && (data = JSON.parse(data))
+  if(!data || !data.data)return
+
+  let item = data.data.find(v=>v.symbol == this.onlyCapitalSymbol) || {}
+  let bracketSingle = item.brackets || []
+  bracketSingle.map(v=>{
+    v.notionalCum = this.cumFastMaintenanceAmount[v.bracket]
+    // console.log('this is getLeverageBracket=',v.notionalCap,this.$globalFunc.accMinus(v.notionalCap,9223372036854776000));
+  })
+
+  this.$store.commit('CHANGE_LEVERAGE_BRACKET',bracketSingle);
+  // console.info('this is getLeverageBracket=',item,bracketSingle)
+}
+//查询杠杆分层标准出错
+root.methods.err_getLeverageBracket = function(err){
+  console.info('查询杠杆分层标准出错',err)
 }
 
 // 刷新频繁操作

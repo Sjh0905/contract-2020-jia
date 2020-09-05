@@ -63,12 +63,18 @@ root.data = function () {
     // crossWalletBalance:'' ,// 全仓可用保证金
     // isolatedWalletBalance:'', // 逐仓仓可用保证金
     // walletBalance:'', // 钱包余额
-    reduceMoreAmount: 0 , // 最多可减少
+    // reduceMoreAmount: 0 , // 最多可减少
     priceCheck:0,  // 平仓价格在多少
     order:{},
     priceCheck1:0,
     currSAdlQuantile:'',
     controlType: false,
+    positionAmt:0, // 当前仓位的数量
+    entryPrice: 0, // 当前仓位的开仓价格
+    marginType:'',
+    crossMaintMarginRate:0,//全仓保证金比率
+    totalAmount:0,
+
   }
 }
 /*------------------------------ 观察 -------------------------------*/
@@ -96,13 +102,34 @@ root.mounted = function () {}
 root.beforeDestroy = function () {}
 /*------------------------------ 计算 -------------------------------*/
 root.computed = {}
+root.computed.reduceMostAmount1 = function (){
+  // 计算最多可减少     // isolatedWalletBalance, isolatedWalletBalance + size * (Latest_Mark_Price - Entry_Price) - Latest_Mark_Price * abs(size) * IMR
+  let isolatedWalletBalance = this.accMinus(this.walletBalance,this.crossWalletBalance) // 逐仓钱包余额
+  let leverage = this.$store.state.leverage
+  let reduceMoreAmount = 0
+  // console.info('this.walletBalance,this.crossWalletBalance',this.walletBalance,this.crossWalletBalance)
+  let priceDiff= this.accMul(this.positionAmt ,this.accMinus(Number(this.markPrice) , Number(this.entryPrice)))
+  let markPosition = this.accDiv(this.accMul(Number(this.markPrice) , Math.abs(this.positionAmt)) , leverage)
+  if(this.marginType == "isolated") {
+    reduceMoreAmount = this.accMinus(this.accAdd(Number(isolatedWalletBalance) , priceDiff) , markPosition || 1)
+  } else {
+    reduceMoreAmount = this.accMinus(this.accAdd(Number(isolatedWalletBalance) , priceDiff) , markPosition || 1)
+  }
+  reduceMoreAmount = reduceMoreAmount < 0 ? reduceMoreAmount = 0 : this.toFixed(reduceMoreAmount,2)
+  // console.info('this.reduceMoreAmount===', reduceMoreAmount, this.markPrice)
+  return reduceMoreAmount
+}
 // 钱包余额
 root.computed.walletBalance = function () {
   return this.$store.state.assets.walletBalance
 }
-// 除去逐仓仓位保证金的钱包余额
+// 除去逐仓仓位保证金的钱包余额，即全仓保证金余额
 root.computed.crossWalletBalance = function () {
   return this.$store.state.assets.crossWalletBalance
+}
+// 逐仓钱包余额
+root.computed.isolatedWalletBalance = function () {
+  return this.accMinus(this.walletBalance,this.crossWalletBalance)
 }
 // 用户id，判断是否登录
 root.computed.userId = function () {
@@ -117,12 +144,15 @@ root.computed.currSymbol = function () {
 root.computed.leverage = function () {
   return this.$store.state.leverage;
 }
-// 存储订单/交易更新推送Key值的映射关系
-// root.computed.socketPositionOrders = function () {
-//   let data = tradingHallData.socketPositionOrders
-//   console.log('data===',data);
-//   return data
-// }
+root.computed.leverageBracket = function () {
+  return this.$store.state.leverageBracket
+}
+// 存储仓位推送Key值的映射关系
+root.computed.socketPositionKeyMap = function () {
+  let data = tradingHallData.socketPositionKeyMap
+  // console.log('data===',data);
+  return data
+}
 
 /*------------------------------ 方法 -------------------------------*/
 root.methods = {}
@@ -167,6 +197,11 @@ root.methods.openModifyMargin = function (item) {
   // console.info('item===',item)
   this.reduceMostAmount(item)
   this.modifyMarginMoney = item.securityDeposit
+  // this.reduceMostAmount(item)
+  this.positionAmt = item.positionAmt || 0
+  this.entryPrice = item.entryPrice || 0
+  this.marginType = item.marginType || ''
+  // this.modifyMarginMoney = item.isolatedMargin
   this.liquidationPrice =item.liquidationPrice
   this.symbol = item.symbol
   this.modifyMarginOpen = true
@@ -177,21 +212,7 @@ root.methods.openModifyMargin = function (item) {
   this.positionSide = 'BOTH'
 }
 
-root.methods.reduceMostAmount = function (item){
-  console.info('this.walletBalance',this.walletBalance,this.crossWalletBalance)
-  // 计算最多可减少     // isolatedWalletBalance, isolatedWalletBalance + size * (Latest_Mark_Price - Entry_Price) - Latest_Mark_Price * abs(size) * IMR
-  // let walletBalance = this.$store.state.assets.walletBalance // 钱包总余额
-  // let crossWalletBalance = this.$store.state.assets.crossWalletBalance // 全仓钱包余额
-  let isolatedWalletBalance = this.accMinus(this.walletBalance,this.crossWalletBalance) // 逐仓钱包余额
-  let leverage = this.$store.state.leverage
-  if(item.marginType == "isolated") {
-    this.reduceMoreAmount = Number(isolatedWalletBalance) + (item.positionAmt *(Number(this.markPrice) - Number(item.entryPrice))) - (Number(this.markPrice) * Math.abs(item.positionAmt) *  1 / leverage)
-  } else {
-    this.reduceMoreAmount = Number(this.crossWalletBalance) + (item.positionAmt * (Number(this.markPrice) - item.entryPrice) - (Number(this.markPrice) * Math.abs(item.positionAmt) *  1 / leverage))
-  }
-  // console.info('this.reduceMoreAmount===',walletBalance)
-  return this.reduceMoreAmount < 0 ? this.reduceMoreAmount = 0 : this.reduceMoreAmount
-}
+
 
 // 关闭逐仓弹框
 root.methods.modifyMarginClose = function () {
@@ -201,12 +222,13 @@ root.methods.modifyMarginClose = function () {
 
 // 接收仓位 socket 信息
 root.methods.positionSocket = function () {
-  let socketPositionOrders = this.socketPositionOrders
+  let socketPositionKeyMap = this.socketPositionKeyMap
   // 获取仓位的数据
   this.$socket.on({
     key: 'ACCOUNT_UPDATE', bind: this, callBack: (message) => {
       if(!message) return
       let socketRecords = message.a.B[0] || {}
+      let socketPositons = message.a.P || []
 
       let socketAssets = {
         walletBalance:socketRecords.wb || 0,
@@ -219,24 +241,35 @@ root.methods.positionSocket = function () {
       //   this.$globalFunc.accAdd(this.crossWalletBalance,10000000)
       // )
 
-      this.getPositionRisk()
+      // this.getPositionRisk()
 
-      // socketRecords.forEach(v=>{
-      //   // for(let k in socketPositionOrders){
-      //   //   let smk = socketPositionOrders[k];
-      //   //   smk && (v[smk] = v[k])
-      //   // }
-      //   // for (let i = 0; i <this.records.length ; i++) {
-      //   //   let item = this.records[i]
-      //   //   if(v.positionSide == item.positionSide){
-      //   //     this.records = socketRecords
-      //   //     break;
-      //   //   }
-      //   // }
-      // })
-      // this.records = socketRecords
+      let currPositions = this.records,realSocketPositons = socketPositons.filter(sv=>{
+          if(sv.mt == 'cross')return sv.pa!=0
+          if(sv.mt == 'isolated')return sv.pa != 0 || sv.iw!=0
+        })//开仓量或逐仓保证金不为0的仓位才有效
 
+      // realSocketPositons.length == 0 && (currPositions = realSocketPositons)
+      realSocketPositons.length > 0 && realSocketPositons.forEach(v=>{
+        for(let k in socketPositionKeyMap){
+          let smk = socketPositionKeyMap[k];
+          smk && (v[smk] = v[k])
+        }
+        //由于socket返回的没有isolatedMargin，为了向接口看齐，方便处理，加一个出来
+        v.isolatedMargin = this.accAdd(v.iw,v.unrealizedProfit)
 
+        for (let i = 0; i <currPositions.length ; i++) {
+          let item = currPositions[i]
+          if(v.positionSide == item.positionSide){
+            v = Object.assign(item,v)
+            break;
+          }
+        }
+      })
+
+      this.records = realSocketPositons
+      //自动减仓数据拼接
+      if(this.currSAdlQuantile)this.addAdlQuantile(this.currSAdlQuantile,this.records)
+      this.handleWithMarkPrice(this.records)
 
       // this.socketRecords.forEach(v=>{
       //   if(v.ps == "BOTH") {
@@ -312,11 +345,25 @@ root.methods.re_getPositionRisk = function (data) {
   if (!data || !data.data || data.data.length == []) return
 
   let records = data.data,filterRecords = []
-  records.forEach((v,index)=>{
-    if (v.positionAmt != 0) {
+
+  for (let i = 0; i <records.length ; i++) {
+    let v = records[i];
+
+    if (v.marginType == 'cross' && v.positionAmt != 0) {
       filterRecords.push(v)
+      continue;
     }
-  })
+    //逐仓保证金：isolatedMargin - unrealizedProfit,开仓量或逐仓保证金不为0的仓位才有效
+    if(v.marginType == 'isolated'){
+      v.securityDeposit = this.accMinus(v.isolatedMargin,v.unrealizedProfit)
+      // v.securityDeposit = Number(v.isolatedMargin) - Number(v.unrealizedProfit)
+
+      //由于开头判断条件用括号包装，会被编译器解析成声明函数括号，所以前一行代码尾或本行代码头要加分号、或者本行代码改为if判断才行
+      // (v.positionAmt != 0 || v.securityDeposit != 0) && filterRecords.push(v);
+      if(v.positionAmt != 0 || v.securityDeposit != 0)filterRecords.push(v)
+    }
+  }
+
   this.records = filterRecords
   this.recordsIndex = filterRecords.length || 0
   this.$emit('getPositionRisk',this.recordsIndex);
@@ -337,32 +384,76 @@ root.methods.error_getPositionRisk = function (err) {
 }
 //计算保证金和保证金比率
 root.methods.handleWithMarkPrice = function(records){
-  let markPrice = this.markPrice;
-  let leverag =  this.$store.state.leverage;
+  if(!records || records.length == 0)return
+  let totalMaintMargin = 0,totalUnrealizedProfit = 0,totalAmt = 0;
 
+  //由于四舍五入，以下均使用原生toFixed
   records.map((v,i)=>{
-    //保证金公式：全仓→size*markprice*1/leverag，逐仓→isolatedMargin - unRealizedProfit
+    let notional = this.accMul(Math.abs(v.positionAmt) || 0,this.markPrice || 0)
+    let args = this.getCalMaintenanceArgs(notional) || {},maintMarginRatio = args.maintMarginRatio || 0,notionalCum = args.notionalCum || 0
+
+    //全仓维持保证金：Notional * MMR - cum；Notional= abs(positionAmt) * Latest_Mark_Price
+    //逐仓维持保证金：abs(position size) * Latest_Mark_Price * MMR -cum
+    v.maintMargin = this.accMinus(this.accMul(notional,maintMarginRatio),notionalCum)
+
+    v.unrealizedProfitPage = v.unrealizedProfit//由于unrealizedProfit要用于计算逐仓保证金，值不能改变，但是页面和计算的值需要变化
+
+    //回报率：全仓逐仓均是ROE = ( ( Mark Price - Entry Price ) * size ) / （Mark Price * abs(size) * IMR）,IMR = 1/杠杆倍数
+    v.unrealizedProfitPage = this.accMul( this.accMinus(this.markPrice || 0,v.entryPrice || 0),v.positionAmt || 0 )//实时变化的未实现盈亏
+    let msi = this.accDiv( this.accMul(Math.abs(v.positionAmt) || 0,this.markPrice || 0) , this.leverage )
+    v.responseRate = this.accMul(this.accDiv(v.unrealizedProfitPage || 0,msi || 1),100)
+    v.responseRate = Number(v.responseRate).toFixed(2) + '%'
+
+    // console.log('v.responseRate.toFixed',i,v.responseRate)
+    totalAmt += v.positionAmt
     if(v.marginType == 'cross'){
-      v.securityDeposit = this.accDiv(this.accMul(Math.abs(v.positionAmt) || 0,this.markPrice || 0),this.leverage || 1)
+      //全仓保证金：size * markprice * 1 / leverage，size = abs(positionAmt)
+      v.securityDeposit = this.accDiv(notional,this.leverage)
+
+      totalMaintMargin = this.accAdd(totalMaintMargin,v.maintMargin || 0)
+      totalUnrealizedProfit = this.accAdd(totalUnrealizedProfit,v.unrealizedProfitPage || 0)
     }
     if(v.marginType == 'isolated'){
+
+      //逐仓保证金：isolatedMargin - unrealizedProfit
       v.securityDeposit = this.accMinus(v.isolatedMargin,v.unrealizedProfit)
+
+      //逐仓保证金比率=维持保证金/(实时变的未实现盈亏+逐仓保证钱包金余额 iw)；其中的iw → ws取，或者等于接口的isolatedMargin - unRealizedProfit
+      v.maintMarginRate = this.accDiv( v.maintMargin,this.accAdd(v.unrealizedProfitPage || 0,v.securityDeposit) )
+      v.maintMarginRate = Number(v.maintMarginRate * 100).toFixed(2) + '%'
     }
 
-    //回报率：全仓逐仓均是ROE = ( ( Mark Price - Entry Price ) * size ) / （Mark Price * abs(size) * IMR）
-    let priceStep = this.accMul(this.accMinus(this.markPrice || 0,v.entryPrice || 0),Math.abs(v.positionAmt)),
-        msi = this.accDiv(this.accMul(Math.abs(v.positionAmt) || 0,this.markPrice || 0),this.leverage || 1)
-    v.responseRate = this.accMul(this.accDiv(priceStep || 0,msi || 1),100)
-    console.log('v.responseRate',i,v.responseRate)
-    // v.responseRate = this.toFixed(v.responseRate,2)
-    v.responseRate = Number(v.responseRate).toFixed(2) + '%'
-    console.log('v.responseRate.toFixed',i,v.responseRate)
-
-    //保证金比率
   })
-
+  //全仓保证金比率 = 各仓位的maintMargin字段之和 /（各仓位的unrealizedProfit之和+全仓账户余额 crossWalletBalance)
+  this.crossMaintMarginRate = this.accDiv(totalMaintMargin,this.accAdd(totalUnrealizedProfit,this.crossWalletBalance))
+  this.crossMaintMarginRate = Number(this.crossMaintMarginRate * 100).toFixed(2) + '%'
   this.records = records;
 
+  if(totalAmt!=this.totalAmount) {
+    this.totalAmount = totalAmt
+    this.$eventBus.notify({key:'POSITION_TOTAL_AMOUNT'}, this.totalAmount)
+  }
+}
+//计算维持保证金首先获取比率、速算数等信息
+root.methods.getCalMaintenanceArgs = function(notional=0){
+  let bracketSingle = {};
+
+  if(notional == 0){
+    bracketSingle = this.leverageBracket.find(v=> v.notionalCap == 0)
+  }
+  //notional > notionalFloor && notional <= notionalCap 可推出 notional - notionalFloor > 0  && notional - notionalCap <= 0
+  for (let i = 0; i < this.leverageBracket.length; i++) {
+    let v = this.leverageBracket[i];
+    let floorStep = this.accMinus(notional,v.notionalFloor || 0)
+    let capStep = this.accMinus(notional,v.notionalCap || 0)
+
+    if(floorStep > 0 && capStep <= 0){
+      bracketSingle = v;
+      break;
+    }
+  }
+
+  return bracketSingle;
 }
 
 // 自动减仓持仓ADL队列估算
@@ -401,7 +492,7 @@ root.methods.addAdlQuantile = function(currSAdlQuantile,records){
   })
   this.records = records;
 
-  console.log('currSAdlQuantile,records',currSAdlQuantile,records);
+  // console.log('currSAdlQuantile,records',currSAdlQuantile,records);
 }
 
 // 市价
@@ -692,13 +783,6 @@ root.methods.toFixed = function (num, acc = 8) {
 }
 /*---------------------- 保留小数 end ---------------------*/
 
-// max[0, min(crossWalletBalance, Avail for Order) + present initial margin - (position_notional_value + open order's bid_notional) * IMR] / {contract_multiplier * (assuming price * IMR + abs(min[0, side * (mark price - order's Price)]))}
-// min(crossWalletBalance, Avail for Order) + present initial margin - (position_notional_value + open order's bid_notional) * IMR
-// 46703.37279291 + 47.37672 - (11894.87 + 0)*1/3
-// {contract_multiplier * (assuming price * IMR + abs(min[0, side * (mark price - order's Price)]))}
-//1*(11894.87 * 1/3 + 1 *(11894.87 - 11891.63))
-// min(crossWalletBalance, Avail for Order) + present initial margin - (position_notional_value + open order's bid_notional) * IMR
-// 46703.37279291 + 3948.06 - (11880.84 + 0)*1/3 / 1*(11891.63*1/3 + 1 *(11880.84-11891.63))
 export default root
 
 

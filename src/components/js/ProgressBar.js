@@ -1,6 +1,7 @@
 // import SlideBar from './slide'
 // Object.definePrototype(Vue.prototype, '$SlideBarjs', { value: SlideBarjs });
 import tradingHallData from "../../dataUtils/TradingHallDataUtils";
+import GlobalFunction from "../../configs/globalFunctionConfigs/GlobalFunction";
 
 const root = {}
 root.name = 'ProgressBar'
@@ -93,8 +94,123 @@ root.props.positionAmtShort = {
   type: Number,
   default: 0
 }
+// 全仓逐仓
+root.props.marginType = {
+  type: String,
+  default: 'CROSSED'
+}
 
+/*----------------------------- 观察 ------------------------------*/
+// 监听时价
+root.watch.latestPriceVal = function (newVal,oldVal) {
+  // console.info(newVal)
+}
+
+root.watch.serverTime = function (newValue, oldValue) {
+  if (newValue == oldValue) return;
+  this.SYMBOL_ENTRANSACTION();
+}
+
+// 观察是否更改货币对
+root.watch.symbol = function () {
+  this.changeAvailableData();
+  this.getScaleConfig();
+  // 判断当前币对是否可交易
+  this.SYMBOL_ENTRANSACTION();
+  // 切换symbol清空价格和数量
+  // this.price = '';
+  this.amount = '';
+}
+// currency发生变化则更改估值！
+root.watch.watchCurrency = function () {
+  this.changeAvailableData()
+}
 /*----------------------------- 计算 ------------------------------*/
+// 除去逐仓仓位保证金的钱包余额
+root.computed.crossWalletBalance = function () {
+  return this.$store.state.assets.crossWalletBalance
+}
+root.computed.assumingPrice = function () {
+  let assumingPrc = 0
+  if(this.pendingOrderType== 'limitPrice'||this.pendingOrderType == 'limitProfitStopLoss'){
+    assumingPrc = this.orderType ? Math.max(this.bidPrice,this.price) : this.price
+    return Number(assumingPrc) ||  0
+  }
+  if(this.pendingOrderType== 'marketPrice'||this.pendingOrderType == 'marketPriceProfitStopLoss'){
+    assumingPrc = this.orderType ? this.bidPrice : this.askPrice * (1+0.0005)
+    return Number(assumingPrc) || 0
+  }
+}
+
+root.computed.canMore = function () {
+  // console.info('this.assumingPrice',this.assumingPrice,this.bidPrice,this.askPrice)
+  let crossWalletBalance = Number(this.crossWalletBalance) // 全仓钱包余额
+  // 向上取整IMR
+  let leverage = Number(this.$globalFunc.accFixedCny(this.accDiv(1 , Number(this.$store.state.leverage) || 1),4))
+  let availableBalance = this.$store.state.assets.availableBalance || 0
+  let initialMargin = this.$store.state.assets.initialMargin || 0
+  let markPrice = Number(this.markPrice) || 0
+  let price = this.price || 0 // 输入框价格
+  let buy = Math.abs(Math.min(0 , 1 * (markPrice - price))) || 0  // TODO:适用 LIMIT, STOP, TAKE PROFIT 买(!orderType)
+  let sell = Math.abs(Math.min(0 , -1 * (markPrice - price))) || 0  // TODO:适用 LIMIT, STOP, TAKE PROFIT 卖(orderType)
+  let buyMarket = Math.abs(Math.min(0 , 1 * (markPrice - this.assumingPrice))) || 0  // TODO:适用 LIMIT, STOP, TAKE PROFIT 买(!orderType)
+  let sellMarket = Math.abs(Math.min(0 , -1 * (markPrice - this.assumingPrice))) || 0  // TODO:适用 LIMIT, STOP, TAKE PROFIT 卖(orderType)
+  // console.info('assumingPrice===',new Date(),this.assumingPrice,this.bidPrice,this.askPrice,'this.buyNetValue=',this.buyNetValue,this.sellNetValue)
+  let positionAmt = this.totalAmount // TODO:有仓位时：数量取和；无仓位时取0
+  let buyCanOpen = 0
+  let sellCanOpen = 0
+
+  // 单仓全仓
+  if(this.positionModeFirst=='singleWarehouseMode' && this.marginType == 'CROSSED'){
+    // 限价或者限价止盈止损
+    if(this.pendingOrderType == 'limitPrice'||this.pendingOrderType == 'limitProfitStopLoss'){
+      if(price == '' || price == 0) return buyCanOpen = 0; sellCanOpen = 0;
+      // max bid order Qty1 = max[0, Avail for Order + present initial margin - (position_notional_value + open order's bid_notional) * IMR] / {contract_multiplier * (assuming price * IMR + abs(min[0, side * (mark price - order's Price)]))}
+      buyCanOpen = Math.max(0,(availableBalance + initialMargin - ((markPrice * positionAmt + this.buyNetValue) * leverage)) / (1*(this.assumingPrice *  leverage) + buy))
+      sellCanOpen = Math.max(0,(availableBalance + initialMargin - ((markPrice * positionAmt + this.sellNetValue) * leverage)) / (1*(this.assumingPrice * leverage) + sell))
+      return this.orderType ? sellCanOpen : buyCanOpen
+      // console.info('单仓做多全仓计算结果全仓（BUY）',Math.max(0,(availableBalance + initialMargin - ((markPrice * positionAmt + this.buyNetValue) * leverage)) / (1*(this.assumingPrice *  leverage) + buy)))
+      // console.info('单仓做多全仓计算结果全仓（SELL）',Math.max(0,(availableBalance + initialMargin - ((markPrice * positionAmt + this.sellNetValue) * leverage)) / (1*(this.assumingPrice * leverage) + sell)))
+    }
+    // 市价或者市价止盈止损
+    if(this.pendingOrderType== 'marketPrice'||this.pendingOrderType == 'marketPriceProfitStopLoss'){
+      buyCanOpen = Math.max(0,(availableBalance + initialMargin - ((markPrice * positionAmt + this.buyNetValue) * leverage)) / (1*(this.assumingPrice *  leverage) + buyMarket))
+      sellCanOpen = Math.max(0,(availableBalance + initialMargin - ((markPrice * positionAmt + this.sellNetValue) * leverage)) / (1*(this.assumingPrice * leverage) + sellMarket))
+      // console.info('sellNetValue===',this.sellNetValue)
+      return this.orderType ? sellCanOpen : buyCanOpen
+    }
+  }
+  // 单仓逐仓
+  if(this.positionModeFirst=='singleWarehouseMode' && this.marginType == 'ISOLATED'){
+    // 限价或者限价止盈止损
+    if(this.pendingOrderType == 'limitPrice'||this.pendingOrderType == 'limitProfitStopLoss'){
+      if(price == '' || price == 0) return buyCanOpen = 0; sellCanOpen = 0;
+      buyCanOpen = Math.max(0,(Math.min(crossWalletBalance,availableBalance) + initialMargin - ((markPrice * positionAmt + this.buyNetValue)*leverage)) / (1 * (this.assumingPrice * leverage) + buy))
+      sellCanOpen = Math.max(0,(Math.min(crossWalletBalance,availableBalance) + initialMargin + ((markPrice * positionAmt - this.sellNetValue)*leverage)) / (1 * (this.assumingPrice * leverage) + sell))
+      return this.orderType ? sellCanOpen : buyCanOpen
+      // console.info('单仓做多计算结果逐仓（BUY）',Math.max(0,(Math.min(crossWalletBalance,availableBalance) + initialMargin - ((markPrice * positionAmt + this.buyNetValue)*leverage)) / (1 * (this.assumingPrice * leverage) + buy)))
+      // console.info('单仓做多计算结果逐仓（SELL）',Math.max(0,Math.min(crossWalletBalance,availableBalance) + initialMargin - ((markPrice*positionAmt + this.sellNetValue) * leverage) / (1*(this.assumingPrice*leverage) + sell)))
+    }
+    // 市价或者市价止盈止损
+    if(this.pendingOrderType== 'marketPrice'||this.pendingOrderType == 'marketPriceProfitStopLoss'){
+      buyCanOpen = Math.max(0,(Math.min(crossWalletBalance,availableBalance) + initialMargin - ((markPrice * positionAmt + this.buyNetValue)*leverage)) / (1 * (this.assumingPrice * leverage) + buyMarket))
+      sellCanOpen = Math.max(0,(Math.min(crossWalletBalance,availableBalance) + initialMargin + ((markPrice * positionAmt - this.sellNetValue)*leverage)) / (1 * (this.assumingPrice * leverage) + sellMarket))
+      return this.orderType ? sellCanOpen : buyCanOpen
+    }
+  }
+
+
+
+
+
+  // console.log('this.$store.state.assets.availableBalance',this.$store.state.assets.availableBalance,
+  //   'this.$store.state.assets.initialMargin',this.$store.state.assets.initialMargin,
+  //   'this.$store.state.leverage',this.$store.state.leverage,
+  //   'this.markPrice',this.markPrice)
+
+}
+
+
 // 可开数量
 root.computed.canBeOpened = function () {
   if(this.reducePositionsSelected && this.positionModeFirst == 'singleWarehouseMode' && (this.pendingOrderType=='limitProfitStopLoss' || this.pendingOrderType=='marketPriceProfitStopLoss')) return 0
@@ -221,7 +337,6 @@ root.computed.securityDeposit = function () {
 // 观察货币对是否更改
 root.computed.symbol = function () {
   return this.$store.state.symbol;
-  // console.info('this.$store.state.symbol;',this.$store.state.symbol)
 }
 // 观察账户信息是否更改
 root.computed.watchCurrency = function () {
@@ -269,32 +384,6 @@ root.computed.positionModeConfigs = function () {
 }
 
 
-/*----------------------------- 观察 ------------------------------*/
-// 监听时价
-root.watch.latestPriceVal = function (newVal,oldVal) {
-  // console.info(newVal)
-}
-
-root.watch.serverTime = function (newValue, oldValue) {
-  if (newValue == oldValue) return;
-  this.SYMBOL_ENTRANSACTION();
-}
-
-// 观察是否更改货币对
-root.watch.symbol = function () {
-  this.changeAvailableData();
-  this.getScaleConfig();
-  // 判断当前币对是否可交易
-  this.SYMBOL_ENTRANSACTION();
-  // 切换symbol清空价格和数量
-  // this.price = '';
-  this.amount = '';
-}
-// currency发生变化则更改估值！
-root.watch.watchCurrency = function () {
-  this.changeAvailableData()
-}
-
 // 18-2-7 添加的新需求 start
 
 // 观察触发价格的变化，然后折合人民币或者美金
@@ -314,6 +403,7 @@ root.watch.get_price = function () {
 root.computed.get_lang = function () {
   return this.$store.state.lang;
 }
+
 root.watch.get_lang = function () {
   this.get_now_price();
 }
@@ -429,6 +519,11 @@ root.data = function () {
     maxPosition : [50000,250000,1000000,5000000,20000000,50000000,100000000,200000000],
   //  买卖限流
     currentLimiting:false,
+    buyNetValue:0, // 买单净值
+    sellNetValue:0, // 卖单净值
+    bidPrice:0, // 最优买单价
+    askPrice:0, // 最优卖单价
+    totalAmount:0//仓位总数量
   }
 }
 
@@ -440,6 +535,8 @@ root.created = function () {
   //  根据买卖设置买卖amount，买对应卖，卖对应买
   this.$eventBus.listen(this, 'SET_AMOUNT', this.RE_SET_AMOUNT);
   this.$eventBus.listen(this, 'GET_GRC_PRICE_RANGE', this.getKKPriceRange);
+  //监听仓位总数量
+  this.$eventBus.listen(this, 'POSITION_TOTAL_AMOUNT', this.setTotalAmount);
   // 获取精度
   this.getScaleConfig();
 
@@ -450,6 +547,9 @@ root.created = function () {
   // this.tradeMarket()
   // this.postOrdersPosition()
   // this.postOrdersCreate()
+  this.buyOrSell()
+
+
 }
 
 root.mounted = function () {
@@ -473,22 +573,45 @@ root.watch.pendingOrderType = function (newValue, oldValue) {
 }
 
 /*----------------------------- 方法 ------------------------------*/
-// 获取最新价格
+//设置仓位数量
+root.methods.setTotalAmount = function(totalAmount){
+  this.totalAmount = totalAmount
+  // console.info('this is setTotalAmount====',this.totalAmount)
+}
+// 获取买卖单净值
+root.methods.buyOrSell = function (){
+  this.$socket.on({
+    key: 'ORDER_TRADE_UPDATE', bind: this, callBack: (messageObj, stream) => {
+      let message = messageObj.o || {}
+      if (!message) return
+      this.buyNetValue = Number(message.b) || 0
+      this.sellNetValue = Number(message.a) || 0
+      // console.info('this.buyNetValue===',this.buyNetValue,'this.sellNetValue===',this.sellNetValue)
+    }
+  })
+}
+// 获取当前最优价格
 root.methods.getOrderbookTicker = function () {
   this.$http.send('GET_ORDERBOOK_TICKER',{
     bind: this,
+    query:{
+      symbol: 'BTCUSDT'
+    },
     callBack: this.re_getOrderbookTicker,
     errorHandler: this.error_getOrderbookTicker
   })
 }
-// 获取grc交易价格区间成功
+// 获取当前最优价格成功
 root.methods.re_getOrderbookTicker = function (data) {
-  // console.info('当前服务器时间 获取grc交易价格区间成功',data);
-  if(!data)return
-  console.info('data=',data)
+  typeof (data) === 'string' && (data = JSON.parse(data))
+  if (!data && !data.data) return
+  this.bidPrice = data.data[0].bidPrice || 0
+  this.askPrice = data.data[0].askPrice || 0
+  // console.info('最优价格成功=',data)
 }
-// 获取grc交易价格区间报错
-root.methods.error_getOrderbookTicker = function () {
+// 获取当前最优价格报错
+root.methods.error_getOrderbookTicker = function (err) {
+  console.info('err==',err)
 }
 
 // 处理滑动条显示框内容
@@ -522,7 +645,7 @@ root.methods.postFullStop = function () {
       stopPrice: this.triggerPrice,
       symbol: "BTCUSDT",
       timeInForce: this.effectiveTime,
-      orderType: ((this.orderType && Number(this.triggerPrice) < Number(this.latestPriceVal)) ||(!this.orderType && Number(this.triggerPrice) >= Number(this.latestPriceVal))) ? "STOP" : "TAKE_PROFIT",
+      orderType: ((this.orderType && Number(this.triggerPrice) < Number(this.latestPriceVal)) || (!this.orderType && Number(this.triggerPrice) >= Number(this.latestPriceVal))) ? "STOP" : "TAKE_PROFIT",
       workingType: this.latestPrice == '最新价格'? 'CONTRACT_PRICE':'MARK_PRICE',
     }
   }
@@ -898,9 +1021,29 @@ root.methods.postOrdersPosition = function () {
 root.methods.re_postOrdersPosition = function (data) {
   // console.info('下单失败',data,data.code,data.errCode)
   this.currentLimiting = false
-  if(data.code == '303' && data.errCode == '2022') {
+  // if(data.code == '303' && data.errCode == '2022') {
+  //   this.promptOpen = true;
+  //   this.popType = 0;
+  //   this.popText = '下单失败';//当前无仓位，不能下单
+  //   return
+  // }
+  // if(data.code == '303' && data.errCode == '2021') {
+  //   this.promptOpen = true;
+  //   this.popType = 0;
+  //   this.popText = '订单可能被立刻触发';//当前无仓位，不能下单
+  //   return
+  // }
+  if(data.code == '303') {
     this.promptOpen = true;
     this.popType = 0;
+    if(data.errCode == '2022'){
+      this.popText = '下单失败';//当前无仓位，不能下单
+      return
+    }
+    if(data.errCode == '2021'){
+      this.popText = '订单可能被立刻触发';//当前无仓位，不能下单
+      return
+    }
     this.popText = '下单失败';//当前无仓位，不能下单
     return
   }
@@ -938,50 +1081,49 @@ root.methods.re_postOrdersPosition = function (data) {
   }
   typeof (data) === 'string' && (data = JSON.parse(data))
   if (!data || !data.data) return
-  this.promptOpen = true;
+
   this.$eventBus.notify({key:'GET_ORDERS'})
   this.$eventBus.notify({key:'GET_POSITION'})
-  if(data.code == 303) {
+  if(data.code != '303') {
     this.promptOpen = true;
-    this.popType = 0;
-    this.popText = '下单失败';
+    if(data.data.status == 'NEW') {
+      this.popType = 1;
+      this.popText = '下单成功';
+      return
+    }
+    if(data.data.status == 'PARTIALLY_FILLED') {
+      this.popType = 1;
+      this.popText = '您的订单成交了一部分';
+      return
+    }
+    if(data.data.status == 'FILLED') {
+      this.popType = 1;
+      this.popText = '完全成交';
+      return
+    }
+    if(data.data.status == 'CANCELED') {
+      this.popType = 1;
+      this.popText = '自己撤销的订单';
+      return
+    }
+    if(data.data.status == 'EXPIRED') {
+      this.popType = 0;
+      this.popText = '您的订单已过期';
+      return
+    }
+    if(data.data.status == 'NEW_INSURANCE') {
+      this.popType = 1;
+      this.popText = '风险保障基金(强平)';
+      return
+    }
+    if(data.data.status == 'NEW_ADL') {
+      this.popType = 1;
+      this.popText = '自动减仓序列(强平)';
+      return
+    }
     return
   }
-  if(data.data.status == 'NEW') {
-    this.popType = 1;
-    this.popText = '下单成功';
-    return
-  }
-  if(data.data.status == 'PARTIALLY_FILLED') {
-    this.popType = 1;
-    this.popText = '您的订单成交了一部分';
-    return
-  }
-  if(data.data.status == 'FILLED') {
-    this.popType = 1;
-    this.popText = '完全成交';
-    return
-  }
-  if(data.data.status == 'CANCELED') {
-    this.popType = 1;
-    this.popText = '自己撤销的订单';
-    return
-  }
-  if(data.data.status == 'EXPIRED') {
-    this.popType = 0;
-    this.popText = '您的订单已过期';
-    return
-  }
-  if(data.data.status == 'NEW_INSURANCE') {
-    this.popType = 1;
-    this.popText = '风险保障基金(强平)';
-    return
-  }
-  if(data.data.status == 'NEW_ADL') {
-    this.popType = 1;
-    this.popText = '自动减仓序列(强平)';
-    return
-  }
+
   this.popType = 0;
   this.popText = '下单失败';
 }
@@ -1778,13 +1920,5 @@ root.methods.accDiv = function (num1, num2) {
   return this.$globalFunc.accDiv(num1, num2)
 }
 /*---------------------- 除法运算 end ---------------------*/
-
-
-// max[0,
-// Avail for Order + present initial margin -
-// (position_notional_value + open order's bid_notional) * IMR] /
-// {contract_multiplier * (assuming price * IMR + abs(min[0, side * (mark price - order's Price)]))}
-
-// 50493.73 +
 
 export default root
