@@ -76,7 +76,7 @@
       <label :for="'pro-bar-price'+ orderType" class="progress-bar-price flex-row border_radius"
              :class="{'focus-color-green':inputColor=='price'+orderType && !orderType,'focus-color-red':inputColor=='price'+orderType && orderType}"
       >
-        <input :id="'pro-bar-price' + orderType" class="txt-small txt-light" type="text" v-model="price != '' ? price : latestPriceVal"
+        <input :id="'pro-bar-price' + orderType" class="txt-small txt-light" type="text" v-model="price"
                @focus="changeColor('price' + orderType)"
                @blur="changeColor(0)"
                @keyup="keyBoard('pro-bar-price' + orderType)"

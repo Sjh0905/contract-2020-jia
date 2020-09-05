@@ -71,7 +71,8 @@ root.data = function () {
     entryPrice: 0, // 当前仓位的开仓价格
     marginType:'',
     currSAdlQuantile:'',
-    crossMaintMarginRate:0//全仓保证金比率
+    crossMaintMarginRate:0,//全仓保证金比率
+    totalAmount:0,
 
   }
 }
@@ -352,7 +353,7 @@ root.methods.error_getPositionRisk = function (err) {
 }
 //计算保证金和保证金比率
 root.methods.handleWithMarkPrice = function(records){
-  let totalMaintMargin = 0,totalUnrealizedProfit = 0;
+  let totalMaintMargin = 0,totalUnrealizedProfit = 0,totalAmt = 0;
 
   //由于四舍五入，以下均使用原生toFixed
   records.map((v,i)=>{
@@ -372,7 +373,7 @@ root.methods.handleWithMarkPrice = function(records){
     v.responseRate = Number(v.responseRate).toFixed(2) + '%'
 
     // console.log('v.responseRate.toFixed',i,v.responseRate)
-
+    totalAmt += v.positionAmt
     if(v.marginType == 'cross'){
       //全仓保证金：size * markprice * 1 / leverage，size = abs(positionAmt)
       v.securityDeposit = this.accDiv(notional,this.leverage || 1)
@@ -394,9 +395,12 @@ root.methods.handleWithMarkPrice = function(records){
   //全仓保证金比率 = 各仓位的maintMargin字段之和 /（各仓位的unrealizedProfit之和+全仓账户余额 crossWalletBalance)
   this.crossMaintMarginRate = this.accDiv(totalMaintMargin,this.accAdd(totalUnrealizedProfit,this.crossWalletBalance) || 1)
   this.crossMaintMarginRate = Number(this.crossMaintMarginRate * 100).toFixed(2) + '%'
-
   this.records = records;
 
+  if(totalAmt!=this.totalAmount) {
+    this.totalAmount = totalAmt
+    this.$eventBus.notify({key:'POSITION_TOTAL_AMOUNT'}, this.totalAmount)
+  }
 }
 //计算维持保证金首先获取比率、速算数等信息
 root.methods.getCalMaintenanceArgs = function(notional=0){
@@ -747,13 +751,6 @@ root.methods.toFixed = function (num, acc = 8) {
 }
 /*---------------------- 保留小数 end ---------------------*/
 
-// max[0, min(crossWalletBalance, Avail for Order) + present initial margin - (position_notional_value + open order's bid_notional) * IMR] / {contract_multiplier * (assuming price * IMR + abs(min[0, side * (mark price - order's Price)]))}
-// min(crossWalletBalance, Avail for Order) + present initial margin - (position_notional_value + open order's bid_notional) * IMR
-// 46703.37279291 + 47.37672 - (11894.87 + 0)*1/3
-// {contract_multiplier * (assuming price * IMR + abs(min[0, side * (mark price - order's Price)]))}
-//1*(11894.87 * 1/3 + 1 *(11894.87 - 11891.63))
-// min(crossWalletBalance, Avail for Order) + present initial margin - (position_notional_value + open order's bid_notional) * IMR
-// 46703.37279291 + 3948.06 - (11880.84 + 0)*1/3 / 1*(11891.63*1/3 + 1 *(11880.84-11891.63))
 export default root
 
 
