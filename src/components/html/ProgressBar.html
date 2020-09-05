@@ -346,14 +346,12 @@
            :class="orderType?'progress-bar-redbtn btn_red_box_shadow':'progress-bar-greenbtn btn_green_box_shadow'"
            v-if="$store.state.authState.userId && !currentLimiting && isHasModule('buttonType') == 3 && (pendingOrderType == 'limitProfitStopLoss' || pendingOrderType == 'marketPriceProfitStopLoss')">
         {{orderType && '平多' || '平空'}}
-        {{orderType}}
       </div>
 
       <div class="progress-bar-btn txt-nomal border_radius"
            :class="orderType?'progress-bar-redbtn btn_red_box_shadow':'progress-bar-greenbtn btn_green_box_shadow'"
            v-if="$store.state.authState.userId && currentLimiting && isHasModule('buttonType') == 3 && (pendingOrderType == 'limitProfitStopLoss' || pendingOrderType == 'marketPriceProfitStopLoss')">
         {{orderType && '平多' || '平空'}}
-        {{orderType}}
       </div>
       <div :class="orderType?'security-deposit-block':'security-deposit-block-buy'">仓位占用的保证金。</div>
       <!--<div class="progress-bar-btn progress-bar-nologin-btn ptxt-nomal"-->
@@ -365,8 +363,9 @@
         <span style="cursor: pointer" class="text_blue" @click="goLogin">{{$t("progressBar.login")}}</span> 或 <span
         class="text_blue" style="cursor: pointer" @click="goRegister">{{$t("progressBar.register")}}</span>
       </div>
-
     </div>
+    <div v-if="orderType" class="text_blue">{{canMore}}</div>
+    <div v-if="!orderType" class="text_blue">{{canMore}}</div>
     <!--交易按钮 end-->
 
 <!--    <div class="progress-bar-btn-wrap" :class="btn_click ? 'progress-bar-active' : ''">-->
