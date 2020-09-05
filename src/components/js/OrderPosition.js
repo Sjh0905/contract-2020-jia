@@ -67,7 +67,8 @@ root.data = function () {
     priceCheck:0,  // 平仓价格在多少
     order:{},
     priceCheck1:0,
-    currSAdlQuantile:''
+    currSAdlQuantile:'',
+    controlType: false,
   }
 }
 /*------------------------------ 观察 -------------------------------*/
@@ -127,6 +128,7 @@ root.computed.leverage = function () {
 root.methods = {}
 // 增加 或 减少保证金接口
 root.methods.commitModifyMargin = function () {
+  this.controlType = true
   if((this.styleType == 1 && this.increaseAmount == '') || (this.styleType == 2 && this.reduceAmount == '')) {
     this.popText = '请输入数量'
     this.popType = 0;
@@ -146,6 +148,7 @@ root.methods.commitModifyMargin = function () {
   })
 }
 root.methods.re_commitModifyMargin = function (data) {
+  this.controlType = false
   typeof data === 'string' && (data = JSON.parse(data))
   this.getPositionRisk()
   this.increaseAmount = ''
@@ -163,7 +166,7 @@ root.methods.selectType = function (type) {
 root.methods.openModifyMargin = function (item) {
   // console.info('item===',item)
   this.reduceMostAmount(item)
-  // this.modifyMarginMoney = item.isolatedMargin
+  this.modifyMarginMoney = item.securityDeposit
   this.liquidationPrice =item.liquidationPrice
   this.symbol = item.symbol
   this.modifyMarginOpen = true

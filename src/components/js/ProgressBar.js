@@ -614,13 +614,6 @@ root.methods.re_postFullStop = function (data) {
     return
   }
 
-  if(data.code == '303' && data.errCode == '2021') {
-    this.promptOpen = true;
-    this.popType = 0;
-    this.popText = '订单可能被立刻触发';//当前无仓位，不能下单
-    return
-  }
-
   if(data.code == '303' && data.errCode == '2019') {
     this.promptOpen = true;
     this.popType = 0;
@@ -637,6 +630,13 @@ root.methods.re_postFullStop = function (data) {
     this.promptOpen = true;
     this.popType = 0;
     this.popText = '订单的持仓方向和用户设置不一致';//订单的持仓方向和用户设置不一致
+    return
+  }
+
+  if(data.code == '303' && data.errCode == '2021') {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '订单可能被立刻触发';//当前无仓位，不能下单
     return
   }
   if(data.code == '303') {
@@ -767,12 +767,6 @@ root.methods.re_postOrdersCreate = function (data) {
     this.popText = '下单失败';
     return
   }
-  if(data.code == '303' && data.errCode == '2021') {
-    this.promptOpen = true;
-    this.popType = 0;
-    this.popText = '订单可能被立刻触发';//当前无仓位，不能下单
-    return
-  }
 
   if(data.code == '303' && data.errCode == '2019') {
     this.promptOpen = true;
@@ -791,6 +785,13 @@ root.methods.re_postOrdersCreate = function (data) {
     this.promptOpen = true;
     this.popType = 0;
     this.popText = '订单的持仓方向和用户设置不一致';//订单的持仓方向和用户设置不一致
+    return
+  }
+
+  if(data.code == '303' && data.errCode == '2021') {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '订单可能被立刻触发';//当前无仓位，不能下单
     return
   }
   if(data.code == '303') {
@@ -903,12 +904,6 @@ root.methods.re_postOrdersPosition = function (data) {
     this.popText = '下单失败';//当前无仓位，不能下单
     return
   }
-  if(data.code == '303' && data.errCode == '2021') {
-    this.promptOpen = true;
-    this.popType = 0;
-    this.popText = '订单可能被立刻触发';//当前无仓位，不能下单
-    return
-  }
   if(data.code == '303' && data.errCode == '2019') {
     this.promptOpen = true;
     this.popType = 0;
@@ -926,6 +921,13 @@ root.methods.re_postOrdersPosition = function (data) {
     this.promptOpen = true;
     this.popType = 0;
     this.popText = '订单的持仓方向和用户设置不一致';//订单的持仓方向和用户设置不一致
+    return
+  }
+
+  if(data.code == '303' && data.errCode == '2021') {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '订单可能被立刻触发';//当前无仓位，不能下单
     return
   }
   if(data.code == '303') {
