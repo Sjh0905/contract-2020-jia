@@ -218,14 +218,14 @@ tradingHallData.socketOrderKeyMap = {
  * 存储Position更新推送与接口Key值的映射关系
  * @type {{s: string, pa: string, ep: string, cr: string, up: string, mt: string, iw: string, ps: string}}
  */
-tradingHallData.socketPositionOrders = {
+tradingHallData.socketPositionKeyMap = {
   "s":"symbol",// 交易对
   "pa":"positionAmt",  // 仓位
   "ep":"entryPrice",  // 开仓价格
   "cr":"",  // (费前)累计实现损益
-  "up":"unRealizedProfit",  // 持仓未实现盈亏
+  "up":"unrealizedProfit",  // 持仓未实现盈亏，注意大小写哦，接口返回的是unrealizedProfit，API文档写的是unRealizedProfit
   "mt":"marginType",  // 保证金模式
-  "iw":"isolatedMargin", // 若为逐仓，仓位保证金
+  // "iw":"isolatedMargin", // iw = isolatedWallet ，而isolatedMargin = isolatedWallet + unRealizedProfi，所以不能映射
   "ps":"positionSide" , // 持仓方向
   // "isAutoAddMargin": "false",
   // "leverage": "10", // 当前杠杆倍数  aa
