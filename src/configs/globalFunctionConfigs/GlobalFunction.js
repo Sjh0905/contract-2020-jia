@@ -396,6 +396,8 @@ GlobalFunction.accMinus = function (arg1, arg2) {
  * 使用big.js
  */
 GlobalFunction.accDiv = function (arg1, arg2) {
+  if(!Number(arg2) || Number(arg2) == 0)return 0
+
   let num1 = new Big(arg1)
   let num2 = new Big(arg2)
   return num1.div(num2).toString()
