@@ -66,7 +66,7 @@
       <!--标记价格-->
       <div class="td td-market">{{!!markPrice && Number(markPrice).toFixed(2) || '-'}}</div>
       <!--强平价格-->
-      <div class="td td-flat-price">{{!!item.liquidationPrice && Number(item.liquidationPrice).toFixed(2) || '-'}}</div>
+      <div class="td td-flat-price weigth-font">{{!!item.liquidationPrice && Number(item.liquidationPrice).toFixed(2) || '-'}}</div>
       <!--保证金比率-->
       <div class="td td-price">{{item.marginType == 'cross'?crossMaintMarginRate:item.maintMarginRate}}</div>
       <!--保证金-->
@@ -139,7 +139,7 @@
         <!--当前仓位保证金 USDT-->
         <div class="modify-margin-des flex">
           <div class="modify-margin-des-title">当前仓位保证金 USDT：</div>
-          <div class="modify-margin-des-number">{{toFixed(Number(modifyMarginMoney) || 0,2)}} USDT</div>
+          <div class="modify-margin-des-number">{{securityDeposit}} USDT</div>
         </div>
         <!--可用余额-->
         <div class="modify-margin-des flex">
@@ -164,7 +164,7 @@
         <!--当前仓位保证金 USDT-->
         <div class="modify-margin-des flex">
           <div class="modify-margin-des-title">当前仓位保证金 USDT：</div>
-          <div class="modify-margin-des-number">{{toFixed(Number(modifyMarginMoney) || 0,2)}} USDT</div>
+          <div class="modify-margin-des-number">{{securityDeposit}} USDT</div>
         </div>
         <!--最多可减少-->
         <div class="modify-margin-des flex">

@@ -73,6 +73,7 @@ root.data = function () {
     currSAdlQuantile:'',
     crossMaintMarginRate:0,//全仓保证金比率
     totalAmount:0,
+    securityDeposit: 0 , // 逐仓保证金
 
   }
 }
@@ -196,6 +197,7 @@ root.methods.openModifyMargin = function (item) {
   this.positionAmt = item.positionAmt || 0
   this.entryPrice = item.entryPrice || 0
   this.marginType = item.marginType || ''
+  this.securityDeposit = Number(item.securityDeposit || 0).toFixed(2)
   // this.modifyMarginMoney = item.isolatedMargin
   this.liquidationPrice =item.liquidationPrice
   this.symbol = item.symbol

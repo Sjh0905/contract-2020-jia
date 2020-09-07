@@ -200,7 +200,43 @@ root.computed.canMore = function () {
   }
 
 
+  if(this.positionModeSecond=='openWarehouse' && this.marginType == 'CROSSED'){
+    // 限价或者限价止盈止损
+    if(this.pendingOrderType == 'limitPrice'||this.pendingOrderType == 'limitProfitStopLoss'){
+      if(this.price == 0 || this.price == '') return buyCanOpen = 0; sellCanOpen = 0;
+      buyCanOpen = Math.max(0,(availableBalance + initialMargin - ((markPrice * positionAmt + markPrice * positionAmt) * leverage)) / (1*(this.assumingPrice *  leverage) + buy))
+      sellCanOpen = Math.max(0,(availableBalance + initialMargin - ((markPrice * positionAmt + markPrice * positionAmt) * leverage)) / (1*(this.assumingPrice * leverage) + sell))
+      return this.orderType ? sellCanOpen : buyCanOpen
+      // Qty = Avail for Order / {assuming price * IM + abs(min[0, side * (mark price - order's Price)])}
+      // console.info('availableBalance==',availableBalance / (this.assumingPrice * leverage +  buy))
+      // console.info('availableBalance==',availableBalance / (this.assumingPrice * leverage +  sell))
+    }
+    // 市价或者市价止盈止损
+    if(this.pendingOrderType== 'marketPrice'||this.pendingOrderType == 'marketPriceProfitStopLoss'){
+      buyCanOpen = Math.max(0,(availableBalance + initialMargin - ((markPrice * positionAmt + this.buyNetValue) * leverage)) / (1*(this.assumingPrice *  leverage) + buyMarket))
+      sellCanOpen = Math.max(0,(availableBalance + initialMargin - ((markPrice * positionAmt + this.sellNetValue) * leverage)) / (1*(this.assumingPrice * leverage) + sellMarket))
+      // console.info('sellNetValue===',this.sellNetValue)
+      return this.orderType ? sellCanOpen : buyCanOpen
+    }
+  }
 
+  if(this.positionModeSecond=='openWarehouse' && this.marginType == 'ISOLATED'){
+    // 限价或者限价止盈止损
+    if(this.pendingOrderType == 'limitPrice'||this.pendingOrderType == 'limitProfitStopLoss'){
+      if(price == '' || price == 0) return buyCanOpen = 0; sellCanOpen = 0;
+      buyCanOpen = Math.max(0,(Math.min(crossWalletBalance,availableBalance) + initialMargin - ((markPrice * positionAmt + this.buyNetValue)*leverage)) / (1 * (this.assumingPrice * leverage) + buy))
+      sellCanOpen = Math.max(0,(Math.min(crossWalletBalance,availableBalance) + initialMargin + ((markPrice * positionAmt - this.sellNetValue)*leverage)) / (1 * (this.assumingPrice * leverage) + sell))
+      return this.orderType ? sellCanOpen : buyCanOpen
+      // console.info('单仓做多计算结果逐仓（BUY）',Math.max(0,(Math.min(crossWalletBalance,availableBalance) + initialMargin - ((markPrice * positionAmt + this.buyNetValue)*leverage)) / (1 * (this.assumingPrice * leverage) + buy)))
+      // console.info('单仓做多计算结果逐仓（SELL）',Math.max(0,Math.min(crossWalletBalance,availableBalance) + initialMargin - ((markPrice*positionAmt + this.sellNetValue) * leverage) / (1*(this.assumingPrice*leverage) + sell)))
+    }
+    // 市价或者市价止盈止损
+    if(this.pendingOrderType== 'marketPrice'||this.pendingOrderType == 'marketPriceProfitStopLoss'){
+      buyCanOpen = Math.max(0,(Math.min(crossWalletBalance,availableBalance) + initialMargin - ((markPrice * positionAmt + this.buyNetValue)*leverage)) / (1 * (this.assumingPrice * leverage) + buyMarket))
+      sellCanOpen = Math.max(0,(Math.min(crossWalletBalance,availableBalance) + initialMargin + ((markPrice * positionAmt - this.sellNetValue)*leverage)) / (1 * (this.assumingPrice * leverage) + sellMarket))
+      return this.orderType ? sellCanOpen : buyCanOpen
+    }
+  }
 
 
   // console.log('this.$store.state.assets.availableBalance',this.$store.state.assets.availableBalance,
@@ -548,8 +584,6 @@ root.created = function () {
   // this.postOrdersPosition()
   // this.postOrdersCreate()
   this.buyOrSell()
-
-
 }
 
 root.mounted = function () {
@@ -558,7 +592,6 @@ root.mounted = function () {
 }
 
 /*----------------------------- 监测属性 ------------------------------*/
-
 
 root.watch.value = function (newValue, oldValue) {
   if (newValue == oldValue) return;
@@ -570,6 +603,11 @@ root.watch.pendingOrderType = function (newValue, oldValue) {
   this.triggerPrice = ''
   this.value = 0
   this.amount = ''
+}
+// 监听选择的是 最新价格 还是 标记价格
+root.watch.latestPrice =function (newValue, oldValue) {
+  if(newValue == oldValue) return
+  console.info(newValue)
 }
 
 /*----------------------------- 方法 ------------------------------*/
@@ -629,10 +667,13 @@ root.methods.openPositionBox = function (name) {
 
 
 /*----------------------------- 方法 ------------------------------*/
+
 // 止盈止损接口
 root.methods.postFullStop = function () {
   this.currentLimiting = true
   let params = {}
+  let latestOrMarkPrice = ''
+  latestOrMarkPrice = this.latestPrice == '最新价格' ?Number(this.latestPriceVal) : Number(this.markPrice)
   // 单仓 限价止盈止损
   if (this.isHasModule('kaipingType') == 1 && this.isHasModule('buttonType') == 1 && this.pendingOrderType == 'limitProfitStopLoss') {
     params = {
@@ -674,7 +715,7 @@ root.methods.postFullStop = function () {
       stopPrice: this.triggerPrice,
       symbol: "BTCUSDT",
       timeInForce: this.effectiveTime,
-      orderType: ((this.orderType && (Number(this.triggerPrice) < Number(this.latestPriceVal))) || (!this.orderType && (Number(this.triggerPrice) >= Number(this.latestPriceVal)))) ? 'STOP' : 'TAKE_PROFIT',
+      orderType: ((this.orderType && (Number(this.triggerPrice) < latestOrMarkPrice)) || (!this.orderType && (Number(this.triggerPrice) >= latestOrMarkPrice))) ? 'STOP' : 'TAKE_PROFIT',
       workingType: this.latestPrice == '最新价格'? 'CONTRACT_PRICE':'MARK_PRICE',
     }
   }
@@ -687,7 +728,7 @@ root.methods.postFullStop = function () {
       orderSide: this.orderType ? 'SELL':'BUY',
       stopPrice: this.triggerPrice,
       symbol: "BTCUSDT",
-      orderType: ((!this.orderType && Number(this.triggerPrice) < Number(this.latestPriceVal)) || (this.orderType && Number(this.triggerPrice) >= Number(this.latestPriceVal))) ? "TAKE_PROFIT_MARKET" : "STOP_MARKET",
+      orderType: ((!this.orderType && Number(this.triggerPrice) < latestOrMarkPrice) || (this.orderType && Number(this.triggerPrice) >= latestOrMarkPrice)) ? "TAKE_PROFIT_MARKET" : "STOP_MARKET",
       workingType: this.latestPrice == '最新价格'? 'CONTRACT_PRICE':'MARK_PRICE',
     }
   }
@@ -702,7 +743,7 @@ root.methods.postFullStop = function () {
       stopPrice: this.triggerPrice,
       symbol: "BTCUSDT",
       timeInForce: this.effectiveTime,
-      orderType: ((this.orderType && Number(this.triggerPrice) < Number(this.latestPriceVal))||(!this.orderType && Number(this.triggerPrice) >= Number(this.latestPriceVal))) ? 'TAKE_PROFIT_MARKET' : 'STOP_MARKET',
+      orderType: ((this.orderType && Number(this.triggerPrice) < latestOrMarkPrice)||(!this.orderType && Number(this.triggerPrice) >= latestOrMarkPrice)) ? 'TAKE_PROFIT_MARKET' : 'STOP_MARKET',
       workingType: this.latestPrice == '最新价格'? 'CONTRACT_PRICE':'MARK_PRICE',
     }
   }
@@ -715,7 +756,7 @@ root.methods.postFullStop = function () {
       orderSide: this.orderType ? 'SELL':'BUY',
       stopPrice: this.triggerPrice,
       symbol: "BTCUSDT",
-      orderType: ((this.orderType && Number(this.triggerPrice) < Number(this.latestPriceVal)) || (!this.orderType && Number(this.triggerPrice) >=  Number(this.latestPriceVal))) ? "STOP_MARKET" : "TAKE_PROFIT_MARKET",
+      orderType: ((this.orderType && Number(this.triggerPrice) < latestOrMarkPrice) || (!this.orderType && Number(this.triggerPrice) >=  latestOrMarkPrice)) ? "STOP_MARKET" : "TAKE_PROFIT_MARKET",
       workingType: this.latestPrice == '最新价格'? 'CONTRACT_PRICE':'MARK_PRICE',
     }
   }
