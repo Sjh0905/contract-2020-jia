@@ -67,10 +67,11 @@ root.data = function () {
     priceCheck:0,  // 平仓价格在多少
     order:{},
     priceCheck1:0,
+    currSAdlQuantile:'',
+    controlType: false,
     positionAmt:0, // 当前仓位的数量
     entryPrice: 0, // 当前仓位的开仓价格
     marginType:'',
-    currSAdlQuantile:'',
     crossMaintMarginRate:0,//全仓保证金比率
     totalAmount:0,
     securityDeposit: 0 , // 逐仓保证金
@@ -158,6 +159,7 @@ root.computed.socketPositionKeyMap = function () {
 root.methods = {}
 // 增加 或 减少保证金接口
 root.methods.commitModifyMargin = function () {
+  this.controlType = true
   if((this.styleType == 1 && this.increaseAmount == '') || (this.styleType == 2 && this.reduceAmount == '')) {
     this.popText = '请输入数量'
     this.popType = 0;
@@ -177,6 +179,7 @@ root.methods.commitModifyMargin = function () {
   })
 }
 root.methods.re_commitModifyMargin = function (data) {
+  this.controlType = false
   typeof data === 'string' && (data = JSON.parse(data))
   this.getPositionRisk()
   this.increaseAmount = ''
@@ -193,6 +196,8 @@ root.methods.selectType = function (type) {
 // 打开逐仓弹框
 root.methods.openModifyMargin = function (item) {
   // console.info('item===',item)
+  this.reduceMostAmount(item)
+  this.modifyMarginMoney = item.securityDeposit
   // this.reduceMostAmount(item)
   this.positionAmt = item.positionAmt || 0
   this.entryPrice = item.entryPrice || 0
@@ -352,9 +357,12 @@ root.methods.re_getPositionRisk = function (data) {
     }
     //逐仓保证金：isolatedMargin - unrealizedProfit,开仓量或逐仓保证金不为0的仓位才有效
     if(v.marginType == 'isolated'){
-      // v.securityDeposit = this.accMinus(v.isolatedMargin,v.unrealizedProfit)
+      v.securityDeposit = this.accMinus(v.isolatedMargin,v.unrealizedProfit)
       // v.securityDeposit = Number(v.isolatedMargin) - Number(v.unrealizedProfit)
-      (v.positionAmt != 0 || v.securityDeposit != 0) && filterRecords.push(v)
+
+      //由于开头判断条件用括号包装，会被编译器解析成声明函数括号，所以前一行代码尾或本行代码头要加分号、或者本行代码改为if判断才行
+      // (v.positionAmt != 0 || v.securityDeposit != 0) && filterRecords.push(v);
+      if(v.positionAmt != 0 || v.securityDeposit != 0)filterRecords.push(v)
     }
   }
 

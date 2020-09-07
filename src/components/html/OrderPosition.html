@@ -180,7 +180,8 @@
 
     </div>
     <div slot="footer" class="pop-footer flex-center">
-      <div class="modify-margin-commit" @click="commitModifyMargin">确认</div>
+      <div class="modify-margin-commit" v-if="!controlType" @click="commitModifyMargin">确认</div>
+      <div class="modify-margin-commit" v-if="controlType">确认中</div>
     </div>
   </PositionModeBulletBox>
 
