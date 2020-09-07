@@ -74,6 +74,7 @@ root.data = function () {
     marginType:'',
     crossMaintMarginRate:0,//全仓保证金比率
     totalAmount:0,
+    markPrice3:''
 
   }
 }
@@ -365,6 +366,8 @@ root.methods.re_getPositionRisk = function (data) {
   }
 
   this.records = filterRecords
+  this.markPrice3 = filterRecords[0].markPrice
+  console.info('this is this.markPrice3 ===',this.markPrice3)
   this.recordsIndex = filterRecords.length || 0
   this.$emit('getPositionRisk',this.recordsIndex);
 
@@ -596,11 +599,12 @@ root.methods.re_marketPrice = function (data) {
 }
 // 限价
 root.methods.checkPrice = function (item) {
-  let markPrice = document.getElementById('markPrice').value;//获取input的节点bai
+  let markPrice1 = document.getElementById('markPrice3').value;//获取input的节点bai
+  console.info('this is markPrice', markPrice1)
   let params = {
     leverage: this.$store.state.leverage,
     positionSide: item.positionSide,
-    price: markPrice,
+    price: markPrice1,
     quantity: Math.abs(item.positionAmt),
     orderSide: (item.positionAmt > 0) ? 'SELL':'BUY',
     // stopPrice: null,
