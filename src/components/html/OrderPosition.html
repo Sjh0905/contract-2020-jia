@@ -92,7 +92,8 @@
           <div class="market-price margin-right" v-if="marketPriceClick" >市价</div>
           <div class="market-price margin-right" v-if="!checkPriceClick" @click="checkPrice(item)">限价</div>
           <div class="market-price margin-right" v-if="checkPriceClick">限价</div>
-          <input type="text" id='markPrice3' :value="markPrice3">
+<!--          <input type="text" id='inputMarginPrice1' :value="item.iptMarkPrice">-->
+          <input type="text" v-model="item.iptMarkPrice" onkeyup="value = value.match(/\d+(\.\d{0,2})?/) ? value.match(/\d+(\.\d{0,2})?/)[0] : ''">
         </div>
         <div class="flex" v-if=" priceCheck != 0 && toFixed(item.entryPrice,2) != priceCheck">
           <div class="market-price-width">平仓委托在{{priceCheck}}</div>

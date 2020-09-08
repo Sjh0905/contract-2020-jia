@@ -980,7 +980,8 @@ root.methods.postOrdersPosition = function () {
     params = {
       leverage: this.$store.state.leverage,
       positionSide: this.orderType ? "LONG":'SHORT',
-      price: this.latestPriceVal,
+      // price: this.latestPriceVal,
+      price: this.price,
       quantity: this.amount,
       orderSide: this.orderType ? 'SELL':'BUY',
       stopPrice: null,

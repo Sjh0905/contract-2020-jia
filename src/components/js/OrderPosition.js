@@ -74,7 +74,6 @@ root.data = function () {
     marginType:'',
     crossMaintMarginRate:0,//全仓保证金比率
     totalAmount:0,
-    markPrice3:''
 
   }
 }
@@ -262,6 +261,8 @@ root.methods.positionSocket = function () {
           let item = currPositions[i]
           if(v.positionSide == item.positionSide){
             v = Object.assign(item,v)
+            //限价输入框的价格
+            v.iptMarkPrice = Number(this.markPrice).toFixed(2)
             break;
           }
         }
@@ -349,7 +350,6 @@ root.methods.re_getPositionRisk = function (data) {
 
   for (let i = 0; i <records.length ; i++) {
     let v = records[i];
-
     if (v.marginType == 'cross' && v.positionAmt != 0) {
       filterRecords.push(v)
       continue;
@@ -361,14 +361,16 @@ root.methods.re_getPositionRisk = function (data) {
 
       //由于开头判断条件用括号包装，会被编译器解析成声明函数括号，所以前一行代码尾或本行代码头要加分号、或者本行代码改为if判断才行
       // (v.positionAmt != 0 || v.securityDeposit != 0) && filterRecords.push(v);
-      if(v.positionAmt != 0 || v.securityDeposit != 0)filterRecords.push(v)
+      if(v.positionAmt != 0 || v.securityDeposit != 0) {
+        // v.inputMarginPrice = this.toFixed(v.markPrice,2)
+        filterRecords.push(v)
+      }
     }
   }
 
   this.records = filterRecords
-  this.markPrice3 = filterRecords[0].markPrice
-  console.info('this is this.markPrice3 ===',this.markPrice3)
   this.recordsIndex = filterRecords.length || 0
+
   this.$emit('getPositionRisk',this.recordsIndex);
 
   if(this.records.length > 0){
@@ -392,6 +394,12 @@ root.methods.handleWithMarkPrice = function(records){
 
   //由于四舍五入，以下均使用原生toFixed
   records.map((v,i)=>{
+
+    if(!v.hasOwnProperty('iptMarkPrice')){
+      v.markPrice && (v.iptMarkPrice = v.markPrice) || (v.iptMarkPrice = this.markPrice);
+      v.iptMarkPrice = Number(v.iptMarkPrice).toFixed(2)
+    }
+
     let notional = this.accMul(Math.abs(v.positionAmt) || 0,this.markPrice || 0)
     let args = this.getCalMaintenanceArgs(notional) || {},maintMarginRatio = args.maintMarginRatio || 0,notionalCum = args.notionalCum || 0
 
@@ -599,12 +607,12 @@ root.methods.re_marketPrice = function (data) {
 }
 // 限价
 root.methods.checkPrice = function (item) {
-  let markPrice1 = document.getElementById('markPrice3').value;//获取input的节点bai
-  console.info('this is markPrice', markPrice1)
+  // let markPrice1 = document.getElementById('inputMarginPrice1').value;//获取input的节点bai
+  // console.info('this is markPrice 618', item.iptMarkPrice)
   let params = {
     leverage: this.$store.state.leverage,
     positionSide: item.positionSide,
-    price: markPrice1,
+    price: item.iptMarkPrice,
     quantity: Math.abs(item.positionAmt),
     orderSide: (item.positionAmt > 0) ? 'SELL':'BUY',
     // stopPrice: null,
