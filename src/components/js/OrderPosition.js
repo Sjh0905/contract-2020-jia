@@ -195,14 +195,14 @@ root.methods.selectType = function (type) {
 // 打开逐仓弹框
 root.methods.openModifyMargin = function (item) {
   // console.info('item===',item)
-  this.reduceMostAmount(item)
+  // this.reduceMostAmount1()
   this.modifyMarginMoney = item.securityDeposit
   // this.reduceMostAmount(item)
   this.positionAmt = item.positionAmt || 0
   this.entryPrice = item.entryPrice || 0
   this.marginType = item.marginType || ''
   // this.modifyMarginMoney = item.isolatedMargin
-  this.liquidationPrice =item.liquidationPrice
+  this.liquidationPrice = item.liquidationPrice
   this.symbol = item.symbol
   this.modifyMarginOpen = true
   if(item.positionSide != 'BOTH'){
@@ -581,6 +581,7 @@ root.methods.re_marketPrice = function (data) {
   if(data.data.status == 'FILLED') {
     this.popType = 1;
     this.popText = '完全成交';
+    this.marketPriceClick = false
     return
   }
   if(data.data.status == 'CANCELED') {
