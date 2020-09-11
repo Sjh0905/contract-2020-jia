@@ -213,7 +213,7 @@ root.computed.canMore = function () {
 
 // 可开数量
 root.computed.canBeOpened = function () {
-  if(this.reducePositionsSelected && this.positionModeFirst == 'singleWarehouseMode' && (this.pendingOrderType=='limitProfitStopLoss' || this.pendingOrderType=='marketPriceProfitStopLoss')) return 0
+  if(this.reducePositionsSelected && this.positionModeFirst == 'singleWarehouseMode' && (this.pendingOrderType == 'limitProfitStopLoss' || this.pendingOrderType=='marketPriceProfitStopLoss')) return 0
   if(Number(this.latestPriceVal) == 0) return
   let leverage = this.$store.state.leverage // 杠杆倍数
   let availableBalance = Number(this.availableBalance) // 钱包余额
