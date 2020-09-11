@@ -123,6 +123,11 @@ store.state.langZendeskObj = {
 store.state.tradingParameters = []
 
 /**
+ * 存储当前委托的数据
+ */
+store.state.currentOrders = []
+
+/**
  *
  * @type {Array}
  */
@@ -303,7 +308,16 @@ store.state.assets = {
  * 杠杆倍数  leverage
  * @type {Number}
  */
-store.state.leverage = 0
+store.state.leverage = 20
+
+/**
+ * 深度列表  orderBookTicker
+ * @type {Number}
+ */
+store.state.orderBookTicker = {
+  bidPrice: 0,
+  askPrice: 0,
+}
 
 /**
  * 查询杠杆分层标准，用于计算维持保证金
@@ -377,6 +391,11 @@ store.mutations.CHANGE_ASSETS = (state, info) => {
 // 改变 杠杆倍数
 store.mutations.CHANGE_LEVERAGE = (state, info) => {
   state.leverage = info;
+}
+
+// 改变 买深度列表
+store.mutations.CHANGE_ORDER_BOOK_TICKER = (state, info) => {
+  state.orderBookTicker = info;
 }
 
 // 改变 杠杆分层标准
@@ -519,7 +538,14 @@ store.mutations.SET_QUOTECONFIG = (state, data) => {
  * 存储当前币对最小交易额和深度图满条
  */
 store.mutations.SET_TRADING_PARAMETERS = (state, data) => {
-  state.tradingParameters = data;
+  state.tradingtradingParametersParameters = data;
+}
+
+/**
+ * 存储当前币对最小交易额和深度图满条
+ */
+store.mutations.SET_CURRENT_ORDERS = (state, data) => {
+  state.currentOrders = data;
 }
 
 /**

@@ -92,6 +92,9 @@ tr, th, td {
 .td-trigger-btn {
   /*justify-content: flex-end;*/
 }
+.weigth-font {
+  font-weight: 800;
+}
 .td-trigger-btn input {
   width: 80px;
   height: 28px;

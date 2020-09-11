@@ -79,6 +79,7 @@ root.created = function () {
   },55 * 60 * 1000)
 
   this.getLeverageBracket();
+  this.getOrderbookTicker()
 }
 
 root.mounted = function () {
@@ -238,7 +239,6 @@ root.methods.postKeepListenKey = function () {
 // 获取 listenKey 信息
 root.methods.re_postKeepListenKey = function (data) {
   typeof(data) == 'string' && (data = JSON.parse(data));
-
 }
 
 // 关闭 listenKey 信息
@@ -391,6 +391,32 @@ root.methods.re_getAccount = function (data) {
 // 获取账户信息出错
 root.methods.error_getAccount = function (err) {
   console.warn('index获取账户信息出错')
+}
+
+// 获取当前最优价格
+root.methods.getOrderbookTicker = function () {
+  this.$http.send('GET_ORDER_BOOK_TICKER',{
+    bind: this,
+    query:{
+      symbol:this.onlyCapitalSymbol
+    },
+    callBack: this.re_getOrderbookTicker,
+    errorHandler: this.error_getOrderbookTicker
+  })
+}
+// 获取当前最优价格成功
+root.methods.re_getOrderbookTicker = function (data) {
+  typeof (data) === 'string' && (data = JSON.parse(data))
+  if (!data && !data.data) return
+  let bidPrice = data.data[0].bidPrice || 0
+  let askPrice = data.data[0].askPrice || 0
+
+  this.$store.commit('CHANGE_ORDER_BOOK_TICKER',{bidPrice,askPrice})
+  // console.info('最优价格成功=',data)
+}
+// 获取当前最优价格报错
+root.methods.error_getOrderbookTicker = function (err) {
+  console.info('err==',err)
 }
 
 
