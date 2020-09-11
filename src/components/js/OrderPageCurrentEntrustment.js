@@ -48,7 +48,9 @@ root.data = () => {
       MARK_PRICE:"标记价格",
       CONTRACT_PRICE:"最新价格"
     },
-    currentOrdersLength:0
+    currentOrdersLength:0 ,
+    openOrdersTotalBuy:0,
+    openOrdersTotalSell:0,
 
   }
 }
@@ -191,8 +193,28 @@ root.methods.re_getOrder = function (data) {
   typeof(data) == 'string' && (data = JSON.parse(data));
   this.loading = false
   this.currentOrder = data.data || []
-  this.currentOrdersLength = this.currentOrder.length
-  this.$emit('getcurrentOrdersLength',this.currentOrdersLength);
+  // this.currentOrdersLength = this.currentOrder.length
+  // let totalBuy = 0
+  // let totalSell = 0
+  // this.currentOrder.map(v=>{
+  //   if(v.positionSide == 'LONG'){
+  //     totalBuy += v.price * v.origQty
+  //   }
+  //   if(v.positionSide == 'SHORT'){
+  //     totalSell += v.price * v.origQty
+  //   }
+  // })
+  // // this.openOrdersTotal = total
+  // // console.info('this is openOrdersTotal===',this.openOrdersTotal)
+  // if(totalBuy != this.openOrdersTotalBuy) {
+  //   this.openOrdersTotalBuy = totalBuy
+  //   this.$eventBus.notify({key:'OPEN_ORDERS_TOTAL_BUY'}, this.openOrdersTotalBuy)
+  // }
+  // if(totalSell != this.openOrdersTotalSell) {
+  //   this.openOrdersTotalSell = totalSell
+  //   this.$eventBus.notify({key:'OPEN_ORDERS_TOTAL_SELL'}, this.openOrdersTotalSell)
+  // }
+
 }
 // 获取订单出错
 root.methods.error_getOrder = function (err) {

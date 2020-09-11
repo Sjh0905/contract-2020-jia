@@ -189,6 +189,7 @@ root.created = function () {
   //   // this.pankqh = true;
   //   this.showStockFunc()
   // }
+  this.getOrder()
   this.$eventBus.listen(this, 'GET_ORDERS', this.getOrder)
   this.$eventBus.listen(this, 'GET_POSITION', this.positionRisk)
 
@@ -745,6 +746,7 @@ root.methods.re_getOrder = function (data) {
   // console.log('this is currOrder',JSON.stringify(data));
   typeof(data) == 'string' && (data = JSON.parse(data));
   let currentOrder = data.data || []
+  this.$store.commit('SET_CURRENT_ORDERS',currentOrder)
   this.currentLength = currentOrder.length
   // console.info('this.currentOrdersLength',this.currentOrdersLength)
   // this.currentOrder.push()
