@@ -66,7 +66,7 @@
       <!--标记价格-->
       <div class="td td-market">{{!!markPrice && Number(markPrice).toFixed(2) || '-'}}</div>
       <!--强平价格-->
-      <div class="td td-flat-price">{{!!item.liquidationPrice && Number(item.liquidationPrice).toFixed(2) || '-'}}</div>
+      <div class="td td-flat-price weigth-font">{{!!item.liquidationPrice && Number(item.liquidationPrice).toFixed(2) || '-'}}</div>
       <!--保证金比率-->
       <div class="td td-price">{{item.marginType == 'cross'?crossMaintMarginRate:item.maintMarginRate}}</div>
       <!--保证金-->
@@ -86,18 +86,31 @@
         <img v-if="item.adlQuantile == 4" src="../../assets/reduce_positions_4.png" alt="">
       </div>
       <!--平仓-->
-      <div class="td td-trigger">
+      <div class="td td-trigger" v-if="item.positionSide == 'BOTH'">
         <div class="td-trigger-btn flex" v-if="priceCheck == 0">
           <div class="market-price margin-right" v-if="!marketPriceClick" @click="marketPrice(item)">市价</div>
           <div class="market-price margin-right" v-if="marketPriceClick" >市价</div>
           <div class="market-price margin-right" v-if="!checkPriceClick" @click="checkPrice(item)">限价</div>
           <div class="market-price margin-right" v-if="checkPriceClick">限价</div>
-          <input type="text" id='markPrice' :value="toFixed(item.markPrice,2)">
+          <input type="text" v-model="item.iptMarkPrice" onkeyup="value = value.match(/\d+(\.\d{0,2})?/) ? value.match(/\d+(\.\d{0,2})?/)[0] : ''">
         </div>
-        <div class="flex" v-if=" priceCheck != 0 && toFixed(item.entryPrice,2) != priceCheck">
+        <div class="flex" v-if="priceCheck != 0 && toFixed(item.entryPrice,2) != priceCheck">
           <div class="market-price-width">平仓委托在{{priceCheck}}</div>
           <div class="cencon market-price-width38" @click="cancelThePosition">取消</div>
         </div>
+      </div>
+      <div class="td td-trigger" v-if="(item.positionSide == 'LONG' || item.positionSide == 'SHORT')">
+        <div class="td-trigger-btn flex">
+          <div class="market-price margin-right" v-if="!marketPriceClick" @click="marketPrice(item)">市价</div>
+          <div class="market-price margin-right" v-if="marketPriceClick" >市价</div>
+          <div class="market-price margin-right" v-if="!checkPriceClick" @click="checkPrice(item)">限价</div>
+          <div class="market-price margin-right" v-if="checkPriceClick">限价</div>
+          <input type="text" v-model="item.iptMarkPrice" onkeyup="value = value.match(/\d+(\.\d{0,2})?/) ? value.match(/\d+(\.\d{0,2})?/)[0] : ''">
+        </div>
+<!--        <div class="flex" v-if="priceCheck != 0 && toFixed(item.entryPrice,2) != priceCheck">-->
+<!--          <div class="market-price-width">平仓委托在{{priceCheck}}</div>-->
+<!--          <div class="cencon market-price-width38" @click="cancelThePosition">取消</div>-->
+<!--        </div>-->
       </div>
     </li>
       <!-- 如果加载完成、已登录、有数据，则显示数据 end -->
@@ -139,7 +152,7 @@
         <!--当前仓位保证金 USDT-->
         <div class="modify-margin-des flex">
           <div class="modify-margin-des-title">当前仓位保证金 USDT：</div>
-          <div class="modify-margin-des-number">{{toFixed(Number(modifyMarginMoney) || 0,2)}} USDT</div>
+          <div class="modify-margin-des-number">{{securityDeposit}} USDT</div>
         </div>
         <!--可用余额-->
         <div class="modify-margin-des flex">
@@ -164,7 +177,7 @@
         <!--当前仓位保证金 USDT-->
         <div class="modify-margin-des flex">
           <div class="modify-margin-des-title">当前仓位保证金 USDT：</div>
-          <div class="modify-margin-des-number">{{toFixed(Number(modifyMarginMoney) || 0,2)}} USDT</div>
+          <div class="modify-margin-des-number">{{securityDeposit}} USDT</div>
         </div>
         <!--最多可减少-->
         <div class="modify-margin-des flex">

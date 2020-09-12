@@ -480,6 +480,11 @@ root.methods.getOrderDepthList = function () {
   this.sellOrders = asksList;
   this.buyOrders = bidsList;
 
+  // console.info('最优价格===',{bidPrice:Number(this.buyOrders[0][0]),askPrice:Number(this.sellOrders[0][0])})
+  this.$store.commit('CHANGE_ORDER_BOOK_TICKER',{bidPrice:Number(this.buyOrders[0][0]),askPrice:Number(this.sellOrders[0][0])})
+
+
+
   // this.buy_sale_list_temp.a = asks
   // this.buy_sale_list_temp.b = bids
   // this.buy_sale_list_temp.lastUpdateId = this.socket_snap_shot.U
