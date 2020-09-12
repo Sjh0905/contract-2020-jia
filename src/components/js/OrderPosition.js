@@ -418,7 +418,7 @@ root.methods.handleWithMarkPrice = function(records){
       //逐仓保证金：isolatedMargin - unrealizedProfit
       v.securityDeposit = this.accMinus(v.isolatedMargin,v.unrealizedProfit)
 
-      //逐仓保证金比率=维持保证金/(实时变的未实现盈亏+逐仓保证钱包金余额 iw)；其中的iw → ws取，或者等于接口的isolatedMargin - unRealizedProfit
+      //逐仓保证金比率=维持保证金/(实时变的未实现盈亏+逐仓钱包余额 iw)；其中的iw → ws取，或者等于接口的isolatedMargin - unRealizedProfit
       v.maintMarginRate = this.accDiv( v.maintMargin,this.accAdd(v.unrealizedProfitPage || 0,v.securityDeposit) )
       v.maintMarginRate = Number(v.maintMarginRate * 100).toFixed(2) + '%'
     }
@@ -440,6 +440,7 @@ root.methods.getCalMaintenanceArgs = function(notional=0){
 
   if(notional == 0){
     bracketSingle = this.leverageBracket.find(v=> v.notionalCap == 0)
+    return bracketSingle;
   }
   //notional > notionalFloor && notional <= notionalCap 可推出 notional - notionalFloor > 0  && notional - notionalCap <= 0
   for (let i = 0; i < this.leverageBracket.length; i++) {
