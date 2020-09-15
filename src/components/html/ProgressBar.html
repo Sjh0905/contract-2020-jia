@@ -365,8 +365,15 @@
         class="text_blue" style="cursor: pointer" @click="goRegister">{{$t("progressBar.register")}}</span>
       </div>
     </div>
-    <div v-if="orderType" class="text_blue">{{canMore}}</div>
-    <div v-if="!orderType" class="text_blue">{{canMore}}</div>
+    <div v-if="positionModeFirst == 'singleWarehouseMode'">
+      <div v-if="orderType" class="text_blue">{{canMore}}</div>
+      <div v-if="!orderType" class="text_blue">{{canMore}}</div>
+    </div>
+    <br/>
+    <div v-if="positionModeFirst == 'doubleWarehouseMode'">
+      <div v-if="orderType" class="text_blue">{{canBeOpened}}</div>
+      <div v-if="!orderType" class="text_blue">{{canBeOpened}}</div>
+    </div>
     <!--交易按钮 end-->
 
 <!--    <div class="progress-bar-btn-wrap" :class="btn_click ? 'progress-bar-active' : ''">-->
