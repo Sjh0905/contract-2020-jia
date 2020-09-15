@@ -79,7 +79,7 @@ root.data = function () {
 
     // maximumPosition:''  // 显示的最大头寸
 
-    maximumPosition:['50,000','250,000','100,0000','5,000,000','20,000,000','50,000,000','100,000,000','200,000,000']
+    maximumPosition:['50,000','250,000','100,0000','5,000,000','20,000,000','50,000,000','100,000,000','200,000,000','9,223,372,036,854,776,000']
   }
 }
 /*------------------------------ 生命周期 -------------------------------*/
@@ -156,7 +156,7 @@ root.computed.maxPosition = function () {
     maxPosition = this.maximumPosition[7]
     return maxPosition
   }
-  maxPosition = ''
+  maxPosition = this.maximumPosition[8]
   return maxPosition
 }
 // 是否可以计算
@@ -185,6 +185,7 @@ root.watch.styleType = function (oldVal,newVal) {
   this.returnRate = ''
   this.targetReturnRate = ''
 }
+//做多做空切换
 root.watch.moreEmptyType = function (oldVal,newVal) {
   if(oldVal == newVal) return
   this.calculatorValue = 1
@@ -214,7 +215,7 @@ root.methods.openPositionBox = function (name) {
 // 计算收益
 root.methods.clickCalculation = function (){
   if(this.closingPrice == '' || this.openingPrice == '' || this.transactionQuantity == '') return
-  if(this.maxPosition < this.accMul(Number(this.openingPrice), Number(this.transactionQuantity))) return
+  if(Number((this.maxPosition).replace(/\,/g,''))  < this.accMul(Number(this.openingPrice), Number(this.transactionQuantity))) return
   if(this.moreEmptyType == 1){
     // 收益计算
     this.income = this.toFixed(this.accMul((this.accMinus(Number(this.closingPrice) , Number(this.openingPrice))),Number(this.transactionQuantity)),2)
