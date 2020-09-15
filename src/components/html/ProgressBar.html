@@ -263,7 +263,8 @@
              @mouseleave="closePositionBox('security-deposit-block-buy')"
         >保证金</div>
 <!--        <span class="security-deposit-text border-dashed">保证金</span>-->
-        <div class="security-deposit-amount">{{securityDeposit}} USDT</div>
+        <div class="security-deposit-amount" v-if="!orderType">{{securityDeposit}} USDT</div>
+        <div class="security-deposit-amount" v-if="orderType">{{securityDeposit}} USDT</div>
       </div>
 
 

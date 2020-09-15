@@ -345,7 +345,7 @@ root.computed.canMore = function () {
       // buyCanOpen = Math.max(0,(availableBalance + initialMargin - ((markPrice * positionAmt + this.buyNetValue) * leverage)) / (1*(this.assumingPrice *  leverage) + buyMarket))
       sellCanOpen = Math.max(0,(availableBalance + initialMargin - ((markPrice * positionAmt - this.sellNetValue) * leverage)) / (1*(this.assumingPrice * leverage) + sellMarket))
       // console.info('sellNetValue===',this.sellNetValue)
-      return this.orderType ? sellCanOpen.toFixed : buyCanOpen
+      return this.orderType ? sellCanOpen : buyCanOpen
     }
   }
   // 单仓逐仓
@@ -521,53 +521,147 @@ root.computed.canBeOpened = function () {
   // return this.toFixed(this.accMul(num , this.$store.state.leverage),2)
 }
 
+//以下为保证金计算 ==============S
+root.computed.ask_notional = function () {
+  return this.orderType ? (this.assumingPrice * 1 * Number(this.amount || 0)) : 0
+}
+root.computed.bid_notional = function () {
+  return !this.orderType ? (this.assumingPrice * 1 * Number(this.amount || 0)) : 0
+}
+//有仓位 标记价格*数量 无仓位 0
+root.computed.positionNotionalValue = function () {
+  return (this.totalAmount != 0) ? (Number(this.markPrice) * Number(this.totalAmount)) : 0
+}
+
+ // TODO: 合并完代码记得修改未提出来部分
+// 杠杆  开仓保证金率
+root.computed.leverage = function () {
+  return Number(this.$globalFunc.accFixedCny(this.accDiv(1 , Number(this.$store.state.leverage) || 1),4))
+}
+//新委托实际数量
+root.computed.newOrderActualAmount = function () {
+  if (Number(this.totalAmount) >= 0) {
+    return !this.orderType ? Number(this.amount) : Math.max(0,Number(this.amount) - Number(this.totalAmount))
+  }
+  if (Number(this.totalAmount) < 0) {
+    return this.orderType ? Number(this.amount) : Math.max(0,Number(this.amount) + Number(this.totalAmount))
+  }
+}
+//双向的assumingPrice===========
+root.computed.twoWayAssumingPrice = function () {
+  let twoWayAssumingPrc = 0
+  if(this.pendingOrderType== 'limitPrice'||this.pendingOrderType == 'limitProfitStopLoss'){
+    // console.info('this.buyDepthOrders',this.buyDepthOrders)
+    twoWayAssumingPrc = this.orderType ? Math.max(this.buyDepthOrders,(Number(this.markPrice),this.price)) : this.price
+    return Number(twoWayAssumingPrc) || 0
+  }
+  if(this.pendingOrderType== 'marketPrice'||this.pendingOrderType == 'marketPriceProfitStopLoss'){
+    twoWayAssumingPrc = this.orderType ? Math.max(this.buyDepthOrders, (Number(this.markPrice))) : this.sellDepthOrders * (1+0.0005)
+    return Number(twoWayAssumingPrc) || 0
+  }
+}
 // 保证金计算
 root.computed.securityDeposit = function () {
-  let securityDeposit = 0
-  let position = this.accMul(Number(this.markPrice) , Number(this.amount))
-  if(this.$store.state.leverage > 100 && this.$store.state.leverage <= 125){
-    securityDeposit = this.toFixed(position * this.initialMarginRate[0],2)
-    return securityDeposit
+
+  // 单仓模式 singleWarehouseMode 双仓模式 doubleWarehouseMode
+  if (this.positionModeFirst == 'singleWarehouseMode') {
+    //下单所需保证金
+    let presentNotional = Number(Math.max(Math.abs((this.positionNotionalValue + this.computedBuyNetValue), Math.abs(this.positionNotionalValue - this.computedSellNetValue))))
+    let totalAfterTrade = Number(Math.max(Math.abs(this.positionNotionalValue + this.computedBuyNetValue + this.bid_notional), Math.abs(this.positionNotionalValue - this.computedSellNetValue - this.ask_notional)))
+    let presentTotalInitialMargin = Number(presentNotional * this.leverage)
+    let assumingTotalInitialMargin = Number(totalAfterTrade * this.leverage)
+    let marginReuired = Number(Math.max(assumingTotalInitialMargin - presentTotalInitialMargin, 0))  //TODO: 结果
+    //开仓亏损
+    let openLost
+    //限价和限价止损单
+    if (this.pendingOrderType == 'limitPrice'||this.pendingOrderType == 'limitProfitStopLoss') {
+      openLost = Number(this.newOrderActualAmount * 1 * Math.abs(Math.min(0, (this.orderType ? -1 : 1) * (Number(this.markPrice) - Number(this.amount)))))
+    }
+    //市价和市价止损单
+    if (this.pendingOrderType== 'marketPrice'||this.pendingOrderType == 'marketPriceProfitStopLoss') {
+      openLost = Number(this.newOrderActualAmount * 1 * Math.abs(Math.min(0, (this.orderType ? -1 : 1) * (Number(this.markPrice) - Number(this.assumingPrice)))))
+    }
+
+    //开仓成本
+    let cost = Number(marginReuired + openLost)
+
+    console.info('this is cost ==========',cost)
+    return this.toFixed(cost,2)
+
   }
-  if(this.$store.state.leverage > 50 && this.$store.state.leverage <= 100){
-    securityDeposit = this.toFixed(position * this.initialMarginRate[1],2)
-    return securityDeposit
+
+  if (this.positionModeFirst == 'doubleWarehouseMode') {
+    let twoWaymarginReuired = Number(this.twoWayAssumingPrice * Number(this.amount || 0) * this.leverage)  //TODO: 结果
+    //开仓亏损
+    let twoWayopenLost
+    //限价和限价止损单
+    if (this.pendingOrderType == 'limitPrice'||this.pendingOrderType == 'limitProfitStopLoss') {
+      twoWayopenLost = Number(Number(this.amount || 0) * Math.abs(Math.min(0,(this.orderType ? -1 : 1) * (Number(this.markPrice) - this.price))))
+    }
+    //市价和市价止损单
+    if (this.pendingOrderType== 'marketPrice'||this.pendingOrderType == 'marketPriceProfitStopLoss') {
+      twoWayopenLost = Number(Number(this.amount || 0) * Math.abs(Math.min(0,(this.orderType ? -1 : 1) * (Number(this.markPrice) - this.twoWayAssumingPrice))))
+    }
+
+    //开仓成本
+    let twoWayCost = Number(twoWaymarginReuired + twoWayopenLost)
+
+    console.info('this is cost ==========',twoWayCost)
+    return this.toFixed(twoWayCost,2)
   }
-  if(this.$store.state.leverage > 20 && this.$store.state.leverage <= 50){
-    securityDeposit = this.toFixed(position * this.initialMarginRate[2],2)
-    return securityDeposit
-  }
-  if(this.$store.state.leverage > 10 && this.$store.state.leverage <= 20){
-    securityDeposit = this.toFixed(position * this.initialMarginRate[3],2)
-    return securityDeposit
-  }
-  if(this.$store.state.leverage > 5 && this.$store.state.leverage <= 10){
-    securityDeposit = this.toFixed(position * this.initialMarginRate[4],2)
-    return securityDeposit
-  }
-  if(this.$store.state.leverage == 5){
-    securityDeposit = this.toFixed(position * this.initialMarginRate[5],2)
-    return securityDeposit
-  }
-  if(this.$store.state.leverage == 4){
-    securityDeposit = this.toFixed(position * this.initialMarginRate[6],2)
-    return securityDeposit
-  }
-  if(this.$store.state.leverage == 3){
-    securityDeposit = this.toFixed(position * this.initialMarginRate[7],2)
-    return securityDeposit
-  }
-  if(this.$store.state.leverage == 2){
-    securityDeposit = this.toFixed(position * this.initialMarginRate[8],2)
-    return securityDeposit
-  }
-  if(this.$store.state.leverage == 1){
-    securityDeposit = this.toFixed(position * this.initialMarginRate[9],2)
-    return securityDeposit
-  }
+
+
+
+
+
+
+  // let position = this.accMul(Number(this.markPrice) , Number(this.amount))
+  // if(this.$store.state.leverage > 100 && this.$store.state.leverage <= 125){
+  //   securityDeposit = this.toFixed(position * this.initialMarginRate[0],2)
+  //   return securityDeposit
+  // }
+  // if(this.$store.state.leverage > 50 && this.$store.state.leverage <= 100){
+  //   securityDeposit = this.toFixed(position * this.initialMarginRate[1],2)
+  //   return securityDeposit
+  // }
+  // if(this.$store.state.leverage > 20 && this.$store.state.leverage <= 50){
+  //   securityDeposit = this.toFixed(position * this.initialMarginRate[2],2)
+  //   return securityDeposit
+  // }
+  // if(this.$store.state.leverage > 10 && this.$store.state.leverage <= 20){
+  //   securityDeposit = this.toFixed(position * this.initialMarginRate[3],2)
+  //   return securityDeposit
+  // }
+  // if(this.$store.state.leverage > 5 && this.$store.state.leverage <= 10){
+  //   securityDeposit = this.toFixed(position * this.initialMarginRate[4],2)
+  //   return securityDeposit
+  // }
+  // if(this.$store.state.leverage == 5){
+  //   securityDeposit = this.toFixed(position * this.initialMarginRate[5],2)
+  //   return securityDeposit
+  // }
+  // if(this.$store.state.leverage == 4){
+  //   securityDeposit = this.toFixed(position * this.initialMarginRate[6],2)
+  //   return securityDeposit
+  // }
+  // if(this.$store.state.leverage == 3){
+  //   securityDeposit = this.toFixed(position * this.initialMarginRate[7],2)
+  //   return securityDeposit
+  // }
+  // if(this.$store.state.leverage == 2){
+  //   securityDeposit = this.toFixed(position * this.initialMarginRate[8],2)
+  //   return securityDeposit
+  // }
+  // if(this.$store.state.leverage == 1){
+  //   securityDeposit = this.toFixed(position * this.initialMarginRate[9],2)
+  //   return securityDeposit
+  // }
   // return this.toFixed(Number(price * amount) / this.$store.state.leverage,2)
   // console.info('Number(this.markPrice)',Number(this.markPrice),'Number(amount)',Number(amount),'this.initialMarginRate[0]',this.initialMarginRate[0],'securityDeposit',securityDeposit)
 }
+//以下为保证金计算 ==============E
+
+
 // 观察货币对是否更改
 root.computed.symbol = function () {
   return this.$store.state.symbol;
