@@ -168,7 +168,7 @@ root.data = function () {
     maxNotionalValue: '',   // 当前杠杆倍数下允许的最大名义价值
 
     dualSidePosition:false,  // "true": 双向持仓模式；"false": 单向持仓模式
-    availableBalance:0 , // 可用余额
+    // availableBalance:0 , // 可用余额
     recordsIndex:0, // 仓位数量
     currentLength:0, // 当前委托数量
     // 显示的最大头寸
@@ -223,7 +223,7 @@ root.created = function () {
   this.positionRisk()  // 获取全逐仓状态
   this.getPositionsideDual() // 获取仓位模式
   this.isFirstVisit()
-  this.getBalance()
+  // this.getBalance()
 }
 
 root.mounted = function () {
@@ -413,6 +413,9 @@ root.computed.positionModeConfigs = function () {
   // console.log(data);
   return data
 }
+root.computed.availableBalance = function () {
+  return Number(this.$store.state.assets.walletBalance) || 0
+}
 root.computed.serverTime = function () {
   return new Date().getTime();
 }
@@ -453,24 +456,25 @@ root.methods = {}
 // }
 /*---------------------- 合约接口部分 begin ---------------------*/
 
-// 获取用户可用余额
-root.methods.getBalance = function () {
-  this.$http.send('GET_BALAN_ACCOUNT',{
-    bind: this,
-    callBack: this.re_getBalance,
-    errorHandler:this.error_getBalance
-  })
-}
-// 获取用户可用余额正确回调
-root.methods.re_getBalance = function (data) {
-  typeof(data) == 'string' && (data = JSON.parse(data));
-  if(!data || !data.data || !data.data[0])return
-  this.availableBalance  = data.data[0].availableBalance || 0
-}
-// 获取用户可用余额错误回调
-root.methods.error_getBalance = function (err) {
-  console.log('获取用户可用余额',err)
-}
+// // 获取用户可用余额
+// root.methods.getBalance = function () {
+//   this.$http.send('GET_BALAN_ACCOUNT',{
+//     bind: this,
+//     callBack: this.re_getBalance,
+//     errorHandler:this.error_getBalance
+//   })
+// }
+// // 获取用户可用余额正确回调
+// root.methods.re_getBalance = function (data) {
+//   typeof(data) == 'string' && (data = JSON.parse(data));
+//   if(!data || !data.data || !data.data[0])return
+//   this.availableBalance  = data.data[0].availableBalance || 0
+// }
+// // 获取用户可用余额错误回调
+// root.methods.error_getBalance = function (err) {
+//   console.log('获取用户可用余额',err)
+// }
+
 // 获取币安24小时价格变动接口
 root.methods.initTicket24Hr = function () {
   this.$http.send('GET_TICKER_24HR',{
@@ -1610,6 +1614,9 @@ root.computed.serverTime = function () {
 
 // 监听symbol 做一些操作
 root.watch = {};
+// root.watch.availableBalance = function (newValue, oldValue) {
+//   console.info('newValue===',newValue)
+// }
 root.watch.pendingOrderType  = function (){
   if(this.pendingOrderType == 'limitPrice' || this.pendingOrderType == 'marketPrice') {
     this.reducePositionsSelected = false

@@ -1,6 +1,5 @@
 <div class="ProgressBar-container">
 
-
   <!--<div class="progress-bar-tit flex-row">-->
     <!--<div class="progress-bar-tit-l">-->
       <!--&lt;!&ndash; <span class="txt-small txt-light strong">{{orderType && $t("progressBar.sale") + this.$store.state.symbol.split('_')[0] || $t("progressBar.buy")+ this.$store.state.symbol.split('_')[0]}}</span> &ndash;&gt;-->
@@ -271,7 +270,8 @@
       <div class="can-be-opened flex-between">
         <span v-if="isHasModule('kaipingType') == 1" class="security-deposit-text">可开</span>
         <span v-if="isHasModule('kaipingType') == 2" class="security-deposit-text">可平</span>
-        <span class="security-deposit-amount" v-if="isHasModule('kaipingType') == 1">{{canBeOpened}} BTC</span>
+        <span class="security-deposit-amount" v-if="isHasModule('kaipingType') == 1 && positionModeFirst == 'doubleWarehouseMode'">{{orderType ? toFixed(canBeOpened,3):toFixed(canBeOpened,3)}} BTC</span>
+        <span class="security-deposit-amount" v-if="isHasModule('kaipingType') == 1 && positionModeFirst == 'singleWarehouseMode'">{{orderType ? toFixed(canMore,3):toFixed(canMore,3)}} BTC</span>
         <span class="security-deposit-amount" v-if="isHasModule('kaipingType') == 2">{{orderType ? Math.abs(positionAmtLong) : Math.abs(positionAmtShort)}} BTC</span>
       </div>
     </div>
@@ -366,15 +366,15 @@
         class="text_blue" style="cursor: pointer" @click="goRegister">{{$t("progressBar.register")}}</span>
       </div>
     </div>
-    <div v-if="positionModeFirst == 'singleWarehouseMode'">
-      <div v-if="orderType" class="text_blue">{{canMore}}</div>
-      <div v-if="!orderType" class="text_blue">{{canMore}}</div>
-    </div>
-    <br/>
-    <div v-if="positionModeFirst == 'doubleWarehouseMode'">
-      <div v-if="orderType" class="text_blue">{{canBeOpened}}</div>
-      <div v-if="!orderType" class="text_blue">{{canBeOpened}}</div>
-    </div>
+<!--    <div v-if="positionModeFirst == 'singleWarehouseMode'">-->
+<!--      <div v-if="orderType" class="text_blue">{{canMore}}</div>-->
+<!--      <div v-if="!orderType" class="text_blue">{{canMore}}</div>-->
+<!--    </div>-->
+<!--    <br/>-->
+<!--    <div v-if="positionModeFirst == 'doubleWarehouseMode'">-->
+<!--      <div v-if="orderType" class="text_blue">{{canBeOpened}}</div>-->
+<!--      <div v-if="!orderType" class="text_blue">{{canBeOpened}}</div>-->
+<!--    </div>-->
     <!--交易按钮 end-->
 
 <!--    <div class="progress-bar-btn-wrap" :class="btn_click ? 'progress-bar-active' : ''">-->
