@@ -120,7 +120,7 @@ root.components = {
 root.data = function () {
   return {
     triggerPrice:'', // 触发价格
-    price: this.latestPriceVal,
+    // price: this.latestPriceVal,
     priceNow: '0',
     amount: '',
     currentSymbol: {
@@ -308,6 +308,7 @@ root.watch.pendingOrderType = function (newValue, oldValue) {
   this.triggerPrice = ''
   this.value = 0
   this.amount = ''
+  this.price = this.latestPriceVal
 }
 // 监听选择的是 最新价格 还是 标记价格
 root.watch.latestPrice =function (newValue, oldValue) {
@@ -316,10 +317,7 @@ root.watch.latestPrice =function (newValue, oldValue) {
 }
 
 /*----------------------------- 计算 ------------------------------*/
-root.computed.price = function () {
-  return this.latestPriceVal
-  // console.info('this.price==',this.latestPriceVal)
-}
+
 root.computed.sellDepthOrders = function () {
   // console.info('this.$store.state.orderBookTicker.askPrice',this.$store.state.orderBookTicker.askPrice)
   return this.$store.state.orderBookTicker.askPrice
@@ -977,7 +975,7 @@ root.computed.getTriggerPrice = function () {
 
 // 观察价格的变化，然后折合人民币或者美金
 root.computed.get_price = function () {
-  return this.price;
+  return this.price = this.latestPriceVal;
 }
 
 root.computed.get_lang = function () {
