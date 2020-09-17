@@ -104,6 +104,148 @@ root.props.currentLength = {
   type: Number,
   default: 0
 }
+
+
+/*----------------------------- 组件 ------------------------------*/
+
+root.components = {
+  'PopupPrompt': resolve => require(['../vue/PopupPrompt'], resolve),
+  'PopupWindow': resolve => require(['../vue/PopupWindow'], resolve),
+  'PositionModeBulletBox': resolve => require(['../vue/PositionModeBulletBox'], resolve),
+  'CalculatorBommbBox': resolve => require(['../vue/CalculatorBommbBox'], resolve),
+}
+
+/*----------------------------- data ------------------------------*/
+
+root.data = function () {
+  return {
+    triggerPrice:'', // 触发价格
+    price: this.latestPriceVal,
+    priceNow: '0',
+    amount: '',
+    currentSymbol: {
+      balance: '--',
+      balance_order: '--'
+    },
+    amountScale: 3,
+    inputColor: false,
+
+    // 信息提示
+    popType: 0,
+    popText: '',
+    promptOpen: false,
+
+    // 可用货币数
+    available: '- -',
+
+    // 输入位数
+    baseScale: 0,
+    quoteScale: 0,
+
+    currency: '',
+
+    // DB市场的汇率 是用BDB/ETH的汇率 * BDB/ETH的时价算出来的
+    bdb_rate: 0,
+
+    // 每次切换价格时候，折合多少人民币或者美元
+    changeTriggerPrice: 0,
+    change_price: 0,
+
+    popWindowOpen: false, // 弹窗开放
+    // popWindowOpen1: false, // 弹窗开放
+
+    // 当前币对是否可交易
+    symbol_transaction: true,
+
+    symbol_transaction_diy: true,
+
+    // 点击效果
+    btn_click: false,
+
+    //进度条
+    pos: {},
+    startX: null,
+    locked: false,
+    distance: 0, //当前位置
+    endDistance: 0, //上次操作结束位置
+    transTime: .3, //点击拖动动画
+    dragWidth: 0, //进度条宽度
+
+    startNum: 0,
+    endNum: 100,
+    nowNum: 0,
+    bgjcolor25: true,
+    bgjcolor50: true,
+    bgjcolor75: true,
+    dangqzsh: false,
+
+    // element 数据
+    value:0,
+    marks: {
+      0: '',
+      25: '',
+      50: '',
+      75:'',
+      100:''
+    },
+
+    KKPriceRange:[],
+    // 弹框提示信息
+    priceCont:'',
+    // 弹框打开/关闭
+    popWindowOpen1:false,
+    // 初始保证金率
+    initialMarginRate :[0.008, 0.01, 0.02, 0.05, 0.1, 0.2, 0.25, 0.333, 0.5, 1],
+    maxPosition : [50000,250000,1000000,5000000,20000000,50000000,100000000,200000000],
+    //  买卖限流
+    currentLimiting:false,
+    buyNetValue:0, // 买单净值
+    sellNetValue:0, // 卖单净值
+
+    totalAmount:0, //仓位总数量
+    // openOrdersBuyTotal:0, //订单总数量
+    // openOrdersSellTotal:0, //订单总数量
+  }
+}
+
+
+
+
+/*----------------------------- 生命周期 ------------------------------*/
+
+root.created = function () {
+  // 左侧price变化时更改当前price
+  this.$eventBus.listen(this, 'SET_PRICE', this.RE_SET_PRICE);
+  //  根据买卖设置买卖amount，买对应卖，卖对应买
+  this.$eventBus.listen(this, 'SET_AMOUNT', this.RE_SET_AMOUNT);
+  this.$eventBus.listen(this, 'GET_GRC_PRICE_RANGE', this.getKKPriceRange);
+  //监听仓位总数量
+  this.$eventBus.listen(this, 'POSITION_TOTAL_AMOUNT', this.setTotalAmount);
+  // //监听订单做多总数量
+  // this.$eventBus.listen(this, 'OPEN_ORDERS_TOTAL_BUY', this.setOpenOrdersBuyAmt);
+  // //监听订单做空总数量
+  // this.$eventBus.listen(this, 'OPEN_ORDERS_TOTAL_SELL', this.setOpenOrdersSellAmt);
+
+  // 获取精度
+  this.getScaleConfig();
+
+  this.show_now_price();
+
+  this.getKKPriceRange();
+  // this.tradeMarket()
+  // this.postOrdersPosition()
+  // this.postOrdersCreate()
+  this.initSocket()
+  this.chainCal = this.$globalFunc.chainCal
+}
+
+
+root.mounted = function () {
+  this.dragWidth = $('.dragbox').width();
+  // console.log(this.dragWidth)
+}
+
+
 /*----------------------------- 观察 ------------------------------*/
 // // 监听时价
 // root.watch.latestPriceVal = function (newVal,oldVal) {
@@ -129,6 +271,50 @@ root.watch.symbol = function () {
 root.watch.watchCurrency = function () {
   this.changeAvailableData()
 }
+root.watch.getTriggerPrice = function () {
+  this.get_now_price();
+}
+root.watch.get_price = function () {
+  this.get_now_price();
+}
+root.watch.get_lang = function () {
+  this.get_now_price();
+}
+
+// 监听时价变化
+root.watch.depth_price = function (newValue, oldValue) {
+  // this.price = this.$globalFunc.accFixed(newValue, this.quoteScale);
+}
+
+// 监听BDB/ETH的实时价格
+root.watch.topic_price = function (newValue, oldValue) {
+  // bdb_rate
+  let self = this;
+  for (let key in newValue) {
+    if (key == 'BDB_ETH') {
+      self.bdb_rate = newValue[key][4];
+    }
+  }
+}
+
+
+root.watch.value = function (newValue, oldValue) {
+  if (newValue == oldValue) return;
+  // console.log(newValue)
+  this.computedValue()
+  this.sectionSelect(newValue/100);
+}
+root.watch.pendingOrderType = function (newValue, oldValue) {
+  this.triggerPrice = ''
+  this.value = 0
+  this.amount = ''
+}
+// 监听选择的是 最新价格 还是 标记价格
+root.watch.latestPrice =function (newValue, oldValue) {
+  if(newValue == oldValue) return
+  console.info(newValue)
+}
+
 /*----------------------------- 计算 ------------------------------*/
 root.computed.price = function () {
   return this.latestPriceVal
@@ -250,6 +436,23 @@ root.computed.assumingPrice = function () {
     return Number(assumingPrc) || 0
   }
 }
+
+
+
+// 保证金assumingPrice
+root.computed.costAssumingPrice = function () {
+  let assumingPrc = 0
+  if(this.pendingOrderType== 'limitPrice'||this.pendingOrderType == 'limitProfitStopLoss'){
+    // console.info('this.buyDepthOrders',this.buyDepthOrders)
+    assumingPrc = this.orderType ? Math.max(this.buyDepthOrders,Number(this.markPrice),this.price) : this.price
+    return Number(assumingPrc) || 0
+  }
+  if(this.pendingOrderType== 'marketPrice'||this.pendingOrderType == 'marketPriceProfitStopLoss'){
+    assumingPrc = this.orderType ? Math.max(this.buyDepthOrders,Number(this.markPrice)) : this.sellDepthOrders * (1+0.0005)
+    return Number(assumingPrc) || 0
+  }
+}
+
 // 单仓最多可开
 root.computed.canMore = function () {
   let crossWalletBalanceSing = Number(this.crossWalletBalance) // 全仓钱包余额
@@ -616,86 +819,17 @@ root.computed.canBeOpened = function () {
   //   }
   // }
 
-  // if(this.reducePositionsSelected && this.positionModeFirst == 'singleWarehouseMode' && (this.pendingOrderType=='limitProfitStopLoss' || this.pendingOrderType=='marketPriceProfitStopLoss')) return 0
-  // if(Number(this.latestPriceVal) == 0) return
-  // let leverage = this.$store.state.leverage // 杠杆倍数
-  // let availableBalance = Number(this.availableBalance) // 钱包余额
-  // let latestPriceVal = Number(this.latestPriceVal) // 市价
-  // let positionCalculation = 0  // 头寸计算
-  // let canOpenAvailable = 0  //可开最大头寸
-  // let num = 0 // 可开数量
-  // // this.initialMarginRate :[0.008, 0.01, 0.02, 0.05, 0.1, 0.2, 0.25, 0.333, 0.5, 1],
-  // // this.maxPosition : [50000,250000,1000000,5000000,20000000,50000000,100000000,200000000],
-  // if(leverage <=125 && leverage>100) {
-  //   positionCalculation = this.accDiv(availableBalance , this.initialMarginRate[0])
-  //   canOpenAvailable = positionCalculation > this.maxPosition[0] ? this.maxPosition[0]: positionCalculation
-  //   num = this.toFixed(this.accDiv(canOpenAvailable , latestPriceVal) ,3)
-  //   return num || 0
-  // }
-  // if(leverage <= 100 && leverage > 50) {
-  //   positionCalculation = this.accDiv(availableBalance , this.initialMarginRate[1])
-  //   canOpenAvailable = positionCalculation > this.maxPosition[1] ? this.maxPosition[1]: positionCalculation
-  //   num = this.toFixed(this.accDiv(canOpenAvailable , latestPriceVal) ,3)
-  //   return num || 0
-  // }
-  // if(leverage <= 50 && leverage > 20) {
-  //   positionCalculation = this.accDiv(availableBalance , this.initialMarginRate[2])
-  //   canOpenAvailable = positionCalculation > this.maxPosition[2] ? this.maxPosition[2]: positionCalculation
-  //   num = this.toFixed(this.accDiv(canOpenAvailable , latestPriceVal) ,3)
-  //   return num || 0
-  // }
-  // if(leverage <= 20 && leverage > 10) {
-  //   positionCalculation = this.accDiv(availableBalance , this.initialMarginRate[3])
-  //   canOpenAvailable = positionCalculation > this.maxPosition[3] ? this.maxPosition[3]: positionCalculation
-  //   num = this.toFixed(this.accDiv(canOpenAvailable , latestPriceVal) ,3)
-  //   return num || 0
-  // }
-  // if(leverage <= 10 && leverage > 5) {
-  //   positionCalculation = this.accDiv(availableBalance , this.initialMarginRate[4])
-  //   canOpenAvailable = positionCalculation > this.maxPosition[4] ? this.maxPosition[4]: positionCalculation
-  //   num = this.toFixed(this.accDiv(canOpenAvailable , latestPriceVal) ,3)
-  //   return num || 0
-  // }
-  // if(leverage == 5) {
-  //   positionCalculation = this.accDiv(availableBalance , this.initialMarginRate[5])
-  //   canOpenAvailable = positionCalculation > this.maxPosition[5] ? this.maxPosition[5]: positionCalculation
-  //   num = this.toFixed(this.accDiv(canOpenAvailable , latestPriceVal) ,3)
-  //   return num || 0
-  // }
-  // if(leverage == 4) {
-  //   positionCalculation = this.accDiv(availableBalance , this.initialMarginRate[6])
-  //   canOpenAvailable = positionCalculation > this.maxPosition[6] ? this.maxPosition[6]: positionCalculation
-  //   num = this.toFixed(this.accDiv(canOpenAvailable , latestPriceVal) ,3)
-  //   return num || 0
-  // }
-  // if(leverage == 3) {
-  //   positionCalculation = this.accDiv(availableBalance , this.initialMarginRate[7])
-  //   canOpenAvailable = positionCalculation > this.maxPosition[7] ? this.maxPosition[7]: positionCalculation
-  //   num = this.toFixed(this.accDiv(canOpenAvailable , latestPriceVal) ,3)
-  //   return num || 0
-  // }
-  // if(leverage == 2) {
-  //   positionCalculation = this.accDiv(availableBalance , this.initialMarginRate[8])
-  //   canOpenAvailable = positionCalculation > this.maxPosition[8] ? this.maxPosition[8]: positionCalculation
-  //   num = this.toFixed(this.accDiv(canOpenAvailable , latestPriceVal) ,3)
-  //   return num || 0
-  // }
-  // if(leverage == 1) {
-  //   positionCalculation = this.accDiv(availableBalance , this.initialMarginRate[9])
-  //   canOpenAvailable = positionCalculation > this.maxPosition[9] ? this.maxPosition[9]: positionCalculation
-  //   num = this.toFixed(this.accDiv(canOpenAvailable , latestPriceVal) ,3)
-  //   return num || 0
-  // }
-  // let num = this.accDiv(Number(this.availableBalance) ,Number(this.latestPriceVal))
-  // return this.toFixed(this.accMul(num , this.$store.state.leverage),2)
 }
 
 //以下为保证金计算 ==============S
-root.computed.ask_notional = function () {
-  return this.orderType ? (this.assumingPrice * 1 * Number(this.amount || 0)) : 0
+
+////计算Sell的margin required时
+root.computed.sellMarginRequire = function () {
+  return this.orderType ? (this.costAssumingPrice * 1 * Number(this.amount || 0)) : 0
 }
-root.computed.bid_notional = function () {
-  return !this.orderType ? (this.assumingPrice * 1 * Number(this.amount || 0)) : 0
+//计算BUY的margin required时
+root.computed.buyMarginRequire = function () {
+  return this.orderType ?  0 : (this.costAssumingPrice * 1 * Number(this.amount || 0))
 }
 //有仓位 标记价格*数量 无仓位 0
 root.computed.positionNotionalValue = function () {
@@ -710,10 +844,10 @@ root.computed.leverage = function () {
 //新委托实际数量
 root.computed.newOrderActualAmount = function () {
   if (Number(this.totalAmount) >= 0) {
-    return !this.orderType ? Number(this.amount) : Math.max(0,Number(this.amount) - Number(this.totalAmount))
+    return this.orderType ? Math.max(0,Number(this.amount) - Math.abs(Number(this.totalAmount))) : Number(this.amount)
   }
   if (Number(this.totalAmount) < 0) {
-    return this.orderType ? Number(this.amount) : Math.max(0,Number(this.amount) + Number(this.totalAmount))
+    return this.orderType ? Number(this.amount) : Math.max(0,Number(this.amount) + Math.abs(Number(this.totalAmount)))
   }
 }
 //双向的assumingPrice===========
@@ -736,7 +870,7 @@ root.computed.securityDeposit = function () {
   if (this.positionModeFirst == 'singleWarehouseMode') {
     //下单所需保证金
     let presentNotional = Number(Math.max(Math.abs((this.positionNotionalValue + this.computedBuyNetValue), Math.abs(this.positionNotionalValue - this.computedSellNetValue))))
-    let totalAfterTrade = Number(Math.max(Math.abs(this.positionNotionalValue + this.computedBuyNetValue + this.bid_notional), Math.abs(this.positionNotionalValue - this.computedSellNetValue - this.ask_notional)))
+    let totalAfterTrade = Number(Math.max(Math.abs(this.positionNotionalValue + this.computedBuyNetValue + this.buyMarginRequire), Math.abs(this.positionNotionalValue - this.computedSellNetValue - this.sellMarginRequire)))
     let presentTotalInitialMargin = Number(presentNotional * this.leverage)
     let assumingTotalInitialMargin = Number(totalAfterTrade * this.leverage)
     let marginReuired = Number(Math.max(assumingTotalInitialMargin - presentTotalInitialMargin, 0))  //TODO: 结果
@@ -744,17 +878,16 @@ root.computed.securityDeposit = function () {
     let openLost
     //限价和限价止损单
     if (this.pendingOrderType == 'limitPrice'||this.pendingOrderType == 'limitProfitStopLoss') {
-      openLost = Number(this.newOrderActualAmount * 1 * Math.abs(Math.min(0, (this.orderType ? -1 : 1) * (Number(this.markPrice) - Number(this.amount)))))
+      openLost = Number(this.newOrderActualAmount * 1 * Math.abs(Math.min(0, (this.orderType ? -1 : 1) * (Number(this.markPrice) - Number(this.price)))))
     }
     //市价和市价止损单
     if (this.pendingOrderType== 'marketPrice'||this.pendingOrderType == 'marketPriceProfitStopLoss') {
-      openLost = Number(this.newOrderActualAmount * 1 * Math.abs(Math.min(0, (this.orderType ? -1 : 1) * (Number(this.markPrice) - Number(this.assumingPrice)))))
+      openLost = Number(this.newOrderActualAmount * 1 * Math.abs(Math.min(0, (this.orderType ? -1 : 1) * (Number(this.markPrice) - Number(this.costAssumingPrice)))))
     }
 
     //开仓成本
     let cost = Number(marginReuired + openLost)
 
-    // console.info('this is cost ==========',cost)
     return this.toFixed(cost,2)
 
   }
@@ -781,52 +914,6 @@ root.computed.securityDeposit = function () {
 
 
 
-
-
-
-  // let position = this.accMul(Number(this.markPrice) , Number(this.amount))
-  // if(this.$store.state.leverage > 100 && this.$store.state.leverage <= 125){
-  //   securityDeposit = this.toFixed(position * this.initialMarginRate[0],2)
-  //   return securityDeposit
-  // }
-  // if(this.$store.state.leverage > 50 && this.$store.state.leverage <= 100){
-  //   securityDeposit = this.toFixed(position * this.initialMarginRate[1],2)
-  //   return securityDeposit
-  // }
-  // if(this.$store.state.leverage > 20 && this.$store.state.leverage <= 50){
-  //   securityDeposit = this.toFixed(position * this.initialMarginRate[2],2)
-  //   return securityDeposit
-  // }
-  // if(this.$store.state.leverage > 10 && this.$store.state.leverage <= 20){
-  //   securityDeposit = this.toFixed(position * this.initialMarginRate[3],2)
-  //   return securityDeposit
-  // }
-  // if(this.$store.state.leverage > 5 && this.$store.state.leverage <= 10){
-  //   securityDeposit = this.toFixed(position * this.initialMarginRate[4],2)
-  //   return securityDeposit
-  // }
-  // if(this.$store.state.leverage == 5){
-  //   securityDeposit = this.toFixed(position * this.initialMarginRate[5],2)
-  //   return securityDeposit
-  // }
-  // if(this.$store.state.leverage == 4){
-  //   securityDeposit = this.toFixed(position * this.initialMarginRate[6],2)
-  //   return securityDeposit
-  // }
-  // if(this.$store.state.leverage == 3){
-  //   securityDeposit = this.toFixed(position * this.initialMarginRate[7],2)
-  //   return securityDeposit
-  // }
-  // if(this.$store.state.leverage == 2){
-  //   securityDeposit = this.toFixed(position * this.initialMarginRate[8],2)
-  //   return securityDeposit
-  // }
-  // if(this.$store.state.leverage == 1){
-  //   securityDeposit = this.toFixed(position * this.initialMarginRate[9],2)
-  //   return securityDeposit
-  // }
-  // return this.toFixed(Number(price * amount) / this.$store.state.leverage,2)
-  // console.info('Number(this.markPrice)',Number(this.markPrice),'Number(amount)',Number(amount),'this.initialMarginRate[0]',this.initialMarginRate[0],'securityDeposit',securityDeposit)
 }
 //以下为保证金计算 ==============E
 
@@ -887,16 +974,12 @@ root.computed.positionModeConfigs = function () {
 root.computed.getTriggerPrice = function () {
   return this.triggerPrice;
 }
-root.watch.getTriggerPrice = function () {
-  this.get_now_price();
-}
+
 // 观察价格的变化，然后折合人民币或者美金
 root.computed.get_price = function () {
   return this.price;
 }
-root.watch.get_price = function () {
-  this.get_now_price();
-}
+
 root.computed.get_lang = function () {
   return this.$store.state.lang;
 }
@@ -1057,24 +1140,8 @@ root.mounted = function () {
   this.dragWidth = $('.dragbox').width();
 }
 
-/*----------------------------- 监测属性 ------------------------------*/
 
-root.watch.value = function (newValue, oldValue) {
-  if (newValue == oldValue) return;
-  // console.log(newValue)
-  this.computedValue()
-  this.sectionSelect(newValue/100);
-}
-root.watch.pendingOrderType = function (newValue, oldValue) {
-  this.triggerPrice = ''
-  this.value = 0
-  this.amount = ''
-}
-// 监听选择的是 最新价格 还是 标记价格
-root.watch.latestPrice =function (newValue, oldValue) {
-  if(newValue == oldValue) return
-  console.info(newValue)
-}
+/*----------------------------- 监测属性 ------------------------------*/
 
 /*----------------------------- 方法 ------------------------------*/
 //设置仓位数量
