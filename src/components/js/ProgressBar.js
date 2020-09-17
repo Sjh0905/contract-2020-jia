@@ -104,6 +104,148 @@ root.props.currentLength = {
   type: Number,
   default: 0
 }
+
+
+/*----------------------------- 组件 ------------------------------*/
+
+root.components = {
+  'PopupPrompt': resolve => require(['../vue/PopupPrompt'], resolve),
+  'PopupWindow': resolve => require(['../vue/PopupWindow'], resolve),
+  'PositionModeBulletBox': resolve => require(['../vue/PositionModeBulletBox'], resolve),
+  'CalculatorBommbBox': resolve => require(['../vue/CalculatorBommbBox'], resolve),
+}
+
+/*----------------------------- data ------------------------------*/
+
+root.data = function () {
+  return {
+    triggerPrice:'', // 触发价格
+    price: this.latestPriceVal,
+    priceNow: '0',
+    amount: '',
+    currentSymbol: {
+      balance: '--',
+      balance_order: '--'
+    },
+    amountScale: 3,
+    inputColor: false,
+
+    // 信息提示
+    popType: 0,
+    popText: '',
+    promptOpen: false,
+
+    // 可用货币数
+    available: '- -',
+
+    // 输入位数
+    baseScale: 0,
+    quoteScale: 0,
+
+    currency: '',
+
+    // DB市场的汇率 是用BDB/ETH的汇率 * BDB/ETH的时价算出来的
+    bdb_rate: 0,
+
+    // 每次切换价格时候，折合多少人民币或者美元
+    changeTriggerPrice: 0,
+    change_price: 0,
+
+    popWindowOpen: false, // 弹窗开放
+    // popWindowOpen1: false, // 弹窗开放
+
+    // 当前币对是否可交易
+    symbol_transaction: true,
+
+    symbol_transaction_diy: true,
+
+    // 点击效果
+    btn_click: false,
+
+    //进度条
+    pos: {},
+    startX: null,
+    locked: false,
+    distance: 0, //当前位置
+    endDistance: 0, //上次操作结束位置
+    transTime: .3, //点击拖动动画
+    dragWidth: 0, //进度条宽度
+
+    startNum: 0,
+    endNum: 100,
+    nowNum: 0,
+    bgjcolor25: true,
+    bgjcolor50: true,
+    bgjcolor75: true,
+    dangqzsh: false,
+
+    // element 数据
+    value:0,
+    marks: {
+      0: '',
+      25: '',
+      50: '',
+      75:'',
+      100:''
+    },
+
+    KKPriceRange:[],
+    // 弹框提示信息
+    priceCont:'',
+    // 弹框打开/关闭
+    popWindowOpen1:false,
+    // 初始保证金率
+    initialMarginRate :[0.008, 0.01, 0.02, 0.05, 0.1, 0.2, 0.25, 0.333, 0.5, 1],
+    maxPosition : [50000,250000,1000000,5000000,20000000,50000000,100000000,200000000],
+    //  买卖限流
+    currentLimiting:false,
+    buyNetValue:0, // 买单净值
+    sellNetValue:0, // 卖单净值
+
+    totalAmount:0, //仓位总数量
+    // openOrdersBuyTotal:0, //订单总数量
+    // openOrdersSellTotal:0, //订单总数量
+  }
+}
+
+
+
+
+/*----------------------------- 生命周期 ------------------------------*/
+
+root.created = function () {
+  // 左侧price变化时更改当前price
+  this.$eventBus.listen(this, 'SET_PRICE', this.RE_SET_PRICE);
+  //  根据买卖设置买卖amount，买对应卖，卖对应买
+  this.$eventBus.listen(this, 'SET_AMOUNT', this.RE_SET_AMOUNT);
+  this.$eventBus.listen(this, 'GET_GRC_PRICE_RANGE', this.getKKPriceRange);
+  //监听仓位总数量
+  this.$eventBus.listen(this, 'POSITION_TOTAL_AMOUNT', this.setTotalAmount);
+  // //监听订单做多总数量
+  // this.$eventBus.listen(this, 'OPEN_ORDERS_TOTAL_BUY', this.setOpenOrdersBuyAmt);
+  // //监听订单做空总数量
+  // this.$eventBus.listen(this, 'OPEN_ORDERS_TOTAL_SELL', this.setOpenOrdersSellAmt);
+
+  // 获取精度
+  this.getScaleConfig();
+
+  this.show_now_price();
+
+  this.getKKPriceRange();
+  // this.tradeMarket()
+  // this.postOrdersPosition()
+  // this.postOrdersCreate()
+  this.initSocket()
+  this.chainCal = this.$globalFunc.chainCal
+}
+
+
+root.mounted = function () {
+  this.dragWidth = $('.dragbox').width();
+  // console.log(this.dragWidth)
+}
+
+
 /*----------------------------- 观察 ------------------------------*/
 // 监听时价
 root.watch.latestPriceVal = function (newVal,oldVal) {
@@ -129,6 +271,50 @@ root.watch.symbol = function () {
 root.watch.watchCurrency = function () {
   this.changeAvailableData()
 }
+root.watch.getTriggerPrice = function () {
+  this.get_now_price();
+}
+root.watch.get_price = function () {
+  this.get_now_price();
+}
+root.watch.get_lang = function () {
+  this.get_now_price();
+}
+
+// 监听时价变化
+root.watch.depth_price = function (newValue, oldValue) {
+  // this.price = this.$globalFunc.accFixed(newValue, this.quoteScale);
+}
+
+// 监听BDB/ETH的实时价格
+root.watch.topic_price = function (newValue, oldValue) {
+  // bdb_rate
+  let self = this;
+  for (let key in newValue) {
+    if (key == 'BDB_ETH') {
+      self.bdb_rate = newValue[key][4];
+    }
+  }
+}
+
+
+root.watch.value = function (newValue, oldValue) {
+  if (newValue == oldValue) return;
+  // console.log(newValue)
+  this.computedValue()
+  this.sectionSelect(newValue/100);
+}
+root.watch.pendingOrderType = function (newValue, oldValue) {
+  this.triggerPrice = ''
+  this.value = 0
+  this.amount = ''
+}
+// 监听选择的是 最新价格 还是 标记价格
+root.watch.latestPrice =function (newValue, oldValue) {
+  if(newValue == oldValue) return
+  console.info(newValue)
+}
+
 /*----------------------------- 计算 ------------------------------*/
 root.computed.sellDepthOrders = function () {
   // console.info('this.$store.state.orderBookTicker.askPrice',this.$store.state.orderBookTicker.askPrice)
@@ -836,194 +1022,17 @@ root.computed.positionModeConfigs = function () {
 root.computed.getTriggerPrice = function () {
   return this.triggerPrice;
 }
-root.watch.getTriggerPrice = function () {
-  this.get_now_price();
-}
+
 // 观察价格的变化，然后折合人民币或者美金
 root.computed.get_price = function () {
   return this.price;
 }
-root.watch.get_price = function () {
-  this.get_now_price();
-}
+
 root.computed.get_lang = function () {
   return this.$store.state.lang;
 }
 
-root.watch.get_lang = function () {
-  this.get_now_price();
-}
-
-// 监听时价变化
-root.watch.depth_price = function (newValue, oldValue) {
-  // this.price = this.$globalFunc.accFixed(newValue, this.quoteScale);
-}
-
-// 监听BDB/ETH的实时价格
-root.watch.topic_price = function (newValue, oldValue) {
-  // bdb_rate
-  let self = this;
-  for (let key in newValue) {
-    if (key == 'BDB_ETH') {
-      self.bdb_rate = newValue[key][4];
-    }
-  }
-}
-
-
-
-/*----------------------------- 组件 ------------------------------*/
-
-root.components = {
-  'PopupPrompt': resolve => require(['../vue/PopupPrompt'], resolve),
-  'PopupWindow': resolve => require(['../vue/PopupWindow'], resolve),
-  'PositionModeBulletBox': resolve => require(['../vue/PositionModeBulletBox'], resolve),
-  'CalculatorBommbBox': resolve => require(['../vue/CalculatorBommbBox'], resolve),
-}
-
-/*----------------------------- data ------------------------------*/
-
-root.data = function () {
-  return {
-    triggerPrice:'', // 触发价格
-    price: this.latestPriceVal,
-    priceNow: '0',
-    amount: '',
-    currentSymbol: {
-      balance: '--',
-      balance_order: '--'
-    },
-    amountScale: 3,
-    inputColor: false,
-
-    // 信息提示
-    popType: 0,
-    popText: '',
-    promptOpen: false,
-
-    // 可用货币数
-    available: '- -',
-
-    // 输入位数
-    baseScale: 0,
-    quoteScale: 0,
-
-    currency: '',
-
-    // DB市场的汇率 是用BDB/ETH的汇率 * BDB/ETH的时价算出来的
-    bdb_rate: 0,
-
-    // 每次切换价格时候，折合多少人民币或者美元
-    changeTriggerPrice: 0,
-    change_price: 0,
-
-    popWindowOpen: false, // 弹窗开放
-    // popWindowOpen1: false, // 弹窗开放
-
-    // 当前币对是否可交易
-    symbol_transaction: true,
-
-    symbol_transaction_diy: true,
-
-    // 点击效果
-    btn_click: false,
-
-    //进度条
-    pos: {},
-    startX: null,
-    locked: false,
-    distance: 0, //当前位置
-    endDistance: 0, //上次操作结束位置
-    transTime: .3, //点击拖动动画
-    dragWidth: 0, //进度条宽度
-
-    startNum: 0,
-    endNum: 100,
-    nowNum: 0,
-    bgjcolor25: true,
-    bgjcolor50: true,
-    bgjcolor75: true,
-    dangqzsh: false,
-
-    // element 数据
-    value:0,
-    marks: {
-      0: '',
-      25: '',
-      50: '',
-      75:'',
-      100:''
-    },
-
-    KKPriceRange:[],
-    // 弹框提示信息
-    priceCont:'',
-    // 弹框打开/关闭
-    popWindowOpen1:false,
-    // 初始保证金率
-    initialMarginRate :[0.008, 0.01, 0.02, 0.05, 0.1, 0.2, 0.25, 0.333, 0.5, 1],
-    maxPosition : [50000,250000,1000000,5000000,20000000,50000000,100000000,200000000],
-  //  买卖限流
-    currentLimiting:false,
-    buyNetValue:0, // 买单净值
-    sellNetValue:0, // 卖单净值
-
-    totalAmount:0, //仓位总数量
-    // openOrdersBuyTotal:0, //订单总数量
-    // openOrdersSellTotal:0, //订单总数量
-  }
-}
-
-/*----------------------------- 生命周期 ------------------------------*/
-
-root.created = function () {
-  // 左侧price变化时更改当前price
-  this.$eventBus.listen(this, 'SET_PRICE', this.RE_SET_PRICE);
-  //  根据买卖设置买卖amount，买对应卖，卖对应买
-  this.$eventBus.listen(this, 'SET_AMOUNT', this.RE_SET_AMOUNT);
-  this.$eventBus.listen(this, 'GET_GRC_PRICE_RANGE', this.getKKPriceRange);
-  //监听仓位总数量
-  this.$eventBus.listen(this, 'POSITION_TOTAL_AMOUNT', this.setTotalAmount);
-  // //监听订单做多总数量
-  // this.$eventBus.listen(this, 'OPEN_ORDERS_TOTAL_BUY', this.setOpenOrdersBuyAmt);
-  // //监听订单做空总数量
-  // this.$eventBus.listen(this, 'OPEN_ORDERS_TOTAL_SELL', this.setOpenOrdersSellAmt);
-
-  // 获取精度
-  this.getScaleConfig();
-
-  this.show_now_price();
-
-  this.getKKPriceRange();
-  // this.tradeMarket()
-  // this.postOrdersPosition()
-  // this.postOrdersCreate()
-  this.initSocket()
-}
-
-root.mounted = function () {
-  this.dragWidth = $('.dragbox').width();
-  // console.log(this.dragWidth)
-}
-
 /*----------------------------- 监测属性 ------------------------------*/
-
-root.watch.value = function (newValue, oldValue) {
-  if (newValue == oldValue) return;
-  // console.log(newValue)
-  this.computedValue()
-  this.sectionSelect(newValue/100);
-}
-root.watch.pendingOrderType = function (newValue, oldValue) {
-  this.triggerPrice = ''
-  this.value = 0
-  this.amount = ''
-}
-// 监听选择的是 最新价格 还是 标记价格
-root.watch.latestPrice =function (newValue, oldValue) {
-  if(newValue == oldValue) return
-  console.info(newValue)
-}
 
 /*----------------------------- 方法 ------------------------------*/
 //设置仓位数量
