@@ -737,87 +737,10 @@ root.computed.canBeOpened = function () {
 
 
 
-  // if(this.reducePositionsSelected && this.positionModeFirst == 'singleWarehouseMode' && (this.pendingOrderType=='limitProfitStopLoss' || this.pendingOrderType=='marketPriceProfitStopLoss')) return 0
-  // if(Number(this.latestPriceVal) == 0) return
-  // let leverage = this.$store.state.leverage // 杠杆倍数
-  // let availableBalance = Number(this.availableBalance) // 钱包余额
-  // let latestPriceVal = Number(this.latestPriceVal) // 市价
-  // let positionCalculation = 0  // 头寸计算
-  // let canOpenAvailable = 0  //可开最大头寸
-  // let num = 0 // 可开数量
-  // // this.initialMarginRate :[0.008, 0.01, 0.02, 0.05, 0.1, 0.2, 0.25, 0.333, 0.5, 1],
-  // // this.maxPosition : [50000,250000,1000000,5000000,20000000,50000000,100000000,200000000],
-  // if(leverage <=125 && leverage>100) {
-  //   positionCalculation = this.accDiv(availableBalance , this.initialMarginRate[0])
-  //   canOpenAvailable = positionCalculation > this.maxPosition[0] ? this.maxPosition[0]: positionCalculation
-  //   num = this.toFixed(this.accDiv(canOpenAvailable , latestPriceVal) ,3)
-  //   return num || 0
-  // }
-  // if(leverage <= 100 && leverage > 50) {
-  //   positionCalculation = this.accDiv(availableBalance , this.initialMarginRate[1])
-  //   canOpenAvailable = positionCalculation > this.maxPosition[1] ? this.maxPosition[1]: positionCalculation
-  //   num = this.toFixed(this.accDiv(canOpenAvailable , latestPriceVal) ,3)
-  //   return num || 0
-  // }
-  // if(leverage <= 50 && leverage > 20) {
-  //   positionCalculation = this.accDiv(availableBalance , this.initialMarginRate[2])
-  //   canOpenAvailable = positionCalculation > this.maxPosition[2] ? this.maxPosition[2]: positionCalculation
-  //   num = this.toFixed(this.accDiv(canOpenAvailable , latestPriceVal) ,3)
-  //   return num || 0
-  // }
-  // if(leverage <= 20 && leverage > 10) {
-  //   positionCalculation = this.accDiv(availableBalance , this.initialMarginRate[3])
-  //   canOpenAvailable = positionCalculation > this.maxPosition[3] ? this.maxPosition[3]: positionCalculation
-  //   num = this.toFixed(this.accDiv(canOpenAvailable , latestPriceVal) ,3)
-  //   return num || 0
-  // }
-  // if(leverage <= 10 && leverage > 5) {
-  //   positionCalculation = this.accDiv(availableBalance , this.initialMarginRate[4])
-  //   canOpenAvailable = positionCalculation > this.maxPosition[4] ? this.maxPosition[4]: positionCalculation
-  //   num = this.toFixed(this.accDiv(canOpenAvailable , latestPriceVal) ,3)
-  //   return num || 0
-  // }
-  // if(leverage == 5) {
-  //   positionCalculation = this.accDiv(availableBalance , this.initialMarginRate[5])
-  //   canOpenAvailable = positionCalculation > this.maxPosition[5] ? this.maxPosition[5]: positionCalculation
-  //   num = this.toFixed(this.accDiv(canOpenAvailable , latestPriceVal) ,3)
-  //   return num || 0
-  // }
-  // if(leverage == 4) {
-  //   positionCalculation = this.accDiv(availableBalance , this.initialMarginRate[6])
-  //   canOpenAvailable = positionCalculation > this.maxPosition[6] ? this.maxPosition[6]: positionCalculation
-  //   num = this.toFixed(this.accDiv(canOpenAvailable , latestPriceVal) ,3)
-  //   return num || 0
-  // }
-  // if(leverage == 3) {
-  //   positionCalculation = this.accDiv(availableBalance , this.initialMarginRate[7])
-  //   canOpenAvailable = positionCalculation > this.maxPosition[7] ? this.maxPosition[7]: positionCalculation
-  //   num = this.toFixed(this.accDiv(canOpenAvailable , latestPriceVal) ,3)
-  //   return num || 0
-  // }
-  // if(leverage == 2) {
-  //   positionCalculation = this.accDiv(availableBalance , this.initialMarginRate[8])
-  //   canOpenAvailable = positionCalculation > this.maxPosition[8] ? this.maxPosition[8]: positionCalculation
-  //   num = this.toFixed(this.accDiv(canOpenAvailable , latestPriceVal) ,3)
-  //   return num || 0
-  // }
-  // if(leverage == 1) {
-  //   positionCalculation = this.accDiv(availableBalance , this.initialMarginRate[9])
-  //   canOpenAvailable = positionCalculation > this.maxPosition[9] ? this.maxPosition[9]: positionCalculation
-  //   num = this.toFixed(this.accDiv(canOpenAvailable , latestPriceVal) ,3)
-  //   return num || 0
-  // }
-  // let num = this.accDiv(Number(this.availableBalance) ,Number(this.latestPriceVal))
-  // return this.toFixed(this.accMul(num , this.$store.state.leverage),2)
 }
 
 //以下为保证金计算 ==============S
-// root.computed.sellMarginRequire = function () {
-//   return this.orderType ? (this.assumingPrice * 1 * Number(this.amount || 0)) : 0
-// }
-// root.computed.buyMarginRequire = function () {
-//   return !this.orderType ? (this.assumingPrice * 1 * Number(this.amount || 0)) : 0
-// }
+
 ////计算Sell的margin required时
 root.computed.sellMarginRequire = function () {
   return this.orderType ? (this.costAssumingPrice * 1 * Number(this.amount || 0)) : 0
@@ -874,11 +797,6 @@ root.computed.securityDeposit = function () {
     //限价和限价止损单
     if (this.pendingOrderType == 'limitPrice'||this.pendingOrderType == 'limitProfitStopLoss') {
       openLost = Number(this.newOrderActualAmount * 1 * Math.abs(Math.min(0, (this.orderType ? -1 : 1) * (Number(this.markPrice) - Number(this.price)))))
-      // console.info('this is this.newOrderActualAmount ==========',this.orderType? this.newOrderActualAmount:'买')
-      // console.info('this is this.markPrice ==========',this.orderType? this.markPrice:'买')
-      // console.info('this is this.amount ==========',this.orderType? this.amount:'买')
-      // console.info('this is marginReuired ==========',this.orderType? marginReuired:'买')
-      // console.info('this is openLost ==========',this.orderType? openLost:'买')
     }
     //市价和市价止损单
     if (this.pendingOrderType== 'marketPrice'||this.pendingOrderType == 'marketPriceProfitStopLoss') {
@@ -916,52 +834,6 @@ root.computed.securityDeposit = function () {
 
 
 
-
-
-
-  // let position = this.accMul(Number(this.markPrice) , Number(this.amount))
-  // if(this.$store.state.leverage > 100 && this.$store.state.leverage <= 125){
-  //   securityDeposit = this.toFixed(position * this.initialMarginRate[0],2)
-  //   return securityDeposit
-  // }
-  // if(this.$store.state.leverage > 50 && this.$store.state.leverage <= 100){
-  //   securityDeposit = this.toFixed(position * this.initialMarginRate[1],2)
-  //   return securityDeposit
-  // }
-  // if(this.$store.state.leverage > 20 && this.$store.state.leverage <= 50){
-  //   securityDeposit = this.toFixed(position * this.initialMarginRate[2],2)
-  //   return securityDeposit
-  // }
-  // if(this.$store.state.leverage > 10 && this.$store.state.leverage <= 20){
-  //   securityDeposit = this.toFixed(position * this.initialMarginRate[3],2)
-  //   return securityDeposit
-  // }
-  // if(this.$store.state.leverage > 5 && this.$store.state.leverage <= 10){
-  //   securityDeposit = this.toFixed(position * this.initialMarginRate[4],2)
-  //   return securityDeposit
-  // }
-  // if(this.$store.state.leverage == 5){
-  //   securityDeposit = this.toFixed(position * this.initialMarginRate[5],2)
-  //   return securityDeposit
-  // }
-  // if(this.$store.state.leverage == 4){
-  //   securityDeposit = this.toFixed(position * this.initialMarginRate[6],2)
-  //   return securityDeposit
-  // }
-  // if(this.$store.state.leverage == 3){
-  //   securityDeposit = this.toFixed(position * this.initialMarginRate[7],2)
-  //   return securityDeposit
-  // }
-  // if(this.$store.state.leverage == 2){
-  //   securityDeposit = this.toFixed(position * this.initialMarginRate[8],2)
-  //   return securityDeposit
-  // }
-  // if(this.$store.state.leverage == 1){
-  //   securityDeposit = this.toFixed(position * this.initialMarginRate[9],2)
-  //   return securityDeposit
-  // }
-  // return this.toFixed(Number(price * amount) / this.$store.state.leverage,2)
-  // console.info('Number(this.markPrice)',Number(this.markPrice),'Number(amount)',Number(amount),'this.initialMarginRate[0]',this.initialMarginRate[0],'securityDeposit',securityDeposit)
 }
 //以下为保证金计算 ==============E
 
