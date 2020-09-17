@@ -460,7 +460,11 @@ GlobalFunction.chainCal = function () {
   chainFactory.accDiv = function (...paras) {
 
     let [num1,num2] = this.getParas(paras)
-    this.result = self.accDiv(num1, num2 || 1)//由于num2是除数，容错值是1
+    if(!Number(num2)){
+      num2 = 1;//由于num2是除数，容错值是1
+      console.error('you have entered an illegal divisor!');
+    }
+    this.result = self.accDiv(num1, num2)
     return this;
   }
 
