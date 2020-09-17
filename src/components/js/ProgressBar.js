@@ -247,6 +247,19 @@ root.computed.assumingPrice = function () {
     return Number(assumingPrc) || 0
   }
 }
+// 保证金assumingPrice
+root.computed.costAssumingPrice = function () {
+  let assumingPrc = 0
+  if(this.pendingOrderType== 'limitPrice'||this.pendingOrderType == 'limitProfitStopLoss'){
+    // console.info('this.buyDepthOrders',this.buyDepthOrders)
+    assumingPrc = this.orderType ? Math.max(this.buyDepthOrders,Number(this.markPrice),this.price) : this.price
+    return Number(assumingPrc) || 0
+  }
+  if(this.pendingOrderType== 'marketPrice'||this.pendingOrderType == 'marketPriceProfitStopLoss'){
+    assumingPrc = this.orderType ? Math.max(this.buyDepthOrders,Number(this.markPrice)) : this.sellDepthOrders * (1+0.0005)
+    return Number(assumingPrc) || 0
+  }
+}
 root.computed.canMore = function () {
   // console.info('this.bidPrice===',this.buyDepthOrders,'this.askPrice===',this.sellDepthOrders)
   // console.info('this.computedBuyNetValue',this.computedBuyNetValue,'this.computedSellNetValue===',this.computedSellNetValue)
@@ -613,11 +626,19 @@ root.computed.canBeOpened = function () {
 }
 
 //以下为保证金计算 ==============S
-root.computed.ask_notional = function () {
-  return this.orderType ? (this.assumingPrice * 1 * Number(this.amount || 0)) : 0
+// root.computed.sellMarginRequire = function () {
+//   return this.orderType ? (this.assumingPrice * 1 * Number(this.amount || 0)) : 0
+// }
+// root.computed.buyMarginRequire = function () {
+//   return !this.orderType ? (this.assumingPrice * 1 * Number(this.amount || 0)) : 0
+// }
+////计算Sell的margin required时
+root.computed.sellMarginRequire = function () {
+  return this.orderType ? (this.costAssumingPrice * 1 * Number(this.amount || 0)) : 0
 }
-root.computed.bid_notional = function () {
-  return !this.orderType ? (this.assumingPrice * 1 * Number(this.amount || 0)) : 0
+//计算BUY的margin required时
+root.computed.buyMarginRequire = function () {
+  return this.orderType ?  0 : (this.costAssumingPrice * 1 * Number(this.amount || 0))
 }
 //有仓位 标记价格*数量 无仓位 0
 root.computed.positionNotionalValue = function () {
@@ -632,10 +653,10 @@ root.computed.leverage = function () {
 //新委托实际数量
 root.computed.newOrderActualAmount = function () {
   if (Number(this.totalAmount) >= 0) {
-    return !this.orderType ? Number(this.amount) : Math.max(0,Number(this.amount) - Number(this.totalAmount))
+    return this.orderType ? Math.max(0,Number(this.amount) - Math.abs(Number(this.totalAmount))) : Number(this.amount)
   }
   if (Number(this.totalAmount) < 0) {
-    return this.orderType ? Number(this.amount) : Math.max(0,Number(this.amount) + Number(this.totalAmount))
+    return this.orderType ? Number(this.amount) : Math.max(0,Number(this.amount) + Math.abs(Number(this.totalAmount)))
   }
 }
 //双向的assumingPrice===========
@@ -658,7 +679,7 @@ root.computed.securityDeposit = function () {
   if (this.positionModeFirst == 'singleWarehouseMode') {
     //下单所需保证金
     let presentNotional = Number(Math.max(Math.abs((this.positionNotionalValue + this.computedBuyNetValue), Math.abs(this.positionNotionalValue - this.computedSellNetValue))))
-    let totalAfterTrade = Number(Math.max(Math.abs(this.positionNotionalValue + this.computedBuyNetValue + this.bid_notional), Math.abs(this.positionNotionalValue - this.computedSellNetValue - this.ask_notional)))
+    let totalAfterTrade = Number(Math.max(Math.abs(this.positionNotionalValue + this.computedBuyNetValue + this.buyMarginRequire), Math.abs(this.positionNotionalValue - this.computedSellNetValue - this.sellMarginRequire)))
     let presentTotalInitialMargin = Number(presentNotional * this.leverage)
     let assumingTotalInitialMargin = Number(totalAfterTrade * this.leverage)
     let marginReuired = Number(Math.max(assumingTotalInitialMargin - presentTotalInitialMargin, 0))  //TODO: 结果
@@ -666,17 +687,23 @@ root.computed.securityDeposit = function () {
     let openLost
     //限价和限价止损单
     if (this.pendingOrderType == 'limitPrice'||this.pendingOrderType == 'limitProfitStopLoss') {
-      openLost = Number(this.newOrderActualAmount * 1 * Math.abs(Math.min(0, (this.orderType ? -1 : 1) * (Number(this.markPrice) - Number(this.amount)))))
+      openLost = Number(this.newOrderActualAmount * 1 * Math.abs(Math.min(0, (this.orderType ? -1 : 1) * (Number(this.markPrice) - Number(this.price)))))
+      // console.info('this is this.newOrderActualAmount ==========',this.orderType? this.newOrderActualAmount:'买')
+      // console.info('this is this.markPrice ==========',this.orderType? this.markPrice:'买')
+      // console.info('this is this.amount ==========',this.orderType? this.amount:'买')
+      // console.info('this is marginReuired ==========',this.orderType? marginReuired:'买')
+      // console.info('this is openLost ==========',this.orderType? openLost:'买')
     }
     //市价和市价止损单
     if (this.pendingOrderType== 'marketPrice'||this.pendingOrderType == 'marketPriceProfitStopLoss') {
-      openLost = Number(this.newOrderActualAmount * 1 * Math.abs(Math.min(0, (this.orderType ? -1 : 1) * (Number(this.markPrice) - Number(this.assumingPrice)))))
+      openLost = Number(this.newOrderActualAmount * 1 * Math.abs(Math.min(0, (this.orderType ? -1 : 1) * (Number(this.markPrice) - Number(this.costAssumingPrice)))))
     }
 
     //开仓成本
     let cost = Number(marginReuired + openLost)
 
-    console.info('this is cost ==========',cost)
+    // console.info('this is cost ==========',this.orderType? cost:'买')
+
     return this.toFixed(cost,2)
 
   }
