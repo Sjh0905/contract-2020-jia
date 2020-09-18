@@ -234,6 +234,7 @@ root.methods.calculateTargePrice = function () {
     this.targetPrice = '--'
     return
   }
+  if(this.maxPosition < this.accMul(Number(this.openingPrice), Number(this.transactionQuantity))) return
   // 目标价格开仓价格
   let targetOpeningPrice = Number(this.targetOpeningPrice) || 0
   // 目标价格回报率

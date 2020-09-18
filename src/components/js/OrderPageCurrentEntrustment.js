@@ -240,24 +240,25 @@ root.methods.clickToCancel = function (order) {
 //   this.cancelConfirm = false
 // }
 // // 2秒后方可点击撤单
-// root.methods.initInterval = function () {
-//   // console.warn('!!!')
-//   this.waitForCancelInterval && clearInterval(this.waitForCancelInterval)
-//   this.waitForCancelTime = 2
-//   this.waitForCancel = true
-//   this.waitForCancelInterval = setInterval(() => {
-//     this.waitForCancelTime--
-//     if (this.waitForCancelTime <= 0) {
-//       this.waitForCancel = false
-//       this.waitForCancelTime = 2
-//       this.waitForCancelInterval && clearInterval(this.waitForCancelInterval)
-//     }
-//   }, 1000)
-// }
+root.methods.initInterval = function () {
+  // console.warn('!!!')
+  this.waitForCancelInterval && clearInterval(this.waitForCancelInterval)
+  this.waitForCancelTime = 2
+  this.waitForCancel = true
+  this.waitForCancelInterval = setInterval(() => {
+    this.waitForCancelTime--
+    if (this.waitForCancelTime <= 0) {
+      this.waitForCancel = false
+      this.waitForCancelTime = 2
+      this.waitForCancelInterval && clearInterval(this.waitForCancelInterval)
+    }
+  }, 1000)
+}
 
 // 撤单
 root.methods.cancelOrder = async function (order, cancelAll = false) {
   this.clickOrder.add(order.orderId)
+  console.info('order===',order)
   order.click = true
   let params = {
     orderId: order.orderId,
@@ -279,9 +280,15 @@ root.methods.cancelOrder = async function (order, cancelAll = false) {
 }
 // 返回
 root.methods.re_cancelOrder = function (data) {
+  typeof(data) == 'string' && (data = JSON.parse(data));
+  if(data.data.code == 200){
+    this.getOrder()
+    this.$eventBus.notify({key:'GET_BALANCE'})
+    return
+  }
+
   // this.$eventBus.notify({key: 'CANCEL_ORDER'})
 
-  this.getOrder()
 }
 root.methods.error_cancelOrder = function (err) {
   console.warn("撤单错误！", err)

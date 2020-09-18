@@ -175,7 +175,8 @@ root.data = function () {
     maximumPosition : ['50,000','250,000','100,0000','5,000,000','20,000,000','50,000,000','100,000,000','200,000,000'],
     positionAmtLong:0,
     positionAmtShort:0,
-    popTextLeverage:''
+    popTextLeverage:'',
+    availableBalance:0
   }
 }
 
@@ -192,7 +193,7 @@ root.created = function () {
   this.getOrder()
   this.$eventBus.listen(this, 'GET_ORDERS', this.getOrder)
   this.$eventBus.listen(this, 'GET_POSITION', this.positionRisk)
-
+  this.$eventBus.listen(this,'GET_BALANCE',this.getBalance)
   this.watchScreenWidth();
   // 获取兑换汇率
   this.getCny();
@@ -223,7 +224,8 @@ root.created = function () {
   this.positionRisk()  // 获取全逐仓状态
   this.getPositionsideDual() // 获取仓位模式
   this.isFirstVisit()
-  // this.getBalance()
+  this.getBalance()
+
 }
 
 root.mounted = function () {
@@ -413,9 +415,6 @@ root.computed.positionModeConfigs = function () {
   // console.log(data);
   return data
 }
-root.computed.availableBalance = function () {
-  return Number(this.$store.state.assets.walletBalance) || 0
-}
 root.computed.serverTime = function () {
   return new Date().getTime();
 }
@@ -456,24 +455,24 @@ root.methods = {}
 // }
 /*---------------------- 合约接口部分 begin ---------------------*/
 
-// // 获取用户可用余额
-// root.methods.getBalance = function () {
-//   this.$http.send('GET_BALAN_ACCOUNT',{
-//     bind: this,
-//     callBack: this.re_getBalance,
-//     errorHandler:this.error_getBalance
-//   })
-// }
-// // 获取用户可用余额正确回调
-// root.methods.re_getBalance = function (data) {
-//   typeof(data) == 'string' && (data = JSON.parse(data));
-//   if(!data || !data.data || !data.data[0])return
-//   this.availableBalance  = data.data[0].availableBalance || 0
-// }
-// // 获取用户可用余额错误回调
-// root.methods.error_getBalance = function (err) {
-//   console.log('获取用户可用余额',err)
-// }
+// 获取用户可用余额
+root.methods.getBalance = function () {
+  this.$http.send('GET_BALAN_ACCOUNT',{
+    bind: this,
+    callBack: this.re_getBalance,
+    errorHandler:this.error_getBalance
+  })
+}
+// 获取用户可用余额正确回调
+root.methods.re_getBalance = function (data) {
+  typeof(data) == 'string' && (data = JSON.parse(data));
+  if(!data || !data.data || !data.data[0])return
+  this.availableBalance  = data.data[0].availableBalance || 0
+}
+// 获取用户可用余额错误回调
+root.methods.error_getBalance = function (err) {
+  console.log('获取用户可用余额',err)
+}
 
 // 获取币安24小时价格变动接口
 root.methods.initTicket24Hr = function () {
