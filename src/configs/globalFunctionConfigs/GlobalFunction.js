@@ -376,8 +376,8 @@ GlobalFunction.testFixed = function (num, acc = 8) {
  * 使用big.js
  */
 GlobalFunction.accAdd = function (arg1, arg2) {
-  let num1 = new Big(arg1)
-  let num2 = new Big(arg2)
+  let num1 = new Big(arg1 || 0)
+  let num2 = new Big(arg2 || 0)
   return num1.plus(num2).toString()
 }
 
@@ -386,8 +386,8 @@ GlobalFunction.accAdd = function (arg1, arg2) {
  * 使用big.js
  */
 GlobalFunction.accMinus = function (arg1, arg2) {
-  let num1 = new Big(arg1)
-  let num2 = new Big(arg2)
+  let num1 = new Big(arg1 || 0)
+  let num2 = new Big(arg2 || 0)
   return num1.minus(num2).toString()
 }
 
@@ -408,9 +408,83 @@ GlobalFunction.accDiv = function (arg1, arg2) {
  * 使用big.js
  */
 GlobalFunction.accMul = function (arg1, arg2) {
-  let num1 = new Big(arg1)
-  let num2 = new Big(arg2)
+  let num1 = new Big(arg1 || 0)
+  let num2 = new Big(arg2 || 0)
   return num1.mul(num2).toString()
+}
+
+/**
+ * 链式计算以及精度截取
+ * @returns {chainFactory}
+ * 使用demo如下:
+ * let chainCal = this.$globalFunc.chainCal
+ * let res1 = chainCal().accAdd(1200.999,200.009).accMinus(200).accMul(2).getResult();
+ * let res11 = chainCal().accAdd(1200.999,200.009).accMinus(200).accMul(2).proFixed(2).getResult();
+ * let res2 = chainCal().accMinus(1200,200).accMinus(200).accMul(2).getResult();
+ * let res3 = chainCal().accMul(120,2).accMinus(200).accMul(2).accDiv(10).getResult();
+ * let res4 = chainCal().accDiv(120,2).accMinus(20).accMul(6).accAdd(2).getResult();
+ */
+
+//2020-09-17 瓜哥神笔计算链式调用及精度截取
+GlobalFunction.chainCal = function () {
+
+  let self = GlobalFunction;
+  let chainFactory = function () {}
+
+  chainFactory.result = 0;//用于存储每步计算结果，如果不继续计算，取result的值即最后结果
+  chainFactory.getResult = function () {
+    return this.result || 0;
+  }
+  chainFactory.getParas = function (paras) {
+    if(paras.length == 2)return [paras[0] || 0,paras[1] || 0]
+    return [this.result || 0,paras[0] || 0];
+  }
+  chainFactory.accAdd = function (...paras) {
+
+    let [num1,num2] = this.getParas(paras)
+    this.result = self.accAdd(num1, num2)
+    return this;
+  }
+  chainFactory.accMinus = function (...paras) {
+
+    let [num1,num2] = this.getParas(paras)
+    this.result = self.accMinus(num1, num2)
+    return this;
+  }
+  chainFactory.accMul = function (...paras) {
+
+    let [num1,num2] = this.getParas(paras)
+    this.result = self.accMul(num1, num2)
+    return this;
+  }
+  chainFactory.accDiv = function (...paras) {
+
+    let [num1,num2] = this.getParas(paras)
+    if(!Number(num2)){
+      num2 = 1;//由于num2是除数，容错值是1
+      console.error('you have entered an illegal divisor!');
+    }
+    this.result = self.accDiv(num1, num2)
+    return this;
+  }
+
+  //精度处理不保留四舍五入，只舍弃，不进位，其实是向下取整，为负数时结果绝对值会加1
+  chainFactory.accFixed = function (acc = 8) {
+    this.result = self.accFixed(this.result, acc)
+    return this;
+  }
+  //新的Math Floor方法，可处理科学计数法
+  chainFactory.newFixed = function (acc = 8) {
+    this.result = self.newFixed(this.result, acc)
+    return this;
+  }
+  //Number.prototype.toFixed()，可四舍五入
+  chainFactory.proFixed = function (acc = 2) {
+    this.result = Number(this.result).toFixed(acc)
+    return this;
+  }
+
+  return chainFactory;
 }
 
 /**
@@ -516,6 +590,8 @@ GlobalFunction.getOrderSide = function (positionSide,side) {
 
   return orderSideMap[positionSide] && orderSideMap[positionSide][side] || ""
 }
+
+
 // // 格式化时间
 // root.methods.formatDateUitl = function (time) {
 //   return this.$globalFunc.formatDateUitl(time, 'YYYY-MM-DD hh:mm:ss')

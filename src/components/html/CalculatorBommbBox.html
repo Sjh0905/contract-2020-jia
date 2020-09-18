@@ -11,6 +11,7 @@
         <img src="../../assets/WhiteCancellation.png" alt="" v-if="closeBtnShow" class="vertical-middle close" @click="closeClick">
       </div>
       <div class="popWindow-article">
+        <!--收益-->
         <div class="pop-calculator flex" v-if="styleType == 1">
           <!--计算器左侧-->
           <div class="pop-calculator-left">
@@ -90,14 +91,14 @@
               <div class="pop-calculator-price">收益</div>
               <div class="pop-calculator-price"><span class="text_white">{{income}}</span> USDT</div>
             </div>
-            <!--收益-->
+            <!--回报率-->
             <div class="pop-calculator-right-content flex">
               <div class="pop-calculator-price">回报率</div>
               <div class="pop-calculator-price"><span class="text_white">{{returnRate}}</span> %</div>
             </div>
           </div>
         </div>
-
+        <!--目标价格-->
         <div class="pop-calculator flex" v-if="styleType == 2">
           <!--计算器左侧-->
           <div class="pop-calculator-left">

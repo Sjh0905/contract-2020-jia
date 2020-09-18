@@ -195,6 +195,20 @@ root.methods.initSocket = function () {
       }
     }
   )
+  // 获取仓位的数据
+  this.$socket.on({
+    key: 'ACCOUNT_UPDATE', bind: this, callBack: (message) => {
+      if(!message) return
+      let socketRecords = message.a.B[0] || {}
+
+      let socketAssets = {
+        walletBalance:socketRecords.wb || 0,
+        crossWalletBalance:socketRecords.cw || 0
+      }
+      console.info('socketAssets===',socketAssets)
+      this.$store.commit('CHANGE_ASSETS', socketAssets)
+    }
+  })
 }
 root.methods.dealWithListenKey = function () {
   if(!this.$store.state.listenKey){

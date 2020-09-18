@@ -426,7 +426,12 @@ root.methods.handleWithMarkPrice = function(records){
     v.responseRate = Number(v.responseRate).toFixed(2) + '%'
 
     // console.log('v.responseRate.toFixed',i,v.responseRate)
-    totalAmt += v.positionAmt
+    if(v.positionSide == 'BOTH') {
+      totalAmt += v.positionAmt
+    }
+    if(v.positionSide != 'BOTH'){
+      totalAmt += Math.abs(v.positionAmt)
+    }
     if(v.marginType == 'cross'){
       //全仓保证金：size * markprice * 1 / leverage，size = abs(positionAmt)
       v.securityDeposit = this.accDiv(notional,this.leverage)
