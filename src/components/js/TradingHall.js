@@ -1384,12 +1384,16 @@ root.methods.re_postLevelrage = function (data) {
     this.popTextLeverage = '超过当前杠杆的最大允许持仓量';
     return
   }
-
   typeof(data) == 'string' && (data = JSON.parse(data));
-  this.leverage = data.data.leverage || ''
-  this.maxNotionalValue = data.data.maxNotionalValue || ''
-  this.positionRisk()
-  this.popWindowCloseAdjustingLever()
+  this.promptOpen = true;
+  if (data.code == 200) {
+    this.leverage = data.data.leverage || ''
+    this.popType = 1;
+    this.popText = '调整杠杆成功';
+    this.maxNotionalValue = data.data.maxNotionalValue || ''
+    this.positionRisk()
+    this.popWindowCloseAdjustingLever()
+  }
 }
 
 // 关闭调整杠杆 Strat
