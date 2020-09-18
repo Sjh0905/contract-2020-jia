@@ -120,7 +120,7 @@ root.components = {
 root.data = function () {
   return {
     triggerPrice:'', // 触发价格
-    // price: this.latestPriceVal,
+    // price: '',
     priceNow: '0',
     amount: '',
     currentSymbol: {
@@ -208,9 +208,6 @@ root.data = function () {
   }
 }
 
-
-
-
 /*----------------------------- 生命周期 ------------------------------*/
 
 root.created = function () {
@@ -229,7 +226,7 @@ root.created = function () {
   // 获取精度
   this.getScaleConfig();
 
-  this.show_now_price();
+  // this.show_now_price();
 
   this.getKKPriceRange();
   // this.tradeMarket()
@@ -237,14 +234,12 @@ root.created = function () {
   // this.postOrdersCreate()
   this.initSocket()
   this.chainCal = this.$globalFunc.chainCal
-}
 
+}
 
 root.mounted = function () {
   this.dragWidth = $('.dragbox').width();
-  // console.log(this.dragWidth)
 }
-
 
 /*----------------------------- 观察 ------------------------------*/
 // // 监听时价
@@ -296,7 +291,6 @@ root.watch.topic_price = function (newValue, oldValue) {
     }
   }
 }
-
 
 root.watch.value = function (newValue, oldValue) {
   if (newValue == oldValue) return;
@@ -435,8 +429,6 @@ root.computed.assumingPrice = function () {
   }
 }
 
-
-
 // 保证金assumingPrice
 root.computed.costAssumingPrice = function () {
   let assumingPrc = 0
@@ -453,12 +445,12 @@ root.computed.costAssumingPrice = function () {
 
 // 单仓最多可开
 root.computed.canMore = function () {
+  this.price = this.latestPriceVal
   let crossWalletBalanceSing = Number(this.crossWalletBalance) // 全仓钱包余额
   // 向上取整IMR
   let leverage = Number(this.$globalFunc.accFixedCny(this.accDiv(1 , Number(this.$store.state.leverage) || 1),4))
   let availableBalance = this.$store.state.assets.availableBalance || 0
   let markPrice = Number(this.markPrice) || 0
-  // let markPrice = Number(this.markPrice) || 0
   let price = this.price || 0 // 输入框价格
   // let temp = this.orderType ? -1 : 1;
   // let priceStep = Math.abs(Math.min(0 , temp * (markPrice - price))) || 0  // TODO:简化后
@@ -698,6 +690,7 @@ root.computed.canMore = function () {
 
 // 双仓可开数量
 root.computed.canBeOpened = function () {
+  this.price = this.latestPriceVal
   // 向上取整IMR
   let leverage = Number(this.$globalFunc.accFixedCny(this.accDiv(1 , Number(this.$store.state.leverage) || 1),4))
   let availableBalance = this.$store.state.assets.availableBalance || 0
@@ -816,7 +809,6 @@ root.computed.canBeOpened = function () {
   //     return this.orderType ? sellCanOpen : buyCanOpen
   //   }
   // }
-
 }
 
 //以下为保证金计算 ==============S
@@ -1002,145 +994,6 @@ root.watch.topic_price = function (newValue, oldValue) {
   }
 }
 
-
-
-/*----------------------------- 组件 ------------------------------*/
-
-root.components = {
-  'PopupPrompt': resolve => require(['../vue/PopupPrompt'], resolve),
-  'PopupWindow': resolve => require(['../vue/PopupWindow'], resolve),
-  'PositionModeBulletBox': resolve => require(['../vue/PositionModeBulletBox'], resolve),
-  'CalculatorBommbBox': resolve => require(['../vue/CalculatorBommbBox'], resolve),
-}
-
-/*----------------------------- data ------------------------------*/
-
-root.data = function () {
-  return {
-    triggerPrice:'', // 触发价格
-    // price: '',
-    priceNow: '0',
-    amount: '',
-    currentSymbol: {
-      balance: '--',
-      balance_order: '--'
-    },
-    amountScale: 3,
-    inputColor: false,
-
-    // 信息提示
-    popType: 0,
-    popText: '',
-    promptOpen: false,
-
-    // 可用货币数
-    available: '- -',
-
-    // 输入位数
-    baseScale: 0,
-    quoteScale: 0,
-
-    currency: '',
-
-    // DB市场的汇率 是用BDB/ETH的汇率 * BDB/ETH的时价算出来的
-    bdb_rate: 0,
-
-    // 每次切换价格时候，折合多少人民币或者美元
-    changeTriggerPrice: 0,
-    change_price: 0,
-
-    popWindowOpen: false, // 弹窗开放
-    // popWindowOpen1: false, // 弹窗开放
-
-    // 当前币对是否可交易
-    symbol_transaction: true,
-
-    symbol_transaction_diy: true,
-
-    // 点击效果
-    btn_click: false,
-
-    //进度条
-    pos: {},
-    startX: null,
-    locked: false,
-    distance: 0, //当前位置
-    endDistance: 0, //上次操作结束位置
-    transTime: .3, //点击拖动动画
-    dragWidth: 0, //进度条宽度
-
-    startNum: 0,
-    endNum: 100,
-    nowNum: 0,
-    bgjcolor25: true,
-    bgjcolor50: true,
-    bgjcolor75: true,
-    dangqzsh: false,
-
-    // element 数据
-    value:0,
-    marks: {
-      0: '',
-      25: '',
-      50: '',
-      75:'',
-      100:''
-    },
-
-    KKPriceRange:[],
-    // 弹框提示信息
-    priceCont:'',
-    // 弹框打开/关闭
-    popWindowOpen1:false,
-    // 初始保证金率
-    initialMarginRate :[0.008, 0.01, 0.02, 0.05, 0.1, 0.2, 0.25, 0.333, 0.5, 1],
-    maxPosition : [50000,250000,1000000,5000000,20000000,50000000,100000000,200000000],
-  //  买卖限流
-    currentLimiting:false,
-    buyNetValue:0, // 买单净值
-    sellNetValue:0, // 卖单净值
-
-    totalAmount:0, //仓位总数量
-    // openOrdersBuyTotal:0, //订单总数量
-    // openOrdersSellTotal:0, //订单总数量
-  }
-}
-
-/*----------------------------- 生命周期 ------------------------------*/
-
-root.created = function () {
-
-  // 左侧price变化时更改当前price
-  this.$eventBus.listen(this, 'SET_PRICE', this.RE_SET_PRICE);
-  //  根据买卖设置买卖amount，买对应卖，卖对应买
-  this.$eventBus.listen(this, 'SET_AMOUNT', this.RE_SET_AMOUNT);
-  this.$eventBus.listen(this, 'GET_GRC_PRICE_RANGE', this.getKKPriceRange);
-  //监听仓位总数量
-  this.$eventBus.listen(this, 'POSITION_TOTAL_AMOUNT', this.setTotalAmount);
-  // //监听订单做多总数量
-  // this.$eventBus.listen(this, 'OPEN_ORDERS_TOTAL_BUY', this.setOpenOrdersBuyAmt);
-  // //监听订单做空总数量
-  // this.$eventBus.listen(this, 'OPEN_ORDERS_TOTAL_SELL', this.setOpenOrdersSellAmt);
-
-  // 获取精度
-  this.getScaleConfig();
-
-  // this.show_now_price();
-
-  this.getKKPriceRange();
-  // this.tradeMarket()
-  // this.postOrdersPosition()
-  // this.postOrdersCreate()
-  this.initSocket()
-}
-
-root.mounted = function () {
-  this.dragWidth = $('.dragbox').width();
-}
-
-
-/*----------------------------- 监测属性 ------------------------------*/
-
 /*----------------------------- 方法 ------------------------------*/
 //设置仓位数量
 root.methods.setTotalAmount = function(totalAmount){
@@ -1157,7 +1010,6 @@ root.methods.setTotalAmount = function(totalAmount){
 //   this.openOrdersSellTotal = totalAmount
 //   console.info('this is openOrdersTotalSell====',this.openOrdersSellTotal)
 // }
-
 
 
 // socket推送
@@ -1201,7 +1053,7 @@ root.methods.postFullStop = function () {
   this.currentLimiting = true
   let params = {}
   let latestOrMarkPrice = ''
-  latestOrMarkPrice = this.latestPrice == '最新价格' ?Number(this.latestPriceVal) : Number(this.markPrice)
+  latestOrMarkPrice = this.latestPrice == '最新价格' ? Number(this.latestPriceVal) : Number(this.markPrice)
   // 单仓 限价止盈止损
   if (this.isHasModule('kaipingType') == 1 && this.isHasModule('buttonType') == 1 && this.pendingOrderType == 'limitProfitStopLoss') {
     params = {
@@ -1214,7 +1066,7 @@ root.methods.postFullStop = function () {
       stopPrice: this.triggerPrice,
       symbol: "BTCUSDT",
       timeInForce: this.effectiveTime,
-      orderType: ((this.orderType && Number(this.triggerPrice) < Number(this.latestPriceVal)) || (!this.orderType && Number(this.triggerPrice) >= Number(this.latestPriceVal))) ? "STOP" : "TAKE_PROFIT",
+      orderType: (this.orderType && Number(this.triggerPrice) < latestOrMarkPrice) || (!this.orderType && (Number(this.triggerPrice) >= latestOrMarkPrice)) ? "STOP" : "TAKE_PROFIT",
       workingType: this.latestPrice == '最新价格'? 'CONTRACT_PRICE':'MARK_PRICE',
     }
   }
@@ -1228,7 +1080,7 @@ root.methods.postFullStop = function () {
       orderSide: this.orderType ? 'SELL':'BUY',
       stopPrice: this.triggerPrice,
       symbol: "BTCUSDT",
-      orderType: ((this.orderType && Number(this.triggerPrice) < Number(this.latestPriceVal)) || (!this.orderType && Number(this.triggerPrice) >= Number(this.latestPriceVal))) ? "STOP_MARKET" : "TAKE_PROFIT_MARKET",
+      orderType: (this.orderType && (Number(this.triggerPrice) < latestOrMarkPrice)) || (!this.orderType && (Number(this.triggerPrice) >= latestOrMarkPrice)) ? "STOP_MARKET" : "TAKE_PROFIT_MARKET",
       workingType: this.latestPrice == '最新价格'? 'CONTRACT_PRICE':'MARK_PRICE',
     }
   }
