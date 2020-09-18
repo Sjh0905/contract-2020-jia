@@ -250,5 +250,27 @@ tradingHallData.cumFastMaintenanceAmount = {
   "8":4891300,
   "9":24891300,
 }
+/**
+ * 强平价格计算类型
+ * positionSide:BOTH SHORT LONG , marginType: cross isolated
+ * 类型1，从 Bracket 最高档开始逐层计算 LP
+ * 类型2，如果不为净多头，多仓 MMR&cum 代入强平公式，空仓从最高档开始逐层计算 LP1，
+ * 类型2，如为净多头，通过 abs(position_notional_value) 在 bracket 中确定 MMR 和 cum，直接代入强平价格计算公式获得结果
+ * @type {{BOTH: {cross: number, isolated: number}, SHORT: {cross: number, isolated: number}, LONG: {cross: number, isolated: number}}}
+ */
+tradingHallData.LPCalculationType = {
+  BOTH:{
+    cross:1,
+    isolated:1,
+  },
+  SHORT:{
+    cross:2,
+    isolated:1,
+  },
+  LONG:{
+    cross:2,
+    isolated:1,
+  }
+}
 
 export default tradingHallData

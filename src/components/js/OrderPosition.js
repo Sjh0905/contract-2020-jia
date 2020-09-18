@@ -98,6 +98,9 @@ root.created = function () {
   this.getAdlQuantile()
   this.getAccount()
   // console.info('钱包总余额===',this.$store.state.walletBalance,'除去逐仓仓位的钱包总余额===',this.$store.state.crossWalletBalance)
+
+  //引入链式计算
+  this.chainCal = this.$globalFunc.chainCal
 }
 root.mounted = function () {}
 root.beforeDestroy = function () {}
@@ -152,6 +155,11 @@ root.computed.leverageBracket = function () {
 root.computed.socketPositionKeyMap = function () {
   let data = tradingHallData.socketPositionKeyMap
   // console.log('data===',data);
+  return data
+}
+// 强平价格计算类型
+root.computed.LPCalculationType = function () {
+  let data = tradingHallData.LPCalculationType
   return data
 }
 
@@ -441,6 +449,11 @@ root.methods.handleWithMarkPrice = function(records){
       v.maintMarginRate = Number(v.maintMarginRate * 100).toFixed(2) + '%'
     }
 
+    //单仓、双仓逐仓
+    if(this.LPCalculationType[v.positionSide][v.marginType] == 1){
+      this.LPCalculation1(v)
+    }
+
   })
   //全仓保证金比率 = 各仓位的maintMargin字段之和 /（各仓位的unrealizedProfit之和+全仓账户余额 crossWalletBalance)
   this.crossMaintMarginRate = this.accDiv(totalMaintMargin,this.accAdd(totalUnrealizedProfit,this.crossWalletBalance))
@@ -474,7 +487,56 @@ root.methods.getCalMaintenanceArgs = function(notional=0){
 
   return bracketSingle;
 }
+//类型1的强平价格
+root.methods.LPCalculation1 = function (pos = {}){
 
+  let LPCalculation1 = 0,size = pos.positionAmt || 0,ep = pos.entryPrice || 0,
+      // 1.全仓模式下， WB 为 crossWalletBalance，由于目前只有一个symbol，暂时TMM=0，UPNL=0
+      // 2.逐仓模式下，WB 为逐仓仓位的 isolatedWalletBalance，TMM=0，UPNL=0,isolatedWalletBalance = isolatedMargin - unrealizedProfit,正好和逐仓保证金相等
+      WB = pos.marginType == "cross" ? this.crossWalletBalance : pos.securityDeposit;
+
+  //从 bracket 最高档开始逐层计算 lp，若计算出 lp 使得：floor < abs(b*lp) <= cap，则获得 lp，否则继续降档计算
+  //若始终没有匹配值使得 floor < abs(b*lp) <= cap，则降至最后一档算出结果即为最终值
+  for (let i = 0; i < this.leverageBracket.length; i++) {
+    let v = this.leverageBracket[i],cum = v.notionalCum || 0,mmr = v.maintMarginRatio || 0
+
+    //调用对应的计算方法： LPCalculation1BOTH LPCalculation1LONG LPCalculation1SHORT
+    let paras = [WB,size,ep,cum,mmr] , LP = this["LPCalculation1"+pos.positionSide](paras),
+        BLP = this.accMul(LP,this.markPrice);
+    let floorStep = this.accMinus(BLP,v.notionalFloor || 0), capStep = this.accMinus(BLP,v.notionalCap || 0)
+
+    if((floorStep > 0 && capStep <= 0) || i == this.leverageBracket.length - 1){
+      LPCalculation1 = LP;
+      break;
+    }
+  }
+
+  //计算得出的强平价格
+  pos.LPCalculation1 = LPCalculation1;
+
+}
+//1 单仓 LPCalculation1BOTH = LPCalculation1 + "BOTH"(positionSide)
+root.methods.LPCalculation1BOTH = function (...paras){
+  let [WB,size,ep,cum,mmr] = paras , B = Math.abs(size)
+  let molecular = this.chainCal().accAdd(WB,cum).accMinus(this.accMul(size,ep))//WB + cum_B - (size * EP_B)
+  let denominator = this.chainCal().accMul(B,mmr).accMinus(size)//B * MMR_B -  size
+  // console.log()
+  return this.accDiv(molecular,denominator)
+}
+//1 双仓 - 多仓
+root.methods.LPCalculation1LONG = function (...paras){
+  let [WB,size,ep,cum,mmr] = paras , L = Math.abs(size);
+  let molecular = this.chainCal().accAdd(WB,cum).accMinus(this.accMul(L,ep))//WB + cum_L - (L * EP_L)
+  let denominator = this.chainCal().accMul(L,mmr).accMinus(L)//L * MMR_L - L
+  return this.accDiv(molecular,denominator)
+}
+//1 双仓 - 空仓
+root.methods.LPCalculation1SHORT = function (...paras){
+  let [WB,size,ep,cum,mmr] = paras , S = Math.abs(size);
+  let molecular = this.chainCal().accAdd(WB,cum).accAdd(this.accMul(S,ep))//WB + cum_S + (S * EP_S)
+  let denominator = this.chainCal().accMul(S,mmr).accAdd(S)//S * MMR_S + S
+  return this.accDiv(molecular,denominator)
+}
 // 自动减仓持仓ADL队列估算
 root.methods.getAdlQuantile = function () {
   this.$http.send("GET_ADL_QUANTILE", {

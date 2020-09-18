@@ -408,6 +408,7 @@ GlobalFunction.accDiv = function (arg1, arg2) {
  * 使用big.js
  */
 GlobalFunction.accMul = function (arg1, arg2) {
+  // if(!Number(arg2) || Number(arg2) == 0)return 0
   let num1 = new Big(arg1 || 0)
   let num2 = new Big(arg2 || 0)
   return num1.mul(num2).toString()
