@@ -12,7 +12,7 @@ root.methods = {}
 root.watch = {}
 
 
-/*----------------------------- props ------------------------------*/
+/*----------------------------- props  begin------------------------------*/
 
 
 root.props.btc_eth_rate = {
@@ -104,9 +104,9 @@ root.props.currentLength = {
   type: Number,
   default: 0
 }
+/*----------------------------- props  end------------------------------*/
 
-
-/*----------------------------- 组件 ------------------------------*/
+/*----------------------------- 组件  begin------------------------------*/
 
 root.components = {
   'PopupPrompt': resolve => require(['../vue/PopupPrompt'], resolve),
@@ -114,8 +114,9 @@ root.components = {
   'PositionModeBulletBox': resolve => require(['../vue/PositionModeBulletBox'], resolve),
   'CalculatorBommbBox': resolve => require(['../vue/CalculatorBommbBox'], resolve),
 }
+/*----------------------------- 组件  end------------------------------*/
 
-/*----------------------------- data ------------------------------*/
+/*----------------------------- data begin------------------------------*/
 
 root.data = function () {
   return {
@@ -207,8 +208,9 @@ root.data = function () {
     // openOrdersSellTotal:0, //订单总数量
   }
 }
+/*----------------------------- data end------------------------------*/
 
-/*----------------------------- 生命周期 ------------------------------*/
+/*----------------------------- 生命周期 begin ------------------------------*/
 
 root.created = function () {
   // 左侧price变化时更改当前price
@@ -240,12 +242,9 @@ root.created = function () {
 root.mounted = function () {
   this.dragWidth = $('.dragbox').width();
 }
+/*----------------------------- 生命周期 end------------------------------*/
 
-/*----------------------------- 观察 ------------------------------*/
-// // 监听时价
-// root.watch.latestPriceVal = function (newVal,oldVal) {
-//   console.info(newVal)
-// }
+/*----------------------------- 观察 begin ------------------------------*/
 
 root.watch.serverTime = function (newValue, oldValue) {
   if (newValue == oldValue) return;
@@ -298,19 +297,86 @@ root.watch.value = function (newValue, oldValue) {
   this.computedValue()
   this.sectionSelect(newValue/100);
 }
+
 root.watch.pendingOrderType = function (newValue, oldValue) {
   this.triggerPrice = ''
   this.value = 0
   this.amount = ''
   this.price = this.latestPriceVal
 }
+
 // 监听选择的是 最新价格 还是 标记价格
 root.watch.latestPrice =function (newValue, oldValue) {
   if(newValue == oldValue) return
-  console.info(newValue)
+}
+/*----------------------------- 观察 end ------------------------------*/
+
+/*----------------------------- 计算 begin ------------------------------*/
+
+// 观察货币对是否更改
+root.computed.symbol = function () {
+  return this.$store.state.symbol;
+}
+// 观察账户信息是否更改
+root.computed.watchCurrency = function () {
+  return this.$store.state.currencyChange;
+}
+root.computed.isLogin = function () {
+  return this.$store.state.isLogin
+}
+// 是否绑定谷歌验证
+root.computed.bindGa = function () {
+  return this.$store.state.authState.gaAuth
+}
+// 是否绑定手机
+root.computed.bindMobile = function () {
+  return this.$store.state.authState.mobile
+}
+// 是否绑定邮箱
+root.computed.bindEmail = function () {
+  return this.$store.state.authState.email
+}
+root.computed.lang = function () {
+  return this.$store.state.lang
 }
 
-/*----------------------------- 计算 ------------------------------*/
+// 深度图价格
+root.computed.depth_price = function () {
+  return this.$store.state.depth_price;
+}
+
+// 实时价格 需要取BDB/ETH的时价和汇率来算BDB的汇率
+root.computed.topic_price = function () {
+  return this.socket_price;
+}
+
+// 服务器时间
+root.computed.serverTime = function () {
+  return this.$store.state.serverTime;
+}
+
+//页面功能模块显示逻辑配置信息
+root.computed.positionModeConfigs = function () {
+  let data = tradingHallData.positionModeConfigs;
+  // console.log(data);
+  return data
+}
+
+// 18-2-7 添加的新需求 start
+
+// 观察触发价格的变化，然后折合人民币或者美金
+root.computed.getTriggerPrice = function () {
+  return this.triggerPrice;
+}
+
+// 观察价格的变化，然后折合人民币或者美金
+root.computed.get_price = function () {
+  return this.price = this.latestPriceVal;
+}
+
+root.computed.get_lang = function () {
+  return this.$store.state.lang;
+}
 
 root.computed.sellDepthOrders = function () {
   // console.info('this.$store.state.orderBookTicker.askPrice',this.$store.state.orderBookTicker.askPrice)
@@ -907,94 +973,10 @@ root.computed.securityDeposit = function () {
 }
 //以下为保证金计算 ==============E
 
-
-// 观察货币对是否更改
-root.computed.symbol = function () {
-  return this.$store.state.symbol;
-}
-// 观察账户信息是否更改
-root.computed.watchCurrency = function () {
-  return this.$store.state.currencyChange;
-}
-root.computed.isLogin = function () {
-  return this.$store.state.isLogin
-}
-// 是否绑定谷歌验证
-root.computed.bindGa = function () {
-  return this.$store.state.authState.gaAuth
-}
-// 是否绑定手机
-root.computed.bindMobile = function () {
-  return this.$store.state.authState.mobile
-}
-// 是否绑定邮箱
-root.computed.bindEmail = function () {
-  return this.$store.state.authState.email
-}
-root.computed.lang = function () {
-  return this.$store.state.lang
-}
-
-// 深度图价格
-root.computed.depth_price = function () {
-  return this.$store.state.depth_price;
-}
-
-// 实时价格 需要取BDB/ETH的时价和汇率来算BDB的汇率
-root.computed.topic_price = function () {
-  return this.socket_price;
-}
-
-// 服务器时间
-root.computed.serverTime = function () {
-  return this.$store.state.serverTime;
-}
-
-//页面功能模块显示逻辑配置信息
-root.computed.positionModeConfigs = function () {
-  let data = tradingHallData.positionModeConfigs;
-  // console.log(data);
-  return data
-}
+/*----------------------------- 计算 end ------------------------------*/
 
 
-// 18-2-7 添加的新需求 start
-
-// 观察触发价格的变化，然后折合人民币或者美金
-root.computed.getTriggerPrice = function () {
-  return this.triggerPrice;
-}
-
-// 观察价格的变化，然后折合人民币或者美金
-root.computed.get_price = function () {
-  return this.price = this.latestPriceVal;
-}
-
-root.computed.get_lang = function () {
-  return this.$store.state.lang;
-}
-
-root.watch.get_lang = function () {
-  this.get_now_price();
-}
-
-// 监听时价变化
-root.watch.depth_price = function (newValue, oldValue) {
-  // this.price = this.$globalFunc.accFixed(newValue, this.quoteScale);
-}
-
-// 监听BDB/ETH的实时价格
-root.watch.topic_price = function (newValue, oldValue) {
-  // bdb_rate
-  let self = this;
-  for (let key in newValue) {
-    if (key == 'BDB_ETH') {
-      self.bdb_rate = newValue[key][4];
-    }
-  }
-}
-
-/*----------------------------- 方法 ------------------------------*/
+/*----------------------------- 方法 begin ------------------------------*/
 //设置仓位数量
 root.methods.setTotalAmount = function(totalAmount){
   this.totalAmount = totalAmount
@@ -2355,4 +2337,5 @@ root.methods.accDiv = function (num1, num2) {
 }
 /*---------------------- 除法运算 end ---------------------*/
 
+/*----------------------------- 方法 begin ------------------------------*/
 export default root
