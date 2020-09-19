@@ -635,7 +635,8 @@ root.methods.re_marketPrice = function (data) {
   typeof data === 'string' && (data = JSON.parse(data))
   if (!data) return
   this.popOpen = false
-  this.$eventBus.notify({key:'GET_POSITION'})
+  // this.$eventBus.notify({key:'GET_POSITION'})
+  this.$eventBus.notify({key:'GET_BALANCE'})
   this.promptOpen = true;
 
   if(data.data.status == 'NEW') {
@@ -737,7 +738,8 @@ root.methods.re_marketPrice = function (data) {
   }
   typeof data === 'string' && (data = JSON.parse(data))
   if (!data) return
-  this.$eventBus.notify({key:'GET_POSITION'})
+  // this.$eventBus.notify({key:'GET_POSITION'})
+  this.$eventBus.notify({key:'GET_BALANCE'})
   this.promptOpen = true;
   this.priceCheck = data.data.price
 
