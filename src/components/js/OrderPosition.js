@@ -519,7 +519,7 @@ root.methods.LPCalculation1 = function (pos = {}){
 
 }
 //1 单仓 LPCalculation1BOTH = LPCalculation1 + "BOTH"(positionSide)
-root.methods.LPCalculation1BOTH = function (...paras){
+root.methods.LPCalculation1BOTH = function (paras){
   let [WB,size,ep,cum,mmr] = paras , B = Math.abs(size)
   let molecular = this.chainCal().accAdd(WB,cum).accMinus(this.accMul(size,ep))//WB + cum_B - (size * EP_B)
   let denominator = this.chainCal().accMul(B,mmr).accMinus(size)//B * MMR_B -  size
@@ -527,14 +527,14 @@ root.methods.LPCalculation1BOTH = function (...paras){
   return this.accDiv(molecular,denominator)
 }
 //1 双仓 - 多仓
-root.methods.LPCalculation1LONG = function (...paras){
+root.methods.LPCalculation1LONG = function (paras){
   let [WB,size,ep,cum,mmr] = paras , L = Math.abs(size);
   let molecular = this.chainCal().accAdd(WB,cum).accMinus(this.accMul(L,ep))//WB + cum_L - (L * EP_L)
   let denominator = this.chainCal().accMul(L,mmr).accMinus(L)//L * MMR_L - L
   return this.accDiv(molecular,denominator)
 }
 //1 双仓 - 空仓
-root.methods.LPCalculation1SHORT = function (...paras){
+root.methods.LPCalculation1SHORT = function (paras){
   let [WB,size,ep,cum,mmr] = paras , S = Math.abs(size);
   let molecular = this.chainCal().accAdd(WB,cum).accAdd(this.accMul(S,ep))//WB + cum_S + (S * EP_S)
   let denominator = this.chainCal().accMul(S,mmr).accAdd(S)//S * MMR_S + S
@@ -581,7 +581,7 @@ root.methods.addAdlQuantile = function(currSAdlQuantile,records){
 
 // 市价
 root.methods.marketPrice = function (item) {
-
+  this.marketPriceClick = true
   // var v = ipt.value;//获取input的值
   let params = {
     leverage: this.$store.state.leverage,
@@ -592,7 +592,6 @@ root.methods.marketPrice = function (item) {
     symbol: "BTCUSDT",
     orderType: "MARKET",
   }
-  this.marketPriceClick = true
   this.$http.send("POST_ORDERS_POSITION", {
     bind: this,
     params: params,
@@ -602,15 +601,12 @@ root.methods.marketPrice = function (item) {
 }
 // 获取记录返回，类型为{}
 root.methods.re_marketPrice = function (data) {
-  this.marketPriceClick = false
-
   if(data.code == '303' && data.errCode == '2019') {
     this.promptOpen = true;
     this.popType = 0;
     this.popText = '杠杆账户余额不足';//当前无仓位，不能下单
     return
   }
-
   if(data.code == '303' && data.errCode == '4061') {
     this.promptOpen = true;
     this.popType = 0;
@@ -641,7 +637,7 @@ root.methods.re_marketPrice = function (data) {
   this.getPositionRisk()
   this.$eventBus.notify({key:'GET_BALANCE'})
   this.promptOpen = true;
-
+  this.marketPriceClick = false
   if(data.data.status == 'NEW') {
     this.popType = 1;
     this.popText = '下单成功';
@@ -655,7 +651,6 @@ root.methods.re_marketPrice = function (data) {
   if(data.data.status == 'FILLED') {
     this.popType = 1;
     this.popText = '完全成交';
-    this.marketPriceClick = false
     return
   }
   if(data.data.status == 'CANCELED') {
@@ -699,12 +694,12 @@ root.methods.checkPrice = function (item) {
   this.$http.send("POST_ORDERS_POSITION", {
     bind: this,
     params: params,
-    callBack: this.re_marketPrice,
-    errorHandler: this.error_marketPrice
+    callBack: this.re_checkPrice,
+    errorHandler: this.error_checkPrice
   })
 }
 // 获取记录返回，类型为{}
-root.methods.re_marketPrice = function (data) {
+root.methods.re_checkPrice = function (data) {
   this.checkPriceClick = false
 
   if(data.code == '303' && data.errCode == '2019') {
@@ -790,7 +785,9 @@ root.methods.re_marketPrice = function (data) {
   }
 
 }
-
+root.methods.error_checkPrice = function (err){
+  console.info('err==',err)
+}
 //一键平仓
 root.methods.closePositions = function () {
   this.popOpen = true

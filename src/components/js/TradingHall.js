@@ -192,7 +192,6 @@ root.created = function () {
   // }
   this.getOrder()
   this.$eventBus.listen(this, 'GET_ORDERS', this.getOrder)
-  this.$eventBus.listen(this, 'GET_POSITION', this.positionRisk)
   this.$eventBus.listen(this,'GET_BALANCE',this.getBalance)
   this.watchScreenWidth();
   // 获取兑换汇率

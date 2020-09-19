@@ -376,6 +376,7 @@ GlobalFunction.testFixed = function (num, acc = 8) {
  * 使用big.js
  */
 GlobalFunction.accAdd = function (arg1, arg2) {
+  isNaN(arg1) && (arg1=0);isNaN(arg2) && (arg2=0)
   let num1 = new Big(arg1 || 0)
   let num2 = new Big(arg2 || 0)
   return num1.plus(num2).toString()
@@ -386,6 +387,7 @@ GlobalFunction.accAdd = function (arg1, arg2) {
  * 使用big.js
  */
 GlobalFunction.accMinus = function (arg1, arg2) {
+  isNaN(arg1) && (arg1=0);isNaN(arg2) && (arg2=0)
   let num1 = new Big(arg1 || 0)
   let num2 = new Big(arg2 || 0)
   return num1.minus(num2).toString()
@@ -396,6 +398,7 @@ GlobalFunction.accMinus = function (arg1, arg2) {
  * 使用big.js
  */
 GlobalFunction.accDiv = function (arg1, arg2) {
+  isNaN(arg1) && (arg1=0);isNaN(arg2) && (arg2=1)
   if(!Number(arg2) || Number(arg2) == 0)return 0
 
   let num1 = new Big(arg1)
@@ -408,7 +411,7 @@ GlobalFunction.accDiv = function (arg1, arg2) {
  * 使用big.js
  */
 GlobalFunction.accMul = function (arg1, arg2) {
-  // if(!Number(arg2) || Number(arg2) == 0)return 0
+  isNaN(arg1) && (arg1=0);isNaN(arg2) && (arg2=0)
   let num1 = new Big(arg1 || 0)
   let num2 = new Big(arg2 || 0)
   return num1.mul(num2).toString()
