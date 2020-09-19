@@ -283,6 +283,8 @@ root.methods.re_cancelOrder = function (data) {
   typeof(data) == 'string' && (data = JSON.parse(data));
   if(data.data.code == 200){
     this.getOrder()
+    this.$eventBus.notify({key:'GET_POSITION'})
+    this.$eventBus.notify({key:'GET_ORDERS'})
     this.$eventBus.notify({key:'GET_BALANCE'})
     return
   }

@@ -124,7 +124,7 @@ root.data = function () {
     // 加载中
     // loading: true,
     triggerPrice:'', // 触发价格
-    // price: '',
+    price: '',
     priceNow: '0',
     amount: '',
     currentSymbol: {
@@ -596,7 +596,7 @@ root.computed.canMore = function () {
       }
       // 如果是只减仓
       if(this.reducePositionsSelected){
-        if(positionAmt >= 0) {
+        if(positionAmt > 0) {
           return this.orderType ? sellCanOpen = Math.abs(positionAmt) : buyCanOpen = 0
         }
         if(positionAmt < 0) {
@@ -642,8 +642,8 @@ root.computed.canMore = function () {
         // console.info('sellCanOpen==',sellCanOpen)
       }
       // 如果是只减仓
-      if(this.reducePositionsSelected){
-        if(positionAmt >= 0) {
+      if(this.reducePositionsSelected && this.pendingOrderType == 'marketPriceProfitStopLoss'){
+        if(positionAmt > 0) {
           return this.orderType ? sellCanOpen = Math.abs(positionAmt) : buyCanOpen = 0
         }
         if(positionAmt < 0) {
@@ -690,8 +690,8 @@ root.computed.canMore = function () {
         // console.info('sellCanOpen==',sellCanOpen)
       }
       // 如果是只减仓
-      if(this.reducePositionsSelected){
-        if(positionAmt >= 0) {
+      if(this.reducePositionsSelected && this.pendingOrderType == 'limitProfitStopLoss'){
+        if(positionAmt > 0) {
           return this.orderType ? sellCanOpen = Math.abs(positionAmt) : buyCanOpen = 0
         }
         if(positionAmt < 0) {
@@ -737,8 +737,8 @@ root.computed.canMore = function () {
         // console.info('sellCanOpen==',sellCanOpen)
       }
       // 如果是只减仓
-      if(this.reducePositionsSelected){
-        if(positionAmt >= 0) {
+      if(this.reducePositionsSelected && this.pendingOrderType == 'marketPriceProfitStopLoss'){
+        if(positionAmt > 0) {
           return this.orderType ? sellCanOpen = Math.abs(positionAmt) : buyCanOpen = 0
         }
         if(positionAmt < 0) {
@@ -1166,8 +1166,9 @@ root.methods.re_postFullStop = function (data) {
   typeof (data) === 'string' && (data = JSON.parse(data))
   if (!data || !data.data) return
   this.promptOpen = true;
-  // this.$eventBus.notify({key:'GET_ORDERS'})
-  // this.$eventBus.notify({key:'GET_POSITION'})
+  // 监听仓位和委托单条数
+  this.$eventBus.notify({key:'GET_ORDERS'})
+  this.$eventBus.notify({key:'GET_POSITION'})
   this.$eventBus.notify({key:'GET_BALANCE'})
   if(data.data.status == 'NEW') {
     this.popType = 1;
@@ -1326,10 +1327,8 @@ root.methods.re_postOrdersCreate = function (data) {
   // console.info('下单失败',data,data.errCode,data.code)
   this.promptOpen = true;
   // 当前委托
-  // this.$eventBus.notify({key:'GET_ORDERS'})
-  // 获取仓位信息
-  // this.$eventBus.notify({key:'GET_POSITION'})
-  // 获取最新价格
+  this.$eventBus.notify({key:'GET_ORDERS'})
+  this.$eventBus.notify({key:'GET_POSITION'})
   this.$eventBus.notify({key:'GET_BALANCE'})
   if(data.data.status == 'NEW') {
     this.popType = 1;
@@ -1487,9 +1486,9 @@ root.methods.re_postOrdersPosition = function (data) {
   }
   typeof (data) === 'string' && (data = JSON.parse(data))
   if (!data || !data.data) return
-
-  // this.$eventBus.notify({key:'GET_ORDERS'})
-  // this.$eventBus.notify({key:'GET_POSITION'})
+  // 监听仓位和委托单条数
+  this.$eventBus.notify({key:'GET_ORDERS'})
+  this.$eventBus.notify({key:'GET_POSITION'})
   this.$eventBus.notify({key:'GET_BALANCE'})
   if(data.code != '303') {
     this.promptOpen = true;
@@ -1559,19 +1558,22 @@ root.methods.computedValue = function () {
   let val = this.accDiv(this.value , 10 * 10)
   let num = 0
   // 单仓可开使用
-  if(this.positionModeSecond == 'singleWarehouse'){
+  if(this.positionModeFirst == 'singleWarehouseMode'){
     num = this.toFixed(this.accMul(this.canMore, val),3)
+    return this.amount = this.orderType ? num : num
   }
   // 双仓开仓使用
   if(this.positionModeSecond == 'openWarehouse'){
     num = this.toFixed(this.accMul(this.canBeOpened, val),3)
+    return this.amount = this.orderType ? num : num
   }
   // 双仓平仓使用
   if(this.positionModeSecond == 'closeWarehouse'){
     num = this.orderType ? this.toFixed(this.accMul(Math.abs(this.positionAmtLong), val),3) : this.toFixed(this.accMul(Math.abs(this.positionAmtShort), val),3)
+    return this.amount = this.orderType ? num : num
   }
   // let ValueAmount = this.toFixed(this.accMul(num1 , 10 * 10),3)
-  this.amount = this.orderType ? num : num
+
 }
 
 
