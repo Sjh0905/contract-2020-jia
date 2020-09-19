@@ -173,10 +173,10 @@ root.methods.receiveSocket = function () {
 
 // 获取订单
 root.methods.getOrder = function () {
-  if (!this.$store.state.authState.userId) {
-    this.loading = false
-    return
-  }
+  // if (!this.$store.state.authState.userId) {
+  //   this.loading = false
+  //   return
+  // }
   this.$http.send('GET_CURRENT_DELEGATION', {
       bind: this,
       query: {
@@ -193,27 +193,6 @@ root.methods.re_getOrder = function (data) {
   typeof(data) == 'string' && (data = JSON.parse(data));
   this.loading = false
   this.currentOrder = data.data || []
-  // this.currentOrdersLength = this.currentOrder.length
-  // let totalBuy = 0
-  // let totalSell = 0
-  // this.currentOrder.map(v=>{
-  //   if(v.positionSide == 'LONG'){
-  //     totalBuy += v.price * v.origQty
-  //   }
-  //   if(v.positionSide == 'SHORT'){
-  //     totalSell += v.price * v.origQty
-  //   }
-  // })
-  // // this.openOrdersTotal = total
-  // // console.info('this is openOrdersTotal===',this.openOrdersTotal)
-  // if(totalBuy != this.openOrdersTotalBuy) {
-  //   this.openOrdersTotalBuy = totalBuy
-  //   this.$eventBus.notify({key:'OPEN_ORDERS_TOTAL_BUY'}, this.openOrdersTotalBuy)
-  // }
-  // if(totalSell != this.openOrdersTotalSell) {
-  //   this.openOrdersTotalSell = totalSell
-  //   this.$eventBus.notify({key:'OPEN_ORDERS_TOTAL_SELL'}, this.openOrdersTotalSell)
-  // }
 
 }
 // 获取订单出错
@@ -257,6 +236,7 @@ root.methods.clickToCancel = function (order) {
 
 // 撤单
 root.methods.cancelOrder = async function (order, cancelAll = false) {
+  this.loading = true
   this.clickOrder.add(order.orderId)
   order.click = true
   let params = {
@@ -280,7 +260,7 @@ root.methods.cancelOrder = async function (order, cancelAll = false) {
 // 返回
 root.methods.re_cancelOrder = function (data) {
   // this.$eventBus.notify({key: 'CANCEL_ORDER'})
-
+  this.loading = false
   this.getOrder()
 }
 root.methods.error_cancelOrder = function (err) {
