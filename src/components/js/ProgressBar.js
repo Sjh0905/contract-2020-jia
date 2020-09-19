@@ -112,7 +112,7 @@ root.components = {
   'PopupWindow': resolve => require(['../vue/PopupWindow'], resolve),
   'PositionModeBulletBox': resolve => require(['../vue/PositionModeBulletBox'], resolve),
   'CalculatorBommbBox': resolve => require(['../vue/CalculatorBommbBox'], resolve),
-  // 'Loading': resolve => require(['../vue/Loading'], resolve), // loading
+  'Loading': resolve => require(['../vue/Loading'], resolve), // loading
 
 }
 /*----------------------------- 组件  end------------------------------*/
@@ -122,7 +122,7 @@ root.components = {
 root.data = function () {
   return {
     // 加载中
-    // loading: true,
+    loading: false,
     triggerPrice:'', // 触发价格
     price: '',
     priceNow: '0',
@@ -1023,7 +1023,7 @@ root.methods.openPositionBox = function (name) {
 // 止盈止损接口
 root.methods.postFullStop = function () {
   this.currentLimiting = true
-  // this.loading = true
+  this.loading = true
   let params = {}
   let latestOrMarkPrice = ''
   latestOrMarkPrice = this.latestPrice == '最新价格' ? Number(this.latestPriceVal) : Number(this.markPrice)
@@ -1123,7 +1123,7 @@ root.methods.postFullStop = function () {
 }
 root.methods.re_postFullStop = function (data) {
   this.currentLimiting = false
-  // this.loading = false
+  this.loading = false
 
   if(data.code == 303 && data.errCode == '2022') {
     this.promptOpen = true;
@@ -1215,7 +1215,7 @@ root.methods.error_postFullStop = function (err) {
 // 开仓
 root.methods.postOrdersCreate = function () {
   this.currentLimiting = true
-  // this.loading = true
+  this.loading = true
   let params = {}
   // 单仓 限价
   if (this.isHasModule('kaipingType') == 1 && this.isHasModule('buttonType') == 1 && this.pendingOrderType == 'limitPrice' && this.checkPrice != '2') {
@@ -1282,7 +1282,7 @@ root.methods.postOrdersCreate = function () {
 }
 root.methods.re_postOrdersCreate = function (data) {
   this.currentLimiting = false
-  // this.loading = false
+  this.loading = false
   if(data.code == 303 && data.errCode == 2022) {
     this.promptOpen = true;
     this.popType = 0;
@@ -1375,7 +1375,7 @@ root.methods.error_postOrdersCreate = function (err) {
 // 平仓
 root.methods.postOrdersPosition = function () {
   this.currentLimiting = true
-  // this.loading = true
+  this.loading = true
   let params = {}
   // 双仓 平仓 限价 平多 传LONG ; 平空 传SHORT
   if (this.isHasModule('kaipingType') == 2 && this.isHasModule('buttonType') == 3 && this.pendingOrderType == 'limitPrice') {
@@ -1425,7 +1425,7 @@ root.methods.postOrdersPosition = function () {
 root.methods.re_postOrdersPosition = function (data) {
   // console.info('下单失败',data,data.code,data.errCode)
   this.currentLimiting = false
-  // this.loading = false
+  this.loading = false
   // if(data.code == '303' && data.errCode == '2022') {
   //   this.promptOpen = true;
   //   this.popType = 0;
