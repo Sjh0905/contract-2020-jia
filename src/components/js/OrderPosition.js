@@ -76,7 +76,7 @@ root.data = function () {
     totalAmount:0,
     securityDeposit: 0 , // 逐仓保证金
     positionAmtLong:0,
-    positionAmtShort:0
+    positionAmtShort:0,
 
     pSymbols:[],//仓位列表出现的币对
     pSymbolsMap:{},//仓位列表出现的币对与仓位映射关系
