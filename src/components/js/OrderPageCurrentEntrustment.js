@@ -193,7 +193,7 @@ root.methods.re_getOrder = function (data) {
   typeof(data) == 'string' && (data = JSON.parse(data));
   this.loading = false
   this.currentOrder = data.data || []
-
+  this.$store.commit('SET_CURRENT_ORDERS',this.currentOrder)
 }
 // 获取订单出错
 root.methods.error_getOrder = function (err) {
