@@ -394,7 +394,6 @@ root.computed.crossWalletBalance = function () {
 }
 // 委托单数据
 root.computed.currentOrders = function  () {
-  console.info('this.$store.state.currentOrders==',this.$store.state.currentOrders)
   return this.$store.state.currentOrders || []
 }
 
@@ -992,7 +991,7 @@ root.computed.securityDeposit = function () {
 //设置仓位数量
 root.methods.setTotalAmount = function(totalAmount){
   this.totalAmount = totalAmount
-  // console.info('this is setTotalAmount====',this.totalAmount)
+  // console.info('this.totalAmount ',this.totalAmount )
 }
 // //设置委托做多总数量
 // root.methods.setOpenOrdersBuyAmt = function(totalAmount){
@@ -1433,7 +1432,7 @@ root.methods.postOrdersPosition = function () {
     this.popType = 0;
     this.popText = '您输入的数量超过可平数量';
     this.currentLimiting = false
-    // this.loading = false
+    this.loading = false
     return
   }
 

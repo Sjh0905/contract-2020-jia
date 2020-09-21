@@ -246,6 +246,18 @@ root.methods.setCloseAmount = function (item){
     positionAmtShort:this.positionAmtShort
   }
   this.$store.commit('CHANGE_CLOSE_AMOUNT',closeAmount)
+  let totalAmt = 0
+  if((item.ps  || item.positionSide) == 'BOTH') {
+    totalAmt += (item.pa || item.positionAmt)
+  }
+  if((item.ps  || item.positionSide) != 'BOTH'){
+    totalAmt += Math.abs(item.pa || item.positionAmt)
+  }
+  // 单仓下计算可开数量
+  if(totalAmt!=this.totalAmount) {
+    this.totalAmount = totalAmt
+    this.$eventBus.notify({key:'POSITION_TOTAL_AMOUNT'}, this.totalAmount)
+  }
 }
 
 // 接收仓位 socket 信息
@@ -419,7 +431,7 @@ root.methods.error_getPositionRisk = function (err) {
 //计算保证金和保证金比率
 root.methods.handleWithMarkPrice = function(records){
   if(!records || records.length == 0)return
-  let totalMaintMargin = 0,totalUnrealizedProfit = 0,totalAmt = 0;
+  let totalMaintMargin = 0,totalUnrealizedProfit = 0;
 
   //由于四舍五入，以下均使用原生toFixed
   records.map((v,i)=>{
@@ -445,17 +457,7 @@ root.methods.handleWithMarkPrice = function(records){
     v.responseRate = Number(v.responseRate).toFixed(2) + '%'
 
     // console.log('v.responseRate.toFixed',i,v.responseRate)
-    if(v.positionSide == 'BOTH') {
-      totalAmt += v.positionAmt
-    }
-    if(v.positionSide != 'BOTH'){
-      totalAmt += Math.abs(v.positionAmt)
-    }
-    // 单仓下计算可开数量
-    if(totalAmt!=this.totalAmount) {
-      this.totalAmount = totalAmt
-      this.$eventBus.notify({key:'POSITION_TOTAL_AMOUNT'}, this.totalAmount)
-    }
+    // this.changePositonAmt(v)
     if(v.marginType == 'cross'){
       //全仓保证金：size * markprice * 1 / leverage，size = abs(positionAmt)
       v.securityDeposit = this.accDiv(notional,this.leverage)
