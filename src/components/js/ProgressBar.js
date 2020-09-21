@@ -83,16 +83,6 @@ root.props.markPrice = {
   type: String,
   default: ''
 }
-// 可平空数量
-root.props.positionAmtLong = {
-  type: Number,
-  default: 0
-}
-// 可平多数量
-root.props.positionAmtShort = {
-  type: Number,
-  default: 0
-}
 // 全仓逐仓
 root.props.marginType = {
   type: String,
@@ -248,7 +238,6 @@ root.mounted = function () {
 /*----------------------------- 生命周期 end------------------------------*/
 
 /*----------------------------- 观察 begin ------------------------------*/
-
 root.watch.serverTime = function (newValue, oldValue) {
   if (newValue == oldValue) return;
   this.SYMBOL_ENTRANSACTION();
@@ -316,6 +305,13 @@ root.watch.latestPrice =function (newValue, oldValue) {
 
 /*----------------------------- 计算 begin ------------------------------*/
 
+root.computed.positionAmtLong = function (){
+  return this.$store.state.closeAmount.positionAmtLong || 0
+}
+
+root.computed.positionAmtShort = function (){
+  return this.$store.state.closeAmount.positionAmtShort || 0
+}
 // 观察货币对是否更改
 root.computed.symbol = function () {
   return this.$store.state.symbol;

@@ -238,7 +238,6 @@ root.methods.initInterval = function () {
 root.methods.cancelOrder = async function (order, cancelAll = false) {
   this.loading = true
   this.clickOrder.add(order.orderId)
-  console.info('order===',order)
   order.click = true
   let params = {
     orderId: order.orderId,

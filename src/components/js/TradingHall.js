@@ -776,12 +776,6 @@ root.methods.re_positionRisk = function (data) {
   let filterRecords = []
   data.data.forEach(v=>{
     if (v.symbol == 'BTCUSDT') {
-      if(v.positionSide == 'LONG'){
-        this.positionAmtLong = v.positionAmt
-      }
-      if(v.positionSide == 'SHORT'){
-        this.positionAmtShort = v.positionAmt
-      }
       this.leverage = v.leverage
       this.$store.commit("CHANGE_LEVERAGE", v.leverage);
       if(v.marginType == 'isolated'){
@@ -791,10 +785,6 @@ root.methods.re_positionRisk = function (data) {
       }
       this.marginType = 'CROSSED'
       this.marginModeType = 'quanCang'
-
-      // if (v.positionAmt != 0) {
-      //   filterRecords.push(v)
-      // }
     }
   })
 }

@@ -205,7 +205,6 @@ root.methods.initSocket = function () {
         walletBalance:socketRecords.wb || 0,
         crossWalletBalance:socketRecords.cw || 0
       }
-      console.info('socketAssets===',socketAssets)
       this.$store.commit('CHANGE_ASSETS', socketAssets)
     }
   })

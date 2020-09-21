@@ -75,6 +75,8 @@ root.data = function () {
     crossMaintMarginRate:0,//全仓保证金比率
     totalAmount:0,
     securityDeposit: 0 , // 逐仓保证金
+    positionAmtLong:0,
+    positionAmtShort:0
 
   }
 }
@@ -230,7 +232,21 @@ root.methods.openModifyMargin = function (item) {
 root.methods.modifyMarginClose = function () {
   this.modifyMarginOpen = false
 }
+root.methods.setCloseAmount = function (item){
+  if((item.ps  || item.positionSide) == 'LONG'){
+    this.positionAmtLong = item.pa || item.positionAmt
+  }
 
+  if((item.ps  || item.positionSide) == 'SHORT'){
+    this.positionAmtShort = item.pa || item.positionAmt
+  }
+  // 将可平仓数量存储到store里面
+  let closeAmount = {
+    positionAmtLong:this.positionAmtLong,
+    positionAmtShort:this.positionAmtShort
+  }
+  this.$store.commit('CHANGE_CLOSE_AMOUNT',closeAmount)
+}
 
 // 接收仓位 socket 信息
 root.methods.positionSocket = function () {
@@ -256,6 +272,8 @@ root.methods.positionSocket = function () {
       // this.getPositionRisk()
 
       let currPositions = this.records,realSocketPositons = socketPositons.filter(sv=>{
+          this.setCloseAmount(sv)
+
           if(sv.mt == 'cross')return sv.pa!=0
           if(sv.mt == 'isolated')return sv.pa != 0 || sv.iw!=0
         })//开仓量或逐仓保证金不为0的仓位才有效
@@ -459,7 +477,8 @@ root.methods.handleWithMarkPrice = function(records){
     if(this.LPCalculationType[v.positionSide][v.marginType] == 1){
       this.LPCalculation1(v)
     }
-
+    // 改变平仓数量
+    this.setCloseAmount(v)
   })
   //全仓保证金比率 = 各仓位的maintMargin字段之和 /（各仓位的unrealizedProfit之和+全仓账户余额 crossWalletBalance)
   this.crossMaintMarginRate = this.accDiv(totalMaintMargin,this.accAdd(totalUnrealizedProfit,this.crossWalletBalance))
@@ -690,6 +709,9 @@ root.methods.checkPrice = function (item) {
     orderType: "LIMIT",
     // workingType: null,
   }
+  if(item.positionSide == 'BOTH'){
+    Object.assign(params, {reduceOnly: true});
+  }
   this.checkPriceClick = true
   this.$http.send("POST_ORDERS_POSITION", {
     bind: this,
@@ -701,7 +723,6 @@ root.methods.checkPrice = function (item) {
 // 获取记录返回，类型为{}
 root.methods.re_checkPrice = function (data) {
   this.checkPriceClick = false
-
   if(data.code == '303' && data.errCode == '2019') {
     this.promptOpen = true;
     this.popType = 0;
@@ -735,7 +756,7 @@ root.methods.re_checkPrice = function (data) {
   }
   typeof data === 'string' && (data = JSON.parse(data))
   if (!data) return
-  // this.$eventBus.notify({key:'GET_POSITION'})
+  this.$eventBus.notify({key:'GET_ORDERS'})
   this.$eventBus.notify({key:'GET_BALANCE'})
   this.getPositionRisk()
   this.promptOpen = true;
