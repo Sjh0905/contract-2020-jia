@@ -746,10 +746,7 @@ root.methods.re_getOrder = function (data) {
   // console.log('this is currOrder',JSON.stringify(data));
   typeof(data) == 'string' && (data = JSON.parse(data));
   let currentOrder = data.data || []
-  this.$store.commit('SET_CURRENT_ORDERS',currentOrder)
   this.currentLength = currentOrder.length
-  // console.info('this.currentOrdersLength',this.currentOrdersLength)
-  // this.currentOrder.push()
 }
 // 获取订单出错
 root.methods.error_getOrder = function (err) {
