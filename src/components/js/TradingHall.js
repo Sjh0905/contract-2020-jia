@@ -175,7 +175,8 @@ root.data = function () {
     maximumPosition : ['50,000','250,000','100,0000','5,000,000','20,000,000','50,000,000','100,000,000','200,000,000'],
     positionAmtLong:0,
     positionAmtShort:0,
-    popTextLeverage:''
+    popTextLeverage:'',
+    availableBalance:0
   }
 }
 
@@ -191,8 +192,7 @@ root.created = function () {
   // }
   this.getOrder()
   this.$eventBus.listen(this, 'GET_ORDERS', this.getOrder)
-  this.$eventBus.listen(this, 'GET_POSITION', this.positionRisk)
-
+  this.$eventBus.listen(this,'GET_BALANCE',this.getBalance)
   this.watchScreenWidth();
   // 获取兑换汇率
   this.getCny();
@@ -223,7 +223,8 @@ root.created = function () {
   this.positionRisk()  // 获取全逐仓状态
   this.getPositionsideDual() // 获取仓位模式
   this.isFirstVisit()
-  // this.getBalance()
+  this.getBalance()
+
 }
 
 root.mounted = function () {
@@ -413,9 +414,6 @@ root.computed.positionModeConfigs = function () {
   // console.log(data);
   return data
 }
-root.computed.availableBalance = function () {
-  return Number(this.$store.state.assets.walletBalance) || 0
-}
 root.computed.serverTime = function () {
   return new Date().getTime();
 }
@@ -425,55 +423,53 @@ root.methods = {}
 // root.methods.getPositionRisk = function () {
 //   this.recordsIndex = this.recordsIndex
 // }
-// // 仓位
-// // root.methods.getPositionRisk = function () {
-// //
-// //   this.$http.send("GET_POSITION_RISKV", {
-// //     bind: this,
-// //     query: {
-// //       timestamp: this.serverTime
-// //     },
-// //     callBack: this.re_getPositionRisk,
-// //     errorHandler: this.error_getPositionRisk
-// //   })
-// // }
-// // // 获取记录返回，类型为{}
-// // root.methods.re_getPositionRisk = function (data) {
-// //   typeof data === 'string' && (data = JSON.parse(data))
-// //   if (!data) return
-// //   this.records = data.data
-// //   this.records.map((v,index)=>{
-// //     if (v.positionAmt != 0) {
-// //       let aa = []
-// //       aa.push(v)
-// //       this.records1 = aa
-// //     }
-// //   })
-// //   this.recordsIndex = this.records1.length
-// // }
+// 仓位
 // root.methods.getPositionRisk = function () {
-//   this.recordsIndex = this.recordsIndex
-// }
-/*---------------------- 合约接口部分 begin ---------------------*/
-
-// // 获取用户可用余额
-// root.methods.getBalance = function () {
-//   this.$http.send('GET_BALAN_ACCOUNT',{
+//
+//   this.$http.send("GET_POSITION_RISKV", {
 //     bind: this,
-//     callBack: this.re_getBalance,
-//     errorHandler:this.error_getBalance
+//     query: {
+//       timestamp: this.serverTime
+//     },
+//     callBack: this.re_getPositionRisk,
+//     errorHandler: this.error_getPositionRisk
 //   })
 // }
-// // 获取用户可用余额正确回调
-// root.methods.re_getBalance = function (data) {
-//   typeof(data) == 'string' && (data = JSON.parse(data));
-//   if(!data || !data.data || !data.data[0])return
-//   this.availableBalance  = data.data[0].availableBalance || 0
+// // 获取记录返回，类型为{}
+// root.methods.re_getPositionRisk = function (data) {
+//   typeof data === 'string' && (data = JSON.parse(data))
+//   if (!data) return
+//   this.records = data.data
+//   this.records.map((v,index)=>{
+//     if (v.positionAmt != 0) {
+//       let aa = []
+//       aa.push(v)
+//       this.records1 = aa
+//     }
+//   })
+//   this.recordsIndex = this.records1.length
 // }
-// // 获取用户可用余额错误回调
-// root.methods.error_getBalance = function (err) {
-//   console.log('获取用户可用余额',err)
-// }
+
+/*---------------------- 合约接口部分 begin ---------------------*/
+
+// 获取用户可用余额
+root.methods.getBalance = function () {
+  this.$http.send('GET_BALAN_ACCOUNT',{
+    bind: this,
+    callBack: this.re_getBalance,
+    errorHandler:this.error_getBalance
+  })
+}
+// 获取用户可用余额正确回调
+root.methods.re_getBalance = function (data) {
+  typeof(data) == 'string' && (data = JSON.parse(data));
+  if(!data || !data.data || !data.data[0])return
+  this.availableBalance  = data.data[0].availableBalance || 0
+}
+// 获取用户可用余额错误回调
+root.methods.error_getBalance = function (err) {
+  console.log('获取用户可用余额',err)
+}
 
 // 获取币安24小时价格变动接口
 root.methods.initTicket24Hr = function () {
@@ -780,12 +776,6 @@ root.methods.re_positionRisk = function (data) {
   let filterRecords = []
   data.data.forEach(v=>{
     if (v.symbol == 'BTCUSDT') {
-      if(v.positionSide == 'LONG'){
-        this.positionAmtLong = v.positionAmt
-      }
-      if(v.positionSide == 'SHORT'){
-        this.positionAmtShort = v.positionAmt
-      }
       this.leverage = v.leverage
       this.$store.commit("CHANGE_LEVERAGE", v.leverage);
       if(v.marginType == 'isolated'){
@@ -795,10 +785,6 @@ root.methods.re_positionRisk = function (data) {
       }
       this.marginType = 'CROSSED'
       this.marginModeType = 'quanCang'
-
-      // if (v.positionAmt != 0) {
-      //   filterRecords.push(v)
-      // }
     }
   })
 }
@@ -1385,12 +1371,16 @@ root.methods.re_postLevelrage = function (data) {
     this.popTextLeverage = '超过当前杠杆的最大允许持仓量';
     return
   }
-
   typeof(data) == 'string' && (data = JSON.parse(data));
-  this.leverage = data.data.leverage || ''
-  this.maxNotionalValue = data.data.maxNotionalValue || ''
-  this.positionRisk()
-  this.popWindowCloseAdjustingLever()
+  this.promptOpen = true;
+  if (data.code == 200) {
+    this.leverage = data.data.leverage || ''
+    this.popType = 1;
+    this.popText = '调整杠杆成功';
+    this.maxNotionalValue = data.data.maxNotionalValue || ''
+    this.positionRisk()
+    this.popWindowCloseAdjustingLever()
+  }
 }
 
 // 关闭调整杠杆 Strat

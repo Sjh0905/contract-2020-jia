@@ -298,6 +298,15 @@ store.state.assets = {
   unrealizedProfit: 0,
   walletBalance: 0,
 }
+
+/**
+ * 双仓可平数量  CloseAmount
+ * @type {Number}
+ */
+store.state.closeAmount = {
+  positionAmtLong:0,
+  positionAmtShort:0
+}
 // /**
 //  * 除去逐仓仓位保证金的钱包余额  crossWalletBalance
 //  * @type {Number}
@@ -376,6 +385,17 @@ store.mutations.CHANGE_ASSETS = (state, info) => {
   state.assets = Object.assign(state.assets,info);
   // console.log('state.assets=',state.assets);
 }
+
+/**
+ * 双仓可平数量  CloseAmount
+ * @type {Number}
+ */
+store.mutations.CHANGE_CLOSE_AMOUNT = (state, info) => {
+  state.closeAmount = Object.assign(state.closeAmount,info);
+  // console.log('state.assets=',state.assets);
+}
+
+
 // /**
 //  * 除去逐仓仓位保证金的钱包余额
 //  * @type {Number}

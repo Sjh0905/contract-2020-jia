@@ -75,6 +75,8 @@ root.data = function () {
     crossMaintMarginRate:0,//全仓保证金比率
     totalAmount:0,
     securityDeposit: 0 , // 逐仓保证金
+    positionAmtLong:0,
+    positionAmtShort:0
 
     pSymbols:[],//仓位列表出现的币对
     pSymbolsMap:{},//仓位列表出现的币对与仓位映射关系
@@ -94,9 +96,9 @@ root.watch.crossWalletBalance = function(newVal,oldVal) {
 }
 /*------------------------------ 生命周期 -------------------------------*/
 root.created = function () {
-  this.$eventBus.listen(this, 'GET_POSITION', this.positionRisk)
-  this.positionSocket()
   this.getPositionRisk()
+  this.$eventBus.listen(this, 'GET_POSITION', this.getPositionRisk)
+  this.positionSocket()
   this.getAdlQuantile()
   this.getAccount()
   // console.info('钱包总余额===',this.$store.state.walletBalance,'除去逐仓仓位的钱包总余额===',this.$store.state.crossWalletBalance)
@@ -191,6 +193,8 @@ root.methods.commitModifyMargin = function () {
 root.methods.re_commitModifyMargin = function (data) {
   this.controlType = false
   typeof data === 'string' && (data = JSON.parse(data))
+  // 监听钱包变化
+  this.$eventBus.notify({key:'GET_BALANCE'})
   this.getPositionRisk()
   this.increaseAmount = ''
   this.reduceAmount = ''
@@ -230,7 +234,33 @@ root.methods.openModifyMargin = function (item) {
 root.methods.modifyMarginClose = function () {
   this.modifyMarginOpen = false
 }
+root.methods.setCloseAmount = function (item){
+  if((item.ps  || item.positionSide) == 'LONG'){
+    this.positionAmtLong = item.pa || item.positionAmt
+  }
 
+  if((item.ps  || item.positionSide) == 'SHORT'){
+    this.positionAmtShort = item.pa || item.positionAmt
+  }
+  // 将可平仓数量存储到store里面
+  let closeAmount = {
+    positionAmtLong:this.positionAmtLong,
+    positionAmtShort:this.positionAmtShort
+  }
+  this.$store.commit('CHANGE_CLOSE_AMOUNT',closeAmount)
+  let totalAmt = 0
+  if((item.ps  || item.positionSide) == 'BOTH') {
+    totalAmt += (item.pa || item.positionAmt)
+  }
+  if((item.ps  || item.positionSide) != 'BOTH'){
+    totalAmt += Math.abs(item.pa || item.positionAmt)
+  }
+  // 单仓下计算可开数量
+  if(totalAmt!=this.totalAmount) {
+    this.totalAmount = totalAmt
+    this.$eventBus.notify({key:'POSITION_TOTAL_AMOUNT'}, this.totalAmount)
+  }
+}
 
 // 接收仓位 socket 信息
 root.methods.positionSocket = function () {
@@ -256,6 +286,8 @@ root.methods.positionSocket = function () {
       // this.getPositionRisk()
 
       let currPositions = this.records,realSocketPositons = socketPositons.filter(sv=>{
+          this.setCloseAmount(sv)
+
           if(sv.mt == 'cross')return sv.pa!=0
           if(sv.mt == 'isolated')return sv.pa != 0 || sv.iw!=0
         })//开仓量或逐仓保证金不为0的仓位才有效
@@ -313,7 +345,7 @@ root.methods.openPositionBox = function (name) {
   $("." + name).attr("style","display:block");
 }
 /*---------------------- 开仓价格 end ---------------------*/
-// 仓位
+// 钱包余额
 root.methods.getAccount = function () {
   // if (this.priceCheck != 0) {
   //   this.priceCheck = (localStorage.getItem('PRICE_CHECK'));
@@ -340,7 +372,6 @@ root.methods.re_getAccount = function (data) {
 root.methods.error_getAccount = function (err) {
   console.warn("充值获取记录出错！", err)
 }
-
 
 // 仓位
 root.methods.getPositionRisk = function () {
@@ -402,7 +433,7 @@ root.methods.error_getPositionRisk = function (err) {
 //计算保证金和保证金比率
 root.methods.handleWithMarkPrice = function(records){
   if(!records || records.length == 0)return
-  let totalMaintMargin = 0,totalUnrealizedProfit = 0,totalAmt = 0;
+  let totalMaintMargin = 0,totalUnrealizedProfit = 0;
 
   this.pSymbols = [];//初始化
   this.pSymbolsMap = {}//初始化
@@ -433,12 +464,7 @@ root.methods.handleWithMarkPrice = function(records){
     v.responseRate = Number(v.responseRate).toFixed(2) + '%'
 
     // console.log('v.responseRate.toFixed',i,v.responseRate)
-    if(v.positionSide == 'BOTH') {
-      totalAmt += v.positionAmt
-    }
-    if(v.positionSide != 'BOTH'){
-      totalAmt += Math.abs(v.positionAmt)
-    }
+    // this.changePositonAmt(v)
     if(v.marginType == 'cross'){
       //全仓保证金：size * markprice * 1 / leverage，size = abs(positionAmt)
       v.securityDeposit = this.accDiv(notional,this.leverage)
@@ -460,6 +486,8 @@ root.methods.handleWithMarkPrice = function(records){
     if(this.LPCalculationType[v.positionSide][v.marginType] == 1){
       this.LPCalculation1(v)
     }
+    // 改变平仓数量
+    this.setCloseAmount(v)
 
     //双仓全仓
     if(this.LPCalculationType[v.positionSide][v.marginType] == 2){
@@ -475,6 +503,7 @@ root.methods.handleWithMarkPrice = function(records){
   this.crossMaintMarginRate = this.accDiv(totalMaintMargin,this.accAdd(totalUnrealizedProfit,this.crossWalletBalance))
   this.crossMaintMarginRate = Number(this.crossMaintMarginRate * 100).toFixed(2) + '%'
   this.records = records;
+
 
   //双仓全仓强平价格计算，由于全仓下同一symbol多空仓位强平价格一致，用map遍历完后再计算
   this.pSymbols.length > 0 && this.LPCalculation2();
@@ -537,7 +566,7 @@ root.methods.LPCalculation1 = function (pos = {}){
 
 }
 //1 单仓 LPCalculation1BOTH = LPCalculation1 + "BOTH"(positionSide)
-root.methods.LPCalculation1BOTH = function (...paras){
+root.methods.LPCalculation1BOTH = function (paras){
   let [WB,size,ep,cum,mmr] = paras , B = Math.abs(size)
   let molecular = this.chainCal().accAdd(WB,cum).accMinus(this.accMul(size,ep))//WB + cum_B - (size * EP_B)
   let denominator = this.chainCal().accMul(B,mmr).accMinus(size)//B * MMR_B -  size
@@ -545,14 +574,14 @@ root.methods.LPCalculation1BOTH = function (...paras){
   return this.accDiv(molecular,denominator)
 }
 //1 双仓 - 多仓
-root.methods.LPCalculation1LONG = function (...paras){
+root.methods.LPCalculation1LONG = function (paras){
   let [WB,size,ep,cum,mmr] = paras , L = Math.abs(size);
   let molecular = this.chainCal().accAdd(WB,cum).accMinus(this.accMul(L,ep))//WB + cum_L - (L * EP_L)
   let denominator = this.chainCal().accMul(L,mmr).accMinus(L)//L * MMR_L - L
   return this.accDiv(molecular,denominator)
 }
 //1 双仓 - 空仓
-root.methods.LPCalculation1SHORT = function (...paras){
+root.methods.LPCalculation1SHORT = function (paras){
   let [WB,size,ep,cum,mmr] = paras , S = Math.abs(size);
   let molecular = this.chainCal().accAdd(WB,cum).accAdd(this.accMul(S,ep))//WB + cum_S + (S * EP_S)
   let denominator = this.chainCal().accMul(S,mmr).accAdd(S)//S * MMR_S + S
@@ -704,7 +733,7 @@ root.methods.addAdlQuantile = function(currSAdlQuantile,records){
 
 // 市价
 root.methods.marketPrice = function (item) {
-
+  this.marketPriceClick = true
   // var v = ipt.value;//获取input的值
   let params = {
     leverage: this.$store.state.leverage,
@@ -715,7 +744,6 @@ root.methods.marketPrice = function (item) {
     symbol: "BTCUSDT",
     orderType: "MARKET",
   }
-  this.marketPriceClick = true
   this.$http.send("POST_ORDERS_POSITION", {
     bind: this,
     params: params,
@@ -725,15 +753,12 @@ root.methods.marketPrice = function (item) {
 }
 // 获取记录返回，类型为{}
 root.methods.re_marketPrice = function (data) {
-  this.marketPriceClick = false
-
   if(data.code == '303' && data.errCode == '2019') {
     this.promptOpen = true;
     this.popType = 0;
     this.popText = '杠杆账户余额不足';//当前无仓位，不能下单
     return
   }
-
   if(data.code == '303' && data.errCode == '4061') {
     this.promptOpen = true;
     this.popType = 0;
@@ -761,9 +786,10 @@ root.methods.re_marketPrice = function (data) {
   typeof data === 'string' && (data = JSON.parse(data))
   if (!data) return
   this.popOpen = false
-  this.$eventBus.notify({key:'GET_POSITION'})
+  this.getPositionRisk()
+  this.$eventBus.notify({key:'GET_BALANCE'})
   this.promptOpen = true;
-
+  this.marketPriceClick = false
   if(data.data.status == 'NEW') {
     this.popType = 1;
     this.popText = '下单成功';
@@ -777,7 +803,6 @@ root.methods.re_marketPrice = function (data) {
   if(data.data.status == 'FILLED') {
     this.popType = 1;
     this.popText = '完全成交';
-    this.marketPriceClick = false
     return
   }
   if(data.data.status == 'CANCELED') {
@@ -800,7 +825,6 @@ root.methods.re_marketPrice = function (data) {
     this.popText = '自动减仓序列(强平)';
     return
   }
-  this.getPositionRisk()
 }
 // 限价
 root.methods.checkPrice = function (item) {
@@ -818,18 +842,20 @@ root.methods.checkPrice = function (item) {
     orderType: "LIMIT",
     // workingType: null,
   }
+  if(item.positionSide == 'BOTH'){
+    Object.assign(params, {reduceOnly: true});
+  }
   this.checkPriceClick = true
   this.$http.send("POST_ORDERS_POSITION", {
     bind: this,
     params: params,
-    callBack: this.re_marketPrice,
-    errorHandler: this.error_marketPrice
+    callBack: this.re_checkPrice,
+    errorHandler: this.error_checkPrice
   })
 }
 // 获取记录返回，类型为{}
-root.methods.re_marketPrice = function (data) {
+root.methods.re_checkPrice = function (data) {
   this.checkPriceClick = false
-
   if(data.code == '303' && data.errCode == '2019') {
     this.promptOpen = true;
     this.popType = 0;
@@ -863,7 +889,9 @@ root.methods.re_marketPrice = function (data) {
   }
   typeof data === 'string' && (data = JSON.parse(data))
   if (!data) return
-  this.$eventBus.notify({key:'GET_POSITION'})
+  this.$eventBus.notify({key:'GET_ORDERS'})
+  this.$eventBus.notify({key:'GET_BALANCE'})
+  this.getPositionRisk()
   this.promptOpen = true;
   this.priceCheck = data.data.price
 
@@ -872,7 +900,6 @@ root.methods.re_marketPrice = function (data) {
   // if (this.priceCheck != 0) {
   //   this.priceCheck = JSON.parse(localStorage.getItem('PRICE_CHECK'));
   // }
-  console.info('this.priceCheck',this.priceCheck)
   this.order = data.data
 
   if(data.data.status == 'NEW') {
@@ -911,9 +938,10 @@ root.methods.re_marketPrice = function (data) {
     return
   }
 
-  this.getPositionRisk()
 }
-
+root.methods.error_checkPrice = function (err){
+  console.info('err==',err)
+}
 //一键平仓
 root.methods.closePositions = function () {
   this.popOpen = true
