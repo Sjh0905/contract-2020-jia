@@ -27,7 +27,7 @@
       <div class="th td-operation text_blue">
         <span class="click-operation" v-if="currentOrderComputed.length===0">{{$t('全部撤单')}}</span>
 <!--        <span class="click-operation" v-if="loading || currentOrderComputed.length===0">{{$t('orderPageCurrentEntrustment.close_8')}}</span>-->
-        <span class="click-operation cancelAll" v-if="!loading && currentOrderComputed.length!==0"
+        <span class="click-operation cancelAll" v-if="currentOrderComputed.length!==0"
               @click="cancelAllOrder">{{$t('全部撤单')}}</span>
       </div>
     </li>
