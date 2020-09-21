@@ -394,6 +394,7 @@ root.computed.crossWalletBalance = function () {
 }
 // 委托单数据
 root.computed.currentOrders = function  () {
+  console.info('this.$store.state.currentOrders==',this.$store.state.currentOrders)
   return this.$store.state.currentOrders || []
 }
 
@@ -949,7 +950,7 @@ root.computed.securityDeposit = function () {
     }
     //开仓成本
     let cost = this.chainCal().accAdd(marginReuired, openLost).proFixed(2).getResult()
-    console.info('this is twoWayCost ===',cost)
+    // console.info('this is twoWayCost ===',cost)
 
     return cost
   }
@@ -974,7 +975,7 @@ root.computed.securityDeposit = function () {
 
     //开仓成本
     let twoWayCost = this.chainCal().accAdd(twoWaymarginReuired, twoWayopenLost).proFixed(2).getResult()
-    console.info('this is twoWayCost ===',twoWayCost)
+    // console.info('this is twoWayCost ===',twoWayCost)
 
     return twoWayCost
   }

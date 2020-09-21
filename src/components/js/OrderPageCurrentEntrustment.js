@@ -261,7 +261,7 @@ root.methods.cancelOrder = async function (order, cancelAll = false) {
 root.methods.re_cancelOrder = function (data) {
   typeof(data) == 'string' && (data = JSON.parse(data));
   this.loading = false
-  if(data.data.code == 200){
+  if(data.code == 200){
     this.getOrder()
     this.$eventBus.notify({key:'GET_POSITION'})
     this.$eventBus.notify({key:'GET_ORDERS'})
