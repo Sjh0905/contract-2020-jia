@@ -76,6 +76,8 @@ root.data = function () {
     totalAmount:0,
     securityDeposit: 0 , // 逐仓保证金
 
+    pSymbols:[],//仓位列表出现的币对
+    pSymbolsMap:{},//仓位列表出现的币对与仓位映射关系
   }
 }
 /*------------------------------ 观察 -------------------------------*/
@@ -402,6 +404,9 @@ root.methods.handleWithMarkPrice = function(records){
   if(!records || records.length == 0)return
   let totalMaintMargin = 0,totalUnrealizedProfit = 0,totalAmt = 0;
 
+  this.pSymbols = [];//初始化
+  this.pSymbolsMap = {}//初始化
+
   //由于四舍五入，以下均使用原生toFixed
   records.map((v,i)=>{
 
@@ -412,6 +417,8 @@ root.methods.handleWithMarkPrice = function(records){
 
     let notional = this.accMul(Math.abs(v.positionAmt) || 0,this.markPrice || 0)
     let args = this.getCalMaintenanceArgs(notional) || {},maintMarginRatio = args.maintMarginRatio || 0,notionalCum = args.notionalCum || 0
+
+    v.bracketArgs = args;//用于强平价格降档计算
 
     //全仓维持保证金：Notional * MMR - cum；Notional= abs(positionAmt) * Latest_Mark_Price
     //逐仓维持保证金：abs(position size) * Latest_Mark_Price * MMR -cum
@@ -454,11 +461,23 @@ root.methods.handleWithMarkPrice = function(records){
       this.LPCalculation1(v)
     }
 
+    //双仓全仓
+    if(this.LPCalculationType[v.positionSide][v.marginType] == 2){
+      let s = v.symbol , ps =  '_' + v.positionSide , absPa = Math.abs(v.positionAmt);//比较的是绝对值
+      if(!this.pSymbols.includes(s)){
+        this.pSymbols.push(s)
+      }
+      this.pSymbolsMap[s+ps]={absPa:absPa,pos:v}//存储当前数量绝对值和仓位对象
+    }
+
   })
   //全仓保证金比率 = 各仓位的maintMargin字段之和 /（各仓位的unrealizedProfit之和+全仓账户余额 crossWalletBalance)
   this.crossMaintMarginRate = this.accDiv(totalMaintMargin,this.accAdd(totalUnrealizedProfit,this.crossWalletBalance))
   this.crossMaintMarginRate = Number(this.crossMaintMarginRate * 100).toFixed(2) + '%'
   this.records = records;
+
+  //双仓全仓强平价格计算，由于全仓下同一symbol多空仓位强平价格一致，用map遍历完后再计算
+  this.pSymbols.length > 0 && this.LPCalculation2();
 
   if(totalAmt!=this.totalAmount) {
     this.totalAmount = totalAmt
@@ -481,6 +500,7 @@ root.methods.getCalMaintenanceArgs = function(notional=0){
 
     if(floorStep > 0 && capStep <= 0){
       bracketSingle = v;
+      bracketSingle.inx = i//用于强平价格降档计算
       break;
     }
   }
@@ -495,14 +515,15 @@ root.methods.LPCalculation1 = function (pos = {}){
       // 2.逐仓模式下，WB 为逐仓仓位的 isolatedWalletBalance，TMM=0，UPNL=0,isolatedWalletBalance = isolatedMargin - unrealizedProfit,正好和逐仓保证金相等
       WB = pos.marginType == "cross" ? this.crossWalletBalance : pos.securityDeposit;
 
-  //从 bracket 最高档开始逐层计算 lp，若计算出 lp 使得：floor < abs(b*lp) <= cap，则获得 lp，否则继续降档计算
-  //若始终没有匹配值使得 floor < abs(b*lp) <= cap，则降至最后一档算出结果即为最终值
+  //从 Bracket 最高档开始逐层计算 LP，若计算出 LP 使得：floor < abs(B*LP) <= cap，则获得 LP，否则继续降档计算
+  //若始终没有匹配值使得 floor < abs(B*LP) <= cap，则降至最后一档算出结果即为最终值
   for (let i = 0; i < this.leverageBracket.length; i++) {
     let v = this.leverageBracket[i],cum = v.notionalCum || 0,mmr = v.maintMarginRatio || 0
 
     //调用对应的计算方法： LPCalculation1BOTH LPCalculation1LONG LPCalculation1SHORT
     let paras = [WB,size,ep,cum,mmr] , LP = this["LPCalculation1"+pos.positionSide](paras),
-        BLP = this.accMul(LP,this.markPrice);
+        BLP = this.accMul(Math.abs(size),LP);//abs(B*LP)
+        BLP = Math.abs(BLP);
     let floorStep = this.accMinus(BLP,v.notionalFloor || 0), capStep = this.accMinus(BLP,v.notionalCap || 0)
 
     if((floorStep > 0 && capStep <= 0) || i == this.leverageBracket.length - 1){
@@ -536,6 +557,111 @@ root.methods.LPCalculation1SHORT = function (...paras){
   let molecular = this.chainCal().accAdd(WB,cum).accAdd(this.accMul(S,ep))//WB + cum_S + (S * EP_S)
   let denominator = this.chainCal().accMul(S,mmr).accAdd(S)//S * MMR_S + S
   return this.accDiv(molecular,denominator)
+}
+//类型2的强平价格
+root.methods.LPCalculation2 = function () {
+
+  let leverageBracket = this.leverageBracket;
+
+  //由于全仓模式下，一个 symbol 下多空仓位强平价格一致，可将最终结果存储到 this[s+"_LPCalculation2"]
+  this.pSymbols.map((s,si)=>{
+    let LPCalculation2 = 0,long = this.pSymbolsMap[s+"_LONG"], short = this.pSymbolsMap[s+"_SHORT"],longPos,shortPos;
+      long && (longPos = long.pos); short && (shortPos = short.pos);
+
+    if(typeof longPos != typeof shortPos){//只有一个仓位
+      for (let i = 0; i < leverageBracket.length; i++) {
+        let v = leverageBracket[i],cum = v.notionalCum || 0,mmr = v.maintMarginRatio || 0,
+            WB = this.crossWalletBalance,size = 0,ep = 0,paras = [],LP = 0
+
+        if(longPos && !shortPos){
+          size = longPos.positionAmt,ep = longPos.entryPrice;
+          paras = [WB,size,ep,cum,mmr]
+          LP = this.LPCalculation1LONG(paras)//cum_S对应等级cum是0，那公式就和“双仓-逐仓-多仓”一致
+        }
+        if(!longPos && shortPos){
+          size = shortPos.positionAmt,ep = shortPos.entryPrice;
+          paras = [WB,size,ep,cum,mmr]
+          LP = this.LPCalculation1SHORT(paras)//cum_L对应等级cum是0，那公式就和“双仓-逐仓-空仓”一致
+        }
+
+        let SIZELP1 = this.accMul(Math.abs(size),LP),SIZEMP = this.accMul(Math.abs(size),this.markPrice);
+            SIZELP1 = Math.abs(SIZELP1);SIZEMP = Math.abs(SIZEMP);
+
+        let floorStepL = this.accMinus(SIZELP1,v.notionalFloor || 0), capStepL = this.accMinus(SIZELP1,v.notionalCap || 0),
+            floorStepM = this.accMinus(SIZEMP,v.notionalFloor || 0), capStepM = this.accMinus(SIZEMP,v.notionalCap || 0)
+
+        //对比 abs(L*LP1) 与 abs(L*MP) 是否处于同一层级（可理解为二者同时满足floor<abs(L*LP1)、abs(L*MP)<=cap），若是，则 LP1 为最终结果
+        if((floorStepL > 0 && capStepL <= 0) && (floorStepM > 0 && capStepM <= 0)){
+          LPCalculation2 = LP;
+          break;
+        }
+      }
+    }
+
+    if(longPos && shortPos){
+      let BAL = longPos.bracketArgs,bj = BAL.inx,SIZEL = Math.abs(longPos.positionAmt || 0),epL = longPos.entryPrice,
+      SIZES = Math.abs(shortPos.positionAmt || 0),epS = shortPos.entryPrice,LP1 = 0,LP3 = 0,LPCalculation21 = 0,LPCalculation22 = 0;
+
+
+      for (let j = bj; j < leverageBracket.length; j++) {
+        let lv = leverageBracket[j],cumL = lv.notionalCum || 0,mmrL = lv.maintMarginRatio || 0
+
+        //a. 把多仓 MMR&cum 代入强平公式 b. 空仓从最高档开始逐层计算 LP1
+        for (let h = 0; h < leverageBracket.length; h++) {
+          let sv = leverageBracket[h],cumS = sv.notionalCum || 0,mmrS = sv.maintMarginRatio || 0,
+              paras = [SIZEL,epL,cumL,mmrL,SIZES,epS,cumS,mmrS];
+          LP1 = this.LPCalculation2LS(paras);
+          let SLP1 = this.accMul(SIZES,LP1); SLP1 = Math.abs(SLP1);//abs(S*LP1)
+          let floorStep = this.accMinus(SLP1,v.notionalFloor), capStep = this.accMinus(SLP1,v.notionalCap)
+
+          //若计算出LP1 使floor<abs(S*LP1)<=cap，则获得 LP1，否则需再继续降档计算 LP1，直到最后一档或者floor<abs(S*LP1)<=cap
+          if((floorStep > 0 && capStep <= 0) || h == leverageBracket.length - 1){
+            // LP1 = LP1;
+            break;
+          }
+        }
+
+        //对比 abs(L*LP1) 与 abs(L*MP) 是否处于同一层级，若是，则 LP1 为最终结果；否则多仓bracket 降一档
+        //可理解为二者同时满足floor<abs(L或S*LP1)、abs(L或S*MP)<=cap
+        let SIZELP1 = this.accMul(SIZEL,LP1),SIZEMP = this.accMul(SIZEL,this.markPrice);
+            SIZELP1 = Math.abs(SIZELP1);SIZEMP = Math.abs(SIZEMP);
+
+        let floorStepL = this.accMinus(SIZELP1,lv.notionalFloor), capStepL = this.accMinus(SIZELP1,lv.notionalCap),
+            floorStepM = this.accMinus(SIZEMP,lv.notionalFloor), capStepM = this.accMinus(SIZEMP,lv.notionalCap)
+
+        //对比 abs(L*LP1) 与 abs(L*MP) 是否处于同一层级（可理解为二者同时满足floor<abs(L*LP1)、abs(L*MP)<=cap），若是，则 LP1 为最终结果
+        if((floorStepL > 0 && capStepL <= 0) && (floorStepM > 0 && capStepM <= 0)){
+          LPCalculation2 = LP1;//本步最终得出的强平价格
+          break;
+        }
+
+      }
+
+      //全仓、双向持仓 且 仓位为净多头，则须在 LP1 的基础上继续计算
+      if(SIZEL > SIZES){
+        let BAS = shortPos.bracketArgs,cumS = BAS.notionalCum || 0,mmrS = BAS.maintMarginRatio || 0,
+            cumL = BAL.notionalCum || 0,mmrL = BAL.maintMarginRatio || 0,
+            paras = [SIZEL,epL,cumL,mmrL,SIZES,epS,cumS,mmrS];
+        LP3 = this.LPCalculation2LS(paras);
+
+      //TODO:接下来要和LP1对比取值
+
+      }
+
+    }
+  });
+}
+//2 双仓 - 多仓
+root.methods.LPCalculation2LONG = function (paras){
+
+}
+//2 双仓 - 空仓
+root.methods.LPCalculation2SHORT = function (paras){
+
+}
+//2 双仓 - 多空都有
+root.methods.LPCalculation2LS = function (paras){
+
 }
 // 自动减仓持仓ADL队列估算
 root.methods.getAdlQuantile = function () {

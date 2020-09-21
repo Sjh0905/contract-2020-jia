@@ -292,6 +292,8 @@ root.methods.re_getLeverageBracket = function(data){
     // console.log('this is getLeverageBracket=',v.notionalCap,this.$globalFunc.accMinus(v.notionalCap,9223372036854776000));
   })
 
+  bracketSingle = bracketSingle.reverse();//必须按bracket倒序排序，其他代码是这么用的
+
   this.$store.commit('CHANGE_LEVERAGE_BRACKET',bracketSingle);
   // console.info('this is getLeverageBracket=',item,bracketSingle)
 }
