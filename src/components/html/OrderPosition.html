@@ -79,6 +79,7 @@
       <div class="td td-return-rate" :class="item.unrealizedProfitPage>0?'text_blue-3':'text_red-4'">{{Number(item.unrealizedProfitPage || 0).toFixed(2) }} ({{item.responseRate}})</div>
       <!--自动减仓-->
       <div class="td td-reduce-positions">
+        <img v-if="item.adlQuantile == undefined" src="../../assets/reduce_positions_0.png" alt="">
         <img v-if="item.adlQuantile == 0" src="../../assets/reduce_positions_0.png" alt="">
         <img v-if="item.adlQuantile == 1" src="../../assets/reduce_positions_1.png" alt="">
         <img v-if="item.adlQuantile == 2" src="../../assets/reduce_positions_2.png" alt="">
@@ -86,31 +87,18 @@
         <img v-if="item.adlQuantile == 4" src="../../assets/reduce_positions_4.png" alt="">
       </div>
 <!--      &lt;!&ndash;平仓&ndash;&gt;v-if="item.positionSide == 'BOTH'"-->
-      <div class="td td-trigger" v-if="item.positionSide == 'BOTH'">
-        <div class="td-trigger-btn flex" v-if="priceCheck == 0">
+      <div class="td td-trigger" >
+        <div class="td-trigger-btn flex" v-if="priceCheck[item.positionSide] == 0">
           <div class="market-price margin-right" v-if="!marketPriceClick" @click="marketPrice(item)">市价</div>
           <div class="market-price margin-right" v-if="marketPriceClick">市价</div>
           <div class="market-price margin-right" v-if="!checkPriceClick" @click="checkPrice(item)">限价</div>
           <div class="market-price margin-right" v-if="checkPriceClick">限价</div>
           <input type="text" v-model="item.iptMarkPrice" onkeyup="value = value.match(/\d+(\.\d{0,2})?/) ? value.match(/\d+(\.\d{0,2})?/)[0] : ''">
         </div>
-        <div class="flex" v-if="priceCheck != 0 && toFixed(item.entryPrice,2) != priceCheck">
-          <div class="market-price-width">平仓委托在{{priceCheck}}</div>
+        <div class="flex" v-if="priceCheck[item.positionSide] != 0 && toFixed(item.entryPrice,2) != priceCheck[item.positionSide]">
+          <div class="market-price-width">平仓委托在{{priceCheck[item.positionSide]}}</div>
           <div class="cencon market-price-width38" @click="cancelThePosition">取消</div>
         </div>
-      </div>
-      <div class="td td-trigger" v-if="(item.positionSide == 'LONG' || item.positionSide == 'SHORT')">
-        <div class="td-trigger-btn flex">
-          <div class="market-price margin-right" v-if="!marketPriceClick" @click="marketPrice(item)">市价</div>
-          <div class="market-price margin-right" v-if="marketPriceClick">市价</div>
-          <div class="market-price margin-right" v-if="!checkPriceClick" @click="checkPrice(item)">限价</div>
-          <div class="market-price margin-right" v-if="checkPriceClick">限价</div>
-          <input type="text" v-model="item.iptMarkPrice" onkeyup="value = value.match(/\d+(\.\d{0,2})?/) ? value.match(/\d+(\.\d{0,2})?/)[0] : ''">
-        </div>
-<!--        <div class="flex" v-if="priceCheck != 0 && toFixed(item.entryPrice,2) != priceCheck">-->
-<!--          <div class="market-price-width">平仓委托在{{priceCheck}}</div>-->
-<!--          <div class="cencon market-price-width38" @click="cancelThePosition">取消</div>-->
-<!--        </div>-->
       </div>
     </li>
       <!-- 如果加载完成、已登录、有数据，则显示数据 end -->

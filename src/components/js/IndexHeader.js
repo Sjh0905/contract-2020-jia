@@ -1028,7 +1028,7 @@ root.methods.goToRecommend = function () {
 }
 //跳转登录页面
 root.methods.goToLogin = function () {
-  window.location.replace(this.$store.state.contract_url + 'index/sign/login');
+  window.location.replace(this.$store.state.contract_url + 'index/sign/login?toUrl=future_url');
 }
 //跳转注册页面
 root.methods.goToRegister = function () {
