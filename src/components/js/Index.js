@@ -292,7 +292,6 @@ root.methods.re_getLeverageBracket = function(data){
   })
 
   bracketSingle = bracketSingle.sort((a,b)=>{return (a.bracket -b.bracket)});//必须按bracket升序排序，其他代码是这么用的
-  console.info('bracketSingle==',bracketSingle)
 
   this.$store.commit('CHANGE_LEVERAGE_BRACKET',bracketSingle);
   // console.info('this is getLeverageBracket=',item,bracketSingle)
