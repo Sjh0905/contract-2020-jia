@@ -76,7 +76,7 @@
 
 
       <!--未实现盈亏（回报率）由于四舍五入，使用原生toFixed-->
-      <div class="td td-return-rate" :class="item.unrealizedProfit>0?'text_blue-3':'text_red-4'">{{Number(item.unrealizedProfitPage || 0).toFixed(2) }} ({{item.responseRate}})</div>
+      <div class="td td-return-rate" :class="item.unrealizedProfitPage>0?'text_blue-3':'text_red-4'">{{Number(item.unrealizedProfitPage || 0).toFixed(2) }} ({{item.responseRate}})</div>
       <!--自动减仓-->
       <div class="td td-reduce-positions">
         <img v-if="item.adlQuantile == 0" src="../../assets/reduce_positions_0.png" alt="">
