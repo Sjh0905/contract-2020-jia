@@ -153,7 +153,7 @@ root.computed.leverage = function () {
   return this.$store.state.leverage;
 }
 root.computed.leverageBracket = function () {
-  return this.$store.state.leverageBracket
+  return this.$store.state.leverageBracket || [];
 }
 // 存储仓位推送Key值的映射关系
 root.computed.socketPositionKeyMap = function () {
