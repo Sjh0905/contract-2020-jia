@@ -86,7 +86,20 @@
         <img v-if="item.adlQuantile == 4" src="../../assets/reduce_positions_4.png" alt="">
       </div>
 <!--      &lt;!&ndash;平仓&ndash;&gt;v-if="item.positionSide == 'BOTH'"-->
-      <div class="td td-trigger" >
+      <div class="td td-trigger" v-if="item.positionSide == 'BOTH'">
+        <div class="td-trigger-btn flex" v-if="priceCheck == 0">
+          <div class="market-price margin-right" v-if="!marketPriceClick" @click="marketPrice(item)">市价</div>
+          <div class="market-price margin-right" v-if="marketPriceClick">市价</div>
+          <div class="market-price margin-right" v-if="!checkPriceClick" @click="checkPrice(item)">限价</div>
+          <div class="market-price margin-right" v-if="checkPriceClick">限价</div>
+          <input type="text" v-model="item.iptMarkPrice" onkeyup="value = value.match(/\d+(\.\d{0,2})?/) ? value.match(/\d+(\.\d{0,2})?/)[0] : ''">
+        </div>
+        <div class="flex" v-if="priceCheck != 0 && toFixed(item.entryPrice,2) != priceCheck">
+          <div class="market-price-width">平仓委托在{{priceCheck}}</div>
+          <div class="cencon market-price-width38" @click="cancelThePosition">取消</div>
+        </div>
+      </div>
+      <div class="td td-trigger" v-if="(item.positionSide == 'LONG' || item.positionSide == 'SHORT')">
         <div class="td-trigger-btn flex">
           <div class="market-price margin-right" v-if="!marketPriceClick" @click="marketPrice(item)">市价</div>
           <div class="market-price margin-right" v-if="marketPriceClick">市价</div>
@@ -99,19 +112,6 @@
 <!--          <div class="cencon market-price-width38" @click="cancelThePosition">取消</div>-->
 <!--        </div>-->
       </div>
-<!--      <div class="td td-trigger" v-if="(item.positionSide == 'LONG' || item.positionSide == 'SHORT')">-->
-<!--        <div class="td-trigger-btn flex">-->
-<!--          <div class="market-price margin-right" v-if="!marketPriceClick" @click="marketPrice(item)">市价</div>-->
-<!--          <div class="market-price margin-right" v-if="marketPriceClick">市价</div>-->
-<!--          <div class="market-price margin-right" v-if="!checkPriceClick" @click="checkPrice(item)">限价</div>-->
-<!--          <div class="market-price margin-right" v-if="checkPriceClick">限价</div>-->
-<!--          <input type="text" v-model="item.iptMarkPrice" onkeyup="value = value.match(/\d+(\.\d{0,2})?/) ? value.match(/\d+(\.\d{0,2})?/)[0] : ''">-->
-<!--        </div>-->
-<!--        <div class="flex" v-if="priceCheck != 0 && toFixed(item.entryPrice,2) != priceCheck">-->
-<!--          <div class="market-price-width">平仓委托在{{priceCheck}}</div>-->
-<!--          <div class="cencon market-price-width38" @click="cancelThePosition">取消</div>-->
-<!--        </div>-->
-<!--      </div>-->
     </li>
       <!-- 如果加载完成、已登录、有数据，则显示数据 end -->
 
@@ -160,10 +160,10 @@
           <div class="modify-margin-des-number">{{toFixed(availableBalance || 0,2)}} USDT</div>
         </div>
         <!--调整后强平价格-->
-        <div class="modify-margin-des flex">
-          <div class="modify-margin-des-title">调整后强平价格：</div>
-          <div class="modify-margin-des-number">{{toFixed(Number(liquidationPrice),2)}} USDT</div>
-        </div>
+<!--        <div class="modify-margin-des flex">-->
+<!--          <div class="modify-margin-des-title">调整后强平价格：</div>-->
+<!--          <div class="modify-margin-des-number">{{toFixed(Number(liquidationPrice),2)}} USDT</div>-->
+<!--        </div>-->
       </div>
 
       <div v-if="styleType == 2">
@@ -185,10 +185,10 @@
           <div class="modify-margin-des-number">{{reduceMostAmount1}} USDT</div>
         </div>
         <!--减少后强平价格-->
-        <div class="modify-margin-des flex">
-          <div class="modify-margin-des-title">减少后强平价格：</div>
-          <div class="modify-margin-des-number">{{toFixed(Number(liquidationPrice),2)}} USDT</div>
-        </div>
+<!--        <div class="modify-margin-des flex">-->
+<!--          <div class="modify-margin-des-title">减少后强平价格：</div>-->
+<!--          <div class="modify-margin-des-number">{{toFixed(Number(liquidationPrice),2)}} USDT</div>-->
+<!--        </div>-->
       </div>
 
     </div>
