@@ -157,7 +157,7 @@ root.computed.leverage = function () {
   return this.$store.state.leverage;
 }
 root.computed.leverageBracket = function () {
-  return this.$store.state.leverageBracket || [];
+  return this.$store.state.leverageBracket && this.$store.state.leverageBracket.reverse() || [];//倒序处理，强平价格从最高档开始计算
 }
 // 存储仓位推送Key值的映射关系
 root.computed.socketPositionKeyMap = function () {
