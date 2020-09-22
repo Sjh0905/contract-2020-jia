@@ -1047,8 +1047,23 @@ root.methods.postFullStop = function () {
   this.currentLimiting = true
   this.loading = true
   let params = {}
-  let latestOrMarkPrice = ''
-  latestOrMarkPrice = this.latestPrice == '最新价格' ? Number(this.latestPriceVal) : Number(this.markPrice)
+  let latestOrMarkPrice = this.latestPrice == '最新价格' ? Number(this.latestPriceVal) : Number(this.markPrice)
+  if(this.amount == ''){
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '请输入正确的数量';
+    this.loading = false
+    this.currentLimiting = false
+    return
+  }
+  if(this.triggerPrice == ''){
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '请输入正确的触发价格';
+    this.loading = false
+    this.currentLimiting = false
+    return
+  }
   // 单仓 限价止盈止损
   if (this.isHasModule('kaipingType') == 1 && this.isHasModule('buttonType') == 1 && this.pendingOrderType == 'limitProfitStopLoss') {
     params = {
@@ -1238,6 +1253,14 @@ root.methods.error_postFullStop = function (err) {
 root.methods.postOrdersCreate = function () {
   this.currentLimiting = true
   this.loading = true
+  if(this.amount == ''){
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '请输入正确的数量';
+    this.loading = false
+    this.currentLimiting = false
+    return
+  }
   let params = {}
   // 单仓 限价
   if (this.isHasModule('kaipingType') == 1 && this.isHasModule('buttonType') == 1 && this.pendingOrderType == 'limitPrice' && this.checkPrice != '2') {
@@ -1398,6 +1421,14 @@ root.methods.error_postOrdersCreate = function (err) {
 root.methods.postOrdersPosition = function () {
   this.currentLimiting = true
   this.loading = true
+  if(this.amount == ''){
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '请输入正确的数量';
+    this.loading = false
+    this.currentLimiting = false
+    return
+  }
   let params = {}
   // 双仓 平仓 限价 平多 传LONG ; 平空 传SHORT
   if (this.isHasModule('kaipingType') == 2 && this.isHasModule('buttonType') == 3 && this.pendingOrderType == 'limitPrice') {

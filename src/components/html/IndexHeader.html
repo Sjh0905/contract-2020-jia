@@ -378,22 +378,19 @@
               <ul class="navigation-right-container flex">
                 <!--登录注册 begin-->
                 <li class="login-register-container flex" v-if="!isLogin">
-                  <router-link
-                    :to="{name:'login'}"
+                  <div @click="goToLogin()"
                     class="navigation-item-router login-register-item flex"
                     active-class="navigation-item-router-selected text_blue"
                   >
                     <span class="dlfont">{{$t('login')}}</span>
-                  </router-link>
+                  </div>
 <!--                                  <span class="login-register-item-separator light-color">|</span>-->
-
-                  <router-link
-                    :to="{name:'register'}"
+                  <div @click="goToRegister()"
                     class="navigation-item-router login-register-item-re flex"
                     active-class="navigation-item-router-selected text_blue"
                   >
                     <span class="zcfont">{{$t('register')}}</span>
-                  </router-link>
+                  </div>
                 </li>
                 <!--登录注册 end-->
 

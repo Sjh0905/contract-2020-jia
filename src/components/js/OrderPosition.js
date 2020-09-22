@@ -64,7 +64,11 @@ root.data = function () {
     // isolatedWalletBalance:'', // 逐仓仓可用保证金
     // walletBalance:'', // 钱包余额
     // reduceMoreAmount: 0 , // 最多可减少
-    priceCheck:0,  // 平仓价格在多少
+    priceCheck:{
+      'BOTH':0,
+      'LONG':0,
+      'SHORT':0
+    },  // 平仓价格在多少
     order:{},
     priceCheck1:0,
     currSAdlQuantile:'',
@@ -313,8 +317,10 @@ root.methods.positionSocket = function () {
       })
 
       this.records = realSocketPositons
+      //没有仓位数据时自动减仓返回的空数组，currSAdlQuantile会是undefined，增加仓位后重新调取接口获取值
+      if(this.records.length > 0 && this.currSAdlQuantile == undefined)this.getAdlQuantile();
       //自动减仓数据拼接
-      if(this.currSAdlQuantile)this.addAdlQuantile(this.currSAdlQuantile,this.records)
+      if(this.currSAdlQuantile)this.addAdlQuantile(this.currSAdlQuantile,this.records);
       this.handleWithMarkPrice(this.records)
 
       // this.socketRecords.forEach(v=>{
@@ -508,10 +514,6 @@ root.methods.handleWithMarkPrice = function(records){
   //双仓全仓强平价格计算，由于全仓下同一symbol多空仓位强平价格一致，用map遍历完后再计算
   this.pSymbols.length > 0 && this.LPCalculation2();
 
-  // if(totalAmt!=this.totalAmount) {
-  //   this.totalAmount = totalAmt
-  //   this.$eventBus.notify({key:'POSITION_TOTAL_AMOUNT'}, this.totalAmount)
-  // }
 }
 //计算维持保证金首先获取比率、速算数等信息
 root.methods.getCalMaintenanceArgs = function(notional=0){
@@ -893,7 +895,9 @@ root.methods.re_checkPrice = function (data) {
   this.$eventBus.notify({key:'GET_BALANCE'})
   this.getPositionRisk()
   this.promptOpen = true;
-  this.priceCheck = data.data.price
+  this.priceCheck[data.data.positionSide] = data.data.price
+
+  console.info('this.priceCheck===',this.priceCheck)
 
   // this.priceCheck = localStorage.setItem('PRICE_CHECK',data.data.price);
   //
@@ -982,7 +986,7 @@ root.methods.cancelThePosition = async function () {
 // 返回
 root.methods.re_cancelOrder = function (data) {
   // this.$eventBus.notify({key: 'CANCEL_ORDER'})
-  this.priceCheck = 0
+  this.priceCheck[data.data.positionSide] = 0
   this.getPositionRisk()
 
 }

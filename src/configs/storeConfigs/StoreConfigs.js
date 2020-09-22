@@ -220,7 +220,21 @@ store.state.buy_or_sale_type = 1
  * @type {null}
  */
 
-store.state.authState = null
+store.state.authState = {
+  audits:'',
+  email:'',
+  gaAuth:'',
+  idType:'',
+  memeber:'',
+  mobile:'',
+  name:'',
+  number:'',
+  payInfo:'',
+  registerType:'',
+  transferPassWord:'',
+  userId:'',
+  uuid:'',
+}
 
 store.state.symbol = ''
 store.state.subscribeSymbol = 'BTCUSDT'
