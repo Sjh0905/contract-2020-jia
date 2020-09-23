@@ -989,7 +989,7 @@ root.methods.re_cancelOrder = function (data) {
   // this.$eventBus.notify({key: 'CANCEL_ORDER'})
   this.priceCheck[data.data.positionSide] = 0
   this.getPositionRisk()
-
+  this.$eventBus.notify({key:'GET_ORDERS'})
 }
 root.methods.error_cancelOrder = function (err) {
   console.warn("撤单错误！", err)
