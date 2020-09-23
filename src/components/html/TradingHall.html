@@ -21,7 +21,9 @@
       <div class="traddinghall-main-right-top flex-between">
 
         <div class="centertop">
-          <div class="cen1" @mouseenter="showInfo()" @mouseleave="closeInfo()">{{symbol.split('_')[0]}}<em class="txt_light">/</em>{{symbol.split('_')[1]}}</div>
+          <div class="cen1" @mouseenter="showInfo()" @mouseleave="closeInfo()">{{symbol.split('_')[0]}}{{symbol.split('_')[1]}}</div>
+<!--            <em class="txt_light">/</em>-->
+
           <div class="cen2"><div class="cen21" :class="direction"> {{toFixed(isNowPrice || 0,quoteScale)}}</div>
             <!--<div class="cen22"><em class="txt_light">≈</em>{{isCnyPrice}}</div>-->
           </div>
