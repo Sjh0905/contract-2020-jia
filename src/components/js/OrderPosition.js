@@ -384,9 +384,9 @@ root.methods.error_getAccount = function (err) {
 root.methods.getPositionRisk = function () {
   this.$http.send("GET_POSITION_RISK", {
     bind: this,
-    query: {
-      timestamp: this.serverTime
-    },
+    // query: {
+    //   timestamp: this.serverTime
+    // },
     callBack: this.re_getPositionRisk,
     errorHandler: this.error_getPositionRisk
   })
@@ -898,7 +898,7 @@ root.methods.re_checkPrice = function (data) {
   this.promptOpen = true;
   this.priceCheck[data.data.positionSide] = data.data.price
 
-  console.info('this.priceCheck===',this.priceCheck)
+  // console.info('this.priceCheck===',this.priceCheck)
 
   // this.priceCheck = localStorage.setItem('PRICE_CHECK',data.data.price);
   //
@@ -988,8 +988,13 @@ root.methods.cancelThePosition = async function () {
 root.methods.re_cancelOrder = function (data) {
   // this.$eventBus.notify({key: 'CANCEL_ORDER'})
   this.priceCheck[data.data.positionSide] = 0
+  this.promptOpen = true;
+  this.popType = 1;
+  this.popText = '取消成功';
   this.getPositionRisk()
   this.$eventBus.notify({key:'GET_ORDERS'})
+
+
 }
 root.methods.error_cancelOrder = function (err) {
   console.warn("撤单错误！", err)
