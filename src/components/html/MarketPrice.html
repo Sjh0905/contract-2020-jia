@@ -84,7 +84,7 @@
         <li class="market-price-list-li flex-row market-price-list-acbg"
             :class="symbol == item.name ? 'market-price-list-li-background' : ''"
             v-for="(item,key) in (searchText ? searchList : mSymbolList)"
-            @click="slectSymbol(item.name,item)">
+            @click="slectSymbol(item.symbol,item)">
 
           <!--<img src="../../assets/selected_trade_icon.png" class="imgSelect" v-show="(collectionMarket.includes(item.name))" @click="handleCollectionMarket(item.name,false)" alt="">-->
           <!--<img src="../../assets/noSelected_trade_icon.png" class="imgSelect" v-show="!(collectionMarket.includes(item.name))" @click="handleCollectionMarket(item.name,true)" alt="">-->
@@ -93,6 +93,7 @@
 
 
           <div class="market-price-list-li1 flex-row">
+<!--            {{item}}-->
             <!--币对名称 begin-->
             <div class="market-price-list-marcket txt-dark txt-small">{{item.s}}</div>
             <!--币对名称 end-->

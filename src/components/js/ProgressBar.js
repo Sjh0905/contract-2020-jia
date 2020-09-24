@@ -1048,7 +1048,7 @@ root.methods.postFullStop = function () {
   this.loading = true
   let params = {}
   let latestOrMarkPrice = this.latestPrice == '最新价格' ? Number(this.latestPriceVal) : Number(this.markPrice)
-  if(this.amount == ''){
+  if(this.amount == '' || this.amount == 0){
     this.promptOpen = true;
     this.popType = 0;
     this.popText = '请输入正确的数量';
@@ -1253,7 +1253,7 @@ root.methods.error_postFullStop = function (err) {
 root.methods.postOrdersCreate = function () {
   this.currentLimiting = true
   this.loading = true
-  if(this.amount == ''){
+  if(this.amount == ''|| this.amount == 0){
     this.promptOpen = true;
     this.popType = 0;
     this.popText = '请输入正确的数量';
@@ -1421,7 +1421,7 @@ root.methods.error_postOrdersCreate = function (err) {
 root.methods.postOrdersPosition = function () {
   this.currentLimiting = true
   this.loading = true
-  if(this.amount == ''){
+  if(this.amount == '' || this.amount == 0){
     this.promptOpen = true;
     this.popType = 0;
     this.popText = '请输入正确的数量';

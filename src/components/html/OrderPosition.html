@@ -1,7 +1,9 @@
 <div class="current-entrustment-container">
   <!--  this.$route.name==currentEntrust?'current-entrustment-container':'current-entrustment-shiying'-->
-
-  <ul class="detail-1">
+  <div v-if="loading">
+    <Loading/>
+  </div>
+  <ul class="detail-1" >
     <li class="tr-th flex">
       <!--合约-->
       <div class="th td-time1">{{$t('合约')}}</div>
@@ -116,9 +118,9 @@
 <!--      </template>-->
   </ul>
   <!-- 加载更多 begin -->
-  <div v-if="loading">
-    <Loading/>
-  </div>
+<!--  <div v-if="loading">-->
+<!--    <Loading/>-->
+<!--  </div>-->
   <!-- 加载更多 end -->
   <PopupPrompt :popType="popType" :popText="popText" :popOpen="promptOpen" :popClose="closePrompt"></PopupPrompt>
 

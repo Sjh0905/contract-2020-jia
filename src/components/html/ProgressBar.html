@@ -84,10 +84,12 @@
         <!-- @keyup="keyBoard('pro-bar-price' + orderType)" -->
         <!-- <span class="pro-bar-price-tit txt-small txt-light">{{orderType && $t("progressBar.salePrice") + this.$store.state.symbol.split('_')[1] || $t("progressBar.buyPrice") + this.$store.state.symbol.split('_')[1]}}</span> -->
         <span class="pro-bar-price-tit txt-small txt-light">{{orderType && this.$store.state.symbol.split('_')[1] || this.$store.state.symbol.split('_')[1]}}</span>
-        <span class="buy_sall_tips" :class="!orderType ? 'buy' : 'sall'" v-show="inputColor=='price'+orderType">
-          <em class="arrow"></em>
-          {{change_price}}
-        </span>
+<!--        TODO:去掉价格显示 小框 -->
+<!--        <span class="buy_sall_tips" :class="!orderType ? 'buy' : 'sall'" v-show="inputColor=='price'+orderType">-->
+<!--          <em class="arrow"></em>-->
+<!--          {{change_price}}-->
+<!--        </span>-->
+
         <!-- <div class="progress_up_down">
           <ul>
             <li @click="plusNum('price')">⌃</li>

@@ -1,6 +1,6 @@
 <div class="current-entrustment-container">
 <!--  this.$route.name==currentEntrust?'current-entrustment-container':'current-entrustment-shiying'-->
-
+  <Loading v-if="loading"/>
   <ul class="" :class="$route.name == 'currentEntrust'?'detail':'detail-1'">
 
     <li class="tr-th flex">
@@ -79,7 +79,7 @@
       <!-- 如果加载完成、已登录、有数据，则显示数据 end -->
 
       <!-- 如果没加载完成、没登录、没数据，则显示'--' begin -->
-      <template v-else>
+      <template v-if="currentOrderComputed.length == 0 && !loading">
         <li class="weit">
           <div class="nhtu" v-if="$route.name == 'currentEntrust'"><img src="../../assets/noOrders.png"></div>
           <div class="nhtu" v-if="$route.name !== 'currentEntrust'"><img src="../../assets/noOrderDark.png"></div>
@@ -137,5 +137,5 @@
   <PopupPrompt :popType="promptType" :popOpen="promptOpen" :popClose="closePrompt"/>
 
 <!--  <Loading v-if="loading" style="width: 20%;height: 18%; z-index: 0;"/>-->
-  <Loading v-if="loading"/>
+
 </div>
