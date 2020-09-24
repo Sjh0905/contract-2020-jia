@@ -196,17 +196,32 @@ root.methods.commitModifyMargin = function () {
   })
 }
 root.methods.re_commitModifyMargin = function (data) {
-  this.controlType = false
   typeof data === 'string' && (data = JSON.parse(data))
-  // 监听钱包变化
-  this.$eventBus.notify({key:'GET_BALANCE'})
-  this.getPositionRisk()
-  this.increaseAmount = ''
-  this.reduceAmount = ''
-  this.modifyMarginClose()
+  if (data.code == 200) {
+    this.controlType = false
+    // 监听钱包变化
+    this.$eventBus.notify({key:'GET_BALANCE'})
+    this.getPositionRisk()
+    this.increaseAmount = ''
+    this.reduceAmount = ''
+    this.modifyMarginClose()
+    return;
+  }
+  if (data.code != 200) {
+    this.controlType = false
+    this.popText = '修改保证金失败'
+    this.popType = 0;
+    this.promptOpen = true;
+  }
+
 }
 root.methods.error_commitModifyMargin = function (err) {
   console.log('err===',err)
+  this.controlType = false
+  this.popText = '修改保证金失败'
+  this.popType = 0;
+  this.promptOpen = true;
+  return
 }
 
 root.methods.selectType = function (type) {
@@ -293,8 +308,8 @@ root.methods.positionSocket = function () {
       let currPositions = this.records,realSocketPositons = socketPositons.filter(sv=>{
           this.setCloseAmount(sv)
 
-          if(sv.mt == 'cross')return sv.pa!=0
-          if(sv.mt == 'isolated')return sv.pa != 0 || sv.iw!=0
+        if(sv.mt == 'cross' && sv.s == 'BTCUSDT')return sv.pa!=0
+        if(sv.mt == 'isolated' && sv.s == 'BTCUSDT')return sv.pa != 0 || sv.iw!=0
         })//开仓量或逐仓保证金不为0的仓位才有效
 
       // realSocketPositons.length == 0 && (currPositions = realSocketPositons)
@@ -400,18 +415,18 @@ root.methods.re_getPositionRisk = function (data) {
 
   for (let i = 0; i <records.length ; i++) {
     let v = records[i];
-    if (v.marginType == 'cross' && v.positionAmt != 0) {
+    if (v.marginType == 'cross' && v.positionAmt != 0 && v.symbol == 'BTCUSDT') {
       filterRecords.push(v)
       continue;
     }
     //逐仓保证金：isolatedMargin - unrealizedProfit,开仓量或逐仓保证金不为0的仓位才有效
-    if(v.marginType == 'isolated'){
+    if(v.marginType == 'isolated' && v.symbol == 'BTCUSDT'){
       v.securityDeposit = this.accMinus(v.isolatedMargin,v.unrealizedProfit)
       // v.securityDeposit = Number(v.isolatedMargin) - Number(v.unrealizedProfit)
 
       //由于开头判断条件用括号包装，会被编译器解析成声明函数括号，所以前一行代码尾或本行代码头要加分号、或者本行代码改为if判断才行
       // (v.positionAmt != 0 || v.securityDeposit != 0) && filterRecords.push(v);
-      if(v.positionAmt != 0 || v.securityDeposit != 0) {
+      if((v.positionAmt != 0 || v.securityDeposit != 0) && v.symbol == 'BTCUSDT') {
         // v.inputMarginPrice = this.toFixed(v.markPrice,2)
         filterRecords.push(v)
       }
