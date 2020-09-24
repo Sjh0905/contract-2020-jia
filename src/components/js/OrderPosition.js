@@ -615,21 +615,40 @@ root.methods.LPCalculation2 = function () {
     let LPCalculation2 = 0,long = this.pSymbolsMap[s+"_LONG"], short = this.pSymbolsMap[s+"_SHORT"],longPos,shortPos;
       long && (longPos = long.pos); short && (shortPos = short.pos);
 
-    if(typeof longPos != typeof shortPos){//只有一个仓位
+    //只有空仓
+    if(!longPos && shortPos){
       for (let i = 0; i < leverageBracket.length; i++) {
         let v = leverageBracket[i],cum = v.notionalCum || 0,mmr = v.maintMarginRatio || 0,
             WB = this.crossWalletBalance,size = 0,ep = 0,paras = [],LP = 0
 
-        if(longPos && !shortPos){
-          size = longPos.positionAmt,ep = longPos.entryPrice;
-          paras = [WB,size,ep,cum,mmr]
-          LP = this.LPCalculation1LONG(paras)//cum_S对应等级cum是0，那公式就和“双仓-逐仓-多仓”一致
-        }
-        if(!longPos && shortPos){
+        // if(!longPos && shortPos){
           size = shortPos.positionAmt,ep = shortPos.entryPrice;
           paras = [WB,size,ep,cum,mmr]
           LP = this.LPCalculation1SHORT(paras)//cum_L对应等级cum是0，那公式就和“双仓-逐仓-空仓”一致
+        // }
+
+        let SLP = this.accMul(Math.abs(size),LP);//abs(S*LP)
+        SLP = Math.abs(SLP);
+        let floorStep = this.accMinus(SLP,v.notionalFloor), capStep = this.accMinus(SLP,v.notionalCap)
+
+        if((floorStep > 0 && capStep <= 0) || i == leverageBracket.length - 1){
+          LPCalculation2 = LP;
+          break;
         }
+      }
+    }
+
+    //只有多仓
+    if(longPos && !shortPos){
+      for (let i = 0; i < leverageBracket.length; i++) {
+        let v = leverageBracket[i],cum = v.notionalCum || 0,mmr = v.maintMarginRatio || 0,
+            WB = this.crossWalletBalance,size = 0,ep = 0,paras = [],LP = 0
+
+        // if(longPos && !shortPos){
+          size = longPos.positionAmt,ep = longPos.entryPrice;
+          paras = [WB,size,ep,cum,mmr]
+          LP = this.LPCalculation1LONG(paras)//cum_S对应等级cum是0，那公式就和“双仓-逐仓-多仓”一致
+        // }
 
         let SIZELP1 = this.accMul(Math.abs(size),LP),SIZEMP = this.accMul(Math.abs(size),this.markPrice);
             SIZELP1 = Math.abs(SIZELP1);SIZEMP = Math.abs(SIZEMP);
@@ -645,6 +664,7 @@ root.methods.LPCalculation2 = function () {
       }
     }
 
+    //同时存在多空仓
     if(longPos && shortPos){
       let BAL = longPos.bracketArgs,bj = BAL.inx,SIZEL = Math.abs(longPos.positionAmt || 0),epL = longPos.entryPrice,
       SIZES = Math.abs(shortPos.positionAmt || 0),epS = shortPos.entryPrice,LP1 = 0,LP3 = 0,LPCalculation21 = 0,LPCalculation22 = 0;
