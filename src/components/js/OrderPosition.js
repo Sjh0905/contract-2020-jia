@@ -203,17 +203,32 @@ root.methods.commitModifyMargin = function () {
   })
 }
 root.methods.re_commitModifyMargin = function (data) {
-  this.controlType = false
   typeof data === 'string' && (data = JSON.parse(data))
-  // 监听钱包变化
-  this.$eventBus.notify({key:'GET_BALANCE'})
-  this.getPositionRisk()
-  this.increaseAmount = ''
-  this.reduceAmount = ''
-  this.modifyMarginClose()
+  if (data.code == 200) {
+    this.controlType = false
+    // 监听钱包变化
+    this.$eventBus.notify({key:'GET_BALANCE'})
+    this.getPositionRisk()
+    this.increaseAmount = ''
+    this.reduceAmount = ''
+    this.modifyMarginClose()
+    return;
+  }
+  if (data.code != 200) {
+    this.controlType = false
+    this.popText = '修改保证金失败'
+    this.popType = 0;
+    this.promptOpen = true;
+  }
+
 }
 root.methods.error_commitModifyMargin = function (err) {
   console.log('err===',err)
+  this.controlType = false
+  this.popText = '修改保证金失败'
+  this.popType = 0;
+  this.promptOpen = true;
+  return
 }
 
 root.methods.selectType = function (type) {
@@ -289,8 +304,8 @@ root.methods.positionSocket = function () {
       let currPositions = this.records,realSocketPositons = socketPositons.filter(sv=>{
           this.setCloseAmount(sv)
 
-          if(sv.mt == 'cross')return sv.pa!=0
-          if(sv.mt == 'isolated')return sv.pa != 0 || sv.iw!=0
+        if(sv.mt == 'cross' && sv.s == 'BTCUSDT')return sv.pa!=0
+        if(sv.mt == 'isolated' && sv.s == 'BTCUSDT')return sv.pa != 0 || sv.iw!=0
         })//开仓量或逐仓保证金不为0的仓位才有效
 
       // realSocketPositons.length == 0 && (currPositions = realSocketPositons)
@@ -396,18 +411,18 @@ root.methods.re_getPositionRisk = function (data) {
 
   for (let i = 0; i <records.length ; i++) {
     let v = records[i];
-    if (v.marginType == 'cross' && v.positionAmt != 0) {
+    if (v.marginType == 'cross' && v.positionAmt != 0 && v.symbol == 'BTCUSDT') {
       filterRecords.push(v)
       continue;
     }
     //逐仓保证金：isolatedMargin - unrealizedProfit,开仓量或逐仓保证金不为0的仓位才有效
-    if(v.marginType == 'isolated'){
+    if(v.marginType == 'isolated' && v.symbol == 'BTCUSDT'){
       v.securityDeposit = this.accMinus(v.isolatedMargin,v.unrealizedProfit)
       // v.securityDeposit = Number(v.isolatedMargin) - Number(v.unrealizedProfit)
 
       //由于开头判断条件用括号包装，会被编译器解析成声明函数括号，所以前一行代码尾或本行代码头要加分号、或者本行代码改为if判断才行
       // (v.positionAmt != 0 || v.securityDeposit != 0) && filterRecords.push(v);
-      if(v.positionAmt != 0 || v.securityDeposit != 0) {
+      if((v.positionAmt != 0 || v.securityDeposit != 0) && v.symbol == 'BTCUSDT') {
         // v.inputMarginPrice = this.toFixed(v.markPrice,2)
         filterRecords.push(v)
       }
@@ -623,21 +638,40 @@ root.methods.LPCalculation2 = function () {
     let LPCalculation2 = 0,long = this.pSymbolsMap[s+"_LONG"], short = this.pSymbolsMap[s+"_SHORT"],longPos,shortPos;
       long && (longPos = long.pos); short && (shortPos = short.pos);
 
-    if(typeof longPos != typeof shortPos){//只有一个仓位
+    //只有空仓
+    if(!longPos && shortPos){
       for (let i = 0; i < leverageBracket.length; i++) {
         let v = leverageBracket[i],cum = v.notionalCum || 0,mmr = v.maintMarginRatio || 0,
             WB = this.crossWalletBalance,size = 0,ep = 0,paras = [],LP = 0
 
-        if(longPos && !shortPos){
-          size = longPos.positionAmt,ep = longPos.entryPrice;
-          paras = [WB,size,ep,cum,mmr]
-          LP = this.LPCalculation1LONG(paras)//cum_S对应等级cum是0，那公式就和“双仓-逐仓-多仓”一致
-        }
-        if(!longPos && shortPos){
+        // if(!longPos && shortPos){
           size = shortPos.positionAmt,ep = shortPos.entryPrice;
           paras = [WB,size,ep,cum,mmr]
           LP = this.LPCalculation1SHORT(paras)//cum_L对应等级cum是0，那公式就和“双仓-逐仓-空仓”一致
+        // }
+
+        let SLP = this.accMul(Math.abs(size),LP);//abs(S*LP)
+        SLP = Math.abs(SLP);
+        let floorStep = this.accMinus(SLP,v.notionalFloor), capStep = this.accMinus(SLP,v.notionalCap)
+
+        if((floorStep > 0 && capStep <= 0) || i == leverageBracket.length - 1){
+          LPCalculation2 = LP;
+          break;
         }
+      }
+    }
+
+    //只有多仓
+    if(longPos && !shortPos){
+      for (let i = 0; i < leverageBracket.length; i++) {
+        let v = leverageBracket[i],cum = v.notionalCum || 0,mmr = v.maintMarginRatio || 0,
+            WB = this.crossWalletBalance,size = 0,ep = 0,paras = [],LP = 0
+
+        // if(longPos && !shortPos){
+          size = longPos.positionAmt,ep = longPos.entryPrice;
+          paras = [WB,size,ep,cum,mmr]
+          LP = this.LPCalculation1LONG(paras)//cum_S对应等级cum是0，那公式就和“双仓-逐仓-多仓”一致
+        // }
 
         let SIZELP1 = this.accMul(Math.abs(size),LP),SIZEMP = this.accMul(Math.abs(size),this.markPrice);
             SIZELP1 = Math.abs(SIZELP1);SIZEMP = Math.abs(SIZEMP);
@@ -653,6 +687,7 @@ root.methods.LPCalculation2 = function () {
       }
     }
 
+    //同时存在多空仓
     if(longPos && shortPos){
       let BAL = longPos.bracketArgs,bj = BAL.inx,SIZEL = Math.abs(longPos.positionAmt || 0),epL = longPos.entryPrice,
       SIZES = Math.abs(shortPos.positionAmt || 0),epS = shortPos.entryPrice,LP1 = 0,LP3 = 0,LPCalculation21 = 0,LPCalculation22 = 0;

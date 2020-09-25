@@ -242,8 +242,8 @@
                        @mouseenter="openPositionBox('triggerTypeModule')"
                        @mouseleave="closePositionBox('triggerTypeModule')">触发类型</div>
 
-                  <div class="trigger-type-block">请选择触发次订单的价格。</div>
-                  <div class="trigger-type-block-market-price">请选择触发次订单的价格。</div>
+                  <div class="trigger-type-block">请选择触发此订单的价格。</div>
+                  <div class="trigger-type-block-market-price">请选择触发此订单的价格。</div>
 
                   <div class="letes-price" @mouseenter="openLatestPrice()" @mouseleave="closeLatestPrice()">
                     <div class="effective-time-select-pic">{{latestPrice}}<img class="drop-down" src="../../assets/drop_down.png" alt=""></div>
@@ -395,7 +395,7 @@
         <img class="single-position-img" src="../../assets/contract/contract_selected.png" alt="" v-if="positionModeFirstTemp == 'singleWarehouseMode'">
         <img class="single-position-img" src="../../assets/contract/contract_no_selected.png" alt="" v-else>
         <div class="">
-          <div class="selected-positions-cod" :class="{'selected_cardType':positionModeFirstTemp == 'singleWarehouseMode'}">单项持仓</div>
+          <div class="selected-positions-cod" :class="{'selected_cardType':positionModeFirstTemp == 'singleWarehouseMode'}">单向持仓</div>
           <div class="position-explanation">单向持仓模式下，一个合约只允许持有一个方向的仓位</div>
         </div>
       </div>

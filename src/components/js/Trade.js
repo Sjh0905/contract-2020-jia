@@ -147,8 +147,10 @@ root.methods.initViews = function (lang) {
 		// console.error('[resolveSymbol]',symbolName);
 		var symbol = {
 			ticker: symbolName,
-			name: symbolName.replace('_', '/'),
-			description: symbolName.replace('_', '/'),
+			// name: symbolName.replace('_', '/'),
+			// description: symbolName.replace('_', '/'),
+      name: symbolName.replace('_', ''),
+			description: symbolName.replace('_', ''),
 			type: 'bitcoin',
 			session: '24x7',
 			timezone: 'Asia/Shanghai',
