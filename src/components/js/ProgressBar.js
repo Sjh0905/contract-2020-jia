@@ -998,9 +998,6 @@ root.computed.securityDeposit = function () {
 
     return twoWayCost
   }
-
-
-
 }
 //以下为保证金计算 ==============E
 
@@ -1031,7 +1028,6 @@ root.methods.setTotalAmountShort = function(totalAmountShort){
 //   this.openOrdersSellTotal = totalAmount
 //   console.info('this is openOrdersTotalSell====',this.openOrdersSellTotal)
 // }
-
 
 // socket推送
 root.methods.initSocket = function (){

@@ -88,6 +88,7 @@ root.data = function () {
     positionInfo:{},
     totalAmountLong:0, // 双仓开多仓位数量
     totalAmountShort:0, // 双仓开空仓位数量
+    closeMarketPrice:false,
   }
 }
 /*------------------------------ 观察 -------------------------------*/
@@ -798,9 +799,10 @@ root.methods.openPositionMarket = function (item) {
 }
 
 // 市价
-root.methods.marketPrice = function () {
+root.methods.marketPrice = function (v) {
   this.marketPriceClick = true
-  let item = this.positionInfo || {}
+  let item = !this.popOpen ? this.positionInfo: v
+
   // var v = ipt.value;//获取input的值
   let params = {
     leverage: this.$store.state.leverage,
