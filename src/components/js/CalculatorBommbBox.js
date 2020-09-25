@@ -172,8 +172,22 @@ root.watch.maxPosition = function (newVal,oldVal) {
 }
 root.watch.calculatorValue = function (newVal,oldVal) {
 }
-// root.watch.transactionQuantity = function (newVal,oldVal) {
-// }
+root.watch.targetPrice = function (newVal,oldVal) {
+  this.income = ''
+  this.securityDeposit = ''
+  this.returnRate =''
+}
+root.watch.openingPrice = function (newVal,oldVal) {
+  this.income = ''
+  this.securityDeposit = ''
+  this.returnRate =''
+}
+root.watch.transactionQuantity = function (newVal,oldVal) {
+  this.income = ''
+  this.securityDeposit = ''
+  this.returnRate =''
+}
+// 切换收益和目标价格
 root.watch.styleType = function (oldVal,newVal) {
   if(oldVal == newVal) return
   this.calculatorValue = 1
@@ -184,6 +198,9 @@ root.watch.styleType = function (oldVal,newVal) {
   this.targetPrice = ''
   this.returnRate = ''
   this.targetReturnRate = ''
+  this.income = ''
+  this.securityDeposit = ''
+  this.returnRate =''
 }
 //做多做空切换
 root.watch.moreEmptyType = function (oldVal,newVal) {
@@ -226,6 +243,7 @@ root.methods.clickCalculation = function (){
   this.securityDeposit = this.toFixed(this.accDiv(this.accMul(Number(this.openingPrice), Number(this.transactionQuantity)),Number(this.calculatorValue)),2)
   // 回报率计算
   this.returnRate = this.toFixed(this.accMul(this.accDiv(this.income,(this.securityDeposit)),10*10) ,2)
+
 }
 
 // 目标价格计算

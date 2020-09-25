@@ -79,11 +79,16 @@ root.data = function () {
     crossMaintMarginRate:0,//全仓保证金比率
     totalAmount:0,
     securityDeposit: 0 , // 逐仓保证金
-    positionAmtLong:0,
-    positionAmtShort:0,
+    positionAmtLong:0, // 可平多数量
+    positionAmtShort:0, // 可平空数量
 
     pSymbols:[],//仓位列表出现的币对
     pSymbolsMap:{},//仓位列表出现的币对与仓位映射关系
+    popOpenMarket:false,
+    positionInfo:{},
+    totalAmountLong:0, // 双仓开多仓位数量
+    totalAmountShort:0, // 双仓开空仓位数量
+    closeMarketPrice:false,
   }
 }
 /*------------------------------ 观察 -------------------------------*/
@@ -174,6 +179,9 @@ root.computed.LPCalculationType = function () {
 
 /*------------------------------ 方法 -------------------------------*/
 root.methods = {}
+root.methods.closePopMarket = function () {
+  this.popOpenMarket = false
+}
 // 增加 或 减少保证金接口
 root.methods.commitModifyMargin = function () {
   this.controlType = true
@@ -268,18 +276,7 @@ root.methods.setCloseAmount = function (item){
     positionAmtShort:this.positionAmtShort
   }
   this.$store.commit('CHANGE_CLOSE_AMOUNT',closeAmount)
-  let totalAmt = 0
-  if((item.ps  || item.positionSide) == 'BOTH') {
-    totalAmt += (item.pa || item.positionAmt)
-  }
-  if((item.ps  || item.positionSide) != 'BOTH'){
-    totalAmt += Math.abs(item.pa || item.positionAmt)
-  }
-  // 单仓下计算可开数量
-  if(totalAmt!=this.totalAmount) {
-    this.totalAmount = totalAmt
-    this.$eventBus.notify({key:'POSITION_TOTAL_AMOUNT'}, this.totalAmount)
-  }
+
 }
 
 // 接收仓位 socket 信息
@@ -455,8 +452,7 @@ root.methods.error_getPositionRisk = function (err) {
 //计算保证金和保证金比率
 root.methods.handleWithMarkPrice = function(records){
   if(!records || records.length == 0)return
-  let totalMaintMargin = 0,totalUnrealizedProfit = 0;
-
+  let totalMaintMargin = 0,totalUnrealizedProfit = 0,totalAmt=0,totalAmtLong=0,totalAmtShort=0;
   this.pSymbols = [];//初始化
   this.pSymbolsMap = {}//初始化
 
@@ -504,6 +500,33 @@ root.methods.handleWithMarkPrice = function(records){
       v.maintMarginRate = Number(v.maintMarginRate * 100).toFixed(2) + '%'
     }
 
+    if((v.ps  || v.positionSide) == 'BOTH') {
+      totalAmt += (v.pa || v.positionAmt)
+    }
+    if((v.ps  || v.positionSide) == 'LONG'){
+      totalAmtLong =  v.positionAmt
+    }
+    if((v.ps  || v.positionSide) == 'SHORT'){
+      totalAmtShort =  v.positionAmt
+    }
+
+    // 单仓下计算可开数量
+    if(totalAmt!=this.totalAmount) {
+      this.totalAmount = totalAmt
+      // console.info('this.totalAmount===',this.totalAmount)
+      this.$eventBus.notify({key:'POSITION_TOTAL_AMOUNT'}, this.totalAmount)
+    }
+    if(totalAmtLong!=this.totalAmountLong) {
+      this.totalAmountLong = totalAmtLong
+      // console.info('this.totalAmount===',this.totalAmount)
+      this.$eventBus.notify({key:'POSITION_TOTAL_AMOUNT_LONG'}, this.totalAmountLong)
+    }
+    if(totalAmtShort!=this.totalAmountShort) {
+      this.totalAmountShort = totalAmtShort
+      this.$eventBus.notify({key:'POSITION_TOTAL_AMOUNT_SHORT'}, this.totalAmountShort)
+    }
+    // console.info('this.totalAmountShort===',this.totalAmountShort)
+    // console.info('this.totalAmountLong===',this.totalAmountLong)
     //单仓、双仓逐仓
     if(this.LPCalculationType[v.positionSide][v.marginType] == 1){
       this.LPCalculation1(v)
@@ -521,6 +544,7 @@ root.methods.handleWithMarkPrice = function(records){
     }
 
   })
+
   //全仓保证金比率 = 各仓位的maintMargin字段之和 /（各仓位的unrealizedProfit之和+全仓账户余额 crossWalletBalance)
   this.crossMaintMarginRate = this.accDiv(totalMaintMargin,this.accAdd(totalUnrealizedProfit,this.crossWalletBalance))
   this.crossMaintMarginRate = Number(this.crossMaintMarginRate * 100).toFixed(2) + '%'
@@ -769,9 +793,16 @@ root.methods.addAdlQuantile = function(currSAdlQuantile,records){
   // console.log('currSAdlQuantile,records',currSAdlQuantile,records);
 }
 
+root.methods.openPositionMarket = function (item) {
+  this.positionInfo = item || {}
+  this.popOpenMarket = true
+}
+
 // 市价
-root.methods.marketPrice = function (item) {
+root.methods.marketPrice = function (v) {
   this.marketPriceClick = true
+  let item = !this.popOpen ? this.positionInfo: v
+
   // var v = ipt.value;//获取input的值
   let params = {
     leverage: this.$store.state.leverage,
@@ -828,6 +859,8 @@ root.methods.re_marketPrice = function (data) {
   this.$eventBus.notify({key:'GET_BALANCE'})
   this.promptOpen = true;
   this.marketPriceClick = false
+  // 关闭弹框
+  this.closePopMarket()
   if(data.data.status == 'NEW') {
     this.popType = 1;
     this.popText = '下单成功';
