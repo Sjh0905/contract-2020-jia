@@ -770,8 +770,8 @@ root.computed.canBeOpened = function () {
   let sell = Math.abs(Math.min(0 , -1 * (markPrice - price))) || 0  // TODO:适用 LIMIT, STOP, TAKE PROFIT 卖(orderType)
   let buyMarket = Math.abs(Math.min(0 , 1 * (markPrice - this.assumingPrice))) || 0  // TODO:适用 LIMIT, STOP, TAKE PROFIT 买(!orderType)
   let sellMarket = Math.abs(Math.min(0 , -1 * (markPrice - this.assumingPrice))) || 0  // TODO:适用 LIMIT, STOP, TAKE PROFIT 卖(orderType)
-  let longPositionAmt = this.totalAmountLong // TODO:有仓位时：数量取和；无仓位时取0
   let shortPositionAmt = this.totalAmountShort // TODO:有仓位时：数量取和；无仓位时取0
+  let longPositionAmt = this.totalAmountLong // TODO:有仓位时：数量取和；无仓位时取0
 
   let buyCanOpen = 0
   let sellCanOpen = 0

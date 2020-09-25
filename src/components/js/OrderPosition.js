@@ -276,6 +276,33 @@ root.methods.setCloseAmount = function (item){
     positionAmtShort:this.positionAmtShort
   }
   this.$store.commit('CHANGE_CLOSE_AMOUNT',closeAmount)
+  let totalAmt = 0,totalAmtLong = 0 , totalAmtShort = 0;
+  if((item.ps  || item.positionSide) == 'BOTH') {
+    totalAmt = (item.pa || item.positionAmt)
+
+    // 单仓下计算可开数量
+    if(totalAmt!=this.totalAmount) {
+      this.totalAmount = totalAmt
+      // console.info('this.totalAmount===',this.totalAmount)
+      this.$eventBus.notify({key:'POSITION_TOTAL_AMOUNT'}, this.totalAmount)
+    }
+  }
+  if((item.ps  || item.positionSide) == 'LONG'){
+    totalAmtLong =  (item.pa || item.positionAmt)
+
+    if(totalAmtLong!=this.totalAmountLong) {
+      this.totalAmountLong = totalAmtLong
+      this.$eventBus.notify({key:'POSITION_TOTAL_AMOUNT_LONG'}, this.totalAmountLong)
+    }
+  }
+  if((item.ps  || item.positionSide) == 'SHORT'){
+    totalAmtShort =  (item.pa || item.positionAmt)
+
+    if(totalAmtShort!=this.totalAmountShort) {
+      this.totalAmountShort = totalAmtShort
+      this.$eventBus.notify({key:'POSITION_TOTAL_AMOUNT_SHORT'}, this.totalAmountShort)
+    }
+  }
 
 }
 
@@ -500,31 +527,7 @@ root.methods.handleWithMarkPrice = function(records){
       v.maintMarginRate = Number(v.maintMarginRate * 100).toFixed(2) + '%'
     }
 
-    if((v.ps  || v.positionSide) == 'BOTH') {
-      totalAmt += (v.pa || v.positionAmt)
-    }
-    if((v.ps  || v.positionSide) == 'LONG'){
-      totalAmtLong =  v.positionAmt
-    }
-    if((v.ps  || v.positionSide) == 'SHORT'){
-      totalAmtShort =  v.positionAmt
-    }
 
-    // 单仓下计算可开数量
-    if(totalAmt!=this.totalAmount) {
-      this.totalAmount = totalAmt
-      // console.info('this.totalAmount===',this.totalAmount)
-      this.$eventBus.notify({key:'POSITION_TOTAL_AMOUNT'}, this.totalAmount)
-    }
-    if(totalAmtLong!=this.totalAmountLong) {
-      this.totalAmountLong = totalAmtLong
-      // console.info('this.totalAmount===',this.totalAmount)
-      this.$eventBus.notify({key:'POSITION_TOTAL_AMOUNT_LONG'}, this.totalAmountLong)
-    }
-    if(totalAmtShort!=this.totalAmountShort) {
-      this.totalAmountShort = totalAmtShort
-      this.$eventBus.notify({key:'POSITION_TOTAL_AMOUNT_SHORT'}, this.totalAmountShort)
-    }
     // console.info('this.totalAmountShort===',this.totalAmountShort)
     // console.info('this.totalAmountLong===',this.totalAmountLong)
     //单仓、双仓逐仓
