@@ -137,6 +137,7 @@
 /*add  new  css*/
 .progress-bar-title {
   width: 100%;
+  min-width: 540px;
   height: 38px;
   line-height: 38px;
   background: #0B0E16;

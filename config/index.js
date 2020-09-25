@@ -44,6 +44,12 @@ module.exports = {
       //   pathRewrite: {
       //     '^/v1': '/v1'
       //   }
+      // },// '/fapi': {//target配置2020测试地址时，如果某些接口需要链接币安生产打开这里
+      //   target: 'https://api.yshyqxx.com/',
+      //   changeOrigin: true,
+      //   pathRewrite: {
+      //     '^/fapi': '/fapi'
+      //   }
       // },
       '/socket': {
         target: 'ws://staging-node.2020.exchange/',
