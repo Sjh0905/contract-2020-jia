@@ -334,7 +334,7 @@
       </div>
 
       <!--双仓 平仓  限价  市价 -->
-      <div class="progress-bar-btn txt-nomal border_radius" @click="postOrdersPosition()"
+      <div class="progress-bar-btn txt-nomal border_radius" @click="openClosePsWindowClose()"
            :class="orderType?'progress-bar-redbtn btn_red_box_shadow':'progress-bar-greenbtn btn_green_box_shadow'"
            v-if="$store.state.authState.userId && !currentLimiting && isHasModule('buttonType') == 3 && (pendingOrderType == 'limitPrice' || pendingOrderType == 'marketPrice')">
         {{orderType && '平多' || '平空'}}
@@ -347,7 +347,7 @@
       </div>
 
       <!--双仓 平仓  限价止盈止损  市价止盈止损 -->
-      <div class="progress-bar-btn txtvalue-nomal border_radius" @click="postFullStop()"
+      <div class="progress-bar-btn txtvalue-nomal border_radius" @click="openClosePsWindowClose()"
            :class="orderType?'progress-bar-redbtn btn_red_box_shadow':'progress-bar-greenbtn btn_green_box_shadow'"
            v-if="$store.state.authState.userId && !currentLimiting && isHasModule('buttonType') == 3 && (pendingOrderType == 'limitProfitStopLoss' || pendingOrderType == 'marketPriceProfitStopLoss')">
         {{orderType && '平多' || '平空'}}
@@ -441,6 +441,23 @@
         确定
       </button>
       <button class="button-base button-pop-window btn_simple" @click="popWindowClose1">
+        取消
+      </button>
+    </div>
+
+  </PopupWindow>
+  <PopupWindow :switch="closePsWindowOpen" v-on:close="closePsWindowClose">
+    <div slot="header" class="pop-header">
+      提示
+    </div>
+    <div slot="article" class="pop-article">
+      <p>确定以当前市价平仓吗？</p >
+    </div>
+    <div slot="footer" class="pop-footer flex">
+      <button class="button-base button-pop-window btn_blue" @click="closePositions()">
+        确定
+      </button>
+      <button class="button-base button-pop-window btn_simple" @click="closePsWindowClose()">
         取消
       </button>
     </div>

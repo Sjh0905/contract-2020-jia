@@ -176,7 +176,7 @@ root.data = function () {
     positionAmtLong:0,
     positionAmtShort:0,
     popTextLeverage:'',
-    availableBalance:0
+    availableBalance:0,
   }
 }
 
@@ -747,6 +747,7 @@ root.methods.re_getOrder = function (data) {
   typeof(data) == 'string' && (data = JSON.parse(data));
   let currentOrder = data.data || []
   this.currentLength = currentOrder.length
+  this.$store.commit('SET_CURRENT_ORDERS',currentOrder)
 }
 // 获取订单出错
 root.methods.error_getOrder = function (err) {

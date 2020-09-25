@@ -91,7 +91,7 @@
 <!--      &lt;!&ndash;平仓&ndash;&gt;v-if="item.positionSide == 'BOTH'"-->
       <div class="td td-trigger" >
         <div class="td-trigger-btn flex" v-if="priceCheck[item.positionSide] == 0">
-          <div class="market-price margin-right" v-if="!marketPriceClick" @click="marketPrice(item)">市价</div>
+          <div class="market-price margin-right" v-if="!marketPriceClick" @click="openPositionMarket(item)">市价</div>
           <div class="market-price margin-right" v-if="marketPriceClick">市价</div>
           <div class="market-price margin-right" v-if="!checkPriceClick" @click="checkPrice(item)">限价</div>
           <div class="market-price margin-right" v-if="checkPriceClick">限价</div>
@@ -190,7 +190,7 @@
 
   <!-- 是否全部平仓 begin -->
   <PopupWindow :switch="popOpen" v-on:close="closePop">
-    <div slot="header"><span class="pop-header">{{$t('orderPageCurrentEntrustment.promptTitle')}}</span></div>
+    <div slot="header"><span class="pop-header">提示</span></div>
     <div slot="article" class="pop-article">
 <!--      <p>{{$t('orderPageCurrentEntrustment.promptArticle')}}</p>-->
       <p>请确认是否要以市价全部平仓？</p>
@@ -203,7 +203,22 @@
       <button @click="closePop" class="button-base m-r btn_simple pointer">{{$t('orderPageCurrentEntrustment.close')}}
       </button>
     </div>
-
+  </PopupWindow>
+  <!-- 是否全部平仓 end -->
+  <!-- 是否市价平仓 begin -->
+  <PopupWindow :switch="popOpenMarket" v-on:close="closePopMarket">
+    <div slot="header"><span class="pop-header">提示</span></div>
+    <div slot="article" class="pop-article">
+      <!--      <p>{{$t('orderPageCurrentEntrustment.promptArticle')}}</p>-->
+      <p>确定以当前市价平仓吗？</p>
+    </div>
+    <div slot="footer" class="pop-footer flex-center">
+      <button @click="ensurePop" class="button-base  btn_blue pointer">
+        {{$t('orderPageCurrentEntrustment.ensure')}}
+      </button>
+      <button @click="closePopMarket" class="button-base m-r btn_simple pointer">{{$t('orderPageCurrentEntrustment.close')}}
+      </button>
+    </div>
   </PopupWindow>
   <!-- 是否全部平仓 end -->
 </div>

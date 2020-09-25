@@ -197,6 +197,10 @@ root.data = function () {
     sellNetValue:0, // 卖单净值
 
     totalAmount:0, //仓位总数量
+    totalAmountLong:0, // 双仓开多仓位总数量
+    totalAmountShort:0, //双仓开空仓位总数量
+    // 平仓弹框
+    closePsWindowOpen:false,
     // openOrdersBuyTotal:0, //订单总数量
     // openOrdersSellTotal:0, //订单总数量
   }
@@ -211,8 +215,12 @@ root.created = function () {
   //  根据买卖设置买卖amount，买对应卖，卖对应买
   this.$eventBus.listen(this, 'SET_AMOUNT', this.RE_SET_AMOUNT);
   this.$eventBus.listen(this, 'GET_GRC_PRICE_RANGE', this.getKKPriceRange);
-  //监听仓位总数量
+  //监听单仓位总数量
   this.$eventBus.listen(this, 'POSITION_TOTAL_AMOUNT', this.setTotalAmount);
+  //监听双仓开多仓位总数量
+  this.$eventBus.listen(this, 'POSITION_TOTAL_AMOUNT_LONG', this.setTotalAmountLong);
+  //监听双仓开空仓位总数量
+  this.$eventBus.listen(this, 'POSITION_TOTAL_AMOUNT_SHORT', this.setTotalAmountShort);
   // //监听订单做多总数量
   // this.$eventBus.listen(this, 'OPEN_ORDERS_TOTAL_BUY', this.setOpenOrdersBuyAmt);
   // //监听订单做空总数量
@@ -750,6 +758,7 @@ root.computed.canMore = function () {
 
 // 双仓可开数量
 root.computed.canBeOpened = function () {
+  // let crossWalletBalance = Number(this.crossWalletBalance) // 全仓钱包余额
   // 向上取整IMR
   let leverage = Number(this.$globalFunc.accFixedCny(this.accDiv(1 , Number(this.$store.state.leverage) || 1),4))
   let availableBalance = this.$store.state.assets.availableBalance || 0
@@ -761,60 +770,67 @@ root.computed.canBeOpened = function () {
   let sell = Math.abs(Math.min(0 , -1 * (markPrice - price))) || 0  // TODO:适用 LIMIT, STOP, TAKE PROFIT 卖(orderType)
   let buyMarket = Math.abs(Math.min(0 , 1 * (markPrice - this.assumingPrice))) || 0  // TODO:适用 LIMIT, STOP, TAKE PROFIT 买(!orderType)
   let sellMarket = Math.abs(Math.min(0 , -1 * (markPrice - this.assumingPrice))) || 0  // TODO:适用 LIMIT, STOP, TAKE PROFIT 卖(orderType)
-  let positionAmt = this.totalAmount // TODO:有仓位时：数量取和；无仓位时取0
+  let longPositionAmt = this.totalAmountLong // TODO:有仓位时：数量取和；无仓位时取0
+  let shortPositionAmt = this.totalAmountShort // TODO:有仓位时：数量取和；无仓位时取0
+
   let buyCanOpen = 0
   let sellCanOpen = 0
   let afterTradeBuy = 0
   let afterTradeSell = 0
 
-  // 限价或者限价止损
-  if(this.pendingOrderType == 'limitPrice'||this.pendingOrderType == 'limitProfitStopLoss'){
-    if(this.price == 0 || this.price == '') return buyCanOpen = 0; sellCanOpen = 0;
-    //Avail for Order / {assuming price * IM + abs(min[0, side * (mark price - order's Price)])}
-    buyCanOpen = availableBalance / (this.assumingPrice * leverage + buy)
-    sellCanOpen = availableBalance / (this.assumingPrice * leverage + sell)
-    // 根据买卖最大可下单量计算出notional after trade
-    // 计算可开多数量
-    let afterTradeLongB = Math.max(Math.abs( markPrice * positionAmt + this.computedBuyNetValue + this.assumingPrice * Number(buyCanOpen)), Math.abs(markPrice * positionAmt - this.computedSellNetValue))
-    let afterTradeShortB = Math.max(Math.abs(markPrice * positionAmt + this.computedBuyNetValue), Math.abs(markPrice * positionAmt - this.computedSellNetValue))
-    afterTradeBuy = afterTradeLongB + afterTradeShortB
+  // if(this.marginType == 'CROSSED'){
+    // 限价或者限价止损
+    if(this.pendingOrderType == 'limitPrice'||this.pendingOrderType == 'limitProfitStopLoss'){
+      if(this.price == 0 || this.price == '') return buyCanOpen = 0; sellCanOpen = 0;
+      //Avail for Order / {assuming price * IM + abs(min[0, side * (mark price - order's Price)])}
+      buyCanOpen = availableBalance / (this.assumingPrice * leverage + buy)
+      sellCanOpen = availableBalance / (this.assumingPrice * leverage + sell)
+      // 根据买卖最大可下单量计算出notional after trade
+      // 计算可开多数量
+      let afterTradeLongB = Math.max(Math.abs( longPositionAmt * markPrice + this.computedBuyNetValue + (this.assumingPrice * Number(buyCanOpen))), Math.abs(longPositionAmt*markPrice - this.computedSellNetValue))
+      let afterTradeShortB = Math.max(Math.abs( shortPositionAmt * markPrice + this.computedBuyNetValue), Math.abs(shortPositionAmt*markPrice - this.computedSellNetValue))
+      afterTradeBuy = afterTradeLongB + afterTradeShortB
 
-    // 计算可开空数量
-    let afterTradeLongS = Math.max(Math.abs( markPrice * positionAmt + this.computedBuyNetValue), Math.abs(markPrice * positionAmt - this.computedSellNetValue))
-    let afterTradeShortS = Math.max(Math.abs(markPrice * positionAmt + this.computedBuyNetValue), Math.abs(markPrice * positionAmt - this.computedSellNetValue + this.assumingPrice * Number(sellCanOpen)))
-    afterTradeSell = afterTradeLongS + afterTradeShortS
+      // 计算可开空数量
+      let afterTradeLongS = Math.max(Math.abs( longPositionAmt * markPrice + this.computedBuyNetValue), Math.abs(longPositionAmt*markPrice - this.computedSellNetValue))
+      let afterTradeShortS = Math.max(Math.abs(shortPositionAmt * markPrice + this.computedBuyNetValue), Math.abs(shortPositionAmt*markPrice - this.computedSellNetValue + (this.assumingPrice * Number(sellCanOpen))))
+      afterTradeSell = afterTradeLongS + afterTradeShortS
 
-    if(afterTradeBuy > this.maxNotionalAtCurrentLeverage) {
-      buyCanOpen =(this.maxNotionalAtCurrentLeverage - afterTradeShortB) / this.assumingPrice
-    }
-    if(afterTradeSell > this.maxNotionalAtCurrentLeverage) {
-      sellCanOpen =(this.maxNotionalAtCurrentLeverage - afterTradeLongS) / this.assumingPrice
-    }
-    return this.orderType ? sellCanOpen : buyCanOpen
-    // Qty = Avail for Order / {assuming price * IM + abs(min[0, side * (mark price - order's Price)])}
-  }
-
-  // 市价或者市价止盈止损
-  if(this.pendingOrderType== 'marketPrice'||this.pendingOrderType == 'marketPriceProfitStopLoss'){
-    buyCanOpen = availableBalance / (this.assumingPrice * leverage + buyMarket)
-    sellCanOpen = availableBalance / (this.assumingPrice * leverage + sellMarket)
-    // 计算可开多数量
-    let afterTradeLongB = Math.max(Math.abs( markPrice * positionAmt + this.computedBuyNetValue + this.assumingPrice * Number(buyCanOpen)), Math.abs(markPrice * positionAmt - this.computedSellNetValue))
-    let afterTradeShortB = Math.max(Math.abs(markPrice * positionAmt + this.computedBuyNetValue), Math.abs(markPrice * positionAmt - this.computedSellNetValue))
-    afterTradeBuy = afterTradeLongB + afterTradeShortB
-    if(afterTradeBuy > this.maxNotionalAtCurrentLeverage) {
-      buyCanOpen =(this.maxNotionalAtCurrentLeverage - afterTradeShortB) / this.assumingPrice
+      if(afterTradeBuy > this.maxNotionalAtCurrentLeverage) {
+        buyCanOpen = (this.maxNotionalAtCurrentLeverage - (afterTradeShortB + afterTradeLongS)) / this.assumingPrice
+      }
+      if(afterTradeSell > this.maxNotionalAtCurrentLeverage) {
+        sellCanOpen = (this.maxNotionalAtCurrentLeverage - (afterTradeShortB + afterTradeLongS)) / this.assumingPrice
+      }
+      // console.info('buyCanOpen===',longPositionAmt * markPrice)
+      // console.info('sellCanOpen===',shortPositionAmt * markPrice)
+      return this.orderType ? sellCanOpen : buyCanOpen
+      // Qty = Avail for Order / {assuming price * IM + abs(min[0, side * (mark price - order's Price)])}
     }
 
-    // 计算可开空数量
-    let afterTradeLongS = Math.max(Math.abs( markPrice * positionAmt + this.computedBuyNetValue), Math.abs(markPrice * positionAmt - this.computedSellNetValue))
-    let afterTradeShortS = Math.max(Math.abs(markPrice * positionAmt + this.computedBuyNetValue), Math.abs(markPrice * positionAmt - this.computedSellNetValue + this.assumingPrice * Number(sellCanOpen)))
-    afterTradeSell = afterTradeLongS + afterTradeShortS
-    if(afterTradeSell > this.maxNotionalAtCurrentLeverage) {
-      sellCanOpen =(this.maxNotionalAtCurrentLeverage - afterTradeLongS) / this.assumingPrice
+    // 市价或者市价止盈止损
+    if(this.pendingOrderType== 'marketPrice'||this.pendingOrderType == 'marketPriceProfitStopLoss'){
+      buyCanOpen = availableBalance / (this.assumingPrice * leverage + buyMarket)
+      sellCanOpen = availableBalance / (this.assumingPrice * leverage + sellMarket)
+      // 计算可开多数量
+      let afterTradeLongB = Math.max(Math.abs( longPositionAmt * markPrice + this.computedBuyNetValue + this.assumingPrice * Number(buyCanOpen)), Math.abs(longPositionAmt * markPrice - this.computedSellNetValue))
+      let afterTradeShortB = Math.max(Math.abs(shortPositionAmt * markPrice + this.computedBuyNetValue), Math.abs(shortPositionAmt * markPrice - this.computedSellNetValue))
+      afterTradeBuy = afterTradeLongB + afterTradeShortB
+
+      // 计算可开空数量
+      let afterTradeLongS = Math.max(Math.abs( longPositionAmt * markPrice + this.computedBuyNetValue), Math.abs(longPositionAmt * markPrice - this.computedSellNetValue))
+      let afterTradeShortS = Math.max(Math.abs(shortPositionAmt * markPrice + this.computedBuyNetValue), Math.abs(shortPositionAmt * markPrice - this.computedSellNetValue + this.assumingPrice * Number(sellCanOpen)))
+      afterTradeSell = afterTradeLongS + afterTradeShortS
+
+      if(afterTradeBuy > this.maxNotionalAtCurrentLeverage) {
+        buyCanOpen =(this.maxNotionalAtCurrentLeverage - (afterTradeShortB + afterTradeLongS)) / this.assumingPrice
+      }
+      if(afterTradeSell > this.maxNotionalAtCurrentLeverage) {
+        sellCanOpen =(this.maxNotionalAtCurrentLeverage - (afterTradeShortB + afterTradeLongS)) / this.assumingPrice
+      }
+      return this.orderType ? sellCanOpen : buyCanOpen
     }
-    return this.orderType ? sellCanOpen : buyCanOpen
-  }
+  // }
   // 双仓逐仓
   // if(this.marginType == 'ISOLATED'){
   //   // 限价或者限价止损
@@ -863,6 +879,9 @@ root.computed.canBeOpened = function () {
   //     if(afterTradeSell > this.maxNotionalAtCurrentLeverage) {
   //       sellCanOpen =(this.maxNotionalAtCurrentLeverage - afterTradeLongS) / this.assumingPrice
   //     }
+  //
+  //     console.info('sellCanOpen===',sellCanOpen)
+  //     console.info('buyCanOpen===',buyCanOpen)
   //     return this.orderType ? sellCanOpen : buyCanOpen
   //   }
   // }
@@ -989,10 +1008,18 @@ root.computed.securityDeposit = function () {
 
 
 /*----------------------------- 方法 begin ------------------------------*/
-//设置仓位数量
+
+//设置单仓仓位数量
 root.methods.setTotalAmount = function(totalAmount){
   this.totalAmount = totalAmount
-  // console.info('this.totalAmount ',this.totalAmount )
+}
+//设置双仓开多仓位数量
+root.methods.setTotalAmountLong = function(totalAmountLong){
+  this.totalAmountLong = totalAmountLong
+}
+//设置双仓开空仓位数量
+root.methods.setTotalAmountShort = function(totalAmountShort){
+  this.totalAmountShort = totalAmountShort
 }
 // //设置委托做多总数量
 // root.methods.setOpenOrdersBuyAmt = function(totalAmount){
@@ -1041,7 +1068,57 @@ root.methods.openPositionBox = function (name) {
 
 
 /*----------------------------- 方法 ------------------------------*/
+// 关闭平仓弹框
+root.methods.closePsWindowClose = function (){
+  this.closePsWindowOpen = false
+}
+// 打开平仓弹框
+root.methods.openClosePsWindowClose = function (){
+  if(this.positionModeSecond == 'closeWarehouse' && this.pendingOrderType =="marketPrice"){
+    if(this.amount == '' || this.amount == 0){
+      this.promptOpen = true;
+      this.popType = 0;
+      this.popText = '请输入正确的数量';
+      this.loading = false
+      this.currentLimiting = false
+      return
+    }
+    this.closePsWindowOpen = true
+  }
+  if(this.positionModeSecond == 'closeWarehouse' && this.pendingOrderType =="limitPrice"){
+      this.postOrdersPosition()
+  }
 
+  // if(this.positionModeSecond == 'closeWarehouse' && this.pendingOrderType =="marketPriceProfitStopLoss"){
+  //   if(this.amount == '' || this.amount == 0){
+  //     this.promptOpen = true;
+  //     this.popType = 0;
+  //     this.popText = '请输入正确的数量';
+  //     this.loading = false
+  //     this.currentLimiting = false
+  //     return
+  //   }
+  //   if(this.triggerPrice == ''){
+  //     this.promptOpen = true;
+  //     this.popType = 0;
+  //     this.popText = '请输入正确的触发价格';
+  //     this.loading = false
+  //     this.currentLimiting = false
+  //     return
+  //   }
+  // }
+
+}
+// 平仓确定按钮
+root.methods.closePositions = function (){
+  if(this.positionModeSecond == 'closeWarehouse' && this.pendingOrderType =="marketPrice"){
+    this.postOrdersPosition()
+  }
+  // if(this.positionModeSecond == 'closeWarehouse' && this.pendingOrderType =="marketPriceProfitStopLoss"){
+  //   this.postFullStop()
+  //   this.closePsWindowClose()
+  // }
+}
 // 止盈止损接口
 root.methods.postFullStop = function () {
   this.currentLimiting = true
@@ -1479,6 +1556,7 @@ root.methods.re_postOrdersPosition = function (data) {
   // console.info('下单失败',data,data.code,data.errCode)
   this.currentLimiting = false
   this.loading = false
+
   // if(data.code == '303' && data.errCode == '2022') {
   //   this.promptOpen = true;
   //   this.popType = 0;
@@ -1545,6 +1623,7 @@ root.methods.re_postOrdersPosition = function (data) {
   this.$eventBus.notify({key:'GET_BALANCE'})
   if(data.code != '303') {
     this.promptOpen = true;
+    this.closePsWindowClose();
     if(data.data.status == 'NEW') {
       this.popType = 1;
       this.popText = '下单成功';
