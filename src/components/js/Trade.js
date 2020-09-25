@@ -360,6 +360,7 @@ root.methods.initViews = function (lang) {
 
               b = data[i];
               startTime = response.startTime || 0;
+              //价格必须是number类型，否则均线样式会错乱
               bars.push({
                 // time: b[0],
                 // open: b[1],
@@ -368,11 +369,11 @@ root.methods.initViews = function (lang) {
                 // close: b[4],
                 // volume: b[5]
                 time: b.openTime,
-                open: b.open,
-                high: b.high,
-                low: b.low,
-                close: b.close,
-                volume: b.volume
+                open: Number(b.open),
+                high: Number(b.high),
+                low: Number(b.low),
+                close: Number(b.close),
+                volume: Number(b.volume)
               });
               // if(i == length-1){
               //   time = b[0];
@@ -433,13 +434,14 @@ root.methods.initViews = function (lang) {
 		    	if (!b || self.$store.state.subscribeSymbol != b.s) return;
 	    		if (resolution_mapping[resolution] == b.i) {
             // console.log('获取k线数据',b.i,message);
+            //价格必须是number类型，否则均线样式会错乱
 	    			onRealtimeCallback({
               time: b.t,
-              open: b.o,
-              high: b.h,
-              low: b.l,
-              close: b.c,
-              volume: b.v
+              open: Number(b.o),
+              high: Number(b.h),
+              low: Number(b.l),
+              close: Number(b.c),
+              volume: Number(b.v)
             });
 		    	}
 		    }
