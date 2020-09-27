@@ -770,8 +770,8 @@ root.computed.canBeOpened = function () {
   let sell = Math.abs(Math.min(0 , -1 * (markPrice - price))) || 0  // TODO:适用 LIMIT, STOP, TAKE PROFIT 卖(orderType)
   let buyMarket = Math.abs(Math.min(0 , 1 * (markPrice - this.assumingPrice))) || 0  // TODO:适用 LIMIT, STOP, TAKE PROFIT 买(!orderType)
   let sellMarket = Math.abs(Math.min(0 , -1 * (markPrice - this.assumingPrice))) || 0  // TODO:适用 LIMIT, STOP, TAKE PROFIT 卖(orderType)
-  let shortPositionAmt = this.totalAmountShort // TODO:有仓位时：数量取和；无仓位时取0
-  let longPositionAmt = this.totalAmountLong // TODO:有仓位时：数量取和；无仓位时取0
+  let shortPositionAmt = Number(this.totalAmountShort) // TODO:有仓位时：数量取和；无仓位时取0
+  let longPositionAmt = Number(this.totalAmountLong) // TODO:有仓位时：数量取和；无仓位时取0
 
   let buyCanOpen = 0
   let sellCanOpen = 0
@@ -1143,7 +1143,7 @@ root.methods.postFullStop = function () {
       leverage: this.$store.state.leverage,
       positionSide: "BOTH",
       price: this.price ? this.price : this.latestPriceVal,
-      quantity: this.amount,
+      quantity: Number(this.amount),
       reduceOnly: this.reducePositionsSelected,
       orderSide: this.orderType ? 'SELL':'BUY',
       stopPrice: this.triggerPrice,
@@ -1158,7 +1158,7 @@ root.methods.postFullStop = function () {
     params = {
       leverage: this.$store.state.leverage,
       positionSide: "BOTH",
-      quantity: this.amount,
+      quantity: Number(this.amount),
       reduceOnly: this.reducePositionsSelected,
       orderSide: this.orderType ? 'SELL':'BUY',
       stopPrice: this.triggerPrice,
@@ -1173,7 +1173,7 @@ root.methods.postFullStop = function () {
       leverage: this.$store.state.leverage,
       positionSide: this.orderType ? 'SHORT':'LONG',
       price: this.price,
-      quantity: this.amount,
+      quantity: Number(this.amount),
       orderSide: this.orderType ? 'SELL':'BUY',
       stopPrice: this.triggerPrice,
       symbol: "BTCUSDT",
@@ -1187,7 +1187,7 @@ root.methods.postFullStop = function () {
     params = {
       leverage: this.$store.state.leverage,
       positionSide: this.orderType ? 'SHORT':'LONG',
-      quantity: this.amount,
+      quantity: Number(this.amount),
       orderSide: this.orderType ? 'SELL':'BUY',
       stopPrice: this.triggerPrice,
       symbol: "BTCUSDT",
@@ -1201,7 +1201,7 @@ root.methods.postFullStop = function () {
       leverage: this.$store.state.leverage,
       positionSide: this.orderType ? 'LONG':'SHORT',
       price: this.price,
-      quantity: this.amount,
+      quantity: Number(this.amount),
       orderSide: this.orderType ? 'SELL':'BUY',
       stopPrice: this.triggerPrice,
       symbol: "BTCUSDT",
@@ -1215,7 +1215,7 @@ root.methods.postFullStop = function () {
     params = {
       leverage: this.$store.state.leverage,
       positionSide: this.orderType ? 'LONG':'SHORT',
-      quantity: this.amount,
+      quantity: Number(this.amount),
       orderSide: this.orderType ? 'SELL':'BUY',
       stopPrice: this.triggerPrice,
       symbol: "BTCUSDT",
@@ -1341,7 +1341,7 @@ root.methods.postOrdersCreate = function () {
       leverage: this.$store.state.leverage,
       positionSide: "BOTH",
       price: this.price ? this.price.toString() : this.latestPriceVal,
-      quantity: this.amount,
+      quantity: Number(this.amount),
       reduceOnly: this.reducePositionsSelected ? true : false,
       orderSide: this.orderType ? 'SELL':'BUY',
       stopPrice: null,
@@ -1357,7 +1357,7 @@ root.methods.postOrdersCreate = function () {
       leverage: this.$store.state.leverage,
       positionSide: "BOTH",
       // price: this.latestPriceVal,
-      quantity: this.amount,
+      quantity: Number(this.amount),
       reduceOnly: this.reducePositionsSelected ? true : false,
       orderSide: this.orderType ? 'SELL':'BUY',
       symbol: 'BTCUSDT',
@@ -1370,7 +1370,7 @@ root.methods.postOrdersCreate = function () {
       leverage: this.$store.state.leverage,
       positionSide: this.orderType ? 'SHORT' : 'LONG',
       price: this.price ? this.price : this.latestPriceVal,
-      quantity: this.amount,
+      quantity: Number(this.amount),
       // reduceOnly: this.reducePositionsSelected ? true : false,
       orderSide: this.orderType ? 'SELL':'BUY',
       symbol: 'BTCUSDT',
@@ -1384,7 +1384,7 @@ root.methods.postOrdersCreate = function () {
       leverage: this.$store.state.leverage,
       positionSide: this.orderType ? 'SHORT' : 'LONG',  // 开多传 "LONG" ，开空传 "SHORT"
       // price: this.latestPriceVal,
-      quantity: this.amount,
+      quantity: Number(this.amount),
       // reduceOnly: this.reducePositionsSelected ? true : false,
       orderSide: this.orderType ? 'SELL':'BUY',
       symbol: 'BTCUSDT',
@@ -1510,7 +1510,7 @@ root.methods.postOrdersPosition = function () {
       positionSide: this.orderType ? "LONG":'SHORT',
       // price: this.latestPriceVal,
       price: this.price,
-      quantity: this.amount,
+      quantity: Number(this.amount),
       orderSide: this.orderType ? 'SELL':'BUY',
       stopPrice: null,
       symbol: "BTCUSDT",
@@ -1524,7 +1524,7 @@ root.methods.postOrdersPosition = function () {
     params = {
       leverage: this.$store.state.leverage,
       positionSide: this.orderType ? "LONG":'SHORT',
-      quantity: this.amount,
+      quantity: Number(this.amount),
       orderSide: this.orderType ? 'SELL':'BUY',
       stopPrice: null,
       symbol: "BTCUSDT",
