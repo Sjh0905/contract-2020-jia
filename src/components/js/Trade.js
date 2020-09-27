@@ -601,6 +601,18 @@ root.methods.initViews = function (lang) {
 		// 自定义图方法
 		widget.onChartReady(function () {
 			// !self.$store.state.isMobile && widget.chart().createStudy('MACD', false, true);
+      !self.$store.state.isMobile && widget.chart().createStudy('Moving Average', false, false,[7, 'close', 0], null, {
+        'Plot.color': '#F902F9',
+        'Plot.linewidth': 2
+      });
+      !self.$store.state.isMobile && widget.chart().createStudy('Moving Average', false, false,[25, 'close', 0], null, {
+        'Plot.color': '#DD1774',
+        'Plot.linewidth': 2
+      });
+      !self.$store.state.isMobile && widget.chart().createStudy('Moving Average', false, false,[99, 'close', 0], null, {
+        'Plot.color': '#29E4EE',
+        'Plot.linewidth': 2
+      });
 
 			// 移动端切换显示
 			if (self.$store.state.isMobile) {
