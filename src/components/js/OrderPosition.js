@@ -137,7 +137,8 @@ root.computed.reduceMostAmount1 = function (){
   }
   reduceMoreAmount = reduceMoreAmount < 0 ? reduceMoreAmount = 0 : this.toFixed(reduceMoreAmount,2)
   // console.info('this.reduceMoreAmount===', reduceMoreAmount, this.markPrice)
-  return reduceMoreAmount
+  // 最多可减少需要取当前仓位保证金和最多可减少的最小值
+  return Math.min(this.securityDeposit ,reduceMoreAmount).toFixed(2)
 }
 // 钱包余额
 root.computed.walletBalance = function () {
