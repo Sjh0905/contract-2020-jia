@@ -1475,8 +1475,8 @@ root.methods.openAContract = function () {
 root.methods.re_openAContract = function (data) {
   typeof(data) == 'string' && (data = JSON.parse(data));
   if (data.code == 200) {
-    this.popWindowContractRiskWarning = false
     history.go(0)
+    this.popWindowContractRiskWarning = false
   }
 }
 
