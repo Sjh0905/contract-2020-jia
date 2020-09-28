@@ -109,6 +109,9 @@ root.created = function () {
   this.$eventBus.listen(this, 'GET_POSITION', this.getPositionRisk)
   this.positionSocket()
   this.getAdlQuantile()
+  // 该接口需30分钟调取一次
+  this.adlQuantile && clearInterval(this.adlQuantile)
+  this.adlQuantile = setInterval(this.getAdlQuantile, 1000 * 60 * 30)
   this.getAccount()
   // console.info('钱包总余额===',this.$store.state.walletBalance,'除去逐仓仓位的钱包总余额===',this.$store.state.crossWalletBalance)
 
