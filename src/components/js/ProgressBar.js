@@ -1119,8 +1119,18 @@ root.methods.closePositions = function (){
 root.methods.postFullStop = function () {
   this.currentLimiting = true
   this.loading = true
+  // 如果是平空或者平多，买入量不得大于可平数量
+
   let params = {}
   let latestOrMarkPrice = this.latestPrice == '最新价格' ? Number(this.latestPriceVal) : Number(this.markPrice)
+  if((this.isHasModule('kaipingType') == 2 && this.isHasModule('buttonType') == 3) && ((!this.orderType && Math.abs(this.positionAmtShort) < Number(this.amount)) || (this.orderType && Math.abs(this.positionAmtLong) < Number(this.amount)))){
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '您输入的数量超过可平数量';
+    this.currentLimiting = false
+    this.loading = false
+    return
+  }
   if(this.amount == '' || this.amount == 0){
     this.promptOpen = true;
     this.popType = 0;

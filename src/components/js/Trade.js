@@ -549,8 +549,9 @@ root.methods.initViews = function (lang) {
 				"volumePaneSize": "medium",
 				"mainSeriesProperties.lineStyle.color": "#02c0cc",
 				"mainSeriesProperties.lineStyle.linewidth": 1,
-				"paneProperties.legendProperties.showLegend": false,
-				"paneProperties.legendProperties.showStudyArguments": false,
+        //指标参数的显示、隐藏  true为展开（显示）; false为隐藏
+				"paneProperties.legendProperties.showLegend": true,
+				"paneProperties.legendProperties.showStudyArguments": true,
 
 				// 山行图线和阴影颜色
 				// "mainSeriesProperties.areaStyle.color1": "#d8f7ff",
