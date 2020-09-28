@@ -483,13 +483,13 @@
   <CalculatorBommbBox :switch="openCalculator" @close="closeCalculatorWindow" :pop_width="true"></CalculatorBommbBox>
 
 <!--  合约风险提示-->
-<!--  <ContractRiskWarning :switch="popWindowContractRiskWarning">-->
-<!--    <div slot="footer" class="flex footer-btn">-->
-<!--      <div class="popWindow-article2" @click="popCloseTemporarilyClosed">暂不开通</div>-->
+  <ContractRiskWarning :switch="popWindowContractRiskWarning">
+    <div slot="footer" class="flex footer-btn">
+      <div class="popWindow-article2" @click="popCloseTemporarilyClosed">暂不开通</div>
+      <div class="popWindow-btn" @click="openAContract">开通</div>
 <!--      <div class="popWindow-btn" @click="openAContract">开通</div>-->
-<!--&lt;!&ndash;      <div class="popWindow-btn" @click="openAContract">开通</div>&ndash;&gt;-->
-<!--    </div>-->
-<!--  </ContractRiskWarning>-->
+    </div>
+  </ContractRiskWarning>
 </div>
 
 <div class="TraddingHall-container" v-else>
