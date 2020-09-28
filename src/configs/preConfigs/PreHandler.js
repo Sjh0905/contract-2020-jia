@@ -152,19 +152,19 @@ export default async function ($http, $store, $cookie, $i18n) {
     })
   }
 
-  function getUserBalance() {
-    return $http.send('GET_BALAN__BIAN', {
-      callBack: function (data) {
-        typeof data === 'string' && (data = JSON.parse(data))
-        // console.info('data===',data.data.assets[0])
-        $store.commit('CHANGE_ASSETS', data.data.assets[0] || {})
-        // $store.commit('CHANGE_CROSS_WALLET_BALANCE', data.data.assets[0].crossWalletBalance)
-        // console.info('全仓钱包余额', data.data[0].crossWalletBalance,'钱包总余额', data.data[0].balance)
-      }
-    })
-  }
+  // function getUserBalance() {
+  //   return $http.send('GET_BALAN__BIAN', {
+  //     callBack: function (data) {
+  //       typeof data === 'string' && (data = JSON.parse(data))
+  //       // console.info('data===',data.data.assets[0])
+  //       $store.commit('CHANGE_ASSETS', data.data.assets[0] || {})
+  //       // $store.commit('CHANGE_CROSS_WALLET_BALANCE', data.data.assets[0].crossWalletBalance)
+  //       // console.info('全仓钱包余额', data.data[0].crossWalletBalance,'钱包总余额', data.data[0].balance)
+  //     }
+  //   })
+  // }
 
-  await Promise.all([userAuthInfo(), getCommonSymbols(), getServerTime(),getUserBalance()]).then(res => {
+  await Promise.all([userAuthInfo(), getCommonSymbols(), getServerTime()]).then(res => {
     // console.warn('')
   }) // 请求同时发送 统一拦截
 
