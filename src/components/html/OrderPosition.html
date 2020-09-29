@@ -91,9 +91,9 @@
 <!--      &lt;!&ndash;平仓&ndash;&gt;v-if="item.positionSide == 'BOTH'"-->
       <div class="td td-trigger" >
         <div class="td-trigger-btn flex" v-if="priceCheck[item.positionSide] == 0">
-          <div class="market-price margin-right" @click="openPositionMarket(item)">市价</div>
+          <div class="market-price margin-right" @click="openSplicedFrame(item,'市价','marketPrice')">市价</div>
 <!--          <div class="market-price margin-right" v-if="marketPriceClick">市价</div>-->
-          <div class="market-price margin-right" v-if="!checkPriceClick" @click="checkPrice(item)">限价</div>
+          <div class="market-price margin-right" v-if="!checkPriceClick" @click="openSplicedFrame(item,'限价','checkPrice')">限价</div>
           <div class="market-price margin-right" v-if="checkPriceClick">限价</div>
           <input type="text" v-model="item.iptMarkPrice" onkeyup="value = value.match(/\d+(\.\d{0,2})?/) ? value.match(/\d+(\.\d{0,2})?/)[0] : ''">
         </div>
@@ -199,28 +199,29 @@
       <button @click="ensurePop" class="button-base  btn_blue pointer" v-if="!closeMarketPrice">
         {{$t('orderPageCurrentEntrustment.ensure')}}
       </button>
-      <button class="button-base btn_grey" v-if="closeMarketPrice" disabled>确认中</button>
+      <button class="button-base btn_grey" v-if="closeMarketPrice" disabled>请求中</button>
       <button @click="closePop" class="button-base m-r btn_simple pointer">{{$t('orderPageCurrentEntrustment.close')}}
       </button>
     </div>
   </PopupWindow>
   <!-- 是否全部平仓 end -->
-  <!-- 是否市价平仓 begin -->
-  <PopupWindow :switch="popOpenMarket" v-on:close="closePopMarket">
+  <!-- 限价市价平仓弹窗 begin -->
+  <PopupWindow :switch="showSplicedFrame" @close="closeFrame">
     <div slot="header"><span class="pop-header">提示</span></div>
     <div slot="article" class="pop-article">
       <!--      <p>{{$t('orderPageCurrentEntrustment.promptArticle')}}</p>-->
-      <p>确定以当前市价平仓吗？</p>
+      <p>{{splicedFrameText}}</p>
     </div>
     <div slot="footer" class="pop-footer flex-center">
-      <button v-if="!marketPriceClick" @click="marketPrice" class="button-base  btn_blue pointer">
+      <button @click="closeFrame" class="button-base btn_simple pointer">{{$t('orderPageCurrentEntrustment.close')}}
+      </button>
+      <button v-if="!marketPriceClick" @click="confirmFrame" class="button-base m-r btn_blue pointer">
         {{$t('orderPageCurrentEntrustment.ensure')}}
       </button>
-      <button v-if="marketPriceClick" class="button-base  btn_blue pointer" disabled>
-        {{$t('orderPageCurrentEntrustment.ensure')}}中
+      <button v-if="marketPriceClick" class="button-base m-r btn_blue pointer" disabled>
+        请求中
       </button>
-      <button @click="closePopMarket" class="button-base m-r btn_simple pointer">{{$t('orderPageCurrentEntrustment.close')}}
-      </button>
+
     </div>
   </PopupWindow>
   <!-- 是否全部平仓 end -->

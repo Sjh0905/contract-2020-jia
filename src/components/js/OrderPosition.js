@@ -89,6 +89,9 @@ root.data = function () {
     totalAmountLong:0, // 双仓开多仓位数量
     totalAmountShort:0, // 双仓开空仓位数量
     closeMarketPrice:false,
+    showSplicedFrame:false,//下单拦截弹框
+    callFuncName:'',//即将调用接口的函数名字
+    splicedFrameText:'',
   }
 }
 /*------------------------------ 观察 -------------------------------*/
@@ -800,10 +803,45 @@ root.methods.addAdlQuantile = function(currSAdlQuantile,records){
   // console.log('currSAdlQuantile,records',currSAdlQuantile,records);
 }
 
-root.methods.openPositionMarket = function (item) {
+//开启拦截弹窗
+root.methods.openSplicedFrame = function (item,btnText,callFuncName) {
   this.positionInfo = item || {}
-  this.popOpenMarket = true
+  let closePosition = item.positionAmt > 0 ?'平多':'平空'
+  // console.info('this.positionInfo==',this.positionInfo,item.symbol.slice(0,3))
+  // if(!this.openClosePsWindowClose())return
+
+  this.splicedFrameText = "";
+
+  //限价价格
+  if(btnText == '限价'){
+    this.splicedFrameText += ('价格' + item.iptMarkPrice + 'USDT，')
+  }
+  //当前市价
+  if(btnText == '市价'){
+    this.splicedFrameText += ('价格为当前市价，')
+  }
+  //数量
+  this.splicedFrameText += ('数量' + Math.abs(item.positionAmt) + item.symbol.slice(0,3))
+  //操作类型
+  this.splicedFrameText += ('，确定'+ closePosition + '?')
+
+  this.callFuncName = callFuncName;
+  this.showSplicedFrame = true
 }
+//提交下单弹框
+root.methods.confirmFrame = function () {
+  this[this.callFuncName]();//调用对应的接口
+  this.showSplicedFrame = false
+}
+
+//关闭下单弹框
+root.methods.closeFrame = function () {
+  this.showSplicedFrame = false
+}
+// root.methods.openPositionMarket = function (item) {
+//   this.positionInfo = item || {}
+//   this.popOpenMarket = true
+// }
 
 // 市价
 root.methods.marketPrice = function (v) {
@@ -905,9 +943,10 @@ root.methods.re_marketPrice = function (data) {
   }
 }
 // 限价
-root.methods.checkPrice = function (item) {
+root.methods.checkPrice = function () {
   // let markPrice1 = document.getElementById('inputMarginPrice1').value;//获取input的节点bai
   // console.info('this is markPrice 618', item.iptMarkPrice)
+  let item = this.positionInfo
   let params = {
     leverage: this.$store.state.leverage,
     positionSide: item.positionSide,
