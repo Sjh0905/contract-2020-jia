@@ -1117,9 +1117,10 @@ root.methods.closePsWindowClose = function (){
 }
 // 非法数据拦截
 root.methods.openClosePsWindowClose = function (){
-  // 限价价格非空判断
-  let limitArr = ['limitProfitStopLoss','limitPrice'],triggerArr = ['limitProfitStopLoss','marketPriceProfitStopLoss']
+    // 限价价格非空判断
+  let limitArr = ['limitProfitStopLoss','limitPrice'],triggerArr = ['limitProfitStopLoss','marketPriceProfitStopLoss'],closeAmountArr = ['positionAmtShort','positionAmtLong']
 
+  if(this.loading)return false
 
   if(triggerArr.includes(this.pendingOrderType) && (this.triggerPrice == '' || this.triggerPrice == 0)){
     this.promptOpen = true;
@@ -1148,8 +1149,8 @@ root.methods.openClosePsWindowClose = function (){
     return false
   }
   //平仓数量超出提示
-  if(this.positionModeSecond == 'closeWarehouse' &&
-    (!this.orderType && Math.abs(this.positionAmtShort) < Number(this.amount)) || (this.orderType && Math.abs(this.positionAmtLong) < Number(this.amount))){
+  // if(this.positionModeSecond == 'closeWarehouse' && ((!this.orderType && Math.abs(this.positionAmtShort) < Number(this.amount)) || (this.orderType && Math.abs(this.positionAmtLong) < Number(this.amount))) ){
+  if(this.positionModeSecond == 'closeWarehouse' && Math.abs(this[closeAmountArr[this.orderType]]) < Number(this.amount)) {
     this.promptOpen = true;
     this.popType = 0;
     this.popText = '您输入的数量超过可平数量';
@@ -1161,18 +1162,17 @@ root.methods.openClosePsWindowClose = function (){
   return true
 }
 // 平仓确定按钮
-root.methods.closePositions = function (){
-  if(this.positionModeSecond == 'closeWarehouse' && this.pendingOrderType =="marketPrice"){
-    this.postOrdersPosition()
-  }
-  // if(this.positionModeSecond == 'closeWarehouse' && this.pendingOrderType =="marketPriceProfitStopLoss"){
-  //   this.postFullStop()
-  //   this.closePsWindowClose()
-  // }
-}
+// root.methods.closePositions = function (){
+//   if(this.positionModeSecond == 'closeWarehouse' && this.pendingOrderType =="marketPrice"){
+//     this.postOrdersPosition()
+//   }
+//   // if(this.positionModeSecond == 'closeWarehouse' && this.pendingOrderType =="marketPriceProfitStopLoss"){
+//   //   this.postFullStop()
+//   //   this.closePsWindowClose()
+//   // }
+// }
 // 止盈止损接口
 root.methods.postFullStop = function () {
-  this.currentLimiting = true
   this.loading = true
   // 如果是平空或者平多，买入量不得大于可平数量
 
@@ -1389,7 +1389,6 @@ root.methods.error_postFullStop = function (err) {
 
 // 开仓
 root.methods.postOrdersCreate = function () {
-  this.currentLimiting = true
   this.loading = true
   if(this.amount == ''|| this.amount == 0){
     this.promptOpen = true;
@@ -1557,7 +1556,6 @@ root.methods.error_postOrdersCreate = function (err) {
 
 // 平仓
 root.methods.postOrdersPosition = function () {
-  this.currentLimiting = true
   this.loading = true
   if(this.amount == '' || this.amount == 0){
     this.promptOpen = true;

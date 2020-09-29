@@ -1,39 +1,5 @@
 <div class="ProgressBar-container">
 
-  <!--<div class="progress-bar-tit flex-row">-->
-    <!--<div class="progress-bar-tit-l">-->
-      <!--&lt;!&ndash; <span class="txt-small txt-light strong">{{orderType && $t("progressBar.sale") + this.$store.state.symbol.split('_')[0] || $t("progressBar.buy")+ this.$store.state.symbol.split('_')[0]}}</span> &ndash;&gt;-->
-       <!--<span class="txt-small txt-light keyong">-->
-               <!--{{$t("progressBar.able")}}-->
-            <!--</span>-->
-      <!--<span class="txt-small txt-light keyong keyong-margin">-->
-        <!--{{available}} {{orderType === 0 ? this.symbol.split('_')[1] : this.symbol.split('_')[0]}}-->
-            <!--</span>-->
-    <!--</div>-->
-    <!--&lt;!&ndash; <div :class="{'nobtn': orderType,'progress-bar-tit-r-en':lang!='CH'}" class="progress-bar-tit-r">-->
-
-    <!--</div> &ndash;&gt;-->
-    <!--&lt;!&ndash;充币&ndash;&gt;-->
-    <!--<div class="progress-bar-recharge" :class='{"progress-bar-recharge-en":lang!="CH"}'-->
-    <!--v-if="!orderType" >-->
-      <!--<router-link class="text_blue" :to="{name:'rechargeAndWithdrawals',query:{'symbol':$store.state.symbol.split('_')[1]}}"-->
-                   <!--&gt;{{$t("progressBar.chargingMoney")}}-->
-      <!--</router-link>-->
-    <!--</div>-->
-
-    <!--<div class="progress-bar-recharge" :class='{"progress-bar-recharge-en":lang!="CH"}'-->
-    <!--v-if="orderType && $store.state.symbol.split('_')[0] != 'GRC' " >-->
-      <!--<router-link class="text_blue" :to="{name:'rechargeAndWithdrawals',query:{'symbol':$store.state.symbol.split('_')[0]}}"-->
-                   <!--&gt;{{$t("progressBar.chargingMoney")}}-->
-      <!--</router-link>-->
-    <!--</div>-->
-
-    <!--<div class="progress-bar-recharge" :class='{"progress-bar-recharge-en":lang!="CH"}'-->
-    <!--v-if="orderType && $store.state.symbol.split('_')[0] == 'GRC' " >-->
-      <!--<div style="color:#C1C1C1;">{{$t("progressBar.chargingMoney")}}</div>-->
-    <!--</div>-->
-  <!--</div>-->
-
 
   <div class="progress-bar-main">
     <!--触发价格-->
@@ -115,53 +81,18 @@
                @keyup="keyBoard('pro-bar-amount' + orderType)"
                autocomplete="off"
         >
-        <!-- @keyup="keyBoard('pro-bar-amount' + orderType)" -->
-        <!-- <span class="pro-bar-price-tit txt-small txt-light">{{orderType && $t("progressBar.saleNum") + this.$store.state.symbol.split('_')[0] || $t("progressBar.buyNum") + this.$store.state.symbol.split('_')[0]}}
-        </span> -->
+
         <!--币对-->
         <span class="pro-bar-price-tit txt-small txt-light">{{orderType && this.$store.state.symbol.split('_')[0] || this.$store.state.symbol.split('_')[0]}}
       </span>
-        <!-- <div class="progress_up_down">
-          <ul>
-            <li @click="plusNum('amount')">⌃</li>
-            <li @click="reduceNum('amount')">⌃</li>
-          </ul>
-        </div> -->
+
 
       </label>
     </div>
 
-    <!--<div class="progress-bar-progress flex-row">-->
-      <!--<div class="progress-bar-option border_radius" @click="sectionSelect(0.25)">25%</div>-->
-      <!--<div class="progress-bar-option border_radius" @click="sectionSelect(0.5)">50%</div>-->
-      <!--<div class="progress-bar-option border_radius" @click="sectionSelect(0.75)">75%</div>-->
-      <!--<div class="progress-bar-option border_radius" @click="sectionSelect(1)">100%</div>-->
-
-    <!--</div>-->
 
     <div class="body">
-      <!-- <div  :class="orderType ? 'dragnum dragbox' : 'dragnumbuy dragboxbuy'" @mousemove="timeMove($event)" @mouseleave="timeEnd($event)" ref="dragbox">
-        <div :class="orderType ? 'progress' : 'progressbuy'" @click="timeClick($event)">
-          <div :class="orderType ? 'progressbar' : 'progressbarbuy'" :style="{width:distance+'px',transition:'width '+transTime+'s'}">
-          </div>
-        </div>
-        <div :class="orderType ? 'bardragnum0' : 'bardragnum0buy'"  style="left:0;" @click="timeClick2(0)"></div>
-        <div :class="[orderType ? 'bardragnum' : 'bardragnumbuy',this.bgjcolor25 ? 'bgcolorhui':(orderType ? 'bgcolorhuang' : 'bgcolorhuangbuy')]" id="bard25" style="left:63px;"  @click="timeClick2(63)"></div>
-        <div :class="[orderType ? 'bardragnum' : 'bardragnumbuy',this.bgjcolor50 ? 'bgcolorhui':(orderType ? 'bgcolorhuang' : 'bgcolorhuangbuy')]"  id="bard50" style="left:124px;"   @click="timeClick2(124)"></div>
-        <div :class="[orderType ? 'bardragnum' : 'bardragnumbuy',this.bgjcolor75 ? 'bgcolorhui':(orderType ? 'bgcolorhuang' : 'bgcolorhuangbuy')]"  id="bard75" style="left:187px;"   @click="timeClick2(187)"></div>
-        <div :class="orderType ? 'bardragnum' : 'bardragnumbuy'" style="left:249px;"  @click="timeClick2(249)"></div>
-        <div :class="orderType ? 'bardrag' : 'bardragbuy'" id="bardong" @mousedown="timeDown($event)" @mouseup="timeEnd($event)" :style="{left:distance+'px'}">
-          <span :class="orderType ? 'dangqz' : 'dangqzbuy'" v-show="dangqzsh">{{nowNum}}%</span>
-        </div>
-        <div :class="orderType ? 'drag33' : 'drag33buy'" @onclick="tzjdt()">
-          <span>{{startNum}}</span>%
-        </div>
-        <div :class="orderType ? 'drag44' : 'drag44buy'" @onclick="tzjdt()">
-          <span>{{endNum}}</span>%
-        </div>
-      </div>
-      <div class="nowbar">
-      </div> -->
+
       <div class="block" v-if="pendingOrderType == 'limitPrice'">
           <!-- <span class="demonstration">默认</span> -->
           <p :class="orderType ? 'radiusa_red' : 'radiusa_green'" v-if="value>=0" @click="value=0" style="cursor:pointer"></p>
@@ -225,36 +156,6 @@
     </div>
 
 
-    <!--&lt;!&ndash;交易额 begin&ndash;&gt;-->
-    <!--<div class="progress-bar-tips flex">-->
-
-            <!--<span><span class="txt-light jiaoyie">{{$t("progressBar.volume")}}</span><span-->
-              <!--:class="!orderType ? 'txt_green jiaoyie2' : 'txt_red jiaoyie2'">{{accMul(price,amount)}}</span>-->
-            <!--<span class="txt-light jiaoyie2">{{this.$store.state.symbol.split('_')[1]}}</span></span>-->
-      <!--&lt;!&ndash; 显示买入持仓不足 start &ndash;&gt;-->
-      <!--<span class="txt-red" style="width:35%; text-align: right;"-->
-            <!--v-if="!orderType && price * amount > available">*{{$t("progressBar.numLess",{currency})}}-->
-      <!--</span>-->
-      <!--&lt;!&ndash; 显示买入持仓不足 end &ndash;&gt;-->
-      <!--&lt;!&ndash; 显示买入价格 start &ndash;&gt;-->
-      <!--<span class="txt_green" style="width:35%; text-align: right;"-->
-            <!--v-if="!orderType && price * amount < available && price * amount > 0">-->
-            <!--{{turnover_money(price * amount)}}-->
-      <!--</span>-->
-      <!--&lt;!&ndash; 显示买入价格 end &ndash;&gt;-->
-      <!--&lt;!&ndash; 显示卖出持仓不足 start &ndash;&gt;-->
-      <!--<span class="txt-red" style="width:35%; text-align: right;"-->
-            <!--v-if="orderType && Number(amount) > Number(available)">*{{$t("progressBar.numLess",{currency})}}-->
-      <!--</span>-->
-      <!--&lt;!&ndash; 显示卖出持仓不足 end &ndash;&gt;-->
-      <!--&lt;!&ndash; 显示卖出价格 start &ndash;&gt;-->
-      <!--<span class="txt-red" style="width:35%; text-align: right;"-->
-            <!--v-if="orderType && Number(amount) <= Number(available) && price * amount > 0">-->
-            <!--{{turnover_money(price * amount)}}-->
-      <!--</span>-->
-      <!--&lt;!&ndash; 显示卖出价格 end &ndash;&gt;-->
-    <!--</div>-->
-    <!--&lt;!&ndash;交易额 end&ndash;&gt;-->
 
     <!--保证金-->
     <div class="progress-security-deposit-box flex-between">
@@ -292,77 +193,46 @@
       <!--单仓  限价  市价 postOrdersCreate-->
       <div class="progress-bar-btn txt-nomal border_radius" @click="openSplicedFrame(orderType && '卖出/做空'  || '买入/做多','postOrdersCreate')"
            :class="orderType?'progress-bar-redbtn btn_red_box_shadow':'progress-bar-greenbtn btn_green_box_shadow'"
-           v-if="$store.state.authState.userId && !currentLimiting && isHasModule('buttonType') == 1 && (pendingOrderType == 'limitPrice' || pendingOrderType == 'marketPrice')">
-        {{orderType && '卖出/做空'  || '买入/做多' }}
-      </div>
-      <div class="progress-bar-btn txt-nomal border_radius"
-           :class="orderType?'progress-bar-redbtn btn_red_box_shadow':'progress-bar-greenbtn btn_green_box_shadow'"
-           v-if="$store.state.authState.userId && currentLimiting && isHasModule('buttonType') == 1 && (pendingOrderType == 'limitPrice' || pendingOrderType == 'marketPrice')">
-        {{orderType && '卖出/做空'  || '买入/做多' }}
-      </div>
-      <!--单仓  限价止盈止损  市价止盈止损 postFullStop-->
-      <div class="progress-bar-btn txt-nomal border_radius" @click="openSplicedFrame(orderType && '卖出/做空'  || '买入/做多' ,'postFullStop')"
-           :class="orderType?'progress-bar-redbtn btn_red_box_shadow':'progress-bar-greenbtn btn_green_box_shadow'"
-           v-if="$store.state.authState.userId && !currentLimiting && isHasModule('buttonType') == 1 && (pendingOrderType == 'limitProfitStopLoss' || pendingOrderType == 'marketPriceProfitStopLoss')">
+           v-if="$store.state.authState.userId  && isHasModule('buttonType') == 1 && (pendingOrderType == 'limitPrice' || pendingOrderType == 'marketPrice')">
         {{orderType && '卖出/做空'  || '买入/做多' }}
       </div>
 
-      <div class="progress-bar-btn txt-nomal border_radius"
+      <!--单仓  限价止盈止损  市价止盈止损 postFullStop-->
+      <div class="progress-bar-btn txt-nomal border_radius" @click="openSplicedFrame(orderType && '卖出/做空'  || '买入/做多' ,'postFullStop')"
            :class="orderType?'progress-bar-redbtn btn_red_box_shadow':'progress-bar-greenbtn btn_green_box_shadow'"
-           v-if="$store.state.authState.userId && currentLimiting && isHasModule('buttonType') == 1 && (pendingOrderType == 'limitProfitStopLoss' || pendingOrderType == 'marketPriceProfitStopLoss')"
-      >{{orderType && '卖出/做空'  || '买入/做多' }}
+           v-if="$store.state.authState.userId && isHasModule('buttonType') == 1 && (pendingOrderType == 'limitProfitStopLoss' || pendingOrderType == 'marketPriceProfitStopLoss')">
+        {{orderType && '卖出/做空'  || '买入/做多' }}
       </div>
 
       <!--双仓 开仓  限价  市价 postOrdersCreate-->
       <div class="progress-bar-btn txt-nomal border_radius" @click="openSplicedFrame(orderType && '开空' || '开多','postOrdersCreate')"
            :class="orderType?'progress-bar-redbtn btn_red_box_shadow':'progress-bar-greenbtn btn_green_box_shadow'"
-           v-if="$store.state.authState.userId && !currentLimiting && isHasModule('buttonType') == 2 && (pendingOrderType == 'limitPrice' || pendingOrderType == 'marketPrice')">
+           v-if="$store.state.authState.userId  && isHasModule('buttonType') == 2 && (pendingOrderType == 'limitPrice' || pendingOrderType == 'marketPrice')">
         {{orderType && '开空' || '开多'}}
       </div>
 
-      <div class="progress-bar-btn txt-nomal border_radius"
-           :class="orderType?'progress-bar-redbtn btn_red_box_shadow':'progress-bar-greenbtn btn_green_box_shadow'"
-           v-if="$store.state.authState.userId && currentLimiting && isHasModule('buttonType') == 2 && (pendingOrderType == 'limitPrice' || pendingOrderType == 'marketPrice')">
-        {{orderType && '开空' || '开多'}}
-      </div>
       <!--双仓 开仓  限价止盈止损  市价止盈止损 postFullStop-->
       <div class="progress-bar-btn txt-nomal border_radius" @click="openSplicedFrame(orderType && '开空' || '开多','postFullStop')"
            :class="orderType?'progress-bar-redbtn btn_red_box_shadow':'progress-bar-greenbtn btn_green_box_shadow'"
-           v-if="$store.state.authState.userId && !currentLimiting && isHasModule('buttonType') == 2 && (pendingOrderType == 'limitProfitStopLoss' || pendingOrderType == 'marketPriceProfitStopLoss')">
+           v-if="$store.state.authState.userId && isHasModule('buttonType') == 2 && (pendingOrderType == 'limitProfitStopLoss' || pendingOrderType == 'marketPriceProfitStopLoss')">
         {{orderType && '开空' || '开多'}}
-      </div>
-
-      <div class="progress-bar-btn txt-nomal border_radius"
-           :class="orderType?'progress-bar-redbtn btn_red_box_shadow':'progress-bar-greenbtn btn_green_box_shadow'"
-           v-if="$store.state.authState.userId && currentLimiting && isHasModule('buttonType') == 2 && (pendingOrderType == 'limitProfitStopLoss' || pendingOrderType == 'marketPriceProfitStopLoss')">
-        {{orderType && '开空' || '开多' }}
       </div>
 
       <!--双仓 平仓  限价  市价 postOrdersPosition-->
       <div class="progress-bar-btn txt-nomal border_radius" @click="openSplicedFrame(orderType && '平多' || '平空','postOrdersPosition')"
            :class="orderType?'progress-bar-redbtn btn_red_box_shadow':'progress-bar-greenbtn btn_green_box_shadow'"
-           v-if="$store.state.authState.userId && !currentLimiting && isHasModule('buttonType') == 3 && (pendingOrderType == 'limitPrice' || pendingOrderType == 'marketPrice')">
+           v-if="$store.state.authState.userId && isHasModule('buttonType') == 3 && (pendingOrderType == 'limitPrice' || pendingOrderType == 'marketPrice')">
         {{orderType && '平多' || '平空'}}
       </div>
 
-      <div class="progress-bar-btn txt-nomal border_radius"
-           :class="orderType?'progress-bar-redbtn btn_red_box_shadow':'progress-bar-greenbtn btn_green_box_shadow'"
-           v-if="$store.state.authState.userId && currentLimiting && isHasModule('buttonType') == 3 && (pendingOrderType == 'limitPrice' || pendingOrderType == 'marketPrice')">
-        {{orderType && '平多' || '平空'}}
-      </div>
 
       <!--双仓 平仓  限价止盈止损  市价止盈止损 postFullStop-->
       <div class="progress-bar-btn txtvalue-nomal border_radius" @click="openSplicedFrame(orderType && '平多' || '平空','postFullStop')"
            :class="orderType?'progress-bar-redbtn btn_red_box_shadow':'progress-bar-greenbtn btn_green_box_shadow'"
-           v-if="$store.state.authState.userId && !currentLimiting && isHasModule('buttonType') == 3 && (pendingOrderType == 'limitProfitStopLoss' || pendingOrderType == 'marketPriceProfitStopLoss')">
+           v-if="$store.state.authState.userId && isHasModule('buttonType') == 3 && (pendingOrderType == 'limitProfitStopLoss' || pendingOrderType == 'marketPriceProfitStopLoss')">
         {{orderType && '平多' || '平空'}}
       </div>
 
-      <div class="progress-bar-btn txt-nomal border_radius"
-           :class="orderType?'progress-bar-redbtn btn_red_box_shadow':'progress-bar-greenbtn btn_green_box_shadow'"
-           v-if="$store.state.authState.userId && currentLimiting && isHasModule('buttonType') == 3 && (pendingOrderType == 'limitProfitStopLoss' || pendingOrderType == 'marketPriceProfitStopLoss')">
-        {{orderType && '平多' || '平空'}}
-      </div>
       <div :class="orderType?'security-deposit-block':'security-deposit-block-buy'">仓位占用的保证金。</div>
       <!--<div class="progress-bar-btn progress-bar-nologin-btn ptxt-nomal"-->
            <!--v-if="$store.state.authMessage.userId && (!symbol_transaction || !symbol_transaction_diy)">-->
@@ -374,37 +244,7 @@
         class="text_blue" style="cursor: pointer" @click="goRegister">{{$t("progressBar.register")}}</span>
       </div>
     </div>
-<!--    <div v-if="positionModeFirst == 'singleWarehouseMode'">-->
-<!--      <div v-if="orderType" class="text_blue">{{canMore}}</div>-->
-<!--      <div v-if="!orderType" class="text_blue">{{canMore}}</div>-->
-<!--    </div>-->
-<!--    <br/>-->
-<!--    <div v-if="positionModeFirst == 'doubleWarehouseMode'">-->
-<!--      <div v-if="orderType" class="text_blue">{{canBeOpened}}</div>-->
-<!--      <div v-if="!orderType" class="text_blue">{{canBeOpened}}</div>-->
-<!--    </div>-->
-    <!--交易按钮 end-->
 
-<!--    <div class="progress-bar-btn-wrap" :class="btn_click ? 'progress-bar-active' : ''">-->
-<!--      <div class="progress-bar-btn txt-nomal border_radius"-->
-<!--           :class="orderType?'progress-bar-redbtn btn_red_box_shadow':'progress-bar-greenbtn btn_green_box_shadow'"-->
-<!--           v-if="$store.state.authMessage.userId && symbol_transaction && symbol_transaction_diy">-->
-<!--        {{$t('progressBar.unavailable')}}</div>-->
-<!--      <div class="progress-bar-btn txt-nomal border_radius"-->
-<!--           :class="orderType?'progress-bar-redbtn btn_red_box_shadow':'progress-bar-greenbtn btn_green_box_shadow'"-->
-<!--           v-if="$store.state.authMessage.userId && (!symbol_transaction || !symbol_transaction_diy)">-->
-<!--        {{$t('progressBar.unavailable')}}</div>-->
-<!--      <div class="progress-bar-btn progress-bar-nologin-btn ptxt-nomal" v-if="!$store.state.authMessage.userId">-->
-<!--        <span style="cursor: pointer" class="text_blue" @click="goLogin">{{$t("progressBar.login")}}</span> 或 <span-->
-<!--        class="text_blue" style="cursor: pointer" @click="goRegister">{{$t("progressBar.register")}}</span>-->
-<!--      </div>-->
-<!--    </div>-->
-
-<!--    sss 屏蔽结束-->
-
-    <!-- <div class="progress-bar-fee">
-        <span>{{$t("progressBar.serverCharge")}}(0.2%)</span>
-    </div> -->
 
   </div>
 
@@ -451,23 +291,7 @@
     </div>
 
   </PopupWindow>
-<!--  <PopupWindow :switch="closePsWindowOpen" v-on:close="closePsWindowClose">-->
-<!--    <div slot="header" class="pop-header">-->
-<!--      提示-->
-<!--    </div>-->
-<!--    <div slot="article" class="pop-article">-->
-<!--      <p>确定以当前市价平仓吗？</p >-->
-<!--    </div>-->
-<!--    <div slot="footer" class="pop-footer flex">-->
-<!--      <button class="button-base button-pop-window btn_blue" @click="closePositions()">-->
-<!--        确定-->
-<!--      </button>-->
-<!--      <button class="button-base button-pop-window btn_simple" @click="closePsWindowClose()">-->
-<!--        取消-->
-<!--      </button>-->
-<!--    </div>-->
 
-<!--  </PopupWindow>-->
 <!--  下单弹框-->
   <PopupWindow :switch="showSplicedFrame" v-on:close="closeFrame">
     <div slot="header" class="pop-header">
@@ -475,18 +299,6 @@
     </div>
     <div slot="article" class="pop-article">
       <p>{{splicedFrameText}}</p >
-<!--      <div class="flex">-->
-<!--        <div class="testTriggerPrice">触发价</div>-->
-<!--        <div class="testTriggerPrice">123</div>-->
-<!--      </div>-->
-<!--      <div class="flex">-->
-<!--        <div class="testTriggerPrice">价格</div>-->
-<!--        <div class="testTriggerPrice">123</div>-->
-<!--      </div>-->
-<!--      <div class="flex">-->
-<!--        <div class="testTriggerPrice">数量</div>-->
-<!--        <div class="testTriggerPrice">123</div>-->
-<!--      </div>-->
     </div>
     <div slot="footer" class="pop-footer flex">
       <button class="button-base button-pop-window btn_simple" @click="closeFrame()">
@@ -499,86 +311,6 @@
 
   </PopupWindow>
 
-
-  <!--  <PopupWindow :switch="popWindowOpen1" v-on:close="popWindowClose1">-->
-<!--    <div slot="header" class="=">-->
-<!--      风险提示-->
-<!--    </div>-->
-<!--    <div slot="article">-->
-<!--      <p>{{popWindowArticle_0}}</p>-->
-<!--    </div>-->
-<!--    <div slot="footer" class="pop-footer flex">-->
-<!--      <button class="button-base button-pop-window btn_blue" @click="tradeMarket">-->
-<!--        确定-->
-<!--      </button>-->
-<!--      <button class="button-base button-pop-window btn_simple" @click="popWindowClose1">-->
-<!--        取消-->
-<!--      </button>-->
-<!--    </div>-->
-
-<!--  </PopupWindow>-->
-
-
-  <!-- 是否全部撤单 end -->
-  <!--&lt;!&ndash;标头&ndash;&gt;-->
-  <!--<div class="market-title block relative">-->
-  <!--<div class="vertical-middle market-title-flex">-->
-  <!--<div class="market-title-can-use relative">-->
-  <!--<span class="strong">{{buyOrSale}}</span> {{ $store.state.symbol}}-->
-
-  <!--<span class="strong" style="margin-left: 90px">可用</span>-->
-  <!--<span class="more-color" :style="[{color:color}]">2,365</span>-->
-  <!--BTC-->
-  <!--</div>-->
-  <!--<div class="market-title-button-container block relative">-->
-  <!--<span class="vertical-middle" :style="[{color:color,'border-color':color}]">充币</span>-->
-  <!--</div>-->
-  <!--</div>-->
-  <!--</div>-->
-  <!--&lt;!&ndash;计算&ndash;&gt;-->
-  <!--<div class="market-compute block relative">-->
-  <!--<div class="market-compute-input block">-->
-  <!--<div class="market-compute-input-container">-->
-  <!--<span>单价</span>-->
-  <!--<input type="text" v-model="price">-->
-  <!--</div>-->
-  <!--<span>×</span>-->
-  <!--<div class="market-compute-input-container">-->
-  <!--<span>数量</span>-->
-  <!--<input type="text" v-model="amount">-->
-  <!--</div>-->
-  <!--<span>={{price * amount && price * amount || ''}}</span>-->
-  <!--&lt;!&ndash;<div class="market-compute-input-container">&ndash;&gt;-->
-  <!--&lt;!&ndash;<span>价格</span>&ndash;&gt;-->
-  <!--&lt;!&ndash;<input type="text" :value="price * amount && price * amount || ''">&ndash;&gt;-->
-  <!--&lt;!&ndash;</div>&ndash;&gt;-->
-  <!--</div>-->
-  <!--</div>-->
-  <!--&lt;!&ndash;进度条&ndash;&gt;-->
-  <!--<div class="market-progress-bar-container block relative">-->
-  <!--<div class=" market-progress-bar-vertical vertical-middle">-->
-  <!--<div class="market-progress-bar relative block ">-->
-  <!--<div class="progress-bar"></div>-->
-  <!--<div class="progress-loading" :style="[{'background-color':color}]"></div>-->
-  <!--<div class="progress-button"></div>-->
-  <!--</div>-->
-  <!--<div class="market-progress-bar-title">-->
-  <!--<span>0</span>-->
-  <!--<span>25</span>-->
-  <!--<span>50</span>-->
-  <!--<span>75</span>-->
-  <!--<span>100</span>-->
-  <!--</div>-->
-  <!--</div>-->
-  <!--</div>-->
-  <!--&lt;!&ndash;确定按钮&ndash;&gt;-->
-  <!--<div class="market-button-container block relative">-->
-  <!--<div class="market-button relative vertical-middle" :style="[{'background-color':color}]"-->
-  <!--@click="tradeMarket(orderType)"><span>{{buyOrSale}}{{$store.state.symbol}}</span></div>-->
-  <!--</div>-->
-  <!--<div class="market-prompt block">-->
-  <!--<span>手续费(0.2%):0.02</span>-->
-  <!--</div>-->
 
   <Loading v-if="loading" class="loadingProgressBar" style="width: 15%; height: 6%; top: 75%"/>
 </div>
