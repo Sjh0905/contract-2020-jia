@@ -479,8 +479,8 @@ root.methods.initViews = function (lang) {
 			overrides: {
 				"mainSeriesProperties.style": 1,
 				"paneProperties.background": "#131F30",
-                "paneProperties.vertGridProperties.color": "#454545",
-                "paneProperties.horzGridProperties.color": "#454545",
+        "paneProperties.vertGridProperties.color": "#454545",
+        "paneProperties.horzGridProperties.color": "#454545",
 				"symbolWatermarkProperties.transparency": 90,
 				"scalesProperties.textColor" : "#AAA",
 				"mainSeriesProperties.lineStyle.color": "#131F30",
