@@ -7,10 +7,15 @@ export default class {
     this.defaultData = defaultData || {}
     axios.defaults.withCredentials = true
     // this.env = NetworkServer.env
+    this.vueStore = {}
   }
 
   resetDefaultData(defaultData) {
     this.defaultData = defaultData || {}
+  }
+
+  setVueStoreVal = function(v){
+    this.vueStore = v
   }
 
 
@@ -32,6 +37,10 @@ export default class {
       return false
     }
 
+    //未开通合约不能调用接口
+    if(configure.requireOpen){
+      if(!this.vueStore.state.requireOpen)return false
+    }
 
     let newOption = {...NetworkServer.send}
 

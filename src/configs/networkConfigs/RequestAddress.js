@@ -5,39 +5,39 @@ const requestAddress = {}
 //合约账户接口 2020-07-13
 requestAddress.POST_MANAGE_TIME = {url: urlHead+'/future/user/createFutureAccount', method: 'post'}  //合约账户首次进入确认
 requestAddress.POST_MANAGE_API = {url: urlHead+'/future/user/getUserApi', method: 'get'}//合约首次进入
-requestAddress.GET_USER_AUTH_INFO = {url: urlHead + '/future/user/getUserAuthInfo', method: 'get',} //合约个人信息
-requestAddress.GET_SYMBOLS = {url: urlHead + '/future/common/symbols', method: 'get',} // 合约获取币种
-requestAddress.GET_TICKER_24HR = {url: urlHead + '/future/common/ticker24hr', method: 'get',} // 合约24小时价格变动接口
+requestAddress.GET_USER_AUTH_INFO = {url: urlHead + '/future/user/getUserAuthInfo', method: 'get'} //合约个人信息
+requestAddress.GET_SYMBOLS = {url: urlHead + '/future/common/symbols', method: 'get'} // 合约获取币种
+requestAddress.GET_TICKER_24HR = {url: urlHead + '/future/common/ticker24hr', method: 'get'} // 合约24小时价格变动接口
 requestAddress.GET_MARKET_PRICE = {url: urlHead + '/future/common/marketPrice', method: 'get',} // 合约最新标记价格和资金费率
 requestAddress.GET_TICKER_PIRCE = {url: urlHead + '/future/common/tickerPirce', method: 'get',} // 合约最新价格
-requestAddress.GET_CURRENT_DELEGATION = {url: urlHead + '/future/orders/openOrders', method: 'get',} // 当前委托
+requestAddress.GET_CURRENT_DELEGATION = {url: urlHead + '/future/orders/openOrders', method: 'get', requireOpen:true} // 当前委托
 requestAddress.GET_CAPITAL_FLOW = {url: urlHead + '/future/orders/income', method: 'get',} // 资金流水
 requestAddress.GET_CAPITAL_ALL_FLOW = {url: urlHead + '/future/orders/allOrders', method: 'get',} // 历史委托
 requestAddress.GET_CAPITAL_DEAL = {url: urlHead + '/future/orders/userTrades', method: 'get',} // 历史成交
 requestAddress.GET_CAPITAL_CANCEL = {url: urlHead + '/future/orders/cancel', method: 'post',} // 取消订单
 requestAddress.GET_CAPITAL_CANCELALL = {url: urlHead + '/future/orders/cancelAll', method: 'post',} // 取消全部订单
-requestAddress.GET_POSITIONSIDE_DUAL = {url: urlHead + '/future/account/positionSide/dual', method: 'get',} // 查询单双仓模式
+requestAddress.GET_POSITIONSIDE_DUAL = {url: urlHead + '/future/account/positionSide/dual', method: 'get', requireOpen:true} // 查询单双仓模式
 requestAddress.POST_SINGLE_DOUBLE = {url: urlHead + '/future/account/positionSide', method: 'post',} // 切换单双仓
 requestAddress.POST_LEVELRAGE = {url: urlHead + '/future/account/levelrage', method: 'post',} // 调整杠杆接口
 requestAddress.POST_MARGIN_TYPE = {url: urlHead + '/future/account/marginType', method: 'post',} // 变换全仓逐仓
-requestAddress.GET_POSITION_RISK = {url: urlHead + '/future/account/positionRiskv2', method: 'get' ,} // 仓位接口 查询全仓逐仓 杠杆倍数 最大头寸
+requestAddress.GET_POSITION_RISK = {url: urlHead + '/future/account/positionRiskv2', method: 'get', requireOpen:true} // 仓位接口 查询全仓逐仓 杠杆倍数 最大头寸
 
 requestAddress.GET_DEPTH = {url: urlHead + '/future/common/depth', method: 'get',} // 合约深度
 requestAddress.GET_AGG_TRADES = {url: urlHead + '/future/common/aggTrades', method: 'get',} // 获取实时成交
-requestAddress.GET_USER_LISTENKEY = {url: urlHead + '/future/user/listenKey', method: 'get',} // 获取 listenKey 信息
+requestAddress.GET_USER_LISTENKEY = {url: urlHead + '/future/user/listenKey', method: 'get', requireOpen:true} // 获取 listenKey 信息
 requestAddress.POST_KEEP_LISTENKEY = {url: urlHead + '/future/user/keepListenKey', method: 'post',} // 延长 listenKey 信息
 requestAddress.POST_CLOSE_LISTENKEY = {url: urlHead + '/future/user/closeListenKey', method: 'post',} // 关闭 listenKey 信息
 requestAddress.POST_ORDERS_POSITION = {url: urlHead + '/future/orders/closePosition', method: 'post',} // 平仓
 requestAddress.POST_ORDERS_CREATE = {url: urlHead + '/future/orders/create', method: 'post',} // 开仓
 requestAddress.POST_STOP_POSITION = {url: urlHead+'/future/orders/stopPosition', method: 'post'}  //止盈止损接口
 
-requestAddress.GET_BALAN_ACCOUNT = {url: urlHead+'/future/account/userBalancev2', method: 'get'}  //账户
+requestAddress.GET_BALAN_ACCOUNT = {url: urlHead+'/future/account/userBalancev2', method: 'get', requireOpen:true}  //账户
 requestAddress.POST_POSITION_MARGIN = {url: urlHead + '/future/account/positionMargin', method: 'post' ,} // 调整逐仓保证金
 requestAddress.LOGIN_OFF = {url: urlHead+'/future/common/signout', method: 'post'} //登出
-requestAddress.GET_BALAN__BIAN = {url: urlHead+'/future/account/userAccountv2', method: 'get'}  //保证金余额
-requestAddress.GET_ADL_QUANTILE = {url: urlHead+'/future/account/adlQuantile', method: 'get'}  //持仓ADL队列估算
+requestAddress.GET_BALAN__BIAN = {url: urlHead+'/future/account/userAccountv2', method: 'get', requireOpen:true}  //保证金余额
+requestAddress.GET_ADL_QUANTILE = {url: urlHead+'/future/account/adlQuantile', method: 'get', requireOpen:true}  //持仓ADL队列估算
 requestAddress.GET_ORDER_BOOK_TICKER = {url: urlHead + '/future/common/orderBookTicker', method: 'get' ,} // 获取当前最优价格
-requestAddress.GET_LEVERAGE_BRACKET = {url: urlHead + '/future/user/leverageBracket', method: 'get' ,} // 杠杆分层标准
+requestAddress.GET_LEVERAGE_BRACKET = {url: urlHead + '/future/user/leverageBracket', method: 'get', requireOpen:true} // 杠杆分层标准
 
 
 

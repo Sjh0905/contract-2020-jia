@@ -46,15 +46,18 @@ export default async function ($http, $store, $cookie, $i18n) {
         if(data.code != 401){
           let res = data.data;
           $store.commit('SET_AUTH_STATE', res);
+          $store.commit('ENTER_CONTRACT', data.data.contract)//判断用户是否第一次进入合约
         }
         if(data.code == 401){
           let user_symbol = 'BTC_USDT' || $cookie.get('unlogin_user_symbol_cookie') || 'BTC_USDT'
           $store.commit('SET_SYMBOL', user_symbol)     // 如果没有用户登录选择币对，则为ETH_USDT币对
           // $store.commit('SET_SYMBOL', 'GRC_USDT')     // 如果没有用户登录选择币对，则为GRC_USDT币对
+          $store.commit('ENTER_CONTRACT', data.data.contract)//判断用户是否第一次进入合约
           return
         }
         $store.commit('SET_AUTH_MESSAGE', data.dataMap.userProfile)
         $store.commit('SET_AUTH_HOTVAL', data.dataMap.hotVal)
+        $store.commit('ENTER_CONTRACT', data.data.contract) //判断用户是否第一次进入合约
         // 判断用户登录后最后选择的币对
         let user_symbol = 'BTC_USDT' || $cookie.get('user_symbol_cookie'), user_id = data.dataMap.userProfile.userId
         if (!!user_id && !!user_symbol && user_symbol.split('-')[0] == user_id) {
