@@ -867,6 +867,7 @@ root.methods.marketPrice = function (v) {
 }
 // 获取记录返回，类型为{}
 root.methods.re_marketPrice = function (data) {
+  this.marketPriceClick = false
   if(data.code == '303' && data.errCode == '2019') {
     this.promptOpen = true;
     this.popType = 0;
@@ -903,7 +904,7 @@ root.methods.re_marketPrice = function (data) {
   this.getPositionRisk()
   this.$eventBus.notify({key:'GET_BALANCE'})
   this.promptOpen = true;
-  this.marketPriceClick = false
+
   // 关闭弹框
   this.closePopMarket()
   if(data.data.status == 'NEW') {
@@ -942,8 +943,12 @@ root.methods.re_marketPrice = function (data) {
     return
   }
 }
+root.methods.error_marketPrice = function (err){
+  this.marketPriceClick = false
+}
 // 限价
 root.methods.checkPrice = function () {
+  this.marketPriceClick = true
   // let markPrice1 = document.getElementById('inputMarginPrice1').value;//获取input的节点bai
   // console.info('this is markPrice 618', item.iptMarkPrice)
   let item = this.positionInfo
@@ -962,7 +967,7 @@ root.methods.checkPrice = function () {
   if(item.positionSide == 'BOTH'){
     Object.assign(params, {reduceOnly: true});
   }
-  this.checkPriceClick = true
+
   this.$http.send("POST_ORDERS_POSITION", {
     bind: this,
     params: params,
@@ -972,7 +977,7 @@ root.methods.checkPrice = function () {
 }
 // 获取记录返回，类型为{}
 root.methods.re_checkPrice = function (data) {
-  this.checkPriceClick = false
+  this.marketPriceClick = false
   if(data.code == '303' && data.errCode == '2019') {
     this.promptOpen = true;
     this.popType = 0;
@@ -1056,10 +1061,10 @@ root.methods.re_checkPrice = function (data) {
     this.popText = '自动减仓序列(强平)';
     return
   }
-
 }
 root.methods.error_checkPrice = function (err){
-  console.info('err==',err)
+  this.marketPriceClick = false
+  // console.info('err==',err)
 }
 //一键平仓
 root.methods.closePositions = function () {
