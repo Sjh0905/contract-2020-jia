@@ -525,8 +525,8 @@ root.computed.canMore = function () {
   let crossWalletBalanceSing = Number(this.crossWalletBalance) // 全仓钱包余额
   // 向上取整IMR
   let leverage = Number(this.$globalFunc.accFixedCny(this.accDiv(1 , Number(this.$store.state.leverage) || 1),4))
-  // let availableBalance = this.$store.state.assets.availableBalance || 0
-  let availableBalance = this.availableBalance || 0
+  let availableBalance = this.$store.state.assets.availableBalance || 0
+  // let availableBalance = this.availableBalance || 0
   let markPrice = Number(this.markPrice) || 0
   let price = this.price || 0 // 输入框价格
   // let temp = this.orderType ? -1 : 1;
@@ -767,8 +767,8 @@ root.computed.canBeOpened = function () {
   // let crossWalletBalance = Number(this.crossWalletBalance) // 全仓钱包余额
   // 向上取整IMR
   let leverage = Number(this.$globalFunc.accFixedCny(this.accDiv(1 , Number(this.$store.state.leverage) || 1),4))
-  // let availableBalance = this.$store.state.assets.availableBalance || 0
-  let availableBalance = this.availableBalance || 0
+  let availableBalance = this.$store.state.assets.availableBalance || 0
+  // let availableBalance = this.availableBalance || 0
   let markPrice = Number(this.markPrice) || 0
   let price = this.price || 0 // 输入框价格
   // let temp = this.orderType ? -1 : 1;
