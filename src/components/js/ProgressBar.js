@@ -410,6 +410,7 @@ root.computed.computedBuyNetValue = function () {
   if(this.buyNetValue) return this.buyNetValue
   let buyNetValue = 0
   this.currentOrders.forEach(v=>{
+    if(v.type == 'STOP' || v.type == 'TAKE_PROFIT' || v.type == 'STOP_MARKET' || v.type == 'TAKE_PROFIT_MARKET') return 0
     if(v.positionSide == 'BOTH' && v.side == 'BUY'){
       buyNetValue += v.price * Math.abs(v.origQty)
     }
@@ -424,6 +425,7 @@ root.computed.computedSellNetValue = function () {
   if(this.sellNetValue) return this.sellNetValue
   let sellNetValue = 0
   this.currentOrders.forEach(v=>{
+    if(v.type == 'STOP' || v.type == 'TAKE_PROFIT' || v.type == 'STOP_MARKET' || v.type == 'TAKE_PROFIT_MARKET') return 0
     if(v.positionSide == 'BOTH' && v.side == 'SELL'){
       sellNetValue += v.price * Math.abs(v.origQty)
     }
@@ -520,7 +522,8 @@ root.computed.canMore = function () {
   let crossWalletBalanceSing = Number(this.crossWalletBalance) // 全仓钱包余额
   // 向上取整IMR
   let leverage = Number(this.$globalFunc.accFixedCny(this.accDiv(1 , Number(this.$store.state.leverage) || 1),4))
-  let availableBalance = this.$store.state.assets.availableBalance || 0
+  // let availableBalance = this.$store.state.assets.availableBalance || 0
+  let availableBalance = this.availableBalance || 0
   let markPrice = Number(this.markPrice) || 0
   let price = this.price || 0 // 输入框价格
   // let temp = this.orderType ? -1 : 1;
@@ -761,7 +764,8 @@ root.computed.canBeOpened = function () {
   // let crossWalletBalance = Number(this.crossWalletBalance) // 全仓钱包余额
   // 向上取整IMR
   let leverage = Number(this.$globalFunc.accFixedCny(this.accDiv(1 , Number(this.$store.state.leverage) || 1),4))
-  let availableBalance = this.$store.state.assets.availableBalance || 0
+  // let availableBalance = this.$store.state.assets.availableBalance || 0
+  let availableBalance = this.availableBalance || 0
   let markPrice = Number(this.markPrice) || 0
   let price = this.price || 0 // 输入框价格
   // let temp = this.orderType ? -1 : 1;
