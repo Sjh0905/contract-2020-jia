@@ -9,6 +9,7 @@ root.data = function () {
   return {
     loading:true,
     capitalFlowList:[],
+    capitalFlowListText:[],
     tradinghallLimit: 10
   }
 }
@@ -63,7 +64,14 @@ root.methods.re_getCapitalFlow = function (data) {
   if(!data && !data.data)return
   this.loading = false
   // console.info('data====',data.data)
-  this.capitalFlowList = data.data || []
+  this.capitalFlowListText = data.data || []
+  let filterCapitalFlowList = []
+  this.capitalFlowListText.map(v=>{
+    if (v.incomeType != 'COMMISSION_REBATE' && v.incomeType != 'INTERNAL_TRANSFER') {
+      filterCapitalFlowList.push(v)
+    }
+  })
+  this.capitalFlowList = filterCapitalFlowList
 }
 // 资金流水错误回调
 root.methods.error_getCapitalFlow = function (err) {

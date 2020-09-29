@@ -360,6 +360,12 @@ store.state.listenKey = ''
  */
 store.state.orderTradeUpdate = {}
 
+/**
+ * ENTER_CONTRACT 是否第一次进入合约账户
+ * @type {Boolean}
+ */
+store.state.requireOpen = false
+
 
 /**
  * 同步修改state
@@ -1062,6 +1068,10 @@ store.mutations.LOGIN_OUT = (state, info) => {
 
 store.mutations.IS_VIP = (state, info) => {
   state.isVIP = info
+}
+
+store.mutations.ENTER_CONTRACT = (state, info) => {
+  state.requireOpen = info
 }
 
 

@@ -113,7 +113,7 @@ async function mountApp() {
   // console.log('store ======',store);
   //初始化ocket,由于在PreHandler里边对默认symbol做了处理,所以在这里操作
   Vue.$socket.init(store.state.symbol);
-
+  Vue.$http.setVueStoreVal(store);
   console.warn('开始！')
 
   let vm = new Vue({
