@@ -510,7 +510,7 @@ root.methods.getUserBalance = function () {
   })
 }
 
-root.methods.re_getUserBalance = function () {
+root.methods.re_getUserBalance = function (data) {
   typeof data === 'string' && (data = JSON.parse(data))
   this.$store.commit('CHANGE_ASSETS', data.data.assets[0] || {})
 }
