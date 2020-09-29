@@ -1120,26 +1120,25 @@ root.methods.openClosePsWindowClose = function (){
   // 限价价格非空判断
   let limitArr = ['limitProfitStopLoss','limitPrice'],triggerArr = ['limitProfitStopLoss','marketPriceProfitStopLoss']
 
-  if(triggerArr.includes(this.pendingOrderType)){
-    if(this.triggerPrice == '' || this.triggerPrice == 0){
-      this.promptOpen = true;
-      this.popType = 0;
-      this.popText = '请输入正确的触发价格';
-      this.loading = false
-      this.currentLimiting = false
-    }
+
+  if(triggerArr.includes(this.pendingOrderType) && (this.triggerPrice == '' || this.triggerPrice == 0)){
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '请输入正确的触发价格';
+    this.loading = false
+    this.currentLimiting = false
     return false
   }
-  if(limitArr.indexOf('limit')>-1){
-    if(this.price == '' || this.price == 0){
-      this.promptOpen = true;
-      this.popType = 0;
-      this.popText = '请输入正确的价格';
-      this.loading = false
-      this.currentLimiting = false
-    }
+
+  if(limitArr.includes(this.pendingOrderType) && (this.price == '' || this.price == 0)){
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '请输入正确的价格';
+    this.loading = false
+    this.currentLimiting = false
     return false
   }
+
   if(this.amount == '' || this.amount == 0){
     this.promptOpen = true;
     this.popType = 0;

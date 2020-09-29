@@ -69,8 +69,9 @@
     <!--价格-->
     <div v-if="isHasModule('price')" class="flex flex-between pro-bar-input-box">
       <div class="progress-bar-input-title" :class="{'progress-bar-price-en':lang!='CH'&&lang!='CHT'}">
-        <span v-if="!orderType">{{$t("BuyingPrice")}}</span>
-        <span v-if="orderType">{{$t("SellingPrice")}}</span>
+<!--        <span v-if="!orderType">{{$t("BuyingPrice")}}</span>-->
+<!--        <span v-if="orderType">{{$t("SellingPrice")}}</span>-->
+        <span>价<span style="color: transparent">一</span>格</span>
       </div>
       <label :for="'pro-bar-price'+ orderType" class="progress-bar-price flex-row border_radius"
              :class="{'focus-color-green':inputColor=='price'+orderType && !orderType,'focus-color-red':inputColor=='price'+orderType && orderType}"
@@ -100,7 +101,11 @@
     </div>
     <!--数量-->
     <div class="flex flex-between pro-bar-input-box">
-      <div class="progress-bar-input-title" :class="{'progress-bar-price-en':lang!='CH'&&lang!='CHT'}"><span v-if="!orderType">{{$t("BuyingVolume")}}</span><span v-if="orderType">{{$t("SellingVolume")}}</span></div>
+      <div class="progress-bar-input-title" :class="{'progress-bar-price-en':lang!='CH'&&lang!='CHT'}">
+<!--        <span v-if="!orderType">{{$t("BuyingVolume")}}</span>-->
+<!--        <span v-if="orderType">{{$t("SellingVolume")}}</span>-->
+        <span>数<span style="color: transparent">一</span>量</span>
+      </div>
       <label :for="'pro-bar-amount' + orderType" class="progress-bar-amount flex-row border_radius"
              :class="{'focus-color-green':inputColor=='amount'+orderType && !orderType,'focus-color-red':inputColor=='amount'+orderType && orderType}"
       >
