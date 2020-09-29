@@ -284,8 +284,8 @@
     <!--交易按钮 begin-->
     <div class="progress-bar-btn-wrap">
 <!--      @click="tradeMarket(true,orderType)" :class="btn_click ? 'progress-bar-active' : ''"-->
-      <!--单仓  限价  市价 -->
-      <div class="progress-bar-btn txt-nomal border_radius" @click="postOrdersCreate()"
+      <!--单仓  限价  市价 postOrdersCreate-->
+      <div class="progress-bar-btn txt-nomal border_radius" @click="openSplicedFrame(orderType && '卖出/做空'  || '买入/做多','postOrdersCreate')"
            :class="orderType?'progress-bar-redbtn btn_red_box_shadow':'progress-bar-greenbtn btn_green_box_shadow'"
            v-if="$store.state.authState.userId && !currentLimiting && isHasModule('buttonType') == 1 && (pendingOrderType == 'limitPrice' || pendingOrderType == 'marketPrice')">
         {{orderType && '卖出/做空'  || '买入/做多' }}
@@ -295,8 +295,8 @@
            v-if="$store.state.authState.userId && currentLimiting && isHasModule('buttonType') == 1 && (pendingOrderType == 'limitPrice' || pendingOrderType == 'marketPrice')">
         {{orderType && '卖出/做空'  || '买入/做多' }}
       </div>
-      <!--单仓  限价止盈止损  市价止盈止损 -->
-      <div class="progress-bar-btn txt-nomal border_radius" @click="postFullStop()"
+      <!--单仓  限价止盈止损  市价止盈止损 postFullStop-->
+      <div class="progress-bar-btn txt-nomal border_radius" @click="openSplicedFrame(orderType && '卖出/做空'  || '买入/做多' ,'postFullStop')"
            :class="orderType?'progress-bar-redbtn btn_red_box_shadow':'progress-bar-greenbtn btn_green_box_shadow'"
            v-if="$store.state.authState.userId && !currentLimiting && isHasModule('buttonType') == 1 && (pendingOrderType == 'limitProfitStopLoss' || pendingOrderType == 'marketPriceProfitStopLoss')">
         {{orderType && '卖出/做空'  || '买入/做多' }}
@@ -308,8 +308,8 @@
       >{{orderType && '卖出/做空'  || '买入/做多' }}
       </div>
 
-      <!--双仓 开仓  限价  市价 -->
-      <div class="progress-bar-btn txt-nomal border_radius" @click="postOrdersCreate()"
+      <!--双仓 开仓  限价  市价 postOrdersCreate-->
+      <div class="progress-bar-btn txt-nomal border_radius" @click="openSplicedFrame(orderType && '开空' || '开多','postOrdersCreate')"
            :class="orderType?'progress-bar-redbtn btn_red_box_shadow':'progress-bar-greenbtn btn_green_box_shadow'"
            v-if="$store.state.authState.userId && !currentLimiting && isHasModule('buttonType') == 2 && (pendingOrderType == 'limitPrice' || pendingOrderType == 'marketPrice')">
         {{orderType && '开空' || '开多'}}
@@ -320,8 +320,8 @@
            v-if="$store.state.authState.userId && currentLimiting && isHasModule('buttonType') == 2 && (pendingOrderType == 'limitPrice' || pendingOrderType == 'marketPrice')">
         {{orderType && '开空' || '开多'}}
       </div>
-      <!--双仓 开仓  限价止盈止损  市价止盈止损 -->
-      <div class="progress-bar-btn txt-nomal border_radius" @click="postFullStop()"
+      <!--双仓 开仓  限价止盈止损  市价止盈止损 postFullStop-->
+      <div class="progress-bar-btn txt-nomal border_radius" @click="openSplicedFrame(orderType && '开空' || '开多','postFullStop')"
            :class="orderType?'progress-bar-redbtn btn_red_box_shadow':'progress-bar-greenbtn btn_green_box_shadow'"
            v-if="$store.state.authState.userId && !currentLimiting && isHasModule('buttonType') == 2 && (pendingOrderType == 'limitProfitStopLoss' || pendingOrderType == 'marketPriceProfitStopLoss')">
         {{orderType && '开空' || '开多'}}
@@ -333,8 +333,8 @@
         {{orderType && '开空' || '开多' }}
       </div>
 
-      <!--双仓 平仓  限价  市价 -->
-      <div class="progress-bar-btn txt-nomal border_radius" @click="postOrdersPosition()"
+      <!--双仓 平仓  限价  市价 postOrdersPosition-->
+      <div class="progress-bar-btn txt-nomal border_radius" @click="openSplicedFrame(orderType && '平多' || '平空','postOrdersPosition')"
            :class="orderType?'progress-bar-redbtn btn_red_box_shadow':'progress-bar-greenbtn btn_green_box_shadow'"
            v-if="$store.state.authState.userId && !currentLimiting && isHasModule('buttonType') == 3 && (pendingOrderType == 'limitPrice' || pendingOrderType == 'marketPrice')">
         {{orderType && '平多' || '平空'}}
@@ -346,8 +346,8 @@
         {{orderType && '平多' || '平空'}}
       </div>
 
-      <!--双仓 平仓  限价止盈止损  市价止盈止损 -->
-      <div class="progress-bar-btn txtvalue-nomal border_radius" @click="postFullStop()"
+      <!--双仓 平仓  限价止盈止损  市价止盈止损 postFullStop-->
+      <div class="progress-bar-btn txtvalue-nomal border_radius" @click="openSplicedFrame(orderType && '平多' || '平空','postFullStop')"
            :class="orderType?'progress-bar-redbtn btn_red_box_shadow':'progress-bar-greenbtn btn_green_box_shadow'"
            v-if="$store.state.authState.userId && !currentLimiting && isHasModule('buttonType') == 3 && (pendingOrderType == 'limitProfitStopLoss' || pendingOrderType == 'marketPriceProfitStopLoss')">
         {{orderType && '平多' || '平空'}}
@@ -446,19 +446,49 @@
     </div>
 
   </PopupWindow>
-  <PopupWindow :switch="closePsWindowOpen" v-on:close="closePsWindowClose">
+<!--  <PopupWindow :switch="closePsWindowOpen" v-on:close="closePsWindowClose">-->
+<!--    <div slot="header" class="pop-header">-->
+<!--      提示-->
+<!--    </div>-->
+<!--    <div slot="article" class="pop-article">-->
+<!--      <p>确定以当前市价平仓吗？</p >-->
+<!--    </div>-->
+<!--    <div slot="footer" class="pop-footer flex">-->
+<!--      <button class="button-base button-pop-window btn_blue" @click="closePositions()">-->
+<!--        确定-->
+<!--      </button>-->
+<!--      <button class="button-base button-pop-window btn_simple" @click="closePsWindowClose()">-->
+<!--        取消-->
+<!--      </button>-->
+<!--    </div>-->
+
+<!--  </PopupWindow>-->
+<!--  下单弹框-->
+  <PopupWindow :switch="showSplicedFrame" v-on:close="closeFrame">
     <div slot="header" class="pop-header">
       提示
     </div>
     <div slot="article" class="pop-article">
-      <p>确定以当前市价平仓吗？</p >
+      <p>{{splicedFrameText}}</p >
+<!--      <div class="flex">-->
+<!--        <div class="testTriggerPrice">触发价</div>-->
+<!--        <div class="testTriggerPrice">123</div>-->
+<!--      </div>-->
+<!--      <div class="flex">-->
+<!--        <div class="testTriggerPrice">价格</div>-->
+<!--        <div class="testTriggerPrice">123</div>-->
+<!--      </div>-->
+<!--      <div class="flex">-->
+<!--        <div class="testTriggerPrice">数量</div>-->
+<!--        <div class="testTriggerPrice">123</div>-->
+<!--      </div>-->
     </div>
     <div slot="footer" class="pop-footer flex">
-      <button class="button-base button-pop-window btn_blue" @click="closePositions()">
-        确定
-      </button>
-      <button class="button-base button-pop-window btn_simple" @click="closePsWindowClose()">
+      <button class="button-base button-pop-window btn_simple" @click="closeFrame()">
         取消
+      </button>
+      <button class="button-base button-pop-window btn_blue" @click="confirmFrame()">
+        确定
       </button>
     </div>
 

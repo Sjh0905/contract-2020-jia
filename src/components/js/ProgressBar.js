@@ -201,6 +201,9 @@ root.data = function () {
     totalAmountShort:0, //双仓开空仓位总数量
     // 平仓弹框
     closePsWindowOpen:false,
+    showSplicedFrame:false,//下单拦截弹框
+    callFuncName:'',//即将调用接口的函数名字
+    splicedFrameText:'',
     // openOrdersBuyTotal:0, //订单总数量
     // openOrdersSellTotal:0, //订单总数量
   }
@@ -1068,46 +1071,95 @@ root.methods.openPositionBox = function (name) {
 
 
 /*----------------------------- 方法 ------------------------------*/
+
+//开启拦截弹窗
+root.methods.openSplicedFrame = function (btnText,callFuncName) {
+
+  if(!this.openClosePsWindowClose())return
+
+  this.splicedFrameText = "";
+
+  let triggerArr = ['limitProfitStopLoss','marketPriceProfitStopLoss'];
+  //拼接触发价格
+  if(triggerArr.includes(this.pendingOrderType)){
+   this.splicedFrameText += ('触发价' + this.triggerPrice + 'USDT，')
+  }
+  //限价价格
+  if(this.pendingOrderType.indexOf('limit') >-1){
+    this.splicedFrameText += ('价格' + this.price + 'USDT，')
+  }
+  //当前市价
+  if(this.pendingOrderType.indexOf('market') > -1){
+    this.splicedFrameText += ('价格为当前市价，')
+  }
+  //数量
+  this.splicedFrameText += ('数量' + this.amount + this.symbol.split('_')[0])
+  //操作类型
+  this.splicedFrameText += ('，确定'+btnText + '?')
+
+  this.callFuncName = callFuncName;
+  this.showSplicedFrame = true
+}
+//关闭下单弹框
+root.methods.confirmFrame = function () {
+  this[this.callFuncName]();//调用对应的接口
+  this.showSplicedFrame = false
+}
+//关闭下单弹框
+root.methods.closeFrame = function () {
+  this.showSplicedFrame = false
+}
+
+
 // 关闭平仓弹框
 root.methods.closePsWindowClose = function (){
   this.closePsWindowOpen = false
 }
-// 打开平仓弹框
+// 非法数据拦截
 root.methods.openClosePsWindowClose = function (){
-  if(this.positionModeSecond == 'closeWarehouse' && this.pendingOrderType =="marketPrice"){
-    if(this.amount == '' || this.amount == 0){
+  // 限价价格非空判断
+  let limitArr = ['limitProfitStopLoss','limitPrice'],triggerArr = ['limitProfitStopLoss','marketPriceProfitStopLoss']
+
+  if(triggerArr.includes(this.pendingOrderType)){
+    if(this.triggerPrice == '' || this.triggerPrice == 0){
       this.promptOpen = true;
       this.popType = 0;
-      this.popText = '请输入正确的数量';
+      this.popText = '请输入正确的触发价格';
       this.loading = false
       this.currentLimiting = false
-      return
     }
-    this.closePsWindowOpen = true
+    return false
   }
-  if(this.positionModeSecond == 'closeWarehouse' && this.pendingOrderType =="limitPrice"){
-      this.postOrdersPosition()
+  if(limitArr.indexOf('limit')>-1){
+    if(this.price == '' || this.price == 0){
+      this.promptOpen = true;
+      this.popType = 0;
+      this.popText = '请输入正确的价格';
+      this.loading = false
+      this.currentLimiting = false
+    }
+    return false
+  }
+  if(this.amount == '' || this.amount == 0){
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '请输入正确的数量';
+    this.loading = false
+    this.currentLimiting = false
+    return false
+  }
+  //平仓数量超出提示
+  if(this.positionModeSecond == 'closeWarehouse' &&
+    (!this.orderType && Math.abs(this.positionAmtShort) < Number(this.amount)) || (this.orderType && Math.abs(this.positionAmtLong) < Number(this.amount))){
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '您输入的数量超过可平数量';
+    this.currentLimiting = false
+    this.loading = false
+    return false
   }
 
-  // if(this.positionModeSecond == 'closeWarehouse' && this.pendingOrderType =="marketPriceProfitStopLoss"){
-  //   if(this.amount == '' || this.amount == 0){
-  //     this.promptOpen = true;
-  //     this.popType = 0;
-  //     this.popText = '请输入正确的数量';
-  //     this.loading = false
-  //     this.currentLimiting = false
-  //     return
-  //   }
-  //   if(this.triggerPrice == ''){
-  //     this.promptOpen = true;
-  //     this.popType = 0;
-  //     this.popText = '请输入正确的触发价格';
-  //     this.loading = false
-  //     this.currentLimiting = false
-  //     return
-  //   }
-  // }
-
+  return true
 }
 // 平仓确定按钮
 root.methods.closePositions = function (){
