@@ -556,6 +556,7 @@
                          v-for="(value, key) in noticeList" :key="key"  @click="goNotice(value.id)">
                       <p id="navigation-item-hidden-list-item-i">{{value.title}}</p>
                     </li>
+
                     <li class="navigation-item-hidden-list-item-z">
                       <router-link to="/index/notice?columnId=0" @click.native="goToNoticeCenter('0')" id="navigation-item-hidden-list-item-j">
                         {{$t('seeMore')}}
