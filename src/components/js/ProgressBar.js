@@ -1102,6 +1102,7 @@ root.methods.openSplicedFrame = function (btnText,callFuncName) {
 }
 //关闭下单弹框
 root.methods.confirmFrame = function () {
+  if(this.loading)return false
   this[this.callFuncName]();//调用对应的接口
   this.showSplicedFrame = false
 }
