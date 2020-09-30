@@ -66,10 +66,10 @@
           </div>
         </div>
 
-        <div class="position-mode-box flex-row" @click="turnOnLocationMode">
-          <img class="position-mode-icon" src="../../assets/position_mode_setting.png" alt="">
-          <div class="position-mode-text">仓位模式</div>
-        </div>
+<!--        <div class="position-mode-box flex-row" @click="turnOnLocationMode">-->
+<!--          <img class="position-mode-icon" src="../../assets/position_mode_setting.png" alt="">-->
+<!--          <div class="position-mode-text">仓位模式</div>-->
+<!--        </div>-->
 
 
       </div>
@@ -256,8 +256,17 @@
               </div>
               <!--类型选择右侧-->
               <div class="service-type-selection-right flex-row">
-                <div class="margin-mode-btn pointer" @click="openSecurityDepositMode" v-if="marginModeType == 'quanCang'">全仓</div>
-                <div class="margin-mode-btn pointer" @click="openSecurityDepositMode" v-if="marginModeType == 'zhuCang'">逐仓</div>
+<!--                        <div class="position-mode-box flex-row" @click="turnOnLocationMode">-->
+<!--                          <img class="position-mode-icon" src="../../assets/position_mode_setting.png" alt="">-->
+<!--                          <div class="position-mode-text">仓位模式</div>-->
+<!--                        </div>-->
+
+                <div class="margin-mode-btn pointer" @click="turnOnLocationMode" v-if="positionModeFirst == 'singleWarehouseMode'">单向</div>
+                <div class="margin-mode-btn pointer" @click="turnOnLocationMode" v-if="positionModeFirst == 'doubleWarehouseMode'">双向</div>
+<!--                <div class="margin-mode-btn pointer" @click="turnOnLocationMode" v-if="positionModeFirstTemp == 'doubleWarehouseMode'">双向</div>-->
+
+                <div class="margin-mode-btn pointer lever-num" @click="openSecurityDepositMode" v-if="marginModeType == 'quanCang'">全仓</div>
+                <div class="margin-mode-btn pointer lever-num" @click="openSecurityDepositMode" v-if="marginModeType == 'zhuCang'">逐仓</div>
                 <div class="margin-mode-btn lever-num pointer" @click="openLever">{{leverage}}X</div>
               </div>
             </div>

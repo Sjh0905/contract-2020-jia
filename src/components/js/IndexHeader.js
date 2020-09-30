@@ -873,6 +873,27 @@ root.computed.languageId = function () {
   return 1
 }
 
+// // 获取通告信息
+// root.methods.GET_NOTICE = function () {
+//   this.$http.send('POST_NOTICE_LIST', {
+//     bind: this,
+//     params: {
+//       offset: this.offset,
+//       maxResults: this.maxResults,
+//       languageId: this.languageId,
+//       columnId:this.$route.query.columnId
+//     },
+//     callBack: this.RE_GET_NOTICE
+//   });
+// }
+//
+// // 渲染通告列表
+// root.methods.RE_GET_NOTICE = function (res) {
+//   this.noticelength = res.length;
+//   console.log(res)
+//   this.noticeList = res;
+//   // console.log(this.noticeList)
+// }
 // 获取通告信息
 root.methods.GET_NOTICE = function () {
   this.$http.send('POST_NOTICE_LIST', {
@@ -883,36 +904,50 @@ root.methods.GET_NOTICE = function () {
       languageId: this.languageId,
       columnId:this.$route.query.columnId
     },
-    callBack: this.RE_GET_NOTICE
+
+  }).then((data) => {
+    typeof data === 'string' && (data = JSON.parse(data))
+    this.noticeList = data.data;
+  }).catch((err) => {
+    console.log('err', err)
   });
 }
-
-// 渲染通告列表
-root.methods.RE_GET_NOTICE = function (res) {
-  this.noticelength = res.length;
-  console.log(res)
-  this.noticeList = res;
-  // console.log(this.noticeList)
-}
-
-//公告跳转zendesk
-root.methods.goNotice = function (res) {
-  // window.open(res)
-  // console.log(res)
-  this.$router.push({path: '/index/notice/noticeDetail', query: {columnId:'0' , id: res}})
-}
-
-root.methods.goToNoticeCenter = function (id) {
-  if(this.$route.name  == 'notice') {
-    this.$eventBus.notify({key: 'GET_NOTICE_LIST'},id);
-  }
-  // this.$router.push({name: 'notice', query: {columnId: id}})
-}
+//
+// //公告跳转zendesk
+// root.methods.goNotice = function (res) {
+//   // window.open(res)
+//   // console.log(res)
+//   this.$router.push({path: '/index/notice/noticeDetail', query: {columnId:'0' , id: res}})
+// }
+//
+// root.methods.goToNoticeCenter = function (id) {
+//   if(this.$route.name  == 'notice') {
+//     this.$eventBus.notify({key: 'GET_NOTICE_LIST'},id);
+//   }
+//   // this.$router.push({name: 'notice', query: {columnId: id}})
+// }
 //
 // // 更换类（区分h5和pc）
 // root.methods.toggleClass = function () {
 //  isMobile? 'HeaderCenter':'header_body_container'
 // }
+
+
+//公告跳转zendesk
+root.methods.goNotice = function (res) {
+  // window.open(res)
+  // console.info(res)
+  // this.$router.push({path: '/index/notice/noticeDetail',  query: {columnId:'0' , id: res}})
+  window.location.replace(this.$store.state.contract_url + 'index/notice/noticeDetail?columnId=0&id='+res)
+}
+
+root.methods.goToNoticeCenter = function (id) {
+  // if(this.$route.name  == 'notice') {
+  //   this.$eventBus.notify({key: 'GET_NOTICE_LIST'},id);
+  // }
+  window.location.replace(this.$store.state.contract_url+'index/notice?columnId=' + id)
+  // this.$router.push({name: 'notice', query: {columnId: id}})
+}
 
 // 获取汇率
 
