@@ -46,8 +46,8 @@
       </div>
       <!--平仓-->
       <div class="th td-trigger">
-        <span class="border-dashed" @mouseenter="openPositionBox('open-liquidation-box')" @mouseleave="closePositionBox('open-liquidation-box')" @click="closePositions">{{$t('平仓')}}</span>
-        <div class="open-liquidation-box">你可以在此平仓，这将会根据你的选择向市场送出抵销目前仓位的市价单或限价单。</div>
+        <span class="border-dashed position-color" @mouseenter="openPositionBox('open-liquidation-box')" @mouseleave="closePositionBox('open-liquidation-box')" @click="closePositions">{{$t('一键平仓')}}</span>
+        <div class="open-liquidation-box">你可以在此 <sapn class="position-color"> 全部平仓</sapn>，这将会根据你的选择向市场送出抵销目前仓位的市价单或限价单。</div>
       </div>
     </li>
     <!-- 表头 end -->
@@ -193,7 +193,7 @@
     <div slot="header"><span class="pop-header">提示</span></div>
     <div slot="article" class="pop-article">
 <!--      <p>{{$t('orderPageCurrentEntrustment.promptArticle')}}</p>-->
-      <p>请确认是否要以市价全部平仓？</p>
+      <p>请确认是否要以市价 <span class="position-color">全部平仓</span>？</p>
     </div>
     <div slot="footer" class="pop-footer flex-center">
 

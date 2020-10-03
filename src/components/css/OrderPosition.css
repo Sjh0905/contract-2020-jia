@@ -538,3 +538,7 @@ tr, th, td {
 .market-price-width38 {
   width: 38%;
 }
+.position-color {
+  color: #3576F5;
+  font-weight: 500;
+}
