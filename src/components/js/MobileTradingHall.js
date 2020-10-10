@@ -660,21 +660,30 @@ root.methods.SELECT_INTEVAL = function (k, name) {
 
 /*---------------------- 跳入到首页面页面 ---------------------*/
 root.methods.gotoNewH5homePage = function () {
-  this.$router.push({name: 'NewH5homePage'});
+  // this.$router.push({name: 'NewH5homePage'});
+  window.location.replace(this.$store.state.contract_url + 'index/newH5homePage');
 }
 /*---------------------- 跳入到市场页面 ---------------------*/
 root.methods.gotoShichang = function () {
-  this.$router.push({name: 'mobileTradingHall'});
+  // this.$router.push({name: 'mobileTradingHall'});
+  window.location.replace(this.$store.state.contract_url + 'index/mobileTradingHall');
 }
 
 /*---------------------- 跳入到资产页面 ---------------------*/
 root.methods.gotoZichan = function () {
-  this.$router.push({name: 'MobileAssetRechargeAndWithdrawals'});
+  // this.$router.push({name: 'MobileAssetRechargeAndWithdrawals'});
+  window.location.replace(this.$store.state.contract_url + 'index/MobileAssetRechargeAndWithdrawals');
+}
+
+/*---------------------- 跳入到合约页面 ---------------------*/
+root.methods.gotoContract = function () {
+  this.$router.push({name: 'mobileTradingHallDetail'});
 }
 
 /*---------------------- 跳入到交易页面 ---------------------*/
 root.methods.gotoJiaoyi = function () {
-  this.$router.push({name: 'mobileTradingHallDetail'});
+  // this.$router.push({name: 'mobileTradingHallDetail'});
+  window.location.replace(this.$store.state.contract_url + 'index/mobileTradingHallDetail');
 }
 
 // 买卖提交
