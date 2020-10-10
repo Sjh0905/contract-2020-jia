@@ -1,6 +1,6 @@
 <div>
-  <Loading v-if="loading"/>
-  <div class="asset-container-box" v-if="!loading">
+<!--  <Loading v-if="loading"/>-->
+  <div class="asset-container-box">
     <div class="asset-header-title">
 <!--      <div class="asset-header-total-asset-title">-->
 <!--        <span class="asset-header-total-asset-title-text">-->
@@ -184,11 +184,15 @@
             <div class="menuimg"><img src="../../assets/H5img/shich.png"></div>
             <div class="menuinfoh">行情</div>
           </td>
-          <td   @click="gotoJiaoyi">
+          <td @click="gotoJiaoyi">
             <div class="menuimg"><img src="../../assets/H5img/jiaoyi.png"></div>
             <div class="menuinfoh">交易</div>
           </td>
-          <td   @click="gotoZichan">
+          <td @click="gotoContract">
+            <div class="menuimg"><img src="../../assets/H5img/contract_no_select.png"></div>
+            <div class="menuinfoh">合约</div>
+          </td>
+          <td>
             <div class="menuimg"><img src="../../assets/H5img/zichan_on.png"></div>
             <div class="menuinfo">资产</div>
           </td>

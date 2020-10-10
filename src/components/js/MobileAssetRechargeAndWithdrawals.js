@@ -683,4 +683,10 @@ root.methods.gotoJiaoyi = function () {
   this.$router.push({name: 'mobileTradingHallDetail'});
 }
 
+/*---------------------- 跳入到合约页面 ---------------------*/
+root.methods.gotoContract = function () {
+  this.$router.push({name: 'mobileTradingHallDetail'});
+}
+
+
 export default root
