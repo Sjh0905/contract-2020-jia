@@ -1,19 +1,5 @@
 <div class="mobile-trading-hall-detail">
   <div class="header-title-select-hq">
-    <!--    <ul class="flex-between">-->
-    <!--      <li class="header-title-item txt_80" :class="openType===1 ? 'header-title-item-active' : ''" @click="changeType(1)">-->
-    <!--        {{$t('mobileTradingHallDetail.buy')}}-->
-    <!--      </li>-->
-    <!--      <li class="header-title-item txt_80" :class="openType===2 ? 'header-title-item-active' : ''" @click="changeType(2)">-->
-    <!--        {{$t('mobileTradingHallDetail.sale')}}-->
-    <!--      </li>-->
-    <!--      <li class="header-title-item txt_80" :class="openType===3 ? 'header-title-item-active' : ''" @click="changeType(3)">-->
-    <!--        {{$t('mobileTradingHallDetail.current')}}-->
-    <!--      </li>-->
-    <!--      &lt;!&ndash;<li class="header-title-item" :class="openType===4 ? 'header-title-item-active' : ''" @click="changeType(4)">&ndash;&gt;-->
-    <!--        &lt;!&ndash;{{$t('mobileTradingHallDetail.old')}}&ndash;&gt;-->
-    <!--      &lt;!&ndash;</li>&ndash;&gt;-->
-    <!--    </ul>-->
 
     <div class="hangqingtu"  @click="openhangq">
       <img src="../../assets/H5img/hangqing.png" alt="">
@@ -38,78 +24,36 @@
     </ul>
   </div>
 
-  <!--最新成交页-->
-  <div v-if="latestFlag" class="container-latest-flag"  @click="closeLatestFlag">
-    <span class="container-latest-flag-text">当前委托</span>
-    <img class="container-latest-flag-img" src="../../assets/mobile_latest_trade_arr_up.png" alt="">
-  </div>
-  <div v-if="latestFlag" class="container-latest">
-    <table v-if="list.length>0" class="container-latest-table">
-      <colgroup style="width:40%;"></colgroup>
-      <colgroup style="width:30%;"></colgroup>
-      <colgroup style="width:30%;"></colgroup>
-      <tr class="container-latest-table-tr">
-        <td class="container-latest-table-thead-th">成交价格({{name}})</td>
-        <td class="container-latest-table-thead-th">成交数量</td>
-        <td class="container-latest-table-thead-th">时间</td>
-      </tr>
-      <tr  v-for="(item,index) in list" :key="index" class="container-latest-table-tr">
-        <td class="container-latest-table-thead-td" :class="item.direction ? 'container-latest-table-thead-td-green' : 'container-latest-table-thead-td-red'">{{$globalFunc.accFixed(item.price, quoteScale)}}</td>
-        <td class="container-latest-table-thead-td">{{$globalFunc.accFixed(item.amount, baseScale)}}</td>
-        <td class="container-latest-table-thead-td">{{$globalFunc.formatDateUitl(item.createdAt, 'hh:mm:ss')}}</td>
-      </tr>
-    </table>
-    <div v-if="list.length === 0" class="container-latest-no-data">
-      暂无成交记录
-    </div>
-  </div>
-
   <!--买入页-->
   <div v-if="openType===1&& !latestFlag" class="container-buy-page">
-
-    <!--<div class="header-price-select">-->
-    <!--<span class="header-price-select-down-title" @click="CHANGE_SYMBOL">-->
-    <!--{{symbol | e}}-->
-    <!--</span>-->
-    <!--&lt;!&ndash; <span class="header-price-select-down"></span> &ndash;&gt;-->
-    <!--<span class="header-price-change" @click="changeFloat">切换</span>-->
-    <!--</div>-->
 
     <div class="mobile-container">
       <!--左侧部分-->
       <div class="left-container" :class="{'left-container-default' : is_right}">
-        <!--        <div class="left-container-title">-->
-        <!--          限价单-->
-        <!--        </div>-->
+
         <div class="mobile-change-num">
           <div class="trading1">
             <input class="mobile-change-num-input" :placeholder="`价格`" type="number" v-model="transaction_price">
           </div>
           <div class="mobile-change-num-minus" @click="reduceNum('price')">
             <img src="../../assets/H5img/mobile_input_group_minus_.png" alt="">
-            <!--            <img class="mobile-change-num-max-img" src="" alt="">-->
           </div>
           <div class="mobile-change-num-max" @click="plusNum('price')">
             <img class="mobile-change-num-max-img" src="../../assets/H5img/mobile_input_group_max_.png" alt="">
           </div>
         </div>
         <div class="mobile-container-title flex-between">
-          <!--<span class="mobile-container-title-right" style="float: left;">估值: ￥{{cny_valuation}}</span>-->
-          <!--            <span class="txt_40">估值</span>-->
           <span>≈{{cny_valuation}}CNY</span>
         </div>
         <div class="mobile-change-num">
 
           <input class="mobile-change-num-input shuliannum" :placeholder="`数量`" type="number" v-model="transaction_amount">
-          <!--          <span class="mobile-change-num-max" @click="plusNum('amount')">-->
           <span class="mobile-change-num-max mobile-change-num-symbol">
             {{symbol.split('_')[0]}}
-            <!--            <img class="mobile-change-num-max-img" src="" alt="">-->
           </span>
 
         </div>
         <div class="mobile-container-useable">
-          <!-- 可用 <span class="mobile-container-title-right">1.12345678 BDB</span> -->
           <span class="txt_40">{{$t("progressBar.able")}}</span> <span>{{(currentSymbol.balance && currentSymbol.balance == '--' ? '--' : $globalFunc.accFixed(currentSymbol.balance, 6) || 0 )+ '&nbsp;' + this.$store.state.symbol.split('_')[1]}}</span>
         </div>
 
@@ -184,42 +128,20 @@
       </div>
       <div class="clear"></div>
 
-      <!--      <div class="mobile-container-latest-flag" @click="openLatestFlag">-->
-      <!--        <span class="mobile-container-latest-flag-text">最新成交</span>-->
-      <!--        <img class="mobile-container-latest-flag-img" src="../../assets/mobile_latest_trade_arr_down.png" alt="">-->
-      <!--      </div>-->
       <div class="mobile-container-latest-flag" >
         <span class="mobile-container-latest-flag-text">当前委托</span>
-        <!--        <img class="mobile-container-latest-flag-img" src="../../assets/mobile_latest_trade_arr_down.png" alt="">-->
         <div class="mobile-container-latest-flag-img" @click="openLatestHistoryFlag">历史</div>
       </div>
     </div>
   </div>
   <!--卖出页-->
   <div v-if="openType===2 && !latestFlag" class="container-sell-page">
-    <!--<div class="header-price-select">-->
-    <!--<span class="header-price-select-down-title" @click="CHANGE_SYMBOL">-->
-    <!--{{symbol | e}}-->
-    <!--</span>-->
-    <!--&lt;!&ndash; <span class="header-price-select-down"></span> &ndash;&gt;-->
-    <!--<span class="header-price-change" @click="changeFloat">切换</span>-->
-    <!--</div>-->
 
     <div class="mobile-container">
       <!--左侧部分-->
       <div class="left-container" :class="{'left-container-default' : is_right}">
-        <!--        <div class="left-container-title">-->
-        <!--          限价单-->
-        <!--        </div>-->
+
         <div class="mobile-change-num">
-          <!--          <span class="mobile-change-num-minus" @click="reduceNum('price')">-->
-          <!--            <img class="mobile-change-num-minus-img" src="" alt="">-->
-          <!--          </span>-->
-          <!--          <input class="mobile-change-num-input" type="number" v-model="transaction_price">-->
-          <!--          <span class="mobile-change-num-max">-->
-          <!--            <img class="mobile-change-num-max-img" src="" alt=""-->
-          <!--                 @click="plusNum('price')">-->
-          <!--          </span>-->
           <div class="trading1">
             <input class="mobile-change-num-input" :placeholder="`价格`" type="number" v-model="transaction_price">
           </div>
@@ -231,28 +153,16 @@
           </div>
         </div>
         <div class="mobile-container-title flex-between">
-          <!--<span class="mobile-container-title-right" style="float: left;">估值 ￥{{cny_valuation}}</span>-->
-          <!--            <span class="txt_40">估值</span>-->
           <span>≈{{cny_valuation}}CNY</span>
         </div>
         <div class="mobile-change-num">
           <input class="mobile-change-num-input shuliannum" :placeholder="`数量`" type="number" v-model="transaction_amount">
-          <!--          <span class="mobile-change-num-max" @click="plusNum('amount')">-->
           <span class="mobile-change-num-max mobile-change-num-symbol">
             {{symbol.split('_')[0]}}
-            <!--            <img class="mobile-change-num-max-img" src="" alt="">-->
           </span>
-          <!--          <span class="mobile-change-num-minus" @click="reduceNum('amount')">-->
-          <!--            <img class="mobile-change-num-minus-img" src="" alt="">-->
-          <!--          </span>-->
-          <!--          <input class="mobile-change-num-input" :placeholder="`数量(${symbol.split('_')[0]})`" type="number" v-model="transaction_amount">-->
-          <!--          <span class="mobile-change-num-max" @click="plusNum('amount')">-->
-          <!--            <img class="mobile-change-num-max-img" src="" alt="">-->
-          <!--          </span>-->
         </div>
 
         <div class="mobile-container-useable">
-          <!-- 可用 <span class="mobile-container-title-right">1.12345678 BDB</span> -->
           <span class="txt_40">{{$t("progressBar.able")}}</span> <span>{{(currentSymbol.balance_order && currentSymbol.balance_order == '--' ? '--' : $globalFunc.accFixed(currentSymbol.balance_order, 8) || 0 )+ '&nbsp;' + this.$store.state.symbol.split('_')[0]}}</span>
         </div>
 
@@ -327,19 +237,12 @@
       </div>
       <div class="clear"></div>
 
-      <!--<div class="mobile-container-latest-flag" @click="openLatestFlag">-->
-        <!--<span class="mobile-container-latest-flag-text">当前委托</span>-->
-        <!--<img class="mobile-container-latest-flag-img" src="../../assets/mobile_latest_trade_arr_down.png" alt="">-->
-      <!--</div>-->
-
       <div class="mobile-container-latest-flag" >
         <span class="mobile-container-latest-flag-text">当前委托</span>
-        <!--        <img class="mobile-container-latest-flag-img" src="../../assets/mobile_latest_trade_arr_down.png" alt="">-->
         <div class="mobile-container-latest-flag-img" @click="openLatestHistoryFlag">全部</div>
       </div>
 
     </div>
-    <!--<div class="bottom-box"></div>-->
   </div>
   <!--当前委托页-->
   <div v-if="openType!==3 && !latestFlag" class="container-current-page" @click="ToCurrentPage">
