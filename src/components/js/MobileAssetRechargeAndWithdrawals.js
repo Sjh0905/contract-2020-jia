@@ -69,7 +69,6 @@ root.components = {
 }
 
 root.created = function () {
-  console.log(this.total)
   // 修改顶部标题
   this.$store.commit('changeMobileHeaderTitle', '资产');
   // socket获取价格
@@ -120,7 +119,7 @@ root.computed.baseCurrency = function () {
 }
 // 计算汇率
 root.computed.computedExchangeRate = function () {
-  console.info(this.$store.state.exchange_rate_dollar)
+  // console.info(this.$store.state.exchange_rate_dollar)
   // todo h5国际化
   // if (this.$store.state.lang === 'CH') {
     return this.exchangeRate * this.$store.state.exchange_rate_dollar
@@ -156,7 +155,7 @@ root.computed.total = function () {
   for (let i = 0; i < this.accounts.length; i++) {
     total = this.accAdd(total, this.accounts[i].appraisement)
   }
-  console.info('total',total)
+  // console.info('total',total)
   return this.toFixed(total)
 }
 // 我的钱包账户可用
@@ -164,7 +163,7 @@ root.computed.available = function () {
   let available = 0
   for (let i = 0; i < this.accounts.length; i++) {
     available = this.accAdd(available, this.accMul(this.accounts[i].available, this.accounts[i].rate))
-    console.log(this.accounts[i].rate)
+    // console.log(this.accounts[i].rate)
   }
   return this.toFixed(available)
 }
@@ -184,7 +183,7 @@ root.computed.otcTotal = function () {
   for (let i = 0; i < this.otcAccounts.length; i++) {
     total = this.accAdd(total, this.otcAccounts[i].otcAppraisement)
   }
-  console.info('OTC total',total)
+  // console.info('OTC total',total)
   return this.toFixed(total)
 }
 // 法币账户账户可用
@@ -223,7 +222,7 @@ root.watch.currencyChange = function (newVal, oldVal) {
   let otcAccounts = [];
   this.otcCurrencyList.map(v=>{
     let item = this.$store.state.currency.get(v.currency);
-    console.info(item)
+    // console.info(item)
     otcAccounts.push(item)
   })
 
@@ -417,7 +416,7 @@ root.methods.getExchangeRate = function () {
 root.methods.re_getExchangeRate = function (data) {
   typeof (data) === 'string' && (data = JSON.parse(data))
   if (!data || !data.dataMap) return
-  console.info("assetPage获取汇率！", data)
+  // console.info("assetPage获取汇率！", data)
   if (data.result === 'SUCCESS') {
     this.exchangeRateReady = true
     this.exchangeRate = data.dataMap.exchangeRate.btcExchangeRate
@@ -449,7 +448,7 @@ root.methods.re_getOtcCurrency = function (data) {
     return
   }
   this.otcCurrencyList = data;
-  console.info(this.otcCurrencyList)
+  // console.info(this.otcCurrencyList)
   // this.$store.commit('CHANGE_CURRENCY', data.dataMap.currencys)
   this.getAccounts()
 }
