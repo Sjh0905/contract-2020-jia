@@ -46,12 +46,10 @@
           <span>≈{{cny_valuation}}CNY</span>
         </div>
         <div class="mobile-change-num">
-
           <input class="mobile-change-num-input shuliannum" :placeholder="`数量`" type="number" v-model="transaction_amount">
           <span class="mobile-change-num-max mobile-change-num-symbol">
             {{symbol.split('_')[0]}}
           </span>
-
         </div>
         <div class="mobile-container-useable">
           <span class="txt_40">{{$t("progressBar.able")}}</span> <span>{{(currentSymbol.balance && currentSymbol.balance == '--' ? '--' : $globalFunc.accFixed(currentSymbol.balance, 6) || 0 )+ '&nbsp;' + this.$store.state.symbol.split('_')[1]}}</span>
@@ -60,14 +58,13 @@
 
         <div class="mobile-select-num">
           <span class="mobile-select-num-item txt_80 mobile-select-num-item-selected" @click="sectionSelect(0.25)">25%</span>
-          <span class="mobile-select-num-item txt_80"   @click="sectionSelect(0.5)">50%</span>
-          <span class="mobile-select-num-item txt_80"   @click="sectionSelect(0.75)">75%</span>
-          <span class="mobile-select-num-item txt_80"   @click="sectionSelect(1)">100%</span>
+          <span class="mobile-select-num-item txt_80" @click="sectionSelect(0.5)">50%</span>
+          <span class="mobile-select-num-item txt_80" @click="sectionSelect(0.75)">75%</span>
+          <span class="mobile-select-num-item txt_80" @click="sectionSelect(1)">100%</span>
         </div>
 
         <div class="mobile-exchange-price">
-          {{!transaction_price || !transaction_amount? '交易额' :
-          accMul(transaction_price,transaction_amount)}}（{{this.$store.state.symbol.split('_')[1]}}）
+          <!--{{!transaction_price || !transaction_amount? '交易额' : accMul(transaction_price,transaction_amount)}}（{{this.$store.state.symbol.split('_')[1]}}）-->
         </div>
 
 
@@ -87,7 +84,7 @@
       <!--右侧部分-->
       <div class="right-container">
         <div class="mobile-right-buy-content">
-          <div class="mobile-right-buy-content-title txt_40">
+          <div class="mobile-right-buy-content-title">
             价格({{symbol.split('_')[1]}}) <span class="mobile-right-buy-content-title-right">数量({{symbol.split('_')[0]}})</span>
           </div>
           <div class="mobile-sale-detail-list">
@@ -96,9 +93,7 @@
               <!--占满是3.5rem-->
               <span class="mobile-sale-detail-item-shadow" style="background: rgba(216,56,56,0.15);"
                     :style="{width:item.amount/deep.sall_deeps+'%'}"></span>
-              <span class="mobile-sale-detail-item-price">{{$globalFunc.accFixed(item.price,quoteScale)}}</span>
-
-              <!--              && item.amount<1000000   -->
+              <span class="mobile-sale-detail-item-price">{{$globalFunc.accFixed(item.price, quoteScale)}}</span>
               <span class="mobile-sale-detail-item-num" v-if="$store.state.symbol== 'GRC_USDT'">{{(item.amount >= 1000 && item.amount > 0 ) ?
                 $globalFunc.accFixed(item.amount/1000,2)+'k':
                 $globalFunc.accFixed(item.amount, baseScale)}}</span>
@@ -106,14 +101,13 @@
             </div>
           </div>
           <div class="mobile-buy-detail-now-price-box mobile-buy-detail-now-price-box-up m-txt-green">
-            <span class="mobile-buy-detail-now-price">{{$globalFunc.accFixed(price,quoteScale)}}</span>
+            <span class="mobile-buy-detail-now-price">{{$globalFunc.accFixed(price, quoteScale)}}</span>
             <span class="mobile-buy-detail-now-CNY-price">¥{{cnyPrice}}</span>
             <!--<span class="mobile-buy-detail-now-price-icon"></span>-->
           </div>
           <div class="mobile-buy-detail-list">
             <div class="mobile-buy-detail-item" v-for="(item,index) in buyOrders" style="overflow: hidden;"
                  @click="setTransactionPrice(item.price)">
-
               <!--占满是3.5rem-->
               <span class="mobile-buy-detail-item-shadow" style="background: rgba(0,166,42,0.15);"
                     :style="{width:item.amount/deep.buy_deeps+'%'}"></span>
@@ -132,6 +126,7 @@
         <span class="mobile-container-latest-flag-text">当前委托</span>
         <div class="mobile-container-latest-flag-img" @click="openLatestHistoryFlag">历史</div>
       </div>
+
     </div>
   </div>
   <!--卖出页-->
@@ -161,7 +156,6 @@
             {{symbol.split('_')[0]}}
           </span>
         </div>
-
         <div class="mobile-container-useable">
           <span class="txt_40">{{$t("progressBar.able")}}</span> <span>{{(currentSymbol.balance_order && currentSymbol.balance_order == '--' ? '--' : $globalFunc.accFixed(currentSymbol.balance_order, 8) || 0 )+ '&nbsp;' + this.$store.state.symbol.split('_')[0]}}</span>
         </div>
@@ -176,8 +170,7 @@
 
         <div class="mobile-exchange-price txt_40">
           <!-- 成交金额（BNB） -->
-          {{!transaction_price || !transaction_amount ? '交易额' :
-          accMul(transaction_price,transaction_amount)}}（{{this.$store.state.symbol.split('_')[1]}}）
+          {{!transaction_price || !transaction_amount ? '交易额' : accMul(transaction_price,transaction_amount)}}（{{this.$store.state.symbol.split('_')[1]}}）
         </div>
 
 
@@ -225,8 +218,6 @@
               <span class="mobile-buy-detail-item-shadow" style="background: rgba(0,166,42,0.15);"
                     :style="{width:item.amount/deep.buy_deeps+'%'}"></span>
               <span class="mobile-buy-detail-item-price m-txt-green">{{$globalFunc.accFixed(item.price, quoteScale)}}</span>
-
-              <!--              && item.amount<1000000    -->
               <span class="mobile-buy-detail-item-num" v-if="$store.state.symbol== 'GRC_USDT'">{{(item.amount >= 1000 && item.amount > 0 ) ?
                 $globalFunc.accFixed(item.amount/1000,2)+'k':
                 $globalFunc.accFixed(item.amount, baseScale)}}</span>
@@ -244,6 +235,7 @@
 
     </div>
   </div>
+
   <!--当前委托页-->
   <div v-if="openType!==3 && !latestFlag" class="container-current-page" @click="ToCurrentPage">
     <CurrentOrder></CurrentOrder>
