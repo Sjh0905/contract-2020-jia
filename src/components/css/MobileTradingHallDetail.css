@@ -1105,10 +1105,10 @@
   height: 0.48rem;
   line-height: 0.48rem;
   text-align: center;
-  font-size: 0.29rem;
-  font-family: Roboto-Regular, Roboto;
+  font-size: 0.28rem;
+  font-family: PingFangSC-Regular, PingFang SC;
   font-weight: 400;
-  color: #3576F5;
+  color: #CFD3E9;
   margin: 0.2rem 0.16rem 0 0;
   background: rgba(53, 118, 245, 0.1);
   border-radius: 0.03rem;
@@ -1397,7 +1397,7 @@
   clear: both;
 }
 .mode-only-lever {
-  margin: 33px 0 14px 0;
+  margin: 1.02rem 0 0.1rem 0;
   color: #6B7DA2;
   font-size:12px;
   font-family:PingFangSC-Semibold,PingFang SC;
