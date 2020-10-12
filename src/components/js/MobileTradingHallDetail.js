@@ -92,7 +92,25 @@ root.data = function () {
 
     popIdenOpen: false, // 弹窗开放
 
-    priceCont:''
+    priceCont:'',
+    // 调整杠杆
+    leverage:20, // 杠杆倍数
+    popWindowAdjustingLever:false,
+    popTextLeverage:'',
+    value: 0,
+    marks: {
+      1: '1X',
+      25: '25X',
+      50: '50X',
+      75:'75X',
+      100:'100X',
+      125:'125X',
+    },
+    // 显示的最大头寸数值
+    maximumPosition : ['50,000','250,000','100,0000','5,000,000','20,000,000','50,000,000','100,000,000','200,000,000'],
+    //调整杠杆 End
+
+    maxNotionalValue: '',   // 当前杠杆倍数下允许的最大名义价值
 
   }
 }
@@ -166,6 +184,7 @@ root.created = function () {
   // interval = setInterval(this.GET_LATEST_DEAL, 2000);
 
   this.getScaleConfig();
+  this.positionRisk()  // 获取仓位信息（全逐仓、杠杆倍数）
 
 }
 
@@ -177,6 +196,8 @@ root.components = {
   'MobileTrade': resolve => require(['../vue/MobileTrade'], resolve),
   'CurrentOrder': resolve => require(['../vue/MobileCurrentOrder'], resolve),
   'HistoryOrder': resolve => require(['../vue/MobileHistoryOrder'], resolve),
+  'PositionModeBulletBox': resolve => require(['../vue/PositionModeBulletBox'], resolve),
+
 }
 
 /*------------------------------ 计算 begin -------------------------------*/
@@ -187,9 +208,13 @@ root.computed = {}
 root.computed.currencyList = function(){
   return this.$store.state.symbol.currencyList
 }
-
+//加下划线币对
 root.computed.symbol = function () {
   return this.$store.state.symbol;
+}
+//不加下划线币对
+root.computed.capitalSymbol = function () {
+  return this.$globalFunc.toOnlyCapitalLetters(this.symbol);
 }
 
 root.computed.name = function () {
@@ -234,10 +259,119 @@ root.computed.KKPriceRangeH5 = function () {
   // return ['0.2504','0.2506']
   return this.$store.state.KKPriceRange;
 }
+// 最大头寸计算
+root.computed.maxPosition = function () {
+  let maxPosition = ''
+  if(this.value > 100 && this.value <= 125) {
+    maxPosition = this.maximumPosition[0]
+    return maxPosition
+  }
+  if(this.value > 50 && this.value <= 100) {
+    maxPosition = this.maximumPosition[1]
+    return maxPosition
+  }
+  if(this.value > 20 && this.value <= 50) {
+    maxPosition = this.maximumPosition[2]
+    return maxPosition
+  }
+  if(this.value > 10 && this.value <= 20) {
+    maxPosition = this.maximumPosition[3]
+    return maxPosition
+  }
+  if(this.value > 5 && this.value <= 10) {
+    maxPosition = this.maximumPosition[4]
+    return maxPosition
+  }
+  if(this.value == 5) {
+    maxPosition = this.maximumPosition[5]
+    return maxPosition
+  }
+  if(this.value == 4) {
+    maxPosition = this.maximumPosition[6]
+    return maxPosition
+  }
+  if(this.value == 3) {
+    maxPosition = this.maximumPosition[7]
+    return maxPosition
+  }
+  maxPosition = ''
+  return maxPosition
+}
 
 /*------------------------------ 方法 begin -------------------------------*/
 
 root.methods = {};
+// 获取仓位信息
+root.methods.positionRisk = function () {
+  this.$http.send('GET_POSITION_RISK',{
+    bind: this,
+    callBack: this.re_positionRisk
+  })
+}
+root.methods.re_positionRisk = function (data) {
+  typeof(data) == 'string' && (data = JSON.parse(data));
+  if(!data || !data.data || data.data == []) return
+  let filterRecords = []
+  data.data.forEach(v=>{
+    if (v.symbol == 'BTCUSDT') {
+      this.leverage = v.leverage
+      this.$store.commit("CHANGE_LEVERAGE", v.leverage);
+      if(v.marginType == 'isolated'){
+        this.marginType = 'ISOLATED'
+        this.marginModeType = 'zhuCang'
+        return
+      }
+      this.marginType = 'CROSSED'
+      this.marginModeType = 'quanCang'
+    }
+  })
+}
+// 调整杠杆接口调取
+root.methods.postLevelrage = function () {
+  this.$http.send('POST_LEVELRAGE',{
+    bind: this,
+    params:{
+      "symbol":this.capitalSymbol,
+      "leverage": this.value,
+    },
+    callBack: this.re_postLevelrage
+  })
+}
+root.methods.re_postLevelrage = function (data) {
+  // console.info('超过当前杠杆的最大允许持仓量',data,data.code)
+  if (data.code == 303 && data.errCode == 2027) {
+    this.popTextLeverage = '超过当前杠杆的最大允许持仓量';
+    return
+  }
+  typeof(data) == 'string' && (data = JSON.parse(data));
+  this.promptOpen = true;
+  if (data.code == 200) {
+    this.leverage = data.data.leverage || ''
+    this.popType = 1;
+    this.popText = '调整杠杆成功';
+    this.maxNotionalValue = data.data.maxNotionalValue || ''
+    this.positionRisk()
+    this.popWindowCloseAdjustingLever()
+  }
+}
+//打开调整杠杆 Strat
+root.methods.openLever = function () {
+  this.popTextLeverage=''
+  this.popWindowAdjustingLever = true
+  this.value = this.$store.state.leverage
+}
+//打开调整杠杆 End
+
+// 关闭调整杠杆 Strat
+root.methods.popWindowCloseAdjustingLever = function () {
+  this.popWindowAdjustingLever = false
+}
+// 关闭调整杠杆 End
+
+// 处理滑动条显示框内容
+root.methods.formatTooltip =(val)=>{
+  return  val + 'X';
+}
 
 
 root.methods.RE_FEE = function (data) {

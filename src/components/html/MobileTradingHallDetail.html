@@ -1,5 +1,5 @@
 <div class="mobile-trading-hall-detail">
-  <div class="header-title-select-hq">
+  <div class="header-title-select-hq flex">
     <!--    <ul class="flex-between">-->
     <!--      <li class="header-title-item txt_80" :class="openType===1 ? 'header-title-item-active' : ''" @click="changeType(1)">-->
     <!--        {{$t('mobileTradingHallDetail.buy')}}-->
@@ -15,15 +15,43 @@
     <!--      &lt;!&ndash;</li>&ndash;&gt;-->
     <!--    </ul>-->
 
-    <div class="hangqingtu"  @click="openhangq">
-      <img src="../../assets/H5img/hangqing.png" alt="">
+    <div class="hangqing-title flex-cloum">
+      <div class="flex">
+        <div class="hangqingtu"  @click="openhangq">
+        <img src="../../assets/H5img/hangqing.png" alt="">
+      </div>
+        <div class="hangqingbid">
+          {{symbol | e}}
+        </div>
+      </div>
+      <!--弹框按钮-->
+      <div class="flex">
+        <div class="leaver" @click="">双向</div>
+        <div class="leaver" @click="">逐仓</div>
+        <div class="leaver" @click="openLever">{{leverage}}X</div>
+      </div>
     </div>
-    <div class="hangqingbid">
-      {{symbol | e}}
+    <div class="flex-cloum">
+      <div class="flex right-icon">
+        <div class="hangqingkline" @click="openkexian()">
+          <img src="../../assets/H5img/hangqkline.png" alt="">
+        </div>
+        <div class="hangqingkline" @click="">
+          <img src="../../assets/H5img/calculator.png" alt="">
+        </div>
+      </div>
+      <div class="fund-all">
+        <div  @click="">
+          <span class="text-des">资金费率</span>
+          <span class="fund-content">0.112%</span>
+        </div>
+        <div @click="">
+          <span>资金时间</span>
+          <span class="fund-content">0.112%</span>
+        </div>
+      </div>
     </div>
-    <div class="hangqingkline" @click="openkexian()">
-      <img src="../../assets/H5img/hangqkline.png" alt="">
-    </div>
+
   </div>
 
   <div class="mmenu">
@@ -484,6 +512,45 @@
       <div class="pop-detail-btn" @click="toastClose">{{$t('personalCenterAuthAuthenticationState.promptEnsure')}}</div>
     </div>
   </PopupPrompt>
+
+  <!--  调整杠杆 Strat-->
+  <PositionModeBulletBox :switch="popWindowAdjustingLever" @close="popWindowCloseAdjustingLever" >
+    <div slot="header">
+      <div class="position-mode-tit">调整杠杆</div>
+    </div>
+    <div slot="article"class="pop-lock-house">
+      <div class="body">
+        <div class="block"  style="margin: 4px auto">
+          <!-- <span class="demonstration">默认</span> -->
+          <p :class="'radiusa_blu1'" v-if="value>=0" @click="value=0" style="cursor:pointer"></p>
+          <p :class="'radiusa_blu2'" v-if="value>=25"@click="value=25" style="cursor:pointer"></p>
+          <p :class="'radiusa_blu3'" v-if="value>=50"@click="value=50" style="cursor:pointer"></p>
+          <p :class="'radiusa_blu4'" v-if="value>=75"@click="value=75" style="cursor:pointer"></p>
+          <p :class="'radiusa_blu5'" v-if="value>=100"@click="value=100" style="cursor:pointer"></p>
+          <p :class="'radiusa_blu6'" v-if="value>=125"@click="value=125" style="cursor:pointer"></p>
+          <el-slider
+            v-model="value"
+            :class="'el-slider_blu'"
+            :marks="marks"
+            show-input
+            :max="125"
+            :min="1"
+            :format-tooltip="formatTooltip"
+          >
+          </el-slider>
+        </div>
+      </div>
+      <div class="mode-only-lever">· 当前杠杆倍数最高可持有头寸：{{maxPosition}} USDT</div>
+      <!--      <div class="mode-error">当前合约存在持仓和挂单，不支持调整保证金模式</div>-->
+      <div class="mode-only-lever-super txt-price-red" v-if="value > 20">· 当前杠杆倍数较高，请注意风险。</div>
+      <div class="mode-only-lever-high" v-else></div>
+      <div class="mode-only-lever-super txt-price-red" v-if="popTextLeverage">· {{popTextLeverage}}</div>
+      <div class="money-confirmation" @click="postLevelrage">确认</div>
+      <!--确认不可点击状态-->
+      <!--      <div class="money-confirmation-ash">确认</div>-->
+    </div>
+  </PositionModeBulletBox>
+  <!--  调整杠杆 End-->
 
   <div v-if="toastNobindShow" class="toast-window-nobind-email">
     <div class="toast-box-nobind-email">
