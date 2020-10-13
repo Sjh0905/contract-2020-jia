@@ -1,3 +1,5 @@
+import tradingHallData from "../../dataUtils/TradingHallDataUtils";
+
 const root = {};
 
 let interval;
@@ -8,6 +10,33 @@ root.name = 'MobileTradingHallDetail';
 
 root.data = function () {
   return {
+    /*合约仓位模式begin*/
+    positionModeFirst:'singleWarehouseMode',//单仓模式 singleWarehouseMode 双仓模式 doubleWarehouseMode
+    // positionModeFirst:'doubleWarehouseMode',//单仓模式 singleWarehouseMode 双仓模式 doubleWarehouseMode
+    positionModeFirstTemp:'',//临时存储值，等用户点击弹窗确认按钮后才真正改变positionModeFirst的值
+    positionModeSecond:'openWarehouse',//单仓 singleWarehouse 开仓 openWarehouse 平仓 closeWarehouse
+    pendingOrderType:'limitPrice',//限价 limitPrice 市价 marketPrice 限价止盈止损 limitProfitStopLoss 市价止盈止损 marketPriceProfitStopLoss
+    /*合约仓位模式end*/
+
+    /*下拉框1 begin*/
+    optionVal:'限价单',
+    optionData:['限价单','市价单','限价止盈止损','市价止盈止损'],
+    optionDataMap:{
+      '限价单':'limitPrice',
+      '市价单':'marketPrice',
+      '限价止盈止损':'limitProfitStopLoss',
+      '市价止盈止损':'marketPriceProfitStopLoss'
+    },
+    /*下拉框1 end*/
+
+    /*下拉框2 begin*/
+    latestPrice:'最新',
+    latestPriceOption:['最新','标记'],
+    /*下拉框2 end*/
+
+    triggerPrice:'', // 触发价格
+    checkPrice:2, // 限价---被动委托，生效时间选择
+    reducePositionsSelected: false,//只减仓状态
 
     // 是否可用BDB抵扣
     BDBInfo: true,
@@ -221,6 +250,13 @@ root.computed.name = function () {
   return this.$store.state.symbol.split('_')[1];
 }
 
+//页面功能模块显示逻辑配置信息
+root.computed.positionModeConfigs = function () {
+  let data = tradingHallData.positionModeConfigs;
+  // console.log(data);
+  return data
+}
+
 // 深度图百分比  如果是 ETH->BTC的，数量超过10就满，BDB->BTC或BDB->ETH的，超过10万才满,ICC->BTC超过100万才满
 root.computed.deep = function () {
   let symbol = this.$store.state.symbol;
@@ -301,6 +337,55 @@ root.computed.maxPosition = function () {
 /*------------------------------ 方法 begin -------------------------------*/
 
 root.methods = {};
+//订单大分类
+root.methods.changeOptionData = function (v) {
+  this.optionVal = v
+  this.pendingOrderType = this.optionDataMap[v]
+}
+//最新、标记
+root.methods.changeLatestPriceOption = function (v) {
+  this.latestPrice = v
+}
+
+//仓位模式二级切换 Start
+root.methods.changePositionModeSecond = function (type) {
+  this.positionModeSecond = type;
+}
+//仓位模式二级切换 End
+
+//页面功能模块显示逻辑判断 Start
+root.methods.isHasModule = function (type) {
+  let isHas = '';
+  //单仓模式
+  if(this.positionModeFirst == 'singleWarehouseMode'){
+    isHas = this.positionModeConfigs[this.positionModeFirst][this.pendingOrderType][type]
+    // console.log('singleWarehouseMode-' + type,isHas);
+    return isHas
+  }
+  //双仓模式
+  isHas = this.positionModeConfigs[this.positionModeFirst][this.positionModeSecond][this.pendingOrderType][type]
+  // console.log(type,isHas);
+  return isHas
+}
+//页面功能模块显示逻辑判断 End
+
+//被动委托 start
+root.methods.priceLimitSelection = function (checkPrice) {
+  this.checkPrice = checkPrice
+  if(checkPrice == 2) {
+    this.effectiveTime = 'GTC'
+    return
+  }
+  this.effectiveTime = 'GTX'
+}
+//被动委托 end
+
+//只减仓 start
+root.methods.changeReducePositions = function(){
+  this.reducePositionsSelected = !this.reducePositionsSelected
+}
+//只减仓 end
+
 // 获取仓位信息
 root.methods.positionRisk = function () {
   this.$http.send('GET_POSITION_RISK',{
