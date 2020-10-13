@@ -51,4 +51,30 @@ root.methods.closeClick = function () {
 }
 
 
+root.methods.contractOpen = function () {
+  window.location.replace(this.$store.state.contract_url + 'index/tradingHall?symbol=KK_USDT');
+}
+//
+// root.methods.openContractH5 = function () {
+//   // window.location.replace(this.$store.state.contract_url + 'index/mobileTradingHallDetail');
+// }
+
+// 合约首次风险提示弹窗确认按钮
+root.methods.openContractH5 = function () {
+  // this.popWindowContractRiskWarning = false
+  // return
+  this.$http.send('POST_MANAGE_TIME',{
+    bind: this,
+    query: {},
+    callBack: this.re_openContractH5
+  })
+}
+root.methods.re_openContractH5 = function (data) {
+  typeof(data) == 'string' && (data = JSON.parse(data));
+  if (data.code == 200) {
+    // history.go(0)
+    this.$router.push({'path':'/index/mobileTradingHallDetail'})
+  }
+}
+
 export default root

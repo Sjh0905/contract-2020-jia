@@ -167,6 +167,8 @@ root.created = function () {
 
   this.getScaleConfig();
 
+  this.isFirstVisit();
+
 }
 
 /*------------------------------ 组件 begin -------------------------------*/
@@ -1584,5 +1586,36 @@ root.methods.ToCurrentPage = function(){
   this.$router.push('MobileTradingHallDetail')
 }
 
+
+// // 合约首次风险提示弹窗关闭确认按钮
+// root.methods.popCloseTemporarilyClosed = function () {
+//   this.popWindowContractRiskWarning = false
+//   window.location.replace(this.$store.state.contract_url + 'index/tradingHall?symbol=KK_USDT');
+// }
+
+// 第一次进入是否弹窗
+root.methods.isFirstVisit = function () {
+  // this.$http.send('POST_MANAGE_TIME', {
+  this.$http.send('POST_MANAGE_API',{
+    bind: this,
+    callBack: this.re_isFirstVisit
+  })
+}
+root.methods.re_isFirstVisit = function (data) {
+  typeof(data) == 'string' && (data = JSON.parse(data));
+  if (data.code == 1000) {
+    this.$router.push({'path': '/index/contractRiskWarning'})
+  }
+  // this.$router.push({'path': '/index/contractRiskWarning'})
+  // } else {
+  //   this.$router.push({'path':'index/mobileTradingHallDetail'})
+  //   // this.$router.push({'path':'/index/contractRiskWarning'})
+  // }
+}
+
+//合约全部记录
+root.methods.openAllRecords = function () {
+  this.$router.push('/index/mobileContractAllRecords')
+}
 
 export default root;

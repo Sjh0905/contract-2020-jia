@@ -95,3 +95,102 @@
   margin-left: 10px;
   cursor: pointer;
 }
+
+
+/*h5*/
+
+.popWindow-container-mobile {
+  background-color: #FFFFFF;
+  height: 100%;
+  margin-top:0.88rem;
+}
+.fund-buy-header-title {
+  /*margin-top: 0.88rem;*/
+  height: 0.88rem;
+  width: 100%;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  background: #fff;
+  z-index: 100;
+  border-bottom: 0.02rem solid #F7F8FA ;
+}
+.fund-buy {
+  position: absolute;
+  top: 0.2rem;
+  right: 0.3rem;
+  width: 0.48rem;
+  height: 0.48rem;
+}
+
+.fund-buy-header-title-back-icon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0.88rem;
+  height: 0.88rem;
+}
+
+.fund-buy-header-title-back-icon-img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0.32rem;
+  transform: translate(-50%,-50%);
+}
+.fund-buy-header-title-text {
+  height:0.44rem;
+  font-size:0.32rem;
+  font-family:PingFangSC-Semibold,PingFang SC;
+  font-weight:600;
+  color:rgba(11,11,39,1);
+  line-height:0.44rem;
+}
+.popWindow-article-mobile {
+  padding: 0.3rem;
+  font-size: 0.28rem;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #6B7DA2;
+  line-height: 0.4rem;
+}
+.popWindow-title-mobile {
+  text-align: center;
+  font-size: 0.32rem;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #0D0E23;
+  line-height: 0.44rem;
+}
+.footer-btn-mobile {
+  width: 6.9rem;
+  margin: 0 auto;
+  height: 0.88rem;
+  line-height: 0.88rem;
+  background: #3576F5;
+  border-radius: 0.03rem;
+  font-size: 0.32rem;
+  font-family: PingFangSC-Semibold, PingFang SC;
+  font-weight: 600;
+  color: #FFFFFF;
+  text-align: center;
+}
+.flex-mobile {
+  position: fixed;
+  bottom: 0.3rem;
+  left: 0;
+  right: 0;
+}
+.open-contract-dev {
+  /*width: 1.2rem;*/
+  /*height: 1.2rem;*/
+  margin: 0 auto;
+  padding: 0.92rem 0 0.4rem 0;
+  text-align: center;
+}
+.open-contract-img {
+  width: 1.2rem;
+  height: 1.2rem;
+}

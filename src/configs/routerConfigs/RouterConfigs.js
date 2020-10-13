@@ -1069,7 +1069,20 @@ root.routes.push({
       component: resolve => require(['@/components/vue/MobileHeatList'], resolve),
     },
 
-
+    // // 合约首次进入弹框记录
+    // {
+    //   path: 'contractRiskWarning',
+    //   name: 'contractRiskWarning',
+    //   meta: {
+    //     pcname: '',
+    //     h5name: 'contractRiskWarning',
+    //     requireLogin: true,
+    //     templateClose: false,
+    //     requireLoginOff: false,
+    //   },
+    //   caseSensitive: true,
+    //   component: resolve => require(['@/components/vue/ContractRiskWarning'], resolve),
+    // },
     {
       path: 'tradingHall',
       name: 'tradingHall',
@@ -1084,6 +1097,8 @@ root.routes.push({
       },
       component: resolve => require(['@/components/vue/TradingHall'], resolve),
     },
+
+
     // 交易大厅临时页面
     // {
     //   path: 'tradingHallTemporary/xs241/sfe/sf214213/ts22/trade',
@@ -2271,6 +2286,8 @@ root.routes.push({
       component: resolve => require(['@/components/vue/IndexHomeMarket'], resolve),
     },
 
+
+
     // TODO：弹框组件临时显示（记得删除）  TODO 合约保留
     // {
     //   path: 'PopPublic',
@@ -2406,5 +2423,31 @@ root.routes.push({
   ]
 })
 
+
+// 合约首次进入弹框记录
+root.routes.push({
+  path: '/index/contractRiskWarning',
+  name: 'contractRiskWarning',
+  meta: {
+    requireLogin: true,
+    pcname: '',
+    h5name: 'contractRiskWarning',
+  },
+  caseSensitive: true,
+  component: resolve => require(['@/components/vue/ContractRiskWarning'], resolve)
+})
+
+// 合约全部记录
+root.routes.push({
+  path: '/index/mobileContractAllRecords',
+  name: 'mobileContractAllRecords',
+  meta: {
+    requireLogin: true,
+    pcname: '',
+    h5name: 'mobileContractAllRecords',
+  },
+  caseSensitive: true,
+  component: resolve => require(['@/components/vue/MobileContractAllRecords'], resolve)
+})
 
 export default root

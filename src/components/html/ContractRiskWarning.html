@@ -1,5 +1,5 @@
 <transition name="popWindow">
-  <div class="popWindow-container min-width" v-if="show">
+  <div class="popWindow-container min-width" v-if="show && !isMobile">
 
     <div class="background">
 
@@ -21,6 +21,33 @@
     </div>
 
 
+
+  </div>
+
+  <div class="popWindow-container-mobile" v-if="isMobile">
+    <div>
+      <div :class="'fund-buy-header-title' ">
+        <div class="fund-buy-header-title-back-icon" @click="contractOpen">
+          <img class="fund-buy-header-title-back-icon-img" src="../../assets/back_icon.png" alt="">
+        </div>
+        <div class="fund-buy-header-title-text">开通合约账户</div>
+      </div>
+      <div class="open-contract-dev"><img class="open-contract-img" src="../../assets/openCrea.png" alt=""></div>
+      <div class="popWindow-title-mobile">重要提示</div>
+      <div class="popWindow-article-mobile">
+        合约交易属于高风险交易行为，在带来更多潜在利润的同时，也蕴含巨大风险。请注意，当市场出现剧烈波动时，您合约钱包中的余额有可能全部亏损。来自部分地区的用户无法使用合约交易。
+        <!--        您暂未开通合约账户-->
+      </div>
+
+      <!--      <div class="flex footer-btn">-->
+      <!--        <slot name="footer">-->
+      <!--        </slot>-->
+
+      <!--      </div>-->
+      <div class="flex-mobile">
+        <div class=" footer-btn-mobile" @click="openContractH5">开通合约账户</div>
+      </div>
+    </div>
 
   </div>
 </transition>
