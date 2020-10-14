@@ -269,9 +269,11 @@
     <div class="clear"></div>
 
     <div class="mobile-container-latest-flag" >
-      <span class="mobile-container-latest-flag-text">当前委托</span>
-      <!--        <div class="mobile-container-latest-flag-img" @click="openLatestHistoryFlag">历史</div>-->
-      <div class="mobile-container-latest-flag-img" @click="openAllRecords">历史</div>
+      <span class="mobile-container-latest-flag-text" :class="listType == 'currentDelegation' ? 'mobile-list-type' : ''" @click="listSwitching('currentDelegation')">当前委托</span>
+      <span class="mobile-container-latest-flag-text mobile-container-latest-right" :class="listType == 'holdPosition' ? 'mobile-list-type' : ''" @click="listSwitching('holdPosition')">持有仓位</span>
+      <div class="mobile-container-latest-flag-img" @click="openAllRecords">
+        <img class="history-icon" src="../../assets/history-icon.png" alt="">
+        历史</div>
     </div>
 
 
@@ -279,108 +281,14 @@
   </div>
 
   <!--当前委托页-->
-  <div v-if="orderType!==3 && !latestFlag" class="container-current-page" @click="ToCurrentPage">
+  <div v-if="listType == 'currentDelegation'" class="container-current-page" @click="ToCurrentPage">
     <CurrentOrder></CurrentOrder>
-
-    <!--    <div class="mobile-current-title">-->
-    <!--    <div class="mobile-current-title-all-sale">全部撤单</div>-->
-    <!--    </div>-->
-    <!--    <div class="mobile-current-list" v-for="(order,index) in currentOrderComputed" :key="order.id">-->
-    <!--    <div class="mobile-current-item">-->
-    <!--    <div class="mobile-current-item-first-line">-->
-    <!--    <div class="mobile-current-item-icon" :class="order.type==='BUY_LIMIT'?'mobile-current-item-icon-buy':'mobile-history-item-icon-sale'">-->
-    <!--    {{order.type === 'BUY_LIMIT'  && "买" || "卖"}}-->
-    <!--    </div>-->
-    <!--    <div class="mobile-current-item-compare">-->
-    <!--    {{order.symbol.split('_')[0]}}/{{order.symbol.split('_')[1]}}-->
-    <!--    </div>-->
-    <!--    <div class="mobile-current-item-volume">-->
-    <!--    成交率 {{(order.filledAmount / order.amount).toFixed(2) * 100 + '%'}}-->
-    <!--    </div>-->
-    <!--    <div class="mobile-current-item-time">-->
-    <!--    委托 {{$globalFunc.formatDateUitl(order.createdAt,'YYYY-MM-DD hh:mm:ss')}}-->
-    <!--    </div>-->
-    <!--    </div>-->
-    <!--    <div class="mobile-current-item-second-line">-->
-    <!--    <div class="mobile-current-item-price-title">单价</div>-->
-    <!--    <div class="mobile-current-item-price">{{order.price}}</div>-->
-    <!--    <div class="mobile-current-item-num-title">委托数量</div>-->
-    <!--    <div class="mobile-current-item-num">{{order.amount}}</div>-->
-
-    <!--    <div class="mobile-current-item-sale-btn">撤单</div>-->
-    <!--    </div>-->
-    <!--    </div>-->
-    <!--    </div>-->
   </div>
   <!--历史委托页-->
-  <div v-if="orderType===4" class="container-history-page">
-    <!--<div class="mobile-history-title">-->
-    <!--仅完成-->
-    <!--之后再调大按钮-->
-    <!--<a href="#" class="toggle" :class="{'toggle&#45;&#45;off':!BDBInfo,'toggle&#45;&#45;on':BDBInfo,'toggle&#45;&#45;moving':BDBChanging}" @click="clickToggle($event)"></a>-->
-    <!--</div>-->
-    <HistoryOrder>
-      <!--      <router-link to="/index/MobileHistoryOrder/" class="mobile-header-box-content-item-second">历史委托-->
-      <!--      </router-link>-->
-    </HistoryOrder>
-
-    <!--<div class="mobile-history-list" v-for="(order,index) in historyOrderComputed" :key="order.id"-->
-    <!--:class="{'show-detail':clickThis===order.id}">-->
-    <!--<div class="mobile-history-item">-->
-    <!--<div class="mobile-history-item-first-line">-->
-    <!--<div class="mobile-history-item-icon" :class="order.type==='BUY_LIMIT'?'mobile-history-item-icon-buy':'mobile-history-item-icon-sale'">-->
-    <!--{{order.type === 'BUY_LIMIT'  && "买" || "卖"}}-->
-    <!--</div>-->
-    <!--<div class="mobile-history-item-compare">-->
-    <!--{{order.symbol.split('_')[0]}}/{{order.symbol.split('_')[1]}}-->
-    <!--</div>-->
-    <!--<div class="mobile-history-item-time">-->
-    <!--委托 {{$globalFunc.formatDateUitl(order.createdAt,'YYYY-MM-DDhh:mm:ss')}}-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--<div class="mobile-history-item-second-line">-->
-    <!--<div class="mobile-history-item-price-title">单价</div>-->
-    <!--<div class="mobile-history-item-price">{{order.price}}</div>-->
-    <!--<div class="mobile-history-item-num-title">委托数量</div>-->
-    <!--<div class="mobile-history-item-num">{{order.amount}}</div>-->
-
-    <!--<div class="mobile-history-item-complete-btn">{{getStatus(order)}}</div>-->
-    <!--</div>-->
-    <!--&lt;!&ndash;控制是否显示&ndash;&gt;-->
-    <!--<div class="mobile-history-item-hidden">-->
-    <!--<div class="mobile-history-item-hidden-first-line">-->
-    <!--<div class="mobile-history-item-hidden-charge-title">手续费</div>-->
-    <!--<div class="mobile-history-item-hidden-charge">{{order.fee.toFixed(8)}} {{order.symbol.split('_')[0]}}</div>-->
-    <!--<div class="mobile-history-item-hidden-num-title">成交数量</div>-->
-    <!--<div class="mobile-history-item-hidden-num">{{order.filledAmount}} {{order.symbol.split('_')[0]}}</div>-->
-    <!--</div>-->
-    <!--<div class="mobile-history-item-hidden-second-line">-->
-    <!--<div class="mobile-history-item-hidden-charge-title">实际到账</div>-->
-    <!--<div class="mobile-history-item-hidden-charge">0.12345678 BTC</div>-->
-    <!--<div class="mobile-history-item-hidden-num-title">完成时间</div>-->
-    <!--<div class="mobile-history-item-hidden-num">03-10 12:20:30</div>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--</div>-->
-
-
+  <div v-if="listType== 'holdPosition'" class="container-current-page">
+    <PositionList></PositionList>
   </div>
 
-  <!--  <div class="tankuang" :popWindowOpen="popWindowOpen">-->
-  <!--      <div class="tabnchuancontain">-->
-  <!--        <div class="tankuangtop">-->
-  <!--          确定下单-->
-  <!--        </div>-->
-  <!--        <div class="tankuangcenter">-->
-  <!--          内容显示-->
-  <!--        </div>-->
-  <!--        <div class="tanchuangbottom">-->
-  <!--          <button>确定</button>-->
-  <!--          <button>取消</button>-->
-  <!--        </div>-->
-  <!--      </div>-->
-  <!--  </div>-->
 
   <!--弹窗-->
   <div v-if="popIdenOpen" class="lock-position-confirm-toast">

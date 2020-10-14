@@ -614,32 +614,49 @@
   height: 32px;
   line-height: 32px;
   display: flex;
-  padding: 0 10px;
+  padding: 0 0.3rem;
   align-items: center;
   background: #131F30;
-  justify-content: space-between;
+  /*justify-content: space-between;*/
   margin-top: 10px;
 }
 
 .mobile-container-latest-flag-text {
-  font-family: PingFangSC-Semibold;
-  font-size: 20px;
-  color: #FFFFFF;
-
+  font-size: 0.32rem;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #6B7DA2;
 }
 
+.mobile-list-type {
+  font-size: 0.4rem;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #CFD3E9;
+}
+
+
 .mobile-container-latest-flag-img {
-  width: 28px;
+  flex: 1;
   display: block;
-  /*height: 20px;*/
-  font-size: 14px;
-  color:#fff;
+  text-align: right;
+  font-size: 0.24rem;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #8994A5;
+}
+.mobile-container-latest-right {
+  padding-left: 0.4rem;
 }
 .bottom-box {
   height: 50px;
   width: 100%;
 }
-
+.history-icon {
+  width: 0.23rem;
+  height: 0.24rem;
+  margin-bottom: -0.04rem;
+}
 
 /*当前委托页面*/
 .mobile-current-title{

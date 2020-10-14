@@ -140,7 +140,7 @@ root.data = function () {
     //调整杠杆 End
 
     maxNotionalValue: '',   // 当前杠杆倍数下允许的最大名义价值
-
+    listType:'currentDelegation',// 当前委托currentDelegation，持有仓位holdPosition
   }
 }
 
@@ -226,7 +226,8 @@ root.components = {
   'PopupPrompt': resolve => require(['../vue/PopupPrompt'], resolve),
   'MobileTrade': resolve => require(['../vue/MobileTrade'], resolve),
   'CurrentOrder': resolve => require(['../vue/MobileCurrentOrder'], resolve),
-  'HistoryOrder': resolve => require(['../vue/MobileHistoryOrder'], resolve),
+  // 'HistoryOrder': resolve => require(['../vue/MobileHistoryOrder'], resolve),
+  'PositionList': resolve => require(['../vue/MobilePositionList'], resolve),
   'PositionModeBulletBox': resolve => require(['../vue/PositionModeBulletBox'], resolve),
 
 }
@@ -1835,6 +1836,11 @@ root.methods.re_isFirstVisit = function (data) {
 //合约全部记录
 root.methods.openAllRecords = function () {
   this.$router.push('/index/mobileContractAllRecords')
+}
+
+//当前委托，仓位持仓切换
+root.methods.listSwitching = function (listType) {
+  this.listType = listType
 }
 
 export default root;
