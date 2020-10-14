@@ -1,3 +1,5 @@
+import tradingHallData from "../../dataUtils/TradingHallDataUtils";
+
 const root = {};
 
 let interval;
@@ -8,6 +10,33 @@ root.name = 'MobileTradingHallDetail';
 
 root.data = function () {
   return {
+    /*合约仓位模式begin*/
+    positionModeFirst:'singleWarehouseMode',//单仓模式 singleWarehouseMode 双仓模式 doubleWarehouseMode
+    // positionModeFirst:'doubleWarehouseMode',//单仓模式 singleWarehouseMode 双仓模式 doubleWarehouseMode
+    positionModeFirstTemp:'',//临时存储值，等用户点击弹窗确认按钮后才真正改变positionModeFirst的值
+    positionModeSecond:'openWarehouse',//单仓 singleWarehouse 开仓 openWarehouse 平仓 closeWarehouse
+    pendingOrderType:'limitPrice',//限价 limitPrice 市价 marketPrice 限价止盈止损 limitProfitStopLoss 市价止盈止损 marketPriceProfitStopLoss
+    /*合约仓位模式end*/
+
+    /*下拉框1 begin*/
+    optionVal:'限价单',
+    optionData:['限价单','市价单','限价止盈止损','市价止盈止损'],
+    optionDataMap:{
+      '限价单':'limitPrice',
+      '市价单':'marketPrice',
+      '限价止盈止损':'limitProfitStopLoss',
+      '市价止盈止损':'marketPriceProfitStopLoss'
+    },
+    /*下拉框1 end*/
+
+    /*下拉框2 begin*/
+    latestPrice:'最新',
+    latestPriceOption:['最新','标记'],
+    /*下拉框2 end*/
+
+    triggerPrice:'', // 触发价格
+    checkPrice:2, // 限价---被动委托，生效时间选择
+    reducePositionsSelected: false,//只减仓状态
 
     // 是否可用BDB抵扣
     BDBInfo: true,
@@ -117,6 +146,15 @@ root.data = function () {
     marginModeTypeTemp:'',// 临时存储值，等用户点击弹窗确认按钮后才真正改变 marginModeType 的值
     //保证金模式End
 
+    // 仓位模式 Start
+    popWindowPositionModeBulletBox:false,
+    //  仓位模式 End
+
+    // 资金费率  下次资金费时间
+    markPrice: '', // 标记价格
+    lastFundingRate: '', // 资金费率
+    nextFundingTime: '',   // 下次资金费时间
+
   }
 }
 
@@ -190,6 +228,8 @@ root.created = function () {
 
   this.getScaleConfig();
   this.positionRisk()  // 获取仓位信息（全逐仓、杠杆倍数）
+  this.getPositionsideDual() // 获取仓位模式
+  this.getMarkPricesAndCapitalRates()  // 获取币安最新标记价格和资金费率
 
 }
 
@@ -208,7 +248,11 @@ root.components = {
 /*------------------------------ 计算 begin -------------------------------*/
 
 root.computed = {}
-
+// 计算是否有仓位和当前委托
+root.computed.isHasOrders = function (){
+  if(!this.currentLength && !this.recordsIndex) return true
+  return false
+}
 
 root.computed.currencyList = function(){
   return this.$store.state.symbol.currencyList
@@ -224,6 +268,13 @@ root.computed.capitalSymbol = function () {
 
 root.computed.name = function () {
   return this.$store.state.symbol.split('_')[1];
+}
+
+//页面功能模块显示逻辑配置信息
+root.computed.positionModeConfigs = function () {
+  let data = tradingHallData.positionModeConfigs;
+  // console.log(data);
+  return data
 }
 
 // 深度图百分比  如果是 ETH->BTC的，数量超过10就满，BDB->BTC或BDB->ETH的，超过10万才满,ICC->BTC超过100万才满
@@ -305,7 +356,116 @@ root.computed.maxPosition = function () {
 
 /*------------------------------ 方法 begin -------------------------------*/
 
-root.methods = {};
+root.methods = {}
+// 获取币安最新标记价格和资金费率
+root.methods.getMarkPricesAndCapitalRates = function () {
+  this.$http.send('GET_MARKET_PRICE',{
+    bind: this,
+    query:{
+      symbol:this.symbol
+    },
+    callBack: this.re_getMarkPricesAndCapitalRates,
+    errorHandler:this.error_getMarkPricesAndCapitalRates
+  })
+}
+// 获取币安最新标记价格和资金费率正确回调
+root.methods.re_getMarkPricesAndCapitalRates = function (data) {
+  typeof(data) == 'string' && (data = JSON.parse(data));
+  // console.info('data========',data.data[0])
+  this.markPrice = (data.data[0].markPrice || '').toString()
+  this.lastFundingRate = data.data[0].lastFundingRate || '--'
+  this.nextFundingTime = data.data[0].nextFundingTime || '--'
+//
+}
+// 获取币安最新标记价格和资金费率错误回调
+root.methods.error_getMarkPricesAndCapitalRates = function (err) {
+  console.log('获取币安24小时价格变动接口',err)
+}
+
+
+// TODO 仓位模式Start
+//打开仓位模式
+root.methods.turnOnLocationMode = function () {
+  this.positionModeFirstTemp = this.positionModeFirst;//打开弹窗前需要初始化positionModeFirstTemp的值，必须和positionModeFirst一致
+  this.popWindowPositionModeBulletBox = true
+}
+// TODO 仓位模式
+root.methods.popWindowClosePositionModeBulletBox = function () {
+  this.popWindowPositionModeBulletBox = false
+  this.positionModeFirstTemp = this.positionModeFirst;//直接关闭弹窗后需要还原positionModeFirstTemp的值，必须和positionModeFirst一致
+}
+// TODO 仓位模式选择
+root.methods.positionModeSelected = function (type) {
+  this.positionModeFirstTemp = type
+}
+// 获取仓位模式
+root.methods.getPositionsideDual = function () {
+  this.$http.send('GET_POSITIONSIDE_DUAL',{
+    bind: this,
+    callBack: this.re_getPositionsideDual,
+    errorHandler:this.error_getPositionsideDual
+  })
+}
+// 获取仓位模式正确回调
+root.methods.re_getPositionsideDual = function (data) {
+  typeof(data) == 'string' && (data = JSON.parse(data));
+  if(data.data.dualSidePosition){
+    this.dualSidePosition = true
+    this.positionModeFirst = 'doubleWarehouseMode'
+    return
+  }
+  this.dualSidePosition = false
+  this.positionModeFirst = 'singleWarehouseMode'
+}
+// 获取仓位模式错误回调
+root.methods.error_getPositionsideDual = function (err) {
+  console.log('获取币安获取仓位模式接口',err)
+}
+
+// 仓位模式选择确认
+root.methods.positionModeSelectedConfirm = function () {
+  // 如果是相同仓位切换，直接关闭
+  if((this.dualSidePosition == false && this.positionModeFirstTemp == 'singleWarehouseMode') || (this.dualSidePosition == true && this.positionModeFirstTemp == 'doubleWarehouseMode')){
+    this.popWindowPositionModeBulletBox = false
+    return
+  }
+  if(!this.isHasOrders){
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '您可能存在挂单或仓位，不支持调整仓位模式';
+    return
+  }
+  this.$http.send('POST_SINGLE_DOUBLE',{
+    bind: this,
+    params:{
+      dualSidePosition: this.positionModeFirst == 'singleWarehouseMode' ? "true" : "false",
+      // timestamp: this.serverTime
+    },
+    callBack: this.re_positionModeSelectedConfirm,
+    errorHandler:this.error_positionModeSelectedConfirm
+  })
+}
+// 仓位模式选择确认正确回调
+root.methods.re_positionModeSelectedConfirm = function (data) {
+  typeof(data) == 'string' && (data = JSON.parse(data));
+  if(!data && !data.data)return
+  this.promptOpen = true;
+  if (data.code == 200) {
+    this.popType = 1;
+    this.popText = '调整仓位模式成功';
+    this.positionModeFirst = this.positionModeFirstTemp;
+    this.getPositionsideDual()
+    this.popWindowPositionModeBulletBox = false
+    return
+  }
+  this.popType = 0;
+  this.popText = '调整仓位模式失败';
+}
+// 仓位模式选择确认错误回调
+root.methods.error_positionModeSelectedConfirm = function (err) {
+  console.log('仓位模式选择确认接口',err)
+}
+
 
 // 跳转计算器
 root.methods.goToCalculator = function () {
@@ -384,6 +544,55 @@ root.methods.re_marginModeConfirm = function (data) {
 }
 root.methods.error_marginModeConfirm = function (err) {
 }
+
+//订单大分类
+root.methods.changeOptionData = function (v) {
+  this.optionVal = v
+  this.pendingOrderType = this.optionDataMap[v]
+}
+//最新、标记
+root.methods.changeLatestPriceOption = function (v) {
+  this.latestPrice = v
+}
+
+//仓位模式二级切换 Start
+root.methods.changePositionModeSecond = function (type) {
+  this.positionModeSecond = type;
+}
+//仓位模式二级切换 End
+
+//页面功能模块显示逻辑判断 Start
+root.methods.isHasModule = function (type) {
+  let isHas = '';
+  //单仓模式
+  if(this.positionModeFirst == 'singleWarehouseMode'){
+    isHas = this.positionModeConfigs[this.positionModeFirst][this.pendingOrderType][type]
+    // console.log('singleWarehouseMode-' + type,isHas);
+    return isHas
+  }
+  //双仓模式
+  isHas = this.positionModeConfigs[this.positionModeFirst][this.positionModeSecond][this.pendingOrderType][type]
+  // console.log(type,isHas);
+  return isHas
+}
+//页面功能模块显示逻辑判断 End
+
+//被动委托 start
+root.methods.priceLimitSelection = function (checkPrice) {
+  this.checkPrice = checkPrice
+  if(checkPrice == 2) {
+    this.effectiveTime = 'GTC'
+    return
+  }
+  this.effectiveTime = 'GTX'
+}
+//被动委托 end
+
+//只减仓 start
+root.methods.changeReducePositions = function(){
+  this.reducePositionsSelected = !this.reducePositionsSelected
+}
+//只减仓 end
 
 
 // 获取仓位信息
