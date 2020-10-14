@@ -931,6 +931,8 @@ root.routes.push({
   component: resolve => require(['@/components/vue/IndexAboutUs'], resolve),
 })
 
+
+
 // 关于我们页面
 root.routes.push({
   path: '/index/joinUs',
@@ -970,6 +972,19 @@ root.routes.push({
   name: 'H5homePage',
   component: resolve => require(['@/components/mobileVue/H5HomePage'], resolve),
 })
+// 计算器页面
+root.routes.push({
+  path: '/index/mobileCalculator',
+  name:'mobileCalculator',
+  // redirect: '/index/mobileTradingHallDetail',
+  meta: {
+    requireLogin: false,
+    pcname: '',
+    h5name: 'mobileCalculator',
+  },
+  caseSensitive: true,
+  component: resolve => require(['@/components/vue/MobileCalculator'], resolve),
+}),
 
 // 2018.4.4 新H5首页
 // root.routes.push({
@@ -1136,6 +1151,7 @@ root.routes.push({
       },
       component: resolve => require(['@/components/mobileVue/MobileTradingHallDetail'], resolve),
     },
+
     // 交易大厅H5临时开放etail
     // {
     //   path: 'mobileTradingHallDetailTemporary/ss/ewq123/dfa/23213/4433xx/temporary',

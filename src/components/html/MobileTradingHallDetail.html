@@ -12,7 +12,7 @@
       <!--弹框按钮-->
       <div class="flex">
         <div class="leaver" @click="">双向</div>
-        <div class="leaver" @click="">逐仓</div>
+        <div class="leaver" @click="openSecurityDepositMode">逐仓</div>
         <div class="leaver" @click="openLever">{{leverage}}X</div>
       </div>
     </div>
@@ -21,7 +21,7 @@
         <div class="hangqingkline" @click="openkexian()">
           <img src="../../assets/H5img/hangqkline.png" alt="">
         </div>
-        <div class="hangqingkline" @click="">
+        <div class="hangqingkline" @click="goToCalculator()">
           <img src="../../assets/H5img/calculator.png" alt="">
         </div>
       </div>
@@ -410,7 +410,7 @@
   <!--  调整杠杆 Strat-->
   <PositionModeBulletBox :switch="popWindowAdjustingLever" @close="popWindowCloseAdjustingLever" >
     <div slot="header">
-      <div class="position-mode-tit">调整杠杆</div>
+      <div>调整杠杆</div>
     </div>
     <div slot="article"class="pop-lock-house">
       <div class="body">
@@ -445,6 +445,31 @@
     </div>
   </PositionModeBulletBox>
   <!--  调整杠杆 End-->
+
+  <!--  保证金模式 Strat-->
+  <PositionModeBulletBox :switch="popWindowSecurityDepositMode" @close="popWindowCloseSecurityDepositMode" :pop_width="true">
+    <div slot="header">
+      <div class="position-mode-tit">{{capitalSymbol}}保证金模式</div>
+    </div>
+    <div slot="article"class="pop-lock-house">
+      <div class="flex">
+        <div class="selected-mode selected-cardType-left" :class="{'selected-cardType-mode':marginModeTypeTemp == 'quanCang'}" @click="securityDepositMode('quanCang')">全仓</div>
+        <div class="selected-mode" :class="{'selected-cardType-mode':marginModeTypeTemp == 'zhuCang'}" @click="securityDepositMode('zhuCang')">逐仓</div>
+      </div>
+      <div class="mode-only">· 调整保证金模式仅对当前合约生效。</div>
+      <!--      TODO: 防止报错，先在这里保留  v-if="!isHasOrders"-->
+      <div class="mode-error" >当前合约存在持仓和挂单，不支持调整保证金模式</div>
+      <div class="money-confirmation-commit" @click="marginModeConfirm">确认</div>
+      <!--确认不可点击状态-->
+      <!--      <div class="money-confirmation-ash">确认</div>-->
+      <div class="money-explanation">
+        <div class="money-explanation-one">什么是全仓和逐仓模式？</div>
+        <div class="money-explanation-two">全仓保证金模式: 所有仓位共用合约账户中的保证金来避免仓位被强平。在强平事件中，交易者可能会损失所有的保证金和仓位。</div>
+        <div class="money-explanation-three">逐仓保证金模式: 一定数量保证金被分配到仓位上。如果仓位保证金亏损到低于维持保证金的水平，仓位将被强平。在逐仓模式下，您可以为这个仓位添加和减少保证金。</div>
+      </div>
+    </div>
+  </PositionModeBulletBox>
+  <!--  保证金模式 End-->
 
   <div v-if="toastNobindShow" class="toast-window-nobind-email">
     <div class="toast-box-nobind-email">

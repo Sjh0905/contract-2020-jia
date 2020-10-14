@@ -81,19 +81,16 @@ root.data = function () {
     list: [],
     // 点击效果
     btn_click: false,
-
     toastNobindShow: false,
 
     isshowhangq:false,
 
     currency_list:[],
-
     KKPriceRange:[],
-
     popIdenOpen: false, // 弹窗开放
-
     priceCont:'',
-    // 调整杠杆
+
+    // 调整杠杆 Start
     leverage:20, // 杠杆倍数
     popWindowAdjustingLever:false,
     popTextLeverage:'',
@@ -108,9 +105,17 @@ root.data = function () {
     },
     // 显示的最大头寸数值
     maximumPosition : ['50,000','250,000','100,0000','5,000,000','20,000,000','50,000,000','100,000,000','200,000,000'],
+    maxNotionalValue: '',   // 当前杠杆倍数下允许的最大名义价值
     //调整杠杆 End
 
-    maxNotionalValue: '',   // 当前杠杆倍数下允许的最大名义价值
+
+    //保证金模式Strat
+    popWindowSecurityDepositMode: false,
+    // cardType:1, //仓位模式选择初始值
+    marginModeType: 'quanCang',  // "quanCang":全仓  "zhuCang":逐仓
+    marginType: 'CROSSED', // 全仓逐仓
+    marginModeTypeTemp:'',// 临时存储值，等用户点击弹窗确认按钮后才真正改变 marginModeType 的值
+    //保证金模式End
 
   }
 }
@@ -301,6 +306,86 @@ root.computed.maxPosition = function () {
 /*------------------------------ 方法 begin -------------------------------*/
 
 root.methods = {};
+
+// 跳转计算器
+root.methods.goToCalculator = function () {
+  this.$router.push({name: 'mobileCalculator'})
+}
+
+// 保证金模式弹框 start
+// 打开全仓逐仓弹窗
+root.methods.openSecurityDepositMode = function () {
+  this.marginModeTypeTemp = this.marginModeType
+  this.popWindowSecurityDepositMode = true
+}
+
+//保证金模式
+root.methods.popWindowCloseSecurityDepositMode = function () {
+  this.marginModeTypeTemp = this.marginModeType
+  this.popWindowSecurityDepositMode = false
+}
+
+// 切换保证金模式
+root.methods.securityDepositMode = function (cardType) {
+  this.marginModeTypeTemp = cardType
+}
+
+// 切换全仓逐仓
+root.methods.marginModeConfirm = function () {
+  if ((this.marginType == 'CROSSED' && this.marginModeTypeTemp == 'quanCang')|| (this.marginType == 'ISOLATED' && this.marginModeTypeTemp == 'zhuCang')) {
+    this.popType = 0;
+    this.popText = '暂不需要调整保证金模式';
+    this.promptOpen = true;
+    return
+  }
+  if(!this.isHasOrders){
+    this.popType = 0;
+    this.popText = '您可能存在挂单或仓位，不支持调整保证金模式';
+    this.promptOpen = true;
+    return
+  }
+
+  // if (this.marginModeTypeTemp == 'zhuCang') {
+  //   this.marginModeType = 'zhuCang'
+  //   return
+  // }
+  this.$http.send('POST_MARGIN_TYPE',{
+    bind: this,
+    params:{
+      "symbol": "BTCUSDT",
+      "marginType": this.marginType == 'ISOLATED' ? "CROSSED": "ISOLATED"
+    },
+    callBack: this.re_marginModeConfirm,
+    errorHandler:this.error_marginModeConfirm
+  })
+}
+root.methods.re_marginModeConfirm = function (data) {
+  typeof(data) == 'string' && (data = JSON.parse(data));
+  if(data.code == 200) {
+    this.popType = 1;
+    this.popText = '调整保证金模式成功';
+    this.promptOpen = true;
+    if (this.marginType == 'ISOLATED') {
+      this.marginModeType = 'quanCang'
+      this.popWindowCloseSecurityDepositMode()
+      this.positionRisk()
+      return
+    }
+    if (this.marginType == 'CROSSED') {
+      this.marginModeType = 'zhuCang'
+    }
+    this.positionRisk()
+    this.popWindowCloseSecurityDepositMode()
+    return
+  }
+  this.popType = 0;
+  this.popText = '调整保证金模式失败';
+  this.promptOpen = true;
+}
+root.methods.error_marginModeConfirm = function (err) {
+}
+
+
 // 获取仓位信息
 root.methods.positionRisk = function () {
   this.$http.send('GET_POSITION_RISK',{
