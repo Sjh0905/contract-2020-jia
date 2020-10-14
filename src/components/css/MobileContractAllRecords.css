@@ -1,0 +1,276 @@
+.mobile-follow-trade{
+  background: #F7F7FB;
+  height: 100%;
+  /*overflow-y: hidden;*/
+}
+/*非ios头部 样式Start*/
+.fund-buy-header-title {
+  height: 0.88rem;
+  width: 100%;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  background: #fff;
+  z-index: 100;
+  border-bottom: 0.02rem solid #F7F8FA ;
+}
+.fund-buy {
+  position: absolute;
+  top: 0.2rem;
+  right: 0.3rem;
+  width: 0.48rem;
+  height: 0.48rem;
+}
+
+.fund-buy-header-title-back-icon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0.88rem;
+  height: 0.88rem;
+}
+
+.fund-buy-header-title-back-icon-img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0.32rem;
+  transform: translate(-50%,-50%);
+}
+.fund-buy-header-title-text {
+  height:0.44rem;
+  font-size:0.32rem;
+  font-family:PingFangSC-Semibold,PingFang SC;
+  font-weight:600;
+  color:rgba(11,11,39,1);
+  line-height:0.44rem;
+}
+/*非ios头部 样式End*/
+
+.header-title-list-top {
+  width: 100%;
+  margin-top: 0.88rem;
+  background: #FFFFFF;
+}
+
+.header-title-list{
+  position: fixed;
+  width: 100%;
+  /*margin-top: 0.88rem;*/
+  height: 0.88rem;
+  line-height: 0.88rem;
+  /*background: #081724;*/
+  background: #FFFFFF;
+  display: flex;
+  justify-content: space-around;
+}
+.header-title-item{
+  /*width: 1.6rem;*/
+  height: 0.88rem;
+  line-height: 0.88rem;
+  box-sizing: border-box;
+  /*margin: 0 1rem;*/
+  text-align: center;
+  /*border-bottom: 2px solid #131F30;*/
+  color: #ACBDDE;
+}
+.header-title-item-active{
+  border-bottom: 2px solid #3576F5;
+  color: #0B0B27;
+}
+.container-box {
+  /*padding: 0 0.3rem;*/
+  height: 100%;
+}
+.container-box-zi {
+  /*padding: 0 0.3rem;*/
+  /*height: 100%;*/
+  position: fixed;
+  top: 1rem;
+}
+.tr-th {
+  padding: 0 0.3rem;
+  width: 7.5rem;
+  height: 0.8rem;
+  line-height: 0.8rem;
+  font-size: 0.24rem;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #8193B5;
+  background-color: #F7F7FB;
+}
+.container-tr-th {
+  margin-top: 0.76rem;
+  padding: 0 0.3rem;
+  width: 7.5rem;
+  height: 0.8rem;
+  line-height: 0.8rem;
+  font-size: 0.24rem;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #8193B5;
+  background-color: #F7F7FB;
+}
+.td-time1 {
+  flex: 1;
+}
+.td-time {
+  flex: 0.8;
+}
+.tar {
+  text-align: right;
+}
+.withdraw-list {
+  height: 100%;
+  padding-top: 0.94rem;
+}
+.con-withdraw-list {
+  height: 100%;
+  padding-top: 1.7rem;
+}
+.withdraw-item {
+  background-color: #FFFFFF;
+  padding: 0 0.3rem;
+  height: 1.13rem;
+}
+.histor-withdraw-item {
+  background-color: #FFFFFF;
+  padding: 0 0.3rem;
+}
+.asset-text {
+  font-size: 0.24rem;
+  font-family: Roboto-Regular, Roboto;
+  font-weight: 400;
+  color: #193662;
+  margin-top: 0.26rem;
+}
+.pt {
+  padding-top: 0.06rem;
+}
+.time-text {
+
+  font-size: 0.24rem;
+  font-family: Roboto-Regular, Roboto;
+  font-weight: 400;
+  color: #8994A5;
+}
+.incomeType-text {
+  line-height: 1.13rem;
+  font-size: 0.24rem;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #0D0E23;
+}
+.income-text {
+  line-height: 1.13rem;
+  font-size: 0.24rem;
+  font-family: Roboto-Regular, Roboto;
+  font-weight: 400;
+  color: #172A4D;
+}
+
+
+/*历史成交*/
+.text_blue-3 {
+  height: 0.4rem;
+  line-height: 0.4rem;
+  padding: 0 0.08rem;
+  background-color: rgba(52,167,83,0.1);
+  border-radius: 0.03rem;
+  font-size: 0.29rem;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #34A753;
+}
+.text_red-4 {
+  height: 0.4rem;
+  line-height: 0.4rem;
+  padding: 0 0.08rem;
+  background-color: rgba(239,86,86,0.1);
+  border-radius: 0.03rem;
+  font-size: 0.29rem;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #EF5656;
+}
+.symbol-flex {
+  flex: 0.25;
+  font-size: 0.29rem;
+  font-family: Roboto-Medium, Roboto;
+  font-weight: 500;
+  color: #172A4D;
+}
+.padding-bot {
+  padding-bottom: 0.28rem;
+}
+.piaoti-text {
+  font-size: 0.24rem;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+}
+.color-piaoti-text {
+  color: #949EAE;
+}
+.color-text {
+  color: #183057;
+  padding: 0.12rem 0 0.3rem 0 ;
+}
+.border-bot {
+  padding-top: 0.3rem;
+  border-bottom: 0.02rem solid #F7F7FB;
+}
+
+/*没有记录*/
+.no-item-box {
+  background: #F7F7FB;
+  /*width: 4rem;*/
+  /*margin: 4.04rem auto auto;*/
+}
+
+.no-item-box-item{
+  /*width: 1.2rem;*/
+  display: block;
+  margin: 0 auto;
+  padding-top: 3.04rem;
+}
+
+.no-item-box-text{
+  margin-top: 0.12rem;
+  text-align: center;
+  font-size: 0.28rem;
+  font-family: PingFangSC-Regular,PingFang SC;
+  font-weight: 400;
+  color: #6B7DA2;
+}
+.no-item-box-cheng{
+  font-size: 0.24rem;
+  font-family: PingFangSC-Regular,PingFang SC;
+  font-weight: 400;
+  color: #6B7DA2;
+}
+.td-category {
+  margin-left: 0.3rem;
+}
+.td-category-text {
+  font-size: 0.29rem;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #172A4D;
+}
+.color-trans {
+  color: transparent;
+}
+.color-A {
+  color: #8994A5;
+}
+.color-D {
+  color: #172A4D;
+}
+.margin-bot2 {
+  margin-bottom: 0.2rem;
+}
+.margin-bot1 {
+  margin-bottom: 0.06rem;
+}

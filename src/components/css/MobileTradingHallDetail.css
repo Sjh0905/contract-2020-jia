@@ -314,7 +314,7 @@
 }
 
 .mobile-select-num{
-  margin-top: 0.22rem;
+  margin-top: 0.06rem;
   margin-bottom: 0.22rem;
   font-size: 0;
 }
@@ -357,7 +357,7 @@
   height: 0.36rem;
   line-height: 0.36rem;
   font-size: 0.24rem;
-  font-family: PingFangSC-Regular, PingFang SC;
+  /*font-family: PingFangSC-Regular, PingFang SC;*/
   font-weight: 400;
   color: #A2B5D9;
 }
@@ -368,20 +368,20 @@
 
 .passive-delegation-icon {
   margin-right: 0.18rem;
-  width: 0.28rem;
-  height: 0.28rem;
+  width: 0.26rem;
+  height: 0.26rem;
 }
 
 .passive-delegation-text {
   font-size:0.24rem;
   font-family:PingFangSC-Regular,PingFang SC;
-  font-weight:400;
+  /*font-weight:400;*/
   color:rgba(162,181,217,1);
-  line-height:0.34rem;
+  /*line-height:17px;*/
 }
 
 .reduce-positions {
-  margin-top: 0.12rem;
+  /*margin-top: 0.12rem;*/
   height: 0.36rem;
   margin-right: 0.5rem;
   padding-right: 0.5rem;
@@ -396,22 +396,26 @@
   height: 0.32rem;
 }
 .security-deposit{
-  margin-top: 0.12rem;
+  margin-top: 0.20rem;
+  margin-bottom: -0.06rem;
+}
+.security-deposit2{
+  margin-top: 0.20rem;
 }
 
 .security-deposit-text {
   font-size: 0.24rem;
-  font-family: PingFangSC-Medium, PingFang SC;
-  font-weight: 500;
+  /*font-family: PingFang SC;*/
+  /*font-weight: 500;*/
   color: #A2B5D9;
   line-height: 0.32rem;
   margin-right: 0.54rem;
 }
 
 .security-deposit-amount {
-  font-size: 0.28rem;
-  font-family: Roboto-Medium, Roboto;
-  font-weight: 500;
+  font-size: 0.24rem;
+  /*font-family: PingFang SC;*/
+  /*font-weight: 500;*/
   color: #CFD3E9;
   line-height: 0.32rem;
 }
@@ -420,7 +424,12 @@
   margin-top: 0.12rem;
 }
 
+.can-be-opened2 {
+  margin-top: 0.18rem;
+}
+
 .mobile-buy-btn{
+  margin-top: 0.06rem;
   width: 3.4rem;
   box-sizing: border-box;
   height: 0.72rem;
@@ -432,8 +441,13 @@
   border-radius: 1.5px;
 }
 
-.click_active{
-  background: rgba(255,255,255,.4) !important;
+.mobile-sell-btn{
+  background-color: #EF5656;
+}
+
+.mobile-buy-btn:active{
+  opacity: 0.92;
+  /*background: rgba(255,255,255,.4) !important;*/
 }
 
 .container-sell-page .mobile-buy-btn{

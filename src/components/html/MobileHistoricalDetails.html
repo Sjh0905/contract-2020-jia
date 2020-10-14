@@ -1,0 +1,79 @@
+<div class="mobile-follow-trade">
+  <!--ios status栏-->
+  <div v-if="(isApp)" class="mobile-status-bar-ios"/>
+  <div v-if="(isApp)" class="mobile-status-bar-bg-ios"/>
+
+  <!--头部-->
+  <div :class="(isApp) ? 'mobile-header-ios' : 'fund-buy-header-title' ">
+    <div class="fund-buy-header-title-back-icon" @click="jumpToBack">
+      <img class="fund-buy-header-title-back-icon-img" src="../../assets/back_icon.png" alt="">
+    </div>
+    <div class="fund-buy-header-title-text">合约记录</div>
+  </div>
+
+  <!--  历史委托-->
+  <div class="container-box">
+    <!--没有记录的样式-->
+    <div v-if="histortyOrderDetail.length === 0" class="no-item-box">
+      <img class="no-item-box-item" src="../../assets/no-record-icon-H5@2x.png" alt="">
+      <div class="no-item-box-text">暂无记录</div>
+    </div>
+    <!--有=记录的样子-->
+    <div v-if="histortyOrderDetail.length !== 0" class="withdraw-list">
+      <div v-for="(order,index) in histortyOrderDetail" :key="order.id" class="histor-withdraw-item border-bot"
+           @click="showDetail(order)">
+        <!--时间-->
+        <div class="flex padding-bot">
+          <!-- 币种-->
+          <div class="symbol-flex">{{order.symbol}}</div>
+          <!--方向-->
+          <div class="td-category" :class="order.side==='BUY'?'text_blue-3':'text_red-4'">
+            {{$globalFunc.getOrderSide(order.positionSide,order.side)}}
+          </div>
+          <!--订单类型 begin -->
+          <div class="td-category td-category-text" v-if="order.type == 'LIMIT'">限价单</div>
+          <div class="td-category td-category-text" v-if="order.type == 'MARKET'">市价单</div>
+          <div class="td-category td-category-text" v-if="order.type == 'STOP'">止损限价单</div>
+          <div class="td-category td-category-text" v-if="order.type == 'STOP_MARKET'">止损市价单</div>
+          <div class="td-category td-category-text" v-if="order.type == 'TAKE_PROFIT'">止盈限价单</div>
+          <div class="td-category td-category-text" v-if="order.type == 'TAKE_PROFIT_MARKET'">止盈市价单</div>
+          <div class="td-category td-category-text" v-if="order.type == 'TRAILING_STOP_MARKET'">跟踪止损单</div>
+          <!--订单类型 end -->
+          <!--时间-->
+          <div class="td-time tar time-text">{{$globalFunc.formatDateUitl(order.time,'MM-DD hh:mm')}}</div>
+        </div>
+
+        <div class="flex margin-bot2">
+          <div class="td-time1 piaoti-text color-A">
+            <div class="td-time margin-bot1">数量</div>
+            <div class="td-time margin-bot1">价格</div>
+            <div class="td-time margin-bot1">成交均价</div>
+            <div class="td-time1">只减仓</div>
+          </div>
+          <div class="td-time1 piaoti-text color-D">
+            <div class="td-time margin-bot1">{{toFixed(order.executedQty,3)}}</div>
+            <div class="td-time margin-bot1">{{order.price != 0 ? toFixed(order.price, 2) : '--'}}</div>
+            <div class="td-time margin-bot1">{{order.avgPrice !=0 ? toFixed(order.avgPrice, 2) : '--'}}</div>
+            <div class="td-time1">{{order.reduceOnly? '是':'否'}}</div>
+          </div>
+          <div class="td-time1 piaoti-text no-item-box-cheng">
+            <div class="td-time color-trans margin-bot1">--</div>
+            <div class="td-time color-trans margin-bot1">--</div>
+            <div class="td-time color-trans margin-bot1">--</div>
+            <!--              <div class="td-time1 tar"></div>&lt;!&ndash;状态 begin &ndash;&gt;-->
+            <div class="td-time1 tar" v-if="order.status == 'NEW'">新建订单</div>
+            <div class="td-time1 tar" v-if="order.status == 'PARTIALLY_FILLED'">部分成交</div>
+            <div class="td-time1 tar" v-if="order.status == 'FILLED'">全部成交
+              <!--                <img class="drop-down" src="../../assets/drop_down.png" alt=""></div>-->
+            </div>
+            <div class="td-time1 tar" v-if="order.status == 'CANCELED'">已撤销</div>
+            <div class="td-time1 tar" v-if="order.status == 'REJECTED'">订单被拒绝</div>
+            <div class="td-time1 tar" v-if="order.status == 'EXPIRED'">订单过期</div>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+</div>

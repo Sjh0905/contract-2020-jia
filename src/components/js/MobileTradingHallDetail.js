@@ -42,7 +42,7 @@ root.data = function () {
     BDBInfo: true,
     BDBReady: false,
 
-    openType: this.$store.state.buy_or_sale_type || 1,
+    orderType: this.$store.state.buy_or_sale_type || 0,
 
     // 买卖form右侧
     is_right: false,
@@ -230,6 +230,8 @@ root.created = function () {
   this.positionRisk()  // 获取仓位信息（全逐仓、杠杆倍数）
   this.getPositionsideDual() // 获取仓位模式
   this.getMarkPricesAndCapitalRates()  // 获取币安最新标记价格和资金费率
+
+  this.isFirstVisit();
 
 }
 
@@ -907,8 +909,8 @@ root.methods.popIdenClose = function () {
 // 点击确定
 root.methods.popIdenComfirms = function () {
   this.popIdenOpen = false
-  let orderType = this.orderType;
-  this.tradeMarket(false,orderType)
+  let orderTypeOrigin = this.orderTypeOrigin;
+  this.tradeMarket(false,orderTypeOrigin)
 }
 
 root.methods.comparePriceNow = function () {
@@ -928,7 +930,7 @@ root.methods.comparePriceNow = function () {
 
 // 提交买入或卖出
 root.methods.tradeMarket = function (popIdenOpen,type) {
-  this.orderType = type;
+  this.orderTypeOrigin = type;
   // 按钮添加点击效果
   this.BTN_CLICK();
 
@@ -1260,7 +1262,7 @@ root.methods.RE_ACCOUNTS = function (data) {
 // 百分比切换
 root.methods.sectionSelect = function (num) {
 	this.numed = num
-  if (this.openType != 1) {
+  if (this.orderType != 0) {
     // this.transaction_amount = (this.currentSymbol.balance_order * num).toFixed(this.baseScale)
     // console.log(this.baseScale)
     this.transaction_amount = this.$globalFunc.accFixed(this.currentSymbol.balance_order * num, this.baseScale);
@@ -1274,7 +1276,7 @@ root.methods.sectionSelect = function (num) {
 
 root.methods.sectionSelect2 = function (num) {
 	this.numed2 = num
-	if (this.openType != 1) {
+	if (this.orderType != 0) {
 		// this.transaction_amount = (this.currentSymbol.balance_order * num).toFixed(this.baseScale)
 		// console.log(this.baseScale)
 		this.transaction_amount = this.$globalFunc.accFixed(this.currentSymbol.balance_order * num, this.baseScale);
@@ -1369,18 +1371,18 @@ root.methods.symbolList_priceList = function (symbol_list) {
 
 // 切换tab
 root.methods.changeType = function (typeNum) {
-  this.openType = typeNum;
+  this.orderType = typeNum;
   this.latestFlag = false;
-  if (typeNum === 1) {
+  if (typeNum === 0) {
     this.$store.commit('changeMobileHeaderTitle', '买入');
   }
-  if (typeNum === 2) {
+  if (typeNum === 1) {
     this.$store.commit('changeMobileHeaderTitle', '卖出');
   }
-  if (typeNum === 3) {
+  if (typeNum === 2) {
     this.$store.commit('changeMobileHeaderTitle', '当前委托');
   }
-  if (typeNum === 4) {
+  if (typeNum === 3) {
     this.$store.commit('changeMobileHeaderTitle', '历史委托');
   }
   // 切换买入卖出时候需要清空数量
@@ -2012,5 +2014,36 @@ root.methods.ToCurrentPage = function(){
   this.$router.push('MobileTradingHallDetail')
 }
 
+
+// // 合约首次风险提示弹窗关闭确认按钮
+// root.methods.popCloseTemporarilyClosed = function () {
+//   this.popWindowContractRiskWarning = false
+//   window.location.replace(this.$store.state.contract_url + 'index/tradingHall?symbol=KK_USDT');
+// }
+
+// 第一次进入是否弹窗
+root.methods.isFirstVisit = function () {
+  // this.$http.send('POST_MANAGE_TIME', {
+  this.$http.send('POST_MANAGE_API',{
+    bind: this,
+    callBack: this.re_isFirstVisit
+  })
+}
+root.methods.re_isFirstVisit = function (data) {
+  typeof(data) == 'string' && (data = JSON.parse(data));
+  if (data.code == 1000) {
+    this.$router.push({'path': '/index/contractRiskWarning'})
+  }
+  // this.$router.push({'path': '/index/contractRiskWarning'})
+  // } else {
+  //   this.$router.push({'path':'index/mobileTradingHallDetail'})
+  //   // this.$router.push({'path':'/index/contractRiskWarning'})
+  // }
+}
+
+//合约全部记录
+root.methods.openAllRecords = function () {
+  this.$router.push('/index/mobileContractAllRecords')
+}
 
 export default root;
