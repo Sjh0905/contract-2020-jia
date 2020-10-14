@@ -1,3 +1,5 @@
+import tradingHallData from "../../dataUtils/TradingHallDataUtils";
+
 const root = {};
 
 let interval;
@@ -8,12 +10,39 @@ root.name = 'MobileTradingHallDetail';
 
 root.data = function () {
   return {
+    /*合约仓位模式begin*/
+    positionModeFirst:'singleWarehouseMode',//单仓模式 singleWarehouseMode 双仓模式 doubleWarehouseMode
+    // positionModeFirst:'doubleWarehouseMode',//单仓模式 singleWarehouseMode 双仓模式 doubleWarehouseMode
+    positionModeFirstTemp:'',//临时存储值，等用户点击弹窗确认按钮后才真正改变positionModeFirst的值
+    positionModeSecond:'openWarehouse',//单仓 singleWarehouse 开仓 openWarehouse 平仓 closeWarehouse
+    pendingOrderType:'limitPrice',//限价 limitPrice 市价 marketPrice 限价止盈止损 limitProfitStopLoss 市价止盈止损 marketPriceProfitStopLoss
+    /*合约仓位模式end*/
+
+    /*下拉框1 begin*/
+    optionVal:'限价单',
+    optionData:['限价单','市价单','限价止盈止损','市价止盈止损'],
+    optionDataMap:{
+      '限价单':'limitPrice',
+      '市价单':'marketPrice',
+      '限价止盈止损':'limitProfitStopLoss',
+      '市价止盈止损':'marketPriceProfitStopLoss'
+    },
+    /*下拉框1 end*/
+
+    /*下拉框2 begin*/
+    latestPrice:'最新',
+    latestPriceOption:['最新','标记'],
+    /*下拉框2 end*/
+
+    triggerPrice:'', // 触发价格
+    checkPrice:2, // 限价---被动委托，生效时间选择
+    reducePositionsSelected: false,//只减仓状态
 
     // 是否可用BDB抵扣
     BDBInfo: true,
     BDBReady: false,
 
-    openType: this.$store.state.buy_or_sale_type || 1,
+    orderType: this.$store.state.buy_or_sale_type || 0,
 
     // 买卖form右侧
     is_right: false,
@@ -92,7 +121,25 @@ root.data = function () {
 
     popIdenOpen: false, // 弹窗开放
 
-    priceCont:''
+    priceCont:'',
+    // 调整杠杆
+    leverage:20, // 杠杆倍数
+    popWindowAdjustingLever:false,
+    popTextLeverage:'',
+    value: 0,
+    marks: {
+      1: '1X',
+      25: '25X',
+      50: '50X',
+      75:'75X',
+      100:'100X',
+      125:'125X',
+    },
+    // 显示的最大头寸数值
+    maximumPosition : ['50,000','250,000','100,0000','5,000,000','20,000,000','50,000,000','100,000,000','200,000,000'],
+    //调整杠杆 End
+
+    maxNotionalValue: '',   // 当前杠杆倍数下允许的最大名义价值
 
   }
 }
@@ -166,6 +213,7 @@ root.created = function () {
   // interval = setInterval(this.GET_LATEST_DEAL, 2000);
 
   this.getScaleConfig();
+  this.positionRisk()  // 获取仓位信息（全逐仓、杠杆倍数）
 
   this.isFirstVisit();
 
@@ -179,6 +227,8 @@ root.components = {
   'MobileTrade': resolve => require(['../vue/MobileTrade'], resolve),
   'CurrentOrder': resolve => require(['../vue/MobileCurrentOrder'], resolve),
   'HistoryOrder': resolve => require(['../vue/MobileHistoryOrder'], resolve),
+  'PositionModeBulletBox': resolve => require(['../vue/PositionModeBulletBox'], resolve),
+
 }
 
 /*------------------------------ 计算 begin -------------------------------*/
@@ -189,13 +239,24 @@ root.computed = {}
 root.computed.currencyList = function(){
   return this.$store.state.symbol.currencyList
 }
-
+//加下划线币对
 root.computed.symbol = function () {
   return this.$store.state.symbol;
+}
+//不加下划线币对
+root.computed.capitalSymbol = function () {
+  return this.$globalFunc.toOnlyCapitalLetters(this.symbol);
 }
 
 root.computed.name = function () {
   return this.$store.state.symbol.split('_')[1];
+}
+
+//页面功能模块显示逻辑配置信息
+root.computed.positionModeConfigs = function () {
+  let data = tradingHallData.positionModeConfigs;
+  // console.log(data);
+  return data
 }
 
 // 深度图百分比  如果是 ETH->BTC的，数量超过10就满，BDB->BTC或BDB->ETH的，超过10万才满,ICC->BTC超过100万才满
@@ -236,10 +297,168 @@ root.computed.KKPriceRangeH5 = function () {
   // return ['0.2504','0.2506']
   return this.$store.state.KKPriceRange;
 }
+// 最大头寸计算
+root.computed.maxPosition = function () {
+  let maxPosition = ''
+  if(this.value > 100 && this.value <= 125) {
+    maxPosition = this.maximumPosition[0]
+    return maxPosition
+  }
+  if(this.value > 50 && this.value <= 100) {
+    maxPosition = this.maximumPosition[1]
+    return maxPosition
+  }
+  if(this.value > 20 && this.value <= 50) {
+    maxPosition = this.maximumPosition[2]
+    return maxPosition
+  }
+  if(this.value > 10 && this.value <= 20) {
+    maxPosition = this.maximumPosition[3]
+    return maxPosition
+  }
+  if(this.value > 5 && this.value <= 10) {
+    maxPosition = this.maximumPosition[4]
+    return maxPosition
+  }
+  if(this.value == 5) {
+    maxPosition = this.maximumPosition[5]
+    return maxPosition
+  }
+  if(this.value == 4) {
+    maxPosition = this.maximumPosition[6]
+    return maxPosition
+  }
+  if(this.value == 3) {
+    maxPosition = this.maximumPosition[7]
+    return maxPosition
+  }
+  maxPosition = ''
+  return maxPosition
+}
 
 /*------------------------------ 方法 begin -------------------------------*/
 
 root.methods = {};
+//订单大分类
+root.methods.changeOptionData = function (v) {
+  this.optionVal = v
+  this.pendingOrderType = this.optionDataMap[v]
+}
+//最新、标记
+root.methods.changeLatestPriceOption = function (v) {
+  this.latestPrice = v
+}
+
+//仓位模式二级切换 Start
+root.methods.changePositionModeSecond = function (type) {
+  this.positionModeSecond = type;
+}
+//仓位模式二级切换 End
+
+//页面功能模块显示逻辑判断 Start
+root.methods.isHasModule = function (type) {
+  let isHas = '';
+  //单仓模式
+  if(this.positionModeFirst == 'singleWarehouseMode'){
+    isHas = this.positionModeConfigs[this.positionModeFirst][this.pendingOrderType][type]
+    // console.log('singleWarehouseMode-' + type,isHas);
+    return isHas
+  }
+  //双仓模式
+  isHas = this.positionModeConfigs[this.positionModeFirst][this.positionModeSecond][this.pendingOrderType][type]
+  // console.log(type,isHas);
+  return isHas
+}
+//页面功能模块显示逻辑判断 End
+
+//被动委托 start
+root.methods.priceLimitSelection = function (checkPrice) {
+  this.checkPrice = checkPrice
+  if(checkPrice == 2) {
+    this.effectiveTime = 'GTC'
+    return
+  }
+  this.effectiveTime = 'GTX'
+}
+//被动委托 end
+
+//只减仓 start
+root.methods.changeReducePositions = function(){
+  this.reducePositionsSelected = !this.reducePositionsSelected
+}
+//只减仓 end
+
+// 获取仓位信息
+root.methods.positionRisk = function () {
+  this.$http.send('GET_POSITION_RISK',{
+    bind: this,
+    callBack: this.re_positionRisk
+  })
+}
+root.methods.re_positionRisk = function (data) {
+  typeof(data) == 'string' && (data = JSON.parse(data));
+  if(!data || !data.data || data.data == []) return
+  let filterRecords = []
+  data.data.forEach(v=>{
+    if (v.symbol == 'BTCUSDT') {
+      this.leverage = v.leverage
+      this.$store.commit("CHANGE_LEVERAGE", v.leverage);
+      if(v.marginType == 'isolated'){
+        this.marginType = 'ISOLATED'
+        this.marginModeType = 'zhuCang'
+        return
+      }
+      this.marginType = 'CROSSED'
+      this.marginModeType = 'quanCang'
+    }
+  })
+}
+// 调整杠杆接口调取
+root.methods.postLevelrage = function () {
+  this.$http.send('POST_LEVELRAGE',{
+    bind: this,
+    params:{
+      "symbol":this.capitalSymbol,
+      "leverage": this.value,
+    },
+    callBack: this.re_postLevelrage
+  })
+}
+root.methods.re_postLevelrage = function (data) {
+  // console.info('超过当前杠杆的最大允许持仓量',data,data.code)
+  if (data.code == 303 && data.errCode == 2027) {
+    this.popTextLeverage = '超过当前杠杆的最大允许持仓量';
+    return
+  }
+  typeof(data) == 'string' && (data = JSON.parse(data));
+  this.promptOpen = true;
+  if (data.code == 200) {
+    this.leverage = data.data.leverage || ''
+    this.popType = 1;
+    this.popText = '调整杠杆成功';
+    this.maxNotionalValue = data.data.maxNotionalValue || ''
+    this.positionRisk()
+    this.popWindowCloseAdjustingLever()
+  }
+}
+//打开调整杠杆 Strat
+root.methods.openLever = function () {
+  this.popTextLeverage=''
+  this.popWindowAdjustingLever = true
+  this.value = this.$store.state.leverage
+}
+//打开调整杠杆 End
+
+// 关闭调整杠杆 Strat
+root.methods.popWindowCloseAdjustingLever = function () {
+  this.popWindowAdjustingLever = false
+}
+// 关闭调整杠杆 End
+
+// 处理滑动条显示框内容
+root.methods.formatTooltip =(val)=>{
+  return  val + 'X';
+}
 
 
 root.methods.RE_FEE = function (data) {
@@ -481,8 +700,8 @@ root.methods.popIdenClose = function () {
 // 点击确定
 root.methods.popIdenComfirms = function () {
   this.popIdenOpen = false
-  let orderType = this.orderType;
-  this.tradeMarket(false,orderType)
+  let orderTypeOrigin = this.orderTypeOrigin;
+  this.tradeMarket(false,orderTypeOrigin)
 }
 
 root.methods.comparePriceNow = function () {
@@ -502,7 +721,7 @@ root.methods.comparePriceNow = function () {
 
 // 提交买入或卖出
 root.methods.tradeMarket = function (popIdenOpen,type) {
-  this.orderType = type;
+  this.orderTypeOrigin = type;
   // 按钮添加点击效果
   this.BTN_CLICK();
 
@@ -834,7 +1053,7 @@ root.methods.RE_ACCOUNTS = function (data) {
 // 百分比切换
 root.methods.sectionSelect = function (num) {
 	this.numed = num
-  if (this.openType != 1) {
+  if (this.orderType != 0) {
     // this.transaction_amount = (this.currentSymbol.balance_order * num).toFixed(this.baseScale)
     // console.log(this.baseScale)
     this.transaction_amount = this.$globalFunc.accFixed(this.currentSymbol.balance_order * num, this.baseScale);
@@ -848,7 +1067,7 @@ root.methods.sectionSelect = function (num) {
 
 root.methods.sectionSelect2 = function (num) {
 	this.numed2 = num
-	if (this.openType != 1) {
+	if (this.orderType != 0) {
 		// this.transaction_amount = (this.currentSymbol.balance_order * num).toFixed(this.baseScale)
 		// console.log(this.baseScale)
 		this.transaction_amount = this.$globalFunc.accFixed(this.currentSymbol.balance_order * num, this.baseScale);
@@ -943,18 +1162,18 @@ root.methods.symbolList_priceList = function (symbol_list) {
 
 // 切换tab
 root.methods.changeType = function (typeNum) {
-  this.openType = typeNum;
+  this.orderType = typeNum;
   this.latestFlag = false;
-  if (typeNum === 1) {
+  if (typeNum === 0) {
     this.$store.commit('changeMobileHeaderTitle', '买入');
   }
-  if (typeNum === 2) {
+  if (typeNum === 1) {
     this.$store.commit('changeMobileHeaderTitle', '卖出');
   }
-  if (typeNum === 3) {
+  if (typeNum === 2) {
     this.$store.commit('changeMobileHeaderTitle', '当前委托');
   }
-  if (typeNum === 4) {
+  if (typeNum === 3) {
     this.$store.commit('changeMobileHeaderTitle', '历史委托');
   }
   // 切换买入卖出时候需要清空数量
