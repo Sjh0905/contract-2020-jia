@@ -1,0 +1,175 @@
+<div class="calculator">
+
+  <!--ios status栏-->
+  <div v-if="(isApp)" class="mobile-status-bar-ios"/>
+  <div v-if="(isApp)" class="mobile-status-bar-bg-ios"/>
+
+  <!--头部-->
+  <div :class="(isApp) ? 'mobile-header-ios' : 'mobile-calculator'">
+    <div class="calculator-header-title-back-icon" @click="jumpToTradingHallDetail">
+      <img class="calculator-header-title-back-icon-img" src="../../assets/back_icon.png" alt="">
+    </div>
+  </div>
+
+  <!--顶部标题切换-->
+  <div class="calculator-title flex">
+    <div class="calculator-title-left flex">
+      <div class="title-margin" :class="{'more-empty-btn-bck':styleType == 1}" @click="selectType(1)">收益</div>
+      <div class="title-margin" :class="{'more-empty-btn-bck':styleType == 2}" @click="selectType(2)">目标价格</div>
+<!--      <div class="title-margin" :class="{'more-empty-btn-bck':styleType == 3}" @click="selectType(3)">强平价格</div>-->
+    </div>
+    <div class="calculator-title-right">
+      {{capitalSymbol}}
+    </div>
+  </div>
+  <!--做多做空按钮-->
+  <div class="calculator-title-can-more flex">
+    <div class="more-empty-btn-defaul mobile-more-empty-btn-defaul-right pointer" :class="{'more-empty-btn':moreEmptyType == 1}" @click="selectMoreEmptyType(1)">做多</div>
+    <div class="more-empty-btn-defaul mobile-more-empty-btn-defaul-left pointer" :class="{'more-empty-btn':moreEmptyType == 2}" @click="selectMoreEmptyType(2)">做空</div>
+  </div>
+  <div class="pop-calculator-left-slider">
+    <div class="block"  style="margin: 1rem 0 1rem">
+      <p class="radiusa_green" v-if="calculatorValue>= 1" @click="calculatorValue= 1" style="cursor:pointer"></p>
+      <p class="radiusb_green" v-if="calculatorValue>=25" @click="calculatorValue=25" style="cursor:pointer"></p>
+      <p class="radiusc_green" v-if="calculatorValue>=50" @click="calculatorValue=50" style="cursor:pointer"></p>
+      <p class="radiusd_green" v-if="calculatorValue>=75" @click="calculatorValue=75" style="cursor:pointer"></p>
+      <p class="radiuse_green" v-if="calculatorValue>=100" @click="calculatorValue=100" style="cursor:pointer"></p>
+      <el-slider
+        v-model="calculatorValue"
+        class="el-slider-style"
+        :marks="calculatorMarks"
+        :format-tooltip="formatTooltip"
+        :max="125"
+        :min="1"
+      >
+      </el-slider>
+    </div>
+    <div class="calculator-prompt flex" :class="isComputed? 'text_red': ''" v-if="calculatorValue > 2">
+      <div class="wrong-text " >当前杠杆倍数最高可持有头寸：</div>
+      <div class="wrong-text-grey" :class="isComputed? 'text_red': ''">{{maxPosition}} USDT</div>
+    </div>
+    <div v-else class="empty-box"></div>
+  </div>
+
+
+  <!--计算器收益-->
+  <div class="calculator-content" v-if="styleType == 1">
+    <!--开仓价格-->
+    <div class="calculator-content-input flex">
+      <div class="bn-input-prefix css-vurnku">
+        <div class="css-5h0skw">开仓价格</div>
+      </div>
+      <input type="text" class="calculator-content-ipt" placeholder="0.00" v-model="openingPrice">
+      <span class="calculator-content-currency">USDT</span>
+    </div>
+    <!--平仓价格-->
+    <div class="calculator-content-input calculator-mt flex">
+      <div class="bn-input-prefix css-vurnku">
+        <div class="css-5h0skw">平仓价格</div>
+      </div>
+      <input type="text" class="calculator-content-ipt" placeholder="0.00" v-model="closingPrice">
+      <span class="calculator-content-currency">USDT</span>
+    </div>
+    <!--成交数量-->
+    <div class="calculator-content-input calculator-mtb flex">
+      <div class="bn-input-prefix css-vurnku">
+        <div class="css-5h0skw">成交数量</div>
+      </div>
+      <input type="text" class="calculator-content-ipt" placeholder="0.00" v-model="transactionQuantity">
+      <span class="calculator-content-currency">USDT</span>
+    </div>
+    <!--计算结果-->
+    <div class="pop-calculator-result">
+      <div class="pop-calculator-result-title">计算结果</div>
+      <div class="calculator-result-content calculator-mb flex">
+        <div>起始保证金</div>
+        <div class="calculator-result-content-result">{{securityDeposit}} USDT</div>
+      </div>
+      <div class="calculator-result-content calculator-mb flex">
+        <div>收益</div>
+        <div class="calculator-result-content-result">{{income}} USDT</div>
+      </div>
+      <div class="calculator-result-content flex">
+        <div>回报率</div>
+        <div class="calculator-result-content-result">{{returnRate}} %</div>
+      </div>
+    </div>
+    <div class="pop-calculator-comfirm" :class="isStyle?'btn_blue':''" @click="clickCalculation">确认</div>
+    <div class="calculator-comfirm-empty"></div>
+  </div>
+
+  <!--计算器目标价格-->
+  <div class="calculator-content" v-if="styleType == 2">
+    <!--开仓价格-->
+    <div class="calculator-content-input flex">
+      <div class="bn-input-prefix css-vurnku">
+        <div class="css-5h0skw">开仓价格</div>
+      </div>
+      <input type="text" class="calculator-content-ipt" placeholder="0.00" v-model="targetOpeningPrice">
+      <span class="calculator-content-currency">USDT</span>
+    </div>
+    <!--回报率-->
+    <div class="calculator-content-input calculator-mtb flex">
+      <div class="bn-input-prefix css-vurnku">
+        <div class="css-5h0skw">回报率</div>
+      </div>
+      <input type="text" class="calculator-content-ipt" placeholder="0.00" v-model="targetReturnRate">
+      <span class="calculator-content-currency">%</span>
+    </div>
+    <!--目标价格-->
+    <div class="pop-calculator-result">
+      <div class="pop-calculator-result-title">计算结果</div>
+      <div class="calculator-result-content calculator-mb flex">
+        <div>目标价格</div>
+        <div class="calculator-result-content-result">{{targetPrice}} USDT</div>
+      </div>
+    </div>
+    <div class="pop-calculator-comfirm" :class="isTargePrice?'':'btn_blue'" @click="calculateTargePrice">确认</div>
+    <div class="calculator-comfirm-empty"></div>
+  </div>
+
+  <!--计算器强平价格-->
+  <div class="calculator-content" v-if="styleType == 3">
+    <!--开仓价格-->
+    <div class="calculator-content-input flex">
+      <div class="bn-input-prefix css-vurnku">
+        <div class="css-5h0skw">开仓价格</div>
+      </div>
+      <input type="text" class="calculator-content-ipt" placeholder="0.00">
+      <span class="calculator-content-currency">USDT</span>
+    </div>
+
+    <!--成交数量-->
+    <div class="calculator-content-input calculator-mt flex">
+      <div class="bn-input-prefix css-vurnku">
+        <div class="css-5h0skw">成交数量</div>
+      </div>
+      <input type="text" class="calculator-content-ipt" placeholder="0.00">
+      <span class="calculator-content-currency">USDT</span>
+    </div>
+    <!--成交余额-->
+    <div class="calculator-content-input calculator-mtb flex">
+      <div class="bn-input-prefix css-vurnku">
+        <div class="css-5h0skw">成交余额</div>
+      </div>
+      <input type="text" class="calculator-content-ipt" placeholder="0.00">
+      <span class="calculator-content-currency">USDT</span>
+    </div>
+    <!--计算结果-->
+    <div class="pop-calculator-result">
+      <div class="pop-calculator-result-title">计算结果</div>
+      <div class="calculator-result-content calculator-mb flex">
+        <div>强平价格</div>
+        <div class="calculator-result-content-result">0.00 USDT</div>
+      </div>
+      <div class="calculator-result-content-qiangping calculator-mb flex">
+        <div>* 强平价格的计算考虑了您现有的持仓，持有仓位的未实现盈亏和占用保证金将影响强平价格计算。</div>
+      </div>
+
+    </div>
+    <div class="pop-calculator-comfirm">确认</div>
+    <div class="calculator-comfirm-empty"></div>
+  </div>
+
+
+</div>
