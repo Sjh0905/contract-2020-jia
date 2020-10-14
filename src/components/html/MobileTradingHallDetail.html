@@ -11,8 +11,10 @@
       </div>
       <!--弹框按钮-->
       <div class="flex">
-        <div class="leaver" @click="">双向</div>
-        <div class="leaver" @click="">逐仓</div>
+        <div class="leaver" @click="turnOnLocationMode">{{positionModeFirst == 'singleWarehouseMode'? '单向' :'双向'}}</div>
+<!--        <div class="leaver" @click="openSecurityDepositMode" v-if="marginModeType == 'quanCang'">全仓</div>-->
+<!--        <div class="leaver" @click="openSecurityDepositMode" v-if="marginModeType == 'zhuCang'">逐仓</div>-->
+        <div class="leaver" @click="openSecurityDepositMode">{{marginModeType == 'quanCang'?'全仓':'逐仓'}}</div>
         <div class="leaver" @click="openLever">{{leverage}}X</div>
       </div>
     </div>
@@ -21,18 +23,18 @@
         <div class="hangqingkline" @click="openkexian()">
           <img src="../../assets/H5img/hangqkline.png" alt="">
         </div>
-        <div class="hangqingkline" @click="">
+        <div class="hangqingkline" @click="goToCalculator()">
           <img src="../../assets/H5img/calculator.png" alt="">
         </div>
       </div>
       <div class="fund-all">
         <div  @click="">
           <span class="text-des">资金费率</span>
-          <span class="fund-content">0.112%</span>
+          <span class="fund-content">{{toFixed((lastFundingRate * 100) || 0,4)}} %</span>
         </div>
         <div @click="">
           <span>资金时间</span>
-          <span class="fund-content">0.112%</span>
+          <span class="fund-content">{{$globalFunc.timeCountdown(new Date().getTime(),nextFundingTime,':h')}}</span>
         </div>
       </div>
     </div>
@@ -329,11 +331,47 @@
       <div class="pop-detail-btn" @click="toastClose">{{$t('personalCenterAuthAuthenticationState.promptEnsure')}}</div>
     </div>
   </PopupPrompt>
+  <!--  仓位模式Strat-->
+  <PositionModeBulletBox :switch="popWindowPositionModeBulletBox" @close="popWindowClosePositionModeBulletBox" :pop_width="true">
+    <div slot="header">
+      <div class="position-mode-tit">仓位模式</div>
+    </div>
+    <div slot="article"class="pop-lock-house">
+      <div class="risk-alert">
+        若有合约存在持仓或者挂单，不允许调整仓位模式。仓位模式调整对所有合约统一生效。
+      </div>
+      <div class="flex pointer" @click="positionModeSelected('singleWarehouseMode')">
+        <img class="single-position-img" src="../../assets/contract/contract_selected.png" alt="" v-if="positionModeFirstTemp == 'singleWarehouseMode'">
+        <img class="single-position-img" src="../../assets/contract/contract_no_selected.png" alt="" v-else>
+        <div class="">
+          <div class="selected-positions-cod" :class="{'selected_cardType':positionModeFirstTemp == 'singleWarehouseMode'}">单向持仓</div>
+          <div class="position-explanation">单向持仓模式下，一个合约只允许持有一个方向的仓位</div>
+        </div>
+      </div>
+      <div class="flex pointer" @click="positionModeSelected('doubleWarehouseMode')">
+        <img class="single-position-img" src="../../assets/contract/contract_selected.png" alt="" v-if="positionModeFirstTemp == 'doubleWarehouseMode'">
+        <img class="single-position-img" src="../../assets/contract/contract_no_selected.png" alt="" v-else>
+        <div class="">
+          <div class="selected-positions-cod" :class="{'selected_cardType':positionModeFirstTemp == 'doubleWarehouseMode'}">双向持仓</div>
+          <div class="position-explanation">双向持仓模式下，一个合约可允许同时持有多空两个方向的仓位，并且同一合约下不同方向仓位风险对冲</div>
+        </div>
+      </div>
+      <div class="day-surplus" @click="positionModeSelectedConfirm">
+        确认
+      </div>
+    </div>
+<!--    <div slot="footer" class="lock-house-footer">-->
+<!--      <div class="day-surplus" @click="positionModeSelectedConfirm">-->
+<!--        确认-->
+<!--      </div>-->
+<!--    </div>-->
+  </PositionModeBulletBox>
+  <!--  仓位模式End-->
 
   <!--  调整杠杆 Strat-->
   <PositionModeBulletBox :switch="popWindowAdjustingLever" @close="popWindowCloseAdjustingLever" >
     <div slot="header">
-      <div class="position-mode-tit">调整杠杆</div>
+      <div>调整杠杆</div>
     </div>
     <div slot="article"class="pop-lock-house">
       <div class="body">
@@ -368,6 +406,31 @@
     </div>
   </PositionModeBulletBox>
   <!--  调整杠杆 End-->
+
+  <!--  保证金模式 Strat-->
+  <PositionModeBulletBox :switch="popWindowSecurityDepositMode" @close="popWindowCloseSecurityDepositMode" :pop_width="true">
+    <div slot="header">
+      <div class="position-mode-tit">{{capitalSymbol}}保证金模式</div>
+    </div>
+    <div slot="article"class="pop-lock-house">
+      <div class="flex">
+        <div class="selected-mode selected-cardType-left" :class="{'selected-cardType-mode':marginModeTypeTemp == 'quanCang'}" @click="securityDepositMode('quanCang')">全仓</div>
+        <div class="selected-mode" :class="{'selected-cardType-mode':marginModeTypeTemp == 'zhuCang'}" @click="securityDepositMode('zhuCang')">逐仓</div>
+      </div>
+      <div class="mode-only">· 调整保证金模式仅对当前合约生效。</div>
+      <!--      TODO: 防止报错，先在这里保留  v-if="!isHasOrders"-->
+      <div class="mode-error" v-if="!isHasOrders">当前合约存在持仓和挂单，不支持调整保证金模式</div>
+      <div class="money-confirmation-commit" @click="marginModeConfirm">确认</div>
+      <!--确认不可点击状态-->
+      <!--      <div class="money-confirmation-ash">确认</div>-->
+      <div class="money-explanation">
+        <div class="money-explanation-one">什么是全仓和逐仓模式？</div>
+        <div class="money-explanation-two">全仓保证金模式: 所有仓位共用合约账户中的保证金来避免仓位被强平。在强平事件中，交易者可能会损失所有的保证金和仓位。</div>
+        <div class="money-explanation-three">逐仓保证金模式: 一定数量保证金被分配到仓位上。如果仓位保证金亏损到低于维持保证金的水平，仓位将被强平。在逐仓模式下，您可以为这个仓位添加和减少保证金。</div>
+      </div>
+    </div>
+  </PositionModeBulletBox>
+  <!--  保证金模式 End-->
 
   <div v-if="toastNobindShow" class="toast-window-nobind-email">
     <div class="toast-box-nobind-email">
@@ -426,8 +489,5 @@
 
   <div class="hangqceb_mb" v-show="isshowhangq"></div>
   <!--<div class="bottom-box"></div>-->
-
-
-
 
 </div>

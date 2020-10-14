@@ -34,7 +34,7 @@
     </div>
 
 
-    <div :class="!pop_width ? 'mobilePopup' : 'min-popup'" v-if="isMobile">
+    <div :class="!pop_width ? 'mobilePopup' : 'mobile-min-popup'" v-if="isMobile">
       <div class="mobilePopWindow-title">
         <slot name="header">
           <span>{{$t("pupupWindow.title")}}</span>

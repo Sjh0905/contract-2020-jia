@@ -53,7 +53,7 @@
   /*padding: 0 0.1rem;*/
   color: #39B496;
   font-family: PingFangSC-Medium;
-  font-size: 20px;
+  font-size: 0.4rem;
 }
 
 .progress-bar-position-title{
@@ -63,7 +63,7 @@
   text-align: center;
   color: #a2b5d9;
   font-family: PingFangSC-Medium;
-  font-size: 20px;
+  font-size: 0.4rem;
 }
 .progress-bar-position-title-sel{
   border-bottom: 2px solid #3576F5;
@@ -132,7 +132,7 @@
   margin-left: 0.3rem;
   background: #131F30;
   color: #fff;
-  margin-top: 10px;
+  margin-top: 0.2rem;
 }
 .left-container-default{
   float: right;
@@ -234,7 +234,7 @@
 }
 
 .mobile-change-num-minus img{
-  width: 14px;
+  width: 0.28rem;
   vertical-align: middle;
 }
 
@@ -245,7 +245,7 @@
   text-align: center;
   line-height: 0.71rem;
   font-family: Roboto-Regular;
-  font-size: 14px;
+  font-size: 0.28rem;
   color: #6D87A8;
 
 }
@@ -255,7 +255,7 @@
 }
 
 .mobile-change-num-max img{
-  width: 14px;
+  width: 0.28rem;
   margin-top: .2rem;
 }
 
@@ -301,7 +301,7 @@
   margin-bottom: 0.06rem;
   height: 0.36rem;
   font-family: Helvetica;
-  font-size: 10px;
+  font-size: 0.2rem;
   color: #3E536C;
 }
 
@@ -341,13 +341,13 @@
   width: 3.4rem;
   box-sizing: border-box;
   border: 1px solid #131F30;
-  border-radius: 4px;
+  border-radius: 0.08rem;
   height: 0.72rem;
   line-height: 0.72rem;
   /*color:#37698A;*/
   text-align: center;
   font-family: Roboto-Bold;
-  font-size: 14px;
+  font-size: 0.28rem;
   color: #CFD3E9;
 }
 
@@ -363,7 +363,7 @@
 }
 .passive-delegation {
   align-items: center;
-  margin-right: 15px;
+  margin-right: 0.3rem;
 }
 
 .passive-delegation-icon {
@@ -382,18 +382,18 @@
 
 .reduce-positions {
   /*margin-top: 0.12rem;*/
-  height: 18px;
-  margin-right: 25px;
-  padding-right: 25px;
+  height: 0.36rem;
+  margin-right: 0.5rem;
+  padding-right: 0.5rem;
   align-items: center;
   /*border-right: 1px solid #39415C;*/
 }
 
 .reduce-positions-icon {
   cursor: pointer;
-  margin-right: 6px;
-  width:16px;
-  height:16px;
+  margin-right: 0.12rem;
+  width: 0.32rem;
+  height: 0.32rem;
 }
 .security-deposit{
   margin-top: 0.20rem;
@@ -409,7 +409,7 @@
   /*font-weight: 500;*/
   color: #A2B5D9;
   line-height: 0.32rem;
-  margin-right: 27px;
+  margin-right: 0.54rem;
 }
 
 .security-deposit-amount {
@@ -474,9 +474,9 @@
   margin-top: 0.34rem;
   /*margin-bottom: 0.28rem;*/
   font-family: PingFangSC-Regular;
-  font-size: 10px;
+  font-size: 0.2rem;
   color: #6A83A8;
-  line-height: 14px;
+  line-height: 0.28rem;
 }
 
 
@@ -499,7 +499,7 @@
 }
 
 .mobile-buy-detail-item:last-child{
-  margin-bottom: 10px;
+  margin-bottom: 0.2rem;
 }
 .mobile-buy-detail-item:nth-child(1){
   /*margin-bottom: 10px;*/
@@ -611,21 +611,21 @@
 
 /*买入卖出底部 最新成交按钮*/
 .mobile-container-latest-flag {
-  height: 32px;
-  line-height: 32px;
+  height: 0.64rem;
+  line-height: 0.64rem;
   display: flex;
-  padding: 0 0.3rem;
+  padding: 0 0.2rem;
   align-items: center;
   background: #131F30;
-  /*justify-content: space-between;*/
-  margin-top: 10px;
+  justify-content: space-between;
+  margin-top: 0.2rem;
 }
 
 .mobile-container-latest-flag-text {
-  font-size: 0.32rem;
-  font-family: PingFangSC-Medium, PingFang SC;
+  font-family: PingFangSC-Semibold;
+  font-size: 0.4rem;
+  color: #FFFFFF;
   font-weight: 500;
-  color: #6B7DA2;
 }
 
 .mobile-list-type {
@@ -638,6 +638,7 @@
 
 .mobile-container-latest-flag-img {
   flex: 1;
+  width: 0.56rem;
   display: block;
   text-align: right;
   font-size: 0.24rem;
@@ -647,9 +648,12 @@
 }
 .mobile-container-latest-right {
   padding-left: 0.4rem;
+  /*height: 20px;*/
+  font-size: 0.28rem;
+  color:#fff;
 }
 .bottom-box {
-  height: 50px;
+  height: 1rem;
   width: 100%;
 }
 .history-icon {
@@ -668,7 +672,7 @@
   line-height: 0.44rem;
   border: 1px solid #3576F5;
   color: #fff;
-  border-radius: 2px;
+  border-radius: 0.04rem;
   float: right;
   box-sizing: border-box;
   margin-top: 0.19rem;
@@ -1007,9 +1011,9 @@
 
 .pop-detail {
   background: #fff;
-  border-radius: 5px;
-  width: 200px;
-  padding: 30px;
+  border-radius: 0.1rem;
+  width: 4rem;
+  padding: 0.6rem;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -1018,24 +1022,24 @@
 
 .pop-detail-img {
   display: block;
-  width: 60px;
-  margin: 0 auto 20px;
+  width: 1.2rem;
+  margin: 0 auto 0.4rem;
 }
 
 .pop-detail-text {
   text-align: center;
   color: #333;
-  font-size: 12px;
-  margin-top: 5px;
+  font-size: 0.24rem;
+  margin-top: 0.1rem;
 }
 
 .pop-detail-btn {
-  margin-top: 10px;
+  margin-top: 0.2rem;
   background: #3576F5;
-  border-radius: 5px;
-  height: 22px;
-  line-height: 22px;
-  font-size: 12px;
+  border-radius: 0.1rem;
+  height: 0.44rem;
+  line-height: 0.44rem;
+  font-size: 0.24rem;
   color: #fff;
   text-align: center;
 }
@@ -1054,9 +1058,9 @@
 .container-latest-flag {
   height: 0.94rem;
   line-height: 0.64rem;
-  font-size: 13px;
+  font-size: 0.26rem;
   display: flex;
-  padding: 0 10px;
+  padding: 0 0.2rem;
   align-items: center;
   justify-content: space-between;
   color: #fff;
@@ -1068,14 +1072,14 @@
 }
 
 .container-latest-flag-img {
-  width: 16px;
+  width: 0.32rem;
   display: block;
   /*height: 20px;*/
 }
 
 .container-latest-table {
   width: 100%;
-  font-size: 13px;
+  font-size: 0.26rem;
 }
 
 .container-latest-no-data {
@@ -1084,7 +1088,7 @@
   left: 0;
   width: 100%;
   color: rgba(255,255,255,0.4);
-  font-size: 15px;
+  font-size: 0.3rem;
   transform: translateY(-50%);
   text-align: center;
 }
@@ -1095,7 +1099,7 @@
 
 .container-latest-table-tr td:first-child{
   text-align: left;
-  padding-left: 10px;
+  padding-left: 0.2rem;
 }
 
 .container-latest-table-tr td:nth-child(2){
@@ -1103,13 +1107,13 @@
 }
 
 .container-latest-table-tr td:nth-child(3){
-  padding-right: 10px;
+  padding-right: 0.2rem;
   text-align: right;
 }
 
 .container-latest-table-tr {
-  height: 24px;
-  line-height: 24px;
+  height: 0.48rem;
+  line-height: 0.48rem;
   width: 100%;
   background: #081724;
   color: #fff;
@@ -1139,9 +1143,9 @@
 }
 
 .toast-box-nobind-email {
-  min-height: 100px;
-  width: 320px;
-  padding: 0 20px;
+  min-height: 2rem;
+  width: 6.4rem;
+  padding: 0 0.4rem;
   margin: auto;
   position: absolute;
   left: 0;
@@ -1149,51 +1153,51 @@
   top: 50%;
   transform: translateY(-50%);
   background: #fff;
-  border-radius: 8px;
+  border-radius: 0.16rem;
 
 }
 
 .memo-toast-box-close-btn-box{
   position: absolute;
-  top: -40px;
-  right: -10px;
-  width: 40px;
-  height: 40px;
+  top: -0.8rem;
+  right: -0.2rem;
+  width: 0.8rem;
+  height: 0.8rem;
 }
 
 .memo-toast-box-close-btn {
-  width: 20px;
-  height: 20px;
+  width: 0.4rem;
+  height: 0.4rem;
   display: block;
   position: absolute;
-  margin: 10px;
+  margin: 0.2rem;
 }
 
 .toast-nobind-email-title {
-  height: 40px;
-  line-height: 40px;
+  height: 0.8rem;
+  line-height: 0.8rem;
   text-align: center;
-  font-size: 16px;
+  font-size: 0.32rem;
   color: #3576F5;
   border-bottom: 1px solid #F2F2F2;
 }
 
 .toast-nobind-email-body {
-  margin-top: 18px;
+  margin-top: 0.36rem;
   color: #333;
-  font-size: 13px;
-  line-height: 18px;
+  font-size: 0.26rem;
+  line-height: 0.36rem;
   text-align: center;
 }
 
 .confirm-nobind-email-btn {
-  height: 36px;
-  width: 140px;
-  border-radius: 4px;
-  line-height: 36px;
+  height: 0.72rem;
+  width: 2.8rem;
+  border-radius: 0.08rem;
+  line-height: 0.72rem;
   color: #fff;
-  font-size: 15px;
-  margin: 15px auto 20px;
+  font-size: 0.3rem;
+  margin: 0.3rem auto 0.4rem;
   background: #3576F5;
   text-align: center;
 }
@@ -1201,7 +1205,7 @@
 
 .bottomenu{
   width: 100%;
-  height: 50px;
+  height: 1rem;
   position: fixed;
   bottom: 0;
   background-color:  #172841;
@@ -1219,17 +1223,17 @@
 
 .bottomenu .menuimg{
   width: 100%;
-  margin-top: 5px;
+  margin-top: 0.1rem;
 }
 
 .bottomenu .menuimg img{
-  width: 20px;
+  width: 0.4rem;
 }
 
 .bottomenu .menuinfo{
   width: 100%;
   font-family: PingFangSC-Regular;
-  font-size: 10px;
+  font-size: 0.2rem;
   color: #3576F5;
   text-align: center;
 }
@@ -1237,7 +1241,7 @@
 .bottomenu .menuinfoh{
   width: 100%;
   font-family: PingFangSC-Regular;
-  font-size: 10px;
+  font-size: 0.2rem;
   color: #6D87A8;
   text-align: center;
 }
@@ -1272,7 +1276,7 @@
 .hangqingtu img {
   line-height: 0.88rem;
   display: inline-block;
-  width: 16px;
+  width: 0.32rem;
   vertical-align: sub;
   /*margin-top: 13px;*/
 }
@@ -1360,31 +1364,31 @@
 
 .hangqtitle{
   width: 100%;
-  height: 44px;
-  margin-top: 50px;
+  height: 0.88rem;
+  margin-top: 1rem;
   color: red;
 
 }
 
 .hangqfont{
   width: auto;
-  line-height: 44px;
+  line-height: 0.88rem;
   float: left;
-  margin-left: 15px;
+  margin-left: 0.3rem;
   font-family: PingFangSC-Semibold;
-  font-size: 16px;
+  font-size: 0.32rem;
   color: #CFD3E9;
 }
 
 .hangqclosetu{
   width: auto;
   float: right;
-  margin-right: 15px;
+  margin-right: 0.3rem;
 }
 
 .hangqclosetu img{
-  width: 16px;
-  margin-top: 15px;
+  width: 0.32rem;
+  margin-top: 0.3rem;
 }
 
 .hangqdata{
@@ -1398,9 +1402,9 @@
   /*line-height: 44px;*/
   float: left;
   /*font-family: Roboto-Regular;*/
-  font-size: 16px;
+  font-size: 0.32rem;
   color: #CFD3E9;
-  margin-left: 15px;
+  margin-left: 0.3rem;
 }
 
 .hangqdata .hangqprice{
@@ -1408,9 +1412,9 @@
   /*line-height: 44px;*/
   float: right;
   /*font-family: Roboto-Regular;*/
-  font-size: 16px;
+  font-size: 0.32rem;
   text-align: right;
-  margin-right: 15px;
+  margin-right: 0.3rem;
 }
 
 .hq-price-down{
@@ -1436,50 +1440,50 @@
 .lock-position-confirm-toast-window {
   position: absolute;
   top: 50%;
-  left: 25px;
-  right: 25px;
+  left: 0.5rem;
+  right: 0.5rem;
   transform: translateY(-50%);
   background: #fff;
-  border-radius: 8px;
-  padding: 0 20px;
+  border-radius: 0.16rem;
+  padding: 0 0.4rem;
 }
 
 .lock-position-confirm-toast-close-btn {
   position: absolute;
-  top: -40px;
-  right: -10px;
-  width: 40px;
-  height: 40px;
+  top: -0.8rem;
+  right: -0.2rem;
+  width: 0.8rem;
+  height: 0.8rem;
 }
 
 .lock-position-confirm-toast-close-btn-img {
   display: block;
-  width: 20px;
-  margin: 10px;
+  width: 0.4rem;
+  margin: 0.2rem;
 }
 
 .lock-position-confirm-toast-title {
-  height: 40px;
-  line-height: 40px;
+  height: 0.8rem;
+  line-height: 0.8rem;
   text-align: center;
   color: #3576F5;
-  font-size: 16px;
+  font-size: 0.32rem;
   box-sizing: border-box;
   border-bottom: 1px solid #f2f2f2;
 }
 
 .lock-position-confirm-toast-list {
-  padding-top: 15px;
+  padding-top: 0.3rem;
 }
 
 .lock-position-confirm-toast-item {
-  height: 20px;
-  line-height: 20px;
+  height: 0.4rem;
+  line-height: 0.4rem;
   margin-top: 3px;
   display: flex;
   align-items: center;
   justify-content: left;
-  font-size: 14px;
+  font-size: 0.28rem;
 }
 
 .lock-position-confirm-toast-item-title {
@@ -1487,10 +1491,10 @@
 }
 
 .lock-position-confirm-toast-info {
-  margin-top: 5px;
-  line-height: 17px;
+  margin-top: 0.1rem;
+  line-height: 0.34rem;
   color: #FF1B1B;
-  font-size: 12px;
+  font-size: 0.28rem;
   text-indent: -5em;
   padding-left: 5em;
 }
@@ -1499,32 +1503,32 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: 15px;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  font-size: 0.3rem;
+  margin-top: 0.4rem;
+  margin-bottom: 0.4rem;
 }
 
 .lock-position-confirm-toast-btn-close {
   width: 45%;
   background: #fff;
-  height: 40px;
-  line-height: 40px;
+  height: 0.8rem;
+  line-height: 0.8rem;
   color: #3576F5;
   border: 1px solid #3576F5;
   box-sizing: border-box;
   text-align: center;
-  border-radius: 4px;
+  border-radius: 0.08rem;
 }
 
 .lock-position-confirm-toast-btn-confirm {
   width: 45%;
   background: #3576F5;
-  height: 40px;
-  line-height: 40px;
+  height: 0.8rem;
+  line-height: 0.8rem;
   color: #fff;
   box-sizing: border-box;
   text-align: center;
-  border-radius: 4px;
+  border-radius: 0.08rem;
 }
 
 .backgo{
@@ -1533,24 +1537,24 @@
 }
 
 .backgo img{
-  width: 16px;
-  margin-left: 15px;
+  width: 0.32rem;
+  margin-left: 0.3rem;
 }
 
 .tabnchuancontain {
   width: 4.5rem;
-  height: 100px;
+  height: 2rem;
   background-color: #ccc;
-  border-radius: 6px;
+  border-radius: 0.12rem;
 }
 
 .tankuangtop {
   width: 100%;
-  height: 30px;
-  line-height: 30px;
+  height: 0.6rem;
+  line-height: 0.6rem;
   border-bottom: 1px solid #172A4D;
   text-align: center;
-  font-size: 14px;
+  font-size: 0.28rem;
   font-weight: 500;
   color: #172A4D;
   font-family: 'Microsoft YaHei';
@@ -1559,25 +1563,25 @@
 
 .tankuangcenter {
   text-align: center;
-  height: 24px;
-  line-height: 24px;
-  padding:10px 20px;
+  height: 0.28rem;
+  line-height: 0.28rem;
+  padding: 0.2rem 0.4rem;
 }
 
 .tanchuangbottom {
-  height: 20px;
-  line-height: 20px;
+  height: 0.4rem;
+  line-height: 0.4rem;
 }
 
 /*杠杆弹窗 begin*/
 .pop-lock-house {
-  padding: 17px 0.3rem 13px 0.3rem;
+  padding: 0.34rem 0.3rem 13px 0.3rem;
   background-color: #172841;
 }
 /*调整杠杆 Strat*/
 .body {
   width: 97%;
-  padding: 0px;
+  padding: 0;
   /*margin-top: 50px;*/
   text-align: center;
   content: "";
@@ -1587,20 +1591,20 @@
 .mode-only-lever {
   margin: 1.02rem 0 0.1rem 0;
   color: #6B7DA2;
-  font-size:12px;
+  font-size:0.24rem;
   font-family:PingFangSC-Semibold,PingFang SC;
   font-weight:600;
 }
 .mode-only-lever-super {
   /*color: #EFF0FF;*/
-  font-size:12px;
+  font-size:0.24rem;
   font-family:PingFangSC-Semibold,PingFang SC;
   font-weight:600;
-  margin-bottom: 20px;
+  margin-bottom: 0.4rem;
 }
 .mode-only-lever-high {
-  height: 18px;
-  margin-bottom: 20px;
+  height: 0.36rem;
+  margin-bottom: 0.4rem;
 }
 .txt-blue{
   color: #3576F5;
@@ -1611,25 +1615,151 @@
 .txt-price-red{
   color: #EF5656;
 }
-
 .money-confirmation {
   width: 100%;
-  height:40px;
-  line-height:40px;
+  height:0.8rem;
+  line-height:0.8rem;
   text-align:center;
-  font-size:14px;
+  font-size:0.28rem;
   font-family:PingFangSC-Regular,PingFang SC;
   font-weight:400;
   color:#FFFFFF;
   background:linear-gradient(270deg,rgba(53,118,245,1) 0%,rgba(69,154,245,1) 100%);
   border-radius:1px;
-  margin-bottom: 15px;
+  margin-bottom: 0.3rem;
   cursor: pointer;
 }
 /*调整杠杆 End*/
 
+/*保证金模式弹框*/
+.position-mode-tit {
+  padding-left: 0.5rem;
+}
+.selected-mode {
+  width: 2.8rem;
+  height: 0.82rem;
+  line-height: 0.82rem;
+  background: #131F30;
+  border-radius: 0.03rem;
+  font-size: 0.28rem;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #6B7DA2;
+  text-align: center;
+}
+.selected-cardType-left {
+  margin-right: 0.3rem;
+}
+.selected-cardType-mode {
+  color: #CFD3E9;
+  border: 0.02rem solid #3576F5;
+  box-sizing: border-box;
+}
+.mode-only {
+  margin: 0.4rem 0;
+  color: #A2B5D9;
+  font-size:0.24rem;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+}
+.mode-error {
+  margin-bottom: 0.3rem;
+  color: #EF5656;
+  font-size:0.24rem;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+}
 
-/*杠杆弹窗 end*/
+.money-confirmation-commit {
+  width: 5.9rem;
+  height: 0.8rem;
+  background: #3576F5;
+  border-radius: 0.04rem;
+  line-height:0.8rem;
+  text-align:center;
+  font-size:0.28rem;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color:#FFFFFF;
+  background:linear-gradient(270deg,rgba(53,118,245,1) 0%,rgba(69,154,245,1) 100%);
+  margin-bottom: 0.4rem;
+  cursor: pointer;
+}
+.money-explanation {
+  width: 100%;
+  padding: 0 0.3rem 0;
+  font-size: 0.24rem;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #6B7DA2;
+}
+.money-explanation-two {
+  margin: 0.3rem 0;
+}
+.money-explanation-three {
+  padding-bottom: 0.2rem;
+}
 
-
-
+/*仓位模式*/
+.risk-alert {
+  font-size: 0.24rem;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #6B7DA2;
+  margin-bottom: 0.3rem;
+}
+.single-position-img {
+  width: 0.32rem;
+  height: 0.32rem;
+  margin-right: 0.2rem;
+}
+.selected-positions-cod {
+  margin-top: -0.04rem;
+  color: #6B7DA2;
+  font-size:0.28rem;
+  font-family:Ping;
+}
+.selected-positions {
+  margin-top: -0.03rem;
+  color: #6B7DA2;
+  font-size:0.28rem;
+  font-family:PingFangSC-Semibold,PingFang SC;
+  font-weight:600;
+}
+.position-explanation {
+  margin: 0.08rem 0 0.34rem 0;
+  color: #A2B5D9;
+  font-size:0.24rem;
+  font-family:PingFangSC-Semibold,PingFang SC;
+  font-weight:600;
+}
+.selected_cardType {
+  font-size:0.28rem;
+  font-family:PingFangSC-Semibold,PingFang SC;
+  font-weight:600;
+  color: #E0E1F4;
+}
+.selected-positions {
+  margin-top: -0.03rem;
+  color: #6B7DA2;
+  font-size:0.28rem;
+  font-family:PingFangSC-Semibold,PingFang SC;
+  font-weight:600;
+}
+.lock-house-footer {
+  width: 100%;
+}
+.day-surplus {
+  width: 100%;
+  height: 0.8rem;
+  line-height: 0.8rem;
+  text-align: center;
+  color: #FFFFFF;
+  font-size:0.28rem;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  background:linear-gradient(270deg,rgba(53,118,245,1) 0%,rgba(69,154,245,1) 100%);
+  border-radius:1px;
+  margin-bottom: 0.3rem;
+  cursor: pointer;
+}
