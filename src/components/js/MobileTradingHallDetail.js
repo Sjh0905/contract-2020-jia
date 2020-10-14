@@ -42,7 +42,7 @@ root.data = function () {
     BDBInfo: true,
     BDBReady: false,
 
-    openType: this.$store.state.buy_or_sale_type || 1,
+    orderType: this.$store.state.buy_or_sale_type || 0,
 
     // 买卖form右侧
     is_right: false,
@@ -698,8 +698,8 @@ root.methods.popIdenClose = function () {
 // 点击确定
 root.methods.popIdenComfirms = function () {
   this.popIdenOpen = false
-  let orderType = this.orderType;
-  this.tradeMarket(false,orderType)
+  let orderTypeOrigin = this.orderTypeOrigin;
+  this.tradeMarket(false,orderTypeOrigin)
 }
 
 root.methods.comparePriceNow = function () {
@@ -719,7 +719,7 @@ root.methods.comparePriceNow = function () {
 
 // 提交买入或卖出
 root.methods.tradeMarket = function (popIdenOpen,type) {
-  this.orderType = type;
+  this.orderTypeOrigin = type;
   // 按钮添加点击效果
   this.BTN_CLICK();
 
@@ -1051,7 +1051,7 @@ root.methods.RE_ACCOUNTS = function (data) {
 // 百分比切换
 root.methods.sectionSelect = function (num) {
 	this.numed = num
-  if (this.openType != 1) {
+  if (this.orderType != 0) {
     // this.transaction_amount = (this.currentSymbol.balance_order * num).toFixed(this.baseScale)
     // console.log(this.baseScale)
     this.transaction_amount = this.$globalFunc.accFixed(this.currentSymbol.balance_order * num, this.baseScale);
@@ -1065,7 +1065,7 @@ root.methods.sectionSelect = function (num) {
 
 root.methods.sectionSelect2 = function (num) {
 	this.numed2 = num
-	if (this.openType != 1) {
+	if (this.orderType != 0) {
 		// this.transaction_amount = (this.currentSymbol.balance_order * num).toFixed(this.baseScale)
 		// console.log(this.baseScale)
 		this.transaction_amount = this.$globalFunc.accFixed(this.currentSymbol.balance_order * num, this.baseScale);
@@ -1160,18 +1160,18 @@ root.methods.symbolList_priceList = function (symbol_list) {
 
 // 切换tab
 root.methods.changeType = function (typeNum) {
-  this.openType = typeNum;
+  this.orderType = typeNum;
   this.latestFlag = false;
-  if (typeNum === 1) {
+  if (typeNum === 0) {
     this.$store.commit('changeMobileHeaderTitle', '买入');
   }
-  if (typeNum === 2) {
+  if (typeNum === 1) {
     this.$store.commit('changeMobileHeaderTitle', '卖出');
   }
-  if (typeNum === 3) {
+  if (typeNum === 2) {
     this.$store.commit('changeMobileHeaderTitle', '当前委托');
   }
-  if (typeNum === 4) {
+  if (typeNum === 3) {
     this.$store.commit('changeMobileHeaderTitle', '历史委托');
   }
   // 切换买入卖出时候需要清空数量

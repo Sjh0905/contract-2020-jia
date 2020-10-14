@@ -37,6 +37,7 @@ tradingHallData.positionModeConfigs = {
       securityDeposit:true,
       kaipingType:1,//1.可开 2.可平
       buttonType:1,//1.买入/做多+卖出/做空 2.开多+开空 3.平空+平多
+      buttonType1Create:true,//用来判断接口调用类型
     },
     marketPrice:{
       passiveDelegation:false,
@@ -49,6 +50,7 @@ tradingHallData.positionModeConfigs = {
       securityDeposit:true,
       kaipingType:1,//1.可开 2.可平
       buttonType:1,//1.买入/做多+卖出/做空 2.开多+开空 3.平空+平多
+      buttonType1Create:true,//用来判断接口调用类型
     },
     limitProfitStopLoss:{
       passiveDelegation:false,
@@ -61,6 +63,7 @@ tradingHallData.positionModeConfigs = {
       securityDeposit:true,
       kaipingType:1, //1.可开 2.可平
       buttonType:1, // 1.买入/做多+卖出/做空 2.开多+开空 3.平空+平多
+      buttonType1Stop:true,//用来判断接口调用类型
     },
     marketPriceProfitStopLoss:{
       passiveDelegation:false,
@@ -73,6 +76,7 @@ tradingHallData.positionModeConfigs = {
       securityDeposit:true,
       kaipingType:1,//1.可开 2.可平
       buttonType:1,//1.买入/做多+卖出/做空 2.开多+开空 3.平空+平多
+      buttonType1Stop:true,//用来判断接口调用类型
     },
   },
   doubleWarehouseMode:{
@@ -88,6 +92,7 @@ tradingHallData.positionModeConfigs = {
         securityDeposit:true,
         kaipingType:1,//1.可开 2.可平
         buttonType:2,//1.买入/做多+卖出/做空 2.开多+开空 3.平空+平多
+        buttonType2Create:true,//用来判断接口调用类型
       },
       marketPrice:{
         passiveDelegation:false,
@@ -100,6 +105,7 @@ tradingHallData.positionModeConfigs = {
         securityDeposit:true,
         kaipingType:1,//1.可开 2.可平
         buttonType:2,//1.买入/做多+卖出/做空 2.开多+开空 3.平空+平多
+        buttonType2Create:true,//用来判断接口调用类型
       },
       limitProfitStopLoss:{
         passiveDelegation:false,
@@ -112,6 +118,7 @@ tradingHallData.positionModeConfigs = {
         securityDeposit:true,
         kaipingType:1,//1.可开 2.可平
         buttonType:2,//1.买入/做多+卖出/做空 2.开多+开空 3.平空+平多
+        buttonType2Stop:true,//用来判断接口调用类型
       },
       marketPriceProfitStopLoss:{
         passiveDelegation:false,
@@ -124,6 +131,7 @@ tradingHallData.positionModeConfigs = {
         securityDeposit:true,
         kaipingType:1,//1.可开 2.可平
         buttonType:2,//1.买入/做多+卖出/做空 2.开多+开空 3.平空+平多
+        buttonType2Stop:true,//用来判断接口调用类型
       },
     },
     closeWarehouse:{
@@ -138,6 +146,7 @@ tradingHallData.positionModeConfigs = {
         securityDeposit:false,
         kaipingType:2,//1.可开 2.可平
         buttonType:3,//1.买入/做多+卖出/做空 2.开多+开空 3.平空+平多
+        buttonType3Create:true,//用来判断接口调用类型
       },
       marketPrice:{
         passiveDelegation:false,
@@ -150,6 +159,7 @@ tradingHallData.positionModeConfigs = {
         securityDeposit:false,
         kaipingType:2,//1.可开 2.可平
         buttonType:3,//1.买入/做多+卖出/做空 2.开多+开空 3.平空+平多
+        buttonType3Create:true,//用来判断接口调用类型
       },
       limitProfitStopLoss:{
         passiveDelegation:false,
@@ -162,6 +172,7 @@ tradingHallData.positionModeConfigs = {
         securityDeposit:false,
         kaipingType:2,//1.可开 2.可平
         buttonType:3,//1.买入/做多+卖出/做空 2.开多+开空 3.平空+平多
+        buttonType3Stop:true,//用来判断接口调用类型
       },
       marketPriceProfitStopLoss:{
         passiveDelegation:false,
@@ -174,6 +185,7 @@ tradingHallData.positionModeConfigs = {
         securityDeposit:false,
         kaipingType:2,//1.可开 2.可平
         buttonType:3,//1.买入/做多+卖出/做空 2.开多+开空 3.平空+平多
+        buttonType3Stop:true,//用来判断接口调用类型
       },
     },
   },
