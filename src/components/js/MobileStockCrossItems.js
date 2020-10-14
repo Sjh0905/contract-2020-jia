@@ -101,7 +101,7 @@ root.methods.getPriceChangeOrders = function(transactionData){
   }
 
   transactionData = transactionData.splice(0, 9)
-  console.log(transactionData)
+  // console.log(transactionData)
   return transactionData
 
 }

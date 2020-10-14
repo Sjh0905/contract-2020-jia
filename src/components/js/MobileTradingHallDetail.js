@@ -110,19 +110,16 @@ root.data = function () {
     list: [],
     // 点击效果
     btn_click: false,
-
     toastNobindShow: false,
 
     isshowhangq:false,
 
     currency_list:[],
-
     KKPriceRange:[],
-
     popIdenOpen: false, // 弹窗开放
-
     priceCont:'',
-    // 调整杠杆
+
+    // 调整杠杆 Start
     leverage:20, // 杠杆倍数
     popWindowAdjustingLever:false,
     popTextLeverage:'',
@@ -137,9 +134,27 @@ root.data = function () {
     },
     // 显示的最大头寸数值
     maximumPosition : ['50,000','250,000','100,0000','5,000,000','20,000,000','50,000,000','100,000,000','200,000,000'],
+    maxNotionalValue: '',   // 当前杠杆倍数下允许的最大名义价值
+    listType:'currentDelegation',// 当前委托currentDelegation，持有仓位holdPosition
     //调整杠杆 End
 
-    maxNotionalValue: '',   // 当前杠杆倍数下允许的最大名义价值
+
+    //保证金模式Strat
+    popWindowSecurityDepositMode: false,
+    // cardType:1, //仓位模式选择初始值
+    marginModeType: 'quanCang',  // "quanCang":全仓  "zhuCang":逐仓
+    marginType: 'CROSSED', // 全仓逐仓
+    marginModeTypeTemp:'',// 临时存储值，等用户点击弹窗确认按钮后才真正改变 marginModeType 的值
+    //保证金模式End
+
+    // 仓位模式 Start
+    popWindowPositionModeBulletBox:false,
+    //  仓位模式 End
+
+    // 资金费率  下次资金费时间
+    markPrice: '', // 标记价格
+    lastFundingRate: '', // 资金费率
+    nextFundingTime: '',   // 下次资金费时间
 
   }
 }
@@ -214,6 +229,8 @@ root.created = function () {
 
   this.getScaleConfig();
   this.positionRisk()  // 获取仓位信息（全逐仓、杠杆倍数）
+  this.getPositionsideDual() // 获取仓位模式
+  this.getMarkPricesAndCapitalRates()  // 获取币安最新标记价格和资金费率
 
   this.isFirstVisit();
 
@@ -226,7 +243,8 @@ root.components = {
   'PopupPrompt': resolve => require(['../vue/PopupPrompt'], resolve),
   'MobileTrade': resolve => require(['../vue/MobileTrade'], resolve),
   'CurrentOrder': resolve => require(['../vue/MobileCurrentOrder'], resolve),
-  'HistoryOrder': resolve => require(['../vue/MobileHistoryOrder'], resolve),
+  // 'HistoryOrder': resolve => require(['../vue/MobileHistoryOrder'], resolve),
+  'PositionList': resolve => require(['../vue/MobilePositionList'], resolve),
   'PositionModeBulletBox': resolve => require(['../vue/PositionModeBulletBox'], resolve),
 
 }
@@ -234,7 +252,11 @@ root.components = {
 /*------------------------------ 计算 begin -------------------------------*/
 
 root.computed = {}
-
+// 计算是否有仓位和当前委托
+root.computed.isHasOrders = function (){
+  if(!this.currentLength && !this.recordsIndex) return true
+  return false
+}
 
 root.computed.currencyList = function(){
   return this.$store.state.symbol.currencyList
@@ -338,7 +360,195 @@ root.computed.maxPosition = function () {
 
 /*------------------------------ 方法 begin -------------------------------*/
 
-root.methods = {};
+root.methods = {}
+// 获取币安最新标记价格和资金费率
+root.methods.getMarkPricesAndCapitalRates = function () {
+  this.$http.send('GET_MARKET_PRICE',{
+    bind: this,
+    query:{
+      symbol:this.symbol
+    },
+    callBack: this.re_getMarkPricesAndCapitalRates,
+    errorHandler:this.error_getMarkPricesAndCapitalRates
+  })
+}
+// 获取币安最新标记价格和资金费率正确回调
+root.methods.re_getMarkPricesAndCapitalRates = function (data) {
+  typeof(data) == 'string' && (data = JSON.parse(data));
+  // console.info('data========',data.data[0])
+  this.markPrice = (data.data[0].markPrice || '').toString()
+  this.lastFundingRate = data.data[0].lastFundingRate || '--'
+  this.nextFundingTime = data.data[0].nextFundingTime || '--'
+//
+}
+// 获取币安最新标记价格和资金费率错误回调
+root.methods.error_getMarkPricesAndCapitalRates = function (err) {
+  console.log('获取币安24小时价格变动接口',err)
+}
+
+
+// TODO 仓位模式Start
+//打开仓位模式
+root.methods.turnOnLocationMode = function () {
+  this.positionModeFirstTemp = this.positionModeFirst;//打开弹窗前需要初始化positionModeFirstTemp的值，必须和positionModeFirst一致
+  this.popWindowPositionModeBulletBox = true
+}
+// TODO 仓位模式
+root.methods.popWindowClosePositionModeBulletBox = function () {
+  this.popWindowPositionModeBulletBox = false
+  this.positionModeFirstTemp = this.positionModeFirst;//直接关闭弹窗后需要还原positionModeFirstTemp的值，必须和positionModeFirst一致
+}
+// TODO 仓位模式选择
+root.methods.positionModeSelected = function (type) {
+  this.positionModeFirstTemp = type
+}
+// 获取仓位模式
+root.methods.getPositionsideDual = function () {
+  this.$http.send('GET_POSITIONSIDE_DUAL',{
+    bind: this,
+    callBack: this.re_getPositionsideDual,
+    errorHandler:this.error_getPositionsideDual
+  })
+}
+// 获取仓位模式正确回调
+root.methods.re_getPositionsideDual = function (data) {
+  typeof(data) == 'string' && (data = JSON.parse(data));
+  if(data.data.dualSidePosition){
+    this.dualSidePosition = true
+    this.positionModeFirst = 'doubleWarehouseMode'
+    return
+  }
+  this.dualSidePosition = false
+  this.positionModeFirst = 'singleWarehouseMode'
+}
+// 获取仓位模式错误回调
+root.methods.error_getPositionsideDual = function (err) {
+  console.log('获取币安获取仓位模式接口',err)
+}
+
+// 仓位模式选择确认
+root.methods.positionModeSelectedConfirm = function () {
+  // 如果是相同仓位切换，直接关闭
+  if((this.dualSidePosition == false && this.positionModeFirstTemp == 'singleWarehouseMode') || (this.dualSidePosition == true && this.positionModeFirstTemp == 'doubleWarehouseMode')){
+    this.popWindowPositionModeBulletBox = false
+    return
+  }
+  if(!this.isHasOrders){
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '您可能存在挂单或仓位，不支持调整仓位模式';
+    return
+  }
+  this.$http.send('POST_SINGLE_DOUBLE',{
+    bind: this,
+    params:{
+      dualSidePosition: this.positionModeFirst == 'singleWarehouseMode' ? "true" : "false",
+      // timestamp: this.serverTime
+    },
+    callBack: this.re_positionModeSelectedConfirm,
+    errorHandler:this.error_positionModeSelectedConfirm
+  })
+}
+// 仓位模式选择确认正确回调
+root.methods.re_positionModeSelectedConfirm = function (data) {
+  typeof(data) == 'string' && (data = JSON.parse(data));
+  if(!data && !data.data)return
+  this.promptOpen = true;
+  if (data.code == 200) {
+    this.popType = 1;
+    this.popText = '调整仓位模式成功';
+    this.positionModeFirst = this.positionModeFirstTemp;
+    this.getPositionsideDual()
+    this.popWindowPositionModeBulletBox = false
+    return
+  }
+  this.popType = 0;
+  this.popText = '调整仓位模式失败';
+}
+// 仓位模式选择确认错误回调
+root.methods.error_positionModeSelectedConfirm = function (err) {
+  console.log('仓位模式选择确认接口',err)
+}
+
+
+// 跳转计算器
+root.methods.goToCalculator = function () {
+  this.$router.push({name: 'mobileCalculator'})
+}
+
+// 保证金模式弹框 start
+// 打开全仓逐仓弹窗
+root.methods.openSecurityDepositMode = function () {
+  this.marginModeTypeTemp = this.marginModeType
+  this.popWindowSecurityDepositMode = true
+}
+
+//保证金模式
+root.methods.popWindowCloseSecurityDepositMode = function () {
+  this.marginModeTypeTemp = this.marginModeType
+  this.popWindowSecurityDepositMode = false
+}
+
+// 切换保证金模式
+root.methods.securityDepositMode = function (cardType) {
+  this.marginModeTypeTemp = cardType
+}
+
+// 切换全仓逐仓
+root.methods.marginModeConfirm = function () {
+  if ((this.marginType == 'CROSSED' && this.marginModeTypeTemp == 'quanCang')|| (this.marginType == 'ISOLATED' && this.marginModeTypeTemp == 'zhuCang')) {
+    this.popType = 0;
+    this.popText = '暂不需要调整保证金模式';
+    this.promptOpen = true;
+    return
+  }
+  if(!this.isHasOrders){
+    this.popType = 0;
+    this.popText = '您可能存在挂单或仓位，不支持调整保证金模式';
+    this.promptOpen = true;
+    return
+  }
+
+  // if (this.marginModeTypeTemp == 'zhuCang') {
+  //   this.marginModeType = 'zhuCang'
+  //   return
+  // }
+  this.$http.send('POST_MARGIN_TYPE',{
+    bind: this,
+    params:{
+      "symbol": "BTCUSDT",
+      "marginType": this.marginType == 'ISOLATED' ? "CROSSED": "ISOLATED"
+    },
+    callBack: this.re_marginModeConfirm,
+    errorHandler:this.error_marginModeConfirm
+  })
+}
+root.methods.re_marginModeConfirm = function (data) {
+  typeof(data) == 'string' && (data = JSON.parse(data));
+  if(data.code == 200) {
+    this.popType = 1;
+    this.popText = '调整保证金模式成功';
+    this.promptOpen = true;
+    if (this.marginType == 'ISOLATED') {
+      this.marginModeType = 'quanCang'
+      this.popWindowCloseSecurityDepositMode()
+      this.positionRisk()
+      return
+    }
+    if (this.marginType == 'CROSSED') {
+      this.marginModeType = 'zhuCang'
+    }
+    this.positionRisk()
+    this.popWindowCloseSecurityDepositMode()
+    return
+  }
+  this.popType = 0;
+  this.popText = '调整保证金模式失败';
+  this.promptOpen = true;
+}
+root.methods.error_marginModeConfirm = function (err) {
+}
+
 //订单大分类
 root.methods.changeOptionData = function (v) {
   this.optionVal = v
@@ -387,6 +597,7 @@ root.methods.changeReducePositions = function(){
   this.reducePositionsSelected = !this.reducePositionsSelected
 }
 //只减仓 end
+
 
 // 获取仓位信息
 root.methods.positionRisk = function () {
@@ -1835,6 +2046,11 @@ root.methods.re_isFirstVisit = function (data) {
 //合约全部记录
 root.methods.openAllRecords = function () {
   this.$router.push('/index/mobileContractAllRecords')
+}
+
+//当前委托，仓位持仓切换
+root.methods.listSwitching = function (listType) {
+  this.listType = listType
 }
 
 export default root;
