@@ -2450,4 +2450,17 @@ root.routes.push({
   component: resolve => require(['@/components/vue/MobileContractAllRecords'], resolve)
 })
 
+// 合约全部记录
+root.routes.push({
+  path: '/index/mobileHistoricalDetails',
+  name: 'mobileHistoricalDetails',
+  meta: {
+    requireLogin: true,
+    pcname: '',
+    h5name: 'mobileHistoricalDetails',
+  },
+  caseSensitive: true,
+  component: resolve => require(['@/components/vue/MobileHistoricalDetails'], resolve)
+})
+
 export default root

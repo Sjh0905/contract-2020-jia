@@ -1,9 +1,10 @@
 const root = {}
 root.name = 'MobileContractAllRecords'
 /*------------------------------ 组件 ------------------------------*/
-//root.components = {
-//  'Loading': resolve => require(['../Loading/Loading.vue'], resolve),
-//}
+root.components = {
+ // 'Loading': resolve => require(['../Loading/Loading.vue'], resolve),
+  'HiddenDetail': resolve => require(['../vue/MobileHistoricalDetails'], resolve),
+}
 /*------------------------------ data -------------------------------*/
 root.data = function () {
   return {
@@ -82,7 +83,8 @@ root.methods.jumpToBack = function () {
     }))
     return
   }
-  history.go(-1)
+  // history.go(-1)
+  this.$router.push('/index/mobileTradingHallDetail')
 }
 
 // 切换合约各种记录头部
@@ -227,7 +229,25 @@ root.methods.error_getOrder = function (err) {
   console.warn("获取错误", err)
 }
 
+// // 显示详情
+root.methods.showDetail = function (order) {
+  if (this.clickThis === order.orderId) {
+    this.clickThis = -1
+    return
+  }
+  this.clickThis = order.orderId
+  this.historyOrder.length !== 0 && this.historyOrder.forEach(v=>{
+    if(this.clickThis == v.orderId) {
+      this.startTime = v.time - 1
+      this.endTime = v.updateTime + 1
+    }
+  })
 
+  if (this.clickThis === order.orderId && order.status == 'FILLED') {
+    this.$router.push('/index/mobileHistoricalDetails')
+  }
+  // console.info('this.firstTime===',this.startTime,this.endTime)
+}
 
 
 

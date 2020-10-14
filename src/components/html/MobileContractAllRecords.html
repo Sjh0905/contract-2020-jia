@@ -13,9 +13,9 @@
 
   <div class="header-title-list-top">
     <div class="header-title-list">
-      <div class="header-title-item" :class="openType==1? 'header-title-item-active':''" @click="changeOpenType(1)">
-        当前委托
-      </div>
+<!--      <div class="header-title-item" :class="openType==1? 'header-title-item-active':''" @click="changeOpenType(1)">-->
+<!--        当前委托-->
+<!--      </div>-->
       <div class="header-title-item" :class="openType==2? 'header-title-item-active':''" @click="changeOpenType(2)">
         历史委托
       </div>
@@ -37,7 +37,8 @@
       </div>
       <!--有=记录的样子-->
       <div v-if="historyOrderComputed.length !== 0" class="withdraw-list">
-        <div v-for="(order,index) in historyOrderComputed" :key="order.id" class="histor-withdraw-item border-bot">
+        <div v-for="(order,index) in historyOrderComputed" :key="order.id" class="histor-withdraw-item border-bot"
+             @click="showDetail(order)">
           <!--时间-->
           <div class="flex padding-bot">
             <!-- 币种-->
@@ -87,6 +88,12 @@
               <div class="td-time1 tar" v-if="order.status == 'EXPIRED'">订单过期</div>
             </div>
           </div>
+
+          <!--展示详情(如果在交易，打不开详情)-->
+          <div v-if="clickThis === order.orderId && $route.name== 'historicalEntrust' && order.status == 'FILLED'"  class="tr-hidden">
+            <HiddenDetail :orderId="order.orderId" :symbol="order.symbol" :startTime="startTime" :endTime="endTime"/>
+          </div>
+
         </div>
       </div>
     </div>
