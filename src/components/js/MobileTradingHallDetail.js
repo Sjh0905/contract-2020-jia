@@ -38,7 +38,20 @@ root.data = function () {
     checkPrice:2, // 限价---被动委托，生效时间选择
     reducePositionsSelected: false,//只减仓状态
 
-    // 是否可用BDB抵扣
+    //买卖列表
+    buy_sale_list: {},
+
+    // socket推送信息
+    socket_tick: {}, // header单个币对价格
+    socket_snap_shot: {}, //深度图
+    socket24hrTicker:[],//symbol24小时ticker信息
+    socketTickObj: {}, // 单个归集交易推送
+    apiTickArr: [], // 第一次接口获取的最新归集交易
+
+    latestPriceVal: '' ,   // 最新价格，用于价格输入框显示
+    latestPriceArr: [] ,   // 最新价格数组，用于判断价格升降和盘口显示
+
+    // 是否可用BDB抵扣 TODO------------------ 新旧分割线-----------------
     BDBInfo: true,
     BDBReady: false,
 
@@ -86,9 +99,9 @@ root.data = function () {
     price_quoteScale: 8,
 
     //socket价格数据
-    socket_tick: {},
+    // socket_tick: {},
     // 18-2-10 新加买卖信息对象，用来接收socket和ajax返回的数据 深度图
-    buy_sall_list: {},
+    // buy_sall_list: {},
     // 货币对列表价格
     socket_price: {},
 
@@ -195,9 +208,9 @@ root.created = function () {
   // 获取精度
   this.getScaleConfig();
   // 拉取列表数据
-  this.getDepthInfo();
+  this.getDepth();
   // 订阅socket
-  // this.initSocket();
+  this.initSocket();
 
 
   // 获取可用数量
@@ -246,7 +259,7 @@ root.components = {
   // 'HistoryOrder': resolve => require(['../vue/MobileHistoryOrder'], resolve),
   'PositionList': resolve => require(['../vue/MobilePositionList'], resolve),
   'PositionModeBulletBox': resolve => require(['../vue/PositionModeBulletBox'], resolve),
-
+  'H5StockCross': resolve => require(['../vue/H5StockCross'], resolve),
 }
 
 /*------------------------------ 计算 begin -------------------------------*/
@@ -279,6 +292,28 @@ root.computed.positionModeConfigs = function () {
   let data = tradingHallData.positionModeConfigs;
   // console.log(data);
   return data
+}
+
+// 实时价格
+root.computed.isNowPrice = function () {
+
+  let nowPrice = this.latestPriceArr[this.latestPriceArr.length-1]
+
+  document.title = nowPrice+" "+this.symbol.replace('_', '/')+" "+this.$t('document_title');
+  return (nowPrice || this.latestPriceVal).toString();//当nowPrice为 0 或者 undefined时返回latestPriceVal，避免出现0
+}
+
+// 实时价格的升降
+root.computed.direction = function () {
+
+  let currPrice = this.latestPriceArr[this.latestPriceArr.length-1];
+  let prePrice = this.latestPriceArr[this.latestPriceArr.length-2];
+
+  let step = currPrice - prePrice,className = 'txt-white'
+  step > 0 && (className = 'txt-price-green')
+  step < 0 && (className = 'txt-price-red')
+
+  return className;
 }
 
 // 深度图百分比  如果是 ETH->BTC的，数量超过10就满，BDB->BTC或BDB->ETH的，超过10万才满,ICC->BTC超过100万才满
@@ -682,109 +717,165 @@ root.methods.RE_FEE = function (data) {
     this.fee = 65536
   }
 }
-
-// 获取深度图，用来渲染header的price信息
-root.methods.getDepthInfo = function () {
-  this.$http.send("DEPTH", {
+// 获取币安最新价格接口
+root.methods.getLatestrice = function () {
+  this.$http.send('GET_TICKER_PIRCE',{
     bind: this,
-    query: {symbol: this.$store.state.symbol},
-    callBack: this.RE_DEPTH
+    query:{
+      symbol:this.symbol
+    },
+    callBack: this.re_getLatestrice,
+    errorHandler:this.error_getLatestrice
   })
 }
-// 拉取第一次数据
-root.methods.RE_DEPTH = function (data) {
-  //console.log('aaaaaaaaaaaaaaaaaa',data)
+// 获取币安最新价格接口正确回调
+root.methods.re_getLatestrice = function (data) {
+  typeof(data) == 'string' && (data = JSON.parse(data));
+  if(!data || !data.data || !data.data[0]) return
+  // this.marketSymbolList = this.$globalFunc.mergeObj(data.data[0], this.marketSymbolList);
 
-  if(this.$store.state.symbol != data.symbol)return
+  let price = data.data[0].price
+  this.latestPriceVal = (price || '').toString()
+  // this.latestPriceVal = ((price != undefined || price != null) &&  price) || ''
+  // this.latestPriceVal = (Number(price) || '').toString()
 
-  this.buy_sall_list = Object.assign(this.buy_sall_list, data);
-
-  // 2018-4-23 解决当socekt没有推送的话，用depth返回的price
-  this.price = this.buy_sall_list.price;
-
-  // !!this.buy_sall_list.sellOrders.length && (this.sellOrders = this.buy_sall_list.sellOrders.splice(0, 9))
-  // !!this.buy_sall_list.buyOrders.length && (this.buyOrders = this.buy_sall_list.buyOrders.splice(0, 9))
-
-  !!this.buy_sall_list.sellOrders.length && (this.sellOrders = this.getPriceChangeOrders(this.buy_sall_list.sellOrders))
-  !!this.buy_sall_list.buyOrders.length && (this.buyOrders = this.getPriceChangeOrders(this.buy_sall_list.buyOrders))
-
-  let symbol = this.$store.state.symbol.split('_')[1];
-  let self = this;
-  let rate = 0;
-  for (let key in this.socket_price) {
-    if (key == 'BDB_ETH') {
-      self.bdb_rate = this.socket_price[key][4];
-    }
-  }
-
-  switch (symbol) {
-    case 'BTC':
-      rate = this.$store.state.exchange_rate.btcExchangeRate || 0
-      break;
-    case 'ETH':
-      rate = this.$store.state.exchange_rate.ethExchangeRate || 0
-      break;
-    case 'BDB':
-      rate = (this.$store.state.exchange_rate.ethExchangeRate * self.bdb_rate) || 0
-      break;
-    case 'USDT':
-      rate = 1;
-      break;
-    default:
-      rate = 0;
-      break;
-  }
-
-  this.cnyPrice = !(this.price * rate) ? 0 : this.$globalFunc.accFixedCny(this.price * rate * this.$store.state.exchange_rate_dollar, 2);
+  // try{
+  //   data.data[0].price = null;//1.null
+  //   // delete data.data[0].price;//2.undefined
+  //   this.latestPriceVal = String(data.data[0].price) || ''
+  // }catch (ex) {
+  //   console.error('this is err data.data[0].price.toString()',ex);
+  // }
 }
-// 初始化订阅socket
-root.methods.initSocket = function () {
+// 获取币安最新价格接口错误回调
+root.methods.error_getLatestrice = function (err) {
+  console.log('获取币安24小时价格变动接口',err)
+}
 
-  this.$socket.emit('unsubscribe', {symbol: this.$store.state.symbol})
-  this.$socket.emit('subscribe', {symbol: this.$store.state.symbol})
-
-  this.$socket.on({
-    key: 'topic_snapshot',
+// 获取深度信息
+root.methods.getDepth = function () {
+  this.$http.send('GET_DEPTH', {
     bind: this,
-    callBack:  (message) =>{
-      // console.log(message)
-      if (self.$store.state.symbol == message.symbol) {
-        this.buy_sall_list = Object.assign(self.buy_sall_list, message);
-        // console.log(message)
-        // !!this.buy_sall_list.sellOrders.length && (self.sellOrders = this.buy_sall_list.sellOrders.splice(0, 9))
-        // !!this.buy_sall_list.buyOrders.length && (self.buyOrders = this.buy_sall_list.buyOrders.splice(0, 9))
+    query:{
+      symbol:this.symbol,
+      limit: 20
+    },
+    callBack: this.re_getDepth
+  });
+}
+// 获取深度信息正确回调
+root.methods.re_getDepth = function (data) {
+  typeof(data) == 'string' && (data = JSON.parse(data));
+  if(!data || !data.data)return
+  let d = data.data
+  d.a = d.asks
+  d.b = d.bids
+  this.buy_sale_list = d;
+  this.trade_loading = false
+  // console.info('this.buy_sale_list======',this.buy_sale_list)
+}
 
-        !!this.buy_sall_list.sellOrders.length && (self.sellOrders = this.getPriceChangeOrders(this.buy_sall_list.sellOrders))
-        !!this.buy_sall_list.buyOrders.length && (self.buyOrders = this.getPriceChangeOrders(this.buy_sall_list.buyOrders))
+// 获取实时成交归集交易
+root.methods.getAggTrades = function () {
+  let query = {
+    // symbol: this.symbol
+    symbol: this.symbol,
+    limit:80
+  };
+  this.$http.send("GET_AGG_TRADES", {
+    bind: this,
+    query,
+    callBack: this.re_getAggTrades,
+    errorHandler: this.error_getAggTrades
+  })
+}
+root.methods.re_getAggTrades = function (data) {
+  // console.log("getAggTrades---------",data);
+  if(!data)return
+  data = data.data || {}
+  this.apiTickArr = data;
+  let price1 = data[data.length - 1] && data[data.length - 1].p || 0;//最后一条价格最新
+
+  if(this.latestPriceArr.length == 0){//如果一条数据都没有，至少填两条
+    let price2 = data[data.length - 2] && data[data.length - 2].p || 0;
+
+    this.latestPriceArr = [price2,price1]
+    return
+  }
+
+  this.latestPriceArr.push(price1)
+}
+// 获取实时成交归集交易接口错误回调
+root.methods.error_getAggTrades = function (err) {
+  console.log('获取实时成交归集交易接口出错',err)
+}
+
+// 初始化socket
+root.methods.initSocket = function () {
+  let that = this;
+  // 订阅某个币对的信息
+  // this.$socket.emit('UNSUBSCRIBE', {symbol: this.$store.state.symbol});
+  // this.$socket.emit('SUBSCRIBE', ["btcusdt@depth"]);
+
+  // let subscribeSymbol = this.$store.state.subscribeSymbol;
+  let subscribeSymbol = this.$globalFunc.toOnlyCapitalLetters(this.$store.state.symbol);
+  // 获取最新标记价格
+  this.$socket.on({
+    key: 'markPriceUpdate', bind: this, callBack: (message) => {
+      if(message.s === subscribeSymbol){
+        message.p > 0 && (this.markPrice = message.p)// 标记价格
+        message.r > 0 && (this.lastFundingRate = message.r)// 资金费率
+        message.T > 0 && (this.nextFundingTime = message.T)//下个资金时间
       }
     }
   })
 
-  // 获取所有币对价格
+  // 获取币安24小时价格变动
+  /*this.$socket.on({
+    key: '24hrTicker', bind: this, callBack: (message) => {
+      // console.log('24hrTicker is ===',message);
+
+      this.socket24hrTicker = message;
+      var tickerData = message.find(v=>v.s === subscribeSymbol)
+
+      if(tickerData){
+        tickerData.P && (this.priceChangePercent = tickerData.P)// 24小时价格变化(百分比)
+        tickerData.h > 0 && (this.highPrice = tickerData.h)// 24小时内最高成交价
+        tickerData.l > 0 && (this.lowPrice = tickerData.l)// 24小时内最低成交加
+        tickerData.v && (this.volume = tickerData.v)// 24小时内成交量
+      }
+    }
+  })*/
+
+  // 获取深度图信息
   this.$socket.on({
-    key: 'topic_tick', bind: this, callBack: (message) => {
-      this.socket_tick = message instanceof Array && (message[0]['symbol'] ===  this.$store.state.symbol && message[0]) ||( message.symbol === this.$store.state.symbol && message )
-      // this.socket_tick = message instanceof Array && message[0] || message;
-      // console.warn('this is socket_tick',this.socket_tick)
-      this.price = this.socket_tick.price || 0;
-      // 判断BTC或ETH汇率
-      let symbol = this.$store.state.symbol.split('_')[1];
-      this.getDepthCny(this.socket_price, this.price, symbol);
-
-      // 全站交易
-      // this.DISPLAY_LATEST(message);
-
+    key: 'depthUpdate', bind: this, callBack: (message) => {
+      // console.log('depth is ===',message);
+      message.asks = message.a;
+      message.bids = message.b;
+      this.socket_snap_shot = message
     }
   })
 
-  // 接收所有币对实时价格
+  // 获取最新成交，归集交易
   this.$socket.on({
-    key: 'topic_prices', bind: this, callBack: (message) => {
-      this.socket_price = message;
-      let self = this;
-      let rate = 0;
-      let symbol = this.$store.state.symbol.split('_')[1];
-      this.getDepthCny(this.socket_price, this.price, symbol);
+    key: 'aggTrade', bind: this, callBack: (message) => {
+      if(!message)return
+
+      this.socket_tick = message.s === subscribeSymbol && message || {}
+      this.socketTickObj = message.s === subscribeSymbol && message || {}
+
+      let currPrice = this.socketTickObj && this.socketTickObj.p || 0
+      let lpal = this.latestPriceArr.length - 50;
+
+      lpal == -50 && (this.latestPriceArr = [0,currPrice])//说明length是0
+      lpal > -50 && this.latestPriceArr.push(currPrice);//length > 0
+      lpal > 0 && this.latestPriceArr.splice(0,lpal);//避免数组溢出
+
+      // this.latestPriceVal = this.socketTickObj && this.socketTickObj.p || this.latestPriceVal
+      // 取消板块loading
+      this.trade_loading = false;
+      // console.log('aggTrade is ===',message);
     }
   })
 
@@ -1516,12 +1607,17 @@ root.watch.symbol = function (newValue, oldValue) {
   // 重新拉取数据
   // this.GET_LATEST_DEAL();
 
-  this.$socket.emit('unsubscribe', {symbol: oldValue});
-  this.$socket.emit('subscribe', {symbol: this.$store.state.symbol});
-  // 2018-2-9 切换symbol清空socket推送
-  this.buy_sall_list = {}; //深度图
-  this.buyOrders = [];
-  this.sellOrders = [];
+  // this.$socket.emit('unsubscribe', {symbol: oldValue});
+  // this.$socket.emit('subscribe', {symbol: this.$store.state.symbol});
+
+  // 切换币对时候清空所有socket的数据，等socket推送以后重新赋值
+  this.socket_snap_shot = {};
+  this.socket_tick = {};
+  this.socketTickObj = {};
+
+  // this.buy_sale_list = {}//为了保证切换币对时价不显示0
+  this.buy_sale_list.asks = []
+  this.buy_sale_list.bids = []
   // this.socket_tick = {}; //实时价格
 
   // this.buy_sale_list = {}//接口深度图
@@ -1533,7 +1629,7 @@ root.watch.symbol = function (newValue, oldValue) {
   // 获取汇率
   !!this.$store.state.exchange_rate.btcExchangeRate || this.getExchangeRate();
 
-  this.getDepthInfo();
+  this.getDepth();
   this.getScaleConfig();
 
 }

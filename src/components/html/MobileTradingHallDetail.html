@@ -230,45 +230,10 @@
       </div>
       <!--右侧部分-->
       <div class="right-container">
-        <div class="mobile-right-buy-content">
-          <div class="mobile-right-buy-content-title">
-            价格({{symbol.split('_')[1]}}) <span class="mobile-right-buy-content-title-right">数量({{symbol.split('_')[0]}})</span>
-          </div>
-          <div class="mobile-sale-detail-list">
-            <div class="mobile-sale-detail-item" v-for="(item,index) in sellOrders" style="overflow: hidden;"
-                 @click="setTransactionPrice(item.price)">
-              <!--占满是3.5rem-->
-              <span class="mobile-sale-detail-item-shadow" style="background: rgba(216,56,56,0.15);"
-                    :style="{width:item.amount/deep.sall_deeps+'%'}"></span>
-              <span class="mobile-sale-detail-item-price">{{$globalFunc.accFixed(item.price, quoteScale)}}</span>
-              <span class="mobile-sale-detail-item-num" v-if="$store.state.symbol== 'GRC_USDT'">{{(item.amount >= 1000 && item.amount > 0 ) ?
-                $globalFunc.accFixed(item.amount/1000,2)+'k':
-                $globalFunc.accFixed(item.amount, baseScale)}}</span>
-              <span class="mobile-sale-detail-item-num" v-else>{{$globalFunc.accFixed(item.amount, baseScale)}}</span>
-            </div>
-          </div>
-          <div class="mobile-buy-detail-now-price-box mobile-buy-detail-now-price-box-up m-txt-green">
-            <span class="mobile-buy-detail-now-price">{{$globalFunc.accFixed(price, quoteScale)}}</span>
-            <span class="mobile-buy-detail-now-CNY-price">¥{{cnyPrice}}</span>
-            <!--<span class="mobile-buy-detail-now-price-icon"></span>-->
-          </div>
-          <div class="mobile-buy-detail-list">
-            <div class="mobile-buy-detail-item" v-for="(item,index) in buyOrders" style="overflow: hidden;"
-                 @click="setTransactionPrice(item.price)">
-              <!--占满是3.5rem-->
-              <span class="mobile-buy-detail-item-shadow" style="background: rgba(0,166,42,0.15);"
-                    :style="{width:item.amount/deep.buy_deeps+'%'}"></span>
-              <span class="mobile-buy-detail-item-price m-txt-green">{{$globalFunc.accFixed(item.price,quoteScale)}}</span>
-              <span class="mobile-buy-detail-item-num" v-if="$store.state.symbol== 'GRC_USDT'">{{(item.amount >= 1000 && item.amount > 0 ) ?
-                $globalFunc.accFixed(item.amount/1000,2)+'k':
-                $globalFunc.accFixed(item.amount, baseScale)}}</span>
-              <span class="mobile-buy-detail-item-num" v-else>{{$globalFunc.accFixed(item.amount, baseScale)}}</span>
-            </div>
-          </div>
-        </div>
-
-    </div>
-    <div class="clear"></div>
+        <H5StockCross :buy_sale_list="buy_sale_list" :socket_snap_shot="socket_snap_shot" :socket_tick="socket_tick" :isNowPrice="isNowPrice" :direction="direction" :markPrice="markPrice"/>
+      </div>
+      <div class="clear"></div>
+    <div class="current-top-line"/>
 
     <div class="mobile-container-latest-flag" >
       <span class="mobile-container-latest-flag-text" :class="listType == 'currentDelegation' ? 'mobile-list-type' : ''" @click="listSwitching('currentDelegation')">当前委托</span>

@@ -1,3 +1,25 @@
-<div>
-
+<div class="mobile-right-buy-content">
+  <div class="mobile-right-buy-content-title">
+    价格({{symbol.split('_')[1]}}) <span class="mobile-right-buy-content-title-right">数量({{symbol.split('_')[0]}})</span>
+  </div>
+  <div class="mobile-sale-detail-list">
+    <div class="mobile-sale-detail-item" v-for="(item,index) in sellOrders" style="overflow: hidden;"
+         @click="setTransactionPrice(item.price)">
+      <span class="mobile-sale-detail-item-price">{{item.price == '-' ? '-' : $globalFunc.accFixed(item.price, quoteScale)}}</span>
+      <span class="mobile-sale-detail-item-num">{{item.amount == '-' ? '-' : $globalFunc.accFixed(item.amount, baseScale)}}</span>
+      <span class="mobile-buy-detail-item-shadow" :style="[{width:((item.perAmount * 100 / dMaxTotalAmount) || 0) +'%'},{'background-color':'#EF5656'}]"/>
+    </div>
+  </div>
+  <div class="mobile-buy-detail-now-price-box mobile-buy-detail-now-price-box-up flex-row">
+    <span class="mobile-buy-detail-now-price" :class="direction">{{isNowPrice=='- -'&&'- -'|| $globalFunc.accFixed(isNowPrice || 0, quoteScale)}}</span>
+    <span class="mobile-buy-detail-now-price mobile-mark-price txt-white">{{$globalFunc.accFixed(markPrice || 0, quoteScale)}}</span>
+  </div>
+  <div class="mobile-buy-detail-list">
+    <div class="mobile-buy-detail-item" v-for="(item,index) in buyOrders" style="overflow: hidden;"
+         @click="setTransactionPrice(item.price)">
+      <span class="mobile-buy-detail-item-price m-txt-green">{{item.price == '-' ? '-' : $globalFunc.accFixed(item.price,quoteScale)}}</span>
+      <span class="mobile-buy-detail-item-num">{{item.amount == '-' ? '-' : $globalFunc.accFixed(item.amount, baseScale)}}</span>
+      <span class="mobile-buy-detail-item-shadow" :style="[{width:((item.perAmount * 100 / dMaxTotalAmount) || 0) +'%'},{'background-color':'#08D0AC'}]"/>
+    </div>
+  </div>
 </div>

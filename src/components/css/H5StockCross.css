@@ -1,0 +1,143 @@
+.mobile-right-buy-content-title{
+  /*color: #fff;*/
+  margin-top: 0.26rem;
+  /*margin-bottom: 0.28rem;*/
+  line-height: 0.28rem;
+  font-size: 0.2rem;
+  color: #6A83A8;
+  font-family: PingFangSC-Regular, PingFang SC;
+
+}
+
+
+.mobile-right-buy-content-title-right{
+  float: right;
+}
+
+.mobile-buy-detail-list{
+  width: 100%;
+  height:2.88rem;
+  /*background: #fff;*/
+}
+
+.mobile-buy-detail-item{
+  position: relative;
+  height: 0.48rem;
+  line-height: 0.48rem;
+  width: 100%;
+  font-size: 0.24rem;
+}
+
+.mobile-buy-detail-item:last-child{
+  margin-bottom: 0.2rem;
+}
+.mobile-buy-detail-item:nth-child(1){
+  /*margin-bottom: 10px;*/
+}
+
+.mobile-buy-detail-item-price{
+  /*color: #39B496;*/
+}
+
+.mobile-buy-detail-item-num{
+  position: absolute;
+  right: 0;
+  color: #CFD3E9;
+}
+
+.mobile-buy-detail-item-shadow{
+  position: absolute;
+  top:0;
+  right: 0;
+  bottom: 0;
+  display: block;
+  /*width: 100%;*/
+  transition: width 300ms ease;
+  opacity:0.3
+}
+
+.mobile-buy-detail-now-price-box{
+  height: 0.36rem;
+  line-height: 0.36rem;
+  padding: 0 0.06rem;
+  text-align:center;
+  display: flex;
+  -webkit-justify-content: center;
+  -webkit-box-align: center;
+  font-size: 0.3rem;
+  font-weight: 500;
+  color: #39B496;
+}
+
+.mobile-buy-detail-now-price-box-up{
+  /*color: #39B496;*/
+  margin: 0.1rem 0;
+}
+
+.mobile-buy-detail-now-price-box-down{
+  color: #f93943;
+}
+
+.mobile-buy-detail-now-price{
+  /*margin-right: 0.1rem;*/
+}
+.mobile-mark-price{
+  margin-left: 0.16rem;
+}
+
+.mobile-buy-detail-now-price-icon{
+  height: 0.4rem;
+  width: 0.2rem;
+  background: #fff;
+  display: inline-block;
+  margin-left: 0.08rem;
+}
+
+.mobile-buy-detail-now-price-box-up .mobile-buy-detail-now-price-icon{
+  background: url("../../assets/mobile_market_big_up.png") no-repeat center center;
+  background-size: 80%;
+}
+
+.mobile-buy-detail-now-price-box-down .mobile-buy-detail-now-price-icon{
+  background: url("../../assets/mobile_market_big_down.png") no-repeat center center;
+  background-size: 80%;
+}
+
+.mobile-sale-detail-list{
+  width: 100%;
+  height:2.88rem;
+  margin-top: 0.26rem;
+  /*background: #fff;*/
+  flex-direction: column-reverse;
+  display: -webkit-flex;
+}
+
+.mobile-sale-detail-item{
+  position: relative;
+  height: 0.48rem;
+  line-height: 0.48rem;
+  width: 100%;
+  font-size: 0.24rem;
+}
+
+.mobile-sale-detail-item:last-child{
+  margin-bottom: 0;
+}
+
+.mobile-sale-detail-item-price{
+  /*line-height: 0.48rem;*/
+  color: #EF5656;
+}
+
+.mobile-sale-detail-item-num{
+  position: absolute;
+  right: 0;
+  color: #CFD3E9;
+}
+
+.mobile-sale-detail-item-shadow{
+  position: absolute;
+  top:0;
+  right: 0;
+  bottom: 0;
+}
