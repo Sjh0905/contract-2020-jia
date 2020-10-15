@@ -1,77 +1,64 @@
 <div>
-  <!--<div class="mobile-current-title">-->
-  <!--<div class="mobile-current-title-all-sale" @click="cancelAllOrder">全部撤单</div>-->
+  <!--没有数据的样式-->
+  <!--<div v-if="currentOrderComputed.length === 0" class="no-item-box">-->
+    <!--<img class="no-item-box-item" src="../../assets/no-record-icon-H5@2x.png" alt="">-->
+    <!--<div class="no-item-box-text">暂无记录</div>-->
   <!--</div>-->
-  <div class="_m_co_t flex-row">
-    <span>cangwei</span>
-    <span>cangwei</span>
-    <span>cangwei / 数量</span>
-    <span>cangwei</span>
-  </div>
-  <!--没有当前委托的样式-->
-  <div v-if="currentOrderComputed.length === 0" class="no-item-box">
-    <img class="no-item-box-item" src="../../assets/no-record-icon-H5@2x.png" alt="">
-    <div class="no-item-box-text">暂无记录</div>
-  </div>
 
-  <ul class="current-order-list" >
-    <li v-for="(order,index) in currentOrderComputed" :key="order.id" >
-      <div class="orderid">订单ID：{{order.id}}</div>
-      <div class=" _m_co_l flex-row">
-        <div class="_m_co_l1 flex-colum flex-between">
-          <div class="_m_co_l1i flex-row">
-            <i :style="order.type==='BUY_LIMIT'?'background:#39B496':'background:#EF5656'" v-if="!order.isFollow">
-              {{order.type === 'BUY_LIMIT' && "买" || "卖"}}
-            </i>
-            <i :style="order.type==='BUY_LIMIT'?'background:#39B496':'background:#EF5656'" v-if="order.isFollow">
-              {{order.type === 'BUY_LIMIT' && "跟买" || "跟卖"}}
-            </i>
-            <span>{{order.symbol.split('_')[0]}}</span><span class="txt_40">&nbsp;/&nbsp;{{order.symbol.split('_')[1]}}</span>
-          </div>
-          <div class="txt_40">
-            {{$globalFunc.formatDateUitl(order.createdAt,'MM-DD hh:mm:ss')}}
-          </div>
-        </div>
-        <div class="_m_co_l2 flex-row">{{$globalFunc.accFixed(order.price, !!quoteScale_list[order.symbol] ? quoteScale_list[order.symbol].quoteScale : 8)}}</div>
-        <div class="_m_co_l3 flex-colum">
-          <span >{{$globalFunc.accFixed(order.filledAmount, !!quoteScale_list[order.symbol] ? quoteScale_list[order.symbol].baseScale : 8)}}</span>
-          <span class="txt_40">{{$globalFunc.accFixed(order.amount, !!quoteScale_list[order.symbol] ? quoteScale_list[order.symbol].baseScale : 8)}}</span>
-        </div>
-        <div class=" flex-center" :class="[{_m_co_l4:canceling!==order.id},{_m_co_l5:canceling===order.id}]" @click="cancelOrder(order)">
-          <span>{{canceling==order.id&&'撤单中'||'撤单'}}</span>
-        </div>
+  <div class="position-box-item" v-for="(item,index) in [1,1,1]">
+    <!--币对名称-->
+    <div class="ps-symbol-box flex-row">
+      <div class="ps-type ps-long">L</div>
+      <div class="ps-type ps-short">S</div>
+      <div class="ps-symbol">BTCUSDT</div>
+      <img class="ps-reduce-positions" src="../../assets/H5img/mobile_reduce_ps_0.png" alt="">
+      <img class="ps-reduce-positions" src="../../assets/H5img/mobile_reduce_ps_1.png" alt="">
+      <img class="ps-reduce-positions" src="../../assets/H5img/mobile_reduce_ps_2.png" alt="">
+      <img class="ps-reduce-positions" src="../../assets/H5img/mobile_reduce_ps_3.png" alt="">
+      <img class="ps-reduce-positions" src="../../assets/H5img/mobile_reduce_ps_4.png" alt="">
+    </div>
+    <!--杠杆倍数-->
+    <div class="s-d-leverage-box flex-row">
+      <span class="security-deposit-model">全仓</span>
+      <span class="leverage-val">20X</span>
+    </div>
+    <!--其他详细数据1-->
+    <div class="ps-detail-box flex-row">
+      <div class="ps-detail-left flex-colum">
+        <div class="ps-detail-tittle">数量(BTC)</div>
+        <div class="ps-detail-amount">2.201</div>
       </div>
-      <div class="_m_high"></div>
-    </li>
-  </ul>
+      <div class="ps-detail-middle flex-colum">
+        <div class="ps-detail-tittle">PNL(ROE%)</div>
+        <div class="ps-detail-amount">90.09(+10.98%)</div>
+      </div>
+      <div class="ps-detail-right flex-colum">
+        <div class="ps-detail-tittle">保证金</div>
+        <div class="ps-detail-amount">820.50</div>
+      </div>
+    </div>
+    <!--其他详细数据2-->
+    <div class="ps-detail-box flex-row">
+      <div class="ps-detail-left flex-colum">
+        <div class="ps-detail-tittle">开仓价格</div>
+        <div class="ps-detail-amount">32125.4224</div>
+      </div>
+      <div class="ps-detail-middle flex-colum">
+        <div class="ps-detail-tittle">标记价格</div>
+        <div class="ps-detail-amount">16.409</div>
+      </div>
+      <div class="ps-detail-right flex-colum">
+        <div class="ps-detail-tittle">强平价格</div>
+        <div class="ps-detail-amount">20.198</div>
+      </div>
+    </div>
+    <!--操作按钮-->
+    <div class="ps-btn-box flex-around">
+      <div class="ps-btn">调整杠杆</div>
+      <div class="ps-btn">平仓</div>
+    </div>
 
-  <!--<div class="mobile-current-list" v-for="(order,index) in currentOrderComputed" :key="order.id">-->
-  <!--<div class="mobile-current-item">-->
-  <!--<div class="mobile-current-item-first-line">-->
-  <!--<div class="mobile-current-item-icon" :class="order.type==='BUY_LIMIT'?'mobile-current-item-icon-buy':'mobile-history-item-icon-sale'">-->
-  <!--{{order.type === 'BUY_LIMIT'  && "买" || "卖"}}-->
-  <!--</div>-->
-  <!--<div class="mobile-current-item-compare">-->
-  <!--{{order.symbol.split('_')[0]}}/{{order.symbol.split('_')[1]}}-->
-  <!--</div>-->
-  <!--<div class="mobile-current-item-volume">-->
-  <!--成交率 {{(order.filledAmount / order.amount).toFixed(2) * 100 + '%'}}-->
-  <!--</div>-->
-  <!--<div class="mobile-current-item-time">-->
-  <!--委托 {{$globalFunc.formatDateUitl(order.createdAt,'YYYY-MM-DD hh:mm:ss')}}-->
-  <!--</div>-->
-  <!--</div>-->
-  <!--<div class="mobile-current-item-second-line">-->
-  <!--<div class="mobile-current-item-price-title">单价</div>-->
-  <!--<div class="mobile-current-item-price">{{$globalFunc.accFixed(order.price, 8)}}</div>-->
-  <!--<div class="mobile-current-item-num-title">委托数量</div>-->
-  <!--<div class="mobile-current-item-num">{{order.amount}}</div>-->
-
-  <!--<div class="mobile-current-item-sale-btn" @click="cancelOrder(order)">撤单</div>-->
-  <!--</div>-->
-  <!--</div>-->
-  <!--</div>-->
-
+  </div>
 
 
   <MobilePopupWindow :switch="popOpen" v-on:close="closePop">
