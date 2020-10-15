@@ -253,7 +253,7 @@
   </div>
   <!--历史委托页-->
   <div v-if="listType== 'holdPosition'" class="container-current-page">
-    <PositionList></PositionList>
+    <PositionList :latestPriceVal = 'latestPriceVal' :effectiveTime = 'effectiveTime' :markPrice = 'markPrice' @getPositionRisk="getIndex"/>
   </div>
 
   <div class="current-bot-line"/>

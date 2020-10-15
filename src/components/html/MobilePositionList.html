@@ -1,69 +1,63 @@
 <div>
   <!--没有数据的样式-->
-  <!--<div v-if="currentOrderComputed.length === 0" class="no-item-box">-->
-    <!--<img class="no-item-box-item" src="../../assets/no-record-icon-H5@2x.png" alt="">-->
-    <!--<div class="no-item-box-text">暂无记录</div>-->
-  <!--</div>-->
+  <div v-if="records.length == 0" class="no-item-box">
+    <img class="no-item-box-item" src="../../assets/no-record-icon-H5@2x.png" alt="">
+    <div class="no-item-box-text">暂无记录</div>
+  </div>
 
-  <div class="position-box-item" v-for="(item,index) in [1,1,1]">
+  <div v-else class="position-box-item" v-for="(item,index) in records">
     <!--币对名称-->
     <div class="ps-symbol-box flex-row">
-      <div class="ps-type ps-long">L</div>
-      <div class="ps-type ps-short">S</div>
-      <div class="ps-symbol">BTCUSDT</div>
-      <img class="ps-reduce-positions" src="../../assets/H5img/mobile_reduce_ps_0.png" alt="">
-      <img class="ps-reduce-positions" src="../../assets/H5img/mobile_reduce_ps_1.png" alt="">
-      <img class="ps-reduce-positions" src="../../assets/H5img/mobile_reduce_ps_2.png" alt="">
-      <img class="ps-reduce-positions" src="../../assets/H5img/mobile_reduce_ps_3.png" alt="">
-      <img class="ps-reduce-positions" src="../../assets/H5img/mobile_reduce_ps_4.png" alt="">
+      <div v-if="(item.positionAmt || 0) > 0" class="ps-type ps-long">L</div>
+      <div v-else class="ps-type ps-short">S</div>
+      <div class="ps-symbol">{{item.symbol}}</div>
+      <img v-if="item.adlQuantile == undefined" class="ps-reduce-positions" src="../../assets/H5img/mobile_reduce_ps_0.png" alt="">
+      <img v-if="item.adlQuantile == 0" class="ps-reduce-positions" src="../../assets/H5img/mobile_reduce_ps_0.png" alt="">
+      <img v-if="item.adlQuantile == 1" class="ps-reduce-positions" src="../../assets/H5img/mobile_reduce_ps_1.png" alt="">
+      <img v-if="item.adlQuantile == 2" class="ps-reduce-positions" src="../../assets/H5img/mobile_reduce_ps_2.png" alt="">
+      <img v-if="item.adlQuantile == 3" class="ps-reduce-positions" src="../../assets/H5img/mobile_reduce_ps_3.png" alt="">
+      <img v-if="item.adlQuantile == 4" class="ps-reduce-positions" src="../../assets/H5img/mobile_reduce_ps_4.png" alt="">
     </div>
     <!--杠杆倍数-->
     <div class="s-d-leverage-box flex-row">
-      <span class="security-deposit-model">全仓</span>
-      <span class="leverage-val">20X</span>
+      <span class="security-deposit-model">{{item.marginType == 'cross'?'全仓':'逐仓'}}</span>
+      <span class="leverage-val">{{$store.state.leverage}}X</span>
     </div>
     <!--其他详细数据1-->
     <div class="ps-detail-box flex-row">
       <div class="ps-detail-left flex-colum">
         <div class="ps-detail-tittle">数量(BTC)</div>
-        <div class="ps-detail-amount">2.201</div>
+        <div class="ps-detail-amount" :class="(item.positionAmt || 0) > 0 ?'text-green':'text-red'">{{toFixed(item.positionAmt,3) || 0}}</div>
       </div>
       <div class="ps-detail-middle flex-colum">
         <div class="ps-detail-tittle">PNL(ROE%)</div>
-        <div class="ps-detail-amount">90.09(+10.98%)</div>
+        <div class="ps-detail-amount" :class="item.unrealizedProfitPage > 0?'text-green':'text-red'">{{Number(item.unrealizedProfitPage || 0).toFixed(2) }} ({{item.responseRate}})</div>
       </div>
       <div class="ps-detail-right flex-colum">
         <div class="ps-detail-tittle">保证金</div>
-        <div class="ps-detail-amount">820.50</div>
+        <div class="ps-detail-amount">{{!!item.securityDeposit && Number(item.securityDeposit).toFixed(2) || '-'}}</div>
       </div>
     </div>
     <!--其他详细数据2-->
     <div class="ps-detail-box flex-row">
       <div class="ps-detail-left flex-colum">
         <div class="ps-detail-tittle">开仓价格</div>
-        <div class="ps-detail-amount">32125.4224</div>
+        <div class="ps-detail-amount">{{!!item.entryPrice && Number(item.entryPrice).toFixed(2) || '-'}}</div>
       </div>
       <div class="ps-detail-middle flex-colum">
         <div class="ps-detail-tittle">标记价格</div>
-        <div class="ps-detail-amount">16.409</div>
+        <div class="ps-detail-amount">{{!!markPrice && Number(markPrice).toFixed(2) || '-'}}</div>
       </div>
       <div class="ps-detail-right flex-colum">
         <div class="ps-detail-tittle">强平价格</div>
-        <div class="ps-detail-amount">20.198</div>
+        <div class="ps-detail-amount">{{!!item.liquidationPrice && Number(item.liquidationPrice).toFixed(2) || '-'}}</div>
       </div>
     </div>
     <!--操作按钮-->
-    <div class="ps-btn-box flex-around">
+    <div class="ps-btn-box flex-between">
       <div class="ps-btn">调整杠杆</div>
       <div class="ps-btn">平仓</div>
     </div>
-
   </div>
-
-
-  <MobilePopupWindow :switch="popOpen" v-on:close="closePop">
-
-  </MobilePopupWindow>
-
 
 </div>
