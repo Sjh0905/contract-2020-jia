@@ -623,10 +623,10 @@
 }
 
 .mobile-container-latest-flag-text {
-  font-family: PingFangSC-Semibold;
-  font-size: 0.4rem;
-  color: #FFFFFF;
+  font-size: 0.32rem;
+  font-family: PingFangSC-Medium, PingFang SC;
   font-weight: 500;
+  color: #6B7DA2;
 }
 
 .mobile-list-type {
@@ -649,9 +649,6 @@
 }
 .mobile-container-latest-right {
   padding-left: 0.4rem;
-  /*height: 20px;*/
-  font-size: 0.28rem;
-  color:#fff;
 }
 .bottom-box {
   height: 1rem;
