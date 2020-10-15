@@ -144,9 +144,10 @@
   position: absolute;
   /*top: 50%;*/
   left: 50%;
-  margin-bottom: 200px;
+  bottom: 0;
+  /*margin-bottom: 200px;*/
   margin-top: 400px;
-  transform: translateY(-63%) translateX(-50%);
+  transform: translateY(0) translateX(-50%);
   border-radius: 0.1rem 0.1rem 0rem 0rem;
   box-shadow: 0 5px 10px 10px rgba(0, 0, 0, 0.05);
   overflow:hidden;
