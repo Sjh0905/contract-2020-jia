@@ -137,7 +137,8 @@
 /*没有记录*/
 .no-item-box {
   width: 4rem;
-  margin: 2.04rem auto;
+  padding: 2.04rem 0;
+  margin: auto;
 }
 
 .no-item-box-item{
