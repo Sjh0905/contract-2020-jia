@@ -89,7 +89,7 @@
 }
 .histor-withdraw-item {
   background-color: #FFFFFF;
-  padding: 0 0.3rem;
+  /*padding: 0 0.3rem;*/
 }
 .border-bot {
   padding-top: 0.3rem;
@@ -109,10 +109,10 @@
   margin-left: 0.3rem;
 }
 .td-category-text {
-  font-size: 0.29rem;
-  font-family: PingFangSC-Medium, PingFang SC;
-  font-weight: 500;
-  color: #172A4D;
+  font-size: 0.28rem;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #9EA8B7;
 }
 .text_blue-3 {
   height: 0.4rem;
@@ -140,16 +140,16 @@
   margin-left: 0.3rem;
 }
 .td-category-text {
-  font-size: 0.29rem;
+  font-size: 0.28rem;
   font-family: PingFangSC-Medium, PingFang SC;
-  font-weight: 500;
-  color: #172A4D;
+  font-weight: 400;
+  color: #9EA8B7;
 }
 .td-time1 {
   flex: 1;
 }
 .td-time {
-  flex: 0.8;
+  flex: 0.7;
 }
 .tar {
   text-align: right;
@@ -158,7 +158,7 @@
   margin-bottom: 0.2rem;
 }
 .margin-bot1 {
-  margin-bottom: 0.06rem;
+  margin-bottom: 0.24rem;
 }
 .piaoti-text {
   font-size: 0.24rem;
@@ -169,8 +169,71 @@
   color: transparent;
 }
 .color-A {
-  color: #8994A5;
+  color: #949EAE;
 }
 .color-D {
-  color: #172A4D;
+  color: #193662;
+}
+.box-border {
+  border-bottom: 1px solid #F7F7FB;
+  padding-bottom: 0.38rem;
+}
+.box-padding2 {
+  padding: 0.4rem 0.3rem;
+}
+.box-padding {
+  padding: 0 0.3rem 0.28rem;
+}
+.mobile-detail {
+  background-color: #FFFFFF;
+  margin-top: 0.2rem;
+  padding: 0 0.3rem;
+}
+.mobile-details {
+  height: 1.08rem;
+  line-height: 1.08rem;
+  font-size: 0.4rem;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #193662;
+}
+.mobile-fenjie {
+  height: 0.8rem;
+  line-height: 0.8rem;
+  font-size: 0.24rem;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #8C9EBD;
+}
+.mobile-fenjie-details {
+  height: 1.12rem;
+}
+.mobile-time {
+  line-height: 1.12rem;
+  font-size: 0.24rem;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #0B0B27;
+}
+.mobile-pr {
+  padding-top: 0.22rem;
+  font-size: 0.28rem;
+  font-family: Roboto-Regular, Roboto;
+  font-weight: 400;
+  color: #1A3E6D;
+}
+.mobile-kui {
+  padding-top: 0.22rem;
+  font-size: 0.28rem;
+  font-family: Roboto-Regular, Roboto;
+  font-weight: 400;
+  color: #1E5083;
+}
+.mobile-ying {
+  height: 0.32rem;
+  font-size: 0.24rem;
+  font-family: Roboto-Regular, Roboto;
+  font-weight: 400;
+  color: #9EA8B7;
+  line-height: 0.32rem;
 }

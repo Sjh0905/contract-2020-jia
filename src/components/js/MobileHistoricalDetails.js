@@ -28,6 +28,7 @@ root.data = function () {
     feeDetailReady: false, //获取费率详情成功
     orderDetailReady: false,//获取各订单成功
     historicaList : [], // 历史成交订单
+    historicaList0 : [], // 历史成交订单
     commission:'', // 手续费
     commissionAsset:'' , // 手续费单位
   }
@@ -37,27 +38,48 @@ root.data = function () {
 
 root.props = {}
 // order的id，必须
-root.props.orderId = {
-  type: Number,
-  required: true
+// root.props.orderId = {
+//   type: Number,
+//   required: true
+// }
+// // 货币对，必须
+// root.props.symbol = {
+//   type: String,
+//   required: true
+// }
+// root.props.startTime = {
+//   type: Number,
+//   required: true
+// }
+// root.props.endTime = {
+//   type: Number,
+//   required: true
+// }
+
+/*------------------------------ 生命周期 -------------------------------*/
+
+root.created = function () {
+  // this.getDetail()
+  this.getHistorTrans()
+  if(this.$route.query.isApp) {
+    window.postMessage(JSON.stringify({
+      method: 'setH5Back',
+      parameters: {
+        canGoH5Back:false
+      }
+    }))
+  }
+  // this.getFeeDetail()
+  // this.getHistorTrans()
 }
-// 货币对，必须
-root.props.symbol = {
-  type: String,
-  required: true
-}
-root.props.startTime = {
-  type: Number,
-  required: true
-}
-root.props.endTime = {
-  type: Number,
-  required: true
-}
+
 
 /*------------------------------ 计算 -------------------------------*/
-
 root.computed = {}
+// 检验是否是APP
+root.computed.isApp = function () {
+  return this.$route.query.isApp ? true : false
+}
 // 计算总交易量
 root.computed.totalAmount = function () {
   let total = 0
@@ -154,18 +176,15 @@ root.computed.quoteScale_list = function () {
   return quoteScale_obj;
 }
 
-/*------------------------------ 生命周期 -------------------------------*/
-
-root.created = function () {
-  // this.getDetail()
-  this.getHistorTrans()
-  // this.getFeeDetail()
-  // this.getHistorTrans()
-}
 
 /*------------------------------ 方法 -------------------------------*/
 
 root.methods = {}
+
+root.methods.jumpToBack = function () {
+  history.go(-1)
+}
+
 // root.methods.totalVolume = function (order) {
 //   let volume = 0
 //   volume = this.toFixed(this.accMul(order.price,order.qty) , 8)
@@ -174,13 +193,15 @@ root.methods = {}
 
 // 历史成交
 root.methods.getHistorTrans = function () {
-  let symbol = this.$globalFunc.toOnlyCapitalLetters(this.symbol)
+  // let symbol = this.$globalFunc.toOnlyCapitalLetters(this.symbol)
   this.$http.send('GET_CAPITAL_DEAL',{
     bind: this,
     query:{
-      symbol,
-      startTime:this.startTime,
-      endTime:this.endTime,
+      symbol:'BTCUSDT',
+      // startTime:this.startTime,
+      // endTime:this.endTime,
+      startTime:this.$route.query.startTime,
+      endTime:this.$route.query.endTime,
     },
     callBack: this.re_getHistorTrans,
     errorHandler:this.error_getHistorTrans
@@ -190,8 +211,9 @@ root.methods.getHistorTrans = function () {
 root.methods.re_getHistorTrans = function (data) {
   typeof(data) == 'string' && (data = JSON.parse(data));
   if(!data && !data.data) return
-  // console.info('data====',data.data)
+  console.info('data====',data.data)
   this.historicaList = data.data || []
+  this.historicaList0 = data.data[0] || []
 
   this.orderDetailReady = true
   this.loading = !this.orderDetailReady

@@ -12,7 +12,7 @@ root.data = function () {
     capitalFlowList:[],
     capitalFlowListText:[],
     // tradinghallLimit: 10,
-    openType:1,
+    openType:2,
     historicaList:[],//历史成交
     historyOrder: [], //历史委托
     clickThis: -1,
@@ -37,6 +37,7 @@ root.props = {};
 // }
 /*------------------------------ 生命周期 -------------------------------*/
 root.created = function () {
+  this.getHistorOrder()
   if(this.$route.query.isApp) {
     window.postMessage(JSON.stringify({
       method: 'setH5Back',
@@ -92,11 +93,11 @@ root.methods.changeOpenType = function(num){
   this.openType = num
   // console.log('this is store',this.$store.state.mobileHeaderTitle,this.$store.state.currencyChange)
 
-  if(num === 1){
-    this.$router.push({'path':'/index/mobileContractAllRecords',query:{id:1}})
-    this.$store.commit('changeMobileHeaderTitle', '');
-    // this.getRecord()
-  }
+  // if(num === 1){
+  //   this.$router.push({'path':'/index/mobileContractAllRecords',query:{id:1}})
+  //   this.$store.commit('changeMobileHeaderTitle', '');
+  //   // this.getRecord()
+  // }
 
   if(num===2){
     this.$router.push({'path':'/index/mobileContractAllRecords',query:{id:2}})
@@ -244,7 +245,8 @@ root.methods.showDetail = function (order) {
   })
 
   if (this.clickThis === order.orderId && order.status == 'FILLED') {
-    this.$router.push('/index/mobileHistoricalDetails')
+    // this.$router.push('/index/mobileHistoricalDetails')
+    this.$router.push({name:'mobileHistoricalDetails',query:{order:this.order,startTime:this.startTime,endTime:this.endTime}})
   }
   // console.info('this.firstTime===',this.startTime,this.endTime)
 }
