@@ -44,13 +44,13 @@ root.computed.symbol = function () {
 }
 // 买卖列表
 root.computed.sellOrders = function () {
-  console.log("=======root.computed.sellOrders=======1",this.buy_sale_list)
+  // console.log("=======root.computed.sellOrders=======1",this.buy_sale_list)
 	let list = this.$globalFunc.mergeObj(this.socket_snap_shot, this.buy_sale_list);
   if(list.symbol != this.symbol)return []
 	return list.sellOrders;
 }
 root.computed.buyOrders = function () {
-  console.log("=======root.computed.buyOrders=======1",this.buy_sale_list)
+  // console.log("=======root.computed.buyOrders=======1",this.buy_sale_list)
 	let list = this.$globalFunc.mergeObj(this.socket_snap_shot, this.buy_sale_list);
   if(list.symbol != this.symbol)return []
 	return list.buyOrders;
