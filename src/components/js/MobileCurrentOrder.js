@@ -35,6 +35,11 @@ root.data = function () {
     // 精度
     quoteScale: 8,
     baseScale: 8,
+
+    workingTypeMap : {
+      MARK_PRICE:"标记价格",
+      CONTRACT_PRICE:"最新价格"
+    },
   }
 }
 
@@ -43,11 +48,18 @@ root.data = function () {
 root.created = function () {
   this.$eventBus.listen(this, 'TRADED', this.TRADED)
   // 获取订单
-  this.getOrder()
+  // this.getOrder()
   this.currentInterval && clearInterval(this.currentInterval)
   this.currentInterval = setInterval(this.getOrder, 5000)
 
   this.$eventBus.listen(this, 'CANCEL_ALL', this.CANCEL_ALL)
+
+  /*---------------- 合约部分 begin ------------------*/
+  // 获取订单
+  this.getOrder()
+  this.receiveSocket()
+
+  /*---------------- 合约部分 end ------------------*/
 }
 
 root.beforeDestroy = function () {
@@ -81,6 +93,160 @@ root.computed.quoteScale_list = function () {
 /*----------------------------- 方法 ------------------------------*/
 
 root.methods = {};
+/*-----------------------  合约  begin  -----------------------*/
+// 接收 socket 信息
+root.methods.receiveSocket = function () {
+  // 获取当前委托的数据
+  // let subscribeSymbol = this.$store.state.subscribeSymbol;
+
+  let socketOrderKeyMap = this.socketOrderKeyMap
+
+  this.$socket.on({
+    key: 'ORDER_TRADE_UPDATE', bind: this, callBack: (messageObj,stream) => {
+      let message = messageObj.o || {}
+      if(!message)return
+
+      for(let k in socketOrderKeyMap){
+        let smk = socketOrderKeyMap[k];
+        smk && (message[smk] = message[k])
+      }
+
+      if(message.X == 'NEW' ){ //新增委托
+        this.currentOrder.unshift(message);
+        return
+      }
+
+      if(message.X == 'PARTIAL_FILL'){//部分成交直接替换
+        for (let i = 0; i <this.currentOrder.length; i++) {
+          let item = this.currentOrder[i]
+          if(message.orderId == item.orderId){
+            item = message
+            break;
+          }
+        }
+        return
+      }
+
+      //其他情况需要删除
+      for (let i = 0; i <this.currentOrder.length ; i++) {
+        let item = this.currentOrder[i]
+        if(message.orderId == item.orderId){
+          this.currentOrder.splice(i,1)
+          break;
+        }
+      }
+
+      // console.info('this.currentOrder ===',message,stream)
+      // this.$store.commit('CHANGE_CURRENT_ORDER',message)
+    }
+  })
+}
+
+// 获取订单
+root.methods.getOrder = function () {
+  // if (!this.$store.state.authState.userId) {
+  //   this.loading = false
+  //   return
+  // }
+  this.$http.send('GET_CURRENT_DELEGATION', {
+    bind: this,
+    query: {
+      symbol:'BTCUSDT',
+      timestamp:this.serverTime,
+      orderId:'1231212'
+    },
+    callBack: this.re_getOrder,
+    errorHandler: this.error_getOrder,
+  })
+}
+// 获取订单回调
+root.methods.re_getOrder = function (data) {
+  typeof(data) == 'string' && (data = JSON.parse(data));
+  this.loading = false
+  this.currentOrder = data.data || []
+  this.$store.commit('SET_CURRENT_ORDERS',this.currentOrder)
+}
+// 获取订单出错
+root.methods.error_getOrder = function (err) {
+  console.warn("获取订单出错！")
+}
+
+// 状态
+root.methods.type = function (order) {
+  let msg = ''
+
+  switch (order.type) {
+    case 'LIMIT':
+      msg = '限价单'
+      break;
+    case 'MARKET':
+      msg = '市价单'
+      break;
+    case 'STOP':
+      msg = '止损限价单'
+      break;
+    case 'STOP_MARKET':
+      msg = '止损市价单'
+      break;
+    case 'TAKE_PROFIT':
+      msg = '止盈限价单'
+      break;
+    case 'TAKE_PROFIT_MARKET':
+      msg = '止盈市价单'
+      break;
+    case 'TRAILING_STOP_MARKET':
+      msg = '跟踪止损单'
+      break;
+    default:
+      msg = '---'
+  }
+
+  return msg
+}
+// 撤单
+root.methods.cancelOrder = async function (order, cancelAll = false) {
+  this.loading = true
+  this.canceling = order.id
+  this.clickOrder.add(order.orderId)
+  order.click = true
+  let params = {
+    orderId: order.orderId,
+    symbol: order.symbol,
+    timestamp:order.updateTime
+  }
+  if (!cancelAll) {
+    await new Promise(function (resolve, reject) {
+      setTimeout(resolve, 2000)
+    })
+  }
+  // console.warn("params", params)
+  await this.$http.send('GET_CAPITAL_CANCEL', {
+    bind: this,
+    params: params,
+    callBack: this.re_cancelOrder,
+    errorHandler: this.error_cancelOrder
+  })
+}
+// 返回
+root.methods.re_cancelOrder = function (data) {
+  typeof(data) == 'string' && (data = JSON.parse(data));
+  this.canceling =  false;
+  this.loading = false
+  if(data.code == 200){
+    this.getOrder()
+    this.$eventBus.notify({key:'GET_POSITION'})
+    this.$eventBus.notify({key:'GET_ORDERS'})
+    this.$eventBus.notify({key:'GET_BALANCE'})
+    return
+  }
+}
+root.methods.error_cancelOrder = function (err) {
+  this.canceling =  false;
+  console.warn("撤单错误！", err)
+}
+
+
+/*-----------------------  合约  end  -----------------------*/
 
 root.methods.getScaleConfig = function () {
   this.$store.state.quoteConfig.forEach(
@@ -92,88 +258,88 @@ root.methods.getScaleConfig = function () {
 }
 
 
-// 获取订单
-root.methods.getOrder = function () {
-  // if (!this.$store.state.authMessage.userId) {
-  //   this.loading = false
-  //   return
-  // }
-  // this.loading = true
-  this.$http.send('POST_USER_ORDERS',
-    {
-      bind: this,
-      params: {
-        offsetId: this.offsetId,
-        limit: this.limit,
-        isFinalStatus: false,
-      },
-      callBack: this.re_getOrder,
-      errorHandler: this.error_getOrder,
-    })
-}
+// // 获取订单
+// root.methods.getOrder = function () {
+//   // if (!this.$store.state.authMessage.userId) {
+//   //   this.loading = false
+//   //   return
+//   // }
+//   // this.loading = true
+//   this.$http.send('POST_USER_ORDERS',
+//     {
+//       bind: this,
+//       params: {
+//         offsetId: this.offsetId,
+//         limit: this.limit,
+//         isFinalStatus: false,
+//       },
+//       callBack: this.re_getOrder,
+//       errorHandler: this.error_getOrder,
+//     })
+// }
+//
+// // 获取订单回调
+// root.methods.re_getOrder = function (data) {
+//   // console.log('订单信息获取到了！！！！', data)
+//   this.loading = false
+//   if (this.cancelAll) {
+//     return
+//   }
+//
+//   this.currentOrder = data.orders.filter(
+//     v => {
+//
+//       v.click = false
+//
+//       this.clickOrder.has(v.id) && (v.click = true)
+//
+//       return (v.status !== 'PARTIAL_CANCELLED') && (v.status !== 'FULLY_CANCELLED') && (v.status !== 'FULLY_FILLED')
+//     }
+//   )
+//
+// }
+//
+// // 获取订单出错
+// root.methods.error_getOrder = function (err) {
+//   console.warn("获取订单出错！")
+// }
+//
+// root.methods.TRADED = function (para) {
+//   this.getOrder()
+// }
 
-// 获取订单回调
-root.methods.re_getOrder = function (data) {
-  // console.log('订单信息获取到了！！！！', data)
-  this.loading = false
-  if (this.cancelAll) {
-    return
-  }
-
-  this.currentOrder = data.orders.filter(
-    v => {
-
-      v.click = false
-
-      this.clickOrder.has(v.id) && (v.click = true)
-
-      return (v.status !== 'PARTIAL_CANCELLED') && (v.status !== 'FULLY_CANCELLED') && (v.status !== 'FULLY_FILLED')
-    }
-  )
-
-}
-
-// 获取订单出错
-root.methods.error_getOrder = function (err) {
-  console.warn("获取订单出错！")
-}
-
-root.methods.TRADED = function (para) {
-  this.getOrder()
-}
-
-// 撤单
-root.methods.cancelOrder = async function (order) {
-
-	this.canceling = order.id
-  console.log(order)
-
-  this.clickOrder.add(order.id)
-  order.click = true
-  let params = {
-    targetOrderId: order.id,
-    symbol: order.symbol,
-    type: order.type === 'BUY_LIMIT' ? 'CANCEL_BUY' : 'CANCEL_SELL'
-  }
-  // console.warn("params", params)
-  await this.$http.send('TRADE_ORDERS', {
-    bind: this,
-    params: params,
-    callBack: this.re_cancelOrder,
-    errorHandler: this.error_cancelOrder
-  })
-}
-root.methods.re_cancelOrder = function (data) {
-  console.warn("撤单返回！", data)
-	this.canceling =  false;
-  this.$eventBus.notify({key: 'CANCEL_ORDER'})
-  this.$router.push("mobileTradingHallDetail")
-  this.getOrder()
-}
-root.methods.error_cancelOrder = function (err) {
-	this.canceling = false
-  console.warn("撤单错误！", err)
-}
+// // 撤单
+// root.methods.cancelOrder = async function (order) {
+//
+// 	this.canceling = order.id
+//   console.log(order)
+//
+//   this.clickOrder.add(order.id)
+//   order.click = true
+//   let params = {
+//     targetOrderId: order.id,
+//     symbol: order.symbol,
+//     type: order.type === 'BUY_LIMIT' ? 'CANCEL_BUY' : 'CANCEL_SELL'
+//   }
+//   // console.warn("params", params)
+//   await this.$http.send('TRADE_ORDERS', {
+//     bind: this,
+//     params: params,
+//     callBack: this.re_cancelOrder,
+//     errorHandler: this.error_cancelOrder
+//   })
+// }
+// root.methods.re_cancelOrder = function (data) {
+//   console.warn("撤单返回！", data)
+// 	this.canceling =  false;
+//   this.$eventBus.notify({key: 'CANCEL_ORDER'})
+//   this.$router.push("mobileTradingHallDetail")
+//   this.getOrder()
+// }
+// root.methods.error_cancelOrder = function (err) {
+// 	this.canceling = false
+//   console.warn("撤单错误！", err)
+// }
 
 // 判断是否点击了某个订单
 root.methods.clickOneOrder = function (id) {
@@ -215,5 +381,15 @@ root.methods.ensurePop = async function () {
   this.cancelAll = false
 }
 
+/*---------------------- 保留小数 begin ---------------------*/
+root.methods.toFixed = function (num, acc = 8) {
+  return this.$globalFunc.accFixed(num, acc)
+}
+/*---------------------- 保留小数 end ---------------------*/
 
+/*---------------------- 除法运算 begin ---------------------*/
+root.methods.accDiv = function (num1, num2) {
+  return this.$globalFunc.accDiv(num1, num2)
+}
+/*---------------------- 除法运算 end ---------------------*/
 export default root;

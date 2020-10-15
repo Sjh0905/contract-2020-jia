@@ -182,6 +182,7 @@ const initLang = function (){
       zE && zE('webWidget', 'setLocale', state.langZendeskObj[state.lang]);
     },1000)
   }else if(window.location.href.indexOf("isApp") == -1 && window.location.href.indexOf("isIOS") == -1){//当isApp、isIOS不存在时才显示
+    /*暂时屏蔽，影响合约仓位显示不太好
     window.zESettings = {
       webWidget: {
         offset: {
@@ -204,7 +205,7 @@ const initLang = function (){
           // zE('webWidget', 'hide');
           NavigationGuards(router, Vue.$eventBus, store, Vue.$http, Vue.cookies,zE)
       },1000)
-    },700)
+    },700)*/
   }
 }
 

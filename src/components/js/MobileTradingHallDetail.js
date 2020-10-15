@@ -47,9 +47,11 @@ root.data = function () {
     socket24hrTicker:[],//symbol24小时ticker信息
     socketTickObj: {}, // 单个归集交易推送
     apiTickArr: [], // 第一次接口获取的最新归集交易
-
     latestPriceVal: '' ,   // 最新价格，用于价格输入框显示
     latestPriceArr: [] ,   // 最新价格数组，用于判断价格升降和盘口显示
+
+    recordsIndex:0, // 仓位数量
+    effectiveTime:'GTX',
 
     // 是否可用BDB抵扣 TODO------------------ 新旧分割线-----------------
     BDBInfo: true,
@@ -197,8 +199,10 @@ root.created = function () {
     this.$store.commit('changeMobileHeaderTitle', '历史委托');
   }
 
+  this.checkPrice ==1 ? this.effectiveTime='GTX' : this.effectiveTime='GTC'
+
   // 获取BDB是否抵扣
-  this.getBDBInfo()
+  // this.getBDBInfo()
   //请求所有币对信息
   this.getCurrencyList()
   // 获取汇率
@@ -1143,6 +1147,10 @@ root.methods.changeReducePositions = function(){
 }
 //只减仓 end
 
+// 获取仓位子组件的值
+root.methods.getIndex = function (index) {
+  this.recordsIndex = index
+}
 
 // 获取仓位信息
 root.methods.positionRisk = function () {
@@ -1997,6 +2005,7 @@ root.methods.changeFloat = function () {
   this.is_right = !this.is_right;
 }
 
+/*
 // BDB是否抵扣
 root.methods.getBDBInfo = function () {
   // console.log('是否进入此方法')
@@ -2026,6 +2035,7 @@ root.methods.re_getBDBInfo = function (data) {
 root.methods.error_getBDBInfo = function (err) {
   console.log('测试err', err);
 }
+*/
 
 
 root.methods.formatnumber = function (value, num) {
