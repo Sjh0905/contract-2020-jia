@@ -2,12 +2,12 @@
     <!--<div class="mobile-current-title">-->
         <!--<div class="mobile-current-title-all-sale" @click="cancelAllOrder">全部撤单</div>-->
     <!--</div>-->
-    <div class="_m_co_t flex-row">
-        <span>市场</span>
-        <span>价格</span>
-        <span>成交量 / 数量</span>
-        <span>操作</span>
-    </div>
+<!--    <div class="_m_co_t flex-row">-->
+<!--        <span>市场</span>-->
+<!--        <span>价格</span>-->
+<!--        <span>成交量 / 数量</span>-->
+<!--        <span>操作</span>-->
+<!--    </div>-->
 
     <!--没有当前委托的样式-->
     <div v-if="currentOrderComputed.length === 0" class="no-item-box">
@@ -16,33 +16,57 @@
     </div>
 
     <ul class="current-order-list" >
-        <li v-for="(order,index) in currentOrderComputed" :key="order.id" >
-          <div class="orderid">订单ID：{{order.id}}</div>
-          <div class=" _m_co_l flex-row">
-            <div class="_m_co_l1 flex-colum flex-between">
-                <div class="_m_co_l1i flex-row">
-                    <i :style="order.type==='BUY_LIMIT'?'background:#39B496':'background:#EF5656'" v-if="!order.isFollow">
-                         {{order.type === 'BUY_LIMIT' && "买" || "卖"}}
-                    </i>
-                    <i :style="order.type==='BUY_LIMIT'?'background:#39B496':'background:#EF5656'" v-if="order.isFollow">
-                      {{order.type === 'BUY_LIMIT' && "跟买" || "跟卖"}}
-                    </i>
-                    <span>{{order.symbol.split('_')[0]}}</span><span class="txt_40">&nbsp;/&nbsp;{{order.symbol.split('_')[1]}}</span>
+        <li v-for="(order,index) in currentOrderComputed" :key="order.orderId" >
+
+
+          <div class=" _m_co_l">
+            <!--第一行内容-->
+            <div class="_m_co_l1i flex">
+              <!--                    <i :style="order.type==='BUY_LIMIT'?'background:#39B496':'background:#EF5656'" v-if="!order.isFollow">-->
+              <!--                         {{order.type === 'BUY_LIMIT' && "买" || "卖"}}-->
+              <!--                    </i>-->
+              <!--                    <i :style="order.type==='BUY_LIMIT'?'background:#39B496':'background:#EF5656'" v-if="order.isFollow">-->
+              <!--                      {{order.type === 'BUY_LIMIT' && "跟买" || "跟卖"}}-->
+              <!--                    </i>-->
+              <div class="flex">
+                <div>{{order.symbol.split('_')[0]}}</div>
+                <div class="order-position-side" :class="order.side==='BUY'?'text_blue-3':'text_red-4'">{{$globalFunc.getOrderSide(order.positionSide,order.side)}}</div>
+                <div class="order-type">{{type(order)}}</div>
+              </div>
+              <div class="time">{{$globalFunc.formatDateUitl(order.time,'MM-DD hh:mm:ss')}}</div>
+            </div>
+
+            <div class="current-content flex-between">
+              <div>
+                <div class="txt_40 flex">
+                  <div class="title">数量</div>
+                  <div class="content">{{toFixed(order.origQty,3)}}</div>
                 </div>
-                <div class="txt_40">
-                    {{$globalFunc.formatDateUitl(order.createdAt,'MM-DD hh:mm:ss')}}
+                <div class="txt_40 flex">
+                  <div class="title">价格</div>
+                  <div class="content">{{order.price != 0 ? toFixed(order.price, 2) : '--'}}</div>
                 </div>
+                <div class="txt_40 flex" v-if="order.stopPrice > 0">
+                  <div class="title">触发价格</div>
+                  <div class="content">{{(workingTypeMap[order.workingType]+' <= '+toFixed(order.stopPrice, 2))}}</div>
+                </div>
+                <div class="txt_40 flex">
+                  <div class="title">只减仓</div>
+                  <div class="content">{{order.reduceOnly ? '是':'否'}}</div>
+                </div>
+              </div>
+              <div class=" flex-center" :class="[{_m_co_l4:canceling!==order.id},{_m_co_l5:canceling===order.id}]" @click="cancelOrder(order)">
+                <span>{{canceling==order.id&&'撤销中'||'撤销'}}</span>
+              </div>
             </div>
-            <div class="_m_co_l2 flex-row">{{$globalFunc.accFixed(order.price, !!quoteScale_list[order.symbol] ? quoteScale_list[order.symbol].quoteScale : 8)}}</div>
-            <div class="_m_co_l3 flex-colum">
-                <span >{{$globalFunc.accFixed(order.filledAmount, !!quoteScale_list[order.symbol] ? quoteScale_list[order.symbol].baseScale : 8)}}</span>
-                <span class="txt_40">{{$globalFunc.accFixed(order.amount, !!quoteScale_list[order.symbol] ? quoteScale_list[order.symbol].baseScale : 8)}}</span>
-            </div>
-            <div class=" flex-center" :class="[{_m_co_l4:canceling!==order.id},{_m_co_l5:canceling===order.id}]" @click="cancelOrder(order)">
-                <span>{{canceling==order.id&&'撤单中'||'撤单'}}</span>
-            </div>
+<!--            <div class="_m_co_l2 flex-row">{{$globalFunc.accFixed(order.price, !!quoteScale_list[order.symbol] ? quoteScale_list[order.symbol].quoteScale : 8)}}</div>-->
+<!--            <div class="_m_co_l3 flex-colum">-->
+<!--                <span >{{$globalFunc.accFixed(order.filledAmount, !!quoteScale_list[order.symbol] ? quoteScale_list[order.symbol].baseScale : 8)}}</span>-->
+<!--                <span class="txt_40">{{$globalFunc.accFixed(order.amount, !!quoteScale_list[order.symbol] ? quoteScale_list[order.symbol].baseScale : 8)}}</span>-->
+<!--            </div>-->
+
           </div>
-          <div class="_m_high"></div>
+<!--          <div class="_m_high"></div>-->
         </li>
     </ul>
 
