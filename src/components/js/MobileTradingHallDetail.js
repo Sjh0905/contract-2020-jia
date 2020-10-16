@@ -150,7 +150,7 @@ root.data = function () {
     // 显示的最大头寸数值
     maximumPosition : ['50,000','250,000','100,0000','5,000,000','20,000,000','50,000,000','100,000,000','200,000,000'],
     maxNotionalValue: '',   // 当前杠杆倍数下允许的最大名义价值
-    listType:'currentDelegation',// 当前委托currentDelegation，持有仓位holdPosition
+    listType:'holdPosition',// 当前委托currentDelegation，持有仓位holdPosition
     //调整杠杆 End
 
 

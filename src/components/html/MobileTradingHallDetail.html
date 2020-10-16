@@ -237,8 +237,8 @@
     <div class="current-top-line"/>
 
     <div class="mobile-container-latest-flag" >
-      <span class="mobile-container-latest-flag-text" :class="listType == 'currentDelegation' ? 'mobile-list-type' : ''" @click="listSwitching('currentDelegation')">当前委托</span>
-      <span class="mobile-container-latest-flag-text mobile-container-latest-right" :class="listType == 'holdPosition' ? 'mobile-list-type' : ''" @click="listSwitching('holdPosition')">持有仓位</span>
+      <span class="mobile-container-latest-flag-text" :class="listType == 'holdPosition' ? 'mobile-list-type' : ''" @click="listSwitching('holdPosition')">持有仓位</span>
+      <span class="mobile-container-latest-flag-text mobile-container-latest-right" :class="listType == 'currentDelegation' ? 'mobile-list-type' : ''" @click="listSwitching('currentDelegation')">当前委托</span>
       <div class="mobile-container-latest-flag-img" @click="openAllRecords">
         <img class="history-icon" src="../../assets/history-icon.png" alt="">
         历史</div>
@@ -248,14 +248,16 @@
     </div>
   </div>
 
+  <!--仓位-->
+  <div v-if="listType== 'holdPosition'" class="container-current-page">
+    <PositionList :latestPriceVal = 'latestPriceVal' :effectiveTime = 'effectiveTime' :markPrice = 'markPrice' @getPositionRisk="getIndex"/>
+  </div>
+
   <!--当前委托页-->
   <div v-if="listType == 'currentDelegation'" class="container-current-page" @click="ToCurrentPage">
     <CurrentOrder></CurrentOrder>
   </div>
-  <!--历史委托页-->
-  <div v-if="listType== 'holdPosition'" class="container-current-page">
-    <PositionList :latestPriceVal = 'latestPriceVal' :effectiveTime = 'effectiveTime' :markPrice = 'markPrice' @getPositionRisk="getIndex"/>
-  </div>
+
 
   <div class="current-bot-line"/>
 
