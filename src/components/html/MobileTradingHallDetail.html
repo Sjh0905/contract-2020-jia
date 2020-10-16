@@ -144,7 +144,8 @@
         <!--保证金-->
         <div v-if="isHasModule('securityDeposit')" class="security-deposit flex-between">
           <div class="security-deposit-text">保证金</div>
-          <div class="security-deposit-amount">{{securityDeposit || '0.00'}} USDT</div>
+          <div class="security-deposit-amount" v-if="positionModeFirst == 'singleWarehouseMode'">{{securityDeposit || '0.00'}} USDT</div>
+          <div class="security-deposit-amount" v-if="positionModeFirst == 'doubleWarehouseMode'">{{securityDeposit[0] || '0.00'}} USDT</div>
         </div>
 
         <div class="can-be-opened flex-between">
@@ -180,7 +181,7 @@
         <!--保证金-->
         <div class="security-deposit flex-between" v-if="isHasModule('securityDeposit') && isHasModule('kaipingType') == 1 && positionModeFirst == 'doubleWarehouseMode'">
           <div class="security-deposit-text">保证金</div>
-          <div class="security-deposit-amount">{{securityDeposit || '0.00'}} USDT</div>
+          <div class="security-deposit-amount">{{securityDeposit[1] || '0.00'}} USDT</div>
         </div>
         <!--双仓 开仓 开空 可开-->
         <div class="can-be-opened flex-between" v-if="isHasModule('kaipingType') == 1 && positionModeFirst == 'doubleWarehouseMode'">

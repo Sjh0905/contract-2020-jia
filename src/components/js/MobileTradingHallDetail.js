@@ -279,6 +279,46 @@ root.components = {
 /*------------------------------ 计算 begin -------------------------------*/
 
 root.computed = {}
+// 单仓保证金assumingPrice
+root.computed.costAssumingPrice = function () {
+  let assumingPrc = 0
+  if(this.pendingOrderType== 'limitPrice'||this.pendingOrderType == 'limitProfitStopLoss'){
+    assumingPrc = this.orderType ? Math.max(this.buyDepthOrders,this.markPrice,this.price) : this.price
+    return Number(assumingPrc) || 0
+  }
+  if(this.pendingOrderType== 'marketPrice'||this.pendingOrderType == 'marketPriceProfitStopLoss'){
+    assumingPrc = this.orderType ? Math.max(this.buyDepthOrders,this.markPrice) : this.accMul(this.sellDepthOrders, this.accAdd(1, 0.0005))
+    return Number(assumingPrc) || 0
+  }
+}
+//双向的assumingPrice===========
+root.computed.twoWayAssumingPrice = function () {
+  let twoWayAssumingPrcBuy = 0,twoWayAssumingPrcSell =0
+  if(this.pendingOrderType== 'limitPrice'||this.pendingOrderType == 'limitProfitStopLoss'){
+    // twoWayAssumingPrc = this.orderType ? Math.max(this.buyDepthOrders,(Number(this.markPrice),this.price)) : this.price
+    twoWayAssumingPrcBuy = this.price || 0
+    twoWayAssumingPrcSell = Math.max(this.buyDepthOrders,(this.markPrice,this.price)) || 0
+    return [twoWayAssumingPrcBuy,twoWayAssumingPrcSell]
+  }
+  if(this.pendingOrderType== 'marketPrice'||this.pendingOrderType == 'marketPriceProfitStopLoss'){
+    // twoWayAssumingPrc = this.orderType ? Math.max(this.buyDepthOrders, (Number(this.markPrice))) : this.sellDepthOrders * (1+0.0005)
+    twoWayAssumingPrcBuy = this.accMul(this.sellDepthOrders, this.accAdd(1, 0.0005)) || 0
+    twoWayAssumingPrcSell = Math.max(this.buyDepthOrders, (this.markPrice)) || 0
+    return [twoWayAssumingPrcBuy,twoWayAssumingPrcSell]
+  }
+}
+////计算Sell的margin required时
+root.computed.sellMarginRequire = function () {
+  // return this.orderType ? (this.costAssumingPrice * 1 * this.amount) : 0
+  return this.orderType ? this.chainCal().accMul(this.costAssumingPrice, 1).accMul(Number(this.amount)).getResult() : 0
+}
+//计算BUY的margin required时
+root.computed.buyMarginRequire = function () {
+  // return this.orderType ?  0 : (this.costAssumingPrice * 1 * this.amount)
+  return this.orderType ?  0 : this.chainCal().accMul(this.costAssumingPrice, 1).accMul(Number(this.amount)).getResult()
+}
+
+
 root.computed.sellDepthOrders = function () {
   // console.info('this.$store.state.orderBookTicker.askPrice',this.$store.state.orderBookTicker.askPrice)
   return this.$store.state.orderBookTicker.askPrice
@@ -483,27 +523,33 @@ root.computed.securityDeposit = function () {
 
   if (this.positionModeFirst == 'doubleWarehouseMode') {
     // let twoWaymarginReuired = Number(this.twoWayAssumingPrice * Number(this.amount || 0) * this.leverage)
-    let twoWaymarginReuired = this.chainCal().accMul(this.twoWayAssumingPrice, Number(this.amount)).accMul(this.leverageSe).getResult()
+    let twoWaymarginReuiredBuy = this.chainCal().accMul(this.twoWayAssumingPrice[0], Number(this.amount)).accMul(this.leverageSe).getResult()
+    let twoWaymarginReuiredSell = this.chainCal().accMul(this.twoWayAssumingPrice[1], Number(this.amount)).accMul(this.leverageSe).getResult()
     //开仓亏损
-    let twoWayopenLost
+    let twoWayopenLostBuy,twoWayopenLostSell
     //限价和限价止损单
     if (this.pendingOrderType == 'limitPrice'||this.pendingOrderType == 'limitProfitStopLoss') {
       // twoWayopenLost = Number(Number(this.amount || 0) * Math.abs(Math.min(0,(this.orderType ? -1 : 1) * (Number(this.markPrice) - this.price))))
-      let twoLost = this.accMul((this.orderType ? -1 : 1), this.accMinus(this.markPrice, this.price))
-      twoWayopenLost = this.accMul(Number(this.amount), Math.abs(Math.min(0,twoLost)))
+      let twoLostBuy = this.accMul(1, this.accMinus(this.markPrice, this.price))
+      let twoLostSell = this.accMul(-1, this.accMinus(this.markPrice, this.price))
+      twoWayopenLostBuy = this.accMul(Number(this.amount), Math.abs(Math.min(0,twoLostBuy)))
+      twoWayopenLostSell = this.accMul(Number(this.amount), Math.abs(Math.min(0,twoLostSell)))
     }
     //市价和市价止损单
     if (this.pendingOrderType== 'marketPrice'||this.pendingOrderType == 'marketPriceProfitStopLoss') {
       // twoWayopenLost = Number(Number(this.amount || 0) * Math.abs(Math.min(0,(this.orderType ? -1 : 1) * (Number(this.markPrice) - this.twoWayAssumingPrice))))
-      let twoOpenL = this.accMul((this.orderType ? -1 : 1), this.accMinus(this.markPrice, this.twoWayAssumingPrice))
-      twoWayopenLost = this.accMul(Number(this.amount), Math.abs(Math.min(0,twoOpenL)))
+      let twoOpenLBuy = this.accMul(1, this.accMinus(this.markPrice, this.twoWayAssumingPrice[0]))
+      let twoOpenLSell = this.accMul(-1, this.accMinus(this.markPrice, this.twoWayAssumingPrice[1]))
+      twoWayopenLostBuy = this.accMul(Number(this.amount), Math.abs(Math.min(0,twoOpenLBuy)))
+      twoWayopenLostSell = this.accMul(Number(this.amount), Math.abs(Math.min(0,twoOpenLSell)))
     }
 
     //开仓成本
-    let twoWayCost = this.chainCal().accAdd(twoWaymarginReuired, twoWayopenLost).proFixed(2).getResult()
+    let twoWayCostBuy = this.chainCal().accAdd(twoWaymarginReuiredBuy, twoWayopenLostBuy).proFixed(2).getResult()
+    let twoWayCostSell = this.chainCal().accAdd(twoWaymarginReuiredSell, twoWayopenLostSell).proFixed(2).getResult()
     // console.info('this is twoWayCost ===',twoWayCost)
 
-    return twoWayCost
+    return [twoWayCostBuy,twoWayCostSell]
   }
 }
 
