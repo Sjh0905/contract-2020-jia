@@ -236,9 +236,15 @@
   padding-left: 0.5rem;
 }
 .pop-article {
+  width: 6rem;
   padding: 0.5rem 0.3rem;
+  background: #fff;
   color: #0D0E23;
   font-size: 0.32rem;
   font-family: PingFangSC-Regular,PingFang SC;
   font-weight: 400;
+}
+
+.mr-tempty {
+  margin-right: 0.4rem;
 }

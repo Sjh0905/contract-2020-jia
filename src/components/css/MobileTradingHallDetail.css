@@ -377,6 +377,7 @@
   font-family:PingFangSC-Regular,PingFang SC;
   /*font-weight:400;*/
   color:rgba(162,181,217,1);
+  text-decoration: underline;
   /*line-height:17px;*/
 }
 
@@ -1578,7 +1579,7 @@
 
 /*杠杆弹窗 begin*/
 .pop-lock-house {
-  padding: 0.34rem 0.3rem 13px 0.3rem;
+  padding: 0.34rem 0.3rem 0.26rem 0.3rem;
   background-color: #172841;
 }
 /*调整杠杆 Strat*/
@@ -1765,4 +1766,37 @@
   border-radius:1px;
   margin-bottom: 0.3rem;
   cursor: pointer;
+}
+
+.header-bck {
+  font-size: 0.32rem;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #CFD3E9;
+  background: #142030;
+  text-align: center;
+}
+.pop-lock-house {
+  width: 100%;
+  padding: 0.3rem;
+  background: #142030;
+}
+.descript-content {
+  font-size: 0.24rem;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #98A7C4;
+}
+.descript-footer {
+  width: 4.52rem;
+  height: 0.7rem;
+  line-height: 0.7rem;
+  text-align: center;
+  background: linear-gradient(270deg, #3576F5 0%, #459AF5 100%);
+  border-radius: 0.06rem;
+  font-size: 0.28rem;
+  margin-top: 0.3rem;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #FFFFFF;
 }

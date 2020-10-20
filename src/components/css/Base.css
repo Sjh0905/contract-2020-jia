@@ -627,7 +627,7 @@ input {
 
   .btn_simple {
     border: none !important;
-    border-right: 1px solid #e2e2e2 !important;
+    /*border-right: 1px solid #e2e2e2 !important;*/
     color: #000 !important;
   }
 

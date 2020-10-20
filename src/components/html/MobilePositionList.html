@@ -105,19 +105,21 @@
   <!--  平仓弹窗 End-->
 
   <!-- 限价市价平仓弹窗 begin -->
-  <PopupWindow :switch="showSplicedFrame" @close="closeFrame">
-    <div slot="header"><span class="pop-header">提示</span></div>
+  <PopupWindow :switch="showSplicedFrame" @close="closeFrame" :pop_width="false" >
+    <div slot="header">
+      <span class="pop-header">提示</span>
+    </div>
     <div slot="article" class="pop-article">
       <!--      <p>{{$t('orderPageCurrentEntrustment.promptArticle')}}</p>-->
       <p>{{splicedFrameText}}</p>
     </div>
     <div slot="footer" class="pop-footer flex-center">
-      <button @click="closeFrame" class="button-base btn_simple pointer">{{$t('orderPageCurrentEntrustment.close')}}
+      <button @click="closeFrame" class="button-base btn_simple mr-tempty pointer">{{$t('orderPageCurrentEntrustment.close')}}
       </button>
-      <button v-if="!marketPriceClick" @click="confirmFrame" class="button-base m-r btn_blue pointer">
+      <button v-if="!marketPriceClick" @click="confirmFrame" class="button-base  btn_blue pointer">
         {{$t('orderPageCurrentEntrustment.ensure')}}
       </button>
-      <button v-if="marketPriceClick" class="button-base m-r btn_blue pointer" disabled>
+      <button v-if="marketPriceClick" class="button-base btn_blue pointer" disabled>
         请求中
       </button>
     </div>

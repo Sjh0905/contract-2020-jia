@@ -174,6 +174,10 @@ root.data = function () {
     totalAmount:0, //仓位总数量
     totalAmountLong:0, // 双仓开多仓位总数量
     totalAmountShort:0, //双仓开空仓位总数量
+
+    descriptionOpen:false,
+    titleDescript:'',
+    descriptionText:''
   }
 }
 
@@ -274,6 +278,8 @@ root.components = {
   'PositionList': resolve => require(['../vue/MobilePositionList'], resolve),
   'PositionModeBulletBox': resolve => require(['../vue/PositionModeBulletBox'], resolve),
   'H5StockCross': resolve => require(['../vue/H5StockCross'], resolve),
+  'PopupWindow': resolve => require(['../vue/PopupWindow'], resolve),
+
 }
 
 /*------------------------------ 计算 begin -------------------------------*/
@@ -1058,6 +1064,49 @@ root.computed.maxPosition = function () {
 /*------------------------------ 方法 begin -------------------------------*/
 
 root.methods = {}
+root.methods.openDescript = function (title) {
+  this.descriptionOpen = true
+  this.titleDescript = title
+  this.descriptionText = this.descriptInfo(title)
+}
+
+root.methods.descriptInfo = function (title) {
+  let msg = ''
+  switch (title) {
+    case '资金费率':
+      msg = '买方及卖方在下个资金时段要交换的资金费率。'
+      break;
+    case '被动委托':
+      msg = '订单不会立即在市场成交，否则将被取消。'
+      break;
+    // case '保证金':
+    //   msg = '仓位占用的保证金'
+    //   break;
+    case '只减仓':
+      msg = '只减仓订单仅允许减少仓位的委托，确保你的仓位不会增加。'
+      break;
+    // case '开仓价格':
+    //   msg = '持仓的平均买入/卖出成交价格。'
+    //   break;
+    // case '标记价格':
+    //   msg = '该合约的实时标记价格。此标记价格将用于计算盈亏及保证金，可能与合约最新成交价格有所偏差，以避免价格操纵。'
+    //   break;
+    // case '强平价格':
+    //   msg = '若多仓的标记价格低于此强平价格，或是空仓的标记价格高于此强平价格，你的持仓将被强平。'
+    //   break;
+    // case 'PNL(ROE%)':
+    //   msg = '保证金比率越低，仓位的风险相对较小。当保证金比率到达100%时，仓位将被强平。'
+    //   break;
+    default:
+      msg = '---'
+  }
+  return msg
+}
+// 关闭解释弹窗
+root.methods.descriptionClose = function () {
+  this.descriptionOpen = false
+}
+
 //设置单仓仓位数量
 root.methods.setTotalAmount = function(totalAmount){
   this.totalAmount = totalAmount

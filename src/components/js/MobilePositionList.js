@@ -873,7 +873,7 @@ root.methods.openSplicedFrame = function () {
     this.splicedFrameText += ('价格为当前市价，')
   }
   //数量
-  this.splicedFrameText += ('数量' + Math.abs(this.positionSelect.positionAmt) + this.positionSelect.symbol.slice(0,3))
+  this.splicedFrameText += ('数量' + this.inputBoxAmount + this.positionSelect.symbol.slice(0,3))
   //操作类型
   this.splicedFrameText += ('，确定'+ closePosition + '?')
 
