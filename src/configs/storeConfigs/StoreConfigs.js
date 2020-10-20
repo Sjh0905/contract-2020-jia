@@ -102,7 +102,7 @@ store.state.mobileLockRecordData = ''
  * 手机端交易大厅开关
  */
 
-store.state.mobileTradingHallFlag = false
+store.state.mobileTradingHallFlag = true
 
 /**
  * 语言

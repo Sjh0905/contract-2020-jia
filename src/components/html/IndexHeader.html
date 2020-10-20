@@ -45,8 +45,8 @@
 
             <!--          <div v-if="!hall_symbol" class="mobile-main-title">{{mobileHeaderTitle}}</div>-->
             <div v-if="!hall_symbol" class="mobile-main-title-symbol" @click="changeHeaderBoxFlag">
-              <span>{{symbol | e}}</span>
-              <div :class="mobileTradingHallFlag ? 'triangle-down' : 'triangle-up'"></div>
+              <span>{{capitalSymbol}}</span>
+              <!--<div :class="mobileTradingHallFlag ? 'triangle-down' : 'triangle-up'"></div>-->
             </div>
 
 

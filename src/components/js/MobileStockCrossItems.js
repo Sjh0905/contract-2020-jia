@@ -31,16 +31,16 @@ root.computed.KKPriceRangeH5 = function () {
 root.computed.depth_list = function () {
 	let list = [];
   let transactionData = this.getPriceChangeOrders(this.transactionData)
-	let depth = transactionData.splice(0, 9);
+	/*let depth = transactionData.splice(0, 9);
 	depth.forEach(v => {
 		list.push({
 			price: v.price,
 			amount: v.amount,
 			is_select: false
 		})
-	});
+	});*/
 
-	return transactionData instanceof Array ? list : [];
+	return transactionData instanceof Array ? transactionData : [];
 }
 
 // 当前委托价格list
@@ -75,19 +75,19 @@ root.computed.deep = function () {
 
 root.watch = {};
 root.watch.depth_list = function (newValue, oldValue) {
-	this.getScaleConfig();
-	this.contrastDeepthOpenOrder(this.order_list, newValue);
+	// this.getScaleConfig();
+	// this.contrastDeepthOpenOrder(this.order_list, newValue);
 }
 
 root.watch.order_list = function (newValue, oldValue) {
-	this.contrastDeepthOpenOrder(newValue, this.depth_list);
+	// this.contrastDeepthOpenOrder(newValue, this.depth_list);
 }
 
 root.methods = {}
 
 root.methods.getPriceChangeOrders = function(transactionData){
 
-  if(this.$store.state.symbol == 'KK_USDT' && this.KKPriceRangeH5.length >0){
+  /*if(this.$store.state.symbol == 'KK_USDT' && this.KKPriceRangeH5.length >0){
     let minPrice = this.KKPriceRangeH5[0] || 0;
     let maxPrice = this.KKPriceRangeH5[this.KKPriceRangeH5.length -1] || 10;
 
@@ -98,9 +98,9 @@ root.methods.getPriceChangeOrders = function(transactionData){
 
     transactionData = transactionData.splice(0, 9)
     return transactionData
-  }
+  }*/
 
-  transactionData = transactionData.splice(0, 9)
+  // transactionData = transactionData.splice(0, 9)
   // console.log(transactionData)
   return transactionData
 

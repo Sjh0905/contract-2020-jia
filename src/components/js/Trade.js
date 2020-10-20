@@ -5,6 +5,15 @@ import BTC_USDT_K_1_DAY from '../../../static/chart/BTC_USDT_K_1_DAY.json'
 const root = {};
 
 root.name = 'Trade'
+root.props = {}
+root.props.topic_bar = {
+  type: Object,
+  default: {}
+}
+root.props.m_new_interval = {
+  type: String,
+  default: '15'
+}
 
 let widget;
 // 存储当前选定区间
@@ -26,10 +35,9 @@ root.created = function () {
   // this.getLatestrice()
 }
 
-root.props = {}
-root.props.topic_bar = {
-	type: Object,
-	default: {}
+root.mounted = function () {
+  new_interval = this.m_new_interval
+  this.initTrade();
 }
 
 root.computed = {};
@@ -45,9 +53,6 @@ root.computed.lang = function () {
 	return this.$store.state.lang;
 }
 
-root.mounted = function () {
-	this.initTrade();
-}
 
 root.watch = {};
 root.watch.symbol = function (newValue, oldValue) {
@@ -455,54 +460,75 @@ root.methods.initViews = function (lang) {
 
 	function initTradingView() {
 		var mobile = {
-			symbol: self.symbol,
-			interval: new_interval,
+      container_id: "chart_container",
+      fullscreen: false,
 			width: '100%',
 			height: '100%',
-			container_id: "chart_container",
-			//	BEWARE: no trailing slash is expected in feed URL
-			datafeed: new BitexDataFeed(),
-			library_path: "/static/chart/",
-			locale: "zh",
-			timezone: 'Asia/Shanghai',
+      autosize: true,
+      library_path: "/static/chart/",
+      locale: "zh",
+      timezone: 'Asia/Shanghai',
+      symbol: self.symbol,
+      interval: new_interval,
 			// 引入第三方样式
 			custom_css_url: 'css/chart_mobile.css',
-			//	Regression Trend-related functionality is not implemented yet, so it's hidden for a while
-			drawings_access: { type: 'black', tools: [ { name: "Regression Trend" } ] },
-			disabled_features: ['use_localstorage_for_settings', 'left_toolbar', 'header_symbol_search', 'timeframes_toolbar', 'header_interval_dialog_button', 'header_chart_type', 'header_settings', 'header_indicators', 'header_screenshot', 'volume_force_overlay', 'border_around_the_chart'],
-			// preset: "mobile",
-			toolbar_bg: '#131F30',
-			favorites: {
+      //	BEWARE: no trailing slash is expected in feed URL
+      datafeed: new BitexDataFeed(),
+			disabled_features: ['use_localstorage_for_settings', 'left_toolbar', 'header_symbol_search', 'timeframes_toolbar', 'header_interval_dialog_button', 'header_chart_type','header_widget_dom_node', 'header_settings', 'header_indicators', 'header_screenshot', 'volume_force_overlay', 'border_around_the_chart'],
+      //	Regression Trend-related functionality is not implemented yet, so it's hidden for a while
+      drawings_access: { type: 'black', tools: [ { name: "Regression Trend" } ] },
+      // preset: "mobile",
+      // toolbar_bg: '#081724',
+      // toolbar_bg: '#0D111F',
+
+      favorites: {
 				intervals: ["1S", "1", "5", "15", "30", "60", "240", "D"],
 				chartTypes: ["Candles"]
 			},
 			overrides: {
 				"mainSeriesProperties.style": 1,
-				"paneProperties.background": "#131F30",
-        "paneProperties.vertGridProperties.color": "#454545",
-        "paneProperties.horzGridProperties.color": "#454545",
-				"symbolWatermarkProperties.transparency": 90,
-				"scalesProperties.textColor" : "#AAA",
-				"mainSeriesProperties.lineStyle.color": "#131F30",
-				"mainSeriesProperties.lineStyle.linewidth": 2,
-				"paneProperties.legendProperties.showLegend": false,
+				"paneProperties.background": "#081724",
+        // "paneProperties.vertGridProperties.color": "#454545",
+        // "paneProperties.horzGridProperties.color": "#454545",
+        // "symbolWatermarkProperties.color" : "#944",//水印
+        // "symbolWatermarkProperties.transparency": 90,//水印透明度
+				"mainSeriesProperties.lineStyle.color": "#02c0cc",
+				"mainSeriesProperties.lineStyle.linewidth": 1,
+        //指标参数的显示、隐藏  true为展开（显示）; false为隐藏
+        "paneProperties.legendProperties.showLegend": true,
+        // "paneProperties.legendProperties.showStudyArguments": true,
 
 				// 蜡烛样式
 				"mainSeriesProperties.candleStyle.upColor": "#08D0AC",
 				"mainSeriesProperties.candleStyle.downColor": "#EF5656",
 				"mainSeriesProperties.candleStyle.drawWick": true,
 				"mainSeriesProperties.candleStyle.drawBorder": true,
-				"mainSeriesProperties.candleStyle.borderColor": "#378658",
+				// "mainSeriesProperties.candleStyle.borderColor": "#378658",
 				"mainSeriesProperties.candleStyle.borderUpColor": "#08D0AC",
 				"mainSeriesProperties.candleStyle.borderDownColor": "#EF5656",
 				"mainSeriesProperties.candleStyle.wickUpColor": '#08D0AC',
 				"mainSeriesProperties.candleStyle.wickDownColor": '#EF5656',
 				"mainSeriesProperties.candleStyle.barColorsOnPrevClose": false,
 
-				// 边际（百分比）。 用于自动缩放。
-				"paneProperties.topMargin": 13,
-				"paneProperties.bottomMargin": 5,
-			}
+        // 背景网格颜色
+        "paneProperties.vertGridProperties.color": "#1E1F22",
+        "paneProperties.horzGridProperties.color": "#1E1F22",
+        // 边际（百分比）。 用于自动缩放。
+        "paneProperties.topMargin": 13,
+        "paneProperties.bottomMargin": 5,
+        // 刻度，分界线，字体颜色
+        "scalesProperties.lineColor" : "#1E1F22",
+        "scalesProperties.textColor": "#6B7DA2",
+        "timeScale.rightOffset": 5,
+			},
+      studies_overrides: {
+        "volume.volume.color.0": "#EF5656",
+        "volume.volume.color.1": "#08D0AC",
+      },
+      favorites: {
+        intervals: ["1S", "1", "5", "15", "30", "60", "240", "D"],
+        chartTypes: ["Candles"]
+      },
 		}
 		var pc = {
 			container_id: 'chart_container',
@@ -545,7 +571,7 @@ root.methods.initViews = function (lang) {
 			overrides: {
 				"mainSeriesProperties.style": 1, // 3 为山形图
         "paneProperties.background": "#0D111F",
-				"symbolWatermarkProperties.color" : "#944",
+				"symbolWatermarkProperties.color" : "#944",//水印
 				"volumePaneSize": "medium",
 				"mainSeriesProperties.lineStyle.color": "#02c0cc",
 				"mainSeriesProperties.lineStyle.linewidth": 1,
@@ -583,7 +609,7 @@ root.methods.initViews = function (lang) {
 
 				// Bars styles
 				"mainSeriesProperties.barStyle.upColor": "red",
-				"mainSeriesProperties.barStyle.downColor": "#d75442",
+				"mainSeriesProperties.barStyle.downColor": "#EF5656",
 				"mainSeriesProperties.barStyle.barColorsOnPrevClose": false,
 				"mainSeriesProperties.barStyle.dontDrawOpen": false,
 			},
@@ -602,11 +628,11 @@ root.methods.initViews = function (lang) {
 		// 自定义图方法
 		widget.onChartReady(function () {
 			// !self.$store.state.isMobile && widget.chart().createStudy('MACD', false, true);
-      !self.$store.state.isMobile && widget.chart().createStudy('Moving Average', false, false,[7, 'close', 0], null, {
+      widget.chart().createStudy('Moving Average', false, false,[7, 'close', 0], null, {
         'Plot.color': '#F902F9',
         'Plot.linewidth': 2
       });
-      !self.$store.state.isMobile && widget.chart().createStudy('Moving Average', false, false,[25, 'close', 0], null, {
+      widget.chart().createStudy('Moving Average', false, false,[25, 'close', 0], null, {
         'Plot.color': '#DD1774',
         'Plot.linewidth': 2
       });

@@ -5,17 +5,25 @@
   <!--</div>-->
   <div class="mobile_trading_hall_detail" v-show="headerBoxFlag">
     <div class="mobile-header">
-      <div class="mobile-header-first-line">
+      <div class="mobile-header-first-line flex-colum">
 
         <!--向上向下显示文字效果 up / down-->
         <div class="mobile-header-now-price"
              :class="[(!!direction && direction) ? 'mobile-header-now-price-up' : 'mobile-header-now-price-down']">{{(priceNow).toFixed(quoteScale)}}
         </div>
-        <div class="mobile-header-updata-price">≈{{cny}}CNY
+        <div class="price-up-down flex-row">
+          <span class="price-up-down-text">涨幅</span>
+          <span class="price-up-down-val">-0.1%</span>
         </div>
-        <div class="mobile-header-updata-rate"
-             :class="[diff24Ratio>0 ? 'mobile-header-now-price-up' : (diff24<0 ? 'mobile-header-now-price-down' : '')]">{{diff24Ratio}}%
+        <div class="price-up-down flex-row">
+          <span class="price-up-down-text">标记价格</span>
+          <span class="price-up-down-val">18900</span>
         </div>
+        <!--<div class="mobile-header-updata-price">≈{{cny}}CNY-->
+        <!--</div>-->
+        <!--<div class="mobile-header-updata-rate"-->
+             <!--:class="[diff24Ratio>0 ? 'mobile-header-now-price-up' : (diff24<0 ? 'mobile-header-now-price-down' : '')]">{{diff24Ratio}}%-->
+        <!--</div>-->
         <!--向上向下箭头 up / down-->
         <!--        <div class="mobile-header-updown-img"-->
         <!--             :class="(!!direction && direction) && 'mobile-header-up-img'||'mobile-header-down-img'"></div>-->
@@ -33,15 +41,15 @@
       <div class="mobile-header-third-line">
         <!--        -->
 
-        <div class="mobile-header-high-price">
+        <div class="h-third-line-item mobile-header-high-price">
           <div class="mobile-header-high-price-title">高</div>
           <div class="mobile-header-high-price-value">{{high24}}</div>
         </div>
-        <div class="mobile-header-low-price">
+        <div class="h-third-line-item mobile-header-low-price">
           <div class="mobile-header-low-price-title">低 </div>
           <div class="mobile-header-low-price-value">{{low24}}</div>
         </div>
-        <div class="mobile-header-volume">
+        <div class="h-third-line-item mobile-header-volume">
           <div class="mobile-header-volume-title">24H量</div>
 <!--          <div class="mobile-header-volume-value" v-if="$store.state.symbol== 'GRC_USDT'">{{(volume>=1000 && volume>0) ? $globalFunc.accFixed(volume/1000,2)+'k':volume}}</div>-->
           <div class="mobile-header-volume-value">{{volume}}</div>
@@ -103,10 +111,10 @@
 
 
     <div class="mobile-content-trade">
-      <Trade :topic_bar="topic_bar" />
+      <Trade :topic_bar="topic_bar" :m_new_interval="tradingNum"/>
     </div>
 
-    <div style="margin-bottom: 1.1rem">
+    <div style="padding-bottom: 1.1rem">
       <MobileStockCross :buy_sale_list="buy_sale_list" :socket_snap_shot="socket_snap_shot"
                         :socket_tick="socket_tick"></MobileStockCross>
 
@@ -116,17 +124,21 @@
 
 
     <div class="button-container">
-      <!--正常情况-->
-      <div class="button-buy" @click="toBuyOrSaleView(1)"  v-if="symbol_transaction"
-      >{{$t('mobileTradingHall.buy')}}</div>
-      <div class="button-sell" @click="toBuyOrSaleView(2)" v-if="symbol_transaction">{{$t('mobileTradingHall.sale')}}</div>
 
-      <div class="button-buy" v-if="!symbol_transaction">
-        {{$t('mobileTradingHall.sale11')}}
-      </div>
-      <div class="button-sell" v-if="!symbol_transaction">
-        {{$t('mobileTradingHall.sale11')}}
-      </div>
+      <div class="button-common btn_blue" @click="goBack()">去交易</div>
+
+
+      <!--正常情况-->
+      <!--<div class="button-buy" @click="toBuyOrSaleView(1)"  v-if="symbol_transaction"-->
+      <!--&gt;{{$t('mobileTradingHall.buy')}}</div>-->
+      <!--<div class="button-sell" @click="toBuyOrSaleView(2)" v-if="symbol_transaction">{{$t('mobileTradingHall.sale')}}</div>-->
+
+      <!--<div class="button-buy" v-if="!symbol_transaction">-->
+        <!--{{$t('mobileTradingHall.sale11')}}-->
+      <!--</div>-->
+      <!--<div class="button-sell" v-if="!symbol_transaction">-->
+        <!--{{$t('mobileTradingHall.sale11')}}-->
+      <!--</div>-->
       <!--正常情况-->
 
       <!--上线前修改-->

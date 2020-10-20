@@ -178,6 +178,10 @@ root.computed.symbol = function () {
   // console.warn('symbol',this.$store.state.symbol);
   return this.$store.state.symbol;
 }
+//不加下划线币对
+root.computed.capitalSymbol = function () {
+  return this.$globalFunc.toOnlyCapitalLetters(this.symbol);
+}
 
 root.computed.downloadShow = function(){
   return this.$store.state.downloadShow;
@@ -618,6 +622,8 @@ root.methods.openYsf = function () {
 
 
 root.methods.changeHeaderBoxFlag = function () {
+
+  return
 
   if (this.$route.name === 'mobileTradingHallDetail') {
     this.$store.commit('changeMobileTradingHallFlag', false);

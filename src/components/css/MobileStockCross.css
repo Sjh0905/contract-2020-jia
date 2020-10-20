@@ -1,16 +1,19 @@
+._m_stck{
+  /*background-color: #131F30;*/
+}
 ._m_stck_wt{
 	/*border-bottom: 1px solid #131F30;*/
 	height: 0.6rem;
-  padding-bottom: 0px;
-	padding-left:0.2rem;
+  padding-bottom: 0;
+	padding-left:0.3rem;
   font-family: PingFangSC-Regular;
-  font-size: 10px;
-  color: #3E536C;
+  font-size: 0.2rem;
+  color: #6D87A8;
   line-height: 0.8rem;
 }
 ._m_stck_wt>li{
 	width: 50%;
 }
 ._m_stck_wp{
-	padding: 0 0.2rem;
+	padding: 0 0.3rem;
 }

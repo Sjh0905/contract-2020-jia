@@ -67,7 +67,8 @@ root.data = function () {
     select_name: '',
 
     // 当前选中哪个
-    tradingTitle: '日线',
+    tradingTitle: '15分',
+    tradingNum: '15',
     is_more: true,
     interval_btn_list: [{title: '分时'}, {title: '1分'}, {title: '5分'}, {title: '15分'}, {title: '30分'}, {title: '1小时'}, {title: '4小时'}, {title: '日线'}],
 
@@ -323,13 +324,10 @@ root.watch.symbol = function (newValue, oldValue) {
   // this.initSocket();
 
   this.getHeaderInfo();
-  // 根据当前币对请求买或卖列表
-  // this.getCurrencyBuyOrSaleList();
   // this.getDepthInfo();
   // 请求btc->cny汇率，header需要
   this.getExchangeRate();
 
-  this.getCurrencyBuyOrSaleList();
   this.getScaleConfig();
 
 
@@ -380,8 +378,7 @@ root.created = function () {
   // this.getDepthInfo();
 
   // 根据当前币对请求买或卖列表
-  this.getCurrencyBuyOrSaleList();
-
+  this.getDepth();
   // this.getKKPriceRange();
 
 }
@@ -453,48 +450,26 @@ root.methods.changeSelectEdition = function (num) {
   this.clickTab = true
 }
 
-// 初始化订阅socket
+// 初始化socket
 root.methods.initSocket = function () {
+  let that = this;
   // 订阅某个币对的信息
-  this.$socket.emit('unsubscribe', {symbol: this.symbol});
-  this.$socket.emit('subscribe', {symbol: this.symbol});
-  // 接收所有币对实时价格
+  // this.$socket.emit('UNSUBSCRIBE', {symbol: this.$store.state.symbol});
+  // this.$socket.emit('SUBSCRIBE', ["btcusdt@depth"]);
+
+  // let subscribeSymbol = this.$store.state.subscribeSymbol;
+  // let subscribeSymbol = this.$globalFunc.toOnlyCapitalLetters(this.$store.state.symbol);
+
+  // 获取深度图信息
   this.$socket.on({
-    key: 'topic_prices', bind: this, callBack: (message) => {
-      this.socket_price = message;
-      // console.log('price', message)
-      // let obj = {}
-      // obj[this.symbol] = [0,0,0,0,0,0]
-      // this.socket_price = this.$globalFunc.mergeObj(message,obj)
+    key: 'depthUpdate', bind: this, callBack: (message) => {
+      // console.log('depth is ===',message);
+      message.asks = message.a;
+      message.bids = message.b;
+      this.socket_snap_shot = message
     }
   })
 
-  // 获取所有币对价格
-  this.$socket.on({
-    key: 'topic_tick', bind: this, callBack: (message) => {
-      this.socket_tick = message instanceof Array && (message[0]['symbol'] === this.$store.state.symbol && message[0]) || (message.symbol === this.$store.state.symbol && message)
-      // this.socket_tick = message instanceof Array && message[0] || message;
-      this.direction = this.socket_tick.direction;
-    }
-  })
-
-  // 获取深度图信息 左侧列表
-  this.$socket.on({
-    key: 'topic_snapshot', bind: this, callBack: (message) => {
-      // console.log('this is message',message)
-      if (this.$store.state.symbol == message.symbol) {
-        this.socket_snap_shot = message;
-      }
-    }
-  })
-
-  this.$socket.on({
-    key: 'topic_bar', bind: this, callBack: (message) => {
-      if (this.$store.state.symbol == message.symbol) {
-        this.topic_bar = message;
-      }
-    }
-  })
 }
 
 root.methods.initTab = function () {
@@ -612,6 +587,10 @@ root.methods.setExchangeRateRate = function (data) {
   this.$store.commit('SET_EXCHANGE_RATE', rateObj);
 }
 
+root.methods.goBack = function () {
+  this.$router.go(-1);
+}
+
 // view跳转 跳到买或者卖
 root.methods.toBuyOrSaleView = function (type) {
   this.$store.commit('BUY_OR_SALE_TYPE', type);
@@ -620,31 +599,26 @@ root.methods.toBuyOrSaleView = function (type) {
 }
 
 
-// 根据当前币对请求买或卖列表
-root.methods.getCurrencyBuyOrSaleList = function () {
-  // console.log("===========root.methods.getCurrencyBuyOrSaleList============")
-  this.$http.send('DEPTH', {
+// 获取深度信息
+root.methods.getDepth = function () {
+  this.$http.send('GET_DEPTH', {
     bind: this,
-    query: {
-      symbol: this.$store.state.symbol
+    query:{
+      symbol:this.symbol,
+      limit: 20
     },
-    callBack: this.re_getCurrencyBuyOrSaleList
-  })
+    callBack: this.re_getDepth
+  });
 }
-
-// 渲染买卖列表信息
-root.methods.re_getCurrencyBuyOrSaleList = function (data) {
+// 获取深度信息正确回调
+root.methods.re_getDepth = function (data) {
   typeof(data) == 'string' && (data = JSON.parse(data));
-  // console.log("========root.methods.re_getCurrencyBuyOrSaleList=======",data)
-
-  if(data.symbol != this.symbol){
-    this.price = 0
-    this.buy_sale_list = {};
-    return;
-  }
-
-  this.price = data.price;
-  this.buy_sale_list = data;
+  if(!data || !data.data)return
+  let d = data.data
+  d.a = d.asks
+  d.b = d.bids
+  this.buy_sale_list = d;
+  // console.info('this.buy_sale_list======',this.buy_sale_list)
 }
 
 // 2018-4-17 add tradingView选择

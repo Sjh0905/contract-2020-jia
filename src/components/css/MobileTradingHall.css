@@ -243,20 +243,21 @@
 
 .mobile-header-first-line {
   height: 0.5rem;
-  margin-top: 0.16rem;
   float: left;
   position: relative;
+  padding-left: 0.3rem;
 }
 
 .mobile-header-now-price {
-  height: 0.4rem;
+  /*height: 0.4rem;*/
   float: left;
-  margin-left: 0.24rem;
-  /*font-family: Roboto-Medium;*/
-  font-size: 30px;
-  text-align: center;
-  line-height: 24px;
-  position: absolute;
+  /*text-align: center;*/
+
+  height: 0.48rem;
+  font-size: 0.52rem;
+  /*font-weight: 500;*/
+  line-height: 0.48rem;
+
 }
 
 .mobile-header-now-price-up {
@@ -265,6 +266,21 @@
 
 .mobile-header-now-price-down {
   color: #EF5656;
+}
+
+.price-up-down{
+  margin-top: 0.16rem;
+  height: 0.24rem;
+  font-size: 0.24rem;
+  font-weight: 400;
+  color: #6D87A8;
+  line-height: 0.24rem;
+}
+.price-up-down-text{
+}
+.price-up-down-val{
+  margin-left: 0.3rem;
+  color: #CFD3E9;
 }
 
 .mobile-header-updown-img {
@@ -341,7 +357,7 @@
 .mobile-header-low-price {
   width: 100%;
   float: right;
-  margin-right: 0.24rem;
+  /*margin-right: 0.24rem;*/
   /*margin-top: 5px;*/
 }
 
@@ -360,12 +376,17 @@
 
 .mobile-header-third-line {
   margin-top: 0.1rem;
-  height: 1.7rem;
-  width: 130px;
+  margin-right: 0.3rem;
+  /*height: 1.7rem;*/
+  width: 2.6rem;
   float: right;
   font-family: Roboto-Regular;
   font-size: 12px;
   color: #CFD3E9;
+}
+.h-third-line-item {
+  line-height: 0.24rem;
+  margin-top: 0.18rem;
 }
 
 .mobile-header-volume-title {
@@ -385,15 +406,15 @@
 .mobile-header-volume {
   width: 100%;
   float: right;
-  margin-right: 0.24rem;
+  /*margin-right: 0.24rem;*/
   /*margin-top: 5px;*/
 }
 
 .mobile-header-high-price {
   width: 100%;
   float: right;
-  margin-right: 0.24rem;
-  /*margin-top: 5px;*/
+  /*margin-right: 0.24rem;*/
+  margin-top: 0.1rem;
 }
 
 .mobile-header-high-price-title {
@@ -410,7 +431,7 @@
 }
 
 .mobile-content-trade {
-  height: 5.36rem;
+  height: 6.66rem;
   width: 100%;
 }
 
@@ -424,6 +445,19 @@
   text-align: center;
   background-color: #131F30;
   margin-top: 0.2rem;
+}
+
+.button-common {
+  display: inline-block;
+  width: 6.9rem;
+  height: 0.8rem;
+  line-height: 0.8rem;
+  text-align: center;
+  margin-top: 0.16rem;
+  border-radius: 0.03rem;
+  font-size: 0.32rem;
+  color: #FFFFFF;
+  letter-spacing: 0;
 }
 
 .button-buy {
@@ -476,8 +510,8 @@
   display: inline-block;
   text-align: center;
   font-family: PingFangSC-Medium;
-  font-size: 12px;
-  color: #6D87A8;
+  font-size: 0.24rem;
+  color: #CFD3E9;
 }
 
 ._m_sl_fcl > div {
@@ -497,12 +531,15 @@
 }
 
 ._m_sl_more {
-  width: 94%;
+  width: 6.9rem;
   height: auto;
-  min-height: 20px;
+  /*min-height: 20px;*/
   position: absolute;
   top: 0.8rem;
-  left: 3%;
+  left: 0.3rem;
+  font-size: 0.24rem;
+  color: #CFD3E9;
+  box-shadow: 0 0 0.1rem 0 rgba(255,255,255,0.1);
 }
 
 ._m_sl_more ul {
@@ -515,7 +552,7 @@
   float: left;
   line-height: 0.7rem;
   padding: 0 .2rem;
-  margin-right: .2rem;
+  padding-right: 0.1rem;
 }
 
 .bottomenu{
