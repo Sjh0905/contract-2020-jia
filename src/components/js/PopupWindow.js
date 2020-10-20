@@ -26,6 +26,12 @@ root.props.footerBorderTop = {
   type: Boolean,
   default: false
 }
+root.props.closeFooter = {
+  type: Boolean,
+  default: true
+}
+
+
 
 /*---------------------- data ---------------------*/
 

@@ -373,6 +373,10 @@
   height: 0.88rem;
   line-height: 0.88rem;
   background: #A2B5D9;
+  font-size: 0.28rem;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #FFFFFF;
   border-radius: 0.03rem;
   text-align: center;
 }

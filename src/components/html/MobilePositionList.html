@@ -54,10 +54,78 @@
       </div>
     </div>
     <!--操作按钮-->
-    <div class="ps-btn-box flex-between">
-      <div class="ps-btn">调整杠杆</div>
-      <div class="ps-btn">平仓</div>
+    <div class="ps-btn-box">
+<!--      <div class="ps-btn">调整杠杆</div>-->
+      <div class="ps-btn" @click="openPopWindowOpenPs(item)">平仓</div>
     </div>
   </div>
+
+  <!--平仓弹窗 begin-->
+  <PositionModeBulletBox :switch="popWindowOpenPs" @close="popWindowClosePs" >
+    <div slot="header" class="header-bck">
+      <div>{{capitalSymbol}}平仓</div>
+    </div>
+    <div slot="article"class="pop-lock-house">
+
+      <div class="flex-between">
+        <div class="price-ipt flex-between">
+          <input v-if="orderTypes == '限价'" type="text" class="currency-price-ipt" v-model="inputBoxPrice" >
+          <input v-if="orderTypes == '市价'" disabled type="text" class="currency-price-ipt" v-model="inputBoxPrice" >
+          <div>USDT</div>
+        </div>
+
+        <div class="limit-market flex-between">
+          <div>{{orderTypes}}</div>
+          <img src="../../assets/change_limit_market.png" alt="" @click="changeType">
+        </div>
+<!--        <div class="">市价</div>-->
+      </div>
+
+      <div class="amount-ipt flex-between">
+        <input type="text" class="currency-amount-ipt" v-model="inputBoxAmount">
+        <div>BTC</div>
+      </div>
+      <div class="progress-box-all flex-between">
+        <div class="progress-box " :class="{'progress-box-blue': numed == 0.2}" @click="amountPercentage(0.2)">20%</div>
+        <div class="progress-box" :class="{'progress-box-blue': numed == 0.4}" @click="amountPercentage(0.4)">40%</div>
+        <div class="progress-box" :class="{'progress-box-blue': numed == 0.6}" @click="amountPercentage(0.6)">60%</div>
+        <div class="progress-box" :class="{'progress-box-blue': numed == 0.8}" @click="amountPercentage(0.8)">80%</div>
+        <div class="progress-box" :class="{'progress-box-blue': numed == 1}" @click="amountPercentage(1)">100%</div>
+      </div>
+
+      <div class="flex-between unrealized" >
+        <div>预计盈亏</div>
+        <div class="unrealized-num text_blue">{{popUnrealizedProfit}} USDT</div>
+      </div>
+      <div class="money-confirmation" @click="openSplicedFrame">确认</div>
+      <!--确认不可点击状态-->
+      <!--      <div class="money-confirmation-ash">确认</div>-->
+    </div>
+  </PositionModeBulletBox>
+  <!--  平仓弹窗 End-->
+
+  <!-- 限价市价平仓弹窗 begin -->
+  <PopupWindow :switch="showSplicedFrame" @close="closeFrame" :pop_width="false" >
+    <div slot="header">
+      <span class="pop-header">提示</span>
+    </div>
+    <div slot="article" class="pop-article">
+      <!--      <p>{{$t('orderPageCurrentEntrustment.promptArticle')}}</p>-->
+      <p>{{splicedFrameText}}</p>
+    </div>
+    <div slot="footer" class="pop-footer flex-center">
+      <button @click="closeFrame" class="button-base btn_simple mr-tempty pointer">{{$t('orderPageCurrentEntrustment.close')}}
+      </button>
+      <button v-if="!marketPriceClick" @click="confirmFrame" class="button-base  btn_blue pointer">
+        {{$t('orderPageCurrentEntrustment.ensure')}}
+      </button>
+      <button v-if="marketPriceClick" class="button-base btn_blue pointer" disabled>
+        请求中
+      </button>
+    </div>
+  </PopupWindow>
+  <!-- 限价市价平仓弹窗 end -->
+
+  <PopupPrompt :popType="popType" :popText="popText" :popOpen="promptOpen" :popClose="closePrompt"></PopupPrompt>
 
 </div>

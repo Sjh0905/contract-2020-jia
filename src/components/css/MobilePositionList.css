@@ -110,7 +110,7 @@
   width: 100%;
 }
 .ps-btn{
-  width: 3.3rem;
+  width: 6.9rem;
   height: 0.64rem;
   border-radius: 0.03rem;
   border: 0.02rem solid #3576F5;
@@ -126,4 +126,125 @@
 }
 .text-red{
   color: #EF5656;
+}
+
+/*平仓弹窗*/
+.header-bck {
+  background: #142030;
+}
+.pop-lock-house {
+  width: 100%;
+  padding: 0.3rem;
+  background: #142030;
+}
+
+.price-ipt {
+  width: 4.48rem;
+  height: 0.8rem;
+  line-height: 0.8rem;
+  padding: 0 0.3rem;
+  border-radius: 0.03rem;
+  border: 0.01rem solid #3E536C;
+  color: #6B7DA2;
+  box-sizing: border-box;
+}
+.currency-price-ipt {
+  color: #CFD3E9;
+  width: 3rem;
+  background: none;
+  border: 0;
+}
+.limit-market {
+  width: 2.22rem;
+  height: 0.8rem;
+  line-height: 0.8rem;
+  padding: 0 0.3rem;
+  border: 0.01rem solid #3E536C;
+  color: #CFD3E9;
+}
+.limit-market img {
+  display: block;
+  /*line-height: 0.8rem;*/
+  margin: auto 0;
+  width: 0.32rem;
+  height: 0.32rem;
+}
+.amount-ipt {
+  width: 6.9rem;
+  height: 0.8rem;
+  padding: 0 0.3rem;
+  line-height: 0.8rem;
+  border-radius: 0.03rem;
+  background: #142030;
+  border: 0.01rem solid #3E536C;
+  /*padding-left: 0.3rem;*/
+  color: #7688AC;
+  box-sizing: border-box;
+  margin-top: 0.4rem;
+}
+.currency-amount-ipt {
+  color: #CFD3E9;
+  width: 5.8rem;
+  background: none;
+  border: 0;
+
+}
+
+.progress-box-all {
+  margin: 0.2rem 0;
+}
+
+.progress-box {
+  width: 20%;
+  height: 0.8rem;
+  line-height: 0.8rem;
+  text-align: center;
+  font-size: 0.28rem;
+  font-family: Roboto-Medium, Roboto;
+  font-weight: 500;
+  color: #FFFFFF;
+  /*opacity: 0.7;*/
+  border: 0.01rem solid #3E536C;
+}
+.progress-box-blue {
+  background: #3576F5;
+}
+.unrealized {
+  margin-bottom: 0.2rem;
+  font-size: 0.28rem;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #949EAE;
+}
+.unrealized-num {
+  font-family: Roboto-Medium, Roboto;
+  font-weight: 500;
+}
+.money-confirmation {
+  width: 6.9rem;
+  height: 0.8rem;
+  line-height: 0.8rem;
+  text-align: center;
+  font-size: 0.28rem;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #FFFFFF;
+  background: linear-gradient(270deg, #3576F5 0%, #459AF5 100%);
+  border-radius: 0.02rem;
+}
+.pop-header {
+  padding-left: 0.5rem;
+}
+.pop-article {
+  width: 6rem;
+  padding: 0.5rem 0.3rem;
+  background: #fff;
+  color: #0D0E23;
+  font-size: 0.32rem;
+  font-family: PingFangSC-Regular,PingFang SC;
+  font-weight: 400;
+}
+
+.mr-tempty {
+  margin-right: 0.4rem;
 }

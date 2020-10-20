@@ -195,7 +195,7 @@ root.methods.getOrderDepthList = function () {
   this.buyOrders = this.handleOrders(bidsList,this.socket_snap_shot.U)
 
   // console.info('最优价格===',{bidPrice:Number(this.buyOrders[0][0]),askPrice:Number(this.sellOrders[0][0])})
-  this.$store.commit('CHANGE_ORDER_BOOK_TICKER',{bidPrice:Number(this.buyOrders[0][0]),askPrice:Number(this.sellOrders[0][0])})
+  this.$store.commit('CHANGE_ORDER_BOOK_TICKER',{bidPrice:Number(this.buyOrders[0].price),askPrice:Number(this.sellOrders[0].price)})
 
 
   this.lastUpdateId = this.socket_snap_shot.U

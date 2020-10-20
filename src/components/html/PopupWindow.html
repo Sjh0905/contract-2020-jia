@@ -52,7 +52,7 @@
 
 <!--        </slot>-->
 <!--      </div>-->
-      <div class="flex popWindow-footer"
+      <div class="flex popWindow-footer" v-if="closeFooter"
            :class="footerBorderTop?'popWindow-footer-mobile':''">
         <slot name="footer">
           <!--          <button>{{$t("pupupWindow.cancel")}}</button>-->
