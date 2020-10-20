@@ -211,12 +211,12 @@ root.methods.getHistorTrans = function () {
 root.methods.re_getHistorTrans = function (data) {
   typeof(data) == 'string' && (data = JSON.parse(data));
   if(!data && !data.data) return
+  this.loading = false
   console.info('data====',data.data)
   this.historicaList = data.data || []
   this.historicaList0 = data.data[0] || []
 
   this.orderDetailReady = true
-  this.loading = !this.orderDetailReady
 }
 // 历史成交错误回调
 root.methods.error_getHistorTrans = function (err) {

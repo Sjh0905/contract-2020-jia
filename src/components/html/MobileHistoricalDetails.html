@@ -12,7 +12,7 @@
   </div>
 
   <!--  历史委托-->
-  <div class="container-box">
+  <div class="container-box" v-if="!loading">
     <div  class="withdraw-list">
       <div  class="histor-withdraw-item border-bot">
         <!--时间-->
@@ -52,6 +52,7 @@
           </div>
         </div>
 
+        <div class="mobile-box"></div>
         <div class="mobile-detail">
           <div class="mobile-details">详情</div>
           <div class="flex mobile-fenjie">
