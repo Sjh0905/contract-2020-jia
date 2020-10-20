@@ -211,15 +211,15 @@
                 <div v-if="isHasModule('reducePositions')" class="reduce-positions flex-row">
                   <!--限价-------只减仓 -->
 
-                    <img v-if="reducePositionsSelected" class="reduce-positions-icon" src="../../assets/contract/check_box_selected.png" @click="changeReducePositions()" alt="">
-                    <img v-else class="reduce-positions-icon" src="../../assets/contract/check_box_no_selected.png" @click="changeReducePositions()" alt="">
+                    <img v-if="reducePositionsSelected" class="reduce-positions-icon" src="../../assets/Contract/check_box_selected.png" @click="changeReducePositions()" alt="">
+                    <img v-else class="reduce-positions-icon" src="../../assets/Contract/check_box_no_selected.png" @click="changeReducePositions()" alt="">
                     <div class="passive-delegation-text border-dashed"
                           @mouseenter="openPositionBox('reducePositionsModule')"
                           @mouseleave="closePositionBox('reducePositionsModule')">只减仓</div>
 
 <!--                  <div v-if="pendingOrderType == 'marketPrice'">-->
-<!--                    <img v-if="reducePositionsSelected" class="reduce-positions-icon" src="../../assets/contract/check_box_selected.png" @click="changeReducePositions()" alt="">-->
-<!--                    <img v-else class="reduce-positions-icon" src="../../assets/contract/check_box_no_selected.png" @click="changeReducePositions()" alt="">-->
+<!--                    <img v-if="reducePositionsSelected" class="reduce-positions-icon" src="../../assets/Contract/check_box_selected.png" @click="changeReducePositions()" alt="">-->
+<!--                    <img v-else class="reduce-positions-icon" src="../../assets/contract/Check_box_no_selected.png" @click="changeReducePositions()" alt="">-->
 <!--                    <div class="passive-delegation-text border-dashed"-->
 <!--                         @mouseenter="openPositionBox('reducePositionsModule')"-->
 <!--                         @mouseleave="closePositionBox('reducePositionsModule')">只减仓</div>-->

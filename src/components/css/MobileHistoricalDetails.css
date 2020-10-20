@@ -186,7 +186,6 @@
 }
 .mobile-detail {
   background-color: #FFFFFF;
-  margin-top: 0.2rem;
   padding: 0 0.3rem;
 }
 .mobile-details {
@@ -236,4 +235,8 @@
   font-weight: 400;
   color: #9EA8B7;
   line-height: 0.32rem;
+}
+.mobile-box {
+  height: 0.2rem;
+  background-color: #F7F7FB;
 }
