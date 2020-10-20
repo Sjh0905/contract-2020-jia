@@ -92,6 +92,16 @@ root.data = function () {
     showSplicedFrame:false,//下单拦截弹框
     callFuncName:'',//即将调用接口的函数名字
     splicedFrameText:'',
+
+    // 平仓弹框
+    popWindowOpenPs:false,
+    orderTypes:'限价', // limit 为限价 ， market 为市价
+    inputBoxPrice : 0, // 弹窗价格
+    inputBoxAmount:0, // 弹窗数量
+    numed:0,
+    popUnrealizedProfit:0, // 未实现盈亏
+    positionSelect: null, // 选中的仓位数据
+
   }
 }
 /*------------------------------ 观察 -------------------------------*/
@@ -162,8 +172,13 @@ root.computed.userId = function () {
 root.computed.serverTime = function () {
   return new Date().getTime();
 }
+//加下划线币对
 root.computed.currSymbol = function () {
   return this.$store.state.symbol;
+}
+//不加下划线币对
+root.computed.capitalSymbol = function () {
+  return this.$globalFunc.toOnlyCapitalLetters(this.currSymbol);
 }
 root.computed.leverage = function () {
   return this.$store.state.leverage;
@@ -186,6 +201,44 @@ root.computed.LPCalculationType = function () {
 
 /*------------------------------ 方法 -------------------------------*/
 root.methods = {}
+root.methods.commit = function () {
+  if(this.orderTypes == '限价') {
+    this.checkPrice()
+    return
+  }
+  this.marketPrice()
+}
+root.methods.amountPercentage = function (pre) {
+  this.numed = pre
+  if (this.inputBoxAmount != 0) {
+    this.inputBoxAmount = this.$globalFunc.accFixed(this.inputBoxAmount * pre, 3);
+    return
+  }
+  // this.inputBoxAmount = this.inputBoxAmount * pre
+}
+root.methods.changeType = function () {
+  this.orderTypes = this.orderTypes == '限价' ? '市价' : '限价'
+  this.inputBoxPrice = this.orderTypes == '市价' ? '市价': 0
+}
+// 打开平仓弹窗
+root.methods.openPopWindowOpenPs = function (item){
+  // console.info('item===',item)
+  this.positionSelect = item || {}
+  // 未实现盈亏
+  this.popUnrealizedProfit = item.unrealizedProfit || 0
+  this.inputBoxAmountTemp = item.positionAmt || 0
+  this.inputBoxAmount = Math.abs(this.inputBoxAmountTemp)
+  this.popWindowOpenPs = true
+}
+root.methods.amountPercentage = function (pre) {
+  this.numed = pre
+  this.inputBoxAmount = this.$globalFunc.accFixed(Math.abs(this.inputBoxAmountTemp)  * pre, 3);
+  // this.inputBoxAmount = this.inputBoxAmount * pre
+}
+// 关闭平仓弹框
+root.methods.popWindowClosePs = function () {
+  this.popWindowOpenPs = false
+}
 root.methods.closePopMarket = function () {
   this.popOpenMarket = false
 }
@@ -781,7 +834,7 @@ root.methods.re_getAdlQuantile = function (data) {
   if (!data || !data.data) return
 
   //TODO:list中每个币对只返回一个对象吗？
-  this.currSAdlQuantile = data.data.find(v=>v.symbol==this.$globalFunc.toOnlyCapitalLetters(this.currSymbol));
+  this.currSAdlQuantile = data.data.find(v=>v.symbol==this.capitalSymbol);
 
   if(this.records.length > 0 && this.currSAdlQuantile)
     this.addAdlQuantile(this.currSAdlQuantile,this.records)
@@ -804,58 +857,59 @@ root.methods.addAdlQuantile = function(currSAdlQuantile,records){
 }
 
 //开启拦截弹窗
-root.methods.openSplicedFrame = function (item,btnText,callFuncName) {
-  this.positionInfo = item || {}
-  let closePosition = item.positionAmt > 0 ?'平多':'平空'
+root.methods.openSplicedFrame = function () {
+  this.positionInfo = this.positionSelect || {}
+  let closePosition = this.positionSelect.positionAmt > 0 ?'平多':'平空'
   // console.info('this.positionInfo==',this.positionInfo,item.symbol.slice(0,3))
   // if(!this.openClosePsWindowClose())return
-
   this.splicedFrameText = "";
 
   //限价价格
-  if(btnText == '限价'){
-    this.splicedFrameText += ('价格' + item.iptMarkPrice + 'USDT，')
+  if(this.orderTypes == '限价'){
+    this.splicedFrameText += ('价格' + this.inputBoxPrice + 'USDT，')
   }
   //当前市价
-  if(btnText == '市价'){
+  if(this.orderTypes == '市价'){
     this.splicedFrameText += ('价格为当前市价，')
   }
   //数量
-  this.splicedFrameText += ('数量' + Math.abs(item.positionAmt) + item.symbol.slice(0,3))
+  this.splicedFrameText += ('数量' + Math.abs(this.positionSelect.positionAmt) + this.positionSelect.symbol.slice(0,3))
   //操作类型
   this.splicedFrameText += ('，确定'+ closePosition + '?')
 
-  this.callFuncName = callFuncName;
+
+  // this.callFuncName = callFuncName;
   this.showSplicedFrame = true
 }
 //提交下单弹框
 root.methods.confirmFrame = function () {
-  this[this.callFuncName]();//调用对应的接口
+  // this.callFuncName();//调用对应的接口
+  if(this.orderTypes == '限价'){
+    this.checkPrice()
+  }
+  if(this.orderTypes == '市价'){
+    this.markPrice()
+  }
   this.showSplicedFrame = false
 }
-
 //关闭下单弹框
 root.methods.closeFrame = function () {
   this.showSplicedFrame = false
 }
-// root.methods.openPositionMarket = function (item) {
-//   this.positionInfo = item || {}
-//   this.popOpenMarket = true
-// }
 
 // 市价
-root.methods.marketPrice = function (v) {
+root.methods.marketPrice = function () {
   this.marketPriceClick = true
-  let item = !this.popOpen ? this.positionInfo: v
+  let item = this.positionSelect || {}
 
   // var v = ipt.value;//获取input的值
   let params = {
     leverage: this.$store.state.leverage,
     positionSide: item.positionSide,
-    quantity: Math.abs(item.positionAmt),
-    orderSide: (item.positionAmt<0) ? 'BUY':'SELL',
+    quantity: this.inputBoxAmount,
+    orderSide: (this.inputBoxAmountTemp < 0) ? 'BUY':'SELL',
     stopPrice: null,
-    symbol: "BTCUSDT",
+    symbol: this.capitalSymbol,
     orderType: "MARKET",
   }
   this.$http.send("POST_ORDERS_POSITION", {
@@ -907,6 +961,7 @@ root.methods.re_marketPrice = function (data) {
 
   // 关闭弹框
   this.closePopMarket()
+  this.popWindowClosePs()
   if(data.data.status == 'NEW') {
     this.popType = 1;
     this.popText = '下单成功';
@@ -949,17 +1004,23 @@ root.methods.error_marketPrice = function (err){
 // 限价
 root.methods.checkPrice = function () {
   this.marketPriceClick = true
+  if(this.inputBoxPrice== '' || this.inputBoxPrice == 0 ) {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '请输入正确的价格';
+    return
+  }
   // let markPrice1 = document.getElementById('inputMarginPrice1').value;//获取input的节点bai
   // console.info('this is markPrice 618', item.iptMarkPrice)
-  let item = this.positionInfo
+  let item = this.positionSelect || {}
   let params = {
     leverage: this.$store.state.leverage,
     positionSide: item.positionSide,
-    price: item.iptMarkPrice,
-    quantity: Math.abs(item.positionAmt),
-    orderSide: (item.positionAmt > 0) ? 'SELL':'BUY',
+    price: this.inputBoxPrice,
+    quantity: this.inputBoxAmount,
+    orderSide: (this.inputBoxAmountTemp > 0) ? 'SELL':'BUY',
     // stopPrice: null,
-    symbol: "BTCUSDT",
+    symbol: this.capitalSymbol,
     timeInForce: this.effectiveTime,
     orderType: "LIMIT",
     // workingType: null,
@@ -967,7 +1028,6 @@ root.methods.checkPrice = function () {
   if(item.positionSide == 'BOTH'){
     Object.assign(params, {reduceOnly: true});
   }
-
   this.$http.send("POST_ORDERS_POSITION", {
     bind: this,
     params: params,
@@ -1017,6 +1077,7 @@ root.methods.re_checkPrice = function (data) {
   this.promptOpen = true;
   this.priceCheck[data.data.positionSide] = data.data.price
 
+  this.popWindowClosePs()
   // console.info('this.priceCheck===',this.priceCheck)
 
   // this.priceCheck = localStorage.setItem('PRICE_CHECK',data.data.price);

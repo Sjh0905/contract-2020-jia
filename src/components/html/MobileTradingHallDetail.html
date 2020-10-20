@@ -91,7 +91,7 @@
 
         <div v-if="pendingOrderType.indexOf('limit') > -1" class="mobile-change-num">
           <div class="trading1">
-            <input class="mobile-change-num-input" :placeholder="`价格`" type="number" v-model="transaction_price">
+            <input class="mobile-change-num-input" :placeholder="`价格`" type="number" v-model="price">
           </div>
           <!--<div class="mobile-change-num-minus" @click="reduceNum('price')">-->
             <!--<img src="../../assets/H5img/mobile_input_group_minus_.png" alt="">-->
@@ -106,7 +106,7 @@
         </div>
 
         <div class="mobile-change-num">
-          <input class="mobile-change-num-input shuliannum" :placeholder="`数量`" type="number" v-model="transaction_amount">
+          <input class="mobile-change-num-input shuliannum" :placeholder="`数量`" type="number" v-model="amount">
           <span class="mobile-change-num-max mobile-change-num-symbol">
             {{symbol.split('_')[0]}}
           </span>
@@ -124,7 +124,7 @@
         </div>
 
         <!--<div class="mobile-exchange-price">-->
-          <!--&lt;!&ndash;{{!transaction_price || !transaction_amount? '交易额' : accMul(transaction_price,transaction_amount)}}（{{this.$store.state.symbol.split('_')[1]}}）&ndash;&gt;-->
+          <!--&lt;!&ndash;{{!price || !amount? '交易额' : accMul(price,amount)}}（{{this.$store.state.symbol.split('_')[1]}}）&ndash;&gt;-->
         <!--</div>-->
 
         <!--TODO 目前移动端没有生效时间，如何处理-->
@@ -144,16 +144,17 @@
         <!--保证金-->
         <div v-if="isHasModule('securityDeposit')" class="security-deposit flex-between">
           <div class="security-deposit-text">保证金</div>
-          <div class="security-deposit-amount">{{securityDeposit || '0.00'}} USDT</div>
+          <div class="security-deposit-amount" v-if="positionModeFirst == 'singleWarehouseMode'">{{securityDeposit || '0.00'}} USDT</div>
+          <div class="security-deposit-amount" v-if="positionModeFirst == 'doubleWarehouseMode'">{{securityDeposit[0] || '0.00'}} USDT</div>
         </div>
 
         <div class="can-be-opened flex-between">
           <span v-if="isHasModule('kaipingType') == 1" class="security-deposit-text">可开</span>
           <span v-if="isHasModule('kaipingType') == 2" class="security-deposit-text">可平</span>
           <!--单仓 买卖 可开-->
-          <span class="security-deposit-amount" v-if="isHasModule('kaipingType') == 1 && positionModeFirst == 'singleWarehouseMode'">{{orderType ? toFixed(canMore,3):toFixed(canMore,3)}} BTC</span>
+          <span class="security-deposit-amount" v-if="isHasModule('kaipingType') == 1 && positionModeFirst == 'singleWarehouseMode'">{{toFixed(canMore,3)}} BTC</span>
           <!--双仓 平仓 开多 可开-->
-          <span class="security-deposit-amount" v-if="isHasModule('kaipingType') == 1 && positionModeFirst == 'doubleWarehouseMode'">{{toFixed(canBeOpened,3)}} BTC</span>
+          <span class="security-deposit-amount" v-if="isHasModule('kaipingType') == 1 && positionModeFirst == 'doubleWarehouseMode'">{{toFixed(canBeOpened[0],3)}} BTC</span>
           <!--双仓 开仓 平空 可平-->
           <span class="security-deposit-amount" v-if="isHasModule('kaipingType') == 2">{{Math.abs(positionAmtShort)}} BTC</span>
         </div>
@@ -180,12 +181,12 @@
         <!--保证金-->
         <div class="security-deposit flex-between" v-if="isHasModule('securityDeposit') && isHasModule('kaipingType') == 1 && positionModeFirst == 'doubleWarehouseMode'">
           <div class="security-deposit-text">保证金</div>
-          <div class="security-deposit-amount">{{securityDeposit || '0.00'}} USDT</div>
+          <div class="security-deposit-amount">{{securityDeposit[1] || '0.00'}} USDT</div>
         </div>
         <!--双仓 开仓 开空 可开-->
         <div class="can-be-opened flex-between" v-if="isHasModule('kaipingType') == 1 && positionModeFirst == 'doubleWarehouseMode'">
           <span class="security-deposit-text">可开</span>
-          <span class="security-deposit-amount">{{toFixed(canBeOpened,3)}} BTC</span>
+          <span class="security-deposit-amount">{{toFixed(canBeOpened[1],3)}} BTC</span>
         </div>
 
         <!--双仓 开仓  限价  市价 postOrdersCreate-->
@@ -236,8 +237,8 @@
     <div class="current-top-line"/>
 
     <div class="mobile-container-latest-flag" >
-      <span class="mobile-container-latest-flag-text" :class="listType == 'currentDelegation' ? 'mobile-list-type' : ''" @click="listSwitching('currentDelegation')">当前委托</span>
-      <span class="mobile-container-latest-flag-text mobile-container-latest-right" :class="listType == 'holdPosition' ? 'mobile-list-type' : ''" @click="listSwitching('holdPosition')">持有仓位</span>
+      <span class="mobile-container-latest-flag-text" :class="listType == 'holdPosition' ? 'mobile-list-type' : ''" @click="listSwitching('holdPosition')">持有仓位</span>
+      <span class="mobile-container-latest-flag-text mobile-container-latest-right" :class="listType == 'currentDelegation' ? 'mobile-list-type' : ''" @click="listSwitching('currentDelegation')">当前委托</span>
       <div class="mobile-container-latest-flag-img" @click="openAllRecords">
         <img class="history-icon" src="../../assets/history-icon.png" alt="">
         历史</div>
@@ -247,14 +248,16 @@
     </div>
   </div>
 
+  <!--仓位-->
+  <div v-if="listType== 'holdPosition'" class="container-current-page">
+    <PositionList :latestPriceVal = 'latestPriceVal' :effectiveTime = 'effectiveTime' :markPrice = 'markPrice' @getPositionRisk="getIndex"/>
+  </div>
+
   <!--当前委托页-->
   <div v-if="listType == 'currentDelegation'" class="container-current-page" @click="ToCurrentPage">
     <CurrentOrder></CurrentOrder>
   </div>
-  <!--历史委托页-->
-  <div v-if="listType== 'holdPosition'" class="container-current-page">
-    <PositionList :latestPriceVal = 'latestPriceVal' :effectiveTime = 'effectiveTime' :markPrice = 'markPrice' @getPositionRisk="getIndex"/>
-  </div>
+
 
   <div class="current-bot-line"/>
 
