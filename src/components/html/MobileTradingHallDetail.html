@@ -414,6 +414,28 @@
   </PopupWindow>
   <!--  解释弹窗 End-->
 
+  <!-- 限价市价平仓弹窗 begin -->
+  <PopupWindow :switch="showSplicedFrame" @close="closeFrame" :pop_width="false" >
+    <div slot="header">
+      <span class="pop-header">提示</span>
+    </div>
+    <div slot="article" class="pop-article">
+      <!--      <p>{{$t('orderPageCurrentEntrustment.promptArticle')}}</p>-->
+      <p>{{splicedFrameText}}</p>
+    </div>
+    <div slot="footer" class="pop-footer flex-center">
+      <button @click="closeFrame" class="button-base mr-tempty pointer btn-border">{{$t('orderPageCurrentEntrustment.close')}}
+      </button>
+      <button v-if="!marketPriceClick" @click="confirmFrame" class="button-base  btn_blue pointer">
+        {{$t('orderPageCurrentEntrustment.ensure')}}
+      </button>
+      <button v-if="marketPriceClick" class="button-base btn_blue pointer" disabled>
+        请求中
+      </button>
+    </div>
+  </PopupWindow>
+  <!-- 限价市价平仓弹窗 end -->
+
   <div v-if="toastNobindShow" class="toast-window-nobind-email">
     <div class="toast-box-nobind-email">
       <div class="memo-toast-box-close-btn-box" @click="closeNobindToast">

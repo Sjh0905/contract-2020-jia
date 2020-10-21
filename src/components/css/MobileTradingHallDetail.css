@@ -1800,3 +1800,25 @@
   font-weight: 400;
   color: #FFFFFF;
 }
+.pop-header {
+  padding-left: 0.5rem;
+}
+.pop-article {
+  padding: 0.5rem 0.3rem;
+  background: #fff;
+  color: #0D0E23;
+  font-size: 0.32rem;
+  font-family: PingFangSC-Regular,PingFang SC;
+  font-weight: 400;
+}
+.mr-tempty {
+  margin-right: 0.4rem;
+}
+.pop-footer {
+
+}
+.btn-border {
+  border: 1px solid #3576F5;
+  background: #fff;
+  color: #3576F5;
+}

@@ -177,7 +177,12 @@ root.data = function () {
 
     descriptionOpen:false,
     titleDescript:'',
-    descriptionText:''
+    descriptionText:'',
+
+    showSplicedFrame:false,//下单拦截弹框
+    callFuncName:'',//即将调用接口的函数名字
+    splicedFrameText:'',
+    marketPriceClick: false, //市价不能多次点击设置
   }
 }
 
@@ -1113,10 +1118,10 @@ root.methods.openClosePsWindowClose = function (){
 //开启拦截弹窗
 root.methods.openSplicedFrame = function (btnText,callFuncName,orderType) {
   this.orderType = orderType;
-  // if(!this.openClosePsWindowClose())return
+  if(!this.openClosePsWindowClose())return
 
-  this[callFuncName]();//调用对应的接口
-  return;
+  // this[callFuncName]();//调用对应的接口
+  // return;
 
   this.splicedFrameText = "";
 
