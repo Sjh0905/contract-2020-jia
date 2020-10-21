@@ -116,12 +116,12 @@
           <span class="">{{$t("progressBar.able")}}</span> <span>{{(currentSymbol.balance && currentSymbol.balance == '--' ? '--' : $globalFunc.accFixed(currentSymbol.balance, 6) || 0 )+ '&nbsp;' + this.$store.state.symbol.split('_')[1]}}</span>
         </div>
 
-        <div class="mobile-select-num">
-          <span class="mobile-select-num-item txt_80 mobile-select-num-item-selected" @click="sectionSelect(0.25)">25%</span>
-          <span class="mobile-select-num-item txt_80" @click="sectionSelect(0.5)">50%</span>
-          <span class="mobile-select-num-item txt_80" @click="sectionSelect(0.75)">75%</span>
-          <span class="mobile-select-num-item txt_80" @click="sectionSelect(1)">100%</span>
-        </div>
+<!--        <div class="mobile-select-num">-->
+<!--          <span class="mobile-select-num-item txt_80 mobile-select-num-item-selected" @click="sectionSelect(0.25)">25%</span>-->
+<!--          <span class="mobile-select-num-item txt_80" @click="sectionSelect(0.5)">50%</span>-->
+<!--          <span class="mobile-select-num-item txt_80" @click="sectionSelect(0.75)">75%</span>-->
+<!--          <span class="mobile-select-num-item txt_80" @click="sectionSelect(1)">100%</span>-->
+<!--        </div>-->
 
         <!--<div class="mobile-exchange-price">-->
           <!--&lt;!&ndash;{{!price || !amount? '交易额' : accMul(price,amount)}}（{{this.$store.state.symbol.split('_')[1]}}）&ndash;&gt;-->
