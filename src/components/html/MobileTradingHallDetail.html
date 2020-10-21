@@ -161,22 +161,22 @@
 
         <!----------------------------------------------单仓 btn start---------------------------------------------------------->
         <!--单仓  限价  市价 postOrdersCreate-->
-        <div class="mobile-buy-btn" :class="orderType ? 'mobile-sell-btn' : ''"  @click="tradeMarket(true,1)"
-             v-if="isHasModule('buttonType1Create')">
+        <div class="mobile-buy-btn" :class="orderType ? 'mobile-sell-btn' : ''"
+             @click="openSplicedFrame(orderType && '卖出/做空'  || '买入/做多','postOrdersCreate',orderType)" v-if="isHasModule('buttonType1Create')">
           {{orderType && '卖出/做空'  || '买入/做多' }}
         </div>
         <!--单仓  限价止盈止损  市价止盈止损 postFullStop-->
-        <div class="mobile-buy-btn" :class="orderType ? 'mobile-sell-btn' : ''"  @click="tradeMarket(true,1)"
-             v-if="isHasModule('buttonType1Stop')">
+        <div class="mobile-buy-btn" :class="orderType ? 'mobile-sell-btn' : ''"
+             @click="openSplicedFrame(orderType && '卖出/做空'  || '买入/做多' ,'postFullStop',orderType)" v-if="isHasModule('buttonType1Stop')">
           {{orderType && '卖出/做空'  || '买入/做多' }}
         </div>
         <!----------------------------------------------单仓 btn end---------------------------------------------------------->
 
         <!----------------------------------------------双仓 开仓 btn start---------------------------------------------------------->
         <!--双仓 开仓  限价  市价 postOrdersCreate-->
-        <div class="mobile-buy-btn"  @click="tradeMarket(true,1)" v-if="isHasModule('buttonType2Create')">{{'开多'}}</div>
+        <div class="mobile-buy-btn" @click="openSplicedFrame('开多','postOrdersCreate',0)" v-if="isHasModule('buttonType2Create')">{{'开多'}}</div>
         <!--双仓 开仓  限价止盈止损  市价止盈止损 postFullStop-->
-        <div class="mobile-buy-btn"  @click="tradeMarket(true,1)" v-if="isHasModule('buttonType2Stop')">{{'开多'}}</div>
+        <div class="mobile-buy-btn" @click="openSplicedFrame('开多','postFullStop',0)" v-if="isHasModule('buttonType2Stop')">{{'开多'}}</div>
 
         <!--保证金-->
         <div class="security-deposit flex-between" v-if="isHasModule('securityDeposit') && isHasModule('kaipingType') == 1 && positionModeFirst == 'doubleWarehouseMode'">
@@ -190,16 +190,16 @@
         </div>
 
         <!--双仓 开仓  限价  市价 postOrdersCreate-->
-        <div class="mobile-buy-btn mobile-sell-btn"  @click="tradeMarket(true,1)" v-if="isHasModule('buttonType2Create')">{{'开空'}}</div>
+        <div class="mobile-buy-btn mobile-sell-btn" @click="openSplicedFrame('开空','postOrdersCreate',1)" v-if="isHasModule('buttonType2Create')">{{'开空'}}</div>
         <!--双仓 开仓  限价止盈止损  市价止盈止损 postFullStop-->
-        <div class="mobile-buy-btn mobile-sell-btn"  @click="tradeMarket(true,1)" v-if="isHasModule('buttonType2Stop')">{{'开空'}}</div>
+        <div class="mobile-buy-btn mobile-sell-btn" @click="openSplicedFrame('开空','postFullStop',1)" v-if="isHasModule('buttonType2Stop')">{{'开空'}}</div>
         <!----------------------------------------------双仓 开仓 btn end---------------------------------------------------------->
 
         <!----------------------------------------------双仓 平仓 btn start---------------------------------------------------------->
         <!--双仓 平仓  限价  市价 postOrdersPosition-->
-        <div class="mobile-buy-btn"  @click="tradeMarket(true,1)" v-if="isHasModule('buttonType3Create')">{{'平空'}}</div>
+        <div class="mobile-buy-btn" @click="openSplicedFrame('平空','postOrdersPosition',0)" v-if="isHasModule('buttonType3Create')">{{'平空'}}</div>
         <!--双仓 平仓  限价止盈止损  市价止盈止损 postFullStop-->
-        <div class="mobile-buy-btn"  @click="tradeMarket(true,1)" v-if="isHasModule('buttonType3Stop')">{{'平空'}}</div>
+        <div class="mobile-buy-btn" @click="openSplicedFrame('平空','postFullStop',0)" v-if="isHasModule('buttonType3Stop')">{{'平空'}}</div>
 
         <!--保证金-->
         <div v-if="isHasModule('kaipingType') == 2 && isHasModule('securityDeposit')" class="security-deposit flex-between">
@@ -213,9 +213,9 @@
         </div>
 
         <!--双仓 平仓  限价  市价 postOrdersPosition-->
-        <div class="mobile-buy-btn mobile-sell-btn"  @click="tradeMarket(true,1)" v-if="isHasModule('buttonType3Create')">{{'平多'}}</div>
+        <div class="mobile-buy-btn mobile-sell-btn"  @click="openSplicedFrame('平多','postOrdersPosition',1)" v-if="isHasModule('buttonType3Create')">{{'平多'}}</div>
         <!--双仓 平仓  限价止盈止损  市价止盈止损 postFullStop-->
-        <div class="mobile-buy-btn mobile-sell-btn"  @click="tradeMarket(true,1)" v-if="isHasModule('buttonType3Stop')">{{'平多'}}</div>
+        <div class="mobile-buy-btn mobile-sell-btn"  @click="openSplicedFrame('平多','postFullStop',1)" v-if="isHasModule('buttonType3Stop')">{{'平多'}}</div>
 
         <!----------------------------------------------双仓 平仓 btn end---------------------------------------------------------->
 

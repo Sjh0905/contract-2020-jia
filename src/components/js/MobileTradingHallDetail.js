@@ -1064,6 +1064,657 @@ root.computed.maxPosition = function () {
 /*------------------------------ 方法 begin -------------------------------*/
 
 root.methods = {}
+// 非法数据拦截
+root.methods.openClosePsWindowClose = function (){
+  // 限价价格非空判断
+  let limitArr = ['limitProfitStopLoss','limitPrice'],triggerArr = ['limitProfitStopLoss','marketPriceProfitStopLoss'],closeAmountArr = ['positionAmtShort','positionAmtLong']
+
+  if(this.loading)return false
+
+  if(triggerArr.includes(this.pendingOrderType) && (this.triggerPrice == '' || this.triggerPrice == 0)){
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '请输入正确的触发价格';
+    this.loading = false
+    this.currentLimiting = false
+    return false
+  }
+
+  if(limitArr.includes(this.pendingOrderType) && (this.price == '' || this.price == 0)){
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '请输入正确的价格';
+    this.loading = false
+    this.currentLimiting = false
+    return false
+  }
+
+  if(this.amount == '' || this.amount == 0){
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '请输入正确的数量';
+    this.loading = false
+    this.currentLimiting = false
+    return false
+  }
+  //平仓数量超出提示
+  // if(this.positionModeSecond == 'closeWarehouse' && ((!this.orderType && Math.abs(this.positionAmtShort) < Number(this.amount)) || (this.orderType && Math.abs(this.positionAmtLong) < Number(this.amount))) ){
+  if(this.positionModeSecond == 'closeWarehouse' && Math.abs(this[closeAmountArr[this.orderType]]) < Number(this.amount)) {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '您输入的数量超过可平数量';
+    this.currentLimiting = false
+    this.loading = false
+    return false
+  }
+
+  return true
+}
+//开启拦截弹窗
+root.methods.openSplicedFrame = function (btnText,callFuncName,orderType) {
+  this.orderType = orderType;
+  // if(!this.openClosePsWindowClose())return
+
+  this[callFuncName]();//调用对应的接口
+  return;
+
+  this.splicedFrameText = "";
+
+  let triggerArr = ['limitProfitStopLoss','marketPriceProfitStopLoss'];
+  //拼接触发价格
+  if(triggerArr.includes(this.pendingOrderType)){
+    this.splicedFrameText += ('触发价' + this.triggerPrice + 'USDT，')
+  }
+  //限价价格
+  if(this.pendingOrderType.indexOf('limit') >-1){
+    this.splicedFrameText += ('价格' + this.price + 'USDT，')
+  }
+  //当前市价
+  if(this.pendingOrderType.indexOf('market') > -1){
+    this.splicedFrameText += ('价格为当前市价，')
+  }
+  //数量
+  this.splicedFrameText += ('数量' + this.amount + this.symbol.split('_')[0])
+  //操作类型
+  this.splicedFrameText += ('，确定'+btnText + '?')
+
+  this.callFuncName = callFuncName;
+  this.showSplicedFrame = true
+}
+//关闭下单弹框
+root.methods.confirmFrame = function () {
+  if(this.loading)return false
+  this[this.callFuncName]();//调用对应的接口
+  this.showSplicedFrame = false
+}
+//关闭下单弹框
+root.methods.closeFrame = function () {
+  this.showSplicedFrame = false
+}
+
+// 止盈止损接口
+root.methods.postFullStop = function () {
+  this.loading = true
+  // 如果是平空或者平多，买入量不得大于可平数量
+
+  let params = {}
+  let latestOrMarkPrice = this.latestPrice == '最新价格' ? Number(this.latestPriceVal) : Number(this.markPrice)
+  if((this.isHasModule('kaipingType') == 2 && this.isHasModule('buttonType') == 3) && ((!this.orderType && Math.abs(this.positionAmtShort) < Number(this.amount)) || (this.orderType && Math.abs(this.positionAmtLong) < Number(this.amount)))){
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '您输入的数量超过可平数量';
+    this.currentLimiting = false
+    this.loading = false
+    return
+  }
+  if(this.amount == '' || this.amount == 0){
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '请输入正确的数量';
+    this.loading = false
+    this.currentLimiting = false
+    return
+  }
+  if(this.triggerPrice == ''){
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '请输入正确的触发价格';
+    this.loading = false
+    this.currentLimiting = false
+    return
+  }
+  // 单仓 限价止盈止损
+  if (this.isHasModule('kaipingType') == 1 && this.isHasModule('buttonType') == 1 && this.pendingOrderType == 'limitProfitStopLoss') {
+    params = {
+      leverage: this.$store.state.leverage,
+      positionSide: "BOTH",
+      price: this.price ? this.price : this.latestPriceVal,
+      quantity: Number(this.amount),
+      reduceOnly: this.reducePositionsSelected ? true : false,
+      orderSide: this.orderType ? 'SELL':'BUY',
+      stopPrice: this.triggerPrice,
+      symbol: "BTCUSDT",
+      timeInForce: this.effectiveTime,
+      orderType: (this.orderType && Number(this.triggerPrice) < latestOrMarkPrice) || (!this.orderType && (Number(this.triggerPrice) >= latestOrMarkPrice)) ? "STOP" : "TAKE_PROFIT",
+      workingType: this.latestPrice == '最新价格'? 'CONTRACT_PRICE':'MARK_PRICE',
+    }
+  }
+  // 单仓 市价止盈止损
+  if (this.isHasModule('kaipingType') == 1 && this.isHasModule('buttonType') == 1 && this.pendingOrderType == 'marketPriceProfitStopLoss') {
+    params = {
+      leverage: this.$store.state.leverage,
+      positionSide: "BOTH",
+      quantity: Number(this.amount),
+      reduceOnly: this.reducePositionsSelected ? true : false,
+      orderSide: this.orderType ? 'SELL':'BUY',
+      stopPrice: this.triggerPrice,
+      symbol: "BTCUSDT",
+      orderType: (this.orderType && (Number(this.triggerPrice) < latestOrMarkPrice)) || (!this.orderType && (Number(this.triggerPrice) >= latestOrMarkPrice)) ? "STOP_MARKET" : "TAKE_PROFIT_MARKET",
+      workingType: this.latestPrice == '最新价格'? 'CONTRACT_PRICE':'MARK_PRICE',
+    }
+  }
+  // 双仓 开仓 限价止盈止损
+  if (this.isHasModule('kaipingType') == 1 && this.isHasModule('buttonType') == 2 && this.pendingOrderType == 'limitProfitStopLoss') {
+    params = {
+      leverage: this.$store.state.leverage,
+      positionSide: this.orderType ? 'SHORT':'LONG',
+      price: this.price,
+      quantity: Number(this.amount),
+      orderSide: this.orderType ? 'SELL':'BUY',
+      stopPrice: this.triggerPrice,
+      symbol: "BTCUSDT",
+      timeInForce: this.effectiveTime,
+      orderType: ((this.orderType && (Number(this.triggerPrice) < latestOrMarkPrice)) || (!this.orderType && (Number(this.triggerPrice) >= latestOrMarkPrice))) ? 'STOP' : 'TAKE_PROFIT',
+      workingType: this.latestPrice == '最新价格'? 'CONTRACT_PRICE':'MARK_PRICE',
+    }
+  }
+  // 双仓 开仓 市价止盈止损
+  if (this.isHasModule('kaipingType') == 1 && this.isHasModule('buttonType') == 2 && this.pendingOrderType == 'marketPriceProfitStopLoss') {
+    params = {
+      leverage: this.$store.state.leverage,
+      positionSide: this.orderType ? 'SHORT':'LONG',
+      quantity: Number(this.amount),
+      orderSide: this.orderType ? 'SELL':'BUY',
+      stopPrice: this.triggerPrice,
+      symbol: "BTCUSDT",
+      orderType: ((!this.orderType && Number(this.triggerPrice) < latestOrMarkPrice) || (this.orderType && Number(this.triggerPrice) >= latestOrMarkPrice)) ? "TAKE_PROFIT_MARKET" : "STOP_MARKET",
+      workingType: this.latestPrice == '最新价格'? 'CONTRACT_PRICE':'MARK_PRICE',
+    }
+  }
+  // 双仓 平仓 限价止盈止损
+  if (this.isHasModule('kaipingType') == 2 && this.isHasModule('buttonType') == 3 && this.pendingOrderType == 'limitProfitStopLoss') {
+    params = {
+      leverage: this.$store.state.leverage,
+      positionSide: this.orderType ? 'LONG':'SHORT',
+      price: this.price,
+      quantity: Number(this.amount),
+      orderSide: this.orderType ? 'SELL':'BUY',
+      stopPrice: this.triggerPrice,
+      symbol: "BTCUSDT",
+      timeInForce: this.effectiveTime,
+      orderType: ((this.orderType && Number(this.triggerPrice) < latestOrMarkPrice)||(!this.orderType && Number(this.triggerPrice) >= latestOrMarkPrice)) ? 'STOP':'TAKE_PROFIT',
+      workingType: this.latestPrice == '最新价格'? 'CONTRACT_PRICE':'MARK_PRICE',
+    }
+  }
+  // 双仓 平仓 市价止盈止损
+  if (this.isHasModule('kaipingType') == 2 && this.isHasModule('buttonType') == 3 && this.pendingOrderType == 'marketPriceProfitStopLoss') {
+    params = {
+      leverage: this.$store.state.leverage,
+      positionSide: this.orderType ? 'LONG':'SHORT',
+      quantity: Number(this.amount),
+      orderSide: this.orderType ? 'SELL':'BUY',
+      stopPrice: this.triggerPrice,
+      symbol: "BTCUSDT",
+      orderType: ((this.orderType && Number(this.triggerPrice) < latestOrMarkPrice) || (!this.orderType && Number(this.triggerPrice) >=  latestOrMarkPrice)) ? "STOP_MARKET" : "TAKE_PROFIT_MARKET",
+      workingType: this.latestPrice == '最新价格'? 'CONTRACT_PRICE':'MARK_PRICE',
+    }
+  }
+  // Object.assign(params, {type: "LIMIT",});
+  this.$http.send('POST_STOP_POSITION',{
+    bind: this,
+    params,
+    callBack: this.re_postFullStop,
+    errorHandler: this.error_postFullStop
+  })
+}
+root.methods.re_postFullStop = function (data) {
+  this.currentLimiting = false
+  this.loading = false
+
+  if(data.code == 303 && data.errCode == '2022') {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '下单失败';
+    return
+  }
+
+  if(data.code == '303' && data.errCode == '2019') {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '杠杆账户余额不足';//杠杆账户余额不足
+    return
+  }
+  if(data.code == '303' && data.errCode == '4061') {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '订单的持仓方向和用户设置不一致';//订单的持仓方向和用户设置不一致
+    return
+  }
+  if(data.code == '303' && data.errCode == '4077') {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '订单的持仓方向和用户设置不一致';//订单的持仓方向和用户设置不一致
+    return
+  }
+
+  if(data.code == '303' && data.errCode == '2021') {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '订单可能被立刻触发';//当前无仓位，不能下单
+    return
+  }
+  if(data.code == '303') {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '下单失败';//当前无仓位，不能下单
+    return
+  }
+  typeof (data) === 'string' && (data = JSON.parse(data))
+  if (!data || !data.data) return
+  this.promptOpen = true;
+  // 监听仓位和委托单条数
+  this.$eventBus.notify({key:'GET_ORDERS'})
+  this.$eventBus.notify({key:'GET_POSITION'})
+  this.$eventBus.notify({key:'GET_BALANCE'})
+  if(data.data.status == 'NEW') {
+    this.popType = 1;
+    this.popText = '下单成功';
+    return
+  }
+  if(data.data.status == 'PARTIALLY_FILLED') {
+    this.popType = 1;
+    this.popText = '您的订单成交了一部分';
+    return
+  }
+  if(data.data.status == 'FILLED') {
+    this.popType = 1;
+    this.popText = '完全成交';
+    return
+  }
+  if(data.data.status == 'CANCELED') {
+    this.popType = 1;
+    this.popText = '自己撤销的订单';
+    return
+  }
+  if(data.data.status == 'EXPIRED') {
+    this.popType = 0;
+    this.popText = '您的订单已过期';
+    return
+  }
+  if(data.data.status == 'NEW_INSURANCE') {
+    this.popType = 1;
+    this.popText = '风险保障基金(强平)';
+    return
+  }
+  if(data.data.status == 'NEW_ADL') {
+    this.popType = 1;
+    this.popText = '自动减仓序列(强平)';
+    return
+  }
+  this.popType = 0;
+  this.popText = '下单失败';
+}
+root.methods.error_postFullStop = function (err) {
+  console.info('止盈止损接口错误回调',err)
+}
+
+// 开仓
+root.methods.postOrdersCreate = function () {
+  this.loading = true
+  if(this.amount == ''|| this.amount == 0){
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '请输入正确的数量';
+    this.loading = false
+    this.currentLimiting = false
+    return
+  }
+  let params = {}
+  // 单仓 限价
+  if (this.isHasModule('kaipingType') == 1 && this.isHasModule('buttonType') == 1 && this.pendingOrderType == 'limitPrice') {
+    params = {
+      leverage: this.$store.state.leverage,
+      positionSide: "BOTH",
+      price: this.price ? this.price.toString() : this.latestPriceVal,
+      quantity: Number(this.amount),
+      reduceOnly: this.reducePositionsSelected ? true : false,
+      orderSide: this.orderType ? 'SELL':'BUY',
+      stopPrice: null,
+      symbol: 'BTCUSDT',
+      timeInForce: this.effectiveTime,
+      orderType: "LIMIT",
+      workingType: null
+    }
+
+  }
+  // 单仓 市价
+  if (this.isHasModule('kaipingType') == 1 && this.isHasModule('buttonType') == 1 && this.pendingOrderType == 'marketPrice') {
+    params = {
+      leverage: this.$store.state.leverage,
+      positionSide: "BOTH",
+      // price: this.latestPriceVal,
+      quantity: Number(this.amount),
+      reduceOnly: this.reducePositionsSelected ? true : false,
+      orderSide: this.orderType ? 'SELL':'BUY',
+      symbol: 'BTCUSDT',
+      orderType: "MARKET",
+    }
+  }
+  // 双仓 限价
+  if (this.isHasModule('kaipingType') == 1 && this.isHasModule('buttonType') == 2 && this.pendingOrderType == 'limitPrice') {
+    params = {
+      leverage: this.$store.state.leverage,
+      positionSide: this.orderType ? 'SHORT' : 'LONG',
+      price: this.price ? this.price : this.latestPriceVal,
+      quantity: Number(this.amount),
+      // reduceOnly: this.reducePositionsSelected ? true : false,
+      orderSide: this.orderType ? 'SELL':'BUY',
+      symbol: 'BTCUSDT',
+      timeInForce: this.effectiveTime,
+      orderType: "LIMIT",
+    }
+  }
+  // 双仓 市价
+  if (this.isHasModule('kaipingType') == 1 && this.isHasModule('buttonType') == 2 && this.pendingOrderType == 'marketPrice') {
+    params = {
+      leverage: this.$store.state.leverage,
+      positionSide: this.orderType ? 'SHORT' : 'LONG',  // 开多传 "LONG" ，开空传 "SHORT"
+      // price: this.latestPriceVal,
+      quantity: Number(this.amount),
+      // reduceOnly: this.reducePositionsSelected ? true : false,
+      orderSide: this.orderType ? 'SELL':'BUY',
+      symbol: 'BTCUSDT',
+      orderType: "MARKET",
+    }
+  }
+  this.$http.send('POST_ORDERS_CREATE',{
+    bind: this,
+    params,
+    callBack: this.re_postOrdersCreate,
+    errorHandler: this.error_postOrdersCreate
+  })
+}
+root.methods.re_postOrdersCreate = function (data) {
+  this.currentLimiting = false
+  this.loading = false
+  if(data.code == 303 && data.errCode == 2022) {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '下单失败';
+    return
+  }
+
+  if(data.code == '303' && data.errCode == '2019') {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '杠杆账户余额不足';//当前无仓位，不能下单
+    return
+  }
+
+  if(data.code == '303' && data.errCode == '4061') {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '订单的持仓方向和用户设置不一致';//订单的持仓方向和用户设置不一致
+    return
+  }
+  if(data.code == '303' && data.errCode == '4077') {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '订单的持仓方向和用户设置不一致';//订单的持仓方向和用户设置不一致
+    return
+  }
+  if(data.code == '303' && data.errCode == '2021') {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '订单可能被立刻触发';//当前无仓位，不能下单
+    return
+  }
+  if(data.code == '303') {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '下单失败';//当前无仓位，不能下单
+    return
+  }
+  typeof (data) === 'string' && (data = JSON.parse(data))
+  if (!data || !data.data) return
+  // console.info('下单失败',data,data.errCode,data.code)
+  this.promptOpen = true;
+  // 当前委托
+  this.$eventBus.notify({key:'GET_ORDERS'})
+  this.$eventBus.notify({key:'GET_POSITION'})
+  this.$eventBus.notify({key:'GET_BALANCE'})
+  if(data.data.status == 'NEW') {
+    this.popType = 1;
+    this.popText = '下单成功';
+    return
+  }
+  if(data.data.status == 'PARTIALLY_FILLED') {
+    this.popType = 1;
+    this.popText = '您的订单成交了一部分';
+    return
+  }
+  if(data.data.status == 'FILLED') {
+    this.popType = 1;
+    this.popText = '完全成交';
+    return
+  }
+  if(data.data.status == 'CANCELED') {
+    this.popType = 1;
+    this.popText = '自己撤销的订单';
+    return
+  }
+  if(data.data.status == 'EXPIRED') {
+    this.popType = 0;
+    this.popText = '您的订单已过期';
+    return
+  }
+  if(data.data.status == 'NEW_INSURANCE') {
+    this.popType = 1;
+    this.popText = '风险保障基金(强平)';
+    return
+  }
+  if(data.data.status == 'NEW_ADL') {
+    this.popType = 1;
+    this.popText = '自动减仓序列(强平)';
+    return
+  }
+  this.popType = 0;
+  this.popText = '下单失败';
+}
+root.methods.error_postOrdersCreate = function (err) {
+  console.info('err======',err)
+}
+
+// 平仓
+root.methods.postOrdersPosition = function () {
+  this.loading = true
+  if(this.amount == '' || this.amount == 0){
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '请输入正确的数量';
+    this.loading = false
+    this.currentLimiting = false
+    return
+  }
+  let params = {}
+  // 双仓 平仓 限价 平多 传LONG ; 平空 传SHORT
+  if (this.isHasModule('kaipingType') == 2 && this.isHasModule('buttonType') == 3 && this.pendingOrderType == 'limitPrice') {
+    params = {
+      leverage: this.$store.state.leverage,
+      positionSide: this.orderType ? "LONG":'SHORT',
+      // price: this.latestPriceVal,
+      price: this.price,
+      quantity: Number(this.amount),
+      orderSide: this.orderType ? 'SELL':'BUY',
+      stopPrice: null,
+      symbol: "BTCUSDT",
+      timeInForce: this.effectiveTime,
+      orderType: "LIMIT",
+      workingType: null,
+    }
+  }
+  // 双仓 平仓 市价  平多 传LONG ; 平空 传SHORT
+  if (this.isHasModule('kaipingType') == 2 && this.isHasModule('buttonType') == 3 && this.pendingOrderType == 'marketPrice') {
+    params = {
+      leverage: this.$store.state.leverage,
+      positionSide: this.orderType ? "LONG":'SHORT',
+      quantity: Number(this.amount),
+      orderSide: this.orderType ? 'SELL':'BUY',
+      stopPrice: null,
+      symbol: "BTCUSDT",
+      orderType: "MARKET",
+    }
+  }
+  // 如果是平空或者平多，买入量不得大于可平数量
+  if((!this.orderType && Math.abs(this.positionAmtShort) < Number(this.amount)) || (this.orderType && Math.abs(this.positionAmtLong) < Number(this.amount))){
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '您输入的数量超过可平数量';
+    this.currentLimiting = false
+    this.loading = false
+    return
+  }
+
+  this.$http.send('POST_ORDERS_POSITION',{
+    bind: this,
+    params,
+    callBack: this.re_postOrdersPosition,
+    errorHandler: this.error_postOrdersPosition
+  })
+}
+root.methods.re_postOrdersPosition = function (data) {
+  // console.info('下单失败',data,data.code,data.errCode)
+  this.currentLimiting = false
+  this.loading = false
+
+  // if(data.code == '303' && data.errCode == '2022') {
+  //   this.promptOpen = true;
+  //   this.popType = 0;
+  //   this.popText = '下单失败';//当前无仓位，不能下单
+  //   return
+  // }
+  // if(data.code == '303' && data.errCode == '2021') {
+  //   this.promptOpen = true;
+  //   this.popType = 0;
+  //   this.popText = '订单可能被立刻触发';//当前无仓位，不能下单
+  //   return
+  // }
+  if(data.code == '303') {
+    this.promptOpen = true;
+    this.popType = 0;
+    if(data.errCode == '2022'){
+      this.popText = '下单失败';//当前无仓位，不能下单
+      return
+    }
+    if(data.errCode == '2021'){
+      this.popText = '订单可能被立刻触发';//当前无仓位，不能下单
+      return
+    }
+    this.popText = '下单失败';//当前无仓位，不能下单
+    return
+  }
+  if(data.code == '303' && data.errCode == '2019') {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '杠杆账户余额不足';//当前无仓位，不能下单
+    return
+  }
+
+  if(data.code == '303' && data.errCode == '4061') {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '订单的持仓方向和用户设置不一致';//订单的持仓方向和用户设置不一致
+    return
+  }
+  if(data.code == '303' && data.errCode == '4077') {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '订单的持仓方向和用户设置不一致';//订单的持仓方向和用户设置不一致
+    return
+  }
+
+  if(data.code == '303' && data.errCode == '2021') {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '订单可能被立刻触发';//当前无仓位，不能下单
+    return
+  }
+  if(data.code == '303') {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '下单失败';//当前无仓位，不能下单
+    return
+  }
+  typeof (data) === 'string' && (data = JSON.parse(data))
+  if (!data || !data.data) return
+  // 监听仓位和委托单条数
+  this.$eventBus.notify({key:'GET_ORDERS'})
+  this.$eventBus.notify({key:'GET_POSITION'})
+  this.$eventBus.notify({key:'GET_BALANCE'})
+  if(data.code != '303') {
+    this.promptOpen = true;
+    this.closePsWindowClose();
+    if(data.data.status == 'NEW') {
+      this.popType = 1;
+      this.popText = '下单成功';
+      return
+    }
+    if(data.data.status == 'PARTIALLY_FILLED') {
+      this.popType = 1;
+      this.popText = '您的订单成交了一部分';
+      return
+    }
+    if(data.data.status == 'FILLED') {
+      this.popType = 1;
+      this.popText = '完全成交';
+      return
+    }
+    if(data.data.status == 'CANCELED') {
+      this.popType = 1;
+      this.popText = '自己撤销的订单';
+      return
+    }
+    if(data.data.status == 'EXPIRED') {
+      this.popType = 0;
+      this.popText = '您的订单已过期';
+      return
+    }
+    if(data.data.status == 'NEW_INSURANCE') {
+      this.popType = 1;
+      this.popText = '风险保障基金(强平)';
+      return
+    }
+    if(data.data.status == 'NEW_ADL') {
+      this.popType = 1;
+      this.popText = '自动减仓序列(强平)';
+      return
+    }
+    return
+  }
+
+  this.popType = 0;
+  this.popText = '下单失败';
+}
+root.methods.error_postOrdersPosition = function (err) {
+  console.info('err====',err)
+}
+
+
+
+
+
+
+
 root.methods.openDescript = function (title) {
   this.descriptionOpen = true
   this.titleDescript = title
