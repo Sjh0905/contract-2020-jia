@@ -8,16 +8,14 @@
       <div class="mobile-header-first-line flex-colum">
 
         <!--向上向下显示文字效果 up / down-->
-        <div class="mobile-header-now-price"
-             :class="[(!!direction && direction) ? 'mobile-header-now-price-up' : 'mobile-header-now-price-down']">{{(priceNow).toFixed(quoteScale)}}
-        </div>
+        <div class="mobile-header-now-price" :class="direction">{{toFixed(isNowPrice || 0,quoteScale)}}</div>
         <div class="price-up-down flex-row">
           <span class="price-up-down-text">涨幅</span>
-          <span class="price-up-down-val">-0.1%</span>
+          <span class="price-up-down-val">{{priceChangePercent > 0 ? '+' : ''}}{{toFixed(priceChangePercent || 0,2) || 0}}%</span>
         </div>
         <div class="price-up-down flex-row">
           <span class="price-up-down-text">标记价格</span>
-          <span class="price-up-down-val">18900</span>
+          <span class="price-up-down-val">{{toFixed(markPrice || 0,quoteScale)}}</span>
         </div>
         <!--<div class="mobile-header-updata-price">≈{{cny}}CNY-->
         <!--</div>-->
@@ -43,11 +41,11 @@
 
         <div class="h-third-line-item mobile-header-high-price">
           <div class="mobile-header-high-price-title">高</div>
-          <div class="mobile-header-high-price-value">{{high24}}</div>
+          <div class="mobile-header-high-price-value">{{highPrice}}</div>
         </div>
         <div class="h-third-line-item mobile-header-low-price">
           <div class="mobile-header-low-price-title">低 </div>
-          <div class="mobile-header-low-price-value">{{low24}}</div>
+          <div class="mobile-header-low-price-value">{{lowPrice}}</div>
         </div>
         <div class="h-third-line-item mobile-header-volume">
           <div class="mobile-header-volume-title">24H量</div>
