@@ -888,7 +888,7 @@ root.methods.confirmFrame = function () {
     this.checkPrice()
   }
   if(this.orderTypes == '市价'){
-    this.markPrice()
+    this.marketPrice()
   }
   this.showSplicedFrame = false
 }
