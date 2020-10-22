@@ -1779,7 +1779,7 @@
 .pop-lock-house {
   width: 100%;
   padding: 0.3rem;
-  background: #142030;
+  /*background: #142030;*/
 }
 .descript-content {
   font-size: 0.24rem;
