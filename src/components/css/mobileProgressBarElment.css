@@ -443,11 +443,11 @@
 
 /* ----------  输入框样式修改 begin ----------*/
 .el-slider_blu .el-slider__input {
-  position: absolute;
+  /*position: absolute;*/
   /*top: -0.5rem;*/
   /*left: 60px;*/
   /*left: 50%;*/
-  left: 0rem;
+  /*left: 0rem;*/
   /*transform: translateX(-50%);*/
   width: 6.96rem;
   height: 0.84rem;

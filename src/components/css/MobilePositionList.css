@@ -236,7 +236,15 @@
   padding-left: 0.5rem;
 }
 .pop-article {
-  /*width: 6rem;*/
+  width: 6rem;
+  padding: 0.5rem 0.3rem;
+  background: #FFF;
+  color: #0D0E23;
+  font-size: 0.32rem;
+  font-family: PingFangSC-Regular,PingFang SC;
+  font-weight: 400;
+}
+.pop-article-margin {
   padding: 0.5rem 0.3rem;
   background: #172841;
   color: #0D0E23;
@@ -291,7 +299,7 @@
 }
 
 .modify-margin-box {
-  width:6.5rem;
+  /*width:6.5rem;*/
   height:1.74rem;
   font-size:0.24rem;
   font-family:PingFangSC-Regular,PingFang SC;

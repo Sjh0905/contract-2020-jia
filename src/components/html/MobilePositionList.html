@@ -116,16 +116,15 @@
       <p>{{splicedFrameText}}</p>
     </div>
 
-    <button @click="closeFrame" class="button-base btn-border mr-tempty pointer">{{$t('orderPageCurrentEntrustment.close')}}
-    </button>
-    <button v-if="!marketPriceClick" @click="confirmFrame" class="button-base  btn_blue pointer">
-      {{$t('orderPageCurrentEntrustment.ensure')}}
-    </button>
-    <button v-if="marketPriceClick" class="button-base btn_blue pointer" disabled>
-      请求中
-    </button>
     <div slot="footer" class="pop-footer flex-center">
-
+      <button @click="closeFrame" class="button-base btn-border mr-tempty pointer">{{$t('orderPageCurrentEntrustment.close')}}
+      </button>
+      <button v-if="!marketPriceClick" @click="confirmFrame" class="button-base  btn_blue pointer">
+        {{$t('orderPageCurrentEntrustment.ensure')}}
+      </button>
+      <button v-if="marketPriceClick" class="button-base btn_blue pointer" disabled>
+        请求中
+      </button>
     </div>
   </PopupWindow>
   <!-- 限价市价平仓弹窗 end -->
@@ -136,7 +135,7 @@
       <div class="positionMode-tit pointer" :class="{'border-bottom':styleType == 1}" @click="selectType(1)">增加保证金</div>
       <div class="positionMode-tit pointer" :class="{'border-bottom':styleType == 2}" @click="selectType(2)">减少保证金</div>
     </div>
-    <div slot="article" class="pop-article">
+    <div slot="article" class="pop-article-margin">
       <div v-if="styleType == 1">
         <div class="modify-margin-box">
           <div class="total-money">总额（USDT）</div>
