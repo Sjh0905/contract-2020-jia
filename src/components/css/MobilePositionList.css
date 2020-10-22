@@ -236,9 +236,9 @@
   padding-left: 0.5rem;
 }
 .pop-article {
-  width: 6rem;
+  /*width: 6rem;*/
   padding: 0.5rem 0.3rem;
-  background: #fff;
+  background: #172841;
   color: #0D0E23;
   font-size: 0.32rem;
   font-family: PingFangSC-Regular,PingFang SC;
@@ -252,3 +252,108 @@
 .mr-tempty {
   margin-right: 0.4rem;
 }
+.modify-margin {
+  margin-top: -0.04rem;
+  display: inline-block;
+  width: 0.26rem;
+  height: 0.26rem;
+  vertical-align: sub;
+  background: url("../../assets/modify-margin.png") no-repeat center;
+  background-size: 100%;
+}
+.modify-margin:active {
+  display: inline-block;
+  width: 0.26rem;
+  height: 0.26rem;
+  vertical-align: sub;
+  background: url("../../assets/modify-margin(hover).png") no-repeat center;
+  background-size: 100%;
+}
+
+.calculator-title {
+  font-size:0.32rem;
+  font-family:PingFangSC-Medium,PingFang SC;
+  font-weight:500;
+  color: #A2B5D9;
+  /*width: 655px;*/
+  padding-left: 0.5rem;
+  height: 1.08rem;
+}
+.positionMode-tit {
+  margin-right: 0.8rem;
+}
+.border-bottom {
+  color: #fff;
+  border-bottom: 2px solid #3576F5;
+}
+.pop-article {
+  padding: 0.5rem 0.5rem 0.4rem;
+}
+
+.modify-margin-box {
+  width:6.5rem;
+  height:1.74rem;
+  font-size:0.24rem;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color:#A2B5D9;
+  margin-bottom: 0.3rem;
+}
+.total-money {
+  margin-bottom: 0.2rem;
+}
+.modify-margin-input {
+  height:0.8rem;
+  line-height:0.8rem;
+  border-radius:1px;
+  justify-content: space-between;
+  border:1px solid #384256;
+  padding: 0 0.3rem;
+  color: #A2B5D9;
+  box-sizing: border-box;
+}
+.modify-margin-input input {
+  background: transparent;
+  border: none;
+  color: #A2B5D9;
+}
+/*placeholder样式*/
+.modify-margin-input input::placeholder {
+  color: #A2B5D9;
+}
+.modify-margin-input input::-moz-placeholder {
+  color: #A2B5D9;
+}
+.modify-margin-input input::-webkit-input-placeholder {
+  color: #A2B5D9;
+}
+.modify-margin-input input:-ms-input-placeholder {
+  color: #A2B5D9;
+}
+
+.modify-margin-des {
+  font-size:0.24rem;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color: #A2B5D9;
+  justify-content: space-between;
+  margin-bottom: 0.2rem;
+}
+.pop-footer {
+  width: 100%;
+}
+.modify-margin-commit {
+  width: 100%;
+  height:0.8rem;
+  line-height:0.8rem;
+  text-align:center;
+  font-size:0.28rem;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color:#FFFFFF;
+  background:linear-gradient(270deg,rgba(53,118,245,1) 0%,rgba(69,154,245,1) 100%);
+  border-radius:1px;
+  margin-bottom: 0.6rem;
+  cursor: pointer;
+}
+

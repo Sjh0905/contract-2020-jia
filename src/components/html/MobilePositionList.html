@@ -35,7 +35,9 @@
       </div>
       <div class="ps-detail-right flex-colum">
         <div class="ps-detail-tittle">保证金</div>
-        <div class="ps-detail-amount">{{!!item.securityDeposit && Number(item.securityDeposit).toFixed(2) || '-'}}</div>
+        <div class="ps-detail-amount">{{!!item.securityDeposit && Number(item.securityDeposit).toFixed(2) || '-'}}
+          <span class="modify-margin pointer" v-if="item.marginType == 'isolated'" @click="openModifyMargin(item)"></span>
+        </div>
       </div>
     </div>
     <!--其他详细数据2-->
@@ -113,18 +115,93 @@
       <!--      <p>{{$t('orderPageCurrentEntrustment.promptArticle')}}</p>-->
       <p>{{splicedFrameText}}</p>
     </div>
+
+    <button @click="closeFrame" class="button-base btn-border mr-tempty pointer">{{$t('orderPageCurrentEntrustment.close')}}
+    </button>
+    <button v-if="!marketPriceClick" @click="confirmFrame" class="button-base  btn_blue pointer">
+      {{$t('orderPageCurrentEntrustment.ensure')}}
+    </button>
+    <button v-if="marketPriceClick" class="button-base btn_blue pointer" disabled>
+      请求中
+    </button>
     <div slot="footer" class="pop-footer flex-center">
-      <button @click="closeFrame" class="button-base btn-border mr-tempty pointer">{{$t('orderPageCurrentEntrustment.close')}}
-      </button>
-      <button v-if="!marketPriceClick" @click="confirmFrame" class="button-base  btn_blue pointer">
-        {{$t('orderPageCurrentEntrustment.ensure')}}
-      </button>
-      <button v-if="marketPriceClick" class="button-base btn_blue pointer" disabled>
-        请求中
-      </button>
+
     </div>
   </PopupWindow>
   <!-- 限价市价平仓弹窗 end -->
+
+  <!-- 增加减少保证金弹窗 begin -->
+  <PositionModeBulletBox :switch="modifyMarginOpen" @close="modifyMarginClose">
+    <div slot="header" class="calculator-title flex">
+      <div class="positionMode-tit pointer" :class="{'border-bottom':styleType == 1}" @click="selectType(1)">增加保证金</div>
+      <div class="positionMode-tit pointer" :class="{'border-bottom':styleType == 2}" @click="selectType(2)">减少保证金</div>
+    </div>
+    <div slot="article" class="pop-article">
+      <div v-if="styleType == 1">
+        <div class="modify-margin-box">
+          <div class="total-money">总额（USDT）</div>
+          <div class="modify-margin-input flex">
+            <input type="text" placeholder="输入金额" v-model="increaseAmount">
+            <div class="modify-margin-text">最大：{{toFixed(availableBalance,2)}} USDT</div>
+          </div>
+          <div>{{AmountText}}</div>
+        </div>
+        <!--当前仓位保证金 USDT-->
+        <div class="modify-margin-des flex">
+          <div class="modify-margin-des-title">当前仓位保证金 USDT：</div>
+          <div class="modify-margin-des-number">{{securityDeposit}} USDT</div>
+        </div>
+        <!--可用余额-->
+        <div class="modify-margin-des flex">
+          <div class="modify-margin-des-title">可用余额：</div>
+          <div class="modify-margin-des-number">{{toFixed(availableBalance || 0,2)}} USDT</div>
+        </div>
+        <!--调整后强平价格-->
+        <!--        <div class="modify-margin-des flex">-->
+        <!--          <div class="modify-margin-des-title">调整后强平价格：</div>-->
+        <!--          <div class="modify-margin-des-number">{{toFixed(Number(liquidationPrice),2)}} USDT</div>-->
+        <!--        </div>-->
+      </div>
+
+      <div v-if="styleType == 2">
+        <div class="modify-margin-box">
+          <div class="total-money">总额（USDT）</div>
+          <div class="modify-margin-input flex">
+            <input type="text" placeholder="输入金额" v-model="reduceAmount">
+            <div class="modify-margin-text">最大：{{reduceMostAmount1}} USDT</div>
+          </div>
+        </div>
+        <!--当前仓位保证金 USDT-->
+        <div class="modify-margin-des flex">
+          <div class="modify-margin-des-title">当前仓位保证金 USDT：</div>
+          <div class="modify-margin-des-number">{{securityDeposit}} USDT</div>
+        </div>
+        <!--最多可减少-->
+        <div class="modify-margin-des flex">
+          <div class="modify-margin-des-title">最多可减少：</div>
+          <div class="modify-margin-des-number">{{reduceMostAmount1}} USDT</div>
+        </div>
+        <!--减少后强平价格-->
+        <!--        <div class="modify-margin-des flex">-->
+        <!--          <div class="modify-margin-des-title">减少后强平价格：</div>-->
+        <!--          <div class="modify-margin-des-number">{{toFixed(Number(liquidationPrice),2)}} USDT</div>-->
+        <!--        </div>-->
+      </div>
+
+      <div class="pop-footer flex-center">
+        <div class="modify-margin-commit" v-if="!controlType" @click="commitModifyMargin">确认</div>
+        <div class="modify-margin-commit" v-if="controlType">确认中</div>
+      </div>
+
+    </div>
+    <!--<div slot="footer" class="">-->
+      <!--<div class="modify-margin-commit" v-if="!controlType" @click="commitModifyMargin">确认</div>-->
+      <!--<div class="modify-margin-commit" v-if="controlType">确认中</div>-->
+    <!--</div>-->
+  </PositionModeBulletBox>
+  <!-- 增加减少保证金弹窗 end -->
+
+
 
   <PopupPrompt :popType="popType" :popText="popText" :popOpen="promptOpen" :popClose="closePrompt"></PopupPrompt>
 
