@@ -1032,7 +1032,7 @@ root.routes.push({
       path: 'home',
       name: 'home',
       // redirect: 'home',
-      redirect: '/index/tradingHall',
+      redirect: '/index/mobileTradingHallDetail',
       caseSensitive: true,
       meta: {
         mobileHeaderTitle: '',
