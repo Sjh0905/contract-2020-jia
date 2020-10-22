@@ -128,9 +128,9 @@
         <!--</div>-->
 
         <!--TODO 目前移动端没有生效时间，如何处理-->
-        <div v-if="isHasModule('passiveDelegation')" class="passive-delegation flex-row" @click="priceLimitSelection(1)">
-          <img v-if="checkPrice == 1" class="passive-delegation-icon" src="../../assets/Contract/check_box_selected.png" alt="">
-          <img v-if="checkPrice == 2" class="passive-delegation-icon" src="../../assets/Contract/check_box_no_selected.png" alt="">
+        <div v-if="isHasModule('passiveDelegation')" class="passive-delegation flex-row" >
+          <img @click="priceLimitSelection(1)" v-if="checkPrice == 2" class="passive-delegation-icon" src="../../assets/Contract/check_box_selected.png" alt="">
+          <img @click="priceLimitSelection(2)" v-if="checkPrice == 1"  class="passive-delegation-icon" src="../../assets/Contract/check_box_no_selected.png" alt="">
           <div class="passive-delegation-text" @click="openDescript('被动委托')">被动委托</div>
         </div>
 
