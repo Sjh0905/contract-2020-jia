@@ -194,3 +194,10 @@
   width: 1.2rem;
   height: 1.2rem;
 }
+
+.popWindow-article-input {
+  font-size: 14px;
+  color: #3576F5;
+  /*padding: 0px 34px 15px 30px;*/
+  padding: 10px 30px 15px;
+}

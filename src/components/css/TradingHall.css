@@ -1415,4 +1415,21 @@
   margin-left: 10px;
   cursor: pointer;
 }
+.yqm {
+  height: 17px;
+  font-size: 12px;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #3576F5;
+  line-height: 17px;
+}
+.yqm-input {
+  width: 97%;
+  height: 40px;
+  line-height: 40px;
+  padding-left: 8px;
+  border-radius: 1px;
+  border: 1px solid #E0E1F4;
+  margin-top: 8px;
+}
 /*合约风险提示*/

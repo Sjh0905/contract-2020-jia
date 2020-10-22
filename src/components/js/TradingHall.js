@@ -177,6 +177,7 @@ root.data = function () {
     positionAmtShort:0,
     popTextLeverage:'',
     availableBalance:0,
+    invitreCodeInput:'',//邀请码
   }
 }
 
@@ -1475,11 +1476,36 @@ root.methods.openAContract = function () {
 root.methods.re_openAContract = function (data) {
   typeof(data) == 'string' && (data = JSON.parse(data));
   if (data.code == 200) {
-    history.go(0)
-    this.popWindowContractRiskWarning = false
+    if (this.invitreCodeInput != '') {
+      this.getInviteCode()
+    }
+    // history.go(0)
+    // this.popWindowContractRiskWarning = false
   }
 }
-
+root.methods.getInviteCode = function () {
+  this.$http.send('GET_INVITE_CODE',{
+    bind: this,
+    urlFragment: this.invitreCodeInput,
+    callBack: this.re_getInviteCode
+  })
+}
+root.methods.re_getInviteCode = function () {
+  //检测data数据是JSON字符串转换JS字符串
+  typeof data === 'string' && (data = JSON.parse(data))
+  if (data.errorCode == 2) {
+    this.popType = 0;
+    this.popText = ' 邀请关系建立失败';
+    this.promptOpen = true;
+    return;
+  }
+  if (data.errorCode == 3) {
+    this.popType = 0;
+    this.popText = ' 邀请人不存在';
+    this.promptOpen = true;
+    return;
+  }
+}
 
 /*// 计算symbol变化
 root.computed = {};
