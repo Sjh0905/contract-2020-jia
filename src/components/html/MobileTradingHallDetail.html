@@ -129,15 +129,15 @@
 
         <!--TODO 目前移动端没有生效时间，如何处理-->
         <div v-if="isHasModule('passiveDelegation')" class="passive-delegation flex-row" >
-          <img @click="priceLimitSelection(1)" v-if="checkPrice == 2" class="passive-delegation-icon" src="../../assets/Contract/check_box_selected.png" alt="">
-          <img @click="priceLimitSelection(2)" v-if="checkPrice == 1"  class="passive-delegation-icon" src="../../assets/Contract/check_box_no_selected.png" alt="">
+          <img @click="priceLimitSelection(1)" v-if="checkPrice == 2" class="passive-delegation-icon" src="../../assets/contract/check_box_selected.png" alt="">
+          <img @click="priceLimitSelection(2)" v-if="checkPrice == 1"  class="passive-delegation-icon" src="../../assets/contract/check_box_no_selected.png" alt="">
           <div class="passive-delegation-text" @click="openDescript('被动委托')">被动委托</div>
         </div>
 
         <div v-if="isHasModule('reducePositions')" class="reduce-positions flex-row">
           <!--限价-------只减仓 -->
-          <img v-if="reducePositionsSelected" class="passive-delegation-icon" src="../../assets/Contract/check_box_selected.png" @click="changeReducePositions()" alt="">
-          <img v-else class="passive-delegation-icon" src="../../assets/Contract/check_box_no_selected.png" @click="changeReducePositions()" alt="">
+          <img v-if="reducePositionsSelected" class="passive-delegation-icon" src="../../assets/contract/check_box_selected.png" @click="changeReducePositions()" alt="">
+          <img v-else class="passive-delegation-icon" src="../../assets/contract/check_box_no_selected.png" @click="changeReducePositions()" alt="">
           <div class="passive-delegation-text" @click="openDescript('只减仓')">只减仓</div>
         </div>
 
