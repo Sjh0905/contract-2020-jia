@@ -451,7 +451,7 @@
   /*transform: translateX(-50%);*/
   width: 6.96rem;
   height: 0.84rem;
-  top: 0.3rem;
+  top: -0.3rem;
   /*margin-top: 0.9rem;*/
 }
 .el-slider_blu .el-slider__input .el-input-number__decrease {
