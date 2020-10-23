@@ -1479,8 +1479,8 @@ root.methods.re_openAContract = function (data) {
     if (this.invitreCodeInput != '') {
       this.getInviteCode()
     }
-    // history.go(0)
-    // this.popWindowContractRiskWarning = false
+    history.go(0)
+    this.popWindowContractRiskWarning = false
   }
 }
 root.methods.getInviteCode = function () {

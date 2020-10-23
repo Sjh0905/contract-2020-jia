@@ -201,3 +201,27 @@
   /*padding: 0px 34px 15px 30px;*/
   padding: 10px 30px 15px;
 }
+.invitre-box {
+  width: 100%;
+  padding: 0.3rem;
+}
+.invitre-code {
+  height: 0.34rem;
+  font-size: 0.24rem;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #3576F5;
+  line-height: 0.34rem;
+}
+.invitre-code-input {
+  width: 97%;
+  height: 0.8rem;
+  line-height: 0.8rem;
+  border-radius: 0.02rem;
+  border: 0.02rem solid #E0E1F4;
+  padding-left: 0.16rem;
+  margin-top: 0.2rem;
+  font-size: 0.24rem;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+}
