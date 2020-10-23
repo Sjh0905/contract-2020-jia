@@ -201,7 +201,67 @@ root.computed.LPCalculationType = function () {
 
 /*------------------------------ 方法 -------------------------------*/
 root.methods = {}
+// 仓位平仓非法数据拦截
+root.methods.openClosingPositions = function (){
+  if(this.orderTypes == '限价' && (this.inputBoxPrice== '' || this.inputBoxPrice == 0) ) {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '请输入正确的价格';
+    return false
+  }
+
+  if(this.inputBoxAmount== '' || this.inputBoxAmount == 0) {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '请输入正确的数量';
+    return false
+  }
+  // // 限价价格非空判断
+  // let limitArr = ['limitProfitStopLoss','limitPrice'],triggerArr = ['limitProfitStopLoss','marketPriceProfitStopLoss'],closeAmountArr = ['positionAmtShort','positionAmtLong']
+  //
+  // if(this.loading)return false
+  //
+  // if(triggerArr.includes(this.pendingOrderType) && (this.triggerPrice == '' || this.triggerPrice == 0)){
+  //   this.promptOpen = true;
+  //   this.popType = 0;
+  //   this.popText = '请输入正确的触发价格';
+  //   this.loading = false
+  //   this.currentLimiting = false
+  //   return false
+  // }
+  //
+  // if(limitArr.includes(this.pendingOrderType) && (this.price == '' || this.price == 0)){
+  //   this.promptOpen = true;
+  //   this.popType = 0;
+  //   this.popText = '请输入正确的价格';
+  //   this.loading = false
+  //   this.currentLimiting = false
+  //   return false
+  // }
+  //
+  // if(this.amount == '' || this.amount == 0){
+  //   this.promptOpen = true;
+  //   this.popType = 0;
+  //   this.popText = '请输入正确的数量';
+  //   this.loading = false
+  //   this.currentLimiting = false
+  //   return false
+  // }
+  // //平仓数量超出提示
+  // // if(this.positionModeSecond == 'closeWarehouse' && ((!this.orderType && Math.abs(this.positionAmtShort) < Number(this.amount)) || (this.orderType && Math.abs(this.positionAmtLong) < Number(this.amount))) ){
+  // if(this.positionModeSecond == 'closeWarehouse' && Math.abs(this[closeAmountArr[this.orderType]]) < Number(this.amount)) {
+  //   this.promptOpen = true;
+  //   this.popType = 0;
+  //   this.popText = '您输入的数量超过可平数量';
+  //   this.currentLimiting = false
+  //   this.loading = false
+  //   return false
+  // }
+  return true
+}
+// 提交平仓按钮
 root.methods.commit = function () {
+
   if(this.orderTypes == '限价') {
     this.checkPrice()
     return
@@ -862,6 +922,7 @@ root.methods.addAdlQuantile = function(currSAdlQuantile,records){
 
 //开启拦截弹窗
 root.methods.openSplicedFrame = function () {
+  if(!this.openClosingPositions())return
   this.positionInfo = this.positionSelect || {}
   let closePosition = this.positionSelect.positionAmt > 0 ?'平多':'平空'
   // console.info('this.positionInfo==',this.positionInfo,item.symbol.slice(0,3))
