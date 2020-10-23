@@ -216,47 +216,6 @@ root.methods.openClosingPositions = function (){
     this.popText = '请输入正确的数量';
     return false
   }
-  // // 限价价格非空判断
-  // let limitArr = ['limitProfitStopLoss','limitPrice'],triggerArr = ['limitProfitStopLoss','marketPriceProfitStopLoss'],closeAmountArr = ['positionAmtShort','positionAmtLong']
-  //
-  // if(this.loading)return false
-  //
-  // if(triggerArr.includes(this.pendingOrderType) && (this.triggerPrice == '' || this.triggerPrice == 0)){
-  //   this.promptOpen = true;
-  //   this.popType = 0;
-  //   this.popText = '请输入正确的触发价格';
-  //   this.loading = false
-  //   this.currentLimiting = false
-  //   return false
-  // }
-  //
-  // if(limitArr.includes(this.pendingOrderType) && (this.price == '' || this.price == 0)){
-  //   this.promptOpen = true;
-  //   this.popType = 0;
-  //   this.popText = '请输入正确的价格';
-  //   this.loading = false
-  //   this.currentLimiting = false
-  //   return false
-  // }
-  //
-  // if(this.amount == '' || this.amount == 0){
-  //   this.promptOpen = true;
-  //   this.popType = 0;
-  //   this.popText = '请输入正确的数量';
-  //   this.loading = false
-  //   this.currentLimiting = false
-  //   return false
-  // }
-  // //平仓数量超出提示
-  // // if(this.positionModeSecond == 'closeWarehouse' && ((!this.orderType && Math.abs(this.positionAmtShort) < Number(this.amount)) || (this.orderType && Math.abs(this.positionAmtLong) < Number(this.amount))) ){
-  // if(this.positionModeSecond == 'closeWarehouse' && Math.abs(this[closeAmountArr[this.orderType]]) < Number(this.amount)) {
-  //   this.promptOpen = true;
-  //   this.popType = 0;
-  //   this.popText = '您输入的数量超过可平数量';
-  //   this.currentLimiting = false
-  //   this.loading = false
-  //   return false
-  // }
   return true
 }
 // 提交平仓按钮

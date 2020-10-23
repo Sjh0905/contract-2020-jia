@@ -35,7 +35,7 @@ root.data = function () {
     /*下拉框2 end*/
 
     triggerPrice:'', // 触发价格
-    checkPrice:2, // 限价---被动委托，生效时间选择
+    checkPrice:1, // 限价---被动委托，生效时间选择
     reducePositionsSelected: false,//只减仓状态
 
     //买卖列表
