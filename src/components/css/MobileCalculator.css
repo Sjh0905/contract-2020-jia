@@ -248,6 +248,11 @@
   /*border-radius: 10px;*/
   left: 77.2%;
 }
+
+#el-tooltip-6810 {
+  top: 2.5rem!important;
+}
+
 /* ----------------  滑块样式 end ----------------*/
 
 .pop-calculator-left-slider {
@@ -391,6 +396,7 @@
   font-weight: 400;
   color: #6B7DA2;
 }
+
 
 /* ----------------  placeholder样式 begin ----------------*/
 .calculator-content-ipt::placeholder {
