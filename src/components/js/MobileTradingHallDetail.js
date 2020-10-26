@@ -31,7 +31,7 @@ root.data = function () {
 
     /*下拉框2 begin*/
     latestPrice:'最新',
-    latestPriceOption:['最新','标记'],
+    latestPriceOption:['标记','最新'],
     /*下拉框2 end*/
 
     triggerPrice:'', // 触发价格
@@ -183,6 +183,8 @@ root.data = function () {
     callFuncName:'',//即将调用接口的函数名字
     splicedFrameText:'',
     marketPriceClick: false, //市价不能多次点击设置
+
+    availableBalance:0,
   }
 }
 
@@ -266,10 +268,12 @@ root.created = function () {
   this.positionRisk()  // 获取仓位信息（全逐仓、杠杆倍数）
   this.getPositionsideDual() // 获取仓位模式
   this.getMarkPricesAndCapitalRates()  // 获取币安最新标记价格和资金费率
-
+  this.getLatestrice()
   this.isFirstVisit();
-  this.chainCal = this.$globalFunc.chainCal
+  this.getBalance()
 
+  this.$eventBus.listen(this,'GET_BALANCE',this.getBalance)
+  this.chainCal = this.$globalFunc.chainCal
 }
 
 /*------------------------------ 组件 begin -------------------------------*/
@@ -1069,6 +1073,24 @@ root.computed.maxPosition = function () {
 /*------------------------------ 方法 begin -------------------------------*/
 
 root.methods = {}
+// 获取用户可用余额
+root.methods.getBalance = function () {
+  this.$http.send('GET_BALAN_ACCOUNT',{
+    bind: this,
+    callBack: this.re_getBalance,
+    errorHandler:this.error_getBalance
+  })
+}
+// 获取用户可用余额正确回调
+root.methods.re_getBalance = function (data) {
+  typeof(data) == 'string' && (data = JSON.parse(data));
+  if(!data || !data.data || !data.data[0])return
+  this.availableBalance  = data.data[0].availableBalance || 0
+}
+// 获取用户可用余额错误回调
+root.methods.error_getBalance = function (err) {
+  console.log('获取用户可用余额',err)
+}
 // 非法数据拦截
 root.methods.openClosePsWindowClose = function (){
   // 限价价格非空判断
@@ -1163,7 +1185,7 @@ root.methods.postFullStop = function () {
   // 如果是平空或者平多，买入量不得大于可平数量
 
   let params = {}
-  let latestOrMarkPrice = this.latestPrice == '最新价格' ? Number(this.latestPriceVal) : Number(this.markPrice)
+  let latestOrMarkPrice = this.latestPrice == '最新' ? Number(this.latestPriceVal) : Number(this.markPrice)
   if((this.isHasModule('kaipingType') == 2 && this.isHasModule('buttonType') == 3) && ((!this.orderType && Math.abs(this.positionAmtShort) < Number(this.amount)) || (this.orderType && Math.abs(this.positionAmtLong) < Number(this.amount)))){
     this.promptOpen = true;
     this.popType = 0;
@@ -1201,7 +1223,7 @@ root.methods.postFullStop = function () {
       symbol: "BTCUSDT",
       timeInForce: this.effectiveTime,
       orderType: (this.orderType && Number(this.triggerPrice) < latestOrMarkPrice) || (!this.orderType && (Number(this.triggerPrice) >= latestOrMarkPrice)) ? "STOP" : "TAKE_PROFIT",
-      workingType: this.latestPrice == '最新价格'? 'CONTRACT_PRICE':'MARK_PRICE',
+      workingType: this.latestPrice == '最新'? 'CONTRACT_PRICE':'MARK_PRICE',
     }
   }
   // 单仓 市价止盈止损
@@ -1215,7 +1237,7 @@ root.methods.postFullStop = function () {
       stopPrice: this.triggerPrice,
       symbol: "BTCUSDT",
       orderType: (this.orderType && (Number(this.triggerPrice) < latestOrMarkPrice)) || (!this.orderType && (Number(this.triggerPrice) >= latestOrMarkPrice)) ? "STOP_MARKET" : "TAKE_PROFIT_MARKET",
-      workingType: this.latestPrice == '最新价格'? 'CONTRACT_PRICE':'MARK_PRICE',
+      workingType: this.latestPrice == '最新'? 'CONTRACT_PRICE':'MARK_PRICE',
     }
   }
   // 双仓 开仓 限价止盈止损
@@ -1230,7 +1252,7 @@ root.methods.postFullStop = function () {
       symbol: "BTCUSDT",
       timeInForce: this.effectiveTime,
       orderType: ((this.orderType && (Number(this.triggerPrice) < latestOrMarkPrice)) || (!this.orderType && (Number(this.triggerPrice) >= latestOrMarkPrice))) ? 'STOP' : 'TAKE_PROFIT',
-      workingType: this.latestPrice == '最新价格'? 'CONTRACT_PRICE':'MARK_PRICE',
+      workingType: this.latestPrice == '最新'? 'CONTRACT_PRICE':'MARK_PRICE',
     }
   }
   // 双仓 开仓 市价止盈止损
@@ -1243,7 +1265,7 @@ root.methods.postFullStop = function () {
       stopPrice: this.triggerPrice,
       symbol: "BTCUSDT",
       orderType: ((!this.orderType && Number(this.triggerPrice) < latestOrMarkPrice) || (this.orderType && Number(this.triggerPrice) >= latestOrMarkPrice)) ? "TAKE_PROFIT_MARKET" : "STOP_MARKET",
-      workingType: this.latestPrice == '最新价格'? 'CONTRACT_PRICE':'MARK_PRICE',
+      workingType: this.latestPrice == '最新'? 'CONTRACT_PRICE':'MARK_PRICE',
     }
   }
   // 双仓 平仓 限价止盈止损
@@ -1258,7 +1280,7 @@ root.methods.postFullStop = function () {
       symbol: "BTCUSDT",
       timeInForce: this.effectiveTime,
       orderType: ((this.orderType && Number(this.triggerPrice) < latestOrMarkPrice)||(!this.orderType && Number(this.triggerPrice) >= latestOrMarkPrice)) ? 'STOP':'TAKE_PROFIT',
-      workingType: this.latestPrice == '最新价格'? 'CONTRACT_PRICE':'MARK_PRICE',
+      workingType: this.latestPrice == '最新'? 'CONTRACT_PRICE':'MARK_PRICE',
     }
   }
   // 双仓 平仓 市价止盈止损
@@ -1271,7 +1293,7 @@ root.methods.postFullStop = function () {
       stopPrice: this.triggerPrice,
       symbol: "BTCUSDT",
       orderType: ((this.orderType && Number(this.triggerPrice) < latestOrMarkPrice) || (!this.orderType && Number(this.triggerPrice) >=  latestOrMarkPrice)) ? "STOP_MARKET" : "TAKE_PROFIT_MARKET",
-      workingType: this.latestPrice == '最新价格'? 'CONTRACT_PRICE':'MARK_PRICE',
+      workingType: this.latestPrice == '最新'? 'CONTRACT_PRICE':'MARK_PRICE',
     }
   }
   // Object.assign(params, {type: "LIMIT",});
@@ -2118,6 +2140,7 @@ root.methods.re_getLatestrice = function (data) {
   // this.marketSymbolList = this.$globalFunc.mergeObj(data.data[0], this.marketSymbolList);
 
   let price = data.data[0].price
+  console.info('price===',price)
   this.latestPriceVal = (price || '').toString()
   // this.latestPriceVal = ((price != undefined || price != null) &&  price) || ''
   // this.latestPriceVal = (Number(price) || '').toString()

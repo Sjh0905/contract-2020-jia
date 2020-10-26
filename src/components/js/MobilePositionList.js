@@ -11,7 +11,7 @@ root.props.latestPriceVal = {
   type: String,
   default: ''
 }
-// 最新价格/市价
+// 可用余额
 root.props.availableBalance = {
   type: Number,
   default: 0
@@ -56,7 +56,7 @@ root.data = function () {
     symbol:'' ,// 仓位币种
     positionSide:'', // 仓位方向
     marketPriceClick: false, //市价不能多次点击设置
-    checkPriceClick: false, //限价不能多次点击设置
+    // checkPriceClick: false, //限价不能多次点击设置
     popOpen:false,   // 一键平仓弹框
     waitForCancel: false, //是否开启等待
 
@@ -244,6 +244,7 @@ root.methods.openPopWindowOpenPs = function (item){
   // console.info('item===',item)
   this.positionSelect = item || {}
   // 未实现盈亏
+  this.inputBoxPrice = this.latestPriceVal || 0
   this.popUnrealizedProfit = item.unrealizedProfit || 0
   this.inputBoxAmountTemp = item.positionAmt || 0
   this.inputBoxAmount = Math.abs(this.inputBoxAmountTemp)
@@ -1022,7 +1023,6 @@ root.methods.re_marketPrice = function (data) {
     this.popText = '自动减仓序列(强平)';
     return
   }
-
 }
 root.methods.error_marketPrice = function (err){
   this.marketPriceClick = false
@@ -1149,7 +1149,6 @@ root.methods.re_checkPrice = function (data) {
     this.popText = '自动减仓序列(强平)';
     return
   }
-
 }
 root.methods.error_checkPrice = function (err){
   this.marketPriceClick = false

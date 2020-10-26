@@ -64,13 +64,11 @@
             </div>
 
 
-            <router-link to="/index/home" class="mobile-header-login-box">
-            <span>
-              <img class="mobile-header-login-box-imgs" src="../../assets/H5-LOGO.png" alt="">
-
-
-            </span>
-            </router-link>
+            <div class="mobile-header-login-box" @click="goToHome">
+              <span>
+                <img class="mobile-header-login-box-imgs" src="../../assets/H5-LOGO.png" alt="">
+              </span>
+            </div>
           </div>
 
           <!--        <div class="mobile-header-icon-flag" @click="clickChangePopOpen">-->

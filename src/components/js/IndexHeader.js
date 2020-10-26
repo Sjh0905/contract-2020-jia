@@ -324,6 +324,9 @@ root.watch.redPoint = function (newValue, oldValue) {
 /*------------------------------- 方法 --------------------------------*/
 
 root.methods = {}
+root.methods.goToHome = function () {
+  window.location.replace(this.$store.state.contract_url + 'index/NewH5homePage');
+}
 
 //是否是会员get (query:{})
 root.methods.getCheck= function () {

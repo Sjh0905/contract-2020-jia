@@ -54,7 +54,7 @@
 .more-empty-btn-bck {
   color: #3576F5;
   height: 0.68rem;
-  border-bottom: 0.04rem solid #3576F5;
+  border-bottom: 2px solid #3576F5;
   /*background: #3576F5;*/
 }
 
