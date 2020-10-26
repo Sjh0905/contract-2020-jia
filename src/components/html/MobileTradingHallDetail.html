@@ -113,7 +113,7 @@
         </div>
 
         <div class="mobile-container-useable">
-          <span class="">{{$t("progressBar.able")}}</span> <span>{{(currentSymbol.balance && currentSymbol.balance == '--' ? '--' : $globalFunc.accFixed(currentSymbol.balance, 6) || 0 )+ '&nbsp;' + this.$store.state.symbol.split('_')[1]}}</span>
+          <span class="">{{$t("progressBar.able")}}</span> <span>{{toFixed(availableBalance,2)}} USDT</span>
         </div>
 
 <!--        <div class="mobile-select-num">-->
@@ -250,7 +250,7 @@
 
   <!--仓位-->
   <div v-if="listType== 'holdPosition'" class="container-current-page">
-    <PositionList :latestPriceVal = 'latestPriceVal' :effectiveTime = 'effectiveTime' :markPrice = 'markPrice' @getPositionRisk="getIndex"/>
+    <PositionList :latestPriceVal = 'latestPriceVal' :effectiveTime = 'effectiveTime' :markPrice = 'markPrice' @getPositionRisk="getIndex" :availableBalance='availableBalance'/>
   </div>
 
   <!--当前委托页-->

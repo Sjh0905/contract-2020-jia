@@ -11,7 +11,7 @@ root.props.latestPriceVal = {
   type: String,
   default: ''
 }
-// 最新价格/市价
+// 可用余额
 root.props.availableBalance = {
   type: Number,
   default: 0
@@ -56,7 +56,7 @@ root.data = function () {
     symbol:'' ,// 仓位币种
     positionSide:'', // 仓位方向
     marketPriceClick: false, //市价不能多次点击设置
-    checkPriceClick: false, //限价不能多次点击设置
+    // checkPriceClick: false, //限价不能多次点击设置
     popOpen:false,   // 一键平仓弹框
     waitForCancel: false, //是否开启等待
 
@@ -241,9 +241,10 @@ root.methods.changeType = function () {
 }
 // 打开平仓弹窗
 root.methods.openPopWindowOpenPs = function (item){
-  // console.info('item===',item)
+  console.info('item===',this.latestPriceVal)
   this.positionSelect = item || {}
   // 未实现盈亏
+  this.inputBoxPrice = this.latestPriceVal || 0
   this.popUnrealizedProfit = item.unrealizedProfit || 0
   this.inputBoxAmountTemp = item.positionAmt || 0
   this.inputBoxAmount = Math.abs(this.inputBoxAmountTemp)
@@ -925,7 +926,6 @@ root.methods.closeFrame = function () {
 root.methods.marketPrice = function () {
   this.marketPriceClick = true
   let item = this.positionSelect || {}
-
   // var v = ipt.value;//获取input的值
   let params = {
     leverage: this.$store.state.leverage,
@@ -945,7 +945,7 @@ root.methods.marketPrice = function () {
 }
 // 获取记录返回，类型为{}
 root.methods.re_marketPrice = function (data) {
-  this.marketPriceClick = false
+
   if(data.code == '303' && data.errCode == '2019') {
     this.promptOpen = true;
     this.popType = 0;
@@ -986,6 +986,7 @@ root.methods.re_marketPrice = function (data) {
   // 关闭弹框
   this.closePopMarket()
   this.popWindowClosePs()
+  this.marketPriceClick = false
   if(data.data.status == 'NEW') {
     this.popType = 1;
     this.popText = '下单成功';
