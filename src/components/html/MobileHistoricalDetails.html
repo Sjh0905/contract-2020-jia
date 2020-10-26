@@ -35,8 +35,16 @@
             <div class="td-time1">只减仓</div>
           </div>
           <div class="td-time1 piaoti-text color-D tar">
-            <div class="td-time margin-bot1">市价</div>
-            <div class="td-time margin-bot1">{{totalCommission}}</div>
+            <!--订单类型 begin -->
+            <div class="td-time margin-bot1" v-if="this.$route.query.order.type == 'LIMIT'">限价单</div>
+            <div class="td-time margin-bot1" v-if="this.$route.query.order.type == 'MARKET'">市价单</div>
+            <div class="td-time margin-bot1" v-if="this.$route.query.order.type == 'STOP'">止损限价单</div>
+            <div class="td-time margin-bot1" v-if="this.$route.query.order.type == 'STOP_MARKET'">止损市价单</div>
+            <div class="td-time margin-bot1" v-if="this.$route.query.order.type == 'TAKE_PROFIT'">止盈限价单</div>
+            <div class="td-time margin-bot1" v-if="this.$route.query.order.type == 'TAKE_PROFIT_MARKET'">止盈市价单</div>
+            <div class="td-time margin-bot1" v-if="this.$route.query.order.type == 'TRAILING_STOP_MARKET'">跟踪止损单</div>
+            <!--订单类型 end -->
+            <div class="td-time margin-bot1">{{historicaList0.price !=0 ? toFixed(historicaList0.price, 2) : '--'}}</div>
             <div class="td-time1">{{historicaList0.reduceOnly? '是':'否'}}</div>
           </div>
         </div>
@@ -68,8 +76,8 @@
                 <div class="mobile-ying">{{toFixed(item.price, !!quoteScale_list[symbol] ? quoteScale_list[symbol].quoteScale : 2)}}</div>
               </div>
               <div class="td-time1 tar">
-                <div class="mobile-kui">{{toFixed(item.realizedPnl,8)}} {{item.commissionAsset}}</div>
-                <div class="mobile-ying">{{toFixed(item.commission, 8)}} {{item.commissionAsset}}</div>
+                <div class="mobile-kui">{{toFixed(item.commission, 8)}} {{item.commissionAsset}}</div>
+                <div class="mobile-ying">{{toFixed(item.realizedPnl,8)}} {{item.commissionAsset}}</div>
               </div>
             </div>
           </div>

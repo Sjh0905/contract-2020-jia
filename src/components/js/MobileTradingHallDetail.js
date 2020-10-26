@@ -3460,7 +3460,7 @@ root.methods.gotoShichang = function () {
 /*---------------------- 跳入到资产页面 ---------------------*/
 root.methods.gotoZichan = function () {
   // this.$router.push({name: 'MobileAssetRechargeAndWithdrawals'});
-  window.location.replace(this.$store.state.contract_url + 'index/MobileAssetRechargeAndWithdrawals');
+  window.location.replace(this.$store.state.contract_url + 'index/mobileAsset/mobileAssetRechargeAndWithdrawals');
 }
 
 /*---------------------- 跳入到交易页面 ---------------------*/

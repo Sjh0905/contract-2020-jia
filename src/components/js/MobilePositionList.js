@@ -106,10 +106,10 @@ root.data = function () {
 }
 /*------------------------------ 观察 -------------------------------*/
 root.watch = {}
-root.watch.markPrice = function(newVal,oldVal) {
-  // console.info(newVal)
-  this.handleWithMarkPrice(this.records)
-}
+// root.watch.markPrice = function(newVal,oldVal) {
+//   // console.info(newVal)
+//   this.handleWithMarkPrice(this.records)
+// }
 root.watch.walletBalance = function(newVal,oldVal) {
   // console.info(newVal)
 }
@@ -241,7 +241,7 @@ root.methods.changeType = function () {
 }
 // 打开平仓弹窗
 root.methods.openPopWindowOpenPs = function (item){
-  console.info('item===',this.latestPriceVal)
+  // console.info('item===',item)
   this.positionSelect = item || {}
   // 未实现盈亏
   this.inputBoxPrice = this.latestPriceVal || 0
@@ -915,7 +915,7 @@ root.methods.confirmFrame = function () {
   if(this.orderTypes == '市价'){
     this.marketPrice()
   }
-  this.showSplicedFrame = false
+
 }
 //关闭下单弹框
 root.methods.closeFrame = function () {
@@ -926,6 +926,7 @@ root.methods.closeFrame = function () {
 root.methods.marketPrice = function () {
   this.marketPriceClick = true
   let item = this.positionSelect || {}
+
   // var v = ipt.value;//获取input的值
   let params = {
     leverage: this.$store.state.leverage,
@@ -945,7 +946,7 @@ root.methods.marketPrice = function () {
 }
 // 获取记录返回，类型为{}
 root.methods.re_marketPrice = function (data) {
-
+  this.marketPriceClick = false
   if(data.code == '303' && data.errCode == '2019') {
     this.promptOpen = true;
     this.popType = 0;
@@ -986,7 +987,7 @@ root.methods.re_marketPrice = function (data) {
   // 关闭弹框
   this.closePopMarket()
   this.popWindowClosePs()
-  this.marketPriceClick = false
+  this.showSplicedFrame = false
   if(data.data.status == 'NEW') {
     this.popType = 1;
     this.popText = '下单成功';
@@ -1111,6 +1112,7 @@ root.methods.re_checkPrice = function (data) {
   //   this.priceCheck = JSON.parse(localStorage.getItem('PRICE_CHECK'));
   // }
   this.order = data.data
+  this.showSplicedFrame = false
 
   if(data.data.status == 'NEW') {
     this.popType = 1;
