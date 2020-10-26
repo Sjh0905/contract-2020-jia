@@ -106,10 +106,10 @@ root.data = function () {
 }
 /*------------------------------ 观察 -------------------------------*/
 root.watch = {}
-root.watch.markPrice = function(newVal,oldVal) {
-  // console.info(newVal)
-  this.handleWithMarkPrice(this.records)
-}
+// root.watch.markPrice = function(newVal,oldVal) {
+//   // console.info(newVal)
+//   this.handleWithMarkPrice(this.records)
+// }
 root.watch.walletBalance = function(newVal,oldVal) {
   // console.info(newVal)
 }
@@ -914,7 +914,7 @@ root.methods.confirmFrame = function () {
   if(this.orderTypes == '市价'){
     this.marketPrice()
   }
-  this.showSplicedFrame = false
+
 }
 //关闭下单弹框
 root.methods.closeFrame = function () {
@@ -986,6 +986,7 @@ root.methods.re_marketPrice = function (data) {
   // 关闭弹框
   this.closePopMarket()
   this.popWindowClosePs()
+  this.showSplicedFrame = false
   if(data.data.status == 'NEW') {
     this.popType = 1;
     this.popText = '下单成功';
@@ -1021,6 +1022,7 @@ root.methods.re_marketPrice = function (data) {
     this.popText = '自动减仓序列(强平)';
     return
   }
+
 }
 root.methods.error_marketPrice = function (err){
   this.marketPriceClick = false
@@ -1110,6 +1112,7 @@ root.methods.re_checkPrice = function (data) {
   //   this.priceCheck = JSON.parse(localStorage.getItem('PRICE_CHECK'));
   // }
   this.order = data.data
+  this.showSplicedFrame = false
 
   if(data.data.status == 'NEW') {
     this.popType = 1;
@@ -1146,6 +1149,7 @@ root.methods.re_checkPrice = function (data) {
     this.popText = '自动减仓序列(强平)';
     return
   }
+
 }
 root.methods.error_checkPrice = function (err){
   this.marketPriceClick = false

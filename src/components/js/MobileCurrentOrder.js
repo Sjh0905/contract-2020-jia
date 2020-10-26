@@ -5,6 +5,7 @@ root.name = 'MobileTradingHallDetail';
 /*----------------------------- 组件 ------------------------------*/
 
 root.components = {
+  'Loading': resolve => require(['../vue/Loading'], resolve), // loading
   'PopupPrompt': resolve => require(['../vue/PopupPrompt'], resolve),
   'PopupWindow': resolve => require(['../vue/PopupWindow'], resolve),
   'MobilePopupWindow': resolve => require(['../vue/MobilePopupWindow'], resolve),
@@ -16,6 +17,7 @@ root.components = {
 
 root.data = function () {
   return {
+    loading:true,
     currentOrder: [],
     currentInterval: null,
     clickOrder: new Set(),
