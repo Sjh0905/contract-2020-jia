@@ -1171,10 +1171,10 @@ root.methods.ensurePop = async function () {
   this.closePop()
 }
 
-// 获取记录出错
-root.methods.error_marketPrice = function (err) {
-  console.warn("充值获取记录出错！", err)
-}
+// // 获取记录出错
+// root.methods.error_marketPrice = function (err) {
+//   console.warn("充值获取记录出错！", err)
+// }
 
 
 //取消平仓
