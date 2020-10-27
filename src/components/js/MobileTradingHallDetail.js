@@ -2019,7 +2019,6 @@ root.methods.isHasModule = function (type) {
 
 //被动委托 start
 root.methods.priceLimitSelection = function (checkPrice) {
-  console.info('checkPrice==',checkPrice)
   this.checkPrice = checkPrice
   if(checkPrice == 2) {
     this.effectiveTime = 'GTX'
