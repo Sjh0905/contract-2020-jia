@@ -1517,8 +1517,17 @@ root.methods.re_getInviteCodeId = function (data) {
     this.popType = 0;
     this.popText = ' 邀请人不存在';
     this.promptOpen = true;
-    this.name_0 = '邀请人不存在';
-    return
+    return;
+    // this.name_0 = '邀请人不存在';
+    // return
+  }
+  if (data.result == 'FAIL') {
+    this.popType = 0;
+    this.popText = ' 邀请人不存在';
+    this.promptOpen = true;
+    return;
+    // this.name_0 = '邀请人不存在';
+    // return
   }
   if (data.errorCode == 0) {
     this.getInviteCode()
@@ -1536,7 +1545,7 @@ root.methods.getInviteCode = function () {
     callBack: this.re_getInviteCode
   })
 }
-root.methods.re_getInviteCode = function () {
+root.methods.re_getInviteCode = function (data) {
   //检测data数据是JSON字符串转换JS字符串
   typeof data === 'string' && (data = JSON.parse(data))
   if (data.errorCode == 2) {
