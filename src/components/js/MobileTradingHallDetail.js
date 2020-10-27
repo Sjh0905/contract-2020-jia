@@ -2142,6 +2142,8 @@ root.methods.re_getLatestrice = function (data) {
   let price = data.data[0].price
   console.info('price===',price)
   this.latestPriceVal = (price || '').toString()
+
+  this.setTransactionPrice(this.latestPriceVal);//第一次进入页面价格要赋值
   // this.latestPriceVal = ((price != undefined || price != null) &&  price) || ''
   // this.latestPriceVal = (Number(price) || '').toString()
 

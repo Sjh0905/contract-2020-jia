@@ -36,6 +36,10 @@ root.props.trade_loading = {
   type: Boolean,
   default: true
 }
+root.props.setTransactionPrice = {
+  type: Function,
+  default:()=>{}
+}
 
 root.data = function () {
   return {
