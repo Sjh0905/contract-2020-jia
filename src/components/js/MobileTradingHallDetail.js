@@ -2021,10 +2021,10 @@ root.methods.isHasModule = function (type) {
 root.methods.priceLimitSelection = function (checkPrice) {
   this.checkPrice = checkPrice
   if(checkPrice == 2) {
-    this.effectiveTime = 'GTC'
+    this.effectiveTime = 'GTX'
     return
   }
-  this.effectiveTime = 'GTX'
+  this.effectiveTime = 'GTC'
 }
 //被动委托 end
 
