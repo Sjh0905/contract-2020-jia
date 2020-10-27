@@ -1856,6 +1856,7 @@ root.methods.re_getPositionsideDual = function (data) {
   }
   this.dualSidePosition = false
   this.positionModeFirst = 'singleWarehouseMode'
+  this.choiceReducePositions();
 }
 // 获取仓位模式错误回调
 root.methods.error_getPositionsideDual = function (err) {
@@ -1985,10 +1986,19 @@ root.methods.re_marginModeConfirm = function (data) {
 root.methods.error_marginModeConfirm = function (err) {
 }
 
+//单仓止盈止损默认选中只减仓
+root.methods.choiceReducePositions = function () {
+  if(this.positionModeFirst == 'singleWarehouseMode' && this.pendingOrderType.indexOf('ProfitStopLoss') > -1){
+    this.reducePositionsSelected = true;
+  }else {
+    this.reducePositionsSelected = false
+  }
+}
 //订单大分类
 root.methods.changeOptionData = function (v) {
   this.optionVal = v
   this.pendingOrderType = this.optionDataMap[v]
+  this.choiceReducePositions();
 }
 //最新、标记
 root.methods.changeLatestPriceOption = function (v) {
