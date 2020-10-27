@@ -1511,18 +1511,18 @@ root.methods.testName_0 = function () {
 
 }
 
-root.methods.re_getInviteCodeId = function () {
+root.methods.re_getInviteCodeId = function (data) {
   // typeof data === 'string' && (data = JSON.parse(data))
   if (data.errorCode == 3) {
     this.name_0 = '邀请人不存在';
-    return false
+    return
   }
-  if (data.errorCode == 200) {
+  if (data.errorCode == 0) {
     this.getInviteCode()
   }
 
-  this.name_0 = ''
-  return true
+  // this.name_0 = ''
+  // return true
 }
 
 
@@ -1542,7 +1542,7 @@ root.methods.re_getInviteCode = function () {
     this.promptOpen = true;
     return;
   }
-  if (data.errorCode == 200) {
+  if (data.errorCode == 0) {
     this.openAContract1()
     return;
   }
