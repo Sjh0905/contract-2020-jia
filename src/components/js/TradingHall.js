@@ -1543,7 +1543,7 @@ root.methods.re_getInviteCode = function () {
     return;
   }
   if (data.errorCode == 200) {
-    this.openAContract()
+    this.openAContract1()
     return;
   }
   // if (data.errorCode == 3) {
