@@ -36,7 +36,8 @@
       <p class="radiuse_green" v-if="calculatorValue>=100" @click="calculatorValue=100" style="cursor:pointer"></p>
       <el-slider
         v-model="calculatorValue"
-        class="el-slider-style"
+        class="el-slider-style-h5"
+        popper-class='my-tooltip'
         :marks="calculatorMarks"
         :format-tooltip="formatTooltip"
         :max="125"
