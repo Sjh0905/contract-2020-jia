@@ -35,7 +35,7 @@ root.data = function () {
     /*下拉框2 end*/
 
     triggerPrice:'', // 触发价格
-    checkPrice:1, // 限价---被动委托，生效时间选择
+    checkPrice: 2, // 限价---被动委托，生效时间选择
     reducePositionsSelected: false,//只减仓状态
 
     //买卖列表
@@ -219,7 +219,7 @@ root.created = function () {
     this.$store.commit('changeMobileHeaderTitle', '历史委托');
   }
 
-  this.checkPrice ==1 ? this.effectiveTime='GTX' : this.effectiveTime='GTC'
+  this.checkPrice ==2 ? this.effectiveTime='GTX' : this.effectiveTime='GTC'
 
   // 获取BDB是否抵扣
   // this.getBDBInfo()
@@ -2032,9 +2032,11 @@ root.methods.priceLimitSelection = function (checkPrice) {
   this.checkPrice = checkPrice
   if(checkPrice == 2) {
     this.effectiveTime = 'GTX'
-    return
+    this.checkPrice = 2
+  }else{
+    this.effectiveTime = 'GTC'
+    this.checkPrice = 1
   }
-  this.effectiveTime = 'GTC'
 }
 //被动委托 end
 
