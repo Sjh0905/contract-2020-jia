@@ -1499,7 +1499,7 @@ root.methods.testName_0 = function () {
   // this.pswPlaceholderShow = true
 
   if (this.invitreCodeInput=='') {
-    // this.getInviteCode()
+    this.getInviteCode()
     return
   }
 
@@ -1512,9 +1512,9 @@ root.methods.testName_0 = function () {
 }
 
 root.methods.re_getInviteCodeId = function () {
-  typeof data === 'string' && (data = JSON.parse(data))
+  // typeof data === 'string' && (data = JSON.parse(data))
   if (data.errorCode == 3) {
-    this.name_0 = '邀请人不存在'
+    this.name_0 = '邀请人不存在';
     return false
   }
   if (data.errorCode == 200) {
