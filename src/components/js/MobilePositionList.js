@@ -99,14 +99,18 @@ root.data = function () {
     inputBoxPrice : 0, // 弹窗价格
     inputBoxAmount:0, // 弹窗数量
     numed:0,
-    popUnrealizedProfit:0, // 未实现盈亏
+    popUnrealizedProfitNew:0, // 未实现盈亏
     positionSelect: null, // 选中的仓位数据
 
   }
 }
 /*------------------------------ 观察 -------------------------------*/
 root.watch = {}
-// root.watch.markPrice = function(newVal,oldVal) {
+root.watch.markPrice = function(newVal,oldVal) {
+  // console.info(newVal)
+  this.handleWithMarkPrice(this.records)
+}
+// root.watch.latestPriceVal = function(newVal,oldVal) {
 //   // console.info(newVal)
 //   this.handleWithMarkPrice(this.records)
 // }
@@ -245,7 +249,8 @@ root.methods.openPopWindowOpenPs = function (item){
   this.positionSelect = item || {}
   // 未实现盈亏
   this.inputBoxPrice = this.latestPriceVal || 0
-  this.popUnrealizedProfit = item.unrealizedProfit || 0
+  //弹窗显示的未实现盈亏 = ( ( New Price - Entry Price ) * size ) / （Mark Price * abs(size) * IMR）,IMR = 1/杠杆倍数
+  this.popUnrealizedProfitNew = this.accMul( this.accMinus(this.latestPriceVal || 0,item.entryPrice || 0),item.positionAmt || 0 )
   this.inputBoxAmountTemp = item.positionAmt || 0
   this.inputBoxAmount = Math.abs(this.inputBoxAmountTemp)
   this.popWindowOpenPs = true
@@ -592,6 +597,8 @@ root.methods.handleWithMarkPrice = function(records){
     v.responseRate = this.accMul(this.accDiv(v.unrealizedProfitPage || 0,msi || 1),100)
     v.responseRate = Number(v.responseRate).toFixed(2) + '%'
 
+
+    // console.log('v.unrealizedProfitPageNew',i,this.latestPriceVal,v.unrealizedProfitPageNew)
     // console.log('v.responseRate.toFixed',i,v.responseRate)
     // this.changePositonAmt(v)
     if(v.marginType == 'cross'){
