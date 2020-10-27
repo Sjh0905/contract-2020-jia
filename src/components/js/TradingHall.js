@@ -1512,8 +1512,11 @@ root.methods.testName_0 = function () {
 }
 
 root.methods.re_getInviteCodeId = function (data) {
-  // typeof data === 'string' && (data = JSON.parse(data))
-  if (data.errorCode == 3) {
+  typeof data === 'string' && (data = JSON.parse(data))
+  if (data.errorCode === 3) {
+    this.popType = 0;
+    this.popText = ' 邀请人不存在';
+    this.promptOpen = true;
     this.name_0 = '邀请人不存在';
     return
   }
