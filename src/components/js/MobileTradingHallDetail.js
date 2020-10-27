@@ -2027,7 +2027,6 @@ root.methods.priceLimitSelection = function (checkPrice) {
     this.effectiveTime = 'GTC'
     this.checkPrice = 1
   }
-
 }
 //被动委托 end
 
