@@ -41,6 +41,7 @@ requestAddress.GET_LEVERAGE_BRACKET = {url: urlHead + '/future/user/leverageBrac
 requestAddress.POST_NOTICE_LIST = {url: urlHead+'/apis/user/findNoticeList', method: 'post'}
 //邀请码
 requestAddress.GET_INVITE_CODE = {url: urlHead + '/apis/user/futureInviteRelation/', method: 'get'} // 邀请码
+requestAddress.GET_INVITE_ID = {url: urlHead + '/apis/user/verifyInvitedUserId/', method: 'get'} // 邀请码
 
 
 

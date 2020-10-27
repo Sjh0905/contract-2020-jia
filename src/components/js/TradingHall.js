@@ -178,6 +178,8 @@ root.data = function () {
     popTextLeverage:'',
     availableBalance:0,
     invitreCodeInput:'',//邀请码
+    pswPlaceholderShow: true,
+    name_0:'',
   }
 }
 
@@ -1459,12 +1461,12 @@ root.methods.re_isFirstVisit = function (data) {
   if (data.code == 1000) {
     this.popWindowContractRiskWarning = true
   } else {
-    this.popWindowContractRiskWarning = false
+    this.popWindowContractRiskWarning = true
   }
 }
 
 // 合约首次风险提示弹窗确认按钮
-root.methods.openAContract = function () {
+root.methods.openAContract1 = function () {
   // this.popWindowContractRiskWarning = false
   // return
   this.$http.send('POST_MANAGE_TIME',{
@@ -1476,13 +1478,54 @@ root.methods.openAContract = function () {
 root.methods.re_openAContract = function (data) {
   typeof(data) == 'string' && (data = JSON.parse(data));
   if (data.code == 200) {
-    if (this.invitreCodeInput != '') {
-      this.getInviteCode()
-    }
-    history.go(0)
-    this.popWindowContractRiskWarning = false
+    // if (this.invitreCodeInput != '') {
+    //   this.getInviteCode()
+    // }
+    // history.go(0)
+    // this.popWindowContractRiskWarning = false
   }
 }
+// // 获取焦点后关闭placheholder
+// root.methods.closePlaceholder = function (type) {
+//   // alert(type);
+//
+//   if (type == 'gname') {
+//     this.pswPlaceholderShow = false;
+//   }
+// }
+// 拼团名称输入
+root.methods.testName_0 = function () {
+
+  // this.pswPlaceholderShow = true
+
+  if (this.invitreCodeInput=='') {
+    // this.getInviteCode()
+    return
+  }
+
+  this.$http.send('GET_INVITE_ID',{
+    bind: this,
+    urlFragment: this.invitreCodeInput,
+    callBack: this.re_getInviteCodeId
+  })
+
+}
+
+root.methods.re_getInviteCodeId = function () {
+  typeof data === 'string' && (data = JSON.parse(data))
+  if (data.errorCode == 3) {
+    this.name_0 = '邀请人不存在'
+    return false
+  }
+  if (data.errorCode == 200) {
+    this.getInviteCode()
+  }
+
+  this.name_0 = ''
+  return true
+}
+
+
 root.methods.getInviteCode = function () {
   this.$http.send('GET_INVITE_CODE',{
     bind: this,
@@ -1499,12 +1542,16 @@ root.methods.re_getInviteCode = function () {
     this.promptOpen = true;
     return;
   }
-  if (data.errorCode == 3) {
-    this.popType = 0;
-    this.popText = ' 邀请人不存在';
-    this.promptOpen = true;
+  if (data.errorCode == 200) {
+    this.openAContract()
     return;
   }
+  // if (data.errorCode == 3) {
+  //   this.popType = 0;
+  //   this.popText = ' 邀请人不存在';
+  //   this.promptOpen = true;
+  //   return;
+  // }
 }
 
 /*// 计算symbol变化

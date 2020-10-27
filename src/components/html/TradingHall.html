@@ -495,7 +495,16 @@
   <ContractRiskWarning :switch="popWindowContractRiskWarning">
     <div slot="article" class="popWindow-article-input">
       <div calss="yqm">邀请码(非必填)</div>
-      <input class="yqm-input" type="text" placeholder="请输入邀请码" v-model="invitreCodeInput">
+      <input class="yqm-input"
+             type="text"
+             placeholder="请输入邀请码"
+             v-model="invitreCodeInput"
+             @focus="closePlaceholder('gname')"
+             @input="testInputIngPsw"
+             @blur="testName_0">
+    </div>
+    <div class="hig">
+      <span v-if="name_0!=''" class="prompt-span wrong-msg">{{name_0}}</span>
     </div>
     <div slot="footer" class="flex footer-btn">
       <div class="popWindow-article2" @click="popCloseTemporarilyClosed">暂不开通</div>
