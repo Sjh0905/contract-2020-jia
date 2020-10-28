@@ -1672,7 +1672,10 @@ root.destroyed = function () {
   //加进window的方法当跳出此页面后需要销毁哦
   window.onresize = null;
 }
-
+// 要跳划转页面
+root.methods.goToTransfer = function () {
+  window.location.replace(this.$store.state.contract_url + 'index/asset/contractRecord/propertyAssets');
+}
 
 /*---------------------- 保留小数 begin ---------------------*/
 root.methods.toFixed = function (num, acc = 8) {

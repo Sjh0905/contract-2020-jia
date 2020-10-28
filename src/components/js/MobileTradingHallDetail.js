@@ -35,7 +35,7 @@ root.data = function () {
     /*下拉框2 end*/
 
     triggerPrice:'', // 触发价格
-    checkPrice: 1, // 限价---被动委托，生效时间选择
+    checkPrice:1, // 限价---被动委托，生效时间选择
     reducePositionsSelected: false,//只减仓状态
 
     //买卖列表
@@ -294,10 +294,6 @@ root.components = {
 /*------------------------------ 计算 begin -------------------------------*/
 
 root.computed = {}
-// 除去逐仓仓位保证金的钱包余额
-root.computed.crossWalletBalance = function () {
-  return this.$store.state.assets.crossWalletBalance
-}
 // 单仓保证金assumingPrice
 root.computed.costAssumingPrice = function () {
   let assumingPrc = 0
@@ -1860,7 +1856,6 @@ root.methods.re_getPositionsideDual = function (data) {
   }
   this.dualSidePosition = false
   this.positionModeFirst = 'singleWarehouseMode'
-  this.choiceReducePositions();
 }
 // 获取仓位模式错误回调
 root.methods.error_getPositionsideDual = function (err) {
@@ -1990,19 +1985,10 @@ root.methods.re_marginModeConfirm = function (data) {
 root.methods.error_marginModeConfirm = function (err) {
 }
 
-//单仓止盈止损默认选中只减仓
-root.methods.choiceReducePositions = function () {
-  if(this.positionModeFirst == 'singleWarehouseMode' && this.pendingOrderType.indexOf('ProfitStopLoss') > -1){
-    this.reducePositionsSelected = true;
-  }else {
-    this.reducePositionsSelected = false
-  }
-}
 //订单大分类
 root.methods.changeOptionData = function (v) {
   this.optionVal = v
   this.pendingOrderType = this.optionDataMap[v]
-  this.choiceReducePositions();
 }
 //最新、标记
 root.methods.changeLatestPriceOption = function (v) {
@@ -2036,11 +2022,9 @@ root.methods.priceLimitSelection = function (checkPrice) {
   this.checkPrice = checkPrice
   if(checkPrice == 2) {
     this.effectiveTime = 'GTX'
-    this.checkPrice = 2
-  }else{
-    this.effectiveTime = 'GTC'
-    this.checkPrice = 1
+    return
   }
+  this.effectiveTime = 'GTC'
 }
 //被动委托 end
 
@@ -2160,7 +2144,7 @@ root.methods.re_getLatestrice = function (data) {
   // this.marketSymbolList = this.$globalFunc.mergeObj(data.data[0], this.marketSymbolList);
 
   let price = data.data[0].price
-  // console.info('price===',price)
+  console.info('price===',price)
   this.latestPriceVal = (price || '').toString()
 
   this.setTransactionPrice(this.latestPriceVal);//第一次进入页面价格要赋值
@@ -3567,6 +3551,12 @@ root.methods.re_isFirstVisit = function (data) {
 root.methods.openAllRecords = function () {
   this.$router.push('/index/mobileContractAllRecords')
 }
+//划转
+root.methods.openTransfer = function () {
+  window.location.replace(this.$store.state.contract_url + 'index/mobileAsset/mobileAssetRechargeAndWithdrawals?toWebTransfer=true');
+  // window.location.replace('http://ccc.2020-ex.com:8085/index/mobileAsset/mobileAssetRechargeAndWithdrawals?toWebTransfer=true');
+}
+
 
 //当前委托，仓位持仓切换
 root.methods.listSwitching = function (listType) {

@@ -1326,6 +1326,13 @@
   vertical-align: middle;
   /*margin-top: 13px;*/
 }
+.transfer-hangqingkline {
+  margin-right: 0.2rem;
+}
+.transfer-hangqingkline img{
+  width: 0.56rem;
+  vertical-align: middle;
+}
 .fund-all {
   margin-top: 0.1rem;
   font-size: 0.22rem;
