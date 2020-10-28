@@ -3545,6 +3545,12 @@ root.methods.re_isFirstVisit = function (data) {
 root.methods.openAllRecords = function () {
   this.$router.push('/index/mobileContractAllRecords')
 }
+//划转
+root.methods.openTransfer = function () {
+  // window.location.replace(this.$store.state.contract_url + 'index/mobileWebTransferContract?balance = ' + this.balance);
+}
+//
+
 
 //当前委托，仓位持仓切换
 root.methods.listSwitching = function (listType) {
