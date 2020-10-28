@@ -2082,6 +2082,10 @@ root.methods.re_positionRisk = function (data) {
 }
 // 调整杠杆接口调取
 root.methods.postLevelrage = function () {
+
+  if(!this.isLogin){
+    window.location.replace(this.$store.state.contract_url + 'index/sign/login')
+  }
   this.$http.send('POST_LEVELRAGE',{
     bind: this,
     params:{
@@ -3016,8 +3020,10 @@ root.computed.transactionAmount = function () {
 root.computed.transactionPrice = function () {
   return this.price;
 }
-
-
+// 检验是否登录
+root.computed.isLogin = function () {
+  return this.$store.state.isLogin;
+}
 root.watch = {};
 root.watch.amount = function (newValue, oldValue) {
   let value = newValue.toString();
