@@ -3545,6 +3545,12 @@ root.methods.re_isFirstVisit = function (data) {
 root.methods.openAllRecords = function () {
   this.$router.push('/index/mobileContractAllRecords')
 }
+//划转
+root.methods.openTransfer = function () {
+  window.location.replace(this.$store.state.contract_url + 'index/mobileAsset/mobileAssetRechargeAndWithdrawals?toWebTransfer=true');
+  // window.location.replace('http://ccc.2020-ex.com:8085/index/mobileAsset/mobileAssetRechargeAndWithdrawals?toWebTransfer=true');
+}
+
 
 //当前委托，仓位持仓切换
 root.methods.listSwitching = function (listType) {
