@@ -44,7 +44,7 @@
             <div class="residual-time">直到下个资金时段的剩余时间。</div>
           </div>
           <div class="cen2">
-            <div class="cen31">{{$t('Change')}}</div>
+            <div class="cen31">24H{{$t('Change')}}</div>
             <div class="cen32">
                 <span class="txt" :class="priceChangePercent > 0 ? 'txt-price' : (priceChangePercent == 0 ? '' : 'txt-price-red')">
                   <span style="font-size: 1.4rem">{{priceChangePercent > 0 ? '+' : ''}}{{toFixed(priceChangePercent || 0,2) || 0}}%</span>

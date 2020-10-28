@@ -10,7 +10,7 @@
         <!--向上向下显示文字效果 up / down-->
         <div class="mobile-header-now-price" :class="direction">{{toFixed(isNowPrice || 0,quoteScale)}}</div>
         <div class="price-up-down flex-row">
-          <span class="price-up-down-text">涨幅</span>
+          <span class="price-up-down-text">24H涨跌率</span>
           <span class="price-up-down-val">{{priceChangePercent > 0 ? '+' : ''}}{{toFixed(priceChangePercent || 0,2) || 0}}%</span>
         </div>
         <div class="price-up-down flex-row">
@@ -40,11 +40,11 @@
         <!--        -->
 
         <div class="h-third-line-item mobile-header-high-price">
-          <div class="mobile-header-high-price-title">高</div>
+          <div class="mobile-header-high-price-title">24H高</div>
           <div class="mobile-header-high-price-value">{{highPrice}}</div>
         </div>
         <div class="h-third-line-item mobile-header-low-price">
-          <div class="mobile-header-low-price-title">低 </div>
+          <div class="mobile-header-low-price-title">24H低 </div>
           <div class="mobile-header-low-price-value">{{lowPrice}}</div>
         </div>
         <div class="h-third-line-item mobile-header-volume">
