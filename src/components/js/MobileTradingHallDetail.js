@@ -294,6 +294,10 @@ root.components = {
 /*------------------------------ 计算 begin -------------------------------*/
 
 root.computed = {}
+// 除去逐仓仓位保证金的钱包余额
+root.computed.crossWalletBalance = function () {
+  return this.$store.state.assets.crossWalletBalance
+}
 // 单仓保证金assumingPrice
 root.computed.costAssumingPrice = function () {
   let assumingPrc = 0
@@ -2152,7 +2156,7 @@ root.methods.re_getLatestrice = function (data) {
   // this.marketSymbolList = this.$globalFunc.mergeObj(data.data[0], this.marketSymbolList);
 
   let price = data.data[0].price
-  console.info('price===',price)
+  // console.info('price===',price)
   this.latestPriceVal = (price || '').toString()
 
   this.setTransactionPrice(this.latestPriceVal);//第一次进入页面价格要赋值
