@@ -3563,7 +3563,8 @@ root.methods.openAllRecords = function () {
 }
 //划转
 root.methods.openTransfer = function () {
-  // window.location.replace(this.$store.state.contract_url + 'index/mobileWebTransferContract?balance = ' + this.balance);
+  window.location.replace(this.$store.state.contract_url + 'index/mobileAsset/mobileAssetRechargeAndWithdrawals?toWebTransfer=true');
+  // window.location.replace('http://ccc.2020-ex.com:8085/index/mobileAsset/mobileAssetRechargeAndWithdrawals?toWebTransfer=true');
 }
 //
 
