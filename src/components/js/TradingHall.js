@@ -1514,8 +1514,8 @@ root.methods.testName_0 = function () {
 }
 
 root.methods.re_getInviteCodeId = function (data) {
-  console.info('data-========',data)
-  console.info('data-========',errorCode)
+  console.info('data.========',data)
+  console.info('data-errorCode========',data.errorCode)
   // typeof(data) == 'string' && (data = JSON.parse(data));
   if (data.errorCode == 3) {
     this.popWindowContractRiskWarning = false
