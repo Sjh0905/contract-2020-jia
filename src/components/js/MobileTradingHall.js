@@ -370,8 +370,8 @@ root.methods.changeCurrencyMarket = function (type, name) {
 
 
 root.methods.goBack = function () {
-  // this.$router.go(-1);
-  this.$router.push('/index/mobileTradingHallDetail')
+  this.$router.go(-1);
+  // this.$router.push('/index/mobileTradingHallDetail')
 }
 
 // view跳转 跳到买或者卖
