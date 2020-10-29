@@ -61,15 +61,15 @@ NetworkInterceptor(router, Vue.$eventBus, store, Vue.$http, Vue.cookies)
 
 
 if (process.env.NODE_ENV == 'production') {
-  window.console.log = () => {
-
-  }
-  window.console.warn = () => {
-
-  }
-  window.console.error = () => {
-
-  }
+  // window.console.log = () => {
+  //
+  // }
+  // window.console.warn = () => {
+  //
+  // }
+  // window.console.error = () => {
+  //
+  // }
   window.console.debug = () => {
 
   }

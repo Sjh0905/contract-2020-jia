@@ -253,6 +253,10 @@ root.mounted = function () {
 
 // 计算symbol变化
 root.computed = {};
+// 用户id，判断是否登录
+root.computed.userId = function () {
+  return this.$store.state.authState.userId
+}
 // 计算是否有仓位和当前委托
 root.computed.isHasOrders = function (){
   if(!this.currentLength && !this.recordsIndex) return true
@@ -1462,7 +1466,7 @@ root.methods.re_isFirstVisit = function (data) {
   if (data.code == 1000) {
     this.popWindowContractRiskWarning = true
   } else {
-    this.popWindowContractRiskWarning = true
+    this.popWindowContractRiskWarning = false
 
   }
 }
@@ -1480,28 +1484,18 @@ root.methods.openAContract1 = function () {
 root.methods.re_openAContract = function (data) {
   typeof(data) == 'string' && (data = JSON.parse(data));
   if (data.code == 200) {
-    // if (this.invitreCodeInput != '') {
-    //   this.getInviteCode()
-    // }
-    // history.go(0)
-    // this.popWindowContractRiskWarning = false
+    history.go(0)
+    this.popWindowContractRiskWarning = false
   }
 }
-// // 获取焦点后关闭placheholder
-// root.methods.closePlaceholder = function (type) {
-//   // alert(type);
-//
-//   if (type == 'gname') {
-//     this.pswPlaceholderShow = false;
-//   }
-// }
-// 拼团名称输入
-root.methods.testName_0 = function () {
 
+//
+root.methods.openAContract = function () {
+  this.name_0 = ''
   // this.pswPlaceholderShow = true
 
   if (this.invitreCodeInput=='') {
-    this.getInviteCode()
+    this.openAContract1()
     return
   }
 
@@ -1514,39 +1508,18 @@ root.methods.testName_0 = function () {
 }
 
 root.methods.re_getInviteCodeId = function (data) {
-  console.info('data.========',data)
-  console.info('data-errorCode========',data.errorCode)
-  // typeof(data) == 'string' && (data = JSON.parse(data));
   if (data.errorCode == 3) {
-    console.info('data.========',data)
-    this.popWindowContractRiskWarning = false
-    setTimeout(() => {
-      this.popType = 0;
-      this.popText = '邀请人不存在';
-      this.promptOpen = true;
-    }, 2000)
-    return;
-    // this.name_0 = '邀请人不存在';
-    // return
-  }
-  if (data.result == 'FAIL') {
-    this.popType = 0;
-    this.popText = ' 邀请人不存在';
-    this.promptOpen = true;
-    return;
-    // this.name_0 = '邀请人不存在';
-    // return
+    this.name_0 = '邀请人不存在';
+    return
   }
   if (data.errorCode == 0) {
     this.getInviteCode()
   }
-
-  // this.name_0 = ''
-  // return true
 }
 
 
 root.methods.getInviteCode = function () {
+  this.name_0 = ''
   this.$http.send('GET_INVITE_CODE',{
     bind: this,
     urlFragment: this.invitreCodeInput,
@@ -1556,22 +1529,18 @@ root.methods.getInviteCode = function () {
 root.methods.re_getInviteCode = function (data) {
   //检测data数据是JSON字符串转换JS字符串
   typeof data === 'string' && (data = JSON.parse(data))
+  if (this.invitreCodeInput == this.userId) {
+    this.name_0 = '自己不能邀请自己';
+    return
+  }
   if (data.errorCode == 2) {
-    this.popType = 0;
-    this.popText = ' 邀请关系建立失败';
-    this.promptOpen = true;
+    this.name_0 = ' 邀请关系建立失败';
     return;
   }
   if (data.errorCode == 0) {
     this.openAContract1()
     return;
   }
-  // if (data.errorCode == 3) {
-  //   this.popType = 0;
-  //   this.popText = ' 邀请人不存在';
-  //   this.promptOpen = true;
-  //   return;
-  // }
 }
 
 /*// 计算symbol变化

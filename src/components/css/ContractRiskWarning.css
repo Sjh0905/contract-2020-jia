@@ -225,3 +225,16 @@
   font-family: PingFangSC-Regular, PingFang SC;
   font-weight: 400;
 }
+/*合约风险提示*/
+.hig {
+  height: 0.4rem;
+}
+.prompt-span {
+  display: inline-block;
+  /*padding-left: 25px;*/
+  padding-top: 0.06rem;
+  /*margin-bottom: 5px;*/
+}
+.wrong-msg {
+  color: #C43E4E;
+}

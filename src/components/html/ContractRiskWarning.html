@@ -48,11 +48,14 @@
       <div class="invitre-box">
         <div class="invitre-code">邀请码（非必填）</div>
         <input class="invitre-code-input" type="text" placeholder="请输入邀请码" v-model="invitreCodeInput">
+        <div class="hig">
+          <span class="prompt-span wrong-msg">{{name_0}}</span>
+        </div>
       </div>
 
 
       <div class="flex-mobile">
-        <div class=" footer-btn-mobile" @click="openContractH5">开通合约账户</div>
+        <div class=" footer-btn-mobile" @click="openAContract">开通合约账户</div>
       </div>
     </div>
 

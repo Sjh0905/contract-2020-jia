@@ -30,15 +30,15 @@ module.exports = {
         //   '^/apis': ''
         // }
       },
-      // '/crypto': {
-      //   // target: 'http://192.168.2.163', //新测试环境1
-      //   // target: 'http://www.2020.exchange', //新测试环境2
-      //   target:'https://www.2020.exchange',
-      //   changeOrigin: true,
-      //   pathRewrite: {
-      //     '^/crypto': ''
-      //   }
-      // },
+      '/apis': {
+        // target: 'http://192.168.2.163', //新测试环境1
+        // target: 'http://www.2020.exchange', //新测试环境2
+        target:'http://www.2020-ex.com',
+        changeOrigin: true,
+        // pathRewrite: {
+        //   '^/apis': ''
+        // }
+      },
       // '/v1': {
       //   target: 'http://192.168.2.70:8080/',
       //   changeOrigin: true,
