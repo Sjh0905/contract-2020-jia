@@ -73,9 +73,9 @@ if (process.env.NODE_ENV == 'production') {
   window.console.debug = () => {
 
   }
-  window.console.info = () => {
-
-  }
+  // window.console.info = () => {
+  //
+  // }
 }
 
 if (process.env.CLOSELOG == 'true') {
