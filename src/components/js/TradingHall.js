@@ -1518,6 +1518,7 @@ root.methods.re_getInviteCodeId = function (data) {
   console.info('data-errorCode========',data.errorCode)
   // typeof(data) == 'string' && (data = JSON.parse(data));
   if (data.errorCode == 3) {
+    console.info('data.========',data)
     this.popWindowContractRiskWarning = false
     setTimeout(() => {
       this.popType = 0;
