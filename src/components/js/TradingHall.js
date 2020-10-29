@@ -1458,10 +1458,12 @@ root.methods.isFirstVisit = function () {
 }
 root.methods.re_isFirstVisit = function (data) {
   typeof(data) == 'string' && (data = JSON.parse(data));
+  console.info('data-========re_isFirstVisit',data)
   if (data.code == 1000) {
     this.popWindowContractRiskWarning = true
   } else {
     this.popWindowContractRiskWarning = true
+
   }
 }
 
@@ -1512,7 +1514,9 @@ root.methods.testName_0 = function () {
 }
 
 root.methods.re_getInviteCodeId = function (data) {
-  typeof(data) == 'string' && (data = JSON.parse(data));
+  console.info('data-========',data)
+  console.info('data-========',errorCode)
+  // typeof(data) == 'string' && (data = JSON.parse(data));
   if (data.errorCode == 3) {
     this.popWindowContractRiskWarning = false
     setTimeout(() => {
