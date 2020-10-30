@@ -1,0 +1,47 @@
+<div class="current-entrustment-container">
+
+  <ul class="detail">
+
+    <li class="tr-th flex">
+      <!--序号-->
+      <div class="th td-time1">{{$t('序号')}}</div>
+      <!--账号-->
+      <div class="th td-time">{{$t('账号')}}</div>
+      <!--奖励-->
+      <div class="th td-trigger">{{$t('奖励')}}</div>
+
+    </li>
+    <!-- 表头 end -->
+    <!-- 如果加载完成、已登录、有数据，则显示数据 begin -->
+    <template v-if="!loading">
+      <template v-if="computedInviteCode.length!=0" >
+        <div class="temp-capit">
+          <li class="tr-td flex tr-td"
+              v-for="(item,index) in computedInviteCode" :key="index">
+            <!--序号-->
+            <div class="td td-time1">{{index+1}}</div>
+            <!--账号-->
+            <div class="td td-time" v-if="item.incomeType == 'TRANSFER' ">转账</div>
+            <!--奖励-->
+            <div class="td td-trigger">{{item.asset}}</div>
+          </li>
+        </div>
+      </template>
+      <!-- 如果加载完成、已登录、有数据，则显示数据 end -->
+
+      <!-- 如果没加载完成、没登录、没数据，则显示'--' begin -->
+      <template v-else>
+        <li class="weit">
+          <div class="nhtu"><img src="../../assets/noOrders.png"></div>
+          <span>{{$t('orderPageCurrentEntrustment.close_9')}}</span>
+        </li>
+      </template>
+    </template>
+  </ul>
+  <!-- 加载更多 begin -->
+  <div class="" v-if="loading">
+    <Loading/>
+  </div>
+  <!-- 加载更多 end -->
+
+</div>

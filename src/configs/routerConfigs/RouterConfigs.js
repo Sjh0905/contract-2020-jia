@@ -2404,6 +2404,21 @@ root.routes.push({
             requireLoginOff: false,
           },
         },
+        // 合约我的邀请
+        {
+          path: 'inviteCode',
+          name: 'inviteCode',
+          caseSensitive: true,
+          component: resolve => require(['@/components/vue/InviteCode'], resolve),
+          meta: {
+            pcname: 'inviteCode',
+            h5name: '',
+            requireLogin: false,
+            templateClose: false,
+            templatePath: '/index/orderPageT',
+            requireLoginOff: false,
+          },
+        },
 
 
       ]

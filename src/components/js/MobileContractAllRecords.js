@@ -11,6 +11,7 @@ root.data = function () {
     loading:true,
     capitalFlowList:[],
     capitalFlowListText:[],
+    mobileInviteCode:[],
     // tradinghallLimit: 10,
     openType:2,
     historicaList:[],//历史成交
@@ -71,6 +72,10 @@ root.computed.capitalFlowComputed = function () {
 root.computed.historyOrderComputed = function () {
   return this.historyOrder
 }
+// 历史委托属性的计算后，排序之类的写在这里
+root.computed.mobileInviteCodeComputed = function () {
+  return this.mobileInviteCode
+}
 /*------------------------------ 观察 -------------------------------*/
 root.watch = {}
 /*------------------------------ 方法 -------------------------------*/
@@ -113,6 +118,10 @@ root.methods.changeOpenType = function(num){
     this.$router.push({'path':'/index/mobileContractAllRecords',query:{id:5}})
     this.getCapitalFlow()
   }
+  if(num === 6) {
+    this.$router.push({'path':'/index/mobileContractAllRecords',query:{id:6}})
+    this.getInviteCode()
+  }
 
 }
 
@@ -146,6 +155,32 @@ root.methods.re_getCapitalFlow = function (data) {
 }
 // 资金流水错误回调
 root.methods.error_getCapitalFlow = function (err) {
+  console.log('获取币安24小时价格变动接口',err)
+}
+
+
+// 资金流水
+root.methods.getInviteCode = function () {
+  this.$http.send('',{
+    bind: this,
+    query:{
+      // symbol:'BTCUSDT'
+      timestamp:this.serverTime
+    },
+    callBack: this.re_getInviteCode,
+    errorHandler:this.error_getInviteCode
+  })
+}
+// 资金流水正确回调
+root.methods.re_getInviteCode = function (data) {
+  typeof(data) == 'string' && (data = JSON.parse(data));
+  if(!data && !data.data)return
+  this.loading = false
+  // console.info('data====',data.data)
+  this.mobileInviteCode = data.data || []
+}
+// 资金流水错误回调
+root.methods.error_getInviteCode = function (err) {
   console.log('获取币安24小时价格变动接口',err)
 }
 
