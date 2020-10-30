@@ -1887,6 +1887,11 @@ root.methods.positionModeSelectedConfirm = function () {
 }
 // 仓位模式选择确认正确回调
 root.methods.re_positionModeSelectedConfirm = function (data) {
+  if (data.code == 304) {
+    this.popType = 0;
+    this.popText = '用户没权限';
+    return
+  }
   typeof(data) == 'string' && (data = JSON.parse(data));
   if(!data && !data.data)return
   this.promptOpen = true;
@@ -1898,6 +1903,7 @@ root.methods.re_positionModeSelectedConfirm = function (data) {
     this.popWindowPositionModeBulletBox = false
     return
   }
+
   this.popType = 0;
   this.popText = '调整仓位模式失败';
 }
@@ -2083,6 +2089,11 @@ root.methods.re_postLevelrage = function (data) {
   // console.info('超过当前杠杆的最大允许持仓量',data,data.code)
   if (data.code == 303 && data.errCode == 2027) {
     this.popTextLeverage = '超过当前杠杆的最大允许持仓量';
+    return
+  }
+
+  if (data.code == 304) {
+    this.popTextLeverage = '用户无权限';
     return
   }
   typeof(data) == 'string' && (data = JSON.parse(data));
