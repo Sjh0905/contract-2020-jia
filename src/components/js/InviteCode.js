@@ -14,7 +14,7 @@ root.data = function () {
 }
 /*------------------------------ 生命周期 -------------------------------*/
 root.created = function () {
-  this.getCapitalFlow()
+  this.getInviteCode()
 }
 root.mounted = function () {}
 root.beforeDestroy = function () {}
@@ -37,19 +37,16 @@ root.watch = {}
 root.methods = {}
 
 // 资金流水
-root.methods.getCapitalFlow = function () {
-  this.$http.send('',{
+root.methods.getInviteCode = function () {
+  this.$http.send('GET_INVITE_LEST',{
     bind: this,
-    query:{
-      // symbol:'BTCUSDT'
-      timestamp:this.serverTime
-    },
-    callBack: this.re_getCapitalFlow,
-    errorHandler:this.error_getCapitalFlow
+    query:{},
+    callBack: this.re_getInviteCode,
+    errorHandler:this.error_getInviteCode
   })
 }
 // 资金流水正确回调
-root.methods.re_getCapitalFlow = function (data) {
+root.methods.re_getInviteCode = function (data) {
   typeof(data) == 'string' && (data = JSON.parse(data));
   if(!data && !data.data)return
   this.loading = false
@@ -57,7 +54,7 @@ root.methods.re_getCapitalFlow = function (data) {
   this.inviteCode = data.data || []
 }
 // 资金流水错误回调
-root.methods.error_getCapitalFlow = function (err) {
+root.methods.error_getInviteCode = function (err) {
   console.log('获取币安24小时价格变动接口',err)
 }
 /*---------------------- 保留小数 begin ---------------------*/

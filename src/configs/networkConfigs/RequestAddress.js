@@ -42,6 +42,7 @@ requestAddress.POST_NOTICE_LIST = {url: urlHead+'/apis/user/findNoticeList', met
 //邀请码
 requestAddress.GET_INVITE_CODE = {url: urlHead + '/apis/user/futureInviteRelation/', method: 'get'} // 邀请码
 requestAddress.GET_INVITE_ID = {url: urlHead + '/apis/user/verifyInvitedUserId/', method: 'get'} // 邀请码
+requestAddress.GET_INVITE_LEST = {url: urlHead + '/future/user/getFutureInviteData', method: 'get'} // 邀请码记录
 
 
 

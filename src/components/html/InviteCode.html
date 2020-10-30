@@ -21,9 +21,9 @@
             <!--序号-->
             <div class="td td-time1">{{index+1}}</div>
             <!--账号-->
-            <div class="td td-time" v-if="item.incomeType == 'TRANSFER' ">转账</div>
+            <div class="td td-time">{{item.beInvitedEmail}}</div>
             <!--奖励-->
-            <div class="td td-trigger">{{item.asset}}</div>
+            <div class="td td-trigger">{{item.sum_amount}}{{item.currency}}</div>
           </li>
         </div>
       </template>
