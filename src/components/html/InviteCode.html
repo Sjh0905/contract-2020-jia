@@ -23,7 +23,7 @@
             <!--账号-->
             <div class="td td-time">{{item.beInvitedEmail}}</div>
             <!--奖励-->
-            <div class="td td-trigger">{{item.sum_amount}}{{item.currency}}</div>
+            <div class="td td-trigger">{{toFixed(item.sum_amount,8)}}{{item.currency}}</div>
           </li>
         </div>
       </template>

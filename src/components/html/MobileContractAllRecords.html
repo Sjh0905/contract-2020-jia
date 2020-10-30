@@ -26,7 +26,7 @@
         资金流水
       </div>
       <div class="header-title-item" :class="openType==6? 'header-title-item-active':''" @click="changeOpenType(6)">
-        我的邀请
+        合约邀请
       </div>
     </div>
 
@@ -193,15 +193,14 @@
         <div class="no-item-box-text">暂无记录</div>
       </div>
       <!--有=记录的样子-->
+      <!--有=记录的样子-->
       <div v-if="mobileInviteCodeComputed.length !== 0 && !loading" class="con-withdraw-list">
         <div v-for="(item,index) in mobileInviteCodeComputed" :key="index" class="flex withdraw-item">
           <!--时间-->
-          <div class="td-time1">
-            <div class="asset-text">{{item}}</div>
-            <div class="time-text pt">{{item}}</div>
-          </div>
+          <div class="td-time incomeType-text">{{index+1}}</div>
+          <div class="td-time incomeType-text">{{item.beInvitedEmail}}</div>
           <!--类型-->
-          <div class="td-time1 income-text tar">{{toFixed(item,8)}}</div>
+          <div class="td-time1 income-text tar">{{toFixed(item.sum_amount,8)}}{{item.currency}}</div>
         </div>
       </div>
   </div>

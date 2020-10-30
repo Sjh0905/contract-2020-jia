@@ -36,7 +36,7 @@ root.watch = {}
 /*------------------------------ 方法 -------------------------------*/
 root.methods = {}
 
-// 资金流水
+// yaoqing
 root.methods.getInviteCode = function () {
   this.$http.send('GET_INVITE_LEST',{
     bind: this,

@@ -161,12 +161,9 @@ root.methods.error_getCapitalFlow = function (err) {
 
 // 资金流水
 root.methods.getInviteCode = function () {
-  this.$http.send('',{
+  this.$http.send('GET_INVITE_LEST',{
     bind: this,
-    query:{
-      // symbol:'BTCUSDT'
-      timestamp:this.serverTime
-    },
+    query:{},
     callBack: this.re_getInviteCode,
     errorHandler:this.error_getInviteCode
   })
