@@ -17,7 +17,7 @@ root.props.m_new_interval = {
 
 let widget;
 // 存储当前选定区间
-let new_interval = "15";
+let new_interval = "1";
 
 // k线开始时间
 let startTime = 0;
