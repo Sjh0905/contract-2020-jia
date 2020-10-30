@@ -65,8 +65,8 @@ root.data = function () {
     select_name: '',
 
     // 当前选中哪个
-    tradingTitle: '15分',
-    tradingNum: '15',
+    tradingTitle: '1分',
+    tradingNum: '1',
     is_more: true,
     interval_btn_list: [{title: '分时'}, {title: '1分'}, {title: '5分'}, {title: '15分'}, {title: '30分'}, {title: '1小时'}, {title: '4小时'}, {title: '日线'}],
 
