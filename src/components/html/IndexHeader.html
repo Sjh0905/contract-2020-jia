@@ -64,13 +64,11 @@
             </div>
 
 
-            <router-link to="/index/home" class="mobile-header-login-box">
-            <span>
-              <img class="mobile-header-login-box-imgs" src="../../assets/H5-LOGO.png" alt="">
-
-
-            </span>
-            </router-link>
+            <div class="mobile-header-login-box" @click="goToHome">
+              <span>
+                <img class="mobile-header-login-box-imgs" src="../../assets/H5-LOGO.png" alt="">
+              </span>
+            </div>
           </div>
 
           <!--        <div class="mobile-header-icon-flag" @click="clickChangePopOpen">-->
@@ -326,17 +324,17 @@
                       <div @click="goToRecord"
                         class="navigation-item-hidden-list-item-router"
                         active-class="item_selected">
-                        <!--百日庆之百宝箱-->
+                        <!--百宝箱-->
                         {{$t('celebration')}}
                       </div>
                     </li>
 
-                    <!--区块恋-->
+                    <!--区块安-->
                     <li class="navigation-item-hidden-list-item">
                       <div @click="goToProducts"
                         class="navigation-item-hidden-list-item-router"
                         active-class="item_selected">
-                        <!--区块恋-->
+                        <!--区块安-->
                         {{$t('blockLove')}}
                       </div>
                     </li>
@@ -419,15 +417,6 @@
                       </div>
                     </li>
 
-                    <!-- 法币账户 暂时屏蔽 bebgin-->
-                    <li class="navigation-item-hidden-list-item">
-                      <div @click="goToLegalCurrency"
-                        class="navigation-item-hidden-list-item-router"
-                        active-class="item_selected">
-                        {{$t('recharge')}}
-                      </div>
-                    </li>
-                    <!--法币账户 暂时屏蔽 end-->
                     <!-- 合约账户 暂时屏蔽 bebgin-->
                     <li class="navigation-item-hidden-list-item">
                       <div @click="goToLegalPosition"
@@ -437,6 +426,17 @@
                       </div>
                     </li>
                     <!--合约账户 暂时屏蔽 end-->
+
+                    <!-- 法币账户 暂时屏蔽 bebgin-->
+                    <li class="navigation-item-hidden-list-item">
+                      <div @click="goToLegalCurrency"
+                        class="navigation-item-hidden-list-item-router"
+                        active-class="item_selected">
+                        {{$t('recharge')}}
+                      </div>
+                    </li>
+                    <!--法币账户 暂时屏蔽 end-->
+
 
 <!--                    财务记录-->
                     <li class="navigation-item-hidden-list-item">
@@ -482,6 +482,15 @@
                         {{$t('currentEntrust')}}
                       </div>
                     </li>
+                    <!-- 合约订单-->
+                    <li class="navigation-item-hidden-list-item">
+                      <div class="navigation-item-hidden-list-item-router"
+                           @click="goToFrenchApi"
+                           active-class="item_selected"
+                      >
+                        {{$t('合约订单')}}
+                      </div>
+                    </li>
                     <!-- 法币订单-->
                     <li class="navigation-item-hidden-list-item">
                       <div class="navigation-item-hidden-list-item-router"
@@ -491,15 +500,7 @@
                         {{$t('frenchCurrency')}}
                       </div>
                     </li>
-                    <!-- 合约订单-->
-                    <li class="navigation-item-hidden-list-item">
-                      <div class="navigation-item-hidden-list-item-router"
-                           @click="goToFrenchApi"
-                        active-class="item_selected"
-                      >
-                        {{$t('合约订单')}}
-                      </div>
-                    </li>
+
                   </ul>
                   <!--隐藏的标签 end-->
                 </li>

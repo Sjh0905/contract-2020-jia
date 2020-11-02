@@ -156,6 +156,12 @@
   height:16px;
   margin-right: 6px;
 }
+.progress-bar-title-assets-transfer-icon {
+  width:18px;
+  height:18px;
+  margin-left: 5px;
+  cursor: pointer;
+}
 .progress-bar-title-assets-available {
   font-size:12px;
   font-family:Roboto-Regular,Roboto;

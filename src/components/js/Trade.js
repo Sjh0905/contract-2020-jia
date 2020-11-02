@@ -12,12 +12,12 @@ root.props.topic_bar = {
 }
 root.props.m_new_interval = {
   type: String,
-  default: '15'
+  default: '1'
 }
 
 let widget;
 // 存储当前选定区间
-let new_interval = "15";
+let new_interval = "1";
 
 // k线开始时间
 let startTime = 0;
@@ -629,15 +629,15 @@ root.methods.initViews = function (lang) {
 		widget.onChartReady(function () {
 			// !self.$store.state.isMobile && widget.chart().createStudy('MACD', false, true);
       widget.chart().createStudy('Moving Average', false, false,[7, 'close', 0], null, {
-        'Plot.color': '#F902F9',
+        'Plot.color': '#07F8F8',
         'Plot.linewidth': 2
       });
       widget.chart().createStudy('Moving Average', false, false,[25, 'close', 0], null, {
-        'Plot.color': '#DD1774',
+        'Plot.color': '#FE00FF',
         'Plot.linewidth': 2
       });
-      !self.$store.state.isMobile && widget.chart().createStudy('Moving Average', false, false,[99, 'close', 0], null, {
-        'Plot.color': '#29E4EE',
+      widget.chart().createStudy('Moving Average', false, false,[55, 'close', 0], null, {
+        'Plot.color': '#FF8011',
         'Plot.linewidth': 2
       });
 

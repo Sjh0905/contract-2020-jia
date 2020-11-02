@@ -2,7 +2,7 @@ const root = {}
 root.name = 'MobileContractAllRecords'
 /*------------------------------ 组件 ------------------------------*/
 root.components = {
- // 'Loading': resolve => require(['../Loading/Loading.vue'], resolve),
+ 'Loading': resolve => require(['../vue/Loading.vue'], resolve),
   'HiddenDetail': resolve => require(['../vue/MobileHistoricalDetails'], resolve),
 }
 /*------------------------------ data -------------------------------*/
@@ -278,7 +278,7 @@ root.methods.showDetail = function (order) {
 
   if (this.clickThis === order.orderId && order.status == 'FILLED') {
     // this.$router.push('/index/mobileHistoricalDetails')
-    this.$router.push({name:'mobileHistoricalDetails',query:{order:this.order,startTime:this.startTime,endTime:this.endTime}})
+    this.$router.push({name:'mobileHistoricalDetails',query:{order:order,startTime:this.startTime,endTime:this.endTime}})
   }
   // console.info('this.firstTime===',this.startTime,this.endTime)
 }

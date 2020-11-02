@@ -2,11 +2,11 @@
   <div class="header-title-select-hq flex">
     <div class="hangqing-title flex-cloum">
       <div class="flex">
-        <div class="hangqingtu"  @click="openhangq">
-        <img src="../../assets/H5img/hangqing.png" alt="">
-      </div>
+        <!--<div class="hangqingtu"  @click="openhangq">-->
+          <!--<img src="../../assets/H5img/hangqing.png" alt="">-->
+        <!--</div>-->
         <div class="hangqingbid">
-          {{symbol | e}}
+          {{capitalSymbol | e}}
         </div>
       </div>
       <!--弹框按钮-->
@@ -20,8 +20,11 @@
     </div>
     <div class="flex-cloum">
       <div class="flex right-icon">
-        <div class="hangqingkline" @click="openkexian()">
+        <div class="transfer-hangqingkline" @click="openkexian()">
           <img src="../../assets/H5img/hangqkline.png" alt="">
+        </div>
+        <div class="hangqingkline" @click="openTransfer()">
+          <img src="../../assets/transfer-icon@2x.png" alt="">
         </div>
         <div class="hangqingkline" @click="goToCalculator()">
           <img src="../../assets/H5img/calculator.png" alt="">
@@ -113,7 +116,7 @@
         </div>
 
         <div class="mobile-container-useable">
-          <span class="">{{$t("progressBar.able")}}</span> <span>{{(currentSymbol.balance && currentSymbol.balance == '--' ? '--' : $globalFunc.accFixed(currentSymbol.balance, 6) || 0 )+ '&nbsp;' + this.$store.state.symbol.split('_')[1]}}</span>
+          <span class="">{{$t("progressBar.able")}}</span> <span>{{toFixed(availableBalance,2)}} USDT</span>
         </div>
 
 <!--        <div class="mobile-select-num">-->
@@ -231,7 +234,7 @@
       </div>
       <!--右侧部分-->
       <div class="right-container">
-        <H5StockCross :buy_sale_list="buy_sale_list" :socket_snap_shot="socket_snap_shot" :socket_tick="socket_tick" :isNowPrice="isNowPrice" :direction="direction" :markPrice="markPrice"/>
+        <H5StockCross :buy_sale_list="buy_sale_list" :socket_snap_shot="socket_snap_shot" :socket_tick="socket_tick" :isNowPrice="isNowPrice" :direction="direction" :markPrice="markPrice" :setTransactionPrice="setTransactionPrice"/>
       </div>
       <div class="clear"></div>
     <div class="current-top-line"/>
@@ -250,7 +253,7 @@
 
   <!--仓位-->
   <div v-if="listType== 'holdPosition'" class="container-current-page">
-    <PositionList :latestPriceVal = 'latestPriceVal' :effectiveTime = 'effectiveTime' :markPrice = 'markPrice' @getPositionRisk="getIndex"/>
+    <PositionList :latestPriceVal = 'isNowPrice' :effectiveTime = 'effectiveTime' :markPrice = 'markPrice' @getPositionRisk="getIndex" :availableBalance='availableBalance'/>
   </div>
 
   <!--当前委托页-->

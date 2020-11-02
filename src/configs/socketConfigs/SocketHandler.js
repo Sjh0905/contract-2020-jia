@@ -53,9 +53,9 @@ export default class {
         "!ticker@arr"
       ]
 
-      // subscribeStreamArr.push("btcusdt@kline_1m");
+      subscribeStreamArr.push("btcusdt@kline_1m");
       // subscribeStreamArr.push("btcusdt@kline_5m");
-      subscribeStreamArr.push(this.symbol + "@kline_15m");
+      // subscribeStreamArr.push(this.symbol + "@kline_15m");
       // subscribeStreamArr.push("btcusdt@kline_30m");
       // subscribeStreamArr.push("btcusdt@kline_1h");
       // subscribeStreamArr.push("btcusdt@kline_4h");

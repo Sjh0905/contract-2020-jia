@@ -31,11 +31,11 @@ root.data = function () {
 
     /*下拉框2 begin*/
     latestPrice:'最新',
-    latestPriceOption:['最新','标记'],
+    latestPriceOption:['标记','最新'],
     /*下拉框2 end*/
 
     triggerPrice:'', // 触发价格
-    checkPrice:2, // 限价---被动委托，生效时间选择
+    checkPrice:1, // 限价---被动委托，生效时间选择
     reducePositionsSelected: false,//只减仓状态
 
     //买卖列表
@@ -183,6 +183,8 @@ root.data = function () {
     callFuncName:'',//即将调用接口的函数名字
     splicedFrameText:'',
     marketPriceClick: false, //市价不能多次点击设置
+
+    availableBalance:0,
   }
 }
 
@@ -217,7 +219,7 @@ root.created = function () {
     this.$store.commit('changeMobileHeaderTitle', '历史委托');
   }
 
-  this.checkPrice ==1 ? this.effectiveTime='GTX' : this.effectiveTime='GTC'
+  this.checkPrice ==2 ? this.effectiveTime='GTX' : this.effectiveTime='GTC'
 
   // 获取BDB是否抵扣
   // this.getBDBInfo()
@@ -266,10 +268,12 @@ root.created = function () {
   this.positionRisk()  // 获取仓位信息（全逐仓、杠杆倍数）
   this.getPositionsideDual() // 获取仓位模式
   this.getMarkPricesAndCapitalRates()  // 获取币安最新标记价格和资金费率
-
+  this.getLatestrice()
   this.isFirstVisit();
-  this.chainCal = this.$globalFunc.chainCal
+  this.getBalance()
 
+  this.$eventBus.listen(this,'GET_BALANCE',this.getBalance)
+  this.chainCal = this.$globalFunc.chainCal
 }
 
 /*------------------------------ 组件 begin -------------------------------*/
@@ -1069,6 +1073,24 @@ root.computed.maxPosition = function () {
 /*------------------------------ 方法 begin -------------------------------*/
 
 root.methods = {}
+// 获取用户可用余额
+root.methods.getBalance = function () {
+  this.$http.send('GET_BALAN_ACCOUNT',{
+    bind: this,
+    callBack: this.re_getBalance,
+    errorHandler:this.error_getBalance
+  })
+}
+// 获取用户可用余额正确回调
+root.methods.re_getBalance = function (data) {
+  typeof(data) == 'string' && (data = JSON.parse(data));
+  if(!data || !data.data || !data.data[0])return
+  this.availableBalance  = data.data[0].availableBalance || 0
+}
+// 获取用户可用余额错误回调
+root.methods.error_getBalance = function (err) {
+  console.log('获取用户可用余额',err)
+}
 // 非法数据拦截
 root.methods.openClosePsWindowClose = function (){
   // 限价价格非空判断
@@ -1163,7 +1185,7 @@ root.methods.postFullStop = function () {
   // 如果是平空或者平多，买入量不得大于可平数量
 
   let params = {}
-  let latestOrMarkPrice = this.latestPrice == '最新价格' ? Number(this.latestPriceVal) : Number(this.markPrice)
+  let latestOrMarkPrice = this.latestPrice == '最新' ? Number(this.latestPriceVal) : Number(this.markPrice)
   if((this.isHasModule('kaipingType') == 2 && this.isHasModule('buttonType') == 3) && ((!this.orderType && Math.abs(this.positionAmtShort) < Number(this.amount)) || (this.orderType && Math.abs(this.positionAmtLong) < Number(this.amount)))){
     this.promptOpen = true;
     this.popType = 0;
@@ -1201,7 +1223,7 @@ root.methods.postFullStop = function () {
       symbol: "BTCUSDT",
       timeInForce: this.effectiveTime,
       orderType: (this.orderType && Number(this.triggerPrice) < latestOrMarkPrice) || (!this.orderType && (Number(this.triggerPrice) >= latestOrMarkPrice)) ? "STOP" : "TAKE_PROFIT",
-      workingType: this.latestPrice == '最新价格'? 'CONTRACT_PRICE':'MARK_PRICE',
+      workingType: this.latestPrice == '最新'? 'CONTRACT_PRICE':'MARK_PRICE',
     }
   }
   // 单仓 市价止盈止损
@@ -1215,7 +1237,7 @@ root.methods.postFullStop = function () {
       stopPrice: this.triggerPrice,
       symbol: "BTCUSDT",
       orderType: (this.orderType && (Number(this.triggerPrice) < latestOrMarkPrice)) || (!this.orderType && (Number(this.triggerPrice) >= latestOrMarkPrice)) ? "STOP_MARKET" : "TAKE_PROFIT_MARKET",
-      workingType: this.latestPrice == '最新价格'? 'CONTRACT_PRICE':'MARK_PRICE',
+      workingType: this.latestPrice == '最新'? 'CONTRACT_PRICE':'MARK_PRICE',
     }
   }
   // 双仓 开仓 限价止盈止损
@@ -1230,7 +1252,7 @@ root.methods.postFullStop = function () {
       symbol: "BTCUSDT",
       timeInForce: this.effectiveTime,
       orderType: ((this.orderType && (Number(this.triggerPrice) < latestOrMarkPrice)) || (!this.orderType && (Number(this.triggerPrice) >= latestOrMarkPrice))) ? 'STOP' : 'TAKE_PROFIT',
-      workingType: this.latestPrice == '最新价格'? 'CONTRACT_PRICE':'MARK_PRICE',
+      workingType: this.latestPrice == '最新'? 'CONTRACT_PRICE':'MARK_PRICE',
     }
   }
   // 双仓 开仓 市价止盈止损
@@ -1243,7 +1265,7 @@ root.methods.postFullStop = function () {
       stopPrice: this.triggerPrice,
       symbol: "BTCUSDT",
       orderType: ((!this.orderType && Number(this.triggerPrice) < latestOrMarkPrice) || (this.orderType && Number(this.triggerPrice) >= latestOrMarkPrice)) ? "TAKE_PROFIT_MARKET" : "STOP_MARKET",
-      workingType: this.latestPrice == '最新价格'? 'CONTRACT_PRICE':'MARK_PRICE',
+      workingType: this.latestPrice == '最新'? 'CONTRACT_PRICE':'MARK_PRICE',
     }
   }
   // 双仓 平仓 限价止盈止损
@@ -1258,7 +1280,7 @@ root.methods.postFullStop = function () {
       symbol: "BTCUSDT",
       timeInForce: this.effectiveTime,
       orderType: ((this.orderType && Number(this.triggerPrice) < latestOrMarkPrice)||(!this.orderType && Number(this.triggerPrice) >= latestOrMarkPrice)) ? 'STOP':'TAKE_PROFIT',
-      workingType: this.latestPrice == '最新价格'? 'CONTRACT_PRICE':'MARK_PRICE',
+      workingType: this.latestPrice == '最新'? 'CONTRACT_PRICE':'MARK_PRICE',
     }
   }
   // 双仓 平仓 市价止盈止损
@@ -1271,7 +1293,7 @@ root.methods.postFullStop = function () {
       stopPrice: this.triggerPrice,
       symbol: "BTCUSDT",
       orderType: ((this.orderType && Number(this.triggerPrice) < latestOrMarkPrice) || (!this.orderType && Number(this.triggerPrice) >=  latestOrMarkPrice)) ? "STOP_MARKET" : "TAKE_PROFIT_MARKET",
-      workingType: this.latestPrice == '最新价格'? 'CONTRACT_PRICE':'MARK_PRICE',
+      workingType: this.latestPrice == '最新'? 'CONTRACT_PRICE':'MARK_PRICE',
     }
   }
   // Object.assign(params, {type: "LIMIT",});
@@ -1865,6 +1887,11 @@ root.methods.positionModeSelectedConfirm = function () {
 }
 // 仓位模式选择确认正确回调
 root.methods.re_positionModeSelectedConfirm = function (data) {
+  if (data.code == 304) {
+    this.popType = 0;
+    this.popText = '用户无权限';
+    return
+  }
   typeof(data) == 'string' && (data = JSON.parse(data));
   if(!data && !data.data)return
   this.promptOpen = true;
@@ -1876,6 +1903,7 @@ root.methods.re_positionModeSelectedConfirm = function (data) {
     this.popWindowPositionModeBulletBox = false
     return
   }
+
   this.popType = 0;
   this.popText = '调整仓位模式失败';
 }
@@ -1999,10 +2027,10 @@ root.methods.isHasModule = function (type) {
 root.methods.priceLimitSelection = function (checkPrice) {
   this.checkPrice = checkPrice
   if(checkPrice == 2) {
-    this.effectiveTime = 'GTC'
+    this.effectiveTime = 'GTX'
     return
   }
-  this.effectiveTime = 'GTX'
+  this.effectiveTime = 'GTC'
 }
 //被动委托 end
 
@@ -2044,6 +2072,10 @@ root.methods.re_positionRisk = function (data) {
 }
 // 调整杠杆接口调取
 root.methods.postLevelrage = function () {
+
+  if(!this.isLogin){
+    window.location.replace(this.$store.state.contract_url + 'index/sign/login')
+  }
   this.$http.send('POST_LEVELRAGE',{
     bind: this,
     params:{
@@ -2057,6 +2089,11 @@ root.methods.re_postLevelrage = function (data) {
   // console.info('超过当前杠杆的最大允许持仓量',data,data.code)
   if (data.code == 303 && data.errCode == 2027) {
     this.popTextLeverage = '超过当前杠杆的最大允许持仓量';
+    return
+  }
+
+  if (data.code == 304) {
+    this.popTextLeverage = '用户无权限';
     return
   }
   typeof(data) == 'string' && (data = JSON.parse(data));
@@ -2118,7 +2155,10 @@ root.methods.re_getLatestrice = function (data) {
   // this.marketSymbolList = this.$globalFunc.mergeObj(data.data[0], this.marketSymbolList);
 
   let price = data.data[0].price
+  console.info('price===',price)
   this.latestPriceVal = (price || '').toString()
+
+  this.setTransactionPrice(this.latestPriceVal);//第一次进入页面价格要赋值
   // this.latestPriceVal = ((price != undefined || price != null) &&  price) || ''
   // this.latestPriceVal = (Number(price) || '').toString()
 
@@ -2975,8 +3015,10 @@ root.computed.transactionAmount = function () {
 root.computed.transactionPrice = function () {
   return this.price;
 }
-
-
+// 检验是否登录
+root.computed.isLogin = function () {
+  return this.$store.state.isLogin;
+}
 root.watch = {};
 root.watch.amount = function (newValue, oldValue) {
   let value = newValue.toString();
@@ -3437,7 +3479,7 @@ root.methods.gotoShichang = function () {
 /*---------------------- 跳入到资产页面 ---------------------*/
 root.methods.gotoZichan = function () {
   // this.$router.push({name: 'MobileAssetRechargeAndWithdrawals'});
-  window.location.replace(this.$store.state.contract_url + 'index/MobileAssetRechargeAndWithdrawals');
+  window.location.replace(this.$store.state.contract_url + 'index/mobileAsset/mobileAssetRechargeAndWithdrawals');
 }
 
 /*---------------------- 跳入到交易页面 ---------------------*/
@@ -3520,6 +3562,12 @@ root.methods.re_isFirstVisit = function (data) {
 root.methods.openAllRecords = function () {
   this.$router.push('/index/mobileContractAllRecords')
 }
+//划转
+root.methods.openTransfer = function () {
+  window.location.replace(this.$store.state.contract_url + 'index/mobileAsset/mobileAssetRechargeAndWithdrawals?toWebTransfer=true');
+  // window.location.replace('http://ccc.2020-ex.com:8085/index/mobileAsset/mobileAssetRechargeAndWithdrawals?toWebTransfer=true');
+}
+
 
 //当前委托，仓位持仓切换
 root.methods.listSwitching = function (listType) {

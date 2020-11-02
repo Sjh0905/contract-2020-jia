@@ -1,6 +1,6 @@
 {
   "CH": {
-    "Change":"涨幅",
+    "Change":"涨跌率",
     "High":"24H高",
     "Low":"24H低",
     "Volum":"24H量",
@@ -70,7 +70,7 @@
     "InTheLastWeek":"지난주"
   },
   "CHT": {
-    "Change":"漲幅",
+    "Change":"漲跌率",
     "High":"24H高",
     "Low":"24H低",
     "Volum":"24H量",

@@ -36,7 +36,8 @@
       <p class="radiuse_green" v-if="calculatorValue>=100" @click="calculatorValue=100" style="cursor:pointer"></p>
       <el-slider
         v-model="calculatorValue"
-        class="el-slider-style"
+        class="el-slider-style-h5"
+        tooltip-class="my-tooltip"
         :marks="calculatorMarks"
         :format-tooltip="formatTooltip"
         :max="125"
@@ -76,7 +77,7 @@
         <div class="css-5h0skw">成交数量</div>
       </div>
       <input type="text" class="calculator-content-ipt" placeholder="0.00" v-model="transactionQuantity">
-      <span class="calculator-content-currency">USDT</span>
+      <span class="calculator-content-currency">BTC</span>
     </div>
     <!--计算结果-->
     <div class="pop-calculator-result">

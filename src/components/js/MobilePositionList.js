@@ -11,7 +11,7 @@ root.props.latestPriceVal = {
   type: String,
   default: ''
 }
-// 最新价格/市价
+// 可用余额
 root.props.availableBalance = {
   type: Number,
   default: 0
@@ -56,7 +56,7 @@ root.data = function () {
     symbol:'' ,// 仓位币种
     positionSide:'', // 仓位方向
     marketPriceClick: false, //市价不能多次点击设置
-    checkPriceClick: false, //限价不能多次点击设置
+    // checkPriceClick: false, //限价不能多次点击设置
     popOpen:false,   // 一键平仓弹框
     waitForCancel: false, //是否开启等待
 
@@ -99,7 +99,7 @@ root.data = function () {
     inputBoxPrice : 0, // 弹窗价格
     inputBoxAmount:0, // 弹窗数量
     numed:0,
-    popUnrealizedProfit:0, // 未实现盈亏
+    popUnrealizedProfitNew:0, // 未实现盈亏
     positionSelect: null, // 选中的仓位数据
 
   }
@@ -110,6 +110,10 @@ root.watch.markPrice = function(newVal,oldVal) {
   // console.info(newVal)
   this.handleWithMarkPrice(this.records)
 }
+// root.watch.latestPriceVal = function(newVal,oldVal) {
+//   // console.info(newVal)
+//   this.handleWithMarkPrice(this.records)
+// }
 root.watch.walletBalance = function(newVal,oldVal) {
   // console.info(newVal)
 }
@@ -201,7 +205,26 @@ root.computed.LPCalculationType = function () {
 
 /*------------------------------ 方法 -------------------------------*/
 root.methods = {}
+// 仓位平仓非法数据拦截
+root.methods.openClosingPositions = function (){
+  if(this.orderTypes == '限价' && (this.inputBoxPrice== '' || this.inputBoxPrice == 0) ) {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '请输入正确的价格';
+    return false
+  }
+
+  if(this.inputBoxAmount== '' || this.inputBoxAmount == 0) {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '请输入正确的数量';
+    return false
+  }
+  return true
+}
+// 提交平仓按钮
 root.methods.commit = function () {
+
   if(this.orderTypes == '限价') {
     this.checkPrice()
     return
@@ -225,7 +248,9 @@ root.methods.openPopWindowOpenPs = function (item){
   // console.info('item===',item)
   this.positionSelect = item || {}
   // 未实现盈亏
-  this.popUnrealizedProfit = item.unrealizedProfit || 0
+  this.inputBoxPrice = this.latestPriceVal || 0
+  //弹窗显示的未实现盈亏 = ( ( New Price - Entry Price ) * size ) / （Mark Price * abs(size) * IMR）,IMR = 1/杠杆倍数
+  this.popUnrealizedProfitNew = this.accMul( this.accMinus(this.latestPriceVal || 0,item.entryPrice || 0),item.positionAmt || 0 )
   this.inputBoxAmountTemp = item.positionAmt || 0
   this.inputBoxAmount = Math.abs(this.inputBoxAmountTemp)
   this.popWindowOpenPs = true
@@ -273,6 +298,10 @@ root.methods.re_commitModifyMargin = function (data) {
     this.increaseAmount = ''
     this.reduceAmount = ''
     this.modifyMarginClose()
+    this.controlType = false
+    this.popText = '修改保证金成功'
+    this.popType = 1;
+    this.promptOpen = true;
     return;
   }
   if (data.code != 200) {
@@ -568,6 +597,8 @@ root.methods.handleWithMarkPrice = function(records){
     v.responseRate = this.accMul(this.accDiv(v.unrealizedProfitPage || 0,msi || 1),100)
     v.responseRate = Number(v.responseRate).toFixed(2) + '%'
 
+
+    // console.log('v.unrealizedProfitPageNew',i,this.latestPriceVal,v.unrealizedProfitPageNew)
     // console.log('v.responseRate.toFixed',i,v.responseRate)
     // this.changePositonAmt(v)
     if(v.marginType == 'cross'){
@@ -858,6 +889,7 @@ root.methods.addAdlQuantile = function(currSAdlQuantile,records){
 
 //开启拦截弹窗
 root.methods.openSplicedFrame = function () {
+  if(!this.openClosingPositions())return
   this.positionInfo = this.positionSelect || {}
   let closePosition = this.positionSelect.positionAmt > 0 ?'平多':'平空'
   // console.info('this.positionInfo==',this.positionInfo,item.symbol.slice(0,3))
@@ -890,7 +922,7 @@ root.methods.confirmFrame = function () {
   if(this.orderTypes == '市价'){
     this.marketPrice()
   }
-  this.showSplicedFrame = false
+
 }
 //关闭下单弹框
 root.methods.closeFrame = function () {
@@ -962,6 +994,7 @@ root.methods.re_marketPrice = function (data) {
   // 关闭弹框
   this.closePopMarket()
   this.popWindowClosePs()
+  this.showSplicedFrame = false
   if(data.data.status == 'NEW') {
     this.popType = 1;
     this.popText = '下单成功';
@@ -1086,6 +1119,7 @@ root.methods.re_checkPrice = function (data) {
   //   this.priceCheck = JSON.parse(localStorage.getItem('PRICE_CHECK'));
   // }
   this.order = data.data
+  this.showSplicedFrame = false
 
   if(data.data.status == 'NEW') {
     this.popType = 1;
@@ -1144,10 +1178,10 @@ root.methods.ensurePop = async function () {
   this.closePop()
 }
 
-// 获取记录出错
-root.methods.error_marketPrice = function (err) {
-  console.warn("充值获取记录出错！", err)
-}
+// // 获取记录出错
+// root.methods.error_marketPrice = function (err) {
+//   console.warn("充值获取记录出错！", err)
+// }
 
 
 //取消平仓

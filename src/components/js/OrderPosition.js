@@ -220,6 +220,9 @@ root.methods.re_commitModifyMargin = function (data) {
     this.increaseAmount = ''
     this.reduceAmount = ''
     this.modifyMarginClose()
+    this.popText = '修改保证金成功'
+    this.popType = 1;
+    this.promptOpen = true;
     return;
   }
   if (data.code != 200) {

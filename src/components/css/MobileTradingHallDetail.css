@@ -1322,9 +1322,16 @@
 }
 
 .hangqingkline img{
-  width: 0.57rem;
+  width: 0.56rem;
   vertical-align: middle;
   /*margin-top: 13px;*/
+}
+.transfer-hangqingkline {
+  margin-right: 0.2rem;
+}
+.transfer-hangqingkline img{
+  width: 0.59rem;
+  vertical-align: middle;
 }
 .fund-all {
   margin-top: 0.1rem;
