@@ -824,6 +824,12 @@ root.methods.marginModeConfirm = function () {
   })
 }
 root.methods.re_marginModeConfirm = function (data) {
+  if(data.code == 304) {
+    this.popType = 0;
+    this.popText = '用户无权限';
+    this.promptOpen = true;
+    return
+  }
   typeof(data) == 'string' && (data = JSON.parse(data));
   if(data.code == 200) {
     this.popType = 1;

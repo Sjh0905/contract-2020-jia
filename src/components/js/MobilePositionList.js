@@ -984,6 +984,12 @@ root.methods.re_marketPrice = function (data) {
     this.popText = '参数错误';
     return
   }
+  if(data.code == 304) {
+    this.popType = 0;
+    this.promptOpen = true;
+    this.popText = '用户无权限';
+    return
+  }
   typeof data === 'string' && (data = JSON.parse(data))
   if (!data) return
   this.popOpen = false
@@ -1102,6 +1108,13 @@ root.methods.re_checkPrice = function (data) {
     this.popText = '参数错误';
     return
   }
+
+  if(data.code == 304) {
+    this.popType = 0;
+    this.promptOpen = true;
+    this.popText = '用户无权限';
+    return
+  }
   typeof data === 'string' && (data = JSON.parse(data))
   if (!data) return
   this.$eventBus.notify({key:'GET_ORDERS'})
@@ -1200,6 +1213,12 @@ root.methods.cancelThePosition = async function () {
 }
 // 返回
 root.methods.re_cancelOrder = function (data) {
+  if (data.code == '304') {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '用户无权限';
+    return
+  }
   // this.$eventBus.notify({key: 'CANCEL_ORDER'})
   this.priceCheck[data.data.positionSide] = 0
   this.promptOpen = true;
