@@ -1907,6 +1907,7 @@ root.methods.positionModeSelectedConfirm = function () {
 // 仓位模式选择确认正确回调
 root.methods.re_positionModeSelectedConfirm = function (data) {
   if (data.code == 304) {
+    this.promptOpen = true;
     this.popType = 0;
     this.popText = '用户无权限';
     return

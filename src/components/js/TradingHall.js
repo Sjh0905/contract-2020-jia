@@ -1308,6 +1308,7 @@ root.methods.positionModeSelectedConfirm = function () {
 root.methods.re_positionModeSelectedConfirm = function (data) {
 
   if (data.code == 304) {
+    this.promptOpen = true;
     this.popType = 0;
     this.popText = '用户无权限';
     return
