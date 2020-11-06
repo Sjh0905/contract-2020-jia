@@ -102,6 +102,8 @@ root.data = function () {
     popUnrealizedProfitNew:0, // 未实现盈亏
     positionSelect: null, // 选中的仓位数据
 
+    psSymbolArr:['BTCUSDT']//,'ETHUSDT'
+
   }
 }
 /*------------------------------ 观察 -------------------------------*/
@@ -418,12 +420,12 @@ root.methods.positionSocket = function () {
 
       // this.getPositionRisk()
 
-      let currPositions = this.records,realSocketPositons = socketPositons.filter(sv=>{
+      /*let currPositions = this.records,realSocketPositons = socketPositons.filter(sv=>{
         this.setCloseAmount(sv)
 
-        if(sv.mt == 'cross' && sv.s == 'BTCUSDT')return sv.pa!=0
-        if(sv.mt == 'isolated' && sv.s == 'BTCUSDT')return sv.pa != 0 || sv.iw!=0
-      })//开仓量或逐仓保证金不为0的仓位才有效
+        if(sv.mt == 'cross' && this.psSymbolArr.includes(sv.s))return sv.pa!=0
+        if(sv.mt == 'isolated' && this.psSymbolArr.includes(sv.s))return sv.pa != 0 || sv.iw!=0
+        })//开仓量或逐仓保证金不为0的仓位才有效
 
       // realSocketPositons.length == 0 && (currPositions = realSocketPositons)
       realSocketPositons.length > 0 && realSocketPositons.forEach(v=>{
@@ -443,9 +445,74 @@ root.methods.positionSocket = function () {
             break;
           }
         }
+      })*/
+
+      let currPositionsNew = this.records,filterSocketPositons = socketPositons.filter(sv=>{
+        this.setCloseAmount(sv)
+
+        return this.psSymbolArr.includes(sv.s);
+      });//仅保留系统存在币对的数据
+
+      filterSocketPositons.length > 0 && filterSocketPositons.forEach(v=>{
+        for(let k in socketPositionKeyMap){
+          let smk = socketPositionKeyMap[k];
+          smk && (v[smk] = v[k])
+        }
+        //由于socket返回的没有isolatedMargin，为了向接口看齐，方便处理，加一个出来
+        v.isolatedMargin = this.accAdd(v.iw,v.unrealizedProfit)
+
+        //如果本地已有仓位
+        if(currPositionsNew.length > 0){
+          let fKey = v.symbol + '_' + v.positionSide;//用来区分某一仓位的key，如：BTCUSDT_BOTH
+          for (let i = 0; i <currPositionsNew.length ; i++) {
+            let item = currPositionsNew[i],cKey = item.symbol + '_' + item.positionSide;
+
+            //全仓、逐仓 更新或新增，逐仓iw不等于0是为了测试服暴露穿仓数据，即负数情况
+            if((v.mt == 'cross' && v.pa!=0) || (v.mt == 'isolated' && (v.pa!=0 || v.iw!=0))){
+
+              //限价输入框的价格
+              item.iptMarkPrice = Number(this.markPrice).toFixed(2)
+
+              //如果存在直接覆盖更新
+              if(fKey == cKey){
+                item = Object.assign(item,v)
+                break;
+              }
+
+              //循环到最后仍未找到相同key仓位就新增一个
+              if(i == currPositionsNew.length - 1){
+                currPositionsNew.push(v);
+                break;
+              }
+            }
+
+            //全仓、逐仓删除
+            if((v.mt == 'cross' && v.pa == 0) || (v.mt == 'isolated' && v.pa==0 && v.iw==0)){
+
+              //如果本地存在对应币对对应持仓方向的仓位需要删除，否则不用处理
+              if(fKey == cKey){
+                currPositionsNew.splice(i,1);
+                break;
+              }
+            }
+          }
+        }
+
+        //如果本地没有仓位
+        if(currPositionsNew.length == 0){
+          //全仓、逐仓新增，逐仓iw不等于0是为了测试服暴露穿仓数据，即负数情况
+          if((v.mt == 'cross' && v.pa!=0) || (v.mt == 'isolated' && (v.pa!=0 || v.iw!=0))){
+            //限价输入框的价格
+            v.iptMarkPrice = Number(this.markPrice).toFixed(2)
+            //如果不存在就新增
+            currPositionsNew.push(v);
+          }
+        }
       })
 
-      this.records = realSocketPositons
+      this.records = currPositionsNew
+      // this.records = realSocketPositons
+
       //没有仓位数据时自动减仓返回的空数组，currSAdlQuantile会是undefined，增加仓位后重新调取接口获取值
       if(this.records.length > 0 && this.currSAdlQuantile == undefined)this.getAdlQuantile();
       //自动减仓数据拼接
@@ -528,18 +595,18 @@ root.methods.re_getPositionRisk = function (data) {
 
   for (let i = 0; i <records.length ; i++) {
     let v = records[i];
-    if (v.marginType == 'cross' && v.positionAmt != 0 && v.symbol == 'BTCUSDT') {
+    if (v.marginType == 'cross' && v.positionAmt != 0 && this.psSymbolArr.includes(v.symbol)) {
       filterRecords.push(v)
       continue;
     }
     //逐仓保证金：isolatedMargin - unrealizedProfit,开仓量或逐仓保证金不为0的仓位才有效
-    if(v.marginType == 'isolated' && v.symbol == 'BTCUSDT'){
+    if(v.marginType == 'isolated' && this.psSymbolArr.includes(v.symbol)){
       v.securityDeposit = this.accMinus(v.isolatedMargin,v.unrealizedProfit)
       // v.securityDeposit = Number(v.isolatedMargin) - Number(v.unrealizedProfit)
 
       //由于开头判断条件用括号包装，会被编译器解析成声明函数括号，所以前一行代码尾或本行代码头要加分号、或者本行代码改为if判断才行
       // (v.positionAmt != 0 || v.securityDeposit != 0) && filterRecords.push(v);
-      if((v.positionAmt != 0 || v.securityDeposit != 0) && v.symbol == 'BTCUSDT') {
+      if((v.positionAmt != 0 || v.securityDeposit != 0) && this.psSymbolArr.includes(v.symbol)) {
         // v.inputMarginPrice = this.toFixed(v.markPrice,2)
         filterRecords.push(v)
       }
