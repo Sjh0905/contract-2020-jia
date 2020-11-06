@@ -1028,7 +1028,7 @@ root.methods.goToLegalCurrency = function () {
 }
 //跳转到合约账户页面
 root.methods.goToLegalPosition = function () {
-  window.location.replace(this.$store.state.contract_url + 'index/asset/contractRecord/warehousePosition');
+  window.location.replace(this.$store.state.contract_url + 'index/asset/contractRecord');
 }
 //跳转到财务记录页面
 root.methods.goToRechargeRecord = function () {
