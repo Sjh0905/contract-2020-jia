@@ -153,6 +153,10 @@
                   <div>市价止盈止损：</div>
                   当设定的价格被触发时，市价止盈止损委托会自动触发。交易者需要设定一个价格去触发该类型委托。该类委托可以应用于设置市价止损和市价止盈委托。请注意，当保证金不足或仓位超过上限时系统会自动撤销执行该委托。
                 </div>
+                <div class="contract-bottle-opener" @click="openBottleOpener()">
+                  <img src="../../assets/bottle_opener.png" alt="">
+                  开平器
+                </div>
               </div>
               <!---->
               <!--可用资产余额-->
@@ -492,7 +496,202 @@
   <!--计算器组件-->
   <CalculatorBommbBox :switch="openCalculator" @close="closeCalculatorWindow" :pop_width="true"></CalculatorBommbBox>
 
-<!--  合约风险提示-->
+  <!--  开平器弹窗-->
+  <KaipingqiPopWindow :switch="openOpener" @close="closeBottleOpener" :isNowPrice ="isNowPrice" :positionModeFirst="positionModeFirst"
+                      :positionList="positionList"
+  ></KaipingqiPopWindow>
+  <!-- 开平器弹窗 -->
+<!--  <PositionModeBulletBox :switch="openOpener" @close="closeBottleOpener" :pop_width="true">-->
+<!--    <div slot="header" class="bottle-opener-header">开平器</div>-->
+<!--    <div slot="article" class="bottle-opener-article">-->
+<!--        &lt;!&ndash;单开双开切换&ndash;&gt;-->
+<!--        <div class="opener-article-title flex">-->
+<!--          <div class="opener-article-title-but opener-title-but-left  pointer" :class="openerType == 1 ?'opener-btn-slt':''" @click="changeOpenerType(1)">单开</div>-->
+<!--          <div class="opener-article-title-but opener-title-but-right pointer" :class="openerType == 2 ?'opener-btn-slt':''" @click="changeOpenerType(2)">双开</div>-->
+<!--        </div>-->
+<!--        &lt;!&ndash;开仓&ndash;&gt;-->
+<!--        <div class="opener-article-opening">-->
+<!--          <div class="opener-article-opening-tit">-->
+<!--            <img src="../../assets/opening_icon.png" alt="">-->
+<!--            <span>开仓</span>-->
+<!--          </div>-->
+
+<!--          <div class="opener-article-opening-con">-->
+<!--            <div class="opener-opening-long-short">-->
+<!--              <span class="opener-opening-con-tit pointer" :class="longOrShortType==1?'opening-con-tit-slt':''" @click="changeLongShort(1)">开多</span>-->
+<!--              <span class="opener-opening-con-tit pointer" :class="longOrShortType==2?'opening-con-tit-slt':''" @click="changeLongShort(2)">开空</span>-->
+<!--            </div>-->
+<!--            <div class="opener-opening-markprice flex-between">-->
+<!--              <div>-->
+<!--                <span class="mr-tempty">当前市价</span>-->
+<!--                <span class="markprice-text">123456</span>-->
+<!--              </div>-->
+<!--              <div>-->
+<!--                <span class="mr-tempty">开仓数量</span>-->
+<!--                <input class="markprice-ipt" type="text" placeholder="0">-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+
+<!--        </div>-->
+
+<!--        &lt;!&ndash;平仓&ndash;&gt;-->
+<!--        <div class="opener-article-closing">-->
+<!--          &lt;!&ndash;平仓标题&ndash;&gt;-->
+<!--          <div class="opener-article-opening-tit">-->
+<!--            <img src="../../assets/closing_icon.png" alt="">-->
+<!--            <span>平仓</span>-->
+<!--          </div>-->
+
+<!--          <div class="opener-article-closing-con flex-between">-->
+<!--            &lt;!&ndash;止盈计划-&#45;&#45;平仓止盈&ndash;&gt;-->
+<!--            <div class="opener-article-closing-left">-->
+<!--              <div class="opener-article-closing-left-top">-->
+<!--                &lt;!&ndash;平仓止盈&ndash;&gt;-->
+<!--                <div class="opener-article-closing-stop-tit ">-->
+<!--                  <img src="../../assets/label_icon.png" alt="">-->
+<!--                  平仓止盈-->
+<!--                </div>-->
+<!--                &lt;!&ndash;平仓止盈内容&ndash;&gt;-->
+<!--                <div class="opener-article-closing-stop-cont flex">-->
+<!--                  <div class="closing-stop-cont-title">可盈总量</div>-->
+<!--                  <div>100BTC</div>-->
+<!--                </div>-->
+<!--                <div class="opener-article-closing-stop-cont flex">-->
+<!--                  <div class="closing-stop-cont-title">当前均价</div>-->
+<!--                  <div>12000-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--                <div class="opener-article-closing-stop-cont flex">-->
+<!--                  <span class="closing-stop-cont-title">止盈点数</span>-->
+<!--                  <input class="closing-stop-cont-ipt" type="text" placeholder="0">-->
+<!--                </div>-->
+<!--              </div>-->
+
+<!--              <div class="opener-article-closing-left-bottom">-->
+<!--                <div class="opener-stop-plan flex-between">-->
+<!--                  <div class="opener-stop-plan-tit">止盈计划</div>-->
+<!--                  <div class="opener-stop-plan-con flex">-->
+<!--                    <div class="opener-stop-plan-btn pointer m-r" :class="isStepType==1?'opener-stop-plan-btn-select':''" @click="changeIsStepType(1)">全部</div>-->
+<!--                    <div class="opener-stop-plan-btn pointer" :class="isStepType==2?'opener-stop-plan-btn-select':''" @click="changeIsStepType(2)">分步</div>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--                &lt;!&ndash;止盈计划内容&ndash;&gt;-->
+<!--                <div class="opener-stop-plan-con-con">-->
+<!--                  &lt;!&ndash;分步部分需要&ndash;&gt;-->
+<!--                  <div class="openter-step flex-between">-->
+<!--                    <div class="openter-step-step flex">-->
+<!--                      <div class="openter-step-step-tex">分成</div>-->
+<!--                      <div class="openter-step-step-line"></div>-->
+<!--                      <input class="openter-step-ipt" type="text" placeholder="0" v-model="takeProfitStep">步-->
+<!--                    </div>-->
+<!--                    <div class="openter-step-step flex">-->
+<!--                      <div class="openter-step-step-tex">间隔</div>-->
+<!--                      <div class="openter-step-step-line"></div>-->
+<!--                      <input class="openter-step-ipt" type="text" placeholder="0" v-model="takeProfitPoint">点-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                  &lt;!&ndash;标题&ndash;&gt;-->
+<!--                  <div class="opener-stop-plan-con-tit flex-between">-->
+<!--                    <div class="opener-price-t">价格</div>-->
+<!--                    <div class="opener-amount-t">数量</div>-->
+<!--                  </div>-->
+<!--                  &lt;!&ndash;内容&ndash;&gt;-->
+<!--                  <div class="opener-stop-plan-con-text flex">-->
+<!--                    <div class="opener-stop-plan-tex-yuan">-->
+<!--                      <div class="blue-yuan flex">-->
+<!--                        <div class="white-yuan"></div>-->
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                    <div class="opener-text flex">-->
+<!--                      <div class="opener-price">12312</div>-->
+<!--                      <div class="opener-amount-t">12</div>-->
+<!--                    </div>-->
+<!--                  </div>-->
+
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--            &lt;!&ndash;止盈计划&#45;&#45;清仓止损&ndash;&gt;-->
+<!--            <div class="opener-article-closing-right">-->
+<!--              <div class="opener-article-closing-left-top">-->
+<!--                &lt;!&ndash;平仓止盈&ndash;&gt;-->
+<!--                <div class="opener-article-closing-stop-tit ">-->
+<!--                  <img src="../../assets/label_icon.png" alt="">-->
+<!--                  清仓止损-->
+<!--                </div>-->
+<!--                &lt;!&ndash;平仓止盈内容&ndash;&gt;-->
+<!--                <div class="opener-article-closing-stop-cont flex">-->
+<!--                  <div class="closing-stop-cont-title">可损总量</div>-->
+<!--                  <div>100BTC</div>-->
+<!--                </div>-->
+<!--                <div class="opener-article-closing-stop-cont flex">-->
+<!--                  <div class="closing-stop-cont-title">当前均价</div>-->
+<!--                  <div>12300</div>-->
+<!--                </div>-->
+<!--                <div class="opener-article-closing-stop-cont flex">-->
+<!--                  <span class="closing-stop-cont-title">止损点数</span>-->
+<!--                  <input class="closing-stop-cont-ipt" type="text" placeholder="0">-->
+<!--                </div>-->
+<!--              </div>-->
+<!--              <div class="opener-article-closing-left-bottom">-->
+<!--                <div class="opener-stop-plan flex-between">-->
+<!--                  <div class="opener-stop-plan-tit">止盈计划</div>-->
+<!--                  <div class="opener-stop-plan-con flex">-->
+<!--                    <div class="opener-stop-plan-btn pointer m-r" :class="isStepTypeClose == 1 ? 'opener-stop-plan-btn-select':''" @click="changeStepClose(1)">全部</div>-->
+<!--                    <div class="opener-stop-plan-btn pointer" :class="isStepTypeClose == 2 ? 'opener-stop-plan-btn-select':''" @click="changeStepClose(2)">分步</div>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--                &lt;!&ndash;止盈计划内容&ndash;&gt;-->
+<!--                <div class="opener-stop-plan-con-con">-->
+<!--                  &lt;!&ndash;分步部分需要&ndash;&gt;-->
+<!--                  <div class="openter-step flex-between">-->
+<!--                    <div class="openter-step-step flex">-->
+<!--                      <div class="openter-step-step-tex">分成</div>-->
+<!--                      <div class="openter-step-step-line"></div>-->
+<!--                      <input class="openter-step-ipt" type="text" placeholder="0" v-model="fullStopStep">步-->
+<!--                    </div>-->
+<!--                    <div class="openter-step-step flex">-->
+<!--                      <div class="openter-step-step-tex">间隔</div>-->
+<!--                      <div class="openter-step-step-line"></div>-->
+<!--                      <input class="openter-step-ipt" type="text" placeholder="0" v-model="fullStopPoint">点-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                  &lt;!&ndash;标题&ndash;&gt;-->
+<!--                  <div class="opener-stop-plan-con-tit flex-between">-->
+<!--                    <div class="opener-price-t">价格</div>-->
+<!--                    <div class="opener-amount-t">数量</div>-->
+<!--                  </div>-->
+<!--                  &lt;!&ndash;内容  遍历出来比较好&ndash;&gt;-->
+<!--                  <div class="opener-stop-plan-con-text flex" v-for="(v,index) in 2" >-->
+<!--                    <div class="opener-stop-plan-tex-yuan">-->
+<!--                      <div class="blue-yuan flex">-->
+<!--                        <div class="white-yuan"></div>-->
+<!--                      </div>-->
+<!--                      <div class="opener-stop-plan-tex-line" v-if="index != 1"></div>-->
+<!--                    </div>-->
+<!--                    <div class="opener-text flex">-->
+<!--                      <div class="opener-price">12312</div>-->
+<!--                      <div class="opener-amount-t">12</div>-->
+<!--                    </div>-->
+<!--                  </div>-->
+
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+
+<!--        </div>-->
+<!--    </div>-->
+
+<!--    <div slot="other" class="bottle-opener-footer flex-between">-->
+<!--      <div class="cancel-btn pointer" @click="closeBottleOpener()">取消</div>-->
+<!--      <div class="confirm-btn pointer" @click="comitBottleOpener()">确定</div>-->
+<!--    </div>-->
+<!--  </PositionModeBulletBox>-->
+
+
+  <!--  合约风险提示-->
   <ContractRiskWarning :switch="popWindowContractRiskWarning">
     <div slot="footer" class="flex footer-btn">
       <div class="popWindow-article2" @click="popCloseTemporarilyClosed">暂不开通</div>

@@ -39,6 +39,8 @@ requestAddress.GET_ADL_QUANTILE = {url: urlHead+'/future/account/adlQuantile', m
 requestAddress.GET_ORDER_BOOK_TICKER = {url: urlHead + '/future/common/orderBookTicker', method: 'get' ,} // 获取当前最优价格
 requestAddress.GET_LEVERAGE_BRACKET = {url: urlHead + '/future/user/leverageBracket', method: 'get', requireOpen:true} // 杠杆分层标准
 requestAddress.POST_NOTICE_LIST = {url: urlHead+'/apis/user/findNoticeList', method: 'post'}
+requestAddress.POST_CREATE_WITH_STOP = {url: urlHead+'/future/orders/createWithStop', method: 'post'}
+requestAddress.GET_ORDERS_GETRECORD = {url: urlHead+'/future/orders/getRecord', method: 'get'}
 
 
 
