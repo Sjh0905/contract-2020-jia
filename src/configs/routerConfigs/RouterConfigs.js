@@ -1107,7 +1107,7 @@ root.routes.push({
         templateClose: false,
         mobileHeaderTitle: '',
         pcname: 'tradingHall',
-        h5name: 'mobileTradingHallDetail',
+        h5name: 'mobileTradingHall',
         templatePath: '/index/tradingHallT'
       },
       component: resolve => require(['@/components/vue/TradingHall'], resolve),
