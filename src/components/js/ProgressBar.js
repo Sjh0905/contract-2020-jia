@@ -1339,6 +1339,13 @@ root.methods.re_postFullStop = function (data) {
     this.popText = '下单失败';//当前无仓位，不能下单
     return
   }
+
+  if(data.code == '304') {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '用户无权限';//用户无权限
+    return
+  }
   typeof (data) === 'string' && (data = JSON.parse(data))
   if (!data || !data.data) return
   this.promptOpen = true;
@@ -1503,6 +1510,13 @@ root.methods.re_postOrdersCreate = function (data) {
     this.promptOpen = true;
     this.popType = 0;
     this.popText = '下单失败';//当前无仓位，不能下单
+    return
+  }
+
+  if(data.code == '304') {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '用户无权限';//用户无权限
     return
   }
   typeof (data) === 'string' && (data = JSON.parse(data))
@@ -1673,6 +1687,13 @@ root.methods.re_postOrdersPosition = function (data) {
     this.promptOpen = true;
     this.popType = 0;
     this.popText = '下单失败';//当前无仓位，不能下单
+    return
+  }
+
+  if(data.code == 304) {
+    this.popType = 0;
+    this.promptOpen = true;
+    this.popText = '用户无权限';
     return
   }
   typeof (data) === 'string' && (data = JSON.parse(data))

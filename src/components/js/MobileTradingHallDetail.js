@@ -1346,6 +1346,12 @@ root.methods.re_postFullStop = function (data) {
     this.popText = '下单失败';//当前无仓位，不能下单
     return
   }
+  if(data.code == '304') {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '用户无权限';//用户无权限
+    return
+  }
   typeof (data) === 'string' && (data = JSON.parse(data))
   if (!data || !data.data) return
   this.promptOpen = true;
@@ -1512,6 +1518,12 @@ root.methods.re_postOrdersCreate = function (data) {
     this.popText = '下单失败';//当前无仓位，不能下单
     return
   }
+  if(data.code == '304') {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '用户无权限';//用户无权限
+    return
+  }
   typeof (data) === 'string' && (data = JSON.parse(data))
   if (!data || !data.data) return
   // console.info('下单失败',data,data.errCode,data.code)
@@ -1636,6 +1648,13 @@ root.methods.re_postOrdersPosition = function (data) {
   //   this.popText = '订单可能被立刻触发';//当前无仓位，不能下单
   //   return
   // }
+
+  if(data.code == 304) {
+    this.popType = 0;
+    this.promptOpen = true;
+    this.popText = '用户无权限';
+    return
+  }
   if(data.code == '303') {
     this.promptOpen = true;
     this.popType = 0;
@@ -1888,6 +1907,7 @@ root.methods.positionModeSelectedConfirm = function () {
 // 仓位模式选择确认正确回调
 root.methods.re_positionModeSelectedConfirm = function (data) {
   if (data.code == 304) {
+    this.promptOpen = true;
     this.popType = 0;
     this.popText = '用户无权限';
     return
@@ -1966,6 +1986,12 @@ root.methods.marginModeConfirm = function () {
   })
 }
 root.methods.re_marginModeConfirm = function (data) {
+  if(data.code == 304) {
+    this.popType = 0;
+    this.popText = '用户无权限';
+    this.promptOpen = true;
+    return
+  }
   typeof(data) == 'string' && (data = JSON.parse(data));
   if(data.code == 200) {
     this.popType = 1;
@@ -3264,6 +3290,7 @@ root.methods.diff24 = function (openvalue, nowvalue) {
 
 /*---------------------- 保留小数 begin ---------------------*/
 root.methods.toFixed = function (num, acc = 8) {
+  if(num == Infinity){num = 0}
   return this.$globalFunc.accFixed(num, acc)
 }
 /*---------------------- 保留小数 end ---------------------*/
@@ -3525,7 +3552,8 @@ root.methods.openhangq = function(){
 
 root.methods.openkexian = function(){
   this.$store.commit('changeMobileTradingHallFlag',true);
-  this.$router.push('mobileTradingHall')
+  // this.$router.push('mobileTradingHall')
+  this.$router.go(-1)
 }
 root.methods.ToCurrentPage = function(){
   this.$router.push('MobileTradingHallDetail')
