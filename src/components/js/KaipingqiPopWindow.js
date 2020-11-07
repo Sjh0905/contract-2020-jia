@@ -289,17 +289,22 @@ root.computed.positionAmt = function () {
 }
 // 单仓均价
 root.computed.averagePrice = function () {
-  let averagePre = 0
+  let averagePre = 0,sameSide
   this.positionList && this.positionList.forEach((v)=>{
     // 如果是单仓显示均价
+    sameSide = (v.positionAmt > 0 && this.longOrShortType==1) || (v.positionAmt < 0 && this.longOrShortType==2)
     if(v.positionSide == 'BOTH'){
       // 单仓同方向计算均价
-      if((v.positionAmt > 0 && this.longOrShortType==1) || (v.positionAmt < 0 && this.longOrShortType==2)) {
-        averagePre = (Number(v.entryPrice) * Math.abs(v.positionAmt)+ Number(this.isNowPrice) * Math.abs(this.openAmountNum))
+      if(sameSide) {
+        averagePre = (Number(v.entryPrice) * Math.abs(v.positionAmt)) + (Number(this.isNowPrice) * Math.abs(this.openAmountNum))
         return averagePre = averagePre / (Math.abs(v.positionAmt)+Math.abs(this.openAmountNum))
       }
+      // 如果对冲，均价为市价
+      if((v.positionAmt < 0 && this.longOrShortType == 1) || (v.positionAmt > 0 && this.longOrShortType==2)){
+        return averagePre = Number(this.isNowPrice)
+      }
       // 如果只有 仓位 均价为开仓价
-      if(this.positionList && !this.openAmount) return (averagePre = Number(v.entryPrice))
+      if(!this.openAmount) return (averagePre = Number(v.entryPrice))
     }
   })
   if(this.positionList.length==0 && this.openAmount) return (averagePre = Number(this.isNowPrice))
@@ -343,7 +348,6 @@ root.watch.positionModeFirst = function () {
 
 /*------------------------------ 方法 -------------------------------*/
 root.methods = {}
-
 
 // 传参类型
 root.methods.openTypeParams = function () {
@@ -397,7 +401,6 @@ root.methods.profitIntervalShort = function () {
   if(!this.stopProfitPoint || this.positionAmt >= 0) return ''
   if(this.positionAmt < 0 && this.isStepType == 2) return this.takeProfitPoint
   if(this.positionAmt < 0 && this.isStepType == 1) return 0
-
 }
 
 // 止损间隔点数 多仓
