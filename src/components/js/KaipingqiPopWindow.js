@@ -119,11 +119,11 @@ root.computed.stepPlanList = function () {
   // num：为步数，stepNum：可损（可损）总量，point:间隔点数（若为清仓止损，该值为负数）,averagePrice:均价
   if(this.takeProfitStep=='' || this.takeProfitPoint =='' || this.stopProfitPoint== '') return
   if(this.positionAmt > 0){
-    PlanList = this.createdArray(this.takeProfitStep,Math.abs(this.positionAmt),this.takeProfitPoint,this.averagePrice,this.stopProfitPoint)
+    PlanList = this.createdArray(Number(this.takeProfitStep),Math.abs(this.positionAmt),Number(this.takeProfitPoint),Number(this.averagePrice),Number(this.stopProfitPoint))
     return [...PlanList]
   }
   if(this.positionAmt < 0){
-    PlanList = this.createdArray(this.takeProfitStep,Math.abs(this.positionAmt),-this.takeProfitPoint,this.averagePrice,-this.stopProfitPoint)
+    PlanList = this.createdArray(Number(this.takeProfitStep),Math.abs(this.positionAmt),-Number(this.takeProfitPoint),Number(this.averagePrice),-Number(this.stopProfitPoint))
     return [...PlanList]
   }
 }
@@ -133,11 +133,11 @@ root.computed.stepPlanListDown = function () {
   // num：为步数，stepNum：可损（可损）总量，point:间隔点数（若为清仓止损，该值为负数）,averagePrice:均价,pointIpt:止盈(止损)点数
   if(this.StopLossPoint=='' || this.fullStopStep =='' || this.fullStopPoint== '') return
   if(this.positionAmt > 0){
-    PlanListDow = this.createdArray(this.fullStopStep || 0,Math.abs(this.positionAmt),-this.fullStopPoint,this.averagePrice,-this.StopLossPoint)
+    PlanListDow = this.createdArray(Number(this.fullStopStep) || 0,Math.abs(this.positionAmt),-Number(this.fullStopPoint),Number(this.averagePrice),-Number(this.StopLossPoint))
     return [...PlanListDow]
   }
   if(this.positionAmt < 0){
-    PlanListDow = this.createdArray(this.fullStopStep || 0,Math.abs(this.positionAmt),this.fullStopPoint,this.averagePrice,this.StopLossPoint)
+    PlanListDow = this.createdArray(Number(this.fullStopStep) || 0,Math.abs(this.positionAmt),Number(this.fullStopPoint),Number(this.averagePrice),Number(this.StopLossPoint))
     return [...PlanListDow]
   }
 }
@@ -178,7 +178,7 @@ root.computed.stepLongList = function () {
   // this.stopProfitPoint : 止盈点数
 
   // num：为步数，stepNum：可损（可损）总量，point:间隔点数（若为清仓止损，该值为负数）,averagePrice:均价,pointIpt:止盈(止损)点数
-  return this.createdArray(this.takeProfitStep || 0,Math.abs(this.openAmountLong),this.takeProfitPoint,this.averagePriceLong,this.stopProfitPoint)
+  return this.createdArray(Number(this.takeProfitStep) || 0,Math.abs(this.openAmountLong),Number(this.takeProfitPoint),Number(this.averagePriceLong),Number(this.stopProfitPoint))
 }
 
 // 双开 多仓 全部 价格(清仓止损)
@@ -196,7 +196,7 @@ root.computed.stepLongListDown = function () {
 
   if(!this.fullStopStep || !this.fullStopPoint || !this.StopLossPoint || !this.openAmountLong) return
   // num：为步数，stepNum：可损（可损）总量，point:间隔点数（若为清仓止损，该值为负数）,averagePrice:均价,pointIpt:止盈(止损)点数
-  return this.createdArray(this.fullStopStep || 0,Math.abs(this.openAmountShort),-this.fullStopPoint,this.averagePriceShort,-this.StopLossPoint)
+  return this.createdArray(Number(this.fullStopStep) || 0,Math.abs(this.openAmountShort),-Number(this.fullStopPoint),Number(this.averagePriceShort),-Number(this.StopLossPoint))
 }
 
 // 空仓全部价格（平仓止盈）
@@ -213,7 +213,7 @@ root.computed.stepShortList = function () {
   // this.stopProfitPointEmpty : 止盈点数
   if(!this.takeStepEmpty || !this.stopPointEmpty || !this.stopProfitPointEmpty || !this.openAmountShort) return
   // num：为步数，stepNum：可损（可损）总量，point:间隔点数（若为清仓止损，该值为负数）,averagePrice:均价,pointIpt:止盈(止损)点数
-  return this.createdArray(this.takeStepEmpty || 0,Math.abs(this.openAmountShort),-this.stopPointEmpty,this.averagePriceShort,-this.stopProfitPointEmpty)
+  return this.createdArray(Number(this.takeStepEmpty) || 0,Math.abs(this.openAmountShort),-Number(this.stopPointEmpty),Number(this.averagePriceShort),-Number(this.stopProfitPointEmpty))
 }
 
 // 空仓全部价格（清仓止损）
@@ -231,7 +231,7 @@ root.computed.stepShortListDown = function () {
   // this.StopLossPointEmpty : 止损点数
   if(!this.fullStepShortEmpty || !this.fullPointShortEmpty || !this.StopLossPointEmpty || !this.openAmountShort) return
   // num：为步数，stepNum：可损（可损）总量，point:间隔点数（若为清仓止损，该值为负数）,averagePrice:均价,pointIpt:止盈(止损)点数
-  return this.createdArray(this.fullStepShortEmpty || 0,Math.abs(this.openAmountShort),this.fullPointShortEmpty,this.averagePriceShort,this.StopLossPointEmpty)
+  return this.createdArray(Number(this.fullStepShortEmpty) || 0,Math.abs(this.openAmountShort),Number(this.fullPointShortEmpty),Number(this.averagePriceShort),Number(this.StopLossPointEmpty))
 }
 
 // 双仓可盈多仓数量
