@@ -313,9 +313,9 @@ root.computed.show = function () {
 root.computed.isMobile = function () {
   return this.$store.state.isMobile
 }
-// 检验是否登录
+// 是否登录
 root.computed.isLogin = function () {
-  return this.$store.state.isLogin;
+  return this.$store.state.isLogin
 }
 // 计算当前symbol
 root.computed.symbol = function () {
@@ -438,14 +438,13 @@ root.methods.error_getRecords = function (err) {
 // 单仓双仓如果没有仓位数量,平仓输入框不能输入
 root.methods.positionLimit = function () {
   if(this.positionModeFirst == 'singleWarehouseMode' && !this.positionAmt) {
-    if(!this.stopProfitPoint || !this.StopLossPoint) return true
-    // return true
+    if(this.stopProfitPoint || this.StopLossPoint) return true
   }
   if(this.positionModeFirst == 'doubleWarehouseMode' && !this.openAmountLong) {
-    if(!this.stopProfitPoint || !this.StopLossPoint) return true
+    if(this.stopProfitPoint || this.StopLossPoint) return true
   }
   if(this.positionModeFirst == 'doubleWarehouseMode' && !this.openAmountShort) {
-    return true
+    if(this.StopLossPointEmpty || this.StopLossPointEmpty) return true
   }
   return false
 }
@@ -463,16 +462,10 @@ root.methods.testInput = function () {
     this.popText='止盈点数请输入正确的数字'
     return
   }
-  if(!this.$globalFunc.testNumber(this.StopLossPoint)){
+  if(!this.$globalFunc.testNumber(this.stopProfitPoint)){
     this.popOpen = true;
     this.popType = 0;
-    this.popText='止损点数请输入正确的数字'
-    return
-  }
-  if(!this.$globalFunc.testNumber(this.StopLossPoint)){
-    this.popOpen = true;
-    this.popType = 0;
-    this.popText='止损点数请输入正确的数字'
+    this.popText='止盈点数请输入正确的数字'
     return
   }
 }
@@ -486,17 +479,17 @@ root.methods.createWithStop = function () {
   // if(!this.isLogin){
   //   window.location.replace(this.$store.state.contract_url + 'index/sign/login')
   // }
-
-  // 暂时没有做输入框只能输入数字处理
   // this.testInput()
-
-  if(!this.positionLimit){
+  if(this.positionLimit()){
     this.popOpen = true;
     this.popType = 0;
     this.popText='您暂时没有可平仓位'
     return
   }
-
+  // if(true){
+  //   alert('有仓位啦====')
+  //   return
+  // }
   let params,positionAmtLong,positionAmtShort
   if(this.positionModeFirst == 'singleWarehouseMode'){
     positionAmtLong = this.positionAmt > 0
@@ -572,7 +565,7 @@ root.methods.re_createWithStop = function (data) {
       this.popText = '分步限制';
       break;
     case 2002:
-      this.popText = '无仓位';
+      this.popText = '您暂时没有可平仓位';
       break;
     case 2003:
       this.popText = '分步下单数量小于最小下单数量'
@@ -591,7 +584,12 @@ root.methods.re_createWithStop = function (data) {
     this.popOpen = true;
     this.popType = 1;
     this.popText = '下单成功'
+    this.closeClick()
+    return
   }
+  this.popOpen = true;
+  this.popType = 0;
+  this.popText = '下单失败';
 }
 // 获取订单出错
 root.methods.error_createWithStop = function (err) {
@@ -672,7 +670,8 @@ root.methods.changeOpenerType = function (type) {
 // 开平器确定按钮
 root.methods.comitBottleOpener = function () {
   this.createWithStop()
-  // this.clearVal()
+
+  this.clearVal()
 }
 // 取消按钮
 root.methods.closeClick = function () {
