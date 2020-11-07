@@ -1032,7 +1032,7 @@ root.routes.push({
       path: 'home',
       name: 'home',
       // redirect: 'home',
-      redirect: '/index/mobileTradingHallDetail',
+      redirect: '/index/mobileTradingHall',
       caseSensitive: true,
       meta: {
         mobileHeaderTitle: '',
@@ -1107,7 +1107,7 @@ root.routes.push({
         templateClose: false,
         mobileHeaderTitle: '',
         pcname: 'tradingHall',
-        h5name: 'mobileTradingHallDetail',
+        h5name: 'mobileTradingHall',
         templatePath: '/index/tradingHallT'
       },
       component: resolve => require(['@/components/vue/TradingHall'], resolve),

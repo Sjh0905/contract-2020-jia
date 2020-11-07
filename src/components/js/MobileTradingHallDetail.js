@@ -3290,6 +3290,7 @@ root.methods.diff24 = function (openvalue, nowvalue) {
 
 /*---------------------- 保留小数 begin ---------------------*/
 root.methods.toFixed = function (num, acc = 8) {
+  if(num == Infinity){num = 0}
   return this.$globalFunc.accFixed(num, acc)
 }
 /*---------------------- 保留小数 end ---------------------*/
@@ -3551,7 +3552,8 @@ root.methods.openhangq = function(){
 
 root.methods.openkexian = function(){
   this.$store.commit('changeMobileTradingHallFlag',true);
-  this.$router.push('mobileTradingHall')
+  // this.$router.push('mobileTradingHall')
+  this.$router.go(-1)
 }
 root.methods.ToCurrentPage = function(){
   this.$router.push('MobileTradingHallDetail')

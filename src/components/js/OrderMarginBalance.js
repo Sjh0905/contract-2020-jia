@@ -48,7 +48,7 @@ root.methods = {}
 
 // 要跳划转页面
 root.methods.goToTransfer = function () {
-  window.location.replace(this.$store.state.contract_url + 'index/asset/contractRecord/propertyAssets');
+  window.location.replace(this.$store.state.contract_url + 'index/asset/contractRecord?propertyType=propertyAssets');
 }
 
 // 账户余额
