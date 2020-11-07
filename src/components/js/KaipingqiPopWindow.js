@@ -584,7 +584,7 @@ root.methods.re_createWithStop = function (data) {
     this.popOpen = true;
     this.popType = 1;
     this.popText = '下单成功'
-    this.closeClick()
+    // this.closeClick()
     return
   }
   this.popOpen = true;
