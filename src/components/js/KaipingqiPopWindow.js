@@ -278,19 +278,12 @@ root.computed.openAmountNum = function () {
 }
 //  单仓可盈总量
 root.computed.positionAmt = function () {
-  // console.info('openAmountNum==',this.openAmountNum)
-  let amount = 0,openAmountNum = 0
+  let amount = 0
   this.positionList.forEach((v,dex)=>{
-    // if((v.positionAmt<0 && this.longOrShortType == 2)|| (v.positionAmt>0 && this.longOrShortType == 1)){
     if(v.positionSide == 'BOTH'){
       amount = Number(v.positionAmt)
     }
-    // if(v.positionSide == 'LONG'||v.positionSide == 'SHORT'){
-    //   amount = 0
-    // }
-    // }
   })
-  // console.info('amount==',amount,this.openAmountNum)
   return amount = this.openAmountNum + amount
 
 }
@@ -320,9 +313,9 @@ root.computed.show = function () {
 root.computed.isMobile = function () {
   return this.$store.state.isMobile
 }
-// 是否登录
+// 检验是否登录
 root.computed.isLogin = function () {
-  return this.$store.state.isLogin
+  return this.$store.state.isLogin;
 }
 // 计算当前symbol
 root.computed.symbol = function () {
@@ -350,6 +343,7 @@ root.watch.positionModeFirst = function () {
 
 /*------------------------------ 方法 -------------------------------*/
 root.methods = {}
+
 
 // 传参类型
 root.methods.openTypeParams = function () {
@@ -412,7 +406,6 @@ root.methods.lossIntervalLong = function () {
   // this.isStepTypeClose ==2 ? this.fullStopStep : ''
   if(this.positionAmt > 0 && this.isStepTypeClose == 2) return this.fullStopPoint
   if(this.positionAmt > 0 && this.isStepTypeClose == 1) return 0
-
 }
 // 止损间隔点数 空仓
 root.methods.lossIntervalShort = function () {
@@ -441,12 +434,45 @@ root.methods.error_getRecords = function (err) {
   console.warn("获取订单出错！")
 }
 
+
+// 单仓双仓如果没有仓位数量,平仓输入框不能输入
+root.methods.positionLimit = function () {
+  if(this.positionModeFirst == 'singleWarehouseMode' && !this.positionAmt) {
+    if(!this.stopProfitPoint || !this.StopLossPoint) return true
+    // return true
+  }
+  if(this.positionModeFirst == 'doubleWarehouseMode' && !this.openAmountLong) {
+    if(!this.stopProfitPoint || !this.StopLossPoint) return true
+  }
+  if(this.positionModeFirst == 'doubleWarehouseMode' && !this.openAmountShort) {
+    return true
+  }
+  return false
+}
 // 检测是否为数字
 root.methods.testInput = function () {
   if(!this.$globalFunc.testNumber(this.openAmount)){
     this.popOpen = true;
     this.popType = 0;
-    this.popText='请输入正确的数字'
+    this.popText='开仓数量请输入正确的数字'
+    return
+  }
+  if(!this.$globalFunc.testNumber(this.stopProfitPoint)){
+    this.popOpen = true;
+    this.popType = 0;
+    this.popText='止盈点数请输入正确的数字'
+    return
+  }
+  if(!this.$globalFunc.testNumber(this.StopLossPoint)){
+    this.popOpen = true;
+    this.popType = 0;
+    this.popText='止损点数请输入正确的数字'
+    return
+  }
+  if(!this.$globalFunc.testNumber(this.StopLossPoint)){
+    this.popOpen = true;
+    this.popType = 0;
+    this.popText='止损点数请输入正确的数字'
     return
   }
 }
@@ -460,8 +486,18 @@ root.methods.createWithStop = function () {
   // if(!this.isLogin){
   //   window.location.replace(this.$store.state.contract_url + 'index/sign/login')
   // }
-  this.testInput()
-let params,positionAmtLong,positionAmtShort
+
+  // 暂时没有做输入框只能输入数字处理
+  // this.testInput()
+
+  if(!this.positionLimit){
+    this.popOpen = true;
+    this.popType = 0;
+    this.popText='您暂时没有可平仓位'
+    return
+  }
+
+  let params,positionAmtLong,positionAmtShort
   if(this.positionModeFirst == 'singleWarehouseMode'){
     positionAmtLong = this.positionAmt > 0
     positionAmtShort = this.positionAmt < 0
