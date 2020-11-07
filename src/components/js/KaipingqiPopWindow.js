@@ -183,7 +183,7 @@ root.computed.stepLongList = function () {
 
 // 双开 多仓 全部 价格(清仓止损)
 root.computed.allLongPriceDown = function () {
-  if(this.StopLossPoint>this.averagePriceLong) return 0
+  if(this.allPrice(this.averagePriceLong,-this.StopLossPoint) <= 0) return 0
   return this.allPrice(this.averagePriceLong,-this.StopLossPoint) || '--'
 }
 // 双开 多仓 分步 价格（清仓止损）
@@ -448,6 +448,25 @@ root.methods.positionLimit = function () {
   }
   return false
 }
+// 单仓双仓如果有仓位数量,有止盈（止损）点数，选用 分步，则 步数 和 间隔点数 不为空判断
+root.methods.stepPointLimit = function () {
+  if(this.positionModeFirst == 'singleWarehouseMode' && this.positionAmt) {
+    if(this.isStepType == 2 && (!this.stopProfitPoint || !this.takeProfitStep || !this.takeProfitPoint)) return true
+    if(this.isStepTypeClose == 2 && (!this.StopLossPoint || !this.fullStopStep || !this.fullStopPoint)) return true
+  }
+  // 双仓多仓 有止盈点数，分步和间隔点数不能为空
+  if(this.positionModeFirst == 'doubleWarehouseMode' && this.openAmountLong) {
+    if(this.isStepTypeLong == 2 && (!this.stopProfitPoint || !this.takeProfitStep || !this.takeProfitPoint)) return true
+    if(this.isStepTypeClose == 2 && (!this.StopLossPoint || !this.fullStopStep || !this.fullStopPoint)) return true
+  }
+  // 双仓空仓 有止盈点数，分步和间隔点数不能为空
+  if(this.positionModeFirst == 'doubleWarehouseMode' && this.openAmountShort) {
+    if(this.isStepTypeEmpty == 2 && (!this.stopProfitPointEmpty || !this.takeStepEmpty || !this.stopPointEmpty)) return true
+    if(this.isStepTypeCloseEmpty == 2 && (!this.StopLossPointEmpty || !this.fullStepShortEmpty || !this.fullPointShortEmpty)) return true
+  }
+  return false
+}
+
 // 检测是否为数字
 root.methods.testInput = function () {
   if(!this.$globalFunc.testNumber(this.openAmount)){
@@ -484,6 +503,13 @@ root.methods.createWithStop = function () {
     this.popOpen = true;
     this.popType = 0;
     this.popText='您暂时没有可平仓位'
+    return
+  }
+  if(this.stepPointLimit()){
+    this.popOpen = true;
+    this.popType = 0;
+    this.popText='分步和间隔点数不能为空'
+    this.popText='请输入正确的分步和间隔点数'
     return
   }
   // if(true){
@@ -670,8 +696,7 @@ root.methods.changeOpenerType = function (type) {
 // 开平器确定按钮
 root.methods.comitBottleOpener = function () {
   this.createWithStop()
-
-  this.clearVal()
+  // this.clearVal()
 }
 // 取消按钮
 root.methods.closeClick = function () {
