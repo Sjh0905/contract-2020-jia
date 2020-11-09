@@ -679,3 +679,49 @@
   margin: 0 auto;
   margin-bottom: 10px;
 }
+.list-result {
+  width: 600px;
+  /*height: 350px;*/
+  background: #16171D;
+  box-sizing: border-box;
+  padding: 0 25px;
+}
+.list-result-content {
+  height: 55px;
+  line-height: 55px;
+  font-size: 16px;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #E0E1F4;
+}
+.list-result-red {
+  color: #EF5656;
+}
+.list-result-green {
+  color: #08D0AC;
+}
+.list-footer {
+  background: #16171D;
+  padding: 15px 25px 15px;
+}
+.list-footer-btn{
+  width: 550px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  background: linear-gradient(270deg, #3576F5 0%, #459AF5 100%);
+  border-radius: 1px;
+  letter-spacing: 10px;
+  font-size: 16px;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #FFFFFF;
+}
+.list-footer-btn:hover {
+  width: 550px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  background: #3576F5;
+  border-radius: 1px;
+}

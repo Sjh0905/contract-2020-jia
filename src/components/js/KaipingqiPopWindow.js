@@ -101,6 +101,10 @@ root.data = function () {
     openListWindow:true,
     // 记录数组
     openerRecords:[],
+
+    // 结果弹窗
+    showResult:false,
+    resultData:{},
   }
 }
 /*------------------------------ 生命周期 -------------------------------*/
@@ -151,6 +155,7 @@ root.computed.allBothPrice = function () {
   if(this.positionAmt < 0){
     return this.allPrice(this.averagePrice,-this.stopProfitPoint)
   }
+  return 0
 }
 // 单仓全部价格（清仓止损）
 root.computed.allBothPriceDown = function () {
@@ -161,6 +166,7 @@ root.computed.allBothPriceDown = function () {
   if(this.positionAmt < 0){
     return this.allPrice(this.averagePrice,this.StopLossPoint)
   }
+  return 0
 }
 
 
@@ -176,7 +182,6 @@ root.computed.stepLongList = function () {
   // this.takeProfitPoint:Point
   // this.averagePriceLong:averagePrice
   // this.stopProfitPoint : 止盈点数
-
   // num：为步数，stepNum：可损（可损）总量，point:间隔点数（若为清仓止损，该值为负数）,averagePrice:均价,pointIpt:止盈(止损)点数
   return this.createdArray(Number(this.takeProfitStep) || 0,Math.abs(this.openAmountLong),Number(this.takeProfitPoint),Number(this.averagePriceLong),Number(this.stopProfitPoint))
 }
@@ -274,7 +279,6 @@ root.computed.openAmountNum = function () {
     return Number(openAmountNum) || 0
   }
   return Number(this.openAmount) || 0
-
 }
 //  单仓可盈总量
 root.computed.positionAmt = function () {
@@ -349,6 +353,9 @@ root.watch.positionModeFirst = function () {
 /*------------------------------ 方法 -------------------------------*/
 root.methods = {}
 
+root.methods.closeResult = function () {
+  this.showResult = false
+}
 // 传参类型
 root.methods.openTypeParams = function () {
   if(this.positionModeFirst == 'singleWarehouseMode' && this.longOrShortType == 1) return 'LONG'
@@ -511,7 +518,6 @@ root.methods.createWithStop = function () {
   if(this.stepPointLimit()){
     this.popOpen = true;
     this.popType = 0;
-    this.popText='分步和间隔点数不能为空'
     this.popText='请输入正确的分步和间隔点数'
     return
   }
@@ -587,22 +593,31 @@ root.methods.createWithStop = function () {
 // 获取订单回调
 root.methods.re_createWithStop = function (data) {
   typeof(data) == 'string' && (data = JSON.parse(data));
-  this.popOpen = true;
-  this.popType = 0;
+
   switch (data.code) {
     case 2001:
+      this.popOpen = true;
+      this.popType = 0;
       this.popText = '分步限制';
       break;
     case 2002:
+      this.popOpen = true;
+      this.popType = 0;
       this.popText = '您暂时没有可平仓位';
       break;
     case 2003:
+      this.popOpen = true;
+      this.popType = 0;
       this.popText = '分步下单数量小于最小下单数量'
       break;
     case 2004:
+      this.popOpen = true;
+      this.popType = 0;
       this.popText = '单向持仓模式下无法双开订单'
       break;
     case 2005:
+      this.popOpen = true;
+      this.popType = 0;
       this.popText = '获取仓位模式失败'
       break;
     default:
@@ -610,21 +625,26 @@ root.methods.re_createWithStop = function (data) {
       break;
   }
   if(data.code == 200) {
-    this.popOpen = true;
-    this.popType = 1;
-    this.popText = '下单成功'
+    // this.popOpen = true;
+    // this.popType = 1;
+    // this.popText = '下单成功'
+    this.showResult = true
+    this.resultData = data.data || {}
+    // console.info(this.resultData)
     // this.closeClick()
     return
   }
-  this.popOpen = true;
-  this.popType = 0;
-  this.popText = '下单失败';
+  // this.popOpen = true;
+  // this.popType = 0;
+  // this.popText = '下单失败';
 }
 // 获取订单出错
 root.methods.error_createWithStop = function (err) {
   console.warn("获取订单出错！")
 }
+root.methods.windowResult = function () {
 
+}
 // 全部价格公式（直接用）
 root.methods.allPrice = function (AveragePrice,allPoint) {
   let longPrice
