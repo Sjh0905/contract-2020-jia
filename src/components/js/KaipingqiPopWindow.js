@@ -172,6 +172,7 @@ root.computed.allBothPriceDown = function () {
 
 // 双开 多仓 全部 价格（平仓止盈）
 root.computed.allLongPrice = function () {
+  if(!this.stopProfitPoint) return '--'
   return this.allPrice(this.averagePriceLong,this.stopProfitPoint) || '--'
 }
 // 双开 多仓 分步 价格（平仓止盈）
@@ -188,6 +189,7 @@ root.computed.stepLongList = function () {
 
 // 双开 多仓 全部 价格(清仓止损)
 root.computed.allLongPriceDown = function () {
+  if(!this.StopLossPoint) return '--'
   if(this.allPrice(this.averagePriceLong,-this.StopLossPoint) <= 0) return 0
   return this.allPrice(this.averagePriceLong,-this.StopLossPoint) || '--'
 }
@@ -206,6 +208,7 @@ root.computed.stepLongListDown = function () {
 
 // 空仓全部价格（平仓止盈）
 root.computed.allShortPrice = function () {
+  if(!this.stopProfitPointEmpty) return '--'
   return this.allPrice(this.averagePriceShort,-this.stopProfitPointEmpty) || '--'
 }
 
@@ -223,6 +226,7 @@ root.computed.stepShortList = function () {
 
 // 空仓全部价格（清仓止损）
 root.computed.allShortPriceDown = function () {
+  if(!this.StopLossPointEmpty) return '--'
   if(this.StopLossPointEmpty > this.averagePriceShort) return 0
   return this.allPrice(this.averagePriceShort,this.StopLossPointEmpty) || '--'
 }
@@ -477,6 +481,26 @@ root.methods.stepPointLimit = function () {
   return false
 }
 
+
+// // 单仓双仓如果有仓位数量,有止盈（止损）点数，选用 分步，则 步数 和 间隔点数 不为空判断
+// root.methods.stepPointLimitPoint = function () {
+//   if(this.positionModeFirst == 'singleWarehouseMode' && this.positionAmt) {
+//     if(!this.stopProfitPoint) return true
+//     if(!this.StopLossPoint) return true
+//   }
+//   // 双仓多仓 有止盈点数，分步和间隔点数不能为空
+//   if(this.positionModeFirst == 'doubleWarehouseMode' && this.openAmountLong) {
+//     if(!this.stopProfitPoint) return true
+//     if(!this.StopLossPoint) return true
+//   }
+//   // 双仓空仓 有止盈点数，分步和间隔点数不能为空
+//   if(this.positionModeFirst == 'doubleWarehouseMode' && this.openAmountShort) {
+//     if(!this.stopProfitPointEmpty) return true
+//     if(!this.StopLossPointEmpty) return true
+//   }
+//   return false
+// }
+
 // 检测是否为数字
 root.methods.testInput = function () {
   if(!this.$globalFunc.testNumber(this.openAmount)){
@@ -621,7 +645,6 @@ root.methods.re_createWithStop = function (data) {
       this.popText = '获取仓位模式失败'
       break;
     default:
-      // this.rate = 0;
       break;
   }
   if(data.code == 200) {
@@ -630,7 +653,6 @@ root.methods.re_createWithStop = function (data) {
     // this.popText = '下单成功'
     this.showResult = true
     this.resultData = data.data || {}
-    // console.info(this.resultData)
     // this.closeClick()
     return
   }
@@ -659,11 +681,12 @@ root.methods.averagePr = function (side,amount) {
   let averagePre = 0
   this.positionList && this.positionList.forEach((v)=>{
     // 如果是单仓显示均价
-    if(v.positionSide == side || Math.abs(v.positionAmt)==0){
+    if(v.positionSide == side || Math.abs(v.positionAmt)!=0){
       averagePre = (Number(v.entryPrice) * Math.abs(v.positionAmt) + Number(this.isNowPrice) * Math.abs(amount))
       return averagePre = averagePre / (Math.abs(v.positionAmt)+Math.abs(amount))
     }
   })
+
   if(this.positionList.length==0){
     averagePre = Number(this.isNowPrice) * Math.abs(amount)
     return averagePre = averagePre / Math.abs(amount)
