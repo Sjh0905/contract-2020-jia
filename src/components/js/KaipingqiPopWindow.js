@@ -582,10 +582,10 @@ root.methods.createWithStop = function () {
       amount: this.openAmount, //开仓数量
 
       stopProfitLong: positionAmtLong ? this.stopProfitPoint: '', // 止盈点数 不止盈就不传
-      stopProfitShort: positionAmtShort ? this.StopLossPoint: '', // 止盈点数 不止盈就不传
+      stopProfitShort: positionAmtShort ? this.stopProfitPoint: '', // 止盈点数 不止盈就不传
 
-      stopLossLong: positionAmtShort ? this.stopProfitPoint:'', // 止损点数 不止损就不传
-      stopLossShort: positionAmtLong ? this.StopLossPoint:'', //止损点数 不止损就不传
+      stopLossLong: positionAmtLong ? this.StopLossPoint:'', // 止损点数 不止损就不传
+      stopLossShort: positionAmtShort ? this.StopLossPoint:'', //止损点数 不止损就不传
 
 
       stopProfitStepLong: this.stopProfitStepLong(), // 止盈步数 全部传0 或者不传
