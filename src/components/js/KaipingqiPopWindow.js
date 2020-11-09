@@ -361,12 +361,14 @@ root.watch.positionModeFirst = function () {
 
 /*------------------------------ 方法 -------------------------------*/
 root.methods = {}
-
+// 关闭所有弹窗
 root.methods.closeResult = function () {
   this.showResult = false
+  this.closeClick()
 }
 // 传参类型
 root.methods.openTypeParams = function () {
+  if(!this.openAmount) return 'STOP_MARKET'
   if(this.positionModeFirst == 'singleWarehouseMode' && this.longOrShortType == 1) return 'LONG'
   if(this.positionModeFirst == 'singleWarehouseMode' && this.longOrShortType == 2) return 'SHORT'
   if(this.positionModeFirst == 'doubleWarehouseMode') return 'DUAL'
@@ -487,24 +489,18 @@ root.methods.stepPointLimit = function () {
 }
 
 
-// // 单仓双仓如果有仓位数量,有止盈（止损）点数，选用 分步，则 步数 和 间隔点数 不为空判断
-// root.methods.stepPointLimitPoint = function () {
-//   if(this.positionModeFirst == 'singleWarehouseMode' && this.positionAmt) {
-//     if(!this.stopProfitPoint) return true
-//     if(!this.StopLossPoint) return true
-//   }
-//   // 双仓多仓 有止盈点数，分步和间隔点数不能为空
-//   if(this.positionModeFirst == 'doubleWarehouseMode' && this.openAmountLong) {
-//     if(!this.stopProfitPoint) return true
-//     if(!this.StopLossPoint) return true
-//   }
-//   // 双仓空仓 有止盈点数，分步和间隔点数不能为空
-//   if(this.positionModeFirst == 'doubleWarehouseMode' && this.openAmountShort) {
-//     if(!this.stopProfitPointEmpty) return true
-//     if(!this.StopLossPointEmpty) return true
-//   }
-//   return false
-// }
+// 单双仓如果都没填不可以提交
+root.methods.noCommit = function () {
+  if(this.positionModeFirst == 'singleWarehouseMode' && !this.openAmount && !this.stopProfitPoint && !this.StopLossPoint) return true
+  // 双仓多仓 有止盈点数，分步和间隔点数不能为空
+  if(this.positionModeFirst == 'doubleWarehouseMode' && !this.openAmount && !this.stopProfitPoint && !this.StopLossPoint && !this.stopProfitPointEmpty && !this.StopLossPointEmpty) return true
+  // // 双仓空仓 有止盈点数，分步和间隔点数不能为空
+  // if(this.positionModeFirst == 'doubleWarehouseMode' && this.openAmountShort) {
+  //   if(!this.stopProfitPointEmpty) return true
+  //   if(!this.StopLossPointEmpty) return true
+  // }
+  return false
+}
 
 // 检测是否为数字
 root.methods.testInput = function () {
@@ -546,6 +542,12 @@ root.methods.createWithStop = function () {
   //   window.location.replace(this.$store.state.contract_url + 'index/sign/login')
   // }
   // this.testInput()
+  if(this.noCommit()){
+    this.popOpen = true;
+    this.popType = 0;
+    this.popText='请填写正确的内容'
+    return
+  }
   if(this.positionLimit()){
     this.popOpen = true;
     this.popType = 0;
@@ -577,8 +579,8 @@ root.methods.createWithStop = function () {
       openType: this.openTypeParams(), //开仓方式
       amount: this.openAmount, //开仓数量
 
-      stopProfitLong: positionAmtLong ? this.stopProfitPoint:1, // 止盈点数 不止盈就不传
-      stopProfitShort: positionAmtShort ? this.StopLossPoint:1, // 止盈点数 不止盈就不传
+      stopProfitLong: positionAmtLong ? this.stopProfitPoint: '', // 止盈点数 不止盈就不传
+      stopProfitShort: positionAmtShort ? this.StopLossPoint: '', // 止盈点数 不止盈就不传
 
       stopLossLong: positionAmtShort ? this.stopProfitPoint:'', // 止损点数 不止损就不传
       stopLossShort: positionAmtLong ? this.StopLossPoint:'', //止损点数 不止损就不传
