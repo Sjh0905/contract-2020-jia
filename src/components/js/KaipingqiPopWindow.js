@@ -257,15 +257,16 @@ root.computed.openAmountLong = function () {
       this.totalAmountLong = amount
     }
   })
+  if(this.positionList.length == 0)  (this.totalAmountLong = 0)
   return amount = Number(this.openAmount) + Number(this.totalAmountLong)
 }
 // 双仓可盈多仓均价
 root.computed.averagePriceLong = function () {
-  return this.averagePr('LONG',this.openAmountLong) || '--'
+  return Number(this.toFixed(this.averagePr('LONG',this.openAmountLong),2)) || '--'
 }
 // 双仓可盈空仓均价
 root.computed.averagePriceShort = function () {
-  return this.averagePr('SHORT',this.openAmountShort) || '--'
+  return Number(this.toFixed(this.averagePr('SHORT',this.openAmountShort),2)) || '--'
 }
 // 双仓可盈空仓数量
 root.computed.openAmountShort = function () {
@@ -276,7 +277,8 @@ root.computed.openAmountShort = function () {
       this.totalAmountShort = amount
     }
   })
-  return amount = Number(this.openAmount)+ Number(this.totalAmountShort)
+  if(this.positionList.length == 0)  (this.totalAmountShort = 0)
+  return amount = Number(this.openAmount) + Number(this.totalAmountShort)
 }
 
 // 单仓数量
