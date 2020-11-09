@@ -152,10 +152,10 @@ root.computed.stepPlanListDown = function () {
 root.computed.allBothPrice = function () {
   if(this.stopProfitPoint== '') return
   if(this.positionAmt > 0){
-    return this.allPrice(this.averagePrice,this.stopProfitPoint)
+    return Number(this.toFixed(this.allPrice(this.averagePrice,this.stopProfitPoint),2)) || '--'
   }
   if(this.positionAmt < 0){
-    return this.allPrice(this.averagePrice,-this.stopProfitPoint)
+    return Number(this.toFixed(this.allPrice(this.averagePrice,-this.stopProfitPoint),2)) || '--'
   }
   return 0
 }
@@ -163,10 +163,10 @@ root.computed.allBothPrice = function () {
 root.computed.allBothPriceDown = function () {
   if(this.StopLossPoint == '') return
   if(this.positionAmt > 0){
-    return this.allPrice(this.averagePrice,-this.StopLossPoint)
+    return Number(this.toFixed(this.allPrice(this.averagePrice,-this.StopLossPoint),2)) || '--'
   }
   if(this.positionAmt < 0){
-    return this.allPrice(this.averagePrice,this.StopLossPoint)
+    return Number(this.toFixed(this.allPrice(this.averagePrice,this.StopLossPoint),2)) || '--'
   }
   return 0
 }
@@ -175,7 +175,7 @@ root.computed.allBothPriceDown = function () {
 // 双开 多仓 全部 价格（平仓止盈）
 root.computed.allLongPrice = function () {
   if(!this.stopProfitPoint) return '--'
-  return this.allPrice(this.averagePriceLong,this.stopProfitPoint) || '--'
+  return Number(this.toFixed(this.allPrice(this.averagePriceLong,this.stopProfitPoint),2)) || '--'
 }
 // 双开 多仓 分步 价格（平仓止盈）
 root.computed.stepLongList = function () {
@@ -194,7 +194,7 @@ root.computed.stepLongList = function () {
 root.computed.allLongPriceDown = function () {
   if(!this.StopLossPoint) return '--'
   if(this.allPrice(this.averagePriceLong,-this.StopLossPoint) <= 0) return 0
-  return this.allPrice(this.averagePriceLong,-this.StopLossPoint) || '--'
+  return Number(this.toFixed(this.allPrice(this.averagePriceLong,-this.StopLossPoint),2)) || '--'
 }
 // 双开 多仓 分步 价格（清仓止损）
 root.computed.stepLongListDown = function () {
@@ -212,7 +212,7 @@ root.computed.stepLongListDown = function () {
 // 空仓全部价格（平仓止盈）
 root.computed.allShortPrice = function () {
   if(!this.stopProfitPointEmpty) return '--'
-  return this.allPrice(this.averagePriceShort,-this.stopProfitPointEmpty) || '--'
+  return Number(this.toFixed(this.allPrice(this.averagePriceShort,-this.stopProfitPointEmpty),2)) || '--'
 }
 
 // 双开 空仓 分部 价格(平仓止盈)
@@ -232,7 +232,7 @@ root.computed.stepShortList = function () {
 root.computed.allShortPriceDown = function () {
   if(!this.StopLossPointEmpty) return '--'
   if(this.StopLossPointEmpty > this.averagePriceShort) return 0
-  return this.allPrice(this.averagePriceShort,this.StopLossPointEmpty) || '--'
+  return Number(this.toFixed(this.allPrice(this.averagePriceShort,this.StopLossPointEmpty),2)) || '--'
 }
 
 // 双开 空仓 分部 价格(清仓止损)
