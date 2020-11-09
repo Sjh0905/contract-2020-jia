@@ -852,7 +852,7 @@ root.methods.lossEmptyShort = function (item) {
     if(!item.stopLossShort){
       return '全部'
     }
-    return '分步（' +item.stopLossShort+'步/'+ item.lossIntervalShort+'点）'
+    return '分步（' +item.stopLossStepShort+'步/'+ item.lossIntervalShort+'点）'
   }
   return '--'
 }
