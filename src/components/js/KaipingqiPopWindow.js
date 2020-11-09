@@ -533,6 +533,14 @@ root.methods.testPoint = function () {
   if(!this.testNumber(this.fullStepShortEmpty)) return true
   return false
 }
+// 分步限制
+root.methods.stepLimit = function () {
+  if(Number(this.takeProfitStep) > 5)return true
+  if(Number(this.fullStopStep) > 5)return true
+  if(Number(this.takeStepEmpty) > 5)return true
+  if(Number(this.fullStepShortEmpty) > 5)return true
+  return false
+}
 // 调用接口
 root.methods.createWithStop = function () {
   // if (!this.$store.state.authState.userId) {
@@ -554,6 +562,12 @@ root.methods.createWithStop = function () {
     this.popOpen = true;
     this.popType = 0;
     this.popText='您暂时没有可平仓位'
+    return
+  }
+  if(this.stepLimit()) {
+    this.popOpen = true;
+    this.popType = 0;
+    this.popText='分步最多为5步'
     return
   }
   if(this.testPoint()) {
