@@ -542,7 +542,7 @@ root.methods.createWithStop = function () {
   if(this.stepPointLimit()){
     this.popOpen = true;
     this.popType = 0;
-    this.popText='请输入正确的分步和间隔点数'
+    this.popText='请输入正确的止盈（止损）点数、分步和间隔点数'
     return
   }
   // if(true){
