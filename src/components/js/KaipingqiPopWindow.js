@@ -712,18 +712,18 @@ root.methods.re_createWithStop = function (data) {
     default:
       this.popOpen = true;
       this.popType = 0;
-      this.popText = '获取仓位模式失败'
+      this.popText = '下单失败'
   }
-  if(data.code == 200) {
-    // this.popOpen = true;
-    // this.popType = 1;
-    // this.popText = '下单成功'
-    this.openDisabel = false
-    this.showResult = true
-    this.resultData = data.data || {}
-    // this.closeClick()
-    return
-  }
+  // if(data.code == 200) {
+  //   // this.popOpen = true;
+  //   // this.popType = 1;
+  //   // this.popText = '下单成功'
+  //   this.openDisabel = false
+  //   this.showResult = true
+  //   this.resultData = data.data || {}
+  //   // this.closeClick()
+  //   return
+  // }
   // this.popOpen = true;
   // this.popType = 0;
   // this.popText = '下单失败';
@@ -739,7 +739,7 @@ root.methods.windowResult = function () {
 // 全部价格公式（直接用）
 root.methods.allPrice = function (AveragePrice,allPoint) {
   let longPrice
-  if(this.isStepTypeClose == 1 || this.isStepTypeEmpty == 1) {
+  if(this.isStepTypeClose == 1 || this.isStepTypeEmpty == 1 || this.isStepType == 1 || this.isStepTypeLong==1) {
     longPrice = Number(AveragePrice) + Number(allPoint)
   }
   return longPrice
