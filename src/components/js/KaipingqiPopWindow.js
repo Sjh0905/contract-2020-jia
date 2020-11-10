@@ -945,7 +945,7 @@ root.methods.createdArray = function (num=1,stepNum,point ,averagePrice,pointIpt
   // a = [{price:12000,step:0.1},{price:12100,step:0.1}]
   // // 比如是3，需要是一个数组里面有三个对象
   // a = [{price:12000,step:0.1},{price:12100,step:0.1},{price:12200,step:0.1}]
-  let arr = new Array(Number(num)),number,numb
+  let arr = new Array(Number(num)),number,temp,baseScale=1000
   for (var i = 0; i < arr.length; i++) {
     arr[i] = {}
     // 12000需要计算出来的均价 200为用户输入的点数
@@ -953,11 +953,12 @@ root.methods.createdArray = function (num=1,stepNum,point ,averagePrice,pointIpt
     arr[0].price = averagePrice + Number(pointIpt)
     arr[i].price = arr[0].price + (Number(point) * i)
 
-    number = Number(stepNum) % Number(num)
-    arr[i].step = Number(stepNum-number) / Number(num)
+    number = Number(stepNum) * baseScale % Number(num)
+    temp =  Number(stepNum) * baseScale - number
+    arr[i].step = (temp / Number(num)) / baseScale
 
     if(i == arr.length-1) {
-      arr[i].step = arr[i].step + number
+      arr[i].step = arr[i].step + number /baseScale
     }
   }
   // arr[0].price = averagePrice + Number(pointIpt)
