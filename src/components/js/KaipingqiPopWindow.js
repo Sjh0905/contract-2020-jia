@@ -547,10 +547,11 @@ root.methods.stepLimit = function () {
 root.methods.stepMore = function () {
   let singLong = Math.abs(Number(this.positionAmt)) / (Number(this.takeProfitStep)|| 1) >= 0.001 ? true:false,
     singShort = Math.abs(Number(this.positionAmt)) / (Number(this.fullStopStep) || 1) >= 0.001 ? true:false,
+
     doubleLong =Math.abs(Number(this.openAmountLong)) / (Number(this.takeProfitStep)|| 1) >= 0.001 ? true:false,
     doubleLong2 =Math.abs(Number(this.openAmountLong)) / (Number(this.fullStopStep)|| 1) >= 0.001 ? true:false,
     doubleShort =Math.abs(Number(this.openAmountShort)) / (Number(this.takeStepEmpty)|| 1) >= 0.001 ? true:false,
-    doubleShort2 =Math.abs(Number(this.openAmountShort)) / (Number(this.StopLossPointEmpty)|| 1) >= 0.001 ? true:false;
+    doubleShort2 =Math.abs(Number(this.openAmountShort)) / (Number(this.fullStepShortEmpty)|| 1) >= 0.001 ? true:false;
 
   if(this.positionModeFirst == 'singleWarehouseMode') {
       return singLong && singShort
