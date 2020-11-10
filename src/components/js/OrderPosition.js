@@ -565,7 +565,7 @@ root.methods.handleWithMarkPrice = function(records){
 
 
   //双仓全仓强平价格计算，由于全仓下同一symbol多空仓位强平价格一致，用map遍历完后再计算
-  this.pSymbols.length > 0 && this.LPCalculation2();
+  // this.pSymbols.length > 0 && this.LPCalculation2();
 
 }
 //计算维持保证金首先获取比率、速算数等信息
