@@ -283,7 +283,7 @@ root.methods.getLeverageBracket = function(){
 //查询杠杆分层标准返回
 root.methods.re_getLeverageBracket = function(data){
   typeof data === 'string' && (data = JSON.parse(data))
-  if(!data || !data.data)return
+  if(!data || !data.data || !data.data[0] || !data.data[0].data)return
 
   let item = data.data[0].data.find(v=>v.symbol == this.onlyCapitalSymbol) || {}
   let bracketSingle = item.brackets || []
