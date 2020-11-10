@@ -133,7 +133,7 @@
                           </div>
                         </div>
                         <div class="opener-text flex">
-                          <div class="opener-price">{{allBothPrice}}</div>
+                          <div class="opener-price">{{allBothPrice || '--'}}</div>
                           <div class="opener-amount-t">{{Math.abs(positionAmt) || '--'}}</div>
                         </div>
                       </div>
@@ -493,7 +493,7 @@
                           </div>
                         </div>
                         <div class="opener-text flex">
-                          <div class="opener-price">{{allShortPrice}}</div>
+                          <div class="opener-price">{{allShortPrice || '--'}}</div>
                           <div>{{openAmountShort || '--'}}</div>
                         </div>
                       </div>
@@ -548,7 +548,7 @@
                           </div>
                         </div>
                         <div class="opener-text flex">
-                          <div class="opener-price">{{allShortPriceDown}}</div>
+                          <div class="opener-price">{{allShortPriceDown || '--'}}</div>
                           <div>{{openAmountShort || '--'}}</div>
                         </div>
                       </div>
@@ -576,7 +576,8 @@
 
           <div class="bottle-opener-footer flex-between">
             <div class="cancel-btn pointer" @click="closeClick">取消</div>
-            <div class="confirm-btn pointer" @click="comitBottleOpener()">确定</div>
+            <div class="confirm-btn pointer" v-if="!openDisabel" @click="comitBottleOpener()">确定</div>
+            <div class="confirm-btn pointer" v-if="openDisabel">确定中</div>
           </div>
         </div>
 

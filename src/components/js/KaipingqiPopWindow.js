@@ -111,6 +111,8 @@ root.data = function () {
     // 结果弹窗
     showResult:false,
     resultData:{},
+    // 禁止频繁点击
+    openDisabel:false,
   }
 }
 /*------------------------------ 生命周期 -------------------------------*/
@@ -556,6 +558,7 @@ root.methods.stepLimit = function () {
 }
 // 调用接口
 root.methods.createWithStop = function () {
+  this.openDisabel = true
   // if (!this.$store.state.authState.userId) {
   //   // this.loading = false
   //   return
@@ -663,7 +666,7 @@ root.methods.createWithStop = function () {
 // 获取订单回调
 root.methods.re_createWithStop = function (data) {
   typeof(data) == 'string' && (data = JSON.parse(data));
-
+  this.openDisabel = false
   switch (data.code) {
     case 2001:
       this.popOpen = true;
@@ -690,13 +693,21 @@ root.methods.re_createWithStop = function (data) {
       this.popType = 0;
       this.popText = '获取仓位模式失败'
       break;
-    default:
+    case 200:
+      this.openDisabel = false
+      this.showResult = true
+      this.resultData = data.data || {}
       break;
+    default:
+      this.popOpen = true;
+      this.popType = 0;
+      this.popText = '获取仓位模式失败'
   }
   if(data.code == 200) {
     // this.popOpen = true;
     // this.popType = 1;
     // this.popText = '下单成功'
+    this.openDisabel = false
     this.showResult = true
     this.resultData = data.data || {}
     // this.closeClick()
@@ -708,6 +719,7 @@ root.methods.re_createWithStop = function (data) {
 }
 // 获取订单出错
 root.methods.error_createWithStop = function (err) {
+  this.openDisabel = false
   console.warn("获取订单出错！")
 }
 root.methods.windowResult = function () {
@@ -809,13 +821,13 @@ root.methods.clearVal= function () {
 // 单仓止盈
 root.methods.stepOrallTakeProfit = function (item) {
   if(item.openType=='LONG' && item.stopProfitLong){
-    if(!item.stopProfitStepLong){
+    if(this.isStepType == 1){
       return '全部'
     }
     return '分步（' +item.stopProfitStepLong +'步/'+ item.profitIntervalLong+'点）'
   }
   if(item.openType=='SHORT' && item.stopProfitShort){
-    if(!item.stopProfitStepShort){
+    if(this.isStepType == 1){
       return '全部'
     }
     return '分步（' +item.stopProfitStepShort +'步/'+ item.profitIntervalShort +'点）'
@@ -825,13 +837,13 @@ root.methods.stepOrallTakeProfit = function (item) {
 // 单仓止损
 root.methods.stepOrallLoss = function (item) {
   if(item.openType=='LONG' && item.stopLossLong){
-    if(!item.stopLossLong){
+    if(this.isStepTypeClose==1){
       return '全部'
     }
     return '分步（' +item.stopLossStepLong+'步/'+ item.lossIntervalLong+'点）'
   }
   if(item.openType=='SHORT' && item.stopLossShort){
-    if(!item.stopLossShort){
+    if(this.isStepTypeClose==1){
       return '全部'
     }
     return '分步（' +item.stopLossStepShort+'步/'+ item.lossIntervalShort+'点）'
@@ -842,7 +854,7 @@ root.methods.stepOrallLoss = function (item) {
 // 双仓多仓止盈计划
 root.methods.profitLong = function (item) {
   if(item.openType=='DUAL' && item.stopProfitLong){
-    if(!item.stopProfitStepLong){
+    if(this.isStepTypeLong ==1){
       return '全部'
     }
     return '分步（' +item.stopProfitStepLong +'步/'+ item.profitIntervalLong+'点）'
@@ -852,7 +864,7 @@ root.methods.profitLong = function (item) {
 // 双仓多仓止损计划
 root.methods.lossLong = function (item) {
   if(item.openType=='DUAL' && item.stopLossLong){
-    if(!item.stopLossLong){
+    if(this.isStepTypeClose == 1){
       return '全部'
     }
     return '分步（' +item.stopLossStepLong+'步/'+ item.lossIntervalLong+'点）'
@@ -862,7 +874,7 @@ root.methods.lossLong = function (item) {
 // 双仓空仓止盈计划
 root.methods.profitEmptyShort = function (item) {
   if(item.openType=='DUAL' && item.stopProfitShort){
-    if(!item.stopProfitStepShort){
+    if(this.isStepTypeEmpty ==1){
       return '全部'
     }
     return '分步（' +item.stopProfitStepShort +'步/'+ item.profitIntervalShort +'点）'
@@ -872,7 +884,7 @@ root.methods.profitEmptyShort = function (item) {
 // 双仓kong仓止损计划
 root.methods.lossEmptyShort = function (item) {
   if(item.openType=='DUAL' && item.stopLossShort){
-    if(!item.stopLossShort){
+    if(this.isStepTypeCloseEmpty ==1){
       return '全部'
     }
     return '分步（' +item.stopLossStepShort+'步/'+ item.lossIntervalShort+'点）'
