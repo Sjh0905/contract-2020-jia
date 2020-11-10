@@ -582,10 +582,6 @@ root.methods.createWithStop = function () {
     this.popText='请输入正确的止盈（止损）点数、分步和间隔点数'
     return
   }
-  // if(true){
-  //   alert('有仓位啦====')
-  //   return
-  // }
   let params,positionAmtLong,positionAmtShort
   if(this.positionModeFirst == 'singleWarehouseMode'){
     positionAmtLong = this.positionAmt > 0

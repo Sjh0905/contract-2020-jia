@@ -285,7 +285,7 @@ root.methods.re_getLeverageBracket = function(data){
   typeof data === 'string' && (data = JSON.parse(data))
   if(!data || !data.data)return
 
-  let item = data.data.find(v=>v.symbol == this.onlyCapitalSymbol) || {}
+  let item = data.data[0].data.find(v=>v.symbol == this.onlyCapitalSymbol) || {}
   let bracketSingle = item.brackets || []
   bracketSingle.map(v=>{
     v.notionalCum = this.cumFastMaintenanceAmount[v.bracket]
