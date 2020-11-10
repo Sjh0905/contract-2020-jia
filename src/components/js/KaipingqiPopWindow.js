@@ -119,7 +119,7 @@ root.data = function () {
 root.created = function () {
   this.positionModeFirst == 'singleWarehouseMode'? this.openerType = 1:this.openerType = 2
   // this.createdArray(6,6)
-  // console.info('positionAmt',this.positionAmt)
+
 }
 root.mounted = function () {}
 root.beforeDestroy = function () {}
@@ -161,6 +161,7 @@ root.computed.stepPlanListDown = function () {
 // 单仓全部价格（平仓止盈）
 root.computed.allBothPrice = function () {
   if(this.stopProfitPoint== '') return
+  if(Number(this.averagePrice) < Number(this.stopProfitPoint)) return 0
   if(this.positionAmt > 0){
     return Number(this.toFixed(this.allPrice(this.averagePrice,this.stopProfitPoint),2)) || '--'
   }
@@ -172,6 +173,7 @@ root.computed.allBothPrice = function () {
 // 单仓全部价格（清仓止损）
 root.computed.allBothPriceDown = function () {
   if(this.StopLossPoint == '') return
+  if(Number(this.averagePrice) < Number(this.StopLossPoint)) return 0
   if(this.positionAmt > 0){
     return Number(this.toFixed(this.allPrice(this.averagePrice,-this.StopLossPoint),2)) || '--'
   }
@@ -180,7 +182,6 @@ root.computed.allBothPriceDown = function () {
   }
   return 0
 }
-
 
 // 双开 多仓 全部 价格（平仓止盈）
 root.computed.allLongPrice = function () {
@@ -309,7 +310,7 @@ root.computed.openAmountNum = function () {
     openAmountNum = Number('-'+this.openAmount)
     return Number(openAmountNum) || 0
   }
-  return Number(this.openAmount) || 0
+  return this.toFixed(Number(this.openAmount),this.baseScale) || 0
 }
 //  单仓可盈总量
 root.computed.positionAmt = function () {
@@ -320,7 +321,8 @@ root.computed.positionAmt = function () {
     }
   })
   if(!this.openAmountNum && this.positionList.length==0) return 0
-  return amount = this.toFixed(Math.abs(Number(this.openAmountNum) + Number(amount)),this.baseScale)
+  console.info(this.toFixed(Number(this.openAmountNum) + Number(amount),this.baseScale))
+  return amount = this.toFixed(Number(this.openAmountNum) + Number(amount),this.baseScale)
 
 }
 // 单仓均价
