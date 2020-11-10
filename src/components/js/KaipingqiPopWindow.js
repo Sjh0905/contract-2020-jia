@@ -128,6 +128,7 @@ root.computed = {}
 // 单仓分步（平仓止盈）
 root.computed.stepPlanList = function () {
   if(!this.testNumber(this.takeProfitStep)) return
+  if(Number(this.takeProfitStep) >5) return
   let PlanList
   // num：为步数，stepNum：可损（可损）总量，point:间隔点数（若为清仓止损，该值为负数）,averagePrice:均价
   if(this.takeProfitStep=='' || this.takeProfitPoint =='' || this.stopProfitPoint== '') return
@@ -143,6 +144,7 @@ root.computed.stepPlanList = function () {
 // 单仓分步（清仓止损）
 root.computed.stepPlanListDown = function () {
   if(!this.testNumber(this.fullStopStep)) return
+  if(Number(this.fullStopStep)>5) return
   let PlanListDow
   // num：为步数，stepNum：可损（可损）总量，point:间隔点数（若为清仓止损，该值为负数）,averagePrice:均价,pointIpt:止盈(止损)点数
   if(this.StopLossPoint=='' || this.fullStopStep =='' || this.fullStopPoint== '') return
@@ -188,6 +190,7 @@ root.computed.allLongPrice = function () {
 // 双开 多仓 分步 价格（平仓止盈）
 root.computed.stepLongList = function () {
   if(!this.testNumber(this.takeProfitStep)) return
+  if(Number(this.takeProfitStep) > 5) return
   if(!this.takeProfitStep || !this.stopProfitPoint || !this.takeProfitPoint || !this.openAmountLong) return
   // this.takeProfitStep:num
   // this.openAmountLong:stepNum
@@ -212,6 +215,7 @@ root.computed.stepLongListDown = function () {
   // this.averagePriceShort:averagePrice 均价
   // this.StopLossPoint : pointIpt 止损点数
   if(!this.testNumber(this.fullStopStep)) return
+  if(Number(this.fullStopStep) > 5) return
   if(!this.fullStopStep || !this.fullStopPoint || !this.StopLossPoint || !this.openAmountLong) return
   // num：为步数，stepNum：可损（可损）总量，point:间隔点数（若为清仓止损，该值为负数）,averagePrice:均价,pointIpt:止盈(止损)点数
   return this.createdArray(Number(this.fullStopStep) || 0,Math.abs(this.openAmountShort),-Number(this.fullStopPoint),Number(this.averagePriceShort),-Number(this.StopLossPoint))
@@ -231,6 +235,7 @@ root.computed.stepShortList = function () {
   // this.averagePriceShort:averagePrice
   // this.stopProfitPointEmpty : 止盈点数
   if(!this.testNumber(this.takeStepEmpty)) return
+  if(Number(this.takeStepEmpty) > 5) return
   if(!this.takeStepEmpty || !this.stopPointEmpty || !this.stopProfitPointEmpty || !this.openAmountShort) return
   // num：为步数，stepNum：可损（可损）总量，point:间隔点数（若为清仓止损，该值为负数）,averagePrice:均价,pointIpt:止盈(止损)点数
   return this.createdArray(Number(this.takeStepEmpty) || 0,Math.abs(this.openAmountShort),-Number(this.stopPointEmpty),Number(this.averagePriceShort),-Number(this.stopProfitPointEmpty))
@@ -251,6 +256,7 @@ root.computed.stepShortListDown = function () {
   // this.averagePriceShort:averagePrice
   // this.StopLossPointEmpty : 止损点数
   if(!this.testNumber(this.fullStepShortEmpty)) return
+  if(Number(this.fullStepShortEmpty) > 5) return
   if(!this.fullStepShortEmpty || !this.fullPointShortEmpty || !this.StopLossPointEmpty || !this.openAmountShort) return
   // num：为步数，stepNum：可损（可损）总量，point:间隔点数（若为清仓止损，该值为负数）,averagePrice:均价,pointIpt:止盈(止损)点数
   return this.createdArray(Number(this.fullStepShortEmpty) || 0,Math.abs(this.openAmountShort),Number(this.fullPointShortEmpty),Number(this.averagePriceShort),Number(this.StopLossPointEmpty))
@@ -319,25 +325,25 @@ root.computed.positionAmt = function () {
 }
 // 单仓均价
 root.computed.averagePrice = function () {
-  let averagePre = 0,sameSide
+  let averagePre = 0
   this.positionList && this.positionList.forEach((v)=>{
     // 如果是单仓显示均价
-    sameSide = (v.positionAmt > 0 && this.longOrShortType==1) || (v.positionAmt < 0 && this.longOrShortType==2)
+    // sameSide =
     if(v.positionSide == 'BOTH'){
       // 单仓同方向计算均价
-      if(sameSide) {
+      if((v.positionAmt > 0 && this.longOrShortType==1) || (v.positionAmt < 0 && this.longOrShortType==2)) {
         averagePre = (Number(v.entryPrice) * Math.abs(v.positionAmt)) + (Number(this.isNowPrice) * Math.abs(this.openAmountNum))
         return averagePre = averagePre / (Math.abs(v.positionAmt)+Math.abs(this.openAmountNum))
       }
       // 如果对冲，均价为市价
-      if((v.positionAmt < 0 && this.longOrShortType == 1) || (v.positionAmt > 0 && this.longOrShortType==2)){
+      if((v.positionAmt <= 0 && this.longOrShortType == 1) || (v.positionAmt >= 0 && this.longOrShortType==2)){
         return averagePre = Number(this.isNowPrice)
       }
       // 如果只有 仓位 均价为开仓价
       if(!this.openAmount) return (averagePre = Number(v.entryPrice))
     }
   })
-  if(this.positionList.length==0 && this.openAmount) return (averagePre = Number(this.isNowPrice))
+  if(this.positionList.length==0 && this.openAmount) return averagePre = Number(this.isNowPrice)
   return Number(this.toFixed(averagePre,2)) || '--'
 }
 // 显示隐藏
@@ -572,30 +578,35 @@ root.methods.createWithStop = function () {
     this.popOpen = true;
     this.popType = 0;
     this.popText='请填写正确的内容'
+    this.openDisabel = false
     return
   }
   if(this.positionLimit()){
     this.popOpen = true;
     this.popType = 0;
     this.popText='您暂时没有可平仓位'
+    this.openDisabel = false
     return
   }
   if(this.stepLimit()) {
     this.popOpen = true;
     this.popType = 0;
     this.popText='分步最多为5步'
+    this.openDisabel = false
     return
   }
   if(this.testPoint()) {
     this.popOpen = true;
     this.popType = 0;
     this.popText='分步步数请输入正整数'
+    this.openDisabel = false
     return
   }
   if(this.stepPointLimit()){
     this.popOpen = true;
     this.popType = 0;
     this.popText='请输入正确的止盈（止损）点数、分步和间隔点数'
+    this.openDisabel = false
     return
   }
   let params,positionAmtLong,positionAmtShort
