@@ -84,8 +84,8 @@
                     <!--平仓止盈内容-->
                     <div class="opener-article-closing-stop-cont flex">
                       <div class="closing-stop-cont-title">可盈总量</div>
-                      <div>{{Math.abs(positionAmt) || '--'}} BTC</div>
-                      <div v-if="positionAmt !=0" :class="positionAmt > 0 ? 'opener-closing-more':'opener-closing-empty'">{{positionAmt > 0 ?'多仓':'空仓'}}</div>
+                      <div>{{Math.abs(openAmountNum) || '--'}} BTC</div>
+                      <div v-if="openAmountNum !=0" :class="openAmountNum >= 0 ? 'opener-closing-more':'opener-closing-empty'">{{openAmountNum >= 0 ?'多仓':'空仓'}}</div>
                     </div>
                     <div class="opener-article-closing-stop-cont flex">
                       <div class="closing-stop-cont-title">当前均价</div>
@@ -133,7 +133,7 @@
                           </div>
                         </div>
                         <div class="opener-text flex">
-                          <div class="opener-price">{{allBothPrice || '--'}}</div>
+                         <div class="opener-price">{{allBothPrice || '--'}}</div>
                           <div class="opener-amount-t">{{Math.abs(positionAmt) || '--'}}</div>
                         </div>
                       </div>
@@ -168,8 +168,8 @@
                     <!--平仓止盈内容-->
                     <div class="opener-article-closing-stop-cont flex">
                       <div class="closing-stop-cont-title">可损总量</div>
-                      <div>{{Math.abs(positionAmt) || '--'}} BTC</div>
-                      <div v-if="positionAmt!=0" :class="positionAmt>=0 ? 'opener-closing-more':'opener-closing-empty'">{{positionAmt >= 0 ?'多仓':'空仓'}}</div>
+                      <div>{{Math.abs(openAmountNum) || '--'}} BTC</div>
+                      <div v-if="openAmountNum!=0" :class="openAmountNum>=0 ? 'opener-closing-more':'opener-closing-empty'">{{openAmountNum >= 0 ?'多仓':'空仓'}}</div>
                     </div>
                     <div class="opener-article-closing-stop-cont flex">
                       <div class="closing-stop-cont-title">当前均价</div>
