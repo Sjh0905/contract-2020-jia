@@ -120,6 +120,7 @@ root.created = function () {
   this.positionModeFirst == 'singleWarehouseMode'? this.openerType = 1:this.openerType = 2
   // this.createdArray(6,6)
 
+
 }
 root.mounted = function () {}
 root.beforeDestroy = function () {}
@@ -321,9 +322,7 @@ root.computed.positionAmt = function () {
     }
   })
   if(!this.openAmountNum && this.positionList.length==0) return 0
-  console.info(this.toFixed(Number(this.openAmountNum) + Number(amount),this.baseScale))
   return amount = this.toFixed(Number(this.openAmountNum) + Number(amount),this.baseScale)
-
 }
 // 单仓均价
 root.computed.averagePrice = function () {
@@ -527,27 +526,6 @@ root.methods.noCommit = function () {
   return false
 }
 
-// 检测是否为数字
-root.methods.testInput = function () {
-  if(!this.$globalFunc.testNumber(this.openAmount)){
-    this.popOpen = true;
-    this.popType = 0;
-    this.popText='开仓数量请输入正确的数字'
-    return
-  }
-  if(!this.$globalFunc.testNumber(this.stopProfitPoint)){
-    this.popOpen = true;
-    this.popType = 0;
-    this.popText='止盈点数请输入正确的数字'
-    return
-  }
-  if(!this.$globalFunc.testNumber(this.stopProfitPoint)){
-    this.popOpen = true;
-    this.popType = 0;
-    this.popText='止盈点数请输入正确的数字'
-    return
-  }
-}
 // 检测步数为正整数
 root.methods.testPoint = function () {
   if(!this.testNumber(this.takeProfitStep)) return true
@@ -563,6 +541,29 @@ root.methods.stepLimit = function () {
   if(Number(this.takeStepEmpty) > 5)return true
   if(Number(this.fullStepShortEmpty) > 5)return true
   return false
+}
+
+
+root.methods.stepMore = function () {
+  let singLong = Math.abs(Number(this.positionAmt)) / (Number(this.takeProfitStep)|| 1) >= 0.001 ? true:false,
+    singShort = Math.abs(Number(this.positionAmt)) / (Number(this.fullStopStep) || 1) >= 0.001 ? true:false,
+    doubleLong =Math.abs(Number(this.openAmountLong)) / (Number(this.takeProfitStep)|| 1) >= 0.001 ? true:false,
+    doubleLong2 =Math.abs(Number(this.openAmountLong)) / (Number(this.fullStopStep)|| 1) >= 0.001 ? true:false,
+    doubleShort =Math.abs(Number(this.openAmountShort)) / (Number(this.takeStepEmpty)|| 1) >= 0.001 ? true:false,
+    doubleShort2 =Math.abs(Number(this.openAmountShort)) / (Number(this.StopLossPointEmpty)|| 1) >= 0.001 ? true:false;
+
+  if(this.positionModeFirst == 'singleWarehouseMode') {
+      return singLong && singShort
+  }
+  if(this.positionModeFirst == 'doubleWarehouseMode') {
+      return doubleLong && doubleLong2 && doubleShort && doubleShort2
+  }
+  return false
+  // if(this.positionModeFirst == 'doubleWarehouseMode' && Math.abs(this.openAmountLong) / Number(this.takeProfitStep) >= 0.001) return true
+  // if(this.positionModeFirst == 'doubleWarehouseMode' && Math.abs(this.openAmountLong) / Number(this.fullStopStep) >= 0.001 ) return true
+  // if(this.positionModeFirst == 'doubleWarehouseMode' && Math.abs(this.openAmountShort) / Number(this.takeProfitStep) >= 0.001 ) return true
+  // if(this.positionModeFirst == 'doubleWarehouseMode' && Math.abs(this.openAmountShort) / Number(this.fullStopStep) >= 0.001 ) return true
+
 }
 // 调用接口
 root.methods.createWithStop = function () {
@@ -594,6 +595,13 @@ root.methods.createWithStop = function () {
     this.popOpen = true;
     this.popType = 0;
     this.popText='分步最多为5步'
+    this.openDisabel = false
+    return
+  }
+  if(!this.stepMore()) {
+    this.popOpen = true;
+    this.popType = 0;
+    this.popText='分步下单数量小于最小下单数量'
     this.openDisabel = false
     return
   }
@@ -778,6 +786,11 @@ root.methods.openList = function () {
   this.getRecords()
   this.showList = true
 }
+
+root.methods.testPointValue = function (keyName,length = 2) {
+  this[keyName].indexOf('.') > 0 && (this[keyName].split('.')[1].length > length) && (this[keyName] = this[keyName].split('.')[0] + '.' + this[keyName].split('.')[1].substr(0, length));
+}
+
 /*---------------  开平器 Begin  ---------------*/
 
 
@@ -829,37 +842,47 @@ root.methods.clearVal= function () {
   this.fullStopStep = ''
   this.fullStopPoint = ''
   this.openAmount = ''
+  this.stopProfitPointEmpty = ''
+  this.StopLossPointEmpty = ''
 }
 
 // 单仓止盈
 root.methods.stepOrallTakeProfit = function (item) {
   if(item.openType=='LONG' && item.stopProfitLong){
-    if(this.isStepType == 1){
+    if(!item.stopProfitStepLong){
       return '全部'
     }
-    return '分步（' +item.stopProfitStepLong +'步/'+ item.profitIntervalLong+'点）'
+    if(item.stopProfitStepLong){
+      return '分步（' +item.stopProfitStepLong +'步/'+ item.profitIntervalLong+'点）'
+    }
   }
   if(item.openType=='SHORT' && item.stopProfitShort){
-    if(this.isStepType == 1){
+    if(!item.stopProfitStepShort){
       return '全部'
     }
-    return '分步（' +item.stopProfitStepShort +'步/'+ item.profitIntervalShort +'点）'
+    if(item.stopProfitStepShort) {
+      return '分步（' + item.stopProfitStepShort + '步/' + item.profitIntervalShort + '点）'
+    }
   }
   return '--'
 }
 // 单仓止损
 root.methods.stepOrallLoss = function (item) {
   if(item.openType=='LONG' && item.stopLossLong){
-    if(this.isStepTypeClose==1){
+    if(!item.stopLossStepLong){
       return '全部'
     }
-    return '分步（' +item.stopLossStepLong+'步/'+ item.lossIntervalLong+'点）'
+    if(item.stopLossStepLong) {
+      return '分步（' + item.stopLossStepLong + '步/' + item.lossIntervalLong + '点）'
+    }
   }
   if(item.openType=='SHORT' && item.stopLossShort){
-    if(this.isStepTypeClose==1){
+    if(!item.stopLossStepShort){
       return '全部'
     }
-    return '分步（' +item.stopLossStepShort+'步/'+ item.lossIntervalShort+'点）'
+    if(item.stopLossStepShort) {
+      return '分步（' + item.stopLossStepShort + '步/' + item.lossIntervalShort + '点）'
+    }
   }
   return '--'
 }
@@ -867,40 +890,48 @@ root.methods.stepOrallLoss = function (item) {
 // 双仓多仓止盈计划
 root.methods.profitLong = function (item) {
   if(item.openType=='DUAL' && item.stopProfitLong){
-    if(this.isStepTypeLong ==1){
+    if(!item.stopProfitStepLong){
       return '全部'
     }
-    return '分步（' +item.stopProfitStepLong +'步/'+ item.profitIntervalLong+'点）'
+    if(item.stopProfitStepLong) {
+      return '分步（' + item.stopProfitStepLong + '步/' + item.profitIntervalLong + '点）'
+    }
   }
   return '--'
 }
 // 双仓多仓止损计划
 root.methods.lossLong = function (item) {
   if(item.openType=='DUAL' && item.stopLossLong){
-    if(this.isStepTypeClose == 1){
+    if(!item.stopLossStepLong){
       return '全部'
     }
-    return '分步（' +item.stopLossStepLong+'步/'+ item.lossIntervalLong+'点）'
+    if(item.stopLossStepLong){
+      return '分步（' +item.stopLossStepLong+'步/'+ item.lossIntervalLong+'点）'
+    }
   }
-  return '--'
+    return '--'
 }
 // 双仓空仓止盈计划
 root.methods.profitEmptyShort = function (item) {
   if(item.openType=='DUAL' && item.stopProfitShort){
-    if(this.isStepTypeEmpty ==1){
+    if(!item.stopProfitStepShort){
       return '全部'
     }
-    return '分步（' +item.stopProfitStepShort +'步/'+ item.profitIntervalShort +'点）'
+    if(item.stopProfitShort && item.stopProfitStepShort) {
+      return '分步（' + item.stopProfitStepShort + '步/' + item.profitIntervalShort + '点）'
+    }
   }
   return '--'
 }
 // 双仓kong仓止损计划
 root.methods.lossEmptyShort = function (item) {
   if(item.openType=='DUAL' && item.stopLossShort){
-    if(this.isStepTypeCloseEmpty ==1){
+    if(item.stopLossShort && !item.stopLossStepShort){
       return '全部'
     }
-    return '分步（' +item.stopLossStepShort+'步/'+ item.lossIntervalShort+'点）'
+    if(item.stopLossShort && item.stopLossStepShort){
+      return '分步（' +item.stopLossStepShort+'步/'+ item.lossIntervalShort+'点）'
+    }
   }
   return '--'
 }
@@ -914,14 +945,20 @@ root.methods.createdArray = function (num=1,stepNum,point ,averagePrice,pointIpt
   // a = [{price:12000,step:0.1},{price:12100,step:0.1}]
   // // 比如是3，需要是一个数组里面有三个对象
   // a = [{price:12000,step:0.1},{price:12100,step:0.1},{price:12200,step:0.1}]
-  let arr = new Array(Number(num))
+  let arr = new Array(Number(num)),number,numb
   for (var i = 0; i < arr.length; i++) {
     arr[i] = {}
     // 12000需要计算出来的均价 200为用户输入的点数
     if(Number(point) * i > averagePrice) return
     arr[0].price = averagePrice + Number(pointIpt)
     arr[i].price = arr[0].price + (Number(point) * i)
-    arr[i].step = Number(stepNum) / Number(num)
+
+    number = Number(stepNum) % Number(num)
+    arr[i].step = Number(stepNum-number) / Number(num)
+
+    if(i == arr.length-1) {
+      arr[i].step = arr[i].step + number
+    }
   }
   // arr[0].price = averagePrice + Number(pointIpt)
   return arr || []

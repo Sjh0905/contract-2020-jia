@@ -57,7 +57,7 @@
                   </div>
                   <div>
                     <span class="mr-tempty">开仓数量</span>
-                    <input class="markprice-ipt" type="text" placeholder="0" v-model="openAmount" onkeyup="value = value.match(/\d+(\.\d{0,3})?/) ? value.match(/\d+(\.\d{0,3})?/)[0] : ''">
+                    <input class="markprice-ipt" type="text" placeholder="0" v-model="openAmount" @keyup="testPointValue('openAmount',3)">
                   </div>
                 </div>
               </div>
@@ -93,7 +93,7 @@
                     </div>
                     <div class="opener-article-closing-stop-cont flex">
                       <span class="closing-stop-cont-title">止盈点数</span>
-                      <input class="closing-stop-cont-ipt" type="text" placeholder="0" v-model="stopProfitPoint" onkeyup="value = value.match(/\d+(\.\d{0,2})?/) ? value.match(/\d+(\.\d{0,2})?/)[0] : ''">
+                      <input class="closing-stop-cont-ipt" type="text" placeholder="0" v-model="stopProfitPoint" @keyup="testPointValue('stopProfitPoint')">
                     </div>
                   </div>
 
@@ -133,7 +133,7 @@
                           </div>
                         </div>
                         <div class="opener-text flex">
-                          aaa<div class="opener-price">{{allBothPrice || '--'}}</div>
+                          <div class="opener-price">{{allBothPrice || '--'}}</div>
                           <div class="opener-amount-t">{{Math.abs(positionAmt) || '--'}}</div>
                         </div>
                       </div>
@@ -177,7 +177,7 @@
                     </div>
                     <div class="opener-article-closing-stop-cont flex">
                       <span class="closing-stop-cont-title">止损点数</span>
-                      <input class="closing-stop-cont-ipt" type="text" placeholder="0" v-model="StopLossPoint" onkeyup="value = value.match(/\d+(\.\d{0,2})?/) ? value.match(/\d+(\.\d{0,2})?/)[0] : ''">
+                      <input class="closing-stop-cont-ipt" type="text" placeholder="0" v-model="StopLossPoint" @keyup="testPointValue('StopLossPoint')">
                     </div>
                   </div>
                   <div class="opener-article-closing-left-bottom">
@@ -264,7 +264,7 @@
                       </div>
                       <div class="opener-article-closing-stop-cont flex">
                         <span class="closing-stop-cont-title">止盈点数</span>
-                        <input class="closing-stop-cont-ipt"  type="text" placeholder="0" v-model="stopProfitPoint" onkeyup="value = value.match(/\d+(\.\d{0,2})?/) ? value.match(/\d+(\.\d{0,2})?/)[0] : ''">
+                        <input class="closing-stop-cont-ipt"  type="text" placeholder="0" v-model="stopProfitPoint" @keyup="testPointValue('stopProfitPoint')">
                       </div>
                     </div>
                     <div class="opener-article-closing-top-right">
@@ -284,7 +284,7 @@
                       </div>
                       <div class="opener-article-closing-stop-cont flex">
                         <span class="closing-stop-cont-title">止损点数</span>
-                        <input class="closing-stop-cont-ipt" type="text" placeholder="0" v-model="StopLossPoint" onkeyup="value = value.match(/\d+(\.\d{0,2})?/) ? value.match(/\d+(\.\d{0,2})?/)[0] : ''">
+                        <input class="closing-stop-cont-ipt" type="text" placeholder="0" v-model="StopLossPoint" @keyup="testPointValue('StopLossPoint')">
                       </div>
                     </div>
                   </div>
@@ -431,7 +431,7 @@
                       </div>
                       <div class="opener-article-closing-stop-cont flex">
                         <span class="closing-stop-cont-title">止盈点数</span>
-                        <input class="closing-stop-cont-ipt" type="text" placeholder="0" v-model="stopProfitPointEmpty" onkeyup="value = value.match(/\d+(\.\d{0,2})?/) ? value.match(/\d+(\.\d{0,2})?/)[0] : ''">
+                        <input class="closing-stop-cont-ipt" type="text" placeholder="0" v-model="stopProfitPointEmpty" @keyup="testPointValue('stopProfitPointEmpty')">
                       </div>
                     </div>
                     <div class="opener-article-closing-top-right">
@@ -451,7 +451,7 @@
                       </div>
                       <div class="opener-article-closing-stop-cont flex">
                         <span class="closing-stop-cont-title">止损点数</span>
-                        <input class="closing-stop-cont-ipt" type="text" placeholder="0" v-model="StopLossPointEmpty" onkeyup="value = value.match(/\d+(\.\d{0,2})?/) ? value.match(/\d+(\.\d{0,2})?/)[0] : ''">
+                        <input class="closing-stop-cont-ipt" type="text" placeholder="0" v-model="StopLossPointEmpty" @keyup="testPointValue('StopLossPointEmpty')">
                       </div>
                     </div>
                   </div>
