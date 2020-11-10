@@ -39,6 +39,12 @@ root.props.positionList = {
   type: Array,
   default: ['positionList']
 }
+// 单双仓
+root.props.baseScale = {
+  type: Number,
+  default: 0
+}
+
 
 /*------------------------------ 组件 ------------------------------*/
 root.components = {
@@ -258,7 +264,8 @@ root.computed.openAmountLong = function () {
     }
   })
   if(this.positionList.length == 0)  (this.totalAmountLong = 0)
-  return amount = this.toFixed(Number(this.openAmount) + Number(this.totalAmountLong),3)
+  if(this.positionList.length == 0 && !this.openAmount) return '--'
+  return amount = this.toFixed(Number(this.openAmount) + Number(this.totalAmountLong),this.baseScale)
 }
 // 双仓可盈多仓均价
 root.computed.averagePriceLong = function () {
@@ -278,7 +285,12 @@ root.computed.openAmountShort = function () {
     }
   })
   if(this.positionList.length == 0)  (this.totalAmountShort = 0)
-  return amount = this.toFixed(Number(this.openAmount) + Number(this.totalAmountShort),3) || '--'
+  if(this.positionList.length == 0 && !this.openAmount) return '--'
+  return amount = this.toFixed(Number(this.openAmount) + Number(this.totalAmountShort),this.baseScale) || '--'
+}
+root.computed.totalOpenAmount = function () {
+  if(this.positionList.length == 0 && !this.openAmount) return '--'
+  return this.toFixed(Number(this.openAmountShort) + Number(this.openAmountLong),this.baseScale)
 }
 
 // 单仓数量

@@ -37,12 +37,12 @@
                 <div class="opener-opening-amount flex-between" v-if="openerType == 2">
                   <div class="opener-opening-amount-left flex">
                     <div>开仓总量</div>
-                    <div class="opener-opening-amount-left-con">{{toFixed(Number(openAmountLong) + Number(openAmountShort),3) || '--'}} BTC</div>
+                    <div class="opener-opening-amount-left-con">{{totalOpenAmount}} BTC</div>
                   </div>
                   <div class="opener-opening-amount-right">
                     <div class="opener-opening-amount-left-tit">
-                      <span>多 {{openAmountLong || '--'}} BTC</span>
-                      <span>空 {{openAmountShort || '--'}} BTC</span>
+                      <span>多 {{openAmountLong}} BTC</span>
+                      <span>空 {{openAmountShort}} BTC</span>
                     </div>
                   </div>
                 </div>
