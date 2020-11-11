@@ -622,7 +622,7 @@ root.methods.createWithStop = function () {
   // }
   // this.testInput()
 
-  if(this.$globalFunc.testNumberPoint(this.openAmount)) {
+  if(!this.$globalFunc.testNumberPoint(this.openAmount)) {
     this.popOpen = true;
     this.popType = 0;
     this.popText='请输入数字'
