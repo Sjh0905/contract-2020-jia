@@ -562,19 +562,51 @@ root.methods.stepMore = function () {
   // if(this.positionModeFirst == 'doubleWarehouseMode' && Math.abs(this.openAmountShort) / Number(this.fullStopStep) >= 0.001 ) return true
 
 }
-root.methods.testNumberPoint = function () {
+root.methods.testIpt = function (ipt) {
+  if(!this.$globalFunc.testNumberPoint(this[ipt])){
+    this.popOpen = true;
+    this.popType = 0;
+    this.popText='请输入数字'
+  }
+}
+root.methods.testNumberPoint = function (ipt) {
+
+  // if(this.$globalFunc.testNumberPoint(ipt)){
+  //   this.popOpen = true;
+  //   this.popType = 0;
+  //   this.popText='请输入正确的数字'
+  //   this.openDisabel = false
+  //   return
+  // }
+  // let a = this.$globalFunc.testNumberPoint(this.openAmount),
+  //   b=this.$globalFunc.testNumberPoint(this.stopProfitPoint),
+  //   c=this.$globalFunc.testNumberPoint(this.takeProfitPoint),
+  //   d=this.$globalFunc.testNumberPoint(this.StopLossPoint),
+  //   e=this.$globalFunc.testNumberPoint(this.fullStopPoint),
+  //   b1=this.$globalFunc.testNumberPoint(this.stopProfitPointEmpty),
+  //   b2=this.$globalFunc.testNumberPoint(this.StopLossPointEmpty),
+  //   b3=this.$globalFunc.testNumberPoint(this.stopPointEmpty),
+  //   b4=this.$globalFunc.testNumberPoint(this.fullPointShortEmpty);
+  //
+  // if(this.positionModeFirst == 'singleWarehouseMode') {
+  //   return a || b || c || d || e
+  // }
+  // if(this.positionModeFirst == 'doubleWarehouseMode') {
+  //   return a && b && c && d && e && b1 && b2 && b3 && b4
+  // }
+
   // 单仓 和 双仓 多仓
-  if(this.$globalFunc.testNumberPoint(this.openAmount)) return true
-  if(this.$globalFunc.testNumberPoint(this.stopProfitPoint)) return true
-  if(this.$globalFunc.testNumberPoint(this.takeProfitPoint)) return true
-  if(this.$globalFunc.testNumberPoint(this.StopLossPoint)) return true
-  if(this.$globalFunc.testNumberPoint(this.fullStopPoint)) return true
-  // 双仓 空仓
-  if(this.$globalFunc.testNumberPoint(this.stopProfitPointEmpty)) return true
-  if(this.$globalFunc.testNumberPoint(this.StopLossPointEmpty)) return true
-  if(this.$globalFunc.testNumberPoint(this.stopPointEmpty)) return true
-  if(this.$globalFunc.testNumberPoint(this.fullPointShortEmpty)) return true
-  return false
+  // if(this.$globalFunc.testNumberPoint(this.openAmount)) return true
+  // if(this.$globalFunc.testNumberPoint(this.stopProfitPoint)) return true
+  // if(this.$globalFunc.testNumberPoint(this.takeProfitPoint)) return true
+  // if(this.$globalFunc.testNumberPoint(this.StopLossPoint)) return true
+  // if(this.$globalFunc.testNumberPoint(this.fullStopPoint)) return true
+  // // 双仓 空仓
+  // if(this.$globalFunc.testNumberPoint(this.stopProfitPointEmpty)) return true
+  // if(this.$globalFunc.testNumberPoint(this.StopLossPointEmpty)) return true
+  // if(this.$globalFunc.testNumberPoint(this.stopPointEmpty)) return true
+  // if(this.$globalFunc.testNumberPoint(this.fullPointShortEmpty)) return true
+  // return false
 }
 
 // 调用接口
@@ -589,10 +621,11 @@ root.methods.createWithStop = function () {
   //   window.location.replace(this.$store.state.contract_url + 'index/sign/login')
   // }
   // this.testInput()
-  if(!this.testNumberPoint()){
+
+  if(this.$globalFunc.testNumberPoint(this.openAmount)) {
     this.popOpen = true;
     this.popType = 0;
-    this.popText='请输入正确的数字'
+    this.popText='请输入数字'
     this.openDisabel = false
     return
   }
@@ -635,13 +668,6 @@ root.methods.createWithStop = function () {
     this.popOpen = true;
     this.popType = 0;
     this.popText='请输入正确的止盈（止损）点数、分步和间隔点数'
-    this.openDisabel = false
-    return
-  }
-  if(!this.testNumberPoint()){
-    this.popOpen = true;
-    this.popType = 0;
-    this.popText='请输入正确的数字'
     this.openDisabel = false
     return
   }
