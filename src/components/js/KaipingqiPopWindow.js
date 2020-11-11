@@ -554,10 +554,10 @@ root.methods.stepMore = function () {
   if(this.positionModeFirst == 'singleWarehouseMode') {
       return singLong && singShort
   }
-  if(this.positionModeFirst == 'doubleWarehouseMode' && !Number(this.openAmountLong)) {
+  if(this.positionModeFirst == 'doubleWarehouseMode' && Number(this.openAmountLong)) {
       return doubleLong && doubleLong2
   }
-  if(this.positionModeFirst == 'doubleWarehouseMode' && !Number(this.openAmountShort)){
+  if(this.positionModeFirst == 'doubleWarehouseMode' && Number(this.openAmountShort)){
     return doubleShort && doubleShort2
   }
   return false
@@ -655,13 +655,13 @@ root.methods.createWithStop = function () {
     this.openDisabel = false
     return
   }
-  // if(!this.stepMore()) {
-  //   this.popOpen = true;
-  //   this.popType = 0;
-  //   this.popText='分步下单数量小于最小下单数量'
-  //   this.openDisabel = false
-  //   return
-  // }
+  if(!this.stepMore()) {
+    this.popOpen = true;
+    this.popType = 0;
+    this.popText='分步下单数量小于最小下单数量'
+    this.openDisabel = false
+    return
+  }
   if(this.testPoint()) {
     this.popOpen = true;
     this.popType = 0;
@@ -672,7 +672,7 @@ root.methods.createWithStop = function () {
   if(this.stepPointLimit()){
     this.popOpen = true;
     this.popType = 0;
-    this.popText='请输入正确的止盈（止损）点数、分步和间隔点数'
+    this.popText='分布情况下，请输入正确的止盈（止损）点数、分步和间隔点数'
     this.openDisabel = false
     return
   }
