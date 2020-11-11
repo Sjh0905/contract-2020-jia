@@ -574,6 +574,13 @@ root.methods.createWithStop = function () {
   //   window.location.replace(this.$store.state.contract_url + 'index/sign/login')
   // }
   // this.testInput()
+  if(this.$globalFunc.testSpecial(this.openAmount)){
+    this.popOpen = true;
+    this.popType = 0;
+    this.popText='请输入正确的开仓数量'
+    this.openDisabel = false
+    return
+  }
   if(this.noCommit()){
     this.popOpen = true;
     this.popType = 0;
@@ -686,6 +693,11 @@ root.methods.re_createWithStop = function (data) {
   typeof(data) == 'string' && (data = JSON.parse(data));
   this.openDisabel = false
   switch (data.code) {
+    case 401:
+      this.popOpen = true;
+      this.popType = 0;
+      this.popText = '请您先进行登录';
+      break;
     case 2001:
       this.popOpen = true;
       this.popType = 0;
