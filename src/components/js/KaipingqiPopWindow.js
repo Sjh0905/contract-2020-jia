@@ -274,7 +274,9 @@ root.computed.openAmountLong = function () {
       this.totalAmountLong = amount
     }
   })
-  if(this.positionList.length == 0)  (this.totalAmountLong = 0)
+  if(this.positionList.length == 0)  {
+    this.totalAmountLong = 0
+  }
   if(this.positionList.length == 0 && !this.openAmount) return '--'
   return amount = this.toFixed(Number(this.openAmount) + Number(this.totalAmountLong),this.baseScale) || '--'
 }
@@ -552,8 +554,11 @@ root.methods.stepMore = function () {
   if(this.positionModeFirst == 'singleWarehouseMode') {
       return singLong && singShort
   }
-  if(this.positionModeFirst == 'doubleWarehouseMode') {
-      return doubleLong && doubleLong2 && doubleShort && doubleShort2
+  if(this.positionModeFirst == 'doubleWarehouseMode' && !Number(this.openAmountLong)) {
+      return doubleLong && doubleLong2
+  }
+  if(this.positionModeFirst == 'doubleWarehouseMode' && !Number(this.openAmountShort)){
+    return doubleShort && doubleShort2
   }
   return false
   // if(this.positionModeFirst == 'doubleWarehouseMode' && Math.abs(this.openAmountLong) / Number(this.takeProfitStep) >= 0.001) return true
@@ -650,13 +655,13 @@ root.methods.createWithStop = function () {
     this.openDisabel = false
     return
   }
-  if(!this.stepMore()) {
-    this.popOpen = true;
-    this.popType = 0;
-    this.popText='分步下单数量小于最小下单数量'
-    this.openDisabel = false
-    return
-  }
+  // if(!this.stepMore()) {
+  //   this.popOpen = true;
+  //   this.popType = 0;
+  //   this.popText='分步下单数量小于最小下单数量'
+  //   this.openDisabel = false
+  //   return
+  // }
   if(this.testPoint()) {
     this.popOpen = true;
     this.popType = 0;
