@@ -622,13 +622,13 @@ root.methods.createWithStop = function () {
   // }
   // this.testInput()
 
-  if(!this.$globalFunc.testNumberPoint(this.openAmount)) {
-    this.popOpen = true;
-    this.popType = 0;
-    this.popText='请输入数字'
-    this.openDisabel = false
-    return
-  }
+  // if(!this.$globalFunc.testNumberPoint(this.openAmount)) {
+  //   this.popOpen = true;
+  //   this.popType = 0;
+  //   this.popText='请输入数字'
+  //   this.openDisabel = false
+  //   return
+  // }
   if(this.noCommit()){
     this.popOpen = true;
     this.popType = 0;
