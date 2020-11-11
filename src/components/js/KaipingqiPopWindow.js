@@ -1032,8 +1032,13 @@ root.methods.popClose = function () {
 }
 
 /*---------------------- 格式化时间 begin ---------------------*/
+// 年月日
 root.methods.formatDateUitl = function (time) {
   return this.$globalFunc.formatDateUitl(time, 'YYYY-MM-DD')
+}
+// // 时分秒
+root.methods.formatDateUitlHms = function (time) {
+  return this.$globalFunc.formatDateUitl(time, 'hh:mm:ss')
 }
 /*---------------------- 格式化时间 end ---------------------*/
 

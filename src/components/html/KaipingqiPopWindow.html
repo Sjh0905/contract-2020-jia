@@ -632,9 +632,9 @@
           <div slot="article"class="list-article">
             <!--单仓-->
             <div class="single-list" v-for="item in openerRecords" :key="item.id">
-              <div class="single-list-title flex-between">
-                <div>{{item.id}}</div>
-                <div>{{formatDateUitl(item.createdAt,'YYYY-MM-DD')}}</div>
+              <div class="single-list-title flex">
+                <div class="m-r-r">{{formatDateUitl(item.createdAt,'YYYY-MM-DD')}}</div>
+                <div>{{formatDateUitlHms(item.createdAt,'hh:mm:ss')}}</div>
               </div>
               <div class="single-list-content">
                 <div class="single-list-content-title flex">
