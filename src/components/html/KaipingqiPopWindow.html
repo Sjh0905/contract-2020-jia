@@ -149,7 +149,7 @@
                         </div>
 
                         <div class="opener-text flex">
-                          <div class="opener-price">{{item.price}}</div>
+                          <div class="opener-price">{{toFixed(item.price,2)}}</div>
                           <div class="opener-amount-t">{{toFixed(item.step,baseScale)}}</div>
                         </div>
                       </div>
@@ -229,7 +229,7 @@
                           <div class="opener-stop-plan-tex-line" v-if="index != stepPlanListDown.length - 1"></div>
                         </div>
                         <div class="opener-text flex">
-                          <div class="opener-price">{{item.price || ''}}</div>
+                          <div class="opener-price">{{toFixed(item.price,2)}}</div>
                           <div class="opener-amount-t">{{toFixed(item.step,baseScale) || '--'}}</div>
                         </div>
                       </div>
@@ -342,7 +342,7 @@
 
                         </div>
                         <div class="opener-text flex">
-                          <div class="opener-price">{{item.price}}</div>
+                          <div class="opener-price">{{toFixed(item.price,2)}}</div>
                           <div>{{toFixed(item.step,baseScale)}}</div>
                         </div>
                       </div>
@@ -399,7 +399,7 @@
                             <div class="opener-stop-plan-tex-line" v-if="index != stepLongListDown.length-1"></div>
                           </div>
                           <div class="opener-text flex">
-                            <div class="opener-price">{{item.price}}</div>
+                            <div class="opener-price">{{toFixed(item.price,2)}}</div>
                             <div>{{toFixed(item.step,baseScale)}}</div>
                           </div>
                         </div>
@@ -505,7 +505,7 @@
                           <div class="opener-stop-plan-tex-line" v-if="index != stepShortList.length - 1"></div>
                         </div>
                         <div class="opener-text flex">
-                          <div class="opener-price">{{item.price}}</div>
+                          <div class="opener-price">{{toFixed(item.price,2)}}</div>
                           <div>{{toFixed(item.step,baseScale)}}</div>
                         </div>
                       </div>
@@ -561,7 +561,7 @@
                           <div class="opener-stop-plan-tex-line" v-if="index != stepShortListDown.length -1"></div>
                         </div>
                         <div class="opener-text flex">
-                          <div class="opener-price">{{item.price || '--'}}</div>
+                          <div class="opener-price">{{toFixed(item.price,2)}}</div>
                           <div>{{toFixed(item.step,baseScale)}}</div>
                         </div>
                       </div>

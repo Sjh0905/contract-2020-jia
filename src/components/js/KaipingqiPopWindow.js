@@ -226,6 +226,7 @@ root.computed.stepLongListDown = function () {
 // 空仓全部价格（平仓止盈）
 root.computed.allShortPrice = function () {
   if(!this.stopProfitPointEmpty) return '--'
+  if(Number(this.stopProfitPointEmpty) > Number(this.averagePriceShort)) return 0
   return Number(this.toFixed(this.allPrice(this.averagePriceShort,-this.stopProfitPointEmpty),2)) || '--'
 }
 
@@ -246,7 +247,7 @@ root.computed.stepShortList = function () {
 // 空仓全部价格（清仓止损）
 root.computed.allShortPriceDown = function () {
   if(!this.StopLossPointEmpty) return '--'
-  if(this.StopLossPointEmpty > this.averagePriceShort) return 0
+  // if(this.StopLossPointEmpty > this.averagePriceShort) return 0
   return Number(this.toFixed(this.allPrice(this.averagePriceShort,this.StopLossPointEmpty),2)) || '--'
 }
 
@@ -356,9 +357,6 @@ root.computed.isMobile = function () {
   return this.$store.state.isMobile
 }
 // 是否登录
-root.computed.isLogin = function () {
-  return this.$store.state.isLogin
-}
 // 计算当前symbol
 root.computed.symbol = function () {
   // console.warn('symbol',this.$store.state.symbol);
@@ -419,7 +417,6 @@ root.methods.stopLossStepLong = function () {
   // this.isStepTypeClose ==2 ? this.fullStopStep : ''
   if(this.positionAmt > 0 && this.isStepTypeClose == 2) return this.fullStopStep
   if(this.positionAmt > 0 && this.isStepTypeClose == 1) return 0
-
 }
 // 止损步数 空仓
 root.methods.stopLossStepShort = function () {
@@ -435,7 +432,6 @@ root.methods.profitIntervalLong = function () {
   if(!this.stopProfitPoint || this.positionAmt <= 0) return ''
   if(this.positionAmt > 0 && this.isStepType == 2) return this.takeProfitPoint
   if(this.positionAmt > 0 && this.isStepType == 1) return 0
-
 }
 // 止盈间隔数量 空仓
 root.methods.profitIntervalShort = function () {
@@ -869,7 +865,7 @@ root.methods.stepOrallTakeProfit = function (item) {
 }
 // 单仓止损
 root.methods.stepOrallLoss = function (item) {
-  if(item.openType=='LONG' && item.stopLossLong){
+  if(item.openType =='LONG' && item.stopLossLong){
     if(!item.stopLossStepLong){
       return '全部'
     }
