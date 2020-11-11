@@ -237,6 +237,17 @@
                   <!--隐藏的标签 end-->
                 </li>
 
+                <!--合约交易 begin-->
+                <li class="navigation-item-container flex">
+                  <router-link
+                    :to="{name: 'tradingHall', query: {symbol: $store.state.symbol} }"
+                    class="navigation-item-router flex"
+                    active-class="navigation-item-router-selected"
+                  >
+                    {{$t('合约交易')}}
+                  </router-link>
+                </li>
+
                 <!--法币交易 begin-->
                 <li class="navigation-item-container flex">
                   <div @click="goToFranchExchange"
@@ -250,16 +261,7 @@
                   <!--隐藏的标签 end-->
                 </li>
 
-                <!--合约交易 begin-->
-                <li class="navigation-item-container flex">
-                  <router-link
-                    :to="{name: 'tradingHall', query: {symbol: $store.state.symbol} }"
-                    class="navigation-item-router flex"
-                    active-class="navigation-item-router-selected"
-                  >
-                    {{$t('合约交易')}}
-                  </router-link>
-                </li>
+
 
                 <!--挖矿 begin-->
                 <li class="navigation-item-container flex"  @mouseenter="enterActive()" @mouseleave="leaveActive()">
@@ -329,12 +331,12 @@
                       </div>
                     </li>
 
-                    <!--区块恋-->
+                    <!--区块安-->
                     <li class="navigation-item-hidden-list-item">
                       <div @click="goToProducts"
                         class="navigation-item-hidden-list-item-router"
                         active-class="item_selected">
-                        <!--区块恋-->
+                        <!--区块安-->
                         {{$t('blockLove')}}
                       </div>
                     </li>
