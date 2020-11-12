@@ -89,6 +89,9 @@ tr, th, td {
   /*text-align: right;*/
   padding-right: 25px;
 }
+.td-back-hand {
+  flex: 11;
+}
 .td-trigger-btn {
   /*justify-content: flex-end;*/
 }
@@ -146,6 +149,22 @@ tr, th, td {
   background: rgba(53,118,245,.5);
   cursor: pointer;
   /*border-radius:1px;*/
+}
+
+.back-hand{
+  display: inline-block;
+  padding: 0 10px;
+  /*width: 30%;*/
+  text-align: center;
+  height: 28px;
+  line-height: 28px;
+  background: #3576F5;
+  cursor: pointer;
+  border-radius:1px;
+}
+.back-hand:hover {
+  background: rgba(53,118,245,.5);
+  cursor: pointer;
 }
 .td-time1-currency {
   align-items: center;
@@ -324,6 +343,21 @@ tr, th, td {
   height:auto;
   top: 32px;
   right: 10%;
+  font-size:12px;
+  text-align: left;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color: #0D0E23;
+  background: #fff;
+  padding: 10px;
+}
+.back-hand-box {
+  display: none;
+  position: absolute;
+  width: 250px;
+  height:auto;
+  top: 32px;
+  right: 8%;
   font-size:12px;
   text-align: left;
   font-family:PingFangSC-Regular,PingFang SC;

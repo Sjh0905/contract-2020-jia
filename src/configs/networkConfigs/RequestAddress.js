@@ -41,6 +41,7 @@ requestAddress.GET_LEVERAGE_BRACKET = {url: urlHead + '/future/user/leverageBrac
 requestAddress.POST_NOTICE_LIST = {url: urlHead+'/apis/user/findNoticeList', method: 'post'}
 requestAddress.POST_CREATE_WITH_STOP = {url: urlHead+'/future/orders/createWithStop', method: 'post'}
 requestAddress.GET_ORDERS_GETRECORD = {url: urlHead+'/future/orders/getRecord', method: 'get'}
+requestAddress.POST_REVERSE_POSITION = {url: urlHead+'/future/orders/reversePosition', method: 'post'} // 反手
 
 
 
