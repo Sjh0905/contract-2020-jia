@@ -413,7 +413,7 @@ root.personalCenter.EstimatedCommission = '已獲得獎勵(BT)'
 root.personalCenter.Qrcode = '專屬邀請二維碼'
 root.personalCenter.poster = '我的專屬邀請海報'
 root.personalCenter.poster_1 = '即刻分享海報，邀請好友送豪禮'
-root.personalCenter.poster_2 = '右鍵複製保存海報，邀請好友獲得返傭'
+root.personalCenter.poster_2 = '右鍵複製保存海報'
 
 
 // 身份認證

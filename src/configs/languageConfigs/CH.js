@@ -412,7 +412,7 @@ root.personalCenter.EstimatedCommission = '已获得奖励(BT)'
 root.personalCenter.Qrcode = '专属邀请二维码'
 root.personalCenter.poster = '我的专属邀请海报'
 root.personalCenter.poster_1 = '即刻分享海报，邀请好友送豪礼'
-root.personalCenter.poster_2 = '右键复制保存海报，邀请好友获得返佣'
+root.personalCenter.poster_2 = '右键复制保存海报'
 
 
 // 身份认证

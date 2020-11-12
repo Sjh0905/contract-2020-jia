@@ -49,6 +49,10 @@
         <span class="border-dashed position-color" @mouseenter="openPositionBox('open-liquidation-box')" @mouseleave="closePositionBox('open-liquidation-box')" @click="closePositions">{{$t('一键平仓')}}</span>
         <div class="open-liquidation-box">你可以在此 <span class="position-color"> 全部平仓</span>，这将会以市价交易的方式抵销你的所有仓位。</div>
       </div>
+      <!--平仓-->
+      <div class="th td-trigger4">
+        <span class="" @click="closePositions">{{$t('分享')}}</span>
+      </div>
     </li>
     <!-- 表头 end -->
     <!-- 如果加载完成、已登录、有数据，则显示数据 begin -->
@@ -102,6 +106,11 @@
           <div class="cencon market-price-width38" @click="cancelThePosition">取消</div>
         </div>
       </div>
+      <div class="td td-trigger4" >
+        <div class="fenxiang-img flex">
+          <img src="../../assets/fenxiang.png" @click="SHOW_POSTER" alt="">
+        </div>
+      </div>
     </li>
       <!-- 如果加载完成、已登录、有数据，则显示数据 end -->
 
@@ -122,6 +131,57 @@
 <!--    <Loading/>-->
 <!--  </div>-->
   <!-- 加载更多 end -->
+  <!-- 专属海报 start -->
+<!--  <div class="show_poster" v-show="showPoster">-->
+<!--    <div class="show_poster_body">-->
+<!--      <div class="close_icon" @click="HIDE_POSTER">✕</div>-->
+<!--&lt;!&ndash;      <p class="tips_poster">{{$t('personalCenter.poster_1', {activityRate:activityRate*100})}}</p>&ndash;&gt;-->
+<!--      <p class="copy_poster">✽{{$t('personalCenter.poster_2')}}</p>-->
+<!--      <img :src="poster_url" width="100%">-->
+
+<!--    </div>-->
+<!--  </div>-->
+  <!-- 专属海报 end -->
+
+  <SharingInvitationPc :switch="showPoster" @close="HIDE_POSTER">
+    <div slot="header" class="pop-article1">
+<!--      <div class="show_poster_body">-->
+<!--        <div class="close_icon" @click="HIDE_POSTER">✕</div>-->
+        <!--      <p class="tips_poster">{{$t('personalCenter.poster_1', {activityRate:activityRate*100})}}</p>-->
+      <template>
+<!--        <el-select class="account_number_input"-->
+<!--                   name="country"-->
+<!--                   :placeholder= '$t("选择内容")'-->
+<!--                   style="font-size:12px"-->
+<!--                   v-model="searchResult"-->
+<!--                   popper-class="self-el-select">-->
+<!--          <input type="text" class="inputsize" :placeholder='$t("wrong_message_")' v-model="searchCities">-->
+<!--          <el-option-->
+<!--            popper-class="drowdown-box"-->
+<!--            v-for="item in (searchCities ? cityList :cities)"-->
+<!--            :key="item.groupId"-->
+<!--            :label="($store.state.lang == 'CH' || $store.state.lang == 'CHT')? item.concat_gname : item.concat_gname"-->
+<!--            :value="item.concat_gname">-->
+<!--          </el-option>-->
+<!--        </el-select>-->
+
+        <el-select class="account_number_input" value-key="currencyKey" v-model="currencyValue" filterable placeholder="">
+          <el-option
+            v-for="item in accountsComputed"
+            :label="item.a"
+            :value="item.a"
+          >
+          </el-option>
+        </el-select>
+      </template>
+      <p class="copy_poster">✽{{$t('personalCenter.poster_2')}}</p>
+<!--      <img :src="poster_url" width="100%">-->
+      <img src="../../assets/selected_noVIP_icon.png" width="100%">
+
+<!--      </div>-->
+    </div>
+  </SharingInvitationPc>
+
   <PopupPrompt :popType="popType" :popText="popText" :popOpen="promptOpen" :popClose="closePrompt"></PopupPrompt>
 
   <PositionModeBulletBox :switch="modifyMarginOpen" @close="modifyMarginClose">

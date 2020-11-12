@@ -27,6 +27,7 @@ root.components = {
   'PopupPrompt': resolve => require(['../vue/PopupPrompt'], resolve),
   'PopupWindow': resolve => require(['../vue/PopupWindow'], resolve),
   'PositionModeBulletBox': resolve => require(['../vue/PositionModeBulletBox'], resolve),
+  'SharingInvitationPc': resolve => require(['../vue/SharingInvitationPc'], resolve),
 }
 /*------------------------------ data -------------------------------*/
 root.data = function () {
@@ -92,6 +93,11 @@ root.data = function () {
     showSplicedFrame:false,//下单拦截弹框
     callFuncName:'',//即将调用接口的函数名字
     splicedFrameText:'',
+    // 是否展示海报
+    showPoster: false,
+    // 海报url
+    poster_url: '',
+    currencyValue:'',
   }
 }
 /*------------------------------ 观察 -------------------------------*/
@@ -106,6 +112,12 @@ root.watch.walletBalance = function(newVal,oldVal) {
 root.watch.crossWalletBalance = function(newVal,oldVal) {
   // console.info(newVal)
 }
+root.watch.currencyValue = function (newVal, oldVal){
+  // let a = newVal
+  // this.getAccount()
+  // console.log("searchResult + newVal, oldVal",newVal,'00000', a, this.accountsComputed.length)
+}
+
 /*------------------------------ 生命周期 -------------------------------*/
 root.created = function () {
   this.getPositionRisk()
@@ -116,10 +128,12 @@ root.created = function () {
   this.adlQuantile && clearInterval(this.adlQuantile)
   this.adlQuantile = setInterval(this.getAdlQuantile, 1000 * 60 * 30)
   this.getAccount()
+  this.GET_POSTER_URL();
   // console.info('钱包总余额===',this.$store.state.walletBalance,'除去逐仓仓位的钱包总余额===',this.$store.state.crossWalletBalance)
 
   //引入链式计算
   this.chainCal = this.$globalFunc.chainCal
+
 }
 root.mounted = function () {}
 root.beforeDestroy = function () {}
@@ -184,8 +198,62 @@ root.computed.LPCalculationType = function () {
   return data
 }
 
+root.computed.accountsComputed = function (index,item) {
+  // // 特殊处理
+  console.info('currencyValue========',this.currencyValue)
+  this.accounts = [
+    {'a':'庄终于，对我下手了'},
+    {'a':'我命由庄，不由我'},
+    {'a':'这是什么，人间疾苦'},
+    {'a':'一键梭哈的，市价小能手'},
+    {'a':'动如脱兔的，逃顶小能手'},
+    {'a':'掐指一算，今天大赚'},
+    {'a':'勤劳致富，落袋为安'},
+    {'a':'断臂求生的，止损小能手'},
+    {'a':'感觉人生，到达巅峰'},
+    {'a':'能亏才会赚，不信等着看'},
+    {'a':'舍己为人的，反指小能手'},
+    {'a':'多么痛，的领悟'}
+  ]
+  let c = this.accounts.map(item => item.a).indexOf(this.currencyValue)
+  console.info('this.accounts=======aaaaa',c+1)
+  return this.accounts
+}
+
 /*------------------------------ 方法 -------------------------------*/
 root.methods = {}
+
+//sss 屏蔽 3.11
+// 获取海报
+root.methods.GET_POSTER_URL = function () {
+  this.$http.send('GET_USER_INVITE_POSTER', {
+    bind: this,
+    params: {
+      type: "invite",
+      param: 'CH'     // 暂时传中文
+      // type: this.lang == 'CH' ? 'CH' : 'EN'     // 英文传EN
+    },
+    callBack: this.RE_GET_POSTER_URL,
+    errorHandler: this.error_getPosterImage
+  })
+}
+root.methods.RE_GET_POSTER_URL = function (res) {
+  let urls = res.dataMap;
+  // console.log(urls)
+  if (res.errorCode > 0) return;
+  this.poster_url = urls.inviteUrl;
+}
+//sss 屏蔽结束 3.11
+
+// 展示海报
+root.methods.SHOW_POSTER = function () {
+  this.showPoster = true;
+}
+// 隐藏海报
+root.methods.HIDE_POSTER = function () {
+  this.showPoster = false;
+}
+
 root.methods.closePopMarket = function () {
   this.popOpenMarket = false
 }
