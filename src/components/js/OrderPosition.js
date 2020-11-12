@@ -909,7 +909,7 @@ root.methods.openSplicedFrame = function (item,btnText,callFuncName) {
 //提交下单弹框
 root.methods.confirmFrame = function () {
   this[this.callFuncName]();//调用对应的接口
-  this.showSplicedFrame = false
+
 }
 
 //关闭下单弹框
@@ -933,6 +933,7 @@ root.methods.backHand = function () {
 // 获取记录返回，类型为{}
 root.methods.re_backHand = function (data) {
   this.marketPriceClick = false
+  this.showSplicedFrame = false; // 关闭拦截弹窗
   typeof data === 'string' && (data = JSON.parse(data))
   if (!data) return
   this.popOpen = false
@@ -993,6 +994,7 @@ root.methods.re_backHand = function (data) {
   this.$eventBus.notify({key:'GET_BALANCE'})
   this.getPositionRisk()
   this.promptOpen = true;
+
   this.priceCheck[data.data.positionSide] = data.data.price
 
   // console.info('this.priceCheck===',this.priceCheck)
@@ -1067,6 +1069,7 @@ root.methods.marketPrice = function (v) {
 }
 // 获取记录返回，类型为{}
 root.methods.re_marketPrice = function (data) {
+  this.showSplicedFrame = false; // 关闭拦截弹窗
   this.marketPriceClick = false
   if(data.code == '303' && data.errCode == '2019') {
     this.promptOpen = true;
@@ -1185,6 +1188,7 @@ root.methods.checkPrice = function () {
 // 获取记录返回，类型为{}
 root.methods.re_checkPrice = function (data) {
   this.marketPriceClick = false
+  this.showSplicedFrame = false; // 关闭拦截弹窗
   if(data.code == '303' && data.errCode == '2019') {
     this.promptOpen = true;
     this.popType = 0;
