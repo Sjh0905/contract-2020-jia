@@ -43,6 +43,8 @@ requestAddress.POST_NOTICE_LIST = {url: urlHead+'/apis/user/findNoticeList', met
 requestAddress.GET_INVITE_CODE = {url: urlHead + '/apis/user/futureInviteRelation/', method: 'get'} // 邀请码
 requestAddress.GET_INVITE_ID = {url: urlHead + '/apis/user/verifyInvitedUserId/', method: 'get'} // 邀请码
 requestAddress.GET_INVITE_LEST = {url: urlHead + '/future/user/getFutureInviteData', method: 'get'} // 邀请码记录
+requestAddress.POST_CREATE_WITH_STOP = {url: urlHead+'/future/orders/createWithStop', method: 'post'}
+requestAddress.GET_ORDERS_GETRECORD = {url: urlHead+'/future/orders/getRecord', method: 'get'}
 
 
 

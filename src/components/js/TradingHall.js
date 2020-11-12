@@ -37,7 +37,9 @@ root.components = {
   // 移动端
   'MobileTradingHall': resolve => require(['../mobileVue/MobileTradingHall'], resolve),
   // 计算机组件
-  'CalculatorBommbBox': resolve => require(['../vue/CalculatorBommbBox'], resolve)
+  'CalculatorBommbBox': resolve => require(['../vue/CalculatorBommbBox'], resolve),
+  // 开平器组件
+  'KaipingqiPopWindow': resolve => require(['../vue/KaipingqiPopWindow'], resolve),
 
 }
 
@@ -177,6 +179,10 @@ root.data = function () {
     positionAmtShort:0,
     popTextLeverage:'',
     availableBalance:0,
+/* -------------------------- 开平器Data begin -------------------------- */
+    openOpener:false,
+    positionList:[],
+/* -------------------------- 开平器Data end -------------------------- */
     invitreCodeInput:'',//邀请码
     pswPlaceholderShow: true,
     name_0:'',
@@ -426,36 +432,62 @@ root.computed.serverTime = function () {
 }
 // 初始化各子组件
 root.methods = {}
+/*---------------  开平器 Begin  ---------------*/
+// 打开开平器
+root.methods.openBottleOpener = function () {
+  // alert('打开开平器')
+  this.openOpener = true
+  this.getPositionRisk()
+}
+// 关闭开平器弹框
+root.methods.closeBottleOpener = function () {
+  this.openOpener = false
+}
+// // 提交开平器
+// root.methods.comitBottleOpener = function () {
+//   this.closeBottleOpener()
+// }
+/*---------------  开平器 End  ---------------*/
+
 
 // root.methods.getPositionRisk = function () {
 //   this.recordsIndex = this.recordsIndex
 // }
 // 仓位
-// root.methods.getPositionRisk = function () {
-//
-//   this.$http.send("GET_POSITION_RISKV", {
-//     bind: this,
-//     query: {
-//       timestamp: this.serverTime
-//     },
-//     callBack: this.re_getPositionRisk,
-//     errorHandler: this.error_getPositionRisk
-//   })
-// }
-// // 获取记录返回，类型为{}
-// root.methods.re_getPositionRisk = function (data) {
-//   typeof data === 'string' && (data = JSON.parse(data))
-//   if (!data) return
-//   this.records = data.data
-//   this.records.map((v,index)=>{
-//     if (v.positionAmt != 0) {
-//       let aa = []
-//       aa.push(v)
-//       this.records1 = aa
-//     }
-//   })
-//   this.recordsIndex = this.records1.length
-// }
+root.methods.getPositionRisk = function () {
+
+  this.$http.send("GET_POSITION_RISK", {
+    bind: this,
+    callBack: this.re_getPositionRisk,
+    errorHandler: this.error_getPositionRisk
+  })
+}
+// 获取记录返回，类型为{}
+root.methods.re_getPositionRisk = function (data) {
+  typeof data === 'string' && (data = JSON.parse(data))
+  if (!data) return
+  let records = data.data,filterRecords = []
+  for (let i = 0; i < records.length ; i++) {
+    let v = records[i];
+    if (v.marginType == 'cross' && v.positionAmt != 0 && v.symbol == 'BTCUSDT') {
+      filterRecords.push(v)
+      continue;
+    }
+    //逐仓保证金：isolatedMargin - unrealizedProfit,开仓量或逐仓保证金不为0的仓位才有效
+    if(v.marginType == 'isolated' && v.symbol == 'BTCUSDT'){
+      v.securityDeposit = this.accMinus(v.isolatedMargin,v.unrealizedProfit)
+      // v.securityDeposit = Number(v.isolatedMargin) - Number(v.unrealizedProfit)
+
+      //由于开头判断条件用括号包装，会被编译器解析成声明函数括号，所以前一行代码尾或本行代码头要加分号、或者本行代码改为if判断才行
+      // (v.positionAmt != 0 || v.securityDeposit != 0) && filterRecords.push(v);
+      if((v.positionAmt != 0 || v.securityDeposit != 0) && v.symbol == 'BTCUSDT') {
+        // v.inputMarginPrice = this.toFixed(v.markPrice,2)
+        filterRecords.push(v)
+      }
+    }
+  }
+  this.positionList = filterRecords
+}
 
 /*---------------------- 合约接口部分 begin ---------------------*/
 
@@ -1479,7 +1511,6 @@ root.methods.isFirstVisit = function () {
 }
 root.methods.re_isFirstVisit = function (data) {
   typeof(data) == 'string' && (data = JSON.parse(data));
-  console.info('data-========re_isFirstVisit',data)
   if (data.code == 1000) {
     this.popWindowContractRiskWarning = true
   } else {
