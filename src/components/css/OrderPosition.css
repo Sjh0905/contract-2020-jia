@@ -254,7 +254,7 @@ tr, th, td {
   display: none;
   position: absolute;
   top: 32px;
-  left:12.5%;
+  left:11.5%;
   font-size:12px;
   font-family:PingFangSC-Regular,PingFang SC;
   font-weight:400;
@@ -268,7 +268,7 @@ tr, th, td {
   width: 250px;
   height:auto;
   top: 32px;
-  left: 18%;
+  left: 17%;
   font-size:12px;
   font-family:PingFangSC-Regular,PingFang SC;
   font-weight:400;
@@ -282,7 +282,7 @@ tr, th, td {
   width: 250px;
   height:auto;
   top: 32px;
-  left: 26%;
+  left: 24%;
   font-size:12px;
   font-family:PingFangSC-Regular,PingFang SC;
   font-weight:400;
@@ -296,7 +296,7 @@ tr, th, td {
   width: 250px;
   height:auto;
   top: 32px;
-  left: 31%;
+  left: 30%;
   font-size:12px;
   font-family:PingFangSC-Regular,PingFang SC;
   font-weight:400;
@@ -310,7 +310,7 @@ tr, th, td {
   /*width: 300px;*/
   height:auto;
   top: 32px;
-  left: 42%;
+  left: 40%;
   font-size:12px;
   font-family:PingFangSC-Regular,PingFang SC;
   font-weight:400;
@@ -324,7 +324,7 @@ tr, th, td {
   width: 250px;
   height:auto;
   top: 32px;
-  left: 48%;
+  left: 46%;
   font-size:12px;
   font-family:PingFangSC-Regular,PingFang SC;
   font-weight:400;
@@ -338,7 +338,7 @@ tr, th, td {
   width: 250px;
   height:auto;
   top: 32px;
-  right: 27.5%;
+  right: 30%;
   font-size:12px;
   font-family:PingFangSC-Regular,PingFang SC;
   font-weight:400;
@@ -352,7 +352,7 @@ tr, th, td {
   width: 250px;
   height:auto;
   top: 32px;
-  right: 21%;
+  right: 24%;
   font-size:12px;
   text-align: left;
   font-family:PingFangSC-Regular,PingFang SC;
@@ -367,7 +367,7 @@ tr, th, td {
   width: 250px;
   height:auto;
   top: 32px;
-  right: 8%;
+  right: 10%;
   font-size:12px;
   text-align: left;
   font-family:PingFangSC-Regular,PingFang SC;
