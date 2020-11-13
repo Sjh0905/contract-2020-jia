@@ -592,3 +592,10 @@ tr, th, td {
 .pop-article1 {
   width: 280px;
 }
+.shouuu {
+  position: fixed;
+  top: 70%;
+  left: 30%;
+  color: #EF5656;
+  font-size: 24px;
+}
