@@ -49,10 +49,16 @@
         <span class="border-dashed position-color" @mouseenter="openPositionBox('open-liquidation-box')" @mouseleave="closePositionBox('open-liquidation-box')" @click="closePositions">{{$t('一键平仓')}}</span>
         <div class="open-liquidation-box">你可以在此 <span class="position-color"> 全部平仓</span>，这将会以市价交易的方式抵销你的所有仓位。</div>
       </div>
-      <!--平仓-->
-      <div class="th td-trigger4">
-        <span class="">{{$t('分享')}}</span>
+
+      <!--反手-->
+      <div class="th td-back-hand">
+        <span class="border-dashed" @mouseenter="openPositionBox('back-hand-box')" @mouseleave="closePositionBox('back-hand-box')">{{$t('反手')}}</span>
+        <div class="back-hand-box">注：反手开仓功能仅对可用仓位生效，反手并不保证100%成功，如平仓后保证金不足等因素可能导致无法反向开仓</div>
       </div>
+      <!--分享-->
+<!--      <div class="th td-trigger4">-->
+<!--        <span class="">{{$t('分享')}}</span>-->
+<!--      </div>-->
     </li>
     <!-- 表头 end -->
     <!-- 如果加载完成、已登录、有数据，则显示数据 begin -->
@@ -106,11 +112,15 @@
           <div class="cencon market-price-width38" @click="cancelThePosition">取消</div>
         </div>
       </div>
-      <div class="td td-trigger4" >
-        <div class="fenxiang-img flex">
-          <img src="../../assets/fenxiang.png" @click="SHOW_POSTER" alt="">
-        </div>
+
+      <div class="td td-back-hand pointer" @click="openSplicedFrame(item,'back_hand','backHand')">
+        <div class="back-hand">市价反手</div>
       </div>
+<!--      <div class="td td-trigger4" >-->
+<!--        <div class="fenxiang-img flex">-->
+<!--          <img src="../../assets/fenxiang.png" @click="SHOW_POSTER" alt="">-->
+<!--        </div>-->
+<!--      </div>-->
     </li>
       <!-- 如果加载完成、已登录、有数据，则显示数据 end -->
 

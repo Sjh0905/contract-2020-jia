@@ -373,7 +373,8 @@
     <div v-if="isNow === 4" class="trading-hall-order-box-detail">
       <OrderPosition :tradinghallLimit="tradinghallLimit" :latestPriceVal = 'latestPriceVal'
                      :effectiveTime = 'effectiveTime' :availableBalance='availableBalance'
-                     :markPrice = 'markPrice' @getPositionRisk="getIndex"/>
+                     :markPrice = 'markPrice' @getPositionRisk="getIndex"
+                     :positionModeFirst = "positionModeFirst"/>
     </div>
     <div v-if="isNow === 5" class="trading-hall-order-box-detail">
       <OrderMarginBalance :tradinghallLimit="tradinghallLimit"/>
