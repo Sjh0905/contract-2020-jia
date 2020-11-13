@@ -45,6 +45,9 @@ requestAddress.GET_INVITE_ID = {url: urlHead + '/apis/user/verifyInvitedUserId/'
 requestAddress.GET_INVITE_LEST = {url: urlHead + '/future/user/getFutureInviteData', method: 'get'} // 邀请码记录
 requestAddress.POST_CREATE_WITH_STOP = {url: urlHead+'/future/orders/createWithStop', method: 'post'}
 requestAddress.GET_ORDERS_GETRECORD = {url: urlHead+'/future/orders/getRecord', method: 'get'}
+requestAddress.POST_CREATE_WITH_STOP = {url: urlHead+'/future/orders/createWithStop', method: 'post'}
+requestAddress.GET_ORDERS_GETRECORD = {url: urlHead+'/future/orders/getRecord', method: 'get'}
+requestAddress.POST_REVERSE_POSITION = {url: urlHead+'/future/orders/reversePosition', method: 'post'} // 反手
 
 
 
