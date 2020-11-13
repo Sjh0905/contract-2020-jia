@@ -98,7 +98,21 @@ root.data = function () {
     // 海报url
     poster_url: '',
     currencyValue:'',
-    psSymbolArr:['BTCUSDT']//,'ETHUSDT'
+    psSymbolArr:['BTCUSDT'],//,'ETHUSDT'
+    accounts : [
+      {'a':'庄终于，对我下手了'},
+      {'a':'我命由庄，不由我'},
+      {'a':'这是什么，人间疾苦'},
+      {'a':'一键梭哈的，市价小能手'},
+      {'a':'动如脱兔的，逃顶小能手'},
+      {'a':'掐指一算，今天大赚'},
+      {'a':'勤劳致富，落袋为安'},
+      {'a':'断臂求生的，止损小能手'},
+      {'a':'感觉人生，到达巅峰'},
+      {'a':'能亏才会赚，不信等着看'},
+      {'a':'舍己为人的，反指小能手'},
+      {'a':'多么痛，的领悟'}
+    ]
   }
 }
 /*------------------------------ 观察 -------------------------------*/
@@ -201,23 +215,7 @@ root.computed.LPCalculationType = function () {
 
 root.computed.accountsComputed = function (index,item) {
   // // 特殊处理
-  console.info('currencyValue========',this.currencyValue)
-  this.accounts = [
-    {'a':'庄终于，对我下手了'},
-    {'a':'我命由庄，不由我'},
-    {'a':'这是什么，人间疾苦'},
-    {'a':'一键梭哈的，市价小能手'},
-    {'a':'动如脱兔的，逃顶小能手'},
-    {'a':'掐指一算，今天大赚'},
-    {'a':'勤劳致富，落袋为安'},
-    {'a':'断臂求生的，止损小能手'},
-    {'a':'感觉人生，到达巅峰'},
-    {'a':'能亏才会赚，不信等着看'},
-    {'a':'舍己为人的，反指小能手'},
-    {'a':'多么痛，的领悟'}
-  ]
-  let c = this.accounts.map(item => item.a).indexOf(this.currencyValue)
-  console.info('this.accounts=======aaaaa',c+1)
+  this.accounts.map(item => item.a).indexOf(this.currencyValue)
   return this.accounts
 }
 

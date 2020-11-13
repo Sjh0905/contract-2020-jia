@@ -27,6 +27,7 @@ root.components = {
   'PopupPrompt': resolve => require(['../vue/PopupPrompt'], resolve),
   'PopupWindow': resolve => require(['../vue/PopupWindow'], resolve),
   'PositionModeBulletBox': resolve => require(['../vue/PositionModeBulletBox'], resolve),
+  'SharingInvitationPc': resolve => require(['../vue/SharingInvitationPc'], resolve),
 }
 /*------------------------------ data -------------------------------*/
 root.data = function () {
@@ -102,7 +103,27 @@ root.data = function () {
     popUnrealizedProfitNew:0, // 未实现盈亏
     positionSelect: null, // 选中的仓位数据
 
-    psSymbolArr:['BTCUSDT']//,'ETHUSDT'
+    psSymbolArr:['BTCUSDT'],//,'ETHUSDT'
+
+    // 是否展示海报
+    showPoster: false,
+    // 海报url
+    poster_url: '',
+    currencyValue:'',
+    accounts: [
+      {'a':'庄终于，对我下手了'},
+      {'a':'我命由庄，不由我'},
+      {'a':'这是什么，人间疾苦'},
+      {'a':'一键梭哈的，市价小能手'},
+      {'a':'动如脱兔的，逃顶小能手'},
+      {'a':'掐指一算，今天大赚'},
+      {'a':'勤劳致富，落袋为安'},
+      {'a':'断臂求生的，止损小能手'},
+      {'a':'感觉人生，到达巅峰'},
+      {'a':'能亏才会赚，不信等着看'},
+      {'a':'舍己为人的，反指小能手'},
+      {'a':'多么痛，的领悟'}
+    ],
 
   }
 }
@@ -136,11 +157,20 @@ root.created = function () {
 
   //引入链式计算
   this.chainCal = this.$globalFunc.chainCal
+
+
 }
 root.mounted = function () {}
 root.beforeDestroy = function () {}
 /*------------------------------ 计算 -------------------------------*/
 root.computed = {}
+// 邀请海报
+root.computed.accountsComputed = function (index,item) {
+  // 特殊处理
+  this.accounts.map(item => item.a).indexOf(this.currencyValue)
+  return this.accounts
+}
+
 root.computed.reduceMostAmount1 = function (){
   // 计算最多可减少     // isolatedWalletBalance, isolatedWalletBalance + size * (Latest_Mark_Price - Entry_Price) - Latest_Mark_Price * abs(size) * IMR
   let isolatedWalletBalance = this.accMinus(this.walletBalance,this.crossWalletBalance) // 逐仓钱包余额
@@ -207,6 +237,24 @@ root.computed.LPCalculationType = function () {
 
 /*------------------------------ 方法 -------------------------------*/
 root.methods = {}
+// 打开之后，点击图片不能关闭图片
+root.methods.notClick = function (e) {
+  try{
+    e.stopPropagation();//非IE浏览器
+  }
+  catch(e){
+    window.event.cancelBubble = true;//IE浏览器
+  }
+}
+// 展示海报
+root.methods.SHOW_POSTER = function () {
+  this.showPoster = true;
+}
+// 隐藏海报
+root.methods.HIDE_POSTER = function () {
+  this.showPoster = false;
+}
+
 // 仓位平仓非法数据拦截
 root.methods.openClosingPositions = function (){
   if(this.orderTypes == '限价' && (this.inputBoxPrice== '' || this.inputBoxPrice == 0) ) {

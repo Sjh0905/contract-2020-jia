@@ -7,16 +7,22 @@
 
   <div v-else class="position-box-item" v-for="(item,index) in records">
     <!--币对名称-->
-    <div class="ps-symbol-box flex-row">
-      <div v-if="(item.positionAmt || 0) > 0" class="ps-type ps-long">L</div>
-      <div v-else class="ps-type ps-short">S</div>
-      <div class="ps-symbol">{{item.symbol}}</div>
-      <img v-if="item.adlQuantile == undefined" class="ps-reduce-positions" src="../../assets/H5img/mobile_reduce_ps_0.png" alt="">
-      <img v-if="item.adlQuantile == 0" class="ps-reduce-positions" src="../../assets/H5img/mobile_reduce_ps_0.png" alt="">
-      <img v-if="item.adlQuantile == 1" class="ps-reduce-positions" src="../../assets/H5img/mobile_reduce_ps_1.png" alt="">
-      <img v-if="item.adlQuantile == 2" class="ps-reduce-positions" src="../../assets/H5img/mobile_reduce_ps_2.png" alt="">
-      <img v-if="item.adlQuantile == 3" class="ps-reduce-positions" src="../../assets/H5img/mobile_reduce_ps_3.png" alt="">
-      <img v-if="item.adlQuantile == 4" class="ps-reduce-positions" src="../../assets/H5img/mobile_reduce_ps_4.png" alt="">
+    <div class="ps-symbol-box flex-between">
+      <div class="flex-row">
+        <div v-if="(item.positionAmt || 0) > 0" class="ps-type ps-long">L</div>
+        <div v-else class="ps-type ps-short">S</div>
+        <div class="ps-symbol">{{item.symbol}}</div>
+        <img v-if="item.adlQuantile == undefined" class="ps-reduce-positions" src="../../assets/H5img/mobile_reduce_ps_0.png" alt="">
+        <img v-if="item.adlQuantile == 0" class="ps-reduce-positions" src="../../assets/H5img/mobile_reduce_ps_0.png" alt="">
+        <img v-if="item.adlQuantile == 1" class="ps-reduce-positions" src="../../assets/H5img/mobile_reduce_ps_1.png" alt="">
+        <img v-if="item.adlQuantile == 2" class="ps-reduce-positions" src="../../assets/H5img/mobile_reduce_ps_2.png" alt="">
+        <img v-if="item.adlQuantile == 3" class="ps-reduce-positions" src="../../assets/H5img/mobile_reduce_ps_3.png" alt="">
+        <img v-if="item.adlQuantile == 4" class="ps-reduce-positions" src="../../assets/H5img/mobile_reduce_ps_4.png" alt="">
+      </div>
+
+      <div @click="SHOW_POSTER()">
+        <img class="ps-share" src="../../assets/fenxiang.png" alt="">
+      </div>
     </div>
     <!--杠杆倍数-->
     <div class="s-d-leverage-box flex-row">
@@ -199,6 +205,47 @@
     <!--</div>-->
   </PositionModeBulletBox>
   <!-- 增加减少保证金弹窗 end -->
+
+  <!-- 分享海报  -->
+
+  <!-- 专属海报 start -->
+  <div class="prompt-qrcode" v-show="showPoster">
+    <div class="show_poster_body" @click="HIDE_POSTER()">
+      <template>
+        <el-select class="account_number_input" value-key="currencyKey" v-model="currencyValue" filterable placeholder="">
+          <el-option
+            v-for="item in accountsComputed"
+            :label="item.a"
+            :value="item.a"></el-option>
+        </el-select>
+      </template>
+<!--      <p class="copy_poster">✽{{$t('personalCenter.poster_2')}}</p>-->
+      <img src="../../assets/selected_noVIP_icon.png" width="100%" @click.stop="notClick($event)">
+      <div class="prompt-qrcode-box-info">长按图片保存至手机</div>
+      <img class="close_icon"  src="../../assets/wrong-close.png" alt="">
+    </div>
+  </div>
+  <!-- 专属海报 end -->
+
+
+<!--  <SharingInvitationPc :switch="showPoster" @close="HIDE_POSTER">-->
+<!--    <div slot="header" class="pop-article1">-->
+<!--      <template>-->
+<!--        <el-select class="account_number_input" value-key="currencyKey" v-model="currencyValue" filterable placeholder="">-->
+<!--          <el-option-->
+<!--            v-for="item in accountsComputed"-->
+<!--            :label="item.a"-->
+<!--            :value="item.a"-->
+<!--          >-->
+<!--          </el-option>-->
+<!--        </el-select>-->
+<!--      </template>-->
+<!--      <p class="copy_poster">✽{{$t('personalCenter.poster_2')}}</p>-->
+<!--      <img src="../../assets/selected_noVIP_icon.png" width="100%">-->
+<!--      <div class="shouuu">收益以</div>-->
+<!--    </div>-->
+<!--  </SharingInvitationPc>-->
+
 
 
 

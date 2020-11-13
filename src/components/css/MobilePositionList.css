@@ -61,6 +61,10 @@
   width: 0.42rem;
   height: 0.28rem;
 }
+.ps-share {
+  width: 0.28rem;
+  float: right;
+}
 .s-d-leverage-box{
   margin-top: 0.12rem;
   height: 0.34rem;
@@ -365,3 +369,46 @@
   cursor: pointer;
 }
 
+/*分享海报*/
+.pop-article1 {
+  width: 5rem;
+}
+.prompt-qrcode {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index:100;
+  background: rgba(0,0,0,0.6);
+}
+.show_poster_body{
+  height: auto;
+  padding: 0.6rem 1.3rem;
+  box-sizing: border-box;
+  color: #fff;
+}
+.account_number_input {
+  width:100%;
+  height:40px;
+  line-height: 40px;
+  font-size: 12px;
+  /*padding-left: 15px;*/
+  border-radius:1px;
+  margin-top: 40px;
+  box-sizing: border-box;
+}
+.prompt-qrcode-box-info {
+  color: #fff;
+  text-align: center;
+  margin-top: 0.3rem;
+  width: 100%;
+  font-size:0.32rem;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+}
+.close_icon{
+  display: block;
+  margin: 0.3rem auto 0;
+  width: 0.8rem;
+}
