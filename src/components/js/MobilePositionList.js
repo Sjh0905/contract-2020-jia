@@ -144,6 +144,14 @@ root.mounted = function () {}
 root.beforeDestroy = function () {}
 /*------------------------------ 计算 -------------------------------*/
 root.computed = {}
+root.computed.currSymbol = function () {
+  return this.$store.state.symbol;
+}
+// 当前socket订阅货币对
+root.computed.subscribeSymbol = function () {
+  return this.$globalFunc.toOnlyCapitalLetters(this.currSymbol);
+  // return this.$store.state.subscribeSymbol;
+}
 root.computed.reduceMostAmount1 = function (){
   // 计算最多可减少     // isolatedWalletBalance, isolatedWalletBalance + size * (Latest_Mark_Price - Entry_Price) - Latest_Mark_Price * abs(size) * IMR
   let isolatedWalletBalance = this.accMinus(this.walletBalance,this.crossWalletBalance) // 逐仓钱包余额
