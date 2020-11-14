@@ -92,6 +92,7 @@ root.data = function () {
     showSplicedFrame:false,//下单拦截弹框
     callFuncName:'',//即将调用接口的函数名字
     splicedFrameText:'',
+    callFuncNameHand:'',//即将调用反手接口的函数名字
 
     // 平仓弹框
     popWindowOpenPs:false,
@@ -102,7 +103,9 @@ root.data = function () {
     popUnrealizedProfitNew:0, // 未实现盈亏
     positionSelect: null, // 选中的仓位数据
 
-    psSymbolArr:['BTCUSDT']//,'ETHUSDT'
+    psSymbolArr:['BTCUSDT'],//,'ETHUSDT'
+
+
 
   }
 }
@@ -954,6 +957,7 @@ root.methods.addAdlQuantile = function(currSAdlQuantile,records){
   // console.log('currSAdlQuantile,records',currSAdlQuantile,records);
 }
 
+
 //开启拦截弹窗
 root.methods.openSplicedFrame = function () {
   if(!this.openClosingPositions())return
@@ -976,12 +980,29 @@ root.methods.openSplicedFrame = function () {
   //操作类型
   this.splicedFrameText += ('，确定'+ closePosition + '?')
 
-
   // this.callFuncName = callFuncName;
+  this.showSplicedFrame = true
+}
+//开启拦截弹窗
+root.methods.openBackHand = function (item,btnText,callFuncName) {
+  this.positionInfo = item || {}
+  // console.info('this.positionInfo==',this.positionInfo,item.symbol.slice(0,3))
+  // if(!this.openClosePsWindowClose())return
+
+  this.splicedFrameText = "";
+  // 反手提示
+  if(btnText == 'back_hand'){
+    this.splicedFrameText= '市价平仓当前仓位后，以同等数量反向市价开仓，确定市价反手？'
+  }
+  this.callFuncNameHand = callFuncName;
   this.showSplicedFrame = true
 }
 //提交下单弹框
 root.methods.confirmFrame = function () {
+  if(!this.popWindowOpenPs) {
+    this[this.callFuncNameHand]();//调用对应的接口
+    return
+  }
   // this.callFuncName();//调用对应的接口
   if(this.orderTypes == '限价'){
     this.checkPrice()
@@ -989,7 +1010,135 @@ root.methods.confirmFrame = function () {
   if(this.orderTypes == '市价'){
     this.marketPrice()
   }
+}
 
+// 反手
+root.methods.backHand = function () {
+  this.marketPriceClick = true
+
+  this.$http.send("POST_REVERSE_POSITION", {
+    bind: this,
+    params: {
+      symbol:this.subscribeSymbol,
+      positionSide:this.positionInfo.positionSide
+    },
+    callBack: this.re_backHand,
+    errorHandler: this.error_backHand,
+  })
+}
+// 获取记录返回，类型为{}
+root.methods.re_backHand = function (data) {
+  this.marketPriceClick = false
+  this.showSplicedFrame = false; // 关闭拦截弹窗
+  typeof data === 'string' && (data = JSON.parse(data))
+  if (!data) return
+  this.popOpen = false
+  this.promptOpen = true;
+  if(data.code == 2002) {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '当前无仓位';//当前无仓位，不能下单
+    return
+  }
+  if(data.code == 2006) {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '市价反手平仓失败';//市价反手平仓失败
+    return
+  }
+  if(data.code == '303' && data.errCode == '2019') {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '杠杆账户余额不足';//杠杆账户余额不足
+    return
+  }
+
+  if(data.code == '303' && data.errCode == '4061') {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '订单的持仓方向和用户设置不一致';//订单的持仓方向和用户设置不一致
+    return
+  }
+  if(data.code == '303' && data.errCode == '4077') {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '订单的持仓方向和用户设置不一致';//订单的持仓方向和用户设置不一致
+    return
+  }
+  if(data.code == 303) {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '下单失败';
+    return
+  }
+  if(data.code == 302) {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '参数错误';
+    return
+  }
+
+  if(data.code == 304) {
+    this.popType = 0;
+    this.promptOpen = true;
+    this.popText = '用户无权限';
+    return
+  }
+  typeof data === 'string' && (data = JSON.parse(data))
+  if (!data) return
+  this.$eventBus.notify({key:'GET_ORDERS'})
+  this.$eventBus.notify({key:'GET_BALANCE'})
+  this.getPositionRisk()
+  this.promptOpen = true;
+
+  this.priceCheck[data.data.positionSide] = data.data.price
+
+  // console.info('this.priceCheck===',this.priceCheck)
+
+  // this.priceCheck = localStorage.setItem('PRICE_CHECK',data.data.price);
+  //
+  // if (this.priceCheck != 0) {
+  //   this.priceCheck = JSON.parse(localStorage.getItem('PRICE_CHECK'));
+  // }
+
+  if(data.data.status == 'NEW') {
+    this.popType = 1;
+    this.popText = '下单成功';
+    return
+  }
+  if(data.data.status == 'PARTIALLY_FILLED') {
+    this.popType = 1;
+    this.popText = '您的订单成交了一部分';
+    return
+  }
+  if(data.data.status == 'FILLED') {
+    this.popType = 1;
+    this.popText = '完全成交';
+    return
+  }
+  if(data.data.status == 'CANCELED') {
+    this.popType = 1;
+    this.popText = '自己撤销的订单';
+    return
+  }
+  if(data.data.status == 'EXPIRED') {
+    this.popType = 0;
+    this.popText = '您的订单已过期';
+    return
+  }
+  if(data.data.status == 'NEW_INSURANCE') {
+    this.popType = 1;
+    this.popText = '风险保障基金(强平)';
+    return
+  }
+  if(data.data.status == 'NEW_ADL') {
+    this.popType = 1;
+    this.popText = '自动减仓序列(强平)';
+    return
+  }
+}
+root.methods.error_backHand = function (err){
+  this.marketPriceClick = false
 }
 //关闭下单弹框
 root.methods.closeFrame = function () {
