@@ -113,6 +113,9 @@
   color: #8193B5;
   background-color: #F7F7FB;
 }
+.container-tr-th-app {
+  margin-top: 1.16rem;
+}
 .td-time1 {
   flex: 1;
 }
