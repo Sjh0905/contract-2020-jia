@@ -80,6 +80,10 @@ root.data = function () {
 
   }
 }
+// 检验是否是APP
+root.computed.isApp = function () {
+  return this.$route.query.isApp ? true : false
+}
 // 检验是否登录
 root.computed.isLogin = function () {
   return this.$store.state.authState.userId;//这么写 APP里边登录后才会生效
