@@ -495,7 +495,7 @@ root.methods.initViews = function (lang) {
 				"mainSeriesProperties.lineStyle.color": "#02c0cc",
 				"mainSeriesProperties.lineStyle.linewidth": 1,
         //指标参数的显示、隐藏  true为展开（显示）; false为隐藏
-        "paneProperties.legendProperties.showLegend": true,
+        "paneProperties.legendProperties.showLegend": false,
         // "paneProperties.legendProperties.showStudyArguments": true,
 
 				// 蜡烛样式
@@ -576,7 +576,7 @@ root.methods.initViews = function (lang) {
 				"mainSeriesProperties.lineStyle.color": "#02c0cc",
 				"mainSeriesProperties.lineStyle.linewidth": 1,
         //指标参数的显示、隐藏  true为展开（显示）; false为隐藏
-				"paneProperties.legendProperties.showLegend": true,
+				"paneProperties.legendProperties.showLegend": false,
 				"paneProperties.legendProperties.showStudyArguments": true,
 
 				// 山行图线和阴影颜色
@@ -628,16 +628,24 @@ root.methods.initViews = function (lang) {
 		// 自定义图方法
 		widget.onChartReady(function () {
 			// !self.$store.state.isMobile && widget.chart().createStudy('MACD', false, true);
-      widget.chart().createStudy('Moving Average', false, false,[7, 'close', 0], null, {
-        'Plot.color': '#07F8F8',
+      widget.chart().createStudy('Moving Average', false, false,[4, 'close', 0], null, {
+        'Plot.color': '#D7E1F3',
         'Plot.linewidth': 2
       });
-      widget.chart().createStudy('Moving Average', false, false,[25, 'close', 0], null, {
-        'Plot.color': '#FE00FF',
+      widget.chart().createStudy('Moving Average', false, false,[9, 'close', 0], null, {
+        'Plot.color': '#B4BCCE',
+        'Plot.linewidth': 2
+      });
+      widget.chart().createStudy('Moving Average', false, false,[13, 'close', 0], null, {
+        'Plot.color': '#838B99',
         'Plot.linewidth': 2
       });
       widget.chart().createStudy('Moving Average', false, false,[55, 'close', 0], null, {
-        'Plot.color': '#FF8011',
+        'Plot.color': '#626874',
+        'Plot.linewidth': 2
+      });
+      widget.chart().createStudy('Moving Average', false, false,[144, 'close', 0], null, {
+        'Plot.color': '#3C4048',
         'Plot.linewidth': 2
       });
 
