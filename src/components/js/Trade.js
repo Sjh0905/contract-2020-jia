@@ -630,11 +630,11 @@ root.methods.initViews = function (lang) {
 			// !self.$store.state.isMobile && widget.chart().createStudy('MACD', false, true);
       widget.chart().createStudy('Moving Average', false, false,[4, 'close', 0], null, {
         'Plot.color': '#D7E1F3',
-        'Plot.linewidth': 2
+        'Plot.linewidth': 1
       });
       widget.chart().createStudy('Moving Average', false, false,[9, 'close', 0], null, {
         'Plot.color': '#B4BCCE',
-        'Plot.linewidth': 2
+        'Plot.linewidth': 1.5
       });
       widget.chart().createStudy('Moving Average', false, false,[13, 'close', 0], null, {
         'Plot.color': '#838B99',
@@ -642,11 +642,20 @@ root.methods.initViews = function (lang) {
       });
       widget.chart().createStudy('Moving Average', false, false,[55, 'close', 0], null, {
         'Plot.color': '#626874',
-        'Plot.linewidth': 2
+        'Plot.linewidth': 2.5
       });
       widget.chart().createStudy('Moving Average', false, false,[144, 'close', 0], null, {
         'Plot.color': '#3C4048',
-        'Plot.linewidth': 2
+        'Plot.linewidth': 3
+      });
+      widget.chart().createStudy('Bollinger Bands',false, false,[26, 2],null, {
+        'Median.color': '#3f4ff8',
+        'Median.linewidth': 1,
+        'Upper.color': '#3f4ff8',
+        'Upper.linewidth': 1,
+        'Lower.color': '#3f4ff8',
+        'Lower.linewidth': 1,
+        'Plots Background.color':'#B4BCCE',
       });
 
 			// 移动端切换显示
