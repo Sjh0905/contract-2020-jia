@@ -3598,6 +3598,12 @@ root.methods.re_isFirstVisit = function (data) {
   if (data.code == 1000) {
     this.$router.push({'path': '/index/contractRiskWarning'})
   }
+
+  /*//APP测试专用
+  setTimeout(()=>{
+    this.$router.push({'path': '/index/contractRiskWarning'})
+  },5000)*/
+
   // this.$router.push({'path': '/index/contractRiskWarning'})
   // } else {
   //   this.$router.push({'path':'index/mobileTradingHallDetail'})

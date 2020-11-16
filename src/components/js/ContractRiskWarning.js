@@ -40,6 +40,10 @@ root.computed.show = function () {
 root.computed.isMobile = function () {
   return this.$store.state.isMobile
 }
+// 检验是否是APP
+root.computed.isApp = function () {
+  return this.$route.query.isApp ? true : false
+}
 
 /*---------------------- 方法 ---------------------*/
 
@@ -72,6 +76,12 @@ root.methods.openContractH5 = function () {
 root.methods.re_openContractH5 = function (data) {
   typeof(data) == 'string' && (data = JSON.parse(data));
   if (data.code == 200) {
+
+    if(this.isApp){
+      this.$router.go(-1);
+      return;
+    }
+
     // history.go(0)
     this.$router.push({'path':'/index/mobileTradingHallDetail'})
   }

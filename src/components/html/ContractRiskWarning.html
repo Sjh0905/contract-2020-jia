@@ -27,7 +27,7 @@
   <div class="popWindow-container-mobile" v-if="isMobile">
     <div>
       <div :class="'fund-buy-header-title' ">
-        <div class="fund-buy-header-title-back-icon" @click="contractOpen">
+        <div v-if="!isApp" class="fund-buy-header-title-back-icon" @click="contractOpen">
           <img class="fund-buy-header-title-back-icon-img" src="../../assets/back_icon.png" alt="">
         </div>
         <div class="fund-buy-header-title-text">开通合约账户</div>

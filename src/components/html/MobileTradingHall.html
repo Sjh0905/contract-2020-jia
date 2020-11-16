@@ -13,7 +13,7 @@
           <span class="price-up-down-text">24H涨跌率</span>
           <span class="price-up-down-val">{{priceChangePercent > 0 ? '+' : ''}}{{toFixed(priceChangePercent || 0,2) || 0}}%</span>
         </div>
-        <div class="price-up-down flex-row">
+        <div class="price-up-down flex-row" :class="isApp && 'price-up-down-app' || '' ">
           <span class="price-up-down-text">标记价格</span>
           <span class="price-up-down-val">{{toFixed(markPrice || 0,quoteScale)}}</span>
         </div>
