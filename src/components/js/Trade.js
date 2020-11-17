@@ -629,19 +629,19 @@ root.methods.initViews = function (lang) {
 		widget.onChartReady(function () {
 			// !self.$store.state.isMobile && widget.chart().createStudy('MACD', false, true);
       widget.chart().createStudy('Moving Average', false, false,[4, 'close', 0], null, {
-        'Plot.color': '#FFF100',
+        'Plot.color': '#F60000',
         'Plot.linewidth': 1
       });
       widget.chart().createStudy('Moving Average', false, false,[9, 'close', 0], null, {
-        'Plot.color': '#FF2600',
+        'Plot.color': '#FFF100',
         'Plot.linewidth': 1
       });
       widget.chart().createStudy('Moving Average', false, false,[13, 'close', 0], null, {
-        'Plot.color': '#00F156',
+        'Plot.color': '#00FF57',
         'Plot.linewidth': 1
       });
       widget.chart().createStudy('Moving Average', false, false,[55, 'close', 0], null, {
-        'Plot.color': '#07F8F8',
+        'Plot.color': '#02DCEB',
         'Plot.linewidth': 1
       });
       widget.chart().createStudy('Moving Average', false, false,[144, 'close', 0], null, {
