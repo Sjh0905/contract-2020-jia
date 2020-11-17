@@ -31,13 +31,11 @@
           <div class="mobile-header">
             <ul v-if="!isLogin" class="login flex-center">
               <li>
-                <router-link to="/index/register" active-class="selected">{{$t('register')}}</router-link>
+                <a class="login-register" @click="goToRegister()">{{$t('register')}}</a>
               </li>
               <li>|</li>
               <li>
-                <router-link to="/index/sign/" active-class="selected">
-                  {{$t('login')}}
-                </router-link>
+                <a class="login-register" @click="goToLogin()">{{$t('login')}}</a>
               </li>
             </ul>
           </div>

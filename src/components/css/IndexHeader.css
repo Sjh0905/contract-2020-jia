@@ -629,6 +629,13 @@
   /*border-top:10px solid #3576F5;*/
   position: relative;
 }
+.login-register {
+  color: #fff;
+  /*position: relative;*/
+}
+.login-register:hover {
+  color: #3576F5;
+}
 
 .selected-noHeader, .selected-coindepot {
   color: #3576F5 !important;
