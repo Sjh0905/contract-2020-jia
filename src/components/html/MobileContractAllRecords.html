@@ -143,7 +143,7 @@
 
     <!--  资金流水-->
     <div v-show="!loading && openType==5" class="">
-      <div class="container-tr-th container-box-zi flex">
+      <div class="container-tr-th container-box-zi flex" :class="isApp && 'container-tr-th-app' || ''">
         <!--时间-->
         <div class="td-time1">资产种类/时间</div>
         <!--类型-->
