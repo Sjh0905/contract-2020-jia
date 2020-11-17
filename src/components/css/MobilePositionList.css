@@ -45,7 +45,7 @@
 }
 .ps-short{
   background-color: rgba(239,86,86,0.1);
-  color: #EF5656;
+  color: #F60076;
 }
 .ps-symbol{
   margin-left: 0.12rem;
@@ -125,7 +125,7 @@
   color: #39B496;
 }
 .text-red{
-  color: #EF5656;
+  color: #F60076;
 }
 
 /*平仓弹窗*/

@@ -222,7 +222,7 @@ body {
 }
 
 .txt-green2 {
-  color: #08D0AC;
+  color: #86CB12;
   /* color: rgb(112, 168, 0) */
 }
 
@@ -246,11 +246,11 @@ body {
 }
 
 .txt-price-red {
-  color: #EF5656;
+  color: #F60076;
 }
 
 .txt-price-green {
-  color: #08D0AC;
+  color: #86CB12;
 }
 
 .txt-small {
@@ -295,7 +295,7 @@ body {
 }
 
 .wrong-border {
-  border: 1px solid #EF5656 !important;
+  border: 1px solid #F60076 !important;
 }
 
 .pointer {

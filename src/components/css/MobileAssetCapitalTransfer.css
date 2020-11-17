@@ -358,7 +358,7 @@
   margin-top: 20px;
   line-height: 17px;
   font-size: 12px;
-  color: #EF5656;
+  color: #F60076;
 }
 
 .mobile-asset-detail-container-address-title{
@@ -491,7 +491,7 @@
 
   line-height: 17px;
   font-size: 12px;
-  color: #EF5656;
+  color: #F60076;
   background: #081724;
   padding-bottom: 20px;
   padding-top: 10px;
@@ -954,13 +954,13 @@
   line-height: 40px;
   text-align: center;
   font-size: 16px;
-  color: #EF5656;
+  color: #F60076;
   border-bottom: 1px solid #F2F2F2;
 }
 
 .memo-toast-body {
   margin-top: 18px;
-  color: #EF5656;
+  color: #F60076;
   font-size: 13px;
   /*line-height: 18px;*/
 }

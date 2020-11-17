@@ -173,23 +173,23 @@ tr, th, td {
   font-size:12px;
   font-family:PingFangSC-Regular,PingFang SC;
   font-weight:400;
-  color:rgba(8,208,172,1);
+  color:#86CB12;
 }
 .text_red-4 {
   font-size:12px;
   font-family:PingFangSC-Regular,PingFang SC;
   font-weight:400;
-  color:rgba(239,86,86,1);
+  color:#F60076;
 }
 .td-time1-green {
   width: 2px;
   height: 30px;
-  background: #08D0AC;
+  background: #86CB12;
 }
 .td-time1-red {
   width: 2px;
   height: 30px;
-  background: #EF5656;
+  background: #F60076;
 }
 .td-currency {
   margin: 0 10px 0 8px;
@@ -552,13 +552,13 @@ tr, th, td {
   font-size:12px;
   font-family:PingFangSC-Regular,PingFang SC;
   font-weight:400;
-  color:rgba(8,208,172,1);
+  color:#86CB12;
 }
 .text_red-4 {
   font-size:12px;
   font-family:PingFangSC-Regular,PingFang SC;
   font-weight:400;
-  color:rgba(239,86,86,1);
+  color:#F60076;
 }
 .cencon {
   float: right;

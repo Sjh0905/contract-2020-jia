@@ -110,13 +110,13 @@ tr, th, td {
   font-size:12px;
   font-family:PingFangSC-Regular,PingFang SC;
   font-weight:400;
-  color:rgba(8,208,172,1);
+  color:#86CB12;
 }
 .text_red-4 {
   font-size:12px;
   font-family:PingFangSC-Regular,PingFang SC;
   font-weight:400;
-  color:rgba(239,86,86,1);
+  color:#F60076;
 }
 
 .trasfer-hover:hover {
