@@ -337,7 +337,7 @@
 }
 
 .mobile-header-updata-price-up {
-  color: #39B496;
+  color: #86CB12;
 }
 
 .mobile-header-updata-rate {
@@ -354,7 +354,7 @@
 }
 
 .mobile-header-updata-rate-up {
-  color: #39B496;
+  color: #86CB12;
 }
 
 .mobile-header-low-price {
@@ -469,7 +469,7 @@
   height: 0.8rem;
   line-height: 0.8rem;
   text-align: center;
-  background: #39B496;
+  background: #86CB12;
   margin-right: 0.2rem;
   margin-top: 0.16rem;
   border-radius: 1.5px;
@@ -626,7 +626,7 @@
   cursor: pointer;
 }
 .progress-bar-greenbtn {
-  background: #39B496;
+  background: #86CB12;
   cursor: pointer;
 }
 
