@@ -3641,6 +3641,30 @@ root.methods.openAllRecords = function () {
 }
 //划转
 root.methods.openTransfer = function () {
+
+  if(this.$route.query.isApp) {
+    if(!this.$store.state.authState.userId){
+      window.postMessage(JSON.stringify({
+        method: 'toLogin'
+      }))
+      return
+    }
+
+    window.postMessage(JSON.stringify({
+        method: 'toH5Route',
+        parameters: {
+          url: this.$store.state.contract_url + 'index/mobileWebTransferContract?isApp=true&isWhite=true',
+          loading: false,
+          navHide: false,
+          title: '合约划转',
+          requireLogin:true,
+          // isTransparentNav:true
+        }
+      })
+    );
+    return
+  }
+
   window.location.replace(this.$store.state.contract_url + 'index/mobileAsset/mobileAssetRechargeAndWithdrawals?toWebTransfer=true');
   // window.location.replace('http://ccc.2020-ex.com:8085/index/mobileAsset/mobileAssetRechargeAndWithdrawals?toWebTransfer=true');
 }
