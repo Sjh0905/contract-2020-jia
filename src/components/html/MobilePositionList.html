@@ -20,7 +20,7 @@
         <img v-if="item.adlQuantile == 4" class="ps-reduce-positions" src="../../assets/H5img/mobile_reduce_ps_4.png" alt="">
       </div>
 
-      <div @click="SHOW_POSTER()">
+      <div @click="SHOW_POSTER(item)">
         <img class="ps-share" src="../../assets/fenxiang.png" alt="">
       </div>
     </div>
@@ -214,9 +214,11 @@
       <template>
         <el-select class="account_number_input" value-key="currencyKey" v-model="currencyValue" filterable placeholder="">
           <el-option
-            v-for="item in accountsComputed"
+            v-for="(item,index) in accountsComputed"
             :label="item.a"
-            :value="item.a"></el-option>
+            :value="item.a"
+            :key="index"
+          ></el-option>
         </el-select>
       </template>
 <!--      <p class="copy_poster">✽{{$t('personalCenter.poster_2')}}</p>-->

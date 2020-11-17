@@ -118,7 +118,7 @@
       </div>
       <div class="td td-trigger4" >
         <div class="fenxiang-img flex">
-          <img src="../../assets/fenxiang.png" @click="SHOW_POSTER" alt="">
+          <img src="../../assets/fenxiang.png" @click="SHOW_POSTER(item)" alt="">
         </div>
       </div>
     </li>
@@ -175,19 +175,20 @@
 <!--          </el-option>-->
 <!--        </el-select>-->
 
-        <el-select class="account_number_input" value-key="currencyKey" v-model="currencyValue" filterable placeholder="">
+        <el-select class="account_number_input" value-key="currencyKey"   v-model="currencyValue" filterable placeholder="">
           <el-option
-            v-for="item in accountsComputed"
+            v-for="(item,index) in accountsComputed"
             :label="item.a"
             :value="item.a"
-          >
-          </el-option>
+            :key="index"
+          ></el-option>
         </el-select>
       </template>
       <p class="copy_poster">✽{{$t('personalCenter.poster_2')}}</p>
 <!--      <img :src="poster_url" width="100%">-->
-      <img src="../../assets/selected_noVIP_icon.png" width="100%">
-      <div class="shouuu">收益以</div>
+      <img src="../../assets/selected_noVIP_icon.png" height="450px">
+      <div class="shouuu">dsahjjk</div>
+      <div class="modify-margin-commit" @click="comfirm()">确定</div>
 
 <!--      </div>-->
     </div>

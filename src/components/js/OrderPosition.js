@@ -97,7 +97,7 @@ root.data = function () {
     showPoster: false,
     // 海报url
     poster_url: '',
-    currencyValue:'',
+    currencyValue:'庄终于，对我下手了',
     psSymbolArr:['BTCUSDT'],//,'ETHUSDT'
     accounts : [
       {'a':'庄终于，对我下手了'},
@@ -112,7 +112,23 @@ root.data = function () {
       {'a':'能亏才会赚，不信等着看'},
       {'a':'舍己为人的，反指小能手'},
       {'a':'多么痛，的领悟'}
-    ]
+    ],
+    positionData:{},
+    buyOrSell:'', //买入做多、卖出做空
+    unrealizedProfitPage:'', // 实现盈亏
+    responseRate: '' , // 回报率
+    profitOrLoss:false, //盈利亏损
+    picIndex:0,
+  // {
+  //   "buyOrSell":"",
+  //   "unrealizedProfitPage":"",
+  //   "responseRate":"",
+  //   "profitOrLoss":"",
+  //   "symbol":"",
+  //   "markPrice":"",
+  //   "entryPrice":""
+  // }
+  //
   }
 }
 /*------------------------------ 观察 -------------------------------*/
@@ -130,7 +146,11 @@ root.watch.crossWalletBalance = function(newVal,oldVal) {
 root.watch.currencyValue = function (newVal, oldVal){
   // let a = newVal
   // this.getAccount()
-  // console.log("searchResult + newVal, oldVal",newVal,'00000', a, this.accountsComputed.length)
+  this.getPosterImage()
+  // console.log("newVal, oldVal",newVal)
+}
+root.watch.picIndex = function (newVal, oldVal){
+  // this.getPosterImage()
 }
 
 /*------------------------------ 生命周期 -------------------------------*/
@@ -143,7 +163,7 @@ root.created = function () {
   this.adlQuantile && clearInterval(this.adlQuantile)
   this.adlQuantile = setInterval(this.getAdlQuantile, 1000 * 60 * 30)
   this.getAccount()
-  this.GET_POSTER_URL();
+  // this.getPosterImage();
   // console.info('钱包总余额===',this.$store.state.walletBalance,'除去逐仓仓位的钱包总余额===',this.$store.state.crossWalletBalance)
 
   //引入链式计算
@@ -220,39 +240,65 @@ root.computed.LPCalculationType = function () {
 
 root.computed.accountsComputed = function (index,item) {
   // // 特殊处理
-  this.accounts.map(item => item.a).indexOf(this.currencyValue)
+  // this.accounts.map(item => item.a).indexOf(this.currencyValue)
+  this.picIndex = this.accounts.map(item => item.a).indexOf(this.currencyValue)
+  // console.info('this.accounts=======aaaaa',c+1)
   return this.accounts
 }
 
 /*------------------------------ 方法 -------------------------------*/
 root.methods = {}
 
-//sss 屏蔽 3.11
+// 2020.11.16. ccc
+root.methods.comfirm = function () {
+
+}
+
+root.methods.changeDate = function (item) {
+  let side = (item.positionAmt && item.positionAmt > 0) ?'BUY':'SELL'
+  this.buyOrSell = item.positionSide +'_' + side
+  this.unrealizedProfitPage = item.unrealizedProfitPage || ''
+  this.profitOrLoss = item.unrealizedProfitPage>0?true:false
+  this.responseRate = item.responseRate || ''
+
+  this.positionData = {
+    buyOrSell:this.buyOrSell,
+    unrealizedProfitPage:this.unrealizedProfitPage,
+    responseRate:this.responseRate,
+    profitOrLoss:this.profitOrLoss,
+    symbol: item.symbol,
+    markPrice: this.markPrice,
+    entryPrice:item.entryPrice,
+    picIndex: this.picIndex + 1,
+  }
+  this.getPosterImage(this.positionData)
+}
+// 展示海报
+root.methods.SHOW_POSTER = function (item) {
+  this.showPoster = true;
+  this.changeDate(item)
+  // console.info('item',this.positionData,this.picIndex)
+
+}
 // 获取海报
-root.methods.GET_POSTER_URL = function () {
-  this.$http.send('GET_USER_INVITE_POSTER', {
+root.methods.getPosterImage = function (positionData) {
+  this.$http.send('POST_INVIT_POSTER', {
     bind: this,
-    params: {
-      type: "invite",
-      param: 'CH'     // 暂时传中文
-      // type: this.lang == 'CH' ? 'CH' : 'EN'     // 英文传EN
-    },
-    callBack: this.RE_GET_POSTER_URL,
+    params: positionData,
+    callBack: this.re_getPosterImage,
     errorHandler: this.error_getPosterImage
   })
 }
-root.methods.RE_GET_POSTER_URL = function (res) {
+root.methods.re_getPosterImage = function (res) {
   let urls = res.dataMap;
-  // console.log(urls)
   if (res.errorCode > 0) return;
   this.poster_url = urls.inviteUrl;
 }
-//sss 屏蔽结束 3.11
-
-// 展示海报
-root.methods.SHOW_POSTER = function () {
-  this.showPoster = true;
+root.methods.error_getPosterImage = function (err) {
+  console.warn('err',err)
 }
+// 2020.11.16. ccc
+
 // 隐藏海报
 root.methods.HIDE_POSTER = function () {
   this.showPoster = false;

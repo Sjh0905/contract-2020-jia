@@ -124,7 +124,7 @@ root.data = function () {
       {'a':'舍己为人的，反指小能手'},
       {'a':'多么痛，的领悟'}
     ],
-
+    positionData:{}, // 仓位数据
   }
 }
 /*------------------------------ 观察 -------------------------------*/
@@ -247,8 +247,27 @@ root.methods.notClick = function (e) {
   }
 }
 // 展示海报
-root.methods.SHOW_POSTER = function () {
+root.methods.SHOW_POSTER = function (item) {
   this.showPoster = true;
+  this.positionData = item || {}
+  console.info('item',item)
+}
+// 获取海报
+root.methods.getPosterImage = function () {
+  this.$http.send('POST_INVIT_POSTER', {
+    bind: this,
+    params: this.positionData,
+    callBack: this.re_getPosterImage,
+    errorHandler: this.error_getPosterImage
+  })
+}
+root.methods.re_getPosterImage = function (res) {
+  let urls = res.dataMap;
+  if (res.errorCode > 0) return;
+  this.poster_url = urls.inviteUrl;
+}
+root.methods.error_getPosterImage = function (err) {
+  console.warn('err',err)
 }
 // 隐藏海报
 root.methods.HIDE_POSTER = function () {
