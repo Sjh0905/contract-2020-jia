@@ -118,7 +118,7 @@ root.data = function () {
     unrealizedProfitPage:'', // 实现盈亏
     responseRate: '' , // 回报率
     profitOrLoss:false, //盈利亏损
-    picIndex:0,
+    // picIndex:0,
   // {
   //   "buyOrSell":"",
   //   "unrealizedProfitPage":"",
@@ -146,7 +146,6 @@ root.watch.crossWalletBalance = function(newVal,oldVal) {
 root.watch.currencyValue = function (newVal, oldVal){
   // let a = newVal
   // this.getAccount()
-  this.getPosterImage()
   // console.log("newVal, oldVal",newVal)
 }
 root.watch.picIndex = function (newVal, oldVal){
@@ -237,11 +236,15 @@ root.computed.LPCalculationType = function () {
   let data = tradingHallData.LPCalculationType
   return data
 }
+root.computed.picIndex = function () {
+  let a = this.accounts.map(item => item.a).indexOf(this.currencyValue) + 1
+  return a || 1
+}
 
 root.computed.accountsComputed = function (index,item) {
   // // 特殊处理
   // this.accounts.map(item => item.a).indexOf(this.currencyValue)
-  this.picIndex = this.accounts.map(item => item.a).indexOf(this.currencyValue)
+  // this.picIndex = this.accounts.map(item => item.a).indexOf(this.currencyValue)
   // console.info('this.accounts=======aaaaa',c+1)
   return this.accounts
 }
@@ -269,13 +272,15 @@ root.methods.changeDate = function (item) {
     symbol: item.symbol,
     markPrice: this.markPrice,
     entryPrice:item.entryPrice,
-    picIndex: this.picIndex + 1,
+    picIndex: this.picIndex,
   }
+  console.info('this.picIndex',this.picIndex)
   this.getPosterImage(this.positionData)
 }
 // 展示海报
 root.methods.SHOW_POSTER = function (item) {
   this.showPoster = true;
+
   this.changeDate(item)
   // console.info('item',this.positionData,this.picIndex)
 
