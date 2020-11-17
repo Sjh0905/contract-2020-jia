@@ -231,6 +231,12 @@ root.methods.cancelOrder = async function (order, cancelAll = false) {
 }
 // 返回
 root.methods.re_cancelOrder = function (data) {
+  if (data.code == '304') {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '用户无权限';
+    return
+  }
   typeof(data) == 'string' && (data = JSON.parse(data));
   this.canceling =  false;
   this.loading = false
