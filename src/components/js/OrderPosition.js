@@ -118,6 +118,8 @@ root.data = function () {
     unrealizedProfitPage:'', // 实现盈亏
     responseRate: '' , // 回报率
     profitOrLoss:false, //盈利亏损
+
+    initialPosition:0,
     // picIndex:0,
   // {
   //   "buyOrSell":"",
@@ -146,11 +148,12 @@ root.watch.crossWalletBalance = function(newVal,oldVal) {
 root.watch.currencyValue = function (newVal, oldVal){
   // let a = newVal
   // this.getAccount()
-  // console.log("newVal, oldVal",newVal)
+  this.changeDate()
 }
 root.watch.picIndex = function (newVal, oldVal){
   // this.getPosterImage()
 }
+
 
 /*------------------------------ 生命周期 -------------------------------*/
 root.created = function () {
@@ -167,7 +170,7 @@ root.created = function () {
 
   //引入链式计算
   this.chainCal = this.$globalFunc.chainCal
-
+  this.changeDate()
 }
 root.mounted = function () {}
 root.beforeDestroy = function () {}
@@ -254,17 +257,24 @@ root.methods = {}
 
 // 2020.11.16. ccc
 root.methods.comfirm = function () {
-
+  this.getPosterImage()
 }
 
-root.methods.changeDate = function (item) {
-  let side = (item.positionAmt && item.positionAmt > 0) ?'BUY':'SELL'
-  this.buyOrSell = item.positionSide +'_' + side
-  this.unrealizedProfitPage = item.unrealizedProfitPage || ''
-  this.profitOrLoss = item.unrealizedProfitPage>0?true:false
-  this.responseRate = item.responseRate || ''
+root.methods.changeDate = function () {
+  if(this.accounts.length == 0)return
+  let item,side,positionSide,unrealizedProfitPage,responseRate
+  item = this.records && this.records[this.initialPosition] || {}
+  side = (item.positionAmt && item.positionAmt > 0) ?'BUY':'SELL'
+  positionSide = item.positionSide
+  unrealizedProfitPage = item.unrealizedProfitPage
+  responseRate = item.responseRate
 
-  this.positionData = {
+  this.buyOrSell = positionSide +'_' + side
+  this.unrealizedProfitPage = unrealizedProfitPage
+  this.profitOrLoss = unrealizedProfitPage > 0 ? true : false
+  this.responseRate = responseRate || ''
+
+  return this.positionData = {
     buyOrSell:this.buyOrSell,
     unrealizedProfitPage:this.unrealizedProfitPage,
     responseRate:this.responseRate,
@@ -272,32 +282,31 @@ root.methods.changeDate = function (item) {
     symbol: item.symbol,
     markPrice: this.markPrice,
     entryPrice:item.entryPrice,
-    picIndex: this.picIndex,
+    picIndex: this.picIndex || 1,
   }
-  console.info('this.picIndex',this.picIndex)
-  this.getPosterImage(this.positionData)
+
+  // this.getPosterImage(this.positionData)
 }
 // 展示海报
-root.methods.SHOW_POSTER = function (item) {
+root.methods.SHOW_POSTER = function (index) {
   this.showPoster = true;
-
-  this.changeDate(item)
-  // console.info('item',this.positionData,this.picIndex)
-
+  this.initialPosition = index
+  this.getPosterImage()
 }
 // 获取海报
-root.methods.getPosterImage = function (positionData) {
+root.methods.getPosterImage = function () {
+  console.info(this.changeDate())
+  return
   this.$http.send('POST_INVIT_POSTER', {
     bind: this,
-    params: positionData,
+    params: this.changeDate(),
     callBack: this.re_getPosterImage,
     errorHandler: this.error_getPosterImage
   })
 }
 root.methods.re_getPosterImage = function (res) {
-  let urls = res.dataMap;
-  if (res.errorCode > 0) return;
-  this.poster_url = urls.inviteUrl;
+  let urls = res.data;
+  this.poster_url = urls;
 }
 root.methods.error_getPosterImage = function (err) {
   console.warn('err',err)
