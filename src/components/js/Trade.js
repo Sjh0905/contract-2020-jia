@@ -499,15 +499,15 @@ root.methods.initViews = function (lang) {
         // "paneProperties.legendProperties.showStudyArguments": true,
 
 				// 蜡烛样式
-				"mainSeriesProperties.candleStyle.upColor": "#08D0AC",
-				"mainSeriesProperties.candleStyle.downColor": "#EF5656",
+				"mainSeriesProperties.candleStyle.upColor": "#86CB12",
+				"mainSeriesProperties.candleStyle.downColor": "#F60076",
 				"mainSeriesProperties.candleStyle.drawWick": true,
 				"mainSeriesProperties.candleStyle.drawBorder": true,
 				// "mainSeriesProperties.candleStyle.borderColor": "#378658",
-				"mainSeriesProperties.candleStyle.borderUpColor": "#08D0AC",
-				"mainSeriesProperties.candleStyle.borderDownColor": "#EF5656",
-				"mainSeriesProperties.candleStyle.wickUpColor": '#08D0AC',
-				"mainSeriesProperties.candleStyle.wickDownColor": '#EF5656',
+				"mainSeriesProperties.candleStyle.borderUpColor": "#86CB12",
+				"mainSeriesProperties.candleStyle.borderDownColor": "#F60076",
+				"mainSeriesProperties.candleStyle.wickUpColor": '#86CB12',
+				"mainSeriesProperties.candleStyle.wickDownColor": '#F60076',
 				"mainSeriesProperties.candleStyle.barColorsOnPrevClose": false,
 
         // 背景网格颜色
@@ -522,8 +522,8 @@ root.methods.initViews = function (lang) {
         "timeScale.rightOffset": 5,
 			},
       studies_overrides: {
-        "volume.volume.color.0": "#EF5656",
-        "volume.volume.color.1": "#08D0AC",
+        "volume.volume.color.0": "#F60076",
+        "volume.volume.color.1": "#86CB12",
       },
       favorites: {
         intervals: ["1S", "1", "5", "15", "30", "60", "240", "D"],
@@ -582,19 +582,19 @@ root.methods.initViews = function (lang) {
 				// 山行图线和阴影颜色
 				// "mainSeriesProperties.areaStyle.color1": "#d8f7ff",
 				// "mainSeriesProperties.areaStyle.color2": "#ffffff",
-				// "mainSeriesProperties.areaStyle.linecolor": "#EF5656",
+				// "mainSeriesProperties.areaStyle.linecolor": "#F60076",
 				// "mainSeriesProperties.areaStyle.linewidth": 2,
 				// "mainSeriesProperties.areaStyle.priceSource": "close",
 				// 蜡烛样式
-				"mainSeriesProperties.candleStyle.upColor": "#08D0AC",
-				"mainSeriesProperties.candleStyle.downColor": "#EF5656",
+				"mainSeriesProperties.candleStyle.upColor": "#86CB12",
+				"mainSeriesProperties.candleStyle.downColor": "#F60076",
 				"mainSeriesProperties.candleStyle.drawWick": true,
 				"mainSeriesProperties.candleStyle.drawBorder": true,
 				// "mainSeriesProperties.candleStyle.borderColor": "#000",
-				"mainSeriesProperties.candleStyle.borderUpColor": "#08D0AC",
-				"mainSeriesProperties.candleStyle.borderDownColor": "#EF5656",
-				"mainSeriesProperties.candleStyle.wickUpColor": '#08D0AC',
-				"mainSeriesProperties.candleStyle.wickDownColor": '#EF5656',
+				"mainSeriesProperties.candleStyle.borderUpColor": "#86CB12",
+				"mainSeriesProperties.candleStyle.borderDownColor": "#F60076",
+				"mainSeriesProperties.candleStyle.wickUpColor": '#86CB12',
+				"mainSeriesProperties.candleStyle.wickDownColor": '#F60076',
 				"mainSeriesProperties.candleStyle.barColorsOnPrevClose": false,
 				// 背景网格颜色
 				"paneProperties.vertGridProperties.color": "#1E1F22",
@@ -609,13 +609,13 @@ root.methods.initViews = function (lang) {
 
 				// Bars styles
 				"mainSeriesProperties.barStyle.upColor": "red",
-				"mainSeriesProperties.barStyle.downColor": "#EF5656",
+				"mainSeriesProperties.barStyle.downColor": "#F60076",
 				"mainSeriesProperties.barStyle.barColorsOnPrevClose": false,
 				"mainSeriesProperties.barStyle.dontDrawOpen": false,
 			},
 			studies_overrides: {
-			    "volume.volume.color.0": "#EF5656",
-			    "volume.volume.color.1": "#08D0AC",
+			    "volume.volume.color.0": "#F60076",
+			    "volume.volume.color.1": "#86CB12",
 			},
 
 			favorites: {
@@ -629,24 +629,24 @@ root.methods.initViews = function (lang) {
 		widget.onChartReady(function () {
 			// !self.$store.state.isMobile && widget.chart().createStudy('MACD', false, true);
       widget.chart().createStudy('Moving Average', false, false,[4, 'close', 0], null, {
-        'Plot.color': '#D7E1F3',
+        'Plot.color': '#FFF100',
         'Plot.linewidth': 1
       });
       widget.chart().createStudy('Moving Average', false, false,[9, 'close', 0], null, {
-        'Plot.color': '#B4BCCE',
-        'Plot.linewidth': 1.5
+        'Plot.color': '#FF2600',
+        'Plot.linewidth': 1
       });
       widget.chart().createStudy('Moving Average', false, false,[13, 'close', 0], null, {
-        'Plot.color': '#838B99',
-        'Plot.linewidth': 3
+        'Plot.color': '#00F156',
+        'Plot.linewidth': 1
       });
       widget.chart().createStudy('Moving Average', false, false,[55, 'close', 0], null, {
-        'Plot.color': '#626874',
-        'Plot.linewidth': 5
+        'Plot.color': '#07F8F8',
+        'Plot.linewidth': 1
       });
       widget.chart().createStudy('Moving Average', false, false,[144, 'close', 0], null, {
-        'Plot.color': '#3C4048',
-        'Plot.linewidth': 5
+        'Plot.color': '#FE00FF',
+        'Plot.linewidth': 1
       });
       widget.chart().createStudy('Bollinger Bands',false, false,[26, 2],null, {
         'Median.color': '#3f4ff8',

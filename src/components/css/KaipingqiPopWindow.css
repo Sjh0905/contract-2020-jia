@@ -482,7 +482,7 @@
   text-align: center;
   background: rgba(8, 208, 172, 0.1);
   border-radius: 2px;
-  border: 1px solid #08D0AC;
+  border: 1px solid #86CB12;
   margin-bottom: 15px;
 }
 .opener-article-closing-top {
@@ -530,7 +530,7 @@
   border-radius: 2px;
   margin-bottom: 15px;
   background: rgba(239, 86, 86, 0.1);
-  border: 1px solid #EF5656;
+  border: 1px solid #F60076;
 }
 /* ------------  开平器 end-----------------*/
 
@@ -628,7 +628,7 @@
   text-align: center;
   background: rgba(8, 208, 172, 0.1);
   border-radius: 2px;
-  border: 1px solid #08D0AC;
+  border: 1px solid #86CB12;
   font-size: 12px;
   font-family: PingFangSC-Regular, PingFang SC;
   font-weight: 400;
@@ -650,7 +650,7 @@
   color: #FFFFFF;
   background: rgba(8, 208, 172, 0.1);
   border-radius: 2px;
-  border: 1px solid #08D0AC;
+  border: 1px solid #86CB12;
   margin-bottom: 15px;
   margin-left: 5px;
 }
@@ -663,7 +663,7 @@
   color: #FFFFFF;
   background: rgba(239, 86, 86, 0.1);
   border-radius: 2px;
-  border: 1px solid #EF5656;
+  border: 1px solid #F60076;
   margin-bottom: 15px;
   margin-left: 5px;
 }
@@ -698,10 +698,10 @@
   color: #E0E1F4;
 }
 .list-result-red {
-  color: #EF5656;
+  color: #F60076;
 }
 .list-result-green {
-  color: #08D0AC;
+  color: #86CB12;
 }
 .list-footer {
   background: #16171D;

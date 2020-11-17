@@ -265,7 +265,7 @@
 }
 
 .mobile-header-now-price-down {
-  color: #EF5656;
+  color: #F60076;
 }
 
 .price-up-down{
@@ -486,7 +486,7 @@
   height: 0.8rem;
   line-height: 0.8rem;
   text-align: center;
-  background: #EF5656;
+  background: #F60076;
   margin-top: 0.16rem;
   border-radius: 1.5px;
   font-family: PingFangSC-Semibold;

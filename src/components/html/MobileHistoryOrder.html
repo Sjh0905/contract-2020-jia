@@ -17,11 +17,11 @@
           <div class="_m_co_l flex-row">
             <div class="_m_co_l1 flex-colum flex-between ">
                 <div class="_m_co_l1i flex-row">
-                    <i :style="order.type==='BUY_LIMIT'?'background:#39B496':'background:#EF5656'" v-if="!order.isFollow">
+                    <i :style="order.type==='BUY_LIMIT'?'background:#39B496':'background:#F60076'" v-if="!order.isFollow">
                         {{order.type === 'BUY_LIMIT' && "买" || "卖"}}
                     </i>
 
-                    <i :style="order.type==='BUY_LIMIT'?'background:#39B496':'background:#EF5656'" v-if="order.isFollow">
+                    <i :style="order.type==='BUY_LIMIT'?'background:#39B496':'background:#F60076'" v-if="order.isFollow">
                       {{order.type === 'BUY_LIMIT' && "跟买" || "跟卖"}}
                     </i>
                     <span>{{order.symbol.split('_')[0]}}</span><span class="txt_40">&nbsp;/&nbsp;{{order.symbol.split('_')[1]}}</span>

@@ -199,8 +199,8 @@
 .progress-bar-option:hover {
   width: 20%;
   height: 20px;
-  border: 1px solid #EF5656;
-  color: #EF5656;
+  border: 1px solid #F60076;
+  color: #F60076;
 }
 
 .progress-bar-tips {
@@ -270,12 +270,12 @@
 }
 
 .progress-bar-greenbtn {
-  background: #08D0AC;
+  background: #86CB12;
   cursor: pointer;
 }
 
 .progress-bar-greenbtn_ {
-  background: #08D0AC;
+  background: #86CB12;
   cursor: pointer;
 }
 
@@ -289,12 +289,12 @@
 }
 
 .progress-bar-redbtn {
-  background: #EF5656;
+  background: #F60076;
   cursor: pointer;
 }
 
 .progress-bar-redbtn_ {
-  background: #EF5656;
+  background: #F60076;
   cursor: pointer;
 }
 
@@ -311,8 +311,8 @@
 }
 
 .focus-color-blue {
-  /*border: 1px solid #EF5656;*/
-  border: 1px solid #EF5656;
+  /*border: 1px solid #F60076;*/
+  border: 1px solid #F60076;
 }
 
 /*标签选中样式*/
@@ -338,7 +338,7 @@
   padding: 0px 10px;
   height: 20px;
   line-height: 22px;
-  color: #08D0AC;
+  color: #86CB12;
   font-size: 12px;
   font-weight: bolder;
 }
@@ -348,7 +348,7 @@
 }
 
 .buy_sall_tips.sall {
-  color: #EF5656;
+  color: #F60076;
 }
 
 .buy_sall_tips .arrow {
@@ -408,7 +408,7 @@
 }
 
 .txt_red {
-  color: #EF5656;
+  color: #F60076;
 }
 
 /*价格数量增加减少*/
@@ -477,7 +477,7 @@
 }
 
 .progressbar {
-  background-color: #EF5656;
+  background-color: #F60076;
   float: left;
   width: 0;
   height: 100%;
@@ -499,7 +499,7 @@
   display: inline-block;
   height: 18px;
   width: 18px;
-  background-color: #EF5656;
+  background-color: #F60076;
   border: 5px solid rgba(255, 255, 255, .9);
   border-radius: 10px;
   cursor: pointer;
@@ -513,7 +513,7 @@
   display: inline-block;
   height: 10px;
   width: 10px;
-  background-color: #EF5656;
+  background-color: #F60076;
   border: 1px solid #e1e0de;
   border-radius: 10px;
   cursor: pointer;
@@ -563,7 +563,7 @@
 }
 
 .bgcolorhuang{
-  background-color: #EF5656;
+  background-color: #F60076;
 }
 .bgcolorhui{
   background-color: #E7EBEE;
@@ -592,7 +592,7 @@
 }
 
 .progressbarbuy {
-  background-color: #08D0AC;
+  background-color: #86CB12;
   float: left;
   width: 0;
   height: 100%;
@@ -614,7 +614,7 @@
   display: inline-block;
   height: 18px;
   width: 18px;
-  background-color: #08D0AC;
+  background-color: #86CB12;
   border: 5px solid rgba(255, 255, 255, .9);
   border-radius: 10px;
   cursor: pointer;
@@ -627,7 +627,7 @@
   display: inline-block;
   height: 10px;
   width: 10px;
-  background-color: #08D0AC;
+  background-color: #86CB12;
   border: 1px solid #e1e0de;
   border-radius: 10px;
   cursor: pointer;
@@ -677,7 +677,7 @@
 }
 
 .bgcolorhuangbuy{
-  background-color: #08D0AC;
+  background-color: #86CB12;
 }
 .bgcolorhuibuy{
   background-color: #E7EBEE;

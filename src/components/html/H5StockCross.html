@@ -7,7 +7,7 @@
          @click="setTransactionPrice(item.price)">
       <span class="mobile-sale-detail-item-price">{{item.price == '-' ? '-' : $globalFunc.accFixed(item.price, quoteScale)}}</span>
       <span class="mobile-sale-detail-item-num">{{item.amount == '-' ? '-' : $globalFunc.accFixed(item.amount, baseScale)}}</span>
-      <span class="mobile-buy-detail-item-shadow" :style="[{width:((item.perAmount * 100 / dMaxTotalAmount) || 0) +'%'},{'background-color':'#EF5656'}]"/>
+      <span class="mobile-buy-detail-item-shadow" :style="[{width:((item.perAmount * 100 / dMaxTotalAmount) || 0) +'%'},{'background-color':'#F60076'}]"/>
     </div>
   </div>
   <div class="mobile-buy-detail-now-price-box mobile-buy-detail-now-price-box-up flex-row">
@@ -19,7 +19,7 @@
          @click="setTransactionPrice(item.price)">
       <span class="mobile-buy-detail-item-price m-txt-green">{{item.price == '-' ? '-' : $globalFunc.accFixed(item.price,quoteScale)}}</span>
       <span class="mobile-buy-detail-item-num">{{item.amount == '-' ? '-' : $globalFunc.accFixed(item.amount, baseScale)}}</span>
-      <span class="mobile-buy-detail-item-shadow" :style="[{width:((item.perAmount * 100 / dMaxTotalAmount) || 0) +'%'},{'background-color':'#08D0AC'}]"/>
+      <span class="mobile-buy-detail-item-shadow" :style="[{width:((item.perAmount * 100 / dMaxTotalAmount) || 0) +'%'},{'background-color':'#86CB12'}]"/>
     </div>
   </div>
 </div>

@@ -32,7 +32,7 @@
   /* line-height: 22px; */
   /*font-family: Roboto-Regular,Roboto;*/
   font-size: 12px;
-  color: #08D0AC;
+  color: #86CB12;
   font-weight: 400;
   align-items: center;
 }
@@ -42,15 +42,15 @@
   /* line-height: 22px; */
   /*font-family: Roboto-Regular,Roboto;*/
   font-size: 12px;
-  color: #EF5656;
+  color: #F60076;
   font-weight: 400;
   align-items: center;
 }
 .StockCrossItems-li1.is_select>div, .StockCrossItems-li2.is_select>div{
-	color: #EF5656;
+	color: #F60076;
 }
 .StockCrossItems-li1.is_select>div span, .StockCrossItems-li2.is_select>div span{
-	color: #EF5656;
+	color: #F60076;
 }
 
 .StockCrossItems-li1:hover{
@@ -219,8 +219,8 @@
 	padding: 0px 10px;
 	line-height: 24px;
 	color: #fff;
-	background-color: #EF5656;
-	border: 1px solid #EF5656;
+	background-color: #F60076;
+	border: 1px solid #F60076;
 	border-radius: 2px;
 	right: 102%;
 	top: -1px;
@@ -234,7 +234,7 @@
 	width: 0;
 	height: 0;
 	border-top: 3px solid transparent;
-	border-right: 4px solid #EF5656;
+	border-right: 4px solid #F60076;
 	border-bottom: 3px solid transparent;
 }
 .show_tips.show{
