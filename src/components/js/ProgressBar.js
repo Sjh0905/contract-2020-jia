@@ -298,7 +298,7 @@ root.watch.value = function (newValue, oldValue) {
   if (newValue == oldValue) return;
   // console.log(newValue)
   this.computedValue()
-  this.sectionSelect(newValue/100);
+  // this.sectionSelect(newValue/100);
 }
 
 root.watch.pendingOrderType = function (newValue, oldValue) {
@@ -1919,18 +1919,18 @@ root.methods.RE_SET_AMOUNT = function (obj) {
 }
 
 // 切换买卖百分比时候自动计算数量
-root.methods.sectionSelect = function (num) {
-  if (!this.isLogin) return;
-  if (this.orderType) {
-    // this.amount = (this.available * num).toFixed(this.baseScale);
-    this.amount = this.$globalFunc.accFixed(this.available * num, this.baseScale);
-    return
-  }
-  if (this.price) {
-    // this.price == 0 || (this.amount = (this.available * num / this.price).toFixed(this.baseScale));
-    this.price == 0 || (this.amount = this.$globalFunc.accFixed(this.available * num / this.price, this.baseScale))
-  }
-}
+// root.methods.sectionSelect = function (num) {
+//   // if (!this.isLogin) return;
+//   if (this.orderType) {
+//     // this.amount = (this.available * num).toFixed(this.baseScale);
+//     this.amount = this.$globalFunc.accFixed(this.available * num, this.baseScale);
+//     return
+//   }
+//   if (this.price) {
+//     // this.price == 0 || (this.amount = (this.available * num / this.price).toFixed(this.baseScale));
+//     this.price == 0 || (this.amount = this.$globalFunc.accFixed(this.available * num / this.price, this.baseScale))
+//   }
+// }
 
 // 获取可用资产
 root.methods.changeAvailableData = function () {
