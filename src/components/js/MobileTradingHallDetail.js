@@ -253,7 +253,7 @@ root.created = function () {
 
   this.$eventBus.listen(this, 'TRADED', this.TRADED)
   // 获取订单
-  this.loading = true
+  this.loading = false
   this.getOrder()
 
   // 获取认证状态
