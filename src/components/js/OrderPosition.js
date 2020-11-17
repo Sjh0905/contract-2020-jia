@@ -120,6 +120,7 @@ root.data = function () {
     profitOrLoss:false, //盈利亏损
 
     initialPosition:0,
+    loadingImage:true,
     // picIndex:0,
   // {
   //   "buyOrSell":"",
@@ -149,6 +150,7 @@ root.watch.currencyValue = function (newVal, oldVal){
   // let a = newVal
   // this.getAccount()
   this.changeDate()
+  this.getPosterImage()
 }
 root.watch.picIndex = function (newVal, oldVal){
   // this.getPosterImage()
@@ -256,9 +258,6 @@ root.computed.accountsComputed = function (index,item) {
 root.methods = {}
 
 // 2020.11.16. ccc
-root.methods.comfirm = function () {
-  this.getPosterImage()
-}
 
 root.methods.changeDate = function () {
   if(this.accounts.length == 0)return
@@ -266,25 +265,25 @@ root.methods.changeDate = function () {
   item = this.records && this.records[this.initialPosition] || {}
   side = (item.positionAmt && item.positionAmt > 0) ?'BUY':'SELL'
   positionSide = item.positionSide
-  unrealizedProfitPage = item.unrealizedProfitPage
+  unrealizedProfitPage = this.toFixed(item.unrealizedProfitPage,2)
   responseRate = item.responseRate
 
   this.buyOrSell = positionSide +'_' + side
-  this.unrealizedProfitPage = unrealizedProfitPage
+  this.unrealizedProfitPage = Number(unrealizedProfitPage) >=0 ? '+'+ unrealizedProfitPage : unrealizedProfitPage
   this.profitOrLoss = unrealizedProfitPage > 0 ? true : false
-  this.responseRate = responseRate || ''
+  this.responseRate = responseRate.includes('-') ? responseRate:'+'+responseRate
+  // console.info('this.responseRate',this.responseRate,this.unrealizedProfitPage)
 
   return this.positionData = {
     buyOrSell:this.buyOrSell,
-    unrealizedProfitPage:this.unrealizedProfitPage,
+    unrealizedProfitPage: this.unrealizedProfitPage,
     responseRate:this.responseRate,
     profitOrLoss:this.profitOrLoss,
     symbol: item.symbol,
-    markPrice: this.markPrice,
+    markPrice: this.toFixed(this.markPrice,2),
     entryPrice:item.entryPrice,
     picIndex: this.picIndex || 1,
   }
-
   // this.getPosterImage(this.positionData)
 }
 // 展示海报
@@ -295,8 +294,9 @@ root.methods.SHOW_POSTER = function (index) {
 }
 // 获取海报
 root.methods.getPosterImage = function () {
-  console.info(this.changeDate())
-  return
+  // console.info(this.changeDate())
+  // return
+  this.loadingImage=true
   this.$http.send('POST_INVIT_POSTER', {
     bind: this,
     params: this.changeDate(),
@@ -305,7 +305,10 @@ root.methods.getPosterImage = function () {
   })
 }
 root.methods.re_getPosterImage = function (res) {
-  let urls = res.data;
+  let urls = res.data
+  setTimeout(function(){
+    this.loadingImage = false
+  }.bind(this),2000)
   this.poster_url = urls;
 }
 root.methods.error_getPosterImage = function (err) {

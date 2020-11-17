@@ -398,10 +398,17 @@
   margin-top: 40px;
   box-sizing: border-box;
 }
+.loading-box {
+  width: 4.7rem;
+}
+.img-width {
+  margin-top: 0.1rem;
+  width: 4.9rem;
+}
 .prompt-qrcode-box-info {
   color: #fff;
   text-align: center;
-  margin-top: 0.3rem;
+  margin-top: 0.1rem;
   width: 100%;
   font-size:0.32rem;
   font-family:PingFangSC-Regular,PingFang SC;
@@ -409,6 +416,6 @@
 }
 .close_icon{
   display: block;
-  margin: 0.3rem auto 0;
+  margin: 0.1rem auto 0;
   width: 0.8rem;
 }

@@ -175,7 +175,7 @@
 <!--          </el-option>-->
 <!--        </el-select>-->
 
-        <el-select class="account_number_input" value-key="currencyKey"   v-model="currencyValue" filterable placeholder="">
+        <el-select class="account_number_input" value-key="currencyKey" v-model="currencyValue" filterable placeholder="">
           <el-option
             v-for="(item,index) in accountsComputed"
             :label="item.a"
@@ -186,9 +186,12 @@
       </template>
       <p class="copy_poster">✽{{$t('personalCenter.poster_2')}}</p>
 <!--      <img :src="poster_url" width="100%">-->
-      <img :src="poster_url" height="450px">
-      <div class="shouuu">dsahjjk</div>
-      <div class="modify-margin-commit" @click="comfirm()">确定</div>
+      <div class="loading-box" v-if="loadingImage">
+        <Loading></Loading>
+      </div>
+      <img :src="poster_url" height="498px;" v-if="!loadingImage">
+<!--      <div class="shouuu">dsahjjk</div>-->
+<!--      <div class="modify-margin-commit" @click="comfirm()">确定</div>-->
 
     </div>
   </SharingInvitationPc>

@@ -597,6 +597,9 @@ tr, th, td {
   font-weight: 300;
   margin-bottom: 15px;
 }
+.loading-box {
+  height: 498px;
+}
 .account_number_input {
   width:100%;
   height:40px;

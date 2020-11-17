@@ -124,7 +124,14 @@ root.data = function () {
       {'a':'舍己为人的，反指小能手'},
       {'a':'多么痛，的领悟'}
     ],
-    positionData:{}, // 仓位数据
+    positionData:{},
+    buyOrSell:'', //买入做多、卖出做空
+    unrealizedProfitPage:'', // 实现盈亏
+    responseRate: '' , // 回报率
+    profitOrLoss:false, //盈利亏损
+
+    initialPosition:0,
+    loadingImage:true,
   }
 }
 /*------------------------------ 观察 -------------------------------*/
@@ -143,6 +150,15 @@ root.watch.walletBalance = function(newVal,oldVal) {
 root.watch.crossWalletBalance = function(newVal,oldVal) {
   // console.info(newVal)
 }
+root.watch.currencyValue = function (newVal, oldVal){
+  // let a = newVal
+  // this.getAccount()
+  this.changeDate()
+  this.getPosterImage()
+}
+root.watch.picIndex = function (newVal, oldVal){
+  // this.getPosterImage()
+}
 /*------------------------------ 生命周期 -------------------------------*/
 root.created = function () {
   this.getPositionRisk()
@@ -157,7 +173,7 @@ root.created = function () {
 
   //引入链式计算
   this.chainCal = this.$globalFunc.chainCal
-
+  this.changeDate()
 
 }
 root.mounted = function () {}
@@ -167,7 +183,6 @@ root.computed = {}
 // 邀请海报
 root.computed.accountsComputed = function (index,item) {
   // 特殊处理
-  this.accounts.map(item => item.a).indexOf(this.currencyValue)
   return this.accounts
 }
 
@@ -234,7 +249,10 @@ root.computed.LPCalculationType = function () {
   let data = tradingHallData.LPCalculationType
   return data
 }
-
+root.computed.picIndex = function () {
+  let a = this.accounts.map(item => item.a).indexOf(this.currencyValue) + 1
+  return a || 1
+}
 /*------------------------------ 方法 -------------------------------*/
 root.methods = {}
 // 打开之后，点击图片不能关闭图片
@@ -246,25 +264,56 @@ root.methods.notClick = function (e) {
     window.event.cancelBubble = true;//IE浏览器
   }
 }
+root.methods.changeDate = function () {
+  if(this.accounts.length == 0)return
+  let item,side,positionSide,unrealizedProfitPage,responseRate
+  item = this.records && this.records[this.initialPosition] || {}
+  side = (item.positionAmt && item.positionAmt > 0) ?'BUY':'SELL'
+  positionSide = item.positionSide
+  unrealizedProfitPage = this.toFixed(item.unrealizedProfitPage,2)
+  responseRate = item.responseRate || ''
+
+  this.buyOrSell = positionSide +'_' + side
+  this.unrealizedProfitPage = Number(unrealizedProfitPage) >=0 ? '+'+ unrealizedProfitPage : unrealizedProfitPage
+  this.profitOrLoss = unrealizedProfitPage > 0 ? true : false
+  this.responseRate = responseRate.substr(0, responseRate.length - 1) >=0 ?'+'+responseRate : responseRate
+  console.info('this.responseRate',this.responseRate,this.unrealizedProfitPage)
+
+  return this.positionData = {
+    buyOrSell:this.buyOrSell,
+    unrealizedProfitPage: this.unrealizedProfitPage,
+    responseRate:this.responseRate,
+    profitOrLoss:this.profitOrLoss,
+    symbol: item.symbol,
+    markPrice: this.toFixed(this.markPrice,2),
+    entryPrice:item.entryPrice,
+    picIndex: this.picIndex || 1,
+  }
+  // this.getPosterImage(this.positionData)
+}
+
 // 展示海报
-root.methods.SHOW_POSTER = function (item) {
+root.methods.SHOW_POSTER = function (index) {
   this.showPoster = true;
-  this.positionData = item || {}
-  console.info('item',item)
+  this.initialPosition = index
+  this.getPosterImage()
 }
 // 获取海报
 root.methods.getPosterImage = function () {
+  this.loadingImage=true
   this.$http.send('POST_INVIT_POSTER', {
     bind: this,
-    params: this.positionData,
+    params: this.changeDate(),
     callBack: this.re_getPosterImage,
     errorHandler: this.error_getPosterImage
   })
 }
 root.methods.re_getPosterImage = function (res) {
-  let urls = res.dataMap;
-  if (res.errorCode > 0) return;
-  this.poster_url = urls.inviteUrl;
+  let urls = res.data
+  setTimeout(function(){
+    this.loadingImage = false
+  }.bind(this),2000)
+  this.poster_url = urls;
 }
 root.methods.error_getPosterImage = function (err) {
   console.warn('err',err)
