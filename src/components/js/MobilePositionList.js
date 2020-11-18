@@ -109,7 +109,7 @@ root.data = function () {
     showPoster: false,
     // 海报url
     poster_url: '',
-    currencyValue:'',
+    currencyValue:'庄终于，对我下手了',
     accounts: [
       {'a':'庄终于，对我下手了'},
       {'a':'我命由庄，不由我'},
