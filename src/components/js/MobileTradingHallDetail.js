@@ -1143,6 +1143,17 @@ root.methods.openClosePsWindowClose = function (){
 //开启拦截弹窗
 root.methods.openSplicedFrame = function (btnText,callFuncName,orderType) {
   this.orderType = orderType;
+
+
+  if(this.$route.query.isApp) {
+    if(!this.$store.state.authState.userId){
+      window.postMessage(JSON.stringify({
+        method: 'toLogin'
+      }))
+      return
+    }
+  }
+
   if(!this.openClosePsWindowClose())return
 
   // this[callFuncName]();//调用对应的接口
