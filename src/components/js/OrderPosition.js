@@ -260,13 +260,14 @@ root.methods = {}
 // 2020.11.16. ccc
 
 root.methods.changeDate = function () {
-  if(this.accounts.length == 0)return
+  if( this.accounts.length == 0 )return
   let item,side,positionSide,unrealizedProfitPage,responseRate
   item = this.records && this.records[this.initialPosition] || {}
+  if( item.responseRate == 0 ) return
   side = (item.positionAmt && item.positionAmt > 0) ?'BUY':'SELL'
   positionSide = item.positionSide
   unrealizedProfitPage = this.toFixed(item.unrealizedProfitPage,2)
-  responseRate = item.responseRate
+  responseRate = item.responseRate || ''
 
   this.buyOrSell = positionSide +'_' + side
   this.unrealizedProfitPage = Number(unrealizedProfitPage) >=0 ? '+'+ unrealizedProfitPage : unrealizedProfitPage
