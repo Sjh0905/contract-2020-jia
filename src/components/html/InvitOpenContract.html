@@ -1,0 +1,47 @@
+<transition name="popWindow">
+  <div class="popWindow-container min-width" v-if="!isMobile">
+
+  </div>
+
+  <div class="popWindow-container-mobile" v-if="isMobile">
+    <div>
+      <div class="fund-buy-header-title">
+        <div class="fund-buy-header-title-back-icon" @click="contractOpen">
+          <img class="fund-buy-header-title-back-icon-img" src="../../assets/弹窗-取消-icon@2x.png" alt="">
+        </div>
+        <div class="fund-buy-header-title-text">开通合约账户</div>
+      </div>
+
+      <div class="open-contract-dev">
+        <img class="open-contract-img" src="../../assets/openCrea.png" alt="">
+      </div>
+
+      <div class="popWindow-title-mobile">重要提示</div>
+
+      <div class="popWindow-article-mobile">
+        合约交易属于高风险交易行为，在带来更多潜在利润的同时，也蕴含巨大风险。请注意，当市场出现剧烈波动时，您合约钱包中的余额有可能全部亏损，来自部分地区的用户无法使用合约交易。
+        <!--您暂未开通合约账户-->
+      </div>
+
+      <div class="invitre-box">
+        <div class="invitre-code">邀请码（非必填）</div>
+        <input class="invitre-code-input" type="text" placeholder="请输入邀请码" v-model="invitCodeInput">
+        <div class="hig">
+          <span class="prompt-span wrong-msg">{{name_0}}</span>
+        </div>
+      </div>
+
+      <div class="flex-mobile">
+        <div class="risk-warning flex">
+          <img v-show="!isSelect" @click="changeSelect(1)" class="select-img" src="../../assets/contract/check_box_selected.png" alt="">
+          <img v-show="isSelect" @click="changeSelect(0)" class="select-img" src="../../assets/contract/check_box_no_selected.png" alt="">
+          <div class="risk-warning-text">我已认真阅读并知晓了合约交易的规则及相关风险，愿意承担风险并同意开通合约</div>
+        </div>
+        <div class="footer-btn flex-between">
+          <div class="footer-btn-mobile" @click="goToLogin">登录并开通</div>
+          <div class="footer-btn-mobile" @click="goToRegister">注册并开通</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</transition>
