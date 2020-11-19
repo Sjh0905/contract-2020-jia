@@ -118,7 +118,10 @@ root.methods.initViews = function (lang) {
     '15': '15m',
     '30': '30m',
     '60': '1h',
+    '120': '2h',
     '240': '4h',
+    '360': '6h',
+    '720': '12h',
     'D': '1d'
   };
 
@@ -136,7 +139,7 @@ root.methods.initViews = function (lang) {
 				symbols_types: [],
 				supports_marks: false,
 				supports_time: true,
-				supported_resolutions: ['1', '5', '15', '30', '60', '240', 'D']
+				supported_resolutions: ['1', '5', '15', '30', '60','120', '240','360','720', 'D']
 				// supported_resolutions: ["1S","1","60","D", "2D", "3D"]
 			});
 		}, 0);
@@ -168,7 +171,7 @@ root.methods.initViews = function (lang) {
 			MinimalPossiblePriceChange: 9,
 			has_intraday: true, // has minutes data?
 			has_seconds: true,
-			intraday_multipliers: ['1', '5', '15', '30', '60', '240', 'D'],
+			intraday_multipliers: ['1', '5', '15', '30', '60','120', '240','360','720', 'D'],
 			seconds_multipliers: ['1'],
 			has_daily: true,
 			has_weekly_and_monthly: false,
@@ -176,7 +179,7 @@ root.methods.initViews = function (lang) {
 			has_no_volume: false,
 			volume_precision: 8,
 			// volume_precision: self.precision,
-			supported_resolutions: ['1', '5', '15', '30', '60', '240', 'D'],
+			supported_resolutions: ['1', '5', '15', '30', '60','120', '240','360','720', 'D'],
 			// supported_resolutions :['1S',"1","60","D", "2D", "3D"],
 			data_status: 'streaming',
 		};
@@ -482,7 +485,7 @@ root.methods.initViews = function (lang) {
       // toolbar_bg: '#0D111F',
 
       favorites: {
-				intervals: ["1S", "1", "5", "15", "30", "60", "240", "D"],
+				intervals: ["1S", "1", "5", "15", "30", "60","120", "240","360","720", "D"],
 				chartTypes: ["Candles"]
 			},
 			overrides: {
@@ -526,7 +529,7 @@ root.methods.initViews = function (lang) {
         "volume.volume.color.1": "#86CB12",
       },
       favorites: {
-        intervals: ["1S", "1", "5", "15", "30", "60", "240", "D"],
+        intervals: ["1S", "1", "5", "15", "30", "60","120", "240","360","720", "D"],
         chartTypes: ["Candles"]
       },
 		}
@@ -619,7 +622,7 @@ root.methods.initViews = function (lang) {
 			},
 
 			favorites: {
-				intervals: ["1S", "1", "5", "15", "30", "60", "240", "D"],
+				intervals: ["1S", "1", "5", "15", "30", "60","120", "240","360","720", "D"],
 				chartTypes: ["Candles"]
 			},
 		};
@@ -657,6 +660,17 @@ root.methods.initViews = function (lang) {
         'Lower.linewidth': 1,
         'Plots Background.color':'#626874',
       });
+      widget.chart().createStudy('MACD',false, false,[3,33,'close',5],null, {
+        'Histogram.color': '#B6B6B6',
+        'Histogram.linewidth': 1,
+        'Histogram.transparency': 35,
+        'MACD.color': '#F60076',
+        'MACD.linewidth': 1,
+        'MACD.transparency': 35,
+        'Signal.color': '#86CB12',
+        'Signal.linewidth': 1,
+        'Signal.transparency': 35,
+      });
 
 			// 移动端切换显示
 			if (self.$store.state.isMobile) {
@@ -680,7 +694,7 @@ root.methods.initViews = function (lang) {
 					});
 				})
 			} else {  // pc端切换显示
-				let intervals_list = ["1", "5", "15", "30", "60", "240", "D"];
+				let intervals_list = ["1S", "1", "5", "15", "30", "60","120", "240","360","720", "D"]
 				let intervals_key = 0;
 				for (var i = 0; i < intervals_list.length; i++) {
 					let item = intervals_list[i];
@@ -691,8 +705,8 @@ root.methods.initViews = function (lang) {
 				// 添加分时
 				let line = lang == 'en' ? 'line' : '分时';
 				let new_interval_btn_list =
-          lang == 'en' ? [{title: '1m'}, {title: '5m'}, {title: '15m'}, {title: '30m'}, {title: '1H'}, {title: '4H'}, {title: '1D'}]
-        :[{title: '1分钟'}, {title: '5分钟'}, {title: '15分钟'}, {title: '30分钟'}, {title: '1小时'}, {title: '4小时'}, {title: '1天'}];
+          lang == 'en' ? [{title: '1m'}, {title: '5m'}, {title: '15m'}, {title: '30m'}, {title: '1H'}, {title: '2H'},{title: '4H'},{title: '6H'},{title: '12H'}, {title: '1D'}]
+        :[{title: '1分钟'}, {title: '5分钟'}, {title: '15分钟'}, {title: '30分钟'}, {title: '1小时'}, {title: '2小时'},{title: '4小时'},{title: '6小时'}, {title: '12小时'},{title: '1天'}];
 				widget.createButton().attr('title', line).on('click', function (e) {
 					$(this).parents('.group').siblings().find('.button').children('span').removeClass('new_selected')
 					$(this).parents('.group').find('span').addClass('new_selected');
