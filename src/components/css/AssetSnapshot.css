@@ -1,0 +1,122 @@
+.current-entrustment-container {
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+  background-color: #fff;
+}
+
+tr, th, td {
+  box-sizing: border-box;
+}
+
+
+.detail {
+  width: 1200px;
+  margin: 0 auto;
+  overflow: hidden;
+  border-top-left-radius: 0 !important;
+  min-height: 300px;
+  border:1px solid rgba(239,240,255,1);
+  margin-top: 25px;
+  box-sizing: border-box;
+}
+.detail-1 {
+  width: 100%;
+  margin: 0 auto;
+  overflow: hidden;
+  border-top-left-radius: 0 !important;
+  min-height: 300px;
+  box-sizing: border-box;
+  background-color: #0D111F;
+  color: #F5F6FA;
+}
+.tr-th {
+  width: 100%;
+  height: 40px;
+  line-height: 40px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  font-size: 12px;
+  color: #6B7DA2;
+  text-align: left;
+}
+.tr-td {
+  width: 100%;
+  height: 50px;
+  line-height: 50px;
+  text-align: left;
+  background-color: #FFFFFF;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color:#0D0E23;
+}
+.tr-td-col {
+  width: 100%;
+  height: 50px;
+  line-height: 50px;
+  text-align: left;
+  background-color: #0D111F;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color:#F5F6FA;
+}
+.temp-capit {
+  height: 500px;
+  overflow: scroll;
+}
+.temp-capit::-webkit-scrollbar {
+  display: none;
+}
+.td-time1 {
+  flex: 6.3;
+  padding-left: 25px;
+}
+.td-time {
+  flex: 9.3;
+}
+.td-category-1 {
+  flex: 6.3;
+}
+.td-market {
+  flex: 7.3;
+}
+.td-number {
+  flex: 6.3;
+}
+.td-price {
+  flex: 6.3;
+}
+.td-trigger {
+  flex: 5;
+  text-align: right;
+  padding-right: 25px;
+}
+.weit{
+  width: 100%;
+  height: 240px;
+  line-height: 240px;
+  text-align: center;
+  box-sizing: border-box;
+}
+.weit .nhtu{
+  width: 100%;
+  height: 120px;
+  float: left;
+  margin: 0 auto;
+  margin-top: 30px;
+}
+.weit span{
+  width: 100%;
+  height: 24px;
+  text-align: center;
+  font-size:12px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color:rgba(107,125,162,1);
+  line-height: 24px;
+  float: left;
+}
+.seeMore {
+  text-align: center;
+  padding: 10px 0;
+}

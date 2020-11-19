@@ -488,6 +488,10 @@ root.methods.initViews = function (lang) {
 				intervals: ["1S", "1", "5", "15", "30", "60","120", "240","360","720", "D"],
 				chartTypes: ["Candles"]
 			},
+      // favorites: {
+      //   intervals: ["1S", "1", "5", "15", "30", "60","120", "240","360","720", "D"],
+      //   chartTypes: ["Candles"]
+      // },
 			overrides: {
 				"mainSeriesProperties.style": 1,
 				"paneProperties.background": "#081724",
@@ -528,10 +532,7 @@ root.methods.initViews = function (lang) {
         "volume.volume.color.0": "#F60076",
         "volume.volume.color.1": "#86CB12",
       },
-      favorites: {
-        intervals: ["1S", "1", "5", "15", "30", "60","120", "240","360","720", "D"],
-        chartTypes: ["Candles"]
-      },
+
 		}
 		var pc = {
 			container_id: 'chart_container',
@@ -694,7 +695,7 @@ root.methods.initViews = function (lang) {
 					});
 				})
 			} else {  // pc端切换显示
-				let intervals_list = ["1S", "1", "5", "15", "30", "60","120", "240","360","720", "D"]
+				let intervals_list = [ "1", "5", "15", "30", "60","120", "240","360","720", "D"]
 				let intervals_key = 0;
 				for (var i = 0; i < intervals_list.length; i++) {
 					let item = intervals_list[i];

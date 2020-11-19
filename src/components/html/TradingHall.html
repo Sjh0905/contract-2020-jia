@@ -368,6 +368,14 @@
         <!--资金流水-->
         {{$t('资金流水')}}
       </div>
+<!--      &lt;!&ndash;资金流水&ndash;&gt;-->
+<!--      <div class="tradinghall-order-tab tab-item-last"-->
+<!--           :class="isNow==6?'text_blue tradinghall-order-activetab':''"-->
+<!--           @click="clickTab(6)"-->
+<!--      >-->
+<!--        &lt;!&ndash;资金流水&ndash;&gt;-->
+<!--        {{$t('资产快照')}}-->
+<!--      </div>-->
     </div>
 
     <div v-if="isNow === 4" class="trading-hall-order-box-detail">
@@ -391,6 +399,9 @@
     <div v-if="isNow === 3" class="trading-hall-order-box-detail">
       <CapitalFlow/>
     </div>
+<!--    <div v-if="isNow === 6" class="trading-hall-order-box-detail">-->
+<!--      <AssetSnapshot/>-->
+<!--    </div>-->
   </div>
 
 
