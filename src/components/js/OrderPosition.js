@@ -306,11 +306,26 @@ root.methods.getPosterImage = function () {
   })
 }
 root.methods.re_getPosterImage = function (res) {
-  let urls = res.data
-  setTimeout(function(){
-    this.loadingImage = false
-  }.bind(this),2000)
-  this.poster_url = urls;
+  if(res.code == 1) {
+    this.popText = '请您先登录再进行分享'
+    this.popType = 0;
+    this.promptOpen = true;
+    return
+  }
+  if(res.code == 2) {
+    this.popText = '参数有误'
+    this.popType = 0;
+    this.promptOpen = true;
+    return
+  }
+  if(res.code == 200){
+    let urls = res.data
+    setTimeout(function(){
+      this.loadingImage = false
+    }.bind(this),2000)
+    this.poster_url = urls;
+  }
+
 }
 root.methods.error_getPosterImage = function (err) {
   console.warn('err',err)

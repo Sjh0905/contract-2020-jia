@@ -20,7 +20,7 @@ root.components = {
   'MobileMarket': resolve => require(['../mobileVue/MobileHomePageMarket'], resolve),
   'MobileStockCross': resolve => require(['../mobileVue/MobileStockCross'], resolve),
   'MobileHomePageMarketItem': resolve => require(['../mobileVue/MobileHomePageMarketItem'], resolve),
-
+  'PopupPrompt': resolve => require(['../vue/PopupPrompt'], resolve),
 }
 
 root.data = function () {
@@ -78,6 +78,12 @@ root.data = function () {
     latestPriceVal: '' ,   // 最新价格
     latestPriceArr: [],   // 最新价格数组，用于判断价格升降和盘口显示
 
+    // 提示信息
+    popType: 0,
+    popText: '',
+    popOpen: false,
+    opening:false,
+    opened:false,
   }
 }
 
@@ -93,6 +99,10 @@ root.computed.symbol = function () {
 // 计算是否显示列表
 root.computed.headerBoxFlag = function () {
   return this.$store.state.mobileTradingHallFlag;
+}
+// 用户id，判断是否登录
+root.computed.userId = function () {
+  return this.$store.state.authState.userId
 }
 // 实时价格
 root.computed.isNowPrice = function () {
@@ -205,6 +215,11 @@ root.watch.currencylist = function (newValue, oldValue) {
 }
 
 root.created = function () {
+  // 海报进来的要调取这个接口
+  if(this.$route.query.type){
+    // this.invitUid()
+    this.invitPoster()
+  }
   this.$route.params.source === 'mobileTradingHallDetail' && this.$store.commit('SET_HALL_SYMBOL', false)
 
   // 修改header title标题
@@ -232,6 +247,7 @@ root.created = function () {
   this.getDepth();
   // 获取实时成交归集交易
   this.getAggTrades();
+
 }
 
 /*// 判断当前币是否可交易
@@ -252,7 +268,66 @@ root.methods.SYMBOL_ENTRANSACTION = function () {
   });
   // console.log("=====root.methods.SYMBOL_ENTRANSACTION========>3",this.symbol_transaction)
 }*/
-
+// 关闭弹出框
+root.methods.closePop = function () {
+  this.popOpen = false;
+}
+root.methods.invitUid = function () {
+  let uid
+  if(this.$route.query.uid) {
+    uid = Number.parseInt(this.$route.query.uid)
+  }
+  if(!this.$route.query.uid) {
+    uid = 0
+  }
+  return uid
+}
+// 若是从扫描海报过来，则调用此接口
+root.methods.invitPoster = function () {
+  this.$http.send('POST_CHECK_OPEN_POSTER',{
+    bind: this,
+    params:{
+      inviteduserId: this.invitUid(),
+    },
+    callBack: this.re_invitPoster,
+    errorHandler: this.error_invitPoster,
+  })
+}
+root.methods.re_invitPoster = function (data) {
+  typeof data === 'string' && (data = JSON.parse(data))
+  if(!data && !data.data) return
+  if(data.code == 1){
+    this.popOpen = true;
+    this.popType = 0;
+    this.popText = '请您登录'
+    return
+  }
+  if(data.code == 2){
+    this.popOpen = true;
+    this.popType = 0;
+    this.popText = '合约开通失败'
+    return
+  }
+  if(data.code == 3){
+    this.popOpen = true;
+    this.popType = 0;
+    this.popText = '合约开通邀请关系建立异常'
+    return
+  }
+  if(data.code == 4){
+    this.popOpen = true;
+    this.popType = 0;
+    this.popText = '不能自己邀请自己哦'
+    return
+  }
+  if(data.code == 200) {
+    this.opening = data.data.opening
+    this.opened = data.data.opened
+  }
+}
+root.methods.error_invitPoster = function (err) {
+  console.warn('err===',err)
+}
 
 // 点击切换版块下的市场
 root.methods.changeMarket = function (market) {
@@ -370,6 +445,7 @@ root.methods.changeCurrencyMarket = function (type, name) {
 
 
 root.methods.toDeal = function () {
+  if(!(this.opening || this.opened)) return
   // this.$router.go(-1);
   this.$router.push('/index/mobileTradingHallDetail')
 }

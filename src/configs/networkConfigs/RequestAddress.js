@@ -49,6 +49,8 @@ requestAddress.POST_CREATE_WITH_STOP = {url: urlHead+'/future/orders/createWithS
 requestAddress.GET_ORDERS_GETRECORD = {url: urlHead+'/future/orders/getRecord', method: 'get'}
 requestAddress.POST_REVERSE_POSITION = {url: urlHead+'/future/orders/reversePosition', method: 'post'} // 反手
 requestAddress.POST_INVIT_POSTER = {url: urlHead+'/future/user/getFutureUserInvitePoster', method: 'post'} // 海报邀请
+requestAddress.POST_CHECK_OPEN_POSTER = {url: urlHead+'/future/user/checkOpenContract', method: 'post'} // 检测是老用户登录还是新用户
+
 
 
 

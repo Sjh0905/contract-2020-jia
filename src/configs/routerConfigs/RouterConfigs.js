@@ -2467,6 +2467,18 @@ root.routes.push({
   caseSensitive: true,
   component: resolve => require(['@/components/vue/ContractRiskWarning'], resolve)
 })
+// 开通合约邀请页
+root.routes.push({
+  path: '/index/InvitOpenContract',
+  name: 'InvitOpenContract',
+  meta: {
+    requireLogin: false,
+    pcname: '',
+    h5name: 'InvitOpenContract',
+  },
+  caseSensitive: true,
+  component: resolve => require(['@/components/vue/InvitOpenContract'], resolve)
+})
 
 // 合约全部记录
 root.routes.push({
