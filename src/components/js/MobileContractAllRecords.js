@@ -11,6 +11,7 @@ root.data = function () {
     loading:true,
     capitalFlowList:[],
     capitalFlowListText:[],
+    capitalAssetSnapshot:[],
     // tradinghallLimit: 10,
     openType:2,
     historicaList:[],//历史成交
@@ -112,6 +113,10 @@ root.methods.changeOpenType = function(num){
   if(num === 5) {
     this.$router.push({'path':'/index/mobileContractAllRecords',query:{id:5}})
     this.getCapitalFlow()
+  }
+  if(num === 6) {
+    this.$router.push({'path':'/index/mobileContractAllRecords',query:{id:6}})
+    this.getAssetSnapshot()
   }
 
 }
@@ -251,6 +256,31 @@ root.methods.showDetail = function (order) {
   // console.info('this.firstTime===',this.startTime,this.endTime)
 }
 
+
+// 资金流水
+root.methods.getAssetSnapshot = function () {
+  this.$http.send('GET_ASSET_SNAPSHOT',{
+    bind: this,
+    query:{
+      // symbol:'BTCUSDT'
+      timestamp:this.serverTime
+    },
+    callBack: this.re_getAssetSnapshot,
+    errorHandler:this.error_getAssetSnapshot
+  })
+}
+// 资金流水正确回调
+root.methods.re_getAssetSnapshot = function (data) {
+  typeof(data) == 'string' && (data = JSON.parse(data));
+  if(!data && !data.data)return
+  this.loading = false
+  // console.info('data====',data.data)
+  this.capitalAssetSnapshot = data.data || []
+}
+// 资金流水错误回调
+root.methods.error_getAssetSnapshot = function (err) {
+  console.log('获取币安24小时价格变动接口',err)
+}
 
 
 
