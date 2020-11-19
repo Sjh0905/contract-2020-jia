@@ -661,13 +661,13 @@ root.methods.initViews = function (lang) {
         'Plots Background.color':'#626874',
       });
       widget.chart().createStudy('MACD',false, false,[3,33,'close',5],null, {
-        'Histogram.color': '#B6B6B6',
+        'Histogram.color': '#838B99',
         'Histogram.linewidth': 1,
         'Histogram.transparency': 35,
-        'MACD.color': '#F60076',
+        'MACD.color': '#86CB12',
         'MACD.linewidth': 1,
         'MACD.transparency': 35,
-        'Signal.color': '#86CB12',
+        'Signal.color': '#F60076',
         'Signal.linewidth': 1,
         'Signal.transparency': 35,
       });
