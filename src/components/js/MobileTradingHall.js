@@ -68,7 +68,7 @@ root.data = function () {
     tradingTitle: '1分',
     tradingNum: '1',
     is_more: true,
-    interval_btn_list: [{title: '分时'}, {title: '1分'}, {title: '5分'}, {title: '15分'}, {title: '30分'}, {title: '1小时'}, {title: '4小时'}, {title: '日线'}],
+    interval_btn_list: [{title: '分时'}, {title: '1分'}, {title: '5分'}, {title: '15分'}, {title: '30分'}, {title: '1小时'}, {title: '2小时'},{title: '4小时'},{title: '6小时'},{title: '12小时'}, {title: '日线'}],
 
     highPrice: '', // 24小时最高价
     lowPrice: '', // 24小时最低价
