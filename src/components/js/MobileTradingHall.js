@@ -339,7 +339,7 @@ root.methods.re_invitPoster = function (data) {
     this.opening = data.data.opening
     this.opened = data.data.opened
   }
-  if(!(this.opening || this.opened) && this.$route.query.type=='contract') {
+  if(!(this.opening || this.opened)) {
     this.popOpen = true;
     this.popType = 0;
     this.popText = '开通合约失败，请重新操作'
