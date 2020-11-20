@@ -338,6 +338,7 @@ root.methods.re_invitPoster = function (data) {
   if(data.code == 200) {
     this.opening = data.data.opening
     this.opened = data.data.opened
+    return
   }
   if(!(this.opening || this.opened)) {
     this.popOpen = true;
