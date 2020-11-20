@@ -339,6 +339,12 @@ root.methods.re_invitPoster = function (data) {
     this.opening = data.data.opening
     this.opened = data.data.opened
   }
+  if(!(this.opening || this.opened) && this.$route.query.type=='contract') {
+    this.popOpen = true;
+    this.popType = 0;
+    this.popText = '开通合约失败，请重新操作'
+    this.$router.push('/index/InvitOpenContract')
+  }
 }
 root.methods.error_invitPoster = function (err) {
   console.warn('err===',err)
@@ -467,7 +473,7 @@ root.methods.toDeal = function () {
     return
   }
 
-  if(!(this.opening || this.opened)) return
+
   // this.$router.go(-1);
   this.$router.push('/index/mobileTradingHallDetail')
 }
