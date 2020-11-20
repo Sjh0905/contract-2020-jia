@@ -18,8 +18,23 @@ root.created = function () {
     this.invitCodeInput = this.$route.query.uid
   }
 }
-root.mounted = function () {}
-root.beforeDestroy = function () {}
+root.mounted = function () {
+  // let isAndroid = navigator.userAgent.indexOf('Android') > -1 || navigator.userAgent.indexOf('Adr') > -1;
+  // if (isAndroid){
+  //   var win_h = document.documentElement.clientHeight,
+  //     that = this
+  //   window.addEventListener('resize', function () {
+  //     if(document.documentElement.clientHeight < win_h){
+  //       that.footer = false		// 控制隐藏
+  //     }else{
+  //       that.footer = true			// 控制显示
+  //     }
+  //   });
+  // }
+}
+root.beforeDestroy = function () {
+  // window.removeEventListener("resize")
+}
 /*------------------------------ 计算 -------------------------------*/
 root.computed = {}
 // 判断是否是手机

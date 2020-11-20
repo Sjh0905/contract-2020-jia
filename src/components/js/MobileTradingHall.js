@@ -213,9 +213,14 @@ root.watch.serverTime = function (newValue, oldValue) {
 root.watch.currencylist = function (newValue, oldValue) {
   // if (!this.clickTab) this.initTab()
 }
+root.beforeCreate = function () {
+  if(this.$route.query.type && !this.userId) {
+    this.$router.push({'path':'/index/InvitOpenContract'})
+  }
+}
 
 root.created = function () {
-  if(!this.userId) {
+  if(this.$route.query.type && !this.userId) {
     this.$router.push({'path':'/index/InvitOpenContract'})
   }
   // 海报进来的要调取这个接口
