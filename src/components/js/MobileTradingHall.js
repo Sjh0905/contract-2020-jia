@@ -215,6 +215,9 @@ root.watch.currencylist = function (newValue, oldValue) {
 }
 
 root.created = function () {
+  if(!this.userId) {
+    this.$router.push({'path':'/index/InvitOpenContract'})
+  }
   // 海报进来的要调取这个接口
   if(this.$route.query.type){
     // this.invitUid()
