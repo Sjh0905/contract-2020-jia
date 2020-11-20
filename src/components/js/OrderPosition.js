@@ -1054,7 +1054,6 @@ root.methods.openSplicedFrame = function (item,btnText,callFuncName) {
 //提交下单弹框
 root.methods.confirmFrame = function () {
   this[this.callFuncName]();//调用对应的接口
-
 }
 
 //关闭下单弹框

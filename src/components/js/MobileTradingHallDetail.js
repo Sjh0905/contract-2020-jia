@@ -253,7 +253,7 @@ root.created = function () {
 
   this.$eventBus.listen(this, 'TRADED', this.TRADED)
   // 获取订单
-  this.loading = true
+  this.loading = false
   this.getOrder()
 
   // 获取认证状态
@@ -1069,7 +1069,10 @@ root.computed.maxPosition = function () {
   maxPosition = ''
   return maxPosition
 }
-
+// 检验是否是APP
+root.computed.isApp = function () {
+  return this.$route.query.isApp ? true : false
+}
 /*------------------------------ 方法 begin -------------------------------*/
 
 root.methods = {}
@@ -1935,6 +1938,22 @@ root.methods.error_positionModeSelectedConfirm = function (err) {
 
 // 跳转计算器
 root.methods.goToCalculator = function () {
+  if(this.$route.query.isApp) {
+    window.postMessage(JSON.stringify({
+        method: 'toH5Route',
+        parameters: {
+          url: window.location.origin + '/index/mobileCalculator?isApp=true&isWhite=true',
+          loading: false,
+          navHide: false,
+          title: '',
+          requireLogin:true,
+          isTransparentNav:true
+        }
+      })
+    );
+    return
+  }
+
   this.$router.push({name: 'mobileCalculator'})
 }
 
@@ -3579,6 +3598,12 @@ root.methods.re_isFirstVisit = function (data) {
   if (data.code == 1000) {
     this.$router.push({'path': '/index/contractRiskWarning'})
   }
+
+  /*//APP测试专用
+  setTimeout(()=>{
+    this.$router.push({'path': '/index/contractRiskWarning'})
+  },5000)*/
+
   // this.$router.push({'path': '/index/contractRiskWarning'})
   // } else {
   //   this.$router.push({'path':'index/mobileTradingHallDetail'})
@@ -3588,6 +3613,30 @@ root.methods.re_isFirstVisit = function (data) {
 
 //合约全部记录
 root.methods.openAllRecords = function () {
+
+  if(this.$route.query.isApp) {
+    if(!this.$store.state.authState.userId){
+      window.postMessage(JSON.stringify({
+        method: 'toLogin'
+      }))
+      return
+    }
+
+    window.postMessage(JSON.stringify({
+        method: 'toH5Route',
+        parameters: {
+          url: window.location.origin + '/index/mobileContractAllRecords?isApp=true&isWhite=true',
+          loading: false,
+          navHide: false,
+          title: '',
+          requireLogin:true,
+          isTransparentNav:true
+        }
+      })
+    );
+    return
+  }
+
   this.$router.push('/index/mobileContractAllRecords')
 }
 //划转

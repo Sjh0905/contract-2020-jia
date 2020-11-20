@@ -86,8 +86,15 @@ root.data = function () {
     opened:false,
   }
 }
-
-// 特殊专区 0为超级为蜜
+// 检验是否是APP
+root.computed.isApp = function () {
+  return this.$route.query.isApp ? true : false
+}
+// 检验是否登录
+root.computed.isLogin = function () {
+  return this.$store.state.authState.userId;//这么写 APP里边登录后才会生效
+}
+// 特殊专区 0为超级蜜
 root.computed.specialSymbol = function () {
   return this.$store.state.specialSymbol && this.$store.state.specialSymbol || []
 }
@@ -453,6 +460,13 @@ root.methods.changeCurrencyMarket = function (type, name) {
 
 
 root.methods.toDeal = function () {
+  if(this.$route.query.isApp && !this.isLogin) {
+    window.postMessage(JSON.stringify({
+      method: 'toLogin'
+    }))
+    return
+  }
+
   if(!(this.opening || this.opened)) return
   // this.$router.go(-1);
   this.$router.push('/index/mobileTradingHallDetail')

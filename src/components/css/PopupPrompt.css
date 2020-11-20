@@ -30,7 +30,7 @@
   width: auto;
   min-height: 40px;
   border-radius: 1px;
-  border-left: 4px solid rgba(8,208,172,1);
+  border-left: 4px solid #86CB12;
   box-shadow:0px 4px 14px -2px rgba(0,0,0,0.1);
 }
 
@@ -46,7 +46,7 @@
   width: auto;
   min-height: 40px;
   border-radius: 1px;
-  border-left: 4px solid rgba(239,86,86,1);
+  border-left: 4px solid #F60076;
   box-shadow:0px 4px 14px -2px rgba(0,0,0,0.1);
 }
 
@@ -62,7 +62,7 @@
   width: auto;
   min-height: 40px;
   border-radius: 1px;
-  /*border-left: 4px solid rgba(239,86,86,1);*/
+  /*border-left: 4px solid #F60076;*/
   box-shadow:0px 4px 14px -2px rgba(0,0,0,0.1);
 }
 .prompt-detail-j {
@@ -76,7 +76,7 @@
   width: auto;
   min-height: 40px;
   border-radius: 1px;
-  /*border-left: 4px solid rgba(239,86,86,1);*/
+  /*border-left: 4px solid #F60076;*/
   box-shadow:0px 4px 14px -2px rgba(0,0,0,0.1);
 }
 
@@ -99,7 +99,7 @@
   display: inline-block;
   width:4px;
   height:40px;
-  background:rgba(239,86,86,1);
+  background:#F60076;
 }
 
 .prompt-loading{
@@ -120,13 +120,13 @@
   font-size:12px;
   font-family:PingFangSC-Regular,PingFang SC;
   font-weight:400;
-  color:rgba(8,208,172,1);
+  color:#86CB12;
 }
 .pop-prp-text {
   font-size:12px;
   font-family:PingFangSC-Regular,PingFang SC;
   font-weight:400;
-  color:rgba(239,86,86,1);
+  color:#F60076;
 }
 /*背景过渡状态*/
 .background-enter {
@@ -252,7 +252,7 @@
     font-size:12px;
     font-family:PingFangSC-Regular,PingFang SC;
     font-weight:400;
-    color:rgba(239,86,86,1);
+    color:#F60076;
   }
 }
 

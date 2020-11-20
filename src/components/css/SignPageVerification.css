@@ -375,7 +375,7 @@
   padding: 0;
   font-family: PingFangSC-Regular;
   font-size: 0.24rem;
-  color: #EF5656;
+  color: #F60076;
 }
 
 /*获取手机验证码*/
@@ -428,7 +428,7 @@
 }
 
 .wrong-msg {
-  border-bottom: 1px solid #EF5656;
+  border-bottom: 1px solid #F60076;
 }
 
 .pick-one-type {

@@ -13,7 +13,12 @@ export default function ($route, $event, $store, $http, $cookies,zE) {
 
     // 如果是安卓打开的
     if (from.query.isApp) {
+      $cookies.set('isApp', true)//app里刷新后query参数会被清空，所以存到cookies
       query = Object.assign(query, {isApp: true})
+    }
+
+    if ($cookies.get('isApp')) {
+      query = Object.assign(query, {isApp: true,isWhite:true})
     }
 
     // 如果是ios打开的

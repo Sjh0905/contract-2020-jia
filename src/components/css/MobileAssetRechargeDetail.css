@@ -362,13 +362,13 @@
   line-height: 40px;
   text-align: center;
   font-size: 16px;
-  color: #EF5656;
+  color: #F60076;
   border-bottom: 1px solid #F2F2F2;
 }
 
 .memo-toast-body {
   margin-top: 18px;
-  color: #EF5656;
+  color: #F60076;
   font-size: 13px;
   /*line-height: 18px;*/
 }

@@ -71,7 +71,7 @@
 }
 
 .header-title-item-active-red{
-  background-color: #EF5656;
+  background-color: #F60076;
   color: #fff;
 }
 
@@ -121,6 +121,13 @@
   background: #131F30;
   /*margin-bottom: 30px;*/
   margin-bottom: 0.14rem;
+}
+
+.mobile-container-app{
+  /*margin-top: 2.56rem;*/
+  /*background: #131F30;*/
+  /*margin-bottom: 30px;*/
+  margin-bottom: 0;
 }
 
 
@@ -443,7 +450,7 @@
 }
 
 .mobile-sell-btn{
-  background-color: #EF5656;
+  background-color: #F60076;
 }
 
 .mobile-buy-btn:active{
@@ -452,7 +459,7 @@
 }
 
 .container-sell-page .mobile-buy-btn{
-  background: #EF5656;
+  background: #F60076;
 }
 
 .mopbile-trading-img{
@@ -589,7 +596,7 @@
 
 .mobile-sale-detail-item-price{
   !*line-height: 0.48rem;*!
-  color: #EF5656;
+  color: #F60076;
 }
 
 .mobile-sale-detail-item-num{
@@ -1429,7 +1436,7 @@
 }
 
 .hq-price-down{
-  color: #EF5656;
+  color: #F60076;
 
  }
 
@@ -1621,10 +1628,10 @@
   color: #3576F5;
 }
 .txt-price{
-  color: #08D0AC;
+  color: #86CB12;
 }
 .txt-price-red{
-  color: #EF5656;
+  color: #F60076;
 }
 .money-confirmation {
   width: 100%;
@@ -1675,7 +1682,7 @@
 }
 .mode-error {
   margin-bottom: 0.3rem;
-  color: #EF5656;
+  color: #F60076;
   font-size:0.24rem;
   font-family:PingFangSC-Regular,PingFang SC;
   font-weight:400;

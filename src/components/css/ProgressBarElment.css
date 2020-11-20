@@ -16,7 +16,7 @@
   /* 小断点 */
 }
 .el-slider_green .el-slider__runway .el-slider__bar {
-  background: #EF5656;
+  background: #F60076;
   height: 4px;
   /* background-color: #409EFF; */
   border-top-left-radius: 3px;
@@ -38,7 +38,7 @@
   height: 16px;
   width: 16px;
   background-color: #1D232D;
-  border: 3px solid #EF5656;
+  border: 3px solid #F60076;
   border-radius: 50%;
   cursor: pointer;
 }
@@ -78,7 +78,7 @@
   /* 小断点 */
 }
 .el-slider_red .el-slider__runway .el-slider__bar {
-  background: #08D0AC;
+  background: #86CB12;
   height: 4px;
   /* background-color: #409EFF; */
   border-top-left-radius: 3px;
@@ -96,7 +96,7 @@
   height: 16px;
   width: 16px;
   background-color: #1D232D;
-  border: 3px solid #08D0AC;
+  border: 3px solid #86CB12;
   border-radius: 50%;
   cursor: pointer;
 }
@@ -116,26 +116,26 @@
   cursor: pointer;
 }
 .bbb {
-  background: #08D0AC !important;
+  background: #86CB12 !important;
   color: #FFF;
 }
 .bbb .popper__arrow::after {
-  border-top-color: #08D0AC !important;
+  border-top-color: #86CB12 !important;
   bottom: 1px !important;
 }
 .bbb .popper__arrow {
-  border-top-color: #08D0AC !important;
+  border-top-color: #86CB12 !important;
 }
 .aaa {
-  background: #EF5656 !important;
+  background: #F60076 !important;
   color: #FFF;
 }
 .aaa .popper__arrow::after {
-  border-top-color: #EF5656 !important;
+  border-top-color: #F60076 !important;
   bottom: 1px !important;
 }
 .aaa .popper__arrow {
-  border-top-color: #EF5656 !important;
+  border-top-color: #F60076 !important;
 }
 .block {
   position: relative;
@@ -144,7 +144,7 @@
 }
 .block .radiusa_green {
   position: absolute;
-  background-color: #08D0AC;
+  background-color: #86CB12;
   border-radius: 50%;
   top: 36%;
   z-index: 1;
@@ -152,11 +152,11 @@
   height: 8px;
   width: 8px;
   /*background: #1D232D;*/
-  border: 2px solid #08D0AC;
+  border: 2px solid #86CB12;
 }
 .block .radiusb_green {
   position: absolute;
-  background-color: #08D0AC;
+  background-color: #86CB12;
   border-radius: 50%;
   top: 36%;
   z-index: 1;
@@ -164,12 +164,12 @@
   height: 8px;
   width: 8px;
   /*background: #1D232D;*/
-  border: 2px solid #08D0AC;
+  border: 2px solid #86CB12;
   left: 25%;
 }
 .block .radiusc_green {
   position: absolute;
-  background-color: #08D0AC;
+  background-color: #86CB12;
   border-radius: 50%;
   top: 36%;
   z-index: 1;
@@ -177,12 +177,12 @@
   height: 8px;
   width: 8px;
   /*background: #1D232D;*/
-  border: 2px solid #08D0AC;
+  border: 2px solid #86CB12;
   left: 50%;
 }
 .block .radiusd_green {
   position: absolute;
-  background-color: #08D0AC;
+  background-color: #86CB12;
   border-radius: 50%;
   top: 36%;
   z-index: 1;
@@ -190,7 +190,7 @@
   height: 8px;
   width: 8px;
   /*background: #1D232D;*/
-  border: 2px solid #08D0AC;
+  border: 2px solid #86CB12;
   /*border-radius: 10px;*/
   left: 75%;
 }
@@ -198,8 +198,8 @@
   position: absolute;
   width: 8px;
   height: 8px;
-  background-color: #EF5656;
-  border: 2px solid #EF5656;
+  background-color: #F60076;
+  border: 2px solid #F60076;
   border-radius: 50%;
   top: 36%;
   z-index: 1;
@@ -208,8 +208,8 @@
   position: absolute;
   width: 8px;
   height: 8px;
-  background-color: #EF5656;
-  border: 2px solid #EF5656;
+  background-color: #F60076;
+  border: 2px solid #F60076;
   border-radius: 50%;
   top: 36%;
   left: 25%;
@@ -219,8 +219,8 @@
   position: absolute;
   width: 8px;
   height: 8px;
-  background-color: #EF5656;
-  border: 2px solid #EF5656;
+  background-color: #F60076;
+  border: 2px solid #F60076;
   border-radius: 50%;
   top: 36%;
   left: 50%;
@@ -230,8 +230,8 @@
   position: absolute;
   width: 8px;
   height: 8px;
-  background-color: #EF5656;
-  border: 2px solid #EF5656;
+  background-color: #F60076;
+  border: 2px solid #F60076;
   border-radius: 50%;
   top: 36%;
   left: 75%;
@@ -256,7 +256,7 @@
   /* 小断点 */
 }
 .el-slider_green .el-slider__runway .el-slider__bar {
-  background: #EF5656;
+  background: #F60076;
   height: 4px;
   /* background-color: #409EFF; */
   border-top-left-radius: 3px;
@@ -278,7 +278,7 @@
   height: 16px;
   width: 16px;
   background-color: #1D232D;
-  border: 3px solid #EF5656;
+  border: 3px solid #F60076;
   border-radius: 50%;
   cursor: pointer;
 }

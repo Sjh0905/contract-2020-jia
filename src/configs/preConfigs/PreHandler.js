@@ -55,7 +55,7 @@ export default async function ($http, $store, $cookie, $i18n) {
           $store.commit('ENTER_CONTRACT', data.data.contract)//判断用户是否第一次进入合约
           return
         }
-        $store.commit('SET_AUTH_MESSAGE', data.dataMap.userProfile)
+        $store.commit('SET_AUTH_MESSAGE', data.data)
         $store.commit('SET_AUTH_HOTVAL', data.dataMap.hotVal)
         $store.commit('ENTER_CONTRACT', data.data.contract) //判断用户是否第一次进入合约
         // 判断用户登录后最后选择的币对

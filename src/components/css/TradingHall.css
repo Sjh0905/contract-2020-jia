@@ -800,7 +800,7 @@
   margin-bottom: 1px;
   font-family: Roboto-Medium,Roboto;
   font-size: 16px;
-  /*color: #08D0AC;*/
+  /*color: #86CB12;*/
   font-weight:500;
   line-height:19px;
 }
@@ -902,10 +902,10 @@
   color: #3576F5;
 }
 .txt-price{
-  color: #08D0AC;
+  color: #86CB12;
 }
 .txt-price-red{
-  color: #EF5656;
+  color: #F60076;
 }
 .pankou{
   height: 44px;
@@ -1045,7 +1045,7 @@
 }
 .mode-error {
   margin-bottom: 15px;
-  color: #EF5656;
+  color: #F60076;
   font-size:12px;
   font-family:PingFangSC-Regular,PingFang SC;
   font-weight:400;
