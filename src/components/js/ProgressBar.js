@@ -1519,6 +1519,12 @@ root.methods.re_postOrdersCreate = function (data) {
     this.popText = '用户无权限';//用户无权限
     return
   }
+  if(data.code == '305') {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '合约带单暂不支持限价交易';//用户无权限
+    return
+  }
   typeof (data) === 'string' && (data = JSON.parse(data))
   if (!data || !data.data) return
   // console.info('下单失败',data,data.errCode,data.code)
