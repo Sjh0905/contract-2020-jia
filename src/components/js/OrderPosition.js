@@ -260,7 +260,7 @@ root.methods = {}
 // 2020.11.16. ccc
 
 root.methods.changeDate = function () {
-  if( this.accounts.length == 0 )return
+  if(this.accounts.length == 0 )return
   let item,side,positionSide,unrealizedProfitPage,responseRate
   item = this.records && this.records[this.initialPosition] || {}
   if( item.responseRate == 0 ) return
