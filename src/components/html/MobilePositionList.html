@@ -20,7 +20,7 @@
         <img v-if="item.adlQuantile == 4" class="ps-reduce-positions" src="../../assets/H5img/mobile_reduce_ps_4.png" alt="">
       </div>
 
-      <div @click="SHOW_POSTER()">
+      <div @click="SHOW_POSTER(index)">
         <img class="ps-share" src="../../assets/fenxiang.png" alt="">
       </div>
     </div>
@@ -62,9 +62,10 @@
       </div>
     </div>
     <!--操作按钮-->
-    <div class="ps-btn-box">
+    <div class="ps-btn-box flex-between">
 <!--      <div class="ps-btn">调整杠杆</div>-->
       <div class="ps-btn" @click="openPopWindowOpenPs(item)">平仓</div>
+      <div class="ps-btn" @click="openBackHand(item,'back_hand','backHand')">反手</div>
     </div>
   </div>
 
@@ -214,14 +215,19 @@
       <template>
         <el-select class="account_number_input" value-key="currencyKey" v-model="currencyValue" filterable placeholder="">
           <el-option
-            v-for="item in accountsComputed"
+            v-for="(item,index) in accountsComputed"
             :label="item.a"
-            :value="item.a"></el-option>
+            :value="item.a"
+            :key="index"
+          ></el-option>
         </el-select>
       </template>
+      <div class="loading-box" v-if="loadingImage">
+        <Loading></Loading>
+      </div>
 <!--      <p class="copy_poster">✽{{$t('personalCenter.poster_2')}}</p>-->
-      <img src="../../assets/selected_noVIP_icon.png" width="100%" @click.stop="notClick($event)">
-      <div class="prompt-qrcode-box-info">长按图片保存至手机</div>
+      <img :src="poster_url" class="img-width" v-if="!loadingImage" @click.stop="notClick($event)">
+      <div class="prompt-qrcode-box-info">{{isApp ? 'APP暂请截图分享':'长按图片保存至手机'}}</div>
       <img class="close_icon"  src="../../assets/wrong-close.png" alt="">
     </div>
   </div>

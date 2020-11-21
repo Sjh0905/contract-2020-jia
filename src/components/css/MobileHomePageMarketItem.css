@@ -69,7 +69,7 @@
   }
 
   .mobile-market-td-current-price-up{
-    color: #39B496;
+    color: #86CB12;
   }
 
   .mobile-market-td-current-up-fall{
@@ -96,7 +96,7 @@
   }
 
   .mobile-market-td-current-up{
-    color: #39B496;
+    color: #86CB12;
   }
 
   .mobile-market-td-current-fall .mobile-market-td-current-img{
@@ -143,7 +143,7 @@
     margin-top: 0.3rem;
   }
   .m_3ud_up{
-    background: #39B496;
+    background: #86CB12;
     border-radius: 0.03rem;
     width: 1.6rem;
     height: 0.66rem;
@@ -175,10 +175,10 @@
   background: #294368;
 }
 .m_3ud_up_{
-  background: #39B496;
+  background: #86CB12;
 
 }
 .m_3ud_dw_{
-  background: #EF5656;
+  background: #F60076;
 
 }

@@ -20,9 +20,12 @@ root.data = () => {
     currentOrder: [],
     popOpen: false,
 
-    promptOpen: false,
     promptType: 0,
     clickOrder: new Set(),
+    // 信息提示
+    popType: 0,
+    popText: '',
+    promptOpen: false,
 
     cancelAll: false,
 

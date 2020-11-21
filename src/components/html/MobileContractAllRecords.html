@@ -28,6 +28,9 @@
       <div class="header-title-item" :class="openType==6? 'header-title-item-active':''" @click="changeOpenType(6)">
         合约邀请
       </div>
+      <div class="header-title-item" :class="openType==7? 'header-title-item-active':''" @click="changeOpenType(7)">
+        资产快照
+      </div>
     </div>
 
 
@@ -146,7 +149,7 @@
 
     <!--  资金流水-->
     <div v-show="!loading && openType==5" class="">
-      <div class="container-tr-th container-box-zi flex">
+      <div class="container-tr-th container-box-zi flex" :class="isApp && 'container-tr-th-app' || ''">
         <!--时间-->
         <div class="td-time1">资产种类/时间</div>
         <!--类型-->
@@ -177,6 +180,34 @@
           <div class="td-time1 income-text tar">{{toFixed(order.income,8)}}</div>
         </div>
       </div>
+  </div> <!--  资金流水-->
+    <div v-show="!loading && openType==7" class="">
+      <div class="container-tr-th container-box-zi flex" :class="isApp && 'container-tr-th-app' || ''">
+        <!--时间-->
+        <div class="td-time1">资产种类/时间</div>
+        <!--类型-->
+        <div class="td-time">{{$t('差额')}}</div>
+        <!--总额-->
+        <div class="td-time1 tar">{{$t('余额')}}</div>
+      </div>
+      <!--没有记录的样式-->
+      <div v-if="!loading && capitalAssetSnapshot.length === 0" class="no-item-box">
+        <img class="no-item-box-item" src="../../assets/no-record-icon-H5@2x.png" alt="">
+        <div class="no-item-box-text">暂无记录</div>
+      </div>
+      <!--有=记录的样子-->
+      <div v-if="capitalAssetSnapshot.length !== 0 && !loading" class="con-withdraw-list">
+        <div v-for="(order,index) in capitalAssetSnapshot" :key="order.id" class="flex withdraw-item">
+          <!--时间-->
+          <div class="td-time1">
+            <div class="asset-text">{{order.asset}}</div>
+            <div class="time-text pt">{{$globalFunc.formatDateUitl(order.createdAt,'MM-DD hh:mm')}}</div>
+          </div>
+          <!--类型-->
+          <div class="td-time incomeType-text">{{toFixed(order.difference,8)}}</div>
+          <div class="td-time1 income-text tar">{{toFixed(order.balance,8)}}</div>
+        </div>
+      </div>
   </div>
  <!--  资金流水-->
     <div v-show="!loading && openType==6" class="">
@@ -205,6 +236,7 @@
         </div>
       </div>
   </div>
+
 
   </div>
 

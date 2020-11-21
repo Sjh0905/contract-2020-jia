@@ -93,6 +93,7 @@ root.data = function () {
     showSplicedFrame:false,//下单拦截弹框
     callFuncName:'',//即将调用接口的函数名字
     splicedFrameText:'',
+    callFuncNameHand:'',//即将调用反手接口的函数名字
 
     // 平仓弹框
     popWindowOpenPs:false,
@@ -105,11 +106,12 @@ root.data = function () {
 
     psSymbolArr:['BTCUSDT'],//,'ETHUSDT'
 
+
     // 是否展示海报
     showPoster: false,
     // 海报url
     poster_url: '',
-    currencyValue:'',
+    currencyValue:'庄终于，对我下手了',
     accounts: [
       {'a':'庄终于，对我下手了'},
       {'a':'我命由庄，不由我'},
@@ -124,7 +126,14 @@ root.data = function () {
       {'a':'舍己为人的，反指小能手'},
       {'a':'多么痛，的领悟'}
     ],
+    positionData:{},
+    buyOrSell:'', //买入做多、卖出做空
+    unrealizedProfitPage:'', // 实现盈亏
+    responseRate: '' , // 回报率
+    profitOrLoss:false, //盈利亏损
 
+    initialPosition:0,
+    loadingImage:true,
   }
 }
 /*------------------------------ 观察 -------------------------------*/
@@ -143,6 +152,15 @@ root.watch.walletBalance = function(newVal,oldVal) {
 root.watch.crossWalletBalance = function(newVal,oldVal) {
   // console.info(newVal)
 }
+root.watch.currencyValue = function (newVal, oldVal){
+  // let a = newVal
+  // this.getAccount()
+  this.changeDate()
+  this.getPosterImage()
+}
+root.watch.picIndex = function (newVal, oldVal){
+  // this.getPosterImage()
+}
 /*------------------------------ 生命周期 -------------------------------*/
 root.created = function () {
   this.getPositionRisk()
@@ -157,17 +175,24 @@ root.created = function () {
 
   //引入链式计算
   this.chainCal = this.$globalFunc.chainCal
-
+  this.changeDate()
 
 }
 root.mounted = function () {}
 root.beforeDestroy = function () {}
 /*------------------------------ 计算 -------------------------------*/
 root.computed = {}
+root.computed.currSymbol = function () {
+  return this.$store.state.symbol;
+}
+// 当前socket订阅货币对
+root.computed.subscribeSymbol = function () {
+  return this.$globalFunc.toOnlyCapitalLetters(this.currSymbol);
+  // return this.$store.state.subscribeSymbol;
+}
 // 邀请海报
 root.computed.accountsComputed = function (index,item) {
   // 特殊处理
-  this.accounts.map(item => item.a).indexOf(this.currencyValue)
   return this.accounts
 }
 
@@ -234,7 +259,14 @@ root.computed.LPCalculationType = function () {
   let data = tradingHallData.LPCalculationType
   return data
 }
-
+root.computed.picIndex = function () {
+  let a = this.accounts.map(item => item.a).indexOf(this.currencyValue) + 1
+  return a || 1
+}
+// 检验是否是APP
+root.computed.isApp = function () {
+  return this.$route.query.isApp ? true : false
+}
 /*------------------------------ 方法 -------------------------------*/
 root.methods = {}
 // 打开之后，点击图片不能关闭图片
@@ -246,9 +278,74 @@ root.methods.notClick = function (e) {
     window.event.cancelBubble = true;//IE浏览器
   }
 }
+root.methods.changeDate = function () {
+  if(this.accounts.length == 0)return
+  let item,side,positionSide,unrealizedProfitPage,responseRate
+  item = this.records && this.records[this.initialPosition] || {}
+  if( item.responseRate == 0 ) return
+  side = (item.positionAmt && item.positionAmt > 0) ?'BUY':'SELL'
+  positionSide = item.positionSide
+  unrealizedProfitPage = this.toFixed(item.unrealizedProfitPage,2)
+  responseRate = item.responseRate || ''
+
+  this.buyOrSell = positionSide +'_' + side
+  this.unrealizedProfitPage = Number(unrealizedProfitPage) >=0 ? '+'+ unrealizedProfitPage : unrealizedProfitPage
+  this.profitOrLoss = unrealizedProfitPage > 0 ? true : false
+  this.responseRate = responseRate.substr(0, responseRate.length - 1) >=0 ?'+'+responseRate : responseRate
+  console.info('this.responseRate',this.responseRate,this.unrealizedProfitPage)
+
+  return this.positionData = {
+    buyOrSell:this.buyOrSell,
+    unrealizedProfitPage: this.unrealizedProfitPage,
+    responseRate:this.responseRate,
+    profitOrLoss:this.profitOrLoss,
+    symbol: item.symbol,
+    markPrice: this.toFixed(this.markPrice,2),
+    entryPrice:this.toFixed(item.entryPrice,2),
+    picIndex: this.picIndex || 1,
+  }
+  // this.getPosterImage(this.positionData)
+}
+
 // 展示海报
-root.methods.SHOW_POSTER = function () {
+root.methods.SHOW_POSTER = function (index) {
   this.showPoster = true;
+  this.initialPosition = index
+  this.getPosterImage()
+}
+// 获取海报
+root.methods.getPosterImage = function () {
+  this.loadingImage=true
+  this.$http.send('POST_INVIT_POSTER', {
+    bind: this,
+    params: this.changeDate(),
+    callBack: this.re_getPosterImage,
+    errorHandler: this.error_getPosterImage
+  })
+}
+root.methods.re_getPosterImage = function (res) {
+  if(res.code == 1) {
+    this.popText = '请您先登录再进行分享'
+    this.popType = 0;
+    this.promptOpen = true;
+    return
+  }
+  if(res.code == 2) {
+    this.popText = '参数有误'
+    this.popType = 0;
+    this.promptOpen = true;
+    return
+  }
+  if(res.code == 200){
+    let urls = res.data
+    setTimeout(function(){
+      this.loadingImage = false
+    }.bind(this),2000)
+    this.poster_url = urls;
+  }
+}
+root.methods.error_getPosterImage = function (err) {
+  console.warn('err',err)
 }
 // 隐藏海报
 root.methods.HIDE_POSTER = function () {
@@ -1002,6 +1099,7 @@ root.methods.addAdlQuantile = function(currSAdlQuantile,records){
   // console.log('currSAdlQuantile,records',currSAdlQuantile,records);
 }
 
+
 //开启拦截弹窗
 root.methods.openSplicedFrame = function () {
   if(!this.openClosingPositions())return
@@ -1024,12 +1122,29 @@ root.methods.openSplicedFrame = function () {
   //操作类型
   this.splicedFrameText += ('，确定'+ closePosition + '?')
 
-
   // this.callFuncName = callFuncName;
+  this.showSplicedFrame = true
+}
+//开启拦截弹窗
+root.methods.openBackHand = function (item,btnText,callFuncName) {
+  this.positionInfo = item || {}
+  // console.info('this.positionInfo==',this.positionInfo,item.symbol.slice(0,3))
+  // if(!this.openClosePsWindowClose())return
+
+  this.splicedFrameText = "";
+  // 反手提示
+  if(btnText == 'back_hand'){
+    this.splicedFrameText= '市价平仓当前仓位后，以同等数量反向市价开仓，确定市价反手？'
+  }
+  this.callFuncNameHand = callFuncName;
   this.showSplicedFrame = true
 }
 //提交下单弹框
 root.methods.confirmFrame = function () {
+  if(!this.popWindowOpenPs) {
+    this[this.callFuncNameHand]();//调用对应的接口
+    return
+  }
   // this.callFuncName();//调用对应的接口
   if(this.orderTypes == '限价'){
     this.checkPrice()
@@ -1037,7 +1152,135 @@ root.methods.confirmFrame = function () {
   if(this.orderTypes == '市价'){
     this.marketPrice()
   }
+}
 
+// 反手
+root.methods.backHand = function () {
+  this.marketPriceClick = true
+
+  this.$http.send("POST_REVERSE_POSITION", {
+    bind: this,
+    params: {
+      symbol:this.subscribeSymbol,
+      positionSide:this.positionInfo.positionSide
+    },
+    callBack: this.re_backHand,
+    errorHandler: this.error_backHand,
+  })
+}
+// 获取记录返回，类型为{}
+root.methods.re_backHand = function (data) {
+  this.marketPriceClick = false
+  this.showSplicedFrame = false; // 关闭拦截弹窗
+  typeof data === 'string' && (data = JSON.parse(data))
+  if (!data) return
+  this.popOpen = false
+  this.promptOpen = true;
+  if(data.code == 2002) {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '当前无仓位';//当前无仓位，不能下单
+    return
+  }
+  if(data.code == 2006) {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '市价反手平仓失败';//市价反手平仓失败
+    return
+  }
+  if(data.code == '303' && data.errCode == '2019') {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '杠杆账户余额不足';//杠杆账户余额不足
+    return
+  }
+
+  if(data.code == '303' && data.errCode == '4061') {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '订单的持仓方向和用户设置不一致';//订单的持仓方向和用户设置不一致
+    return
+  }
+  if(data.code == '303' && data.errCode == '4077') {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '订单的持仓方向和用户设置不一致';//订单的持仓方向和用户设置不一致
+    return
+  }
+  if(data.code == 303) {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '下单失败';
+    return
+  }
+  if(data.code == 302) {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '参数错误';
+    return
+  }
+
+  if(data.code == 304) {
+    this.popType = 0;
+    this.promptOpen = true;
+    this.popText = '用户无权限';
+    return
+  }
+  typeof data === 'string' && (data = JSON.parse(data))
+  if (!data) return
+  this.$eventBus.notify({key:'GET_ORDERS'})
+  this.$eventBus.notify({key:'GET_BALANCE'})
+  this.getPositionRisk()
+  this.promptOpen = true;
+
+  this.priceCheck[data.data.positionSide] = data.data.price
+
+  // console.info('this.priceCheck===',this.priceCheck)
+
+  // this.priceCheck = localStorage.setItem('PRICE_CHECK',data.data.price);
+  //
+  // if (this.priceCheck != 0) {
+  //   this.priceCheck = JSON.parse(localStorage.getItem('PRICE_CHECK'));
+  // }
+
+  if(data.data.status == 'NEW') {
+    this.popType = 1;
+    this.popText = '下单成功';
+    return
+  }
+  if(data.data.status == 'PARTIALLY_FILLED') {
+    this.popType = 1;
+    this.popText = '您的订单成交了一部分';
+    return
+  }
+  if(data.data.status == 'FILLED') {
+    this.popType = 1;
+    this.popText = '完全成交';
+    return
+  }
+  if(data.data.status == 'CANCELED') {
+    this.popType = 1;
+    this.popText = '自己撤销的订单';
+    return
+  }
+  if(data.data.status == 'EXPIRED') {
+    this.popType = 0;
+    this.popText = '您的订单已过期';
+    return
+  }
+  if(data.data.status == 'NEW_INSURANCE') {
+    this.popType = 1;
+    this.popText = '风险保障基金(强平)';
+    return
+  }
+  if(data.data.status == 'NEW_ADL') {
+    this.popType = 1;
+    this.popText = '自动减仓序列(强平)';
+    return
+  }
+}
+root.methods.error_backHand = function (err){
+  this.marketPriceClick = false
 }
 //关闭下单弹框
 root.methods.closeFrame = function () {
@@ -1103,6 +1346,12 @@ root.methods.re_marketPrice = function (data) {
     this.popType = 0;
     this.promptOpen = true;
     this.popText = '用户无权限';
+    return
+  }
+  if(data.code == '305') {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '合约带单暂不支持限价交易';//用户无权限
     return
   }
   typeof data === 'string' && (data = JSON.parse(data))
@@ -1228,6 +1477,12 @@ root.methods.re_checkPrice = function (data) {
     this.popType = 0;
     this.promptOpen = true;
     this.popText = '用户无权限';
+    return
+  }
+  if(data.code == '305') {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '合约带单暂不支持限价交易';//用户无权限
     return
   }
   typeof data === 'string' && (data = JSON.parse(data))

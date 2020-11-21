@@ -298,7 +298,7 @@ root.watch.value = function (newValue, oldValue) {
   if (newValue == oldValue) return;
   // console.log(newValue)
   this.computedValue()
-  this.sectionSelect(newValue/100);
+  // this.sectionSelect(newValue/100);
 }
 
 root.watch.pendingOrderType = function (newValue, oldValue) {
@@ -1346,6 +1346,12 @@ root.methods.re_postFullStop = function (data) {
     this.popText = '用户无权限';//用户无权限
     return
   }
+  if(data.code == '305') {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '合约带单暂不支持限价交易';//用户无权限
+    return
+  }
   typeof (data) === 'string' && (data = JSON.parse(data))
   if (!data || !data.data) return
   this.promptOpen = true;
@@ -1517,6 +1523,12 @@ root.methods.re_postOrdersCreate = function (data) {
     this.promptOpen = true;
     this.popType = 0;
     this.popText = '用户无权限';//用户无权限
+    return
+  }
+  if(data.code == '305') {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '合约带单暂不支持限价交易';//用户无权限
     return
   }
   typeof (data) === 'string' && (data = JSON.parse(data))
@@ -1694,6 +1706,12 @@ root.methods.re_postOrdersPosition = function (data) {
     this.popType = 0;
     this.promptOpen = true;
     this.popText = '用户无权限';
+    return
+  }
+  if(data.code == '305') {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '合约带单暂不支持限价交易';//用户无权限
     return
   }
   typeof (data) === 'string' && (data = JSON.parse(data))
@@ -1919,18 +1937,18 @@ root.methods.RE_SET_AMOUNT = function (obj) {
 }
 
 // 切换买卖百分比时候自动计算数量
-root.methods.sectionSelect = function (num) {
-  if (!this.isLogin) return;
-  if (this.orderType) {
-    // this.amount = (this.available * num).toFixed(this.baseScale);
-    this.amount = this.$globalFunc.accFixed(this.available * num, this.baseScale);
-    return
-  }
-  if (this.price) {
-    // this.price == 0 || (this.amount = (this.available * num / this.price).toFixed(this.baseScale));
-    this.price == 0 || (this.amount = this.$globalFunc.accFixed(this.available * num / this.price, this.baseScale))
-  }
-}
+// root.methods.sectionSelect = function (num) {
+//   // if (!this.isLogin) return;
+//   if (this.orderType) {
+//     // this.amount = (this.available * num).toFixed(this.baseScale);
+//     this.amount = this.$globalFunc.accFixed(this.available * num, this.baseScale);
+//     return
+//   }
+//   if (this.price) {
+//     // this.price == 0 || (this.amount = (this.available * num / this.price).toFixed(this.baseScale));
+//     this.price == 0 || (this.amount = this.$globalFunc.accFixed(this.available * num / this.price, this.baseScale))
+//   }
+// }
 
 // 获取可用资产
 root.methods.changeAvailableData = function () {

@@ -253,7 +253,7 @@ root.created = function () {
 
   this.$eventBus.listen(this, 'TRADED', this.TRADED)
   // 获取订单
-  this.loading = true
+  this.loading = false
   this.getOrder()
 
   // 获取认证状态
@@ -1069,7 +1069,10 @@ root.computed.maxPosition = function () {
   maxPosition = ''
   return maxPosition
 }
-
+// 检验是否是APP
+root.computed.isApp = function () {
+  return this.$route.query.isApp ? true : false
+}
 /*------------------------------ 方法 begin -------------------------------*/
 
 root.methods = {}
@@ -1140,6 +1143,17 @@ root.methods.openClosePsWindowClose = function (){
 //开启拦截弹窗
 root.methods.openSplicedFrame = function (btnText,callFuncName,orderType) {
   this.orderType = orderType;
+
+
+  if(this.$route.query.isApp) {
+    if(!this.$store.state.authState.userId){
+      window.postMessage(JSON.stringify({
+        method: 'toLogin'
+      }))
+      return
+    }
+  }
+
   if(!this.openClosePsWindowClose())return
 
   // this[callFuncName]();//调用对应的接口
@@ -1352,6 +1366,12 @@ root.methods.re_postFullStop = function (data) {
     this.popText = '用户无权限';//用户无权限
     return
   }
+  if(data.code == '305') {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '合约带单暂不支持限价交易';//用户无权限
+    return
+  }
   typeof (data) === 'string' && (data = JSON.parse(data))
   if (!data || !data.data) return
   this.promptOpen = true;
@@ -1524,6 +1544,12 @@ root.methods.re_postOrdersCreate = function (data) {
     this.popText = '用户无权限';//用户无权限
     return
   }
+  if(data.code == '305') {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '合约带单暂不支持限价交易';//用户无权限
+    return
+  }
   typeof (data) === 'string' && (data = JSON.parse(data))
   if (!data || !data.data) return
   // console.info('下单失败',data,data.errCode,data.code)
@@ -1653,6 +1679,12 @@ root.methods.re_postOrdersPosition = function (data) {
     this.popType = 0;
     this.promptOpen = true;
     this.popText = '用户无权限';
+    return
+  }
+  if(data.code == '305') {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '合约带单暂不支持限价交易';//用户无权限
     return
   }
   if(data.code == '303') {
@@ -1935,6 +1967,22 @@ root.methods.error_positionModeSelectedConfirm = function (err) {
 
 // 跳转计算器
 root.methods.goToCalculator = function () {
+  if(this.$route.query.isApp) {
+    window.postMessage(JSON.stringify({
+        method: 'toH5Route',
+        parameters: {
+          url: window.location.origin + '/index/mobileCalculator?isApp=true&isWhite=true',
+          loading: false,
+          navHide: false,
+          title: '',
+          requireLogin:true,
+          isTransparentNav:true
+        }
+      })
+    );
+    return
+  }
+
   this.$router.push({name: 'mobileCalculator'})
 }
 
@@ -3579,6 +3627,12 @@ root.methods.re_isFirstVisit = function (data) {
   if (data.code == 1000) {
     this.$router.push({'path': '/index/contractRiskWarning'})
   }
+
+  /*//APP测试专用
+  setTimeout(()=>{
+    this.$router.push({'path': '/index/contractRiskWarning'})
+  },5000)*/
+
   // this.$router.push({'path': '/index/contractRiskWarning'})
   // } else {
   //   this.$router.push({'path':'index/mobileTradingHallDetail'})
@@ -3588,10 +3642,58 @@ root.methods.re_isFirstVisit = function (data) {
 
 //合约全部记录
 root.methods.openAllRecords = function () {
+
+  if(this.$route.query.isApp) {
+    if(!this.$store.state.authState.userId){
+      window.postMessage(JSON.stringify({
+        method: 'toLogin'
+      }))
+      return
+    }
+
+    window.postMessage(JSON.stringify({
+        method: 'toH5Route',
+        parameters: {
+          url: window.location.origin + '/index/mobileContractAllRecords?isApp=true&isWhite=true',
+          loading: false,
+          navHide: false,
+          title: '',
+          requireLogin:true,
+          isTransparentNav:true
+        }
+      })
+    );
+    return
+  }
+
   this.$router.push('/index/mobileContractAllRecords')
 }
 //划转
 root.methods.openTransfer = function () {
+
+  if(this.$route.query.isApp) {
+    if(!this.$store.state.authState.userId){
+      window.postMessage(JSON.stringify({
+        method: 'toLogin'
+      }))
+      return
+    }
+
+    window.postMessage(JSON.stringify({
+        method: 'toH5Route',
+        parameters: {
+          url: this.$store.state.contract_url + 'index/mobileWebTransferContract?isApp=true&isWhite=true',
+          loading: false,
+          navHide: false,
+          title: '合约划转',
+          requireLogin:true,
+          // isTransparentNav:true
+        }
+      })
+    );
+    return
+  }
+
   window.location.replace(this.$store.state.contract_url + 'index/mobileAsset/mobileAssetRechargeAndWithdrawals?toWebTransfer=true');
   // window.location.replace('http://ccc.2020-ex.com:8085/index/mobileAsset/mobileAssetRechargeAndWithdrawals?toWebTransfer=true');
 }

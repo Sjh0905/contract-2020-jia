@@ -48,6 +48,10 @@ requestAddress.GET_ORDERS_GETRECORD = {url: urlHead+'/future/orders/getRecord', 
 requestAddress.POST_CREATE_WITH_STOP = {url: urlHead+'/future/orders/createWithStop', method: 'post'}
 requestAddress.GET_ORDERS_GETRECORD = {url: urlHead+'/future/orders/getRecord', method: 'get'}
 requestAddress.POST_REVERSE_POSITION = {url: urlHead+'/future/orders/reversePosition', method: 'post'} // 反手
+requestAddress.POST_INVIT_POSTER = {url: urlHead+'/future/user/getFutureUserInvitePoster', method: 'post'} // 海报邀请
+requestAddress.POST_CHECK_OPEN_POSTER = {url: urlHead+'/future/user/checkOpenContract', method: 'post'} // 检测是老用户登录还是新用户
+
+requestAddress.GET_ASSET_SNAPSHOT = {url: urlHead+'/future/orders/balanceSnapshot', method: 'get'} // 资产快照
 
 
 

@@ -70,7 +70,7 @@
   <!--买卖页-->
   <div class="container-buy-page">
 
-    <div class="mobile-container">
+    <div class="mobile-container" :class="isApp && 'mobile-container-app' || ''" >
       <!--左侧部分-->
       <div class="left-container" :class="{'left-container-default' : is_right}">
 
@@ -450,7 +450,7 @@
     </div>
   </div>
 
-  <div class="bottomenu">
+  <div v-if="!isApp" class="bottomenu">
     <table>
       <tr>
         <td @click="gotoNewH5homePage">

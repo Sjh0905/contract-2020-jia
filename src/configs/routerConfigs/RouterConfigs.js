@@ -2404,6 +2404,21 @@ root.routes.push({
             requireLoginOff: false,
           },
         },
+        // 资产快照
+        {
+          path: 'assetSnapshot',
+          name: 'assetSnapshot',
+          caseSensitive: true,
+          component: resolve => require(['@/components/vue/AssetSnapshot'], resolve),
+          meta: {
+            pcname: 'assetSnapshot',
+            h5name: '',
+            requireLogin: false,
+            templateClose: false,
+            templatePath: '/index/orderPageT',
+            requireLoginOff: false,
+          },
+        },
         // 合约我的邀请
         {
           path: 'inviteCode',
@@ -2466,6 +2481,18 @@ root.routes.push({
   },
   caseSensitive: true,
   component: resolve => require(['@/components/vue/ContractRiskWarning'], resolve)
+})
+// 开通合约邀请页
+root.routes.push({
+  path: '/index/InvitOpenContract',
+  name: 'InvitOpenContract',
+  meta: {
+    requireLogin: false,
+    pcname: '',
+    h5name: 'InvitOpenContract',
+  },
+  caseSensitive: true,
+  component: resolve => require(['@/components/vue/InvitOpenContract'], resolve)
 })
 
 // 合约全部记录

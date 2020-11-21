@@ -10,11 +10,11 @@
             <!-- <div class="stockcrossitem-type">{{transactionType&&'买'||'卖'}}{{index + 1}}</div> -->
             <div class="stockcrossitem-price" @click="updatePrice(transactionType, formatnumber(item.price,quoteScale))">
 
-                <!--<span v-if="transactionType"  :style="item.is_select ? 'color: #76A9F1' : highPrice(list, item, index)?'color:#08D0AC':''">{{item.price == '-' ? '-' : $globalFunc.accFixed(item.price,quoteScale)}}</span>-->
-                <!--<span v-if="!transactionType" :style="item.is_select ? 'color: #76A9F1' : highPrice(list, item, index)?'color: #EF5656':''">{{item.price == '-' ? '-' : $globalFunc.accFixed(item.price,quoteScale)}}</span>-->
+                <!--<span v-if="transactionType"  :style="item.is_select ? 'color: #76A9F1' : highPrice(list, item, index)?'color:#86CB12':''">{{item.price == '-' ? '-' : $globalFunc.accFixed(item.price,quoteScale)}}</span>-->
+                <!--<span v-if="!transactionType" :style="item.is_select ? 'color: #76A9F1' : highPrice(list, item, index)?'color: #F60076':''">{{item.price == '-' ? '-' : $globalFunc.accFixed(item.price,quoteScale)}}</span>-->
 
-                <span v-if="transactionType"  :style="item.is_select ? 'color: #76A9F1' : ''?'color:#08D0AC':''">{{item.price == '-' ? '-' : $globalFunc.accFixed(item.price,quoteScale)}}</span>
-                <span v-if="!transactionType" :style="item.is_select ? 'color: #76A9F1' : ''?'color: #EF5656':''">{{item.price == '-' ? '-' : $globalFunc.accFixed(item.price,quoteScale)}}</span>
+                <span v-if="transactionType"  :style="item.is_select ? 'color: #76A9F1' : ''?'color:#86CB12':''">{{item.price == '-' ? '-' : $globalFunc.accFixed(item.price,quoteScale)}}</span>
+                <span v-if="!transactionType" :style="item.is_select ? 'color: #76A9F1' : ''?'color: #F60076':''">{{item.price == '-' ? '-' : $globalFunc.accFixed(item.price,quoteScale)}}</span>
 
             </div>
             <span class="amount_volume" @click="updateAmount(transactionType, index, formatnumber(item.price, quoteScale), formatnumber(item.amount, baseScale), baseScale)">
@@ -25,7 +25,7 @@
             <!--<div class="stockcrossitem-shadow"//原来的深度计算方法-->
                  <!--:style="[{width:(transactionType ? (item.amount/deep.buy_deeps > 100 ? 100 : item.amount/deep.buy_deeps) : (item.amount/deep.sall_deeps > 100 ? 100 : item.amount/deep.sall_deeps)) +'%'},{'background-color':transactionType?'#edf9ea':'#ffeeed'}]"></div>-->
             <div v-show="dMaxTotalAmount > 0.0001" class="stockcrossitem-shadow"
-                 :style="[{width:((item.perAmount * 100 / dMaxTotalAmount) || 0) +'%'},{'background-color':transactionType?'#08D0AC':'#EF5656'}]"></div>
+                 :style="[{width:((item.perAmount * 100 / dMaxTotalAmount) || 0) +'%'},{'background-color':transactionType?'#86CB12':'#F60076'}]"></div>
             <!--<span class="show_tips" :class="{'show': index == show_key}">{{change_price}}-->
               <!--<font></font>-->
             <!--</span>-->

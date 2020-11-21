@@ -40,6 +40,7 @@ root.components = {
   'CalculatorBommbBox': resolve => require(['../vue/CalculatorBommbBox'], resolve),
   // 开平器组件
   'KaipingqiPopWindow': resolve => require(['../vue/KaipingqiPopWindow'], resolve),
+  'AssetSnapshot': resolve => require(['../vue/AssetSnapshot'], resolve),
 
 }
 

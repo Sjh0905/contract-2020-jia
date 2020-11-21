@@ -207,7 +207,7 @@ store.state.exchange_rate = {
 /**
  * 移动版买卖交易界面type判断  1,2,3,4
  */
-store.state.buy_or_sale_type = 1
+store.state.buy_or_sale_type = 0
 
 
 /**

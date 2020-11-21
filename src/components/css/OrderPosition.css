@@ -90,7 +90,7 @@ tr, th, td {
   padding-right: 25px;
 }
 .td-back-hand {
-  flex: 11;
+  flex: 5;
 }
 .td-trigger4 {
   flex: 2;
@@ -183,23 +183,23 @@ tr, th, td {
   font-size:12px;
   font-family:PingFangSC-Regular,PingFang SC;
   font-weight:400;
-  color:rgba(8,208,172,1);
+  color:#86CB12;
 }
 .text_red-4 {
   font-size:12px;
   font-family:PingFangSC-Regular,PingFang SC;
   font-weight:400;
-  color:rgba(239,86,86,1);
+  color:#F60076;
 }
 .td-time1-green {
   width: 2px;
   height: 30px;
-  background: #08D0AC;
+  background: #86CB12;
 }
 .td-time1-red {
   width: 2px;
   height: 30px;
-  background: #EF5656;
+  background: #F60076;
 }
 .td-currency {
   margin: 0 10px 0 8px;
@@ -478,7 +478,9 @@ tr, th, td {
   margin-bottom: 30px;
   cursor: pointer;
 }
-
+.modify-margin-commit:hover {
+  background: #3576F5;
+}
 
 /*弹窗相关*/
 
@@ -562,13 +564,13 @@ tr, th, td {
   font-size:12px;
   font-family:PingFangSC-Regular,PingFang SC;
   font-weight:400;
-  color:rgba(8,208,172,1);
+  color:#86CB12;
 }
 .text_red-4 {
   font-size:12px;
   font-family:PingFangSC-Regular,PingFang SC;
   font-weight:400;
-  color:rgba(239,86,86,1);
+  color:#F60076;
 }
 .cencon {
   float: right;
@@ -590,10 +592,13 @@ tr, th, td {
 .copy_poster{
   /*text-align: center;*/
   color: rgba(255,255,255,.8);
-  margin-top: 3px;
+  margin-top: 5px;
   font-size: 12px;
   font-weight: 300;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
+}
+.loading-box {
+  height: 498px;
 }
 .account_number_input {
   width:100%;
@@ -624,7 +629,7 @@ tr, th, td {
   margin-left: -10px;
 }
 .pop-article1 {
-  width: 280px;
+  width: 250px;
 }
 .shouuu {
   position: fixed;
@@ -633,3 +638,12 @@ tr, th, td {
   color: #EF5656;
   font-size: 24px;
 }
+/*.comfirm {*/
+/*  width: 100%;*/
+/*  height: 40px;*/
+/*  line-height: 40px;*/
+/*  background: #0b4ed0;*/
+/*  color: #fff;*/
+/*  text-align: center;*/
+
+/*}*/

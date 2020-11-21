@@ -18,7 +18,7 @@ root.props.popOpen = {
 // 成功文案修改
 root.props.popText = {
   type: String,
-  default: root.props.popType == 1 ? '修改成功' : '修改失败'
+  default: ''
 }
 
 // 成功文案修改

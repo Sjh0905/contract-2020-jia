@@ -70,7 +70,7 @@ root.data = function () {
 root.created = function () {
   // this.getUSDThl();
   // console.log('marketprice')
-  this.getCollectionMarket()
+  // this.getCollectionMarket()
 }
 
 // 组件销毁

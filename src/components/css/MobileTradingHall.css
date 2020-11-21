@@ -265,10 +265,12 @@
 }
 
 .mobile-header-now-price-down {
-  color: #EF5656;
+  color: #F60076;
 }
 
 .price-up-down{
+  display: block;
+  margin-top: 0.16rem;
   margin-top: 0.16rem;
   height: 0.24rem;
   font-size: 0.24rem;
@@ -276,7 +278,11 @@
   color: #6D87A8;
   line-height: 0.24rem;
 }
+.price-up-down-app{
+  padding-top: 0.26rem;
+}
 .price-up-down-text{
+
 }
 .price-up-down-val{
   margin-left: 0.3rem;
@@ -334,7 +340,7 @@
 }
 
 .mobile-header-updata-price-up {
-  color: #39B496;
+  color: #86CB12;
 }
 
 .mobile-header-updata-rate {
@@ -351,7 +357,7 @@
 }
 
 .mobile-header-updata-rate-up {
-  color: #39B496;
+  color: #86CB12;
 }
 
 .mobile-header-low-price {
@@ -466,7 +472,7 @@
   height: 0.8rem;
   line-height: 0.8rem;
   text-align: center;
-  background: #39B496;
+  background: #86CB12;
   margin-right: 0.2rem;
   margin-top: 0.16rem;
   border-radius: 1.5px;
@@ -483,7 +489,7 @@
   height: 0.8rem;
   line-height: 0.8rem;
   text-align: center;
-  background: #EF5656;
+  background: #F60076;
   margin-top: 0.16rem;
   border-radius: 1.5px;
   font-family: PingFangSC-Semibold;
@@ -623,7 +629,7 @@
   cursor: pointer;
 }
 .progress-bar-greenbtn {
-  background: #39B496;
+  background: #86CB12;
   cursor: pointer;
 }
 
