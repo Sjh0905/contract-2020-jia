@@ -17,7 +17,9 @@ root.created = function () {
   if (this.$route.query.uid) {
     this.invitCodeInput = this.$route.query.uid
   }
-  this.isFirstVisit()
+  if(this.userId){
+    this.isFirstVisit()
+  }
 }
 root.mounted = function () {
   // let isAndroid = navigator.userAgent.indexOf('Android') > -1 || navigator.userAgent.indexOf('Adr') > -1;
