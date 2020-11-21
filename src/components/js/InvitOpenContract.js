@@ -58,7 +58,7 @@ root.methods.invitPoster = function () {
   this.$http.send('POST_CHECK_OPEN_POSTER',{
     bind: this,
     params:{
-      inviteduserId: this.invitUid(),
+      inviteduserId: this.$route.query.uid,
     },
     callBack: this.re_invitPoster,
     errorHandler: this.error_invitPoster,
@@ -115,7 +115,6 @@ root.methods.openContract = function () {
     return
   }
   this.invitPoster()
-
 }
 
 // 登录并开通
