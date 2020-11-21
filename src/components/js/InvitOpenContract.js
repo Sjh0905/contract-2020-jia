@@ -20,6 +20,7 @@ root.created = function () {
   if(this.userId){
     this.isFirstVisit()
   }
+
 }
 root.mounted = function () {
   // let isAndroid = navigator.userAgent.indexOf('Android') > -1 || navigator.userAgent.indexOf('Adr') > -1;
@@ -52,6 +53,60 @@ root.computed.userId = function () {
 root.watch = {}
 /*------------------------------ 方法 -------------------------------*/
 root.methods = {}
+// 若是从扫描海报过来，则调用此接口
+root.methods.invitPoster = function () {
+  this.$http.send('POST_CHECK_OPEN_POSTER',{
+    bind: this,
+    params:{
+      inviteduserId: this.invitUid(),
+    },
+    callBack: this.re_invitPoster,
+    errorHandler: this.error_invitPoster,
+  })
+}
+root.methods.re_invitPoster = function (data) {
+  typeof data === 'string' && (data = JSON.parse(data))
+  if(!data && !data.data) return
+  if(data.code == 1){
+    this.popOpen = true;
+    this.popType = 0;
+    this.popText = '请您登录'
+    return
+  }
+  if(data.code == 2){
+    this.popOpen = true;
+    this.popType = 0;
+    this.popText = '合约开通失败'
+    return
+  }
+  if(data.code == 3){
+    this.popOpen = true;
+    this.popType = 0;
+    this.popText = '合约开通邀请关系建立异常'
+    return
+  }
+  if(data.code == 4){
+    this.popOpen = true;
+    this.popType = 0;
+    this.popText = '不能自己邀请自己哦'
+    return
+  }
+  if(data.code == 200) {
+    this.opening = data.data.opening
+    this.opened = data.data.opened
+    this.$router.push('/index/MobileTradingHall')
+    return
+  }
+  if(!(this.opening || this.opened)) {
+    this.popOpen = true;
+    this.popType = 0;
+    this.popText = '开通合约失败，请重新操作'
+    this.$router.push('/index/InvitOpenContract')
+  }
+}
+root.methods.error_invitPoster = function (err) {
+  console.warn('err===',err)
+}
 // 开通合约账户
 root.methods.openContract = function () {
   if(this.isSelect) return
@@ -59,8 +114,10 @@ root.methods.openContract = function () {
     this.name_0 = '请输入正确的邀请码'
     return
   }
-  this.$router.push('/index/MobileTradingHall')
+  this.invitPoster()
+
 }
+
 // 登录并开通
 root.methods.goToLogin = function () {
   if(this.isSelect) return
