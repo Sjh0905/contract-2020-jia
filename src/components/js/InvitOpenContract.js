@@ -17,6 +17,7 @@ root.created = function () {
   if (this.$route.query.uid) {
     this.invitCodeInput = this.$route.query.uid
   }
+  this.isFirstVisit()
 }
 root.mounted = function () {
   // let isAndroid = navigator.userAgent.indexOf('Android') > -1 || navigator.userAgent.indexOf('Adr') > -1;
@@ -93,5 +94,33 @@ root.methods.changeSelect = function (type) {
 // 关闭后跳转首页
 root.methods.contractOpen = function () {
   window.location.replace(this.$store.state.contract_url + 'index/newH5homePage');
+}
+// 第一次进入是否弹窗
+root.methods.isFirstVisit = function () {
+  // this.$http.send('POST_MANAGE_TIME', {
+  this.$http.send('POST_MANAGE_API',{
+    bind: this,
+    callBack: this.re_isFirstVisit
+  })
+}
+root.methods.re_isFirstVisit = function (data) {
+  typeof(data) == 'string' && (data = JSON.parse(data));
+  // if (data.code == 1000) {
+  //   this.$router.push({'path': '/index/contractRiskWarning'})
+  // }
+  if(data.code != 1000){
+    this.$router.push({'path': '/index/mobileTradingHall'})
+  }
+
+  /*//APP测试专用
+  setTimeout(()=>{
+    this.$router.push({'path': '/index/contractRiskWarning'})
+  },5000)*/
+
+  // this.$router.push({'path': '/index/contractRiskWarning'})
+  // } else {
+  //   this.$router.push({'path':'index/mobileTradingHallDetail'})
+  //   // this.$router.push({'path':'/index/contractRiskWarning'})
+  // }
 }
 export default root
