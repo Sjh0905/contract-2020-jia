@@ -118,7 +118,10 @@ root.methods.initViews = function (lang) {
     '15': '15m',
     '30': '30m',
     '60': '1h',
+    '120': '2h',
     '240': '4h',
+    '360': '6h',
+    '720': '12h',
     'D': '1d'
   };
 
@@ -136,7 +139,7 @@ root.methods.initViews = function (lang) {
 				symbols_types: [],
 				supports_marks: false,
 				supports_time: true,
-				supported_resolutions: ['1', '5', '15', '30', '60', '240', 'D']
+				supported_resolutions: ['1', '5', '15', '30', '60','120', '240','360','720', 'D']
 				// supported_resolutions: ["1S","1","60","D", "2D", "3D"]
 			});
 		}, 0);
@@ -168,7 +171,7 @@ root.methods.initViews = function (lang) {
 			MinimalPossiblePriceChange: 9,
 			has_intraday: true, // has minutes data?
 			has_seconds: true,
-			intraday_multipliers: ['1', '5', '15', '30', '60', '240', 'D'],
+			intraday_multipliers: ['1', '5', '15', '30', '60','120', '240','360','720', 'D'],
 			seconds_multipliers: ['1'],
 			has_daily: true,
 			has_weekly_and_monthly: false,
@@ -176,7 +179,7 @@ root.methods.initViews = function (lang) {
 			has_no_volume: false,
 			volume_precision: 8,
 			// volume_precision: self.precision,
-			supported_resolutions: ['1', '5', '15', '30', '60', '240', 'D'],
+			supported_resolutions: ['1', '5', '15', '30', '60','120', '240','360','720', 'D'],
 			// supported_resolutions :['1S',"1","60","D", "2D", "3D"],
 			data_status: 'streaming',
 		};
@@ -482,9 +485,13 @@ root.methods.initViews = function (lang) {
       // toolbar_bg: '#0D111F',
 
       favorites: {
-				intervals: ["1S", "1", "5", "15", "30", "60", "240", "D"],
+				intervals: ["1S", "1", "5", "15", "30", "60","120", "240","360","720", "D"],
 				chartTypes: ["Candles"]
 			},
+      // favorites: {
+      //   intervals: ["1S", "1", "5", "15", "30", "60","120", "240","360","720", "D"],
+      //   chartTypes: ["Candles"]
+      // },
 			overrides: {
 				"mainSeriesProperties.style": 1,
 				"paneProperties.background": "#081724",
@@ -495,19 +502,19 @@ root.methods.initViews = function (lang) {
 				"mainSeriesProperties.lineStyle.color": "#02c0cc",
 				"mainSeriesProperties.lineStyle.linewidth": 1,
         //指标参数的显示、隐藏  true为展开（显示）; false为隐藏
-        "paneProperties.legendProperties.showLegend": true,
+        "paneProperties.legendProperties.showLegend": false,
         // "paneProperties.legendProperties.showStudyArguments": true,
 
 				// 蜡烛样式
-				"mainSeriesProperties.candleStyle.upColor": "#08D0AC",
-				"mainSeriesProperties.candleStyle.downColor": "#EF5656",
+				"mainSeriesProperties.candleStyle.upColor": "#86CB12",
+				"mainSeriesProperties.candleStyle.downColor": "#F60076",
 				"mainSeriesProperties.candleStyle.drawWick": true,
 				"mainSeriesProperties.candleStyle.drawBorder": true,
 				// "mainSeriesProperties.candleStyle.borderColor": "#378658",
-				"mainSeriesProperties.candleStyle.borderUpColor": "#08D0AC",
-				"mainSeriesProperties.candleStyle.borderDownColor": "#EF5656",
-				"mainSeriesProperties.candleStyle.wickUpColor": '#08D0AC',
-				"mainSeriesProperties.candleStyle.wickDownColor": '#EF5656',
+				"mainSeriesProperties.candleStyle.borderUpColor": "#86CB12",
+				"mainSeriesProperties.candleStyle.borderDownColor": "#F60076",
+				"mainSeriesProperties.candleStyle.wickUpColor": '#86CB12',
+				"mainSeriesProperties.candleStyle.wickDownColor": '#F60076',
 				"mainSeriesProperties.candleStyle.barColorsOnPrevClose": false,
 
         // 背景网格颜色
@@ -522,13 +529,10 @@ root.methods.initViews = function (lang) {
         "timeScale.rightOffset": 5,
 			},
       studies_overrides: {
-        "volume.volume.color.0": "#EF5656",
-        "volume.volume.color.1": "#08D0AC",
+        "volume.volume.color.0": "#F60076",
+        "volume.volume.color.1": "#86CB12",
       },
-      favorites: {
-        intervals: ["1S", "1", "5", "15", "30", "60", "240", "D"],
-        chartTypes: ["Candles"]
-      },
+
 		}
 		var pc = {
 			container_id: 'chart_container',
@@ -576,25 +580,25 @@ root.methods.initViews = function (lang) {
 				"mainSeriesProperties.lineStyle.color": "#02c0cc",
 				"mainSeriesProperties.lineStyle.linewidth": 1,
         //指标参数的显示、隐藏  true为展开（显示）; false为隐藏
-				"paneProperties.legendProperties.showLegend": true,
+				"paneProperties.legendProperties.showLegend": false,
 				"paneProperties.legendProperties.showStudyArguments": true,
 
 				// 山行图线和阴影颜色
 				// "mainSeriesProperties.areaStyle.color1": "#d8f7ff",
 				// "mainSeriesProperties.areaStyle.color2": "#ffffff",
-				// "mainSeriesProperties.areaStyle.linecolor": "#EF5656",
+				// "mainSeriesProperties.areaStyle.linecolor": "#F60076",
 				// "mainSeriesProperties.areaStyle.linewidth": 2,
 				// "mainSeriesProperties.areaStyle.priceSource": "close",
 				// 蜡烛样式
-				"mainSeriesProperties.candleStyle.upColor": "#08D0AC",
-				"mainSeriesProperties.candleStyle.downColor": "#EF5656",
+				"mainSeriesProperties.candleStyle.upColor": "#86CB12",
+				"mainSeriesProperties.candleStyle.downColor": "#F60076",
 				"mainSeriesProperties.candleStyle.drawWick": true,
 				"mainSeriesProperties.candleStyle.drawBorder": true,
 				// "mainSeriesProperties.candleStyle.borderColor": "#000",
-				"mainSeriesProperties.candleStyle.borderUpColor": "#08D0AC",
-				"mainSeriesProperties.candleStyle.borderDownColor": "#EF5656",
-				"mainSeriesProperties.candleStyle.wickUpColor": '#08D0AC',
-				"mainSeriesProperties.candleStyle.wickDownColor": '#EF5656',
+				"mainSeriesProperties.candleStyle.borderUpColor": "#86CB12",
+				"mainSeriesProperties.candleStyle.borderDownColor": "#F60076",
+				"mainSeriesProperties.candleStyle.wickUpColor": '#86CB12',
+				"mainSeriesProperties.candleStyle.wickDownColor": '#F60076',
 				"mainSeriesProperties.candleStyle.barColorsOnPrevClose": false,
 				// 背景网格颜色
 				"paneProperties.vertGridProperties.color": "#1E1F22",
@@ -609,17 +613,17 @@ root.methods.initViews = function (lang) {
 
 				// Bars styles
 				"mainSeriesProperties.barStyle.upColor": "red",
-				"mainSeriesProperties.barStyle.downColor": "#EF5656",
+				"mainSeriesProperties.barStyle.downColor": "#F60076",
 				"mainSeriesProperties.barStyle.barColorsOnPrevClose": false,
 				"mainSeriesProperties.barStyle.dontDrawOpen": false,
 			},
 			studies_overrides: {
-			    "volume.volume.color.0": "#EF5656",
-			    "volume.volume.color.1": "#08D0AC",
+			    "volume.volume.color.0": "#F60076",
+			    "volume.volume.color.1": "#86CB12",
 			},
 
 			favorites: {
-				intervals: ["1S", "1", "5", "15", "30", "60", "240", "D"],
+				intervals: ["1S", "1", "5", "15", "30", "60","120", "240","360","720", "D"],
 				chartTypes: ["Candles"]
 			},
 		};
@@ -628,17 +632,58 @@ root.methods.initViews = function (lang) {
 		// 自定义图方法
 		widget.onChartReady(function () {
 			// !self.$store.state.isMobile && widget.chart().createStudy('MACD', false, true);
-      widget.chart().createStudy('Moving Average', false, false,[7, 'close', 0], null, {
-        'Plot.color': '#07F8F8',
-        'Plot.linewidth': 2
+      widget.chart().createStudy('Moving Average', false, false,[4, 'close', 0], null, {
+        'Plot.color': '#F60000',
+        'Plot.linewidth': 1
       });
-      widget.chart().createStudy('Moving Average', false, false,[25, 'close', 0], null, {
-        'Plot.color': '#FE00FF',
-        'Plot.linewidth': 2
+      widget.chart().createStudy('Moving Average', false, false,[9, 'close', 0], null, {
+        'Plot.color': '#FFF100',
+        'Plot.linewidth': 1
+      });
+      widget.chart().createStudy('Moving Average', false, false,[13, 'close', 0], null, {
+        'Plot.color': '#00FF57',
+        'Plot.linewidth': 1
       });
       widget.chart().createStudy('Moving Average', false, false,[55, 'close', 0], null, {
-        'Plot.color': '#FF8011',
-        'Plot.linewidth': 2
+        'Plot.color': '#02DCEB',
+        'Plot.linewidth': 1
+      });
+      widget.chart().createStudy('Moving Average', false, false,[144, 'close', 0], null, {
+        'Plot.color': '#FE00FF',
+        'Plot.linewidth': 1
+      });
+      widget.chart().createStudy('Bollinger Bands',false, false,[26, 2],null, {
+        'Median.color': '#3f4ff8',
+        'Median.linewidth': 1,
+        'Upper.color': '#3f4ff8',
+        'Upper.linewidth': 1,
+        'Lower.color': '#3f4ff8',
+        'Lower.linewidth': 1,
+        'Plots Background.color':'#626874',
+      });
+      widget.chart().createStudy('MACD',false, false,[2,33,'close',3],null, {
+        'Histogram.color': '#838B99',
+        'Histogram.linewidth': 1,
+        'Histogram.transparency': 35,
+        'MACD.color': '#86CB12',
+        'MACD.linewidth': 1,
+        'MACD.transparency': 35,
+        'Signal.color': '#F60076',
+        'Signal.linewidth': 1,
+        'Signal.transparency': 35,
+      });
+      widget.chart().createStudy('Stochastic RSI',false, false,[14,14,2,3],null, {
+        '%K.color': '#86CB12',
+        '%K.linewidth': 1,
+        '%K.transparency': 35,
+        '%D.color': '#F60076',
+        '%D.linewidth': 1,
+        '%D.transparency': 35,
+        'UpperLimit.color': '#0D111F',
+        'UpperLimit.linewidth': 1,
+        'LowerLimit.color': '#0D111F',
+        'LowerLimit.linewidth': 1,
+        'Hlines Background.color':'#202133',
       });
 
 			// 移动端切换显示
@@ -663,7 +708,7 @@ root.methods.initViews = function (lang) {
 					});
 				})
 			} else {  // pc端切换显示
-				let intervals_list = ["1", "5", "15", "30", "60", "240", "D"];
+				let intervals_list = [ "1", "5", "15", "30", "60","120", "240","360","720", "D"]
 				let intervals_key = 0;
 				for (var i = 0; i < intervals_list.length; i++) {
 					let item = intervals_list[i];
@@ -674,8 +719,8 @@ root.methods.initViews = function (lang) {
 				// 添加分时
 				let line = lang == 'en' ? 'line' : '分时';
 				let new_interval_btn_list =
-          lang == 'en' ? [{title: '1m'}, {title: '5m'}, {title: '15m'}, {title: '30m'}, {title: '1H'}, {title: '4H'}, {title: '1D'}]
-        :[{title: '1分钟'}, {title: '5分钟'}, {title: '15分钟'}, {title: '30分钟'}, {title: '1小时'}, {title: '4小时'}, {title: '1天'}];
+          lang == 'en' ? [{title: '1m'}, {title: '5m'}, {title: '15m'}, {title: '30m'}, {title: '1H'}, {title: '2H'},{title: '4H'},{title: '6H'},{title: '12H'}, {title: '1D'}]
+        :[{title: '1分钟'}, {title: '5分钟'}, {title: '15分钟'}, {title: '30分钟'}, {title: '1小时'}, {title: '2小时'},{title: '4小时'},{title: '6小时'}, {title: '12小时'},{title: '1天'}];
 				widget.createButton().attr('title', line).on('click', function (e) {
 					$(this).parents('.group').siblings().find('.button').children('span').removeClass('new_selected')
 					$(this).parents('.group').find('span').addClass('new_selected');
