@@ -282,7 +282,7 @@ root.methods.changeDate = function () {
     profitOrLoss:this.profitOrLoss,
     symbol: item.symbol,
     markPrice: this.toFixed(this.markPrice,2),
-    entryPrice:item.entryPrice,
+    entryPrice:this.toFixed(item.entryPrice,2),
     picIndex: this.picIndex || 1,
   }
   // this.getPosterImage(this.positionData)

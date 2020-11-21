@@ -263,6 +263,10 @@ root.computed.picIndex = function () {
   let a = this.accounts.map(item => item.a).indexOf(this.currencyValue) + 1
   return a || 1
 }
+// 检验是否是APP
+root.computed.isApp = function () {
+  return this.$route.query.isApp ? true : false
+}
 /*------------------------------ 方法 -------------------------------*/
 root.methods = {}
 // 打开之后，点击图片不能关闭图片
@@ -297,7 +301,7 @@ root.methods.changeDate = function () {
     profitOrLoss:this.profitOrLoss,
     symbol: item.symbol,
     markPrice: this.toFixed(this.markPrice,2),
-    entryPrice:item.entryPrice,
+    entryPrice:this.toFixed(item.entryPrice,2),
     picIndex: this.picIndex || 1,
   }
   // this.getPosterImage(this.positionData)

@@ -227,7 +227,7 @@
       </div>
 <!--      <p class="copy_poster">✽{{$t('personalCenter.poster_2')}}</p>-->
       <img :src="poster_url" class="img-width" v-if="!loadingImage" @click.stop="notClick($event)">
-      <div class="prompt-qrcode-box-info">长按图片保存至手机</div>
+      <div class="prompt-qrcode-box-info">{{isApp ? 'APP暂请截图分享':'长按图片保存至手机'}}</div>
       <img class="close_icon"  src="../../assets/wrong-close.png" alt="">
     </div>
   </div>
