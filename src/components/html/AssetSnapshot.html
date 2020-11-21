@@ -1,0 +1,62 @@
+<div class="current-entrustment-container">
+  <!--  this.$route.name==currentEntrust?'current-entrustment-container':'current-entrustment-shiying'-->
+
+  <ul class="" :class="$route.name == 'capitalFlow'?'detail':'detail-1'">
+
+    <li class="tr-th flex">
+      <!--时间-->
+      <div class="th td-time1">{{$t('时间')}}</div>
+      <!--币种-->
+      <div class="th td-time">{{$t('币种')}}</div>
+      <!--差额-->
+      <div class="th td-market">{{$t('差额')}}</div>
+      <!--余额-->
+      <div class="th td-trigger">{{$t('余额')}}</div>
+
+    </li>
+    <!-- 表头 end -->
+    <!-- 如果加载完成、已登录、有数据，则显示数据 begin -->
+    <template v-if="!loading">
+      <template v-if="userId && capitalFlowComputed.length!=0" >
+        <div class="temp-capit">
+          <li class="tr-td flex"
+              :class="$route.name == 'capitalFlow'?'tr-td':'tr-td-col'"
+              v-for="(order,index) in capitalFlowComputed" :key="order.id">
+            <!--时间-->
+            <div class="td td-time1">{{$globalFunc.formatDateUitl(order.createdAt,'YYYY-MM-DD hh:mm:ss')}}</div>
+            <!--币种-->
+            <div class="td td-time">{{order.asset}}</div>
+            <!--差额-->
+            <!--            <div class="td td-market">{{toFixed(order.income, !!quoteScale_list[order.symbol] ? quoteScale_list[order.symbol].quoteScale : 8)}}</div>-->
+            <div class="td td-market">{{toFixed(order.difference,8)}}</div>
+            <!--余额-->
+            <div class="td td-trigger">{{toFixed(order.balance,8)}}</div>
+          </li>
+        </div>
+      </template>
+      <!-- 如果加载完成、已登录、有数据，则显示数据 end -->
+
+      <!-- 如果没加载完成、没登录、没数据，则显示'--' begin -->
+      <template v-else>
+        <li class="weit">
+          <div class="nhtu" v-if="$route.name == 'capitalFlow'"><img src="../../assets/noOrders.png"></div>
+          <div class="nhtu" v-if="$route.name !== 'capitalFlow'"><img src="../../assets/noOrderDark.png"></div>
+          <span>{{$t('orderPageCurrentEntrustment.close_9')}}</span>
+        </li>
+      </template>
+      <!-- 如果没加载完成、没登录、没数据，则显示'--' begin -->
+      <!--      <template v-if="!loading && userId && tradinghallLimit===10 && capitalFlowComputed.length >= 10">-->
+      <!--        <li class="seeMore" >-->
+      <!--          <span class="text_blue pointer" @click="toCurrentHistory">{{$t('orderPageHistoricalEntrustment.close_12')}}</span>-->
+      <!--        </li>-->
+      <!--      </template>-->
+    </template>
+  </ul>
+  <!-- 加载更多 begin -->
+  <div class="" v-if="loading && userId">
+    <Loading/>
+  </div>
+  <!-- 加载更多 end -->
+
+  <!--  <PopupPrompt :popType="promptType" :popOpen="promptOpen" :popClose="closePrompt"/>-->
+</div>

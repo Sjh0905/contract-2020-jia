@@ -111,7 +111,7 @@
   text-align: center;
   /*font-family: Roboto-Regular;*/
   font-size: 0.24rem;
-  color: #39B496;
+  color: #86CB12;
   letter-spacing: 0;
 }
 .td004{
@@ -501,7 +501,7 @@ position: relative;
 }
 
 .mobile-market-normal-td-price-up {
-  /*color: #39B496;*/
+  /*color: #86CB12;*/
   color: #CFD3E9;
 }
 
@@ -536,7 +536,7 @@ position: relative;
 }
 
 .mobile-market-normal-td-current-up {
-  background: #39B496;
+  background: #86CB12;
 }
 
 .mobile-market-normal-td-current-down {

@@ -2404,6 +2404,21 @@ root.routes.push({
             requireLoginOff: false,
           },
         },
+        // 资产快照
+        {
+          path: 'assetSnapshot',
+          name: 'assetSnapshot',
+          caseSensitive: true,
+          component: resolve => require(['@/components/vue/AssetSnapshot'], resolve),
+          meta: {
+            pcname: 'assetSnapshot',
+            h5name: '',
+            requireLogin: false,
+            templateClose: false,
+            templatePath: '/index/orderPageT',
+            requireLoginOff: false,
+          },
+        },
         // 合约我的邀请
         {
           path: 'inviteCode',
