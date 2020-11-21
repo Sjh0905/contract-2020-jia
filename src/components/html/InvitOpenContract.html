@@ -37,9 +37,12 @@
         <img v-show="isSelect" @click="changeSelect(0)" class="select-img" src="../../assets/contract/check_box_no_selected.png" alt="">
         <div class="risk-warning-text">我已认真阅读并知晓了合约交易的规则及相关风险，愿意承担风险并同意开通合约。</div>
       </div>
-      <div class="footer-btn flex-between">
+      <div class="footer-btn flex-between" v-if="!userId">
         <div class="footer-btn-mobile" @click="goToLogin">登录并开通</div>
         <div class="footer-btn-mobile" @click="goToRegister">注册并开通</div>
+      </div>
+      <div class="footer-btn" v-if="userId">
+        <div class="footer-btn-mobile-open" @click="openContract">开通合约账户</div>
       </div>
     </div>
   </div>

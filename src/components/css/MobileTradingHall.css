@@ -269,6 +269,8 @@
 }
 
 .price-up-down{
+  display: block;
+  margin-top: 0.16rem;
   margin-top: 0.16rem;
   height: 0.24rem;
   font-size: 0.24rem;
@@ -280,6 +282,7 @@
   padding-top: 0.26rem;
 }
 .price-up-down-text{
+
 }
 .price-up-down-val{
   margin-left: 0.3rem;

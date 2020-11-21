@@ -49,6 +49,15 @@ root.computed.userId = function () {
 root.watch = {}
 /*------------------------------ 方法 -------------------------------*/
 root.methods = {}
+// 开通合约账户
+root.methods.openContract = function () {
+  if(this.isSelect) return
+  if(!this.$globalFunc.testNumber(this.invitCodeInput)){
+    this.name_0 = '请输入正确的邀请码'
+    return
+  }
+  this.$router.push('/index/MobileTradingHall')
+}
 // 登录并开通
 root.methods.goToLogin = function () {
   if(this.isSelect) return
