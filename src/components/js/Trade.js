@@ -661,7 +661,7 @@ root.methods.initViews = function (lang) {
         'Lower.linewidth': 1,
         'Plots Background.color':'#626874',
       });
-      widget.chart().createStudy('MACD',false, false,[3,33,'close',5],null, {
+      widget.chart().createStudy('MACD',false, false,[2,33,'close',3],null, {
         'Histogram.color': '#838B99',
         'Histogram.linewidth': 1,
         'Histogram.transparency': 35,
@@ -671,6 +671,19 @@ root.methods.initViews = function (lang) {
         'Signal.color': '#F60076',
         'Signal.linewidth': 1,
         'Signal.transparency': 35,
+      });
+      widget.chart().createStudy('Stochastic RSI',false, false,[14,14,2,3],null, {
+        '%K.color': '#86CB12',
+        '%K.linewidth': 1,
+        '%K.transparency': 35,
+        '%D.color': '#F60076',
+        '%D.linewidth': 1,
+        '%D.transparency': 35,
+        'UpperLimit.color': '#0D111F',
+        'UpperLimit.linewidth': 1,
+        'LowerLimit.color': '#0D111F',
+        'LowerLimit.linewidth': 1,
+        'Hlines Background.color':'#202133',
       });
 
 			// 移动端切换显示
