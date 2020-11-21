@@ -267,6 +267,10 @@ root.computed.picIndex = function () {
 root.computed.isApp = function () {
   return this.$route.query.isApp ? true : false
 }
+// 检验是否是安卓
+root.computed.isAndroid = function () {
+  return this.$route.query.isAndroid ? true : false
+}
 /*------------------------------ 方法 -------------------------------*/
 root.methods = {}
 // 打开之后，点击图片不能关闭图片
@@ -350,6 +354,21 @@ root.methods.error_getPosterImage = function (err) {
 // 隐藏海报
 root.methods.HIDE_POSTER = function () {
   this.showPoster = false;
+}
+//发送海报图片
+root.methods.sendImgToApp = function(){
+  if(this.$route.query.isApp) {
+
+    window.postMessage(JSON.stringify({
+      method: 'toSaveImage',
+      parameters: this.poster_url || ''
+    }))
+
+    // if(!this.$store.state.authState.userId){
+    //
+    //   return
+    // }
+  }
 }
 
 // 仓位平仓非法数据拦截
