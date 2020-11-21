@@ -269,7 +269,7 @@ root.computed.isApp = function () {
 }
 // 检验是否是安卓
 root.computed.isAndroid = function () {
-  return this.$route.query.isAndroid ? true : false
+  return this.$store.state.isAndroid ? true : false
 }
 /*------------------------------ 方法 -------------------------------*/
 root.methods = {}
