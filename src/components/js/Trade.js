@@ -683,7 +683,7 @@ root.methods.initViews = function (lang) {
         'UpperLimit.linewidth': 1,
         'LowerLimit.color': '#0D111F',
         'LowerLimit.linewidth': 1,
-        'Hlines Background.color':'#202133',
+        'Hlines Background.color':'#626874',
       });
 
 			// 移动端切换显示
