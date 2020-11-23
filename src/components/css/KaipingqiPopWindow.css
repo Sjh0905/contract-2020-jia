@@ -629,7 +629,10 @@
   font-weight: 400;
   color: #A2B5D9;
   padding:10px 15px;
-  margin-bottom: 15px;
+  /*margin-bottom: 15px;*/
+}
+.mt-empty {
+  margin-top: 15px;
 }
 .single-list-content-con-long {
   width: 32px;
