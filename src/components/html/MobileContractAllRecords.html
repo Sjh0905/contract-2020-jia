@@ -211,7 +211,7 @@
   </div>
  <!--  资金流水-->
     <div v-show="!loading && openType==6" class="">
-      <div class="container-tr-th container-box-zi flex">
+      <div class="container-tr-th container-box-zi flex" :class="isApp && 'container-tr-th-app' || ''">
         <!--时间-->
         <div class="td-time1">序号</div>
         <!--类型-->

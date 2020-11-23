@@ -395,15 +395,17 @@
   font-size: 12px;
   /*padding-left: 15px;*/
   border-radius:1px;
-  margin-top: 40px;
+  margin-top: 20px;
   box-sizing: border-box;
 }
 .loading-box {
   width: 4.7rem;
+  min-height: 8.36rem;
 }
 .img-width {
   margin-top: 0.1rem;
   width: 4.9rem;
+  min-height: 8.36rem;
 }
 .prompt-qrcode-box-info {
   color: #fff;
@@ -418,4 +420,20 @@
   display: block;
   margin: 0.1rem auto 0;
   width: 0.8rem;
+}
+.poster-btn{
+  width: 113px;
+  height: 30px;
+  color: #fff;
+}
+.p-cancle-btn{
+  /*border-width: 0;*/
+  /*color: #3576F5;*/
+  color: #fff;
+  background-color: #000000;
+}
+.p-confirm-btn{
+  background-color: transparent;
+  color: #fff;
+  /*color: #3576F5;*/
 }
