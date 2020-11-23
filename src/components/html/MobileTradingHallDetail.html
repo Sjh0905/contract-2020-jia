@@ -189,7 +189,7 @@
         <!--双仓 开仓 开空 可开-->
         <div class="can-be-opened flex-between" v-if="isHasModule('kaipingType') == 1 && positionModeFirst == 'doubleWarehouseMode'">
           <span class="security-deposit-text">可开</span>
-          <span class="security-depospopWindow-articleit-amount">{{toFixed(canBeOpened[1],3)}} BTC</span>
+          <span class="security-deposit-amount">{{toFixed(canBeOpened[1],3)}} BTC</span>
         </div>
 
         <!--双仓 开仓  限价  市价 postOrdersCreate-->
