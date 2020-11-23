@@ -19,7 +19,7 @@ root.data = function () {
     /*合约仓位模式end*/
 
     /*下拉框1 begin*/
-    optionVal:'限价单',
+    optionVal:'市价单',
     optionData:['限价单','市价单','限价止盈止损','市价止盈止损'],
     optionDataMap:{
       '限价单':'limitPrice',
