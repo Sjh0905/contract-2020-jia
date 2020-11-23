@@ -1,0 +1,37 @@
+@media screen and (max-width: 768px) {
+  /*头部样式*/
+  .bottle-opener {
+    width: 100%;
+    min-height: 100%;
+    background: #FFF;
+  }
+  .mobile-opener {
+    height: 0.88rem;
+    width: 100%;
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    background: #fff;
+    z-index: 100;
+    /*border-bottom: 0.02rem solid #F7F8FA ;*/
+  }
+  .opener-header-title-back-icon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0.88rem;
+    height: 0.88rem;
+  }
+  .opener-header-title-back-icon-img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0.32rem;
+    transform: translate(-50%, -50%);
+  }
+
+
+
+}

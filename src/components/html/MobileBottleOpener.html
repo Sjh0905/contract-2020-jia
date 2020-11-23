@@ -1,0 +1,15 @@
+<div class="bottle-opener">
+
+  <!--ios status栏-->
+  <div v-if="(isApp)" class="mobile-status-bar-ios"/>
+  <div v-if="(isApp)" class="mobile-status-bar-bg-ios"/>
+
+  <!--头部-->
+  <div :class="(isApp) ? 'mobile-header-ios' : 'mobile-opener'">
+    <div class="opener-header-title-back-icon" @click="jumpToTradingHallDetail">
+      <img class="opener-header-title-back-icon-img" src="../../assets/back_icon.png" alt="">
+    </div>
+  </div>
+
+
+</div>
