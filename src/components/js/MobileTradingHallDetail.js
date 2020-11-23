@@ -11,11 +11,11 @@ root.name = 'MobileTradingHallDetail';
 root.data = function () {
   return {
     /*合约仓位模式begin*/
-    positionModeFirst:'singleWarehouseMode',//单仓模式 singleWarehouseMode 双仓模式 doubleWarehouseMode
+    positionModeFirst:'doubleWarehouseMode',//单仓模式 singleWarehouseMode 双仓模式 doubleWarehouseMode
     // positionModeFirst:'doubleWarehouseMode',//单仓模式 singleWarehouseMode 双仓模式 doubleWarehouseMode
     positionModeFirstTemp:'',//临时存储值，等用户点击弹窗确认按钮后才真正改变positionModeFirst的值
     positionModeSecond:'openWarehouse',//单仓 singleWarehouse 开仓 openWarehouse 平仓 closeWarehouse
-    pendingOrderType:'limitPrice',//限价 limitPrice 市价 marketPrice 限价止盈止损 limitProfitStopLoss 市价止盈止损 marketPriceProfitStopLoss
+    pendingOrderType:'marketPrice',//限价 limitPrice 市价 marketPrice 限价止盈止损 limitProfitStopLoss 市价止盈止损 marketPriceProfitStopLoss
     /*合约仓位模式end*/
 
     /*下拉框1 begin*/

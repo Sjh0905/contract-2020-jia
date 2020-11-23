@@ -92,10 +92,22 @@ root.methods.viewpdf = function () {
 }
 
 root.methods.goToNoticeCenter = function (id) {
-  if(this.$route.name  == 'notice') {
-    this.$eventBus.notify({key: 'GET_NOTICE_LIST'},id);
-  }
+  // if(this.$route.name  == 'notice') {
+  //   this.$eventBus.notify({key: 'GET_NOTICE_LIST'},id);
+  // }
+  window.location.replace(this.$store.state.contract_url +'index/notice?columnId=3')
   // this.$router.push({name: 'notice', query: {columnId: id}})
 }
-
+// 帮助中心
+root.methods.goToNoticeHelp = function () {
+  window.location.replace(this.$store.state.contract_url +'index/notice?columnId=1')
+}
+// 帮助中心
+root.methods.goToNoticeGuide = function () {
+  window.location.replace(this.$store.state.contract_url +'index/notice?columnId=2')
+}
+// 帮助中心
+root.methods.goToNoticeNotice = function () {
+  window.location.replace(this.$store.state.contract_url +'index/notice?columnId=0')
+}
 export default root
