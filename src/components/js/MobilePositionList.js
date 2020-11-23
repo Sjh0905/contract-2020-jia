@@ -296,7 +296,7 @@ root.methods.changeDate = function () {
   this.unrealizedProfitPage = Number(unrealizedProfitPage) >=0 ? '+'+ unrealizedProfitPage : unrealizedProfitPage
   this.profitOrLoss = unrealizedProfitPage > 0 ? true : false
   this.responseRate = responseRate.substr(0, responseRate.length - 1) >=0 ?'+'+responseRate : responseRate
-  console.info('this.responseRate',this.responseRate,this.unrealizedProfitPage)
+  // console.info('this.responseRate',this.responseRate,this.unrealizedProfitPage)
 
   return this.positionData = {
     buyOrSell:this.buyOrSell,

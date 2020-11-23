@@ -216,9 +216,19 @@
 .opener-opening-amount-left-tit span:last-child{
   margin-left: 10px;
 }
+.opener-opening-amount-right {
+  font-size: 12px;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #A2B5D9;
+}
+.opener-amount-left-con {
+  margin-left: 10px;
+  color: #fff;
+}
 .opener-opening-long-short {
   height: 46px;
-  /*line-height: 46px;*/
+  line-height: 46px;
   font-size: 15px;
   font-family: PingFangSC-Medium, PingFang SC;
   font-weight: 500;

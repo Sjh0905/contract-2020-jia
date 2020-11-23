@@ -2229,7 +2229,6 @@ root.methods.re_getLatestrice = function (data) {
   // this.marketSymbolList = this.$globalFunc.mergeObj(data.data[0], this.marketSymbolList);
 
   let price = data.data[0].price
-  console.info('price===',price)
   this.latestPriceVal = (price || '').toString()
 
   this.setTransactionPrice(this.latestPriceVal);//第一次进入页面价格要赋值

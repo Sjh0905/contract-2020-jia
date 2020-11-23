@@ -126,6 +126,26 @@ root.mounted = function () {}
 root.beforeDestroy = function () {}
 /*------------------------------ 计算 -------------------------------*/
 root.computed = {}
+// 双仓 多仓 市价可开数量
+root.computed.openAmtLong = function () {
+  return this.$store.state.openAmount.openAmtLong
+}
+// 双仓 空仓 市价可开数量
+root.computed.openAmtShort = function () {
+  return this.$store.state.openAmount.openAmtShort
+}
+// 单仓 多仓 市价可开数量
+root.computed.openAmtBuy = function () {
+  return this.$store.state.openAmountSingle.openAmtBuy
+}
+// 单仓 空仓 市价可开数量
+root.computed.openAmtSell = function () {
+  return this.$store.state.openAmountSingle.openAmtSell
+}
+// 检验是否是APP
+root.computed.isApp = function () {
+  return this.$route.query.isApp ? true : false
+}
 // 单仓分步（平仓止盈）
 root.computed.stepPlanList = function () {
   if(!this.testNumber(this.takeProfitStep)) return
@@ -1030,6 +1050,17 @@ root.methods.createdArray = function (num=1,stepNum,point ,averagePrice,pointIpt
 root.methods.popClose = function () {
   this.popOpen = false
 }
+
+// H5 代码
+// 返回交易页
+root.methods.jumpToTradingHallDetail = function () {
+  this.$router.go(-1)
+}
+
+
+
+
+
 
 /*---------------------- 格式化时间 begin ---------------------*/
 // 年月日
