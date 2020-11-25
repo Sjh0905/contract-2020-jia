@@ -3,24 +3,24 @@
   <Loading v-if="loading"/>
   <template v-if="!loading">
 
-    <div class="hidden-detail-container-total flex">
+    <div class=" flex" :class="$route.name == 'historicalEntrust'?'hidden-detail-container-total':'hidden-detail-container-total-1'">
       <div class="exchange-total-amount">
         交易总量：
-        <span class="text_black">{{totalAmount}} USDT</span>
+        <span class="" :class="$route.name == 'historicalEntrust'?'text_black':'text-black-c'">{{totalAmount}} USDT</span>
       </div>
 
       <div class="exchange-total-amount">
         总盈亏：
-        <span class="text_black">{{totalRealizedPnl}} USDT</span>
+        <span class=""  :class="$route.name == 'historicalEntrust'?'text_black':'text-black-c'">{{totalRealizedPnl}} USDT</span>
       </div>
 
       <div class="exchange-total-amount">
         总手续费：
-        <span class="text_black">{{totalCommission}} USDT</span>
+        <span class=""  :class="$route.name == 'historicalEntrust'?'text_black':'text-black-c'">{{totalCommission}} USDT</span>
       </div>
     </div>
 
-    <ul class="hidden-detail-container">
+    <ul class=""  :class="$route.name == 'historicalEntrust'?'hidden-detail-container':'hidden-detail-container-1'">
       <li class="hidden-detail-li hidden-detail-li-title flex">
         <!--时间-->
         <div class="hidden-detail-title">{{$t('时间')}}</div>
@@ -42,7 +42,7 @@
         <!--成交量 end -->
       </li>
 
-      <li class="hidden-detail-li hidden-detail-li-article flex-center" v-for="(detail,index) in histortyOrderDetail"
+      <li class=" hidden-detail-li-article flex-center" :class="$route.name == 'historicalEntrust'?'hidden-detail-li':'hidden-detail-li-1'" v-for="(detail,index) in histortyOrderDetail"
           :key="index">
         <!--时间 begin -->
         <div class="hidden-detail-article">{{$globalFunc.formatDateUitl(detail.time,'YYYY-MM-DD hh:mm:ss')}}</div>

@@ -45,29 +45,35 @@
       <!--有=记录的样子-->
       <div v-if="historyOrderComputed.length !== 0 && !loading" class="withdraw-list">
         <div v-for="(order,index) in historyOrderComputed" :key="order.id" class="histor-withdraw-item border-bot"
-             @click="showDetail(order)">
+            >
           <!--时间-->
           <div class="flex padding-bot">
             <!-- 币种-->
-            <div class="symbol-flex">{{order.symbol}}</div>
+            <div class="symbol-flex"  @click="showDetail(order)">{{order.symbol}}</div>
             <!--方向-->
-            <div class="td-category" :class="order.side==='BUY'?'text_blue-3':'text_red-4'">
+            <div class="td-category" :class="order.side==='BUY'?'text_blue-3':'text_red-4'"  @click="showDetail(order)">
               {{$globalFunc.getOrderSide(order.positionSide,order.side)}}
             </div>
             <!--订单类型 begin -->
-            <div class="td-category td-category-text" v-if="order.type == 'LIMIT'">限价单</div>
-            <div class="td-category td-category-text" v-if="order.type == 'MARKET'">市价单</div>
-            <div class="td-category td-category-text" v-if="order.type == 'STOP'">止损限价单</div>
-            <div class="td-category td-category-text" v-if="order.type == 'STOP_MARKET'">止损市价单</div>
-            <div class="td-category td-category-text" v-if="order.type == 'TAKE_PROFIT'">止盈限价单</div>
-            <div class="td-category td-category-text" v-if="order.type == 'TAKE_PROFIT_MARKET'">止盈市价单</div>
-            <div class="td-category td-category-text" v-if="order.type == 'TRAILING_STOP_MARKET'">跟踪止损单</div>
+            <div class="td-category td-category-text" v-if="order.type == 'LIMIT'"  @click="showDetail(order)">限价单</div>
+            <div class="td-category td-category-text" v-if="order.type == 'MARKET'"  @click="showDetail(order)">市价单</div>
+            <div class="td-category td-category-text" v-if="order.type == 'STOP'"  @click="showDetail(order)">止损限价单</div>
+            <div class="td-category td-category-text" v-if="order.type == 'STOP_MARKET'"  @click="showDetail(order)">止损市价单</div>
+            <div class="td-category td-category-text" v-if="order.type == 'TAKE_PROFIT'"  @click="showDetail(order)">止盈限价单</div>
+            <div class="td-category td-category-text" v-if="order.type == 'TAKE_PROFIT_MARKET'"  @click="showDetail(order)">止盈市价单</div>
+            <div class="td-category td-category-text" v-if="order.type == 'TRAILING_STOP_MARKET'"  @click="showDetail(order)">跟踪止损单</div>
             <!--订单类型 end -->
             <!--时间-->
-            <div class="td-time tar time-text">{{$globalFunc.formatDateUitl(order.time,'MM-DD hh:mm')}}</div>
+            <div class="td-time tar time-text"  @click="showDetail(order)">{{$globalFunc.formatDateUitl(order.time,'MM-DD hh:mm')}}</div>
+
+            <div class="td-time-fenx tar time-text" v-if="order.status == 'FILLED' && (order.positionSide == 'BOTH' && (order.side == 'SELL'||order.side == 'BUY'))
+                ||(order.positionSide == 'SHORT' && order.side == 'SELL') || (order.positionSide == 'LONG' && order.side == 'BUY') " @click="SHOW_POSTER(order.orderId)">
+              <img class="img-width-f" src="../../assets/fenxiangicon@2x.png" alt="">
+            </div>
+            <div class="td-time-fenx tar time-text" v-else>--</div>
           </div>
 
-          <div class="flex margin-bot2">
+          <div class="flex margin-bot2"  @click="showDetail(order)">
             <div class="td-time1 piaoti-text color-A">
               <div class="td-time margin-bot1">数量</div>
               <div class="td-time margin-bot1">价格</div>
@@ -242,4 +248,39 @@
 
 
 
+  <!-- 专属海报 start -->
+  <div class="prompt-qrcode" v-show="showPoster">
+    <div class="show_poster_body" @click="HIDE_POSTER()">
+      <template>
+        <el-select class="account_number_input" value-key="currencyKey" v-model="currencyValue" filterable placeholder="">
+          <el-option
+            v-for="(item,index) in accountsComputed"
+            :label="item.a"
+            :value="item.a"
+            :key="index"
+          ></el-option>
+        </el-select>
+      </template>
+      <div class="loading-box" v-if="loadingImage">
+        <Loading></Loading>
+      </div>
+      <!--      <p class="copy_poster">✽{{$t('personalCenter.poster_2')}}</p>-->
+      <img :src="poster_url" class="img-width" v-if="!loadingImage" @click.stop="notClick($event)">
+
+      <div v-if="(isApp && isAndroid)" class="flex-between">
+        <button  class="button-base poster-btn p-cancle-btn  btn-border pointer" @click="HIDE_POSTER">
+          取消
+        </button>
+        <button  class="button-base poster-btn p-confirm-btn  btn_blue pointer" @click="sendImgToApp">
+          保存图片
+        </button>
+      </div>
+
+      <div v-if="!(isApp && isAndroid)" class="prompt-qrcode-box-info">{{isApp ? 'APP暂请截图分享':'长按图片保存至手机'}}</div>
+      <img v-if="!(isApp && isAndroid)" class="close_icon"  src="../../assets/wrong-close.png" alt="">
+    </div>
+  </div>
+  <!-- 专属海报 end -->
+
+  <PopupPrompt :popType="popType" :popText="popText" :popOpen="promptOpen" :popClose="closePrompt"></PopupPrompt>
 </div>

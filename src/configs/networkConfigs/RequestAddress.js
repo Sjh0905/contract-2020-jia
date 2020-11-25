@@ -52,6 +52,7 @@ requestAddress.POST_INVIT_POSTER = {url: urlHead+'/future/user/getFutureUserInvi
 requestAddress.POST_CHECK_OPEN_POSTER = {url: urlHead+'/future/user/checkOpenContract', method: 'post'} // 检测是老用户登录还是新用户
 
 requestAddress.GET_ASSET_SNAPSHOT = {url: urlHead+'/future/orders/balanceSnapshot', method: 'get'} // 资产快照
+requestAddress.POST_ASSET_SNAPSHOT = {url: urlHead+'/future/user/getFilledOrderSharePoster ', method: 'post'} // 历史委托邀请海报
 
 
 
