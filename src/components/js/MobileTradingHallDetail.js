@@ -3602,6 +3602,12 @@ root.methods.openkexian = function(){
   // this.$router.push('mobileTradingHall')
   this.$router.go(-1)
 }
+root.methods.openBottonOpener = function(){
+  this.$router.push('MobileBottleOpener')
+  // this.$router.go(-1)
+}
+
+
 root.methods.ToCurrentPage = function(){
   this.$router.push('MobileTradingHallDetail')
 }

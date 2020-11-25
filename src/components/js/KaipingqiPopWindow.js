@@ -39,7 +39,7 @@ root.props.positionList = {
   type: Array,
   default: ['positionList']
 }
-// 单双仓
+// 精度
 root.props.baseScale = {
   type: Number,
   default: 0
@@ -128,19 +128,19 @@ root.beforeDestroy = function () {}
 root.computed = {}
 // 双仓 多仓 市价可开数量
 root.computed.openAmtLong = function () {
-  return this.$store.state.openAmount.openAmtLong
+  return this.$store.state.openAmount.openAmtLong || 0
 }
 // 双仓 空仓 市价可开数量
 root.computed.openAmtShort = function () {
-  return this.$store.state.openAmount.openAmtShort
+  return this.$store.state.openAmount.openAmtShort || 0
 }
 // 单仓 多仓 市价可开数量
 root.computed.openAmtBuy = function () {
-  return this.$store.state.openAmountSingle.openAmtBuy
+  return this.$store.state.openAmountSingle.openAmtBuy || 0
 }
 // 单仓 空仓 市价可开数量
 root.computed.openAmtSell = function () {
-  return this.$store.state.openAmountSingle.openAmtSell
+  return this.$store.state.openAmountSingle.openAmtSell || 0
 }
 // 检验是否是APP
 root.computed.isApp = function () {
@@ -633,7 +633,22 @@ root.methods.testNumberPoint = function (ipt) {
   // if(this.$globalFunc.testNumberPoint(this.fullPointShortEmpty)) return true
   // return false
 }
-
+// 开仓数量不能超过可开数量
+root.methods.limitAmount = function () {
+  if(this.positionModeFirst == 'singleWarehouseMode' && Math.abs(this.positionAmt) >= this.openAmtBuy) {
+    return true
+  }
+  if(this.positionModeFirst == 'singleWarehouseMode' && Math.abs(this.positionAmt) >= this.openAmtSell) {
+    return true
+  }
+  if(this.positionModeFirst == 'doubleWarehouseMode' && Math.min(this.openAmtLong,this.openAmtShort) <= Number(this.openAmountLong)) {
+    return true
+  }
+  if(this.positionModeFirst == 'doubleWarehouseMode' && Math.min(this.openAmtLong,this.openAmtShort) <= Number(this.openAmountShort)) {
+    return true
+  }
+  return false
+}
 // 调用接口
 root.methods.createWithStop = function () {
   this.openDisabel = true
@@ -654,6 +669,13 @@ root.methods.createWithStop = function () {
   //   this.openDisabel = false
   //   return
   // }
+  if(this.limitAmount()){
+    this.popOpen = true;
+    this.popType = 0;
+    this.popText='开仓数量不能超过可开数量'
+    this.openDisabel = false
+    return
+  }
   if(this.noCommit()){
     this.popOpen = true;
     this.popType = 0;
@@ -866,6 +888,11 @@ root.methods.closeList = function () {
 // 打开开平器列表
 root.methods.openList = function () {
   this.getRecords()
+  if(this.isMobile){
+    // 开平器记录
+    this.$router.push('MobileBottleOpenerList')
+    return
+  }
   this.showList = true
 }
 
@@ -928,6 +955,8 @@ root.methods.clearVal= function () {
   this.StopLossPointEmpty = ''
 }
 
+
+
 // 单仓止盈
 root.methods.stepOrallTakeProfit = function (item) {
   if(item.openType=='LONG' && item.stopProfitLong){
@@ -938,6 +967,22 @@ root.methods.stepOrallTakeProfit = function (item) {
       return '分步（' +item.stopProfitStepLong +'步/'+ item.profitIntervalLong+'点）'
     }
   }
+  if(item.openType=='STOP_MARKET' && item.stopProfitLong){
+    if(!item.stopProfitStepLong){
+      return '全部'
+    }
+    if(item.stopProfitStepLong){
+      return '分步（' +item.stopProfitStepLong +'步/'+ item.profitIntervalLong+'点）'
+    }
+  }
+  if(item.openType=='STOP_MARKET' && item.stopProfitShort){
+    if(!item.stopProfitStepShort){
+      return '全部'
+    }
+    if(item.stopProfitStepShort) {
+      return '分步（' + item.stopProfitStepShort + '步/' + item.profitIntervalShort + '点）'
+    }
+  }
   if(item.openType=='SHORT' && item.stopProfitShort){
     if(!item.stopProfitStepShort){
       return '全部'
@@ -946,6 +991,7 @@ root.methods.stepOrallTakeProfit = function (item) {
       return '分步（' + item.stopProfitStepShort + '步/' + item.profitIntervalShort + '点）'
     }
   }
+
   return '--'
 }
 // 单仓止损

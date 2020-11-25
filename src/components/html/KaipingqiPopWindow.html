@@ -45,8 +45,8 @@
                   </div>
                   <div class="opener-opening-amount-right flex">
                     <div>可开数量</div>
-                    <div class="opener-amount-left-con">多 {{toFixed(openAmtLong,3) || '--'}} BTC</div>
-                    <div class="opener-amount-left-con">空 {{toFixed(openAmtShort,3) || '--'}} BTC</div>
+                    <div class="opener-amount-left-con">多 {{toFixed(openAmtLong,baseScale) || '--'}} BTC</div>
+                    <div class="opener-amount-left-con">空 {{toFixed(openAmtShort,baseScale) || '--'}} BTC</div>
                   </div>
                 </div>
                 <div class="opener-opening-long-short flex-between" v-if="openerType == 1">
@@ -56,8 +56,8 @@
                   </div>
                   <div class="opener-opening-amount-right flex">
                     <div>可开数量</div>
-                    <div class="opener-amount-left-con" v-show="longOrShortType == 1">{{toFixed(openAmtBuy,3)}} BTC</div>
-                    <div class="opener-amount-left-con" v-show="longOrShortType == 2">{{toFixed(openAmtSell,3)}} BTC</div>
+                    <div class="opener-amount-left-con" v-show="longOrShortType == 1">{{toFixed(openAmtBuy,baseScale)}} BTC</div>
+                    <div class="opener-amount-left-con" v-show="longOrShortType == 2">{{toFixed(openAmtSell,baseScale)}} BTC</div>
                   </div>
                 </div>
                 <div class="opener-opening-markprice flex-between">
@@ -676,12 +676,12 @@
                   <div class="single-list-content-take flex">
                     <div class="single-list-content-title-left">
                       <span>止损点数</span>
-                      <span class="single-list-content-title-white" v-if="item.openType=='LONG' || item.openType=='DUAL'">{{item.stopLossLong || '--'}}</span>
+                      <span class="single-list-content-title-white" v-if="item.openType=='LONG' || item.openType=='DUAL' || item.openType=='STOP_MARKET'">{{item.stopLossLong || '--'}}</span>
                       <span class="single-list-content-title-white" v-if="item.openType=='SHORT'">{{item.stopLossShort || '--'}}</span>
                     </div>
                     <div class="single-list-content-title-right">
                       <span>止损计划</span>
-                      <span class="single-list-content-title-white" v-if="item.openType=='LONG' || item.openType=='SHORT'">{{stepOrallLoss(item)}}</span>
+                      <span class="single-list-content-title-white" v-if="item.openType=='LONG' || item.openType=='SHORT' || item.openType=='STOP_MARKET'">{{stepOrallLoss(item)}}</span>
                       <span class="single-list-content-title-white" v-if="item.openType=='DUAL'">{{lossLong(item)}}</span>
                     </div>
                   </div>

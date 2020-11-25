@@ -271,7 +271,7 @@
   color: #E0E1F4;
 }
 .markprice-ipt {
-  padding-left: 10px;
+  padding-left: 5px;
   width: 180px;
   height: 30px;
   border-radius: 1px;
@@ -327,7 +327,7 @@
   background: #23252D;
   border-radius: 2px;
   border: 1px solid #384256;
-  padding-left: 3px;
+  padding-left: 5px;
   box-sizing: border-box;
 }
 .opener-article-closing-left-bottom {
@@ -372,7 +372,7 @@
 }
 .opener-stop-plan {
   width: 100%;
-  padding: 20px 25px 10px;
+  padding: 20px 25px 0;
   /*min-height: 200px;*/
   background: #1C1D24;
   margin-bottom: 15px;
@@ -458,7 +458,7 @@
 }
 .bottle-opener-footer {
   color: #fff;
-  padding: 0 25px 46px;
+  padding: 0 25px 25px;
   /*background: #202133;*/
   background: rgba(20,21,26,1);
   line-height: 40px;
@@ -664,7 +664,6 @@
   background: rgba(8, 208, 172, 0.1);
   border-radius: 2px;
   border: 1px solid #86CB12;
-  margin-bottom: 15px;
   margin-left: 5px;
 }
 .opener-closing-empty {
@@ -677,7 +676,6 @@
   background: rgba(239, 86, 86, 0.1);
   border-radius: 2px;
   border: 1px solid #F60076;
-  margin-bottom: 15px;
   margin-left: 5px;
 }
 .no-records {

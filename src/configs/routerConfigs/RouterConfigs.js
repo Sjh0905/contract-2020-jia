@@ -998,6 +998,19 @@ root.routes.push({
   caseSensitive: true,
   component: resolve => require(['@/components/vue/MobileBottleOpener'], resolve),
 }),
+// 开平器记录
+root.routes.push({
+  path: '/index/MobileBottleOpenerList',
+  name:'MobileBottleOpenerList',
+  // redirect: '/index/mobileTradingHallDetail',
+  meta: {
+    requireLogin: false,
+    pcname: '',
+    h5name: 'MobileBottleOpenerList',
+  },
+  caseSensitive: true,
+  component: resolve => require(['@/components/vue/MobileBottleOpenerList'], resolve),
+}),
 
 // 2018.4.4 新H5首页
 // root.routes.push({
