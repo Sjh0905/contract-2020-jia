@@ -1,0 +1,165 @@
+const root = {}
+root.name = 'MobileBottleOpenerList'
+/*------------------------------ 组件 ------------------------------*/
+//root.components = {
+//  'Loading': resolve => require(['../Loading/Loading.vue'], resolve),
+//}
+/*------------------------------ data -------------------------------*/
+root.data = function () {
+  return {
+    openerRecords:[],
+  }
+}
+/*------------------------------ 生命周期 -------------------------------*/
+root.created = function () {
+  this.getRecords()
+}
+root.mounted = function () {}
+
+root.beforeDestroy = function () {}
+/*------------------------------ 计算 -------------------------------*/
+root.computed = {}
+// 检验是否是APP
+root.computed.isApp = function () {
+  return this.$route.query.isApp ? true : false
+}
+// 计算当前symbol
+root.computed.symbol = function () {
+  // console.warn('symbol',this.$store.state.symbol);
+  return this.$store.state.symbol;
+}
+//不加下划线币对
+root.computed.capitalSymbol = function () {
+  return this.$globalFunc.toOnlyCapitalLetters(this.symbol);
+}
+/*------------------------------ 观察 -------------------------------*/
+root.watch = {}
+/*------------------------------ 方法 -------------------------------*/
+root.methods = {}
+// 返回
+root.methods.jumpToTradingHallDetail = function () {
+  this.$router.go(-1)
+}
+
+// 获取开平器列表
+root.methods.getRecords = function () {
+  this.$http.send('GET_ORDERS_GETRECORD', {
+    bind: this,
+    query: {
+      symbol:this.capitalSymbol
+    },
+    callBack: this.re_getRecords,
+    errorHandler: this.error_getRecords,
+  })
+}
+root.methods.re_getRecords = function (data) {
+  typeof(data) == 'string' && (data = JSON.parse(data));
+  if(!data || !data.data) return
+  this.openerRecords = data.data || []
+}
+// 获取订单出错
+root.methods.error_getRecords = function (err) {
+  console.warn("获取订单出错！")
+}
+
+// 单仓止盈
+root.methods.stepOrallTakeProfit = function (item) {
+  if(item.openType=='LONG' && item.stopProfitLong){
+    if(!item.stopProfitStepLong){
+      return '全部'
+    }
+    if(item.stopProfitStepLong){
+      return '分步（' +item.stopProfitStepLong +'步/'+ item.profitIntervalLong+'点）'
+    }
+  }
+  if(item.openType=='SHORT' && item.stopProfitShort){
+    if(!item.stopProfitStepShort){
+      return '全部'
+    }
+    if(item.stopProfitStepShort) {
+      return '分步（' + item.stopProfitStepShort + '步/' + item.profitIntervalShort + '点）'
+    }
+  }
+  return '--'
+}
+// 单仓止损
+root.methods.stepOrallLoss = function (item) {
+  if(item.openType =='LONG' && item.stopLossLong){
+    if(!item.stopLossStepLong){
+      return '全部'
+    }
+    if(item.stopLossStepLong) {
+      return '分步（' + item.stopLossStepLong + '步/' + item.lossIntervalLong + '点）'
+    }
+  }
+  if(item.openType=='SHORT' && item.stopLossShort){
+    if(!item.stopLossStepShort){
+      return '全部'
+    }
+    if(item.stopLossStepShort) {
+      return '分步（' + item.stopLossStepShort + '步/' + item.lossIntervalShort + '点）'
+    }
+  }
+  return '--'
+}
+// 双仓多仓止盈计划
+root.methods.profitLong = function (item) {
+  if(item.openType=='DUAL' && item.stopProfitLong){
+    if(!item.stopProfitStepLong){
+      return '全部'
+    }
+    if(item.stopProfitStepLong) {
+      return '分步（' + item.stopProfitStepLong + '步/' + item.profitIntervalLong + '点）'
+    }
+  }
+  return '--'
+}
+// 双仓多仓止损计划
+root.methods.lossLong = function (item) {
+  if(item.openType=='DUAL' && item.stopLossLong){
+    if(!item.stopLossStepLong){
+      return '全部'
+    }
+    if(item.stopLossStepLong){
+      return '分步（' +item.stopLossStepLong+'步/'+ item.lossIntervalLong+'点）'
+    }
+  }
+  return '--'
+}
+// 双仓空仓止盈计划
+root.methods.profitEmptyShort = function (item) {
+  if(item.openType=='DUAL' && item.stopProfitShort){
+    if(!item.stopProfitStepShort){
+      return '全部'
+    }
+    if(item.stopProfitShort && item.stopProfitStepShort) {
+      return '分步（' + item.stopProfitStepShort + '步/' + item.profitIntervalShort + '点）'
+    }
+  }
+  return '--'
+}
+// 双仓kong仓止损计划
+root.methods.lossEmptyShort = function (item) {
+  if(item.openType=='DUAL' && item.stopLossShort){
+    if(item.stopLossShort && !item.stopLossStepShort){
+      return '全部'
+    }
+    if(item.stopLossShort && item.stopLossStepShort){
+      return '分步（' +item.stopLossStepShort+'步/'+ item.lossIntervalShort+'点）'
+    }
+  }
+  return '--'
+}
+
+/*---------------------- 格式化时间 begin ---------------------*/
+// 年月日
+root.methods.formatDateUitl = function (time) {
+  return this.$globalFunc.formatDateUitl(time, 'YYYY-MM-DD')
+}
+// // 时分秒
+root.methods.formatDateUitlHms = function (time) {
+  return this.$globalFunc.formatDateUitl(time, 'hh:mm:ss')
+}
+/*---------------------- 格式化时间 end ---------------------*/
+
+export default root
