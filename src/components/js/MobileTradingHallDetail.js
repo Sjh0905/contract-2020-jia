@@ -3094,6 +3094,13 @@ root.computed.isLogin = function () {
   return this.$store.state.isLogin;
 }
 root.watch = {};
+root.watch.pendingOrderType  = function (){
+  if(this.pendingOrderType == 'limitPrice' || this.pendingOrderType == 'marketPrice') {
+    this.reducePositionsSelected = false
+    return
+  }
+  this.reducePositionsSelected = true
+}
 root.watch.amount = function (newValue, oldValue) {
   let value = newValue.toString();
   // 限制输入位数
