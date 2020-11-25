@@ -119,7 +119,7 @@ root.data = function () {
     positionModeSecond:'openWarehouse',//单仓 singleWarehouse 开仓 openWarehouse 平仓 closeWarehouse
     pendingOrderType:'marketPrice',//限价 limitPrice 市价 marketPrice 限价止盈止损 limitProfitStopLoss 市价止盈止损 marketPriceProfitStopLoss
 
-    reducePositionsSelected: true,//只减仓状态
+    reducePositionsSelected: false,//只减仓状态
 
     //保证金模式Strat
     popWindowSecurityDepositMode: false,
@@ -1719,7 +1719,7 @@ root.watch = {};
 // }
 root.watch.pendingOrderType  = function (){
   if(this.pendingOrderType == 'limitPrice' || this.pendingOrderType == 'marketPrice') {
-    this.reducePositionsSelected = true
+    this.reducePositionsSelected = false
     return
   }
   this.reducePositionsSelected = true
