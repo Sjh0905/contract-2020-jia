@@ -455,7 +455,7 @@ root.methods.re_getPositionRisk = function (data) {
 }
 // 获取记录失败
 root.methods.error_getPositionRisk = function (err) {
-  console.info('err',err)
+  // console.warn('err',err)
 }
 
 // 关闭所有弹窗

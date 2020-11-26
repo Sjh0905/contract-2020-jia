@@ -113,8 +113,19 @@
   .single-list-content-take {
     margin-bottom: 0.2rem;
   }
-  .single-list-content-take {
-
+  .no-records {
+    width: 100%;
+    height: 100%;
+    padding-top: 3rem;
+    text-align: center;
+  }
+  .no-records-text {
+    font-size: 0.24rem;
+    font-family: PingFangSC-Regular, PingFang SC;
+    font-weight: 400;
+    color: #6B7DA2;
+    margin-top: 0.2rem;
+    display: block;
   }
 }
 
