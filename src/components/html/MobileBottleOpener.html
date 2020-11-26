@@ -14,8 +14,11 @@
             <img class="opener-header-title-back-icon-img" src="../../assets/back_icon.png" alt="">
           </div>
           <div class="flex">
-            <div class="pointer opener-article-title-but opener-title-but-right" :class="{'opener-btn-slt':openerType == 1}" @click="changeOpenerType(1)">单开</div>
-            <div class="pointer opener-article-title-but opener-title-but-left" :class="{'opener-btn-slt':openerType == 2}" @click="changeOpenerType(2)">双开</div>
+            <div class="pointer opener-article-title-but opener-title-but-right" v-if="positionModeFirst == 'singleWarehouseMode'" :class="{'opener-btn-slt':openerType == 1}" @click="changeOpenerType(1)">单开</div>
+            <div class="pointer opener-article-title-but opener-title-but-right" v-if="positionModeFirst == 'doubleWarehouseMode'">单开</div>
+
+            <div class="pointer opener-article-title-but opener-title-but-left" v-if="positionModeFirst == 'doubleWarehouseMode'" :class="{'opener-btn-slt':openerType == 2}" @click="changeOpenerType(2)">双开</div>
+            <div class="pointer opener-article-title-but opener-title-but-left" v-if="positionModeFirst == 'singleWarehouseMode'">双开</div>
           </div>
           <div class="mobile-see-list pointer" @click="openList()">查看记录</div>
         </div>
