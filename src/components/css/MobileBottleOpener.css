@@ -488,4 +488,52 @@
   /*== 确认 ==*/
   /*========== 平仓 begin ==========*/
 
+
+  /*确认弹窗*/
+  .list-title {
+    font-size: 0.36rem;
+    font-family: PingFangSC-Medium, PingFang SC;
+    font-weight: 500;
+    background: #F5F7FF;
+    color: #0D0E23;
+  }
+  .list-result {
+    font-size: 0.32rem;
+    font-family: PingFangSC-Regular, PingFang SC;
+    font-weight: 400;
+    background: #fff;
+    padding: 0.3rem;
+    color: #0D0E23;
+    margin-top: -1px;
+  }
+  .list-result-content {
+    height: 0.8rem;
+    line-height:  0.8rem;
+    font-size: 14px;
+    font-family: PingFangSC-Regular, PingFang SC;
+    font-weight: 400;
+    color: #0D0E23;
+  }
+  .list-result-red {
+    color: #F60076;
+  }
+  .list-result-green {
+    color: #86CB12;
+  }
+  .list-footer {
+    background: #fff;
+    padding: 0.3rem;
+  }
+  .list-footer-btn{
+    height: 0.8rem;
+    line-height: 0.8rem;
+    text-align: center;
+    background: linear-gradient(270deg, #3576F5 0%, #459AF5 100%);
+    border-radius: 1px;
+    letter-spacing: 0.2rem;
+    font-size: 16px;
+    font-family: PingFangSC-Regular, PingFang SC;
+    font-weight: 400;
+    color: #FFFFFF;
+  }
 }

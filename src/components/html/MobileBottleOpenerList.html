@@ -17,8 +17,8 @@
   <div class="mobile-empty"></div>
 
   <div class="single-list" v-for="item in openerRecords" :key="item.id">
-    <div class="single-list-title flex">
-      <div class="m-r-r">{{formatDateUitl(item.createdAt,'YYYY-MM-DD')}}</div>
+    <div class="single-list-title flex-between">
+      <div>{{formatDateUitl(item.createdAt,'YYYY-MM-DD')}}</div>
       <div>{{formatDateUitlHms(item.createdAt,'hh:mm:ss')}}</div>
     </div>
     <div class="single-list-content">
@@ -40,25 +40,29 @@
         <div class="single-list-content-take flex">
           <div class="single-list-content-title-left">
             <div>止盈点数</div>
-            <div class="single-list-content-title-white" v-if="item.openType=='LONG' || item.openType=='DUAL'">{{item.stopProfitLong || '--'}}</div>
-            <div class="single-list-content-title-white" v-if="item.openType=='SHORT'">{{item.stopProfitShort || '--'}}</div>
+<!--            <div class="single-list-content-title-white" v-if="item.openType=='LONG' || item.openType=='DUAL'">{{item.stopProfitLong || '&#45;&#45;'}}</div>-->
+<!--            <div class="single-list-content-title-white" v-if="item.openType=='SHORT'">{{item.stopProfitShort || '&#45;&#45;'}}</div>-->
+            <div class="single-list-content-title-white">{{stopProfitPointe(item)}}</div>
           </div>
           <div class="single-list-content-title-right">
             <div>止盈计划</div>
-            <div class="single-list-content-title-white" v-if="item.openType=='LONG' || item.openType=='SHORT'">{{stepOrallTakeProfit(item)}}</div>
-            <div class="single-list-content-title-white" v-if="item.openType=='DUAL'">{{profitLong(item)}}</div>
+<!--            <div class="single-list-content-title-white" v-if="item.openType=='LONG' || item.openType=='SHORT'">{{stepOrallTakeProfit(item)}}</div>-->
+<!--            <div class="single-list-content-title-white" v-if="item.openType=='DUAL'">{{profitLong(item)}}</div>-->
+            <div class="single-list-content-title-white">{{stopProfit(item)}}</div>
           </div>
         </div>
         <div class="single-list-content-take flex">
           <div class="single-list-content-title-left">
             <div>止损点数</div>
-            <div class="single-list-content-title-white" v-if="item.openType=='LONG' || item.openType=='DUAL'">{{item.stopLossLong || '--'}}</div>
-            <div class="single-list-content-title-white" v-if="item.openType=='SHORT'">{{item.stopLossShort || '--'}}</div>
+<!--            <div class="single-list-content-title-white" v-if="item.openType=='LONG' || item.openType=='DUAL'">{{item.stopLossLong || '&#45;&#45;'}}</div>-->
+<!--            <div class="single-list-content-title-white" v-if="item.openType=='SHORT'">{{item.stopLossShort || '&#45;&#45;'}}</div>-->
+            <div class="single-list-content-title-white">{{stopLossPoint(item)}}</div>
           </div>
           <div class="single-list-content-title-right">
             <div>止损计划</div>
-            <div class="single-list-content-title-white" v-if="item.openType=='LONG' || item.openType=='SHORT'">{{stepOrallLoss(item)}}</div>
-            <div class="single-list-content-title-white" v-if="item.openType=='DUAL'">{{lossLong(item)}}</div>
+<!--            <div class="single-list-content-title-white" v-if="item.openType=='LONG' || item.openType=='SHORT'">{{stepOrallLoss(item)}}</div>-->
+<!--            <div class="single-list-content-title-white" v-if="item.openType=='DUAL'">{{lossLong(item)}}</div>-->
+            <div class="single-list-content-title-white">{{stopLoss(item)}}</div>
           </div>
         </div>
       </div>
@@ -68,21 +72,25 @@
         <div class="single-list-content-take flex">
           <div class="single-list-content-title-left">
             <div>止盈点数</div>
-            <div class="single-list-content-title-white">{{item.stopProfitShort || '--'}}</div>
+<!--            <div class="single-list-content-title-white">{{item.stopProfitShort || '&#45;&#45;'}}</div>-->
+            <div class="single-list-content-title-white">{{stopProfitPointeShort(item)}}</div>
           </div>
           <div class="single-list-content-title-right">
             <div>止盈计划</div>
-            <div class="single-list-content-title-white">{{profitEmptyShort(item)}}</div>
+<!--            <div class="single-list-content-title-white">{{profitEmptyShort(item)}}</div>-->
+            <div class="single-list-content-title-white">{{stopProfitShort(item)}}</div>
           </div>
         </div>
         <div class="single-list-content-take flex">
           <div class="single-list-content-title-left">
             <div>止损点数</div>
-            <div class="single-list-content-title-white">{{item.stopLossShort || '--'}}</div>
+<!--            <div class="single-list-content-title-white">{{item.stopLossShort || '&#45;&#45;'}}</div>-->
+            <div class="single-list-content-title-white">{{stopLossPointShort(item)}}</div>
           </div>
           <div class="single-list-content-title-right">
             <div>止损计划</div>
-            <div class="single-list-content-title-white">{{lossEmptyShort(item)}}</div>
+<!--            <div class="single-list-content-title-white">{{lossEmptyShort(item)}}</div>-->
+            <div class="single-list-content-title-white">{{stopLossShort(item)}}</div>
           </div>
         </div>
       </div>

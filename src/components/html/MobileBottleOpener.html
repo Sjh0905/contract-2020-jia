@@ -601,6 +601,54 @@
       </div>
     </div>
 
+
+    <!--下单结果查看弹窗-->
+    <PositionModeBulletBox :switch="showResult"  @close="closeResult()" :pop_width="true" :closeBtnShow="false">
+      <div slot="header" class="list-title">
+        <div>开平器结果</div>
+      </div>
+      <div slot="article" class="list-result">
+        <div class="list-result-content flex-between">
+          <div>开多</div>
+          <div v-if="resultData.longOrder != null" :class="resultData.longOrder== 'FAILED' ? 'list-result-red' : ' list-result-green'">{{resultData.longOrder == 'FAILED'?'失败':'成功'}}</div>
+          <div v-if="resultData.longOrder == null">--</div>
+        </div>
+        <div class="list-result-content flex-between">
+          <div>开空</div>
+          <div v-if="resultData.shortOrder != null" :class="resultData.shortOrder== 'FAILED' ? 'list-result-red' : ' list-result-green'">{{resultData.shortOrder == 'FAILED'?'失败':'成功'}}</div>
+          <div v-if="resultData.shortOrder == null">--</div>
+        </div>
+        <div class="list-result-content flex-between">
+          <div>开多市价止盈</div>
+          <div v-if="resultData.longOrderProfit != null" :class="resultData.longOrderProfit== 'FAILED' ? 'list-result-red' : ' list-result-green'">{{resultData.longOrderProfit == 'FAILED'?'失败':'成功'}}</div>
+          <div v-if="resultData.longOrderProfit == null">--</div>
+        </div>
+        <div class="list-result-content flex-between">
+          <div>开多市价止损</div>
+          <div v-if="resultData.longOrderLoss != null" :class="resultData.longOrderLoss== 'FAILED' ? 'list-result-red' : ' list-result-green'">{{resultData.longOrderLoss == 'FAILED'?'失败':'成功'}}</div>
+          <div v-if="resultData.longOrderLoss == null">--</div>
+        </div>
+        <div class="list-result-content flex-between">
+          <div>开空市价止盈</div>
+          <div v-if="resultData.shortOrderProfit != null" :class="resultData.shortOrderProfit== 'FAILED' ? 'list-result-red' : ' list-result-green'">{{resultData.shortOrderProfit == 'FAILED'?'失败':'成功'}}</div>
+          <div v-if="resultData.shortOrderProfit == null">--</div>
+        </div>
+        <div class="list-result-content flex-between">
+          <div>开空市价止损</div>
+          <div v-if="resultData.shortOrderLoss != null" :class="resultData.shortOrderLoss== 'FAILED' ? 'list-result-red' : ' list-result-green'">{{resultData.shortOrderLoss == 'FAILED'?'失败':'成功'}}</div>
+          <div v-if="resultData.shortOrderLoss == null">--</div>
+        </div>
+      </div>
+      <div slot="other" class="list-footer">
+        <div class="list-footer-btn" @click="closeResult">确定</div>
+      </div>
+
+    </PositionModeBulletBox>
+
+
+    <!--toast弹窗-->
+    <PopupPrompt :popOpen="popOpen" :popClose="popClose" :popType="popType" :popText="popText"/>
+
   </div>
 </transition>
 

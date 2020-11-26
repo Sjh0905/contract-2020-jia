@@ -3653,18 +3653,19 @@ root.methods.openkexian = function(){
 }
 root.methods.openBottonOpener = function(){
 
-  if (!this.openBottleOpen) {
-    let currencyO =  JSON.parse(sessionStorage.getItem("opener_states"))
-    this.openBottleOpen = currencyO
-  }
-  let currencyObj = 1
-  sessionStorage.setItem("opener_states",currencyObj)
-  this.openBottleOpen = currencyObj
+  this.openBottleOpen = true
+
+  // if (!this.openBottleOpen) {
+  //   let currencyO =  JSON.parse(sessionStorage.getItem("opener_states"))
+  //   this.openBottleOpen = currencyO
+  // }
+  // let currencyObj = 1
+  // sessionStorage.setItem("opener_states",currencyObj)
+  // this.openBottleOpen = currencyObj
 
 
 
 
-  // this.openBottleOpen = true
   // sessionStorage 存储布尔值要注意存储 0，1，因为存布尔值时会变成字符串的'true'和'false'
   // sessionStorage.setItem("opener_states",1)
   // this.$router.push({name:'MobileBottleOpener',
