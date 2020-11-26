@@ -122,6 +122,9 @@
 .td-time {
   flex: 0.8;
 }
+.td-time-fenx {
+  flex: 0.2;
+}
 .tar {
   text-align: right;
 }
@@ -276,4 +279,79 @@
 }
 .margin-bot1 {
   margin-bottom: 0.06rem;
+}
+
+
+/*分享海报*/
+.img-width-f {
+  width: 16px;
+}
+
+/*分享海报*/
+.pop-article1 {
+  width: 5rem;
+}
+.prompt-qrcode {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index:300;
+  background: rgba(0,0,0,0.6);
+}
+.show_poster_body{
+  height: auto;
+  padding: 0.2rem 1.3rem;
+  box-sizing: border-box;
+  color: #fff;
+}
+.account_number_input {
+  width:100%;
+  height:40px;
+  line-height: 40px;
+  font-size: 12px;
+  /*padding-left: 15px;*/
+  border-radius:1px;
+  margin-top: 20px;
+  box-sizing: border-box;
+}
+.loading-box {
+  width: 4.7rem;
+  min-height: 8.36rem;
+}
+.img-width {
+  margin-top: 0.1rem;
+  width: 4.9rem;
+  min-height: 8.36rem;
+}
+.prompt-qrcode-box-info {
+  color: #fff;
+  text-align: center;
+  margin-top: 0.1rem;
+  width: 100%;
+  font-size:0.32rem;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+}
+.close_icon{
+  display: block;
+  margin: 0.1rem auto 0;
+  width: 0.8rem;
+}
+.poster-btn{
+  width: 113px;
+  height: 30px;
+  color: #fff;
+}
+.p-cancle-btn{
+  /*border-width: 0;*/
+  /*color: #3576F5;*/
+  color: #fff;
+  background-color: #000000;
+}
+.p-confirm-btn{
+  background-color: transparent;
+  color: #fff;
+  /*color: #3576F5;*/
 }

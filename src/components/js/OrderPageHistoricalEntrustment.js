@@ -6,6 +6,8 @@ root.name = 'OrderPageHistoricalEntrustment'
 root.components = {
   'Loading': resolve => require(['../vue/Loading'], resolve),
   'HiddenDetail': resolve => require(['../vue/OrderPageHistoricalEntrustmentDetail'], resolve),
+  'SharingInvitationPc': resolve => require(['../vue/SharingInvitationPc'], resolve),
+  'PopupPrompt': resolve => require(['../vue/PopupPrompt'], resolve),
 }
 
 /*----------------------------- data ------------------------------*/
@@ -26,7 +28,33 @@ root.data = () => {
     workingTypeMap : {
       MARK_PRICE:"标记价格",
       CONTRACT_PRICE:"最新价格"
-    }
+    },
+
+    // 是否展示海报
+    showPoster: false,
+    initialPosition:0,
+    loadingImage:true,
+    poster_url:'',
+    currencyValue:'庄终于，对我下手了',
+    accounts : [
+      {'a':'庄终于，对我下手了'},
+      {'a':'我命由庄，不由我'},
+      {'a':'这是什么，人间疾苦'},
+      {'a':'一键梭哈的，市价小能手'},
+      {'a':'动如脱兔的，逃顶小能手'},
+      {'a':'掐指一算，今天大赚'},
+      {'a':'勤劳致富，落袋为安'},
+      {'a':'断臂求生的，止损小能手'},
+      {'a':'感觉人生，到达巅峰'},
+      {'a':'能亏才会赚，不信等着看'},
+      {'a':'舍己为人的，反指小能手'},
+      {'a':'多么痛，的领悟'}
+    ],
+    orderId:'',
+    // 信息提示
+    popType: 0,
+    popText: '',
+    promptOpen: false,
   }
 }
 
@@ -36,6 +64,18 @@ root.props.tradinghallLimit = {
 }
 
 /*----------------------------- 计算 ------------------------------*/
+root.watch = {}
+root.watch.currencyValue = function (newVal, oldVal){
+  // let a = newVal
+  // this.getAccount()
+  this.getPosterImage()
+}
+root.watch.picIndex = function (newVal, oldVal){
+  // this.getPosterImage()
+}
+
+
+
 root.computed = {}
 // 历史属性的计算后，排序之类的写在这里
 root.computed.historyOrderComputed = function () {
@@ -58,6 +98,20 @@ root.computed.quoteScale_list = function () {
 root.computed.serverTime = function () {
   return new Date().getTime();
 }
+
+
+root.computed.accountsComputed = function (index,item) {
+  // // 特殊处理
+  // this.accounts.map(item => item.a).indexOf(this.currencyValue)
+  // this.picIndex = this.accounts.map(item => item.a).indexOf(this.currencyValue)
+  // console.info('this.accounts=======aaaaa',c+1)
+  return this.accounts
+}
+root.computed.picIndex = function () {
+  let a = this.accounts.map(item => item.a).indexOf(this.currencyValue) + 1
+  return a || 1
+}
+
 /*----------------------------- 生命周期 ------------------------------*/
 
 
@@ -166,9 +220,96 @@ root.methods.toOrderHistory = function () {
   this.$router.push({name:'historicalEntrust'})
 }
 
+//海报
+// 展示海报
+root.methods.SHOW_POSTER = function (orderId) {
+  this.orderId = orderId
+  this.showPoster = true;
+  this.getPosterImage()
+}
 
+// 隐藏海报
+root.methods.HIDE_POSTER = function () {
+  this.showPoster = false;
+}
+// 获取海报
+root.methods.getPosterImage = function () {
+  // console.info(this.changeDate())
+  // return
+  this.loadingImage=true
+  let params = {
+    orderId:this.orderId,
+    symbol:'BTCUSDT',
+    picIndex:this.picIndex || 0,
+  }
+  this.$http.send('POST_ASSET_SNAPSHOT', {
+    bind: this,
+    params: params,
+    callBack: this.re_getPosterImage,
+    errorHandler: this.error_getPosterImage
+  })
+}
+root.methods.re_getPosterImage = function (res) {
+  if(res.code == 1) {
+    this.showPoster = false;
+    this.popText = '请您先登录再进行分享'
+    this.popType = 0;
+    this.promptOpen = true;
+    return
+  }
+  if(res.code == 2) {
+    this.showPoster = false;
+    this.popText = '参数有误'
+    this.popType = 0;
+    this.promptOpen = true;
+    return
+  }
+  if(res.code == 3) {
+    this.showPoster = false;
+    this.popText = '未查询到此订单'
+    this.popType = 0;
+    this.promptOpen = true;
+    return
+  }
+  if(res.code == 4) {
+    this.showPoster = false;
+    this.popText = '该订单未全部成交不可分享'
+    this.popType = 0;
+    this.promptOpen = true;
+    return
+  }
+  if(res.code == 5) {
+    this.showPoster = false;
+    this.popText = '选择的订单不是开仓单'
+    this.popType = 0;
+    this.promptOpen = true;
+    return
+  }
+  if(res.code == 6) {
+    this.showPoster = false;
+    this.popText = '此时间段内未查询到此订单'
+    this.popType = 0;
+    this.promptOpen = true;
+    return
+  }
+  if(res.code == 200){
+    let urls = res.data
+    setTimeout(function(){
+      this.loadingImage = false
+    }.bind(this),2000)
+    this.poster_url = urls;
+  }
 
+}
 
+// 关闭提示信息
+root.methods.closePrompt = function () {
+  this.promptOpen = false;
+}
+root.methods.error_getPosterImage = function (err) {
+  console.warn('err',err)
+}
+// 2020.11.16. ccc
 /*---------------------- 保留小数 begin ---------------------*/
 root.methods.toFixed = function (num, acc = 8) {
   return this.$globalFunc.accFixed(num, acc)

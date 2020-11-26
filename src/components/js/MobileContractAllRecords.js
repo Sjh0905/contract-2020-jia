@@ -4,6 +4,7 @@ root.name = 'MobileContractAllRecords'
 root.components = {
  'Loading': resolve => require(['../vue/Loading.vue'], resolve),
   'HiddenDetail': resolve => require(['../vue/MobileHistoricalDetails'], resolve),
+  'PopupPrompt': resolve => require(['../vue/PopupPrompt'], resolve),
 }
 /*------------------------------ data -------------------------------*/
 root.data = function () {
@@ -29,7 +30,31 @@ root.data = function () {
     workingTypeMap : {
       MARK_PRICE:"标记价格",
       CONTRACT_PRICE:"最新价格"
-    }
+    },
+    showPoster:false,
+    orderId:'',
+    // 海报url
+    poster_url: '',
+    currencyValue:'庄终于，对我下手了',
+    accounts: [
+      {'a':'庄终于，对我下手了'},
+      {'a':'我命由庄，不由我'},
+      {'a':'这是什么，人间疾苦'},
+      {'a':'一键梭哈的，市价小能手'},
+      {'a':'动如脱兔的，逃顶小能手'},
+      {'a':'掐指一算，今天大赚'},
+      {'a':'勤劳致富，落袋为安'},
+      {'a':'断臂求生的，止损小能手'},
+      {'a':'感觉人生，到达巅峰'},
+      {'a':'能亏才会赚，不信等着看'},
+      {'a':'舍己为人的，反指小能手'},
+      {'a':'多么痛，的领悟'}
+    ],
+    // 信息提示
+    popType: 0,
+    popText: '',
+    promptOpen: false,
+    loadingImage:true,
   }
 }
 
@@ -58,6 +83,11 @@ root.computed = {}
 root.computed.isApp = function () {
   return this.$route.query.isApp ? true : false
 }
+
+// 检验是否是安卓
+root.computed.isAndroid = function () {
+  return this.$store.state.isAndroid ? true : false
+}
 root.computed.serverTime = function () {
   return new Date().getTime();
 }
@@ -77,10 +107,48 @@ root.computed.historyOrderComputed = function () {
 root.computed.mobileInviteCodeComputed = function () {
   return this.mobileInviteCode
 }
+
+
+// 邀请海报
+root.computed.accountsComputed = function (index,item) {
+  // 特殊处理
+  return this.accounts
+}
+
+
+root.computed.picIndex = function () {
+  let a = this.accounts.map(item => item.a).indexOf(this.currencyValue) + 1
+  return a || 1
+}
 /*------------------------------ 观察 -------------------------------*/
 root.watch = {}
+root.watch.currencyValue = function (newVal, oldVal){
+  // let a = newVal
+  // this.getAccount()
+  // this.changeDate()
+  this.getPosterImage()
+}
+root.watch.picIndex = function (newVal, oldVal){
+  // this.getPosterImage()
+}
+/*---
 /*------------------------------ 方法 -------------------------------*/
 root.methods = {}
+//发送海报图片
+root.methods.sendImgToApp = function(){
+  if(this.$route.query.isApp) {
+
+    window.postMessage(JSON.stringify({
+      method: 'toSaveImage',
+      parameters: this.poster_url || ''
+    }))
+
+    // if(!this.$store.state.authState.userId){
+    //
+    //   return
+    // }
+  }
+}
 
 root.methods.jumpToBack = function () {
 
@@ -317,6 +385,91 @@ root.methods.error_getAssetSnapshot = function (err) {
 
 
 
+// 展示海报
+root.methods.SHOW_POSTER = function (orderId) {
+  this.showPoster = true;
+  // this.initialPosition = index
+  this.orderId = orderId
+  this.getPosterImage()
+}
+// 获取海报
+root.methods.getPosterImage = function () {
+  this.loadingImage=true
+  let params = {
+    orderId:this.orderId,
+    symbol:'BTCUSDT',
+    picIndex:this.picIndex || 0,
+  }
+  this.$http.send('POST_ASSET_SNAPSHOT', {
+    bind: this,
+    params: params,
+    callBack: this.re_getPosterImage,
+    errorHandler: this.error_getPosterImage
+  })
+}
+root.methods.re_getPosterImage = function (res) {
+  if(res.code == 1) {
+    this.showPoster = false
+    this.popText = '请您先登录再进行分享'
+    this.popType = 0;
+    this.promptOpen = true;
+    return
+  }
+  if(res.code == 2) {
+    this.showPoster = false
+    this.popText = '参数有误'
+    this.popType = 0;
+    this.promptOpen = true;
+    return
+  }
+  if(res.code == 3) {
+    this.showPoster = false
+    this.popText = '未查询到此订单'
+    this.popType = 0;
+    this.promptOpen = true;
+    return
+  }
+  if(res.code == 4) {
+    this.showPoster = false
+    this.popText = '该订单未全部成交不可分享'
+    this.popType = 0;
+    this.promptOpen = true;
+    return
+  }
+  if(res.code == 5) {
+    this.showPoster = false
+    this.popText = '选择的订单不是开仓单'
+    this.popType = 0;
+    this.promptOpen = true;
+    return
+  }
+  if(res.code == 6) {
+    this.showPoster = false
+    this.popText = '此时间段内未查询到此订单'
+    this.popType = 0;
+    this.promptOpen = true;
+    return
+  }
+  if(res.code == 200){
+    let urls = res.data
+    setTimeout(function(){
+      this.loadingImage = false
+    }.bind(this),2000)
+    this.poster_url = urls;
+  }
+}
+
+// 关闭提示信息
+root.methods.closePrompt = function () {
+  this.promptOpen = false;
+}
+root.methods.error_getPosterImage = function (err) {
+  console.warn('err',err)
+}
+// 隐藏海报
+root.methods.HIDE_POSTER = function () {
+  this.showPoster = false;
+}
 
 /*---------------------- 保留小数 begin ---------------------*/
 root.methods.toFixed = function (num, acc = 8) {

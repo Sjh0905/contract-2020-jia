@@ -36,7 +36,7 @@ root.data = function () {
 
     triggerPrice:'', // 触发价格
     checkPrice:1, // 限价---被动委托，生效时间选择
-    reducePositionsSelected: true,//只减仓状态
+    reducePositionsSelected: false,//只减仓状态
 
     //买卖列表
     buy_sale_list: {},
@@ -3142,6 +3142,13 @@ root.computed.isLogin = function () {
   return this.$store.state.isLogin;
 }
 root.watch = {};
+root.watch.pendingOrderType  = function (){
+  if(this.pendingOrderType == 'limitPrice' || this.pendingOrderType == 'marketPrice') {
+    this.reducePositionsSelected = false
+    return
+  }
+  this.reducePositionsSelected = true
+}
 root.watch.amount = function (newValue, oldValue) {
   let value = newValue.toString();
   // 限制输入位数
