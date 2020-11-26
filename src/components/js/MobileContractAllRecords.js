@@ -134,6 +134,21 @@ root.watch.picIndex = function (newVal, oldVal){
 /*---
 /*------------------------------ 方法 -------------------------------*/
 root.methods = {}
+//发送海报图片
+root.methods.sendImgToApp = function(){
+  if(this.$route.query.isApp) {
+
+    window.postMessage(JSON.stringify({
+      method: 'toSaveImage',
+      parameters: this.poster_url || ''
+    }))
+
+    // if(!this.$store.state.authState.userId){
+    //
+    //   return
+    // }
+  }
+}
 
 root.methods.jumpToBack = function () {
 
