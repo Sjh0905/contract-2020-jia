@@ -185,6 +185,9 @@ root.data = function () {
     marketPriceClick: false, //市价不能多次点击设置
 
     availableBalance:0,
+
+    openBottleOpen:false,  // 开平器组件弹窗
+    positionList:[],
   }
 }
 
@@ -288,6 +291,8 @@ root.components = {
   'PositionModeBulletBox': resolve => require(['../vue/PositionModeBulletBox'], resolve),
   'H5StockCross': resolve => require(['../vue/H5StockCross'], resolve),
   'PopupWindow': resolve => require(['../vue/PopupWindow'], resolve),
+  'MobileBottleOpener': resolve => require(['../vue/MobileBottleOpener'], resolve),
+
 
 }
 
@@ -589,6 +594,7 @@ root.computed.canMore = function () {
   let positionNotionalValue = positionAmt * markPrice
   let buyCanOpen = 0
   let sellCanOpen = 0
+  let openAmountSingle
 
   // 计算notionalAferTrade的值
   // notional after trade = max(abs(position_notional_value + open order's bid_notional + new order's bid_notional), abs(position_notional_value - open order's ask_notional))
@@ -710,6 +716,13 @@ root.computed.canMore = function () {
         }
         return
       }
+      // 将可平仓数量存储到store里面
+      openAmountSingle = {
+        openAmtBuy:buyCanOpen,
+        openAmtSell:sellCanOpen,
+      }
+      this.$store.commit('CHANGE_OPEN_AMOUNT_SINGLE',openAmountSingle)
+
       return this.orderType ? sellCanOpen : buyCanOpen
     }
   }
@@ -805,6 +818,12 @@ root.computed.canMore = function () {
         }
         return
       }
+      // 将可平仓数量存储到store里面
+      openAmountSingle = {
+        openAmtBuy:buyCanOpen,
+        openAmtSell:sellCanOpen,
+      }
+      this.$store.commit('CHANGE_OPEN_AMOUNT_SINGLE',openAmountSingle)
       return this.orderType ? sellCanOpen : buyCanOpen
     }
   }
@@ -831,6 +850,7 @@ root.computed.canBeOpened = function () {
   let sellCanOpen = 0
   let afterTradeBuy = 0
   let afterTradeSell = 0
+  let openAmount
 
   // if(this.marginType == 'CROSSED'){
   // 限价或者限价止损
@@ -884,6 +904,12 @@ root.computed.canBeOpened = function () {
       sellCanOpen =(this.maxNotionalAtCurrentLeverage - (afterTradeShortB + afterTradeLongS)) / this.assumingPriceDouble[1]
     }
     // return this.orderType ? sellCanOpen : buyCanOpen
+    // 将可平仓数量存储到store里面
+    openAmount = {
+      openAmtLong:buyCanOpen,
+      openAmtShort:sellCanOpen,
+    }
+    this.$store.commit('CHANGE_OPEN_AMOUNT',openAmount)
     return [buyCanOpen,sellCanOpen]
   }
   // }
@@ -2129,8 +2155,10 @@ root.methods.positionRisk = function () {
 root.methods.re_positionRisk = function (data) {
   typeof(data) == 'string' && (data = JSON.parse(data));
   if(!data || !data.data || data.data == []) return
-  let filterRecords = []
-  data.data.forEach(v=>{
+
+  let filterRecords = [],records
+  records = data.data
+  records.forEach(v=>{
     if (v.symbol == 'BTCUSDT') {
       this.leverage = v.leverage
       this.$store.commit("CHANGE_LEVERAGE", v.leverage);
@@ -2143,6 +2171,27 @@ root.methods.re_positionRisk = function (data) {
       this.marginModeType = 'quanCang'
     }
   })
+
+  for (let i = 0; i < records.length ; i++) {
+    let v = records[i];
+    if (v.marginType == 'cross' && v.positionAmt != 0 && v.symbol == 'BTCUSDT') {
+      filterRecords.push(v)
+      continue;
+    }
+    //逐仓保证金：isolatedMargin - unrealizedProfit,开仓量或逐仓保证金不为0的仓位才有效
+    if(v.marginType == 'isolated' && v.symbol == 'BTCUSDT'){
+      v.securityDeposit = this.accMinus(v.isolatedMargin,v.unrealizedProfit)
+      // v.securityDeposit = Number(v.isolatedMargin) - Number(v.unrealizedProfit)
+
+      //由于开头判断条件用括号包装，会被编译器解析成声明函数括号，所以前一行代码尾或本行代码头要加分号、或者本行代码改为if判断才行
+      // (v.positionAmt != 0 || v.securityDeposit != 0) && filterRecords.push(v);
+      if((v.positionAmt != 0 || v.securityDeposit != 0) && v.symbol == 'BTCUSDT') {
+        // v.inputMarginPrice = this.toFixed(v.markPrice,2)
+        filterRecords.push(v)
+      }
+    }
+  }
+  this.positionList = filterRecords
 }
 // 调整杠杆接口调取
 root.methods.postLevelrage = function () {
@@ -3603,10 +3652,32 @@ root.methods.openkexian = function(){
   this.$router.go(-1)
 }
 root.methods.openBottonOpener = function(){
-  this.$router.push('MobileBottleOpener')
+
+  if (!this.openBottleOpen) {
+    let currencyO =  JSON.parse(sessionStorage.getItem("opener_states"))
+    this.openBottleOpen = currencyO
+  }
+  let currencyObj = 1
+  sessionStorage.setItem("opener_states",currencyObj)
+  this.openBottleOpen = currencyObj
+
+
+
+
+  // this.openBottleOpen = true
+  // sessionStorage 存储布尔值要注意存储 0，1，因为存布尔值时会变成字符串的'true'和'false'
+  // sessionStorage.setItem("opener_states",1)
+  // this.$router.push({name:'MobileBottleOpener',
+  //   query:{
+  //     isNowPrice:this.isNowPrice,
+  //     positionModeFirst:this.positionModeFirst
+  //   }})
   // this.$router.go(-1)
 }
-
+// 关闭开平器弹窗
+root.methods.closeBottonOpener = function(){
+  this.openBottleOpen = false
+}
 
 root.methods.ToCurrentPage = function(){
   this.$router.push('MobileTradingHallDetail')

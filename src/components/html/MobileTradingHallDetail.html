@@ -442,6 +442,11 @@
   </PopupWindow>
   <!-- 限价市价平仓弹窗 end -->
 
+  <!-- 开平器列表 begin -->
+  <MobileBottleOpener :switch="openBottleOpen" @closeBtn="closeBottonOpener" :isNowPrice ="isNowPrice" :positionModeFirst="positionModeFirst"
+                      :positionList="positionList" :baseScale="baseScale"></MobileBottleOpener>
+  <!-- 开平器列表 end -->
+
   <div v-if="toastNobindShow" class="toast-window-nobind-email">
     <div class="toast-box-nobind-email">
       <div class="memo-toast-box-close-btn-box" @click="closeNobindToast">

@@ -9,6 +9,10 @@ root.props.switch = {
 root.props.close = {
   type: Function
 }
+// H5 关闭弹窗
+root.props.closeBtn = {
+  type: Function
+}
 
 root.props.pop_width = {
   type: Boolean,
@@ -27,7 +31,7 @@ root.props.footerBorderTop = {
 // 最新价格
 root.props.isNowPrice = {
   type: String,
-  default: ''
+  default: '',
 }
 // 单双仓
 root.props.positionModeFirst = {
@@ -37,14 +41,13 @@ root.props.positionModeFirst = {
 // 单双仓
 root.props.positionList = {
   type: Array,
-  default: ['positionList']
+  default: []
 }
 // 精度
 root.props.baseScale = {
   type: Number,
   default: 0
 }
-
 
 /*------------------------------ 组件 ------------------------------*/
 root.components = {
@@ -113,10 +116,16 @@ root.data = function () {
     resultData:{},
     // 禁止频繁点击
     openDisabel:false,
+
   }
 }
 /*------------------------------ 生命周期 -------------------------------*/
 root.created = function () {
+  // if(this.isMobile){
+  //   this.getPositionRisk()
+  //   this._props.isNowPrice = this.$route.query.isNowPrice || ''
+  //   this._props.positionModeFirst = this.$route.query.positionModeFirst || ''
+  // }
   this.positionModeFirst == 'singleWarehouseMode'? this.openerType = 1:this.openerType = 2
   // this.createdArray(6,6)
 
@@ -126,23 +135,26 @@ root.mounted = function () {}
 root.beforeDestroy = function () {}
 /*------------------------------ 计算 -------------------------------*/
 root.computed = {}
+root.computed.show = function () {
+  return this.switch
+}
 // 双仓 多仓 市价可开数量
 root.computed.openAmtLong = function () {
-  return this.$store.state.openAmount.openAmtLong || 0
+  return this.$store.state.openAmount.openAmtLong
 }
 // 双仓 空仓 市价可开数量
 root.computed.openAmtShort = function () {
-  return this.$store.state.openAmount.openAmtShort || 0
+  return this.$store.state.openAmount.openAmtShort
 }
 // 单仓 多仓 市价可开数量
 root.computed.openAmtBuy = function () {
-  return this.$store.state.openAmountSingle.openAmtBuy || 0
+  return this.$store.state.openAmountSingle.openAmtBuy
 }
 // 单仓 空仓 市价可开数量
 root.computed.openAmtSell = function () {
-  return this.$store.state.openAmountSingle.openAmtSell || 0
+  return this.$store.state.openAmountSingle.openAmtSell
 }
-// 检验是否是APP
+// // 检验是否是APP
 root.computed.isApp = function () {
   return this.$route.query.isApp ? true : false
 }
@@ -302,11 +314,11 @@ root.computed.openAmountLong = function () {
 }
 // 双仓可盈多仓均价
 root.computed.averagePriceLong = function () {
-  return Number(this.toFixed(this.averagePr('LONG',this.openAmountLong),2)) || '--'
+  return Number(this.toFixed(this.averagePr('LONG',this.openAmountLong || 1),2)) || '--'
 }
 // 双仓可盈空仓均价
 root.computed.averagePriceShort = function () {
-  return Number(this.toFixed(this.averagePr('SHORT',this.openAmountShort),2)) || '--'
+  return Number(this.toFixed(this.averagePr('SHORT',this.openAmountShort || 1),2)) || '--'
 }
 // 双仓可盈空仓数量
 root.computed.openAmountShort = function () {
@@ -405,6 +417,47 @@ root.watch.positionModeFirst = function () {
 
 /*------------------------------ 方法 -------------------------------*/
 root.methods = {}
+
+// 仓位
+root.methods.getPositionRisk = function () {
+
+  this.$http.send("GET_POSITION_RISK", {
+    bind: this,
+    callBack: this.re_getPositionRisk,
+    errorHandler: this.error_getPositionRisk
+  })
+}
+// 获取记录返回，类型为{}
+root.methods.re_getPositionRisk = function (data) {
+  typeof data === 'string' && (data = JSON.parse(data))
+  if (!data) return
+  let records = data.data,filterRecords = []
+  for (let i = 0; i < records.length ; i++) {
+    let v = records[i];
+    if (v.marginType == 'cross' && v.positionAmt != 0 && v.symbol == 'BTCUSDT') {
+      filterRecords.push(v)
+      continue;
+    }
+    //逐仓保证金：isolatedMargin - unrealizedProfit,开仓量或逐仓保证金不为0的仓位才有效
+    if(v.marginType == 'isolated' && v.symbol == 'BTCUSDT'){
+      v.securityDeposit = this.accMinus(v.isolatedMargin,v.unrealizedProfit)
+      // v.securityDeposit = Number(v.isolatedMargin) - Number(v.unrealizedProfit)
+
+      //由于开头判断条件用括号包装，会被编译器解析成声明函数括号，所以前一行代码尾或本行代码头要加分号、或者本行代码改为if判断才行
+      // (v.positionAmt != 0 || v.securityDeposit != 0) && filterRecords.push(v);
+      if((v.positionAmt != 0 || v.securityDeposit != 0) && v.symbol == 'BTCUSDT') {
+        filterRecords.push(v)
+      }
+    }
+  }
+  this.positionList = filterRecords || []
+  // this.positionList = filterRecords || []
+}
+// 获取记录失败
+root.methods.error_getPositionRisk = function (err) {
+  console.info('err',err)
+}
+
 // 关闭所有弹窗
 root.methods.closeResult = function () {
   this.showResult = false
@@ -942,6 +995,10 @@ root.methods.closeClick = function () {
   this.$emit('close')
   this.clearVal()
 }
+// H5 取消按钮
+root.methods.closeClickBtn = function () {
+    this.$emit('closeBtn')
+}
 // 关闭弹窗清除所有值
 root.methods.clearVal= function () {
   this.takeProfitStep = ''
@@ -959,6 +1016,7 @@ root.methods.clearVal= function () {
 
 // 单仓止盈
 root.methods.stepOrallTakeProfit = function (item) {
+  // 做多 平仓止盈
   if(item.openType=='LONG' && item.stopProfitLong){
     if(!item.stopProfitStepLong){
       return '全部'
@@ -967,6 +1025,7 @@ root.methods.stepOrallTakeProfit = function (item) {
       return '分步（' +item.stopProfitStepLong +'步/'+ item.profitIntervalLong+'点）'
     }
   }
+  // 没开仓 直接平仓止盈
   if(item.openType=='STOP_MARKET' && item.stopProfitLong){
     if(!item.stopProfitStepLong){
       return '全部'
@@ -975,6 +1034,7 @@ root.methods.stepOrallTakeProfit = function (item) {
       return '分步（' +item.stopProfitStepLong +'步/'+ item.profitIntervalLong+'点）'
     }
   }
+  // 没开仓 直接平仓止损
   if(item.openType=='STOP_MARKET' && item.stopProfitShort){
     if(!item.stopProfitStepShort){
       return '全部'
@@ -983,6 +1043,7 @@ root.methods.stepOrallTakeProfit = function (item) {
       return '分步（' + item.stopProfitStepShort + '步/' + item.profitIntervalShort + '点）'
     }
   }
+  // 做空 平仓止损
   if(item.openType=='SHORT' && item.stopProfitShort){
     if(!item.stopProfitStepShort){
       return '全部'
@@ -1097,11 +1158,12 @@ root.methods.popClose = function () {
   this.popOpen = false
 }
 
-// H5 代码
-// 返回交易页
-root.methods.jumpToTradingHallDetail = function () {
-  this.$router.go(-1)
-}
+// // H5 代码
+// // 返回交易页
+// root.methods.show = function () {
+//   // this.$router.go(-1)
+//   this.$emit('close')
+// }
 
 
 

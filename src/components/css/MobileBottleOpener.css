@@ -1,4 +1,29 @@
+
+.popWindow-container {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 400;
+  overflow-y: scroll;
+}
+.popup {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(32, 33, 51 ,0.01);
+  margin: auto;
+  padding: 120px 0;
+  border-radius: 1px;
+  box-shadow: 0px 0px 60px 0px rgba(255, 255, 255, 0.1);
+  /*overflow-y: scroll;*/
+}
+.scroll-box {
+  overflow-y: scroll;
+}
 @media screen and (max-width: 768px) {
+
   /*头部样式*/
   .bottle-opener {
     width: 100%;
@@ -189,7 +214,9 @@
 
 
   /*========== 平仓 begin ==========*/
-
+  .opener-article-closing{
+    padding-bottom: 1.44rem;
+  }
   /*==单仓 ==*/
   .opener-article-closing-con {
     padding: 0.38rem 0.3rem 0.3rem;
@@ -459,7 +486,6 @@
     background: #3576F5;
   }
   /*== 确认 ==*/
-
   /*========== 平仓 begin ==========*/
 
 }

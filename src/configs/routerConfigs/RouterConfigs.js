@@ -985,19 +985,19 @@ root.routes.push({
   caseSensitive: true,
   component: resolve => require(['@/components/vue/MobileCalculator'], resolve),
 }),
-// 开平器页面
-root.routes.push({
-  path: '/index/MobileBottleOpener',
-  name:'MobileBottleOpener',
-  // redirect: '/index/mobileTradingHallDetail',
-  meta: {
-    requireLogin: false,
-    pcname: '',
-    h5name: 'MobileBottleOpener',
-  },
-  caseSensitive: true,
-  component: resolve => require(['@/components/vue/MobileBottleOpener'], resolve),
-}),
+// // 开平器页面
+// root.routes.push({
+//   path: '/index/MobileBottleOpener',
+//   name:'MobileBottleOpener',
+//   // redirect: '/index/mobileTradingHallDetail',
+//   meta: {
+//     requireLogin: false,
+//     pcname: '',
+//     h5name: 'MobileBottleOpener',
+//   },
+//   caseSensitive: true,
+//   component: resolve => require(['@/components/vue/MobileBottleOpener'], resolve),
+// }),
 // 开平器记录
 root.routes.push({
   path: '/index/MobileBottleOpenerList',
