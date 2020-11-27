@@ -483,7 +483,7 @@ root.methods.initViews = function (lang) {
       drawings_access: { type: 'black', tools: [ { name: "Regression Trend" } ] },
       // preset: "mobile",
       // toolbar_bg: '#081724',
-      // toolbar_bg: '#0D111F',
+      toolbar_bg: '#0D111F',
 
       favorites: {
 				intervals: ["1S", "1", "5", "15", "30", "60","120", "240","360","720", "D"],
@@ -526,6 +526,8 @@ root.methods.initViews = function (lang) {
         "paneProperties.bottomMargin": 5,
         // 刻度，分界线，字体颜色
         "scalesProperties.lineColor" : "#1E1F22",
+        "scalesProperties.e" : 0,
+
         "scalesProperties.textColor": "#6B7DA2",
         "timeScale.rightOffset": 5,
 			},
@@ -612,6 +614,9 @@ root.methods.initViews = function (lang) {
 				"scalesProperties.lineColor" : "#1E1F22",
 				"scalesProperties.textColor": "#6B7DA2",
 				"timeScale.rightOffset": 5,
+        "scalesProperties.e" : 0,
+
+        // "scalesProperties.e" : 0,
 
 				// Bars styles
 				"mainSeriesProperties.barStyle.upColor": "red",
