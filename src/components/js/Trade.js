@@ -612,6 +612,8 @@ root.methods.initViews = function (lang) {
 				// 边际（百分比）。 用于自动缩放。
 				"paneProperties.topMargin": 15,
 				"paneProperties.bottomMargin": 8,
+        // "scalesProperties.showLeftScale" : false,//不显示左坐标
+        // "scalesProperties.showRightScale" : false,//不显示右坐标
 				// 刻度，分界线，字体颜色
 				"scalesProperties.lineColor" : "#1E1F22",
 				"scalesProperties.textColor": "#6B7DA2",
