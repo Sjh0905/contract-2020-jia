@@ -693,10 +693,10 @@ root.methods.testNumberPoint = function (ipt) {
 }
 // 开仓数量不能超过可开数量
 root.methods.limitAmount = function () {
-  if(this.positionModeFirst == 'singleWarehouseMode' && Math.abs(this.positionAmt) >= this.openAmtBuy) {
+  if(this.positionModeFirst == 'singleWarehouseMode' && this.longOrShortType==1 && Math.abs(this.positionAmt) >= this.openAmtBuy) {
     return true
   }
-  if(this.positionModeFirst == 'singleWarehouseMode' && Math.abs(this.positionAmt) >= this.openAmtSell) {
+  if(this.positionModeFirst == 'singleWarehouseMode' && this.longOrShortType==1 && Math.abs(this.positionAmt) >= this.openAmtSell) {
     return true
   }
   if(this.positionModeFirst == 'doubleWarehouseMode' && Math.min(this.openAmtLong,this.openAmtShort) <= Number(this.openAmountLong)) {
