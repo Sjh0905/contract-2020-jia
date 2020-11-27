@@ -277,6 +277,11 @@ root.created = function () {
 
   this.$eventBus.listen(this,'GET_BALANCE',this.getBalance)
   this.chainCal = this.$globalFunc.chainCal
+  if(JSON.parse(sessionStorage.getItem("opener_states"))=='0'){
+    this.openBottleOpen = true
+  }
+
+
 }
 
 /*------------------------------ 组件 begin -------------------------------*/
@@ -3659,8 +3664,13 @@ root.methods.openkexian = function(){
   this.$router.go(-1)
 }
 root.methods.openBottonOpener = function(){
+  let openerStatus = sessionStorage.getItem("opener_states")
+  if(openerStatus != null && openerStatus == '1'){
+    this.openBottleOpen = true
+    sessionStorage.setItem("opener_states",0)
+  }
 
-  this.openBottleOpen = true
+
 
   // if (!this.openBottleOpen) {
   //   let currencyO =  JSON.parse(sessionStorage.getItem("opener_states"))

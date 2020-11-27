@@ -940,8 +940,33 @@ root.methods.closeList = function () {
 }
 // 打开开平器列表
 root.methods.openList = function () {
-  this.getRecords()
+  if(!this.isMobile){
+    this.getRecords()
+  }
   if(this.isMobile){
+    // APP使用会调用此段代码
+    if(this.$route.query.isApp) {
+      if(!this.$store.state.authState.userId){
+        window.postMessage(JSON.stringify({
+          method: 'toLogin'
+        }))
+        return
+      }
+
+      window.postMessage(JSON.stringify({
+          method: 'toH5Route',
+          parameters: {
+            url: window.location.origin + '/index/MobileBottleOpenerList?isApp=true&isWhite=true',
+            loading: false,
+            navHide: false,
+            title: '',
+            requireLogin:true,
+            isTransparentNav:true
+          }
+        })
+      );
+      return
+    }
     // 开平器记录
     this.$router.push('MobileBottleOpenerList')
     return
@@ -997,7 +1022,16 @@ root.methods.closeClick = function () {
 }
 // H5 取消按钮
 root.methods.closeClickBtn = function () {
+
+  let openerStatus = JSON.parse(sessionStorage.getItem('opener_states'))
+  if(openerStatus != null && openerStatus == '0'){
     this.$emit('closeBtn')
+    this.clearVal()
+    sessionStorage.setItem('opener_states',1)
+  }
+
+
+  // }
 }
 // 关闭弹窗清除所有值
 root.methods.clearVal= function () {
