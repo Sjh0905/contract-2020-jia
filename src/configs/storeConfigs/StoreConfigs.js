@@ -321,6 +321,23 @@ store.state.closeAmount = {
   positionAmtLong:0,
   positionAmtShort:0
 }
+
+/**
+ * 双仓可开数量  openAmount
+ * @type {Number}
+ */
+store.state.openAmount = {
+  openAmtLong:0,
+  openAmtShort:0
+}
+/**
+ * 单仓可开数量  openAmountSingle
+ * @type {Number}
+ */
+store.state.openAmountSingle = {
+  openAmtBuy:0,
+  openAmtSell:0
+}
 // /**
 //  * 除去逐仓仓位保证金的钱包余额  crossWalletBalance
 //  * @type {Number}
@@ -412,6 +429,24 @@ store.mutations.CHANGE_ASSETS = (state, info) => {
  */
 store.mutations.CHANGE_CLOSE_AMOUNT = (state, info) => {
   state.closeAmount = Object.assign(state.closeAmount,info);
+  // console.log('state.assets=',state.assets);
+}
+
+
+/**
+ * 双仓可开数量  openAmount
+ * @type {Number}
+ */
+store.mutations.CHANGE_OPEN_AMOUNT = (state, info) => {
+  state.openAmount = Object.assign(state.openAmount,info);
+  // console.log('state.assets=',state.assets);
+}
+/**
+ * 单仓可开数量  openAmountSingle
+ * @type {Number}
+ */
+store.mutations.CHANGE_OPEN_AMOUNT_SINGLE = (state, info) => {
+  state.openAmountSingle = Object.assign(state.openAmountSingle,info);
   // console.log('state.assets=',state.assets);
 }
 

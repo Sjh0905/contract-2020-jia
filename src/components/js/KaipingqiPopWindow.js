@@ -9,6 +9,10 @@ root.props.switch = {
 root.props.close = {
   type: Function
 }
+// H5 关闭弹窗
+root.props.closeBtn = {
+  type: Function
+}
 
 root.props.pop_width = {
   type: Boolean,
@@ -27,7 +31,7 @@ root.props.footerBorderTop = {
 // 最新价格
 root.props.isNowPrice = {
   type: String,
-  default: ''
+  default: '',
 }
 // 单双仓
 root.props.positionModeFirst = {
@@ -37,14 +41,13 @@ root.props.positionModeFirst = {
 // 单双仓
 root.props.positionList = {
   type: Array,
-  default: ['positionList']
+  default: []
 }
-// 单双仓
+// 精度
 root.props.baseScale = {
   type: Number,
   default: 0
 }
-
 
 /*------------------------------ 组件 ------------------------------*/
 root.components = {
@@ -113,10 +116,16 @@ root.data = function () {
     resultData:{},
     // 禁止频繁点击
     openDisabel:false,
+
   }
 }
 /*------------------------------ 生命周期 -------------------------------*/
 root.created = function () {
+  // if(this.isMobile){
+  //   this.getPositionRisk()
+  //   this._props.isNowPrice = this.$route.query.isNowPrice || ''
+  //   this._props.positionModeFirst = this.$route.query.positionModeFirst || ''
+  // }
   this.positionModeFirst == 'singleWarehouseMode'? this.openerType = 1:this.openerType = 2
   // this.createdArray(6,6)
 
@@ -126,6 +135,29 @@ root.mounted = function () {}
 root.beforeDestroy = function () {}
 /*------------------------------ 计算 -------------------------------*/
 root.computed = {}
+root.computed.show = function () {
+  return this.switch
+}
+// 双仓 多仓 市价可开数量
+root.computed.openAmtLong = function () {
+  return this.$store.state.openAmount.openAmtLong
+}
+// 双仓 空仓 市价可开数量
+root.computed.openAmtShort = function () {
+  return this.$store.state.openAmount.openAmtShort
+}
+// 单仓 多仓 市价可开数量
+root.computed.openAmtBuy = function () {
+  return this.$store.state.openAmountSingle.openAmtBuy
+}
+// 单仓 空仓 市价可开数量
+root.computed.openAmtSell = function () {
+  return this.$store.state.openAmountSingle.openAmtSell
+}
+// // 检验是否是APP
+root.computed.isApp = function () {
+  return this.$route.query.isApp ? true : false
+}
 // 单仓分步（平仓止盈）
 root.computed.stepPlanList = function () {
   if(!this.testNumber(this.takeProfitStep)) return
@@ -282,11 +314,11 @@ root.computed.openAmountLong = function () {
 }
 // 双仓可盈多仓均价
 root.computed.averagePriceLong = function () {
-  return Number(this.toFixed(this.averagePr('LONG',this.openAmountLong),2)) || '--'
+  return Number(this.toFixed(this.averagePr('LONG',this.openAmountLong || 1),2)) || '--'
 }
 // 双仓可盈空仓均价
 root.computed.averagePriceShort = function () {
-  return Number(this.toFixed(this.averagePr('SHORT',this.openAmountShort),2)) || '--'
+  return Number(this.toFixed(this.averagePr('SHORT',this.openAmountShort || 1),2)) || '--'
 }
 // 双仓可盈空仓数量
 root.computed.openAmountShort = function () {
@@ -385,10 +417,56 @@ root.watch.positionModeFirst = function () {
 
 /*------------------------------ 方法 -------------------------------*/
 root.methods = {}
+
+// 仓位
+root.methods.getPositionRisk = function () {
+
+  this.$http.send("GET_POSITION_RISK", {
+    bind: this,
+    callBack: this.re_getPositionRisk,
+    errorHandler: this.error_getPositionRisk
+  })
+}
+// 获取记录返回，类型为{}
+root.methods.re_getPositionRisk = function (data) {
+  typeof data === 'string' && (data = JSON.parse(data))
+  if (!data) return
+  let records = data.data,filterRecords = []
+  for (let i = 0; i < records.length ; i++) {
+    let v = records[i];
+    if (v.marginType == 'cross' && v.positionAmt != 0 && v.symbol == 'BTCUSDT') {
+      filterRecords.push(v)
+      continue;
+    }
+    //逐仓保证金：isolatedMargin - unrealizedProfit,开仓量或逐仓保证金不为0的仓位才有效
+    if(v.marginType == 'isolated' && v.symbol == 'BTCUSDT'){
+      v.securityDeposit = this.accMinus(v.isolatedMargin,v.unrealizedProfit)
+      // v.securityDeposit = Number(v.isolatedMargin) - Number(v.unrealizedProfit)
+
+      //由于开头判断条件用括号包装，会被编译器解析成声明函数括号，所以前一行代码尾或本行代码头要加分号、或者本行代码改为if判断才行
+      // (v.positionAmt != 0 || v.securityDeposit != 0) && filterRecords.push(v);
+      if((v.positionAmt != 0 || v.securityDeposit != 0) && v.symbol == 'BTCUSDT') {
+        filterRecords.push(v)
+      }
+    }
+  }
+  this.positionList = filterRecords || []
+  // this.positionList = filterRecords || []
+}
+// 获取记录失败
+root.methods.error_getPositionRisk = function (err) {
+  // console.warn('err',err)
+}
+
 // 关闭所有弹窗
 root.methods.closeResult = function () {
   this.showResult = false
+  if(this.isMobile){
+    this.closeClickBtn()
+    return
+  }
   this.closeClick()
+
 }
 // 传参类型
 root.methods.openTypeParams = function () {
@@ -613,7 +691,22 @@ root.methods.testNumberPoint = function (ipt) {
   // if(this.$globalFunc.testNumberPoint(this.fullPointShortEmpty)) return true
   // return false
 }
-
+// 开仓数量不能超过可开数量
+root.methods.limitAmount = function () {
+  if(this.positionModeFirst == 'singleWarehouseMode' && this.longOrShortType==1 && Math.abs(this.positionAmt) >= this.openAmtBuy) {
+    return true
+  }
+  if(this.positionModeFirst == 'singleWarehouseMode' && this.longOrShortType==1 && Math.abs(this.positionAmt) >= this.openAmtSell) {
+    return true
+  }
+  if(this.positionModeFirst == 'doubleWarehouseMode' && Math.min(this.openAmtLong,this.openAmtShort) <= Number(this.openAmountLong)) {
+    return true
+  }
+  if(this.positionModeFirst == 'doubleWarehouseMode' && Math.min(this.openAmtLong,this.openAmtShort) <= Number(this.openAmountShort)) {
+    return true
+  }
+  return false
+}
 // 调用接口
 root.methods.createWithStop = function () {
   this.openDisabel = true
@@ -634,6 +727,13 @@ root.methods.createWithStop = function () {
   //   this.openDisabel = false
   //   return
   // }
+  if(this.limitAmount()){
+    this.popOpen = true;
+    this.popType = 0;
+    this.popText='开仓数量不能超过可开数量'
+    this.openDisabel = false
+    return
+  }
   if(this.noCommit()){
     this.popOpen = true;
     this.popType = 0;
@@ -845,7 +945,37 @@ root.methods.closeList = function () {
 }
 // 打开开平器列表
 root.methods.openList = function () {
-  this.getRecords()
+  if(!this.isMobile){
+    this.getRecords()
+  }
+  if(this.isMobile){
+    // APP使用会调用此段代码
+    if(this.$route.query.isApp) {
+      if(!this.$store.state.authState.userId){
+        window.postMessage(JSON.stringify({
+          method: 'toLogin'
+        }))
+        return
+      }
+
+      window.postMessage(JSON.stringify({
+          method: 'toH5Route',
+          parameters: {
+            url: window.location.origin + '/index/MobileBottleOpenerList?isApp=true&isWhite=true',
+            loading: false,
+            navHide: false,
+            title: '',
+            requireLogin:true,
+            isTransparentNav:true
+          }
+        })
+      );
+      return
+    }
+    // 开平器记录
+    this.$router.push('MobileBottleOpenerList')
+    return
+  }
   this.showList = true
 }
 
@@ -895,6 +1025,19 @@ root.methods.closeClick = function () {
   this.$emit('close')
   this.clearVal()
 }
+// H5 取消按钮
+root.methods.closeClickBtn = function () {
+
+  let openerStatus = JSON.parse(sessionStorage.getItem('opener_states'))
+  if(openerStatus != null && openerStatus == '0'){
+    this.$emit('closeBtn')
+    this.clearVal()
+    sessionStorage.setItem('opener_states',1)
+  }
+
+
+  // }
+}
 // 关闭弹窗清除所有值
 root.methods.clearVal= function () {
   this.takeProfitStep = ''
@@ -908,95 +1051,401 @@ root.methods.clearVal= function () {
   this.StopLossPointEmpty = ''
 }
 
-// 单仓止盈
-root.methods.stepOrallTakeProfit = function (item) {
-  if(item.openType=='LONG' && item.stopProfitLong){
-    if(!item.stopProfitStepLong){
+/* -------------------- 开平器记录列表 begin-------------------- */
+// 止盈计划
+root.methods.stopProfit = function (item) {
+  let stopProfitLong = item.stopProfitLong,
+    stopProfitStepLong = item.stopProfitStepLong,
+    profitIntervalLong = item.profitIntervalLong,
+
+    stopProfitShort = item.stopProfitShort,
+    stopProfitStepShort = item.stopProfitStepShort,
+    profitIntervalShort = item.profitIntervalShort,
+
+    openType = item.openType
+
+  if(stopProfitLong) {
+    if(openType=='LONG') {
+      if(stopProfitStepLong){
+        return '分步（' + stopProfitStepLong +'步/'+ profitIntervalLong+'点）'
+      }
       return '全部'
     }
-    if(item.stopProfitStepLong){
-      return '分步（' +item.stopProfitStepLong +'步/'+ item.profitIntervalLong+'点）'
+    if(openType=='SHORT') {
+      return '--'
     }
-  }
-  if(item.openType=='SHORT' && item.stopProfitShort){
-    if(!item.stopProfitStepShort){
+    if(openType=='DUAL') {
+      if(stopProfitStepLong){
+        return '分步（' + stopProfitStepLong +'步/'+ profitIntervalLong+'点）'
+      }
       return '全部'
     }
-    if(item.stopProfitStepShort) {
-      return '分步（' + item.stopProfitStepShort + '步/' + item.profitIntervalShort + '点）'
+    if(openType=='STOP_MARKET') {
+      if(stopProfitStepLong){
+        return '分步（' +stopProfitStepLong +'步/'+ profitIntervalLong+'点）'
+      }
+      return '全部'
     }
   }
+
+  if(stopProfitShort) {
+    if(openType=='LONG') {
+      return '--'
+    }
+    if(openType=='SHORT') {
+      if(stopProfitStepShort) {
+        return '分步（' + stopProfitStepShort + '步/' + profitIntervalShort + '点）'
+      }
+      return '全部'
+    }
+    if(openType=='DUAL') {
+      if(stopProfitStepShort) {
+        return '分步（' + stopProfitStepShort + '步/' + profitIntervalShort + '点）'
+      }
+      return '全部'
+    }
+    if(openType=='STOP_MARKET') {
+      if(stopProfitStepShort) {
+        return '分步（' + stopProfitStepShort + '步/' + profitIntervalShort + '点）'
+      }
+      return '全部'
+    }
+  }
+
   return '--'
 }
-// 单仓止损
-root.methods.stepOrallLoss = function (item) {
-  if(item.openType =='LONG' && item.stopLossLong){
-    if(!item.stopLossStepLong){
-      return '全部'
+
+// 止盈点数
+root.methods.stopProfitPointe = function (item) {
+  let stopProfitLong = item.stopProfitLong,
+
+    stopProfitShort = item.stopProfitShort,
+
+    openType = item.openType
+
+  if(stopProfitLong) {
+    if(openType=='LONG') {
+      return stopProfitLong
     }
-    if(item.stopLossStepLong) {
-      return '分步（' + item.stopLossStepLong + '步/' + item.lossIntervalLong + '点）'
+    if(openType=='SHORT') {
+      return '--'
+    }
+    if(openType=='DUAL') {
+      return stopProfitLong
+    }
+    if(openType=='STOP_MARKET') {
+      return stopProfitLong
     }
   }
-  if(item.openType=='SHORT' && item.stopLossShort){
-    if(!item.stopLossStepShort){
-      return '全部'
+
+  if(stopProfitShort) {
+    if(openType=='LONG') {
+      return '--'
     }
-    if(item.stopLossStepShort) {
-      return '分步（' + item.stopLossStepShort + '步/' + item.lossIntervalShort + '点）'
+    if(openType=='SHORT') {
+      return stopProfitShort
+    }
+    if(openType=='DUAL') {
+      return stopProfitShort
+    }
+    if(openType=='STOP_MARKET') {
+      return stopProfitShort
     }
   }
   return '--'
 }
 
-// 双仓多仓止盈计划
-root.methods.profitLong = function (item) {
-  if(item.openType=='DUAL' && item.stopProfitLong){
-    if(!item.stopProfitStepLong){
+// 止损计划
+root.methods.stopLoss = function (item) {
+  let stopLossLong = item.stopLossLong,
+    stopLossStepLong = item.stopLossStepLong,
+    lossIntervalLong = item.lossIntervalLong,
+
+    stopLossShort = item.stopLossShort,
+    stopLossStepShort = item.stopLossStepShort,
+    lossIntervalShort = item.lossIntervalShort,
+
+    openType = item.openType
+
+  if(stopLossLong) {
+    if(openType=='LONG') {
+      if(stopLossStepLong){
+        return '分步（' + stopLossStepLong +'步/'+ lossIntervalLong+'点）'
+      }
       return '全部'
     }
-    if(item.stopProfitStepLong) {
-      return '分步（' + item.stopProfitStepLong + '步/' + item.profitIntervalLong + '点）'
+    if(openType=='SHORT') {
+      return '--'
     }
+    if(openType=='DUAL') {
+      if(stopLossStepLong){
+        return '分步（' + stopLossStepLong +'步/'+ lossIntervalLong+'点）'
+      }
+      return '全部'
+    }
+    if(openType=='STOP_MARKET') {
+      if(stopLossStepLong){
+        return '分步（' +stopLossStepLong +'步/'+ lossIntervalLong+'点）'
+      }
+      return '全部'
+    }
+  }
+
+  if(stopLossShort) {
+    if(openType=='LONG') {
+      return '--'
+    }
+    if(openType=='SHORT') {
+      if(stopLossStepShort) {
+        return '分步（' + stopLossStepShort + '步/' + lossIntervalShort + '点）'
+      }
+      return '全部'
+    }
+    if(openType=='DUAL') {
+      if(stopLossStepShort) {
+        return '分步（' + stopLossStepShort + '步/' + lossIntervalShort + '点）'
+      }
+      return '全部'
+    }
+    if(openType=='STOP_MARKET') {
+      if(stopLossStepShort) {
+        return '分步（' + stopLossStepShort + '步/' + lossIntervalShort + '点）'
+      }
+      return '全部'
+    }
+  }
+
+  return '--'
+}
+
+// 止损点数
+root.methods.stopLossPoint = function (item) {
+  let stopLossLong = item.stopLossLong,
+
+    stopLossShort = item.stopLossShort,
+
+    openType = item.openType
+
+  if(stopLossLong) {
+    if(openType=='LONG') {
+      return stopLossLong
+    }
+    if(openType=='SHORT') {
+      return '--'
+    }
+    if(openType=='DUAL') {
+      return stopLossLong
+    }
+    if(openType=='STOP_MARKET') {
+      return stopLossLong
+      return '全部'
+    }
+  }
+
+  if(stopLossShort) {
+    if(openType=='LONG') {
+      return '--'
+    }
+    if(openType=='SHORT') {
+      return stopLossShort
+    }
+    if(openType=='DUAL') {
+      return stopLossShort
+    }
+    if(openType=='STOP_MARKET') {
+      return stopLossShort
+    }
+  }
+
+  return '--'
+}
+
+// 止盈计划 双仓空仓
+root.methods.stopProfitShort = function (item) {
+  let stopProfitShort = item.stopProfitShort,
+    stopProfitStepShort = item.stopProfitStepShort,
+    profitIntervalShort = item.profitIntervalShort,
+
+    openType = item.openType
+
+  if(stopProfitShort) {
+    if(openType=='DUAL') {
+      if(stopProfitStepShort) {
+        return '分步（' + stopProfitStepShort + '步/' + profitIntervalShort + '点）'
+      }
+      return '全部'
+    }
+    if(openType=='STOP_MARKET') {
+      if(stopProfitStepShort) {
+        return '分步（' + stopProfitStepShort + '步/' + profitIntervalShort + '点）'
+      }
+      return '全部'
+    }
+  }
+
+  return '--'
+}
+
+// 止盈点数 双仓空仓
+root.methods.stopProfitPointeShort = function (item) {
+  let stopProfitLong = item.stopProfitLong,
+
+    stopProfitShort = item.stopProfitShort,
+
+    openType = item.openType
+
+  if(stopProfitShort && (openType=='DUAL' || openType=='STOP_MARKET')) {
+    return stopProfitShort
   }
   return '--'
 }
-// 双仓多仓止损计划
-root.methods.lossLong = function (item) {
-  if(item.openType=='DUAL' && item.stopLossLong){
-    if(!item.stopLossStepLong){
+
+// 止损计划 双仓空仓
+root.methods.stopLossShort = function (item) {
+  let stopLossShort = item.stopLossShort,
+    stopLossStepShort = item.stopLossStepShort,
+    lossIntervalShort = item.lossIntervalShort,
+
+    openType = item.openType
+
+  if(stopLossShort) {
+    if(openType=='DUAL' || openType=='STOP_MARKET') {
+      if(stopLossStepShort) {
+        return '分步（' + stopLossStepShort + '步/' + lossIntervalShort + '点）'
+      }
       return '全部'
-    }
-    if(item.stopLossStepLong){
-      return '分步（' +item.stopLossStepLong+'步/'+ item.lossIntervalLong+'点）'
     }
   }
-    return '--'
+  // if(openType=='STOP_MARKET') {
+  //   if(stopLossStepShort) {
+  //     return '分步（' + stopLossStepShort + '步/' + lossIntervalShort + '点）'
+  //   }
+  //   return '全部'
+  // }
+  return '--'
 }
-// 双仓空仓止盈计划
-root.methods.profitEmptyShort = function (item) {
-  if(item.openType=='DUAL' && item.stopProfitShort){
-    if(!item.stopProfitStepShort){
-      return '全部'
-    }
-    if(item.stopProfitShort && item.stopProfitStepShort) {
-      return '分步（' + item.stopProfitStepShort + '步/' + item.profitIntervalShort + '点）'
-    }
+
+// 止损点数 双仓空仓
+root.methods.stopLossPointShort = function (item) {
+  let stopLossShort = item.stopLossShort,
+    openType = item.openType
+
+  if(stopLossShort && (openType=='DUAL' || openType=='STOP_MARKET')) {
+    return stopLossShort
   }
   return '--'
 }
-// 双仓kong仓止损计划
-root.methods.lossEmptyShort = function (item) {
-  if(item.openType=='DUAL' && item.stopLossShort){
-    if(item.stopLossShort && !item.stopLossStepShort){
-      return '全部'
-    }
-    if(item.stopLossShort && item.stopLossStepShort){
-      return '分步（' +item.stopLossStepShort+'步/'+ item.lossIntervalShort+'点）'
-    }
-  }
-  return '--'
-}
+/* -------------------- 开平器记录列表 end -------------------- */
+
+// // 单仓止盈
+// root.methods.stepOrallTakeProfit = function (item) {
+//   // 做多 平仓止盈
+//   if(item.openType=='LONG' && item.stopProfitLong){
+//     if(!item.stopProfitStepLong){
+//       return '全部'
+//     }
+//     if(item.stopProfitStepLong){
+//       return '分步（' +item.stopProfitStepLong +'步/'+ item.profitIntervalLong+'点）'
+//     }
+//   }
+//   // 没开仓 直接平仓止盈
+//   if(item.openType=='STOP_MARKET' && item.stopProfitLong){
+//     if(!item.stopProfitStepLong){
+//       return '全部'
+//     }
+//     if(item.stopProfitStepLong){
+//       return '分步（' +item.stopProfitStepLong +'步/'+ item.profitIntervalLong+'点）'
+//     }
+//   }
+//   // 没开仓 直接平仓止损
+//   if(item.openType=='STOP_MARKET' && item.stopProfitShort){
+//     if(!item.stopProfitStepShort){
+//       return '全部'
+//     }
+//     if(item.stopProfitStepShort) {
+//       return '分步（' + item.stopProfitStepShort + '步/' + item.profitIntervalShort + '点）'
+//     }
+//   }
+//   // 做空 平仓止损
+//   if(item.openType=='SHORT' && item.stopProfitShort){
+//     if(!item.stopProfitStepShort){
+//       return '全部'
+//     }
+//     if(item.stopProfitStepShort) {
+//       return '分步（' + item.stopProfitStepShort + '步/' + item.profitIntervalShort + '点）'
+//     }
+//   }
+//
+//   return '--'
+// }
+// // 单仓止损
+// root.methods.stepOrallLoss = function (item) {
+//   if(item.openType =='LONG' && item.stopLossLong){
+//     if(!item.stopLossStepLong){
+//       return '全部'
+//     }
+//     if(item.stopLossStepLong) {
+//       return '分步（' + item.stopLossStepLong + '步/' + item.lossIntervalLong + '点）'
+//     }
+//   }
+//   if(item.openType=='SHORT' && item.stopLossShort){
+//     if(!item.stopLossStepShort){
+//       return '全部'
+//     }
+//     if(item.stopLossStepShort) {
+//       return '分步（' + item.stopLossStepShort + '步/' + item.lossIntervalShort + '点）'
+//     }
+//   }
+//   return '--'
+// }
+// // 双仓多仓止盈计划
+// root.methods.profitLong = function (item) {
+//   if(item.openType=='DUAL' && item.stopProfitLong){
+//     if(!item.stopProfitStepLong){
+//       return '全部'
+//     }
+//     if(item.stopProfitStepLong) {
+//       return '分步（' + item.stopProfitStepLong + '步/' + item.profitIntervalLong + '点）'
+//     }
+//   }
+//   return '--'
+// }
+// // 双仓多仓止损计划
+// root.methods.lossLong = function (item) {
+//   if(item.openType=='DUAL' && item.stopLossLong){
+//     if(!item.stopLossStepLong){
+//       return '全部'
+//     }
+//     if(item.stopLossStepLong){
+//       return '分步（' +item.stopLossStepLong+'步/'+ item.lossIntervalLong+'点）'
+//     }
+//   }
+//     return '--'
+// }
+// // 双仓空仓止盈计划
+// root.methods.profitEmptyShort = function (item) {
+//   if(item.openType=='DUAL' && item.stopProfitShort){
+//     if(!item.stopProfitStepShort){
+//       return '全部'
+//     }
+//     if(item.stopProfitShort && item.stopProfitStepShort) {
+//       return '分步（' + item.stopProfitStepShort + '步/' + item.profitIntervalShort + '点）'
+//     }
+//   }
+//   return '--'
+// }
+// // 双仓kong仓止损计划
+// root.methods.lossEmptyShort = function (item) {
+//   if(item.openType=='DUAL' && item.stopLossShort){
+//     if(item.stopLossShort && !item.stopLossStepShort){
+//       return '全部'
+//     }
+//     if(item.stopLossShort && item.stopLossStepShort){
+//       return '分步（' +item.stopLossStepShort+'步/'+ item.lossIntervalShort+'点）'
+//     }
+//   }
+//   return '--'
+// }
 
 
 /*---------------  开平器 End  ---------------*/
@@ -1030,6 +1479,18 @@ root.methods.createdArray = function (num=1,stepNum,point ,averagePrice,pointIpt
 root.methods.popClose = function () {
   this.popOpen = false
 }
+
+// // H5 代码
+// // 返回交易页
+// root.methods.show = function () {
+//   // this.$router.go(-1)
+//   this.$emit('close')
+// }
+
+
+
+
+
 
 /*---------------------- 格式化时间 begin ---------------------*/
 // 年月日

@@ -1,0 +1,104 @@
+<div class="bottle-opener-list">
+
+  <!--ios status栏-->
+  <div v-if="(isApp)" class="mobile-status-bar-ios"/>
+  <div v-if="(isApp)" class="mobile-status-bar-bg-ios"/>
+
+  <!--头部-->
+  <div :class="(isApp) ? 'mobile-header-ios' : 'mobile-opener'">
+    <div class="opener-header-title-back-icon" @click="jumpToTradingHallDetail">
+      <img class="opener-header-title-back-icon-img" src="../../assets/back_icon.png" alt="">
+    </div>
+    <div>
+      <div class="bottle-opener-list-title" >开平器记录</div>
+    </div>
+  </div>
+  <!--顶部空条-->
+  <div class="mobile-empty"></div>
+
+  <div class="single-list" v-for="item in openerRecords" :key="item.id">
+    <div class="single-list-title flex-between">
+      <div>{{formatDateUitl(item.createdAt,'YYYY-MM-DD')}}</div>
+      <div>{{formatDateUitlHms(item.createdAt,'hh:mm:ss')}}</div>
+    </div>
+    <div class="single-list-content">
+      <div class="single-list-content-title flex">
+        <div class="single-list-content-title-left">
+          <div>开仓类型</div>
+          <div class="single-list-content-title-white">{{item.openType == 'DUAL'? '双开':'单开'}}</div>
+        </div>
+        <div class="single-list-content-title-right">
+          <div>开仓数量</div>
+          <div class="single-list-content-title-white">{{item.amount || '--'}}</div>
+        </div>
+      </div>
+
+      <div class="single-list-content-con">
+        <div class="single-list-content-con-long" v-if="item.openType=='LONG' || item.openType=='DUAL'">多仓</div>
+        <div class="opener-closing-empty" v-if="item.openType=='SHORT'">空仓</div>
+
+        <div class="single-list-content-take flex">
+          <div class="single-list-content-title-left">
+            <div>止盈点数</div>
+<!--            <div class="single-list-content-title-white" v-if="item.openType=='LONG' || item.openType=='DUAL'">{{item.stopProfitLong || '&#45;&#45;'}}</div>-->
+<!--            <div class="single-list-content-title-white" v-if="item.openType=='SHORT'">{{item.stopProfitShort || '&#45;&#45;'}}</div>-->
+            <div class="single-list-content-title-white">{{stopProfitPointe(item)}}</div>
+          </div>
+          <div class="single-list-content-title-right">
+            <div>止盈计划</div>
+<!--            <div class="single-list-content-title-white" v-if="item.openType=='LONG' || item.openType=='SHORT'">{{stepOrallTakeProfit(item)}}</div>-->
+<!--            <div class="single-list-content-title-white" v-if="item.openType=='DUAL'">{{profitLong(item)}}</div>-->
+            <div class="single-list-content-title-white">{{stopProfit(item)}}</div>
+          </div>
+        </div>
+        <div class="single-list-content-take flex">
+          <div class="single-list-content-title-left">
+            <div>止损点数</div>
+<!--            <div class="single-list-content-title-white" v-if="item.openType=='LONG' || item.openType=='DUAL'">{{item.stopLossLong || '&#45;&#45;'}}</div>-->
+<!--            <div class="single-list-content-title-white" v-if="item.openType=='SHORT'">{{item.stopLossShort || '&#45;&#45;'}}</div>-->
+            <div class="single-list-content-title-white">{{stopLossPoint(item)}}</div>
+          </div>
+          <div class="single-list-content-title-right">
+            <div>止损计划</div>
+<!--            <div class="single-list-content-title-white" v-if="item.openType=='LONG' || item.openType=='SHORT'">{{stepOrallLoss(item)}}</div>-->
+<!--            <div class="single-list-content-title-white" v-if="item.openType=='DUAL'">{{lossLong(item)}}</div>-->
+            <div class="single-list-content-title-white">{{stopLoss(item)}}</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="single-list-content-con mt-empty" v-if="item.openType=='DUAL'">
+        <div class="opener-closing-empty">空仓</div>
+        <div class="single-list-content-take flex">
+          <div class="single-list-content-title-left">
+            <div>止盈点数</div>
+<!--            <div class="single-list-content-title-white">{{item.stopProfitShort || '&#45;&#45;'}}</div>-->
+            <div class="single-list-content-title-white">{{stopProfitPointeShort(item)}}</div>
+          </div>
+          <div class="single-list-content-title-right">
+            <div>止盈计划</div>
+<!--            <div class="single-list-content-title-white">{{profitEmptyShort(item)}}</div>-->
+            <div class="single-list-content-title-white">{{stopProfitShort(item)}}</div>
+          </div>
+        </div>
+        <div class="single-list-content-take flex">
+          <div class="single-list-content-title-left">
+            <div>止损点数</div>
+<!--            <div class="single-list-content-title-white">{{item.stopLossShort || '&#45;&#45;'}}</div>-->
+            <div class="single-list-content-title-white">{{stopLossPointShort(item)}}</div>
+          </div>
+          <div class="single-list-content-title-right">
+            <div>止损计划</div>
+<!--            <div class="single-list-content-title-white">{{lossEmptyShort(item)}}</div>-->
+            <div class="single-list-content-title-white">{{stopLossShort(item)}}</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="no-records" v-if="openerRecords.length == 0">
+    <img class="no-records-img" src="../../assets/noOrders.png" alt="">
+    <span class="no-records-text">暂无记录</span>
+  </div>
+</div>

@@ -541,6 +541,7 @@ root.computed.canMore = function () {
   let positionNotionalValue = positionAmt * markPrice
   let buyCanOpen = 0
   let sellCanOpen = 0
+  let openAmountSingle
 
   // 计算notionalAferTrade的值
   // notional after trade = max(abs(position_notional_value + open order's bid_notional + new order's bid_notional), abs(position_notional_value - open order's ask_notional))
@@ -662,6 +663,12 @@ root.computed.canMore = function () {
         }
         return
       }
+      // 将可平仓数量存储到store里面
+      openAmountSingle = {
+        openAmtBuy:buyCanOpen,
+        openAmtSell:sellCanOpen,
+      }
+      this.$store.commit('CHANGE_OPEN_AMOUNT_SINGLE',openAmountSingle)
       return this.orderType ? sellCanOpen : buyCanOpen
     }
   }
@@ -757,6 +764,12 @@ root.computed.canMore = function () {
         }
         return
       }
+      // 将可平仓数量存储到store里面
+      openAmountSingle = {
+        openAmtBuy:buyCanOpen,
+        openAmtSell:sellCanOpen,
+      }
+      this.$store.commit('CHANGE_OPEN_AMOUNT_SINGLE',openAmountSingle)
       return this.orderType ? sellCanOpen : buyCanOpen
     }
   }
@@ -784,6 +797,7 @@ root.computed.canBeOpened = function () {
   let sellCanOpen = 0
   let afterTradeBuy = 0
   let afterTradeSell = 0
+  let openAmount
 
   // if(this.marginType == 'CROSSED'){
     // 限价或者限价止损
@@ -835,6 +849,12 @@ root.computed.canBeOpened = function () {
       if(afterTradeSell > this.maxNotionalAtCurrentLeverage) {
         sellCanOpen =(this.maxNotionalAtCurrentLeverage - (afterTradeShortB + afterTradeLongS)) / this.assumingPrice
       }
+      // 将可平仓数量存储到store里面
+      openAmount = {
+        openAmtLong:buyCanOpen,
+        openAmtShort:sellCanOpen,
+      }
+      this.$store.commit('CHANGE_OPEN_AMOUNT',openAmount)
       return this.orderType ? sellCanOpen : buyCanOpen
     }
   // }
@@ -1090,7 +1110,7 @@ root.methods.openSplicedFrame = function (btnText,callFuncName) {
   }
   //当前市价
   if(this.pendingOrderType.indexOf('market') > -1){
-    this.splicedFrameText += ('价格为当前市价，')
+    this.splicedFrameText += ('交易方式为市价，')
   }
   //数量
   this.splicedFrameText += ('数量' + this.amount + this.symbol.split('_')[0])

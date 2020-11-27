@@ -40,6 +40,7 @@
           <span>{{$t("pupupWindow.title")}}</span>
         </slot>
         <img src="../../assets/cancle_white.png" alt="" v-if="closeBtnShow" class="vertical-middle" @click="closeClick">
+        <img src="../../assets/弹窗-取消-icon@2x.png" alt="" v-if="!closeBtnShow" class="vertical-middle" @click="closeClick">
       </div>
       <div class="mobilePopWindow-article">
         <slot name="article">
