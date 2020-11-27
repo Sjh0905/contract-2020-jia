@@ -182,6 +182,8 @@ root.methods.initViews = function (lang) {
 			supported_resolutions: ['1', '5', '15', '30', '60','120', '240','360','720', 'D'],
 			// supported_resolutions :['1S',"1","60","D", "2D", "3D"],
 			data_status: 'streaming',
+      e:0,
+
 		};
 		setTimeout(function () {
 			onSymbolResolvedCallback(symbol);
@@ -614,10 +616,8 @@ root.methods.initViews = function (lang) {
 				"scalesProperties.lineColor" : "#1E1F22",
 				"scalesProperties.textColor": "#6B7DA2",
 				"timeScale.rightOffset": 5,
-        "scalesProperties.e" : 0,
-
-        // "scalesProperties.e" : 0,
-
+        "scalesProperties.linewidth" : 0,
+        "scalesProperties.lineheight" : 0,
 				// Bars styles
 				"mainSeriesProperties.barStyle.upColor": "red",
 				"mainSeriesProperties.barStyle.downColor": "#F60076",
