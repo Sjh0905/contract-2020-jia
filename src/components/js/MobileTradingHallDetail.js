@@ -277,7 +277,10 @@ root.created = function () {
 
   this.$eventBus.listen(this,'GET_BALANCE',this.getBalance)
   this.chainCal = this.$globalFunc.chainCal
-  if(JSON.parse(sessionStorage.getItem("opener_states"))=='0'){
+  if(JSON.parse(sessionStorage.getItem("opener_states")) == null){
+    sessionStorage.setItem("opener_states",1)
+  }
+  if(JSON.parse(sessionStorage.getItem("opener_states")) =='0'){
     this.openBottleOpen = true
   }
 
