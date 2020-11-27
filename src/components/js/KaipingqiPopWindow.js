@@ -1330,7 +1330,7 @@ root.methods.stopLossPointShort = function (item) {
   let stopLossShort = item.stopLossShort,
     openType = item.openType
 
-  if(stopLossShort || (openType=='DUAL' || openType=='STOP_MARKET')) {
+  if(stopLossShort && (openType=='DUAL' || openType=='STOP_MARKET')) {
     return stopLossShort
   }
   return '--'

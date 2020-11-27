@@ -300,9 +300,7 @@ root.methods.stopProfitShort = function (item) {
 
 // 止盈点数 双仓空仓
 root.methods.stopProfitPointeShort = function (item) {
-  let stopProfitLong = item.stopProfitLong,
-
-    stopProfitShort = item.stopProfitShort,
+  let stopProfitShort = item.stopProfitShort,
 
     openType = item.openType
 
@@ -342,7 +340,7 @@ root.methods.stopLossPointShort = function (item) {
   let stopLossShort = item.stopLossShort,
     openType = item.openType
 
-  if(stopLossShort || (openType=='DUAL' || openType=='STOP_MARKET')) {
+  if(stopLossShort && (openType=='DUAL' || openType=='STOP_MARKET')) {
     return stopLossShort
   }
   return '--'
