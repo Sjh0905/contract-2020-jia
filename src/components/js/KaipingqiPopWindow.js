@@ -460,11 +460,11 @@ root.methods.error_getPositionRisk = function (err) {
 
 // 关闭所有弹窗
 root.methods.closeResult = function () {
+  this.showResult = false
   if(this.isMobile){
     this.closeClickBtn()
     return
   }
-  this.showResult = false
   this.closeClick()
 
 }
