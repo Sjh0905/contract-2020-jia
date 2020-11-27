@@ -61943,7 +61943,7 @@ function(t, e, i) {
     i(492),
     n = i(2),
     s = i(106).setMouseEventHandler,
-    o.HEIGHT = 1,
+    o.HEIGHT = 0,
     o.prototype.hide = function() {
         this.jqRow.addClass("js-hidden")
     },
