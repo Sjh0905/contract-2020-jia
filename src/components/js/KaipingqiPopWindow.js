@@ -460,8 +460,13 @@ root.methods.error_getPositionRisk = function (err) {
 
 // 关闭所有弹窗
 root.methods.closeResult = function () {
+  if(this.isMobile){
+    this.closeClickBtn()
+    return
+  }
   this.showResult = false
   this.closeClick()
+
 }
 // 传参类型
 root.methods.openTypeParams = function () {
