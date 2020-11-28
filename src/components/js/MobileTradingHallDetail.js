@@ -993,18 +993,15 @@ root.computed.symbol = function () {
 root.computed.capitalSymbol = function () {
   return this.$globalFunc.toOnlyCapitalLetters(this.symbol);
 }
-
 root.computed.name = function () {
   return this.$store.state.symbol.split('_')[1];
 }
-
 //页面功能模块显示逻辑配置信息
 root.computed.positionModeConfigs = function () {
   let data = tradingHallData.positionModeConfigs;
   // console.log(data);
   return data
 }
-
 // 实时价格
 root.computed.isNowPrice = function () {
 
@@ -1013,7 +1010,6 @@ root.computed.isNowPrice = function () {
   document.title = nowPrice+" "+this.symbol.replace('_', '/')+" "+this.$t('document_title');
   return (nowPrice || this.latestPriceVal).toString();//当nowPrice为 0 或者 undefined时返回latestPriceVal，避免出现0
 }
-
 // 实时价格的升降
 root.computed.direction = function () {
 
@@ -1268,7 +1264,7 @@ root.methods.postFullStop = function () {
       reduceOnly: this.reducePositionsSelected ? true : false,
       orderSide: this.orderType ? 'SELL':'BUY',
       stopPrice: this.triggerPrice,
-      symbol: "BTCUSDT",
+      symbol: this.capitalSymbol,
       timeInForce: this.effectiveTime,
       orderType: (this.orderType && Number(this.triggerPrice) < latestOrMarkPrice) || (!this.orderType && (Number(this.triggerPrice) >= latestOrMarkPrice)) ? "STOP" : "TAKE_PROFIT",
       workingType: this.latestPrice == '最新'? 'CONTRACT_PRICE':'MARK_PRICE',
@@ -1283,7 +1279,7 @@ root.methods.postFullStop = function () {
       reduceOnly: this.reducePositionsSelected ? true : false,
       orderSide: this.orderType ? 'SELL':'BUY',
       stopPrice: this.triggerPrice,
-      symbol: "BTCUSDT",
+      symbol: this.capitalSymbol,
       orderType: (this.orderType && (Number(this.triggerPrice) < latestOrMarkPrice)) || (!this.orderType && (Number(this.triggerPrice) >= latestOrMarkPrice)) ? "STOP_MARKET" : "TAKE_PROFIT_MARKET",
       workingType: this.latestPrice == '最新'? 'CONTRACT_PRICE':'MARK_PRICE',
     }
@@ -1297,7 +1293,7 @@ root.methods.postFullStop = function () {
       quantity: Number(this.amount),
       orderSide: this.orderType ? 'SELL':'BUY',
       stopPrice: this.triggerPrice,
-      symbol: "BTCUSDT",
+      symbol: this.capitalSymbol,
       timeInForce: this.effectiveTime,
       orderType: ((this.orderType && (Number(this.triggerPrice) < latestOrMarkPrice)) || (!this.orderType && (Number(this.triggerPrice) >= latestOrMarkPrice))) ? 'STOP' : 'TAKE_PROFIT',
       workingType: this.latestPrice == '最新'? 'CONTRACT_PRICE':'MARK_PRICE',
@@ -1311,7 +1307,7 @@ root.methods.postFullStop = function () {
       quantity: Number(this.amount),
       orderSide: this.orderType ? 'SELL':'BUY',
       stopPrice: this.triggerPrice,
-      symbol: "BTCUSDT",
+      symbol: this.capitalSymbol,
       orderType: ((!this.orderType && Number(this.triggerPrice) < latestOrMarkPrice) || (this.orderType && Number(this.triggerPrice) >= latestOrMarkPrice)) ? "TAKE_PROFIT_MARKET" : "STOP_MARKET",
       workingType: this.latestPrice == '最新'? 'CONTRACT_PRICE':'MARK_PRICE',
     }
@@ -1325,7 +1321,7 @@ root.methods.postFullStop = function () {
       quantity: Number(this.amount),
       orderSide: this.orderType ? 'SELL':'BUY',
       stopPrice: this.triggerPrice,
-      symbol: "BTCUSDT",
+      symbol: this.capitalSymbol,
       timeInForce: this.effectiveTime,
       orderType: ((this.orderType && Number(this.triggerPrice) < latestOrMarkPrice)||(!this.orderType && Number(this.triggerPrice) >= latestOrMarkPrice)) ? 'STOP':'TAKE_PROFIT',
       workingType: this.latestPrice == '最新'? 'CONTRACT_PRICE':'MARK_PRICE',
@@ -1339,7 +1335,7 @@ root.methods.postFullStop = function () {
       quantity: Number(this.amount),
       orderSide: this.orderType ? 'SELL':'BUY',
       stopPrice: this.triggerPrice,
-      symbol: "BTCUSDT",
+      symbol: this.capitalSymbol,
       orderType: ((this.orderType && Number(this.triggerPrice) < latestOrMarkPrice) || (!this.orderType && Number(this.triggerPrice) >=  latestOrMarkPrice)) ? "STOP_MARKET" : "TAKE_PROFIT_MARKET",
       workingType: this.latestPrice == '最新'? 'CONTRACT_PRICE':'MARK_PRICE',
     }
@@ -1477,7 +1473,7 @@ root.methods.postOrdersCreate = function () {
       reduceOnly: this.reducePositionsSelected ? true : false,
       orderSide: this.orderType ? 'SELL':'BUY',
       stopPrice: null,
-      symbol: 'BTCUSDT',
+      symbol: this.capitalSymbol,
       timeInForce: this.effectiveTime,
       orderType: "LIMIT",
       workingType: null
@@ -1493,7 +1489,7 @@ root.methods.postOrdersCreate = function () {
       quantity: Number(this.amount),
       reduceOnly: this.reducePositionsSelected ? true : false,
       orderSide: this.orderType ? 'SELL':'BUY',
-      symbol: 'BTCUSDT',
+      symbol: this.capitalSymbol,
       orderType: "MARKET",
     }
   }
@@ -1506,7 +1502,7 @@ root.methods.postOrdersCreate = function () {
       quantity: Number(this.amount),
       // reduceOnly: this.reducePositionsSelected ? true : false,
       orderSide: this.orderType ? 'SELL':'BUY',
-      symbol: 'BTCUSDT',
+      symbol: this.capitalSymbol,
       timeInForce: this.effectiveTime,
       orderType: "LIMIT",
     }
@@ -1520,7 +1516,7 @@ root.methods.postOrdersCreate = function () {
       quantity: Number(this.amount),
       // reduceOnly: this.reducePositionsSelected ? true : false,
       orderSide: this.orderType ? 'SELL':'BUY',
-      symbol: 'BTCUSDT',
+      symbol: this.capitalSymbol,
       orderType: "MARKET",
     }
   }
@@ -1631,7 +1627,7 @@ root.methods.re_postOrdersCreate = function (data) {
   this.popText = '下单失败';
 }
 root.methods.error_postOrdersCreate = function (err) {
-  console.info('err======',err)
+  // console.info('err======',err)
 }
 
 // 平仓
@@ -1656,7 +1652,7 @@ root.methods.postOrdersPosition = function () {
       quantity: Number(this.amount),
       orderSide: this.orderType ? 'SELL':'BUY',
       stopPrice: null,
-      symbol: "BTCUSDT",
+      symbol: this.capitalSymbol,
       timeInForce: this.effectiveTime,
       orderType: "LIMIT",
       workingType: null,
@@ -1670,7 +1666,7 @@ root.methods.postOrdersPosition = function () {
       quantity: Number(this.amount),
       orderSide: this.orderType ? 'SELL':'BUY',
       stopPrice: null,
-      symbol: "BTCUSDT",
+      symbol: this.capitalSymbol,
       orderType: "MARKET",
     }
   }
@@ -1818,7 +1814,7 @@ root.methods.re_postOrdersPosition = function (data) {
   this.popText = '下单失败';
 }
 root.methods.error_postOrdersPosition = function (err) {
-  console.info('err====',err)
+  // console.info('err====',err)
 }
 
 
@@ -1887,7 +1883,7 @@ root.methods.getMarkPricesAndCapitalRates = function () {
   this.$http.send('GET_MARKET_PRICE',{
     bind: this,
     query:{
-      symbol:this.symbol
+      symbol:this.capitalSymbol
     },
     callBack: this.re_getMarkPricesAndCapitalRates,
     errorHandler:this.error_getMarkPricesAndCapitalRates
@@ -2060,7 +2056,7 @@ root.methods.marginModeConfirm = function () {
   this.$http.send('POST_MARGIN_TYPE',{
     bind: this,
     params:{
-      "symbol": "BTCUSDT",
+      "symbol": this.capitalSymbol,
       "marginType": this.marginType == 'ISOLATED' ? "CROSSED": "ISOLATED"
     },
     callBack: this.re_marginModeConfirm,
@@ -2280,7 +2276,7 @@ root.methods.getLatestrice = function () {
   this.$http.send('GET_TICKER_PIRCE',{
     bind: this,
     query:{
-      symbol:this.symbol
+      symbol:this.capitalSymbol
     },
     callBack: this.re_getLatestrice,
     errorHandler:this.error_getLatestrice
@@ -2317,7 +2313,7 @@ root.methods.getDepth = function () {
   this.$http.send('GET_DEPTH', {
     bind: this,
     query:{
-      symbol:this.symbol,
+      symbol:this.capitalSymbol,
       limit: 20
     },
     callBack: this.re_getDepth
@@ -2339,7 +2335,7 @@ root.methods.re_getDepth = function (data) {
 root.methods.getAggTrades = function () {
   let query = {
     // symbol: this.symbol
-    symbol: this.symbol,
+    symbol: this.capitalSymbol,
     limit:80
   };
   this.$http.send("GET_AGG_TRADES", {
@@ -2672,7 +2668,7 @@ root.methods.tradeMarket = function (popIdenOpen,type) {
     return
   }
   let params = {
-    symbol: this.symbol,
+    symbol: this.capitalSymbol,
     price: this.price,
     amount: this.amount,
     type: type,
@@ -3308,7 +3304,7 @@ root.methods.getOrder = function () {
       bind: this,
       params: {
         // symbol: 'BTC_USD'
-        symbol: this.symbol
+        symbol: this.capitalSymbol
       },
       callBack: this.re_getOrder,
       errorHandler: this.error_getOrder,
@@ -3589,7 +3585,7 @@ root.methods.closeLatestFlag = function () {
 root.methods.GET_LATEST_DEAL = function () {
   this.$http.send('GET_SYMBOL_TRADE', {
     bind: this,
-    params: {symbol: this.symbol},
+    params: {symbol: this.capitalSymbol},
     callBack: this.RE_GET_LATEST_DEAL
   });
 }

@@ -218,6 +218,10 @@ root.computed.serverTime = function () {
 root.computed.currSymbol = function () {
   return this.$store.state.symbol;
 }
+//不加下划线币对
+root.computed.capitalSymbol = function () {
+  return this.$globalFunc.toOnlyCapitalLetters(this.currSymbol);
+}
 // 当前socket订阅货币对
 root.computed.subscribeSymbol = function () {
   return this.$globalFunc.toOnlyCapitalLetters(this.currSymbol);
@@ -352,7 +356,7 @@ root.methods.commitModifyMargin = function () {
   this.$http.send("POST_POSITION_MARGIN", {
     bind: this,
     params: {
-      symbol: this.symbol,
+      symbol: this.capitalSymbol,
       positionSide: this.positionSide,
       amount:this.styleType == 1? this.increaseAmount : this.reduceAmount,
       type:this.styleType,  // 1是增加逐仓保障金；2 是减少逐仓保证金
@@ -1201,7 +1205,7 @@ root.methods.marketPrice = function (v) {
     quantity: Math.abs(item.positionAmt),
     orderSide: (item.positionAmt<0) ? 'BUY':'SELL',
     stopPrice: null,
-    symbol: "BTCUSDT",
+    symbol: this.capitalSymbol,
     orderType: "MARKET",
   }
   this.$http.send("POST_ORDERS_POSITION", {
@@ -1319,7 +1323,7 @@ root.methods.checkPrice = function () {
     quantity: Math.abs(item.positionAmt),
     orderSide: (item.positionAmt > 0) ? 'SELL':'BUY',
     // stopPrice: null,
-    symbol: "BTCUSDT",
+    symbol: this.capitalSymbol,
     timeInForce: this.effectiveTime,
     orderType: "LIMIT",
     // workingType: null,

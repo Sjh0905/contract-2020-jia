@@ -311,6 +311,11 @@ root.computed.maxPosition = function () {
 root.computed.symbol = function () {
   return this.$store.state.symbol;
 }
+//不加下划线币对
+root.computed.capitalSymbol = function () {
+  return this.$globalFunc.toOnlyCapitalLetters(this.symbol);
+}
+
 // 当前socket订阅货币对
 root.computed.subscribeSymbol = function () {
   return this.$store.state.subscribeSymbol;
@@ -516,7 +521,7 @@ root.methods.initTicket24Hr = function () {
   this.$http.send('GET_TICKER_24HR',{
     bind: this,
     query:{
-      symbol:this.symbol
+      symbol:this.capitalSymbol
     },
     callBack: this.re_initTicket24Hr,
     errorHandler:this.error_initTicket24Hr
@@ -552,7 +557,7 @@ root.methods.getMarkPricesAndCapitalRates = function () {
   this.$http.send('GET_MARKET_PRICE',{
     bind: this,
     query:{
-      symbol:this.symbol
+      symbol:this.capitalSymbol
     },
     callBack: this.re_getMarkPricesAndCapitalRates,
     errorHandler:this.error_getMarkPricesAndCapitalRates
@@ -577,7 +582,7 @@ root.methods.getLatestrice = function () {
   this.$http.send('GET_TICKER_PIRCE',{
     bind: this,
     query:{
-      symbol:this.symbol
+      symbol:this.capitalSymbol
     },
     callBack: this.re_getLatestrice,
     errorHandler:this.error_getLatestrice
@@ -645,7 +650,7 @@ root.methods.getDepth = function () {
   this.$http.send('GET_DEPTH', {
     bind: this,
     query:{
-      symbol:this.symbol,
+      symbol:this.capitalSymbol,
       limit: 50
     },
     callBack: this.re_getDepth
@@ -667,7 +672,7 @@ root.methods.re_getDepth = function (data) {
 root.methods.getAggTrades = function () {
   let query = {
     // symbol: this.symbol
-    symbol: this.symbol,
+    symbol: this.capitalSymbol,
     limit:80
   };
   this.$http.send("GET_AGG_TRADES", {
@@ -773,7 +778,7 @@ root.methods.getOrder = function () {
   this.$http.send('GET_CURRENT_DELEGATION', {
     bind: this,
     query: {
-      symbol:'BTCUSDT',
+      symbol:this.capitalSymbol,
       timestamp:this.serverTime,
       orderId:'1231212'
     },
@@ -849,7 +854,7 @@ root.methods.marginModeConfirm = function () {
   this.$http.send('POST_MARGIN_TYPE',{
     bind: this,
     params:{
-      "symbol": "BTCUSDT",
+      "symbol": this.capitalSymbol,
       "marginType": this.marginType == 'ISOLATED' ? "CROSSED": "ISOLATED"
     },
     callBack: this.re_marginModeConfirm,
@@ -1410,7 +1415,7 @@ root.methods.postLevelrage = function () {
   this.$http.send('POST_LEVELRAGE',{
     bind: this,
     params:{
-      "symbol":"BTCUSDT",
+      "symbol":this.capitalSymbol,
       "leverage": this.value,
     },
     callBack: this.re_postLevelrage

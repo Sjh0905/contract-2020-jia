@@ -90,7 +90,14 @@ root.computed.quoteScale_list = function () {
   })
   return quoteScale_obj;
 }
-
+// 当前货币对
+root.computed.symbol = function () {
+  return this.$store.state.symbol;
+}
+//不加下划线币对
+root.computed.capitalSymbol = function () {
+  return this.$globalFunc.toOnlyCapitalLetters(this.symbol);
+}
 
 /*----------------------------- 方法 ------------------------------*/
 
@@ -153,7 +160,7 @@ root.methods.getOrder = function () {
   this.$http.send('GET_CURRENT_DELEGATION', {
     bind: this,
     query: {
-      symbol:'BTCUSDT',
+      symbol:this.capitalSymbol,
       timestamp:this.serverTime,
       orderId:'1231212'
     },

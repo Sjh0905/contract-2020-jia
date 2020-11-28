@@ -54,9 +54,13 @@ root.computed.name = function () {
 root.computed.amountName = function () {
 	return this.$store.state.symbol.split('_')[0];
 }
-
+//加下划线币对
 root.computed.symbol = function () {
-	return this.$store.state.symbol;
+  return this.$store.state.symbol;
+}
+//不加下划线币对
+root.computed.capitalSymbol = function () {
+  return this.$globalFunc.toOnlyCapitalLetters(this.symbol);
 }
 // 当前socket订阅货币对
 root.computed.subscribeSymbol = function () {
@@ -153,7 +157,7 @@ root.methods.tickCache = function () {
   return //TODO 暂时不用这个，父组件有了
   let params = {
     // symbol: this.symbol
-    symbol: 'BTCUSDT',
+    symbol: this.capitalSymbol,
     limit:80
     // fromId: '26129'
   };
