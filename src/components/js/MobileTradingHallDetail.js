@@ -2152,6 +2152,32 @@ root.methods.changeReducePositions = function(){
 root.methods.getIndex = function (index) {
   this.recordsIndex = index
 }
+//设置开平器仓位数据
+root.methods.setKaipingqiPos = function(records){
+
+  let filterRecords = []
+
+  for (let i = 0; i < records.length ; i++) {
+    let v = records[i];
+    if (v.marginType == 'cross' && v.positionAmt != 0 && v.symbol == 'BTCUSDT') {
+      filterRecords.push(v)
+      continue;
+    }
+    //逐仓保证金：isolatedMargin - unrealizedProfit,开仓量或逐仓保证金不为0的仓位才有效
+    if(v.marginType == 'isolated' && v.symbol == 'BTCUSDT'){
+      v.securityDeposit = this.accMinus(v.isolatedMargin,v.unrealizedProfit)
+      // v.securityDeposit = Number(v.isolatedMargin) - Number(v.unrealizedProfit)
+
+      //由于开头判断条件用括号包装，会被编译器解析成声明函数括号，所以前一行代码尾或本行代码头要加分号、或者本行代码改为if判断才行
+      // (v.positionAmt != 0 || v.securityDeposit != 0) && filterRecords.push(v);
+      if((v.positionAmt != 0 || v.securityDeposit != 0) && v.symbol == 'BTCUSDT') {
+        // v.inputMarginPrice = this.toFixed(v.markPrice,2)
+        filterRecords.push(v)
+      }
+    }
+  }
+  this.positionList = filterRecords
+}
 
 // 获取仓位信息
 root.methods.positionRisk = function () {
@@ -2180,26 +2206,7 @@ root.methods.re_positionRisk = function (data) {
     }
   })
 
-  for (let i = 0; i < records.length ; i++) {
-    let v = records[i];
-    if (v.marginType == 'cross' && v.positionAmt != 0 && v.symbol == 'BTCUSDT') {
-      filterRecords.push(v)
-      continue;
-    }
-    //逐仓保证金：isolatedMargin - unrealizedProfit,开仓量或逐仓保证金不为0的仓位才有效
-    if(v.marginType == 'isolated' && v.symbol == 'BTCUSDT'){
-      v.securityDeposit = this.accMinus(v.isolatedMargin,v.unrealizedProfit)
-      // v.securityDeposit = Number(v.isolatedMargin) - Number(v.unrealizedProfit)
-
-      //由于开头判断条件用括号包装，会被编译器解析成声明函数括号，所以前一行代码尾或本行代码头要加分号、或者本行代码改为if判断才行
-      // (v.positionAmt != 0 || v.securityDeposit != 0) && filterRecords.push(v);
-      if((v.positionAmt != 0 || v.securityDeposit != 0) && v.symbol == 'BTCUSDT') {
-        // v.inputMarginPrice = this.toFixed(v.markPrice,2)
-        filterRecords.push(v)
-      }
-    }
-  }
-  this.positionList = filterRecords
+  this.setKaipingqiPos(records);
 }
 // 调整杠杆接口调取
 root.methods.postLevelrage = function () {
