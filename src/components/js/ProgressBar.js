@@ -327,6 +327,10 @@ root.computed.positionAmtShort = function (){
 root.computed.symbol = function () {
   return this.$store.state.symbol;
 }
+//不加下划线币对
+root.computed.capitalSymbol = function () {
+  return this.$globalFunc.toOnlyCapitalLetters(this.symbol);
+}
 // 观察账户信息是否更改
 root.computed.watchCurrency = function () {
   return this.$store.state.currencyChange;
@@ -1233,7 +1237,7 @@ root.methods.postFullStop = function () {
       reduceOnly: this.reducePositionsSelected ? true : false,
       orderSide: this.orderType ? 'SELL':'BUY',
       stopPrice: this.triggerPrice,
-      symbol: "BTCUSDT",
+      symbol: this.capitalSymbol,
       timeInForce: this.effectiveTime,
       orderType: (this.orderType && Number(this.triggerPrice) < latestOrMarkPrice) || (!this.orderType && (Number(this.triggerPrice) >= latestOrMarkPrice)) ? "STOP" : "TAKE_PROFIT",
       workingType: this.latestPrice == '最新价格'? 'CONTRACT_PRICE':'MARK_PRICE',
@@ -1248,7 +1252,7 @@ root.methods.postFullStop = function () {
       reduceOnly: this.reducePositionsSelected ? true : false,
       orderSide: this.orderType ? 'SELL':'BUY',
       stopPrice: this.triggerPrice,
-      symbol: "BTCUSDT",
+      symbol: this.capitalSymbol,
       orderType: (this.orderType && (Number(this.triggerPrice) < latestOrMarkPrice)) || (!this.orderType && (Number(this.triggerPrice) >= latestOrMarkPrice)) ? "STOP_MARKET" : "TAKE_PROFIT_MARKET",
       workingType: this.latestPrice == '最新价格'? 'CONTRACT_PRICE':'MARK_PRICE',
     }
@@ -1262,7 +1266,7 @@ root.methods.postFullStop = function () {
       quantity: Number(this.amount),
       orderSide: this.orderType ? 'SELL':'BUY',
       stopPrice: this.triggerPrice,
-      symbol: "BTCUSDT",
+      symbol: this.capitalSymbol,
       timeInForce: this.effectiveTime,
       orderType: ((this.orderType && (Number(this.triggerPrice) < latestOrMarkPrice)) || (!this.orderType && (Number(this.triggerPrice) >= latestOrMarkPrice))) ? 'STOP' : 'TAKE_PROFIT',
       workingType: this.latestPrice == '最新价格'? 'CONTRACT_PRICE':'MARK_PRICE',
@@ -1276,7 +1280,7 @@ root.methods.postFullStop = function () {
       quantity: Number(this.amount),
       orderSide: this.orderType ? 'SELL':'BUY',
       stopPrice: this.triggerPrice,
-      symbol: "BTCUSDT",
+      symbol: this.capitalSymbol,
       orderType: ((!this.orderType && Number(this.triggerPrice) < latestOrMarkPrice) || (this.orderType && Number(this.triggerPrice) >= latestOrMarkPrice)) ? "TAKE_PROFIT_MARKET" : "STOP_MARKET",
       workingType: this.latestPrice == '最新价格'? 'CONTRACT_PRICE':'MARK_PRICE',
     }
@@ -1290,7 +1294,7 @@ root.methods.postFullStop = function () {
       quantity: Number(this.amount),
       orderSide: this.orderType ? 'SELL':'BUY',
       stopPrice: this.triggerPrice,
-      symbol: "BTCUSDT",
+      symbol: this.capitalSymbol,
       timeInForce: this.effectiveTime,
       orderType: ((this.orderType && Number(this.triggerPrice) < latestOrMarkPrice)||(!this.orderType && Number(this.triggerPrice) >= latestOrMarkPrice)) ? 'STOP':'TAKE_PROFIT',
       workingType: this.latestPrice == '最新价格'? 'CONTRACT_PRICE':'MARK_PRICE',
@@ -1304,7 +1308,7 @@ root.methods.postFullStop = function () {
       quantity: Number(this.amount),
       orderSide: this.orderType ? 'SELL':'BUY',
       stopPrice: this.triggerPrice,
-      symbol: "BTCUSDT",
+      symbol: this.capitalSymbol,
       orderType: ((this.orderType && Number(this.triggerPrice) < latestOrMarkPrice) || (!this.orderType && Number(this.triggerPrice) >=  latestOrMarkPrice)) ? "STOP_MARKET" : "TAKE_PROFIT_MARKET",
       workingType: this.latestPrice == '最新价格'? 'CONTRACT_PRICE':'MARK_PRICE',
     }
@@ -1443,7 +1447,7 @@ root.methods.postOrdersCreate = function () {
       reduceOnly: this.reducePositionsSelected ? true : false,
       orderSide: this.orderType ? 'SELL':'BUY',
       stopPrice: null,
-      symbol: 'BTCUSDT',
+      symbol: this.capitalSymbol,
       timeInForce: this.effectiveTime,
       orderType: "LIMIT",
       workingType: null
@@ -1458,7 +1462,7 @@ root.methods.postOrdersCreate = function () {
       quantity: Number(this.amount),
       reduceOnly: this.reducePositionsSelected ? true : false,
       orderSide: this.orderType ? 'SELL':'BUY',
-      symbol: 'BTCUSDT',
+      symbol: this.capitalSymbol,
       orderType: "MARKET",
     }
   }
@@ -1471,7 +1475,7 @@ root.methods.postOrdersCreate = function () {
       quantity: Number(this.amount),
       // reduceOnly: this.reducePositionsSelected ? true : false,
       orderSide: this.orderType ? 'SELL':'BUY',
-      symbol: 'BTCUSDT',
+      symbol: this.capitalSymbol,
       timeInForce: this.effectiveTime,
       orderType: "LIMIT",
     }
@@ -1485,7 +1489,7 @@ root.methods.postOrdersCreate = function () {
       quantity: Number(this.amount),
       // reduceOnly: this.reducePositionsSelected ? true : false,
       orderSide: this.orderType ? 'SELL':'BUY',
-      symbol: 'BTCUSDT',
+      symbol: this.capitalSymbol,
       orderType: "MARKET",
     }
   }
@@ -1623,7 +1627,7 @@ root.methods.postOrdersPosition = function () {
       quantity: Number(this.amount),
       orderSide: this.orderType ? 'SELL':'BUY',
       stopPrice: null,
-      symbol: "BTCUSDT",
+      symbol: this.capitalSymbol,
       timeInForce: this.effectiveTime,
       orderType: "LIMIT",
       workingType: null,
@@ -1637,7 +1641,7 @@ root.methods.postOrdersPosition = function () {
       quantity: Number(this.amount),
       orderSide: this.orderType ? 'SELL':'BUY',
       stopPrice: null,
-      symbol: "BTCUSDT",
+      symbol: this.capitalSymbol,
       orderType: "MARKET",
     }
   }

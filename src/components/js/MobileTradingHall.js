@@ -103,6 +103,10 @@ root.computed.specialSymbol = function () {
 root.computed.symbol = function () {
   return this.$store.state.symbol;
 }
+//不加下划线币对
+root.computed.capitalSymbol = function () {
+  return this.$globalFunc.toOnlyCapitalLetters(this.symbol);
+}
 // 计算是否显示列表
 root.computed.headerBoxFlag = function () {
   return this.$store.state.mobileTradingHallFlag;
@@ -485,7 +489,7 @@ root.methods.getLatestrice = function () {
   this.$http.send('GET_TICKER_PIRCE',{
     bind: this,
     query:{
-      symbol:this.symbol
+      symbol:this.capitalSymbol
     },
     callBack: this.re_getLatestrice,
     errorHandler:this.error_getLatestrice
@@ -520,7 +524,7 @@ root.methods.initTicket24Hr = function () {
   this.$http.send('GET_TICKER_24HR',{
     bind: this,
     query:{
-      symbol:this.symbol
+      symbol:this.capitalSymbol
     },
     callBack: this.re_initTicket24Hr,
     errorHandler:this.error_initTicket24Hr
@@ -556,7 +560,7 @@ root.methods.getMarkPricesAndCapitalRates = function () {
   this.$http.send('GET_MARKET_PRICE',{
     bind: this,
     query:{
-      symbol:this.symbol
+      symbol:this.capitalSymbol
     },
     callBack: this.re_getMarkPricesAndCapitalRates,
     errorHandler:this.error_getMarkPricesAndCapitalRates
@@ -581,7 +585,7 @@ root.methods.getDepth = function () {
   this.$http.send('GET_DEPTH', {
     bind: this,
     query:{
-      symbol:this.symbol,
+      symbol:this.capitalSymbol,
       limit: 20
     },
     callBack: this.re_getDepth
@@ -602,7 +606,7 @@ root.methods.re_getDepth = function (data) {
 root.methods.getAggTrades = function () {
   let query = {
     // symbol: this.symbol
-    symbol: this.symbol,
+    symbol: this.capitalSymbol,
     limit:80
   };
   this.$http.send("GET_AGG_TRADES", {

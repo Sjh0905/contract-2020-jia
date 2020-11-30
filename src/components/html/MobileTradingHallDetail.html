@@ -20,7 +20,7 @@
     </div>
     <div class="flex-cloum">
       <div class="flex right-icon">
-        <div class="transfer-hangqingkline" @click="openBottonOpener()" v-if="!isApp">
+        <div class="transfer-hangqingkline" @click="openBottonOpener()">
           <img src="../../assets/H5img/opener_icon.png" alt="">
         </div>
         <div class="transfer-hangqingkline" @click="openkexian()">
@@ -256,7 +256,8 @@
 
   <!--仓位-->
   <div v-if="listType== 'holdPosition'" class="container-current-page">
-    <PositionList :latestPriceVal = 'isNowPrice' :effectiveTime = 'effectiveTime' :markPrice = 'markPrice' @getPositionRisk="getIndex" :availableBalance='availableBalance'/>
+    <PositionList :latestPriceVal = 'isNowPrice' :effectiveTime = 'effectiveTime' :markPrice = 'markPrice' @getPositionRisk="getIndex" :availableBalance='availableBalance'
+                  :setKaipingqiPos="setKaipingqiPos"/>
   </div>
 
   <!--当前委托页-->

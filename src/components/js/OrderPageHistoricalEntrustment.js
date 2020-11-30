@@ -98,8 +98,6 @@ root.computed.quoteScale_list = function () {
 root.computed.serverTime = function () {
   return new Date().getTime();
 }
-
-
 root.computed.accountsComputed = function (index,item) {
   // // 特殊处理
   // this.accounts.map(item => item.a).indexOf(this.currencyValue)
@@ -110,6 +108,14 @@ root.computed.accountsComputed = function (index,item) {
 root.computed.picIndex = function () {
   let a = this.accounts.map(item => item.a).indexOf(this.currencyValue) + 1
   return a || 1
+}
+// 当前货币对
+root.computed.symbol = function () {
+  return this.$store.state.symbol;
+}
+//不加下划线币对
+root.computed.capitalSymbol = function () {
+  return this.$globalFunc.toOnlyCapitalLetters(this.symbol);
 }
 
 /*----------------------------- 生命周期 ------------------------------*/
@@ -142,7 +148,7 @@ root.methods.getOrder = function () {
         // limit: (this.tradinghallLimit===10) ? this.tradinghallLimit : this.limit, //一次请求多少条订单
         // limit: 10, //一次请求多少条订单
         // isFinalStatus: true //是否是历史订单
-        symbol:'BTCUSDT',
+        symbol:this.capitalSymbol,
         timestamp:this.serverTime
       },
       callBack: this.re_getOrder,
@@ -239,7 +245,7 @@ root.methods.getPosterImage = function () {
   this.loadingImage=true
   let params = {
     orderId:this.orderId,
-    symbol:'BTCUSDT',
+    symbol:this.capitalSymbol,
     picIndex:this.picIndex || 0,
   }
   this.$http.send('POST_ASSET_SNAPSHOT', {

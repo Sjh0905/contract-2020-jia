@@ -39,6 +39,14 @@ root.computed.historicalTransaction = function () {
 root.computed.serverTime = function () {
   return new Date().getTime();
 }
+// 当前货币对
+root.computed.symbol = function () {
+  return this.$store.state.symbol;
+}
+//不加下划线币对
+root.computed.capitalSymbol = function () {
+  return this.$globalFunc.toOnlyCapitalLetters(this.symbol);
+}
 /*------------------------------ 观察 -------------------------------*/
 root.watch = {}
 /*------------------------------ 方法 -------------------------------*/
@@ -48,7 +56,7 @@ root.methods.getHistorTrans = function () {
   this.$http.send('GET_CAPITAL_DEAL',{
     bind: this,
     query:{
-      symbol:'BTCUSDT',
+      symbol:this.capitalSymbol,
       timestamp:this.serverTime
     },
     callBack: this.re_getHistorTrans,

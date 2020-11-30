@@ -21,6 +21,11 @@ root.props.markPrice = {
   type: String,
   default: ''
 }
+// 设置开平器仓位数据
+root.props.setKaipingqiPos = {
+  type: Function,
+  default: ()=>_
+}
 /*------------------------------ 组件 ------------------------------*/
 root.components = {
   'Loading': resolve => require(['../vue/Loading'], resolve), // loading
@@ -445,7 +450,7 @@ root.methods.commitModifyMargin = function () {
   this.$http.send("POST_POSITION_MARGIN", {
     bind: this,
     params: {
-      symbol: this.symbol,
+      symbol: this.capitalSymbol,
       positionSide: this.positionSide,
       amount:this.styleType == 1? this.increaseAmount : this.reduceAmount,
       type:this.styleType,  // 1是增加逐仓保障金；2 是减少逐仓保证金
@@ -790,6 +795,8 @@ root.methods.re_getPositionRisk = function (data) {
     //自动减仓数据拼接
     if(this.currSAdlQuantile)this.addAdlQuantile(this.currSAdlQuantile,this.records)
   }
+
+  this.setKaipingqiPos(this.records)
   // this.priceCheck = localStorage.setItem('priceCheck');
 }
 // 获取记录出错
