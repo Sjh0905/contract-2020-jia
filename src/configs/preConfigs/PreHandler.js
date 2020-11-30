@@ -40,6 +40,7 @@ export default async function ($http, $store, $cookie, $i18n) {
 
   //请求个人信息
   function userAuthInfo () {
+    let symbol = 'ETH_USDT'
     return $http.send('GET_USER_AUTH_INFO',{
       callBack: function (data) {
         typeof(data) === 'string' && (data = JSON.stringify(data));
@@ -49,7 +50,7 @@ export default async function ($http, $store, $cookie, $i18n) {
           $store.commit('ENTER_CONTRACT', data.data.contract)//判断用户是否第一次进入合约
         }
         if(data.code == 401){
-          let user_symbol = 'BTC_USDT' || $cookie.get('unlogin_user_symbol_cookie') || 'BTC_USDT'
+          let user_symbol = symbol || $cookie.get('unlogin_user_symbol_cookie') || symbol
           $store.commit('SET_SYMBOL', user_symbol)     // 如果没有用户登录选择币对，则为ETH_USDT币对
           // $store.commit('SET_SYMBOL', 'GRC_USDT')     // 如果没有用户登录选择币对，则为GRC_USDT币对
           $store.commit('ENTER_CONTRACT', data.data.contract)//判断用户是否第一次进入合约
@@ -59,16 +60,16 @@ export default async function ($http, $store, $cookie, $i18n) {
         $store.commit('SET_AUTH_HOTVAL', data.dataMap.hotVal)
         $store.commit('ENTER_CONTRACT', data.data.contract) //判断用户是否第一次进入合约
         // 判断用户登录后最后选择的币对
-        let user_symbol = 'BTC_USDT' || $cookie.get('user_symbol_cookie'), user_id = data.dataMap.userProfile.userId
+        let user_symbol = symbol || $cookie.get('user_symbol_cookie'), user_id = data.dataMap.userProfile.userId
         if (!!user_id && !!user_symbol && user_symbol.split('-')[0] == user_id) {
           $store.commit('SET_SYMBOL', user_symbol.split('-')[1])
           return
         }
-        $store.commit('SET_SYMBOL','BTC_USDT')  // 如果没有用户登录选择币对，则为ETH_USDT币对
+        $store.commit('SET_SYMBOL','ETH_USDT')  // 如果没有用户登录选择币对，则为ETH_USDT币对
         // $store.commit('SET_SYMBOL', 'GRC_USDT')  // 如果没有用户登录选择币对，则为GRC_USDT币对
       },
       errorHandler: function (err) {
-        let user_symbol = /*'ETH_USDT' ||*/ 'BTC_USDT' || $cookie.get('unlogin_user_symbol_cookie') || 'BTC_USDT'
+        let user_symbol = /*'ETH_USDT' ||*/ symbol || $cookie.get('unlogin_user_symbol_cookie') || symbol
         // console.warn('出错', err)
         $store.commit('SET_SYMBOL', user_symbol)  // 如果没有用户登录选择币对，则为ETH_USDT币对
         // $store.commit('SET_SYMBOL', 'GRC_USDT')  // 如果没有用户登录选择币对，则为GRC_USDT币对
