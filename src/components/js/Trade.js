@@ -661,7 +661,7 @@ root.methods.initViews = function (lang) {
         'Plot.color': '#FE00FF',
         'Plot.linewidth': 1
       });
-      widget.chart().createStudy('Bollinger Bands',false, false,[26, 2],null, {
+      widget.chart().createStudy('Bollinger Bands',false, false,[20, 2],null, {
         'Median.color': '#3f4ff8',
         'Median.linewidth': 1,
         'Upper.color': '#3f4ff8',
