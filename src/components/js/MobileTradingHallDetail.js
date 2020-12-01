@@ -21,11 +21,14 @@ root.data = function () {
     /*下拉框1 begin*/
     optionVal:'市价单',
     optionData:['限价单','市价单','限价止盈止损','市价止盈止损'],
+    optionData2:['限价单','市价单','触发限价','触发市价'],
     optionDataMap:{
       '限价单':'limitPrice',
       '市价单':'marketPrice',
       '限价止盈止损':'limitProfitStopLoss',
-      '市价止盈止损':'marketPriceProfitStopLoss'
+      '市价止盈止损':'marketPriceProfitStopLoss',
+      '触发限价':'limitProfitStopLoss',
+      '触发市价':'marketPriceProfitStopLoss',
     },
     /*下拉框1 end*/
 
