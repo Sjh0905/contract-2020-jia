@@ -107,7 +107,7 @@
   cursor: pointer;
   flex: 0.5;
   height: 36px;
-  border-bottom: 2px solid transparent;
+  /*border-bottom: 2px solid transparent;*/
   width: auto;
   float: left;
   text-align: center;
@@ -117,11 +117,12 @@
   font-weight:500;
   font-size: 14px;
   color: #A2B5D9;
+  background-color: #151634;
 }
 
 .progress-bar-position-title-sel {
   /*height: 36px;*/
-  border-bottom: 2px solid #3576F5;
+  /*border-bottom: 2px solid #3576F5;*/
   /*width: auto;*/
   /*float: left;*/
   /*text-align: center;*/
@@ -131,7 +132,7 @@
   /*font-weight:500;*/
   /*font-size: 14px;*/
   color: #ffffff;
-  background-color: rgba(255,255,255,0.03);
+  background-color: #3576F5;
 }
 
 /*add  new  css*/
