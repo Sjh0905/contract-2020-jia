@@ -1390,6 +1390,21 @@
   padding: 10px;
   z-index: 100;
 }
+.market-price-profit-stop-loss-1 {
+  display: none;
+  position: absolute;
+  width: 250px;
+  line-height: 24px;
+  top: 90%;
+  left: 19.5%;
+  font-size:12px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color: #0D0E23;
+  background: #fff;
+  padding: 10px;
+  z-index: 100;
+}
 
 
 /* ------------  开平器 begin-----------------*/
