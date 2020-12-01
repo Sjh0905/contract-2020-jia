@@ -209,7 +209,7 @@ root.created = function () {
   // 一小时更新一次汇率
   // this.changeCny();
   // 请求币对列表
-  this.getSymbolsList()
+  // this.getSymbolsList()
 
   // 获取小数位
   this.getScaleConfig();
@@ -314,6 +314,11 @@ root.computed.symbol = function () {
 //不加下划线币对
 root.computed.capitalSymbol = function () {
   return this.$globalFunc.toOnlyCapitalLetters(this.symbol);
+}
+
+//不加下划线币对集合
+root.computed.sNameList = function () {
+  return this.$store.state.sNameList || []
 }
 
 // 当前socket订阅货币对
@@ -521,7 +526,7 @@ root.methods.initTicket24Hr = function () {
   this.$http.send('GET_TICKER_24HR',{
     bind: this,
     query:{
-      symbol:this.capitalSymbol
+      symbol:this.sNameList.toString()
     },
     callBack: this.re_initTicket24Hr,
     errorHandler:this.error_initTicket24Hr
@@ -612,6 +617,7 @@ root.methods.error_getLatestrice = function (err) {
   console.log('获取币安24小时价格变动接口',err)
 }
 
+/*获取接口移到了PreHandler里边
 // 请求所有币对信息, header, right都需要此数据
 root.methods.getSymbolsList = function () {
   this.$http.send('GET_SYMBOLS', {
@@ -643,7 +649,7 @@ root.methods.re_getSymbolsList = function (data) {
   // data.symbols.forEach(function (v, i) {
   //   self.symbol_config_times.push({name: v.name, startTime: v.startTime, endTime: v.endTime});
   // });
-}
+}*/
 
 // 获取深度信息
 root.methods.getDepth = function () {

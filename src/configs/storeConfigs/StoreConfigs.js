@@ -237,7 +237,12 @@ store.state.authState = {
 }
 
 store.state.symbol = ''
-store.state.subscribeSymbol = 'BTCUSDT'
+store.state.subscribeSymbol = ''
+
+//不加下划线币对名集合
+store.state.sNameList = []
+//加下划线币对名集合
+store.state.sLineNameList = []
 
 /**
  * 服务器时间
@@ -600,6 +605,7 @@ store.mutations.changeMobileTradingHallFlag = (state, data) => {
 store.mutations.changeMobileSymbolType = (state, data) => {
   console.log(data)
   state.symbol = data;
+  state.subscribeSymbol = GlobalFunc.toOnlyCapitalLetters(state.symbol);
 }
 
 /**
@@ -1112,6 +1118,15 @@ store.mutations.ENTER_CONTRACT = (state, info) => {
 
 store.mutations.SET_SYMBOL = (state, info) => {
   state.symbol = info
+  state.subscribeSymbol = GlobalFunc.toOnlyCapitalLetters(state.symbol);
+}
+
+store.mutations.SET_S_NAME_LIST = (state, info) => {
+  state.sNameList = info
+}
+
+store.mutations.SET_S_LINE_NAME_LIST = (state, info) => {
+  state.sLineNameList = info
 }
 
 store.mutations.changeMobilePopOpen = (state, info) => {

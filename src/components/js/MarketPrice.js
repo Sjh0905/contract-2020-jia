@@ -132,7 +132,7 @@ root.computed.symbol_list = function () {
 }
 //价格处理
 root.computed.compareSymbolPrePrice = function (list) {
-  if(!list || list.length == 0)return []
+  if(!Array.isArray(list) || list.length == 0)return []
 
   list.map(v=>{
     if(!v.priceChangeArr){
@@ -325,7 +325,7 @@ root.computed.lang = function () {
   return this.$store.state.lang;
 }
 
-// 是否免费
+/*// 是否免费
 root.computed.reduce_list = function () {
   let symbol_list = this.$store.state.reduce_fee;
   let ans = this.selectMarketChange
@@ -348,7 +348,7 @@ root.computed.reduce_list = function () {
   }
   )
   return reduce_list;
-}
+}*/
 
 // 2018-4-4  start
 root.watch = {};
