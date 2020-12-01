@@ -2111,6 +2111,9 @@ root.methods.changeLatestPriceOption = function (v) {
 //仓位模式二级切换 Start
 root.methods.changePositionModeSecond = function (type) {
   this.positionModeSecond = type;
+  // if(this.positionModeSecond == 'openWarehouse') {
+  //   this.optionVal = '市价单'
+  // }
 }
 //仓位模式二级切换 End
 
@@ -3166,6 +3169,9 @@ root.watch.pendingOrderType  = function (){
     return
   }
   this.reducePositionsSelected = true
+}
+root.watch.positionModeSecond  = function (){
+  this.optionVal = '市价单'
 }
 root.watch.amount = function (newValue, oldValue) {
   let value = newValue.toString();
