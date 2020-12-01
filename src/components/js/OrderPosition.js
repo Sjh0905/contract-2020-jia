@@ -98,7 +98,7 @@ root.data = function () {
     // 海报url
     poster_url: '',
     currencyValue:'庄终于，对我下手了',
-    psSymbolArr:['BTCUSDT'],//,'ETHUSDT'
+    psSymbolArr:['BTCUSDT','ETHUSDT'],//,'ETHUSDT'
     accounts : [
       {'a':'庄终于，对我下手了'},
       {'a':'我命由庄，不由我'},

@@ -193,7 +193,7 @@ root.methods.getOrder = function () {
       query: {
         symbol:this.capitalSymbol,
         timestamp:this.serverTime,
-        orderId:'1231212'
+        // orderId:'1231212'
       },
       callBack: this.re_getOrder,
       errorHandler: this.error_getOrder,

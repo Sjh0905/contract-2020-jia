@@ -475,28 +475,29 @@
       <div class="body">
         <div class="block"  style="margin: 4px auto">
           <!-- <span class="demonstration">默认</span> -->
-          <p :class="'radiusa_blu1'" v-if="value>=0" @click="value=0" style="cursor:pointer"></p>
-          <p :class="'radiusa_blu2'" v-if="value>=25"@click="value=25" style="cursor:pointer"></p>
-          <p :class="'radiusa_blu3'" v-if="value>=50"@click="value=50" style="cursor:pointer"></p>
-          <p :class="'radiusa_blu4'" v-if="value>=75"@click="value=75" style="cursor:pointer"></p>
-          <p :class="'radiusa_blu5'" v-if="value>=100"@click="value=100" style="cursor:pointer"></p>
-          <p :class="'radiusa_blu6'" v-if="value>=125"@click="value=125" style="cursor:pointer"></p>
+<!--          <p :class="'radiusa_blu1'" v-if="value>=0" @click="value=0" style="cursor:pointer"></p>-->
+<!--          <p :class="'radiusa_blu2'" v-if="value>=25"@click="value=25" style="cursor:pointer"></p>-->
+<!--          <p :class="'radiusa_blu3'" v-if="value>=50"@click="value=50" style="cursor:pointer"></p>-->
+<!--          <p :class="'radiusa_blu4'" v-if="value>=75"@click="value=75" style="cursor:pointer"></p>-->
+<!--          <p :class="'radiusa_blu5'" v-if="value>=100"@click="value=100" style="cursor:pointer"></p>-->
+          <p v-for="(v,index) in Object.keys(leverageMarks[capitalSymbol])" :class="calculatorClass[index]" v-if="value >= v" @click="value=v" style="cursor:pointer"></p>
           <el-slider
             v-model="value"
             :class="'el-slider_blu'"
-            :marks="marks"
+            :marks="leverageMarks[capitalSymbol]"
             show-input
-            :max="125"
+            :max="initialLeverage[0]"
             :min="1"
             :format-tooltip="formatTooltip"
           >
           </el-slider>
         </div>
       </div>
-      <div class="mode-only-lever">· 当前杠杆倍数最高可持有头寸：{{maxPosition}} USDT</div>
+
+      <div class="mode-only-lever" v-if="value>2">· 当前杠杆倍数最高可持有头寸：{{maxPosition}} USDT</div>
 <!--      <div class="mode-error">当前合约存在持仓和挂单，不支持调整保证金模式</div>-->
       <div class="mode-only-lever-super txt-price-red" v-if="value > 20">· 当前杠杆倍数较高，请注意风险。</div>
-      <div class="mode-only-lever-high" v-else></div>
+      <div class="mode-only-lever-high"></div>
       <div class="mode-only-lever-super txt-price-red" v-if="popTextLeverage">· {{popTextLeverage}}</div>
       <div class="money-confirmation" @click="postLevelrage">确认</div>
       <!--确认不可点击状态-->

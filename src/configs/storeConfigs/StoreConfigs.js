@@ -187,6 +187,8 @@ store.state.baseCurrency = 'BTC'
 store.state.quoteConfig = [
   {name: 'BTC_USDT', baseScale: 3, quoteScale: 2},
   {name: 'BTCUSDT', baseScale: 3, quoteScale: 2},
+  {name: 'ETH_USDT', baseScale: 3, quoteScale: 2},
+  {name: 'ETHUSDT', baseScale: 3, quoteScale: 2},
 ]
 
 /**

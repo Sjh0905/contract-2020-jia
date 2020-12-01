@@ -472,7 +472,7 @@ root.computed.maxNotionalAtCurrentLeverage = function () {
       break;
     }
   }
-
+  console.info(notionalCap)
   return notionalCap || 0;
 
   // let notionalCap = []

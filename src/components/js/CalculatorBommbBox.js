@@ -48,13 +48,26 @@ root.data = function () {
     moreEmptyType:1,
     // openCalculator:true,
     calculatorValue: 1, // 收益杠杠倍数
+
+    calculatorClass:['radiusa_green','radiusb_green','radiusc_green','radiusd_green','radiuse_green'],
+
     calculatorMarks:{
-      1: '1X',
-      25: '25X',
-      50: '50X',
-      75:'75X',
-      100:'100X',
-      125:'125X',
+      ETHUSDT:{
+        1: '1X',
+        20: '20X',
+        40: '40X',
+        60: '60X',
+        80: '80X',
+        100:'100X',
+      },
+      BTCUSDT:{
+        1: '1X',
+        25: '25X',
+        50: '50X',
+        75:'75X',
+        100:'100X',
+        125:'125X',
+      }
     },
 
     openingPrice:'', // 收益开仓价格
@@ -65,21 +78,22 @@ root.data = function () {
     returnRate :'', // 回报率
 
     // targetCalculatorValue: 1,  //目标价格杠杆倍数
-    targetCalculatorMarks:{
-      1: '1X',
-      25: '25X',
-      50: '50X',
-      75:'75X',
-      100:'100X',
-      125:'125X',
-    },
+    // targetCalculatorMarks:{
+    //   1: '1X',
+    //   25: '25X',
+    //   50: '50X',
+    //   75:'75X',
+    //   100:'100X',
+    //   125:'125X',
+    // },
     targetOpeningPrice :'', // 目标价格开仓价格
     targetPrice:'', // 目标价格
     targetReturnRate:'', // 目标价格回报率
 
     // maximumPosition:''  // 显示的最大头寸
 
-    maximumPosition:['50,000','250,000','100,0000','5,000,000','20,000,000','50,000,000','100,000,000','200,000,000','9,223,372,036,854,776,000']
+    // maximumPosition:['50,000','250,000','100,0000','5,000,000','20,000,000','50,000,000','100,000,000','200,000,000','9,223,372,036,854,776,000']
+    // maximumPosition:[]
   }
 }
 /*------------------------------ 生命周期 -------------------------------*/
@@ -90,6 +104,7 @@ root.mounted = function () {}
 root.beforeDestroy = function () {}
 /*------------------------------ 计算 -------------------------------*/
 root.computed = {}
+
 // 判断收益输入框是否为空
 root.computed.isStyle = function () {
   if(this.closingPrice == '' || this.openingPrice == '' || this.transactionQuantity == '') return true
@@ -119,6 +134,11 @@ root.computed.show = function () {
 // 判断是否是手机
 root.computed.isMobile = function () {
   return this.$store.state.isMobile
+}
+// 杠杆倍数
+root.computed.leverageBracket = function () {
+  // console.info(this.$store.state.leverageBracket)
+  return this.$store.state.leverageBracket || []
 }
 
 // 最大头寸计算
@@ -159,11 +179,37 @@ root.computed.maxPosition = function () {
   maxPosition = this.maximumPosition[8]
   return maxPosition
 }
-// 是否可以计算
+// // 是否可以计算
 root.computed.isComputed = function (){
-  if(Number((this.maxPosition).replace(/\,/g,'')) < this.accMul(Number(this.openingPrice), Number(this.transactionQuantity)))return true
+  if(!this.maxPosition) return
+  if(Number(this.maxPosition) < this.accMul(Number(this.openingPrice), Number(this.transactionQuantity)))return true
   return false
 }
+// 当前货币对
+root.computed.symbol = function () {
+  return this.$store.state.symbol;
+}
+//不加下划线币对
+root.computed.capitalSymbol = function () {
+  return this.$globalFunc.toOnlyCapitalLetters(this.symbol);
+}
+// 最大头寸值
+root.computed.maximumPosition = function () {
+  let maximum = []
+  this.leverageBracket.forEach(v=>{
+    maximum.push(v.notionalCap)
+  })
+  return maximum
+}
+// 杠杆倍数
+root.computed.initialLeverage = function () {
+  let initial = []
+  this.leverageBracket.forEach(v=>{
+    initial.push(v.initialLeverage)
+  })
+  return initial
+}
+
 /*------------------------------ 观察 -------------------------------*/
 root.watch = {}
 root.watch.maximunPosition = function (newVal,oldVal) {
@@ -171,6 +217,8 @@ root.watch.maximunPosition = function (newVal,oldVal) {
 root.watch.maxPosition = function (newVal,oldVal) {
 }
 root.watch.calculatorValue = function (newVal,oldVal) {
+  // console.info(this.initialLeverage)
+  this.calculatorClass
 }
 root.watch.targetPrice = function (newVal,oldVal) {
   this.income = ''
@@ -232,7 +280,7 @@ root.methods.openPositionBox = function (name) {
 // 计算收益
 root.methods.clickCalculation = function (){
   if(this.closingPrice == '' || this.openingPrice == '' || this.transactionQuantity == '') return
-  if(Number((this.maxPosition).replace(/\,/g,''))  < this.accMul(Number(this.openingPrice), Number(this.transactionQuantity))) return
+  if(Number(this.maxPosition) < this.accMul(Number(this.openingPrice), Number(this.transactionQuantity))) return
   if(this.moreEmptyType == 1){
     // 收益计算
     this.income = this.toFixed(this.accMul((this.accMinus(Number(this.closingPrice) , Number(this.openingPrice))),Number(this.transactionQuantity)),2)

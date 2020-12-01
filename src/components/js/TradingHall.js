@@ -134,13 +134,25 @@ root.data = function () {
     // 合约风险提示
     popWindowContractRiskWarning: false,
     value: 0,
-    marks: {
-      1: '1X',
-      25: '25X',
-      50: '50X',
-      75:'75X',
-      100:'100X',
-      125:'125X',
+    calculatorClass:['radiusa_blu1','radiusa_blu2','radiusa_blu3','radiusa_blu4','radiusa_blu5'],
+
+    leverageMarks:{
+      ETHUSDT:{
+        1: '1X',
+        20: '20X',
+        40: '40X',
+        60: '60X',
+        80: '80X',
+        100:'100X',
+      },
+      BTCUSDT:{
+        1: '1X',
+        25: '25X',
+        50: '50X',
+        75:'75X',
+        100:'100X',
+        125:'125X',
+      }
     },
     //调整杠杆 End
 
@@ -175,7 +187,7 @@ root.data = function () {
     recordsIndex:0, // 仓位数量
     currentLength:0, // 当前委托数量
     // 显示的最大头寸
-    maximumPosition : ['50,000','250,000','100,0000','5,000,000','20,000,000','50,000,000','100,000,000','200,000,000'],
+    // maximumPosition : ['50,000','250,000','100,0000','5,000,000','20,000,000','50,000,000','100,000,000','200,000,000'],
     positionAmtLong:0,
     positionAmtShort:0,
     popTextLeverage:'',
@@ -260,6 +272,30 @@ root.mounted = function () {
 
 // 计算symbol变化
 root.computed = {};
+// 杠杆分层数组
+root.computed.leverageBracket = function () {
+  // console.info(this.$store.state.leverageBracket)
+  return this.$store.state.leverageBracket || []
+}
+// 最大头寸值
+root.computed.maximumPosition = function () {
+  let maximum = []
+  this.leverageBracket.forEach(v=>{
+    maximum.push(v.notionalCap)
+  })
+  console.info('maximum=',maximum)
+  console.info('maximum=',this.leverageBracket)
+  console.info('maximum=',this.initialLeverage)
+  return maximum
+}
+// 杠杆倍数
+root.computed.initialLeverage = function () {
+  let initial = []
+  this.leverageBracket.forEach(v=>{
+    initial.push(v.initialLeverage)
+  })
+  return initial
+}
 // 用户id，判断是否登录
 root.computed.userId = function () {
   return this.$store.state.authState.userId
@@ -271,36 +307,37 @@ root.computed.isHasOrders = function (){
 }
 // 最大头寸计算
 root.computed.maxPosition = function () {
-  let maxPosition = ''
-  if(this.value > 100 && this.value <= 125) {
+  let maxPosition = '',initialLeverage = this.initialLeverage
+
+  if(this.value > initialLeverage[1] && this.value <= initialLeverage[0]) {
     maxPosition = this.maximumPosition[0]
     return maxPosition
   }
-  if(this.value > 50 && this.value <= 100) {
+  if(this.value > initialLeverage[2] && this.value <= initialLeverage[1]) {
     maxPosition = this.maximumPosition[1]
     return maxPosition
   }
-  if(this.value > 20 && this.value <= 50) {
+  if(this.value > initialLeverage[3] && this.value <= initialLeverage[2]) {
     maxPosition = this.maximumPosition[2]
     return maxPosition
   }
-  if(this.value > 10 && this.value <= 20) {
+  if(this.value > initialLeverage[4] && this.value <= initialLeverage[3]) {
     maxPosition = this.maximumPosition[3]
     return maxPosition
   }
-  if(this.value > 5 && this.value <= 10) {
+  if(this.value > initialLeverage[5] && this.value <= initialLeverage[4]) {
     maxPosition = this.maximumPosition[4]
     return maxPosition
   }
-  if(this.value == 5) {
+  if(this.value == initialLeverage[5]) {
     maxPosition = this.maximumPosition[5]
     return maxPosition
   }
-  if(this.value == 4) {
+  if(this.value ==  initialLeverage[6]) {
     maxPosition = this.maximumPosition[6]
     return maxPosition
   }
-  if(this.value == 3) {
+  if(this.value == initialLeverage[7]) {
     maxPosition = this.maximumPosition[7]
     return maxPosition
   }
@@ -475,18 +512,18 @@ root.methods.re_getPositionRisk = function (data) {
   let records = data.data,filterRecords = []
   for (let i = 0; i < records.length ; i++) {
     let v = records[i];
-    if (v.marginType == 'cross' && v.positionAmt != 0 && v.symbol == 'BTCUSDT') {
+    if (v.marginType == 'cross' && v.positionAmt != 0 && v.symbol == this.capitalSymbol) {
       filterRecords.push(v)
       continue;
     }
     //逐仓保证金：isolatedMargin - unrealizedProfit,开仓量或逐仓保证金不为0的仓位才有效
-    if(v.marginType == 'isolated' && v.symbol == 'BTCUSDT'){
+    if(v.marginType == 'isolated' && v.symbol == this.capitalSymbol){
       v.securityDeposit = this.accMinus(v.isolatedMargin,v.unrealizedProfit)
       // v.securityDeposit = Number(v.isolatedMargin) - Number(v.unrealizedProfit)
 
       //由于开头判断条件用括号包装，会被编译器解析成声明函数括号，所以前一行代码尾或本行代码头要加分号、或者本行代码改为if判断才行
       // (v.positionAmt != 0 || v.securityDeposit != 0) && filterRecords.push(v);
-      if((v.positionAmt != 0 || v.securityDeposit != 0) && v.symbol == 'BTCUSDT') {
+      if((v.positionAmt != 0 || v.securityDeposit != 0) && v.symbol == this.capitalSymbol) {
         // v.inputMarginPrice = this.toFixed(v.markPrice,2)
         filterRecords.push(v)
       }
@@ -780,7 +817,7 @@ root.methods.getOrder = function () {
     query: {
       symbol:this.capitalSymbol,
       timestamp:this.serverTime,
-      orderId:'1231212'
+      // orderId:'1231212'
     },
     callBack: this.re_getOrder,
     errorHandler: this.error_getOrder,
@@ -818,7 +855,7 @@ root.methods.re_positionRisk = function (data) {
   if(!data || !data.data || data.data == []) return
   let filterRecords = []
   data.data.forEach(v=>{
-    if (v.symbol == 'BTCUSDT') {
+    if (v.symbol == this.capitalSymbol) {
       this.leverage = v.leverage
       this.$store.commit("CHANGE_LEVERAGE", v.leverage);
       if(v.marginType == 'isolated'){
