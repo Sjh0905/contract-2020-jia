@@ -109,27 +109,28 @@ export default async function ($http, $store, $cookie, $i18n) {
   // }
 
   // 请求动态获取symbols
-  function getCommonSymbols() {
-    return $http.send('COMMON_SYMBOLS', {
+  function getSymbols() {
+    return $http.send('GET_SYMBOLS', {
       callBack: function (data) {
-        console.warn('this is data', data)
-        let quoteConfig = [], tradingParameters = [], reduce_fee = [], specialSymbol = [new Set()],
-          marketList = [[], []];
+
+        let d = data && data.data || [],sNameList = [],sLineNameList = [];
+        d.map(v=>{
+          sNameList.push(v.baseName+v.quoteName)
+          sLineNameList.push(v.baseName+'_'+v.quoteName)
+        })
+
+        // console.log('this is sNameList,sLineNameList', sNameList,sLineNameList)
+
+        $store.commit('SET_S_NAME_LIST', sNameList)
+        $store.commit('SET_S_LINE_NAME_LIST', sLineNameList)
+
+        /*let quoteConfig = [], marketList = [[], []];
         data.symbols.map(v => {
+          // 精度从接口获取写完多币对后再说
           quoteConfig.push({name: v.name, baseScale: v.baseScale, quoteScale: v.quoteScale});
-          tradingParameters.push({
-            name: v.name,
-            maxAmount: v.maxAmount,
-            sellAmount: v.sellAmount,
-            miniVolume: v.miniVolume
-          });
-          reduce_fee.push({name: v.name, feeDiscount: v.feeDiscount});
-          // 超级为蜜区
+
+          // 删除了部分多余代码，type暂时保留
           let type = 0, marketName = v.name.split('_')[1]
-          if (v.meta && v.meta.honeyArea == 'true') {
-            specialSymbol[0].add(v.name)
-            type = 1
-          }
           // 设立市场专区
           !marketList[type] && (marketList[type] = [])
           if (marketList[type].indexOf(marketName) == -1) {
@@ -138,15 +139,12 @@ export default async function ($http, $store, $cookie, $i18n) {
         })
 
         $store.commit('SET_QUOTECONFIG', quoteConfig) // 精度
-        $store.commit('SET_TRADING_PARAMETERS', tradingParameters) // 存储当前比对最小交易额和深度满值
-        $store.commit('SET_REDUCE_FEE', reduce_fee);
-        $store.commit('SAVE_SPECIAL_SYMBOL', specialSymbol)
-        $store.commit('SET_MARKET_LIST', marketList)
+        $store.commit('SET_MARKET_LIST', marketList)*/
       }
     })
   }
 
-  // 获取服务器时间
+  /*// 获取服务器时间，由于接口配置已屏蔽此接口，暂时屏蔽
   function getServerTime() {
     return $http.send('GET_SEVER_TIME', {
       callBack: function (data) {
@@ -154,7 +152,7 @@ export default async function ($http, $store, $cookie, $i18n) {
         $store.commit('SET_SERVER_TIME', data)
       }
     })
-  }
+  }*/
 
   // function getUserBalance() {
   //   return $http.send('GET_BALAN__BIAN', {
@@ -168,7 +166,7 @@ export default async function ($http, $store, $cookie, $i18n) {
   //   })
   // }
 
-  await Promise.all([userAuthInfo(), getCommonSymbols(), getServerTime()]).then(res => {
+  await Promise.all([userAuthInfo(), getSymbols()]).then(res => {
     // console.warn('')
   }) // 请求同时发送 统一拦截
 
