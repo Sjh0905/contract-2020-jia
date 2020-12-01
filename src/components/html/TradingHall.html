@@ -130,7 +130,14 @@
                 <div class="progress-bar-title-brand-default" :class="pendingOrderType == 'marketPrice' ? 'progress-bar-title-brand':''" @click="changePendingOrderType('marketPrice')">
                   市价
                 </div>
-                <div class="progress-bar-title-brand-default" :class="pendingOrderType == 'limitProfitStopLoss' ? 'progress-bar-title-brand':''" @click="changePendingOrderType('limitProfitStopLoss')">
+                <div class="progress-bar-title-brand-default" v-if="positionModeSecond == 'openWarehouse' && positionModeFirst == 'doubleWarehouseMode'" :class="pendingOrderType == 'limitProfitStopLoss' ? 'progress-bar-title-brand':''" @click="changePendingOrderType('limitProfitStopLoss')">
+                  触发限价
+                  <img class="pointer"
+                       @mouseenter="openPositionBox('limit-profit-stop-loss')"
+                       @mouseleave="closePositionBox('limit-profit-stop-loss')"
+                       src="../../assets/contract/restricted_introduction.png" alt="">
+                </div>
+                <div class="progress-bar-title-brand-default" v-else :class="pendingOrderType == 'limitProfitStopLoss' ? 'progress-bar-title-brand':''" @click="changePendingOrderType('limitProfitStopLoss')">
                   限价止盈止损
                   <img class="pointer"
                        @mouseenter="openPositionBox('limit-profit-stop-loss')"
@@ -141,7 +148,14 @@
                   <div>限价止盈止损：</div>
                   当设定的价格被触发时，限价止盈止损委托会自动触发。交易者需要设定一个价格去触发该类型委托。该类委托可以应用于设置限价止损和限价止盈委托。请注意，当保证金不足或仓位超过上限时系统会自动撤销执行该委托。
                 </div>
-                <div class="progress-bar-title-brand-default" :class="pendingOrderType == 'marketPriceProfitStopLoss' ? 'progress-bar-title-brand':''" @click="changePendingOrderType('marketPriceProfitStopLoss')">
+                <div class="progress-bar-title-brand-default" v-if="positionModeSecond == 'openWarehouse' && positionModeFirst == 'doubleWarehouseMode'" :class="pendingOrderType == 'marketPriceProfitStopLoss' ? 'progress-bar-title-brand':''" @click="changePendingOrderType('marketPriceProfitStopLoss')">
+                  触发市价
+                  <img class="pointer"
+                       @mouseenter="openPositionBox('market-price-profit-stop-loss')"
+                       @mouseleave="closePositionBox('market-price-profit-stop-loss')"
+                       src="../../assets/contract/restricted_introduction.png" alt="">
+                </div>
+                <div class="progress-bar-title-brand-default" v-else :class="pendingOrderType == 'marketPriceProfitStopLoss' ? 'progress-bar-title-brand':''" @click="changePendingOrderType('marketPriceProfitStopLoss')">
                   市价止盈止损
                   <img class="pointer"
                        @mouseenter="openPositionBox('market-price-profit-stop-loss')"
