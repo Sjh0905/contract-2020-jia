@@ -662,49 +662,48 @@ root.methods.initViews = function (lang) {
         'Plot.linewidth': 1
       });
       widget.chart().createStudy('Bollinger Bands',false, false,[20, 2],null, {
-        'Median.color': '#3f4ff8',
-        'Median.linewidth': 1,
-        'Upper.color': '#3f4ff8',
-        'Upper.linewidth': 1,
-        'Lower.color': '#3f4ff8',
-        'Lower.linewidth': 1,
+        'Median.color': '#3f4ff8', 'Median.linewidth': 1,
+        'Upper.color': '#3f4ff8', 'Upper.linewidth': 1,
+        'Lower.color': '#3f4ff8', 'Lower.linewidth': 1,
         'Plots Background.color':'#626874',
       });
-      widget.chart().createStudy('MACD',false, false,[2,33,'close',3],null, {
-        'Histogram.color': '#838B99',
-        'Histogram.linewidth': 1,
-        'Histogram.transparency': 35,
-        'MACD.color': '#86CB12',
-        'MACD.linewidth': 1,
-        'MACD.transparency': 35,
-        'Signal.color': '#F60076',
-        'Signal.linewidth': 1,
-        'Signal.transparency': 35,
-      });
-      widget.chart().createStudy('Stochastic RSI',false, false,[14,14,2,3],null, {
-        '%K.color': '#86CB12',
-        '%K.linewidth': 1,
-        '%K.transparency': 35,
-        '%D.color': '#F60076',
-        '%D.linewidth': 1,
-        '%D.transparency': 35,
-        'UpperLimit.color': '#0D111F',
-        'UpperLimit.linewidth': 0,
-        'LowerLimit.color': '#0D111F',
-        'LowerLimit.linewidth': 0,
+      let MACDConfigs = self.$store.state.isMobile ? {
+        'Histogram.color': '#838B99', 'Histogram.linewidth': 1, 'Histogram.transparency': 35,
+        'MACD.color': '#86CB12', 'MACD.linewidth': 2, 'MACD.transparency': 35,
+        'Signal.color': '#F60076', 'Signal.linewidth': 2, 'Signal.transparency': 35,
+      } : {
+        'Histogram.color': '#838B99', 'Histogram.linewidth': 1, 'Histogram.transparency': 35,
+        'MACD.color': '#86CB12', 'MACD.linewidth': 1, 'MACD.transparency': 35,
+        'Signal.color': '#F60076', 'Signal.linewidth': 1, 'Signal.transparency': 35,
+      }
+
+      let StochasticRSIConfigs = self.$store.state.isMobile ? {
+        '%K.color': '#86CB12', '%K.linewidth': 2, '%K.transparency': 35,
+        '%D.color': '#F60076', '%D.linewidth': 2, '%D.transparency': 35,
+        'UpperLimit.color': '#0D111F', 'UpperLimit.linewidth': 0,
+        'LowerLimit.color': '#0D111F', 'LowerLimit.linewidth': 0,
         'Hlines Background.color':'#626874',
-      });
-      widget.chart().createStudy('Relative Strength Index',false, false,[4],null, {
-        'Plot.color': '#86CB12',
-        'Plot.linewidth': 1,
-        'UpperLimit.value': 80,
-        'LowerLimit.value': 20,
-        'UpperLimit.color': '#0D111F',
-        'UpperLimit.linewidth': 0,
-        'LowerLimit.color': '#0D111F',
-        'LowerLimit.linewidth': 0,
+      } : {
+        '%K.color': '#86CB12', '%K.linewidth': 1, '%K.transparency': 35,
+        '%D.color': '#F60076', '%D.linewidth': 1, '%D.transparency': 35,
+        'UpperLimit.color': '#0D111F', 'UpperLimit.linewidth': 0,
+        'LowerLimit.color': '#0D111F', 'LowerLimit.linewidth': 0,
+        'Hlines Background.color':'#626874',
+      }
+      let RelativeStrengthIndexConfigs = self.$store.state.isMobile ? {
+        'Plot.color': '#86CB12', 'Plot.linewidth': 2, 'UpperLimit.value': 80, 'LowerLimit.value': 20,
+        'UpperLimit.color': '#0D111F', 'UpperLimit.linewidth': 0,
+        'LowerLimit.color': '#0D111F', 'LowerLimit.linewidth': 0,
         'Hlines Background.color':'#D8D8D8',
-      });
+      } : {
+        'Plot.color': '#86CB12', 'Plot.linewidth': 1, 'UpperLimit.value': 80, 'LowerLimit.value': 20,
+        'UpperLimit.color': '#0D111F', 'UpperLimit.linewidth': 0,
+        'LowerLimit.color': '#0D111F', 'LowerLimit.linewidth': 0,
+        'Hlines Background.color':'#D8D8D8',
+      }
+      widget.chart().createStudy('MACD',false, false,[2,33,'close',3],null,MACDConfigs);
+      widget.chart().createStudy('Stochastic RSI',false, false,[14,14,2,3],null, StochasticRSIConfigs);
+      widget.chart().createStudy('Relative Strength Index',false, false,[4],null, RelativeStrengthIndexConfigs);
 
 			// 移动端切换显示
 			if (self.$store.state.isMobile) {
