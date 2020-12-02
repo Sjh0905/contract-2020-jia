@@ -68,7 +68,7 @@
         <div class="td-time1-currency flex">
           <div :class="(item.positionAmt || 0) > 0 ?'td-time1-green':'td-time1-red'"></div>
           <div class="td-currency">{{item.symbol}}</div>
-          <div class="td-currency-btn">{{$store.state.leverage}}X</div>
+          <div class="td-currency-btn">{{currencyInfo[item.symbol].leverage}}X</div>
         </div>
       </div>
       <!--数量-->

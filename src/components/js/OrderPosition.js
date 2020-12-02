@@ -228,7 +228,10 @@ root.computed.subscribeSymbol = function () {
   // return this.$store.state.subscribeSymbol;
 }
 root.computed.leverage = function () {
-  return this.$store.state.leverage;
+  return this.$store.state.currencyInfo[this.capitalSymbol].leverage;
+}
+root.computed.currencyInfo = function () {
+  return this.$store.state.currencyInfo || {}
 }
 root.computed.leverageBracket = function () {
   let arr = this.$store.state.leverageBracket && [...this.$store.state.leverageBracket] || [];
