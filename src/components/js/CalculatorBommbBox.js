@@ -137,47 +137,49 @@ root.computed.isMobile = function () {
 }
 // 杠杆倍数
 root.computed.leverageBracket = function () {
-  // console.info(this.$store.state.leverageBracket)
-  return this.$store.state.leverageBracket || []
+  return (this.$store.state.bracketList || {})[this.capitalSymbol] || []
 }
 
 // 最大头寸计算
 root.computed.maxPosition = function () {
-  let maxPosition = ''
-  if(this.calculatorValue > 100 && this.calculatorValue <= 125) {
+  let maxPosition = '',initialLeverage = this.initialLeverage
+  // console.info(initialLeverage,this.maximumPosition)
+  if(this.calculatorValue > initialLeverage[1] && this.calculatorValue <= initialLeverage[0]) {
     maxPosition = this.maximumPosition[0]
     return maxPosition
   }
-  if(this.calculatorValue > 50 && this.calculatorValue <= 100) {
+  if(this.calculatorValue > initialLeverage[2] && this.calculatorValue <= initialLeverage[1]) {
     maxPosition = this.maximumPosition[1]
     return maxPosition
   }
-  if(this.calculatorValue > 20 && this.calculatorValue <= 50) {
+  if(this.calculatorValue > initialLeverage[3] && this.calculatorValue <= initialLeverage[2]) {
     maxPosition = this.maximumPosition[2]
     return maxPosition
   }
-  if(this.calculatorValue > 10 && this.calculatorValue <= 20) {
+  if(this.calculatorValue > initialLeverage[4] && this.calculatorValue <= initialLeverage[3]) {
     maxPosition = this.maximumPosition[3]
     return maxPosition
   }
-  if(this.calculatorValue > 5 && this.calculatorValue <= 10) {
+  if(this.calculatorValue > initialLeverage[5] && this.calculatorValue <= initialLeverage[4]) {
     maxPosition = this.maximumPosition[4]
     return maxPosition
   }
-  if(this.calculatorValue == 5) {
+  if(this.calculatorValue == initialLeverage[5]) {
     maxPosition = this.maximumPosition[5]
     return maxPosition
   }
-  if(this.calculatorValue == 4) {
+  if(this.calculatorValue ==  initialLeverage[6]) {
     maxPosition = this.maximumPosition[6]
     return maxPosition
   }
-  if(this.calculatorValue == 3) {
+  if(this.calculatorValue == initialLeverage[7]) {
     maxPosition = this.maximumPosition[7]
     return maxPosition
   }
-  maxPosition = this.maximumPosition[8]
-  return maxPosition
+  if(this.calculatorValue == initialLeverage[8]) {
+    maxPosition = this.maximumPosition[8]
+    return maxPosition
+  }
 }
 // // 是否可以计算
 root.computed.isComputed = function (){

@@ -191,8 +191,9 @@ root.methods.getOrder = function () {
   this.$http.send('GET_CURRENT_DELEGATION', {
       bind: this,
       query: {
-        symbol:this.capitalSymbol,
-        timestamp:this.serverTime,
+        symbol:'',
+        // symbol:this.capitalSymbol,
+        // timestamp:this.serverTime,
         // orderId:'1231212'
       },
       callBack: this.re_getOrder,

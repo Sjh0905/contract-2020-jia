@@ -189,8 +189,8 @@ root.data = function () {
     // 弹框打开/关闭
     popWindowOpen1:false,
     // 初始保证金率
-    initialMarginRate :[0.008, 0.01, 0.02, 0.05, 0.1, 0.2, 0.25, 0.333, 0.5, 1],
-    maxPosition : [50000,250000,1000000,5000000,20000000,50000000,100000000,200000000],
+    // initialMarginRate :[0.008, 0.01, 0.02, 0.05, 0.1, 0.2, 0.25, 0.333, 0.5, 1],
+    // maxPosition : [50000,250000,1000000,5000000,20000000,50000000,100000000,200000000],
     //  买卖限流
     currentLimiting:false,
     buyNetValue:0, // 买单净值
@@ -472,7 +472,6 @@ root.computed.maxNotionalAtCurrentLeverage = function () {
       break;
     }
   }
-  console.info(notionalCap)
   return notionalCap || 0;
 
   // let notionalCap = []
