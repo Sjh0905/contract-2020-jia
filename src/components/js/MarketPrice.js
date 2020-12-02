@@ -96,6 +96,12 @@ root.computed.specialSymbol = function () {
   return this.$store.state.specialSymbol && this.$store.state.specialSymbol || []
 }
 
+// 特殊专区 0为超级为蜜
+root.computed.sNameMap = function () {
+  let defaultSNameMap = {"BTCUSDT":"BTC_USDT","ETHUSDT":"ETH_USDT"}
+  return this.$store.state.sNameMap || defaultSNameMap
+}
+
 // 市场列表
 root.computed.marketList = function () {
   // let storeMarketList = this.$store.state.marketList[this.selectEdition].slice(0)
@@ -130,28 +136,7 @@ root.computed.quoteScale_list = function () {
 root.computed.symbol_list = function () {
   return this.marketSymbolList;
 }
-//价格处理
-root.computed.compareSymbolPrePrice = function (list) {
-  if(!Array.isArray(list) || list.length == 0)return []
 
-  list.map(v=>{
-    if(!v.priceChangeArr){
-      v.priceChangeArr = [v.c]
-      // v.priceStep = 0
-    }
-
-    v.priceChangeArr.push(v.c);
-    let len = v.priceChangeArr.length
-    let step = len - 5
-    if(step > 0 ){
-      v.priceChangeArr.splice(0,step)
-      len = v.priceChangeArr.length
-    }
-    v.priceStep = v.priceChangeArr[len-1] - v.priceChangeArr[len-2]
-  })
-
-  return list;
-}
 
 // ajax获取的数据
 root.computed.mSymbolList = function () {
@@ -210,6 +195,7 @@ root.computed.mSymbolList = function () {
   // }
 
   this.mSymbolListTemp = mSymbolList;
+
   return mSymbolList;
 
 
@@ -368,9 +354,9 @@ root.watch.searchText = function(v){
 // 2018-4-4  end
 
 // 判断选中的是哪个市场  18-4-9 新加
-root.watch.mSymbolList = function (newValue, oldValue) {
+/*root.watch.mSymbolList = function (newValue, oldValue) {
   if (!this.clickTab) this.initTab()
-}
+}*/
 
 root.watch.symbol = function (newValue, oldValue) {
   if (newValue == oldValue) return
@@ -379,7 +365,27 @@ root.watch.symbol = function (newValue, oldValue) {
 
 
 root.methods = {}
+//价格处理
+root.methods.compareSymbolPrePrice = function (list) {
+  if(!Array.isArray(list) || list.length == 0)return []
+  list.map(v=>{
+    if(!v.priceChangeArr){
+      v.priceChangeArr = [v.c]
+      // v.priceStep = 0
+    }
 
+    v.priceChangeArr.push(v.c);
+    let len = v.priceChangeArr.length
+    let step = len - 5
+    if(step > 0 ){
+      v.priceChangeArr.splice(0,step)
+      len = v.priceChangeArr.length
+    }
+    v.priceStep = v.priceChangeArr[len-1] - v.priceChangeArr[len-2]
+  })
+
+  return list;
+}
 // root.methods.search  = function (){
 //   console.log(this.searchText , this.mSymbolList)
 // }
@@ -508,7 +514,8 @@ root.methods.formatnumber = function (value, num) {
 
 
 //点击货币对 切换整个页面symbol
-root.methods.slectSymbol = function (symbol, item) {
+root.methods.slectSymbol = function (s, item) {
+  let symbol = this.sNameMap[s]
   if (this.$store.state.symbol == symbol) return;
 
   // 把时价带入到progressBar里

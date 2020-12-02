@@ -47,6 +47,10 @@ root.computed.symbol = function () {
 root.computed.capitalSymbol = function () {
   return this.$globalFunc.toOnlyCapitalLetters(this.symbol);
 }
+//不加下划线币对集合
+root.computed.sNameList = function () {
+  return this.$store.state.sNameList || []
+}
 /*------------------------------ 观察 -------------------------------*/
 root.watch = {}
 /*------------------------------ 方法 -------------------------------*/
@@ -56,8 +60,8 @@ root.methods.getHistorTrans = function () {
   this.$http.send('GET_CAPITAL_DEAL',{
     bind: this,
     query:{
-      symbol:this.capitalSymbol,
-      timestamp:this.serverTime
+      symbol:'',
+      // timestamp:this.serverTime
     },
     callBack: this.re_getHistorTrans,
     errorHandler:this.error_getHistorTrans

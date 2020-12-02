@@ -1,5 +1,6 @@
 import fa from "element-ui/src/locale/lang/fa";
 import tradingHallData from "../../dataUtils/TradingHallDataUtils";
+import store from "../../configs/storeConfigs/StoreConfigs";
 
 const REFRESH_KEY = 'refreshDataObj'
 const REFRESH_TIME_STEP = 10000
@@ -274,7 +275,7 @@ root.methods.re_postcloseListenKey = function (data) {
 root.methods.getLeverageBracket = function(){
   this.$http.send('GET_LEVERAGE_BRACKET', {
     query:{
-      symbol:this.onlyCapitalSymbol
+      // symbol:this.onlyCapitalSymbol
     },
     callBack: this.re_getLeverageBracket,
     errorHandler:this.err_getLeverageBracket
@@ -283,9 +284,17 @@ root.methods.getLeverageBracket = function(){
 //查询杠杆分层标准返回
 root.methods.re_getLeverageBracket = function(data){
   typeof data === 'string' && (data = JSON.parse(data))
-  if(!data || !data.data || !data.data[0] || !data.data[0].data)return
+  // if(!data || !data.data || !data.data[0] || !data.data[0].data)return
+  if(!data || !data.data)return
+  let bracketList = {}
 
-  let item = data.data[0].data.find(v=>v.symbol == this.onlyCapitalSymbol) || {}
+  this.$store.state.sNameList.map(s=> {
+    bracketList[s] = (data.data.find(v=>v.symbol == s) || {}).brackets || {}
+  })
+
+
+
+ /* let item = data.data[0].data.find(v=>v.symbol == this.onlyCapitalSymbol) || {}
   let bracketSingle = item.brackets || []
   bracketSingle.map(v=>{
     v.notionalCum = this.cumFastMaintenanceAmount[v.bracket]
@@ -293,8 +302,9 @@ root.methods.re_getLeverageBracket = function(data){
   })
 
   bracketSingle = bracketSingle.sort((a,b)=>{return (a.bracket -b.bracket)});//必须按bracket倒序排序，其他代码是这么用的
-
-  this.$store.commit('CHANGE_LEVERAGE_BRACKET',bracketSingle);
+*/
+  // this.$store.commit('CHANGE_LEVERAGE_BRACKET',bracketSingle);
+  this.$store.commit('CHANGE_BRACKET_LIST',bracketList);
   // console.info('this is getLeverageBracket=',item,bracketSingle)
 }
 //查询杠杆分层标准出错

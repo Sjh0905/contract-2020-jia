@@ -135,7 +135,6 @@ root.data = function () {
     popWindowContractRiskWarning: false,
     value: 0,
     calculatorClass:['radiusa_blu1','radiusa_blu2','radiusa_blu3','radiusa_blu4','radiusa_blu5'],
-
     leverageMarks:{
       ETHUSDT:{
         1: '1X',
@@ -273,25 +272,23 @@ root.mounted = function () {
 // 计算symbol变化
 root.computed = {};
 // 杠杆分层数组
-root.computed.leverageBracket = function () {
+root.computed.bracketList = function () {
   // console.info(this.$store.state.leverageBracket)
-  return this.$store.state.leverageBracket || []
+  return (this.$store.state.bracketList || {})[this.capitalSymbol] || []
 }
 // 最大头寸值
 root.computed.maximumPosition = function () {
   let maximum = []
-  this.leverageBracket.forEach(v=>{
+  this.bracketList.forEach(v=>{
     maximum.push(v.notionalCap)
   })
-  console.info('maximum=',maximum)
-  console.info('maximum=',this.leverageBracket)
-  console.info('maximum=',this.initialLeverage)
   return maximum
 }
 // 杠杆倍数
 root.computed.initialLeverage = function () {
   let initial = []
-  this.leverageBracket.forEach(v=>{
+  // console.info(this.leverageBracket)
+  this.bracketList.forEach(v=>{
     initial.push(v.initialLeverage)
   })
   return initial
@@ -1783,6 +1780,7 @@ root.watch.positionRisk = function (newValue, oldValue) {
 }
 root.watch.symbol = function (newValue, oldValue) {
   if (newValue == oldValue) return;
+  // this.leverageMarks
   // this.getScaleConfig();
   // this.init();
 }

@@ -245,6 +245,10 @@ store.state.subscribeSymbol = ''
 store.state.sNameList = []
 //加下划线币对名集合
 store.state.sLineNameList = []
+//币对名映射，格式 BTCUSDT:BTC_USDT
+store.state.sNameMap = []
+
+
 
 /**
  * 服务器时间
@@ -371,6 +375,13 @@ store.state.orderBookTicker = {
  * @type {Array}
  */
 store.state.leverageBracket = []
+store.state.bracketList = {}
+
+/**
+ * 杠杆、保证金 信息存储
+ * @type {Object}
+ */
+store.state.currencyInfo = {}
 
 /**
  * socket ListenKey
@@ -483,6 +494,19 @@ store.mutations.CHANGE_ORDER_BOOK_TICKER = (state, info) => {
 // 改变 杠杆分层标准
 store.mutations.CHANGE_LEVERAGE_BRACKET = (state, info) => {
   state.leverageBracket = info;
+}
+
+// 改变 杠杆分层标准列表
+store.mutations.CHANGE_BRACKET_LIST = (state, info) => {
+  state.bracketList = info;
+}
+
+/**
+ * 改变杠杆、保证金 信息存储
+ * @type {Object}
+ */
+store.mutations.CHANGE_CURRENCY_INFO = (state, info) => {
+  state.currencyInfo = info;
 }
 
 // 改变 listenKey
@@ -1129,6 +1153,10 @@ store.mutations.SET_S_NAME_LIST = (state, info) => {
 
 store.mutations.SET_S_LINE_NAME_LIST = (state, info) => {
   state.sLineNameList = info
+}
+
+store.mutations.SET_S_NAME_MAP = (state, info) => {
+  state.sNameMap = info
 }
 
 store.mutations.changeMobilePopOpen = (state, info) => {

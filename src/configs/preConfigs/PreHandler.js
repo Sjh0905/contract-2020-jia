@@ -113,16 +113,19 @@ export default async function ($http, $store, $cookie, $i18n) {
     return $http.send('GET_SYMBOLS', {
       callBack: function (data) {
 
-        let d = data && data.data || [],sNameList = [],sLineNameList = [];
+        let d = data && data.data || [],sNameList = [],sLineNameList = [],sNameMap = {};
         d.map(v=>{
-          sNameList.push(v.baseName+v.quoteName)
-          sLineNameList.push(v.baseName+'_'+v.quoteName)
+          let n = v.baseName+v.quoteName,ln = v.baseName+'_'+v.quoteName
+          sNameList.push(n)
+          sLineNameList.push(ln)
+          sNameMap[n]= ln;
         })
 
         // console.log('this is sNameList,sLineNameList', sNameList,sLineNameList)
 
         $store.commit('SET_S_NAME_LIST', sNameList)
         $store.commit('SET_S_LINE_NAME_LIST', sLineNameList)
+        $store.commit('SET_S_NAME_MAP', sNameMap)
 
         /*let quoteConfig = [], marketList = [[], []];
         data.symbols.map(v => {
