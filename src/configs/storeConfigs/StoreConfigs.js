@@ -381,7 +381,16 @@ store.state.bracketList = {}
  * 杠杆、保证金 信息存储
  * @type {Object}
  */
-store.state.currencyInfo = {}
+store.state.currencyInfo = {
+  BTCUSDT:{
+    leverage:20,
+    marginType:'cross'
+  },
+  ETHUSDT:{
+    leverage:20,
+    marginType:'cross'
+  },
+}
 
 /**
  * socket ListenKey
@@ -507,6 +516,9 @@ store.mutations.CHANGE_BRACKET_LIST = (state, info) => {
  */
 store.mutations.CHANGE_CURRENCY_INFO = (state, info) => {
   state.currencyInfo = info;
+  // 兼容单币对杠杆倍数存储方式 需要重新转换 state.leverage 为当前选中币对的杠杆倍数值
+  state.leverage = info[GlobalFunc.toOnlyCapitalLetters(state.symbol)].leverage
+  // state.currencyInfo[GlobalFunc.toOnlyCapitalLetters(state.symbol)].marginType = Object.assign(info);
 }
 
 // 改变 listenKey
@@ -1144,6 +1156,8 @@ store.mutations.ENTER_CONTRACT = (state, info) => {
 
 store.mutations.SET_SYMBOL = (state, info) => {
   state.symbol = info
+  // 兼容单币对杠杆倍数存储方式 需要重新转换 state.leverage 为当前选中币对的杠杆倍数值
+  state.leverage = state.currencyInfo[GlobalFunc.toOnlyCapitalLetters(state.symbol)].leverage
   state.subscribeSymbol = GlobalFunc.toOnlyCapitalLetters(state.symbol);
 }
 

@@ -271,6 +271,22 @@ root.mounted = function () {
 
 // 计算symbol变化
 root.computed = {};
+root.computed.currencyInfo = function () {
+  let cInfo = this.$store.state.currencyInfo
+  let csv = cInfo[this.capitalSymbol];
+
+  if(csv.marginType == 'isolated'){
+    this.marginType = 'ISOLATED'  // 传参使用
+    this.marginModeType = 'zhuCang' // 切换样式使用
+  }else{
+    this.marginType = 'CROSSED'
+    this.marginModeType = 'quanCang'
+  }
+  return cInfo
+  // console.info(this.$store.state.currencyInfo[this.capitalSymbol].leverage)
+  // console.info(this.$store.state.currencyInfo[this.capitalSymbol].marginType)
+  // return this.$store.state.currency[this.capitalSymbol].leverage || ''
+}
 // 杠杆分层数组
 root.computed.bracketList = function () {
   // console.info(this.$store.state.leverageBracket)
@@ -857,10 +873,40 @@ root.methods.re_positionRisk = function (data) {
   typeof(data) == 'string' && (data = JSON.parse(data));
   if(!data || !data.data || data.data == []) return
   let filterRecords = []
-  data.data.forEach(v=>{
+
+  this.sNameList.forEach(s=>{
+    for (let i = 0,len = data.data.length; i < len; i++) {
+      let v = data.data[i];
+      if (v.symbol == s) {
+        let currencyInfo = {...this.currencyInfo}
+        currencyInfo[s] = {
+          leverage:v.leverage,
+          marginType:v.marginType
+        }
+        this.$store.commit("CHANGE_CURRENCY_INFO", currencyInfo);
+        break;
+      }
+    }
+  })
+
+  let csv = this.currencyInfo[this.capitalSymbol];
+
+  // this.leverage = csv.leverage
+  // this.$store.commit("CHANGE_LEVERAGE", csv.leverage);
+  if(csv.marginType == 'isolated'){
+    this.marginType = 'ISOLATED'  // 传参使用
+    this.marginModeType = 'zhuCang' // 切换样式使用
+    return
+  }
+  this.marginType = 'CROSSED'
+  this.marginModeType = 'quanCang'
+
+ /* data.data.find(v=>{
     if (v.symbol == this.capitalSymbol) {
       this.leverage = v.leverage
       this.$store.commit("CHANGE_LEVERAGE", v.leverage);
+      this.$store.commit("CHANGE_CURRENCY_INFO", v);
+      // this.$store.commit("CHANGE_CURRENCY_INFO", v.marginType);
       if(v.marginType == 'isolated'){
         this.marginType = 'ISOLATED'
         this.marginModeType = 'zhuCang'
@@ -869,7 +915,8 @@ root.methods.re_positionRisk = function (data) {
       this.marginType = 'CROSSED'
       this.marginModeType = 'quanCang'
     }
-  })
+  })*/
+
 }
 
 // 切换全仓逐仓
@@ -1447,7 +1494,7 @@ root.methods.changeReducePositions = function(){
 root.methods.openLever = function () {
   this.popTextLeverage=''
   this.popWindowAdjustingLever = true
-  this.value = this.$store.state.leverage
+  this.value = this.currencyInfo[this.capitalSymbol].leverage
 }
 //打开调整杠杆 End
 // 调整杠杆接口调取
