@@ -158,7 +158,7 @@ root.computed.mSymbolList = function () {
 
   //mSymbolListTemp.length为0说明首次进入，mSymbolList取marketSymbolList的值,默认不刷新页面情况下币对个数不会变化，mSymbolListTemp.length>0就一直取本身
   let mSymbolList = this.mSymbolListTemp.length > 0 ? this.mSymbolListTemp : this.marketSymbolList,
-      socket24hrTicker = this.socket24hrTicker
+      socket24hrTicker = this.socket24hrTicker.filter(v => this.sNameList.includes(v.s))
 
   //默认接口不会调用多次，第一次进入后socket还没推送
   if(socket24hrTicker.length == 0 && mSymbolList.length >= 0){
@@ -313,6 +313,14 @@ root.computed.computedMarketList = function () {
 // 获取当前symbol
 root.computed.symbol = function () {
   return this.$store.state.symbol;
+}
+//不加下划线币对
+root.computed.capitalSymbol = function () {
+  return this.$globalFunc.toOnlyCapitalLetters(this.symbol);
+}
+//不加下划线币对集合
+root.computed.sNameList = function () {
+  return this.$store.state.sNameList;
 }
 
 //时价初始化标识数组
