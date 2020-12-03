@@ -116,6 +116,7 @@ root.data = function () {
     resultData:{},
     // 禁止频繁点击
     openDisabel:false,
+    isLiChengCheng:true,
 
   }
 }
@@ -727,55 +728,7 @@ root.methods.createWithStop = function () {
   //   this.openDisabel = false
   //   return
   // }
-  if(this.limitAmount()){
-    this.popOpen = true;
-    this.popType = 0;
-    this.popText='开仓数量不能超过可开数量'
-    this.openDisabel = false
-    return
-  }
-  if(this.noCommit()){
-    this.popOpen = true;
-    this.popType = 0;
-    this.popText='请填写正确的内容'
-    this.openDisabel = false
-    return
-  }
-  if(this.positionLimit()){
-    this.popOpen = true;
-    this.popType = 0;
-    this.popText='您暂时没有可平仓位'
-    this.openDisabel = false
-    return
-  }
-  if(this.stepLimit()) {
-    this.popOpen = true;
-    this.popType = 0;
-    this.popText='分步最多为5步'
-    this.openDisabel = false
-    return
-  }
-  if(!this.stepMore()) {
-    this.popOpen = true;
-    this.popType = 0;
-    this.popText='分步下单数量小于最小下单数量'
-    this.openDisabel = false
-    return
-  }
-  if(this.testPoint()) {
-    this.popOpen = true;
-    this.popType = 0;
-    this.popText='分步步数请输入正整数'
-    this.openDisabel = false
-    return
-  }
-  if(this.stepPointLimit()){
-    this.popOpen = true;
-    this.popType = 0;
-    this.popText='分步状态下,请输入正确的分步和点数'
-    this.openDisabel = false
-    return
-  }
+
   let params,positionAmtLong,positionAmtShort
   if(this.positionModeFirst == 'singleWarehouseMode'){
     positionAmtLong = this.positionAmt > 0
@@ -941,6 +894,7 @@ root.methods.error_getPositionRisk = function (err) {
 // 关闭开平器记录
 root.methods.closeList = function () {
   this.showList = false
+  this.closeClick()
   // this.closeClick()
 }
 // 打开开平器列表
@@ -977,6 +931,7 @@ root.methods.openList = function () {
     return
   }
   this.showList = true
+  this.isLiChengCheng = false
 }
 
 root.methods.testPointValue = function (keyName,length = 2) {
@@ -1017,7 +972,65 @@ root.methods.changeOpenerType = function (type) {
 }
 // 开平器确定按钮
 root.methods.comitBottleOpener = function () {
+  if(this.limitAmount()){
+    this.popOpen = true;
+    this.popType = 0;
+    this.popText='开仓数量不能超过可开数量'
+    this.openDisabel = false
+    this.isLiChengCheng = true
+    return
+  }
+  if(this.noCommit()){
+    this.popOpen = true;
+    this.popType = 0;
+    this.popText='请填写正确的内容'
+    this.openDisabel = false
+    this.isLiChengCheng = true
+    return
+  }
+  if(this.positionLimit()){
+    this.popOpen = true;
+    this.popType = 0;
+    this.popText='您暂时没有可平仓位'
+    this.openDisabel = false
+    this.isLiChengCheng = true
+    return
+  }
+  if(this.stepLimit()) {
+    this.popOpen = true;
+    this.popType = 0;
+    this.popText='分步最多为5步'
+    this.openDisabel = false
+    this.isLiChengCheng = true
+    return
+  }
+  if(!this.stepMore()) {
+    this.popOpen = true;
+    this.popType = 0;
+    this.popText='分步下单数量小于最小下单数量'
+    this.openDisabel = false
+    this.isLiChengCheng = true
+    return
+  }
+  if(this.testPoint()) {
+    this.popOpen = true;
+    this.popType = 0;
+    this.popText='分步步数请输入正整数'
+    this.openDisabel = false
+    this.isLiChengCheng = true
+    return
+  }
+  if(this.stepPointLimit()){
+    this.popOpen = true;
+    this.popType = 0;
+    this.popText='分步状态下,请输入正确的分步和点数'
+    this.openDisabel = false
+    this.isLiChengCheng = true
+    return
+  }
+  this.isLiChengCheng = false
   this.createWithStop()
+
   // this.clearVal()
 }
 // 取消按钮
@@ -1049,6 +1062,7 @@ root.methods.clearVal= function () {
   this.openAmount = ''
   this.stopProfitPointEmpty = ''
   this.StopLossPointEmpty = ''
+  this.isLiChengCheng = true
 }
 
 /* -------------------- 开平器记录列表 begin-------------------- */
