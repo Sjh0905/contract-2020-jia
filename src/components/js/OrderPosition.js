@@ -21,6 +21,11 @@ root.props.markPrice = {
   type: String,
   default: ''
 }
+// 多币对最新标记价格
+root.props.markPriceObj = {
+  type: Object,
+  default: {}
+}
 /*------------------------------ 组件 ------------------------------*/
 root.components = {
   'Loading': resolve => require(['../vue/Loading'], resolve), // loading
@@ -538,6 +543,8 @@ root.methods.positionSocket = function () {
         //由于socket返回的没有isolatedMargin，为了向接口看齐，方便处理，加一个出来
         v.isolatedMargin = this.accAdd(v.iw,v.unrealizedProfit)
 
+        let sMarkPrice = this.markPriceObj[v.symbol] && this.markPriceObj[v.symbol].p || 1
+
         //如果本地已有仓位
         if(currPositionsNew.length > 0){
           let fKey = v.symbol + '_' + v.positionSide;//用来区分某一仓位的key，如：BTCUSDT_BOTH
@@ -548,7 +555,7 @@ root.methods.positionSocket = function () {
             if((v.mt == 'cross' && v.pa!=0) || (v.mt == 'isolated' && (v.pa!=0 || v.iw!=0))){
 
               //限价输入框的价格
-              item.iptMarkPrice = Number(this.markPrice).toFixed(2)
+              item.iptMarkPrice = Number(sMarkPrice).toFixed(2)
 
               //如果存在直接覆盖更新
               if(fKey == cKey){
@@ -580,7 +587,7 @@ root.methods.positionSocket = function () {
           //全仓、逐仓新增，逐仓iw不等于0是为了测试服暴露穿仓数据，即负数情况
           if((v.mt == 'cross' && v.pa!=0) || (v.mt == 'isolated' && (v.pa!=0 || v.iw!=0))){
             //限价输入框的价格
-            v.iptMarkPrice = Number(this.markPrice).toFixed(2)
+            v.iptMarkPrice = Number(sMarkPrice).toFixed(2)
             //如果不存在就新增
             currPositionsNew.push(v);
           }
@@ -720,12 +727,14 @@ root.methods.handleWithMarkPrice = function(records){
   //由于四舍五入，以下均使用原生toFixed
   records.map((v,i)=>{
 
+    let sMarkPrice = this.markPriceObj[v.symbol] && this.markPriceObj[v.symbol].p || 1
+
     if(!v.hasOwnProperty('iptMarkPrice')){
-      v.markPrice && (v.iptMarkPrice = v.markPrice) || (v.iptMarkPrice = this.markPrice);
+      v.markPrice && (v.iptMarkPrice = v.markPrice) || (v.iptMarkPrice = sMarkPrice);
       v.iptMarkPrice = Number(v.iptMarkPrice).toFixed(2)
     }
 
-    let notional = this.accMul(Math.abs(v.positionAmt) || 0,this.markPrice || 0)
+    let notional = this.accMul(Math.abs(v.positionAmt) || 0,sMarkPrice || 0)
     let args = this.getCalMaintenanceArgs(notional) || {},maintMarginRatio = args.maintMarginRatio || 0,notionalCum = args.notionalCum || 0
 
     v.bracketArgs = args;//用于强平价格降档计算
@@ -737,8 +746,8 @@ root.methods.handleWithMarkPrice = function(records){
     v.unrealizedProfitPage = v.unrealizedProfit//由于unrealizedProfit要用于计算逐仓保证金，值不能改变，但是页面和计算的值需要变化
 
     //回报率：全仓逐仓均是ROE = ( ( Mark Price - Entry Price ) * size ) / （Mark Price * abs(size) * IMR）,IMR = 1/杠杆倍数
-    v.unrealizedProfitPage = this.accMul( this.accMinus(this.markPrice || 0,v.entryPrice || 0),v.positionAmt || 0 )//实时变化的未实现盈亏
-    let msi = this.accDiv( this.accMul(Math.abs(v.positionAmt) || 0,this.markPrice || 0) , this.leverage )
+    v.unrealizedProfitPage = this.accMul( this.accMinus(sMarkPrice || 0,v.entryPrice || 0),v.positionAmt || 0 )//实时变化的未实现盈亏
+    let msi = this.accDiv( this.accMul(Math.abs(v.positionAmt) || 0,sMarkPrice || 0) , this.leverage )
     v.responseRate = this.accMul(this.accDiv(v.unrealizedProfitPage || 0,msi || 1),100)
     v.responseRate = Number(v.responseRate).toFixed(2) + '%'
 
@@ -910,7 +919,7 @@ root.methods.LPCalculation2 = function () {
           paras = [WB,size,ep,cum,mmr]
           LP = this.LPCalculation1LONG(paras)//cum_S对应等级cum是0，那公式就和“双仓-逐仓-多仓”一致
         // }
-
+        //TODO:这里的标记价格需要改变取值方式，暂时没用到，稍后再改
         let SIZELP1 = this.accMul(Math.abs(size),LP),SIZEMP = this.accMul(Math.abs(size),this.markPrice);
             SIZELP1 = Math.abs(SIZELP1);SIZEMP = Math.abs(SIZEMP);
 
@@ -951,6 +960,7 @@ root.methods.LPCalculation2 = function () {
 
         //对比 abs(L*LP1) 与 abs(L*MP) 是否处于同一层级，若是，则 LP1 为最终结果；否则多仓bracket 降一档
         //可理解为二者同时满足floor<abs(L或S*LP1)、abs(L或S*MP)<=cap
+        //TODO:这里的标记价格需要改变取值方式，暂时没用到，稍后再改
         let SIZELP1 = this.accMul(SIZEL,LP1),SIZEMP = this.accMul(SIZEL,this.markPrice);
             SIZELP1 = Math.abs(SIZELP1);SIZEMP = Math.abs(SIZEMP);
 
