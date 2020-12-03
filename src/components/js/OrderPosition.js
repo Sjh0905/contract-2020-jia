@@ -730,6 +730,7 @@ root.methods.handleWithMarkPrice = function(records){
     let sMarkPrice = this.markPriceObj[v.symbol] && this.markPriceObj[v.symbol].p || 1
 
     if(!v.hasOwnProperty('iptMarkPrice')){
+      //接口返回仓位数据有markPrice，socket推送仓位没有，需从标价变量获取，v的markPrice用于页面输入框显示，不做实时更新，除非重调接口
       v.markPrice && (v.iptMarkPrice = v.markPrice) || (v.iptMarkPrice = sMarkPrice);
       v.iptMarkPrice = Number(v.iptMarkPrice).toFixed(2)
     }
