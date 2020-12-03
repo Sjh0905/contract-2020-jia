@@ -83,6 +83,11 @@ root.props.markPrice = {
   type: String,
   default: ''
 }
+// 多币对最新标记价格
+root.props.markPriceObj = {
+  type: Object,
+  default: {}
+}
 // 全仓逐仓
 root.props.marginType = {
   type: String,
@@ -316,10 +321,16 @@ root.watch.latestPrice =function (newValue, oldValue) {
 
 /*----------------------------- 计算 begin ------------------------------*/
 
+// 杠杆分层数组
+root.computed.bracketList = function () {
+  // console.info(this.$store.state.leverageBracket)
+  return (this.$store.state.bracketList || {})[this.capitalSymbol] || []
+}
+//双仓可平多数量
 root.computed.positionAmtLong = function (){
   return this.$store.state.closeAmount.positionAmtLong || 0
 }
-
+//双仓可平空数量
 root.computed.positionAmtShort = function (){
   return this.$store.state.closeAmount.positionAmtShort || 0
 }
@@ -400,9 +411,9 @@ root.computed.buyDepthOrders = function () {
   // console.info('this.$store.state.orderBookTicker.bidPrice',this.$store.state.orderBookTicker.bidPrice)
   return this.$store.state.orderBookTicker.bidPrice
 }
-root.computed.leverageBracket = function () {
-  return this.$store.state.leverageBracket || []
-}
+// root.computed.leverageBracket = function () {
+//   return this.$store.state.leverageBracket || []
+// }
 // 除去逐仓仓位保证金的钱包余额
 root.computed.crossWalletBalance = function () {
   return this.$store.state.assets.crossWalletBalance
@@ -411,7 +422,6 @@ root.computed.crossWalletBalance = function () {
 root.computed.currentOrders = function  () {
   return this.$store.state.currentOrders || []
 }
-
 // 买单净值
 root.computed.computedBuyNetValue = function () {
   if(this.buyNetValue) return this.buyNetValue
@@ -444,7 +454,7 @@ root.computed.computedSellNetValue = function () {
 }
 // 最大可下单值（名义价值）
 root.computed.maxNotionalAtCurrentLeverage = function () {
-  let leverageBracket = this.$store.state.leverageBracket || []
+  let leverageBracket = this.bracketList || []
   let leverage = this.$store.state.leverage || 0
   let leverageArr1 = [1,2]//杠杆固定值，分别对应最大头寸，无需做范围判断，其中杠杆倍数为1时也取2对应的值
   let leverageArr2 = [2,3,4,5]//杠杆固定值，分别对应最大头寸，无需做范围判断
@@ -522,23 +532,90 @@ root.computed.costAssumingPrice = function () {
     return Number(assumingPrc) || 0
   }
 }
+//处理过的仓位数据
+root.computed.positionList = function () {
+  return this.$store.state.positionList || []
+ /* return [
+    {
+    LPCalculation1: 0,
+    adlQuantile: "1",
+    bracketArgs: {},
+    entryPrice: 19424.26,
+    iptMarkPrice: "19201.54",
+    isAutoAddMargin: "false",
+    isolatedMargin: "15.47410179",
+    leverage: 11,
+    liquidationPrice: 17725.03115863,
+    maintMargin: "0",
+    maintMarginRate: "0.00%",
+    marginType: "isolated",
+    markPrice: 18000,
+    maxNotionalValue: 5000000,
+    positionAmt: 0.001,
+    positionSide: "LONG",
+    responseRate: "-46820.30%",
+    securityDeposit: "17.70128966",
+    symbol: "BTCUSDT",
+    unrealizedProfit: -2.22718787,
+    unrealizedProfitPage: "-188.2127553113",
+  }, {
+    LPCalculation1: 0,
+    adlQuantile: "1",
+    bracketArgs: {},
+    entryPrice: 19424.26,
+    iptMarkPrice: "19201.54",
+    isAutoAddMargin: "false",
+    isolatedMargin: "15.47410179",
+    leverage: 11,
+    liquidationPrice: 17725.03115863,
+    maintMargin: "0",
+    maintMarginRate: "0.00%",
+    marginType: "isolated",
+    markPrice: 612.3,
+    maxNotionalValue: 5000000,
+    positionAmt: -0.2,
+    positionSide: "SHORT",
+    responseRate: "-46820.30%",
+    securityDeposit: "17.70128966",
+    symbol: "ETHUSDT",
+    unrealizedProfit: -2.22718787,
+    unrealizedProfitPage: "-188.2127553113",
+  }]*/
+
+}
+// 单仓的 position_notional_val 计算
+root.computed.positionNotionalValueaaa = function () {
+  let notionalValue = 0
+  this.positionList.forEach(v=>{
+    if(v.positionSide=='BOTH'){
+      notionalValue += Number(this.accMul(Number(v.positionAmt), Number(this.markPriceObj[v.symbol])))
+    }
+    if(v.positionSide=='SHORT'){
+      notionalValue += Number(this.accMul(Number(v.positionAmt), Number(this.markPriceObj[v.symbol])))
+    }
+    if(v.positionSide=='LONG'){
+      notionalValue += Number(this.accMul(Number(v.positionAmt), Number(this.markPriceObj[v.symbol])))
+    }
+  })
+  return notionalValue
+}
 
 // 单仓最多可开
 root.computed.canMore = function () {
   let crossWalletBalanceSing = Number(this.crossWalletBalance) // 全仓钱包余额
   // 向上取整IMR
-  let leverage = Number(this.$globalFunc.accFixedCny(this.accDiv(1 , Number(this.$store.state.leverage) || 1),4))
+  let leverage = this.leverage
   let availableBalance = this.$store.state.assets.availableBalance || 0
   // let availableBalance = this.availableBalance || 0
   let markPrice = Number(this.markPrice) || 0
-  let price = this.price || 0 // 输入框价格
+  let price = this.price || '' // 输入框价格
   // let temp = this.orderType ? -1 : 1;
   // let priceStep = Math.abs(Math.min(0 , temp * (markPrice - price))) || 0  // TODO:简化后
   let buy = Math.abs(Math.min(0 , 1 * (markPrice - price))) || 0  // TODO:适用 LIMIT, STOP, TAKE PROFIT 买(!orderType)
   let sell = Math.abs(Math.min(0 , -1 * (markPrice - price))) || 0  // TODO:适用 LIMIT, STOP, TAKE PROFIT 卖(orderType)
   let buyMarket = Math.abs(Math.min(0 , 1 * (markPrice - this.assumingPrice))) || 0  // TODO:适用 LIMIT, STOP, TAKE PROFIT 买(!orderType)
   let sellMarket = Math.abs(Math.min(0 , -1 * (markPrice - this.assumingPrice))) || 0  // TODO:适用 LIMIT, STOP, TAKE PROFIT 卖(orderType)
-  let positionAmt = this.totalAmount || 0 // TODO:有仓位时：单仓取数量取和；双仓取数量绝对值之和无仓位时取0
+  let positionAmt = this.totalAmount || 0 // TODO:有仓位时：单仓取数量之和；双仓取数量绝对值之和无仓位时取0
   // present initial margin = max（position notional+open order bid notional，position notional-open order ask notional）* 1 / leverage
   let initialMargin =  Math.max((markPrice * positionAmt) + this.computedBuyNetValue, (markPrice * positionAmt) - this.computedSellNetValue) * leverage
   let positionNotionalValue = positionAmt * markPrice
@@ -782,7 +859,7 @@ root.computed.canMore = function () {
 root.computed.canBeOpened = function () {
   // let crossWalletBalance = Number(this.crossWalletBalance) // 全仓钱包余额
   // 向上取整IMR
-  let leverage = Number(this.$globalFunc.accFixedCny(this.accDiv(1 , Number(this.$store.state.leverage) || 1),4))
+  let leverage = this.leverage
   let availableBalance = this.$store.state.assets.availableBalance || 0
   // let availableBalance = this.availableBalance || 0
   let markPrice = Number(this.markPrice) || 0
@@ -795,6 +872,12 @@ root.computed.canBeOpened = function () {
   let sellMarket = Math.abs(Math.min(0 , -1 * (markPrice - this.assumingPrice))) || 0  // TODO:适用 LIMIT, STOP, TAKE PROFIT 卖(orderType)
   let shortPositionAmt = Number(this.totalAmountShort) // TODO:有仓位时：数量取和；无仓位时取0
   let longPositionAmt = Number(this.totalAmountLong) // TODO:有仓位时：数量取和；无仓位时取0
+
+  //多仓位使用这个变量
+/*  let positionNotionalLong,positionNotionalShort
+  positionNotionalLong = this.positionNotionalLong
+  positionNotionalShort = this.positionNotionalShort*/
+
 
   let buyCanOpen = 0
   let sellCanOpen = 0
@@ -1048,6 +1131,15 @@ root.methods.setTotalAmountLong = function(totalAmountLong){
 root.methods.setTotalAmountShort = function(totalAmountShort){
   this.totalAmountShort = totalAmountShort
 }
+/*//设置双仓开多仓位的 position_notional_value Long
+root.methods.setTotalAmountLong = function(totalAmountLong){
+  this.totalAmountLong = totalAmountLong
+}
+//设置双仓开空仓位的 position_notional_value Short
+root.methods.setTotalAmountShort = function(totalAmountShort){
+  this.totalAmountShort = totalAmountShort
+}*/
+
 // //设置委托做多总数量
 // root.methods.setOpenOrdersBuyAmt = function(totalAmount){
 //   this.openOrdersBuyTotal = totalAmount

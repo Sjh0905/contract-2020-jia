@@ -183,6 +183,10 @@ root.mounted = function () {}
 root.beforeDestroy = function () {}
 /*------------------------------ 计算 -------------------------------*/
 root.computed = {}
+//不加下划线币对集合
+root.computed.sNameList = function () {
+  return this.$store.state.sNameList || []
+}
 root.computed.reduceMostAmount1 = function (){
   // 计算最多可减少     // isolatedWalletBalance, isolatedWalletBalance + size * (Latest_Mark_Price - Entry_Price) - Latest_Mark_Price * abs(size) * IMR
   let isolatedWalletBalance = this.accMinus(this.walletBalance,this.crossWalletBalance) // 逐仓钱包余额
@@ -449,17 +453,33 @@ root.methods.setCloseAmount = function (item){
     positionAmtShort:this.positionAmtShort
   }
   this.$store.commit('CHANGE_CLOSE_AMOUNT',closeAmount)
-  let totalAmt = 0,totalAmtLong = 0 , totalAmtShort = 0;
-  if((item.ps  || item.positionSide) == 'BOTH') {
-    totalAmt = (item.pa || item.positionAmt)
 
+
+  let totalAmt = 0,totalAmtLong = 0 , totalAmtShort = 0 , singlePos;
+  //查找仓位的币对
+  singlePos = this.sNameList.find(s => s==item.symbol)
+  // 单仓取当前币对的开仓数量，用于计算可开数量做判断使用
+  if(singlePos == this.capitalSymbol && (item.ps  || item.positionSide) == 'BOTH'){
+    totalAmt = (item.pa || item.positionAmt)
+    // console.info('totalAmt==',totalAmt,this.markPrice)
     // 单仓下计算可开数量
     if(totalAmt!=this.totalAmount) {
       this.totalAmount = totalAmt
-      // console.info('this.totalAmount===',this.totalAmount)
       this.$eventBus.notify({key:'POSITION_TOTAL_AMOUNT'}, this.totalAmount)
     }
   }
+
+
+  // if((item.ps  || item.positionSide) == 'BOTH') {
+  //   totalAmt = (item.pa || item.positionAmt)
+  //   // console.info('totalAmt==',totalAmt,this.markPrice)
+  //   // 单仓下计算可开数量
+  //   if(totalAmt!=this.totalAmount) {
+  //     this.totalAmount = totalAmt
+  //     // console.info('this.totalAmount===',this.totalAmount)
+  //     this.$eventBus.notify({key:'POSITION_TOTAL_AMOUNT'}, this.totalAmount)
+  //   }
+  // }
   if((item.ps  || item.positionSide) == 'LONG'){
     totalAmtLong =  (item.pa || item.positionAmt)
 
@@ -796,6 +816,8 @@ root.methods.handleWithMarkPrice = function(records){
   this.crossMaintMarginRate = this.accDiv(totalMaintMargin,this.accAdd(totalUnrealizedProfit,this.crossWalletBalance))
   this.crossMaintMarginRate = Number(this.crossMaintMarginRate * 100).toFixed(2) + '%'
   this.records = records;
+
+  this.notionalVal = this.notionalVala
 
 
   //双仓全仓强平价格计算，由于全仓下同一symbol多空仓位强平价格一致，用map遍历完后再计算
