@@ -67,7 +67,7 @@
       <div class="td td-time1">
         <div class="td-time1-currency flex">
           <div :class="(item.positionAmt || 0) > 0 ?'td-time1-green':'td-time1-red'"></div>
-          <div class="td-currency">{{item.symbol}} }}</div>
+          <div class="td-currency">{{item.symbol}}</div>
           <div class="td-currency-btn">{{currencyInfo[item.symbol].leverage}}X</div>
         </div>
       </div>
@@ -76,8 +76,8 @@
       <!--开仓价格-->
       <div class="td td-category-1">{{!!item.entryPrice && Number(item.entryPrice).toFixed(2) || '-'}}</div>
       <!--标记价格-->
-<!--      <div class="td td-market">{{!!markPrice && Number(markPrice).toFixed(2) || '-'}}</div>-->
-      <div class="td td-market">{{!!markPriceObj && markPriceObj[item.symbol].toFixed(2) || '-'}}</div>
+      <div class="td td-market">{{!!markPrice && Number(markPrice).toFixed(2) || '-'}}</div>
+<!--      <div class="td td-market">{{!!markPrice && markPriceObj[item.symbol].toFixed(2) || '-'}}</div>-->
       <!--强平价格-->
       <div class="td td-flat-price weigth-font">{{!!item.liquidationPrice && Number(item.liquidationPrice).toFixed(2) || '-'}}</div>
       <!--保证金比率-->
