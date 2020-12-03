@@ -10,6 +10,7 @@ export default class {
     this.socket = null;
     this.onMap = new Map()
     this.socketInterval = null
+    this.msgId = 0;
     // this.init()  //初始化ocket,由于在PreHandler里边对默认symbol做了处理,所以去main.js调用此函数做初始化操作
   }
 
@@ -49,11 +50,13 @@ export default class {
       let subscribeStreamArr = [
         symbol + "@depth",
         symbol + "@aggTrade",
-        symbol + "@markPrice",
+        symbol + "@kline_1m",
+        // symbol + "@markPrice",
+        "!markPrice@arr",
         "!ticker@arr"
       ]
 
-      subscribeStreamArr.push(this.symbol + "@kline_1m");
+      // subscribeStreamArr.push(this.symbol + "@kline_1m");
       // subscribeStreamArr.push("btcusdt@kline_5m");
       // subscribeStreamArr.push(this.symbol + "@kline_15m");
       // subscribeStreamArr.push("btcusdt@kline_30m");
@@ -165,7 +168,7 @@ export default class {
     this.symbol = params && params.symbol || '';
     // if (this.socket.readyState===1 && params && params.symbol) {
       this.socket.send(JSON.stringify({
-        id:1,
+        id:++this.msgId,
         method,
         params
       }));
