@@ -306,8 +306,15 @@ root.watch.pendingOrderType = function (newValue, oldValue) {
   this.value = 0
   this.amount = ''
   //初始显示的价格
-  // this.price = this.latestPriceVal
-  this.price = ''
+  this.price = this.latestPriceVal
+  // this.price = ''
+}
+root.watch.positionModeSecond = function (newValue, oldValue) {
+  this.triggerPrice = ''
+  this.value = 0
+  this.amount = ''
+  //初始显示的价格
+  this.price = this.latestPriceVal
 }
 
 // 监听选择的是 最新价格 还是 标记价格
