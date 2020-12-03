@@ -83,6 +83,11 @@ root.props.markPrice = {
   type: String,
   default: ''
 }
+// 多币对最新标记价格
+root.props.markPriceObj = {
+  type: Object,
+  default: {}
+}
 // 全仓逐仓
 root.props.marginType = {
   type: String,
@@ -529,7 +534,8 @@ root.computed.costAssumingPrice = function () {
 }
 //处理过的仓位数据
 root.computed.positionList = function () {
-  return [
+  return this.$store.state.positionList || []
+ /* return [
     {
     LPCalculation1: 0,
     adlQuantile: "1",
@@ -574,23 +580,22 @@ root.computed.positionList = function () {
     symbol: "ETHUSDT",
     unrealizedProfit: -2.22718787,
     unrealizedProfitPage: "-188.2127553113",
-  }]
-  // return this.$store.state || []
+  }]*/
+
 }
 // 单仓的 position_notional_val 计算
 root.computed.positionNotionalValueaaa = function () {
   let notionalValue = 0
   this.positionList.forEach(v=>{
     if(v.positionSide=='BOTH'){
-      notionalValue += Number(this.accMul(Number(v.positionAmt), Number(v.markPrice)))
+      notionalValue += Number(this.accMul(Number(v.positionAmt), Number(this.markPriceObj[v.symbol])))
     }
     if(v.positionSide=='SHORT'){
-      notionalValue += Number(this.accMul(Number(v.positionAmt), Number(v.markPrice)))
+      notionalValue += Number(this.accMul(Number(v.positionAmt), Number(this.markPriceObj[v.symbol])))
     }
     if(v.positionSide=='LONG'){
-      notionalValue += Number(this.accMul(Number(v.positionAmt), Number(v.markPrice)))
+      notionalValue += Number(this.accMul(Number(v.positionAmt), Number(this.markPriceObj[v.symbol])))
     }
-
   })
   return notionalValue
 }
