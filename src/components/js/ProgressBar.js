@@ -115,6 +115,7 @@ root.data = function () {
     loading: false,
     triggerPrice:'', // 触发价格
     price: '',
+    priceft: '',
     priceNow: '0',
     amount: '',
     currentSymbol: {
@@ -206,6 +207,7 @@ root.data = function () {
     splicedFrameText:'',
     // openOrdersBuyTotal:0, //订单总数量
     // openOrdersSellTotal:0, //订单总数量
+
   }
 }
 /*----------------------------- data end------------------------------*/
@@ -213,6 +215,7 @@ root.data = function () {
 /*----------------------------- 生命周期 begin ------------------------------*/
 
 root.created = function () {
+
   // 左侧price变化时更改当前price
   this.$eventBus.listen(this, 'SET_PRICE', this.RE_SET_PRICE);
   //  根据买卖设置买卖amount，买对应卖，卖对应买
@@ -240,7 +243,7 @@ root.created = function () {
   // this.postOrdersCreate()
   this.initSocket()
   this.chainCal = this.$globalFunc.chainCal
-
+  // this.price = this.latestPriceVal
 }
 
 root.mounted = function () {
@@ -306,15 +309,25 @@ root.watch.pendingOrderType = function (newValue, oldValue) {
   this.value = 0
   this.amount = ''
   //初始显示的价格
+  // this.price = this.latestPriceVal
+  this.priceft = ''
   this.price = this.latestPriceVal
-  // this.price = ''
 }
 root.watch.positionModeSecond = function (newValue, oldValue) {
   this.triggerPrice = ''
   this.value = 0
   this.amount = ''
   //初始显示的价格
+  // this.price = this.latestPriceVal
+  this.priceft = ''
   this.price = this.latestPriceVal
+}
+
+root.watch.price = function (newValue, oldValue) {
+    if(this.price == ''|| this.price == 0) {
+      // this.priceft = this.latestPriceVal
+      this.price = this.latestPriceVal
+    }
 }
 
 // 监听选择的是 最新价格 还是 标记价格
@@ -797,6 +810,8 @@ root.computed.canBeOpened = function () {
   // let availableBalance = this.availableBalance || 0
   let markPrice = Number(this.markPrice) || 0
   let price = this.price || 0 // 输入框价格
+  // if (price == 0 || price == '')price = this.latestPriceVal
+
   // let temp = this.orderType ? -1 : 1;
   // let priceStep = Math.abs(Math.min(0 , temp * (markPrice - price))) || 0  // TODO:简化后
   let buy = Math.abs(Math.min(0 , 1 * (markPrice - price))) || 0  // TODO:适用 LIMIT, STOP, TAKE PROFIT 买(!orderType)
@@ -815,7 +830,7 @@ root.computed.canBeOpened = function () {
   // if(this.marginType == 'CROSSED'){
     // 限价或者限价止损
     if(this.pendingOrderType == 'limitPrice'||this.pendingOrderType == 'limitProfitStopLoss'){
-      if(this.price == 0 || this.price == '') return buyCanOpen = 0; sellCanOpen = 0;
+      // if(this.price == 0 || this.price == '') return buyCanOpen = 0; sellCanOpen = 0;
       //Avail for Order / {assuming price * IM + abs(min[0, side * (mark price - order's Price)])}
       buyCanOpen = availableBalance / (this.assumingPrice * leverage + buy)
       sellCanOpen = availableBalance / (this.assumingPrice * leverage + sell)
@@ -1925,10 +1940,10 @@ root.methods.get_now_price = function () {
   let triggerPrice = this.triggerPrice;
   let rate = this.get_rate() || 0;
   if (lang === 'CH') {
-    this.change_price = ('￥' + this.$globalFunc.accFixedCny(this.$store.state.exchange_rate_dollar * (price * rate), 2));
+    // this.change_price = ('￥' + this.$globalFunc.accFixedCny(this.$store.state.exchange_rate_dollar * (price * rate), 2));
     this.changeTriggerPrice = ('￥' + this.$globalFunc.accFixedCny(this.$store.state.exchange_rate_dollar * (triggerPrice * rate), 2));
   } else {
-    this.change_price = ('$' + this.$globalFunc.accFixedCny((price * rate), 2));
+    // this.change_price = ('$' + this.$globalFunc.accFixedCny((price * rate), 2));
   }
 }
 
@@ -2578,7 +2593,8 @@ root.methods.countNum = function(num) {
 
 /*---------------------- 保留小数 begin ---------------------*/
 root.methods.toFixed = function (num, acc = 8) {
-  return this.$globalFunc.accFixed(num, acc)
+  // return this.$globalFunc.accFixed(num , acc)
+  return this.$globalFunc.accFixed(num == Infinity ? 0 : num , acc)
 }
 /*---------------------- 保留小数 end ---------------------*/
 
