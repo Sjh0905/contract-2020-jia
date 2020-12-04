@@ -612,9 +612,9 @@ root.methods.error_initTicket24Hr = function (err) {
 root.methods.getMarkPricesAndCapitalRates = function () {
   this.$http.send('GET_MARKET_PRICE',{
     bind: this,
-    query:{
-      symbol:this.capitalSymbol
-    },
+    // query:{
+    //   symbol:this.capitalSymbol
+    // },
     callBack: this.re_getMarkPricesAndCapitalRates,
     errorHandler:this.error_getMarkPricesAndCapitalRates
   })
@@ -622,11 +622,37 @@ root.methods.getMarkPricesAndCapitalRates = function () {
 // 获取币安最新标记价格和资金费率正确回调
 root.methods.re_getMarkPricesAndCapitalRates = function (data) {
   typeof(data) == 'string' && (data = JSON.parse(data));
-  // console.info('data========',data.data[0])
+  if(!data || !data.data)return;
+
+  this.sNameList.map(sv=>{
+    for (let i = 0,len = data.data.length; i < len; i++) {
+      let v = data.data[i];
+      if(sv == v.symbol){
+        //接口返回的字段名转换成和socket一致
+        v.s = v.symbol
+        v.p = (v.markPrice || '').toString();
+        v.r = v.lastFundingRate
+        v.T = v.nextFundingTime
+
+        this.markPriceObj[sv] = v;
+        break;
+      }
+    }
+  })
+
+  //当前选中币对数据
+  let msg =this.markPriceObj[this.capitalSymbol];
+  if(msg){
+    msg.p > 0 && (this.markPrice = msg.p)// 标记价格
+    msg.r > 0 && (this.lastFundingRate = msg.r)// 资金费率
+    msg.T > 0 && (this.nextFundingTime = msg.T)//下个资金时间
+  }
+
+  /*// console.info('data========',data.data[0])
   this.markPrice = (data.data[0].markPrice || '').toString()
   this.lastFundingRate = data.data[0].lastFundingRate || '--'
-  this.nextFundingTime = data.data[0].nextFundingTime || '--'
-//
+  this.nextFundingTime = data.data[0].nextFundingTime || '--'*/
+
 }
 // 获取币安最新标记价格和资金费率错误回调
 root.methods.error_getMarkPricesAndCapitalRates = function (err) {
