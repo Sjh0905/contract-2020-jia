@@ -711,6 +711,7 @@ root.methods.limitAmount = function () {
 // 调用接口
 root.methods.createWithStop = function () {
   this.openDisabel = true
+  this.isLiChengCheng = true
   // if (!this.$store.state.authState.userId) {
   //   // this.loading = false
   //   return
@@ -798,11 +799,17 @@ root.methods.createWithStop = function () {
 root.methods.re_createWithStop = function (data) {
   typeof(data) == 'string' && (data = JSON.parse(data));
   this.openDisabel = false
+  this.isLiChengCheng =true
   switch (data.code) {
     case 401:
       this.popOpen = true;
       this.popType = 0;
       this.popText = '请您先进行登录';
+      break;
+    case 304:
+      this.popOpen = true;
+      this.popType = 0;
+      this.popText = '用户无权限';
       break;
     case 2001:
       this.popOpen = true;
@@ -832,6 +839,7 @@ root.methods.re_createWithStop = function (data) {
     case 200:
       this.openDisabel = false
       this.showResult = true
+      this.isLiChengCheng = false
       this.resultData = data.data || {}
       break;
     default:
@@ -894,7 +902,7 @@ root.methods.error_getPositionRisk = function (err) {
 // 关闭开平器记录
 root.methods.closeList = function () {
   this.showList = false
-  this.closeClick()
+  // this.closeClick()
   // this.closeClick()
 }
 // 打开开平器列表
@@ -931,7 +939,7 @@ root.methods.openList = function () {
     return
   }
   this.showList = true
-  this.isLiChengCheng = false
+  // this.isLiChengCheng = false
 }
 
 root.methods.testPointValue = function (keyName,length = 2) {
@@ -1028,9 +1036,8 @@ root.methods.comitBottleOpener = function () {
     this.isLiChengCheng = true
     return
   }
-  this.isLiChengCheng = false
-  this.createWithStop()
 
+  this.createWithStop()
   // this.clearVal()
 }
 // 取消按钮
