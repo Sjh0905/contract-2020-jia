@@ -537,7 +537,7 @@ root.computed.assumingPrice = function () {
     return Number(assumingPrc) || 0
   }
   if(this.pendingOrderType== 'marketPrice'||this.pendingOrderType == 'marketPriceProfitStopLoss'){
-    assumingPrc = this.orderType ? this.buyDepthOrders : this.accMul(this.sellDepthOrders,(1 + 0.0005))
+    assumingPrc = this.orderType ? this.buyDepthOrders : (this.sellDepthOrders*(1 + 0.0005))
     return Number(assumingPrc) || 0
   }
 }
@@ -563,6 +563,7 @@ root.computed.setPositionList = function () {
   for (let v = 0,len = this.positionRecords.length; v < len; v++) {
     let vData = this.positionRecords[v],symbol = vData.symbol,positionAmt = Number(vData.positionAmt),
       markPrice = JSON.stringify(this.markPriceObj) != "{}" && this.markPriceObj[symbol].p ;
+      // markPrice = JSON.stringify(this.markPriceObj) != "{}" && this.markPriceObj[this.capitalSymbol].p ;
 
     if(vData.positionSide=='BOTH'){
       numBoth += Number(this.accMul(positionAmt, Number(markPrice)))
