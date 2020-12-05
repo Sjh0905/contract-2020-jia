@@ -544,7 +544,7 @@ root.computed.assumingPrice = function () {
 
 // 保证金assumingPrice
 root.computed.costAssumingPrice = function () {
-  if(JSON.stringify(this.markPriceObj) == "{}")return
+  // if(JSON.stringify(this.markPriceObj) == "{}")return
   let assumingPrc = 0,markPrice = JSON.stringify(this.markPriceObj) != "{}" && Number(this.markPriceObj[this.capitalSymbol].p)
   if(this.pendingOrderType== 'limitPrice'||this.pendingOrderType == 'limitProfitStopLoss'){
     assumingPrc = this.orderType ? Math.max(this.buyDepthOrders,markPrice,this.price) : this.price
@@ -1004,8 +1004,6 @@ root.computed.buyMarginRequire = function () {
 }
 //有仓位 标记价格*数量 无仓位 0
 root.computed.positionNotionalValue = function () {
-  // if(JSON.stringify(this.markPriceObj) == "{}")return
-  // return (this.totalAmount != 0) ? (Number(this.markPrice) * Number(this.totalAmount)) : 0
   let markPrice = JSON.stringify(this.markPriceObj) != "{}" && this.markPriceObj[this.capitalSymbol].p || 0
   return (this.totalAmount != 0) ? this.accMul(markPrice, this.totalAmount) : 0
 }
