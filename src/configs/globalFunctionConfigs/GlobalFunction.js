@@ -554,7 +554,7 @@ GlobalFunction.removeArray = function (item, arr) {
 
 //转化到只有字母,默认全大写，如果传第二个参数则为全小写
 GlobalFunction.toOnlyCapitalLetters = function (text,isLowerCase) {
-  let textTemp = text.replace(/[^A-Z]/g,'')
+  let textTemp = text.replace(/[^A-Za-z]/g,'')
 
   if(isLowerCase)return textTemp.toLowerCase()
 

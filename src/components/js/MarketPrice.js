@@ -555,6 +555,8 @@ root.methods.slectSymbol = function (s, item) {
   // 清空委托列表
   this.$store.commit('GET_OPEN_ORDER', []);
 
+  this.$socket.changeSymbol(s)
+
 }
 
 

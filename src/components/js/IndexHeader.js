@@ -836,8 +836,8 @@ root.methods.symbolList_priceList = function (symbol_list) {
 // 初始化socket
 root.methods.initSocket = function () {
   // 订阅某个币对的信息
-  this.$socket.emit('unsubscribe', {symbol: this.$store.state.symbol});
-  this.$socket.emit('subscribe', {symbol: this.$store.state.symbol});
+  // this.$socket.emit('unsubscribe', {symbol: this.$store.state.symbol});
+  // this.$socket.emit('subscribe', {symbol: this.$store.state.symbol});
 
   // 接收所有币对实时价格
   this.$socket.on({

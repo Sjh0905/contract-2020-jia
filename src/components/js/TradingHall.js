@@ -1877,7 +1877,7 @@ root.watch.listenSymbol = function (newValue, oldValue) {
   // this.refresh = 0;
   // 订阅某个币对的信息
   // this.$socket.emit('unsubscribe', {symbol: oldValue});
-  this.$socket.emit('subscribe', {symbol: this.$store.state.symbol});
+  // this.$socket.emit('subscribe', {symbol: this.$store.state.symbol});
 
   // 2018-2-8 切换币对时候清空所有socket的数据，等socket推送以后重新赋值
   this.socket_snap_shot = {};
@@ -1908,7 +1908,7 @@ root.watch.listenSymbol = function (newValue, oldValue) {
 
 // 组件卸载前取消订阅
 root.beforeDestroy = function () {
-  this.$socket.emit('unsubscribe', {symbol: this.$store.state.symbol});
+  // this.$socket.emit('unsubscribe', {symbol: this.$store.state.symbol});
 }
 // 组件卸载取消订阅
 root.destroyed = function () {
