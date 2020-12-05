@@ -440,11 +440,11 @@ root.methods.modifyMarginClose = function () {
   this.modifyMarginOpen = false
 }
 root.methods.setCloseAmount = function (item){
-  if((item.ps  || item.positionSide) == 'LONG'){
+  if(item.symbol == this.capitalSymbol && (item.ps  || item.positionSide) == 'LONG'){
     this.positionAmtLong = item.pa || item.positionAmt
   }
 
-  if((item.ps  || item.positionSide) == 'SHORT'){
+  if(item.symbol == this.capitalSymbol && (item.ps  || item.positionSide) == 'SHORT'){
     this.positionAmtShort = item.pa || item.positionAmt
   }
   // 将可平仓数量存储到store里面
@@ -457,30 +457,33 @@ root.methods.setCloseAmount = function (item){
 
   let totalAmt = 0,totalAmtLong = 0 , totalAmtShort = 0 , singlePos;
   //查找仓位的币对
-  singlePos = this.sNameList.find(s => s==item.symbol)
+  // singlePos = this.sNameList.find(s => s==item.symbol)
   // 单仓取当前币对的开仓数量，用于计算可开数量做判断使用
-  if(singlePos == this.capitalSymbol && (item.ps  || item.positionSide) == 'BOTH'){
+  if(item.symbol == this.capitalSymbol && (item.ps  || item.positionSide) == 'BOTH'){
     totalAmt = (item.pa || item.positionAmt)
     // console.info('totalAmt==',totalAmt,this.markPrice)
     // 单仓下计算可开数量
     if(totalAmt!=this.totalAmount) {
       this.totalAmount = totalAmt
+    }
+  }else{
+    this.totalAmount = 0
+  }
+  this.$eventBus.notify({key:'POSITION_TOTAL_AMOUNT'}, this.totalAmount)
+
+  // 单仓仓位总数量
+ /* if((item.ps  || item.positionSide) == 'BOTH') {
+    totalAmt = (item.pa || item.positionAmt)
+    // console.info('totalAmt==',totalAmt,this.markPrice)
+    // 单仓下计算可开数量
+    if(totalAmt!=this.totalAmount) {
+      this.totalAmount = totalAmt
+      // console.info('this.totalAmount===',this.totalAmount)
       this.$eventBus.notify({key:'POSITION_TOTAL_AMOUNT'}, this.totalAmount)
     }
-  }
-
-
-  // if((item.ps  || item.positionSide) == 'BOTH') {
-  //   totalAmt = (item.pa || item.positionAmt)
-  //   // console.info('totalAmt==',totalAmt,this.markPrice)
-  //   // 单仓下计算可开数量
-  //   if(totalAmt!=this.totalAmount) {
-  //     this.totalAmount = totalAmt
-  //     // console.info('this.totalAmount===',this.totalAmount)
-  //     this.$eventBus.notify({key:'POSITION_TOTAL_AMOUNT'}, this.totalAmount)
-  //   }
-  // }
-  if((item.ps  || item.positionSide) == 'LONG'){
+  }*/
+  // 双仓开空仓位总数量
+/*  if((item.ps  || item.positionSide) == 'LONG'){
     totalAmtLong =  (item.pa || item.positionAmt)
 
     if(totalAmtLong!=this.totalAmountLong) {
@@ -495,7 +498,7 @@ root.methods.setCloseAmount = function (item){
       this.totalAmountShort = totalAmtShort
       this.$eventBus.notify({key:'POSITION_TOTAL_AMOUNT_SHORT'}, this.totalAmountShort)
     }
-  }
+  }*/
 
 }
 
@@ -819,7 +822,9 @@ root.methods.handleWithMarkPrice = function(records){
 
   this.notionalVal = this.notionalVala
 
-
+  // this.$eventBus.notify({key:'SET_POSITION_LIST'},this.records)
+  // this.$store.commit('CHANGE_POSITION_LIST',this.records)
+  this.$emit('getPositionList',this.records)
   //双仓全仓强平价格计算，由于全仓下同一symbol多空仓位强平价格一致，用map遍历完后再计算
   // this.pSymbols.length > 0 && this.LPCalculation2();
 
@@ -1241,7 +1246,7 @@ root.methods.marketPrice = function (v) {
     quantity: Math.abs(item.positionAmt),
     orderSide: (item.positionAmt<0) ? 'BUY':'SELL',
     stopPrice: null,
-    symbol: this.capitalSymbol,
+    symbol: item.symbol,
     orderType: "MARKET",
   }
   this.$http.send("POST_ORDERS_POSITION", {
@@ -1359,7 +1364,7 @@ root.methods.checkPrice = function () {
     quantity: Math.abs(item.positionAmt),
     orderSide: (item.positionAmt > 0) ? 'SELL':'BUY',
     // stopPrice: null,
-    symbol: this.capitalSymbol,
+    symbol: item.symbol,
     timeInForce: this.effectiveTime,
     orderType: "LIMIT",
     // workingType: null,

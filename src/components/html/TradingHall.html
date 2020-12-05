@@ -284,7 +284,8 @@
                              :positionModeSecond = "positionModeSecond" :pendingOrderType = "pendingOrderType"
                              :effectiveTime = 'effectiveTime' :reducePositionsSelected = 'reducePositionsSelected'
                              :latestPrice = 'latestPrice' :latestPriceVal = 'latestPriceVal' :availableBalance = 'availableBalance'
-                             :markPrice="markPrice" :markPriceObj="markPriceObj" :marginType="marginType" :currentLength="currentLength"/>
+                             :markPrice="markPrice" :markPriceObj="markPriceObj" :marginType="marginType" :currentLength="currentLength"
+                             :positionRecords="positionRecords"/>
               </div>
               <div class="ProgressBar-wrap">
                 <!--卖-->
@@ -293,7 +294,8 @@
                              :positionModeSecond = "positionModeSecond" :pendingOrderType = "pendingOrderType"
                              :effectiveTime = 'effectiveTime' :reducePositionsSelected = 'reducePositionsSelected'
                              :latestPrice = 'latestPrice' :latestPriceVal = 'latestPriceVal' :availableBalance = 'availableBalance'
-                             :markPrice="markPrice" :markPriceObj="markPriceObj" :marginType="marginType" :currentLength="currentLength"/>
+                             :markPrice="markPrice" :markPriceObj="markPriceObj" :marginType="marginType" :currentLength="currentLength"
+                             :positionRecords="positionRecords"/>
               </div>
             </div>
           </div>
@@ -381,7 +383,7 @@
     <div v-if="isNow === 4" class="trading-hall-order-box-detail">
       <OrderPosition :tradinghallLimit="tradinghallLimit" :latestPriceVal = 'latestPriceVal'
                      :effectiveTime = 'effectiveTime' :availableBalance='availableBalance'
-                     :markPrice = 'markPrice' @getPositionRisk="getIndex"
+                     :markPrice = 'markPrice' @getPositionRisk="getIndex" @getPositionList="setRecords"
                      :markPriceObj = 'markPriceObj' :positionModeFirst = "positionModeFirst"/>
     </div>
     <div v-if="isNow === 5" class="trading-hall-order-box-detail">
@@ -475,12 +477,13 @@
       <div class="body">
         <div class="block"  style="margin: 4px auto">
           <!-- <span class="demonstration">默认</span> -->
-<!--          <p :class="'radiusa_blu1'" v-if="value>=0" @click="value=0" style="cursor:pointer"></p>-->
-<!--          <p :class="'radiusa_blu2'" v-if="value>=25"@click="value=25" style="cursor:pointer"></p>-->
-<!--          <p :class="'radiusa_blu3'" v-if="value>=50"@click="value=50" style="cursor:pointer"></p>-->
-<!--          <p :class="'radiusa_blu4'" v-if="value>=75"@click="value=75" style="cursor:pointer"></p>-->
-<!--          <p :class="'radiusa_blu5'" v-if="value>=100"@click="value=100" style="cursor:pointer"></p>-->
-          <p v-for="(v,index) in Object.keys(leverageMarks[capitalSymbol])" :class="calculatorClass[index]" v-if="value >= v" @click="value=v" style="cursor:pointer"></p>
+<!--          <p :class="'radiusa_blu1'" v-if="value>=Object.keys(leverageMarks[capitalSymbol])[0]" @click="value=Object.keys(leverageMarks[capitalSymbol])[0]" style="cursor:pointer"></p>-->
+<!--          <p :class="'radiusa_blu2'" v-if="value>=Object.keys(leverageMarks[capitalSymbol])[1]"@click="value=Object.keys(leverageMarks[capitalSymbol])[1]" style="cursor:pointer"></p>-->
+<!--          <p :class="'radiusa_blu3'" v-if="value>=Object.keys(leverageMarks[capitalSymbol])[2]"@click="value=Object.keys(leverageMarks[capitalSymbol])[2]" style="cursor:pointer"></p>-->
+<!--          <p :class="'radiusa_blu4'" v-if="value>=Object.keys(leverageMarks[capitalSymbol])[3]"@click="value=Object.keys(leverageMarks[capitalSymbol])[3]" style="cursor:pointer"></p>-->
+<!--          <p :class="'radiusa_blu5'" v-if="value>=Object.keys(leverageMarks[capitalSymbol])[4]"@click="value=Object.keys(leverageMarks[capitalSymbol])[4]" style="cursor:pointer"></p>-->
+              <!--遍历出来会有问题-->
+          <p v-for="(v,index) in Object.keys(leverageMarks[capitalSymbol])" :class="calculatorClass[index]" v-if="value >= v" @click="value=Number(v)" style="cursor:pointer"></p>
           <el-slider
             v-model="value"
             :class="'el-slider_blu'"

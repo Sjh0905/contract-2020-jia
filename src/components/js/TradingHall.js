@@ -188,8 +188,8 @@ root.data = function () {
     currentLength:0, // 当前委托数量
     // 显示的最大头寸
     // maximumPosition : ['50,000','250,000','100,0000','5,000,000','20,000,000','50,000,000','100,000,000','200,000,000'],
-    positionAmtLong:0,
-    positionAmtShort:0,
+    // positionAmtLong:0,
+    // positionAmtShort:0,
     popTextLeverage:'',
     availableBalance:0,
 /* -------------------------- 开平器Data begin -------------------------- */
@@ -199,6 +199,7 @@ root.data = function () {
     invitreCodeInput:'',//邀请码
     pswPlaceholderShow: true,
     name_0:'',
+    positionRecords:[],
   }
 }
 
@@ -511,10 +512,10 @@ root.methods.closeBottleOpener = function () {
 // }
 /*---------------  开平器 End  ---------------*/
 
-
-// root.methods.getPositionRisk = function () {
-//   this.recordsIndex = this.recordsIndex
-// }
+// 获取仓位的数据
+root.methods.setRecords = function (records) {
+  this.positionRecords = [...records]
+}
 // 仓位
 root.methods.getPositionRisk = function () {
 
@@ -835,8 +836,8 @@ root.methods.getOrder = function () {
   this.$http.send('GET_CURRENT_DELEGATION', {
     bind: this,
     query: {
-      symbol:this.capitalSymbol,
-      timestamp:this.serverTime,
+      symbol:'',
+      // timestamp:this.serverTime,
       // orderId:'1231212'
     },
     callBack: this.re_getOrder,
@@ -1819,9 +1820,6 @@ root.computed.serverTime = function () {
 
 // 监听symbol 做一些操作
 root.watch = {};
-// root.watch.availableBalance = function (newValue, oldValue) {
-//   console.info('newValue===',newValue)
-// }
 root.watch.pendingOrderType  = function (){
   if(this.pendingOrderType == 'limitPrice' || this.pendingOrderType == 'marketPrice') {
     this.reducePositionsSelected = false
