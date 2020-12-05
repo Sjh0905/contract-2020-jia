@@ -1896,6 +1896,8 @@ root.watch.listenSymbol = function (newValue, oldValue) {
   // 重新获取信息
   this.getScaleConfig();
   this.init();
+  this.getDepth()  // 获取币安深度
+  this.getAggTrades() //获取归集交易
   // this.initGetDatas();
 
   // 各小版块加载中
