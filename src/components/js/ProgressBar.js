@@ -236,9 +236,9 @@ root.created = function () {
   //监听单仓位总数量
   this.$eventBus.listen(this, 'POSITION_TOTAL_AMOUNT', this.setTotalAmount);
   //监听双仓开多仓位总数量
-  this.$eventBus.listen(this, 'POSITION_TOTAL_AMOUNT_LONG', this.setTotalAmountLong);
+  // this.$eventBus.listen(this, 'POSITION_TOTAL_AMOUNT_LONG', this.setTotalAmountLong);
   //监听双仓开空仓位总数量
-  this.$eventBus.listen(this, 'POSITION_TOTAL_AMOUNT_SHORT', this.setTotalAmountShort);
+  // this.$eventBus.listen(this, 'POSITION_TOTAL_AMOUNT_SHORT', this.setTotalAmountShort);
   //获取当前委托
   this.$eventBus.listen(this, 'SET_CURRENT_ORDERS', this.setCurrentOrders);
   // 监听获取仓位的值
