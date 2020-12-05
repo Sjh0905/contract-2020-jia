@@ -289,10 +289,20 @@ root.methods.re_getLeverageBracket = function(data){
   let bracketList = {}
 
   this.$store.state.sNameList.map(s=> {
-    bracketList[s] = (data.data.find(v=>v.symbol == s) || {}).brackets || {}
+    let bSingle =  (data.data.find(v=>v.symbol == s) || {}).brackets || []
+
+    //为了避免接口返回顺序改变，做一次按bracket升序排序处理，其他代码是这么用的
+    bSingle = bSingle.sort((a,b)=>{
+
+      //第一版接口没有cum字段，前端自己拼接，为了兼容老代码，增加一个字段，直接在排序的时候加上
+      a.notionalCum = a.cum;
+      b.notionalCum = b.cum;
+
+      return a.bracket - b.bracket
+    });
+
+    bracketList[s] = bSingle
   })
-
-
 
  /* let item = data.data[0].data.find(v=>v.symbol == this.onlyCapitalSymbol) || {}
   let bracketSingle = item.brackets || []
