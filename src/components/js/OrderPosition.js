@@ -243,7 +243,8 @@ root.computed.currencyInfo = function () {
   return this.$store.state.currencyInfo || {}
 }
 root.computed.leverageBracket = function () {
-  let arr = this.$store.state.leverageBracket && [...this.$store.state.leverageBracket] || [];
+  let bSingle = (this.$store.state.bracketList || {})[this.capitalSymbol] || []
+  let arr = [...bSingle];
   return arr.reverse() //倒序处理，强平价格从最高档开始计算
 }
 // 存储仓位推送Key值的映射关系
@@ -818,7 +819,7 @@ root.methods.handleWithMarkPrice = function(records){
   //全仓保证金比率 = 各仓位的maintMargin字段之和 /（各仓位的unrealizedProfit之和+全仓账户余额 crossWalletBalance)
   this.crossMaintMarginRate = this.accDiv(totalMaintMargin,this.accAdd(totalUnrealizedProfit,this.crossWalletBalance))
   this.crossMaintMarginRate = Number(this.crossMaintMarginRate * 100).toFixed(2) + '%'
-  this.records = records;
+  this.records = [...records];//为了使页面及时刷新解构赋值
 
   this.notionalVal = this.notionalVala
 
