@@ -251,9 +251,8 @@ root.computed.computedMarketList = function () {
   let ans = this.selectMarketChange
   // if(this.selectMarket[this.selectEdition] === this.$t('Favorites'))return this.mSymbolList[this.selectEdition].optionalArea
   // if(this.selectMarket[this.selectEdition] === this.$t('Innovation'))return this.mSymbolList[this.selectEdition].createArea
-
   // console.log('hhhhh====',this.mSymbolList,this.selectEdition,this.selectMarket,this.selectEdition)
-  return (this.mSymbolList[this.selectEdition][this.selectMarket[this.selectEdition]] || [])//.sort((a,b)=>!b.open && b.open - a.open) || []
+  return this.mSymbolList.length != 0 && (this.mSymbolList[this.selectEdition][this.selectMarket[this.selectEdition]] || [])//.sort((a,b)=>!b.open && b.open - a.open) || []
 }
 
 
@@ -572,7 +571,8 @@ root.methods.priceInitialization = function () {
     }
   )
 
-  let computedMarketList = this.computedMarketList
+  let computedMarketList = this.computedMarketList || []
+
 
   let a = 0
 

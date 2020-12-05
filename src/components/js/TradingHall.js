@@ -305,7 +305,6 @@ root.computed.maximumPosition = function () {
 // 杠杆倍数
 root.computed.initialLeverage = function () {
   let initial = []
-  // console.info(this.leverageBracket)
   this.bracketList.forEach(v=>{
     initial.push(v.initialLeverage)
   })
