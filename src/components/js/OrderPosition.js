@@ -77,7 +77,7 @@ root.data = function () {
     },  // 平仓价格在多少
     order:{},
     priceCheck1:0,
-    currSAdlQuantile:'',
+    currSAdlQuantile:{},
     controlType: false,
     positionAmt:0, // 当前仓位的数量
     entryPrice: 0, // 当前仓位的开仓价格
@@ -1049,8 +1049,22 @@ root.methods.re_getAdlQuantile = function (data) {
   typeof data === 'string' && (data = JSON.parse(data))
   if (!data || !data.data) return
 
-  //TODO:list中每个币对只返回一个对象吗？
-  this.currSAdlQuantile = data.data.find(v=>v.symbol==this.$globalFunc.toOnlyCapitalLetters(this.currSymbol));
+  //list中每个币对只返回一个对象吗？是的
+  // this.currSAdlQuantile = data.data.find(v=>v.symbol==this.$globalFunc.toOnlyCapitalLetters(this.currSymbol));
+
+  let len = data.data.length;
+
+  len == 0 && (this.currSAdlQuantile = undefined)
+  if(len > 0){
+    this.currSAdlQuantile == undefined && (this.currSAdlQuantile = {})
+    data.data.map(v=>{
+      let s = v.symbol,indicatorLight = v.adlQuantile.json
+
+      for(let ps in indicatorLight){
+        this.currSAdlQuantile[s+"_"+ps] = indicatorLight[ps] + ''
+      }
+    })
+  }
 
   if(this.records.length > 0 && this.currSAdlQuantile)
     this.addAdlQuantile(this.currSAdlQuantile,this.records)
@@ -1062,12 +1076,12 @@ root.methods.error_getAdlQuantile = function (err) {
 }
 //仓位添加自动减仓数据
 root.methods.addAdlQuantile = function(currSAdlQuantile,records){
-
-  let indicatorLight = currSAdlQuantile.adlQuantile.json;
+  // let indicatorLight = currSAdlQuantile.adlQuantile.json;
   records.map(v=>{
-    v.adlQuantile = indicatorLight[v.positionSide] + ''
+    let s = v.symbol,ps = v.positionSide
+    v.adlQuantile = currSAdlQuantile[s+"_"+ps]
   })
-  this.records = records;
+  this.records = [...records];
 
   // console.log('currSAdlQuantile,records',currSAdlQuantile,records);
 }
