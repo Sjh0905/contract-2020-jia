@@ -304,7 +304,7 @@ root.methods.re_getLeverageBracket = function(data){
     bracketList[s] = bSingle
   })
 
- /* let item = data.data[0].data.find(v=>v.symbol == this.onlyCapitalSymbol) || {}
+  /*let item = data.data[0].data.find(v=>v.symbol == this.onlyCapitalSymbol) || {}
   let bracketSingle = item.brackets || []
   bracketSingle.map(v=>{
     v.notionalCum = this.cumFastMaintenanceAmount[v.bracket]
@@ -313,7 +313,8 @@ root.methods.re_getLeverageBracket = function(data){
 
   bracketSingle = bracketSingle.sort((a,b)=>{return (a.bracket -b.bracket)});//必须按bracket倒序排序，其他代码是这么用的
 */
-  // this.$store.commit('CHANGE_LEVERAGE_BRACKET',bracketSingle);
+  // 暂时兼容H5的单币对，H5多币对可以屏蔽
+  this.$store.commit('CHANGE_LEVERAGE_BRACKET', bracketList['BTCUSDT']);
   this.$store.commit('CHANGE_BRACKET_LIST',bracketList);
   // console.info('this is getLeverageBracket=',item,bracketSingle)
 }

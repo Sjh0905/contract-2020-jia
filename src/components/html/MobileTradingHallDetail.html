@@ -158,11 +158,11 @@
           <span v-if="isHasModule('kaipingType') == 1" class="security-deposit-text">可开</span>
           <span v-if="isHasModule('kaipingType') == 2" class="security-deposit-text">可平</span>
           <!--单仓 买卖 可开-->
-          <span class="security-deposit-amount" v-if="isHasModule('kaipingType') == 1 && positionModeFirst == 'singleWarehouseMode'">{{toFixed(canMore,3)}} BTC</span>
+          <span class="security-deposit-amount" v-if="isHasModule('kaipingType') == 1 && positionModeFirst == 'singleWarehouseMode'">{{toFixed(canMore,3)}} {{symbol.split('_')[0]}}</span>
           <!--双仓 平仓 开多 可开-->
-          <span class="security-deposit-amount" v-if="isHasModule('kaipingType') == 1 && positionModeFirst == 'doubleWarehouseMode'">{{toFixed(canBeOpened[0],3)}} BTC</span>
+          <span class="security-deposit-amount" v-if="isHasModule('kaipingType') == 1 && positionModeFirst == 'doubleWarehouseMode'">{{toFixed(canBeOpened[0],3)}} {{symbol.split('_')[0]}}</span>
           <!--双仓 开仓 平空 可平-->
-          <span class="security-deposit-amount" v-if="isHasModule('kaipingType') == 2">{{Math.abs(positionAmtShort)}} BTC</span>
+          <span class="security-deposit-amount" v-if="isHasModule('kaipingType') == 2">{{Math.abs(positionAmtShort)}} {{symbol.split('_')[0]}}</span>
         </div>
 
         <!----------------------------------------------单仓 btn start---------------------------------------------------------->
