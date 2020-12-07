@@ -242,11 +242,15 @@ root.computed.leverage = function () {
 root.computed.currencyInfo = function () {
   return this.$store.state.currencyInfo || {}
 }
-root.computed.leverageBracket = function () {
+//杠杆分层
+root.computed.bracketList = function () {
+  return this.$store.state.bracketList || {}
+}
+/*root.computed.leverageBracket = function () {
   let bSingle = (this.$store.state.bracketList || {})[this.capitalSymbol] || []
   let arr = [...bSingle];
   return arr.reverse() //倒序处理，强平价格从最高档开始计算
-}
+}*/
 // 存储仓位推送Key值的映射关系
 root.computed.socketPositionKeyMap = function () {
   let data = tradingHallData.socketPositionKeyMap
@@ -760,7 +764,7 @@ root.methods.handleWithMarkPrice = function(records){
     }
 
     let notional = this.accMul(Math.abs(v.positionAmt) || 0,sMarkPrice || 0)
-    let args = this.getCalMaintenanceArgs(notional) || {},maintMarginRatio = args.maintMarginRatio || 0,notionalCum = args.notionalCum || 0
+    let args = this.getCalMaintenanceArgs(notional,v) || {},maintMarginRatio = args.maintMarginRatio || 0,notionalCum = args.notionalCum || 0
 
     v.bracketArgs = args;//用于强平价格降档计算
 
@@ -830,17 +834,23 @@ root.methods.handleWithMarkPrice = function(records){
   // this.pSymbols.length > 0 && this.LPCalculation2();
 
 }
+//获取币对对应的速算数
+root.methods.getSymbolBracket = function(s){
+  let bSingle = this.bracketList[s] || []
+  // let arr = [...bSingle];
+  return bSingle.reverse() //倒序处理，强平价格从最高档开始计算
+}
 //计算维持保证金首先获取比率、速算数等信息
-root.methods.getCalMaintenanceArgs = function(notional=0){
-  let bracketSingle = {};
+root.methods.getCalMaintenanceArgs = function(notional=0,v){
+  let bracketSingle = {},leverageBracket = this.getSymbolBracket(v.symbol);
 
   if(notional == 0){
-    bracketSingle = this.leverageBracket.find(v=> v.notionalCap == 0)
+    bracketSingle = leverageBracket.find(v=> v.notionalCap == 0)
     return bracketSingle;
   }
   //notional > notionalFloor && notional <= notionalCap 可推出 notional - notionalFloor > 0  && notional - notionalCap <= 0
-  for (let i = 0; i < this.leverageBracket.length; i++) {
-    let v = this.leverageBracket[i];
+  for (let i = 0; i < leverageBracket.length; i++) {
+    let v = leverageBracket[i];
     let floorStep = this.accMinus(notional,v.notionalFloor || 0)
     let capStep = this.accMinus(notional,v.notionalCap || 0)
 
@@ -859,12 +869,13 @@ root.methods.LPCalculation1 = function (pos = {}){
   let LPCalculation1 = 0,size = pos.positionAmt || 0,ep = pos.entryPrice || 0,
       // 1.全仓模式下， WB 为 crossWalletBalance，由于目前只有一个symbol，暂时TMM=0，UPNL=0
       // 2.逐仓模式下，WB 为逐仓仓位的 isolatedWalletBalance，TMM=0，UPNL=0,isolatedWalletBalance = isolatedMargin - unrealizedProfit,正好和逐仓保证金相等
-      WB = pos.marginType == "cross" ? this.crossWalletBalance : pos.securityDeposit;
+      WB = pos.marginType == "cross" ? this.crossWalletBalance : pos.securityDeposit,
+      leverageBracket = this.getSymbolBracket(pos.symbol);
 
   //从 Bracket 最高档开始逐层计算 LP，若计算出 LP 使得：floor < abs(B*LP) <= cap，则获得 LP，否则继续降档计算
   //若始终没有匹配值使得 floor < abs(B*LP) <= cap，则降至最后一档算出结果即为最终值
-  for (let i = 0; i < this.leverageBracket.length; i++) {
-    let v = this.leverageBracket[i],cum = v.notionalCum || 0,mmr = v.maintMarginRatio || 0
+  for (let i = 0; i < leverageBracket.length; i++) {
+    let v = leverageBracket[i],cum = v.notionalCum || 0,mmr = v.maintMarginRatio || 0
 
     //调用对应的计算方法： LPCalculation1BOTH LPCalculation1LONG LPCalculation1SHORT
     let paras = [WB,size,ep,cum,mmr] , LP = this["LPCalculation1"+pos.positionSide](paras),
@@ -872,7 +883,7 @@ root.methods.LPCalculation1 = function (pos = {}){
         BLP = Math.abs(BLP);
     let floorStep = this.accMinus(BLP,v.notionalFloor || 0), capStep = this.accMinus(BLP,v.notionalCap || 0)
 
-    if((floorStep > 0 && capStep <= 0) || i == this.leverageBracket.length - 1){
+    if((floorStep > 0 && capStep <= 0) || i == leverageBracket.length - 1){
       LPCalculation1 = LP;
       break;
     }
@@ -907,13 +918,13 @@ root.methods.LPCalculation1SHORT = function (paras){
 //类型2的强平价格
 root.methods.LPCalculation2 = function () {
 
-  let leverageBracket = this.leverageBracket;
+  // let leverageBracket = this.leverageBracket;
 
   //由于全仓模式下，一个 symbol 下多空仓位强平价格一致，可将最终结果存储到 this[s+"_LPCalculation2"]
   this.pSymbols.map((s,si)=>{
     let LPCalculation2 = 0,long = this.pSymbolsMap[s+"_LONG"], short = this.pSymbolsMap[s+"_SHORT"],longPos,shortPos;
       long && (longPos = long.pos); short && (shortPos = short.pos);
-
+    let leverageBracket = this.getSymbolBracket(s);
     //只有空仓
     if(!longPos && shortPos){
       for (let i = 0; i < leverageBracket.length; i++) {
