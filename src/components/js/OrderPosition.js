@@ -81,6 +81,7 @@ root.data = function () {
     controlType: false,
     positionAmt:0, // 当前仓位的数量
     entryPrice: 0, // 当前仓位的开仓价格
+    currentMarkPrice: 0, // 当前仓位的标记价格
     marginType:'',
     crossMaintMarginRate:0,//全仓保证金比率
     totalAmount:0,
@@ -193,15 +194,15 @@ root.computed.reduceMostAmount1 = function (){
   let leverage = this.$store.state.leverage
   let reduceMoreAmount = 0
   // console.info('this.walletBalance,this.crossWalletBalance',this.walletBalance,this.crossWalletBalance)
-  let priceDiff= this.accMul(this.positionAmt ,this.accMinus(Number(this.markPrice) , Number(this.entryPrice)))
-  let markPosition = this.accDiv(this.accMul(Number(this.markPrice) , Math.abs(this.positionAmt)) , leverage)
+  let priceDiff= this.accMul(this.positionAmt ,this.accMinus(Number(this.currentMarkPrice) , Number(this.entryPrice)))
+  let markPosition = this.accDiv(this.accMul(Number(this.currentMarkPrice) , Math.abs(this.positionAmt)) , leverage)
   if(this.marginType == "isolated") {
     reduceMoreAmount = this.accMinus(this.accAdd(Number(isolatedWalletBalance) , priceDiff) , markPosition || 1)
   } else {
     reduceMoreAmount = this.accMinus(this.accAdd(Number(isolatedWalletBalance) , priceDiff) , markPosition || 1)
   }
-  reduceMoreAmount = reduceMoreAmount < 0 ? reduceMoreAmount = 0 : this.toFixed(reduceMoreAmount,2)
-  // console.info('this.reduceMoreAmount===', reduceMoreAmount, this.markPrice)
+  // console.info('this.reduceMoreAmount===', reduceMoreAmount, this.currentMarkPrice)
+  reduceMoreAmount = reduceMoreAmount < 0 ? 0 : this.toFixed(reduceMoreAmount,2)
   // 最多可减少需要取当前仓位保证金和最多可减少的最小值
   return Math.min(this.securityDeposit ,reduceMoreAmount).toFixed(2)
 }
@@ -424,6 +425,8 @@ root.methods.openModifyMargin = function (item) {
   this.modifyMarginMoney = item.securityDeposit
   // this.reduceMostAmount(item)
   this.positionAmt = item.positionAmt || 0
+  // 当前仓位的标记价格
+  this.currentMarkPrice = this.markPriceObj[item.symbol].p || 0
   this.entryPrice = item.entryPrice || 0
   this.marginType = item.marginType || ''
   this.securityDeposit = Number(item.securityDeposit || 0).toFixed(2)
@@ -1097,6 +1100,7 @@ root.methods.addAdlQuantile = function(currSAdlQuantile,records){
 //开启拦截弹窗
 root.methods.openSplicedFrame = function (item,btnText,callFuncName) {
   this.positionInfo = item || {}
+  console.info('this.positionInfo ===',this.positionInfo)
   let closePosition = item.positionAmt > 0 ?'平多':'平空'
   // console.info('this.positionInfo==',this.positionInfo,item.symbol.slice(0,3))
   // if(!this.openClosePsWindowClose())return
@@ -1138,7 +1142,7 @@ root.methods.backHand = function () {
   this.$http.send("POST_REVERSE_POSITION", {
     bind: this,
     params: {
-      symbol:this.subscribeSymbol,
+      symbol:this.positionInfo.symbol,
       positionSide:this.positionInfo.positionSide
     },
     callBack: this.re_backHand,
