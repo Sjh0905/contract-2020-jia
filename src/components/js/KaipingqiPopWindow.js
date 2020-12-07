@@ -811,6 +811,11 @@ root.methods.re_createWithStop = function (data) {
       this.popType = 0;
       this.popText = '用户无权限';
       break;
+    case 307:
+      this.popOpen = true;
+      this.popType = 0;
+      this.popText = '仓位模式变更同步中，请于1分钟后操作';
+      break;
     case 2001:
       this.popOpen = true;
       this.popType = 0;

@@ -1400,6 +1400,12 @@ root.methods.re_postFullStop = function (data) {
     this.popText = '合约带单暂不支持限价交易';//用户无权限
     return
   }
+  if(data.code == '307') {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '仓位模式变更同步中，请于1分钟后操作';//仓位模式变更同步中，请于1分钟后操作
+    return
+  }
   typeof (data) === 'string' && (data = JSON.parse(data))
   if (!data || !data.data) return
   this.promptOpen = true;
@@ -1577,6 +1583,13 @@ root.methods.re_postOrdersCreate = function (data) {
     this.promptOpen = true;
     this.popType = 0;
     this.popText = '合约带单暂不支持限价交易';//用户无权限
+    return
+  }
+
+  if(data.code == '307') {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '仓位模式变更同步中，请于1分钟后操作';//仓位模式变更同步中，请于1分钟后操作
     return
   }
   typeof (data) === 'string' && (data = JSON.parse(data))
@@ -1760,6 +1773,12 @@ root.methods.re_postOrdersPosition = function (data) {
     this.promptOpen = true;
     this.popType = 0;
     this.popText = '合约带单暂不支持限价交易';//用户无权限
+    return
+  }
+  if(data.code == '307') {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '仓位模式变更同步中，请于1分钟后操作';//用户无权限
     return
   }
   typeof (data) === 'string' && (data = JSON.parse(data))
