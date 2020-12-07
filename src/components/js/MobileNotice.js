@@ -124,7 +124,7 @@ root.methods.setNoticeRedPoint = function () {
 }
 
 root.methods.re_setNoticeRedPoint = function (data) {
-  console.log('关掉小红点获取data',data)
+  // console.log('关掉小红点获取data',data)
   this.$store.commit('changeNoticeRedPoint',false);
 }
 
@@ -160,7 +160,7 @@ root.methods.noticeToDetail = function(res) {
   // this.$router.push({name: 'mobileNoticeDetail',query: {id: id}})
   // window.open(res)
   // window.location.href=res
-  console.log(res)
+  // console.log(res)
   this.$router.push({path: '/index/mobileNoticeDetail', query: {id:res}})
 }
 

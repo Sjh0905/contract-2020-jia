@@ -1100,7 +1100,7 @@ root.methods.addAdlQuantile = function(currSAdlQuantile,records){
 //开启拦截弹窗
 root.methods.openSplicedFrame = function (item,btnText,callFuncName) {
   this.positionInfo = item || {}
-  console.info('this.positionInfo ===',this.positionInfo)
+  // console.info('this.positionInfo ===',this.positionInfo)
   let closePosition = item.positionAmt > 0 ?'平多':'平空'
   // console.info('this.positionInfo==',this.positionInfo,item.symbol.slice(0,3))
   // if(!this.openClosePsWindowClose())return

@@ -70,7 +70,7 @@ root.methods.getHeatList = function () {
 root.methods.re_getHeatList = function (data) {
 
   typeof(data) == 'string' && (data = JSON.parse(data));
-  console.info('data======sssss',data)
+  // console.info('data======sssss',data)
   this.heatList = data.data || []
   this.loading = false
 }

@@ -323,7 +323,7 @@ root.methods.getPlatformBTData = function () {
 }
 
 root.methods.re_getPlatformBTData = function (data){
-  console.log('data',data)
+  // console.log('data',data)
   typeof data === 'string' && (data = JSON.parse(data));
   this.platformBTData = data.dataMap;
   this.nlGetPlatformBTDataAjaxFlag = true

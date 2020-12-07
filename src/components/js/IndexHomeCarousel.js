@@ -178,9 +178,8 @@ root.methods.RE_GET_HOME_BANNER = function (res) {
 
 root.methods.goBannerDetail = function (item) {
 
-  console.log('this is banner item',item);
-
-  console.log('this is banner item.url',item.url);
+  // console.log('this is banner item',item);
+  // console.log('this is banner item.url',item.url);
 
   // if (item.title == '会员') {
   //   this.$router.push('/index/personal/securityCenter/membershipCard')
