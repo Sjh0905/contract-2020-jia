@@ -121,6 +121,7 @@ root.data = function () {
 
     initialPosition:0,
     loadingImage:true,
+    iptMarkPrice:'',
     // picIndex:0,
   // {
   //   "buyOrSell":"",
@@ -545,7 +546,8 @@ root.methods.positionSocket = function () {
             if((v.mt == 'cross' && v.pa!=0) || (v.mt == 'isolated' && (v.pa!=0 || v.iw!=0))){
 
               //限价输入框的价格
-              item.iptMarkPrice = Number(this.markPrice).toFixed(2)
+              this.iptMarkPrice = Number(this.markPrice).toFixed(2)
+              // item.iptMarkPrice = Number(this.markPrice).toFixed(2)
 
               //如果存在直接覆盖更新
               if(fKey == cKey){
@@ -1038,7 +1040,8 @@ root.methods.openSplicedFrame = function (item,btnText,callFuncName) {
 
   //限价价格
   if(btnText == '限价'){
-    this.splicedFrameText += ('价格' + item.iptMarkPrice + 'USDT，')
+    this.splicedFrameText += ('价格' + this.iptMarkPrice + 'USDT，')
+    // this.splicedFrameText += ('价格' + item.iptMarkPrice + 'USDT，')
   }
   //当前市价
   if(btnText == '市价'){
@@ -1325,7 +1328,8 @@ root.methods.checkPrice = function () {
   let params = {
     leverage: this.$store.state.leverage,
     positionSide: item.positionSide,
-    price: item.iptMarkPrice,
+    price: this.iptMarkPrice,
+    // price: item.iptMarkPrice,
     quantity: Math.abs(item.positionAmt),
     orderSide: (item.positionAmt > 0) ? 'SELL':'BUY',
     // stopPrice: null,
