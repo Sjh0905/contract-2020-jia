@@ -186,6 +186,9 @@ root.data = function () {
     // availableBalance:0 , // 可用余额
     recordsIndex:0, // 仓位数量
     currentLength:0, // 当前委托数量
+    recordsIndexS:0, // 当前币对的仓位数量
+    currentLengthS:0, // 当前币对的当前委托数量
+    currOrderLenObj:{}, // 当前币对的当前委托数量
     // 显示的最大头寸
     // maximumPosition : ['50,000','250,000','100,0000','5,000,000','20,000,000','50,000,000','100,000,000','200,000,000'],
     // positionAmtLong:0,
@@ -200,6 +203,7 @@ root.data = function () {
     pswPlaceholderShow: true,
     name_0:'',
     positionRecords:[],
+
   }
 }
 
@@ -316,7 +320,9 @@ root.computed.userId = function () {
 }
 // 计算是否有仓位和当前委托
 root.computed.isHasOrders = function (){
-  if(!this.currentLength && !this.recordsIndex) return true
+  // 如果当前币对的仓位和订单数量为0，不能切换全逐仓
+  if(!this.currOrderLenObj[this.capitalSymbol] && !this.recordsIndexS) return true
+  // if(!this.currentLengthS && !this.recordsIndexS) return true
   return false
 }
 // 最大头寸计算
@@ -511,9 +517,25 @@ root.methods.closeBottleOpener = function () {
 // }
 /*---------------  开平器 End  ---------------*/
 
+// root.methods.currentSymbolLegth = function (records,length) {
+//   let filterRecords = []
+//   records && records.forEach(v=>{
+//     if (v.symbol == this.capitalSymbol) {
+//       filterRecords.push(v)
+//     }
+//   })
+//   return length = filterRecords.length || 0
+// }
 // 获取仓位的数据
 root.methods.setRecords = function (records) {
   this.positionRecords = [...records]
+  let filterRecords = []
+  this.positionRecords && this.positionRecords.forEach(v=>{
+    if (v.symbol == this.capitalSymbol) {
+      filterRecords.push(v)
+    }
+  })
+  return this.recordsIndexS = filterRecords.length || 0
 }
 // 仓位
 root.methods.getPositionRisk = function () {
@@ -876,6 +898,26 @@ root.methods.re_getOrder = function (data) {
   let currentOrder = data.data || []
   this.currentLength = currentOrder.length
   this.$store.commit('SET_CURRENT_ORDERS',currentOrder)
+  // this.currentSymbolLegth(currentOrder,this.currentLengthS)
+  let currOrderLen = {}
+  currentOrder && currentOrder.forEach(v=>{
+    if(!currOrderLen[v.symbol]){
+      currOrderLen[v.symbol] = 0
+    }
+    currOrderLen[v.symbol] += 1
+  })
+
+  this.currOrderLenObj = currOrderLen;
+  // console.info("this is currOrderLenObj",this.currOrderLenObj,this.currOrderLenObj[this.capitalSymbol])
+
+  /*let filterRecords = []
+  currentOrder && currentOrder.forEach(v=>{
+    if (v.symbol == this.capitalSymbol) {
+      filterRecords.push(v)
+    }
+  })
+ this.currentLengthS = filterRecords.length || 0
+*/
 }
 // 获取订单出错
 root.methods.error_getOrder = function (err) {
