@@ -614,7 +614,7 @@ root.computed.canMore = function () {
   let availableBalance = this.$store.state.assets.availableBalance || 0
   // let availableBalance = this.availableBalance || 0
   let markPrice = JSON.stringify(this.markPriceObj) != "{}" && Number(this.markPriceObj[this.capitalSymbol].p) || 0
-  let price = this.price || '' // 输入框价格
+  let price = Number(this.price) || 0 // 输入框价格
   // let temp = this.orderType ? -1 : 1;
   // let priceStep = Math.abs(Math.min(0 , temp * (markPrice - price))) || 0  // TODO:简化后
   let buy = Math.abs(Math.min(0 , 1 * (markPrice - price))) || 0  // TODO:适用 LIMIT, STOP, TAKE PROFIT 买(!orderType)
@@ -623,7 +623,7 @@ root.computed.canMore = function () {
   let sellMarket = Math.abs(Math.min(0 , -1 * (markPrice - this.assumingPrice))) || 0  // TODO:适用 LIMIT, STOP, TAKE PROFIT 卖(orderType)
   let positionAmt = Number(this.totalAmount) || 0 // TODO:有仓位时：单仓取数量之和；双仓取数量绝对值之和无仓位时取0
   // present initial margin = max（position notional+open order bid notional，position notional-open order ask notional）* 1 / leverage
-  let positionNotionalValue = positionAmt * markPrice
+  let positionNotionalValue = this.notionalValueBoth
   let initialMargin =  Math.max((positionNotionalValue + this.computedBuyNetValue), (positionNotionalValue - this.computedSellNetValue)) * leverage
 
   let buyCanOpen = 0
@@ -682,7 +682,7 @@ root.computed.canMore = function () {
       // 第二步进行验证：买单的 notional after trade
       // notional after trade = max(abs(position_notional_value + open order's bid_notional + new order's bid_notional), abs(position_notional_value - open order's ask_notional))
       let afterTradeBuy = Math.max(Math.abs( (positionNotionalValue) + this.computedBuyNetValue + (this.assumingPrice * Number(buyCanOpen)))
-        , Math.abs(markPrice * positionAmt - this.computedSellNetValue))
+        , Math.abs(positionNotionalValue - this.computedSellNetValue))
       // 卖单的 notional after trade
       // notional after trade = max(abs(position_notional_value + open order's bid_notional), abs(position_notional_value - open order's ask_notional - new order's ask_notional))
       let afterTradeSell = Math.max(Math.abs( (positionNotionalValue) + this.computedBuyNetValue),
