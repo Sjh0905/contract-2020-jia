@@ -1943,6 +1943,7 @@ root.watch.listenSymbol = function (newValue, oldValue) {
   this.init();
   this.getDepth()  // 获取币安深度
   this.getAggTrades() //获取归集交易
+  this.initTicket24Hr() // 获取24小时价格变动
   // this.initGetDatas();
 
   // 各小版块加载中
