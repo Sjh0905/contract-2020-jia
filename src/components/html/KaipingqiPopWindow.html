@@ -2,7 +2,7 @@
   <div class="popWindow-container min-width" v-if="show">
     <div class="background">
       <div :class="!pop_width ? 'popup' : 'min-popup'" v-if="!isMobile">
-        <div class="box-center">
+        <div class="box-center" v-if="isLiChengCheng">
           <div class="popWindow-title">
             <div  class="bottle-opener-header">
               开平器

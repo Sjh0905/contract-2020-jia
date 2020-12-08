@@ -127,6 +127,7 @@ root.data = function () {
 
     initialPosition:0,
     loadingImage:true,
+    iptMarkPrice:'',
     // picIndex:0,
   // {
   //   "buyOrSell":"",
@@ -586,7 +587,9 @@ root.methods.positionSocket = function () {
             if((v.mt == 'cross' && v.pa!=0) || (v.mt == 'isolated' && (v.pa!=0 || v.iw!=0))){
 
               //限价输入框的价格
-              item.iptMarkPrice = Number(sMarkPrice).toFixed(2)
+              // item.iptMarkPrice = Number(sMarkPrice).toFixed(2)
+              this.iptMarkPrice = Number(sMarkPrice).toFixed(2)
+              // item.iptMarkPrice = Number(this.markPrice).toFixed(2)
 
               //如果存在直接覆盖更新
               if(fKey == cKey){
@@ -1109,7 +1112,8 @@ root.methods.openSplicedFrame = function (item,btnText,callFuncName) {
 
   //限价价格
   if(btnText == '限价'){
-    this.splicedFrameText += ('价格' + item.iptMarkPrice + 'USDT，')
+    this.splicedFrameText += ('价格' + this.iptMarkPrice + 'USDT，')
+    // this.splicedFrameText += ('价格' + item.iptMarkPrice + 'USDT，')
   }
   //当前市价
   if(btnText == '市价'){
@@ -1333,6 +1337,12 @@ root.methods.re_marketPrice = function (data) {
     this.popText = '合约带单暂不支持限价交易';//用户无权限
     return
   }
+  if(data.code == '307') {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '仓位模式变更同步中，请于1分钟后操作';//用户无权限
+    return
+  }
   typeof data === 'string' && (data = JSON.parse(data))
   if (!data) return
   this.popOpen = false
@@ -1390,7 +1400,8 @@ root.methods.checkPrice = function () {
   let params = {
     leverage: this.$store.state.leverage,
     positionSide: item.positionSide,
-    price: item.iptMarkPrice,
+    price: this.iptMarkPrice,
+    // price: item.iptMarkPrice,
     quantity: Math.abs(item.positionAmt),
     orderSide: (item.positionAmt > 0) ? 'SELL':'BUY',
     // stopPrice: null,
@@ -1456,6 +1467,12 @@ root.methods.re_checkPrice = function (data) {
     this.promptOpen = true;
     this.popType = 0;
     this.popText = '合约带单暂不支持限价交易';//用户无权限
+    return
+  }
+  if(data.code == '307') {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '仓位模式变更同步中，请于1分钟后操作';//用户无权限
     return
   }
   typeof data === 'string' && (data = JSON.parse(data))

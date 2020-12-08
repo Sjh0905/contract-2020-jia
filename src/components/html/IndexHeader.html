@@ -310,7 +310,7 @@
                     active-class="navigation-item-router-selected text_blue"
                   >
                     <span class="langfont-treasure">{{$t('activity')}}</span>
-                    <img src="../../assets/hot_icon.png" alt="" class="hot-icon">
+
                     <div class="" :class="chest?'language-jt-down':'language-jt-up'"></div>
                   </div>
                   <!--隐藏的标签 begin-->
@@ -355,13 +355,15 @@
                 <!--sss拼团 end-->
 
                 <!--sss跟单 begin-->
-                <li class="navigation-item-container flex">
-                  <div @click="goToFollowTrade"
+                <li class="navigation-item-container flex" @click="goToFollowTrade">
+                  <div
                     class="navigation-item-router flex"
                     active-class="navigation-item-router-selected">
                     {{$t('镜像交易')}}
                   </div>
+                  <span><img src="../../assets/hot_icon.png" alt="" class="hot-icon"></span>
                 </li>
+
                 <!--sss跟单 end-->
 
               </ul>

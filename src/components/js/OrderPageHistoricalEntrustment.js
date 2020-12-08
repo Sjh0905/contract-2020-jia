@@ -290,7 +290,7 @@ root.methods.re_getPosterImage = function (res) {
   }
   if(res.code == 5) {
     this.showPoster = false;
-    this.popText = '选择的订单不是开仓单'
+    this.popText = '选择的订单不是平仓单'
     this.popType = 0;
     this.promptOpen = true;
     return
@@ -298,6 +298,13 @@ root.methods.re_getPosterImage = function (res) {
   if(res.code == 6) {
     this.showPoster = false;
     this.popText = '此时间段内未查询到此订单'
+    this.popType = 0;
+    this.promptOpen = true;
+    return
+  }
+  if(res.code == 7) {
+    this.showPoster = false;
+    this.popText = '该笔订单不是平仓单，实现盈亏是0，无法分享'
     this.popType = 0;
     this.promptOpen = true;
     return

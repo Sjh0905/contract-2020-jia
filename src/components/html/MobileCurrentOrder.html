@@ -32,7 +32,18 @@
               <div class="flex">
                 <div>{{order.symbol.split('_')[0]}}</div>
                 <div class="order-position-side" :class="order.side==='BUY'?'text_blue-3':'text_red-4'">{{$globalFunc.getOrderSide(order.positionSide,order.side)}}</div>
-                <div class="order-type">{{type(order)}}</div>
+<!--                <div class="order-type">{{type(order)}}</div>-->
+                <div class=" order-type" v-if="order.type == 'LIMIT'">限价单</div>
+                <div class=" order-type" v-if="order.type == 'MARKET'">市价单</div>
+                <div class=" order-type" v-if="order.type == 'STOP'&& order.reduceOnly">止损限价单</div>
+                <div class=" order-type" v-if="order.type == 'STOP'&& !order.reduceOnly">限价单</div>
+                <div class=" order-type" v-if="order.type == 'STOP_MARKET'&& order.reduceOnly">止损市价单</div>
+                <div class=" order-type" v-if="order.type == 'STOP_MARKET'&& !order.reduceOnly">市价单</div>
+                <div class=" order-type" v-if="order.type == 'TAKE_PROFIT'&& order.reduceOnly">止盈限价单</div>
+                <div class=" order-type" v-if="order.type == 'TAKE_PROFIT'&& !order.reduceOnly">限价单</div>
+                <div class=" order-type" v-if="order.type == 'TAKE_PROFIT_MARKET' && order.reduceOnly">止盈市价单</div>
+                <div class=" order-type" v-if="order.type == 'TAKE_PROFIT_MARKET' && !order.reduceOnly">市价单</div>
+                <div class=" order-type" v-if="order.type == 'TRAILING_STOP_MARKET'">跟踪止损单</div>
               </div>
               <div class="time">{{$globalFunc.formatDateUitl(order.time,'MM-DD hh:mm:ss')}}</div>
             </div>

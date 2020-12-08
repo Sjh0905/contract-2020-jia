@@ -47,10 +47,14 @@
             <!--类型-->
             <div class="td td-category" v-if="order.type == 'LIMIT'">限价单</div>
             <div class="td td-category" v-if="order.type == 'MARKET'">市价单</div>
-            <div class="td td-category" v-if="order.type == 'STOP'">止损限价单</div>
-            <div class="td td-category" v-if="order.type == 'STOP_MARKET'">止损市价单</div>
-            <div class="td td-category" v-if="order.type == 'TAKE_PROFIT'">止盈限价单</div>
-            <div class="td td-category" v-if="order.type == 'TAKE_PROFIT_MARKET'">止盈市价单</div>
+            <div class="td td-category" v-if="order.type == 'STOP'&& order.reduceOnly">止损限价单</div>
+            <div class="td td-category" v-if="order.type == 'STOP'&& !order.reduceOnly">限价单</div>
+            <div class="td td-category" v-if="order.type == 'STOP_MARKET'&& order.reduceOnly">止损市价单</div>
+            <div class="td td-category" v-if="order.type == 'STOP_MARKET'&& !order.reduceOnly">市价单</div>
+            <div class="td td-category" v-if="order.type == 'TAKE_PROFIT'&& order.reduceOnly">止盈限价单</div>
+            <div class="td td-category" v-if="order.type == 'TAKE_PROFIT'&& !order.reduceOnly">限价单</div>
+            <div class="td td-category" v-if="order.type == 'TAKE_PROFIT_MARKET' && order.reduceOnly">止盈市价单</div>
+            <div class="td td-category" v-if="order.type == 'TAKE_PROFIT_MARKET' && !order.reduceOnly">市价单</div>
             <div class="td td-category" v-if="order.type == 'TRAILING_STOP_MARKET'">跟踪止损单</div>
             <!--方向-->
             <div class="td td-category-1" :class="order.side==='BUY'?'text_blue-3':'text_red-4'">

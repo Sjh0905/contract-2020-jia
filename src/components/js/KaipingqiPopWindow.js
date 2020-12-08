@@ -116,6 +116,7 @@ root.data = function () {
     resultData:{},
     // 禁止频繁点击
     openDisabel:false,
+    isLiChengCheng:true,
 
   }
 }
@@ -710,6 +711,7 @@ root.methods.limitAmount = function () {
 // 调用接口
 root.methods.createWithStop = function () {
   this.openDisabel = true
+  this.isLiChengCheng = true
   // if (!this.$store.state.authState.userId) {
   //   // this.loading = false
   //   return
@@ -727,55 +729,7 @@ root.methods.createWithStop = function () {
   //   this.openDisabel = false
   //   return
   // }
-  if(this.limitAmount()){
-    this.popOpen = true;
-    this.popType = 0;
-    this.popText='开仓数量不能超过可开数量'
-    this.openDisabel = false
-    return
-  }
-  if(this.noCommit()){
-    this.popOpen = true;
-    this.popType = 0;
-    this.popText='请填写正确的内容'
-    this.openDisabel = false
-    return
-  }
-  if(this.positionLimit()){
-    this.popOpen = true;
-    this.popType = 0;
-    this.popText='您暂时没有可平仓位'
-    this.openDisabel = false
-    return
-  }
-  if(this.stepLimit()) {
-    this.popOpen = true;
-    this.popType = 0;
-    this.popText='分步最多为5步'
-    this.openDisabel = false
-    return
-  }
-  if(!this.stepMore()) {
-    this.popOpen = true;
-    this.popType = 0;
-    this.popText='分步下单数量小于最小下单数量'
-    this.openDisabel = false
-    return
-  }
-  if(this.testPoint()) {
-    this.popOpen = true;
-    this.popType = 0;
-    this.popText='分步步数请输入正整数'
-    this.openDisabel = false
-    return
-  }
-  if(this.stepPointLimit()){
-    this.popOpen = true;
-    this.popType = 0;
-    this.popText='分步状态下,请输入正确的分步和点数'
-    this.openDisabel = false
-    return
-  }
+
   let params,positionAmtLong,positionAmtShort
   if(this.positionModeFirst == 'singleWarehouseMode'){
     positionAmtLong = this.positionAmt > 0
@@ -845,11 +799,22 @@ root.methods.createWithStop = function () {
 root.methods.re_createWithStop = function (data) {
   typeof(data) == 'string' && (data = JSON.parse(data));
   this.openDisabel = false
+  this.isLiChengCheng =true
   switch (data.code) {
     case 401:
       this.popOpen = true;
       this.popType = 0;
       this.popText = '请您先进行登录';
+      break;
+    case 304:
+      this.popOpen = true;
+      this.popType = 0;
+      this.popText = '用户无权限';
+      break;
+    case 307:
+      this.popOpen = true;
+      this.popType = 0;
+      this.popText = '仓位模式变更同步中，请于1分钟后操作';
       break;
     case 2001:
       this.popOpen = true;
@@ -879,6 +844,7 @@ root.methods.re_createWithStop = function (data) {
     case 200:
       this.openDisabel = false
       this.showResult = true
+      this.isLiChengCheng = false
       this.resultData = data.data || {}
       break;
     default:
@@ -942,6 +908,7 @@ root.methods.error_getPositionRisk = function (err) {
 root.methods.closeList = function () {
   this.showList = false
   // this.closeClick()
+  // this.closeClick()
 }
 // 打开开平器列表
 root.methods.openList = function () {
@@ -977,6 +944,7 @@ root.methods.openList = function () {
     return
   }
   this.showList = true
+  // this.isLiChengCheng = false
 }
 
 root.methods.testPointValue = function (keyName,length = 2) {
@@ -1017,6 +985,63 @@ root.methods.changeOpenerType = function (type) {
 }
 // 开平器确定按钮
 root.methods.comitBottleOpener = function () {
+  if(this.limitAmount()){
+    this.popOpen = true;
+    this.popType = 0;
+    this.popText='开仓数量不能超过可开数量'
+    this.openDisabel = false
+    this.isLiChengCheng = true
+    return
+  }
+  if(this.noCommit()){
+    this.popOpen = true;
+    this.popType = 0;
+    this.popText='请填写正确的内容'
+    this.openDisabel = false
+    this.isLiChengCheng = true
+    return
+  }
+  if(this.positionLimit()){
+    this.popOpen = true;
+    this.popType = 0;
+    this.popText='您暂时没有可平仓位'
+    this.openDisabel = false
+    this.isLiChengCheng = true
+    return
+  }
+  if(this.stepLimit()) {
+    this.popOpen = true;
+    this.popType = 0;
+    this.popText='分步最多为5步'
+    this.openDisabel = false
+    this.isLiChengCheng = true
+    return
+  }
+  if(!this.stepMore()) {
+    this.popOpen = true;
+    this.popType = 0;
+    this.popText='分步下单数量小于最小下单数量'
+    this.openDisabel = false
+    this.isLiChengCheng = true
+    return
+  }
+  if(this.testPoint()) {
+    this.popOpen = true;
+    this.popType = 0;
+    this.popText='分步步数请输入正整数'
+    this.openDisabel = false
+    this.isLiChengCheng = true
+    return
+  }
+  if(this.stepPointLimit()){
+    this.popOpen = true;
+    this.popType = 0;
+    this.popText='分步状态下,请输入正确的分步和点数'
+    this.openDisabel = false
+    this.isLiChengCheng = true
+    return
+  }
+
   this.createWithStop()
   // this.clearVal()
 }
@@ -1049,6 +1074,7 @@ root.methods.clearVal= function () {
   this.openAmount = ''
   this.stopProfitPointEmpty = ''
   this.StopLossPointEmpty = ''
+  this.isLiChengCheng = true
 }
 
 /* -------------------- 开平器记录列表 begin-------------------- */

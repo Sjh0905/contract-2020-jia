@@ -77,10 +77,18 @@
       <!--左侧部分-->
       <div class="left-container" :class="{'left-container-default' : is_right}">
 
-        <el-select class="inputInner" value-key="currencyKey" v-model="optionVal"
-                   filterable placeholder="" @change="changeOptionData">
-          <el-option v-for="item in optionData" :key="item" :label="item" :value="item"></el-option>
-        </el-select>
+        <div v-if="positionModeFirst=='doubleWarehouseMode'&& positionModeSecond=='openWarehouse'">
+          <el-select class="inputInner" value-key="currencyKey" v-model="optionVal"
+                     filterable placeholder="" @change="changeOptionData">
+            <el-option v-for="item in optionData2" :key="item" :label="item" :value="item"></el-option>
+          </el-select>
+        </div>
+        <div v-else>
+          <el-select class="inputInner" value-key="currencyKey" v-model="optionVal"
+                     filterable placeholder="" @change="changeOptionData">
+            <el-option v-for="item in optionData" :key="item" :label="item" :value="item"></el-option>
+          </el-select>
+        </div>
 
         <div v-if="isHasModule('triggerPrice')" class="trigger-box flex-between">
           <el-select class="inputInner-trigger" value-key="'inputInner-trigger'" v-model="latestPrice"

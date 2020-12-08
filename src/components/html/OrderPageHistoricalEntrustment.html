@@ -12,7 +12,7 @@
       <!--方向-->
       <div class="th td-market">{{$t('方向')}}</div>
       <!--价格-->
-      <div class="th td-market">{{$t('orderPageHistoricalEntrustment.close_4')}}</div>
+      <div class="th td-market">{{$t('委托价格')}}</div>
       <!--成交价格-->
       <div class="th td-market">{{$t('成交均价')}}</div>
 
@@ -152,7 +152,7 @@
               <div class="td td-turnover1" v-if="order.status == 'EXPIRED'">订单过期</div>
 
              <div class="th td-turnover1" v-if="$route.name != 'historicalEntrust'">
-               <div class="fenxiang-img flex" v-if="order.status == 'FILLED' && ((order.positionSide == 'BOTH' && order.side == 'SELL')
+               <div class="fenxiang-img flex" v-if="order.status == 'FILLED' && ((order.positionSide == 'BOTH' && (order.side == 'SELL'||order.side == 'BUY'))
                ||(order.positionSide == 'SHORT' && order.side == 'BUY') || (order.positionSide == 'LONG' && order.side == 'SELL'))">
                  <img src="../../assets/fenxiang.png" @click="SHOW_POSTER(order.orderId)" alt="">
                </div>

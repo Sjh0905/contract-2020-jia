@@ -124,6 +124,7 @@ root.data = function () {
     loading: false,
     triggerPrice:'', // 触发价格
     price: '',
+    priceft: '',
     priceNow: '0',
     amount: '',
     currentSymbol: {
@@ -257,7 +258,7 @@ root.created = function () {
   // this.postOrdersCreate()
   this.initSocket()
   this.chainCal = this.$globalFunc.chainCal
-
+  // this.price = this.latestPriceVal
 }
 
 root.mounted = function () {
@@ -327,7 +328,26 @@ root.watch.pendingOrderType = function (newValue, oldValue) {
   this.triggerPrice = ''
   this.value = 0
   this.amount = ''
+  //初始显示的价格
+  // this.price = this.latestPriceVal
+  this.priceft = ''
   this.price = this.latestPriceVal
+}
+root.watch.positionModeSecond = function (newValue, oldValue) {
+  this.triggerPrice = ''
+  this.value = 0
+  this.amount = ''
+  //初始显示的价格
+  // this.price = this.latestPriceVal
+  this.priceft = ''
+  this.price = this.latestPriceVal
+}
+
+root.watch.price = function (newValue, oldValue) {
+    if(this.price == ''|| this.price == 0) {
+      // this.priceft = this.latestPriceVal
+      this.price = this.latestPriceVal
+    }
 }
 
 // 监听选择的是 最新价格 还是 标记价格
@@ -879,7 +899,7 @@ root.computed.canBeOpened = function () {
   // if(this.marginType == 'CROSSED'){
     // 限价或者限价止损
     if(this.pendingOrderType == 'limitPrice'||this.pendingOrderType == 'limitProfitStopLoss'){
-      if(this.price == 0 || this.price == '') return buyCanOpen = 0; sellCanOpen = 0;
+      // if(this.price == 0 || this.price == '') return buyCanOpen = 0; sellCanOpen = 0;
       //Avail for Order / {assuming price * IM + abs(min[0, side * (mark price - order's Price)])}
       buyCanOpen = availableBalance / (this.assumingPrice * leverage + buy)
       sellCanOpen = availableBalance / (this.assumingPrice * leverage + sell)
@@ -1488,6 +1508,12 @@ root.methods.re_postFullStop = function (data) {
     this.popText = '合约带单暂不支持限价交易';//用户无权限
     return
   }
+  if(data.code == '307') {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '仓位模式变更同步中，请于1分钟后操作';//仓位模式变更同步中，请于1分钟后操作
+    return
+  }
   typeof (data) === 'string' && (data = JSON.parse(data))
   if (!data || !data.data) return
   this.promptOpen = true;
@@ -1665,6 +1691,13 @@ root.methods.re_postOrdersCreate = function (data) {
     this.promptOpen = true;
     this.popType = 0;
     this.popText = '合约带单暂不支持限价交易';//用户无权限
+    return
+  }
+
+  if(data.code == '307') {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '仓位模式变更同步中，请于1分钟后操作';//仓位模式变更同步中，请于1分钟后操作
     return
   }
   typeof (data) === 'string' && (data = JSON.parse(data))
@@ -1850,6 +1883,12 @@ root.methods.re_postOrdersPosition = function (data) {
     this.popText = '合约带单暂不支持限价交易';//用户无权限
     return
   }
+  if(data.code == '307') {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '仓位模式变更同步中，请于1分钟后操作';//用户无权限
+    return
+  }
   typeof (data) === 'string' && (data = JSON.parse(data))
   if (!data || !data.data) return
   // 监听仓位和委托单条数
@@ -2028,10 +2067,10 @@ root.methods.get_now_price = function () {
   let triggerPrice = this.triggerPrice;
   let rate = this.get_rate() || 0;
   if (lang === 'CH') {
-    this.change_price = ('￥' + this.$globalFunc.accFixedCny(this.$store.state.exchange_rate_dollar * (price * rate), 2));
+    // this.change_price = ('￥' + this.$globalFunc.accFixedCny(this.$store.state.exchange_rate_dollar * (price * rate), 2));
     this.changeTriggerPrice = ('￥' + this.$globalFunc.accFixedCny(this.$store.state.exchange_rate_dollar * (triggerPrice * rate), 2));
   } else {
-    this.change_price = ('$' + this.$globalFunc.accFixedCny((price * rate), 2));
+    // this.change_price = ('$' + this.$globalFunc.accFixedCny((price * rate), 2));
   }
 }
 
@@ -2681,7 +2720,8 @@ root.methods.countNum = function(num) {
 
 /*---------------------- 保留小数 begin ---------------------*/
 root.methods.toFixed = function (num, acc = 8) {
-  return this.$globalFunc.accFixed(num, acc)
+  // return this.$globalFunc.accFixed(num , acc)
+  return this.$globalFunc.accFixed(num == Infinity ? 0 : num , acc)
 }
 /*---------------------- 保留小数 end ---------------------*/
 

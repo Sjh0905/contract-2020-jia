@@ -66,7 +66,7 @@
             <!--时间-->
             <div class="td-time tar time-text"  @click="showDetail(order)">{{$globalFunc.formatDateUitl(order.time,'MM-DD hh:mm')}}</div>
 
-            <div class="td-time-fenx tar time-text" v-if="order.status == 'FILLED' && ((order.positionSide == 'BOTH' && order.side == 'SELL')
+            <div class="td-time-fenx tar time-text" v-if="order.status == 'FILLED' && ((order.positionSide == 'BOTH' && (order.side == 'SELL'|| order.side == 'BUY'))
             ||(order.positionSide == 'SHORT' && order.side == 'BUY') || (order.positionSide == 'LONG' && order.side == 'SELL'))" @click="SHOW_POSTER(order.orderId)">
               <img class="img-width-f" src="../../assets/fenxiangicon@2x.png" alt="">
             </div>
@@ -76,7 +76,7 @@
           <div class="flex margin-bot2"  @click="showDetail(order)">
             <div class="td-time1 piaoti-text color-A">
               <div class="td-time margin-bot1">数量</div>
-              <div class="td-time margin-bot1">价格</div>
+              <div class="td-time margin-bot1">委托价格</div>
               <div class="td-time margin-bot1">成交均价</div>
               <div class="td-time1">只减仓</div>
             </div>

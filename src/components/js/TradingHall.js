@@ -1599,6 +1599,10 @@ root.methods.re_postLevelrage = function (data) {
     this.popTextLeverage = '用户无权限';
     return
   }
+  if (data.code == 306) {
+    this.popTextLeverage = '您可能存在挂单或仓位，不支持调整杠杆';
+    return
+  }
   typeof(data) == 'string' && (data = JSON.parse(data));
   this.promptOpen = true;
   if (data.code == 200) {

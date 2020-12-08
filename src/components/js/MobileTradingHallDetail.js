@@ -21,11 +21,14 @@ root.data = function () {
     /*下拉框1 begin*/
     optionVal:'市价单',
     optionData:['限价单','市价单','限价止盈止损','市价止盈止损'],
+    optionData2:['限价单','市价单','触发限价','触发市价'],
     optionDataMap:{
       '限价单':'limitPrice',
       '市价单':'marketPrice',
       '限价止盈止损':'limitProfitStopLoss',
-      '市价止盈止损':'marketPriceProfitStopLoss'
+      '市价止盈止损':'marketPriceProfitStopLoss',
+      '触发限价':'limitProfitStopLoss',
+      '触发市价':'marketPriceProfitStopLoss',
     },
     /*下拉框1 end*/
 
@@ -1402,6 +1405,12 @@ root.methods.re_postFullStop = function (data) {
     this.popText = '合约带单暂不支持限价交易';//用户无权限
     return
   }
+  if(data.code == '307') {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '仓位模式变更同步中，请于1分钟后操作';//用户无权限
+    return
+  }
   typeof (data) === 'string' && (data = JSON.parse(data))
   if (!data || !data.data) return
   this.promptOpen = true;
@@ -1580,6 +1589,12 @@ root.methods.re_postOrdersCreate = function (data) {
     this.popText = '合约带单暂不支持限价交易';//用户无权限
     return
   }
+  if(data.code == '307') {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '仓位模式变更同步中，请于1分钟后操作';//用户无权限
+    return
+  }
   typeof (data) === 'string' && (data = JSON.parse(data))
   if (!data || !data.data) return
   // console.info('下单失败',data,data.errCode,data.code)
@@ -1715,6 +1730,12 @@ root.methods.re_postOrdersPosition = function (data) {
     this.promptOpen = true;
     this.popType = 0;
     this.popText = '合约带单暂不支持限价交易';//用户无权限
+    return
+  }
+  if(data.code == '307') {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '仓位模式变更同步中，请于1分钟后操作';//用户无权限
     return
   }
   if(data.code == '303') {
@@ -2108,6 +2129,9 @@ root.methods.changeLatestPriceOption = function (v) {
 //仓位模式二级切换 Start
 root.methods.changePositionModeSecond = function (type) {
   this.positionModeSecond = type;
+  // if(this.positionModeSecond == 'openWarehouse') {
+  //   this.optionVal = '市价单'
+  // }
 }
 //仓位模式二级切换 End
 
@@ -2228,6 +2252,10 @@ root.methods.re_postLevelrage = function (data) {
 
   if (data.code == 304) {
     this.popTextLeverage = '用户无权限';
+    return
+  }
+  if (data.code == 306) {
+    this.popTextLeverage = '您可能存在挂单或仓位，不支持调整杠杆';
     return
   }
   typeof(data) == 'string' && (data = JSON.parse(data));
@@ -3159,6 +3187,9 @@ root.watch.pendingOrderType  = function (){
     return
   }
   this.reducePositionsSelected = true
+}
+root.watch.positionModeSecond  = function (){
+  this.optionVal = '市价单'
 }
 root.watch.amount = function (newValue, oldValue) {
   let value = newValue.toString();

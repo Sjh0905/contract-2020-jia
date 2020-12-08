@@ -107,7 +107,7 @@
   cursor: pointer;
   flex: 0.5;
   height: 36px;
-  border-bottom: 2px solid transparent;
+  /*border-bottom: 2px solid transparent;*/
   width: auto;
   float: left;
   text-align: center;
@@ -117,11 +117,12 @@
   font-weight:500;
   font-size: 14px;
   color: #A2B5D9;
+  background-color: #151634;
 }
 
 .progress-bar-position-title-sel {
   /*height: 36px;*/
-  border-bottom: 2px solid #3576F5;
+  /*border-bottom: 2px solid #3576F5;*/
   /*width: auto;*/
   /*float: left;*/
   /*text-align: center;*/
@@ -131,7 +132,7 @@
   /*font-weight:500;*/
   /*font-size: 14px;*/
   color: #ffffff;
-  background-color: rgba(255,255,255,0.03);
+  background-color: #3576F5;
 }
 
 /*add  new  css*/
@@ -1382,6 +1383,21 @@
   line-height: 24px;
   top: 90%;
   left: 22%;
+  font-size:12px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color: #0D0E23;
+  background: #fff;
+  padding: 10px;
+  z-index: 100;
+}
+.market-price-profit-stop-loss-1 {
+  display: none;
+  position: absolute;
+  width: 250px;
+  line-height: 24px;
+  top: 90%;
+  left: 19.5%;
   font-size:12px;
   font-family:PingFangSC-Regular,PingFang SC;
   font-weight:400;
