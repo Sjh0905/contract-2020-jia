@@ -51,10 +51,10 @@ export default async function ($http, $store, $cookie, $i18n) {
         // }
         // 未登录状态
         if(data.code == 401){
-          let user_symbol = $cookie.get('unlogin_contract_symbol_cookie') || symbol
+          let user_symbol = $cookie.get('unlogin_contract_symbol_cookie')
           $store.commit('SET_SYMBOL', user_symbol)     // 如果没有用户登录选择币对，则为ETH_USDT币对
           // $store.commit('SET_SYMBOL', 'GRC_USDT')     // 如果没有用户登录选择币对，则为GRC_USDT币对
-          $store.commit('ENTER_CONTRACT', data.data.contract)//判断用户是否第一次进入合约
+          // $store.commit('ENTER_CONTRACT', data.data.contract)//判断用户是否第一次进入合约
           return
         }
         // 登录状态
@@ -76,7 +76,7 @@ export default async function ($http, $store, $cookie, $i18n) {
 
       },
       errorHandler: function (err) {
-        let user_symbol = /*'ETH_USDT' ||*/ symbol || $cookie.get('unlogin_contract_symbol_cookie') || symbol
+        let user_symbol = /*'ETH_USDT' ||*/ $cookie.get('unlogin_contract_symbol_cookie') || symbol
         // console.warn('出错', err)
         $store.commit('SET_SYMBOL', user_symbol)  // 如果没有用户登录选择币对，则为ETH_USDT币对
         // $store.commit('SET_SYMBOL', 'GRC_USDT')  // 如果没有用户登录选择币对，则为GRC_USDT币对
