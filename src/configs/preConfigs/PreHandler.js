@@ -40,36 +40,43 @@ export default async function ($http, $store, $cookie, $i18n) {
 
   //请求个人信息
   function userAuthInfo () {
-    let symbol = 'ETH_USDT'
+    let symbol = 'BTC_USDT'
     return $http.send('GET_USER_AUTH_INFO',{
       callBack: function (data) {
         typeof(data) === 'string' && (data = JSON.stringify(data));
-        if(data.code != 401){
-          let res = data.data;
-          $store.commit('SET_AUTH_STATE', res);
-          $store.commit('ENTER_CONTRACT', data.data.contract)//判断用户是否第一次进入合约
-        }
+        // if(data.code != 401){
+        //   let res = data.data;
+        //   $store.commit('SET_AUTH_STATE', res);
+        //   $store.commit('ENTER_CONTRACT', data.data.contract)//判断用户是否第一次进入合约
+        // }
+        // 未登录状态
         if(data.code == 401){
-          let user_symbol = symbol || $cookie.get('unlogin_user_symbol_cookie') || symbol
+          let user_symbol = $cookie.get('unlogin_contract_symbol_cookie') || symbol
           $store.commit('SET_SYMBOL', user_symbol)     // 如果没有用户登录选择币对，则为ETH_USDT币对
           // $store.commit('SET_SYMBOL', 'GRC_USDT')     // 如果没有用户登录选择币对，则为GRC_USDT币对
           $store.commit('ENTER_CONTRACT', data.data.contract)//判断用户是否第一次进入合约
           return
         }
-        $store.commit('SET_AUTH_MESSAGE', data.data)
-        $store.commit('SET_AUTH_HOTVAL', data.dataMap.hotVal)
-        $store.commit('ENTER_CONTRACT', data.data.contract) //判断用户是否第一次进入合约
+        // 登录状态
+        let res = data.data;
+        $store.commit('SET_AUTH_STATE', res);
+        $store.commit('SET_AUTH_MESSAGE', res);
+        // $store.commit('ENTER_CONTRACT', data.data.contract)//判断用户是否第一次进入合约
+        $store.commit('ENTER_CONTRACT', data.data.contract); //判断用户是否第一次进入合约
+        // $store.commit('SET_AUTH_HOTVAL', data.dataMap.hotVal)
+
         // 判断用户登录后最后选择的币对
-        let user_symbol = symbol || $cookie.get('user_symbol_cookie'), user_id = data.dataMap.userProfile.userId
+        let user_symbol = $cookie.get('contract_symbol_cookie') || symbol, user_id = data.data.userId
         if (!!user_id && !!user_symbol && user_symbol.split('-')[0] == user_id) {
           $store.commit('SET_SYMBOL', user_symbol.split('-')[1])
           return
         }
-        $store.commit('SET_SYMBOL','ETH_USDT')  // 如果没有用户登录选择币对，则为ETH_USDT币对
+        $store.commit('SET_SYMBOL',symbol)  // 如果没有用户登录选择币对，则为ETH_USDT币对
         // $store.commit('SET_SYMBOL', 'GRC_USDT')  // 如果没有用户登录选择币对，则为GRC_USDT币对
+
       },
       errorHandler: function (err) {
-        let user_symbol = /*'ETH_USDT' ||*/ symbol || $cookie.get('unlogin_user_symbol_cookie') || symbol
+        let user_symbol = /*'ETH_USDT' ||*/ symbol || $cookie.get('unlogin_contract_symbol_cookie') || symbol
         // console.warn('出错', err)
         $store.commit('SET_SYMBOL', user_symbol)  // 如果没有用户登录选择币对，则为ETH_USDT币对
         // $store.commit('SET_SYMBOL', 'GRC_USDT')  // 如果没有用户登录选择币对，则为GRC_USDT币对
@@ -83,7 +90,7 @@ export default async function ($http, $store, $cookie, $i18n) {
   //     callBack: function (data) {
   //       typeof data === 'string' && (data = JSON.parse(data))
   //       if (data.result === 'FAIL' || data.errorCode) {
-  //         let user_symbol = $cookie.get('unlogin_user_symbol_cookie') || 'BTC_USDT'
+  //         let user_symbol = $cookie.get('unlogin_contract_symbol_cookie') || 'BTC_USDT'
   //         $store.commit('SET_SYMBOL', user_symbol)     // 如果没有用户登录选择币对，则为ETH_USDT币对
   //         // $store.commit('SET_SYMBOL', 'GRC_USDT')     // 如果没有用户登录选择币对，则为GRC_USDT币对
   //         return
@@ -91,7 +98,7 @@ export default async function ($http, $store, $cookie, $i18n) {
   //       $store.commit('SET_AUTH_MESSAGE', data.dataMap.userProfile)
   //       $store.commit('SET_AUTH_HOTVAL', data.dataMap.hotVal)
   //       // 判断用户登录后最后选择的币对
-  //       let user_symbol = $cookie.get('user_symbol_cookie'), user_id = data.dataMap.userProfile.userId
+  //       let user_symbol = $cookie.get('contract_symbol_cookie'), user_id = data.dataMap.userProfile.userId
   //       if (!!user_id && !!user_symbol && user_symbol.split('-')[0] == user_id) {
   //         $store.commit('SET_SYMBOL', user_symbol.split('-')[1])
   //         return
@@ -100,7 +107,7 @@ export default async function ($http, $store, $cookie, $i18n) {
   //       // $store.commit('SET_SYMBOL', 'GRC_USDT')  // 如果没有用户登录选择币对，则为GRC_USDT币对
   //     },
   //     errorHandler: function (err) {
-  //       let user_symbol = $cookie.get('unlogin_user_symbol_cookie') || 'BTC_USDT'
+  //       let user_symbol = $cookie.get('unlogin_contract_symbol_cookie') || 'BTC_USDT'
   //       // console.warn('出错', err)
   //       $store.commit('SET_SYMBOL', user_symbol)  // 如果没有用户登录选择币对，则为ETH_USDT币对
   //       // $store.commit('SET_SYMBOL', 'GRC_USDT')  // 如果没有用户登录选择币对，则为GRC_USDT币对
@@ -113,7 +120,7 @@ export default async function ($http, $store, $cookie, $i18n) {
     return $http.send('GET_SYMBOLS', {
       callBack: function (data) {
 
-        let d = data && data.data || [],sNameList = [],sLineNameList = [],sNameMap = {};
+        let d = data && data.data || [],sNameList = [],sLineNameList = [],sNameMap = {},specialSymbol = [new Set()];
         d.map(v=>{
           let n = v.baseName+v.quoteName,ln = v.baseName+'_'+v.quoteName
           sNameList.push(n)
@@ -121,12 +128,12 @@ export default async function ($http, $store, $cookie, $i18n) {
           sNameMap[n]= ln;
         })
 
+
         // console.log('this is sNameList,sLineNameList', sNameList,sLineNameList)
 
         $store.commit('SET_S_NAME_LIST', sNameList)
         $store.commit('SET_S_LINE_NAME_LIST', sLineNameList)
         $store.commit('SET_S_NAME_MAP', sNameMap)
-
         /*let quoteConfig = [], marketList = [[], []];
         data.symbols.map(v => {
           // 精度从接口获取写完多币对后再说

@@ -709,29 +709,29 @@ root.computed.canMore = function () {
     // 市价或者市价止盈止损
     if(this.pendingOrderType== 'marketPrice'||this.pendingOrderType == 'marketPriceProfitStopLoss'){
       // buyCanOpen = Math.max(0,(availableBalance + initialMargin - ((markPrice * positionAmt + this.buyNetValue) * leverage)) / (1*(this.assumingPrice *  leverage) + buyMarket))
-      sellCanOpen = Math.max(0,(availableBalance + initialMargin - ((positionNotionalValue - this.computedSellNetValue) * leverage)) / (1*(this.assumingPrice * leverage) + sellMarket))
+      // sellCanOpen = Math.max(0,(availableBalance + initialMargin - ((positionNotionalValue - this.computedSellNetValue) * leverage)) / (1*(this.assumingPrice * leverage) + sellMarket))
       // console.info('sellNetValue===',this.sellNetValue)
       if(positionAmt >= 0){
-        buyCanOpen = Math.max(0,(availableBalance + initialMargin - ((positionNotionalValue + this.computedBuyNetValue) * leverage)) / (1*(this.assumingPrice * leverage + buyMarket)))
-        sellCanOpen = Math.max(0,((availableBalance + initialMargin + ((positionNotionalValue - this.computedSellNetValue) * leverage) +  Math.abs(positionAmt) * 1 * sellMarket) / (1 * (this.assumingPrice *  leverage) + sellMarket)))
+        buyCanOpen = Math.max(0,(availableBalance + initialMargin - ((positionNotionalValue + this.computedBuyNetValue) * leverage))) / (1*(this.assumingPrice * leverage + buyMarket))
+        sellCanOpen = Math.max(0,(availableBalance + initialMargin + ((positionNotionalValue - this.computedSellNetValue) * leverage) +  Math.abs(positionAmt) * 1 * sellMarket)) / (1 * (this.assumingPrice *  leverage) + sellMarket)
         if(buyCanOpen >= Math.abs(positionAmt)){
-          sellCanOpen = Math.max(0, (availableBalance + initialMargin + ((positionNotionalValue - this.computedSellNetValue) * leverage)) / (1 * (this.assumingPrice * leverage)))
+          sellCanOpen = Math.max(0, (availableBalance + initialMargin + ((positionNotionalValue - this.computedSellNetValue) * leverage))) / (1 * (this.assumingPrice * leverage))
         }
       }
       if(positionAmt < 0){
-        buyCanOpen = Math.max(0,(availableBalance + initialMargin - ((positionNotionalValue + this.computedBuyNetValue) * leverage) + Math.abs(positionAmt) * 1 * buyMarket ) / (1*(this.assumingPrice *  leverage) + buyMarket))
-        sellCanOpen = Math.max(0,(availableBalance + initialMargin + ((positionNotionalValue - this.computedSellNetValue) * leverage)) / (1 * (this.assumingPrice * leverage) + sellMarket))
+        buyCanOpen = Math.max(0,(availableBalance + initialMargin - ((positionNotionalValue + this.computedBuyNetValue) * leverage) + Math.abs(positionAmt) * 1 * buyMarket )) / (1*(this.assumingPrice *  leverage) + buyMarket)
+        sellCanOpen = Math.max(0,(availableBalance + initialMargin + ((positionNotionalValue - this.computedSellNetValue) * leverage))) / (1 * (this.assumingPrice * leverage) + sellMarket)
         if (buyCanOpen >= Math.abs(positionAmt)) {
-          buyCanOpen = Math.max(0, (availableBalance + initialMargin - ((positionNotionalValue + this.computedBuyNetValue) * leverage)) / (1 * this.assumingPrice * leverage))
+          buyCanOpen = Math.max(0, (availableBalance + initialMargin - ((positionNotionalValue + this.computedBuyNetValue) * leverage))) / (1 * this.assumingPrice * leverage)
         }
       }
       // 第二步进行验证
       let afterTradeBuyM = Math.max(Math.abs( (positionNotionalValue) + this.computedBuyNetValue + (this.assumingPrice * Number(buyCanOpen))
-      ), Math.abs(markPrice * positionAmt - this.computedSellNetValue))
+      ), Math.abs(positionNotionalValue - this.computedSellNetValue))
 
       // notional after trade = max(abs(position_notional_value + open order's bid_notional), abs(position_notional_value - open order's ask_notional - new order's ask_notional))
       let afterTradeSellM = Math.max(Math.abs( (positionNotionalValue) + this.computedBuyNetValue),
-        Math.abs((markPrice * positionAmt) - this.computedSellNetValue - (this.assumingPrice * Number(sellCanOpen))))
+        Math.abs(positionNotionalValue - this.computedSellNetValue - (this.assumingPrice * Number(sellCanOpen))))
       // 第三步，重新计算最大可开数量
       if(afterTradeBuyM > this.maxNotionalAtCurrentLeverage){
         buyCanOpen = (this.maxNotionalAtCurrentLeverage - (positionNotionalValue) - this.computedBuyNetValue) / this.assumingPrice
