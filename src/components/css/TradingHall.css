@@ -1376,6 +1376,21 @@
   padding: 10px;
   z-index: 100;
 }
+.limit-profit-stop-loss-s {
+  display: none;
+  position: absolute;
+  width: 250px;
+  line-height: 24px;
+  top: 90%;
+  left: 1%;
+  font-size:12px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color: #0D0E23;
+  background: #fff;
+  padding: 10px;
+  z-index: 100;
+}
 .market-price-profit-stop-loss {
   display: none;
   position: absolute;
@@ -1398,6 +1413,22 @@
   line-height: 24px;
   top: 90%;
   left: 19.5%;
+  font-size:12px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color: #0D0E23;
+  background: #fff;
+  padding: 10px;
+  z-index: 100;
+}
+
+.market-price-profit-stop-loss-s {
+  display: none;
+  position: absolute;
+  width: 250px;
+  line-height: 24px;
+  top: 90%;
+  left: 16%;
   font-size:12px;
   font-family:PingFangSC-Regular,PingFang SC;
   font-weight:400;
