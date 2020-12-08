@@ -85,12 +85,12 @@ tr, th, td {
   width: 21px;
 }
 .td-trigger {
-  flex: 10;
+  flex: 13;
   /*text-align: right;*/
   padding-right: 25px;
 }
 .td-back-hand {
-  flex: 5;
+  flex: 3;
 }
 .td-trigger4 {
   flex: 2;
