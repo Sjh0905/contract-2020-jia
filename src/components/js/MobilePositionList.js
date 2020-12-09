@@ -1184,10 +1184,10 @@ root.methods.openBackHand = function (item,btnText,callFuncName) {
 }
 //提交下单弹框
 root.methods.confirmFrame = function () {
-  // if(!this.popWindowOpenPs) {
-  //   this[this.callFuncNameHand]();//调用对应的接口
-  //   return
-  // }
+  if(this.splicedFrameText.indexOf('价格为当前市价') > -1 ) {
+    this.marketPrice()
+    return
+  }
   // // this.callFuncName();//调用对应的接口
   // if(this.orderTypes == '限价'){
   //   this.checkPrice()
@@ -1196,8 +1196,8 @@ root.methods.confirmFrame = function () {
   //   this.marketPrice()
   // }
 
+  this[this.callFuncNameHand]();//调用对应的接口
 
-    this.marketPrice()
 
 }
 

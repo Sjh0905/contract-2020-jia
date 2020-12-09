@@ -3195,9 +3195,15 @@ root.watch.positionModeSecond  = function (){
   if (this.positionModeSecond == 'closeWarehouse') {
     this.optionVal = '触发市价止盈止损'
     this.pendingOrderType = 'marketPriceProfitStopLoss'
+    this.triggerPrice = ''
+    this.price = ''
+    this.amount = ''
   }else{
     this.optionVal = '市价单'
     this.pendingOrderType = 'marketPrice'
+    this.triggerPrice = ''
+    this.price = ''
+    this.amount = ''
   }
 
 }
