@@ -284,8 +284,11 @@ root.watch.symbol = function () {
   // 判断当前币对是否可交易
   this.SYMBOL_ENTRANSACTION();
   // 切换symbol清空价格和数量
-  // this.price = '';
+  this.triggerPrice = '';
+  this.value = 0;
   this.amount = '';
+  // this.price = '';
+  this.priceft = ''
 }
 // currency发生变化则更改估值！
 root.watch.watchCurrency = function () {
