@@ -22,6 +22,7 @@ root.data = function () {
     optionVal:'市价单',
     optionData:['限价单','市价单','限价止盈止损','市价止盈止损'],
     optionData2:['限价单','市价单','触发限价','触发市价'],
+    optionData3:['触发限价止盈止损','触发市价止盈止损'],
     optionDataMap:{
       '限价单':'limitPrice',
       '市价单':'marketPrice',
@@ -29,6 +30,8 @@ root.data = function () {
       '市价止盈止损':'marketPriceProfitStopLoss',
       '触发限价':'limitProfitStopLoss',
       '触发市价':'marketPriceProfitStopLoss',
+      '触发限价止盈止损':'limitProfitStopLoss',
+      '触发市价止盈止损':'marketPriceProfitStopLoss',
     },
     /*下拉框1 end*/
 
@@ -2319,7 +2322,7 @@ root.methods.re_getLatestrice = function (data) {
   let price = data.data[0].price
   this.latestPriceVal = (price || '').toString()
 
-  this.setTransactionPrice(this.latestPriceVal);//第一次进入页面价格要赋值
+  // this.setTransactionPrice(this.latestPriceVal);//第一次进入页面价格要赋值
   // this.latestPriceVal = ((price != undefined || price != null) &&  price) || ''
   // this.latestPriceVal = (Number(price) || '').toString()
 
@@ -3189,7 +3192,21 @@ root.watch.pendingOrderType  = function (){
   this.reducePositionsSelected = true
 }
 root.watch.positionModeSecond  = function (){
-  this.optionVal = '市价单'
+  if (this.positionModeSecond == 'closeWarehouse') {
+    this.optionVal = '触发市价止盈止损'
+    this.pendingOrderType = 'marketPriceProfitStopLoss'
+  }else{
+    this.optionVal = '市价单'
+    this.pendingOrderType = 'marketPrice'
+  }
+
+}
+root.watch.optionVal = function () {
+  // if (this.positionModeSecond=='openWarehouse') {
+  //   this.optionVal = '市价单'
+  //   this.pendingOrderType = 'marketPrice'
+  //   return
+  // }
 }
 root.watch.amount = function (newValue, oldValue) {
   let value = newValue.toString();

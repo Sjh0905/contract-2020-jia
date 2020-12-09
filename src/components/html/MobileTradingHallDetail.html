@@ -77,18 +77,25 @@
       <!--左侧部分-->
       <div class="left-container" :class="{'left-container-default' : is_right}">
 
-        <div v-if="positionModeFirst=='doubleWarehouseMode'&& positionModeSecond=='openWarehouse'">
-          <el-select class="inputInner" value-key="currencyKey" v-model="optionVal"
-                     filterable placeholder="" @change="changeOptionData">
-            <el-option v-for="item in optionData2" :key="item" :label="item" :value="item"></el-option>
-          </el-select>
-        </div>
-        <div v-else>
+        <div v-if="positionModeFirst=='singleWarehouse'">
           <el-select class="inputInner" value-key="currencyKey" v-model="optionVal"
                      filterable placeholder="" @change="changeOptionData">
             <el-option v-for="item in optionData" :key="item" :label="item" :value="item"></el-option>
           </el-select>
         </div>
+        <div v-if="positionModeSecond=='openWarehouse'">
+          <el-select class="inputInner" value-key="currencyKey" v-model="optionVal"
+                     filterable placeholder="" @change="changeOptionData">
+            <el-option v-for="item in optionData2" :key="item" :label="item" :value="item"></el-option>
+          </el-select>
+        </div>
+        <div v-if="positionModeSecond=='closeWarehouse'">
+          <el-select class="inputInner" value-key="currencyKey" v-model="optionVal"
+                     filterable placeholder="" @change="changeOptionData">
+            <el-option v-for="item in optionData3" :key="item" :label="item" :value="item"></el-option>
+          </el-select>
+        </div>
+
 
         <div v-if="isHasModule('triggerPrice')" class="trigger-box flex-between">
           <el-select class="inputInner-trigger" value-key="'inputInner-trigger'" v-model="latestPrice"
@@ -104,6 +111,7 @@
         </div>
 
         <div v-if="pendingOrderType.indexOf('limit') > -1" class="mobile-change-num">
+<!--        <div v-if="pendingOrderType == 'limit'" class="mobile-change-num">-->
           <div class="trading1">
             <input class="mobile-change-num-input" :placeholder="`价格`" type="number" v-model="price">
           </div>
