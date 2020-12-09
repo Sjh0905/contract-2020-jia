@@ -51,10 +51,12 @@ root.data = () => {
       {'a':'多么痛，的领悟'}
     ],
     orderId:'',
+    posterSymbol:'', //海报对应币对
     // 信息提示
     popType: 0,
     popText: '',
     promptOpen: false,
+
   }
 }
 
@@ -232,8 +234,9 @@ root.methods.toOrderHistory = function () {
 
 //海报
 // 展示海报
-root.methods.SHOW_POSTER = function (orderId) {
-  this.orderId = orderId
+root.methods.SHOW_POSTER = function (order) {
+  this.orderId = order.orderId
+  this.posterSymbol = order.symbol
   this.showPoster = true;
   this.getPosterImage()
 }
@@ -249,7 +252,7 @@ root.methods.getPosterImage = function () {
   this.loadingImage=true
   let params = {
     orderId:this.orderId,
-    symbol:this.capitalSymbol,
+    symbol:this.posterSymbol,
     picIndex:this.picIndex || 0,
   }
   this.$http.send('POST_ASSET_SNAPSHOT', {
