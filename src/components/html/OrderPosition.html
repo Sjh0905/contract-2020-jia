@@ -176,14 +176,27 @@
 <!--          </el-option>-->
 <!--        </el-select>-->
 
-        <el-select class="account_number_input" value-key="currencyKey" v-model="currencyValue" filterable placeholder="">
-          <el-option
-            v-for="(item,index) in accountsComputed"
-            :label="item.a"
-            :value="item.a"
-            :key="index"
-          ></el-option>
-        </el-select>
+        <div v-if="unrealizedProfitPage>0">
+          <el-select class="account_number_input" value-key="currencyKey" v-model="currencyValue" filterable placeholder="">
+            <el-option
+              v-for="(item,index) in accountsComputed"
+              :label="item.a"
+              :value="item.a"
+              :key="index"
+            ></el-option>
+          </el-select>
+        </div>
+        <div v-else>
+          <el-select class="account_number_input" value-key="currencyKey" v-model="currencyValueDeficit" filterable placeholder="">
+            <el-option
+              v-for="(item,index) in accountsComputedDeficit"
+              :label="item.a"
+              :value="item.a"
+              :key="index"
+            ></el-option>
+          </el-select>
+        </div>
+
       </template>
       <p class="copy_poster">✽{{$t('personalCenter.poster_2')}}</p>
 <!--      <img :src="poster_url" width="100%">-->

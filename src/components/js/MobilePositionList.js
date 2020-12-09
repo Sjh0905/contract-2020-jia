@@ -116,20 +116,25 @@ root.data = function () {
     showPoster: false,
     // 海报url
     poster_url: '',
-    currencyValue:'庄终于，对我下手了',
-    accounts: [
-      {'a':'庄终于，对我下手了'},
-      {'a':'我命由庄，不由我'},
-      {'a':'这是什么，人间疾苦'},
-      {'a':'一键梭哈的，市价小能手'},
-      {'a':'动如脱兔的，逃顶小能手'},
-      {'a':'掐指一算，今天大赚'},
+    currencyValue:'勤劳致富，落袋为安',
+    currencyValueDeficit:'这是什么，人间疾苦',
+    accounts : [
       {'a':'勤劳致富，落袋为安'},
-      {'a':'断臂求生的，止损小能手'},
+      {'a':'接着奏乐，接着舞'},
+      {'a':'富贵险中求'},
       {'a':'感觉人生，到达巅峰'},
+      {'a':'掐指一算，今天大赚'},
+      {'a':'动如脱兔的，逃顶小能手'},
+      {'a':'一键梭哈的，市价小能手'},
+    ],
+    accountsDeficit : [
+      {'a':'这是什么，人间疾苦'},
+      {'a':'多么痛，的领悟'},
+      {'a':'我命由庄，不由我'},
+      {'a':'庄终于，对我下手了'},
       {'a':'能亏才会赚，不信等着看'},
+      {'a':'断臂求生的，止损小能手'},
       {'a':'舍己为人的，反指小能手'},
-      {'a':'多么痛，的领悟'}
     ],
     positionData:{},
     buyOrSell:'', //买入做多、卖出做空
@@ -158,6 +163,12 @@ root.watch.crossWalletBalance = function(newVal,oldVal) {
   // console.info(newVal)
 }
 root.watch.currencyValue = function (newVal, oldVal){
+  // let a = newVal
+  // this.getAccount()
+  this.changeDate()
+  this.getPosterImage()
+}
+root.watch.currencyValueDeficit = function (newVal, oldVal){
   // let a = newVal
   // this.getAccount()
   this.changeDate()
@@ -199,6 +210,10 @@ root.computed.subscribeSymbol = function () {
 root.computed.accountsComputed = function (index,item) {
   // 特殊处理
   return this.accounts
+}
+root.computed.accountsComputedDeficit = function (index,item) {
+  // // 特殊处理
+  return this.accountsDeficit
 }
 
 root.computed.reduceMostAmount1 = function (){
@@ -265,8 +280,16 @@ root.computed.LPCalculationType = function () {
   return data
 }
 root.computed.picIndex = function () {
-  let a = this.accounts.map(item => item.a).indexOf(this.currencyValue) + 1
-  return a || 1
+  // let a = this.accounts.map(item => item.a).indexOf(this.currencyValue) + 1
+  // return a || 1
+  if (this.unrealizedProfitPage>0) {
+    let a = this.accounts.map(item => item.a).indexOf(this.currencyValue) + 1
+    return a || 1
+  }else {
+    let a = this.accountsDeficit.map(item => item.a).indexOf(this.currencyValueDeficit) + 8
+    return a || 8
+  }
+
 }
 // 检验是否是APP
 root.computed.isApp = function () {
