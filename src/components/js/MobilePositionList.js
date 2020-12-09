@@ -1127,24 +1127,41 @@ root.methods.addAdlQuantile = function(currSAdlQuantile,records){
 
 
 //开启拦截弹窗
-root.methods.openSplicedFrame = function () {
-  if(!this.openClosingPositions())return
-  this.positionInfo = this.positionSelect || {}
-  let closePosition = this.positionSelect.positionAmt > 0 ?'平多':'平空'
+root.methods.openSplicedFrame = function (item) {
+  // if(!this.openClosingPositions())return
+  // this.positionInfo = this.positionSelect || {}
+  // let closePosition = this.positionSelect.positionAmt > 0 ?'平多':'平空'
+  // // console.info('this.positionInfo==',this.positionInfo,item.symbol.slice(0,3))
+  // // if(!this.openClosePsWindowClose())return
+  // this.splicedFrameText = "";
+  //
+  // //限价价格
+  // if(this.orderTypes == '限价'){
+  //   this.splicedFrameText += ('价格' + this.inputBoxPrice + 'USDT，')
+  // }
+  // //当前市价
+  // if(this.orderTypes == '市价'){
+  //   this.splicedFrameText += ('价格为当前市价，')
+  // }
+  // //数量
+  // this.splicedFrameText += ('数量' + this.inputBoxAmount + this.positionSelect.symbol.slice(0,3))
+  // //操作类型
+  // this.splicedFrameText += ('，确定'+ closePosition + '?')
+
+
+  this.positionSelect = item || {}
+  // this.positionInfo = this.positionSelect || {}
+  let closePosition = item.positionAmt > 0 ?'平多':'平空'
   // console.info('this.positionInfo==',this.positionInfo,item.symbol.slice(0,3))
   // if(!this.openClosePsWindowClose())return
   this.splicedFrameText = "";
 
-  //限价价格
-  if(this.orderTypes == '限价'){
-    this.splicedFrameText += ('价格' + this.inputBoxPrice + 'USDT，')
-  }
   //当前市价
-  if(this.orderTypes == '市价'){
+  // if(this.orderTypes == '市价'){
     this.splicedFrameText += ('价格为当前市价，')
-  }
+  // }
   //数量
-  this.splicedFrameText += ('数量' + this.inputBoxAmount + this.positionSelect.symbol.slice(0,3))
+  this.splicedFrameText += ('数量' + item.positionAmt + item.symbol.slice(0,3))
   //操作类型
   this.splicedFrameText += ('，确定'+ closePosition + '?')
 
@@ -1167,17 +1184,21 @@ root.methods.openBackHand = function (item,btnText,callFuncName) {
 }
 //提交下单弹框
 root.methods.confirmFrame = function () {
-  if(!this.popWindowOpenPs) {
-    this[this.callFuncNameHand]();//调用对应的接口
-    return
-  }
-  // this.callFuncName();//调用对应的接口
-  if(this.orderTypes == '限价'){
-    this.checkPrice()
-  }
-  if(this.orderTypes == '市价'){
+  // if(!this.popWindowOpenPs) {
+  //   this[this.callFuncNameHand]();//调用对应的接口
+  //   return
+  // }
+  // // this.callFuncName();//调用对应的接口
+  // if(this.orderTypes == '限价'){
+  //   this.checkPrice()
+  // }
+  // if(this.orderTypes == '市价'){
+  //   this.marketPrice()
+  // }
+
+
     this.marketPrice()
-  }
+
 }
 
 // 反手
@@ -1322,8 +1343,8 @@ root.methods.marketPrice = function () {
   let params = {
     leverage: this.$store.state.leverage,
     positionSide: item.positionSide,
-    quantity: this.inputBoxAmount,
-    orderSide: (this.inputBoxAmountTemp < 0) ? 'BUY':'SELL',
+    quantity: item.positionAmt,
+    orderSide: (item.positionAmt < 0) ? 'BUY':'SELL',
     stopPrice: null,
     symbol: this.capitalSymbol,
     orderType: "MARKET",
