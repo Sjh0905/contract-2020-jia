@@ -1161,7 +1161,7 @@ root.methods.openSplicedFrame = function (item) {
     this.splicedFrameText += ('价格为当前市价，')
   // }
   //数量
-  this.splicedFrameText += ('数量' + item.positionAmt + item.symbol.slice(0,3))
+  this.splicedFrameText += ('数量' + Math.abs(item.positionAmt) + item.symbol.slice(0,3))
   //操作类型
   this.splicedFrameText += ('，确定'+ closePosition + '?')
 
@@ -1343,7 +1343,7 @@ root.methods.marketPrice = function () {
   let params = {
     leverage: this.$store.state.leverage,
     positionSide: item.positionSide,
-    quantity: item.positionAmt,
+    quantity: Math.abs(item.positionAmt),
     orderSide: (item.positionAmt < 0) ? 'BUY':'SELL',
     stopPrice: null,
     symbol: this.capitalSymbol,
