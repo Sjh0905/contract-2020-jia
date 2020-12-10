@@ -104,7 +104,7 @@ root.data = function () {
     // 海报url
     poster_url: '',
     currencyValue:'庄终于，对我下手了',
-    psSymbolArr:['BTCUSDT','ETHUSDT'],//,'ETHUSDT'
+    // psSymbolArr:['BTCUSDT','ETHUSDT'],//,'ETHUSDT'
     accounts : [
       {'a':'庄终于，对我下手了'},
       {'a':'我命由庄，不由我'},
@@ -187,6 +187,10 @@ root.beforeDestroy = function () {}
 root.computed = {}
 //不加下划线币对集合
 root.computed.sNameList = function () {
+  return this.$store.state.sNameList || []
+}
+//不加下划线币对集合,兼容老代码
+root.computed.psSymbolArr = function () {
   return this.$store.state.sNameList || []
 }
 root.computed.reduceMostAmount1 = function (){
