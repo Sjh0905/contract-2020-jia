@@ -449,11 +449,11 @@ root.methods.modifyMarginClose = function () {
   this.modifyMarginOpen = false
 }
 root.methods.setCloseAmount = function (item){
-  if(item.symbol == this.capitalSymbol && (item.ps  || item.positionSide) == 'LONG'){
+  if((item.symbol|| item.s) == this.capitalSymbol && (item.ps  || item.positionSide) == 'LONG'){
     this.positionAmtLong = item.pa || item.positionAmt
   }
 
-  if(item.symbol == this.capitalSymbol && (item.ps  || item.positionSide) == 'SHORT'){
+  if((item.symbol|| item.s) == this.capitalSymbol && (item.ps  || item.positionSide) == 'SHORT'){
     this.positionAmtShort = item.pa || item.positionAmt
   }
   // 将可平仓数量存储到store里面
@@ -475,7 +475,7 @@ root.methods.setCloseAmount = function (item){
     if(totalAmt!=this.totalAmount) {
       this.totalAmount = totalAmt
     }
-  }else{
+  } else{
     this.totalAmount = 0
   }
   this.$eventBus.notify({key:'POSITION_TOTAL_AMOUNT'}, this.totalAmount)

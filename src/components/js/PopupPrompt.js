@@ -41,7 +41,7 @@ root.props.popClose = {
 // 停留时间
 root.props.waitTime = {
   type: [String, Number],
-  default: 1500,
+  default: 1200,
 }
 
 root.watch = {}
