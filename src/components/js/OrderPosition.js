@@ -1086,7 +1086,7 @@ root.methods.openSplicedFrame = function (item,btnText,callFuncName) {
   }
   //当前市价
   if(btnText == '市价'){
-    this.splicedFrameText += ('价格为当前市价，')
+    this.splicedFrameText += ('交易方式为市价，')
   }
   //数量
   this.splicedFrameText += ('数量' + Math.abs(item.positionAmt) + item.symbol.slice(0,3))

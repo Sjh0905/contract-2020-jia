@@ -1164,7 +1164,7 @@ root.methods.openSplicedFrame = function (item) {
   // }
   // //当前市价
   // if(this.orderTypes == '市价'){
-  //   this.splicedFrameText += ('价格为当前市价，')
+  //   this.splicedFrameText += ('交易方式为市价，')
   // }
   // //数量
   // this.splicedFrameText += ('数量' + this.inputBoxAmount + this.positionSelect.symbol.slice(0,3))
@@ -1181,7 +1181,7 @@ root.methods.openSplicedFrame = function (item) {
 
   //当前市价
   // if(this.orderTypes == '市价'){
-    this.splicedFrameText += ('价格为当前市价，')
+    this.splicedFrameText += ('交易方式为市价，')
   // }
   //数量
   this.splicedFrameText += ('数量' + Math.abs(item.positionAmt) + item.symbol.slice(0,3))
@@ -1207,7 +1207,7 @@ root.methods.openBackHand = function (item,btnText,callFuncName) {
 }
 //提交下单弹框
 root.methods.confirmFrame = function () {
-  if(this.splicedFrameText.indexOf('价格为当前市价') > -1 ) {
+  if(this.splicedFrameText.indexOf('交易方式为市价') > -1 ) {
     this.marketPrice()
     return
   }
