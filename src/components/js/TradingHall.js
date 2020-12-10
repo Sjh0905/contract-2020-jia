@@ -1729,7 +1729,7 @@ root.watch = {};
 root.watch.positionModeSecond = function () {
 
   if (this.positionModeSecond == 'closeWarehouse') {
-    this.pendingOrderType = 'limitProfitStopLoss'
+    this.pendingOrderType = 'marketPriceProfitStopLoss'
     return
   }
     this.pendingOrderType = 'marketPrice'
