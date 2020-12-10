@@ -368,11 +368,11 @@ root.computed.bracketList = function () {
 }
 //双仓可平多数量
 root.computed.positionAmtLong = function (){
-  return this.$store.state.closeAmount.positionAmtLong || 0
+  return this.$store.state.closeAmount[this.capitalSymbol+'positionAmtLong'] || 0
 }
 //双仓可平空数量
 root.computed.positionAmtShort = function (){
-  return this.$store.state.closeAmount.positionAmtShort || 0
+  return this.$store.state.closeAmount[this.capitalSymbol+'positionAmtShort'] || 0
 }
 // 观察货币对是否更改
 root.computed.symbol = function () {

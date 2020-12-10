@@ -147,6 +147,10 @@ root.watch.markPrice = function(newVal,oldVal) {
   // console.info(newVal)
   this.handleWithMarkPrice(this.records)
 }
+root.watch.currSymbol = function(newVal,oldVal) {
+  // console.info("symbol newVal,oldVal",newVal,oldVal,newVal==oldVal)
+  this.handleWithMarkPrice(this.records)
+}
 root.watch.walletBalance = function(newVal,oldVal) {
   // console.info(newVal)
 }
@@ -461,10 +465,9 @@ root.methods.setCloseAmount = function (item){
     this.positionAmtShort = item.pa || item.positionAmt
   }
   // 将可平仓数量存储到store里面
-  let closeAmount = {
-    positionAmtLong:this.positionAmtLong,
-    positionAmtShort:this.positionAmtShort
-  }
+  let closeAmount = {}
+  closeAmount[item.symbol+'positionAmtLong'] = this.positionAmtLong,
+  closeAmount[item.symbol+'positionAmtShort'] = this.positionAmtShort
   this.$store.commit('CHANGE_CLOSE_AMOUNT',closeAmount)
 
 
