@@ -114,7 +114,7 @@
 <!--                <p class="radiusc_green" v-if="calculatorValue>=Object.keys(calculatorMarks[capitalSymbol])[2]" @click="calculatorValue=Object.keys(calculatorMarks[capitalSymbol])[2]" style="cursor:pointer"></p>-->
 <!--                <p class="radiusd_green" v-if="calculatorValue>=Object.keys(calculatorMarks[capitalSymbol])[3]" @click="calculatorValue=Object.keys(calculatorMarks[capitalSymbol])[3]" style="cursor:pointer"></p>-->
 <!--                <p class="radiuse_green" v-if="calculatorValue>=Object.keys(calculatorMarks[capitalSymbol])[4]" @click="calculatorValue=Object.keys(calculatorMarks[capitalSymbol])[4]" style="cursor:pointer"></p>-->
-                <p v-for="(v,index) in Object.keys(calculatorMarks[capitalSymbol])" :class="calculatorClass[index]" v-if="calculatorValue >= v" @click="calculatorValue=v" style="cursor:pointer"></p>
+                <p v-for="(v,index) in Object.keys(calculatorMarks[capitalSymbol])" :class="calculatorClass[index]" v-if="calculatorValue >= v" @click="calculatorValue=Number(v)" style="cursor:pointer"></p>
                 <el-slider
                   v-model="calculatorValue"
                   class="el-slider-style"

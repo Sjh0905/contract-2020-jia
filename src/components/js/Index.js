@@ -286,10 +286,10 @@ root.methods.re_getLeverageBracket = function(data){
   typeof data === 'string' && (data = JSON.parse(data))
   // if(!data || !data.data || !data.data[0] || !data.data[0].data)return
   if(!data || !data.data)return
-  let bracketList = {}
+  let bracketList = {},bracketLeverageObj = {},notionalCapObj={}
 
   this.$store.state.sNameList.map(s=> {
-    let bSingle =  (data.data.find(v=>v.symbol == s) || {}).brackets || []
+    let bSingle =  (data.data.find(v=>v.symbol == s) || {}).brackets || [],bracketArr = [],maximumPosition=[]
 
     //为了避免接口返回顺序改变，做一次按bracket升序排序处理，其他代码是这么用的
     bSingle = bSingle.sort((a,b)=>{
@@ -302,7 +302,15 @@ root.methods.re_getLeverageBracket = function(data){
     });
 
     bracketList[s] = bSingle
+    bSingle.forEach(v=>{
+      bracketArr.push(v.initialLeverage)
+      maximumPosition.push(v.notionalCap)
+    })
+    bracketLeverageObj[s] = bracketArr
+    notionalCapObj[s] = maximumPosition.reverse()
   })
+
+  // console.info(bracketList['BTCUSDT'],bracketList['ETHUSDT'])
 
   /*let item = data.data[0].data.find(v=>v.symbol == this.onlyCapitalSymbol) || {}
   let bracketSingle = item.brackets || []
@@ -316,6 +324,8 @@ root.methods.re_getLeverageBracket = function(data){
   // 暂时兼容H5的单币对，H5多币对可以屏蔽
   this.$store.commit('CHANGE_LEVERAGE_BRACKET', bracketList['BTCUSDT']);
   this.$store.commit('CHANGE_BRACKET_LIST',bracketList);
+  this.$store.commit('CHANGE_BRACKET_LEVERAGE',bracketLeverageObj);
+  this.$store.commit('CHANGE_BRACKET_NOTIONALCAP',notionalCapObj);
   // console.info('this is getLeverageBracket=',item,bracketSingle)
 }
 //查询杠杆分层标准出错

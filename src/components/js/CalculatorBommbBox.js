@@ -135,10 +135,10 @@ root.computed.show = function () {
 root.computed.isMobile = function () {
   return this.$store.state.isMobile
 }
-// 杠杆倍数
-root.computed.leverageBracket = function () {
-  return (this.$store.state.bracketList || {})[this.capitalSymbol] || []
-}
+// // 杠杆倍数
+// root.computed.leverageBracket = function () {
+//   return (this.$store.state.bracketList || {})[this.capitalSymbol] || []
+// }
 
 // 最大头寸计算
 root.computed.maxPosition = function () {
@@ -197,19 +197,11 @@ root.computed.capitalSymbol = function () {
 }
 // 最大头寸值
 root.computed.maximumPosition = function () {
-  let maximum = []
-  this.leverageBracket.forEach(v=>{
-    maximum.push(v.notionalCap)
-  })
-  return maximum
+  return this.$store.state.bracketNotionalcap[this.capitalSymbol] || []
 }
 // 杠杆倍数
 root.computed.initialLeverage = function () {
-  let initial = []
-  this.leverageBracket.forEach(v=>{
-    initial.push(v.initialLeverage)
-  })
-  return initial
+  return this.$store.state.bracketLeverage[this.capitalSymbol] || []
 }
 
 /*------------------------------ 观察 -------------------------------*/

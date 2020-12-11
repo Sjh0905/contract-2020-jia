@@ -376,6 +376,8 @@ store.state.orderBookTicker = {
  */
 store.state.leverageBracket = []
 store.state.bracketList = {}
+store.state.bracketLeverage = {}
+store.state.bracketNotionalcap = {}
 
 /**
  * 杠杆、保证金 信息存储
@@ -508,6 +510,15 @@ store.mutations.CHANGE_LEVERAGE_BRACKET = (state, info) => {
 // 改变 杠杆分层标准列表
 store.mutations.CHANGE_BRACKET_LIST = (state, info) => {
   state.bracketList = info;
+}
+// 杠杆分层杠杆倍数
+store.mutations.CHANGE_BRACKET_LEVERAGE = (state, info) => {
+  state.bracketLeverage = info;
+}
+
+// 杠杆分层杠杆倍数
+store.mutations.CHANGE_BRACKET_NOTIONALCAP = (state, info) => {
+  state.bracketNotionalcap = info;
 }
 
 /**

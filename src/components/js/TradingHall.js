@@ -293,26 +293,17 @@ root.computed.currencyInfo = function () {
   // console.info(this.$store.state.currencyInfo[this.capitalSymbol].marginType)
   // return this.$store.state.currency[this.capitalSymbol].leverage || ''
 }
-// 杠杆分层数组
-root.computed.bracketList = function () {
-  // console.info(this.$store.state.leverageBracket)
-  return (this.$store.state.bracketList || {})[this.capitalSymbol] || []
-}
+// // 杠杆分层数组
+// root.computed.bracketList = function () {
+//   return (this.$store.state.bracketList || {})[this.capitalSymbol] || []
+// }
 // 最大头寸值
 root.computed.maximumPosition = function () {
-  let maximum = []
-  this.bracketList.forEach(v=>{
-    maximum.push(v.notionalCap)
-  })
-  return maximum
+  return this.$store.state.bracketNotionalcap[this.capitalSymbol] || []
 }
 // 杠杆倍数
 root.computed.initialLeverage = function () {
-  let initial = []
-  this.bracketList.forEach(v=>{
-    initial.push(v.initialLeverage)
-  })
-  return initial
+  return this.$store.state.bracketLeverage[this.capitalSymbol] || []
 }
 // 用户id，判断是否登录
 root.computed.userId = function () {

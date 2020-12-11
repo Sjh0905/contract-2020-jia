@@ -292,7 +292,7 @@ root.methods = {}
 
 root.methods.changeDate = function () {
   if(this.accounts.length == 0 )return
-  let item,side,positionSide,unrealizedProfitPage,responseRate
+  let item,side,positionSide,unrealizedProfitPage,responseRate,markPrice
   // item = this.records && this.records[this.initialPosition] || {}
   item = this.initialPosition
   if(item.responseRate == 0) return
@@ -306,14 +306,14 @@ root.methods.changeDate = function () {
   this.profitOrLoss = unrealizedProfitPage > 0 ? true : false
   this.responseRate = responseRate.includes('-') ? responseRate:'+'+responseRate
   // console.info('this.responseRate',this.responseRate,this.unrealizedProfitPage)
-
+  markPrice = JSON.stringify(this.markPriceObj)!= '{}' && this.markPriceObj[item.symbol]&& this.markPriceObj[item.symbol].p
   return this.positionData = {
     buyOrSell:this.buyOrSell,
     unrealizedProfitPage: this.unrealizedProfitPage,
     responseRate:this.responseRate,
     profitOrLoss:this.profitOrLoss,
     symbol: item.symbol,
-    markPrice: this.toFixed((this.markPriceObj[item.symbol].p || 0),2),
+    markPrice: this.toFixed(markPrice,2),
     entryPrice:this.toFixed(item.entryPrice,2),
     picIndex: this.picIndex || 1,
   }
