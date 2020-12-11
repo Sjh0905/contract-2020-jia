@@ -293,8 +293,9 @@ root.methods = {}
 root.methods.changeDate = function () {
   if(this.accounts.length == 0 )return
   let item,side,positionSide,unrealizedProfitPage,responseRate
-  item = this.records && this.records[this.initialPosition] || {}
-  if( item.responseRate == 0 ) return
+  // item = this.records && this.records[this.initialPosition] || {}
+  item = this.initialPosition
+  if(item.responseRate == 0) return
   side = (item.positionAmt && item.positionAmt > 0) ?'BUY':'SELL'
   positionSide = item.positionSide
   unrealizedProfitPage = this.toFixed(item.unrealizedProfitPage,2)
@@ -312,16 +313,17 @@ root.methods.changeDate = function () {
     responseRate:this.responseRate,
     profitOrLoss:this.profitOrLoss,
     symbol: item.symbol,
-    markPrice: this.toFixed(this.markPrice,2),
+    markPrice: this.toFixed((this.markPriceObj[item.symbol].p || 0),2),
     entryPrice:this.toFixed(item.entryPrice,2),
     picIndex: this.picIndex || 1,
   }
   // this.getPosterImage(this.positionData)
 }
 // 展示海报
-root.methods.SHOW_POSTER = function (index) {
+root.methods.SHOW_POSTER = function (item) {
   this.showPoster = true;
-  this.initialPosition = index
+  this.initialPosition = item
+  // console.info(this.initialPosition,item)
   this.getPosterImage()
 }
 // 获取海报
@@ -913,7 +915,7 @@ root.methods.LPCalculation1 = function (pos = {}){
 //1 单仓 LPCalculation1BOTH = LPCalculation1 + "BOTH"(positionSide)
 root.methods.LPCalculation1BOTH = function (paras){
   let [WB,size,ep,cum,mmr] = paras , B = Math.abs(size)
-  let molecular = this.chainCal().accAdd(WB,cum).accMinus(this.accMul(size,ep))//WB + cum_B - (size * EP_B)
+  let molecular = this.chainCal().accAdd(WB,cum).accMinus(this.accMul(size,ep))//WB + cum_B -Pos (size * EP_B)
   let denominator = this.chainCal().accMul(B,mmr).accMinus(size)//B * MMR_B -  size
   // console.log()
   return this.accDiv(molecular,denominator)
