@@ -38,6 +38,22 @@ export default async function ($http, $store, $cookie, $i18n) {
   $store.commit('changeIsAndroid', isAndroidFn()) //是否是安卓
 
 
+  //检测访问链接有没有携带币对
+  function getUrlSymbol(sn) {
+    let sNameMap = {"BTCUSDT":"BTC_USDT","ETHUSDT":"ETH_USDT"}
+    let reg = new RegExp("(^|&)"+"symbol"+"=([^&]*)(&|$)");
+    let s = window.location.search.substr(1).match(reg);
+    console.log("this is s",s);
+
+    if(s && s[2]){
+      let s2 = s[2]
+      sn = sNameMap[s2] || s2 || sn
+      console.log("this is s2",sNameMap[s2],sn);
+    }
+
+    return sn
+  }
+
   //请求个人信息
   function userAuthInfo () {
     let symbol = 'BTC_USDT'
@@ -66,19 +82,33 @@ export default async function ($http, $store, $cookie, $i18n) {
         // $store.commit('SET_AUTH_HOTVAL', data.dataMap.hotVal)
 
         // 判断用户登录后最后选择的币对
-        let user_symbol = $cookie.get('contract_symbol_cookie') || symbol, user_id = data.data.userId
+        let user_symbol = $cookie.get('contract_symbol_cookie'), user_id = data.data.userId
         if (!!user_id && !!user_symbol && user_symbol.split('-')[0] == user_id) {
-          $store.commit('SET_SYMBOL', user_symbol.split('-')[1])
-          return
+          // $store.commit('SET_SYMBOL', user_symbol.split('-')[1])
+          // return
+          symbol = user_symbol.split('-')[1]
         }
+
+        //检测访问链接有没有携带币对
+        symbol = getUrlSymbol(symbol);
+
+        let user_id_symbol = user_id + '-' + symbol;
+        !!user_id && $cookie.set('contract_symbol_cookie', user_id_symbol, 60 * 60 * 24 * 30,"/");
+
         $store.commit('SET_SYMBOL',symbol)  // 如果没有用户登录选择币对，则为ETH_USDT币对
         // $store.commit('SET_SYMBOL', 'GRC_USDT')  // 如果没有用户登录选择币对，则为GRC_USDT币对
 
       },
       errorHandler: function (err) {
-        let user_symbol = /*'ETH_USDT' ||*/ $cookie.get('unlogin_contract_symbol_cookie') || symbol
+        symbol = /*'ETH_USDT' ||*/ $cookie.get('unlogin_contract_symbol_cookie') || symbol
         // console.warn('出错', err)
-        $store.commit('SET_SYMBOL', user_symbol)  // 如果没有用户登录选择币对，则为ETH_USDT币对
+
+        //检测访问链接有没有携带币对
+        symbol = getUrlSymbol(symbol);
+
+        $cookie.set('unlogin_contract_symbol_cookie', symbol, 60 * 60 * 24 * 30,"/");
+
+        $store.commit('SET_SYMBOL',symbol)  // 如果没有用户登录选择币对，则为ETH_USDT币对
         // $store.commit('SET_SYMBOL', 'GRC_USDT')  // 如果没有用户登录选择币对，则为GRC_USDT币对
       }
     })
