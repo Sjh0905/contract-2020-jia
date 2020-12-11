@@ -62,7 +62,7 @@
           </div>
           <div class="cen2">
             <div class="cen31"> {{$t('Volum')}}</div>
-            <div class="cen32"><span class="txt detail_txt">{{volume || 0}}&nbsp;{{symbol.split('_')[0]}}</span></div>
+            <div class="cen32"><span class="txt detail_txt">{{toFixed(volume || 0,2)}}&nbsp;{{symbol.split('_')[0]}}</span></div>
           </div>
         </div>
 
