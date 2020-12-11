@@ -325,6 +325,15 @@ root.computed.isHasOrders = function (){
   // if(!this.currentLengthS && !this.recordsIndexS) return true
   return false
 }
+
+// 计算是否有仓位和当前委托(全部的，用于切换单双仓)
+root.computed.isHasOrdersOrPosition = function (){
+  // 如果当前币对的仓位和订单数量为0，不能切换全逐仓
+  if(!this.currentLength && !this.recordsIndex) return true
+  // if(!this.currentLengthS && !this.recordsIndexS) return true
+  return false
+}
+
 // 最大头寸计算
 root.computed.maxPosition = function () {
   let maxPosition = '',initialLeverage = this.initialLeverage
@@ -526,16 +535,21 @@ root.methods.closeBottleOpener = function () {
 //   })
 //   return length = filterRecords.length || 0
 // }
+root.methods.setFilterListIndex = function (index) {
+  this.recordsIndexS = index
+  console.info(this.recordsIndexS)
+}
 // 获取仓位的数据
 root.methods.setRecords = function (records) {
   this.positionRecords = [...records]
-  let filterRecords = []
-  this.positionRecords && this.positionRecords.forEach(v=>{
-    if (v.symbol == this.capitalSymbol) {
-      filterRecords.push(v)
-    }
-  })
-  return this.recordsIndexS = filterRecords.length || 0
+  // let filterRecords = []
+  // this.positionRecords && this.positionRecords.forEach(v=>{
+  //   if (v.symbol == this.capitalSymbol) {
+  //     filterRecords.push(v)
+  //   }
+  // })
+  // // console.info(this.recordsIndexS,filterRecords)
+  // return this.recordsIndexS = filterRecords.length || 0
 }
 // 仓位
 root.methods.getPositionRisk = function () {
@@ -1494,7 +1508,7 @@ root.methods.positionModeSelectedConfirm = function () {
     this.popWindowPositionModeBulletBox = false
     return
   }
-  if(!this.isHasOrders){
+  if(!this.isHasOrdersOrPosition){
     this.promptOpen = true;
     this.popType = 0;
     this.popText = '您可能存在挂单或仓位，不支持调整仓位模式';

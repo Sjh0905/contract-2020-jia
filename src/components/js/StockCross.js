@@ -479,9 +479,11 @@ root.methods.getOrderDepthList = function () {
 
   this.sellOrders = asksList;
   this.buyOrders = bidsList;
+  let bidPrice = this.buyOrders[0] && this.buyOrders[0][0] || 0
+  let askPrice = this.sellOrders[0] && this.sellOrders[0][0] || 0
 
   // console.info('最优价格===',{bidPrice:Number(this.buyOrders[0][0]),askPrice:Number(this.sellOrders[0][0])})
-  this.$store.commit('CHANGE_ORDER_BOOK_TICKER',{bidPrice:Number(this.buyOrders[0][0]),askPrice:Number(this.sellOrders[0][0])})
+  this.$store.commit('CHANGE_ORDER_BOOK_TICKER',{bidPrice:Number(bidPrice),askPrice:Number(askPrice)})
 
 
 
