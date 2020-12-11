@@ -594,6 +594,7 @@ root.methods.positionSocket = function () {
             if((v.mt == 'cross' && v.pa!=0) || (v.mt == 'isolated' && (v.pa!=0 || v.iw!=0))){
 
               //限价输入框的价格
+              // this.iptMarkPrice = Number(this.markPrice).toFixed(2)
               // item.iptMarkPrice = Number(sMarkPrice).toFixed(2)
               // this.iptMarkPrice = Number(sMarkPrice).toFixed(2)
               // item.iptMarkPrice = Number(this.markPrice).toFixed(2)
@@ -628,6 +629,7 @@ root.methods.positionSocket = function () {
           //全仓、逐仓新增，逐仓iw不等于0是为了测试服暴露穿仓数据，即负数情况
           if((v.mt == 'cross' && v.pa!=0) || (v.mt == 'isolated' && (v.pa!=0 || v.iw!=0))){
             //限价输入框的价格
+            // v.iptMarkPrice = Number(this.markPrice).toFixed(2)
             // v.iptMarkPrice = Number(sMarkPrice).toFixed(2)
             //如果不存在就新增
             currPositionsNew.push(v);
@@ -771,6 +773,8 @@ root.methods.handleWithMarkPrice = function(records){
     let sMarkPrice = this.markPriceObj[v.symbol] && this.markPriceObj[v.symbol].p || 1
 
     if(!v.hasOwnProperty('iptMarkPrice')){
+      // v.markPrice && (v.iptMarkPrice = v.markPrice) || (v.iptMarkPrice = this.markPrice);
+      // v.iptMarkPrice = Number(v.iptMarkPrice).toFixed(2)
       //接口返回仓位数据有markPrice，socket推送仓位没有，需从标价变量获取，v的markPrice用于页面输入框显示，不做实时更新，除非重调接口
       // v.markPrice && (v.iptMarkPrice = v.markPrice) || (v.iptMarkPrice = sMarkPrice);
       // v.iptMarkPrice = Number(v.iptMarkPrice).toFixed(2)
@@ -1109,13 +1113,28 @@ root.methods.addAdlQuantile = function(currSAdlQuantile,records){
 
 //开启拦截弹窗
 root.methods.openSplicedFrame = function (item,btnText,callFuncName) {
+
+
   this.positionInfo = item || {}
+  if (item.positionAmt > 0 && item.iptMarkPrice < item.entryPrice) {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '当前--开多---无仓位';//当前无仓位，不能下单
+    return
+  }
+  if (item.positionAmt < 0 && item.iptMarkPrice > item.entryPrice) {
+    this.promptOpen = true;
+    this.popType = 0;
+    this.popText = '当前--开空---无仓位';//当前无仓位，不能下单
+    return
+  }
   // console.info('this.positionInfo ===',this.positionInfo)
   let closePosition = item.positionAmt > 0 ?'平多':'平空'
   // console.info('this.positionInfo==',this.positionInfo,item.symbol.slice(0,3))
   // if(!this.openClosePsWindowClose())return
 
   this.splicedFrameText = "";
+
 
   //限价价格
   if(btnText == '限价'){

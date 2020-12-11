@@ -1891,6 +1891,17 @@ root.computed.serverTime = function () {
 
 // 监听symbol 做一些操作
 root.watch = {};
+// root.watch.availableBalance = function (newValue, oldValue) {
+//   console.info('newValue===',newValue)
+// }
+root.watch.positionModeSecond = function () {
+
+  if (this.positionModeSecond == 'closeWarehouse') {
+    this.pendingOrderType = 'marketPriceProfitStopLoss'
+    return
+  }
+    this.pendingOrderType = 'marketPrice'
+}
 root.watch.pendingOrderType  = function (){
   if(this.pendingOrderType == 'limitPrice' || this.pendingOrderType == 'marketPrice') {
     this.reducePositionsSelected = false
