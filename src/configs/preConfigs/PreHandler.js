@@ -40,15 +40,15 @@ export default async function ($http, $store, $cookie, $i18n) {
 
   //检测访问链接有没有携带币对
   function getUrlSymbol(sn) {
-    let sNameMap = {"BTCUSDT":"BTC_USDT","ETHUSDT":"ETH_USDT"}
+    let sNameMap = {"BTCUSDT":"BTC_USDT","ETHUSDT":"ETH_USDT","BTC_USDT":"BTC_USDT","ETH_USDT":"ETH_USDT"}
     let reg = new RegExp("(^|&)"+"symbol"+"=([^&]*)(&|$)");
     let s = window.location.search.substr(1).match(reg);
     console.log("this is s",s);
 
     if(s && s[2]){
-      let s2 = s[2]
-      sn = sNameMap[s2] || s2 || sn
-      console.log("this is s2",sNameMap[s2],sn);
+      let sk = s[2]
+      sn = sNameMap[sk] || sn
+      console.log("this is sn",sNameMap[sk],sn);
     }
 
     return sn
