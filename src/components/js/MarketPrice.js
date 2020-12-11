@@ -80,7 +80,10 @@ root.beforeDestroy = function () {
 }
 
 root.computed = {}
-
+//不加下划线币对集合
+root.computed.sNameList = function () {
+  return this.$store.state.sNameList || []
+}
 // 是否登录
 root.computed.isLogin = function () {
   if (this.$store.state.authMessage.userId !== '') return true
@@ -141,8 +144,9 @@ root.computed.symbol_list = function () {
 // ajax获取的数据
 root.computed.mSymbolList = function () {
 
-  //mSymbolListTemp.length为0说明首次进入，mSymbolList取marketSymbolList的值,默认不刷新页面情况下币对个数不会变化，mSymbolListTemp.length>0就一直取本身
-  let mSymbolList = this.mSymbolListTemp.length > 0 ? this.mSymbolListTemp : this.marketSymbolList,
+  //之前注释：mSymbolListTemp.length为0说明首次进入，mSymbolList取marketSymbolList的值,默认不刷新页面情况下币对个数不会变化，mSymbolListTemp.length>0就一直取本身
+  //最新理解：mSymbolListTemp.length ≠ sNameList.length 说明没有缓存所有币对，取marketSymbolList的值
+  let mSymbolList = this.mSymbolListTemp.length > this.sNameList.length - 1 ? this.mSymbolListTemp : this.marketSymbolList,
       socket24hrTicker = this.socket24hrTicker.filter(v => this.sNameList.includes(v.s))
 
   //默认接口不会调用多次，第一次进入后socket还没推送
