@@ -313,6 +313,10 @@ root.components = {
 /*------------------------------ 计算 begin -------------------------------*/
 
 root.computed = {}
+// 除去逐仓仓位保证金的钱包余额
+root.computed.crossWalletBalance = function () {
+  return this.$store.state.assets.crossWalletBalance
+}
 // 单仓保证金assumingPrice
 root.computed.costAssumingPrice = function () {
   let assumingPrc = 0
@@ -376,7 +380,7 @@ root.computed.positionAmtShort = function (){
 //新委托实际数量
 root.computed.newOrderActualAmount = function () {
   if (Number(this.totalAmount) >= 0) {
-    // return this.orderType ? Math.max(0,Number(this.amount) - Math.abs(Number(this.totalAmount))) : Number(this.amount)
+    // return this.orderType ?crossWalletBalanceSing Math.max(0,Number(this.amount) - Math.abs(Number(this.totalAmount))) : Number(this.amount)
     return this.orderType ? Math.max(0,this.accMinus(Number(this.amount), Math.abs(this.totalAmount))) : Number(this.amount)
   }
   if (Number(this.totalAmount) < 0) {
