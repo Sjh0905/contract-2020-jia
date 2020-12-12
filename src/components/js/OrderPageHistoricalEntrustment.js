@@ -51,6 +51,7 @@ root.data = () => {
       {'a':'多么痛，的领悟'}
     ],
     orderId:'',
+    clientOrderId:'',
     posterSymbol:'', //海报对应币对
     // 信息提示
     popType: 0,
@@ -236,6 +237,7 @@ root.methods.toOrderHistory = function () {
 // 展示海报
 root.methods.SHOW_POSTER = function (order) {
   this.orderId = order.orderId
+  this.clientOrderId = order.clientOrderId
   this.posterSymbol = order.symbol
   this.showPoster = true;
   this.getPosterImage()
@@ -252,6 +254,7 @@ root.methods.getPosterImage = function () {
   this.loadingImage=true
   let params = {
     orderId:this.orderId,
+    clientOrderId:this.clientOrderId,
     symbol:this.posterSymbol,
     picIndex:this.picIndex || 0,
   }
