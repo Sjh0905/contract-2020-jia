@@ -149,6 +149,9 @@ root.watch.markPrice = function(newVal,oldVal) {
 }
 root.watch.currSymbol = function(newVal,oldVal) {
   // console.info("symbol newVal,oldVal",newVal,oldVal,newVal==oldVal)
+  // 如果切换币对、可平数量初始化
+  this.$eventBus.notify({key:'POSITION_TOTAL_AMOUNT_LONG'}, 0)
+  this.$eventBus.notify({key:'POSITION_TOTAL_AMOUNT_SHORT'}, 0)
   this.handleWithMarkPrice(this.records)
 }
 root.watch.walletBalance = function(newVal,oldVal) {
@@ -459,18 +462,18 @@ root.methods.modifyMarginClose = function () {
   this.modifyMarginOpen = false
 }
 root.methods.setCloseAmount = function (item){
-  if((item.symbol|| item.s) == this.capitalSymbol && (item.ps  || item.positionSide) == 'LONG'){
-    this.positionAmtLong = item.pa || item.positionAmt
-  }
-
-  if((item.symbol|| item.s) == this.capitalSymbol && (item.ps  || item.positionSide) == 'SHORT'){
-    this.positionAmtShort = item.pa || item.positionAmt
-  }
-  // 将可平仓数量存储到store里面
-  let closeAmount = {}
-  closeAmount[item.symbol+'positionAmtLong'] = this.positionAmtLong,
-  closeAmount[item.symbol+'positionAmtShort'] = this.positionAmtShort
-  this.$store.commit('CHANGE_CLOSE_AMOUNT',closeAmount)
+  // if((item.symbol|| item.s) == this.capitalSymbol && (item.ps  || item.positionSide) == 'LONG'){
+  //   this.positionAmtLong = item.pa || item.positionAmt
+  // }
+  //
+  // if((item.symbol|| item.s) == this.capitalSymbol && (item.ps  || item.positionSide) == 'SHORT'){
+  //   this.positionAmtShort = item.pa || item.positionAmt
+  // }
+  // // 将可平仓数量存储到store里面
+  // let closeAmount = {}
+  // closeAmount[item.symbol+'positionAmtLong'] = this.positionAmtLong,
+  // closeAmount[item.symbol+'positionAmtShort'] = this.positionAmtShort
+  // this.$store.commit('CHANGE_CLOSE_AMOUNT',closeAmount)
 
 
   let totalAmt = 0,totalAmtLong = 0 , totalAmtShort = 0 , singlePos;
@@ -500,23 +503,31 @@ root.methods.setCloseAmount = function (item){
       this.$eventBus.notify({key:'POSITION_TOTAL_AMOUNT'}, this.totalAmount)
     }
   }*/
+  // if(item.symbol!= this.capitalSymbol && (item.ps  || item.positionSide) != 'BOTH'){
+  //   // this.totalAmountLong = 0
+  //   // this.totalAmountShort = 0
+  //
+  // }
   // 双仓开空仓位总数量
-/*  if((item.ps  || item.positionSide) == 'LONG'){
+  if(item.symbol == this.capitalSymbol && (item.ps  || item.positionSide) == 'LONG'){
     totalAmtLong =  (item.pa || item.positionAmt)
-
     if(totalAmtLong!=this.totalAmountLong) {
       this.totalAmountLong = totalAmtLong
-      this.$eventBus.notify({key:'POSITION_TOTAL_AMOUNT_LONG'}, this.totalAmountLong)
     }
+    this.$eventBus.notify({key:'POSITION_TOTAL_AMOUNT_LONG'}, this.totalAmountLong)
   }
-  if((item.ps  || item.positionSide) == 'SHORT'){
+  if(item.symbol == this.capitalSymbol && (item.ps  || item.positionSide) == 'SHORT'){
     totalAmtShort =  (item.pa || item.positionAmt)
 
     if(totalAmtShort!=this.totalAmountShort) {
       this.totalAmountShort = totalAmtShort
-      this.$eventBus.notify({key:'POSITION_TOTAL_AMOUNT_SHORT'}, this.totalAmountShort)
     }
-  }*/
+    this.$eventBus.notify({key:'POSITION_TOTAL_AMOUNT_SHORT'}, this.totalAmountShort)
+  }
+
+
+  // this.$eventBus.notify({key:'POSITION_TOTAL_AMOUNT_LONG'}, this.totalAmountLong)
+  // this.$eventBus.notify({key:'POSITION_TOTAL_AMOUNT_SHORT'}, this.totalAmountShort)
 
 }
 
@@ -725,6 +736,7 @@ root.methods.re_getPositionRisk = function (data) {
 
   for (let i = 0; i <records.length ; i++) {
     let v = records[i];
+    this.setCloseAmount(v)
     if (v.marginType == 'cross' && v.positionAmt != 0 && this.psSymbolArr.includes(v.symbol)) {
       filterRecords.push(v)
       continue;

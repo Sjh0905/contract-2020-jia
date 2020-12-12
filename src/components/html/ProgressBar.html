@@ -186,7 +186,7 @@
 <!--        <span class="security-deposit-amount" v-if="isHasModule('kaipingType') == 2">{{orderType ? Math.abs(positionAmtLong) : Math.abs(positionAmtShort)}} BTC</span>-->
         <span class="security-deposit-amount" v-if="isHasModule('kaipingType') == 1 && positionModeFirst == 'doubleWarehouseMode'">{{orderType ? toFixed(canBeOpened,3):toFixed(canBeOpened,3)}} {{symbol.split('_')[0]}}</span>
         <span class="security-deposit-amount" v-if="isHasModule('kaipingType') == 1 && positionModeFirst == 'singleWarehouseMode'">{{orderType ? toFixed(canMore,3):toFixed(canMore,3)}} {{symbol.split('_')[0]}}</span>
-        <span class="security-deposit-amount" v-if="isHasModule('kaipingType') == 2">{{orderType ? Math.abs(positionAmtLong) : Math.abs(positionAmtShort)}} {{symbol.split('_')[0]}}</span>
+        <span class="security-deposit-amount" v-if="isHasModule('kaipingType') == 2">{{orderType ? Math.abs(totalAmountLong) : Math.abs(totalAmountShort)}} {{symbol.split('_')[0]}}</span>
       </div>
     </div>
 
