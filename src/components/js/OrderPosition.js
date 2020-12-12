@@ -856,8 +856,8 @@ root.methods.handleWithMarkPrice = function(records){
 //获取币对对应的速算数
 root.methods.getSymbolBracket = function(s){
   let bSingle = this.bracketList[s] || []
-  // let arr = [...bSingle];
-  return bSingle.reverse() //倒序处理，强平价格从最高档开始计算
+  let arr = [...bSingle];//！！！必须加这行，reverse会改变数组本身，影响全局变量
+  return arr.reverse() //倒序处理，强平价格从最高档开始计算
 }
 //计算维持保证金首先获取比率、速算数等信息
 root.methods.getCalMaintenanceArgs = function(notional=0,v){
