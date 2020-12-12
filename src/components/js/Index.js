@@ -307,7 +307,7 @@ root.methods.re_getLeverageBracket = function(data){
       maximumPosition.push(v.notionalCap)
     })
     bracketLeverageObj[s] = bracketArr
-    notionalCapObj[s] = maximumPosition.reverse()
+    notionalCapObj[s] = maximumPosition
   })
 
   // console.info(bracketList['BTCUSDT'],bracketList['ETHUSDT'])
