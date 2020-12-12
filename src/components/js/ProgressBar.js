@@ -2013,18 +2013,22 @@ root.methods.computedValue = function () {
   // 单仓可开使用
   if(this.positionModeFirst == 'singleWarehouseMode'){
     num = this.toFixed(this.accMul(this.canMore, val),3)
+    if(num==0) return this.amount=''
     return this.amount = this.orderType ? num : num
   }
   // 双仓开仓使用
   if(this.positionModeSecond == 'openWarehouse'){
     num = this.toFixed(this.accMul(this.canBeOpened, val),3)
+    if(num==0) return this.amount=''
     return this.amount = this.orderType ? num : num
   }
   // 双仓平仓使用
   if(this.positionModeSecond == 'closeWarehouse'){
     num = this.orderType ? this.toFixed(this.accMul(Math.abs(this.positionAmtLong), val),3) : this.toFixed(this.accMul(Math.abs(this.positionAmtShort), val),3)
+    if(num==0) return this.amount=''
     return this.amount = this.orderType ? num : num
   }
+
   // let ValueAmount = this.toFixed(this.accMul(num1 , 10 * 10),3)
 
 }
