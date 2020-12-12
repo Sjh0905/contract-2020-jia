@@ -22,7 +22,7 @@ root.data = function () {
     optionVal:'市价单',
     optionData:['限价单','市价单','限价止盈止损','市价止盈止损'],
     optionData2:['限价单','市价单','触发限价','触发市价'],
-    optionData3:['触发限价止盈止损','触发市价止盈止损'],
+    // optionData3:['市价单','触发限价','触发市价'],
     optionDataMap:{
       '限价单':'limitPrice',
       '市价单':'marketPrice',
@@ -3196,19 +3196,19 @@ root.watch.pendingOrderType  = function (){
   this.reducePositionsSelected = true
 }
 root.watch.positionModeSecond  = function (){
-  if (this.positionModeSecond == 'closeWarehouse') {
-    this.optionVal = '触发市价止盈止损'
-    this.pendingOrderType = 'marketPriceProfitStopLoss'
-    this.triggerPrice = ''
-    this.price = ''
-    this.amount = ''
-  }else{
+  // if (this.positionModeSecond == 'closeWarehouse') {
+  //   this.optionVal = '触发市价止盈止损'
+  //   this.pendingOrderType = 'marketPriceProfitStopLoss'
+  //   this.triggerPrice = ''
+  //   this.price = ''
+  //   this.amount = ''
+  // }else{
     this.optionVal = '市价单'
     this.pendingOrderType = 'marketPrice'
     this.triggerPrice = ''
     this.price = ''
     this.amount = ''
-  }
+  // }
 
 }
 root.watch.optionVal = function () {

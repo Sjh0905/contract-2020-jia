@@ -2031,7 +2031,7 @@ root.methods.computedValue = function () {
   }
   // 双仓平仓使用
   if(this.positionModeSecond == 'closeWarehouse'){
-    num = this.orderType ? this.toFixed(this.accMul(Math.abs(this.positionAmtLong), val),3) : this.toFixed(this.accMul(Math.abs(this.positionAmtShort), val),3)
+    num = this.orderType ? this.toFixed(this.accMul(Math.abs(this.totalAmountLong), val),3) : this.toFixed(this.accMul(Math.abs(this.totalAmountShort), val),3)
     if(num==0) return this.amount=''
     return this.amount = this.orderType ? num : num
   }
