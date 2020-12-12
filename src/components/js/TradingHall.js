@@ -258,7 +258,7 @@ root.mounted = function () {
   // 初始化所有信息
   let self = this;
   // setTimeout(this.init, 1000);
-  this.init();
+  this.init(this.$store.state.symbol);
 
   // 更改query
   this.$router.push({name: 'tradingHall', query: {symbol: this.$store.state.symbol}});
@@ -1170,9 +1170,9 @@ root.beforeDestroy = function () {
 
 
 // init
-root.methods.init = function () {
+root.methods.init = function (newSymbol) {
   // 初始化订阅socket
-  this.initSocket();
+  this.initSocket(newSymbol);
   // 初始化数据请求
   this.initGetDatas();
 }
@@ -1196,14 +1196,14 @@ root.methods.re_getAuthState = function (data) {
 }
 
 // 初始化socket
-root.methods.initSocket = function () {
+root.methods.initSocket = function (newSymbol) {
   let that = this;
   // 订阅某个币对的信息
   // this.$socket.emit('UNSUBSCRIBE', {symbol: this.$store.state.symbol});
   // this.$socket.emit('SUBSCRIBE', ["btcusdt@depth"]);
 
   // let subscribeSymbol = this.$store.state.subscribeSymbol;
-  let subscribeSymbol = this.$globalFunc.toOnlyCapitalLetters(this.$store.state.symbol);
+  let subscribeSymbol = this.$globalFunc.toOnlyCapitalLetters(this.$store.state.symbol || newSymbol);
   // 获取最新标记价格
   this.$socket.on({
     key: 'markPriceUpdate', bind: this, callBack: (message) => {
@@ -1962,7 +1962,7 @@ root.watch.listenSymbol = function (newValue, oldValue) {
 
   // 重新获取信息
   this.getScaleConfig();
-  this.init();
+  this.init(newValue);
   this.getDepth()  // 获取币安深度
   this.getAggTrades() //获取归集交易
   this.initTicket24Hr() // 获取24小时价格变动
