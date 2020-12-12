@@ -385,7 +385,7 @@ root.methods.commitModifyMargin = function () {
   this.$http.send("POST_POSITION_MARGIN", {
     bind: this,
     params: {
-      symbol: this.capitalSymbol,
+      symbol: this.symbol,
       positionSide: this.positionSide,
       amount:this.styleType == 1? this.increaseAmount : this.reduceAmount,
       type:this.styleType,  // 1是增加逐仓保障金；2 是减少逐仓保证金
