@@ -237,9 +237,9 @@ root.created = function () {
   //监听单仓位总数量
   this.$eventBus.listen(this, 'POSITION_TOTAL_AMOUNT', this.setTotalAmount);
   //监听双仓开多仓位总数量
-  // this.$eventBus.listen(this, 'POSITION_TOTAL_AMOUNT_LONG', this.setTotalAmountLong);
-  //监听双仓开空仓位总数量
-  // this.$eventBus.listen(this, 'POSITION_TOTAL_AMOUNT_SHORT', this.setTotalAmountShort);
+  this.$eventBus.listen(this, 'POSITION_TOTAL_AMOUNT_LONG', this.setTotalAmountLong);
+  // 监听双仓开空仓位总数量
+  this.$eventBus.listen(this, 'POSITION_TOTAL_AMOUNT_SHORT', this.setTotalAmountShort);
   //获取当前委托
   this.$eventBus.listen(this, 'SET_CURRENT_ORDERS', this.setCurrentOrders);
   // 监听获取仓位的值
@@ -276,7 +276,12 @@ root.watch.serverTime = function (newValue, oldValue) {
   if (newValue == oldValue) return;
   this.SYMBOL_ENTRANSACTION();
 }
-
+// root.watch.positionAmtLong = function (newValue, oldValue) {
+//   if (newValue == oldValue) return;
+// }
+// root.watch.positionAmtShort = function (newValue, oldValue) {
+//   if (newValue == oldValue) return;
+// }
 // 观察是否更改货币对
 root.watch.symbol = function () {
   this.changeAvailableData();
@@ -366,14 +371,16 @@ root.watch.latestPrice =function (newValue, oldValue) {
 //   // console.info(this.$store.state.leverageBracket)
 //   return (this.$store.state.bracketList || {})[this.capitalSymbol] || []
 // }
-//双仓可平多数量
-root.computed.positionAmtLong = function (){
-  return this.$store.state.closeAmount[this.capitalSymbol+'positionAmtLong'] || 0
-}
-//双仓可平空数量
-root.computed.positionAmtShort = function (){
-  return this.$store.state.closeAmount[this.capitalSymbol+'positionAmtShort'] || 0
-}
+// //双仓可平多数量
+// root.computed.positionAmtLong = function (){
+//   console.info(this.$store.state.closeAmount[this.capitalSymbol+'positionAmtLong'])
+//   return this.$store.state.closeAmount[this.capitalSymbol+'positionAmtLong'] || 0
+// }
+// //双仓可平空数量
+// root.computed.positionAmtShort = function (){
+//   console.info(this.$store.state.closeAmount[this.capitalSymbol+'positionAmtShort'])
+//   return this.$store.state.closeAmount[this.capitalSymbol+'positionAmtShort'] || 0
+// }
 // 观察货币对是否更改
 root.computed.symbol = function () {
   return this.$store.state.symbol;
@@ -979,9 +986,9 @@ root.computed.canBeOpened = function () {
 
       afterTradeBuy = afterTradeLongB + afterTradeShortS
       afterTradeSell = afterTradeLongB + afterTradeShortS
-      if(this.maxNotionalAtCurrentLeverage == undefined || this.maxNotionalAtCurrentLeverage == 0){
-        console.info('this.maxNotionalAtCurrentLeverage',this.maxNotionalAtCurrentLeverage)
-      }
+      // if(this.maxNotionalAtCurrentLeverage == undefined || this.maxNotionalAtCurrentLeverage == 0){
+      //   console.info('this.maxNotionalAtCurrentLeverage',this.maxNotionalAtCurrentLeverage)
+      // }
       if(afterTradeBuy > this.maxNotionalAtCurrentLeverage) {
         // buyCanOpen =(this.maxNotionalAtCurrentLeverage - (afterTradeShortB + afterTradeLongS)) / (this.sellDepthOrders*(1 + 0.0005))
         buyCanOpen =(this.maxNotionalAtCurrentLeverage - (afterTradeShortB + afterTradeLongS)) / this.assumingPrice
@@ -1181,14 +1188,14 @@ root.computed.securityDeposit = function () {
 root.methods.setTotalAmount = function(totalAmount){
   this.totalAmount = totalAmount
 }
-// //设置双仓开多仓位数量
-// root.methods.setTotalAmountLong = function(totalAmountLong){
-//   this.totalAmountLong = totalAmountLong
-// }
-// //设置双仓开空仓位数量
-// root.methods.setTotalAmountShort = function(totalAmountShort){
-//   this.totalAmountShort = totalAmountShort
-// }
+//设置双仓开多仓位数量
+root.methods.setTotalAmountLong = function(totalAmountLong){
+  this.totalAmountLong = totalAmountLong
+}
+//设置双仓开空仓位数量
+root.methods.setTotalAmountShort = function(totalAmountShort){
+  this.totalAmountShort = totalAmountShort
+}
 //设置双仓开空仓位数量
 root.methods.setCurrentOrders = function(currentOrders){
   this.currentOrders = [...currentOrders]
