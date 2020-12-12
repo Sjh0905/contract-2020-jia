@@ -361,11 +361,11 @@ root.watch.latestPrice =function (newValue, oldValue) {
 
 /*----------------------------- 计算 begin ------------------------------*/
 
-// 杠杆分层数组
-root.computed.bracketList = function () {
-  // console.info(this.$store.state.leverageBracket)
-  return (this.$store.state.bracketList || {})[this.capitalSymbol] || []
-}
+// // 杠杆分层数组
+// root.computed.bracketList = function () {
+//   // console.info(this.$store.state.leverageBracket)
+//   return (this.$store.state.bracketList || {})[this.capitalSymbol] || []
+// }
 //双仓可平多数量
 root.computed.positionAmtLong = function (){
   return this.$store.state.closeAmount[this.capitalSymbol+'positionAmtLong'] || 0
@@ -499,7 +499,9 @@ root.computed.computedSellNetValue = function () {
 }
 // 最大可下单值（名义价值）
 root.computed.maxNotionalAtCurrentLeverage = function () {
-  let leverageBracket = this.bracketList
+  // let leverageBracket = this.bracketList
+  let leverageBracket = this.$store.state.bracketList[this.capitalSymbol] || []
+  // console.info(leverageBracket)
   let leverage = this.$store.state.leverage || 0
   let leverageArr1 = [1,2]//杠杆固定值，分别对应最大头寸，无需做范围判断，其中杠杆倍数为1时也取2对应的值
   let leverageArr2 = [2,3,4,5]//杠杆固定值，分别对应最大头寸，无需做范围判断
@@ -697,6 +699,8 @@ root.computed.canMore = function () {
       if(afterTradeSell > this.maxNotionalAtCurrentLeverage){
         sellCanOpen =  (this.maxNotionalAtCurrentLeverage + positionNotionalValue - this.computedSellNetValue) / this.assumingPrice
       }
+      sellCanOpen = sellCanOpen < 0 ? 0 : sellCanOpen
+      buyCanOpen = buyCanOpen < 0 ? 0 : buyCanOpen
       // 如果是只减仓
       if(this.reducePositionsSelected){
         if(positionAmt > 0) {
@@ -754,6 +758,8 @@ root.computed.canMore = function () {
         // sellCanOpen =  (this.maxNotionalAtCurrentLeverage + (positionNotionalValue) - this.computedSellNetValue) / this.buyDepthOrders
         // console.info('sellCanOpen==',sellCanOpen)
       }
+      sellCanOpen = sellCanOpen < 0 ? 0 : sellCanOpen
+      buyCanOpen = buyCanOpen < 0 ? 0 : buyCanOpen
       // 如果是只减仓
       if(this.reducePositionsSelected && this.pendingOrderType == 'marketPriceProfitStopLoss'){
         if(positionAmt > 0) {
@@ -808,6 +814,8 @@ root.computed.canMore = function () {
         sellCanOpen =  (this.maxNotionalAtCurrentLeverage + positionNotionalValue - this.computedSellNetValue) / this.assumingPrice
         // console.info('sellCanOpen==',sellCanOpen)
       }
+      sellCanOpen = sellCanOpen < 0 ? 0 : sellCanOpen
+      buyCanOpen = buyCanOpen < 0 ? 0 : buyCanOpen
       // 如果是只减仓
       if(this.reducePositionsSelected && this.pendingOrderType == 'limitProfitStopLoss'){
         if(positionAmt > 0) {
@@ -855,6 +863,8 @@ root.computed.canMore = function () {
         sellCanOpen =  (this.maxNotionalAtCurrentLeverage + positionNotionalValue - this.computedSellNetValue) / this.assumingPrice
         // console.info('sellCanOpen==',sellCanOpen)
       }
+      sellCanOpen = sellCanOpen < 0 ? 0 : sellCanOpen
+      buyCanOpen = buyCanOpen < 0 ? 0 : buyCanOpen
       // 如果是只减仓
       if(this.reducePositionsSelected && this.pendingOrderType == 'marketPriceProfitStopLoss'){
         if(positionAmt > 0) {
@@ -931,13 +941,17 @@ root.computed.canBeOpened = function () {
 
       afterTradeBuy = afterTradeLongB + afterTradeShortS
       afterTradeSell = afterTradeLongB + afterTradeShortS
-
+      if(this.maxNotionalAtCurrentLeverage == undefined){
+        console.info('this.maxNotionalAtCurrentLeverage',this.maxNotionalAtCurrentLeverage)
+      }
       if(afterTradeBuy > this.maxNotionalAtCurrentLeverage) {
         buyCanOpen = (this.maxNotionalAtCurrentLeverage - (afterTradeShortB + afterTradeLongS)) / this.assumingPrice
       }
       if(afterTradeSell > this.maxNotionalAtCurrentLeverage) {
         sellCanOpen = (this.maxNotionalAtCurrentLeverage - (afterTradeShortB + afterTradeLongS)) / this.assumingPrice
       }
+      sellCanOpen = sellCanOpen < 0 ? 0 : sellCanOpen
+      buyCanOpen = buyCanOpen < 0 ? 0 : buyCanOpen
       // console.info('buyCanOpen===',longPositionAmt * markPrice)
       // console.info('sellCanOpen===',shortPositionAmt * markPrice)
       return this.orderType ? sellCanOpen : buyCanOpen
@@ -965,7 +979,9 @@ root.computed.canBeOpened = function () {
 
       afterTradeBuy = afterTradeLongB + afterTradeShortS
       afterTradeSell = afterTradeLongB + afterTradeShortS
-
+      if(this.maxNotionalAtCurrentLeverage == undefined || this.maxNotionalAtCurrentLeverage == 0){
+        console.info('this.maxNotionalAtCurrentLeverage',this.maxNotionalAtCurrentLeverage)
+      }
       if(afterTradeBuy > this.maxNotionalAtCurrentLeverage) {
         // buyCanOpen =(this.maxNotionalAtCurrentLeverage - (afterTradeShortB + afterTradeLongS)) / (this.sellDepthOrders*(1 + 0.0005))
         buyCanOpen =(this.maxNotionalAtCurrentLeverage - (afterTradeShortB + afterTradeLongS)) / this.assumingPrice
@@ -975,8 +991,8 @@ root.computed.canBeOpened = function () {
         sellCanOpen =(this.maxNotionalAtCurrentLeverage - (afterTradeShortB + afterTradeLongS)) / this.assumingPrice
       }
       // console.info('this is sellCanOpen==',sellCanOpen)
-      // sellCanOpen = sellCanOpen < 0 ? 0 : sellCanOpen
-      // buyCanOpen = buyCanOpen < 0 ? 0 : buyCanOpen
+      sellCanOpen = sellCanOpen < 0 ? 0 : sellCanOpen
+      buyCanOpen = buyCanOpen < 0 ? 0 : buyCanOpen
       // 将可平仓数量存储到store里面
       openAmount = {
         openAmtLong:buyCanOpen,
