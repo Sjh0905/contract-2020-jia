@@ -43,12 +43,12 @@ export default async function ($http, $store, $cookie, $i18n) {
     let sNameMap = {"BTCUSDT":"BTC_USDT","ETHUSDT":"ETH_USDT","BTC_USDT":"BTC_USDT","ETH_USDT":"ETH_USDT"}
     let reg = new RegExp("(^|&)"+"symbol"+"=([^&]*)(&|$)");
     let s = window.location.search.substr(1).match(reg);
-    console.log("this is s",s);
+    // console.log("this is s",s);
 
     if(s && s[2]){
       let sk = s[2]
       sn = sNameMap[sk] || sn
-      console.log("this is sn",sNameMap[sk],sn);
+      // console.log("this is sn",sNameMap[sk],sn);
     }
 
     return sn
