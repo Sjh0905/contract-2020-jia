@@ -1905,10 +1905,10 @@ root.watch = {};
 // }
 root.watch.positionModeSecond = function () {
 
-  if (this.positionModeSecond == 'closeWarehouse') {
-    this.pendingOrderType = 'marketPriceProfitStopLoss'
-    return
-  }
+  // if (this.positionModeSecond == 'closeWarehouse') {
+  //   this.pendingOrderType = 'marketPriceProfitStopLoss'
+  //   return
+  // }
     this.pendingOrderType = 'marketPrice'
 }
 root.watch.pendingOrderType  = function (){
