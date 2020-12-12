@@ -1248,6 +1248,10 @@ root.methods.initSocket = function () {
   this.$socket.on({
     key: 'depthUpdate', bind: this, callBack: (message) => {
       // console.log('depth is ===',message);
+      // console.log("depth is === this.capitalSymbol == message.s",this.capitalSymbol == message.s)
+
+      if(message.s != subscribeSymbol)return
+
       message.asks = message.a;
       message.bids = message.b;
       this.socket_snap_shot = message
@@ -1945,9 +1949,11 @@ root.watch.listenSymbol = function (newValue, oldValue) {
   this.socketTickArr = [];
   this.socketTickObj = {};
 
-  // this.buy_sale_list = {}//为了保证切换币对时价不显示0
+  this.buy_sale_list = {}//放开这行，保证盘口及时刷新，币对时价不从这里取值了
   this.buy_sale_list.asks = []
   this.buy_sale_list.bids = []
+
+  this.latestPriceArr = []
 
   this.header_price = {}
   // socket_price: {}, //总价格
@@ -1960,6 +1966,8 @@ root.watch.listenSymbol = function (newValue, oldValue) {
   this.getDepth()  // 获取币安深度
   this.getAggTrades() //获取归集交易
   this.initTicket24Hr() // 获取24小时价格变动
+  this.getLatestrice()// 获取币安最新价格
+  this.getMarkPricesAndCapitalRates()//获取币安最新标记价格和资金费率
   // this.initGetDatas();
 
   // 各小版块加载中

@@ -372,6 +372,7 @@ root.computed.price=function(){
 
 root.watch = {};
 root.watch.buy_sale_list = function () {
+  this.buy_sale_list_temp = {}
   this.buy_sale_list_temp = Object.assign(this.buy_sale_list,{})
   this.getOrderDepthList();
 };
