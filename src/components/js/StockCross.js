@@ -383,6 +383,12 @@ root.watch.socket_snap_shot = function () {
 root.watch.symbol = function (newValue, oldValue) {
 	if (newValue == oldValue) return;
 	this.getScaleConfig();
+  this.buy_sale_list_temp = {}
+  this.buy_sale_list_temp.a = []
+  this.buy_sale_list_temp.b = []
+
+  this.sellOrders = []
+  this.buyOrders = []
 }
 //设置买卖盘累计最大值
 root.methods.setDMaxTotalAmount = function (arr) {
