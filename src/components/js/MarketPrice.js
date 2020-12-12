@@ -64,6 +64,7 @@ root.data = function () {
 
     mSymbolListTemp:[],//市场存储
     mSymbolListPrice:{},//市场价格列表存储
+    lastTime:0
   }
 }
 
@@ -527,7 +528,10 @@ root.methods.formatnumber = function (value, num) {
 //点击货币对 切换整个页面symbol
 root.methods.slectSymbol = function (s, item) {
   let symbol = this.sNameMap[s]
-  if (this.$store.state.symbol == symbol) return;
+  //700ms内不能重复调用
+  if(this.$store.state.symbol == symbol || (Date.now() - this.lastTime < 700))return;
+
+  this.lastTime = Date.now();
 
   // 把时价带入到progressBar里
   let quoteScale = 8

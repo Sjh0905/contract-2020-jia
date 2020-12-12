@@ -78,7 +78,7 @@ root.data = function () {
 
     buyOrders:[],
     buy_sale_list_temp:{},
-    dMaxTotalAmount:0.0001,
+    dMaxTotalAmount:10000,
     totalAmountArr:[],//[<lastUpdateId>,<totalAmount>]
     // sellTotalAmountArr:[],
 	}
@@ -94,7 +94,7 @@ root.created = function () {
   // console.log(this.isNowPrice);
   // console.log(this.isPriceNow);
 
-  this.buy_sale_list_temp = Object.assign(this.buy_sale_list,{})
+  this.buy_sale_list_temp[this.capitalSymbol] = Object.assign(this.buy_sale_list,{})
 
 }
 
@@ -342,6 +342,10 @@ root.computed.isPriceNow = function () {
 root.computed.symbol = function () {
 	return this.$store.state.symbol;
 }
+//不加下划线币对
+root.computed.capitalSymbol = function () {
+  return this.$globalFunc.toOnlyCapitalLetters(this.symbol);
+}
 
 root.computed.rate=function(){
 	if (!this.btc_eth_rate.dataMap) return;
@@ -372,8 +376,8 @@ root.computed.price=function(){
 
 root.watch = {};
 root.watch.buy_sale_list = function () {
-  this.buy_sale_list_temp = {}
-  this.buy_sale_list_temp = Object.assign(this.buy_sale_list,{})
+  this.buy_sale_list_temp[this.capitalSymbol] = {}
+  this.buy_sale_list_temp[this.capitalSymbol] = Object.assign(this.buy_sale_list,{})
   this.getOrderDepthList();
 };
 root.watch.socket_snap_shot = function () {
@@ -383,29 +387,31 @@ root.watch.socket_snap_shot = function () {
 root.watch.symbol = function (newValue, oldValue) {
 	if (newValue == oldValue) return;
 	this.getScaleConfig();
-  this.buy_sale_list_temp = {}
-  this.buy_sale_list_temp.a = []
-  this.buy_sale_list_temp.b = []
+  this.buy_sale_list_temp[this.capitalSymbol] = {}
+  this.buy_sale_list_temp[this.capitalSymbol].a = []
+  this.buy_sale_list_temp[this.capitalSymbol].b = []
 
   this.sellOrders = []
   this.buyOrders = []
+
+  this.totalAmountArr[1] = 0.001
 }
 //设置买卖盘累计最大值
 root.methods.setDMaxTotalAmount = function (arr) {
   if(arr[0] == this.totalAmountArr[0]){
-    this.dMaxTotalAmount = Math.max(this.totalAmountArr[1],arr[1]) || 0.001
+    this.dMaxTotalAmount = Math.max(this.totalAmountArr[1],arr[1]) || 10000
     this.totalAmountArr = []
     return
   }
   this.totalAmountArr = arr
 }
 root.methods.getOrderDepthList = function () {
-  let asks = this.buy_sale_list_temp.a || []
-  let bids = this.buy_sale_list_temp.b || []
-  this.lastUpdateId = this.lastUpdateId == 0 && this.buy_sale_list_temp.lastUpdateId || 0
+  let asks = this.buy_sale_list_temp[this.capitalSymbol].a || []
+  let bids = this.buy_sale_list_temp[this.capitalSymbol].b || []
+  this.lastUpdateId = this.lastUpdateId == 0 && this.buy_sale_list_temp[this.capitalSymbol].lastUpdateId || 0
 
-  let socketAsks = this.socket_snap_shot.a || [];
-  let socketBids = this.socket_snap_shot.b || [];
+  let socketAsks = this.socket_snap_shot.s == this.capitalSymbol && this.socket_snap_shot.a || [];
+  let socketBids = this.socket_snap_shot.s == this.capitalSymbol && this.socket_snap_shot.b || [];
   // console.log('StockCross buyOrders',JSON.stringify(socketBids));
 
   // let asks = [[102,2], [103,3], [110,0], [104,4]]
@@ -484,8 +490,8 @@ root.methods.getOrderDepthList = function () {
   // console.log('StockCross asksList',asksList);
   // console.log('StockCross buyOrders',JSON.stringify(bidsList));
 
-  this.sellOrders = asksList;
-  this.buyOrders = bidsList;
+  this.sellOrders =this.socket_snap_shot.s == this.capitalSymbol && asksList || [];
+  this.buyOrders = this.socket_snap_shot.s == this.capitalSymbol && bidsList || [];
   let bidPrice = this.buyOrders[0] && this.buyOrders[0][0] || 0
   let askPrice = this.sellOrders[0] && this.sellOrders[0][0] || 0
 
@@ -500,7 +506,7 @@ root.methods.getOrderDepthList = function () {
 
   this.lastUpdateId = this.socket_snap_shot.U
   let obj = {a:asksList,b:bidsList,lastUpdateId:this.socket_snap_shot.U}
-  this.buy_sale_list_temp = obj;
+  this.buy_sale_list_temp[this.capitalSymbol] = obj;
   // console.log('StockCross orderDepthList',obj) ;
   // return obj
 
