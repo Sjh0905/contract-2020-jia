@@ -1598,6 +1598,7 @@ root.methods.error_marketPrice = function (err) {
 //取消平仓
 root.methods.cancelThePosition = async function () {
   let params = {
+    clientOrderId: this.order.clientOrderId,
     orderId: this.order.orderId,
     symbol: this.order.symbol,
     timestamp: this.order.updateTime
