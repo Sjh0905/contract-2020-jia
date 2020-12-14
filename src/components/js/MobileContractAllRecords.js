@@ -392,10 +392,11 @@ root.methods.error_getAssetSnapshot = function (err) {
 
 
 // 展示海报
-root.methods.SHOW_POSTER = function (orderId) {
+root.methods.SHOW_POSTER = function (order) {
   this.showPoster = true;
   // this.initialPosition = index
-  this.orderId = orderId
+  this.orderId = order.orderId
+  this.clientOrderId = order.clientOrderId
   this.getPosterImage()
 }
 // 获取海报
@@ -403,6 +404,7 @@ root.methods.getPosterImage = function () {
   this.loadingImage=true
   let params = {
     orderId:this.orderId,
+    clientOrderId:this.clientOrderId,
     symbol:this.capitalSymbol,
     picIndex:this.picIndex || 0,
   }
