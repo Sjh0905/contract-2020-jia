@@ -1231,7 +1231,7 @@ root.methods.backHand = function () {
   this.$http.send("POST_REVERSE_POSITION", {
     bind: this,
     params: {
-      symbol:this.subscribeSymbol,
+      symbol: this.positionInfo.symbol,
       positionSide:this.positionInfo.positionSide
     },
     callBack: this.re_backHand,

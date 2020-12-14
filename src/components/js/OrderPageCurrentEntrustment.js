@@ -191,9 +191,10 @@ root.methods.getOrder = function () {
   this.$http.send('GET_CURRENT_DELEGATION', {
       bind: this,
       query: {
-        symbol:this.capitalSymbol,
-        timestamp:this.serverTime,
-        orderId:'1231212'
+        symbol:'',
+        // symbol:this.capitalSymbol,
+        // timestamp:this.serverTime,
+        // orderId:'1231212'
       },
       callBack: this.re_getOrder,
       errorHandler: this.error_getOrder,
@@ -204,7 +205,7 @@ root.methods.re_getOrder = function (data) {
   typeof(data) == 'string' && (data = JSON.parse(data));
   this.loading = false
   this.currentOrder = data.data || []
-  this.$store.commit('SET_CURRENT_ORDERS',this.currentOrder)
+  // this.$store.commit('SET_CURRENT_ORDERS',this.currentOrder)
 }
 // 获取订单出错
 root.methods.error_getOrder = function (err) {
@@ -252,6 +253,7 @@ root.methods.cancelOrder = async function (order, cancelAll = false) {
   order.click = true
   let params = {
     orderId: order.orderId,
+    clientOrderId:order.clientOrderId,
     symbol: order.symbol,
     timestamp:order.updateTime
   }

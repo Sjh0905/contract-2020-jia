@@ -64,6 +64,7 @@ root.data = function () {
 
     mSymbolListTemp:[],//市场存储
     mSymbolListPrice:{},//市场价格列表存储
+    lastTime:0
   }
 }
 
@@ -80,7 +81,10 @@ root.beforeDestroy = function () {
 }
 
 root.computed = {}
-
+//不加下划线币对集合
+root.computed.sNameList = function () {
+  return this.$store.state.sNameList || []
+}
 // 是否登录
 root.computed.isLogin = function () {
   if (this.$store.state.authMessage.userId !== '') return true
@@ -94,6 +98,12 @@ root.computed.filterCurrency = function () {
 // 特殊专区 0为超级为蜜
 root.computed.specialSymbol = function () {
   return this.$store.state.specialSymbol && this.$store.state.specialSymbol || []
+}
+
+// 特殊专区 0为超级为蜜
+root.computed.sNameMap = function () {
+  let defaultSNameMap = {"BTCUSDT":"BTC_USDT","ETHUSDT":"ETH_USDT"}
+  return this.$store.state.sNameMap || defaultSNameMap
 }
 
 // 市场列表
@@ -130,35 +140,15 @@ root.computed.quoteScale_list = function () {
 root.computed.symbol_list = function () {
   return this.marketSymbolList;
 }
-//价格处理
-root.computed.compareSymbolPrePrice = function (list) {
-  if(!list || list.length == 0)return []
 
-  list.map(v=>{
-    if(!v.priceChangeArr){
-      v.priceChangeArr = [v.c]
-      // v.priceStep = 0
-    }
-
-    v.priceChangeArr.push(v.c);
-    let len = v.priceChangeArr.length
-    let step = len - 5
-    if(step > 0 ){
-      v.priceChangeArr.splice(0,step)
-      len = v.priceChangeArr.length
-    }
-    v.priceStep = v.priceChangeArr[len-1] - v.priceChangeArr[len-2]
-  })
-
-  return list;
-}
 
 // ajax获取的数据
 root.computed.mSymbolList = function () {
 
-  //mSymbolListTemp.length为0说明首次进入，mSymbolList取marketSymbolList的值,默认不刷新页面情况下币对个数不会变化，mSymbolListTemp.length>0就一直取本身
-  let mSymbolList = this.mSymbolListTemp.length > 0 ? this.mSymbolListTemp : this.marketSymbolList,
-      socket24hrTicker = this.socket24hrTicker
+  //之前注释：mSymbolListTemp.length为0说明首次进入，mSymbolList取marketSymbolList的值,默认不刷新页面情况下币对个数不会变化，mSymbolListTemp.length>0就一直取本身
+  //最新理解：mSymbolListTemp.length ≠ sNameList.length 说明没有缓存所有币对，取marketSymbolList的值
+  let mSymbolList = this.mSymbolListTemp.length > this.sNameList.length - 1 ? this.mSymbolListTemp : this.marketSymbolList,
+      socket24hrTicker = this.socket24hrTicker.filter(v => this.sNameList.includes(v.s))
 
   //默认接口不会调用多次，第一次进入后socket还没推送
   if(socket24hrTicker.length == 0 && mSymbolList.length >= 0){
@@ -210,6 +200,7 @@ root.computed.mSymbolList = function () {
   // }
 
   this.mSymbolListTemp = mSymbolList;
+
   return mSymbolList;
 
 
@@ -265,9 +256,8 @@ root.computed.computedMarketList = function () {
   let ans = this.selectMarketChange
   // if(this.selectMarket[this.selectEdition] === this.$t('Favorites'))return this.mSymbolList[this.selectEdition].optionalArea
   // if(this.selectMarket[this.selectEdition] === this.$t('Innovation'))return this.mSymbolList[this.selectEdition].createArea
-
   // console.log('hhhhh====',this.mSymbolList,this.selectEdition,this.selectMarket,this.selectEdition)
-  return (this.mSymbolList[this.selectEdition][this.selectMarket[this.selectEdition]] || [])//.sort((a,b)=>!b.open && b.open - a.open) || []
+  return this.mSymbolList.length != 0 && (this.mSymbolList[this.selectEdition][this.selectMarket[this.selectEdition]] || [])//.sort((a,b)=>!b.open && b.open - a.open) || []
 }
 
 
@@ -314,6 +304,14 @@ root.computed.computedMarketList = function () {
 root.computed.symbol = function () {
   return this.$store.state.symbol;
 }
+//不加下划线币对
+root.computed.capitalSymbol = function () {
+  return this.$globalFunc.toOnlyCapitalLetters(this.symbol);
+}
+//不加下划线币对集合
+root.computed.sNameList = function () {
+  return this.$store.state.sNameList;
+}
 
 //时价初始化标识数组
 root.computed.initPriceSymbol = function () {
@@ -325,7 +323,7 @@ root.computed.lang = function () {
   return this.$store.state.lang;
 }
 
-// 是否免费
+/*// 是否免费
 root.computed.reduce_list = function () {
   let symbol_list = this.$store.state.reduce_fee;
   let ans = this.selectMarketChange
@@ -348,7 +346,7 @@ root.computed.reduce_list = function () {
   }
   )
   return reduce_list;
-}
+}*/
 
 // 2018-4-4  start
 root.watch = {};
@@ -368,9 +366,9 @@ root.watch.searchText = function(v){
 // 2018-4-4  end
 
 // 判断选中的是哪个市场  18-4-9 新加
-root.watch.mSymbolList = function (newValue, oldValue) {
+/*root.watch.mSymbolList = function (newValue, oldValue) {
   if (!this.clickTab) this.initTab()
-}
+}*/
 
 root.watch.symbol = function (newValue, oldValue) {
   if (newValue == oldValue) return
@@ -379,7 +377,27 @@ root.watch.symbol = function (newValue, oldValue) {
 
 
 root.methods = {}
+//价格处理
+root.methods.compareSymbolPrePrice = function (list) {
+  if(!Array.isArray(list) || list.length == 0)return []
+  list.map(v=>{
+    if(!v.priceChangeArr){
+      v.priceChangeArr = [v.c]
+      // v.priceStep = 0
+    }
 
+    v.priceChangeArr.push(v.c);
+    let len = v.priceChangeArr.length
+    let step = len - 5
+    if(step > 0 ){
+      v.priceChangeArr.splice(0,step)
+      len = v.priceChangeArr.length
+    }
+    v.priceStep = v.priceChangeArr[len-1] - v.priceChangeArr[len-2]
+  })
+
+  return list;
+}
 // root.methods.search  = function (){
 //   console.log(this.searchText , this.mSymbolList)
 // }
@@ -508,8 +526,12 @@ root.methods.formatnumber = function (value, num) {
 
 
 //点击货币对 切换整个页面symbol
-root.methods.slectSymbol = function (symbol, item) {
-  if (this.$store.state.symbol == symbol) return;
+root.methods.slectSymbol = function (s, item) {
+  let symbol = this.sNameMap[s]
+  //700ms内不能重复调用
+  if(this.$store.state.symbol == symbol || (Date.now() - this.lastTime < 700))return;
+
+  this.lastTime = Date.now();
 
   // 把时价带入到progressBar里
   let quoteScale = 8
@@ -528,17 +550,19 @@ root.methods.slectSymbol = function (symbol, item) {
   // });
   // this.$store.commit('SET_SYMBOL', symbol);
   // 把当前选中的币对写入cookie
-  let user_id = this.$store.state.authMessage.userId;
+  let user_id = this.$store.state.authState.userId;
   let user_id_symbol = user_id + '-' + symbol;
   // if(!this.isLogin){
-  !user_id && this.$cookies.set('unlogin_user_symbol_cookie', symbol, 60 * 60 * 24 * 30,"/");
+  !user_id && this.$cookies.set('unlogin_contract_symbol_cookie', symbol, 60 * 60 * 24 * 30,"/");
   // this.$store.commit('SET_SYMBOL', symbol);
   // }
-  // !!user_id && this.$cookies.set('user_symbol_cookie', user_id_symbol, 60 * 60 * 24);
-  !!user_id && this.$cookies.set('user_symbol_cookie', user_id_symbol, 60 * 60 * 24 * 30,"/");
+  // !!user_id && this.$cookies.set('contract_symbol_cookie', user_id_symbol, 60 * 60 * 24);
+  !!user_id && this.$cookies.set('contract_symbol_cookie', user_id_symbol, 60 * 60 * 24 * 30,"/");
   this.$store.commit('SET_SYMBOL', symbol);
   // 清空委托列表
   this.$store.commit('GET_OPEN_ORDER', []);
+
+  this.$socket.changeSymbol(s)
 
 }
 
@@ -555,7 +579,8 @@ root.methods.priceInitialization = function () {
     }
   )
 
-  let computedMarketList = this.computedMarketList
+  let computedMarketList = this.computedMarketList || []
+
 
   let a = 0
 

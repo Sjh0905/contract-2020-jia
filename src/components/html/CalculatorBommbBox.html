@@ -21,17 +21,18 @@
             </div>
             <div class="pop-calculator-left-slider">
               <div class="block"  style="margin: 6px auto">
-                <p class="radiusa_green" v-if="calculatorValue>= 1" @click="calculatorValue= 1" style="cursor:pointer"></p>
-                <p class="radiusb_green" v-if="calculatorValue>=25" @click="calculatorValue=25" style="cursor:pointer"></p>
-                <p class="radiusc_green" v-if="calculatorValue>=50" @click="calculatorValue=50" style="cursor:pointer"></p>
-                <p class="radiusd_green" v-if="calculatorValue>=75" @click="calculatorValue=75" style="cursor:pointer"></p>
-                <p class="radiuse_green" v-if="calculatorValue>=100" @click="calculatorValue=100" style="cursor:pointer"></p>
+<!--                <p class="radiusa_green" v-if="calculatorValue>= 1" @click="calculatorValue= 1" style="cursor:pointer"></p>-->
+<!--                <p class="radiusb_green" v-if="calculatorValue>=Object.keys(calculatorMarks[capitalSymbol])[1]" @click="calculatorValue=Object.keys(calculatorMarks[capitalSymbol])[1]" style="cursor:pointer"></p>-->
+<!--                <p class="radiusc_green" v-if="calculatorValue>=Object.keys(calculatorMarks[capitalSymbol])[2]" @click="calculatorValue=Object.keys(calculatorMarks[capitalSymbol])[2]" style="cursor:pointer"></p>-->
+<!--                <p class="radiusd_green" v-if="calculatorValue>=Object.keys(calculatorMarks[capitalSymbol])[3]" @click="calculatorValue=Object.keys(calculatorMarks[capitalSymbol])[3]" style="cursor:pointer"></p>-->
+<!--                <p class="radiuse_green" v-if="calculatorValue>=Object.keys(calculatorMarks[capitalSymbol])[4]" @click="calculatorValue=Object.keys(calculatorMarks[capitalSymbol])[4]" style="cursor:pointer"></p>-->
+                <p v-for="(v,index) in Object.keys(calculatorMarks[capitalSymbol])" :class="calculatorClass[index]" v-if="calculatorValue >= v" @click="calculatorValue=Number(v)" style="cursor:pointer"></p>
                 <el-slider
                   v-model="calculatorValue"
                   class="el-slider-style"
-                  :marks="calculatorMarks"
+                  :marks="calculatorMarks[capitalSymbol]"
                   :format-tooltip="formatTooltip"
-                  :max="125"
+                  :max="initialLeverage[0]"
                   :min="1"
                 >
                 </el-slider>
@@ -66,7 +67,7 @@
                 </div>
 
                 <input type="text" class="opening-price-ipt" placeholder="0" v-model="transactionQuantity">
-                <span class="opening-price-curency">BTC</span>
+                <span class="opening-price-curency">{{symbol.split('_')[0]}}</span>
               </div>
               <!--计算按钮-->
               <div class="calculate-button pointer" :class="isStyle?'':'btn_blue'" @click="clickCalculation">计算</div>
@@ -108,19 +109,21 @@
             </div>
             <div class="pop-calculator-left-slider">
               <div class="block"  style="margin: 6px auto">
-                <p class="radiusa_green" v-if="calculatorValue>= 1" @click="calculatorValue= 1" style="cursor:pointer"></p>
-                <p class="radiusb_green" v-if="calculatorValue>=25" @click="calculatorValue=25" style="cursor:pointer"></p>
-                <p class="radiusc_green" v-if="calculatorValue>=50" @click="calculatorValue=50" style="cursor:pointer"></p>
-                <p class="radiusd_green" v-if="calculatorValue>=75" @click="calculatorValue=75" style="cursor:pointer"></p>
-                <p class="radiuse_green" v-if="calculatorValue>=100" @click="calculatorValue=100" style="cursor:pointer"></p>
+<!--                <p class="radiusa_green" v-if="calculatorValue>=Object.keys(calculatorMarks[capitalSymbol])[0]" @click="calculatorValue=Object.keys(calculatorMarks[capitalSymbol])[0]" style="cursor:pointer"></p>-->
+<!--                <p class="radiusb_green" v-if="calculatorValue>=Object.keys(calculatorMarks[capitalSymbol])[1]" @click="calculatorValue=Object.keys(calculatorMarks[capitalSymbol])[1]" style="cursor:pointer"></p>-->
+<!--                <p class="radiusc_green" v-if="calculatorValue>=Object.keys(calculatorMarks[capitalSymbol])[2]" @click="calculatorValue=Object.keys(calculatorMarks[capitalSymbol])[2]" style="cursor:pointer"></p>-->
+<!--                <p class="radiusd_green" v-if="calculatorValue>=Object.keys(calculatorMarks[capitalSymbol])[3]" @click="calculatorValue=Object.keys(calculatorMarks[capitalSymbol])[3]" style="cursor:pointer"></p>-->
+<!--                <p class="radiuse_green" v-if="calculatorValue>=Object.keys(calculatorMarks[capitalSymbol])[4]" @click="calculatorValue=Object.keys(calculatorMarks[capitalSymbol])[4]" style="cursor:pointer"></p>-->
+                <p v-for="(v,index) in Object.keys(calculatorMarks[capitalSymbol])" :class="calculatorClass[index]" v-if="calculatorValue >= v" @click="calculatorValue=Number(v)" style="cursor:pointer"></p>
                 <el-slider
                   v-model="calculatorValue"
                   class="el-slider-style"
-                  :marks="targetCalculatorMarks"
+                  :marks="calculatorMarks[capitalSymbol]"
                   :format-tooltip="formatTooltip"
-                  :max="125"
+                  :max="initialLeverage[0]"
                   :min="1"
-                />
+                >
+                </el-slider>
               </div>
               <div v-if="calculatorValue>2" class="wrong-text wrong-text-grey">当前杠杆倍数最高可持有头寸：
                 <span>{{maxPosition}}</span> USDT</div>

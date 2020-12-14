@@ -134,13 +134,24 @@ root.data = function () {
     // 合约风险提示
     popWindowContractRiskWarning: false,
     value: 0,
-    marks: {
-      1: '1X',
-      25: '25X',
-      50: '50X',
-      75:'75X',
-      100:'100X',
-      125:'125X',
+    calculatorClass:['radiusa_blu1','radiusa_blu2','radiusa_blu3','radiusa_blu4','radiusa_blu5'],
+    leverageMarks:{
+      ETHUSDT:{
+        1: '1X',
+        20: '20X',
+        40: '40X',
+        60: '60X',
+        80: '80X',
+        100:'100X',
+      },
+      BTCUSDT:{
+        1: '1X',
+        25: '25X',
+        50: '50X',
+        75:'75X',
+        100:'100X',
+        125:'125X',
+      }
     },
     //调整杠杆 End
 
@@ -164,6 +175,7 @@ root.data = function () {
     volume: '', // 24小时量
     priceChangePercent: '', // 24涨幅
     markPrice: '', // 标记价格
+    markPriceObj: {}, // 多币对标记价格
     lastFundingRate: '', // 资金费率
     nextFundingTime: '',   // 下次资金费时间
     latestPriceVal: '' ,   // 最新价格，用于价格输入框显示
@@ -174,10 +186,13 @@ root.data = function () {
     // availableBalance:0 , // 可用余额
     recordsIndex:0, // 仓位数量
     currentLength:0, // 当前委托数量
+    recordsIndexS:0, // 当前币对的仓位数量
+    currentLengthS:0, // 当前币对的当前委托数量
+    currOrderLenObj:{}, // 当前币对的当前委托数量
     // 显示的最大头寸
-    maximumPosition : ['50,000','250,000','100,0000','5,000,000','20,000,000','50,000,000','100,000,000','200,000,000'],
-    positionAmtLong:0,
-    positionAmtShort:0,
+    // maximumPosition : ['50,000','250,000','100,0000','5,000,000','20,000,000','50,000,000','100,000,000','200,000,000'],
+    // positionAmtLong:0,
+    // positionAmtShort:0,
     popTextLeverage:'',
     availableBalance:0,
 /* -------------------------- 开平器Data begin -------------------------- */
@@ -187,6 +202,8 @@ root.data = function () {
     invitreCodeInput:'',//邀请码
     pswPlaceholderShow: true,
     name_0:'',
+    positionRecords:[],
+
   }
 }
 
@@ -209,7 +226,7 @@ root.created = function () {
   // 一小时更新一次汇率
   // this.changeCny();
   // 请求币对列表
-  this.getSymbolsList()
+  // this.getSymbolsList()
 
   // 获取小数位
   this.getScaleConfig();
@@ -241,7 +258,7 @@ root.mounted = function () {
   // 初始化所有信息
   let self = this;
   // setTimeout(this.init, 1000);
-  this.init();
+  this.init(this.$store.state.symbol);
 
   // 更改query
   this.$router.push({name: 'tradingHall', query: {symbol: this.$store.state.symbol}});
@@ -260,47 +277,87 @@ root.mounted = function () {
 
 // 计算symbol变化
 root.computed = {};
+root.computed.currencyInfo = function () {
+  let cInfo = this.$store.state.currencyInfo
+  let csv = cInfo[this.capitalSymbol];
+
+  if(csv.marginType == 'isolated'){
+    this.marginType = 'ISOLATED'  // 传参使用
+    this.marginModeType = 'zhuCang' // 切换样式使用
+  }else{
+    this.marginType = 'CROSSED'
+    this.marginModeType = 'quanCang'
+  }
+  return cInfo
+  // console.info(this.$store.state.currencyInfo[this.capitalSymbol].leverage)
+  // console.info(this.$store.state.currencyInfo[this.capitalSymbol].marginType)
+  // return this.$store.state.currency[this.capitalSymbol].leverage || ''
+}
+// // 杠杆分层数组
+// root.computed.bracketList = function () {
+//   return (this.$store.state.bracketList || {})[this.capitalSymbol] || []
+// }
+// 最大头寸值
+root.computed.maximumPosition = function () {
+  return this.$store.state.bracketNotionalcap[this.capitalSymbol] || []
+}
+// 杠杆倍数
+root.computed.initialLeverage = function () {
+  return this.$store.state.bracketLeverage[this.capitalSymbol] || []
+}
 // 用户id，判断是否登录
 root.computed.userId = function () {
   return this.$store.state.authState.userId
 }
 // 计算是否有仓位和当前委托
 root.computed.isHasOrders = function (){
-  if(!this.currentLength && !this.recordsIndex) return true
+  // 如果当前币对的仓位和订单数量为0，不能切换全逐仓
+  if(!this.currOrderLenObj[this.capitalSymbol] && !this.recordsIndexS) return true
+  // if(!this.currentLengthS && !this.recordsIndexS) return true
   return false
 }
+
+// 计算是否有仓位和当前委托(全部的，用于切换单双仓)
+root.computed.isHasOrdersOrPosition = function (){
+  // 如果当前币对的仓位和订单数量为0，不能切换全逐仓
+  if(!this.currentLength && !this.recordsIndex) return true
+  // if(!this.currentLengthS && !this.recordsIndexS) return true
+  return false
+}
+
 // 最大头寸计算
 root.computed.maxPosition = function () {
-  let maxPosition = ''
-  if(this.value > 100 && this.value <= 125) {
+  let maxPosition = '',initialLeverage = this.initialLeverage
+
+  if(this.value > initialLeverage[1] && this.value <= initialLeverage[0]) {
     maxPosition = this.maximumPosition[0]
     return maxPosition
   }
-  if(this.value > 50 && this.value <= 100) {
+  if(this.value > initialLeverage[2] && this.value <= initialLeverage[1]) {
     maxPosition = this.maximumPosition[1]
     return maxPosition
   }
-  if(this.value > 20 && this.value <= 50) {
+  if(this.value > initialLeverage[3] && this.value <= initialLeverage[2]) {
     maxPosition = this.maximumPosition[2]
     return maxPosition
   }
-  if(this.value > 10 && this.value <= 20) {
+  if(this.value > initialLeverage[4] && this.value <= initialLeverage[3]) {
     maxPosition = this.maximumPosition[3]
     return maxPosition
   }
-  if(this.value > 5 && this.value <= 10) {
+  if(this.value > initialLeverage[5] && this.value <= initialLeverage[4]) {
     maxPosition = this.maximumPosition[4]
     return maxPosition
   }
-  if(this.value == 5) {
+  if(this.value == initialLeverage[5]) {
     maxPosition = this.maximumPosition[5]
     return maxPosition
   }
-  if(this.value == 4) {
+  if(this.value ==  initialLeverage[6]) {
     maxPosition = this.maximumPosition[6]
     return maxPosition
   }
-  if(this.value == 3) {
+  if(this.value == initialLeverage[7]) {
     maxPosition = this.maximumPosition[7]
     return maxPosition
   }
@@ -314,6 +371,11 @@ root.computed.symbol = function () {
 //不加下划线币对
 root.computed.capitalSymbol = function () {
   return this.$globalFunc.toOnlyCapitalLetters(this.symbol);
+}
+
+//不加下划线币对集合
+root.computed.sNameList = function () {
+  return this.$store.state.sNameList || []
 }
 
 // 当前socket订阅货币对
@@ -455,10 +517,31 @@ root.methods.closeBottleOpener = function () {
 // }
 /*---------------  开平器 End  ---------------*/
 
-
-// root.methods.getPositionRisk = function () {
-//   this.recordsIndex = this.recordsIndex
+// root.methods.currentSymbolLegth = function (records,length) {
+//   let filterRecords = []
+//   records && records.forEach(v=>{
+//     if (v.symbol == this.capitalSymbol) {
+//       filterRecords.push(v)
+//     }
+//   })
+//   return length = filterRecords.length || 0
 // }
+root.methods.setFilterListIndex = function (index) {
+  this.recordsIndexS = index
+  console.info(this.recordsIndexS)
+}
+// 获取仓位的数据
+root.methods.setRecords = function (records) {
+  this.positionRecords = [...records]
+  // let filterRecords = []
+  // this.positionRecords && this.positionRecords.forEach(v=>{
+  //   if (v.symbol == this.capitalSymbol) {
+  //     filterRecords.push(v)
+  //   }
+  // })
+  // // console.info(this.recordsIndexS,filterRecords)
+  // return this.recordsIndexS = filterRecords.length || 0
+}
 // 仓位
 root.methods.getPositionRisk = function () {
 
@@ -475,18 +558,18 @@ root.methods.re_getPositionRisk = function (data) {
   let records = data.data,filterRecords = []
   for (let i = 0; i < records.length ; i++) {
     let v = records[i];
-    if (v.marginType == 'cross' && v.positionAmt != 0 && v.symbol == 'BTCUSDT') {
+    if (v.marginType == 'cross' && v.positionAmt != 0 && v.symbol == this.capitalSymbol) {
       filterRecords.push(v)
       continue;
     }
     //逐仓保证金：isolatedMargin - unrealizedProfit,开仓量或逐仓保证金不为0的仓位才有效
-    if(v.marginType == 'isolated' && v.symbol == 'BTCUSDT'){
+    if(v.marginType == 'isolated' && v.symbol == this.capitalSymbol){
       v.securityDeposit = this.accMinus(v.isolatedMargin,v.unrealizedProfit)
       // v.securityDeposit = Number(v.isolatedMargin) - Number(v.unrealizedProfit)
 
       //由于开头判断条件用括号包装，会被编译器解析成声明函数括号，所以前一行代码尾或本行代码头要加分号、或者本行代码改为if判断才行
       // (v.positionAmt != 0 || v.securityDeposit != 0) && filterRecords.push(v);
-      if((v.positionAmt != 0 || v.securityDeposit != 0) && v.symbol == 'BTCUSDT') {
+      if((v.positionAmt != 0 || v.securityDeposit != 0) && v.symbol == this.capitalSymbol) {
         // v.inputMarginPrice = this.toFixed(v.markPrice,2)
         filterRecords.push(v)
       }
@@ -521,7 +604,7 @@ root.methods.initTicket24Hr = function () {
   this.$http.send('GET_TICKER_24HR',{
     bind: this,
     query:{
-      symbol:this.capitalSymbol
+      symbol:this.sNameList.toString()
     },
     callBack: this.re_initTicket24Hr,
     errorHandler:this.error_initTicket24Hr
@@ -556,9 +639,9 @@ root.methods.error_initTicket24Hr = function (err) {
 root.methods.getMarkPricesAndCapitalRates = function () {
   this.$http.send('GET_MARKET_PRICE',{
     bind: this,
-    query:{
-      symbol:this.capitalSymbol
-    },
+    // query:{
+    //   symbol:this.capitalSymbol
+    // },
     callBack: this.re_getMarkPricesAndCapitalRates,
     errorHandler:this.error_getMarkPricesAndCapitalRates
   })
@@ -566,11 +649,37 @@ root.methods.getMarkPricesAndCapitalRates = function () {
 // 获取币安最新标记价格和资金费率正确回调
 root.methods.re_getMarkPricesAndCapitalRates = function (data) {
   typeof(data) == 'string' && (data = JSON.parse(data));
-  // console.info('data========',data.data[0])
+  if(!data || !data.data)return;
+
+  this.sNameList.map(sv=>{
+    for (let i = 0,len = data.data.length; i < len; i++) {
+      let v = data.data[i];
+      if(sv == v.symbol){
+        //接口返回的字段名转换成和socket一致
+        v.s = v.symbol
+        v.p = (v.markPrice || '').toString();
+        v.r = v.lastFundingRate
+        v.T = v.nextFundingTime
+
+        this.markPriceObj[sv] = v;
+        break;
+      }
+    }
+  })
+
+  //当前选中币对数据
+  let msg =this.markPriceObj[this.capitalSymbol];
+  if(msg){
+    msg.p > 0 && (this.markPrice = msg.p)// 标记价格
+    msg.r > 0 && (this.lastFundingRate = msg.r)// 资金费率
+    msg.T > 0 && (this.nextFundingTime = msg.T)//下个资金时间
+  }
+
+  /*// console.info('data========',data.data[0])
   this.markPrice = (data.data[0].markPrice || '').toString()
   this.lastFundingRate = data.data[0].lastFundingRate || '--'
-  this.nextFundingTime = data.data[0].nextFundingTime || '--'
-//
+  this.nextFundingTime = data.data[0].nextFundingTime || '--'*/
+
 }
 // 获取币安最新标记价格和资金费率错误回调
 root.methods.error_getMarkPricesAndCapitalRates = function (err) {
@@ -612,6 +721,7 @@ root.methods.error_getLatestrice = function (err) {
   console.log('获取币安24小时价格变动接口',err)
 }
 
+/*获取接口移到了PreHandler里边
 // 请求所有币对信息, header, right都需要此数据
 root.methods.getSymbolsList = function () {
   this.$http.send('GET_SYMBOLS', {
@@ -643,7 +753,7 @@ root.methods.re_getSymbolsList = function (data) {
   // data.symbols.forEach(function (v, i) {
   //   self.symbol_config_times.push({name: v.name, startTime: v.startTime, endTime: v.endTime});
   // });
-}
+}*/
 
 // 获取深度信息
 root.methods.getDepth = function () {
@@ -778,9 +888,9 @@ root.methods.getOrder = function () {
   this.$http.send('GET_CURRENT_DELEGATION', {
     bind: this,
     query: {
-      symbol:this.capitalSymbol,
-      timestamp:this.serverTime,
-      orderId:'1231212'
+      symbol:'',
+      // timestamp:this.serverTime,
+      // orderId:'1231212'
     },
     callBack: this.re_getOrder,
     errorHandler: this.error_getOrder,
@@ -793,6 +903,26 @@ root.methods.re_getOrder = function (data) {
   let currentOrder = data.data || []
   this.currentLength = currentOrder.length
   this.$store.commit('SET_CURRENT_ORDERS',currentOrder)
+  // this.currentSymbolLegth(currentOrder,this.currentLengthS)
+  let currOrderLen = {}
+  currentOrder && currentOrder.forEach(v=>{
+    if(!currOrderLen[v.symbol]){
+      currOrderLen[v.symbol] = 0
+    }
+    currOrderLen[v.symbol] += 1
+  })
+
+  this.currOrderLenObj = currOrderLen;
+  // console.info("this is currOrderLenObj",this.currOrderLenObj,this.currOrderLenObj[this.capitalSymbol])
+
+  /*let filterRecords = []
+  currentOrder && currentOrder.forEach(v=>{
+    if (v.symbol == this.capitalSymbol) {
+      filterRecords.push(v)
+    }
+  })
+ this.currentLengthS = filterRecords.length || 0
+*/
 }
 // 获取订单出错
 root.methods.error_getOrder = function (err) {
@@ -817,10 +947,40 @@ root.methods.re_positionRisk = function (data) {
   typeof(data) == 'string' && (data = JSON.parse(data));
   if(!data || !data.data || data.data == []) return
   let filterRecords = []
-  data.data.forEach(v=>{
-    if (v.symbol == 'BTCUSDT') {
+
+  this.sNameList.forEach(s=>{
+    for (let i = 0,len = data.data.length; i < len; i++) {
+      let v = data.data[i];
+      if (v.symbol == s) {
+        let currencyInfo = {...this.currencyInfo}
+        currencyInfo[s] = {
+          leverage:v.leverage,
+          marginType:v.marginType
+        }
+        this.$store.commit("CHANGE_CURRENCY_INFO", currencyInfo);
+        break;
+      }
+    }
+  })
+
+  let csv = this.currencyInfo[this.capitalSymbol];
+
+  // this.leverage = csv.leverage
+  // this.$store.commit("CHANGE_LEVERAGE", csv.leverage);
+  if(csv.marginType == 'isolated'){
+    this.marginType = 'ISOLATED'  // 传参使用
+    this.marginModeType = 'zhuCang' // 切换样式使用
+    return
+  }
+  this.marginType = 'CROSSED'
+  this.marginModeType = 'quanCang'
+
+ /* data.data.find(v=>{
+    if (v.symbol == this.capitalSymbol) {
       this.leverage = v.leverage
       this.$store.commit("CHANGE_LEVERAGE", v.leverage);
+      this.$store.commit("CHANGE_CURRENCY_INFO", v);
+      // this.$store.commit("CHANGE_CURRENCY_INFO", v.marginType);
       if(v.marginType == 'isolated'){
         this.marginType = 'ISOLATED'
         this.marginModeType = 'zhuCang'
@@ -829,7 +989,8 @@ root.methods.re_positionRisk = function (data) {
       this.marginType = 'CROSSED'
       this.marginModeType = 'quanCang'
     }
-  })
+  })*/
+
 }
 
 // 切换全仓逐仓
@@ -1009,9 +1170,9 @@ root.beforeDestroy = function () {
 
 
 // init
-root.methods.init = function () {
+root.methods.init = function (newSymbol) {
   // 初始化订阅socket
-  this.initSocket();
+  this.initSocket(newSymbol);
   // 初始化数据请求
   this.initGetDatas();
 }
@@ -1035,21 +1196,33 @@ root.methods.re_getAuthState = function (data) {
 }
 
 // 初始化socket
-root.methods.initSocket = function () {
+root.methods.initSocket = function (newSymbol) {
   let that = this;
   // 订阅某个币对的信息
   // this.$socket.emit('UNSUBSCRIBE', {symbol: this.$store.state.symbol});
   // this.$socket.emit('SUBSCRIBE', ["btcusdt@depth"]);
 
   // let subscribeSymbol = this.$store.state.subscribeSymbol;
-  let subscribeSymbol = this.$globalFunc.toOnlyCapitalLetters(this.$store.state.symbol);
+  let subscribeSymbol = this.$globalFunc.toOnlyCapitalLetters(this.$store.state.symbol || newSymbol);
   // 获取最新标记价格
   this.$socket.on({
     key: 'markPriceUpdate', bind: this, callBack: (message) => {
-      if(message.s === subscribeSymbol){
-        message.p > 0 && (this.markPrice = message.p)// 标记价格
-        message.r > 0 && (this.lastFundingRate = message.r)// 资金费率
-        message.T > 0 && (this.nextFundingTime = message.T)//下个资金时间
+
+      this.sNameList.map(sv=>{
+        for (let i = 0,len = message.length; i < len; i++) {
+          let v = message[i];
+          if(sv == v.s){
+            this.markPriceObj[sv] = v;
+            break;
+          }
+        }
+      })
+      //当前选中币对数据
+      let msg =this.markPriceObj[subscribeSymbol];
+      if(msg){
+        msg.p > 0 && (this.markPrice = msg.p)// 标记价格
+        msg.r > 0 && (this.lastFundingRate = msg.r)// 资金费率
+        msg.T > 0 && (this.nextFundingTime = msg.T)//下个资金时间
       }
     }
   })
@@ -1075,6 +1248,10 @@ root.methods.initSocket = function () {
   this.$socket.on({
     key: 'depthUpdate', bind: this, callBack: (message) => {
       // console.log('depth is ===',message);
+      // console.log("depth is === this.capitalSymbol == message.s",this.capitalSymbol == message.s)
+
+      if(message.s != subscribeSymbol)return
+
       message.asks = message.a;
       message.bids = message.b;
       this.socket_snap_shot = message
@@ -1326,7 +1503,7 @@ root.methods.positionModeSelectedConfirm = function () {
     this.popWindowPositionModeBulletBox = false
     return
   }
-  if(!this.isHasOrders){
+  if(!this.isHasOrdersOrPosition){
     this.promptOpen = true;
     this.popType = 0;
     this.popText = '您可能存在挂单或仓位，不支持调整仓位模式';
@@ -1407,7 +1584,7 @@ root.methods.changeReducePositions = function(){
 root.methods.openLever = function () {
   this.popTextLeverage=''
   this.popWindowAdjustingLever = true
-  this.value = this.$store.state.leverage
+  this.value = this.currencyInfo[this.capitalSymbol].leverage
 }
 //打开调整杠杆 End
 // 调整杠杆接口调取
@@ -1728,10 +1905,10 @@ root.watch = {};
 // }
 root.watch.positionModeSecond = function () {
 
-  if (this.positionModeSecond == 'closeWarehouse') {
-    this.pendingOrderType = 'marketPriceProfitStopLoss'
-    return
-  }
+  // if (this.positionModeSecond == 'closeWarehouse') {
+  //   this.pendingOrderType = 'marketPriceProfitStopLoss'
+  //   return
+  // }
     this.pendingOrderType = 'marketPrice'
 }
 root.watch.pendingOrderType  = function (){
@@ -1752,6 +1929,7 @@ root.watch.positionRisk = function (newValue, oldValue) {
 }
 root.watch.symbol = function (newValue, oldValue) {
   if (newValue == oldValue) return;
+  // this.leverageMarks
   // this.getScaleConfig();
   // this.init();
 }
@@ -1762,7 +1940,7 @@ root.watch.listenSymbol = function (newValue, oldValue) {
   // this.refresh = 0;
   // 订阅某个币对的信息
   // this.$socket.emit('unsubscribe', {symbol: oldValue});
-  this.$socket.emit('subscribe', {symbol: this.$store.state.symbol});
+  // this.$socket.emit('subscribe', {symbol: this.$store.state.symbol});
 
   // 2018-2-8 切换币对时候清空所有socket的数据，等socket推送以后重新赋值
   this.socket_snap_shot = {};
@@ -1771,9 +1949,11 @@ root.watch.listenSymbol = function (newValue, oldValue) {
   this.socketTickArr = [];
   this.socketTickObj = {};
 
-  // this.buy_sale_list = {}//为了保证切换币对时价不显示0
+  this.buy_sale_list = {}//放开这行，保证盘口及时刷新，币对时价不从这里取值了
   this.buy_sale_list.asks = []
   this.buy_sale_list.bids = []
+
+  this.latestPriceArr = []
 
   this.header_price = {}
   // socket_price: {}, //总价格
@@ -1782,7 +1962,12 @@ root.watch.listenSymbol = function (newValue, oldValue) {
 
   // 重新获取信息
   this.getScaleConfig();
-  this.init();
+  this.init(newValue);
+  this.getDepth()  // 获取币安深度
+  this.getAggTrades() //获取归集交易
+  this.initTicket24Hr() // 获取24小时价格变动
+  this.getLatestrice()// 获取币安最新价格
+  this.getMarkPricesAndCapitalRates()//获取币安最新标记价格和资金费率
   // this.initGetDatas();
 
   // 各小版块加载中
@@ -1793,7 +1978,7 @@ root.watch.listenSymbol = function (newValue, oldValue) {
 
 // 组件卸载前取消订阅
 root.beforeDestroy = function () {
-  this.$socket.emit('unsubscribe', {symbol: this.$store.state.symbol});
+  // this.$socket.emit('unsubscribe', {symbol: this.$store.state.symbol});
 }
 // 组件卸载取消订阅
 root.destroyed = function () {

@@ -102,7 +102,7 @@ root.created = function () {
 /*---------------------- 方法 ---------------------*/
 root.methods ={}
 root.methods.currentCurr = function () {
-  console.log(this.$route.query.currency)
+  // console.log(this.$route.query.currency)
   this.currentCurrency = this.$route.query.currency
 
 }
@@ -115,7 +115,7 @@ root.methods.popClose = function () {
 
 // 判断转账数量的限制
 root.methods.transferAble = function () {
-  console.log('this.$route.query.currency=====',this.$route.query.currency)
+  // console.log('this.$route.query.currency=====',this.$route.query.currency)
 
   this.$http.send('GET_TRANSFER_AMOUNT_INFO',{
     bind: this,
@@ -145,7 +145,7 @@ root.methods.re_transferAble = function (data) {
   // 最小手续费
   this.minimumFee = data.dataMap.insideTransferAccount.minimumFee
   // this.$route.query.currency
-  console.log(data,this.maxAmount)
+  // console.log(data,this.maxAmount)
 }
 root.methods.error_transferAble = function (error) {
   // console.log(this.$route.query.currency)
@@ -229,7 +229,7 @@ root.methods.testAmount = function () {
   if (Number(this.amountInput) > Number(this.singleMaxAmount)) {
     this.amountInput = this.singleMaxAmount
     this.amountInputWA = '输入数量超出每次转账数量'
-    console.info('================',typeof(Number(this.amountInput)),typeof(Number(this.singleMaxAmount)))
+    // console.info('================',typeof(Number(this.amountInput)),typeof(Number(this.singleMaxAmount)))
     return false
   }
 

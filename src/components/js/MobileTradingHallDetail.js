@@ -22,7 +22,7 @@ root.data = function () {
     optionVal:'市价单',
     optionData:['限价单','市价单','限价止盈止损','市价止盈止损'],
     optionData2:['限价单','市价单','触发限价','触发市价'],
-    optionData3:['触发限价止盈止损','触发市价止盈止损'],
+    // optionData3:['市价单','触发限价','触发市价'],
     optionDataMap:{
       '限价单':'limitPrice',
       '市价单':'marketPrice',
@@ -313,6 +313,10 @@ root.components = {
 /*------------------------------ 计算 begin -------------------------------*/
 
 root.computed = {}
+// 除去逐仓仓位保证金的钱包余额
+root.computed.crossWalletBalance = function () {
+  return this.$store.state.assets.crossWalletBalance
+}
 // 单仓保证金assumingPrice
 root.computed.costAssumingPrice = function () {
   let assumingPrc = 0
@@ -376,7 +380,7 @@ root.computed.positionAmtShort = function (){
 //新委托实际数量
 root.computed.newOrderActualAmount = function () {
   if (Number(this.totalAmount) >= 0) {
-    // return this.orderType ? Math.max(0,Number(this.amount) - Math.abs(Number(this.totalAmount))) : Number(this.amount)
+    // return this.orderType ?crossWalletBalanceSing Math.max(0,Number(this.amount) - Math.abs(Number(this.totalAmount))) : Number(this.amount)
     return this.orderType ? Math.max(0,this.accMinus(Number(this.amount), Math.abs(this.totalAmount))) : Number(this.amount)
   }
   if (Number(this.totalAmount) < 0) {
@@ -2182,18 +2186,18 @@ root.methods.setKaipingqiPos = function(records){
 
   for (let i = 0; i < records.length ; i++) {
     let v = records[i];
-    if (v.marginType == 'cross' && v.positionAmt != 0 && v.symbol == 'BTCUSDT') {
+    if (v.marginType == 'cross' && v.positionAmt != 0 && v.symbol == this.capitalSymbol) {
       filterRecords.push(v)
       continue;
     }
     //逐仓保证金：isolatedMargin - unrealizedProfit,开仓量或逐仓保证金不为0的仓位才有效
-    if(v.marginType == 'isolated' && v.symbol == 'BTCUSDT'){
+    if(v.marginType == 'isolated' && v.symbol == this.capitalSymbol){
       v.securityDeposit = this.accMinus(v.isolatedMargin,v.unrealizedProfit)
       // v.securityDeposit = Number(v.isolatedMargin) - Number(v.unrealizedProfit)
 
       //由于开头判断条件用括号包装，会被编译器解析成声明函数括号，所以前一行代码尾或本行代码头要加分号、或者本行代码改为if判断才行
       // (v.positionAmt != 0 || v.securityDeposit != 0) && filterRecords.push(v);
-      if((v.positionAmt != 0 || v.securityDeposit != 0) && v.symbol == 'BTCUSDT') {
+      if((v.positionAmt != 0 || v.securityDeposit != 0) && v.symbol == this.capitalSymbol) {
         // v.inputMarginPrice = this.toFixed(v.markPrice,2)
         filterRecords.push(v)
       }
@@ -2216,7 +2220,7 @@ root.methods.re_positionRisk = function (data) {
   let filterRecords = [],records
   records = data.data
   records.forEach(v=>{
-    if (v.symbol == 'BTCUSDT') {
+    if (v.symbol == this.capitalSymbol) {
       this.leverage = v.leverage
       this.$store.commit("CHANGE_LEVERAGE", v.leverage);
       if(v.marginType == 'isolated'){
@@ -3192,19 +3196,19 @@ root.watch.pendingOrderType  = function (){
   this.reducePositionsSelected = true
 }
 root.watch.positionModeSecond  = function (){
-  if (this.positionModeSecond == 'closeWarehouse') {
-    this.optionVal = '触发市价止盈止损'
-    this.pendingOrderType = 'marketPriceProfitStopLoss'
-    this.triggerPrice = ''
-    this.price = ''
-    this.amount = ''
-  }else{
+  // if (this.positionModeSecond == 'closeWarehouse') {
+  //   this.optionVal = '触发市价止盈止损'
+  //   this.pendingOrderType = 'marketPriceProfitStopLoss'
+  //   this.triggerPrice = ''
+  //   this.price = ''
+  //   this.amount = ''
+  // }else{
     this.optionVal = '市价单'
     this.pendingOrderType = 'marketPrice'
     this.triggerPrice = ''
     this.price = ''
     this.amount = ''
-  }
+  // }
 
 }
 root.watch.optionVal = function () {

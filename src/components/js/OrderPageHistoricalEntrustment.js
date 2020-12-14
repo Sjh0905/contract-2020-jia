@@ -53,10 +53,13 @@ root.data = () => {
       {'a':'舍己为人的，反指小能手'},
     ],
     orderId:'',
+    clientOrderId:'',
+    posterSymbol:'', //海报对应币对
     // 信息提示
     popType: 0,
     popText: '',
     promptOpen: false,
+
   }
 }
 
@@ -119,6 +122,10 @@ root.computed.symbol = function () {
 root.computed.capitalSymbol = function () {
   return this.$globalFunc.toOnlyCapitalLetters(this.symbol);
 }
+//不加下划线币对集合
+root.computed.sNameList = function () {
+  return this.$store.state.sNameList || []
+}
 
 /*----------------------------- 生命周期 ------------------------------*/
 
@@ -150,8 +157,8 @@ root.methods.getOrder = function () {
         // limit: (this.tradinghallLimit===10) ? this.tradinghallLimit : this.limit, //一次请求多少条订单
         // limit: 10, //一次请求多少条订单
         // isFinalStatus: true //是否是历史订单
-        symbol:this.capitalSymbol,
-        timestamp:this.serverTime
+        symbol:'',
+        // timestamp:this.serverTime
       },
       callBack: this.re_getOrder,
       errorHandler: this.error_getOrder
@@ -230,8 +237,10 @@ root.methods.toOrderHistory = function () {
 
 //海报
 // 展示海报
-root.methods.SHOW_POSTER = function (orderId) {
-  this.orderId = orderId
+root.methods.SHOW_POSTER = function (order) {
+  this.orderId = order.orderId
+  this.clientOrderId = order.clientOrderId
+  this.posterSymbol = order.symbol
   this.showPoster = true;
   this.getPosterImage()
 }
@@ -247,7 +256,8 @@ root.methods.getPosterImage = function () {
   this.loadingImage=true
   let params = {
     orderId:this.orderId,
-    symbol:this.capitalSymbol,
+    clientOrderId:this.clientOrderId,
+    symbol:this.posterSymbol,
     picIndex:this.picIndex || 0,
   }
   this.$http.send('POST_ASSET_SNAPSHOT', {

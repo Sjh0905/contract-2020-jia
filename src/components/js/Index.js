@@ -1,5 +1,6 @@
 import fa from "element-ui/src/locale/lang/fa";
 import tradingHallData from "../../dataUtils/TradingHallDataUtils";
+import store from "../../configs/storeConfigs/StoreConfigs";
 
 const REFRESH_KEY = 'refreshDataObj'
 const REFRESH_TIME_STEP = 10000
@@ -274,7 +275,7 @@ root.methods.re_postcloseListenKey = function (data) {
 root.methods.getLeverageBracket = function(){
   this.$http.send('GET_LEVERAGE_BRACKET', {
     query:{
-      symbol:this.onlyCapitalSymbol
+      // symbol:this.onlyCapitalSymbol
     },
     callBack: this.re_getLeverageBracket,
     errorHandler:this.err_getLeverageBracket
@@ -283,9 +284,35 @@ root.methods.getLeverageBracket = function(){
 //查询杠杆分层标准返回
 root.methods.re_getLeverageBracket = function(data){
   typeof data === 'string' && (data = JSON.parse(data))
-  if(!data || !data.data || !data.data[0] || !data.data[0].data)return
+  // if(!data || !data.data || !data.data[0] || !data.data[0].data)return
+  if(!data || !data.data)return
+  let bracketList = {},bracketLeverageObj = {},notionalCapObj={}
 
-  let item = data.data[0].data.find(v=>v.symbol == this.onlyCapitalSymbol) || {}
+  this.$store.state.sNameList.map(s=> {
+    let bSingle =  (data.data.find(v=>v.symbol == s) || {}).brackets || [],bracketArr = [],maximumPosition=[]
+
+    //为了避免接口返回顺序改变，做一次按bracket升序排序处理，其他代码是这么用的
+    bSingle = bSingle.sort((a,b)=>{
+
+      //第一版接口没有cum字段，前端自己拼接，为了兼容老代码，增加一个字段，直接在排序的时候加上
+      a.notionalCum = a.cum;
+      b.notionalCum = b.cum;
+
+      return a.bracket - b.bracket
+    });
+
+    bracketList[s] = bSingle
+    bSingle.forEach(v=>{
+      bracketArr.push(v.initialLeverage)
+      maximumPosition.push(v.notionalCap)
+    })
+    bracketLeverageObj[s] = bracketArr
+    notionalCapObj[s] = maximumPosition
+  })
+
+  // console.info(bracketList['BTCUSDT'],bracketList['ETHUSDT'])
+
+  /*let item = data.data[0].data.find(v=>v.symbol == this.onlyCapitalSymbol) || {}
   let bracketSingle = item.brackets || []
   bracketSingle.map(v=>{
     v.notionalCum = this.cumFastMaintenanceAmount[v.bracket]
@@ -293,8 +320,12 @@ root.methods.re_getLeverageBracket = function(data){
   })
 
   bracketSingle = bracketSingle.sort((a,b)=>{return (a.bracket -b.bracket)});//必须按bracket倒序排序，其他代码是这么用的
-
-  this.$store.commit('CHANGE_LEVERAGE_BRACKET',bracketSingle);
+*/
+  // 暂时兼容H5的单币对，H5多币对可以屏蔽
+  this.$store.commit('CHANGE_LEVERAGE_BRACKET', bracketList['BTCUSDT']);
+  this.$store.commit('CHANGE_BRACKET_LIST',bracketList);
+  this.$store.commit('CHANGE_BRACKET_LEVERAGE',bracketLeverageObj);
+  this.$store.commit('CHANGE_BRACKET_NOTIONALCAP',notionalCapObj);
   // console.info('this is getLeverageBracket=',item,bracketSingle)
 }
 //查询杠杆分层标准出错

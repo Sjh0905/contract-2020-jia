@@ -1124,7 +1124,7 @@
   margin-bottom: 20px;
 }
 .mode-only-lever-high {
-  height: 18px;
+  height: 20px;
   margin-bottom: 20px;
 }
 /*调整杠杆 End*/
@@ -1367,7 +1367,7 @@
   width: 250px;
   line-height: 24px;
   top: 90%;
-  left: 6%;
+  left: 11%;
   font-size:12px;
   font-family:PingFangSC-Regular,PingFang SC;
   font-weight:400;
@@ -1382,7 +1382,7 @@
   width: 250px;
   line-height: 24px;
   top: 90%;
-  left: 1%;
+  left: 11%;
   font-size:12px;
   font-family:PingFangSC-Regular,PingFang SC;
   font-weight:400;
@@ -1397,7 +1397,7 @@
   width: 250px;
   line-height: 24px;
   top: 90%;
-  left: 22%;
+  left: 23%;
   font-size:12px;
   font-family:PingFangSC-Regular,PingFang SC;
   font-weight:400;
@@ -1428,7 +1428,7 @@
   width: 250px;
   line-height: 24px;
   top: 90%;
-  left: 16%;
+  left: 20.5%;
   font-size:12px;
   font-family:PingFangSC-Regular,PingFang SC;
   font-weight:400;
@@ -1438,7 +1438,21 @@
   z-index: 100;
 }
 
-
+.market-price-profit-stop-loss-shi {
+  display: none;
+  position: absolute;
+  width: 250px;
+  line-height: 24px;
+  top: 90%;
+  left: 0%;
+  font-size:12px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color: #0D0E23;
+  background: #fff;
+  padding: 10px;
+  z-index: 100;
+}
 /* ------------  开平器 begin-----------------*/
 
 .contract-bottle-opener {

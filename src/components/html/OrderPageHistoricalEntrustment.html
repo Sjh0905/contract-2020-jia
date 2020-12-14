@@ -153,8 +153,8 @@
 
              <div class="th td-turnover1" v-if="$route.name != 'historicalEntrust'">
                <div class="fenxiang-img flex" v-if="order.status == 'FILLED' && ((order.positionSide == 'BOTH' && (order.side == 'SELL'||order.side == 'BUY'))
-               ||(order.positionSide == 'SHORT' && order.side == 'BUY') || (order.positionSide == 'LONG' && order.side == 'SELL'))">
-                 <img src="../../assets/fenxiang.png" @click="SHOW_POSTER(order.orderId)" alt="">
+               ||(order.positionSide == 'SHORT' && order.side == 'BUY') || (order.positionSide == 'LONG' && order.side == 'SELL')) && order.symbol != 'ETHUSDT'">
+                 <img src="../../assets/fenxiang.png" @click="SHOW_POSTER(order)" alt="">
                </div>
                <div v-else class="else-color">--</div>
              </div>

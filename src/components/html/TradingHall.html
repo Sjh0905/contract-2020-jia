@@ -124,69 +124,46 @@
             <div class="progress-bar-title traddinghall-border-bottom relative flex-between">
               <!--交易类型-->
               <div class="progress-bar-title-left">
-                <div class="progress-bar-title-brand-default" v-if="positionModeSecond == 'closeWarehouse'" style="margin-left: 15px" :class="pendingOrderType == 'limitPrice' ? 'progress-bar-title-brand':''">
-<!--                  {{$t("fixedPrice")}}1-->
-                </div>
-                <div class="progress-bar-title-brand-default" v-else style="margin-left: 15px" :class="pendingOrderType == 'limitPrice' ? 'progress-bar-title-brand':''" @click="changePendingOrderType('limitPrice')">
+
+                <div class="progress-bar-title-brand-default" style="margin-left: 15px" :class="pendingOrderType == 'limitPrice' ? 'progress-bar-title-brand':''" @click="changePendingOrderType('limitPrice')">
                   {{$t("fixedPrice")}}
                 </div>
-                <div class="progress-bar-title-brand-default" v-if="positionModeSecond == 'closeWarehouse'" :class="pendingOrderType == 'marketPrice' ? 'progress-bar-title-brand':''" @click="changePendingOrderType('marketPrice')">
-
-                </div>
-                <div class="progress-bar-title-brand-default" v-if="positionModeSecond == 'openWarehouse'" :class="pendingOrderType == 'marketPrice' ? 'progress-bar-title-brand':''" @click="changePendingOrderType('marketPrice')">
+                <div class="progress-bar-title-brand-default" :class="pendingOrderType == 'marketPrice' ? 'progress-bar-title-brand':''" @click="changePendingOrderType('marketPrice')">
                   市价
                 </div>
-                <div class="progress-bar-title-brand-default" v-if="positionModeSecond == 'singleWarehouse'" :class="pendingOrderType == 'marketPrice' ? 'progress-bar-title-brand':''" @click="changePendingOrderType('marketPrice')">
-                  市价
-                </div>
-                <div class="progress-bar-title-brand-default" v-if="positionModeSecond == 'openWarehouse'" :class="pendingOrderType == 'limitProfitStopLoss' ? 'progress-bar-title-brand':''" @click="changePendingOrderType('limitProfitStopLoss')">
+                <div class="progress-bar-title-brand-default" v-show= "positionModeFirst == 'doubleWarehouseMode'" :class="pendingOrderType == 'limitProfitStopLoss' ? 'progress-bar-title-brand':''" @click="changePendingOrderType('limitProfitStopLoss')">
                   触发限价
-                  <img class="pointer"
-                       @mouseenter="openPositionBox('limit-profit-stop-loss')"
-                       @mouseleave="closePositionBox('limit-profit-stop-loss')"
-                       src="../../assets/contract/restricted_introduction.png" alt="">
-                </div>
-                <div class="progress-bar-title-brand-default" v-show= "positionModeSecond == 'closeWarehouse'" :class="pendingOrderType == 'limitProfitStopLoss' ? 'progress-bar-title-brand':''" @click="changePendingOrderType('limitProfitStopLoss')">
-                  触发限价止盈止损
                   <img class="pointer"
                        @mouseenter="openPositionBox('limit-profit-stop-loss-s')"
                        @mouseleave="closePositionBox('limit-profit-stop-loss-s')"
                        src="../../assets/contract/restricted_introduction.png" alt="">
                 </div>
-                <div class="progress-bar-title-brand-default" v-if="positionModeFirst == 'singleWarehouse'" :class="pendingOrderType == 'limitProfitStopLoss' ? 'progress-bar-title-brand':''" @click="changePendingOrderType('limitProfitStopLoss')">
+                <div class="progress-bar-title-brand-default" v-if="positionModeFirst == 'singleWarehouseMode'" :class="pendingOrderType == 'limitProfitStopLoss' ? 'progress-bar-title-brand':''" @click="changePendingOrderType('limitProfitStopLoss')">
                   限价止盈止损
                   <img class="pointer"
                        @mouseenter="openPositionBox('limit-profit-stop-loss')"
                        @mouseleave="closePositionBox('limit-profit-stop-loss')"
                        src="../../assets/contract/restricted_introduction.png" alt="">
                 </div>
-                <div class="limit-profit-stop-loss" v-if="positionModeSecond == 'openWarehouse'">
+                <div class="limit-profit-stop-loss-s" v-if="positionModeSecond == 'openWarehouse'">
                   <div>触发限价：</div>
                   当设定的价格被触发时， 触发限价委托会自动触发。交易者需要设定一个价格去触发该类型委托。该类委托可以应用于设置限价开仓。请注意，当保证金不足或仓位超过上限时系统会自动撤销执行该委托。
                 </div>
                 <div class="limit-profit-stop-loss-s" v-if="positionModeSecond == 'closeWarehouse'">
                   <div>触发限价止盈止损：</div>
-                  当设定的价格被触发时，限价止盈止损委托会自动触发。交易者需要设定一个价格去触发该类型委托。该类委托可以应用于设置限价止损和限价止盈委托。请注意，当保证金不足或仓位超过上限时系统会自动撤销执行该委托。
-                </div>
-                <div class="limit-profit-stop-loss" v-if="positionModeFirst == 'singleWarehouse'" >
+                  当设定的价格被触发时，限价止盈止损委托会自动触发。交易者需要设定一个价格去触发该类型委托。该类委托可以应用于设置限价止损和限价止盈。请注意，当保证金不足或仓位超过上限时系统会自动撤销执行该委托。                </div>
+                <div class="limit-profit-stop-loss" v-if="positionModeFirst == 'singleWarehouseMode'" >
                   <div>限价止盈止损：</div>
                   当设定的价格被触发时，限价止盈止损委托会自动触发。交易者需要设定一个价格去触发该类型委托。该类委托可以应用于设置限价止损和限价止盈委托。请注意，当保证金不足或仓位超过上限时系统会自动撤销执行该委托。
                 </div>
-                <div class="progress-bar-title-brand-default" v-if="positionModeSecond == 'openWarehouse'" :class="pendingOrderType == 'marketPriceProfitStopLoss' ? 'progress-bar-title-brand':''" @click="changePendingOrderType('marketPriceProfitStopLoss')">
+                <div class="progress-bar-title-brand-default" v-if="positionModeFirst == 'doubleWarehouseMode'" :class="pendingOrderType == 'marketPriceProfitStopLoss' ? 'progress-bar-title-brand':''" @click="changePendingOrderType('marketPriceProfitStopLoss')">
                   触发市价
-                  <img class="pointer"
-                       @mouseenter="openPositionBox('market-price-profit-stop-loss-1')"
-                       @mouseleave="closePositionBox('market-price-profit-stop-loss-1')"
-                       src="../../assets/contract/restricted_introduction.png" alt="">
-                </div>
-                <div class="progress-bar-title-brand-default" v-if="positionModeSecond == 'closeWarehouse'" :class="pendingOrderType == 'marketPriceProfitStopLoss' ? 'progress-bar-title-brand':''" @click="changePendingOrderType('marketPriceProfitStopLoss')">
-                  触发市价止盈止损
                   <img class="pointer"
                        @mouseenter="openPositionBox('market-price-profit-stop-loss-s')"
                        @mouseleave="closePositionBox('market-price-profit-stop-loss-s')"
                        src="../../assets/contract/restricted_introduction.png" alt="">
                 </div>
-                <div class="progress-bar-title-brand-default" v-if="positionModeFirst == 'singleWarehouse'" :class="pendingOrderType == 'marketPriceProfitStopLoss' ? 'progress-bar-title-brand':''" @click="changePendingOrderType('marketPriceProfitStopLoss')">
+                <div class="progress-bar-title-brand-default" v-if="positionModeFirst == 'singleWarehouseMode'" :class="pendingOrderType == 'marketPriceProfitStopLoss' ? 'progress-bar-title-brand':''" @click="changePendingOrderType('marketPriceProfitStopLoss')">
                   市价止盈止损
                   <img class="pointer"
                        @mouseenter="openPositionBox('market-price-profit-stop-loss')"
@@ -194,19 +171,18 @@
                        src="../../assets/contract/restricted_introduction.png" alt="">
                 </div>
 
-                <div class="market-price-profit-stop-loss-1" v-if="positionModeSecond == 'openWarehouse'">
+                <div class="market-price-profit-stop-loss-s" v-if="positionModeSecond == 'openWarehouse'">
                   <div>触发市价：</div>
                   当设定的价格被触发时， 触发市价委托会自动触发。交易者需要设定一个价格去触发该类型委托。该类委托可以应用于设置市价开仓。请注意，当保证金不足或仓位超过上限时系统会自动撤销执行该委托。
                 </div>
                 <div class="market-price-profit-stop-loss-s" v-if="positionModeSecond == 'closeWarehouse'">
                   <div>触发市价止盈止损：</div>
-                  当设定的价格被触发时，市价止盈止损委托会自动触发。交易者需要设定一个价格去触发该类型委托。该类委托可以应用于设置市价止损和市价止盈委托。请注意，当保证金不足或仓位超过上限时系统会自动撤销执行该委托。
-                </div>
-                <div class="market-price-profit-stop-loss" v-if="positionModeFirst == 'singleWarehouse'">
+                  当设定的价格被触发时，市价止盈止损委托会自动触发。交易者需要设定一个价格去触发该类型委托。该类委托可以应用于设置市价止损和市价止盈。请注意，当保证金不足或仓位超过上限时系统会自动撤销执行该委托。                </div>
+                <div class="market-price-profit-stop-loss" v-if="positionModeFirst == 'singleWarehouseMode'">
                   <div>市价止盈止损：</div>
                   当设定的价格被触发时，市价止盈止损委托会自动触发。交易者需要设定一个价格去触发该类型委托。该类委托可以应用于设置市价止损和市价止盈委托。请注意，当保证金不足或仓位超过上限时系统会自动撤销执行该委托。
                 </div>
-                <div class="contract-bottle-opener" @click="openBottleOpener()">
+                <div class="contract-bottle-opener" @click="openBottleOpener()" v-if="capitalSymbol == 'BTCUSDT'">
                   <img src="../../assets/bottle_opener.png" alt="">
                   开平器
                 </div>
@@ -325,7 +301,7 @@
 
                 <div class="margin-mode-btn pointer lever-num" @click="openSecurityDepositMode" v-if="marginModeType == 'quanCang'">全仓</div>
                 <div class="margin-mode-btn pointer lever-num" @click="openSecurityDepositMode" v-if="marginModeType == 'zhuCang'">逐仓</div>
-                <div class="margin-mode-btn lever-num pointer" @click="openLever">{{leverage}}X</div>
+                <div class="margin-mode-btn lever-num pointer" @click="openLever">{{currencyInfo[capitalSymbol].leverage}}X</div>
               </div>
             </div>
 
@@ -337,7 +313,8 @@
                              :positionModeSecond = "positionModeSecond" :pendingOrderType = "pendingOrderType"
                              :effectiveTime = 'effectiveTime' :reducePositionsSelected = 'reducePositionsSelected'
                              :latestPrice = 'latestPrice' :latestPriceVal = 'latestPriceVal' :availableBalance = 'availableBalance'
-                             :markPrice="markPrice" :marginType="marginType" :currentLength="currentLength"/>
+                             :markPrice="markPrice" :markPriceObj="markPriceObj" :marginType="marginType" :currentLength="currentLength"
+                             :positionRecords="positionRecords"/>
               </div>
               <div class="ProgressBar-wrap">
                 <!--卖-->
@@ -346,7 +323,8 @@
                              :positionModeSecond = "positionModeSecond" :pendingOrderType = "pendingOrderType"
                              :effectiveTime = 'effectiveTime' :reducePositionsSelected = 'reducePositionsSelected'
                              :latestPrice = 'latestPrice' :latestPriceVal = 'latestPriceVal' :availableBalance = 'availableBalance'
-                             :markPrice="markPrice" :marginType="marginType" :currentLength="currentLength"/>
+                             :markPrice="markPrice" :markPriceObj="markPriceObj" :marginType="marginType" :currentLength="currentLength"
+                             :positionRecords="positionRecords"/>
               </div>
             </div>
           </div>
@@ -434,8 +412,8 @@
     <div v-if="isNow === 4" class="trading-hall-order-box-detail">
       <OrderPosition :tradinghallLimit="tradinghallLimit" :latestPriceVal = 'latestPriceVal'
                      :effectiveTime = 'effectiveTime' :availableBalance='availableBalance'
-                     :markPrice = 'markPrice' @getPositionRisk="getIndex"
-                     :positionModeFirst = "positionModeFirst"/>
+                     :markPrice = 'markPrice' @getPositionRisk="getIndex" @getPositionList="setRecords"
+                     :markPriceObj = 'markPriceObj' :positionModeFirst = "positionModeFirst"/>
     </div>
     <div v-if="isNow === 5" class="trading-hall-order-box-detail">
       <OrderMarginBalance :tradinghallLimit="tradinghallLimit"/>
@@ -528,28 +506,30 @@
       <div class="body">
         <div class="block"  style="margin: 4px auto">
           <!-- <span class="demonstration">默认</span> -->
-          <p :class="'radiusa_blu1'" v-if="value>=0" @click="value=0" style="cursor:pointer"></p>
-          <p :class="'radiusa_blu2'" v-if="value>=25"@click="value=25" style="cursor:pointer"></p>
-          <p :class="'radiusa_blu3'" v-if="value>=50"@click="value=50" style="cursor:pointer"></p>
-          <p :class="'radiusa_blu4'" v-if="value>=75"@click="value=75" style="cursor:pointer"></p>
-          <p :class="'radiusa_blu5'" v-if="value>=100"@click="value=100" style="cursor:pointer"></p>
-          <p :class="'radiusa_blu6'" v-if="value>=125"@click="value=125" style="cursor:pointer"></p>
+<!--          <p :class="'radiusa_blu1'" v-if="value>=Object.keys(leverageMarks[capitalSymbol])[0]" @click="value=Object.keys(leverageMarks[capitalSymbol])[0]" style="cursor:pointer"></p>-->
+<!--          <p :class="'radiusa_blu2'" v-if="value>=Object.keys(leverageMarks[capitalSymbol])[1]"@click="value=Object.keys(leverageMarks[capitalSymbol])[1]" style="cursor:pointer"></p>-->
+<!--          <p :class="'radiusa_blu3'" v-if="value>=Object.keys(leverageMarks[capitalSymbol])[2]"@click="value=Object.keys(leverageMarks[capitalSymbol])[2]" style="cursor:pointer"></p>-->
+<!--          <p :class="'radiusa_blu4'" v-if="value>=Object.keys(leverageMarks[capitalSymbol])[3]"@click="value=Object.keys(leverageMarks[capitalSymbol])[3]" style="cursor:pointer"></p>-->
+<!--          <p :class="'radiusa_blu5'" v-if="value>=Object.keys(leverageMarks[capitalSymbol])[4]"@click="value=Object.keys(leverageMarks[capitalSymbol])[4]" style="cursor:pointer"></p>-->
+              <!--遍历出来会有问题-->
+          <p v-for="(v,index) in Object.keys(leverageMarks[capitalSymbol])" :class="calculatorClass[index]" v-if="value >= v" @click="value=Number(v)" style="cursor:pointer"></p>
           <el-slider
             v-model="value"
             :class="'el-slider_blu'"
-            :marks="marks"
+            :marks="leverageMarks[capitalSymbol]"
             show-input
-            :max="125"
+            :max="initialLeverage[0]"
             :min="1"
             :format-tooltip="formatTooltip"
           >
           </el-slider>
         </div>
       </div>
-      <div class="mode-only-lever">· 当前杠杆倍数最高可持有头寸：{{maxPosition}} USDT</div>
+
+      <div class="mode-only-lever" v-if="value>2">· 当前杠杆倍数最高可持有头寸：{{maxPosition}}  USDT</div>
 <!--      <div class="mode-error">当前合约存在持仓和挂单，不支持调整保证金模式</div>-->
       <div class="mode-only-lever-super txt-price-red" v-if="value > 20">· 当前杠杆倍数较高，请注意风险。</div>
-      <div class="mode-only-lever-high" v-else></div>
+      <div class="mode-only-lever-high"></div>
       <div class="mode-only-lever-super txt-price-red" v-if="popTextLeverage">· {{popTextLeverage}}</div>
       <div class="money-confirmation" @click="postLevelrage">确认</div>
       <!--确认不可点击状态-->

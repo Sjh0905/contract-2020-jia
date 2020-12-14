@@ -10,6 +10,9 @@ export default class {
     this.socket = null;
     this.onMap = new Map()
     this.socketInterval = null
+    this.msgId = 0;
+    this.klineStreamType = '1m';//存储当前最新的K线订阅类型，在切换币对时使用
+    this.streamNames = ["@depth","@aggTrade","!markPrice@arr","!ticker@arr","@kline_"]
     // this.init()  //初始化ocket,由于在PreHandler里边对默认symbol做了处理,所以去main.js调用此函数做初始化操作
   }
 
@@ -32,10 +35,10 @@ export default class {
 
     this.socket.onopen = (event)=> {//这里必须写箭头函数，否则作用域出错
       this.socketInterval = null;//清空定时器
-      // this.socket.send(JSON.stringify({
-      //   method: 'SUBSCRIBE',
-      //   symbol: symbol || this.symbol
-      // }));
+      /*this.socket.send(JSON.stringify({
+        method: 'SUBSCRIBE',
+        symbol: symbol || this.symbol
+      }));*/
       this.onMap.forEach(function(keyMap,key){
         let funcArr = keyMap.get(CONNECTEDKEY);
         funcArr && funcArr.map(function(callBack){
@@ -47,19 +50,22 @@ export default class {
 
       symbol = (symbol || this.symbol)
       let subscribeStreamArr = [
-        symbol + "@depth",
-        symbol + "@aggTrade",
-        symbol + "@markPrice",
-        "!ticker@arr"
+        symbol + this.streamNames[0],
+        symbol + this.streamNames[1],
+        this.streamNames[2],
+        this.streamNames[3],
+        symbol + this.streamNames[4] + this.klineStreamType,
+        // symbol + "@kline_1m",
+        // symbol + "@markPrice",
       ]
 
-      subscribeStreamArr.push("btcusdt@kline_1m");
-      // subscribeStreamArr.push("btcusdt@kline_5m");
-      // subscribeStreamArr.push(this.symbol + "@kline_15m");
-      // subscribeStreamArr.push("btcusdt@kline_30m");
-      // subscribeStreamArr.push("btcusdt@kline_1h");
-      // subscribeStreamArr.push("btcusdt@kline_4h");
-      // subscribeStreamArr.push("btcusdt@kline_1d");
+      /*subscribeStreamArr.push(this.symbol + "@kline_1m");
+      subscribeStreamArr.push("btcusdt@kline_5m");
+      subscribeStreamArr.push(this.symbol + "@kline_15m");
+      subscribeStreamArr.push("btcusdt@kline_30m");
+      subscribeStreamArr.push("btcusdt@kline_1h");
+      subscribeStreamArr.push("btcusdt@kline_4h");
+      subscribeStreamArr.push("btcusdt@kline_1d");*/
 
       this.emit('SUBSCRIBE', subscribeStreamArr);
     }
@@ -154,6 +160,37 @@ export default class {
     // this.io.send(...params)
   }
 
+
+  /**
+   * 改变币对需要重新订阅实时成交、盘口、k线
+   * @param newVal
+   * @param oldVal
+   */
+  changeSymbol(newVal,oldVal){
+
+    newVal = GlobalFunction.toOnlyCapitalLetters(newVal,true)
+    // oldVal = GlobalFunction.toOnlyCapitalLetters(oldVal,true)
+    oldVal = this.symbol
+
+    let unSubscribeStreamArr = [
+      oldVal + this.streamNames[0],
+      oldVal + this.streamNames[1],
+      oldVal + this.streamNames[4] + this.klineStreamType,
+    ]
+    this.emit('UNSUBSCRIBE', unSubscribeStreamArr);
+
+    this.symbol = newVal;
+
+    let subscribeStreamArr = [
+      newVal + this.streamNames[0],
+      newVal + this.streamNames[1],
+      newVal + this.streamNames[4] + this.klineStreamType,
+    ]
+    this.emit('SUBSCRIBE', subscribeStreamArr);
+
+  };
+
+
   /**
    * 触发一个自定义事件
    * @param method     字符串，事件名称
@@ -161,14 +198,25 @@ export default class {
    */
   emit(method, params) {
 
-    //存储当期币对
-    this.symbol = params && params.symbol || '';
+    //存储当期币对，以后应该用不到了，this.symbol的最新值在changeSymbol里赋值
+    // this.symbol = params && params.symbol || '';
+
     // if (this.socket.readyState===1 && params && params.symbol) {
-      this.socket.send(JSON.stringify({
-        id:1,
-        method,
-        params
-      }));
+        this.socket.send(JSON.stringify({
+          id:++this.msgId,
+          method,
+          params
+        }));
+
+        let ks = this.streamNames[4];
+
+        //存储K线最新订阅类型
+        if(method == "SUBSCRIBE" && Array.isArray(params)){
+          let kName = params.find(v=> v && v.indexOf(ks)>-1) || '';
+          let kType = kName.split(ks)[1];
+
+          !!kType && (this.klineStreamType = kType)
+        }
     // }
   }
 

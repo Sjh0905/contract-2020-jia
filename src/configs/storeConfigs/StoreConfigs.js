@@ -187,6 +187,8 @@ store.state.baseCurrency = 'BTC'
 store.state.quoteConfig = [
   {name: 'BTC_USDT', baseScale: 3, quoteScale: 2},
   {name: 'BTCUSDT', baseScale: 3, quoteScale: 2},
+  {name: 'ETH_USDT', baseScale: 3, quoteScale: 2},
+  {name: 'ETHUSDT', baseScale: 3, quoteScale: 2},
 ]
 
 /**
@@ -237,7 +239,16 @@ store.state.authState = {
 }
 
 store.state.symbol = ''
-store.state.subscribeSymbol = 'BTCUSDT'
+store.state.subscribeSymbol = ''
+
+//不加下划线币对名集合
+store.state.sNameList = []
+//加下划线币对名集合
+store.state.sLineNameList = []
+//币对名映射，格式 BTCUSDT:BTC_USDT
+store.state.sNameMap = []
+
+
 
 /**
  * 服务器时间
@@ -364,6 +375,24 @@ store.state.orderBookTicker = {
  * @type {Array}
  */
 store.state.leverageBracket = []
+store.state.bracketList = {}
+store.state.bracketLeverage = {}
+store.state.bracketNotionalcap = {}
+
+/**
+ * 杠杆、保证金 信息存储
+ * @type {Object}
+ */
+store.state.currencyInfo = {
+  BTCUSDT:{
+    leverage:20,
+    marginType:'cross'
+  },
+  ETHUSDT:{
+    leverage:20,
+    marginType:'cross'
+  },
+}
 
 /**
  * socket ListenKey
@@ -476,6 +505,31 @@ store.mutations.CHANGE_ORDER_BOOK_TICKER = (state, info) => {
 // 改变 杠杆分层标准
 store.mutations.CHANGE_LEVERAGE_BRACKET = (state, info) => {
   state.leverageBracket = info;
+}
+
+// 改变 杠杆分层标准列表
+store.mutations.CHANGE_BRACKET_LIST = (state, info) => {
+  state.bracketList = info;
+}
+// 杠杆分层杠杆倍数
+store.mutations.CHANGE_BRACKET_LEVERAGE = (state, info) => {
+  state.bracketLeverage = info;
+}
+
+// 杠杆分层杠杆倍数
+store.mutations.CHANGE_BRACKET_NOTIONALCAP = (state, info) => {
+  state.bracketNotionalcap = info;
+}
+
+/**
+ * 改变杠杆、保证金 信息存储
+ * @type {Object}
+ */
+store.mutations.CHANGE_CURRENCY_INFO = (state, info) => {
+  state.currencyInfo = info;
+  // 兼容单币对杠杆倍数存储方式 需要重新转换 state.leverage 为当前选中币对的杠杆倍数值
+  state.leverage = info[GlobalFunc.toOnlyCapitalLetters(state.symbol)].leverage
+  // state.currencyInfo[GlobalFunc.toOnlyCapitalLetters(state.symbol)].marginType = Object.assign(info);
 }
 
 // 改变 listenKey
@@ -600,6 +654,7 @@ store.mutations.changeMobileTradingHallFlag = (state, data) => {
 store.mutations.changeMobileSymbolType = (state, data) => {
   console.log(data)
   state.symbol = data;
+  state.subscribeSymbol = GlobalFunc.toOnlyCapitalLetters(state.symbol);
 }
 
 /**
@@ -1112,6 +1167,21 @@ store.mutations.ENTER_CONTRACT = (state, info) => {
 
 store.mutations.SET_SYMBOL = (state, info) => {
   state.symbol = info
+  // 兼容单币对杠杆倍数存储方式 需要重新转换 state.leverage 为当前选中币对的杠杆倍数值
+  state.leverage = state.currencyInfo[GlobalFunc.toOnlyCapitalLetters(state.symbol)].leverage
+  state.subscribeSymbol = GlobalFunc.toOnlyCapitalLetters(state.symbol);
+}
+
+store.mutations.SET_S_NAME_LIST = (state, info) => {
+  state.sNameList = info
+}
+
+store.mutations.SET_S_LINE_NAME_LIST = (state, info) => {
+  state.sLineNameList = info
+}
+
+store.mutations.SET_S_NAME_MAP = (state, info) => {
+  state.sNameMap = info
 }
 
 store.mutations.changeMobilePopOpen = (state, info) => {

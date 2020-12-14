@@ -82,8 +82,9 @@
     <div class="market-price-list">
       <ul ref="scroll_top">
         <li class="market-price-list-li flex-row market-price-list-acbg"
-            :class="symbol == item.name ? 'market-price-list-li-background' : ''"
+            :class="capitalSymbol == item.symbol ? 'market-price-list-li-background' : ''"
             v-for="(item,key) in (searchText ? searchList : mSymbolList)"
+            @click="slectSymbol(item.symbol,item)"
             >
 <!--            @click="slectSymbol(item.symbol,item)">-->
 

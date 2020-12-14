@@ -77,24 +77,24 @@
       <!--左侧部分-->
       <div class="left-container" :class="{'left-container-default' : is_right}">
 
-        <div v-if="positionModeFirst=='singleWarehouse'">
+        <div v-if="positionModeFirst=='singleWarehouseMode'">
           <el-select class="inputInner" value-key="currencyKey" v-model="optionVal"
                      filterable placeholder="" @change="changeOptionData">
             <el-option v-for="item in optionData" :key="item" :label="item" :value="item"></el-option>
           </el-select>
         </div>
-        <div v-if="positionModeSecond=='openWarehouse'">
+        <div v-if="positionModeFirst=='doubleWarehouseMode'">
           <el-select class="inputInner" value-key="currencyKey" v-model="optionVal"
                      filterable placeholder="" @change="changeOptionData">
             <el-option v-for="item in optionData2" :key="item" :label="item" :value="item"></el-option>
           </el-select>
         </div>
-        <div v-if="positionModeSecond=='closeWarehouse'">
-          <el-select class="inputInner" value-key="currencyKey" v-model="optionVal"
-                     filterable placeholder="" @change="changeOptionData">
-            <el-option v-for="item in optionData3" :key="item" :label="item" :value="item"></el-option>
-          </el-select>
-        </div>
+<!--        <div v-if="positionModeSecond=='closeWarehouse'">-->
+<!--          <el-select class="inputInner" value-key="currencyKey" v-model="optionVal"-->
+<!--                     filterable placeholder="" @change="changeOptionData">-->
+<!--            <el-option v-for="item in optionData3" :key="item" :label="item" :value="item"></el-option>-->
+<!--          </el-select>-->
+<!--        </div>-->
 
 
         <div v-if="isHasModule('triggerPrice')" class="trigger-box flex-between">
@@ -174,11 +174,11 @@
           <span v-if="isHasModule('kaipingType') == 1" class="security-deposit-text">可开</span>
           <span v-if="isHasModule('kaipingType') == 2" class="security-deposit-text">可平</span>
           <!--单仓 买卖 可开-->
-          <span class="security-deposit-amount" v-if="isHasModule('kaipingType') == 1 && positionModeFirst == 'singleWarehouseMode'">{{toFixed(canMore,3)}} BTC</span>
+          <span class="security-deposit-amount" v-if="isHasModule('kaipingType') == 1 && positionModeFirst == 'singleWarehouseMode'">{{toFixed(canMore,3)}} {{symbol.split('_')[0]}}</span>
           <!--双仓 平仓 开多 可开-->
-          <span class="security-deposit-amount" v-if="isHasModule('kaipingType') == 1 && positionModeFirst == 'doubleWarehouseMode'">{{toFixed(canBeOpened[0],3)}} BTC</span>
+          <span class="security-deposit-amount" v-if="isHasModule('kaipingType') == 1 && positionModeFirst == 'doubleWarehouseMode'">{{toFixed(canBeOpened[0],3)}} {{symbol.split('_')[0]}}</span>
           <!--双仓 开仓 平空 可平-->
-          <span class="security-deposit-amount" v-if="isHasModule('kaipingType') == 2">{{Math.abs(positionAmtShort)}} BTC</span>
+          <span class="security-deposit-amount" v-if="isHasModule('kaipingType') == 2">{{Math.abs(positionAmtShort)}} {{symbol.split('_')[0]}}</span>
         </div>
 
         <!----------------------------------------------单仓 btn start---------------------------------------------------------->
