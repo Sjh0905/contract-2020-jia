@@ -17,6 +17,8 @@ root.data = function () {
     positionModeSecond:'openWarehouse',//单仓 singleWarehouse 开仓 openWarehouse 平仓 closeWarehouse
     pendingOrderType:'marketPrice',//限价 limitPrice 市价 marketPrice 限价止盈止损 limitProfitStopLoss 市价止盈止损 marketPriceProfitStopLoss
     /*合约仓位模式end*/
+    // 双仓修改
+    openSide:'long',
 
     /*下拉框1 begin*/
     optionVal:'市价单',
@@ -1116,6 +1118,9 @@ root.computed.isApp = function () {
 /*------------------------------ 方法 begin -------------------------------*/
 
 root.methods = {}
+root.methods.selectOpenType = function (type) {
+  this.openSide = type
+}
 // 获取用户可用余额
 root.methods.getBalance = function () {
   this.$http.send('GET_BALAN_ACCOUNT',{
@@ -1637,6 +1642,7 @@ root.methods.re_postOrdersCreate = function (data) {
   }
   if(data.data.status == 'NEW_INSURANCE') {
     this.popType = 1;
+    this.popText = '风险保障基金(强平)';
     this.popText = '风险保障基金(强平)';
     return
   }

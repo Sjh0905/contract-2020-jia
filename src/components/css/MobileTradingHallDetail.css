@@ -43,6 +43,7 @@
   border-radius: 0.03rem;
 }
 
+
 .header-title-item-lv{
   height: 0.7rem;
   /*width: 1.6rem;*/
@@ -189,21 +190,49 @@
 
 .inputInner-trigger >>> .el-input__inner {
   width: 1.3rem;
-  height: 0.76rem;
+  height: 0.8rem;
 }
 
 .inputInner-trigger >>> .el-input__suffix {
-  height: 0.78rem;
+  height: 0.64rem;
 }
 
-
+.open-side-type {
+  margin-top: 0.12rem;
+}
+.open-side {
+  width: 2rem;
+  height: 0.64rem;
+  line-height: 0.64rem;
+  text-align: center;
+  font-size: 0.28rem;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #FFFFFF;
+  border-radius: 0.02rem 0rem 0rem 0.02rem;
+  border: 1px solid #262C39;
+}
+.long-type {
+  /*width: 2rem;*/
+  /*height: 0.64rem;*/
+  background: rgba(20, 205, 22, 0.1);
+  border-radius: 0.02rem 0rem 0rem 0.02rem;
+  border: 1px solid #14CD16;
+}
+.short-type {
+  /*width: 2rem;*/
+  /*height: 0.64rem;*/
+  background: rgba(218, 11, 110, 0.1);
+  border-radius: 0.02rem 0rem 0rem 0.02rem;
+  border: 1px solid #DA0B6E;
+}
 .mobile-change-num-trigger{
   margin-left: 0.12rem;
   width: 2.1rem;
   box-sizing: content-box;
   border-radius: 0.03rem;
   border: 0.01rem solid #223349;
-  height: 0.72rem;
+  height: 0.8rem;
 }
 .mobile-change-num{
   margin-top: 0.12rem;
@@ -211,15 +240,16 @@
   box-sizing: content-box;
   border-radius: 0.03rem;
   border: 0.01rem solid #223349;
-  height: 0.72rem;
+  height: 0.8rem;
+  margin-bottom: 0.12rem;
 }
 .mobile-change-num-market {
   width: 3.4rem;
   /*padding-left: 0.3rem;*/
   color:rgba(255,255,255,0.4);
   background: #172841;
-  height: 0.72rem;
-  line-height: 0.72rem;
+  height: 0.8rem;
+  line-height: 0.8rem;
   margin-top: 0.12rem;
   box-sizing: border-box;
   border-radius: 0.03rem;
@@ -276,7 +306,7 @@
 
 .mobile-change-num-input{
   display: inline-block;
-  height: 0.71rem;
+  height: 0.79rem;
   width: 100%;
   padding-left: 0.12rem;
   /*text-align: center;*/
@@ -405,6 +435,9 @@
 }
 .security-deposit{
   margin-top: 0.20rem;
+  margin-bottom: -0.06rem;
+}
+.security-deposit-short {
   margin-bottom: -0.06rem;
 }
 .security-deposit2{

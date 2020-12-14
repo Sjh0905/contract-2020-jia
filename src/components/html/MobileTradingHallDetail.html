@@ -76,6 +76,10 @@
     <div class="mobile-container" :class="isApp && 'mobile-container-app' || ''" >
       <!--左侧部分-->
       <div class="left-container" :class="{'left-container-default' : is_right}">
+        <!--可用-->
+        <div class="mobile-container-useable">
+          <span class="">{{$t("progressBar.able")}}</span> <span>{{toFixed(availableBalance,2)}} USDT</span>
+        </div>
 
         <div v-if="positionModeFirst=='singleWarehouseMode'">
           <el-select class="inputInner" value-key="currencyKey" v-model="optionVal"
@@ -95,7 +99,10 @@
 <!--            <el-option v-for="item in optionData3" :key="item" :label="item" :value="item"></el-option>-->
 <!--          </el-select>-->
 <!--        </div>-->
-
+        <div v-show="positionModeFirst=='doubleWarehouseMode'" class="open-side-type flex-between">
+          <div class="open-side" :class="openSide=='long'?'long-type':''" @click="selectOpenType('long')">开多</div>
+          <div class="open-side" :class="openSide =='short'?'short-type':''"  @click="selectOpenType('short')">开空</div>
+        </div>
 
         <div v-if="isHasModule('triggerPrice')" class="trigger-box flex-between">
           <el-select class="inputInner-trigger" value-key="'inputInner-trigger'" v-model="latestPrice"
@@ -134,20 +141,19 @@
           </span>
         </div>
 
-        <div class="mobile-container-useable">
-          <span class="">{{$t("progressBar.able")}}</span> <span>{{toFixed(availableBalance,2)}} USDT</span>
-        </div>
 
-<!--        <div class="mobile-select-num">-->
-<!--          <span class="mobile-select-num-item txt_80 mobile-select-num-item-selected" @click="sectionSelect(0.25)">25%</span>-->
-<!--          <span class="mobile-select-num-item txt_80" @click="sectionSelect(0.5)">50%</span>-->
-<!--          <span class="mobile-select-num-item txt_80" @click="sectionSelect(0.75)">75%</span>-->
-<!--          <span class="mobile-select-num-item txt_80" @click="sectionSelect(1)">100%</span>-->
-<!--        </div>-->
+
+        <div class="mobile-select-num">
+          <span class="mobile-select-num-item txt_80 mobile-select-num-item-selected" @click="sectionSelect(0.25)">25%</span>
+          <span class="mobile-select-num-item txt_80" @click="sectionSelect(0.5)">50%</span>
+          <span class="mobile-select-num-item txt_80" @click="sectionSelect(0.75)">75%</span>
+          <span class="mobile-select-num-item txt_80" @click="sectionSelect(1)">100%</span>
+        </div>
 
         <!--<div class="mobile-exchange-price">-->
           <!--&lt;!&ndash;{{!price || !amount? '交易额' : accMul(price,amount)}}（{{this.$store.state.symbol.split('_')[1]}}）&ndash;&gt;-->
         <!--</div>-->
+
 
         <!--TODO 目前移动端没有生效时间，如何处理-->
         <div v-if="isHasModule('passiveDelegation')" class="passive-delegation flex-row" >
@@ -165,18 +171,19 @@
 
         <!--保证金-->
         <div v-if="isHasModule('securityDeposit')" class="security-deposit flex-between">
-          <div class="security-deposit-text">保证金</div>
+          <!--如果是单仓和双仓的多仓使用-->
+          <div class="security-deposit-text" v-show="openSide=='long' || positionModeFirst == 'singleWarehouseMode'">保证金</div>
           <div class="security-deposit-amount" v-if="positionModeFirst == 'singleWarehouseMode'">{{securityDeposit || '0.00'}} USDT</div>
-          <div class="security-deposit-amount" v-if="positionModeFirst == 'doubleWarehouseMode'">{{securityDeposit[0] || '0.00'}} USDT</div>
+          <div class="security-deposit-amount" v-if="positionModeFirst == 'doubleWarehouseMode' && openSide=='long'">{{securityDeposit[0] || '0.00'}} USDT</div>
         </div>
 
         <div class="can-be-opened flex-between">
-          <span v-if="isHasModule('kaipingType') == 1" class="security-deposit-text">可开</span>
+          <span v-if="isHasModule('kaipingType') == 1 && (openSide=='long' || positionModeFirst == 'singleWarehouseMode') " class="security-deposit-text">可开</span>
           <span v-if="isHasModule('kaipingType') == 2" class="security-deposit-text">可平</span>
           <!--单仓 买卖 可开-->
           <span class="security-deposit-amount" v-if="isHasModule('kaipingType') == 1 && positionModeFirst == 'singleWarehouseMode'">{{toFixed(canMore,3)}} {{symbol.split('_')[0]}}</span>
           <!--双仓 平仓 开多 可开-->
-          <span class="security-deposit-amount" v-if="isHasModule('kaipingType') == 1 && positionModeFirst == 'doubleWarehouseMode'">{{toFixed(canBeOpened[0],3)}} {{symbol.split('_')[0]}}</span>
+          <span class="security-deposit-amount" v-if="isHasModule('kaipingType') == 1 && positionModeFirst == 'doubleWarehouseMode' && openSide=='long'">{{toFixed(canBeOpened[0],3)}} {{symbol.split('_')[0]}}</span>
           <!--双仓 开仓 平空 可平-->
           <span class="security-deposit-amount" v-if="isHasModule('kaipingType') == 2">{{Math.abs(positionAmtShort)}} {{symbol.split('_')[0]}}</span>
         </div>
@@ -196,25 +203,25 @@
 
         <!----------------------------------------------双仓 开仓 btn start---------------------------------------------------------->
         <!--双仓 开仓  限价  市价 postOrdersCreate-->
-        <div class="mobile-buy-btn" @click="openSplicedFrame('开多','postOrdersCreate',0)" v-if="isHasModule('buttonType2Create')">{{'开多'}}</div>
+        <div class="mobile-buy-btn" @click="openSplicedFrame('开多','postOrdersCreate',0)" v-if="isHasModule('buttonType2Create') && openSide=='long'">{{'开多'}}</div>
         <!--双仓 开仓  限价止盈止损  市价止盈止损 postFullStop-->
-        <div class="mobile-buy-btn" @click="openSplicedFrame('开多','postFullStop',0)" v-if="isHasModule('buttonType2Stop')">{{'开多'}}</div>
+        <div class="mobile-buy-btn" @click="openSplicedFrame('开多','postFullStop',0)" v-if="isHasModule('buttonType2Stop')&& openSide=='long'">{{'开多'}}</div>
 
         <!--保证金-->
-        <div class="security-deposit flex-between" v-if="isHasModule('securityDeposit') && isHasModule('kaipingType') == 1 && positionModeFirst == 'doubleWarehouseMode'">
+        <div class="security-deposit-short flex-between" v-if="isHasModule('securityDeposit') && isHasModule('kaipingType') == 1 && positionModeFirst == 'doubleWarehouseMode' && openSide=='short'">
           <div class="security-deposit-text">保证金</div>
           <div class="security-deposit-amount">{{securityDeposit[1] || '0.00'}} USDT</div>
         </div>
         <!--双仓 开仓 开空 可开-->
-        <div class="can-be-opened flex-between" v-if="isHasModule('kaipingType') == 1 && positionModeFirst == 'doubleWarehouseMode'">
+        <div class="can-be-opened flex-between" v-if="isHasModule('kaipingType') == 1 && positionModeFirst == 'doubleWarehouseMode' && openSide=='short'">
           <span class="security-deposit-text">可开</span>
           <span class="security-deposit-amount">{{toFixed(canBeOpened[1],3)}} BTC</span>
         </div>
 
         <!--双仓 开仓  限价  市价 postOrdersCreate-->
-        <div class="mobile-buy-btn mobile-sell-btn" @click="openSplicedFrame('开空','postOrdersCreate',1)" v-if="isHasModule('buttonType2Create')">{{'开空'}}</div>
+        <div class="mobile-buy-btn mobile-sell-btn" @click="openSplicedFrame('开空','postOrdersCreate',1)" v-if="isHasModule('buttonType2Create') && openSide=='short'">{{'开空'}}</div>
         <!--双仓 开仓  限价止盈止损  市价止盈止损 postFullStop-->
-        <div class="mobile-buy-btn mobile-sell-btn" @click="openSplicedFrame('开空','postFullStop',1)" v-if="isHasModule('buttonType2Stop')">{{'开空'}}</div>
+        <div class="mobile-buy-btn mobile-sell-btn" @click="openSplicedFrame('开空','postFullStop',1)" v-if="isHasModule('buttonType2Stop') && openSide=='short'">{{'开空'}}</div>
         <!----------------------------------------------双仓 开仓 btn end---------------------------------------------------------->
 
         <!----------------------------------------------双仓 平仓 btn start---------------------------------------------------------->
