@@ -120,9 +120,9 @@ root.methods.initViews = function (lang) {
     '60': '1h',
     '120': '2h',
     '240': '4h',
-    'D': '1d',
-    '3D': '3d',
-    '1W': '1w',
+    '1440': '1d',
+    '4320': '3d',
+    '10080': '1w',
   };
 
 	$(function () {
@@ -139,7 +139,7 @@ root.methods.initViews = function (lang) {
 				symbols_types: [],
 				supports_marks: false,
 				supports_time: true,
-				supported_resolutions: ['1', '5', '15', '30', '60','120', '240','D','3D','1W']
+				supported_resolutions: ['1', '5', '15', '30', '60','120', '240','1440','4320','10080']
 				// supported_resolutions: ["1S","1","60","D", "2D", "3D"]
 			});
 		}, 0);
@@ -171,7 +171,7 @@ root.methods.initViews = function (lang) {
 			MinimalPossiblePriceChange: 9,
 			has_intraday: true, // has minutes data?
 			has_seconds: true,
-			intraday_multipliers: ['1', '5', '15', '30', '60','120', '240','D','3D','1W'],
+			intraday_multipliers: ['1', '5', '15', '30', '60','120', '240','1440','4320','10080'],
 			seconds_multipliers: ['1'],
 			has_daily: true,
 			has_weekly_and_monthly: false,
@@ -180,7 +180,7 @@ root.methods.initViews = function (lang) {
       //价格坐标精度
 			volume_precision: 0,
 			// volume_precision: self.precision,
-			supported_resolutions: ['1', '5', '15', '30', '60','120', '240','D','3D','1W'],
+			supported_resolutions: ['1', '5', '15', '30', '60','120', '240','1440','4320','10080'],
 			// supported_resolutions :['1S',"1","60","D", "2D", "3D"],
 			data_status: 'streaming',
       e:0,
@@ -431,7 +431,7 @@ root.methods.initViews = function (lang) {
       self.currResolution = resolution
 
       let newKlineStream = getKLineStream(symbol,self.currResolution)
-      console.log('this is curr resolution',symbol,self.currResolution,newKlineStream);
+      console.log('this is curr resolution22',symbol,self.currResolution,newKlineStream);
       self.$socket.emit('SUBSCRIBE', [newKlineStream])
     }
 
@@ -490,7 +490,7 @@ root.methods.initViews = function (lang) {
       toolbar_bg: '#0D111F',
 
       favorites: {
-				intervals: ["1S", "1", "5", "15", "30", "60","120", "240",'D', '3D', 'W'],
+				intervals: ["1S", "1", "5", "15", "30", "60","120", "240",'1440', '4320', '10080'],
 				chartTypes: ["Candles"]
 			},
       // favorites: {
@@ -634,7 +634,7 @@ root.methods.initViews = function (lang) {
 			},
 
 			favorites: {
-				intervals: ["1S","1", "5", "15", "30", "60","120", "240","D","3D","1W"],
+				intervals: ["1S","1", "5", "15", "30", "60","120", "240","1440","4320","10080"],
 				chartTypes: ["Candles"]
 			},
 		};
@@ -736,7 +736,7 @@ root.methods.initViews = function (lang) {
 					});
 				})
 			} else {  // pc端切换显示
-				let intervals_list = [ "1", "5", "15", "30", "60","120", "240","D","3D","1W"]
+				let intervals_list = [ "1", "5", "15", "30", "60","120", "240","1440","4320","10080"]
 				let intervals_key = 0;
 				for (var i = 0; i < intervals_list.length; i++) {
 					let item = intervals_list[i];
@@ -747,7 +747,7 @@ root.methods.initViews = function (lang) {
 				// 添加分时
 				let line = lang == 'en' ? 'line' : '分时';
 				let new_interval_btn_list =
-          lang == 'en' ? [{title: '1m'}, {title: '5m'}, {title: '15m'}, {title: '30m'}, {title: '1H'}, {title: '2H'},{title: '4H'},{title: 'D'},{title: '3D'},{title: 'W'}]
+          lang == 'en' ? [{title: '1m'}, {title: '5m'}, {title: '15m'}, {title: '30m'}, {title: '1H'}, {title: '2H'},{title: '4H'},{title: 'D'},{title: '3D'},{title: '7D'}]
         :[{title: '1分钟'}, {title: '5分钟'}, {title: '15分钟'}, {title: '30分钟'}, {title: '1小时'}, {title: '2小时'},{title: '4小时'},{title: '1天'},{title: '3天'},{title: '1周'}];
 				widget.createButton().attr('title', line).on('click', function (e) {
 					$(this).parents('.group').siblings().find('.button').children('span').removeClass('new_selected')
