@@ -311,8 +311,8 @@ root.methods.closePop = function () {
 root.methods.ensurePop = async function () {
 
   let params = {
-    symbol: this.capitalSymbol,
-    timestamp:this.serverTime
+    // symbol: this.capitalSymbol,
+    // timestamp:this.serverTime
   }
   this.$http.send('GET_CAPITAL_CANCELALL',{
     bind: this,
