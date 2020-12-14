@@ -50,7 +50,7 @@
         <div class="h-third-line-item mobile-header-volume">
           <div class="mobile-header-volume-title">24H量</div>
 <!--          <div class="mobile-header-volume-value" v-if="$store.state.symbol== 'GRC_USDT'">{{(volume>=1000 && volume>0) ? $globalFunc.accFixed(volume/1000,2)+'k':volume}}</div>-->
-          <div class="mobile-header-volume-value">{{volume}}</div>
+          <div class="mobile-header-volume-value">{{toFixed(volume,2)}}</div>
         </div>
       </div>
     </div>

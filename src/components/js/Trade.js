@@ -748,7 +748,7 @@ root.methods.initViews = function (lang) {
 				// 添加分时
 				let line = lang == 'en' ? 'line' : '分时';
 				let new_interval_btn_list =
-          lang == 'en' ? [{title: '1m'}, {title: '5m'}, {title: '15m'}, {title: '30m'}, {title: '1H'}, {title: '2H'},{title: '4H'},{title: 'D'},{title: '3D'},{title: '7D'}]
+          lang == 'en' ? [{title: '1m'}, {title: '5m'}, {title: '15m'}, {title: '30m'}, {title: '1H'}, {title: '2H'},{title: '4H'},{title: 'D'},{title: '3D'},{title: '1W'}]
         :[{title: '1分钟'}, {title: '5分钟'}, {title: '15分钟'}, {title: '30分钟'}, {title: '1小时'}, {title: '2小时'},{title: '4小时'},{title: '1天'},{title: '3天'},{title: '1周'}];
 				widget.createButton().attr('title', line).on('click', function (e) {
 					$(this).parents('.group').siblings().find('.button').children('span').removeClass('new_selected')
