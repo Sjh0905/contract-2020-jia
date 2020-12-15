@@ -176,6 +176,7 @@ root.data = function () {
 
     // 资金费率  下次资金费时间
     markPrice: '', // 标记价格
+    markPriceObj: {}, // 多币对标记价格
     lastFundingRate: '', // 资金费率
     nextFundingTime: '',   // 下次资金费时间
 
@@ -315,6 +316,10 @@ root.components = {
 /*------------------------------ 计算 begin -------------------------------*/
 
 root.computed = {}
+//不加下划线币对集合
+root.computed.sNameList = function () {
+  return this.$store.state.sNameList || []
+}
 // 除去逐仓仓位保证金的钱包余额
 root.computed.crossWalletBalance = function () {
   return this.$store.state.assets.crossWalletBalance
@@ -1931,10 +1936,36 @@ root.methods.getMarkPricesAndCapitalRates = function () {
 // 获取币安最新标记价格和资金费率正确回调
 root.methods.re_getMarkPricesAndCapitalRates = function (data) {
   typeof(data) == 'string' && (data = JSON.parse(data));
-  // console.info('data========',data.data[0])
+  if(!data || !data.data)return;
+
+  this.sNameList.map(sv=>{
+    for (let i = 0,len = data.data.length; i < len; i++) {
+      let v = data.data[i];
+      if(sv == v.symbol){
+        //接口返回的字段名转换成和socket一致
+        v.s = v.symbol
+        v.p = (v.markPrice || '').toString();
+        v.r = v.lastFundingRate
+        v.T = v.nextFundingTime
+
+        this.markPriceObj[sv] = v;
+        break;
+      }
+    }
+  })
+
+  //当前选中币对数据
+  let msg =this.markPriceObj[this.capitalSymbol];
+  if(msg){
+    msg.p > 0 && (this.markPrice = msg.p)// 标记价格
+    msg.r > 0 && (this.lastFundingRate = msg.r)// 资金费率
+    msg.T > 0 && (this.nextFundingTime = msg.T)//下个资金时间
+  }
+
+  /*// console.info('data========',data.data[0])
   this.markPrice = (data.data[0].markPrice || '').toString()
   this.lastFundingRate = data.data[0].lastFundingRate || '--'
-  this.nextFundingTime = data.data[0].nextFundingTime || '--'
+  this.nextFundingTime = data.data[0].nextFundingTime || '--'*/
 //
 }
 // 获取币安最新标记价格和资金费率错误回调
@@ -2427,11 +2458,29 @@ root.methods.initSocket = function () {
   // 获取最新标记价格
   this.$socket.on({
     key: 'markPriceUpdate', bind: this, callBack: (message) => {
-      if(message.s === subscribeSymbol){
+
+      this.sNameList.map(sv=>{
+        for (let i = 0,len = message.length; i < len; i++) {
+          let v = message[i];
+          if(sv == v.s){
+            this.markPriceObj[sv] = v;
+            break;
+          }
+        }
+      })
+      //当前选中币对数据
+      let msg =this.markPriceObj[subscribeSymbol];
+      if(msg){
+        msg.p > 0 && (this.markPrice = msg.p)// 标记价格
+        msg.r > 0 && (this.lastFundingRate = msg.r)// 资金费率
+        msg.T > 0 && (this.nextFundingTime = msg.T)//下个资金时间
+      }
+
+      /*if(message.s === subscribeSymbol){
         message.p > 0 && (this.markPrice = message.p)// 标记价格
         message.r > 0 && (this.lastFundingRate = message.r)// 资金费率
         message.T > 0 && (this.nextFundingTime = message.T)//下个资金时间
-      }
+      }*/
     }
   })
 
