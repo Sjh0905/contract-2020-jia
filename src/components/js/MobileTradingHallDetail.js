@@ -1120,6 +1120,10 @@ root.computed.maxPosition = function () {
 root.computed.isApp = function () {
   return this.$route.query.isApp ? true : false
 }
+// 检验是否是安卓
+root.computed.isAndroid = function () {
+  return this.$store.state.isAndroid ? true : false
+}
 /*------------------------------ 方法 begin -------------------------------*/
 
 root.methods = {}
