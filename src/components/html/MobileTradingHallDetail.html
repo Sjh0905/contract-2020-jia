@@ -61,11 +61,12 @@
 
   <div v-if="positionModeFirst == 'doubleWarehouseMode'" class="mmenu">
     <ul class="flex-between">
-      <li class="header-title-item" :class="positionModeSecond == 'openWarehouse' ? 'header-title-item-active-blue' : ''" @click="changePositionModeSecond('openWarehouse')">
+<!--      :class="positionModeSecond == 'openWarehouse' ? 'header-title-item-active-blue' : ''" -->
+      <li class="header-title-item-long" :class="positionModeSecond == 'openWarehouse' ? 'header-title-item-long-blue' : ''" @click="changePositionModeSecond('openWarehouse')">
         开仓
       </li>
-      <li class="header-title-item" :class="positionModeSecond == 'closeWarehouse' ? 'header-title-item-active-blue' : ''" @click="changePositionModeSecond('closeWarehouse')">
-        平仓
+      <li class="header-title-item-short" :class="positionModeSecond == 'closeWarehouse' ? 'header-title-item-short-blue' : ''" @click="changePositionModeSecond('closeWarehouse')">
+        <span class="short-position">平仓</span>
       </li>
     </ul>
   </div>
@@ -100,8 +101,8 @@
 <!--          </el-select>-->
 <!--        </div>-->
         <div v-show="positionModeFirst=='doubleWarehouseMode'" class="open-side-type flex-between">
-          <div class="open-side" :class="openSide=='long'?'long-type':''" @click="selectOpenType('long')">开多</div>
-          <div class="open-side" :class="openSide =='short'?'short-type':''"  @click="selectOpenType('short')">开空</div>
+          <div class="open-side" :class="openSide=='long'?'long-type':''" @click="selectOpenType('long')">{{positionModeSecond == 'openWarehouse'?'开多':'平空'}}</div>
+          <div class="open-side" :class="openSide =='short'?'short-type':''"  @click="selectOpenType('short')">{{positionModeSecond == 'openWarehouse'?'开空':'平多'}}</div>
         </div>
 
         <div v-if="isHasModule('triggerPrice')" class="trigger-box flex-between">
@@ -143,13 +144,50 @@
 
 
 
-        <div class="mobile-select-num">
-          <span class="mobile-select-num-item txt_80 mobile-select-num-item-selected" @click="sectionSelect(0.25)">25%</span>
-          <span class="mobile-select-num-item txt_80" @click="sectionSelect(0.5)">50%</span>
-          <span class="mobile-select-num-item txt_80" @click="sectionSelect(0.75)">75%</span>
-          <span class="mobile-select-num-item txt_80" @click="sectionSelect(1)">100%</span>
+<!--        <div class="mobile-select-num">-->
+<!--          <span class="mobile-select-num-item txt_80 mobile-select-num-item-selected" @click="sectionSelect(0.25)">25%</span>-->
+<!--          <span class="mobile-select-num-item txt_80" @click="sectionSelect(0.5)">50%</span>-->
+<!--          <span class="mobile-select-num-item txt_80" @click="sectionSelect(0.75)">75%</span>-->
+<!--          <span class="mobile-select-num-item txt_80" @click="sectionSelect(1)">100%</span>-->
+<!--        </div>-->
+
+        <div class="mobile-select-num flex-between" v-show=" (positionModeFirst == 'doubleWarehouseMode' && openSide=='long') || (positionModeFirst == 'singleWarehouseMode' && orderType==0)">
+          <div class="mobile-select-num-item" :class="numed2==0.25?'mobile-select-color':''" @click="sectionSelect(0.25)">
+            <div class="select-lamp" :class="numed2 >=0.25 ?'select-lamp-light':''"></div>
+            <div>25%</div>
+          </div>
+          <div class="mobile-select-num-item" :class="numed2==0.5?'mobile-select-color':''" @click="sectionSelect(0.5)">
+            <div class="select-lamp" :class="numed2 >=0.5 ?'select-lamp-light':''"></div>
+            <div>50%</div>
+          </div>
+          <div class="mobile-select-num-item" :class="numed2==0.75?'mobile-select-color':''" @click="sectionSelect(0.75)">
+            <div class="select-lamp" :class="numed2 >=0.75 ?'select-lamp-light':''"></div>
+            <div>75%</div>
+          </div>
+          <div class="mobile-select-num-item" :class="numed2==1?'mobile-select-color':''" @click="sectionSelect(1)">
+            <div class="select-lamp" :class="numed2 >= 1 ?'select-lamp-light':''"></div>
+            <div>100%</div>
+          </div>
         </div>
 
+        <div class="mobile-select-num flex-between" v-show="(positionModeFirst == 'doubleWarehouseMode' && openSide=='short') || (positionModeFirst == 'singleWarehouseMode' && orderType==1)">
+          <div class="mobile-select-num-item" :class="numed2==0.25?'mobile-select-color-short':''" @click="sectionSelect(0.25)">
+            <div class="select-lamp" :class="numed2 >=0.25 ?'select-lamp-light-short':''"></div>
+            <div>25%</div>
+          </div>
+          <div class="mobile-select-num-item" :class="numed2==0.5?'mobile-select-color-short':''" @click="sectionSelect(0.5)">
+            <div class="select-lamp" :class="numed2 >=0.5 ?'select-lamp-light-short':''"></div>
+            <div>50%</div>
+          </div>
+          <div class="mobile-select-num-item" :class="numed2==0.75?'mobile-select-color-short':''" @click="sectionSelect(0.75)">
+            <div class="select-lamp" :class="numed2 >=0.75 ?'select-lamp-light-short':''"></div>
+            <div>75%</div>
+          </div>
+          <div class="mobile-select-num-item" :class="numed2==1?'mobile-select-color-short':''" @click="sectionSelect(1)">
+            <div class="select-lamp" :class="numed2 >= 1 ?'select-lamp-light-short':''"></div>
+            <div>100%</div>
+          </div>
+        </div>
         <!--<div class="mobile-exchange-price">-->
           <!--&lt;!&ndash;{{!price || !amount? '交易额' : accMul(price,amount)}}（{{this.$store.state.symbol.split('_')[1]}}）&ndash;&gt;-->
         <!--</div>-->
@@ -179,13 +217,13 @@
 
         <div class="can-be-opened flex-between">
           <span v-if="isHasModule('kaipingType') == 1 && (openSide=='long' || positionModeFirst == 'singleWarehouseMode') " class="security-deposit-text">可开</span>
-          <span v-if="isHasModule('kaipingType') == 2" class="security-deposit-text">可平</span>
+          <span v-if="isHasModule('kaipingType') == 2 && openSide=='long'" class="security-deposit-text"> 可平</span>
           <!--单仓 买卖 可开-->
           <span class="security-deposit-amount" v-if="isHasModule('kaipingType') == 1 && positionModeFirst == 'singleWarehouseMode'">{{toFixed(canMore,3)}} {{symbol.split('_')[0]}}</span>
           <!--双仓 平仓 开多 可开-->
           <span class="security-deposit-amount" v-if="isHasModule('kaipingType') == 1 && positionModeFirst == 'doubleWarehouseMode' && openSide=='long'">{{toFixed(canBeOpened[0],3)}} {{symbol.split('_')[0]}}</span>
           <!--双仓 开仓 平空 可平-->
-          <span class="security-deposit-amount" v-if="isHasModule('kaipingType') == 2">{{Math.abs(positionAmtShort)}} {{symbol.split('_')[0]}}</span>
+          <span class="security-deposit-amount" v-if="isHasModule('kaipingType') == 2 && openSide=='long'">{{Math.abs(positionAmtShort)}} {{symbol.split('_')[0]}}</span>
         </div>
 
         <!----------------------------------------------单仓 btn start---------------------------------------------------------->
@@ -226,9 +264,9 @@
 
         <!----------------------------------------------双仓 平仓 btn start---------------------------------------------------------->
         <!--双仓 平仓  限价  市价 postOrdersPosition-->
-        <div class="mobile-buy-btn" @click="openSplicedFrame('平空','postOrdersPosition',0)" v-if="isHasModule('buttonType3Create')">{{'平空'}}</div>
+        <div class="mobile-buy-btn" @click="openSplicedFrame('平空','postOrdersPosition',0)" v-if="isHasModule('buttonType3Create') && openSide=='long'">{{'平空'}}</div>
         <!--双仓 平仓  限价止盈止损  市价止盈止损 postFullStop-->
-        <div class="mobile-buy-btn" @click="openSplicedFrame('平空','postFullStop',0)" v-if="isHasModule('buttonType3Stop')">{{'平空'}}</div>
+        <div class="mobile-buy-btn" @click="openSplicedFrame('平空','postFullStop',0)" v-if="isHasModule('buttonType3Stop') && openSide=='long'">{{'平空'}}</div>
 
         <!--保证金-->
         <div v-if="isHasModule('kaipingType') == 2 && isHasModule('securityDeposit')" class="security-deposit flex-between">
@@ -236,15 +274,15 @@
           <div class="security-deposit-amount">{{securityDeposit || '0.00'}} USDT</div>
         </div>
         <!--双仓 开仓 平多 可平-->
-        <div v-if="isHasModule('kaipingType') == 2" class="can-be-opened flex-between">
+        <div v-if="isHasModule('kaipingType') == 2 && openSide=='short'" class="can-be-opened flex-between">
           <span class="security-deposit-text">可平</span>
           <span class="security-deposit-amount">{{Math.abs(positionAmtLong)}} BTC</span>
         </div>
 
         <!--双仓 平仓  限价  市价 postOrdersPosition-->
-        <div class="mobile-buy-btn mobile-sell-btn"  @click="openSplicedFrame('平多','postOrdersPosition',1)" v-if="isHasModule('buttonType3Create')">{{'平多'}}</div>
+        <div class="mobile-buy-btn mobile-sell-btn"  @click="openSplicedFrame('平多','postOrdersPosition',1)" v-if="isHasModule('buttonType3Create') && openSide=='short'">{{'平多'}}</div>
         <!--双仓 平仓  限价止盈止损  市价止盈止损 postFullStop-->
-        <div class="mobile-buy-btn mobile-sell-btn"  @click="openSplicedFrame('平多','postFullStop',1)" v-if="isHasModule('buttonType3Stop')">{{'平多'}}</div>
+        <div class="mobile-buy-btn mobile-sell-btn"  @click="openSplicedFrame('平多','postFullStop',1)" v-if="isHasModule('buttonType3Stop') && openSide=='short'">{{'平多'}}</div>
 
         <!----------------------------------------------双仓 平仓 btn end---------------------------------------------------------->
 

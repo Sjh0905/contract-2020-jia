@@ -1119,7 +1119,12 @@ root.computed.isApp = function () {
 
 root.methods = {}
 root.methods.selectOpenType = function (type) {
-  this.openSide = type
+  if(this.positionModeFirst == 'doubleWarehouseMode'){
+    this.openSide = type
+  }
+  // if(this.positionModeFirst == 'singleWarehouseMode'){
+  //   this.openSide = type
+  // }
 }
 // 获取用户可用余额
 root.methods.getBalance = function () {
@@ -2017,6 +2022,9 @@ root.methods.re_positionModeSelectedConfirm = function (data) {
     this.positionModeFirst = this.positionModeFirstTemp;
     this.getPositionsideDual()
     this.popWindowPositionModeBulletBox = false
+    // 将输入框和进度条清空
+    this.numed2 = 0
+    this.amount = ''
     return
   }
 
@@ -2950,32 +2958,65 @@ root.methods.RE_ACCOUNTS = function (data) {
 }
 
 // 百分比切换
-root.methods.sectionSelect = function (num) {
-	this.numed = num
-  if (this.orderType != 0) {
-    // this.amount = (this.currentSymbol.balance_order * num).toFixed(this.baseScale)
-    // console.log(this.baseScale)
-    this.amount = this.$globalFunc.accFixed(this.currentSymbol.balance_order * num, this.baseScale);
-    return
-  } else {
-    if (this.price) {
-      this.amount = this.$globalFunc.accFixed(this.currentSymbol.balance * num / this.price, this.baseScale)
-    }
-  }
-}
+// root.methods.sectionSelect = function (num) {
+// 	this.numed = num
+//   if (this.orderType != 0) {
+//     // this.amount = (this.currentSymbol.balance_order * num).toFixed(this.baseScale)
+//     // console.log(this.baseScale)
+//     this.amount = this.$globalFunc.accFixed(this.currentSymbol.balance_order * num, this.baseScale);
+//     return
+//   } else {
+//     if (this.price) {
+//       this.amount = this.$globalFunc.accFixed(this.currentSymbol.balance * num / this.price, this.baseScale)
+//     }
+//   }
+// }
 
-root.methods.sectionSelect2 = function (num) {
+root.methods.sectionSelect = function (num) {
 	this.numed2 = num
-	if (this.orderType != 0) {
-		// this.amount = (this.currentSymbol.balance_order * num).toFixed(this.baseScale)
-		// console.log(this.baseScale)
-		this.amount = this.$globalFunc.accFixed(this.currentSymbol.balance_order * num, this.baseScale);
-		return
-	} else {
-		if (this.price) {
-			this.amount = (this.currentSymbol.balance * num / this.price).toFixed(this.baseScale)
-		}
-	}
+  // console.info(this.numed2)
+ // 双仓开多
+  if(this.positionModeSecond == 'openWarehouse' && this.openSide=='long'){
+    this.amount = this.$globalFunc.accFixed(this.canBeOpened[0] * num, this.baseScale);
+  }
+  // 双仓开空
+  if(this.positionModeSecond == 'openWarehouse' && this.openSide=='short'){
+    this.amount = this.$globalFunc.accFixed(this.canBeOpened[1] * num, this.baseScale);
+  }
+  // 双仓平空
+  if(this.positionModeSecond == 'closeWarehouse' && this.openSide=='long'){
+    this.amount = this.$globalFunc.accFixed(this.positionAmtShort * num, this.baseScale);
+  }
+  // 双仓平多
+  if(this.positionModeSecond == 'closeWarehouse' && this.openSide=='short'){
+    this.amount = this.$globalFunc.accFixed(this.positionAmtLong * num, this.baseScale);
+  }
+  // 单仓开多
+  if(this.positionModeFirst == 'singleWarehouseMode' && this.orderType==0){
+    if(this.reducePositionsSelected){
+      this.amount = ''
+      return
+    }
+    this.amount = this.$globalFunc.accFixed(this.canMore * num, this.baseScale);
+  }
+  //  单仓开空
+  if(this.positionModeFirst == 'singleWarehouseMode' && this.orderType==1){
+    if(this.reducePositionsSelected){
+      this.amount = ''
+      return
+    }
+    this.amount = this.$globalFunc.accFixed(this.canMore * num, this.baseScale);
+  }
+	// if (this.orderType != 0) {
+	// 	// this.amount = (this.currentSymbol.balance_order * num).toFixed(this.baseScale)
+	// 	// console.log(this.baseScale)
+	// 	this.amount = this.$globalFunc.accFixed(this.currentSymbol.balance_order * num, this.baseScale);
+	// 	return
+	// } else {
+	// 	if (this.price) {
+	// 		this.amount = (this.currentSymbol.balance * num / this.price).toFixed(this.baseScale)
+	// 	}
+	// }
 }
 
 // 添加减少金额或数量
@@ -3194,7 +3235,19 @@ root.computed.isLogin = function () {
   return this.$store.state.isLogin;
 }
 root.watch = {};
+root.watch.orderType = function (newVal,oldVal) {
+  if(newVal==oldVal)return
+  this.numed2 = 0
+  this.amount = ''
+}
+root.watch.openSide = function (newVal,oldVal) {
+  if(newVal==oldVal)return
+  this.numed2 = 0
+  this.amount = ''
+}
 root.watch.pendingOrderType  = function (){
+  this.numed2 = 0
+  this.amount = ''
   if(this.pendingOrderType == 'limitPrice' || this.pendingOrderType == 'marketPrice') {
     this.reducePositionsSelected = false
     return
@@ -3214,8 +3267,8 @@ root.watch.positionModeSecond  = function (){
     this.triggerPrice = ''
     this.price = ''
     this.amount = ''
+    this.numed2=0
   // }
-
 }
 root.watch.optionVal = function () {
   // if (this.positionModeSecond=='openWarehouse') {
