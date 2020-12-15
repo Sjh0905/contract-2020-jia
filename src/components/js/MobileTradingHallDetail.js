@@ -3718,7 +3718,7 @@ root.methods.changeHeaderBoxFlag = function (item) {
 
 }
 
-root.methods.changeMarketStatus = function(e){
+root.methods.changeMarketStatus = function(){
   this.isDisplayMarket = !this.isDisplayMarket;
 }
 

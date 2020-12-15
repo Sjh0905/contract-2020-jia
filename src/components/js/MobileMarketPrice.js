@@ -38,8 +38,10 @@ root.data = function () {
 
     // 货币市场列表
     currency_list: {},
+    marketSymbolList:[],
 
     // socket推送数据
+    socket24hrTicker:[],//symbol24小时ticker信息
     topic_bar: {},
     socket_price: {},
     socket_snap_shot: {}, //深度图
@@ -83,6 +85,10 @@ root.data = function () {
     popOpen: false,
     opening:false,
     opened:false,
+
+    mSymbolListTemp:[],//市场存储
+    mSymbolListPrice:{},//市场价格列表存储
+    lastTime:0
   }
 }
 // 检验是否是APP
@@ -105,6 +111,22 @@ root.computed.symbol = function () {
 //不加下划线币对
 root.computed.capitalSymbol = function () {
   return this.$globalFunc.toOnlyCapitalLetters(this.symbol);
+}
+﻿//不加下划线币对集合
+root.computed.sNameList = function () {
+  return this.$store.state.sNameList || []
+}
+﻿// 所有币对精度信息
+root.computed.quoteScale_list = function () {
+  let quoteScale_obj = {};
+  let quoteScale_list = this.$store.state.quoteConfig;
+  quoteScale_list.forEach(v => {
+    quoteScale_obj[v.name] = {
+      quoteScale: v.quoteScale,
+      baseScale: v.baseScale
+    };
+  })
+  return quoteScale_obj;
 }
 // 计算是否显示列表
 root.computed.headerBoxFlag = function () {
@@ -151,6 +173,89 @@ root.computed.marketList = function () {
   ans.push(...storeMarketList)
   return ans
 }
+﻿// ajax获取的数据
+root.computed.mSymbolList = function () {
+
+  //之前注释：mSymbolListTemp.length为0说明首次进入，mSymbolList取marketSymbolList的值,默认不刷新页面情况下币对个数不会变化，mSymbolListTemp.length>0就一直取本身
+  //最新理解：mSymbolListTemp.length ≠ sNameList.length 说明没有缓存所有币对，取marketSymbolList的值
+  let mSymbolList = this.mSymbolListTemp.length > this.sNameList.length - 1 ? this.mSymbolListTemp : this.marketSymbolList,
+    socket24hrTicker = this.socket24hrTicker.filter(v => this.sNameList.includes(v.s))
+
+  //默认接口不会调用多次，第一次进入后socket还没推送
+  if(socket24hrTicker.length == 0 && mSymbolList.length >= 0){
+
+    mSymbolList > 0 && (mSymbolList = this.compareSymbolPrePrice(mSymbolList))
+    this.mSymbolListTemp = mSymbolList;
+    return mSymbolList;
+  }
+
+  //收到socket推送但是接口没返回的情况，很少
+  if(socket24hrTicker.length > 0 && mSymbolList.length == 0){
+    socket24hrTicker = this.compareSymbolPrePrice(socket24hrTicker)
+    this.mSymbolListTemp = socket24hrTicker;
+    return socket24hrTicker;
+  }
+
+  //由于只有发生变化的ticker更新才会被推送，默认为socket24hrTicker.length <  mSymbolList.length,外层循环少的
+  // if(socket24hrTicker.length > 0 && mSymbolList.length > 0) {
+  for (let i = 0; i < socket24hrTicker.length; i++) {
+    let sItem = socket24hrTicker[i];
+    for (let j = 0; j < mSymbolList.length; j++) {
+      let v = mSymbolList[j];
+
+      if(!v.priceChangeArr){
+        v.priceChangeArr = [v.c]
+        // v.priceStep = 0
+      }
+
+      if(v.s == sItem.s){
+        // v = this.$globalFunc.mergeObj(v, sItem)
+
+        v.c = sItem.c
+        v.P = sItem.P
+        v.p = sItem.p
+
+        v.priceChangeArr.push(v.c);
+        let len = v.priceChangeArr.length
+        let step = len - 5
+        if(step > 0 ){
+          v.priceChangeArr.splice(0,step)
+          len = v.priceChangeArr.length
+        }
+        v.priceStep = this.accMinus(v.priceChangeArr[len-1] || 0, v.priceChangeArr[len-2] || 0)
+
+        // v.s == "BTCUSDT" && console.log('this is priceChangeArr priceStep',v.s,v.priceChangeArr,v.priceStep,v.priceStep>0);
+      }
+    }
+  }
+  // }
+
+  this.mSymbolListTemp = mSymbolList;
+
+  return mSymbolList;
+}
+﻿//价格处理
+root.methods.compareSymbolPrePrice = function (list) {
+  if(!Array.isArray(list) || list.length == 0)return []
+  list.map(v=>{
+    if(!v.priceChangeArr){
+      v.priceChangeArr = [v.c]
+      // v.priceStep = 0
+    }
+
+    v.priceChangeArr.push(v.c);
+    let len = v.priceChangeArr.length
+    let step = len - 5
+    if(step > 0 ){
+      v.priceChangeArr.splice(0,step)
+      len = v.priceChangeArr.length
+    }
+    v.priceStep = v.priceChangeArr[len-1] - v.priceChangeArr[len-2]
+  })
+
+  return list;
+}
+
 // 2018-4-10 添加 start
 root.computed.currencylist = function () {
   let currencyList = this.$globalFunc.mergeObj(this.socket_price, this.currency_list);
@@ -237,15 +342,15 @@ root.created = function () {
     // this.currencyType = this.$route.query.symbol
   }
 
-  // 获取不同货币对精度
-  this.getScaleConfig();
-  // 订阅socket
-  this.initSocket();
-
   // 获取币安最新价格
   this.getLatestrice()
   // 获取币安24小时价格变动接口
   this.initTicket24Hr()
+
+  // 获取不同货币对精度
+  // this.getScaleConfig();
+  // 订阅socket
+  this.initSocket();
 
 }
 
@@ -291,7 +396,7 @@ root.methods.initSocket = function () {
 
   // let subscribeSymbol = this.$store.state.subscribeSymbol;
   let subscribeSymbol = this.$globalFunc.toOnlyCapitalLetters(this.$store.state.symbol);
-  // 获取最新标记价格
+  /*// 获取最新标记价格
   this.$socket.on({
     key: 'markPriceUpdate', bind: this, callBack: (message) => {
       if(message.s === subscribeSymbol){
@@ -300,7 +405,7 @@ root.methods.initSocket = function () {
         message.T > 0 && (this.nextFundingTime = message.T)//下个资金时间
       }
     }
-  })
+  })*/
 
   // 获取币安24小时价格变动
   this.$socket.on({
@@ -308,18 +413,18 @@ root.methods.initSocket = function () {
       // console.log('24hrTicker is ===',message);
 
       this.socket24hrTicker = message;
-      var tickerData = message.find(v=>v.s === subscribeSymbol)
+     /* var tickerData = message.find(v=>v.s === subscribeSymbol)
 
       if(tickerData){
         tickerData.P && (this.priceChangePercent = tickerData.P)// 24小时价格变化(百分比)
         tickerData.h > 0 && (this.highPrice = tickerData.h)// 24小时内最高成交价
         tickerData.l > 0 && (this.lowPrice = tickerData.l)// 24小时内最低成交加
         tickerData.v && (this.volume = tickerData.v)// 24小时内成交量
-      }
+      }*/
     }
   })
 
-  // 获取深度图信息
+  /*// 获取深度图信息
   this.$socket.on({
     key: 'depthUpdate', bind: this, callBack: (message) => {
       // console.log('depth is ===',message);
@@ -349,18 +454,18 @@ root.methods.initSocket = function () {
       this.trade_loading = false;
       // console.log('aggTrade is ===',message);
     }
-  })
+  })*/
 
 }
 
 
-// 获取精度
+/*// 获取精度
 root.methods.getScaleConfig = function () {
   this.$store.state.quoteConfig.forEach(
     v => {
       v.name === this.symbol && (this.baseScale = v.baseScale , this.quoteScale = v.quoteScale)
     })
-}
+}*/
 
 // 展示货币对列表
 root.methods.changeHeaderBoxFlag = function () {
@@ -438,7 +543,7 @@ root.methods.initTicket24Hr = function () {
   this.$http.send('GET_TICKER_24HR',{
     bind: this,
     query:{
-      symbol:this.capitalSymbol
+      symbol:this.sNameList.toString()
     },
     callBack: this.re_initTicket24Hr,
     errorHandler:this.error_initTicket24Hr

@@ -16,21 +16,25 @@
               <tr class="mobile-market-title-first-tr">
                 <th>名称</th>
                 <th>最新价</th>
-                <th>涨跌幅</th>
+                <th>24H涨跌量</th>
               </tr>
               <!--<MobileHomePageMarketItem v-for="(item, key) in computedMarketList" :key="key" :item="item" :choosed="symbol===item.name" :socket_tick="socket_tick" :socket_price="socket_price" />-->
-              <tr v-for="(new_item, key) in computedMarketList" key="key" class="mobile-market-tr">
+              <tr v-for="(item, key) in mSymbolList" key="key" class="mobile-market-tr">
                 <td class="mobile-market-td-first">
-                  <p class="mobile-market-td-name"><span class="mobile-market-td-target-name">{{"BTCUSDT"}}</span></p>
+                  <p class="mobile-market-td-name"><span class="mobile-market-td-target-name">{{item.s}}</span></p>
                   <!--<p class="mobile-market-td-volume txt_40">24H {{$globalFunc.accFixed(1190, 0)}}</p>-->
                 </td>
                 <td class="mobile-market-td-second">
                   <!--<p class="mobile-market-td-current-price" >{{$globalFunc.accFixed(new_item.close, !!quoteScale_list[new_item.name] ? quoteScale_list[new_item.name].quoteScale : 8)}}</p>-->
-                  <p class="mobile-market-td-current-price" >{{$globalFunc.accFixed(4782, 2)}}</p>
+                  <p class="mobile-market-td-current-price" ﻿:class="(item.priceStep>0) && 'txt_green' || ((item.priceStep<0) && 'txt_red' || '')">
+                    {{$globalFunc.accFixed(item.c,!!quoteScale_list[item.s] ? quoteScale_list[item.s].quoteScale : 2)}}
+                  </p>
                   <!--<p class="mobile-market-td-current-up-fall">￥{{$globalFunc.accFixedCny(4782, 2)}}</p>-->
                 </td>
                 <td class="mobile-market-td-third">
-                  <p class="mobile-market-td-current-price">{{$globalFunc.accFixed(82,0)}}</p>
+                  <p class="mobile-market-td-current-price" ﻿:class="(item.p>=0) ? 'txt_green' : 'txt_red' ">
+                    {{$globalFunc.accFixed(item.p,!!quoteScale_list[item.s] ? quoteScale_list[item.s].quoteScale : 2)}}
+                  </p>
                   <!--<p class="mobile-market-td-current-up-fall">￥{{$globalFunc.accFixedCny(99, 2)+"%"}}</p>-->
                   <!--<div v-if="hall_symbol" class="_m_3ud flex-center" :class= "new_item.close-new_item.open>0?'m_3ud_up':(new_item.close-new_item.open < 0 ? 'm_3ud_dw' : '')">{{new_item.close-new_item.open>0? '+':''}}{{new_item.open == 0 ? '0.00' : ((new_item.close-new_item.open)/new_item.open*100).toFixed(2)}}%</div>-->
                   <!--<div v-if="!hall_symbol" class="_m_3ud_" :class= "new_item.close-new_item.open>0?'m_3ud_up_':(new_item.close-new_item.open < 0 ? 'm_3ud_dw_' : '')">{{new_item.close-new_item.open>0? '+':''}}{{new_item.open == 0 ? '0.00' : ((new_item.close-new_item.open)/new_item.open*100).toFixed(2)}}%</div>-->
