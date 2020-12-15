@@ -3044,19 +3044,24 @@ root.methods.sectionSelect = function (num) {
   }
   // 单仓开多
   if(this.positionModeFirst == 'singleWarehouseMode' && this.orderType==0){
-    if(this.reducePositionsSelected){
-      this.amount = ''
+    if(this.reducePositionsSelected && this.totalAmount < 0){
+      // console.info('this.totalAmount',this.totalAmount)
+      this.amount = this.$globalFunc.accFixed(Math.abs(this.totalAmount) * num, this.baseScale);
       return
     }
-    this.amount = this.$globalFunc.accFixed(this.canMore * num, this.baseScale);
+    if(!this.reducePositionsSelected){
+      this.amount = this.$globalFunc.accFixed(this.canMore * num, this.baseScale);
+    }
   }
   //  单仓开空
   if(this.positionModeFirst == 'singleWarehouseMode' && this.orderType==1){
-    if(this.reducePositionsSelected){
-      this.amount = ''
+    if(this.reducePositionsSelected && this.totalAmount > 0){
+      this.amount = this.$globalFunc.accFixed(Math.abs(this.totalAmount) * num, this.baseScale);
       return
     }
-    this.amount = this.$globalFunc.accFixed(this.canMore * num, this.baseScale);
+    if(!this.reducePositionsSelected){
+      this.amount = this.$globalFunc.accFixed(this.canMore * num, this.baseScale);
+    }
   }
 	// if (this.orderType != 0) {
 	// 	// this.amount = (this.currentSymbol.balance_order * num).toFixed(this.baseScale)
