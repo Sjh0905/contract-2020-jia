@@ -54,10 +54,10 @@
   display: inline-block;
   color: #fff;
   height: 0;
-  width: 1.1rem;
-  line-height: 0.7rem;
+  width: 1.4rem;
+  line-height: 0.65rem;
   padding-left: 0.1rem;
-  border-width: 0px 0.7rem 0.7rem 0px;
+  border-width: 0px 0.25rem 0.65rem 0px;
   border-style: none solid solid;
   border-color: transparent transparent #3E536C;
   text-align: center;
@@ -68,10 +68,10 @@
   display: inline-block;
   color: #fff;
   height: 0;
-  width: 1.1rem;
-  line-height: 0.7rem;
+  width: 1.4rem;
+  line-height: 0.65rem;
   padding-left: 0.1rem;
-  border-width: 0px 0.7rem 0.7rem 0px;
+  border-width: 0px 0.25rem 0.65rem 0px;
   border-style: none solid solid;
   border-color: transparent transparent #3576F5;
   text-align: center;
@@ -80,14 +80,15 @@
 }
 .header-title-item-short {
   position: absolute;
+  top: 1px;
   right: 0;
   display: inline-block;
   color: #fff;
   height: 0;
-  width: 1.1rem;
-  line-height: 0.7rem;
+  width: 1.4rem;
+  line-height: 0.65rem;
   padding-left: 0.1rem;
-  border-width: 0.7rem 0px 0px 0.7rem;
+  border-width: 0.65rem 0px 0px 0.25rem;
   border-style: solid solid none;
   border-color: #3E536C transparent transparent;
   text-align: center;
@@ -95,14 +96,15 @@
 }
 .header-title-item-short-blue {
   position: absolute;
+  top: 1px;
   right: 0;
   display: inline-block;
   color: #fff;
   height: 0;
-  width: 1.1rem;
-  line-height: 0.7rem;
+  width: 1.4rem;
+  line-height: 0.65rem;
   padding-left: 0.1rem;
-  border-width: 0.7rem 0px 0px 0.7rem;
+  border-width: 0.65rem 0px 0px 0.25rem;
   border-style: solid solid none;
   border-color: #3576F5 transparent transparent;
   text-align: center;
@@ -110,22 +112,50 @@
 }
 .short-position {
   position: absolute;
-  top: -0.7rem;
+  top: -0.65rem;
   width: 1rem;
-  right: 0.2rem;
+  right: 0.3rem;
 }
 
-.header-title-item-lv{
-  height: 0.7rem;
-  /*width: 1.6rem;*/
-  box-sizing: border-box;
-  border-bottom: 0.04rem solid transparent;
+.header-title-item-long-lv{
+  position: absolute;
+  display: inline-block;
+  color: #fff;
+  height: 0;
+  width: 1.4rem;
+  line-height: 0.65rem;
+  padding-left: 0.1rem;
+  border-width: 0px 0.25rem 0.65rem 0px;
+  border-style: none solid solid;
+  border-color: transparent transparent #86CB12;
   text-align: center;
-  /*color: #fff;*/
-  /*padding: 0 0.1rem;*/
-  color: #86CB12;
-  font-family: PingFangSC-Medium;
-  font-size: 0.4rem;
+  border-radius: 1px 0 0 1px;
+  /*height: 0.7rem;*/
+  /*!*width: 1.6rem;*!*/
+  /*box-sizing: border-box;*/
+  /*border-bottom: 0.04rem solid transparent;*/
+  /*text-align: center;*/
+  /*!*color: #fff;*!*/
+  /*!*padding: 0 0.1rem;*!*/
+  /*color: #86CB12;*/
+  /*font-family: PingFangSC-Medium;*/
+  /*font-size: 0.4rem;*/
+}
+.header-title-item-short-lv {
+  position: absolute;
+  top: 1px;
+  right: 0;
+  display: inline-block;
+  color: #fff;
+  height: 0;
+  width: 1.4rem;
+  line-height: 0.65rem;
+  padding-left: 0.1rem;
+  border-width: 0.65rem 0px 0px 0.25rem;
+  border-style: solid solid none;
+  border-color: #F60076 transparent transparent;
+  text-align: center;
+  border-radius: 0 1px 1px 0;
 }
 
 .progress-bar-position-title{

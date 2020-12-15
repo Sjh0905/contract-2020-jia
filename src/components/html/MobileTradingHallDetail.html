@@ -50,11 +50,11 @@
 
   <div v-if="positionModeFirst == 'singleWarehouseMode'" class="mmenu">
     <ul class="flex-between">
-      <li class="header-title-item" :class="orderType===0 ? 'header-title-item-active-lv' : ''" @click="changeType(0)">
+      <li class="header-title-item-long" :class="orderType===0 ? 'header-title-item-long-lv' : ''" @click="changeType(0)">
         {{$t('mobileTradingHallDetail.buy')}}
       </li>
-      <li class="header-title-item" :class="orderType===1 ? 'header-title-item-active-red' : ''" @click="changeType(1)">
-        {{$t('mobileTradingHallDetail.sale')}}
+      <li class="header-title-item-short" :class="orderType===1 ? 'header-title-item-short-lv' : ''" @click="changeType(1)">
+        <span class="short-position">{{$t('mobileTradingHallDetail.sale')}}</span>
       </li>
     </ul>
   </div>
