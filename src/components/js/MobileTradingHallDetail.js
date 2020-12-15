@@ -2971,7 +2971,9 @@ root.methods.RE_ACCOUNTS = function (data) {
 //     }
 //   }
 // }
-
+root.methods.getFocus = function () {
+  this.numed2 = 0
+}
 root.methods.sectionSelect = function (num) {
 	this.numed2 = num
   // console.info(this.numed2)

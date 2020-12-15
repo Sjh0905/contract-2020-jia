@@ -33,6 +33,8 @@ root.data = function () {
     },
     showPoster:false,
     orderId:'',
+    clientOrderId:'',
+    symbol:'',
     // 海报url
     poster_url: '',
     currencyValue:'庄终于，对我下手了',
@@ -264,7 +266,7 @@ root.methods.getHistorTrans = function () {
   this.$http.send('GET_CAPITAL_DEAL',{
     bind: this,
     query:{
-      symbol:this.capitalSymbol,
+      symbol:'',
       timestamp:this.serverTime
     },
     callBack: this.re_getHistorTrans,
@@ -304,7 +306,7 @@ root.methods.getHistorOrder = function () {
         // limit: (this.tradinghallLimit===10) ? this.tradinghallLimit : this.limit, //一次请求多少条订单
         // limit: 10, //一次请求多少条订单
         // isFinalStatus: true //是否是历史订单
-        symbol:this.capitalSymbol,
+        symbol:'',
         timestamp:this.serverTime
       },
       callBack: this.re_getOrder,
@@ -390,10 +392,12 @@ root.methods.error_getAssetSnapshot = function (err) {
 
 
 // 展示海报
-root.methods.SHOW_POSTER = function (orderId) {
+root.methods.SHOW_POSTER = function (order) {
   this.showPoster = true;
   // this.initialPosition = index
-  this.orderId = orderId
+  this.orderId = order.orderId
+  this.clientOrderId = order.clientOrderId
+  this.symbol = order.symbol
   this.getPosterImage()
 }
 // 获取海报
@@ -401,7 +405,8 @@ root.methods.getPosterImage = function () {
   this.loadingImage=true
   let params = {
     orderId:this.orderId,
-    symbol:this.capitalSymbol,
+    clientOrderId:this.clientOrderId,
+    symbol:this.symbol,
     picIndex:this.picIndex || 0,
   }
   this.$http.send('POST_ASSET_SNAPSHOT', {

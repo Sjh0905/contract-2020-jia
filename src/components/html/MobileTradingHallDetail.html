@@ -136,7 +136,7 @@
         </div>
 
         <div class="mobile-change-num">
-          <input class="mobile-change-num-input shuliannum" :placeholder="`数量`" type="number" v-model="amount">
+          <input class="mobile-change-num-input shuliannum" :placeholder="`数量`" type="number" v-model="amount" @input="getFocus">
           <span class="mobile-change-num-max mobile-change-num-symbol">
             {{symbol.split('_')[0]}}
           </span>
