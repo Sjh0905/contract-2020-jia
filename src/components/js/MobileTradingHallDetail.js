@@ -2987,7 +2987,7 @@ root.methods.sectionSelect = function (num) {
   }
   // 双仓平空
   if(this.positionModeSecond == 'closeWarehouse' && this.openSide=='long'){
-    this.amount = this.$globalFunc.accFixed(this.positionAmtShort * num, this.baseScale);
+    this.amount = this.$globalFunc.accFixed(Math.abs(this.positionAmtShort) * num, this.baseScale);
   }
   // 双仓平多
   if(this.positionModeSecond == 'closeWarehouse' && this.openSide=='short'){
