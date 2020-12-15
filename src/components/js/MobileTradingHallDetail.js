@@ -1258,14 +1258,14 @@ root.methods.postFullStop = function () {
     this.loading = false
     return
   }
-  if(this.amount == '' || this.amount == 0){
-    this.promptOpen = true;
-    this.popType = 0;
-    this.popText = '请输入正确的数量';
-    this.loading = false
-    this.currentLimiting = false
-    return
-  }
+  // if(this.amount == '' || this.amount == 0){
+  //   this.promptOpen = true;
+  //   this.popType = 0;
+  //   this.popText = '请输入正确的数量';
+  //   this.loading = false
+  //   this.currentLimiting = false
+  //   return
+  // }
   if(this.triggerPrice == ''){
     this.promptOpen = true;
     this.popType = 0;
@@ -1480,14 +1480,14 @@ root.methods.error_postFullStop = function (err) {
 // 开仓
 root.methods.postOrdersCreate = function () {
   this.loading = true
-  if(this.amount == ''|| this.amount == 0){
-    this.promptOpen = true;
-    this.popType = 0;
-    this.popText = '请输入正确的数量';
-    this.loading = false
-    this.currentLimiting = false
-    return
-  }
+  // if(this.amount == ''|| this.amount == 0){
+  //   this.promptOpen = true;
+  //   this.popType = 0;
+  //   this.popText = '请输入正确的数量';
+  //   this.loading = false
+  //   this.currentLimiting = false
+  //   return
+  // }
   let params = {}
   // 单仓 限价
   if (this.isHasModule('kaipingType') == 1 && this.isHasModule('buttonType') == 1 && this.pendingOrderType == 'limitPrice') {
@@ -1666,14 +1666,14 @@ root.methods.error_postOrdersCreate = function (err) {
 // 平仓
 root.methods.postOrdersPosition = function () {
   this.loading = true
-  if(this.amount == '' || this.amount == 0){
-    this.promptOpen = true;
-    this.popType = 0;
-    this.popText = '请输入正确的数量';
-    this.loading = false
-    this.currentLimiting = false
-    return
-  }
+  // if(this.amount == '' || this.amount == 0){
+  //   this.promptOpen = true;
+  //   this.popType = 0;
+  //   this.popText = '请输入正确的数量';
+  //   this.loading = false
+  //   this.currentLimiting = false
+  //   return
+  // }
   let params = {}
   // 双仓 平仓 限价 平多 传LONG ; 平空 传SHORT
   if (this.isHasModule('kaipingType') == 2 && this.isHasModule('buttonType') == 3 && this.pendingOrderType == 'limitPrice') {
@@ -3224,10 +3224,10 @@ root.methods.scientificToNumber = function (num) {
   }
 }
 
-// 监听数量和单价的变化 amount， price
-root.computed.transactionAmount = function () {
-  return this.amount;
-}
+// // 监听数量和单价的变化 amount， price
+// root.computed.transactionAmount = function () {
+//   return this.amount;
+// }
 
 root.computed.transactionPrice = function () {
   return this.price;
@@ -3240,12 +3240,10 @@ root.watch = {};
 root.watch.orderType = function (newVal,oldVal) {
   if(newVal==oldVal)return
   this.numed2 = 0
-  this.amount = ''
 }
 root.watch.openSide = function (newVal,oldVal) {
   if(newVal==oldVal)return
   this.numed2 = 0
-  this.amount = ''
 }
 root.watch.pendingOrderType  = function (){
   this.numed2 = 0

@@ -34,7 +34,7 @@ root.data = function () {
     showPoster:false,
     orderId:'',
     clientOrderId:'',
-    symbol:'',
+    symbolPoster:'',
     // 海报url
     poster_url: '',
     currencyValue:'勤劳致富，落袋为安',
@@ -399,7 +399,7 @@ root.methods.SHOW_POSTER = function (order) {
   // this.initialPosition = index
   this.orderId = order.orderId
   this.clientOrderId = order.clientOrderId
-  this.symbol = order.symbol
+  this.symbolPoster = order.symbol
   this.getPosterImage()
 }
 // 获取海报
@@ -408,7 +408,7 @@ root.methods.getPosterImage = function () {
   let params = {
     orderId:this.orderId,
     clientOrderId:this.clientOrderId,
-    symbol:this.symbol,
+    symbol:this.symbolPoster,
     picIndex:this.picIndex || 0,
   }
   this.$http.send('POST_ASSET_SNAPSHOT', {
