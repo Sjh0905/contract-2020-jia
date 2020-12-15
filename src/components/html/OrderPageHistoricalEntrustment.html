@@ -25,7 +25,7 @@
       <!--状态-->
       <div class="th td-price" :class="$route.name == 'historicalEntrust'?'td-turnover':'td-turnover1 td-turnover'">{{$t('状态')}}</div>
       <div class="th td-turnover" v-if="$route.name != 'historicalEntrust'" :class="'td-turnover1'">{{$t('分享')}}</div>
-<!--      <div class="th td-turnover1-1" v-if="$route.name != 'historicalEntrust'" :class="''"></div>-->
+      <div class="th td-turnover1-1" v-if="$route.name != 'historicalEntrust'" :class="''"></div>
     </li>
 
 
@@ -158,16 +158,16 @@
                </div>
                <div v-else class="else-color">--</div>
              </div>
-<!--             <div class="th td-turnover1-1" v-if="$route.name != 'historicalEntrust' && order.status == 'FILLED'">-->
-<!--               <img class="drop-down-1" src="../../assets/drop_down.png" alt="">-->
-<!--             </div>-->
-<!--             <div class="th td-turnover1-1" v-else>-->
+             <div class="th td-turnover1-1" v-if="$route.name != 'historicalEntrust' && order.status == 'FILLED'">
+               <img class="drop-down-1" src="../../assets/drop_down.png" alt="">
+             </div>
+             <div class="th td-turnover1-1" v-else>
 
-<!--             </div>-->
+             </div>
 
            </div>
            <!--展示详情(如果在交易，打不开详情)-->
-           <div v-if="clickThis === order.orderId  && $route.name == 'historicalEntrust'  && order.status == 'FILLED'"  class="tr-hidden">
+           <div v-if="clickThis === order.orderId  && order.status == 'FILLED'"  class="tr-hidden">
              <HiddenDetail :orderId="order.orderId" :symbol="order.symbol" :startTime="startTime" :endTime="endTime"/>
            </div>
 
