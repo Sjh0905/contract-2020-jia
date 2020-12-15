@@ -1359,15 +1359,15 @@
 }
 
 .hangqceb{
-  width: 80%;
+  width: 100%;
   height: 100%;
-  background-color: #131F30;
   position: fixed;
   top: 0;
   left: 0;
   z-index: 99999;
   color: #fff;
   overflow: scroll;
+  background-color: rgba(0,0,0,.5);
 }
 .hangqceb_mb{
   width: 100%;

@@ -2,9 +2,9 @@
   <div class="header-title-select-hq flex">
     <div class="hangqing-title flex-cloum">
       <div class="flex">
-        <!--<div class="hangqingtu"  @click="openhangq">-->
-          <!--<img src="../../assets/H5img/hangqing.png" alt="">-->
-        <!--</div>-->
+        <div class="hangqingtu"  @click="changeMarketStatus">
+          <img src="../../assets/H5img/hangqing.png" alt="">
+        </div>
         <div class="hangqingbid">
           {{capitalSymbol | e}}
         </div>
@@ -269,7 +269,6 @@
 
     </div>
   </div>
-
   <!--仓位-->
   <div v-if="listType== 'holdPosition'" class="container-current-page">
     <PositionList :latestPriceVal = 'isNowPrice' :effectiveTime = 'effectiveTime' :markPrice = 'markPrice' @getPositionRisk="getIndex" :availableBalance='availableBalance'
@@ -475,6 +474,8 @@
     </div>
   </div>
 
+
+
   <div v-if="!isApp" class="bottomenu">
     <table>
       <tr>
@@ -503,8 +504,9 @@
 
   </div>
 
-  <div class="hangqceb" v-show="isshowhangq">
-    <div class="hangqtitle">
+  <!--由于本页前边使用了绝对定位，必须包裹一层才能正常引入-->
+  <div class="hangqceb" v-show="isDisplayMarket" @click="changeMarketStatus">
+    <!--<div class="hangqtitle">
       <div class="hangqfont">行情</div>
       <div class="hangqclosetu" @click="openhangq"><img src="../../assets/H5img/hangqing.png" alt=""></div>
     </div>
@@ -515,11 +517,14 @@
            :class="diff24(item.open,item.close)<0?'hq-price-down':'hq-price-up'">
         {{toFixed(item.close, !!quoteScale_list[item.name] ? quoteScale_list[item.name].quoteScale : 8)}}</div>
 
-    </div>
+    </div>-->
 
+    <MobileMarketPrice :changeMarketStatus="changeMarketStatus"/>
   </div>
 
-  <div class="hangqceb_mb" v-show="isshowhangq"></div>
+
+
+  <div class="hangqceb_mb" v-show="isDisplayMarket"></div>
   <!--<div class="bottom-box"></div>-->
 
 </div>

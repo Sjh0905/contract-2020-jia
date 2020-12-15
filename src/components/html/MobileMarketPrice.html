@@ -1,0 +1,90 @@
+<!--click.stop 阻止冒泡-->
+<div class="mobile-trading-hall-box" @click.stop="()=>{}">
+  <div class="hangqtitle">
+    <div class="hangqfont">行情</div>
+    <div class="hangqclosetu" @click="changeMarketStatus"><img src="../../assets/H5img/hangqing.png" alt=""></div>
+  </div>
+  <div class="mobile-header-title-box">
+    <div class="mobile-header-title-list">
+      <div class="mobileHomePage">
+        <div class="mobile-market-table-box">
+          <table class="mobile-market-table">
+            <colgroup style="width:37%;"></colgroup>
+            <colgroup style="width:32%;"></colgroup>
+            <colgroup style="width:31%;"></colgroup>
+            <tbody>
+              <tr class="mobile-market-title-first-tr">
+                <th>名称</th>
+                <th>最新价</th>
+                <th>涨跌幅</th>
+              </tr>
+              <!--<MobileHomePageMarketItem v-for="(item, key) in computedMarketList" :key="key" :item="item" :choosed="symbol===item.name" :socket_tick="socket_tick" :socket_price="socket_price" />-->
+              <tr v-for="(new_item, key) in computedMarketList" key="key" class="mobile-market-tr">
+                <td class="mobile-market-td-first">
+                  <p class="mobile-market-td-name"><span class="mobile-market-td-target-name">{{"BTCUSDT"}}</span></p>
+                  <!--<p class="mobile-market-td-volume txt_40">24H {{$globalFunc.accFixed(1190, 0)}}</p>-->
+                </td>
+                <td class="mobile-market-td-second">
+                  <!--<p class="mobile-market-td-current-price" >{{$globalFunc.accFixed(new_item.close, !!quoteScale_list[new_item.name] ? quoteScale_list[new_item.name].quoteScale : 8)}}</p>-->
+                  <p class="mobile-market-td-current-price" >{{$globalFunc.accFixed(4782, 2)}}</p>
+                  <!--<p class="mobile-market-td-current-up-fall">￥{{$globalFunc.accFixedCny(4782, 2)}}</p>-->
+                </td>
+                <td class="mobile-market-td-third">
+                  <p class="mobile-market-td-current-price">{{$globalFunc.accFixed(82,0)}}</p>
+                  <!--<p class="mobile-market-td-current-up-fall">￥{{$globalFunc.accFixedCny(99, 2)+"%"}}</p>-->
+                  <!--<div v-if="hall_symbol" class="_m_3ud flex-center" :class= "new_item.close-new_item.open>0?'m_3ud_up':(new_item.close-new_item.open < 0 ? 'm_3ud_dw' : '')">{{new_item.close-new_item.open>0? '+':''}}{{new_item.open == 0 ? '0.00' : ((new_item.close-new_item.open)/new_item.open*100).toFixed(2)}}%</div>-->
+                  <!--<div v-if="!hall_symbol" class="_m_3ud_" :class= "new_item.close-new_item.open>0?'m_3ud_up_':(new_item.close-new_item.open < 0 ? 'm_3ud_dw_' : '')">{{new_item.close-new_item.open>0? '+':''}}{{new_item.open == 0 ? '0.00' : ((new_item.close-new_item.open)/new_item.open*100).toFixed(2)}}%</div>-->
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+          <!--<div class="bottom-box"></div>-->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <PopupPrompt :popType="popType" :popText="popText" :popOpen="popOpen" :popClose="closePop"></PopupPrompt>
+
+
+
+  <!--<div class="mobile_header">-->
+  <!--<ul class="header">-->
+  <!--<li class="title">0.32424 <span class="icon"></span><small>￥23.34</small></li>-->
+  <!--<li class="title_brand">0.2324 <small>0.99%</small><span>24小时最低价<font>0.1888</font></span></li>-->
+  <!--<li class="title_brand"><span>24小时成交量<font>0.1888</font></span><span>24小时最高价<font>0.1888</font></span></li>-->
+  <!--</ul>-->
+  <!--</div>-->
+
+  <!--<div>-->
+  <!--<Trade/>-->
+  <!--</div>-->
+  <!--<div class="bottomenu"  v-show="!headerBoxFlag">
+    <table>
+      <tr>
+        <td @click="gotoNewH5homePage">
+          <div class="menuimg"><img src="../../assets/H5img/indexm.png"></div>
+          <div class="menuinfoh">首页</div>
+        </td>
+        <td @click="gotoShichang">
+          <div class="menuimg"><img src="../../assets/H5img/shich_on.png"></div>
+          <div class="menuinfo">行情</div>
+        </td>
+        <td @click="gotoJiaoyi">
+          <div class="menuimg"><img src="../../assets/H5img/jiaoyi.png"></div>
+          <div class="menuinfoh">交易</div>
+        </td>
+        <td @click="gotoContract">
+          <div class="menuimg"><img src="../../assets/H5img/contract_no_select.png"></div>
+          <div class="menuinfoh">合约</div>
+        </td>
+        <td @click="gotoZichan">
+          <div class="menuimg"><img src="../../assets/H5img/zichan.png"></div>
+          <div class="menuinfoh">资产</div>
+        </td>
+      </tr>
+    </table>
+
+  </div>-->
+</div>

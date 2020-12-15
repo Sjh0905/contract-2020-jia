@@ -1,0 +1,375 @@
+* {
+  /*color: #fff;*/
+  /*font-size: 14px;*/
+  /*font-weight: 100;*/
+}
+.hangqceb{
+
+}
+.mobile-trading-hall-box {
+  width: 80%;
+  height: 100%;
+  background-color: #131F30;
+  position: fixed;
+  top: 0;
+  padding-top: 0.88rem;
+  left: 0;
+  z-index: 99999;
+  color: #fff;
+  overflow: scroll;
+}
+.hangqtitle{
+  width: 100%;
+  height: 0.88rem;
+}
+.hangqfont{
+  width: auto;
+  line-height: 0.88rem;
+  float: left;
+  margin-left: 0.3rem;
+  font-family: PingFangSC-Semibold;
+  font-size: 0.32rem;
+  color: #CFD3E9;
+}
+
+.hangqclosetu{
+  width: auto;
+  float: right;
+  margin-right: 0.3rem;
+}
+
+.hangqclosetu img{
+  width: 0.32rem;
+  margin-top: 0.3rem;
+}
+.bottom-box {
+  height: 50px;
+  width: 100%;
+}
+.mobile-header-title {
+  height: 0.6rem;
+  line-height: 0.6rem;
+  font-size: 0.32rem;
+  /*background: #1C3049;*/
+  text-align: left;
+  vertical-align: top;
+  padding-left: 0.2rem;
+  margin-top: 0.3rem;
+  float: left;
+}
+
+.mobile-market-area-title {
+  height: 0.8rem;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: #081724;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mobile-market-area-title-list {
+  width: 4.6rem;
+  height: 0.64rem;
+  border-radius: 4px;
+  /*border: 1px solid #3576F5;*/
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: content-box;
+}
+
+.mobile-market-title {
+  height: 0.8rem;
+  line-height: 0.8rem;
+  /*display: block;*/
+  position: absolute;
+  top: 0.8rem;
+  left: 0;
+  right: 0;
+  background: #131417;
+  overflow: hidden;
+  font-size: 0.24rem;
+  padding: 0 0.4rem;
+}
+
+.mobile-market-table-box {
+  overflow: scroll;
+  /*position: absolute;*/
+  /*!*top: 1.6rem;*!*/
+  /*top: 0;*/
+  /*bottom: 0;*/
+  /*left: 0;*/
+  /*right: 0;*/
+}
+
+
+.mobile-market-table{
+  /*margin-top: 0.88rem;*/
+  padding: 20px;
+  width: 100%;
+}
+
+.mobile-market-title-first-tr{
+  height: 35px;
+  line-height: 35px;
+  background: #081724;
+  font-family: PingFangSC-Regular;
+  font-size: 0.24rem;
+  color: #6B7DA2;
+}
+
+.mobile-market-title-first-tr th{
+  padding-left: 0.3rem;
+  text-align: left;
+  font-weight: normal;
+}
+
+.mobile-market-title-first-tr th:nth-child(2){
+  text-align: left;
+  padding-left: 0.4rem;
+}
+
+.mobile-market-title-first-tr th:last-child{
+  padding-right: 0.3rem;
+  text-align: right;
+}
+
+
+
+.mobile-header-title-box {
+  /*position: fixed;*/
+  top: 0.88rem;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  /*background: #081724;*/
+  z-index: 9999;
+}
+
+.mobile-header {
+  width: 100%;
+  height: 1.7rem;
+  position: relative;
+  overflow: hidden;
+  background: #131F30;
+  padding-top: 10px;
+}
+
+.mobile-header-first-line {
+  height: 0.5rem;
+  float: left;
+  position: relative;
+  padding-left: 0.3rem;
+}
+
+.bottomenu{
+  width: 100%;
+  height: 50px;
+  position: fixed;
+  bottom: 0;
+  background-color:  #172841;
+  z-index: 999;
+}
+.bottomenu table{
+  width: 100%;
+  height: 100%;
+  text-align: center;
+}
+
+.bottomenu table td{
+  width: 20%;
+}
+
+.bottomenu .menuimg{
+  width: 100%;
+  margin-top: 5px;
+}
+
+.bottomenu .menuimg img{
+  width: 20px;
+}
+
+.bottomenu .menuinfo{
+  width: 100%;
+  font-family: PingFangSC-Regular;
+  font-size: 10px;
+  color: #3576F5;
+  text-align: center;
+}
+
+.bottomenu .menuinfoh{
+  width: 100%;
+  font-family: PingFangSC-Regular;
+  font-size: 10px;
+  color: #6D87A8;
+  text-align: center;
+}
+
+/*---------------------------------------- 嵌入MobileHomePageMarketItem.css -------------------------------------*/
+
+.mobile-market-tr{
+  border-bottom: 0.02rem solid #081724;
+  height: 0.8rem;
+}
+
+.mobile-market-tr-choosed {
+  /*background: #081724;*/
+}
+
+.mobile-market-tr:last-child{
+  /*border-bottom: none;*/
+}
+
+.mobile-market-td-first{
+  padding: 0 0 0 0.3rem;
+}
+
+.mobile-market-td-name{
+  height: 0.4rem;
+  line-height: 0.4rem;
+}
+
+.mobile-market-td-target-name{
+  font-size: 0.28rem;
+  color: #CFD3E9;
+  letter-spacing: 0;
+}
+
+.mobile-market-td-home-name{
+  font-size: 0.2rem;
+  color: #3E536C;
+  letter-spacing: 0;
+}
+
+.mobile-market-td-volume{
+  height: 0.4rem;
+  line-height: 0.4rem;
+  font-size: 0.24rem;
+  color: #6D87A8;
+  letter-spacing: 0;
+}
+
+/*.mobile-market-td-current-price{*/
+/*height: 0.4rem;*/
+/*line-height: 0.4rem;*/
+/*font-size: 0.28rem;*/
+/*}*/
+
+.mobile-market-td-second{
+  /*padding-top: 0.32rem;*/
+  padding-left: 0.4rem;
+  /*padding-bottom: 0.4rem;*/
+}
+
+.mobile-market-td-current-price{
+  height: 0.4rem;
+  line-height: 0.4rem;
+  font-size: 0.28rem;
+  color: #CFD3E9;
+  letter-spacing: 0;
+}
+
+.mobile-market-td-current-price-fall{
+  color: #f93943;
+}
+
+.mobile-market-td-current-price-up{
+  color: #86CB12;
+}
+
+.mobile-market-td-current-up-fall{
+  height: 0.4rem;
+  line-height: 0.4rem;
+  font-family: Roboto-Regular;
+  font-size: 0.24rem;
+  color: #6D87A8;
+  letter-spacing: 0;
+}
+
+.mobile-market-td-current-text{
+  float: right;
+}
+
+
+.mobile-market-td-current-up{
+  color: #86CB12;
+}
+
+
+.mobile-market-td-current-fall{
+  color: #f93943;
+}
+
+.mobile-market-td-third{
+  height: 0.4rem;
+  line-height: 0.4rem;
+  text-align: right;
+  padding-right: 0.3rem;
+}
+
+.mobile-market-td-current-top-price{
+  height: 0.4rem;
+  line-height: 0.4rem;
+  font-size: 0.28rem;
+}
+
+.mobile-market-td-current-low-price{
+  height: 0.4rem;
+  line-height: 0.4rem;
+  font-size: 0.28rem;
+}
+._m_3ud{
+  width: 1.56rem;
+  height: 0.58rem;
+  line-height: 0.58rem;
+  border-radius: 0.08rem;
+  font-family: Roboto-Bold;
+  font-size: 0.28rem;
+  color: #FFFFFF;
+  letter-spacing: 0;
+  text-align: center;
+  margin-top: 0.3rem;
+}
+.m_3ud_up{
+  background: #86CB12;
+  border-radius: 0.03rem;
+  width: 1.6rem;
+  height: 0.66rem;
+  line-height: 0.66rem;
+  text-align: center;
+}
+.m_3ud_dw{
+  background: #3576F5;
+  border-radius: 0.03rem;
+  width: 1.6rem;
+  height: 0.66rem;
+  line-height: 0.66rem;
+  text-align: center;
+
+}
+
+._m_3ud_{
+  width: 1.6rem;
+  height: 0.66rem;
+  line-height: 0.66rem;
+  border-radius: 0.08rem;
+  /* font-family: Roboto-Bold; */
+  font-size: 0.28rem;
+  color: #FFFFFF;
+  letter-spacing: 0;
+  text-align: center;
+  margin-top: 0.22rem;
+  border-radius: 0.03rem;
+  background: #294368;
+}
+.m_3ud_up_{
+  background: #86CB12;
+
+}
+.m_3ud_dw_{
+  background: #F60076;
+
+}

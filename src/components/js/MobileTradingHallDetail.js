@@ -133,7 +133,7 @@ root.data = function () {
     btn_click: false,
     toastNobindShow: false,
 
-    isshowhangq:false,
+    isDisplayMarket:false,
 
     currency_list:[],
     KKPriceRange:[],
@@ -306,7 +306,7 @@ root.components = {
   'H5StockCross': resolve => require(['../vue/H5StockCross'], resolve),
   'PopupWindow': resolve => require(['../vue/PopupWindow'], resolve),
   'MobileBottleOpener': resolve => require(['../vue/MobileBottleOpener'], resolve),
-
+  'MobileMarketPrice': resolve => require(['../mobileVue/MobileMarketPrice'], resolve),
 
 }
 
@@ -3702,7 +3702,7 @@ root.methods.changeHeaderBoxFlag = function (item) {
   this.$store.commit('SET_HALL_SYMBOL',true);
   this.$store.commit('BUY_OR_SALE_TYPE', 1);
   // this.$router.push('mobileTradingHall')
-  this.isshowhangq = false;
+  this.isDisplayMarket = false;
 
   // let user_symbol = this.$cookie.get('unlogin_user_symbol_cookie') || 'ETH_USDT'
   // let user_symbol1 = this.$cookies.get('user_symbol_cookie') || 'ETH_USDT'
@@ -3718,8 +3718,8 @@ root.methods.changeHeaderBoxFlag = function (item) {
 
 }
 
-root.methods.openhangq = function(){
-  this.isshowhangq = !this.isshowhangq;
+root.methods.changeMarketStatus = function(e){
+  this.isDisplayMarket = !this.isDisplayMarket;
 }
 
 root.methods.openkexian = function(){
