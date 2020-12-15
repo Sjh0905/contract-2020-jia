@@ -1222,7 +1222,7 @@ root.methods.openSplicedFrame = function (btnText,callFuncName,orderType) {
   }
   //当前市价
   if(this.pendingOrderType.indexOf('market') > -1){
-    this.splicedFrameText += ('价格为当前市价，')
+    this.splicedFrameText += ('交易方式为市价，')
   }
   //数量
   this.splicedFrameText += ('数量' + this.amount + this.symbol.split('_')[0])
