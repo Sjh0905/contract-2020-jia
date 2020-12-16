@@ -48,45 +48,45 @@
   </div>
   <div class="line-bg"/>
 <!--  :class="!isAndroid?'mmenu':'mmenu1'"-->
-  <div v-if="positionModeFirst == 'singleWarehouseMode'" class="mmenu1">
-<!--    <ul class="flex-between" v-if="!isAndroid">-->
-<!--      <li class="header-title-item-long" :class="orderType===0 ? 'header-title-item-long-lv' : ''" @click="changeType(0)">-->
-<!--        {{$t('mobileTradingHallDetail.buy')}}-->
-<!--      </li>-->
-<!--      <li class="header-title-item-short" :class="orderType===1 ? 'header-title-item-short-lv' : ''" @click="changeType(1)">-->
-<!--        <span class="short-position">{{$t('mobileTradingHallDetail.sale')}}</span>-->
-<!--      </li>-->
-<!--    </ul>-->
+  <div v-if="positionModeFirst == 'singleWarehouseMode'" class="mmenu">
     <ul class="flex-between">
-      <li class="header-title-item" :class="orderType===0 ? 'header-title-item-active-lv' : ''" @click="changeType(0)">
+      <li class="header-title-item-long" :class="orderType===0 ? 'header-title-item-long-lv' : ''" @click="changeType(0)">
         {{$t('mobileTradingHallDetail.buy')}}
       </li>
-      <li class="header-title-item" :class="orderType===1 ? 'header-title-item-active-red' : ''" @click="changeType(1)">
-        {{$t('mobileTradingHallDetail.sale')}}
+      <li class="header-title-item-short" :class="orderType===1 ? 'header-title-item-short-lv' : ''" @click="changeType(1)">
+        <span class="short-position">{{$t('mobileTradingHallDetail.sale')}}</span>
       </li>
     </ul>
-  </div>
-
-  <div v-if="positionModeFirst == 'doubleWarehouseMode'" class="mmenu1">
-<!--    <ul class="flex-between" v-if="!isAndroid">-->
-<!--&lt;!&ndash;      :class="positionModeSecond == 'openWarehouse' ? 'header-title-item-active-blue' : ''" &ndash;&gt;-->
-<!--      <li class="header-title-item-long" :class="positionModeSecond == 'openWarehouse' ? 'header-title-item-long-blue' : ''" @click="changePositionModeSecond('openWarehouse')">-->
-<!--        开仓-->
+<!--    <ul class="flex-between">-->
+<!--      <li class="header-title-item" :class="orderType===0 ? 'header-title-item-active-lv' : ''" @click="changeType(0)">-->
+<!--        {{$t('mobileTradingHallDetail.buy')}}-->
 <!--      </li>-->
-<!--      <li class="header-title-item-short" :class="positionModeSecond == 'closeWarehouse' ? 'header-title-item-short-blue' : ''" @click="changePositionModeSecond('closeWarehouse')">-->
-<!--        <span class="short-position">平仓</span>-->
+<!--      <li class="header-title-item" :class="orderType===1 ? 'header-title-item-active-red' : ''" @click="changeType(1)">-->
+<!--        {{$t('mobileTradingHallDetail.sale')}}-->
 <!--      </li>-->
 <!--    </ul>-->
-<!--    v-if="isAndroid"-->
+  </div>
+
+  <div v-if="positionModeFirst == 'doubleWarehouseMode'" class="mmenu">
     <ul class="flex-between">
-      <!--      :class="positionModeSecond == 'openWarehouse' ? 'header-title-item-active-blue' : ''" -->
-      <li class="header-title-item" :class="positionModeSecond == 'openWarehouse' ? 'header-title-item-active-blue' : ''" @click="changePositionModeSecond('openWarehouse')">
+<!--      :class="positionModeSecond == 'openWarehouse' ? 'header-title-item-active-blue' : ''" -->
+      <li class="header-title-item-long" :class="positionModeSecond == 'openWarehouse' ? 'header-title-item-long-blue' : ''" @click="changePositionModeSecond('openWarehouse')">
         开仓
       </li>
-      <li class="header-title-item" :class="positionModeSecond == 'closeWarehouse' ? 'header-title-item-active-blue' : ''" @click="changePositionModeSecond('closeWarehouse')">
-        平仓
+      <li class="header-title-item-short" :class="positionModeSecond == 'closeWarehouse' ? 'header-title-item-short-blue' : ''" @click="changePositionModeSecond('closeWarehouse')">
+        <span class="short-position">平仓</span>
       </li>
     </ul>
+<!--    v-if="isAndroid"-->
+<!--    <ul class="flex-between">-->
+<!--      &lt;!&ndash;      :class="positionModeSecond == 'openWarehouse' ? 'header-title-item-active-blue' : ''" &ndash;&gt;-->
+<!--      <li class="header-title-item" :class="positionModeSecond == 'openWarehouse' ? 'header-title-item-active-blue' : ''" @click="changePositionModeSecond('openWarehouse')">-->
+<!--        开仓-->
+<!--      </li>-->
+<!--      <li class="header-title-item" :class="positionModeSecond == 'closeWarehouse' ? 'header-title-item-active-blue' : ''" @click="changePositionModeSecond('closeWarehouse')">-->
+<!--        平仓-->
+<!--      </li>-->
+<!--    </ul>-->
   </div>
 
   <!--买卖页-->
