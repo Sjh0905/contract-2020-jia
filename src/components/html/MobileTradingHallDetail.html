@@ -54,7 +54,7 @@
         {{$t('mobileTradingHallDetail.buy')}}
       </li>
       <li class="header-title-item-short" :class="orderType===1 ? 'header-title-item-short-lv' : ''" @click="changeType(1)">
-        <span class="short-position">{{$t('mobileTradingHallDetail.sale')}}</span>
+        {{$t('mobileTradingHallDetail.sale')}}
       </li>
     </ul>
 <!--    <ul class="flex-between">-->
@@ -74,7 +74,7 @@
         开仓
       </li>
       <li class="header-title-item-short" :class="positionModeSecond == 'closeWarehouse' ? 'header-title-item-short-blue' : ''" @click="changePositionModeSecond('closeWarehouse')">
-        <span class="short-position">平仓</span>
+        平仓
       </li>
     </ul>
 <!--    v-if="isAndroid"-->
