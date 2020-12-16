@@ -126,6 +126,12 @@
   text-align: left;
   font-weight: normal;
 }
+.mobile-market-title-first-tr th:nth-child(1){
+  border-left: 0.16rem solid transparent;
+  padding-left: 0.2rem;
+  text-align: left;
+  font-weight: normal;
+}
 
 .mobile-market-title-first-tr th:nth-child(2){
   text-align: left;
@@ -211,12 +217,14 @@
 /*---------------------------------------- 嵌入MobileHomePageMarketItem.css -------------------------------------*/
 
 .mobile-market-tr{
+  border-left: 0.16rem solid transparent;
   border-bottom: 0.02rem solid #081724;
   height: 0.8rem;
 }
 
 .mobile-market-tr-choosed {
   /*background: #081724;*/
+  border-left: 0.16rem solid #3576F5;
 }
 
 .mobile-market-tr:last-child{
@@ -224,7 +232,7 @@
 }
 
 .mobile-market-td-first{
-  padding: 0 0 0 0.3rem;
+  padding: 0 0 0 0.2rem;
 }
 
 .mobile-market-td-name{

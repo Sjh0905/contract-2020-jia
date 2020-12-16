@@ -19,7 +19,7 @@
                 <th>24H涨跌量</th>
               </tr>
               <!--<MobileHomePageMarketItem v-for="(item, key) in computedMarketList" :key="key" :item="item" :choosed="symbol===item.name" :socket_tick="socket_tick" :socket_price="socket_price" />-->
-              <tr v-for="(item, key) in mSymbolList" key="key" class="mobile-market-tr" @click="clickSymbol(item)">
+              <tr v-for="(item, key) in mSymbolList" key="key" class="mobile-market-tr" :class="(capitalSymbol==item.s) ? 'mobile-market-tr-choosed ':'' " @click="clickSymbol(item)">
                 <td class="mobile-market-td-first">
                   <p class="mobile-market-td-name"><span class="mobile-market-td-target-name">{{item.s}}</span></p>
                   <!--<p class="mobile-market-td-volume txt_40">24H {{$globalFunc.accFixed(1190, 0)}}</p>-->

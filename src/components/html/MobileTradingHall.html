@@ -3,6 +3,17 @@
   <!--{{symbol | e}}-->
   <!--<img class="mobile-header-title-img" src="../../assets/mobile_header_select_down.png">-->
   <!--</div>-->
+  <div class="header-select-market flex">
+    <div class="hangqing-title flex-row" @click="changeMarketStatus">
+      <div class="hangqingtu">
+        <img src="../../assets/H5img/hangqing.png" alt="">
+      </div>
+      <div class="hangqingbid">
+        {{capitalSymbol}}
+      </div>
+    </div>
+  </div>
+
   <div class="mobile_trading_hall_detail">
     <div class="mobile-header">
       <div class="mobile-header-first-line flex-colum">
@@ -225,6 +236,12 @@
 
   <PopupPrompt :popType="popType" :popText="popText" :popOpen="popOpen" :popClose="closePop"></PopupPrompt>
 
+  <!--由于本页前边使用了绝对定位，必须包裹一层才能正常引入-->
+  <div class="hangqceb" v-show="isDisplayMarket" @click="changeMarketStatus">
+  <!--<div class="hangqceb" @click="changeMarketStatus">-->
+
+    <MobileMarketPrice :changeMarketStatus="changeMarketStatus"/>
+  </div>
 
 
   <!--<div class="mobile_header">-->

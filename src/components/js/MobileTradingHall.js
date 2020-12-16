@@ -21,6 +21,7 @@ root.components = {
   'MobileStockCross': resolve => require(['../mobileVue/MobileStockCross'], resolve),
   'MobileHomePageMarketItem': resolve => require(['../mobileVue/MobileHomePageMarketItem'], resolve),
   'PopupPrompt': resolve => require(['../vue/PopupPrompt'], resolve),
+  'MobileMarketPrice': resolve => require(['../mobileVue/MobileMarketPrice'], resolve),
 }
 
 root.data = function () {
@@ -84,6 +85,8 @@ root.data = function () {
     popOpen: false,
     opening:false,
     opened:false,
+
+    isDisplayMarket:false,
   }
 }
 // 检验是否是APP
@@ -118,7 +121,7 @@ root.computed.userId = function () {
 // 实时价格
 root.computed.isNowPrice = function () {
 
-  let nowPrice = this.latestPriceArr[this.latestPriceArr.length-1] || '0'
+  let nowPrice = this.latestPriceArr[this.latestPriceArr.length-1]//这里不用容错，否则写成了 "0" 取不到this.latestPriceVal
 
   document.title = nowPrice+" "+this.symbol.replace('_', '/')+" "+this.$t('document_title');
   return (nowPrice || this.latestPriceVal).toString();//当nowPrice为 0 或者 undefined时返回latestPriceVal，避免出现0
@@ -194,15 +197,22 @@ root.watch.symbol = function (newValue, oldValue) {
   // console.log("==========root.watch.symbol===========",newValue,oldValue)
 
   if (newValue == oldValue) return;
-  this.$socket.emit('unsubscribe', {symbol: oldValue});
-  this.$socket.emit('subscribe', {symbol: this.$store.state.symbol});
-  // 2018-2-9 切换symbol清空socket推送
-  this.socket_snap_shot = {}; //深度图
+
+  //切换symbol清空socket推送
   this.socket_tick = {}; //实时价格
+  this.socketTickObj = {}
 
   this.buy_sale_list = {}//接口深度图
+  this.buy_sale_list.asks = []
+  this.buy_sale_list.bids = []
 
-  this.price = 0;
+  this.latestPriceArr = []
+  this.header_price = {}
+
+  this.socket_snap_shot_temp = {}
+  this.snap_shot_timeout = null
+
+  // this.price = 0;
 
   // this.initGetDatas();
   // 获取不同货币对精度
@@ -211,7 +221,10 @@ root.watch.symbol = function (newValue, oldValue) {
   // this.initSocket();
 
   this.getScaleConfig();
-
+  this.getDepth();
+  this.initTicket24Hr();
+  this.getLatestrice();
+  this.getMarkPricesAndCapitalRates();
 
 }
 
@@ -637,6 +650,9 @@ root.methods.error_getAggTrades = function (err) {
   console.log('获取实时成交归集交易接口出错',err)
 }
 
+root.methods.changeMarketStatus = function(){
+  this.isDisplayMarket = !this.isDisplayMarket;
+}
 
 // 2018-4-17 add tradingView选择
 root.methods.SELECT_MORE = function () {
