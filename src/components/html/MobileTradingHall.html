@@ -3,7 +3,7 @@
   <!--{{symbol | e}}-->
   <!--<img class="mobile-header-title-img" src="../../assets/mobile_header_select_down.png">-->
   <!--</div>-->
-  <div class="mobile_trading_hall_detail" v-show="headerBoxFlag">
+  <div class="mobile_trading_hall_detail">
     <div class="mobile-header">
       <div class="mobile-header-first-line flex-colum">
 
@@ -179,26 +179,27 @@
     <!--    </div>-->
   </div>
 
+  <!--TODO gua delete
   <div v-show="!headerBoxFlag" class="mobile-header-title-box">
     <div class="mobile-header-title-list">
       <div class="mobileHomePage">
-        <!--<div class="mobile-market-area-title">-->
-        <!--<div class="mobile-market-area-title-list">-->
-        <!--<div class="mobile-market-area-title-item1" @click="changeSelectEdition(0)" :class="selectEdition === 0?'mobile-market-area-title-active':''">主板区</div>-->
-        <!--<div class="mobile-market-area-title-item2" @click="changeSelectEdition(1)" :class="selectEdition === 1?'mobile-market-area-title-active':''">超级为蜜区</div>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--<div v-if="selectEdition === 0" class="mobile-market-title flex-between">-->
-        <!--<div v-for="(items, k) in marketList" class="mobile-market-title-item txt_80" :class="{'mobile-market-title-item-active' :selectedMarket(items)}"-->
-        <!--@click="changeMarket(items)">-->
-        <!--<span class="mobile-market-title-item-text">{{items}}-->
-        <!--<img class="mobile-market-title-item-text-reduce" src="" alt=""  v-if="reduce_list.indexOf(items) > '-1'">-->
-        <!--&lt;!&ndash;<div class="mobile-market-title-item-text-reduce" v-if="reduce_list.indexOf(items.name) > '-1'"><font>免</font></div>&ndash;&gt;-->
-        <!--</span>-->
-        <!--</div>-->
-        <!--&lt;!&ndash; <div class="mobile-market-close-img" @click="closeHeaderBoxFlag()"></div> &ndash;&gt;-->
-        <!--</div>-->
-        <!--<div :class="selectEdition === 0?'mobile-market-table-box':'mobile-market-superbee-table-box'">-->
+        &lt;!&ndash;<div class="mobile-market-area-title">&ndash;&gt;
+        &lt;!&ndash;<div class="mobile-market-area-title-list">&ndash;&gt;
+        &lt;!&ndash;<div class="mobile-market-area-title-item1" @click="changeSelectEdition(0)" :class="selectEdition === 0?'mobile-market-area-title-active':''">主板区</div>&ndash;&gt;
+        &lt;!&ndash;<div class="mobile-market-area-title-item2" @click="changeSelectEdition(1)" :class="selectEdition === 1?'mobile-market-area-title-active':''">超级为蜜区</div>&ndash;&gt;
+        &lt;!&ndash;</div>&ndash;&gt;
+        &lt;!&ndash;</div>&ndash;&gt;
+        &lt;!&ndash;<div v-if="selectEdition === 0" class="mobile-market-title flex-between">&ndash;&gt;
+        &lt;!&ndash;<div v-for="(items, k) in marketList" class="mobile-market-title-item txt_80" :class="{'mobile-market-title-item-active' :selectedMarket(items)}"&ndash;&gt;
+        &lt;!&ndash;@click="changeMarket(items)">&ndash;&gt;
+        &lt;!&ndash;<span class="mobile-market-title-item-text">{{items}}&ndash;&gt;
+        &lt;!&ndash;<img class="mobile-market-title-item-text-reduce" src="" alt=""  v-if="reduce_list.indexOf(items) > '-1'">&ndash;&gt;
+        &lt;!&ndash;&lt;!&ndash;<div class="mobile-market-title-item-text-reduce" v-if="reduce_list.indexOf(items.name) > '-1'"><font>免</font></div>&ndash;&gt;&ndash;&gt;
+        &lt;!&ndash;</span>&ndash;&gt;
+        &lt;!&ndash;</div>&ndash;&gt;
+        &lt;!&ndash;&lt;!&ndash; <div class="mobile-market-close-img" @click="closeHeaderBoxFlag()"></div> &ndash;&gt;&ndash;&gt;
+        &lt;!&ndash;</div>&ndash;&gt;
+        &lt;!&ndash;<div :class="selectEdition === 0?'mobile-market-table-box':'mobile-market-superbee-table-box'">&ndash;&gt;
         <div class="mobile-market-table-box">
           <table class="mobile-market-table">
             <colgroup style="width:37%;"></colgroup>
@@ -209,18 +210,18 @@
               <th>{{$t('mobileHomePageMarket.name')}} / {{$t('mobileHomePageMarket.volume')}}</th>
               <th>最新价</th>
               <th>涨跌幅</th>
-              <!--<th>{{$t('mobileHomePageMarket.currentPrice')}} / {{$t('mobileHomePageMarket.riseNumber')}}</th>-->
-              <!--<th>{{$t('mobileHomePageMarket.highPrice')}} / {{$t('mobileHomePageMarket.lowPrice')}}</th>-->
+              &lt;!&ndash;<th>{{$t('mobileHomePageMarket.currentPrice')}} / {{$t('mobileHomePageMarket.riseNumber')}}</th>&ndash;&gt;
+              &lt;!&ndash;<th>{{$t('mobileHomePageMarket.highPrice')}} / {{$t('mobileHomePageMarket.lowPrice')}}</th>&ndash;&gt;
             </tr>
             <MobileHomePageMarketItem v-for="(item, key) in computedMarketList" :key="key" :item="item" :choosed="symbol===item.name" :socket_tick="socket_tick" :socket_price="socket_price" /></tbody>
           </table>
           <div class="bottom-box"></div>
 
-          <!--<MobileMarket :choose_symbol="symbol" :currency_list="currency_list" :socket_price="socket_price" :currencyType="currencyType" :socket_tick="socket_tick"/>-->
+          &lt;!&ndash;<MobileMarket :choose_symbol="symbol" :currency_list="currency_list" :socket_price="socket_price" :currencyType="currencyType" :socket_tick="socket_tick"/>&ndash;&gt;
         </div>
       </div>
     </div>
-  </div>
+  </div>-->
 
   <PopupPrompt :popType="popType" :popText="popText" :popOpen="popOpen" :popClose="closePop"></PopupPrompt>
 
@@ -237,7 +238,7 @@
   <!--<div>-->
   <!--<Trade/>-->
   <!--</div>-->
-  <div class="bottomenu"  v-show="!headerBoxFlag">
+  <!--<div class="bottomenu"  v-show="!headerBoxFlag">
     <table>
       <tr>
         <td @click="gotoNewH5homePage">
@@ -263,5 +264,5 @@
       </tr>
     </table>
 
-  </div>
+  </div>-->
 </div>

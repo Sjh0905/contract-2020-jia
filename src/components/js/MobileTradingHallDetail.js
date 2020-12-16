@@ -230,14 +230,6 @@ root.created = function () {
 
   this.checkPrice ==2 ? this.effectiveTime='GTX' : this.effectiveTime='GTC'
 
-  // 获取BDB是否抵扣
-  // this.getBDBInfo()
-  //请求所有币对信息
-  this.getCurrencyList()
-  // 获取汇率
-  !!this.$store.state.exchange_rate.btcExchangeRate || this.getExchangeRate();
-
-
   // 获取精度
   this.getScaleConfig();
   // 拉取列表数据
@@ -245,22 +237,6 @@ root.created = function () {
   // 订阅socket
   this.initSocket();
 
-
-  // 获取可用数量
-  !!this.$store.state.authMessage.userId && this.$http.send('ACCOUNTS', {
-    bind: this,
-    callBack: this.RE_ACCOUNTS
-  })
-
-  if (this.$store.state.authMessage.userId) {
-    this.$http.send('FIND_FEE_DEDUCTION_INFO', {
-      bind: this,
-      callBack: this.RE_FEE
-    })
-  }
-
-
-  this.$eventBus.listen(this, 'TRADED', this.TRADED)
   // 获取订单
   this.loading = false
   this.getOrder()
@@ -2999,7 +2975,7 @@ root.methods.plusNum = function (type) {
     new_float > 0 && (this['transaction_' + type] = new_float.toFixed(num));
   }
 }
-
+/* TODO:20201216 gua to delete
 // 获取rate
 root.methods.getExchangeRate = function () {
   this.$http.send('GET_EXCHANGE__RAGE', {
@@ -3051,7 +3027,7 @@ root.methods.symbolList_priceList = function (symbol_list) {
     obj[v.name] = [0, 0, 0, 0, 0, 0];
   })
   return obj;
-}
+}*/
 
 // 切换tab
 root.methods.changeType = function (typeNum) {
@@ -3232,30 +3208,27 @@ root.watch.symbol = function (newValue, oldValue) {
   // 重新拉取数据
   // this.GET_LATEST_DEAL();
 
-  // this.$socket.emit('unsubscribe', {symbol: oldValue});
-  // this.$socket.emit('subscribe', {symbol: this.$store.state.symbol});
-
   // 切换币对时候清空所有socket的数据，等socket推送以后重新赋值
   this.socket_snap_shot = {};
   this.socket_tick = {};
+  this.topic_bar = {};
+
   this.socketTickObj = {};
 
-  // this.buy_sale_list = {}//为了保证切换币对时价不显示0
+  this.buy_sale_list = {}//﻿放开这行，保证盘口及时刷新，币对时价不从这里取值了
   this.buy_sale_list.asks = []
   this.buy_sale_list.bids = []
-  // this.socket_tick = {}; //实时价格
 
-  // this.buy_sale_list = {}//接口深度图
+  this.latestPriceArr = []
 
   // this.price = 0;
 
   // this.initSocket();
 
-  // 获取汇率
-  !!this.$store.state.exchange_rate.btcExchangeRate || this.getExchangeRate();
-
-  this.getDepth();
   this.getScaleConfig();
+  this.getDepth();﻿// 获取币安深度
+  this.getLatestrice()// 获取币安最新价格
+  this.getMarkPricesAndCapitalRates()//获取币安最新标记价格和资金费率
 
 }
 
