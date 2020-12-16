@@ -470,6 +470,10 @@
   margin-top: 0.2rem;
   margin-bottom: 0.22rem;
 }
+.mobile-select-num-short {
+  margin-top: 0.2rem;
+  margin-bottom: -0.04rem;
+}
 
 .mobile-select-num-item{
   width: 0.71rem;
@@ -488,7 +492,7 @@
   /*margin-right: 0.05rem;*/
 }
 .select-lamp {
-  width: 0.8rem;
+  width: 0.71rem;
   height: 0.12rem;
   background: #3E536C;
   border-radius: 1px;
