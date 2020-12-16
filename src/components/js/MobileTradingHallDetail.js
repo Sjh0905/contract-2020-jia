@@ -57,6 +57,8 @@ root.data = function () {
     latestPriceArr: [] ,   // 最新价格数组，用于判断价格升降和盘口显示
 
     recordsIndex:0, // 仓位数量
+    recordsIndexS:0, // 当前币对的仓位数量
+    currOrderLenObj:{},
     effectiveTime:'GTX',
 
     // 是否可用BDB抵扣 TODO------------------ 新旧分割线-----------------
@@ -999,6 +1001,12 @@ root.computed.canBeOpened = function () {
 }
 // 计算是否有仓位和当前委托
 root.computed.isHasOrders = function (){
+  // 如果当前币对的仓位和订单数量为0，不能切换全逐仓
+  if(!this.currOrderLenObj[this.capitalSymbol] && !this.recordsIndexS) return true
+  return false
+}
+// 计算是否有仓位和当前委托（调整单双仓）
+root.computed.isHasOrdersOrPosition = function (){
   if(!this.currentLength && !this.recordsIndex) return true
   return false
 }
@@ -1135,6 +1143,9 @@ root.computed.isApp = function () {
 /*------------------------------ 方法 begin -------------------------------*/
 
 root.methods = {}
+root.methods.getCurrentLength = function (indexObj) {
+  this.currOrderLenObj = [...indexObj]
+}
 // 获取用户可用余额
 root.methods.getBalance = function () {
   this.$http.send('GET_BALAN_ACCOUNT',{
@@ -1997,7 +2008,7 @@ root.methods.positionModeSelectedConfirm = function () {
     this.popWindowPositionModeBulletBox = false
     return
   }
-  if(!this.isHasOrders){
+  if(!this.isHasOrdersOrPosition){
     this.promptOpen = true;
     this.popType = 0;
     this.popText = '您可能存在挂单或仓位，不支持调整仓位模式';
@@ -3427,6 +3438,7 @@ root.methods.re_getOrder = function (data) {
   if (this.cancelAll) {
     return
   }
+
   this.currentOrder = data.orders.filter(
     v => {
       v.click = false
@@ -3439,6 +3451,7 @@ root.methods.re_getOrder = function (data) {
       return ((v.status === 'PARTIAL_CANCELLED') || (v.status === 'FULLY_CANCELLED') || (v.status === 'FULLY_FILLED'))
     }
   )
+
   // console.warn("订单信息筛选！", this.currentOrder)
 
 }

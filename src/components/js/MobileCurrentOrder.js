@@ -173,6 +173,15 @@ root.methods.re_getOrder = function (data) {
   typeof(data) == 'string' && (data = JSON.parse(data));
   this.loading = false
   this.currentOrder = data.data || []
+  let currOrderLen = {}
+  this.currentOrder && this.currentOrder.forEach(v=>{
+    if(!currOrderLen[v.symbol]){
+      currOrderLen[v.symbol] = 0
+    }
+    currOrderLen[v.symbol] += 1
+  })
+  this.currOrderLenObj = currOrderLen;
+  this.$emit('setCurrentLength',this.currOrderLenObj)
   this.$store.commit('SET_CURRENT_ORDERS',this.currentOrder)
 }
 // 获取订单出错
