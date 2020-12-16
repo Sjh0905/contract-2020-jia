@@ -146,15 +146,26 @@ root.data = function () {
     popTextLeverage:'',
     value: 0,
     marks: {
-      1: '1X',
-      25: '25X',
-      50: '50X',
-      75:'75X',
-      100:'100X',
-      125:'125X',
+      ETHUSDT:{
+        1: '1X',
+        20: '20X',
+        40: '40X',
+        60: '60X',
+        80: '80X',
+        100:'100X',
+      },
+      BTCUSDT:{
+        1: '1X',
+        25: '25X',
+        50: '50X',
+        75:'75X',
+        100:'100X',
+        125:'125X',
+      }
     },
+    calculatorClass:['radiusa_blu1','radiusa_blu2','radiusa_blu3','radiusa_blu4','radiusa_blu5'],
     // 显示的最大头寸数值
-    maximumPosition : ['50,000','250,000','100,0000','5,000,000','20,000,000','50,000,000','100,000,000','200,000,000'],
+    // maximumPosition : ['50,000','250,000','100,0000','5,000,000','20,000,000','50,000,000','100,000,000','200,000,000'],
     maxNotionalValue: '',   // 当前杠杆倍数下允许的最大名义价值
     listType:'holdPosition',// 当前委托currentDelegation，持有仓位holdPosition
     //调整杠杆 End
@@ -991,7 +1002,14 @@ root.computed.isHasOrders = function (){
   if(!this.currentLength && !this.recordsIndex) return true
   return false
 }
-
+// 最大头寸值
+root.computed.maximumPosition = function () {
+  return this.$store.state.bracketNotionalcap[this.capitalSymbol] || []
+}
+// 杠杆倍数
+root.computed.initialLeverage = function () {
+  return this.$store.state.bracketLeverage[this.capitalSymbol] || []
+}
 root.computed.currencyList = function(){
   return this.$store.state.symbol.currencyList
 }
@@ -1073,36 +1091,37 @@ root.computed.KKPriceRangeH5 = function () {
 }
 // 最大头寸计算
 root.computed.maxPosition = function () {
-  let maxPosition = ''
-  if(this.value > 100 && this.value <= 125) {
+  let maxPosition = '',initialLeverage = this.initialLeverage
+
+  if(this.value > initialLeverage[1] && this.value <= initialLeverage[0]) {
     maxPosition = this.maximumPosition[0]
     return maxPosition
   }
-  if(this.value > 50 && this.value <= 100) {
+  if(this.value > initialLeverage[2] && this.value <= initialLeverage[1]) {
     maxPosition = this.maximumPosition[1]
     return maxPosition
   }
-  if(this.value > 20 && this.value <= 50) {
+  if(this.value > initialLeverage[3] && this.value <= initialLeverage[2]) {
     maxPosition = this.maximumPosition[2]
     return maxPosition
   }
-  if(this.value > 10 && this.value <= 20) {
+  if(this.value > initialLeverage[4] && this.value <= initialLeverage[3]) {
     maxPosition = this.maximumPosition[3]
     return maxPosition
   }
-  if(this.value > 5 && this.value <= 10) {
+  if(this.value > initialLeverage[5] && this.value <= initialLeverage[4]) {
     maxPosition = this.maximumPosition[4]
     return maxPosition
   }
-  if(this.value == 5) {
+  if(this.value == initialLeverage[5]) {
     maxPosition = this.maximumPosition[5]
     return maxPosition
   }
-  if(this.value == 4) {
+  if(this.value ==  initialLeverage[6]) {
     maxPosition = this.maximumPosition[6]
     return maxPosition
   }
-  if(this.value == 3) {
+  if(this.value == initialLeverage[7]) {
     maxPosition = this.maximumPosition[7]
     return maxPosition
   }

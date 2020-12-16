@@ -208,7 +208,7 @@
         <!--双仓 开仓 开空 可开-->
         <div class="can-be-opened flex-between" v-if="isHasModule('kaipingType') == 1 && positionModeFirst == 'doubleWarehouseMode'">
           <span class="security-deposit-text">可开</span>
-          <span class="security-deposit-amount">{{toFixed(canBeOpened[1],3)}} BTC</span>
+          <span class="security-deposit-amount">{{toFixed(canBeOpened[1],3)}} {{symbol.split('_')[0]}}</span>
         </div>
 
         <!--双仓 开仓  限价  市价 postOrdersCreate-->
@@ -231,7 +231,7 @@
         <!--双仓 开仓 平多 可平-->
         <div v-if="isHasModule('kaipingType') == 2" class="can-be-opened flex-between">
           <span class="security-deposit-text">可平</span>
-          <span class="security-deposit-amount">{{Math.abs(positionAmtLong)}} BTC</span>
+          <span class="security-deposit-amount">{{Math.abs(positionAmtLong)}} {{symbol.split('_')[0]}}</span>
         </div>
 
         <!--双仓 平仓  限价  市价 postOrdersPosition-->
@@ -369,18 +369,19 @@
       <div class="body">
         <div class="block"  style="margin: 4px auto">
           <!-- <span class="demonstration">默认</span> -->
-          <p :class="'radiusa_blu1'" v-if="value>=0" @click="value=0" style="cursor:pointer"></p>
-          <p :class="'radiusa_blu2'" v-if="value>=25"@click="value=25" style="cursor:pointer"></p>
-          <p :class="'radiusa_blu3'" v-if="value>=50"@click="value=50" style="cursor:pointer"></p>
-          <p :class="'radiusa_blu4'" v-if="value>=75"@click="value=75" style="cursor:pointer"></p>
-          <p :class="'radiusa_blu5'" v-if="value>=100"@click="value=100" style="cursor:pointer"></p>
-          <p :class="'radiusa_blu6'" v-if="value>=125"@click="value=125" style="cursor:pointer"></p>
+<!--          <p :class="'radiusa_blu1'" v-if="value>=0" @click="value=0" style="cursor:pointer"></p>-->
+<!--          <p :class="'radiusa_blu2'" v-if="value>=25"@click="value=25" style="cursor:pointer"></p>-->
+<!--          <p :class="'radiusa_blu3'" v-if="value>=50"@click="value=50" style="cursor:pointer"></p>-->
+<!--          <p :class="'radiusa_blu4'" v-if="value>=75"@click="value=75" style="cursor:pointer"></p>-->
+<!--          <p :class="'radiusa_blu5'" v-if="value>=100"@click="value=100" style="cursor:pointer"></p>-->
+<!--          <p :class="'radiusa_blu6'" v-if="value>=125"@click="value=125" style="cursor:pointer"></p>-->
+          <p v-for="(v,index) in Object.keys(marks[capitalSymbol])" :class="calculatorClass[index]" v-if="value >= v" @click="value=Number(v)" style="cursor:pointer"></p>
           <el-slider
             v-model="value"
             :class="'el-slider_blu'"
-            :marks="marks"
+            :marks="marks[capitalSymbol]"
             show-input
-            :max="125"
+            :max="initialLeverage[0]"
             :min="1"
             :format-tooltip="formatTooltip"
           >
