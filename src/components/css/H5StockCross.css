@@ -43,6 +43,7 @@
   position: absolute;
   right: 0;
   color: #CFD3E9;
+  z-index: 1;
 }
 
 .mobile-buy-detail-item-shadow{
@@ -133,6 +134,7 @@
   position: absolute;
   right: 0;
   color: #CFD3E9;
+  z-index: 1;
 }
 
 .mobile-sale-detail-item-shadow{
