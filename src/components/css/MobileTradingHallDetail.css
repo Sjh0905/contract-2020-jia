@@ -575,10 +575,10 @@
 }
 .security-deposit{
   margin-top: 0.20rem;
-  margin-bottom: -0.06rem;
+  /*margin-bottom: -0.06rem;*/
 }
 .security-deposit-short {
-  margin-bottom: -0.06rem;
+  /*margin-bottom: -0.06rem;*/
 }
 .security-deposit2{
   margin-top: 0.20rem;
@@ -589,7 +589,7 @@
   /*font-family: PingFang SC;*/
   /*font-weight: 500;*/
   color: #A2B5D9;
-  line-height: 0.32rem;
+  line-height: 0.36rem;
   margin-right: 0.54rem;
 }
 
@@ -602,12 +602,10 @@
 }
 
 .can-be-opened {
-  margin-top: 0.12rem;
+  /*margin-top: 0.12rem;*/
 }
 
-.can-be-opened2 {
-  margin-top: 0.18rem;
-}
+
 
 .mobile-buy-btn{
   margin-top: 0.06rem;
