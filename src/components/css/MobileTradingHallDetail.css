@@ -546,7 +546,7 @@
 }
 
 .mobile-select-num-item{
-  width: 0.71rem;
+  width: 0.75rem;
   /*height: 0.4rem;*/
   /*line-height: 0.4rem;*/
   font-size: 0.22rem;
@@ -562,7 +562,7 @@
   /*margin-right: 0.05rem;*/
 }
 .select-lamp {
-  width: 0.71rem;
+  width: 0.75rem;
   height: 0.12rem;
   background: #3E536C;
   border-radius: 1px;

@@ -1819,7 +1819,7 @@ root.methods.re_postOrdersPosition = function (data) {
   this.$eventBus.notify({key:'GET_BALANCE'})
   if(data.code != '303') {
     this.promptOpen = true;
-    this.closePsWindowClose();
+    // this.closePsWindowClose();
     if(data.data.status == 'NEW') {
       this.popType = 1;
       this.popText = '下单成功';
