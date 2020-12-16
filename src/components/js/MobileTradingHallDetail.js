@@ -3226,7 +3226,7 @@ root.watch.symbol = function (newValue, oldValue) {
   // this.initSocket();
 
   this.getScaleConfig();
-  this.getDepth();﻿// 获取币安深度
+  this.getDepth();// 获取币安深度
   this.getLatestrice()// 获取币安最新价格
   this.getMarkPricesAndCapitalRates()//获取币安最新标记价格和资金费率
 
