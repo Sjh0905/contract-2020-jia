@@ -309,6 +309,22 @@ root.components = {
 /*------------------------------ 计算 begin -------------------------------*/
 
 root.computed = {}
+root.computed.currencyInfo = function () {
+  let cInfo = this.$store.state.currencyInfo
+  let csv = cInfo[this.capitalSymbol];
+
+  if(csv.marginType == 'isolated'){
+    this.marginType = 'ISOLATED'  // 传参使用
+    this.marginModeType = 'zhuCang' // 切换样式使用
+  }else{
+    this.marginType = 'CROSSED'
+    this.marginModeType = 'quanCang'
+  }
+  return cInfo
+  // console.info(this.$store.state.currencyInfo[this.capitalSymbol].leverage)
+  // console.info(this.$store.state.currencyInfo[this.capitalSymbol].marginType)
+  // return this.$store.state.currency[this.capitalSymbol].leverage || ''
+}
 //不加下划线币对集合
 root.computed.sNameList = function () {
   return this.$store.state.sNameList || []
@@ -595,7 +611,7 @@ root.computed.securityDeposit = function () {
 
 // 单仓最多可开
 root.computed.canMore = function () {
-  console.info(this.notionalValueLong)
+  // console.info(this.notionalValueLong)
   let crossWalletBalanceSing = Number(this.crossWalletBalance) // 全仓钱包余额
   // 向上取整IMR
   let leverage = Number(this.$globalFunc.accFixedCny(this.accDiv(1 , Number(this.$store.state.leverage) || 1),4))
@@ -2374,24 +2390,22 @@ root.methods.re_positionRisk = function (data) {
   typeof(data) == 'string' && (data = JSON.parse(data));
   if(!data || !data.data || data.data == []) return
   let records = data.data
-
+  let currencyInfo = {...this.currencyInfo}
   this.sNameList.forEach(s=>{
     for (let i = 0,len = data.data.length; i < len; i++) {
       let v = data.data[i];
       if (v.symbol == s) {
-        let currencyInfo = {...this.currencyInfo}
         currencyInfo[s] = {
           leverage:v.leverage,
           marginType:v.marginType
         }
-        this.$store.commit("CHANGE_CURRENCY_INFO", currencyInfo);
         break;
       }
     }
+    this.$store.commit("CHANGE_CURRENCY_INFO", currencyInfo);
   })
-
   let csv = this.currencyInfo[this.capitalSymbol];
-
+  this.setKaipingqiPos(records);
   // this.leverage = csv.leverage
   // this.$store.commit("CHANGE_LEVERAGE", csv.leverage);
   if(csv.marginType == 'isolated'){
@@ -2402,7 +2416,7 @@ root.methods.re_positionRisk = function (data) {
   this.marginType = 'CROSSED'
   this.marginModeType = 'quanCang'
 
-  this.setKaipingqiPos(records);
+
 }
 // 调整杠杆接口调取
 root.methods.postLevelrage = function () {

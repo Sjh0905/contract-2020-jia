@@ -946,21 +946,20 @@ root.methods.positionRisk = function () {
 root.methods.re_positionRisk = function (data) {
   typeof(data) == 'string' && (data = JSON.parse(data));
   if(!data || !data.data || data.data == []) return
-  let filterRecords = []
-
+  // let filterRecords = []
+  let currencyInfo = {...this.currencyInfo}
   this.sNameList.forEach(s=>{
     for (let i = 0,len = data.data.length; i < len; i++) {
       let v = data.data[i];
       if (v.symbol == s) {
-        let currencyInfo = {...this.currencyInfo}
         currencyInfo[s] = {
           leverage:v.leverage,
           marginType:v.marginType
         }
-        this.$store.commit("CHANGE_CURRENCY_INFO", currencyInfo);
         break;
       }
     }
+    this.$store.commit("CHANGE_CURRENCY_INFO", currencyInfo);
   })
 
   let csv = this.currencyInfo[this.capitalSymbol];
