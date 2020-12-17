@@ -40,7 +40,7 @@ root.created = function () {
     // 这里算出一个月的毫秒数,这里使用30的平均值,实际中应根据具体的每个月有多少天计算
     let day = 30 * 24 * 3600 * 1000;
     let Months = curDate - day;
-    return time.getTime() > Date.now() || time.getTime() < Months;
+    return (time.getTime() - 8.64e7) > Date.now() || time.getTime() < Months;
 
     // 设置选择的日期小于当前的日期,小于返回true,日期不可选
     // return time.getTime() < Date.now() - 8.64e7
@@ -91,7 +91,7 @@ root.methods.dealDisabledDate = function (time) {
   // time.getTime是把选中的时间转化成自1970年1月1日 00:00:00 UTC到当前时间的毫秒数
   // Date.now()是把今天的时间转化成自1970年1月1日 00:00:00 UTC到当前时间的毫秒数,这样比较好比较
   // return的值,true是不可以操作选择,false可以操作选择,比如下面这个判断就只能选择今天之后的时间
-  return time.getTime() < Date.now()
+  return time.getTime() < Date.now() - 8.64e7
 
   // 这里减8.64e7的作用是,让今天的日期可以选择,如果不减的话,今天的日期就不可以选择,判断中写<= 也是没用的,一天的毫秒数就是8.64e7
   // return time.getTime() <= Date.now()
