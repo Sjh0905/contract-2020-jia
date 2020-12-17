@@ -271,7 +271,7 @@ root.methods.initViews = function (lang) {
 			}, 0);
 		}
 
-    console.log("========resolution=======",resolution)
+    // console.log("========resolution=======",resolution)
 
 		//清空缓存测试
     //  localStorage.clear();

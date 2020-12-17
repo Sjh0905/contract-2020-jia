@@ -570,7 +570,7 @@ root.methods.setCloseAmount = function (item){
     if(totalAmtLong!=this.totalAmountLong) {
       this.totalAmountLong = totalAmtLong
     }
-    console.info(this.totalAmountLong)
+    // console.info(this.totalAmountLong)
     // this.$eventBus.notify({key:'POSITION_TOTAL_AMOUNT_LONG'}, this.totalAmountLong)
     this.$emit('setTotalAmountLong', this.totalAmountLong)
   }
