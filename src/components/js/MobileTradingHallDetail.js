@@ -2573,6 +2573,7 @@ root.methods.initSocket = function () {
   // this.$socket.emit('UNSUBSCRIBE', {symbol: this.$store.state.symbol});
   // this.$socket.emit('SUBSCRIBE', ["btcusdt@depth"]);
 
+  this.$socket.off({key: '', bind: this});
   // let subscribeSymbol = this.$store.state.subscribeSymbol;
   let subscribeSymbol = this.$globalFunc.toOnlyCapitalLetters(this.$store.state.symbol);
   // 获取最新标记价格

@@ -257,7 +257,7 @@ export default class {
    * @param callBack  函数
    */
   off({key, bind, callBack}) {
-    return
+
     // 如果没有写bind，则表示取消绑定一个函数
     if (bind instanceof Vue === false) {
       // this.io.off(key, callBack)
@@ -269,13 +269,13 @@ export default class {
       let keyMap = this.onMap.get(bind)
       // 如果没有绑定，退出即可
       if (!keyMap) return
-      keyMap.forEach((value, keys) => {
+      /*keyMap.forEach((value, keys) => {
         if (!value) return
         value.forEach((value) => {
           // this.io.off(keys, value)
           // this.closeWebSocket();
         })
-      })
+      })*/
       this.onMap.delete(bind)
     }
   }

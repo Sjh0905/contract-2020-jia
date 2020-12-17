@@ -71,10 +71,10 @@ root.data = function () {
     is_more: true,
     interval_btn_list: [{title: '分时'}, {title: '1分'}, {title: '5分'}, {title: '15分'}, {title: '30分'}, {title: '1小时'}, {title: '2小时'},{title: '4小时'},{title: '1天'},{title: '3天'}, {title: '1周'}],
 
-    highPrice: '', // 24小时最高价
-    lowPrice: '', // 24小时最低价
-    volume: '', // 24小时量
-    priceChangePercent: '', // 24涨幅
+    highPrice: '--', // 24小时最高价
+    lowPrice: '--', // 24小时最低价
+    volume: '--', // 24小时量
+    priceChangePercent: '--', // 24涨幅
     markPrice: '', // 标记价格
     markPriceObj: {}, // 多币对标记价格
     latestPriceVal: '' ,   // 最新价格
@@ -223,7 +223,7 @@ root.watch.symbol = function (newValue, oldValue) {
   // 获取不同货币对精度
   // this.getScaleConfig();
 
-  // this.initSocket();
+  this.initSocket();
 
   this.getScaleConfig();
   this.getDepth();
@@ -393,6 +393,9 @@ root.methods.initSocket = function () {
   // this.$socket.emit('UNSUBSCRIBE', {symbol: this.$store.state.symbol});
   // this.$socket.emit('SUBSCRIBE', ["btcusdt@depth"]);
 
+  //由于H5没有在监听切换币对时push新路由，需要解绑vue组件在SocketHandler注册的回调函数
+  this.$socket.off({key: '', bind: this});
+
   // let subscribeSymbol = this.$store.state.subscribeSymbol;
   let subscribeSymbol = this.$globalFunc.toOnlyCapitalLetters(this.$store.state.symbol);
   // 获取最新标记价格
@@ -559,7 +562,7 @@ root.methods.initTicket24Hr = function () {
   this.$http.send('GET_TICKER_24HR',{
     bind: this,
     query:{
-      symbol:this.capitalSymbol
+      symbol:this.sNameList.toString()
     },
     callBack: this.re_initTicket24Hr,
     errorHandler:this.error_initTicket24Hr
@@ -571,10 +574,14 @@ root.methods.re_initTicket24Hr = function (data) {
   if(!data || !data.data || !data.data[0])return
   // console.info('data====',data.data[0])
   data = data.data;
-  this.highPrice = data[0].highPrice || '--'
-  this.lowPrice = data[0].lowPrice || '--'
-  this.volume = data[0].volume || '--'
-  this.priceChangePercent = data[0].priceChangePercent || '--'
+
+  var tickerData = data.find(v=>v.symbol === this.capitalSymbol)
+  if(tickerData){
+    this.highPrice = tickerData.highPrice || '--'
+    this.lowPrice = tickerData.lowPrice || '--'
+    this.volume = tickerData.volume || '--'
+    this.priceChangePercent = tickerData.priceChangePercent || '--'
+  }
 
   // data[1] = {...data[0]};//为了前端自造数据，不能写成data[1] = data[0]，否则MarketPrice.js里v.priceStep属性计算会出错
   data.map(v=>{
