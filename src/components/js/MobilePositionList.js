@@ -26,6 +26,11 @@ root.props.setKaipingqiPos = {
   type: Function,
   default: ()=>_
 }
+// 多币对最新标记价格
+root.props.markPriceObj = {
+  type: Object,
+  default: {}
+}
 /*------------------------------ 组件 ------------------------------*/
 root.components = {
   'Loading': resolve => require(['../vue/Loading'], resolve), // loading
@@ -546,11 +551,11 @@ root.methods.modifyMarginClose = function () {
   this.modifyMarginOpen = false
 }
 root.methods.setCloseAmount = function (item){
-  if((item.ps  || item.positionSide) == 'LONG'){
+  if(item.symbol == this.capitalSymbol && (item.ps  || item.positionSide) == 'LONG'){
     this.positionAmtLong = item.pa || item.positionAmt
   }
 
-  if((item.ps  || item.positionSide) == 'SHORT'){
+  if(item.symbol == this.capitalSymbol && (item.ps  || item.positionSide) == 'SHORT'){
     this.positionAmtShort = item.pa || item.positionAmt
   }
   // 将可平仓数量存储到store里面
@@ -560,16 +565,19 @@ root.methods.setCloseAmount = function (item){
   }
   this.$store.commit('CHANGE_CLOSE_AMOUNT',closeAmount)
   let totalAmt = 0,totalAmtLong = 0 , totalAmtShort = 0;
-  if((item.ps  || item.positionSide) == 'BOTH') {
+  if(item.symbol == this.capitalSymbol && (item.ps  || item.positionSide) == 'BOTH') {
     totalAmt = (item.pa || item.positionAmt)
 
     // 单仓下计算可开数量
     if(totalAmt!=this.totalAmount) {
       this.totalAmount = totalAmt
       // console.info('this.totalAmount===',this.totalAmount)
-      this.$eventBus.notify({key:'POSITION_TOTAL_AMOUNT'}, this.totalAmount)
     }
+  }else{
+    this.totalAmount = 0
   }
+
+  this.$eventBus.notify({key:'POSITION_TOTAL_AMOUNT'}, this.totalAmount)
   // if((item.ps  || item.positionSide) == 'LONG'){
   //   totalAmtLong =  (item.pa || item.positionAmt)
   //
@@ -903,8 +911,8 @@ root.methods.handleWithMarkPrice = function(records){
   //全仓保证金比率 = 各仓位的maintMargin字段之和 /（各仓位的unrealizedProfit之和+全仓账户余额 crossWalletBalance)
   this.crossMaintMarginRate = this.accDiv(totalMaintMargin,this.accAdd(totalUnrealizedProfit,this.crossWalletBalance))
   this.crossMaintMarginRate = Number(this.crossMaintMarginRate * 100).toFixed(2) + '%'
-  this.records = records;
-
+  this.records = [...records];//为了使页面及时刷新解构赋值
+  this.$emit('getPositionList',this.records)
 
   //双仓全仓强平价格计算，由于全仓下同一symbol多空仓位强平价格一致，用map遍历完后再计算
   // this.pSymbols.length > 0 && this.LPCalculation2();

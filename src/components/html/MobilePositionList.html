@@ -54,7 +54,7 @@
       </div>
       <div class="ps-detail-middle flex-colum">
         <div class="ps-detail-tittle">标记价格</div>
-        <div class="ps-detail-amount">{{!!markPrice && Number(markPrice).toFixed(2) || '-'}}</div>
+        <div class="ps-detail-amount">{{!!markPriceObj[item.symbol] && Number(markPriceObj[item.symbol].p) && Number(markPriceObj[item.symbol].p).toFixed(2) || '-'}}</div>
       </div>
       <div class="ps-detail-right flex-colum">
         <div class="ps-detail-tittle">强平价格</div>
