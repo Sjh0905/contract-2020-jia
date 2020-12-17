@@ -38,9 +38,11 @@ root.created = function () {
     // 设置可选择的日期为今天之后的一个月内
     let curDate = (new Date()).getTime()
     // 这里算出一个月的毫秒数,这里使用30的平均值,实际中应根据具体的每个月有多少天计算
-    let day = 30 * 24 * 3600 * 1000;
+    // let day = 30 * 24 * 3600 * 1000;//只支持查询当天以前30天
+    let day =  24 * 3600 * 1000;//只支持查询当天
     let Months = curDate - day;
     return time.getTime() > Date.now() || time.getTime() < Months;
+    // return time.getTime() > Date.now();
 
     // 设置选择的日期小于当前的日期,小于返回true,日期不可选
     // return time.getTime() < Date.now() - 8.64e7
