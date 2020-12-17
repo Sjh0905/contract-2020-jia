@@ -9,12 +9,42 @@ root.data = function () {
   return {
     loading:true,
     historicaList:[],
-    tradinghallLimit: 10
+    tradinghallLimit: 10,
+    interTimerPicker:'',
+    pickerOptions: {
+      disabledDate:(time) => {
+        return this.dealDisabledDate(time)
+      }
+    }, // 日期设置对象
+
+    LieoptionsUsdt:[
+      {
+        value: 'ETHUSDT',
+        label: 'ETHUSDT'
+      }, {
+        value: 'BTCUSDT',
+        label: 'BTCUSDT'
+      }
+    ],
+    value:'',
+    valueUsdt:'',
   }
 }
 /*------------------------------ 生命周期 -------------------------------*/
 root.created = function () {
   this.getHistorTrans()
+
+  this.pickerOptions.disabledDate = function (time) {
+    // 设置可选择的日期为今天之后的一个月内
+    let curDate = (new Date()).getTime()
+    // 这里算出一个月的毫秒数,这里使用30的平均值,实际中应根据具体的每个月有多少天计算
+    let day = 30 * 24 * 3600 * 1000;
+    let Months = curDate - day;
+    return time.getTime() > Date.now() || time.getTime() < Months;
+
+    // 设置选择的日期小于当前的日期,小于返回true,日期不可选
+    // return time.getTime() < Date.now() - 8.64e7
+  }
 }
 root.mounted = function () {}
 root.beforeDestroy = function () {}
@@ -55,13 +85,28 @@ root.computed.sNameList = function () {
 root.watch = {}
 /*------------------------------ 方法 -------------------------------*/
 root.methods = {}
+
+// 单独处理时间的函数
+root.methods.dealDisabledDate = function (time) {
+  // time.getTime是把选中的时间转化成自1970年1月1日 00:00:00 UTC到当前时间的毫秒数
+  // Date.now()是把今天的时间转化成自1970年1月1日 00:00:00 UTC到当前时间的毫秒数,这样比较好比较
+  // return的值,true是不可以操作选择,false可以操作选择,比如下面这个判断就只能选择今天之后的时间
+  return time.getTime() < Date.now()
+
+  // 这里减8.64e7的作用是,让今天的日期可以选择,如果不减的话,今天的日期就不可以选择,判断中写<= 也是没用的,一天的毫秒数就是8.64e7
+  // return time.getTime() <= Date.now()
+  // return time.getTime() < Date.now() - 8.64e7
+}
+
 // 历史成交
 root.methods.getHistorTrans = function () {
   this.$http.send('GET_CAPITAL_DEAL',{
     bind: this,
     query:{
-      symbol:'',
       // timestamp:this.serverTime
+      statrTime:this.interTimerPicker[0] || '',
+      endTime:this.interTimerPicker[1] || '',
+      symbol:this.valueUsdt || '',
     },
     callBack: this.re_getHistorTrans,
     errorHandler:this.error_getHistorTrans
