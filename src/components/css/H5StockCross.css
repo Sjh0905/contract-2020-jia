@@ -43,6 +43,7 @@
   position: absolute;
   right: 0;
   color: #CFD3E9;
+  z-index: 1;
 }
 
 .mobile-buy-detail-item-shadow{
@@ -53,7 +54,7 @@
   display: block;
   /*width: 100%;*/
   transition: width 300ms ease;
-  opacity:0.3
+  opacity:0.2
 }
 
 .mobile-buy-detail-now-price-box{
@@ -133,6 +134,7 @@
   position: absolute;
   right: 0;
   color: #CFD3E9;
+  z-index: 1;
 }
 
 .mobile-sale-detail-item-shadow{
