@@ -59,6 +59,8 @@ root.data = function () {
     latestPriceArr: [] ,   // 最新价格数组，用于判断价格升降和盘口显示
 
     recordsIndex:0, // 仓位数量
+    recordsIndexS:0, // 当前币对的仓位数量
+    currOrderLenObj:{},
     effectiveTime:'GTX',
 
     // 是否可用BDB抵扣 TODO------------------ 新旧分割线-----------------
@@ -148,15 +150,26 @@ root.data = function () {
     popTextLeverage:'',
     value: 0,
     marks: {
-      1: '1X',
-      25: '25X',
-      50: '50X',
-      75:'75X',
-      100:'100X',
-      125:'125X',
+      ETHUSDT:{
+        1: '1X',
+        20: '20X',
+        40: '40X',
+        60: '60X',
+        80: '80X',
+        100:'100X',
+      },
+      BTCUSDT:{
+        1: '1X',
+        25: '25X',
+        50: '50X',
+        75:'75X',
+        100:'100X',
+        125:'125X',
+      }
     },
+    calculatorClass:['radiusa_blu1','radiusa_blu2','radiusa_blu3','radiusa_blu4','radiusa_blu5'],
     // 显示的最大头寸数值
-    maximumPosition : ['50,000','250,000','100,0000','5,000,000','20,000,000','50,000,000','100,000,000','200,000,000'],
+    // maximumPosition : ['50,000','250,000','100,0000','5,000,000','20,000,000','50,000,000','100,000,000','200,000,000'],
     maxNotionalValue: '',   // 当前杠杆倍数下允许的最大名义价值
     listType:'holdPosition',// 当前委托currentDelegation，持有仓位holdPosition
     //调整杠杆 End
@@ -969,12 +982,25 @@ root.computed.canBeOpened = function () {
   //   }
   // }
 }
-// 计算是否有仓位和当前委托
+// 计算是否有仓位和当前委托(调整保证金模式)
 root.computed.isHasOrders = function (){
+  // 如果当前币对的仓位和订单数量为0，不能切换全逐仓
+  if(!this.currOrderLenObj[this.capitalSymbol] && !this.recordsIndexS) return true
+  return false
+}
+// 计算是否有仓位和当前委托（调整单双仓）
+root.computed.isHasOrdersOrPosition = function (){
   if(!this.currentLength && !this.recordsIndex) return true
   return false
 }
-
+// 最大头寸值
+root.computed.maximumPosition = function () {
+  return this.$store.state.bracketNotionalcap[this.capitalSymbol] || []
+}
+// 杠杆倍数
+root.computed.initialLeverage = function () {
+  return this.$store.state.bracketLeverage[this.capitalSymbol] || []
+}
 root.computed.currencyList = function(){
   return this.$store.state.symbol.currencyList
 }
@@ -1056,36 +1082,37 @@ root.computed.KKPriceRangeH5 = function () {
 }
 // 最大头寸计算
 root.computed.maxPosition = function () {
-  let maxPosition = ''
-  if(this.value > 100 && this.value <= 125) {
+  let maxPosition = '',initialLeverage = this.initialLeverage
+
+  if(this.value > initialLeverage[1] && this.value <= initialLeverage[0]) {
     maxPosition = this.maximumPosition[0]
     return maxPosition
   }
-  if(this.value > 50 && this.value <= 100) {
+  if(this.value > initialLeverage[2] && this.value <= initialLeverage[1]) {
     maxPosition = this.maximumPosition[1]
     return maxPosition
   }
-  if(this.value > 20 && this.value <= 50) {
+  if(this.value > initialLeverage[3] && this.value <= initialLeverage[2]) {
     maxPosition = this.maximumPosition[2]
     return maxPosition
   }
-  if(this.value > 10 && this.value <= 20) {
+  if(this.value > initialLeverage[4] && this.value <= initialLeverage[3]) {
     maxPosition = this.maximumPosition[3]
     return maxPosition
   }
-  if(this.value > 5 && this.value <= 10) {
+  if(this.value > initialLeverage[5] && this.value <= initialLeverage[4]) {
     maxPosition = this.maximumPosition[4]
     return maxPosition
   }
-  if(this.value == 5) {
+  if(this.value == initialLeverage[5]) {
     maxPosition = this.maximumPosition[5]
     return maxPosition
   }
-  if(this.value == 4) {
+  if(this.value ==  initialLeverage[6]) {
     maxPosition = this.maximumPosition[6]
     return maxPosition
   }
-  if(this.value == 3) {
+  if(this.value == initialLeverage[7]) {
     maxPosition = this.maximumPosition[7]
     return maxPosition
   }
@@ -1541,6 +1568,7 @@ root.methods.postOrdersCreate = function () {
 root.methods.re_postOrdersCreate = function (data) {
   this.currentLimiting = false
   this.loading = false
+
   if(data.code == 303 && data.errCode == 2022) {
     this.promptOpen = true;
     this.popType = 0;
@@ -1632,7 +1660,6 @@ root.methods.re_postOrdersCreate = function (data) {
   }
   if(data.data.status == 'NEW_INSURANCE') {
     this.popType = 1;
-    this.popText = '风险保障基金(强平)';
     this.popText = '风险保障基金(强平)';
     return
   }
@@ -2000,7 +2027,7 @@ root.methods.positionModeSelectedConfirm = function () {
     this.popWindowPositionModeBulletBox = false
     return
   }
-  if(!this.isHasOrders){
+  if(!this.isHasOrdersOrPosition){
     this.promptOpen = true;
     this.popType = 0;
     this.popText = '您可能存在挂单或仓位，不支持调整仓位模式';
@@ -3431,17 +3458,52 @@ root.computed.quoteScale_list = function () {
 }
 
 
-// // 计算后的order，排序之类的放在这里
+/*// // 计算后的order，排序之类的放在这里
 root.computed.currentOrderComputed = function () {
   return this.currentOrder
 }
 
 root.computed.historyOrderComputed = function () {
   return this.historyOrder
+}*/
+// 获取订单
+root.methods.getOrder = function () {
+  // if (!this.$store.state.authState.userId) {
+  //   this.loading = false
+  //   return
+  // }
+  this.$http.send('GET_CURRENT_DELEGATION', {
+    bind: this,
+    query: {
+      symbol:'',
+      timestamp:this.serverTime,
+      // orderId:'1231212'
+    },
+    callBack: this.re_getOrder,
+    errorHandler: this.error_getOrder,
+  })
+}
+// 获取订单回调
+root.methods.re_getOrder = function (data) {
+  typeof(data) == 'string' && (data = JSON.parse(data));
+  this.loading = false
+  this.currentOrder = data.data || []
+  let currOrderLen = {}
+  this.currentOrder && this.currentOrder.forEach(v=>{
+    if(!currOrderLen[v.symbol]){
+      currOrderLen[v.symbol] = 0
+    }
+    currOrderLen[v.symbol] += 1
+  })
+  this.currOrderLenObj = currOrderLen;
+  this.$store.commit('SET_CURRENT_ORDERS',this.currentOrder)
+}
+// 获取订单出错
+root.methods.error_getOrder = function (err) {
+  console.warn("获取订单出错！")
 }
 
-
-root.methods.getOrder = function () {
+/*root.methods.getOrder = function () {
   if (!this.$store.state.authMessage.userId) {
     this.loading = false
     return
@@ -3458,7 +3520,30 @@ root.methods.getOrder = function () {
       errorHandler: this.error_getOrder,
     })
 }
+// 获取订单回调
+root.methods.re_getOrder = function (data) {
+  // console.warn('订单信息获取到了！！！！', data)
+  this.loading = false
+  if (this.cancelAll) {
+    return
+  }
 
+  this.currentOrder = data.orders.filter(
+    v => {
+      v.click = false
+      this.clickOrder.has(v.id) && (v.click = true)
+      return (v.status !== 'PARTIAL_CANCELLED') && (v.status !== 'FULLY_CANCELLED') && (v.status !== 'FULLY_FILLED')
+    }
+  )
+  this.historyOrder = data.orders.filter(
+    v => {
+      return ((v.status === 'PARTIAL_CANCELLED') || (v.status === 'FULLY_CANCELLED') || (v.status === 'FULLY_FILLED'))
+    }
+  )
+
+  // console.warn("订单信息筛选！", this.currentOrder)
+
+}*/
 
 root.methods.computedToCNY = function (item) {
 
@@ -3491,28 +3576,7 @@ root.methods.computedToCNY = function (item) {
   return this.$globalFunc.accFixedCny(item.close * rate * this.$store.state.exchange_rate_dollar, 2)
 }
 
-// 获取订单回调
-root.methods.re_getOrder = function (data) {
-  // console.warn('订单信息获取到了！！！！', data)
-  this.loading = false
-  if (this.cancelAll) {
-    return
-  }
-  this.currentOrder = data.orders.filter(
-    v => {
-      v.click = false
-      this.clickOrder.has(v.id) && (v.click = true)
-      return (v.status !== 'PARTIAL_CANCELLED') && (v.status !== 'FULLY_CANCELLED') && (v.status !== 'FULLY_FILLED')
-    }
-  )
-  this.historyOrder = data.orders.filter(
-    v => {
-      return ((v.status === 'PARTIAL_CANCELLED') || (v.status === 'FULLY_CANCELLED') || (v.status === 'FULLY_FILLED'))
-    }
-  )
-  // console.warn("订单信息筛选！", this.currentOrder)
 
-}
 
 root.methods.cancelOrder = async function (order) {
   // this.loading = true

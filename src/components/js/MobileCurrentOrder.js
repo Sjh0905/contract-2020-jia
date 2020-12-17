@@ -48,24 +48,25 @@ root.data = function () {
 /*----------------------------- 生命周期 ------------------------------*/
 
 root.created = function () {
-  this.$eventBus.listen(this, 'TRADED', this.TRADED)
+  // this.$eventBus.listen(this, 'TRADED', this.TRADED)
   // 获取订单
   // this.getOrder()
-  this.currentInterval && clearInterval(this.currentInterval)
-  this.currentInterval = setInterval(this.getOrder, 5000)
+  // this.currentInterval && clearInterval(this.currentInterval)
+  // this.currentInterval = setInterval(this.getOrder, 5000)
 
   this.$eventBus.listen(this, 'CANCEL_ALL', this.CANCEL_ALL)
 
   /*---------------- 合约部分 begin ------------------*/
   // 获取订单
   this.getOrder()
+  // this.$eventBus.listen(this, 'GET_ORDERS', this.getOrder)
   this.receiveSocket()
 
   /*---------------- 合约部分 end ------------------*/
 }
 
 root.beforeDestroy = function () {
-  this.currentInterval && clearInterval(this.currentInterval)
+  // this.currentInterval && clearInterval(this.currentInterval)
 }
 
 
@@ -160,7 +161,7 @@ root.methods.getOrder = function () {
   this.$http.send('GET_CURRENT_DELEGATION', {
     bind: this,
     query: {
-      symbol:this.capitalSymbol,
+      symbol:'',
       timestamp:this.serverTime,
       // orderId:'1231212'
     },
@@ -173,6 +174,15 @@ root.methods.re_getOrder = function (data) {
   typeof(data) == 'string' && (data = JSON.parse(data));
   this.loading = false
   this.currentOrder = data.data || []
+  let currOrderLen = {}
+  this.currentOrder && this.currentOrder.forEach(v=>{
+    if(!currOrderLen[v.symbol]){
+      currOrderLen[v.symbol] = 0
+    }
+    currOrderLen[v.symbol] += 1
+  })
+  this.currOrderLenObj = currOrderLen;
+  this.$emit('setCurrentLength',this.currOrderLenObj)
   this.$store.commit('SET_CURRENT_ORDERS',this.currentOrder)
 }
 // 获取订单出错
@@ -250,7 +260,6 @@ root.methods.re_cancelOrder = function (data) {
   if(data.code == 200){
     this.getOrder()
     this.$eventBus.notify({key:'GET_POSITION'})
-    this.$eventBus.notify({key:'GET_ORDERS'})
     this.$eventBus.notify({key:'GET_BALANCE'})
     return
   }

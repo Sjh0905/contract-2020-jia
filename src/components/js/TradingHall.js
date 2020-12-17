@@ -539,7 +539,7 @@ root.methods.setRecords = function (records) {
   //     filterRecords.push(v)
   //   }
   // })
-  // // console.info(this.recordsIndexS,filterRecords)
+  // console.info(this.recordsIndexS,filterRecords)
   // return this.recordsIndexS = filterRecords.length || 0
 }
 // 仓位
