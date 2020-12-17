@@ -273,7 +273,7 @@ root.created = function () {
   }
 
 
-  this.$eventBus.listen(this, 'TRADED', this.TRADED)
+  // this.$eventBus.listen(this, 'TRADED', this.TRADED)
   // 获取订单
   this.loading = false
   this.getOrder()
@@ -999,7 +999,7 @@ root.computed.canBeOpened = function () {
   //   }
   // }
 }
-// 计算是否有仓位和当前委托
+// 计算是否有仓位和当前委托(调整保证金模式)
 root.computed.isHasOrders = function (){
   // 如果当前币对的仓位和订单数量为0，不能切换全逐仓
   if(!this.currOrderLenObj[this.capitalSymbol] && !this.recordsIndexS) return true
@@ -1143,9 +1143,6 @@ root.computed.isApp = function () {
 /*------------------------------ 方法 begin -------------------------------*/
 
 root.methods = {}
-root.methods.getCurrentLength = function (indexObj) {
-  this.currOrderLenObj = [...indexObj]
-}
 // 获取用户可用余额
 root.methods.getBalance = function () {
   this.$http.send('GET_BALAN_ACCOUNT',{
@@ -1576,6 +1573,7 @@ root.methods.postOrdersCreate = function () {
 root.methods.re_postOrdersCreate = function (data) {
   this.currentLimiting = false
   this.loading = false
+
   if(data.code == 303 && data.errCode == 2022) {
     this.promptOpen = true;
     this.popType = 0;
@@ -2207,6 +2205,7 @@ root.methods.changeReducePositions = function(){
 
 // 获取仓位子组件的值
 root.methods.getIndex = function (index) {
+  console.info(index)
   this.recordsIndex = index
 }
 //设置开平器仓位数据
@@ -2234,6 +2233,7 @@ root.methods.setKaipingqiPos = function(records){
     }
   }
   this.positionList = filterRecords
+  console.info(this.positionList)
 }
 
 // 获取仓位信息
@@ -3371,17 +3371,52 @@ root.computed.quoteScale_list = function () {
 }
 
 
-// // 计算后的order，排序之类的放在这里
+/*// // 计算后的order，排序之类的放在这里
 root.computed.currentOrderComputed = function () {
   return this.currentOrder
 }
 
 root.computed.historyOrderComputed = function () {
   return this.historyOrder
+}*/
+// 获取订单
+root.methods.getOrder = function () {
+  // if (!this.$store.state.authState.userId) {
+  //   this.loading = false
+  //   return
+  // }
+  this.$http.send('GET_CURRENT_DELEGATION', {
+    bind: this,
+    query: {
+      symbol:'',
+      timestamp:this.serverTime,
+      // orderId:'1231212'
+    },
+    callBack: this.re_getOrder,
+    errorHandler: this.error_getOrder,
+  })
+}
+// 获取订单回调
+root.methods.re_getOrder = function (data) {
+  typeof(data) == 'string' && (data = JSON.parse(data));
+  this.loading = false
+  this.currentOrder = data.data || []
+  let currOrderLen = {}
+  this.currentOrder && this.currentOrder.forEach(v=>{
+    if(!currOrderLen[v.symbol]){
+      currOrderLen[v.symbol] = 0
+    }
+    currOrderLen[v.symbol] += 1
+  })
+  this.currOrderLenObj = currOrderLen;
+  this.$store.commit('SET_CURRENT_ORDERS',this.currentOrder)
+}
+// 获取订单出错
+root.methods.error_getOrder = function (err) {
+  console.warn("获取订单出错！")
 }
 
-
-root.methods.getOrder = function () {
+/*root.methods.getOrder = function () {
   if (!this.$store.state.authMessage.userId) {
     this.loading = false
     return
@@ -3398,7 +3433,30 @@ root.methods.getOrder = function () {
       errorHandler: this.error_getOrder,
     })
 }
+// 获取订单回调
+root.methods.re_getOrder = function (data) {
+  // console.warn('订单信息获取到了！！！！', data)
+  this.loading = false
+  if (this.cancelAll) {
+    return
+  }
 
+  this.currentOrder = data.orders.filter(
+    v => {
+      v.click = false
+      this.clickOrder.has(v.id) && (v.click = true)
+      return (v.status !== 'PARTIAL_CANCELLED') && (v.status !== 'FULLY_CANCELLED') && (v.status !== 'FULLY_FILLED')
+    }
+  )
+  this.historyOrder = data.orders.filter(
+    v => {
+      return ((v.status === 'PARTIAL_CANCELLED') || (v.status === 'FULLY_CANCELLED') || (v.status === 'FULLY_FILLED'))
+    }
+  )
+
+  // console.warn("订单信息筛选！", this.currentOrder)
+
+}*/
 
 root.methods.computedToCNY = function (item) {
 
@@ -3431,30 +3489,7 @@ root.methods.computedToCNY = function (item) {
   return this.$globalFunc.accFixedCny(item.close * rate * this.$store.state.exchange_rate_dollar, 2)
 }
 
-// 获取订单回调
-root.methods.re_getOrder = function (data) {
-  // console.warn('订单信息获取到了！！！！', data)
-  this.loading = false
-  if (this.cancelAll) {
-    return
-  }
 
-  this.currentOrder = data.orders.filter(
-    v => {
-      v.click = false
-      this.clickOrder.has(v.id) && (v.click = true)
-      return (v.status !== 'PARTIAL_CANCELLED') && (v.status !== 'FULLY_CANCELLED') && (v.status !== 'FULLY_FILLED')
-    }
-  )
-  this.historyOrder = data.orders.filter(
-    v => {
-      return ((v.status === 'PARTIAL_CANCELLED') || (v.status === 'FULLY_CANCELLED') || (v.status === 'FULLY_FILLED'))
-    }
-  )
-
-  // console.warn("订单信息筛选！", this.currentOrder)
-
-}
 
 root.methods.cancelOrder = async function (order) {
   // this.loading = true
