@@ -223,7 +223,7 @@ root.methods.getOrderSearch = function () {
   this.$http.send('GET_CAPITAL_SEARCH', {
       bind: this,
       query: {
-        statrTime:this.interTimerPicker[0] || '',
+        startTime:this.interTimerPicker[0] || '',
         endTime:this.interTimerPicker[1] || '',
         type:this.value || '',
         symbol:this.valueUsdt || '',

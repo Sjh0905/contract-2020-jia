@@ -104,7 +104,7 @@ root.methods.getHistorTrans = function () {
     bind: this,
     query:{
       // timestamp:this.serverTime
-      statrTime:this.interTimerPicker[0] || '',
+      startTime:this.interTimerPicker[0] || '',
       endTime:this.interTimerPicker[1] || '',
       symbol:this.valueUsdt || '',
     },
@@ -119,8 +119,6 @@ root.methods.re_getHistorTrans = function (data) {
   this.loading = false
   // console.info('data====',data.data)
   this.historicaList = data.data
-
-
 }
 // 历史成交错误回调
 root.methods.error_getHistorTrans = function (err) {
