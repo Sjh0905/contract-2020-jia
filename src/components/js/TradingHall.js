@@ -592,7 +592,9 @@ root.methods.getBalance = function () {
 root.methods.re_getBalance = function (data) {
   typeof(data) == 'string' && (data = JSON.parse(data));
   if(!data || !data.data || !data.data[0])return
-  this.availableBalance  = data.data[0].availableBalance || 0
+  let availableBalance  = data.data[0].availableBalance || 0
+  this.availableBalance = availableBalance >=0 ? availableBalance : 0
+
 }
 // 获取用户可用余额错误回调
 root.methods.error_getBalance = function (err) {
