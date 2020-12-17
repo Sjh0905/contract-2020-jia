@@ -1602,6 +1602,10 @@ root.methods.postLevelrage = function () {
 }
 root.methods.re_postLevelrage = function (data) {
   // console.info('超过当前杠杆的最大允许持仓量',data,data.code)
+  if (data.code == 303) {
+    this.popTextLeverage = '调整杠杆失败';
+    return
+  }
   if (data.code == 303 && data.errCode == 2027) {
     this.popTextLeverage = '超过当前杠杆的最大允许持仓量';
     return
