@@ -673,6 +673,9 @@ root.computed.canMore = function () {
       if(afterTradeSell > this.maxNotionalAtCurrentLeverage){
         sellCanOpen =  (this.maxNotionalAtCurrentLeverage + positionNotionalValue - this.computedSellNetValue) / this.assumingPrice
       }
+      // 若可开计算为负数,则显示0
+      sellCanOpen = sellCanOpen <= 0 ? 0 : sellCanOpen
+      buyCanOpen = buyCanOpen <= 0 ? 0 : buyCanOpen
       // 如果是只减仓
       if(this.reducePositionsSelected){
         if(positionAmt > 0) {
@@ -683,6 +686,7 @@ root.computed.canMore = function () {
         }
         return
       }
+
       return this.orderType ? sellCanOpen : buyCanOpen
     }
 
@@ -730,6 +734,9 @@ root.computed.canMore = function () {
         }
         return
       }
+      // 若可开计算为负数,则显示0
+      sellCanOpen = sellCanOpen <= 0 ? 0 : sellCanOpen
+      buyCanOpen = buyCanOpen <= 0 ? 0 : buyCanOpen
       // 将可平仓数量存储到store里面
       openAmountSingle = {
         openAmtBuy:buyCanOpen,
@@ -775,6 +782,9 @@ root.computed.canMore = function () {
         sellCanOpen =  (this.maxNotionalAtCurrentLeverage + positionNotionalValue - this.computedSellNetValue) / this.assumingPrice
         // console.info('sellCanOpen==',sellCanOpen)
       }
+      // 若可开计算为负数,则显示0
+      sellCanOpen = sellCanOpen <= 0 ? 0 : sellCanOpen
+      buyCanOpen = buyCanOpen <= 0 ? 0 : buyCanOpen
       // 如果是只减仓
       if(this.reducePositionsSelected && this.pendingOrderType == 'limitProfitStopLoss'){
         if(positionAmt > 0) {
@@ -832,6 +842,9 @@ root.computed.canMore = function () {
         }
         return
       }
+      // 若可开计算为负数,则显示0
+      sellCanOpen = sellCanOpen <= 0 ? 0 : sellCanOpen
+      buyCanOpen = buyCanOpen <= 0 ? 0 : buyCanOpen
       // 将可平仓数量存储到store里面
       openAmountSingle = {
         openAmtBuy:buyCanOpen,
@@ -893,6 +906,8 @@ root.computed.canBeOpened = function () {
     // console.info('buyCanOpen===',longPositionAmt * markPrice)
     // console.info('sellCanOpen===',shortPositionAmt * markPrice)
     // return this.orderType ? sellCanOpen : buyCanOpen
+    sellCanOpen = sellCanOpen <= 0 ? 0 : sellCanOpen
+    buyCanOpen = buyCanOpen <= 0 ? 0 : buyCanOpen
     return [buyCanOpen,sellCanOpen]
     // Qty = Avail for Order / {assuming price * IM + abs(min[0, side * (mark price - order's Price)])}
   }
@@ -917,6 +932,9 @@ root.computed.canBeOpened = function () {
     if(afterTradeSell > this.maxNotionalAtCurrentLeverage) {
       sellCanOpen =(this.maxNotionalAtCurrentLeverage - (afterTradeShortB + afterTradeLongS)) / this.assumingPriceDouble[1]
     }
+    // 若可开计算为负数,则显示0
+    sellCanOpen = sellCanOpen <= 0 ? 0 : sellCanOpen
+    buyCanOpen = buyCanOpen <= 0 ? 0 : buyCanOpen
     // return this.orderType ? sellCanOpen : buyCanOpen
     // 将可平仓数量存储到store里面
     openAmount = {
