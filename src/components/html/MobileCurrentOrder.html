@@ -30,7 +30,7 @@
               <!--                      {{order.type === 'BUY_LIMIT' && "跟买" || "跟卖"}}-->
               <!--                    </i>-->
               <div class="flex">
-                <div>{{order.symbol.split('_')[0]}}</div>
+                <div>{{order.symbol}}</div>
                 <div class="order-position-side" :class="order.side==='BUY'?'text_blue-3':'text_red-4'">{{$globalFunc.getOrderSide(order.positionSide,order.side)}}</div>
 <!--                <div class="order-type">{{type(order)}}</div>-->
                 <div class=" order-type" v-if="order.type == 'LIMIT'">限价单</div>
