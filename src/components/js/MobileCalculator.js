@@ -13,14 +13,26 @@ root.data = function () {
     // 滑块变量
     calculatorValue: 1, // 收益杠杠倍数
     calculatorMarks:{
-      1: '1X',
-      25: '25X',
-      50: '50X',
-      75:'75X',
-      100:'100X',
-      125:'125X',
+      ETHUSDT:{
+        1: '1X',
+        20: '20X',
+        40: '40X',
+        60: '60X',
+        80: '80X',
+        100:'100X',
+      },
+      BTCUSDT:{
+        1: '1X',
+        25: '25X',
+        50: '50X',
+        75:'75X',
+        100:'100X',
+        125:'125X',
+      }
     },
-    maximumPosition:['50,000','250,000','100,0000','5,000,000','20,000,000','50,000,000','100,000,000','200,000,000','9,223,372,036,854,776,000'],
+    calculatorClass:['radiusa_green','radiusb_green','radiusc_green','radiusd_green','radiuse_green'],
+
+    // maximumPosition:['50,000','250,000','100,0000','5,000,000','20,000,000','50,000,000','100,000,000','200,000,000','9,223,372,036,854,776,000'],
 
 
     openingPrice:'', // 收益开仓价格
@@ -88,7 +100,8 @@ root.computed.isStyle = function () {
 }
 // 是否可以计算
 root.computed.isComputed = function (){
-  if(Number((this.maxPosition).replace(/\,/g,'')) < this.accMul(Number(this.openingPrice), Number(this.transactionQuantity))) return true
+  if(!this.maxPosition) return
+  if(Number(this.maxPosition) < this.accMul(Number(this.openingPrice), Number(this.transactionQuantity)))return true
   return false
 }
 
@@ -104,43 +117,55 @@ root.computed.capitalSymbol = function () {
 root.computed.isApp = function () {
   return this.$route.query.isApp ? true : false
 }
+
+// 最大头寸值
+root.computed.maximumPosition = function () {
+  return this.$store.state.bracketNotionalcap[this.capitalSymbol] || []
+}
+// 杠杆倍数
+root.computed.initialLeverage = function () {
+  return this.$store.state.bracketLeverage[this.capitalSymbol] || []
+}
 // 最大头寸计算
 root.computed.maxPosition = function () {
-  let maxPosition = ''
-  if(this.calculatorValue > 100 && this.calculatorValue <= 125) {
+  let maxPosition = '',initialLeverage = this.initialLeverage
+  // console.info(initialLeverage,this.maximumPosition)
+  if(this.calculatorValue > initialLeverage[1] && this.calculatorValue <= initialLeverage[0]) {
     maxPosition = this.maximumPosition[0]
     return maxPosition
   }
-  if(this.calculatorValue > 50 && this.calculatorValue <= 100) {
+  if(this.calculatorValue > initialLeverage[2] && this.calculatorValue <= initialLeverage[1]) {
     maxPosition = this.maximumPosition[1]
     return maxPosition
   }
-  if(this.calculatorValue > 20 && this.calculatorValue <= 50) {
+  if(this.calculatorValue > initialLeverage[3] && this.calculatorValue <= initialLeverage[2]) {
     maxPosition = this.maximumPosition[2]
     return maxPosition
   }
-  if(this.calculatorValue > 10 && this.calculatorValue <= 20) {
+  if(this.calculatorValue > initialLeverage[4] && this.calculatorValue <= initialLeverage[3]) {
     maxPosition = this.maximumPosition[3]
     return maxPosition
   }
-  if(this.calculatorValue > 5 && this.calculatorValue <= 10) {
+  if(this.calculatorValue > initialLeverage[5] && this.calculatorValue <= initialLeverage[4]) {
     maxPosition = this.maximumPosition[4]
     return maxPosition
   }
-  if(this.calculatorValue == 5) {
+  if(this.calculatorValue == initialLeverage[5]) {
     maxPosition = this.maximumPosition[5]
     return maxPosition
   }
-  if(this.calculatorValue == 4) {
+  if(this.calculatorValue ==  initialLeverage[6]) {
     maxPosition = this.maximumPosition[6]
     return maxPosition
   }
-  if(this.calculatorValue == 3) {
+  if(this.calculatorValue == initialLeverage[7]) {
     maxPosition = this.maximumPosition[7]
     return maxPosition
   }
-  maxPosition = this.maximumPosition[8]
-  return maxPosition
+  if(this.calculatorValue == initialLeverage[8]) {
+    maxPosition = this.maximumPosition[8]
+    return maxPosition
+  }
 }
 /*------------------------------ 观察 -------------------------------*/
 root.watch = {}
@@ -197,7 +222,7 @@ root.methods = {}
 // 计算收益
 root.methods.clickCalculation = function (){
   if(this.closingPrice == '' || this.openingPrice == '' || this.transactionQuantity == '') return
-  if(Number((this.maxPosition).replace(/\,/g,''))  < this.accMul(Number(this.openingPrice), Number(this.transactionQuantity))) return
+  if(Number(this.maxPosition)  < this.accMul(Number(this.openingPrice), Number(this.transactionQuantity))) return
   if(this.moreEmptyType == 1){
     // 收益计算
     this.income = this.toFixed(this.accMul((this.accMinus(Number(this.closingPrice) , Number(this.openingPrice))),Number(this.transactionQuantity)),2)

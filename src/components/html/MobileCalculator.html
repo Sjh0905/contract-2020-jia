@@ -29,18 +29,19 @@
   </div>
   <div class="pop-calculator-left-slider">
     <div class="block"  style="margin: 1rem 0 1rem">
-      <p class="radiusa_green" v-if="calculatorValue>= 1" @click="calculatorValue= 1" style="cursor:pointer"></p>
-      <p class="radiusb_green" v-if="calculatorValue>=25" @click="calculatorValue=25" style="cursor:pointer"></p>
-      <p class="radiusc_green" v-if="calculatorValue>=50" @click="calculatorValue=50" style="cursor:pointer"></p>
-      <p class="radiusd_green" v-if="calculatorValue>=75" @click="calculatorValue=75" style="cursor:pointer"></p>
-      <p class="radiuse_green" v-if="calculatorValue>=100" @click="calculatorValue=100" style="cursor:pointer"></p>
+<!--      <p class="radiusa_green" v-if="calculatorValue>= 1" @click="calculatorValue= 1" style="cursor:pointer"></p>-->
+<!--      <p class="radiusb_green" v-if="calculatorValue>=25" @click="calculatorValue=25" style="cursor:pointer"></p>-->
+<!--      <p class="radiusc_green" v-if="calculatorValue>=50" @click="calculatorValue=50" style="cursor:pointer"></p>-->
+<!--      <p class="radiusd_green" v-if="calculatorValue>=75" @click="calculatorValue=75" style="cursor:pointer"></p>-->
+<!--      <p class="radiuse_green" v-if="calculatorValue>=100" @click="calculatorValue=100" style="cursor:pointer"></p>-->
+      <p v-for="(v,index) in Object.keys(calculatorMarks[capitalSymbol])" :class="calculatorClass[index]" v-if="calculatorValue >= v" @click="calculatorValue=Number(v)" style="cursor:pointer"></p>
       <el-slider
         v-model="calculatorValue"
         class="el-slider-style-h5"
         tooltip-class="my-tooltip"
-        :marks="calculatorMarks"
+        :marks="calculatorMarks[capitalSymbol]"
         :format-tooltip="formatTooltip"
-        :max="125"
+        :max="initialLeverage[0]"
         :min="1"
       >
       </el-slider>

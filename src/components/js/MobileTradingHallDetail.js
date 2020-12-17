@@ -225,7 +225,7 @@ root.created = function () {
   this.$eventBus.listen(this, 'POSITION_TOTAL_AMOUNT_SHORT', this.setTotalAmountShort);
 
   this.$eventBus.listen(this, 'GET_GRC_PRICE_RANGE', this.getKKPriceRange);
-  this.getKKPriceRange();
+  // this.getKKPriceRange();
 	this.$store.commit('SET_HALL_SYMBOL', true);
 	this.$store.commit('changeMobileTradingHallFlag', false)
 
@@ -255,17 +255,17 @@ root.created = function () {
 
   // 获取订单
   this.loading = false
-  this.getOrder()
+  // this.getOrder()
 
   // 获取认证状态
-  this.getAuthState()
+  // this.getAuthState()
 
   // 拉取最新成交数据
   // this.GET_LATEST_DEAL();
 
   // interval = setInterval(this.GET_LATEST_DEAL, 2000);
 
-  this.getScaleConfig();
+  // this.getScaleConfig();
   this.positionRisk()  // 获取仓位信息（全逐仓、杠杆倍数）
   this.getPositionsideDual() // 获取仓位模式
   this.getMarkPricesAndCapitalRates()  // 获取币安最新标记价格和资金费率
@@ -1003,6 +1003,7 @@ root.computed.canBeOpened = function () {
 // 计算是否有仓位和当前委托(调整保证金模式)
 root.computed.isHasOrders = function (){
   // 如果当前币对的仓位和订单数量为0，不能切换全逐仓
+  console.info(this.currOrderLenObj[this.capitalSymbol])
   if(!this.currOrderLenObj[this.capitalSymbol] && !this.recordsIndexS) return true
   return false
 }
@@ -1941,11 +1942,11 @@ root.methods.setTotalAmount = function(totalAmount){
 }
 //设置双仓开多仓位数量
 root.methods.setTotalAmountLong = function(totalAmountLong){
-  this.totalAmountLong = totalAmountLong
+  // this.totalAmountLong = totalAmountLong
 }
 //设置双仓开空仓位数量
 root.methods.setTotalAmountShort = function(totalAmountShort){
-  this.totalAmountShort = totalAmountShort
+  // this.totalAmountShort = totalAmountShort
 }
 // 获取币安最新标记价格和资金费率
 root.methods.getMarkPricesAndCapitalRates = function () {
@@ -2634,7 +2635,7 @@ root.methods.getDepthCny = function (list, price, symbol) {
   this.cnyPrice = !(price * rate) ? 0 : this.$globalFunc.accFixedCny(price * rate * this.$store.state.exchange_rate_dollar, 2);
 }
 
-// 判断验证状态
+/*// 判断验证状态
 root.methods.getAuthState = function () {
   if (!this.$store.state.authState) {
     this.$http.send('GET_AUTH_STATE', {
@@ -2649,7 +2650,7 @@ root.methods.re_getAuthState = function (data) {
   typeof data === 'string' && (data = JSON.parse(data))
   if (!data) return
   this.$store.commit('SET_AUTH_STATE', data.dataMap)
-}
+}*/
 
 // 切换到市场列表
 root.methods.CHANGE_SYMBOL = function () {
@@ -2909,7 +2910,7 @@ root.methods.RE_ERROR = function (err) {
 
 
 
-// 获取grc交易价格区间
+/*// 获取grc交易价格区间
 root.methods.getKKPriceRange = function () {
   this.$http.send('KK_PRICE_RANGE',
     {
@@ -2929,7 +2930,7 @@ root.methods.re_getKKPriceRange = function (data) {
 // 获取grc交易价格区间报错
 root.methods.error_getKKPriceRange = function () {
   // console.log('获取grc交易价格区间报错');
-}
+}*/
 
 //检测币对交易价格，false 不通过 true 通过
 root.methods.checkPriceRange = function () {
@@ -3484,7 +3485,9 @@ root.computed.currentOrderComputed = function () {
 root.computed.historyOrderComputed = function () {
   return this.historyOrder
 }*/
-// 获取订单
+
+/*
+// 合约当前委托获取订单
 root.methods.getOrder = function () {
   // if (!this.$store.state.authState.userId) {
   //   this.loading = false
@@ -3520,6 +3523,8 @@ root.methods.re_getOrder = function (data) {
 root.methods.error_getOrder = function (err) {
   console.warn("获取订单出错！")
 }
+*/
+
 
 /*root.methods.getOrder = function () {
   if (!this.$store.state.authMessage.userId) {

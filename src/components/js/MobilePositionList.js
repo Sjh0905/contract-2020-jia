@@ -570,22 +570,22 @@ root.methods.setCloseAmount = function (item){
       this.$eventBus.notify({key:'POSITION_TOTAL_AMOUNT'}, this.totalAmount)
     }
   }
-  if((item.ps  || item.positionSide) == 'LONG'){
-    totalAmtLong =  (item.pa || item.positionAmt)
-
-    if(totalAmtLong!=this.totalAmountLong) {
-      this.totalAmountLong = totalAmtLong
-      this.$eventBus.notify({key:'POSITION_TOTAL_AMOUNT_LONG'}, this.totalAmountLong)
-    }
-  }
-  if((item.ps  || item.positionSide) == 'SHORT'){
-    totalAmtShort =  (item.pa || item.positionAmt)
-
-    if(totalAmtShort!=this.totalAmountShort) {
-      this.totalAmountShort = totalAmtShort
-      this.$eventBus.notify({key:'POSITION_TOTAL_AMOUNT_SHORT'}, this.totalAmountShort)
-    }
-  }
+  // if((item.ps  || item.positionSide) == 'LONG'){
+  //   totalAmtLong =  (item.pa || item.positionAmt)
+  //
+  //   if(totalAmtLong!=this.totalAmountLong) {
+  //     this.totalAmountLong = totalAmtLong
+  //     this.$eventBus.notify({key:'POSITION_TOTAL_AMOUNT_LONG'}, this.totalAmountLong)
+  //   }
+  // }
+  // if((item.ps  || item.positionSide) == 'SHORT'){
+  //   totalAmtShort =  (item.pa || item.positionAmt)
+  //
+  //   if(totalAmtShort!=this.totalAmountShort) {
+  //     this.totalAmountShort = totalAmtShort
+  //     this.$eventBus.notify({key:'POSITION_TOTAL_AMOUNT_SHORT'}, this.totalAmountShort)
+  //   }
+  // }
 
 }
 
@@ -907,7 +907,7 @@ root.methods.handleWithMarkPrice = function(records){
 
 
   //双仓全仓强平价格计算，由于全仓下同一symbol多空仓位强平价格一致，用map遍历完后再计算
-  this.pSymbols.length > 0 && this.LPCalculation2();
+  // this.pSymbols.length > 0 && this.LPCalculation2();
 
 }
 //计算维持保证金首先获取比率、速算数等信息
