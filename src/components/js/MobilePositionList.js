@@ -82,7 +82,7 @@ root.data = function () {
     },  // 平仓价格在多少
     order:{},
     priceCheck1:0,
-    currSAdlQuantile:'',
+    currSAdlQuantile:{},
     controlType: false,
     positionAmt:0, // 当前仓位的数量
     entryPrice: 0, // 当前仓位的开仓价格
@@ -275,12 +275,16 @@ root.computed.capitalSymbol = function () {
   return this.$globalFunc.toOnlyCapitalLetters(this.currSymbol);
 }
 root.computed.leverage = function () {
-  return this.$store.state.leverage;
+  return this.$store.state.currencyInfo[this.capitalSymbol].leverage;
 }
-root.computed.leverageBracket = function () {
+//杠杆分层
+root.computed.bracketList = function () {
+  return this.$store.state.bracketList || {}
+}
+/*root.computed.leverageBracket = function () {
   let arr = this.$store.state.leverageBracket && [...this.$store.state.leverageBracket] || [];
   return arr.reverse() //倒序处理，强平价格从最高档开始计算
-}
+}*/
 // 存储仓位推送Key值的映射关系
 root.computed.socketPositionKeyMap = function () {
   let data = tradingHallData.socketPositionKeyMap
@@ -691,6 +695,8 @@ root.methods.positionSocket = function () {
         //由于socket返回的没有isolatedMargin，为了向接口看齐，方便处理，加一个出来
         v.isolatedMargin = this.accAdd(v.iw,v.unrealizedProfit)
 
+        let sMarkPrice = this.markPriceObj[v.symbol] && this.markPriceObj[v.symbol].p || 1
+
         //如果本地已有仓位
         if(currPositionsNew.length > 0){
           let fKey = v.symbol + '_' + v.positionSide;//用来区分某一仓位的key，如：BTCUSDT_BOTH
@@ -701,7 +707,7 @@ root.methods.positionSocket = function () {
             if((v.mt == 'cross' && v.pa!=0) || (v.mt == 'isolated' && (v.pa!=0 || v.iw!=0))){
 
               //限价输入框的价格
-              item.iptMarkPrice = Number(this.markPrice).toFixed(2)
+              item.iptMarkPrice = Number(sMarkPrice).toFixed(2)
 
               //如果存在直接覆盖更新
               if(fKey == cKey){
@@ -733,7 +739,7 @@ root.methods.positionSocket = function () {
           //全仓、逐仓新增，逐仓iw不等于0是为了测试服暴露穿仓数据，即负数情况
           if((v.mt == 'cross' && v.pa!=0) || (v.mt == 'isolated' && (v.pa!=0 || v.iw!=0))){
             //限价输入框的价格
-            v.iptMarkPrice = Number(this.markPrice).toFixed(2)
+            v.iptMarkPrice = Number(sMarkPrice).toFixed(2)
             //如果不存在就新增
             currPositionsNew.push(v);
           }
@@ -878,10 +884,13 @@ root.methods.handleWithMarkPrice = function(records){
     if(!v.hasOwnProperty('iptMarkPrice')){
       // v.markPrice && (v.iptMarkPrice = v.markPrice) || (v.iptMarkPrice = this.markPrice);
       // v.iptMarkPrice = Number(v.iptMarkPrice).toFixed(2)
+      //接口返回仓位数据有markPrice，socket推送仓位没有，需从标价变量获取，v的markPrice用于页面输入框显示，不做实时更新，除非重调接口
+      // v.markPrice && (v.iptMarkPrice = v.markPrice) || (v.iptMarkPrice = sMarkPrice);
+      // v.iptMarkPrice = Number(v.iptMarkPrice).toFixed(2)
     }
 
     let notional = this.accMul(Math.abs(v.positionAmt) || 0,sMarkPrice || 0)
-    let args = this.getCalMaintenanceArgs(notional) || {},maintMarginRatio = args.maintMarginRatio || 0,notionalCum = args.notionalCum || 0
+    let args = this.getCalMaintenanceArgs(notional,v) || {},maintMarginRatio = args.maintMarginRatio || 0,notionalCum = args.notionalCum || 0
 
     v.bracketArgs = args;//用于强平价格降档计算
 
@@ -949,17 +958,23 @@ root.methods.handleWithMarkPrice = function(records){
   // this.pSymbols.length > 0 && this.LPCalculation2();
 
 }
+//获取币对对应的速算数
+root.methods.getSymbolBracket = function(s){
+  let bSingle = this.bracketList[s] || []
+  let arr = [...bSingle];//！！！必须加这行，reverse会改变数组本身，影响全局变量
+  return arr.reverse() //倒序处理，强平价格从最高档开始计算
+}
 //计算维持保证金首先获取比率、速算数等信息
-root.methods.getCalMaintenanceArgs = function(notional=0){
-  let bracketSingle = {};
+root.methods.getCalMaintenanceArgs = function(notional=0,v){
+  let bracketSingle = {},leverageBracket = this.getSymbolBracket(v.symbol);
 
   if(notional == 0){
-    bracketSingle = this.leverageBracket.find(v=> v.notionalCap == 0)
+    bracketSingle = leverageBracket.find(v=> v.notionalCap == 0)
     return bracketSingle;
   }
   //notional > notionalFloor && notional <= notionalCap 可推出 notional - notionalFloor > 0  && notional - notionalCap <= 0
-  for (let i = 0; i < this.leverageBracket.length; i++) {
-    let v = this.leverageBracket[i];
+  for (let i = 0; i < leverageBracket.length; i++) {
+    let v = leverageBracket[i];
     let floorStep = this.accMinus(notional,v.notionalFloor || 0)
     let capStep = this.accMinus(notional,v.notionalCap || 0)
 
@@ -978,12 +993,13 @@ root.methods.LPCalculation1 = function (pos = {}){
   let LPCalculation1 = 0,size = pos.positionAmt || 0,ep = pos.entryPrice || 0,
     // 1.全仓模式下， WB 为 crossWalletBalance，由于目前只有一个symbol，暂时TMM=0，UPNL=0
     // 2.逐仓模式下，WB 为逐仓仓位的 isolatedWalletBalance，TMM=0，UPNL=0,isolatedWalletBalance = isolatedMargin - unrealizedProfit,正好和逐仓保证金相等
-    WB = pos.marginType == "cross" ? this.crossWalletBalance : pos.securityDeposit;
+    WB = pos.marginType == "cross" ? this.crossWalletBalance : pos.securityDeposit,
+    leverageBracket = this.getSymbolBracket(pos.symbol);
 
   //从 Bracket 最高档开始逐层计算 LP，若计算出 LP 使得：floor < abs(B*LP) <= cap，则获得 LP，否则继续降档计算
   //若始终没有匹配值使得 floor < abs(B*LP) <= cap，则降至最后一档算出结果即为最终值
-  for (let i = 0; i < this.leverageBracket.length; i++) {
-    let v = this.leverageBracket[i],cum = v.notionalCum || 0,mmr = v.maintMarginRatio || 0
+  for (let i = 0; i < leverageBracket.length; i++) {
+    let v = leverageBracket[i],cum = v.notionalCum || 0,mmr = v.maintMarginRatio || 0
 
     //调用对应的计算方法： LPCalculation1BOTH LPCalculation1LONG LPCalculation1SHORT
     let paras = [WB,size,ep,cum,mmr] , LP = this["LPCalculation1"+pos.positionSide](paras),
@@ -991,7 +1007,7 @@ root.methods.LPCalculation1 = function (pos = {}){
     BLP = Math.abs(BLP);
     let floorStep = this.accMinus(BLP,v.notionalFloor || 0), capStep = this.accMinus(BLP,v.notionalCap || 0)
 
-    if((floorStep > 0 && capStep <= 0) || i == this.leverageBracket.length - 1){
+    if((floorStep > 0 && capStep <= 0) || i == leverageBracket.length - 1){
       LPCalculation1 = LP;
       break;
     }
@@ -1026,13 +1042,13 @@ root.methods.LPCalculation1SHORT = function (paras){
 //类型2的强平价格
 root.methods.LPCalculation2 = function () {
 
-  let leverageBracket = this.leverageBracket;
+  // let leverageBracket = this.leverageBracket;
 
   //由于全仓模式下，一个 symbol 下多空仓位强平价格一致，可将最终结果存储到 this[s+"_LPCalculation2"]
   this.pSymbols.map((s,si)=>{
     let LPCalculation2 = 0,long = this.pSymbolsMap[s+"_LONG"], short = this.pSymbolsMap[s+"_SHORT"],longPos,shortPos;
     long && (longPos = long.pos); short && (shortPos = short.pos);
-
+    let leverageBracket = this.getSymbolBracket(s);
     //只有空仓
     if(!longPos && shortPos){
       for (let i = 0; i < leverageBracket.length; i++) {
@@ -1067,7 +1083,7 @@ root.methods.LPCalculation2 = function () {
         paras = [WB,size,ep,cum,mmr]
         LP = this.LPCalculation1LONG(paras)//cum_S对应等级cum是0，那公式就和“双仓-逐仓-多仓”一致
         // }
-
+        //TODO:这里的标记价格需要改变取值方式，暂时没用到，稍后再改
         let SIZELP1 = this.accMul(Math.abs(size),LP),SIZEMP = this.accMul(Math.abs(size),this.markPrice);
         SIZELP1 = Math.abs(SIZELP1);SIZEMP = Math.abs(SIZEMP);
 
@@ -1108,6 +1124,7 @@ root.methods.LPCalculation2 = function () {
 
         //对比 abs(L*LP1) 与 abs(L*MP) 是否处于同一层级，若是，则 LP1 为最终结果；否则多仓bracket 降一档
         //可理解为二者同时满足floor<abs(L或S*LP1)、abs(L或S*MP)<=cap
+        //TODO:这里的标记价格需要改变取值方式，暂时没用到，稍后再改
         let SIZELP1 = this.accMul(SIZEL,LP1),SIZEMP = this.accMul(SIZEL,this.markPrice);
         SIZELP1 = Math.abs(SIZELP1);SIZEMP = Math.abs(SIZEMP);
 
@@ -1164,8 +1181,22 @@ root.methods.re_getAdlQuantile = function (data) {
   typeof data === 'string' && (data = JSON.parse(data))
   if (!data || !data.data) return
 
-  //TODO:list中每个币对只返回一个对象吗？
-  this.currSAdlQuantile = data.data.find(v=>v.symbol==this.capitalSymbol);
+  //list中每个币对只返回一个对象吗？是的
+  // this.currSAdlQuantile = data.data.find(v=>v.symbol==this.capitalSymbol);
+
+  let len = data.data.length;
+
+  len == 0 && (this.currSAdlQuantile = undefined)
+  if(len > 0){
+    this.currSAdlQuantile == undefined && (this.currSAdlQuantile = {})
+    data.data.map(v=>{
+      let s = v.symbol,indicatorLight = v.adlQuantile.json
+
+      for(let ps in indicatorLight){
+        this.currSAdlQuantile[s+"_"+ps] = indicatorLight[ps] + ''
+      }
+    })
+  }
 
   if(this.records.length > 0 && this.currSAdlQuantile)
     this.addAdlQuantile(this.currSAdlQuantile,this.records)
@@ -1177,16 +1208,15 @@ root.methods.error_getAdlQuantile = function (err) {
 }
 //仓位添加自动减仓数据
 root.methods.addAdlQuantile = function(currSAdlQuantile,records){
-
-  let indicatorLight = currSAdlQuantile.adlQuantile.json;
+  // let indicatorLight = currSAdlQuantile.adlQuantile.json;
   records.map(v=>{
-    v.adlQuantile = indicatorLight[v.positionSide] + ''
+    let s = v.symbol,ps = v.positionSide
+    v.adlQuantile = currSAdlQuantile[s+"_"+ps]
   })
-  this.records = records;
+  this.records = [...records];
 
   // console.log('currSAdlQuantile,records',currSAdlQuantile,records);
 }
-
 
 //开启拦截弹窗
 root.methods.openSplicedFrame = function (item) {
