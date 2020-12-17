@@ -127,7 +127,7 @@ root.created = function () {
     // 这里算出一个月的毫秒数,这里使用30的平均值,实际中应根据具体的每个月有多少天计算
     let day = 30 * 24 * 3600 * 1000;
     let Months = curDate - day;
-    return (time.getTime() - 8.64e7) > Date.now()  || time.getTime() <= Months;
+    return (time.getTime()) > Date.now()  || time.getTime() <= Months;
 
     // 设置选择的日期小于当前的日期,小于返回true,日期不可选
     // return time.getTime() < Date.now() - 8.64e7
@@ -224,7 +224,7 @@ root.methods.getOrderSearch = function () {
       bind: this,
       query: {
         startTime:this.interTimerPicker[0] || '',
-        endTime:this.interTimerPicker[1] || '',
+        endTime:this.interTimerPicker[1] + 24 * 3599 * 1000 || '',
         type:this.value || '',
         symbol:this.valueUsdt || '',
       },
