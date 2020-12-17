@@ -59,7 +59,7 @@ root.created = function () {
   /*---------------- 合约部分 begin ------------------*/
   // 获取订单
   this.getOrder()
-  // this.$eventBus.listen(this, 'GET_ORDERS', this.getOrder)
+  this.$eventBus.listen(this, 'GET_ORDERS', this.getOrder)
   this.receiveSocket()
 
   /*---------------- 合约部分 end ------------------*/

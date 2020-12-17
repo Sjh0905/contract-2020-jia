@@ -228,7 +228,7 @@ root.created = function () {
   //监听双仓开空仓位总数量
   this.$eventBus.listen(this, 'POSITION_TOTAL_AMOUNT_SHORT', this.setTotalAmountShort);
 
-  this.$eventBus.listen(this, 'GET_GRC_PRICE_RANGE', this.getKKPriceRange);
+  // this.$eventBus.listen(this, 'GET_GRC_PRICE_RANGE', this.getKKPriceRange);
   // this.getKKPriceRange();
 	this.$store.commit('SET_HALL_SYMBOL', true);
 	this.$store.commit('changeMobileTradingHallFlag', false)
@@ -1541,7 +1541,9 @@ root.methods.re_postFullStop = function (data) {
   // 监听仓位和委托单条数
   this.$eventBus.notify({key:'GET_ORDERS'})
   this.$eventBus.notify({key:'GET_POSITION'})
-  this.$eventBus.notify({key:'GET_BALANCE'})
+  // this.$eventBus.notify({key:'GET_BALANCE'})
+  // 可用余额接口
+  this.getBalance()
   if(data.data.status == 'NEW') {
     this.popType = 1;
     this.popText = '下单成功';
@@ -1727,7 +1729,9 @@ root.methods.re_postOrdersCreate = function (data) {
   // 当前委托
   this.$eventBus.notify({key:'GET_ORDERS'})
   this.$eventBus.notify({key:'GET_POSITION'})
-  this.$eventBus.notify({key:'GET_BALANCE'})
+  // this.$eventBus.notify({key:'GET_BALANCE'})
+  // 可用余额接口
+  this.getBalance()
   if(data.data.status == 'NEW') {
     this.popType = 1;
     this.popText = '下单成功';
@@ -1914,7 +1918,9 @@ root.methods.re_postOrdersPosition = function (data) {
   // 监听仓位和委托单条数
   this.$eventBus.notify({key:'GET_ORDERS'})
   this.$eventBus.notify({key:'GET_POSITION'})
-  this.$eventBus.notify({key:'GET_BALANCE'})
+  // this.$eventBus.notify({key:'GET_BALANCE'})
+  // 可用余额接口
+  this.getBalance()
   if(data.code != '303') {
     this.promptOpen = true;
     // this.closePsWindowClose();
@@ -2363,22 +2369,34 @@ root.methods.positionRisk = function () {
 root.methods.re_positionRisk = function (data) {
   typeof(data) == 'string' && (data = JSON.parse(data));
   if(!data || !data.data || data.data == []) return
+  let records = data.data
 
-  let filterRecords = [],records
-  records = data.data
-  records.forEach(v=>{
-    if (v.symbol == this.capitalSymbol) {
-      this.leverage = v.leverage
-      this.$store.commit("CHANGE_LEVERAGE", v.leverage);
-      if(v.marginType == 'isolated'){
-        this.marginType = 'ISOLATED'
-        this.marginModeType = 'zhuCang'
-        return
+  this.sNameList.forEach(s=>{
+    for (let i = 0,len = data.data.length; i < len; i++) {
+      let v = data.data[i];
+      if (v.symbol == s) {
+        let currencyInfo = {...this.currencyInfo}
+        currencyInfo[s] = {
+          leverage:v.leverage,
+          marginType:v.marginType
+        }
+        this.$store.commit("CHANGE_CURRENCY_INFO", currencyInfo);
+        break;
       }
-      this.marginType = 'CROSSED'
-      this.marginModeType = 'quanCang'
     }
   })
+
+  let csv = this.currencyInfo[this.capitalSymbol];
+
+  // this.leverage = csv.leverage
+  // this.$store.commit("CHANGE_LEVERAGE", csv.leverage);
+  if(csv.marginType == 'isolated'){
+    this.marginType = 'ISOLATED'  // 传参使用
+    this.marginModeType = 'zhuCang' // 切换样式使用
+    return
+  }
+  this.marginType = 'CROSSED'
+  this.marginModeType = 'quanCang'
 
   this.setKaipingqiPos(records);
 }
@@ -2443,7 +2461,7 @@ root.methods.formatTooltip =(val)=>{
 }
 
 
-root.methods.RE_FEE = function (data) {
+/*root.methods.RE_FEE = function (data) {
   typeof data === 'string' && (data = JSON.parse(data))
   if (!data) return
   if (data.dataMap.TTFEE === 'no') {
@@ -2452,7 +2470,7 @@ root.methods.RE_FEE = function (data) {
   if (data.dataMap.TTFEE === 'yes') {
     this.fee = 65536
   }
-}
+}*/
 // 获取币安最新价格接口
 root.methods.getLatestrice = function () {
   this.$http.send('GET_TICKER_PIRCE',{
