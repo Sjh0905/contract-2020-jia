@@ -58,7 +58,7 @@ root.data = function () {
 
     buyOrders:[],
     buy_sale_list_temp:{},
-    dMaxTotalAmount:0.0001,
+    dMaxTotalAmount:10000,//防止切换币对时深度背景铺满整条，分母默认值大一些
     totalAmountArr:[],//[<lastUpdateId>,<totalAmount>]
     // sellTotalAmountArr:[],
   }
@@ -104,7 +104,7 @@ root.watch.symbol = function (newValue, oldValue) {
 //设置买卖盘累计最大值
 root.methods.setDMaxTotalAmount = function (arr) {
   if(arr[0] == this.totalAmountArr[0]){
-    this.dMaxTotalAmount = Math.max(this.totalAmountArr[1],arr[1]) || 0.001
+    this.dMaxTotalAmount = Math.max(this.totalAmountArr[1],arr[1]) || 10000
     this.totalAmountArr = []
     return
   }

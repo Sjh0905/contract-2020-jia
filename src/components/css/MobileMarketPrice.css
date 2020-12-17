@@ -127,7 +127,7 @@
   font-weight: normal;
 }
 .mobile-market-title-first-tr th:nth-child(1){
-  border-left: 0.16rem solid transparent;
+  border-left: 0.1rem solid transparent;
   padding-left: 0.2rem;
   text-align: left;
   font-weight: normal;
@@ -217,14 +217,14 @@
 /*---------------------------------------- 嵌入MobileHomePageMarketItem.css -------------------------------------*/
 
 .mobile-market-tr{
-  border-left: 0.16rem solid transparent;
+  border-left: 0.1rem solid transparent;
   border-bottom: 0.02rem solid #081724;
   height: 0.8rem;
 }
 
 .mobile-market-tr-choosed {
   /*background: #081724;*/
-  border-left: 0.16rem solid #3576F5;
+  border-left: 0.1rem solid #3576F5;
 }
 
 .mobile-market-tr:last-child{
