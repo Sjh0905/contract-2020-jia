@@ -88,13 +88,13 @@ tr, th, td {
   padding-left: 25px;
 }
 .td-time {
-  flex: 9.3;
+  flex: 6.3;
 }
 .td-category-1 {
   flex: 6.3;
 }
 .td-market {
-  flex: 7.3;
+  flex: 6.3;
 }
 .td-number {
   flex: 6.3;
@@ -103,7 +103,7 @@ tr, th, td {
   flex: 6.3;
 }
 .td-trigger {
-  flex: 5;
+  flex: 6.3;
   text-align: right;
   padding-right: 25px;
 }
@@ -136,3 +136,99 @@ tr, th, td {
   text-align: center;
   padding: 10px 0;
 }
+
+/*搜索样式S*/
+.search-histor {
+  width: 100%;
+  height: 50px;
+  background: #F5F6FA;
+}
+.search-histor-r {
+  flex: 4.3;
+  padding-left: 25px;
+}
+.search-histor-L {
+  /*flex: 2;*/
+  margin-right: 25px;
+}
+.block {
+  width: 36%;
+  margin-top: 9px;
+  margin-right: 25px;
+}
+.account_number_input {
+  width:100px;
+  height:30px;
+  line-height: 30px;
+  font-size: 12px;
+  /*padding-left: 15px;*/
+  border-radius:1px;
+  margin-top: 9px;
+  /*border:1px solid rgba(224,225,244,1);*/
+  /*margin-bottom: 20px;*/
+  box-sizing: border-box;
+}
+.felsed .el-select >>> .el-input--suffix {
+  height: 30px;
+}
+.el-select >>> .el-input__inner {
+  -web-kit-appearance: none;
+  -moz-appearance: none;
+  width: 120px;
+  height: 30px;
+  line-height: 30px;
+  outline: 0;
+  /*opacity: 0.7;*/
+  border: 1px solid #E0E1F4;
+  font-size: 12px;
+  /*color: #3576F5;*/
+  color: #0D0E23;
+  letter-spacing: 0;
+  margin-right: 12px;
+  font-size: 12px;
+  /*border: 1px solid rgba(181,188,198,0.50);*/
+  border-radius: 4px;
+  /*margin-top: 20px;*/
+}
+.el-select >>> .el-input__suffix{
+  /*color: #C5CFD5;*/
+  right: -6px;
+  /*top:-3px;*/
+  position: absolute;
+  top: -3px;
+  -webkit-transition: all .3s;
+  /* height: 100%; */
+  color: #C0C4CC;
+  text-align: center;
+}
+.el-select >>> .el-input__icon {
+  height: 40px;
+}
+
+.leixing {
+  width: 30px;
+}
+.usdt-v {
+  margin-left: 46px;
+  margin-right: 25px;
+}
+.search-usdt {
+  line-height: 50px;
+}
+.search-usdt-span {
+  padding: 7px 15px;
+  color: #ffffff;
+  background: rgba(53,118,245,1);
+  border-radius: 4px;
+  cursor: pointer;
+}
+.el-date-table td.start-date span {
+  background: rgba(53,118,245,1);
+}
+.block >>> .el-range-editor--small.el-input__inner {
+  height: 31px;
+}
+.block >>> .el-range-editor--small .el-range-input {
+  font-size: 12px;
+}
+/*搜索样式E*/

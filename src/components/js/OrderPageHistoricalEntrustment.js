@@ -16,6 +16,7 @@ root.data = () => {
   return {
     loading: true,
     historyOrder: [],
+    historyOrderSearch: [],
     clickThis: -1,
 
     limit: 100, //一次获取多少条数据
@@ -59,6 +60,49 @@ root.data = () => {
     popType: 0,
     popText: '',
     promptOpen: false,
+    interTimerPicker:'',
+    pickerOptions: {
+      disabledDate:(time) => {
+        return this.dealDisabledDate(time)
+      }
+    }, // 日期设置对象
+
+    Lieoptions:[
+      {
+        value: 'LIMIT',
+        label: '限价单'
+      }, {
+        value: 'MARKET',
+        label: '市价单'
+      }, {
+        value: 'STOP',
+        label: '止损限价单'
+      }, {
+        value: 'STOP_MARKET',
+        label: '止损市价单'
+      }, {
+        value: 'TAKE_PROFIT',
+        label: '止盈限价单'
+      }, {
+        value: 'TAKE_PROFIT_MARKET',
+        label: '止盈市价单'
+      }, {
+        value: 'TRAILING_STOP_MARKET',
+        label: '跟踪止损单'
+      }
+
+    ],
+    LieoptionsUsdt:[
+  {
+    value: 'ETHUSDT',
+      label: 'ETHUSDT'
+  }, {
+    value: 'BTCUSDT',
+      label: 'BTCUSDT'
+  }
+    ],
+    value:'',
+    valueUsdt:'',
 
   }
 }
@@ -66,6 +110,28 @@ root.data = () => {
 root.props = {};
 root.props.tradinghallLimit = {
   type: Number
+}
+
+/*----------------------------- 生命周期 ------------------------------*/
+
+
+root.created = function () {
+  // console.warn('历史订单！！！')
+  // console.log('this.$route=======historicalEntrust',this.$route.name)
+  this.getOrder()
+  this.getOrderSearch()
+
+  this.pickerOptions.disabledDate = function (time) {
+    // 设置可选择的日期为今天之后的一个月内
+    let curDate = (new Date()).getTime()
+    // 这里算出一个月的毫秒数,这里使用30的平均值,实际中应根据具体的每个月有多少天计算
+    let day = 30 * 24 * 3600 * 1000;
+    let Months = curDate - day;
+    return (time.getTime()) > Date.now()  || time.getTime() <= Months;
+
+    // 设置选择的日期小于当前的日期,小于返回true,日期不可选
+    // return time.getTime() < Date.now() - 8.64e7
+  }
 }
 
 /*----------------------------- 计算 ------------------------------*/
@@ -85,6 +151,10 @@ root.computed = {}
 // 历史属性的计算后，排序之类的写在这里
 root.computed.historyOrderComputed = function () {
   return this.historyOrder
+}
+// 历史属性的计算后，排序之类的写在这里
+root.computed.historyOrderSearchComputed = function () {
+  return this.historyOrderSearch
 }
 // 获取登录状态
 root.computed.userId = function () {
@@ -127,19 +197,65 @@ root.computed.sNameList = function () {
   return this.$store.state.sNameList || []
 }
 
-/*----------------------------- 生命周期 ------------------------------*/
-
-
-root.created = function () {
-  // console.warn('历史订单！！！')
-  // console.log('this.$route=======historicalEntrust',this.$route.name)
-  this.getOrder()
-}
 
 /*----------------------------- 方法 ------------------------------*/
 
 
 root.methods = {}
+
+  // 单独处理时间的函数
+  root.methods.dealDisabledDate = function (time) {
+    // time.getTime是把选中的时间转化成自1970年1月1日 00:00:00 UTC到当前时间的毫秒数
+    // Date.now()是把今天的时间转化成自1970年1月1日 00:00:00 UTC到当前时间的毫秒数,这样比较好比较
+    // return的值,true是不可以操作选择,false可以操作选择,比如下面这个判断就只能选择今天之后的时间
+    return time.getTime() < Date.now() - 8.64e7
+
+    // 这里减8.64e7的作用是,让今天的日期可以选择,如果不减的话,今天的日期就不可以选择,判断中写<= 也是没用的,一天的毫秒数就是8.64e7
+    // return time.getTime() <= Date.now()
+    // return time.getTime() < Date.now() - 8.64e7
+  }
+
+
+
+// 发送请求获取
+root.methods.getOrderSearch = function () {
+
+  this.$http.send('GET_CAPITAL_SEARCH', {
+      bind: this,
+      query: {
+        startTime:this.interTimerPicker[0] || '',
+        endTime:this.interTimerPicker[1] + 24 * 3599 * 1000 || '',
+        type:this.value || '',
+        symbol:this.valueUsdt || '',
+      },
+      callBack: this.re_getOrderSearch,
+      errorHandler: this.error_getOrderSearch
+    })
+}
+// 获取历史订单回调
+root.methods.re_getOrderSearch = function (data) {
+
+  this.historyOrderSearch = data.data
+  this.loading = false
+  // 加载更多中
+  this.loadingMoreIng = false
+
+  // 如果获取
+  data.data.length !== 0 && (this.offsetId = data.data[data.data.length - 1].id)
+  data.data.length !== 0 && (this.updatedAt = data.data[data.data.length - 1].updatedAt)
+
+  // 是否显示加载更多
+  // console.warn('this is order length', data.orders.length, this.limit)
+  if (data.data.length < this.limit) {
+    this.showLoadingMore = false
+  }
+
+}
+// 错误处理
+root.methods.error_getOrderSearch = function (err) {
+  console.warn("获取错误", err)
+}
+
 // 发送请求获取
 root.methods.getOrder = function () {
   // if (!this.$store.state.authState.userId) {
@@ -148,8 +264,7 @@ root.methods.getOrder = function () {
   // }
   // this.loading = true
 
-  this.$http.send('GET_CAPITAL_ALL_FLOW',
-    {
+  this.$http.send('GET_CAPITAL_ALL_FLOW', {
       bind: this,
       query: {
         // updatedAt:this.updatedAt,//最后的订单更新时间
