@@ -21,6 +21,7 @@ root.components = {
   'MobileStockCross': resolve => require(['../mobileVue/MobileStockCross'], resolve),
   'MobileHomePageMarketItem': resolve => require(['../mobileVue/MobileHomePageMarketItem'], resolve),
   'PopupPrompt': resolve => require(['../vue/PopupPrompt'], resolve),
+  'MobileMarketPrice': resolve => require(['../mobileVue/MobileMarketPrice'], resolve),
 }
 
 root.data = function () {
@@ -68,13 +69,14 @@ root.data = function () {
     tradingTitle: '1分',
     tradingNum: '1',
     is_more: true,
-    interval_btn_list: [{title: '分时'}, {title: '1分'}, {title: '5分'}, {title: '15分'}, {title: '30分'}, {title: '1小时'}, {title: '2小时'},{title: '4小时'},{title: '6小时'},{title: '12小时'}, {title: '日线'}],
+    interval_btn_list: [{title: '分时'}, {title: '1分'}, {title: '5分'}, {title: '15分'}, {title: '30分'}, {title: '1小时'}, {title: '2小时'},{title: '4小时'},{title: '1天'},{title: '3天'}, {title: '1周'}],
 
     highPrice: '', // 24小时最高价
     lowPrice: '', // 24小时最低价
     volume: '', // 24小时量
     priceChangePercent: '', // 24涨幅
     markPrice: '', // 标记价格
+    markPriceObj: {}, // 多币对标记价格
     latestPriceVal: '' ,   // 最新价格
     latestPriceArr: [],   // 最新价格数组，用于判断价格升降和盘口显示
 
@@ -84,6 +86,8 @@ root.data = function () {
     popOpen: false,
     opening:false,
     opened:false,
+
+    isDisplayMarket:false,
   }
 }
 // 检验是否是APP
@@ -107,6 +111,10 @@ root.computed.symbol = function () {
 root.computed.capitalSymbol = function () {
   return this.$globalFunc.toOnlyCapitalLetters(this.symbol);
 }
+//不加下划线币对集合
+root.computed.sNameList = function () {
+  return this.$store.state.sNameList || []
+}
 // 计算是否显示列表
 root.computed.headerBoxFlag = function () {
   return this.$store.state.mobileTradingHallFlag;
@@ -118,7 +126,7 @@ root.computed.userId = function () {
 // 实时价格
 root.computed.isNowPrice = function () {
 
-  let nowPrice = this.latestPriceArr[this.latestPriceArr.length-1] || '0'
+  let nowPrice = this.latestPriceArr[this.latestPriceArr.length-1]//这里不用容错，否则写成了 "0" 取不到this.latestPriceVal
 
   document.title = nowPrice+" "+this.symbol.replace('_', '/')+" "+this.$t('document_title');
   return (nowPrice || this.latestPriceVal).toString();//当nowPrice为 0 或者 undefined时返回latestPriceVal，避免出现0
@@ -194,15 +202,22 @@ root.watch.symbol = function (newValue, oldValue) {
   // console.log("==========root.watch.symbol===========",newValue,oldValue)
 
   if (newValue == oldValue) return;
-  this.$socket.emit('unsubscribe', {symbol: oldValue});
-  this.$socket.emit('subscribe', {symbol: this.$store.state.symbol});
-  // 2018-2-9 切换symbol清空socket推送
-  this.socket_snap_shot = {}; //深度图
+
+  //切换symbol清空socket推送
   this.socket_tick = {}; //实时价格
+  this.socketTickObj = {}
 
   this.buy_sale_list = {}//接口深度图
+  this.buy_sale_list.asks = []
+  this.buy_sale_list.bids = []
 
-  this.price = 0;
+  this.latestPriceArr = []
+  this.header_price = {}
+
+  this.socket_snap_shot_temp = {}
+  this.snap_shot_timeout = null
+
+  // this.price = 0;
 
   // this.initGetDatas();
   // 获取不同货币对精度
@@ -211,7 +226,10 @@ root.watch.symbol = function (newValue, oldValue) {
   // this.initSocket();
 
   this.getScaleConfig();
-
+  this.getDepth();
+  this.initTicket24Hr();
+  this.getLatestrice();
+  this.getMarkPricesAndCapitalRates();
 
 }
 
@@ -380,11 +398,28 @@ root.methods.initSocket = function () {
   // 获取最新标记价格
   this.$socket.on({
     key: 'markPriceUpdate', bind: this, callBack: (message) => {
-      if(message.s === subscribeSymbol){
+      this.sNameList.map(sv=>{
+        for (let i = 0,len = message.length; i < len; i++) {
+          let v = message[i];
+          if(sv == v.s){
+            this.markPriceObj[sv] = v;
+            break;
+          }
+        }
+      })
+      //当前选中币对数据
+      let msg =this.markPriceObj[subscribeSymbol];
+      if(msg){
+        msg.p > 0 && (this.markPrice = msg.p)// 标记价格
+        msg.r > 0 && (this.lastFundingRate = msg.r)// 资金费率
+        msg.T > 0 && (this.nextFundingTime = msg.T)//下个资金时间
+      }
+
+      /*if(message.s === subscribeSymbol){
         message.p > 0 && (this.markPrice = message.p)// 标记价格
         message.r > 0 && (this.lastFundingRate = message.r)// 资金费率
         message.T > 0 && (this.nextFundingTime = message.T)//下个资金时间
-      }
+      }*/
     }
   })
 
@@ -559,9 +594,9 @@ root.methods.error_initTicket24Hr = function (err) {
 root.methods.getMarkPricesAndCapitalRates = function () {
   this.$http.send('GET_MARKET_PRICE',{
     bind: this,
-    query:{
-      symbol:this.capitalSymbol
-    },
+    // query:{
+    //   symbol:this.capitalSymbol
+    // },
     callBack: this.re_getMarkPricesAndCapitalRates,
     errorHandler:this.error_getMarkPricesAndCapitalRates
   })
@@ -569,10 +604,36 @@ root.methods.getMarkPricesAndCapitalRates = function () {
 // 获取币安最新标记价格和资金费率正确回调
 root.methods.re_getMarkPricesAndCapitalRates = function (data) {
   typeof(data) == 'string' && (data = JSON.parse(data));
-  // console.info('data========',data.data[0])
+  if(!data || !data.data)return;
+
+  this.sNameList.map(sv=>{
+    for (let i = 0,len = data.data.length; i < len; i++) {
+      let v = data.data[i];
+      if(sv == v.symbol){
+        //接口返回的字段名转换成和socket一致
+        v.s = v.symbol
+        v.p = (v.markPrice || '').toString();
+        v.r = v.lastFundingRate
+        v.T = v.nextFundingTime
+
+        this.markPriceObj[sv] = v;
+        break;
+      }
+    }
+  })
+
+  //当前选中币对数据
+  let msg =this.markPriceObj[this.capitalSymbol];
+  if(msg){
+    msg.p > 0 && (this.markPrice = msg.p)// 标记价格
+    msg.r > 0 && (this.lastFundingRate = msg.r)// 资金费率
+    msg.T > 0 && (this.nextFundingTime = msg.T)//下个资金时间
+  }
+
+  /*// console.info('data========',data.data[0])
   this.markPrice = (data.data[0].markPrice || '').toString()
   this.lastFundingRate = data.data[0].lastFundingRate || '--'
-  this.nextFundingTime = data.data[0].nextFundingTime || '--'
+  this.nextFundingTime = data.data[0].nextFundingTime || '--'*/
 //
 }
 // 获取币安最新标记价格和资金费率错误回调
@@ -637,6 +698,9 @@ root.methods.error_getAggTrades = function (err) {
   console.log('获取实时成交归集交易接口出错',err)
 }
 
+root.methods.changeMarketStatus = function(){
+  this.isDisplayMarket = !this.isDisplayMarket;
+}
 
 // 2018-4-17 add tradingView选择
 root.methods.SELECT_MORE = function () {

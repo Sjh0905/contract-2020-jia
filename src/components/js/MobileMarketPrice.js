@@ -116,6 +116,10 @@ root.computed.capitalSymbol = function () {
 root.computed.sNameList = function () {
   return this.$store.state.sNameList || []
 }
+root.computed.sNameMap = function () {
+  let defaultSNameMap = {"BTCUSDT":"BTC_USDT","ETHUSDT":"ETH_USDT"}
+  return this.$store.state.sNameMap || defaultSNameMap
+}
 ﻿// 所有币对精度信息
 root.computed.quoteScale_list = function () {
   let quoteScale_obj = {};
@@ -298,24 +302,6 @@ root.watch.symbol = function (newValue, oldValue) {
   // console.log("==========root.watch.symbol===========",newValue,oldValue)
 
   if (newValue == oldValue) return;
-  this.$socket.emit('unsubscribe', {symbol: oldValue});
-  this.$socket.emit('subscribe', {symbol: this.$store.state.symbol});
-  // 2018-2-9 切换symbol清空socket推送
-  this.socket_snap_shot = {}; //深度图
-  this.socket_tick = {}; //实时价格
-
-  this.buy_sale_list = {}//接口深度图
-
-  this.price = 0;
-
-  // this.initGetDatas();
-  // 获取不同货币对精度
-  // this.getScaleConfig();
-
-  // this.initSocket();
-
-  this.getScaleConfig();
-
 
 }
 
@@ -483,26 +469,6 @@ root.methods.changeCurrencyMarket = function (type, name) {
   this.select_name = name;
 }
 
-
-root.methods.toDeal = function () {
-  if(this.$route.query.isApp && !this.isLogin) {
-    window.postMessage(JSON.stringify({
-      method: 'toLogin'
-    }))
-    return
-  }
-
-  // this.$router.go(-1);
-  this.$router.push('/index/mobileTradingHallDetail')
-}
-
-// view跳转 跳到买或者卖
-root.methods.toBuyOrSaleView = function (type) {
-  this.$store.commit('BUY_OR_SALE_TYPE', type);
-  // !!this.$store.state.authMessage.userId ? this.$router.push('/index/mobileTradingHallDetail') : this.$router.push('/index/sign/login');
-  this.$router.push('/index/mobileTradingHallDetail')
-}
-
 // 获取币安最新价格接口
 root.methods.getLatestrice = function () {
   this.$http.send('GET_TICKER_PIRCE',{
@@ -572,6 +538,30 @@ root.methods.re_initTicket24Hr = function (data) {
 // 获取币安24小时价格变动错误回调
 root.methods.error_initTicket24Hr = function (err) {
   console.log('获取币安24小时价格变动接口',err)
+}
+
+//点击货币对 切换symbol
+root.methods.clickSymbol = function (item) {
+  let symbol = this.sNameMap[item.s]
+  //700ms内不能重复调用
+  if(this.$store.state.symbol == symbol || (Date.now() - this.lastTime < 700))return;
+
+  this.lastTime = Date.now();
+
+  // 把当前选中的币对写入cookie
+  let user_id = this.$store.state.authState.userId;
+  let user_id_symbol = user_id + '-' + symbol;
+
+  !user_id && this.$cookies.set('unlogin_contract_symbol_cookie', symbol, 60 * 60 * 24 * 30,"/");
+  !!user_id && this.$cookies.set('contract_symbol_cookie', user_id_symbol, 60 * 60 * 24 * 30,"/");
+
+  this.$store.commit('SET_SYMBOL', symbol);
+  // 清空委托列表
+  this.$store.commit('GET_OPEN_ORDER', []);
+
+  this.$socket.changeSymbol(symbol)
+
+  this.changeMarketStatus()
 }
 
 // 2018-4-17 add tradingView选择

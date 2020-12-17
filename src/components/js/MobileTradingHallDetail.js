@@ -17,6 +17,8 @@ root.data = function () {
     positionModeSecond:'openWarehouse',//单仓 singleWarehouse 开仓 openWarehouse 平仓 closeWarehouse
     pendingOrderType:'marketPrice',//限价 limitPrice 市价 marketPrice 限价止盈止损 limitProfitStopLoss 市价止盈止损 marketPriceProfitStopLoss
     /*合约仓位模式end*/
+    // 双仓修改
+    openSide:'long',
 
     /*下拉框1 begin*/
     optionVal:'市价单',
@@ -187,6 +189,7 @@ root.data = function () {
 
     // 资金费率  下次资金费时间
     markPrice: '', // 标记价格
+    markPriceObj: {}, // 多币对标记价格
     lastFundingRate: '', // 资金费率
     nextFundingTime: '',   // 下次资金费时间
 
@@ -243,14 +246,6 @@ root.created = function () {
 
   this.checkPrice ==2 ? this.effectiveTime='GTX' : this.effectiveTime='GTC'
 
-  // 获取BDB是否抵扣
-  // this.getBDBInfo()
-  //请求所有币对信息
-  this.getCurrencyList()
-  // 获取汇率
-  !!this.$store.state.exchange_rate.btcExchangeRate || this.getExchangeRate();
-
-
   // 获取精度
   this.getScaleConfig();
   // 拉取列表数据
@@ -258,22 +253,6 @@ root.created = function () {
   // 订阅socket
   this.initSocket();
 
-
-  // 获取可用数量
-  !!this.$store.state.authMessage.userId && this.$http.send('ACCOUNTS', {
-    bind: this,
-    callBack: this.RE_ACCOUNTS
-  })
-
-  if (this.$store.state.authMessage.userId) {
-    this.$http.send('FIND_FEE_DEDUCTION_INFO', {
-      bind: this,
-      callBack: this.RE_FEE
-    })
-  }
-
-
-  // this.$eventBus.listen(this, 'TRADED', this.TRADED)
   // 获取订单
   this.loading = false
   this.getOrder()
@@ -326,6 +305,10 @@ root.components = {
 /*------------------------------ 计算 begin -------------------------------*/
 
 root.computed = {}
+//不加下划线币对集合
+root.computed.sNameList = function () {
+  return this.$store.state.sNameList || []
+}
 // 除去逐仓仓位保证金的钱包余额
 root.computed.crossWalletBalance = function () {
   return this.$store.state.assets.crossWalletBalance
@@ -1140,9 +1123,21 @@ root.computed.maxPosition = function () {
 root.computed.isApp = function () {
   return this.$route.query.isApp ? true : false
 }
+// 检验是否是安卓
+root.computed.isAndroid = function () {
+  return this.$store.state.isAndroid ? true : false
+}
 /*------------------------------ 方法 begin -------------------------------*/
 
 root.methods = {}
+root.methods.selectOpenType = function (type) {
+  if(this.positionModeFirst == 'doubleWarehouseMode'){
+    this.openSide = type
+  }
+  // if(this.positionModeFirst == 'singleWarehouseMode'){
+  //   this.openSide = type
+  // }
+}
 // 获取用户可用余额
 root.methods.getBalance = function () {
   this.$http.send('GET_BALAN_ACCOUNT',{
@@ -1239,7 +1234,7 @@ root.methods.openSplicedFrame = function (btnText,callFuncName,orderType) {
   }
   //当前市价
   if(this.pendingOrderType.indexOf('market') > -1){
-    this.splicedFrameText += ('价格为当前市价，')
+    this.splicedFrameText += ('交易方式为市价，')
   }
   //数量
   this.splicedFrameText += ('数量' + this.amount + this.symbol.split('_')[0])
@@ -1275,14 +1270,14 @@ root.methods.postFullStop = function () {
     this.loading = false
     return
   }
-  if(this.amount == '' || this.amount == 0){
-    this.promptOpen = true;
-    this.popType = 0;
-    this.popText = '请输入正确的数量';
-    this.loading = false
-    this.currentLimiting = false
-    return
-  }
+  // if(this.amount == '' || this.amount == 0){
+  //   this.promptOpen = true;
+  //   this.popType = 0;
+  //   this.popText = '请输入正确的数量';
+  //   this.loading = false
+  //   this.currentLimiting = false
+  //   return
+  // }
   if(this.triggerPrice == ''){
     this.promptOpen = true;
     this.popType = 0;
@@ -1497,14 +1492,14 @@ root.methods.error_postFullStop = function (err) {
 // 开仓
 root.methods.postOrdersCreate = function () {
   this.loading = true
-  if(this.amount == ''|| this.amount == 0){
-    this.promptOpen = true;
-    this.popType = 0;
-    this.popText = '请输入正确的数量';
-    this.loading = false
-    this.currentLimiting = false
-    return
-  }
+  // if(this.amount == ''|| this.amount == 0){
+  //   this.promptOpen = true;
+  //   this.popType = 0;
+  //   this.popText = '请输入正确的数量';
+  //   this.loading = false
+  //   this.currentLimiting = false
+  //   return
+  // }
   let params = {}
   // 单仓 限价
   if (this.isHasModule('kaipingType') == 1 && this.isHasModule('buttonType') == 1 && this.pendingOrderType == 'limitPrice') {
@@ -1683,14 +1678,14 @@ root.methods.error_postOrdersCreate = function (err) {
 // 平仓
 root.methods.postOrdersPosition = function () {
   this.loading = true
-  if(this.amount == '' || this.amount == 0){
-    this.promptOpen = true;
-    this.popType = 0;
-    this.popText = '请输入正确的数量';
-    this.loading = false
-    this.currentLimiting = false
-    return
-  }
+  // if(this.amount == '' || this.amount == 0){
+  //   this.promptOpen = true;
+  //   this.popType = 0;
+  //   this.popText = '请输入正确的数量';
+  //   this.loading = false
+  //   this.currentLimiting = false
+  //   return
+  // }
   let params = {}
   // 双仓 平仓 限价 平多 传LONG ; 平空 传SHORT
   if (this.isHasModule('kaipingType') == 2 && this.isHasModule('buttonType') == 3 && this.pendingOrderType == 'limitPrice') {
@@ -1827,7 +1822,7 @@ root.methods.re_postOrdersPosition = function (data) {
   this.$eventBus.notify({key:'GET_BALANCE'})
   if(data.code != '303') {
     this.promptOpen = true;
-    this.closePsWindowClose();
+    // this.closePsWindowClose();
     if(data.data.status == 'NEW') {
       this.popType = 1;
       this.popText = '下单成功';
@@ -1938,9 +1933,9 @@ root.methods.setTotalAmountShort = function(totalAmountShort){
 root.methods.getMarkPricesAndCapitalRates = function () {
   this.$http.send('GET_MARKET_PRICE',{
     bind: this,
-    query:{
-      symbol:this.capitalSymbol
-    },
+    // query:{
+    //   symbol:this.capitalSymbol
+    // },
     callBack: this.re_getMarkPricesAndCapitalRates,
     errorHandler:this.error_getMarkPricesAndCapitalRates
   })
@@ -1948,10 +1943,36 @@ root.methods.getMarkPricesAndCapitalRates = function () {
 // 获取币安最新标记价格和资金费率正确回调
 root.methods.re_getMarkPricesAndCapitalRates = function (data) {
   typeof(data) == 'string' && (data = JSON.parse(data));
-  // console.info('data========',data.data[0])
+  if(!data || !data.data)return;
+
+  this.sNameList.map(sv=>{
+    for (let i = 0,len = data.data.length; i < len; i++) {
+      let v = data.data[i];
+      if(sv == v.symbol){
+        //接口返回的字段名转换成和socket一致
+        v.s = v.symbol
+        v.p = (v.markPrice || '').toString();
+        v.r = v.lastFundingRate
+        v.T = v.nextFundingTime
+
+        this.markPriceObj[sv] = v;
+        break;
+      }
+    }
+  })
+
+  //当前选中币对数据
+  let msg =this.markPriceObj[this.capitalSymbol];
+  if(msg){
+    msg.p > 0 && (this.markPrice = msg.p)// 标记价格
+    msg.r > 0 && (this.lastFundingRate = msg.r)// 资金费率
+    msg.T > 0 && (this.nextFundingTime = msg.T)//下个资金时间
+  }
+
+  /*// console.info('data========',data.data[0])
   this.markPrice = (data.data[0].markPrice || '').toString()
   this.lastFundingRate = data.data[0].lastFundingRate || '--'
-  this.nextFundingTime = data.data[0].nextFundingTime || '--'
+  this.nextFundingTime = data.data[0].nextFundingTime || '--'*/
 //
 }
 // 获取币安最新标记价格和资金费率错误回调
@@ -2039,6 +2060,9 @@ root.methods.re_positionModeSelectedConfirm = function (data) {
     this.positionModeFirst = this.positionModeFirstTemp;
     this.getPositionsideDual()
     this.popWindowPositionModeBulletBox = false
+    // 将输入框和进度条清空
+    this.numed2 = 0
+    this.amount = ''
     return
   }
 
@@ -2205,7 +2229,6 @@ root.methods.changeReducePositions = function(){
 
 // 获取仓位子组件的值
 root.methods.getIndex = function (index) {
-  console.info(index)
   this.recordsIndex = index
 }
 //设置开平器仓位数据
@@ -2233,7 +2256,6 @@ root.methods.setKaipingqiPos = function(records){
     }
   }
   this.positionList = filterRecords
-  console.info(this.positionList)
 }
 
 // 获取仓位信息
@@ -2443,11 +2465,29 @@ root.methods.initSocket = function () {
   // 获取最新标记价格
   this.$socket.on({
     key: 'markPriceUpdate', bind: this, callBack: (message) => {
-      if(message.s === subscribeSymbol){
+
+      this.sNameList.map(sv=>{
+        for (let i = 0,len = message.length; i < len; i++) {
+          let v = message[i];
+          if(sv == v.s){
+            this.markPriceObj[sv] = v;
+            break;
+          }
+        }
+      })
+      //当前选中币对数据
+      let msg =this.markPriceObj[subscribeSymbol];
+      if(msg){
+        msg.p > 0 && (this.markPrice = msg.p)// 标记价格
+        msg.r > 0 && (this.lastFundingRate = msg.r)// 资金费率
+        msg.T > 0 && (this.nextFundingTime = msg.T)//下个资金时间
+      }
+
+      /*if(message.s === subscribeSymbol){
         message.p > 0 && (this.markPrice = message.p)// 标记价格
         message.r > 0 && (this.lastFundingRate = message.r)// 资金费率
         message.T > 0 && (this.nextFundingTime = message.T)//下个资金时间
-      }
+      }*/
     }
   })
 
@@ -2974,32 +3014,72 @@ root.methods.RE_ACCOUNTS = function (data) {
 }
 
 // 百分比切换
+// root.methods.sectionSelect = function (num) {
+// 	this.numed = num
+//   if (this.orderType != 0) {
+//     // this.amount = (this.currentSymbol.balance_order * num).toFixed(this.baseScale)
+//     // console.log(this.baseScale)
+//     this.amount = this.$globalFunc.accFixed(this.currentSymbol.balance_order * num, this.baseScale);
+//     return
+//   } else {
+//     if (this.price) {
+//       this.amount = this.$globalFunc.accFixed(this.currentSymbol.balance * num / this.price, this.baseScale)
+//     }
+//   }
+// }
+root.methods.getFocus = function () {
+  this.numed2 = 0
+}
 root.methods.sectionSelect = function (num) {
-	this.numed = num
-  if (this.orderType != 0) {
-    // this.amount = (this.currentSymbol.balance_order * num).toFixed(this.baseScale)
-    // console.log(this.baseScale)
-    this.amount = this.$globalFunc.accFixed(this.currentSymbol.balance_order * num, this.baseScale);
-    return
-  } else {
-    if (this.price) {
-      this.amount = this.$globalFunc.accFixed(this.currentSymbol.balance * num / this.price, this.baseScale)
+	this.numed2 = num
+  // console.info(this.numed2)
+ // 双仓开多
+  if(this.positionModeSecond == 'openWarehouse' && this.openSide=='long'){
+    this.amount = this.$globalFunc.accFixed(this.canBeOpened[0] * num, this.baseScale);
+  }
+  // 双仓开空
+  if(this.positionModeSecond == 'openWarehouse' && this.openSide=='short'){
+    this.amount = this.$globalFunc.accFixed(this.canBeOpened[1] * num, this.baseScale);
+  }
+  // 双仓平空
+  if(this.positionModeSecond == 'closeWarehouse' && this.openSide=='long'){
+    this.amount = this.$globalFunc.accFixed(Math.abs(this.positionAmtShort) * num, this.baseScale);
+  }
+  // 双仓平多
+  if(this.positionModeSecond == 'closeWarehouse' && this.openSide=='short'){
+    this.amount = this.$globalFunc.accFixed(this.positionAmtLong * num, this.baseScale);
+  }
+  // 单仓开多
+  if(this.positionModeFirst == 'singleWarehouseMode' && this.orderType==0){
+    if(this.reducePositionsSelected && this.totalAmount < 0){
+      // console.info('this.totalAmount',this.totalAmount)
+      this.amount = this.$globalFunc.accFixed(Math.abs(this.totalAmount) * num, this.baseScale);
+      return
+    }
+    if(!this.reducePositionsSelected){
+      this.amount = this.$globalFunc.accFixed(this.canMore * num, this.baseScale);
     }
   }
-}
-
-root.methods.sectionSelect2 = function (num) {
-	this.numed2 = num
-	if (this.orderType != 0) {
-		// this.amount = (this.currentSymbol.balance_order * num).toFixed(this.baseScale)
-		// console.log(this.baseScale)
-		this.amount = this.$globalFunc.accFixed(this.currentSymbol.balance_order * num, this.baseScale);
-		return
-	} else {
-		if (this.price) {
-			this.amount = (this.currentSymbol.balance * num / this.price).toFixed(this.baseScale)
-		}
-	}
+  //  单仓开空
+  if(this.positionModeFirst == 'singleWarehouseMode' && this.orderType==1){
+    if(this.reducePositionsSelected && this.totalAmount > 0){
+      this.amount = this.$globalFunc.accFixed(Math.abs(this.totalAmount) * num, this.baseScale);
+      return
+    }
+    if(!this.reducePositionsSelected){
+      this.amount = this.$globalFunc.accFixed(this.canMore * num, this.baseScale);
+    }
+  }
+	// if (this.orderType != 0) {
+	// 	// this.amount = (this.currentSymbol.balance_order * num).toFixed(this.baseScale)
+	// 	// console.log(this.baseScale)
+	// 	this.amount = this.$globalFunc.accFixed(this.currentSymbol.balance_order * num, this.baseScale);
+	// 	return
+	// } else {
+	// 	if (this.price) {
+	// 		this.amount = (this.currentSymbol.balance * num / this.price).toFixed(this.baseScale)
+	// 	}
+	// }
 }
 
 // 添加减少金额或数量
@@ -3029,7 +3109,7 @@ root.methods.plusNum = function (type) {
     new_float > 0 && (this['transaction_' + type] = new_float.toFixed(num));
   }
 }
-
+/* TODO:20201216 gua to delete
 // 获取rate
 root.methods.getExchangeRate = function () {
   this.$http.send('GET_EXCHANGE__RAGE', {
@@ -3081,7 +3161,7 @@ root.methods.symbolList_priceList = function (symbol_list) {
     obj[v.name] = [0, 0, 0, 0, 0, 0];
   })
   return obj;
-}
+}*/
 
 // 切换tab
 root.methods.changeType = function (typeNum) {
@@ -3205,10 +3285,10 @@ root.methods.scientificToNumber = function (num) {
   }
 }
 
-// 监听数量和单价的变化 amount， price
-root.computed.transactionAmount = function () {
-  return this.amount;
-}
+// // 监听数量和单价的变化 amount， price
+// root.computed.transactionAmount = function () {
+//   return this.amount;
+// }
 
 root.computed.transactionPrice = function () {
   return this.price;
@@ -3218,7 +3298,17 @@ root.computed.isLogin = function () {
   return this.$store.state.isLogin;
 }
 root.watch = {};
+root.watch.orderType = function (newVal,oldVal) {
+  if(newVal==oldVal)return
+  this.numed2 = 0
+}
+root.watch.openSide = function (newVal,oldVal) {
+  if(newVal==oldVal)return
+  this.numed2 = 0
+}
 root.watch.pendingOrderType  = function (){
+  this.numed2 = 0
+  this.amount = ''
   if(this.pendingOrderType == 'limitPrice' || this.pendingOrderType == 'marketPrice') {
     this.reducePositionsSelected = false
     return
@@ -3238,8 +3328,8 @@ root.watch.positionModeSecond  = function (){
     this.triggerPrice = ''
     this.price = ''
     this.amount = ''
+    this.numed2=0
   // }
-
 }
 root.watch.optionVal = function () {
   // if (this.positionModeSecond=='openWarehouse') {
@@ -3262,30 +3352,27 @@ root.watch.symbol = function (newValue, oldValue) {
   // 重新拉取数据
   // this.GET_LATEST_DEAL();
 
-  // this.$socket.emit('unsubscribe', {symbol: oldValue});
-  // this.$socket.emit('subscribe', {symbol: this.$store.state.symbol});
-
   // 切换币对时候清空所有socket的数据，等socket推送以后重新赋值
   this.socket_snap_shot = {};
   this.socket_tick = {};
+  this.topic_bar = {};
+
   this.socketTickObj = {};
 
-  // this.buy_sale_list = {}//为了保证切换币对时价不显示0
+  this.buy_sale_list = {}//﻿放开这行，保证盘口及时刷新，币对时价不从这里取值了
   this.buy_sale_list.asks = []
   this.buy_sale_list.bids = []
-  // this.socket_tick = {}; //实时价格
 
-  // this.buy_sale_list = {}//接口深度图
+  this.latestPriceArr = []
 
   // this.price = 0;
 
   // this.initSocket();
 
-  // 获取汇率
-  !!this.$store.state.exchange_rate.btcExchangeRate || this.getExchangeRate();
-
-  this.getDepth();
   this.getScaleConfig();
+  this.getDepth();// 获取币安深度
+  this.getLatestrice()// 获取币安最新价格
+  this.getMarkPricesAndCapitalRates()//获取币安最新标记价格和资金费率
 
 }
 

@@ -204,7 +204,7 @@ root.methods.getHistorTrans = function () {
   this.$http.send('GET_CAPITAL_DEAL',{
     bind: this,
     query:{
-      symbol:this.capitalSymbol,
+      symbol:'',
       // startTime:this.startTime,
       // endTime:this.endTime,
       startTime:this.$route.query.startTime,

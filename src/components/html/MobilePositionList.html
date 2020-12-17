@@ -121,7 +121,7 @@
     </div>
     <div slot="article" class="pop-article">
       <!--      <p>{{$t('orderPageCurrentEntrustment.promptArticle')}}</p>-->
-      <p>{{splicedFrameText}}</p>
+      <div>{{splicedFrameText}}</div>
     </div>
 
     <div slot="footer" class="pop-footer flex-center">
@@ -214,14 +214,35 @@
   <div class="prompt-qrcode" v-show="showPoster">
     <div class="show_poster_body" @click="HIDE_POSTER()">
       <template>
-        <el-select class="account_number_input" value-key="currencyKey" v-model="currencyValue" filterable placeholder="">
-          <el-option
-            v-for="(item,index) in accountsComputed"
-            :label="item.a"
-            :value="item.a"
-            :key="index"
-          ></el-option>
-        </el-select>
+<!--        <el-select class="account_number_input" value-key="currencyKey" v-model="currencyValue" filterable placeholder="">-->
+<!--          <el-option-->
+<!--            v-for="(item,index) in accountsComputed"-->
+<!--            :label="item.a"-->
+<!--            :value="item.a"-->
+<!--            :key="index"-->
+<!--          ></el-option>-->
+<!--        </el-select>-->
+
+        <div v-if="unrealizedProfitPage>0">
+          <el-select class="account_number_input" value-key="currencyKey" v-model="currencyValue" filterable placeholder="">
+            <el-option
+              v-for="(item,index) in accountsComputed"
+              :label="item.a"
+              :value="item.a"
+              :key="index"
+            ></el-option>
+          </el-select>
+        </div>
+        <div v-else>
+          <el-select class="account_number_input" value-key="currencyKey" v-model="currencyValueDeficit" filterable placeholder="">
+            <el-option
+              v-for="(item,index) in accountsComputedDeficit"
+              :label="item.a"
+              :value="item.a"
+              :key="index"
+            ></el-option>
+          </el-select>
+        </div>
       </template>
       <div class="loading-box" v-if="loadingImage">
         <Loading></Loading>
