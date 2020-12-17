@@ -224,9 +224,9 @@ root.created = function () {
   //监听单仓位总数量
   this.$eventBus.listen(this, 'POSITION_TOTAL_AMOUNT', this.setTotalAmount);
   //监听双仓开多仓位总数量
-  this.$eventBus.listen(this, 'POSITION_TOTAL_AMOUNT_LONG', this.setTotalAmountLong);
+  // this.$eventBus.listen(this, 'POSITION_TOTAL_AMOUNT_LONG', this.setTotalAmountLong);
   //监听双仓开空仓位总数量
-  this.$eventBus.listen(this, 'POSITION_TOTAL_AMOUNT_SHORT', this.setTotalAmountShort);
+  // this.$eventBus.listen(this, 'POSITION_TOTAL_AMOUNT_SHORT', this.setTotalAmountShort);
 
   // this.$eventBus.listen(this, 'GET_GRC_PRICE_RANGE', this.getKKPriceRange);
   // this.getKKPriceRange();
@@ -498,7 +498,7 @@ root.computed.assumingPrice = function () {
     return Number(assumingPrc) || 0
   }
   if(this.pendingOrderType== 'marketPrice'||this.pendingOrderType == 'marketPriceProfitStopLoss'){
-    assumingPrc = this.orderType ? this.buyDepthOrders : this.sellDepthOrders * (1+0.0005)
+    assumingPrc = this.orderType ? this.buyDepthOrders : (this.sellDepthOrders * (1+0.0005))
     return Number(assumingPrc) || 0
   }
 }
@@ -512,7 +512,7 @@ root.computed.assumingPriceDouble = function () {
     return [assumingPrcBuy,assumingPrcSell]
   }
   if(this.pendingOrderType== 'marketPrice'||this.pendingOrderType == 'marketPriceProfitStopLoss'){
-    assumingPrcBuy = this.sellDepthOrders * (1+0.0005) || 0
+    assumingPrcBuy = (this.sellDepthOrders * (1+0.0005)) || 0
     assumingPrcSell = this.buyDepthOrders || 0
     return [assumingPrcBuy,assumingPrcSell]
   }
@@ -881,8 +881,12 @@ root.computed.canBeOpened = function () {
   // let priceStep = Math.abs(Math.min(0 , temp * (markPrice - price))) || 0  // TODO:简化后
   let buy = Math.abs(Math.min(0 , 1 * (markPrice - price))) || 0  // TODO:适用 LIMIT, STOP, TAKE PROFIT 买(!orderType)
   let sell = Math.abs(Math.min(0 , -1 * (markPrice - price))) || 0  // TODO:适用 LIMIT, STOP, TAKE PROFIT 卖(orderType)
-  let buyMarket = Math.abs(Math.min(0 , 1 * (markPrice - this.assumingPriceDouble[0]))) || 0  // TODO:适用 LIMIT, STOP, TAKE PROFIT 买(!orderType)
-  let sellMarket = Math.abs(Math.min(0 , -1 * (markPrice - this.assumingPriceDouble[1]))) || 0  // TODO:适用 LIMIT, STOP, TAKE PROFIT 卖(orderType)
+
+  let buyMarket = Math.abs(Math.min(0 , 1 * (markPrice - (this.sellDepthOrders*(1 + 0.0005))))) || 0  // TODO:适用 LIMIT, STOP, TAKE PROFIT 买(!orderType)
+  let sellMarket = Math.abs(Math.min(0 , -1 * (markPrice - this.buyDepthOrders))) || 0  // TODO:适用 LIMIT, STOP, TAKE PROFIT 卖(orderType)
+
+  // let buyMarket = Math.abs(Math.min(0 , 1 * (markPrice - this.assumingPriceDouble[0]))) || 0  // TODO:适用 LIMIT, STOP, TAKE PROFIT 买(!orderType)
+  // let sellMarket = Math.abs(Math.min(0 , -1 * (markPrice - this.assumingPriceDouble[1]))) || 0  // TODO:适用 LIMIT, STOP, TAKE PROFIT 卖(orderType)
   // let shortPositionAmt = Number(this.totalAmountShort) // TODO:有仓位时：数量取和；无仓位时取0
   // let longPositionAmt = Number(this.totalAmountLong) // TODO:有仓位时：数量取和；无仓位时取0
 
@@ -907,12 +911,12 @@ root.computed.canBeOpened = function () {
     // 计算可开多数量
     let afterTradeLongB = Math.max(Math.abs( positionNotionalLong + this.computedBuyNetValue + (this.assumingPriceDouble[0] * Number(buyCanOpen))), Math.abs(positionNotionalLong - this.computedSellNetValue))
     let afterTradeShortB = Math.max(Math.abs( positionNotionalShort + this.computedBuyNetValue), Math.abs(positionNotionalShort - this.computedSellNetValue))
-    afterTradeBuy = afterTradeLongB + afterTradeShortB
 
     // 计算可开空数量
     let afterTradeLongS = Math.max(Math.abs( positionNotionalLong + this.computedBuyNetValue), Math.abs(positionNotionalLong - this.computedSellNetValue))
     let afterTradeShortS = Math.max(Math.abs(positionNotionalShort + this.computedBuyNetValue), Math.abs(positionNotionalShort - this.computedSellNetValue + (this.assumingPriceDouble[1] * Number(sellCanOpen))))
-    afterTradeSell = afterTradeLongS + afterTradeShortS
+    afterTradeBuy = afterTradeLongB + afterTradeShortS
+    afterTradeSell = afterTradeLongB + afterTradeShortS
 
     if(afterTradeBuy > this.maxNotionalAtCurrentLeverage) {
       buyCanOpen = (this.maxNotionalAtCurrentLeverage - (afterTradeShortB + afterTradeLongS)) / this.assumingPriceDouble[0]
@@ -936,12 +940,12 @@ root.computed.canBeOpened = function () {
     // 计算可开多数量
     let afterTradeLongB = Math.max(Math.abs( positionNotionalLong + this.computedBuyNetValue + this.assumingPriceDouble[0] * Number(buyCanOpen)), Math.abs(positionNotionalLong - this.computedSellNetValue))
     let afterTradeShortB = Math.max(Math.abs(positionNotionalShort + this.computedBuyNetValue), Math.abs(positionNotionalShort - this.computedSellNetValue))
-    afterTradeBuy = afterTradeLongB + afterTradeShortB
 
     // 计算可开空数量
     let afterTradeLongS = Math.max(Math.abs( positionNotionalLong + this.computedBuyNetValue), Math.abs(positionNotionalLong - this.computedSellNetValue))
     let afterTradeShortS = Math.max(Math.abs(positionNotionalShort + this.computedBuyNetValue), Math.abs(positionNotionalShort - this.computedSellNetValue + this.assumingPriceDouble[1] * Number(sellCanOpen)))
-    afterTradeSell = afterTradeLongS + afterTradeShortS
+    afterTradeBuy = afterTradeLongB + afterTradeShortS
+    afterTradeSell = afterTradeLongB + afterTradeShortS
 
     if(afterTradeBuy > this.maxNotionalAtCurrentLeverage) {
       buyCanOpen =(this.maxNotionalAtCurrentLeverage - (afterTradeShortB + afterTradeLongS)) / this.assumingPriceDouble[0]
@@ -2023,12 +2027,12 @@ root.methods.setTotalAmount = function(totalAmount){
   this.totalAmount = totalAmount
 }
 //设置双仓开多仓位数量
-root.methods.setTotalAmountLong = function(totalAmountLong){
-  // this.totalAmountLong = totalAmountLong
+root.methods.getTotalAmountLong = function(totalAmountLong){
+  this.totalAmountLong = totalAmountLong
 }
 //设置双仓开空仓位数量
-root.methods.setTotalAmountShort = function(totalAmountShort){
-  // this.totalAmountShort = totalAmountShort
+root.methods.getTotalAmountShort = function(totalAmountShort){
+  this.totalAmountShort = totalAmountShort
 }
 // 获取币安最新标记价格和资金费率
 root.methods.getMarkPricesAndCapitalRates = function () {
@@ -3412,6 +3416,12 @@ root.computed.isLogin = function () {
   return this.$store.state.isLogin;
 }
 root.watch = {};
+root.watch.totalAmountLong = function (newVal,oldVal) {
+  console.info(newVal,oldVal)
+}
+root.watch.totalAmountShort = function (newVal,oldVal) {
+  // console.info(newVal,oldVal)
+}
 root.watch.notionalValueLong = function (newVal,oldVal) {
   // console.info(newVal,oldVal)
 }

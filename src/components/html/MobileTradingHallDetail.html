@@ -241,7 +241,7 @@
           <!--双仓 平仓 开多 可开-->
           <span class="security-deposit-amount" v-if="isHasModule('kaipingType') == 1 && positionModeFirst == 'doubleWarehouseMode' && openSide=='long'">{{toFixed(canBeOpened[0],3)}} {{symbol.split('_')[0]}}</span>
           <!--双仓 开仓 平空 可平-->
-          <span class="security-deposit-amount" v-if="isHasModule('kaipingType') == 2 && openSide=='long'">{{Math.abs(positionAmtShort)}} {{symbol.split('_')[0]}}</span>
+          <span class="security-deposit-amount" v-if="isHasModule('kaipingType') == 2 && openSide=='long'">{{Math.abs(totalAmountShort)}} {{symbol.split('_')[0]}}</span>
         </div>
 
         <!----------------------------------------------单仓 btn start---------------------------------------------------------->
@@ -294,7 +294,7 @@
         <!--双仓 开仓 平多 可平-->
         <div v-if="isHasModule('kaipingType') == 2 && openSide=='short'" class="can-be-opened flex-between">
           <span class="security-deposit-text">可平</span>
-          <span class="security-deposit-amount">{{Math.abs(positionAmtLong)}} {{symbol.split('_')[0]}}</span>
+          <span class="security-deposit-amount">{{Math.abs(totalAmountLong)}} {{symbol.split('_')[0]}}</span>
         </div>
 
         <!--双仓 平仓  限价  市价 postOrdersPosition-->
@@ -335,7 +335,7 @@
   <!--仓位-->
   <div v-if="listType== 'holdPosition'" class="container-current-page">
     <PositionList :latestPriceVal = 'isNowPrice' :effectiveTime = 'effectiveTime' :markPrice = 'markPrice' @getPositionRisk="getIndex" :availableBalance='availableBalance'
-                  :setKaipingqiPos="setKaipingqiPos" :markPriceObj='markPriceObj' @getPositionList="setRecords"/>
+                  :setKaipingqiPos="setKaipingqiPos" :markPriceObj='markPriceObj' @getPositionList="setRecords" @setTotalAmountLong="getTotalAmountLong" @setTotalAmountShort="getTotalAmountShort"/>
   </div>
 
   <!--当前委托页-->

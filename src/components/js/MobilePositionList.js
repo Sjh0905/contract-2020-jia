@@ -486,7 +486,7 @@ root.methods.commitModifyMargin = function () {
   this.$http.send("POST_POSITION_MARGIN", {
     bind: this,
     params: {
-      symbol: this.capitalSymbol,
+      symbol: this.symbol,
       positionSide: this.positionSide,
       amount:this.styleType == 1? this.increaseAmount : this.reduceAmount,
       type:this.styleType,  // 1是增加逐仓保障金；2 是减少逐仓保证金
@@ -559,7 +559,29 @@ root.methods.modifyMarginClose = function () {
   this.modifyMarginOpen = false
 }
 root.methods.setCloseAmount = function (item){
+
+  // 双仓开空仓位总数量
   if(item.symbol == this.capitalSymbol && (item.ps  || item.positionSide) == 'LONG'){
+    totalAmtLong =  (item.pa || item.positionAmt)
+    if(totalAmtLong!=this.totalAmountLong) {
+      this.totalAmountLong = totalAmtLong
+    }
+    console.info(this.totalAmountLong)
+    // this.$eventBus.notify({key:'POSITION_TOTAL_AMOUNT_LONG'}, this.totalAmountLong)
+    this.$emit('setTotalAmountLong', this.totalAmountLong)
+  }
+  if(item.symbol == this.capitalSymbol && (item.ps  || item.positionSide) == 'SHORT'){
+    totalAmtShort =  (item.pa || item.positionAmt)
+
+    if(totalAmtShort!=this.totalAmountShort) {
+      this.totalAmountShort = totalAmtShort
+    }
+    // console.info(this.totalAmountShort)
+    // this.$eventBus.notify({key:'POSITION_TOTAL_AMOUNT_SHORT'}, this.totalAmountShort)
+    this.$emit('setTotalAmountShort', this.totalAmountShort)
+  }
+
+/*  if(item.symbol == this.capitalSymbol && (item.ps  || item.positionSide) == 'LONG'){
     this.positionAmtLong = item.pa || item.positionAmt
   }
 
@@ -571,7 +593,7 @@ root.methods.setCloseAmount = function (item){
     positionAmtLong:this.positionAmtLong,
     positionAmtShort:this.positionAmtShort
   }
-  this.$store.commit('CHANGE_CLOSE_AMOUNT',closeAmount)
+  this.$store.commit('CHANGE_CLOSE_AMOUNT',closeAmount)*/
   let totalAmt = 0,totalAmtLong = 0 , totalAmtShort = 0;
   if(item.symbol == this.capitalSymbol && (item.ps  || item.positionSide) == 'BOTH') {
     totalAmt = (item.pa || item.positionAmt)
@@ -803,6 +825,7 @@ root.methods.re_getPositionRisk = function (data) {
 
   for (let i = 0; i <records.length ; i++) {
     let v = records[i];
+    this.setCloseAmount(v)
     if (v.marginType == 'cross' && v.positionAmt != 0 && this.psSymbolArr.includes(v.symbol)) {
       filterRecords.push(v)
       continue;
@@ -1385,7 +1408,7 @@ root.methods.marketPrice = function () {
     quantity: Math.abs(item.positionAmt),
     orderSide: (item.positionAmt < 0) ? 'BUY':'SELL',
     stopPrice: null,
-    symbol: this.capitalSymbol,
+    symbol: item.symbol,
     orderType: "MARKET",
   }
   this.$http.send("POST_ORDERS_POSITION", {

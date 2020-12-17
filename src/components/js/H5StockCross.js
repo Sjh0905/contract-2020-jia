@@ -94,6 +94,12 @@ root.watch.socket_snap_shot = function () {
 root.watch.symbol = function (newValue, oldValue) {
   if (newValue == oldValue) return;
   this.getScaleConfig();
+  this.buy_sale_list_temp[this.capitalSymbol] = {}
+  this.buy_sale_list_temp[this.capitalSymbol].a = []
+  this.buy_sale_list_temp[this.capitalSymbol].b = []
+
+  this.sellOrders = []
+  this.buyOrders = []
 }
 // root.watch.lastUpdateId = function (newValue, oldValue){
 //   // if(newValue != oldValue){//为了保证socket不推送时也能执行，屏蔽这行
