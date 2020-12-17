@@ -114,7 +114,7 @@ root.data = function () {
     popUnrealizedProfitNew:0, // 未实现盈亏
     positionSelect: null, // 选中的仓位数据
 
-    psSymbolArr:['BTCUSDT'],//,'ETHUSDT'
+    // psSymbolArr:['BTCUSDT'],//,'ETHUSDT'
 
 
     // 是否展示海报
@@ -203,6 +203,14 @@ root.mounted = function () {}
 root.beforeDestroy = function () {}
 /*------------------------------ 计算 -------------------------------*/
 root.computed = {}
+//不加下划线币对集合
+root.computed.sNameList = function () {
+  return this.$store.state.sNameList || []
+}
+//不加下划线币对集合,兼容老代码
+root.computed.psSymbolArr = function () {
+  return this.$store.state.sNameList || []
+}
 root.computed.currSymbol = function () {
   return this.$store.state.symbol;
 }
@@ -843,13 +851,13 @@ root.methods.handleWithMarkPrice = function(records){
 
   //由于四舍五入，以下均使用原生toFixed
   records.map((v,i)=>{
-
+    let sMarkPrice = this.markPriceObj[v.symbol] && this.markPriceObj[v.symbol].p || 1
     if(!v.hasOwnProperty('iptMarkPrice')){
-      v.markPrice && (v.iptMarkPrice = v.markPrice) || (v.iptMarkPrice = this.markPrice);
-      v.iptMarkPrice = Number(v.iptMarkPrice).toFixed(2)
+      // v.markPrice && (v.iptMarkPrice = v.markPrice) || (v.iptMarkPrice = this.markPrice);
+      // v.iptMarkPrice = Number(v.iptMarkPrice).toFixed(2)
     }
 
-    let notional = this.accMul(Math.abs(v.positionAmt) || 0,this.markPrice || 0)
+    let notional = this.accMul(Math.abs(v.positionAmt) || 0,sMarkPrice || 0)
     let args = this.getCalMaintenanceArgs(notional) || {},maintMarginRatio = args.maintMarginRatio || 0,notionalCum = args.notionalCum || 0
 
     v.bracketArgs = args;//用于强平价格降档计算
@@ -861,8 +869,8 @@ root.methods.handleWithMarkPrice = function(records){
     v.unrealizedProfitPage = v.unrealizedProfit//由于unrealizedProfit要用于计算逐仓保证金，值不能改变，但是页面和计算的值需要变化
 
     //回报率：全仓逐仓均是ROE = ( ( Mark Price - Entry Price ) * size ) / （Mark Price * abs(size) * IMR）,IMR = 1/杠杆倍数
-    v.unrealizedProfitPage = this.accMul( this.accMinus(this.markPrice || 0,v.entryPrice || 0),v.positionAmt || 0 )//实时变化的未实现盈亏
-    let msi = this.accDiv( this.accMul(Math.abs(v.positionAmt) || 0,this.markPrice || 0) , this.leverage )
+    v.unrealizedProfitPage = this.accMul( this.accMinus(sMarkPrice || 0,v.entryPrice || 0),v.positionAmt || 0 )//实时变化的未实现盈亏
+    let msi = this.accDiv( this.accMul(Math.abs(v.positionAmt) || 0,sMarkPrice || 0) , this.leverage )
     v.responseRate = this.accMul(this.accDiv(v.unrealizedProfitPage || 0,msi || 1),100)
     v.responseRate = Number(v.responseRate).toFixed(2) + '%'
 
