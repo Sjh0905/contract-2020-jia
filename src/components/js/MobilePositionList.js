@@ -149,6 +149,7 @@ root.data = function () {
 
     initialPosition:0,
     loadingImage:true,
+    // symbolFilterRecords:{}
   }
 }
 /*------------------------------ 观察 -------------------------------*/
@@ -827,12 +828,20 @@ root.methods.re_getPositionRisk = function (data) {
   typeof data === 'string' && (data = JSON.parse(data))
   if (!data || !data.data || data.data.length == []) return
 
-  let records = data.data,filterRecords = []
+  let records = data.data,filterRecords = [],symbolFilterRecords = {}
 
-  for (let i = 0; i <records.length ; i++) {
+  for (let i = 0,len=records.length; i < len; i++) {
     let v = records[i];
     this.setCloseAmount(v)
-    if (v.marginType == 'cross' && v.positionAmt != 0 && this.psSymbolArr.includes(v.symbol)) {
+    if(v.positionAmt != 0){
+      if(!symbolFilterRecords[v.symbol]){
+        symbolFilterRecords[v.symbol] = 0
+      }
+      symbolFilterRecords[v.symbol] += 1
+    }
+
+
+    if(v.marginType == 'cross' && v.positionAmt != 0 && this.psSymbolArr.includes(v.symbol)) {
       filterRecords.push(v)
       continue;
     }
@@ -849,11 +858,15 @@ root.methods.re_getPositionRisk = function (data) {
       }
     }
   }
-
   this.records = filterRecords
   this.recordsIndex = filterRecords.length || 0
+  // this.symbolFilterRecords = [...symbolFilterRecords]
 
+  // 获取全部仓位条数
   this.$emit('getPositionRisk',this.recordsIndex);
+  // console.info('BTCUSDT',symbolFilterRecords['BTCUSDT'],'ETHUSDT',symbolFilterRecords['ETHUSDT'],this.symbolFilterRecords,symbolFilterRecords)
+  //获取当前币对仓位条数
+  this.$emit('setSymbolLength', symbolFilterRecords);
 
   if(this.records.length > 0){
 

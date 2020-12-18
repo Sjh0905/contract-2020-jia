@@ -59,7 +59,8 @@ root.data = function () {
     latestPriceArr: [] ,   // 最新价格数组，用于判断价格升降和盘口显示
 
     recordsIndex:0, // 仓位数量
-    recordsIndexS:0, // 当前币对的仓位数量
+    posSymbolLength: {}, // 当前币对的仓位数量
+    currentLength:0, // 当前委托数量
     currOrderLenObj:{},
     effectiveTime:'GTX',
 
@@ -1040,11 +1041,12 @@ root.computed.canBeOpened = function () {
 // 计算是否有仓位和当前委托(调整保证金模式)
 root.computed.isHasOrders = function (){
   // 如果当前币对的仓位和订单数量为0，不能切换全逐仓
-  if(!this.currOrderLenObj[this.capitalSymbol] && !this.recordsIndexS) return true
+  if(!this.currOrderLenObj[this.capitalSymbol] && !this.posSymbolLength[this.capitalSymbol]) return true
   return false
 }
 // 计算是否有仓位和当前委托（调整单双仓）
 root.computed.isHasOrdersOrPosition = function (){
+  // console.info(this.currentLength)
   if(!this.currentLength && !this.recordsIndex) return true
   return false
 }
@@ -1185,6 +1187,14 @@ root.computed.isAndroid = function () {
 /*------------------------------ 方法 begin -------------------------------*/
 
 root.methods = {}
+// 获取当前委托数量(所有币对的数量)
+root.methods.getCurrentLength = function (index) {
+  this.currentLength = index
+}
+// 获取当前委托数量(当前币对的数量)
+root.methods.getCurrentObj = function (indexObj) {
+  this.currOrderLenObj = indexObj
+}
 // 获取仓位的数据
 root.methods.setRecords = function (records) {
   this.positionRecords = [...records]
@@ -2348,9 +2358,13 @@ root.methods.changeReducePositions = function(){
 }
 //只减仓 end
 
-// 获取仓位子组件的值
+// 获取仓位数量（所有仓位的数量）
 root.methods.getIndex = function (index) {
   this.recordsIndex = index
+}
+// 获取仓位数量（当前币对的仓位数量）
+root.methods.getSymbolLength = function (lenObj) {
+  this.posSymbolLength = lenObj
 }
 //设置开平器仓位数据
 root.methods.setKaipingqiPos = function(records){
@@ -3430,8 +3444,11 @@ root.computed.isLogin = function () {
   return this.$store.state.isLogin;
 }
 root.watch = {};
+root.watch.currOrderLenObj = function (newVal,oldVal) {
+  // console.info(newVal,oldVal)
+}
 root.watch.totalAmountLong = function (newVal,oldVal) {
-  console.info(newVal,oldVal)
+  // console.info(newVal,oldVal)
 }
 root.watch.totalAmountShort = function (newVal,oldVal) {
   // console.info(newVal,oldVal)
