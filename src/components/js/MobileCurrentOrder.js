@@ -173,8 +173,9 @@ root.methods.getOrder = function () {
 root.methods.re_getOrder = function (data) {
   typeof(data) == 'string' && (data = JSON.parse(data));
   this.loading = false
+  let currOrderLen = {},currOrderLength
   this.currentOrder = data.data || []
-  let currOrderLen = {}
+  currOrderLength = this.currentOrder.length
   this.currentOrder && this.currentOrder.forEach(v=>{
     if(!currOrderLen[v.symbol]){
       currOrderLen[v.symbol] = 0
@@ -182,7 +183,8 @@ root.methods.re_getOrder = function (data) {
     currOrderLen[v.symbol] += 1
   })
   this.currOrderLenObj = currOrderLen;
-  this.$emit('setCurrentLength',this.currOrderLenObj)
+  this.$emit('setCurrentObj',this.currOrderLenObj)
+  this.$emit('setCurrentLen',currOrderLength)
   this.$store.commit('SET_CURRENT_ORDERS',this.currentOrder)
 }
 // 获取订单出错
