@@ -1,5 +1,5 @@
 <!--click.stop 阻止冒泡-->
-<div class="mobile-trading-hall-box" @click.stop="()=>{}">
+<div class="mobile-market-box" :class="isApp && 'mobile-market-box-app' || '' " @click.stop="()=>{}">
   <div class="hangqtitle">
     <div class="hangqfont">行情</div>
     <div class="hangqclosetu" @click="changeMarketStatus"><img src="../../assets/H5img/hangqing.png" alt=""></div>
