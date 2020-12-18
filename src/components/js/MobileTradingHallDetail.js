@@ -3175,11 +3175,11 @@ root.methods.sectionSelect = function (num) {
   }
   // 双仓平空
   if(this.positionModeSecond == 'closeWarehouse' && this.openSide=='long'){
-    this.amount = this.$globalFunc.accFixed(Math.abs(this.positionAmtShort) * num, this.baseScale);
+    this.amount = this.$globalFunc.accFixed(Math.abs(this.totalAmountShort) * num, this.baseScale);
   }
   // 双仓平多
   if(this.positionModeSecond == 'closeWarehouse' && this.openSide=='short'){
-    this.amount = this.$globalFunc.accFixed(this.positionAmtLong * num, this.baseScale);
+    this.amount = this.$globalFunc.accFixed(this.totalAmountLong * num, this.baseScale);
   }
   // 单仓开多
   if(this.positionModeFirst == 'singleWarehouseMode' && this.orderType==0){

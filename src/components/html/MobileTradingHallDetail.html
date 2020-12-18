@@ -333,13 +333,13 @@
     </div>
   </div>
   <!--仓位-->
-  <div v-if="listType== 'holdPosition'" class="container-current-page">
+  <div v-show="listType== 'holdPosition'" class="container-current-page">
     <PositionList :latestPriceVal = 'isNowPrice' :effectiveTime = 'effectiveTime' :markPrice = 'markPrice' @getPositionRisk="getIndex" :availableBalance='availableBalance'
                   :setKaipingqiPos="setKaipingqiPos" :markPriceObj='markPriceObj' @getPositionList="setRecords" @setTotalAmountLong="getTotalAmountLong" @setTotalAmountShort="getTotalAmountShort"/>
   </div>
 
   <!--当前委托页-->
-  <div v-if="listType == 'currentDelegation'" class="container-current-page" @click="ToCurrentPage">
+  <div v-show="listType == 'currentDelegation'" class="container-current-page" @click="ToCurrentPage">
 <!--    @setCurrentLength="getCurrentLength"-->
     <CurrentOrder></CurrentOrder>
   </div>
