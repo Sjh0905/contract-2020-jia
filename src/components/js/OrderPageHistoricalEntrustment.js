@@ -108,9 +108,6 @@ root.data = () => {
       }, {
         value: 'TAKE_PROFIT_MARKET',
         label: '止盈市价单'
-      }, {
-        value: 'TRAILING_STOP_MARKET',
-        label: '跟踪止损单'
       }
 
     ],
