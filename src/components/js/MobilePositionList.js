@@ -158,6 +158,13 @@ root.watch.markPrice = function(newVal,oldVal) {
   // console.info(newVal)
   this.handleWithMarkPrice(this.records)
 }
+root.watch.currSymbol = function(newVal,oldVal) {
+  // console.info("symbol newVal,oldVal",newVal,oldVal,newVal==oldVal)
+  // 如果切换币对、可平数量初始化
+  this.$emit('setTotalAmountLong', 0)
+  this.$emit('setTotalAmountShort', 0)
+  this.handleWithMarkPrice(this.records)
+}
 // root.watch.latestPriceVal = function(newVal,oldVal) {
 //   // console.info(newVal)
 //   this.handleWithMarkPrice(this.records)

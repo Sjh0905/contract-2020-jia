@@ -76,7 +76,10 @@ root.mounted = function () {}
 root.beforeDestroy = function () {}
 /*------------------------------ 计算 -------------------------------*/
 root.computed = {}
-
+root.computed.sNameMap = function () {{}
+  let defaultSNameMap = {"BTCUSDT":"BTC_USDT","ETHUSDT":"ETH_USDT"}
+  return this.$store.state.sNameMap || defaultSNameMap
+}
 // 判断收益输入框是否为空
 root.computed.isStyle = function () {
   if(this.closingPrice == '' || this.openingPrice == '' || this.transactionQuantity == '') return true
