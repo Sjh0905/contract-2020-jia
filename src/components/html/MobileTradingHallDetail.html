@@ -1,8 +1,9 @@
 <div class="mobile-trading-hall-detail">
   <div class="header-title-select-hq flex">
     <div class="hangqing-title flex-cloum">
-      <div class="flex" @click="changeMarketStatus">
-        <div class="hangqingtu">
+      <div class="flex-row" @click="changeMarketStatus">
+        <!--为了保证K线页和本页交互跳转时没有错位效果，ios和android设置不同的mtp-->
+        <div class="hangqingtu" :class="isAndroid && 'hangqingtu-android' || '' ">
           <img src="../../assets/H5img/hangqing.png" alt="">
         </div>
         <div class="hangqingbid">

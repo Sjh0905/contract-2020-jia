@@ -1518,17 +1518,23 @@
   margin-top: 0.04rem;
 }
 .hangqingtu{
+  display: table-cell;
   width: auto;
   height: 100%;
-
-  /*float: left;*/
+  /* float: left; */
+  vertical-align: middle;
   margin-right: 0.12rem;
+  padding-top: 0.04rem;
+}
+.hangqingtu-android{
+  padding-top: 0.02rem;
 }
 
 .hangqingtu img {
   line-height: 0.88rem;
   display: inline-block;
   width: 0.32rem;
+  height:0.32rem;
   vertical-align: sub;
   /*margin-top: 13px;*/
 }
@@ -1537,7 +1543,7 @@
   width: auto;
   height: 100%;
   /*float: left;*/
-  /*line-height: 0.88rem;*/
+  line-height: 0.54rem;
   /*font-family: Roboto-Bold;*/
   font-size: 0.4rem;
   color: #CFD3E9;
