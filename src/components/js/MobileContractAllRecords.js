@@ -431,6 +431,7 @@ root.methods.SHOW_POSTER = function (order) {
 root.methods.getPosterImageLoss = function () {
   // console.info(this.changeDate())
   // return
+  this.poster_url = ''
   let params = {
     orderId:this.orderId,
     clientOrderId:this.clientOrderId,
