@@ -135,7 +135,7 @@ root.computed.quoteScale_list = function () {
       baseScale: v.baseScale
     };
   })
-  console.info('quoteScale_list====',quoteScale_obj)
+  // console.info('quoteScale_list====',quoteScale_obj)
   return quoteScale_obj;
 }
 // 所有币对信息
