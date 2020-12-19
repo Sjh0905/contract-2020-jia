@@ -429,19 +429,19 @@
 
   /* ----------------  placeholder样式 begin ----------------*/
   .calculator-content-ipt::placeholder {
-    color: #0D0E23;
+    color: #A2B5D9;
   }
 
   .calculator-content-ipt::-moz-placeholder {
-    color: #0D0E23;
+    color: #A2B5D9;
   }
 
   .calculator-content-ipt::-webkit-input-placeholder {
-    color: #0D0E23;
+    color: #A2B5D9;
   }
 
   .calculator-content-ipt:-ms-input-placeholder {
-    color: #0D0E23;
+    color: #A2B5D9;
   }
 }
 /* ----------------  placeholder样式 end ----------------*/
