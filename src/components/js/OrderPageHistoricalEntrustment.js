@@ -16,6 +16,7 @@ root.data = () => {
   return {
     loading: true,
     historyOrder: [],
+    historyOrderSearch: [],
     clickThis: -1,
 
     limit: 100, //一次获取多少条数据
@@ -36,6 +37,8 @@ root.data = () => {
     loadingImage:true,
     poster_url:'',
     currencyValue:'勤劳致富，落袋为安',
+    currencyValueDeficit:'这是什么，人间疾苦',
+    // psSymbolArr:['BTCUSDT'],//,'ETHUSDT'
     accounts : [
       {'a':'勤劳致富，落袋为安'},
       {'a':'接着奏乐，接着舞'},
@@ -44,6 +47,8 @@ root.data = () => {
       {'a':'掐指一算，今天大赚'},
       {'a':'动如脱兔的，逃顶小能手'},
       {'a':'一键梭哈的，市价小能手'},
+    ],
+    accountsDeficit : [
       {'a':'这是什么，人间疾苦'},
       {'a':'多么痛，的领悟'},
       {'a':'我命由庄，不由我'},
@@ -52,6 +57,24 @@ root.data = () => {
       {'a':'断臂求生的，止损小能手'},
       {'a':'舍己为人的，反指小能手'},
     ],
+    isProfitLoss:true,
+    // currencyValue:'勤劳致富，落袋为安',
+    // accounts : [
+    //   {'a':'勤劳致富，落袋为安'},
+    //   {'a':'接着奏乐，接着舞'},
+    //   {'a':'富贵险中求'},
+    //   {'a':'感觉人生，到达巅峰'},
+    //   {'a':'掐指一算，今天大赚'},
+    //   {'a':'动如脱兔的，逃顶小能手'},
+    //   {'a':'一键梭哈的，市价小能手'},
+    //   {'a':'这是什么，人间疾苦'},
+    //   {'a':'多么痛，的领悟'},
+    //   {'a':'我命由庄，不由我'},
+    //   {'a':'庄终于，对我下手了'},
+    //   {'a':'能亏才会赚，不信等着看'},
+    //   {'a':'断臂求生的，止损小能手'},
+    //   {'a':'舍己为人的，反指小能手'},
+    // ],
     orderId:'',
     clientOrderId:'',
     posterSymbol:'', //海报对应币对
@@ -59,6 +82,46 @@ root.data = () => {
     popType: 0,
     popText: '',
     promptOpen: false,
+    interTimerPicker:'',
+    pickerOptions: {
+      disabledDate:(time) => {
+        return this.dealDisabledDate(time)
+      }
+    }, // 日期设置对象
+
+    Lieoptions:[
+      {
+        value: 'LIMIT',
+        label: '限价单'
+      }, {
+        value: 'MARKET',
+        label: '市价单'
+      }, {
+        value: 'STOP',
+        label: '止损限价单'
+      }, {
+        value: 'STOP_MARKET',
+        label: '止损市价单'
+      }, {
+        value: 'TAKE_PROFIT',
+        label: '止盈限价单'
+      }, {
+        value: 'TAKE_PROFIT_MARKET',
+        label: '止盈市价单'
+      }
+
+    ],
+    LieoptionsUsdt:[
+  {
+    value: 'ETHUSDT',
+      label: 'ETHUSDT'
+  }, {
+    value: 'BTCUSDT',
+      label: 'BTCUSDT'
+  }
+    ],
+    value:'',
+    valueUsdt:'',
 
   }
 }
@@ -68,9 +131,36 @@ root.props.tradinghallLimit = {
   type: Number
 }
 
+/*----------------------------- 生命周期 ------------------------------*/
+
+
+root.created = function () {
+  // console.warn('历史订单！！！')
+  // console.log('this.$route=======historicalEntrust',this.$route.name)
+  this.getOrder()
+  this.getOrderSearch()
+
+  this.pickerOptions.disabledDate = function (time) {
+    // 设置可选择的日期为今天之后的一个月内
+    let curDate = (new Date()).getTime()
+    // 这里算出一个月的毫秒数,这里使用30的平均值,实际中应根据具体的每个月有多少天计算
+    let day = 30 * 24 * 3600 * 1000;
+    let Months = curDate - day;
+    return (time.getTime()) > Date.now()  || time.getTime() <= Months;
+
+    // 设置选择的日期小于当前的日期,小于返回true,日期不可选
+    // return time.getTime() < Date.now() - 8.64e7
+  }
+}
+
 /*----------------------------- 计算 ------------------------------*/
 root.watch = {}
 root.watch.currencyValue = function (newVal, oldVal){
+  // let a = newVal
+  // this.getAccount()
+  this.getPosterImage()
+}
+root.watch.currencyValueDeficit = function (newVal, oldVal){
   // let a = newVal
   // this.getAccount()
   this.getPosterImage()
@@ -80,11 +170,20 @@ root.watch.picIndex = function (newVal, oldVal){
 }
 
 
+// root.watch.isProfitLoss = function (newVal, oldVal){
+//     // this.getPosterImage()
+// }
+
+
 
 root.computed = {}
 // 历史属性的计算后，排序之类的写在这里
 root.computed.historyOrderComputed = function () {
   return this.historyOrder
+}
+// 历史属性的计算后，排序之类的写在这里
+root.computed.historyOrderSearchComputed = function () {
+  return this.historyOrderSearch
 }
 // 获取登录状态
 root.computed.userId = function () {
@@ -110,9 +209,23 @@ root.computed.accountsComputed = function (index,item) {
   // console.info('this.accounts=======aaaaa',c+1)
   return this.accounts
 }
+root.computed.accountsComputedDeficit = function (index,item) {
+  // // 特殊处理
+  return this.accountsDeficit
+}
+// root.computed.picIndex = function () {
+//   let a = this.accounts.map(item => item.a).indexOf(this.currencyValue) + 1
+//   return a || 1
+// }
 root.computed.picIndex = function () {
-  let a = this.accounts.map(item => item.a).indexOf(this.currencyValue) + 1
-  return a || 1
+  if (this.isProfitLoss) {
+    let a = this.accounts.map(item => item.a).indexOf(this.currencyValue) + 1
+    return a || 1
+  }else {
+    let a = this.accountsDeficit.map(item => item.a).indexOf(this.currencyValueDeficit) + 8
+    return a || 8
+  }
+
 }
 // 当前货币对
 root.computed.symbol = function () {
@@ -127,19 +240,65 @@ root.computed.sNameList = function () {
   return this.$store.state.sNameList || []
 }
 
-/*----------------------------- 生命周期 ------------------------------*/
-
-
-root.created = function () {
-  // console.warn('历史订单！！！')
-  // console.log('this.$route=======historicalEntrust',this.$route.name)
-  this.getOrder()
-}
 
 /*----------------------------- 方法 ------------------------------*/
 
 
 root.methods = {}
+
+  // 单独处理时间的函数
+  root.methods.dealDisabledDate = function (time) {
+    // time.getTime是把选中的时间转化成自1970年1月1日 00:00:00 UTC到当前时间的毫秒数
+    // Date.now()是把今天的时间转化成自1970年1月1日 00:00:00 UTC到当前时间的毫秒数,这样比较好比较
+    // return的值,true是不可以操作选择,false可以操作选择,比如下面这个判断就只能选择今天之后的时间
+    return time.getTime() < Date.now() - 8.64e7
+
+    // 这里减8.64e7的作用是,让今天的日期可以选择,如果不减的话,今天的日期就不可以选择,判断中写<= 也是没用的,一天的毫秒数就是8.64e7
+    // return time.getTime() <= Date.now()
+    // return time.getTime() < Date.now() - 8.64e7
+  }
+
+
+
+// 发送请求获取
+root.methods.getOrderSearch = function () {
+
+  this.$http.send('GET_CAPITAL_SEARCH', {
+      bind: this,
+      query: {
+        startTime:this.interTimerPicker[0] || '',
+        endTime:this.interTimerPicker[1] + 24 * 3599 * 1000 || '',
+        type:this.value || '',
+        symbol:this.valueUsdt || '',
+      },
+      callBack: this.re_getOrderSearch,
+      errorHandler: this.error_getOrderSearch
+    })
+}
+// 获取历史订单回调
+root.methods.re_getOrderSearch = function (data) {
+
+  this.historyOrderSearch = data.data
+  this.loading = false
+  // 加载更多中
+  this.loadingMoreIng = false
+
+  // 如果获取
+  data.data.length !== 0 && (this.offsetId = data.data[data.data.length - 1].id)
+  data.data.length !== 0 && (this.updatedAt = data.data[data.data.length - 1].updatedAt)
+
+  // 是否显示加载更多
+  // console.warn('this is order length', data.orders.length, this.limit)
+  if (data.data.length < this.limit) {
+    this.showLoadingMore = false
+  }
+
+}
+// 错误处理
+root.methods.error_getOrderSearch = function (err) {
+  console.warn("获取错误", err)
+}
+
 // 发送请求获取
 root.methods.getOrder = function () {
   // if (!this.$store.state.authState.userId) {
@@ -148,8 +307,7 @@ root.methods.getOrder = function () {
   // }
   // this.loading = true
 
-  this.$http.send('GET_CAPITAL_ALL_FLOW',
-    {
+  this.$http.send('GET_CAPITAL_ALL_FLOW', {
       bind: this,
       query: {
         // updatedAt:this.updatedAt,//最后的订单更新时间
@@ -242,13 +400,98 @@ root.methods.SHOW_POSTER = function (order) {
   this.clientOrderId = order.clientOrderId
   this.posterSymbol = order.symbol
   this.showPoster = true;
-  this.getPosterImage()
+  // this.getPosterImage()
+  this.getPosterImageLoss()
 }
 
 // 隐藏海报
 root.methods.HIDE_POSTER = function () {
   this.showPoster = false;
 }
+
+
+// 获取海报
+root.methods.getPosterImageLoss = function () {
+  // console.info(this.changeDate())
+  // return
+  let params = {
+    orderId:this.orderId,
+    clientOrderId:this.clientOrderId,
+    symbol:this.posterSymbol,
+  }
+  this.$http.send('POST_ASSET_LOSS', {
+    bind: this,
+    params: params,
+    callBack: this.re_getPosterImageLoss,
+    errorHandler: this.error_getPosterImageLoss
+  })
+}
+root.methods.re_getPosterImageLoss = function (res) {
+ this.isProfitLoss = res.data.isProfitLoss
+  if (this.isProfitLoss == true) {
+    this.getPosterImage()
+  }else{
+    this.getPosterImage()
+  }
+  if(res.code == 1) {
+    this.showPoster = false;
+    this.popText = '请您先登录再进行分享'
+    this.popType = 0;
+    this.promptOpen = true;
+    return
+  }
+  if(res.code == 2) {
+    this.showPoster = false;
+    this.popText = '参数有误'
+    this.popType = 0;
+    this.promptOpen = true;
+    return
+  }
+  if(res.code == 3) {
+    this.showPoster = false;
+    this.popText = '未查询到此订单'
+    this.popType = 0;
+    this.promptOpen = true;
+    return
+  }
+  if(res.code == 4) {
+    this.showPoster = false;
+    this.popText = '该订单未全部成交不可分享'
+    this.popType = 0;
+    this.promptOpen = true;
+    return
+  }
+  if(res.code == 5) {
+    this.showPoster = false;
+    this.popText = '选择的订单不是平仓单'
+    this.popType = 0;
+    this.promptOpen = true;
+    return
+  }
+  if(res.code == 6) {
+    this.showPoster = false;
+    this.popText = '此时间段内未查询到此订单'
+    this.popType = 0;
+    this.promptOpen = true;
+    return
+  }
+  if(res.code == 7) {
+    this.showPoster = false;
+    this.popText = '该笔订单不是平仓单，实现盈亏是0，无法分享'
+    this.popType = 0;
+    this.promptOpen = true;
+    return
+  }
+  // if(res.code == 200){
+  //   let urls = res.data
+  //   setTimeout(function(){
+  //     this.loadingImage = false
+  //   }.bind(this),2000)
+  //   this.poster_url = urls;
+  // }
+
+}
+
 // 获取海报
 root.methods.getPosterImage = function () {
   // console.info(this.changeDate())
@@ -258,7 +501,7 @@ root.methods.getPosterImage = function () {
     orderId:this.orderId,
     clientOrderId:this.clientOrderId,
     symbol:this.posterSymbol,
-    picIndex:this.picIndex || 0,
+    picIndex:this.picIndex,
   }
   this.$http.send('POST_ASSET_SNAPSHOT', {
     bind: this,
@@ -332,6 +575,9 @@ root.methods.closePrompt = function () {
   this.promptOpen = false;
 }
 root.methods.error_getPosterImage = function (err) {
+  console.warn('err',err)
+}
+root.methods.error_getPosterImageLoss = function (err) {
   console.warn('err',err)
 }
 // 2020.11.16. ccc

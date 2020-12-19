@@ -128,12 +128,14 @@ root.computed.marketList = function () {
 root.computed.quoteScale_list = function () {
   let quoteScale_obj = {};
   let quoteScale_list = this.$store.state.quoteConfig;
+
   quoteScale_list.forEach(v => {
     quoteScale_obj[v.name] = {
       quoteScale: v.quoteScale,
       baseScale: v.baseScale
     };
   })
+  // console.info('quoteScale_list====',quoteScale_obj)
   return quoteScale_obj;
 }
 // 所有币对信息
@@ -200,6 +202,8 @@ root.computed.mSymbolList = function () {
   // }
 
   this.mSymbolListTemp = mSymbolList;
+
+  // console.info('this.mSymbolListTemp===',this.mSymbolListTemp[0].P)
 
   return mSymbolList;
 
