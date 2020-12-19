@@ -12,7 +12,7 @@
   </div>
   <div class="mobile-buy-detail-now-price-box mobile-buy-detail-now-price-box-up flex-row">
     <span class="mobile-buy-detail-now-price" :class="direction">{{isNowPrice=='- -'&&'- -'|| $globalFunc.accFixed(isNowPrice || 0, quoteScale)}}</span>
-    <span class="mobile-buy-detail-now-price mobile-mark-price txt-white">{{$globalFunc.accFixed(markPrice || 0, quoteScale)}}</span>
+    <span class="mobile-buy-detail-now-price mobile-mark-price txt-white">{{$globalFunc.accFixed(markPriceObj[capitalSymbol] && markPriceObj[capitalSymbol].p || 0, quoteScale)}}</span>
   </div>
   <div class="mobile-buy-detail-list">
     <div class="mobile-buy-detail-item" v-for="(item,index) in buyOrders" style="overflow: hidden;"

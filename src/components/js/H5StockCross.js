@@ -27,9 +27,17 @@ root.props.markPrice = {
   type: String,
   default: '0'
 }
+root.props.markPriceObj = {
+  type: Object,
+  default: {}
+}
 root.props.direction = {
   type: String,
   default: 'txt-white'
+}
+root.props.capitalSymbol = {
+  type: String,
+  default: ''
 }
 
 root.props.trade_loading = {
@@ -77,12 +85,18 @@ root.computed = {}
 root.computed.symbol = function () {
   return this.$store.state.symbol;
 }
-
+/*//不加下划线币对，改为由父组件传参，避免更新币对不同步
+root.computed.capitalSymbol = function () {
+  return this.$globalFunc.toOnlyCapitalLetters(this.symbol);
+}*/
 root.computed.price=function(){
   return this.$globalFunc.accFixed(this.isPriceNow, this.quoteScale)
 }
 
 root.watch = {};
+root.watch.markPriceObj = function (newVal,oldVal) {
+  // console.log('this is markPriceObj',newVal,oldVal);
+};
 root.watch.buy_sale_list = function () {
   this.buy_sale_list_temp = Object.assign(this.buy_sale_list,{})
   this.getOrderDepthList();
