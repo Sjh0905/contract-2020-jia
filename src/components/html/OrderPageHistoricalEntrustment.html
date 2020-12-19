@@ -21,7 +21,7 @@
               </el-date-picker>
             </div>
 
-            <div>
+            <div class="usdt-v">
               <span class="demonstration">类型：</span>
               <el-select class="account_number_input" v-model="value" clearable placeholder="请选择">
               <el-option
@@ -159,7 +159,7 @@
       <template v-if="userId && historyOrderComputed.length !==0 && $route.name != 'historicalEntrust'">
         <div class="historica">
          <li v-if="$route.name != 'historicalEntrust'" v-for="(order,index) in historyOrderComputed" :key="order.id"
-               class="tr-td-col" @click="showDetail(order.orderId)">
+               class="tr-td-col" >
            <div class="tr-detail flex-center">
 
             <!--时间 begin -->
@@ -220,7 +220,7 @@
                </div>
                <div v-else class="else-color">--</div>
              </div>
-             <div class="th td-turnover1-1" v-if="$route.name != 'historicalEntrust' && order.status == 'FILLED'">
+             <div class="th td-turnover1-1" v-if="$route.name != 'historicalEntrust' && order.status == 'FILLED'" @click="showDetail(order.orderId)">
                <img class="drop-down-1" src="../../assets/drop_down.png" alt="">
              </div>
              <div class="th td-turnover1-1" v-else>
@@ -265,8 +265,18 @@
 
   <SharingInvitationPc :switch="showPoster" @close="HIDE_POSTER">
     <div slot="header" class="pop-article1">
-      <template>
-        <el-select class="account_number_input" value-key="currencyKey" v-model="currencyValue" filterable placeholder="">
+<!--      <template>-->
+<!--        <el-select class="account_number_input2" value-key="currencyKey" v-model="currencyValue" filterable placeholder="">-->
+<!--          <el-option-->
+<!--            v-for="(item,index) in accountsComputed"-->
+<!--            :label="item.a"-->
+<!--            :value="item.a"-->
+<!--            :key="index"-->
+<!--          ></el-option>-->
+<!--        </el-select>-->
+<!--      </template>-->
+      <div v-if="isProfitLoss">
+        <el-select class="account_number_input2" value-key="currencyKey" v-model="currencyValue" filterable placeholder="">
           <el-option
             v-for="(item,index) in accountsComputed"
             :label="item.a"
@@ -274,7 +284,17 @@
             :key="index"
           ></el-option>
         </el-select>
-      </template>
+      </div>
+      <div v-else>
+        <el-select class="account_number_input2" value-key="currencyKey" v-model="currencyValueDeficit" filterable placeholder="">
+          <el-option
+            v-for="(item,index) in accountsComputedDeficit"
+            :label="item.a"
+            :value="item.a"
+            :key="index"
+          ></el-option>
+        </el-select>
+      </div>
       <p class="copy_poster">✽{{$t('personalCenter.poster_2')}}</p>
       <div class="loading-box" v-if="loadingImage">
         <Loading></Loading>

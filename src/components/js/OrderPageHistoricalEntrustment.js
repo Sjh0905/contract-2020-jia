@@ -37,6 +37,8 @@ root.data = () => {
     loadingImage:true,
     poster_url:'',
     currencyValue:'勤劳致富，落袋为安',
+    currencyValueDeficit:'这是什么，人间疾苦',
+    // psSymbolArr:['BTCUSDT'],//,'ETHUSDT'
     accounts : [
       {'a':'勤劳致富，落袋为安'},
       {'a':'接着奏乐，接着舞'},
@@ -45,6 +47,8 @@ root.data = () => {
       {'a':'掐指一算，今天大赚'},
       {'a':'动如脱兔的，逃顶小能手'},
       {'a':'一键梭哈的，市价小能手'},
+    ],
+    accountsDeficit : [
       {'a':'这是什么，人间疾苦'},
       {'a':'多么痛，的领悟'},
       {'a':'我命由庄，不由我'},
@@ -53,6 +57,24 @@ root.data = () => {
       {'a':'断臂求生的，止损小能手'},
       {'a':'舍己为人的，反指小能手'},
     ],
+    isProfitLoss:true,
+    // currencyValue:'勤劳致富，落袋为安',
+    // accounts : [
+    //   {'a':'勤劳致富，落袋为安'},
+    //   {'a':'接着奏乐，接着舞'},
+    //   {'a':'富贵险中求'},
+    //   {'a':'感觉人生，到达巅峰'},
+    //   {'a':'掐指一算，今天大赚'},
+    //   {'a':'动如脱兔的，逃顶小能手'},
+    //   {'a':'一键梭哈的，市价小能手'},
+    //   {'a':'这是什么，人间疾苦'},
+    //   {'a':'多么痛，的领悟'},
+    //   {'a':'我命由庄，不由我'},
+    //   {'a':'庄终于，对我下手了'},
+    //   {'a':'能亏才会赚，不信等着看'},
+    //   {'a':'断臂求生的，止损小能手'},
+    //   {'a':'舍己为人的，反指小能手'},
+    // ],
     orderId:'',
     clientOrderId:'',
     posterSymbol:'', //海报对应币对
@@ -141,9 +163,19 @@ root.watch.currencyValue = function (newVal, oldVal){
   // this.getAccount()
   this.getPosterImage()
 }
+root.watch.currencyValueDeficit = function (newVal, oldVal){
+  // let a = newVal
+  // this.getAccount()
+  this.getPosterImage()
+}
 root.watch.picIndex = function (newVal, oldVal){
   // this.getPosterImage()
 }
+
+
+// root.watch.isProfitLoss = function (newVal, oldVal){
+//     // this.getPosterImage()
+// }
 
 
 
@@ -180,9 +212,23 @@ root.computed.accountsComputed = function (index,item) {
   // console.info('this.accounts=======aaaaa',c+1)
   return this.accounts
 }
+root.computed.accountsComputedDeficit = function (index,item) {
+  // // 特殊处理
+  return this.accountsDeficit
+}
+// root.computed.picIndex = function () {
+//   let a = this.accounts.map(item => item.a).indexOf(this.currencyValue) + 1
+//   return a || 1
+// }
 root.computed.picIndex = function () {
-  let a = this.accounts.map(item => item.a).indexOf(this.currencyValue) + 1
-  return a || 1
+  if (this.isProfitLoss) {
+    let a = this.accounts.map(item => item.a).indexOf(this.currencyValue) + 1
+    return a || 1
+  }else {
+    let a = this.accountsDeficit.map(item => item.a).indexOf(this.currencyValueDeficit) + 8
+    return a || 8
+  }
+
 }
 // 当前货币对
 root.computed.symbol = function () {
@@ -357,13 +403,98 @@ root.methods.SHOW_POSTER = function (order) {
   this.clientOrderId = order.clientOrderId
   this.posterSymbol = order.symbol
   this.showPoster = true;
-  this.getPosterImage()
+  // this.getPosterImage()
+  this.getPosterImageLoss()
 }
 
 // 隐藏海报
 root.methods.HIDE_POSTER = function () {
   this.showPoster = false;
 }
+
+
+// 获取海报
+root.methods.getPosterImageLoss = function () {
+  // console.info(this.changeDate())
+  // return
+  let params = {
+    orderId:this.orderId,
+    clientOrderId:this.clientOrderId,
+    symbol:this.posterSymbol,
+  }
+  this.$http.send('POST_ASSET_LOSS', {
+    bind: this,
+    params: params,
+    callBack: this.re_getPosterImageLoss,
+    errorHandler: this.error_getPosterImageLoss
+  })
+}
+root.methods.re_getPosterImageLoss = function (res) {
+ this.isProfitLoss = res.data.isProfitLoss
+  if (this.isProfitLoss == true) {
+    this.getPosterImage()
+  }else{
+    this.getPosterImage()
+  }
+  if(res.code == 1) {
+    this.showPoster = false;
+    this.popText = '请您先登录再进行分享'
+    this.popType = 0;
+    this.promptOpen = true;
+    return
+  }
+  if(res.code == 2) {
+    this.showPoster = false;
+    this.popText = '参数有误'
+    this.popType = 0;
+    this.promptOpen = true;
+    return
+  }
+  if(res.code == 3) {
+    this.showPoster = false;
+    this.popText = '未查询到此订单'
+    this.popType = 0;
+    this.promptOpen = true;
+    return
+  }
+  if(res.code == 4) {
+    this.showPoster = false;
+    this.popText = '该订单未全部成交不可分享'
+    this.popType = 0;
+    this.promptOpen = true;
+    return
+  }
+  if(res.code == 5) {
+    this.showPoster = false;
+    this.popText = '选择的订单不是平仓单'
+    this.popType = 0;
+    this.promptOpen = true;
+    return
+  }
+  if(res.code == 6) {
+    this.showPoster = false;
+    this.popText = '此时间段内未查询到此订单'
+    this.popType = 0;
+    this.promptOpen = true;
+    return
+  }
+  if(res.code == 7) {
+    this.showPoster = false;
+    this.popText = '该笔订单不是平仓单，实现盈亏是0，无法分享'
+    this.popType = 0;
+    this.promptOpen = true;
+    return
+  }
+  // if(res.code == 200){
+  //   let urls = res.data
+  //   setTimeout(function(){
+  //     this.loadingImage = false
+  //   }.bind(this),2000)
+  //   this.poster_url = urls;
+  // }
+
+}
+
 // 获取海报
 root.methods.getPosterImage = function () {
   // console.info(this.changeDate())
@@ -373,7 +504,7 @@ root.methods.getPosterImage = function () {
     orderId:this.orderId,
     clientOrderId:this.clientOrderId,
     symbol:this.posterSymbol,
-    picIndex:this.picIndex || 0,
+    picIndex:this.picIndex,
   }
   this.$http.send('POST_ASSET_SNAPSHOT', {
     bind: this,
@@ -447,6 +578,9 @@ root.methods.closePrompt = function () {
   this.promptOpen = false;
 }
 root.methods.error_getPosterImage = function (err) {
+  console.warn('err',err)
+}
+root.methods.error_getPosterImageLoss = function (err) {
   console.warn('err',err)
 }
 // 2020.11.16. ccc
