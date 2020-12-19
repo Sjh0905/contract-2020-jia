@@ -129,7 +129,7 @@ line-height: 36px;
 }
 
 .market-price-title-marcket {
-  width: 40.47%;
+  width: 32.47%;
   /*text-align: center;*/
   text-align: left;
   padding-left: 15px;
@@ -157,7 +157,7 @@ line-height: 36px;
 
 /*兼容英文版样式限制*/
 .market-price-title-updown {
-  width: 35.62%;
+  width: 55.62%;
   text-align: right;
   padding-right: 12px;
   white-space: nowrap;
@@ -294,7 +294,7 @@ line-height: 36px;
 
 .market-price-list-marcket {
   /*width: 34.47%;*/
-  width: 40.47%;
+  width: 21.47%;
   height:28px;
   line-height:28px;
   /*text-align: center;*/
@@ -319,7 +319,7 @@ line-height: 36px;
 }
 
 .market-price-list-volum {
-  width: 39.62%;
+  width: 49.62%;
   height:28px;
   line-height:28px;
   padding-right: 12px;
