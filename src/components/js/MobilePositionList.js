@@ -285,6 +285,10 @@ root.computed.capitalSymbol = function () {
 root.computed.leverage = function () {
   return this.$store.state.currencyInfo[this.capitalSymbol].leverage;
 }
+root.computed.sNameMap = function () {{}
+  let defaultSNameMap = {"BTCUSDT":"BTC_USDT","ETHUSDT":"ETH_USDT"}
+  return this.$store.state.sNameMap || defaultSNameMap
+}
 //杠杆分层
 root.computed.bracketList = function () {
   return this.$store.state.bracketList || {}

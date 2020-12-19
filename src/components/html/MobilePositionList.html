@@ -32,7 +32,7 @@
     <!--其他详细数据1-->
     <div class="ps-detail-box flex-row">
       <div class="ps-detail-left flex-colum">
-        <div class="ps-detail-tittle">数量(BTC)</div>
+        <div class="ps-detail-tittle">数量({{sNameMap[item.symbol].split('_')[0]}})</div>
         <div class="ps-detail-amount" :class="(item.positionAmt || 0) > 0 ?'text-green':'text-red'">{{toFixed(item.positionAmt,3) || 0}}</div>
       </div>
       <div class="ps-detail-middle flex-colum">

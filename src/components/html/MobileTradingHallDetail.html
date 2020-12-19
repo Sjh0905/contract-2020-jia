@@ -16,7 +16,7 @@
 <!--        <div class="leaver" @click="openSecurityDepositMode" v-if="marginModeType == 'quanCang'">全仓</div>-->
 <!--        <div class="leaver" @click="openSecurityDepositMode" v-if="marginModeType == 'zhuCang'">逐仓</div>-->
         <div class="leaver" @click="openSecurityDepositMode">{{marginModeType == 'quanCang'?'全仓':'逐仓'}}</div>
-        <div class="leaver" @click="openLever">{{leverage}}X</div>
+        <div class="leaver" @click="openLever">{{currencyInfo[capitalSymbol].leverage}}X</div>
       </div>
     </div>
     <div class="flex-cloum">
