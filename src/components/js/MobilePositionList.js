@@ -285,6 +285,9 @@ root.computed.capitalSymbol = function () {
 root.computed.leverage = function () {
   return this.$store.state.currencyInfo[this.capitalSymbol].leverage;
 }
+root.computed.currencyInfo = function () {
+  return this.$store.state.currencyInfo || {}
+}
 root.computed.sNameMap = function () {{}
   let defaultSNameMap = {"BTCUSDT":"BTC_USDT","ETHUSDT":"ETH_USDT"}
   return this.$store.state.sNameMap || defaultSNameMap
@@ -341,8 +344,8 @@ root.methods.notClick = function (e) {
 }
 root.methods.changeDate = function () {
   if(this.accounts.length == 0)return
-  let item,side,positionSide,unrealizedProfitPage,responseRate
-  item = this.records && this.records[this.initialPosition] || {}
+  let item,side,positionSide,unrealizedProfitPage,responseRate,markPrice
+  item = this.initialPosition || {}
   if( item.responseRate == 0 ) return
   side = (item.positionAmt && item.positionAmt > 0) ?'BUY':'SELL'
   positionSide = item.positionSide
@@ -354,6 +357,7 @@ root.methods.changeDate = function () {
   this.profitOrLoss = unrealizedProfitPage > 0 ? true : false
   this.responseRate = responseRate.substr(0, responseRate.length - 1) >=0 ?'+'+responseRate : responseRate
   // console.info('this.responseRate',this.responseRate,this.unrealizedProfitPage)
+  markPrice = JSON.stringify(this.markPriceObj)!= '{}' && this.markPriceObj[item.symbol]&& this.markPriceObj[item.symbol].p
 
   return this.positionData = {
     buyOrSell:this.buyOrSell,
@@ -361,7 +365,7 @@ root.methods.changeDate = function () {
     responseRate:this.responseRate,
     profitOrLoss:this.profitOrLoss,
     symbol: item.symbol,
-    markPrice: this.toFixed(this.markPrice,2),
+    markPrice: this.toFixed(markPrice,2),
     entryPrice:this.toFixed(item.entryPrice,2),
     picIndex: this.picIndex || 1,
   }
@@ -369,9 +373,9 @@ root.methods.changeDate = function () {
 }
 
 // 展示海报
-root.methods.SHOW_POSTER = function (index) {
+root.methods.SHOW_POSTER = function (item) {
   this.showPoster = true;
-  this.initialPosition = index
+  this.initialPosition = item
   this.getPosterImage()
 }
 // 获取海报
