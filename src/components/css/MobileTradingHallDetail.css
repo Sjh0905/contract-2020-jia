@@ -1527,16 +1527,21 @@
   padding-top: 0.04rem;
 }
 .hangqingtu-android{
-  padding-top: 0.02rem;
+  /*margin-top: 0.01rem;*/
+  padding-top: 0;
 }
 
 .hangqingtu img {
-  line-height: 0.88rem;
-  display: inline-block;
+  /*line-height: 0.88rem;*/
+  /*display: inline-block;*/
   width: 0.32rem;
   height:0.32rem;
   vertical-align: sub;
   /*margin-top: 13px;*/
+}
+.hangqingtu-android img {
+  margin-top: 0.08rem;
+  /*height:0.285rem;*/
 }
 
 .hangqingbid{
