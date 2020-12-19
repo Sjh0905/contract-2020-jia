@@ -61,7 +61,7 @@
       <div class="bn-input-prefix css-vurnku">
         <div class="css-5h0skw">开仓价格</div>
       </div>
-      <input type="text" class="calculator-content-ipt" placeholder="0.00" v-model="openingPrice">
+      <input type="text" class="calculator-content-ipt" placeholder="0.00" v-model="openingPrice" @keyup="testPointValue('openingPrice')">
       <span class="calculator-content-currency">USDT</span>
     </div>
     <!--平仓价格-->
@@ -69,7 +69,7 @@
       <div class="bn-input-prefix css-vurnku">
         <div class="css-5h0skw">平仓价格</div>
       </div>
-      <input type="text" class="calculator-content-ipt" placeholder="0.00" v-model="closingPrice">
+      <input type="text" class="calculator-content-ipt" placeholder="0.00" v-model="closingPrice" @keyup="testPointValue('closingPrice')">
       <span class="calculator-content-currency">USDT</span>
     </div>
     <!--成交数量-->
@@ -77,7 +77,7 @@
       <div class="bn-input-prefix css-vurnku">
         <div class="css-5h0skw">成交数量</div>
       </div>
-      <input type="text" class="calculator-content-ipt" placeholder="0.00" v-model="transactionQuantity">
+      <input type="text" class="calculator-content-ipt" placeholder="0.000" v-model="transactionQuantity" @keyup="testPointValue('transactionQuantity',3)">
       <span class="calculator-content-currency">{{sNameMap[capitalSymbol].split('_')[0]}}</span>
     </div>
     <!--计算结果-->
@@ -107,7 +107,7 @@
       <div class="bn-input-prefix css-vurnku">
         <div class="css-5h0skw">开仓价格</div>
       </div>
-      <input type="text" class="calculator-content-ipt" placeholder="0.00" v-model="targetOpeningPrice">
+      <input type="text" class="calculator-content-ipt" placeholder="0.00" v-model="targetOpeningPrice" @keyup="testPointValue('targetOpeningPrice')">
       <span class="calculator-content-currency">USDT</span>
     </div>
     <!--回报率-->
@@ -115,7 +115,7 @@
       <div class="bn-input-prefix css-vurnku">
         <div class="css-5h0skw">回报率</div>
       </div>
-      <input type="text" class="calculator-content-ipt" placeholder="0.00" v-model="targetReturnRate">
+      <input type="text" class="calculator-content-ipt" placeholder="0.00" v-model="targetReturnRate" @keyup="testPointValue('targetReturnRate')">
       <span class="calculator-content-currency">%</span>
     </div>
     <!--目标价格-->
@@ -146,7 +146,7 @@
       <div class="bn-input-prefix css-vurnku">
         <div class="css-5h0skw">成交数量</div>
       </div>
-      <input type="text" class="calculator-content-ipt" placeholder="0.00">
+      <input type="text" class="calculator-content-ipt" placeholder="0.000">
       <span class="calculator-content-currency">USDT</span>
     </div>
     <!--成交余额-->

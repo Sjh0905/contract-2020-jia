@@ -222,6 +222,9 @@ root.watch.moreEmptyType = function (oldVal,newVal) {
 }
 /*------------------------------ 方法 -------------------------------*/
 root.methods = {}
+root.methods.testPointValue = function (keyName,length = 2) {
+  this[keyName].indexOf('.') > 0 && (this[keyName].split('.')[1].length > length) && (this[keyName] = this[keyName].split('.')[0] + '.' + this[keyName].split('.')[1].substr(0, length));
+}
 // 计算收益
 root.methods.clickCalculation = function (){
   if(this.closingPrice == '' || this.openingPrice == '' || this.transactionQuantity == '') return
