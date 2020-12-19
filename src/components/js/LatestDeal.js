@@ -11,7 +11,8 @@ root.data = function () {
       quoteScale: 8,
       socketListArrls: [],
       newsymbol: '',
-      tickboolean:1
+      tickboolean:1,
+      limitLength:34
 	}
 }
 
@@ -71,12 +72,12 @@ root.computed.subscribeSymbol = function () {
 root.computed.socketList = function () {
 
 	// if (this.socketTickArr.length > 0) {
-	// 	var list = this.socketTickArr.splice(0, 50);
+	// 	var list = this.socketTickArr.splice(0, this.limitLength);
 	// }
 
 	if (!!this.socketTickObj.s) {
 		this.list.unshift(this.socketTickObj);
-		this.list = this.list.splice(0, 50);
+		this.list = this.list.splice(0, this.limitLength);
 		// this.list = list;
 	}
 	let socketListArr = [];
@@ -91,7 +92,7 @@ root.computed.socketList = function () {
     this.newsymbol = this.symbol;
   }
 
-  //TODO this.socketListArrls.length > 50 && (this.socketListArrls = this.socketListArrls.splice(0,50))
+  //TODO this.socketListArrls.length > this.limitLength && (this.socketListArrls = this.socketListArrls.splice(0,this.limitLength))
 
   // if(socketListArr.length>0){
   //   this.newsymbol = this.symbol;
@@ -107,7 +108,7 @@ root.computed.socketList = function () {
   // }
 
   // console.log("this.socketListArrls=============",this.socketListArrls);
-  socketListArr.length > 50 && (socketListArr = socketListArr.splice(0,50))
+  socketListArr.length > this.limitLength && (socketListArr = socketListArr.splice(0,this.limitLength))
 
   // return socketListArr || [];
   return socketListArr;
@@ -149,7 +150,7 @@ root.methods.getScaleConfig = function () {
 // root.methods.RE_GET_LATEST_DEAL = function (res) {
 //   // console.log("res---------"+res);
 //   if(!res)return
-//   let data = res.splice(0,50);
+//   let data = res.splice(0,this.limitLength);
 //   this.socketListArrls = data;
 // }
 // 拉取实时成交数据
@@ -171,7 +172,7 @@ root.methods.tickCache = function () {
 root.methods.re_tickCache = function (res) {
   // console.log("GET_AGG_TRADES---------",res);
   if(!res)return
-  let data = res.splice(0,50);
+  let data = res.splice(0,this.limitLength);
   this.socketListArrls = data;
 }
 

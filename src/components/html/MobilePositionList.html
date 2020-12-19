@@ -20,23 +20,24 @@
         <img v-if="item.adlQuantile == 4" class="ps-reduce-positions" src="../../assets/H5img/mobile_reduce_ps_4.png" alt="">
       </div>
 
-      <div @click="SHOW_POSTER(index)">
+      <div @click="SHOW_POSTER(item)">
         <img class="ps-share" src="../../assets/fenxiang.png" alt="">
       </div>
     </div>
     <!--杠杆倍数-->
     <div class="s-d-leverage-box flex-row">
       <span class="security-deposit-model">{{item.marginType == 'cross'?'全仓':'逐仓'}}</span>
-      <span class="leverage-val">{{$store.state.leverage}}X</span>
+      <span class="leverage-val">{{currencyInfo[item.symbol].leverage}}X</span>
     </div>
     <!--其他详细数据1-->
     <div class="ps-detail-box flex-row">
       <div class="ps-detail-left flex-colum">
-        <div class="ps-detail-tittle">数量(BTC)</div>
+        <div class="ps-detail-tittle">数量({{sNameMap[item.symbol].split('_')[0]}})</div>
         <div class="ps-detail-amount" :class="(item.positionAmt || 0) > 0 ?'text-green':'text-red'">{{toFixed(item.positionAmt,3) || 0}}</div>
       </div>
       <div class="ps-detail-middle flex-colum">
-        <div class="ps-detail-tittle">PNL(ROE%)</div>
+<!--        <div class="ps-detail-tittle">PNL(ROE%)</div>-->
+        <div class="ps-detail-tittle">未实现盈亏(%ROE)</div>
         <div class="ps-detail-amount" :class="item.unrealizedProfitPage > 0?'text-green':'text-red'">{{Number(item.unrealizedProfitPage || 0).toFixed(2) }} ({{item.responseRate}})</div>
       </div>
       <div class="ps-detail-right flex-colum">

@@ -38,6 +38,7 @@ root.data = function () {
     // 海报url
     poster_url: '',
     currencyValue:'勤劳致富，落袋为安',
+    currencyValueDeficit:'这是什么，人间疾苦',
     accounts : [
       {'a':'勤劳致富，落袋为安'},
       {'a':'接着奏乐，接着舞'},
@@ -46,6 +47,8 @@ root.data = function () {
       {'a':'掐指一算，今天大赚'},
       {'a':'动如脱兔的，逃顶小能手'},
       {'a':'一键梭哈的，市价小能手'},
+    ],
+    accountsDeficit : [
       {'a':'这是什么，人间疾苦'},
       {'a':'多么痛，的领悟'},
       {'a':'我命由庄，不由我'},
@@ -54,6 +57,7 @@ root.data = function () {
       {'a':'断臂求生的，止损小能手'},
       {'a':'舍己为人的，反指小能手'},
     ],
+    isProfitLoss:true,
     // 信息提示
     popType: 0,
     popText: '',
@@ -116,9 +120,19 @@ root.computed.accountsComputed = function (index,item) {
   // 特殊处理
   return this.accounts
 }
+root.computed.accountsComputedDeficit = function (index,item) {
+  // // 特殊处理
+  return this.accountsDeficit
+}
+
 root.computed.picIndex = function () {
-  let a = this.accounts.map(item => item.a).indexOf(this.currencyValue) + 1
-  return a || 1
+  if (this.isProfitLoss) {
+    let a = this.accounts.map(item => item.a).indexOf(this.currencyValue) + 1
+    return a || 1
+  }else {
+    let a = this.accountsDeficit.map(item => item.a).indexOf(this.currencyValueDeficit) + 8
+    return a || 8
+  }
 }
 // 当前货币对
 root.computed.symbol = function () {
@@ -134,6 +148,9 @@ root.watch.currencyValue = function (newVal, oldVal){
   // let a = newVal
   // this.getAccount()
   // this.changeDate()
+  this.getPosterImage()
+}
+root.watch.currencyValueDeficit = function (newVal, oldVal){
   this.getPosterImage()
 }
 root.watch.picIndex = function (newVal, oldVal){
@@ -157,7 +174,15 @@ root.methods.sendImgToApp = function(){
     // }
   }
 }
-
+// 打开之后，点击图片不能关闭图片
+root.methods.notClick = function (e) {
+  try{
+    e.stopPropagation();//非IE浏览器
+  }
+  catch(e){
+    window.event.cancelBubble = true;//IE浏览器
+  }
+}
 root.methods.jumpToBack = function () {
 
   if(this.$route.query.isApp){
@@ -400,7 +425,92 @@ root.methods.SHOW_POSTER = function (order) {
   this.orderId = order.orderId
   this.clientOrderId = order.clientOrderId
   this.symbolPoster = order.symbol
-  this.getPosterImage()
+  this.getPosterImageLoss()
+}
+// 获取海报
+root.methods.getPosterImageLoss = function () {
+  // console.info(this.changeDate())
+  // return
+  this.poster_url = ''
+  let params = {
+    orderId:this.orderId,
+    clientOrderId:this.clientOrderId,
+    symbol:this.symbolPoster,
+  }
+  this.$http.send('POST_ASSET_LOSS', {
+    bind: this,
+    params: params,
+    callBack: this.re_getPosterImageLoss,
+    errorHandler: this.error_getPosterImageLoss
+  })
+}
+root.methods.re_getPosterImageLoss = function (res) {
+  this.isProfitLoss = res.data.isProfitLoss
+  if (this.isProfitLoss == true) {
+    this.getPosterImage()
+  }else{
+    this.getPosterImage()
+  }
+  if(res.code == 1) {
+    this.showPoster = false;
+    this.popText = '请您先登录再进行分享'
+    this.popType = 0;
+    this.promptOpen = true;
+    return
+  }
+  if(res.code == 2) {
+    this.showPoster = false;
+    this.popText = '参数有误'
+    this.popType = 0;
+    this.promptOpen = true;
+    return
+  }
+  if(res.code == 3) {
+    this.showPoster = false;
+    this.popText = '未查询到此订单'
+    this.popType = 0;
+    this.promptOpen = true;
+    return
+  }
+  if(res.code == 4) {
+    this.showPoster = false;
+    this.popText = '该订单未全部成交不可分享'
+    this.popType = 0;
+    this.promptOpen = true;
+    return
+  }
+  if(res.code == 5) {
+    this.showPoster = false;
+    this.popText = '选择的订单不是平仓单'
+    this.popType = 0;
+    this.promptOpen = true;
+    return
+  }
+  if(res.code == 6) {
+    this.showPoster = false;
+    this.popText = '此时间段内未查询到此订单'
+    this.popType = 0;
+    this.promptOpen = true;
+    return
+  }
+  if(res.code == 7) {
+    this.showPoster = false;
+    this.popText = '该笔订单不是平仓单，实现盈亏是0，无法分享'
+    this.popType = 0;
+    this.promptOpen = true;
+    return
+  }
+  // if(res.code == 200){
+  //   let urls = res.data
+  //   setTimeout(function(){
+  //     this.loadingImage = false
+  //   }.bind(this),2000)
+  //   this.poster_url = urls;
+  // }
+
+}
+root.methods.error_getPosterImageLoss = function (err) {
+  console.warn('err',err)
 }
 // 获取海报
 root.methods.getPosterImage = function () {

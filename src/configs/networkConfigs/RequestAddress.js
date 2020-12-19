@@ -13,6 +13,7 @@ requestAddress.GET_TICKER_PIRCE = {url: urlHead + '/future/common/tickerPirce', 
 requestAddress.GET_CURRENT_DELEGATION = {url: urlHead + '/future/orders/openOrders', method: 'get', requireOpen:true} // 当前委托
 requestAddress.GET_CAPITAL_FLOW = {url: urlHead + '/future/orders/income', method: 'get',} // 资金流水
 requestAddress.GET_CAPITAL_ALL_FLOW = {url: urlHead + '/future/orders/allOrders', method: 'get',} // 历史委托
+requestAddress.GET_CAPITAL_SEARCH = {url: urlHead + '/future/orders/historyOrders', method: 'get',} // 历史委托搜索
 requestAddress.GET_CAPITAL_DEAL = {url: urlHead + '/future/orders/userTrades', method: 'get',} // 历史成交
 requestAddress.GET_CAPITAL_CANCEL = {url: urlHead + '/future/orders/cancel', method: 'post',} // 取消订单
 // requestAddress.GET_CAPITAL_CANCELALL = {url: urlHead + '/future/orders/cancelAll', method: 'post',} // 取消全部订单
@@ -54,6 +55,7 @@ requestAddress.POST_CHECK_OPEN_POSTER = {url: urlHead+'/future/user/checkOpenCon
 
 requestAddress.GET_ASSET_SNAPSHOT = {url: urlHead+'/future/orders/balanceSnapshot', method: 'get'} // 资产快照
 requestAddress.POST_ASSET_SNAPSHOT = {url: urlHead+'/future/user/getFilledOrderSharePoster ', method: 'post'} // 历史委托邀请海报
+requestAddress.POST_ASSET_LOSS = {url: urlHead+'/future/user/checkProfitLoss ', method: 'post'} // 历史委托邀请海报
 
 
 

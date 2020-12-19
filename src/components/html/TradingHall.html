@@ -346,7 +346,7 @@
 
         </div>
         <!--右侧展开后的实时成交-->
-        <div class="traddinghall-right-wrap" style="margin-left: 6px" v-show="latestDealSpread">
+        <div class="traddinghall-right-wrap" style="margin-left: 6px" v-if="latestDealSpread">
           <div class="pankou">{{$t("RealTime")}}</div>
           <div class="AssetOverview-wrap">
             <LatestDeal :tradeLoading="trade_loading" :socketTickArr="socketTickArr"

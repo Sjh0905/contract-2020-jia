@@ -1328,7 +1328,7 @@ root.methods.closePsWindowClose = function (){
 // 非法数据拦截
 root.methods.openClosePsWindowClose = function (){
     // 限价价格非空判断
-  let limitArr = ['limitProfitStopLoss','limitPrice'],triggerArr = ['limitProfitStopLoss','marketPriceProfitStopLoss'],closeAmountArr = ['positionAmtShort','positionAmtLong']
+  let limitArr = ['limitProfitStopLoss','limitPrice'],triggerArr = ['limitProfitStopLoss','marketPriceProfitStopLoss'],closeAmountArr = ['totalAmountShort','totalAmountLong']
 
   if(this.loading)return false
 
@@ -1389,7 +1389,7 @@ root.methods.postFullStop = function () {
   let params = {},markPrice = JSON.stringify(this.markPriceObj) != "{}" && this.markPriceObj[this.capitalSymbol].p
   let latestOrMarkPrice = this.latestPrice == '最新价格' ? Number(this.latestPriceVal) : Number(markPrice)
   // 如果是平空或者平多，买入量不得大于可平数量
-  if((this.isHasModule('kaipingType') == 2 && this.isHasModule('buttonType') == 3) && ((!this.orderType && Math.abs(this.positionAmtShort) < Number(this.amount)) || (this.orderType && Math.abs(this.positionAmtLong) < Number(this.amount)))){
+  if((this.isHasModule('kaipingType') == 2 && this.isHasModule('buttonType') == 3) && ((!this.orderType && Math.abs(this.totalAmountShort) < Number(this.amount)) || (this.orderType && Math.abs(this.totalAmountLong) < Number(this.amount)))){
     this.promptOpen = true;
     this.popType = 0;
     this.popText = '您输入的数量超过可平数量';
@@ -1845,7 +1845,7 @@ root.methods.postOrdersPosition = function () {
     }
   }
   // 如果是平空或者平多，买入量不得大于可平数量
-  if((!this.orderType && Math.abs(this.positionAmtShort) < Number(this.amount)) || (this.orderType && Math.abs(this.positionAmtLong) < Number(this.amount))){
+  if((!this.orderType && Math.abs(this.totalAmountShort) < Number(this.amount)) || (this.orderType && Math.abs(this.totalAmountLong) < Number(this.amount))){
     this.promptOpen = true;
     this.popType = 0;
     this.popText = '您输入的数量超过可平数量';

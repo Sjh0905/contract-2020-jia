@@ -74,7 +74,8 @@
       <div class="market-price-title-price txt-small txt-light">{{$t('latestPrice')}}</div>
       <div class="market-price-title-updown txt-small txt-light">
 <!--        <span @click="changeType(0)" :style="volumeType?'':'color:#B5BCC6'">{{$t('turnover')}}</span>/-->
-        <span :style="volumeType?'color:#B5BCC6':''">24H{{$t('upsAndDowns')}}</span>
+        <span @click="changeType(0)" :style="volumeType?'':'color:#B5BCC6'">涨跌率</span>/
+        <span @click="changeType(1)" :style="volumeType?'color:#B5BCC6':''">{{$t('upsAndDowns')}}</span>
       </div>
     </div>
 
@@ -118,13 +119,17 @@
             <!--最新价 end-->
 
             <!--成交量 begin-->
-            <!--<div class="market-price-list-volum  txt-small" v-if="!volumeType">{{Math.floor(item.volume)}}</div>-->
+<!--            <div class="market-price-list-volum  txt-small" v-if="!volumeType">{{Math.floor(item.volume)}}</div>-->
+            <div class="market-price-list-volum  txt-small" v-if="volumeType" :class="(item.p>=0)&&'txt_green'||'txt_red'">
+              {{$globalFunc.accFixed(item.p,!!quoteScale_list[item.s] ? quoteScale_list[item.s].quoteScale : 2)}}
+            </div>
             <!--成交量 end-->
 
             <!--涨跌额 begin-->
-            <div class="market-price-list-volum  txt-small" :class="(item.p>=0)&&'txt_green'||'txt_red'">
-              <!--{{item.open ===0 || item.close-item.open <= 0 ? '':'+' }}{{item.open == 0 ? '0%' : ((item.close-item.open)/item.open*100).toFixed(2) + '%'}}-->
-              {{$globalFunc.accFixed(item.p,!!quoteScale_list[item.s] ? quoteScale_list[item.s].quoteScale : 2)}}
+            <div class="market-price-list-volum  txt-small" v-if="!volumeType"  :class="(item.P>=0)&&'txt_green'||'txt_red'">
+<!--              {{item.open ===0 || item.close-item.open <= 0 ? '':'+' }}{{item.open == 0 ? '0%' : ((item.close-item.open)/item.open*100).toFixed(2) + '%'}}-->
+              {{$globalFunc.accFixed(item.P,!!quoteScale_list[item.s] ? quoteScale_list[item.s].quoteScale : 2)}}%
+
             </div>
             <!--涨跌额 end-->
 

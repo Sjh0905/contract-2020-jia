@@ -3,6 +3,52 @@
 
   <ul class="" :class="$route.name == 'historicalTransaction'?'detail':'detail-1'">
 
+    <div v-if="$route.name == 'historicalTransaction'">
+      <div class="search-histor flex">
+
+        <div class="search-histor-r flex">
+<!--          <div class="block">-->
+<!--            <span class="demonstration">时间：</span>-->
+<!--            <el-date-picker-->
+<!--              v-model="interTimerPicker"-->
+<!--              type="daterange"-->
+<!--              unlink-panels-->
+<!--              :picker-options="pickerOptions"-->
+<!--              size="small"-->
+<!--              range-separator="至"-->
+<!--              start-placeholder="开始日期"-->
+<!--              end-placeholder="结束日期"-->
+<!--              value-format="timestamp">-->
+<!--            </el-date-picker>-->
+<!--          </div>-->
+          <div class="block">
+            <span class="demonstration">时间：</span>
+            <el-date-picker
+              v-model="interTimerPicker"
+              type="date"
+              size="small"
+              placeholder="选择日期"
+              value-format="timestamp"
+              :picker-options="pickerOptions">
+            </el-date-picker>
+          </div>
+          <div class="">
+            <span class="demonstration">币对：</span>
+            <el-select class="account_number_input" v-model="valueUsdt" clearable placeholder="请选择">
+              <el-option
+                v-for="item in LieoptionsUsdt"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+              </el-option>
+            </el-select>
+          </div>
+        </div>
+        <div class="search-histor-L">
+          <div class="search-usdt"><span class="search-usdt-span" @click="getHistorTrans()">搜索</span></div></div>
+      </div>
+    </div>
+
     <li class="tr-th flex">
       <!--时间-->
       <div class="th td-time1">{{$t('时间')}}</div>

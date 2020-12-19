@@ -1274,7 +1274,8 @@ root.methods.getBalance = function () {
 root.methods.re_getBalance = function (data) {
   typeof(data) == 'string' && (data = JSON.parse(data));
   if(!data || !data.data || !data.data[0])return
-  this.availableBalance  = data.data[0].availableBalance || 0
+  let availableBalance  = data.data[0].availableBalance || 0
+  this.availableBalance = availableBalance >=0 ? availableBalance : 0
 }
 // 获取用户可用余额错误回调
 root.methods.error_getBalance = function (err) {
@@ -1283,7 +1284,7 @@ root.methods.error_getBalance = function (err) {
 // 非法数据拦截
 root.methods.openClosePsWindowClose = function (){
   // 限价价格非空判断
-  let limitArr = ['limitProfitStopLoss','limitPrice'],triggerArr = ['limitProfitStopLoss','marketPriceProfitStopLoss'],closeAmountArr = ['positionAmtShort','positionAmtLong']
+  let limitArr = ['limitProfitStopLoss','limitPrice'],triggerArr = ['limitProfitStopLoss','marketPriceProfitStopLoss'],closeAmountArr = ['totalAmountShort','totalAmountLong']
 
   if(this.loading)return false
 
@@ -1387,7 +1388,7 @@ root.methods.postFullStop = function () {
   let params = {}
   let markPrice = JSON.stringify(this.markPriceObj) != "{}" && Number(this.markPriceObj[this.capitalSymbol].p) || 0
   let latestOrMarkPrice = this.latestPrice == '最新' ? Number(this.latestPriceVal) : Number(markPrice)
-  if((this.isHasModule('kaipingType') == 2 && this.isHasModule('buttonType') == 3) && ((!this.orderType && Math.abs(this.positionAmtShort) < Number(this.amount)) || (this.orderType && Math.abs(this.positionAmtLong) < Number(this.amount)))){
+  if((this.isHasModule('kaipingType') == 2 && this.isHasModule('buttonType') == 3) && ((!this.orderType && Math.abs(this.totalAmountShort) < Number(this.amount)) || (this.orderType && Math.abs(this.totalAmountLong) < Number(this.amount)))){
     this.promptOpen = true;
     this.popType = 0;
     this.popText = '您输入的数量超过可平数量';
@@ -1845,7 +1846,7 @@ root.methods.postOrdersPosition = function () {
     }
   }
   // 如果是平空或者平多，买入量不得大于可平数量
-  if((!this.orderType && Math.abs(this.positionAmtShort) < Number(this.amount)) || (this.orderType && Math.abs(this.positionAmtLong) < Number(this.amount))){
+  if((!this.orderType && Math.abs(this.totalAmountShort) < Number(this.amount)) || (this.orderType && Math.abs(this.totalAmountLong) < Number(this.amount))){
     this.promptOpen = true;
     this.popType = 0;
     this.popText = '您输入的数量超过可平数量';
@@ -2449,6 +2450,10 @@ root.methods.postLevelrage = function () {
 }
 root.methods.re_postLevelrage = function (data) {
   // console.info('超过当前杠杆的最大允许持仓量',data,data.code)
+  if (data.code == 303) {
+    this.popTextLeverage = '调整杠杆失败';
+    return
+  }
   if (data.code == 303 && data.errCode == 2027) {
     this.popTextLeverage = '超过当前杠杆的最大允许持仓量';
     return

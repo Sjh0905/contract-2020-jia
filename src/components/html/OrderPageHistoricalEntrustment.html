@@ -2,6 +2,53 @@
 <!--  <ul class="detail  border_radius">-->
     <ul class="" :class="$route.name == 'historicalEntrust'?'detail':'detail-1'">
 
+      <div v-if="$route.name == 'historicalEntrust'">
+        <div class="search-histor flex">
+
+          <div class="search-histor-r flex">
+            <div class="block">
+              <span class="demonstration">时间：</span>
+              <el-date-picker
+                v-model="interTimerPicker"
+                type="daterange"
+                unlink-panels
+                :picker-options="pickerOptions"
+                size="small"
+                range-separator="至"
+                start-placeholder="开始日期"
+                end-placeholder="结束日期"
+                value-format="timestamp">
+              </el-date-picker>
+            </div>
+
+            <div class="usdt-v">
+              <span class="demonstration">类型：</span>
+              <el-select class="account_number_input" v-model="value" clearable placeholder="请选择">
+              <el-option
+                v-for="item in Lieoptions"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+              </el-option>
+            </el-select>
+            </div>
+            <div class="usdt-v">
+              <span class="demonstration">币对：</span>
+              <el-select class="account_number_input" v-model="valueUsdt" clearable placeholder="请选择">
+              <el-option
+                v-for="item in LieoptionsUsdt"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+              </el-option>
+            </el-select>
+            </div>
+          </div>
+          <div class="search-histor-L">
+            <div class="search-usdt"><span class="search-usdt-span" @click="getOrderSearch()">搜索</span></div></div>
+        </div>
+      </div>
+
     <li class="tr-th flex-center">
       <!--时间-->
       <div class="th td-time1">{{$t('orderPageHistoricalEntrustment.close_1')}}</div>
@@ -25,15 +72,15 @@
       <!--状态-->
       <div class="th td-price" :class="$route.name == 'historicalEntrust'?'td-turnover':'td-turnover1 td-turnover'">{{$t('状态')}}</div>
       <div class="th td-turnover" v-if="$route.name != 'historicalEntrust'" :class="'td-turnover1'">{{$t('分享')}}</div>
-<!--      <div class="th td-turnover1-1" v-if="$route.name != 'historicalEntrust'" :class="''"></div>-->
+      <div class="th td-turnover1-1" v-if="$route.name != 'historicalEntrust'" :class="''"></div>
     </li>
 
 
     <template v-if="!loading">
       <!-- 如果loading结束、已经登录、有值，则显示值 begin -->
-      <template v-if="userId && historyOrderComputed.length !==0">
+      <template v-if="userId && historyOrderSearchComputed.length != 0 && $route.name == 'historicalEntrust'">
         <div class="historica">
-         <li v-if="$route.name == 'historicalEntrust'" v-for="(order,index) in historyOrderComputed" :key="order.id"
+         <li v-if="$route.name == 'historicalEntrust'" v-for="(order,index) in historyOrderSearchComputed" :key="order.id"
               class="tr-td" @click="showDetail(order.orderId)">
            <div class="flex-center" :class="order.status == 'FILLED' ? 'tr-detail':'tr-detail-opacity'">
 
@@ -96,8 +143,23 @@
            </div>
 
          </li>
+        </div>
+      </template>
+      <!-- 如果loading结束、已经登录、有值，则显示值 end -->
+
+      <!-- 如果loading没结束、没登录、没值，则显示'--' begin -->
+      <template v-if="userId && historyOrderSearchComputed.length ==0 && $route.name == 'historicalEntrust'">
+        <li class="weit">
+          <div class="nhtu" v-if="$route.name == 'historicalEntrust'"><img src="../../assets/noOrders.png"></div>
+          <span>{{$t('orderPageHistoricalEntrustment.close_9')}}</span>
+        </li>
+      </template>
+      <!-- 如果loading没结束、没登录、没值，则显示'--' end -->
+      <!-- 如果loading结束、已经登录、有值，则显示值 begin -->
+      <template v-if="userId && historyOrderComputed.length !==0 && $route.name != 'historicalEntrust'">
+        <div class="historica">
          <li v-if="$route.name != 'historicalEntrust'" v-for="(order,index) in historyOrderComputed" :key="order.id"
-               class="tr-td-col" @click="showDetail(order.orderId)">
+               class="tr-td-col" >
            <div class="tr-detail flex-center">
 
             <!--时间 begin -->
@@ -158,16 +220,16 @@
                </div>
                <div v-else class="else-color">--</div>
              </div>
-<!--             <div class="th td-turnover1-1" v-if="$route.name != 'historicalEntrust' && order.status == 'FILLED'">-->
-<!--               <img class="drop-down-1" src="../../assets/drop_down.png" alt="">-->
-<!--             </div>-->
-<!--             <div class="th td-turnover1-1" v-else>-->
+             <div class="th td-turnover1-1" v-if="$route.name != 'historicalEntrust' && order.status == 'FILLED'" @click="showDetail(order.orderId)">
+               <img class="drop-down-1" src="../../assets/drop_down.png" alt="">
+             </div>
+             <div class="th td-turnover1-1" v-else>
 
-<!--             </div>-->
+             </div>
 
            </div>
            <!--展示详情(如果在交易，打不开详情)-->
-           <div v-if="clickThis === order.orderId  && $route.name == 'historicalEntrust'  && order.status == 'FILLED'"  class="tr-hidden">
+           <div v-if="clickThis === order.orderId  && order.status == 'FILLED'"  class="tr-hidden">
              <HiddenDetail :orderId="order.orderId" :symbol="order.symbol" :startTime="startTime" :endTime="endTime"/>
            </div>
 
@@ -177,10 +239,9 @@
       <!-- 如果loading结束、已经登录、有值，则显示值 end -->
 
       <!-- 如果loading没结束、没登录、没值，则显示'--' begin -->
-      <template v-else>
+      <template v-if="userId && historyOrderComputed.length ==0 && $route.name != 'historicalEntrust'">
         <li class="weit">
-          <div class="nhtu" v-if="$route.name == 'historicalEntrust'"><img src="../../assets/noOrders.png"></div>
-          <div class="nhtu" v-if="$route.name !== 'historicalEntrust'"><img src="../../assets/noOrderDark.png"></div>
+          <div class="nhtu" v-if="$route.name != 'historicalEntrust'"><img src="../../assets/noOrderDark.png"></div>
           <span>{{$t('orderPageHistoricalEntrustment.close_9')}}</span>
         </li>
       </template>
@@ -204,8 +265,18 @@
 
   <SharingInvitationPc :switch="showPoster" @close="HIDE_POSTER">
     <div slot="header" class="pop-article1">
-      <template>
-        <el-select class="account_number_input" value-key="currencyKey" v-model="currencyValue" filterable placeholder="">
+<!--      <template>-->
+<!--        <el-select class="account_number_input2" value-key="currencyKey" v-model="currencyValue" filterable placeholder="">-->
+<!--          <el-option-->
+<!--            v-for="(item,index) in accountsComputed"-->
+<!--            :label="item.a"-->
+<!--            :value="item.a"-->
+<!--            :key="index"-->
+<!--          ></el-option>-->
+<!--        </el-select>-->
+<!--      </template>-->
+      <div v-if="isProfitLoss">
+        <el-select class="account_number_input2" value-key="currencyKey" v-model="currencyValue" filterable placeholder="">
           <el-option
             v-for="(item,index) in accountsComputed"
             :label="item.a"
@@ -213,7 +284,17 @@
             :key="index"
           ></el-option>
         </el-select>
-      </template>
+      </div>
+      <div v-else>
+        <el-select class="account_number_input2" value-key="currencyKey" v-model="currencyValueDeficit" filterable placeholder="">
+          <el-option
+            v-for="(item,index) in accountsComputedDeficit"
+            :label="item.a"
+            :value="item.a"
+            :key="index"
+          ></el-option>
+        </el-select>
+      </div>
       <p class="copy_poster">✽{{$t('personalCenter.poster_2')}}</p>
       <div class="loading-box" v-if="loadingImage">
         <Loading></Loading>
