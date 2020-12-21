@@ -419,8 +419,8 @@ root.watch.positionModeFirst = function () {
 /*------------------------------ 方法 -------------------------------*/
 root.methods = {}
 
-// 仓位
-root.methods.getPositionRisk = function () {
+// 仓位 TODO 合约删除 2020.12.21 CC
+/*root.methods.getPositionRisk = function () {
 
   this.$http.send("GET_POSITION_RISK", {
     bind: this,
@@ -457,7 +457,7 @@ root.methods.re_getPositionRisk = function (data) {
 // 获取记录失败
 root.methods.error_getPositionRisk = function (err) {
   // console.warn('err',err)
-}
+}*/
 
 // 关闭所有弹窗
 root.methods.closeResult = function () {

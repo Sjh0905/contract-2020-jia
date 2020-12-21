@@ -413,7 +413,8 @@
       <OrderPosition :tradinghallLimit="tradinghallLimit" :latestPriceVal = 'latestPriceVal'
                      :effectiveTime = 'effectiveTime' :availableBalance='availableBalance'
                      :markPrice = 'markPrice' @getPositionRisk="getIndex" @getPositionList="setRecords"
-                     :markPriceObj = 'markPriceObj' :positionModeFirst = "positionModeFirst"/>
+                     :markPriceObj = 'markPriceObj' :positionModeFirst = "positionModeFirst"
+                     @setPositionList="re_getPositionRisk" @setPositionInfo="re_positionRisk"/>
     </div>
     <div v-if="isNow === 5" class="trading-hall-order-box-detail">
       <OrderMarginBalance :tradinghallLimit="tradinghallLimit"/>

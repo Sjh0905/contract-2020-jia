@@ -58,7 +58,7 @@ root.beforeCreate = function () {
   // this.refreshTipsPop();
 }
 root.created = function () {
-  this.getUserBalance();
+  // this.getUserBalance();
   this.refreshTipsPop();
 
   this.$eventBus.listen(this, 'BIND_AUTH_POP', this.listen_popup)
@@ -535,7 +535,7 @@ root.methods.isWhiteQuery = function () {
   }
 }
 
-root.methods.getUserBalance = function () {
+/*root.methods.getUserBalance = function () {
   this.$http.send('GET_BALAN__BIAN', {
     callBack: this.re_getUserBalance
   })
@@ -544,5 +544,5 @@ root.methods.getUserBalance = function () {
 root.methods.re_getUserBalance = function (data) {
   typeof data === 'string' && (data = JSON.parse(data))
   this.$store.commit('CHANGE_ASSETS', data.data.assets[0] || {})
-}
+}*/
 export default root

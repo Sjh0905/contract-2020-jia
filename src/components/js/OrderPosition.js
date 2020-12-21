@@ -732,6 +732,7 @@ root.methods.getAccount = function () {
 root.methods.re_getAccount = function (data) {
   typeof data === 'string' && (data = JSON.parse(data))
   if (!data) return
+  this.$store.commit('CHANGE_ASSETS', data.data.assets[0] || {})
   this.loading = false
   this.getAssets = data.data.assets[0]
   this.initialMargin = this.getAssets.initialMargin
@@ -755,6 +756,8 @@ root.methods.getPositionRisk = function () {
 }
 // 获取记录返回，类型为{}
 root.methods.re_getPositionRisk = function (data) {
+  this.$emit('setPositionList',data)
+  this.$emit('setPositionInfo',data)
   typeof data === 'string' && (data = JSON.parse(data))
   if (!data || !data.data || data.data.length == []) return
 

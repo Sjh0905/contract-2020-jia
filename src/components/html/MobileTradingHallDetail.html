@@ -337,7 +337,7 @@
   <div v-show="listType== 'holdPosition'" class="container-current-page">
     <PositionList :latestPriceVal = 'isNowPrice' :effectiveTime = 'effectiveTime' :markPrice = 'markPrice' @getPositionRisk="getIndex" :availableBalance='availableBalance'
                   :setKaipingqiPos="setKaipingqiPos" :markPriceObj='markPriceObj' @getPositionList="setRecords" @setTotalAmountLong="getTotalAmountLong" @setTotalAmountShort="getTotalAmountShort"
-                  @setSymbolLength="getSymbolLength"/>
+                  @setSymbolLength="getSymbolLength" @setPositionInfo="re_positionRisk"/>
   </div>
 
   <!--当前委托页-->

@@ -271,7 +271,7 @@ root.created = function () {
   // interval = setInterval(this.GET_LATEST_DEAL, 2000);
 
   // this.getScaleConfig();
-  this.positionRisk()  // 获取仓位信息（全逐仓、杠杆倍数）
+  // this.positionRisk()  // 获取仓位信息（全逐仓、杠杆倍数）
   this.getPositionsideDual() // 获取仓位模式
   this.getMarkPricesAndCapitalRates()  // 获取币安最新标记价格和资金费率
   this.getLatestrice()

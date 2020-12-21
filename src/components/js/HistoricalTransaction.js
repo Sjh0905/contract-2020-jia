@@ -28,6 +28,13 @@ root.data = function () {
     ],
     value:'',
     valueUsdt:'',
+    /* ==========分页部分 begin========== */
+    showLoadingMore: true,//是否显示加载更多
+    loadingMoreIng: false, //是否正在加载更多
+    limit:100,
+    startTime:0,
+    endTime:0,
+    /* ==========分页部分 end=========== */
   }
 }
 /*------------------------------ 生命周期 -------------------------------*/
@@ -100,7 +107,9 @@ root.methods.dealDisabledDate = function (time) {
 
 // 历史成交
 root.methods.getHistorTrans = function () {
-  console.info('interTimerPicker',this.interTimerPicker)
+  // this.startTime=1606752000000
+  // this.endTime=1606752000000 + 24 * 3599 * 1000
+  // console.info('interTimerPicker',this.interTimerPicker)
   this.$http.send('GET_CAPITAL_DEAL',{
     bind: this,
     query:{
@@ -108,6 +117,7 @@ root.methods.getHistorTrans = function () {
       startTime:this.interTimerPicker || '',
       endTime:this.interTimerPicker == '' ? '' : this.interTimerPicker  + 24 * 3599 * 1000,
       symbol:this.valueUsdt || '',
+      // limit:this.limit,
     },
     callBack: this.re_getHistorTrans,
     errorHandler:this.error_getHistorTrans
@@ -120,12 +130,27 @@ root.methods.re_getHistorTrans = function (data) {
   this.loading = false
   // console.info('data====',data.data)
   this.historicaList = data.data
+/*  this.historicaList.push(...data.data)
+  // console.info(this.historicaList)
+  // 加载更多中
+  this.loadingMoreIng = false
+  // 如果获取
+  data.data.length !== 0 && (this.offsetId = data.data[data.data.length - 1].fromId)
+  data.data.length !== 0 && (this.interTimerPicker = this.interTimerPicker != '' ? '': '')
+
+  if (data.data.length < this.limit) {
+    this.showLoadingMore = false
+  }*/
 }
 // 历史成交错误回调
 root.methods.error_getHistorTrans = function (err) {
   console.log('获取币安24小时价格变动接口',err)
 }
-
+// 点击加载更多
+root.methods.clickLoadingMore = function () {
+  this.loadingMoreIng = true
+  this.getHistorTrans()
+}
 /*---------------------- 保留小数 begin ---------------------*/
 root.methods.toFixed = function (num, acc = 8) {
   return this.$globalFunc.accFixed(num, acc)

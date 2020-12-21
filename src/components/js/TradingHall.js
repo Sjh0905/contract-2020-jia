@@ -81,7 +81,7 @@ root.data = function () {
     // 是否开启BDB燃烧
     BDBInfo: true,
     BDBChanging: false,
-    isNow: 4,
+    isNow: 4, // 交易页底部必须默认显示仓位否则刷新没有数据
 
     // 币对时间配置
     symbol_config_times: [],
@@ -247,7 +247,7 @@ root.created = function () {
   this.getMarkPricesAndCapitalRates()  // 获取币安最新标记价格和资金费率
   this.getDepth()  // 获取币安深度
   this.getAggTrades() //获取归集交易
-  this.positionRisk()  // 获取全逐仓状态
+  // this.positionRisk()  // 获取全逐仓状态
   this.getPositionsideDual() // 获取仓位模式
   this.isFirstVisit()
   this.getBalance()
@@ -543,15 +543,15 @@ root.methods.setRecords = function (records) {
   // return this.recordsIndexS = filterRecords.length || 0
 }
 // 仓位
-root.methods.getPositionRisk = function () {
+/*root.methods.getPositionRisk = function () {
 
   this.$http.send("GET_POSITION_RISK", {
     bind: this,
     callBack: this.re_getPositionRisk,
     errorHandler: this.error_getPositionRisk
   })
-}
-// 获取记录返回，类型为{}
+}*/
+// 该数据使用于开平器打开时已有仓位的仓位数量 该回调由仓位的接口传递过来，交易页底部必须默认显示仓位否则全部无数据
 root.methods.re_getPositionRisk = function (data) {
   typeof data === 'string' && (data = JSON.parse(data))
   if (!data) return

@@ -52,13 +52,13 @@ root.data = function () {
 /*----------------------- 生命周期 --------------------------*/
 
 root.created = function () {
-  this.$eventBus.listen(this,'REFRESH_AUTHENTICATE',this.getAuthState);
+  // this.$eventBus.listen(this,'REFRESH_AUTHENTICATE',this.getAuthState);
 
   this.getInitData()
   this.getPrice()
   this.getCurrencyAndAccount()
 
-  this.getAuthState()
+  // this.getAuthState()
 }
 
 /*----------------------- 计算 --------------------------*/
@@ -144,8 +144,8 @@ root.methods.goToBankList = function () {
   window.location.replace( process.env.DOMAIN +'index/PersonCenter/PaymentSet');
 }
 
-// 获取认证状态
-root.methods.getAuthState = function () {
+// 获取认证状态 TODO 合约删除 2020.12.21 CC
+/*root.methods.getAuthState = function () {
   this.$http.send("GET_USER_AUTH_INFO", {
     bind: this,
     callBack: this.re_getAuthState,
@@ -163,7 +163,7 @@ root.methods.re_getAuthState = function (data) {
 // 获取认证失败
 root.methods.error_getAuthState = function (err) {
   console.warn("拿不到认证数据！", err)
-}
+}*/
 
 //跳转退出登录PaymentSet
 root.methods.goOutRegain = function () {
