@@ -231,6 +231,7 @@ root.methods.cancelOrder = async function (order, cancelAll = false) {
   this.clickOrder.add(order.orderId)
   order.click = true
   let params = {
+    clientOrderId:order.clientOrderId,
     orderId: order.orderId,
     symbol: order.symbol,
     timestamp:order.updateTime
