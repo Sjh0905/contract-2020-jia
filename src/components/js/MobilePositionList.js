@@ -821,6 +821,7 @@ root.methods.re_getAccount = function (data) {
   this.getAssets = data.data.assets[0]
   this.initialMargin = this.getAssets.initialMargin
   // console.info('this.initialMargin',this.initialMargin)
+  this.$store.commit('CHANGE_ASSETS', data.data.assets[0] || {})
 }
 // 获取记录出错
 root.methods.error_getAccount = function (err) {
