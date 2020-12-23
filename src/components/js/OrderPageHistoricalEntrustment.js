@@ -184,7 +184,6 @@ root.watch.interTimerPicker = function (newVal, oldVal) {
   if(newVal == oldVal) return
   if(newVal == null && this.value == '' && this.valueUsdt == ''){
     this.clearEmpty()
-    this.historyOrder = []
     this.getOrderHistory()
   }
 }

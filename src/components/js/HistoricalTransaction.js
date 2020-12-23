@@ -104,7 +104,6 @@ root.watch = {}
 root.watch.interTimerPicker = function (newVal,oldVal) {
   if(newVal == oldVal)return
   if(newVal == null && this.valueUsdt==''){
-    this.historicaList = []
     this.clearEmpty()
     this.getHistorTrans()
   }
@@ -112,7 +111,6 @@ root.watch.interTimerPicker = function (newVal,oldVal) {
 root.watch.valueUsdt = function (newVal,oldVal) {
   if(newVal == oldVal)return
   if(this.interTimerPicker == null && newVal==''){
-    this.historicaList = []
     this.clearEmpty()
     this.getHistorTrans()
   }
@@ -121,6 +119,7 @@ root.watch.valueUsdt = function (newVal,oldVal) {
 root.methods = {}
 // 监听到输入框的值变化，将这些值设置为初始值
 root.methods.clearEmpty =function () {
+  this.historicaList = []
   this.interTimerPicker == null
   this.endTime = new Date().getTime() + 24 * 3599 * 1000
   this.limit = 50
