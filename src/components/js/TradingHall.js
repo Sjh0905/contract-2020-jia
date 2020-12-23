@@ -546,6 +546,9 @@ root.methods.setRecords = function (records) {
 root.methods.getPositionRisk = function () {
   this.$http.send("GET_POSITION_RISK", {
     bind: this,
+    query: {
+      symbols: this.sNameList.toString()
+    },
     callBack: this.re_getPositionRisk,
     errorHandler: this.error_getPositionRisk
   })
@@ -941,6 +944,9 @@ root.methods.getOrdersLength = function (index) {
 root.methods.positionRisk = function () {
   this.$http.send('GET_POSITION_RISK',{
     bind: this,
+    query: {
+      symbols: this.sNameList.toString()
+    },
     callBack: this.re_positionRisk
   })
 }

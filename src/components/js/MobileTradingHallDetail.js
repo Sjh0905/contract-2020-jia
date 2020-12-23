@@ -2398,6 +2398,9 @@ root.methods.setKaipingqiPos = function(records){
 root.methods.positionRisk = function () {
   this.$http.send('GET_POSITION_RISK',{
     bind: this,
+    query: {
+      symbols: this.sNameList.toString()
+    },
     callBack: this.re_positionRisk
   })
 }

@@ -17,9 +17,10 @@ root.data = () => {
     loading: true,
     historyOrder: [],
     historyOrderSearch: [],
+    tradHistoryOrder: [],
     clickThis: -1,
 
-    limit: 100, //一次获取多少条数据
+    limit: 50, //一次获取多少条数据
     offsetId: 0, //最后的订单id
     updatedAt:1,//最后的订单更新时间,默认为1
     showLoadingMore: true,//是否显示加载更多
@@ -75,7 +76,7 @@ root.data = () => {
     //   {'a':'断臂求生的，止损小能手'},
     //   {'a':'舍己为人的，反指小能手'},
     // ],
-    orderId:'',
+    orderId:0,
     clientOrderId:'',
     posterSymbol:'', //海报对应币对
     // 信息提示
@@ -87,7 +88,7 @@ root.data = () => {
       disabledDate:(time) => {
         return this.dealDisabledDate(time)
       }
-    }, // 日期设置对象
+    }, // 日期设置对象(设置日历为一个月)
 
     Lieoptions:[
       {
@@ -112,13 +113,14 @@ root.data = () => {
 
     ],
     LieoptionsUsdt:[
-  {
-    value: 'ETHUSDT',
-      label: 'ETHUSDT'
-  }, {
-    value: 'BTCUSDT',
-      label: 'BTCUSDT'
-  }
+      {
+        value: 'ETHUSDT',
+        label: 'ETHUSDT'
+      },
+      {
+        value: 'BTCUSDT',
+        label: 'BTCUSDT'
+      }
     ],
     value:'',
     valueUsdt:'',
@@ -137,9 +139,13 @@ root.props.tradinghallLimit = {
 root.created = function () {
   // console.warn('历史订单！！！')
   // console.log('this.$route=======historicalEntrust',this.$route.name)
-  this.getOrder()
-  this.getOrderSearch()
-
+  // 历史委托使用搜索接口，交易页使用获取订单接口
+  if(this.$route.name == 'historicalEntrust') {
+    this.getOrderHistory()
+  }
+  if(this.$route.name != 'historicalEntrust'){
+    this.getOrder()
+  }
   this.pickerOptions.disabledDate = function (time) {
     // 设置可选择的日期为今天之后的一个月内
     let curDate = (new Date()).getTime()
@@ -151,6 +157,7 @@ root.created = function () {
     // 设置选择的日期小于当前的日期,小于返回true,日期不可选
     // return time.getTime() < Date.now() - 8.64e7
   }
+
 }
 
 /*----------------------------- 计算 ------------------------------*/
@@ -179,11 +186,14 @@ root.watch.picIndex = function (newVal, oldVal){
 root.computed = {}
 // 历史属性的计算后，排序之类的写在这里
 root.computed.historyOrderComputed = function () {
-  return this.historyOrder
+  return this.historyOrder || []
+}
+root.computed.tradHistory = function () {
+  return this.tradHistoryOrder || []
 }
 // 历史属性的计算后，排序之类的写在这里
 root.computed.historyOrderSearchComputed = function () {
-  return this.historyOrderSearch
+  return this.historyOrderSearch || []
 }
 // 获取登录状态
 root.computed.userId = function () {
@@ -246,28 +256,28 @@ root.computed.sNameList = function () {
 
 root.methods = {}
 
-  // 单独处理时间的函数
-  root.methods.dealDisabledDate = function (time) {
-    // time.getTime是把选中的时间转化成自1970年1月1日 00:00:00 UTC到当前时间的毫秒数
-    // Date.now()是把今天的时间转化成自1970年1月1日 00:00:00 UTC到当前时间的毫秒数,这样比较好比较
-    // return的值,true是不可以操作选择,false可以操作选择,比如下面这个判断就只能选择今天之后的时间
-    return time.getTime() < Date.now() - 8.64e7
+// 单独处理时间的函数
+root.methods.dealDisabledDate = function (time) {
+  // time.getTime是把选中的时间转化成自1970年1月1日 00:00:00 UTC到当前时间的毫秒数
+  // Date.now()是把今天的时间转化成自1970年1月1日 00:00:00 UTC到当前时间的毫秒数,这样比较好比较
+  // return的值,true是不可以操作选择,false可以操作选择,比如下面这个判断就只能选择今天之后的时间
+  return time.getTime() < Date.now() - 8.64e7
 
-    // 这里减8.64e7的作用是,让今天的日期可以选择,如果不减的话,今天的日期就不可以选择,判断中写<= 也是没用的,一天的毫秒数就是8.64e7
-    // return time.getTime() <= Date.now()
-    // return time.getTime() < Date.now() - 8.64e7
-  }
+  // 这里减8.64e7的作用是,让今天的日期可以选择,如果不减的话,今天的日期就不可以选择,判断中写<= 也是没用的,一天的毫秒数就是8.64e7
+  // return time.getTime() <= Date.now()
+  // return time.getTime() < Date.now() - 8.64e7
+}
 
 
 
 // 发送请求获取
 root.methods.getOrderSearch = function () {
-
+  // this.pickerOptions.disabledDate
   this.$http.send('GET_CAPITAL_SEARCH', {
       bind: this,
       query: {
-        startTime:this.interTimerPicker[0] || '',
-        endTime:this.interTimerPicker[1] + 24 * 3599 * 1000 || '',
+        startTime:this.interTimerPicker[0] || '',  //搜索日历的第一个时间
+        endTime:this.interTimerPicker[1] + 24 * 3599 * 1000 || '', //搜索日历的第二个时间，加上当天的数据
         type:this.value || '',
         symbol:this.valueUsdt || '',
       },
@@ -277,8 +287,9 @@ root.methods.getOrderSearch = function () {
 }
 // 获取历史订单回调
 root.methods.re_getOrderSearch = function (data) {
+  typeof(data) == 'string' && (data = JSON.parse(data));
+  this.historyOrderSearch = data.data || []
 
-  this.historyOrderSearch = data.data
   this.loading = false
   // 加载更多中
   this.loadingMoreIng = false
@@ -292,7 +303,6 @@ root.methods.re_getOrderSearch = function (data) {
   if (data.data.length < this.limit) {
     this.showLoadingMore = false
   }
-
 }
 // 错误处理
 root.methods.error_getOrderSearch = function (err) {
@@ -300,6 +310,43 @@ root.methods.error_getOrderSearch = function (err) {
 }
 
 // 发送请求获取
+root.methods.getOrderHistory = function () {
+  // this.pickerOptions.disabledDate
+  this.$http.send('GET_CAPITAL_SEARCH', {
+    bind: this,
+    query: {
+      offset:this.offsetId,
+      limit:50,
+      symbol: '',
+    },
+    callBack: this.re_getOrderHistory,
+    errorHandler: this.error_getOrderHistory
+  })
+}
+// 获取历史订单回调
+root.methods.re_getOrderHistory = function (data) {
+  typeof(data) == 'string' && (data = JSON.parse(data));
+  this.historyOrder.push(...data.data)
+  this.loading = false
+  // 加载更多中
+  this.loadingMoreIng = false
+
+  // 如果获取
+  data.data.length !== 0 && (this.offsetId = data.data[data.data.length - 1].id)
+  // data.data.length !== 0 && (this.updatedAt = data.data[data.data.length - 1].updatedAt)
+
+  // 是否显示加载更多
+  // console.warn('this is order length', data.orders.length, this.limit)
+  if (data.data.length < this.limit) {
+    this.showLoadingMore = false
+  }
+}
+// 错误处理
+root.methods.error_getOrderHistory = function (err) {
+  console.warn("获取错误", err)
+}
+
+// 发送请求获取（交易页历史委托）
 root.methods.getOrder = function () {
   // if (!this.$store.state.authState.userId) {
   //   this.loading = false
@@ -311,9 +358,9 @@ root.methods.getOrder = function () {
       bind: this,
       query: {
         // updatedAt:this.updatedAt,//最后的订单更新时间
-        // offsetId: this.offsetId, //最后一条订单的id
+        // orderId: this.orderId, //最后一条订单的id
         // limit: (this.tradinghallLimit===10) ? this.tradinghallLimit : this.limit, //一次请求多少条订单
-        // limit: 10, //一次请求多少条订单
+        limit: this.tradinghallLimit, //一次请求多少条订单
         // isFinalStatus: true //是否是历史订单
         symbol:'',
         // timestamp:this.serverTime
@@ -329,20 +376,20 @@ root.methods.re_getOrder = function (data) {
   //     return ((v.status === 'PARTIAL_CANCELLED') || (v.status === 'FULLY_CANCELLED') || (v.status === 'FULLY_FILLED'))
   //   }
   // ))
-  this.historyOrder = data.data
+  this.tradHistoryOrder = data.data
   this.loading = false
-  // 加载更多中
+  /*// 加载更多中
   this.loadingMoreIng = false
 
   // 如果获取
-  data.data.length !== 0 && (this.offsetId = data.data[data.data.length - 1].id)
-  data.data.length !== 0 && (this.updatedAt = data.data[data.data.length - 1].updatedAt)
+  data.data.length !== 0 && (this.orderId = data.data[data.data.length - 1].orderId)
+  // data.data.length !== 0 && (this.updatedAt = data.data[data.data.length - 1].updatedAt)
 
   // 是否显示加载更多
   // console.warn('this is order length', data.orders.length, this.limit)
   if (data.data.length < this.limit) {
     this.showLoadingMore = false
-  }
+  }*/
 
 }
 // 错误处理
@@ -385,7 +432,7 @@ root.methods.showDetail = function (id) {
 // 点击加载更多
 root.methods.clickLoadingMore = function () {
   this.loadingMoreIng = true
-  this.getOrder()
+  this.getOrderHistory()
 }
 
 // 点击加载更多

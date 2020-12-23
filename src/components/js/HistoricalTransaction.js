@@ -1,5 +1,11 @@
 const root = {}
 root.name = 'HistoricalTransaction'
+
+/*------------------------------ 生命周期 ------------------------------*/
+root.props = {};
+root.props.tradinghallLimit = {
+  type: Number
+}
 /*------------------------------ 组件 ------------------------------*/
 root.components = {
   'Loading': resolve => require(['../vue/Loading'], resolve),
@@ -9,7 +15,8 @@ root.data = function () {
   return {
     loading:true,
     historicaList:[],
-    tradinghallLimit: 10,
+    historicaSearch:[],
+    // tradinghallLimit: 50,
     interTimerPicker:'',
     pickerOptions: {
       disabledDate:(time) => {
@@ -31,16 +38,17 @@ root.data = function () {
     /* ==========分页部分 begin========== */
     showLoadingMore: true,//是否显示加载更多
     loadingMoreIng: false, //是否正在加载更多
-    limit:100,
+    limit:50,
     startTime:0,
-    endTime:0,
+    endTime:new Date().getTime() + 24 * 3599 * 1000, // 历史成交传初始化结束时间，点击加载更多传最后一条数据的时间
+    fromId:0,
     /* ==========分页部分 end=========== */
   }
 }
 /*------------------------------ 生命周期 -------------------------------*/
 root.created = function () {
-  this.getHistorTrans()
-
+  // this.getHistorTrans()
+  this.getHistorAllOrders()
   this.pickerOptions.disabledDate = function (time) {
     // return time.getTime() > Date.now();
     // return time.getTime() > Date.now();
@@ -70,8 +78,11 @@ root.computed.quoteScale_list = function () {
 root.computed.userId = function () {
   return this.$store.state.authState.userId
 }
+root.computed.historicalComputed = function () {
+  return this.historicaSearch || []
+}
 root.computed.historicalTransaction = function () {
-  return this.historicaList
+  return this.historicaList || []
 }
 root.computed.serverTime = function () {
   return new Date().getTime();
@@ -105,7 +116,7 @@ root.methods.dealDisabledDate = function (time) {
   // return time.getTime() < Date.now() - 8.64e7
 }
 
-// 历史成交
+// 历史成交（搜索使用）
 root.methods.getHistorTrans = function () {
   // this.startTime=1606752000000
   // this.endTime=1606752000000 + 24 * 3599 * 1000
@@ -117,7 +128,6 @@ root.methods.getHistorTrans = function () {
       startTime:this.interTimerPicker || '',
       endTime:this.interTimerPicker == '' ? '' : this.interTimerPicker  + 24 * 3599 * 1000,
       symbol:this.valueUsdt || '',
-      // limit:this.limit,
     },
     callBack: this.re_getHistorTrans,
     errorHandler:this.error_getHistorTrans
@@ -129,27 +139,64 @@ root.methods.re_getHistorTrans = function (data) {
   if(!data && !data.data)return
   this.loading = false
   // console.info('data====',data.data)
-  this.historicaList = data.data
-/*  this.historicaList.push(...data.data)
-  // console.info(this.historicaList)
-  // 加载更多中
-  this.loadingMoreIng = false
-  // 如果获取
-  data.data.length !== 0 && (this.offsetId = data.data[data.data.length - 1].fromId)
-  data.data.length !== 0 && (this.interTimerPicker = this.interTimerPicker != '' ? '': '')
-
-  if (data.data.length < this.limit) {
-    this.showLoadingMore = false
-  }*/
+  this.historicaSearch = data.data
 }
 // 历史成交错误回调
 root.methods.error_getHistorTrans = function (err) {
   console.log('获取币安24小时价格变动接口',err)
 }
+
+// 历史成交（分页使用）
+root.methods.getHistorAllOrders = function () {
+  // this.startTime=1606752000000
+  let limit = this.$route.name != 'historicalTransaction' ? this.tradinghallLimit:this.limit
+  // console.info('interTimerPicker',this.interTimerPicker)
+  this.$http.send('GET_CAPITAL_DEAL',{
+    bind: this,
+    query:{
+      // timestamp:this.serverTime
+      endTime:this.endTime,
+      symbol:'',
+      limit:limit,
+      // fromId:this.fromId,
+    },
+    callBack: this.re_getHistorAllOrders,
+    errorHandler:this.error_getHistorAllOrders
+  })
+}
+// 历史成交正确回调
+root.methods.re_getHistorAllOrders = function (data) {
+  typeof(data) == 'string' && (data = JSON.parse(data));
+  if(!data && !data.data)return
+  this.loading = false
+  if(this.$route.name != 'historicalTransaction'){
+    this.historicaList = data.data
+    return
+  }
+  // console.info('data====',data.data)
+  this.historicaList.push(...data.data)
+  // console.info(this.historicaList)
+  // 加载更多中
+  this.loadingMoreIng = false
+  // 如果获取
+  data.data.length !== 0 && (this.endTime = data.data[data.data.length - 1].time)
+  // data.data.length !== 0 && (this.interTimerPicker = this.interTimerPicker != '' ? '': '')
+
+  if (data.data.length < this.limit) {
+    this.showLoadingMore = false
+  }
+}
+// 历史成交错误回调
+root.methods.error_getHistorAllOrders = function (err) {
+  console.log('获取币安24小时价格变动接口',err)
+}
 // 点击加载更多
 root.methods.clickLoadingMore = function () {
   this.loadingMoreIng = true
-  this.getHistorTrans()
+  this.getHistorAllOrders()
+}
+root.methods.toHistoricalTrans = function () {
+  this.$router.push({name:'historicalTransaction'})
 }
 /*---------------------- 保留小数 begin ---------------------*/
 root.methods.toFixed = function (num, acc = 8) {

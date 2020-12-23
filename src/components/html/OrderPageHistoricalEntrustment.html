@@ -78,9 +78,9 @@
 
     <template v-if="!loading">
       <!-- 如果loading结束、已经登录、有值，则显示值 begin -->
-      <template v-if="userId && historyOrderSearchComputed.length != 0 && $route.name == 'historicalEntrust'">
+      <template v-if="userId && $route.name == 'historicalEntrust' && (historyOrderSearchComputed.length != 0 || historyOrderComputed.length != 0)">
         <div class="historica">
-         <li v-if="$route.name == 'historicalEntrust' && order.status != 'WRONG'" v-for="(order,index) in historyOrderSearchComputed" :key="order.id"
+         <li v-if="$route.name == 'historicalEntrust' && order.status != 'WRONG'" v-for="(order,index) in (historyOrderSearch.length == 0? historyOrderComputed : historyOrderSearchComputed)" :key="order.orderId"
               class="tr-td" @click="showDetail(order.orderId)">
            <div class="flex-center" :class="order.status == 'FILLED' ? 'tr-detail':'tr-detail-opacity'">
 
@@ -135,7 +135,7 @@
               <div class="td td-turnover" v-if="order.status == 'CANCELED'">已撤销</div>
               <div class="td td-turnover" v-if="order.status == 'REJECTED'">订单被拒绝</div>
               <div class="td td-turnover" v-if="order.status == 'EXPIRED'">订单过期</div>
-              <div class="td td-turnover" v-if="order.status == 'EXPIRED'">订单过期</div>
+<!--              <div class="td td-turnover" v-if="order.status == 'EXPIRED'">订单过期</div>-->
 
            </div>
            <!--展示详情(如果在交易，打不开详情)-->
@@ -149,7 +149,7 @@
       <!-- 如果loading结束、已经登录、有值，则显示值 end -->
 
       <!-- 如果loading没结束、没登录、没值，则显示'--' begin -->
-      <template v-if="userId && historyOrderSearchComputed.length ==0 && $route.name == 'historicalEntrust'">
+      <template v-if="userId && historyOrderSearchComputed.length == 0 && historyOrderComputed == 0 && $route.name == 'historicalEntrust'">
         <li class="weit">
           <div class="nhtu" v-if="$route.name == 'historicalEntrust'"><img src="../../assets/noOrders.png"></div>
           <span>{{$t('orderPageHistoricalEntrustment.close_9')}}</span>
@@ -157,9 +157,9 @@
       </template>
       <!-- 如果loading没结束、没登录、没值，则显示'--' end -->
       <!-- 如果loading结束、已经登录、有值，则显示值 begin -->
-      <template v-if="userId && historyOrderComputed.length !==0 && $route.name != 'historicalEntrust'">
+      <template v-if="userId && tradHistory.length !==0 && $route.name != 'historicalEntrust'">
         <div class="historica">
-         <li v-if="$route.name != 'historicalEntrust'" v-for="(order,index) in historyOrderComputed" :key="order.id"
+         <li v-if="$route.name != 'historicalEntrust'" v-for="(order,index) in tradHistory" :key="order.id"
                class="tr-td-col" >
            <div class="tr-detail flex-center">
 
@@ -240,21 +240,28 @@
       <!-- 如果loading结束、已经登录、有值，则显示值 end -->
 
       <!-- 如果loading没结束、没登录、没值，则显示'--' begin -->
-      <template v-if="userId && historyOrderComputed.length ==0 && $route.name != 'historicalEntrust'">
+      <template v-if="userId && tradHistory.length ==0 && $route.name != 'historicalEntrust'">
         <li class="weit">
           <div class="nhtu" v-if="$route.name != 'historicalEntrust'"><img src="../../assets/noOrderDark.png"></div>
           <span>{{$t('orderPageHistoricalEntrustment.close_9')}}</span>
         </li>
       </template>
       <!-- 如果loading没结束、没登录、没值，则显示'--' end -->
+      <!-- 查看更多 begin -->
+      <template v-if="!loading && userId && $route.name != 'historicalEntrust'">
+        <li class="loading-more" >
+          <span class="text_blue pointer" @click="toOrderHistory">{{$t('orderPageHistoricalEntrustment.close_12')}}</span>
+        </li>
+      </template>
+      <!-- 查看更多 end -->
 
       <!-- 加载更多 如果loading结束、已经登录、获取的数据超过了limit，则显示 begin -->
-<!--      <template v-if="showLoadingMore && !loading && userId">-->
-<!--        <li class="loading-more">-->
-<!--          <span class="text_blue pointer" v-if="!loadingMoreIng" @click="clickLoadingMore">{{$t('orderPageHistoricalEntrustment.close_10')}}</span>-->
-<!--          <span class="text_blue" v-else>{{$t('orderPageHistoricalEntrustment.close_11')}}</span>-->
-<!--        </li>-->
-<!--      </template>-->
+      <template v-if="showLoadingMore && !loading && userId && historyOrderSearchComputed.length == 0 && $route.name == 'historicalEntrust'">
+        <li class="loading-more">
+          <span class="text_blue pointer" v-if="!loadingMoreIng" @click="clickLoadingMore">{{$t('orderPageHistoricalEntrustment.close_10')}}</span>
+          <span class="text_blue" v-else>{{$t('orderPageHistoricalEntrustment.close_11')}}</span>
+        </li>
+      </template>
       <!-- 加载更多 end -->
     </template>
 

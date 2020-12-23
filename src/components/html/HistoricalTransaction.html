@@ -69,11 +69,11 @@
     <!-- 表头 end -->
     <template v-if="!loading">
     <!-- 如果加载完成、已登录、有数据，则显示数据 begin -->
-      <template v-if="userId && historicalTransaction.length!==0">
+      <template v-if="userId && (historicalTransaction.length != 0 || historicaSearch.length != 0)">
         <div class="historica">
           <li class="flex tr-td"
               :class="$route.name == 'historicalTransaction'?'tr-td':'tr-td-col'"
-              v-for="(order,index) in historicalTransaction" :key="order.id">
+              v-for="(order,index) in (historicaSearch.length == 0 ? historicalTransaction : historicalComputed)" :key="order.fromId">
 
             <!--时间-->
             <div class="td td-time1">{{$globalFunc.formatDateUitl(order.time,'YYYY-MM-DD hh:mm:ss')}}</div>
@@ -113,13 +113,20 @@
 <!--      </template>-->
 
     <!-- 加载更多 如果loading结束、已经登录、获取的数据超过了limit，则显示 begin -->
-<!--    <template v-if="showLoadingMore && !loading && userId">-->
-<!--      <li class="loading-more">-->
-<!--        <span class="text_blue pointer" v-if="!loadingMoreIng" @click="clickLoadingMore">{{$t('orderPageHistoricalEntrustment.close_10')}}</span>-->
-<!--        <span class="text_blue" v-else>{{$t('orderPageHistoricalEntrustment.close_11')}}</span>-->
-<!--      </li>-->
-<!--    </template>-->
+    <template v-if="showLoadingMore && !loading && userId && (!interTimerPicker && !valueUsdt) && $route.name == 'historicalTransaction'">
+      <li class="loading-more">
+        <span class="text_blue pointer" v-if="!loadingMoreIng" @click="clickLoadingMore">{{$t('orderPageHistoricalEntrustment.close_10')}}</span>
+        <span class="text_blue" v-else>{{$t('orderPageHistoricalEntrustment.close_11')}}</span>
+      </li>
+    </template>
     <!-- 加载更多 end -->
+    <!-- 查看更多 begin -->
+    <template v-if="!loading && userId && $route.name != 'historicalTransaction'">
+      <li class="loading-more" >
+        <span class="text_blue pointer" @click="toHistoricalTrans">{{$t('orderPageHistoricalEntrustment.close_12')}}</span>
+      </li>
+    </template>
+    <!-- 查看更多 end -->
   </ul>
   <!-- 加载更多 begin -->
   <div class="" v-if="loading && userId">

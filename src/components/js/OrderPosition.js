@@ -747,9 +747,9 @@ root.methods.error_getAccount = function (err) {
 root.methods.getPositionRisk = function () {
   this.$http.send("GET_POSITION_RISK", {
     bind: this,
-    // query: {
-    //   timestamp: this.serverTime
-    // },
+    query: {
+      symbols: this.sNameList.toString()
+    },
     callBack: this.re_getPositionRisk,
     errorHandler: this.error_getPositionRisk
   })

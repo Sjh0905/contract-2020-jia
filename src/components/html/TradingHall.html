@@ -426,7 +426,7 @@
       <orderHistory :tradinghallLimit="tradinghallLimit"/>
     </div>
     <div v-if="isNow === 2" class="trading-hall-order-box-detail">
-      <HistoricalTransaction/>
+      <HistoricalTransaction :tradinghallLimit="tradinghallLimit"/>
     </div>
     <div v-if="isNow === 3" class="trading-hall-order-box-detail">
       <CapitalFlow/>
