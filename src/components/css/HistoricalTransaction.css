@@ -42,8 +42,8 @@ tr, th, td {
 }
 
 .historica {
-  height: 500px;
-  overflow: scroll;
+  min-height: 500px;
+  /*overflow: scroll;*/
 }
 .historica::-webkit-scrollbar {
   display: none;

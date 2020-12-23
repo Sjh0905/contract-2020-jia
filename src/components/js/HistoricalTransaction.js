@@ -17,7 +17,7 @@ root.data = function () {
     historicaList:[],
     historicaSearch:[],
     // tradinghallLimit: 50,
-    interTimerPicker:'',
+    interTimerPicker:null,
     pickerOptions: {
       disabledDate:(time) => {
         return this.dealDisabledDate(time)
@@ -47,8 +47,8 @@ root.data = function () {
 }
 /*------------------------------ 生命周期 -------------------------------*/
 root.created = function () {
-  // this.getHistorTrans()
-  this.getHistorAllOrders()
+  this.getHistorTrans()
+  // this.getHistorAllOrders()
   this.pickerOptions.disabledDate = function (time) {
     // return time.getTime() > Date.now();
     // return time.getTime() > Date.now();
@@ -101,6 +101,18 @@ root.computed.sNameList = function () {
 }
 /*------------------------------ 观察 -------------------------------*/
 root.watch = {}
+root.watch.interTimerPicker = function (newVal,oldVal) {
+  if(newVal == oldVal)return
+  if(newVal == null && this.valueUsdt==''){
+    this.getHistorTrans()
+  }
+}
+root.watch.valueUsdt = function (newVal,oldVal) {
+  if(newVal == oldVal)return
+  if(this.interTimerPicker == null && newVal==''){
+    this.getHistorTrans()
+  }
+}
 /*------------------------------ 方法 -------------------------------*/
 root.methods = {}
 
@@ -115,19 +127,31 @@ root.methods.dealDisabledDate = function (time) {
   // return time.getTime() <= Date.now()
   // return time.getTime() < Date.now() - 8.64e7
 }
-
+root.methods.timeQuery = function () {
+  if(this.interTimerPicker == null && this.valueUsdt =='')return this.endTime
+  if(this.interTimerPicker != null)return (this.interTimerPicker  + 24 * 3599 * 1000)
+  return ''
+}
+root.methods.limitQuery = function () {
+  if(this.$route.name == 'historicalTransaction' && (this.interTimerPicker != null || this.valueUsdt !=''))return ''
+  if(this.$route.name == 'historicalTransaction' && (this.interTimerPicker == null || this.valueUsdt ==''))return this.limit
+  if(this.$route.name != 'historicalTransaction' && (this.interTimerPicker == null || this.valueUsdt ==''))return this.tradinghallLimit
+}
 // 历史成交（搜索使用）
 root.methods.getHistorTrans = function () {
   // this.startTime=1606752000000
   // this.endTime=1606752000000 + 24 * 3599 * 1000
   // console.info('interTimerPicker',this.interTimerPicker)
+  // let limit = this.$route.name != 'historicalTransaction' ? this.tradinghallLimit:this.limit
   this.$http.send('GET_CAPITAL_DEAL',{
     bind: this,
     query:{
       // timestamp:this.serverTime
       startTime:this.interTimerPicker || '',
-      endTime:this.interTimerPicker == '' ? '' : this.interTimerPicker  + 24 * 3599 * 1000,
+      // endTime:this.interTimerPicker == '' ? '' : this.interTimerPicker  + 24 * 3599 * 1000,
+      endTime:this.timeQuery(),
       symbol:this.valueUsdt || '',
+      limit:this.limitQuery()
     },
     callBack: this.re_getHistorTrans,
     errorHandler:this.error_getHistorTrans
@@ -139,7 +163,25 @@ root.methods.re_getHistorTrans = function (data) {
   if(!data && !data.data)return
   this.loading = false
   // console.info('data====',data.data)
-  this.historicaSearch = data.data
+  if(this.$route.name == 'historicalTransaction' && (this.interTimerPicker != null || this.valueUsdt !='')) {
+    this.historicaList = data.data
+    return
+  }
+  if(this.$route.name != 'historicalTransaction'){
+    this.historicaList = data.data
+    return
+  }
+  this.historicaList.push(...data.data)
+  console.info(this.historicaList)
+  // 加载更多中
+  this.loadingMoreIng = false
+  // 如果获取
+  data.data.length !== 0 && (this.endTime = data.data[data.data.length - 1].time)
+  // data.data.length !== 0 && (this.interTimerPicker = this.interTimerPicker != '' ? '': '')
+
+  if (data.data.length < this.limit) {
+    this.showLoadingMore = false
+  }
 }
 // 历史成交错误回调
 root.methods.error_getHistorTrans = function (err) {
@@ -193,7 +235,8 @@ root.methods.error_getHistorAllOrders = function (err) {
 // 点击加载更多
 root.methods.clickLoadingMore = function () {
   this.loadingMoreIng = true
-  this.getHistorAllOrders()
+  // this.getHistorAllOrders()
+  this.getHistorTrans()
 }
 root.methods.toHistoricalTrans = function () {
   this.$router.push({name:'historicalTransaction'})

@@ -73,7 +73,7 @@
         <div class="historica">
           <li class="flex tr-td"
               :class="$route.name == 'historicalTransaction'?'tr-td':'tr-td-col'"
-              v-for="(order,index) in (historicaSearch.length == 0 ? historicalTransaction : historicalComputed)" :key="order.fromId">
+              v-for="(order,index) in  historicalTransaction" :key="order.fromId">
 
             <!--时间-->
             <div class="td td-time1">{{$globalFunc.formatDateUitl(order.time,'YYYY-MM-DD hh:mm:ss')}}</div>

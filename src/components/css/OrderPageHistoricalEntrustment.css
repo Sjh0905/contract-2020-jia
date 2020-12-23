@@ -213,7 +213,7 @@ tr, th, td {
   /*border-top: 1px solid #e5e5e5;*/
 }
 .historica {
-  height: 500px;
+  min-height: 500px;
   overflow: scroll;
 }
 .historica::-webkit-scrollbar {
