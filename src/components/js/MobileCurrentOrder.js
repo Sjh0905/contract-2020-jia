@@ -227,7 +227,7 @@ root.methods.type = function (order) {
 // 撤单
 root.methods.cancelOrder = async function (order, cancelAll = false) {
   this.loading = true
-  this.canceling = order.id
+  this.canceling = order.orderId
   this.clickOrder.add(order.orderId)
   order.click = true
   let params = {

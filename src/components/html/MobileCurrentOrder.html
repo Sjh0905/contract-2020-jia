@@ -67,12 +67,11 @@
                   <div class="content">{{order.reduceOnly ? '是':'否'}}</div>
                 </div>
               </div>
-              <div class=" flex-center" :class="[{_m_co_l4:canceling!==order.id},{_m_co_l5:canceling===order.id}]" @click="cancelOrder(order)">
+              <div class=" flex-center" :class="[{_m_co_l4:canceling!==order.orderId},{_m_co_l5:canceling===order.orderId}]">
 <!--                <span>{{canceling==order.id&&'撤销中'||'撤销'}}</span>-->
-                <span class="click-operation chedanbutton"
-                      :class="$route.name == 'currentEntrust'?'text_blue-1':'text_blue-0'"
+                <span class="click-operation" :class="$route.name == 'currentEntrust'?'text_blue-1':'text_blue-0'"
                       @click="cancelOrder(order)" v-if="!order.click">{{$t('orderPageCurrentEntrustment.cancel')}}</span>
-                <span class="click-operating chedanbutton" v-else>{{$t('orderPageCurrentEntrustment.canceling')}}</span>
+                <span class="click-operating" v-else>{{$t('orderPageCurrentEntrustment.canceling')}}</span>
               </div>
             </div>
 <!--            <div class="_m_co_l2 flex-row">{{$globalFunc.accFixed(order.price, !!quoteScale_list[order.symbol] ? quoteScale_list[order.symbol].quoteScale : 8)}}</div>-->
