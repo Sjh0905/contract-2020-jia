@@ -183,6 +183,7 @@ root.watch.picIndex = function (newVal, oldVal){
 root.watch.interTimerPicker = function (newVal, oldVal) {
   if(newVal == oldVal) return
   if(newVal == null && this.value == '' && this.valueUsdt == ''){
+    this.clearEmpty()
     this.historyOrder = []
     this.getOrderHistory()
   }
@@ -190,14 +191,14 @@ root.watch.interTimerPicker = function (newVal, oldVal) {
 root.watch.value = function (newVal, oldVal) {
   if(newVal == oldVal) return
   if(this.interTimerPicker == null && newVal == '' && this.valueUsdt == ''){
-    this.historyOrder = []
+    this.clearEmpty()
     this.getOrderHistory()
   }
 }
 root.watch.valueUsdt = function (newVal, oldVal) {
   if(newVal == oldVal) return
   if(this.interTimerPicker == null && this.value == '' && newVal == ''){
-    this.historyOrder = []
+    this.clearEmpty()
     this.getOrderHistory()
   }
 }
@@ -275,7 +276,15 @@ root.computed.sNameList = function () {
 
 
 root.methods = {}
-
+// 监听到输入框的值变化，将这些值设置为初始值
+root.methods.clearEmpty = function () {
+  this.historyOrder = []
+  this.offsetId = 0
+  this.limit = 50
+  this.interTimerPicker = null
+  this.value =''
+  this.valueUsdt =''
+}
 // 单独处理时间的函数
 root.methods.dealDisabledDate = function (time) {
   // time.getTime是把选中的时间转化成自1970年1月1日 00:00:00 UTC到当前时间的毫秒数
@@ -340,8 +349,8 @@ root.methods.getOrderHistory = function () {
     }
   }else{
     query = {
-      startTime:this.interTimerPicker[0] || null,  //搜索日历的第一个时间
-      endTime:this.interTimerPicker[1] + 24 * 3599 * 1000 || null, //搜索日历的第二个时间，加上当天的数据
+      startTime:this.interTimerPicker == null ? '' :this.interTimerPicker[0] ,  //搜索日历的第一个时间
+      endTime:this.interTimerPicker == null ? '' :this.interTimerPicker[1] + 24 * 3599 * 1000, //搜索日历的第二个时间，加上当天的数据
       type:this.value || '',
       symbol:this.valueUsdt || '',
     }
@@ -366,8 +375,6 @@ root.methods.re_getOrderHistory = function (data) {
   this.loading = false
   if(this.interTimerPicker != null || this.value != '' || this.valueUsdt != ''){
     this.historyOrder = data.data || []
-    this.offsetId = 0
-    this.limit = 50
     return
   }
   //清空搜索完的数据，否则会在尾部增加
