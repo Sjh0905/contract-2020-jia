@@ -474,7 +474,7 @@ root.methods.showDetail = function (id) {
   this.clickThis = id
   this.historyOrder.length !== 0 && this.historyOrder.forEach(v=>{
     if(this.clickThis == v.orderId) {
-      this.startTime = v.time - 1
+      this.startTime = v.updateTime - 1
       this.endTime = v.updateTime + 1
     }
   })
