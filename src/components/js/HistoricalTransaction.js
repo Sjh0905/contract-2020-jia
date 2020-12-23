@@ -110,6 +110,7 @@ root.watch.interTimerPicker = function (newVal,oldVal) {
 root.watch.valueUsdt = function (newVal,oldVal) {
   if(newVal == oldVal)return
   if(this.interTimerPicker == null && newVal==''){
+
     this.getHistorTrans()
   }
 }
@@ -130,7 +131,7 @@ root.methods.dealDisabledDate = function (time) {
 root.methods.timeQuery = function () {
   if(this.interTimerPicker == null && this.valueUsdt =='')return this.endTime
   if(this.interTimerPicker != null)return (this.interTimerPicker  + 24 * 3599 * 1000)
-  return ''
+  return null
 }
 root.methods.limitQuery = function () {
   if(this.$route.name == 'historicalTransaction' && (this.interTimerPicker != null || this.valueUsdt !=''))return ''
@@ -165,14 +166,25 @@ root.methods.re_getHistorTrans = function (data) {
   // console.info('data====',data.data)
   if(this.$route.name == 'historicalTransaction' && (this.interTimerPicker != null || this.valueUsdt !='')) {
     this.historicaList = data.data
+    // 搜索完毕需要将用到的值清空
+    this.interTimerPicker == null
+    this.endTime = new Date().getTime() + 24 * 3599 * 1000
+    this.limit = 50
+    this.tradinghallLimit = 10
     return
   }
   if(this.$route.name != 'historicalTransaction'){
     this.historicaList = data.data
+    // 搜索完毕需要将用到的值清空
+    this.interTimerPicker == null
+    this.endTime = new Date().getTime() + 24 * 3599 * 1000
+    this.limit = 50
+    this.tradinghallLimit = 10
     return
   }
+  //清空搜索完的数据，否则会在尾部增加
+  this.historicaList = []
   this.historicaList.push(...data.data)
-  console.info(this.historicaList)
   // 加载更多中
   this.loadingMoreIng = false
   // 如果获取

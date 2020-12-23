@@ -45,7 +45,7 @@
             </div>
           </div>
           <div class="search-histor-L">
-            <div class="search-usdt"><span class="search-usdt-span" @click="getOrderSearch()">搜索</span></div></div>
+            <div class="search-usdt"><span class="search-usdt-span" @click="getOrderHistory()">搜索</span></div></div>
         </div>
       </div>
 
@@ -78,9 +78,9 @@
 
     <template v-if="!loading">
       <!-- 如果loading结束、已经登录、有值，则显示值 begin -->
-      <template v-if="userId && $route.name == 'historicalEntrust' && (historyOrderSearchComputed.length != 0 || historyOrderComputed.length != 0)">
+      <template v-if="userId && $route.name == 'historicalEntrust' && historyOrderComputed.length != 0">
         <div class="historica">
-         <li v-if="$route.name == 'historicalEntrust' && order.status != 'WRONG'" v-for="(order,index) in (historyOrderSearch.length == 0? historyOrderComputed : historyOrderSearchComputed)" :key="order.orderId"
+         <li v-if="$route.name == 'historicalEntrust' && order.status != 'WRONG'" v-for="(order,index) in historyOrderComputed" :key="order.orderId"
               class="tr-td" @click="showDetail(order.orderId)">
            <div class="flex-center" :class="order.status == 'FILLED' ? 'tr-detail':'tr-detail-opacity'">
 

@@ -83,7 +83,7 @@ root.data = () => {
     popType: 0,
     popText: '',
     promptOpen: false,
-    interTimerPicker:'',
+    interTimerPicker:null,
     pickerOptions: {
       disabledDate:(time) => {
         return this.dealDisabledDate(time)
@@ -180,7 +180,24 @@ root.watch.picIndex = function (newVal, oldVal){
 // root.watch.isProfitLoss = function (newVal, oldVal){
 //     // this.getPosterImage()
 // }
-
+root.watch.interTimerPicker = function (newVal, oldVal) {
+  if(newVal == oldVal) return
+  if(newVal == null && this.value == '' && this.valueUsdt == ''){
+    this.getOrderHistory()
+  }
+}
+root.watch.value = function (newVal, oldVal) {
+  if(newVal == oldVal) return
+  if(this.interTimerPicker == null && newVal == '' && this.valueUsdt == ''){
+    this.getOrderHistory()
+  }
+}
+root.watch.valueUsdt = function (newVal, oldVal) {
+  if(newVal == oldVal) return
+  if(this.interTimerPicker == null && this.value == '' && newVal == ''){
+    this.getOrderHistory()
+  }
+}
 
 
 root.computed = {}
@@ -271,7 +288,7 @@ root.methods.dealDisabledDate = function (time) {
 
 
 // 发送请求获取
-root.methods.getOrderSearch = function () {
+/*root.methods.getOrderSearch = function () {
   // this.pickerOptions.disabledDate
   this.$http.send('GET_CAPITAL_SEARCH', {
       bind: this,
@@ -307,18 +324,35 @@ root.methods.re_getOrderSearch = function (data) {
 // 错误处理
 root.methods.error_getOrderSearch = function (err) {
   console.warn("获取错误", err)
-}
+}*/
 
 // 发送请求获取
 root.methods.getOrderHistory = function () {
+  let query
+  if(this.interTimerPicker == null && this.value == '' && this.valueUsdt == ''){
+    query = {
+      offset:this.offsetId,
+      limit:this.limit,
+      symbol: '',
+    }
+  }else{
+    query = {
+      startTime:this.interTimerPicker[0] || null,  //搜索日历的第一个时间
+      endTime:this.interTimerPicker[1] + 24 * 3599 * 1000 || null, //搜索日历的第二个时间，加上当天的数据
+      type:this.value || '',
+      symbol:this.valueUsdt || '',
+    }
+  }
+
   // this.pickerOptions.disabledDate
   this.$http.send('GET_CAPITAL_SEARCH', {
     bind: this,
-    query: {
-      offset:this.offsetId,
-      limit:50,
-      symbol: '',
-    },
+    query,
+    // query: {
+    //   offset:this.offsetId,
+    //   limit:50,
+    //   symbol: '',
+    // },
     callBack: this.re_getOrderHistory,
     errorHandler: this.error_getOrderHistory
   })
@@ -326,8 +360,17 @@ root.methods.getOrderHistory = function () {
 // 获取历史订单回调
 root.methods.re_getOrderHistory = function (data) {
   typeof(data) == 'string' && (data = JSON.parse(data));
-  this.historyOrder.push(...data.data)
   this.loading = false
+  if(this.interTimerPicker != null || this.value != '' || this.valueUsdt != ''){
+    this.historyOrder = data.data || []
+    this.offsetId = 0
+    this.limit = 50
+    return
+  }
+  //清空搜索完的数据，否则会在尾部增加
+  this.historyOrder = []
+  this.historyOrder.push(...data.data)
+
   // 加载更多中
   this.loadingMoreIng = false
 
