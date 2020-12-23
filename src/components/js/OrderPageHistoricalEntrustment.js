@@ -183,18 +183,21 @@ root.watch.picIndex = function (newVal, oldVal){
 root.watch.interTimerPicker = function (newVal, oldVal) {
   if(newVal == oldVal) return
   if(newVal == null && this.value == '' && this.valueUsdt == ''){
+    this.historyOrder = []
     this.getOrderHistory()
   }
 }
 root.watch.value = function (newVal, oldVal) {
   if(newVal == oldVal) return
   if(this.interTimerPicker == null && newVal == '' && this.valueUsdt == ''){
+    this.historyOrder = []
     this.getOrderHistory()
   }
 }
 root.watch.valueUsdt = function (newVal, oldVal) {
   if(newVal == oldVal) return
   if(this.interTimerPicker == null && this.value == '' && newVal == ''){
+    this.historyOrder = []
     this.getOrderHistory()
   }
 }
@@ -368,7 +371,7 @@ root.methods.re_getOrderHistory = function (data) {
     return
   }
   //清空搜索完的数据，否则会在尾部增加
-  this.historyOrder = []
+
   this.historyOrder.push(...data.data)
 
   // 加载更多中

@@ -104,13 +104,14 @@ root.watch = {}
 root.watch.interTimerPicker = function (newVal,oldVal) {
   if(newVal == oldVal)return
   if(newVal == null && this.valueUsdt==''){
+    this.historicaList = []
     this.getHistorTrans()
   }
 }
 root.watch.valueUsdt = function (newVal,oldVal) {
   if(newVal == oldVal)return
   if(this.interTimerPicker == null && newVal==''){
-
+    this.historicaList = []
     this.getHistorTrans()
   }
 }
@@ -183,7 +184,6 @@ root.methods.re_getHistorTrans = function (data) {
     return
   }
   //清空搜索完的数据，否则会在尾部增加
-  this.historicaList = []
   this.historicaList.push(...data.data)
   // 加载更多中
   this.loadingMoreIng = false
