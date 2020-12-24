@@ -25,6 +25,7 @@ root.data = () => {
     updatedAt:1,//最后的订单更新时间,默认为1
     showLoadingMore: true,//是否显示加载更多
     loadingMoreIng: false, //是否正在加载更多
+    loadNoShow: false, //控制返回的订单是否超过limit
     strtTime:0 , // 起始时间
     endTime:0 , // 结束时间
     workingTypeMap : {
@@ -138,7 +139,7 @@ root.props.tradinghallLimit = {
 
 root.created = function () {
   // console.warn('历史订单！！！')
-  // console.log('this.$route=======historicalEntrust',this.$route.name)
+    // console.log('this.$route=======historicalEntrust',this.$route.name)
   // 历史委托使用搜索接口，交易页使用获取订单接口
   if(this.$route.name == 'historicalEntrust') {
     this.getOrderHistory()
@@ -176,32 +177,35 @@ root.watch.picIndex = function (newVal, oldVal){
   // this.getPosterImage()
 }
 
-
 // root.watch.isProfitLoss = function (newVal, oldVal){
 //     // this.getPosterImage()
 // }
+
 root.watch.interTimerPicker = function (newVal, oldVal) {
   if(newVal == oldVal) return
+  //watch 监听到 如果搜索条件发生变化，offsetId 将置为0
+  this.clearLimit()
   if(newVal == null && this.value == '' && this.valueUsdt == ''){
-    this.clearEmpty()
+    this.clearQuery()
     this.getOrderHistory()
   }
 }
 root.watch.value = function (newVal, oldVal) {
   if(newVal == oldVal) return
+  this.clearLimit()
   if(this.interTimerPicker == null && newVal == '' && this.valueUsdt == ''){
-    this.clearEmpty()
+    this.clearQuery()
     this.getOrderHistory()
   }
 }
 root.watch.valueUsdt = function (newVal, oldVal) {
   if(newVal == oldVal) return
+  this.clearLimit()
   if(this.interTimerPicker == null && this.value == '' && newVal == ''){
-    this.clearEmpty()
+    this.clearQuery()
     this.getOrderHistory()
   }
 }
-
 
 root.computed = {}
 // 历史属性的计算后，排序之类的写在这里
@@ -276,10 +280,16 @@ root.computed.sNameList = function () {
 
 root.methods = {}
 // 监听到输入框的值变化，将这些值设置为初始值
-root.methods.clearEmpty = function () {
+root.methods.clearOrders = function () {
   this.historyOrder = []
+}
+root.methods.clearLimit = function () {
   this.offsetId = 0
   this.limit = 50
+}
+root.methods.clearQuery = function () {
+  this.clearOrders()
+  this.clearLimit()
   this.interTimerPicker = null
   this.value =''
   this.valueUsdt =''
@@ -352,6 +362,7 @@ root.methods.getOrderHistory = function () {
       endTime:this.interTimerPicker == null ? '' :this.interTimerPicker[1] + 24 * 3599 * 1000, //搜索日历的第二个时间，加上当天的数据
       type:this.value || '',
       symbol:this.valueUsdt || '',
+      offset:this.offsetId,
     }
   }
 
@@ -372,17 +383,35 @@ root.methods.getOrderHistory = function () {
 root.methods.re_getOrderHistory = function (data) {
   typeof(data) == 'string' && (data = JSON.parse(data));
   this.loading = false
+  // 搜索条件不为空：结果小于limit 则直接赋值，大于 limit 则push值
   if(this.interTimerPicker != null || this.value != '' || this.valueUsdt != ''){
-    this.historyOrder = data.data || []
+    //offsetId 为 0，说明是当前搜索条件下第一次调取接口，此时 historyOrder 应初始化为 空数组，防止老数据堆积
+    if(this.offsetId == 0){
+      this.historyOrder = []
+    }
+    this.historyOrder.push(...data.data)
+    // 结果小于limit 则直接赋值
+    if(data.data.length < this.limit){
+      this.loadNoShow = true
+      return
+    }
+
+    data.data.length !== 0 && (this.offsetId = data.data[data.data.length - 1].id)
+    // 加载更多中
+    this.loadingMoreIng = false
+    this.loadNoShow = false
+    if (data.data.length < this.limit) {
+      this.showLoadingMore = false
+    }
     return
   }
-  //清空搜索完的数据，否则会在尾部增加
 
+  //清空搜索完的数据，否则会在尾部增加
   this.historyOrder.push(...data.data)
 
   // 加载更多中
   this.loadingMoreIng = false
-
+  this.loadNoShow = false
   // 如果获取
   data.data.length !== 0 && (this.offsetId = data.data[data.data.length - 1].id)
   // data.data.length !== 0 && (this.updatedAt = data.data[data.data.length - 1].updatedAt)

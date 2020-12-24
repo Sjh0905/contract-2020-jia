@@ -45,7 +45,7 @@
           </div>
         </div>
         <div class="search-histor-L">
-          <div class="search-usdt"><span class="search-usdt-span" @click="getHistorTrans()">搜索</span></div></div>
+          <div class="search-usdt"><span class="search-usdt-span" @click="getHistorTrans('search')">搜索</span></div></div>
       </div>
     </div>
 
@@ -113,9 +113,9 @@
 <!--      </template>-->
 
     <!-- 加载更多 如果loading结束、已经登录、获取的数据超过了limit，则显示 begin -->
-    <template v-if="showLoadingMore && !loading && userId && (!interTimerPicker && !valueUsdt) && $route.name == 'historicalTransaction'">
+    <template v-if="showLoadingMore && !loading && userId && $route.name == 'historicalTransaction'">
       <li class="loading-more">
-        <span class="text_blue pointer" v-if="!loadingMoreIng" @click="clickLoadingMore">{{$t('orderPageHistoricalEntrustment.close_10')}}</span>
+        <span class="text_blue pointer" v-if="!loadingMoreIng " @click="clickLoadingMore">{{$t('orderPageHistoricalEntrustment.close_10')}}</span>
         <span class="text_blue" v-else>{{$t('orderPageHistoricalEntrustment.close_11')}}</span>
       </li>
     </template>
@@ -123,7 +123,7 @@
     <!-- 查看更多 begin -->
     <template v-if="!loading && userId && $route.name != 'historicalTransaction'">
       <li class="loading-more" >
-        <span class="text_blue pointer" @click="toHistoricalTrans">{{$t('orderPageHistoricalEntrustment.close_12')}}</span>
+        <span class="text_blue pointer" @click="toHistoricalTrans()">{{$t('orderPageHistoricalEntrustment.close_12')}}</span>
       </li>
     </template>
     <!-- 查看更多 end -->

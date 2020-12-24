@@ -103,6 +103,7 @@ root.computed.sNameList = function () {
 root.watch = {}
 root.watch.interTimerPicker = function (newVal,oldVal) {
   if(newVal == oldVal)return
+  this.clearLimit()
   if(newVal == null && this.valueUsdt==''){
     this.clearEmpty()
     this.getHistorTrans()
@@ -110,6 +111,7 @@ root.watch.interTimerPicker = function (newVal,oldVal) {
 }
 root.watch.valueUsdt = function (newVal,oldVal) {
   if(newVal == oldVal)return
+  this.clearLimit()
   if(this.interTimerPicker == null && newVal==''){
     this.clearEmpty()
     this.getHistorTrans()
@@ -117,10 +119,17 @@ root.watch.valueUsdt = function (newVal,oldVal) {
 }
 /*------------------------------ 方法 -------------------------------*/
 root.methods = {}
+root.methods.clearOrder = function () {
+  this.historicaList = []
+}
 // 监听到输入框的值变化，将这些值设置为初始值
 root.methods.clearEmpty =function () {
-  this.historicaList = []
+  this.clearLimit()
+  this.clearOrder()
   this.interTimerPicker == null
+  this.valueUsdt = ''
+}
+root.methods.clearLimit =function () {
   this.endTime = new Date().getTime() + 24 * 3599 * 1000
   this.limit = 50
 }
@@ -135,32 +144,60 @@ root.methods.dealDisabledDate = function (time) {
   // return time.getTime() <= Date.now()
   // return time.getTime() < Date.now() - 8.64e7
 }
-root.methods.timeQuery = function () {
+/*root.methods.timeQuery = function () {
   if(this.interTimerPicker == null && this.valueUsdt =='')return this.endTime
   if(this.interTimerPicker != null)return (this.interTimerPicker  + 24 * 3599 * 1000)
   return ''
 }
 root.methods.limitQuery = function () {
-  if(this.$route.name == 'historicalTransaction' && (this.interTimerPicker != null || this.valueUsdt !=''))return ''
-  if(this.$route.name == 'historicalTransaction' && (this.interTimerPicker == null || this.valueUsdt ==''))return this.limit
+  if(this.$route.name == 'historicalTransaction' && (this.interTimerPicker != null || this.valueUsdt !=''))return this.limit
+  if(this.$route.name == 'historicalTransaction' && (this.interTimerPicker == null && this.valueUsdt ==''))return this.limit
   if(this.$route.name != 'historicalTransaction' && (this.interTimerPicker == null || this.valueUsdt ==''))return this.tradinghallLimit
-}
+}*/
 // 历史成交（搜索使用）
-root.methods.getHistorTrans = function () {
+root.methods.getHistorTrans = function (type) {
   // this.startTime=1606752000000
   // this.endTime=1606752000000 + 24 * 3599 * 1000
   // console.info('interTimerPicker',this.interTimerPicker)
   // let limit = this.$route.name != 'historicalTransaction' ? this.tradinghallLimit:this.limit
+  let query
+  if(this.$route.name == 'historicalTransaction' && (this.interTimerPicker != null || this.valueUsdt !='')){
+    // 由于当前条件向下 币安只能正序返回数据，所以首次加载多返回50条数据，查看更多 增加50条
+    this.limit += 50
+    query = {
+      startTime:this.interTimerPicker,
+      endTime:(this.interTimerPicker + 24 * 3600 * 1000 - 1000),
+      symbol:this.valueUsdt || '',
+      limit: this.limit,
+    }
+  }
+  if(this.$route.name == 'historicalTransaction' && this.interTimerPicker == null && this.valueUsdt == ''){
+    query = {
+      startTime: '',
+      endTime:this.endTime,
+      symbol: '',
+      limit:this.limit,
+    }
+  }
+  if(this.$route.name != 'historicalTransaction' && (this.interTimerPicker == null && this.valueUsdt =='')){
+    query = {
+      startTime: '',
+      endTime:this.endTime,
+      symbol: '',
+      limit:this.tradinghallLimit,
+    }
+  }
   this.$http.send('GET_CAPITAL_DEAL',{
     bind: this,
-    query:{
-      // timestamp:this.serverTime
-      startTime:this.interTimerPicker || '',
-      // endTime:this.interTimerPicker == '' ? '' : this.interTimerPicker  + 24 * 3599 * 1000,
-      endTime:this.timeQuery(),
-      symbol:this.valueUsdt || '',
-      limit:this.limitQuery()
-    },
+    query,
+    // query:{
+    //   // timestamp:this.serverTime
+    //   startTime:this.interTimerPicker || '',
+    //   // endTime:this.interTimerPicker == '' ? '' : this.interTimerPicker  + 24 * 3599 * 1000,
+    //   endTime:this.timeQuery(),
+    //   symbol:this.valueUsdt || '',
+    //   limit:this.limitQuery()
+    // },
     callBack: this.re_getHistorTrans,
     errorHandler:this.error_getHistorTrans
   })
@@ -170,19 +207,22 @@ root.methods.re_getHistorTrans = function (data) {
   typeof(data) == 'string' && (data = JSON.parse(data));
   if(!data && !data.data)return
   this.loading = false
-  // console.info('data====',data.data)
-  if(this.$route.name == 'historicalTransaction' && (this.interTimerPicker != null || this.valueUsdt !='')) {
-    this.historicaList = data.data
-    // 搜索完毕需要将用到的值清空
-
-    return
-  }
   if(this.$route.name != 'historicalTransaction'){
     this.historicaList = data.data
     // 搜索完毕需要将用到的值清空
     return
   }
-  //清空搜索完的数据，否则会在尾部增加
+  // console.info('data====',data.data)
+  if(this.$route.name == 'historicalTransaction' && (this.interTimerPicker != null || this.valueUsdt !='')) {
+    this.historicaList = data.data || []
+    if (data.data.length < this.limit) {
+      this.showLoadingMore = false
+    }
+    return
+    // 如果获取
+    // data.data.length !== 0 && (this.endTime = data.data[data.data.length - 1].time)
+    // data.data.length !== 0 && (this.interTimerPicker = this.interTimerPicker != '' ? '': '')
+  }
   this.historicaList.push(...data.data)
   // 加载更多中
   this.loadingMoreIng = false
@@ -193,6 +233,7 @@ root.methods.re_getHistorTrans = function (data) {
   if (data.data.length < this.limit) {
     this.showLoadingMore = false
   }
+
 }
 // 历史成交错误回调
 root.methods.error_getHistorTrans = function (err) {
@@ -200,7 +241,7 @@ root.methods.error_getHistorTrans = function (err) {
 }
 
 // 历史成交（分页使用）
-root.methods.getHistorAllOrders = function () {
+/*root.methods.getHistorAllOrders = function () {
   // this.startTime=1606752000000
   let limit = this.$route.name != 'historicalTransaction' ? this.tradinghallLimit:this.limit
   // console.info('interTimerPicker',this.interTimerPicker)
@@ -242,12 +283,12 @@ root.methods.re_getHistorAllOrders = function (data) {
 // 历史成交错误回调
 root.methods.error_getHistorAllOrders = function (err) {
   console.log('获取币安24小时价格变动接口',err)
-}
+}*/
 // 点击加载更多
 root.methods.clickLoadingMore = function () {
   this.loadingMoreIng = true
   // this.getHistorAllOrders()
-  this.getHistorTrans()
+  this.getHistorTrans('more')
 }
 root.methods.toHistoricalTrans = function () {
   this.$router.push({name:'historicalTransaction'})
