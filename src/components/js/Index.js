@@ -279,7 +279,7 @@ root.methods.re_postcloseListenKey = function (data) {
 root.methods.getLeverageBracket = function(){
   this.$http.send('GET_LEVERAGE_BRACKET', {
     query:{
-      symbols:this.sNameList.toString(),
+      // symbols:this.sNameList.toString(),
     },
     callBack: this.re_getLeverageBracket,
     errorHandler:this.err_getLeverageBracket
