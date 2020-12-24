@@ -104,6 +104,10 @@ root.beforeDestroy = function () {
 
 
 root.computed = {}
+//不加下划线币对集合
+root.computed.sNameList = function () {
+  return this.$store.state.sNameList || []
+}
 // 观察是否登录
 root.computed.userId = function () {
   return this.$store.state.authMessage.userId
@@ -275,7 +279,7 @@ root.methods.re_postcloseListenKey = function (data) {
 root.methods.getLeverageBracket = function(){
   this.$http.send('GET_LEVERAGE_BRACKET', {
     query:{
-      // symbol:this.onlyCapitalSymbol
+      // symbols:this.sNameList.toString(),
     },
     callBack: this.re_getLeverageBracket,
     errorHandler:this.err_getLeverageBracket

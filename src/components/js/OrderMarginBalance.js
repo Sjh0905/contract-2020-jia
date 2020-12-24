@@ -22,6 +22,10 @@ root.mounted = function () {}
 root.beforeDestroy = function () {}
 /*------------------------------ 计算 -------------------------------*/
 root.computed = {}
+//不加下划线币对集合
+root.computed.sNameList = function () {
+  return this.$store.state.sNameList || []
+}
 // 所有币对精度信息
 root.computed.quoteScale_list = function () {
   let quoteScale_obj = {};
@@ -56,7 +60,7 @@ root.methods.getCapitalFlow = function () {
   this.$http.send('GET_BALAN__BIAN',{
     bind: this,
     query:{
-      // symbol:'BTCUSDT'
+      // symbols:this.sNameList.toString(),
       timestamp:this.serverTime
     },
     callBack: this.re_getCapitalFlow,
@@ -72,8 +76,6 @@ root.methods.re_getCapitalFlow = function (data) {
   // this.capitalFlowListData = data.data.assets
   this.capitalFlowList = data.data
   this.balance = data.data.assets[0]
-
-
 }
 // 账户余额错误回调
 root.methods.error_getCapitalFlow = function (err) {

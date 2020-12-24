@@ -23,6 +23,7 @@ requestAddress.POST_SINGLE_DOUBLE = {url: urlHead + '/future/account/positionSid
 requestAddress.POST_LEVELRAGE = {url: urlHead + '/future/account/levelrage', method: 'post',} // 调整杠杆接口
 requestAddress.POST_MARGIN_TYPE = {url: urlHead + '/future/account/marginType', method: 'post',} // 变换全仓逐仓
 requestAddress.GET_POSITION_RISK = {url: urlHead + '/future/account/positionRiskv2', method: 'get', requireOpen:true} // 仓位接口 查询全仓逐仓 杠杆倍数 最大头寸
+// requestAddress.GET_POSITION_RISK = {url: urlHead + '/future/account/positionRiskv2new', method: 'get', requireOpen:true} // 仓位接口 查询全仓逐仓 杠杆倍数 最大头寸
 
 requestAddress.GET_DEPTH = {url: urlHead + '/future/common/depth', method: 'get',} // 合约深度
 requestAddress.GET_AGG_TRADES = {url: urlHead + '/future/common/aggTrades', method: 'get',} // 获取实时成交
@@ -37,9 +38,11 @@ requestAddress.GET_BALAN_ACCOUNT = {url: urlHead+'/future/account/userBalancev2'
 requestAddress.POST_POSITION_MARGIN = {url: urlHead + '/future/account/positionMargin', method: 'post' ,} // 调整逐仓保证金
 requestAddress.LOGIN_OFF = {url: urlHead+'/future/common/signout', method: 'post'} //登出
 requestAddress.GET_BALAN__BIAN = {url: urlHead+'/future/account/userAccountv2', method: 'get', requireOpen:true}  //保证金余额
+// requestAddress.GET_BALAN__BIAN = {url: urlHead+'/future/account/userAccountv2new', method: 'get', requireOpen:true}  //保证金余额
 requestAddress.GET_ADL_QUANTILE = {url: urlHead+'/future/account/adlQuantile', method: 'get', requireOpen:true}  //持仓ADL队列估算
 requestAddress.GET_ORDER_BOOK_TICKER = {url: urlHead + '/future/common/orderBookTicker', method: 'get' ,} // 获取当前最优价格
-requestAddress.GET_LEVERAGE_BRACKET = {url: urlHead + '/future/user/leverageBracket', method: 'get', requireOpen:true} // 杠杆分层标准
+// requestAddress.GET_LEVERAGE_BRACKET = {url: urlHead + '/future/user/leverageBracket', method: 'get', requireOpen:true} // 杠杆分层标准
+requestAddress.GET_LEVERAGE_BRACKET = {url: urlHead + '/future/user/leverageBracketnew', method: 'get', requireOpen:true} // 杠杆分层标准
 requestAddress.POST_NOTICE_LIST = {url: urlHead+'/apis/user/findNoticeList', method: 'post'}
 //邀请码
 requestAddress.GET_INVITE_CODE = {url: urlHead + '/apis/user/futureInviteRelation/', method: 'get'} // 邀请码

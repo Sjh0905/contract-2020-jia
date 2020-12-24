@@ -238,7 +238,7 @@ root.methods.getCapitalFlow = function () {
     bind: this,
     query:{
       // symbol:'BTCUSDT'
-      timestamp:this.serverTime
+      // timestamp:this.serverTime
     },
     callBack: this.re_getCapitalFlow,
     errorHandler:this.error_getCapitalFlow
