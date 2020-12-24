@@ -501,10 +501,19 @@ root.methods.showDetail = function (id) {
     return
   }
   this.clickThis = id
+  if(this.$route.name != 'historicalEntrust'){
+    this.tradHistoryOrder.length !== 0 && this.tradHistoryOrder.forEach(v=>{
+      if(this.clickThis == v.orderId) {
+        this.startTime = Number(v.time) - 1000
+        this.endTime = Number(v.updateTime) + 1000
+      }
+    })
+    return
+  }
   this.historyOrder.length !== 0 && this.historyOrder.forEach(v=>{
     if(this.clickThis == v.orderId) {
-      this.startTime = v.updateTime - 1
-      this.endTime = v.updateTime + 1
+      this.startTime = v.updateTime - 1000
+      this.endTime = v.updateTime + 1000
     }
   })
   // console.info('this.firstTime===',this.startTime,this.endTime)

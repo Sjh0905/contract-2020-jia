@@ -41,8 +41,8 @@ requestAddress.GET_BALAN__BIAN = {url: urlHead+'/future/account/userAccountv2', 
 // requestAddress.GET_BALAN__BIAN = {url: urlHead+'/future/account/userAccountv2new', method: 'get', requireOpen:true}  //保证金余额
 requestAddress.GET_ADL_QUANTILE = {url: urlHead+'/future/account/adlQuantile', method: 'get', requireOpen:true}  //持仓ADL队列估算
 requestAddress.GET_ORDER_BOOK_TICKER = {url: urlHead + '/future/common/orderBookTicker', method: 'get' ,} // 获取当前最优价格
-// requestAddress.GET_LEVERAGE_BRACKET = {url: urlHead + '/future/user/leverageBracket', method: 'get', requireOpen:true} // 杠杆分层标准
-requestAddress.GET_LEVERAGE_BRACKET = {url: urlHead + '/future/user/leverageBracketnew', method: 'get', requireOpen:true} // 杠杆分层标准
+requestAddress.GET_LEVERAGE_BRACKET = {url: urlHead + '/future/user/leverageBracket', method: 'get', requireOpen:true} // 杠杆分层标准
+// requestAddress.GET_LEVERAGE_BRACKET = {url: urlHead + '/future/user/leverageBracketnew', method: 'get', requireOpen:true} // 杠杆分层标准
 requestAddress.POST_NOTICE_LIST = {url: urlHead+'/apis/user/findNoticeList', method: 'post'}
 //邀请码
 requestAddress.GET_INVITE_CODE = {url: urlHead + '/apis/user/futureInviteRelation/', method: 'get'} // 邀请码

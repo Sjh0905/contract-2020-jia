@@ -174,11 +174,11 @@ root.methods = {}
 
 // 历史成交
 root.methods.getHistorTrans = function () {
-  let symbol = this.$globalFunc.toOnlyCapitalLetters(this.symbol)
+  // let symbol = this.$globalFunc.toOnlyCapitalLetters(this.symbol)
   this.$http.send('GET_CAPITAL_DEAL',{
     bind: this,
     query:{
-      symbol,
+      symbol:this.symbol,
       startTime:this.startTime,
       endTime:this.endTime,
     },
