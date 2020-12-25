@@ -75,7 +75,7 @@
             <div class="td td-operation text_blue">
               <span class="click-operation chedanbutton"
                     :class="$route.name == 'currentEntrust'?'text_blue-1':'text_blue-0'"
-                    @click="cancelOrder(order)" v-if="!order.click">{{$t('orderPageCurrentEntrustment.cancel')}}</span>
+                    @click="cancelOrder(order)" v-if="canceling!==order.orderId">{{$t('orderPageCurrentEntrustment.cancel')}}</span>
               <span class="click-operating chedanbutton" v-else>{{$t('orderPageCurrentEntrustment.canceling')}}</span>
             </div>
           </li>
