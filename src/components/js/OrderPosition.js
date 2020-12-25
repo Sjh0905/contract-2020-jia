@@ -1158,7 +1158,7 @@ root.methods.getAdlFromSessionStorage = function (filterRecords) {
   let storageAdl = sessionStorage.getItem("storageAdl")
   //如果本地没有缓存，直接调用接口
   if(storageAdl == null){
-    console.log('如果本地没有缓存，直接调用接口',storageAdl);
+    // console.log('如果本地没有缓存，直接调用接口',storageAdl);
     this.getAdlQuantile();
     return;
   }
@@ -1174,7 +1174,7 @@ root.methods.getAdlFromSessionStorage = function (filterRecords) {
 
   //如果仓位和上次缓存相比有增减，直接调用接口
   if(item != undefined){
-    console.log('有增减 Object.keys(this.currSAdlQuantile).length commonNum',Object.keys(this.currSAdlQuantile).length,commonNum);
+    // console.log('有增减 Object.keys(this.currSAdlQuantile).length commonNum',Object.keys(this.currSAdlQuantile).length,commonNum);
     this.getAdlQuantile();
     return;
   }
@@ -1200,7 +1200,7 @@ root.methods.setAdlQuantileTimeout = function (args={}) {
   timeStep = reTimeInterval - (nowTime - saveTime);
   timeStep = timeStep < 0 ? 0 : timeStep;
 
-  console.log('reTimeInterval=',reTimeInterval,'timeStep=',timeStep,'nowTime - saveTime=',nowTime - saveTime);
+  // console.log('reTimeInterval=',reTimeInterval,'timeStep=',timeStep,'nowTime - saveTime=',nowTime - saveTime);
 
   this.adlQuantileTimeout && clearTimeout(self.adlQuantileTimeout);
   this.adlQuantileTimeout = setTimeout(()=>{
