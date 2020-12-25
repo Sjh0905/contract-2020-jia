@@ -1,3 +1,5 @@
+import tradingHallData from "../../dataUtils/TradingHallDataUtils";
+
 const root = {};
 
 root.name = 'MobileTradingHallDetail';
@@ -73,6 +75,12 @@ root.beforeDestroy = function () {
 /*----------------------------- 计算 ------------------------------*/
 
 root.computed = {}
+// 存储订单/交易更新推送Key值的映射关系
+root.computed.socketOrderKeyMap = function () {
+  let data = tradingHallData.socketOrderKeyMap;
+  // console.log(data);
+  return data
+}
 // 计算后的order，排序之类的放在这里
 root.computed.currentOrderComputed = function () {
   return this.currentOrder

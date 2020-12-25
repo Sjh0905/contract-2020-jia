@@ -270,7 +270,8 @@
 ._m_co_l4{
   align-items: flex-end;
 }
-._m_co_l4 > span{
+/*._m_co_l4 span{*/
+.click-operation{
 	display: block;
 	box-sizing: border-box;
 	/*width: 0.72rem;*/
@@ -290,7 +291,8 @@
   align-items: flex-end;
 
 }
-._m_co_l5>span{
+/*._m_co_l5>span{*/
+.click-operating{
 	display: block;
 	box-sizing: border-box;
 	/*width: 0.72rem;*/
