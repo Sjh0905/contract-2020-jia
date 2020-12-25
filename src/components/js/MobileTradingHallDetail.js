@@ -2066,7 +2066,7 @@ root.methods.getMarkPricesAndCapitalRates = function () {
   this.$http.send('GET_MARKET_PRICE',{
     bind: this,
     query:{
-      symbol:this.capitalSymbol
+      symbol:this.sNameList.toString(),
     },
     callBack: this.re_getMarkPricesAndCapitalRates,
     errorHandler:this.error_getMarkPricesAndCapitalRates
