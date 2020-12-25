@@ -77,6 +77,7 @@ root.data = function () {
     },  // 平仓价格在多少
     order:{},
     priceCheck1:0,
+    getPositionRiskFirst:true,//是否是初始化第1次调用仓位接口，用来做自动减仓查询判断
     currSAdlQuantile:{},
     controlType: false,
     positionAmt:0, // 当前仓位的数量
@@ -187,7 +188,7 @@ root.created = function () {
   this.getPositionRisk()
   this.$eventBus.listen(this, 'GET_POSITION', this.getPositionRisk)
   this.positionSocket()
-  this.getAdlQuantile()
+  // this.getAdlQuantile()
   // 该接口需30分钟调取一次
   this.adlQuantile && clearInterval(this.adlQuantile)
   this.adlQuantile = setInterval(this.getAdlQuantile, 1000 * 60 * 30)
@@ -606,8 +607,8 @@ root.methods.positionSocket = function () {
           }
         }
       })*/
-
-      let currPositionsNew = this.records,filterSocketPositons = socketPositons.filter(sv=>{
+      //.slice() 或 [...] => 相当于第一层的深拷贝
+      let currPositionsNew = this.records.slice(),filterSocketPositons = socketPositons.filter(sv=>{
         this.setCloseAmount(sv)
 
         return this.psSymbolArr.includes(sv.s);
@@ -657,6 +658,9 @@ root.methods.positionSocket = function () {
               //如果本地存在对应币对对应持仓方向的仓位需要删除，否则不用处理
               if(fKey == cKey){
                 currPositionsNew.splice(i,1);
+                //删除仓位后，对应的自动减仓数据要还原并缓存到本地
+                this.currSAdlQuantile[fKey] = 0
+                this.editAdlToSessionStorage()
                 break;
               }
             }
@@ -675,6 +679,17 @@ root.methods.positionSocket = function () {
           }
         }
       })
+
+      if(currPositionsNew.length == 0){
+        this.currSAdlQuantile = undefined
+        this.clearSessionStorage()
+      }
+      //length变大说明有新增
+      if(currPositionsNew.length > this.records.length){
+        if(!this.getPositionRiskFirst){
+          this.setAdlQuantileTimeout({reTimeInterval:60 * 1000});
+        }
+      }
 
       this.records = currPositionsNew
       // this.records = realSocketPositons
@@ -794,6 +809,12 @@ root.methods.re_getPositionRisk = function (data) {
 
     //需要用到标记价格计算
     this.handleWithMarkPrice(this.records);
+
+    //如果是第1次调用仓位需要判断是否调用自动减仓
+    if(this.getPositionRiskFirst){
+      this.getPositionRiskFirst = false;
+      this.getAdlFromSessionStorage(filterRecords);
+    }
 
     //自动减仓数据拼接
     if(this.currSAdlQuantile)this.addAdlQuantile(this.currSAdlQuantile,this.records)
@@ -1102,6 +1123,92 @@ root.methods.LPCalculation2SHORT = function (paras){
 root.methods.LPCalculation2LS = function (paras){
 
 }
+root.methods.clearSessionStorage = function (key = "storageAdl") {
+  if(!key)return
+  sessionStorage.removeItem(key)
+}
+//编辑sessionStorage，需保持原来的接口调用时间
+root.methods.editAdlToSessionStorage = function () {
+  let storageAdl = sessionStorage.getItem("storageAdl");
+  typeof storageAdl === 'string' && (storageAdl = JSON.parse(storageAdl))
+  let nowTime = new Date().getTime(),reTimeInterval = 30 * 1000,
+    saveTime = (storageAdl && storageAdl.saveTime > 0) ? Number(storageAdl.saveTime) : (nowTime - reTimeInterval);//如果saveTime不存在，默认间隔 reTimeInterval 时间前刚调用过
+
+  storageAdl = {
+    currSAdlQuantile:this.currSAdlQuantile,
+    saveTime:saveTime
+  }
+
+  this.setAdlToSessionStorage({storageAdl})
+}
+//由于缓存到sessionStorage，不用考虑区分用户
+root.methods.setAdlToSessionStorage = function (args={}) {
+  let {storageAdl} = args;
+
+  if(storageAdl == undefined){
+    storageAdl = {
+      currSAdlQuantile:this.currSAdlQuantile,
+      saveTime:new Date().getTime()
+    }
+  }
+
+  sessionStorage.setItem("storageAdl",JSON.stringify(storageAdl))
+}
+root.methods.getAdlFromSessionStorage = function (filterRecords) {
+  let storageAdl = sessionStorage.getItem("storageAdl")
+  //如果本地没有缓存，直接调用接口
+  if(storageAdl == null){
+    console.log('如果本地没有缓存，直接调用接口',storageAdl);
+    this.getAdlQuantile();
+    return;
+  }
+
+  typeof storageAdl === 'string' && (storageAdl = JSON.parse(storageAdl))
+  this.currSAdlQuantile = storageAdl.currSAdlQuantile || {};
+
+  let item = filterRecords.find(v=>{
+    let s = v.symbol,ps = v.positionSide
+    //如果currSAdlQuantile不存在此仓位数据，说明有增减
+    return this.currSAdlQuantile[s+"_"+ps] == undefined
+  })
+
+  //如果仓位和上次缓存相比有增减，直接调用接口
+  if(item != undefined){
+    console.log('有增减 Object.keys(this.currSAdlQuantile).length commonNum',Object.keys(this.currSAdlQuantile).length,commonNum);
+    this.getAdlQuantile();
+    return;
+  }
+
+  // let saveTime = (storageAdl && storageAdl.saveTime > 0) ? Number(storageAdl.saveTime) : 0
+  this.setAdlQuantileTimeout({storageAdl});
+
+  //如果仓位无变化，距离上一次30s后才能调用
+  // let saveTime = Number(storageAdl.saveTime || 0) > 0 ? Number(storageAdl.saveTime) : (nowTime - reTimeInterval),//如果saveTime不存在，默认30s前刚调用过
+}
+//设置延时器查询自动减仓最新数据
+root.methods.setAdlQuantileTimeout = function (args={}) {
+  let {storageAdl,reTimeInterval} = args;
+  // let self = this;
+
+  if(storageAdl == undefined){storageAdl = sessionStorage.getItem("storageAdl");}
+  if(reTimeInterval == undefined){reTimeInterval = 30 * 1000;}//调用自动减仓接口默认每30s更新数据
+
+  typeof storageAdl === 'string' && (storageAdl = JSON.parse(storageAdl))
+  //如果刷新后仓位无变化 或 不刷新页面直接新增仓位，距离上一次间隔 reTimeInterval 时间后调用接口
+  let nowTime = new Date().getTime(),
+  saveTime = (storageAdl && storageAdl.saveTime > 0) ? Number(storageAdl.saveTime) : (nowTime - reTimeInterval),//如果saveTime不存在，默认间隔 reTimeInterval 时间前刚调用过
+  timeStep = reTimeInterval - (nowTime - saveTime);
+  timeStep = timeStep < 0 ? 0 : timeStep;
+
+  console.log('reTimeInterval=',reTimeInterval,'timeStep=',timeStep,'nowTime - saveTime=',nowTime - saveTime);
+
+  this.adlQuantileTimeout && clearTimeout(self.adlQuantileTimeout);
+  this.adlQuantileTimeout = setTimeout(()=>{
+    this.getAdlQuantile();
+    // this.adlQuantileTimeout && clearTimeout(this.adlQuantileTimeout);
+  },timeStep)
+
+}
 // 自动减仓持仓ADL队列估算
 root.methods.getAdlQuantile = function () {
   this.$http.send("GET_ADL_QUANTILE", {
@@ -1123,9 +1230,15 @@ root.methods.re_getAdlQuantile = function (data) {
 
   let len = data.data.length;
 
-  len == 0 && (this.currSAdlQuantile = undefined)
+  //目前限制只有仓位条数大于0的时候才调用接口，这块基本不执行
+  if(len == 0){
+    this.currSAdlQuantile = undefined
+    this.clearSessionStorage();
+  }
+
   if(len > 0){
-    this.currSAdlQuantile == undefined && (this.currSAdlQuantile = {})
+    //由于返回的全量数据并且本地做了缓存，每次赋值前都要初始化
+    this.currSAdlQuantile = {}
     data.data.map(v=>{
       let s = v.symbol,indicatorLight = v.adlQuantile.json
 
@@ -1138,6 +1251,12 @@ root.methods.re_getAdlQuantile = function (data) {
   if(this.records.length > 0 && this.currSAdlQuantile)
     this.addAdlQuantile(this.currSAdlQuantile,this.records)
   // console.log('this is getAdlQuantile',data);
+
+  //缓存自动减仓数据到本地
+  if(len > 0 && this.currSAdlQuantile){
+    this.setAdlToSessionStorage()
+  }
+
 }
 // 自动减仓持仓ADL队列估算返回出错
 root.methods.error_getAdlQuantile = function (err) {
