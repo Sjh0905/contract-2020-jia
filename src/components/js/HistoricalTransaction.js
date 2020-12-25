@@ -40,7 +40,7 @@ root.data = function () {
     loadingMoreIng: false, //是否正在加载更多
     limit:50,
     startTime:0,
-    endTime:new Date().getTime() + 24 * 3599 * 1000, // 历史成交传初始化结束时间，点击加载更多传最后一条数据的时间
+    endTime:new Date().getTime() + (24 * 3600 * 1000 - 1000), // 历史成交传初始化结束时间，点击加载更多传最后一条数据的时间
     fromId:0,
     /* ==========分页部分 end=========== */
   }
@@ -130,7 +130,7 @@ root.methods.clearEmpty =function () {
   this.valueUsdt = ''
 }
 root.methods.clearLimit =function () {
-  this.endTime = new Date().getTime() + 24 * 3599 * 1000
+  this.endTime = new Date().getTime() + (24 * 3600 * 1000 - 1000)
   this.limit = 50
 }
 // 单独处理时间的函数

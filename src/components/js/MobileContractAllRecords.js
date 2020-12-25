@@ -445,12 +445,7 @@ root.methods.getPosterImageLoss = function () {
   })
 }
 root.methods.re_getPosterImageLoss = function (res) {
-  this.isProfitLoss = res.data.isProfitLoss
-  if (this.isProfitLoss == true) {
-    this.getPosterImage()
-  }else{
-    this.getPosterImage()
-  }
+  typeof res === 'string' && (res = JSON.parse(res))
   if(res.code == 1) {
     this.showPoster = false;
     this.popText = '请您先登录再进行分享'
@@ -499,6 +494,12 @@ root.methods.re_getPosterImageLoss = function (res) {
     this.popType = 0;
     this.promptOpen = true;
     return
+  }
+  this.isProfitLoss = res.data.isProfitLoss
+  if (this.isProfitLoss == true) {
+    this.getPosterImage()
+  }else{
+    this.getPosterImage()
   }
   // if(res.code == 200){
   //   let urls = res.data

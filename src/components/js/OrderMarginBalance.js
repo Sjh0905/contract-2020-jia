@@ -60,8 +60,8 @@ root.methods.getCapitalFlow = function () {
   this.$http.send('GET_BALAN__BIAN',{
     bind: this,
     query:{
-      // symbols:this.sNameList.toString(),
-      timestamp:this.serverTime
+      symbols:this.sNameList.toString(),
+      // timestamp:this.serverTime
     },
     callBack: this.re_getCapitalFlow,
     errorHandler:this.error_getCapitalFlow

@@ -722,7 +722,8 @@ root.methods.getAccount = function () {
   this.$http.send("GET_BALAN__BIAN", {
     bind: this,
     query: {
-      timestamp: this.serverTime
+      symbols:this.sNameList.toString(),
+      // timestamp: this.serverTime
     },
     callBack: this.re_getAccount,
     errorHandler: this.error_getAccount
