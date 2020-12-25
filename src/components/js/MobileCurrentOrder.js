@@ -26,9 +26,12 @@ root.data = function () {
     orderDetail: [],
     cancelAll: false,
 
+    // 信息提示
+    popType: 0,
+    popText: '',
+    promptOpen: false,
     popOpen: false,
 
-    promptOpen: false,
     promptType: 0,
 
     limit: 200, //请求次数
@@ -111,7 +114,12 @@ root.computed.capitalSymbol = function () {
 /*----------------------------- 方法 ------------------------------*/
 
 root.methods = {};
+
 /*-----------------------  合约  begin  -----------------------*/
+// 关闭提示
+root.methods.closePrompt = function () {
+  this.promptOpen = false
+}
 // 接收 socket 信息
 root.methods.receiveSocket = function () {
   // 获取当前委托的数据
@@ -244,11 +252,11 @@ root.methods.cancelOrder = async function (order, cancelAll = false) {
     symbol: order.symbol,
     timestamp:order.updateTime
   }
-  if (!cancelAll) {
-    await new Promise(function (resolve, reject) {
-      setTimeout(resolve, 2000)
-    })
-  }
+  // if (!cancelAll) {
+  //   await new Promise(function (resolve, reject) {
+  //     setTimeout(resolve, 2000)
+  //   })
+  // }
   // console.warn("params", params)
   await this.$http.send('GET_CAPITAL_CANCEL', {
     bind: this,
@@ -263,11 +271,12 @@ root.methods.re_cancelOrder = function (data) {
     this.promptOpen = true;
     this.popType = 0;
     this.popText = '用户无权限';
+    this.canceling =  false;
     return
   }
   typeof(data) == 'string' && (data = JSON.parse(data));
   this.canceling =  false;
-  this.loading = false
+  // this.loading = false
   if(data.code == 200){
     this.getOrder()
     this.$eventBus.notify({key:'GET_POSITION'})

@@ -28,6 +28,7 @@ root.data = () => {
     promptOpen: false,
 
     cancelAll: false,
+    canceling:false,
 
     currentInterval: null,
 
@@ -250,18 +251,19 @@ root.methods.initInterval = function () {
 root.methods.cancelOrder = async function (order, cancelAll = false) {
   this.loading = true
   this.clickOrder.add(order.orderId)
-  order.click = true
+  this.canceling = order.orderId
+  // order.click = true
   let params = {
     orderId: order.orderId,
     clientOrderId:order.clientOrderId,
     symbol: order.symbol,
     timestamp:order.updateTime
   }
-  if (!cancelAll) {
-    await new Promise(function (resolve, reject) {
-      setTimeout(resolve, 2000)
-    })
-  }
+  // if (!cancelAll) {
+  //   await new Promise(function (resolve, reject) {
+  //     setTimeout(resolve, 2000)
+  //   })
+  // }
   // console.warn("params", params)
   await this.$http.send('GET_CAPITAL_CANCEL', {
     bind: this,
@@ -276,10 +278,13 @@ root.methods.re_cancelOrder = function (data) {
     this.promptOpen = true;
     this.popType = 0;
     this.popText = '用户无权限';
+    this.loading = false
+    this.canceling = false
     return
   }
   typeof(data) == 'string' && (data = JSON.parse(data));
   this.loading = false
+  this.canceling = false
   if(data.code == 200){
     this.getOrder()
     this.$eventBus.notify({key:'GET_POSITION'})

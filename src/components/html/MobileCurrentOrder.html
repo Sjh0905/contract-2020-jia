@@ -70,7 +70,7 @@
               <div class=" flex-center" :class="[{_m_co_l4:canceling!==order.orderId},{_m_co_l5:canceling===order.orderId}]">
 <!--                <span>{{canceling==order.id&&'撤销中'||'撤销'}}</span>-->
                 <span class="click-operation" :class="$route.name == 'currentEntrust'?'text_blue-1':'text_blue-0'"
-                      @click="cancelOrder(order)" v-if="!order.click">{{$t('orderPageCurrentEntrustment.cancel')}}</span>
+                      @click="cancelOrder(order)" v-if="canceling!==order.orderId">{{$t('orderPageCurrentEntrustment.cancel')}}</span>
                 <span class="click-operating" v-else>{{$t('orderPageCurrentEntrustment.canceling')}}</span>
               </div>
             </div>
@@ -113,10 +113,12 @@
     <!--</div>-->
 
 
+  <PopupPrompt :popType="popType" :popText="popText" :popOpen="promptOpen" :popClose="closePrompt"></PopupPrompt>
 
-    <MobilePopupWindow :switch="popOpen" v-on:close="closePop">
 
-    </MobilePopupWindow>
+<!--  <MobilePopupWindow :switch="popOpen" v-on:close="closePop">-->
+
+<!--    </MobilePopupWindow>-->
 
 
 </div>
