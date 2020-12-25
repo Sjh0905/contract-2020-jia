@@ -553,8 +553,8 @@ root.methods.getPosterImageLoss = function () {
   // return
   this.poster_url = ''
   let params = {
-    // orderId:this.orderId,
-    // clientOrderId:this.clientOrderId,
+    orderId:this.orderId,
+    clientOrderId:this.clientOrderId,
     symbol:this.posterSymbol,
   }
   this.$http.send('POST_ASSET_LOSS', {
