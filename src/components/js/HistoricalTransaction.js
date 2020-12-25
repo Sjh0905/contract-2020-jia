@@ -165,8 +165,8 @@ root.methods.getHistorTrans = function (type) {
     // 由于当前条件向下 币安只能正序返回数据，所以首次加载多返回50条数据，查看更多 增加50条
     this.limit += 50
     query = {
-      startTime:this.interTimerPicker,
-      endTime:(this.interTimerPicker + 24 * 3600 * 1000 - 1000),
+      startTime:this.interTimerPicker || '',
+      endTime: this.interTimerPicker ? (this.interTimerPicker + 24 * 3600 * 1000 - 1000) :'' ,
       symbol:this.valueUsdt || '',
       limit: this.limit,
     }
@@ -208,13 +208,14 @@ root.methods.re_getHistorTrans = function (data) {
   if(!data && !data.data)return
   this.loading = false
   if(this.$route.name != 'historicalTransaction'){
-    this.historicaList = data.data
+    this.historicaList = data.data || []
     // 搜索完毕需要将用到的值清空
     return
   }
   // console.info('data====',data.data)
   if(this.$route.name == 'historicalTransaction' && (this.interTimerPicker != null || this.valueUsdt !='')) {
     this.historicaList = data.data || []
+    this.loadingMoreIng = false
     if (data.data.length < this.limit) {
       this.showLoadingMore = false
     }
