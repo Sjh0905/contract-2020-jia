@@ -695,8 +695,9 @@ root.methods.positionSocket = function () {
       // this.records = realSocketPositons
 
       this.$emit('getPositionRisk',this.records.length)//传值最新仓位数量给tradinghall 仓位标题栏使用
-      //没有仓位数据时自动减仓返回的空数组，currSAdlQuantile会是undefined，增加仓位后重新调取接口获取值
-      if(this.records.length > 0 && this.currSAdlQuantile == undefined)this.getAdlQuantile();
+      //没有仓位数据时自动减仓返回的空数组，currSAdlQuantile会是{} 或 undefined，增加仓位后重新调取接口获取值，
+      // 增加币对后本行用不到，统一接口回调处理
+      // if(this.records.length > 0 && this.currSAdlQuantile == undefined)this.getAdlQuantile();
       //自动减仓数据拼接
       if(this.currSAdlQuantile)this.addAdlQuantile(this.currSAdlQuantile,this.records);
       this.handleWithMarkPrice(this.records)
