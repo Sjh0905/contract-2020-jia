@@ -102,7 +102,8 @@ root.computed.specialSymbol = function () {
 
 // 特殊专区 0为超级为蜜
 root.computed.sNameMap = function () {
-  let defaultSNameMap = {"BTCUSDT":"BTC_USDT","ETHUSDT":"ETH_USDT"}
+  // let defaultSNameMap = {"BTCUSDT":"BTC_USDT","ETHUSDT":"ETH_USDT"}
+  let defaultSNameMap = this.$store.state.defaultSNameMap;
   return this.$store.state.sNameMap || defaultSNameMap
 }
 

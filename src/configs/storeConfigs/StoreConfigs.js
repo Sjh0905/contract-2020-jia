@@ -246,7 +246,12 @@ store.state.sNameList = []
 //加下划线币对名集合
 store.state.sLineNameList = []
 //币对名映射，格式 BTCUSDT:BTC_USDT
-store.state.sNameMap = []
+store.state.sNameMap = {}
+store.state.defaultSNameMap = {"BTCUSDT":"BTC_USDT","ETHUSDT":"ETH_USDT","LTCUSDT":"LTC_USDT"}
+//币对名映射，格式 BTC_USDT:BTC_USDT
+store.state.defaultSLineNameMap = {"BTC_USDT":"BTC_USDT","ETH_USDT":"ETH_USDT","LTC_USDT":"LTC_USDT"}
+//访问链接币对映射
+store.state.urlSNameMap = Object.assign(store.state.defaultSNameMap,store.state.defaultSLineNameMap)
 
 
 

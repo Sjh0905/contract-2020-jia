@@ -40,7 +40,8 @@ export default async function ($http, $store, $cookie, $i18n) {
 
   //检测访问链接有没有携带币对
   function getUrlSymbol(sn) {
-    let sNameMap = {"BTCUSDT":"BTC_USDT","ETHUSDT":"ETH_USDT","BTC_USDT":"BTC_USDT","ETH_USDT":"ETH_USDT"}
+    // let sNameMap = {"BTCUSDT":"BTC_USDT","ETHUSDT":"ETH_USDT","BTC_USDT":"BTC_USDT","ETH_USDT":"ETH_USDT"}
+    let sNameMap = $store.state.urlSNameMap;
     let reg = new RegExp("(^|&)"+"symbol"+"=([^&]*)(&|$)");
     let s = window.location.search.substr(1).match(reg);
     // console.log("this is s",s);
@@ -52,6 +53,15 @@ export default async function ($http, $store, $cookie, $i18n) {
     }
 
     return sn
+  }
+
+  //设置用户未登录时的币对
+  function setUnloginSymbol(symbol){
+    symbol = $cookie.get('unlogin_contract_symbol_cookie') || symbol
+    //检测访问链接有没有携带币对
+    symbol = getUrlSymbol(symbol);
+    $cookie.set('unlogin_contract_symbol_cookie', symbol, 60 * 60 * 24 * 30,"/");
+    $store.commit('SET_SYMBOL',symbol)
   }
 
   //请求个人信息
@@ -67,9 +77,7 @@ export default async function ($http, $store, $cookie, $i18n) {
         // }
         // 未登录状态
         if(data.code == 401){
-          let user_symbol = $cookie.get('unlogin_contract_symbol_cookie')
-          $store.commit('SET_SYMBOL', user_symbol)     // 如果没有用户登录选择币对，则为ETH_USDT币对
-          // $store.commit('SET_SYMBOL', 'GRC_USDT')     // 如果没有用户登录选择币对，则为GRC_USDT币对
+          setUnloginSymbol(symbol)
           // $store.commit('ENTER_CONTRACT', data.data.contract)//判断用户是否第一次进入合约
           return
         }
@@ -100,16 +108,9 @@ export default async function ($http, $store, $cookie, $i18n) {
 
       },
       errorHandler: function (err) {
-        symbol = /*'ETH_USDT' ||*/ $cookie.get('unlogin_contract_symbol_cookie') || symbol
         // console.warn('出错', err)
 
-        //检测访问链接有没有携带币对
-        symbol = getUrlSymbol(symbol);
-
-        $cookie.set('unlogin_contract_symbol_cookie', symbol, 60 * 60 * 24 * 30,"/");
-
-        $store.commit('SET_SYMBOL',symbol)  // 如果没有用户登录选择币对，则为ETH_USDT币对
-        // $store.commit('SET_SYMBOL', 'GRC_USDT')  // 如果没有用户登录选择币对，则为GRC_USDT币对
+        setUnloginSymbol(symbol)
       }
     })
   }
