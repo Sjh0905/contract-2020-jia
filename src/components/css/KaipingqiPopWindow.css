@@ -209,7 +209,7 @@
 .opener-opening-amount {
   min-height: 46px;
   /*line-height: 46px;*/
-  align-items: center;
+  /*align-items: center;*/
   padding: 10px 25px;
   /*font-size: 15px;*/
   /*font-family: PingFangSC-Medium, PingFang SC;*/
@@ -220,7 +220,7 @@
 .opener-opening-amount-left {
   max-width: 265px;
   /*flex: 1;*/
-  align-items: center;
+  /*align-items: center;*/
   font-size: 12px;
   font-family: PingFangSC-Medium, PingFang SC;
   font-weight: 500;
@@ -249,7 +249,7 @@
 .opener-opening-amount-right {
   width: 254px;
   font-size: 12px;
-  align-items: center;
+  /*align-items: center;*/
   font-family: PingFangSC-Medium, PingFang SC;
   font-weight: 500;
   color: #fff;
@@ -258,8 +258,8 @@
 .opener-amount-left-con {
   white-space: normal;
   margin-left: 8px;
-
 }
+
 .width-open-amount {
   color: #A2B5D9;
   margin-right: 16px;
