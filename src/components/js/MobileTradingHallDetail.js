@@ -2374,7 +2374,7 @@ root.methods.setKaipingqiPos = function(records){
 
   for (let i = 0; i < records.length ; i++) {
     let v = records[i];
-    if (v.marginType == 'cross' && v.positionAmt != 0 ) {
+    if (v.marginType == 'cross' && v.positionAmt != 0 && v.symbol == this.capitalSymbol) {
       filterRecords.push(v)
       continue;
     }
@@ -2391,6 +2391,7 @@ root.methods.setKaipingqiPos = function(records){
       }
     }
   }
+  console.info(this.positionList)
   this.positionList = filterRecords
 }
 

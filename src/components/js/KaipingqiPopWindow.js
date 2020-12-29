@@ -327,6 +327,8 @@ root.computed.stepShortListDown = function () {
 
 // 双仓可盈多仓数量
 root.computed.openAmountLong = function () {
+  //防止上一次的值覆盖
+  this.totalAmountLong = 0
   let amount = 0
   this.positionList && this.positionList.forEach((v,dex)=>{
     if(v.positionSide == 'LONG' && v.symbol==this.capitalSymbol){
@@ -341,7 +343,7 @@ root.computed.openAmountLong = function () {
   if(this.positionModeFirst == 'doubleWarehouseMode'&& this.openerType ==1 && this.longOrShortType == 2){
     return amount = Number(this.toFixed(Number(this.totalAmountLong),this.baseScale)) || '--'
   }
-  return amount = this.toFixed(Number(this.openAmount) + Number(this.totalAmountLong),this.baseScale) || '--'
+  return amount = Number(this.toFixed(Number(this.openAmount) + Number(this.totalAmountLong),this.baseScale)) || '--'
 }
 // 双仓可盈多仓均价
 root.computed.averagePriceLong = function () {
@@ -353,6 +355,8 @@ root.computed.averagePriceShort = function () {
 }
 // 双仓可盈空仓数量
 root.computed.openAmountShort = function () {
+  //防止上一次的值覆盖
+  this.totalAmountShort = 0
   let amount = 0
   this.positionList.forEach((v,dex)=>{
     if(v.positionSide == 'SHORT' && v.symbol==this.capitalSymbol){
@@ -363,7 +367,7 @@ root.computed.openAmountShort = function () {
   if(this.positionList.length == 0)  (this.totalAmountShort = 0)
   if(this.positionList.length == 0 && !this.openAmount) return '--'
   if(this.positionModeFirst == 'doubleWarehouseMode'&& this.openerType ==1 && this.longOrShortType == 1){
-    console.info(this.toFixed(Number(this.totalAmountShort),this.baseScale) || '--')
+    // console.info(this.toFixed(Number(this.totalAmountShort),this.baseScale) || '--')
     return amount = Number(this.toFixed(Number(this.totalAmountShort),this.baseScale)) || '--'
   }
   return amount = this.toFixed(Number(this.openAmount) + Number(this.totalAmountShort),this.baseScale) || '--'
@@ -951,6 +955,7 @@ root.methods.re_createWithStop = function (data) {
   typeof(data) == 'string' && (data = JSON.parse(data));
   this.openDisabel = false
   this.isLiChengCheng =true
+  this.clearVal()
   switch (data.code) {
     case 401:
       this.popOpen = true;
@@ -1202,8 +1207,8 @@ root.methods.comitBottleOpener = function () {
 }
 // 取消按钮
 root.methods.closeClick = function () {
-  this.$emit('close')
   this.clearVal()
+  this.$emit('close')
 }
 // H5 取消按钮
 root.methods.closeClickBtn = function () {
@@ -1237,6 +1242,9 @@ root.methods.clearVal= function () {
   this.stopProfitPointEmpty = ''
   this.StopLossPointEmpty = ''
   this.isLiChengCheng = true
+  // 不清空会保留上一次打开的数据
+  this.totalAmountShort = 0
+  this.totalAmountShort = 0
 }
 
 /* -------------------- 开平器记录列表 begin-------------------- */
