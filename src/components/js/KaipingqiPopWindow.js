@@ -274,6 +274,12 @@ root.computed.stepLongListDown = function () {
 
 // 空仓全部价格（平仓止盈）
 root.computed.allShortPrice = function () {
+  if(this.positionModeFirst == 'doubleWarehouseMode' && this.openerType==1 && this.closePosition == 2) {
+    if(!this.stopProfitPoint) return '--'
+    if(Number(this.stopProfitPoint) > Number(this.averagePriceShort)) return 0
+    // console.info(Number(this.toFixed(this.allPrice(this.averagePriceShort,-this.stopProfitPoint),2)))
+    return Number(this.toFixed(this.allPrice(this.averagePriceShort,-this.stopProfitPoint),2)) || '--'
+  }
   if(!this.stopProfitPointEmpty) return '--'
   if(Number(this.stopProfitPointEmpty) > Number(this.averagePriceShort)) return 0
   return Number(this.toFixed(this.allPrice(this.averagePriceShort,-this.stopProfitPointEmpty),2)) || '--'
@@ -295,6 +301,11 @@ root.computed.stepShortList = function () {
 
 // 空仓全部价格（清仓止损）
 root.computed.allShortPriceDown = function () {
+  if(this.positionModeFirst == 'doubleWarehouseMode' && this.openerType==1 && this.closePosition == 2) {
+    if(!this.StopLossPoint) return '--'
+    if(Number(this.StopLossPoint) > Number(this.averagePriceShort)) return 0
+    return Number(this.toFixed(this.allPrice(this.averagePriceShort,this.StopLossPoint),2)) || '--'
+  }
   if(!this.StopLossPointEmpty) return '--'
   // if(this.StopLossPointEmpty > this.averagePriceShort) return 0
   return Number(this.toFixed(this.allPrice(this.averagePriceShort,this.StopLossPointEmpty),2)) || '--'
