@@ -932,8 +932,8 @@ root.computed.canBeOpened = function () {
     // 计算可开空数量
     let afterTradeLongS = Math.max(Math.abs( positionNotionalLong + this.computedBuyNetValue), Math.abs(positionNotionalLong - this.computedSellNetValue))
     let afterTradeShortS = Math.max(Math.abs(positionNotionalShort + this.computedBuyNetValue), Math.abs(positionNotionalShort - this.computedSellNetValue + (this.assumingPriceDouble[1] * Number(sellCanOpen))))
-    afterTradeBuy = afterTradeLongB + afterTradeShortS
-    afterTradeSell = afterTradeLongB + afterTradeShortS
+    afterTradeBuy = afterTradeLongB + afterTradeShortB
+    afterTradeSell = afterTradeLongS + afterTradeShortS
 
     if(afterTradeBuy > this.maxNotionalAtCurrentLeverage) {
       buyCanOpen = (this.maxNotionalAtCurrentLeverage - (afterTradeShortB + afterTradeLongS)) / this.assumingPriceDouble[0]
@@ -961,8 +961,8 @@ root.computed.canBeOpened = function () {
     // 计算可开空数量
     let afterTradeLongS = Math.max(Math.abs( positionNotionalLong + this.computedBuyNetValue), Math.abs(positionNotionalLong - this.computedSellNetValue))
     let afterTradeShortS = Math.max(Math.abs(positionNotionalShort + this.computedBuyNetValue), Math.abs(positionNotionalShort - this.computedSellNetValue + this.assumingPriceDouble[1] * Number(sellCanOpen)))
-    afterTradeBuy = afterTradeLongB + afterTradeShortS
-    afterTradeSell = afterTradeLongB + afterTradeShortS
+    afterTradeBuy = afterTradeLongB + afterTradeShortB
+    afterTradeSell = afterTradeLongS + afterTradeShortS
 
     if(afterTradeBuy > this.maxNotionalAtCurrentLeverage) {
       buyCanOpen =(this.maxNotionalAtCurrentLeverage - (afterTradeShortB + afterTradeLongS)) / this.assumingPriceDouble[0]

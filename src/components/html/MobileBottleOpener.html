@@ -61,11 +61,17 @@
                 <div class="opener-amount">开仓数量</div>
                 <input class="markprice-ipt" type="text" placeholder="0" v-model="openAmount" @keyup="testPointValue('openAmount',3)">
               </div>
-              <!--单仓可开数量-->
+              <!--单仓单开可开数量-->
+<!--              <div class="opener-opening-amount-right flex" v-if="positionModeFirst == 'singleWarehouseMode' && openerType == 1">-->
+<!--                <div>可开数量</div>-->
+<!--                <div class="opener-amount-left-con" v-if="longOrShortType == 1">{{toFixed(openAmtBuy,3)}} {{symbol.split('_')[0]}}</div>-->
+<!--                <div class="opener-amount-left-con" v-if="longOrShortType == 2">{{toFixed(openAmtSell,3)}} {{symbol.split('_')[0]}}</div>-->
+<!--              </div>-->
+              <!--双仓单开可开数量-->
               <div class="opener-opening-amount-right flex" v-if="openerType == 1">
                 <div>可开数量</div>
-                <div class="opener-amount-left-con" v-if="longOrShortType == 1">{{toFixed(openAmtBuy,3)}} {{symbol.split('_')[0]}}</div>
-                <div class="opener-amount-left-con" v-if="longOrShortType == 2">{{toFixed(openAmtSell,3)}} {{symbol.split('_')[0]}}</div>
+                <div class="opener-amount-left-con" v-if="longOrShortType == 1">{{positionModeFirst == 'doubleWarehouseMode' ? toFixed(openAmtLong,baseScale) : toFixed(openAmtBuy,baseScale)}} {{symbol.split('_')[0]}}</div>
+                <div class="opener-amount-left-con" v-if="longOrShortType == 2">{{positionModeFirst == 'doubleWarehouseMode' ? toFixed(openAmtShort,baseScale) : toFixed(openAmtSell,baseScale)}} {{symbol.split('_')[0]}}</div>
               </div>
               <!--双仓可开数量-->
               <div class="opener-opening-amount-right flex" v-if="openerType == 2">

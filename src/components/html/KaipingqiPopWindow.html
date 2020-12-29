@@ -39,7 +39,7 @@
 <!--                双仓情况-->
                 <div class="opener-opening-amount flex-between" v-if="openerType == 2">
                   <div class="opener-opening-amount-left flex">
-                    <div>开仓数量</div>
+                    <div class="opener-opening-width">开仓数量</div>
                     <div class="opener-opening-amount-left-con">
                       <span>多 {{openAmountLong}} {{symbol.split('_')[0]}}</span>
                       <span>空 {{openAmountShort}} {{symbol.split('_')[0]}}</span>
@@ -47,11 +47,14 @@
 <!--                    <div class="opener-opening-amount-left-con">{{totalOpenAmount}} {{symbol.split('_')[0]}}</div>-->
                   </div>
                   <div class="opener-opening-amount-right flex">
-                    <div>可开数量</div>
-                    <div class="opener-amount-left-con">多 {{toFixed(openAmtLong,baseScale) || '--'}} {{symbol.split('_')[0]}}</div>
-                    <div class="opener-amount-left-con">空 {{toFixed(openAmtShort,baseScale) || '--'}} {{symbol.split('_')[0]}}</div>
+                    <div class="opener-opening-width">可开数量</div>
+                    <div class="opener-opening-amount-left-con">
+                      <span>多 {{toFixed(openAmtLong,baseScale) || '--'}} {{symbol.split('_')[0]}}</span>
+                      <span class="opener-amount-left-con">空 {{toFixed(openAmtShort,baseScale) || '--'}} {{symbol.split('_')[0]}}</span>
+                    </div>
                   </div>
                 </div>
+
                 <div class="opener-opening-long-short flex-between" v-if="openerType == 1">
                   <div>
                     <span class="opener-opening-con-tit pointer" :class="{'opening-con-tit-slt': longOrShortType==1}" @click="changeLongShort(1)">开多</span>
