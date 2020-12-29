@@ -338,6 +338,9 @@ root.computed.openAmountLong = function () {
     this.totalAmountLong = 0
   }
   if(this.positionList.length == 0 && !this.openAmount) return '--'
+  if(this.positionModeFirst == 'doubleWarehouseMode'&& this.openerType ==1 && this.longOrShortType == 2){
+    return amount = Number(this.toFixed(Number(this.totalAmountLong),this.baseScale)) || '--'
+  }
   return amount = this.toFixed(Number(this.openAmount) + Number(this.totalAmountLong),this.baseScale) || '--'
 }
 // 双仓可盈多仓均价
@@ -359,6 +362,10 @@ root.computed.openAmountShort = function () {
   })
   if(this.positionList.length == 0)  (this.totalAmountShort = 0)
   if(this.positionList.length == 0 && !this.openAmount) return '--'
+  if(this.positionModeFirst == 'doubleWarehouseMode'&& this.openerType ==1 && this.longOrShortType == 1){
+    console.info(this.toFixed(Number(this.totalAmountShort),this.baseScale) || '--')
+    return amount = Number(this.toFixed(Number(this.totalAmountShort),this.baseScale)) || '--'
+  }
   return amount = this.toFixed(Number(this.openAmount) + Number(this.totalAmountShort),this.baseScale) || '--'
 }
 root.computed.totalOpenAmount = function () {
