@@ -2391,7 +2391,6 @@ root.methods.setKaipingqiPos = function(records){
       }
     }
   }
-  console.info(this.positionList)
   this.positionList = filterRecords
 }
 
