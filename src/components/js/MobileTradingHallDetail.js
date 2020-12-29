@@ -2374,12 +2374,12 @@ root.methods.setKaipingqiPos = function(records){
 
   for (let i = 0; i < records.length ; i++) {
     let v = records[i];
-    if (v.marginType == 'cross' && v.positionAmt != 0 && v.symbol == this.capitalSymbol) {
+    if (v.marginType == 'cross' && v.positionAmt != 0 ) {
       filterRecords.push(v)
       continue;
     }
     //逐仓保证金：isolatedMargin - unrealizedProfit,开仓量或逐仓保证金不为0的仓位才有效
-    if(v.marginType == 'isolated' && v.symbol == this.capitalSymbol){
+    if(v.marginType == 'isolated'){
       v.securityDeposit = this.accMinus(v.isolatedMargin,v.unrealizedProfit)
       // v.securityDeposit = Number(v.isolatedMargin) - Number(v.unrealizedProfit)
 

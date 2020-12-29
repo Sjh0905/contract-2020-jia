@@ -20,22 +20,28 @@
     <div class="single-list-title flex-between">
       <div>{{formatDateUitl(item.createdAt,'YYYY-MM-DD')}}</div>
       <div>{{formatDateUitlHms(item.createdAt,'hh:mm:ss')}}</div>
+      <div>{{item.symbol}}</div>
     </div>
     <div class="single-list-content">
       <div class="single-list-content-title flex">
         <div class="single-list-content-title-left">
-          <div>开仓类型</div>
-          <div class="single-list-content-title-white">{{item.openType == 'DUAL'? '双开':'单开'}}</div>
+          <div>操作类型</div>
+          <span class="single-list-content-title-white" v-if="item.openType == 'DUAL'">双开</span>
+          <span class="single-list-content-title-white" v-if="item.openType == 'LONG'">开多</span>
+          <span class="single-list-content-title-white" v-if="item.openType == 'SHORT'">开空</span>
+          <span class="single-list-content-title-white" v-if="item.openType == 'STOP_PROFIT'">止盈</span>
+          <span class="single-list-content-title-white" v-if="item.openType == 'STOP_LOSS'">止损</span>
+          <span class="single-list-content-title-white" v-if="item.openType == 'STOP_MARKET'">止盈止损</span>
         </div>
         <div class="single-list-content-title-right">
-          <div>开仓数量</div>
+          <div>操作数量</div>
           <div class="single-list-content-title-white">{{item.amount || '--'}}</div>
         </div>
       </div>
 
       <div class="single-list-content-con">
-        <div class="single-list-content-con-long" v-if="item.openType=='LONG' || item.openType=='DUAL'">多仓</div>
-        <div class="opener-closing-empty" v-if="item.openType=='SHORT'">空仓</div>
+        <div class="single-list-content-con-long" v-if="item.openType=='DUAL'">多仓</div>
+<!--        <div class="opener-closing-empty" v-if="item.openType=='SHORT'">空仓</div>-->
 
         <div class="single-list-content-take flex">
           <div class="single-list-content-title-left">

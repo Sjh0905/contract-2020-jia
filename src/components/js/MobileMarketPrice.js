@@ -116,7 +116,7 @@ root.computed.capitalSymbol = function () {
 root.computed.sNameList = function () {
   return this.$store.state.sNameList || []
 }
-root.computed.sNameMap = function () {{}
+root.computed.sNameMap = function () {
   let defaultSNameMap = {"BTCUSDT":"BTC_USDT","ETHUSDT":"ETH_USDT"}
   return this.$store.state.sNameMap || defaultSNameMap
 }

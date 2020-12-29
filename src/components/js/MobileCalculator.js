@@ -76,7 +76,7 @@ root.mounted = function () {}
 root.beforeDestroy = function () {}
 /*------------------------------ 计算 -------------------------------*/
 root.computed = {}
-root.computed.sNameMap = function () {{}
+root.computed.sNameMap = function () {
   let defaultSNameMap = {"BTCUSDT":"BTC_USDT","ETHUSDT":"ETH_USDT"}
   return this.$store.state.sNameMap || defaultSNameMap
 }

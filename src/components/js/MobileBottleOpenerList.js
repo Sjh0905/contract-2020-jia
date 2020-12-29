@@ -47,7 +47,7 @@ root.methods.getRecords = function () {
   this.$http.send('GET_ORDERS_GETRECORD', {
     bind: this,
     query: {
-      symbol:this.capitalSymbol
+      // symbol:this.capitalSymbol
     },
     callBack: this.re_getRecords,
     errorHandler: this.error_getRecords,

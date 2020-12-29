@@ -288,7 +288,7 @@ root.computed.leverage = function () {
 root.computed.currencyInfo = function () {
   return this.$store.state.currencyInfo || {}
 }
-root.computed.sNameMap = function () {{}
+root.computed.sNameMap = function () {
   let defaultSNameMap = {"BTCUSDT":"BTC_USDT","ETHUSDT":"ETH_USDT"}
   return this.$store.state.sNameMap || defaultSNameMap
 }
