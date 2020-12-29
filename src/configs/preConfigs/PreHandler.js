@@ -151,12 +151,22 @@ export default async function ($http, $store, $cookie, $i18n) {
     return $http.send('GET_SYMBOLS', {
       callBack: function (data) {
 
-        let d = data && data.data || [],sNameList = [],sLineNameList = [],sNameMap = {},specialSymbol = [new Set()];
+        let d = data && data.data || [],sNameList = [],sLineNameList = [],sNameMap = {},specialSymbol = [new Set()],
+          currencyInfo = {},quoteConfig = [];
         d.map(v=>{
           let n = v.baseName+v.quoteName,ln = v.baseName+'_'+v.quoteName
           sNameList.push(n)
           sLineNameList.push(ln)
           sNameMap[n]= ln;
+
+          //默认杠杆20 保证金全仓
+          currencyInfo[n] = {leverage:20,marginType:'cross'}
+
+          // 精度从接口获取
+          quoteConfig.push(
+            {name: n, baseScale: v.baseScale, quoteScale: v.quoteScale},
+            {name: ln, baseScale: v.baseScale, quoteScale: v.quoteScale}
+          );
         })
 
 
@@ -165,10 +175,11 @@ export default async function ($http, $store, $cookie, $i18n) {
         $store.commit('SET_S_NAME_LIST', sNameList)
         $store.commit('SET_S_LINE_NAME_LIST', sLineNameList)
         $store.commit('SET_S_NAME_MAP', sNameMap)
-        /*let quoteConfig = [], marketList = [[], []];
+        $store.commit('CHANGE_CURRENCY_INFO', currencyInfo)
+        $store.commit('SET_QUOTE_CONFIG', quoteConfig) // 精度
+
+        /*let marketList = [[], []];
         data.symbols.map(v => {
-          // 精度从接口获取写完多币对后再说
-          quoteConfig.push({name: v.name, baseScale: v.baseScale, quoteScale: v.quoteScale});
 
           // 删除了部分多余代码，type暂时保留
           let type = 0, marketName = v.name.split('_')[1]
@@ -179,7 +190,6 @@ export default async function ($http, $store, $cookie, $i18n) {
           }
         })
 
-        $store.commit('SET_QUOTECONFIG', quoteConfig) // 精度
         $store.commit('SET_MARKET_LIST', marketList)*/
       }
     })

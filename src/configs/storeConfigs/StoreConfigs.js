@@ -189,6 +189,8 @@ store.state.quoteConfig = [
   {name: 'BTCUSDT', baseScale: 3, quoteScale: 2},
   {name: 'ETH_USDT', baseScale: 3, quoteScale: 2},
   {name: 'ETHUSDT', baseScale: 3, quoteScale: 2},
+  {name: 'LTC_USDT', baseScale: 3, quoteScale: 2},
+  {name: 'LTCUSDT', baseScale: 3, quoteScale: 2},
 ]
 
 /**
@@ -532,8 +534,10 @@ store.mutations.CHANGE_BRACKET_NOTIONALCAP = (state, info) => {
  */
 store.mutations.CHANGE_CURRENCY_INFO = (state, info) => {
   state.currencyInfo = info;
+
+  let s = GlobalFunc.toOnlyCapitalLetters(state.symbol)
   // 兼容单币对杠杆倍数存储方式 需要重新转换 state.leverage 为当前选中币对的杠杆倍数值
-  state.leverage = info[GlobalFunc.toOnlyCapitalLetters(state.symbol)].leverage
+  state.leverage = info[s] && info[s].leverage || 20
   // state.currencyInfo[GlobalFunc.toOnlyCapitalLetters(state.symbol)].marginType = Object.assign(info);
 }
 
@@ -660,13 +664,6 @@ store.mutations.changeMobileSymbolType = (state, data) => {
   console.log(data)
   state.symbol = data;
   state.subscribeSymbol = GlobalFunc.toOnlyCapitalLetters(state.symbol);
-}
-
-/**
- * 重新计算精度
- */
-store.mutations.SET_QUOTECONFIG = (state, data) => {
-  state.quoteConfig = data;
 }
 
 /**
@@ -1172,9 +1169,12 @@ store.mutations.ENTER_CONTRACT = (state, info) => {
 
 store.mutations.SET_SYMBOL = (state, info) => {
   state.symbol = info
+
+  let s = GlobalFunc.toOnlyCapitalLetters(state.symbol)
   // 兼容单币对杠杆倍数存储方式 需要重新转换 state.leverage 为当前选中币对的杠杆倍数值
-  state.leverage = state.currencyInfo[GlobalFunc.toOnlyCapitalLetters(state.symbol)].leverage
-  state.subscribeSymbol = GlobalFunc.toOnlyCapitalLetters(state.symbol);
+  state.leverage = state.currencyInfo[s] && state.currencyInfo[s].leverage || 20
+
+  state.subscribeSymbol = s;
 }
 
 store.mutations.SET_S_NAME_LIST = (state, info) => {
