@@ -370,7 +370,7 @@ root.computed.openAmountShort = function () {
     // console.info(this.toFixed(Number(this.totalAmountShort),this.baseScale) || '--')
     return amount = Number(this.toFixed(Number(this.totalAmountShort),this.baseScale)) || '--'
   }
-  return amount = this.toFixed(Number(this.openAmount) + Number(this.totalAmountShort),this.baseScale) || '--'
+  return amount = Number(this.toFixed(Number(this.openAmount) + Number(this.totalAmountShort),this.baseScale)) || '--'
 }
 root.computed.totalOpenAmount = function () {
   if(this.positionList.length == 0 && !this.openAmount) return '--'
