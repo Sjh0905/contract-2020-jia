@@ -421,8 +421,7 @@ root.computed.capitalSymbol = function () {
 root.watch = {}
 // 切换单双仓，止盈止损点数至为空
 root.watch.openerType = function () {
-  this.stopProfitPoint=''
-  this.StopLossPoint=''
+  this.clearVal()
 }
 root.watch.longOrShortType = function (newVal,oldVal) {
   this.openAmount= ''
