@@ -204,7 +204,7 @@ root.methods.getHistorTrans = function () {
   this.$http.send('GET_CAPITAL_DEAL',{
     bind: this,
     query:{
-      symbol:'',
+      symbol:this.$route.query.order.symbol,
       // startTime:this.startTime,
       // endTime:this.endTime,
       startTime:this.$route.query.startTime,
@@ -219,7 +219,7 @@ root.methods.re_getHistorTrans = function (data) {
   typeof(data) == 'string' && (data = JSON.parse(data));
   if(!data && !data.data) return
   this.loading = false
-  console.info('data====',data.data)
+  // console.info('data====',data.data)
   this.historicaList = data.data || []
   this.historicaList0 = data.data[0] || []
 

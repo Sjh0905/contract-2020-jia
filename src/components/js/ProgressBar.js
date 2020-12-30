@@ -940,10 +940,12 @@ root.computed.canBeOpened = function () {
       // 根据买卖最大可下单量计算出notional after trade
       // 计算可开多数量
       let afterTradeLongB = Math.max(Math.abs( positionNotionalLong + this.computedBuyNetValue + (this.assumingPrice * Number(buyCanOpen))), Math.abs(positionNotionalLong - this.computedSellNetValue))
-      let afterTradeShortB = Math.max(Math.abs( positionNotionalShort + this.computedBuyNetValue), Math.abs(positionNotionalShort - this.computedSellNetValue))
+      // let afterTradeShortB = Math.max(Math.abs( positionNotionalShort + this.computedBuyNetValue), Math.abs(positionNotionalShort - this.computedSellNetValue))
+      let afterTradeShortB = Math.max(Math.abs( positionNotionalLong + this.computedBuyNetValue), Math.abs(positionNotionalLong - this.computedSellNetValue))
 
       // 计算可开空数量
-      let afterTradeLongS = Math.max(Math.abs( positionNotionalLong + this.computedBuyNetValue), Math.abs(positionNotionalLong - this.computedSellNetValue))
+      // let afterTradeLongS = Math.max(Math.abs( positionNotionalLong + this.computedBuyNetValue), Math.abs(positionNotionalLong - this.computedSellNetValue))
+      let afterTradeLongS = Math.max(Math.abs( positionNotionalShort + this.computedBuyNetValue), Math.abs(positionNotionalShort - this.computedSellNetValue))
       let afterTradeShortS = Math.max(Math.abs(positionNotionalShort + this.computedBuyNetValue), Math.abs(positionNotionalShort - this.computedSellNetValue + (this.assumingPrice * Number(sellCanOpen))))
 
       afterTradeBuy = afterTradeLongB + afterTradeShortB
@@ -967,20 +969,22 @@ root.computed.canBeOpened = function () {
 
     // 市价或者市价止盈止损
     if(this.pendingOrderType== 'marketPrice'||this.pendingOrderType == 'marketPriceProfitStopLoss'){
-      buyCanOpen = availableBalance / (this.assumingPrice * leverage + buyMarket)
-      // buyCanOpen = availableBalance / ((this.sellDepthOrders*(1 + 0.0005)) * leverage + buyMarket)
+      // buyCanOpen = availableBalance / (this.assumingPrice * leverage + buyMarket)
+      buyCanOpen = availableBalance / (((this.sellDepthOrders*(1 + 0.0005)) * leverage + buyMarket) || 1)
 
       // console.info('buyCanOpen',buyCanOpen,availableBalance,this.assumingPrice,leverage,buyMarket)
       // console.info('this.sellDepthOrders',this.sellDepthOrders,'this.buyDepthOrders',this.buyDepthOrders)
-      sellCanOpen = availableBalance / (this.assumingPrice * leverage + sellMarket)
-      // sellCanOpen = availableBalance / (this.buyDepthOrders * leverage + sellMarket)
+      // sellCanOpen = availableBalance / (this.assumingPrice * leverage + sellMarket)
+      sellCanOpen = availableBalance / (this.buyDepthOrders * leverage + sellMarket)
       // 计算可开多数量
       let afterTradeLongB = Math.max(Math.abs( positionNotionalLong + this.computedBuyNetValue + this.assumingPrice * Number(buyCanOpen)), Math.abs(positionNotionalLong - this.computedSellNetValue))
       // let afterTradeLongB = Math.max(Math.abs( positionNotionalLong + this.computedBuyNetValue + ((this.sellDepthOrders*(1 + 0.0005)) * Number(buyCanOpen))), Math.abs(positionNotionalLong - this.computedSellNetValue))
-      let afterTradeShortB = Math.max(Math.abs(positionNotionalShort + this.computedBuyNetValue) || 0, Math.abs(positionNotionalShort - this.computedSellNetValue) || 0)
+      // let afterTradeShortB = Math.max(Math.abs(positionNotionalShort + this.computedBuyNetValue) || 0, Math.abs(positionNotionalShort - this.computedSellNetValue) || 0)
+      let afterTradeShortB = Math.max(Math.abs(positionNotionalLong + this.computedBuyNetValue) || 0, Math.abs(positionNotionalLong - this.computedSellNetValue) || 0)
 
       // 计算可开空数量
-      let afterTradeLongS = Math.max(Math.abs( positionNotionalLong + this.computedBuyNetValue), Math.abs(positionNotionalLong - this.computedSellNetValue))
+      // let afterTradeLongS = Math.max(Math.abs( positionNotionalLong + this.computedBuyNetValue), Math.abs(positionNotionalLong - this.computedSellNetValue))
+      let afterTradeLongS = Math.max(Math.abs( positionNotionalShort + this.computedBuyNetValue), Math.abs(positionNotionalShort - this.computedSellNetValue))
       // let afterTradeShortS = Math.max(Math.abs(positionNotionalShort + this.computedBuyNetValue), Math.abs(positionNotionalShort - this.computedSellNetValue + this.buyDepthOrders * Number(sellCanOpen)))
       let afterTradeShortS = Math.max(Math.abs(positionNotionalShort + this.computedBuyNetValue), Math.abs(positionNotionalShort - this.computedSellNetValue + this.assumingPrice * Number(sellCanOpen)))
 
@@ -1101,7 +1105,7 @@ root.computed.newOrderActualAmount = function () {
     return this.orderType ? Number(this.amount) : Math.max(0,this.accAdd(Number(this.amount), Math.abs(this.totalAmount)))
   }
 }
-//双向的assumingPrice===========
+//双 向的assumingPrice===========
 root.computed.twoWayAssumingPrice = function () {
   // if(JSON.stringify(this.markPriceObj) == "{}")return
   let twoWayAssumingPrc = 0,markPrice = JSON.stringify(this.markPriceObj) != "{}" && this.markPriceObj[this.capitalSymbol].p

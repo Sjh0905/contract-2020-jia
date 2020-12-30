@@ -19,7 +19,8 @@ module.exports = {
         // target: 'https://2020.highdefi.com', //新测试环境1
         // target: 'http://10.113.8.21:8010', // 强哥电脑
         // target: 'http://3.113.182.251:8011', // 合约域名
-        target:'http://future.2020-ex.com',
+        target:'http://future.2020-ex.com', // 合约测试地址
+        // target:'https://futures.2020.exchange', // 合约生产地址
         // target: 'http://10.113.10.137:8000', // 皮哥电脑
         // target: 'http://18.162.188.176:8000', //新测试环境2020
         // target: 'http://13.230.43.250:8080', //新测试环境2020.04.01
