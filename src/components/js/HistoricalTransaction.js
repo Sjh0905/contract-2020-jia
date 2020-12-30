@@ -26,11 +26,15 @@ root.data = function () {
 
     LieoptionsUsdt:[
       {
+        value: 'BTCUSDT',
+        label: 'BTCUSDT'
+      },
+      {
         value: 'ETHUSDT',
         label: 'ETHUSDT'
       }, {
-        value: 'BTCUSDT',
-        label: 'BTCUSDT'
+        value: 'LTCUSDT',
+        label: 'LTCUSDT'
       }
     ],
     value:'',

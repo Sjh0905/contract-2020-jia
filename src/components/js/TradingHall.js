@@ -790,12 +790,12 @@ root.methods.re_getDepth = function (data) {
   // console.info('this.buy_sale_list======',this.buy_sale_list)
 }
 
-// 获取实时成交归集交易
+// 获取实时成交归集交易，页面最多显示34条，默认多查2条 36
 root.methods.getAggTrades = function () {
   let query = {
     // symbol: this.symbol
     symbol: this.capitalSymbol,
-    limit:80
+    limit:36
   };
   this.$http.send("GET_AGG_TRADES", {
     bind: this,

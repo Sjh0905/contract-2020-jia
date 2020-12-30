@@ -675,7 +675,7 @@ root.methods.getAggTrades = function () {
   let query = {
     // symbol: this.symbol
     symbol: this.capitalSymbol,
-    limit:80
+    limit:36
   };
   this.$http.send("GET_AGG_TRADES", {
     bind: this,

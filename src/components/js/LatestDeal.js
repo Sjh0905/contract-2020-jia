@@ -159,7 +159,7 @@ root.methods.tickCache = function () {
   let params = {
     // symbol: this.symbol
     symbol: this.capitalSymbol,
-    limit:80
+    limit:36
     // fromId: '26129'
   };
   this.$http.send("GET_AGG_TRADES", {
