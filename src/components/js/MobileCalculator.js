@@ -13,6 +13,14 @@ root.data = function () {
     // 滑块变量
     calculatorValue: 1, // 收益杠杠倍数
     calculatorMarks:{
+      LTCUSDT:{
+        1: '1X',
+        15: '15X',
+        30: '30X',
+        45: '45X',
+        60: '60X',
+        75:'75X',
+      },
       ETHUSDT:{
         1: '1X',
         20: '20X',

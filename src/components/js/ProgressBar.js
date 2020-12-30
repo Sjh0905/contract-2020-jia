@@ -970,7 +970,7 @@ root.computed.canBeOpened = function () {
       buyCanOpen = availableBalance / (this.assumingPrice * leverage + buyMarket)
       // buyCanOpen = availableBalance / ((this.sellDepthOrders*(1 + 0.0005)) * leverage + buyMarket)
 
-      // console.info('buyMarket',buyMarket,'sellMarket',sellMarket)
+      // console.info('buyCanOpen',buyCanOpen)
       // console.info('this.sellDepthOrders',this.sellDepthOrders,'this.buyDepthOrders',this.buyDepthOrders)
       sellCanOpen = availableBalance / (this.assumingPrice * leverage + sellMarket)
       // sellCanOpen = availableBalance / (this.buyDepthOrders * leverage + sellMarket)
@@ -986,6 +986,7 @@ root.computed.canBeOpened = function () {
 
       afterTradeBuy = afterTradeLongB + afterTradeShortB
       afterTradeSell = afterTradeLongS + afterTradeShortS
+      // console.info('afterTradeBuy==',this.assumingPrice,buyCanOpen,'afterTradeSell',afterTradeSell)
       // if(this.maxNotionalAtCurrentLeverage == undefined || this.maxNotionalAtCurrentLeverage == 0){
       //   console.info('this.maxNotionalAtCurrentLeverage',this.maxNotionalAtCurrentLeverage)
       // }
