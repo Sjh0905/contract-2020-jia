@@ -85,7 +85,7 @@ root.data = function () {
     fullStopStep:'', // 单仓 清仓止损 步数
     fullStopPoint:'', // 单仓 清仓止损 间隔点数
 
-
+    closePosition:1, // 1为平多，2为平空
 
     openAmount:'', // 开仓数量
     // a: [{price:12000,step:0.1},{price:12100,step:0.1},{price:12200,step:0.1}],
@@ -127,10 +127,8 @@ root.created = function () {
   //   this._props.isNowPrice = this.$route.query.isNowPrice || ''
   //   this._props.positionModeFirst = this.$route.query.positionModeFirst || ''
   // }
-  this.positionModeFirst == 'singleWarehouseMode'? this.openerType = 1:this.openerType = 2
+  // this.positionModeFirst == 'singleWarehouseMode'? this.openerType = 1:this.openerType = 2
   // this.createdArray(6,6)
-
-
 }
 root.mounted = function () {}
 root.beforeDestroy = function () {}
@@ -166,12 +164,21 @@ root.computed.stepPlanList = function () {
   let PlanList
   // num：为步数，stepNum：可损（可损）总量，point:间隔点数（若为清仓止损，该值为负数）,averagePrice:均价
   if(this.takeProfitStep=='' || this.takeProfitPoint =='' || this.stopProfitPoint== '') return
-  if(this.positionAmt > 0){
+
+  if(this.positionModeFirst == 'singleWarehouseMode' && this.positionAmt > 0){
     PlanList = this.createdArray(Number(this.takeProfitStep),Math.abs(this.positionAmt),Number(this.takeProfitPoint),Number(this.averagePrice),Number(this.stopProfitPoint))
     return [...PlanList]
   }
-  if(this.positionAmt < 0){
+  if(this.positionModeFirst == 'singleWarehouseMode' && this.positionAmt < 0){
     PlanList = this.createdArray(Number(this.takeProfitStep),Math.abs(this.positionAmt),-Number(this.takeProfitPoint),Number(this.averagePrice),-Number(this.stopProfitPoint))
+    return [...PlanList]
+  }
+  if(this.positionModeFirst == 'doubleWarehouseMode' && this.closePosition == 1){
+    PlanList = this.createdArray(Number(this.takeProfitStep),Math.abs(this.openAmountLong),Number(this.takeProfitPoint),Number(this.averagePriceLong),Number(this.stopProfitPoint))
+    return [...PlanList]
+  }
+  if(this.positionModeFirst == 'doubleWarehouseMode' && this.closePosition == 2){
+    PlanList = this.createdArray(Number(this.takeProfitStep),Math.abs(this.openAmountShort),-Number(this.takeProfitPoint),Number(this.averagePriceShort),-Number(this.stopProfitPoint))
     return [...PlanList]
   }
 }
@@ -182,12 +189,21 @@ root.computed.stepPlanListDown = function () {
   let PlanListDow
   // num：为步数，stepNum：可损（可损）总量，point:间隔点数（若为清仓止损，该值为负数）,averagePrice:均价,pointIpt:止盈(止损)点数
   if(this.StopLossPoint=='' || this.fullStopStep =='' || this.fullStopPoint== '') return
-  if(this.positionAmt > 0){
+  if(this.positionModeFirst == 'singleWarehouseMode' && this.positionAmt > 0){
     PlanListDow = this.createdArray(Number(this.fullStopStep) || 0,Math.abs(this.positionAmt),-Number(this.fullStopPoint),Number(this.averagePrice),-Number(this.StopLossPoint))
     return [...PlanListDow]
   }
-  if(this.positionAmt < 0){
+  if(this.positionModeFirst == 'singleWarehouseMode' && this.positionAmt < 0){
     PlanListDow = this.createdArray(Number(this.fullStopStep) || 0,Math.abs(this.positionAmt),Number(this.fullStopPoint),Number(this.averagePrice),Number(this.StopLossPoint))
+    return [...PlanListDow]
+  }
+
+  if(this.positionModeFirst == 'doubleWarehouseMode' && this.closePosition == 1){
+    PlanListDow = this.createdArray(Number(this.fullStopStep),Math.abs(this.openAmountLong),Number(this.fullStopPoint),Number(this.averagePriceLong),Number(this.StopLossPoint))
+    return [...PlanListDow]
+  }
+  if(this.positionModeFirst == 'doubleWarehouseMode' && this.closePosition == 2){
+    PlanListDow = this.createdArray(Number(this.fullStopStep),Math.abs(this.openAmountShort),-Number(this.fullStopPoint),Number(this.averagePriceShort),-Number(this.StopLossPoint))
     return [...PlanListDow]
   }
 }
@@ -258,6 +274,12 @@ root.computed.stepLongListDown = function () {
 
 // 空仓全部价格（平仓止盈）
 root.computed.allShortPrice = function () {
+  if(this.positionModeFirst == 'doubleWarehouseMode' && this.openerType==1 && this.closePosition == 2) {
+    if(!this.stopProfitPoint) return '--'
+    if(Number(this.stopProfitPoint) > Number(this.averagePriceShort)) return 0
+    // console.info(Number(this.toFixed(this.allPrice(this.averagePriceShort,-this.stopProfitPoint),2)))
+    return Number(this.toFixed(this.allPrice(this.averagePriceShort,-this.stopProfitPoint),2)) || '--'
+  }
   if(!this.stopProfitPointEmpty) return '--'
   if(Number(this.stopProfitPointEmpty) > Number(this.averagePriceShort)) return 0
   return Number(this.toFixed(this.allPrice(this.averagePriceShort,-this.stopProfitPointEmpty),2)) || '--'
@@ -279,6 +301,11 @@ root.computed.stepShortList = function () {
 
 // 空仓全部价格（清仓止损）
 root.computed.allShortPriceDown = function () {
+  if(this.positionModeFirst == 'doubleWarehouseMode' && this.openerType==1 && this.closePosition == 2) {
+    if(!this.StopLossPoint) return '--'
+    if(Number(this.StopLossPoint) > Number(this.averagePriceShort)) return 0
+    return Number(this.toFixed(this.allPrice(this.averagePriceShort,this.StopLossPoint),2)) || '--'
+  }
   if(!this.StopLossPointEmpty) return '--'
   // if(this.StopLossPointEmpty > this.averagePriceShort) return 0
   return Number(this.toFixed(this.allPrice(this.averagePriceShort,this.StopLossPointEmpty),2)) || '--'
@@ -300,9 +327,11 @@ root.computed.stepShortListDown = function () {
 
 // 双仓可盈多仓数量
 root.computed.openAmountLong = function () {
+  //防止上一次的值覆盖
+  this.totalAmountLong = 0
   let amount = 0
   this.positionList && this.positionList.forEach((v,dex)=>{
-    if(v.positionSide == 'LONG'){
+    if(v.positionSide == 'LONG' && v.symbol==this.capitalSymbol){
       amount = Number(v.positionAmt)
       this.totalAmountLong = amount
     }
@@ -311,7 +340,10 @@ root.computed.openAmountLong = function () {
     this.totalAmountLong = 0
   }
   if(this.positionList.length == 0 && !this.openAmount) return '--'
-  return amount = this.toFixed(Number(this.openAmount) + Number(this.totalAmountLong),this.baseScale) || '--'
+  if(this.positionModeFirst == 'doubleWarehouseMode'&& this.openerType ==1 && this.longOrShortType == 2){
+    return amount = Number(this.toFixed(Number(this.totalAmountLong),this.baseScale)) || '--'
+  }
+  return amount = Number(this.toFixed(Number(this.openAmount) + Number(this.totalAmountLong),this.baseScale)) || '--'
 }
 // 双仓可盈多仓均价
 root.computed.averagePriceLong = function () {
@@ -323,16 +355,22 @@ root.computed.averagePriceShort = function () {
 }
 // 双仓可盈空仓数量
 root.computed.openAmountShort = function () {
+  //防止上一次的值覆盖
+  this.totalAmountShort = 0
   let amount = 0
   this.positionList.forEach((v,dex)=>{
-    if(v.positionSide == 'SHORT'){
+    if(v.positionSide == 'SHORT' && v.symbol==this.capitalSymbol){
       amount = Math.abs(v.positionAmt)
       this.totalAmountShort = amount
     }
   })
   if(this.positionList.length == 0)  (this.totalAmountShort = 0)
   if(this.positionList.length == 0 && !this.openAmount) return '--'
-  return amount = this.toFixed(Number(this.openAmount) + Number(this.totalAmountShort),this.baseScale) || '--'
+  if(this.positionModeFirst == 'doubleWarehouseMode'&& this.openerType ==1 && this.longOrShortType == 1){
+    // console.info(this.toFixed(Number(this.totalAmountShort),this.baseScale) || '--')
+    return amount = Number(this.toFixed(Number(this.totalAmountShort),this.baseScale)) || '--'
+  }
+  return amount = Number(this.toFixed(Number(this.openAmount) + Number(this.totalAmountShort),this.baseScale)) || '--'
 }
 root.computed.totalOpenAmount = function () {
   if(this.positionList.length == 0 && !this.openAmount) return '--'
@@ -353,7 +391,7 @@ root.computed.openAmountNum = function () {
 root.computed.positionAmt = function () {
   let amount = 0
   this.positionList.forEach((v,dex)=>{
-    if(v.positionSide == 'BOTH'){
+    if(v.positionSide == 'BOTH' && v.symbol==this.capitalSymbol){
       amount = Number(v.positionAmt)
     }
   })
@@ -394,7 +432,6 @@ root.computed.isMobile = function () {
 // 是否登录
 // 计算当前symbol
 root.computed.symbol = function () {
-  // console.warn('symbol',this.$store.state.symbol);
   return this.$store.state.symbol;
 }
 //不加下划线币对
@@ -406,8 +443,7 @@ root.computed.capitalSymbol = function () {
 root.watch = {}
 // 切换单双仓，止盈止损点数至为空
 root.watch.openerType = function () {
-  this.stopProfitPoint=''
-  this.StopLossPoint=''
+  this.clearVal()
 }
 root.watch.longOrShortType = function (newVal,oldVal) {
   this.openAmount= ''
@@ -415,7 +451,9 @@ root.watch.longOrShortType = function (newVal,oldVal) {
 root.watch.positionModeFirst = function () {
   this.positionModeFirst == 'singleWarehouseMode'? this.openerType = 1:this.openerType = 2
 }
-
+root.watch.closePosition = function () {
+  this.clearInput()
+}
 /*------------------------------ 方法 -------------------------------*/
 root.methods = {}
 
@@ -424,6 +462,9 @@ root.methods = {}
 
   this.$http.send("GET_POSITION_RISK", {
     bind: this,
+    query: {
+      symbols: this.sNameList.toString()
+    },
     callBack: this.re_getPositionRisk,
     errorHandler: this.error_getPositionRisk
   })
@@ -472,12 +513,12 @@ root.methods.closeResult = function () {
 // 传参类型
 root.methods.openTypeParams = function () {
   if(!this.openAmount) return 'STOP_MARKET'
-  if(this.positionModeFirst == 'singleWarehouseMode' && this.longOrShortType == 1) return 'LONG'
-  if(this.positionModeFirst == 'singleWarehouseMode' && this.longOrShortType == 2) return 'SHORT'
-  if(this.positionModeFirst == 'doubleWarehouseMode') return 'DUAL'
+  if(this.openerType == 1 && this.longOrShortType == 1) return 'LONG'
+  if(this.openerType == 1 && this.longOrShortType == 2) return 'SHORT'
+  if(this.openerType == 2) return 'DUAL'
 }
 
-// 止盈步数 多仓
+// 单仓 止盈步数 多仓
 root.methods.stopProfitStepLong = function () {
   // 若止盈点数为空  该值传 ''
   if(!this.stopProfitPoint || this.positionAmt <= 0) return ''
@@ -491,7 +532,6 @@ root.methods.stopProfitStepShort = function () {
   if(this.positionAmt < 0 && this.isStepType == 2) return this.takeProfitStep
   if(this.positionAmt < 0 && this.isStepType == 1) return 0
 }
-
 // 止损步数 多仓
 root.methods.stopLossStepLong = function () {
   if(!this.StopLossPoint || this.positionAmt <= 0) return ''
@@ -505,7 +545,6 @@ root.methods.stopLossStepShort = function () {
   if(this.positionAmt < 0 && this.isStepTypeClose == 2) return this.fullStopStep
   if(this.positionAmt < 0 && this.isStepTypeClose == 1) return 0
 }
-
 // 止盈间隔数量 多仓
 root.methods.profitIntervalLong = function () {
   // positionAmtLong && (this.isStepType == 2 ? this.takeProfitPoint : '')
@@ -521,7 +560,6 @@ root.methods.profitIntervalShort = function () {
   if(this.positionAmt < 0 && this.isStepType == 2) return this.takeProfitPoint
   if(this.positionAmt < 0 && this.isStepType == 1) return 0
 }
-
 // 止损间隔点数 多仓
 root.methods.lossIntervalLong = function () {
   if(!this.StopLossPoint || this.positionAmt <= 0) return ''
@@ -535,12 +573,82 @@ root.methods.lossIntervalShort = function () {
   if(this.positionAmt < 0 && this.isStepTypeClose == 2) return this.fullStopPoint
   if(this.positionAmt < 0 && this.isStepTypeClose == 1) return 0
 }
+
+
+// 双仓 止盈步数 多仓
+root.methods.stopProfitStepLongDouble = function () {
+  // 若止盈点数为空  该值传 ''
+  if(this.closePosition == 1 && (!this.stopProfitPoint || this.openAmountLong <= 0)) return ''
+  if(this.closePosition == 1 && this.isStepType == 2) return this.takeProfitStep
+  if(this.closePosition == 1 && this.isStepType == 1) return 0
+  return ''
+}
+// 双仓 止盈步数 空仓
+root.methods.stopProfitStepShortDouble = function () {
+  // positionAmtShort && (this.isStepTypeClose ==2 ? this.fullStopStep : '')
+  if(this.closePosition == 2 && (!this.stopProfitPoint || this.openAmountShort <= 0)) return ''
+  if(this.closePosition == 2 && this.isStepType == 2) return this.takeProfitStep
+  if(this.closePosition == 2 && this.isStepType == 1) return 0
+  return ''
+}
+// 双仓 止损步数 多仓
+root.methods.stopLossStepLongDouble = function () {
+  if(this.closePosition == 1 && (!this.StopLossPoint || this.openAmountLong <= 0)) return ''
+  // this.isStepTypeClose ==2 ? this.fullStopStep : ''
+  if(this.closePosition == 1 && this.isStepTypeClose == 2) return this.fullStopStep
+  if(this.closePosition == 1 && this.isStepTypeClose == 1) return 0
+  return ''
+}
+// 双仓 止损步数 空仓
+root.methods.stopLossStepShortDouble = function () {
+  if(this.closePosition == 2 && (!this.StopLossPoint || this.openAmountShort <= 0)) return ''
+  if(this.closePosition == 2 && this.isStepTypeClose == 2) return this.fullStopStep
+  if(this.closePosition == 2 && this.isStepTypeClose == 1) return 0
+  return ''
+}
+// 双仓 止盈间隔数量 多仓
+root.methods.profitIntervalLongDouble = function () {
+  // positionAmtLong && (this.isStepType == 2 ? this.takeProfitPoint : '')
+  // 若止盈点数为空  该值传 ''
+  if(this.closePosition == 1 && (!this.stopProfitPoint || this.openAmountLong <= 0)) return ''
+  if(this.closePosition == 1 && this.isStepType == 2) return this.takeProfitPoint
+  if(this.closePosition == 1 && this.isStepType == 1) return 0
+  return ''
+}
+// 双仓 止盈间隔数量 空仓
+root.methods.profitIntervalShortDouble = function () {
+  // positionAmtShort && (this.isStepTypeClose ==2 ? this.fullStopStep : '')
+  console.info(this.takeProfitPoint)
+  if(this.closePosition == 2 && (!this.stopProfitPoint || this.openAmountShort <= 0)) return ''
+  if(this.closePosition == 2 && this.isStepType == 2) return this.takeProfitPoint
+  if(this.closePosition == 2 && this.isStepType == 1) return 0
+  return ''
+}
+// 双仓 止损间隔点数 多仓
+root.methods.lossIntervalLongDouble = function () {
+  if(this.closePosition == 1 && (!this.StopLossPoint || this.openAmountLong <= 0)) return ''
+  // this.isStepTypeClose ==2 ? this.fullStopStep : ''
+  if(this.closePosition == 1 && this.isStepTypeClose == 2) return this.fullStopPoint
+  if(this.closePosition == 1 && this.isStepTypeClose == 1) return 0
+  return ''
+}
+// 双仓 止损间隔点数 空仓
+root.methods.lossIntervalShortDouble = function () {
+  if(this.closePosition == 2 && (!this.StopLossPoint || this.openAmountShort <= 0)) return ''
+  if(this.closePosition == 2 && this.isStepTypeClose == 2) return this.fullStopPoint
+  if(this.closePosition == 2 && this.isStepTypeClose == 1) return 0
+  return ''
+}
+
+
+
 // 获取开平器列表
 root.methods.getRecords = function () {
   this.$http.send('GET_ORDERS_GETRECORD', {
     bind: this,
     query: {
-      symbol:this.capitalSymbol
+      // symbol:this.capitalSymbol
+      // symbol:'',
     },
     callBack: this.re_getRecords,
     errorHandler: this.error_getRecords,
@@ -745,7 +853,6 @@ root.methods.createWithStop = function () {
       stopLossLong: positionAmtLong ? this.StopLossPoint:'', // 止损点数 不止损就不传
       stopLossShort: positionAmtShort ? this.StopLossPoint:'', //止损点数 不止损就不传
 
-
       stopProfitStepLong: this.stopProfitStepLong(), // 止盈步数 全部传0 或者不传
       stopProfitStepShort: this.stopProfitStepShort() , // 止盈步数 全部传0 或者不传
 
@@ -762,7 +869,53 @@ root.methods.createWithStop = function () {
     }
   }
 
-  if(this.positionModeFirst == 'doubleWarehouseMode'){
+  if(this.positionModeFirst == 'doubleWarehouseMode' && this.openerType == 1){
+    params = {
+      openType: this.openTypeParams(), //开仓方式
+      amount: this.openAmount, //开仓数量
+
+      stopProfitLong: this.closePosition == 1 ? this.stopProfitPoint: '', // 止盈点数 不止盈就不传
+      stopProfitShort: this.closePosition == 2 ? this.stopProfitPoint: '', // 止盈点数 不止盈就不传
+
+      stopLossLong: this.closePosition == 1 ? this.StopLossPoint:'', // 止损点数 不止损就不传
+      stopLossShort: this.closePosition == 2 ? this.StopLossPoint:'', //止损点数 不止损就不传
+
+
+      stopProfitStepLong: this.stopProfitStepLongDouble(), // 止盈步数 全部传0 或者不传
+      stopProfitStepShort: this.stopProfitStepShortDouble(), // 止盈步数 全部传0 或者不传
+
+      stopLossStepLong: this.stopLossStepLongDouble(), // 止损步数 全部传0 或者不传
+      stopLossStepShort: this.stopLossStepShortDouble(), // 止损步数 全部传0 或者不传
+
+      profitIntervalLong: this.profitIntervalLongDouble(), //止盈间隔数量
+      profitIntervalShort: this.profitIntervalShortDouble(), //止盈间隔数量
+
+      lossIntervalLong: this.lossIntervalLongDouble(), //止损间隔数量
+      lossIntervalShort:this.lossIntervalShortDouble(), //止损间隔数量
+
+      symbol: this.capitalSymbol, // 币对
+
+
+
+      /*      stopLossLong: this.closePosition == 1 ? this.StopLossPoint : '', // 止损点数 不止损就不传
+            stopLossShort: this.closePosition == 2 ? this.StopLossPointEmpty : '', //止损点数 不止损就不传
+
+            stopProfitStepLong:  this.isStepTypeLong == 1 ? 0 :this.takeProfitStep, // 止盈步数 全部传0 或者不传
+            stopProfitStepShort:  this.isStepTypeEmpty == 1 ? 0: this.takeStepEmpty , // 止盈步数 全部传0 或者不传
+
+            stopLossStepLong: this.isStepTypeClose ==1 ? 0: this.fullStopStep, // 止损步数 全部传0 或者不传
+            stopLossStepShort: this.isStepTypeCloseEmpty == 1 ? 0:this.fullStepShortEmpty, // 止损步数 全部传0 或者不传
+
+            profitIntervalLong: this.isStepTypeLong == 1? 0 :this.takeProfitPoint, //止盈间隔数量
+            profitIntervalShort: this.isStepTypeEmpty == 1 ? 0: this.stopPointEmpty, //止盈间隔数量
+
+            lossIntervalLong:this.isStepTypeClose ==1 ? 0: this.fullStopPoint, //止损间隔数量
+            lossIntervalShort: this.isStepTypeCloseEmpty==1 ? 0:this.fullPointShortEmpty, //止损间隔数量*/
+
+    }
+  }
+
+  if(this.positionModeFirst == 'doubleWarehouseMode' && this.openerType == 2){
     params = {
       openType: this.openTypeParams(), //开仓方式
       amount: this.openAmount, //开仓数量
@@ -788,6 +941,8 @@ root.methods.createWithStop = function () {
       symbol: this.capitalSymbol, // 币对
     }
   }
+
+  console.info('params===',params)
   this.$http.send('POST_CREATE_WITH_STOP', {
     bind: this,
     params: params,
@@ -800,6 +955,7 @@ root.methods.re_createWithStop = function (data) {
   typeof(data) == 'string' && (data = JSON.parse(data));
   this.openDisabel = false
   this.isLiChengCheng =true
+  this.clearVal()
   switch (data.code) {
     case 401:
       this.popOpen = true;
@@ -977,6 +1133,10 @@ root.methods.changeIsStepTypeLong = function (isStepTypeLong) {
 root.methods.changeLongShort = function (type) {
   this.longOrShortType = type
 }
+// 开多开空切换
+root.methods.switchClose = function (type) {
+  this.closePosition = type
+}
 // 开平器切换
 root.methods.changeOpenerType = function (type) {
   if(this.positionModeFirst == 'singleWarehouseMode') return this.openerType = 1
@@ -1047,8 +1207,8 @@ root.methods.comitBottleOpener = function () {
 }
 // 取消按钮
 root.methods.closeClick = function () {
-  this.$emit('close')
   this.clearVal()
+  this.$emit('close')
 }
 // H5 取消按钮
 root.methods.closeClickBtn = function () {
@@ -1059,9 +1219,16 @@ root.methods.closeClickBtn = function () {
     this.clearVal()
     sessionStorage.setItem('opener_states',1)
   }
-
-
   // }
+}
+// 双仓 单开切换 平多平空 清空输入框的值
+root.methods.clearInput = function () {
+  this.stopProfitPoint = '' //止盈点数
+  this.takeProfitStep = '' //止盈步数
+  this.takeProfitPoint = '' // 止盈间隔点数
+  this.StopLossPoint = '' // 止损点数
+  this.fullStopStep = '' // 止损步数
+  this.fullStopPoint = '' // 止损间隔点数
 }
 // 关闭弹窗清除所有值
 root.methods.clearVal= function () {
@@ -1075,6 +1242,9 @@ root.methods.clearVal= function () {
   this.stopProfitPointEmpty = ''
   this.StopLossPointEmpty = ''
   this.isLiChengCheng = true
+  // 不清空会保留上一次打开的数据
+  this.totalAmountShort = 0
+  this.totalAmountShort = 0
 }
 
 /* -------------------- 开平器记录列表 begin-------------------- */
@@ -1531,6 +1701,7 @@ root.methods.formatDateUitlHms = function (time) {
 
 /*---------------------- 保留小数 begin ---------------------*/
 root.methods.toFixed = function (num, acc = 8) {
+  if(num == Infinity){num = 0}
   return this.$globalFunc.accFixed(num, acc)
 }
 /*---------------------- 保留小数 end ---------------------*/

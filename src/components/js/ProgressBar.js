@@ -946,11 +946,11 @@ root.computed.canBeOpened = function () {
       let afterTradeLongS = Math.max(Math.abs( positionNotionalLong + this.computedBuyNetValue), Math.abs(positionNotionalLong - this.computedSellNetValue))
       let afterTradeShortS = Math.max(Math.abs(positionNotionalShort + this.computedBuyNetValue), Math.abs(positionNotionalShort - this.computedSellNetValue + (this.assumingPrice * Number(sellCanOpen))))
 
-      afterTradeBuy = afterTradeLongB + afterTradeShortS
-      afterTradeSell = afterTradeLongB + afterTradeShortS
-      if(this.maxNotionalAtCurrentLeverage == undefined){
-        console.info('this.maxNotionalAtCurrentLeverage',this.maxNotionalAtCurrentLeverage)
-      }
+      afterTradeBuy = afterTradeLongB + afterTradeShortB
+      afterTradeSell = afterTradeLongS + afterTradeShortS
+      // if(this.maxNotionalAtCurrentLeverage == undefined){
+      //   console.info('this.maxNotionalAtCurrentLeverage',this.maxNotionalAtCurrentLeverage)
+      // }
       if(afterTradeBuy > this.maxNotionalAtCurrentLeverage) {
         buyCanOpen = (this.maxNotionalAtCurrentLeverage - (afterTradeShortB + afterTradeLongS)) / this.assumingPrice
       }
@@ -984,8 +984,8 @@ root.computed.canBeOpened = function () {
       // let afterTradeShortS = Math.max(Math.abs(positionNotionalShort + this.computedBuyNetValue), Math.abs(positionNotionalShort - this.computedSellNetValue + this.buyDepthOrders * Number(sellCanOpen)))
       let afterTradeShortS = Math.max(Math.abs(positionNotionalShort + this.computedBuyNetValue), Math.abs(positionNotionalShort - this.computedSellNetValue + this.assumingPrice * Number(sellCanOpen)))
 
-      afterTradeBuy = afterTradeLongB + afterTradeShortS
-      afterTradeSell = afterTradeLongB + afterTradeShortS
+      afterTradeBuy = afterTradeLongB + afterTradeShortB
+      afterTradeSell = afterTradeLongS + afterTradeShortS
       // if(this.maxNotionalAtCurrentLeverage == undefined || this.maxNotionalAtCurrentLeverage == 0){
       //   console.info('this.maxNotionalAtCurrentLeverage',this.maxNotionalAtCurrentLeverage)
       // }

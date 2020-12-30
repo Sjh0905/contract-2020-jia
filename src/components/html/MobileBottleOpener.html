@@ -14,8 +14,8 @@
             <img class="opener-header-title-back-icon-img" src="../../assets/back_icon.png" alt="">
           </div>
           <div class="flex">
-            <div class="pointer opener-article-title-but opener-title-but-right" v-if="positionModeFirst == 'singleWarehouseMode'" :class="{'opener-btn-slt':openerType == 1}" @click="changeOpenerType(1)">单开</div>
-            <div class="pointer opener-article-title-but disabled-background opener-title-but-right" v-if="positionModeFirst == 'doubleWarehouseMode'">单开</div>
+            <div class="pointer opener-article-title-but opener-title-but-right" :class="{'opener-btn-slt':openerType == 1}" @click="changeOpenerType(1)">单开</div>
+<!--            <div class="pointer opener-article-title-but disabled-background opener-title-but-right" v-if="positionModeFirst == 'doubleWarehouseMode'">单开</div>-->
 
             <div class="pointer opener-article-title-but opener-title-but-left" v-if="positionModeFirst == 'doubleWarehouseMode'" :class="{'opener-btn-slt':openerType == 2}" @click="changeOpenerType(2)">双开</div>
             <div class="pointer opener-article-title-but disabled-background opener-title-but-left" v-if="positionModeFirst == 'singleWarehouseMode'">双开</div>
@@ -44,10 +44,10 @@
                 <div class="opener-opening-amount-left flex">
                   <div>开仓数量</div>
                   <div class="opener-opening-amount-left-con">
-                    <span>多 {{openAmountLong}} BTC</span>
-                    <span>空 {{openAmountShort}} BTC</span>
+                    <span>多 {{openAmountLong}} {{symbol.split('_')[0]}}</span>
+                    <span>空 {{openAmountShort}} {{symbol.split('_')[0]}}</span>
                   </div>
-                  <!--<div class="opener-opening-amount-left-con">{{totalOpenAmount}} BTC</div>-->
+                  <!--<div class="opener-opening-amount-left-con">{{totalOpenAmount}} {{symbol.split('_')[0]}}</div>-->
                 </div>
 
               </div>
@@ -61,17 +61,23 @@
                 <div class="opener-amount">开仓数量</div>
                 <input class="markprice-ipt" type="text" placeholder="0" v-model="openAmount" @keyup="testPointValue('openAmount',3)">
               </div>
-              <!--单仓可开数量-->
+              <!--单仓单开可开数量-->
+<!--              <div class="opener-opening-amount-right flex" v-if="positionModeFirst == 'singleWarehouseMode' && openerType == 1">-->
+<!--                <div>可开数量</div>-->
+<!--                <div class="opener-amount-left-con" v-if="longOrShortType == 1">{{toFixed(openAmtBuy,3)}} {{symbol.split('_')[0]}}</div>-->
+<!--                <div class="opener-amount-left-con" v-if="longOrShortType == 2">{{toFixed(openAmtSell,3)}} {{symbol.split('_')[0]}}</div>-->
+<!--              </div>-->
+              <!--双仓单开可开数量-->
               <div class="opener-opening-amount-right flex" v-if="openerType == 1">
                 <div>可开数量</div>
-                <div class="opener-amount-left-con" v-if="longOrShortType == 1">{{toFixed(openAmtBuy,3)}} BTC</div>
-                <div class="opener-amount-left-con" v-if="longOrShortType == 2">{{toFixed(openAmtSell,3)}} BTC</div>
+                <div class="opener-amount-left-con" v-if="longOrShortType == 1">{{positionModeFirst == 'doubleWarehouseMode' ? toFixed(openAmtLong,baseScale) : toFixed(openAmtBuy,baseScale)}} {{symbol.split('_')[0]}}</div>
+                <div class="opener-amount-left-con" v-if="longOrShortType == 2">{{positionModeFirst == 'doubleWarehouseMode' ? toFixed(openAmtShort,baseScale) : toFixed(openAmtSell,baseScale)}} {{symbol.split('_')[0]}}</div>
               </div>
               <!--双仓可开数量-->
               <div class="opener-opening-amount-right flex" v-if="openerType == 2">
                 <div>可开数量</div>
-                <div class="opener-amount-left-con">多 {{toFixed(openAmtLong,3) || '--'}} BTC</div>
-                <div class="opener-amount-left-con">空 {{toFixed(openAmtShort,3) || '--'}} BTC</div>
+                <div class="opener-amount-left-con">多 {{toFixed(openAmtLong,3) || '--'}} {{symbol.split('_')[0]}}</div>
+                <div class="opener-amount-left-con">空 {{toFixed(openAmtShort,3) || '--'}} {{symbol.split('_')[0]}}</div>
               </div>
 
             </div>
@@ -85,7 +91,7 @@
             </div>
 
             <!--全部展示的内容 TODO:单仓情况下显示的内容-->
-            <div class="opener-article-closing-con" v-if="openerType==1">
+            <div class="opener-article-closing-con" v-if="openerType==1 && positionModeFirst == 'singleWarehouseMode'">
               <!--止盈计划---平仓止盈-->
               <div class="opener-article-closing-left">
                 <div class="opener-article-closing-left-top">
@@ -97,7 +103,7 @@
                   <!--平仓止盈内容-->
                   <div class="opener-article-closing-stop-cont flex">
                     <div>可盈总量</div>
-                    <div class="closing-stop-cont-title">{{Math.abs(positionAmt) || '--'}} BTC
+                    <div class="closing-stop-cont-title">{{Math.abs(positionAmt) || '--'}} {{symbol.split('_')[0]}}
                       <span v-if="positionAmt!=0" :class="positionAmt >= 0 ? 'opener-closing-more':'opener-closing-empty'">{{positionAmt >= 0 ?'多仓':'空仓'}}</span>
                     </div>
                   </div>
@@ -182,7 +188,7 @@
                   <!--平仓止盈内容-->
                   <div class="opener-article-closing-stop-cont flex">
                     <div>可损总量</div>
-                    <div class="closing-stop-cont-title">{{Math.abs(positionAmt) || '--'}} BTC
+                    <div class="closing-stop-cont-title">{{Math.abs(positionAmt) || '--'}} {{symbol.split('_')[0]}}
                       <span v-if="positionAmt!=0" :class="positionAmt>=0 ? 'opener-closing-more':'opener-closing-empty'">{{positionAmt >= 0 ?'多仓':'空仓'}}</span>
                     </div>
                   </div>
@@ -254,6 +260,179 @@
               </div>
             </div>
 
+            <!--全部展示的内容 TODO:双仓情况下单开的内容-->
+            <div class="opener-article-closing-con-double" v-if="positionModeFirst == 'doubleWarehouseMode' && openerType==1">
+              <div class="opener-opening-long-short">
+                <span class="opener-opening-con-tit pointer" :class="{'opening-con-tit-slt': closePosition==1}" @click="switchClose(1)">平多</span>
+                <span class="opener-opening-con-tit pointer" :class="{'opening-con-tit-slt': closePosition==2}" @click="switchClose(2)">平空</span>
+              </div>
+              <!--止盈计划---平仓止盈-->
+              <div class="opener-article-closing-left">
+                <div class="opener-article-closing-left-top">
+                  <!--平仓止盈-->
+                  <div class="opener-article-closing-stop-tit ">
+                    <img src="../../assets/label_icon.png" alt="">
+                    平仓止盈
+                  </div>
+                  <!--平仓止盈内容-->
+                  <div class="opener-article-closing-stop-cont flex">
+                    <div>可盈总量</div>
+                    <div class="closing-stop-cont-title">{{closePosition == 1 ? openAmountLong:openAmountShort}} {{symbol.split('_')[0]}}
+<!--                      <span v-if="positionAmt!=0" :class="positionAmt >= 0 ? 'opener-closing-more':'opener-closing-empty'">{{positionAmt >= 0 ?'多仓':'空仓'}}</span>-->
+                    </div>
+                  </div>
+                  <div class="opener-article-closing-stop-cont flex">
+                    <div>当前均价</div>
+                    <div class="closing-stop-cont-title">{{closePosition == 1 ? averagePriceLong : averagePriceShort}}</div>
+                  </div>
+                  <div class="opener-article-closing-stop-cont flex">
+                    <div class="opener-amount">止盈点数</div>
+                    <input class="closing-stop-cont-ipt" type="text" placeholder="0" v-model="stopProfitPoint" @keyup="testPointValue('stopProfitPoint')">
+                  </div>
+                </div>
+
+                <div class="opener-article-closing-left-bottom">
+                  <div class="opener-stop-plan flex-between">
+                    <div class="opener-stop-plan-tit">止盈计划</div>
+                    <div class="opener-stop-plan-con flex">
+                      <div class="opener-stop-plan-btn pointer m-r" :class="isStepType==1?'opener-stop-plan-btn-select':''" @click="changeIsStepType(1)">全部</div>
+                      <div class="opener-stop-plan-btn pointer" :class="isStepType==2?'opener-stop-plan-btn-select':''" @click="changeIsStepType(2)">分步</div>
+                    </div>
+                  </div>
+                  <!--止盈计划内容-->
+                  <div class="opener-stop-plan-con-con">
+                    <!--分步部分需要-->
+                    <div class="openter-step flex-between" v-if="isStepType == 2">
+                      <div class="openter-step-step flex">
+                        <div class="openter-step-step-tex">分成</div>
+                        <div class="openter-step-step-line"></div>
+                        <input class="openter-step-ipt" type="text" placeholder="0" v-model="takeProfitStep">步
+                      </div>
+                      <div class="openter-step-step flex">
+                        <div class="openter-step-step-tex">间隔</div>
+                        <div class="openter-step-step-line"></div>
+                        <input class="openter-step-ipt" type="text" placeholder="0" v-model="takeProfitPoint">点
+                      </div>
+                    </div>
+                    <!--标题-->
+                    <div class="opener-stop-plan-con-tit flex-between">
+                      <div class="opener-price-t">价格</div>
+                      <div class="opener-amount-t">数量</div>
+                    </div>
+                    <!--内容-->
+                    <div class="opener-stop-plan-con-text flex" v-if="isStepType==1">
+                      <div class="opener-stop-plan-tex-yuan">
+                        <div class="blue-yuan flex">
+                          <div class="white-yuan"></div>
+                        </div>
+                      </div>
+                      <div class="opener-text flex">
+                        <div class="opener-price">{{(closePosition == 1 ? allLongPrice:allShortPrice) || ''}}</div>
+                        <div class="opener-amount-t">{{(closePosition == 1 ? openAmountLong : openAmountShort) || '--'}}</div>
+                      </div>
+                    </div>
+
+                    <!--分步-->
+                    <div class="opener-stop-plan-con-text flex" v-for="(item,index) in stepPlanList" :key="index" v-if="isStepType==2">
+                      <div class="opener-stop-plan-tex-yuan">
+
+                        <div class="blue-yuan flex">
+                          <div class="white-yuan"></div>
+                        </div>
+                        <div class="opener-stop-plan-tex-line" v-if="index != stepPlanList.length -1"></div>
+                      </div>
+
+                      <div class="opener-text flex">
+                        <div class="opener-price">{{toFixed(item.price,2)}}</div>
+                        <div class="opener-amount-t">{{toFixed(item.step,baseScale)}}</div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+              <!--清仓止损-->
+              <div class="opener-article-closing-right">
+                <div class="opener-article-closing-left-top">
+                  <!--平仓止盈-->
+                  <div class="opener-article-closing-stop-tit ">
+                    <img src="../../assets/label_icon.png" alt="">
+                    清仓止损
+                  </div>
+                  <!--平仓止盈内容-->
+                  <div class="opener-article-closing-stop-cont flex">
+                    <div>可损总量</div>
+                    <div class="closing-stop-cont-title">{{closePosition == 1 ?openAmountLong:openAmountShort}} {{symbol.split('_')[0]}}
+<!--                      <span v-if="positionAmt!=0" :class="positionAmt>=0 ? 'opener-closing-more':'opener-closing-empty'">{{positionAmt >= 0 ?'多仓':'空仓'}}</span>-->
+                    </div>
+                  </div>
+                  <div class="opener-article-closing-stop-cont flex">
+                    <div >当前均价</div>
+                    <div class="closing-stop-cont-title">{{closePosition == 1 ? averagePriceLong : averagePriceShort}}</div>
+                  </div>
+                  <div class="opener-article-closing-stop-cont flex">
+                    <span class="opener-amount">止损点数</span>
+                    <input class="closing-stop-cont-ipt" type="text" placeholder="0" v-model="StopLossPoint" @keyup="testPointValue('StopLossPoint')">
+                  </div>
+                </div>
+                <div class="opener-article-closing-left-bottom">
+                  <div class="opener-stop-plan flex-between">
+                    <div class="opener-stop-plan-tit">止损计划</div>
+                    <div class="opener-stop-plan-con flex">
+                      <div class="opener-stop-plan-btn pointer m-r" :class="isStepTypeClose == 1 ? 'opener-stop-plan-btn-select':''" @click="changeStepClose(1)">全部</div>
+                      <div class="opener-stop-plan-btn pointer" :class="isStepTypeClose == 2 ? 'opener-stop-plan-btn-select':''" @click="changeStepClose(2)">分步</div>
+                    </div>
+                  </div>
+                  <!--止损计划内容-->
+                  <div class="opener-stop-plan-con-con">
+                    <!--分步部分需要-->
+                    <div class="openter-step flex-between" v-if="isStepTypeClose == 2">
+                      <div class="openter-step-step flex">
+                        <div class="openter-step-step-tex">分成</div>
+                        <div class="openter-step-step-line"></div>
+                        <input class="openter-step-ipt" type="text" placeholder="0" v-model="fullStopStep">步
+                      </div>
+                      <div class="openter-step-step flex">
+                        <div class="openter-step-step-tex">间隔</div>
+                        <div class="openter-step-step-line"></div>
+                        <input class="openter-step-ipt" type="text" placeholder="0" v-model="fullStopPoint">点
+                      </div>
+                    </div>
+                    <!--标题-->
+                    <div class="opener-stop-plan-con-tit flex-between">
+                      <div class="opener-price-t">价格</div>
+                      <div class="opener-amount-t">数量</div>
+                    </div>
+                    <!--内容  遍历出来比较好-->
+                    <div class="opener-stop-plan-con-text flex" v-if="isStepTypeClose==1">
+                      <div class="opener-stop-plan-tex-yuan">
+                        <div class="blue-yuan flex">
+                          <div class="white-yuan"></div>
+                        </div>
+                      </div>
+                      <div class="opener-text flex">
+                        <div class="opener-price">{{(closePosition == 1 ? allLongPriceDown:allShortPriceDown) || '--'}}</div>
+                        <div class="opener-amount-t">{{(closePosition == 1 ? openAmountLong:openAmountShort) || '--'}}</div>
+                      </div>
+                    </div>
+
+                    <div class="opener-stop-plan-con-text flex" v-for="(item,index) in stepPlanListDown" :key="index" v-if="isStepTypeClose==2">
+                      <div class="opener-stop-plan-tex-yuan">
+                        <div class="blue-yuan flex">
+                          <div class="white-yuan"></div>
+                        </div>
+                        <div class="opener-stop-plan-tex-line" v-if="index != stepPlanListDown.length - 1"></div>
+                      </div>
+                      <div class="opener-text flex">
+                        <div class="opener-price">{{toFixed(item.price,2)}}</div>
+                        <div class="opener-amount-t">{{toFixed(item.step,baseScale) || '--'}}</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
             <!--分步展示的内容 TODO:双仓情况下显示的内容-->
             <div class="opener-article-closing-con-more" v-if="openerType==2">
 
@@ -274,7 +453,7 @@
                     <!--平仓止盈内容-->
                     <div class="opener-article-closing-stop-cont flex">
                       <div>可盈总量</div>
-                      <div class="closing-stop-cont-title">{{Math.abs(openAmountLong) || '--'}} BTC</div>
+                      <div class="closing-stop-cont-title">{{Math.abs(openAmountLong) || '--'}} {{symbol.split('_')[0]}}</div>
                     </div>
                     <div class="opener-article-closing-stop-cont flex">
                       <div >当前均价</div>
@@ -352,7 +531,7 @@
                     <!--清仓止损内容-->
                     <div class="opener-article-closing-stop-cont flex">
                       <div>可损总量</div>
-                      <div class="closing-stop-cont-title">{{Math.abs(openAmountLong) || '--'}} BTC</div>
+                      <div class="closing-stop-cont-title">{{Math.abs(openAmountLong) || '--'}} {{symbol.split('_')[0]}}</div>
                     </div>
                     <div class="opener-article-closing-stop-cont flex">
                       <div>当前均价</div>
@@ -444,7 +623,7 @@
                     <!--平仓止盈内容-->
                     <div class="opener-article-closing-stop-cont flex">
                       <div>可盈总量</div>
-                      <div class="closing-stop-cont-title">{{Math.abs(openAmountShort) || '--'}} BTC</div>
+                      <div class="closing-stop-cont-title">{{Math.abs(openAmountShort) || '--'}} {{symbol.split('_')[0]}}</div>
                     </div>
                     <div class="opener-article-closing-stop-cont flex">
                       <div>当前均价</div>
@@ -520,7 +699,7 @@
                     <!--清仓止损内容-->
                     <div class="opener-article-closing-stop-cont flex">
                       <div>可损总量</div>
-                      <div class="closing-stop-cont-title">{{Math.abs(openAmountShort) || '--'}} BTC</div>
+                      <div class="closing-stop-cont-title">{{Math.abs(openAmountShort) || '--'}} {{symbol.split('_')[0]}}</div>
                     </div>
                     <div class="opener-article-closing-stop-cont flex">
                       <div>当前均价</div>
