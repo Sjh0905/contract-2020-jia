@@ -52,6 +52,14 @@ root.data = function () {
     calculatorClass:['radiusa_green','radiusb_green','radiusc_green','radiusd_green','radiuse_green'],
 
     calculatorMarks:{
+      LTCUSDT:{
+        1: '1X',
+        15: '15X',
+        30: '30X',
+        45: '45X',
+        60: '60X',
+        75:'75X',
+      },
       ETHUSDT:{
         1: '1X',
         20: '20X',

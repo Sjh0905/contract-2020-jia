@@ -970,7 +970,7 @@ root.computed.canBeOpened = function () {
       buyCanOpen = availableBalance / (this.assumingPrice * leverage + buyMarket)
       // buyCanOpen = availableBalance / ((this.sellDepthOrders*(1 + 0.0005)) * leverage + buyMarket)
 
-      // console.info('buyCanOpen',buyCanOpen)
+      console.info('buyCanOpen',buyCanOpen)
       // console.info('this.sellDepthOrders',this.sellDepthOrders,'this.buyDepthOrders',this.buyDepthOrders)
       sellCanOpen = availableBalance / (this.assumingPrice * leverage + sellMarket)
       // sellCanOpen = availableBalance / (this.buyDepthOrders * leverage + sellMarket)
