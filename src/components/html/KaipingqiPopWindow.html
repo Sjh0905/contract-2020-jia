@@ -61,7 +61,7 @@
                     <span class="opener-opening-con-tit pointer" :class="{'opening-con-tit-slt': longOrShortType==2}" @click="changeLongShort(2)">开空</span>
                   </div>
                   <div class="opener-opening-amount-right flex">
-                    <div>可开数量</div>
+                    <div class="opener-opening-width">可开数量</div>
                     <div class="opener-amount-left-con" v-show="longOrShortType == 1">{{positionModeFirst == 'doubleWarehouseMode' ? toFixed(openAmtLong,baseScale) : toFixed(openAmtBuy,baseScale)}} {{symbol.split('_')[0]}}</div>
                     <div class="opener-amount-left-con" v-show="longOrShortType == 2">{{positionModeFirst == 'doubleWarehouseMode' ? toFixed(openAmtShort,baseScale) : toFixed(openAmtSell,baseScale)}} {{symbol.split('_')[0]}}</div>
                   </div>
