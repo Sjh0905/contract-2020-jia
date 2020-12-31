@@ -670,12 +670,12 @@ root.methods.re_getDepth = function (data) {
   // console.info('this.buy_sale_list======',this.buy_sale_list)
 }
 
-// 获取实时成交归集交易
+// 获取实时成交归集交易，，H5不需要展示实时成交，获取大于2条即可
 root.methods.getAggTrades = function () {
   let query = {
     // symbol: this.symbol
     symbol: this.capitalSymbol,
-    limit:36
+    limit:6
   };
   this.$http.send("GET_AGG_TRADES", {
     bind: this,
