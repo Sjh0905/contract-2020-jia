@@ -618,7 +618,7 @@ root.methods.profitIntervalLongDouble = function () {
 // 双仓 止盈间隔数量 空仓
 root.methods.profitIntervalShortDouble = function () {
   // positionAmtShort && (this.isStepTypeClose ==2 ? this.fullStopStep : '')
-  console.info(this.takeProfitPoint)
+  // console.info(this.takeProfitPoint)
   if(this.closePosition == 2 && (!this.stopProfitPoint || this.openAmountShort <= 0)) return ''
   if(this.closePosition == 2 && this.isStepType == 2) return this.takeProfitPoint
   if(this.closePosition == 2 && this.isStepType == 1) return 0
