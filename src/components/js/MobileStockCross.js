@@ -199,8 +199,8 @@ root.methods.getOrderDepthList = function () {
   // console.log('StockCross asksList',asksList);
   // console.log('StockCross buyOrders',JSON.stringify(bidsList));
 
-  this.sellOrders = (this.socket_snap_shot.s == this.capitalSymbol) && this.handleOrders(asksList,this.socket_snap_shot.U) || [];
-  this.buyOrders = (this.socket_snap_shot.s == this.capitalSymbol) && this.handleOrders(bidsList,this.socket_snap_shot.U) || [];
+  this.sellOrders = this.handleOrders(asksList,this.socket_snap_shot.U) || [];
+  this.buyOrders = this.handleOrders(bidsList,this.socket_snap_shot.U) || [];
   let bidPrice = this.buyOrders[0] && this.buyOrders[0][0] || 0
   let askPrice = this.sellOrders[0] && this.sellOrders[0][0] || 0
 

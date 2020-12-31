@@ -490,8 +490,9 @@ root.methods.getOrderDepthList = function () {
   // console.log('StockCross asksList',asksList);
   // console.log('StockCross buyOrders',JSON.stringify(bidsList));
 
-  this.sellOrders =this.socket_snap_shot.s == this.capitalSymbol && asksList || [];
-  this.buyOrders = this.socket_snap_shot.s == this.capitalSymbol && bidsList || [];
+  //asksList = asks + asksTemp 的集合，由于asks、asksTemp分别做了币对过滤，sellOrders就不再需要币对过滤，buyOrders同理
+  this.sellOrders = asksList || [];
+  this.buyOrders = bidsList || [];
   let bidPrice = this.buyOrders[0] && this.buyOrders[0][0] || 0
   let askPrice = this.sellOrders[0] && this.sellOrders[0][0] || 0
 
