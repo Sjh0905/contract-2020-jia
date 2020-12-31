@@ -935,8 +935,9 @@ root.computed.canBeOpened = function () {
     if(this.pendingOrderType == 'limitPrice'||this.pendingOrderType == 'limitProfitStopLoss'){
       // if(this.price == 0 || this.price == '') return buyCanOpen = 0; sellCanOpen = 0;
       //Avail for Order / {assuming price * IM + abs(min[0, side * (mark price - order's Price)])}
-      buyCanOpen = availableBalance / (this.assumingPrice * leverage + buy)
-      sellCanOpen = availableBalance / (this.assumingPrice * leverage + sell)
+      // buyCanOpen = availableBalance / (this.assumingPrice * leverage + buy)
+      buyCanOpen = this.accDiv(availableBalance,(this.assumingPrice * leverage + buy))
+      sellCanOpen = this.accDiv(availableBalance,(this.assumingPrice * leverage + sell))
       // 根据买卖最大可下单量计算出notional after trade
       // 计算可开多数量
       let afterTradeLongB = Math.max(Math.abs( positionNotionalLong + this.computedBuyNetValue + (this.assumingPrice * Number(buyCanOpen))), Math.abs(positionNotionalLong - this.computedSellNetValue))

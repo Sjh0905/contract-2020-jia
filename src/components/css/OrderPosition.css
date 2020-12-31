@@ -24,7 +24,7 @@ tr, th, td {
   margin: 0 auto;
   overflow: hidden;
   border-top-left-radius: 0 !important;
-  height: 300px;
+  min-height: 300px;
   box-sizing: border-box;
   background-color: #0D111F;
   color: #F5F6FA;

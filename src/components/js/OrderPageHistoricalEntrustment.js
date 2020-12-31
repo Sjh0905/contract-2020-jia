@@ -508,6 +508,7 @@ root.methods.showDetail = function (id) {
   if(this.$route.name != 'historicalEntrust'){
     this.tradHistoryOrder.length !== 0 && this.tradHistoryOrder.forEach(v=>{
       if(this.clickThis == v.orderId) {
+        // 和H5时间不一样的原因:查询历史委托详情的数据为time倒推和updateTime前进的时间空隙，影响的是数据的多少
         this.startTime = Number(v.time) - 1000
         this.endTime = Number(v.updateTime) + 1000
       }
