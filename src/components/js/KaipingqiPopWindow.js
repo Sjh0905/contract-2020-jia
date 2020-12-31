@@ -942,7 +942,7 @@ root.methods.createWithStop = function () {
     }
   }
 
-  console.info('params===',params)
+  // console.info('params===',params)
   this.$http.send('POST_CREATE_WITH_STOP', {
     bind: this,
     params: params,
