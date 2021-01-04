@@ -837,6 +837,7 @@ root.methods.handleWithMarkPrice = function(records){
   records.map((v,i)=>{
 
     let sMarkPrice = this.markPriceObj[v.symbol] && this.markPriceObj[v.symbol].p || 1
+    let leverage = this.currencyInfo[v.symbol].leverage
 
     if(!v.hasOwnProperty('iptMarkPrice')){
       // v.markPrice && (v.iptMarkPrice = v.markPrice) || (v.iptMarkPrice = this.markPrice);
@@ -859,7 +860,7 @@ root.methods.handleWithMarkPrice = function(records){
 
     //回报率：全仓逐仓均是ROE = ( ( Mark Price - Entry Price ) * size ) / （Mark Price * abs(size) * IMR）,IMR = 1/杠杆倍数
     v.unrealizedProfitPage = this.accMul( this.accMinus(sMarkPrice || 0,v.entryPrice || 0),v.positionAmt || 0 )//实时变化的未实现盈亏
-    let msi = this.accDiv( this.accMul(Math.abs(v.positionAmt) || 0,sMarkPrice || 0) , this.leverage )
+    let msi = this.accDiv( this.accMul(Math.abs(v.positionAmt) || 0,sMarkPrice || 0) , leverage )
     v.responseRate = this.accMul(this.accDiv(v.unrealizedProfitPage || 0,msi || 1),100)
     v.responseRate = Number(v.responseRate).toFixed(2) + '%'
 
@@ -867,7 +868,7 @@ root.methods.handleWithMarkPrice = function(records){
     // this.changePositonAmt(v)
     if(v.marginType == 'cross'){
       //全仓保证金：size * markprice * 1 / leverage，size = abs(positionAmt)
-      v.securityDeposit = this.accDiv(notional,this.leverage)
+      v.securityDeposit = this.accDiv(notional,leverage)
 
       totalMaintMargin = this.accAdd(totalMaintMargin,v.maintMargin || 0)
       totalUnrealizedProfit = this.accAdd(totalUnrealizedProfit,v.unrealizedProfitPage || 0)
