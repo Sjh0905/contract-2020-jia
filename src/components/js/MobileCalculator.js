@@ -132,11 +132,22 @@ root.computed.isApp = function () {
 
 // 最大头寸值
 root.computed.maximumPosition = function () {
-  return this.$store.state.bracketNotionalcap[this.capitalSymbol] || []
+  let bracketNotionalcap = {
+    BTCUSDT:[50000, 250000, 1000000, 5000000, 20000000, 50000000, 100000000, 200000000, 9223372036854776000],
+    ETHUSDT:[10000, 100000, 500000, 1000000, 2000000, 5000000, 10000000, 20000000, 9223372036854776000],
+    LTCUSDT:[10000, 50000, 250000, 1000000, 2000000, 5000000, 10000000, 9223372036854776000],
+  }
+  // console.info(this.$store.state.bracketNotionalcap)
+  return this.$store.state.bracketNotionalcap[this.capitalSymbol] || bracketNotionalcap[this.capitalSymbol]
 }
 // 杠杆倍数
 root.computed.initialLeverage = function () {
-  return this.$store.state.bracketLeverage[this.capitalSymbol] || []
+  let bracketLeverage = {
+    BTCUSDT:[125, 100, 50, 20, 10, 5, 4, 3, 2],
+    ETHUSDT:[100, 75, 50, 25, 10, 5, 4, 3, 2],
+    LTCUSDT:[75, 50, 25, 10, 5, 4, 3, 2],
+  }
+  return this.$store.state.bracketLeverage[this.capitalSymbol] || bracketLeverage[this.capitalSymbol]
 }
 // 最大头寸计算
 root.computed.maxPosition = function () {
