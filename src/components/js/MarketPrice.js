@@ -532,6 +532,7 @@ root.methods.formatnumber = function (value, num) {
 
 //点击货币对 切换整个页面symbol
 root.methods.slectSymbol = function (s, item) {
+  s = s || item.s//容错接口和socket
   let symbol = this.sNameMap[s]
   //700ms内不能重复调用
   if(this.$store.state.symbol == symbol || (Date.now() - this.lastTime < 700))return;
