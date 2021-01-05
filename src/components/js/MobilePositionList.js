@@ -289,7 +289,8 @@ root.computed.currencyInfo = function () {
   return this.$store.state.currencyInfo || {}
 }
 root.computed.sNameMap = function () {
-  let defaultSNameMap = {"BTCUSDT":"BTC_USDT","ETHUSDT":"ETH_USDT"}
+  // let defaultSNameMap = {"BTCUSDT":"BTC_USDT","ETHUSDT":"ETH_USDT"}
+  let defaultSNameMap = this.$store.state.defaultSNameMap;
   return this.$store.state.sNameMap || defaultSNameMap
 }
 //杠杆分层
