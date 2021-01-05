@@ -248,8 +248,8 @@ store.state.sNameList = []
 //加下划线币对名集合
 store.state.sLineNameList = []
 //币对名映射，格式 BTCUSDT:BTC_USDT
-store.state.sNameMap = {}
 store.state.defaultSNameMap = {"BTCUSDT":"BTC_USDT","ETHUSDT":"ETH_USDT","LTCUSDT":"LTC_USDT"}
+store.state.sNameMap = store.state.defaultSNameMap
 //币对名映射，格式 BTC_USDT:BTC_USDT
 store.state.defaultSLineNameMap = {"BTC_USDT":"BTC_USDT","ETH_USDT":"ETH_USDT","LTC_USDT":"LTC_USDT"}
 //访问链接币对映射
@@ -396,6 +396,10 @@ store.state.currencyInfo = {
     marginType:'cross'
   },
   ETHUSDT:{
+    leverage:20,
+    marginType:'cross'
+  },
+  LTCUSDT:{
     leverage:20,
     marginType:'cross'
   },
@@ -1193,7 +1197,9 @@ store.mutations.changeMobilePopOpen = (state, info) => {
   state.mobilePopOpen = info
 }
 store.mutations.SET_QUOTE_CONFIG = (state, info) => {
-  state.quoteConfig = info
+  if(Array.isArray(info)){
+    state.quoteConfig = info
+  }
 }
 
 store.mutations.getCurrencyList = (state, info) => {
