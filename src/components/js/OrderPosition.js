@@ -129,6 +129,7 @@ root.data = function () {
     buyOrSell:'', //买入做多、卖出做空
     unrealizedProfitPage:'', // 实现盈亏
     responseRate: '' , // 回报率
+    responseRateData: '' , // 回报率
     profitOrLoss:false, //盈利亏损
 
     initialPosition:0,
@@ -288,7 +289,9 @@ root.computed.LPCalculationType = function () {
   return data
 }
 root.computed.picIndex = function () {
-  if (this.unrealizedProfitPage>0) {
+  // console.info('this.responseRate',this.responseRateData.split('%'))
+  let responseRate = this.responseRateData
+  if (Number(responseRate) >= 0) {
     let a = this.accounts.map(item => item.a).indexOf(this.currencyValue) + 1
     return a || 1
   }else {
@@ -335,6 +338,7 @@ root.methods.changeDate = function () {
   this.unrealizedProfitPage = Number(unrealizedProfitPage) >=0 ? '+'+ unrealizedProfitPage : unrealizedProfitPage
   this.profitOrLoss = unrealizedProfitPage > 0 ? true : false
   this.responseRate = responseRate.includes('-') ? responseRate:'+'+responseRate
+  this.responseRateData = responseRate && responseRate.slice('%',-1)
   // console.info('this.responseRate',this.responseRate,this.unrealizedProfitPage)
   markPrice = JSON.stringify(this.markPriceObj)!= '{}' && this.markPriceObj[item.symbol]&& this.markPriceObj[item.symbol].p
   return this.positionData = {

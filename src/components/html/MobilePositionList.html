@@ -224,7 +224,7 @@
 <!--          ></el-option>-->
 <!--        </el-select>-->
 
-        <div v-if="unrealizedProfitPage>0">
+        <div v-if="responseRateData >= 0">
           <el-select class="account_number_input" value-key="currencyKey" v-model="currencyValue" filterable placeholder="">
             <el-option
               v-for="(item,index) in accountsComputed"
