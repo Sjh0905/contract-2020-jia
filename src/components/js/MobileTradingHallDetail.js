@@ -1262,6 +1262,7 @@ root.methods.setPositionList = function () {
   return
 }*/
 
+
 root.methods.selectOpenType = function (type) {
   if(this.positionModeFirst == 'doubleWarehouseMode'){
     this.openSide = type
